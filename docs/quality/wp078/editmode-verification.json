@@ -1,0 +1,2220 @@
+{
+  "schema_version": 1,
+  "id": "wp078_editmode_verification",
+  "status": "Passed",
+  "total": 441,
+  "verification": "Full-run baseline plus cooperative rerun; not a claimed single green run.",
+  "sources": [
+    "wp078-interrupted-unity-results.xml",
+    "wp078-cooperative-unity-results.xml",
+    "wp078-standalone.trx"
+  ],
+  "cross_runtime_soak_cases": 3,
+  "tests": [
+    {
+      "name": "Biathlon.Tests.AiDifficultyTests.DecisionCadenceAndReactionDifferencesAreRealAndRepeatable",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.AiDifficultyTests.DifficultyChangesOnlyDecisionAndControlFields",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.AiDifficultyTests.InvalidDifficultyCannotCreateUnboundedControllers",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.AiPersonalityTests.DistinctPersistentPoliciesDriveCompleteRacesThroughIdenticalPhysicsAndReplay",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.AiPersonalityTests.ProfilesRoundTripValidateAndWarmProjectionAllocatesNothing",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.AiPersonalityTests.TraitsChangePreferencesAndShootingRiskButCannotGrantIneligibleActions",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.AiRaceScenarioTests.NamedScenarioExercisesRealAi(\"duel\",\"synthetic_flat_v1\",2)",
+      "status": "Passed",
+      "source": "cooperative_rerun"
+    },
+    {
+      "name": "Biathlon.Tests.AiRaceScenarioTests.NamedScenarioExercisesRealAi(\"pack\",\"synthetic_rolling_v1\",6)",
+      "status": "Passed",
+      "source": "cooperative_rerun"
+    },
+    {
+      "name": "Biathlon.Tests.AiRaceScenarioTests.NamedScenarioExercisesRealAi(\"climb_attack\",\"synthetic_climb_v1\",2)",
+      "status": "Passed",
+      "source": "cooperative_rerun"
+    },
+    {
+      "name": "Biathlon.Tests.AiRaceScenarioTests.NamedScenarioExercisesRealAi(\"draft_train\",\"synthetic_flat_v1\",8)",
+      "status": "Passed",
+      "source": "cooperative_rerun"
+    },
+    {
+      "name": "Biathlon.Tests.AiRaceScenarioTests.NamedScenarioExercisesRealAi(\"final_sprint\",\"synthetic_flat_v1\",1)",
+      "status": "Passed",
+      "source": "cooperative_rerun"
+    },
+    {
+      "name": "Biathlon.Tests.AiRaceScenarioTests.NamedScenarioExercisesRealAi(\"pre_range_recovery\",\"synthetic_range_approach_v1\",2)",
+      "status": "Passed",
+      "source": "cooperative_rerun"
+    },
+    {
+      "name": "Biathlon.Tests.AiRaceScenarioTests.ThirtyAthletesFlatExpert",
+      "status": "Passed",
+      "source": "cooperative_rerun"
+    },
+    {
+      "name": "Biathlon.Tests.AiRaceScenarioTests.ThirtyAthletesRollingDeveloping",
+      "status": "Passed",
+      "source": "cooperative_rerun"
+    },
+    {
+      "name": "Biathlon.Tests.AiRaceScenarioTests.ThirtyAthletesFlatDeveloping",
+      "status": "Passed",
+      "source": "cooperative_rerun"
+    },
+    {
+      "name": "Biathlon.Tests.AiTelemetryTests.FullAiCompositionReplaysDecisionsAndCapturesOwnedScores",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.AiTelemetryTests.RacePolicyRejectsMalformedBoundsAndRequiresFreshComposition",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.AiTelemetryTests.TraceBufferHasExplicitOverwriteAndSteadyRunnerAllocatesNothing",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.AnaerobicTests.CapacityControlsDrainAndRefillTimeWithoutHiddenPowerBoost",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.AnaerobicTests.ConstantDrainMatchesJoulesAndExhaustionSaturates",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.AnaerobicTests.IntegratedAttackCostsReserveAndRecoveryRestoresCapability",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.AnaerobicTests.RepeatedIntervalsAllocateNothingAndInvalidInputFails",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.AnaerobicTests.ThresholdIsNeutralAndRecoveryIsBoundedAndFatigueSensitive",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.BreathControlTests.HoldBenefitHasDebtReboundAndForcedReleaseWithRearm",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.BreathControlTests.LongHoldIsWorseThanBriefHoldAndExpertStillPaysCost",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.BreathControlTests.ProneRecoversFasterAndCompositionChangesOnlyBreathing",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.BreathControlTests.ReplayEventsAtomicityAndActiveAllocationAreStable",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.BreathingTests.LoadAndFatigueIncreaseSwayWhileSkillReducesIt",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.BreathingTests.ReplayInvalidInputAndActiveAllocationAreControlled",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.BreathingTests.RestingCycleIsBoundedAndClosesAtFiveSeconds(20)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.BreathingTests.RestingCycleIsBoundedAndClosesAtFiveSeconds(30)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.BreathingTests.RestingCycleIsBoundedAndClosesAtFiveSeconds(144)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CardiacDriftTests.DriftStepValidatesInputsAndAllocatesNothing",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CardiacDriftTests.ExposureSaturatesAndRecoversWithoutRunaway",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CardiacDriftTests.FatigueAndExposureRaiseHrRequirementButRespectCeiling",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CheckpointTimingTests.AuthoredOccurrencesKeepColocatedLapMarkersAndExactCrossingTimes",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CheckpointTimingTests.CompleteSplitEventsReplayAndTimingHotPathDoesNotAllocate",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CheckpointTimingTests.LaterFasterStarterUpdatesElapsedLeaderWhileGlobalLeaderAndTiesStayStable",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CheckpointTimingTests.PenaltyAndShootingStopsDoNotRepeatMainRouteSplitsAndInvalidProgressIsAtomic",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CompetitionLifecycleTests.AllRaceObligationsAndFractionalElapsedTimeArePreserved",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CompetitionLifecycleTests.DnsDnfAndReplayKeepTerminalStateWithoutAllocations",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CompetitionLifecycleTests.RangeBeforeLapEndDoesNotPrematurelyAdvanceLapAndCannotBeEnteredTwice",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CompetitionLifecycleTests.SkippedBoutPenaltyAndInvalidOutcomeFailAtomically",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CompetitionProfileTests.ReducedTestProfileProjectsToExistingTrackRouteWithoutChangingStandards",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CompetitionProfileTests.StandardDataMatchesAuditedSeniorDistancesStartsAndSequence(\"sprint_standard_men_v1\",10000,3,0)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CompetitionProfileTests.StandardDataMatchesAuditedSeniorDistancesStartsAndSequence(\"sprint_standard_women_v1\",7500,3,0)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CompetitionProfileTests.StandardDataMatchesAuditedSeniorDistancesStartsAndSequence(\"pursuit_standard_men_v1\",12500,5,1)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CompetitionProfileTests.StandardDataMatchesAuditedSeniorDistancesStartsAndSequence(\"pursuit_standard_women_v1\",10000,5,1)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CompetitionProfileTests.StandardDataMatchesAuditedSeniorDistancesStartsAndSequence(\"mass_start_standard_men_v1\",15000,5,2)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CompetitionProfileTests.StandardDataMatchesAuditedSeniorDistancesStartsAndSequence(\"mass_start_standard_women_v1\",12500,5,2)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CompetitionProfileTests.UnknownSchemaBrokenSequenceStartAndFractionalMillimetersFail",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CompetitionReceiptBatchTests.MultipleSpatialBoundariesUseOneClockTickAndInvalidLaterReceiptRollsBackAll",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CompetitionReceiptBatchTests.ValidatedBatchDoesNotAllocateOrDuplicateEvents",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CorneringTests.LongRunIsRepeatableAllocationFreeAndContractsRejectInvalidData",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CorneringTests.OverspeedProducesBoundedBrakingAndIntegratedDistanceNotTeleportation",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CorneringTests.PoorLineRiskAndFatigueReduceSafeCapability",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.CorneringTests.SafeSpeedObeysCurvatureAndSkillWithoutDirectionBias",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.DeviceCommandTests.ActiveCommandGenerationDoesNotAllocate",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.DeviceCommandTests.BatchingAndRepeatedSamplesPreserveCommandsAndConsumePulseOnce",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.DeviceCommandTests.DeviceCommandsReplayCompleteCourseAndEvents",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.DeviceCommandTests.InvalidDeviceTuningAndSamplesAreRejected",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.DeviceCommandTests.InvalidTickDoesNotConsumeCancelAndGamepadCurveIsSymmetric",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.DeviceCommandTests.KeyboardEffortUsesTicksAndSaturates(20)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.DeviceCommandTests.KeyboardEffortUsesTicksAndSaturates(30)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.DeviceCommandTests.KeyboardEffortUsesTicksAndSaturates(144)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.DraftFeedbackTests.FeedbackConstructionDoesNotAllocateOrChangeAuthoritativeState",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.DraftFeedbackTests.FeedbackPowerMatchesAuthoritativeDragDifferenceIncludingPosture",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.DraftFeedbackTests.MissingLeaderAndProhibitedZoneCannotAdvertiseSavings",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.DraftingTests.DenseFieldIsAllocationFreeAndMalformedInputFails",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.DraftingTests.FieldRespectsAheadGapLateralCorridorAndPermission",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.DraftingTests.LeaderOrderAndDuplicatesDoNotStackAndTiesUseStableId",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.DraftingTests.ReducedDragSavesMechanicalPowerWithoutRefundingPhysiology",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.DraftingTests.SlowClimbAndCrosswindReduceDraftWhileHeadwindIncreasesIt",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.DraftSelectionTests.HoldAndMarginPreventOscillationButMissingTargetReleasesImmediately",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.DraftSelectionTests.StableTieOrderInvalidStateAndAllocationChecks",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.EffortControlTests.AnalogDeadzoneSaturationAndIntermediateMappingAreMonotone",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.EffortControlTests.AssistedResponsePreservesFractionalProgressAcrossTickRates(20)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.EffortControlTests.AssistedResponsePreservesFractionalProgressAcrossTickRates(30)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.EffortControlTests.AssistedResponsePreservesFractionalProgressAcrossTickRates(144)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.EffortControlTests.InvalidCommandIsAtomicAndResponseLoopDoesNotAllocate",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.EffortControlTests.PresetsAreExplicitAndFinalSprintUsesZoneAwareRequest",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.EffortSystemTests.EvaluateIsRepeatableAndAllocationFree",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.EffortSystemTests.ExhaustionCapsAttackButRetainsSubthresholdControl",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.EffortSystemTests.FatigueAndFormAffectPhysicalWattsWithoutChangingInputMeaning",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.EffortSystemTests.FullControlSweepIsMonotoneAndEffortEqualsRequestedOverSustainable(0.0d,1.0d)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.EffortSystemTests.FullControlSweepIsMonotoneAndEffortEqualsRequestedOverSustainable(1.0d,1.0d)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.EffortSystemTests.FullControlSweepIsMonotoneAndEffortEqualsRequestedOverSustainable(0.5d,0.0d)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.EffortSystemTests.InvalidInputsCannotLeakNonfinitePower",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.FatigueTests.FullDomainStaysBoundedWithoutAllocations",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.FatigueTests.RecoveryRestoresFreshnessAndPowerCapability",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.FatigueTests.ThresholdGainMatchesConfiguredRateAndTerrainScalesDemand",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.FoundationTests.CoreAssemblyReferencesNeverIncludeUnity",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.FoundationTests.DifferentSeedDoesNotAffectSystemsWhichDoNotConsumeRandom",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.FoundationTests.FingerprintDetectsEventOrderAndPayloadChanges",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.FoundationTests.FixedClockUsesExactTickAndFrequency(20,10000)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.FoundationTests.FixedClockUsesExactTickAndFrequency(30,10000)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.FoundationTests.FixedClockUsesExactTickAndFrequency(7,31)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.FoundationTests.InvalidDefinitionsAndIdentifiersAreRejected",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.FoundationTests.InvalidInputBatchIsRejectedBeforeAnyMutation",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.FoundationTests.RandomSequenceMatchesKnownVectorAndRestoresState",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.FoundationTests.RecordedInputsReplayIdenticalEvents",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.FoundationTests.RepeatedAthleteInputsPreserveOrderAndSuppressNoOpEvents",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.FoundationTests.SameSeed10000TicksHasIdenticalStateAndOrderedEventHash",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.FoundationTests.StepDoesNotAllocateManagedMemoryAfterWarmup",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.FoundationTests.WorldsOwnIndependentStateAndRandomStreams",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.GlobalShootingClockTests.AiDecisionsRemainIdenticalUnderClockTranslation",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.GlobalShootingClockTests.CompleteShiftedBoutHasIdenticalGeometryAndDurationsWithGlobalEventsAndReplay",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.GlobalShootingClockTests.OriginAndPhysiologyMismatchCannotPartlyAdvanceOrRecord",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.HeartbeatTests.MinuteHasExactBeatCountWithoutPhaseRoundingDrift(20,60)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.HeartbeatTests.MinuteHasExactBeatCountWithoutPhaseRoundingDrift(30,60)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.HeartbeatTests.MinuteHasExactBeatCountWithoutPhaseRoundingDrift(144,60)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.HeartbeatTests.MinuteHasExactBeatCountWithoutPhaseRoundingDrift(20,180)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.HeartbeatTests.MinuteHasExactBeatCountWithoutPhaseRoundingDrift(30,123)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.HeartbeatTests.ReplayAtomicityAndAllocationAreStable",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.HeartbeatTests.VariableHeartRateAndPulseShapeAreContinuousInPhase",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.HeartRateSystemTests.InvalidStatesAreRejected",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.HeartRateSystemTests.LongAlternatingWorkloadIsAllocationFreeAndRepeatable",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.HeartRateSystemTests.RecoveryModifierImprovesRecoveryWithoutIncreasingPeakCapability",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.HeartRateSystemTests.TargetsAreObservableBoundedAndResponseHasInertia",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.HeartRateSystemTests.WorkAndRecoveryMatchAnalyticalCurve(20)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.HeartRateSystemTests.WorkAndRecoveryMatchAnalyticalCurve(30)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.IntervalStartTests.DuplicateRosterSubTickIntervalOverflowAndOutputCapacityFailBeforeEmission",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.IntervalStartTests.RepeatedScheduleProducesSameEventsAndNoTickAllocations",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.IntervalStartTests.StableRosterStartsAtExactIntervalsAndLifecyclesUseIndividualClocks",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.JunctionAdmissionTests.ConcurrentPlansAndZeroTimePartialAuthorityCannotCommitStaleState",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.JunctionAdmissionTests.ConflictingInitialOwnersAreRejectedAcrossDistinctBranches",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.JunctionAdmissionTests.DeniedEntrantCannotBeHitByFollowerAndRejectedBatchChangesNothing",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.JunctionAdmissionTests.ExistingOccupantOutranksLowerIdNewcomer",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.JunctionAdmissionTests.FractionalAndWholeTickMotionHaveIdenticalFinalStateAndAllocateNothing",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.JunctionAdmissionTests.FractionalCoverageRejectsGapsOverlapsEarlySealAndZeroTimeMotion",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.JunctionAdmissionTests.FullPenaltyCircuitAndExitReplayIgnoreProposalOrdering",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.JunctionAdmissionTests.InvalidSeamRowsInvalidatePreviewWithoutChangingAuthority",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.JunctionAdmissionTests.LateFailureAndEventOverflowDiscardEntirePlannedTick",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.JunctionAdmissionTests.MovingSeamAndOutgoingSubstepsShareOneTickWithoutBoundaryDelay",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.JunctionAdmissionTests.PreparedAdmissionLeavesAuthorityUntouchedAndMatchesDirectReplay",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.JunctionAdmissionTests.PreparedSeamCommitsOnceAndRetainsReservationAcrossBranchAndStop",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.JunctionAdmissionTests.ReorderedReplayAndPassThroughEventsAreExactAndActiveStepsAllocateNothing",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.JunctionAdmissionTests.ReplacementFailureAndForeignHandlesCannotCommitScratchState",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.JunctionAdmissionTests.RetainedIncomingBodyProtectsSpaceOutsideTheAuthoredGuard",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.JunctionAdmissionTests.ReusedWholeTickPlansRetainTailsAndAllocateNothing",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.JunctionAdmissionTests.SimultaneousBranchesKeepOwnerUntilInclusiveWholeBodyClearance",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.JunctionAdmissionTests.WholeTickPlanKeepsAllSeamStateAndEventsPrivateUntilCommit",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.MuscularSwayTests.ActiveNoiseAllocatesNothing",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.MuscularSwayTests.FatigueSkillSmoothnessAndAtomicityAreBounded",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.MuscularSwayTests.FixedSeedReplaysAndDifferentSeedChangesControllableNoiseOnly",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.OccupancyTests.BodiesRespectWidthClearanceAndCorridorIdentity",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.OccupancyTests.ContinuousSweepPreventsLongitudinalAndLateralTunnelling",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.OccupancyTests.DenseQueriesAllocateNothingAndLargeDistancesRetainPrecision",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.OccupancyTests.RosterAndDefinitionsRejectInvalidInputs",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.OccupancyTests.TouchingClearanceCanMoveAwayAndEarliestBlockerIsOrderIndependent",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.OvertakeDecisionTests.OccupiedSidesAndInvalidDataFailAndRepeatedQueriesDoNotAllocate",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.OvertakeDecisionTests.ReadyDecisionAndSharedControllerChooseSameTargetSideAndPayCosts",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.OvertakeDecisionTests.ResourcesValueTerrainSpaceSpeedAndPathCanEachDeclinePass",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.OvertakeTests.ActivePassIsAllocationFreeAndReplayingPlacementsPreservesEvents",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.OvertakeTests.BlockedReturnWaitsAndMaximumEffortStillPaysCoordinationCost",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.OvertakeTests.CancellationAndTimeoutReturnSafelyWithoutFalseCompletion",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.OvertakeTests.InvalidInputIsAtomicAndIdleTickLoopDoesNotAllocate",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.OvertakeTests.OccupiedSidesAndRestrictedSegmentsPreventInitiation",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.OvertakeTests.PassMovesOutWaitsForClearanceThenReturnsAndRecordsEvents",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PaceControllerTests.CompleteSharedSprintWithCadencedPaceReplaysIdentically",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PaceControllerTests.DefinitionValidationAndWarmedControlAllocation",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PaceControllerTests.EffortResponseIsBoundedSeededAndInvalidInputDoesNotConsumeRandom",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PackAiIntegrationTests.CadencedPaceDraftAndOvertakeCommandsCompleteThePhysicalFieldAndReplay",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PackAiIntegrationTests.PhysicalSnapshotExcludesStagingAndRejectsAmbiguousLoopRadiusBeforeWriting",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PackForceTests.LateralMovesPayLossAndBadLastRowCannotAdvanceStateOrEvents",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PackForceTests.ReversedRosterProducesSamePerAthleteMotion",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PackForceTests.SharedDraftAndForcesUseOneSnapshotAndReplayDenseCatchupWithoutCrossing",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PackForceTests.WarmPackStepIsAllocationFree",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PackSprintFieldTests.DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(\"synthetic_flat_v1\",12,0.5d,\"164f496e078824383039bcf9ca6ac747f407c95b358f21bc2b26ea82a81a9bb7\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PackSprintFieldTests.DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(\"synthetic_flat_v1\",30,2,\"e55374aadb1053b48b012c74413b319db0cd2bfb4db3dd05b5826b2f88871594\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PackSprintFieldTests.DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(\"synthetic_rolling_v1\",6,1,\"1f03aa6fdc5c237f53b666b2e01524cd0ae49bcb601836b9036a74820fd90895\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PackSprintFieldTests.DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(\"synthetic_technical_descent_v1\",6,1,\"c1f89ea3d39d903aa5a7c0d522e374781ed7226ef1a315178436f033e09b1d3e\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PackSprintFieldTests.LateralWorkHasPhysicalCostAndActivePreparationAllocatesNothing",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PackSprintFieldTests.OpenRepeatedLapCannotTeleportBackToStartInPhysicalPack",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PackSprintFieldTests.SharedSprintCompletesRealBoutsPenaltiesAndReplaysExactResultsWithoutOverlap",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PackSprintFieldTests.SoloPackUsesTheSameRacePhysicsAndInvalidLastRowsAreAtomic",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PackSprintFieldTests.SoloZeroEffortIsNotReportedAsAthleteContact",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalConnectionTests.ActualPenaltyTraversalRetainsEveryCircuitAndEntryToRejoinDistance(1)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalConnectionTests.ActualPenaltyTraversalRetainsEveryCircuitAndEntryToRejoinDistance(3)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalConnectionTests.ActualPenaltyTraversalRetainsEveryCircuitAndEntryToRejoinDistance(5)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalConnectionTests.ExplicitDirectionAndExactAnchorAreRequiredAndSnapshotsBind",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalConnectionTests.IncomingTailShrinksByActualTravelAndClosedCircuitsNeverRestoreIt",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalConnectionTests.InvalidFootprintAdvancesCannotEraseOrReplaceRetainedState",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalConnectionTests.SchemaRejectsImplicitOrAmbiguousConnectivity",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalConnectionTests.TailRetainsOtherIncomingJunctionsUntilTheirOwnGeometryClears",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalMotionProjectionTests.InvalidProjectionCannotHideBranchCrossingOrForeignCoordinates",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalMotionProjectionTests.SeamAndFullCircuitSlicesConserveNanometresWithoutEndpointSubtraction",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalOccupancyTests.BatchRechecksStationarySuffixAndReportsStableEarliestPair",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalOccupancyTests.InvalidOrAmbiguousMovesAreRejectedBeforeQueries",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalOccupancyTests.LappedBodiesAndSeamUseTheSamePhysicalSpace",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalOccupancyTests.PeriodicQueriesMatchSampledGeometryAndAllocateNothing",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalOccupancyTests.RelativeLateralMotionIsContinuousAndOpenLoopsDoNotWrap",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalOccupancyTests.SweepsCatchPassThroughAcrossSeamAndAnEntireCircuit",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalPerceptionTests.InvalidAndStalePhysicalSnapshotsFailWithoutOutputMutation",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalPerceptionTests.PhysicalCaptureDoesNotAllocateInWarmedLoop",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalPerceptionTests.SharedDraftGeometryAndStableNeighborsIgnoreOtherBranchesAndInputOrder",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalTopologyTests.JunctionGuardSharesBranchesWrapsSeamAndDoesNotDisappearAtRejoin",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalTopologyTests.LapsSharePhysicalCoordinatesAndClosedSeamPreservesNanometres",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalTopologyTests.OpenLoopKeepsIncomingEndAndRejectsWrapAndChangedTrackBinding",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysicalTopologyTests.WholeBodySweepsFindCrossingsWithBothEndpointsOutsideAndFullCircuits",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyContractTests.AllRequiredNumericFieldsRejectMissingNonfiniteAndOutsideEncodingDomain",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyContractTests.InconsistentDefinitionsAreRejected(\"schema_version\",\"2\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyContractTests.InconsistentDefinitionsAreRejected(\"drift_saturation_s\",\"0.0000000011\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyContractTests.InconsistentDefinitionsAreRejected(\"hr_rise_tau_s\",\"0\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyContractTests.InconsistentDefinitionsAreRejected(\"hr_recovery_tau_s\",\"0\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyContractTests.InconsistentDefinitionsAreRejected(\"anaerobic_capacity_joules\",\"0\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyContractTests.InconsistentDefinitionsAreRejected(\"resting_hr_bpm\",\"191\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyContractTests.InconsistentDefinitionsAreRejected(\"hr_safety_ceiling_bpm\",\"180\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyContractTests.InconsistentDefinitionsAreRejected(\"aerobic_threshold\",\"1.4\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyContractTests.InconsistentDefinitionsAreRejected(\"minimum_power_efficiency\",\"1.01\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyContractTests.InconsistentDefinitionsAreRejected(\"fatigue_recovery_penalty\",\"1.01\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyContractTests.InvalidIdsNullAndMalformedDocumentsAreRejected",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyContractTests.JsonRoundTripIsCultureIndependentAndPreservesEveryField",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyContractTests.NumericEncodingRoundsToNineDecimalsAndSaturatesOnlyExplicitly",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyContractTests.StateValidatesRangesAndRejectsDefaultBeforeUse",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyIntegrationTests.AttackHasCostAndRecoveryRestoresAllResources",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyIntegrationTests.IntegratedHotLoopAllocatesZeroAfterWarmup",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyIntegrationTests.InvalidWorkloadIsAtomicAcrossKernelStateTelemetryAndEvents",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyIntegrationTests.ReplayingFullInputsReproducesStateAndOrderedEventsRegardlessOfSeed",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyIntegrationTests.ResourceBoundaryEventsAreOrderedAfterEffortAndNotRepeated",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyRegressionTests.CanonicalStateAndFullTraceSnapshotsMatchQualifiedBaseline",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyRegressionTests.FullTraceCanBeRepeatedAndSamplesCannotBeReordered",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyRegressionTests.LongExtremeInitialStatesRemainValidAndRecoveryWorks",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyRegressionTests.UnrepresentableParameterCombinationsFailBeforeTicks",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyScenarioTests.AllCannedScenariosReplayIdenticalFingerprints",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyScenarioTests.CsvHasCompleteInputsAndTelemetryInInvariantCulture",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyScenarioTests.FingerprintDetectsPhysiologyAndConfigurationChanges",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyScenarioTests.InvalidSuiteAndWorkloadsAreRejected",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyScenarioTests.WorkloadBoundariesAndDurationsAreExact",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyStatTests.EndpointsInterpolationAndAllStatsAreMonotone",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyStatTests.InvalidStatsAndMalformedCurvesAreRejected",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyStatTests.MappingPreservesTemplateAndProducesStableVersionedIdentity",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PhysiologyStatTests.RecoveryAndCapacity40Versus80HaveExpectedPhysicalEffects",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PlayerCommandTests.RequiredFieldsSchemaAndEncodingsRejectAmbiguousCommands",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PlayerCommandTests.TickCommandsConstructWithoutAllocationsOrFrameTime",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PlayerCommandTests.VersionedRoundTripRetainsExactLargeTickAndEveryIntent",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PlayerReplayTests.InvalidCommandsCapacityAndChangedSettingsCannotPartlyAdvanceRaceOrTape",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PlayerReplayTests.RecordingAndControlledTicksDoNotAllocate",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PlayerReplayTests.SerializedCommandsReproduceCompleteMotionResourcesLateralPositionAndEvents",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PreRangeRecoveryTests.CompleteRacePaysApproachTimeForLowerArrivalHrAndReplays",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PreRangeRecoveryTests.DistanceAndHeartRateScaleReductionAndOtherPhasesCannotRecover",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.PreRangeRecoveryTests.SchemaAndWarmAllocationAreValidated",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RaceMotionTimelineTests.CollapsedMovementGapSuffixAndDistinctRosterBoundariesAreRejected",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RaceMotionTimelineTests.FractionalGridPreservesEveryEndpointThroughoutRealSprint",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RaceMotionTimelineTests.FractionalQuantizationAndInvalidOutputAreExplicitAndAllocationFree",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RaceMotionTimelineTests.MergedRosterGridAndInvalidChainsUseCallerStorageWithoutMutation",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RaceMotionTimelineTests.WholeSprintSamplesEveryAuthoredEndpointIncludingPenaltyAndStoppedSuffix",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RacePathMotionTests.InsufficientPreviewBufferLeavesAuthoritativeRangeUnchangedAndPreviewDoesNotAllocate",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RacePathMotionTests.SharedPhysicsTraversesRequiredPenaltyDistanceBeforeRejoining(0)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RacePathMotionTests.SharedPhysicsTraversesRequiredPenaltyDistanceBeforeRejoining(2)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RacePathMotionTests.SharedPhysicsTraversesRequiredPenaltyDistanceBeforeRejoining(5)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RacePathMotionTests.SurfaceAndRouteStopsProduceContinuousBoundedTimeSegments",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RaceRouteTests.LapJunctionAndFinishSamplingAreUnambiguous",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RaceRouteTests.MixedLoopLapsComposeExactDistanceAndObservableSections",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RaceRouteTests.ProfilePlanAndRangeMismatchesAreRejected",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RaceRouteTests.RoutingContractsRoundTripAndRejectInvalidSchemas",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RaceRouteTests.SamplingCompleteRaceAllocatesNothingAndKeepsFixedLapBaseline",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RangeMotionPreviewTests.PreviewMatchesAuthoritativeTraversalAcrossEveryAnchorAndPenaltyBoundary",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RangePenaltyTraversalTests.FiringLineClampsMotionAndPenaltyCannotCompleteOneNanometerEarly",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RangePenaltyTraversalTests.InvalidOrDuplicateBoutCannotChangeDistanceClockOrEvents",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RangePenaltyTraversalTests.MismatchedPenaltyLengthAndAmbiguousRangeOccurrenceFailAtConstruction",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RangePenaltyTraversalTests.MultiBoundaryTraversalReplaysAndActiveMovementDoesNotAllocate",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RangePenaltyTraversalTests.RealGeometricMissesRequireExactExtraDistanceAndTime(0)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RangePenaltyTraversalTests.RealGeometricMissesRequireExactExtraDistanceAndTime(1)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RangePenaltyTraversalTests.RealGeometricMissesRequireExactExtraDistanceAndTime(2)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RangePenaltyTraversalTests.RealGeometricMissesRequireExactExtraDistanceAndTime(3)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RangePenaltyTraversalTests.RealGeometricMissesRequireExactExtraDistanceAndTime(4)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.RangePenaltyTraversalTests.RealGeometricMissesRequireExactExtraDistanceAndTime(5)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SeparationTests.DenseRepeatedResolutionIsSafeAndAllocationFree",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SeparationTests.EdgeClampingAndDifferentCorridorsAreIndependent",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SeparationTests.InvalidFrameDoesNotMutateOutputTickOrEvents",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SeparationTests.RearEndCatchIsLimitedAndContactEpisodesAreRecordedOnce",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SeparationTests.SimultaneousLaneSwapCannotCrossAndInputOrderDoesNotChangePlacements",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingAiTests.PerfectControllerUsesSharedAimAndGeometryToCompleteFiveTargets",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingAiTests.PressureDelaysDecisionsWithoutChangingAuthorityAndLoopAllocatesNothing",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingAiTests.ReactionsHoldCommandsAndSeededObservationsReplay",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingBalanceTests.AllFixedSeedBoutsMatchCliAndPreserveBroadConditionComparisons",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingBalanceTests.InvalidSuiteAndInsufficientTickBudgetFailExplicitly",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingHandlingTests.EquipmentEnvelopeReplayAtomicityAndAllocationsAreControlled",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingHandlingTests.RecoilIsPostShotBoundedAndExpertsSettleFaster",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingHandlingTests.SkillChangesActualDischargeTimingButNotValidGeometry",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingMilestoneTests.GeometricPlayerHitsNeverDependOnHandlingStatsOrSeed",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingMilestoneTests.LongActiveSessionHasNoManagedAllocation",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingPressureTests.ContextComposureAndStanceChangeBoundedPressure",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingPressureTests.PressureRecoversAndOnlyChangesSwayNotGeometry",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingPressureTests.ReplayAtomicityAndAllocationRemainStable",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingSessionTests.ActiveRecordedSessionDoesNotAllocate",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingSessionTests.AiUsesCompleteSwayAndHandlingSessionWithoutAuthorityBypass",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingSessionTests.EntireComposedBoutSerializesAndReplaysAllFramesEventsAndCsv",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingSessionTests.InvalidLateInputCannotAdvanceAnyPrivateSubsystemOrTape",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingSessionTests.TrainingCsvAndEventsMatchPinnedCliTraceInEveryRuntime",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingStanceTests.InvalidIdentityAndInvertedAdvantageFail",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingStanceTests.ProneReducesEverySwayComponentAndImprovesRecoveryContract",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingStanceTests.StancesDriveActualSetupAndAimRate",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingStateTests.ActiveBoutDoesNotAllocateAndInvalidDurationsAreRejected",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingStateTests.BadTransitionsAreAtomicAndLaneCannotBeStolenOrReassigned",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingStateTests.CompleteBoutHonorsSetupBoltExitAndDoesNotResolveHits(20)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingStateTests.CompleteBoutHonorsSetupBoltExitAndDoesNotResolveHits(30)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingStateTests.CompleteBoutHonorsSetupBoltExitAndDoesNotResolveHits(144)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingStateTests.IdenticalActionsProduceIdenticalFramesAndEventsWithoutAllocation",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingStrategyTests.CompletePhysicalBoutAndRecordedCommandsReplayExactly(0.0d)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingStrategyTests.CompletePhysicalBoutAndRecordedCommandsReplayExactly(1.0d)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingStrategyTests.FastPolicyTriggersEarlierButDoesNotImproveTrackingAndInvalidPlanIsAtomic",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingStrategyTests.UrgencyTradesStabilityForTimeAndInvalidDataIsRejected",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingWindTests.GddDriftMovesAnOtherwisePerfectRayWithoutHiddenCompensation",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingWindTests.InvalidWindAndHotLoopAreControlled",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShootingWindTests.RotationExposureAndSignFollowLaneCoordinates",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShotResolutionTests.InvalidRayWindAndPrematureTriggerCannotPartlyDischarge",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShotResolutionTests.PerfectAimCompletesFiveIndependentTargetsAtEitherStance(Prone)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShotResolutionTests.PerfectAimCompletesFiveIndependentTargetsAtEitherStance(Standing)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShotResolutionTests.RepeatedTargetAndWindMissConsumeRoundsWithoutDuplicateClosure",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.ShotResolutionTests.ShotFramesAndEventsReplayAndActiveResolutionDoesNotAllocate",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiBoundaryStepperTests.BoundarySolvingIsDeterministicAndDoesNotAllocate",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiBoundaryStepperTests.FullDurationPreservesExistingFixedTickPhysicsExactly",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiBoundaryStepperTests.StoppingShortCannotGrantBoundaryAndLargeCoordinatesRemainExact",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiBoundaryStepperTests.SurfaceBoundarySplitsTimeAndRetainsSpeedBeforeNextSurface",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiEquipmentTests.CatalogAndCombinedEffectsEnforceModestEnvelopeAndKnownIds",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiEquipmentTests.EquipmentAndSnowCompositionDoesNotAllocate",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiEquipmentTests.EquipmentBenefitIsSmallerThanBroadTechniqueSkillGap",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiEquipmentTests.NeutralPreservesSnowAndSpecialistsHaveLateralTradeoffs",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiForceTests.FlatEquilibriumBalancesPowerAndUphillCostsSpeed",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiForceTests.ForceBreakdownMatchesUnitsAndGradeGeometry",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiForceTests.InvalidInputDefinitionsAndDistanceOverflowFail",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiForceTests.PhysiologyPowerDrivesRepeatableAllocationFreeMovement",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiForceTests.RestDoesNotReverseAndStoppingInsideTickDoesNotAddExtraDistance",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiForceTests.SignedExposedWindChangesDragInCorrectDirection",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiForceTests.ZeroSpeedPropulsionAndNumericEnvelopeAreBounded",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiMilestoneTests.FullCourseComparisonsRespectSkillResourcesSnowAndEquipment",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiMilestoneTests.LongIntegratedTrialRunsFasterThanRealtimeWithoutAllocations",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiTechniqueTests.AutomaticAndExplicitTechniquesRespectTerrainAndStableIds",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiTechniqueTests.ContractsRejectInvalidOrIncompleteDataAndInputs",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiTechniqueTests.SharedPhysiologyCostAndSkillDependentMovementAreAllocationFree",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SkiTechniqueTests.SkillClimbingAndFatigueHaveObservableBoundedEffects",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SnowConditionTests.ConditionLookupAndForceIntegrationAllocateNothingPerTick",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SnowConditionTests.NeutralBindingPreservesForcesAndConditionsAreExplicit",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SnowConditionTests.SlowSnowCostsMotionAndIceTradesGlideForCornerGrip",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SnowConditionTests.UnknownReferencesAndUnsafeProfilesFailBeforeStepping",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintAthleteSessionTests.AiFinishesThroughSharedSessionAndActiveSkiTicksDoNotAllocate",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintAthleteSessionTests.FullScriptedSprintKeepsPhysiologyAndRequiresActualPenaltyDistance",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintAthleteSessionTests.LaterIntervalStartPreservesIndividualRaceDurationAndFinalPhysicalState",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintAthleteSessionTests.RepeatedCompleteSprintFramesAndEventsMatchAndInvalidInputDoesNotAdvance",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintCapacityTests.SixtyAthletesCompleteWithAccountedEventsAndAllocationFreeSteadyTicks",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintConstrainedPreviewTests.BlockedMotionRetainsPhysiologyAndDoesNotCreateProgressOrAcceptStaleHandles",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintConstrainedPreviewTests.CappedMatAndFinishCannotEmitPrematureObligations",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintConstrainedPreviewTests.PartialPenaltyTravelKeepsMainRouteFixedAndDoesNotCreditFullLoop",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintFieldTests.CompleteFieldReplayKeepsResultsAndEventsAndFrozenFinishers",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintFieldTests.CompleteFieldUsesIntervalClocksSplitsAndOneResultPerAthlete",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintFieldTests.InvalidLastCommandCannotAdvanceEarlierAthletesOrScheduler",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintFinishTests.ExactEndpointAndSubMillimetreCrossingsDoNotUseDisplayDistance",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintFinishTests.InvalidObservationsAreAtomicAndFinishTrackingAllocatesNothing",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintFinishTests.SameTickFinishersUseOvershootFractionAndRecordOneFinishEvent",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintFinishTests.SprintConsumesReserveAndSustainedCapabilityDeclines",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintFinishTests.SprintPresetRequiresRequestAndFinalZoneWithoutPowerBonus",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintPerceptionTests.ActiveCaptureUsesCallerStorageWithoutAllocations",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintPerceptionTests.FullRacePerceptionMatchesAuthorityAndDoesNotChangeReplay",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintPerceptionTests.PrestartCaptureIsReadOnlyAndRejectsInvalidQueriesBeforeWriting",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintRaceReplayTests.CapacityContextAndMalformedCoverageFailBeforeRaceAdvances",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintRaceReplayTests.PersistedRunsReproduceCompleteFieldFramesEventsAndResultsWithIndependentCursors",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintRaceReplayTests.UnchangedIntentRecordingAndReplayDoNotAllocatePerTick",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintRegressionTests.CompleteScenarioTracesMatchPinnedCliHashesAndPhysicalTradeoffs",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintRegressionTests.ScenarioSchemaAndControllerMissBoundsAreValidatedBeforeRun",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintResultsTests.EqualRegisteredTimesShareRankAndSkipPlaceRegardlessOfArrivalOrRosterOrder",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintResultsTests.ExactRegistrationBoundariesAndConfiguredRoundingAvoidFloatingPointRanking",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintResultsTests.SnapshotRejectsAlteredSchemaRankingGapAndRegistration",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintResultsTests.TerminalFailuresHaveNoRankOrInventedTimeAndReceiptValidationIsAtomic",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintStepPreviewTests.CompleteStagedRaceDefersEveryAuthoritativeChangeAndMatchesOriginalStep",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintStepPreviewTests.HandlesAreOwnedSingleUseAndReplacedEvenAfterFailedPreparation",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SprintStepPreviewTests.WarmPrepareAndCommitDoNotAllocate",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SteeringTests.EvaluationIsAllocationFreeAndInvalidInputsFail",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SteeringTests.LineIntentMapsUsableWidthAndMovesSymmetricallyWithoutTeleportation",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SteeringTests.OccupiedLaneStopsSteeringAndCenterAssistHasExplicitDeadzone",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SteeringTests.TuckAndHighSpeedReduceResponseAndMovementCostsPropulsion",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SubstepCheckpointTests.SubstepCrossingIncludesEarlierStationaryPenaltyTime",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SubstepCheckpointTests.TimedTrajectoryMatchesPathStopAndRejectsWrongRouteWithoutMutation",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SyntheticTrackTests.GeneratedProfilesCarryExpectedPhysicalMetadataAndSharedRange(\"synthetic_flat_v1\",0,0,6,Flat)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SyntheticTrackTests.GeneratedProfilesCarryExpectedPhysicalMetadataAndSharedRange(\"synthetic_climb_v1\",0.1d,0,6,ClimbLong)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SyntheticTrackTests.GeneratedProfilesCarryExpectedPhysicalMetadataAndSharedRange(\"synthetic_rolling_v1\",0.08d,0,6,ClimbLong)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SyntheticTrackTests.GeneratedProfilesCarryExpectedPhysicalMetadataAndSharedRange(\"synthetic_technical_descent_v1\",-0.1d,0.06d,3,DescentTechnical)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SyntheticTrackTests.GeneratedProfilesCarryExpectedPhysicalMetadataAndSharedRange(\"synthetic_range_approach_v1\",0,0,8,RangeApproach)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.SyntheticTrackTests.RollingSignsAlternateAndMonotoneProfilesDoNotClaimClosure",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TacticalCadenceTests.ExactCountsAndNondivisibleIntervalsDoNotDriftAcrossSimulationRates",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TacticalCadenceTests.SchedulingHotLoopHasNoAllocations",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TacticalCadenceTests.ShiftedOriginAndInvalidStepsPreserveExactClockState",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TacticalIntentTests.AllEightIntentsRoundTripWithExplicitTargetAndLifetime",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TacticalIntentTests.DecisionCreationAndValidationDoNotAllocate",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TacticalIntentTests.InvalidTargetsLifetimesSchemasAndDefaultsAreRejected",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TacticalUtilityTests.ContributionsPersonalityAndEligibilityDetermineInspectableWinner",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TacticalUtilityTests.RequiredRowsAndMalformedInputFailBeforeScoresArePublished",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TacticalUtilityTests.WarmEvaluationIsAllocationFreeAndStable",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TargetGeometryTests.ActiveGeometryDoesNotAllocate",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TargetGeometryTests.AllFiveCentersEdgesAndOneNanometerOutsideAreDeterministic(Prone)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TargetGeometryTests.AllFiveCentersEdgesAndOneNanometerOutsideAreDeterministic(Standing)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TargetGeometryTests.ForwardIntersectionUsesOriginAndScaleWhileParallelAndBehindMiss",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TargetGeometryTests.IndependentClosuresAndBadGeometryCannotCorruptState",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TechniqueAssistTests.AutomaticUsesSharedBestAndManualKeepsExplicitCost",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TechniqueAssistTests.InvalidModesMissingManualAndUnknownIdsReject",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TechniqueAssistTests.SelectionHasNoPerTickAllocations",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TerrainPaceIntegrationTests.AdjustmentIsHeldAndInvalidUpdateCannotConsumeRandom",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TerrainPaceIntegrationTests.CompleteHillySprintUsesPlannedEffortThroughSharedPhysicsAndReplays",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TerrainPlanningTests.InvalidPreviewAndSchemaFailAndWarmedPlanningDoesNotAllocate",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TerrainPlanningTests.UpcomingClimbSpendsReserveAndTurnReducesEffortBeforeArrival",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TimeTrialTests.CanonicalCsvNormalizesSignedZero",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TimeTrialTests.CanonicalCsvTraceMatchesCliForEverySyntheticCourse(1)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TimeTrialTests.CanonicalCsvTraceMatchesCliForEverySyntheticCourse(2)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TimeTrialTests.CompleteInputReplayPreservesMotionResourcesAndOrderedEvents",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TimeTrialTests.EverySyntheticCourseFinishesWithResourceTraceAndSplit(\"synthetic_flat_v1\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TimeTrialTests.EverySyntheticCourseFinishesWithResourceTraceAndSplit(\"synthetic_climb_v1\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TimeTrialTests.EverySyntheticCourseFinishesWithResourceTraceAndSplit(\"synthetic_rolling_v1\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TimeTrialTests.EverySyntheticCourseFinishesWithResourceTraceAndSplit(\"synthetic_technical_descent_v1\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TimeTrialTests.EverySyntheticCourseFinishesWithResourceTraceAndSplit(\"synthetic_range_approach_v1\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TimeTrialTests.InvalidLateStageInputDoesNotPartlyCommitPhysiologyOrEvents",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TimeTrialTests.PreviewIsReadOnlyAndIntegratedTicksAllocateNothing",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackContractTests.BrokenTopologyDuplicatesUnknownTagsAndMissingFieldsAreRejected",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackContractTests.ExactCoordinatesLengthsAndLoopScopedIdsArePreserved",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackContractTests.InvalidNumericDataIsRejected(\"schema_version\",\"2\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackContractTests.InvalidNumericDataIsRejected(\"length_m\",\"0\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackContractTests.InvalidNumericDataIsRejected(\"length_m\",\"0.0005\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackContractTests.InvalidNumericDataIsRejected(\"length_m\",\"1000000\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackContractTests.InvalidNumericDataIsRejected(\"width_m\",\"1\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackContractTests.InvalidNumericDataIsRejected(\"start_grade\",\"0.5\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackContractTests.InvalidNumericDataIsRejected(\"end_grade\",\"-0.5\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackContractTests.InvalidNumericDataIsRejected(\"curvature_per_m\",\"0.3\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackContractTests.InvalidNumericDataIsRejected(\"wind_exposure\",\"1.1\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackContractTests.InvalidNumericDataIsRejected(\"risk_level\",\"-0.1\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackContractTests.InvalidNumericDataIsRejected(\"distance_m\",\"1001\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackContractTests.InvalidNumericDataIsRejected(\"max_abs_grade\",\"\\\"NaN\\\"\")",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackContractTests.MillimetreEncodingRejectsNonfiniteNegativeAndSubresolutionCoordinates",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackContractTests.RoundTripRetainsStableIdentityAndAllSerializedFields",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackSamplerTests.ExplicitBoundaryModesHandleManyLapsWithoutOverflow",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackSamplerTests.FullLoopSamplingMatchesFixedNumericBaselineWithoutAllocations",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackSamplerTests.GradeInterpolatesAndMetadataComesFromSelectedSegment",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TrackSamplerTests.SegmentBoundariesUseNextSegmentAndTerminalUsesLastEnd",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TuckTests.AerodynamicGainCostsActiveEffortAndSteeringResponse",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TuckTests.EvaluationIsAllocationFreeAndInvalidDataFails",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TuckTests.PostureIsConstrainedByGradeSpeedCurvatureRiskAndSkill",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.TuckTests.WorkloadReductionRecoversThroughSharedPhysiologyWithoutBonus",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.WeaponAimTests.AimRayReachesEachTargetAndRepeatedCommandsReplayWithoutAllocation",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.WeaponAimTests.DiagonalRateBoundsAndInvalidCommandAreAtomic",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.WeaponAimTests.OneSecondRateAndFineControlAreFrequencyIndependent(20)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.WeaponAimTests.OneSecondRateAndFineControlAreFrequencyIndependent(30)",
+      "status": "Passed",
+      "source": "full_run"
+    },
+    {
+      "name": "Biathlon.Tests.WeaponAimTests.OneSecondRateAndFineControlAreFrequencyIndependent(144)",
+      "status": "Passed",
+      "source": "full_run"
+    }
+  ]
+}

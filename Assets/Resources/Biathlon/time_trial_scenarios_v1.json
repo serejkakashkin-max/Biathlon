@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "time_trial_scenarios_v1",
+  "tick_frequency": 20,
+  "seed": 12345,
+  "maximum_ticks": 200000,
+  "scenarios": [
+    { "id": "flat_trial", "track_id": "synthetic_flat_v1", "loop_id": "main_long", "lap_count": 1, "athlete_profile_id": "time_trial_athlete_v1", "snow_profile_id": "packed_neutral", "ski_id": "ski_neutral", "effort_control": 800, "form": 1, "line_quality": 1, "headwind_mps": 0, "tuck_requested": false, "sprint_requested": true },
+    { "id": "climb_trial", "track_id": "synthetic_climb_v1", "loop_id": "main_long", "lap_count": 1, "athlete_profile_id": "time_trial_athlete_v1", "snow_profile_id": "packed_neutral", "ski_id": "ski_neutral", "effort_control": 800, "form": 1, "line_quality": 1, "headwind_mps": 0, "tuck_requested": false, "sprint_requested": true },
+    { "id": "rolling_trial", "track_id": "synthetic_rolling_v1", "loop_id": "main_long", "lap_count": 1, "athlete_profile_id": "time_trial_athlete_v1", "snow_profile_id": "packed_neutral", "ski_id": "ski_neutral", "effort_control": 800, "form": 1, "line_quality": 1, "headwind_mps": 0, "tuck_requested": true, "sprint_requested": true },
+    { "id": "descent_trial", "track_id": "synthetic_technical_descent_v1", "loop_id": "main_long", "lap_count": 1, "athlete_profile_id": "time_trial_athlete_v1", "snow_profile_id": "packed_neutral", "ski_id": "ski_neutral", "effort_control": 800, "form": 1, "line_quality": 1, "headwind_mps": 0, "tuck_requested": true, "sprint_requested": true },
+    { "id": "range_approach_trial", "track_id": "synthetic_range_approach_v1", "loop_id": "main_long", "lap_count": 1, "athlete_profile_id": "time_trial_athlete_v1", "snow_profile_id": "packed_neutral", "ski_id": "ski_neutral", "effort_control": 800, "form": 1, "line_quality": 1, "headwind_mps": 0, "tuck_requested": false, "sprint_requested": true }
+  ]
+}

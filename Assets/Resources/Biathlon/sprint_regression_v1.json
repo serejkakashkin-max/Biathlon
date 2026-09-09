@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "sprint_regression_v1",
+  "tick_frequency": 20,
+  "seed": 123,
+  "maximum_ticks": 100000,
+  "maximum_command_runs": 10000,
+  "intentional_miss_yaw_rad": 0.015,
+  "scenarios": [
+    { "id": "perfect", "effort_control": 800, "intentional_first_miss": false, "snow_profile": "packed_neutral", "ski_id": "ski_neutral" },
+    { "id": "one_miss", "effort_control": 800, "intentional_first_miss": true, "snow_profile": "packed_neutral", "ski_id": "ski_neutral" },
+    { "id": "aggressive", "effort_control": 1000, "intentional_first_miss": false, "snow_profile": "packed_neutral", "ski_id": "ski_neutral" },
+    { "id": "conservative", "effort_control": 650, "intentional_first_miss": false, "snow_profile": "packed_neutral", "ski_id": "ski_neutral" },
+    { "id": "wet_snow", "effort_control": 800, "intentional_first_miss": false, "snow_profile": "wet_slow", "ski_id": "ski_neutral" },
+    { "id": "glide_skis", "effort_control": 800, "intentional_first_miss": false, "snow_profile": "packed_neutral", "ski_id": "ski_glide" }
+  ]
+}

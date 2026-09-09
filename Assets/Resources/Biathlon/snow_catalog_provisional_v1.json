@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "id": "snow_catalog_provisional_v1",
+  "profiles": [
+    { "id": "packed_neutral", "glide_multiplier": 1, "grip_multiplier": 1, "snow_drag_multiplier": 1 },
+    { "id": "fresh_soft", "glide_multiplier": 0.85, "grip_multiplier": 0.9, "snow_drag_multiplier": 1.2 },
+    { "id": "icy_fast", "glide_multiplier": 1.1, "grip_multiplier": 0.65, "snow_drag_multiplier": 0.95 },
+    { "id": "wet_slow", "glide_multiplier": 0.9, "grip_multiplier": 1.05, "snow_drag_multiplier": 1.15 }
+  ]
+}

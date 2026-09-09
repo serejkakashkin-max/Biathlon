@@ -1,0 +1,12 @@
+{
+  "schema_version":1,
+  "id":"synthetic_flat_junctions_v1",
+  "track_id":"synthetic_flat_v1",
+  "junctions":[
+    {"id":"penalty_access","ports":[
+      {"id":"main_entry","anchor":{"loop_id":"main_long","distance_m":900},"guard_before_m":2,"guard_after_m":22},
+      {"id":"main_rejoin","anchor":{"loop_id":"main_long","distance_m":920},"guard_before_m":22,"guard_after_m":2},
+      {"id":"penalty_seam","anchor":{"loop_id":"penalty_150","distance_m":0},"guard_before_m":2,"guard_after_m":2}
+    ]}
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "id": "synthetic_mixed_route_v1",
+  "track_id": "track_contract_fixture_v1",
+  "competition_profile_id": "synthetic_route_profile_v1",
+  "laps": [
+    {"id": "lap_1", "loop_ids": ["main_short"]},
+    {"id": "lap_2", "loop_ids": ["main_long", "main_short"]},
+    {"id": "lap_3", "loop_ids": ["main_short"]}
+  ]
+}

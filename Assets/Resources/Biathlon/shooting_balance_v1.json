@@ -1,0 +1,11 @@
+{"schema_version":1,"id":"shooting_balance_v1","tick_frequency":20,"seed_start":1000,"samples_per_scenario":200,"maximum_ticks":10000,"scenarios":[
+{"id":"prone_rest","ai_definition":"shooting_ai_v1","stance":0,"hr_bpm":70,"fatigue":0.1,"arm_fatigue":0.1,"crosswind_mps":0},
+{"id":"standing_rest","ai_definition":"shooting_ai_v1","stance":1,"hr_bpm":70,"fatigue":0.1,"arm_fatigue":0.1,"crosswind_mps":0},
+{"id":"prone_high_hr","ai_definition":"shooting_ai_v1","stance":0,"hr_bpm":185,"fatigue":0.1,"arm_fatigue":0.1,"crosswind_mps":0},
+{"id":"standing_high_hr","ai_definition":"shooting_ai_v1","stance":1,"hr_bpm":185,"fatigue":0.1,"arm_fatigue":0.1,"crosswind_mps":0},
+{"id":"standing_tired","ai_definition":"shooting_ai_v1","stance":1,"hr_bpm":185,"fatigue":0.85,"arm_fatigue":0.8,"crosswind_mps":0},
+{"id":"standing_standard","ai_definition":"shooting_ai_v1","stance":1,"hr_bpm":130,"fatigue":0.2,"arm_fatigue":0.2,"crosswind_mps":0},
+{"id":"standing_windy","ai_definition":"shooting_ai_v1","stance":1,"hr_bpm":130,"fatigue":0.2,"arm_fatigue":0.2,"crosswind_mps":5},
+{"id":"standing_easy","ai_definition":"shooting_ai_easy_v1","stance":1,"hr_bpm":130,"fatigue":0.2,"arm_fatigue":0.2,"crosswind_mps":0},
+{"id":"standing_hard","ai_definition":"shooting_ai_hard_v1","stance":1,"hr_bpm":130,"fatigue":0.2,"arm_fatigue":0.2,"crosswind_mps":0}
+]}

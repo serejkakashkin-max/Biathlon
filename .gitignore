@@ -112,3 +112,9 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Foundation: portable projects and generated verification output
+!/dotnet/**/*.csproj
+**/bin/
+**/obj/
+/artifacts/

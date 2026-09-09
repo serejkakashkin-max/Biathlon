@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "id": "synthetic_flat_connections_v1",
+  "junction_definition_id": "synthetic_flat_junctions_v1",
+  "connections": [
+    {"id":"penalty_enter","junction_id":"penalty_access","from_port_id":"main_entry","to_port_id":"penalty_seam","kind":"coincident_seam"},
+    {"id":"penalty_exit","junction_id":"penalty_access","from_port_id":"penalty_seam","to_port_id":"main_entry","kind":"coincident_seam"}
+  ]
+}

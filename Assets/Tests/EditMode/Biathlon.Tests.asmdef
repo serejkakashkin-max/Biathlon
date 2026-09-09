@@ -1,0 +1,21 @@
+{
+  "name": "Biathlon.Tests",
+  "references": [
+    "Biathlon.Domain",
+    "Biathlon.Simulation",
+    "Biathlon.Replay",
+    "Biathlon.AI",
+    "Biathlon.Career"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll"
+  ],
+  "noEngineReferences": true
+}

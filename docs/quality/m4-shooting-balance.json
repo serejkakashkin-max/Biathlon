@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "id": "shooting_balance_results",
+  "status": "passed",
+  "seed_start": 1000,
+  "samples_per_scenario": 200,
+  "bouts_sha256": "c05703ae312082883549e7813b6f885845f25963da9dcfdfa17ee6a8c660697d",
+  "scenarios": [
+    {
+      "id": "prone_rest",
+      "samples": 200,
+      "hits": 1000,
+      "shots": 1000,
+      "hit_rate": 1,
+      "clean_bouts": 200,
+      "mean_seconds": 15.576,
+      "hit_distribution": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        200
+      ]
+    },
+    {
+      "id": "standing_rest",
+      "samples": 200,
+      "hits": 1000,
+      "shots": 1000,
+      "hit_rate": 1,
+      "clean_bouts": 200,
+      "mean_seconds": 16.348,
+      "hit_distribution": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        200
+      ]
+    },
+    {
+      "id": "prone_high_hr",
+      "samples": 200,
+      "hits": 884,
+      "shots": 1000,
+      "hit_rate": 0.884,
+      "clean_bouts": 144,
+      "mean_seconds": 20.147,
+      "hit_distribution": [
+        0,
+        0,
+        21,
+        18,
+        17,
+        144
+      ]
+    },
+    {
+      "id": "standing_high_hr",
+      "samples": 200,
+      "hits": 885,
+      "shots": 1000,
+      "hit_rate": 0.885,
+      "clean_bouts": 85,
+      "mean_seconds": 22.737,
+      "hit_distribution": [
+        0,
+        0,
+        0,
+        0,
+        115,
+        85
+      ]
+    },
+    {
+      "id": "standing_tired",
+      "samples": 200,
+      "hits": 595,
+      "shots": 1000,
+      "hit_rate": 0.595,
+      "clean_bouts": 12,
+      "mean_seconds": 27.222,
+      "hit_distribution": [
+        0,
+        0,
+        38,
+        141,
+        9,
+        12
+      ]
+    },
+    {
+      "id": "standing_standard",
+      "samples": 200,
+      "hits": 970,
+      "shots": 1000,
+      "hit_rate": 0.97,
+      "clean_bouts": 171,
+      "mean_seconds": 22.888,
+      "hit_distribution": [
+        0,
+        0,
+        0,
+        1,
+        28,
+        171
+      ]
+    },
+    {
+      "id": "standing_windy",
+      "samples": 200,
+      "hits": 228,
+      "shots": 1000,
+      "hit_rate": 0.228,
+      "clean_bouts": 0,
+      "mean_seconds": 22.758,
+      "hit_distribution": [
+        76,
+        58,
+        35,
+        24,
+        7,
+        0
+      ]
+    },
+    {
+      "id": "standing_easy",
+      "samples": 200,
+      "hits": 800,
+      "shots": 1000,
+      "hit_rate": 0.8,
+      "clean_bouts": 0,
+      "mean_seconds": 30.38425,
+      "hit_distribution": [
+        0,
+        0,
+        0,
+        0,
+        200,
+        0
+      ]
+    },
+    {
+      "id": "standing_hard",
+      "samples": 200,
+      "hits": 988,
+      "shots": 1000,
+      "hit_rate": 0.988,
+      "clean_bouts": 188,
+      "mean_seconds": 19.5645,
+      "hit_distribution": [
+        0,
+        0,
+        0,
+        0,
+        12,
+        188
+      ]
+    }
+  ]
+}

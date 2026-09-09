@@ -1,0 +1,206 @@
+{
+  "schema_version": 1,
+  "id": "physiology_m1_workloads_v1",
+  "tick_frequency": 20,
+  "seed": 12345,
+  "scenarios": [
+    {
+      "id": "low_5min",
+      "endurance": 50,
+      "anaerobic_capacity": 50,
+      "recovery": 50,
+      "strength": 50,
+      "initial_hr_fraction": 0,
+      "initial_reserve": 1,
+      "initial_fatigue": 0,
+      "segments": [
+        {
+          "ticks": 6000,
+          "control": 462,
+          "form": 1,
+          "terrain_muscle_factor": 1
+        }
+      ]
+    },
+    {
+      "id": "race_3min_recovery_60s",
+      "endurance": 50,
+      "anaerobic_capacity": 50,
+      "recovery": 50,
+      "strength": 50,
+      "initial_hr_fraction": 0,
+      "initial_reserve": 1,
+      "initial_fatigue": 0,
+      "segments": [
+        {
+          "ticks": 3600,
+          "control": 731,
+          "form": 1,
+          "terrain_muscle_factor": 1
+        },
+        {
+          "ticks": 1200,
+          "control": 385,
+          "form": 1,
+          "terrain_muscle_factor": 1
+        }
+      ]
+    },
+    {
+      "id": "attack_intervals",
+      "endurance": 50,
+      "anaerobic_capacity": 50,
+      "recovery": 50,
+      "strength": 50,
+      "initial_hr_fraction": 0,
+      "initial_reserve": 1,
+      "initial_fatigue": 0,
+      "segments": [
+        {
+          "ticks": 1200,
+          "control": 1000,
+          "form": 1,
+          "terrain_muscle_factor": 1
+        },
+        {
+          "ticks": 1200,
+          "control": 385,
+          "form": 1,
+          "terrain_muscle_factor": 1
+        },
+        {
+          "ticks": 1200,
+          "control": 1000,
+          "form": 1,
+          "terrain_muscle_factor": 1
+        },
+        {
+          "ticks": 1200,
+          "control": 385,
+          "form": 1,
+          "terrain_muscle_factor": 1
+        },
+        {
+          "ticks": 1200,
+          "control": 1000,
+          "form": 1,
+          "terrain_muscle_factor": 1
+        },
+        {
+          "ticks": 1200,
+          "control": 385,
+          "form": 1,
+          "terrain_muscle_factor": 1
+        }
+      ]
+    },
+    {
+      "id": "fatigued_race",
+      "endurance": 50,
+      "anaerobic_capacity": 50,
+      "recovery": 50,
+      "strength": 50,
+      "initial_hr_fraction": 0.8,
+      "initial_reserve": 1,
+      "initial_fatigue": 0.6,
+      "segments": [
+        {
+          "ticks": 3600,
+          "control": 731,
+          "form": 1,
+          "terrain_muscle_factor": 1
+        },
+        {
+          "ticks": 1200,
+          "control": 385,
+          "form": 1,
+          "terrain_muscle_factor": 1
+        }
+      ]
+    },
+    {
+      "id": "recovery_40",
+      "endurance": 50,
+      "anaerobic_capacity": 50,
+      "recovery": 40,
+      "strength": 50,
+      "initial_hr_fraction": 1,
+      "initial_reserve": 0.2,
+      "initial_fatigue": 0.4,
+      "segments": [
+        {
+          "ticks": 1200,
+          "control": 385,
+          "form": 1,
+          "terrain_muscle_factor": 1
+        }
+      ]
+    },
+    {
+      "id": "recovery_80",
+      "endurance": 50,
+      "anaerobic_capacity": 50,
+      "recovery": 80,
+      "strength": 50,
+      "initial_hr_fraction": 1,
+      "initial_reserve": 0.2,
+      "initial_fatigue": 0.4,
+      "segments": [
+        {
+          "ticks": 1200,
+          "control": 385,
+          "form": 1,
+          "terrain_muscle_factor": 1
+        }
+      ]
+    },
+    {
+      "id": "capacity_40",
+      "endurance": 50,
+      "anaerobic_capacity": 40,
+      "recovery": 50,
+      "strength": 50,
+      "initial_hr_fraction": 0,
+      "initial_reserve": 1,
+      "initial_fatigue": 0,
+      "segments": [
+        {
+          "ticks": 3600,
+          "control": 1000,
+          "form": 1,
+          "terrain_muscle_factor": 1
+        },
+        {
+          "ticks": 1200,
+          "control": 385,
+          "form": 1,
+          "terrain_muscle_factor": 1
+        }
+      ]
+    },
+    {
+      "id": "capacity_80",
+      "endurance": 50,
+      "anaerobic_capacity": 80,
+      "recovery": 50,
+      "strength": 50,
+      "initial_hr_fraction": 0,
+      "initial_reserve": 1,
+      "initial_fatigue": 0,
+      "segments": [
+        {
+          "ticks": 3600,
+          "control": 1000,
+          "form": 1,
+          "terrain_muscle_factor": 1
+        },
+        {
+          "ticks": 1200,
+          "control": 385,
+          "form": 1,
+          "terrain_muscle_factor": 1
+        }
+      ]
+    }
+  ]
+}
