@@ -22,9 +22,12 @@ namespace Biathlon.Simulation
     {
         private readonly PhysicalTrackMap map;
         private readonly double tickSeconds;
-        public PhysicalMotionProjection(PhysicalTrackMap map, double tickSeconds)
+        private readonly PhysicalRangeLaneMap rangeLane;
+        public PhysicalMotionProjection(PhysicalTrackMap map, double tickSeconds, PhysicalRangeLaneMap rangeLane = null)
         {
             this.map = map ?? throw new ArgumentNullException(nameof(map));
+            if (rangeLane != null && !ReferenceEquals(rangeLane.PhysicalMap, map)) throw new ArgumentException("Foreign range lane map.");
+            this.rangeLane = rangeLane;
             FractionalMotionTimeline.Quantize(0, tickSeconds); this.tickSeconds = tickSeconds;
         }
         public PhysicalMotionReceipt Project(RaceMotionSegment segment, PhysicalTrackPoint physicalStart)
@@ -43,10 +46,10 @@ namespace Biathlon.Simulation
             }
             else
             {
-                var expected = map.MapRoute(segment.RouteBefore);
+                var expected = MapRoute(segment.RouteBefore);
                 if (!map.SameLoop(expected, physicalStart) || expected.LocalNanometers != physicalStart.LocalNanometers)
                     throw new ArgumentException("Physical start disagrees with route receipt.");
-                end = map.MapRoute(segment.RouteAfter, PhysicalBoundarySide.Incoming);
+                end = MapRoute(segment.RouteAfter, PhysicalBoundarySide.Incoming);
                 if (!map.IsSingleRouteSection(segment.RouteBefore, segment.RouteAfter) || !map.SameLoop(physicalStart, end) ||
                     Advance(physicalStart, travel).LocalNanometers != end.LocalNanometers)
                     throw new ArgumentException("Split route receipts at section/branch transitions.");
@@ -54,6 +57,8 @@ namespace Biathlon.Simulation
             return new PhysicalMotionReceipt(this, physicalStart, end, travel,
                 FractionalMotionTimeline.Quantize(segment.StartSeconds, tickSeconds), FractionalMotionTimeline.Quantize(segment.EndSeconds, tickSeconds));
         }
+        private PhysicalTrackPoint MapRoute(long distance, PhysicalBoundarySide side = PhysicalBoundarySide.Outgoing)
+            => rangeLane == null ? map.MapRoute(distance, side) : rangeLane.MapRoute(distance, side);
         public PhysicalOccupancySweep Slice(PhysicalMotionReceipt receipt, AthleteId athlete, long startFraction, long endFraction,
             double lateralBeforeMeters, double lateralAfterMeters)
         {

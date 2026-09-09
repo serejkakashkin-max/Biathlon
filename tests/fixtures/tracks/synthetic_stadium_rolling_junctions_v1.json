@@ -1,0 +1,584 @@
+{
+  "schema_version": 1,
+  "id": "synthetic_stadium_rolling_junctions_v1",
+  "track_id": "synthetic_stadium_rolling_v1",
+  "junctions": [
+    {
+      "id": "penalty_access",
+      "ports": [
+        {
+          "id": "main_entry",
+          "anchor": {
+            "loop_id": "main_long",
+            "distance_m": 900
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 2
+        },
+        {
+          "id": "penalty_seam",
+          "anchor": {
+            "loop_id": "penalty_150",
+            "distance_m": 0
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_1_end",
+          "anchor": {
+            "loop_id": "range_lane_1",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_2_end",
+          "anchor": {
+            "loop_id": "range_lane_2",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_3_end",
+          "anchor": {
+            "loop_id": "range_lane_3",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_4_end",
+          "anchor": {
+            "loop_id": "range_lane_4",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_5_end",
+          "anchor": {
+            "loop_id": "range_lane_5",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_6_end",
+          "anchor": {
+            "loop_id": "range_lane_6",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_7_end",
+          "anchor": {
+            "loop_id": "range_lane_7",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_8_end",
+          "anchor": {
+            "loop_id": "range_lane_8",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_9_end",
+          "anchor": {
+            "loop_id": "range_lane_9",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_10_end",
+          "anchor": {
+            "loop_id": "range_lane_10",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_11_end",
+          "anchor": {
+            "loop_id": "range_lane_11",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_12_end",
+          "anchor": {
+            "loop_id": "range_lane_12",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_13_end",
+          "anchor": {
+            "loop_id": "range_lane_13",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_14_end",
+          "anchor": {
+            "loop_id": "range_lane_14",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_15_end",
+          "anchor": {
+            "loop_id": "range_lane_15",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_16_end",
+          "anchor": {
+            "loop_id": "range_lane_16",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_17_end",
+          "anchor": {
+            "loop_id": "range_lane_17",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_18_end",
+          "anchor": {
+            "loop_id": "range_lane_18",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_19_end",
+          "anchor": {
+            "loop_id": "range_lane_19",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_20_end",
+          "anchor": {
+            "loop_id": "range_lane_20",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_21_end",
+          "anchor": {
+            "loop_id": "range_lane_21",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_22_end",
+          "anchor": {
+            "loop_id": "range_lane_22",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_23_end",
+          "anchor": {
+            "loop_id": "range_lane_23",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_24_end",
+          "anchor": {
+            "loop_id": "range_lane_24",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_25_end",
+          "anchor": {
+            "loop_id": "range_lane_25",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_26_end",
+          "anchor": {
+            "loop_id": "range_lane_26",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_27_end",
+          "anchor": {
+            "loop_id": "range_lane_27",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_28_end",
+          "anchor": {
+            "loop_id": "range_lane_28",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_29_end",
+          "anchor": {
+            "loop_id": "range_lane_29",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        },
+        {
+          "id": "range_lane_30_end",
+          "anchor": {
+            "loop_id": "range_lane_30",
+            "distance_m": 100
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0
+        }
+      ]
+    },
+    {
+      "id": "range_access",
+      "ports": [
+        {
+          "id": "range_main_entry",
+          "anchor": {
+            "loop_id": "main_long",
+            "distance_m": 800
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_1_start",
+          "anchor": {
+            "loop_id": "range_lane_1",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_2_start",
+          "anchor": {
+            "loop_id": "range_lane_2",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_3_start",
+          "anchor": {
+            "loop_id": "range_lane_3",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_4_start",
+          "anchor": {
+            "loop_id": "range_lane_4",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_5_start",
+          "anchor": {
+            "loop_id": "range_lane_5",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_6_start",
+          "anchor": {
+            "loop_id": "range_lane_6",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_7_start",
+          "anchor": {
+            "loop_id": "range_lane_7",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_8_start",
+          "anchor": {
+            "loop_id": "range_lane_8",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_9_start",
+          "anchor": {
+            "loop_id": "range_lane_9",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_10_start",
+          "anchor": {
+            "loop_id": "range_lane_10",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_11_start",
+          "anchor": {
+            "loop_id": "range_lane_11",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_12_start",
+          "anchor": {
+            "loop_id": "range_lane_12",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_13_start",
+          "anchor": {
+            "loop_id": "range_lane_13",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_14_start",
+          "anchor": {
+            "loop_id": "range_lane_14",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_15_start",
+          "anchor": {
+            "loop_id": "range_lane_15",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_16_start",
+          "anchor": {
+            "loop_id": "range_lane_16",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_17_start",
+          "anchor": {
+            "loop_id": "range_lane_17",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_18_start",
+          "anchor": {
+            "loop_id": "range_lane_18",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_19_start",
+          "anchor": {
+            "loop_id": "range_lane_19",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_20_start",
+          "anchor": {
+            "loop_id": "range_lane_20",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_21_start",
+          "anchor": {
+            "loop_id": "range_lane_21",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_22_start",
+          "anchor": {
+            "loop_id": "range_lane_22",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_23_start",
+          "anchor": {
+            "loop_id": "range_lane_23",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_24_start",
+          "anchor": {
+            "loop_id": "range_lane_24",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_25_start",
+          "anchor": {
+            "loop_id": "range_lane_25",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_26_start",
+          "anchor": {
+            "loop_id": "range_lane_26",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_27_start",
+          "anchor": {
+            "loop_id": "range_lane_27",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_28_start",
+          "anchor": {
+            "loop_id": "range_lane_28",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_29_start",
+          "anchor": {
+            "loop_id": "range_lane_29",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        },
+        {
+          "id": "range_lane_30_start",
+          "anchor": {
+            "loop_id": "range_lane_30",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 2
+        }
+      ]
+    }
+  ]
+}

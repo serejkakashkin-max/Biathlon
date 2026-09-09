@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "id": "wp079b_verification",
+  "standalone_counters": [],
+  "standalone_trx_sha256": "9dcc1ce3cc2978234cf6c24bc0f4e7785bdd92ecdf51f7aeb7ae43a813587559",
+  "unity_focused_runs": [
+    {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 450,
+        "PassedTests": 4,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:01:31.5753274"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.StadiumFieldTests.MissingPhysicalConnectionsAndInsufficientLanesFailBeforeAnyTick",
+          "Status": "Passed",
+          "Duration": "00:00:00.1900000"
+        },
+        {
+          "Name": "Biathlon.Tests.StadiumFieldTests.ParallelShootingUsesDistinctPhysicalBodiesAndReplaysTheWholeField",
+          "Status": "Passed",
+          "Duration": "00:00:00.9570000"
+        },
+        {
+          "Name": "Biathlon.Tests.StadiumFieldTests.SoloAlternativePreservesSkiPhysicsAndExactFinish",
+          "Status": "Passed",
+          "Duration": "00:00:00.2540000"
+        },
+        {
+          "Name": "Biathlon.Tests.StadiumFieldTests.ThirtyAthletesUseRangeLanesWithoutQueueCollapse",
+          "Status": "Passed",
+          "Duration": "00:01:29.2910000"
+        }
+      ]
+    },
+    {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 450,
+        "PassedTests": 3,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.9689543"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.PhysicalRangeLaneTests.InvalidLaneDefinitionsCannotHideDifferentPhysicsOrAmbiguousIdentity",
+          "Status": "Passed",
+          "Duration": "00:00:00.0290000"
+        },
+        {
+          "Name": "Biathlon.Tests.PhysicalRangeLaneTests.MappingSeparatesAssignedBodiesAndPreservesBothMouthsAndFinalLapBypass",
+          "Status": "Passed",
+          "Duration": "00:00:00.0160000"
+        },
+        {
+          "Name": "Biathlon.Tests.PhysicalRangeLaneTests.ReceiptProjectionConservesTravelAndRequiresExplicitBranchBoundarySplits",
+          "Status": "Passed",
+          "Duration": "00:00:00.0070000"
+        }
+      ]
+    },
+    {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 450,
+        "PassedTests": 2,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.9559647"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.PhysicalMotionProjectionTests.InvalidProjectionCannotHideBranchCrossingOrForeignCoordinates",
+          "Status": "Passed",
+          "Duration": "00:00:00.0060000"
+        },
+        {
+          "Name": "Biathlon.Tests.PhysicalMotionProjectionTests.SeamAndFullCircuitSlicesConserveNanometresWithoutEndpointSubtraction",
+          "Status": "Passed",
+          "Duration": "00:00:00.0040000"
+        }
+      ]
+    }
+  ],
+  "stadium_trace_fnv64": "780be17e3d4dee9c",
+  "stadium_result_sha256": "6f32f9845c13629d6ad004160bc9731d67b2cc0925d9c82af64039edc1166085",
+  "unity_xml_sha256": "91b331c194a77c2eef579e11ae9266fe5aab10a8ae92c2d62c19061076c13d24",
+  "legacy_wp078_result_hashes_unchanged": true,
+  "generated_fixtures": 8,
+  "console_errors": 0,
+  "console_warnings": 4,
+  "unity_full_run_claimed": false,
+  "note": "450/450 standalone;9/9 focused Unity including twice-complete30-athlete stadium. Older Unity baseline retained; no new full Unity soak run claimed."
+}

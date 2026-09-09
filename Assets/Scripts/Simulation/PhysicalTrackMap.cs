@@ -23,6 +23,8 @@ namespace Biathlon.Simulation
         private readonly int[] sectionLoops;
         private readonly long routeLength;
         public string TrackSnapshotJson { get; }
+        public string RoutePlanSnapshotJson => route.PlanSnapshotJson;
+        public string RouteRequirementsSnapshotJson => route.RequirementsSnapshotJson;
         public PhysicalTrackMap(TrackDefinition track,RaceRoute route)
         {
             if(track==null || route==null) throw new ArgumentNullException();

@@ -21,18 +21,18 @@ internal static class AiBenchmarkLab
     private static void Write(string folder, string name, object value) => File.WriteAllText(Path.Combine(folder, name), JsonSerializer.Serialize(value, Json));
     private static string Hash(string value) => Convert.ToHexString(SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(value))).ToLowerInvariant();
 
-    public static int Execute(string data, string tracks, string output)
+    public static int Execute(string data, string tracks, string output, bool stadium = false)
     {
         Directory.CreateDirectory(output);
         Write(output, "summary.json", new { schema_version = 1, id = "ai_benchmark_v1", status = "incomplete" });
         var summaries = new List<object>();
-        foreach (string track in new[] { "synthetic_flat_v1", "synthetic_rolling_v1" })
+        foreach (string track in stadium ? new[] { "synthetic_stadium_v1", "synthetic_stadium_rolling_v1" } : new[] { "synthetic_flat_v1", "synthetic_rolling_v1" })
         foreach (string level in new[] { "expert", "developing" })
         {
             string id = track + "_" + level + "_123", folder = Path.Combine(output, id);
             Directory.CreateDirectory(folder);
             var counts = new AiDecisionCounts(); var events = new RaceEventLog(200000);
-            var runner = Create(data, tracks, track, level, events, counts); var field = runner.Field;
+            var runner = Create(data, tracks, track, level, events, counts, stadium: stadium); var field = runner.Field;
             File.WriteAllText(Path.Combine(folder, "context.json"), runner.ContextJson);
             var travel = new long[Count]; var phase = new int[Count];
             var phaseTicks = new long[Count, 4]; // staging, shooting, moving on course, stationary on course
@@ -168,7 +168,7 @@ internal static class AiBenchmarkLab
         return 0;
     }
 
-    private static PackAiRaceRunner Create(string data, string tracks, string trackId, string level, RaceEventLog events, IAiDecisionSink sink, int count = Count, int interval = 2)
+    private static PackAiRaceRunner Create(string data, string tracks, string trackId, string level, RaceEventLog events, IAiDecisionSink sink, int count = Count, int interval = 2, bool stadium = false)
     {
         string Read(string name) => File.ReadAllText(Path.Combine(data, name));
         string Fixture(string name) => File.ReadAllText(Path.Combine(tracks, name));
@@ -185,13 +185,15 @@ internal static class AiBenchmarkLab
             entrants[i] = new SprintEntrant(TimeTrialAthlete.FromJson(ski.ToJson().Replace(ski.Id, id)), ShootingAthleteDefinition.FromJson(shot.ToJson().Replace(shot.Id, id)), "ski_neutral");
             profiles[i] = AiPersonalityDefinition.FromJson(Read("ai_personality_" + (i % 2 == 0 ? "attacker" : "patient") + "_v1.json"));
         }
-        var junction = PhysicalJunctionDefinition.FromJson(Fixture("synthetic_flat_junctions_v1.json").Replace("synthetic_flat_v1", trackId), track);
-        var connection = PhysicalConnectionDefinition.FromJson(Fixture("synthetic_flat_connections_v1.json"), junction);
+        string prefix = stadium ? trackId.Substring(0, trackId.Length - 3) : "synthetic_flat";
+        var junction = PhysicalJunctionDefinition.FromJson(Fixture(prefix + "_junctions_v1.json").Replace("synthetic_flat_v1", trackId), track);
+        var connection = PhysicalConnectionDefinition.FromJson(Fixture(prefix + "_connections_v1.json"), junction);
+        var lanes = stadium ? PhysicalRangeLaneDefinition.FromJson(Fixture(prefix + "_lanes_v1.json"), track) : null;
         var field = new PackSprintFieldSession(new SimulationConfig(1, "sprint_field_v1", Frequency, Seed), profile,
             new SkiModelDefinitions(Read), new ShootingModelDefinitions(Read), track, route,
             RaceSnowConditions.FromJson(Read("race_snow_neutral_v1.json")), ResultTimingDefinition.FromJson(Read("result_timing_v1.json")),
             entrants, new SimulationTick(1), "sprint_result_v1", OccupancyDefinition.FromJson(Read("occupancy_provisional_v1.json")),
-            DraftDefinition.FromJson(Read("draft_provisional_v1.json")), OvertakeDefinition.FromJson(Read("overtake_provisional_v1.json")), junction, connection, events);
+            DraftDefinition.FromJson(Read("draft_provisional_v1.json")), OvertakeDefinition.FromJson(Read("overtake_provisional_v1.json")), junction, connection, events, lanes);
         return new PackAiRaceRunner(field, Read, profiles, AiDifficultyDefinition.FromJson(Read("ai_difficulty_" + level + "_v1.json")), Seed, events, sink);
     }
 }

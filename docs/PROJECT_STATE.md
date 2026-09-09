@@ -3,20 +3,20 @@
 Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs.
 
 ```yaml
-project_phase: M6 AI and pack racing; M1–M5 PASS
-active_work_package: WP-079
-active_task: TASK-079B range throughput remediation; next autonomous task
-last_completed_task: TASK-079 AI benchmark; WP-079 DONE (2026-09-09), M6 gate not passed
-last_verified_commit: 9697564949ee883ec839dc2c5ecafb846475bc9d; source checkpoint verified and pushed
+project_phase: M7 Pursuit and Mass Start; M1–M6 PASS
+active_work_package: WP-080
+active_task: TASK-080 Pursuit result dependency contract; next autonomous task
+last_completed_task: TASK-079B physical range throughput; M6 PASS (2026-09-09)
+last_verified_commit: 95249b12c0b5c5a1ecab1e3281455bc6705ee17f; WP079 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
-editmode_tests: 443 current cases covered by WP078 baseline and WP079 focused MCP checks
+editmode_tests: 450 current cases covered by prior baseline and focused MCP checks; WP079B9/9
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
-standalone_tests: 443/443 full stable-JIT run; 16/16 project-config follow-up
+standalone_tests: 450/450 full run (5m54s); stable JIT test project configuration
 unity_console_errors: 0 after WP079 compilation and MCP checks
 unity_console_warnings: 4 MCP lifecycle/reconnect warnings retained; no project compile errors
-current_known_blockers: [M6 gate requires believable range throughput and final-sprint behavior]
+current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-079 M6 technical remediation; M7 not yet unlocked]
+next_unlocked_work_packages: [WP-080]
 ```
 
 ## Work packages
@@ -111,32 +111,38 @@ next_unlocked_work_packages: [WP-079 M6 technical remediation; M7 not yet unlock
 - WP-078 DONE. Three fixed-seed 30-athlete combinations each repeat completely; no overlaps, persistent stalls or sustained lateral oscillation. FIFO junction admission fixes observed penalty-exit starvation. See ADR-0013 and TASK-078 report.
 
 - WP-079 DONE. Four matched-seed30-athlete decision/performance distributions, bounded observer,
-  reproducible queue diagnostics and runtime-controlled allocation tests. M6 is not PASS.
+  reproducible queue diagnostics and runtime-controlled allocation tests. Initial M6 gate failure resolved by TASK079B.
+
+- TASK-079B DONE. Explicit equal-length physical range alternatives, static unique lanes,
+  directed seams and main final-lap bypass remove artificial range queues. M6 PASS.
 
 ## Resume
-Continue autonomously with TASK-079B: range throughput and queue/final-sprint interaction.
-WP079 measured63–74% stationary athlete ticks outside shooting/staging in dense fields, with
-2655–6899 sprint starts. Flat expert queue probe localizes95.93% of stationary ticks to810–850m
-before the firing line. A30-second start interval still leaves428220 stationary on-course ticks.
-Solo and small-field controls are retained. No physical or tuning change has yet been made.
-Do not unlock M7 or label M6 passed from completion/safety alone. No owner decision needed yet.
+Continue autonomously with WP080: versioned Sprint-result dependency for Pursuit. Read GDD12,
+ADR0010 and SprintResultSnapshot validation before implementing. WP081 will schedule exact gaps;
+WP082 adds PPSS/five laps. Do not claim those systems exist from the dependency contract alone.
+No owner blocker. Continue coherent verified commits/push and state updates.
 
-Latest standalone full443/443 passes with tiered compilation disabled. The test project now
-emits System.Runtime.TieredCompilation=false; follow-up16/16 passes without shell overrides.
-Two earlier full runs each failed only the existing Foundation GC assertion (2472/1880bytes);
-full-workload warmup did not resolve it and was reverted. Strict zero allocation remains.
-This is a stable test-runtime mode, not a proven allocation-stack diagnosis. Game/BalanceLab
-runtime settings are unchanged. New observer tests2/2 pass in Unity MCP. Foundation14/14 checked.
-WP078's441-case Unity verification plus the two new cases cover current443; no new full Unity
-soak is claimed. PlayMode7/7 remains WP078's baseline. Console0 errors,4 MCP lifecycle warnings.
+M6 gate: four30-athlete stadium fields finish120 athletes; each fires10 accepted shots and
+activates final sprint once. Stationary fractions2.65–8.08%; no precision fallbacks. Flat expert
+stopped ticks834788→7287, maximum consecutive stall161ticks (8.05s), peak simultaneous shooting9.
+Twice-repeated .NET/Unity stadium result SHA2566f32f9845c13629d6ad004160bc9731d67b2cc0925d9c82af64039edc1166085,
+trace FNV64780be17e3d4dee9c. Solo motion/physiology/finish exactly match unchanged base physics.
 
-Evidence: docs/reports/TASK-079-ai-benchmark-report.md and docs/quality/wp079/{benchmark,queues,
-verification}.json. Local raw artifacts live under artifacts/physiology/wp079-* and
-ai-benchmark-wp079 / ai-queues-wp079. Benchmark sources preserve exact WP078 flat-expert SHA256.
+Latest standalone450/450 full run (5m54s); focused Unity9/9 includes twice-complete30-athlete test.
+Together with prior baseline this covers450 current cases, not one new full Unity suite run.
+Legacy WP078 three result hashes unchanged. PlayMode7/7 remains WP078 baseline. Console0 errors,
+4 MCP lifecycle warnings. MCP timeout restored10000ms. Stable JIT mode is test-project-only;
+Foundation zero-byte assertions and all gameplay/BalanceLab runtime settings are unchanged.
 
-Follow ADR0012/0013: shared continuous geometry, physical drafting, costly lateral movement,
-FIFO junction tickets, retained seam tails and staging/finish retirement. Preserve the WP078
-soak baseline and independent M5 hashes. Range-lane work must not bypass physical collisions.
+Evidence: MILESTONE-M6-REPORT, TASK079/079B reports, docs/quality/wp079 and wp079b, local
+artifacts/physiology/wp079b-* and ai-stadium-wp079b-final. Eight new stadium fixture files reproduce
+exactly with New-SyntheticRangeLanes.ps1. The first wider-junction experiment remains local.
+
+Follow ADR0012–0014. Range mapping is optional: original field behavior/context remains unchanged.
+Explicit lane alternatives require matching terrain/length and directed connections; physical
+bodies, continuous sweeps, seam tails and FIFO remain active. No hidden physical/difficulty bonus.
+Static unique synthetic lanes do not complete WP087's Mass Start rule policy or production3D venue
+validation. Remaining balance calibration is M8. Preserve original fixtures and canonical hashes.
 ## Publication
 Owner explicitly authorized regular commits/push and state updates on2026-09-09.
 Branch: codex/wp-078-ai-pack; origin: https://github.com/serejkakashkin-max/Biathlon.git.
@@ -148,3 +154,5 @@ this checkpoint. Publication: pushed source checkpoint 9697564949ee883ec839dc2c5
 
 Future workflow: after each verified coherent change, update this state with results, commit and push the task branch under the owner's standing authorization. Keep unrelated local edits separate.
 
+
+WP079 publication confirmed: 95249b12c0b5c5a1ecab1e3281455bc6705ee17f on origin/codex/wp-078-ai-pack (2026-09-09).
