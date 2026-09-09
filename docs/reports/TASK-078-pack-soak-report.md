@@ -37,7 +37,7 @@ SHA256 covers results. Repeat assertions compare context, result, digest, tail a
 FNV is a regression fingerprint, not a cryptographic integrity mechanism.
 
 Preflight also saw one2472-byte Foundation GC assertion failure; unchanged focused rerun passed.
-Final full-suite result must confirm this before closure. No failing test was removed or disabled.
+The final full suite subsequently passed unchanged. No failing test was removed or disabled.
 
 Limits: finite fixed-seed synthetic proof, no claim of universal liveness or balanced believable AI.
 Shared synthetic shooting footprints serialize access, so race duration is not a stadium throughput
@@ -64,6 +64,7 @@ pure workload on a cancellable worker and yield frames, preserving Editor respon
 propagating assertion failures back to the test runner. Final cooperative Unity rerun:9/9 passed in20m22s. All three fingerprints match .NET; all441 EditMode cases reconcile successfully.
 
 
-Final PlayMode:7/7, Console0 errors and1 Editor warning; plugin timeout restored to10000ms. The transport response timeout is retained; successful NUnit XML and MCP collector status provide the final evidence. Owner authorized repository publication; see PROJECT_STATE.md for the branch and pushed checkpoint.
+Final PlayMode:7/7, Console0 errors and1 Editor warning; plugin timeout restored to10000ms. The transport response timeout is retained; successful NUnit XML and MCP collector status provide the final evidence. Published source checkpoint 9697564949ee883ec839dc2c5ecafb846475bc9d on codex/wp-078-ai-pack; see PROJECT_STATE.md for continued publication tracking.
 
 Publication verification: a clean archive of the staged Git tree restored, built and passed441/441 tests in3m25s (wp078-publish-snapshot.trx). This includes the unchanged initial-template LFS/icon inconsistency; the owner icon/package/editor changes were not staged.
+

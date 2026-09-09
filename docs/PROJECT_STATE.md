@@ -5,9 +5,9 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 ```yaml
 project_phase: M6 AI and pack racing; M1–M5 PASS
 active_work_package: WP-079
-active_task: none; requested endpoint WP-078 complete; publication ready; isolated Git snapshot441/441 passed
+active_task: none; WP-078 complete and published; next WP-079
 last_completed_task: TASK-078 repeated 30-athlete AI soak; WP-078 DONE (2026-09-09)
-last_verified_commit: pending first development checkpoint; branch codex/wp-078-ai-pack
+last_verified_commit: 9697564949ee883ec839dc2c5ecafb846475bc9d; source checkpoint verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 441/441 verified across full run and cooperative rerun (9/9)
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
@@ -139,5 +139,8 @@ Branch: codex/wp-078-ai-pack; origin: https://github.com/serejkakashkin-max/Biat
 The remote had only the initial template. This checkpoint publishes accumulated game source,
 resources, tests, standalone projects and reports through WP-078. Unrelated local package/editor
 settings, icon changes, local agent configuration and generated plugin dependencies are outside
-this checkpoint. Publication: isolated Git-snapshot restore/build/test passed441/441 in3m25s; initial push pending.
+this checkpoint. Publication: pushed source checkpoint 9697564949ee883ec839dc2c5ecafb846475bc9d to origin/codex/wp-078-ai-pack on2026-09-09. Isolated Git-snapshot restore/build/test passed441/441 in3m25s. This state update is a follow-up documentation commit.
+
+
+Future workflow: after each verified coherent change, update this state with results, commit and push the task branch under the owner's standing authorization. Keep unrelated local edits separate.
 
