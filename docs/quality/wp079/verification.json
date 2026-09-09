@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "id": "wp079_verification",
+  "standalone": [
+    {
+      "file": "wp079-full.trx",
+      "counters": [],
+      "sha256": "dcb28f14c1e5edca46ae21832f99bbc2380211ddfc1b3f5aa24767017b677a51"
+    },
+    {
+      "file": "wp079-full-warmed.trx",
+      "counters": [],
+      "sha256": "54181b0988074686d21d492ec785a88f6a730790a0f16cfb575773b8754df5a9"
+    },
+    {
+      "file": "wp079-full-stable-jit.trx",
+      "counters": [],
+      "sha256": "68b0f7c03c4e744d51ab2e08d53d188aced6c99a1e2056db87a363faa84e84a0"
+    },
+    {
+      "file": "wp079-project-runtime.trx",
+      "counters": [],
+      "sha256": "c828427fa13466a33fd007fdcdab0aec65ad6a4328ef1f9fa62abfac6c7be2f7"
+    }
+  ],
+  "unity_metrics": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 443,
+      "PassedTests": 2,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:01.2289833"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.AiBenchmarkTests.CountingObserverPreservesCompleteRaceAndAccountsEveryDecision",
+        "Status": "Passed",
+        "Duration": "00:00:00.3250000"
+      },
+      {
+        "Name": "Biathlon.Tests.AiBenchmarkTests.HistogramMatchesPublishedSamplesAndWarmCountingDoesNotAllocate",
+        "Status": "Passed",
+        "Duration": "00:00:00.0440000"
+      }
+    ]
+  },
+  "baseline": "WP078 441 verified EditMode cases; PlayMode7/7 unchanged",
+  "tiered_compilation": false,
+  "note": "Initial two default-JIT full runs had one Foundation GC failure each; attempted full warmup reverted. Full stable-JIT run443/443; project-config rerun16/16; strict zero-byte assertion unchanged.",
+  "unity_foundation_final": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 443,
+      "PassedTests": 14,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:00.4645858"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.FoundationTests.CoreAssemblyReferencesNeverIncludeUnity",
+        "Status": "Passed",
+        "Duration": "00:00:00.0060000"
+      },
+      {
+        "Name": "Biathlon.Tests.FoundationTests.DifferentSeedDoesNotAffectSystemsWhichDoNotConsumeRandom",
+        "Status": "Passed",
+        "Duration": "00:00:00.1620000"
+      },
+      {
+        "Name": "Biathlon.Tests.FoundationTests.FingerprintDetectsEventOrderAndPayloadChanges",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.Tests.FoundationTests.FixedClockUsesExactTickAndFrequency(20,10000)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.Tests.FoundationTests.FixedClockUsesExactTickAndFrequency(30,10000)",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.FoundationTests.FixedClockUsesExactTickAndFrequency(7,31)",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.FoundationTests.InvalidDefinitionsAndIdentifiersAreRejected",
+        "Status": "Passed",
+        "Duration": "00:00:00.0030000"
+      },
+      {
+        "Name": "Biathlon.Tests.FoundationTests.InvalidInputBatchIsRejectedBeforeAnyMutation",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.Tests.FoundationTests.RandomSequenceMatchesKnownVectorAndRestoresState",
+        "Status": "Passed",
+        "Duration": "00:00:00.0080000"
+      },
+      {
+        "Name": "Biathlon.Tests.FoundationTests.RecordedInputsReplayIdenticalEvents",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.Tests.FoundationTests.RepeatedAthleteInputsPreserveOrderAndSuppressNoOpEvents",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.Tests.FoundationTests.SameSeed10000TicksHasIdenticalStateAndOrderedEventHash",
+        "Status": "Passed",
+        "Duration": "00:00:00.2080000"
+      },
+      {
+        "Name": "Biathlon.Tests.FoundationTests.StepDoesNotAllocateManagedMemoryAfterWarmup",
+        "Status": "Passed",
+        "Duration": "00:00:00.0030000"
+      },
+      {
+        "Name": "Biathlon.Tests.FoundationTests.WorldsOwnIndependentStateAndRandomStreams",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      }
+    ]
+  }
+}

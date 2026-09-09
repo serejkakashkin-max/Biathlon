@@ -13,14 +13,16 @@ internal static class Program
 {
     private static int Main(string[] args)
     {
-        if (!((args.Length == 3 && (args[0] == "physiology" || args[0] == "generate-tracks" || args[0] == "shooting" || args[0] == "shooting-balance")) || (args.Length == 4 && (args[0] == "ski" || args[0] == "sprint"))))
+        if (!((args.Length == 3 && (args[0] == "physiology" || args[0] == "generate-tracks" || args[0] == "shooting" || args[0] == "shooting-balance")) || (args.Length == 4 && (args[0] == "ski" || args[0] == "sprint" || args[0] == "ai" || args[0] == "ai-queues"))))
         {
-            Console.Error.WriteLine("Usage: Biathlon.BalanceLab physiology|generate-tracks|shooting <data-directory> <output-directory>; ski <data-directory> <track-directory> <output-directory>");
+            Console.Error.WriteLine("Usage: Biathlon.BalanceLab physiology|generate-tracks|shooting|shooting-balance <data-directory> <output-directory>; ski|sprint|ai|ai-queues <data-directory> <track-directory> <output-directory>");
             return 2;
         }
         try
         {
             CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+            if (args[0] == "ai") return AiBenchmarkLab.Execute(Path.GetFullPath(args[1]), Path.GetFullPath(args[2]), Path.GetFullPath(args[3]));
+            if (args[0] == "ai-queues") return AiBenchmarkLab.QueueDiagnostics(Path.GetFullPath(args[1]), Path.GetFullPath(args[2]), Path.GetFullPath(args[3]));
             if (args[0] == "ski") return TimeTrialLab.Execute(Path.GetFullPath(args[1]), Path.GetFullPath(args[2]), Path.GetFullPath(args[3]));
             if (args[0] == "sprint") return SprintLab.Execute(Path.GetFullPath(args[1]), Path.GetFullPath(args[2]), Path.GetFullPath(args[3]));
             string data = Path.GetFullPath(args[1]), output = Path.GetFullPath(args[2]);

@@ -5,18 +5,18 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 ```yaml
 project_phase: M6 AI and pack racing; M1–M5 PASS
 active_work_package: WP-079
-active_task: none; WP-078 complete and published; next WP-079
-last_completed_task: TASK-078 repeated 30-athlete AI soak; WP-078 DONE (2026-09-09)
+active_task: TASK-079B range throughput remediation; next autonomous task
+last_completed_task: TASK-079 AI benchmark; WP-079 DONE (2026-09-09), M6 gate not passed
 last_verified_commit: 9697564949ee883ec839dc2c5ecafb846475bc9d; source checkpoint verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
-editmode_tests: 441/441 verified across full run and cooperative rerun (9/9)
+editmode_tests: 443 current cases covered by WP078 baseline and WP079 focused MCP checks
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
-standalone_tests: 441/441; WP078 full suite passed
-unity_console_errors: 0 after WP-078 final PlayMode verification
-unity_console_warnings: 1 Editor warning; no project compile errors
-current_known_blockers: []
+standalone_tests: 443/443 full stable-JIT run; 16/16 project-config follow-up
+unity_console_errors: 0 after WP079 compilation and MCP checks
+unity_console_warnings: 4 MCP lifecycle/reconnect warnings retained; no project compile errors
+current_known_blockers: [M6 gate requires believable range throughput and final-sprint behavior]
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-079]
+next_unlocked_work_packages: [WP-079 M6 technical remediation; M7 not yet unlocked]
 ```
 
 ## Work packages
@@ -110,29 +110,33 @@ next_unlocked_work_packages: [WP-079]
 - WP-077 DONE. Six real AI scenarios: duel, pack, climb attack, draft train, final sprint, pre-range recovery.
 - WP-078 DONE. Three fixed-seed 30-athlete combinations each repeat completely; no overlaps, persistent stalls or sustained lateral oscillation. FIFO junction admission fixes observed penalty-exit starvation. See ADR-0013 and TASK-078 report.
 
+- WP-079 DONE. Four matched-seed30-athlete decision/performance distributions, bounded observer,
+  reproducible queue diagnostics and runtime-controlled allocation tests. M6 is not PASS.
+
 ## Resume
-User endpoint WP-078 is complete. Next unlocked work: WP-079 AI benchmark report. M6 is not yet
-PASS; believable-competitor distributions and broader balance remain its gate. No owner blocker.
+Continue autonomously with TASK-079B: range throughput and queue/final-sprint interaction.
+WP079 measured63–74% stationary athlete ticks outside shooting/staging in dense fields, with
+2655–6899 sprint starts. Flat expert queue probe localizes95.93% of stationary ticks to810–850m
+before the firing line. A30-second start interval still leaves428220 stationary on-course ticks.
+Solo and small-field controls are retained. No physical or tuning change has yet been made.
+Do not unlock M7 or label M6 passed from completion/safety alone. No owner decision needed yet.
 
-Latest tests: standalone441/441; Unity full-run438 passes plus a successful9/9 scenario rerun
-cover every current441 EditMode case; PlayMode7/7. The original three Unity soak failures were
-180-second test-runner timeouts, retained in XML. Cancellable UnityTest workers now keep the
-Editor responsive and use a1200-second wall-clock timeout; simulated safety/liveness limits
-remain unchanged. Each of six soak races finishes30 athletes. Cross-runtime results and trace
-fingerprints match. Maximum stationary skiing57.4s; maximum rapid reversal chain1; zero overlaps
-and precision fallbacks. Console0 errors,1 Editor warning. MCP timeout restored to10000ms.
+Latest standalone full443/443 passes with tiered compilation disabled. The test project now
+emits System.Runtime.TieredCompilation=false; follow-up16/16 passes without shell overrides.
+Two earlier full runs each failed only the existing Foundation GC assertion (2472/1880bytes);
+full-workload warmup did not resolve it and was reverted. Strict zero allocation remains.
+This is a stable test-runtime mode, not a proven allocation-stack diagnosis. Game/BalanceLab
+runtime settings are unchanged. New observer tests2/2 pass in Unity MCP. Foundation14/14 checked.
+WP078's441-case Unity verification plus the two new cases cover current443; no new full Unity
+soak is claimed. PlayMode7/7 remains WP078's baseline. Console0 errors,4 MCP lifecycle warnings.
 
-Evidence: docs/reports/TASK-074 through TASK-078 reports, docs/quality/wp078 and local
-artifacts/physiology/wp078-* plus ai-soak. Verify-Wp078Evidence.ps1 reconciles the preserved
-full/targeted NUnit XML and exact cross-runtime fingerprints. Raw artifacts remain local.
+Evidence: docs/reports/TASK-079-ai-benchmark-report.md and docs/quality/wp079/{benchmark,queues,
+verification}.json. Local raw artifacts live under artifacts/physiology/wp079-* and
+ai-benchmark-wp079 / ai-queues-wp079. Benchmark sources preserve exact WP078 flat-expert SHA256.
 
-PackSprintFieldSession owns shared movement. Follow ADR-0012 and ADR-0013: continuous safe
-prefixes, costly lateral movement, whole-tick junction exclusion, FIFO approach tickets after
-incumbents, retained seam tails and explicit staging/finish retirement. Do not advance exposed
-athlete sessions separately. Independent M5 hashes are unchanged. Synthetic shared shooting
-footprints serialize access; venue lane authoring and realism/performance distributions remain
-later roadmap work.
-
+Follow ADR0012/0013: shared continuous geometry, physical drafting, costly lateral movement,
+FIFO junction tickets, retained seam tails and staging/finish retirement. Preserve the WP078
+soak baseline and independent M5 hashes. Range-lane work must not bypass physical collisions.
 ## Publication
 Owner explicitly authorized regular commits/push and state updates on2026-09-09.
 Branch: codex/wp-078-ai-pack; origin: https://github.com/serejkakashkin-max/Biathlon.git.

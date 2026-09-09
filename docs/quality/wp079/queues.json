@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "id": "ai_queue_diagnostics_v1",
+  "status": "completed",
+  "location_bins": "Physical loop id and start of a 10-metre bin; intervals [start,start\u002B10). Tick-start on-course, excluding shooting/staging/finished.",
+  "scenarios": [
+    {
+      "id": "flat_expert_123_1_interval_2",
+      "count": 1,
+      "start_interval_seconds": 2,
+      "ticks": 7762,
+      "stationary_on_course_ticks": 0,
+      "moving_on_course_ticks": 6716,
+      "sprint_starts": 1,
+      "intent_changes": 9,
+      "result_sha256": "87f3d806105827d99440dfc0c594bd5ef3ff1e5ea845b90c3a5307a1755103b0",
+      "context_sha256": "979f27b757408d6c7dc8fd09e693fa43f6589ffc1f3c07548f1819bad97d2f73",
+      "stationary_locations": []
+    },
+    {
+      "id": "flat_expert_123_2_interval_2",
+      "count": 2,
+      "start_interval_seconds": 2,
+      "ticks": 8582,
+      "stationary_on_course_ticks": 380,
+      "moving_on_course_ticks": 13744,
+      "sprint_starts": 2,
+      "intent_changes": 330,
+      "result_sha256": "430b85e859fb5c8a6bfde1d2a3dd7425b6c6967bdfec72a5cb3148b6f83467a4",
+      "context_sha256": "50b763d2764e612d4c9c8a1819eb12390362a42d80cbd349e4a7be6da34324cb",
+      "stationary_locations": [
+        {
+          "Key": "main_long:840",
+          "Value": 380
+        }
+      ]
+    },
+    {
+      "id": "flat_expert_123_6_interval_2",
+      "count": 6,
+      "start_interval_seconds": 2,
+      "ticks": 11592,
+      "stationary_on_course_ticks": 10688,
+      "moving_on_course_ticks": 43975,
+      "sprint_starts": 6,
+      "intent_changes": 1028,
+      "result_sha256": "442824f7b69290561dc8f48d6e90e4e3bc64e701e9ed3aab454889da60a35060",
+      "context_sha256": "c095ea67ea988dfceaadf62ea8ff8072a2c70b8a93d60217dd45436eb88133a1",
+      "stationary_locations": [
+        {
+          "Key": "main_long:840",
+          "Value": 10590
+        },
+        {
+          "Key": "main_long:890",
+          "Value": 98
+        }
+      ]
+    },
+    {
+      "id": "flat_expert_123_30_interval_2",
+      "count": 30,
+      "start_interval_seconds": 2,
+      "ticks": 42153,
+      "stationary_on_course_ticks": 834788,
+      "moving_on_course_ticks": 322781,
+      "sprint_starts": 5084,
+      "intent_changes": 22592,
+      "result_sha256": "ed8473687eecee9a3a1c970c57ee9bdfffc1c638c6cce15ee5301c13bd334c27",
+      "context_sha256": "2b91100fd41b711810f693fb650e93cbbfb59441ff590a303110a06506ca114d",
+      "stationary_locations": [
+        {
+          "Key": "main_long:830",
+          "Value": 226003
+        },
+        {
+          "Key": "main_long:840",
+          "Value": 201012
+        },
+        {
+          "Key": "main_long:820",
+          "Value": 187572
+        },
+        {
+          "Key": "main_long:810",
+          "Value": 186220
+        },
+        {
+          "Key": "main_long:890",
+          "Value": 12985
+        },
+        {
+          "Key": "main_long:880",
+          "Value": 12378
+        },
+        {
+          "Key": "main_long:870",
+          "Value": 6583
+        },
+        {
+          "Key": "main_long:860",
+          "Value": 1479
+        },
+        {
+          "Key": "main_long:800",
+          "Value": 556
+        }
+      ]
+    },
+    {
+      "id": "flat_expert_123_30_interval_30",
+      "count": 30,
+      "start_interval_seconds": 30,
+      "ticks": 40723,
+      "stationary_on_course_ticks": 428220,
+      "moving_on_course_ticks": 260732,
+      "sprint_starts": 3856,
+      "intent_changes": 15156,
+      "result_sha256": "8f63a94fb754e86133666fb61c5936145148dcea25c436ad91234687f941e140",
+      "context_sha256": "74167e004d4e3166ae2b274196f0a0c0e548c435e345c10f43a993e55828aca7",
+      "stationary_locations": [
+        {
+          "Key": "main_long:840",
+          "Value": 176288
+        },
+        {
+          "Key": "main_long:830",
+          "Value": 165782
+        },
+        {
+          "Key": "main_long:820",
+          "Value": 76497
+        },
+        {
+          "Key": "main_long:890",
+          "Value": 4970
+        },
+        {
+          "Key": "main_long:810",
+          "Value": 3641
+        },
+        {
+          "Key": "main_long:880",
+          "Value": 1042
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><TargetFramework>net8.0</TargetFramework><LangVersion>9.0</LangVersion><EnableDefaultCompileItems>false</EnableDefaultCompileItems><IsTestProject>true</IsTestProject><IsPackable>false</IsPackable><TreatWarningsAsErrors>true</TreatWarningsAsErrors></PropertyGroup>
+  <!-- Keep zero-allocation measurements in a stable JIT mode. This affects the test
+       host only; the game and BalanceLab retain their own runtime configuration. -->
+  <PropertyGroup><TieredCompilation>false</TieredCompilation></PropertyGroup>
   <ItemGroup>
     <Compile Include="../../Assets/Tests/EditMode/**/*.cs" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
