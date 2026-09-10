@@ -10,7 +10,7 @@ namespace Biathlon.Tests
     public class PursuitFieldTests
     {
         public static PackAiRaceRunner Create(PursuitQualificationSnapshot q, RaceEventLog events, IAiDecisionSink sink,
-            bool reverseRoster = false, CompetitionProfile overrideProfile = null)
+            bool reverseRoster = false, CompetitionProfile overrideProfile = null, ulong seed = 123, string difficulty = "expert")
         {
             string Read(string name) => PhysiologyContractTests.DefinitionJson(name);
             string Fixture(string name) => PhysiologyContractTests.ProjectFile("tests/fixtures/tracks/"+name);
@@ -29,11 +29,11 @@ namespace Biathlon.Tests
             var junctions=PhysicalJunctionDefinition.FromJson(Fixture("synthetic_stadium_junctions_v1.json"),track);
             var connections=PhysicalConnectionDefinition.FromJson(Fixture("synthetic_stadium_connections_v1.json"),junctions);
             var lanes=PhysicalRangeLaneDefinition.FromJson(PhysicalRangeLaneTests.Json(),track);
-            var field=new PackSprintFieldSession(new SimulationConfig(1,"pursuit_field_v1",20,123),profile,new SkiModelDefinitions(Read),
+            var field=new PackSprintFieldSession(new SimulationConfig(1,"pursuit_field_v1",20,seed),profile,new SkiModelDefinitions(Read),
                 new ShootingModelDefinitions(Read),track,route,SnowConditionTests.Conditions(),SprintResultsTests.Timing(),entrants,
                 new SimulationTick(1),"pursuit_result_v1",OccupancyTests.Definition(),DraftingTests.Definition(),OvertakeTests.Definition(),
                 junctions,connections,events,lanes,q);
-            return new PackAiRaceRunner(field,Read,personalities,AiDifficultyTests.Definition("expert"),123,events,sink);
+            return new PackAiRaceRunner(field,Read,personalities,AiDifficultyTests.Definition(difficulty),seed,events,sink);
         }
         [Test] public void CompleteSprintFeedsRepeatedSharedPursuitWithExactStartsAndPpss()
         {

@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "id": "wp084_verification",
+  "standalone_passed": 17,
+  "unity_passed": 6,
+  "console_errors": 0,
+  "dotnet_unity_match": true,
+  "cases": [
+    {
+      "count": 3,
+      "completed_overtakes": 0,
+      "max_stall_ticks": 0,
+      "gap_s": 0,
+      "result_sha256": "02ea6e3a27fe9b0118892a9e0b6dc337fa15b0058b791f24e99e596ce9366c8f",
+      "seed": 123,
+      "penalties": 3,
+      "difficulty": "expert",
+      "ticks": 14449
+    },
+    {
+      "count": 6,
+      "completed_overtakes": 3,
+      "max_stall_ticks": 9,
+      "gap_s": 2,
+      "result_sha256": "dba9d5f4c691d624c7dd3d2d28e8ba86b9f38b1a51ce0a420ad85b88e9e66236",
+      "seed": 456,
+      "penalties": 45,
+      "difficulty": "developing",
+      "ticks": 18986
+    },
+    {
+      "count": 6,
+      "completed_overtakes": 0,
+      "max_stall_ticks": 8,
+      "gap_s": 30,
+      "result_sha256": "c4ffab38731bb2f209b865b769af4379fb8ca79150c94ecea1d6a563480c1af0",
+      "seed": 789,
+      "penalties": 3,
+      "difficulty": "expert",
+      "ticks": 16624
+    }
+  ],
+  "evidence": [
+    {
+      "path": "artifacts/physiology/wp084-final.trx",
+      "sha256": "359a0be5109629841938bf784cc2a9fd01dd13af979f9e3175934f9a8e44c1b0"
+    },
+    {
+      "path": "artifacts/physiology/wp084-unity-final.json",
+      "sha256": "97371022c7f6ae24d4bed6cd2d7ecfdfa0fc703ca26db0a5d6560714e3b2971f"
+    },
+    {
+      "path": "artifacts/physiology/wp084-unity-results.xml",
+      "sha256": "6757c9d0068aa21c091aa8cb923436ac1ff2a8de97a94836e6d501dd017599f3"
+    },
+    {
+      "path": "artifacts/physiology/wp084-unity-close-finishes.json",
+      "sha256": "9d10ebf8096c0d63936b2727a8893084176ea85cb00a2030e9edc715a762ba50"
+    },
+    {
+      "path": "artifacts/physiology/wp084-unity-starts.json",
+      "sha256": "9d6564d2ef90a4918524d9bb16ab0760f50bb279e9497e2364990211317d1b1c"
+    },
+    {
+      "path": "artifacts/physiology/wp084-console.json",
+      "sha256": "fe12688b313aaf88f359a4aa4fb34a1d0ca130bfebe84efd0e9f197502c60840"
+    }
+  ]
+}
