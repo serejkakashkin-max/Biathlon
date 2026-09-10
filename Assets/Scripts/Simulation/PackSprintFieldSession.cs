@@ -27,6 +27,11 @@ namespace Biathlon.Simulation
         private readonly PhysicalStartApproachMap startOverlay;
         public MassStartGrid StartGrid { get; }
         public StartApproachMap StartApproach => startOverlay?.Approach;
+        private readonly PhysicalMotionProjection[][] orderedLaneProjections;
+        private readonly int[] assignedLane, workingLane, assignedBout, workingBout, arrivals, workingArrivals;
+        private readonly long[] rangeForks;
+        private readonly ShootingLaneAssignment[] orderedShootingLanes;
+        public int GetAssignedRangeLane(int index) => assignedLane==null?index+1:assignedLane[index]+1;
         private readonly PhysicalJunctionMap junctions;
         private readonly PhysicalConnectionMap connections;
         private readonly PhysicalConnectionDefinition connectionDefinition;
@@ -78,7 +83,7 @@ namespace Biathlon.Simulation
             OccupancyDefinition body, DraftDefinition draft, OvertakeDefinition movement,
             PhysicalJunctionDefinition junctionDefinition, PhysicalConnectionDefinition connectionDefinition, IRaceEventSink events,
             PhysicalRangeLaneDefinition rangeLanes = null, PursuitQualificationSnapshot qualification = null,
-            MassStartGrid massGrid = null, StartApproachMap startApproach = null)
+            MassStartGrid massGrid = null, StartApproachMap startApproach = null, MassStartRangePolicyDefinition rangePolicy = null)
         {
             this.events = events ?? throw new ArgumentNullException(nameof(events)); this.movement = movement ?? throw new ArgumentNullException(nameof(movement));
             field = new SprintFieldSession(config, profile, skiModel, shootingModel, track, route, conditions, timing, entrants, firstStart, resultId, events, qualification,massGrid,startApproach);
@@ -120,6 +125,31 @@ namespace Biathlon.Simulation
                 rangeProjections=new PhysicalMotionProjection[Count];
                 for(int i=0;i<Count;i++)rangeProjections[i]=new PhysicalMotionProjection(map,1.0/frequency,null,startApproach,-massGrid.Get(i).LongitudinalNanometers,startOverlay);
             }
+            if(rangePolicy!=null)
+            {
+                if(massGrid==null || rangeMaps==null)throw new ArgumentException("Mass Start ordered lanes require grid and physical range branches.");
+                assignedLane=new int[Count];workingLane=new int[Count];assignedBout=new int[Count];workingBout=new int[Count];
+                arrivals=new int[profile.BoutCount];workingArrivals=new int[profile.BoutCount];rangeForks=new long[profile.BoutCount];
+                arrivals[0]=Count;orderedLaneProjections=new PhysicalMotionProjection[Count][];
+                orderedShootingLanes=new ShootingLaneAssignment[Count];
+                for(int i=0;i<Count;i++)
+                {
+                    assignedLane[i]=workingLane[i]=i;orderedLaneProjections[i]=new PhysicalMotionProjection[Count];
+                    orderedShootingLanes[i]=new ShootingLaneAssignment(track.Range.Id,"synthetic_lane_"+(i+1).ToString(System.Globalization.CultureInfo.InvariantCulture),i+1);
+                    for(int j=0;j<Count;j++)orderedLaneProjections[i][j]=new PhysicalMotionProjection(map,1.0/frequency,rangeMaps[j],startApproach,-massGrid.Get(i).LongitudinalNanometers,startOverlay);
+                }
+                for(int b=0;b<profile.BoutCount;b++)
+                {
+                    int matches=0;
+                    for(int s=0;s<route.SectionCount;s++)
+                    {
+                        var section=route.GetSection(s);
+                        if(section.LapIndex+1==profile.GetBout(b).AfterLap && section.LoopId==rangeLanes.MainLoopId)
+                        {rangeForks[b]=(section.Start.Millimeters+rangeLanes.Entry.Millimeters)*SkiState.NanometersPerMillimeter;matches++;}
+                    }
+                    if(matches!=1)throw new ArgumentException("One physical range fork per bout required.");
+                }
+            }
             widths = new OccupancySystem(body); occupancy = new PhysicalOccupancySystem(map, body); drafting = new DraftingSystem(draft);
             penaltySampler = new TrackSampler(track.GetLoop(track.Penalty.LoopId));
             halfBody = (long)Math.Ceiling(body.LongitudinalSeparation * SkiState.NanometersPerMeter / 2);
@@ -154,6 +184,7 @@ namespace Biathlon.Simulation
                 "tick_start_periodic_draft;fixed_tick_lateral;prefix_stop_mm_quantum;full_interval_junction;seam_tail_lateral_lock;staging_before_admission;finish_exit;fraction_nearest_even_1e9;precision_keep_first_mover;contact_from_replan;junction_fifo_after_incumbent_v1" });
             if (rangeLanes != null) ContextJson = ShootingModelDefinitions.EncodeContext(new[] { ContextJson, rangeLanes.ToJson(), "physical_range_lanes_v1;unique_roster_slot_lane;last_lap_main_bypass" });
             if(startOverlay!=null)ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,startOverlay.ContextJson,"grid_bodies_present_before_gun_v1"});
+            if(rangePolicy!=null)ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,rangePolicy.ToJson(),"arrival_at_physical_fork;exclusive_entry_tick_order;first_bib_then_bout_arrival_v1"});
         }
 
         public void Step(ReadOnlySpan<SprintAthleteInput> inputs, ReadOnlySpan<double> requestedLateral)
@@ -162,6 +193,7 @@ namespace Biathlon.Simulation
             if (requestedLateral.Length != Count) throw new ArgumentException("Complete lateral command batch required.");
             for (int i = 0; i < Count; i++) PhysiologyNumbers.RequireRange(requestedLateral[i], -1000000, 1000000, nameof(requestedLateral));
             var tick = Tick.Next();
+            ResetLanePlan();
             // Snapshot all physical starts before preparing any athlete.
             for (int i = 0; i < Count; i++)
             {
@@ -210,6 +242,7 @@ namespace Biathlon.Simulation
             {
                 int i = order[rank]; var athlete = GetAthlete(i);
                 if (!active[i] || athlete.HasFinished) { processed[i] = true; continue; }
+                PrepareLaneChoice(i);
                 if (!Safe(i))
                 {
                     constrained[i] = true;
@@ -232,6 +265,7 @@ namespace Biathlon.Simulation
                     }
                     PrepareCandidate(i, inputs[i], low * SkiState.NanometersPerMillimeter, lateral[i]);
                 }
+                AcceptLaneArrival(i);
                 processed[i] = true;
             }
             // All physical plans and athlete handles are validated before any authoritative commit/event.
@@ -257,13 +291,39 @@ namespace Biathlon.Simulation
                         previews[i].Movement.Motion.DistanceNanometers > GetAthlete(i).Motion.DistanceNanometers);
                     PrepareCandidate(i, inputs[i], 0, lateral[i]);
                 }
+                if(assignedLane!=null)
+                {
+                    // Cancel speculative assignments with cancelled trajectories. Rebuild the retained
+                    // entrant against committed counters and all stationary bodies before admission.
+                    ResetLanePlan();
+                    for(int i=0;i<Count;i++)BuildTrace(i,previews[i],i==keep?traces[i].LateralEnd:lateral[i]);
+                    if(keep>=0)
+                    {
+                        PrepareLaneChoice(keep);
+                        if(!Safe(keep))PrepareCandidate(keep,inputs[keep],0,lateral[keep]);
+                        AcceptLaneArrival(keep);
+                    }
+                }
                 ValidateCommonBoundaries(); precisionFallback = true;
             }
             for (int i = 0; i < Count; i++) if (!GetAthlete(i).HasFinished) GetAthlete(i).ValidatePreparedCommit(previews[i]);
             for (int i = 0; i < Count; i++) if (active[i])
                 for (int j = 0; j < i; j++) if (active[j] && Conflict(traces[i], i, traces[j], j))
                     throw new InvalidOperationException("Final pack trajectory verification failed.");
+            if(assignedLane!=null)
+                for(int i=0;i<Count;i++)if(workingBout[i]!=assignedBout[i])
+                    GetAthlete(i).SetRangeLane(orderedShootingLanes[workingLane[i]]);
             field.CommitPrepared(inputs, previews);
+            if(assignedLane!=null)
+            {
+                for(int i=0;i<Count;i++)
+                {
+                    if(workingBout[i]!=assignedBout[i])assignedLane[i]=workingLane[i];
+                    if(workingBout[i]!=assignedBout[i] || tick.Value==GetAthlete(i).ScheduledStart.Value)
+                        events.Record(new RaceEvent(tick,frequency,GetAthlete(i).AthleteId,RaceEventType.MassStartRangeLaneAssigned,assignedLane[i]+1));
+                }
+                Array.Copy(workingBout,assignedBout,Count);Array.Copy(workingArrivals,arrivals,arrivals.Length);
+            }
             Array.Copy(preparedJunctionWaitSince, junctionWaitSince, Count);
             if (precisionFallback) PrecisionFallbackTicks++;
             Array.Copy(drafts, committedDrafts, Count);
@@ -293,14 +353,34 @@ namespace Biathlon.Simulation
             BuildTrace(i, previews[i], line);
         }
         private PhysicalTrackPoint RoutePoint(int index, long distance, PhysicalBoundarySide side = PhysicalBoundarySide.Outgoing)
-            => rangeMaps == null ? map.MapRoute(distance, side) : rangeMaps[index].MapRoute(distance, side);
-        private PhysicalMotionProjection Projection(int index) => rangeProjections == null ? projection : rangeProjections[index];
+            => rangeMaps == null ? map.MapRoute(distance, side) : rangeMaps[workingLane==null?index:workingLane[index]].MapRoute(distance, side);
+        private PhysicalMotionProjection Projection(int index) => orderedLaneProjections!=null ? orderedLaneProjections[index][workingLane[index]] : rangeProjections == null ? projection : rangeProjections[index];
+        private void ResetLanePlan()
+        {
+            if(assignedLane==null)return;
+            Array.Copy(assignedLane,workingLane,Count);Array.Copy(assignedBout,workingBout,Count);Array.Copy(arrivals,workingArrivals,arrivals.Length);
+        }
+        private void PrepareLaneChoice(int i)
+        {
+            if(assignedLane==null)return;var actor=GetAthlete(i);int bout=actor.ActiveBout;
+            if(bout<=assignedBout[i])return;
+            if(!previews[i].MovementActive || previews[i].Movement.RouteNanometers<rangeForks[bout])return;
+            if(workingArrivals[bout]>=Count)throw new InvalidOperationException("Range arrival capacity exhausted.");
+            workingLane[i]=workingArrivals[bout];BuildTrace(i,previews[i],traces[i].LateralEnd);
+        }
+        private void AcceptLaneArrival(int i)
+        {
+            if(assignedLane==null)return;var actor=GetAthlete(i);int bout=actor.ActiveBout;
+            if(bout>assignedBout[i] && previews[i].MovementActive && previews[i].Movement.RouteNanometers>=rangeForks[bout])
+            {workingBout[i]=bout;workingArrivals[bout]++;}
+        }
         private PhysicalTrackPoint CurrentPoint(int index)
         {
             var athlete = GetAthlete(index);
             if(athlete.RemainingStartApproachNanometers>0)return startOverlay.MapRemaining(athlete.RemainingStartApproachNanometers);
             var range = athlete.CurrentRangeMotion;
-            return range.HasValue && range.Value.Phase == RangeTraversalPhase.PenaltyLoop ? map.MapPenalty(range.Value.PenaltyNanometers) : RoutePoint(index, athlete.RouteNanometers);
+            return range.HasValue && range.Value.Phase == RangeTraversalPhase.PenaltyLoop ? map.MapPenalty(range.Value.PenaltyNanometers) :
+                assignedLane==null ? RoutePoint(index, athlete.RouteNanometers) : rangeMaps[assignedLane[index]].MapRoute(athlete.RouteNanometers);
         }
         private DraftOutput Draft(int index, SprintAthleteInput input)
         {

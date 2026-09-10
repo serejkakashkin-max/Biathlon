@@ -8,7 +8,7 @@ namespace Biathlon.Tests
 {
     public class MassStartFieldTests
     {
-        public static PackAiRaceRunner Create(int count,RaceEventLog events,IAiDecisionSink sink,ulong seed=123,string difficulty="expert",string prefix="synthetic_mass_stadium")
+        public static PackAiRaceRunner Create(int count,RaceEventLog events,IAiDecisionSink sink,ulong seed=123,string difficulty="expert",string prefix="synthetic_mass_stadium",bool orderedLanes=false)
         {
             string Read(string name)=>PhysiologyContractTests.DefinitionJson(name);
             string Fixture(string name)=>PhysiologyContractTests.ProjectFile("tests/fixtures/tracks/"+name);
@@ -28,7 +28,7 @@ namespace Biathlon.Tests
             var approach=new StartApproachMap(track,route,StartApproachDefinition.FromJson(Read("start_approach_test_v1.json").Replace("synthetic_mass_start_v1",track.Id)));
             var field=new PackSprintFieldSession(new SimulationConfig(1,"mass_start_field_v1",20,seed),profile,new SkiModelDefinitions(Read),new ShootingModelDefinitions(Read),track,route,
                 SnowConditionTests.Conditions(),SprintResultsTests.Timing(),entrants,new SimulationTick(1),"mass_start_result_v1",body,DraftingTests.Definition(),OvertakeTests.Definition(),
-                junctions,connections,events,lanes,massGrid:grid,startApproach:approach);
+                junctions,connections,events,lanes,massGrid:grid,startApproach:approach,rangePolicy:orderedLanes?MassStartRangePolicyDefinition.FromJson(Read("mass_start_range_policy_v1.json")):null);
             return new PackAiRaceRunner(field,Read,personalities,AiDifficultyTests.Definition(difficulty),seed,events,sink);
         }
         public static void AssertClear(PackSprintFieldSession field)

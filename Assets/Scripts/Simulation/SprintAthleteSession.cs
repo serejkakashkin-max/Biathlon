@@ -57,7 +57,13 @@ namespace Biathlon.Simulation
         public string StartApproachContextJson { get; }
         private readonly RangePenaltyTraversal[] ranges;
         private readonly ShootingSession[] shooting;
-        private readonly ShootingLaneAssignment lane;
+        private ShootingLaneAssignment lane;
+        public ShootingLaneAssignment AssignedShootingLane => lane;
+        internal void SetRangeLane(ShootingLaneAssignment assignment)
+        {
+            if(assignment.RangeId!=lane.RangeId || assignment.Ordinal<=0 || ActiveShooting!=null)throw new InvalidOperationException("Assign physical lane before reaching the mat.");
+            lane=assignment;
+        }
         private readonly ShootingWindSystem windValidation;
         private readonly TuckSystem tuck;
         private readonly FinalSprintSystem sprint;
@@ -331,5 +337,3 @@ namespace Biathlon.Simulation
         { if (next != previous) events.Record(new RaceEvent(Tick, config.TickFrequency, AthleteId, next ? start : end, 0)); previous = next; }
     }
 }
-
-
