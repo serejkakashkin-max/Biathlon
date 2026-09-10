@@ -7,7 +7,7 @@ project_phase: M7 Pursuit and Mass Start; M1–M6 PASS
 active_work_package: WP-085
 active_task: TASK-085B2 shared physical field and parallel approach seam
 last_completed_task: TASK-085B1 physiological approach and exact route handoff (2026-09-10)
-last_verified_commit: 3e342206926e6f32053759356012163077e8f79c; TASK085A verified and pushed
+last_verified_commit: a171ec99a4b0959ab28fce00a96cdf2815c4e0bc; TASK085B1 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 475 discovered; WP085B1 Unity10/10 and prior baselines
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
@@ -192,3 +192,5 @@ WP085A grid/kernel evidence:30 bodies,1200ticks, min travel504840986125nm, trace
 Fixed350W kernel fixture is not full AI/physiology integration; see docs/reports/TASK-085A-REPORT.md.
 
 TASK085A publication confirmed:3e342206926e6f32053759356012163077e8f79c on origin/codex/wp-078-ai-pack (2026-09-10).
+
+TASK085B1 publication confirmed: a171ec99a4b0959ab28fce00a96cdf2815c4e0bc on origin/codex/wp-078-ai-pack (2026-09-10).
