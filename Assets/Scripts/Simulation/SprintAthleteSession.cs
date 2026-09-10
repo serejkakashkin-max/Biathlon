@@ -107,10 +107,10 @@ namespace Biathlon.Simulation
         {
             if (config == null || profile == null || skiModel == null || shootingModel == null || skiAthlete == null || shootingAthlete == null ||
                 track == null || route == null || checkpoints == null || events == null) throw new ArgumentNullException();
-            if (profile.Format != CompetitionFormat.Sprint || scheduledStart.Value <= 0 || skiAthlete.Id != shootingAthlete.Id ||
+            if ((profile.Format != CompetitionFormat.Sprint && profile.Format != CompetitionFormat.Pursuit) || scheduledStart.Value <= 0 || skiAthlete.Id != shootingAthlete.Id ||
                 route.CompetitionProfileId != profile.Id || checkpoints.RouteId != route.Id || checkpoints.RoutePlanJson != route.PlanSnapshotJson ||
                 checkpoints.TrackJson != track.ToJson() || lane.RangeId != track.Range.Id || lane.Ordinal <= 0)
-                throw new ArgumentException("Invalid Sprint identities/start/lane.");
+                throw new ArgumentException("Invalid supported race format, identities, start or lane.");
             this.config = config; this.profile = profile; this.skiAthlete = skiAthlete; this.shootingAthlete = shootingAthlete;
             this.shootingModel = shootingModel; this.route = route; this.events = events; this.lane = lane; ScheduledStart = scheduledStart;
             maximumHeadwind = skiModel.Physics.MaximumHeadwindMetersPerSecond;

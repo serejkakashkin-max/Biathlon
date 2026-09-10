@@ -5,14 +5,14 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 ```yaml
 project_phase: M7 Pursuit and Mass Start; M1–M6 PASS
 active_work_package: WP-082
-active_task: TASK-082 PPSS five-lap orchestration; next unlocked task
-last_completed_task: TASK-081 exact Pursuit gap starts (2026-09-10)
-last_verified_commit: 123631efcbc5594f040c3d0b8de9e3a379d09a19; TASK079B and M6 verified and pushed
+active_task: TASK-082B Pursuit field orchestration and finish-order classification
+last_completed_task: TASK-082A shared five-lap PPSS athlete lifecycle (2026-09-10)
+last_verified_commit: c3dee53; TASK081 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
-editmode_tests: 450 current cases covered by prior baseline and focused MCP checks; WP079B9/9
+editmode_tests: 459 discovered; WP0808/8, WP0816/6, WP082A6/6 focused MCP; prior M6 baseline retained
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
-standalone_tests: 450/450 full run (5m54s); stable JIT test project configuration
-unity_console_errors: 0 after WP079 compilation and MCP checks
+standalone_tests: prior full450/450; latest WP082A lifecycle6/6 and regression/replay/Pursuit14/14
+unity_console_errors: 0 after WP082A compilation and MCP checks
 unity_console_warnings: 4 MCP lifecycle/reconnect warnings retained; no project compile errors
 current_known_blockers: []
 owner_decisions_needed: []
@@ -120,6 +120,8 @@ next_unlocked_work_packages: [WP-082]
 
 - WP-081 DONE. Exact registered-gap starts, simultaneous ties, atomic validation and replay verified.
 
+- WP-082 IN PROGRESS. TASK-082A verified shared PPSS athlete lifecycle; field integration and classification remain TASK-082B.
+
 ## Resume
 WP080 DONE: focused .NET8/8 and Unity MCP8/8, Console0 errors; discovery454. See TASK-080-REPORT.
 WP081 DONE: .NET10/10, Unity MCP6/6; exact tied starts and zero tick allocations. Discovery457.
@@ -167,3 +169,7 @@ M6 publication confirmed: 123631efcbc5594f040c3d0b8de9e3a379d09a19 on origin/cod
 
 
 WP080 publication confirmed: 4fefea1 on origin/codex/wp-078-ai-pack (2026-09-10).
+
+WP081 publication confirmed: c3dee53 on origin/codex/wp-078-ai-pack (2026-09-10).
+TASK082A verified: .NET6/6 and regression14/14; Unity MCP6/6, Console0 errors.
+Next concrete task: TASK082B Pursuit field and global finish ordering. No owner blocker.
