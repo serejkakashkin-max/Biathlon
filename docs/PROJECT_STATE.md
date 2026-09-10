@@ -7,7 +7,7 @@ project_phase: M7 Pursuit and Mass Start; M1–M6 PASS
 active_work_package: WP-085
 active_task: TASK-085 Mass Start simultaneous grid and launch; next unlocked
 last_completed_task: TASK-084 Pursuit regression suite (2026-09-10)
-last_verified_commit: 1150138; TASK083 verified and pushed; TASK084 checks complete
+last_verified_commit: 7e52280e0873863ef6a979327ce1c67e1d54ce34; TASK084 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 467 discovered; WP084 Unity6/6 and prior baselines
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
@@ -183,3 +183,5 @@ WP083 intentional Pursuit baseline14342ticks/result449333e5ccdfc60908353e5471f23
 
 WP083 publication confirmed:1150138 on origin/codex/wp-078-ai-pack.
 WP084 three scenario result hashes match .NET/Unity (docs/quality/wp084); max skiing stall9ticks (0.45s).
+
+WP084 publication confirmed:7e52280e0873863ef6a979327ce1c67e1d54ce34 on origin/codex/wp-078-ai-pack (2026-09-10).
