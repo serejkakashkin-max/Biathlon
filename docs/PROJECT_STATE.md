@@ -4,9 +4,9 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M7 Pursuit and Mass Start; M1–M6 PASS
-active_work_package: WP-081
-active_task: TASK-081 exact Pursuit gap starts; next unlocked task
-last_completed_task: TASK-080 versioned Pursuit dependency (2026-09-10)
+active_work_package: WP-082
+active_task: TASK-082 PPSS five-lap orchestration; next unlocked task
+last_completed_task: TASK-081 exact Pursuit gap starts (2026-09-10)
 last_verified_commit: 123631efcbc5594f040c3d0b8de9e3a379d09a19; TASK079B and M6 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 450 current cases covered by prior baseline and focused MCP checks; WP079B9/9
@@ -16,7 +16,7 @@ unity_console_errors: 0 after WP079 compilation and MCP checks
 unity_console_warnings: 4 MCP lifecycle/reconnect warnings retained; no project compile errors
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-081]
+next_unlocked_work_packages: [WP-082]
 ```
 
 ## Work packages
@@ -118,9 +118,12 @@ next_unlocked_work_packages: [WP-081]
 
 - WP-080 DONE. Versioned Sprint dependency, registered tied gaps, context validation and actual AI-result import verified.
 
+- WP-081 DONE. Exact registered-gap starts, simultaneous ties, atomic validation and replay verified.
+
 ## Resume
 WP080 DONE: focused .NET8/8 and Unity MCP8/8, Console0 errors; discovery454. See TASK-080-REPORT.
-Continue autonomously with WP081: exact Pursuit gap start scheduling. Read GDD12,
+WP081 DONE: .NET10/10, Unity MCP6/6; exact tied starts and zero tick allocations. Discovery457.
+Continue autonomously with WP082: PPSS/five-lap orchestration. Read GDD12,
 ADR0010 and SprintResultSnapshot validation before implementing. WP081 will schedule exact gaps;
 WP082 adds PPSS/five laps. Do not claim those systems exist from the dependency contract alone.
 No owner blocker. Continue coherent verified commits/push and state updates.
@@ -162,3 +165,5 @@ WP079 publication confirmed: 95249b12c0b5c5a1ecab1e3281455bc6705ee17f on origin/
 
 M6 publication confirmed: 123631efcbc5594f040c3d0b8de9e3a379d09a19 on origin/codex/wp-078-ai-pack (2026-09-09).
 
+
+WP080 publication confirmed: 4fefea1 on origin/codex/wp-078-ai-pack (2026-09-10).

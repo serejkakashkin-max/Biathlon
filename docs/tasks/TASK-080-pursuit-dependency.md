@@ -15,4 +15,3 @@ snapshots, capacity/category/profile rejection, and import a complete actual AI 
 .NET and Unity MCP tests, inspect Console, report/update state/commit/push autonomously.
 
 Status: DONE — 2026-09-10. See docs/reports/TASK-080-REPORT.md.
-
