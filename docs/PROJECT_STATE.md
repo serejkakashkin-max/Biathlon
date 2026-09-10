@@ -7,7 +7,7 @@ project_phase: M7 Pursuit and Mass Start; M1–M6 PASS
 active_work_package: WP-085
 active_task: TASK-085B start-area movement to route handoff with preserved physiology
 last_completed_task: TASK-085A physical grid, common start and pack-kernel launch contract (2026-09-10)
-last_verified_commit: 7e52280e0873863ef6a979327ce1c67e1d54ce34; TASK084 verified and pushed
+last_verified_commit: 3e342206926e6f32053759356012163077e8f79c; TASK085A verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 472 discovered; WP085A Unity5/5 and prior baselines
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
@@ -190,3 +190,5 @@ WP084 publication confirmed:7e52280e0873863ef6a979327ce1c67e1d54ce34 on origin/c
 
 WP085A grid/kernel evidence:30 bodies,1200ticks, min travel504840986125nm, trace80c93f9e09952b64 (.NET/Unity).
 Fixed350W kernel fixture is not full AI/physiology integration; see docs/reports/TASK-085A-REPORT.md.
+
+TASK085A publication confirmed:3e342206926e6f32053759356012163077e8f79c on origin/codex/wp-078-ai-pack (2026-09-10).
