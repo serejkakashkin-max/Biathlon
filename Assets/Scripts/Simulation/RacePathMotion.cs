@@ -9,8 +9,11 @@ namespace Biathlon.Simulation
         public long TravelBefore { get; } public long TravelAfter { get; }
         public double StartSeconds { get; } public double EndSeconds { get; }
         public bool OnPenaltyLoop { get; }
+        public bool OnStartApproach { get; }
         internal RaceMotionSegment(long rb, long ra, long tb, long ta, double start, double end, bool penalty)
-        { RouteBefore = rb; RouteAfter = ra; TravelBefore = tb; TravelAfter = ta; StartSeconds = start; EndSeconds = end; OnPenaltyLoop = penalty; }
+            : this(rb,ra,tb,ta,start,end,penalty,false) { }
+        internal RaceMotionSegment(long rb, long ra, long tb, long ta, double start, double end, bool penalty, bool approach)
+        { RouteBefore = rb; RouteAfter = ra; TravelBefore = tb; TravelAfter = ta; StartSeconds = start; EndSeconds = end; OnPenaltyLoop = penalty; OnStartApproach = approach; }
     }
     public readonly struct RacePathMotionFrame
     {
@@ -35,12 +38,16 @@ namespace Biathlon.Simulation
         private readonly TrackSampler penaltySampler;
         private readonly double dt, maximumPower;
         private readonly long routeEnd;
+        private readonly StartApproachMap approach;
         public RacePathMotion(SkiModelDefinitions definitions, TimeTrialAthlete athlete, TrackDefinition track, RaceRoute route,
-            RaceSnowConditions conditions, string skiId, int frequency)
+            RaceSnowConditions conditions, string skiId, int frequency, StartApproachMap approach = null)
         {
             if (definitions == null || athlete == null || track == null || route == null) throw new ArgumentNullException();
             if (frequency <= 0 || route.TrackId != track.Id) throw new ArgumentException("Invalid path clock/track.");
             this.track = track; this.route = route; this.athlete = athlete; dt = 1.0 / frequency;
+            if(approach!=null && (approach.TrackJson!=track.ToJson() || approach.RoutePlanJson!=route.PlanSnapshotJson || approach.RouteRequirementsJson!=route.RequirementsSnapshotJson))
+                throw new ArgumentException("Foreign start approach map.");
+            this.approach=approach;
             maximumPower = definitions.Physics.MaximumPowerWatts;
             routeEnd = checked(route.Length.Millimeters * SkiState.NanometersPerMillimeter);
             technique = new SkiTechniqueSystem(definitions.Technique); cornering = new CorneringSystem(definitions.Cornering, definitions.Physics);
@@ -62,10 +69,13 @@ namespace Biathlon.Simulation
         }
         public RacePathMotionFrame Preview(SkiState initial, long initialRouteNanometers, long stopRouteNanometers,
             RangePenaltyTraversal range, double deliveredPower, double fatigue, TimeTrialInput input,
-            Span<RaceMotionSegment> segments, double dragAreaMultiplier = 1)
+            Span<RaceMotionSegment> segments, double dragAreaMultiplier = 1, long approachRemainingNanometers = 0)
         {
             if (initialRouteNanometers < 0 || stopRouteNanometers < initialRouteNanometers || stopRouteNanometers > routeEnd)
                 throw new ArgumentException("Ordered route position/stop required.");
+            if(approachRemainingNanometers<0 || (approachRemainingNanometers>0 &&
+                (approach==null || approachRemainingNanometers>approach.LengthNanometers || initialRouteNanometers!=0)))
+                throw new ArgumentException("Valid approach remainder at route origin required.");
             if (!input.Effort.AthleteId.IsValid || input.Effort.AthleteId.Value != athlete.Id)
                 throw new ArgumentException("Path input must identify the configured athlete.");
             PhysiologyNumbers.RequireRange(deliveredPower, 0, maximumPower, nameof(deliveredPower));
@@ -79,11 +89,14 @@ namespace Biathlon.Simulation
             while (remaining > 0 && main < stopRouteNanometers)
             {
                 var point = range?.PreviewMotion(rangeTravel) ?? default;
-                bool inRange = range != null && main >= range.RangeEntryNanometers && point.Phase != RangeTraversalPhase.Complete;
+                bool onApproach=approachRemainingNanometers>0;
+                bool inRange = !onApproach && range != null && main >= range.RangeEntryNanometers && point.Phase != RangeTraversalPhase.Complete;
                 if (inRange && point.Phase == RangeTraversalPhase.Shooting) { firing = true; break; }
                 bool penalty = inRange && point.Phase == RangeTraversalPhase.PenaltyLoop;
                 TrackSample sample; long distance;
-                if (penalty)
+                if(onApproach)
+                { sample=approach.Sample(approachRemainingNanometers);distance=approach.DistanceToBoundary(approachRemainingNanometers); }
+                else if (penalty)
                 {
                     sample = penaltySampler.Sample(new TrackDistance(point.PenaltyNanometers / SkiState.NanometersPerMillimeter));
                     var segment = track.GetLoop(track.Penalty.LoopId).GetSegment(sample.SegmentIndex);
@@ -106,9 +119,10 @@ namespace Biathlon.Simulation
                 var step = stepper.Step(motion, form.PropulsivePowerWatts * input.MovementEfficiency, sample, remaining,
                     checked(motion.DistanceNanometers + distance), input.HeadwindMetersPerSecond, dragAreaMultiplier, turn.BrakingNewtons, gear.SnowResistanceMultiplier);
                 long moved = step.Forces.State.DistanceNanometers - motion.DistanceNanometers;
-                long nextMain = penalty ? main : main + moved;
+                long nextMain = penalty || onApproach ? main : main + moved;
                 segments[count++] = new RaceMotionSegment(main, nextMain, motion.DistanceNanometers, step.Forces.State.DistanceNanometers,
-                    dt - remaining, dt - step.RemainingSeconds, penalty);
+                    dt - remaining, dt - step.RemainingSeconds, penalty, onApproach);
+                if(onApproach)approachRemainingNanometers-=moved;
                 motion = step.Forces.State; main = nextMain; remaining = step.RemainingSeconds;
                 if (inRange) rangeTravel += moved;
             }

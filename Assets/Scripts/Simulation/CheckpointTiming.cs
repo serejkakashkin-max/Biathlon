@@ -105,7 +105,7 @@ namespace Biathlon.Simulation
                 var segment = segments[i];
                 FinishTime.InsideTick(tick, frequency, segment.StartSeconds); FinishTime.InsideTick(tick, frequency, segment.EndSeconds);
                 if (segment.RouteBefore != position || segment.RouteAfter < position || segment.StartSeconds < time || segment.EndSeconds <= segment.StartSeconds ||
-                    segment.TravelAfter < segment.TravelBefore || (segment.OnPenaltyLoop && segment.RouteAfter != position) ||
+                    segment.TravelAfter < segment.TravelBefore || ((segment.OnPenaltyLoop || segment.OnStartApproach) && segment.RouteAfter != position) || (segment.OnStartApproach && (segment.OnPenaltyLoop || position != 0)) ||
                     (i > 0 && segments[i - 1].TravelAfter != segment.TravelBefore)) throw new ArgumentException("Invalid continuous timed motion.");
                 position = segment.RouteAfter; time = segment.EndSeconds;
             }

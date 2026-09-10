@@ -23,11 +23,19 @@ namespace Biathlon.Simulation
         private readonly PhysicalTrackMap map;
         private readonly double tickSeconds;
         private readonly PhysicalRangeLaneMap rangeLane;
-        public PhysicalMotionProjection(PhysicalTrackMap map, double tickSeconds, PhysicalRangeLaneMap rangeLane = null)
+        private readonly StartApproachMap approach;
+        private readonly long behind;
+        public PhysicalMotionProjection(PhysicalTrackMap map, double tickSeconds, PhysicalRangeLaneMap rangeLane = null,
+            StartApproachMap approach = null, long startBehindLineNanometers = 0)
         {
             this.map = map ?? throw new ArgumentNullException(nameof(map));
             if (rangeLane != null && !ReferenceEquals(rangeLane.PhysicalMap, map)) throw new ArgumentException("Foreign range lane map.");
             this.rangeLane = rangeLane;
+            if(startBehindLineNanometers<0 || (startBehindLineNanometers>0 && approach==null) ||
+                (approach!=null && (approach.TrackJson!=map.TrackSnapshotJson || approach.RoutePlanJson!=map.RoutePlanSnapshotJson ||
+                approach.RouteRequirementsJson!=map.RouteRequirementsSnapshotJson || startBehindLineNanometers>approach.LengthNanometers)))
+                throw new ArgumentException("Exact physical approach context and grid position required.");
+            this.approach=approach;behind=startBehindLineNanometers;
             FractionalMotionTimeline.Quantize(0, tickSeconds); this.tickSeconds = tickSeconds;
         }
         public PhysicalMotionReceipt Project(RaceMotionSegment segment, PhysicalTrackPoint physicalStart)
@@ -39,7 +47,15 @@ namespace Biathlon.Simulation
             long travel = segment.TravelAfter - segment.TravelBefore;
             if (travel > physicalStart.LoopLengthNanometers) throw new ArgumentException("Split receipts at circuit boundaries.");
             PhysicalTrackPoint end;
-            if (segment.OnPenaltyLoop)
+            if(segment.OnStartApproach)
+            {
+                if(approach==null || segment.TravelAfter>behind)throw new ArgumentException("Split approach receipts at the physical route entry.");
+                var expected=map.MapLoop(approach.LoopId,checked(approach.LengthNanometers-behind+segment.TravelBefore));
+                if(!map.SameLoop(expected,physicalStart) || expected.LocalNanometers!=physicalStart.LocalNanometers)
+                    throw new ArgumentException("Physical approach origin disagrees with grid travel.");
+                end=Advance(physicalStart,travel);
+            }
+            else if (segment.OnPenaltyLoop)
             {
                 if (!map.SameLoop(physicalStart, map.MapPenalty(0))) throw new ArgumentException("Penalty receipt needs an explicit penalty-loop origin.");
                 end = Advance(physicalStart, travel);

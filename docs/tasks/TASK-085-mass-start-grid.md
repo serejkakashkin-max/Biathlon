@@ -11,3 +11,5 @@ race route. Preserve common StartTick and actual rear-row travel; do not telepor
 route zero or count grid-origin translation as completed distance. Existing RacePathMotion rejects
 negative route coordinates; choose an explicit approach adapter and validate its boundary/time
 handoff. Do not mark WP085 complete before the actual race launch composition is verified.
+
+TASK-085B1 DONE: explicit physiological approach, exact fractional route handoff and projection; full .NET475/475 and focused Unity10/10. See TASK-085B1-REPORT. TASK-085B2 NEXT: shared30-body field and lateral-safe approach seam.

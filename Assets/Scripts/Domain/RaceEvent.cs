@@ -40,7 +40,8 @@ namespace Biathlon.Domain
         PhysicalSeamCrossed = 36,
         AiIntentChanged = 37,
         AiShootingPolicyChanged = 38,
-        AiPursuitTacticsChanged = 39
+        AiPursuitTacticsChanged = 39,
+        StartApproachCompleted = 40
     }
     public readonly struct RaceEvent
     {

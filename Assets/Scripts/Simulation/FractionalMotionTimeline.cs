@@ -58,7 +58,7 @@ namespace Biathlon.Simulation
                 if (fraction <= start) return point;
                 if (fraction >= end) { point = new RaceMotionPoint(segment.RouteAfter, segment.TravelAfter); continue; }
                 long travel = (long)((decimal)(segment.TravelAfter - segment.TravelBefore) * (fraction - start) / (end - start));
-                return new RaceMotionPoint(segment.OnPenaltyLoop ? segment.RouteBefore : segment.RouteBefore + travel, segment.TravelBefore + travel);
+                return new RaceMotionPoint((segment.OnPenaltyLoop || segment.OnStartApproach) ? segment.RouteBefore : segment.RouteBefore + travel, segment.TravelBefore + travel);
             }
             return point;
         }

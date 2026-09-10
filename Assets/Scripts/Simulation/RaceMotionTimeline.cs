@@ -52,7 +52,7 @@ namespace Biathlon.Simulation
                 if(time>=segment.EndSeconds) { point=new RaceMotionPoint(segment.RouteAfter,segment.TravelAfter); continue; }
                 decimal fraction=(decimal)Math.Max(0,Math.Min(1,(time-segment.StartSeconds)/(segment.EndSeconds-segment.StartSeconds)));
                 long distance=(long)((segment.TravelAfter-segment.TravelBefore)*fraction);
-                return new RaceMotionPoint(segment.OnPenaltyLoop?segment.RouteBefore:segment.RouteBefore+distance,segment.TravelBefore+distance);
+                return new RaceMotionPoint((segment.OnPenaltyLoop || segment.OnStartApproach)?segment.RouteBefore:segment.RouteBefore+distance,segment.TravelBefore+distance);
             }
             return point;
         }
@@ -63,7 +63,8 @@ namespace Biathlon.Simulation
             if(double.IsNaN(segment.StartSeconds) || double.IsNaN(segment.EndSeconds) || segment.StartSeconds<0 || segment.EndSeconds>duration ||
                 segment.EndSeconds<=segment.StartSeconds || segment.RouteBefore<0 || segment.TravelBefore<0 ||
                 segment.RouteAfter<segment.RouteBefore || segment.TravelAfter<segment.TravelBefore ||
-                segment.RouteAfter-segment.RouteBefore!=(segment.OnPenaltyLoop?0:segment.TravelAfter-segment.TravelBefore))
+                (segment.OnStartApproach && (segment.OnPenaltyLoop || segment.RouteBefore!=0)) ||
+                segment.RouteAfter-segment.RouteBefore!=((segment.OnPenaltyLoop || segment.OnStartApproach)?0:segment.TravelAfter-segment.TravelBefore))
                 throw new ArgumentException("Invalid timed route/penalty segment.");
         }
     }
