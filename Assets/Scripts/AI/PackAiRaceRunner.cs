@@ -55,6 +55,9 @@ namespace Biathlon.AI
         private readonly IRaceEventSink events;
         private readonly ulong seed;
         private readonly int frequency;
+        private readonly PursuitTacticalPlanner pursuit;
+        private readonly PursuitTacticalPlan[] pursuitPlans, publishedPursuitPlans;
+        public PursuitTacticalPlan GetLastPursuitPlan(int index)=>publishedPursuitPlans[index];
         public PackSprintFieldSession Field { get; }
         public string ContextJson { get; }
         public long TacticalDecisions { get; private set; }
@@ -101,6 +104,7 @@ namespace Biathlon.AI
             overtake=new OvertakeDecisionEvaluator(overtakeDefinition,laneDefinition,occupancy);
             raceSource=new SprintPerceptionSource(field); physicalSource=new PackPerceptionSource(field);
             int n=field.Count; journal=new EventJournal(n*4);
+            pursuitPlans=new PursuitTacticalPlan[n];publishedPursuitPlans=new PursuitTacticalPlan[n];
             personalities=new AiPersonalityPolicy[n];clocks=new TacticalDecisionClock[n];pace=new PaceController[n];draft=new DraftTargetSelector[n];lanes=new OvertakeController[n];
             shooters=new ShootingAiController[n];previousShooting=new ShootingSession[n];intents=new TacticalIntentDecision[n];publishedIntents=new TacticalIntentDecision[n];
             strategies=new ShootingStrategyPlan[n];publishedStrategies=new ShootingStrategyPlan[n];utilities=new AiUtilitySnapshot[n];draftFrames=new DraftSelectionFrame[n];
@@ -116,6 +120,13 @@ namespace Biathlon.AI
                 var id=field.GetAthlete(i).AthleteId; personalities[i]=new AiPersonalityPolicy(id,profiles[i]);context.Add(personalities[i].ContextJson);
                 clocks[i]=new TacticalDecisionClock(cadence,frequency);pace[i]=new PaceController(paceDefinition,id,frequency,new SeededRandomSource(ActorSeed(id,0)));
                 draft[i]=new DraftTargetSelector(selectionDefinition,draftDefinition,id,frequency);lanes[i]=new OvertakeController(laneDefinition,occupancy,id,frequency,journal);
+            }
+            if(field.Profile.Format==CompetitionFormat.Pursuit)
+            {
+                var definition=PursuitTacticsDefinition.FromJson(read("pursuit_tactics_provisional_v1.json"));
+                if(definition.DefenseRadius>policy.PhysicalRadius) throw new ArgumentException("Pursuit defense must fit the observed neighborhood.");
+                pursuit=new PursuitTacticalPlanner(definition);context.Add(definition.ToJson());
+                context.Add("pursuit_global_checkpoint_or_source_gap;bounded_preferences;last_range_risk_v1");
             }
             using(var stream=new MemoryStream()) { new DataContractJsonSerializer(typeof(string[])).WriteObject(stream,context.ToArray());ContextJson=Encoding.UTF8.GetString(stream.ToArray()); }
         }
@@ -165,13 +176,25 @@ namespace Biathlon.AI
                     candidates[5]=new TacticalCandidate(TacticalIntentKind.Attack,skiing && observation.Physiology.AnaerobicReserve>=policy.AttackMinimumReserve);
                     candidates[6]=new TacticalCandidate(TacticalIntentKind.FinalSprint,finish);candidates[7]=new TacticalCandidate(TacticalIntentKind.PreRangeRecovery,skiing && recoveryFrames[i].Requested);
                     personalities[i].CopyPreferences(final,preferences);
+                    if(pursuit!=null)
+                    {
+                        double gap=observation.CheckpointGapToLeaderSeconds ?? (actor.ScheduledStart.Value-Field.GetAthlete(0).ScheduledStart.Value)/(double)frequency;
+                        int? place=observation.ObservedCheckpointPlace ?? (gap==0?(int?)1:null);
+                        double? behind=null;
+                        for(int j=0;j<observation.NeighborCount;j++)
+                            if(neighbors[j].RouteGapNanometers<0 && neighbors[j].Phase==CompetitionPhase.Skiing)
+                            {double distance=-neighbors[j].RouteGapNanometers/1e9;if(!behind.HasValue || distance<behind.Value)behind=distance;}
+                        bool lastRange=actor.ActiveBout==Field.Profile.BoutCount-1;
+                        pursuitPlans[i]=pursuit.Evaluate(gap,place,behind,canDraft?selected.Strength:0,lastRange,policy.ShootingTimeUrgency);
+                        pursuit.ApplyPreferences(pursuitPlans[i],preferences);
+                    }
                     chosen=utility.Evaluate(id,tick,window.NextDecisionTick,features,preferences,candidates,scores);intents[i]=chosen.Value;utilities[i]=new AiUtilitySnapshot(scores);
                     adjustment=plan.EffortAdjustment;
                     if(chosen.Value.Kind==TacticalIntentKind.PreRangeRecovery)
                         adjustment+=paceDefinition.Effort(TacticalIntentKind.Hold)-recoveryFrames[i].EffortReduction-paceDefinition.Effort(TacticalIntentKind.PreRangeRecovery);
                     pass=chosen.Value.Kind==TacticalIntentKind.Overtake;
                     double need=Math.Max(0,Math.Min(1,(observation.Physiology.HeartRateBpm-recoveryDefinition.StartHeartRate)/(recoveryDefinition.FullHeartRate-recoveryDefinition.StartHeartRate)));
-                    strategies[i]=personalities[i].PlanShooting(shootingStrategy,policy.ShootingTimeUrgency,need,0);
+                    strategies[i]=personalities[i].PlanShooting(shootingStrategy,pursuit!=null?pursuitPlans[i].ShootingUrgency:policy.ShootingTimeUrgency,need,0);
                 }
                 paceFrames[i]=pace[i].Step(tick,chosen,adjustment);
                 var lane=lanes[i].Step(paceFrames[i].Input,self,observation.CurrentTrack,roster,pass,!skiing);
@@ -197,6 +220,12 @@ namespace Biathlon.AI
                 if(tacticalDue[i])
                 {
                     TacticalDecisions++;
+                    if(pursuit!=null)
+                    {
+                        if(pursuitPlans[i].Reason!=publishedPursuitPlans[i].Reason)
+                            events.Record(new RaceEvent(tick,frequency,Field.GetAthlete(i).AthleteId,RaceEventType.AiPursuitTacticsChanged,(int)pursuitPlans[i].Reason));
+                        publishedPursuitPlans[i]=pursuitPlans[i];
+                    }
                     if(!publishedIntents[i].AthleteId.IsValid || publishedIntents[i].Kind!=intents[i].Kind || !publishedIntents[i].TargetId.Equals(intents[i].TargetId))
                         events.Record(new RaceEvent(tick,frequency,Field.GetAthlete(i).AthleteId,RaceEventType.AiIntentChanged,(int)intents[i].Kind));
                     if(publishedStrategies[i].DefinitionId==null || publishedStrategies[i].Risk!=strategies[i].Risk)

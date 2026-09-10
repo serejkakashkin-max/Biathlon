@@ -1,6 +1,6 @@
 # TASK-083 — Pursuit tactical AI adjustments
 
-Status: PLANNED — unlocked after WP082 verification.
+Status: DONE — 2026-09-10. See docs/reports/TASK-083-REPORT.md.
 
 Use a versioned provisional Pursuit-only policy with bounded normalized decision preferences.
 Observe global checkpoint gaps and route-relative nearby competitors; unavailable observations

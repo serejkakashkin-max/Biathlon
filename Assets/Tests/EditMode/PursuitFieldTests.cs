@@ -45,10 +45,17 @@ namespace Biathlon.Tests
             var a=Create(q,la,new AiDecisionCounts());
             var restored=PursuitQualificationSnapshot.FromJson(q.ToJson(),q.SourceResultId,PursuitQualificationTests.Profile());
             var b=Create(restored,lb,new AiDecisionCounts());
-            var shots=new int[2]; bool finalBypass=false;
+            var shots=new int[2]; bool finalBypass=false, sawChase=false, sawLastRange=false;
             while(!a.Field.IsComplete && a.Field.Tick.Value<40000)
             {
                 a.Step();b.Step();
+                for(int i=0;i<2;i++)
+                {
+                    var plan=a.GetLastPursuitPlan(i); Assert.That(plan,Is.EqualTo(b.GetLastPursuitPlan(i)));
+                    sawChase |= (plan.Reason & PursuitTacticalReason.Chase)!=0;
+                    sawLastRange |= (plan.Reason & PursuitTacticalReason.LastRange)!=0;
+                    Assert.That(plan.ShootingUrgency,Is.InRange(0,1));
+                }
                 for(int i=0;i<2;i++)
                 {
                     var actor=a.Field.GetAthlete(i);
@@ -60,6 +67,7 @@ namespace Biathlon.Tests
                 }
             }
             Assert.That(a.Field.IsComplete && b.Field.IsComplete,Is.True); Assert.That(finalBypass,Is.True);
+            Assert.That(sawChase && sawLastRange,Is.True); Assert.That(a.ContextJson,Does.Contain("pursuit_tactics_provisional_v1"));
             Assert.That(shots,Is.EqualTo(new[]{20,20}));Assert.That(a.Field.PrecisionFallbackTicks,Is.Zero);
             Assert.That(a.ContextJson,Is.EqualTo(b.ContextJson));
             var result=a.Field.PursuitResult;Assert.That(a.Field.Result,Is.Null);

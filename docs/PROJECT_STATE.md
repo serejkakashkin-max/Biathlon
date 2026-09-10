@@ -4,19 +4,19 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M7 Pursuit and Mass Start; M1–M6 PASS
-active_work_package: WP-083
-active_task: TASK-083 Pursuit tactical AI adjustments
-last_completed_task: TASK-082B shared Pursuit field and finish-order classification (2026-09-10)
-last_verified_commit: 05e1a7c; TASK082A verified and pushed; TASK082B verification complete
+active_work_package: WP-084
+active_task: TASK-084 Pursuit regression scenarios
+last_completed_task: TASK-083 Pursuit tactical AI adjustments (2026-09-10)
+last_verified_commit: 46bddd0; TASK082B verified and pushed; TASK083 checks complete
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
-editmode_tests: 463 discovered; WP082B focused Unity10/10, prior baselines retained
+editmode_tests: 466 discovered; WP083 Unity5/5 and prior baselines
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
-standalone_tests: full463/463 in5m51s; WP078 canonical Sprint hashes unchanged
-unity_console_errors: 0 after WP082B compilation and MCP checks
+standalone_tests: prior full463/463; WP083 focused32/32 and final5/5; Sprint canonical hashes unchanged
+unity_console_errors: 0 after WP083 compilation and MCP checks
 unity_console_warnings: 4 MCP lifecycle/reconnect warnings retained; no project compile errors
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-083]
+next_unlocked_work_packages: [WP-084]
 ```
 
 ## Work packages
@@ -122,8 +122,10 @@ next_unlocked_work_packages: [WP-083]
 
 - WP-082 DONE. Shared Pursuit field, exact starts, four PPSS bouts/five laps, global finish-order snapshots and format-correct perception verified.
 
+- WP-083 DONE. Gap chasing, leader defense, physical draft preferences and last-standing urgency; bounded costs and replay reasons verified.
+
 ## Resume
-Continue with WP083 gap-aware tactical AI (docs/tasks/TASK-083-pursuit-tactics.md).
+Continue with WP084 Pursuit regression scenarios. WP083 .NET32/32 and Unity5/5 verified.
 WP082B verified full .NET463/463, Unity10/10, Console0 errors. Pursuit chain repeats15326ticks
 with result SHA256 a7a0eaea6bc0767a9e734ebf7e6c705c246f57c22f670d73bf0d6e162e584e0c in both runtimes.
 Read ADR0015 and GDD12. Do not confuse global Pursuit finish order with Sprint elapsed ranking.
@@ -172,4 +174,7 @@ WP080 publication confirmed: 4fefea1 on origin/codex/wp-078-ai-pack (2026-09-10)
 
 WP081 publication confirmed: c3dee53 on origin/codex/wp-078-ai-pack (2026-09-10).
 TASK082A verified: .NET6/6 and regression14/14; Unity MCP6/6, Console0 errors.
-Next concrete task: TASK083 Pursuit gap tactics. No owner blocker.
+Next concrete task: TASK084 Pursuit regression. No owner blocker.
+
+WP082B publication confirmed:46bddd0 on origin/codex/wp-078-ai-pack.
+WP083 intentional Pursuit baseline14342ticks/result449333e5ccdfc60908353e5471f23d2b5285061e8ec6df011532337189dabff2 (.NET/Unity).
