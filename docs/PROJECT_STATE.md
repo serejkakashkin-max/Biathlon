@@ -4,19 +4,19 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M7 Pursuit and Mass Start; M1–M6 PASS
-active_work_package: WP-082
-active_task: TASK-082B Pursuit field orchestration and finish-order classification
-last_completed_task: TASK-082A shared five-lap PPSS athlete lifecycle (2026-09-10)
-last_verified_commit: c3dee53; TASK081 verified and pushed
+active_work_package: WP-083
+active_task: TASK-083 Pursuit tactical AI adjustments
+last_completed_task: TASK-082B shared Pursuit field and finish-order classification (2026-09-10)
+last_verified_commit: 05e1a7c; TASK082A verified and pushed; TASK082B verification complete
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
-editmode_tests: 459 discovered; WP0808/8, WP0816/6, WP082A6/6 focused MCP; prior M6 baseline retained
+editmode_tests: 463 discovered; WP082B focused Unity10/10, prior baselines retained
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
-standalone_tests: prior full450/450; latest WP082A lifecycle6/6 and regression/replay/Pursuit14/14
-unity_console_errors: 0 after WP082A compilation and MCP checks
+standalone_tests: full463/463 in5m51s; WP078 canonical Sprint hashes unchanged
+unity_console_errors: 0 after WP082B compilation and MCP checks
 unity_console_warnings: 4 MCP lifecycle/reconnect warnings retained; no project compile errors
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-082]
+next_unlocked_work_packages: [WP-083]
 ```
 
 ## Work packages
@@ -120,15 +120,15 @@ next_unlocked_work_packages: [WP-082]
 
 - WP-081 DONE. Exact registered-gap starts, simultaneous ties, atomic validation and replay verified.
 
-- WP-082 IN PROGRESS. TASK-082A verified shared PPSS athlete lifecycle; field integration and classification remain TASK-082B.
+- WP-082 DONE. Shared Pursuit field, exact starts, four PPSS bouts/five laps, global finish-order snapshots and format-correct perception verified.
 
 ## Resume
-WP080 DONE: focused .NET8/8 and Unity MCP8/8, Console0 errors; discovery454. See TASK-080-REPORT.
-WP081 DONE: .NET10/10, Unity MCP6/6; exact tied starts and zero tick allocations. Discovery457.
-Continue autonomously with WP082: PPSS/five-lap orchestration. Read GDD12,
-ADR0010 and SprintResultSnapshot validation before implementing. WP081 will schedule exact gaps;
-WP082 adds PPSS/five laps. Do not claim those systems exist from the dependency contract alone.
-No owner blocker. Continue coherent verified commits/push and state updates.
+Continue with WP083 gap-aware tactical AI (docs/tasks/TASK-083-pursuit-tactics.md).
+WP082B verified full .NET463/463, Unity10/10, Console0 errors. Pursuit chain repeats15326ticks
+with result SHA256 a7a0eaea6bc0767a9e734ebf7e6c705c246f57c22f670d73bf0d6e162e584e0c in both runtimes.
+Read ADR0015 and GDD12. Do not confuse global Pursuit finish order with Sprint elapsed ranking.
+Pursuit snapshots currently require complete finisher fields; withdrawal support and M7 robustness are not claimed.
+No owner blocker; continue authorized coherent commits/push and state updates.
 
 M6 gate: four30-athlete stadium fields finish120 athletes; each fires10 accepted shots and
 activates final sprint once. Stationary fractions2.65–8.08%; no precision fallbacks. Flat expert
@@ -172,4 +172,4 @@ WP080 publication confirmed: 4fefea1 on origin/codex/wp-078-ai-pack (2026-09-10)
 
 WP081 publication confirmed: c3dee53 on origin/codex/wp-078-ai-pack (2026-09-10).
 TASK082A verified: .NET6/6 and regression14/14; Unity MCP6/6, Console0 errors.
-Next concrete task: TASK082B Pursuit field and global finish ordering. No owner blocker.
+Next concrete task: TASK083 Pursuit gap tactics. No owner blocker.

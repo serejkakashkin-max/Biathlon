@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "wp082b_verification",
+  "date": "2026-09-10",
+  "standalone": {
+    "duration": "5m51s",
+    "passed": 463,
+    "failed": 0
+  },
+  "unity": {
+    "full_suite": false,
+    "console_errors": 0,
+    "console_warnings": 4,
+    "passed": 10,
+    "failed": 0
+  },
+  "pursuit": {
+    "dotnet_unity_match": true,
+    "result_sha256": "a7a0eaea6bc0767a9e734ebf7e6c705c246f57c22f670d73bf0d6e162e584e0c",
+    "ticks": 15326
+  },
+  "legacy_sprint_hashes_unchanged": true,
+  "evidence": [
+    {
+      "path": "artifacts/physiology/wp082b-full.trx",
+      "sha256": "fa2d315010c7780aff64348251c34c5669974b95b01b84afe28cd276b721438f"
+    },
+    {
+      "path": "artifacts/physiology/wp082b-unity-field-fingerprint.json",
+      "sha256": "87335f9e4c34dade16cf089d1e16eb4545b33456519c78defe6f2c22fcd43d9d"
+    },
+    {
+      "path": "artifacts/physiology/wp082b-unity-field-results.xml",
+      "sha256": "8f1b8a89fc6448dce9adb01355442c093fa05cd691a4e98569e4a6ff502102cf"
+    },
+    {
+      "path": "artifacts/physiology/wp082b-unity-results.json",
+      "sha256": "213ebfd87d37aad8c39f54dae7e7b518884ef60e6c98cb5365acffd5877e9c3e"
+    },
+    {
+      "path": "artifacts/physiology/wp082b-unity-perception.json",
+      "sha256": "f71786fc67f14fdabacb0737a198c5c01e16a98fb84f03aef55d70cf8530d829"
+    },
+    {
+      "path": "artifacts/physiology/wp082b-unity-sprint-field.json",
+      "sha256": "7c297923e0e3d9e7bd3ec26d366d6879b306248aeb02cd062c581c98f8764ddd"
+    },
+    {
+      "path": "artifacts/physiology/wp082b-console.json",
+      "sha256": "0ba569a31cb9e1f8a3caccedf9a83a22fee9096342c91a1964da42590fa80129"
+    }
+  ]
+}

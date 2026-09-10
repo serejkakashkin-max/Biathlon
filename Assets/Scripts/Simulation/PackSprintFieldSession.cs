@@ -3,7 +3,7 @@ using Biathlon.Domain;
 
 namespace Biathlon.Simulation
 {
-    /// <summary>Shared physical Sprint field. Physics/physiology are prepared before continuous
+    /// <summary>Shared physical Sprint/Pursuit field. Physics/physiology are prepared before continuous
     /// pack validation; accepted forward prefixes, stops and lateral motion commit together.
     /// Prestart staging and classified athletes are outside the racing corridor.</summary>
     public sealed class PackSprintFieldSession : ISprintFieldView
@@ -53,6 +53,7 @@ namespace Biathlon.Simulation
         public int Count => field.Count;
         public bool IsComplete => field.IsComplete;
         public SprintResultSnapshot Result => field.Result;
+        public PursuitResultSnapshot PursuitResult => field.PursuitResult;
         public TrackDefinition Track => field.Track;
         public RaceRoute Route => field.Route;
         public CompetitionProfile Profile => field.Profile;
@@ -72,10 +73,10 @@ namespace Biathlon.Simulation
             ResultTimingDefinition timing, ReadOnlySpan<SprintEntrant> entrants, SimulationTick firstStart, string resultId,
             OccupancyDefinition body, DraftDefinition draft, OvertakeDefinition movement,
             PhysicalJunctionDefinition junctionDefinition, PhysicalConnectionDefinition connectionDefinition, IRaceEventSink events,
-            PhysicalRangeLaneDefinition rangeLanes = null)
+            PhysicalRangeLaneDefinition rangeLanes = null, PursuitQualificationSnapshot qualification = null)
         {
             this.events = events ?? throw new ArgumentNullException(nameof(events)); this.movement = movement ?? throw new ArgumentNullException(nameof(movement));
-            field = new SprintFieldSession(config, profile, skiModel, shootingModel, track, route, conditions, timing, entrants, firstStart, resultId, events);
+            field = new SprintFieldSession(config, profile, skiModel, shootingModel, track, route, conditions, timing, entrants, firstStart, resultId, events, qualification);
             frequency = config.TickFrequency; map = new PhysicalTrackMap(track, route);
             for (int i = 0; i < route.SectionCount; i++)
             {

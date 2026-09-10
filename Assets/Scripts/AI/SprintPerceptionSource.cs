@@ -30,7 +30,8 @@ namespace Biathlon.AI
     {
         public SimulationTick Tick { get; }
         public AthleteId AthleteId { get; }
-        public CompetitionFormat Format => CompetitionFormat.Sprint;
+        public CompetitionFormat Format { get; }
+        public CheckpointClock TimingClock => Format == CompetitionFormat.Sprint ? CheckpointClock.Elapsed : CheckpointClock.Global;
         public CompetitionPhase Phase { get; }
         public PhysiologyState Physiology { get; }
         public double SpeedMetersPerSecond { get; }
@@ -43,7 +44,8 @@ namespace Biathlon.AI
         public ShootingPhase? ShootingPhase { get; }
         public TrackSample CurrentTrack { get; }
         public int LatestCheckpointOrdinal { get; }
-        public double? ElapsedGapToCheckpointLeaderSeconds { get; }
+        public double? CheckpointGapToLeaderSeconds { get; }
+        public double? ElapsedGapToCheckpointLeaderSeconds => TimingClock == CheckpointClock.Elapsed ? CheckpointGapToLeaderSeconds : null;
         public int? ObservedCheckpointPlace { get; }
         public int CheckpointCompetitorsObserved { get; }
         public int NeighborCount { get; }
@@ -51,14 +53,14 @@ namespace Biathlon.AI
         // M5 has no physical corridor placement. Unavailable is not a measured zero wake.
         public bool PhysicalDraftAvailable => false;
         internal AiSprintPerception(SimulationTick tick, SprintAthleteSession self, long remaining,
-            long? range, TrackSample track, int checkpoint, double? gap, int? place, int observed, int neighbors, int lookahead)
+            long? range, TrackSample track, int checkpoint, double? gap, int? place, int observed, int neighbors, int lookahead, CompetitionFormat format)
         {
-            Tick = tick; AthleteId = self.AthleteId; Phase = self.Lifecycle.Phase; Physiology = self.PhysiologyState;
+            Tick = tick; Format = format; AthleteId = self.AthleteId; Phase = self.Lifecycle.Phase; Physiology = self.PhysiologyState;
             SpeedMetersPerSecond = self.Motion.SpeedMetersPerSecond; RouteNanometers = self.RouteNanometers;
             RemainingBaseRouteNanometers = remaining; NextRangeEntryRouteDistanceNanometers = range;
             RemainingPenaltyLoops = self.Lifecycle.PendingPenaltyLoops; CompletedLaps = self.Lifecycle.CompletedLaps;
             CompletedBouts = self.Lifecycle.CompletedBouts; ShootingPhase = self.ActiveShooting?.Phase;
-            CurrentTrack = track; LatestCheckpointOrdinal = checkpoint; ElapsedGapToCheckpointLeaderSeconds = gap;
+            CurrentTrack = track; LatestCheckpointOrdinal = checkpoint; CheckpointGapToLeaderSeconds = gap;
             ObservedCheckpointPlace = place; CheckpointCompetitorsObserved = observed; NeighborCount = neighbors; LookaheadCount = lookahead;
         }
     }
@@ -119,12 +121,12 @@ namespace Biathlon.AI
             int checkpoint = self.Checkpoints.Count - 1, observed = 0; int? place = null; double? gap = null;
             if (checkpoint >= 0)
             {
-                var own = self.Checkpoints.Get(checkpoint).ElapsedTime; int ahead = 0;
+                var own = ClockTime(self.Checkpoints.Get(checkpoint)); int ahead = 0;
                 for (int i = 0; i < field.Count; i++)
                 {
                     var other = field.GetAthlete(i);
                     if (other.Checkpoints.Count <= checkpoint) continue;
-                    observed++; if (other.Checkpoints.Get(checkpoint).ElapsedTime.CompareTo(own) < 0) ahead++;
+                    observed++; if (ClockTime(other.Checkpoints.Get(checkpoint)).CompareTo(own) < 0) ahead++;
                 }
                 place = ahead + 1; gap = field.Timing.GapSeconds(self.AthleteId, checkpoint);
             }
@@ -135,8 +137,9 @@ namespace Biathlon.AI
                 track = penalty.Sample(new TrackDistance(motion.Value.PenaltyNanometers / SkiState.NanometersPerMillimeter));
             return new AiSprintPerception(field.Tick, self,
                 field.Route.Length.Millimeters * SkiState.NanometersPerMillimeter - self.RouteNanometers,
-                range, track, checkpoint, gap, place, observed, count, offsets.Length);
+                range, track, checkpoint, gap, place, observed, count, offsets.Length, field.Profile.Format);
         }
+        private FinishTime ClockTime(CheckpointSplit split) => field.Profile.Format == CompetitionFormat.Sprint ? split.ElapsedTime : split.GlobalTime;
     }
 }
 

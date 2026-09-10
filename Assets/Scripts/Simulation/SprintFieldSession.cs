@@ -18,17 +18,24 @@ namespace Biathlon.Simulation
             SkiAthlete = skiAthlete; ShootingAthlete = shootingAthlete; SkiId = skiId;
         }
     }
-    /// <summary>M5 independent-path Sprint field. Dedicated synthetic logical lanes; shared pack/queue geometry follows M6/M7.</summary>
+    /// <summary>Independent athlete orchestration with interval Sprint or qualified Pursuit starts. Shared physical geometry is owned by PackSprintFieldSession.</summary>
     public sealed class SprintFieldSession : ISprintFieldView
     {
         private readonly SprintAthleteSession[] athletes;
         private readonly SprintResultBook results;
         private readonly IntervalStartScheduler scheduler;
-        private readonly ScheduledStart[] due = new ScheduledStart[1];
+        private readonly ScheduledStart[] due;
+        private readonly PursuitStartScheduler pursuitScheduler;
+        private readonly PursuitQualificationSnapshot qualification;
+        private readonly IRaceEventSink events;
+        private readonly SimulationTick firstStart;
+        private readonly int frequency;
+        private int pursuitFinished;
+        public PursuitResultSnapshot PursuitResult { get; private set; }
         private readonly string resultId;
         public SimulationTick Tick { get; private set; }
         public int Count => athletes.Length;
-        public int FinishedCount => results.Count;
+        public int FinishedCount => qualification == null ? results.Count : pursuitFinished;
         public bool IsComplete => FinishedCount == Count;
         public CheckpointTimingBoard Timing { get; }
         public SprintResultSnapshot Result { get; private set; }
@@ -37,20 +44,31 @@ namespace Biathlon.Simulation
         public RaceRoute Route { get; }
         public CompetitionProfile Profile { get; }
         public SprintAthleteSession GetAthlete(int index) => athletes[index];
-        public ScheduledStart GetStart(int index) => scheduler.Get(index);
+        public ScheduledStart GetStart(int index) => qualification == null ? scheduler.Get(index) : pursuitScheduler.Get(index);
         public SprintFieldSession(SimulationConfig config, CompetitionProfile profile, SkiModelDefinitions skiModel, ShootingModelDefinitions shootingModel,
             TrackDefinition track, RaceRoute route, RaceSnowConditions conditions, ResultTimingDefinition timing,
-            ReadOnlySpan<SprintEntrant> entrants, SimulationTick firstStart, string resultId, IRaceEventSink events)
+            ReadOnlySpan<SprintEntrant> entrants, SimulationTick firstStart, string resultId, IRaceEventSink events, PursuitQualificationSnapshot qualification = null)
         {
             if (config == null || profile == null || track == null || route == null || string.IsNullOrWhiteSpace(resultId))
                 throw new ArgumentException("Race configuration and result ID required.");
             var roster = new AthleteId[entrants.Length];
             Track = track; Route = route; Profile = profile;
             for (int i = 0; i < entrants.Length; i++) roster[i] = entrants[i]?.AthleteId ?? throw new ArgumentException("Null entrant.");
-            scheduler = new IntervalStartScheduler(profile, roster, config.TickFrequency, firstStart, events);
-            results = new SprintResultBook(profile, timing, roster, config.TickFrequency, events);
+            this.qualification = qualification; this.events = events; this.firstStart = firstStart; frequency = config.TickFrequency;
+            due = new ScheduledStart[entrants.Length];
+            if (qualification == null)
+                scheduler = new IntervalStartScheduler(profile, roster, config.TickFrequency, firstStart, events);
+            else
+            {
+                if (profile.ToJson() != qualification.PursuitProfileJson || entrants.Length != qualification.Count)
+                    throw new ArgumentException("Pursuit profile and complete qualifying roster required.");
+                for (int i = 0; i < roster.Length; i++)
+                    if (roster[i].Value != qualification.Get(i).AthleteId) throw new ArgumentException("Entrants must follow qualification order.");
+                pursuitScheduler = new PursuitStartScheduler(qualification, config.TickFrequency, firstStart, events);
+            }
+            if (qualification == null) results = new SprintResultBook(profile, timing, roster, config.TickFrequency, events);
             var checkpoints = new CheckpointLayout(track, route);
-            Timing = new CheckpointTimingBoard(checkpoints, roster, config.TickFrequency, CheckpointClock.Elapsed);
+            Timing = new CheckpointTimingBoard(checkpoints, roster, config.TickFrequency, qualification == null ? CheckpointClock.Elapsed : CheckpointClock.Global);
             this.resultId = resultId; athletes = new SprintAthleteSession[entrants.Length];
             for (int i = 0; i < entrants.Length; i++)
             {
@@ -58,7 +76,7 @@ namespace Biathlon.Simulation
                 // Start order and seed are part of race configuration; all gameplay uses the same physical models.
                 var athleteConfig = new SimulationConfig(config.SchemaVersion, config.Id, config.TickFrequency, unchecked(config.Seed + (ulong)i));
                 athletes[i] = new SprintAthleteSession(athleteConfig, profile, skiModel, shootingModel, entrant.SkiAthlete, entrant.ShootingAthlete,
-                    track, route, checkpoints, conditions, entrant.SkiId, scheduler.Get(i).Tick,
+                    track, route, checkpoints, conditions, entrant.SkiId, GetStart(i).Tick,
                     new ShootingLaneAssignment(track.Range.Id, "synthetic_lane_" + (i + 1).ToString(CultureInfo.InvariantCulture), i + 1), events);
             }
             var context = new List<string> { "sprint_independent_paths_dedicated_lanes_v1", config.Id,
@@ -69,23 +87,43 @@ namespace Biathlon.Simulation
                 skiModel.Equipment.ToJson(), skiModel.Sprint.ToJson(), shootingModel.ContextJson };
             for (int i = 0; i < entrants.Length; i++)
             { context.Add(entrants[i].SkiAthlete.ToJson()); context.Add(entrants[i].ShootingAthlete.ToJson()); context.Add(entrants[i].SkiId); }
+            if (qualification != null) { context[0] = "pursuit_gap_field_v1"; context.Add(qualification.ToJson()); context.Add("exact_global_finish_order_v1"); }
             ContextJson = ShootingModelDefinitions.EncodeContext(context.ToArray());
         }
         public void Step(ReadOnlySpan<SprintAthleteInput> inputs)
         {
             ValidateCommands(inputs);
             var tick = Tick.Next();
-            scheduler.Step(tick, due);
+            if (qualification == null) scheduler.Step(tick, due); else pursuitScheduler.Step(tick, due);
             for (int i = 0; i < Count; i++)
             {
                 var athlete = athletes[i]; if (athlete.HasFinished) continue;
                 int oldSplits = athlete.Checkpoints.Count;
                 athlete.Step(inputs[i]);
                 for (int checkpoint = oldSplits; checkpoint < athlete.Checkpoints.Count; checkpoint++) Timing.Record(athlete.Checkpoints.Get(checkpoint));
-                if (athlete.HasFinished) results.Record(athlete.Lifecycle);
+                if (athlete.HasFinished) RecordFinish(athlete.Lifecycle);
             }
             Tick = tick;
-            if (IsComplete) Result = results.Complete(resultId);
+            if (IsComplete) CompleteResults();
+        }
+        private void RecordFinish(CompetitionLifecycle lifecycle)
+        {
+            if (qualification == null) results.Record(lifecycle);
+            else
+            {
+                pursuitFinished++;
+                events.Record(new RaceEvent(lifecycle.Tick, frequency, lifecycle.AthleteId, RaceEventType.CompetitionResultRecorded, (int)RaceResultStatus.Finished));
+            }
+        }
+        private void CompleteResults()
+        {
+            if (qualification == null) Result = results.Complete(resultId);
+            else
+            {
+                var races = new CompetitionLifecycle[Count];
+                for (int i = 0; i < Count; i++) races[i] = athletes[i].Lifecycle;
+                PursuitResult = PursuitResultSnapshot.Create(resultId, qualification, frequency, firstStart, races);
+            }
         }
         public void ValidateCommands(ReadOnlySpan<SprintAthleteInput> inputs)
         {
@@ -105,16 +143,16 @@ namespace Biathlon.Simulation
             ValidateCommands(inputs);
             if (previews.Length != Count) throw new ArgumentException("Complete prepared field required.");
             for (int i = 0; i < Count; i++) if (!athletes[i].HasFinished) athletes[i].ValidatePreparedCommit(previews[i]);
-            var tick = Tick.Next(); scheduler.Step(tick, due);
+            var tick = Tick.Next(); if (qualification == null) scheduler.Step(tick, due); else pursuitScheduler.Step(tick, due);
             for (int i = 0; i < Count; i++)
             {
                 var athlete = athletes[i]; if (athlete.HasFinished) continue;
                 int oldSplits = athlete.Checkpoints.Count;
                 athlete.CommitStep(previews[i]);
                 for (int checkpoint = oldSplits; checkpoint < athlete.Checkpoints.Count; checkpoint++) Timing.Record(athlete.Checkpoints.Get(checkpoint));
-                if (athlete.HasFinished) results.Record(athlete.Lifecycle);
+                if (athlete.HasFinished) RecordFinish(athlete.Lifecycle);
             }
-            Tick = tick; if (IsComplete) Result = results.Complete(resultId);
+            Tick = tick; if (IsComplete) CompleteResults();
         }
     }
 }
