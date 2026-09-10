@@ -4,10 +4,10 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M7 Pursuit and Mass Start; M1–M6 PASS
-active_work_package: WP-080
-active_task: TASK-080 Pursuit result dependency contract; next autonomous task
-last_completed_task: TASK-079B physical range throughput; M6 PASS (2026-09-09)
-last_verified_commit: 95249b12c0b5c5a1ecab1e3281455bc6705ee17f; WP079 verified and pushed
+active_work_package: WP-081
+active_task: TASK-081 exact Pursuit gap starts; next unlocked task
+last_completed_task: TASK-080 versioned Pursuit dependency (2026-09-10)
+last_verified_commit: 123631efcbc5594f040c3d0b8de9e3a379d09a19; TASK079B and M6 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 450 current cases covered by prior baseline and focused MCP checks; WP079B9/9
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
@@ -16,7 +16,7 @@ unity_console_errors: 0 after WP079 compilation and MCP checks
 unity_console_warnings: 4 MCP lifecycle/reconnect warnings retained; no project compile errors
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-080]
+next_unlocked_work_packages: [WP-081]
 ```
 
 ## Work packages
@@ -116,8 +116,11 @@ next_unlocked_work_packages: [WP-080]
 - TASK-079B DONE. Explicit equal-length physical range alternatives, static unique lanes,
   directed seams and main final-lap bypass remove artificial range queues. M6 PASS.
 
+- WP-080 DONE. Versioned Sprint dependency, registered tied gaps, context validation and actual AI-result import verified.
+
 ## Resume
-Continue autonomously with WP080: versioned Sprint-result dependency for Pursuit. Read GDD12,
+WP080 DONE: focused .NET8/8 and Unity MCP8/8, Console0 errors; discovery454. See TASK-080-REPORT.
+Continue autonomously with WP081: exact Pursuit gap start scheduling. Read GDD12,
 ADR0010 and SprintResultSnapshot validation before implementing. WP081 will schedule exact gaps;
 WP082 adds PPSS/five laps. Do not claim those systems exist from the dependency contract alone.
 No owner blocker. Continue coherent verified commits/push and state updates.
@@ -156,3 +159,6 @@ Future workflow: after each verified coherent change, update this state with res
 
 
 WP079 publication confirmed: 95249b12c0b5c5a1ecab1e3281455bc6705ee17f on origin/codex/wp-078-ai-pack (2026-09-09).
+
+M6 publication confirmed: 123631efcbc5594f040c3d0b8de9e3a379d09a19 on origin/codex/wp-078-ai-pack (2026-09-09).
+

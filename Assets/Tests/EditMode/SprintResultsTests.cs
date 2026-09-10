@@ -9,7 +9,7 @@ namespace Biathlon.Tests
     public class SprintResultsTests
     {
         public static ResultTimingDefinition Timing() => ResultTimingDefinition.FromJson(PhysiologyContractTests.DefinitionJson("result_timing_v1.json"));
-        private static CompetitionLifecycle Finisher(string id, long start, long duration, int fraction = 0)
+        internal static CompetitionLifecycle Finisher(string id, long start, long duration, int fraction = 0)
         {
             var s = new CompetitionLifecycle(CompetitionProfileTests.TestProfile(), new AthleteId(id), 20, new RaceEventLog(40));
             for (long tick = 1; tick < start; tick++) s.Step(new SimulationTick(tick));
