@@ -5,14 +5,14 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 ```yaml
 project_phase: M7 Pursuit and Mass Start; M1–M6 PASS
 active_work_package: WP-085
-active_task: TASK-085 Mass Start simultaneous grid and launch; next unlocked
-last_completed_task: TASK-084 Pursuit regression suite (2026-09-10)
+active_task: TASK-085B start-area movement to route handoff with preserved physiology
+last_completed_task: TASK-085A physical grid, common start and pack-kernel launch contract (2026-09-10)
 last_verified_commit: 7e52280e0873863ef6a979327ce1c67e1d54ce34; TASK084 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
-editmode_tests: 467 discovered; WP084 Unity6/6 and prior baselines
+editmode_tests: 472 discovered; WP085A Unity5/5 and prior baselines
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
-standalone_tests: prior full463/463; WP08332/32; WP08417/17; Sprint canonical hashes unchanged
-unity_console_errors: 0 after WP084 compilation and MCP checks
+standalone_tests: WP085A15/15; prior full463/463, WP08332/32, WP08417/17
+unity_console_errors: 0 after WP085A compilation and MCP checks
 unity_console_warnings: 4 MCP lifecycle/reconnect warnings retained; no project compile errors
 current_known_blockers: []
 owner_decisions_needed: []
@@ -126,8 +126,10 @@ next_unlocked_work_packages: [WP-085]
 
 - WP-084 DONE. Repeated tied/dense/separated Pursuit fields, actual overtakes, penalties, exact starts and close finishes verified in .NET/Unity.
 
+- WP-085 IN PROGRESS. TASK085A grid/common gun/kernel launch verified; physiological route handoff remains TASK085B.
+
 ## Resume
-Continue with WP085 Mass Start grid/launch. Read GDD13, current30-athlete occupancy and route constraints. WP084 .NET17/17 and Unity6/6 verified.
+Continue TASK085B: integrate the actual approach from the grid into race-path motion with common clocks and preserved physiology/speed/travel. Read GDD13 and TASK-085A-REPORT. No rear-row teleport or grid-coordinate route credit. WP085A .NET15/15 and Unity5/5 verified; WP085 is not DONE.
 WP082B verified full .NET463/463, Unity10/10, Console0 errors. Pursuit chain repeats15326ticks
 with result SHA256 a7a0eaea6bc0767a9e734ebf7e6c705c246f57c22f670d73bf0d6e162e584e0c in both runtimes.
 Read ADR0015 and GDD12. Do not confuse global Pursuit finish order with Sprint elapsed ranking.
@@ -176,7 +178,7 @@ WP080 publication confirmed: 4fefea1 on origin/codex/wp-078-ai-pack (2026-09-10)
 
 WP081 publication confirmed: c3dee53 on origin/codex/wp-078-ai-pack (2026-09-10).
 TASK082A verified: .NET6/6 and regression14/14; Unity MCP6/6, Console0 errors.
-Next concrete task: TASK085 simultaneous30-athlete grid/launch. No owner blocker.
+Next concrete task: TASK085B approach-to-route handoff. No owner blocker.
 
 WP082B publication confirmed:46bddd0 on origin/codex/wp-078-ai-pack.
 WP083 intentional Pursuit baseline14342ticks/result449333e5ccdfc60908353e5471f23d2b5285061e8ec6df011532337189dabff2 (.NET/Unity).
@@ -185,3 +187,6 @@ WP083 publication confirmed:1150138 on origin/codex/wp-078-ai-pack.
 WP084 three scenario result hashes match .NET/Unity (docs/quality/wp084); max skiing stall9ticks (0.45s).
 
 WP084 publication confirmed:7e52280e0873863ef6a979327ce1c67e1d54ce34 on origin/codex/wp-078-ai-pack (2026-09-10).
+
+WP085A grid/kernel evidence:30 bodies,1200ticks, min travel504840986125nm, trace80c93f9e09952b64 (.NET/Unity).
+Fixed350W kernel fixture is not full AI/physiology integration; see docs/reports/TASK-085A-REPORT.md.

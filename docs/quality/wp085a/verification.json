@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "wp085a_verification",
+  "date": "2026-09-10",
+  "standalone_passed": 15,
+  "unity_passed": 5,
+  "console_errors": 0,
+  "console_warnings": 4,
+  "grid_count": 30,
+  "kernel_ticks": 1200,
+  "minimum_travel_nm": 504840986125,
+  "trace_fnv64": "80c93f9e09952b64",
+  "dotnet_unity_match": true,
+  "full_race_launch_integrated": false,
+  "evidence": [
+    {
+      "path": "artifacts/physiology/wp085a-final.trx",
+      "sha256": "6376249dec654501413fecbf8f9c51da3b21048c1e9ec0ce6ab648e51f7a692e"
+    },
+    {
+      "path": "artifacts/physiology/wp085a-unity-final.json",
+      "sha256": "b2b1bacc0273c0ca236a7b2952cd054111fdde389a56db782cbba0fe6f0305e7"
+    },
+    {
+      "path": "artifacts/physiology/wp085a-unity-results.xml",
+      "sha256": "80daa6cce4e4ad23780db425ba5db13f4f4c8ad727216c1a8cd477f8d87c4f34"
+    },
+    {
+      "path": "artifacts/physiology/wp085a-console-final.json",
+      "sha256": "0ba569a31cb9e1f8a3caccedf9a83a22fee9096342c91a1964da42590fa80129"
+    }
+  ]
+}
