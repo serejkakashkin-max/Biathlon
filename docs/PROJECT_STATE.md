@@ -4,19 +4,19 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M7 Pursuit and Mass Start; M1–M6 PASS
-active_work_package: WP-085
-active_task: TASK-085B2 shared physical field and parallel approach seam
-last_completed_task: TASK-085B1 physiological approach and exact route handoff (2026-09-10)
+active_work_package: WP-086
+active_task: TASK-086 complete thirty-athlete PPSS audit
+last_completed_task: TASK-085B2 shared physiological grid launch (2026-09-10)
 last_verified_commit: a171ec99a4b0959ab28fce00a96cdf2815c4e0bc; TASK085B1 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
-editmode_tests: 475 discovered; WP085B1 Unity10/10 and prior baselines
+editmode_tests: 478 discovered; WP085B2 Unity3/3 and prior baselines
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
-standalone_tests: full475/475; WP085B1 focused23/23
+standalone_tests: WP085B2 focused15/15; prior full475/475
 unity_console_errors: 0 after WP085B1 compilation and MCP checks
 unity_console_warnings: 4 MCP lifecycle/reconnect warnings retained; no project compile errors
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-085]
+next_unlocked_work_packages: [WP-086]
 ```
 
 ## Work packages
@@ -126,10 +126,10 @@ next_unlocked_work_packages: [WP-085]
 
 - WP-084 DONE. Repeated tied/dense/separated Pursuit fields, actual overtakes, penalties, exact starts and close finishes verified in .NET/Unity.
 
-- WP-085 IN PROGRESS. TASK085A grid/common gun and TASK085B1 physiological route handoff verified; shared field remains TASK085B2.
+- WP-085 DONE. Thirty-body physiological launch, real grid offsets, common gun and exact main-circuit handoff verified; see TASK085B2/ADR0016.
 
 ## Resume
-Continue TASK085B2: connect the real grid/approach to the shared field, including lateral-safe physical continuity at the line. Read GDD13 and TASK-085B1-REPORT. Per-athlete physiology, exact handoff and actual rear-row travel pass full .NET475/475 and focused Unity10/10. The current exclusive full-width junction cannot represent three parallel front-row bodies; preserve physical collision checks when extending seam policy. No owner blocker; WP085 is not DONE.
+Continue WP086: audit a complete30-AI PPSS Mass Start and exact penalties/arrival results. Use MassStartFieldTests.Create and generated synthetic_mass_stadium fixtures. Launch WP085 passed .NET15/15, Unity3/3;30body1200tick minimum route307100214491nm. Read ADR0016. Then WP087 explicit lane policy, WP088–089 stress/regression and WP090 championship harness. Owner authorized continuous work through WP090 with state/GitHub checkpoints.
 WP082B verified full .NET463/463, Unity10/10, Console0 errors. Pursuit chain repeats15326ticks
 with result SHA256 a7a0eaea6bc0767a9e734ebf7e6c705c246f57c22f670d73bf0d6e162e584e0c in both runtimes.
 Read ADR0015 and GDD12. Do not confuse global Pursuit finish order with Sprint elapsed ranking.

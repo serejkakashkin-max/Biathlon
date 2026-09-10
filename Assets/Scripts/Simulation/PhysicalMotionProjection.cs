@@ -25,8 +25,9 @@ namespace Biathlon.Simulation
         private readonly PhysicalRangeLaneMap rangeLane;
         private readonly StartApproachMap approach;
         private readonly long behind;
+        private readonly PhysicalStartApproachMap startOverlay;
         public PhysicalMotionProjection(PhysicalTrackMap map, double tickSeconds, PhysicalRangeLaneMap rangeLane = null,
-            StartApproachMap approach = null, long startBehindLineNanometers = 0)
+            StartApproachMap approach = null, long startBehindLineNanometers = 0, PhysicalStartApproachMap startOverlay = null)
         {
             this.map = map ?? throw new ArgumentNullException(nameof(map));
             if (rangeLane != null && !ReferenceEquals(rangeLane.PhysicalMap, map)) throw new ArgumentException("Foreign range lane map.");
@@ -35,7 +36,8 @@ namespace Biathlon.Simulation
                 (approach!=null && (approach.TrackJson!=map.TrackSnapshotJson || approach.RoutePlanJson!=map.RoutePlanSnapshotJson ||
                 approach.RouteRequirementsJson!=map.RouteRequirementsSnapshotJson || startBehindLineNanometers>approach.LengthNanometers)))
                 throw new ArgumentException("Exact physical approach context and grid position required.");
-            this.approach=approach;behind=startBehindLineNanometers;
+            if(startOverlay!=null && (!ReferenceEquals(startOverlay.PhysicalMap,map) || !ReferenceEquals(startOverlay.Approach,approach))) throw new ArgumentException("Foreign start overlay.");
+            this.startOverlay=startOverlay;this.approach=approach;behind=startBehindLineNanometers;
             FractionalMotionTimeline.Quantize(0, tickSeconds); this.tickSeconds = tickSeconds;
         }
         public PhysicalMotionReceipt Project(RaceMotionSegment segment, PhysicalTrackPoint physicalStart)
@@ -50,7 +52,7 @@ namespace Biathlon.Simulation
             if(segment.OnStartApproach)
             {
                 if(approach==null || segment.TravelAfter>behind)throw new ArgumentException("Split approach receipts at the physical route entry.");
-                var expected=map.MapLoop(approach.LoopId,checked(approach.LengthNanometers-behind+segment.TravelBefore));
+                var expected=startOverlay==null ? map.MapLoop(approach.LoopId,checked(approach.LengthNanometers-behind+segment.TravelBefore)) : startOverlay.MapRemaining(behind-segment.TravelBefore);
                 if(!map.SameLoop(expected,physicalStart) || expected.LocalNanometers!=physicalStart.LocalNanometers)
                     throw new ArgumentException("Physical approach origin disagrees with grid travel.");
                 end=Advance(physicalStart,travel);

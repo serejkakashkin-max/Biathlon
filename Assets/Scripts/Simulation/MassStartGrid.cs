@@ -23,6 +23,8 @@ namespace Biathlon.Simulation
     {
         private readonly MassStartGridSlot[] slots;
         public int Count=>slots.Length;
+        public string ProfileJson { get; }
+        public string BodyJson { get; }
         public string ContextJson { get; }
         /// <summary>Translation into the nonnegative coordinate space used by the pack kernel.
         /// This origin shift is position only, not distance travelled by an athlete.</summary>
@@ -51,6 +53,7 @@ namespace Biathlon.Simulation
             double halfSpan=(definition.Columns-1)*definition.ColumnSpacing.Meters/2;
             if(halfSpan+body.EdgeMargin>widthMeters/2 || (rows-1)*definition.RowSpacing.Meters+body.BodyLength/2>depthMeters)
                 throw new ArgumentException("Authored start area cannot contain the grid and body margins.");
+            ProfileJson=profile.ToJson();BodyJson=body.ToJson();
             slots=new MassStartGridSlot[roster.Length];
             FrontReferenceNanometers=checked((rows-1)*definition.RowSpacing.Millimeters*SkiState.NanometersPerMillimeter+
                 (long)Math.Ceiling(body.BodyLength/2*SkiState.NanometersPerMeter));

@@ -86,7 +86,7 @@ namespace Biathlon.AI
             this.difficulty=difficulty; this.seed=seed; this.events=events; this.telemetry=telemetry; frequency=field.TickFrequency;
             policy=AiRacePolicyDefinition.FromJson(read("ai_race_policy_provisional_v1.json"));
             for(int i=0;i<field.Track.LoopCount;i++)
-                if(policy.PhysicalRadius*2>field.Track.GetLoop(i).Length.Meters) throw new ArgumentException("Physical preview exceeds half a loop.");
+                if(field.Track.GetLoop(i).Id!=field.StartApproach?.LoopId && policy.PhysicalRadius*2>field.Track.GetLoop(i).Length.Meters) throw new ArgumentException("Physical preview exceeds half a loop.");
             var cadence=difficulty.Cadence(); paceDefinition=difficulty.Apply(PaceControllerDefinition.FromJson(read("pace_controller_provisional_v1.json")));
             shootingModel=new ShootingModelDefinitions(read); aimDefinition=difficulty.Apply(ShootingAiDefinition.FromJson(read("shooting_ai_v1.json")));
             var utilityDefinition=TacticalUtilityDefinition.FromJson(read("tactical_utility_provisional_v1.json"));
@@ -238,4 +238,3 @@ namespace Biathlon.AI
         private void Publish(int i,SimulationTick tick,AiTraceKind kind)=>telemetry.Record(new AiDecisionTrace(tick,Field.GetAthlete(i).AthleteId,kind,intents[i],utilities[i],draftFrames[i],overtakeFrames[i],recoveryFrames[i],strategies[i],paceFrames[i],shootingFrames[i],lateral[i]));
     }
 }
-

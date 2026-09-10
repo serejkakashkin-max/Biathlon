@@ -13,3 +13,5 @@ negative route coordinates; choose an explicit approach adapter and validate its
 handoff. Do not mark WP085 complete before the actual race launch composition is verified.
 
 TASK-085B1 DONE: explicit physiological approach, exact fractional route handoff and projection; full .NET475/475 and focused Unity10/10. See TASK-085B1-REPORT. TASK-085B2 NEXT: shared30-body field and lateral-safe approach seam.
+
+WP085 DONE: TASK085B2 verifies30-body physical launch and exact common-clock integration; see report/ADR0016.

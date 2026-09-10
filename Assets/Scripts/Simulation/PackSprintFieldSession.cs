@@ -24,6 +24,9 @@ namespace Biathlon.Simulation
         private readonly PhysicalMotionProjection projection;
         private readonly PhysicalRangeLaneMap[] rangeMaps;
         private readonly PhysicalMotionProjection[] rangeProjections;
+        private readonly PhysicalStartApproachMap startOverlay;
+        public MassStartGrid StartGrid { get; }
+        public StartApproachMap StartApproach => startOverlay?.Approach;
         private readonly PhysicalJunctionMap junctions;
         private readonly PhysicalConnectionMap connections;
         private readonly PhysicalConnectionDefinition connectionDefinition;
@@ -54,6 +57,7 @@ namespace Biathlon.Simulation
         public bool IsComplete => field.IsComplete;
         public SprintResultSnapshot Result => field.Result;
         public PursuitResultSnapshot PursuitResult => field.PursuitResult;
+        public MassStartResultSnapshot MassStartResult => field.MassStartResult;
         public TrackDefinition Track => field.Track;
         public RaceRoute Route => field.Route;
         public CompetitionProfile Profile => field.Profile;
@@ -73,11 +77,18 @@ namespace Biathlon.Simulation
             ResultTimingDefinition timing, ReadOnlySpan<SprintEntrant> entrants, SimulationTick firstStart, string resultId,
             OccupancyDefinition body, DraftDefinition draft, OvertakeDefinition movement,
             PhysicalJunctionDefinition junctionDefinition, PhysicalConnectionDefinition connectionDefinition, IRaceEventSink events,
-            PhysicalRangeLaneDefinition rangeLanes = null, PursuitQualificationSnapshot qualification = null)
+            PhysicalRangeLaneDefinition rangeLanes = null, PursuitQualificationSnapshot qualification = null,
+            MassStartGrid massGrid = null, StartApproachMap startApproach = null)
         {
             this.events = events ?? throw new ArgumentNullException(nameof(events)); this.movement = movement ?? throw new ArgumentNullException(nameof(movement));
-            field = new SprintFieldSession(config, profile, skiModel, shootingModel, track, route, conditions, timing, entrants, firstStart, resultId, events, qualification);
+            field = new SprintFieldSession(config, profile, skiModel, shootingModel, track, route, conditions, timing, entrants, firstStart, resultId, events, qualification,massGrid,startApproach);
             frequency = config.TickFrequency; map = new PhysicalTrackMap(track, route);
+            StartGrid=massGrid;
+            if(massGrid!=null)
+            {
+                if(massGrid.BodyJson!=body.ToJson())throw new ArgumentException("Grid and field bodies must match.");
+                startOverlay=new PhysicalStartApproachMap(map,track,route,startApproach);
+            }
             for (int i = 0; i < route.SectionCount; i++)
             {
                 var section = route.GetSection(i);
@@ -94,7 +105,8 @@ namespace Biathlon.Simulation
                 for (int i = 0; i < Count; i++)
                 {
                     rangeMaps[i] = new PhysicalRangeLaneMap(map, route, rangeLanes, i);
-                    rangeProjections[i] = new PhysicalMotionProjection(map, 1.0 / frequency, rangeMaps[i]);
+                    rangeProjections[i] = new PhysicalMotionProjection(map, 1.0 / frequency, rangeMaps[i],startApproach,
+                        massGrid==null?0:-massGrid.Get(i).LongitudinalNanometers,startOverlay);
                     var start = map.MapLoop(rangeLanes.GetLane(i), 0);
                     var end = map.MapLoop(rangeLanes.GetLane(i), (rangeLanes.Exit.Millimeters - rangeLanes.Entry.Millimeters) * SkiState.NanometersPerMillimeter);
                     if (ConnectionIndex(map.MapLoop(rangeLanes.MainLoopId, rangeLanes.Entry.Millimeters * SkiState.NanometersPerMillimeter), start) < 0 ||
@@ -102,6 +114,11 @@ namespace Biathlon.Simulation
                         ConnectionIndex(end, map.MapPenalty(0)) < 0)
                         throw new ArgumentException("Range lane requires explicit entry, main exit and penalty exit connections.");
                 }
+            }
+            else if(massGrid!=null)
+            {
+                rangeProjections=new PhysicalMotionProjection[Count];
+                for(int i=0;i<Count;i++)rangeProjections[i]=new PhysicalMotionProjection(map,1.0/frequency,null,startApproach,-massGrid.Get(i).LongitudinalNanometers,startOverlay);
             }
             widths = new OccupancySystem(body); occupancy = new PhysicalOccupancySystem(map, body); drafting = new DraftingSystem(draft);
             penaltySampler = new TrackSampler(track.GetLoop(track.Penalty.LoopId));
@@ -121,10 +138,22 @@ namespace Biathlon.Simulation
             int capacity = 0;
             for (int i = 0; i < Count; i++) { traces[i] = new Trace(GetAthlete(i).MotionSegmentCapacity); stationary[i] = new Trace(0); capacity += traces[i].Segments.Length; }
             allSegments = new RaceMotionSegment[capacity]; grid = new long[2 + capacity * 2]; timeScratch = new double[grid.Length];
+            if(massGrid!=null)
+            {
+                for(int i=0;i<Count;i++)
+                {
+                    lateral[i]=massGrid.Get(i).LateralNanometers/1e9;onCourse[i]=true;
+                    double startWidth=track.GetLoop(startApproach.LoopId).GetSegment(0).WidthMeters;
+                    if(!widths.FitsWidth(lateral[i],startWidth))throw new ArgumentException("Grid does not fit actual start corridor.");
+                    var point=CurrentPoint(i);var idle=stationary[i];idle.Start=idle.End=point;idle.LateralStart=idle.LateralEnd=lateral[i];
+                    for(int j=0;j<i;j++)if(Conflict(idle,i,stationary[j],j))throw new ArgumentException("Grid conflicts with physical corridor/junctions.");
+                }
+            }
             ContextJson = ShootingModelDefinitions.EncodeContext(new[] { "sprint_shared_pack_prefix_v1", field.ContextJson,
                 body.ToJson(), draft.ToJson(), movement.ToJson(), junctionDefinition.ToJson(), connectionDefinition.ToJson(),
                 "tick_start_periodic_draft;fixed_tick_lateral;prefix_stop_mm_quantum;full_interval_junction;seam_tail_lateral_lock;staging_before_admission;finish_exit;fraction_nearest_even_1e9;precision_keep_first_mover;contact_from_replan;junction_fifo_after_incumbent_v1" });
             if (rangeLanes != null) ContextJson = ShootingModelDefinitions.EncodeContext(new[] { ContextJson, rangeLanes.ToJson(), "physical_range_lanes_v1;unique_roster_slot_lane;last_lap_main_bypass" });
+            if(startOverlay!=null)ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,startOverlay.ContextJson,"grid_bodies_present_before_gun_v1"});
         }
 
         public void Step(ReadOnlySpan<SprintAthleteInput> inputs, ReadOnlySpan<double> requestedLateral)
@@ -152,6 +181,7 @@ namespace Biathlon.Simulation
             {
                 var athlete = GetAthlete(i); if (athlete.HasFinished) continue;
                 bool movable = active[i] && !(athlete.CurrentRangeMotion.HasValue && athlete.CurrentRangeMotion.Value.Phase == RangeTraversalPhase.Shooting);
+                if(StartGrid!=null && tick.Value<=athlete.ScheduledStart.Value)movable=false;
                 double bound = Math.Floor((minimumWidth / 2 - widths.Definition.EdgeMargin) * 1e9) / 1e9;
                 double target = Math.Max(-bound, Math.Min(bound, requestedLateral[i]));
                 desiredLateral[i] = movable ? PhysiologyNumbers.Quantize(lateral[i] + Math.Max(-lateralStep, Math.Min(lateralStep, target - lateral[i]))) : lateral[i];
@@ -268,6 +298,7 @@ namespace Biathlon.Simulation
         private PhysicalTrackPoint CurrentPoint(int index)
         {
             var athlete = GetAthlete(index);
+            if(athlete.RemainingStartApproachNanometers>0)return startOverlay.MapRemaining(athlete.RemainingStartApproachNanometers);
             var range = athlete.CurrentRangeMotion;
             return range.HasValue && range.Value.Phase == RangeTraversalPhase.PenaltyLoop ? map.MapPenalty(range.Value.PenaltyNanometers) : RoutePoint(index, athlete.RouteNanometers);
         }
@@ -284,7 +315,7 @@ namespace Biathlon.Simulation
                 draftRoster[count++] = new SkiPlacement(GetAthlete(i).AthleteId, self.LoopId, new SkiState(origin + delta, GetAthlete(i).Motion.SpeedMetersPerSecond), lateral[i]);
             }
             var range = athlete.CurrentRangeMotion;
-            var sample = range.HasValue && range.Value.Phase == RangeTraversalPhase.PenaltyLoop ? penaltySampler.Sample(new TrackDistance(self.LocalNanometers / SkiState.NanometersPerMillimeter)) :
+            var sample = athlete.RemainingStartApproachNanometers>0 ? startOverlay.Approach.Sample(athlete.RemainingStartApproachNanometers) : range.HasValue && range.Value.Phase == RangeTraversalPhase.PenaltyLoop ? penaltySampler.Sample(new TrackDistance(self.LocalNanometers / SkiState.NanometersPerMillimeter)) :
                 field.Route.Sample(new TrackDistance(athlete.RouteNanometers / SkiState.NanometersPerMillimeter)).Track;
             return drafting.Evaluate(follower, draftRoster.AsSpan(0, count), sample, input.Ski.HeadwindMetersPerSecond);
         }
@@ -300,14 +331,15 @@ namespace Biathlon.Simulation
             for (int s = 0; s < preview.Movement.SegmentCount; s++)
             {
                 var segment = athlete.GetPreparedSegment(preview, s);
-                var start = segment.OnPenaltyLoop ? map.MapPenalty(penalty) : RoutePoint(i, segment.RouteBefore);
+                var start = segment.OnStartApproach ? startOverlay.MapRemaining(athlete.InitialStartApproachNanometers-segment.TravelBefore) : segment.OnPenaltyLoop ? map.MapPenalty(penalty) : RoutePoint(i, segment.RouteBefore);
                 Seam(trace, prior, start, segment.TravelBefore);
                 var receipt = Projection(i).Project(segment, start); trace.Segments[trace.Count++] = receipt;
                 if (segment.OnPenaltyLoop) penalty = receipt.End.LocalNanometers;
                 prior = receipt.End;
             }
             var range = athlete.PreviewRangeMotion(preview);
-            trace.End = range.HasValue && range.Value.Phase == RangeTraversalPhase.PenaltyLoop ? map.MapPenalty(range.Value.PenaltyNanometers) : RoutePoint(i, preview.Movement.RouteNanometers);
+            long remainingApproach=athlete.InitialStartApproachNanometers-preview.Movement.Motion.DistanceNanometers;
+            trace.End = remainingApproach>0 ? startOverlay.MapRemaining(remainingApproach) : range.HasValue && range.Value.Phase == RangeTraversalPhase.PenaltyLoop ? map.MapPenalty(range.Value.PenaltyNanometers) : RoutePoint(i, preview.Movement.RouteNanometers);
             Seam(trace, prior, trace.End, preview.Movement.Motion.DistanceNanometers);
             trace.EndTail = trace.NewTail.Active ? trace.NewTail : trace.OldTail;
             if (trace.EndTail.Active && preview.Movement.Motion.DistanceNanometers - trace.EndTail.BirthTravel > halfBody) trace.EndTail = default;
@@ -343,6 +375,7 @@ namespace Biathlon.Simulation
             long aw = preparedJunctionWaitSince[a], bw = preparedJunctionWaitSince[b];
             if (!ao && aw != bw && (aw != 0 || bw != 0)) return aw != 0 && (bw == 0 || aw < bw);
             long ar = GetAthlete(a).RouteNanometers, br = GetAthlete(b).RouteNanometers;
+            if(startOverlay!=null){ar-=GetAthlete(a).RemainingStartApproachNanometers;br-=GetAthlete(b).RemainingStartApproachNanometers;}
             return ar != br ? ar > br : string.CompareOrdinal(GetAthlete(a).AthleteId.Value, GetAthlete(b).AthleteId.Value) < 0;
         }
         private bool OwnsJunction(int i)
