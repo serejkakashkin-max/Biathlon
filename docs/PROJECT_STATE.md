@@ -4,19 +4,19 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M7 Pursuit and Mass Start; M1–M6 PASS
-active_work_package: WP-086
-active_task: TASK-086 complete thirty-athlete PPSS audit
-last_completed_task: TASK-085B2 shared physiological grid launch (2026-09-10)
-last_verified_commit: a171ec99a4b0959ab28fce00a96cdf2815c4e0bc; TASK085B1 verified and pushed
+active_work_package: WP-087
+active_task: TASK-087 first-bib and subsequent-arrival range lanes
+last_completed_task: TASK-086 thirty-AI complete PPSS audit (2026-09-10)
+last_verified_commit: ef705df; WP085 source verified and pushed; WP086 adds cross-runtime30-AI evidence
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
-editmode_tests: 478 discovered; WP085B2 Unity3/3 and prior baselines
+editmode_tests: 479 discovered; WP086 Unity1/1 full30-AI, WP085B2 Unity3/3
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
-standalone_tests: WP085B2 focused15/15; prior full475/475
+standalone_tests: WP086 full30-AI1/1; WP085B2 focused15/15; prior full475/475
 unity_console_errors: 0 after WP085B1 compilation and MCP checks
 unity_console_warnings: 4 MCP lifecycle/reconnect warnings retained; no project compile errors
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-086]
+next_unlocked_work_packages: [WP-087]
 ```
 
 ## Work packages
@@ -128,8 +128,10 @@ next_unlocked_work_packages: [WP-086]
 
 - WP-085 DONE. Thirty-body physiological launch, real grid offsets, common gun and exact main-circuit handoff verified; see TASK085B2/ADR0016.
 
+- WP-086 DONE. Thirty-AI PPSS/five-lap/actual-penalty composition and exact cross-runtime results verified.
+
 ## Resume
-Continue WP086: audit a complete30-AI PPSS Mass Start and exact penalties/arrival results. Use MassStartFieldTests.Create and generated synthetic_mass_stadium fixtures. Launch WP085 passed .NET15/15, Unity3/3;30body1200tick minimum route307100214491nm. Read ADR0016. Then WP087 explicit lane policy, WP088–089 stress/regression and WP090 championship harness. Owner authorized continuous work through WP090 with state/GitHub checkpoints.
+Continue WP087: versioned first-bout bib and subsequent-bout arrival lane policy, bound to actual physical branches and shooting assignments. IBU2025 Article8.2.1 verified from the official November2025 PDF. Preserve fixed-lane regressions. Then WP088–089 stress/repeatability and WP090 championship. Owner authorized work through WP090 with GitHub/state checkpoints.
 WP082B verified full .NET463/463, Unity10/10, Console0 errors. Pursuit chain repeats15326ticks
 with result SHA256 a7a0eaea6bc0767a9e734ebf7e6c705c246f57c22f670d73bf0d6e162e584e0c in both runtimes.
 Read ADR0015 and GDD12. Do not confuse global Pursuit finish order with Sprint elapsed ranking.
