@@ -7,7 +7,7 @@ project_phase: M7 complete; M1–M7 PASS; next M8 Balance Lab
 active_work_package: none; requested endpoint WP-090 reached
 active_task: none; WP090 complete
 last_completed_task: TASK-090 three-format championship; M7 PASS (2026-09-11)
-last_verified_commit: 4f50876; WP088-089 verified and pushed
+last_verified_commit: fa4cb932f65391328ac18274f72d497a1bef7acc; WP090/M7 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 486 discovered; WP090 Unity2/2; WP088-089 matrix1/1 and results2/2
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
@@ -190,3 +190,5 @@ Fixed350W kernel fixture is not full AI/physiology integration; see docs/reports
 TASK085A publication confirmed:3e342206926e6f32053759356012163077e8f79c on origin/codex/wp-078-ai-pack (2026-09-10).
 
 TASK085B1 publication confirmed: a171ec99a4b0959ab28fce00a96cdf2815c4e0bc on origin/codex/wp-078-ai-pack (2026-09-10).
+
+WP088-089 publication confirmed:4f50876; WP090/M7 publication confirmed:fa4cb932f65391328ac18274f72d497a1bef7acc on origin/codex/wp-078-ai-pack (2026-09-11). This follow-up records the verified source publication.
