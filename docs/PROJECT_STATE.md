@@ -4,10 +4,10 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M8 Balance Lab; M1–M7 PASS
-active_work_package: WP-097; continuing through M8 (WP-102)
-active_task: TASK-097 matched draft calibration
-last_completed_task: TASK-096 shooting cohort calibration (2026-09-11)
-last_verified_commit: ab963b68993824f76674a191e406ae054684f59e; WP095 verified and pushed
+active_work_package: WP-101; continuing through M8 (WP-102)
+active_task: TASK-101 bounded proposal-only tuner; full regression running
+last_completed_task: TASK-100 AI physical parity audit (2026-09-11)
+last_verified_commit: 92d3888; WP096 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 495 discovered; WP095 Unity3/3; WP094 regression2/2 and batch4/4
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
@@ -16,10 +16,14 @@ unity_console_errors: 0 after WP095 compilation and MCP checks
 unity_console_warnings: 4 retained MCP warnings; compilation_failed=false
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-097]
+next_unlocked_work_packages: [WP-101]
 ```
 
 ## Work packages
+- WP-097 DONE. Eight matched shared-race draft pairs; +3.20s mean benefit; Unity1/1 exact JSONL.
+- WP-098 DONE. 96 ski +10 marginals and 6,000 shooting bouts; no aggregate single-stat dominance; limitations recorded.
+- WP-099 DONE. 32 equipment comparisons; -2.24% to +1.80%; below broad athlete skill progression. Unity stat/equipment3/3.
+- WP-100 DONE. AI-command replay without AI: expert/developing, flat/rolling, exact complete frames/results. .NET4/4 and Unity4/4.
 - WP-096 DONE. Held-out 18,000 bouts; top 87.20% prone / 85.08% standing. .NET7/7, Unity2/2 exact CSV. See TASK-096-REPORT.md; non-monotonic tired cohort accuracy remains an explicit provisional limitation.
 - WP-001 DONE. Preserve integer kernel and canonical SHA-256 from Foundation report.
 - WP-002 DONE. TASK-002 contracts, serialization, validation and numeric policy verified.
