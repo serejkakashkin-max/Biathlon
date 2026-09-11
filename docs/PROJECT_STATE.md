@@ -4,19 +4,19 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M7 Pursuit and Mass Start; M1–M6 PASS
-active_work_package: WP-088
-active_task: TASK-088-089 repeated thirty-AI ordered Mass Start stress matrix
-last_completed_task: TASK-087 physical/logical lane order and replay (2026-09-10)
-last_verified_commit: 892126d; WP086 verified and pushed; WP087 adds ordered policy
+active_work_package: WP-090
+active_task: TASK-090 shared three-format championship harness
+last_completed_task: TASK-088-089 stress matrix and result regression (2026-09-11)
+last_verified_commit: 1f0a43d; WP087 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
-editmode_tests: 481 discovered; WP087 Unity2/2; WP086 Unity1/1 full30-AI
+editmode_tests: 486 discovered; WP088-089 Unity matrix1/1 and results2/2
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
-standalone_tests: WP087 focused8/8 plus baseline3/3; prior full475/475
+standalone_tests: full484/484; WP090 focused2/2
 unity_console_errors: 0 after WP085B1 compilation and MCP checks
 unity_console_warnings: 3 retained MCP warnings; no project compile errors
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-088]
+next_unlocked_work_packages: [WP-090]
 ```
 
 ## Work packages
@@ -132,8 +132,12 @@ next_unlocked_work_packages: [WP-088]
 
 - WP-087 DONE. Versioned bib/arrival lanes commit with physical branches and logical shooting, repeated events/results verified; ADR0017.
 
+- WP-088 DONE. Repeated flat/rolling/narrow thirty-AI stress and reproducible fixtures verified.
+
+- WP-089 DONE. Exact cross-runtime matrix, result ranking validation and full484 regression passed.
+
 ## Resume
-Continue WP088–089: repeated30-AI ordered-lane fields on flat, rolling and narrow fixtures; measure first-minute density/stalls, range throughput, no overlap/deadlock, stable result ranks and repeated seeds. WP087 .NET8/8 plus3/3, Unity2/2; ordered6 result ee26c5ba66f114d52abdee03ba36034d24997e05eb42af7ad783bc9c90d5772e. Then WP090 three-format harness. Owner authorized continuous work through WP090 and GitHub/state checkpoints.
+Complete WP090 common factory and three-format CLI/Unity harness. WP088-089 pass: full .NET484/484, Unity matrix1/1 and result tests2/2. See TASK-088-089-REPORT and quality/wp088-089. Owner authorized continuous work through WP090 with GitHub/state checkpoints.
 WP082B verified full .NET463/463, Unity10/10, Console0 errors. Pursuit chain repeats15326ticks
 with result SHA256 a7a0eaea6bc0767a9e734ebf7e6c705c246f57c22f670d73bf0d6e162e584e0c in both runtimes.
 Read ADR0015 and GDD12. Do not confuse global Pursuit finish order with Sprint elapsed ranking.

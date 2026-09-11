@@ -1,0 +1,914 @@
+{
+  "schema_version": 1,
+  "id": "synthetic_mass_stadium_narrow_v1",
+  "authoring_limits": {
+    "max_abs_grade": 0.4,
+    "max_abs_curvature_per_m": 0.2,
+    "min_width_m": 2,
+    "max_width_m": 20
+  },
+  "loops": [
+    {
+      "id": "main_short",
+      "kind": "race",
+      "closed": true,
+      "segments": [
+        {
+          "id": "flat_01",
+          "length_m": 400,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "risk_level": 0,
+          "semantic_zone": "flat"
+        },
+        {
+          "id": "climb_01",
+          "length_m": 200,
+          "start_grade": 0.05,
+          "end_grade": 0.15,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1.5,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "risk_level": 0,
+          "semantic_zone": "climb_long"
+        },
+        {
+          "id": "descent_01",
+          "length_m": 200,
+          "start_grade": -0.1,
+          "end_grade": -0.1,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "risk_level": 0,
+          "semantic_zone": "descent_fast"
+        },
+        {
+          "id": "range_approach_01",
+          "length_m": 200,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "main_long",
+      "kind": "race",
+      "closed": true,
+      "segments": [
+        {
+          "id": "generated_0000",
+          "length_m": 200,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "risk_level": 0,
+          "semantic_zone": "flat"
+        },
+        {
+          "id": "generated_0001",
+          "length_m": 200,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "risk_level": 0,
+          "semantic_zone": "flat"
+        },
+        {
+          "id": "generated_0002",
+          "length_m": 200,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 3,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": true,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "flat"
+        },
+        {
+          "id": "generated_0003",
+          "length_m": 200,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 3,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": true,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "flat"
+        },
+        {
+          "id": "shared_range_tail",
+          "length_m": 200,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "penalty_150",
+      "kind": "penalty",
+      "closed": true,
+      "segments": [
+        {
+          "id": "penalty_arc",
+          "length_m": 150,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0.04,
+          "width_m": 4,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "penalty_loop"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_1",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_1_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_2",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_2_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_3",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_3_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_4",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_4_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_5",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_5_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_6",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_6_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_7",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_7_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_8",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_8_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_9",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_9_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_10",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_10_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_11",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_11_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_12",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_12_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_13",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_13_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_14",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_14_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_15",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_15_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_16",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_16_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_17",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_17_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_18",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_18_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_19",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_19_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_20",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_20_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_21",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_21_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_22",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_22_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_23",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_23_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_24",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_24_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_25",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_25_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_26",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_26_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_27",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_27_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_28",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_28_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_29",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_29_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "range_lane_30",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "range_lane_30_approach",
+          "length_m": 100,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    },
+    {
+      "id": "start_approach",
+      "kind": "race",
+      "closed": false,
+      "segments": [
+        {
+          "id": "start_approach_flat",
+          "length_m": 30,
+          "start_grade": 0,
+          "end_grade": 0,
+          "curvature_per_m": 0,
+          "width_m": 6,
+          "snow_profile_id": "snow_test_packed",
+          "wind_exposure": 0.5,
+          "terrain_muscle_factor": 1,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "risk_level": 0,
+          "semantic_zone": "range_approach"
+        }
+      ]
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "start",
+      "anchor": {
+        "loop_id": "main_long",
+        "distance_m": 0
+      }
+    },
+    {
+      "id": "profile_end",
+      "anchor": {
+        "loop_id": "main_long",
+        "distance_m": 800
+      }
+    },
+    {
+      "id": "finish",
+      "anchor": {
+        "loop_id": "main_long",
+        "distance_m": 1000
+      }
+    }
+  ],
+  "range": {
+    "id": "range_main",
+    "entry": {
+      "loop_id": "main_long",
+      "distance_m": 820
+    },
+    "firing_line": {
+      "loop_id": "main_long",
+      "distance_m": 850
+    },
+    "exit": {
+      "loop_id": "main_long",
+      "distance_m": 880
+    }
+  },
+  "penalty": {
+    "loop_id": "penalty_150",
+    "entry": {
+      "loop_id": "main_long",
+      "distance_m": 900
+    },
+    "rejoin": {
+      "loop_id": "main_long",
+      "distance_m": 920
+    }
+  }
+}

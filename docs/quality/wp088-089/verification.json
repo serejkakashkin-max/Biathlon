@@ -1,0 +1,37 @@
+{
+  "dotnet_matrix_passed": 1,
+  "metrics": [
+    "MassMatrix prefix=synthetic_mass_stadium; seed=123; difficulty=expert; ticks=17575; max_stall=373; launch_stall=2; launch_stopped=40; rapid_reversals=2; peak_shooting=9; penalties=41; passes=17; trace=9cf20f6ccd7552e0; result_sha256=836f26be72ec70529a478dd0686a3b4909c6842920a62a32e2c9f1791948ec8a",
+    "MassMatrix prefix=synthetic_mass_stadium_rolling; seed=456; difficulty=developing; ticks=28285; max_stall=511; launch_stall=15; launch_stopped=81; rapid_reversals=3; peak_shooting=17; penalties=212; passes=5; trace=d98ccfa7ef1eed98; result_sha256=f2b9a3dd7d313c9e627c34875c7ea833d6b71d8abaad97473c490de8235e84e1",
+    "MassMatrix prefix=synthetic_mass_stadium_narrow; seed=789; difficulty=expert; ticks=17001; max_stall=181; launch_stall=2; launch_stopped=40; rapid_reversals=3; peak_shooting=9; penalties=37; passes=11; trace=cc641be1cdbe1343; result_sha256=fcfb159905d08ddd8f7ea54ffab3c543cc28ef5d6a45821e4e1fad8a1d9d9ce3"
+  ],
+  "dotnet_full_passed": 484,
+  "evidence": [
+    {
+      "file": "artifacts/physiology/wp089-full.trx",
+      "sha256": "2d5a64ff14effce5b4224b50816c9b32a1a9c1f592041844fd94c92b862d15c8"
+    },
+    {
+      "file": "artifacts/physiology/wp088-089-matrix.trx",
+      "sha256": "e62044035a2b4cc7f8d1eb6825021ccdbd235f17af8bb0641a2e9e6c50a502c6"
+    },
+    {
+      "file": "artifacts/physiology/wp088-089-unity-matrix-results.xml",
+      "sha256": "c049755c8ca4a68732dcb12b2b61c9e68f4ca8129027d60ec3cfe8674003e8b4"
+    },
+    {
+      "file": "artifacts/physiology/wp089-unity-result-validation.xml",
+      "sha256": "98a11b5042911bcbf3ee9c82e8a96b1a499c90d901d95cf5dc20b0216afacc6e"
+    },
+    {
+      "file": "artifacts/physiology/wp089-fixture-repeat.json",
+      "sha256": "43db0bae9366b3708c282129d9985cf6c10707b464de87d7dc2c6118287ab296"
+    }
+  ],
+  "id": "wp088_089_verification",
+  "fixture_files_reproduced": 8,
+  "schema_version": 1,
+  "unity_results_passed": 2,
+  "unity_matrix_passed": 1,
+  "transport_note": "MCP matrix response timed out; completed NUnit XML independently confirms pass."
+}
