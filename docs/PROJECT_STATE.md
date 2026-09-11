@@ -7,7 +7,7 @@ project_phase: M8 Balance Lab; M1–M7 PASS
 active_work_package: none; requested endpoint WP-095 reached
 active_task: none; WP095 complete
 last_completed_task: TASK-095 held-out pacing calibration (2026-09-11)
-last_verified_commit: d83b08e; WP094 verified and pushed
+last_verified_commit: ab963b68993824f76674a191e406ae054684f59e; WP095 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 495 discovered; WP095 Unity3/3; WP094 regression2/2 and batch4/4
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
@@ -218,3 +218,5 @@ TASK085A publication confirmed:3e342206926e6f32053759356012163077e8f79c on origi
 TASK085B1 publication confirmed: a171ec99a4b0959ab28fce00a96cdf2815c4e0bc on origin/codex/wp-078-ai-pack (2026-09-10).
 
 WP088-089 publication confirmed:4f50876; WP090/M7 publication confirmed:fa4cb932f65391328ac18274f72d497a1bef7acc on origin/codex/wp-078-ai-pack (2026-09-11). This follow-up records the verified source publication.
+
+WP091-093 publication:0d19af3; WP094 publication:d83b08e; WP095 publication:ab963b68993824f76674a191e406ae054684f59e confirmed on origin/codex/wp-078-ai-pack (2026-09-11). This follow-up records the verified source publication.
