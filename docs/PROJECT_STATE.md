@@ -4,9 +4,9 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M8 Balance Lab; M1–M7 PASS
-active_work_package: none; requested endpoint WP-095 reached
-active_task: none; WP095 complete
-last_completed_task: TASK-095 held-out pacing calibration (2026-09-11)
+active_work_package: WP-097; continuing through M8 (WP-102)
+active_task: TASK-097 matched draft calibration
+last_completed_task: TASK-096 shooting cohort calibration (2026-09-11)
 last_verified_commit: ab963b68993824f76674a191e406ae054684f59e; WP095 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 495 discovered; WP095 Unity3/3; WP094 regression2/2 and batch4/4
@@ -16,10 +16,11 @@ unity_console_errors: 0 after WP095 compilation and MCP checks
 unity_console_warnings: 4 retained MCP warnings; compilation_failed=false
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-096]
+next_unlocked_work_packages: [WP-097]
 ```
 
 ## Work packages
+- WP-096 DONE. Held-out 18,000 bouts; top 87.20% prone / 85.08% standing. .NET7/7, Unity2/2 exact CSV. See TASK-096-REPORT.md; non-monotonic tired cohort accuracy remains an explicit provisional limitation.
 - WP-001 DONE. Preserve integer kernel and canonical SHA-256 from Foundation report.
 - WP-002 DONE. TASK-002 contracts, serialization, validation and numeric policy verified.
 - WP-003 DONE. Effort/power mapping and allocation/monotonicity checks verified.

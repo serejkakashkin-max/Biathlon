@@ -8,13 +8,16 @@ namespace Biathlon.AI
     {
         public ShootingPhase Phase { get; } public int ClosedMask { get; } public int ShotsFired { get; }
         public double SightYaw { get; } public double SightPitch { get; } public double DecisionDelayMultiplier { get; }
-        public ShootingAiObservation(ShootingPhase phase, int closedMask, int shotsFired, double sightYaw, double sightPitch, double decisionDelayMultiplier = 1)
+        public double EstimatedHorizontalDriftMeters { get; }
+        public ShootingAiObservation(ShootingPhase phase, int closedMask, int shotsFired, double sightYaw, double sightPitch, double decisionDelayMultiplier = 1,
+            double estimatedHorizontalDriftMeters = 0)
         {
             if (phase < ShootingPhase.Outside || phase > ShootingPhase.Complete || closedMask < 0 || closedMask > 31 || shotsFired < 0 || shotsFired > 100)
                 throw new ArgumentOutOfRangeException(nameof(phase));
             SightYaw = PhysiologyNumbers.RequireRange(sightYaw, -0.5, 0.5, nameof(sightYaw));
             SightPitch = PhysiologyNumbers.RequireRange(sightPitch, -0.5, 0.5, nameof(sightPitch));
             DecisionDelayMultiplier = PhysiologyNumbers.RequireRange(decisionDelayMultiplier, 1, 3, nameof(decisionDelayMultiplier));
+            EstimatedHorizontalDriftMeters = PhysiologyNumbers.RequireRange(estimatedHorizontalDriftMeters, -10, 10, nameof(estimatedHorizontalDriftMeters));
             Phase = phase; ClosedMask = closedMask; ShotsFired = shotsFired;
         }
     }
@@ -76,7 +79,7 @@ namespace Biathlon.AI
                 targetIndex = selected; nextDecision = decisionDeadline;
                 if (selected >= 0 && (observation.Phase == ShootingPhase.Aiming || observation.Phase == ShootingPhase.Setup || observation.Phase == ShootingPhase.BoltCycle))
                 {
-                    double desiredYaw = Math.Atan(targets.CenterX(selected) / targets.DistanceMeters) + definition.TrackingError * Math.Sin(phaseX * 2 * Math.PI);
+                    double desiredYaw = Math.Atan((targets.CenterX(selected) - observation.EstimatedHorizontalDriftMeters) / targets.DistanceMeters) + definition.TrackingError * Math.Sin(phaseX * 2 * Math.PI);
                     double desiredPitch = definition.TrackingError * Math.Sin(phaseY * 2 * Math.PI);
                     double dx = desiredYaw - observation.SightYaw, dy = desiredPitch - observation.SightPitch;
                     horizontal = Encode(dx * definition.AimGain / aimRate); vertical = Encode(dy * definition.AimGain / aimRate);

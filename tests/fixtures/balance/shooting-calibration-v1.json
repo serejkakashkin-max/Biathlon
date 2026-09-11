@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "id": "shooting_calibration_v1",
+  "tick_frequency": 20,
+  "seed_start": 30000,
+  "samples_per_scenario": 1000,
+  "maximum_ticks": 10000,
+  "scenarios": [
+    {
+      "id": "top_0_normal",
+      "ai_definition": "shooting_ai_calibration_top_v1",
+      "athlete_definition": "shooting_top_v1",
+      "stance": 0,
+      "hr_bpm": 185,
+      "fatigue": 0.2,
+      "arm_fatigue": 0.2,
+      "crosswind_mps": 0
+    },
+    {
+      "id": "top_0_tired",
+      "ai_definition": "shooting_ai_calibration_top_v1",
+      "athlete_definition": "shooting_top_v1",
+      "stance": 0,
+      "hr_bpm": 185,
+      "fatigue": 0.8,
+      "arm_fatigue": 0.8,
+      "crosswind_mps": 0
+    },
+    {
+      "id": "top_0_wind",
+      "ai_definition": "shooting_ai_calibration_top_v1",
+      "athlete_definition": "shooting_top_v1",
+      "stance": 0,
+      "hr_bpm": 185,
+      "fatigue": 0.2,
+      "arm_fatigue": 0.2,
+      "crosswind_mps": 2.5,
+      "estimated_crosswind_mps": 2.0
+    },
+    {
+      "id": "top_1_normal",
+      "ai_definition": "shooting_ai_calibration_top_v1",
+      "athlete_definition": "shooting_top_v1",
+      "stance": 1,
+      "hr_bpm": 185,
+      "fatigue": 0.2,
+      "arm_fatigue": 0.2,
+      "crosswind_mps": 0
+    },
+    {
+      "id": "top_1_tired",
+      "ai_definition": "shooting_ai_calibration_top_v1",
+      "athlete_definition": "shooting_top_v1",
+      "stance": 1,
+      "hr_bpm": 185,
+      "fatigue": 0.8,
+      "arm_fatigue": 0.8,
+      "crosswind_mps": 0
+    },
+    {
+      "id": "top_1_wind",
+      "ai_definition": "shooting_ai_calibration_top_v1",
+      "athlete_definition": "shooting_top_v1",
+      "stance": 1,
+      "hr_bpm": 185,
+      "fatigue": 0.2,
+      "arm_fatigue": 0.2,
+      "crosswind_mps": 2.5,
+      "estimated_crosswind_mps": 2.0
+    },
+    {
+      "id": "mid_0_normal",
+      "ai_definition": "shooting_ai_calibration_mid_v1",
+      "athlete_definition": "shooting_mid_v1",
+      "stance": 0,
+      "hr_bpm": 185,
+      "fatigue": 0.2,
+      "arm_fatigue": 0.2,
+      "crosswind_mps": 0
+    },
+    {
+      "id": "mid_0_tired",
+      "ai_definition": "shooting_ai_calibration_mid_v1",
+      "athlete_definition": "shooting_mid_v1",
+      "stance": 0,
+      "hr_bpm": 185,
+      "fatigue": 0.8,
+      "arm_fatigue": 0.8,
+      "crosswind_mps": 0
+    },
+    {
+      "id": "mid_0_wind",
+      "ai_definition": "shooting_ai_calibration_mid_v1",
+      "athlete_definition": "shooting_mid_v1",
+      "stance": 0,
+      "hr_bpm": 185,
+      "fatigue": 0.2,
+      "arm_fatigue": 0.2,
+      "crosswind_mps": 2.5,
+      "estimated_crosswind_mps": 2.0
+    },
+    {
+      "id": "mid_1_normal",
+      "ai_definition": "shooting_ai_calibration_mid_v1",
+      "athlete_definition": "shooting_mid_v1",
+      "stance": 1,
+      "hr_bpm": 185,
+      "fatigue": 0.2,
+      "arm_fatigue": 0.2,
+      "crosswind_mps": 0
+    },
+    {
+      "id": "mid_1_tired",
+      "ai_definition": "shooting_ai_calibration_mid_v1",
+      "athlete_definition": "shooting_mid_v1",
+      "stance": 1,
+      "hr_bpm": 185,
+      "fatigue": 0.8,
+      "arm_fatigue": 0.8,
+      "crosswind_mps": 0
+    },
+    {
+      "id": "mid_1_wind",
+      "ai_definition": "shooting_ai_calibration_mid_v1",
+      "athlete_definition": "shooting_mid_v1",
+      "stance": 1,
+      "hr_bpm": 185,
+      "fatigue": 0.2,
+      "arm_fatigue": 0.2,
+      "crosswind_mps": 2.5,
+      "estimated_crosswind_mps": 2.0
+    },
+    {
+      "id": "developing_0_normal",
+      "ai_definition": "shooting_ai_calibration_developing_v1",
+      "athlete_definition": "shooting_developing_v1",
+      "stance": 0,
+      "hr_bpm": 185,
+      "fatigue": 0.2,
+      "arm_fatigue": 0.2,
+      "crosswind_mps": 0
+    },
+    {
+      "id": "developing_0_tired",
+      "ai_definition": "shooting_ai_calibration_developing_v1",
+      "athlete_definition": "shooting_developing_v1",
+      "stance": 0,
+      "hr_bpm": 185,
+      "fatigue": 0.8,
+      "arm_fatigue": 0.8,
+      "crosswind_mps": 0
+    },
+    {
+      "id": "developing_0_wind",
+      "ai_definition": "shooting_ai_calibration_developing_v1",
+      "athlete_definition": "shooting_developing_v1",
+      "stance": 0,
+      "hr_bpm": 185,
+      "fatigue": 0.2,
+      "arm_fatigue": 0.2,
+      "crosswind_mps": 2.5,
+      "estimated_crosswind_mps": 2.0
+    },
+    {
+      "id": "developing_1_normal",
+      "ai_definition": "shooting_ai_calibration_developing_v1",
+      "athlete_definition": "shooting_developing_v1",
+      "stance": 1,
+      "hr_bpm": 185,
+      "fatigue": 0.2,
+      "arm_fatigue": 0.2,
+      "crosswind_mps": 0
+    },
+    {
+      "id": "developing_1_tired",
+      "ai_definition": "shooting_ai_calibration_developing_v1",
+      "athlete_definition": "shooting_developing_v1",
+      "stance": 1,
+      "hr_bpm": 185,
+      "fatigue": 0.8,
+      "arm_fatigue": 0.8,
+      "crosswind_mps": 0
+    },
+    {
+      "id": "developing_1_wind",
+      "ai_definition": "shooting_ai_calibration_developing_v1",
+      "athlete_definition": "shooting_developing_v1",
+      "stance": 1,
+      "hr_bpm": 185,
+      "fatigue": 0.2,
+      "arm_fatigue": 0.2,
+      "crosswind_mps": 2.5,
+      "estimated_crosswind_mps": 2.0
+    }
+  ]
+}

@@ -1,0 +1,316 @@
+{
+  "schema_version": 1,
+  "id": "shooting_balance_results",
+  "status": "passed",
+  "seed_start": 30000,
+  "samples_per_scenario": 1000,
+  "bouts_sha256": "66e39f281028e9df4a31910ffc267a340f56511f2ae1f6cbae4b8b227bea27cc",
+  "scenarios": [
+    {
+      "id": "top_0_normal",
+      "samples": 1000,
+      "hits": 4360,
+      "shots": 5000,
+      "hit_rate": 0.872,
+      "clean_bouts": 409,
+      "mean_seconds": 27.07725,
+      "hit_distribution": [
+        0,
+        0,
+        5,
+        39,
+        547,
+        409
+      ]
+    },
+    {
+      "id": "top_0_tired",
+      "samples": 1000,
+      "hits": 3953,
+      "shots": 5000,
+      "hit_rate": 0.7906,
+      "clean_bouts": 219,
+      "mean_seconds": 27.78725,
+      "hit_distribution": [
+        0,
+        5,
+        56,
+        139,
+        581,
+        219
+      ]
+    },
+    {
+      "id": "top_0_wind",
+      "samples": 1000,
+      "hits": 4285,
+      "shots": 5000,
+      "hit_rate": 0.857,
+      "clean_bouts": 370,
+      "mean_seconds": 27.05975,
+      "hit_distribution": [
+        0,
+        0,
+        20,
+        45,
+        565,
+        370
+      ]
+    },
+    {
+      "id": "top_1_normal",
+      "samples": 1000,
+      "hits": 4254,
+      "shots": 5000,
+      "hit_rate": 0.8508,
+      "clean_bouts": 268,
+      "mean_seconds": 27.7265,
+      "hit_distribution": [
+        0,
+        0,
+        0,
+        14,
+        718,
+        268
+      ]
+    },
+    {
+      "id": "top_1_tired",
+      "samples": 1000,
+      "hits": 3921,
+      "shots": 5000,
+      "hit_rate": 0.7842,
+      "clean_bouts": 135,
+      "mean_seconds": 27.96375,
+      "hit_distribution": [
+        0,
+        0,
+        0,
+        214,
+        651,
+        135
+      ]
+    },
+    {
+      "id": "top_1_wind",
+      "samples": 1000,
+      "hits": 4244,
+      "shots": 5000,
+      "hit_rate": 0.8488,
+      "clean_bouts": 256,
+      "mean_seconds": 27.73775,
+      "hit_distribution": [
+        0,
+        0,
+        0,
+        12,
+        732,
+        256
+      ]
+    },
+    {
+      "id": "mid_0_normal",
+      "samples": 1000,
+      "hits": 2547,
+      "shots": 5000,
+      "hit_rate": 0.5094,
+      "clean_bouts": 30,
+      "mean_seconds": 30.3884,
+      "hit_distribution": [
+        0,
+        148,
+        254,
+        531,
+        37,
+        30
+      ]
+    },
+    {
+      "id": "mid_0_tired",
+      "samples": 1000,
+      "hits": 1258,
+      "shots": 5000,
+      "hit_rate": 0.2516,
+      "clean_bouts": 33,
+      "mean_seconds": 30.0218,
+      "hit_distribution": [
+        288,
+        409,
+        164,
+        68,
+        38,
+        33
+      ]
+    },
+    {
+      "id": "mid_0_wind",
+      "samples": 1000,
+      "hits": 2435,
+      "shots": 5000,
+      "hit_rate": 0.487,
+      "clean_bouts": 26,
+      "mean_seconds": 30.3182,
+      "hit_distribution": [
+        19,
+        186,
+        234,
+        489,
+        46,
+        26
+      ]
+    },
+    {
+      "id": "mid_1_normal",
+      "samples": 1000,
+      "hits": 3365,
+      "shots": 5000,
+      "hit_rate": 0.673,
+      "clean_bouts": 25,
+      "mean_seconds": 28.9981,
+      "hit_distribution": [
+        0,
+        0,
+        0,
+        660,
+        315,
+        25
+      ]
+    },
+    {
+      "id": "mid_1_tired",
+      "samples": 1000,
+      "hits": 2101,
+      "shots": 5000,
+      "hit_rate": 0.4202,
+      "clean_bouts": 0,
+      "mean_seconds": 29.2387,
+      "hit_distribution": [
+        0,
+        0,
+        927,
+        45,
+        28,
+        0
+      ]
+    },
+    {
+      "id": "mid_1_wind",
+      "samples": 1000,
+      "hits": 3334,
+      "shots": 5000,
+      "hit_rate": 0.6668,
+      "clean_bouts": 21,
+      "mean_seconds": 28.9972,
+      "hit_distribution": [
+        0,
+        0,
+        1,
+        685,
+        293,
+        21
+      ]
+    },
+    {
+      "id": "developing_0_normal",
+      "samples": 1000,
+      "hits": 2382,
+      "shots": 5000,
+      "hit_rate": 0.4764,
+      "clean_bouts": 0,
+      "mean_seconds": 32.0369,
+      "hit_distribution": [
+        0,
+        6,
+        613,
+        374,
+        7,
+        0
+      ]
+    },
+    {
+      "id": "developing_0_tired",
+      "samples": 1000,
+      "hits": 1974,
+      "shots": 5000,
+      "hit_rate": 0.3948,
+      "clean_bouts": 0,
+      "mean_seconds": 31.87695,
+      "hit_distribution": [
+        0,
+        42,
+        943,
+        14,
+        1,
+        0
+      ]
+    },
+    {
+      "id": "developing_0_wind",
+      "samples": 1000,
+      "hits": 2320,
+      "shots": 5000,
+      "hit_rate": 0.464,
+      "clean_bouts": 0,
+      "mean_seconds": 32.0565,
+      "hit_distribution": [
+        0,
+        12,
+        662,
+        320,
+        6,
+        0
+      ]
+    },
+    {
+      "id": "developing_1_normal",
+      "samples": 1000,
+      "hits": 3003,
+      "shots": 5000,
+      "hit_rate": 0.6006,
+      "clean_bouts": 1,
+      "mean_seconds": 30.078,
+      "hit_distribution": [
+        0,
+        0,
+        2,
+        994,
+        3,
+        1
+      ]
+    },
+    {
+      "id": "developing_1_tired",
+      "samples": 1000,
+      "hits": 2685,
+      "shots": 5000,
+      "hit_rate": 0.537,
+      "clean_bouts": 1,
+      "mean_seconds": 30.06295,
+      "hit_distribution": [
+        0,
+        14,
+        298,
+        678,
+        9,
+        1
+      ]
+    },
+    {
+      "id": "developing_1_wind",
+      "samples": 1000,
+      "hits": 3001,
+      "shots": 5000,
+      "hit_rate": 0.6002,
+      "clean_bouts": 1,
+      "mean_seconds": 30.0689,
+      "hit_distribution": [
+        0,
+        0,
+        3,
+        994,
+        2,
+        1
+      ]
+    }
+  ]
+}

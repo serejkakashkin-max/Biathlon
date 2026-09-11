@@ -10,17 +10,19 @@ using Biathlon.Simulation;
 
 internal static class ShootingStatisticalLab
 {
-    public static int Execute(string data, string output)
+    public static int Execute(string data, string output, string suiteFile = null)
     {
         string Read(string name) => File.ReadAllText(Path.Combine(data, name));
-        var suite = ShootingBalanceSuite.FromJson(Read("shooting_balance_v1.json"));
+        var suite = ShootingBalanceSuite.FromJson(suiteFile == null ? Read("shooting_balance_v1.json") : File.ReadAllText(suiteFile));
         var model = new ShootingModelDefinitions(Read); var athlete = ShootingAthleteDefinition.FromJson(Read("shooting_athlete_v1.json"));
         var profiles = new ShootingAiDefinition[suite.Count];
+        var athletes = new ShootingAthleteDefinition[suite.Count];
         for (int i = 0; i < suite.Count; i++)
         {
             profiles[i] = ShootingAiDefinition.FromJson(Read(suite.Get(i).AiDefinition + ".json"));
+            athletes[i] = suite.Get(i).AthleteDefinition == null ? athlete : ShootingAthleteDefinition.FromJson(Read(suite.Get(i).AthleteDefinition + ".json"));
             // Cold first-bout validation before writing any scenario results.
-            ShootingBalanceRunner.Run(suite, suite.Get(i), model, athlete, profiles[i], suite.SeedStart);
+            ShootingBalanceRunner.Run(suite, suite.Get(i), model, athletes[i], profiles[i], suite.SeedStart);
         }
         Directory.CreateDirectory(output);
         File.WriteAllText(Path.Combine(output, "summary.json"), "{\"schema_version\":1,\"id\":\"shooting_balance_results\",\"status\":\"incomplete\"}");
@@ -32,9 +34,10 @@ internal static class ShootingStatisticalLab
             var scenario = suite.Get(i); long totalTicks = 0; int hits = 0, shots = 0, clean = 0;
             var distribution = new int[TargetGeometryDefinition.TargetCount + 1];
             File.WriteAllText(Path.Combine(output, "ai-profile-" + i + ".json"), profiles[i].ToJson());
+            File.WriteAllText(Path.Combine(output, "athlete-" + i + ".json"), athletes[i].ToJson());
             for (int sample = 0; sample < suite.Samples; sample++)
             {
-                var result = ShootingBalanceRunner.Run(suite, scenario, model, athlete, profiles[i], suite.SeedStart + (ulong)sample);
+                var result = ShootingBalanceRunner.Run(suite, scenario, model, athletes[i], profiles[i], suite.SeedStart + (ulong)sample);
                 totalTicks += result.Ticks; hits += result.Hits; shots += result.Shots; distribution[result.Hits]++; if (result.Hits == 5) clean++;
                 csv.Append(scenario.Id).Append(',').Append(result.Seed).Append(',').Append(result.Ticks).Append(',').Append(result.Shots).Append(',').Append(result.ClosedMask).Append(',').Append(result.Hits).Append('\n');
             }

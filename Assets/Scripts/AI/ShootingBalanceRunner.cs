@@ -21,12 +21,14 @@ namespace Biathlon.AI
             if (suite == null || scenario == null || model == null || athlete == null || aiDefinition == null) throw new ArgumentNullException(nameof(suite));
             var session = new ShootingSession(new SimulationConfig(1, suite.Id, suite.Frequency, seed), model, athlete, scenario.Stance, "balance_range", NullEvents.Instance);
             var ai = new ShootingAiController(aiDefinition, model.Targets, model.Aim, model.Stances.Get(scenario.Stance), session.AthleteId, suite.Frequency, new SeededRandomSource(seed ^ ControllerStream));
+            // An authored, imperfect wind reading, never the true impact or a hidden hit probability.
+            double estimatedDrift = new ShootingWindSystem(model.Wind).Evaluate(new WindVector(scenario.EstimatedCrosswind, 0), 0, 1, model.Targets.DistanceMeters).HorizontalDriftMeters;
             while (session.Phase != ShootingPhase.Complete)
             {
                 if (session.Tick.Value >= suite.MaximumTicks) throw new InvalidOperationException("Shooting balance bout exceeded tick budget: " + scenario.Id);
                 var tick = session.Tick.Next(); var sight = session.Sight;
                 var command = ai.Step(tick, new ShootingAiObservation(session.Phase, session.ClosedMask, session.ShotsFired, sight.YawRadians, sight.PitchRadians,
-                    session.Tick.Value == 0 ? 1 : session.LastFrame.Pressure.DecisionDelayMultiplier));
+                    session.Tick.Value == 0 ? 1 : session.LastFrame.Pressure.DecisionDelayMultiplier, estimatedDrift));
                 var action = tick.Value == 1 ? ShootingAction.EnterRange : tick.Value == 2 ? ShootingAction.AssignLane : command.Trigger ? ShootingAction.Trigger : ShootingAction.None;
                 session.Step(new ShootingSessionInput(command.Aim, action,
                     tick.Value == 2 ? new ShootingLaneAssignment("balance_range", "balance_lane", 1) : default, command.HoldBreath,

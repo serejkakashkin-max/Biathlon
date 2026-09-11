@@ -9,18 +9,27 @@ namespace Biathlon.Domain
         private ShootingBalanceScenario() { }
         [DataMember(Name = "id", IsRequired = true)] public string Id { get; private set; }
         [DataMember(Name = "ai_definition", IsRequired = true)] public string AiDefinition { get; private set; }
+        [DataMember(Name = "athlete_definition", EmitDefaultValue = false)] public string AthleteDefinition { get; private set; }
         [DataMember(Name = "stance", IsRequired = true)] public ShootingStance Stance { get; private set; }
         [DataMember(Name = "hr_bpm", IsRequired = true)] public double HeartRate { get; private set; }
         [DataMember(Name = "fatigue", IsRequired = true)] public double Fatigue { get; private set; }
         [DataMember(Name = "arm_fatigue", IsRequired = true)] public double ArmFatigue { get; private set; }
         [DataMember(Name = "crosswind_mps", IsRequired = true)] public double Crosswind { get; private set; }
+        [DataMember(Name = "estimated_crosswind_mps", EmitDefaultValue = false)] public double EstimatedCrosswind { get; private set; }
         internal void Validate()
         {
             TrackValidation.Id(Id); TrackValidation.Id(AiDefinition);
+            if (AthleteDefinition != null)
+            {
+                TrackValidation.Id(AthleteDefinition);
+                if (AthleteDefinition.IndexOfAny(new[] { '/', '\\', ':' }) >= 0 || AthleteDefinition == "." || AthleteDefinition == "..")
+                    throw new ArgumentException("Athlete definition must be a local data ID.");
+            }
             if (AiDefinition.IndexOfAny(new[] { '/', '\\', ':' }) >= 0) throw new ArgumentException("AI definition must be a local data ID.");
             if (Stance != ShootingStance.Prone && Stance != ShootingStance.Standing) throw new ArgumentException("Unknown stance.");
             TrackValidation.Finite(HeartRate, 1, 1000000, nameof(HeartRate)); TrackValidation.Finite(Fatigue, 0, 1, nameof(Fatigue));
             TrackValidation.Finite(ArmFatigue, 0, 1, nameof(ArmFatigue)); TrackValidation.Finite(Crosswind, -100, 100, nameof(Crosswind));
+            TrackValidation.Finite(EstimatedCrosswind, -100, 100, nameof(EstimatedCrosswind));
         }
     }
     [DataContract]
