@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "sprint_balance_long_v1",
+  "rules_revision": "project_synthetic_v1",
+  "format": 0,
+  "category": 2,
+  "distance_m": 11400,
+  "laps": 3,
+  "start_type": 0,
+  "start_interval_s": 30,
+  "field_capacity": 60,
+  "shots_per_bout": 5,
+  "penalty_loop_m": 150,
+  "shooting_bouts": [
+    {
+      "id": "prone_1",
+      "after_lap": 1,
+      "stance": 0
+    },
+    {
+      "id": "standing_1",
+      "after_lap": 2,
+      "stance": 1
+    }
+  ]
+}

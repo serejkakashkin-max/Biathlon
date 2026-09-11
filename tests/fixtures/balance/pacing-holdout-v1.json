@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "balance_pacing_holdout_v1",
+  "tick_frequency": 20,
+  "maximum_ticks": 100000,
+  "seed": 20000,
+  "iterations": 256,
+  "profile_file": "sprint_balance_long_v1.json",
+  "ski_athlete_file": "time_trial_athlete_v1.json",
+  "shooting_athlete_file": "shooting_athlete_v1.json",
+  "cases": [
+    {
+      "track_file": "synthetic_balance_flat_long_v1.json",
+      "recovery_distance_m": 0,
+      "id": "flat_aggressive",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 1000
+    },
+    {
+      "track_file": "synthetic_balance_flat_long_v1.json",
+      "recovery_distance_m": 100,
+      "id": "flat_optimal_candidate",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 850
+    },
+    {
+      "track_file": "synthetic_balance_flat_long_v1.json",
+      "recovery_distance_m": 0,
+      "id": "flat_conservative",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 650
+    },
+    {
+      "track_file": "synthetic_balance_rolling_long_v1.json",
+      "recovery_distance_m": 0,
+      "id": "rolling_aggressive",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 1000
+    },
+    {
+      "track_file": "synthetic_balance_rolling_long_v1.json",
+      "recovery_distance_m": 100,
+      "id": "rolling_optimal_candidate",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 850
+    },
+    {
+      "track_file": "synthetic_balance_rolling_long_v1.json",
+      "recovery_distance_m": 0,
+      "id": "rolling_conservative",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 650
+    }
+  ]
+}

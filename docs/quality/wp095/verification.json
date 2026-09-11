@@ -1,0 +1,63 @@
+{
+  "candidate_wins": 512,
+  "discovered": 495,
+  "unity_console_errors": 0,
+  "status": "PASS",
+  "final_repeat_files": 5,
+  "holdout_seeds": 256,
+  "accepted_shots": 15360,
+  "dotnet_focused_passed": 14,
+  "metrics_sha256": "0f9c53725b46754bbc53fc6f2ab65dc227423f04342103aa17c497edacdcc8a0",
+  "unity_passed": 3,
+  "id": "wp095_verification",
+  "unity_seconds": 150.4824423,
+  "holdout_races": 1536,
+  "tracks": 2,
+  "new_tracks_reproduced": 2,
+  "legacy_generator_files_unchanged": 5,
+  "evidence": [
+    {
+      "sha256": "053d3c091a4864f9f0442d859ac17403ae16b812a814529d54302e24ac457a0c",
+      "file": "artifacts/balance/wp095-final.trx"
+    },
+    {
+      "sha256": "c6aa1ded168919d6b1174aa34ac11aa9f92b29356139b41363fe1c1320647363",
+      "file": "artifacts/balance/wp095-unity-final.json"
+    },
+    {
+      "sha256": "779f9141fa7f0cc0365ac6455bb54b497f4ef623f6bea5c9443162bc078ff754",
+      "file": "artifacts/balance/wp095-unity-final.xml"
+    },
+    {
+      "sha256": "0ba569a31cb9e1f8a3caccedf9a83a22fee9096342c91a1964da42590fa80129",
+      "file": "artifacts/balance/wp095-console-final.json"
+    },
+    {
+      "sha256": "6a682e107cc981ddc7315f151472b413db6483382904678fba4691d7b2e9aa57",
+      "file": "artifacts/balance/wp095-holdout-final/status.json"
+    },
+    {
+      "sha256": "012da88ee37565693d51d30766355ec1fd677e544d74d1e9a0d71560fa873680",
+      "file": "artifacts/balance/wp095-final-repeat.json"
+    },
+    {
+      "sha256": "51621fe609040137f796cd5a7146031312c9fdece31f7128806d63c5f29254ec",
+      "file": "artifacts/balance/wp095-track-final-repeat.json"
+    },
+    {
+      "sha256": "125a23815935bd38f8b1f3172e26e0a3b821fc33518bc8031ab16f412003703f",
+      "file": "artifacts/balance/wp095-legacy-generator.json"
+    },
+    {
+      "sha256": "1206cc0fa9b2d6d758b7c6e6407ed7957104b5726155311f145dce483a703404",
+      "file": "artifacts/balance/wp095-zero-fix-audit.json"
+    },
+    {
+      "sha256": "7cde231c6bf1d27aca068ac5aa1e14fefc483d284f6d5a091ec85d51a9076daf",
+      "file": "artifacts/balance/wp095-search-corrected/distributions.json"
+    }
+  ],
+  "unity_console_warnings": 4,
+  "training_races": 448,
+  "schema_version": 1
+}

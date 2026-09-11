@@ -16,6 +16,7 @@ internal static class SyntheticTrackGenerator
         if (recipe["schema_version"].GetValue<int>() != 1 || string.IsNullOrWhiteSpace(recipe["id"].GetValue<string>()))
             throw new ArgumentException("Unsupported recipe schema/ID.");
         string targetLoopId = recipe["target_loop_id"].GetValue<string>();
+        bool normalizeZero = recipe["normalize_signed_zero"]?.GetValue<bool>() ?? false;
         if (template.GetLoop(targetLoopId).Kind != TrackLoopKind.Race) throw new ArgumentException("Recipe target must be a race loop.");
         var originalRangeLoop = template.GetLoop(template.Range.Entry.LoopId);
         var tail = originalRangeLoop.GetSegment(originalRangeLoop.SegmentCount - 1);
@@ -54,8 +55,10 @@ internal static class SyntheticTrackGenerator
                 segment["id"] = "generated_" + i.ToString("D4", System.Globalization.CultureInfo.InvariantCulture);
                 segment["length_m"] = segmentMm / 1000.0;
                 double grade = profile["grade"].GetValue<double>() * sign;
+                if (normalizeZero && grade == 0) grade = 0;
                 segment["start_grade"] = grade; segment["end_grade"] = grade;
-                segment["curvature_per_m"] = profile["curvature_per_m"].GetValue<double>() * sign;
+                double curvature = profile["curvature_per_m"].GetValue<double>() * sign;
+                segment["curvature_per_m"] = normalizeZero && curvature == 0 ? 0 : curvature;
                 segment["width_m"] = profile["width_m"].GetValue<double>();
                 segment["terrain_muscle_factor"] = profile["terrain_muscle_factor"].GetValue<double>();
                 segment["draft_allowed"] = profile["draft_allowed"].GetValue<bool>();

@@ -48,3 +48,14 @@ diffs and exits1 on mismatch; completed status is withheld. Metrics JSON explici
 binary64 values to9 decimal places, ties-to-even, before F9 formatting; this changes export only.
 Target windows are provisional observations; their exact seed suite is SHA256-bound. A change
 outside a window requires diagnosis and reviewed snapshot revision, never automatic acceptance.
+
+WP095 adds paired.json and paired Markdown summaries. Comparisons require identical authored
+track and complete matching seed sets within a single suite. SecondsSaved is baseline minus
+changed; HR/fatigue/final-speed deltas are changed minus baseline. The first case for each track
+is that track's baseline. Positive values must be interpreted with the indicated units/direction.
+The pacing holdout uses data-selected850 effort,550 recovery over100m and1000 final effort;
+these are provisional experiment controls, not numerical changes to athlete capability.
+
+Track recipes may opt into `normalize_signed_zero: true` to emit positive zero for generated
+grade/curvature. This fixes .NET/Mono context-byte differences without changing physical values.
+The option defaults false to preserve the existing recipe/fixture reproducibility contract.

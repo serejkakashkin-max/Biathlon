@@ -1,0 +1,237 @@
+{
+  "schema_version": 1,
+  "id": "balance_pacing_search_v1",
+  "tick_frequency": 20,
+  "maximum_ticks": 100000,
+  "seed": 5000,
+  "iterations": 16,
+  "profile_file": "sprint_balance_long_v1.json",
+  "ski_athlete_file": "time_trial_athlete_v1.json",
+  "shooting_athlete_file": "shooting_athlete_v1.json",
+  "cases": [
+    {
+      "recovery_distance_m": 0,
+      "id": "flat_e650_r0",
+      "track_file": "synthetic_balance_flat_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 650
+    },
+    {
+      "recovery_distance_m": 100,
+      "id": "flat_e650_r100",
+      "track_file": "synthetic_balance_flat_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 650
+    },
+    {
+      "recovery_distance_m": 0,
+      "id": "flat_e750_r0",
+      "track_file": "synthetic_balance_flat_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 750
+    },
+    {
+      "recovery_distance_m": 100,
+      "id": "flat_e750_r100",
+      "track_file": "synthetic_balance_flat_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 750
+    },
+    {
+      "recovery_distance_m": 0,
+      "id": "flat_e800_r0",
+      "track_file": "synthetic_balance_flat_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 800
+    },
+    {
+      "recovery_distance_m": 100,
+      "id": "flat_e800_r100",
+      "track_file": "synthetic_balance_flat_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 800
+    },
+    {
+      "recovery_distance_m": 0,
+      "id": "flat_e850_r0",
+      "track_file": "synthetic_balance_flat_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 850
+    },
+    {
+      "recovery_distance_m": 100,
+      "id": "flat_e850_r100",
+      "track_file": "synthetic_balance_flat_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 850
+    },
+    {
+      "recovery_distance_m": 0,
+      "id": "flat_e900_r0",
+      "track_file": "synthetic_balance_flat_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 900
+    },
+    {
+      "recovery_distance_m": 100,
+      "id": "flat_e900_r100",
+      "track_file": "synthetic_balance_flat_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 900
+    },
+    {
+      "recovery_distance_m": 0,
+      "id": "flat_e950_r0",
+      "track_file": "synthetic_balance_flat_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 950
+    },
+    {
+      "recovery_distance_m": 100,
+      "id": "flat_e950_r100",
+      "track_file": "synthetic_balance_flat_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 950
+    },
+    {
+      "recovery_distance_m": 0,
+      "id": "flat_e1000_r0",
+      "track_file": "synthetic_balance_flat_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 1000
+    },
+    {
+      "recovery_distance_m": 100,
+      "id": "flat_e1000_r100",
+      "track_file": "synthetic_balance_flat_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 1000
+    },
+    {
+      "recovery_distance_m": 0,
+      "id": "rolling_e650_r0",
+      "track_file": "synthetic_balance_rolling_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 650
+    },
+    {
+      "recovery_distance_m": 100,
+      "id": "rolling_e650_r100",
+      "track_file": "synthetic_balance_rolling_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 650
+    },
+    {
+      "recovery_distance_m": 0,
+      "id": "rolling_e750_r0",
+      "track_file": "synthetic_balance_rolling_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 750
+    },
+    {
+      "recovery_distance_m": 100,
+      "id": "rolling_e750_r100",
+      "track_file": "synthetic_balance_rolling_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 750
+    },
+    {
+      "recovery_distance_m": 0,
+      "id": "rolling_e800_r0",
+      "track_file": "synthetic_balance_rolling_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 800
+    },
+    {
+      "recovery_distance_m": 100,
+      "id": "rolling_e800_r100",
+      "track_file": "synthetic_balance_rolling_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 800
+    },
+    {
+      "recovery_distance_m": 0,
+      "id": "rolling_e850_r0",
+      "track_file": "synthetic_balance_rolling_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 850
+    },
+    {
+      "recovery_distance_m": 100,
+      "id": "rolling_e850_r100",
+      "track_file": "synthetic_balance_rolling_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 850
+    },
+    {
+      "recovery_distance_m": 0,
+      "id": "rolling_e900_r0",
+      "track_file": "synthetic_balance_rolling_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 900
+    },
+    {
+      "recovery_distance_m": 100,
+      "id": "rolling_e900_r100",
+      "track_file": "synthetic_balance_rolling_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 900
+    },
+    {
+      "recovery_distance_m": 0,
+      "id": "rolling_e950_r0",
+      "track_file": "synthetic_balance_rolling_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 950
+    },
+    {
+      "recovery_distance_m": 100,
+      "id": "rolling_e950_r100",
+      "track_file": "synthetic_balance_rolling_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 950
+    },
+    {
+      "recovery_distance_m": 0,
+      "id": "rolling_e1000_r0",
+      "track_file": "synthetic_balance_rolling_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 1000
+    },
+    {
+      "recovery_distance_m": 100,
+      "id": "rolling_e1000_r100",
+      "track_file": "synthetic_balance_rolling_long_v1.json",
+      "recovery_effort": 550,
+      "final_effort": 1000,
+      "effort": 1000
+    }
+  ]
+}

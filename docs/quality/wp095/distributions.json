@@ -1,0 +1,720 @@
+{
+  "schema_version": 1,
+  "id": "batch_distributions_v1",
+  "groups": [
+    {
+      "case_id": "flat_aggressive",
+      "metrics": {
+        "finish_seconds": {
+          "Count": 256,
+          "Mean": 1309.724367366562,
+          "Median": 1309.94501891755,
+          "StandardDeviation": 1.2636987373724644,
+          "P05": 1307.9700572344625,
+          "P95": 1311.9768041846,
+          "Minimum": 1307.6191563131,
+          "Maximum": 1314.7242345683
+        },
+        "ski_seconds": {
+          "Count": 256,
+          "Mean": 1278.4243673665615,
+          "Median": 1278.2450189175497,
+          "StandardDeviation": 0.7224121325239393,
+          "P05": 1277.1768041845999,
+          "P95": 1279.4950572344621,
+          "Minimum": 1275.8242345683002,
+          "Maximum": 1279.7191563130996
+        },
+        "range_seconds": {
+          "Count": 256,
+          "Mean": 31.300000000000278,
+          "Median": 31.700000000000315,
+          "StandardDeviation": 1.9849630034335293,
+          "P05": 28.47500000000027,
+          "P95": 34.80000000000016,
+          "Minimum": 27.90000000000026,
+          "Maximum": 38.89999999999993
+        },
+        "penalty_seconds": {
+          "Count": 256,
+          "Mean": 0,
+          "Median": 0,
+          "StandardDeviation": 0,
+          "P05": 0,
+          "P95": 0,
+          "Minimum": 0,
+          "Maximum": 0
+        },
+        "hit_rate": {
+          "Count": 256,
+          "Mean": 1,
+          "Median": 1,
+          "StandardDeviation": 0,
+          "P05": 1,
+          "P95": 1,
+          "Minimum": 1,
+          "Maximum": 1
+        },
+        "penalties": {
+          "Count": 256,
+          "Mean": 0,
+          "Median": 0,
+          "StandardDeviation": 0,
+          "P05": 0,
+          "P95": 0,
+          "Minimum": 0,
+          "Maximum": 0
+        },
+        "avg_hr_bpm": {
+          "Count": 256,
+          "Mean": 187.82271941526045,
+          "Median": 187.80325416190624,
+          "StandardDeviation": 0.1075908356744739,
+          "P05": 187.63226636185055,
+          "P95": 187.9711860561153,
+          "Minimum": 187.391580951758,
+          "Maximum": 188.00008854326475
+        },
+        "range_entry_hr_bpm": {
+          "Count": 256,
+          "Mean": 191.14980491304092,
+          "Median": 191.14965544749998,
+          "StandardDeviation": 0.0003668102393536888,
+          "P05": 191.149264495,
+          "P95": 191.1501371855,
+          "Minimum": 191.149264495,
+          "Maximum": 191.151189814
+        },
+        "fatigue_finish": {
+          "Count": 256,
+          "Mean": 0.10554536213671879,
+          "Median": 0.105439563,
+          "StandardDeviation": 0.0005348273414569498,
+          "P05": 0.104601191,
+          "P95": 0.10629574325,
+          "Minimum": 0.103458427,
+          "Maximum": 0.106446138
+        },
+        "anaerobic_min": {
+          "Count": 256,
+          "Mean": 0.07549676612109374,
+          "Median": 0.076317439,
+          "StandardDeviation": 0.0023848123403961987,
+          "P05": 0.0716944775,
+          "P95": 0.07999993125,
+          "Minimum": 0.07084819,
+          "Maximum": 0.080120464
+        },
+        "final_lap_speed_mps": {
+          "Count": 256,
+          "Mean": 8.815577646392596,
+          "Median": 8.819030873662951,
+          "StandardDeviation": 0.014224468575558145,
+          "P05": 8.795221105318381,
+          "P95": 8.84011425232627,
+          "Minimum": 8.791078556288582,
+          "Maximum": 8.866955018894691
+        }
+      },
+      "penalty_histogram": {
+        "0": 256
+      },
+      "finish_fatigue_correlation": -0.9998408097094785
+    },
+    {
+      "case_id": "flat_optimal_candidate",
+      "metrics": {
+        "finish_seconds": {
+          "Count": 256,
+          "Mean": 1305.5895173041044,
+          "Median": 1305.991122742325,
+          "StandardDeviation": 0.769858391831511,
+          "P05": 1304.67434484585,
+          "P95": 1306.3225266745999,
+          "Minimum": 1304.5541830047,
+          "Maximum": 1307.93029193965
+        },
+        "ski_seconds": {
+          "Count": 256,
+          "Mean": 1275.421939179105,
+          "Median": 1275.1911227423248,
+          "StandardDeviation": 0.4079832977619971,
+          "P05": 1275.0225266745995,
+          "P95": 1275.8993448458498,
+          "Minimum": 1274.2302919396498,
+          "Maximum": 1276.0541830046998
+        },
+        "range_seconds": {
+          "Count": 256,
+          "Mean": 30.1675781250003,
+          "Median": 30.800000000000303,
+          "StandardDeviation": 1.1774922014695104,
+          "P05": 28.775000000000276,
+          "P95": 31.30000000000031,
+          "Minimum": 28.50000000000027,
+          "Maximum": 33.70000000000022
+        },
+        "penalty_seconds": {
+          "Count": 256,
+          "Mean": 0,
+          "Median": 0,
+          "StandardDeviation": 0,
+          "P05": 0,
+          "P95": 0,
+          "Minimum": 0,
+          "Maximum": 0
+        },
+        "hit_rate": {
+          "Count": 256,
+          "Mean": 1,
+          "Median": 1,
+          "StandardDeviation": 0,
+          "P05": 1,
+          "P95": 1,
+          "Minimum": 1,
+          "Maximum": 1
+        },
+        "penalties": {
+          "Count": 256,
+          "Mean": 0,
+          "Median": 0,
+          "StandardDeviation": 0,
+          "P05": 0,
+          "P95": 0,
+          "Minimum": 0,
+          "Maximum": 0
+        },
+        "avg_hr_bpm": {
+          "Count": 256,
+          "Mean": 187.71003821567407,
+          "Median": 187.6758632827183,
+          "StandardDeviation": 0.06452970224357467,
+          "P05": 187.6482390230316,
+          "P95": 187.78604688228748,
+          "Minimum": 187.5116271029338,
+          "Maximum": 187.80039198188376
+        },
+        "range_entry_hr_bpm": {
+          "Count": 256,
+          "Mean": 184.78728210007424,
+          "Median": 184.788421244,
+          "StandardDeviation": 0.002315929964830316,
+          "P05": 184.78524111849998,
+          "P95": 184.788421244,
+          "Minimum": 184.7708621555,
+          "Maximum": 184.788421244
+        },
+        "fatigue_finish": {
+          "Count": 256,
+          "Mean": 0.10384651940234374,
+          "Median": 0.103673718,
+          "StandardDeviation": 0.00032345532022666967,
+          "P05": 0.103537335,
+          "P95": 0.104224799,
+          "Minimum": 0.102867472,
+          "Maximum": 0.104296495
+        },
+        "anaerobic_min": {
+          "Count": 256,
+          "Mean": 0.07973976034375,
+          "Median": 0.08051734899999999,
+          "StandardDeviation": 0.0013699387752400818,
+          "P05": 0.07822479575,
+          "P95": 0.080992675,
+          "Minimum": 0.078176692,
+          "Maximum": 0.083566759
+        },
+        "final_lap_speed_mps": {
+          "Count": 256,
+          "Mean": 8.839842858267197,
+          "Median": 8.844284386677296,
+          "StandardDeviation": 0.007958907961951893,
+          "P05": 8.83102207401842,
+          "P95": 8.847128913875109,
+          "Minimum": 8.830679770218632,
+          "Maximum": 8.862855440169621
+        }
+      },
+      "penalty_histogram": {
+        "0": 256
+      },
+      "finish_fatigue_correlation": -0.9998491355997774
+    },
+    {
+      "case_id": "flat_conservative",
+      "metrics": {
+        "finish_seconds": {
+          "Count": 256,
+          "Mean": 1378.1134700535513,
+          "Median": 1378.25175130355,
+          "StandardDeviation": 1.0123935973219191,
+          "P05": 1376.75175130355,
+          "P95": 1379.45175130355,
+          "Minimum": 1376.65175130355,
+          "Maximum": 1379.45175130355
+        },
+        "ski_seconds": {
+          "Count": 256,
+          "Mean": 1349.1517513035496,
+          "Median": 1349.1517513035496,
+          "StandardDeviation": 1.0442802858320781E-13,
+          "P05": 1349.1517513035496,
+          "P95": 1349.1517513035499,
+          "Minimum": 1349.1517513035496,
+          "Maximum": 1349.1517513035499
+        },
+        "range_seconds": {
+          "Count": 256,
+          "Mean": 28.96171875000027,
+          "Median": 29.10000000000028,
+          "StandardDeviation": 1.0123935973219442,
+          "P05": 27.600000000000257,
+          "P95": 30.300000000000296,
+          "Minimum": 27.500000000000256,
+          "Maximum": 30.300000000000296
+        },
+        "penalty_seconds": {
+          "Count": 256,
+          "Mean": 0,
+          "Median": 0,
+          "StandardDeviation": 0,
+          "P05": 0,
+          "P95": 0,
+          "Minimum": 0,
+          "Maximum": 0
+        },
+        "hit_rate": {
+          "Count": 256,
+          "Mean": 1,
+          "Median": 1,
+          "StandardDeviation": 0,
+          "P05": 1,
+          "P95": 1,
+          "Minimum": 1,
+          "Maximum": 1
+        },
+        "penalties": {
+          "Count": 256,
+          "Mean": 0,
+          "Median": 0,
+          "StandardDeviation": 0,
+          "P05": 0,
+          "P95": 0,
+          "Minimum": 0,
+          "Maximum": 0
+        },
+        "avg_hr_bpm": {
+          "Count": 256,
+          "Mean": 176.49634940944648,
+          "Median": 176.48882808975395,
+          "StandardDeviation": 0.057204583043126804,
+          "P05": 176.42060990007613,
+          "P95": 176.57304928379602,
+          "Minimum": 176.42060990007613,
+          "Maximum": 176.57863241723695
+        },
+        "range_entry_hr_bpm": {
+          "Count": 256,
+          "Mean": 174.583317671,
+          "Median": 174.583317671,
+          "StandardDeviation": 0,
+          "P05": 174.583317671,
+          "P95": 174.583317671,
+          "Minimum": 174.583317671,
+          "Maximum": 174.583317671
+        },
+        "fatigue_finish": {
+          "Count": 256,
+          "Mean": 0.041932548,
+          "Median": 0.041932548,
+          "StandardDeviation": 0,
+          "P05": 0.041932548,
+          "P95": 0.041932548,
+          "Minimum": 0.041932548,
+          "Maximum": 0.041932548
+        },
+        "anaerobic_min": {
+          "Count": 256,
+          "Mean": 0.097189518,
+          "Median": 0.097189518,
+          "StandardDeviation": 0,
+          "P05": 0.097189518,
+          "P95": 0.097189518,
+          "Minimum": 0.097189518,
+          "Maximum": 0.097189518
+        },
+        "final_lap_speed_mps": {
+          "Count": 256,
+          "Mean": 9.059596637360745,
+          "Median": 9.059596637360741,
+          "StandardDeviation": 1.900395703982448E-14,
+          "P05": 9.059596637360718,
+          "P95": 9.05959663736077,
+          "Minimum": 9.059596637360718,
+          "Maximum": 9.05959663736077
+        }
+      },
+      "penalty_histogram": {
+        "0": 256
+      },
+      "finish_fatigue_correlation": null
+    },
+    {
+      "case_id": "rolling_aggressive",
+      "metrics": {
+        "finish_seconds": {
+          "Count": 256,
+          "Mean": 1649.5211890797793,
+          "Median": 1649.49750411445,
+          "StandardDeviation": 0.23969793314902146,
+          "P05": 1649.3486127978874,
+          "P95": 1650.2014212183,
+          "Minimum": 1649.3231639081,
+          "Maximum": 1650.4423841111002
+        },
+        "ski_seconds": {
+          "Count": 256,
+          "Mean": 1619.2305640797786,
+          "Median": 1619.3057762348997,
+          "StandardDeviation": 0.419184180448783,
+          "P05": 1618.0014212182998,
+          "P95": 1619.5799860421373,
+          "Minimum": 1617.6423841111,
+          "Maximum": 1619.6231639080997
+        },
+        "range_seconds": {
+          "Count": 256,
+          "Mean": 30.29062500000029,
+          "Median": 30.200000000000294,
+          "StandardDeviation": 0.6574022622223056,
+          "P05": 29.77500000000029,
+          "P95": 32.20000000000031,
+          "Minimum": 29.700000000000287,
+          "Maximum": 32.800000000000274
+        },
+        "penalty_seconds": {
+          "Count": 256,
+          "Mean": 0,
+          "Median": 0,
+          "StandardDeviation": 0,
+          "P05": 0,
+          "P95": 0,
+          "Minimum": 0,
+          "Maximum": 0
+        },
+        "hit_rate": {
+          "Count": 256,
+          "Mean": 1,
+          "Median": 1,
+          "StandardDeviation": 0,
+          "P05": 1,
+          "P95": 1,
+          "Minimum": 1,
+          "Maximum": 1
+        },
+        "penalties": {
+          "Count": 256,
+          "Mean": 0,
+          "Median": 0,
+          "StandardDeviation": 0,
+          "P05": 0,
+          "P95": 0,
+          "Minimum": 0,
+          "Maximum": 0
+        },
+        "avg_hr_bpm": {
+          "Count": 256,
+          "Mean": 189.04575734955276,
+          "Median": 189.04986812082527,
+          "StandardDeviation": 0.028324205718905166,
+          "P05": 188.9633788538751,
+          "P95": 189.0678093897121,
+          "Minimum": 188.93709479172747,
+          "Maximum": 189.07102608188265
+        },
+        "range_entry_hr_bpm": {
+          "Count": 256,
+          "Mean": 191.42768040514838,
+          "Median": 191.427645636,
+          "StandardDeviation": 0.00011165056949515941,
+          "P05": 191.4275187975,
+          "P95": 191.4278569325,
+          "Minimum": 191.4275187975,
+          "Maximum": 191.428187434
+        },
+        "fatigue_finish": {
+          "Count": 256,
+          "Mean": 0.17590258972656256,
+          "Median": 0.175928052,
+          "StandardDeviation": 0.00016251005950294832,
+          "P05": 0.175430769,
+          "P95": 0.17603116625,
+          "Minimum": 0.17527991,
+          "Maximum": 0.176049644
+        },
+        "anaerobic_min": {
+          "Count": 256,
+          "Mean": 0.05554184960156251,
+          "Median": 0.055499229,
+          "StandardDeviation": 0.0006258553923315338,
+          "P05": 0.05509018675,
+          "P95": 0.057327694,
+          "Minimum": 0.055086859,
+          "Maximum": 0.057703063
+        },
+        "final_lap_speed_mps": {
+          "Count": 256,
+          "Mean": 6.94659841613519,
+          "Median": 6.946205710150916,
+          "StandardDeviation": 0.005003751580865949,
+          "P05": 6.943010360964308,
+          "P95": 6.960948289657318,
+          "Minimum": 6.94294106933434,
+          "Maximum": 6.964127358979875
+        }
+      },
+      "penalty_histogram": {
+        "0": 256
+      },
+      "finish_fatigue_correlation": -0.9946318297460973
+    },
+    {
+      "case_id": "rolling_optimal_candidate",
+      "metrics": {
+        "finish_seconds": {
+          "Count": 256,
+          "Mean": 1643.7675209442805,
+          "Median": 1643.8535903513998,
+          "StandardDeviation": 0.5594362989512555,
+          "P05": 1643.1618965461,
+          "P95": 1644.74247367,
+          "Minimum": 1643.1313608810499,
+          "Maximum": 1646.9018869334002
+        },
+        "ski_seconds": {
+          "Count": 256,
+          "Mean": 1613.8339271942802,
+          "Median": 1613.7535903513995,
+          "StandardDeviation": 0.8316875747918123,
+          "P05": 1612.3424736699997,
+          "P95": 1614.7618965460997,
+          "Minimum": 1609.7018869334001,
+          "Maximum": 1614.9313608810496
+        },
+        "range_seconds": {
+          "Count": 256,
+          "Mean": 29.93359375000028,
+          "Median": 30.100000000000293,
+          "StandardDeviation": 1.3892318776795067,
+          "P05": 28.40000000000027,
+          "P95": 32.4000000000003,
+          "Minimum": 28.200000000000266,
+          "Maximum": 37.200000000000024
+        },
+        "penalty_seconds": {
+          "Count": 256,
+          "Mean": 0,
+          "Median": 0,
+          "StandardDeviation": 0,
+          "P05": 0,
+          "P95": 0,
+          "Minimum": 0,
+          "Maximum": 0
+        },
+        "hit_rate": {
+          "Count": 256,
+          "Mean": 1,
+          "Median": 1,
+          "StandardDeviation": 0,
+          "P05": 1,
+          "P95": 1,
+          "Minimum": 1,
+          "Maximum": 1
+        },
+        "penalties": {
+          "Count": 256,
+          "Mean": 0,
+          "Median": 0,
+          "StandardDeviation": 0,
+          "P05": 0,
+          "P95": 0,
+          "Minimum": 0,
+          "Maximum": 0
+        },
+        "avg_hr_bpm": {
+          "Count": 256,
+          "Mean": 189.01231174762088,
+          "Median": 189.005698659854,
+          "StandardDeviation": 0.06190972225352465,
+          "P05": 188.903223792623,
+          "P95": 189.07905218102252,
+          "Minimum": 188.67366927065007,
+          "Maximum": 189.08766577885288
+        },
+        "range_entry_hr_bpm": {
+          "Count": 256,
+          "Mean": 187.18216514786707,
+          "Median": 187.182223329,
+          "StandardDeviation": 0.00041303780294081865,
+          "P05": 187.181611534,
+          "P95": 187.1825518505,
+          "Minimum": 187.181291182,
+          "Maximum": 187.182844973
+        },
+        "fatigue_finish": {
+          "Count": 256,
+          "Mean": 0.1752172224257811,
+          "Median": 0.175177312,
+          "StandardDeviation": 0.0003519497919979471,
+          "P05": 0.174595308,
+          "P95": 0.175600876,
+          "Minimum": 0.173337771,
+          "Maximum": 0.175648458
+        },
+        "anaerobic_min": {
+          "Count": 256,
+          "Mean": 0.05755530929296876,
+          "Median": 0.057887869,
+          "StandardDeviation": 0.0011988554978300025,
+          "P05": 0.056142153,
+          "P95": 0.059599662,
+          "Minimum": 0.056126701,
+          "Maximum": 0.063134375
+        },
+        "final_lap_speed_mps": {
+          "Count": 256,
+          "Mean": 6.9633109903252555,
+          "Median": 6.965831919951997,
+          "StandardDeviation": 0.010213941921393509,
+          "P05": 6.951631995041729,
+          "P95": 6.9807414321053445,
+          "Minimum": 6.951393872152141,
+          "Maximum": 7.014093518362362
+        }
+      },
+      "penalty_histogram": {
+        "0": 256
+      },
+      "finish_fatigue_correlation": -0.9985994466113894
+    },
+    {
+      "case_id": "rolling_conservative",
+      "metrics": {
+        "finish_seconds": {
+          "Count": 256,
+          "Mean": 1772.0917965574345,
+          "Median": 1772.17136650365,
+          "StandardDeviation": 0.8557764966934254,
+          "P05": 1770.9309834503501,
+          "P95": 1773.07586593655,
+          "Minimum": 1770.7456267715002,
+          "Maximum": 1774.7262308837
+        },
+        "ski_seconds": {
+          "Count": 256,
+          "Mean": 1742.8175778074342,
+          "Median": 1742.7713665036497,
+          "StandardDeviation": 0.1425887785423522,
+          "P05": 1742.6758659365496,
+          "P95": 1743.0309834503498,
+          "Minimum": 1742.5262308836998,
+          "Maximum": 1743.0456267714999
+        },
+        "range_seconds": {
+          "Count": 256,
+          "Mean": 29.27421875000028,
+          "Median": 29.400000000000283,
+          "StandardDeviation": 0.9964974672062471,
+          "P05": 27.90000000000026,
+          "P95": 30.400000000000297,
+          "Minimum": 27.70000000000026,
+          "Maximum": 32.20000000000031
+        },
+        "penalty_seconds": {
+          "Count": 256,
+          "Mean": 0,
+          "Median": 0,
+          "StandardDeviation": 0,
+          "P05": 0,
+          "P95": 0,
+          "Minimum": 0,
+          "Maximum": 0
+        },
+        "hit_rate": {
+          "Count": 256,
+          "Mean": 1,
+          "Median": 1,
+          "StandardDeviation": 0,
+          "P05": 1,
+          "P95": 1,
+          "Minimum": 1,
+          "Maximum": 1
+        },
+        "penalties": {
+          "Count": 256,
+          "Mean": 0,
+          "Median": 0,
+          "StandardDeviation": 0,
+          "P05": 0,
+          "P95": 0,
+          "Minimum": 0,
+          "Maximum": 0
+        },
+        "avg_hr_bpm": {
+          "Count": 256,
+          "Mean": 177.0470120963032,
+          "Median": 177.04078209266552,
+          "StandardDeviation": 0.04722585266667564,
+          "P05": 176.99389491205665,
+          "P95": 177.11235651816546,
+          "Minimum": 176.91181054765158,
+          "Maximum": 177.12159417946333
+        },
+        "range_entry_hr_bpm": {
+          "Count": 256,
+          "Mean": 174.69517191444345,
+          "Median": 174.694261451,
+          "StandardDeviation": 0.0030529306031834907,
+          "P05": 174.692066455,
+          "P95": 174.6998822925,
+          "Minimum": 174.692066455,
+          "Maximum": 174.700233757
+        },
+        "fatigue_finish": {
+          "Count": 256,
+          "Mean": 0.06555963669921873,
+          "Median": 0.065461361,
+          "StandardDeviation": 0.00036778489406825125,
+          "P05": 0.065200037,
+          "P95": 0.066086948,
+          "Minimum": 0.064343888,
+          "Maximum": 0.066168569
+        },
+        "anaerobic_min": {
+          "Count": 256,
+          "Mean": 0.07431492410546876,
+          "Median": 0.074317803,
+          "StandardDeviation": 1.2586594309857204E-05,
+          "P05": 0.074299598,
+          "P95": 0.074326908,
+          "Minimum": 0.074299598,
+          "Maximum": 0.074354235
+        },
+        "final_lap_speed_mps": {
+          "Count": 256,
+          "Mean": 7.35309634328442,
+          "Median": 7.353333119189838,
+          "StandardDeviation": 0.0008793463009614475,
+          "P05": 7.351832880116766,
+          "P95": 7.353956028731546,
+          "Minimum": 7.351632515095067,
+          "Maximum": 7.356005299324382
+        }
+      },
+      "penalty_histogram": {
+        "0": 256
+      },
+      "finish_fatigue_correlation": -0.9904212115222303
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "id": "balance_long_tracks_v1",
+  "profiles": [
+    {
+      "id": "synthetic_balance_flat_long_v1",
+      "segment_count": 18,
+      "segment_length_m": 200,
+      "pattern": "constant",
+      "grade": 0,
+      "curvature_per_m": 0,
+      "width_m": 6,
+      "terrain_muscle_factor": 1,
+      "draft_allowed": true,
+      "overtake_allowed": true,
+      "zone": "flat",
+      "negative_zone": "flat",
+      "closed": true
+    },
+    {
+      "id": "synthetic_balance_rolling_long_v1",
+      "segment_count": 18,
+      "segment_length_m": 200,
+      "pattern": "alternating",
+      "grade": 0.08,
+      "curvature_per_m": 0,
+      "width_m": 6,
+      "terrain_muscle_factor": 1.3,
+      "draft_allowed": true,
+      "overtake_allowed": true,
+      "zone": "climb_long",
+      "negative_zone": "descent_fast",
+      "closed": true
+    }
+  ],
+  "schema_version": 1,
+  "target_loop_id": "main_long",
+  "normalize_signed_zero": true
+}

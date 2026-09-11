@@ -51,7 +51,7 @@ internal static class BatchLab
         var columns=rows[0].Values.Keys.OrderBy(x=>x,StringComparer.Ordinal).ToArray();
         using(var csv=new StreamWriter(Path.Combine(output,"races.csv"),false,new UTF8Encoding(false)))
         {csv.WriteLine(string.Join(",",columns));foreach(var r in rows)csv.WriteLine(string.Join(",",columns.Select(k=>Cell(r.Values[k]))));}
-        Report(rows,output);
+        Report(rows,output,suite);
         if(snapshot!=null)
         {
             var diff=BalanceRegression.Compare(suite,snapshot,rows);
@@ -62,7 +62,7 @@ internal static class BatchLab
         return 0;
     }
     private static string Cell(object value)=>value==null?"":"\""+Convert.ToString(value,CultureInfo.InvariantCulture).Replace("\"","\"\"")+"\"";
-    private static void Report(List<BalanceMetrics> rows,string output)
+    private static void Report(List<BalanceMetrics> rows,string output,BalanceBatchDefinition suite)
     {
         string[] metrics={"finish_seconds","ski_seconds","range_seconds","penalty_seconds","hit_rate","penalties","avg_hr_bpm","range_entry_hr_bpm","fatigue_finish","anaerobic_min","final_lap_speed_mps"};
         var summaries=new List<object>();var md=new StringBuilder("# Batch distributions\n\nPopulation standard deviation; linear (n-1) percentiles. Solo Sprint; no group-benefit claim.\n\n| Case | n | Mean seconds | P05 | P95 | Hit rate | Fatigue |\n|---|---:|---:|---:|---:|---:|---:|\n");
@@ -74,6 +74,15 @@ internal static class BatchLab
             var t=d["finish_seconds"];md.AppendFormat(CultureInfo.InvariantCulture,"| {0} | {1} | {2:F3} | {3:F3} | {4:F3} | {5:F4} | {6:F4} |\n",g.Key,t.Count,t.Mean,t.P05,t.P95,d["hit_rate"].Mean,d["fatigue_finish"].Mean);
         }
         Write(Path.Combine(output,"distributions.json"),new{schema_version=1,id="batch_distributions_v1",groups=summaries});
+        var pairs=new List<BalancePairedComparison>();
+        for(int i=0;i<suite.Count;i++)
+        {
+            int first=i;for(int j=0;j<i;j++)if(suite.Get(j).TrackFile==suite.Get(i).TrackFile){first=j;break;}
+            if(first!=i)pairs.Add(new BalancePairedComparison(suite,rows,suite.Get(first).Id,suite.Get(i).Id));
+        }
+        Write(Path.Combine(output,"paired.json"),new{schema_version=1,id="batch_paired_v1",pairs});
+        md.Append("\nPaired savings relative to the first case on each identical track (positive = changed faster):\n\n| Baseline | Changed | Mean saved s | P05 | P95 | Wins |\n|---|---|---:|---:|---:|---:|\n");
+        foreach(var p in pairs)md.AppendFormat(CultureInfo.InvariantCulture,"| {0} | {1} | {2:F3} | {3:F3} | {4:F3} | {5}/{6} |\n",p.Baseline,p.Changed,p.SecondsSaved.Mean,p.SecondsSaved.P05,p.SecondsSaved.P95,p.ChangedWins,p.SecondsSaved.Count);
         File.WriteAllText(Path.Combine(output,"report.md"),md.ToString());
     }
 }
