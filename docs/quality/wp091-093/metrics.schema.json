@@ -1,0 +1,143 @@
+{
+  "type": "object",
+  "properties": {
+    "anaerobic_min": {
+      "type": "number"
+    },
+    "attack_value_seconds": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "avg_hr_bpm": {
+      "type": "number"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "context_sha256": {
+      "type": "string"
+    },
+    "draft_benefit_seconds": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "draft_seconds": {
+      "type": "number"
+    },
+    "effect_status": {
+      "type": "string"
+    },
+    "event_fnv64": {
+      "type": "string"
+    },
+    "fatigue_finish": {
+      "type": "number"
+    },
+    "final_lap_speed_mps": {
+      "type": "number"
+    },
+    "finish_seconds": {
+      "type": "number"
+    },
+    "hit_rate": {
+      "type": "number"
+    },
+    "hits_prone": {
+      "type": "number"
+    },
+    "hits_standing": {
+      "type": "number"
+    },
+    "id": {
+      "type": "string"
+    },
+    "iteration": {
+      "type": "number"
+    },
+    "max_hr_bpm": {
+      "type": "number"
+    },
+    "overtakes": {
+      "type": "number"
+    },
+    "penalties": {
+      "type": "number"
+    },
+    "penalty_seconds": {
+      "type": "number"
+    },
+    "position": {
+      "type": "number"
+    },
+    "range_entry_hr_bpm": {
+      "type": "number"
+    },
+    "range_seconds": {
+      "type": "number"
+    },
+    "schema_version": {
+      "type": "number"
+    },
+    "seed": {
+      "type": "string"
+    },
+    "shots_prone": {
+      "type": "number"
+    },
+    "shots_standing": {
+      "type": "number"
+    },
+    "ski_seconds": {
+      "type": "number"
+    },
+    "stat_marginal_seconds_per_point": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "track_file": {
+      "type": "string"
+    }
+  },
+  "title": "BIATHLON solo race metrics v1",
+  "required": [
+    "anaerobic_min",
+    "attack_value_seconds",
+    "avg_hr_bpm",
+    "case_id",
+    "context_sha256",
+    "draft_benefit_seconds",
+    "draft_seconds",
+    "effect_status",
+    "event_fnv64",
+    "fatigue_finish",
+    "final_lap_speed_mps",
+    "finish_seconds",
+    "hit_rate",
+    "hits_prone",
+    "hits_standing",
+    "id",
+    "iteration",
+    "max_hr_bpm",
+    "overtakes",
+    "penalties",
+    "penalty_seconds",
+    "position",
+    "range_entry_hr_bpm",
+    "range_seconds",
+    "schema_version",
+    "seed",
+    "shots_prone",
+    "shots_standing",
+    "ski_seconds",
+    "stat_marginal_seconds_per_point",
+    "track_file"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false
+}

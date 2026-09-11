@@ -3,20 +3,20 @@
 Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs.
 
 ```yaml
-project_phase: M7 complete; M1–M7 PASS; next M8 Balance Lab
-active_work_package: none; requested endpoint WP-090 reached
-active_task: none; WP090 complete
-last_completed_task: TASK-090 three-format championship; M7 PASS (2026-09-11)
+project_phase: M8 Balance Lab; M1–M7 PASS
+active_work_package: WP-094
+active_task: TASK-094 canonical seeds and regression windows
+last_completed_task: TASK-091-093 batch execution, metrics and distributions (2026-09-11)
 last_verified_commit: fa4cb932f65391328ac18274f72d497a1bef7acc; WP090/M7 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
-editmode_tests: 486 discovered; WP090 Unity2/2; WP088-089 matrix1/1 and results2/2
+editmode_tests: 489 discovered; WP091-093 Unity3/3
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
-standalone_tests: full484/484; WP090 focused2/2
+standalone_tests: WP091-093 focused5/5; prior full484/484 and WP090 focused2/2
 unity_console_errors: 0 after WP090 compilation and MCP checks
 unity_console_warnings: 4 retained MCP warnings; compilation_failed=false
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-091]
+next_unlocked_work_packages: [WP-094]
 ```
 
 ## Work packages
@@ -138,8 +138,14 @@ next_unlocked_work_packages: [WP-091]
 
 - WP-090 DONE. Shared Sprint → Pursuit and independent Mass Start harness, repeat artifacts and exact .NET/Unity hashes; M7 PASS.
 
+- WP-091 DONE. Bounded parallel batch CLI;10002 complete solo Sprint races verified.
+
+- WP-092 DONE. Versioned timing/shooting/resource metrics with explicit counterfactual semantics.
+
+- WP-093 DONE. Deterministic CSV/JSONL/JSON/Markdown distributions and worker-order checks.
+
 ## Resume
-Requested endpoint WP090 reached. Next unlocked roadmap work is WP091/M8 Balance Lab.
+Continue through WP095 under owner authorization. WP091-093 passed; next WP094 snapshots, then WP095 pacing. Batch10002 races/3334 seeds completed; .NET5/5, Unity3/3, Console0 errors. See TASK-091-093-REPORT and BALANCE_LAB_BATCH.md.
 M7 PASS: three30-AI formats complete headlessly; Sprint qualification supplies Pursuit roster
 and exact gaps; Mass Start uses an independent roster/grid.90 finishers,1500 accepted shots,
 zero precision fallbacks. CLI repeat matches10 files; all3 result hashes match .NET and Unity.

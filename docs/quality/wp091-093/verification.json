@@ -1,0 +1,42 @@
+{
+  "soak_seeds": 3334,
+  "soak_workers": 4,
+  "unity_passed": 3,
+  "dotnet_passed": 5,
+  "portable_metrics_sha256": "fdcc8b6cd32f71475f8f46dc3700b65f832945ed14ab41e5f84114732aebe34a",
+  "evidence": [
+    {
+      "file": "artifacts/balance/wp091-093.trx",
+      "sha256": "b22e4402ca4bcbb9b55f85e2369168d8aaa7a8c38e99397ad2ef6aa86f119e70"
+    },
+    {
+      "file": "artifacts/balance/wp091-unity.json",
+      "sha256": "cdef2d587e8cd33a2225ed907587e3ff579f1dd254eb7c26d4bb0dd8ebff1bf8"
+    },
+    {
+      "file": "artifacts/balance/wp091-unity-results.xml",
+      "sha256": "925b9b20c625d34c4393dfb15d103834fb4faa0572aef9c95df82539529dc6d3"
+    },
+    {
+      "file": "artifacts/balance/wp091-soak/status.json",
+      "sha256": "4c52ac741eadd3e4fd74d2bf42f643ad1ce3cef13dc17daa9fe286c0695a2b98"
+    },
+    {
+      "file": "artifacts/balance/wp091-soak/distributions.json",
+      "sha256": "d171a0f6201b299e9b625d6984e4f064f60243ff3983f96432a4eb67ac64131d"
+    },
+    {
+      "file": "artifacts/balance/wp091-smoke/status.json",
+      "sha256": "0cf5e6c0a012e4ce31608d6ff466b104b29cff2c2e2d9639b0895884bdfbd3d1"
+    },
+    {
+      "file": "artifacts/balance/wp091-smoke-serial/status.json",
+      "sha256": "da495413f432f75324ed6fb44983cce724652e3010cf9573ff4e629d6cba49f4"
+    }
+  ],
+  "id": "wp091_093_verification",
+  "soak_seconds": 15.5711825,
+  "serial_parallel_exact": true,
+  "soak_races": 10002,
+  "schema_version": 1
+}
