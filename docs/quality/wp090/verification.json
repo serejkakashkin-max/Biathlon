@@ -1,0 +1,76 @@
+{
+  "qualification_sha256": "18ae620ca1d1635f1fa35e7c97b8c66f49dd9263c9e05b03ca2ab667937877f0",
+  "id": "wp090_m7_verification",
+  "stages": [
+    {
+      "name": "sprint",
+      "ticks": 25844,
+      "starts": 30,
+      "accepted_shots": 300,
+      "penalties": 28,
+      "precision_fallbacks": 0,
+      "result_sha256": "b63aa9aedacdcf40258f78df5f81c3b8a47c4f65aded4fb97f58ff9fca8ee95b",
+      "events_sha256": "75cf281bfca9290cd4cb03b18f7c5f042eb4f4b4dd087478ea977a67cd16fa2c"
+    },
+    {
+      "name": "pursuit",
+      "ticks": 16166,
+      "starts": 30,
+      "accepted_shots": 600,
+      "penalties": 21,
+      "precision_fallbacks": 0,
+      "result_sha256": "fe5b572dd46bc9bb2e08bbb4a93c477934a7f097bd152fa4f0abd5b22e982e64",
+      "events_sha256": "85fbfd149730798867fd2d76551a16e82824873d12b5fbb837682f853f12f73e"
+    },
+    {
+      "name": "mass_start",
+      "ticks": 17730,
+      "starts": 30,
+      "accepted_shots": 600,
+      "penalties": 37,
+      "precision_fallbacks": 0,
+      "result_sha256": "9efa410bff1d265bfe50ab95fcc0d62e815bec8f9a4d959ed8fc74a02ab857fb",
+      "events_sha256": "bfbf6abfb17a4302e4bbf6b005f4be5d8a891cebd99d3674f57f730dcb2c447d"
+    }
+  ],
+  "discovered": 486,
+  "unity_focused_passed": 2,
+  "unity_console_errors": 0,
+  "evidence": [
+    {
+      "sha256": "fd6be812f2b4d97a616a38b4e2462e955d42bd06da81d0111f3786870dd109b3",
+      "file": "artifacts/physiology/wp090-focused.trx"
+    },
+    {
+      "sha256": "f42b0cf5d2e507b0511696477bcd05cb48ff1f1edc8fb32be7338cdff93e66a4",
+      "file": "artifacts/physiology/wp090-unity.json"
+    },
+    {
+      "sha256": "5ac2c55e8227f8d12e068d82e5e993e29fb133f5779a129df7e48ecc477fa338",
+      "file": "artifacts/physiology/wp090-unity-results.xml"
+    },
+    {
+      "sha256": "c564c5e75fb62e896027f1dd2a57d2431301f231419da4585639faaa43e61124",
+      "file": "artifacts/physiology/wp090-console.json"
+    },
+    {
+      "sha256": "cb4f8ed29ae5eb0d77141c14d9cad67d12fd232f066b52bb93674e4ee5097edb",
+      "file": "artifacts/physiology/wp090-repeat.json"
+    },
+    {
+      "sha256": "21d4819584a80eb8fbcc2122a1baeb3ebb74fdb4134742307a368d984525a5ce",
+      "file": "artifacts/physiology/wp090-failure-smoke.json"
+    },
+    {
+      "sha256": "4b274644a7e18af2fc0564f716de99132795758622bb951cc191e42f65d8f215",
+      "file": "artifacts/physiology/wp090-championship-b/summary.json"
+    }
+  ],
+  "schema_version": 1,
+  "status": "PASS",
+  "repeated_files": 10,
+  "dotnet_new_focused_passed": 2,
+  "unity_console_warnings": 4,
+  "dotnet_prior_full_passed": 484,
+  "compilation_failed": false
+}

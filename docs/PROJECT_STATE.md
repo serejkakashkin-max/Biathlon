@@ -3,20 +3,20 @@
 Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs.
 
 ```yaml
-project_phase: M7 Pursuit and Mass Start; M1–M6 PASS
-active_work_package: WP-090
-active_task: TASK-090 shared three-format championship harness
-last_completed_task: TASK-088-089 stress matrix and result regression (2026-09-11)
-last_verified_commit: 1f0a43d; WP087 verified and pushed
+project_phase: M7 complete; M1–M7 PASS; next M8 Balance Lab
+active_work_package: none; requested endpoint WP-090 reached
+active_task: none; WP090 complete
+last_completed_task: TASK-090 three-format championship; M7 PASS (2026-09-11)
+last_verified_commit: 4f50876; WP088-089 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
-editmode_tests: 486 discovered; WP088-089 Unity matrix1/1 and results2/2
+editmode_tests: 486 discovered; WP090 Unity2/2; WP088-089 matrix1/1 and results2/2
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
 standalone_tests: full484/484; WP090 focused2/2
-unity_console_errors: 0 after WP085B1 compilation and MCP checks
-unity_console_warnings: 3 retained MCP warnings; no project compile errors
+unity_console_errors: 0 after WP090 compilation and MCP checks
+unity_console_warnings: 4 retained MCP warnings; compilation_failed=false
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-090]
+next_unlocked_work_packages: [WP-091]
 ```
 
 ## Work packages
@@ -136,35 +136,23 @@ next_unlocked_work_packages: [WP-090]
 
 - WP-089 DONE. Exact cross-runtime matrix, result ranking validation and full484 regression passed.
 
+- WP-090 DONE. Shared Sprint → Pursuit and independent Mass Start harness, repeat artifacts and exact .NET/Unity hashes; M7 PASS.
+
 ## Resume
-Complete WP090 common factory and three-format CLI/Unity harness. WP088-089 pass: full .NET484/484, Unity matrix1/1 and result tests2/2. See TASK-088-089-REPORT and quality/wp088-089. Owner authorized continuous work through WP090 with GitHub/state checkpoints.
-WP082B verified full .NET463/463, Unity10/10, Console0 errors. Pursuit chain repeats15326ticks
-with result SHA256 a7a0eaea6bc0767a9e734ebf7e6c705c246f57c22f670d73bf0d6e162e584e0c in both runtimes.
-Read ADR0015 and GDD12. Do not confuse global Pursuit finish order with Sprint elapsed ranking.
-Pursuit snapshots currently require complete finisher fields; withdrawal support and M7 robustness are not claimed.
-No owner blocker; continue authorized coherent commits/push and state updates.
+Requested endpoint WP090 reached. Next unlocked roadmap work is WP091/M8 Balance Lab.
+M7 PASS: three30-AI formats complete headlessly; Sprint qualification supplies Pursuit roster
+and exact gaps; Mass Start uses an independent roster/grid.90 finishers,1500 accepted shots,
+zero precision fallbacks. CLI repeat matches10 files; all3 result hashes match .NET and Unity.
 
-M6 gate: four30-athlete stadium fields finish120 athletes; each fires10 accepted shots and
-activates final sprint once. Stationary fractions2.65–8.08%; no precision fallbacks. Flat expert
-stopped ticks834788→7287, maximum consecutive stall161ticks (8.05s), peak simultaneous shooting9.
-Twice-repeated .NET/Unity stadium result SHA2566f32f9845c13629d6ad004160bc9731d67b2cc0925d9c82af64039edc1166085,
-trace FNV64780be17e3d4dee9c. Solo motion/physiology/finish exactly match unchanged base physics.
+Validation: full .NET484/484 before new factory, then its focused2/2; Unity championship2/2,
+Mass Start matrix1/1 and result validation2/2.486 discovered, not a new full486 suite run.
+Console0 errors,4 retained MCP warnings. PlayMode7/7 remains the earlier baseline.
 
-Latest standalone450/450 full run (5m54s); focused Unity9/9 includes twice-complete30-athlete test.
-Together with prior baseline this covers450 current cases, not one new full Unity suite run.
-Legacy WP078 three result hashes unchanged. PlayMode7/7 remains WP078 baseline. Console0 errors,
-4 MCP lifecycle warnings. MCP timeout restored10000ms. Stable JIT mode is test-project-only;
-Foundation zero-byte assertions and all gameplay/BalanceLab runtime settings are unchanged.
-
-Evidence: MILESTONE-M6-REPORT, TASK079/079B reports, docs/quality/wp079 and wp079b, local
-artifacts/physiology/wp079b-* and ai-stadium-wp079b-final. Eight new stadium fixture files reproduce
-exactly with New-SyntheticRangeLanes.ps1. The first wider-junction experiment remains local.
-
-Follow ADR0012–0014. Range mapping is optional: original field behavior/context remains unchanged.
-Explicit lane alternatives require matching terrain/length and directed connections; physical
-bodies, continuous sweeps, seam tails and FIFO remain active. No hidden physical/difficulty bonus.
-Static unique synthetic lanes do not complete WP087's Mass Start rule policy or production3D venue
-validation. Remaining balance calibration is M8. Preserve original fixtures and canonical hashes.
+Reports: TASK-088-089-REPORT.md, TASK-090-REPORT.md, MILESTONE-M7-REPORT.md.
+Machine evidence: docs/quality/wp088-089 and wp090. No owner/blocker gate pending.
+M8 calibration, production venues/presentation and withdrawal handling are not claimed by M7.
+Preserve ADR0012–0017, canonical Foundation hashes and unrelated owner workspace edits.
+Continue coherent commits/push and state updates under standing owner authorization.
 ## Publication
 Owner explicitly authorized regular commits/push and state updates on2026-09-09.
 Branch: codex/wp-078-ai-pack; origin: https://github.com/serejkakashkin-max/Biathlon.git.
