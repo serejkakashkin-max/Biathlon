@@ -13,9 +13,9 @@ internal static class Program
 {
     private static int Main(string[] args)
     {
-        if(args.Length==6 && args[0]=="batch")
+        if((args.Length==6 && args[0]=="batch") || (args.Length==7 && args[0]=="batch-check"))
         {
-            try { CultureInfo.CurrentCulture=CultureInfo.InvariantCulture;return BatchLab.Execute(args[1],args[2],args[3],args[4],int.Parse(args[5],CultureInfo.InvariantCulture)); }
+            try { CultureInfo.CurrentCulture=CultureInfo.InvariantCulture;return BatchLab.Execute(args[1],args[2],args[3],args[4],int.Parse(args[5],CultureInfo.InvariantCulture),args.Length==7?args[6]:null); }
             catch(Exception ex){Console.Error.WriteLine(ex.Message);return 1;}
         }
         if (!((args.Length == 3 && (args[0] == "physiology" || args[0] == "generate-tracks" || args[0] == "shooting" || args[0] == "shooting-balance")) || (args.Length == 4 && (args[0] == "ski" || args[0] == "sprint" || args[0] == "ai" || args[0] == "ai-queues" || args[0] == "ai-stadium" || args[0] == "championship"))))

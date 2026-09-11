@@ -41,3 +41,10 @@ Distribution statistics: arithmetic mean, population standard deviation (Welford
 (n-1) median/P05/P95, min/max, hit rates and penalty histograms. Pearson finish/fatigue correlation
 is observational; zero variance returns null. A paired strategy comparison must hold athlete,
 track, conditions and seed fixed. No report asserts an untested globally optimal strategy.
+
+WP094 regression: `batch-check` takes the same arguments as `batch`, then the snapshot path.
+Example append `tests/fixtures/balance/canonical-v1.json`. It emits regression.json with specific
+diffs and exits1 on mismatch; completed status is withheld. Metrics JSON explicitly rounds
+binary64 values to9 decimal places, ties-to-even, before F9 formatting; this changes export only.
+Target windows are provisional observations; their exact seed suite is SHA256-bound. A change
+outside a window requires diagnosis and reviewed snapshot revision, never automatic acceptance.

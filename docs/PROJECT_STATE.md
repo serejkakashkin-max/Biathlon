@@ -4,19 +4,19 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M8 Balance Lab; M1–M7 PASS
-active_work_package: WP-094
-active_task: TASK-094 canonical seeds and regression windows
-last_completed_task: TASK-091-093 batch execution, metrics and distributions (2026-09-11)
-last_verified_commit: fa4cb932f65391328ac18274f72d497a1bef7acc; WP090/M7 verified and pushed
+active_work_package: WP-095
+active_task: TASK-095 held-out pacing calibration
+last_completed_task: TASK-094 canonical regression and batch qualification fixes (2026-09-11)
+last_verified_commit: 0d19af3; WP091-093 published; qualification corrected in WP094
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
-editmode_tests: 489 discovered; WP091-093 Unity3/3
+editmode_tests: 492 discovered; WP094 Unity regression2/2 and batch4/4
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
-standalone_tests: WP091-093 focused5/5; prior full484/484 and WP090 focused2/2
+standalone_tests: WP094 focused11/11; prior full484/484
 unity_console_errors: 0 after WP090 compilation and MCP checks
 unity_console_warnings: 4 retained MCP warnings; compilation_failed=false
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-094]
+next_unlocked_work_packages: [WP-095]
 ```
 
 ## Work packages
@@ -144,8 +144,10 @@ next_unlocked_work_packages: [WP-094]
 
 - WP-093 DONE. Deterministic CSV/JSONL/JSON/Markdown distributions and worker-order checks.
 
+- WP-094 DONE. Canonical12 records/9 windows, failure diffs, export and recovery-trigger fixes verified.
+
 ## Resume
-Continue through WP095 under owner authorization. WP091-093 passed; next WP094 snapshots, then WP095 pacing. Batch10002 races/3334 seeds completed; .NET5/5, Unity3/3, Console0 errors. See TASK-091-093-REPORT and BALANCE_LAB_BATCH.md.
+Continue through WP095 under owner authorization. WP094 passed; complete WP095 held-out pacing calibration. Batch10002 races/3334 seeds reverified; .NET11/11, Unity2/2+4/4. Export parity and recovery-trigger corrections are documented in TASK094. See TASK-091-093-REPORT and BALANCE_LAB_BATCH.md.
 M7 PASS: three30-AI formats complete headlessly; Sprint qualification supplies Pursuit roster
 and exact gaps; Mass Start uses an independent roster/grid.90 finishers,1500 accepted shots,
 zero precision fallbacks. CLI repeat matches10 files; all3 result hashes match .NET and Unity.

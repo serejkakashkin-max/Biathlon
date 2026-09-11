@@ -9,7 +9,7 @@ capability remain unchanged; pacing inputs and the standard expert aim controlle
 
 Validation: build0 warnings/errors; .NET5/5 including unchanged Sprint regression hashes;
 Unity MCP3/3 (489 discovered), candidate metrics SHA256
-fdcc8b6cd32f71475f8f46dc3700b65f832945ed14ab41e5f84114732aebe34a matches .NET.
+fdcc8b6cd32f71475f8f46dc3700b65f832945ed14ab41e5f84114732aebe34a was the Unity output. The original statement that it matched .NET was incorrect; WP094 diagnosed/fixed export formatting and verified the complete canonical suite. See TASK-094-REPORT.
 10002 complete solo Sprint races across3334 fixed seeds and3 configurations passed in15.57s
 on4 workers. Serial and2-worker smoke artifacts match exactly. Runtime is a local observation,
 not a performance target for30-person fields.100020 accepted shots; complete race accounting

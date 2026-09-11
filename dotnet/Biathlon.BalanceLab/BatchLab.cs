@@ -15,10 +15,11 @@ internal static class BatchLab
     private static readonly JsonSerializerOptions Json=new JsonSerializerOptions{WriteIndented=true};
     private static string Hash(string text)=>Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(text))).ToLowerInvariant();
     private static void Write(string path,object value)=>File.WriteAllText(path,JsonSerializer.Serialize(value,Json));
-    public static int Execute(string suiteFile,string data,string tracks,string output,int workers)
+    public static int Execute(string suiteFile,string data,string tracks,string output,int workers,string snapshotFile=null)
     {
         if(workers<1||workers>16)throw new ArgumentException("Workers must be 1..16.");
         var suite=BalanceBatchDefinition.FromJson(File.ReadAllText(suiteFile));
+        var snapshot=snapshotFile==null?null:BalanceRegressionSnapshot.FromJson(File.ReadAllText(snapshotFile));
         Directory.CreateDirectory(output);
         Write(Path.Combine(output,"status.json"),new{schema_version=1,id=suite.Id,status="incomplete",expected=suite.RunCount});
         var definitions=Directory.GetFiles(data,"*.json").ToDictionary(Path.GetFileName,File.ReadAllText,StringComparer.Ordinal);
@@ -51,6 +52,12 @@ internal static class BatchLab
         using(var csv=new StreamWriter(Path.Combine(output,"races.csv"),false,new UTF8Encoding(false)))
         {csv.WriteLine(string.Join(",",columns));foreach(var r in rows)csv.WriteLine(string.Join(",",columns.Select(k=>Cell(r.Values[k]))));}
         Report(rows,output);
+        if(snapshot!=null)
+        {
+            var diff=BalanceRegression.Compare(suite,snapshot,rows);
+            Write(Path.Combine(output,"regression.json"),new{schema_version=1,id=snapshot.Id,status=diff.Length==0?"passed":"failed",diff});
+            if(diff.Length>0)throw new InvalidOperationException("Regression differs; see regression.json: "+string.Join("; ",diff));
+        }
         Write(Path.Combine(output,"status.json"),new{schema_version=1,id=suite.Id,status="completed",completed=rows.Count,wall_seconds=timer.Elapsed.TotalSeconds,workers,runtime=System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription,metrics_sha256=Hash(File.ReadAllText(Path.Combine(output,"races.jsonl")))});
         return 0;
     }

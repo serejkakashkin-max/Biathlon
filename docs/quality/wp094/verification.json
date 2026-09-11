@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "dotnet_passed": 11,
+  "soak": {
+    "schema_version": 1,
+    "id": "balance_batch_soak_v1",
+    "status": "completed",
+    "completed": 10002,
+    "wall_seconds": 23.0883748,
+    "workers": 4,
+    "runtime": ".NET 8.0.30",
+    "metrics_sha256": "565518301370991dd3984331d7a1706e65cc6fea1e5564bb126a8bb8d6a236a0"
+  },
+  "canonical_records": 12,
+  "metrics_sha256": "dc40e61730ac85e62d107650344ac9b1acd9bf2e271b49e53a03dea691bb42e5",
+  "unity_batch_passed": 4,
+  "id": "wp094_verification",
+  "unity_regression_passed": 2,
+  "evidence": [
+    {
+      "sha256": "e98b949c47ea55ef4b1b9cf2add70f21cee2a66acf123c5c3ca6110aa99fc320",
+      "file": "artifacts/balance/wp094-final.trx"
+    },
+    {
+      "sha256": "88d2b2b02d488d321fed72c3b6ddd979cca8e66ae9661ec4dcac0457b41ec60b",
+      "file": "artifacts/balance/wp094-unity-final.xml"
+    },
+    {
+      "sha256": "989d6d31b78e1d8aa2747206570828c7835237ce9d91f466fb3f92b0d3099026",
+      "file": "artifacts/balance/wp094-batch-unity.xml"
+    },
+    {
+      "sha256": "e60ab306ef0040e7a1ed3809a28972a0b838b61ec1e808976af1972a575f5018",
+      "file": "artifacts/balance/wp094-final-check/regression.json"
+    },
+    {
+      "sha256": "67d26791ffc29aa8bab4b1d9a79137f873472f85ec00547830ce59716202d5fb",
+      "file": "artifacts/balance/wp094-failed-check/regression.json"
+    },
+    {
+      "sha256": "9681fa6f458cceda18883cef2cdebce1b863609b7c0352d611d1312df1b70ee1",
+      "file": "artifacts/balance/wp094-soak/status.json"
+    },
+    {
+      "sha256": "c504028b7b4e38186ae62ca002e0a2dc893a78f1b81ddd12f5877335dfe8591e",
+      "file": "artifacts/balance/wp094-rounding-probe.xml"
+    }
+  ],
+  "target_windows": 9
+}

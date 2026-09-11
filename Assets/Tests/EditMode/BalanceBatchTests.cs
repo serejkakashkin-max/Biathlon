@@ -45,7 +45,20 @@ namespace Biathlon.Tests
                 string json=m.ToJson();if(first!=null)Assert.That(json,Is.EqualTo(first));first=json;
             }
             using(var sha=SHA256.Create())TestContext.Out.WriteLine("Balance candidate metrics SHA256="+BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(first))).Replace("-","").ToLowerInvariant());
-            var culture=CultureInfo.CurrentCulture;try{CultureInfo.CurrentCulture=new CultureInfo("fr-FR");var m=new BalanceMetrics();m.Values["x"]=1.5;Assert.That(m.ToJson(),Is.EqualTo("{\"x\":1.5}"));}finally{CultureInfo.CurrentCulture=culture;}
+            var culture=CultureInfo.CurrentCulture;try{CultureInfo.CurrentCulture=new CultureInfo("fr-FR");var m=new BalanceMetrics();m.Values["x"]=1.5;Assert.That(m.ToJson(),Is.EqualTo("{\"x\":1.500000000}"));m.Values["x"]=double.NaN;Assert.Catch(()=>m.ToJson());}finally{CultureInfo.CurrentCulture=culture;}
+        }
+        [Test] public void RecoveryOnlyStartsInsideConfiguredDistanceAndTickBudgetFails()
+        {
+            var suite=Suite();var runner=new BalanceRaceRunner(suite,1,0,PhysiologyContractTests.DefinitionJson,SyntheticTrackTests.Generated("synthetic_flat_v1"),new BalanceEventAudit(5));
+            runner.Step();Assert.That(runner.LastEffort,Is.EqualTo(suite.Get(1).Effort));
+            long mat=runner.Field.Track.Range.FiringLine.Distance.Millimeters*1000000;
+            while(runner.Field.GetAthlete(0).ActiveShooting==null)
+            {
+                long before=runner.Field.GetAthlete(0).RouteNanometers;runner.Step();
+                Assert.That(runner.LastEffort,Is.EqualTo(mat-before<=suite.Get(1).RecoveryDistance*1e9?suite.Get(1).RecoveryEffort:suite.Get(1).Effort));
+            }
+            var bounded=BalanceBatchDefinition.FromJson(PhysiologyContractTests.ReplaceNumber(suite.ToJson(),"maximum_ticks","1"));
+            var b=new BalanceRaceRunner(bounded,0,0,PhysiologyContractTests.DefinitionJson,SyntheticTrackTests.Generated("synthetic_flat_v1"),new BalanceEventAudit(5));b.Step();Assert.Throws<InvalidOperationException>(()=>b.Step());
         }
     }
 }

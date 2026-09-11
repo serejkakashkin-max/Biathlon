@@ -37,7 +37,13 @@ namespace Biathlon.AI
             for(int i=0;i<keys.Count;i++)
             {
                 if(i>0)b.Append(',');b.Append(Quote(keys[i])).Append(':');var v=Values[keys[i]];
-                b.Append(v==null?"null":v is string?Quote((string)v):Convert.ToString(v,CultureInfo.InvariantCulture));
+                if(v is double number)
+                {
+                    if(double.IsNaN(number)||double.IsInfinity(number))throw new InvalidOperationException("Nonfinite metric.");
+                    // Explicit decimal encoding; .NET shortest-roundtrip and Mono G15 differ.
+                    b.Append(Math.Round(number,9,MidpointRounding.ToEven).ToString("F9",CultureInfo.InvariantCulture));
+                }
+                else b.Append(v==null?"null":v is string?Quote((string)v):Convert.ToString(v,CultureInfo.InvariantCulture));
             }
             return b.Append('}').ToString();
         }

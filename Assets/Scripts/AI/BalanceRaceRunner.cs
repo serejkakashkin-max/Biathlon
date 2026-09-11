@@ -23,7 +23,8 @@ namespace Biathlon.AI
             if(suite==null||read==null||track==null||events==null)throw new ArgumentNullException();
             this.suite=suite;scenario=suite.Get(caseIndex);seed=suite.SeedAt(iteration);
             var profile=CompetitionProfile.FromJson(read(suite.ProfileFile));
-            if(profile.Format!=CompetitionFormat.Sprint)throw new ArgumentException("Solo batch requires Sprint profile; use championship for linked formats.");
+            if(profile.Format!=CompetitionFormat.Sprint||profile.BoutCount!=2||profile.GetBout(0).Stance!=ShootingStance.Prone||profile.GetBout(1).Stance!=ShootingStance.Standing)
+                throw new ArgumentException("Solo batch requires P/S Sprint profile; use championship for linked formats.");
             var ski=TimeTrialAthlete.FromJson(read(suite.SkiAthleteFile));
             var shooter=ShootingAthleteDefinition.FromJson(read(suite.ShootingAthleteFile));
             shooter=ShootingAthleteDefinition.FromJson(shooter.ToJson().Replace(shooter.Id,ski.Id));
@@ -55,7 +56,10 @@ namespace Biathlon.AI
             }
             var range=a.CurrentRangeMotion;
             int effort=a.Lifecycle.CompletedBouts==Field.Profile.BoutCount?scenario.FinalEffort:scenario.Effort;
-            if(range.HasValue&&range.Value.Phase==RangeTraversalPhase.Approach&&range.Value.DistanceToBoundaryNanometers<=scenario.RecoveryDistance*SkiState.NanometersPerMeter)
+            // Traversal starts at the range-entry anchor even while the athlete is still far away.
+            // Include the untravelled distance to that anchor before the local approach remainder.
+            long toMat=range.HasValue?Math.Max(0,range.Value.RouteNanometers-a.RouteNanometers)+range.Value.DistanceToBoundaryNanometers:long.MaxValue;
+            if(range.HasValue&&range.Value.Phase==RangeTraversalPhase.Approach&&toMat<=scenario.RecoveryDistance*SkiState.NanometersPerMeter)
                 effort=scenario.RecoveryEffort;
             LastEffort=effort;
             input[0]=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(t,a.AthleteId,effort),1,1,0),command,trigger,hold);

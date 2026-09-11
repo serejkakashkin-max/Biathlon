@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "suite_sha256": "c631137e492f4f3dc14fc2f02681792c058c99b2165c5c81a9cfceab699b1e11",
+  "target_status": "provisional_observation",
+  "windows": [
+    {
+      "case_id": "aggressive",
+      "metric": "finish_seconds",
+      "mean_max": 369.4344786801,
+      "mean_min": 359
+    },
+    {
+      "case_id": "aggressive",
+      "metric": "range_entry_hr_bpm",
+      "mean_max": 196.71122407975002,
+      "mean_min": 187
+    },
+    {
+      "case_id": "aggressive",
+      "metric": "fatigue_finish",
+      "mean_max": 0.03457925975,
+      "mean_min": 0
+    },
+    {
+      "case_id": "candidate",
+      "metric": "finish_seconds",
+      "mean_max": 378.7784235574125,
+      "mean_min": 369
+    },
+    {
+      "case_id": "candidate",
+      "metric": "range_entry_hr_bpm",
+      "mean_max": 187.912802228,
+      "mean_min": 178
+    },
+    {
+      "case_id": "candidate",
+      "metric": "fatigue_finish",
+      "mean_max": 0.027838680750000004,
+      "mean_min": 0
+    },
+    {
+      "case_id": "conservative",
+      "metric": "finish_seconds",
+      "mean_max": 415.62103279064996,
+      "mean_min": 406
+    },
+    {
+      "case_id": "conservative",
+      "metric": "range_entry_hr_bpm",
+      "mean_max": 179.108109842875,
+      "mean_min": 169
+    },
+    {
+      "case_id": "conservative",
+      "metric": "fatigue_finish",
+      "mean_max": 0.01,
+      "mean_min": 0
+    }
+  ],
+  "records": [
+    {
+      "id": "aggressive_0",
+      "sha256": "2d47d0591d2777ad1976da0df82eaf6613d43600772ec48ef71791fd8ffbfe3e"
+    },
+    {
+      "id": "candidate_0",
+      "sha256": "4790cfc043ea733bd2ef492674e0f7e9c0bb5cab5cfb1cdbb00792d68bfde5db"
+    },
+    {
+      "id": "conservative_0",
+      "sha256": "9db3d783620924e8b1707ed993da7a994d346c9a99e02a4a113da54c5f02629d"
+    },
+    {
+      "id": "aggressive_1",
+      "sha256": "0d3a1981e739dbb479e90561ccf81f5a850e628329cf629b0c2a682fb2a9b5e5"
+    },
+    {
+      "id": "candidate_1",
+      "sha256": "4f69e3d1493a436032d24f91d63c0f58bc7907653a104ddd516a3c68011dc0c9"
+    },
+    {
+      "id": "conservative_1",
+      "sha256": "bdc9509c0338056e9858b9d7cc5eb633e536b32771a7cd286df5468a5da05af6"
+    },
+    {
+      "id": "aggressive_2",
+      "sha256": "52f348ae080c9aa6b4f446254e0e0ac13bd2c44c900fcd077d268d13c203b560"
+    },
+    {
+      "id": "candidate_2",
+      "sha256": "95bd6e83a80b50d1e1b6dd620691ecd2a65e306985e6453100777763485b1ece"
+    },
+    {
+      "id": "conservative_2",
+      "sha256": "701361889e48bbb1f8068452eedb0395f9aa909dcd9c4d1d05dbf7b17a27e001"
+    },
+    {
+      "id": "aggressive_3",
+      "sha256": "782016d7d8499353da67b6b3c722bdc8918408074ffe8cc73497d29ec193af6a"
+    },
+    {
+      "id": "candidate_3",
+      "sha256": "a2f238deeedcb3acbdc228de9fb80aa311ff3c0c5f6d265b517a895f5a2ef6e3"
+    },
+    {
+      "id": "conservative_3",
+      "sha256": "ad12315a17e74e81d58f8100de93daf2d71c40ec538a0229f0eba675c2672b68"
+    }
+  ],
+  "id": "balance_canonical_v1"
+}

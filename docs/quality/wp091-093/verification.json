@@ -38,5 +38,6 @@
   "soak_seconds": 15.5711825,
   "serial_parallel_exact": true,
   "soak_races": 10002,
-  "schema_version": 1
+  "schema_version": 1,
+  "correction": "Initial portable hash was Unity-only, not a verified .NET match. Superseded by WP094 export/controller fixes and full canonical cross-runtime qualification."
 }
