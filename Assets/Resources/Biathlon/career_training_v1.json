@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "id": "career_training_v1",
+  "sessions": [
+    {
+      "id": "training_endurance",
+      "kind": 0,
+      "time_slots": 1,
+      "fatigue_cost": 900,
+      "recovery_need": 900,
+      "recovery_gain": 0,
+      "health_risk": 20,
+      "adaptation": [
+        220,
+        20,
+        40,
+        20,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "training_intensity",
+      "kind": 1,
+      "time_slots": 1,
+      "fatigue_cost": 1600,
+      "recovery_need": 1600,
+      "recovery_gain": 0,
+      "health_risk": 80,
+      "adaptation": [
+        50,
+        220,
+        40,
+        100,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "training_technique",
+      "kind": 2,
+      "time_slots": 1,
+      "fatigue_cost": 700,
+      "recovery_need": 700,
+      "recovery_gain": 0,
+      "health_risk": 20,
+      "adaptation": [
+        0,
+        0,
+        0,
+        0,
+        200,
+        100,
+        100,
+        100,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "training_prone",
+      "kind": 3,
+      "time_slots": 1,
+      "fatigue_cost": 400,
+      "recovery_need": 400,
+      "recovery_gain": 0,
+      "health_risk": 20,
+      "adaptation": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        80,
+        220,
+        0,
+        60,
+        20
+      ]
+    },
+    {
+      "id": "training_standing",
+      "kind": 4,
+      "time_slots": 1,
+      "fatigue_cost": 500,
+      "recovery_need": 500,
+      "recovery_gain": 0,
+      "health_risk": 20,
+      "adaptation": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        80,
+        0,
+        220,
+        60,
+        20
+      ]
+    },
+    {
+      "id": "training_recovery",
+      "kind": 5,
+      "time_slots": 1,
+      "fatigue_cost": 0,
+      "recovery_need": 0,
+      "recovery_gain": 2200,
+      "health_risk": 0,
+      "adaptation": [
+        0,
+        0,
+        30,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}
