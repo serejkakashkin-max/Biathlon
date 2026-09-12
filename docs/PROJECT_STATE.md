@@ -7,7 +7,7 @@ project_phase: M1–M9 PASS; authorized scope through M9 complete
 active_work_package: none; WP-124 DONE
 active_task: none; M9 milestone closed
 last_completed_task: TASK-124 M9 milestone and initial career tuning lock
-last_verified_commit: 4aef1d6; WP123 verified and pushed; WP124 verification accompanies this state
+last_verified_commit: b8ee32bac075cbd658a18172aa53fd8d2db42dbe; WP124/M9 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 541 discovered; corrected actual-season1/1 and weekly1/1; WP124 lock1/1; .NET/Unity byte parity PASS
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
@@ -172,7 +172,7 @@ Preserve ADR0012–0017, canonical Foundation hashes and unrelated owner workspa
 Continue coherent commits/push and state updates under standing owner authorization.
 ## Publication history
 
-Current verified publication: **4aef1d6** — WP123. WP124 / M9 closure is committed with this state update. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
+Current verified publication: **b8ee32bac075cbd658a18172aa53fd8d2db42dbe** — WP124 / M9 PASS; confirmed on origin/codex/wp-078-ai-pack. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
 
 The entries below are historical checkpoints, not the current development position.
 Owner explicitly authorized regular commits/push and state updates on2026-09-09.
@@ -234,3 +234,5 @@ WP112 publication confirmed: 6d88ff7. WP113: .NET career16/16, Unity1/1; publica
 WP113 publication confirmed: 3def284. WP114: .NET career17/17, Unity1/1; publication accompanies this state update.
 
 WP121 progress: full .NET540/540 PASS; initial actual-season Unity1/1 and byte-identical .NET/Unity saves. Mental pressure-context correction implemented; corrected career30/30 and Unity season1/1 PASS with byte-identical final saves. WP122 actual 15-season soak PASS. See TASK-121-REPORT.md. M9 closed by TASK124.
+
+M9 publication confirmed: b8ee32bac075cbd658a18172aa53fd8d2db42dbe. Every WP103–124 is individually marked DONE above; WP125/M10 has not started. This documentation-only follow-up records the verified remote milestone commit.
