@@ -22,6 +22,9 @@ namespace Biathlon.Career
         [DataMember(Name="player_id",IsRequired=true)] public string PlayerId { get; private set; }
         [DataMember(Name="athletes",IsRequired=true)] private CareerAthlete[] athletes { get; set; }
         [DataMember(Name="season_results",EmitDefaultValue=false)] private CareerRaceRecord[] seasonResults { get; set; }
+        [DataMember(Name="past_seasons",EmitDefaultValue=false)] private CareerSeasonHistory[] pastSeasons { get; set; }
+        public int HistoryCount=>pastSeasons?.Length??0;public CareerSeasonHistory History(int index)=>pastSeasons[index];
+        internal void ArchiveSeason(CareerSeasonHistory summary,int limit){int count=Math.Min(HistoryCount,limit-1);var rows=new CareerSeasonHistory[count+1];if(count>0)Array.Copy(pastSeasons,HistoryCount-count,rows,0,count);rows[count]=summary;pastSeasons=rows;seasonResults=null;}
         public int RaceCount=>seasonResults?.Length??0;public CareerRaceRecord Race(int index)=>seasonResults[index];
         internal void AppendRace(CareerRaceRecord record){var rows=new CareerRaceRecord[RaceCount+1];if(seasonResults!=null)Array.Copy(seasonResults,rows,RaceCount);rows[rows.Length-1]=record;seasonResults=rows;}
         public int AthleteCount=>athletes.Length;public CareerAthlete Athlete(int index)=>athletes[index];
@@ -60,6 +63,7 @@ namespace Biathlon.Career
                     throw new SerializationException("Athlete ordinal is inconsistent with the allocation counter.");
             }
             if(!player)throw new SerializationException("Player is absent from roster.");
+            if(HistoryCount>100)throw new SerializationException("History budget exceeded.");int previousSeason=0;for(int i=0;i<HistoryCount;i++){var h=pastSeasons[i];if(h==null)throw new SerializationException("Null history.");h.Validate();if(h.Season<=previousSeason||h.Season>=Season||h.Id!=Id+"_season_"+h.Season.ToString(System.Globalization.CultureInfo.InvariantCulture)+"_history")throw new SerializationException("Invalid history identity/order.");previousSeason=h.Season;}
             var events=new HashSet<string>(StringComparer.Ordinal);var records=new HashSet<string>(StringComparer.Ordinal);
             if(RaceCount>366)throw new SerializationException("Too many season results.");
             for(int i=0;i<RaceCount;i++)
