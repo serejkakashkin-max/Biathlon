@@ -4,19 +4,19 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M10 Unity greybox; M1–M9 PASS
-active_work_package: WP-132
-active_task: TASK-132 range presentation
-last_completed_task: TASK-131 ski debug HUD
+active_work_package: WP-133
+active_task: TASK-133 shooting input integration
+last_completed_task: TASK-132 range presentation
 last_verified_commit: bf43c44; WP131 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
-editmode_tests: 543 discovered; WP131 snapshot1/1; prior device8/8; M9 actual-season byte parity PASS
-playmode_tests: WP131 HUD1/1 (14 discovered); prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
-standalone_tests: WP131 snapshot1/1; WP130 input/replay11/11; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
-unity_console_errors: 0 after WP131 HUD PlayMode and MCP checks
-unity_console_warnings: 0 after WP131 runner-cleanup recovery; compilation_failed=false
+editmode_tests: 543 discovered; WP132 snapshot1/1; prior device8/8; M9 actual-season byte parity PASS
+playmode_tests: WP132 range1/1 (15 discovered); prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
+standalone_tests: WP132 snapshot1/1; WP130 input/replay11/11; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
+unity_console_errors: 0 after WP132 range PlayMode and MCP checks
+unity_console_warnings: 1; compilation_failed=false
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-132]
+next_unlocked_work_packages: [WP-133]
 ```
 
 ## Work packages
@@ -152,10 +152,11 @@ next_unlocked_work_packages: [WP-132]
 - WP-129 DONE. Chase camera, obstacle clearance and Game View verified.
 - WP-130 DONE. KBM/gamepad command stream, focus release and replay verified.
 - WP-131 DONE. Snapshot ski telemetry, reset handling and Game View verified.
-- WP-132 IN PROGRESS. Range presentation.
+- WP-132 DONE. Authored apertures, authoritative aim camera/closures and Game View verified.
+- WP-133 IN PROGRESS. Shooting input integration.
 
 ## Resume
-M8 and M9 PASS. User authorized continuation into M10. WP131 complete; next WP132. Owner gate G1 follows hands-on greybox at WP140.
+M8 and M9 PASS. User authorized continuation into M10. WP132 complete; next WP133. Owner gate G1 follows hands-on greybox at WP140.
 The provisional first-playable tuning version locks127 inputs; see TASK-102-M8-REPORT.md and quality/m8/verification.json.
 Full .NET505/505 plus final tuner/lock5/5; Unity new15/15, PlayMode7/7; Console0 errors/1 warning.
 WP096 top cohort meets provisional GDD shooting windows. Draft/stat/equipment sensitivity and AI parity are measured.

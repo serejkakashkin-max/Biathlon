@@ -23,6 +23,10 @@ namespace Biathlon.Simulation
         public bool ShootingActive { get; }
         public int ClosedTargetsMask { get; }
         public int ShotsFired { get; }
+        public WeaponAimState Sight { get; }
+        public ShootingStance Stance { get; }
+        public ShotOutcome ShotOutcome { get; }
+        public TargetIntersection ShotImpact { get; }
         internal AthletePresentationState(PackSprintFieldSession field,int index)
         {
             var a=field.GetAthlete(index);var point=field.GetPhysicalPoint(index);var shooting=a.ActiveShooting;
@@ -31,7 +35,9 @@ namespace Biathlon.Simulation
             Effort=a.LastFrame.Physiology.Effort;Draft=field.GetDraft(index);
             CompletedLaps=a.Lifecycle.CompletedLaps;CompletedBouts=a.Lifecycle.CompletedBouts;PendingPenaltyLoops=a.Lifecycle.PendingPenaltyLoops;TotalPenaltyLoops=a.TotalPenaltyLoops;
             OnCourse=field.IsOnCourse(index);RangeLane=field.GetAssignedRangeLane(index);ShootingActive=shooting!=null;
-            ClosedTargetsMask=shooting?.ClosedMask??0;ShotsFired=shooting?.ShotsFired??0;
+                        ClosedTargetsMask=shooting?.ClosedMask??0;ShotsFired=shooting?.ShotsFired??0;
+            Sight=shooting?.Sight??default;Stance=field.Profile.GetBout(Math.Min(a.Lifecycle.CompletedBouts,field.Profile.BoutCount-1)).Stance;
+            ShotOutcome=shooting?.LastFrame.Shot.Outcome??ShotOutcome.NoShot;ShotImpact=shooting?.LastFrame.Shot.Impact??default;
         }
     }
     public sealed class RacePresentationSnapshot
