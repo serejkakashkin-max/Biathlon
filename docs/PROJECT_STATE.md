@@ -4,19 +4,19 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M10 Unity greybox; M1–M9 PASS
-active_work_package: WP-127
-active_task: TASK-127 greybox venue
-last_completed_task: TASK-126 track geometry authoring
-last_verified_commit: 0fb894f; WP125 verified and pushed
+active_work_package: WP-128
+active_task: TASK-128 athlete proxy presentation
+last_completed_task: TASK-127 greybox venue
+last_verified_commit: d58a2b1; WP126 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 543 discovered; WP126 focused1/1; M9 actual-season byte parity PASS
-playmode_tests: WP126 mesh1/1 (8 discovered); prior full7/7 including shared Sprint
+playmode_tests: WP127 scene1/1 (9 discovered); WP126 mesh1/1; prior full7/7
 standalone_tests: WP126 focused1/1; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
-unity_console_errors: 0 after WP126 regeneration and MCP checks
-unity_console_warnings: 0 after regeneration; compilation_failed=false
+unity_console_errors: 0 after WP127 scene PlayMode and MCP checks
+unity_console_warnings: 1 retained warning; compilation_failed=false
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-127]
+next_unlocked_work_packages: [WP-128]
 ```
 
 ## Work packages
@@ -147,10 +147,11 @@ next_unlocked_work_packages: [WP-127]
 - WP-124 DONE. M9 PASS;142 input tuning lock, .NET3/3 and Unity1/1; milestone evidence complete. See TASK-124-M9-REPORT.md.
 - WP-125 DONE. Detached state, guarded interpolation and Unity feed; .NET1/1, Unity1/1, PlayMode7/7. See TASK-125-REPORT.md.
 - WP-126 DONE. Validated visual geometry and repeatable33-loop Unity mesh generation; .NET1/1, Unity1/1, mesh PlayMode1/1. See TASK-126-REPORT.md.
-- WP-127 IN PROGRESS. Greybox venue.
+- WP-127 DONE. Generated saved venue,30 target banks,32 displayed loops; PlayMode1/1 and Game View inspected. See TASK-127-REPORT.md.
+- WP-128 IN PROGRESS. Athlete proxies.
 
 ## Resume
-M8 and M9 PASS. User authorized continuation into M10. WP126 complete; next WP127. Owner gate G1 follows hands-on greybox at WP140.
+M8 and M9 PASS. User authorized continuation into M10. WP127 complete; next WP128. Owner gate G1 follows hands-on greybox at WP140.
 The provisional first-playable tuning version locks127 inputs; see TASK-102-M8-REPORT.md and quality/m8/verification.json.
 Full .NET505/505 plus final tuner/lock5/5; Unity new15/15, PlayMode7/7; Console0 errors/1 warning.
 WP096 top cohort meets provisional GDD shooting windows. Draft/stat/equipment sensitivity and AI parity are measured.
@@ -174,7 +175,7 @@ Preserve ADR0012–0017, canonical Foundation hashes and unrelated owner workspa
 Continue coherent commits/push and state updates under standing owner authorization.
 ## Publication history
 
-Current verified publication: **0fb894f** — WP125. WP126 is committed with this update. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
+Current verified publication: **d58a2b1** — WP126. WP127 is committed with this update. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
 
 The entries below are historical checkpoints, not the current development position.
 Owner explicitly authorized regular commits/push and state updates on2026-09-09.
