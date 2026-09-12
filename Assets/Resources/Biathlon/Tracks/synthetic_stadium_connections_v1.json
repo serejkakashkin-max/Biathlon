@@ -1,0 +1,651 @@
+{
+  "schema_version": 1,
+  "id": "synthetic_stadium_connections_v1",
+  "junction_definition_id": "synthetic_stadium_junctions_v1",
+  "connections": [
+    {
+      "id": "penalty_enter",
+      "junction_id": "penalty_access",
+      "from_port_id": "main_entry",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "penalty_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "penalty_seam",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_1_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_1_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_1_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_1_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_1_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_1_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_2_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_2_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_2_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_2_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_2_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_2_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_3_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_3_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_3_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_3_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_3_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_3_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_4_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_4_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_4_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_4_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_4_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_4_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_5_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_5_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_5_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_5_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_5_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_5_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_6_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_6_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_6_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_6_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_6_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_6_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_7_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_7_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_7_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_7_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_7_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_7_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_8_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_8_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_8_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_8_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_8_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_8_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_9_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_9_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_9_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_9_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_9_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_9_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_10_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_10_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_10_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_10_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_10_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_10_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_11_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_11_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_11_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_11_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_11_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_11_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_12_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_12_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_12_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_12_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_12_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_12_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_13_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_13_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_13_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_13_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_13_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_13_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_14_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_14_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_14_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_14_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_14_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_14_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_15_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_15_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_15_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_15_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_15_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_15_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_16_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_16_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_16_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_16_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_16_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_16_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_17_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_17_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_17_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_17_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_17_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_17_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_18_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_18_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_18_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_18_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_18_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_18_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_19_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_19_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_19_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_19_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_19_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_19_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_20_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_20_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_20_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_20_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_20_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_20_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_21_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_21_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_21_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_21_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_21_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_21_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_22_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_22_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_22_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_22_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_22_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_22_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_23_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_23_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_23_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_23_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_23_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_23_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_24_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_24_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_24_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_24_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_24_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_24_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_25_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_25_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_25_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_25_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_25_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_25_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_26_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_26_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_26_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_26_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_26_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_26_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_27_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_27_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_27_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_27_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_27_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_27_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_28_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_28_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_28_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_28_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_28_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_28_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_29_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_29_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_29_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_29_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_29_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_29_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_30_enter",
+      "junction_id": "range_access",
+      "from_port_id": "range_main_entry",
+      "to_port_id": "range_lane_30_start",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_30_exit",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_30_end",
+      "to_port_id": "main_entry",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "range_lane_30_penalty",
+      "junction_id": "penalty_access",
+      "from_port_id": "range_lane_30_end",
+      "to_port_id": "penalty_seam",
+      "kind": "coincident_seam"
+    }
+  ]
+}

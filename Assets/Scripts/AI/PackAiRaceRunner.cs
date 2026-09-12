@@ -138,12 +138,26 @@ namespace Biathlon.AI
         }
         private ulong ActorSeed(AthleteId id,int stream)
         { unchecked { ulong h=14695981039346656037UL^seed;foreach(char c in id.Value) h=(h^c)*1099511628211UL;return h^(ulong)stream; } }
+        private int boundPlayerIndex=-1;
         public void Step()
         {
             if(IsFaulted) throw new InvalidOperationException("Failed AI planning must be reconstructed from its recorded context/commands.");
-            try { StepCore(); } catch { IsFaulted=true;throw; }
+            if(boundPlayerIndex>=0)throw new InvalidOperationException("Player-controlled race requires a player command every tick.");
+            try { StepCore(-1,default,0); } catch { IsFaulted=true;throw; }
         }
-        private void StepCore()
+        /// <summary>Replace one actor's intent before shared physics; other AI observes the same prior tick.</summary>
+        public void StepWithPlayer(int index,SprintAthleteInput input,double desiredLateralMeters)
+        {
+            if(index<0||index>=Field.Count)throw new ArgumentOutOfRangeException(nameof(index));
+            if(double.IsNaN(desiredLateralMeters)||double.IsInfinity(desiredLateralMeters))throw new ArgumentException("Finite lateral intent required.");
+            if(input.Ski.Effort.Tick.Value!=Field.Tick.Value+1||!input.Ski.Effort.AthleteId.Equals(Field.GetAthlete(index).AthleteId))throw new ArgumentException("Player tick/identity mismatch.");
+            if(IsFaulted)throw new InvalidOperationException("Faulted runner must be reconstructed.");
+            if(boundPlayerIndex<0&&Field.Tick.Value!=0)throw new InvalidOperationException("Select the player before the race starts.");
+            if(boundPlayerIndex>=0&&boundPlayerIndex!=index)throw new InvalidOperationException("Player identity cannot change during a race.");
+            boundPlayerIndex=index;
+            try { StepCore(index,input,desiredLateralMeters); } catch { IsFaulted=true;throw; }
+        }
+        private void StepCore(int playerIndex,SprintAthleteInput playerInput,double playerLateral)
         {
             if(Field.IsComplete) throw new InvalidOperationException("AI race is complete.");
             journal.Clear(); var tick=Field.Tick.Next();
@@ -151,6 +165,7 @@ namespace Biathlon.AI
             {
                 var actor=Field.GetAthlete(i); var id=actor.AthleteId; tacticalDue[i]=shootingDue[i]=false;
                 if(actor.HasFinished) { inputs[i]=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(tick,id,0),1,1,0),new WeaponAimCommand(tick,id,0,0));continue; }
+                if(i==playerIndex){inputs[i]=playerInput;lateral[i]=playerLateral;continue;}
                 var observation=raceSource.Capture(i,TrackDistance.FromMeters(policy.PhysicalRadius),offsets,ahead,neighbors);
                 int count=physicalSource.CapturePlacements(i,TrackDistance.FromMeters(policy.PhysicalRadius),placements);
                 var point=Field.GetPhysicalPoint(i); var self=count>0?placements[0]:new SkiPlacement(id,point.LoopId,new SkiState(point.LoopLengthNanometers,actor.Motion.SpeedMetersPerSecond),Field.GetLateral(i));
