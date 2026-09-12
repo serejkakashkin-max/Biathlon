@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "id": "career_calendar_v1",
+  "weeks_per_season": 52,
+  "training_slots_per_week": 3,
+  "race_week_training_slots": 1,
+  "events": [
+    {
+      "id": "opening_sprint",
+      "week": 8,
+      "venue_id": "synthetic_alpine",
+      "format": 0,
+      "source_event_id": null,
+      "minimum_tier": 0
+    },
+    {
+      "id": "opening_pursuit",
+      "week": 9,
+      "venue_id": "synthetic_alpine",
+      "format": 1,
+      "source_event_id": "opening_sprint",
+      "minimum_tier": 0
+    },
+    {
+      "id": "mid_mass",
+      "week": 20,
+      "venue_id": "synthetic_alpine",
+      "format": 2,
+      "source_event_id": null,
+      "minimum_tier": 0
+    },
+    {
+      "id": "late_sprint",
+      "week": 32,
+      "venue_id": "synthetic_alpine",
+      "format": 0,
+      "source_event_id": null,
+      "minimum_tier": 0
+    },
+    {
+      "id": "late_pursuit",
+      "week": 33,
+      "venue_id": "synthetic_alpine",
+      "format": 1,
+      "source_event_id": "late_sprint",
+      "minimum_tier": 0
+    },
+    {
+      "id": "final_mass",
+      "week": 44,
+      "venue_id": "synthetic_alpine",
+      "format": 2,
+      "source_event_id": null,
+      "minimum_tier": 0
+    }
+  ]
+}

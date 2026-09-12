@@ -4,9 +4,9 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M9 Career; M1–M8 PASS
-active_work_package: WP-103; authorized continuation through M9 (WP-124)
-active_task: TASK-103 career schema and versioned save contracts
-last_completed_task: TASK-102 M8 provisional tuning lock and milestone report
+active_work_package: WP-107; authorized continuation through M9 (WP-124)
+active_task: TASK-107 season scoring and race-result history
+last_completed_task: TASK-106 career calendar and training windows
 last_verified_commit: 0311edf2e95dc6e33ff4603ad45a39cc997686b8; M8 PASS verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 510 discovered; WP096–102 Unity15/15
@@ -16,10 +16,14 @@ unity_console_errors: 0 after M8 final PlayMode and compilation checks
 unity_console_warnings: 1 retained warning; compilation_failed=false
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-103]
+next_unlocked_work_packages: [WP-107]
 ```
 
 ## Work packages
+- WP-103 DONE. Versioned save2, explicit v1 confidence migration, identity/state/RNG validation; exact .NET/Unity save digest.
+- WP-104 DONE. Player name, supported national representation, appearance hook and authored initial attribute policy.
+- WP-105 DONE. Seeded30-athlete fictional roster, stable ordinal IDs, age/potential/personality; no static shared identity.
+- WP-106 DONE. 52-week calendar, six supported-format events, Pursuit source dependencies and bounded training/rest slots; Unity4/4 foundation tests.
 - WP-101 DONE. Bounded32-candidate proposal-only tuner; .NET3/3, Unity3/3, repeatable CLI evidence.
 - WP-102 DONE. M8 PASS; 127-input first-playable tuning lock. Full505/505 + final5/5, Unity new15/15 and PlayMode7/7.
 - WP-097 DONE. Eight matched shared-race draft pairs; +3.20s mean benefit; Unity1/1 exact JSONL.
@@ -156,7 +160,7 @@ next_unlocked_work_packages: [WP-103]
 - WP-095 DONE. Independent256-seed pacing holdout, paired effects and exact1536-row CLI/.NET/Unity qualification.
 
 ## Resume
-M8 PASS. Continue autonomously through M9 / WP124 as requested. Next is TASK103 career save/domain schema.
+M8 PASS. Continue autonomously through M9 / WP124 as requested. Next is TASK107 season scoring/history.
 The provisional first-playable tuning version locks127 inputs; see TASK-102-M8-REPORT.md and quality/m8/verification.json.
 Full .NET505/505 plus final tuner/lock5/5; Unity new15/15, PlayMode7/7; Console0 errors/1 warning.
 WP096 top cohort meets provisional GDD shooting windows. Draft/stat/equipment sensitivity and AI parity are measured.
