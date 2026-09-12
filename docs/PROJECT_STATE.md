@@ -7,13 +7,13 @@ project_phase: M10 Unity greybox; M1–M9 PASS
 active_work_package: WP-132
 active_task: TASK-132 range presentation
 last_completed_task: TASK-131 ski debug HUD
-last_verified_commit: 95343fe; WP130 verified and pushed
+last_verified_commit: bf43c44; WP131 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 543 discovered; WP131 snapshot1/1; prior device8/8; M9 actual-season byte parity PASS
 playmode_tests: WP131 HUD1/1 (14 discovered); prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
 standalone_tests: WP131 snapshot1/1; WP130 input/replay11/11; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
 unity_console_errors: 0 after WP131 HUD PlayMode and MCP checks
-unity_console_warnings: 1 retained warning; compilation_failed=false
+unity_console_warnings: 0 after WP131 runner-cleanup recovery; compilation_failed=false
 current_known_blockers: []
 owner_decisions_needed: []
 next_unlocked_work_packages: [WP-132]
@@ -179,7 +179,7 @@ Preserve ADR0012–0017, canonical Foundation hashes and unrelated owner workspa
 Continue coherent commits/push and state updates under standing owner authorization.
 ## Publication history
 
-Current verified publication: **95343fe** — WP130 verified and pushed. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
+Current verified publication: **bf43c44** — WP131 verified and pushed. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
 
 The entries below are historical checkpoints, not the current development position.
 Owner explicitly authorized regular commits/push and state updates on2026-09-09.
