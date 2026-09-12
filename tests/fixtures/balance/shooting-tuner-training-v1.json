@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "id": "shooting_tuner_training_v1",
+  "tick_frequency": 20,
+  "seed_start": 10000,
+  "samples_per_scenario": 200,
+  "maximum_ticks": 10000,
+  "scenarios": [
+    {
+      "id": "prone_hit_rate",
+      "ai_definition": "shooting_ai_calibration_top_v1",
+      "athlete_definition": "shooting_top_v1",
+      "stance": 0,
+      "hr_bpm": 185,
+      "fatigue": 0.2,
+      "arm_fatigue": 0.2,
+      "crosswind_mps": 0
+    },
+    {
+      "id": "standing_hit_rate",
+      "ai_definition": "shooting_ai_calibration_top_v1",
+      "athlete_definition": "shooting_top_v1",
+      "stance": 1,
+      "hr_bpm": 185,
+      "fatigue": 0.2,
+      "arm_fatigue": 0.2,
+      "crosswind_mps": 0
+    }
+  ]
+}

@@ -13,6 +13,22 @@ internal static class Program
 {
     private static int Main(string[] args)
     {
+        if(args.Length==3&&args[0]=="verify-tuning")
+        {
+            try
+            {
+                var tuning=BalanceTuningLock.FromJson(File.ReadAllText(args[1]));
+                var failures=Biathlon.AI.TuningLockVerification.Verify(tuning,path=>File.ReadAllText(Path.Combine(args[2],path)));
+                foreach(string failure in failures)Console.Error.WriteLine(failure);
+                Console.WriteLine(tuning.Id+": "+tuning.Count+" locked inputs; "+(failures.Length==0?"PASS":"FAIL"));return failures.Length==0?0:1;
+            }
+            catch(Exception ex){Console.Error.WriteLine(ex.Message);return 1;}
+        }
+        if (args.Length == 5 && args[0] == "tune-shooting")
+        {
+            try { CultureInfo.CurrentCulture = CultureInfo.InvariantCulture; return TuningLab.Execute(args[1],args[2],args[3],args[4]); }
+            catch(Exception ex) { Console.Error.WriteLine(ex.Message); return 1; }
+        }
         if (args.Length == 4 && args[0] == "shooting-calibrate")
         {
             try { CultureInfo.CurrentCulture = CultureInfo.InvariantCulture; return ShootingStatisticalLab.Execute(args[2], args[3], args[1]); }

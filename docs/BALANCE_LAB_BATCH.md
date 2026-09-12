@@ -59,3 +59,12 @@ these are provisional experiment controls, not numerical changes to athlete capa
 Track recipes may opt into `normalize_signed_zero: true` to emit positive zero for generated
 grade/curvature. This fixes .NET/Mono context-byte differences without changing physical values.
 The option defaults false to preserve the existing recipe/fixture reproducibility contract.
+
+M8 calibration commands:
+
+- `shooting-calibrate <suite> <data> <output>` exports per-bout CSV and distributions with explicit athlete/control profiles and optional imperfect wind readings.
+- `scripts/Invoke-BalanceSensitivity.ps1` runs the locked portable draft/stat/equipment/parity experiments and produces JSONL, culture-independent CSV, Markdown and a regression status. It uses the shared test experiments rather than maintaining a second marginal-analysis implementation.
+- `tune-shooting <definition> <training-suite> <data> <output>` records a bounded candidate search and a proposal with old/new values. It never applies the proposal. Independent held-out seeds must validate a selected profile.
+- `verify-tuning <manifest> <repository-root>` checks every listed first-playable input against the provisional tuning lock. Missing/changed inputs produce explicit diffs and nonzero exit status.
+
+See ADR-0018 and TASK-096–102 reports for experiment scope, thresholds and known limitations. Locked provisional targets are not universal population forecasts or final owner game-feel approval.

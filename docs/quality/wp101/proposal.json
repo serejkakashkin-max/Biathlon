@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "shooting_tuner_v1_proposal",
+  "status": "proposal_targets_met",
+  "applied": false,
+  "evaluations": 32,
+  "changes": [
+    {
+      "coefficient": "reaction_seconds",
+      "old_value": 0.2,
+      "proposed_value": 0.25
+    },
+    {
+      "coefficient": "tracking_error_rad",
+      "old_value": 0.00015,
+      "proposed_value": 0.0002
+    }
+  ],
+  "metrics": {
+    "prone_hit_rate": 0.865,
+    "standing_hit_rate": 0.855
+  },
+  "window_violation": 0,
+  "center_distance": 0.41911764705882293,
+  "definition_sha256": "1effb1dd5ec35ac059e202d0db94fcea2a22154a4ac1a9b33eae557d75d989a6",
+  "suite_sha256": "ec23ec287aaa8ada49da701acfff5b10cc9de458b20887d14c4fa23bb6439f48",
+  "sources": {
+    "breath_control_v1.json": "bb101f3c1a0b2fcf3897e2e2c88955f311afbf0daa36207b868b4b17797129e4",
+    "breathing_v1.json": "c240d303382ec5c48352aaf53e54140404e4dc67a97ddfb041ed258c68781ab9",
+    "heartbeat_v1.json": "2f74c395fd4ece1da2af184134c525e70b7768c485fd27545f83b8185d707e5e",
+    "muscular_sway_v1.json": "9cc1900220100eb1059f615fd7e4f323d0f8d87783476d3af8a32620d19344c5",
+    "physiology_provisional_v1.json": "c45a0c131649bb714f8ca86fd88df83ea55e2ffb20f5149cdce802e5094a067b",
+    "rifle_neutral_v1.json": "875fd73514278994529d7cde6f563ecf1385bef623e5d44e84a7b0830881a58b",
+    "shooting_ai_v1.json": "1ec346895726b9ed9d732dc0cdcdda665007723976242192b27d7bc322674e6a",
+    "shooting_handling_v1.json": "232064c12055e75f9a69171fe46a5fb69a559b171b9593fcc5a6a727b9fd8fb8",
+    "shooting_lifecycle_v1.json": "7044c6558c7d7f1be4de312ff47d81b091e4e5bcaf08701369f1de5afd9630e7",
+    "shooting_pressure_v1.json": "d521e42a15d6397a4582a69fc911fe5400c5e01d7776a3ad10a74e7725ca64ce",
+    "shooting_stances_v1.json": "7ebaeef3aacd627c9636dc5345fefaa42a4353b9b4ceda5917c56818d6344dd2",
+    "shooting_top_v1.json": "253d96f944ea8b39ad568880917033b5e8bf8a28927c57bf2bc1c89eda0513e8",
+    "shooting_wind_v1.json": "1fcab3932b47e73986a45548227817fbc7370c853a332c4f04eb224a7c8fc99c",
+    "target_geometry_v1.json": "73f2197be800d84f24e2387eded5babb6e971027f73ccd215ca00b84a331dd4d",
+    "weapon_aim_v1.json": "5e19e31acedd256ac740b13c178849a291334da315b2be09ad56bca049bd5bd3"
+  }
+}

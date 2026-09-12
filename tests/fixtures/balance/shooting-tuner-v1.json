@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "shooting_tuner_v1",
+  "maximum_evaluations": 32,
+  "parameters": [
+    {"name":"reaction_seconds","minimum":0.2,"maximum":0.35,"initial":0.2,"values":[0.2,0.25,0.3,0.35]},
+    {"name":"tracking_error_rad","minimum":0.00015,"maximum":0.0005,"initial":0.00015,"values":[0.00015,0.0002,0.00025,0.0003,0.00035,0.0004,0.00045,0.0005]}
+  ],
+  "targets": [
+    {"metric":"prone_hit_rate","minimum":0.82,"maximum":0.94},
+    {"metric":"standing_hit_rate","minimum":0.72,"maximum":0.89}
+  ]
+}

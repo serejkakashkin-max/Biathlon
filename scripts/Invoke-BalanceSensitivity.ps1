@@ -17,6 +17,11 @@ foreach ($name in 'wp097.jsonl','wp098-ski.jsonl','wp098-shooting.jsonl','wp099.
     $destination = Join-Path $output $name
     Copy-Item -LiteralPath $source -Destination $destination -Force
     $rows = @(Get-Content -LiteralPath $source | ForEach-Object { $_ | ConvertFrom-Json })
+    foreach ($row in $rows) {
+        foreach ($property in $row.PSObject.Properties) {
+            if ($property.Value -is [IFormattable]) { $property.Value = $property.Value.ToString($null, [Globalization.CultureInfo]::InvariantCulture) }
+        }
+    }
     $columns = @($rows | ForEach-Object { $_.PSObject.Properties.Name } | Sort-Object -Unique)
     $rows | Select-Object $columns | Export-Csv -LiteralPath (Join-Path $output ($name.Replace('.jsonl','.csv'))) -NoTypeInformation -Encoding utf8
     $hashes[$name] = (Get-FileHash -LiteralPath $destination -Algorithm SHA256).Hash.ToLowerInvariant()

@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "id": "m8_verification",
+  "status": "PASS",
+  "full_dotnet": {
+    "passed": 505,
+    "failed": 0
+  },
+  "additional_final_dotnet": {
+    "passed": 5,
+    "failed": 0
+  },
+  "unity_editmode_new": {
+    "failed": 0,
+    "discovered": 510,
+    "passed": 15
+  },
+  "unity_playmode": {
+    "passed": 7,
+    "failed": 0
+  },
+  "unity_console": {
+    "errors": 0,
+    "compilation_failed": false,
+    "warnings": 1
+  },
+  "locked_inputs": 127,
+  "tuning_status": "locked_provisional",
+  "evidence": [
+    {
+      "path": "artifacts/balance/m8-full.trx",
+      "sha256": "2a9faff48d73c78d713f711f711a9f37f977b5f55479f6c0e3a630f6f998776e"
+    },
+    {
+      "path": "artifacts/balance/wp101-102-final.trx",
+      "sha256": "779768a6842f5c213139054bb530352943a9003c5a0df624c0d4f1047bdad817"
+    },
+    {
+      "path": "artifacts/balance/wp096-unity.xml",
+      "sha256": "bcea6feb38a9be251a9a70723075ce903b234f4738d9b6ac05e55361c16677e9"
+    },
+    {
+      "path": "artifacts/balance/wp097-unity.xml",
+      "sha256": "a60214c021ac8fae5cd4a1d452291f35b275f6df9d3c24932bda3683ba71f0b7"
+    },
+    {
+      "path": "artifacts/balance/wp098-099-unity.xml",
+      "sha256": "f07401a8f9d9d1c6aca6bae88dd58c188be586cff29191c67564a27f90d1008f"
+    },
+    {
+      "path": "artifacts/balance/wp100-unity.xml",
+      "sha256": "3a56e5eadbedfc8a3af69a944fbcc867f89ece2c136888998c34dbb56a2b8a58"
+    },
+    {
+      "path": "artifacts/balance/wp101-final-unity.xml",
+      "sha256": "da3f93df98d8f78b6608d97b231cdb96611185c05910a3737c009e2862c8e245"
+    },
+    {
+      "path": "artifacts/balance/wp102-final-unity.xml",
+      "sha256": "b68645efe6beeafc653c73f3672f141d66c29e09f148c9728047d3cb138f90d7"
+    },
+    {
+      "path": "artifacts/balance/m8-playmode.xml",
+      "sha256": "d0251f8409be0e403f0945cea61515f7eee7737fc1c28b553a1badfdb5f5a401"
+    }
+  ]
+}

@@ -1,0 +1,515 @@
+{
+  "schema_version": 1,
+  "id": "biathlon_first_playable_tuning_v1",
+  "status": "locked_provisional",
+  "entries": [
+    {
+      "path": "Assets/Resources/Biathlon/ai_difficulty_developing_v1.json",
+      "sha256": "e6db80b4a77c7dadee2ee76307cb4f86a4e0f82e4d7431f026ac2cd12549c36d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ai_difficulty_expert_v1.json",
+      "sha256": "0be3c88fec44f7bf8d4da419c48155bc95d28f4179581a537a18be4808252c5b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ai_personality_attacker_v1.json",
+      "sha256": "a23d3802ef9712def83cc2baf544d7ef95a35dcda8b765017ad49c6f7e7563ac"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ai_personality_neutral_v1.json",
+      "sha256": "11a66ae8e73cb53ae35e14df206cc4167f70fecb6b06f8b61698d9eb010e12df"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ai_personality_patient_v1.json",
+      "sha256": "f6d232e6764f483909d486db5cc7637cdd58929a4d75fba2a90cb3539ae072ce"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ai_race_policy_provisional_v1.json",
+      "sha256": "d1431a864189fa456ae72296293c47bc908dc73edd75eafe0e30a0be3ebe0df4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/balance_pacing_smoke_v1.json",
+      "sha256": "7556aa18de854a1f9190747e919cae121d2e23c3499955f1a8c8959d84464bf7"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/breath_control_v1.json",
+      "sha256": "bb101f3c1a0b2fcf3897e2e2c88955f311afbf0daa36207b868b4b17797129e4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/breathing_v1.json",
+      "sha256": "c240d303382ec5c48352aaf53e54140404e4dc67a97ddfb041ed258c68781ab9"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/cornering_provisional_v1.json",
+      "sha256": "4bf9289385b9cf189261bc084aeb55b864dd454b583ff148a3a0e298013b44dc"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/device_control_v1.json",
+      "sha256": "3bddecfaa5a97ef50dd8db4f8efd895d3dd661e7082999f5202a3f60a739e908"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/draft_provisional_v1.json",
+      "sha256": "a4668e436c412a0996703ca121a866208ada632da40fdf4f8c13f016e2e9be6c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/draft_selection_provisional_v1.json",
+      "sha256": "6a89e138d76fddefbd647642e11b7f4a2ac123cdb908ce439059530727b8b833"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/effort_control_provisional_v1.json",
+      "sha256": "5252952c7fb74f574aea325ad9e2a3656f5b6fab95647a092f394da728e1f026"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/final_sprint_provisional_v1.json",
+      "sha256": "9bc27c2145caa8d514ae7e0194c49406d6cc5341688fc448213be631df13650b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/heartbeat_v1.json",
+      "sha256": "2f74c395fd4ece1da2af184134c525e70b7768c485fd27545f83b8185d707e5e"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/mass_start_grid_provisional_v1.json",
+      "sha256": "9a9f66c94002277fdec5fe9c398b0e4eb2500b97e502cb907fe9987eeb79cb24"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/mass_start_range_policy_v1.json",
+      "sha256": "3040c2ebb28ec40a17d03f3224a196f64de283111ca0d6832956620d2f8df39f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/mass_start_standard_men_v1.json",
+      "sha256": "61823269028e7393c530639e5532c5e060f89149164cb6b4a3c4023e4801ed71"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/mass_start_standard_women_v1.json",
+      "sha256": "a2219ee3556313a7a5463837924347cec5570c82cace9ac697e99f2303506d3c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/mass_start_test_v1.json",
+      "sha256": "27d161deaf870a152d279f4a287d3cf222a68eabefdce63691126ce6317bb7b3"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/muscular_sway_v1.json",
+      "sha256": "9cc1900220100eb1059f615fd7e4f323d0f8d87783476d3af8a32620d19344c5"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/occupancy_provisional_v1.json",
+      "sha256": "e6ccb9b7e2a79bf53f42be040101064377cbb43f0f035cfcf4cd8acc90294fef"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/overtake_decision_provisional_v1.json",
+      "sha256": "f4f5d4b57091e69e315d80eb5ebcc25eed4c4ff1c7c144ff8e2137006bd05402"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/overtake_provisional_v1.json",
+      "sha256": "2de9debf3ccfd6e3fe56da7e2fe664c1ea2fa556521bae4a82f3d2cf7b972910"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/pace_controller_provisional_v1.json",
+      "sha256": "fa0f3fbf42db4db01d0a093ed01b0791ed46ecf98b869755d716de09b2d6681d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/physiology_provisional_v1.json",
+      "sha256": "c45a0c131649bb714f8ca86fd88df83ea55e2ffb20f5149cdce802e5094a067b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/physiology_scenarios_v1.json",
+      "sha256": "a4e9c5c293af05db372ab1fe6a3906f867c6cb6dfd725def5a6aebfb009cf1a3"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/physiology_stat_curves_v1.json",
+      "sha256": "9bf7e66954f09c0830df5a535f23cb6908f1f1dec4cfb1ae512e33c85b983410"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/player_control_settings_v1.json",
+      "sha256": "a1f9bfd278ccbd4e1aa0a43dddec3f1c464452a32f16014aebffb15926714a3d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/pre_range_recovery_provisional_v1.json",
+      "sha256": "8f923eec00af71c07886b4718522ec5b164993a54fd51ecd73b282fdfe981eaf"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/pursuit_standard_men_v1.json",
+      "sha256": "c6811034cf1ec3a23511fe241ff8c3208416885052960fa3fa902e018a6a533f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/pursuit_standard_women_v1.json",
+      "sha256": "3807e418d97144d1a99e7edb8a559263357590ac19d4b99cf0d6d867ea128094"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/pursuit_tactics_provisional_v1.json",
+      "sha256": "01e61bce4c1c13f785956f0d1e71363089e8145e0237747c3f4118a145a8f812"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/pursuit_test_v1.json",
+      "sha256": "7f7768074a4388457d0441d84963ac864d3ca158b3168398c7fe235a804ffebb"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/race_snow_neutral_v1.json",
+      "sha256": "16106bfee89b08149ab82b1c68dd8951cf14069c5d26fe56f7c88210f708f421"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/result_timing_v1.json",
+      "sha256": "36692f731f0950a0941c3026275dbf7672f3bd50ab1f89aba84980c85b5fab17"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/rifle_neutral_v1.json",
+      "sha256": "875fd73514278994529d7cde6f563ecf1385bef623e5d44e84a7b0830881a58b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_ai_calibration_developing_v1.json",
+      "sha256": "df9626fbe8242f59bfc7e38861954beb66e2df25ee3399b6a122096afd0a0be4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_ai_calibration_mid_v1.json",
+      "sha256": "e9a09801c725145ae46f99f5f232cb7be3f2b255c405b1c89385c2eb846c82ec"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_ai_calibration_top_v1.json",
+      "sha256": "0fe8d9f4424cb4dc4548dbe3a45b631e8dc2ce49eb154f46f5fa965dab3770f7"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_ai_easy_v1.json",
+      "sha256": "01500732f7656fc65b12442ac612282a252c05c3d847d2e041e9a2b0389dfce0"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_ai_hard_v1.json",
+      "sha256": "b3b0d03e6b8be8c8c762c10366561d2c6746a4e4ffe1e97e2de1a40919b7d062"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_ai_v1.json",
+      "sha256": "1ec346895726b9ed9d732dc0cdcdda665007723976242192b27d7bc322674e6a"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_athlete_v1.json",
+      "sha256": "e96a3019765a9d31f8df93f3a96308578ba9c4226ff784c92b9dc087f720462f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_balance_v1.json",
+      "sha256": "f853eaaa54fd2c4b6278703a0c8d4c3875de04ad56ffb2cffbfa6a14f70fec0c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_developing_v1.json",
+      "sha256": "b8ee0467532ee0d36dd62918b33661f8ad33dd7b95ac453580ec874c43ecaad5"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_handling_v1.json",
+      "sha256": "232064c12055e75f9a69171fe46a5fb69a559b171b9593fcc5a6a727b9fd8fb8"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_lifecycle_v1.json",
+      "sha256": "7044c6558c7d7f1be4de312ff47d81b091e4e5bcaf08701369f1de5afd9630e7"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_mid_v1.json",
+      "sha256": "71558e5aac3b756fba0b3b51ebdb1110dee60ee8d5161358a618330b8c583186"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_pressure_v1.json",
+      "sha256": "d521e42a15d6397a4582a69fc911fe5400c5e01d7776a3ad10a74e7725ca64ce"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_regression_controller_v1.json",
+      "sha256": "0fda7c0ee814b2be855e2f7296351974b27f05d34ae7646fbd646f99c66aa2eb"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_stances_v1.json",
+      "sha256": "3bda6b82269ef06016be47c6289d0fe6870e35dd666d71d6350abf35ad6a0c19"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_strategy_provisional_v1.json",
+      "sha256": "451f2e0c3971a5d1445fc7f9c911a84d99115ed70dd3ca1cee41a90338b78b78"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_top_v1.json",
+      "sha256": "062487f95ea944ed8e766883ae88b643dc9ef18c4ed56d74b46b9be0eacb492b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_training_v1.json",
+      "sha256": "974846e9f03525c7d8ca3b203d48c52e5d0cfa68df06c6d141a2554f6b45b9cf"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_wind_v1.json",
+      "sha256": "1fcab3932b47e73986a45548227817fbc7370c853a332c4f04eb224a7c8fc99c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/simulation_foundation.json",
+      "sha256": "156f0433d08508e79ecffbe6081e923ef60236953fba67a1a56c35b9e314e9f4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ski_equipment_provisional_v1.json",
+      "sha256": "dfd51b9a91403cdd85caedb18e29036cebb6dae579ccc13b81f060c90675bf23"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ski_physics_provisional_v1.json",
+      "sha256": "6aa6317be1e8afdf4ba07aaab5d306fb03fde97ce35fb863af8e2f0baa591e27"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ski_technique_provisional_v1.json",
+      "sha256": "d0da479a0074521074ff1535943157f9d21c41faec71404eee6c31ca87cc62ac"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/snow_catalog_provisional_v1.json",
+      "sha256": "97eb422d47e4b311a1482c2a0cf27a5a47c00c7725a21ea2c993f8197dd5fc8d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/sprint_balance_long_v1.json",
+      "sha256": "d30cec78d597318e1ffa3760006967b88710d5e9eb475aa56777460a02110cda"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/sprint_regression_v1.json",
+      "sha256": "c84f9269a3e1d58c8c01b3b1ac82c2ee7d960921f567d6c8a42f761abbab61b4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/sprint_standard_men_v1.json",
+      "sha256": "21a0054890811af8edc90fc572280da3c670da91c32e014a1b52ba038e25be08"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/sprint_standard_women_v1.json",
+      "sha256": "7c8f8c2a8dfafcf76ef5b15300d94541b2da6cc9bca1d90080e223c0f6a48cd3"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/sprint_test_v1.json",
+      "sha256": "0949b6212c85d773eb9266d83a6c399814720a4c0e3c537ff9a44ed342e65d06"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/start_approach_test_v1.json",
+      "sha256": "b2355d5718b77c85a64625f9adbf8e4e73b32d5bbc5a13ca4c3a073b616c1cad"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/steering_provisional_v1.json",
+      "sha256": "a927468e260917ffa8129044a56dfb8ae5062c0d2fb95085ef7080a874ec7eea"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/synthetic_route_plan_v1.json",
+      "sha256": "d344b26282561335d8698c55e1831c13fdbc45af7381b7b3bb350036898fb895"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/synthetic_route_requirements_v1.json",
+      "sha256": "657c03ee6e0082183a9dc1e70ce903ada1f5d1040d5d7fc74825a6e7c94d9e35"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/synthetic_track_recipes_v1.json",
+      "sha256": "05e352bec960e7d60c389aff5d39931f9a4643c10bed31b39fd311084de8f38d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/tactical_cadence_provisional_v1.json",
+      "sha256": "49775e7ed6893d25d195b22dc59ff568609bc7d4cc3c64c759b81d52fe0bf2ac"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/tactical_utility_provisional_v1.json",
+      "sha256": "13c15c7b5057888b080419f81212b8ca7cb88ddf87e263ed39e7ab727f3940cd"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/target_geometry_v1.json",
+      "sha256": "73f2197be800d84f24e2387eded5babb6e971027f73ccd215ca00b84a331dd4d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/terrain_planning_provisional_v1.json",
+      "sha256": "9a12457215b3d2b8c4d66f49ffe68738bcc7616af09f2ea350d19e4f1b74136d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/time_trial_athlete_v1.json",
+      "sha256": "08332afdcf5d0bee707f92204070728d047e61ef9371a7045e3939725fdfa868"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/time_trial_scenarios_v1.json",
+      "sha256": "e59bd41ee69d17771e54ccdc3df53d47261e8e9136c45dfc8e126e8848d19168"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/track_contract_fixture_v1.json",
+      "sha256": "734eeca658621651e42d6dd0e55d9acbe1306f51fc057a781a559b95990f0a10"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/tuck_provisional_v1.json",
+      "sha256": "72b6ca10473c9fd5493658370e65912f4261d44a42ce160a634eb3fc7befe083"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/weapon_aim_v1.json",
+      "sha256": "5e19e31acedd256ac740b13c178849a291334da315b2be09ad56bca049bd5bd3"
+    },
+    {
+      "path": "tests/fixtures/balance/batch-soak-v1.json",
+      "sha256": "2935c6f6a1614df2233d0584f6a45f0dccb05498a07f5c2b5c755a7e70576e6e"
+    },
+    {
+      "path": "tests/fixtures/balance/canonical-v1.json",
+      "sha256": "b72e35c8c31a36ebb6ce0b823b6c2aa965fe74da00fdad3a2be099e6d4a83a0b"
+    },
+    {
+      "path": "tests/fixtures/balance/long-track-recipes-v1.json",
+      "sha256": "41dc0aea78dbc6d4380227bcb6f910c34d8b80c42240e89bafcf33ee652fc780"
+    },
+    {
+      "path": "tests/fixtures/balance/pacing-context-v1.sha256",
+      "sha256": "11f796f2472ec554f8057c70679c7b4a42837a7223a4bcbaa7a0c76e950a1926"
+    },
+    {
+      "path": "tests/fixtures/balance/pacing-holdout-v1.json",
+      "sha256": "5712b5865944ebb0b1c073a4e8e91ea778feffb8bb519869f7aca133d00116de"
+    },
+    {
+      "path": "tests/fixtures/balance/pacing-holdout-v1.sha256",
+      "sha256": "7b8e7e672255615501e0112ab044d5a64d5a3e834c7c19782cb4aba8146cc430"
+    },
+    {
+      "path": "tests/fixtures/balance/pacing-search-v1.json",
+      "sha256": "17e6ee9d57a3fe7b711b926c8b23ad388321cf21838d12378f44283052296359"
+    },
+    {
+      "path": "tests/fixtures/balance/pacing-selection-v1.json",
+      "sha256": "773a2fbc77b206e77b1ca153060256857ba85a71c3232f4b6018b2ba94607819"
+    },
+    {
+      "path": "tests/fixtures/balance/shooting-calibration-v1.json",
+      "sha256": "b8347e6d8c233546118a0525e2d48cc34b4aeb10102e9761a5140232c679ddfa"
+    },
+    {
+      "path": "tests/fixtures/balance/shooting-calibration-v1.sha256",
+      "sha256": "26146dc94c3332e7d4c8ae3917b1bc1ab8f44b84e2f51a13abe230e213ca4a0b"
+    },
+    {
+      "path": "tests/fixtures/balance/shooting-tuner-training-v1.json",
+      "sha256": "3c61868d00cbef2717a2f0a7101a331a10575267d07a7657c6c7526c1fdaf211"
+    },
+    {
+      "path": "tests/fixtures/balance/shooting-tuner-v1.json",
+      "sha256": "7973745635a3e791f00d1b9bc2a369222be44261d4fdc4fc0e441387e3d479be"
+    },
+    {
+      "path": "tests/fixtures/balance/wp097.jsonl.sha256",
+      "sha256": "3cc5c652911aa4302391b50ea7b649c83c6497a2fcf7a0ad060335de3a94abfc"
+    },
+    {
+      "path": "tests/fixtures/balance/wp098-shooting.jsonl.sha256",
+      "sha256": "b3628b9b7502619e2afcc6a2c5179cae92b843d11597fa9cd5958646eb800ad6"
+    },
+    {
+      "path": "tests/fixtures/balance/wp098-ski.jsonl.sha256",
+      "sha256": "eee154be9f4e6a5ad858e4f9014da3dd16cb468d09d7c45a2173e4a677c67d74"
+    },
+    {
+      "path": "tests/fixtures/balance/wp099.jsonl.sha256",
+      "sha256": "86c4c36a9b8715b5ff8d55af901e231c023667ac0695fb9d3f112e2b09f66599"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_balance_flat_long_v1.json",
+      "sha256": "5f35229202443fb1276a3ad5d3321443043e21bea4013837a009ed8a6eb64d8a"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_balance_rolling_long_v1.json",
+      "sha256": "5eeca8bfa914aba4026d973dc1c5114d6316bf0960f2b1fce997a2cfdf5b11c0"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_climb_v1.json",
+      "sha256": "e80d8a842910e62b7064504f5fb8ca12b16ddb293db048b45a8486d606f28f36"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_flat_connections_v1.json",
+      "sha256": "98c3ee3761666c860ad43ec1d34a2a6e6205d06fb33d6d11280c720aa0216982"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_flat_junctions_v1.json",
+      "sha256": "e935f1cd0b9c0dd0117f1c1f0e9449d3b32369e1fc236cdc6ba5c5ed77450342"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_flat_v1.json",
+      "sha256": "706c7a6d6d1a10178cbab429ee70d0aee13d870c33e121efd1b3dbf511d0e3b3"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_mass_stadium_connections_v1.json",
+      "sha256": "e05296b6cad1bd542e35ce16ef6fd934a7009671e39ecc2b593abb17e39c0579"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_mass_stadium_junctions_v1.json",
+      "sha256": "5ae40cb60139f082d4dd346b5f83dd7a0b44acd3dab48ab37c05f50d59bcc71d"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_mass_stadium_lanes_v1.json",
+      "sha256": "0f891cc32930d86620d38b36ed3c6a7d6ea31a8dea2fe13d8a1c6d80a74c008d"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_mass_stadium_narrow_connections_v1.json",
+      "sha256": "87e897972500d5903777f5aabbb7c4dc36d29745b3c3eb4536199b7233678c99"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_mass_stadium_narrow_junctions_v1.json",
+      "sha256": "0c30bf217c246c197014ea7ffa0117bb83d4da736725dfd1d5fd2746518a8c24"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_mass_stadium_narrow_lanes_v1.json",
+      "sha256": "c434797184c65e80e5048bb148efed4622ffc184475a3b7661d557d57e04e41f"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_mass_stadium_narrow_v1.json",
+      "sha256": "36df9d9bbb63f03dc1588b7dae31c555398c9a80a081f890c8cd9b6d9ed242ef"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_mass_stadium_rolling_connections_v1.json",
+      "sha256": "f9897138ecc4598730bf71c6bb9764bcf11ae7b74eb9711e742dfef3c60686b0"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_mass_stadium_rolling_junctions_v1.json",
+      "sha256": "f4c8774a2fffd6993403a442950c156adfba09e017295885e8556b28c066eefc"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_mass_stadium_rolling_lanes_v1.json",
+      "sha256": "864ff7086bb8e54661b6617a79f2f5fbf6728a1337d7f134b0ccbf9cd5ee41dc"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_mass_stadium_rolling_v1.json",
+      "sha256": "dc5918ad66561884bea8c71c0c66ddd2a9504ba40d26fcee8efffb795f612a63"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_mass_stadium_v1.json",
+      "sha256": "d2e5fe9c1017adc9aae61920b76602c00eb54e686cd029b165370b98d40d2946"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_mass_start_v1.json",
+      "sha256": "b857ff565c385938e51491fc00c4f5ebf0920ff68f0cc5cd42fa1b4486d755ec"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_range_approach_v1.json",
+      "sha256": "6282978eda399995a8eef7a67c76f418c4284bfd1dab604c725349522ac11a17"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_rolling_v1.json",
+      "sha256": "679889c8829141772d934febbc79f5cd80201be40ee4a37eb9881c30b230de7d"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_stadium_connections_v1.json",
+      "sha256": "180850033e0718eae8223dd7c0922b3fb3b201b1644ada8867f4d96a093ca01f"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_stadium_junctions_v1.json",
+      "sha256": "a2d982ec4a849a226bcdf3869fce5a7c4d266649df9d707d3786f34fce297991"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_stadium_lanes_v1.json",
+      "sha256": "afa5fa2043091e8f6e09986bd325dfa49296f6e7036ba29d12c5142d331ac1d0"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_stadium_rolling_connections_v1.json",
+      "sha256": "d27e8f6b7dffd06af25d1ea0d4535d14ed09bcd9cfb558dc5719a183a054ba46"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_stadium_rolling_junctions_v1.json",
+      "sha256": "39e540b609979c20b7166cd607326cdf95990cef9f89bbae965b851b97468097"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_stadium_rolling_lanes_v1.json",
+      "sha256": "54c553327311dcdf4bf0b17ab0d69d888819eced2718ca47e438970da4e63767"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_stadium_rolling_v1.json",
+      "sha256": "411441ea19eae74b95045a108176bc341454afc0ba9d0feb2a5c9dd8443945fc"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_stadium_v1.json",
+      "sha256": "9035b184b53c6d7124403aea5ae88a1b93bef17db6b53712f3f4dbe65a2f8d36"
+    },
+    {
+      "path": "tests/fixtures/tracks/synthetic_technical_descent_v1.json",
+      "sha256": "5954a8ebdac9f87a744f8872a880355f43102d07c04567e5abb17c36e0466742"
+    }
+  ]
+}
