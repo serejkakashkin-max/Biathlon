@@ -3,20 +3,20 @@
 Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs.
 
 ```yaml
-project_phase: M9 Career; M1–M8 PASS
-active_work_package: WP-124; authorized continuation through M9 (WP-124)
-active_task: TASK-124 initial career tuning lock and milestone report
-last_completed_task: TASK-123 career balance report
-last_verified_commit: 4aa74dc; WP122 verified and pushed
+project_phase: M1–M9 PASS; authorized scope through M9 complete
+active_work_package: none; WP-124 DONE
+active_task: none; M9 milestone closed
+last_completed_task: TASK-124 M9 milestone and initial career tuning lock
+last_verified_commit: 4aef1d6; WP123 verified and pushed; WP124 verification accompanies this state
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
-editmode_tests: 540 discovered; WP121 weekly1/1 and initial actual-season1/1; corrected actual-season1/1 PASS, .NET/Unity byte parity
+editmode_tests: 541 discovered; corrected actual-season1/1 and weekly1/1; WP124 lock1/1; .NET/Unity byte parity PASS
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
-standalone_tests: full540/540; corrected WP121 career30/30 PASS
-unity_console_errors: 0 after WP121 compilation and MCP checks
-unity_console_warnings: 1 retained warning after M9 PlayMode; compilation_failed=false
+standalone_tests: full540/540; corrected career30/30; final lock3/3; 15-season actual-race soak PASS
+unity_console_errors: 0 after WP124 compilation and MCP checks
+unity_console_warnings: 4 retained warnings; compilation_failed=false
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-124]
+next_unlocked_work_packages: [WP-125]; M10 not started
 ```
 
 ## Work packages
@@ -144,11 +144,11 @@ next_unlocked_work_packages: [WP-124]
 - WP-121 DONE. Atomic weeks and actual three-format races; full .NET540/540, corrected career30/30, Unity weekly1/1 and actual-season1/1 with byte parity. See TASK-121-REPORT.md.
 - WP-122 DONE. 15 seasons/90 actual races/21 replacements, population30, uniqueIDs51, max save167395 bytes; PASS. See TASK-122-REPORT.md.
 - WP-123 DONE. Development/age/economy/progression JSON and CSV interpreted with provisional limits. See TASK-123-REPORT.md.
-- WP-124 IN PROGRESS. Career tuning lock and M9 report.
-- WP-116–124 NOT STARTED. Continue through the M9 milestone.
+- WP-124 DONE. M9 PASS;142 input tuning lock, .NET3/3 and Unity1/1; milestone evidence complete. See TASK-124-M9-REPORT.md.
+- WP-125 NOT STARTED. Next roadmap package: M10 presentation state adapters.
 
 ## Resume
-M8 PASS. Continue autonomously through M9 / WP124 as requested. Next is TASK124 initial career tuning lock and milestone report.
+M8 and M9 PASS. Requested autonomous scope through WP124 is complete. Next roadmap work is WP125 in M10; not started.
 The provisional first-playable tuning version locks127 inputs; see TASK-102-M8-REPORT.md and quality/m8/verification.json.
 Full .NET505/505 plus final tuner/lock5/5; Unity new15/15, PlayMode7/7; Console0 errors/1 warning.
 WP096 top cohort meets provisional GDD shooting windows. Draft/stat/equipment sensitivity and AI parity are measured.
@@ -172,7 +172,7 @@ Preserve ADR0012–0017, canonical Foundation hashes and unrelated owner workspa
 Continue coherent commits/push and state updates under standing owner authorization.
 ## Publication history
 
-Current verified publication: **4aa74dc** — WP122. WP123 is committed with this state update. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
+Current verified publication: **4aef1d6** — WP123. WP124 / M9 closure is committed with this state update. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
 
 The entries below are historical checkpoints, not the current development position.
 Owner explicitly authorized regular commits/push and state updates on2026-09-09.
@@ -217,7 +217,7 @@ WP088-089 publication confirmed:4f50876; WP090/M7 publication confirmed:fa4cb932
 WP091-093 publication:0d19af3; WP094 publication:d83b08e; WP095 publication:ab963b68993824f76674a191e406ae054684f59e confirmed on origin/codex/wp-078-ai-pack (2026-09-11). This follow-up records the verified source publication.
 
 WP096 publication: 92d3888. WP097–100 publication: 11a6592. WP101–102 / M8 PASS publication: 0311edf2e95dc6e33ff4603ad45a39cc997686b8.
-WP103–106 publication: d3fcf016f8e33f1c2882588d33fb0c2f4456b0bf; confirmed on origin/codex/wp-078-ai-pack. Current next package: WP-124. M9 is not yet complete.
+WP103–106 publication: d3fcf016f8e33f1c2882588d33fb0c2f4456b0bf; confirmed on origin/codex/wp-078-ai-pack. M9 subsequently completed through WP124; next roadmap package WP125.
 
 WP107 publication confirmed: 3755938. WP108: .NET career8/8, Unity2/2; publication accompanies this state update.
 
@@ -233,4 +233,4 @@ WP112 publication confirmed: 6d88ff7. WP113: .NET career16/16, Unity1/1; publica
 
 WP113 publication confirmed: 3def284. WP114: .NET career17/17, Unity1/1; publication accompanies this state update.
 
-WP121 progress: full .NET540/540 PASS; initial actual-season Unity1/1 and byte-identical .NET/Unity saves. Mental pressure-context correction implemented; corrected career30/30 and Unity season1/1 PASS with byte-identical final saves. WP122 actual 15-season soak PASS. See TASK-121-REPORT.md. M9 remains in progress.
+WP121 progress: full .NET540/540 PASS; initial actual-season Unity1/1 and byte-identical .NET/Unity saves. Mental pressure-context correction implemented; corrected career30/30 and Unity season1/1 PASS with byte-identical final saves. WP122 actual 15-season soak PASS. See TASK-121-REPORT.md. M9 closed by TASK124.
