@@ -7,7 +7,7 @@ project_phase: M9 Career; M1–M8 PASS
 active_work_package: WP-103; authorized continuation through M9 (WP-124)
 active_task: TASK-103 career schema and versioned save contracts
 last_completed_task: TASK-102 M8 provisional tuning lock and milestone report
-last_verified_commit: 11a6592; WP097–100 verified and pushed; M8 closure pending publication
+last_verified_commit: 0311edf2e95dc6e33ff4603ad45a39cc997686b8; M8 PASS verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 510 discovered; WP096–102 Unity15/15
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
