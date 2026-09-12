@@ -1,0 +1,7 @@
+# TASK-130 — Unity Input System integration
+
+WP130 complete. Reused the M3 PlayerDeviceInput/DeviceCommandBuilder contract rather than introducing a second command stream. Keyboard and gamepad samples become consecutive immutable PlayerCommand values only when the race host requests a tick. Added Race/FinalSprint presets and gamepad Attack; device absence, focus loss and adapter disable release held controls and cancel an unconsumed overtake pulse without resetting the simulation clock.
+
+Bindings: KB W/S effort adjustment, A/D line, Space tuck, E/Q overtake/cancel, Ctrl recovery, Shift attack, 1 race, 3 final sprint. Gamepad RT effort, left stick line, South tuck, West/East overtake/cancel, LT recovery, left/right shoulder race/attack, North final sprint. Explicit UseGamepad selection prevents a connected pad from stealing keyboard control. Sensitivity/deadzone remain in device_control_v1; presets remain authoritative data-driven simulation inputs.
+
+Validation: .NET input/replay11/11, Unity EditMode device8/8, PlayMode virtual keyboard/gamepad4/4 (13 discovered), including latched edges, focus/device loss, raw-axis shaping and tape serialization parity. Console0 errors/1 warning, compilation_failed=false. Full-course deterministic replay remains identical. No tuning or command schema changes. Rebinding UI and shooting aim controls are later packages; actual race hosting follows WP136. Next: WP131 ski debug HUD.
