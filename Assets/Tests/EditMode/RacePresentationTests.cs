@@ -20,6 +20,8 @@ namespace Biathlon.Tests
                 runner.Step();control.Step();var current=RacePresentationSnapshot.Capture(runner.Field);
                 for(int i=0;i<current.Count;i++)
                 {
+                    Assert.That(current.Get(i).Effort.DeliveredPowerWatts,Is.EqualTo(runner.Field.GetAthlete(i).LastFrame.Physiology.Effort.DeliveredPowerWatts));
+                    Assert.That(current.Get(i).Draft.DragReduction,Is.EqualTo(runner.Field.GetDraft(i).DragReduction));
                     var p=RacePresentationSampling.Position(previous,current,i,0.5);interpolated|=p.Interpolated;
                     Assert.That(current.Get(i).AthleteId,Is.EqualTo(runner.Field.GetAthlete(i).AthleteId.Value));
                     Assert.That(current.Get(i).Physiology.HeartRateBpm,Is.EqualTo(runner.Field.GetAthlete(i).PhysiologyState.HeartRateBpm));

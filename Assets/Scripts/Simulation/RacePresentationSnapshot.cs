@@ -11,6 +11,8 @@ namespace Biathlon.Simulation
         public double LateralMeters { get; }
         public double SpeedMetersPerSecond { get; }
         public PhysiologyState Physiology { get; }
+        public EffortOutput Effort { get; }
+        public DraftOutput Draft { get; }
         public CompetitionPhase Phase { get; }
         public int CompletedLaps { get; }
         public int CompletedBouts { get; }
@@ -26,6 +28,7 @@ namespace Biathlon.Simulation
             var a=field.GetAthlete(index);var point=field.GetPhysicalPoint(index);var shooting=a.ActiveShooting;
             AthleteId=a.AthleteId.Value;LoopId=point.LoopId;LocalNanometers=point.LocalNanometers;LateralMeters=field.GetLateral(index);
             SpeedMetersPerSecond=a.Motion.SpeedMetersPerSecond;Physiology=a.PhysiologyState;Phase=a.Lifecycle.Phase;
+            Effort=a.LastFrame.Physiology.Effort;Draft=field.GetDraft(index);
             CompletedLaps=a.Lifecycle.CompletedLaps;CompletedBouts=a.Lifecycle.CompletedBouts;PendingPenaltyLoops=a.Lifecycle.PendingPenaltyLoops;TotalPenaltyLoops=a.TotalPenaltyLoops;
             OnCourse=field.IsOnCourse(index);RangeLane=field.GetAssignedRangeLane(index);ShootingActive=shooting!=null;
             ClosedTargetsMask=shooting?.ClosedMask??0;ShotsFired=shooting?.ShotsFired??0;
