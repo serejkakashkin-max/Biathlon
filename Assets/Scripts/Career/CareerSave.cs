@@ -21,6 +21,9 @@ namespace Biathlon.Career
         [DataMember(Name="next_athlete_ordinal",IsRequired=true)] public long NextAthleteOrdinal { get; internal set; }
         [DataMember(Name="player_id",IsRequired=true)] public string PlayerId { get; private set; }
         [DataMember(Name="athletes",IsRequired=true)] private CareerAthlete[] athletes { get; set; }
+        [DataMember(Name="season_results",EmitDefaultValue=false)] private CareerRaceRecord[] seasonResults { get; set; }
+        public int RaceCount=>seasonResults?.Length??0;public CareerRaceRecord Race(int index)=>seasonResults[index];
+        internal void AppendRace(CareerRaceRecord record){var rows=new CareerRaceRecord[RaceCount+1];if(seasonResults!=null)Array.Copy(seasonResults,rows,RaceCount);rows[rows.Length-1]=record;seasonResults=rows;}
         public int AthleteCount=>athletes.Length;public CareerAthlete Athlete(int index)=>athletes[index];
         internal CareerAthlete[] Athletes { get=>athletes;set=>athletes=value; }
         internal static CareerSave Create(string id,string rules,string calendar,CareerAthlete[] roster,string playerId,ulong rngState,long nextOrdinal)
@@ -57,6 +60,14 @@ namespace Biathlon.Career
                     throw new SerializationException("Athlete ordinal is inconsistent with the allocation counter.");
             }
             if(!player)throw new SerializationException("Player is absent from roster.");
+            var events=new HashSet<string>(StringComparer.Ordinal);var records=new HashSet<string>(StringComparer.Ordinal);
+            if(RaceCount>366)throw new SerializationException("Too many season results.");
+            for(int i=0;i<RaceCount;i++)
+            {
+                var record=seasonResults[i];if(record==null)throw new SerializationException("Null season result.");record.Validate();
+                if(record.SeasonId!=SeasonId||!events.Add(record.CalendarEventId)||!records.Add(record.Id))throw new SerializationException("Invalid season event history.");
+                for(int j=0;j<record.Count;j++)if(!ids.Contains(record.Get(j).AthleteId))throw new SerializationException("Unknown result athlete.");
+            }
         }
     }
 }

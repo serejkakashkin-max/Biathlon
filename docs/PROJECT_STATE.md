@@ -4,9 +4,9 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M9 Career; M1–M8 PASS
-active_work_package: WP-107; authorized continuation through M9 (WP-124)
-active_task: TASK-107 season scoring and race-result history
-last_completed_task: TASK-106 career calendar and training windows
+active_work_package: WP-108; authorized continuation through M9 (WP-124)
+active_task: TASK-108 training session definitions and weekly planning
+last_completed_task: TASK-107 season standings and result history
 last_verified_commit: d3fcf016f8e33f1c2882588d33fb0c2f4456b0bf; WP103–106 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 514 discovered; WP103–106 Unity4/4; M8 new15/15
@@ -16,7 +16,7 @@ unity_console_errors: 0 after WP103–106 compilation and MCP checks
 unity_console_warnings: 4 retained warnings; compilation_failed=false
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-107]
+next_unlocked_work_packages: [WP-108]
 ```
 
 ## Work packages
@@ -127,11 +127,12 @@ next_unlocked_work_packages: [WP-107]
 - WP-104 DONE. Player name, supported national representation, appearance hook and authored initial attribute policy.
 - WP-105 DONE. Seeded30-athlete fictional roster, stable ordinal IDs, age/potential/personality; no static shared identity.
 - WP-106 DONE. 52-week calendar, six supported-format events, Pursuit source dependencies and bounded training/rest slots; Unity4/4 foundation tests.
-- WP-107 IN PROGRESS. Season scoring and validated race-result history.
-- WP-108–124 NOT STARTED. Continue through the M9 milestone.
+- WP-107 DONE. Versioned race history, overall/format standings, atomic invalid-import rejection. .NET career6/6; Unity2/2. See TASK-107-REPORT.md.
+- WP-108 IN PROGRESS. Training session definitions and weekly planning.
+- WP-109–124 NOT STARTED. Continue through the M9 milestone.
 
 ## Resume
-M8 PASS. Continue autonomously through M9 / WP124 as requested. Next is TASK107 season scoring/history.
+M8 PASS. Continue autonomously through M9 / WP124 as requested. Next is TASK108 training session definitions.
 The provisional first-playable tuning version locks127 inputs; see TASK-102-M8-REPORT.md and quality/m8/verification.json.
 Full .NET505/505 plus final tuner/lock5/5; Unity new15/15, PlayMode7/7; Console0 errors/1 warning.
 WP096 top cohort meets provisional GDD shooting windows. Draft/stat/equipment sensitivity and AI parity are measured.
@@ -200,4 +201,4 @@ WP088-089 publication confirmed:4f50876; WP090/M7 publication confirmed:fa4cb932
 WP091-093 publication:0d19af3; WP094 publication:d83b08e; WP095 publication:ab963b68993824f76674a191e406ae054684f59e confirmed on origin/codex/wp-078-ai-pack (2026-09-11). This follow-up records the verified source publication.
 
 WP096 publication: 92d3888. WP097–100 publication: 11a6592. WP101–102 / M8 PASS publication: 0311edf2e95dc6e33ff4603ad45a39cc997686b8.
-WP103–106 publication: d3fcf016f8e33f1c2882588d33fb0c2f4456b0bf; confirmed on origin/codex/wp-078-ai-pack. Current next package: WP-107. M9 is not yet complete.
+WP103–106 publication: d3fcf016f8e33f1c2882588d33fb0c2f4456b0bf; confirmed on origin/codex/wp-078-ai-pack. Current next package: WP-108. M9 is not yet complete.
