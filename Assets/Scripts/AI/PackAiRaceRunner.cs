@@ -55,6 +55,7 @@ namespace Biathlon.AI
         private readonly IRaceEventSink events;
         private readonly ulong seed;
         private readonly int frequency;
+        private readonly double[] raceForms; private readonly ShootingPressureContext[] racePressures;
         private readonly PursuitTacticalPlanner pursuit;
         private readonly PursuitTacticalPlan[] pursuitPlans, publishedPursuitPlans;
         public PursuitTacticalPlan GetLastPursuitPlan(int index)=>publishedPursuitPlans[index];
@@ -77,12 +78,15 @@ namespace Biathlon.AI
         }
         public PackAiRaceRunner(PackSprintFieldSession field,Func<string,string> read,
             ReadOnlySpan<AiPersonalityDefinition> profiles,AiDifficultyDefinition difficulty,ulong seed,
-            IRaceEventSink events,IAiDecisionSink telemetry)
+            IRaceEventSink events,IAiDecisionSink telemetry,double[] raceForms=null,ShootingPressureContext[] racePressures=null)
         {
             Field=field??throw new ArgumentNullException(nameof(field));
             if(read==null || difficulty==null || events==null || telemetry==null) throw new ArgumentNullException();
             if(field.Tick.Value!=0 || profiles.Length!=field.Count) throw new ArgumentException("Fresh field and complete personality roster required.");
             for(int i=0;i<profiles.Length;i++) if(profiles[i]==null) throw new ArgumentException("Null personality.");
+            if(raceForms!=null&&raceForms.Length!=field.Count||racePressures!=null&&racePressures.Length!=field.Count)throw new ArgumentException("Complete readiness roster required.");
+            this.raceForms=raceForms==null?null:(double[])raceForms.Clone();this.racePressures=racePressures==null?null:(ShootingPressureContext[])racePressures.Clone();
+            if(this.raceForms!=null)foreach(double value in this.raceForms)PhysiologyNumbers.RequireRange(value,0,1.1,"race form");
             this.difficulty=difficulty; this.seed=seed; this.events=events; this.telemetry=telemetry; frequency=field.TickFrequency;
             policy=AiRacePolicyDefinition.FromJson(read("ai_race_policy_provisional_v1.json"));
             for(int i=0;i<field.Track.LoopCount;i++)
@@ -128,6 +132,8 @@ namespace Biathlon.AI
                 pursuit=new PursuitTacticalPlanner(definition);context.Add(definition.ToJson());
                 context.Add("pursuit_global_checkpoint_or_source_gap;bounded_preferences;last_range_risk_v1");
             }
+            if(this.raceForms!=null)foreach(double value in this.raceForms)context.Add("readiness_form:"+value.ToString("R",System.Globalization.CultureInfo.InvariantCulture));
+            if(this.racePressures!=null)foreach(var value in this.racePressures)context.Add("readiness_pressure:"+value.RaceImportance.ToString("R",System.Globalization.CultureInfo.InvariantCulture)+","+value.PositionImportance.ToString("R",System.Globalization.CultureInfo.InvariantCulture)+","+value.RivalProximity.ToString("R",System.Globalization.CultureInfo.InvariantCulture)+","+value.Confidence.ToString("R",System.Globalization.CultureInfo.InvariantCulture)+","+value.FinalStanding+","+value.FirstPodium);
             using(var stream=new MemoryStream()) { new DataContractJsonSerializer(typeof(string[])).WriteObject(stream,context.ToArray());ContextJson=Encoding.UTF8.GetString(stream.ToArray()); }
         }
         private ulong ActorSeed(AthleteId id,int stream)
@@ -212,7 +218,7 @@ namespace Biathlon.AI
                     aim=shootingFrames[i].Aim;trigger=shootingFrames[i].Trigger;hold=shootingFrames[i].HoldBreath;shootingDue[i]=shootingFrames[i].DecisionMade;
                 }
                 else shootingFrames[i]=default;
-                inputs[i]=new SprintAthleteInput(new TimeTrialInput(paceFrames[i].Input,1,1,0,sprintRequested:intents[i].Kind==TacticalIntentKind.FinalSprint),aim,trigger,hold);
+                inputs[i]=new SprintAthleteInput(new TimeTrialInput(paceFrames[i].Input,raceForms==null?1:raceForms[i],1,0,sprintRequested:intents[i].Kind==TacticalIntentKind.FinalSprint),aim,trigger,hold,pressure:racePressures==null?default:racePressures[i]);
             }
             Field.Step(inputs,lateral);journal.Flush(events);
             for(int i=0;i<Field.Count;i++)

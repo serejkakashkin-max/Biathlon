@@ -1,0 +1,69 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Runtime.Serialization;
+using System.Text;
+using Biathlon.Career;
+using Biathlon.Domain;
+using Biathlon.Simulation;
+namespace Biathlon.AI
+{
+    [DataContract] public sealed class CareerRaceDefinition
+    {
+        [DataMember(Name="schema_version",IsRequired=true)] public int SchemaVersion { get; private set; }
+        [DataMember(Name="id",IsRequired=true)] public string Id { get; private set; }
+        [DataMember(Name="tick_frequency",IsRequired=true)] public int TickFrequency { get; private set; }
+        [DataMember(Name="maximum_ticks",IsRequired=true)] public int MaximumTicks { get; private set; }
+        [DataMember(Name="maximum_fatigue_penalty",IsRequired=true)] public int MaximumFatiguePenalty { get; private set; }
+        public static CareerRaceDefinition FromJson(string json)
+        {
+            CareerRaceDefinition d;using(var stream=new System.IO.MemoryStream(Encoding.UTF8.GetBytes(json)))d=(CareerRaceDefinition)new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(CareerRaceDefinition)).ReadObject(stream);
+            if(d==null||d.SchemaVersion!=1||string.IsNullOrWhiteSpace(d.Id)||d.TickFrequency<1||d.TickFrequency>120||d.MaximumTicks<1||d.MaximumTicks>1000000||d.MaximumFatiguePenalty<0||d.MaximumFatiguePenalty>10000)throw new SerializationException("Invalid career race settings.");return d;
+        }
+    }
+    public sealed class CareerRaceProvider : ICareerRaceProvider
+    {
+        private readonly Func<string,string> read,fixture;private readonly CareerDefinitions career;private readonly CareerRaceDefinition definition;
+        public long LastTicks { get; private set; } public ulong LastEventHash { get; private set; } public int LastShots { get; private set; }
+        public CareerRaceProvider(Func<string,string> read,Func<string,string> fixture,CareerDefinitions career)
+        {this.read=read??throw new ArgumentNullException(nameof(read));this.fixture=fixture??throw new ArgumentNullException(nameof(fixture));this.career=career??throw new ArgumentNullException(nameof(career));definition=CareerRaceDefinition.FromJson(read("career_race_v1.json"));}
+        private static readonly string[] statNames={"endurance","anaerobic_capacity","recovery","strength","ski_technique","climbing","downhill","cornering","breath_control","prone_stability","standing_stability","shooting_speed","composure"};
+        private static string AthleteJson(CareerAthlete athlete,int from,int to)
+        {var b=new StringBuilder("{\"schema_version\":1,\"id\":\"").Append(athlete.Id).Append('"');for(int i=from;i<to;i++)b.Append(",\"").Append(statNames[i]).Append("\":").Append(Math.Round(athlete.Stat((CareerStat)i)/(decimal)CareerUnits.StatScale,0,MidpointRounding.ToEven).ToString(CultureInfo.InvariantCulture));return b.Append('}').ToString();}
+        public CareerRaceRecord Run(CareerSave snapshot,CareerCalendarEvent e,ulong seed)
+        {
+            if(snapshot==null||e==null)throw new ArgumentNullException();if(e.VenueId!="synthetic_alpine")throw new ArgumentException("No route adapter for this venue.");
+            var athletes=new Dictionary<string,CareerAthlete>(StringComparer.Ordinal);for(int i=0;i<snapshot.AthleteCount;i++)if(e.Eligible(snapshot.Athlete(i)))athletes.Add(snapshot.Athlete(i).Id,snapshot.Athlete(i));
+            PursuitQualificationSnapshot qualification=null;
+            if(e.Format==CompetitionFormat.Pursuit)
+            {
+                CareerRaceRecord source=null;for(int i=0;i<snapshot.RaceCount;i++)if(snapshot.Race(i).CalendarEventId==e.SourceEventId)source=snapshot.Race(i);
+                if(source==null||source.AuthorityResultJson==null||BalanceRegression.Hash(source.AuthorityResultJson)!=source.AuthoritySha256)throw new ArgumentException("Missing or altered authoritative Sprint result.");
+                qualification=PursuitQualificationSnapshot.Create(snapshot.SeasonId+"_"+e.Id+"_qualification",SprintResultSnapshot.FromJson(source.AuthorityResultJson),CompetitionProfile.FromJson(read("pursuit_test_v1.json")));
+                if(qualification.Count!=athletes.Count)throw new ArgumentException("Qualified and eligible fields differ.");
+            }
+            var roster=new List<CareerAthlete>();if(qualification!=null){for(int i=0;i<qualification.Count;i++)roster.Add(athletes[qualification.Get(i).AthleteId]);}else for(int i=0;i<snapshot.AthleteCount;i++)if(athletes.ContainsKey(snapshot.Athlete(i).Id))roster.Add(snapshot.Athlete(i));
+            var entrants=new SprintEntrant[roster.Count];var personalities=new AiPersonalityDefinition[roster.Count];var forms=new double[roster.Count];var pressures=new ShootingPressureContext[roster.Count];
+            for(int i=0;i<roster.Count;i++)
+            {
+                var a=roster[i];entrants[i]=new SprintEntrant(TimeTrialAthlete.FromJson(AthleteJson(a,0,8)),ShootingAthleteDefinition.FromJson(AthleteJson(a,8,13)),a.SelectedSki);personalities[i]=AiPersonalityDefinition.FromJson(read(a.PersonalityId+".json"));
+                // Explicit temporary readiness projection, shared by every career entrant.
+                forms[i]=CareerForm.RaceMultiplier(a,career.Form)*(1-a.Fatigue/(double)CareerUnits.Basis*definition.MaximumFatiguePenalty/CareerUnits.Basis);
+                pressures[i]=new ShootingPressureContext(CareerMental.Pressure(a,career.Mental),1,1,a.Confidence/(double)CareerUnits.Basis);
+            }
+            var audit=new BalanceEventAudit(5);var runner=ChampionshipRaceFactory.Create(read,fixture,e.Format,audit,new AiDecisionCounts(),qualification,roster.Count,definition.TickFrequency,seed,entrants,personalities,forms,pressures);
+            while(!runner.Field.IsComplete){if(runner.Field.Tick.Value>=definition.MaximumTicks)throw new InvalidOperationException("Career race exceeded its tick budget.");runner.Step();}
+            var field=runner.Field;string payload=e.Format==CompetitionFormat.Sprint?field.Result.ToJson():e.Format==CompetitionFormat.Pursuit?field.PursuitResult.ToJson():field.MassStartResult.ToJson();var finishes=new List<CareerFinish>();
+            for(int rank=0;rank<field.Count;rank++)
+            {
+                string id=e.Format==CompetitionFormat.Sprint?field.Result.Get(rank).AthleteId:e.Format==CompetitionFormat.Pursuit?field.PursuitResult.Get(rank).AthleteId:field.MassStartResult.Get(rank).AthleteId;
+                SprintAthleteSession actor=null;for(int i=0;i<field.Count;i++)if(field.GetAthlete(i).AthleteId.Value==id)actor=field.GetAthlete(i);
+                long elapsed=(long)Math.Round(actor.Lifecycle.ElapsedFinishTime.Seconds*1000,MidpointRounding.ToEven);
+                long ordering=e.Format==CompetitionFormat.Sprint?(long)Math.Round(field.Result.Get(rank).RegisteredUnits.Value*1000m/ResultTimingDefinition.FromJson(field.Result.TimingDefinitionJson).UnitsPerSecond,MidpointRounding.ToEven):(long)Math.Round(actor.Lifecycle.GlobalFinishTime.Seconds*1000,MidpointRounding.ToEven);
+                finishes.Add(new CareerFinish(id,ordering,elapsed,actor.TotalPenaltyLoops));
+            }
+            LastTicks=field.Tick.Value;LastEventHash=audit.Hash;LastShots=audit.Shots;
+            return new CareerRaceRecord(snapshot.SeasonId+"_"+e.Id,snapshot.SeasonId,e.Id,e.Format,seed,BalanceRegression.Hash(payload),finishes,payload);
+        }
+    }
+}

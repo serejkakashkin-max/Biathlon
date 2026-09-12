@@ -25,17 +25,19 @@ namespace Biathlon.Career
         [DataMember(Name="format",IsRequired=true)] public CompetitionFormat Format { get; private set; }
         [DataMember(Name="seed",IsRequired=true)] public ulong Seed { get; private set; }
         [DataMember(Name="authority_sha256",IsRequired=true)] public string AuthoritySha256 { get; private set; }
+        [DataMember(Name="authority_result_json",EmitDefaultValue=false)] public string AuthorityResultJson { get; private set; }
         [DataMember(Name="finishes",IsRequired=true)] private CareerFinish[] finishes { get; set; }
         public int Count=>finishes.Length;public CareerFinish Get(int index)=>finishes[index];
-        public CareerRaceRecord(string id,string seasonId,string calendarEventId,CompetitionFormat format,ulong seed,string authoritySha256,IReadOnlyList<CareerFinish> results)
+        public CareerRaceRecord(string id,string seasonId,string calendarEventId,CompetitionFormat format,ulong seed,string authoritySha256,IReadOnlyList<CareerFinish> results,string authorityResultJson=null)
         {
-            SchemaVersion=1;Id=id;SeasonId=seasonId;CalendarEventId=calendarEventId;Format=format;Seed=seed;AuthoritySha256=authoritySha256;
+            AuthorityResultJson=authorityResultJson;SchemaVersion=1;Id=id;SeasonId=seasonId;CalendarEventId=calendarEventId;Format=format;Seed=seed;AuthoritySha256=authoritySha256;
             if(results==null)throw new ArgumentNullException(nameof(results));finishes=new CareerFinish[results.Count];for(int i=0;i<results.Count;i++)finishes[i]=results[i];Validate();
         }
         internal void Validate()
         {
             if(SchemaVersion!=1)throw new SerializationException("Unsupported race record schema.");CareerUnits.Id(Id);CareerUnits.Id(SeasonId);CareerUnits.Id(CalendarEventId);
             if(Format<CompetitionFormat.Sprint||Format>CompetitionFormat.MassStart||finishes==null||finishes.Length<1||finishes.Length>1000)throw new SerializationException("Invalid career result.");
+            if(AuthorityResultJson!=null&&AuthorityResultJson.Length>4000000)throw new SerializationException("Authority payload too large.");
             if(AuthoritySha256==null||AuthoritySha256.Length!=64)throw new SerializationException("Missing authority fingerprint.");foreach(char c in AuthoritySha256)if(!((c>='0'&&c<='9')||(c>='a'&&c<='f')))throw new SerializationException("Invalid authority fingerprint.");
             var ids=new HashSet<string>(StringComparer.Ordinal);long previous=0;
             foreach(var finish in finishes){if(finish==null)throw new SerializationException("Null finish.");finish.Validate();if(!ids.Add(finish.AthleteId)||finish.RankTimeMilliseconds<previous)throw new SerializationException("Duplicate or unordered finish.");previous=finish.RankTimeMilliseconds;}

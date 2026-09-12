@@ -8,11 +8,12 @@ namespace Biathlon.AI
     /// Profiles and all physics/tactics remain data-driven; Mass Start has an independent roster.</summary>
     public static class ChampionshipRaceFactory
     {
-        public static PackAiRaceRunner Create(Func<string,string> Read,Func<string,string> Fixture,CompetitionFormat format,IRaceEventSink events,IAiDecisionSink sink,PursuitQualificationSnapshot qualification=null,int count=30,int frequency=20,ulong seed=123)
+        public static PackAiRaceRunner Create(Func<string,string> Read,Func<string,string> Fixture,CompetitionFormat format,IRaceEventSink events,IAiDecisionSink sink,PursuitQualificationSnapshot qualification=null,int count=30,int frequency=20,ulong seed=123,SprintEntrant[] suppliedEntrants=null,AiPersonalityDefinition[] suppliedPersonalities=null,double[] raceForms=null,ShootingPressureContext[] racePressures=null)
         {
             if(Read==null || Fixture==null || events==null || sink==null)throw new ArgumentNullException();
             if(count<1 || count>30 || frequency<=0 || format<CompetitionFormat.Sprint || format>CompetitionFormat.MassStart ||
                 (format==CompetitionFormat.Pursuit)!=(qualification!=null))throw new ArgumentException("Supported format, clock, roster and dependency required.");
+            if(suppliedEntrants!=null&&(suppliedEntrants.Length!=count||suppliedPersonalities==null||suppliedPersonalities.Length!=count))throw new ArgumentException("Complete custom roster required.");
             string name=format==CompetitionFormat.Sprint?"sprint":format==CompetitionFormat.Pursuit?"pursuit":"mass_start";
             var profile=CompetitionProfile.FromJson(Read(name+"_test_v1.json"));
             string prefix=format==CompetitionFormat.MassStart?"synthetic_mass_stadium":"synthetic_stadium";
@@ -22,6 +23,7 @@ namespace Biathlon.AI
             var entrants=new SprintEntrant[count];var personalities=new AiPersonalityDefinition[count];var ids=new AthleteId[count];
             for(int i=0;i<count;i++)
             {
+                if(suppliedEntrants!=null){entrants[i]=suppliedEntrants[i];personalities[i]=suppliedPersonalities[i];ids[i]=new AthleteId(entrants[i].SkiAthlete.Id);continue;}
                 string id=qualification!=null?qualification.Get(i).AthleteId:(format==CompetitionFormat.MassStart?"mass_":"athlete_")+i.ToString(CultureInfo.InvariantCulture);
                 ids[i]=new AthleteId(id);int original=int.Parse(id.Substring(id.LastIndexOf('_')+1),CultureInfo.InvariantCulture);
                 entrants[i]=new SprintEntrant(TimeTrialAthlete.FromJson(ski.ToJson().Replace(ski.Id,id)),ShootingAthleteDefinition.FromJson(shot.ToJson().Replace(shot.Id,id)),"ski_neutral");
@@ -41,7 +43,7 @@ namespace Biathlon.AI
             var field=new PackSprintFieldSession(new SimulationConfig(1,"championship_"+name+"_v1",frequency,seed),profile,new SkiModelDefinitions(Read),new ShootingModelDefinitions(Read),track,route,
                 RaceSnowConditions.FromJson(Read("race_snow_neutral_v1.json")),ResultTimingDefinition.FromJson(Read("result_timing_v1.json")),entrants,new SimulationTick(1),"championship_"+name+"_result_v1",body,
                 DraftDefinition.FromJson(Read("draft_provisional_v1.json")),OvertakeDefinition.FromJson(Read("overtake_provisional_v1.json")),junction,connections,events,lanes,qualification,grid,approach,rangePolicy);
-            return new PackAiRaceRunner(field,Read,personalities,AiDifficultyDefinition.FromJson(Read("ai_difficulty_expert_v1.json")),seed,events,sink);
+            return new PackAiRaceRunner(field,Read,personalities,AiDifficultyDefinition.FromJson(Read("ai_difficulty_expert_v1.json")),seed,events,sink,raceForms,racePressures);
         }
     }
 }
