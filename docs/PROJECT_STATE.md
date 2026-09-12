@@ -4,10 +4,10 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M9 Career; M1–M8 PASS
-active_work_package: WP-114; authorized continuation through M9 (WP-124)
-active_task: TASK-114 annual ageing
-last_completed_task: TASK-113 morale and confidence
-last_verified_commit: 6d88ff7; WP112 verified and pushed
+active_work_package: WP-115; authorized continuation through M9 (WP-124)
+active_task: TASK-115 abstract AI training
+last_completed_task: TASK-114 annual ageing
+last_verified_commit: 3def284; WP113 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 514 discovered; WP103–106 Unity4/4; M8 new15/15
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
@@ -16,7 +16,7 @@ unity_console_errors: 0 after WP103–106 compilation and MCP checks
 unity_console_warnings: 4 retained warnings; compilation_failed=false
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-114]
+next_unlocked_work_packages: [WP-115]
 ```
 
 ## Work packages
@@ -134,11 +134,12 @@ next_unlocked_work_packages: [WP-114]
 - WP-111 DONE. Data-driven training/taper/detraining form, fatigue suppression, unchanged permanent skills. .NET14/14, Unity2/2. See TASK-111-REPORT.md.
 - WP-112 DONE. Bounded observable session/fatigue/age health risk; no punitive injury behavior. .NET15/15, Unity1/1. See TASK-112-REPORT.md.
 - WP-113 DONE. Bounded morale/confidence, outcome/training effects and pressure signal; .NET16/16, Unity1/1. See TASK-113-REPORT.md.
-- WP-114 IN PROGRESS. Annual ageing.
-- WP-115–124 NOT STARTED. Continue through the M9 milestone.
+- WP-114 DONE. Shared annual age/decline transitions from authored curve; .NET17/17, Unity1/1. See TASK-114-REPORT.md.
+- WP-115 IN PROGRESS. Abstract AI training.
+- WP-116–124 NOT STARTED. Continue through the M9 milestone.
 
 ## Resume
-M8 PASS. Continue autonomously through M9 / WP124 as requested. Next is TASK114 annual ageing.
+M8 PASS. Continue autonomously through M9 / WP124 as requested. Next is TASK115 abstract AI training.
 The provisional first-playable tuning version locks127 inputs; see TASK-102-M8-REPORT.md and quality/m8/verification.json.
 Full .NET505/505 plus final tuner/lock5/5; Unity new15/15, PlayMode7/7; Console0 errors/1 warning.
 WP096 top cohort meets provisional GDD shooting windows. Draft/stat/equipment sensitivity and AI parity are measured.
@@ -207,7 +208,7 @@ WP088-089 publication confirmed:4f50876; WP090/M7 publication confirmed:fa4cb932
 WP091-093 publication:0d19af3; WP094 publication:d83b08e; WP095 publication:ab963b68993824f76674a191e406ae054684f59e confirmed on origin/codex/wp-078-ai-pack (2026-09-11). This follow-up records the verified source publication.
 
 WP096 publication: 92d3888. WP097–100 publication: 11a6592. WP101–102 / M8 PASS publication: 0311edf2e95dc6e33ff4603ad45a39cc997686b8.
-WP103–106 publication: d3fcf016f8e33f1c2882588d33fb0c2f4456b0bf; confirmed on origin/codex/wp-078-ai-pack. Current next package: WP-114. M9 is not yet complete.
+WP103–106 publication: d3fcf016f8e33f1c2882588d33fb0c2f4456b0bf; confirmed on origin/codex/wp-078-ai-pack. Current next package: WP-115. M9 is not yet complete.
 
 WP107 publication confirmed: 3755938. WP108: .NET career8/8, Unity2/2; publication accompanies this state update.
 
@@ -220,3 +221,5 @@ WP110 publication confirmed: 251bd89. WP111: .NET career14/14, Unity2/2; publica
 WP111 publication confirmed: 213caab. WP112: .NET career15/15, Unity1/1; publication accompanies this state update.
 
 WP112 publication confirmed: 6d88ff7. WP113: .NET career16/16, Unity1/1; publication accompanies this state update.
+
+WP113 publication confirmed: 3def284. WP114: .NET career17/17, Unity1/1; publication accompanies this state update.
