@@ -57,7 +57,7 @@ namespace Biathlon.Career
             var ids=new HashSet<string>(StringComparer.Ordinal);bool player=false;
             foreach(var a in athletes)
             {
-                if(a==null)throw new SerializationException("Null athlete.");a.Validate();if(!ids.Add(a.Id))throw new SerializationException("Duplicate athlete ID.");player|=a.Id==PlayerId;
+                if(a==null)throw new SerializationException("Null athlete.");a.Validate();if(a.LastProgressionSeason>Season)throw new SerializationException("Future progression season.");if(!ids.Add(a.Id))throw new SerializationException("Duplicate athlete ID.");player|=a.Id==PlayerId;
                 string prefix=Id+"_athlete_";
                 if(!a.Id.StartsWith(prefix,StringComparison.Ordinal)||!long.TryParse(a.Id.Substring(prefix.Length),System.Globalization.NumberStyles.None,System.Globalization.CultureInfo.InvariantCulture,out long ordinal)||ordinal>=NextAthleteOrdinal)
                     throw new SerializationException("Athlete ordinal is inconsistent with the allocation counter.");

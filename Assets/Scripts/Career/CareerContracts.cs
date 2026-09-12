@@ -42,6 +42,7 @@ namespace Biathlon.Career
         [DataMember(Name="health",IsRequired=true)] public int Health { get; internal set; }
         [DataMember(Name="health_risk",IsRequired=true)] public int HealthRisk { get; internal set; }
         [DataMember(Name="tier",IsRequired=true)] public CareerTier Tier { get; internal set; }
+        [DataMember(Name="last_progression_season",EmitDefaultValue=false)] public int LastProgressionSeason { get; internal set; }
         [DataMember(Name="pending_camp_quality",EmitDefaultValue=false)] public int PendingCampQuality { get; internal set; }
         [DataMember(Name="money_minor",IsRequired=true)] public long Money { get; internal set; }
         [DataMember(Name="inventory",IsRequired=true)] private string[] inventory { get; set; }
@@ -67,7 +68,7 @@ namespace Biathlon.Career
             if(stats==null||stats.Length!=CareerUnits.StatCount)throw new SerializationException("Expected all career attributes.");
             foreach(int stat in stats)CareerUnits.Range(stat,0,CareerUnits.MaximumStat,"attribute");
             foreach(int state in new[]{Fatigue,Form,Morale,Confidence,Health,HealthRisk})CareerUnits.Range(state,0,CareerUnits.Basis,"temporary state");
-            CareerUnits.Range(PendingCampQuality,0,12000,"pending camp quality");CareerUnits.Range((int)Tier,0,2,"tier");if(Money<0||LifetimeEarnings<0||TrainingSessions<0||Races<0||Wins<0||Wins>Races)throw new SerializationException("Invalid athlete counters.");
+            CareerUnits.Range(LastProgressionSeason,0,10000,"progression season");CareerUnits.Range(PendingCampQuality,0,12000,"pending camp quality");CareerUnits.Range((int)Tier,0,2,"tier");if(Money<0||LifetimeEarnings<0||TrainingSessions<0||Races<0||Wins<0||Wins>Races)throw new SerializationException("Invalid athlete counters.");
             if(inventory==null||inventory.Length<1||inventory.Length>100)throw new SerializationException("Invalid inventory.");
             var ids=new System.Collections.Generic.HashSet<string>(StringComparer.Ordinal);foreach(string item in inventory){CareerUnits.Id(item);if(!ids.Add(item))throw new SerializationException("Duplicate equipment.");}
             if(!ids.Contains(SelectedSki))throw new SerializationException("Selected skis are not owned.");
