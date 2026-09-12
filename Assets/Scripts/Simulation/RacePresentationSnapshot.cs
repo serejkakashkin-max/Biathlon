@@ -6,6 +6,7 @@ namespace Biathlon.Simulation
     public readonly struct AthletePresentationState
     {
         public string AthleteId { get; }
+        public RaceHudState Hud { get; }
         public string LoopId { get; }
         public long LocalNanometers { get; }
         public double LateralMeters { get; }
@@ -29,13 +30,14 @@ namespace Biathlon.Simulation
         public TargetIntersection ShotImpact { get; }
         internal AthletePresentationState(PackSprintFieldSession field,int index)
         {
+            Hud=new RaceHudState(field,index);
             var a=field.GetAthlete(index);var point=field.GetPhysicalPoint(index);var shooting=a.ActiveShooting;
             AthleteId=a.AthleteId.Value;LoopId=point.LoopId;LocalNanometers=point.LocalNanometers;LateralMeters=field.GetLateral(index);
             SpeedMetersPerSecond=a.Motion.SpeedMetersPerSecond;Physiology=a.PhysiologyState;Phase=a.Lifecycle.Phase;
             Effort=a.LastFrame.Physiology.Effort;Draft=field.GetDraft(index);
             CompletedLaps=a.Lifecycle.CompletedLaps;CompletedBouts=a.Lifecycle.CompletedBouts;PendingPenaltyLoops=a.Lifecycle.PendingPenaltyLoops;TotalPenaltyLoops=a.TotalPenaltyLoops;
             OnCourse=field.IsOnCourse(index);RangeLane=field.GetAssignedRangeLane(index);ShootingActive=shooting!=null;
-                        ClosedTargetsMask=shooting?.ClosedMask??0;ShotsFired=shooting?.ShotsFired??0;
+            ClosedTargetsMask=shooting?.ClosedMask??0;ShotsFired=shooting?.ShotsFired??0;
             Sight=shooting?.Sight??default;Stance=field.Profile.GetBout(Math.Min(a.Lifecycle.CompletedBouts,field.Profile.BoutCount-1)).Stance;
             ShotOutcome=shooting?.LastFrame.Shot.Outcome??ShotOutcome.NoShot;ShotImpact=shooting?.LastFrame.Shot.Impact??default;
         }

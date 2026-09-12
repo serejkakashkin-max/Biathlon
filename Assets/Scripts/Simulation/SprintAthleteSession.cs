@@ -95,6 +95,11 @@ namespace Biathlon.Simulation
         public SprintAthleteFrame LastFrame { get; private set; }
         public int ActiveBout => Lifecycle.CompletedBouts < profile.BoutCount ? Lifecycle.CompletedBouts : -1;
         public ShootingSession ActiveShooting => ActiveBout >= 0 ? shooting[ActiveBout] : null;
+        public int GetBoutClosedMask(int index)
+        {
+            if(index<0||index>=shooting.Length)throw new ArgumentOutOfRangeException(nameof(index));
+            return shooting[index]?.ClosedMask??0;
+        }
         public bool HasFinished => Lifecycle.Phase == CompetitionPhase.Finished || Lifecycle.Phase == CompetitionPhase.Classified;
         public RangeMotionPoint? CurrentRangeMotion
         {

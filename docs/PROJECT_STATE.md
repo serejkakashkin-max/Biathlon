@@ -4,19 +4,19 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M10 Unity greybox; M1–M9 PASS
-active_work_package: WP-135
-active_task: TASK-135 basic race HUD
-last_completed_task: TASK-134 penalty loop presentation
+active_work_package: WP-136
+active_task: TASK-136 playable Sprint greybox
+last_completed_task: TASK-135 basic race HUD
 last_verified_commit: 39ef0bb; WP134 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
-editmode_tests: 543 discovered; WP134 penalty10/10; prior shooting/session5/5; prior snapshot1/1, device8/8; M9 actual-season byte parity PASS
-playmode_tests: WP134 penalty1/1 (19 discovered); prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
-standalone_tests: WP134 penalty10/10; WP133 aim/session10/10; WP130 input/replay11/11; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
-unity_console_errors: 0 after WP134 penalty PlayMode and MCP checks
+editmode_tests: 544 discovered; WP135 HUD1/1; prior penalty10/10; prior shooting/session5/5; prior snapshot1/1, device8/8; M9 actual-season byte parity PASS
+playmode_tests: WP135 HUD1/1 (20 discovered); prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
+standalone_tests: WP135 HUD/snapshot2/2; WP134 penalty10/10; WP133 aim/session10/10; WP130 input/replay11/11; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
+unity_console_errors: 0 after WP135 HUD PlayMode and MCP checks
 unity_console_warnings: 1; compilation_failed=false
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-135]
+next_unlocked_work_packages: [WP-136]
 ```
 
 ## Work packages
@@ -155,10 +155,11 @@ next_unlocked_work_packages: [WP-135]
 - WP-132 DONE. Authored apertures, authoritative aim camera/closures and Game View verified.
 - WP-133 DONE. Mouse/right-stick aim, trigger/breath and deterministic replay verified.
 - WP-134 DONE. Physical penalty guide, loop obligations, tick clock and Game View verified.
-- WP-135 IN PROGRESS. Basic race HUD.
+- WP-135 DONE. Lap/range/bout results, split rank and final Sprint result HUD verified.
+- WP-136 IN PROGRESS. Playable Sprint greybox.
 
 ## Resume
-M8 and M9 PASS. User authorized continuation into M10. WP134 complete; next WP135. Owner gate G1 follows hands-on greybox at WP140.
+M8 and M9 PASS. User authorized continuation into M10. WP135 complete; next WP136. Owner gate G1 follows hands-on greybox at WP140.
 The provisional first-playable tuning version locks127 inputs; see TASK-102-M8-REPORT.md and quality/m8/verification.json.
 Full .NET505/505 plus final tuner/lock5/5; Unity new15/15, PlayMode7/7; Console0 errors/1 warning.
 WP096 top cohort meets provisional GDD shooting windows. Draft/stat/equipment sensitivity and AI parity are measured.
