@@ -7,30 +7,20 @@ project_phase: M9 Career; M1–M8 PASS
 active_work_package: WP-107; authorized continuation through M9 (WP-124)
 active_task: TASK-107 season scoring and race-result history
 last_completed_task: TASK-106 career calendar and training windows
-last_verified_commit: 0311edf2e95dc6e33ff4603ad45a39cc997686b8; M8 PASS verified and pushed
+last_verified_commit: d3fcf016f8e33f1c2882588d33fb0c2f4456b0bf; WP103–106 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
-editmode_tests: 510 discovered; WP096–102 Unity15/15
+editmode_tests: 514 discovered; WP103–106 Unity4/4; M8 new15/15
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
-standalone_tests: M8 full505/505 plus final tuner/lock5/5
-unity_console_errors: 0 after M8 final PlayMode and compilation checks
-unity_console_warnings: 1 retained warning; compilation_failed=false
+standalone_tests: WP103–106 focused6/6 including M8 lock; M8 full505/505 plus final5/5
+unity_console_errors: 0 after WP103–106 compilation and MCP checks
+unity_console_warnings: 4 retained warnings; compilation_failed=false
 current_known_blockers: []
 owner_decisions_needed: []
 next_unlocked_work_packages: [WP-107]
 ```
 
 ## Work packages
-- WP-103 DONE. Versioned save2, explicit v1 confidence migration, identity/state/RNG validation; exact .NET/Unity save digest.
-- WP-104 DONE. Player name, supported national representation, appearance hook and authored initial attribute policy.
-- WP-105 DONE. Seeded30-athlete fictional roster, stable ordinal IDs, age/potential/personality; no static shared identity.
-- WP-106 DONE. 52-week calendar, six supported-format events, Pursuit source dependencies and bounded training/rest slots; Unity4/4 foundation tests.
-- WP-101 DONE. Bounded32-candidate proposal-only tuner; .NET3/3, Unity3/3, repeatable CLI evidence.
-- WP-102 DONE. M8 PASS; 127-input first-playable tuning lock. Full505/505 + final5/5, Unity new15/15 and PlayMode7/7.
-- WP-097 DONE. Eight matched shared-race draft pairs; +3.20s mean benefit; Unity1/1 exact JSONL.
-- WP-098 DONE. 96 ski +10 marginals and 6,000 shooting bouts; no aggregate single-stat dominance; limitations recorded.
-- WP-099 DONE. 32 equipment comparisons; -2.24% to +1.80%; below broad athlete skill progression. Unity stat/equipment3/3.
-- WP-100 DONE. AI-command replay without AI: expert/developing, flat/rolling, exact complete frames/results. .NET4/4 and Unity4/4.
-- WP-096 DONE. Held-out 18,000 bouts; top 87.20% prone / 85.08% standing. .NET7/7, Unity2/2 exact CSV. See TASK-096-REPORT.md; non-monotonic tired cohort accuracy remains an explicit provisional limitation.
+
 - WP-001 DONE. Preserve integer kernel and canonical SHA-256 from Foundation report.
 - WP-002 DONE. TASK-002 contracts, serialization, validation and numeric policy verified.
 - WP-003 DONE. Effort/power mapping and allocation/monotonicity checks verified.
@@ -94,70 +84,51 @@ next_unlocked_work_packages: [WP-107]
 - WP-061 DONE. Six complete scenarios, persisted artifacts and .NET/Unity trace hashes verified.
 - WP-062 DONE. 60-athlete capacity, exact runtime hashes, complete replay and M5 PASS verified.
 - WP-063 DONE. Race and physical perception, shared drafting, replay and allocation checks verified.
-
 - WP-064 DONE. Eight validated, expiring, serializable tactical intents verified.
-
 - WP-065 DONE. Data-driven utility, personality contributions, eligibility and stable decisions verified.
-
 - WP-066 DONE. Exact 2–5 Hz cadence, horizon, shifted clocks and allocation checks verified.
-
 - WP-067 DONE. Data-driven effort control, seeded bounded error and complete Sprint replay verified.
-
 - WP-068 DONE. Terrain preview, resource-limited effort planning and full hilly Sprint replay verified.
-
 - WP-069 DONE. Shared-physics draft target selection and anti-oscillation checks verified.
-
 - WP-070 DONE. Shared space queries and energy/value/terrain overtake decisions verified.
-
 - WP-071 DONE. Complete shared-physics Sprint with periodic bodies, bounded lanes, costly steering, tick-start draft, continuous prefix/follower replanning, retained penalty seams, exact results/replay and AI command integration. Dense 30-athlete race and cross-runtime result hashes pass; see TASK-071C report.
-
 - WP-072 DONE. Cadenced distance/HR recovery request with configured effort reduction, lower arrival HR at a measured approach-time cost, complete shared-physics replay and 423/423 cross-runtime tests.
-
 - WP-073 DONE. Data-driven risk/stability/time thresholds drive the shared shooting controller; complete geometric bouts, persisted replay and legacy regression verified.
-
 - WP-074 DONE. Persistent eight-trait profiles drive utility and shooting policy; identical-capability deterministic comparisons verified.
 - WP-075 DONE. Developing/expert profiles alter cadence, horizon, reaction and control errors only; no physical multipliers.
 - WP-076 DONE. Integrated PackAiRaceRunner with exact context, owned utility/target/reason traces, invariant CSV and intent/policy events.
 - WP-077 DONE. Six real AI scenarios: duel, pack, climb attack, draft train, final sprint, pre-range recovery.
 - WP-078 DONE. Three fixed-seed 30-athlete combinations each repeat completely; no overlaps, persistent stalls or sustained lateral oscillation. FIFO junction admission fixes observed penalty-exit starvation. See ADR-0013 and TASK-078 report.
-
 - WP-079 DONE. Four matched-seed30-athlete decision/performance distributions, bounded observer,
-  reproducible queue diagnostics and runtime-controlled allocation tests. Initial M6 gate failure resolved by TASK079B.
-
-- TASK-079B DONE. Explicit equal-length physical range alternatives, static unique lanes,
-  directed seams and main final-lap bypass remove artificial range queues. M6 PASS.
-
 - WP-080 DONE. Versioned Sprint dependency, registered tied gaps, context validation and actual AI-result import verified.
-
 - WP-081 DONE. Exact registered-gap starts, simultaneous ties, atomic validation and replay verified.
-
 - WP-082 DONE. Shared Pursuit field, exact starts, four PPSS bouts/five laps, global finish-order snapshots and format-correct perception verified.
-
 - WP-083 DONE. Gap chasing, leader defense, physical draft preferences and last-standing urgency; bounded costs and replay reasons verified.
-
 - WP-084 DONE. Repeated tied/dense/separated Pursuit fields, actual overtakes, penalties, exact starts and close finishes verified in .NET/Unity.
-
 - WP-085 DONE. Thirty-body physiological launch, real grid offsets, common gun and exact main-circuit handoff verified; see TASK085B2/ADR0016.
-
 - WP-086 DONE. Thirty-AI PPSS/five-lap/actual-penalty composition and exact cross-runtime results verified.
-
 - WP-087 DONE. Versioned bib/arrival lanes commit with physical branches and logical shooting, repeated events/results verified; ADR0017.
-
 - WP-088 DONE. Repeated flat/rolling/narrow thirty-AI stress and reproducible fixtures verified.
-
 - WP-089 DONE. Exact cross-runtime matrix, result ranking validation and full484 regression passed.
-
 - WP-090 DONE. Shared Sprint → Pursuit and independent Mass Start harness, repeat artifacts and exact .NET/Unity hashes; M7 PASS.
-
 - WP-091 DONE. Bounded parallel batch CLI;10002 complete solo Sprint races verified.
-
 - WP-092 DONE. Versioned timing/shooting/resource metrics with explicit counterfactual semantics.
-
 - WP-093 DONE. Deterministic CSV/JSONL/JSON/Markdown distributions and worker-order checks.
-
 - WP-094 DONE. Canonical12 records/9 windows, failure diffs, export and recovery-trigger fixes verified.
-
 - WP-095 DONE. Independent256-seed pacing holdout, paired effects and exact1536-row CLI/.NET/Unity qualification.
+- WP-096 DONE. Held-out 18,000 bouts; top 87.20% prone / 85.08% standing. .NET7/7, Unity2/2 exact CSV. See TASK-096-REPORT.md; non-monotonic tired cohort accuracy remains an explicit provisional limitation.
+- WP-097 DONE. Eight matched shared-race draft pairs; +3.20s mean benefit; Unity1/1 exact JSONL.
+- WP-098 DONE. 96 ski +10 marginals and 6,000 shooting bouts; no aggregate single-stat dominance; limitations recorded.
+- WP-099 DONE. 32 equipment comparisons; -2.24% to +1.80%; below broad athlete skill progression. Unity stat/equipment3/3.
+- WP-100 DONE. AI-command replay without AI: expert/developing, flat/rolling, exact complete frames/results. .NET4/4 and Unity4/4.
+- WP-101 DONE. Bounded32-candidate proposal-only tuner; .NET3/3, Unity3/3, repeatable CLI evidence.
+- WP-102 DONE. M8 PASS; 127-input first-playable tuning lock. Full505/505 + final5/5, Unity new15/15 and PlayMode7/7.
+- WP-103 DONE. Versioned save2, explicit v1 confidence migration, identity/state/RNG validation; exact .NET/Unity save digest.
+- WP-104 DONE. Player name, supported national representation, appearance hook and authored initial attribute policy.
+- WP-105 DONE. Seeded30-athlete fictional roster, stable ordinal IDs, age/potential/personality; no static shared identity.
+- WP-106 DONE. 52-week calendar, six supported-format events, Pursuit source dependencies and bounded training/rest slots; Unity4/4 foundation tests.
+- WP-107 IN PROGRESS. Season scoring and validated race-result history.
+- WP-108–124 NOT STARTED. Continue through the M9 milestone.
 
 ## Resume
 M8 PASS. Continue autonomously through M9 / WP124 as requested. Next is TASK107 season scoring/history.
@@ -167,6 +138,8 @@ WP096 top cohort meets provisional GDD shooting windows. Draft/stat/equipment se
 Known limits (fixed-condition cohorts, non-monotonic shooting timing, synthetic venues) remain explicit in reports.
 No owner/blocker gate pending. Severe punitive injuries are excluded from WP112 absent owner-approved behavior.
 Regular commit/push authorization persists. Update this state and reports for each coherent completed package.
+## Historical M7 evidence (superseded as current status)
+
 M7 PASS: three30-AI formats complete headlessly; Sprint qualification supplies Pursuit roster
 and exact gaps; Mass Start uses an independent roster/grid.90 finishers,1500 accepted shots,
 zero precision fallbacks. CLI repeat matches10 files; all3 result hashes match .NET and Unity.
@@ -180,7 +153,11 @@ Machine evidence: docs/quality/wp088-089 and wp090. No owner/blocker gate pendin
 M8 calibration, production venues/presentation and withdrawal handling are not claimed by M7.
 Preserve ADR0012–0017, canonical Foundation hashes and unrelated owner workspace edits.
 Continue coherent commits/push and state updates under standing owner authorization.
-## Publication
+## Publication history
+
+Current verified publication: **d3fcf016f8e33f1c2882588d33fb0c2f4456b0bf** — WP103–106. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
+
+The entries below are historical checkpoints, not the current development position.
 Owner explicitly authorized regular commits/push and state updates on2026-09-09.
 Branch: codex/wp-078-ai-pack; origin: https://github.com/serejkakashkin-max/Biathlon.git.
 The remote had only the initial template. This checkpoint publishes accumulated game source,
@@ -201,7 +178,7 @@ WP080 publication confirmed: 4fefea1 on origin/codex/wp-078-ai-pack (2026-09-10)
 
 WP081 publication confirmed: c3dee53 on origin/codex/wp-078-ai-pack (2026-09-10).
 TASK082A verified: .NET6/6 and regression14/14; Unity MCP6/6, Console0 errors.
-Next concrete task: TASK085B approach-to-route handoff. No owner blocker.
+Historical next step at TASK082A: TASK085B; subsequently completed.
 
 WP082B publication confirmed:46bddd0 on origin/codex/wp-078-ai-pack.
 WP083 intentional Pursuit baseline14342ticks/result449333e5ccdfc60908353e5471f23d2b5285061e8ec6df011532337189dabff2 (.NET/Unity).
@@ -221,3 +198,6 @@ TASK085B1 publication confirmed: a171ec99a4b0959ab28fce00a96cdf2815c4e0bc on ori
 WP088-089 publication confirmed:4f50876; WP090/M7 publication confirmed:fa4cb932f65391328ac18274f72d497a1bef7acc on origin/codex/wp-078-ai-pack (2026-09-11). This follow-up records the verified source publication.
 
 WP091-093 publication:0d19af3; WP094 publication:d83b08e; WP095 publication:ab963b68993824f76674a191e406ae054684f59e confirmed on origin/codex/wp-078-ai-pack (2026-09-11). This follow-up records the verified source publication.
+
+WP096 publication: 92d3888. WP097–100 publication: 11a6592. WP101–102 / M8 PASS publication: 0311edf2e95dc6e33ff4603ad45a39cc997686b8.
+WP103–106 publication: d3fcf016f8e33f1c2882588d33fb0c2f4456b0bf; confirmed on origin/codex/wp-078-ai-pack. Current next package: WP-107. M9 is not yet complete.
