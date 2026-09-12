@@ -7,7 +7,7 @@ project_phase: M10 Unity greybox; M1–M9 PASS
 active_work_package: WP-129
 active_task: TASK-129 chase camera
 last_completed_task: TASK-128 athlete proxy presentation
-last_verified_commit: 9c703b3; WP127 verified and pushed
+last_verified_commit: 181f80e; WP128 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 543 discovered; WP126 focused1/1; M9 actual-season byte parity PASS
 playmode_tests: WP128 proxies1/1 (10 discovered); prior scene1/1, mesh1/1 and full7/7
@@ -176,7 +176,7 @@ Preserve ADR0012–0017, canonical Foundation hashes and unrelated owner workspa
 Continue coherent commits/push and state updates under standing owner authorization.
 ## Publication history
 
-Current verified publication: **9c703b3** — WP127. WP128 is committed with this update. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
+Current verified publication: **181f80e** — WP128 verified and pushed. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
 
 The entries below are historical checkpoints, not the current development position.
 Owner explicitly authorized regular commits/push and state updates on2026-09-09.
