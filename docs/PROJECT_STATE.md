@@ -7,7 +7,7 @@ project_phase: M10 Unity greybox; M1–M9 PASS
 active_work_package: WP-135
 active_task: TASK-135 basic race HUD
 last_completed_task: TASK-134 penalty loop presentation
-last_verified_commit: cad8d23; WP133 verified and pushed
+last_verified_commit: 39ef0bb; WP134 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 543 discovered; WP134 penalty10/10; prior shooting/session5/5; prior snapshot1/1, device8/8; M9 actual-season byte parity PASS
 playmode_tests: WP134 penalty1/1 (19 discovered); prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
@@ -182,7 +182,7 @@ Preserve ADR0012–0017, canonical Foundation hashes and unrelated owner workspa
 Continue coherent commits/push and state updates under standing owner authorization.
 ## Publication history
 
-Current verified publication: **cad8d23** — WP133 verified and pushed. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
+Current verified publication: **39ef0bb** — WP134 verified and pushed. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
 
 The entries below are historical checkpoints, not the current development position.
 Owner explicitly authorized regular commits/push and state updates on2026-09-09.
