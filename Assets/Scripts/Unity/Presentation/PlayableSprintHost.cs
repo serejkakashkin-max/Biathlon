@@ -14,6 +14,7 @@ namespace Biathlon.Unity.Presentation
         public bool UseGamepad;
         public PackAiRaceRunner Runner { get; private set; }
         public RacePresentationFeed Feed { get; private set; }
+        public int PlayerIndex { get; private set; }
         private PlayerDeviceInput ski;
         private ShootingDeviceInput shot;
         private EffortControlSystem effort;
@@ -27,11 +28,21 @@ namespace Biathlon.Unity.Presentation
         private GameObject cameraObject;
         private static string Read(string name)=>Resources.Load<TextAsset>("Biathlon/"+Path.GetFileNameWithoutExtension(name)).text;
         private void Start(){if(AutoStart)Initialize();}
-        public void Initialize(int count=6)
+        public void InitializePursuit(SprintResultSnapshot sprint,string playerId)
+        {
+            if(sprint==null)throw new ArgumentNullException(nameof(sprint));
+            var qualification=PursuitQualificationSnapshot.Create("playable_pursuit_qualification",sprint,CompetitionProfile.FromJson(Read("pursuit_test_v1.json")));
+            int index=-1;for(int i=0;i<qualification.Count;i++)if(qualification.Get(i).AthleteId==playerId)index=i;
+            if(index<0)throw new ArgumentException("Player did not qualify for Pursuit.");
+            InitializeRace(qualification.Count,qualification,index);
+        }
+        public void Initialize(int count=6)=>InitializeRace(count,null,0);
+        private void InitializeRace(int count,PursuitQualificationSnapshot qualification,int playerIndex)
         {
             if(Runner!=null)throw new InvalidOperationException("Create a new host to restart.");
-            Runner=ChampionshipRaceFactory.Create(Read,n=>Resources.Load<TextAsset>("Biathlon/Tracks/"+Path.GetFileNameWithoutExtension(n)).text,CompetitionFormat.Sprint,new BalanceEventAudit(5),new AiDecisionCounts(),count:count);
-            var field=Runner.Field;var id=field.GetAthlete(0).AthleteId;
+            Runner=ChampionshipRaceFactory.Create(Read,n=>Resources.Load<TextAsset>("Biathlon/Tracks/"+Path.GetFileNameWithoutExtension(n)).text,qualification==null?CompetitionFormat.Sprint:CompetitionFormat.Pursuit,new BalanceEventAudit(5),new AiDecisionCounts(),qualification:qualification,count:count);
+            PlayerIndex=playerIndex;
+            var field=Runner.Field;var id=field.GetAthlete(PlayerIndex).AthleteId;
             Feed=gameObject.AddComponent<RacePresentationFeed>();Feed.Publish(RacePresentationSnapshot.Capture(field));
             ski=gameObject.AddComponent<PlayerDeviceInput>();ski.enabled=false;ski.Initialize(id,field.TickFrequency);
             shot=gameObject.AddComponent<ShootingDeviceInput>();shot.enabled=false;shot.Initialize(id,field.TickFrequency);
@@ -49,7 +60,7 @@ namespace Biathlon.Unity.Presentation
         private void Update()
         {
             if(Runner==null||Runner.Field.IsComplete)return;
-            bool current=Runner.Field.GetAthlete(0).ActiveShooting!=null;
+            bool current=Runner.Field.GetAthlete(PlayerIndex).ActiveShooting!=null;
             if(current!=shootingContext){ski.ReleaseHeldInput();shot.ReleaseHeldInput();shootingContext=current;}
             if(current){shot.Capture(UseGamepad?null:Mouse.current,UseGamepad?null:Keyboard.current,UseGamepad?Gamepad.current:null);ski.ReleaseHeldInput();}
             else{ski.Capture(UseGamepad?null:Keyboard.current,UseGamepad?Gamepad.current:null);shot.ReleaseHeldInput();}
@@ -60,10 +71,21 @@ namespace Biathlon.Unity.Presentation
         {
             var applied=effort.Step(command,true);
             var input=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(command.Tick,command.AthleteId,applied.AppliedControl),1,1,0,command.TuckHeld,applied.FinalSprintRequested),shooting.Aim,shooting.Trigger,shooting.HoldBreath);
-            Runner.StepWithPlayer(0,input,extent*command.LineIntent/PlayerCommand.LineIntentUnits);
+            Runner.StepWithPlayer(PlayerIndex,input,extent*command.LineIntent/PlayerCommand.LineIntentUnits);
             Feed.Publish(RacePresentationSnapshot.Capture(Runner.Field));range.Refresh();hud.Refresh();debugHud.Refresh();penalty.Refresh();
         }
         private void OnApplicationFocus(bool value){if(ski!=null)ski.SetInputFocus(value);if(shot!=null)shot.SetInputFocus(value);}
-        private void OnGUI(){GUI.Box(new Rect(12,Screen.height-30,1000,24),"SKI: W/S effort, A/D line, Space tuck | RANGE: mouse aim, LMB fire, RMB fine, Space breath | Gamepad via UseGamepad");}
+        public PlayableSprintHost ContinueToPursuit()
+        {
+            if(Runner==null||!Runner.Field.IsComplete||Runner.Field.Profile.Format!=CompetitionFormat.Sprint)throw new InvalidOperationException("Complete Sprint required.");
+            var source=SprintResultSnapshot.FromJson(Runner.Field.Result.ToJson());
+            var nextObject=new GameObject("Playable Pursuit");var next=nextObject.AddComponent<PlayableSprintHost>();next.AutoStart=false;next.UseGamepad=UseGamepad;
+            try { next.InitializePursuit(source,Runner.Field.GetAthlete(PlayerIndex).AthleteId.Value); }
+            catch { Destroy(nextObject);throw; }
+            gameObject.SetActive(false);Destroy(gameObject);return next;
+        }
+        private void OnGUI(){
+            if(Runner!=null&&Runner.Field.IsComplete&&Runner.Field.Profile.Format==CompetitionFormat.Sprint)
+                if(GUI.Button(new Rect(Screen.width/2f-140,Screen.height/2f,280,48),"Continue to Pursuit"))ContinueToPursuit();GUI.Box(new Rect(12,Screen.height-30,1000,24),"SKI: W/S effort, A/D line, Space tuck | RANGE: mouse aim, LMB fire, RMB fine, Space breath | Gamepad via UseGamepad");}
     }
 }

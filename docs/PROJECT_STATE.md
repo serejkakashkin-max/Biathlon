@@ -4,19 +4,19 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M10 Unity greybox; M1–M9 PASS
-active_work_package: WP-137
-active_task: TASK-137 playable Pursuit greybox
-last_completed_task: TASK-136 playable Sprint greybox
+active_work_package: WP-138
+active_task: TASK-138 playable Mass Start greybox
+last_completed_task: TASK-137 playable Pursuit greybox
 last_verified_commit: 79fee2a; WP136 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
-editmode_tests: 546 discovered; WP136 player-pack2/2; prior HUD1/1; prior penalty10/10; prior shooting/session5/5; prior snapshot1/1, device8/8; M9 actual-season byte parity PASS
-playmode_tests: WP136 full host1/1 (21 discovered); prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
-standalone_tests: WP136 player-pack/snapshot3/3; WP135 HUD/snapshot2/2; WP134 penalty10/10; WP133 aim/session10/10; WP130 input/replay11/11; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
-unity_console_errors: 0 after WP136 host PlayMode and MCP checks
+editmode_tests: 546 discovered; WP137 qualification4/4; prior player-pack2/2; prior HUD1/1; prior penalty10/10; prior shooting/session5/5; prior snapshot1/1, device8/8; M9 actual-season byte parity PASS
+playmode_tests: WP137 Sprint-Pursuit chain1/1 (22 discovered); prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
+standalone_tests: WP137 qualification/field6/6; WP136 player-pack/snapshot3/3; WP135 HUD/snapshot2/2; WP134 penalty10/10; WP133 aim/session10/10; WP130 input/replay11/11; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
+unity_console_errors: 0 after WP137 chain PlayMode and MCP checks
 unity_console_warnings: 1; compilation_failed=false
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-137]
+next_unlocked_work_packages: [WP-138]
 ```
 
 ## Work packages
@@ -157,10 +157,11 @@ next_unlocked_work_packages: [WP-137]
 - WP-134 DONE. Physical penalty guide, loop obligations, tick clock and Game View verified.
 - WP-135 DONE. Lap/range/bout results, split rank and final Sprint result HUD verified.
 - WP-136 DONE. Playable Sprint scene, player/shared AI physics, full host race and keyboard Game View verified; human feel awaits G1.
-- WP-137 IN PROGRESS. Playable Pursuit greybox.
+- WP-137 DONE. Sprint-result transition, reordered player identity and full Pursuit completion verified.
+- WP-138 IN PROGRESS. Playable Mass Start greybox.
 
 ## Resume
-M8 and M9 PASS. User authorized continuation into M10. WP136 complete; next WP137. Owner gate G1 follows hands-on greybox at WP140.
+M8 and M9 PASS. User authorized continuation into M10. WP137 complete; next WP138. Owner gate G1 follows hands-on greybox at WP140.
 The provisional first-playable tuning version locks127 inputs; see TASK-102-M8-REPORT.md and quality/m8/verification.json.
 Full .NET505/505 plus final tuner/lock5/5; Unity new15/15, PlayMode7/7; Console0 errors/1 warning.
 WP096 top cohort meets provisional GDD shooting windows. Draft/stat/equipment sensitivity and AI parity are measured.
