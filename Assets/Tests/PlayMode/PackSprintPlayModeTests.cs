@@ -36,6 +36,10 @@ namespace Biathlon.PlayModeTests
                 RaceSnowConditions.FromJson(Read("race_snow_neutral_v1.json")), ResultTimingDefinition.FromJson(Read("result_timing_v1.json")),
                 entrants, new SimulationTick(1), "pack_playmode_result", body, DraftDefinition.FromJson(Read("draft_provisional_v1.json")),
                 OvertakeDefinition.FromJson(Read("overtake_provisional_v1.json")), junction, connection, log);
+            var presentationObject=new GameObject("presentation_feed_test");
+            var feed=presentationObject.AddComponent<Biathlon.Unity.Presentation.RacePresentationFeed>();
+            var initial=RacePresentationSnapshot.Capture(field);feed.Publish(initial);
+            Assert.Catch(()=>feed.Publish(initial));
             var commands = new SprintAthleteInput[3]; var lines = new double[3];
             while (!field.IsComplete && field.Tick.Value < 100000)
             {
@@ -55,8 +59,9 @@ namespace Biathlon.PlayModeTests
                         if (a.Closed) gap = System.Math.Min(gap, a.LoopLengthNanometers - gap);
                         Assert.That(gap / 1e9 >= body.LongitudinalSeparation || System.Math.Abs(field.GetLateral(i) - field.GetLateral(j)) >= body.LateralSeparation, Is.True);
                     }
-                if (field.Tick.Value % 500 == 0) yield return null;
+                if (field.Tick.Value % 500 == 0) {feed.Publish(RacePresentationSnapshot.Capture(field));Assert.That(feed.Current.Tick,Is.EqualTo(field.Tick.Value));Assert.That(feed.Position(0,0.5).Interpolated,Is.False);yield return null;}
             }
+            Assert.That(initial.Tick,Is.Zero);feed.ResetRace();Assert.That(feed.Current,Is.Null);Object.Destroy(presentationObject);
             Assert.That(field.IsComplete, Is.True); Assert.That(field.Result.Count, Is.EqualTo(3));
             int seams = 0;
             for (int i = 0; i < log.Count; i++) if (log[i].EventType == RaceEventType.PhysicalSeamCrossed) seams++;

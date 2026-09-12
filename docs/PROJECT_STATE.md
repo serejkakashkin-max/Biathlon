@@ -3,20 +3,20 @@
 Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs.
 
 ```yaml
-project_phase: M1–M9 PASS; authorized scope through M9 complete
-active_work_package: none; WP-124 DONE
-active_task: none; M9 milestone closed
-last_completed_task: TASK-124 M9 milestone and initial career tuning lock
-last_verified_commit: b8ee32bac075cbd658a18172aa53fd8d2db42dbe; WP124/M9 verified and pushed
+project_phase: M10 Unity greybox; M1–M9 PASS
+active_work_package: WP-126
+active_task: TASK-126 track geometry authoring
+last_completed_task: TASK-125 presentation state adapters
+last_verified_commit: 4538e74; M9 publication recorded and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
-editmode_tests: 541 discovered; corrected actual-season1/1 and weekly1/1; WP124 lock1/1; .NET/Unity byte parity PASS
+editmode_tests: 542 discovered; WP125 focused1/1; M9 actual-season byte parity PASS
 playmode_tests: 7/7 via Unity MCP, including complete shared Sprint
-standalone_tests: full540/540; corrected career30/30; final lock3/3; 15-season actual-race soak PASS
-unity_console_errors: 0 after WP124 compilation and MCP checks
-unity_console_warnings: 4 retained warnings; compilation_failed=false
+standalone_tests: WP125 focused1/1; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
+unity_console_errors: 0 after WP125 compilation and MCP checks
+unity_console_warnings: 1 retained warning; compilation_failed=false
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-125]; M10 not started
+next_unlocked_work_packages: [WP-126]
 ```
 
 ## Work packages
@@ -145,10 +145,11 @@ next_unlocked_work_packages: [WP-125]; M10 not started
 - WP-122 DONE. 15 seasons/90 actual races/21 replacements, population30, uniqueIDs51, max save167395 bytes; PASS. See TASK-122-REPORT.md.
 - WP-123 DONE. Development/age/economy/progression JSON and CSV interpreted with provisional limits. See TASK-123-REPORT.md.
 - WP-124 DONE. M9 PASS;142 input tuning lock, .NET3/3 and Unity1/1; milestone evidence complete. See TASK-124-M9-REPORT.md.
-- WP-125 NOT STARTED. Next roadmap package: M10 presentation state adapters.
+- WP-125 DONE. Detached state, guarded interpolation and Unity feed; .NET1/1, Unity1/1, PlayMode7/7. See TASK-125-REPORT.md.
+- WP-126 IN PROGRESS. Track geometry authoring.
 
 ## Resume
-M8 and M9 PASS. Requested autonomous scope through WP124 is complete. Next roadmap work is WP125 in M10; not started.
+M8 and M9 PASS. User authorized continuation into M10. WP125 complete; next WP126. Owner gate G1 follows hands-on greybox at WP140.
 The provisional first-playable tuning version locks127 inputs; see TASK-102-M8-REPORT.md and quality/m8/verification.json.
 Full .NET505/505 plus final tuner/lock5/5; Unity new15/15, PlayMode7/7; Console0 errors/1 warning.
 WP096 top cohort meets provisional GDD shooting windows. Draft/stat/equipment sensitivity and AI parity are measured.
@@ -172,7 +173,7 @@ Preserve ADR0012–0017, canonical Foundation hashes and unrelated owner workspa
 Continue coherent commits/push and state updates under standing owner authorization.
 ## Publication history
 
-Current verified publication: **b8ee32bac075cbd658a18172aa53fd8d2db42dbe** — WP124 / M9 PASS; confirmed on origin/codex/wp-078-ai-pack. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
+Current verified publication: **4538e74** — M9 publication state. WP125 is committed with this update. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
 
 The entries below are historical checkpoints, not the current development position.
 Owner explicitly authorized regular commits/push and state updates on2026-09-09.
@@ -235,4 +236,4 @@ WP113 publication confirmed: 3def284. WP114: .NET career17/17, Unity1/1; publica
 
 WP121 progress: full .NET540/540 PASS; initial actual-season Unity1/1 and byte-identical .NET/Unity saves. Mental pressure-context correction implemented; corrected career30/30 and Unity season1/1 PASS with byte-identical final saves. WP122 actual 15-season soak PASS. See TASK-121-REPORT.md. M9 closed by TASK124.
 
-M9 publication confirmed: b8ee32bac075cbd658a18172aa53fd8d2db42dbe. Every WP103–124 is individually marked DONE above; WP125/M10 has not started. This documentation-only follow-up records the verified remote milestone commit.
+M9 publication confirmed: b8ee32bac075cbd658a18172aa53fd8d2db42dbe. Every WP103–124 is individually marked DONE above; At that publication WP125/M10 had not started; user subsequently authorized continuation.
