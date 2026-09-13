@@ -34,6 +34,10 @@ namespace Biathlon.PlayModeTests
                     }
                     if (a.ShootingPhase == ShootingPhase.Aiming)
                     {
+                        var presentedRig = proxies.GetRig(a.AthleteId);
+                        var ray = a.Sight.Ray;
+                        var expected = presentedRig.transform.TransformDirection(new Vector3((float)ray.DirectionX,(float)ray.DirectionY,(float)ray.DirectionZ));
+                        Assert.That(Vector3.Angle(presentedRig.GetComponent<AthleteEquipmentBinding>().Rifle.forward,expected),Is.LessThan(.03f),"Use composed Sight exactly once, including sway and handling.");
                         stances |= 1 << (int)a.Stance;
                         if (a.Stance == Biathlon.Domain.ShootingStance.Standing)
                         {

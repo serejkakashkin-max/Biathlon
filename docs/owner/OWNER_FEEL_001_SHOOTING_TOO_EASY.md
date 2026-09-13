@@ -36,7 +36,7 @@ For every item, record the authored configuration, observed simulation effect, p
 
 | Work package | Required action | Current status |
 |---|---|---|
-| WP-147 Shooting procedural/IK layer | Check aim/rifle/hand alignment and legibility of existing stability effects; preserve shot authority and numeric tuning. | Pending |
+| WP-147 Shooting procedural/IK layer | Check aim/rifle/hand alignment and legibility of existing stability effects; preserve shot authority and numeric tuning. | Presentation review completed; [findings](../quality/m11/wp147/OWNER-FEEL-001-presentation-review.md). Third-person sight mismatch corrected; issue remains OPEN. |
 | WP-151 Animation validation scenes | Retain prone/standing, transition and shooting-camera evidence; identify presentation defects separately from future tuning needs. | Pending |
 | WP-229 Gameplay feel tuning pass | Revisit the complete owner checklist with player feedback and telemetry; assess controllable difficulty, timing and recovery costs. Record each finding and any explicit versioned tuning. | Mandatory, pending |
 | WP-230 Difficulty/accessibility tuning | Revisit the complete checklist across default settings and assist/difficulty profiles; show what each assist changes without hiding shot outcomes or giving AI physics advantages. | Mandatory, pending |

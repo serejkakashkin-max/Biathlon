@@ -5,8 +5,16 @@
   "release_end_fraction": 0.75,
   "clearance_side_m": 0.38,
   "clearance_up_m": 0.12,
+  "standing_support_bend": {"x": 0, "y": -1, "z": -0.1},
+  "standing_trigger_bend": {"x": 0.8, "y": -0.3, "z": -0.5},
+  "prone_support_bend": {"x": -0.3, "y": -1, "z": -0.3},
+  "prone_trigger_bend": {"x": 0.6, "y": -1, "z": -0.3},
+  "cheek_rest": {"x": 0, "y": 0.04, "z": 0.14},
+  "head_from_cheek": {"x": -0.045, "y": 0.035, "z": 0.025},
+  "max_head_correction_m": 0.12,
   "trigger_grip": {"x": 0, "y": -0.07, "z": 0.34},
   "support_grip": {"x": 0, "y": -0.04, "z": 0.52},
+  "prone_support_grip": {"x": 0, "y": -0.04, "z": 0.42},
   "pole_stow_left": {"x": -0.48, "y": 1.36, "z": -0.2},
   "pole_stow_right": {"x": 0.48, "y": 1.36, "z": -0.2}
 }
