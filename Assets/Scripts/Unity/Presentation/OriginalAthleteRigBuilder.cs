@@ -34,7 +34,7 @@ namespace Biathlon.Unity.Presentation
             Bone(AthleteBone.Head, bones[(int)AthleteBone.Neck], new Vector3(0, .09f, 0));
             Limb(false); Limb(true);
             Socket(AthleteSocket.RifleBack, AthleteBone.Chest, new Vector3(.035f, -.17f, -.165f), Quaternion.Euler(-90, 0, -12));
-            Socket(AthleteSocket.RifleAim, AthleteBone.Chest, new Vector3(.12f, .08f, .17f), Quaternion.identity);
+            Socket(AthleteSocket.RifleAim, AthleteBone.Chest, new Vector3(.12f, .08f, -.08f), Quaternion.identity);
             Socket(AthleteSocket.CameraTarget, AthleteBone.Chest, new Vector3(0, .04f, 0), Quaternion.identity);
 
             var suit = Material("TechnicalNavy", new Color(.028f, .10f, .18f), .20f);
@@ -87,10 +87,11 @@ namespace Biathlon.Unity.Presentation
                 Add(AthleteBone.Chest,"BackHarness",rubber,Ellipsoid("Harness",new Vector3(.018f,.139f,.009f)),new Vector3(side,.04f,-.114f));
             }
             SkinBody(root,bones,body);
-            Equipment(sockets,rubber,metal,accent,bib);
+            Equipment(root,sockets,rubber,metal,accent,bib);
             var binding = root.gameObject.AddComponent<AthleteRigBinding>();
             binding.Configure(root,bones,sockets);
             root.gameObject.AddComponent<AthleteLocomotionDriver>();
+            root.gameObject.AddComponent<AthleteRiflePresentation>();
             return binding;
 
             void Bone(AthleteBone id,Transform ancestor,Vector3 at) => bones[(int)id]=Child(id.ToString(),ancestor,at);
@@ -120,8 +121,9 @@ namespace Biathlon.Unity.Presentation
                 => body.Add(new BodyPiece((int)bone,material,mesh,Matrix4x4.Translate(offset)));
         }
 
-        private static void Equipment(Transform[] sockets,Material rubber,Material metal,Material accent,Material pale)
+        private static void Equipment(Transform root,Transform[] sockets,Material rubber,Material metal,Material accent,Material pale)
         {
+            Transform leftPole = null, rightPole = null;
             foreach(bool right in new[] {false,true})
             {
                 var ski=Child(right?"Right ski":"Left ski",sockets[(int)(right?AthleteSocket.RightSkiBinding:AthleteSocket.LeftSkiBinding)],Vector3.zero);
@@ -131,6 +133,7 @@ namespace Biathlon.Unity.Presentation
                 skiParts.Add(Ellipsoid("SkiTipStripe",new Vector3(.017f,.003f,.24f)),pale,new Vector3(0,.018f,.66f));
                 skiParts.Render(ski,"SkiComplete");
                 var pole=Child(right?"Right pole":"Left pole",sockets[(int)(right?AthleteSocket.RightHandGrip:AthleteSocket.LeftHandGrip)],Vector3.zero);
+                if (right) rightPole = pole; else leftPole = pole;
                 pole.localRotation=Quaternion.Euler(47,0,0);
                 var poleParts=new Parts();
                 poleParts.Add(Profile("PoleShaft",new[]{R(-1.36f,.006f,.006f),R(-.11f,.007f,.007f)} ,8),metal);
@@ -151,6 +154,7 @@ namespace Biathlon.Unity.Presentation
             rifleParts.Add(Ellipsoid("RifleGrip",new Vector3(.024f,.064f,.030f)),rubber,new Vector3(0,-.068f,.34f));
             rifleParts.Add(Ellipsoid("RifleTrim",new Vector3(.033f,.012f,.075f)),accent,new Vector3(0,-.034f,.52f));
             rifleParts.Render(rifle,"RifleComplete");
+            root.gameObject.AddComponent<AthleteEquipmentBinding>().Configure(rifle,leftPole,rightPole);
         }
 
         private readonly struct BodyPiece

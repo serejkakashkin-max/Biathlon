@@ -677,7 +677,7 @@ Transform:
   m_GameObject: {fileID: 3982038362946096273}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.12, y: 0.08, z: 0.17}
+  m_LocalPosition: {x: 0.12, y: 0.08, z: -0.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -692,8 +692,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4160924202742968160}
+  - component: {fileID: 8061282788453366761}
   - component: {fileID: 6804015094181078297}
   - component: {fileID: 664044784824305691}
+  - component: {fileID: 755540960876451969}
   m_Layer: 0
   m_Name: OriginalAthlete
   m_TagString: Untagged
@@ -718,6 +720,21 @@ Transform:
   - {fileID: 3899537256152093661}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8061282788453366761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4176763849198726018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 092fcbced9ac86e4880046600c7e9124, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteEquipmentBinding
+  rifle: {fileID: 2155226055236712922}
+  leftPole: {fileID: 4388141874446087745}
+  rightPole: {fileID: 5493969897544449248}
 --- !u!114 &6804015094181078297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -770,6 +787,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4263d71d11efd7a47a9b2cc3c6dc7857, type: 3}
   m_Name:
   m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteLocomotionDriver
+--- !u!114 &755540960876451969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4176763849198726018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cffc2a9df44957e4586663bd672068d0, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteRiflePresentation
 --- !u!1 &4314833669292906823
 GameObject:
   m_ObjectHideFlags: 0
