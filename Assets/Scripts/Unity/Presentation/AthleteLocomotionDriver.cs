@@ -18,6 +18,7 @@ namespace Biathlon.Unity.Presentation
         public SkiLocomotion State { get; private set; }
         public float BlendProgress { get; private set; }
         public double Cycle => cycle;
+        public float CornerLeanDegrees { get; private set; }
 
         public override void Apply(AthleteRigBinding rig, AthleteAnimationFrame frame)
         {
@@ -25,7 +26,8 @@ namespace Biathlon.Unity.Presentation
             if (athleteId != a.AthleteId) { previousTime = -1; athleteId = a.AthleteId; }
             Sample(rig, new LocomotionInput((float)a.SpeedMetersPerSecond, (float)a.CourseGrade,
                 (float)a.Effort.DeliveredRelativeEffort, a.TuckActive, a.FinalSprintActive,
-                a.OnCourse && !a.ShootingActive && a.Phase != CompetitionPhase.Finished), frame.TimeSeconds);
+                a.OnCourse && !a.ShootingActive && a.Phase != CompetitionPhase.Finished,
+                (float)frame.PresentationCurvature), frame.TimeSeconds);
         }
 
         public void Sample(AthleteRigBinding rig, LocomotionInput input, double time)
@@ -33,6 +35,7 @@ namespace Biathlon.Unity.Presentation
             if (double.IsNaN(time) || double.IsInfinity(time) || time < 0) throw new ArgumentOutOfRangeException(nameof(time));
             if (settings == null) settings = AthleteLocomotionSettings.Load();
             var selected = AthleteLocomotion.Select(input, settings);
+            float requestedLean = AthleteLocomotion.CornerLean(input, settings);
             float requestedIntensity = selected == SkiLocomotion.Climb ? Mathf.Lerp(settings.climb_motion_low, settings.climb_motion_high,
                 Mathf.InverseLerp(settings.climb_effort_low, settings.climb_effort_high, input.Effort)) : 1;
             double dt = previousTime < 0 ? 0 : Math.Max(0, time - previousTime);
@@ -44,6 +47,7 @@ namespace Biathlon.Unity.Presentation
                 cycle = time * blended.cadence_hz % 1;
                 dt = 0;
                 climbIntensity = requestedIntensity;
+                CornerLeanDegrees = requestedLean;
             }
             else if (selected != State)
             {
@@ -59,6 +63,7 @@ namespace Biathlon.Unity.Presentation
             motion.arm_swing_m *= climbIntensity;
             cycle = (cycle + dt * motion.cadence_hz) % 1;
             previousTime = time;
+            CornerLeanDegrees = Mathf.Lerp(CornerLeanDegrees, requestedLean, 1 - Mathf.Exp(-(float)dt / settings.corner_response_s));
             Pose(rig, motion, (float)(cycle * Math.PI * 2));
         }
 
@@ -66,6 +71,7 @@ namespace Biathlon.Unity.Presentation
         {
             rig.ResetPose();
             rig.Offset(AthleteBone.Hips, new Vector3(Mathf.Sin(phase) * pose.skate_width_m * .25f, -pose.hip_drop_m, 0));
+            rig.Rotate(AthleteBone.Hips, Quaternion.Euler(0, 0, -CornerLeanDegrees));
             rig.Rotate(AthleteBone.Spine, Quaternion.Euler(pose.torso_lean_deg * .6f, 0, 0));
             rig.Rotate(AthleteBone.Chest, Quaternion.Euler(pose.torso_lean_deg * .4f, 0, 0));
             rig.Rotate(AthleteBone.Neck, Quaternion.Euler(-pose.torso_lean_deg * .7f, 0, 0));

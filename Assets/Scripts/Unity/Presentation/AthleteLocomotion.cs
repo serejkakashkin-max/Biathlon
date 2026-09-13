@@ -35,6 +35,7 @@ namespace Biathlon.Unity.Presentation
         public string id;
         public float idle_speed_mps, climb_grade, descent_grade, attack_effort, sprint_effort;
         public float transition_s, ski_v_deg, ankle_height_m;
+        public float corner_max_lean_deg, corner_response_s, corner_gravity_mps2, corner_sample_half_span_m;
         public float climb_effort_low, climb_effort_high, climb_motion_low, climb_motion_high;
         public LocomotionPose[] poses;
         public static AthleteLocomotionSettings Load() => FromJson(Resources.Load<TextAsset>("Biathlon/athlete_locomotion_v1").text);
@@ -51,6 +52,7 @@ namespace Biathlon.Unity.Presentation
                 if (p == null || p.state != ((SkiLocomotion)i).ToString()) throw new ArgumentException("Locomotion poses require canonical state order.");
                 foreach (float value in new[] { p.hip_drop_m, p.torso_lean_deg, p.skate_width_m, p.stride_m, p.foot_lift_m, p.cadence_hz, p.hand_forward_m, p.hand_height_m, p.arm_swing_m, p.hand_width_m,
                     d.idle_speed_mps, d.climb_grade, d.descent_grade, d.attack_effort, d.sprint_effort, d.transition_s, d.ski_v_deg, d.ankle_height_m,
+                    d.corner_max_lean_deg, d.corner_response_s, d.corner_gravity_mps2, d.corner_sample_half_span_m,
                     d.climb_effort_low,d.climb_effort_high,d.climb_motion_low,d.climb_motion_high })
                     if (float.IsNaN(value) || float.IsInfinity(value)) throw new ArgumentException("Locomotion values must be finite.");
                 if (p.hip_drop_m < 0 || p.hip_drop_m > .5f || p.cadence_hz < 0 || p.cadence_hz > 4 || p.skate_width_m < 0 || p.skate_width_m > .5f || p.stride_m < 0 || p.stride_m > .5f || p.foot_lift_m < 0 || p.foot_lift_m > .2f)
@@ -58,24 +60,36 @@ namespace Biathlon.Unity.Presentation
             }
             if (d.climb_effort_high <= d.climb_effort_low || d.climb_motion_low <= 0 || d.climb_motion_high < d.climb_motion_low)
                 throw new ArgumentException("Invalid climb intensity envelope.");
+            if (d.corner_max_lean_deg <= 0 || d.corner_max_lean_deg > 40 || d.corner_response_s <= 0 || d.corner_gravity_mps2 <= 0 || d.corner_sample_half_span_m <= 0)
+                throw new ArgumentException("Invalid presentation corner envelope.");
             return d;
         }
     }
 
     public readonly struct LocomotionInput
     {
-        public readonly float Speed, Grade, Effort;
+        public readonly float Speed, Grade, Effort, Curvature;
         public readonly bool Tuck, Sprint, Travelling;
-        public LocomotionInput(float speed, float grade, float effort, bool tuck = false, bool sprint = false, bool travelling = true)
+        public LocomotionInput(float speed, float grade, float effort, bool tuck = false, bool sprint = false, bool travelling = true, float curvature = 0)
         {
             if (float.IsNaN(speed) || float.IsInfinity(speed) || speed < 0 || float.IsNaN(grade) || float.IsInfinity(grade) || float.IsNaN(effort) || float.IsInfinity(effort) || effort < 0)
                 throw new ArgumentException("Invalid locomotion observation.");
             Speed = speed; Grade = grade; Effort = effort; Tuck = tuck; Sprint = sprint; Travelling = travelling;
+            if (float.IsNaN(curvature) || float.IsInfinity(curvature)) throw new ArgumentException("Invalid course curvature.");
+            Curvature = curvature;
         }
     }
 
     public static class AthleteLocomotion
     {
+        // Positive signed curvature turns toward local +X. This is a visual lean target;
+        // it neither applies a force nor reads/modifies the authoritative cornering system.
+        public static float CornerLean(LocomotionInput input, AthleteLocomotionSettings settings)
+        {
+            if (!input.Travelling || input.Speed <= settings.idle_speed_mps) return 0;
+            return Mathf.Clamp(Mathf.Atan(input.Speed * input.Speed * input.Curvature / settings.corner_gravity_mps2) * Mathf.Rad2Deg,
+                -settings.corner_max_lean_deg, settings.corner_max_lean_deg);
+        }
         public static SkiLocomotion Select(LocomotionInput input, AthleteLocomotionSettings settings)
         {
             if (!input.Travelling || input.Speed <= settings.idle_speed_mps) return SkiLocomotion.Idle;

@@ -10,11 +10,14 @@ namespace Biathlon.Unity.Presentation
         public AthletePresentationState Athlete { get; }
         public double TimeSeconds { get; }
         public long Tick { get; }
-        public AthleteAnimationFrame(AthletePresentationState athlete, long tick, int frequency, double alpha)
+        public double PresentationCurvature { get; }
+        public AthleteAnimationFrame(AthletePresentationState athlete, long tick, int frequency, double alpha, double? presentationCurvature = null)
         {
             if (tick < 0 || frequency <= 0 || double.IsNaN(alpha) || double.IsInfinity(alpha) || alpha < 0 || alpha > 1)
                 throw new ArgumentOutOfRangeException(nameof(alpha));
             Athlete = athlete; Tick = tick;
+            PresentationCurvature = presentationCurvature ?? athlete.CourseCurvaturePerMeter;
+            if (double.IsNaN(PresentationCurvature) || double.IsInfinity(PresentationCurvature)) throw new ArgumentOutOfRangeException(nameof(presentationCurvature));
             TimeSeconds = Math.Max(0, tick - 1 + alpha) / frequency;
         }
     }
