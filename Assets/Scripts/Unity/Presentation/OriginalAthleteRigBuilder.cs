@@ -92,6 +92,7 @@ namespace Biathlon.Unity.Presentation
             binding.Configure(root,bones,sockets);
             root.gameObject.AddComponent<AthleteLocomotionDriver>();
             root.gameObject.AddComponent<AthleteRiflePresentation>();
+            root.gameObject.AddComponent<AthleteShootingPose>();
             return binding;
 
             void Bone(AthleteBone id,Transform ancestor,Vector3 at) => bones[(int)id]=Child(id.ToString(),ancestor,at);

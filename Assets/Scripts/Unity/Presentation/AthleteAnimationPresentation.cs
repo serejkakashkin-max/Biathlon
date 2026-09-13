@@ -33,6 +33,7 @@ namespace Biathlon.Unity.Presentation
         private AthleteRigBinding rig;
         private AthletePoseDriver driver;
         private AthleteRiflePresentation rifle;
+        private AthleteShootingPose shootingPose;
         public AthleteRigBinding Rig => rig;
         public AthleteAnimationFrame LastFrame { get; private set; }
 
@@ -42,6 +43,7 @@ namespace Biathlon.Unity.Presentation
             binding.Validate(); rig = binding;
             driver = binding.GetComponent<AthletePoseDriver>();
             rifle = binding.GetComponent<AthleteRiflePresentation>();
+            shootingPose = binding.GetComponent<AthleteShootingPose>();
         }
 
         public void Render(AthleteAnimationFrame frame)
@@ -57,6 +59,7 @@ namespace Biathlon.Unity.Presentation
             var modelRotation = rig.ModelRoot.localRotation;
             if (rig.Animator == null) rig.ResetPose();
             if (driver != null) driver.Apply(rig, frame);
+            if (shootingPose != null) shootingPose.Render(rig, frame);
             if (rifle != null) rifle.Render(rig, frame);
             rig.ModelRoot.SetLocalPositionAndRotation(modelPosition, modelRotation);
             transform.SetLocalPositionAndRotation(position, rotation);

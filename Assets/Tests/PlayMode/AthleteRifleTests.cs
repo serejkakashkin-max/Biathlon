@@ -27,6 +27,11 @@ namespace Biathlon.PlayModeTests
                     runner.Step(); var snapshot = RacePresentationSnapshot.Capture(runner.Field); var a = snapshot.Get(0);
                     feed.Publish(snapshot); proxies.Render(1);
                     var rifle = proxies.GetRig(a.AthleteId).GetComponent<AthleteRiflePresentation>();
+                    if (a.ShootingPhase == ShootingPhase.Aiming && a.Stance == Biathlon.Domain.ShootingStance.Prone)
+                    {
+                        var rig = proxies.GetRig(a.AthleteId);
+                        Assert.That(rig.transform.InverseTransformPoint(rig.Bone(AthleteBone.Head).position).y, Is.LessThan(.5f), "Prone body must be ready at the actual aiming deadline.");
+                    }
                     Assert.That(rifle.TransferProgress, Is.EqualTo(AthleteRiflePresentation.Progress(a.ShootingPhase, a.ShootingPhaseElapsedTicks, a.ShootingPhaseDurationTicks)));
                     Assert.That(runner.Field.Tick.Value, Is.EqualTo(snapshot.Tick));
                     Assert.That(runner.Field.GetAthlete(0).ActiveShooting?.PhaseRemainingTicks ?? 0, Is.EqualTo(a.ShootingPhaseRemainingTicks));

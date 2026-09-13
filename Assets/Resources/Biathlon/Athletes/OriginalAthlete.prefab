@@ -696,6 +696,7 @@ GameObject:
   - component: {fileID: 6804015094181078297}
   - component: {fileID: 664044784824305691}
   - component: {fileID: 755540960876451969}
+  - component: {fileID: 8123648323286439090}
   m_Layer: 0
   m_Name: OriginalAthlete
   m_TagString: Untagged
@@ -799,6 +800,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cffc2a9df44957e4586663bd672068d0, type: 3}
   m_Name:
   m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteRiflePresentation
+--- !u!114 &8123648323286439090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4176763849198726018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44b866b63fedd604eb8becf15e63e414, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteShootingPose
 --- !u!1 &4314833669292906823
 GameObject:
   m_ObjectHideFlags: 0
