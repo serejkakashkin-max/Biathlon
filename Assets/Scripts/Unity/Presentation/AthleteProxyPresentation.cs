@@ -17,7 +17,7 @@ namespace Biathlon.Unity.Presentation
         public void Initialize(RacePresentationFeed source,TrackVisualDefinition geometry)
         {
             if(source==null||geometry==null)throw new ArgumentNullException();Clear();feed=source;visual=geometry;
-            material=new Material(Shader.Find("Universal Render Pipeline/Lit")){color=new Color(.85f,.15f,.12f)};
+            material=new Material(Resources.Load<Material>("Biathlon/GreyboxLit")){color=new Color(.85f,.15f,.12f)};
         }
         public void Render(double alpha)
         {

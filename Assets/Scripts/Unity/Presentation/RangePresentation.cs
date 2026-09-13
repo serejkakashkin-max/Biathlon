@@ -28,8 +28,8 @@ namespace Biathlon.Unity.Presentation
             // A camera-local stage avoids changing the venue or using its schematic target spacing.
             stage=new GameObject("Range target stage");stage.transform.SetParent(transform,false);
             stage.transform.localPosition=new Vector3(0,-10000,0);
-            openMaterial=new Material(Shader.Find("Universal Render Pipeline/Unlit")){color=Color.black};
-            closedMaterial=new Material(Shader.Find("Universal Render Pipeline/Unlit")){color=Color.white};
+            openMaterial=new Material(Resources.Load<Material>("Biathlon/GreyboxUnlit")){color=Color.black};
+            closedMaterial=new Material(Resources.Load<Material>("Biathlon/GreyboxUnlit")){color=Color.white};
             for(int i=0;i<targets.Length;i++)
             {
                 var disk=GameObject.CreatePrimitive(PrimitiveType.Cylinder);disk.transform.SetParent(stage.transform,false);

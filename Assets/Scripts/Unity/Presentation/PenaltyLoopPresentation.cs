@@ -26,7 +26,7 @@ namespace Biathlon.Unity.Presentation
             if(guide!=null)Destroy(guide.gameObject);if(material!=null)Destroy(material);
             feed=source;athleteId=selected;loopId=track.Penalty.LoopId;length=track.GetLoop(loopId).Length.Millimeters/1000.0;rendered=null;
             var route=visual.Get(loopId);var child=new GameObject("Penalty route guide");child.transform.SetParent(transform,false);guide=child.AddComponent<LineRenderer>();
-            material=new Material(Shader.Find("Universal Render Pipeline/Unlit")){color=new Color(1,.6f,.1f)};guide.sharedMaterial=material;
+            material=new Material(Resources.Load<Material>("Biathlon/GreyboxUnlit")){color=new Color(1,.6f,.1f)};guide.sharedMaterial=material;
             guide.useWorldSpace=false;guide.widthMultiplier=.25f;int steps=(int)Math.Ceiling(length/visual.SampleSpacing);guide.positionCount=steps+1;
             for(int i=0;i<=steps;i++){var p=route.Sample(length*i/steps);guide.SetPosition(i,new Vector3((float)p.X,(float)p.Y+.2f,(float)p.Z));}
             guide.enabled=false;Refresh();
