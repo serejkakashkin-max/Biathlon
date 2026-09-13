@@ -4,19 +4,19 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M10 Unity greybox; M1–M9 PASS
-active_work_package: WP-139
-active_task: TASK-139 screenshot/playtest harness
-last_completed_task: TASK-138 playable Mass Start greybox
+active_work_package: WP-140
+active_task: TASK-140 Windows build smoke
+last_completed_task: TASK-139 screenshot/playtest harness
 last_verified_commit: 233e43f; WP138 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 546 discovered; WP138 grid5/5; prior qualification4/4; prior player-pack2/2; prior HUD1/1; prior penalty10/10; prior shooting/session5/5; prior snapshot1/1, device8/8; M9 actual-season byte parity PASS
-playmode_tests: WP138 full30 host1/1 (23 discovered); prior Sprint-Pursuit chain1/1; prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
+playmode_tests: WP139 evidence1/1 (24 discovered); prior full30 host1/1; prior Sprint-Pursuit chain1/1; prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
 standalone_tests: WP138 grid/results7/7; WP137 qualification/field6/6; WP136 player-pack/snapshot3/3; WP135 HUD/snapshot2/2; WP134 penalty10/10; WP133 aim/session10/10; WP130 input/replay11/11; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
-unity_console_errors: 0 after WP138 Mass Start PlayMode and MCP checks
+unity_console_errors: 0 after WP139 harness PlayMode and MCP checks
 unity_console_warnings: 1; compilation_failed=false
 current_known_blockers: []
 owner_decisions_needed: []
-next_unlocked_work_packages: [WP-139]
+next_unlocked_work_packages: [WP-140]
 ```
 
 ## Work packages
@@ -159,10 +159,11 @@ next_unlocked_work_packages: [WP-139]
 - WP-136 DONE. Playable Sprint scene, player/shared AI physics, full host race and keyboard Game View verified; human feel awaits G1.
 - WP-137 DONE. Sprint-result transition, reordered player identity and full Pursuit completion verified.
 - WP-138 DONE. Playable30-athlete Mass Start scene, full host finish and early pack Game View verified.
-- WP-139 IN PROGRESS. Screenshot/playtest harness.
+- WP-139 DONE. Frozen MCP screenshots, versioned state and integrity evidence verified; ribbon overlap logged.
+- WP-140 IN PROGRESS. Windows development build smoke.
 
 ## Resume
-M8 and M9 PASS. User authorized continuation into M10. WP138 complete; next WP139. Owner gate G1 follows hands-on greybox at WP140.
+M8 and M9 PASS. User authorized continuation into M10. WP139 complete; next WP140. Owner gate G1 follows hands-on greybox at WP140.
 The provisional first-playable tuning version locks127 inputs; see TASK-102-M8-REPORT.md and quality/m8/verification.json.
 Full .NET505/505 plus final tuner/lock5/5; Unity new15/15, PlayMode7/7; Console0 errors/1 warning.
 WP096 top cohort meets provisional GDD shooting windows. Draft/stat/equipment sensitivity and AI parity are measured.
@@ -250,3 +251,5 @@ WP113 publication confirmed: 3def284. WP114: .NET career17/17, Unity1/1; publica
 WP121 progress: full .NET540/540 PASS; initial actual-season Unity1/1 and byte-identical .NET/Unity saves. Mental pressure-context correction implemented; corrected career30/30 and Unity season1/1 PASS with byte-identical final saves. WP122 actual 15-season soak PASS. See TASK-121-REPORT.md. M9 closed by TASK124.
 
 M9 publication confirmed: b8ee32bac075cbd658a18172aa53fd8d2db42dbe. Every WP103–124 is individually marked DONE above; At that publication WP125/M10 had not started; user subsequently authorized continuation.
+
+WP139 visual finding: coplanar schematic ribbons overlap near the penalty loop; evidence docs/quality/m10/wp139/tick-002500.png. Presentation fix pending; no authoritative movement impact.
