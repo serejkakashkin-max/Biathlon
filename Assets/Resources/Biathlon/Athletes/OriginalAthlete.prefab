@@ -91,7 +91,7 @@ Transform:
   m_GameObject: {fileID: 780275353287830320}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.08, z: 0.02}
+  m_LocalPosition: {x: 0, y: -0.107, z: 0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -645,7 +645,7 @@ Transform:
   m_GameObject: {fileID: 3898430582810666179}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.08, z: 0.02}
+  m_LocalPosition: {x: 0, y: -0.107, z: 0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -697,6 +697,7 @@ GameObject:
   - component: {fileID: 664044784824305691}
   - component: {fileID: 755540960876451969}
   - component: {fileID: 8123648323286439090}
+  - component: {fileID: 1130903796489568245}
   m_Layer: 0
   m_Name: OriginalAthlete
   m_TagString: Untagged
@@ -812,6 +813,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b866b63fedd604eb8becf15e63e414, type: 3}
   m_Name:
   m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteShootingPose
+--- !u!114 &1130903796489568245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4176763849198726018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3798722378b6c5f4190a2b67928b3489, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteGroundContact
 --- !u!1 &4314833669292906823
 GameObject:
   m_ObjectHideFlags: 0

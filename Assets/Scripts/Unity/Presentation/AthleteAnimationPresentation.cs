@@ -11,12 +11,15 @@ namespace Biathlon.Unity.Presentation
         public double TimeSeconds { get; }
         public long Tick { get; }
         public double PresentationCurvature { get; }
-        public AthleteAnimationFrame(AthletePresentationState athlete, long tick, int frequency, double alpha, double? presentationCurvature = null)
+        public double PresentationGrade { get; }
+        public AthleteAnimationFrame(AthletePresentationState athlete, long tick, int frequency, double alpha, double? presentationCurvature = null, double? presentationGrade = null)
         {
             if (tick < 0 || frequency <= 0 || double.IsNaN(alpha) || double.IsInfinity(alpha) || alpha < 0 || alpha > 1)
                 throw new ArgumentOutOfRangeException(nameof(alpha));
             Athlete = athlete; Tick = tick;
             PresentationCurvature = presentationCurvature ?? athlete.CourseCurvaturePerMeter;
+            PresentationGrade = presentationGrade ?? athlete.CourseGrade;
+            if (!double.IsFinite(PresentationGrade)) throw new ArgumentOutOfRangeException(nameof(presentationGrade));
             if (double.IsNaN(PresentationCurvature) || double.IsInfinity(PresentationCurvature)) throw new ArgumentOutOfRangeException(nameof(presentationCurvature));
             TimeSeconds = Math.Max(0, tick - 1 + alpha) / frequency;
         }
@@ -34,6 +37,7 @@ namespace Biathlon.Unity.Presentation
         private AthletePoseDriver driver;
         private AthleteRiflePresentation rifle;
         private AthleteShootingPose shootingPose;
+        private AthleteGroundContact contact;
         public AthleteRigBinding Rig => rig;
         public AthleteAnimationFrame LastFrame { get; private set; }
 
@@ -44,6 +48,7 @@ namespace Biathlon.Unity.Presentation
             driver = binding.GetComponent<AthletePoseDriver>();
             rifle = binding.GetComponent<AthleteRiflePresentation>();
             shootingPose = binding.GetComponent<AthleteShootingPose>();
+            contact = binding.GetComponent<AthleteGroundContact>();
         }
 
         public void Render(AthleteAnimationFrame frame)
@@ -61,6 +66,7 @@ namespace Biathlon.Unity.Presentation
             if (driver != null) driver.Apply(rig, frame);
             if (shootingPose != null) shootingPose.Render(rig, frame);
             if (rifle != null) rifle.Render(rig, frame);
+            if (contact != null) contact.Render(rig, frame);
             rig.ModelRoot.SetLocalPositionAndRotation(modelPosition, modelRotation);
             transform.SetLocalPositionAndRotation(position, rotation);
             transform.localScale = scale;

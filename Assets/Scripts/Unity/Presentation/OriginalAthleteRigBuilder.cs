@@ -93,6 +93,7 @@ namespace Biathlon.Unity.Presentation
             root.gameObject.AddComponent<AthleteLocomotionDriver>();
             root.gameObject.AddComponent<AthleteRiflePresentation>();
             root.gameObject.AddComponent<AthleteShootingPose>();
+            root.gameObject.AddComponent<AthleteGroundContact>();
             return binding;
 
             void Bone(AthleteBone id,Transform ancestor,Vector3 at) => bones[(int)id]=Child(id.ToString(),ancestor,at);
@@ -116,7 +117,7 @@ namespace Biathlon.Unity.Presentation
                 Bone(shin,bones[(int)thigh],new Vector3(0,-.44f,0));
                 Bone(foot,bones[(int)shin],new Vector3(0,-.38f,0));
                 Socket(right?AthleteSocket.RightHandGrip:AthleteSocket.LeftHandGrip,hand,new Vector3(0,-.056f,.026f),Quaternion.identity);
-                Socket(right?AthleteSocket.RightSkiBinding:AthleteSocket.LeftSkiBinding,foot,new Vector3(0,-.080f,.02f),Quaternion.identity);
+                Socket(right?AthleteSocket.RightSkiBinding:AthleteSocket.LeftSkiBinding,foot,new Vector3(0,-.107f,.02f),Quaternion.identity);
             }
             void Add(AthleteBone bone,string label,Material material,Mesh mesh,Vector3 offset=default)
                 => body.Add(new BodyPiece((int)bone,material,mesh,Matrix4x4.Translate(offset)));
