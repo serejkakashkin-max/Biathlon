@@ -9,40 +9,50 @@ namespace Biathlon.Unity.Presentation
         private RacePresentationFeed feed;
         private TrackVisualDefinition visual;
         private readonly Dictionary<string,GameObject> proxies=new Dictionary<string,GameObject>(StringComparer.Ordinal);
-        private Material material;
+        private readonly Dictionary<string,AthleteAnimationPresentation> animation=new Dictionary<string,AthleteAnimationPresentation>(StringComparer.Ordinal);
+        private readonly HashSet<string> keep=new HashSet<string>(StringComparer.Ordinal);
+        private readonly List<string> removed=new List<string>();
+        private AthleteRigBinding rigPrefab;
         private double publishedAt;
         private long observedTick=-1;
         public int Count=>proxies.Count;
         public Transform GetProxy(string athleteId)=>proxies[athleteId].transform;
-        public void Initialize(RacePresentationFeed source,TrackVisualDefinition geometry)
+        public AthleteRigBinding GetRig(string athleteId)=>animation[athleteId].Rig;
+        public void Initialize(RacePresentationFeed source,TrackVisualDefinition geometry,AthleteRigBinding template=null)
         {
             if(source==null||geometry==null)throw new ArgumentNullException();Clear();feed=source;visual=geometry;
-            material=new Material(Resources.Load<Material>("Biathlon/GreyboxLit")){color=new Color(.85f,.15f,.12f)};
+            rigPrefab=template;
         }
         public void Render(double alpha)
         {
-            if(feed==null||feed.Current==null)return;if(feed.Current.TrackId!=visual.TrackId)throw new InvalidOperationException("Proxy geometry does not match snapshot.");
-            var current=feed.Current;var keep=new HashSet<string>(StringComparer.Ordinal);
+            if(double.IsNaN(alpha)||double.IsInfinity(alpha)||alpha<0||alpha>1)throw new ArgumentOutOfRangeException(nameof(alpha));
+            if(feed==null)return;if(feed.Current==null){Clear();return;}if(feed.Current.TrackId!=visual.TrackId)throw new InvalidOperationException("Proxy geometry does not match snapshot.");
+            var current=feed.Current;keep.Clear();
             for(int i=0;i<current.Count;i++)
             {
                 var state=current.Get(i);keep.Add(state.AthleteId);
                 if(!proxies.TryGetValue(state.AthleteId,out var go))
                 {
-                    go=GameObject.CreatePrimitive(PrimitiveType.Capsule);go.name="Athlete proxy";go.transform.SetParent(transform,false);Destroy(go.GetComponent<Collider>());go.GetComponent<Renderer>().sharedMaterial=material;proxies.Add(state.AthleteId,go);
+                    go=new GameObject("Athlete presentation pivot");go.transform.SetParent(transform,false);
+                    var rig=rigPrefab!=null?Instantiate(rigPrefab,go.transform,false):OriginalAthleteRigBuilder.Create(go.transform);
+                    rig.transform.localPosition=Vector3.down;
+                    var adapter=go.AddComponent<AthleteAnimationPresentation>();adapter.Initialize(rig);
+                    proxies.Add(state.AthleteId,go);animation.Add(state.AthleteId,adapter);
                 }
                 go.SetActive(state.OnCourse);if(!state.OnCourse)continue;var position=feed.Position(i,alpha);var point=visual.Get(position.LoopId).Sample(position.LocalMeters);
                 go.transform.localPosition=new Vector3((float)(point.X+point.ForwardZ*position.LateralMeters),(float)point.Y+1,(float)(point.Z-point.ForwardX*position.LateralMeters));
                 go.transform.localRotation=Quaternion.LookRotation(new Vector3((float)point.ForwardX,0,(float)point.ForwardZ),Vector3.up);
+                animation[state.AthleteId].Render(new AthleteAnimationFrame(state,current.Tick,current.TickFrequency,alpha));
             }
-            var removed=new List<string>();foreach(var id in proxies.Keys)if(!keep.Contains(id))removed.Add(id);foreach(var id in removed){Destroy(proxies[id]);proxies.Remove(id);}
+            removed.Clear();foreach(var id in proxies.Keys)if(!keep.Contains(id))removed.Add(id);foreach(var id in removed){Destroy(proxies[id]);proxies.Remove(id);animation.Remove(id);}
         }
         private void LateUpdate()
         {
-            if(feed==null||feed.Current==null)return;
+            if(feed==null)return;if(feed.Current==null){Clear();return;}
             if(observedTick!=feed.Current.Tick){observedTick=feed.Current.Tick;publishedAt=Time.timeAsDouble;}
             Render(Math.Min(1,(Time.timeAsDouble-publishedAt)*feed.Current.TickFrequency));
         }
-        private void Clear(){foreach(var go in proxies.Values)if(go!=null)Destroy(go);proxies.Clear();if(material!=null)Destroy(material);observedTick=-1;}
+        private void Clear(){foreach(var go in proxies.Values)if(go!=null)Destroy(go);proxies.Clear();animation.Clear();keep.Clear();removed.Clear();observedTick=-1;}
         private void OnDestroy()=>Clear();
     }
 }

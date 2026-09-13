@@ -11,6 +11,11 @@ namespace Biathlon.Simulation
         public long LocalNanometers { get; }
         public double LateralMeters { get; }
         public double SpeedMetersPerSecond { get; }
+        public bool TuckActive { get; }
+        public bool FinalSprintActive { get; }
+        /// <summary>Completed-position course slope (rise/run) and signed turning curvature (1/m).</summary>
+        public double CourseGrade { get; }
+        public double CourseCurvaturePerMeter { get; }
         public PhysiologyState Physiology { get; }
         public EffortOutput Effort { get; }
         public DraftOutput Draft { get; }
@@ -22,21 +27,38 @@ namespace Biathlon.Simulation
         public bool OnCourse { get; }
         public int RangeLane { get; }
         public bool ShootingActive { get; }
+        public ShootingPhase ShootingPhase { get; }
+        public int ShootingPhaseDurationTicks { get; }
+        public int ShootingPhaseRemainingTicks { get; }
+        public int ShootingPhaseElapsedTicks { get; }
+        public ShootingSwayFrame ShootingSway { get; }
         public int ClosedTargetsMask { get; }
         public int ShotsFired { get; }
         public WeaponAimState Sight { get; }
         public ShootingStance Stance { get; }
         public ShotOutcome ShotOutcome { get; }
         public TargetIntersection ShotImpact { get; }
-        internal AthletePresentationState(PackSprintFieldSession field,int index)
+        internal AthletePresentationState(PackSprintFieldSession field,int index,TrackSampler penaltySampler)
         {
             Hud=new RaceHudState(field,index);
             var a=field.GetAthlete(index);var point=field.GetPhysicalPoint(index);var shooting=a.ActiveShooting;
             AthleteId=a.AthleteId.Value;LoopId=point.LoopId;LocalNanometers=point.LocalNanometers;LateralMeters=field.GetLateral(index);
             SpeedMetersPerSecond=a.Motion.SpeedMetersPerSecond;Physiology=a.PhysiologyState;Phase=a.Lifecycle.Phase;
+            TuckActive=a.TuckActive;FinalSprintActive=a.FinalSprintActive;
+            var range=a.CurrentRangeMotion;
+            var course=a.RemainingStartApproachNanometers>0 ? field.StartApproach.Sample(a.RemainingStartApproachNanometers) :
+                range.HasValue&&range.Value.Phase==RangeTraversalPhase.PenaltyLoop ?
+                    penaltySampler.Sample(new TrackDistance(range.Value.PenaltyNanometers/SkiState.NanometersPerMillimeter)) :
+                    field.Route.Sample(new TrackDistance(a.RouteNanometers/SkiState.NanometersPerMillimeter)).Track;
+            CourseGrade=course.Grade;CourseCurvaturePerMeter=course.CurvaturePerMeter;
             Effort=a.LastFrame.Physiology.Effort;Draft=field.GetDraft(index);
             CompletedLaps=a.Lifecycle.CompletedLaps;CompletedBouts=a.Lifecycle.CompletedBouts;PendingPenaltyLoops=a.Lifecycle.PendingPenaltyLoops;TotalPenaltyLoops=a.TotalPenaltyLoops;
             OnCourse=field.IsOnCourse(index);RangeLane=field.GetAssignedRangeLane(index);ShootingActive=shooting!=null;
+            ShootingPhase=shooting?.Phase??ShootingPhase.Outside;
+            ShootingPhaseDurationTicks=shooting?.PhaseDurationTicks??0;
+            ShootingPhaseRemainingTicks=shooting?.PhaseRemainingTicks??0;
+            ShootingPhaseElapsedTicks=shooting?.PhaseElapsedTicks??0;
+            ShootingSway=shooting?.LastFrame.Sway??default;
             ClosedTargetsMask=shooting?.ClosedMask??0;ShotsFired=shooting?.ShotsFired??0;
             Sight=shooting?.Sight??default;Stance=field.Profile.GetBout(Math.Min(a.Lifecycle.CompletedBouts,field.Profile.BoutCount-1)).Stance;
             ShotOutcome=shooting?.LastFrame.Shot.Outcome??ShotOutcome.NoShot;ShotImpact=shooting?.LastFrame.Shot.Impact??default;
@@ -55,7 +77,8 @@ namespace Biathlon.Simulation
         private RacePresentationSnapshot(PackSprintFieldSession field)
         {
             Tick=field.Tick.Value;TickFrequency=field.TickFrequency;TrackId=field.Track.Id;ProfileId=field.Profile.Id;Complete=field.IsComplete;
-            athletes=new AthletePresentationState[field.Count];for(int i=0;i<athletes.Length;i++)athletes[i]=new AthletePresentationState(field,i);
+            var penaltySampler=new TrackSampler(field.Track.GetLoop(field.Track.Penalty.LoopId));
+            athletes=new AthletePresentationState[field.Count];for(int i=0;i<athletes.Length;i++)athletes[i]=new AthletePresentationState(field,i,penaltySampler);
         }
         // Call on the simulation owner thread after Step, never during a prepared step.
         public static RacePresentationSnapshot Capture(PackSprintFieldSession field)

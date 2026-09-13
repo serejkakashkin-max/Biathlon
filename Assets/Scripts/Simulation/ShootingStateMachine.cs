@@ -28,6 +28,11 @@ namespace Biathlon.Simulation
         public ShootingLaneAssignment Lane { get; private set; }
         public int ShotsFired { get; private set; }
         public ShootingFrame LastFrame { get; private set; }
+        /// <summary>Exact configured deadline span for timed phases; untimed phases report zero.</summary>
+        public int PhaseDurationTicks => Phase == ShootingPhase.Setup ? setupTicks :
+            Phase == ShootingPhase.BoltCycle ? boltTicks : Phase == ShootingPhase.Exiting ? exitTicks : 0;
+        public int PhaseRemainingTicks => PhaseDurationTicks == 0 ? 0 : (int)Math.Max(0, ready - tick);
+        public int PhaseElapsedTicks => PhaseDurationTicks - PhaseRemainingTicks;
         public ShootingStateMachine(ShootingDefinition definition, AthleteId athlete, string rangeId, int frequency,
             IRaceEventSink events, SimulationTick initialTick = default, ShootingStanceProfile stance = null, ShootingHandlingProfile? handling = null)
         {

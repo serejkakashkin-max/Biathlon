@@ -51,6 +51,9 @@ namespace Biathlon.Simulation
         public ShootingPhase Phase => shots.Phase;
         public int ShotsFired => shots.ShotsFired;
         public int ClosedMask => shots.ClosedMask;
+        public int PhaseDurationTicks => shots.PhaseDurationTicks;
+        public int PhaseRemainingTicks => shots.PhaseRemainingTicks;
+        public int PhaseElapsedTicks => shots.PhaseElapsedTicks;
         public string ContextJson { get; }
         public ShootingSessionFrame LastFrame { get; private set; }
         public WeaponAimState Sight => new WeaponAimState(Clip(LastFrame.Aim.YawRadians + LastFrame.Sway.HorizontalRadians + LastFrame.Handling.HorizontalRadians),

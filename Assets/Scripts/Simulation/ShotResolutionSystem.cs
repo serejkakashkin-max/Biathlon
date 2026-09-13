@@ -26,6 +26,9 @@ namespace Biathlon.Simulation
         public ShootingPhase Phase => lifecycle.Phase;
         public int ShotsFired => lifecycle.ShotsFired;
         public int ClosedMask => targets.ClosedMask;
+        public int PhaseDurationTicks => lifecycle.PhaseDurationTicks;
+        public int PhaseRemainingTicks => lifecycle.PhaseRemainingTicks;
+        public int PhaseElapsedTicks => lifecycle.PhaseElapsedTicks;
         internal void ValidateCommand(SimulationTick target, ShootingAction action, ShootingLaneAssignment lane) => lifecycle.ValidateCommand(target, action, lane);
         public ShotResolutionSystem(ShootingDefinition definition, TargetGeometryDefinition targetDefinition, ShootingWindDefinition windDefinition,
             ShootingStanceProfile stance, AthleteId athlete, string rangeId, int frequency, IRaceEventSink events, SimulationTick initialTick = default,

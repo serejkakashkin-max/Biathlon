@@ -26,6 +26,14 @@
 
 ## External asset candidates
 
+## Original project assets
+
+| ID | Asset | Source | Status | Intended use |
+|---|---|---|---|---|
+| ORIG-M11-001 | `Assets/Resources/Biathlon/Athletes/OriginalAthlete.prefab` and generated meshes/materials | Original repository-authored `OriginalAthleteRigBuilder.cs`; see `docs/licensing/m11/asset_licenses.md` | project-authored development asset | Replaceable humanoid/equipment pipeline validation; final quality remains subject to visual evidence |
+
+## External asset candidate register
+
 Add one row for every external asset considered.
 
 | ID | File / Asset | Category | Source | Exact license | Attribution | Status | Intended use | Imported files | Notes |
