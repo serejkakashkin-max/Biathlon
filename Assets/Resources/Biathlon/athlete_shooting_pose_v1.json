@@ -1,6 +1,12 @@
 {
   "schema_version": 1,
   "id": "athlete_shooting_pose_original_v1",
+  "standing_start": 0.5,
+  "standing_hip_height_m": 0.93,
+  "standing_yaw_deg": 60,
+  "standing_left_foot": {"x": -0.18, "y": 0.12, "z": 0.1},
+  "standing_right_foot": {"x": 0.18, "y": 0.12, "z": -0.1},
+  "standing_rifle_butt": {"x": 0.11, "y": 1.51, "z": -0.17},
   "lower_start": 0.35,
   "kneel_at": 0.7,
   "kneel_hip_height_m": 0.50,

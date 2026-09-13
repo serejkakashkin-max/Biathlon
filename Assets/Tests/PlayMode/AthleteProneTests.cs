@@ -19,7 +19,9 @@ namespace Biathlon.PlayModeTests
                 var head=rig.Bone(AthleteBone.Head);var root=rig.transform.position;
                 var standing=head.position;
                 Sample(ShootingStance.Standing,1);
-                Assert.That(head.position,Is.EqualTo(standing));
+                Assert.That(rig.transform.InverseTransformPoint(head.position).y,Is.GreaterThan(1.2f));
+                Assert.That(body.ProneWeight,Is.Zero);
+                Sample(ShootingStance.Standing,0);
                 var prior=head.position;
                 for(int i=0;i<=200;i++)
                 {

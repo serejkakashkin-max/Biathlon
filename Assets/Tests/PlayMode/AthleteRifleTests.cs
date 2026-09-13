@@ -21,7 +21,7 @@ namespace Biathlon.PlayModeTests
             try
             {
                 proxies.Initialize(feed, Biathlon.Domain.TrackVisualDefinition.FromJson(Read("stadium_visual_v1.json"), runner.Field.Track));
-                int seen = 0;
+                int seen = 0, stances = 0;
                 for (int tick = 0; tick < 20000; tick++)
                 {
                     runner.Step(); var snapshot = RacePresentationSnapshot.Capture(runner.Field); var a = snapshot.Get(0);
@@ -32,14 +32,25 @@ namespace Biathlon.PlayModeTests
                         var rig = proxies.GetRig(a.AthleteId);
                         Assert.That(rig.transform.InverseTransformPoint(rig.Bone(AthleteBone.Head).position).y, Is.LessThan(.5f), "Prone body must be ready at the actual aiming deadline.");
                     }
+                    if (a.ShootingPhase == ShootingPhase.Aiming)
+                    {
+                        stances |= 1 << (int)a.Stance;
+                        if (a.Stance == Biathlon.Domain.ShootingStance.Standing)
+                        {
+                            var rig = proxies.GetRig(a.AthleteId);
+                            Assert.That(rig.transform.InverseTransformPoint(rig.Bone(AthleteBone.Head).position).y, Is.GreaterThan(1.2f));
+                            Assert.That(Vector3.Dot(rig.Bone(AthleteBone.Hips).forward,rig.transform.right),Is.GreaterThan(.8f));
+                        }
+                    }
                     Assert.That(rifle.TransferProgress, Is.EqualTo(AthleteRiflePresentation.Progress(a.ShootingPhase, a.ShootingPhaseElapsedTicks, a.ShootingPhaseDurationTicks)));
                     Assert.That(runner.Field.Tick.Value, Is.EqualTo(snapshot.Tick));
                     Assert.That(runner.Field.GetAthlete(0).ActiveShooting?.PhaseRemainingTicks ?? 0, Is.EqualTo(a.ShootingPhaseRemainingTicks));
                     seen |= 1 << (int)a.ShootingPhase;
-                    if (a.CompletedBouts > 0 && !a.ShootingActive) break;
+                    if (a.CompletedBouts >= 2 && !a.ShootingActive) break;
                 }
                 foreach (var phase in new[] { ShootingPhase.Setup, ShootingPhase.Aiming, ShootingPhase.BoltCycle, ShootingPhase.Exiting })
                     Assert.That(seen & (1 << (int)phase), Is.Not.Zero, phase.ToString());
+                Assert.That(stances,Is.EqualTo(3),"Both actual Sprint stance deadlines are presented.");
             }
             finally { Object.DestroyImmediate(root); }
         }
