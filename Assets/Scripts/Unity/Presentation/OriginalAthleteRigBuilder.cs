@@ -90,6 +90,7 @@ namespace Biathlon.Unity.Presentation
             Equipment(sockets,rubber,metal,accent,bib);
             var binding = root.gameObject.AddComponent<AthleteRigBinding>();
             binding.Configure(root,bones,sockets);
+            root.gameObject.AddComponent<AthleteLocomotionDriver>();
             return binding;
 
             void Bone(AthleteBone id,Transform ancestor,Vector3 at) => bones[(int)id]=Child(id.ToString(),ancestor,at);

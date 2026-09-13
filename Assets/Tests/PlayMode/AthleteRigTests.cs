@@ -36,6 +36,7 @@ namespace Biathlon.PlayModeTests
             var feed = root.AddComponent<RacePresentationFeed>();
             var view = root.AddComponent<AthleteProxyPresentation>();
             var template = OriginalAthleteRigBuilder.Create(null);
+            Object.DestroyImmediate(template.GetComponent<AthleteLocomotionDriver>());
             // Asset labels are deliberately unrelated to gameplay IDs or binding conventions.
             for (int i = 0; i < (int)AthleteBone.Count; i++) template.Bone((AthleteBone)i).name = "arbitrary_" + i;
             template.gameObject.AddComponent<RootMovingTestPose>();
@@ -70,6 +71,7 @@ namespace Biathlon.PlayModeTests
         {
             var pivot = new GameObject("animator_pivot");
             var rig = OriginalAthleteRigBuilder.Create(pivot.transform);
+            Object.DestroyImmediate(rig.GetComponent<AthleteLocomotionDriver>());
             var animator = rig.ModelRoot.gameObject.AddComponent<Animator>();
             var bones = new Transform[(int)AthleteBone.Count];
             var sockets = new Transform[(int)AthleteSocket.Count];

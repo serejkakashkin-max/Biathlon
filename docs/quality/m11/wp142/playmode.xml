@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="30" result="Passed" total="30" passed="30" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-13 11:52:17Z" end-time="2026-09-13 11:53:41Z" duration="84,2913668">
+  <test-suite type="TestSuite" id="1059" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="30" result="Passed" start-time="2026-09-13 11:52:17Z" end-time="2026-09-13 11:53:41Z" duration="84.291367" total="30" passed="30" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1111" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="30" result="Passed" start-time="2026-09-13 11:52:17Z" end-time="2026-09-13 11:53:41Z" duration="84.284952" total="30" passed="30" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="34440" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1112" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="30" result="Passed" start-time="2026-09-13 11:52:17Z" end-time="2026-09-13 11:53:41Z" duration="84.282546" total="30" passed="30" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1113" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="30" result="Passed" start-time="2026-09-13 11:52:17Z" end-time="2026-09-13 11:53:41Z" duration="84.280733" total="30" passed="30" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1060" name="AthleteLocomotionTests" fullname="Biathlon.PlayModeTests.AthleteLocomotionTests" classname="Biathlon.PlayModeTests.AthleteLocomotionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-13 11:52:17Z" end-time="2026-09-13 11:52:17Z" duration="0.037138" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1062" name="MotionBlendsWithoutSnapsOrRootDriftAndPreservesLimbLengths" fullname="Biathlon.PlayModeTests.AthleteLocomotionTests.MotionBlendsWithoutSnapsOrRootDriftAndPreservesLimbLengths" methodname="MotionBlendsWithoutSnapsOrRootDriftAndPreservesLimbLengths" classname="Biathlon.PlayModeTests.AthleteLocomotionTests" runstate="Runnable" seed="891088760" result="Passed" start-time="2026-09-13 11:52:17Z" end-time="2026-09-13 11:52:17Z" duration="0.025864" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1061" name="StatesUseAcceptedTuckGradeAndEffortWithExplicitPriority" fullname="Biathlon.PlayModeTests.AthleteLocomotionTests.StatesUseAcceptedTuckGradeAndEffortWithExplicitPriority" methodname="StatesUseAcceptedTuckGradeAndEffortWithExplicitPriority" classname="Biathlon.PlayModeTests.AthleteLocomotionTests" runstate="Runnable" seed="318961044" result="Passed" start-time="2026-09-13 11:52:17Z" end-time="2026-09-13 11:52:17Z" duration="0.002194" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1063" name="AthleteProxyTests" fullname="Biathlon.PlayModeTests.AthleteProxyTests" classname="Biathlon.PlayModeTests.AthleteProxyTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-13 11:52:17Z" end-time="2026-09-13 11:52:17Z" duration="0.268168" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1064" name="ThirtyStableIdentitiesFollowSnapshotsWithoutMovingAuthority" fullname="Biathlon.PlayModeTests.AthleteProxyTests.ThirtyStableIdentitiesFollowSnapshotsWithoutMovingAuthority" methodname="ThirtyStableIdentitiesFollowSnapshotsWithoutMovingAuthority" classname="Biathlon.PlayModeTests.AthleteProxyTests" runstate="Runnable" seed="244844634" result="Passed" start-time="2026-09-13 11:52:17Z" end-time="2026-09-13 11:52:17Z" duration="0.265326" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1065" name="AthleteRigTests" fullname="Biathlon.PlayModeTests.AthleteRigTests" classname="Biathlon.PlayModeTests.AthleteRigTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-13 11:52:17Z" end-time="2026-09-13 11:52:17Z" duration="0.141798" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1067" name="AnimatorEvaluatedPoseIsPreservedAndRootMotionDisabled" fullname="Biathlon.PlayModeTests.AthleteRigTests.AnimatorEvaluatedPoseIsPreservedAndRootMotionDisabled" methodname="AnimatorEvaluatedPoseIsPreservedAndRootMotionDisabled" classname="Biathlon.PlayModeTests.AthleteRigTests" runstate="Runnable" seed="1598600695" result="Passed" start-time="2026-09-13 11:52:17Z" end-time="2026-09-13 11:52:17Z" duration="0.005309" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1068" name="PrefabHasCompleteBindingsAndPoseResetDoesNotDrift" fullname="Biathlon.PlayModeTests.AthleteRigTests.PrefabHasCompleteBindingsAndPoseResetDoesNotDrift" methodname="PrefabHasCompleteBindingsAndPoseResetDoesNotDrift" classname="Biathlon.PlayModeTests.AthleteRigTests" runstate="Runnable" seed="886239695" result="Passed" start-time="2026-09-13 11:52:17Z" end-time="2026-09-13 11:52:17Z" duration="0.004748" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1066" name="TypedBindingsEquipmentAndSwappedRigPreserveRaceAndCameraPivot" fullname="Biathlon.PlayModeTests.AthleteRigTests.TypedBindingsEquipmentAndSwappedRigPreserveRaceAndCameraPivot" methodname="TypedBindingsEquipmentAndSwappedRigPreserveRaceAndCameraPivot" classname="Biathlon.PlayModeTests.AthleteRigTests" runstate="Runnable" seed="835506811" result="Passed" start-time="2026-09-13 11:52:17Z" end-time="2026-09-13 11:52:17Z" duration="0.128151" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1069" name="ChaseCameraTests" fullname="Biathlon.PlayModeTests.ChaseCameraTests" classname="Biathlon.PlayModeTests.ChaseCameraTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-13 11:52:17Z" end-time="2026-09-13 11:52:17Z" duration="0.021916" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1070" name="CameraFollowsWithoutMovingTargetAndAvoidsVisualObstacles" fullname="Biathlon.PlayModeTests.ChaseCameraTests.CameraFollowsWithoutMovingTargetAndAvoidsVisualObstacles" methodname="CameraFollowsWithoutMovingTargetAndAvoidsVisualObstacles" classname="Biathlon.PlayModeTests.ChaseCameraTests" runstate="Runnable" seed="871276032" result="Passed" start-time="2026-09-13 11:52:17Z" end-time="2026-09-13 11:52:17Z" duration="0.018999" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1071" name="FoundationBootstrapTests" fullname="Biathlon.PlayModeTests.FoundationBootstrapTests" classname="Biathlon.PlayModeTests.FoundationBootstrapTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-13 11:52:17Z" end-time="2026-09-13 11:52:18Z" duration="0.318231" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1072" name="BootstrapLoadsDataAndAdvancesCoreTicks" fullname="Biathlon.PlayModeTests.FoundationBootstrapTests.BootstrapLoadsDataAndAdvancesCoreTicks" methodname="BootstrapLoadsDataAndAdvancesCoreTicks" classname="Biathlon.PlayModeTests.FoundationBootstrapTests" runstate="Runnable" seed="611348774" result="Passed" start-time="2026-09-13 11:52:17Z" end-time="2026-09-13 11:52:18Z" duration="0.154846" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1073" name="PausedGameTimeDoesNotAdvanceSimulation" fullname="Biathlon.PlayModeTests.FoundationBootstrapTests.PausedGameTimeDoesNotAdvanceSimulation" methodname="PausedGameTimeDoesNotAdvanceSimulation" classname="Biathlon.PlayModeTests.FoundationBootstrapTests" runstate="Runnable" seed="298684017" result="Passed" start-time="2026-09-13 11:52:18Z" end-time="2026-09-13 11:52:18Z" duration="0.159696" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1074" name="GreyboxVenueTests" fullname="Biathlon.PlayModeTests.GreyboxVenueTests" classname="Biathlon.PlayModeTests.GreyboxVenueTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-13 11:52:18Z" end-time="2026-09-13 11:52:18Z" duration="0.067287" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1075" name="GeneratedSceneHasTrackRangePenaltyAndCameraWithoutMissingMeshes" fullname="Biathlon.PlayModeTests.GreyboxVenueTests.GeneratedSceneHasTrackRangePenaltyAndCameraWithoutMissingMeshes" methodname="GeneratedSceneHasTrackRangePenaltyAndCameraWithoutMissingMeshes" classname="Biathlon.PlayModeTests.GreyboxVenueTests" runstate="Runnable" seed="1749268557" result="Passed" start-time="2026-09-13 11:52:18Z" end-time="2026-09-13 11:52:18Z" duration="0.065394" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1076" name="PackSprintPlayModeTests" fullname="Biathlon.PlayModeTests.PackSprintPlayModeTests" classname="Biathlon.PlayModeTests.PackSprintPlayModeTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-13 11:52:18Z" end-time="2026-09-13 11:52:18Z" duration="0.384557" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1077" name="ResourcesDriveSharedBodiesThroughCompleteSprint" fullname="Biathlon.PlayModeTests.PackSprintPlayModeTests.ResourcesDriveSharedBodiesThroughCompleteSprint" methodname="ResourcesDriveSharedBodiesThroughCompleteSprint" classname="Biathlon.PlayModeTests.PackSprintPlayModeTests" runstate="Runnable" seed="1333220334" result="Passed" start-time="2026-09-13 11:52:18Z" end-time="2026-09-13 11:52:18Z" duration="0.376285" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1078" name="PenaltyPresentationTests" fullname="Biathlon.PlayModeTests.PenaltyPresentationTests" classname="Biathlon.PlayModeTests.PenaltyPresentationTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-13 11:52:18Z" end-time="2026-09-13 11:52:18Z" duration="0.098689" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1079" name="GeometricMissesTraversePenaltyGuideAndRejoin" fullname="Biathlon.PlayModeTests.PenaltyPresentationTests.GeometricMissesTraversePenaltyGuideAndRejoin" methodname="GeometricMissesTraversePenaltyGuideAndRejoin" classname="Biathlon.PlayModeTests.PenaltyPresentationTests" runstate="Runnable" seed="594373894" result="Passed" start-time="2026-09-13 11:52:18Z" end-time="2026-09-13 11:52:18Z" duration="0.096049" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1080" name="PlayableMassStartTests" fullname="Biathlon.PlayModeTests.PlayableMassStartTests" classname="Biathlon.PlayModeTests.PlayableMassStartTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-13 11:52:18Z" end-time="2026-09-13 11:53:39Z" duration="80.828571" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1081" name="ThirtyAthletesCompleteWithPlayerAndSharedGrid" fullname="Biathlon.PlayModeTests.PlayableMassStartTests.ThirtyAthletesCompleteWithPlayerAndSharedGrid" methodname="ThirtyAthletesCompleteWithPlayerAndSharedGrid" classname="Biathlon.PlayModeTests.PlayableMassStartTests" runstate="Runnable" seed="20120457" result="Passed" start-time="2026-09-13 11:52:18Z" end-time="2026-09-13 11:53:39Z" duration="80.826255" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1082" name="PlayablePursuitTests" fullname="Biathlon.PlayModeTests.PlayablePursuitTests" classname="Biathlon.PlayModeTests.PlayablePursuitTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-13 11:53:39Z" end-time="2026-09-13 11:53:40Z" duration="1.207953" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1083" name="SprintLoserRetainsIdentityAndQualificationGapInPursuit" fullname="Biathlon.PlayModeTests.PlayablePursuitTests.SprintLoserRetainsIdentityAndQualificationGapInPursuit" methodname="SprintLoserRetainsIdentityAndQualificationGapInPursuit" classname="Biathlon.PlayModeTests.PlayablePursuitTests" runstate="Runnable" seed="688793157" result="Passed" start-time="2026-09-13 11:53:39Z" end-time="2026-09-13 11:53:40Z" duration="1.205173" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1084" name="PlayableSprintHostTests" fullname="Biathlon.PlayModeTests.PlayableSprintHostTests" classname="Biathlon.PlayModeTests.PlayableSprintHostTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-13 11:53:40Z" end-time="2026-09-13 11:53:41Z" duration="0.465439" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1085" name="ComposedHostCompletesSprintWithPlayerCommands" fullname="Biathlon.PlayModeTests.PlayableSprintHostTests.ComposedHostCompletesSprintWithPlayerCommands" methodname="ComposedHostCompletesSprintWithPlayerCommands" classname="Biathlon.PlayModeTests.PlayableSprintHostTests" runstate="Runnable" seed="1168022358" result="Passed" start-time="2026-09-13 11:53:40Z" end-time="2026-09-13 11:53:41Z" duration="0.463351" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1086" name="PlayerBuildSmokeTests" fullname="Biathlon.PlayModeTests.PlayerBuildSmokeTests" classname="Biathlon.PlayModeTests.PlayerBuildSmokeTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.042744" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1087" name="SmokeChecksInitializedHostAndAdvancesSnapshot" fullname="Biathlon.PlayModeTests.PlayerBuildSmokeTests.SmokeChecksInitializedHostAndAdvancesSnapshot" methodname="SmokeChecksInitializedHostAndAdvancesSnapshot" classname="Biathlon.PlayModeTests.PlayerBuildSmokeTests" runstate="Runnable" seed="2025001067" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.040891" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1088" name="PlayerDeviceInputTests" fullname="Biathlon.PlayModeTests.PlayerDeviceInputTests" classname="Biathlon.PlayModeTests.PlayerDeviceInputTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.019265" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1090" name="FocusLossCancelsPendingEdgeAndDeviceAbsenceStaysNeutral" fullname="Biathlon.PlayModeTests.PlayerDeviceInputTests.FocusLossCancelsPendingEdgeAndDeviceAbsenceStaysNeutral" methodname="FocusLossCancelsPendingEdgeAndDeviceAbsenceStaysNeutral" classname="Biathlon.PlayModeTests.PlayerDeviceInputTests" runstate="Runnable" seed="401538831" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.009400" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1092" name="GamepadUsesRawAxisOnceAndSharesCommandContract" fullname="Biathlon.PlayModeTests.PlayerDeviceInputTests.GamepadUsesRawAxisOnceAndSharesCommandContract" methodname="GamepadUsesRawAxisOnceAndSharesCommandContract" classname="Biathlon.PlayModeTests.PlayerDeviceInputTests" runstate="Runnable" seed="477142476" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.002223" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1089" name="KeyboardHeldAndEdgesSurviveFramesWithoutTicks" fullname="Biathlon.PlayModeTests.PlayerDeviceInputTests.KeyboardHeldAndEdgesSurviveFramesWithoutTicks" methodname="KeyboardHeldAndEdgesSurviveFramesWithoutTicks" classname="Biathlon.PlayModeTests.PlayerDeviceInputTests" runstate="Runnable" seed="265621012" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.001990" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1091" name="PresetsAndRecordedDeviceCommandsRoundTripWithoutFrameTime" fullname="Biathlon.PlayModeTests.PlayerDeviceInputTests.PresetsAndRecordedDeviceCommandsRoundTripWithoutFrameTime" methodname="PresetsAndRecordedDeviceCommandsRoundTripWithoutFrameTime" classname="Biathlon.PlayModeTests.PlayerDeviceInputTests" runstate="Runnable" seed="939333152" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.003741" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1093" name="PlaytestEvidenceTests" fullname="Biathlon.PlayModeTests.PlaytestEvidenceTests" classname="Biathlon.PlayModeTests.PlaytestEvidenceTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.061534" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1094" name="FrozenEvidenceIsStableAndRejectsBackwardTicks" fullname="Biathlon.PlayModeTests.PlaytestEvidenceTests.FrozenEvidenceIsStableAndRejectsBackwardTicks" methodname="FrozenEvidenceIsStableAndRejectsBackwardTicks" classname="Biathlon.PlayModeTests.PlaytestEvidenceTests" runstate="Runnable" seed="1826584909" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.059941" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1095" name="RaceHudPlayModeTests" fullname="Biathlon.PlayModeTests.RaceHudPlayModeTests" classname="Biathlon.PlayModeTests.RaceHudPlayModeTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.032241" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1096" name="HudShowsSplitContextAndResets" fullname="Biathlon.PlayModeTests.RaceHudPlayModeTests.HudShowsSplitContextAndResets" methodname="HudShowsSplitContextAndResets" classname="Biathlon.PlayModeTests.RaceHudPlayModeTests" runstate="Runnable" seed="1318196850" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.030353" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1097" name="RangePresentationTests" fullname="Biathlon.PlayModeTests.RangePresentationTests" classname="Biathlon.PlayModeTests.RangePresentationTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.063868" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1098" name="ActualBoutDrivesCameraAndClosuresWithoutAuthorityWrites" fullname="Biathlon.PlayModeTests.RangePresentationTests.ActualBoutDrivesCameraAndClosuresWithoutAuthorityWrites" methodname="ActualBoutDrivesCameraAndClosuresWithoutAuthorityWrites" classname="Biathlon.PlayModeTests.RangePresentationTests" runstate="Runnable" seed="1706962328" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.062056" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1099" name="ShootingDeviceInputTests" fullname="Biathlon.PlayModeTests.ShootingDeviceInputTests" classname="Biathlon.PlayModeTests.ShootingDeviceInputTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.010265" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1100" name="MouseDeltaAndTriggerAreConsumedOnceAndInvalidTickIsAtomic" fullname="Biathlon.PlayModeTests.ShootingDeviceInputTests.MouseDeltaAndTriggerAreConsumedOnceAndInvalidTickIsAtomic" methodname="MouseDeltaAndTriggerAreConsumedOnceAndInvalidTickIsAtomic" classname="Biathlon.PlayModeTests.ShootingDeviceInputTests" runstate="Runnable" seed="1337363046" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.003803" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1102" name="MousePacketsAccumulateAndLargeMovementRespectsTickRate" fullname="Biathlon.PlayModeTests.ShootingDeviceInputTests.MousePacketsAccumulateAndLargeMovementRespectsTickRate" methodname="MousePacketsAccumulateAndLargeMovementRespectsTickRate" classname="Biathlon.PlayModeTests.ShootingDeviceInputTests" runstate="Runnable" seed="560776630" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.002047" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1101" name="StickFineControlAndBreathFeedTheSameDeterministicAim" fullname="Biathlon.PlayModeTests.ShootingDeviceInputTests.StickFineControlAndBreathFeedTheSameDeterministicAim" methodname="StickFineControlAndBreathFeedTheSameDeterministicAim" classname="Biathlon.PlayModeTests.ShootingDeviceInputTests" runstate="Runnable" seed="1426468455" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.002438" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1103" name="ShootingTrainingPlayModeTests" fullname="Biathlon.PlayModeTests.ShootingTrainingPlayModeTests" classname="Biathlon.PlayModeTests.ShootingTrainingPlayModeTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.042638" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1104" name="ResourcesBuildCompleteReplayableShootingBout" fullname="Biathlon.PlayModeTests.ShootingTrainingPlayModeTests.ResourcesBuildCompleteReplayableShootingBout" methodname="ResourcesBuildCompleteReplayableShootingBout" classname="Biathlon.PlayModeTests.ShootingTrainingPlayModeTests" runstate="Runnable" seed="406723586" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.041132" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1105" name="SkiDebugHudTests" fullname="Biathlon.PlayModeTests.SkiDebugHudTests" classname="Biathlon.PlayModeTests.SkiDebugHudTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.034246" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1106" name="HudUsesStableIdentityAndHandlesRaceReset" fullname="Biathlon.PlayModeTests.SkiDebugHudTests.HudUsesStableIdentityAndHandlesRaceReset" methodname="HudUsesStableIdentityAndHandlesRaceReset" classname="Biathlon.PlayModeTests.SkiDebugHudTests" runstate="Runnable" seed="546990437" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.032661" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1107" name="SprintReplayPlayModeTests" fullname="Biathlon.PlayModeTests.SprintReplayPlayModeTests" classname="Biathlon.PlayModeTests.SprintReplayPlayModeTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.096156" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1108" name="ResourcesRunCompleteSprintAndPersistedReplay" fullname="Biathlon.PlayModeTests.SprintReplayPlayModeTests.ResourcesRunCompleteSprintAndPersistedReplay" methodname="ResourcesRunCompleteSprintAndPersistedReplay" classname="Biathlon.PlayModeTests.SprintReplayPlayModeTests" runstate="Runnable" seed="1506110018" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.093720" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1109" name="TrackRibbonTests" fullname="Biathlon.PlayModeTests.TrackRibbonTests" classname="Biathlon.PlayModeTests.TrackRibbonTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.034997" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1110" name="AuthoredLoopsGenerateFiniteRepeatableMeshAndUpwardSurface" fullname="Biathlon.PlayModeTests.TrackRibbonTests.AuthoredLoopsGenerateFiniteRepeatableMeshAndUpwardSurface" methodname="AuthoredLoopsGenerateFiniteRepeatableMeshAndUpwardSurface" classname="Biathlon.PlayModeTests.TrackRibbonTests" runstate="Runnable" seed="617061729" result="Passed" start-time="2026-09-13 11:53:41Z" end-time="2026-09-13 11:53:41Z" duration="0.033165" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

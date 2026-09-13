@@ -693,6 +693,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4160924202742968160}
   - component: {fileID: 6804015094181078297}
+  - component: {fileID: 664044784824305691}
   m_Layer: 0
   m_Name: OriginalAthlete
   m_TagString: Untagged
@@ -727,7 +728,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a73ee25c29c56274f814969372d54375, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteRigBinding
   modelRoot: {fileID: 4160924202742968160}
   bones:
@@ -757,6 +758,18 @@ MonoBehaviour:
   - {fileID: 6291194413686333844}
   - {fileID: 3282752491477895003}
   animator: {fileID: 0}
+--- !u!114 &664044784824305691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4176763849198726018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4263d71d11efd7a47a9b2cc3c6dc7857, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteLocomotionDriver
 --- !u!1 &4314833669292906823
 GameObject:
   m_ObjectHideFlags: 0
