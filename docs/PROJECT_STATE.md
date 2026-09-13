@@ -7,7 +7,7 @@ project_phase: M10 technical delivery complete; owner G1 pending; M1–M9 PASS
 active_work_package: OWNER-GATE-G1
 active_task: Owner hands-on core controls/gameplay review
 last_completed_task: TASK-140 Windows build smoke
-last_verified_commit: c64dc11; WP139 verified and pushed
+last_verified_commit: 3466bf6; WP140 verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 546 discovered; WP138 grid5/5; prior qualification4/4; prior player-pack2/2; prior HUD1/1; prior penalty10/10; prior shooting/session5/5; prior snapshot1/1, device8/8; M9 actual-season byte parity PASS
 playmode_tests: WP140 full25/25 PASS; prior WP139 evidence1/1 (24 discovered); prior full30 host1/1; prior Sprint-Pursuit chain1/1; prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
@@ -187,7 +187,7 @@ Preserve ADR0012–0017, canonical Foundation hashes and unrelated owner workspa
 Continue coherent commits/push and state updates under standing owner authorization.
 ## Publication history
 
-Current verified publication: **c64dc11** — WP139 verified and pushed. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
+Current verified publication: **3466bf6** — WP140 verified and pushed; M10 technical delivery complete, G1 pending. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
 
 The entries below are historical checkpoints, not the current development position.
 Owner explicitly authorized regular commits/push and state updates on2026-09-09.
