@@ -21,12 +21,17 @@ namespace Biathlon.PlayModeTests
             try
             {
                 proxies.Initialize(feed, Biathlon.Domain.TrackVisualDefinition.FromJson(Read("stadium_visual_v1.json"), runner.Field.Track));
+                var cameraObject = new GameObject("distant observation camera"); cameraObject.transform.SetParent(root.transform, false);
+                var distantCamera = cameraObject.AddComponent<Camera>(); distantCamera.enabled = false; distantCamera.transform.position = Vector3.one * 1000;
+                proxies.SetViewCamera(distantCamera);
                 int seen = 0, stances = 0;
                 for (int tick = 0; tick < 20000; tick++)
                 {
                     runner.Step(); var snapshot = RacePresentationSnapshot.Capture(runner.Field); var a = snapshot.Get(0);
                     feed.Publish(snapshot); proxies.Render(1);
                     var rifle = proxies.GetRig(a.AthleteId).GetComponent<AthleteRiflePresentation>();
+                    var detail = proxies.GetProxy(a.AthleteId).GetComponent<AthleteAnimationPresentation>().Detail;
+                    if (a.ShootingActive) Assert.That(detail.Distant, Is.False, "Shooting forces full detail and immediate sight/phase updates even at distance.");
                     Assert.That(proxies.GetRig(a.AthleteId).GetComponent<AthleteLocomotionDriver>().ExertionIntensity, Is.InRange(0, 1));
                     if (a.ShootingPhase == ShootingPhase.Aiming && a.Stance == Biathlon.Domain.ShootingStance.Prone)
                     {

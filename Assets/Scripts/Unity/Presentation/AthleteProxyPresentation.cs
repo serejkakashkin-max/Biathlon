@@ -17,6 +17,8 @@ namespace Biathlon.Unity.Presentation
         private long observedTick=-1;
         private AthleteLocomotionSettings motionSettings;
         private GroundContactSettings contactSettings;
+        private Camera viewCamera;
+        public void SetViewCamera(Camera camera) => viewCamera = camera;
         public int Count=>proxies.Count;
         public Transform GetProxy(string athleteId)=>proxies[athleteId].transform;
         public AthleteRigBinding GetRig(string athleteId)=>animation[athleteId].Rig;
@@ -48,7 +50,8 @@ namespace Biathlon.Unity.Presentation
                 go.transform.localRotation=Quaternion.LookRotation(new Vector3((float)point.ForwardX,0,(float)point.ForwardZ),Vector3.up);
                 double curvature=VisualRouteCurvature.Sample(visual.Get(position.LoopId),position.LocalMeters,motionSettings.corner_sample_half_span_m);
                 double grade=VisualRouteSurface.Grade(visual.Get(position.LoopId),position.LocalMeters,contactSettings.sample_half_span_m);
-                animation[state.AthleteId].Render(new AthleteAnimationFrame(state,current.Tick,current.TickFrequency,alpha,curvature,grade));
+                float distance=viewCamera!=null?Vector3.Distance(viewCamera.transform.position,go.transform.position):0;
+                animation[state.AthleteId].Render(new AthleteAnimationFrame(state,current.Tick,current.TickFrequency,alpha,curvature,grade),distance);
             }
             removed.Clear();foreach(var id in proxies.Keys)if(!keep.Contains(id))removed.Add(id);foreach(var id in removed){Destroy(proxies[id]);proxies.Remove(id);animation.Remove(id);}
         }

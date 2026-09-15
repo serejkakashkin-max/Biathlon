@@ -38,6 +38,8 @@ namespace Biathlon.Unity.Presentation
         private AthleteRiflePresentation rifle;
         private AthleteShootingPose shootingPose;
         private AthleteGroundContact contact;
+        private AthleteDetailPresentation detail;
+        public AthleteDetailPresentation Detail => detail;
         public AthleteRigBinding Rig => rig;
         public AthleteAnimationFrame LastFrame { get; private set; }
 
@@ -49,13 +51,15 @@ namespace Biathlon.Unity.Presentation
             rifle = binding.GetComponent<AthleteRiflePresentation>();
             shootingPose = binding.GetComponent<AthleteShootingPose>();
             contact = binding.GetComponent<AthleteGroundContact>();
+            detail = new AthleteDetailPresentation(binding);
         }
 
-        public void Render(AthleteAnimationFrame frame)
+        public void Render(AthleteAnimationFrame frame, float cameraDistance = 0)
         {
             if (rig == null) throw new InvalidOperationException("Initialize athlete rig first.");
             LastFrame = frame;
             if (rig.Animator != null) rig.Animator.applyRootMotion = false;
+            if (!detail.Prepare(cameraDistance, frame)) return;
             // Protect the presentation placement from asset root-motion/pose code as well.
             var position = transform.localPosition;
             var rotation = transform.localRotation;

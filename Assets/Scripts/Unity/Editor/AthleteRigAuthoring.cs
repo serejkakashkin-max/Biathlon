@@ -41,6 +41,7 @@ namespace Biathlon.Unity
                     renderer.sharedMaterials=palette;
                 }
                 PrefabUtility.SaveAsPrefabAsset(rig.gameObject,PrefabPath);AssetDatabase.SaveAssets();
+                AthleteLodAuthoring.Generate();
                 Debug.Log("BIATHLON original athlete generated: "+PrefabPath+"; meshes="+persistedMeshes.Count+"; materials="+persistedMaterials.Count);
 
                 Mesh PersistMesh(Mesh source)
