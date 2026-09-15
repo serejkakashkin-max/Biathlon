@@ -7,13 +7,13 @@ project_phase: M11 started; M10 PASS / owner-approved; M1–M9 PASS
 active_work_package: WP-150 Athlete LOD/crowd performance
 active_task: TASK-150 Distance detail and 30-athlete qualification
 last_completed_task: TASK-149 Observed fatigue/exhaustion presentation
-last_verified_commit: 1cf2281; WP148 verified and pushed; WP149 verification accompanies this state commit
+last_verified_commit: b278567; WP149 verified44/44 and pushed; Console warning correction accompanies this commit
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 550 discovered; WP141 observations4/4; WP138 grid5/5; prior qualification4/4; prior player-pack2/2; prior HUD1/1; prior penalty10/10; prior shooting/session5/5; prior snapshot1/1, device8/8; M9 actual-season byte parity PASS
 playmode_tests: WP149 full44/44 PASS; WP148 full42/42 PASS; WP147 full39/39 PASS; WP146 full38/38 PASS; WP145 full37/37 PASS; WP144 full36/36 PASS; WP143 full33/33 PASS; WP142 full30/30 PASS; WP141 full28/28 PASS; WP140 full25/25 PASS; prior WP139 evidence1/1 (24 discovered); prior full30 host1/1; prior Sprint-Pursuit chain1/1; prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
 standalone_tests: WP141 observations/regression19/19; WP138 grid/results7/7; WP137 qualification/field6/6; WP136 player-pack/snapshot3/3; WP135 HUD/snapshot2/2; WP134 penalty10/10; WP133 aim/session10/10; WP130 input/replay11/11; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
 unity_console_errors: 0 after WP149 qualification
-unity_console_warnings: 0; compilation_failed=false
+unity_console_warnings: 1 MCP logger cleanup warning; compilation_failed=false
 current_known_blockers: []
 owner_gate_g1: APPROVED 2026-09-13; owner hands-on Windows greybox Sprint and Pursuit
 owner_decisions_needed: []
@@ -229,7 +229,7 @@ Preserve ADR0012–0017, canonical Foundation hashes and unrelated owner workspa
 Continue coherent commits/push and state updates under standing owner authorization.
 ## Publication history
 
-Current verified implementation publication: **1cf2281** — WP148 verified and pushed. WP149 full44/44 verification accompanies this state commit. M10 technical delivery was completed at 3466bf6. Owner subsequently approved G1 on 2026-09-13; this decision starts M11 without changing prior test evidence. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
+Current verified implementation publication: **b278567** — WP149 verified44/44 and pushed. One MCP logger cleanup warning is recorded in native Console evidence; no compile/gameplay errors. M10 technical delivery was completed at 3466bf6. Owner subsequently approved G1 on 2026-09-13; this decision starts M11 without changing prior test evidence. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
 
 The entries below are historical checkpoints, not the current development position.
 Owner explicitly authorized regular commits/push and state updates on2026-09-09.
