@@ -27,6 +27,7 @@ namespace Biathlon.PlayModeTests
                     runner.Step(); var snapshot = RacePresentationSnapshot.Capture(runner.Field); var a = snapshot.Get(0);
                     feed.Publish(snapshot); proxies.Render(1);
                     var rifle = proxies.GetRig(a.AthleteId).GetComponent<AthleteRiflePresentation>();
+                    Assert.That(proxies.GetRig(a.AthleteId).GetComponent<AthleteLocomotionDriver>().ExertionIntensity, Is.InRange(0, 1));
                     if (a.ShootingPhase == ShootingPhase.Aiming && a.Stance == Biathlon.Domain.ShootingStance.Prone)
                     {
                         var rig = proxies.GetRig(a.AthleteId);

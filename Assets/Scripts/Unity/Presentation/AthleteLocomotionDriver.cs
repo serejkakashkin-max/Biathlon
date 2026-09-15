@@ -12,6 +12,7 @@ namespace Biathlon.Unity.Presentation
         private readonly LocomotionPose blended = new LocomotionPose();
         private readonly LocomotionPose start = new LocomotionPose();
         private readonly LocomotionPose motion = new LocomotionPose();
+        private readonly AthleteExertionPresentation exertion = new AthleteExertionPresentation();
         private float climbIntensity = 1;
         private double previousTime = -1, transitionAt, cycle;
         private string athleteId;
@@ -19,6 +20,8 @@ namespace Biathlon.Unity.Presentation
         public float BlendProgress { get; private set; }
         public double Cycle => cycle;
         public float CornerLeanDegrees { get; private set; }
+        public float ExertionIntensity => exertion.Intensity;
+        public float FinishWeight => exertion.FinishWeight;
 
         public override void Apply(AthleteRigBinding rig, AthleteAnimationFrame frame)
         {
@@ -27,10 +30,10 @@ namespace Biathlon.Unity.Presentation
             Sample(rig, new LocomotionInput((float)a.SpeedMetersPerSecond, (float)a.CourseGrade,
                 (float)a.Effort.DeliveredRelativeEffort, a.TuckActive, a.FinalSprintActive,
                 a.OnCourse && !a.ShootingActive && a.Phase != CompetitionPhase.Finished,
-                (float)frame.PresentationCurvature), frame.TimeSeconds);
+                (float)frame.PresentationCurvature), frame.TimeSeconds, ExertionInput.From(a));
         }
 
-        public void Sample(AthleteRigBinding rig, LocomotionInput input, double time)
+        public void Sample(AthleteRigBinding rig, LocomotionInput input, double time, ExertionInput? observedExertion = null)
         {
             if (double.IsNaN(time) || double.IsInfinity(time) || time < 0) throw new ArgumentOutOfRangeException(nameof(time));
             if (settings == null) settings = AthleteLocomotionSettings.Load();
@@ -39,7 +42,8 @@ namespace Biathlon.Unity.Presentation
             float requestedIntensity = selected == SkiLocomotion.Climb ? Mathf.Lerp(settings.climb_motion_low, settings.climb_motion_high,
                 Mathf.InverseLerp(settings.climb_effort_low, settings.climb_effort_high, input.Effort)) : 1;
             double dt = previousTime < 0 ? 0 : Math.Max(0, time - previousTime);
-            if (previousTime < 0 || time < previousTime || dt > 1)
+            bool reset = previousTime < 0 || time < previousTime || dt > 1;
+            if (reset)
             {
                 State = selected; transitionAt = time - settings.transition_s;
                 LocomotionPose.Blend(settings.poses[(int)State], settings.poses[(int)State], 1, blended);
@@ -61,6 +65,7 @@ namespace Biathlon.Unity.Presentation
             motion.cadence_hz *= climbIntensity;
             motion.torso_lean_deg *= climbIntensity;
             motion.arm_swing_m *= climbIntensity;
+            exertion.Apply(motion, observedExertion ?? new ExertionInput(0, 1, 0), State, time, dt, reset);
             cycle = (cycle + dt * motion.cadence_hz) % 1;
             previousTime = time;
             CornerLeanDegrees = Mathf.Lerp(CornerLeanDegrees, requestedLean, 1 - Mathf.Exp(-(float)dt / settings.corner_response_s));
