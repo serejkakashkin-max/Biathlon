@@ -18,6 +18,7 @@ namespace Biathlon.Unity.Presentation
         private AthleteLocomotionSettings motionSettings;
         private GroundContactSettings contactSettings;
         private Camera viewCamera;
+        private SnowTrackPresentation snowTracks;
         public void SetViewCamera(Camera camera) => viewCamera = camera;
         public int Count=>proxies.Count;
         public Transform GetProxy(string athleteId)=>proxies[athleteId].transform;
@@ -28,6 +29,7 @@ namespace Biathlon.Unity.Presentation
             rigPrefab=template;
             motionSettings=AthleteLocomotionSettings.Load();
             contactSettings=GroundContactSettings.Load();
+            snowTracks=GetComponent<SnowTrackPresentation>();if(snowTracks==null)snowTracks=gameObject.AddComponent<SnowTrackPresentation>();snowTracks.Initialize();
         }
         public void Render(double alpha)
         {
@@ -51,8 +53,11 @@ namespace Biathlon.Unity.Presentation
                 double curvature=VisualRouteCurvature.Sample(visual.Get(position.LoopId),position.LocalMeters,motionSettings.corner_sample_half_span_m);
                 double grade=VisualRouteSurface.Grade(visual.Get(position.LoopId),position.LocalMeters,contactSettings.sample_half_span_m);
                 float distance=viewCamera!=null?Vector3.Distance(viewCamera.transform.position,go.transform.position):0;
-                animation[state.AthleteId].Render(new AthleteAnimationFrame(state,current.Tick,current.TickFrequency,alpha,curvature,grade),distance);
+                var frame=new AthleteAnimationFrame(state,current.Tick,current.TickFrequency,alpha,curvature,grade);
+                animation[state.AthleteId].Render(frame,distance);
+                snowTracks.Observe(state.AthleteId,animation[state.AthleteId].Rig,frame,distance);
             }
+            snowTracks.Render(Math.Max(0,current.Tick-1+alpha)/current.TickFrequency,viewCamera!=null?viewCamera.transform.position:transform.position);
             removed.Clear();foreach(var id in proxies.Keys)if(!keep.Contains(id))removed.Add(id);foreach(var id in removed){Destroy(proxies[id]);proxies.Remove(id);animation.Remove(id);}
         }
         private void LateUpdate()
@@ -61,7 +66,7 @@ namespace Biathlon.Unity.Presentation
             if(observedTick!=feed.Current.Tick){observedTick=feed.Current.Tick;publishedAt=Time.timeAsDouble;}
             Render(Math.Min(1,(Time.timeAsDouble-publishedAt)*feed.Current.TickFrequency));
         }
-        private void Clear(){foreach(var go in proxies.Values)if(go!=null)Destroy(go);proxies.Clear();animation.Clear();keep.Clear();removed.Clear();observedTick=-1;}
+        private void Clear(){foreach(var go in proxies.Values)if(go!=null)Destroy(go);proxies.Clear();animation.Clear();keep.Clear();removed.Clear();observedTick=-1;if(snowTracks!=null)snowTracks.Clear();}
         private void OnDestroy()=>Clear();
     }
 }
