@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "id": "snow_material_v1",
+  "macro_scale_m": 1.7,
+  "grain_scale_m": 0.045,
+  "presets": [
+    { "id": "cold", "albedo": {"r": 0.83, "g": 0.88, "b": 0.93, "a": 1}, "roughness": 0.8, "roughness_variation": 0.12, "normal_strength": 0.24, "slope_darkening": 0.13, "albedo_variation": 0.08 },
+    { "id": "wet", "albedo": {"r": 0.64, "g": 0.72, "b": 0.78, "a": 1}, "roughness": 0.32, "roughness_variation": 0.18, "normal_strength": 0.13, "slope_darkening": 0.22, "albedo_variation": 0.12 }
+  ]
+}

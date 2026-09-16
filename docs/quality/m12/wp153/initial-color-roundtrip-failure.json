@@ -1,0 +1,39 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":53,\"PassedTests\":1,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:00.1193982\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.SnowMaterialTests.GeneratedSnowAssetsUseSupportedPbrShaderAndExactVersionedValues\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0880000\",\"Message\":\"  Expected: RGBA(0.640, 0.720, 0.780, 1.000)\\r\\n  But was:  RGBA(0.640, 0.720, 0.780, 1.000)\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.SnowMaterialTests.GeneratedSnowAssetsUseSupportedPbrShaderAndExactVersionedValues () [0x00090] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\SnowMaterialTests.cs:29\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SnowMaterialTests.PresetsRejectInvalidRangesAndKeepWetSnowDarkerAndSmoother\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 53,
+          "PassedTests": 1,
+          "FailedTests": 1,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.1193982"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.SnowMaterialTests.GeneratedSnowAssetsUseSupportedPbrShaderAndExactVersionedValues",
+            "Status": "Failed",
+            "Duration": "00:00:00.0880000",
+            "Message": "  Expected: RGBA(0.640, 0.720, 0.780, 1.000)\r\n  But was:  RGBA(0.640, 0.720, 0.780, 1.000)\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.SnowMaterialTests.GeneratedSnowAssetsUseSupportedPbrShaderAndExactVersionedValues () [0x00090] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SnowMaterialTests.cs:29\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SnowMaterialTests.PresetsRejectInvalidRangesAndKeepWetSnowDarkerAndSmoother",
+            "Status": "Passed",
+            "Duration": "00:00:00.0020000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

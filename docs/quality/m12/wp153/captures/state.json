@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "note": "Material fixture, not final venue. Original noise, no downloaded textures. No simulation changes.",
+  "id": "wp153-snow-material-captures",
+  "scene": "SnowMaterialValidation",
+  "quality": "balanced",
+  "source": "snow_material_v1",
+  "views": [
+    {
+      "position": "10,9,-14",
+      "target": "0,.2f,0",
+      "id": "overview"
+    },
+    {
+      "position": "-3.3f,1.1f,-5",
+      "target": "-3.3f,.05f,-2",
+      "id": "cold-close"
+    },
+    {
+      "position": "3.3f,1.1f,-5",
+      "target": "3.3f,.05f,-2",
+      "id": "wet-close"
+    },
+    {
+      "position": "0,2,-10",
+      "target": "0,.3f,2",
+      "id": "grazing"
+    }
+  ]
+}
