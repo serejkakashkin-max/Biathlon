@@ -57,6 +57,7 @@ namespace Biathlon.Unity.Presentation
             cameraObject.AddComponent<AthleteChaseCamera>().Follow(proxies.GetProxy(id.Value),ChaseCameraSettings.FromJson(Read("chase_camera_v1.json")));
             proxies.SetViewCamera(cameraObject.GetComponent<Camera>());
             range=gameObject.AddComponent<RangePresentation>();range.Initialize(Feed,id.Value,TargetGeometryDefinition.FromJson(Read("target_geometry_v1.json")));
+            gameObject.AddComponent<RenderQualityPresentation>().Initialize(cameraObject.GetComponent<Camera>(),range.AimCamera);
             hud=gameObject.AddComponent<RaceHud>();hud.Initialize(Feed,id.Value);debugHud=gameObject.AddComponent<SkiDebugHud>();debugHud.Initialize(Feed,id.Value);
             penalty=gameObject.AddComponent<PenaltyLoopPresentation>();penalty.Initialize(Feed,id.Value,field.Track,visual);
         }

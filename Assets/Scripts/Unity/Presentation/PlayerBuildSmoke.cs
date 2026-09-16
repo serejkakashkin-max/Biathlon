@@ -66,6 +66,14 @@ namespace Biathlon.Unity.Presentation
                 }
                 catch (Exception ex) { failed = true; Debug.LogException(ex); }
                 yield return null; // Exercise presentation with the resulting snapshot.
+                foreach (string tier in new[] { "low", "balanced", "high" })
+                {
+                    try { host.GetComponent<RenderQualityPresentation>().Apply(tier); }
+                    catch (Exception ex) { failed = true; Debug.LogException(ex); }
+                    yield return null;
+                    yield return null; // Render with the new pipeline, including stripped player shaders.
+                    Debug.Log("BIATHLON_SMOKE_QUALITY " + scene + " " + tier);
+                }
             }
             Debug.Log(failed ? "BIATHLON_SMOKE_FAIL" : "BIATHLON_SMOKE_PASS");
             Application.Quit(failed ? 1 : 0);

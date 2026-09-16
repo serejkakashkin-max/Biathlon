@@ -4,21 +4,21 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M12 started; M11 PASS WITH ACTIONS; M10 PASS / owner-approved; M1–M9 PASS
-active_work_package: WP-152 URP production settings
-active_task: TASK-152 Versioned render quality profiles
-last_completed_task: TASK-151 Animation validation; M11 technical scope complete with visual actions
-last_verified_commit: 70b33ca; WP150 verified and pushed; WP151/M11 verification accompanies this state commit
+active_work_package: WP-153 Snow material system
+active_task: TASK-153 PBR snow materials
+last_completed_task: TASK-152 URP profiles, reversible switching and Windows shader inclusion
+last_verified_commit: 63d0817; WP151/M11 verified and pushed; WP152 verification accompanies this state commit
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 550 discovered; WP151 observations4/4 PASS; WP141 observations4/4; WP138 grid5/5; prior qualification4/4; prior player-pack2/2; prior HUD1/1; prior penalty10/10; prior shooting/session5/5; prior snapshot1/1, device8/8; M9 actual-season byte parity PASS
-playmode_tests: WP151 full48/48 PASS; WP150 full46/46 PASS; WP149 full44/44 PASS; WP148 full42/42 PASS; WP147 full39/39 PASS; WP146 full38/38 PASS; WP145 full37/37 PASS; WP144 full36/36 PASS; WP143 full33/33 PASS; WP142 full30/30 PASS; WP141 full28/28 PASS; WP140 full25/25 PASS; prior WP139 evidence1/1 (24 discovered); prior full30 host1/1; prior Sprint-Pursuit chain1/1; prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
+playmode_tests: WP152 full51/51 PASS; WP151 full48/48 PASS; WP150 full46/46 PASS; WP149 full44/44 PASS; WP148 full42/42 PASS; WP147 full39/39 PASS; WP146 full38/38 PASS; WP145 full37/37 PASS; WP144 full36/36 PASS; WP143 full33/33 PASS; WP142 full30/30 PASS; WP141 full28/28 PASS; WP140 full25/25 PASS; prior WP139 evidence1/1 (24 discovered); prior full30 host1/1; prior Sprint-Pursuit chain1/1; prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
 standalone_tests: WP151 observations/snapshots5/5 PASS; WP141 observations/regression19/19; WP138 grid/results7/7; WP137 qualification/field6/6; WP136 player-pack/snapshot3/3; WP135 HUD/snapshot2/2; WP134 penalty10/10; WP133 aim/session10/10; WP130 input/replay11/11; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
-unity_console_errors: 0 after WP151 runtime captures/build
-unity_console_warnings: 0 after WP151 captures/build; compilation_failed=false
+unity_console_errors: 0 after WP152 runtime captures/build
+unity_console_warnings: 0 after WP152 captures/build; compilation_failed=false
 current_known_blockers: []
 owner_gate_g1: APPROVED 2026-09-13; owner hands-on Windows greybox Sprint and Pursuit
 owner_decisions_needed: []
 owner_gameplay_feel_issues: [OWNER-FEEL-001 player shooting feels too easy; OPEN; required WP229/WP230/WP232 review]
-next_unlocked_work_packages: [WP-152] # Continue M12 through WP166, then owner G2.
+next_unlocked_work_packages: [WP-153] # Continue M12 through WP166, then owner G2.
 ```
 
 ## Work packages
@@ -175,7 +175,8 @@ next_unlocked_work_packages: [WP-152] # Continue M12 through WP166, then owner G
 - WP-149 DONE. Observed exertion blend, tired skiing and finish fixture; full PlayMode44/44, Console0 errors. Finish-area visibility still requires WP151 review. See TASK-149-exertion-REPORT.md.
 - WP-150 DONE. Reversible distant mesh/shadows,20 Hz pose cadence;30-body cost and0 B allocation verified; PlayMode46/46, Console0 errors. See TASK-150-crowd-performance-REPORT.md.
 - WP-151 DONE. Four state sets, integrated transitions and actual chase/range evidence; PlayMode48/48, EditMode4/4, .NET5/5, Windows build/smoke PASS. M11 PASS WITH ACTIONS; see TASK-151-animation-validation-REPORT.md and MILESTONE-M11-REPORT.md.
-- WP-152 IN PROGRESS. Versioned URP render quality profiles.
+- WP-152 DONE. Versioned low/balanced/high URP profiles, safe post policy, reversible camera/pipeline leases and explicit shader build inclusion. Full PlayMode51/51, frozen race snapshot parity, Windows six-profile smoke PASS, Console0/0. See TASK-152-render-quality-REPORT.md.
+- WP-153 IN PROGRESS. Original PBR snow shader and cold/wet material presets.
 
 ## Owner gameplay-feel issue — OWNER-FEEL-001
 
@@ -207,7 +208,7 @@ Use the [owner handoff](owner/CODEX_M11_HANDOFF.md), [visual addendum](owner/OWN
 Proceed through WP-141–151 with per-WP reports, Unity motion/capture validation, tests, state updates and coherent commits/pushes. Record third-party source, exact license and status before import. The M11 asset gate applies only if external license/account/paid-owner action is actually required; provide an asset shortlist/license report then. There is no automatic new owner gate after WP-151. The next fixed owner gate is **G2 after WP-166**, approving the M12 visual benchmark before producing all venues. No asset blocker has been established at M11 entry.
 
 ## Resume
-M8 and M9 PASS. M10 WP125–140 PASS / owner-approved; G1 explicitly APPROVED 2026-09-13 after owner hands-on Sprint and Pursuit. M11 WP141–151 technically verified; milestone PASS WITH ACTIONS (finish staging, character detail, terrain contact, broadcast LOD, scene readability). Active WP152 / TASK152; continue M12 to G2 after WP166. Windows build updated WP151: Builds/WindowsDevelopment/Biathlon.exe. Automated smoke verified Sprint6 and Mass Start30 at tick400, exit0, M11 components and LOD retained; full PlayMode48/48. Evidence quality/m11/wp151; executable SHA256718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00. Owner testing and automated smoke are separate evidence.
+M8 and M9 PASS. M10 WP125–140 PASS / owner-approved; G1 explicitly APPROVED 2026-09-13 after owner hands-on Sprint and Pursuit. M11 WP141–151 technically verified; milestone PASS WITH ACTIONS (finish staging, character detail, terrain contact, broadcast LOD, scene readability). Active WP153 / TASK153; continue M12 to G2 after WP166. Windows build updated WP152: Builds/WindowsDevelopment/Biathlon.exe. Automated smoke verified Sprint6 and Mass Start30 at tick400, exit0, M11 components/LOD retained and all six scene/quality combinations rendered; full PlayMode51/51. Evidence quality/m12/wp152 includes full build-file hashes; executable SHA256718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00. Owner testing and automated smoke are separate evidence.
 The provisional first-playable tuning version locks127 inputs; see TASK-102-M8-REPORT.md and quality/m8/verification.json.
 Full .NET505/505 plus final tuner/lock5/5; Unity new15/15, PlayMode7/7; Console0 errors/1 warning.
 WP096 top cohort meets provisional GDD shooting windows. Draft/stat/equipment sensitivity and AI parity are measured.
@@ -231,7 +232,7 @@ Preserve ADR0012–0017, canonical Foundation hashes and unrelated owner workspa
 Continue coherent commits/push and state updates under standing owner authorization.
 ## Publication history
 
-Current verified implementation publication: **70b33ca** — WP150 verified and pushed. WP151 full48/48, observation tests and updated Windows build/smoke evidence accompanies this state commit. M10 technical delivery was completed at 3466bf6. Owner subsequently approved G1 on 2026-09-13; this decision starts M11 without changing prior test evidence. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
+Current verified implementation publication: **63d0817** — WP151/M11 verified and pushed. WP152 full51/51 and updated Windows build/six-tier smoke evidence accompanies this state commit. M10 technical delivery was completed at 3466bf6. Owner subsequently approved G1 on 2026-09-13; this decision starts M11 without changing prior test evidence. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
 
 The entries below are historical checkpoints, not the current development position.
 Owner explicitly authorized regular commits/push and state updates on2026-09-09.

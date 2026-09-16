@@ -1,1 +1,16 @@
-{"name":"Biathlon.Unity.Editor","references":["Biathlon.Domain","Biathlon.AI","Biathlon.Simulation","Biathlon.Unity.Presentation"],"includePlatforms":["Editor"],"overrideReferences":true}
+{
+  "name": "Biathlon.Unity.Editor",
+  "references": [
+    "Biathlon.Domain",
+    "Biathlon.AI",
+    "Biathlon.Simulation",
+    "Biathlon.Unity.Presentation",
+    "Unity.RenderPipelines.Universal.Runtime",
+    "Unity.RenderPipelines.Core.Runtime",
+    "Unity.RenderPipelines.Core.Editor"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "overrideReferences": true
+}

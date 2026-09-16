@@ -1,0 +1,15 @@
+# TASK-152 — URP production quality profiles
+
+2026-09-16. WP152 PASS. Full PlayMode51/51; Windows Development build succeeded with0 errors/0 warnings,219952362 bytes. Smoke passed Sprint6/Mass Start30 at tick400 and all six scene/tier rendering checks, exit0. Unity Console0 errors/0 warnings, compilation_failed=false.
+
+Versioned `render_quality_v1.json` owns Low/Balanced/High render scale0.8/1/1.15, shadow distance35/70/100m, shadow resolution1024/2048/4096, cascades2/4/4 and soft-shadow/post policy. Balanced is the gameplay default. Generated URP assets and a dedicated Forward renderer do not reuse the locally modified PC/Mobile templates. HDR and SRP batcher are enabled; MSAA is disabled; Balanced/High use SMAA and neutral tone mapping. Low disables post-processing for cost reduction and consequently has a brighter response; final snow/exposure appearance is reviewed in M12.
+
+`RenderQualityPresentation` owns runtime clones and explicit chase/range camera settings. Overlapping host leases survive Sprint-to-Pursuit/scene transitions, including removal in either order; final release restores prior pipeline and camera configuration. Camera position, FOV and simulation authority are untouched. Scene Volume overrides are excluded from gameplay cameras; the owned default profile explicitly disables depth of field, motion blur, lens distortion, chromatic aberration, grain, vignette and bloom. Future lighting/weather work must use this explicit profile contract instead of silently injecting scene post effects.
+
+Build pipeline temporarily labels all three tiers for URP shader inclusion, verifies actual enumeration, then restores original inclusion settings/labels even on failure. This is necessary because Resources assets alone are not sufficient for URP shader stripping. Standalone smoke now switches and renders all three tiers in both Sprint6 and Mass Start30.
+
+Verification evidence: full PlayMode51/51 PASS, including three new profile/schema/lifecycle tests. Frozen Sprint tick1200 snapshots are byte-identical across all profiles (SHA2562974021a83f2aee57968628c06c39abaee617948a9e02b79c5656e03f76a4b1f). Captures inspected at2560×1440; Low was recaptured after first-use asynchronous Editor shader compilation (initial transient cyan frame was not accepted). The character, route and camera remain aligned across tiers; greybox environment is intentionally not claimed as final-quality snow or a performance benchmark. WP166 owns final CPU/GPU qualification.
+
+No authoritative gameplay or numerical balance changes, hidden RNG, package installation or external asset import. User-local settings/package/plugin changes are preserved outside this commit. Next WP153 snow material system.
+
+Full build-file hash manifest, smoke JSON and compressed Player.log are retained under quality/m12/wp152. This build contains HEAD63d0817 plus WP152 working changes; dirty state is recorded. The executable launcher hash alone does not identify Unity game content: use build-files.json for data/assemblies.

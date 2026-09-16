@@ -11,6 +11,10 @@ namespace Biathlon.Unity
     {
         public static void BuildWindows()
         {
+            RenderQualityAuthoring.WithBuildProfiles(BuildWindowsCore);
+        }
+        private static void BuildWindowsCore()
+        {
             if (EditorApplication.isPlaying || EditorApplication.isCompiling)
                 throw new InvalidOperationException("Build requires idle Edit Mode.");
             if (!BuildPipeline.IsBuildTargetSupported(BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64))

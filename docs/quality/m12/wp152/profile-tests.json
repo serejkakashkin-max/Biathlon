@@ -1,0 +1,42 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":51,\"PassedTests\":3,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:00.0515956\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.RenderQualityTests.DefinitionRejectsInvalidAndAmbiguousProfiles\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0100000\"},{\"Name\":\"Biathlon.PlayModeTests.RenderQualityTests.GeneratedAssetsMatchPolicyAndPreventAimingDistortion\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0050000\"},{\"Name\":\"Biathlon.PlayModeTests.RenderQualityTests.SwitchingAndOverlappingOwnersRestorePipelineAndCameraWithoutChangingGeometry\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0060000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 51,
+          "PassedTests": 3,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.0515956"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.RenderQualityTests.DefinitionRejectsInvalidAndAmbiguousProfiles",
+            "Status": "Passed",
+            "Duration": "00:00:00.0100000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RenderQualityTests.GeneratedAssetsMatchPolicyAndPreventAimingDistortion",
+            "Status": "Passed",
+            "Duration": "00:00:00.0050000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RenderQualityTests.SwitchingAndOverlappingOwnersRestorePipelineAndCameraWithoutChangingGeometry",
+            "Status": "Passed",
+            "Duration": "00:00:00.0060000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

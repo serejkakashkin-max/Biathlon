@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "biathlon_player_smoke_run_v1",
+  "passed": true,
+  "exit_code": 0,
+  "git_commit": "63d0817ffb2e372de21159cfc90d5d3e74d74b91",
+  "working_tree_dirty": true,
+  "exe_sha256": "718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00",
+  "log_sha256": "80ef5a5608233748ea0dd95f869a12588d35de981d930f7f6b0709e07d10811b",
+  "build_manifest_sha256": "6027df743399f797df9931317c02be86f2f215207429c272f174c7d943dcc5ef",
+  "build": {
+    "schema_version": 1,
+    "id": "biathlon_windows_development_build_v1",
+    "result": "Succeeded",
+    "unity": "6000.6.0f1",
+    "errors": 0,
+    "warnings": 0,
+    "bytes": 219952362,
+    "seconds": 2.7942164
+  },
+  "scenes": [
+    {
+      "schema_version": 1,
+      "id": "biathlon_player_smoke_v1",
+      "scene": "PlayableSprint",
+      "tick": 400,
+      "athletes": 6
+    },
+    {
+      "schema_version": 1,
+      "id": "biathlon_player_smoke_v1",
+      "scene": "PlayableMassStart",
+      "tick": 400,
+      "athletes": 30
+    }
+  ],
+  "quality_checks": [
+    "BIATHLON_SMOKE_QUALITY PlayableSprint low",
+    "BIATHLON_SMOKE_QUALITY PlayableSprint balanced",
+    "BIATHLON_SMOKE_QUALITY PlayableSprint high",
+    "BIATHLON_SMOKE_QUALITY PlayableMassStart low",
+    "BIATHLON_SMOKE_QUALITY PlayableMassStart balanced",
+    "BIATHLON_SMOKE_QUALITY PlayableMassStart high"
+  ],
+  "log": "C:\\game\\Biathlon\\Biathlon\\artifacts\\player-smoke\\20260916-043246-494\\Player.log"
+}
