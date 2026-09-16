@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="4" result="Passed" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-15 16:46:00Z" end-time="2026-09-15 16:46:01Z" duration="1,0678494">
+  <test-suite type="TestSuite" id="1903" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="550" result="Passed" start-time="2026-09-15 16:46:00Z" end-time="2026-09-15 16:46:01Z" duration="1.067849" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1891" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="550" result="Passed" start-time="2026-09-15 16:46:00Z" end-time="2026-09-15 16:46:01Z" duration="0.969599" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="34348" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1892" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="550" result="Passed" start-time="2026-09-15 16:46:01Z" end-time="2026-09-15 16:46:01Z" duration="0.869400" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1893" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="550" result="Passed" start-time="2026-09-15 16:46:01Z" end-time="2026-09-15 16:46:01Z" duration="0.766732" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1209" name="AnimationObservationTests" fullname="Biathlon.Tests.AnimationObservationTests" classname="Biathlon.Tests.AnimationObservationTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-09-15 16:46:01Z" end-time="2026-09-15 16:46:01Z" duration="0.673554" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1210" name="DetachedAnimationObservationsFollowCommittedRaceWithoutChangingEventsOrResult" fullname="Biathlon.Tests.AnimationObservationTests.DetachedAnimationObservationsFollowCommittedRaceWithoutChangingEventsOrResult" methodname="DetachedAnimationObservationsFollowCommittedRaceWithoutChangingEventsOrResult" classname="Biathlon.Tests.AnimationObservationTests" runstate="Runnable" seed="462961941" result="Passed" start-time="2026-09-15 16:46:01Z" end-time="2026-09-15 16:46:01Z" duration="0.485663" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1214" name="MassStartRearRowsSampleTheApproachInsteadOfBaseRoute" fullname="Biathlon.Tests.AnimationObservationTests.MassStartRearRowsSampleTheApproachInsteadOfBaseRoute" methodname="MassStartRearRowsSampleTheApproachInsteadOfBaseRoute" classname="Biathlon.Tests.AnimationObservationTests" runstate="Runnable" seed="1248959072" result="Passed" start-time="2026-09-15 16:46:01Z" end-time="2026-09-15 16:46:01Z" duration="0.064075" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1213" name="TimedShootingObservationsUseExactConfiguredDurationsAndGlobalClock" fullname="Biathlon.Tests.AnimationObservationTests.TimedShootingObservationsUseExactConfiguredDurationsAndGlobalClock" classname="Biathlon.Tests.AnimationObservationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-15 16:46:01Z" end-time="2026-09-15 16:46:01Z" duration="0.021912" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1211" name="TimedShootingObservationsUseExactConfiguredDurationsAndGlobalClock(Prone,20)" fullname="Biathlon.Tests.AnimationObservationTests.TimedShootingObservationsUseExactConfiguredDurationsAndGlobalClock(Prone,20)" methodname="TimedShootingObservationsUseExactConfiguredDurationsAndGlobalClock" classname="Biathlon.Tests.AnimationObservationTests" runstate="Runnable" seed="774218275" result="Passed" start-time="2026-09-15 16:46:01Z" end-time="2026-09-15 16:46:01Z" duration="0.006733" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1212" name="TimedShootingObservationsUseExactConfiguredDurationsAndGlobalClock(Standing,30)" fullname="Biathlon.Tests.AnimationObservationTests.TimedShootingObservationsUseExactConfiguredDurationsAndGlobalClock(Standing,30)" methodname="TimedShootingObservationsUseExactConfiguredDurationsAndGlobalClock" classname="Biathlon.Tests.AnimationObservationTests" runstate="Runnable" seed="1421526611" result="Passed" start-time="2026-09-15 16:46:01Z" end-time="2026-09-15 16:46:01Z" duration="0.013933" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

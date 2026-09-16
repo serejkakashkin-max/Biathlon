@@ -233,6 +233,7 @@ namespace Biathlon.Unity.Presentation
             var source=Resources.Load<Material>("Biathlon/GreyboxLit");
             if(source==null)throw new InvalidOperationException("Original athlete requires the build-retained Biathlon/GreyboxLit material.");
             var material=new Material(source){name=id,color=color,enableInstancing=true};
+            if(material.HasProperty("_Color"))material.SetColor("_Color",color);
             material.SetFloat("_Smoothness",smoothness);material.SetFloat("_Metallic",metallic);materials[id]=material;return material;
         }
         private static Vector4 R(float y,float xRadius,float zRadius,float zOffset=0)=>new Vector4(y,xRadius,zRadius,zOffset);

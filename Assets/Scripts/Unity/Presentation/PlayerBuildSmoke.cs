@@ -45,6 +45,11 @@ namespace Biathlon.Unity.Presentation
             if (host.GetComponent<AthleteProxyPresentation>().GetProxy(id.Value) == null ||
                 host.GetComponentInChildren<Camera>() == null)
                 throw new InvalidOperationException("Player presentation is missing.");
+            var proxies = host.GetComponent<AthleteProxyPresentation>(); proxies.Render(1);
+            var rig = proxies.GetRig(id.Value); rig.Validate();
+            if (rig.GetComponent<AthleteGroundContact>() == null || rig.GetComponent<AthleteRiflePresentation>() == null ||
+                rig.GetComponent<AthleteShootingPose>() == null || Resources.Load<Mesh>("Biathlon/Athletes/Meshes/AthleteBodyDistant") == null)
+                throw new InvalidOperationException("M11 athlete presentation assets are missing in the player.");
         }
         private IEnumerator Start()
         {

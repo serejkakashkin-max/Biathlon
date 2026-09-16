@@ -1,0 +1,13 @@
+# TASK-151 — Animation state matrix and M11 integration
+
+2026-09-15. WP151 PASS. M11 technical implementation/verification complete with explicit visual actions; continue M12/WP152. No new owner gate is required here.
+
+The generated animation scene now exposes four repeatable state sets: seven locomotion states, prone sequence, standing sequence, and corners/exertion. Each uses the production locomotion, body, rifle and contact layers. Both range sequences show carry/draw/lower/aim/bolt-sight/exit/carry. New tests sample400 integrated transition poses per stance and verify continuous head movement, finite contact, rigid pole length, carry restoration and repeatable state-set changes. Original material regeneration now explicitly preserves the legacy color property as well as the URP base color.
+
+Final qualification: **PlayMode48/48 PASS**, **Unity EditMode animation observations4/4 PASS** (550 discovered), **.NET observations/snapshots5/5 PASS**. Full races, input, cameras, sight alignment and distance detail pass. Console **0 errors/0 warnings**, compilation_failed=false after captures/build. No Domain/Simulation/AI/Career/Replay implementation or authoritative tuning changed.
+
+Reviewed four matrix screenshots, actual neutral-input prone/standing dedicated camera captures, and fresh chase ticks0/400/1200/2500. Actual shooting states are ticks2091 and6031; camera evidence is separate from synthetic matrix states. WP150 supplies30 visible athletes and measured crowd cost. Scripts recreate all fixtures. See `docs/quality/m11/wp151/transition-and-feel-review.md` for coverage and remaining defects.
+
+Windows Development build succeeded with **0 errors/0 warnings**,219940290 bytes. Automated standalone smoke passed Sprint6 and Mass Start30 at tick400, exit0, now also validating M11 rig components and retained distant mesh. Executable: `Builds/WindowsDevelopment/Biathlon.exe`. Executable SHA256: `718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00`. Full manifest, smoke JSON and compressed Player.log.gz are retained in WP151 evidence. The build was made from HEAD70b33ca plus the verified WP151 working changes; the evidence correctly records a dirty working tree. It is not claimed as a clean build of70b33ca alone.
+
+Limits: finish recovery is fixture-only until finish staging is integrated; original character/fingers/bolt detail remains developmental; terrain contact is a local approximation; broadcast zoom needs LOD priority. These are recorded for the M12 representative benchmark, not hidden behind a final visual PASS. OWNER-FEEL-001 stays OPEN, with all mandatory WP229/230/232 reviews unchanged. No third-party production assets, paid asset need or account blocker arose.

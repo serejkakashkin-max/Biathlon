@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "frequency": 20,
+  "tick": 1200,
+  "id": "biathlon_playtest_evidence_v1",
+  "track_id": "synthetic_stadium_v1",
+  "profile_id": "sprint_test_v1",
+  "player_id": "athlete_0",
+  "context_sha256": "01513224580380107caaf7e9c0438f641ca82657251c74668736a68766f5c70b",
+  "command_policy": "effort800_aim1000x1000_trigger_each_tick_v1",
+  "complete": false,
+  "actors": [
+    {
+      "id": "athlete_0",
+      "loop_id": "main_long",
+      "phase": "Skiing",
+      "local_nm": 484829899230,
+      "lateral_m": 0.0,
+      "speed_mps": 9.082000801,
+      "laps": 0,
+      "bouts": 0,
+      "penalties": 0,
+      "closed_mask": 0
+    },
+    {
+      "id": "athlete_1",
+      "loop_id": "main_long",
+      "phase": "Skiing",
+      "local_nm": 228399362518,
+      "lateral_m": 0.0,
+      "speed_mps": 8.852982462,
+      "laps": 0,
+      "bouts": 0,
+      "penalties": 0,
+      "closed_mask": 0
+    }
+  ],
+  "screenshot_sha256": "f0f25defada8cbf84f3b636e6702822a9ae4e6638d950009599c23fc3db0d229",
+  "git_commit": "70b33ca968215cc70a8bf26bf6d5cc6d2312050a",
+  "working_tree_dirty": true
+}
