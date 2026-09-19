@@ -1,0 +1,13 @@
+# TASK-158 — Weather presentation
+
+2026-09-19. PASS for weather presentation benchmark scope.
+
+Added versioned clear/overcast/snowfall presets, original procedural cloud sky, linear distance fog, ambient/key colors, light intensity and cloud-appropriate shadow strength. Bounded1600-flake snowfall uses stable index hashing and explicit observation time/wind. Quality budgets are35%/65%/100%; sampled particles fade near the camera and volume boundary, and clip below an explicit local ground plane. One camera-specific mesh renders the flakes. Snow particle positions, cloud drift and vegetation wind consume explicit visual input; no authoritative weather, shot, movement or RNG state changes.
+
+WeatherPresentation owns a reversible scene-level lease: skybox, fog, ambient, key-light and camera clear state restore on disable/destruction. Simultaneous owners are rejected explicitly, requiring handoff during scene transitions. Camera FOV/pose never change. Material templates remain immutable. WeatherBenchmark integrates the forest and weather for fixed views; the approved gameplay hosts are unchanged pending explicit sector integration.
+
+Focused tests4/4 passed before final shadow-strength presentation adjustment. Fixed final screenshots cover three weather presets, all snowfall quality tiers and time rewind. Time12→14 changes752808 pixels; returning to12 produces an identical rendered image. Warmed300-iteration CPU scene/mesh/submission costs: low0.05456ms, balanced0.10227ms, high0.15327ms; all0 managed bytes. Submitted flakes252/476/736 are inside the local volume after ground/distance filtering, not a claim that every submitted flake lies inside the camera frustum. GPU frame timing remains WP166.
+
+Final full PlayMode70/70 PASS, including restoration of shadow strength after the final adjustment. Console0 errors/1 MCP warning, compilation_failed=false; native entries retained. Capture telemetry initially attempted to serialize Unity Vector2 directly and encountered its recursive normalized property; fixed to explicit x/z scalars before final captures. No failing test was disabled.
+
+Evidence: `docs/quality/m12/wp158/`. Limitations: analytic wrapping volume, local flat-ground clipping, no accumulation or volumetric clouds, immediate preset switches, global scene fog under a single-owner contract. Target-bank/range-camera readability and full athlete-sector integration must be reviewed in WP164–165; these fixture presets have not silently altered G1 gameplay or OWNER-FEEL-001. Latest Windows standalone remains verified WP157. Next: WP159 temperature/load contextual breath vapor.

@@ -1,0 +1,47 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":70,\"PassedTests\":4,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:00.0842373\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.WeatherTests.PresetsAndDensityRejectInvalidValues\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0120000\"},{\"Name\":\"Biathlon.PlayModeTests.WeatherTests.SnowSamplingIsBoundedRewindableAndUsesExplicitWind\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0090000\"},{\"Name\":\"Biathlon.PlayModeTests.WeatherTests.WarmedSnowfallMeshAndSceneApplicationAllocateNoManagedMemory\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0260000\"},{\"Name\":\"Biathlon.PlayModeTests.WeatherTests.WeatherLeaseRestoresSceneCameraLightAndRejectsConcurrentOwnership\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0040000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 70,
+          "PassedTests": 4,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.0842373"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.WeatherTests.PresetsAndDensityRejectInvalidValues",
+            "Status": "Passed",
+            "Duration": "00:00:00.0120000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.WeatherTests.SnowSamplingIsBoundedRewindableAndUsesExplicitWind",
+            "Status": "Passed",
+            "Duration": "00:00:00.0090000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.WeatherTests.WarmedSnowfallMeshAndSceneApplicationAllocateNoManagedMemory",
+            "Status": "Passed",
+            "Duration": "00:00:00.0260000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.WeatherTests.WeatherLeaseRestoresSceneCameraLightAndRejectsConcurrentOwnership",
+            "Status": "Passed",
+            "Duration": "00:00:00.0040000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

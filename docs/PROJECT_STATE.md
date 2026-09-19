@@ -4,21 +4,21 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M12 started; M11 PASS WITH ACTIONS; M10 PASS / owner-approved; M1–M9 PASS
-active_work_package: WP-158 Weather presentation
-active_task: TASK-158 Snowfall, wind, fog and cloud/light presets
-last_completed_task: TASK-157 Terrain blending and Windows verification
-last_verified_commit: eb62191; WP156 verified and pushed; WP157 verification accompanies this state commit
+active_work_package: WP-159 Breath vapor
+active_task: TASK-159 Temperature and load contextual breath vapor
+last_completed_task: TASK-158 Weather presets, bounded snowfall and restoration verification
+last_verified_commit: 757ebb0; WP157 verified and pushed; WP158 verification accompanies this state commit
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 550 discovered; WP151 observations4/4 PASS; WP141 observations4/4; WP138 grid5/5; prior qualification4/4; prior player-pack2/2; prior HUD1/1; prior penalty10/10; prior shooting/session5/5; prior snapshot1/1, device8/8; M9 actual-season byte parity PASS
-playmode_tests: WP157 full66/66 PASS; WP156 full63/63 PASS and final focused3/3; WP155 full60/60 PASS; WP154 full57/57 PASS; WP153 full53/53 PASS; WP152 full51/51 PASS; WP151 full48/48 PASS; WP150 full46/46 PASS; WP149 full44/44 PASS; WP148 full42/42 PASS; WP147 full39/39 PASS; WP146 full38/38 PASS; WP145 full37/37 PASS; WP144 full36/36 PASS; WP143 full33/33 PASS; WP142 full30/30 PASS; WP141 full28/28 PASS; WP140 full25/25 PASS; prior WP139 evidence1/1 (24 discovered); prior full30 host1/1; prior Sprint-Pursuit chain1/1; prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
+playmode_tests: WP158 full70/70 PASS; WP157 full66/66 PASS; WP156 full63/63 PASS and final focused3/3; WP155 full60/60 PASS; WP154 full57/57 PASS; WP153 full53/53 PASS; WP152 full51/51 PASS; WP151 full48/48 PASS; WP150 full46/46 PASS; WP149 full44/44 PASS; WP148 full42/42 PASS; WP147 full39/39 PASS; WP146 full38/38 PASS; WP145 full37/37 PASS; WP144 full36/36 PASS; WP143 full33/33 PASS; WP142 full30/30 PASS; WP141 full28/28 PASS; WP140 full25/25 PASS; prior WP139 evidence1/1 (24 discovered); prior full30 host1/1; prior Sprint-Pursuit chain1/1; prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
 standalone_tests: WP151 observations/snapshots5/5 PASS; WP141 observations/regression19/19; WP138 grid/results7/7; WP137 qualification/field6/6; WP136 player-pack/snapshot3/3; WP135 HUD/snapshot2/2; WP134 penalty10/10; WP133 aim/session10/10; WP130 input/replay11/11; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
-unity_console_errors: 0 after WP157 Windows verification
-unity_console_warnings: 0 after WP157 Windows verification; compilation_failed=false
+unity_console_errors: 0 after WP158 final regression
+unity_console_warnings: 1 after WP158 final regression; MCP BufferedFileLogStorage disposal warning; compilation_failed=false
 current_known_blockers: []
 owner_gate_g1: APPROVED 2026-09-13; owner hands-on Windows greybox Sprint and Pursuit
 owner_decisions_needed: []
 owner_gameplay_feel_issues: [OWNER-FEEL-001 player shooting feels too easy; OPEN; required WP229/WP230/WP232 review]
-next_unlocked_work_packages: [WP-158] # Continue M12 through WP166, then owner G2.
+next_unlocked_work_packages: [WP-159] # Continue M12 through WP166, then owner G2.
 ```
 
 ## Work packages
@@ -181,7 +181,8 @@ next_unlocked_work_packages: [WP-158] # Continue M12 through WP166, then owner G
 - WP-155 DONE. Bounded ski/pole snow spray, contact/distance/tuck gating, rewind and expiry; full PlayMode60/60, 512-particle0.160467ms/0 B CPU mesh benchmark, Windows six-profile smoke PASS, Console0/0. See TASK-155-snow-vfx-REPORT.md.
 - WP-156 DONE. Original winter forest, nested density, bounded instanced LOD/culling and rewindable wind; full63/63 plus final3/3, pixel-exact wind rewind, 598-tree runtime, CPU0 B and captures verified. Close foliage and LOD transitions remain G2 review actions. See TASK-156-vegetation-REPORT.md.
 - WP-157 DONE. Versioned normalized four-layer PBR terrain, shared surface with explicit ice mask, material compatibility and geometry tests; full66/66, four captures, Windows six-profile smoke, Console0/0. See TASK-157-terrain-blending-REPORT.md.
-- WP-158 IN PROGRESS. Bounded weather presentation and presets.
+- WP-158 DONE. Explicit visual weather presets, bounded snowfall, fog/clouds/light and reversible scene ownership; full70/70, seven captures, pixel-exact wind/weather rewind, CPU0 B verified. Integrated camera/readability review remains WP164–165. See TASK-158-weather-presentation-REPORT.md.
+- WP-159 IN PROGRESS. Temperature/load contextual breath vapor.
 
 ## Owner gameplay-feel issue — OWNER-FEEL-001
 
@@ -213,7 +214,7 @@ Use the [owner handoff](owner/CODEX_M11_HANDOFF.md), [visual addendum](owner/OWN
 Proceed through WP-141–151 with per-WP reports, Unity motion/capture validation, tests, state updates and coherent commits/pushes. Record third-party source, exact license and status before import. The M11 asset gate applies only if external license/account/paid-owner action is actually required; provide an asset shortlist/license report then. There is no automatic new owner gate after WP-151. The next fixed owner gate is **G2 after WP-166**, approving the M12 visual benchmark before producing all venues. No asset blocker has been established at M11 entry.
 
 ## Resume
-M8 and M9 PASS. M10 WP125–140 PASS / owner-approved; G1 explicitly APPROVED 2026-09-13 after owner hands-on Sprint and Pursuit. M11 WP141–151 technically verified; milestone PASS WITH ACTIONS (finish staging, character detail, terrain contact, broadcast LOD, scene readability). Active WP158 / TASK158; continue M12 to G2 after WP166. Windows build updated WP157: Builds/WindowsDevelopment/Biathlon.exe. Automated smoke verified Sprint6 and Mass Start30 at tick400, exit0, M11 components/LOD retained and all six scene/quality combinations rendered; full PlayMode66/66. Evidence quality/m12/wp157 includes full build-file hashes; executable SHA256718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00. Owner testing and automated smoke are separate evidence.
+M8 and M9 PASS. M10 WP125–140 PASS / owner-approved; G1 explicitly APPROVED 2026-09-13 after owner hands-on Sprint and Pursuit. M11 WP141–151 technically verified; milestone PASS WITH ACTIONS (finish staging, character detail, terrain contact, broadcast LOD, scene readability). Active WP159 / TASK159; continue M12 to G2 after WP166. Windows build updated WP157: Builds/WindowsDevelopment/Biathlon.exe. Automated smoke verified Sprint6 and Mass Start30 at tick400, exit0, M11 components/LOD retained and all six scene/quality combinations rendered; full PlayMode66/66. Evidence quality/m12/wp157 includes full build-file hashes; executable SHA256718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00. Owner testing and automated smoke are separate evidence.
 The provisional first-playable tuning version locks127 inputs; see TASK-102-M8-REPORT.md and quality/m8/verification.json.
 Full .NET505/505 plus final tuner/lock5/5; Unity new15/15, PlayMode7/7; Console0 errors/1 warning.
 WP096 top cohort meets provisional GDD shooting windows. Draft/stat/equipment sensitivity and AI parity are measured.
@@ -237,7 +238,7 @@ Preserve ADR0012–0017, canonical Foundation hashes and unrelated owner workspa
 Continue coherent commits/push and state updates under standing owner authorization.
 ## Publication history
 
-Current verified implementation publication: **eb62191** — WP156 verified and pushed. WP157 full66/66, terrain captures and Windows smoke evidence accompanies this state commit. M10 technical delivery was completed at 3466bf6. Owner subsequently approved G1 on 2026-09-13; this decision starts M11 without changing prior test evidence. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
+Current verified implementation publication: **757ebb0** — WP157 verified and pushed. WP158 full70/70, weather captures/rewind/budget/restoration evidence accompanies this state commit. M10 technical delivery was completed at 3466bf6. Owner subsequently approved G1 on 2026-09-13; this decision starts M11 without changing prior test evidence. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
 
 The entries below are historical checkpoints, not the current development position.
 Owner explicitly authorized regular commits/push and state updates on2026-09-09.

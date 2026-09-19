@@ -15,7 +15,7 @@ namespace Biathlon.Unity.Presentation
         private readonly Plane[] planes=new Plane[6];
         private Material material;
         private MaterialPropertyBlock properties;
-        private static readonly int Wind=Shader.PropertyToID("_Wind"), Snow=Shader.PropertyToID("_SnowCoverage");
+        private static readonly int Wind=Shader.PropertyToID("_Wind"), WindDirection=Shader.PropertyToID("_WindDirection"), Snow=Shader.PropertyToID("_SnowCoverage");
         public int TotalInstances => instances?.Length??0;
         public int VisibleInstances => counts[0]+counts[1]+counts[2];
         public int NearCount => counts[0]; public int MidCount => counts[1]; public int FarCount => counts[2];
@@ -30,10 +30,11 @@ namespace Biathlon.Unity.Presentation
             for(int i=0;i<3;i++){meshes[i]=Resources.Load<Mesh>("Biathlon/Vegetation/ConiferLOD"+i);if(meshes[i]==null)throw new InvalidOperationException("Missing vegetation LOD.");matrices[i]=new Matrix4x4[definition.max_instances];triangles[i]=(int)meshes[i].GetIndexCount(0)/3;}
             properties=new MaterialPropertyBlock();
         }
-        public void Prepare(Camera camera,string tier,float presentationTime)
+        public void Prepare(Camera camera,string tier,float presentationTime,Vector2? observedWind=null)
         {
             if(definition==null||camera==null||!float.IsFinite(presentationTime))throw new ArgumentException("Initialized forest, camera and finite time required.");
             if((transform.lossyScale-Vector3.one).sqrMagnitude>.000001f||Vector3.Dot(transform.up,Vector3.up)<.99999f)throw new ArgumentException("Forest root supports translation/yaw only; placement owns tree scale.");
+            if(observedWind.HasValue&&(!float.IsFinite(observedWind.Value.x)||!float.IsFinite(observedWind.Value.y)))throw new ArgumentException("Finite visual wind required.");
             float density=definition.Density(tier);counts[0]=counts[1]=counts[2]=0;SubmittedTriangles=0;
             GeometryUtility.CalculateFrustumPlanes(camera,planes);
             var world=transform.localToWorldMatrix;var eye=camera.transform.position;
@@ -46,12 +47,15 @@ namespace Biathlon.Unity.Presentation
                 if(!GeometryUtility.TestPlanesAABB(planes,bounds))continue;
                 matrices[lod][counts[lod]++]=world*tree.Matrix;SubmittedTriangles+=triangles[lod];
             }
-            properties.SetVector(Wind,new Vector4(presentationTime,definition.wind_amplitude_m,definition.wind_frequency,0));
+            var direction=observedWind.HasValue?observedWind.Value.normalized:new Vector2(1,.35f);
+            float strength=observedWind.HasValue?Mathf.Clamp01(observedWind.Value.magnitude/5):1;
+            properties.SetVector(Wind,new Vector4(presentationTime,definition.wind_amplitude_m*strength,definition.wind_frequency,0));
+            properties.SetVector(WindDirection,new Vector4(direction.x,direction.y,0,0));
             properties.SetFloat(Snow,definition.snow_coverage);
         }
-        public void Render(Camera camera,string tier,float presentationTime)
+        public void Render(Camera camera,string tier,float presentationTime,Vector2? observedWind=null)
         {
-            Prepare(camera,tier,presentationTime);
+            Prepare(camera,tier,presentationTime,observedWind);
             for(int i=0;i<3;i++)if(counts[i]>0)
             {
                 var p=new RenderParams(material){camera=camera,matProps=properties,shadowCastingMode=i<2?ShadowCastingMode.On:ShadowCastingMode.Off,receiveShadows=true,

@@ -1,6 +1,6 @@
 Shader "Biathlon/Conifer"
 {
- Properties { _SnowCoverage("Winter snow coverage",Range(0,1))=.72 _Wind("Time amplitude frequency",Vector)=(0,.16,.8,0) }
+ Properties { _SnowCoverage("Winter snow coverage",Range(0,1))=.72 _Wind("Time amplitude frequency",Vector)=(0,.16,.8,0) _WindDirection("Visual wind XZ",Vector)=(1,.35,0,0) }
  SubShader
  {
   Tags { "RenderPipeline"="UniversalPipeline" "RenderType"="Opaque" }
@@ -8,7 +8,7 @@ Shader "Biathlon/Conifer"
   #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
   #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
   CBUFFER_START(UnityPerMaterial)
-  float4 _Wind; float _SnowCoverage;
+  float4 _Wind,_WindDirection; float _SnowCoverage;
   CBUFFER_END
   struct A { float4 positionOS:POSITION; float3 normalOS:NORMAL; float4 color:COLOR; UNITY_VERTEX_INPUT_INSTANCE_ID };
   struct V { float4 positionCS:SV_POSITION;float3 positionWS:TEXCOORD0;half3 normalWS:TEXCOORD1;half4 color:TEXCOORD2;half fog:TEXCOORD3; UNITY_VERTEX_INPUT_INSTANCE_ID UNITY_VERTEX_OUTPUT_STEREO };
@@ -18,8 +18,8 @@ Shader "Biathlon/Conifer"
    float3 root=TransformObjectToWorld(float3(0,0,0));
    float phase=_Wind.x*_Wind.z+dot(root.xz,float2(.31,.17));
    float height=saturate(v.positionOS.y/8);float bend=_Wind.y*sin(phase)*height*height;
-   o.positionWS=TransformObjectToWorld(v.positionOS.xyz)+float3(bend,0,bend*.35);
-   float3 n=TransformObjectToWorldNormal(v.normalOS);n.y-=dot(n.xz,float2(1,.35))*(_Wind.y*sin(phase)*2*height/8);
+   o.positionWS=TransformObjectToWorld(v.positionOS.xyz)+float3(bend*_WindDirection.x,0,bend*_WindDirection.y);
+   float3 n=TransformObjectToWorldNormal(v.normalOS);n.y-=dot(n.xz,_WindDirection.xy)*(_Wind.y*sin(phase)*2*height/8);
    o.normalWS=normalize(n);o.positionCS=TransformWorldToHClip(o.positionWS);o.color=v.color;o.fog=ComputeFogFactor(o.positionCS.z);return o;
   }
   half4 Frag(V i):SV_Target

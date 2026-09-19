@@ -1,0 +1,3 @@
+# TASK-159 — Breath vapor
+
+Implement restrained bounded breath vapor using explicit visual ambient temperature and observed athlete load, head pose and breath-hold state where available. Do not derive authoritative temperature from snow color or alter HR, breath control or shot geometry. Provide a typed presentation environment input; unset input must not invent weather. Validate warm/cold and rest/load behavior, finite budgets, gaps/rewind, camera distance, actual-host observation parity and close/chase readability. Record provenance and limitations, then continue WP160 stadium/range benchmark art.
