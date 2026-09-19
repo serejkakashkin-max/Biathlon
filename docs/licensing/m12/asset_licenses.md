@@ -12,4 +12,6 @@
 
 | ORIG-M12-008 | Breath vapor billboards and contextual settings | Original repository-authored geometry and timing; reuses ORIG-M12-004 analytic mask | Explicit temperature and observed load/hold; no third-party VFX assets |
 
-No third-party production art was imported for WP152–159. Shader includes reference the installed Unity URP/Core APIs, not copied external artwork. Owner license/account action is not required for these original assets.
+| ORIG-M12-009 | Stadium meshes, materials, target/sector prefabs and StadiumBenchmark | Original repository-authored modular geometry and material parameters; functional wording only | Uses installed Unity URP shaders and Unity LegacyRuntime font under existing installed runtime terms; no external art, fonts, logos or scans |
+
+No third-party production art was imported for WP152–160. Shader includes reference the installed Unity URP/Core APIs, not copied external artwork. Owner license/account action is not required for these original assets.
