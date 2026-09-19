@@ -33,7 +33,7 @@ namespace Biathlon.Tests
             var initial = RacePresentationSnapshot.Capture(observed.Field);
             var athlete = observed.Field.GetAthlete(0);
             AthletePresentationState retained = default;
-            bool retainedSetup = false, tuck = false, sprint = false, penalty = false, climb = false;
+            bool retainedSetup = false, tuck = false, sprint = false, penalty = false, climb = false, heldBreath = false;
             bool eventTuck = false, eventSprint = false, checkedPreparedIntent = false;
             int eventCursor = 0, phases = 0, stances = 0;
             while (!observed.Field.IsComplete && observed.Field.Tick.Value < 50000)
@@ -41,7 +41,7 @@ namespace Biathlon.Tests
                 var tick = observed.Field.Tick.Next();
                 var command = new SprintAthleteInput(new TimeTrialInput(new SimulationInput(tick, athlete.AthleteId, 800),
                     1, 1, 0, tuckRequested: true, sprintRequested: true),
-                    new WeaponAimCommand(tick, athlete.AthleteId, 1000, 1000), tick.Value % 3 == 0);
+                    new WeaponAimCommand(tick, athlete.AthleteId, 1000, 1000), tick.Value % 3 == 0, holdBreath:tick.Value % 60 < 30);
                 observed.StepWithPlayer(0, command, 0);
                 control.StepWithPlayer(0, command, 0);
                 for (; eventCursor < events.Count; eventCursor++)
@@ -84,6 +84,9 @@ namespace Biathlon.Tests
                     Assert.That(state.ShootingPhase, Is.EqualTo(shooting.Phase));
                     Assert.That(state.Sight, Is.EqualTo(shooting.Sight));
                     Assert.That(state.ShootingSway, Is.EqualTo(shooting.LastFrame.Sway));
+                    Assert.That(state.BreathHolding, Is.EqualTo(shooting.LastFrame.BreathControl.Holding));
+                    heldBreath |= state.BreathHolding;
+                    Assert.That(state.BreathingPhaseCycles, Is.EqualTo(shooting.LastFrame.Breathing.PhaseCycles));
                     Assert.That(state.ShootingPhaseDurationTicks, Is.EqualTo(shooting.PhaseDurationTicks));
                     Assert.That(state.ShootingPhaseElapsedTicks + state.ShootingPhaseRemainingTicks,
                         Is.EqualTo(state.ShootingPhaseDurationTicks));
@@ -101,6 +104,8 @@ namespace Biathlon.Tests
                     Assert.That(state.ShootingPhaseDurationTicks, Is.Zero);
                     Assert.That(state.ShootingPhaseRemainingTicks, Is.Zero);
                     Assert.That(state.ShootingPhaseElapsedTicks, Is.Zero);
+                    Assert.That(state.BreathHolding, Is.False);
+                    Assert.That(state.BreathingPhaseCycles, Is.Zero);
                 }
                 if (!checkedPreparedIntent && state.TuckActive && !athlete.HasFinished)
                 {
@@ -116,6 +121,7 @@ namespace Biathlon.Tests
             Assert.That(sprint, Is.True, "Observe at least one accepted final sprint.");
             Assert.That(penalty, Is.True, "Observe penalty branch.");
             Assert.That(climb, Is.True, "Observe climbing grade.");
+            Assert.That(heldBreath, Is.True, "Observe an accepted breath hold.");
             Assert.That(checkedPreparedIntent, Is.True, "Check prepared intent separation.");
             foreach (var phase in new[] { ShootingPhase.Setup, ShootingPhase.Aiming, ShootingPhase.BoltCycle, ShootingPhase.Exiting })
                 Assert.That(phases & (1 << (int)phase), Is.Not.Zero, "Missing range phase " + phase);

@@ -10,4 +10,6 @@
 | ORIG-M12-006 | Snow.shader terrain extension, WinterBlend material, BlendSurface mesh and TerrainBlendBenchmark | Original repository-authored normalized blend masks and geometry; no external texture assets | Visual layer selection only; condition/sector mapping requires explicit integration |
 | ORIG-M12-007 | WinterSky shader/material, WeatherBenchmark, analytic snowfall using original Spray material | Original repository-authored clouds and particle sampling, no external sky/texture/VFX assets | Explicit visual weather inputs; gameplay weather mapping and target readability reviewed in integrated sector |
 
-No third-party production art was imported for WP152–158. Shader includes reference the installed Unity URP/Core APIs, not copied external artwork. Owner license/account action is not required for these original assets.
+| ORIG-M12-008 | Breath vapor billboards and contextual settings | Original repository-authored geometry and timing; reuses ORIG-M12-004 analytic mask | Explicit temperature and observed load/hold; no third-party VFX assets |
+
+No third-party production art was imported for WP152–159. Shader includes reference the installed Unity URP/Core APIs, not copied external artwork. Owner license/account action is not required for these original assets.

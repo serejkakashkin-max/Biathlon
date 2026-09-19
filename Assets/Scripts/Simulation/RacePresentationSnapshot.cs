@@ -32,6 +32,8 @@ namespace Biathlon.Simulation
         public int ShootingPhaseRemainingTicks { get; }
         public int ShootingPhaseElapsedTicks { get; }
         public ShootingSwayFrame ShootingSway { get; }
+        public bool BreathHolding { get; }
+        public double BreathingPhaseCycles { get; }
         public int ClosedTargetsMask { get; }
         public int ShotsFired { get; }
         public WeaponAimState Sight { get; }
@@ -59,6 +61,8 @@ namespace Biathlon.Simulation
             ShootingPhaseRemainingTicks=shooting?.PhaseRemainingTicks??0;
             ShootingPhaseElapsedTicks=shooting?.PhaseElapsedTicks??0;
             ShootingSway=shooting?.LastFrame.Sway??default;
+            BreathHolding=shooting?.LastFrame.BreathControl.Holding??false;
+            BreathingPhaseCycles=shooting?.LastFrame.Breathing.PhaseCycles??0;
             ClosedTargetsMask=shooting?.ClosedMask??0;ShotsFired=shooting?.ShotsFired??0;
             Sight=shooting?.Sight??default;Stance=field.Profile.GetBout(Math.Min(a.Lifecycle.CompletedBouts,field.Profile.BoutCount-1)).Stance;
             ShotOutcome=shooting?.LastFrame.Shot.Outcome??ShotOutcome.NoShot;ShotImpact=shooting?.LastFrame.Shot.Impact??default;

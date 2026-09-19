@@ -1,0 +1,47 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":550,\"PassedTests\":4,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:01.8025713\"},\"Results\":[{\"Name\":\"Biathlon.Tests.AnimationObservationTests.DetachedAnimationObservationsFollowCommittedRaceWithoutChangingEventsOrResult\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.7730000\"},{\"Name\":\"Biathlon.Tests.AnimationObservationTests.MassStartRearRowsSampleTheApproachInsteadOfBaseRoute\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0800000\"},{\"Name\":\"Biathlon.Tests.AnimationObservationTests.TimedShootingObservationsUseExactConfiguredDurationsAndGlobalClock(Prone,20)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0090000\"},{\"Name\":\"Biathlon.Tests.AnimationObservationTests.TimedShootingObservationsUseExactConfiguredDurationsAndGlobalClock(Standing,30)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0130000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 550,
+          "PassedTests": 4,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:01.8025713"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.Tests.AnimationObservationTests.DetachedAnimationObservationsFollowCommittedRaceWithoutChangingEventsOrResult",
+            "Status": "Passed",
+            "Duration": "00:00:00.7730000"
+          },
+          {
+            "Name": "Biathlon.Tests.AnimationObservationTests.MassStartRearRowsSampleTheApproachInsteadOfBaseRoute",
+            "Status": "Passed",
+            "Duration": "00:00:00.0800000"
+          },
+          {
+            "Name": "Biathlon.Tests.AnimationObservationTests.TimedShootingObservationsUseExactConfiguredDurationsAndGlobalClock(Prone,20)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0090000"
+          },
+          {
+            "Name": "Biathlon.Tests.AnimationObservationTests.TimedShootingObservationsUseExactConfiguredDurationsAndGlobalClock(Standing,30)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0130000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}
