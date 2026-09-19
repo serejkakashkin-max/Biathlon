@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Passed" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-16 11:31:53Z" end-time="2026-09-16 11:31:53Z" duration="0,0510681">
+  <test-suite type="TestSuite" id="1102" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="60" result="Passed" start-time="2026-09-16 11:31:53Z" end-time="2026-09-16 11:31:53Z" duration="0.051068" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1197" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="60" result="Passed" start-time="2026-09-16 11:31:53Z" end-time="2026-09-16 11:31:53Z" duration="0.043664" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="6604" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1198" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="60" result="Passed" start-time="2026-09-16 11:31:53Z" end-time="2026-09-16 11:31:53Z" duration="0.040730" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1199" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="60" result="Passed" start-time="2026-09-16 11:31:53Z" end-time="2026-09-16 11:31:53Z" duration="0.038530" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1184" name="SnowSprayTests" fullname="Biathlon.PlayModeTests.SnowSprayTests" classname="Biathlon.PlayModeTests.SnowSprayTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-16 11:31:53Z" end-time="2026-09-16 11:31:53Z" duration="0.034952" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1187" name="BillboardMeshCullsExpiresAndAllocatesNothingAfterWarmup" fullname="Biathlon.PlayModeTests.SnowSprayTests.BillboardMeshCullsExpiresAndAllocatesNothingAfterWarmup" methodname="BillboardMeshCullsExpiresAndAllocatesNothingAfterWarmup" classname="Biathlon.PlayModeTests.SnowSprayTests" runstate="Runnable" seed="1268344538" result="Passed" start-time="2026-09-16 11:31:53Z" end-time="2026-09-16 11:31:53Z" duration="0.019996" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1185" name="ContactDistanceTuckAndPoleOnsetControlBoundedEmission" fullname="Biathlon.PlayModeTests.SnowSprayTests.ContactDistanceTuckAndPoleOnsetControlBoundedEmission" methodname="ContactDistanceTuckAndPoleOnsetControlBoundedEmission" classname="Biathlon.PlayModeTests.SnowSprayTests" runstate="Runnable" seed="1295630887" result="Passed" start-time="2026-09-16 11:31:53Z" end-time="2026-09-16 11:31:53Z" duration="0.000740" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1186" name="RepeatAndRewindProduceSameVisualScatterWithoutGrowingMemory" fullname="Biathlon.PlayModeTests.SnowSprayTests.RepeatAndRewindProduceSameVisualScatterWithoutGrowingMemory" methodname="RepeatAndRewindProduceSameVisualScatterWithoutGrowingMemory" classname="Biathlon.PlayModeTests.SnowSprayTests" runstate="Runnable" seed="1286751808" result="Passed" start-time="2026-09-16 11:31:53Z" end-time="2026-09-16 11:31:53Z" duration="0.002403" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

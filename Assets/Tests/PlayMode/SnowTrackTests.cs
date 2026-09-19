@@ -67,6 +67,7 @@ namespace Biathlon.PlayModeTests
                 var snapshot=host.Feed.Current;long tick=host.Runner.Field.Tick.Value;
                 proxy.Render(1);Assert.That(host.Feed.Current,Is.SameAs(snapshot));Assert.That(host.Runner.Field.Tick.Value,Is.EqualTo(tick));
                 Assert.That(go.GetComponent<SnowTrackPresentation>().Buffer.Count,Is.GreaterThan(0));
+                Assert.That(go.GetComponent<SnowSprayPresentation>().Buffer.TotalEmitted,Is.GreaterThan(0));
             }
             finally{Object.DestroyImmediate(go);}
         }

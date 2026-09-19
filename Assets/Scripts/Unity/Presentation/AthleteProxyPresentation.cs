@@ -19,6 +19,7 @@ namespace Biathlon.Unity.Presentation
         private GroundContactSettings contactSettings;
         private Camera viewCamera;
         private SnowTrackPresentation snowTracks;
+        private SnowSprayPresentation snowSpray;
         public void SetViewCamera(Camera camera) => viewCamera = camera;
         public int Count=>proxies.Count;
         public Transform GetProxy(string athleteId)=>proxies[athleteId].transform;
@@ -30,6 +31,7 @@ namespace Biathlon.Unity.Presentation
             motionSettings=AthleteLocomotionSettings.Load();
             contactSettings=GroundContactSettings.Load();
             snowTracks=GetComponent<SnowTrackPresentation>();if(snowTracks==null)snowTracks=gameObject.AddComponent<SnowTrackPresentation>();snowTracks.Initialize();
+            snowSpray=GetComponent<SnowSprayPresentation>();if(snowSpray==null)snowSpray=gameObject.AddComponent<SnowSprayPresentation>();snowSpray.Initialize();
         }
         public void Render(double alpha)
         {
@@ -56,8 +58,10 @@ namespace Biathlon.Unity.Presentation
                 var frame=new AthleteAnimationFrame(state,current.Tick,current.TickFrequency,alpha,curvature,grade);
                 animation[state.AthleteId].Render(frame,distance);
                 snowTracks.Observe(state.AthleteId,animation[state.AthleteId].Rig,frame,distance);
+                snowSpray.Observe(state.AthleteId,animation[state.AthleteId].Rig,frame,distance);
             }
             snowTracks.Render(Math.Max(0,current.Tick-1+alpha)/current.TickFrequency,viewCamera!=null?viewCamera.transform.position:transform.position);
+            snowSpray.Render(Math.Max(0,current.Tick-1+alpha)/current.TickFrequency,viewCamera);
             removed.Clear();foreach(var id in proxies.Keys)if(!keep.Contains(id))removed.Add(id);foreach(var id in removed){Destroy(proxies[id]);proxies.Remove(id);animation.Remove(id);}
         }
         private void LateUpdate()
@@ -66,7 +70,7 @@ namespace Biathlon.Unity.Presentation
             if(observedTick!=feed.Current.Tick){observedTick=feed.Current.Tick;publishedAt=Time.timeAsDouble;}
             Render(Math.Min(1,(Time.timeAsDouble-publishedAt)*feed.Current.TickFrequency));
         }
-        private void Clear(){foreach(var go in proxies.Values)if(go!=null)Destroy(go);proxies.Clear();animation.Clear();keep.Clear();removed.Clear();observedTick=-1;if(snowTracks!=null)snowTracks.Clear();}
+        private void Clear(){foreach(var go in proxies.Values)if(go!=null)Destroy(go);proxies.Clear();animation.Clear();keep.Clear();removed.Clear();observedTick=-1;if(snowTracks!=null)snowTracks.Clear();if(snowSpray!=null)snowSpray.Clear();}
         private void OnDestroy()=>Clear();
     }
 }
