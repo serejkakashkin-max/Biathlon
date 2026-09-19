@@ -44,6 +44,7 @@ namespace Biathlon.Unity.Presentation
             material.SetFloat("_RoughnessVariation", p.roughness_variation); material.SetFloat("_NormalStrength", p.normal_strength);
             material.SetFloat("_SlopeDarkening", p.slope_darkening); material.SetFloat("_AlbedoVariation", p.albedo_variation);
             material.SetFloat("_MacroScale", macro_scale_m); material.SetFloat("_GrainScale", grain_scale_m);
+            material.SetFloat("_TerrainBlend",0);
         }
     }
 }

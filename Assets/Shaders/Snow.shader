@@ -10,6 +10,13 @@ Shader "Biathlon/Snow"
         _AlbedoVariation("Albedo variation", Range(0,0.3)) = 0.08
         _MacroScale("Macro scale metres", Float) = 1.7
         _GrainScale("Grain scale metres", Float) = 0.045
+        _TerrainBlend("Use authored terrain weights", Float) = 0
+        _PackedColor("Packed trail albedo", Color) = (.68,.75,.8,1)
+        _IceColor("Ice albedo", Color) = (.44,.59,.67,1)
+        _EdgeColor("Trail edge albedo", Color) = (.74,.79,.82,1)
+        _LayerRoughness("Packed ice edge roughness", Vector) = (.58,.12,.9,0)
+        _LayerNormals("Packed ice edge normal strength", Vector) = (.12,.025,.28,0)
+        _GroomSpacing("Groomed groove spacing metres", Float) = .04
     }
     SubShader
     {
@@ -21,15 +28,17 @@ Shader "Biathlon/Snow"
             float4 _BaseColor;
             float _Roughness, _RoughnessVariation, _NormalStrength, _SlopeDarkening;
             float _AlbedoVariation, _MacroScale, _GrainScale;
+            float4 _PackedColor, _IceColor, _EdgeColor, _LayerRoughness, _LayerNormals;
+            float _TerrainBlend, _GroomSpacing;
         CBUFFER_END
-        struct Attributes { float4 positionOS:POSITION; float3 normalOS:NORMAL; UNITY_VERTEX_INPUT_INSTANCE_ID };
-        struct Varyings { float4 positionCS:SV_POSITION; float3 positionWS:TEXCOORD0; half3 normalWS:TEXCOORD1; half fog:TEXCOORD2; UNITY_VERTEX_INPUT_INSTANCE_ID UNITY_VERTEX_OUTPUT_STEREO };
+        struct Attributes { float4 positionOS:POSITION; float3 normalOS:NORMAL; float4 color:COLOR; float2 uv:TEXCOORD0; UNITY_VERTEX_INPUT_INSTANCE_ID };
+        struct Varyings { float4 positionCS:SV_POSITION; float3 positionWS:TEXCOORD0; half3 normalWS:TEXCOORD1; half fog:TEXCOORD2; float4 weights:TEXCOORD3; float2 uv:TEXCOORD4; UNITY_VERTEX_INPUT_INSTANCE_ID UNITY_VERTEX_OUTPUT_STEREO };
         Varyings Vert(Attributes v)
         {
             Varyings o=(Varyings)0; UNITY_SETUP_INSTANCE_ID(v); UNITY_TRANSFER_INSTANCE_ID(v,o); UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
             VertexPositionInputs p=GetVertexPositionInputs(v.positionOS.xyz);
             o.positionCS=p.positionCS; o.positionWS=p.positionWS; o.normalWS=TransformObjectToWorldNormal(v.normalOS);
-            o.fog=ComputeFogFactor(p.positionCS.z); return o;
+            o.fog=ComputeFogFactor(p.positionCS.z); o.weights=v.color;o.uv=v.uv;return o;
         }
         // Repository-authored value noise with analytic derivatives; world units prevent UV stretching.
         float Hash(float3 p) { float3 q=frac(p*0.1031); q+=dot(q,q.yzx+33.33); return frac((q.x+q.y)*q.z); }
@@ -51,12 +60,19 @@ Shader "Biathlon/Snow"
             float footprint=max(length(ddx(uv)),length(ddy(uv)))/max(.001,_GrainScale);
             float grainFade=1-smoothstep(.35,1,footprint);
             float3 n=normalize(i.normalWS);
+            float4 w=max(0,i.weights);w/=max(.0001,dot(w,1));
+            w=lerp(float4(1,0,0,0),w,saturate(_TerrainBlend));
+            float normalStrength=dot(w,float4(_NormalStrength,_LayerNormals.xyz));
+            float roughness=dot(w,float4(_Roughness,_LayerRoughness.xyz));
+            float3 albedo=_BaseColor.rgb*w.x+_PackedColor.rgb*w.y+_IceColor.rgb*w.z+_EdgeColor.rgb*w.w;
             float slope=1-saturate(n.y);
             float3 gradient=grain.yzw;
-            n=normalize(n-(gradient-n*dot(gradient,n))*_NormalStrength*grainFade);
+            n=normalize(n-(gradient-n*dot(gradient,n))*normalStrength*grainFade);
             SurfaceData s=(SurfaceData)0;
-            s.albedo=_BaseColor.rgb*(1-_AlbedoVariation*(1-macro)-_SlopeDarkening*slope);
-            s.metallic=0; s.specular=0; s.smoothness=1-clamp(_Roughness+(macro-.5)*_RoughnessVariation*2,.08,1);
+            float grooveFade=1-smoothstep(.3,1,fwidth(i.uv.x)/max(.005,_GroomSpacing));
+            float groove=sin(i.uv.x*6.2831853/max(.005,_GroomSpacing))*.018*w.y*grooveFade;
+            s.albedo=albedo*(1-_AlbedoVariation*(1-macro)-_SlopeDarkening*slope+groove);
+            s.metallic=0; s.specular=0; s.smoothness=1-clamp(roughness+(macro-.5)*_RoughnessVariation*2*(1-w.z*.8),.08,1);
             s.occlusion=1; s.alpha=1; s.normalTS=half3(0,0,1);
             InputData input=(InputData)0;
             input.positionWS=i.positionWS; input.normalWS=n; input.viewDirectionWS=GetWorldSpaceNormalizeViewDir(i.positionWS);
