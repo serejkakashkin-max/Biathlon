@@ -6,5 +6,6 @@
 | ORIG-M12-002 | Snow.shader, cold/wet materials, ValidationSurface mesh, SnowMaterialValidation scene | Original repository-authored shader/noise, material parameters and procedural fixture geometry | Snow material foundation; final venue quality requires M12 benchmark. No external textures, scans, brands or logos |
 | ORIG-M12-003 | SnowContact.shader, ContactMarks material and runtime trail mesh | Original repository-authored analytic edge mask and bounded procedural geometry | Subtle ski/pole marks, no third-party texture or decal assets |
 | ORIG-M12-004 | SnowSpray.shader, Spray material and runtime billboard mesh | Original repository-authored analytic particles, no textures or VFX asset downloads | Bounded contextual contact snow, no authoritative physics coupling |
+| ORIG-M12-005 | Conifer.shader, conifer LOD meshes/material and VegetationBenchmark scene | Original repository-authored procedural bough geometry, vertex shading and wind; no downloaded art | Replaceable benchmark vegetation; close foliage stylization and LOD transitions require G2 review |
 
-No third-party production art was imported for WP152–155. Shader includes reference the installed Unity URP/Core APIs, not copied external artwork. Owner license/account action is not required for these original assets.
+No third-party production art was imported for WP152–156. Shader includes reference the installed Unity URP/Core APIs, not copied external artwork. Owner license/account action is not required for these original assets.

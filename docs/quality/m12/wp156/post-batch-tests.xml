@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Passed" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 11:10:08Z" end-time="2026-09-19 11:10:08Z" duration="0,0513305">
+  <test-suite type="TestSuite" id="1106" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="63" result="Passed" start-time="2026-09-19 11:10:08Z" end-time="2026-09-19 11:10:08Z" duration="0.051331" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1205" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="63" result="Passed" start-time="2026-09-19 11:10:08Z" end-time="2026-09-19 11:10:08Z" duration="0.044925" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="38424" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1206" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="63" result="Passed" start-time="2026-09-19 11:10:08Z" end-time="2026-09-19 11:10:08Z" duration="0.042909" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1207" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="63" result="Passed" start-time="2026-09-19 11:10:08Z" end-time="2026-09-19 11:10:08Z" duration="0.040913" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1201" name="VegetationTests" fullname="Biathlon.PlayModeTests.VegetationTests" classname="Biathlon.PlayModeTests.VegetationTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-19 11:10:08Z" end-time="2026-09-19 11:10:08Z" duration="0.037972" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1204" name="CullingBudgetsRewindAndWarmedPreparationHaveNoManagedAllocation" fullname="Biathlon.PlayModeTests.VegetationTests.CullingBudgetsRewindAndWarmedPreparationHaveNoManagedAllocation" methodname="CullingBudgetsRewindAndWarmedPreparationHaveNoManagedAllocation" classname="Biathlon.PlayModeTests.VegetationTests" runstate="Runnable" seed="607636882" result="Passed" start-time="2026-09-19 11:10:08Z" end-time="2026-09-19 11:10:08Z" duration="0.022370" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1203" name="GeneratedLodsReduceGeometryAndKeepSnowWindAndInstancingSupport" fullname="Biathlon.PlayModeTests.VegetationTests.GeneratedLodsReduceGeometryAndKeepSnowWindAndInstancingSupport" methodname="GeneratedLodsReduceGeometryAndKeepSnowWindAndInstancingSupport" classname="Biathlon.PlayModeTests.VegetationTests" runstate="Runnable" seed="321522569" result="Passed" start-time="2026-09-19 11:10:08Z" end-time="2026-09-19 11:10:08Z" duration="0.002961" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1202" name="PlacementRepeatsKeepsCanopiesOutsideRouteAndDensityIsNested" fullname="Biathlon.PlayModeTests.VegetationTests.PlacementRepeatsKeepsCanopiesOutsideRouteAndDensityIsNested" methodname="PlacementRepeatsKeepsCanopiesOutsideRouteAndDensityIsNested" classname="Biathlon.PlayModeTests.VegetationTests" runstate="Runnable" seed="418556698" result="Passed" start-time="2026-09-19 11:10:08Z" end-time="2026-09-19 11:10:08Z" duration="0.003999" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
