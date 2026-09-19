@@ -9,9 +9,8 @@
 | ORIG-M12-005 | Conifer.shader, conifer LOD meshes/material and VegetationBenchmark scene | Original repository-authored procedural bough geometry, vertex shading and wind; no downloaded art | Replaceable benchmark vegetation; close foliage stylization and LOD transitions require G2 review |
 | ORIG-M12-006 | Snow.shader terrain extension, WinterBlend material, BlendSurface mesh and TerrainBlendBenchmark | Original repository-authored normalized blend masks and geometry; no external texture assets | Visual layer selection only; condition/sector mapping requires explicit integration |
 | ORIG-M12-007 | WinterSky shader/material, WeatherBenchmark, analytic snowfall using original Spray material | Original repository-authored clouds and particle sampling, no external sky/texture/VFX assets | Explicit visual weather inputs; gameplay weather mapping and target readability reviewed in integrated sector |
-
 | ORIG-M12-008 | Breath vapor billboards and contextual settings | Original repository-authored geometry and timing; reuses ORIG-M12-004 analytic mask | Explicit temperature and observed load/hold; no third-party VFX assets |
-
 | ORIG-M12-009 | Stadium meshes, materials, target/sector prefabs and StadiumBenchmark | Original repository-authored modular geometry and material parameters; functional wording only | Uses installed Unity URP shaders and Unity LegacyRuntime font under existing installed runtime terms; no external art, fonts, logos or scans |
+| ORIG-M12-010 | Spectator LOD meshes, animated instancing shader/material, seating and CrowdBenchmark; VenueSignText shader | Original repository-authored geometry, motion and depth-tested font rendering | Uses the already installed Unity font atlas; no crowd packs, motion capture, downloaded character art or fonts |
 
-No third-party production art was imported for WP152–160. Shader includes reference the installed Unity URP/Core APIs, not copied external artwork. Owner license/account action is not required for these original assets.
+No third-party production art was imported for WP152–161. Shader includes reference the installed Unity URP/Core APIs, not copied external artwork. Owner license/account action is not required for these original assets.

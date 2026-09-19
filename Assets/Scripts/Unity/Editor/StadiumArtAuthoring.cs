@@ -144,9 +144,9 @@ namespace Biathlon.Unity
                 p.Box("concrete",new Vector3(0,y*.5f,z),new Vector3(d.stand_width_m,y,d.stand_row_depth_m));
                 p.Box("concrete",new Vector3(0,(y-d.stand_rise_m*.5f)*.5f,z-d.stand_row_depth_m*.65f),new Vector3(1.35f,y-d.stand_rise_m*.5f,d.stand_row_depth_m*.5f));
                 p.Box("metal",new Vector3(0,y+.025f,z-.35f),new Vector3(d.stand_width_m,.035f,.07f));
-                for(int seat=0;seat<28;seat++)
+                for(int seat=0;seat<d.seats_per_row;seat++)
                 {
-                    float x=-half+.6f+seat*.62f;if(Mathf.Abs(x)<.8f)continue;
+                    float x=(seat-(d.seats_per_row-1)*.5f)*d.seat_pitch_m;if(Mathf.Abs(x)<d.aisle_half_width_m)continue;
                     p.Box("seat",new Vector3(x,y+.28f,z+.08f),new Vector3(.48f,.08f,.42f),.035f);
                     p.Box("seat",new Vector3(x,y+.51f,z+.27f),new Vector3(.48f,.4f,.07f),.025f);
                     p.Box("metal",new Vector3(x,y+.14f,z+.08f),new Vector3(.07f,.24f,.18f));
@@ -161,10 +161,12 @@ namespace Biathlon.Unity
             for(int i=0;i<5;i++)p.Box("dark",new Vector3(-half+i*d.stand_width_m/4,2.5f,rear),new Vector3(.16f,5,.16f));
             p.Box("dark",new Vector3(0,5,rear*.5f),new Vector3(d.stand_width_m+1,.19f,rear+1.5f));p.Box("snow",new Vector3(0,5.13f,rear*.5f),new Vector3(d.stand_width_m+1,.06f,rear+1.5f));
             p.Box("accent",new Vector3(0,4.78f,-.75f),new Vector3(d.stand_width_m+1,.42f,.12f));p.Save();Text(p.Root.transform,"BIATHLON  /  SPECTATORS",new Vector3(0,4.78f,-.82f),.27f,Color.white);
+            p.Root.AddComponent<SpectatorSeating>().Configure(d.SeatAnchors());
         }
         private static void Materials()
         {
             materials.Clear();Lit("white",new Color(.85f,.87f,.86f),0,.32f);Lit("dark",new Color(.055f,.085f,.105f),.55f,.35f);Lit("metal",new Color(.30f,.35f,.39f),.75f,.48f);Lit("accent",new Color(.025f,.24f,.29f),.2f,.32f);
+            Material("SignText","Biathlon/VenueSignText");
             Lit("concrete",new Color(.39f,.42f,.43f),0,.15f);Lit("wood",new Color(.25f,.14f,.075f),0,.18f);Lit("woodLight",new Color(.34f,.20f,.11f),0,.18f);Lit("glass",new Color(.12f,.23f,.30f),.65f,.88f);
             Lit("rubber",new Color(.08f,.10f,.105f),0,.05f);Lit("mat",new Color(.13f,.18f,.19f),0,.12f);Lit("seat",new Color(.055f,.19f,.24f),.1f,.4f);
             Unlit("ink",new Color(.015f,.02f,.024f));Unlit("closure",new Color(.88f,.9f,.9f));materials["snow"]=Resources.Load<Material>("Biathlon/Snow/cold");materials["packed"]=Resources.Load<Material>("Biathlon/Snow/wet");
@@ -177,6 +179,7 @@ namespace Biathlon.Unity
         {
             var go=new GameObject("Venue text");go.transform.SetParent(parent,false);go.transform.localPosition=position;
             var text=go.AddComponent<TextMesh>();text.text=label;text.font=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");text.fontSize=96;text.characterSize=height/7.2f;text.anchor=TextAnchor.MiddleCenter;text.alignment=TextAlignment.Center;text.color=color;go.GetComponent<MeshRenderer>().sharedMaterial=text.font.material;
+            go.AddComponent<VenueSignText>();
         }
         private sealed class Part
         {

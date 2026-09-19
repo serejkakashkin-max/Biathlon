@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "wp161_culling_matrix_preparation",
+  "iterations": 500,
+  "note": "CPU preparation only; GPU and full-frame timings remain WP166",
+  "rows": [
+    {
+      "tier": "low",
+      "mean_cpu_ms": 0.0108928,
+      "managed_bytes": 0,
+      "visible": 46,
+      "triangles": 176640
+    },
+    {
+      "tier": "balanced",
+      "mean_cpu_ms": 0.0242596,
+      "managed_bytes": 0,
+      "visible": 105,
+      "triangles": 403200
+    },
+    {
+      "tier": "high",
+      "mean_cpu_ms": 0.035833,
+      "managed_bytes": 0,
+      "visible": 156,
+      "triangles": 599040
+    }
+  ]
+}

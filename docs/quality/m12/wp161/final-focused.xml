@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="5" result="Passed" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-19 18:44:35Z" end-time="2026-09-19 18:44:36Z" duration="0,0880173">
+  <test-suite type="TestSuite" id="1131" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="83" result="Passed" start-time="2026-09-19 18:44:35Z" end-time="2026-09-19 18:44:36Z" duration="0.088017" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1255" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="83" result="Passed" start-time="2026-09-19 18:44:35Z" end-time="2026-09-19 18:44:36Z" duration="0.079980" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="38424" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1256" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="83" result="Passed" start-time="2026-09-19 18:44:35Z" end-time="2026-09-19 18:44:36Z" duration="0.077393" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1257" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="83" result="Passed" start-time="2026-09-19 18:44:35Z" end-time="2026-09-19 18:44:36Z" duration="0.075233" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1227" name="SpectatorCrowdTests" fullname="Biathlon.PlayModeTests.SpectatorCrowdTests" classname="Biathlon.PlayModeTests.SpectatorCrowdTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-09-19 18:44:35Z" end-time="2026-09-19 18:44:36Z" duration="0.071321" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1228" name="AuthoredSeatsPreserveAisleAndDefensivelyCopyAnchors" fullname="Biathlon.PlayModeTests.SpectatorCrowdTests.AuthoredSeatsPreserveAisleAndDefensivelyCopyAnchors" methodname="AuthoredSeatsPreserveAisleAndDefensivelyCopyAnchors" classname="Biathlon.PlayModeTests.SpectatorCrowdTests" runstate="Runnable" seed="399085525" result="Passed" start-time="2026-09-19 18:44:35Z" end-time="2026-09-19 18:44:35Z" duration="0.014000" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1229" name="DensityRanksAreStableNestedAndFinite" fullname="Biathlon.PlayModeTests.SpectatorCrowdTests.DensityRanksAreStableNestedAndFinite" methodname="DensityRanksAreStableNestedAndFinite" classname="Biathlon.PlayModeTests.SpectatorCrowdTests" runstate="Runnable" seed="2035192488" result="Passed" start-time="2026-09-19 18:44:35Z" end-time="2026-09-19 18:44:35Z" duration="0.002826" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1230" name="FrustumDistanceLodAndWarmedSubmissionAreBounded" fullname="Biathlon.PlayModeTests.SpectatorCrowdTests.FrustumDistanceLodAndWarmedSubmissionAreBounded" methodname="FrustumDistanceLodAndWarmedSubmissionAreBounded" classname="Biathlon.PlayModeTests.SpectatorCrowdTests" runstate="Runnable" seed="1599810354" result="Passed" start-time="2026-09-19 18:44:35Z" end-time="2026-09-19 18:44:35Z" duration="0.011838" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1231" name="StadiumCrowdAnchorsHaveNoCollidersOrRaceAuthority" fullname="Biathlon.PlayModeTests.SpectatorCrowdTests.StadiumCrowdAnchorsHaveNoCollidersOrRaceAuthority" methodname="StadiumCrowdAnchorsHaveNoCollidersOrRaceAuthority" classname="Biathlon.PlayModeTests.SpectatorCrowdTests" runstate="Runnable" seed="114372225" result="Passed" start-time="2026-09-19 18:44:35Z" end-time="2026-09-19 18:44:36Z" duration="0.026598" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1232" name="VenueTextSharesDepthTestedAtlasAndReleasesItsLease" fullname="Biathlon.PlayModeTests.SpectatorCrowdTests.VenueTextSharesDepthTestedAtlasAndReleasesItsLease" methodname="VenueTextSharesDepthTestedAtlasAndReleasesItsLease" classname="Biathlon.PlayModeTests.SpectatorCrowdTests" runstate="Runnable" seed="864979982" result="Passed" start-time="2026-09-19 18:44:36Z" end-time="2026-09-19 18:44:36Z" duration="0.004482" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
