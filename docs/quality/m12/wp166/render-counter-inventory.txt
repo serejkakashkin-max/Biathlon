@@ -1,0 +1,1124 @@
+SpriteRenderer.RenderMultiple / TimeNanoseconds / Default
+SpriteRenderer.Render / TimeNanoseconds / Default
+SpriteRenderer.PrepareNode / TimeNanoseconds / Default
+Sprite.GetSpriteTileVertexAndIndexCount / TimeNanoseconds / Default
+Sprite.GetSourceAndDestinationRect / TimeNanoseconds / Default
+Sprite.Get9SliceRenderDataJob / TimeNanoseconds / Default
+SortLights / TimeNanoseconds / Default
+AddCustomActiveLocalLights / TimeNanoseconds / Default
+AddActiveLocalLights / TimeNanoseconds / Default
+AddDirectionalLights / TimeNanoseconds / Default
+FindBrightestDirectionalLight / TimeNanoseconds / Default
+FindActiveLights / TimeNanoseconds / Default
+CullLightFrustumLocal / TimeNanoseconds / Default
+OcclusionAndConnectivityCullLight / TimeNanoseconds / Default
+FrustumAndOcculusionCullLocalLightsCombine / TimeNanoseconds / Default
+FrustumAndOcculusionCullLocalLights / TimeNanoseconds / Default
+GPUDrivenProcessor.ExtractMaterialsAndMeshesData / TimeNanoseconds / Default
+GPUDrivenProcessor.CollectSpeedTreeWindData / TimeNanoseconds / Default
+GPUDrivenProcessor.CollectMaterialDataJob / TimeNanoseconds / Default
+GPUDrivenProcessor.CollectMeshDataJob / TimeNanoseconds / Default
+GPUDrivenProcessor.CollectRendererDataJob / TimeNanoseconds / Default
+GPUDrivenProcessor.FilterRenderersByMaterial / TimeNanoseconds / Default
+GPUDrivenProcessor.FilterValidMaterials / TimeNanoseconds / Default
+GPUDrivenProcessor.FilterRenderersAndCollectMaterials / TimeNanoseconds / Default
+GPUDrivenProcessor.CollectLODGroupDataJob / TimeNanoseconds / Default
+GPUDrivenProcessor.CollectLODGroupData / TimeNanoseconds / Default
+GPUDrivenProcessor.CollectRendererData / TimeNanoseconds / Default
+GPUDrivenProcessor.FilterOutInvalidLODGroups / TimeNanoseconds / Default
+GPUDrivenProcessor.DispatchSpeedTreeWindData / TimeNanoseconds / Default
+GPUDrivenProcessor.DispatchLODGroupData / TimeNanoseconds / Default
+GPUDrivenProcessor.EnableGPUDrivenRenderingAndDispatchRendererData / TimeNanoseconds / Default
+Shadows.PrepareJob / TimeNanoseconds / Default
+Shadows.PrepareShadowmap / TimeNanoseconds / Default
+Shadows.RenderJobDir / TimeNanoseconds / Default
+Shadows.RenderJobSpot / TimeNanoseconds / Default
+Shadows.RenderJobPoint / TimeNanoseconds / Default
+Shadows.RenderJob / TimeNanoseconds / Default
+Shadows.ExtractCasters / TimeNanoseconds / Default
+Shadows.GenerateRenderNodeQueue / TimeNanoseconds / Default
+Shadows.RenderShadowMap / TimeNanoseconds / Default
+Shadows.Sort / TimeNanoseconds / Default
+Shadows.CollectShadows / TimeNanoseconds / Default
+Recalc Bounds / TimeNanoseconds / Default
+BlendCubemap / TimeNanoseconds / Default
+ReflectionProbes.Convolution / TimeNanoseconds / Default
+SplitCullSceneDynamicObjectsCombineJob / TimeNanoseconds / Default
+SplitCullSceneDynamicObjects / TimeNanoseconds / Default
+CullSceneDynamicObjectsCombineJob / TimeNanoseconds / Default
+CullSceneDynamicObjects / TimeNanoseconds / Default
+CullQueryPortalVisibilityCombineJob / TimeNanoseconds / Default
+CullQueryPortalVisibilityUmbra / TimeNanoseconds / Default
+Flare.GeometryJob / TimeNanoseconds / Default
+Flare.Update / TimeNanoseconds / Default
+Flare.Render / TimeNanoseconds / Default
+FrustumCullReflectionProbesJob / TimeNanoseconds / Default
+ReflectionProbeAnchorPositionUpdate / TimeNanoseconds / Default
+ReflectionProbeAnchorManagerUpdate / TimeNanoseconds / Default
+CollectTreeRenderers / TimeNanoseconds / Default
+PrepareSceneCullingParameters / TimeNanoseconds / Default
+UpdateODSWorldTexture / TimeNanoseconds / Default
+UpdateDepthNormalsTexture / TimeNanoseconds / Default
+UpdateDepthTexture / TimeNanoseconds / Default
+DrawingMultiCustomPost / TimeNanoseconds / Default
+DrawingMultiCustom / TimeNanoseconds / Default
+DrawingMultiCustomPre / TimeNanoseconds / Default
+Drawing / TimeNanoseconds / Default
+Culling / TimeNanoseconds / Default
+Camera.RenderToCubemap / TimeNanoseconds / Default
+Camera.CustomRender / TimeNanoseconds / Default
+Clear / TimeNanoseconds / Default
+Camera.RenderSkybox / TimeNanoseconds / Default
+SamplePerObjectReflectionProbes / TimeNanoseconds / Default
+AddReflectionProbes / TimeNanoseconds / Default
+AddLocalLights / TimeNanoseconds / Default
+CullSendEvents / TimeNanoseconds / Default
+FindShadowCastingLights / TimeNanoseconds / Default
+FindLocalShadowCastingLights / TimeNanoseconds / Default
+FindDirectionalShadowCastingLights / TimeNanoseconds / Default
+PrepareSceneNodesCombineJob / TimeNanoseconds / Default
+SceneNodesInitJob / TimeNanoseconds / Default
+PrepareSceneNodesJob / TimeNanoseconds / Default
+PrepareSceneNodesSetUp / TimeNanoseconds / Default
+PrepareSceneNodes / TimeNanoseconds / Default
+CullSceneObjects / TimeNanoseconds / Default
+CullAllVisibleReflectionProbes / TimeNanoseconds / Default
+CullAllVisibleLights / TimeNanoseconds / Default
+SplitSceneCulling / TimeNanoseconds / Default
+SceneCulling / TimeNanoseconds / Default
+Shadows.CullingCallbacks / TimeNanoseconds / Default
+Shadows.CombineLocalShadowCasterBoundsAndDestroyJob / TimeNanoseconds / Default
+Shadows.CombineLocalShadowCasterCullignIndexListsAndDestroy / TimeNanoseconds / Default
+Shadows.CombineDirectionalShadowCasterCullignIndexListsAndDestroy / TimeNanoseconds / Default
+Shadows.GenerateCombinedDynamicVisibleList / TimeNanoseconds / Default
+Shadows.CullShadowCastersWithoutUmbra / TimeNanoseconds / Default
+Shadows.CullShadowCastersDirectionalUmbra / TimeNanoseconds / Default
+Shadows.CullDirectionalShadowCasters / TimeNanoseconds / Default
+Shadows.CreateUmbraShadowCuller / TimeNanoseconds / Default
+Shadows.PrepareUmbraShadowCullerBuffers / TimeNanoseconds / Default
+Shadows.CullDirectionalCascades / TimeNanoseconds / Default
+Shadows.CullLocalLightShadowCasters / TimeNanoseconds / Default
+Shadows.CullShadowCastersLocalDetail / TimeNanoseconds / Default
+Shadows.CullShadowCastersLocal / TimeNanoseconds / Default
+Shadows.CullShadowCastersDirectionalDetail / TimeNanoseconds / Default
+Shadows.CullShadowCastersDirectional / TimeNanoseconds / Default
+ReflectionProbes.Update / TimeNanoseconds / Default
+Projector.Render / TimeNanoseconds / Default
+BlendLightProbesJobHalfFloat / TimeNanoseconds / Default
+BlendLightProbesJob / TimeNanoseconds / Default
+LightProbeProxyVolumeManager.Update / TimeNanoseconds / Default
+CullResults.CreateSharedRendererScene / TimeNanoseconds / Default
+DestroyCullResults / TimeNanoseconds / Default
+BatchRendererGroup.AddReader / TimeNanoseconds / Default
+BatchRendererGroup.AcquireWrite / TimeNanoseconds / Default
+BatchRendererGroup.IncorporateCacheDelta / TimeNanoseconds / Default
+BatchRendererGroup.InvalidateStaleBatches / TimeNanoseconds / Default
+BatchRendererGroup.InvalidateMetadata / TimeNanoseconds / Default
+BatchRendererGroup.GetCacheDeltaWritable / TimeNanoseconds / Default
+BatchRendererGroup.UpdateMetadataCache / TimeNanoseconds / Default
+BatchRendererGroup.CreateMissingMetadata / TimeNanoseconds / Default
+EndRenderQueueExtraction / TimeNanoseconds / Default
+BeginRenderQueueExtraction / TimeNanoseconds / Default
+QueuePrepareIntegrateMainThreadObjects / TimeNanoseconds / Default
+ExecuteRenderQueueJob / TimeNanoseconds / Default
+Camera.Render / TimeNanoseconds / SampleGPU
+ProbeSetTetrahedralizationBuildBoundingBox / TimeNanoseconds / Default
+GetLightProbeInterpolationWeights / TimeNanoseconds / Default
+Update Lights / TimeNanoseconds / Default
+Graphics.Blit / TimeNanoseconds / Default
+Camera.ImageEffects / TimeNanoseconds / Default
+Prewarm Shaders / TimeNanoseconds / Default
+RenderLoop.CleanupNodeQueue / TimeNanoseconds / Default
+RenderLoop.PrepareRenderNodes.AddProjectorNodes / TimeNanoseconds / Default
+RenderLoop.PrepareRenderNodes / TimeNanoseconds / Default
+ReflectionProbes.RenderProbe / TimeNanoseconds / Default
+Halo.GeometryJob / TimeNanoseconds / Default
+Halo.Render / TimeNanoseconds / Default
+Camera.FindStacks / TimeNanoseconds / Default
+CullPerObjectReflectionProbesJob / TimeNanoseconds / Default
+CullPerObjectReflectionProbesCombine / TimeNanoseconds / Default
+CullPerObjectReflectionProbes / TimeNanoseconds / Default
+ComputeNeedsPerObjectLights / TimeNanoseconds / Default
+CullPerObjectLightsCombine / TimeNanoseconds / Default
+CullPerObjectLights / TimeNanoseconds / Default
+CullObjectsWithoutUmbra / TimeNanoseconds / Default
+CullDynamicObjectsWithUmbra / TimeNanoseconds / Default
+Shadows.CullShadowCastersDetailSpot / TimeNanoseconds / Default
+Shadows.CullShadowCastersDetailPoint / TimeNanoseconds / Default
+CullingGroupSendEvents / TimeNanoseconds / Default
+CullGroupCombineResults / TimeNanoseconds / Default
+CullGroupSphereRange / TimeNanoseconds / Default
+ScheduleCullingGroups / TimeNanoseconds / Default
+GUITexture.Draw / TimeNanoseconds / Default
+Camera.AAResolve / TimeNanoseconds / Default
+RenderDeferred.ForwardObjectsIntoDepthNormals / TimeNanoseconds / Default
+RenderDeferred.ForwardObjectsIntoDepth / TimeNanoseconds / Default
+Render.MotionVectors / TimeNanoseconds / SampleGPU
+Render.TransparentGeometry / TimeNanoseconds / SampleGPU
+Render.OpaqueGeometry / TimeNanoseconds / SampleGPU
+Render.Prepare / TimeNanoseconds / Default
+CalculateLightProbeSamplingCoordinates / TimeNanoseconds / Default
+RenderDeferred.ReflectionsToEmissive / TimeNanoseconds / Default
+RenderDeferred.ReflProbeQuad / TimeNanoseconds / Default
+RenderDeferred.DefaultReflection / TimeNanoseconds / Default
+RenderDeferred.Reflections / TimeNanoseconds / Default
+RenderDeferred.CombineDepthNormals / TimeNanoseconds / Default
+RenderDeferred.ForwardObjectsToDepth / TimeNanoseconds / Default
+RenderDeferred.FinalPass / TimeNanoseconds / Default
+RenderDeferred.Light / TimeNanoseconds / Default
+RenderDeferred.Lighting / TimeNanoseconds / Default
+RenderDeferred.GBuffer / TimeNanoseconds / Default
+RenderDeferred.Sort / TimeNanoseconds / Default
+DepthNormalsPass.Sort / TimeNanoseconds / Default
+DepthNormalsPass.Job / TimeNanoseconds / Default
+ReplacementPass.Sort / TimeNanoseconds / Default
+ReplacementPass.Job / TimeNanoseconds / Default
+DepthPass.Sort / TimeNanoseconds / Default
+DepthPass.Job / TimeNanoseconds / Default
+MotionVector.RenderJob / TimeNanoseconds / Default
+MotionVector.Render / TimeNanoseconds / Default
+MotionVector.Sort / TimeNanoseconds / Default
+RenderForward.PrepareRenderNodes / TimeNanoseconds / Default
+RenderForward.AssignProjectorQueuesJob / TimeNanoseconds / Default
+RenderForward.RenderLoopJob / TimeNanoseconds / Default
+RenderForwardAlpha.Render / TimeNanoseconds / Default
+RenderForwardAlpha.Sort / TimeNanoseconds / Default
+RenderForwardAlpha.Prepare / TimeNanoseconds / Default
+RenderForwardOpaque.Render / TimeNanoseconds / Default
+RenderForwardOpaque.CollectShadows / TimeNanoseconds / Default
+RenderForwardOpaque.Sort / TimeNanoseconds / Default
+RenderForwardOpaque.Prepare / TimeNanoseconds / Default
+RenderDeferred.CopyDepth / TimeNanoseconds / Default
+BatchRenderer.RenderSingle / TimeNanoseconds / Default
+BatchRenderer.Flush / TimeNanoseconds / Default
+SpriteMeshGenerator.Simplify / TimeNanoseconds / Default
+SpriteMeshGenerator.TraceShape / TimeNanoseconds / Default
+SpriteMeshGenerator.Decompose / TimeNanoseconds / Default
+GraphicsStateCollection.Warmup / TimeNanoseconds / Default
+WatermarkRender / TimeNanoseconds / Default
+SplashScreenRenderForeground / TimeNanoseconds / Default
+SplashScreenRenderBackground / TimeNanoseconds / Default
+SplashScreenRender / TimeNanoseconds / Default
+RenderTexture.ResolveAA / TimeNanoseconds / Default
+Renderers.OncePerFrameUpdate / TimeNanoseconds / Default
+Renderers.DebugDataAlloc / TimeNanoseconds / Default
+SyncUpdateRendererBoundingVolumes / TimeNanoseconds / Default
+FinalizeUpdateRendererBoundingVolumes / TimeNanoseconds / Default
+UpdateRendererBoundingVolumes / TimeNanoseconds / Default
+ScheduleUpdateRendererBoundingVolumes / TimeNanoseconds / Default
+PrepareUpdateRendererBoundingVolumes / TimeNanoseconds / Default
+RenderTarget.SetActive / TimeNanoseconds / Default
+RenderTarget.GrabPixels / TimeNanoseconds / Default
+Graphics.DrawProcedural / TimeNanoseconds / Default
+Render.LineOrTrail / TimeNanoseconds / Default
+Render.Mesh / TimeNanoseconds / Default
+Mesh.DrawVBO / TimeNanoseconds / Default
+CustomRenderTextures.Update / TimeNanoseconds / Default
+RenderTexture.GarbageCollectTemporary / TimeNanoseconds / Default
+FoveatedRenderingTexture / TimeNanoseconds / Default
+Billboard.BatchJob / TimeNanoseconds / Default
+CommandBuffer.AfterShadowMapPass / TimeNanoseconds / Default
+CommandBuffer.BeforeShadowMapPass / TimeNanoseconds / Default
+CommandBuffer.AfterScreenspaceMask / TimeNanoseconds / Default
+CommandBuffer.BeforeScreenspaceMask / TimeNanoseconds / Default
+CommandBuffer.AfterShadowMap / TimeNanoseconds / Default
+CommandBuffer.BeforeShadowMap / TimeNanoseconds / Default
+CommandBuffer.AfterHaloAndLensFlares / TimeNanoseconds / Default
+CommandBuffer.BeforeHaloAndLensFlares / TimeNanoseconds / Default
+CommandBuffer.AfterReflections / TimeNanoseconds / Default
+CommandBuffer.BeforeReflections / TimeNanoseconds / Default
+CommandBuffer.AfterEverything / TimeNanoseconds / Default
+CommandBuffer.AfterImageEffects / TimeNanoseconds / Default
+CommandBuffer.BeforeImageEffects / TimeNanoseconds / Default
+CommandBuffer.AfterForwardAlpha / TimeNanoseconds / Default
+CommandBuffer.BeforeForwardAlpha / TimeNanoseconds / Default
+CommandBuffer.AfterSkybox / TimeNanoseconds / Default
+CommandBuffer.BeforeSkybox / TimeNanoseconds / Default
+CommandBuffer.AfterImageEffectsOpaque / TimeNanoseconds / Default
+CommandBuffer.BeforeImageEffectsOpaque / TimeNanoseconds / Default
+CommandBuffer.AfterForwardOpaque / TimeNanoseconds / Default
+CommandBuffer.BeforeForwardOpaque / TimeNanoseconds / Default
+CommandBuffer.AfterFinalPass / TimeNanoseconds / Default
+CommandBuffer.BeforeFinalPass / TimeNanoseconds / Default
+CommandBuffer.AfterLighting / TimeNanoseconds / Default
+CommandBuffer.BeforeLighting / TimeNanoseconds / Default
+CommandBuffer.AfterGBuffer / TimeNanoseconds / Default
+CommandBuffer.BeforeGBuffer / TimeNanoseconds / Default
+CommandBuffer.AfterDepthNormalsTexture / TimeNanoseconds / Default
+CommandBuffer.BeforeDepthNormalsTexture / TimeNanoseconds / Default
+CommandBuffer.AfterDepthTexture / TimeNanoseconds / Default
+CommandBuffer.BeforeDepthTexture / TimeNanoseconds / Default
+RenderingCommandBuffer.PrepareKeywords / TimeNanoseconds / Default
+CalculateLODJob / TimeNanoseconds / Default
+LOD.ComputeLOD / TimeNanoseconds / Default
+MeshRendererFinalizeUpdate / TimeNanoseconds / Default
+MeshRendererPrepareDispatchUpdate / TimeNanoseconds / Default
+MeshRenderer.ComputeScaledMesh / TimeNanoseconds / Default
+MeshRenderer.Render / TimeNanoseconds / Default
+FillQuadIndexBuffer / TimeNanoseconds / Default
+CopyChannels / TimeNanoseconds / Default
+StaticBatching.MakeBatch / TimeNanoseconds / Default
+StaticBatching.KickOffBatching / TimeNanoseconds / Default
+StaticBatching.Finish / TimeNanoseconds / Default
+StaticBatching.CollectBatches / TimeNanoseconds / Default
+StaticBatching.BakeTransforms / TimeNanoseconds / Default
+StaticBatching.SortObjects / TimeNanoseconds / Default
+StaticBatching.FilterObjects / TimeNanoseconds / Default
+CombineIndices / TimeNanoseconds / Default
+CombineVertices / TimeNanoseconds / Default
+CombineMeshes / TimeNanoseconds / Default
+SkinnedMeshUpdateAllNeeded / TimeNanoseconds / Default
+SkinnedMeshFinalizeUpdate / TimeNanoseconds / Default
+SkinnedMeshPrepareDispatchUpdate / TimeNanoseconds / Default
+SkinnedMeshOncePerFrameUpdate / TimeNanoseconds / Default
+MeshSkinning.GPUBatchedSkinInPlace / TimeNanoseconds / Default
+MeshSkinning.GPUBatchedSkin / TimeNanoseconds / Default
+MeshSkinning.GPUBatchedBlendShape / TimeNanoseconds / Default
+MeshSkinning.GPUBatchedCopy / TimeNanoseconds / Default
+UpdateSkinnedMeshBoundingVolumes / TimeNanoseconds / Default
+MeshSkinning.CalcMatrices / TimeNanoseconds / Default
+MeshSkinning.SkinOnGPUNonBatched / TimeNanoseconds / Default
+MeshSkinning.SkinOnGPU / TimeNanoseconds / Default
+MeshSkinning.WaitForSkinThreads / TimeNanoseconds / Default
+MeshSkinning.Render / TimeNanoseconds / Default
+MeshSkinning.Prepare / TimeNanoseconds / Default
+MeshSkinning.UpdateImmediate / TimeNanoseconds / Default
+MeshSkinning.Update / TimeNanoseconds / Default
+MeshSkinning.Skin / TimeNanoseconds / Default
+RayTracingMeshInstanceListRenderer.WriteLightProbeInstanceData / TimeNanoseconds / Default
+RayTracing.BlendLightProbesJob / TimeNanoseconds / Default
+RayTracingMeshInstanceListRenderer.UploadBuiltinInstanceData / TimeNanoseconds / Default
+RayTracingMeshInstanceListRenderer.SetCustomInstanceData / TimeNanoseconds / Default
+RayTracingInstanceCulling.GenerateInstances / TimeNanoseconds / Default
+RayTracingInstanceCulling.CullingJob / TimeNanoseconds / Default
+RayTracingAccelerationStructure.PrepareGeometries / TimeNanoseconds / Default
+RayTracingAccelerationStructure.Delete / TimeNanoseconds / Default
+RayTracingAccelerationStructure.AddInstanceList / TimeNanoseconds / Default
+RayTracingAccelerationStructure.CullInstances / TimeNanoseconds / Default
+RayTracingAccelerationStructure.RemoveInstances / TimeNanoseconds / Default
+RayTracingAccelerationStructure.ClearInstances / TimeNanoseconds / Default
+RayTracingAccelerationStructure.Build / TimeNanoseconds / Default
+RayTracingAccelerationStructureManager.Update / TimeNanoseconds / Default
+CullResultsToVisibleReflectionProbes / TimeNanoseconds / Default
+CullResultsToVisibleLights / TimeNanoseconds / Default
+CullResultsToNativeArrays / TimeNanoseconds / Default
+ComputeShadowSplitMasks / TimeNanoseconds / Default
+ScheduleShadowSplitMasksComputation / TimeNanoseconds / Default
+CullShadowCastersScriptable / TimeNanoseconds / Default
+CullAndSplitScriptable / TimeNanoseconds / Default
+CullScriptable / TimeNanoseconds / Default
+SRPBShadow.ApplyShader / TimeNanoseconds / Default
+StdShadow.ApplyShader / TimeNanoseconds / Default
+Shadows.ExtractShaderPassContext / TimeNanoseconds / Default
+Shadows.ScheduleRenderJobs / TimeNanoseconds / Default
+Shadows.ExecuteDrawShadows / TimeNanoseconds / Default
+Shadows.PrepareDrawShadows / TimeNanoseconds / Default
+Shadows.DrawSRPBatcher / TimeNanoseconds / Default
+Shadows.Draw / TimeNanoseconds / Default
+Shadows.ExtractCasters / TimeNanoseconds / Default
+Shadows.SplitAndSortCasters / TimeNanoseconds / Default
+Shadows.Sort / TimeNanoseconds / Default
+SRPBatcher.DrawCommandsInjection / TimeNanoseconds / Default
+SRPBRender.ApplyShader / TimeNanoseconds / Default
+StdRender.ApplyShader / TimeNanoseconds / Default
+RenderLoop.ScheduleDraw / TimeNanoseconds / Default
+RenderLoop.DrawSRPBatcher / TimeNanoseconds / Default
+RenderLoop.Draw / TimeNanoseconds / Default
+RenderLoop.Sort / TimeNanoseconds / Default
+RenderLoop.Prepare / TimeNanoseconds / Default
+SRPBatcher.InstancedFill / TimeNanoseconds / Default
+SRPBatcher.Flush / TimeNanoseconds / Default
+WaitForLastPresentation / TimeNanoseconds / AvailabilityNonDevelopment
+InitializeEngineGraphics / TimeNanoseconds / Default
+Initialize Graphics / TimeNanoseconds / Default
+FrameDebugger.SetEnabled / TimeNanoseconds / Default
+Compute.Dispatch / TimeNanoseconds / Default
+ApplyPass.PrepareKeywords / TimeNanoseconds / Default
+ShaderFromSerializedShader / TimeNanoseconds / Default
+Material.ResetAllCachedMaterialData / TimeNanoseconds / Default
+Material.SetPassFast / TimeNanoseconds / Default
+ApplyDeferredShaderLoadActions / TimeNanoseconds / Default
+Shader.WarmupAllShaders / TimeNanoseconds / Default
+ShaderVariantCollection.WarmupShaders / TimeNanoseconds / Default
+Shader.EditorCompileVariant / TimeNanoseconds / Default
+Shader.EditorSaveVariantToCache / TimeNanoseconds / Default
+Shader.EditorLoadVariantFromCache / TimeNanoseconds / Default
+Shader.DynamicLoadGPUProgram / TimeNanoseconds / Default
+Shader.CreateGPUPrograms / TimeNanoseconds / Default
+RayTracingShadersSetupLoop.Execute / TimeNanoseconds / Default
+RayTracingShadersSetupLoop.SetupShadersForRange / TimeNanoseconds / Default
+RayTracing.SetInstanceShaders / TimeNanoseconds / Default
+RayTracing.Dispatch / TimeNanoseconds / Default
+Shader.DynamicLoadGPUProgram / TimeNanoseconds / Default
+Shader.CompileGPUProgram / TimeNanoseconds / Default
+Shader.CreateGPUProgram / TimeNanoseconds / Default
+Shader.EditorLoadVariant / TimeNanoseconds / Default
+GpuRecorder.FrameTick / TimeNanoseconds / Default
+CreateGpuProgram / TimeNanoseconds / Default
+Profiler.FlushRenderCounters / TimeNanoseconds / Default
+Profiler.ExceededUsedTextureStatsSlots / TimeNanoseconds / Warning
+Profiler.CollectUsedTextureStats / TimeNanoseconds / Default
+Initialize Gfx Device / TimeNanoseconds / Default
+CreateRealGfxDevice / TimeNanoseconds / Default
+CreateThreadableGfxDevice / TimeNanoseconds / Default
+Gfx.UpdateBufferRanges / TimeNanoseconds / Default
+Gfx.EndTextureWrite / TimeNanoseconds / Default
+Gfx.BeginTextureWrite / TimeNanoseconds / Default
+DrawBuffersBatchMode / TimeNanoseconds / Default
+Gfx.CopyTextureData / TimeNanoseconds / Default
+Gfx.UnmapTexture / TimeNanoseconds / Default
+Gfx.MapTexture / TimeNanoseconds / Default
+Gfx.Reserve / TimeNanoseconds / Default
+Gfx.IntegrateTexture / TimeNanoseconds / Default
+Gfx.UploadTextureData / TimeNanoseconds / Default
+Gfx.CreateTextureThreaded / TimeNanoseconds / Default
+Gfx.CreateTexture / TimeNanoseconds / Default
+MeshSkinning.ComputeBlendShape / TimeNanoseconds / Default
+MeshSkinning.ComputeSkinning / TimeNanoseconds / Default
+EndDynamicVBOFrame / TimeNanoseconds / Default
+EndGraphicsJobs / TimeNanoseconds / Default
+WaitForRenderJobs / TimeNanoseconds / Default
+PutAllGeometryJobFence / TimeNanoseconds / Default
+PutGeometryJobFence / TimeNanoseconds / Default
+ScheduleGeometryJobs / TimeNanoseconds / Default
+Batch.FillInstanceProperties / TimeNanoseconds / Default
+FrameTime.GPU / TimeNanoseconds / AvailabilityNonDevelopment, SampleGPU
+Batch.DrawInstanced / TimeNanoseconds / Default
+Batch.DrawStatic / TimeNanoseconds / Default
+RenderLoopDevice.Idle / TimeNanoseconds / Default
+CreateD3D11GfxDevice / TimeNanoseconds / Default
+IDXGISwapChain::Present / TimeNanoseconds / Default
+GfxDeviceD3D11.RefreshSafeFrame / TimeNanoseconds / Default
+GfxDeviceD3D11.PopEventQuery / TimeNanoseconds / Default
+GfxDeviceD3D11.WaitForQueuedPresentsToComplete / TimeNanoseconds / Default
+BufferD3D11.UpdateBuffer / TimeNanoseconds / Default
+CreateGraphicsPipelineImpl / TimeNanoseconds / Default
+D3D12PipelineCacheDeletePipelineCache / TimeNanoseconds / Default
+D3D12PipelineCacheSavePipelineCache / TimeNanoseconds / Default
+D3D12PipelineCacheStorePipeline / TimeNanoseconds / Default
+D3D12PipelineCacheLoadGraphicsPipeline / TimeNanoseconds / Default
+D3D12PipelineCacheInit / TimeNanoseconds / Default
+D3D12PipelineCacheCheckFeatureSupport / TimeNanoseconds / Default
+D3D12PipelineCacheDestroy / TimeNanoseconds / Default
+D3D12PipelineCacheCreate / TimeNanoseconds / Default
+D3D12CreateSerializedKey / TimeNanoseconds / Default
+BufferD3D12.InitializeResource / TimeNanoseconds / Default
+BufferD3D12.CreateBufferResource / TimeNanoseconds / Default
+BufferD3D12.UpdateInternal / TimeNanoseconds / Default
+BufferD3D12.Reinitialize / TimeNanoseconds / Default
+BufferD3D12.CleanupResource / TimeNanoseconds / Default
+GfxTask_PluginEventAndData / TimeNanoseconds / Default
+GfxTask_ReadValue / TimeNanoseconds / Default
+GfxTask_UnmapTiledResource / TimeNanoseconds / Default
+GfxTask_MapTiledResource / TimeNanoseconds / Default
+GfxTask_UpdateCopyFence / TimeNanoseconds / Default
+GfxTask_WaitOnGpuFence / TimeNanoseconds / Default
+GfxTask_InsertGpuFence / TimeNanoseconds / Default
+GfxTask_InsertCopyGpuFence / TimeNanoseconds / Default
+GfxTask_RecycleGfxDeviceWorker / TimeNanoseconds / Default
+GfxTask_RecycleGfxDevice / TimeNanoseconds / Default
+GfxTask_Present / TimeNanoseconds / Default
+GfxTask_DeleteBuffer / TimeNanoseconds / Default
+GfxTask_ReleaseAsyncCommandHeader / TimeNanoseconds / Default
+GfxTask_ExecuteFromPlugin / TimeNanoseconds / Default
+GfxTask_Execute / TimeNanoseconds / Default
+GfxTask_SyncJobFence / TimeNanoseconds / Default
+GfxDeviceD3D12.ResourceBarriers / TimeNanoseconds / Default
+GfxDeviceD3D12.ExecuteCommandList / TimeNanoseconds / Default
+GfxDeviceD3D12.Reuse / TimeNanoseconds / Default
+GfxDeviceD3D12.Swap / TimeNanoseconds / Default
+D3D12UploadBuffer.Wait / TimeNanoseconds / Default
+D3D12UploadBuffer.Deallocate / TimeNanoseconds / Default
+D3D12UploadBuffer.Allocate / TimeNanoseconds / Default
+D3D12ClientScratchAllocator.ActivateClientScratchBuffer / TimeNanoseconds / Default
+D3D12ClientScratchAllocator.ReleaseAllUnusedMemory / TimeNanoseconds / Default
+D3D12ClientScratchAllocator.ReclaimMemory / TimeNanoseconds / Default
+D3D12ScratchAllocator.ReleaseAllUnusedMemory / TimeNanoseconds / Default
+D3D12ScratchAllocator.ReclaimScratchBuffers / TimeNanoseconds / Default
+D3D12ScratchAllocator.ReclaimMemory / TimeNanoseconds / Default
+D3D12ScratchAllocator.AdvanceFrameAndReclaim / TimeNanoseconds / Default
+D3D12ScratchAllocator.DestroyScratch / TimeNanoseconds / Default
+D3D12ScratchAllocator.AllocateOverflow / TimeNanoseconds / Default
+D3D12ScratchAllocator.AllocateNewScratch / TimeNanoseconds / Default
+D3D12CreateSerializedKey / TimeNanoseconds / Default
+CreateResourceWithTag / TimeNanoseconds / Default
+CreateCommittedResourceWithTag / TimeNanoseconds / Default
+SplitJobConsumer / TimeNanoseconds / Default
+GfxDeviceD3D12.InsertEditorWaitForPresentFence / TimeNanoseconds / Default
+GfxDeviceD3D12.WaitForLastPresentation.WaitForGPU / TimeNanoseconds / Default
+GfxDeviceD3D12.WaitForLastPresentation / TimeNanoseconds / Default
+CreateComputePipelineImpl / TimeNanoseconds / Default
+CreateGraphicsPipelineAsync / TimeNanoseconds / SampleGPU
+GfxDeviceD3D12Base_InvalidateState / TimeNanoseconds / Default
+CreateGfxDeviceD3D12 / TimeNanoseconds / Default
+GfxDeviceD3D12Base / TimeNanoseconds / Default
+CreateD3D12BaseDevice / TimeNanoseconds / Default
+CreateD3D12GfxDevice / TimeNanoseconds / Default
+GfxDeviceD3D12.ReserveScratchMemory / TimeNanoseconds / Default
+GfxDeviceD3D12.FinishRenderingWithMessagePump / TimeNanoseconds / Default
+GfxDeviceD3D12.FinishRendering / TimeNanoseconds / Default
+GfxDeviceD3D12.WaitForGPU / TimeNanoseconds / Default
+D3D12CreateSerializedKey / TimeNanoseconds / Default
+CreatePSO.Job / TimeNanoseconds / Default
+GraphicsCaps.InitD3D12 / TimeNanoseconds / Default
+InitializeD3D12.CreateD3D11On12Device / TimeNanoseconds / Default
+InitializeD3D12.D3D12_CreateCommandQueue / TimeNanoseconds / Default
+InitializeD3D12.CreateCommandQueues / TimeNanoseconds / Default
+InitializeD3D12.CreateDevice / TimeNanoseconds / Default
+InitializeD3D12.EnumAdapter / TimeNanoseconds / Default
+InitializeD3D12.LoadDxgi / TimeNanoseconds / Default
+InitializeD3D12.LoadD3D12 / TimeNanoseconds / Default
+InitializeD3D12.LoadD3D11 / TimeNanoseconds / Default
+InitializeD3D12 / TimeNanoseconds / Default
+InitializeD3D12DebugLayer / TimeNanoseconds / Default
+D3D12RayTracingStateObject.CacheShaderIdentifiers / TimeNanoseconds / Default
+gD3D12SetHitGroupShadersJob / TimeNanoseconds / Default
+GfxDeviceD3D12.SetRayTracingInstanceShaders / TimeNanoseconds / Default
+GfxDeviceD3D12.BuildRayTracingAccelerationStructures / TimeNanoseconds / Default
+GfxDeviceD3D12.UpdateRayTracingAccelerationStructures / TimeNanoseconds / Default
+GfxDeviceD3D12.BuildTopLevelAccelerationStructure / TimeNanoseconds / Default
+BuildBottomLevelAccelerationStructure / TimeNanoseconds / Default
+AllocateBottomLevelAccelerationStructure / TimeNanoseconds / Default
+GfxDeviceD3D12.BuildBottomLevelAccelerationStructures / TimeNanoseconds / Default
+GfxDeviceD3D12Base.DispatchRayTracingProgram / TimeNanoseconds / Default
+D3D12RayTracingState.CreateCollection / TimeNanoseconds / Default
+D3D12RayTracingState.Create / TimeNanoseconds / Default
+D3D12RayTracingState.SetShaderRecordDescriptors / TimeNanoseconds / Default
+D3D12RayTracingState.SetDescriptorHeaps / TimeNanoseconds / Default
+D3D12RayTracingState.Setup / TimeNanoseconds / Default
+D3D12RayTracingState.ResourceBarriers / TimeNanoseconds / Default
+D3D12RayTracingState.Transition / TimeNanoseconds / Default
+D3D12RayTracingState.SetGlobalDescriptorTables / TimeNanoseconds / Default
+WriteHitGroupRecordsJobKernel / TimeNanoseconds / Default
+D3D12RayTracingState.WriteHitGroupRecords / TimeNanoseconds / Default
+D3D12RayTracingState.WriteShaderTableRecords / TimeNanoseconds / Default
+D3D12RayTracingShaderRuntimeData.GetGlobalResources / TimeNanoseconds / Default
+Create GfxDeviceClient / TimeNanoseconds / Default
+Create Client Gfx Device Main / TimeNanoseconds / Default
+CreateGfxDeviceWorker / TimeNanoseconds / Default
+Gfx.EndAsyncJobFrame / TimeNanoseconds / Default
+Gfx.GetComputeBufferData_Request / TimeNanoseconds / Default
+Gfx.ReadbackImage / TimeNanoseconds / Default
+Gfx.CaptureScreenshot / TimeNanoseconds / Default
+Gfx.FinishRendering / TimeNanoseconds / Default
+Gfx.WaitForRenderThread / TimeNanoseconds / AvailabilityNonDevelopment
+Gfx.WaitForPresentOnGfxThread / TimeNanoseconds / AvailabilityNonDevelopment
+RenderLoop / TimeNanoseconds / AvailabilityNonDevelopment
+CreateGLESGfxDevice / TimeNanoseconds / Default
+CreateComputePipelineImpl / TimeNanoseconds / Default
+GfxDeviceVK.ExecuteCommandList / TimeNanoseconds / Default
+GfxDeviceVK.Present / TimeNanoseconds / Default
+GfxDeviceVK.SyncSubmission / TimeNanoseconds / Default
+CreatePSO.Job / TimeNanoseconds / Default
+VKUploadBuffer.Deallocate / TimeNanoseconds / Default
+VKUploadBuffer.Allocate / TimeNanoseconds / Default
+AcquireNextFrame / TimeNanoseconds / Default
+CreateGraphicsPipelineImpl / TimeNanoseconds / Default
+Gfx.CreateBufferResource / TimeNanoseconds / Default
+SplitJobConsumer / TimeNanoseconds / Default
+JobConsumer / TimeNanoseconds / Default
+WaitForRenderJobs / TimeNanoseconds / Default
+CreateGraphicsPipelineAsync / TimeNanoseconds / SampleGPU
+CreateVKGfxDevice / TimeNanoseconds / Default
+LineRenderer.Render / TimeNanoseconds / Default
+LineRenderer.RenderGeometryJob / TimeNanoseconds / Default
+LineRenderer.ScheduleGeometryJobs / TimeNanoseconds / Default
+Mesh.CalcBoneBounds / TimeNanoseconds / Default
+Mesh.CreateMesh / TimeNanoseconds / Default
+TrailRenderer.Render / TimeNanoseconds / Default
+TrailRenderer.RenderGeometryJob / TimeNanoseconds / Default
+TrailRenderer.ScheduleGeometryJobs / TimeNanoseconds / Default
+Shader.EditorInvalidateMaterialsAfterCompilation / TimeNanoseconds / Default
+Shader.ParseMainThread / TimeNanoseconds / Default
+Shader.ParseThreaded / TimeNanoseconds / Default
+Shader.MainThreadCleanup / TimeNanoseconds / Default
+GPUProfiler.EndQueries / TimeNanoseconds / Default
+GPUProfiler.BeginQueries / TimeNanoseconds / Default
+Gfx.PresentFrame / TimeNanoseconds / Default
+Gfx.SetRenderTarget / TimeNanoseconds / Default
+Gfx.DrawDynamic / TimeNanoseconds / Default
+Gfx.UpdateAsyncReadbackData / TimeNanoseconds / Default
+Gfx.RequestAsyncReadbackData / TimeNanoseconds / Default
+Gfx.InitializeBuffer / TimeNanoseconds / Default
+Gfx.UploadTexture / TimeNanoseconds / Default
+TextRendering.Cleanup / TimeNanoseconds / Default
+Font.CacheFontForText / TimeNanoseconds / Default
+FontEngine.GlyphRasterizer.Calculate3x3AAEDT / TimeNanoseconds / Default
+FontEngine.RenderGlyphJob / TimeNanoseconds / Default
+ClothManager.UploadSimulatedSkinData / TimeNanoseconds / Default
+TilemapRenderer.DistributeJobs / TimeNanoseconds / Default
+TilemapRenderer.CheckDirtyChunks / TimeNanoseconds / Default
+TilemapRenderer.ClearChunks / TimeNanoseconds / Default
+TilemapRenderer.PrepareSRPBatchMode / TimeNanoseconds / Default
+TilemapRenderer.PrepareIndividualMode / TimeNanoseconds / Default
+TilemapRenderer.PrepareChunkMode / TimeNanoseconds / Default
+TilemapRenderer.CameraBoundsCheck / TimeNanoseconds / Default
+TilemapRenderer.CalculateChunkCullingBounds / TimeNanoseconds / Default
+TilemapRenderer.CleanupSRPBatchJob / TimeNanoseconds / Default
+TilemapRenderer.ExecuteSRPBatchJob / TimeNanoseconds / Default
+TilemapRenderer.ScheduleSRPBatch / TimeNanoseconds / Default
+TilemapRenderer.CleanupIndividualJob / TimeNanoseconds / Default
+TilemapRenderer.ExecuteIndividualJob / TimeNanoseconds / Default
+TilemapRenderer.CombineIndividualJob / TimeNanoseconds / Default
+TilemapRenderer.CountIndividualJob / TimeNanoseconds / Default
+TilemapRenderer.ScheduleIndividual / TimeNanoseconds / Default
+TilemapRenderer.Render / TimeNanoseconds / Default
+TilemapRenderer.GeometryJob / TimeNanoseconds / Default
+TilemapRenderer.DispatchJob / TimeNanoseconds / Default
+TilemapRenderer.BuildChunkJob / TimeNanoseconds / Default
+TilemapRenderer.CameraBoundsJob / TimeNanoseconds / Default
+SpriteShapeRenderer::IntegrateGeometryData / TimeNanoseconds / Default
+SpriteShapeRenderer::IntegrateTextureData / TimeNanoseconds / Default
+SpriteMask.Render / TimeNanoseconds / Default
+MeshSkinning.CalculateSkinningMatrices / TimeNanoseconds / Default
+Canvas.RenderSubBatch / TimeNanoseconds / Default
+Canvas.PrepareBatches / TimeNanoseconds / Default
+Canvas.GeometryJob / TimeNanoseconds / Default
+Canvas.PrepareBatchesJob / TimeNanoseconds / Default
+Canvas.SortJob / TimeNanoseconds / Default
+Canvas.CombineInstructionsJob / TimeNanoseconds / Default
+Canvas.SplitInstructionsJob / TimeNanoseconds / Default
+Canvas.Sort / TimeNanoseconds / Default
+CanvasRenderer.SyncClipRect / TimeNanoseconds / Default
+CanvasRenderer.SyncWorldRect / TimeNanoseconds / Default
+CanvasRenderer.SyncTransform / TimeNanoseconds / Default
+ParticleSystem.Draw / TimeNanoseconds / Default
+ParticleSystem.DrawSystem / TimeNanoseconds / Default
+LODTreeInstanceRenderer.UpdateWind / TimeNanoseconds / Default
+QuadTreeNode.Render / TimeNanoseconds / Default
+DetailInstances.BuildCB / TimeNanoseconds / Default
+DetailInstances.BatchingWithCB / TimeNanoseconds / Default
+TreeRenderer.UpdateTreeSceneNodes / TimeNanoseconds / Default
+TreeRenderer.UpdateVisibility / TimeNanoseconds / Default
+TreeRenderer.TreeUpdated / TimeNanoseconds / Default
+TreeRenderer.Render / TimeNanoseconds / Default
+TerrainManager.CullAllTerrains / TimeNanoseconds / Default
+Terrain.Trees.OnWillRender / TimeNanoseconds / Default
+Terrain.Trees.Render / TimeNanoseconds / Default
+Terrain.Details.Render / TimeNanoseconds / Default
+Terrain.Trees.RayTracingCulling / TimeNanoseconds / Default
+Terrain.Heightmap.RayTracingCullingStep3 / TimeNanoseconds / Default
+Terrain.Heightmap.RayTracingCullingStep2 / TimeNanoseconds / Default
+Terrain.Heightmap.RayTracingCullingStep1 / TimeNanoseconds / Default
+Terrain.Heightmap.RenderStep3 / TimeNanoseconds / Default
+Terrain.Heightmap.RenderStep2 / TimeNanoseconds / Default
+Terrain.Heightmap.RenderStep1 / TimeNanoseconds / Default
+Terrain.UpdateSplatMaterials / TimeNanoseconds / Default
+Terrain.UpdateSplatProperties / TimeNanoseconds / Default
+Terrain.FlushDirty / TimeNanoseconds / Default
+QuadTreeBatchNode.Render / TimeNanoseconds / Default
+Terrain.UpdateTreeBillboardTexture / TimeNanoseconds / Default
+DetailInstances.Batching / TimeNanoseconds / Default
+Tree.FilterNonProcessedTreesJob / TimeNanoseconds / Default
+Tree.ComputeWindPropertiesForAllVisible / TimeNanoseconds / Default
+SpeedTreeWindManager.GetEffectiveWindAndSetWindShaderProperties / TimeNanoseconds / Default
+SpeedTreeWindManager.UploadGfxBuffer / TimeNanoseconds / Default
+SpeedTreeWindManager.ClearWindParamsJob / TimeNanoseconds / Default
+SpeedTreeWindManager.InitializeLocalWindsJob / TimeNanoseconds / Default
+SpeedTreeWindManager.PrepareTreesAndWriteWindParamsJob / TimeNanoseconds / Default
+SpeedTreeWindManager.UpdateLocalWindInterpolation / TimeNanoseconds / Default
+SpeedTreeWindManager.UpdateLocalWindsJob / TimeNanoseconds / Default
+SpeedTreeWindManager.UpdateGlobalWindsJob / TimeNanoseconds / Default
+SpeedTreeWindManager.UpdateWindAndWriteWindParams / TimeNanoseconds / Default
+SpeedTreeWindManager.ClearWindParams / TimeNanoseconds / Default
+SpeedTreeWindManager.UpdateGlobalAndLocalWinds / TimeNanoseconds / Default
+SpeedTreeWindManager.Update / TimeNanoseconds / Default
+DetailMesh.InstanceGenerationJob / TimeNanoseconds / Default
+DetailMesh.MeshGenerationJob / TimeNanoseconds / Default
+Terrain.UpdateTreeBillboardTexture2 / TimeNanoseconds / Default
+SpeedTreeWind.Advance / TimeNanoseconds / Default
+UIR.Job.CopyMesh / TimeNanoseconds / Default
+UIR.Job.ConvertMesh / TimeNanoseconds / Default
+UIR.DrawChain / TimeNanoseconds / Default
+UIR.DrawRanges / TimeNanoseconds / Default
+PrecalculateSkinnedMeshRendererBoundingVolumes / TimeNanoseconds / Default
+Mesh.SubmitVBO / TimeNanoseconds / Default
+GizmoRenderer.GenGeometry / TimeNanoseconds / Default
+GizmoRenderer.RenderIcons / TimeNanoseconds / Default
+GizmoRenderer.RenderBatches / TimeNanoseconds / Default
+GizmoRenderer.Sort / TimeNanoseconds / Default
+HandleUtility.FindNearestVertexJob / TimeNanoseconds / Default
+HandleUtility.FindNearestVertex / TimeNanoseconds / Default
+HandleUtility.PickRectObjects / TimeNanoseconds / Default
+HandleUtility.PickGameObject / TimeNanoseconds / Default
+StageUtility.MarkGameObjectVisibility / TimeNanoseconds / Default
+SceneCamera.CollectSelection / TimeNanoseconds / Default
+SceneCamera.PrepareRenderBatch / TimeNanoseconds / Default
+SceneCamera.RenderBatch / TimeNanoseconds / Default
+SceneCamera.RenderSingle / TimeNanoseconds / Default
+SceneCamera.RenderOutline / TimeNanoseconds / Default
+SceneCamera.FilterNodes / TimeNanoseconds / Default
+SceneCamera.SearchFade / TimeNanoseconds / Default
+SceneCamera.Finish / TimeNanoseconds / Default
+SceneCamera.RenderSelected / TimeNanoseconds / Default
+SceneCamera.RenderWire / TimeNanoseconds / Default
+SceneCamera.Render / TimeNanoseconds / Default
+SceneCamera.Clear / TimeNanoseconds / Default
+Shader.CompileGPUProgram / TimeNanoseconds / Default
+UvUnwrapper.Unwrap / TimeNanoseconds / Default
+VCSCache::GetEntry / TimeNanoseconds / Default
+Tilemap.DrawGizmoTilemapRenderer / TimeNanoseconds / Default
+Render As 2D / TimeNanoseconds / Default
+Gizmos.MeshCollider / TimeNanoseconds / Default
+Gizmos.ConvexCollider / TimeNanoseconds / Default
+Render Textures Count / Count / AvailabilityNonDevelopment, Counter, VerbosityAdvanced
+Render Textures Bytes / Bytes / AvailabilityNonDevelopment, Counter, VerbosityAdvanced
+Standard Instances Count / Undefined / AvailabilityNonDevelopment, Counter
+Standard Indirect Instances Count / Undefined / AvailabilityNonDevelopment, Counter
+Standard Instanced Instances Count / Undefined / AvailabilityNonDevelopment, Counter
+SRP Batcher Instances Count / Undefined / AvailabilityNonDevelopment, Counter
+BRG Instances Count / Undefined / AvailabilityNonDevelopment, Counter
+BRG Indirect Instances Count / Undefined / AvailabilityNonDevelopment, Counter
+Null Geometry Instances Count / Undefined / AvailabilityNonDevelopment, Counter
+Null Geometry Indirect Instances Count / Undefined / AvailabilityNonDevelopment, Counter
+Standard Draw Calls Count / Undefined / AvailabilityNonDevelopment, Counter
+Standard Indirect Draw Calls Count / Undefined / AvailabilityNonDevelopment, Counter
+Standard Instanced Draw Calls Count / Undefined / AvailabilityNonDevelopment, Counter
+SRP Batcher Draw Calls Count / Undefined / AvailabilityNonDevelopment, Counter
+BRG Draw Calls Count / Undefined / AvailabilityNonDevelopment, Counter
+BRG Indirect Draw Calls Count / Undefined / AvailabilityNonDevelopment, Counter
+Null Geometry Draw Calls Count / Undefined / AvailabilityNonDevelopment, Counter
+Null Geometry Indirect Draw Calls Count / Undefined / AvailabilityNonDevelopment, Counter
+Triangles Count / Count / AvailabilityNonDevelopment, Counter
+Vertices Count / Count / AvailabilityNonDevelopment, Counter
+SetPass Calls Count / Count / AvailabilityNonDevelopment, Counter
+Shadow Casters Count / Count / AvailabilityNonDevelopment, Counter
+Visible Skinned Meshes Count / Count / AvailabilityNonDevelopment, Counter, VerbosityAdvanced
+Render Textures Changes Count / Count / AvailabilityNonDevelopment, Counter, VerbosityAdvanced
+Used Buffers Count / Count / AvailabilityNonDevelopment, Counter, VerbosityAdvanced
+Used Buffers Bytes / Bytes / AvailabilityNonDevelopment, Counter, VerbosityAdvanced
+Vertex Buffer Upload In Frame Count / Count / AvailabilityNonDevelopment, Counter, VerbosityAdvanced
+Vertex Buffer Upload In Frame Bytes / Bytes / AvailabilityNonDevelopment, Counter, VerbosityAdvanced
+Index Buffer Upload In Frame Count / Count / AvailabilityNonDevelopment, Counter, VerbosityAdvanced
+Index Buffer Upload In Frame Bytes / Bytes / AvailabilityNonDevelopment, Counter, VerbosityAdvanced
+Video Memory Bytes / Bytes / AvailabilityNonDevelopment, Counter, VerbosityAdvanced
+Dynamic Batches Count / Count / Counter, VerbosityAdvanced
+Dynamic Batched Draw Calls Count / Count / Counter, VerbosityAdvanced
+Dynamic Batched Triangles Count / Count / Counter, VerbosityAdvanced
+Dynamic Batched Vertices Count / Count / Counter, VerbosityAdvanced
+Static Batches Count / Count / Counter, VerbosityAdvanced
+Static Batched Draw Calls Count / Count / Counter, VerbosityAdvanced
+Static Batched Triangles Count / Count / Counter, VerbosityAdvanced
+Static Batched Vertices Count / Count / Counter, VerbosityAdvanced
+Instanced Batches Count / Count / Counter, VerbosityAdvanced
+Instanced Batched Draw Calls Count / Count / Counter, VerbosityAdvanced
+Instanced Batched Triangles Count / Count / Counter, VerbosityAdvanced
+Instanced Batched Vertices Count / Count / Counter, VerbosityAdvanced
+Used Textures Count / Count / Counter, VerbosityAdvanced
+Used Textures Bytes / Bytes / Counter, VerbosityAdvanced
+Dynamic Batching Time / TimeNanoseconds / Counter, VerbosityAdvanced
+CPU Total Frame Time / TimeNanoseconds / AvailabilityNonDevelopment, Counter
+CPU Main Thread Frame Time / TimeNanoseconds / AvailabilityNonDevelopment, Counter
+CPU Render Thread Frame Time / TimeNanoseconds / AvailabilityNonDevelopment, Counter
+GPU Frame Time / TimeNanoseconds / AvailabilityNonDevelopment, Counter
+XR Occlusion Mesh / TimeNanoseconds / Script, SampleGPU
+Inl_XR Occlusion Mesh / TimeNanoseconds / Script
+XR Visible Mesh / TimeNanoseconds / Script, SampleGPU
+Inl_XR Visible Mesh / TimeNanoseconds / Script
+UniversalRenderTotal / TimeNanoseconds / Script, SampleGPU
+Inl_UniversalRenderTotal / TimeNanoseconds / Script
+UpdateVolumeFramework / TimeNanoseconds / Script, SampleGPU
+Inl_UpdateVolumeFramework / TimeNanoseconds / Script
+RenderCameraStack / TimeNanoseconds / Script, SampleGPU
+Inl_RenderCameraStack / TimeNanoseconds / Script
+AdditionalLightsShadow / TimeNanoseconds / Script, SampleGPU
+Inl_AdditionalLightsShadow / TimeNanoseconds / Script
+ColorGradingLUT / TimeNanoseconds / Script, SampleGPU
+Inl_ColorGradingLUT / TimeNanoseconds / Script
+CopyColor / TimeNanoseconds / Script, SampleGPU
+Inl_CopyColor / TimeNanoseconds / Script
+CopyDepth / TimeNanoseconds / Script, SampleGPU
+Inl_CopyDepth / TimeNanoseconds / Script
+DrawDepthNormalPrepass / TimeNanoseconds / Script, SampleGPU
+Inl_DrawDepthNormalPrepass / TimeNanoseconds / Script
+DepthPrepass / TimeNanoseconds / Script, SampleGPU
+Inl_DepthPrepass / TimeNanoseconds / Script
+UpdateReflectionProbeAtlas / TimeNanoseconds / Script, SampleGPU
+Inl_UpdateReflectionProbeAtlas / TimeNanoseconds / Script
+DrawOpaqueObjects / TimeNanoseconds / Script, SampleGPU
+Inl_DrawOpaqueObjects / TimeNanoseconds / Script
+DrawTransparentObjects / TimeNanoseconds / Script, SampleGPU
+Inl_DrawTransparentObjects / TimeNanoseconds / Script
+DrawScreenSpaceUI / TimeNanoseconds / Script, SampleGPU
+Inl_DrawScreenSpaceUI / TimeNanoseconds / Script
+RecordRenderGraph / TimeNanoseconds / Script, SampleGPU
+Inl_RecordRenderGraph / TimeNanoseconds / Script
+LightCookies / TimeNanoseconds / Script, SampleGPU
+Inl_LightCookies / TimeNanoseconds / Script
+MainLightShadow / TimeNanoseconds / Script, SampleGPU
+Inl_MainLightShadow / TimeNanoseconds / Script
+SSAO / TimeNanoseconds / Script, SampleGPU
+Inl_SSAO / TimeNanoseconds / Script
+SSR / TimeNanoseconds / Script, SampleGPU
+Inl_SSR / TimeNanoseconds / Script
+DrawMotionVectors / TimeNanoseconds / Script, SampleGPU
+Inl_DrawMotionVectors / TimeNanoseconds / Script
+BlitFinalToBackBuffer / TimeNanoseconds / Script, SampleGPU
+Inl_BlitFinalToBackBuffer / TimeNanoseconds / Script
+DrawSkybox / TimeNanoseconds / Script, SampleGPU
+Inl_DrawSkybox / TimeNanoseconds / Script
+StopNaNs / TimeNanoseconds / Script, SampleGPU
+Inl_StopNaNs / TimeNanoseconds / Script
+SMAAEdgeDetection / TimeNanoseconds / Script, SampleGPU
+Inl_SMAAEdgeDetection / TimeNanoseconds / Script
+SMAABlendWeight / TimeNanoseconds / Script, SampleGPU
+Inl_SMAABlendWeight / TimeNanoseconds / Script
+SMAANeighborhoodBlend / TimeNanoseconds / Script, SampleGPU
+Inl_SMAANeighborhoodBlend / TimeNanoseconds / Script
+GaussianDepthOfField / TimeNanoseconds / Script, SampleGPU
+Inl_GaussianDepthOfField / TimeNanoseconds / Script
+BokehDepthOfField / TimeNanoseconds / Script, SampleGPU
+Inl_BokehDepthOfField / TimeNanoseconds / Script
+MotionBlur / TimeNanoseconds / Script, SampleGPU
+Inl_MotionBlur / TimeNanoseconds / Script
+PaniniProjection / TimeNanoseconds / Script, SampleGPU
+Inl_PaniniProjection / TimeNanoseconds / Script
+UberPostProcess / TimeNanoseconds / Script, SampleGPU
+Inl_UberPostProcess / TimeNanoseconds / Script
+Bloom / TimeNanoseconds / Script, SampleGPU
+Inl_Bloom / TimeNanoseconds / Script
+LensFlareDataDrivenComputeOcclusion / TimeNanoseconds / Script, SampleGPU
+Inl_LensFlareDataDrivenComputeOcclusion / TimeNanoseconds / Script
+LensFlareDataDriven / TimeNanoseconds / Script, SampleGPU
+Inl_LensFlareDataDriven / TimeNanoseconds / Script
+LensFlareScreenSpace / TimeNanoseconds / Script, SampleGPU
+Inl_LensFlareScreenSpace / TimeNanoseconds / Script
+SMAAMaterialSetup / TimeNanoseconds / Script, VerbosityAdvanced
+Inl_SMAAMaterialSetup / TimeNanoseconds / Script, VerbosityAdvanced
+SetupDoF / TimeNanoseconds / Script, VerbosityAdvanced
+Inl_SetupDoF / TimeNanoseconds / Script, VerbosityAdvanced
+DOFComputeCOC / TimeNanoseconds / Script, VerbosityAdvanced
+Inl_DOFComputeCOC / TimeNanoseconds / Script, VerbosityAdvanced
+DOFDownscalePrefilter / TimeNanoseconds / Script, VerbosityAdvanced
+Inl_DOFDownscalePrefilter / TimeNanoseconds / Script, VerbosityAdvanced
+DOFBlurH / TimeNanoseconds / Script, VerbosityAdvanced
+Inl_DOFBlurH / TimeNanoseconds / Script, VerbosityAdvanced
+DOFBlurV / TimeNanoseconds / Script, VerbosityAdvanced
+Inl_DOFBlurV / TimeNanoseconds / Script, VerbosityAdvanced
+DOFBlurBokeh / TimeNanoseconds / Script, VerbosityAdvanced
+Inl_DOFBlurBokeh / TimeNanoseconds / Script, VerbosityAdvanced
+DOFPostFilter / TimeNanoseconds / Script, VerbosityAdvanced
+Inl_DOFPostFilter / TimeNanoseconds / Script, VerbosityAdvanced
+DOFComposite / TimeNanoseconds / Script, VerbosityAdvanced
+Inl_DOFComposite / TimeNanoseconds / Script, VerbosityAdvanced
+TAA / TimeNanoseconds / Script, VerbosityAdvanced
+Inl_TAA / TimeNanoseconds / Script, VerbosityAdvanced
+TAACopyHistory / TimeNanoseconds / Script, VerbosityAdvanced
+Inl_TAACopyHistory / TimeNanoseconds / Script, VerbosityAdvanced
+BloomSetup / TimeNanoseconds / Script, VerbosityAdvanced
+Inl_BloomSetup / TimeNanoseconds / Script, VerbosityAdvanced
+BloomPrefilter / TimeNanoseconds / Script, VerbosityAdvanced
+Inl_BloomPrefilter / TimeNanoseconds / Script, VerbosityAdvanced
+BloomDownsample / TimeNanoseconds / Script, VerbosityAdvanced
+Inl_BloomDownsample / TimeNanoseconds / Script, VerbosityAdvanced
+BloomUpsample / TimeNanoseconds / Script, VerbosityAdvanced
+Inl_BloomUpsample / TimeNanoseconds / Script, VerbosityAdvanced
+UberPostSetupBloomPass / TimeNanoseconds / Script, VerbosityAdvanced
+Inl_UberPostSetupBloomPass / TimeNanoseconds / Script, VerbosityAdvanced
+BlitTextureInPotAtlas / TimeNanoseconds / Script, VerbosityAdvanced
+Inl_BlitTextureInPotAtlas / TimeNanoseconds / Script, VerbosityAdvanced
+APVCellStreamingUpdate / TimeNanoseconds / Script, SampleGPU
+Inl_APVCellStreamingUpdate / TimeNanoseconds / Script
+APVScenarioBlendingUpdate / TimeNanoseconds / Script, SampleGPU
+Inl_APVScenarioBlendingUpdate / TimeNanoseconds / Script
+APVIndexDefragUpdate / TimeNanoseconds / Script, VerbosityAdvanced
+Inl_APVIndexDefragUpdate / TimeNanoseconds / Script, VerbosityAdvanced
+APVDiskStreamingUpdate / TimeNanoseconds / Script, SampleGPU
+Inl_APVDiskStreamingUpdate / TimeNanoseconds / Script
+APVDiskStreamingUpdatePool / TimeNanoseconds / Script, VerbosityAdvanced
+Inl_APVDiskStreamingUpdatePool / TimeNanoseconds / Script, VerbosityAdvanced
+VrsConversion / TimeNanoseconds / Script, SampleGPU
+Inl_VrsConversion / TimeNanoseconds / Script
+VrsVisualization / TimeNanoseconds / Script, SampleGPU
+Inl_VrsVisualization / TimeNanoseconds / Script
+Setup Debug Properties / TimeNanoseconds / Script, SampleGPU
+Inl_Setup Debug Properties / TimeNanoseconds / Script
+UpdateShaderGlobalPropertiesForFinalValidationPass / TimeNanoseconds / Script, SampleGPU
+Inl_UpdateShaderGlobalPropertiesForFinalValidationPass / TimeNanoseconds / Script
+HDRDebugViewPass / TimeNanoseconds / Script, SampleGPU
+Inl_HDRDebugViewPass / TimeNanoseconds / Script
+Blit HDR Debug Data / TimeNanoseconds / Script, SampleGPU
+Inl_Blit HDR Debug Data / TimeNanoseconds / Script
+AAOPass / TimeNanoseconds / Script, SampleGPU
+Inl_AAOPass / TimeNanoseconds / Script
+StencilDitherMaskSeed / TimeNanoseconds / Script, SampleGPU
+Inl_StencilDitherMaskSeed / TimeNanoseconds / Script
+Setup Light Constants / TimeNanoseconds / Script, SampleGPU
+Inl_Setup Light Constants / TimeNanoseconds / Script
+Forward+ Setup / TimeNanoseconds / Script, SampleGPU
+Inl_Forward+ Setup / TimeNanoseconds / Script
+Forward+ Complete / TimeNanoseconds / Script, SampleGPU
+Inl_Forward+ Complete / TimeNanoseconds / Script
+Forward+ Upload / TimeNanoseconds / Script, SampleGPU
+Inl_Forward+ Upload / TimeNanoseconds / Script
+Setup Forward Lights / TimeNanoseconds / Script, SampleGPU
+Inl_Setup Forward Lights / TimeNanoseconds / Script
+Setup Main Shadowmap / TimeNanoseconds / Script, SampleGPU
+Inl_Setup Main Shadowmap / TimeNanoseconds / Script
+MainLightShadowCasterPass / TimeNanoseconds / Script, SampleGPU
+Inl_MainLightShadowCasterPass / TimeNanoseconds / Script
+Draw Main Light Shadowmap / TimeNanoseconds / Script, SampleGPU
+Inl_Draw Main Light Shadowmap / TimeNanoseconds / Script
+Setup Additional Shadows / TimeNanoseconds / Script, SampleGPU
+Inl_Setup Additional Shadows / TimeNanoseconds / Script
+AdditionalLightsShadowCasterPass / TimeNanoseconds / Script, SampleGPU
+Inl_AdditionalLightsShadowCasterPass / TimeNanoseconds / Script
+Draw Additional Lights Shadowmap / TimeNanoseconds / Script, SampleGPU
+Inl_Draw Additional Lights Shadowmap / TimeNanoseconds / Script
+DepthOnlyPass / TimeNanoseconds / Script, SampleGPU
+Inl_DepthOnlyPass / TimeNanoseconds / Script
+Draw Depth Only / TimeNanoseconds / Script, SampleGPU
+Inl_Draw Depth Only / TimeNanoseconds / Script
+DepthNormalOnlyPass / TimeNanoseconds / Script, SampleGPU
+Inl_DepthNormalOnlyPass / TimeNanoseconds / Script
+DrawObjectsPass / TimeNanoseconds / Script, SampleGPU
+Inl_DrawObjectsPass / TimeNanoseconds / Script
+DrawObjectsWithRenderingLayersPass / TimeNanoseconds / Script, SampleGPU
+Inl_DrawObjectsWithRenderingLayersPass / TimeNanoseconds / Script
+CopyDepthPass / TimeNanoseconds / Script, SampleGPU
+Inl_CopyDepthPass / TimeNanoseconds / Script
+Set Motion Vector Global Matrices / TimeNanoseconds / Script, SampleGPU
+Inl_Set Motion Vector Global Matrices / TimeNanoseconds / Script
+MotionVectorRenderPass / TimeNanoseconds / Script, SampleGPU
+Inl_MotionVectorRenderPass / TimeNanoseconds / Script
+DrawSkyboxPass / TimeNanoseconds / Script, SampleGPU
+Inl_DrawSkyboxPass / TimeNanoseconds / Script
+CopyColorPass / TimeNanoseconds / Script, SampleGPU
+Inl_CopyColorPass / TimeNanoseconds / Script
+TransparentSettingsPass / TimeNanoseconds / Script, SampleGPU
+Inl_TransparentSettingsPass / TimeNanoseconds / Script
+Set Transparent Parameters / TimeNanoseconds / Script, SampleGPU
+Inl_Set Transparent Parameters / TimeNanoseconds / Script
+InvokeOnRenderObjectCallbackPass / TimeNanoseconds / Script, SampleGPU
+Inl_InvokeOnRenderObjectCallbackPass / TimeNanoseconds / Script
+Invoke OnRenderObject Callback / TimeNanoseconds / Script, SampleGPU
+Inl_Invoke OnRenderObject Callback / TimeNanoseconds / Script
+Copy Color Raw History / TimeNanoseconds / Script, SampleGPU
+Inl_Copy Color Raw History / TimeNanoseconds / Script
+Copy Color History Before Transparents / TimeNanoseconds / Script, SampleGPU
+Inl_Copy Color History Before Transparents / TimeNanoseconds / Script
+Copy Depth Raw History / TimeNanoseconds / Script, SampleGPU
+Inl_Copy Depth Raw History / TimeNanoseconds / Script
+DrawScreenSpaceUIPass / TimeNanoseconds / Script, SampleGPU
+Inl_DrawScreenSpaceUIPass / TimeNanoseconds / Script
+StopNanPostProcessPass / TimeNanoseconds / Script, SampleGPU
+Inl_StopNanPostProcessPass / TimeNanoseconds / Script
+SmaaPostProcessPass / TimeNanoseconds / Script, SampleGPU
+Inl_SmaaPostProcessPass / TimeNanoseconds / Script
+DepthOfFieldGaussianPostProcessPass / TimeNanoseconds / Script, SampleGPU
+Inl_DepthOfFieldGaussianPostProcessPass / TimeNanoseconds / Script
+DepthOfFieldBokehPostProcessPass / TimeNanoseconds / Script, SampleGPU
+Inl_DepthOfFieldBokehPostProcessPass / TimeNanoseconds / Script
+UpscalerPostProcessPass / TimeNanoseconds / Script, SampleGPU
+Inl_UpscalerPostProcessPass / TimeNanoseconds / Script
+StpPostProcessPass / TimeNanoseconds / Script, SampleGPU
+Inl_StpPostProcessPass / TimeNanoseconds / Script
+TemporalAntiAliasingPostProcessPass / TimeNanoseconds / Script, SampleGPU
+Inl_TemporalAntiAliasingPostProcessPass / TimeNanoseconds / Script
+MotionBlurPostProcessPass / TimeNanoseconds / Script, SampleGPU
+Inl_MotionBlurPostProcessPass / TimeNanoseconds / Script
+PaniniProjectionPostProcessPass / TimeNanoseconds / Script, SampleGPU
+Inl_PaniniProjectionPostProcessPass / TimeNanoseconds / Script
+Blit Bloom Mipmaps (Kawase) / TimeNanoseconds / Script, SampleGPU
+Inl_Blit Bloom Mipmaps (Kawase) / TimeNanoseconds / Script
+Blit Bloom Mipmaps (Dual) / TimeNanoseconds / Script, SampleGPU
+Inl_Blit Bloom Mipmaps (Dual) / TimeNanoseconds / Script
+BloomPostProcessPass / TimeNanoseconds / Script, SampleGPU
+Inl_BloomPostProcessPass / TimeNanoseconds / Script
+LensFlareScreenSpacePostProcessPass / TimeNanoseconds / Script, SampleGPU
+Inl_LensFlareScreenSpacePostProcessPass / TimeNanoseconds / Script
+LensFlareDataDrivenPostProcessPass / TimeNanoseconds / Script, SampleGPU
+Inl_LensFlareDataDrivenPostProcessPass / TimeNanoseconds / Script
+UberPostProcessPass / TimeNanoseconds / Script, SampleGPU
+Inl_UberPostProcessPass / TimeNanoseconds / Script
+ScalingSetupPostProcessPass / TimeNanoseconds / Script, SampleGPU
+Inl_ScalingSetupPostProcessPass / TimeNanoseconds / Script
+Setup Final Post Processing / TimeNanoseconds / Script, SampleGPU
+Inl_Setup Final Post Processing / TimeNanoseconds / Script
+Fsr1UpscalePostProcessPass / TimeNanoseconds / Script, SampleGPU
+Inl_Fsr1UpscalePostProcessPass / TimeNanoseconds / Script
+Blit FSR Upscaling / TimeNanoseconds / Script, SampleGPU
+Inl_Blit FSR Upscaling / TimeNanoseconds / Script
+Blit Final Post Processing / TimeNanoseconds / Script, SampleGPU
+Inl_Blit Final Post Processing / TimeNanoseconds / Script
+FinalPostProcessPass / TimeNanoseconds / Script, SampleGPU
+Inl_FinalPostProcessPass / TimeNanoseconds / Script
+ColorGradingLutPass / TimeNanoseconds / Script, SampleGPU
+Inl_ColorGradingLutPass / TimeNanoseconds / Script
+Blit Color LUT / TimeNanoseconds / Script, SampleGPU
+Inl_Blit Color LUT / TimeNanoseconds / Script
+CapturePass / TimeNanoseconds / Script, SampleGPU
+Inl_CapturePass / TimeNanoseconds / Script
+Capture Camera output / TimeNanoseconds / Script, SampleGPU
+Inl_Capture Camera output / TimeNanoseconds / Script
+FinalBlitPass / TimeNanoseconds / Script, SampleGPU
+Inl_FinalBlitPass / TimeNanoseconds / Script
+Copy Final Depth / TimeNanoseconds / Script, SampleGPU
+Inl_Copy Final Depth / TimeNanoseconds / Script
+ProbeVolumeDebugPass / TimeNanoseconds / Script, SampleGPU
+Inl_ProbeVolumeDebugPass / TimeNanoseconds / Script
+Dispatch APV Debug / TimeNanoseconds / Script, SampleGPU
+Inl_Dispatch APV Debug / TimeNanoseconds / Script
+InterpolateProbesAndUpdateTetrahedronCache / TimeNanoseconds / Script, VerbosityAdvanced
+DispatchProbeUpdateCommand / TimeNanoseconds / Script, VerbosityAdvanced
+DispatchMotionUpdateCommand / TimeNanoseconds / Script, VerbosityAdvanced
+DispatchTransformUpdateCommand / TimeNanoseconds / Script, VerbosityAdvanced
+DispatchWindDataCopyHistory / TimeNanoseconds / Script, VerbosityAdvanced
+ComputeBuffer.SetData / TimeNanoseconds / Script, VerbosityAdvanced
+AllocateBuffers / TimeNanoseconds / Script, VerbosityAdvanced
+UpdateTransformsAndProbes / TimeNanoseconds / Script, VerbosityAdvanced
+UpdateInstanceData / TimeNanoseconds / Script, VerbosityAdvanced
+QueryRendererInstances / TimeNanoseconds / Script, VerbosityAdvanced
+DeepValidate.TotalTreeCount / TimeNanoseconds / Script, VerbosityAdvanced
+QueryInstanceGPUIndices / TimeNanoseconds / Script, VerbosityAdvanced
+UploadGPUInstanceData / TimeNanoseconds / Script, VerbosityAdvanced
+RegisterMeshes / TimeNanoseconds / Script, VerbosityAdvanced
+RegisterMaterials / TimeNanoseconds / Script, VerbosityAdvanced
+DestroyMaterials / TimeNanoseconds / Script, VerbosityAdvanced
+DestroyMeshes / TimeNanoseconds / Script, VerbosityAdvanced
+BuildBatches / TimeNanoseconds / Script, VerbosityAdvanced
+RegisterAndBuildBatches / TimeNanoseconds / Script
+GRD.RegisterMaterialsAndMeshes / TimeNanoseconds / Script
+GRD.CreateCullJobTree / TimeNanoseconds / Script
+WorldProcessor.Update / TimeNanoseconds / Script
+FetchAllChanges / TimeNanoseconds / Script, VerbosityAdvanced
+ProcessCameraChanges / TimeNanoseconds / Script, VerbosityAdvanced
+DestroyUnsupportedRenderers / TimeNanoseconds / Script, VerbosityAdvanced
+ProcessLODGroupChanges / TimeNanoseconds / Script, VerbosityAdvanced
+ProcessLODGroupTransformChanges / TimeNanoseconds / Script, VerbosityAdvanced
+ProcessMeshRendererChanges / TimeNanoseconds / Script, VerbosityAdvanced
+ProcessMeshRendererTransformChanges / TimeNanoseconds / Script, VerbosityAdvanced
+ProcessRendererMaterialAndMeshChanges / TimeNanoseconds / Script, VerbosityAdvanced
+ClassifyMaterials / TimeNanoseconds / Script, VerbosityAdvanced
+FindOnlyUsedMeshes / TimeNanoseconds / Script, VerbosityAdvanced
+FindUnsupportedRenderers / TimeNanoseconds / Script, VerbosityAdvanced
+InstanceOcclusionTest / TimeNanoseconds / Script, SampleGPU
+Inl_InstanceOcclusionTest / TimeNanoseconds / Script
+UpdateOccluders / TimeNanoseconds / Script, SampleGPU
+Inl_UpdateOccluders / TimeNanoseconds / Script
+OcclusionTestOverlay / TimeNanoseconds / Script, SampleGPU
+Inl_OcclusionTestOverlay / TimeNanoseconds / Script
+OccluderOverlay / TimeNanoseconds / Script, SampleGPU
+Inl_OccluderOverlay / TimeNanoseconds / Script
+DestroyDrawInstanceIndices.RemoveDrawInstanceIndices / TimeNanoseconds / Script, VerbosityAdvanced
+DestroyDrawInstances / TimeNanoseconds / Script, VerbosityAdvanced
+DestroyDrawInstances.ParallelSort / TimeNanoseconds / Script, VerbosityAdvanced
+DestroyedBatchMaterials.ParallelSort / TimeNanoseconds / Script, VerbosityAdvanced
+DestroyLODGroupInstances / TimeNanoseconds / Script, VerbosityAdvanced
+ProcessLODGroupUpdateBatch / TimeNanoseconds / Script, VerbosityAdvanced
+DestroyMeshRendererInstances / TimeNanoseconds / Script, VerbosityAdvanced
+GetMaterialsAndMeshesWithChangedData / TimeNanoseconds / Script, VerbosityAdvanced
+ProcessRendererMaterialAndMeshChanges.Sort / TimeNanoseconds / Script, VerbosityAdvanced
+FindRenderersFromMaterialsOrMeshes / TimeNanoseconds / Script, VerbosityAdvanced
+UpdateRenderers / TimeNanoseconds / Script
+ProcessMeshRendererUpdateBatch / TimeNanoseconds / Script
+UploadGPUComponentOverrides / TimeNanoseconds / Script, VerbosityAdvanced
+DeepValidation.GPUArchetypesDidNotChange / TimeNanoseconds / Script, VerbosityAdvanced
+ComputeInstanceGPUArchetypes / TimeNanoseconds / Script, VerbosityAdvanced
+BuildGPUComponentOverrideUploadSources / TimeNanoseconds / Script, VerbosityAdvanced
+SyncWriteGPUComponentJobs / TimeNanoseconds / Script, VerbosityAdvanced
+DeepValidation.NoInstanceUsesBlendProbes / TimeNanoseconds / Script, VerbosityAdvanced
+RenderPipeline.BeginContextRendering / TimeNanoseconds / Script, SampleGPU
+Inl_RenderPipeline.BeginContextRendering / TimeNanoseconds / Script
+RenderPipeline.EndContextRendering / TimeNanoseconds / Script, SampleGPU
+Inl_RenderPipeline.EndContextRendering / TimeNanoseconds / Script
+UniversalRenderPipeline.CreateCameraData / TimeNanoseconds / Script, SampleGPU
+Inl_UniversalRenderPipeline.CreateCameraData / TimeNanoseconds / Script
+UniversalRenderPipeline.InitializeStackedCameraData / TimeNanoseconds / Script, SampleGPU
+Inl_UniversalRenderPipeline.InitializeStackedCameraData / TimeNanoseconds / Script
+UniversalRenderPipeline.InitializeAdditionalCameraData / TimeNanoseconds / Script, SampleGPU
+Inl_UniversalRenderPipeline.InitializeAdditionalCameraData / TimeNanoseconds / Script
+UniversalRenderPipeline.CreateRenderingData / TimeNanoseconds / Script, SampleGPU
+Inl_UniversalRenderPipeline.CreateRenderingData / TimeNanoseconds / Script
+UniversalRenderPipeline.CreateShadowData / TimeNanoseconds / Script, SampleGPU
+Inl_UniversalRenderPipeline.CreateShadowData / TimeNanoseconds / Script
+UniversalRenderPipeline.CreateLightData / TimeNanoseconds / Script, SampleGPU
+Inl_UniversalRenderPipeline.CreateLightData / TimeNanoseconds / Script
+UniversalRenderPipeline.BuildAdditionalLightsShadowAtlasLayout / TimeNanoseconds / Script, SampleGPU
+Inl_UniversalRenderPipeline.BuildAdditionalLightsShadowAtlasLayout / TimeNanoseconds / Script
+UniversalRenderPipeline.GetPerObjectLightFlags / TimeNanoseconds / Script, SampleGPU
+Inl_UniversalRenderPipeline.GetPerObjectLightFlags / TimeNanoseconds / Script
+UniversalRenderPipeline.GetMainLightIndex / TimeNanoseconds / Script, SampleGPU
+Inl_UniversalRenderPipeline.GetMainLightIndex / TimeNanoseconds / Script
+UniversalRenderPipeline.SetupPerFrameShaderConstants / TimeNanoseconds / Script, SampleGPU
+Inl_UniversalRenderPipeline.SetupPerFrameShaderConstants / TimeNanoseconds / Script
+UniversalRenderPipeline.SetupPerCameraShaderConstants / TimeNanoseconds / Script, SampleGPU
+Inl_UniversalRenderPipeline.SetupPerCameraShaderConstants / TimeNanoseconds / Script
+RenderPipeline.BeginCameraRendering / TimeNanoseconds / Script, SampleGPU
+Inl_RenderPipeline.BeginCameraRendering / TimeNanoseconds / Script
+RenderPipeline.EndCameraRendering / TimeNanoseconds / Script, SampleGPU
+Inl_RenderPipeline.EndCameraRendering / TimeNanoseconds / Script
+ScriptableRenderer.SetupCullingParameters / TimeNanoseconds / Script, SampleGPU
+Inl_ScriptableRenderer.SetupCullingParameters / TimeNanoseconds / Script
+ScriptableRenderContext.Submit / TimeNanoseconds / Script, SampleGPU
+Inl_ScriptableRenderContext.Submit / TimeNanoseconds / Script
+UniversalRenderPipeline.RenderSingleCameraInternal: Venue overview / TimeNanoseconds / Script, SampleGPU
+Inl_UniversalRenderPipeline.RenderSingleCameraInternal: Venue overview / TimeNanoseconds / Script
+Initialize Reference Volume / TimeNanoseconds / Script, VerbosityAdvanced
+ScriptableRenderer.SetPerCameraShaderVariables / TimeNanoseconds / Script, SampleGPU
+Inl_ScriptableRenderer.SetPerCameraShaderVariables / TimeNanoseconds / Script
+Sort Render Passes / TimeNanoseconds / Script, SampleGPU
+Inl_Sort Render Passes / TimeNanoseconds / Script
+On Record Render Graph / TimeNanoseconds / Script, SampleGPU
+Inl_On Record Render Graph / TimeNanoseconds / Script
+Setup Camera Properties / TimeNanoseconds / Script, SampleGPU
+Inl_Setup Camera Properties / TimeNanoseconds / Script
+VFX Process Camera / TimeNanoseconds / Script, SampleGPU
+Inl_VFX Process Camera / TimeNanoseconds / Script
+ScriptableRenderer.AddRenderPasses / TimeNanoseconds / Script, SampleGPU
+Inl_ScriptableRenderer.AddRenderPasses / TimeNanoseconds / Script
+ScriptableRenderer.ClearRenderingState / TimeNanoseconds / Script, SampleGPU
+Inl_ScriptableRenderer.ClearRenderingState / TimeNanoseconds / Script
+ScriptableRenderer.InternalFinishRenderingCommon / TimeNanoseconds / Script, SampleGPU
+Inl_ScriptableRenderer.InternalFinishRenderingCommon / TimeNanoseconds / Script
+DrawGizmos / TimeNanoseconds / Script, SampleGPU
+Inl_DrawGizmos / TimeNanoseconds / Script
+DrawWireOverlay / TimeNanoseconds / Script, SampleGPU
+Inl_DrawWireOverlay / TimeNanoseconds / Script
+Begin XR Rendering / TimeNanoseconds / Script, SampleGPU
+Inl_Begin XR Rendering / TimeNanoseconds / Script
+End XR Rendering / TimeNanoseconds / Script, SampleGPU
+Inl_End XR Rendering / TimeNanoseconds / Script
+Initialize Frame / TimeNanoseconds / Script, SampleGPU
+Inl_Initialize Frame / TimeNanoseconds / Script
+Set Editor Target / TimeNanoseconds / Script, SampleGPU
+Inl_Set Editor Target / TimeNanoseconds / Script
+SetupLights / TimeNanoseconds / Script, SampleGPU
+Inl_SetupLights / TimeNanoseconds / Script
+Deferred Pass / TimeNanoseconds / Script, SampleGPU
+Inl_Deferred Pass / TimeNanoseconds / Script
+Setup Deferred lights / TimeNanoseconds / Script, SampleGPU
+Inl_Setup Deferred lights / TimeNanoseconds / Script
+Set Global Texture / TimeNanoseconds / Script, SampleGPU
+Inl_Set Global Texture / TimeNanoseconds / Script
+Inl_CompileRenderGraph / TimeNanoseconds / Script
+Inl_ComputeHashRenderGraph / TimeNanoseconds / Script, VerbosityAdvanced
+ExecuteRenderGraph / TimeNanoseconds / Script, SampleGPU
+Inl_ExecuteRenderGraph / TimeNanoseconds / Script
+Inl_NRPRGComp_SetupContextData / TimeNanoseconds / Script
+Inl_NRPRGComp_BuildGraph / TimeNanoseconds / Script
+Inl_NRPRGComp_CullNodes / TimeNanoseconds / Script
+Inl_NRPRGComp_TryMergeNativePasses / TimeNanoseconds / Script
+Inl_NRPRGComp_FindResourceUsageRanges / TimeNanoseconds / Script
+Inl_NRPRGComp_PropagateTextureUVOrigin / TimeNanoseconds / Script
+Inl_NRPRGComp_DetectMemorylessResources / TimeNanoseconds / Script
+Inl_NRPRGComp_ExecuteInitializeResources / TimeNanoseconds / Script
+Inl_NRPRGComp_PrepareNativePass / TimeNanoseconds / Script
+Inl_NRPRGComp_ExecuteBeginRenderpassCommand / TimeNanoseconds / Script
+Inl_NRPRGComp_ExecuteDestroyResources / TimeNanoseconds / Script
+InstanceDataSystemBuffer / TimeNanoseconds / Default
+StpSetup / TimeNanoseconds / Script, SampleGPU
+Inl_StpSetup / TimeNanoseconds / Script
+StpPreTaa / TimeNanoseconds / Script, SampleGPU
+Inl_StpPreTaa / TimeNanoseconds / Script
+StpTaa / TimeNanoseconds / Script, SampleGPU
+Inl_StpTaa / TimeNanoseconds / Script
+CopyTextureAdditive / TimeNanoseconds / Script, SampleGPU
+MaskAlphaChannel / TimeNanoseconds / Script, SampleGPU
+Create ProbeBrickPool / TimeNanoseconds / Script, VerbosityAdvanced
+UniversalRenderPipeline.RenderSingleCameraInternal: Offscreen profiling test / TimeNanoseconds / Script, SampleGPU
+Inl_UniversalRenderPipeline.RenderSingleCameraInternal: Offscreen profiling test / TimeNanoseconds / Script
+UniversalRenderPipeline.RenderSingleCameraInternal: Main Camera / TimeNanoseconds / Script, SampleGPU
+Inl_UniversalRenderPipeline.RenderSingleCameraInternal: Main Camera / TimeNanoseconds / Script
+UniversalRenderPipeline.ComputeShadowCasterCullingInfos / TimeNanoseconds / Script, SampleGPU
+Inl_UniversalRenderPipeline.ComputeShadowCasterCullingInfos / TimeNanoseconds / Script

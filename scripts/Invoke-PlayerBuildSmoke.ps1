@@ -15,7 +15,7 @@ try {
     $run = Join-Path $root ('artifacts/player-smoke/' + [DateTime]::UtcNow.ToString('yyyyMMdd-HHmmss-fff'))
     New-Item -ItemType Directory -Path $run -ErrorAction Stop | Out-Null
     $log = Join-Path $run 'Player.log'
-    $process = Start-Process -FilePath $exe -WorkingDirectory $build -WindowStyle Hidden -PassThru -ArgumentList @('-batchmode','-biathlonSmoke','-logFile',('"'+$log+'"'))
+    $process = Start-Process -FilePath $exe -WorkingDirectory $build -WindowStyle Hidden -PassThru -ArgumentList @('-force-d3d11','-screen-fullscreen','0','-screen-width','1920','-screen-height','1080','-biathlonSmoke','-biathlonSmokeOutput',('"'+$run+'"'),'-logFile',('"'+$log+'"'))
     if (!$process.WaitForExit($TimeoutSeconds * 1000)) {
         Stop-Process -Id $process.Id -ErrorAction SilentlyContinue
         throw "Player smoke timed out; log: $log"
@@ -30,6 +30,8 @@ try {
     $passed = $passed -and $qualityChecks.Count -eq 6
     $benchmarkChecks=@([regex]::Matches($content, 'BIATHLON_SMOKE_BENCHMARK (low|balanced|high)') | ForEach-Object {$_.Value} | Select-Object -Unique)
     $passed = $passed -and $benchmarkChecks.Count -eq 3
+    $renderChecks=@([regex]::Matches($content,'BIATHLON_SMOKE_RENDER (PlayableSprint|PlayableMassStart|VisualBenchmark) (low|balanced|high) ([1-9][0-9]*)') | ForEach-Object {$_.Value})
+    $passed = $passed -and $renderChecks.Count -eq 9
     $files = @(Get-ChildItem -LiteralPath $build -File -Recurse | Where-Object { $_.FullName -notlike '*BackUpThisFolder*' } | Sort-Object FullName | ForEach-Object {
         [ordered]@{ path=[IO.Path]::GetRelativePath($build,$_.FullName); bytes=$_.Length; sha256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
     })
@@ -39,7 +41,7 @@ try {
         exe_sha256=(Get-FileHash -LiteralPath $exe -Algorithm SHA256).Hash.ToLowerInvariant();
         log_sha256=(Get-FileHash -LiteralPath $log -Algorithm SHA256).Hash.ToLowerInvariant();
         build_manifest_sha256=(Get-FileHash -LiteralPath (Join-Path $run 'build-files.json') -Algorithm SHA256).Hash.ToLowerInvariant();
-        build=$summary; scenes=$rows; quality_checks=$qualityChecks; benchmark_checks=$benchmarkChecks; log=$log }
+        build=$summary; scenes=$rows; quality_checks=$qualityChecks; benchmark_checks=$benchmarkChecks; render_checks=$renderChecks; log=$log }
     $evidence | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $run 'verification.json') -Encoding utf8
     $evidence | ConvertTo-Json -Depth 8
     if (!$passed) { throw "Player smoke failed; log: $log" }

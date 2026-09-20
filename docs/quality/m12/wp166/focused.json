@@ -1,0 +1,42 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":96,\"PassedTests\":3,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:00.0707979\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.BenchmarkProfilingTests.CounterLeaseSamplesWithoutAllocationsAndRejectsUseAfterDispose\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0160000\"},{\"Name\":\"Biathlon.PlayModeTests.BenchmarkProfilingTests.OffscreenCameraRendersAndRestoresPreviousTarget\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0180000\"},{\"Name\":\"Biathlon.PlayModeTests.BenchmarkProfilingTests.ProfileHasBoundedSamplingAndRejectsUnknownCasesOrInvalidBudgets\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0050000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 96,
+          "PassedTests": 3,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.0707979"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.BenchmarkProfilingTests.CounterLeaseSamplesWithoutAllocationsAndRejectsUseAfterDispose",
+            "Status": "Passed",
+            "Duration": "00:00:00.0160000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.BenchmarkProfilingTests.OffscreenCameraRendersAndRestoresPreviousTarget",
+            "Status": "Passed",
+            "Duration": "00:00:00.0180000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.BenchmarkProfilingTests.ProfileHasBoundedSamplingAndRejectsUnknownCasesOrInvalidBudgets",
+            "Status": "Passed",
+            "Duration": "00:00:00.0050000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

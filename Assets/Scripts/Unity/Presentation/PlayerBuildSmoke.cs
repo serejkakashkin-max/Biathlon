@@ -10,6 +10,8 @@ namespace Biathlon.Unity.Presentation
     public sealed class PlayerBuildSmoke : MonoBehaviour
     {
         private bool failed;
+        private BenchmarkFrameCounters renderCounters;
+        private BenchmarkRenderTarget renderTarget;
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Boot()
         {
@@ -19,8 +21,21 @@ namespace Biathlon.Unity.Presentation
             DontDestroyOnLoad(go);
             go.AddComponent<PlayerBuildSmoke>();
         }
-        private void OnEnable() => Application.logMessageReceived += ObserveLog;
-        private void OnDisable() => Application.logMessageReceived -= ObserveLog;
+        private void OnEnable(){Application.logMessageReceived += ObserveLog;renderCounters=new BenchmarkFrameCounters();renderTarget=new BenchmarkRenderTarget(1920,1080);Application.runInBackground=true;}
+        private void OnDisable(){Application.logMessageReceived -= ObserveLog;renderCounters?.Dispose();renderTarget?.Dispose();}
+        private void VerifyRendered(string scene,string tier)
+        {
+            var sample=renderCounters.Read(0,0,0);
+            if(sample.draw_calls<=0){failed=true;Debug.LogError("Smoke requires actual drawing: "+scene+" "+tier);}
+            else Debug.Log("BIATHLON_SMOKE_RENDER "+scene+" "+tier+" "+sample.draw_calls);
+            var args=Environment.GetCommandLineArgs();
+            for(int i=0;i<args.Length-1;i++)if(args[i]=="-biathlonSmokeOutput")renderTarget.SavePng(System.IO.Path.Combine(args[i+1],scene+"-"+tier+".png"));
+        }
+        private IEnumerator RenderAndVerify(Camera camera,string scene,string tier)
+        {
+            for(int i=0;i<8;i++){renderTarget.Render(camera);yield return null;}
+            VerifyRendered(scene,tier);
+        }
         private void ObserveLog(string message, string stack, LogType type)
         {
             if (type == LogType.Error || type == LogType.Exception || type == LogType.Assert) failed = true;
@@ -57,7 +72,7 @@ namespace Biathlon.Unity.Presentation
             {
                 if (SceneManager.GetActiveScene().name != scene) yield return SceneManager.LoadSceneAsync(scene);
                 yield return null; // Let the scene composition root initialize.
-                var host = FindFirstObjectByType<PlayableSprintHost>();
+                var host = FindAnyObjectByType<PlayableSprintHost>();
                 try
                 {
                     AdvanceAndValidate(host, 400);
@@ -71,16 +86,16 @@ namespace Biathlon.Unity.Presentation
                     try { host.GetComponent<RenderQualityPresentation>().Apply(tier); }
                     catch (Exception ex) { failed = true; Debug.LogException(ex); }
                     yield return null;
-                    yield return null; // Render with the new pipeline, including stripped player shaders.
+                    yield return RenderAndVerify(host.GetComponentInChildren<AthleteChaseCamera>().GetComponent<Camera>(),scene,tier);
                     Debug.Log("BIATHLON_SMOKE_QUALITY " + scene + " " + tier);
                 }
             }
             yield return SceneManager.LoadSceneAsync("VisualBenchmark");yield return null;
-            var benchmark=FindFirstObjectByType<VisualBenchmarkPresentation>();
+            var benchmark=FindAnyObjectByType<VisualBenchmarkPresentation>();
             foreach(string tier in new[]{"low","balanced","high"})
             {
                 try{if(benchmark==null||!benchmark.Ready||benchmark.Athletes.Count!=10)throw new InvalidOperationException("Integrated benchmark is missing.");benchmark.Tier=tier;benchmark.ShowControls=false;benchmark.Shot="athlete";benchmark.Seek(8);}
-                catch(Exception ex){failed=true;Debug.LogException(ex);}yield return null;yield return null;Debug.Log("BIATHLON_SMOKE_BENCHMARK "+tier);
+                catch(Exception ex){failed=true;Debug.LogException(ex);}yield return null;yield return RenderAndVerify(benchmark.View,"VisualBenchmark",tier);Debug.Log("BIATHLON_SMOKE_BENCHMARK "+tier);
             }
             Debug.Log(failed ? "BIATHLON_SMOKE_FAIL" : "BIATHLON_SMOKE_PASS");
             Application.Quit(failed ? 1 : 0);

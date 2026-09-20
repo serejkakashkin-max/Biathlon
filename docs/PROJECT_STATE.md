@@ -3,22 +3,23 @@
 Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs.
 
 ```yaml
-project_phase: M12 started; M11 PASS WITH ACTIONS; M10 PASS / owner-approved; M1–M9 PASS
-active_work_package: WP-166 GPU/CPU profiling benchmark
-active_task: TASK-166 Player frame timings, budgets and G2 package
-last_completed_task: TASK-165 Visual screenshot matrix and comparative review
-last_verified_commit: 8f73b5f; WP164 verified and pushed; WP165 verification accompanies this state commit
+project_phase: post-WP166 / pre-G2 visual remediation; M12 technical work complete with profiling/visual actions; M11 PASS WITH ACTIONS; M10 owner-approved
+active_work_package: G2-VR-001 staged asset audit (owner-directed remediation, not M13)
+active_task: G2-VR-001 license/source/format audit before controlled import
+last_completed_task: TASK-166 profiling/report; performance ACTION_REQUIRED, G2 NOT APPROVED
+last_verified_commit: 03c68af; WP165 verified and pushed; WP166 verification accompanies this commit
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 550 discovered; WP159 observations4/4 PASS; WP151 observations4/4 PASS; WP141 observations4/4; WP138 grid5/5; prior qualification4/4; prior player-pack2/2; prior HUD1/1; prior penalty10/10; prior shooting/session5/5; prior snapshot1/1, device8/8; M9 actual-season byte parity PASS
-playmode_tests: WP164 full93/93 PASS; WP163 full90/90 PASS; WP162 full86/86 PASS; WP161 full83/83 PASS; WP160 full78/78 PASS and final focused4/4; WP159 full74/74 PASS and final focused4/4; WP158 full70/70 PASS; WP157 full66/66 PASS; WP156 full63/63 PASS and final focused3/3; WP155 full60/60 PASS; WP154 full57/57 PASS; WP153 full53/53 PASS; WP152 full51/51 PASS; WP151 full48/48 PASS; WP150 full46/46 PASS; WP149 full44/44 PASS; WP148 full42/42 PASS; WP147 full39/39 PASS; WP146 full38/38 PASS; WP145 full37/37 PASS; WP144 full36/36 PASS; WP143 full33/33 PASS; WP142 full30/30 PASS; WP141 full28/28 PASS; WP140 full25/25 PASS; prior WP139 evidence1/1 (24 discovered); prior full30 host1/1; prior Sprint-Pursuit chain1/1; prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
+playmode_tests: WP166 full96/96 and final focused3/3 PASS; WP164 full93/93 PASS; WP163 full90/90 PASS; WP162 full86/86 PASS; WP161 full83/83 PASS; WP160 full78/78 PASS and final focused4/4; WP159 full74/74 PASS and final focused4/4; WP158 full70/70 PASS; WP157 full66/66 PASS; WP156 full63/63 PASS and final focused3/3; WP155 full60/60 PASS; WP154 full57/57 PASS; WP153 full53/53 PASS; WP152 full51/51 PASS; WP151 full48/48 PASS; WP150 full46/46 PASS; WP149 full44/44 PASS; WP148 full42/42 PASS; WP147 full39/39 PASS; WP146 full38/38 PASS; WP145 full37/37 PASS; WP144 full36/36 PASS; WP143 full33/33 PASS; WP142 full30/30 PASS; WP141 full28/28 PASS; WP140 full25/25 PASS; prior WP139 evidence1/1 (24 discovered); prior full30 host1/1; prior Sprint-Pursuit chain1/1; prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
 standalone_tests: WP159 observations4/4 PASS; WP151 observations/snapshots5/5 PASS; WP141 observations/regression19/19; WP138 grid/results7/7; WP137 qualification/field6/6; WP136 player-pack/snapshot3/3; WP135 HUD/snapshot2/2; WP134 penalty10/10; WP133 aim/session10/10; WP130 input/replay11/11; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
-unity_console_errors: 0 after WP164 final verification
-unity_console_warnings: 0 after WP164 final verification; compilation_failed=false
+unity_console_errors: 0 after WP166 final verification
+unity_console_warnings: 0 after WP166 final verification; compilation_failed=false
 current_known_blockers: []
 owner_gate_g1: APPROVED 2026-09-13; owner hands-on Windows greybox Sprint and Pursuit
-owner_decisions_needed: []
+owner_gate_g2: NOT APPROVED / FAIL PENDING VISUAL REMEDIATION; owner directive 2026-09-20
+owner_decisions_needed: [] # Новый G2 review только после remediation, M13 не разрешён.
 owner_gameplay_feel_issues: [OWNER-FEEL-001 player shooting feels too easy; OPEN; required WP229/WP230/WP232 review]
-next_unlocked_work_packages: [WP-166] # Continue M12 through WP166, then owner G2.
+next_unlocked_work_packages: [G2-VR-001 asset audit] # Owner-directed remediation; WP167/M13 BLOCKED_G2.
 ```
 
 ## Work packages
@@ -189,7 +190,9 @@ next_unlocked_work_packages: [WP-166] # Continue M12 through WP166, then owner G
 - WP-163 DONE. Six explicit-time broadcast shots, dedicated camera lease, opt-in zoom LOD; focused4/4 and full90/90 PASS,8 captures and pixel-exact rail rewind. No new package or gameplay camera changes. See TASK-163-broadcast-camera-tooling-REPORT.md.
 - WP-164 TECHNICAL DONE / VISUAL ACTIONS OPEN. Integrated winter sector with10 detached pose fixtures, authored actual target bank and visible slope-aligned finish recovery. Full93/93 PASS; Windows3-scene/9-quality smoke PASS; Console0/0. Final visual quality not accepted. See TASK-164-integrated-visual-benchmark-REPORT.md.
 - WP-165 DONE.27 fixed camera/weather/quality captures plus3 rail rewind captures; pixel-exact rewind, manifest/metadata verification PASS; Console0/0. Comparative review recommends Visual Gate FAIL; G2 not approved. See TASK-165-visual-screenshot-matrix-REPORT.md.
-- WP-166 IN PROGRESS. Windows CPU/GPU profiling, draw/batch budgets and G2 owner review package.
+- WP-166 DONE (profiling/report); PERFORMANCE ACTION_REQUIRED. Windows hidden offscreen10×300 samples, CPU/draw/SetPass/triangles evidence, budgets and unavailable GPU/render-thread/batches explicitly recorded. Full96/96, focused3/3, Python3/3; build0 errors/0 warnings;9/9 real render smoke; Console0/0. Three triangle-budget failures remain. See reports/WP-166-PROFILING-REPORT.md.
+- WP-167 BLOCKED_G2. M13 not started; no production-venue scaling.
+- G2-VR-001 NEXT / ACTIVE: audit staged assets under owner directive2026-09-20, then controlled hero-first remediation. G2 NOT APPROVED / FAIL PENDING VISUAL REMEDIATION.
 
 ## Owner gameplay-feel issue — OWNER-FEEL-001
 
@@ -221,7 +224,7 @@ Use the [owner handoff](owner/CODEX_M11_HANDOFF.md), [visual addendum](owner/OWN
 Proceed through WP-141–151 with per-WP reports, Unity motion/capture validation, tests, state updates and coherent commits/pushes. Record third-party source, exact license and status before import. The M11 asset gate applies only if external license/account/paid-owner action is actually required; provide an asset shortlist/license report then. There is no automatic new owner gate after WP-151. The next fixed owner gate is **G2 after WP-166**, approving the M12 visual benchmark before producing all venues. No asset blocker has been established at M11 entry.
 
 ## Resume
-M8 and M9 PASS. M10 WP125–140 PASS / owner-approved; G1 explicitly APPROVED 2026-09-13 after owner hands-on Sprint and Pursuit. M11 WP141–151 technically verified; milestone PASS WITH ACTIONS (finish staging, character detail, terrain contact, broadcast LOD, scene readability). Active WP166 / TASK166; continue M12 to G2 after WP166. WP164 Windows build: Builds/WindowsDevelopment/Biathlon.exe,235920298 bytes,0 errors/0 warnings. Automated smoke verifies Sprint6/Mass Start30 at tick400 plus VisualBenchmark10 and all9 scene/quality combinations, exit0. Full PlayMode93/93. Full build-file manifest SHA256 eae71585dc25374b7fba7c897924b1f206ca16b1ff3574dfbcefcb73751d58da retained in quality/m12/wp164/player. Current visual quality does not establish superiority over the minimum competitor; final representative art acceptance remains OPEN. Owner testing and automated smoke are separate evidence.
+M1–M10 сохранены; G1 APPROVED. M11 PASS WITH ACTIONS. WP152–166 технически выполнены; M12 visual approval отсутствует. WP166 full96/96 и focused3/3, Windows build235942132 bytes0 errors/0 warnings,9 rendered smoke checks,3000 profiling samples. GPU/render-thread/batches UNAVAILABLE, три triangle-budget FAIL; это не performance PASS. Старый WP164 smoke проверял initialization/quality, реальная отрисовка подтверждена только новым WP166 smoke. По owner directive2026-09-20 следующий этап — post-WP166/pre-G2 visual remediation: audit → athlete → animation → environment → review. M13/WP167 заблокированы до нового owner G2 approval.
 The provisional first-playable tuning version locks127 inputs; see TASK-102-M8-REPORT.md and quality/m8/verification.json.
 Full .NET505/505 plus final tuner/lock5/5; Unity new15/15, PlayMode7/7; Console0 errors/1 warning.
 WP096 top cohort meets provisional GDD shooting windows. Draft/stat/equipment sensitivity and AI parity are measured.

@@ -11,7 +11,9 @@ namespace Biathlon.Unity
     {
         public static void BuildWindows()
         {
-            RenderQualityAuthoring.WithBuildProfiles(BuildWindowsCore);
+            bool previous=PlayerSettings.enableFrameTimingStats;
+            try{PlayerSettings.enableFrameTimingStats=true;RenderQualityAuthoring.WithBuildProfiles(BuildWindowsCore);}
+            finally{PlayerSettings.enableFrameTimingStats=previous;}
         }
         private static void BuildWindowsCore()
         {

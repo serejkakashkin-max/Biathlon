@@ -118,3 +118,7 @@ InitTestScene*.unity*
 **/bin/
 **/obj/
 /artifacts/
+
+# Owner-staged third-party sources: audit outside Unity; never publish raw downloads.
+/external_downloads/
+**/__pycache__/

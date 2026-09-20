@@ -1,4 +1,4 @@
-# TASK-164 — Integrated representative sector
+# TASK-164 вЂ” Integrated representative sector
 
 2026-09-20. Technical integration verified; representative final visual quality NOT accepted. G2 review remains after WP166.
 
@@ -15,3 +15,5 @@ Validation and build evidence are recorded in `docs/quality/m12/wp164`; final co
 Visual actions: M11-VIS-001 finish visibility/clock is addressed; M11-VIS-002 character fidelity remains OPEN. M11-VIS-003 contact has a measured limited envelope. M11-VIS-004 zoom priority was addressed in WP163 but hard LOD transitions remain. M11-VIS-005 integrated context is demonstrated here, while playable venues remain greybox. Segmented characters, geometric foliage, sparse environment/crowd, dark late-day targets and limited material detail prevent a final-quality claim. No third-party assets or branding imported. Next: WP165 fixed capture matrix and comparative review, then WP166 profiling/G2.
 
 Final evidence: PlayMode93/93 PASS (90.07s), Console0 errors/0 warnings, compilation_failed=false. Windows build235920298 bytes,0 errors/0 warnings; Sprint6/Mass Start30 tick400 and VisualBenchmark10, all9 scene/quality checks PASS, exit0. Build manifest SHA256 eae71585dc25374b7fba7c897924b1f206ca16b1ff3574dfbcefcb73751d58da. Build records c526139 plus the verified working changes. MCP stale test lease was cleared only after Unity reported no active run; recovery evidence retained. No failing tests were disabled. Next WP165.
+
+WP166 clarification (2026-09-20): the earlier Windows smoke PASS covered scene/simulation/quality initialization, not actual frame rendering. Actual render coverage is now supplied by WP166 nine offscreen checks and PNGs; see WP-166-PROFILING-REPORT.md.
