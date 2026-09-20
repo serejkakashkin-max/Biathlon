@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "g2-snow-derivation-v1",
+  "asset": "G2-017",
+  "author": "Poly Haven",
+  "license": "CC0-1.0",
+  "source": "https://polyhaven.com/a/snow_02",
+  "modifications": [
+    "selected diffuse/OpenGL normal/roughness only; resized to2K/2K/1K",
+    "new world-metre blended material preserving original terrain layer weights; no simulation surface change"
+  ],
+  "outputs": [
+    {
+      "path": "Assets/Resources/Biathlon/Terrain/G2Snow/Textures/SnowAlbedo.png",
+      "source_file": "snow_02_diff_4k.jpg",
+      "source_sha256": "c4cc87be8833cb73ab154b32da60228e11ae20f91b5057f146d1ffe001b2edc4",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "sha256": "3f64b9fc1296789583cd1630e99843dffc9b69e600b7e99c0fd8e9adca24b907"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Terrain/G2Snow/Textures/SnowNormal.png",
+      "source_file": "snow_02_nor_gl_4k.jpg",
+      "source_sha256": "e3760b3a0b3e15663f587fab42b0ab0ae713cfa9e66abefc9651a6dcb882893d",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "sha256": "a92c0977dde898b03706c42581c114f030321a503fd7b8493be70f6a6b2fb906"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Terrain/G2Snow/Textures/SnowRoughness.png",
+      "source_file": "snow_02_rough_4k.jpg",
+      "source_sha256": "befbdd0dc83673d4ffd86970f46de04de4f2a2913a1df383bdc6f9d4805351bc",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "sha256": "dc5ec63928897bbaf87511547fc4336d618fd874b3e859f2e85b2769b5ac6638"
+    }
+  ]
+}

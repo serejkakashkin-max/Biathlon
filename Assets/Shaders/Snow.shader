@@ -17,6 +17,12 @@ Shader "Biathlon/Snow"
         _LayerRoughness("Packed ice edge roughness", Vector) = (.58,.12,.9,0)
         _LayerNormals("Packed ice edge normal strength", Vector) = (.12,.025,.28,0)
         _GroomSpacing("Groomed groove spacing metres", Float) = .04
+        _DetailAlbedo("Audited snow albedo",2D)="white"{}
+        _DetailNormal("Audited snow normal",2D)="bump"{}
+        _DetailRoughness("Audited snow roughness",2D)="white"{}
+        _DetailWeight("Audited detail blend",Range(0,1))=0
+        _DetailMeters("Detail repeat metres",Float)=4
+        _DetailNormalStrength("Detail normal strength",Range(0,1))=.45
     }
     SubShader
     {
@@ -24,12 +30,16 @@ Shader "Biathlon/Snow"
         HLSLINCLUDE
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+        TEXTURE2D(_DetailAlbedo);SAMPLER(sampler_DetailAlbedo);
+        TEXTURE2D(_DetailNormal);SAMPLER(sampler_DetailNormal);
+        TEXTURE2D(_DetailRoughness);SAMPLER(sampler_DetailRoughness);
         CBUFFER_START(UnityPerMaterial)
             float4 _BaseColor;
             float _Roughness, _RoughnessVariation, _NormalStrength, _SlopeDarkening;
             float _AlbedoVariation, _MacroScale, _GrainScale;
             float4 _PackedColor, _IceColor, _EdgeColor, _LayerRoughness, _LayerNormals;
             float _TerrainBlend, _GroomSpacing;
+            float _DetailWeight,_DetailMeters,_DetailNormalStrength;
         CBUFFER_END
         struct Attributes { float4 positionOS:POSITION; float3 normalOS:NORMAL; float4 color:COLOR; float2 uv:TEXCOORD0; UNITY_VERTEX_INPUT_INSTANCE_ID };
         struct Varyings { float4 positionCS:SV_POSITION; float3 positionWS:TEXCOORD0; half3 normalWS:TEXCOORD1; half fog:TEXCOORD2; float4 weights:TEXCOORD3; float2 uv:TEXCOORD4; UNITY_VERTEX_INPUT_INSTANCE_ID UNITY_VERTEX_OUTPUT_STEREO };
@@ -68,6 +78,21 @@ Shader "Biathlon/Snow"
             float slope=1-saturate(n.y);
             float3 gradient=grain.yzw;
             n=normalize(n-(gradient-n*dot(gradient,n))*normalStrength*grainFade);
+            if(_DetailWeight>0)
+            {
+                float2 detailUv=i.positionWS.xz/max(.1,_DetailMeters);
+                float weight=_DetailWeight*dot(w,float4(1,.3,.08,.8));
+                half3 detailColor=SAMPLE_TEXTURE2D(_DetailAlbedo,sampler_DetailAlbedo,detailUv).rgb;
+                // Preserve the layer palette and avoid enlarging scanned ground debris into
+                // dark repeated route markings. Metre mapping is independent of the mesh UVs.
+                albedo*=lerp(1,.78+.35*detailColor,weight);
+                half3 detail=UnpackNormal(SAMPLE_TEXTURE2D(_DetailNormal,sampler_DetailNormal,detailUv));
+                float3 tangent=normalize(float3(1,0,0)-n*n.x),bitangent=normalize(cross(tangent,n));
+                float3 mapped=normalize(tangent*detail.x+bitangent*detail.y+n*detail.z);
+                n=normalize(lerp(n,mapped,weight*_DetailNormalStrength));
+                float detailRoughness=SAMPLE_TEXTURE2D(_DetailRoughness,sampler_DetailRoughness,detailUv).r;
+                roughness=lerp(roughness,clamp(detailRoughness,.55,1),weight*.4);
+            }
             SurfaceData s=(SurfaceData)0;
             float grooveFade=1-smoothstep(.3,1,fwidth(i.uv.x)/max(.005,_GroomSpacing));
             float groove=sin(i.uv.x*6.2831853/max(.005,_GroomSpacing))*.018*w.y*grooveFade;

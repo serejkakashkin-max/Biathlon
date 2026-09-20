@@ -45,3 +45,7 @@ Source: https://sketchfab.com/3d-models/ski-goggles-335c9fd251a84b9b87a091b7ed75
 License: CC BY 4.0
 License URL: https://creativecommons.org/licenses/by/4.0/
 Modifications planned: remove/replace branding and logo-like details before final use.
+
+## Actual use — Snow 02 (G2-VR-004B)
+
+Poly Haven, https://polyhaven.com/a/snow_02, CC0 (https://polyhaven.com/license). Diffuse/OpenGL normal/roughness resized from 4K to 2K/2K/1K and blended with original loose/packed/ice/edge layers. This acknowledgement is included in shipped credits; source and output hashes are in snow-derivation.json.

@@ -55,5 +55,12 @@ namespace Biathlon.Unity.Presentation
         public readonly float Scale, DensityRank;
         public readonly Matrix4x4 Matrix;
         public VegetationInstance(Vector3 p,float scale,float yaw,float rank) { Position=p;Scale=scale;DensityRank=rank;Matrix=Matrix4x4.TRS(p,Quaternion.Euler(0,yaw,0),Vector3.one*scale); }
+        private VegetationInstance(Vector3 p,float scale,float rank,Matrix4x4 matrix){Position=p;Scale=scale;DensityRank=rank;Matrix=matrix;}
+        public VegetationInstance AtHeight(float y)
+        {
+            if(!float.IsFinite(y))throw new ArgumentException("Finite tree height required.");
+            var p=Position;p.y=y;var matrix=Matrix;matrix.m13=y;
+            return new VegetationInstance(p,Scale,DensityRank,matrix);
+        }
     }
 }

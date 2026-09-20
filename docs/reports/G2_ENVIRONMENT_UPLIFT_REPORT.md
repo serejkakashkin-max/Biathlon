@@ -38,3 +38,32 @@ Same hidden1920×1080 DX11 Development player, ten cases,128 warmup frames and30
 The profile completed without error/assert/exception and emitted PASS for **execution**, not budget qualification. One `Releasing render texture that is set to be RenderTexture.active!` warning occurs on player shutdown after execution PASS; retained in the compressed raw log. The final Editor Console snapshot and build0/0 are separate observations and do not erase this warning.
 
 Next: **G2-VR-004B snow detail and terrain/route composition**. Remaining environment work includes pine/understory/rocks and variation; later integrated performance work must reduce actual submitted/shadow geometry rather than raise budgets. Stadium/crowd/lighting and final owner review remain outstanding. G2 NOT APPROVED; M13/WP167 BLOCKED_G2.
+
+## G2-VR-004B — snow detail, guarded banks and ground fit
+
+2026-09-20. **Technical checkpoint DONE; G2-VR-004 remains ACTIVE.** G2-017 Poly Haven Snow02 (CC0) contributes only diffuse/OpenGL normal/roughness at 2K/2K/1K. The original layer palette, groove filtering and roughness logic are preserved. World-metre scanned detail is strongest on loose snow and weakest on ice/packed trail. Existing materials default to detail weight zero. No collider, route physics, athlete contact plane, race tuning or authoritative data changed.
+
+Small edge banks (maximum14cm) and off-route relief (maximum18cm) are authored in the existing surface mesh. A1.5m guard beyond the7m ski corridor prevents one-metre triangles from interpolating raised vertices beneath the lane. Tests sample the generated triangles against the original interpolated contact surface, including edges, rather than relying only on the analytic height function. The stadium platform remains unchanged. Forest placement now samples the world-space surface once during initialization, retaining tree yaw, scale, density rank and allocation-free camera preparation.
+
+All four new tests PASS; full PlayMode **111/111 PASS in97.30s**, final focused **4/4 PASS**. Windows Development **261,997,752 bytes**, build0 errors/0 warnings, hidden actual renders **9/9 PASS**. [Tests and captures](../quality/g2/snow-b/), [player verification](../quality/g2/snow-b/player/verification.json). Player build-manifest SHA-256: `a88def6a3b0bd2372b80f62cb1664c0a48019dea15472f496fd39a9a3597b7a6`.
+
+Four high-tier hidden views (approach/sector/athlete/range) were visually inspected. Fine snow variation is now visible, while the route and stadium are readable. Repeated texture motifs remain visible from elevated views; broader terrain composition, species variation, stadium dressing, crowd and atmosphere are still outstanding. This checkpoint is not a G2 visual pass.
+
+The final Console is0 errors/3 MCP lifecycle warnings, compilation_failed=false. These warnings concern a disposed buffered log and closed/disposed SignalR connection during the requested domain reload; the native console entries are retained. They are tooling warnings, not snow/forest runtime failures. An invalid diagnostic MCP snippet (`return` in its void body) generated three tool-error entries after the successful build; these are retained in console-errors.json. MCP clear-logs encountered a locked plugin log file; the Editor Console was cleared through its native API, then the focused tests were rerun successfully and console-state.json captured. No failing game test or source compile error was suppressed.
+
+Repeated hidden profiling: ten cases,128 warmup and300 samples each, unchanged WP166 budgets and hardware. CPU main/draw/SetPass remain within limits; three triangle failures and unavailable GPU/render-thread/batch counters remain. Overall **ACTION_REQUIRED**, not FPS/minimum-hardware qualification. The same render-texture shutdown warning follows execution PASS and is preserved in the raw compressed log.
+
+| Case | CPU main p95 ms | Maximum triangles |3M budget|
+|---|---:|---:|---|
+| low-approach | 1.222 | 1,030,564 | PASS |
+| low-athlete | 1.214 | 1,744,054 | PASS |
+| low-range | 0.863 | 1,013,138 | PASS |
+| balanced-approach | 1.415 | 1,832,781 | PASS |
+| balanced-athlete | 1.529 | 3,903,385 | FAIL |
+| balanced-range | 1.100 | 1,722,047 | PASS |
+| high-approach | 1.451 | 2,132,967 | PASS |
+| high-athlete | 1.373 | 5,711,579 | FAIL |
+| high-range | 1.116 | 1,849,109 | PASS |
+| high-snowfall-athlete | 1.478 | 5,793,269 | FAIL |
+
+[Source derivation](../licensing/g2_visual/snow-derivation.json), [runtime hashes](../licensing/g2_visual/snow-runtime-manifest.json), [profile evidence](../quality/g2/snow-b/profile/analysis.json). Next: **G2-VR-004C selected pine variation and bounded forest composition**. G2 remains NOT APPROVED; M13/WP167 BLOCKED_G2; OWNER-FEEL-001 remains OPEN.

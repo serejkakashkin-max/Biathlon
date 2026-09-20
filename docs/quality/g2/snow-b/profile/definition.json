@@ -1,0 +1,19 @@
+{
+  "schema_version": 1, "id": "visual_benchmark_profile_v1",
+  "width": 1920, "height": 1080, "warmup_frames": 120, "sample_frames": 300,
+  "start_time": 8, "step_seconds": 0.016666666666666666,
+  "frame_budget_ms": 16.667, "cpu_budget_ms": 16.667, "gpu_budget_ms": 16.667,
+  "draw_call_budget": 2000, "batch_budget": 2000, "setpass_budget": 200, "triangle_budget": 3000000,
+  "cases": [
+    {"id":"low-approach","tier":"low","shot":"approach","weather":"clear","lighting":"clear_cold"},
+    {"id":"low-athlete","tier":"low","shot":"athlete","weather":"clear","lighting":"clear_cold"},
+    {"id":"low-range","tier":"low","shot":"range","weather":"clear","lighting":"clear_cold"},
+    {"id":"balanced-approach","tier":"balanced","shot":"approach","weather":"clear","lighting":"clear_cold"},
+    {"id":"balanced-athlete","tier":"balanced","shot":"athlete","weather":"clear","lighting":"clear_cold"},
+    {"id":"balanced-range","tier":"balanced","shot":"range","weather":"clear","lighting":"clear_cold"},
+    {"id":"high-approach","tier":"high","shot":"approach","weather":"clear","lighting":"clear_cold"},
+    {"id":"high-athlete","tier":"high","shot":"athlete","weather":"clear","lighting":"clear_cold"},
+    {"id":"high-range","tier":"high","shot":"range","weather":"clear","lighting":"clear_cold"},
+    {"id":"high-snowfall-athlete","tier":"high","shot":"athlete","weather":"snowfall","lighting":"overcast"}
+  ]
+}

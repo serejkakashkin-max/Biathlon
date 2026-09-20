@@ -77,3 +77,7 @@ Blender4.5.9 portable получен с официального download.blende
 ## Controlled import update — G2-VR-004A
 
 2026-09-20: G2-010 largest fir derivative imported into benchmark only. Source LOD1/2 and own far reduction, four resized maps, custom alpha-tested winter shader. Original cross-card LOD3 rejected for envelope/visual defects. Full107/107 and hidden player9/9 PASS; profiling still ACTION_REQUIRED. Actual CC BY notice shipped; source/output hashes in `licensing/g2_visual/fir-derivation.json` and `fir-runtime-manifest.json`. No additional tree candidates or source FBX imported. Original audit table above records the no-import state at audit completion.
+
+## Controlled import update — G2-VR-004B
+
+2026-09-20: G2-017 Poly Haven Snow02 diffuse/OpenGL normal/roughness derivatives imported at 2K/2K/1K. Source maps remain staged; only selected resized PNGs and a project material are runtime assets. CC0 acknowledgement ships with the build. Source/output hashes: `licensing/g2_visual/snow-derivation.json`, `snow-runtime-manifest.json`. Full111/111 and hidden player9/9 PASS; visual acceptance remains open.

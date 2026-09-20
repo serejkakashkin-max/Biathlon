@@ -22,10 +22,18 @@ namespace Biathlon.Unity.Presentation
         public long SubmittedTriangles { get; private set; }
         private readonly int[] triangles=new int[3];
         public bool UsesAuditedFir { get; private set; }
-        public void Initialize(Vector3[] route,bool useAuditedFir=false)
+        public Vector3 InstanceWorldPosition(int index)=>transform.TransformPoint(instances[index].Position);
+        public void Initialize(Vector3[] route,bool useAuditedFir=false,Func<Vector3,float> groundHeight=null)
         {
             if(definition!=null)throw new InvalidOperationException("Forest already initialized.");
             definition=VegetationDefinition.Load();instances=definition.Place(route);
+            if(groundHeight!=null)
+                for(int i=0;i<instances.Length;i++)
+                {
+                    var world=transform.TransformPoint(instances[i].Position);world.y=groundHeight(world);
+                    if(!float.IsFinite(world.y))throw new ArgumentException("Nonfinite forest surface sample.");
+                    instances[i]=instances[i].AtHeight(transform.InverseTransformPoint(world).y);
+                }
             string root=useAuditedFir?"Biathlon/Vegetation/G2Fir/":"Biathlon/Vegetation/";
             string name=useAuditedFir?"Fir":"Conifer";
             material=Resources.Load<Material>(root+name);
