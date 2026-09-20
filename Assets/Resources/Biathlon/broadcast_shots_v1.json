@@ -1,0 +1,10 @@
+{
+  "schema_version":1,"id":"winter_broadcast_shots_v1","shots":[
+    {"id":"sector","mode":"fixed","position":{"x":34,"y":12,"z":-36},"look_at":{"x":-2,"y":2,"z":10},"fov":52,"near_m":0.1,"far_m":250,"duration_s":8},
+    {"id":"range","mode":"fixed","position":{"x":-18,"y":2.2,"z":-8},"look_at":{"x":1,"y":1,"z":24},"fov":48,"near_m":0.1,"far_m":250,"duration_s":8},
+    {"id":"finish","mode":"fixed","position":{"x":-34,"y":2,"z":-34},"look_at":{"x":-23,"y":2,"z":-22},"fov":55,"near_m":0.1,"far_m":250,"duration_s":8},
+    {"id":"athlete","mode":"track","subject_id":"athlete","position":{"x":-5,"y":1.65,"z":-7},"look_at":{"x":0,"y":1,"z":0},"fov":35,"near_m":0.1,"far_m":250,"duration_s":8},
+    {"id":"rail","mode":"rail","position":{"x":30,"y":8,"z":-28},"end_position":{"x":-32,"y":5,"z":-20},"look_at":{"x":0,"y":1,"z":15},"fov":48,"near_m":0.1,"far_m":250,"duration_s":8},
+    {"id":"crowd_zoom","mode":"fixed","position":{"x":-40,"y":6,"z":-5},"look_at":{"x":24,"y":2,"z":9},"fov":15,"near_m":0.1,"far_m":250,"duration_s":8}
+  ]
+}

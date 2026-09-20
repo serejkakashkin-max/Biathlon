@@ -40,7 +40,7 @@ namespace Biathlon.Unity.Presentation
         {
             if(double.IsNaN(alpha)||double.IsInfinity(alpha)||alpha<0||alpha>1)throw new ArgumentOutOfRangeException(nameof(alpha));
             if(feed==null)return;if(feed.Current==null){Clear();return;}if(feed.Current.TrackId!=visual.TrackId)throw new InvalidOperationException("Proxy geometry does not match snapshot.");
-            var current=feed.Current;keep.Clear();
+            var current=feed.Current;keep.Clear();float lodScale=ProjectionAwareLod.Scale(viewCamera);
             for(int i=0;i<current.Count;i++)
             {
                 var state=current.Get(i);keep.Add(state.AthleteId);
@@ -59,7 +59,7 @@ namespace Biathlon.Unity.Presentation
                 double grade=VisualRouteSurface.Grade(visual.Get(position.LoopId),position.LocalMeters,contactSettings.sample_half_span_m);
                 float distance=viewCamera!=null?Vector3.Distance(viewCamera.transform.position,go.transform.position):0;
                 var frame=new AthleteAnimationFrame(state,current.Tick,current.TickFrequency,alpha,curvature,grade);
-                animation[state.AthleteId].Render(frame,distance);
+                animation[state.AthleteId].Render(frame,distance*lodScale);
                 snowTracks.Observe(state.AthleteId,animation[state.AthleteId].Rig,frame,distance);
                 snowSpray.Observe(state.AthleteId,animation[state.AthleteId].Rig,frame,distance);
                 breathVapor.Observe(state.AthleteId,animation[state.AthleteId].Rig,frame,distance);

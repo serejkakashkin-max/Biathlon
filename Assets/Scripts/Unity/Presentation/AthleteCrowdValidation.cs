@@ -43,10 +43,11 @@ namespace Biathlon.Unity.Presentation
             SampleTime = time;
             long tick = (long)Math.Floor(time * 60) + 1;
             double alpha = time * 60 - Math.Floor(time * 60);
+            float lodScale=overrideDistance>=0?1:ProjectionAwareLod.Scale(observer);
             for (int i = 0; i < adapters.Length; i++)
             {
                 float distance = overrideDistance >= 0 ? overrideDistance : Vector3.Distance(observer.transform.position, adapters[i].transform.position);
-                adapters[i].Render(new AthleteAnimationFrame(snapshot.Get(i), tick, 60, alpha, 0, 0), distance);
+                adapters[i].Render(new AthleteAnimationFrame(snapshot.Get(i), tick, 60, alpha, 0, 0), distance*lodScale);
             }
         }
         public CrowdPoseMeasurement Measure(int frames, bool distant)

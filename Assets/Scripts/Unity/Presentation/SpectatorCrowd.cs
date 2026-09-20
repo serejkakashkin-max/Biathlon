@@ -35,11 +35,12 @@ namespace Biathlon.Unity.Presentation
             if(settings==null||seating==null||camera==null||!float.IsFinite(time)||Mathf.Abs(time)>1000000)throw new ArgumentException("Initialized crowd, camera and finite bounded time required.");
             if((seating.transform.lossyScale-Vector3.one).sqrMagnitude>.000001f||Vector3.Dot(seating.transform.up,Vector3.up)<.99999f)throw new ArgumentException("Seating supports unit-scale translation/yaw only.");
             float density=settings.Density(tier);counts[0]=counts[1]=0;SubmittedTriangles=0;GeometryUtility.CalculateFrustumPlanes(camera,planes);var matrix=seating.transform.localToWorldMatrix;var eye=camera.transform.position;bool first=true;
+            float lodScale=ProjectionAwareLod.Scale(camera);
             for(int i=0;i<anchors.Length;i++)
             {
                 if(ranks[i]>=density)continue;var position=matrix.MultiplyPoint3x4(anchors[i]);float distance=Vector3.Distance(position,eye);if(distance>=settings.cull_m)continue;
                 var bounds=new Bounds(position+Vector3.up*.8f,new Vector3(1.2f,2,2));if(!GeometryUtility.TestPlanesAABB(planes,bounds))continue;
-                int lod=distance>=settings.lod_m?1:0;matrices[lod][counts[lod]++]=matrix*Matrix4x4.Translate(anchors[i]);SubmittedTriangles+=triangles[lod];if(first){worldBounds=bounds;first=false;}else worldBounds.Encapsulate(bounds);
+                int lod=distance*lodScale>=settings.lod_m?1:0;matrices[lod][counts[lod]++]=matrix*Matrix4x4.Translate(anchors[i]);SubmittedTriangles+=triangles[lod];if(first){worldBounds=bounds;first=false;}else worldBounds.Encapsulate(bounds);
             }
             properties.SetVector(Motion,new Vector4(time,settings.motion_radians,settings.motion_frequency,0));
         }

@@ -37,11 +37,11 @@ namespace Biathlon.Unity.Presentation
             if(observedWind.HasValue&&(!float.IsFinite(observedWind.Value.x)||!float.IsFinite(observedWind.Value.y)))throw new ArgumentException("Finite visual wind required.");
             float density=definition.Density(tier);counts[0]=counts[1]=counts[2]=0;SubmittedTriangles=0;
             GeometryUtility.CalculateFrustumPlanes(camera,planes);
-            var world=transform.localToWorldMatrix;var eye=camera.transform.position;
+            var world=transform.localToWorldMatrix;var eye=camera.transform.position;float lodScale=ProjectionAwareLod.Scale(camera);
             foreach(var tree in instances)
             {
                 if(tree.DensityRank>=density)continue;
-                var position=world.MultiplyPoint3x4(tree.Position);int lod=definition.Lod(Vector3.Distance(position,eye));if(lod<0)continue;
+                var position=world.MultiplyPoint3x4(tree.Position);float distance=Vector3.Distance(position,eye);if(definition.Lod(distance)<0)continue;int lod=definition.Lod(distance*lodScale);
                 // Includes canopy, height and maximum wind excursion. Intended sector root is unit scale.
                 var bounds=new Bounds(position+Vector3.up*4*tree.Scale,new Vector3(6,9,6)*tree.Scale);
                 if(!GeometryUtility.TestPlanesAABB(planes,bounds))continue;
