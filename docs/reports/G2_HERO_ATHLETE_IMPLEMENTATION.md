@@ -53,4 +53,6 @@ Verification: focused **5/5 PASS**, full PlayMode **101/101 PASS** in 88.02 s. T
 
 Evidence: [full tests](../quality/g2/hero-b/playmode-full.json), [focused tests](../quality/g2/hero-b/playmode-focused.json), [Console](../quality/g2/hero-b/console.json), [player verification](../quality/g2/hero-b/player/verification.json). Build manifest SHA-256: `24f690b2c72ffd087aa708ae88f76a551c65343889d619bc2d9964d5c9ad722d`. Previous 002A evidence is retained separately.
 
+Subsequent003A replaces the retained technical rifle with an original3,580-triangle prop and refines typed rifle grip alignment. See [animation report](G2_ANIMATION_PRESENTATION_REPORT.md) for current104/104 tests, captures and remaining motion/joint-quality actions. Earlier checkpoint descriptions above remain historical evidence.
+
 Visual inspection confirms enclosed pole grips and readable per-athlete bibs. Standing/prone arm shapes and rifle grip still need motion-specific work; the retained rifle is visibly technical. Skin/cloth response and appearance variation also remain below final intent. Environment, crowd and profiling issues remain OPEN. **Next: G2-VR-003A motion/contact matrix and rifle presentation refinement**, followed by the planned environment uplift. G2 is not approved and M13 remains blocked.

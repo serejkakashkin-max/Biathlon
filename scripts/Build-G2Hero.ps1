@@ -19,7 +19,8 @@ try {
     & "$PSScriptRoot/Invoke-UnityMcp.ps1" -Tool script-execute -Arguments @{csharpCode=$export;isMethodBody=$true} -TimeoutSec 60 | Out-Null
     $jobs = @(
         @{name='body'; arguments='--background --factory-startup --disable-autoexec --python-exit-code 1 --python scripts/art/Build-G2Hero.py -- --source external_downloads/g2_visual_remediation/01_characters/hero_base/blender_human_base_v1.4.1/extracted/human-base-meshes-bundle-v1.4.1/human_base_meshes_bundle.blend --bones artifacts/g2-hero/m11-bones.json --goggles external_downloads/g2_visual_remediation/03_equipment/goggles/blurryrender/extracted/source/cyberpunk_Ski_Goggles.blend --output artifacts/g2-hero'},
-        @{name='materials'; arguments='--background --factory-startup --disable-autoexec --python-exit-code 1 --python scripts/art/Build-G2HeroMaterials.py'}
+        @{name='materials'; arguments='--background --factory-startup --disable-autoexec --python-exit-code 1 --python scripts/art/Build-G2HeroMaterials.py'},
+        @{name='rifle'; arguments='--background --factory-startup --disable-autoexec --python-exit-code 1 --python scripts/art/Build-G2Rifle.py'}
     )
     foreach ($job in $jobs) {
         $process = Start-Process -FilePath $blender -ArgumentList $job.arguments -WorkingDirectory $projectRoot -WindowStyle Hidden -PassThru -RedirectStandardOutput "artifacts/g2-hero/$($job.name).log" -RedirectStandardError "artifacts/g2-hero/$($job.name).err"

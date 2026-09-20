@@ -35,6 +35,9 @@ namespace Biathlon.Unity.Presentation
         private RiflePresentationSettings settings;
         public float TransferProgress { get; private set; }
         public float HandWeight { get; private set; }
+        public Vector3 SupportGripWorld { get; private set; }
+        public Vector3 TriggerGripWorld { get; private set; }
+        public float ReadyAlignment { get; private set; }
 
         public static float Progress(ShootingPhase phase, int elapsedTicks, int durationTicks)
         {
@@ -65,6 +68,7 @@ namespace Biathlon.Unity.Presentation
             // Swing around the athlete's right side instead of passing the stock through the thorax.
             var clearance = rig.ModelRoot.TransformVector(new Vector3(settings.clearance_side_m, settings.clearance_up_m, 0)) * Mathf.Sin(transfer * Mathf.PI);
             float alignment=Mathf.SmoothStep(0,1,Mathf.InverseLerp(settings.release_end_fraction,1,progress));
+            ReadyAlignment=alignment;
             var ray=sight.Ray;
             var sightRotation=rig.ModelRoot.rotation*Quaternion.LookRotation(new Vector3((float)ray.DirectionX,(float)ray.DirectionY,(float)ray.DirectionZ),Vector3.up);
             var readyRotation=Quaternion.Slerp(ready.rotation,sightRotation,alignment);
@@ -78,6 +82,9 @@ namespace Biathlon.Unity.Presentation
                 head.rotation=Quaternion.Slerp(head.rotation,sightRotation,alignment);
             }
             HandWeight = Mathf.SmoothStep(0, 1, progress / settings.reach_fraction);
+            SupportGripWorld = equipment.Rifle.TransformPoint(Vector3.Lerp(settings.support_grip,
+                stance == ShootingStance.Prone ? settings.prone_support_grip : settings.support_grip, alignment));
+            TriggerGripWorld = equipment.Rifle.TransformPoint(settings.trigger_grip);
             // Props keep their asset parents; restore from typed sockets each sample without accumulation.
             if (HandWeight > 0)
             {

@@ -10,6 +10,7 @@ namespace Biathlon.Unity.Presentation
     public sealed class AthleteAnimationPreview : MonoBehaviour
     {
         public bool Frozen;
+        public bool UseHero;
         public double SampleTime;
         public AthletePreviewSet StateSet;
         private AthletePreviewSet renderedSet;
@@ -19,6 +20,7 @@ namespace Biathlon.Unity.Presentation
         private AthleteShootingPose[] shooting;
         private AthleteRiflePresentation[] rifles;
         private AthleteGroundContact[] contacts;
+        private AthleteGripPresentation[] grips;
         public int Count => rigs == null ? 0 : rigs.Length;
         public AthleteRigBinding Rig(int index) => rigs[index];
         public static LocomotionInput Input(int index)
@@ -39,9 +41,13 @@ namespace Biathlon.Unity.Presentation
             if (rigs != null) return;
             rigs = new AthleteRigBinding[7]; drivers = new AthleteLocomotionDriver[7];
             shooting = new AthleteShootingPose[7]; rifles = new AthleteRiflePresentation[7]; contacts = new AthleteGroundContact[7];
+            grips = new AthleteGripPresentation[7];
             for (int i = 0; i < rigs.Length; i++)
             {
-                rigs[i] = OriginalAthleteRigBuilder.Create(transform);
+                rigs[i] = UseHero ? AthleteRigFactory.Create(transform) : OriginalAthleteRigBuilder.Create(transform);
+                grips[i] = rigs[i].GetComponent<AthleteGripPresentation>();
+                var bib = rigs[i].GetComponent<AthleteBibPresentation>();
+                if (bib != null) bib.SetNumber(i+1);
                 rigs[i].transform.localPosition = new Vector3((i - 3) * 2, 0, 0);
                 drivers[i] = rigs[i].GetComponent<AthleteLocomotionDriver>();
                 shooting[i] = rigs[i].GetComponent<AthleteShootingPose>(); rifles[i] = rigs[i].GetComponent<AthleteRiflePresentation>(); contacts[i] = rigs[i].GetComponent<AthleteGroundContact>();
@@ -70,6 +76,7 @@ namespace Biathlon.Unity.Presentation
                 rifles[i].Sample(rigs[i], progress, atRange && i == 4 ? new WeaponAimState(.025, .012) : default, atRange ? stance : (ShootingStance?)null);
                 // This fixture's ground is flat; slope-specific evidence is the WP148 fixture.
                 contacts[i].Sample(rigs[i], 0, drivers[i].Cycle, drivers[i].State, rifles[i].HandWeight);
+                if (grips[i] != null) grips[i].Render(rigs[i]);
             }
             renderedSet = StateSet; hasRendered = true;
         }
@@ -84,7 +91,7 @@ namespace Biathlon.Unity.Presentation
         private void Update() { RenderAt(Frozen ? SampleTime : Time.timeAsDouble); }
         private void OnGUI()
         {
-            GUI.Box(new Rect(12, 12, 740, 44), "M11 " + StateSet + " | original development rig | t=" + SampleTime.ToString("F2"));
+            GUI.Box(new Rect(12, 12, 740, 44), "M11 " + StateSet + (UseHero ? " | G2 hero | t=" : " | original development rig | t=") + SampleTime.ToString("F2"));
             var camera = Camera.main;
             if (camera == null || rigs == null) return;
             for (int i = 0; i < rigs.Length; i++)

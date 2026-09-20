@@ -132,7 +132,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 487501943396343060}
-  m_Mesh: {fileID: 4300000, guid: df8689f3b80c8b24d83d6c1c11ce66b9, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 2a4633910e7dfba448bc526cdc1bfb33, type: 2}
 --- !u!23 &1575912662985290342
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -158,9 +158,10 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d5c16163571b97c4d88c2dbc7753143d, type: 2}
-  - {fileID: 2100000, guid: e93de1c6c4023bd4bbc7606f4a89174f, type: 2}
-  - {fileID: 2100000, guid: 09cca78746625c64fa57275508a77c2b, type: 2}
+  - {fileID: 2100000, guid: cbcaed843f1a3d9438602c8081968a36, type: 2}
+  - {fileID: 2100000, guid: 6b0a08e8cc01f1e489ae391f502607c3, type: 2}
+  - {fileID: 2100000, guid: c3acd51a472ff0d45bcc1d3b27a19b22, type: 2}
+  - {fileID: 2100000, guid: 157cc6c72fc8be6499508a843872c47f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1316,6 +1317,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a00591eed0fd1743a7893fc90fcf5c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteGripPresentation
+  supportRifleEuler: {x: -90, y: 0, z: 0}
+  triggerRifleEuler: {x: 0, y: 0, z: 0}
 --- !u!1 &6646540620618126452
 GameObject:
   m_ObjectHideFlags: 0

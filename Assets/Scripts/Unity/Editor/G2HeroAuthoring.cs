@@ -111,6 +111,7 @@ namespace Biathlon.Unity
                 rig.gameObject.AddComponent<AthleteSkinDetailBinding>().Configure(skin, lodMeshes, 12, 45, 2);
                 rig.gameObject.AddComponent<AthleteBibPresentation>().Configure(skin,2);
                 rig.gameObject.AddComponent<AthleteGripPresentation>();
+                G2RifleAuthoring.Apply(rig);
                 skin.name = "Continuous athlete body"; rig.name = "G2 benchmark hero athlete";
                 PrefabUtility.SaveAsPrefabAsset(rig.gameObject, PrefabPath);
                 AssetDatabase.SaveAssets();
