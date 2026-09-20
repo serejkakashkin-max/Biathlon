@@ -21,7 +21,7 @@ namespace Biathlon.Unity
                 throw new InvalidOperationException("Windows build support is unavailable.");
             Directory.CreateDirectory("Builds/WindowsDevelopment");
             var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions {
-                scenes = new[] { "Assets/Scenes/PlayableSprint.unity", "Assets/Scenes/PlayableMassStart.unity" },
+                scenes = new[] { "Assets/Scenes/PlayableSprint.unity", "Assets/Scenes/PlayableMassStart.unity", "Assets/Scenes/VisualBenchmark.unity" },
                 locationPathName = "Builds/WindowsDevelopment/Biathlon.exe",
                 target = BuildTarget.StandaloneWindows64,
                 options = BuildOptions.Development

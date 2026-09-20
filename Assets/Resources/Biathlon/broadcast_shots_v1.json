@@ -1,5 +1,7 @@
 {
   "schema_version":1,"id":"winter_broadcast_shots_v1","shots":[
+    {"id":"approach","mode":"fixed","position":{"x":16,"y":7,"z":-74},"look_at":{"x":0,"y":1,"z":-25},"fov":52,"near_m":0.1,"far_m":250,"duration_s":8},
+    {"id":"targets","mode":"fixed","position":{"x":1.3,"y":0.85,"z":0},"look_at":{"x":1.3,"y":0.85,"z":50},"fov":1.145877,"near_m":0.01,"far_m":100,"duration_s":8},
     {"id":"sector","mode":"fixed","position":{"x":34,"y":12,"z":-36},"look_at":{"x":-2,"y":2,"z":10},"fov":52,"near_m":0.1,"far_m":250,"duration_s":8},
     {"id":"range","mode":"fixed","position":{"x":-18,"y":2.2,"z":-8},"look_at":{"x":1,"y":1,"z":24},"fov":48,"near_m":0.1,"far_m":250,"duration_s":8},
     {"id":"finish","mode":"fixed","position":{"x":-34,"y":2,"z":-34},"look_at":{"x":-23,"y":2,"z":-22},"fov":55,"near_m":0.1,"far_m":250,"duration_s":8},

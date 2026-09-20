@@ -14,7 +14,8 @@ namespace Biathlon.PlayModeTests
             var d=SnowMaterialDefinition.FromJson(json);
             Assert.That(d.presets[0].roughness,Is.GreaterThan(d.presets[1].roughness));
             Assert.That(d.presets[0].albedo.grayscale,Is.GreaterThan(d.presets[1].albedo.grayscale));
-            Assert.Throws<ArgumentException>(()=>SnowMaterialDefinition.FromJson(json.Replace("0.045","0")));
+            var invalid=JsonUtility.FromJson<SnowMaterialDefinition>(json);invalid.grain_scale_m=0;
+            Assert.Throws<ArgumentException>(()=>SnowMaterialDefinition.FromJson(JsonUtility.ToJson(invalid)));
             Assert.Throws<ArgumentException>(()=>SnowMaterialDefinition.FromJson(json.Replace("\"wet\"","\"cold\"")));
             Assert.Throws<ArgumentException>(()=>SnowMaterialDefinition.FromJson(json.Replace("0.8,","2,")));
         }

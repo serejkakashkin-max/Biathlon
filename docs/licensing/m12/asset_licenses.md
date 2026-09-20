@@ -13,4 +13,6 @@
 | ORIG-M12-009 | Stadium meshes, materials, target/sector prefabs and StadiumBenchmark | Original repository-authored modular geometry and material parameters; functional wording only | Uses installed Unity URP shaders and Unity LegacyRuntime font under existing installed runtime terms; no external art, fonts, logos or scans |
 | ORIG-M12-010 | Spectator LOD meshes, animated instancing shader/material, seating and CrowdBenchmark; VenueSignText shader | Original repository-authored geometry, motion and depth-tested font rendering | Uses the already installed Unity font atlas; no crowd packs, motion capture, downloaded character art or fonts |
 
-No third-party production art was imported for WP152–161. Shader includes reference the installed Unity URP/Core APIs, not copied external artwork. Owner license/account action is not required for these original assets.
+| ORIG-M12-011 | Lighting/broadcast definitions and fixtures, integrated SectorSurface mesh and VisualBenchmark scene | Original repository-authored profiles, camera paths and terrain geometry; reuses the original M11/M12 assets above | Ten detached observed-pose fixtures, not a production venue or final visual acceptance; no imported competitor art |
+
+No third-party production art was imported for WP152–164. Shader includes reference the installed Unity URP/Core APIs, not copied external artwork. Owner license/account action is not required for these original assets.

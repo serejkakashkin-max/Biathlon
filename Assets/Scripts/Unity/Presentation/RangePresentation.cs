@@ -12,8 +12,8 @@ namespace Biathlon.Unity.Presentation
         private TargetGeometryDefinition geometry;
         private GameObject stage;
         private Camera aimCamera;
-        private readonly Renderer[] targets=new Renderer[TargetGeometryDefinition.TargetCount];
-        private Material openMaterial,closedMaterial;
+        private TargetBankArt bank;
+        public TargetBankArt Bank=>bank;
         private long observedTick=-1;
         private int observedBout=-1;
         public bool Visible { get; private set; }
@@ -28,15 +28,9 @@ namespace Biathlon.Unity.Presentation
             // A camera-local stage avoids changing the venue or using its schematic target spacing.
             stage=new GameObject("Range target stage");stage.transform.SetParent(transform,false);
             stage.transform.localPosition=new Vector3(0,-10000,0);
-            openMaterial=new Material(Resources.Load<Material>("Biathlon/GreyboxUnlit")){color=Color.black};
-            closedMaterial=new Material(Resources.Load<Material>("Biathlon/GreyboxUnlit")){color=Color.white};
-            for(int i=0;i<targets.Length;i++)
-            {
-                var disk=GameObject.CreatePrimitive(PrimitiveType.Cylinder);disk.transform.SetParent(stage.transform,false);
-                disk.transform.localPosition=new Vector3((float)geometry.CenterX(i),0,(float)geometry.DistanceMeters);
-                disk.transform.localRotation=Quaternion.Euler(90,0,0);Destroy(disk.GetComponent<Collider>());
-                targets[i]=disk.GetComponent<Renderer>();targets[i].sharedMaterial=openMaterial;
-            }
+            var template=Resources.Load<TargetBankArt>("Biathlon/Stadium/TargetBank");
+            if(template==null)throw new InvalidOperationException("Generate authored target bank first.");
+            bank=Instantiate(template,stage.transform,false);bank.transform.localPosition=new Vector3(0,0,(float)geometry.DistanceMeters);
             var cameraObject=new GameObject("Range aim camera");cameraObject.transform.SetParent(stage.transform,false);
             aimCamera=cameraObject.AddComponent<Camera>();aimCamera.depth=200;aimCamera.nearClipPlane=.01f;
             aimCamera.farClipPlane=(float)geometry.DistanceMeters+1;aimCamera.clearFlags=CameraClearFlags.SolidColor;aimCamera.backgroundColor=new Color(.42f,.48f,.52f);
@@ -56,12 +50,7 @@ namespace Biathlon.Unity.Presentation
                 if(!Visible)return;
                 if(observedBout!=a.CompletedBouts){observedBout=a.CompletedBouts;Status="";}
                 ClosedMask=a.ClosedTargetsMask;
-                for(int j=0;j<targets.Length;j++)
-                {
-                    float diameter=(float)(2*geometry.Radius(a.Stance));
-                    targets[j].transform.localScale=new Vector3(diameter,.001f,diameter);
-                    targets[j].sharedMaterial=(ClosedMask&(1<<j))!=0?closedMaterial:openMaterial;
-                }
+                bank.Apply(geometry,a.Stance,ClosedMask);
                 var ray=a.Sight.Ray;
                 aimCamera.transform.localRotation=Quaternion.LookRotation(new Vector3((float)ray.DirectionX,(float)ray.DirectionY,(float)ray.DirectionZ),Vector3.up);
                 if(a.ShotOutcome!=ShotOutcome.NoShot)Status=a.ShotOutcome.ToString();
@@ -80,7 +69,7 @@ namespace Biathlon.Unity.Presentation
             GUI.DrawTexture(new Rect(Screen.width/2f-8,Screen.height/2f,16,1),Texture2D.whiteTexture);
             GUI.DrawTexture(new Rect(Screen.width/2f,Screen.height/2f-8,1,16),Texture2D.whiteTexture);GUI.color=color;
         }
-        private void Clear(){if(stage!=null)Destroy(stage);if(openMaterial!=null)Destroy(openMaterial);if(closedMaterial!=null)Destroy(closedMaterial);observedTick=-1;observedBout=-1;Visible=false;}
+        private void Clear(){if(stage!=null)Destroy(stage);bank=null;observedTick=-1;observedBout=-1;Visible=false;}
         private void OnDestroy()=>Clear();
     }
 }

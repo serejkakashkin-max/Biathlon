@@ -26,13 +26,20 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlbedoVariation: 0.12
-    - _GrainScale: 0.045
+    - _GrainScale: 0.025
+    - _GroomSpacing: 0.04
     - _MacroScale: 1.7
-    - _NormalStrength: 0.13
+    - _NormalStrength: 0.06
     - _Roughness: 0.32
     - _RoughnessVariation: 0.18
     - _SlopeDarkening: 0.22
+    - _TerrainBlend: 0
     m_Colors:
     - _BaseColor: {r: 0.64, g: 0.72, b: 0.78, a: 1}
+    - _EdgeColor: {r: 0.74, g: 0.78999996, b: 0.82, a: 1}
+    - _IceColor: {r: 0.43999997, g: 0.59, b: 0.67, a: 1}
+    - _LayerNormals: {r: 0.12, g: 0.025, b: 0.28, a: 0}
+    - _LayerRoughness: {r: 0.58, g: 0.12, b: 0.9, a: 0}
+    - _PackedColor: {r: 0.68, g: 0.75, b: 0.8, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

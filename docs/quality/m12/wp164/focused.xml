@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Passed" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-20 05:03:58Z" end-time="2026-09-20 05:04:01Z" duration="3,4244207">
+  <test-suite type="TestSuite" id="1144" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="93" result="Passed" start-time="2026-09-20 05:03:58Z" end-time="2026-09-20 05:04:01Z" duration="3.424421" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1281" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="93" result="Passed" start-time="2026-09-20 05:03:58Z" end-time="2026-09-20 05:04:01Z" duration="3.416922" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="3940" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1282" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="93" result="Passed" start-time="2026-09-20 05:03:58Z" end-time="2026-09-20 05:04:01Z" duration="3.413285" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1283" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="93" result="Passed" start-time="2026-09-20 05:03:58Z" end-time="2026-09-20 05:04:01Z" duration="3.410325" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1272" name="VisualBenchmarkTests" fullname="Biathlon.PlayModeTests.VisualBenchmarkTests" classname="Biathlon.PlayModeTests.VisualBenchmarkTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-20 05:03:58Z" end-time="2026-09-20 05:04:01Z" duration="3.406180" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1273" name="FinishedEntrantsRemainVisibleWithIndependentPoseTimeAndUnchangedResult" fullname="Biathlon.PlayModeTests.VisualBenchmarkTests.FinishedEntrantsRemainVisibleWithIndependentPoseTimeAndUnchangedResult" methodname="FinishedEntrantsRemainVisibleWithIndependentPoseTimeAndUnchangedResult" classname="Biathlon.PlayModeTests.VisualBenchmarkTests" runstate="Runnable" seed="444548238" result="Passed" start-time="2026-09-20 05:03:58Z" end-time="2026-09-20 05:03:58Z" duration="0.531983" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1275" name="GeneratedBenchmarkIntegratesTenObservedAthletesAndRestoresSceneState" fullname="Biathlon.PlayModeTests.VisualBenchmarkTests.GeneratedBenchmarkIntegratesTenObservedAthletesAndRestoresSceneState" methodname="GeneratedBenchmarkIntegratesTenObservedAthletesAndRestoresSceneState" classname="Biathlon.PlayModeTests.VisualBenchmarkTests" runstate="Runnable" seed="2135123325" result="Passed" start-time="2026-09-20 05:03:58Z" end-time="2026-09-20 05:04:01Z" duration="2.862829" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1274" name="TerrainCrestContactPlaneErrorIsBoundedAtSkiLengthScale" fullname="Biathlon.PlayModeTests.VisualBenchmarkTests.TerrainCrestContactPlaneErrorIsBoundedAtSkiLengthScale" methodname="TerrainCrestContactPlaneErrorIsBoundedAtSkiLengthScale" classname="Biathlon.PlayModeTests.VisualBenchmarkTests" runstate="Runnable" seed="796442625" result="Passed" start-time="2026-09-20 05:04:01Z" end-time="2026-09-20 05:04:01Z" duration="0.000418" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

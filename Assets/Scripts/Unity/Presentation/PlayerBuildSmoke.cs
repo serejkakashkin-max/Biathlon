@@ -75,6 +75,13 @@ namespace Biathlon.Unity.Presentation
                     Debug.Log("BIATHLON_SMOKE_QUALITY " + scene + " " + tier);
                 }
             }
+            yield return SceneManager.LoadSceneAsync("VisualBenchmark");yield return null;
+            var benchmark=FindFirstObjectByType<VisualBenchmarkPresentation>();
+            foreach(string tier in new[]{"low","balanced","high"})
+            {
+                try{if(benchmark==null||!benchmark.Ready||benchmark.Athletes.Count!=10)throw new InvalidOperationException("Integrated benchmark is missing.");benchmark.Tier=tier;benchmark.ShowControls=false;benchmark.Shot="athlete";benchmark.Seek(8);}
+                catch(Exception ex){failed=true;Debug.LogException(ex);}yield return null;yield return null;Debug.Log("BIATHLON_SMOKE_BENCHMARK "+tier);
+            }
             Debug.Log(failed ? "BIATHLON_SMOKE_FAIL" : "BIATHLON_SMOKE_PASS");
             Application.Quit(failed ? 1 : 0);
         }

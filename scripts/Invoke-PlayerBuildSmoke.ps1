@@ -28,6 +28,8 @@ try {
         @($rows | Where-Object { $_.scene -eq 'PlayableMassStart' -and $_.athletes -eq 30 -and $_.tick -ge 400 }).Count -eq 1
     $qualityChecks=@([regex]::Matches($content, 'BIATHLON_SMOKE_QUALITY (PlayableSprint|PlayableMassStart) (low|balanced|high)') | ForEach-Object {$_.Value} | Select-Object -Unique)
     $passed = $passed -and $qualityChecks.Count -eq 6
+    $benchmarkChecks=@([regex]::Matches($content, 'BIATHLON_SMOKE_BENCHMARK (low|balanced|high)') | ForEach-Object {$_.Value} | Select-Object -Unique)
+    $passed = $passed -and $benchmarkChecks.Count -eq 3
     $files = @(Get-ChildItem -LiteralPath $build -File -Recurse | Where-Object { $_.FullName -notlike '*BackUpThisFolder*' } | Sort-Object FullName | ForEach-Object {
         [ordered]@{ path=[IO.Path]::GetRelativePath($build,$_.FullName); bytes=$_.Length; sha256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
     })
@@ -37,7 +39,7 @@ try {
         exe_sha256=(Get-FileHash -LiteralPath $exe -Algorithm SHA256).Hash.ToLowerInvariant();
         log_sha256=(Get-FileHash -LiteralPath $log -Algorithm SHA256).Hash.ToLowerInvariant();
         build_manifest_sha256=(Get-FileHash -LiteralPath (Join-Path $run 'build-files.json') -Algorithm SHA256).Hash.ToLowerInvariant();
-        build=$summary; scenes=$rows; quality_checks=$qualityChecks; log=$log }
+        build=$summary; scenes=$rows; quality_checks=$qualityChecks; benchmark_checks=$benchmarkChecks; log=$log }
     $evidence | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $run 'verification.json') -Encoding utf8
     $evidence | ConvertTo-Json -Depth 8
     if (!$passed) { throw "Player smoke failed; log: $log" }

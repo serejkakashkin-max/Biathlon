@@ -9,7 +9,7 @@ namespace Biathlon.PlayModeTests
     {
         [Test] public void ShotSchemaRejectsUnknownDuplicateAndDegeneratePaths()
         {
-            var d=BroadcastShotDefinition.Load();Assert.That(d.shots.Length,Is.EqualTo(6));Assert.Throws<ArgumentException>(()=>d.Get("missing"));
+            var d=BroadcastShotDefinition.Load();Assert.That(d.shots.Length,Is.EqualTo(8));Assert.Throws<ArgumentException>(()=>d.Get("missing"));
             var rail=d.Get("rail");rail.look_at=(rail.position+rail.end_position)*.5f;Assert.Throws<ArgumentException>(()=>BroadcastShotDefinition.FromJson(JsonUtility.ToJson(d)));
             d=BroadcastShotDefinition.Load();d.shots[1].id=d.shots[0].id;Assert.Throws<ArgumentException>(()=>BroadcastShotDefinition.FromJson(JsonUtility.ToJson(d)));
             d=BroadcastShotDefinition.Load();d.shots[0].fov=float.NaN;Assert.Throws<ArgumentException>(()=>BroadcastShotDefinition.FromJson(JsonUtility.ToJson(d)));

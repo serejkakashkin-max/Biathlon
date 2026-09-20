@@ -20,6 +20,7 @@ System.IO.File.WriteAllText("__OUTPUT__/__STANCE__.json",Biathlon.Unity.Playtest
 '@
     $body=$body.Replace('__STANCE__',$stance).Replace('__OUTPUT__',((Resolve-Path $OutputDirectory).Path.Replace([char]92,[char]47)))
     ./scripts/Invoke-UnityMcp.ps1 -Tool script-execute -Arguments @{csharpCode=$body;isMethodBody=$true} | Out-Null
+    Start-Sleep -Seconds 2 # Let newly requested Editor shader variants and the frozen Game View settle.
     $cap=./scripts/Invoke-UnityMcp.ps1 -Tool screenshot-game-view
     $frame=$cap.content|Where-Object type -eq image|Select-Object -First 1
     if(!$frame){throw 'Missing Game View image'}

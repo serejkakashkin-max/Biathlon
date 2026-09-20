@@ -89,6 +89,7 @@ namespace Biathlon.Unity.Presentation
             gameObject.SetActive(false);Destroy(gameObject);return next;
         }
         private void OnGUI(){
+            if(GUI.Button(new Rect(Screen.width-190,12,178,28),"M12 visual benchmark"))UnityEngine.SceneManagement.SceneManager.LoadScene("VisualBenchmark");
             if(Runner!=null&&Runner.Field.IsComplete&&Runner.Field.Profile.Format==CompetitionFormat.Sprint)
                 if(GUI.Button(new Rect(Screen.width/2f-140,Screen.height/2f,280,48),"Continue to Pursuit"))ContinueToPursuit();GUI.Box(new Rect(12,Screen.height-30,1000,24),"SKI: W/S effort, A/D line, Space tuck | RANGE: mouse aim, LMB fire, RMB fine, Space breath | Gamepad via UseGamepad");}
     }

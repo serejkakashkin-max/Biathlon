@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Biathlon.Domain;
+using Biathlon.Simulation;
 using UnityEngine;
 namespace Biathlon.Unity.Presentation
 {
@@ -21,6 +22,7 @@ namespace Biathlon.Unity.Presentation
         private SnowTrackPresentation snowTracks;
         private SnowSprayPresentation snowSpray;
         private BreathVaporPresentation breathVapor;
+        private FinishStagingSettings finishStaging;
         public void SetVisualBreathEnvironment(BreathEnvironment? environment) { if(breathVapor==null)throw new InvalidOperationException("Initialize proxies first.");breathVapor.SetEnvironment(environment); }
         public void SetViewCamera(Camera camera) => viewCamera = camera;
         public int Count=>proxies.Count;
@@ -32,13 +34,15 @@ namespace Biathlon.Unity.Presentation
             rigPrefab=template;
             motionSettings=AthleteLocomotionSettings.Load();
             contactSettings=GroundContactSettings.Load();
+            finishStaging=FinishStagingSettings.Load();
             snowTracks=GetComponent<SnowTrackPresentation>();if(snowTracks==null)snowTracks=gameObject.AddComponent<SnowTrackPresentation>();snowTracks.Initialize();
             snowSpray=GetComponent<SnowSprayPresentation>();if(snowSpray==null)snowSpray=gameObject.AddComponent<SnowSprayPresentation>();snowSpray.Initialize();
             breathVapor=GetComponent<BreathVaporPresentation>();if(breathVapor==null)breathVapor=gameObject.AddComponent<BreathVaporPresentation>();breathVapor.Initialize();
         }
-        public void Render(double alpha)
+        public void Render(double alpha,double completedSeconds=0)
         {
             if(double.IsNaN(alpha)||double.IsInfinity(alpha)||alpha<0||alpha>1)throw new ArgumentOutOfRangeException(nameof(alpha));
+            if(!double.IsFinite(completedSeconds)||completedSeconds<0||completedSeconds>86400)throw new ArgumentOutOfRangeException(nameof(completedSeconds));
             if(feed==null)return;if(feed.Current==null){Clear();return;}if(feed.Current.TrackId!=visual.TrackId)throw new InvalidOperationException("Proxy geometry does not match snapshot.");
             var current=feed.Current;keep.Clear();float lodScale=ProjectionAwareLod.Scale(viewCamera);
             for(int i=0;i<current.Count;i++)
@@ -52,13 +56,19 @@ namespace Biathlon.Unity.Presentation
                     var adapter=go.AddComponent<AthleteAnimationPresentation>();adapter.Initialize(rig);
                     proxies.Add(state.AthleteId,go);animation.Add(state.AthleteId,adapter);
                 }
-                go.SetActive(state.OnCourse);if(!state.OnCourse)continue;var position=feed.Position(i,alpha);var point=visual.Get(position.LoopId).Sample(position.LocalMeters);
-                go.transform.localPosition=new Vector3((float)(point.X+point.ForwardZ*position.LateralMeters),(float)point.Y+1,(float)(point.Z-point.ForwardX*position.LateralMeters));
+                bool finished=state.Phase==CompetitionPhase.Finished;
+                go.SetActive(state.OnCourse||finished);if(!state.OnCourse&&!finished)continue;var position=feed.Position(i,alpha);var route=visual.Get(position.LoopId);
+                double sampleDistance=position.LocalMeters,lateral=position.LateralMeters;
+                if(finished){var offset=finishStaging.Offset(i);sampleDistance=Math.Min(route.Get(route.Count-1).Distance,sampleDistance+offset.z);lateral+=offset.x;}
+                var point=route.Sample(sampleDistance);
+                go.transform.localPosition=new Vector3((float)(point.X+point.ForwardZ*lateral),(float)point.Y+1,(float)(point.Z-point.ForwardX*lateral));
                 go.transform.localRotation=Quaternion.LookRotation(new Vector3((float)point.ForwardX,0,(float)point.ForwardZ),Vector3.up);
                 double curvature=VisualRouteCurvature.Sample(visual.Get(position.LoopId),position.LocalMeters,motionSettings.corner_sample_half_span_m);
-                double grade=VisualRouteSurface.Grade(visual.Get(position.LoopId),position.LocalMeters,contactSettings.sample_half_span_m);
+                double grade=VisualRouteSurface.Grade(route,sampleDistance,contactSettings.sample_half_span_m);
                 float distance=viewCamera!=null?Vector3.Distance(viewCamera.transform.position,go.transform.position):0;
-                var frame=new AthleteAnimationFrame(state,current.Tick,current.TickFrequency,alpha,curvature,grade);
+                long poseTick=current.Tick;double poseAlpha=alpha;
+                if(finished&&current.Complete){double ticks=completedSeconds*current.TickFrequency;poseTick+=(long)Math.Floor(ticks);poseAlpha=ticks-Math.Floor(ticks);}
+                var frame=new AthleteAnimationFrame(state,poseTick,current.TickFrequency,poseAlpha,finished?0:curvature,grade);
                 animation[state.AthleteId].Render(frame,distance*lodScale);
                 snowTracks.Observe(state.AthleteId,animation[state.AthleteId].Rig,frame,distance);
                 snowSpray.Observe(state.AthleteId,animation[state.AthleteId].Rig,frame,distance);
@@ -73,7 +83,8 @@ namespace Biathlon.Unity.Presentation
         {
             if(feed==null)return;if(feed.Current==null){Clear();return;}
             if(observedTick!=feed.Current.Tick){observedTick=feed.Current.Tick;publishedAt=Time.timeAsDouble;}
-            Render(Math.Min(1,(Time.timeAsDouble-publishedAt)*feed.Current.TickFrequency));
+            double elapsed=Time.timeAsDouble-publishedAt;
+            Render(Math.Min(1,elapsed*feed.Current.TickFrequency),feed.Current.Complete?Math.Min(86400,elapsed):0);
         }
         private void Clear(){foreach(var go in proxies.Values)if(go!=null)Destroy(go);proxies.Clear();animation.Clear();keep.Clear();removed.Clear();observedTick=-1;if(snowTracks!=null)snowTracks.Clear();if(snowSpray!=null)snowSpray.Clear();if(breathVapor!=null)breathVapor.Clear();}
         private void OnDestroy()=>Clear();
