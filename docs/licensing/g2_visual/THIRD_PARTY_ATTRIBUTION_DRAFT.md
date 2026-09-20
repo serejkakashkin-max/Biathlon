@@ -9,7 +9,7 @@ Author: LOLIPOP (@lolipop_1707)
 Source: https://sketchfab.com/3d-models/realistic-fir-trees-pack-lods-gameready-f58e8b6d733e4b0586e5b7db847b89e7
 License: CC BY 4.0
 License URL: https://creativecommons.org/licenses/by/4.0/
-Modifications planned: LOD/billboard retargeting for runtime; no author rebranding.
+Actual G2-VR-004A adaptation: largest fir only; source LOD1/2 as near/mid, own18-percent simplification as far (cross-card LOD3 rejected); gallery offsets removed, Unity axes/ground pivots and8m height; consolidated bark/leaf channels, four resized maps, custom winter/wind shader. Source and adapted geometry/textures remain CC BY4.0; notice ships with the build.
 
 ## Pine Trees Pack - Lowpoly Game Ready LODs
 Author: LOLIPOP (@lolipop_1707)

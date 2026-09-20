@@ -9,7 +9,7 @@
 | G2-VR-001 | Источники, лицензии, форматы, хеши, решения по всем 37 кандидатам | Inventory, 235 source hashes, первичные license declarations, 6 Sketchfab metadata | DONE; Unity imports: 0 |
 | G2-VR-002 | Hero athlete: непрерывное анатомическое тело, костюм/лицо/головной убор, de-branded goggles, собственные материалы, skin weights и LOD | Typed M11 bones/sockets, сохранение equipment, skin deformation в ski/prone/standing, front/back/side/close captures, bounded geometry, source-to-output manifest | ACTIVE |
 | G2-VR-003 | Animation/presentation: контакты лыж/палок, перенос веса, tuck, переходы и позы стрельбы на новом теле | Последовательности кадров, существующие motion/contact/shooting tests, snapshot/zero-allocation checks; authoritative state неизменён | 003A technical checkpoint DONE; visual actions OPEN |
-| G2-VR-004 | Лес/снег/terrain: реальные выбранные fir/pine LOD, подлесок/камни, snow material и читаемая трасса | Малые import batches, camera composition, alpha/shadow/LOD проверка, повторение WP166 counters с теми же budgets | ACTIVE: 004A fir |
+| G2-VR-004 | Лес/снег/terrain: реальные выбранные fir/pine LOD, подлесок/камни, snow material и читаемая трасса | Малые import batches, camera composition, alpha/shadow/LOD проверка, повторение WP166 counters с теми же budgets | ACTIVE: 004A fir DONE; 004B snow/terrain next |
 | G2-VR-005 | Stadium/event dressing: выборочный CC0 kitbash, трибуна CC BY, оригинальные event panels | Масштаб, материалы, отсутствие реальных/похожих брендов, читаемость рубежа, screenshot comparison | NEXT |
 | G2-VR-006 | Crowd: ограниченное число адаптированных людей, LOD/вариации, интеграция без раскрытия restricted mesh data | Локальный reproducible conversion recipe, credits, runtime/render checks; restricted sources/derivatives исключены из public Git | NEXT |
 | G2-VR-007 | Свет/атмосфера и целостность benchmark | Snow/skin/forest exposure, silhouette, haze, weather, chase/shooting cameras; offscreen captures | NEXT |
@@ -17,7 +17,7 @@
 
 ## Правила исполнения
 
-Checkpoint G2-VR-002A завершён: controlled import пяти источников, native rig/LOD интеграция, full99/99 + final3/3, Windows hidden9/9. [Hero report](G2_HERO_ATHLETE_IMPLEMENTATION.md). Checkpoint002B завершён: closed gloves/pole fit, numbered bib, full101/101 + focused5/5, hidden player9/9. Checkpoint003A завершён: собственная винтовка, rifle grip fit, full104/104, hidden player9/9; [motion report](G2_ANIMATION_PRESENTATION_REPORT.md). Далее004A forest uplift; visual actions002/003 возвращаются в integrated review. Это не завершение визуальной приёмки002/003.
+Checkpoint G2-VR-002A завершён: controlled import пяти источников, native rig/LOD интеграция, full99/99 + final3/3, Windows hidden9/9. [Hero report](G2_HERO_ATHLETE_IMPLEMENTATION.md). Checkpoint002B завершён: closed gloves/pole fit, numbered bib, full101/101 + focused5/5, hidden player9/9. Checkpoint003A завершён: собственная винтовка, rifle grip fit, full104/104, hidden player9/9; [motion report](G2_ANIMATION_PRESENTATION_REPORT.md). Checkpoint004A завершён: audited fir, full107/107, hidden9/9, profile10 cases ACTION_REQUIRED; [environment report](G2_ENVIRONMENT_UPLIFT_REPORT.md). Далее004B snow/terrain; visual actions002/003 возвращаются в integrated review. Это не завершение визуальной приёмки002/003.
 
 Каждый этап разбивается на небольшие проверяемые изменения. После каждой завершённой задачи обновляются этот план, PROJECT_STATE и соответствующий implementation/report; coherent commit и push. Локальные checkpoints не считаются owner acceptance.
 

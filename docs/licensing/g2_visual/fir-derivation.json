@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "id": "g2-fir-derivation-v1",
+  "asset": "G2-010",
+  "author": "LOLIPOP / lolipop_1707",
+  "license": "CC-BY-4.0",
+  "source_url": "https://sketchfab.com/3d-models/f58e8b6d733e4b0586e5b7db847b89e7",
+  "source_sha256": "d19866856a9f5622bac59661f2d996047d55653692b5be3b268949c02130a973",
+  "blender": "4.5.9 LTS",
+  "modifications": [
+    "selected largest fir variant only; source LOD1/2 as near/mid; own 18-percent decimation of LOD2 as far, rejected source cross-card LOD3",
+    "removed source gallery offsets; metres, ground pivot, Unity axes; maximum height8m",
+    "consolidated material submeshes using explicit per-vertex bark/leaf channels; source UV repeat preserved",
+    "four selected resized maps only; alpha preserved; custom instanced winter/wind presentation shader",
+    "no source FBX, source material or external absolute image path imported"
+  ],
+  "outputs": [
+    {
+      "file": "fir_lod0.json",
+      "source_object": "Christmas tree_LOD1",
+      "decimation": 1,
+      "vertices": 6014,
+      "triangles": 6633,
+      "sha256": "07340448b94f749d49d4ac4cd4f45570efff1684b38a48e486995b2ad2c2a83f"
+    },
+    {
+      "file": "fir_lod1.json",
+      "source_object": "Christmas tree_LOD2",
+      "decimation": 1,
+      "vertices": 2997,
+      "triangles": 3268,
+      "sha256": "0437cd7a130983de5706fb46af51eef2a62beca464931bcb1bf045290e7f7059"
+    },
+    {
+      "file": "fir_lod2.json",
+      "source_object": "Christmas tree_LOD2",
+      "decimation": 0.18,
+      "vertices": 1090,
+      "triangles": 588,
+      "sha256": "b868b612cd6883604a7dc7d0b4377e5118a9f03695e53e8390c8b999c2dd274c"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Vegetation/G2Fir/Textures/BarkAlbedo.png",
+      "source_texture": "BarkAlbedo.png",
+      "source_sha256": "19c875f75d2e2c76c45c018d56863631529e4a64bf4397b844be945ecf1c2b6c",
+      "dimensions": [
+        512,
+        1024
+      ],
+      "sha256": "470ada22f08198b4aea77bd661fbaabbc5f6b897877b8e2151b99aed33d64eae"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Vegetation/G2Fir/Textures/LeafAlbedo.png",
+      "source_texture": "BrunchesAlbedo.png",
+      "source_sha256": "5aefec397d7e81975ff8fb744ac50a4b99fbf4d6b06ffb1d23d73dc1bddee6c1",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "sha256": "00d3de164911cae21eaa147ffd02bc08d3f4551ad17f07e0546c1b5260795505"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Vegetation/G2Fir/Textures/BarkNormal.png",
+      "source_texture": "Bark_normal.png",
+      "source_sha256": "66125f1e8f82ca28a7512c0ac972b2ad9b2e5327014196b5e9b6b519e5435308",
+      "dimensions": [
+        512,
+        1024
+      ],
+      "sha256": "c2bc14e2c9beb5974929ef7618e18b19435f9d8a59129ec5b841d94b3482e470"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Vegetation/G2Fir/Textures/LeafNormal.png",
+      "source_texture": "Brunches_normal.png",
+      "source_sha256": "248ec71d278360e5988b4bd75d74e70f9e5b6d00febe78dd760b55f2a299a96c",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "sha256": "73cfc13a0078fb10df2f48d7654da769e28022fca763a56c68f7b6c5bb8a0312"
+    }
+  ]
+}

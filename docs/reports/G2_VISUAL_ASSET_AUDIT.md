@@ -73,3 +73,7 @@ Blender4.5.9 portable получен с официального download.blende
 ## Что отклонено / отложено
 
 Отклонены способы использования: массовый импорт всех архивов; direct mass placement тяжёлого Fir Tree01; публичная публикация Renderpeople/Mixamo/Rokoko raw/ограниченных derivatives; перенос branding. Отложенные кандидаты перечислены индивидуально. Anderson Rohr остаётся optional missing pack и не блокирует работу. Четыре Unity Store кандидата не импортированы.
+
+## Controlled import update — G2-VR-004A
+
+2026-09-20: G2-010 largest fir derivative imported into benchmark only. Source LOD1/2 and own far reduction, four resized maps, custom alpha-tested winter shader. Original cross-card LOD3 rejected for envelope/visual defects. Full107/107 and hidden player9/9 PASS; profiling still ACTION_REQUIRED. Actual CC BY notice shipped; source/output hashes in `licensing/g2_visual/fir-derivation.json` and `fir-runtime-manifest.json`. No additional tree candidates or source FBX imported. Original audit table above records the no-import state at audit completion.

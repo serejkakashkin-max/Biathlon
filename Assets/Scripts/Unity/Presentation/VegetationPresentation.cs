@@ -21,13 +21,17 @@ namespace Biathlon.Unity.Presentation
         public int NearCount => counts[0]; public int MidCount => counts[1]; public int FarCount => counts[2];
         public long SubmittedTriangles { get; private set; }
         private readonly int[] triangles=new int[3];
-        public void Initialize(Vector3[] route)
+        public bool UsesAuditedFir { get; private set; }
+        public void Initialize(Vector3[] route,bool useAuditedFir=false)
         {
             if(definition!=null)throw new InvalidOperationException("Forest already initialized.");
             definition=VegetationDefinition.Load();instances=definition.Place(route);
-            material=Resources.Load<Material>("Biathlon/Vegetation/Conifer");
+            string root=useAuditedFir?"Biathlon/Vegetation/G2Fir/":"Biathlon/Vegetation/";
+            string name=useAuditedFir?"Fir":"Conifer";
+            material=Resources.Load<Material>(root+name);
             if(material==null)throw new InvalidOperationException("Generate vegetation assets.");
-            for(int i=0;i<3;i++){meshes[i]=Resources.Load<Mesh>("Biathlon/Vegetation/ConiferLOD"+i);if(meshes[i]==null)throw new InvalidOperationException("Missing vegetation LOD.");matrices[i]=new Matrix4x4[definition.max_instances];triangles[i]=(int)meshes[i].GetIndexCount(0)/3;}
+            for(int i=0;i<3;i++){meshes[i]=Resources.Load<Mesh>(root+name+"LOD"+i);if(meshes[i]==null)throw new InvalidOperationException("Missing vegetation LOD.");matrices[i]=new Matrix4x4[definition.max_instances];triangles[i]=(int)meshes[i].GetIndexCount(0)/3;}
+            UsesAuditedFir=useAuditedFir;
             properties=new MaterialPropertyBlock();
         }
         public void Prepare(Camera camera,string tier,float presentationTime,Vector2? observedWind=null)
