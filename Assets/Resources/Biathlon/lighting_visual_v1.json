@@ -1,0 +1,9 @@
+{
+ "schema_version":1,"id":"winter_lighting_visual_v1",
+ "presets":[
+  {"id":"clear_cold","recommended_weather":"clear","sun_elevation":25,"sun_azimuth":-32,"sun_gain":1,"ambient_gain":1,"sun_tint":{"r":1,"g":1,"b":1,"a":1},"ambient_tint":{"r":1,"g":1,"b":1,"a":1},"sky_tint":{"r":1,"g":1,"b":1,"a":1},"horizon_tint":{"r":1,"g":1,"b":1,"a":1}},
+  {"id":"overcast","recommended_weather":"overcast","sun_elevation":42,"sun_azimuth":-15,"sun_gain":1,"ambient_gain":1,"sun_tint":{"r":1,"g":1,"b":1,"a":1},"ambient_tint":{"r":1,"g":1,"b":1,"a":1},"sky_tint":{"r":1,"g":1,"b":1,"a":1},"horizon_tint":{"r":1,"g":1,"b":1,"a":1}},
+  {"id":"dawn","recommended_weather":"clear","sun_elevation":9,"sun_azimuth":68,"sun_gain":0.85,"ambient_gain":0.8,"sun_tint":{"r":1,"g":0.70,"b":0.48,"a":1},"ambient_tint":{"r":0.72,"g":0.83,"b":1,"a":1},"sky_tint":{"r":0.80,"g":0.77,"b":0.9,"a":1},"horizon_tint":{"r":1,"g":0.82,"b":0.75,"a":1}},
+  {"id":"late_day","recommended_weather":"clear","sun_elevation":13,"sun_azimuth":-105,"sun_gain":1.05,"ambient_gain":0.9,"sun_tint":{"r":1,"g":0.80,"b":0.62,"a":1},"ambient_tint":{"r":0.8,"g":0.88,"b":1,"a":1},"sky_tint":{"r":0.9,"g":0.87,"b":1,"a":1},"horizon_tint":{"r":1,"g":0.9,"b":0.83,"a":1}}
+ ]
+}

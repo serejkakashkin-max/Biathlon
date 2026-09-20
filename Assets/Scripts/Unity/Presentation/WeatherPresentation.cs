@@ -14,6 +14,7 @@ namespace Biathlon.Unity.Presentation
         private bool leased,oldFog;private FogMode oldFogMode;private float oldFogStart,oldFogEnd,oldFogDensity,oldIntensity,oldShadowStrength;
         private Color oldFogColor,oldSky,oldEquator,oldGround,oldKeyColor,oldBackground;
         private AmbientMode oldAmbientMode;private Material oldSkybox;private CameraClearFlags oldClear;
+        private Quaternion oldKeyRotation;
         public int SubmittedFlakes {get;private set;}
         public string PresetId {get;private set;}
         public void Initialize(Camera camera,Light directional)
@@ -34,16 +35,19 @@ namespace Biathlon.Unity.Presentation
             oldFog=RenderSettings.fog;oldFogMode=RenderSettings.fogMode;oldFogStart=RenderSettings.fogStartDistance;oldFogEnd=RenderSettings.fogEndDistance;oldFogDensity=RenderSettings.fogDensity;oldFogColor=RenderSettings.fogColor;
             oldAmbientMode=RenderSettings.ambientMode;oldSky=RenderSettings.ambientSkyColor;oldEquator=RenderSettings.ambientEquatorColor;oldGround=RenderSettings.ambientGroundColor;oldSkybox=RenderSettings.skybox;
             oldIntensity=key.intensity;oldShadowStrength=key.shadowStrength;oldKeyColor=key.color;oldClear=view.clearFlags;oldBackground=view.backgroundColor;
+            oldKeyRotation=key.transform.rotation;
         }
-        public void Render(string preset,string tier,double time,Vector2 observedWind,float localGroundHeight)
+        public void Render(string preset,string tier,double time,Vector2 observedWind,float localGroundHeight,LightingVisualPreset lighting=null)
         {
             if(!leased||view==null||key==null||!float.IsFinite(localGroundHeight))throw new InvalidOperationException("Active weather lease required.");
             // Validate observation before mutating any scene state, including for zero-snow presets.
             definition.Sample(0,time,view.transform.position,observedWind);var p=definition.Get(preset);int count=definition.Count(tier,p.snowfall);
-            PresetId=preset;RenderSettings.fog=true;RenderSettings.fogMode=FogMode.Linear;RenderSettings.fogStartDistance=p.fog_start_m;RenderSettings.fogEndDistance=p.fog_end_m;RenderSettings.fogColor=p.fog_color;
-            RenderSettings.ambientMode=AmbientMode.Trilight;RenderSettings.ambientSkyColor=p.fog_color*p.ambient_intensity;RenderSettings.ambientEquatorColor=p.fog_color*(p.ambient_intensity*.65f);RenderSettings.ambientGroundColor=p.fog_color*(p.ambient_intensity*.35f);
-            key.color=p.light_color;key.intensity=p.light_intensity;key.shadowStrength=p.shadow_strength;view.clearFlags=CameraClearFlags.Skybox;view.backgroundColor=p.fog_color;RenderSettings.skybox=sky;
-            sky.SetColor("_SkyColor",p.sky_color);sky.SetColor("_HorizonColor",p.fog_color);sky.SetFloat("_CloudCover",p.cloud_cover);sky.SetVector("_Drift",new Vector4(observedWind.x,observedWind.y,(float)time,0));
+            lighting?.Validate();var fogColor=p.fog_color*(lighting?.horizon_tint??Color.white);var ambient=p.fog_color*p.ambient_intensity*(lighting?.ambient_tint??Color.white)*(lighting?.ambient_gain??1);
+            PresetId=preset;RenderSettings.fog=true;RenderSettings.fogMode=FogMode.Linear;RenderSettings.fogStartDistance=p.fog_start_m;RenderSettings.fogEndDistance=p.fog_end_m;RenderSettings.fogColor=fogColor;
+            RenderSettings.ambientMode=AmbientMode.Trilight;RenderSettings.ambientSkyColor=ambient;RenderSettings.ambientEquatorColor=ambient*.65f;RenderSettings.ambientGroundColor=ambient*.35f;
+            key.color=p.light_color*(lighting?.sun_tint??Color.white);key.intensity=p.light_intensity*(lighting?.sun_gain??1);key.shadowStrength=p.shadow_strength;key.transform.rotation=lighting!=null?Quaternion.Euler(lighting.sun_elevation,lighting.sun_azimuth,0):oldKeyRotation;
+            view.clearFlags=CameraClearFlags.Skybox;view.backgroundColor=fogColor;RenderSettings.skybox=sky;
+            sky.SetColor("_SkyColor",p.sky_color*(lighting?.sky_tint??Color.white));sky.SetColor("_HorizonColor",fogColor);sky.SetFloat("_CloudCover",p.cloud_cover);sky.SetVector("_Drift",new Vector4(observedWind.x,observedWind.y,(float)time,0));
             int n=0;var center=view.transform.position;var right=view.transform.right*definition.flake_size_m;var up=view.transform.up*definition.flake_size_m;
             for(int i=0;i<count;i++)
             {
@@ -64,7 +68,7 @@ namespace Biathlon.Unity.Presentation
             if(!leased)return;leased=false;if(owner==this)owner=null;SubmittedFlakes=0;
             RenderSettings.fog=oldFog;RenderSettings.fogMode=oldFogMode;RenderSettings.fogStartDistance=oldFogStart;RenderSettings.fogEndDistance=oldFogEnd;RenderSettings.fogDensity=oldFogDensity;RenderSettings.fogColor=oldFogColor;
             RenderSettings.ambientMode=oldAmbientMode;RenderSettings.ambientSkyColor=oldSky;RenderSettings.ambientEquatorColor=oldEquator;RenderSettings.ambientGroundColor=oldGround;RenderSettings.skybox=oldSkybox;
-            if(key!=null){key.intensity=oldIntensity;key.shadowStrength=oldShadowStrength;key.color=oldKeyColor;}if(view!=null){view.clearFlags=oldClear;view.backgroundColor=oldBackground;}if(mesh!=null)mesh.Clear(false);
+            if(key!=null){key.intensity=oldIntensity;key.shadowStrength=oldShadowStrength;key.color=oldKeyColor;key.transform.rotation=oldKeyRotation;}if(view!=null){view.clearFlags=oldClear;view.backgroundColor=oldBackground;}if(mesh!=null)mesh.Clear(false);
         }
         private void OnDestroy(){Release();if(mesh!=null)Destroy(mesh);if(sky!=null)Destroy(sky);}
     }

@@ -4,21 +4,21 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: M12 started; M11 PASS WITH ACTIONS; M10 PASS / owner-approved; M1–M9 PASS
-active_work_package: WP-162 Lighting benchmark
-active_task: TASK-162 Explicit visual lighting profiles and fixed captures
-last_completed_task: TASK-161 Animated spectator crowd and depth-tested venue signs
-last_verified_commit: 2de2484; WP160 verified and pushed; WP161 verification accompanies this state commit
+active_work_package: WP-163 Cinemachine/broadcast camera tooling
+active_task: TASK-163 Broadcast camera tooling and projection-aware visual LOD
+last_completed_task: TASK-162 Explicit visual lighting profiles and fixed captures
+last_verified_commit: 276a057; WP161 verified and pushed; WP162 verification accompanies this state commit
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 550 discovered; WP159 observations4/4 PASS; WP151 observations4/4 PASS; WP141 observations4/4; WP138 grid5/5; prior qualification4/4; prior player-pack2/2; prior HUD1/1; prior penalty10/10; prior shooting/session5/5; prior snapshot1/1, device8/8; M9 actual-season byte parity PASS
-playmode_tests: WP161 full83/83 PASS; WP160 full78/78 PASS and final focused4/4; WP159 full74/74 PASS and final focused4/4; WP158 full70/70 PASS; WP157 full66/66 PASS; WP156 full63/63 PASS and final focused3/3; WP155 full60/60 PASS; WP154 full57/57 PASS; WP153 full53/53 PASS; WP152 full51/51 PASS; WP151 full48/48 PASS; WP150 full46/46 PASS; WP149 full44/44 PASS; WP148 full42/42 PASS; WP147 full39/39 PASS; WP146 full38/38 PASS; WP145 full37/37 PASS; WP144 full36/36 PASS; WP143 full33/33 PASS; WP142 full30/30 PASS; WP141 full28/28 PASS; WP140 full25/25 PASS; prior WP139 evidence1/1 (24 discovered); prior full30 host1/1; prior Sprint-Pursuit chain1/1; prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
+playmode_tests: WP162 full86/86 PASS; WP161 full83/83 PASS; WP160 full78/78 PASS and final focused4/4; WP159 full74/74 PASS and final focused4/4; WP158 full70/70 PASS; WP157 full66/66 PASS; WP156 full63/63 PASS and final focused3/3; WP155 full60/60 PASS; WP154 full57/57 PASS; WP153 full53/53 PASS; WP152 full51/51 PASS; WP151 full48/48 PASS; WP150 full46/46 PASS; WP149 full44/44 PASS; WP148 full42/42 PASS; WP147 full39/39 PASS; WP146 full38/38 PASS; WP145 full37/37 PASS; WP144 full36/36 PASS; WP143 full33/33 PASS; WP142 full30/30 PASS; WP141 full28/28 PASS; WP140 full25/25 PASS; prior WP139 evidence1/1 (24 discovered); prior full30 host1/1; prior Sprint-Pursuit chain1/1; prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
 standalone_tests: WP159 observations4/4 PASS; WP151 observations/snapshots5/5 PASS; WP141 observations/regression19/19; WP138 grid/results7/7; WP137 qualification/field6/6; WP136 player-pack/snapshot3/3; WP135 HUD/snapshot2/2; WP134 penalty10/10; WP133 aim/session10/10; WP130 input/replay11/11; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
-unity_console_errors: 0 after WP161 final verification
-unity_console_warnings: 1 after WP161 final verification; MCP BufferedFileLogStorage disposal warning; compilation_failed=false
+unity_console_errors: 0 after WP162 final verification
+unity_console_warnings: 1 after WP162 final verification; MCP BufferedFileLogStorage disposal warning; compilation_failed=false
 current_known_blockers: []
 owner_gate_g1: APPROVED 2026-09-13; owner hands-on Windows greybox Sprint and Pursuit
 owner_decisions_needed: []
 owner_gameplay_feel_issues: [OWNER-FEEL-001 player shooting feels too easy; OPEN; required WP229/WP230/WP232 review]
-next_unlocked_work_packages: [WP-162] # Continue M12 through WP166, then owner G2.
+next_unlocked_work_packages: [WP-163] # Continue M12 through WP166, then owner G2.
 ```
 
 ## Work packages
@@ -185,7 +185,8 @@ next_unlocked_work_packages: [WP-162] # Continue M12 through WP166, then owner G
 - WP-159 DONE. Explicit cold/load vapor, observed hold/phase, bounded allocation-free mesh, complete-race observation parity; .NET4/4, Unity EditMode4/4, full PlayMode74/74 and final focused4/4, close/chase captures and Windows smoke PASS. See TASK-159-breath-vapor-REPORT.md.
 - WP-160 DONE. Original modular stadium/range prefabs, exact geometric target faces, nine fixed views; full78/78 and final focused4/4, no gameplay colliders or balance changes. Target cascade acne corrected; G2 art approval pending. See TASK-160-stadium-range-art-REPORT.md.
 - WP-161 DONE. Original instanced spectators,156 authored seats, nested density tiers, near/far LOD, explicit-time gestures; full83/83, six fixed views and pixel-exact rewind, warmed0 B. Corrected venue text showing through roofs. See TASK-161-crowd-benchmark-REPORT.md.
-- WP-162 IN PROGRESS. Clear/overcast/dawn/late-day visual lighting benchmark.
+- WP-162 DONE. Four explicit lighting profiles;12 fixed captures, focused3/3 and full86/86 PASS, camera/state restoration and warmed0 B. Late-day contrast and coarse snow grain require WP164/165 review. See TASK-162-lighting-benchmark-REPORT.md.
+- WP-163 IN PROGRESS. Broadcast camera tooling and projection-aware visual LOD.
 
 ## Owner gameplay-feel issue — OWNER-FEEL-001
 
@@ -241,7 +242,7 @@ Preserve ADR0012–0017, canonical Foundation hashes and unrelated owner workspa
 Continue coherent commits/push and state updates under standing owner authorization.
 ## Publication history
 
-Current verified implementation publication: **757ebb0** — WP157 verified and pushed. WP158 full70/70, weather captures/rewind/budget/restoration evidence accompanies this state commit. M10 technical delivery was completed at 3466bf6. Owner subsequently approved G1 on 2026-09-13; this decision starts M11 without changing prior test evidence. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
+Current verified implementation publication: **276a057** — WP161 verified and pushed. WP162 full86/86 and twelve lighting captures accompany this state commit. M10 technical delivery was completed at 3466bf6. Owner subsequently approved G1 on 2026-09-13; this decision starts M11 without changing prior test evidence. M8 closure: **0311edf2e95dc6e33ff4603ad45a39cc997686b8**.
 
 The entries below are historical checkpoints, not the current development position.
 Owner explicitly authorized regular commits/push and state updates on2026-09-09.
