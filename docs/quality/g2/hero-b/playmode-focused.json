@@ -1,0 +1,52 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":101,\"PassedTests\":5,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:00.5640252\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.G2HeroTests.BibNumbersArePerInstanceAndDoNotMutateSharedMaterial\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0300000\"},{\"Name\":\"Biathlon.PlayModeTests.G2HeroTests.ClosedGlovesFollowPoleOrientationWithoutMovingContactsOrAllocating\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0120000\"},{\"Name\":\"Biathlon.PlayModeTests.G2HeroTests.ContinuousSkinLodsHaveNormalizedM11WeightsAndRealGeometryReduction\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.1220000\"},{\"Name\":\"Biathlon.PlayModeTests.G2HeroTests.ExistingMotionContractDeformsHeroAndCapturesReviewFrames\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.3620000\"},{\"Name\":\"Biathlon.PlayModeTests.G2HeroTests.HeroFactoryAndSkinLodsRespectHysteresisShootingAndZeroAllocation\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 101,
+          "PassedTests": 5,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.5640252"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.G2HeroTests.BibNumbersArePerInstanceAndDoNotMutateSharedMaterial",
+            "Status": "Passed",
+            "Duration": "00:00:00.0300000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.G2HeroTests.ClosedGlovesFollowPoleOrientationWithoutMovingContactsOrAllocating",
+            "Status": "Passed",
+            "Duration": "00:00:00.0120000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.G2HeroTests.ContinuousSkinLodsHaveNormalizedM11WeightsAndRealGeometryReduction",
+            "Status": "Passed",
+            "Duration": "00:00:00.1220000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.G2HeroTests.ExistingMotionContractDeformsHeroAndCapturesReviewFrames",
+            "Status": "Passed",
+            "Duration": "00:00:00.3620000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.G2HeroTests.HeroFactoryAndSkinLodsRespectHysteresisShootingAndZeroAllocation",
+            "Status": "Passed",
+            "Duration": "00:00:00.0010000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

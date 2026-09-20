@@ -1141,6 +1141,8 @@ GameObject:
   - component: {fileID: 8926332242103058877}
   - component: {fileID: 6918773508735577697}
   - component: {fileID: 6685739874626453034}
+  - component: {fileID: 1942069230247102723}
+  - component: {fileID: 6454471350779079322}
   m_Layer: 0
   m_Name: HeroAthlete
   m_TagString: Untagged
@@ -1175,7 +1177,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 092fcbced9ac86e4880046600c7e9124, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteEquipmentBinding
   rifle: {fileID: 2575750969110762040}
   leftPole: {fileID: 7401005990543107227}
@@ -1190,7 +1192,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a73ee25c29c56274f814969372d54375, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteRigBinding
   modelRoot: {fileID: 3429758823008756788}
   bones:
@@ -1230,7 +1232,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4263d71d11efd7a47a9b2cc3c6dc7857, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteLocomotionDriver
 --- !u!114 &7065273556609692097
 MonoBehaviour:
@@ -1242,7 +1244,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cffc2a9df44957e4586663bd672068d0, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteRiflePresentation
 --- !u!114 &8926332242103058877
 MonoBehaviour:
@@ -1254,7 +1256,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44b866b63fedd604eb8becf15e63e414, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteShootingPose
 --- !u!114 &6918773508735577697
 MonoBehaviour:
@@ -1266,7 +1268,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3798722378b6c5f4190a2b67928b3489, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteGroundContact
 --- !u!114 &6685739874626453034
 MonoBehaviour:
@@ -1278,7 +1280,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1eff4567c98a134fb709297bcc218a6, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteSkinDetailBinding
   body: {fileID: 2730402059694330629}
   levels:
@@ -1288,6 +1290,32 @@ MonoBehaviour:
   mediumDistance: 12
   farDistance: 45
   hysteresis: 2
+--- !u!114 &1942069230247102723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6310867250616634142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d020b779fa52f65418ea1acc4ebaf895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteBibPresentation
+  body: {fileID: 2730402059694330629}
+  materialIndex: 2
+--- !u!114 &6454471350779079322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6310867250616634142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a00591eed0fd1743a7893fc90fcf5c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteGripPresentation
 --- !u!1 &6646540620618126452
 GameObject:
   m_ObjectHideFlags: 0

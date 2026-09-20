@@ -38,6 +38,7 @@ namespace Biathlon.Unity.Presentation
         private AthleteRiflePresentation rifle;
         private AthleteShootingPose shootingPose;
         private AthleteGroundContact contact;
+        private AthleteGripPresentation grip;
         private AthleteDetailPresentation detail;
         public AthleteDetailPresentation Detail => detail;
         public AthleteRigBinding Rig => rig;
@@ -51,6 +52,7 @@ namespace Biathlon.Unity.Presentation
             rifle = binding.GetComponent<AthleteRiflePresentation>();
             shootingPose = binding.GetComponent<AthleteShootingPose>();
             contact = binding.GetComponent<AthleteGroundContact>();
+            grip = binding.GetComponent<AthleteGripPresentation>();
             detail = new AthleteDetailPresentation(binding);
         }
 
@@ -71,6 +73,7 @@ namespace Biathlon.Unity.Presentation
             if (shootingPose != null) shootingPose.Render(rig, frame);
             if (rifle != null) rifle.Render(rig, frame);
             if (contact != null) contact.Render(rig, frame);
+            if (grip != null) grip.Render(rig);
             rig.ModelRoot.SetLocalPositionAndRotation(modelPosition, modelRotation);
             transform.SetLocalPositionAndRotation(position, rotation);
             transform.localScale = scale;

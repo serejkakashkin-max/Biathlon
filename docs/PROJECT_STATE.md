@@ -5,15 +5,15 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 ```yaml
 project_phase: post-WP166 / pre-G2 visual remediation; M12 technical work complete with profiling/visual actions; M11 PASS WITH ACTIONS; M10 owner-approved
 active_work_package: G2-VR-002 hero athlete (owner-directed remediation, not M13)
-active_task: G2-VR-002B glove/equipment/cloth refinement, then motion review
-last_completed_task: G2-VR-002A controlled hero import and M11 integration; full99/99, final3/3, hidden player9/9 PASS; visual work remains
-last_verified_commit: ed712ba; G2 audit/plan/state verified on origin; hero checkpoint accompanies this commit
+active_task: G2-VR-003A motion/contact matrix and rifle presentation refinement; hero visual acceptance remains open
+last_completed_task: G2-VR-002B closed gloves/pole fit and per-athlete bib; full101/101, focused5/5, hidden player9/9 PASS
+last_verified_commit: 6bf1f62; hero002A verified on origin; 002B evidence/state accompanies this commit
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 550 discovered; WP159 observations4/4 PASS; WP151 observations4/4 PASS; WP141 observations4/4; WP138 grid5/5; prior qualification4/4; prior player-pack2/2; prior HUD1/1; prior penalty10/10; prior shooting/session5/5; prior snapshot1/1, device8/8; M9 actual-season byte parity PASS
-playmode_tests: G2-VR002A full99/99 and final3/3 PASS; WP166 full96/96 and final focused3/3 PASS; WP164 full93/93 PASS; WP163 full90/90 PASS; WP162 full86/86 PASS; WP161 full83/83 PASS; WP160 full78/78 PASS and final focused4/4; WP159 full74/74 PASS and final focused4/4; WP158 full70/70 PASS; WP157 full66/66 PASS; WP156 full63/63 PASS and final focused3/3; WP155 full60/60 PASS; WP154 full57/57 PASS; WP153 full53/53 PASS; WP152 full51/51 PASS; WP151 full48/48 PASS; WP150 full46/46 PASS; WP149 full44/44 PASS; WP148 full42/42 PASS; WP147 full39/39 PASS; WP146 full38/38 PASS; WP145 full37/37 PASS; WP144 full36/36 PASS; WP143 full33/33 PASS; WP142 full30/30 PASS; WP141 full28/28 PASS; WP140 full25/25 PASS; prior WP139 evidence1/1 (24 discovered); prior full30 host1/1; prior Sprint-Pursuit chain1/1; prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
+playmode_tests: G2-VR002B full101/101 and focused5/5 PASS; G2-VR002A full99/99 and final3/3 PASS; WP166 full96/96 and final focused3/3 PASS; WP164 full93/93 PASS; WP163 full90/90 PASS; WP162 full86/86 PASS; WP161 full83/83 PASS; WP160 full78/78 PASS and final focused4/4; WP159 full74/74 PASS and final focused4/4; WP158 full70/70 PASS; WP157 full66/66 PASS; WP156 full63/63 PASS and final focused3/3; WP155 full60/60 PASS; WP154 full57/57 PASS; WP153 full53/53 PASS; WP152 full51/51 PASS; WP151 full48/48 PASS; WP150 full46/46 PASS; WP149 full44/44 PASS; WP148 full42/42 PASS; WP147 full39/39 PASS; WP146 full38/38 PASS; WP145 full37/37 PASS; WP144 full36/36 PASS; WP143 full33/33 PASS; WP142 full30/30 PASS; WP141 full28/28 PASS; WP140 full25/25 PASS; prior WP139 evidence1/1 (24 discovered); prior full30 host1/1; prior Sprint-Pursuit chain1/1; prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
 standalone_tests: WP159 observations4/4 PASS; WP151 observations/snapshots5/5 PASS; WP141 observations/regression19/19; WP138 grid/results7/7; WP137 qualification/field6/6; WP136 player-pack/snapshot3/3; WP135 HUD/snapshot2/2; WP134 penalty10/10; WP133 aim/session10/10; WP130 input/replay11/11; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
-unity_console_errors: 0 after G2-VR-002A final verification
-unity_console_warnings: 0 after G2-VR-002A final verification; compilation_failed=false; legacy obsolete-API diagnostics noted in hero report
+unity_console_errors: 0 after G2-VR-002B final verification
+unity_console_warnings: 0 after G2-VR-002B final verification; compilation_failed=false; legacy obsolete-API diagnostics noted in hero report
 current_known_blockers: []
 owner_gate_g1: APPROVED 2026-09-13; owner hands-on Windows greybox Sprint and Pursuit
 owner_gate_g2: NOT APPROVED / FAIL PENDING VISUAL REMEDIATION; owner directive 2026-09-20
@@ -195,6 +195,7 @@ next_unlocked_work_packages: [G2-VR-002 hero athlete] # Owner-directed remediati
 - G2-VR-001 DONE: all37 candidates audited; actual32 downloaded +1 manual +4 metadata,235 source hashes,6 Sketchfab CC BY metadata, CC0/limited-redistribution decisions recorded. No Unity imports at audit close. See reports/G2_VISUAL_ASSET_AUDIT.md.
 - G2-VR-002 ACTIVE: controlled hero body/rig/clothing/goggles/LOD adaptation. Remediation sequence and open issues: reports/G2_VISUAL_REMEDIATION_PLAN.md, reports/G2_OPEN_ITEMS.md. G2 NOT APPROVED / FAIL PENDING VISUAL REMEDIATION; M13 BLOCKED_G2.
 - G2-VR-002A DONE: five audited candidates selectively adapted; continuous four-weight M11 skin, three LODs29224/13064/3482 triangles, CC0 normals and de-branded CC BY goggles; hero factory integrated in races/benchmark. Full99/99, final3/3, Windows build0/0, hidden9/9 render smoke, Console0/0. Source/derivative manifests and shipped credits recorded. Hero visual acceptance remains OPEN; glove/grip/bib/equipment/motion refinement continues in002B/003. See reports/G2_HERO_ATHLETE_IMPLEMENTATION.md.
+- G2-VR-002B DONE: original closed gloves and late pole grip fit preserve grounded contacts; per-athlete bib01–60 uses shared-material property blocks. Full101/101, focused5/5, build0/0, hidden player9/9, Console0/0. Current LODs29834/13338/3557 triangles; manifests/evidence updated, prior002A retained. Motion/rifle/material/variation review remains OPEN; next003A.
 
 ## Owner gameplay-feel issue — OWNER-FEEL-001
 

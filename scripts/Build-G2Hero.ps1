@@ -1,4 +1,4 @@
-param([string]$BlenderPath = 'artifacts/tools/blender-4.5.9-windows-x64/blender.exe')
+param([string]$BlenderPath = 'artifacts/tools/blender-4.5.9-windows-x64/blender.exe', [string]$ImagePythonPath = "$env:USERPROFILE/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe")
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path $PSScriptRoot -Parent
 Push-Location $projectRoot
@@ -26,6 +26,8 @@ try {
         if (!$process.WaitForExit(60000)) { throw "Blender $($job.name) exceeded 60 seconds; inspect process $($process.Id) before retrying." }
         if ($process.ExitCode -ne 0) { throw "Blender $($job.name) failed: inspect artifacts/g2-hero/$($job.name).err" }
     }
+    & $ImagePythonPath scripts/art/Build-G2BibAtlas.py
+    if ($LASTEXITCODE -ne 0) { throw 'Bib atlas rasterization failed.' }
     & "$PSScriptRoot/Invoke-UnityMcp.ps1" -Tool assets-refresh -Arguments @{} -TimeoutSec 60 | Out-Null
     & "$PSScriptRoot/Invoke-UnityMcp.ps1" -Tool script-execute -Arguments @{csharpCode='Biathlon.Unity.G2HeroAuthoring.Generate();';isMethodBody=$true} -TimeoutSec 60 | Out-Null
     Write-Output 'Hero derivatives generated. Run G2HeroTests and inspect captures before accepting or publishing.'

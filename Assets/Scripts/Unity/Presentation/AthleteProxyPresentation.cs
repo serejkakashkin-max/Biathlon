@@ -52,6 +52,7 @@ namespace Biathlon.Unity.Presentation
                 {
                     go=new GameObject("Athlete presentation pivot");go.transform.SetParent(transform,false);
                     var rig=rigPrefab!=null?Instantiate(rigPrefab,go.transform,false):AthleteRigFactory.Create(go.transform);
+                    var bib=rig.GetComponent<AthleteBibPresentation>();if(bib!=null)bib.SetNumber(i+1);
                     rig.transform.localPosition=Vector3.down;
                     var adapter=go.AddComponent<AthleteAnimationPresentation>();adapter.Initialize(rig);
                     proxies.Add(state.AthleteId,go);animation.Add(state.AthleteId,adapter);

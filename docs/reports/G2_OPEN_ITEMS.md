@@ -4,7 +4,7 @@
 
 | ID | Issue / evidence | Required next action | Status |
 |---|---|---|---|
-| G2-VIS-001 | Continuous hero now integrated and technically verified (002A); gloves/grips, close joint deformation, bib finishing and retained technical rifle still need work | G2-VR-002B hero refinement + G2-VR-003 motion review | OPEN |
+| G2-VIS-001 | Continuous hero, closed pole gloves and numbered bib verified (002A/B); shooting grips/close joint deformation, material response, appearance variation and retained technical rifle still need work | G2-VR-003A motion/contact and rifle review, then remaining hero quality refinement | OPEN |
 | G2-VIS-002 | Current forest/snow/stadium remain visibly below intended benchmark quality | G2-VR-004/005 selective real assets and composition, then combined captures | OPEN |
 | G2-VIS-003 | Crowd and atmosphere require integrated visual review | G2-VR-006/007, bounded local restricted imports with credits | OPEN |
 | G2-PERF-001 | WP166 balanced athlete, high athlete and high snowfall athlete exceed 3M triangle budget | Review LOD/scene density after uplift; repeat unchanged profiling matrix | OPEN |

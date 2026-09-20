@@ -110,14 +110,6 @@ for v, p, w in zip(body.data.vertices, original, weights):
         d = p-heads[bone]
         d = d*1.06 + direction * d.dot(direction)*(scale-1.06)
         v.co += (target[bone] + rotation @ d)*weight
-    # Neutral closed glove for pole/rifle grips; no authoritative finger interaction.
-    hand=max(w,key=lambda pair:pair[1])[0]
-    if hand in (7,10):
-        distance=target[hand].z-v.co.z
-        if distance>.045:
-            angle=min(2.4,(distance-.045)/.032)
-            v.co.z=target[hand].z-.045-math.sin(angle)*.032
-            v.co.y-=(1-math.cos(angle))*.032
 for g in list(body.vertex_groups): body.vertex_groups.remove(g)
 for n in names: body.vertex_groups.new(name=n)
 for v, w in zip(body.data.vertices, weights):
@@ -174,13 +166,18 @@ bpy.ops.object.modifier_apply(modifier=relax.name)
 for v in bib.data.vertices:
     if abs(v.co.x)<.17 and v.co.y<-.07:
         v.co.y=min(v.co.y,-.134*math.sqrt(max(.1,1-(v.co.x/.225)**2)))
+for loop in bib.data.loops:
+    p=bib.data.vertices[loop.vertex_index].co
+    # Independent print UVs; front/back share one original numbered bib design.
+    bib.data.uv_layers.active.data[loop.index].uv=(.5+(-p.x if p.y<0 else p.x)/.38,(p.z-1.175)/.345)
 
-# Remove hidden scalp and the source's bare feet. Boots are authored below in rig space.
+# Remove hidden scalp, bare feet and open hands. Boots/closed gloves are authored
+# below in rig space without retaining the source's spread finger geometry.
 bm = bmesh.new(); bm.from_mesh(body.data); bm.faces.ensure_lookup_table()
 remove = []
 for f in bm.faces:
     c = sum((original[v.index] for v in f.verts), Vector())/len(f.verts)
-    if c.z < .125 or c.z > 1.595: remove.append(f)
+    if c.z < .125 or c.z > 1.595 or (abs(c.x)>.31 and c.z<.885): remove.append(f)
 bmesh.ops.delete(bm, geom=remove, context='FACES'); bm.to_mesh(body.data); bm.free()
 
 def boot_part(name, center, size, bone, material, bevel):
@@ -196,6 +193,37 @@ def boot_part(name, center, size, bone, material, bevel):
     return o
 
 parts=[body,bib,cap]
+# Original closed sport gloves. The source's spread fingers are not warped into an
+# invalid fist. Separate rounded fingers and thumb wrap the typed grip centre.
+def glove_tube(name,points,radius,bone):
+    verts=[];faces=[]
+    for i,p in enumerate(points):
+        tangent=(points[min(i+1,len(points)-1)]-points[max(0,i-1)]).normalized()
+        first=tangent.cross(Vector((0,1,0)))
+        if first.length<.1:first=tangent.cross(Vector((1,0,0)))
+        first.normalize();second=tangent.cross(first).normalized()
+        for j in range(10):
+            a=j*math.tau/10;verts.append(blender(p+radius*(math.cos(a)*first+math.sin(a)*second)))
+        if i:
+            for j in range(10):a=(i-1)*10+j;b=(i-1)*10+(j+1)%10;faces.append((a,b,b+10,a+10))
+    faces.append(tuple(reversed(range(10))));faces.append(tuple((len(points)-1)*10+j for j in range(10)))
+    mesh=bpy.data.meshes.new(name);mesh.from_pydata(verts,[],faces);mesh.update()
+    o=bpy.data.objects.new(name,mesh);bpy.context.collection.objects.link(o)
+    for mat in body.data.materials:mesh.materials.append(mat)
+    for p in mesh.polygons:p.material_index=4;p.use_smooth=True
+    for n in names:o.vertex_groups.new(name=n)
+    o.vertex_groups[bone].add(list(range(len(mesh.vertices))),1,'REPLACE')
+    return o
+for side,bone in [(-1,7),(1,10)]:
+    wrist=Vector(targets[bone]['position'])
+    parts.append(boot_part('GlovePalm',wrist+Vector((0,-.04,-.001)),(.066,.105,.043),bone,4,.018))
+    parts.append(boot_part('GloveCuff',wrist+Vector((0,.012,0)),(.063,.030,.058),bone,0,.013))
+    for finger in range(4):
+        radius=.026-finger*.001
+        points=[wrist+Vector((radius*math.sin(a),-.031-finger*.017,.026+radius*math.cos(a))) for a in [(-140+j*280/16)*math.pi/180 for j in range(17)]]
+        parts.append(glove_tube('ClosedGloveFinger',points,.0085,bone))
+    thumb=[wrist+Vector((-side*x,y,z)) for x,y,z in [(.027,-.014,.0),(.034,-.027,.018),(.033,-.042,.041),(.024,-.055,.053),(.012,-.06,.05)]]
+    parts.append(glove_tube('ClosedGloveThumb',thumb,.0105,bone))
 # Original broad fabric harness, fitted to the bib. Continuous spine/chest weights.
 surface_vertices=[];surface_faces=[];surface_weights=[]
 for surface in (body,bib):
@@ -307,5 +335,5 @@ for level, ratio in enumerate([1.0,.45,.12]):
         bpy.ops.object.modifier_apply(modifier=dec.name)
     results.append(export_mesh(obj,out/f'hero_lod{level}.json'))
     bpy.data.objects.remove(obj,do_unlink=True)
-(out/'manifest.json').write_text(json.dumps({'schema_version':1,'id':'g2-hero-body-v1','source_asset':'G2-001','source_file':source.name,'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'license':'CC0-1.0','goggles':{'asset':'G2-032','author':'BlurryRender / arjunmano10','license':'CC-BY-4.0','source':'https://sketchfab.com/3d-models/ski-goggles-29bf30fb9c4d43548106c095505054a2','sha256':hashlib.sha256(goggles_source.read_bytes()).hexdigest(),'modifications':'geometry rescaled/fitted to M11 head; all original textures/materials discarded including lettering/normal atlas; neutral new materials; rigid Head weights; included in three LODs'},'blender':bpy.app.version_string,'bone_contract':targets,'outputs':results,'modifications':['selected male body only; removed source multires','automatic heat weights limited and normalized to four M11 bones','adapted A-pose to M11 rest axes','garment relaxation, own suit panels, bib/cap shells, boots','three runtime LODs; source materials/textures not imported']},indent=2))
+(out/'manifest.json').write_text(json.dumps({'schema_version':1,'id':'g2-hero-body-v1','source_asset':'G2-001','source_file':source.name,'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'license':'CC0-1.0','goggles':{'asset':'G2-032','author':'BlurryRender / arjunmano10','license':'CC-BY-4.0','source':'https://sketchfab.com/3d-models/ski-goggles-29bf30fb9c4d43548106c095505054a2','sha256':hashlib.sha256(goggles_source.read_bytes()).hexdigest(),'modifications':'geometry rescaled/fitted to M11 head; all original textures/materials discarded including lettering/normal atlas; neutral new materials; rigid Head weights; included in three LODs'},'blender':bpy.app.version_string,'bone_contract':targets,'outputs':results,'modifications':['selected male body only; removed source multires', 'automatic heat weights limited and normalized to four M11 bones', 'adapted A-pose to M11 rest axes', 'garment relaxation, own suit panels, bib/cap shells, boots', 'source spread hands removed; original closed sport gloves and cuffs fitted to typed M11 grips', 'surface-weighted harness ribbons; separate front/back bib print UVs and original number atlas', 'three runtime LODs; source materials/textures not imported']},indent=2))
 print(json.dumps(results))

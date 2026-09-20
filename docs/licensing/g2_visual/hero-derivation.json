@@ -155,21 +155,21 @@
   "outputs": [
     {
       "file": "hero_lod0.json",
-      "vertices": 17224,
-      "triangles": 29224,
-      "sha256": "902fedb8c66e1a221d72b810df2f24c9fc53ee23777e19578f4765508f3ab041"
+      "vertices": 17255,
+      "triangles": 29834,
+      "sha256": "8a76c52066382e2896746a65cfde4324cf324cec3d1f71fa5f19af64e6667852"
     },
     {
       "file": "hero_lod1.json",
-      "vertices": 8476,
-      "triangles": 13064,
-      "sha256": "69374f6750ee85537e499e9444289366123263e538ad4426fea7b5dd4d3b3957"
+      "vertices": 8384,
+      "triangles": 13338,
+      "sha256": "55df5fe433ec985c7e091ab1732dd1e44c74bd972bc0b260440ca54f1ce3d5cb"
     },
     {
       "file": "hero_lod2.json",
-      "vertices": 2874,
-      "triangles": 3482,
-      "sha256": "186644192ebdb09cef4d9f4d1e560df5c54fdd4f779b1d82041e95a93e21e8cc"
+      "vertices": 2797,
+      "triangles": 3557,
+      "sha256": "7b28ae43e8a491ec75eccc8253218f416e689684a3a53e2ee126eb4ef38d5a5c"
     }
   ],
   "modifications": [
@@ -177,6 +177,8 @@
     "automatic heat weights limited and normalized to four M11 bones",
     "adapted A-pose to M11 rest axes",
     "garment relaxation, own suit panels, bib/cap shells, boots",
+    "source spread hands removed; original closed sport gloves and cuffs fitted to typed M11 grips",
+    "surface-weighted harness ribbons; separate front/back bib print UVs and original number atlas",
     "three runtime LODs; source materials/textures not imported"
   ]
 }

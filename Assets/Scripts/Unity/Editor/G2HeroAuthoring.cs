@@ -97,10 +97,20 @@ namespace Biathlon.Unity
                         mat.SetFloat("_BumpScale", i == 3 ? .12f : .3f); mat.EnableKeyword("_NORMALMAP");
                         mat.SetTextureScale("_BaseMap", Vector2.one * (i == 3 ? 6 : 16));
                     }
+                    if (i == 2)
+                    {
+                        mat.shader=Shader.Find("Biathlon/AthleteBib");
+                        if (mat.shader==null) throw new InvalidDataException("Bib shader missing.");
+                        mat.SetColor("_BaseColor",colors[i]); mat.SetColor("_InkColor",new Color(.015f,.045f,.07f));
+                        mat.SetTexture("_Atlas",AssetDatabase.LoadAssetAtPath<Texture2D>(DirectoryPath+"/Textures/BibAtlas.png"));
+                        mat.SetFloat("_BibNumber",1);
+                    }
                     EditorUtility.SetDirty(mat); materials[i] = mat;
                 }
                 skin.sharedMaterials = materials; skin.bones = bones; skin.quality = SkinQuality.Bone4;
                 rig.gameObject.AddComponent<AthleteSkinDetailBinding>().Configure(skin, lodMeshes, 12, 45, 2);
+                rig.gameObject.AddComponent<AthleteBibPresentation>().Configure(skin,2);
+                rig.gameObject.AddComponent<AthleteGripPresentation>();
                 skin.name = "Continuous athlete body"; rig.name = "G2 benchmark hero athlete";
                 PrefabUtility.SaveAsPrefabAsset(rig.gameObject, PrefabPath);
                 AssetDatabase.SaveAssets();
