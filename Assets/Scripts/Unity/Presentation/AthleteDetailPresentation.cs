@@ -29,6 +29,7 @@ namespace Biathlon.Unity.Presentation
         private readonly AthleteDetailSettings settings;
         private readonly SkinnedMeshRenderer body;
         private readonly Mesh nearMesh, farMesh;
+        private readonly AthleteSkinDetailBinding skinDetail;
         private readonly Renderer[] renderers;
         private readonly ShadowCastingMode[] shadows;
         private double lastPoseTime = -1;
@@ -38,6 +39,7 @@ namespace Biathlon.Unity.Presentation
         public AthleteDetailPresentation(AthleteRigBinding rig)
         {
             settings = AthleteDetailSettings.Load();
+            skinDetail = rig.GetComponent<AthleteSkinDetailBinding>();
             body = rig.GetComponentInChildren<SkinnedMeshRenderer>();
             if (body != null)
             {
@@ -54,6 +56,7 @@ namespace Biathlon.Unity.Presentation
             if (!float.IsFinite(distance) || distance < 0) throw new ArgumentOutOfRangeException(nameof(distance));
             var a = frame.Athlete;
             bool reset = lastPoseTime < 0 || frame.TimeSeconds < lastPoseTime || a.AthleteId != previous.AthleteId;
+            if (skinDetail != null) skinDetail.Prepare(distance, a.ShootingActive, reset);
             bool distant = !a.ShootingActive && (reset ? distance >= settings.far_distance_m : Distant ?
                 distance > settings.far_distance_m - settings.hysteresis_m : distance >= settings.far_distance_m + settings.hysteresis_m);
             bool changed = distant != Distant;

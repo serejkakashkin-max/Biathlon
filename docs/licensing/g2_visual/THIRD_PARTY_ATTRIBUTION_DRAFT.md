@@ -1,7 +1,8 @@
 # Third-Party Attribution Draft (CC BY)
 
 Assets downloaded under Creative Commons Attribution licenses (all from Sketchfab).
-These must be credited. De-branding / logo-removal is planned where real-world marks are present.
+These must be credited when used. This is a candidate list, not a claim that all were imported.
+Actual shipped notices: `Assets/Resources/Biathlon/G2ThirdPartyCredits.txt`, copied alongside the Windows player as `THIRD_PARTY_CREDITS.txt`.
 
 ## Realistic Fir Trees Pack - LODs GameReady
 Author: LOLIPOP (@lolipop_1707)
@@ -36,7 +37,7 @@ Author: BlurryRender (@arjunmano10)
 Source: https://sketchfab.com/3d-models/ski-goggles-29bf30fb9c4d43548106c095505054a2
 License: CC BY 4.0 (model page "License: CC Attribution"; Sketchfab Model Information: CC BY 4.0, verified 2026-09-20)
 License URL: https://creativecommons.org/licenses/by/4.0/
-Modifications planned: remove/replace branding and logo-like details before final use.
+Actual G2-VR-002 adaptation: geometry rescaled/fitted to the M11 head; all original materials and textures (including lettering/normal atlas) discarded, replaced by neutral new materials; Head skin weights; three runtime LODs. Visual de-branding review remains required before final benchmark approval.
 
 ## Ski Goggles (Sylvain Delandre)
 Author: Sylvain Delandre (@lemanitek)

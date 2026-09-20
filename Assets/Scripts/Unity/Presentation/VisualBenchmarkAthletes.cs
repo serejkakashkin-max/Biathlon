@@ -28,7 +28,7 @@ namespace Biathlon.Unity.Presentation
             for(int i=0;i<400;i++)runner.Step();snapshot=RacePresentationSnapshot.Capture(runner.Field);
             for(int i=0;i<AthleteCount;i++)
             {
-                var pivot=new GameObject("Observed benchmark athlete");pivot.transform.SetParent(transform,false);var rig=OriginalAthleteRigBuilder.Create(pivot.transform);
+                var pivot=new GameObject("Observed benchmark athlete");pivot.transform.SetParent(transform,false);var rig=AthleteRigFactory.Create(pivot.transform);
                 athletes[i]=pivot.AddComponent<AthleteAnimationPresentation>();athletes[i].Initialize(rig);
             }
             tracks=gameObject.AddComponent<SnowTrackPresentation>();tracks.Initialize();spray=gameObject.AddComponent<SnowSprayPresentation>();spray.Initialize();vapor=gameObject.AddComponent<BreathVaporPresentation>();vapor.Initialize();

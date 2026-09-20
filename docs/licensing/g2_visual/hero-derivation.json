@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "id": "g2-hero-body-v1",
+  "source_asset": "G2-001",
+  "source_file": "human_base_meshes_bundle.blend",
+  "source_sha256": "3c121505651140ceb4d69fd1d8923f7788ffadd81672f5be14845a5f2c75c137",
+  "license": "CC0-1.0",
+  "goggles": {
+    "asset": "G2-032",
+    "author": "BlurryRender / arjunmano10",
+    "license": "CC-BY-4.0",
+    "source": "https://sketchfab.com/3d-models/ski-goggles-29bf30fb9c4d43548106c095505054a2",
+    "sha256": "6acd66d8687cf8053ecb639291a7bc7b93acafad9e921939ecfd95b9ff2a5d1c",
+    "modifications": "geometry rescaled/fitted to M11 head; all original textures/materials discarded including lettering/normal atlas; neutral new materials; rigid Head weights; included in three LODs"
+  },
+  "blender": "4.5.9 LTS",
+  "bone_contract": [
+    {
+      "name": "Hips",
+      "position": [
+        0,
+        0.99,
+        0
+      ]
+    },
+    {
+      "name": "Spine",
+      "position": [
+        0,
+        1.16,
+        0
+      ]
+    },
+    {
+      "name": "Chest",
+      "position": [
+        0,
+        1.34,
+        0
+      ]
+    },
+    {
+      "name": "Neck",
+      "position": [
+        0,
+        1.56,
+        0
+      ]
+    },
+    {
+      "name": "Head",
+      "position": [
+        0,
+        1.65,
+        0
+      ]
+    },
+    {
+      "name": "LeftUpperArm",
+      "position": [
+        -0.214,
+        1.491,
+        0
+      ]
+    },
+    {
+      "name": "LeftLowerArm",
+      "position": [
+        -0.214,
+        1.201,
+        0
+      ]
+    },
+    {
+      "name": "LeftHand",
+      "position": [
+        -0.214,
+        0.931,
+        0
+      ]
+    },
+    {
+      "name": "RightUpperArm",
+      "position": [
+        0.214,
+        1.491,
+        0
+      ]
+    },
+    {
+      "name": "RightLowerArm",
+      "position": [
+        0.214,
+        1.201,
+        0
+      ]
+    },
+    {
+      "name": "RightHand",
+      "position": [
+        0.214,
+        0.931,
+        0
+      ]
+    },
+    {
+      "name": "LeftUpperLeg",
+      "position": [
+        -0.105,
+        0.94,
+        0
+      ]
+    },
+    {
+      "name": "LeftLowerLeg",
+      "position": [
+        -0.105,
+        0.5,
+        0
+      ]
+    },
+    {
+      "name": "LeftFoot",
+      "position": [
+        -0.105,
+        0.12,
+        0
+      ]
+    },
+    {
+      "name": "RightUpperLeg",
+      "position": [
+        0.105,
+        0.94,
+        0
+      ]
+    },
+    {
+      "name": "RightLowerLeg",
+      "position": [
+        0.105,
+        0.5,
+        0
+      ]
+    },
+    {
+      "name": "RightFoot",
+      "position": [
+        0.105,
+        0.12,
+        0
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "file": "hero_lod0.json",
+      "vertices": 17224,
+      "triangles": 29224,
+      "sha256": "902fedb8c66e1a221d72b810df2f24c9fc53ee23777e19578f4765508f3ab041"
+    },
+    {
+      "file": "hero_lod1.json",
+      "vertices": 8476,
+      "triangles": 13064,
+      "sha256": "69374f6750ee85537e499e9444289366123263e538ad4426fea7b5dd4d3b3957"
+    },
+    {
+      "file": "hero_lod2.json",
+      "vertices": 2874,
+      "triangles": 3482,
+      "sha256": "186644192ebdb09cef4d9f4d1e560df5c54fdd4f779b1d82041e95a93e21e8cc"
+    }
+  ],
+  "modifications": [
+    "selected male body only; removed source multires",
+    "automatic heat weights limited and normalized to four M11 bones",
+    "adapted A-pose to M11 rest axes",
+    "garment relaxation, own suit panels, bib/cap shells, boots",
+    "three runtime LODs; source materials/textures not imported"
+  ]
+}

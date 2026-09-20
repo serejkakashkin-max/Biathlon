@@ -2,6 +2,8 @@
 
 2026-09-20. **G2-VR-001: аудит источников и import scope завершён.** Ни один staged asset пока не импортирован в Unity. Решения ниже разрешают только обозначенные небольшие порции адаптации; это не визуальный acceptance и не G2 PASS.
 
+Последующее изменение статуса (G2-VR-002A): импортированы только выбранные derivatives G2-001/003/025/026/032. Таблица ниже сохраняет состояние на момент завершения аудита; фактические изменения/пути/проверки находятся в [hero implementation](G2_HERO_ATHLETE_IMPLEMENTATION.md) и derivative manifests. Остальные кандидаты по-прежнему не импортированы.
+
 Фактически: **37 кандидатов =32 DOWNLOADED +1 MANUAL +4 METADATA**. Сводное «33 скачано» в исходном download report ошибочно; все37 строк и их пути проверены. Mixamo:20 уникальных FBX продублированы в source/extracted; Rokoko Sports:7 FBX, хотя название обещает12. Наличие файла не означает production readiness. Staged объёмы включают архивы и извлечённые дубликаты.
 
 Проверены235 source payload hashes, пути ZIP entries (0 unsafe paths), локальные форматы/размеры, license summaries, авторы Sketchfab по публичному API. Полные отчёты: [inventory](../licensing/g2_visual/staged-inventory.json), [hashes](../licensing/g2_visual/source-hashes.json), [Sketchfab metadata](../licensing/g2_visual/sketchfab-verification.json), [primary declarations](../licensing/g2_visual/primary-license-verification.json). Проверка путей ZIP не является антивирусной проверкой/CRC всех файлов.

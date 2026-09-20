@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Passed" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-20 11:49:30Z" end-time="2026-09-20 11:49:31Z" duration="0,4558432">
+  <test-suite type="TestSuite" id="1152" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="99" result="Passed" start-time="2026-09-20 11:49:30Z" end-time="2026-09-20 11:49:31Z" duration="0.455843" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1297" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="99" result="Passed" start-time="2026-09-20 11:49:30Z" end-time="2026-09-20 11:49:31Z" duration="0.448586" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="43372" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1298" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="99" result="Passed" start-time="2026-09-20 11:49:30Z" end-time="2026-09-20 11:49:31Z" duration="0.446279" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1299" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="99" result="Passed" start-time="2026-09-20 11:49:30Z" end-time="2026-09-20 11:49:31Z" duration="0.444309" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1208" name="G2HeroTests" fullname="Biathlon.PlayModeTests.G2HeroTests" classname="Biathlon.PlayModeTests.G2HeroTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-09-20 11:49:30Z" end-time="2026-09-20 11:49:31Z" duration="0.440348" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1210" name="ContinuousSkinLodsHaveNormalizedM11WeightsAndRealGeometryReduction" fullname="Biathlon.PlayModeTests.G2HeroTests.ContinuousSkinLodsHaveNormalizedM11WeightsAndRealGeometryReduction" methodname="ContinuousSkinLodsHaveNormalizedM11WeightsAndRealGeometryReduction" classname="Biathlon.PlayModeTests.G2HeroTests" runstate="Runnable" seed="2056968497" result="Passed" start-time="2026-09-20 11:49:30Z" end-time="2026-09-20 11:49:30Z" duration="0.147532" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1211" name="ExistingMotionContractDeformsHeroAndCapturesReviewFrames" fullname="Biathlon.PlayModeTests.G2HeroTests.ExistingMotionContractDeformsHeroAndCapturesReviewFrames" methodname="ExistingMotionContractDeformsHeroAndCapturesReviewFrames" classname="Biathlon.PlayModeTests.G2HeroTests" runstate="Runnable" seed="730467071" result="Passed" start-time="2026-09-20 11:49:30Z" end-time="2026-09-20 11:49:31Z" duration="0.279188" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1209" name="HeroFactoryAndSkinLodsRespectHysteresisShootingAndZeroAllocation" fullname="Biathlon.PlayModeTests.G2HeroTests.HeroFactoryAndSkinLodsRespectHysteresisShootingAndZeroAllocation" methodname="HeroFactoryAndSkinLodsRespectHysteresisShootingAndZeroAllocation" classname="Biathlon.PlayModeTests.G2HeroTests" runstate="Runnable" seed="1005059543" result="Passed" start-time="2026-09-20 11:49:31Z" end-time="2026-09-20 11:49:31Z" duration="0.002383" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

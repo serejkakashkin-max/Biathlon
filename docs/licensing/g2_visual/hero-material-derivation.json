@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "id": "g2-hero-materials-v1",
+  "outputs": [
+    {
+      "output": "Assets/Resources/Biathlon/Athletes/G2Hero/Textures/SuitNormal.png",
+      "sha256": "c255770acbb1c81801ced47c1bb82fcc1a8b26cc654b346c8d2faa185fbae13d",
+      "source": "external_downloads/g2_visual_remediation/08_materials/fabric/bi_stretch/extracted/textures/bi_stretch_nor_gl_4k.jpg",
+      "source_sha256": "3f394c78185c9cd1410233a148fa2ffa1961dc7794b220b38074fa4389b16186",
+      "license": "CC0-1.0",
+      "changes": "selected OpenGL normal resized from 4K to 1K"
+    },
+    {
+      "output": "Assets/Resources/Biathlon/Athletes/G2Hero/Textures/BibNormal.png",
+      "sha256": "b8baf06b0772e4f3e4032792fe7f7a07c8e3398298de4be39872f4f20db74b43",
+      "source": "external_downloads/g2_visual_remediation/08_materials/fabric/terlenka/extracted/textures/terlenka_nor_gl_4k.jpg",
+      "source_sha256": "17ead2b6101b3032b27b73ad5e702e31f6523c915a308be54829d13404420ef6",
+      "license": "CC0-1.0",
+      "changes": "selected OpenGL normal resized from 4K to 1K"
+    },
+    {
+      "output": "Assets/Resources/Biathlon/Athletes/G2Hero/Textures/SkinNormal.png",
+      "sha256": "be3da7e81ba524852aafa98cd48d7993b3d35befc61f550a842fc84907083689",
+      "source": "external_downloads/g2_visual_remediation/08_materials/skin/blender_cc0_skin_stamps/extracted/CGC_skin-stamps_CC0/CGC_skin-pores-small.png",
+      "source_sha256": "de346d04d798f5a3d6a2ec36ad49c0ddff827f6bc83fe9e33a3158032d668f3f",
+      "license": "CC0-1.0",
+      "changes": "1024px runtime normal; skin height converted to a mild tangent normal"
+    }
+  ]
+}

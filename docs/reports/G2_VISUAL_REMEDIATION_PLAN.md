@@ -17,6 +17,8 @@
 
 ## Правила исполнения
 
+Checkpoint G2-VR-002A завершён: controlled import пяти источников, native rig/LOD интеграция, full99/99 + final3/3, Windows hidden9/9. [Hero report](G2_HERO_ATHLETE_IMPLEMENTATION.md). Далее002B: glove/grip, cloth/bib/equipment refinement; затем003 motion. Это не завершение визуальной приёмки002.
+
 Каждый этап разбивается на небольшие проверяемые изменения. После каждой завершённой задачи обновляются этот план, PROJECT_STATE и соответствующий implementation/report; coherent commit и push. Локальные checkpoints не считаются owner acceptance.
 
 Импорт только выбранных runtime derivatives после аудита. Исходные архивы, Blender distribution и промежуточные экспорты остаются в ignored staging/artifacts. CC BY attribution содержит автора, URL источника, ссылку на лицензию и фактические изменения; credits поставляются вместе с build. Нельзя публиковать restricted 3D data, включая decimated/retargeted derivatives, под видом собственных ассетов. Для Renderpeople используются локальные derivatives и воспроизводимый recipe; доступность этих данных в другом checkout явно проверяется, без неявных missing-GUID dependencies.

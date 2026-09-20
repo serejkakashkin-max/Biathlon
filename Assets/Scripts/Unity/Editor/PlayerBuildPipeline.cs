@@ -34,6 +34,7 @@ namespace Biathlon.Unity
                 bytes = summary.totalSize, seconds = summary.totalTime.TotalSeconds, unity = Application.unityVersion
             }, true));
             if (summary.result != BuildResult.Succeeded) throw new InvalidOperationException("Windows build failed: " + summary.result);
+            File.Copy("Assets/Resources/Biathlon/G2ThirdPartyCredits.txt", "Builds/WindowsDevelopment/THIRD_PARTY_CREDITS.txt", true);
         }
         [Serializable] private sealed class Evidence
         {
