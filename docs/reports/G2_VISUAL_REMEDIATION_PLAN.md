@@ -1,0 +1,32 @@
+# G2 Visual Remediation Plan
+
+2026-09-20. Owner-directed phase **между WP-166 и G2**, не изменение Master Plan и не начало M13. Основание: [директива](../owner/CODEX_POST_WP166_G2_VISUAL_REMEDIATION_DIRECTIVE_RU.md), [аудит 37 кандидатов](G2_VISUAL_ASSET_AUDIT.md), [WP-166](WP-166-PROFILING-REPORT.md).
+
+## Порядок работ
+
+| Task | Результат | Проверка / evidence | Статус |
+|---|---|---|---|
+| G2-VR-001 | Источники, лицензии, форматы, хеши, решения по всем 37 кандидатам | Inventory, 235 source hashes, первичные license declarations, 6 Sketchfab metadata | DONE; Unity imports: 0 |
+| G2-VR-002 | Hero athlete: непрерывное анатомическое тело, костюм/лицо/головной убор, de-branded goggles, собственные материалы, skin weights и LOD | Typed M11 bones/sockets, сохранение equipment, skin deformation в ski/prone/standing, front/back/side/close captures, bounded geometry, source-to-output manifest | ACTIVE |
+| G2-VR-003 | Animation/presentation: контакты лыж/палок, перенос веса, tuck, переходы и позы стрельбы на новом теле | Последовательности кадров, существующие motion/contact/shooting tests, snapshot/zero-allocation checks; authoritative state неизменён | NEXT after hero |
+| G2-VR-004 | Лес/снег/terrain: реальные выбранные fir/pine LOD, подлесок/камни, snow material и читаемая трасса | Малые import batches, camera composition, alpha/shadow/LOD проверка, повторение WP166 counters с теми же budgets | NEXT |
+| G2-VR-005 | Stadium/event dressing: выборочный CC0 kitbash, трибуна CC BY, оригинальные event panels | Масштаб, материалы, отсутствие реальных/похожих брендов, читаемость рубежа, screenshot comparison | NEXT |
+| G2-VR-006 | Crowd: ограниченное число адаптированных людей, LOD/вариации, интеграция без раскрытия restricted mesh data | Локальный reproducible conversion recipe, credits, runtime/render checks; restricted sources/derivatives исключены из public Git | NEXT |
+| G2-VR-007 | Свет/атмосфера и целостность benchmark | Snow/skin/forest exposure, silhouette, haze, weather, chase/shooting cameras; offscreen captures | NEXT |
+| G2-VR-008 | Новый benchmark owner review package и честная self-review | Итоговые build/captures/tests/profiling, attribution, G2_VISUAL_BENCHMARK_REVIEW.md, G2_OPEN_ITEMS.md, PROJECT_STATE | NEXT; затем STOP перед G2 |
+
+## Правила исполнения
+
+Каждый этап разбивается на небольшие проверяемые изменения. После каждой завершённой задачи обновляются этот план, PROJECT_STATE и соответствующий implementation/report; coherent commit и push. Локальные checkpoints не считаются owner acceptance.
+
+Импорт только выбранных runtime derivatives после аудита. Исходные архивы, Blender distribution и промежуточные экспорты остаются в ignored staging/artifacts. CC BY attribution содержит автора, URL источника, ссылку на лицензию и фактические изменения; credits поставляются вместе с build. Нельзя публиковать restricted 3D data, включая decimated/retargeted derivatives, под видом собственных ассетов. Для Renderpeople используются локальные derivatives и воспроизводимый recipe; доступность этих данных в другом checkout явно проверяется, без неявных missing-GUID dependencies.
+
+Hero сохраняет архитектуру ADR-0020: presentation-only rig, typed bindings, +Y up/+Z forward/metres, root motion выключен, sockets оборудования. Новые визуальные данные не меняют race identifiers, collision/route physics, shot geometry, shooting tuning или replay. OWNER-FEEL-001 остаётся OPEN для WP229/WP230/WP232.
+
+Для системных изменений: unit/integration tests по AGENTS.md, Unity compilation/Console, соответствующие EditMode/PlayMode проверки и визуальное изучение кадров. Полный regression запускается при интеграции нескольких подсистем либо изменении race output. Статические отчёты не требуют искусственных unit tests.
+
+**Только скрытые проверки**, согласно ответу owner. Используется проверенный WP166 offscreen render path; видимые окна player/Blender не запускаются. Нельзя объявлять GPU timing/FPS/min-spec qualification при unavailable counters. Triangle/draw/CPU budgets не повышаются ради PASS. Три существующих triangle-budget failures должны быть пересмотрены после LOD/environment uplift.
+
+## Условия завершения remediation
+
+Hero/animation/environment/event/crowd/lighting представлены совместно в benchmark, а не только isolated assets. Review показывает chase, dedicated shooting camera и близкие планы с одинаково честной подачей, список использованных источников/изменений, technical evidence и remaining issues. Сравнение с owner references/NGL2026 должно оценивать фактическое изображение, а не объём импорта. Если результат остаётся слабым, рекомендация — FAIL/ещё доработка. **G2 утверждает только owner; WP167/M13 остаётся BLOCKED_G2.**

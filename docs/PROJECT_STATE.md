@@ -4,10 +4,10 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: post-WP166 / pre-G2 visual remediation; M12 technical work complete with profiling/visual actions; M11 PASS WITH ACTIONS; M10 owner-approved
-active_work_package: G2-VR-001 staged asset audit (owner-directed remediation, not M13)
-active_task: G2-VR-001 license/source/format audit before controlled import
-last_completed_task: TASK-166 profiling/report; performance ACTION_REQUIRED, G2 NOT APPROVED
-last_verified_commit: 03c68af; WP165 verified and pushed; WP166 verification accompanies this commit
+active_work_package: G2-VR-002 hero athlete (owner-directed remediation, not M13)
+active_task: G2-VR-002A controlled CC0 body adaptation and M11 rig binding
+last_completed_task: G2-VR-001 audit of 37 staged candidates; 235 source hashes; no Unity imports yet
+last_verified_commit: ab200de; WP166 report/evidence/state verified and pushed
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 550 discovered; WP159 observations4/4 PASS; WP151 observations4/4 PASS; WP141 observations4/4; WP138 grid5/5; prior qualification4/4; prior player-pack2/2; prior HUD1/1; prior penalty10/10; prior shooting/session5/5; prior snapshot1/1, device8/8; M9 actual-season byte parity PASS
 playmode_tests: WP166 full96/96 and final focused3/3 PASS; WP164 full93/93 PASS; WP163 full90/90 PASS; WP162 full86/86 PASS; WP161 full83/83 PASS; WP160 full78/78 PASS and final focused4/4; WP159 full74/74 PASS and final focused4/4; WP158 full70/70 PASS; WP157 full66/66 PASS; WP156 full63/63 PASS and final focused3/3; WP155 full60/60 PASS; WP154 full57/57 PASS; WP153 full53/53 PASS; WP152 full51/51 PASS; WP151 full48/48 PASS; WP150 full46/46 PASS; WP149 full44/44 PASS; WP148 full42/42 PASS; WP147 full39/39 PASS; WP146 full38/38 PASS; WP145 full37/37 PASS; WP144 full36/36 PASS; WP143 full33/33 PASS; WP142 full30/30 PASS; WP141 full28/28 PASS; WP140 full25/25 PASS; prior WP139 evidence1/1 (24 discovered); prior full30 host1/1; prior Sprint-Pursuit chain1/1; prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
@@ -19,7 +19,7 @@ owner_gate_g1: APPROVED 2026-09-13; owner hands-on Windows greybox Sprint and Pu
 owner_gate_g2: NOT APPROVED / FAIL PENDING VISUAL REMEDIATION; owner directive 2026-09-20
 owner_decisions_needed: [] # Новый G2 review только после remediation, M13 не разрешён.
 owner_gameplay_feel_issues: [OWNER-FEEL-001 player shooting feels too easy; OPEN; required WP229/WP230/WP232 review]
-next_unlocked_work_packages: [G2-VR-001 asset audit] # Owner-directed remediation; WP167/M13 BLOCKED_G2.
+next_unlocked_work_packages: [G2-VR-002 hero athlete] # Owner-directed remediation; WP167/M13 BLOCKED_G2.
 ```
 
 ## Work packages
@@ -192,7 +192,8 @@ next_unlocked_work_packages: [G2-VR-001 asset audit] # Owner-directed remediatio
 - WP-165 DONE.27 fixed camera/weather/quality captures plus3 rail rewind captures; pixel-exact rewind, manifest/metadata verification PASS; Console0/0. Comparative review recommends Visual Gate FAIL; G2 not approved. See TASK-165-visual-screenshot-matrix-REPORT.md.
 - WP-166 DONE (profiling/report); PERFORMANCE ACTION_REQUIRED. Windows hidden offscreen10×300 samples, CPU/draw/SetPass/triangles evidence, budgets and unavailable GPU/render-thread/batches explicitly recorded. Full96/96, focused3/3, Python3/3; build0 errors/0 warnings;9/9 real render smoke; Console0/0. Three triangle-budget failures remain. See reports/WP-166-PROFILING-REPORT.md.
 - WP-167 BLOCKED_G2. M13 not started; no production-venue scaling.
-- G2-VR-001 NEXT / ACTIVE: audit staged assets under owner directive2026-09-20, then controlled hero-first remediation. G2 NOT APPROVED / FAIL PENDING VISUAL REMEDIATION.
+- G2-VR-001 DONE: all37 candidates audited; actual32 downloaded +1 manual +4 metadata,235 source hashes,6 Sketchfab CC BY metadata, CC0/limited-redistribution decisions recorded. No Unity imports at audit close. See reports/G2_VISUAL_ASSET_AUDIT.md.
+- G2-VR-002 ACTIVE: controlled hero body/rig/clothing/goggles/LOD adaptation. Remediation sequence and open issues: reports/G2_VISUAL_REMEDIATION_PLAN.md, reports/G2_OPEN_ITEMS.md. G2 NOT APPROVED / FAIL PENDING VISUAL REMEDIATION; M13 BLOCKED_G2.
 
 ## Owner gameplay-feel issue — OWNER-FEEL-001
 
