@@ -67,3 +67,32 @@ Repeated hidden profiling: ten cases,128 warmup and300 samples each, unchanged W
 | high-snowfall-athlete | 1.478 | 5,793,269 | FAIL |
 
 [Source derivation](../licensing/g2_visual/snow-derivation.json), [runtime hashes](../licensing/g2_visual/snow-runtime-manifest.json), [profile evidence](../quality/g2/snow-b/profile/analysis.json). Next: **G2-VR-004C selected pine variation and bounded forest composition**. G2 remains NOT APPROVED; M13/WP167 BLOCKED_G2; OWNER-FEEL-001 remains OPEN.
+
+## G2-VR-004C — selected pine and mixed forest
+
+2026-09-21. **Technical checkpoint DONE; G2-VR-004 remains ACTIVE.** One G2-011 medium pine variant from LOLIPOP (CC BY4.0) now replaces a stable35% share of existing benchmark trees. World-position hashing is separate from density ranking; no new trees, simulation state or colliders. Original positions, ground conformance, scale, density and camera LOD/culling counts are retained. Two species use six bounded instancing groups, with no warmed allocations. Legacy fixtures remain fir/procedural unless explicitly opted in.
+
+Source LOD1/2 form near/mid; an80-percent reduction of LOD2 is far. Final geometry: **2,282/1,201/1,026 vertices;2,355/1,253/1,001 triangles**. The25-percent far experiment visibly broke branch silhouettes and was rejected. Using source LOD0/1/2 exceeded the comparative submitted-geometry test in one tier; the final moderate selection passes that test without weakening it. The far mesh is heavier than the fir's far mesh, so distant views can cost slightly more even when nearer views improve. Baked gallery offsets are removed using the low trunk centroid, each LOD is grounded and normalized to8m, and horizontal scale fits the existing2.5m canopy envelope.
+
+Five source textures become four runtime maps: bark color/normal, leaf color combined with the explicit opacity map, leaf normal. Leaf color≤2K, other maps≤1K, coverage-preserving mipmaps, existing alpha/winter/wind shader. No billboard/source FBX or unrelated pack content imported. [Source derivation](../licensing/g2_visual/pine-derivation.json), [runtime hashes](../licensing/g2_visual/pine-runtime-manifest.json); CC BY notice/modifications ship in player credits.
+
+Focused **3/3**, full PlayMode **114/114 PASS in100.08s**. Unity compile successful, final Console **0 errors/0 warnings**. Windows Development **270,358,989 bytes**, build0/0, hidden actual-render smoke **9/9 PASS**. [Evidence](../quality/g2/pine-c/), [player verification](../quality/g2/pine-c/player/verification.json). Player manifest SHA-256: `3caaa7f2b46311ef5b55f406fcaadeace9c5d62fd403631d3a538408d5bd1fcc`.
+
+Near/far isolated captures and an integrated athlete view were visually inspected. The final far silhouette retains branch continuity; pine trunks/crowns add species contrast. Forest composition still needs ground detail and wider variation, and this does not resolve the weak stadium/crowd/atmosphere or constitute G2 approval.
+
+Ten unchanged hidden profile cases again complete. High-athlete maximum triangles falls from5.712M to5.404M; balanced athlete from3.903M to3.771M. Far-dominant approach/range views rise modestly. CPU main/draw/SetPass budgets pass; **three triangle failures remain**, GPU/render-thread/batch counters UNAVAILABLE, overall **ACTION_REQUIRED**. The retained shutdown active-render-texture warning occurs after execution PASS. No FPS/minimum-hardware claim.
+
+| Case | CPU main p95 ms | Maximum triangles |3M budget|
+|---|---:|---:|---|
+| low-approach | 1.130 | 1,035,933 | PASS |
+| low-athlete | 1.233 | 1,703,128 | PASS |
+| low-range | 0.860 | 1,019,070 | PASS |
+| balanced-approach | 1.188 | 1,841,454 | PASS |
+| balanced-athlete | 1.246 | 3,771,164 | FAIL |
+| balanced-range | 1.003 | 1,734,274 | PASS |
+| high-approach | 1.234 | 2,147,835 | PASS |
+| high-athlete | 1.263 | 5,403,634 | FAIL |
+| high-range | 1.030 | 1,871,661 | PASS |
+| high-snowfall-athlete | 1.427 | 5,485,324 | FAIL |
+
+Next **G2-VR-004D: selected CC0 boulder LODs and off-route composition**. G2 NOT APPROVED; M13/WP167 BLOCKED_G2; no owner action required to continue remediation.

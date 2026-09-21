@@ -16,7 +16,7 @@ Author: LOLIPOP (@lolipop_1707)
 Source: https://sketchfab.com/3d-models/pine-trees-pack-lowpoly-game-ready-lods-e1e9c07b8e2e445c943fec660beefba2
 License: CC BY 4.0
 License URL: https://creativecommons.org/licenses/by/4.0/
-Modifications planned: LOD consolidation; no author rebranding.
+Actual004C: medium pine variant1 only; source LOD1/2 and80-percent far reduction, ground pivot/Unity axes/8m envelope, bark/foliage channels, four maps including opacity-packed leaf albedo. Project winter/wind shader; adapted data remains CC BY4.0, actual notice ships with player.
 
 ## Race Track / Stadium Viewing Stand and Seating
 Author: William Prosser (@william.p7)

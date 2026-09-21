@@ -81,3 +81,7 @@ Blender4.5.9 portable получен с официального download.blende
 ## Controlled import update — G2-VR-004B
 
 2026-09-20: G2-017 Poly Haven Snow02 diffuse/OpenGL normal/roughness derivatives imported at 2K/2K/1K. Source maps remain staged; only selected resized PNGs and a project material are runtime assets. CC0 acknowledgement ships with the build. Source/output hashes: `licensing/g2_visual/snow-derivation.json`, `snow-runtime-manifest.json`. Full111/111 and hidden player9/9 PASS; visual acceptance remains open.
+
+## Controlled import update — G2-VR-004C
+
+2026-09-21: G2-011 selected medium pine variant1 imported as3 LODs2355/1253/1001 triangles and four maps from five selected source textures. Source opacity is explicitly packed into foliage albedo alpha. Aggressive25-percent far reduction rejected visually; full source LOD0/1/2 selection rejected for excess submitted geometry. Final source LOD1/2 +80-percent far reduction passes envelope/culling/geometry/0GC checks. Actual CC BY attribution ships; source/output hashes in pine-derivation.json and pine-runtime-manifest.json. Full114/114 and hidden9/9; profiling ACTION_REQUIRED.

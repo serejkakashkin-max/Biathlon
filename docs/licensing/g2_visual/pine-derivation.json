@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "id": "g2-pine-derivation-v1",
+  "asset": "G2-011",
+  "author": "LOLIPOP / lolipop_1707",
+  "license": "CC-BY-4.0",
+  "source_url": "https://sketchfab.com/3d-models/e1e9c07b8e2e445c943fec660beefba2",
+  "source_sha256": "ab26f767d863fb88681eb78b5da1ca8b6f55004f2baf3bc778e0f88a6eb09c59",
+  "blender": "4.5.9 LTS",
+  "modifications": [
+    "selected medium pine variant1 only; source LOD1/2 as near/mid, conservative80-percent LOD2 far; rejected25-percent far reduction for broken silhouette and LOD0/1/2 selection for excessive submitted geometry; source cross-card excluded",
+    "removed baked gallery offsets using low-trunk centroid; metres, ground pivot, Unity axes; each LOD height8m and horizontal scale92percent to fit existing2.5m canopy envelope",
+    "consolidated material submeshes using explicit per-vertex bark/leaf channels; source UV repeat preserved",
+    "four runtime maps from five selected sources; separate foliage opacity combined into RGBA; custom instanced winter/wind presentation shader",
+    "no source FBX, source material or external absolute image path imported"
+  ],
+  "outputs": [
+    {
+      "file": "pine_lod0.json",
+      "source_object": "Pine_medium_1_LOD1",
+      "decimation": 1,
+      "vertices": 2282,
+      "triangles": 2355,
+      "sha256": "dbe46f35b68dd707dc0389f7b34a15757487eecbd81f3bb4bdec106d48f1f5e1"
+    },
+    {
+      "file": "pine_lod1.json",
+      "source_object": "Pine_medium_1_LOD2",
+      "decimation": 1,
+      "vertices": 1201,
+      "triangles": 1253,
+      "sha256": "daec636ffaa7ea0a7653ebe83a4cdc8185cea5eb5757cfca824b0116b2c7442d"
+    },
+    {
+      "file": "pine_lod2.json",
+      "source_object": "Pine_medium_1_LOD2",
+      "decimation": 0.8,
+      "vertices": 1026,
+      "triangles": 1001,
+      "sha256": "dcad3a91ca276b3e19d7651d4a1df6b58a54bd067bd852d519e2b429d79e9131"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Vegetation/G2Pine/Textures/BarkAlbedo.png",
+      "sources": [
+        {
+          "name": "Bark_basecolor.png",
+          "sha256": "4424635fbce9615debf833775bf3e955a37fbed80efa3400b6ee875ad5fff5f2"
+        }
+      ],
+      "dimensions": [
+        512,
+        1024
+      ],
+      "sha256": "98769d67622ea0822759f272105dd8392a48ca5eee3dfd693a7c14496c56af44"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Vegetation/G2Pine/Textures/LeafAlbedo.png",
+      "sources": [
+        {
+          "name": "Cluster_full_basecolor.png",
+          "sha256": "9d72716b7d3959f91a62c8951d4dec45907f2486b9032a58a4bfad9411dbef65"
+        },
+        {
+          "name": "Cluster_full_Opacity.png",
+          "sha256": "40db9dd0978f423be52b6a34e46e2231ae7102bc928dd0dc59fbb405a8f39d73"
+        }
+      ],
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "sha256": "3f7c512ba9b6bb9c380e4279dac4da3be7c0623d1b308aec33c7d0da82695063"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Vegetation/G2Pine/Textures/BarkNormal.png",
+      "sources": [
+        {
+          "name": "Bark_normal.png",
+          "sha256": "a58080f9a1cf4980bc30dc6d86f1e5f57e916ff0c66b79b1242432cf94b5444c"
+        }
+      ],
+      "dimensions": [
+        512,
+        1024
+      ],
+      "sha256": "84049bea9cdd144cae2cf78b8c31970bbe129c8337623a6b2e691362f3fd2164"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Vegetation/G2Pine/Textures/LeafNormal.png",
+      "sources": [
+        {
+          "name": "Cluster_full_normal.png",
+          "sha256": "d054d8fab9f12ac3b21547d22ce49c199c28627ef037dc5eedaa046492fc7196"
+        }
+      ],
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "sha256": "69789f43304b2e9b1c9653d4fee6c0bb4dca6e1dad5be17fc94aade4199691dc"
+    }
+  ]
+}
