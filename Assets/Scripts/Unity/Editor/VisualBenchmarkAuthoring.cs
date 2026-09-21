@@ -35,6 +35,7 @@ namespace Biathlon.Unity
                 var camera=new GameObject("Benchmark broadcast camera").AddComponent<Camera>();camera.enabled=false;camera.tag="MainCamera";camera.gameObject.AddComponent<AudioListener>();camera.gameObject.AddComponent<ProjectionAwareLod>();preview.View=camera;
                 preview.Forests=new VegetationPresentation[3];var centers=new[]{new Vector3(0,0,122),new Vector3(-103,0,20),new Vector3(103,0,20)};
                 for(int i=0;i<3;i++){var forest=new GameObject("Winter forest cluster").AddComponent<VegetationPresentation>();forest.transform.position=centers[i];preview.Forests[i]=forest;}
+                preview.ForestEdge=new GameObject("Trail forest edge groves").AddComponent<VegetationPresentation>();
                 EditorSceneManager.SaveScene(scene,"Assets/Scenes/VisualBenchmark.unity");AssetDatabase.SaveAssets();
             }
             finally{SceneManager.SetActiveScene(prior);EditorSceneManager.CloseScene(scene,true);}

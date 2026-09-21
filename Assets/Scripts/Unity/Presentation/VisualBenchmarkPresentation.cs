@@ -7,6 +7,7 @@ namespace Biathlon.Unity.Presentation
     public sealed class VisualBenchmarkPresentation : MonoBehaviour
     {
         public Camera View;public Light Key;public SpectatorSeating Seating;public VegetationPresentation[] Forests;
+        public VegetationPresentation ForestEdge;
         public string Tier="balanced",WeatherPreset="clear",LightingPreset="clear_cold",Shot="approach";
         public bool Animate,ShowControls=true;public double SampleTime=8;
         private RenderQualityPresentation quality;private WeatherPresentation weather;private LightingVisualDefinition lighting;
@@ -22,6 +23,11 @@ namespace Biathlon.Unity.Presentation
             lighting=LightingVisualDefinition.Load();quality=gameObject.AddComponent<RenderQualityPresentation>();quality.Initialize(View);
             weather=gameObject.AddComponent<WeatherPresentation>();weather.Initialize(View,Key);crowd=gameObject.AddComponent<SpectatorCrowd>();crowd.Initialize(Seating,useSimplifiedShadows:true);
             foreach(var f in Forests)f.Initialize(new[]{new Vector3(0,0,-100),new Vector3(0,0,100)},useAuditedFir:true,groundHeight:G2BenchmarkSurface.Height,useAuditedPine:true,useSimplifiedShadows:true);
+            if(ForestEdge!=null)
+            {
+                ForestEdge.Initialize(G2BenchmarkSurface.CopyRoute(),useAuditedFir:true,groundHeight:G2BenchmarkSurface.Height,useAuditedPine:true,useSimplifiedShadows:true,authoredInstances:G2ForestEdge.Load().Place());
+                var all=new VegetationPresentation[Forests.Length+1];System.Array.Copy(Forests,all,Forests.Length);all[Forests.Length]=ForestEdge;Forests=all;
+            }
             GroundDressing=gameObject.AddComponent<G2GroundDressing>();GroundDressing.Initialize();
             Athletes=gameObject.AddComponent<VisualBenchmarkAthletes>();Athletes.Initialize(View);Athletes.SetEnvironment(new BreathEnvironment(-12,new Vector2(1,.3f)));
             director=gameObject.AddComponent<BroadcastCameraDirector>();director.Initialize(View,BroadcastShotDefinition.Load());director.Bind("athlete",Athletes.Subject);Ready=true;Seek(SampleTime);

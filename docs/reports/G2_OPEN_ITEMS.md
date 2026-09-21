@@ -5,7 +5,7 @@
 | ID | Issue / evidence | Required next action | Status |
 |---|---|---|---|
 | G2-VIS-001 | Continuous hero, closed pole gloves and numbered bib verified (002A/B); rifle contact/original prop refined in003A; close joint deformation, material response, appearance variation and natural motion still need work | Revisit remaining002/003 visual actions in integrated benchmark after environment uplift | OPEN |
-| G2-VIS-002 | Selected fir/pine, CC0 snow/guarded terrain and rocks improve004A/B/C/D; forest-to-route continuity, dressing composition, understory and stadium still need work | G2-VR-004/005 selective real assets and composition, then combined captures | OPEN |
+| G2-VIS-002 | Selected fir/pine, CC0 snow/guarded terrain and rocks improve004A/B/C/D; 24-tree edge groves improve forest-to-route continuity in004F; understory, stadium and combined composition still need work | G2-VR-004/005 selective real assets and composition, then combined captures | OPEN |
 | G2-VIS-003 | Crowd and atmosphere require integrated visual review | G2-VR-006/007, bounded local restricted imports with credits | OPEN |
 | G2-PERF-001 | 004E measured shadow correction: all10 cases below3M, maximum2,811,809 (shadow-e/profile/analysis.json) | Repeat unchanged matrix after subsequent visual additions; no GPU/FPS qualification inferred | RESOLVED at004E, regression guard active |
 | G2-PERF-002 | Hidden offscreen DX11 exposes no reliable GPU/render-thread/batches counters | Keep unavailable values explicit; report CPU/draw/triangle evidence only. Owner requests hidden checks only; no visible run authorized | LIMITATION |

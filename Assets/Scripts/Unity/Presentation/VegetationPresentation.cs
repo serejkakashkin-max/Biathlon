@@ -30,11 +30,19 @@ namespace Biathlon.Unity.Presentation
         public bool UsesSimplifiedShadows {get;private set;}
         public int InstanceSpecies(int index)=>species[index];
         public Vector3 InstanceWorldPosition(int index)=>transform.TransformPoint(instances[index].Position);
-        public void Initialize(Vector3[] route,bool useAuditedFir=false,Func<Vector3,float> groundHeight=null,bool useAuditedPine=false,bool useSimplifiedShadows=false)
+        public void Initialize(Vector3[] route,bool useAuditedFir=false,Func<Vector3,float> groundHeight=null,bool useAuditedPine=false,bool useSimplifiedShadows=false,VegetationInstance[] authoredInstances=null)
         {
             if(definition!=null)throw new InvalidOperationException("Forest already initialized.");
             if(useAuditedPine&&!useAuditedFir)throw new ArgumentException("Pine composition requires the audited forest.");
-            definition=VegetationDefinition.Load();instances=definition.Place(route);
+            definition=VegetationDefinition.Load();
+            if(authoredInstances!=null)
+            {
+                if(authoredInstances.Length<1||authoredInstances.Length>definition.max_instances)throw new ArgumentException("Authored forest exceeds capacity.");
+                foreach(var tree in authoredInstances)
+                    if(!float.IsFinite(tree.Position.x)||!float.IsFinite(tree.Position.y)||!float.IsFinite(tree.Position.z)||!float.IsFinite(tree.Scale)||tree.Scale<.5f||tree.Scale>1.5f||!float.IsFinite(tree.DensityRank)||tree.DensityRank<0||tree.DensityRank>=1)throw new ArgumentException("Invalid authored tree.");
+                instances=(VegetationInstance[])authoredInstances.Clone();
+            }
+            else instances=definition.Place(route);
             species=new byte[instances.Length];groups=useAuditedPine?6:3;
             if(useAuditedPine)
             {

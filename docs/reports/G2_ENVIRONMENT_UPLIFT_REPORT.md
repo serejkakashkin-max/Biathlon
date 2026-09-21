@@ -160,3 +160,13 @@ The full ten-case profile (no diagnostic selector/ablation) has **all observable
 | high-snowfall-athlete | 1.703 | 2,811,809 | PASS |
 
 Next **G2-VR-004F: forest-to-route composition** with explicit world-route/stadium clearance and the same performance budgets. Original environment layout still leaves a wide empty area between trail/rocks and tree line. Hero/motion and stadium/crowd/lighting actions remain open; G2 NOT APPROVED, M13/WP167 BLOCKED_G2, OWNER-FEEL-001 OPEN.
+
+## G2-VR-004F — forest edge composition and camera clearance
+
+2026-09-21. **Technical checkpoint DONE; integrated visual acceptance remains OPEN.** Added24 explicitly authored fir/pine trees in small uneven groves between the trail rocks and the three distant forest clusters. This reuses the already audited derivatives and shipped CC BY notices; no new third-party source was imported. Stable IDs drive density ranks independently of array order. Low/balanced/high remain nested populations. Placements own scale/yaw, copy input arrays, sample the same visual terrain once, and add no colliders or authoritative state.
+
+Validation rejects nonfinite/out-of-range values, duplicate IDs, close trunks, canopy intrusion into either leg of the benchmark route, stadium encroachment, and near-camera obstruction. The first layout passed route checks but blocked most of the approach view; it was **visually rejected**, retained as `rejected-obstructed-approach.png`, and corrected by moving the eastern middle grove. A regression reproduces and rejects that obstructing coordinate. Camera positions/FOV were not changed to hide the problem. Final approach/athlete/finish/sector/range captures were inspected: the approach is clear and trail rocks now have nearby trees; the stadium remains visually sparse and the backdrop remains a simple forest arrangement. Understory and later stadium/atmosphere work are still needed.
+
+Focused **3/3**, full PlayMode **128/128 PASS in108.647s**, allocation-free warmed rendering, copied input/terrain fit/route clearance/stable-rank tests. Console **0 errors/1 warnings**, compilation_failed=false. Windows Development **277,459,753 bytes**, build0/0, hidden smoke **9/9 PASS**. Ten unchanged profiling cases have all observable budgets PASS: high approach1,747,661 triangles (+43,508), high athlete2,733,881 and snowfall2,811,809. GPU/render-thread/batches remain unavailable; no FPS/min-spec qualification. [Evidence](../quality/g2/edge-f/), [profile](../quality/g2/edge-f/profile/analysis.json).
+
+Next **G2-VR-004G: selected bounded understory**, followed by stadium/event work. No simulation/balance/shot/replay changes. G2 NOT APPROVED; M13/WP167 BLOCKED_G2; OWNER-FEEL-001 OPEN.
