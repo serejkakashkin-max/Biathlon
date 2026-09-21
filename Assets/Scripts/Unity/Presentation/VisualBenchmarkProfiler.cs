@@ -36,6 +36,7 @@ namespace Biathlon.Unity.Presentation
             var settings=BenchmarkProfileDefinition.Load();string output=null;var args=Environment.GetCommandLineArgs();
             for(int i=0;i<args.Length-1;i++)if(args[i]=="-biathlonProfileOutput")output=args[i+1];
             if(string.IsNullOrWhiteSpace(output))throw new ArgumentException("Explicit -biathlonProfileOutput directory required.");Directory.CreateDirectory(output);
+            var probe=BenchmarkProfileProbe.Parse(args,settings);
             Application.runInBackground=true;Application.targetFrameRate=-1;QualitySettings.vSyncCount=0;
             Screen.SetResolution(settings.width,settings.height,FullScreenMode.Windowed);
             yield return SceneManager.LoadSceneAsync("VisualBenchmark");yield return null;
@@ -48,7 +49,9 @@ namespace Biathlon.Unity.Presentation
             target=new BenchmarkRenderTarget(settings.width,settings.height);
             foreach(var c in settings.cases)
             {
+                if(!probe.Includes(c.id))continue;
                 p.Tier=c.tier;p.Shot=c.shot;p.WeatherPreset=c.weather;p.LightingPreset=c.lighting;p.Seek(settings.start_time);
+                probe.Apply(p);
                 // Pipeline/shader warmup plus eight frames beyond the documented delayed timing window.
                 for(int i=0;i<settings.warmup_frames+8;i++){p.RenderFrame(settings.start_time+i*settings.step_seconds);target.Render(p.View);counters.Request();yield return null;}
                 counters.ObserveCamera(p.View);
@@ -61,7 +64,8 @@ namespace Biathlon.Unity.Presentation
                 if(Screen.width!=settings.width||Screen.height!=settings.height)throw new InvalidOperationException("Actual player resolution differs from profiling definition.");
                 var evidence=new CaseEvidence{case_id=c.id,definition_id=settings.id,tier=c.tier,shot=c.shot,weather=c.weather,lighting=c.lighting,width=Screen.width,height=Screen.height,
                     unity=Application.unityVersion,gpu=SystemInfo.graphicsDeviceName,cpu=SystemInfo.processorType,api=SystemInfo.graphicsDeviceType.ToString(),ram_mb=SystemInfo.systemMemorySize,vram_mb=SystemInfo.graphicsMemorySize,
-                    warmup_frames=settings.warmup_frames+8,frame_timing_enabled=counters.TimingEnabled,source_tick=p.Athletes.SourceTick,athletes=p.Athletes.Count,visible_trees=p.VisibleTrees,visible_spectators=p.VisibleSpectators,samples=samples};
+                    warmup_frames=settings.warmup_frames+8,frame_timing_enabled=counters.TimingEnabled,source_tick=p.Athletes.SourceTick,athletes=p.Athletes.Count,visible_trees=p.VisibleTrees,visible_spectators=p.VisibleSpectators,samples=samples,
+                    diagnostic_only=probe.IsDiagnostic,diagnostic_probe=probe.Name};
                 File.WriteAllText(Path.Combine(output,c.id+".json"),JsonUtility.ToJson(evidence,true));Debug.Log("BIATHLON_PROFILE_CASE "+c.id);
                 target.SavePng(Path.Combine(output,c.id+".png"));
                 foreach(var sample in samples)if(sample.draw_calls<=0||sample.triangles<=0)throw new InvalidOperationException("Profiling requires real rendered frames; batch/minimized/unsupported capture is invalid.");
@@ -73,6 +77,7 @@ namespace Biathlon.Unity.Presentation
         {
             public int schema_version=1;public string id="visual_benchmark_frame_samples_v1",case_id,definition_id,tier,shot,weather,lighting,unity,gpu,cpu,api;
             public int width,height,ram_mb,vram_mb,warmup_frames,athletes,visible_trees,visible_spectators;public bool frame_timing_enabled;public long source_tick;
+            public bool diagnostic_only;public string diagnostic_probe;
             public string render_mode="explicit URP SingleCameraRequest to offscreen RenderTexture; hidden window, no onscreen presentation/HUD cost; Rendering/GPU profiler enabled";
             public string timing_note="FrameTimingManager is delayed; counters/wall time are recent frames. -1 means unavailable or repeated timing timestamp. Timing includes waits; no deep profiling.";
             public BenchmarkFrameSample[] samples;

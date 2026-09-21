@@ -23,10 +23,12 @@ namespace Biathlon.Unity.Presentation
         private readonly Plane[] planes=new Plane[6];private Material material;private MaterialPropertyBlock properties;private Bounds worldBounds;
         private static readonly int Motion=Shader.PropertyToID("_Motion");
         public int Total=>anchors?.Length??0;public int Near=>counts[0];public int Far=>counts[1];public int Visible=>Near+Far;public long SubmittedTriangles {get;private set;}
-        public void Initialize(SpectatorSeating source)
+        public bool UsesSimplifiedShadows{get;private set;}
+        public long ShadowSourceTriangles=>Near*triangles[UsesSimplifiedShadows?1:0];
+        public void Initialize(SpectatorSeating source,bool useSimplifiedShadows=false)
         {
             if(settings!=null||source==null)throw new ArgumentException("Initialize once with explicit seating.");var d=SpectatorCrowdSettings.Load();if(source.Count==0||source.Count>d.max_instances)throw new ArgumentException("Seating exceeds crowd budget.");
-            settings=d;seating=source;anchors=source.CopyAnchors();ranks=new float[anchors.Length];for(int i=0;i<ranks.Length;i++)ranks[i]=settings.Rank(i);
+            settings=d;seating=source;UsesSimplifiedShadows=useSimplifiedShadows;anchors=source.CopyAnchors();ranks=new float[anchors.Length];for(int i=0;i<ranks.Length;i++)ranks[i]=settings.Rank(i);
             material=Resources.Load<Material>("Biathlon/Crowd/Spectator");if(material==null)throw new InvalidOperationException("Generate spectator assets first.");
             for(int i=0;i<2;i++){meshes[i]=Resources.Load<Mesh>("Biathlon/Crowd/SpectatorLOD"+i);if(meshes[i]==null)throw new InvalidOperationException("Missing spectator LOD.");triangles[i]=(int)meshes[i].GetIndexCount(0)/3;matrices[i]=new Matrix4x4[d.max_instances];}properties=new MaterialPropertyBlock();
         }
@@ -49,8 +51,13 @@ namespace Biathlon.Unity.Presentation
             Prepare(camera,tier,time);for(int lod=0;lod<2;lod++)if(counts[lod]>0)
             {
                 properties.SetVector(Motion,new Vector4(time,settings.motion_radians,settings.motion_frequency,lod));
-                var p=new RenderParams(material){camera=camera,matProps=properties,worldBounds=worldBounds,layer=gameObject.layer,shadowCastingMode=lod==0?ShadowCastingMode.On:ShadowCastingMode.Off,receiveShadows=true};
+                var p=new RenderParams(material){camera=camera,matProps=properties,worldBounds=worldBounds,layer=gameObject.layer,shadowCastingMode=lod==0&&!UsesSimplifiedShadows?ShadowCastingMode.On:ShadowCastingMode.Off,receiveShadows=true};
                 for(int offset=0;offset<counts[lod];offset+=500)Graphics.RenderMeshInstanced(p,meshes[lod],0,matrices[lod],Math.Min(500,counts[lod]-offset),offset);
+                if(lod==0&&UsesSimplifiedShadows)
+                {
+                    p.shadowCastingMode=ShadowCastingMode.ShadowsOnly;p.receiveShadows=false;
+                    for(int offset=0;offset<counts[lod];offset+=500)Graphics.RenderMeshInstanced(p,meshes[1],0,matrices[lod],Math.Min(500,counts[lod]-offset),offset);
+                }
             }
         }
     }

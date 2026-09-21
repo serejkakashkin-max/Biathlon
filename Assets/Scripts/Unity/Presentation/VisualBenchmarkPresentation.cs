@@ -20,8 +20,8 @@ namespace Biathlon.Unity.Presentation
         {
             if(Ready)throw new System.InvalidOperationException("Benchmark already initialized.");
             lighting=LightingVisualDefinition.Load();quality=gameObject.AddComponent<RenderQualityPresentation>();quality.Initialize(View);
-            weather=gameObject.AddComponent<WeatherPresentation>();weather.Initialize(View,Key);crowd=gameObject.AddComponent<SpectatorCrowd>();crowd.Initialize(Seating);
-            foreach(var f in Forests)f.Initialize(new[]{new Vector3(0,0,-100),new Vector3(0,0,100)},useAuditedFir:true,groundHeight:G2BenchmarkSurface.Height,useAuditedPine:true);
+            weather=gameObject.AddComponent<WeatherPresentation>();weather.Initialize(View,Key);crowd=gameObject.AddComponent<SpectatorCrowd>();crowd.Initialize(Seating,useSimplifiedShadows:true);
+            foreach(var f in Forests)f.Initialize(new[]{new Vector3(0,0,-100),new Vector3(0,0,100)},useAuditedFir:true,groundHeight:G2BenchmarkSurface.Height,useAuditedPine:true,useSimplifiedShadows:true);
             GroundDressing=gameObject.AddComponent<G2GroundDressing>();GroundDressing.Initialize();
             Athletes=gameObject.AddComponent<VisualBenchmarkAthletes>();Athletes.Initialize(View);Athletes.SetEnvironment(new BreathEnvironment(-12,new Vector2(1,.3f)));
             director=gameObject.AddComponent<BroadcastCameraDirector>();director.Initialize(View,BroadcastShotDefinition.Load());director.Bind("athlete",Athletes.Subject);Ready=true;Seek(SampleTime);

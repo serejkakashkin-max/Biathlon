@@ -123,3 +123,40 @@ Ten unchanged hidden profile cases complete with CPU main/draw/SetPass budgets s
 | high-snowfall-athlete | 1.441 | 5,485,324 | FAIL |
 
 Next **G2-VR-004E: forest-to-route composition and rendering-budget diagnosis** before stadium/crowd/lighting. G2 NOT APPROVED; M13/WP167 BLOCKED_G2; OWNER-FEEL-001 remains OPEN.
+
+## G2-VR-004E — measured shadow geometry correction
+
+2026-09-21. **Technical checkpoint DONE; visual acceptance remains OPEN.** The unchanged high-athlete single-case repro failed at5,403,634 triangles against the3M budget. Four isolated hidden-player ablations each changed one shadow source, using the same initial build/case/sample schedule:
+
+| Diagnostic | Maximum triangles | Reduction from baseline |
+|---|---:|---:|
+| baseline |5,403,634|—|
+| crowd shadows disabled |3,606,514|1,797,120|
+| forest shadows disabled |4,197,490|1,206,144|
+| terrain shadows disabled |4,731,634|672,000|
+| athlete shadows disabled |5,265,146|138,488|
+
+The dominant avoidable work came from repeated detailed geometry in shadow passes. Benchmark forest near/mid instances now cast from the next coarser LOD; near crowd casts from its far mesh. Visible geometry, transforms, density/population, pose and hero shadows are preserved. Existing other scenes keep their default shadow behavior. Source-shadow triangle ledgers are separate from visible geometry and do not pretend to count renderer cascade multiplication.
+
+The168,000-triangle visible terrain is unchanged; a separate **55,968-triangle /28,320-vertex adaptive grid** casts its shadows. A first uniform42K mesh failed the8cm surface-height test (12.4cm error near snow banks) and was rejected. Full-resolution rows/columns near the route and turns preserve that original8cm limit. The final mesh uses33.31% of the visible terrain triangle count; no budget or height tolerance was raised. Integrated athlete/range/crowd close views were inspected: no visible geometry/population loss or obvious disconnected shadows. Fine shadow silhouettes are intentionally approximate and remain part of final visual review.
+
+The original repro is now GREEN at **2,733,881 triangles**. The diagnostic harness requires an explicit single case, runs in isolated hidden players and labels every sample as diagnostic. The normal analyzer rejects these samples, even if they are copied into an otherwise complete matrix. Diagnostic runs do not count as performance qualification.
+
+Validation: probe parsing **3/3**, shadow geometry/visible parity/zero-allocation/integrated capture **4/4**, full PlayMode **125/125 PASS in106.797s**, Python analyzer regression **5/5 PASS**. Console **0 errors/1 warning**, compilation_failed=false: the warning is MCP BufferedFileLogStorage "Flush called but already disposed, ignored" at test completion, retained in evidence. Windows Development build **277,453,877 bytes**, build0 errors/0 warnings, hidden render smoke **9/9 PASS**. No authoritative gameplay, simulation, shooting, replay or balance change; deterministic race regression is not required for this presentation-only change.
+
+The full ten-case profile (no diagnostic selector/ablation) has **all observable budgets PASS**, including the unchanged3M triangle threshold. GPU/render-thread/batches remain **UNAVAILABLE**, so overall profile status remains ACTION_REQUIRED, without FPS/minimum-hardware qualification. The pre-existing render-texture shutdown warning is retained in player logs. [Evidence](../quality/g2/shadow-e/), [full profile](../quality/g2/shadow-e/profile/analysis.json), [isolated diagnosis](../quality/g2/shadow-e/diagnostics/).
+
+| Case | CPU main p95 ms | Maximum triangles |3M budget|
+|---|---:|---:|---|
+| low-approach | 1.157 | 816,315 | PASS |
+| low-athlete | 1.239 | 1,333,484 | PASS |
+| low-range | 0.928 | 778,422 | PASS |
+| balanced-approach | 1.428 | 1,397,772 | PASS |
+| balanced-athlete | 1.344 | 2,329,564 | PASS |
+| balanced-range | 1.045 | 1,231,538 | PASS |
+| high-approach | 1.476 | 1,704,153 | PASS |
+| high-athlete | 1.693 | 2,733,881 | PASS |
+| high-range | 1.167 | 1,368,925 | PASS |
+| high-snowfall-athlete | 1.703 | 2,811,809 | PASS |
+
+Next **G2-VR-004F: forest-to-route composition** with explicit world-route/stadium clearance and the same performance budgets. Original environment layout still leaves a wide empty area between trail/rocks and tree line. Hero/motion and stadium/crowd/lighting actions remain open; G2 NOT APPROVED, M13/WP167 BLOCKED_G2, OWNER-FEEL-001 OPEN.

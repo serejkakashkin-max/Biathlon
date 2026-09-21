@@ -21,6 +21,7 @@ def summarize(values):
 def analyze(root):
     definition = json.loads((root/'definition.json').read_text(encoding='utf-8-sig'))
     execution = json.loads((root/'execution.json').read_text(encoding='utf-8-sig'))
+    assert not execution.get('diagnostic_only', False), 'Diagnostic ablation is not a qualification run'
     assert execution['passed'] and len(execution['case_ids']) == len(definition['cases'])
     budget_map = {'wall_ms':'frame_budget_ms', 'cpu_main_ms':'cpu_budget_ms', 'cpu_render_ms':'cpu_budget_ms',
                   'gpu_ms':'gpu_budget_ms', 'draw_calls':'draw_call_budget', 'batches':'batch_budget',
@@ -28,6 +29,7 @@ def analyze(root):
     rows = []
     for case in definition['cases']:
         evidence = json.loads((root/(case['id']+'.json')).read_text(encoding='utf-8-sig'))
+        assert not evidence.get('diagnostic_only', False), 'Diagnostic ablation is not a qualification sample'
         samples = evidence['samples']
         assert len(samples) == definition['sample_frames']
         assert [s['index'] for s in samples] == list(range(len(samples)))
