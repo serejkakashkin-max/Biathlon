@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "id": "g2-rock-derivation-v1",
+  "asset": "G2-020",
+  "author": "Poly Haven",
+  "license": "CC0-1.0",
+  "source_url": "https://polyhaven.com/a/boulder_01",
+  "source_sha256": "6e125512445c76a8ddbedfba9ff3f2e5ff200a2e65d29b6ce5294d7573caad3e",
+  "blender": "4.5.9 LTS",
+  "modifications": [
+    "source LOD3 reduced to20/6percent; centered ground pivot and Unity axes, original metre scale",
+    "selected diffuse/OpenGL normal/roughness resized to2K/1K/1K; explicit linear EXR data conversion",
+    "project partial snow material; off-route visual-only bounded placement, no colliders"
+  ],
+  "outputs": [
+    {
+      "file": "rock_lod0.json",
+      "source_object": "boulder_01_LOD3",
+      "decimation": 0.2,
+      "vertices": 1578,
+      "triangles": 1652,
+      "sha256": "d3e3f49497ac825ac84a8479625897929db520cafe1c17d0020ddb421f3c750b"
+    },
+    {
+      "file": "rock_lod1.json",
+      "source_object": "boulder_01_LOD3",
+      "decimation": 0.06,
+      "vertices": 671,
+      "triangles": 494,
+      "sha256": "f5e5383f812c8fb71fb77afb299a1b44d360d11cf671e1d509b76f4893854a8c"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Terrain/G2Rock/Textures/RockAlbedo.png",
+      "source_file": "boulder_01_diff_4k.jpg",
+      "source_sha256": "2f724790e7f1be1eae7f79c525ea2ac32df3944721e114fd278da1e786fc1eb2",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "sha256": "1a2f9e185d6f61e6324448f95134b64d00b69e4663f3f8a38a646aa49cbede9c"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Terrain/G2Rock/Textures/RockNormal.png",
+      "source_file": "boulder_01_nor_gl_4k.exr",
+      "source_sha256": "4ff082a52b503bf9b70fd02ae6552aeb8c9bd52e3ae16152e378a60f4229c67c",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "sha256": "7c13357e91d9f70150a8d813988c5bacd8d5c7e1e5a96ace85aa235104f9aa75"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Terrain/G2Rock/Textures/RockRoughness.png",
+      "source_file": "boulder_01_rough_4k.exr",
+      "source_sha256": "7bf36a4eb5350c1e5c6bc965adde6f35dde6d46589931671051d6c4ea026100d",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "sha256": "09e3c8c44d369ef5ba1d190dc5dccd64fe256ac7dd3d220b4ba79dfd92bc025b"
+    }
+  ]
+}

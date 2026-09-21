@@ -96,3 +96,30 @@ Ten unchanged hidden profile cases again complete. High-athlete maximum triangle
 | high-snowfall-athlete | 1.427 | 5,485,324 | FAIL |
 
 Next **G2-VR-004D: selected CC0 boulder LODs and off-route composition**. G2 NOT APPROVED; M13/WP167 BLOCKED_G2; no owner action required to continue remediation.
+
+## G2-VR-004D — controlled boulder derivatives and off-route dressing
+
+2026-09-21. **Technical checkpoint DONE; environment visual acceptance remains OPEN.** G2-020 Poly Haven Boulder01 (CC0) source LOD3 has8,264 triangles; selected near/far derivatives have **1,652/494 triangles,1,578/671 vertices**. Source real-world scale is preserved with ground pivot/Unity axes. Only diffuse/OpenGL normal/roughness are imported at2K/1K/1K; EXR data maps are converted without an sRGB transform. Source FBX/EXR are not shipped. A project shader blends snow onto upper-facing surfaces while retaining scanned rock detail on exposed faces.
+
+Sixteen placements in data use unique stable IDs, bounded scale and route margin (at least2m beyond the existing7m corridor plus each rock's radial envelope). Bases are buried by12% of scale into the sampled visual terrain. No colliders, simulation identifiers or authoritative terrain changes. Two instanced groups, projection-aware LOD, frustum/distance culling, maximum32 placements and warmed zero allocations. [Source derivation](../licensing/g2_visual/rock-derivation.json), [runtime hashes](../licensing/g2_visual/rock-runtime-manifest.json); CC0 acknowledgement ships.
+
+Focused **4/4**, full PlayMode **118/118 PASS in102.63s**. Final Console **0 errors/0 warnings**, compilation_failed=false. Windows Development **275,414,149 bytes**, build0/0, hidden actual-render smoke **9/9 PASS**. [Evidence and captures](../quality/g2/rock-d/), [player verification](../quality/g2/rock-d/player/verification.json). Player manifest SHA-256: `86ef69fc7c9b411493459c5d3485f9b8a12909ca3d5b20663152edf1fa63063b`.
+
+Near/far isolated and integrated athlete views were inspected. Both meshes retain a usable silhouette and upper snow coverage. The integrated image exposes a remaining composition issue: rocks look detached from the distant forest edge. Their relationship to forest/terrain must improve in004E; this is not a finished natural venue or G2 approval.
+
+Ten unchanged hidden profile cases complete with CPU main/draw/SetPass budgets satisfied; three athlete-view triangle failures remain. The added rocks do not increase the recorded maximum in those three cases; approach-view maxima gain4,446 triangles. GPU/render-thread/batch timings remain UNAVAILABLE. Overall **ACTION_REQUIRED**; the same shutdown render-texture warning is retained after execution PASS. No FPS/minimum-hardware qualification.
+
+| Case | CPU main p95 ms | Maximum triangles |3M budget|
+|---|---:|---:|---|
+| low-approach | 1.065 | 1,040,379 | PASS |
+| low-athlete | 1.079 | 1,703,128 | PASS |
+| low-range | 0.854 | 1,019,070 | PASS |
+| balanced-approach | 1.171 | 1,845,900 | PASS |
+| balanced-athlete | 1.242 | 3,771,164 | FAIL |
+| balanced-range | 0.996 | 1,734,274 | PASS |
+| high-approach | 1.228 | 2,152,281 | PASS |
+| high-athlete | 1.260 | 5,403,634 | FAIL |
+| high-range | 1.033 | 1,871,661 | PASS |
+| high-snowfall-athlete | 1.441 | 5,485,324 | FAIL |
+
+Next **G2-VR-004E: forest-to-route composition and rendering-budget diagnosis** before stadium/crowd/lighting. G2 NOT APPROVED; M13/WP167 BLOCKED_G2; OWNER-FEEL-001 remains OPEN.

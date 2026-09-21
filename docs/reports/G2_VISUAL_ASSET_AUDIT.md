@@ -85,3 +85,7 @@ Blender4.5.9 portable получен с официального download.blende
 ## Controlled import update — G2-VR-004C
 
 2026-09-21: G2-011 selected medium pine variant1 imported as3 LODs2355/1253/1001 triangles and four maps from five selected source textures. Source opacity is explicitly packed into foliage albedo alpha. Aggressive25-percent far reduction rejected visually; full source LOD0/1/2 selection rejected for excess submitted geometry. Final source LOD1/2 +80-percent far reduction passes envelope/culling/geometry/0GC checks. Actual CC BY attribution ships; source/output hashes in pine-derivation.json and pine-runtime-manifest.json. Full114/114 and hidden9/9; profiling ACTION_REQUIRED.
+
+## Controlled import update — G2-VR-004D
+
+2026-09-21: G2-020 Poly Haven Boulder01 (CC0), selected source LOD3 reduced to1652/494 triangles; diffuse/OpenGL normal/roughness at2K/1K/1K, explicit linear EXR data conversion. Project partial-snow shader and16 bounded off-route placements; no colliders. Raw FBX/EXR remain staged. Source/output hashes in rock-derivation.json and rock-runtime-manifest.json; acknowledgement ships. Full118/118, focused4/4, hidden9/9; G2 remains open.

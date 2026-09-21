@@ -49,3 +49,7 @@ Modifications planned: remove/replace branding and logo-like details before fina
 ## Actual use — Snow 02 (G2-VR-004B)
 
 Poly Haven, https://polyhaven.com/a/snow_02, CC0 (https://polyhaven.com/license). Diffuse/OpenGL normal/roughness resized from 4K to 2K/2K/1K and blended with original loose/packed/ice/edge layers. This acknowledgement is included in shipped credits; source and output hashes are in snow-derivation.json.
+
+## Actual use — Boulder 01 (G2-VR-004D)
+
+Poly Haven, https://polyhaven.com/a/boulder_01, CC0 (https://polyhaven.com/license). Selected source LOD3 reduced to two meshes, ground pivot/Unity axes, diffuse/OpenGL normal/roughness resized to2K/1K/1K; project partial snow and visual-only off-route dressing. Acknowledgement included in shipped credits; source/output hashes in rock-derivation.json.
