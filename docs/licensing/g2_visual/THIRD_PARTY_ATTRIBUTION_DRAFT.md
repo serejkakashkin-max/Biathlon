@@ -53,3 +53,7 @@ Poly Haven, https://polyhaven.com/a/snow_02, CC0 (https://polyhaven.com/license)
 ## Actual use — Boulder 01 (G2-VR-004D)
 
 Poly Haven, https://polyhaven.com/a/boulder_01, CC0 (https://polyhaven.com/license). Selected source LOD3 reduced to two meshes, ground pivot/Unity axes, diffuse/OpenGL normal/roughness resized to2K/1K/1K; project partial snow and visual-only off-route dressing. Acknowledgement included in shipped credits; source/output hashes in rock-derivation.json.
+
+## Actual use — Shrub02 (G2-VR-004G)
+
+Poly Haven, https://polyhaven.com/a/shrub_02, CC0 (https://polyhaven.com/license). Variant d woody skeleton, summer leaf polygons removed, three reduced LODs and diffuse/OpenGL normal at1K; ground pivot/Unity axes, project snow and bounded winter dressing. Acknowledgement ships; source/runtime hashes in shrub-derivation.json and shrub-runtime-manifest.json.

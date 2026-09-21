@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "id": "g2-shrub-derivation-v1",
+  "asset": "G2-016",
+  "author": "Poly Haven",
+  "license": "CC0",
+  "source_url": "https://polyhaven.com/a/shrub_02",
+  "source_sha256": "f587812db1576603d345f70a24b9a83a05593d34b9a2843f36297c27eb406722",
+  "blender": "4.5.9 LTS",
+  "modifications": [
+    "selected shrub02 variant d only; source gallery offset removed using low trunk centroid; original metre scale and ground pivot",
+    "removed leaf polygons using inspected separate source UV islands; retained woody branch skeleton for winter",
+    "three decimated branch LODs; source normals and UV retained; Unity axes",
+    "diffuse and OpenGL normal at1K; EXR normal exported as Non-Color; no leaf/alpha/roughness maps imported",
+    "reused project winter shader with snow on upper-facing branches; no source colliders or materials"
+  ],
+  "source_polygons": 2630,
+  "removed_leaf_polygons": 1328,
+  "outputs": [
+    {
+      "file": "shrub_lod0.json",
+      "ratio": 0.8,
+      "vertices": 1119,
+      "triangles": 2082,
+      "sha256": "63e204f68faed20669181ca44849c75bc01d4386152f0d2d9a3c7eafd5afcdd8"
+    },
+    {
+      "file": "shrub_lod1.json",
+      "ratio": 0.45,
+      "vertices": 657,
+      "triangles": 1170,
+      "sha256": "74b5f8ab339bd77e264b2947646bbb4e3489889cd111485739d0a6ee308b526d"
+    },
+    {
+      "file": "shrub_lod2.json",
+      "ratio": 0.2,
+      "vertices": 318,
+      "triangles": 520,
+      "sha256": "49cc3595f1eeec760cc128f00a318a970a2c7f3ae187f539fe30dbf82f0f50e8"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Vegetation/G2Shrub/Textures/LeafAlbedo.png",
+      "source": "shrub_02_diff_4k.jpg",
+      "source_sha256": "4b2b0ab0f5c760c7e58086c2f79ef09c58b295d4b988e8c685fdc4638d2bf94b",
+      "sha256": "b58cad4f8390fc534a4159c066a2ae0b8d83d947c35516df6ee3125d796da586",
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Vegetation/G2Shrub/Textures/LeafNormal.png",
+      "source": "shrub_02_nor_gl_4k.exr",
+      "source_sha256": "55d286e91ba43bcf0704c6ba2a4d97f559f2ad3f4ae15e575151621aabf4b87f",
+      "sha256": "872db9acab323d662f8781420d00d306b333ab17bc688d8a713e12135d577e32",
+      "dimensions": [
+        1024,
+        1024
+      ]
+    }
+  ]
+}

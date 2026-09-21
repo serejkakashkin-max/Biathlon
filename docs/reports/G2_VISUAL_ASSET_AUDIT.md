@@ -89,3 +89,7 @@ Blender4.5.9 portable получен с официального download.blende
 ## Controlled import update — G2-VR-004D
 
 2026-09-21: G2-020 Poly Haven Boulder01 (CC0), selected source LOD3 reduced to1652/494 triangles; diffuse/OpenGL normal/roughness at2K/1K/1K, explicit linear EXR data conversion. Project partial-snow shader and16 bounded off-route placements; no colliders. Raw FBX/EXR remain staged. Source/output hashes in rock-derivation.json and rock-runtime-manifest.json; acknowledgement ships. Full118/118, focused4/4, hidden9/9; G2 remains open.
+
+## Controlled import update — G2-VR-004G
+
+Selected G2-016 CC0 Shrub02 variant d winter branch skeleton only; leaf polygons removed, LOD2082/1170/520, two1K maps,24 bounded visual placements. G2-015 direct import rejected for124K–157K triangles per variant; no sapling asset imported. Full131/131, focused3/3, hidden9/9; all observable profile budgets PASS, unavailable GPU values retained. See environment report/manifests/credits.

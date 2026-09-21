@@ -13,10 +13,10 @@ namespace Biathlon.Unity
         [Serializable] private sealed class Data { public int schema_version; public string id; public float[] vertices,normals,uv,kinds; public int[] indices; }
 #pragma warning restore CS0649
         public static void Generate()=>GenerateSpecies(Root,"fir","Fir");
-        public static void GenerateSpecies(string root,string sourceId,string name)
+        public static void GenerateSpecies(string root,string sourceId,string name,bool singleAtlas=false)
         {
             Directory.CreateDirectory(root);AssetDatabase.Refresh();
-            foreach(string textureName in new[]{"BarkAlbedo","LeafAlbedo","BarkNormal","LeafNormal"})
+            foreach(string textureName in singleAtlas?new[]{"LeafAlbedo","LeafNormal"}:new[]{"BarkAlbedo","LeafAlbedo","BarkNormal","LeafNormal"})
             {
                 var importer=(TextureImporter)AssetImporter.GetAtPath(root+"/Textures/"+textureName+".png");
                 if(importer==null)throw new InvalidDataException("Generate audited vegetation texture "+textureName);
@@ -49,7 +49,7 @@ namespace Biathlon.Unity
             if(mat==null){mat=new Material(shader);AssetDatabase.CreateAsset(mat,materialPath);}
             else{var clean=new Material(shader);EditorUtility.CopySerialized(clean,mat);Object.DestroyImmediate(clean);}
             mat.name=name;mat.enableInstancing=true;mat.doubleSidedGI=true;
-            foreach(string textureName in new[]{"BarkAlbedo","LeafAlbedo","BarkNormal","LeafNormal"})mat.SetTexture("_"+textureName,AssetDatabase.LoadAssetAtPath<Texture2D>(root+"/Textures/"+textureName+".png"));
+            foreach(string textureName in new[]{"BarkAlbedo","LeafAlbedo","BarkNormal","LeafNormal"})mat.SetTexture("_"+textureName,AssetDatabase.LoadAssetAtPath<Texture2D>(root+"/Textures/"+(singleAtlas?textureName.Replace("Bark","Leaf"):textureName)+".png"));
             mat.SetFloat("_Cutoff",.4f);mat.SetFloat("_SnowCoverage",.72f);EditorUtility.SetDirty(mat);AssetDatabase.SaveAssets();
         }
     }
