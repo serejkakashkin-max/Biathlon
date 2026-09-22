@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "id": "g2-grandstand-derivation-v1",
+  "sources": [
+    {
+      "asset": "G2-030",
+      "author": "William Prosser",
+      "license": "CC-BY-4.0",
+      "url": "https://sketchfab.com/3d-models/race-track-stadium-viewing-stand-and-seating-f47b51bcda6e449495795c66eb7089a9",
+      "archive_sha256": "50014525a511176c25888b07028b2c7891918139055c12e2d3465fc76e3b3652",
+      "model_sha256": "965462ac0cc8c76b399013f5ea922f4979b559ff37eb1e43cf35e327b8c780e4"
+    },
+    {
+      "asset": "G2-027",
+      "author": "3dassets.dev",
+      "license": "CC0",
+      "url": "https://3dassets.dev/packs/racecourse-and-parade-ring",
+      "file": "racecourse-and-parade-ring-grandstand-roof-canopy-7353c5da.glb",
+      "sha256": "44b00e26aa75cf09e25a2b0998c104c33310167a0c64756f3268df03c3fad83a"
+    }
+  ],
+  "blender": "4.5.9 LTS",
+  "removed_advertisement_objects": [
+    "polySurface15",
+    "polySurface24"
+  ],
+  "seat_count": 168,
+  "seat_manifest_sha256": "3df9bf6c220cf151875ecbdb71a4ca1451f98aaea8921b03348b9ca06d9be60d",
+  "source_scale": 26.0,
+  "modifications": [
+    "selected structural/seat geometry only; all advertisement objects removed, every source material/texture discarded",
+    "stand rescaled uniformly26 to metre-sized seating, axis conversion and ground/width/front pivot; source chair-top planes generate stable explicit seat anchors",
+    "selected CC0 roof canopy only, width adapted1.6, neutral winter replacement materials, no source branding; source white fascia remains a panel, separate project snow cap added in Unity authoring",
+    "merged material groups; source normals preserved, own world-scale UVs; no colliders/gameplay identifiers",
+    "original author/source/license/modification notice shipped with player"
+  ],
+  "outputs": [
+    {
+      "group": "Seats",
+      "vertices": 14112,
+      "triangles": 10080,
+      "file": "Seats.json",
+      "sha256": "7453eefe2383f58f697b4119f0196992062845690a0be0ea0897853728621924"
+    },
+    {
+      "group": "Structure",
+      "vertices": 1885,
+      "triangles": 1360,
+      "file": "Structure.json",
+      "sha256": "b5940d7db011cac9176778c17693d7b18f0836c9b1383232f3374f167f31414b"
+    },
+    {
+      "group": "Railings",
+      "vertices": 3334,
+      "triangles": 2544,
+      "file": "Railings.json",
+      "sha256": "2747b0bf71285311724f2a60f79f8a7d29f4bd6b513b8dfc20893fa8c5b2e8c7"
+    },
+    {
+      "group": "CanopySteel",
+      "vertices": 385,
+      "triangles": 152,
+      "file": "CanopySteel.json",
+      "sha256": "aae1aac49f0e6f9f6f4f586f1e625e29ca6b61a505a50c8b8b94e2837336695c"
+    },
+    {
+      "group": "CanopyRoof",
+      "vertices": 84,
+      "triangles": 36,
+      "file": "CanopyRoof.json",
+      "sha256": "8ad14f8aceda2c06ee5aa4a8809aaf42ccb067816fe0dded0915e9b4df34e41d"
+    },
+    {
+      "group": "CanopyFascia",
+      "vertices": 28,
+      "triangles": 12,
+      "file": "CanopyFascia.json",
+      "sha256": "c79f125389ff7bc57a0e011b73aae49d38e1ea9ec73ce3627a74ddd8b54186ad"
+    }
+  ]
+}

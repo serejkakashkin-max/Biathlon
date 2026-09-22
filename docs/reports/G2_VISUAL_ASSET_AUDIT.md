@@ -93,3 +93,7 @@ Blender4.5.9 portable получен с официального download.blende
 ## Controlled import update — G2-VR-004G
 
 Selected G2-016 CC0 Shrub02 variant d winter branch skeleton only; leaf polygons removed, LOD2082/1170/520, two1K maps,24 bounded visual placements. G2-015 direct import rejected for124K–157K triangles per variant; no sapling asset imported. Full131/131, focused3/3, hidden9/9; all observable profile budgets PASS, unavailable GPU values retained. See environment report/manifests/credits.
+
+## Controlled import update — G2-VR-005A
+
+G2-030: CC BY William Prosser stand structure/seats/railings only, both advertisement objects and all source materials/textures removed. G2-027: one CC0 canopy only.14,292 triangles including project snow cap;168 geometry-derived seats; neutral replacements and actual credits shipped. Original archives not imported/published. Full134/134, hidden9/9; all observable profile budgets PASS. See stadium report and grandstand manifests.

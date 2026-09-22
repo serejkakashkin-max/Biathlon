@@ -23,7 +23,7 @@ Author: William Prosser (@william.p7)
 Source: https://sketchfab.com/3d-models/race-track-stadium-viewing-stand-and-seating-f47b51bcda6e449495795c66eb7089a9
 License: CC BY 4.0
 License URL: https://creativecommons.org/licenses/by/4.0/
-Modifications planned: modular kitbash reuse (tiers, railings, boards, screens); no author rebranding.
+Actual005A: selected tiers/168 seats/railings, both advertisement objects removed, every source material/texture discarded; uniform26 scale and ground/axis conversion, own neutral materials, seat geometry bindings. Adapted source remains CC BY4.0; notice ships. CC0 3dassets.dev racecourse roof canopy adapted in width, neutral materials and separate original snow cap. See grandstand derivation/runtime manifests.
 
 ## Stadium Seats
 Author: Mehdi Shahsavan (@ahmagh2e)

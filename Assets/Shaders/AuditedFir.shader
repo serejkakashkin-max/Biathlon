@@ -33,13 +33,15 @@ Shader "Biathlon/AuditedFir"
   }
   half4 Albedo(V i)
   {
-   if(i.kind<.25)return SAMPLE_TEXTURE2D(_BarkAlbedo,sampler_BarkAlbedo,i.uv);
-   return SAMPLE_TEXTURE2D(_LeafAlbedo,sampler_LeafAlbedo,i.uv);
+   half4 bark=SAMPLE_TEXTURE2D(_BarkAlbedo,sampler_BarkAlbedo,i.uv);
+   half4 leaf=SAMPLE_TEXTURE2D(_LeafAlbedo,sampler_LeafAlbedo,i.uv);
+   return lerp(bark,leaf,step(.25,i.kind));
   }
   half3 Normal(V i)
   {
-   if(i.kind<.25)return UnpackNormal(SAMPLE_TEXTURE2D(_BarkNormal,sampler_BarkNormal,i.uv));
-   return UnpackNormal(SAMPLE_TEXTURE2D(_LeafNormal,sampler_LeafNormal,i.uv));
+   half4 bark=SAMPLE_TEXTURE2D(_BarkNormal,sampler_BarkNormal,i.uv);
+   half4 leaf=SAMPLE_TEXTURE2D(_LeafNormal,sampler_LeafNormal,i.uv);
+   return UnpackNormal(lerp(bark,leaf,step(.25,i.kind)));
   }
   half4 Frag(V i,FRONT_FACE_TYPE face:FRONT_FACE_SEMANTIC):SV_Target
   {

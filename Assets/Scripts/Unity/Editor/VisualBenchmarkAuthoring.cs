@@ -30,7 +30,11 @@ namespace Biathlon.Unity
                 var visibleSurface=ground.AddComponent<MeshRenderer>();visibleSurface.sharedMaterial=snow;visibleSurface.shadowCastingMode=UnityEngine.Rendering.ShadowCastingMode.Off;
                 var shadowSurface=new GameObject("Terrain shadow geometry");shadowSurface.AddComponent<MeshFilter>().sharedMesh=savedShadow;
                 var shadowRenderer=shadowSurface.AddComponent<MeshRenderer>();shadowRenderer.sharedMaterial=snow;shadowRenderer.shadowCastingMode=UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;shadowRenderer.receiveShadows=false;
-                var preview=new GameObject("Integrated visual benchmark").AddComponent<VisualBenchmarkPresentation>();preview.Seating=sector.GetComponentInChildren<SpectatorSeating>();
+                var preview=new GameObject("Integrated visual benchmark").AddComponent<VisualBenchmarkPresentation>();
+                var legacySeating=sector.GetComponentInChildren<SpectatorSeating>();
+                var standAsset=Resources.Load<GameObject>("Biathlon/Stadium/G2Grandstand/Grandstand");if(standAsset==null)throw new System.InvalidOperationException("Generate audited grandstand first.");
+                var stand=(GameObject)PrefabUtility.InstantiatePrefab(standAsset);stand.transform.SetPositionAndRotation(legacySeating.transform.position,legacySeating.transform.rotation);
+                legacySeating.gameObject.SetActive(false);preview.Seating=stand.GetComponent<SpectatorSeating>();
                 var key=new GameObject("Visual sun").AddComponent<Light>();key.type=LightType.Directional;key.shadows=LightShadows.Soft;key.transform.rotation=Quaternion.Euler(25,-32,0);preview.Key=key;
                 var camera=new GameObject("Benchmark broadcast camera").AddComponent<Camera>();camera.enabled=false;camera.tag="MainCamera";camera.gameObject.AddComponent<AudioListener>();camera.gameObject.AddComponent<ProjectionAwareLod>();preview.View=camera;
                 preview.Forests=new VegetationPresentation[3];var centers=new[]{new Vector3(0,0,122),new Vector3(-103,0,20),new Vector3(103,0,20)};
