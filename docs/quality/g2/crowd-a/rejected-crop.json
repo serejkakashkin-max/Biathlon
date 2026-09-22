@@ -1,0 +1,44 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":140,\"PassedTests\":2,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:03.7982842\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.G2CrowdTests.IntegratedCrowdAndNearFarReactionsProduceReview\",\"Status\":\"Passed\",\"Duration\":\"00:00:03.7210000\"},{\"Name\":\"Biathlon.PlayModeTests.G2CrowdTests.LocalDerivativesHaveBoundedSeatedLodsAndHeadOnlyTextureChannels\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0340000\",\"Message\":\"  Expected: in range (-0,4,0,4)\\r\\n  But was:  -0.633351982f\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.G2CrowdTests.LocalDerivativesHaveBoundedSeatedLodsAndHeadOnlyTextureChannels () [0x000a8] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\G2CrowdTests.cs:21\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.G2CrowdTests.VariantsKeepDensityCullingLodAndZeroAllocationSubmission\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0080000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 140,
+          "PassedTests": 2,
+          "FailedTests": 1,
+          "SkippedTests": 0,
+          "Duration": "00:00:03.7982842"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.G2CrowdTests.IntegratedCrowdAndNearFarReactionsProduceReview",
+            "Status": "Passed",
+            "Duration": "00:00:03.7210000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.G2CrowdTests.LocalDerivativesHaveBoundedSeatedLodsAndHeadOnlyTextureChannels",
+            "Status": "Failed",
+            "Duration": "00:00:00.0340000",
+            "Message": "  Expected: in range (-0,4,0,4)\r\n  But was:  -0.633351982f\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.G2CrowdTests.LocalDerivativesHaveBoundedSeatedLodsAndHeadOnlyTextureChannels () [0x000a8] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\G2CrowdTests.cs:21\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.G2CrowdTests.VariantsKeepDensityCullingLodAndZeroAllocationSubmission",
+            "Status": "Passed",
+            "Duration": "00:00:00.0080000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

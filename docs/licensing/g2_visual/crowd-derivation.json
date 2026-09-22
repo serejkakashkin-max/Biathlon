@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "id": "g2-local-crowd-derivation-v1",
+  "sources": [
+    {
+      "variant": 0,
+      "person": "person_06",
+      "model": "rp_eric_rigged_001_u3d.fbx",
+      "source_sha256": "077ac01d17b78ce99fc1be2f383268ba1733ae71eec6d1ff4577b84968c7b9c7",
+      "diffuse_sha256": "586ca7aa7acdd4a66258045553d434d9cb52f45c6f49a992d897c3fd4705ac2e",
+      "license": "Renderpeople T&C (restricted; local-only derivatives)",
+      "url": "https://renderpeople.com/free-3d-people/",
+      "crop_min_z": 1.565
+    },
+    {
+      "variant": 1,
+      "person": "person_07",
+      "model": "rp_carla_rigged_001_u3d.fbx",
+      "source_sha256": "05d1be335781d381290f06221bc98d74eefacd77805fab8a2560939b586bfc7d",
+      "diffuse_sha256": "7fa4f76d8843f83b3719f03d92b9d478f410efb675d45c32a82774e9ef6163b0",
+      "license": "Renderpeople T&C (restricted; local-only derivatives)",
+      "url": "https://renderpeople.com/free-3d-people/",
+      "crop_min_z": 1.46
+    }
+  ],
+  "outputs": [
+    {
+      "file": "Assets/Resources/Biathlon/RestrictedG2Crowd/Face0.png",
+      "sha256": "5afcc4b90eb8898abaaf11720520559f19b4b3acecf2a9da6a35da33c90bf04b"
+    },
+    {
+      "file": "Crowd0LOD0.json",
+      "triangles": 3272,
+      "vertices": 9816,
+      "sha256": "f02316f3ccc627208bcdb62c8b3b1fef5ea0fcf49d680829b0bd7208370f9d03"
+    },
+    {
+      "file": "Crowd0LOD1.json",
+      "triangles": 1239,
+      "vertices": 3717,
+      "sha256": "4d680a148d45110a93912e0948a18a3f31d3af81b28b16023dabaf68cae7f1cc"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/RestrictedG2Crowd/Face1.png",
+      "sha256": "096e260b18c39898decb744a04292bcf7db905a02f62bd39bb2cec44277e201c"
+    },
+    {
+      "file": "Crowd1LOD0.json",
+      "triangles": 2835,
+      "vertices": 8505,
+      "sha256": "46bf4c1cb7019db480172c29850e9649cf23b288e106ac3d0daad0a6ab750d46"
+    },
+    {
+      "file": "Crowd1LOD1.json",
+      "triangles": 1141,
+      "vertices": 3423,
+      "sha256": "fb0bf741aa0be07a94922009fbad93b82d91348de4d82d1f037e4f8f3cb58d4d"
+    }
+  ],
+  "modifications": [
+    "head/upper-neck geometry only; all original clothing, watches, shoes and source materials discarded",
+    "two reduced head LODs,1K face diffuse; original winter coats/scarves/hats/gloves/trousers/boots combined locally",
+    "no public source or derivative mesh/texture distribution; rendered review images only",
+    "static seated geometry with existing bounded presentation shader reactions; no gameplay authority"
+  ]
+}

@@ -122,3 +122,7 @@ InitTestScene*.unity*
 # Owner-staged third-party sources: audit outside Unity; never publish raw downloads.
 /external_downloads/
 **/__pycache__/
+
+# Renderpeople restricted derivatives: generated locally, never publish 3D data/textures.
+/Assets/Resources/Biathlon/RestrictedG2Crowd/
+/Assets/Resources/Biathlon/RestrictedG2Crowd.meta

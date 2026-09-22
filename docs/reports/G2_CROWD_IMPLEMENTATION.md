@@ -1,0 +1,15 @@
+# G2 Crowd implementation
+
+2026-09-22. G2-VR-006A technical checkpoint DONE; visual acceptance OPEN.
+
+После осмотра восьми Renderpeople candidates прямое использование их летней/офисной одежды отклонено. Выбраны только головы/верх шеи Eric/person06 и Carla/person07; вся исходная одежда, обувь, часы и материалы удалены. Два1K diffuse atlas используются только head UV. Собственные shaped winter coats, шарфы, шапки, перчатки, брюки/ботинки и shader seams. Два LOD каждого варианта: **3272/1239** и **2835/1141 triangles**. Geometry/submission limits ниже прежней тяжёлой near crowd; coarse shadow path сохранён.
+
+Оба варианта работают в SpectatorCrowd с прежними density ranks, culling, projection-aware LOD и bounded реакциями рук. Legacy initialization по умолчанию сохранён; только VisualBenchmark явно требует audited crowd. Нет authoritative simulation/replay/shot/tuning изменений. Typed seat bindings остаются от005A; source names используются только в offline recipe, не в gameplay.
+
+Первый crop по одной высоте оставлял части поднятых исходных рукавов — тест габаритов воспроизвёл дефект, добавлена поперечная граница головы. Закрывающие грани собственного clothing исправлены; diagnostic Cull Off не оставлен в shader. Проверяются bounds, head-only UV, cap winding, оба варианта, density/LOD,0GC и интеграция. Focused3/3, полный **140/140 PASS,121.526s**, ShaderUtil has_error=False без сообщений. Console0 errors/3 warnings после тестов; сообщения инструментария сохранены отдельно. Новые runtime errors не обнаружены.
+
+Скрытый Windows build **293,821,244 bytes**,0 errors/0 warnings, smoke9/9 PASS. Все10 observable budgets PASS, максимум **2,715,548 triangles**. GPU/render-thread/batches UNAVAILABLE; ACTION_REQUIRED, без FPS/min-spec qualification. Shutdown RenderTexture.active warning остаётся известным ограничением. [Evidence/captures](../quality/g2/crowd-a/).
+
+Лицензирование: source и modified meshes/textures существуют только в ignored RestrictedG2Crowd. В Git — собственный recipe/importer/shader, hashes, результаты тестов и отрендеренные изображения. `git ls-files` для restricted folder пуст. В player данные интегрированы в compiled assets; отдельные исходные FBX/текстуры рядом со сборкой не поставляются. [Локальное воспроизведение](../licensing/g2_visual/LOCAL_CROWD_BUILD.md), [derivation](../licensing/g2_visual/crowd-derivation.json), [local hashes](../licensing/g2_visual/crowd-local-runtime-manifest.json). Без локальной генерации benchmark выдаёт явную ошибку, без silent fallback/missing GUID.
+
+Осмотрены integrated crowd/sector/range и реакции на0/3/8s. Лица подробнее прежних примитивов, зимняя одежда и вариативность цвета читаются. Открыто: всего два лица, куртки и конечности ещё слишком простые, одинаковые proportions/посадка и механические реакции, слабое освещение под навесом. Не считать этот checkpoint premium crowd acceptance. Далее007 lighting, затем combined review и обязательная честная оценка remaining hero/motion/crowd actions. G2 NOT APPROVED; M13/WP167 BLOCKED_G2; OWNER-FEEL-001 OPEN.

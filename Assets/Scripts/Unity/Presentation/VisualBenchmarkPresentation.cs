@@ -22,7 +22,7 @@ namespace Biathlon.Unity.Presentation
         {
             if(Ready)throw new System.InvalidOperationException("Benchmark already initialized.");
             lighting=LightingVisualDefinition.Load();quality=gameObject.AddComponent<RenderQualityPresentation>();quality.Initialize(View);
-            weather=gameObject.AddComponent<WeatherPresentation>();weather.Initialize(View,Key);crowd=gameObject.AddComponent<SpectatorCrowd>();crowd.Initialize(Seating,useSimplifiedShadows:true);
+            weather=gameObject.AddComponent<WeatherPresentation>();weather.Initialize(View,Key);crowd=gameObject.AddComponent<SpectatorCrowd>();crowd.Initialize(Seating,useSimplifiedShadows:true,useAuditedCrowd:true);
             foreach(var f in Forests)f.Initialize(new[]{new Vector3(0,0,-100),new Vector3(0,0,100)},useAuditedFir:true,groundHeight:G2BenchmarkSurface.Height,useAuditedPine:true,useSimplifiedShadows:true);
             if(ForestEdge!=null)
             {

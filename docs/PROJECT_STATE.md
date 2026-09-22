@@ -4,22 +4,22 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: post-WP166 / pre-G2 visual remediation; M12 technical work complete with profiling/visual actions; M11 PASS WITH ACTIONS; M10 owner-approved
-active_work_package: G2-VR-006 benchmark crowd uplift (owner-directed remediation, not M13); combined visual actions remain open
-active_task: G2-VR-006A selected restricted crowd donors, winter presentation and bounded integration
-last_completed_task: G2-VR-005B original event screen/banners and audited architecture maps; full137/137, focused3/3, hidden9/9 PASS; all10 observable budgets PASS, GPU unavailable
-last_verified_commit: 2cfc0a1; stadium005A verified on origin; event005B evidence/state accompanies this commit
+active_work_package: G2-VR-007 benchmark lighting/atmosphere (owner-directed remediation, not M13); combined visual actions remain open
+active_task: G2-VR-007A selected HDR sky, shadow fill/readability and alternate-light review
+last_completed_task: G2-VR-006A local licensed head donors and original winter crowd; full140/140, focused3/3, hidden9/9 PASS; all10 observable budgets PASS, GPU unavailable
+last_verified_commit: 895aa3b; event005B verified on origin; crowd006A evidence/state accompanies this commit
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 550 discovered; WP159 observations4/4 PASS; WP151 observations4/4 PASS; WP141 observations4/4; WP138 grid5/5; prior qualification4/4; prior player-pack2/2; prior HUD1/1; prior penalty10/10; prior shooting/session5/5; prior snapshot1/1, device8/8; M9 actual-season byte parity PASS
-playmode_tests: G2-VR005B full137/137, focused3/3 PASS; G2-VR005A full134/134 twice (before/after shader), focused3/3 PASS; G2-VR004G full131/131, focused3/3 PASS; G2-VR004F full128/128, focused3/3 PASS; G2-VR004E full125/125, shadow4/4, probe3/3 PASS; G2-VR004D full118/118 and focused4/4 PASS; G2-VR004C full114/114 and focused3/3 PASS; G2-VR004B full111/111 and final4/4 PASS; G2-VR004A full107/107 PASS; G2-VR003A full104/104 and focused3/3 PASS; G2-VR002B full101/101 and focused5/5 PASS; G2-VR002A full99/99 and final3/3 PASS; WP166 full96/96 and final focused3/3 PASS; WP164 full93/93 PASS; WP163 full90/90 PASS; WP162 full86/86 PASS; WP161 full83/83 PASS; WP160 full78/78 PASS and final focused4/4; WP159 full74/74 PASS and final focused4/4; WP158 full70/70 PASS; WP157 full66/66 PASS; WP156 full63/63 PASS and final focused3/3; WP155 full60/60 PASS; WP154 full57/57 PASS; WP153 full53/53 PASS; WP152 full51/51 PASS; WP151 full48/48 PASS; WP150 full46/46 PASS; WP149 full44/44 PASS; WP148 full42/42 PASS; WP147 full39/39 PASS; WP146 full38/38 PASS; WP145 full37/37 PASS; WP144 full36/36 PASS; WP143 full33/33 PASS; WP142 full30/30 PASS; WP141 full28/28 PASS; WP140 full25/25 PASS; prior WP139 evidence1/1 (24 discovered); prior full30 host1/1; prior Sprint-Pursuit chain1/1; prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
+playmode_tests: G2-VR006A full140/140, focused3/3 PASS; G2-VR005B full137/137, focused3/3 PASS; G2-VR005A full134/134 twice (before/after shader), focused3/3 PASS; G2-VR004G full131/131, focused3/3 PASS; G2-VR004F full128/128, focused3/3 PASS; G2-VR004E full125/125, shadow4/4, probe3/3 PASS; G2-VR004D full118/118 and focused4/4 PASS; G2-VR004C full114/114 and focused3/3 PASS; G2-VR004B full111/111 and final4/4 PASS; G2-VR004A full107/107 PASS; G2-VR003A full104/104 and focused3/3 PASS; G2-VR002B full101/101 and focused5/5 PASS; G2-VR002A full99/99 and final3/3 PASS; WP166 full96/96 and final focused3/3 PASS; WP164 full93/93 PASS; WP163 full90/90 PASS; WP162 full86/86 PASS; WP161 full83/83 PASS; WP160 full78/78 PASS and final focused4/4; WP159 full74/74 PASS and final focused4/4; WP158 full70/70 PASS; WP157 full66/66 PASS; WP156 full63/63 PASS and final focused3/3; WP155 full60/60 PASS; WP154 full57/57 PASS; WP153 full53/53 PASS; WP152 full51/51 PASS; WP151 full48/48 PASS; WP150 full46/46 PASS; WP149 full44/44 PASS; WP148 full42/42 PASS; WP147 full39/39 PASS; WP146 full38/38 PASS; WP145 full37/37 PASS; WP144 full36/36 PASS; WP143 full33/33 PASS; WP142 full30/30 PASS; WP141 full28/28 PASS; WP140 full25/25 PASS; prior WP139 evidence1/1 (24 discovered); prior full30 host1/1; prior Sprint-Pursuit chain1/1; prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
 standalone_tests: WP159 observations4/4 PASS; WP151 observations/snapshots5/5 PASS; WP141 observations/regression19/19; WP138 grid/results7/7; WP137 qualification/field6/6; WP136 player-pack/snapshot3/3; WP135 HUD/snapshot2/2; WP134 penalty10/10; WP133 aim/session10/10; WP130 input/replay11/11; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
-unity_console_errors: 0 after G2-VR-005B verification
-unity_console_warnings: 1 MCP warning after G2-VR-005B verification; compilation_failed=false
+unity_console_errors: 0 after G2-VR-006A verification
+unity_console_warnings: 3 after G2-VR-006A verification; compilation_failed=false; see crowd report
 current_known_blockers: []
 owner_gate_g1: APPROVED 2026-09-13; owner hands-on Windows greybox Sprint and Pursuit
 owner_gate_g2: NOT APPROVED / FAIL PENDING VISUAL REMEDIATION; owner directive 2026-09-20
 owner_decisions_needed: [] # Новый G2 review только после remediation, M13 не разрешён.
 owner_gameplay_feel_issues: [OWNER-FEEL-001 player shooting feels too easy; OPEN; required WP229/WP230/WP232 review]
-next_unlocked_work_packages: [G2-VR-006 crowd, G2-VR-007 lighting, G2-VR-002/003 remaining visual actions, G2-VR-008 integrated review] # WP167/M13 BLOCKED_G2.
+next_unlocked_work_packages: [G2-VR-007 lighting, G2-VR-002/003 remaining visual actions, G2-VR-008 integrated review] # WP167/M13 BLOCKED_G2.
 ```
 
 ## Work packages
@@ -206,6 +206,7 @@ next_unlocked_work_packages: [G2-VR-006 crowd, G2-VR-007 lighting, G2-VR-002/003
 - G2-VR-004G DONE: selected CC0 Shrub02 winter branch skeleton (summer leaves removed),2082/1170/520-triangle LODs, two1K maps and24 guarded placements; source/runtime hashes and credits. Full131/131, focused3/3, hidden9/9, Console0/0; all10 observable budgets PASS, unavailable GPU evidence retained. G2-VR004 technical environment batch complete with integrated visual review still open; next005A stadium/event.
 - G2-VR-005A DONE: CC BY stand with advertisements removed, CC0 canopy,168 geometry-derived seating anchors, original roof snow; full134/134 after shader warning fix, hidden9/9 and all10 observable profile budgets PASS. Sources/credits/report recorded; final visual acceptance OPEN. Next005B event infrastructure/materials.
 - G2-VR-005B DONE: selected CC0 screen frame, original event signage/four banners,1K concrete/iron maps and geometry-preserving UV derivatives; prefab override regression fixed. Full137/137, focused3/3, hidden9/9; all10 observable profile budgets PASS. Final stadium visual acceptance remains OPEN; next006A crowd.
+- G2-VR-006A DONE: local restricted Renderpeople head-only derivatives, own winter clothes,2 variants/2LOD, bounded crowd integration and no public 3D data; full140/140, focused3/3, hidden9/9, all10 observable budgets PASS. Crowd close quality remains OPEN; next007A lighting.
 
 ## Owner gameplay-feel issue — OWNER-FEEL-001
 
