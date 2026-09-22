@@ -97,3 +97,7 @@ Selected G2-016 CC0 Shrub02 variant d winter branch skeleton only; leaf polygons
 ## Controlled import update — G2-VR-005A
 
 G2-030: CC BY William Prosser stand structure/seats/railings only, both advertisement objects and all source materials/textures removed. G2-027: one CC0 canopy only.14,292 triangles including project snow cap;168 geometry-derived seats; neutral replacements and actual credits shipped. Original archives not imported/published. Full134/134, hidden9/9; all observable profile budgets PASS. See stadium report and grandstand manifests.
+
+## Controlled import update — G2-VR-005B
+
+G2-029 3dassets.dev Velodrome & Track Cycling (https://3dassets.dev/packs/velodrome-and-track-cycling), CC0: one108-triangle screen frame only, no source materials/textures/signage. G2-034/035 Poly Haven Concrete (https://polyhaven.com/a/concrete) / Corrugated Iron (https://polyhaven.com/a/corrugated_iron), CC0: seven1K maps, linear metallic/smoothness packing, project UVs. Original event text/banners; credits shipped. See event-derivation.json/event-runtime-manifest.json and stadium report.

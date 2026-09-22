@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "id": "g2-event-derivation-v1",
+  "sources": [
+    {
+      "asset": "G2-029",
+      "url": "https://3dassets.dev/packs/velodrome-and-track-cycling",
+      "license": "CC0",
+      "sha256": "49ff4c5e9bcb507a3c9f358bc2286e19b25655c44bac07f528af9724acc926cb"
+    },
+    {
+      "asset": "G2-034",
+      "author": "Poly Haven",
+      "url": "https://polyhaven.com/a/concrete",
+      "license": "CC0"
+    },
+    {
+      "asset": "G2-035",
+      "author": "Poly Haven",
+      "url": "https://polyhaven.com/a/corrugated_iron",
+      "license": "CC0"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "ScreenFrame.json",
+      "triangles": 48,
+      "sha256": "3afd4062658d9fba3b6e357f2da4d1e630a655659558b23da2670144d360b461"
+    },
+    {
+      "file": "ScreenSteel.json",
+      "triangles": 60,
+      "sha256": "bda46e8f92c1a9e98a520e468cc97190d9ed8b8fbf11f9e4efc3dab3a022da3a"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Stadium/G2Event/Textures/concrete_Albedo.png",
+      "source_file": "concrete_diff_4k.jpg",
+      "source_sha256": "674b2bc714b77d294847e8f0078c9891549aeb44b5dfda1dfc2403e0746939aa",
+      "sha256": "88248d1eaae0df2bdf0158f48216a218dca05ee441a1ab3ad62729b7b53d4929"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Stadium/G2Event/Textures/concrete_Normal.png",
+      "source_file": "concrete_nor_gl_4k.jpg",
+      "source_sha256": "cb911aeeb25cd74e1b1acc8e797035de0e2cdb8f846cd612fbeddaa761b0afbb",
+      "sha256": "29bfb7cf9bd256679742a1b983387c85bf11d041a6bd7e4df0a852921d91d97e"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Stadium/G2Event/Textures/concrete_Roughness.png",
+      "source_file": "concrete_rough_4k.jpg",
+      "source_sha256": "adcd21371b1bee4a99e97dd54a626c6b7dd0f3e739c92bd5d445e62c43fb6303",
+      "sha256": "3adde83cd176ea16823aa9d167a7dbb60aee649a8707eb0b0eb9d7a877f97aff"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Stadium/G2Event/Textures/corrugated_iron_Albedo.png",
+      "source_file": "corrugated_iron_diff_4k.jpg",
+      "source_sha256": "b8dca8b8e47765e76cca42a4b5d46f3132f447a974eec011e2c377e63f6da963",
+      "sha256": "fb3ee708c6b5681d3170147852f392d5029439e28076b8413dac4813f462c9f0"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Stadium/G2Event/Textures/corrugated_iron_Normal.png",
+      "source_file": "corrugated_iron_nor_gl_4k.jpg",
+      "source_sha256": "a1532396bcb0a2ea42ef74ecc912f1a8960659f741143df30792e62c4c505a66",
+      "sha256": "40d238fda002634ed26ee2913bfd1898276669f5b0bd129a07e280581bbfb4b5"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Stadium/G2Event/Textures/corrugated_iron_Roughness.png",
+      "source_file": "corrugated_iron_rough_4k.jpg",
+      "source_sha256": "7045255ab17e65c01f2ebcd6db1594729adeab5d5a8f5f79c56dd4a7200f431b",
+      "sha256": "e45661897fe6ab76eb29045c258e8dfc7d2f7cd7aa072479afcd2b1f156082be"
+    },
+    {
+      "file": "Assets/Resources/Biathlon/Stadium/G2Event/Textures/corrugated_iron_Metallic.png",
+      "source_file": "corrugated_iron_metal_4k.jpg",
+      "source_sha256": "5ee8b1a9286385e4bd662a346ce95a7a59b524fea5e46dde285229c5b95d9b6d",
+      "sha256": "71347a17c31b19a96c63311d214dd9d79ef8ecb5cc368bfb28d7043049fd2d80"
+    }
+  ],
+  "modifications": [
+    "selected108-triangle screen frame only, source materials discarded; original event artwork/text in Unity",
+    "seven1K architecture maps; normal/roughness/metallic exported as Non-Color, URP R=metallic A=1-roughness packed during authoring",
+    "no source textures on screen, no source branding or colliders"
+  ]
+}

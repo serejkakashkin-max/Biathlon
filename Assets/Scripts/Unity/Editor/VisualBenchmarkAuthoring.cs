@@ -35,6 +35,8 @@ namespace Biathlon.Unity
                 var standAsset=Resources.Load<GameObject>("Biathlon/Stadium/G2Grandstand/Grandstand");if(standAsset==null)throw new System.InvalidOperationException("Generate audited grandstand first.");
                 var stand=(GameObject)PrefabUtility.InstantiatePrefab(standAsset);stand.transform.SetPositionAndRotation(legacySeating.transform.position,legacySeating.transform.rotation);
                 legacySeating.gameObject.SetActive(false);preview.Seating=stand.GetComponent<SpectatorSeating>();
+                var eventAsset=Resources.Load<GameObject>("Biathlon/Stadium/G2Event/Event");if(eventAsset==null)throw new System.InvalidOperationException("Generate G2 event dressing first.");
+                var eventRoot=(GameObject)PrefabUtility.InstantiatePrefab(eventAsset);G2EventAuthoring.ApplyArchitecture(sector,eventRoot.GetComponent<G2EventDressing>());
                 var key=new GameObject("Visual sun").AddComponent<Light>();key.type=LightType.Directional;key.shadows=LightShadows.Soft;key.transform.rotation=Quaternion.Euler(25,-32,0);preview.Key=key;
                 var camera=new GameObject("Benchmark broadcast camera").AddComponent<Camera>();camera.enabled=false;camera.tag="MainCamera";camera.gameObject.AddComponent<AudioListener>();camera.gameObject.AddComponent<ProjectionAwareLod>();preview.View=camera;
                 preview.Forests=new VegetationPresentation[3];var centers=new[]{new Vector3(0,0,122),new Vector3(-103,0,20),new Vector3(103,0,20)};

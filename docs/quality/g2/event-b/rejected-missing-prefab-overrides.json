@@ -1,0 +1,44 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":137,\"PassedTests\":2,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:02.9190520\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.G2EventTests.BenchmarkArchitecturePreservesGeometryAndProducesReview\",\"Status\":\"Failed\",\"Duration\":\"00:00:02.8750000\",\"Message\":\"  Expected: 4\\r\\n  But was:  0\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.G2EventTests\\u002B\\u003CBenchmarkArchitecturePreservesGeometryAndProducesReview\\u003Ed__2.MoveNext () [0x000d9] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\G2EventTests.cs:42\\r\\nat UnityEngine.TestTools.TestEnumerator\\u002B\\u003CExecute\\u003Ed__8.MoveNext () [0x0003a] in .\\\\Library\\\\PackageCache\\\\com.unity.test-framework@7a3849e09bd0\\\\UnityEngine.TestRunner\\\\NUnitExtensions\\\\Attributes\\\\TestEnumerator.cs:52\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.G2EventTests.DefinitionRejectsCourseAndShootingLaneIntrusions\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.PlayModeTests.G2EventTests.EventGeometryIsBoundedAndMaterialsHaveRealUvAndLinearMasks\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0030000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 137,
+          "PassedTests": 2,
+          "FailedTests": 1,
+          "SkippedTests": 0,
+          "Duration": "00:00:02.9190520"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.G2EventTests.BenchmarkArchitecturePreservesGeometryAndProducesReview",
+            "Status": "Failed",
+            "Duration": "00:00:02.8750000",
+            "Message": "  Expected: 4\r\n  But was:  0\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.G2EventTests+<BenchmarkArchitecturePreservesGeometryAndProducesReview>d__2.MoveNext () [0x000d9] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\G2EventTests.cs:42\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.G2EventTests.DefinitionRejectsCourseAndShootingLaneIntrusions",
+            "Status": "Passed",
+            "Duration": "00:00:00.0020000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.G2EventTests.EventGeometryIsBoundedAndMaterialsHaveRealUvAndLinearMasks",
+            "Status": "Passed",
+            "Duration": "00:00:00.0030000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

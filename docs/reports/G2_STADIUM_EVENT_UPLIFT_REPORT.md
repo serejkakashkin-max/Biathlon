@@ -21,3 +21,17 @@ Windows Development280,794,736 bytes,0 errors/0 warnings; скрытый smoke9/
 Следующий checkpoint005B: оригинальное оформление события, выбранные structural screen/props и материалы архитектуры. Далее006 crowd,007 lighting и возврат к открытым hero/motion actions. Authoritative simulation, shooting tuning и replay не менялись; OWNER-FEEL-001 OPEN. G2 NOT APPROVED, M13/WP167 BLOCKED_G2.
 
 Console: 0 errors, 3 warnings, compilation_failed=false. Все три предупреждения относятся к Unity MCP после domain reload: disposed BufferedFileLogStorage, disposed SignalR HubConnection и попытка вернуть результат в закрытое соединение. Native Console snapshot сохранён; предупреждения сцены/нашего shader не обнаружены.
+
+## G2-VR-005B — оформление события и материалы архитектуры
+
+2026-09-22. Технический checkpoint DONE; итоговая visual acceptance OPEN.
+
+Из G2-029 CC0 выбран только108-треугольный каркас экрана, без исходных материалов/текстур. Собственная статическая заставка BIATHLON, четыре оригинальных вертикальных указателя RANGE/FINISH; чужих марок и выдуманных live results нет. Первый вариант размещения экрана за трибуной отклонён из-за перекрытия навесом; итоговая позиция слева от рубежа проверена прежними камерами. Панель вписана в реальные границы каркаса. Это пока простая заставка, не live video/scoreboard.
+
+G2-034/035 Poly Haven CC0: семь выбранных1K diffuse/OpenGL normal/roughness/metallic maps. Материалы URP Lit: R=metallic, A=1-roughness в linear mask, подтверждено выборкой исходных/упакованных пикселей. Собственные metre-scale planar UV/tangents для бетонного backstop, фундамента/ступеней timing lodge, опор finish gantry и металлических деталей lodge. Четыре mesh bindings в benchmark; геометрия всех треугольников и bounds совпадает с исходной. Legacy fixture assets не заменены. Текстуры исходных стадий roughness/metallic пока входят в Resources вместе с packed masks; build вырос примерно9.8MB, дальнейшая упаковка возможна.
+
+Исправлена найденная интеграционным тестом потеря prefab overrides: mesh/material/binding modifications явно записываются перед сохранением сцены. Исходный failing result сохранён. Крупный план сначала был чёрным из-за отсутствия прогрева нового offscreen target; исправлен capture loop с тремя кадрами. Принятые кадры осмотрены, включая screen-close/sector/range. Материалы и signage заметнее, но общая сцена всё ещё разреженная и недостаточно реалистичная; crowd/lighting/hero actions не закрываются этим этапом.
+
+Focused3/3 и полный **137/137 PASS,120.298s**. Проверяются route/range intrusion, schema/duplicate IDs, размер геометрии, linear masks, фактические pixel channels, сохранение архитектурной геометрии после повторной загрузки. Console0 errors/1 MCP warning, compilation_failed=false; native snapshot сохранён. Сборка **290,603,964 bytes**,0 errors/0 warnings; скрытый smoke9/9 PASS. Все10 observable profile budgets PASS, максимум **2,717,642 triangles**. GPU/render-thread/batches UNAVAILABLE, итог ACTION_REQUIRED; FPS/min-spec approval не заявляется. Известное shutdown RenderTexture.active warning в player остаётся.
+
+[Evidence](../quality/g2/event-b/), [source derivation](../licensing/g2_visual/event-derivation.json), [runtime hashes](../licensing/g2_visual/event-runtime-manifest.json). Credits поставляются с player. Simulation, стрельба, replay и игровое управление не менялись. Далее G2-VR-006A: выбранные crowd derivatives, зимняя одежда и масштабируемая интеграция; restricted source/derivative data остаются локально. G2 NOT APPROVED, WP167/M13 BLOCKED_G2; OWNER-FEEL-001 OPEN.

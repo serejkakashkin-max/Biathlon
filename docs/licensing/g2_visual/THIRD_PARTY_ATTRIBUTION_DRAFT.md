@@ -57,3 +57,7 @@ Poly Haven, https://polyhaven.com/a/boulder_01, CC0 (https://polyhaven.com/licen
 ## Actual use — Shrub02 (G2-VR-004G)
 
 Poly Haven, https://polyhaven.com/a/shrub_02, CC0 (https://polyhaven.com/license). Variant d woody skeleton, summer leaf polygons removed, three reduced LODs and diffuse/OpenGL normal at1K; ground pivot/Unity axes, project snow and bounded winter dressing. Acknowledgement ships; source/runtime hashes in shrub-derivation.json and shrub-runtime-manifest.json.
+
+## Actual use — G2-VR-005B
+
+G2-029 3dassets.dev Velodrome & Track Cycling (https://3dassets.dev/packs/velodrome-and-track-cycling), CC0: one108-triangle screen frame only, no source materials/textures/signage. G2-034/035 Poly Haven Concrete (https://polyhaven.com/a/concrete) / Corrugated Iron (https://polyhaven.com/a/corrugated_iron), CC0: seven1K maps, linear metallic/smoothness packing, project UVs. Original event text/banners; credits shipped. See event-derivation.json/event-runtime-manifest.json and stadium report.
