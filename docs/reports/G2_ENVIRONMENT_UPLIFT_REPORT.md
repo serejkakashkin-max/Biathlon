@@ -184,3 +184,7 @@ Near/far isolated and integrated athlete/approach/range captures were inspected.
 Focused **3/3**, full PlayMode **131/131 PASS in111.594s**; route margin, schema, leaf-removal UVs, mesh bounds/channels/LODs, terrain fit, culling and0GC checks. Console **0 errors/0 warnings**, compilation_failed=false. Windows Development **279,723,109 bytes**, build0/0, hidden smoke **9/9 PASS**. All10 unchanged profiling cases have observable budgets PASS, maximum **2,811,809 triangles**. GPU/render-thread/batches unavailable; overall ACTION_REQUIRED and no FPS/minimum-hardware qualification. [Evidence/captures](../quality/g2/shrub-g/), [profile](../quality/g2/shrub-g/profile/analysis.json).
 
 Next **G2-VR-005A: selected stadium/event structural donors and de-branding**, then crowd/lighting and combined review. G2 NOT APPROVED; M13/WP167 BLOCKED_G2; OWNER-FEEL-001 OPEN.
+
+## G2-VR-007A — lighting
+
+CC0 Passendorf upper sky selected after comparison of three HDRI; authored hemisphere fill improves shaded snow/skin/cloth, four benchmark profiles and weather preserved. Full143/143, hidden9/9; all10 observable budgets PASS, GPU unavailable. Final artistic acceptance remains OPEN. See [lighting report](G2_LIGHTING_IMPLEMENTATION.md).

@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BenchmarkSky
+  m_Shader: {fileID: 4800000, guid: 0585e936c1e22914dbaea50eccf2f845, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Panorama:
+        m_Texture: {fileID: 2800000, guid: 09c53b9c55a21814faf6aa809a375a7f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _CloudCover: 0.5
+    - _PanoramaExposure: 0.65
+    m_Colors:
+    - _Drift: {r: 0, g: 0, b: 0, a: 0}
+    - _HorizonColor: {r: 0.56999993, g: 0.67, b: 0.76, a: 1}
+    - _SkyColor: {r: 0.19999996, g: 0.35999998, b: 0.56, a: 1}
+    - _SunDirection: {r: 0, g: 1, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

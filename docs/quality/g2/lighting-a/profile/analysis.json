@@ -1,0 +1,1518 @@
+{
+  "schema_version": 1,
+  "id": "visual_profile_analysis_v1",
+  "cases": [
+    {
+      "case_id": "low-approach",
+      "metrics": {
+        "wall_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.0729413240915164,
+          "p50": 1.0560019873082638,
+          "p95": 1.2134991120547056,
+          "maximum": 2.1000991109758615
+        },
+        "cpu_frame_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.0735236666666665,
+          "p50": 1.0555,
+          "p95": 1.2147,
+          "maximum": 2.1008
+        },
+        "cpu_main_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.0618606666666666,
+          "p50": 1.0431,
+          "p95": 1.2027,
+          "maximum": 2.0881
+        },
+        "cpu_render_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "cpu_wait_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "gpu_camera_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "draw_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 559.5466666666666,
+          "p50": 562,
+          "p95": 627,
+          "maximum": 635
+        },
+        "batches": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "setpass_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 55.10333333333333,
+          "p50": 56,
+          "p95": 59,
+          "maximum": 60
+        },
+        "triangles": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 750401.8466666667,
+          "p50": 756942,
+          "p95": 812766,
+          "maximum": 818285
+        },
+        "gc_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 164.88666666666666,
+          "p50": 34,
+          "p95": 51,
+          "maximum": 38956
+        },
+        "used_memory_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 420058307.43,
+          "p50": 420289755,
+          "p95": 420519143,
+          "maximum": 420533110
+        }
+      },
+      "budget_checks": {
+        "wall_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_main_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_render_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "gpu_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "draw_calls": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "batches": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "UNAVAILABLE"
+        },
+        "setpass_calls": {
+          "budget": 200,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "triangles": {
+          "budget": 3000000,
+          "statistic": "maximum",
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "case_id": "low-athlete",
+      "metrics": {
+        "wall_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.0365400129618745,
+          "p50": 1.0318027343600988,
+          "p95": 1.1592049850150943,
+          "maximum": 1.8287982093170285
+        },
+        "cpu_frame_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.0370860000000002,
+          "p50": 1.0318,
+          "p95": 1.1586,
+          "maximum": 1.8278
+        },
+        "cpu_main_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.0262143333333333,
+          "p50": 1.0209,
+          "p95": 1.1471,
+          "maximum": 1.8162
+        },
+        "cpu_render_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "cpu_wait_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "gpu_camera_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "draw_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 495.2866666666667,
+          "p50": 577,
+          "p95": 615,
+          "maximum": 618
+        },
+        "batches": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "setpass_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 58.61666666666667,
+          "p50": 66,
+          "p95": 68,
+          "maximum": 71
+        },
+        "triangles": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1144046.27,
+          "p50": 1165304,
+          "p95": 1243904,
+          "maximum": 1268710
+        },
+        "gc_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 163.96,
+          "p50": 34,
+          "p95": 51,
+          "maximum": 38750
+        },
+        "used_memory_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 424316365.6433333,
+          "p50": 424479145,
+          "p95": 424836186,
+          "maximum": 424852362
+        }
+      },
+      "budget_checks": {
+        "wall_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_main_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_render_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "gpu_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "draw_calls": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "batches": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "UNAVAILABLE"
+        },
+        "setpass_calls": {
+          "budget": 200,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "triangles": {
+          "budget": 3000000,
+          "statistic": "maximum",
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "case_id": "low-range",
+      "metrics": {
+        "wall_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 0.855390329961665,
+          "p50": 0.8554988889954984,
+          "p95": 0.9291028836742043,
+          "maximum": 1.0264030424878001
+        },
+        "cpu_frame_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 0.85574,
+          "p50": 0.8569,
+          "p95": 0.9295,
+          "maximum": 1.0275
+        },
+        "cpu_main_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 0.8458273333333334,
+          "p50": 0.8466,
+          "p95": 0.9194,
+          "maximum": 1.018
+        },
+        "cpu_render_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "cpu_wait_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "gpu_camera_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "draw_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 224.06,
+          "p50": 221,
+          "p95": 272,
+          "maximum": 295
+        },
+        "batches": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "setpass_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 33.086666666666666,
+          "p50": 33,
+          "p95": 37,
+          "maximum": 39
+        },
+        "triangles": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 626838.56,
+          "p50": 616061,
+          "p95": 677049,
+          "maximum": 705061
+        },
+        "gc_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 163.79,
+          "p50": 34,
+          "p95": 34,
+          "maximum": 38750
+        },
+        "used_memory_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 423234972.76,
+          "p50": 423234656,
+          "p95": 423240524,
+          "maximum": 423244075
+        }
+      },
+      "budget_checks": {
+        "wall_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_main_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_render_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "gpu_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "draw_calls": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "batches": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "UNAVAILABLE"
+        },
+        "setpass_calls": {
+          "budget": 200,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "triangles": {
+          "budget": 3000000,
+          "statistic": "maximum",
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "case_id": "balanced-approach",
+      "metrics": {
+        "wall_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.225954011703531,
+          "p50": 1.1785997776314616,
+          "p95": 1.3894983567297459,
+          "maximum": 3.9606010541319847
+        },
+        "cpu_frame_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.2245633333333332,
+          "p50": 1.1783,
+          "p95": 1.3893,
+          "maximum": 3.9412
+        },
+        "cpu_main_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.2124473333333332,
+          "p50": 1.1661,
+          "p95": 1.375,
+          "maximum": 3.921
+        },
+        "cpu_render_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "cpu_wait_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "gpu_camera_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "draw_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 976.8366666666667,
+          "p50": 980,
+          "p95": 1070,
+          "maximum": 1073
+        },
+        "batches": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "setpass_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 91.31333333333333,
+          "p50": 91,
+          "p95": 97,
+          "maximum": 98
+        },
+        "triangles": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1300804.0066666666,
+          "p50": 1303408,
+          "p95": 1406645,
+          "maximum": 1406781
+        },
+        "gc_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 164.07333333333332,
+          "p50": 34,
+          "p95": 51,
+          "maximum": 38750
+        },
+        "used_memory_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 499429035.10333335,
+          "p50": 499643795,
+          "p95": 499871127,
+          "maximum": 499885127
+        }
+      },
+      "budget_checks": {
+        "wall_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_main_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_render_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "gpu_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "draw_calls": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "batches": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "UNAVAILABLE"
+        },
+        "setpass_calls": {
+          "budget": 200,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "triangles": {
+          "budget": 3000000,
+          "statistic": "maximum",
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "case_id": "balanced-athlete",
+      "metrics": {
+        "wall_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.2137396761681885,
+          "p50": 1.2126063229516149,
+          "p95": 1.365603762678802,
+          "maximum": 1.5178004978224635
+        },
+        "cpu_frame_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.2125073333333334,
+          "p50": 1.2126,
+          "p95": 1.3672,
+          "maximum": 1.5129
+        },
+        "cpu_main_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.2009616666666667,
+          "p50": 1.2003,
+          "p95": 1.3539,
+          "maximum": 1.4982
+        },
+        "cpu_render_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "cpu_wait_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "gpu_camera_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "draw_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 627.0733333333334,
+          "p50": 745,
+          "p95": 768,
+          "maximum": 780
+        },
+        "batches": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "setpass_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 84.34,
+          "p50": 95,
+          "p95": 97,
+          "maximum": 102
+        },
+        "triangles": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1895027.3333333333,
+          "p50": 1818946,
+          "p95": 2197945,
+          "maximum": 2225722
+        },
+        "gc_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 164.07333333333332,
+          "p50": 34,
+          "p95": 51,
+          "maximum": 38750
+        },
+        "used_memory_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 499321244.5566667,
+          "p50": 499482631,
+          "p95": 499844447,
+          "maximum": 499860663
+        }
+      },
+      "budget_checks": {
+        "wall_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_main_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_render_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "gpu_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "draw_calls": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "batches": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "UNAVAILABLE"
+        },
+        "setpass_calls": {
+          "budget": 200,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "triangles": {
+          "budget": 3000000,
+          "statistic": "maximum",
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "case_id": "balanced-range",
+      "metrics": {
+        "wall_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 0.9938860075393071,
+          "p50": 0.990695902146399,
+          "p95": 1.0732001392170787,
+          "maximum": 1.1616001138463616
+        },
+        "cpu_frame_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 0.9939890000000001,
+          "p50": 0.9907,
+          "p95": 1.0721,
+          "maximum": 1.1624
+        },
+        "cpu_main_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 0.9840153333333335,
+          "p50": 0.9807,
+          "p95": 1.0627,
+          "maximum": 1.1514
+        },
+        "cpu_render_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "cpu_wait_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "gpu_camera_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "draw_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 369.37,
+          "p50": 358,
+          "p95": 462,
+          "maximum": 507
+        },
+        "batches": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "setpass_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 51.516666666666666,
+          "p50": 51,
+          "p95": 57,
+          "maximum": 60
+        },
+        "triangles": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1007838.6066666667,
+          "p50": 991890,
+          "p95": 1092618,
+          "maximum": 1136092
+        },
+        "gc_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 163.90333333333334,
+          "p50": 34,
+          "p95": 34,
+          "maximum": 38767
+        },
+        "used_memory_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 499970644.38666666,
+          "p50": 499970612,
+          "p95": 499975600,
+          "maximum": 499978564
+        }
+      },
+      "budget_checks": {
+        "wall_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_main_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_render_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "gpu_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "draw_calls": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "batches": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "UNAVAILABLE"
+        },
+        "setpass_calls": {
+          "budget": 200,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "triangles": {
+          "budget": 3000000,
+          "statistic": "maximum",
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "case_id": "high-approach",
+      "metrics": {
+        "wall_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.2104270172615845,
+          "p50": 1.2005030876025558,
+          "p95": 1.3377976138144732,
+          "maximum": 1.9651006441563368
+        },
+        "cpu_frame_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.210294,
+          "p50": 1.2016,
+          "p95": 1.3378,
+          "maximum": 1.9653
+        },
+        "cpu_main_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.198418,
+          "p50": 1.1892,
+          "p95": 1.3256,
+          "maximum": 1.9537
+        },
+        "cpu_render_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "cpu_wait_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "gpu_camera_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "draw_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1092.2633333333333,
+          "p50": 1097,
+          "p95": 1235,
+          "maximum": 1242
+        },
+        "batches": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "setpass_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 94.00666666666666,
+          "p50": 93,
+          "p95": 101,
+          "maximum": 102
+        },
+        "triangles": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1578917.66,
+          "p50": 1597590,
+          "p95": 1715623,
+          "maximum": 1716259
+        },
+        "gc_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 164.07333333333332,
+          "p50": 34,
+          "p95": 51,
+          "maximum": 38750
+        },
+        "used_memory_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 544006738.6166667,
+          "p50": 544215042,
+          "p95": 544443278,
+          "maximum": 544456382
+        }
+      },
+      "budget_checks": {
+        "wall_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_main_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_render_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "gpu_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "draw_calls": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "batches": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "UNAVAILABLE"
+        },
+        "setpass_calls": {
+          "budget": 200,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "triangles": {
+          "budget": 3000000,
+          "statistic": "maximum",
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "case_id": "high-athlete",
+      "metrics": {
+        "wall_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.2407973354371886,
+          "p50": 1.2336026411503553,
+          "p95": 1.4167020563036203,
+          "maximum": 1.7900014063343406
+        },
+        "cpu_frame_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.239816,
+          "p50": 1.2318,
+          "p95": 1.4157,
+          "maximum": 1.7943
+        },
+        "cpu_main_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.2283923333333333,
+          "p50": 1.2206,
+          "p95": 1.4038,
+          "maximum": 1.7758
+        },
+        "cpu_render_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "cpu_wait_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "gpu_camera_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "draw_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 660.1633333333333,
+          "p50": 801,
+          "p95": 812,
+          "maximum": 820
+        },
+        "batches": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "setpass_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 81.43,
+          "p50": 90,
+          "p95": 95,
+          "maximum": 99
+        },
+        "triangles": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 2220670.3333333335,
+          "p50": 2007294,
+          "p95": 2610056,
+          "maximum": 2637800
+        },
+        "gc_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 164.07333333333332,
+          "p50": 34,
+          "p95": 51,
+          "maximum": 38750
+        },
+        "used_memory_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 547812654.3066666,
+          "p50": 547973690,
+          "p95": 548336226,
+          "maximum": 548352450
+        }
+      },
+      "budget_checks": {
+        "wall_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_main_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_render_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "gpu_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "draw_calls": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "batches": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "UNAVAILABLE"
+        },
+        "setpass_calls": {
+          "budget": 200,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "triangles": {
+          "budget": 3000000,
+          "statistic": "maximum",
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "case_id": "high-range",
+      "metrics": {
+        "wall_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.0617929896883045,
+          "p50": 1.054698135703802,
+          "p95": 1.1473001213744283,
+          "maximum": 1.8395974766463041
+        },
+        "cpu_frame_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.0617563333333333,
+          "p50": 1.0548,
+          "p95": 1.1474,
+          "maximum": 1.8391
+        },
+        "cpu_main_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.0517083333333332,
+          "p50": 1.0442,
+          "p95": 1.138,
+          "maximum": 1.8286
+        },
+        "cpu_render_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "cpu_wait_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "gpu_camera_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "draw_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 405.3433333333333,
+          "p50": 400,
+          "p95": 499,
+          "maximum": 546
+        },
+        "batches": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "setpass_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 52.626666666666665,
+          "p50": 54,
+          "p95": 60,
+          "maximum": 63
+        },
+        "triangles": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1154159.2933333332,
+          "p50": 1135769,
+          "p95": 1240901,
+          "maximum": 1291095
+        },
+        "gc_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 163.96,
+          "p50": 34,
+          "p95": 51,
+          "maximum": 38750
+        },
+        "used_memory_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 545082073.44,
+          "p50": 545081987,
+          "p95": 545087295,
+          "maximum": 545092043
+        }
+      },
+      "budget_checks": {
+        "wall_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_main_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_render_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "gpu_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "draw_calls": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "batches": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "UNAVAILABLE"
+        },
+        "setpass_calls": {
+          "budget": 200,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "triangles": {
+          "budget": 3000000,
+          "statistic": "maximum",
+          "status": "PASS"
+        }
+      }
+    },
+    {
+      "case_id": "high-snowfall-athlete",
+      "metrics": {
+        "wall_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.3728023204021156,
+          "p50": 1.3718041591346264,
+          "p95": 1.5057043638080359,
+          "maximum": 1.686996896751225
+        },
+        "cpu_frame_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.37192,
+          "p50": 1.3705,
+          "p95": 1.5051,
+          "maximum": 1.6798
+        },
+        "cpu_main_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 1.360498,
+          "p50": 1.3586,
+          "p95": 1.4939,
+          "maximum": 1.6663
+        },
+        "cpu_render_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "cpu_wait_ms": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "gpu_camera_ms": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "draw_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 687.13,
+          "p50": 825,
+          "p95": 848,
+          "maximum": 856
+        },
+        "batches": {
+          "available": 0,
+          "unavailable": 300,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "maximum": null
+        },
+        "setpass_calls": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 85.43,
+          "p50": 95,
+          "p95": 99,
+          "maximum": 104
+        },
+        "triangles": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 2297452.033333333,
+          "p50": 2101902,
+          "p95": 2680053,
+          "maximum": 2715548
+        },
+        "gc_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 164.24333333333334,
+          "p50": 34,
+          "p95": 51,
+          "maximum": 38750
+        },
+        "used_memory_bytes": {
+          "available": 300,
+          "unavailable": 0,
+          "mean": 548692405.4533334,
+          "p50": 548851132,
+          "p95": 549214156,
+          "maximum": 549233732
+        }
+      },
+      "budget_checks": {
+        "wall_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_main_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "PASS"
+        },
+        "cpu_render_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "gpu_ms": {
+          "budget": 16.667,
+          "statistic": "p95",
+          "status": "UNAVAILABLE"
+        },
+        "draw_calls": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "batches": {
+          "budget": 2000,
+          "statistic": "maximum",
+          "status": "UNAVAILABLE"
+        },
+        "setpass_calls": {
+          "budget": 200,
+          "statistic": "maximum",
+          "status": "PASS"
+        },
+        "triangles": {
+          "budget": 3000000,
+          "statistic": "maximum",
+          "status": "PASS"
+        }
+      }
+    }
+  ],
+  "limitations": "One high-end Windows Development player; detached ten-athlete fixture. Not release/minimum hardware or full Mass Start qualification. FrameTimingManager is delayed; timings include waits.",
+  "budget_status": "ACTION_REQUIRED"
+}

@@ -21,8 +21,9 @@ namespace Biathlon.Unity.Presentation
         public void Initialize()
         {
             if(Ready)throw new System.InvalidOperationException("Benchmark already initialized.");
-            lighting=LightingVisualDefinition.Load();quality=gameObject.AddComponent<RenderQualityPresentation>();quality.Initialize(View);
-            weather=gameObject.AddComponent<WeatherPresentation>();weather.Initialize(View,Key);crowd=gameObject.AddComponent<SpectatorCrowd>();crowd.Initialize(Seating,useSimplifiedShadows:true,useAuditedCrowd:true);
+            lighting=LightingVisualDefinition.FromJson(Resources.Load<TextAsset>("Biathlon/g2_lighting_visual_v1").text);quality=gameObject.AddComponent<RenderQualityPresentation>();quality.Initialize(View);
+            var sky=Resources.Load<Material>("Biathlon/Weather/G2Lighting/BenchmarkSky");if(sky==null)throw new System.InvalidOperationException("Generate G2 lighting assets.");
+            weather=gameObject.AddComponent<WeatherPresentation>();weather.Initialize(View,Key,sky);crowd=gameObject.AddComponent<SpectatorCrowd>();crowd.Initialize(Seating,useSimplifiedShadows:true,useAuditedCrowd:true);
             foreach(var f in Forests)f.Initialize(new[]{new Vector3(0,0,-100),new Vector3(0,0,100)},useAuditedFir:true,groundHeight:G2BenchmarkSurface.Height,useAuditedPine:true,useSimplifiedShadows:true);
             if(ForestEdge!=null)
             {

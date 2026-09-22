@@ -17,12 +17,12 @@ namespace Biathlon.Unity.Presentation
         private Quaternion oldKeyRotation;
         public int SubmittedFlakes {get;private set;}
         public string PresetId {get;private set;}
-        public void Initialize(Camera camera,Light directional)
+        public void Initialize(Camera camera,Light directional,Material skyOverride=null)
         {
             if(definition!=null||camera==null||directional==null||directional.type!=LightType.Directional||!isActiveAndEnabled)throw new ArgumentException("Enabled weather component, explicit camera and directional light required.");
             if(owner!=null)throw new InvalidOperationException("Release previous weather owner first.");
             definition=WeatherVisualDefinition.Load();view=camera;key=directional;
-            var skyTemplate=Resources.Load<Material>("Biathlon/Weather/WinterSky");flakes=Resources.Load<Material>("Biathlon/Snow/Spray");
+            var skyTemplate=skyOverride!=null?skyOverride:Resources.Load<Material>("Biathlon/Weather/WinterSky");flakes=Resources.Load<Material>("Biathlon/Snow/Spray");
             if(skyTemplate==null||flakes==null)throw new InvalidOperationException("Generate weather assets.");
             sky=new Material(skyTemplate);mesh=new Mesh{name="Bounded snowfall"};mesh.MarkDynamic();
             vertices=new Vector3[definition.max_particles*4];uv=new Vector2[vertices.Length];colors=new Color[vertices.Length];indices=new int[definition.max_particles*6];
@@ -44,10 +44,11 @@ namespace Biathlon.Unity.Presentation
             definition.Sample(0,time,view.transform.position,observedWind);var p=definition.Get(preset);int count=definition.Count(tier,p.snowfall);
             lighting?.Validate();var fogColor=p.fog_color*(lighting?.horizon_tint??Color.white);var ambient=p.fog_color*p.ambient_intensity*(lighting?.ambient_tint??Color.white)*(lighting?.ambient_gain??1);
             PresetId=preset;RenderSettings.fog=true;RenderSettings.fogMode=FogMode.Linear;RenderSettings.fogStartDistance=p.fog_start_m;RenderSettings.fogEndDistance=p.fog_end_m;RenderSettings.fogColor=fogColor;
-            RenderSettings.ambientMode=AmbientMode.Trilight;RenderSettings.ambientSkyColor=ambient;RenderSettings.ambientEquatorColor=ambient*.65f;RenderSettings.ambientGroundColor=ambient*.35f;
+            RenderSettings.ambientMode=AmbientMode.Trilight;RenderSettings.ambientSkyColor=ambient;RenderSettings.ambientEquatorColor=ambient*(lighting?.ambient_equator_fraction??.65f);RenderSettings.ambientGroundColor=ambient*(lighting?.ambient_ground_fraction??.35f);
             key.color=p.light_color*(lighting?.sun_tint??Color.white);key.intensity=p.light_intensity*(lighting?.sun_gain??1);key.shadowStrength=p.shadow_strength;key.transform.rotation=lighting!=null?Quaternion.Euler(lighting.sun_elevation,lighting.sun_azimuth,0):oldKeyRotation;
             view.clearFlags=CameraClearFlags.Skybox;view.backgroundColor=fogColor;RenderSettings.skybox=sky;
             sky.SetColor("_SkyColor",p.sky_color*(lighting?.sky_tint??Color.white));sky.SetColor("_HorizonColor",fogColor);sky.SetFloat("_CloudCover",p.cloud_cover);sky.SetVector("_Drift",new Vector4(observedWind.x,observedWind.y,(float)time,0));
+            if(sky.HasProperty("_SunDirection"))sky.SetVector("_SunDirection",-key.transform.forward);
             int n=0;var center=view.transform.position;var right=view.transform.right*definition.flake_size_m;var up=view.transform.up*definition.flake_size_m;
             for(int i=0;i<count;i++)
             {

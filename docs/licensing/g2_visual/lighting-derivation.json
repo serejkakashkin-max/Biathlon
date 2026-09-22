@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "id": "g2-lighting-derivation-v1",
+  "asset": "G2-023",
+  "author": "Poly Haven",
+  "license": "CC0",
+  "url": "https://polyhaven.com/a/passendorf_snow",
+  "source_sha256": "4952200bce0575ec652bd2c97b7a3a3ece71703426a83b5c1fa7a1cfa1a192e1",
+  "output": {
+    "path": "Assets/Resources/Biathlon/Weather/G2Lighting/PassendorfSky.hdr",
+    "sha256": "f633730639886f3a3e6d557e33b1358ceeb5b84bd36d7d3ed140a81fee0562a3",
+    "width": 2048,
+    "height": 1024
+  },
+  "source_sun_pixel": [
+    1229,
+    613
+  ],
+  "modifications": [
+    "8K HDR resized to2K linear HDR",
+    "source sun/halo interpolated from same-elevation neighbours; runtime disc follows directional light",
+    "shader uses upper hemisphere above haze; photographed ground is not displayed",
+    "sky appearance only, not HDR image based illumination"
+  ]
+}

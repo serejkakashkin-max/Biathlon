@@ -65,3 +65,7 @@ G2-029 3dassets.dev Velodrome & Track Cycling (https://3dassets.dev/packs/velodr
 ## Actual local use — G2-VR-006A
 
 Renderpeople Eric rigged001 / Carla rigged001, head/upper-neck only, source clothes/shoes/watch/materials discarded, two reduced LODs and1K diffuse, original project winter clothing. Sources: https://renderpeople.com/free-3d-people/ ; terms https://renderpeople.com/general-terms-and-conditions/ . Restricted derivatives are local ignored assets only, never public Git; own recipe/source and output hashes/rendered evidence published. Credits ship with integrated compiled player. See LOCAL_CROWD_BUILD.md and crowd report.
+
+## Actual use — G2-VR-007A
+
+G2-023 Passendorf Snow — Poly Haven, CC0, https://polyhaven.com/a/passendorf_snow , https://polyhaven.com/license . Selected2K HDR derivative: source sun/halo neutralized, only upper sky above haze used, source ground/horizon excluded. Runtime sun follows key; ambient lighting authored separately. G2-022/024 rejected for benchmark sky composition after panorama inspection; no runtime copies. Actual credits ship with build. See lighting-derivation.json and lighting report.
