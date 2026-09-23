@@ -70,6 +70,7 @@ namespace Biathlon.Unity
                 {
                     data = JsonUtility.FromJson<MeshData>(File.ReadAllText("artifacts/g2-hero/hero_lod" + lod + ".json"));
                     var mesh = Import(data, bind);
+                    G2JointVolumeAuthoring.Apply(mesh);
                     mesh.name = "HeroLOD" + lod;
                     string path = DirectoryPath + "/Meshes/HeroLOD" + lod + ".asset";
                     var saved = AssetDatabase.LoadAssetAtPath<Mesh>(path);
@@ -115,6 +116,7 @@ namespace Biathlon.Unity
                 rig.gameObject.AddComponent<AthleteBibPresentation>().Configure(skin,2);
                 rig.gameObject.AddComponent<AthleteGripPresentation>();
                 rig.gameObject.AddComponent<AthleteAppearancePresentation>();
+                rig.gameObject.AddComponent<AthleteJointVolume>();
                 G2RifleAuthoring.Apply(rig);
                 skin.name = "Continuous athlete body"; rig.name = "G2 benchmark hero athlete";
                 PrefabUtility.SaveAsPrefabAsset(rig.gameObject, PrefabPath);

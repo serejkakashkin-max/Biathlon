@@ -13,7 +13,7 @@ namespace Biathlon.Unity.Presentation
         public float reach_fraction, release_end_fraction, clearance_side_m, clearance_up_m;
         public Vector3 trigger_grip, support_grip, prone_support_grip, pole_stow_left, pole_stow_right;
         public Vector3 standing_support_bend, standing_trigger_bend, prone_support_bend, prone_trigger_bend;
-        public Vector3 cheek_rest, head_from_cheek;
+        public Vector3 cheek_rest, head_from_cheek, head_sight_euler;
         public float max_head_correction_m;
         public static RiflePresentationSettings Load()
         {
@@ -21,6 +21,7 @@ namespace Biathlon.Unity.Presentation
             if (d == null || d.schema_version != 1 || string.IsNullOrWhiteSpace(d.id) || !(d.reach_fraction > 0 && d.reach_fraction < d.release_end_fraction && d.release_end_fraction < 1) ||
                 !(d.clearance_side_m > 0 && d.clearance_side_m < 1) || !(d.clearance_up_m > 0 && d.clearance_up_m < 1))
                 throw new ArgumentException("Invalid rifle presentation definition.");
+            if(!float.IsFinite(d.head_sight_euler.sqrMagnitude)||d.head_sight_euler.magnitude>30)throw new ArgumentException("Invalid visual head cant.");
             if(!(d.max_head_correction_m>0&&d.max_head_correction_m<=.15f))throw new ArgumentException("Invalid head correction envelope.");
             foreach (var v in new[] {d.trigger_grip, d.support_grip, d.prone_support_grip, d.pole_stow_left, d.pole_stow_right,d.standing_support_bend,d.standing_trigger_bend,d.prone_support_bend,d.prone_trigger_bend,d.cheek_rest,d.head_from_cheek})
                 if (!float.IsFinite(v.x) || !float.IsFinite(v.y) || !float.IsFinite(v.z)) throw new ArgumentException("Invalid prop offset.");
@@ -79,7 +80,7 @@ namespace Biathlon.Unity.Presentation
                 var head=rig.Bone(AthleteBone.Head);
                 var desired=equipment.Rifle.TransformPoint(settings.cheek_rest+settings.head_from_cheek);
                 head.position+=Vector3.ClampMagnitude(desired-head.position,settings.max_head_correction_m)*alignment;
-                head.rotation=Quaternion.Slerp(head.rotation,sightRotation,alignment);
+                head.rotation=Quaternion.Slerp(head.rotation,sightRotation*Quaternion.Euler(settings.head_sight_euler),alignment);
             }
             HandWeight = Mathf.SmoothStep(0, 1, progress / settings.reach_fraction);
             SupportGripWorld = equipment.Rifle.TransformPoint(Vector3.Lerp(settings.support_grip,

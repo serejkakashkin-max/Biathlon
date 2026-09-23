@@ -1,0 +1,34 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":151,\"PassedTests\":150,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:02:19.9666656\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.AthleteShootingAlignmentTests.BothStancesFollowSightAtOneToOneScaleAndKeepHandsOnRifle\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0040000\",\"Message\":\"  Expected: less than 0.0299999993f\\r\\n  But was:  8.00000668f\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.AthleteShootingAlignmentTests.BothStancesFollowSightAtOneToOneScaleAndKeepHandsOnRifle () [0x0014f] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\AthleteShootingAlignmentTests.cs:29\\r\\n\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 151,
+          "PassedTests": 150,
+          "FailedTests": 1,
+          "SkippedTests": 0,
+          "Duration": "00:02:19.9666656"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteShootingAlignmentTests.BothStancesFollowSightAtOneToOneScaleAndKeepHandsOnRifle",
+            "Status": "Failed",
+            "Duration": "00:00:00.0040000",
+            "Message": "  Expected: less than 0.0299999993f\r\n  But was:  8.00000668f\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.AthleteShootingAlignmentTests.BothStancesFollowSightAtOneToOneScaleAndKeepHandsOnRifle () [0x0014f] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\AthleteShootingAlignmentTests.cs:29\r\n"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

@@ -7,12 +7,13 @@ namespace Biathlon.Unity.Presentation
     {
         private AthleteEquipmentBinding equipment;
         private AthleteRiflePresentation rifle;
+        private AthleteJointVolume joints;
         [SerializeField] private Vector3 supportRifleEuler = new Vector3(-90, 0, 0);
         [SerializeField] private Vector3 triggerRifleEuler = Vector3.zero;
         public float MaximumResidualMeters { get; private set; }
         public void Render(AthleteRigBinding rig)
         {
-            if (equipment == null) { equipment=GetComponent<AthleteEquipmentBinding>(); rifle=GetComponent<AthleteRiflePresentation>(); }
+            if (equipment == null) { equipment=GetComponent<AthleteEquipmentBinding>(); rifle=GetComponent<AthleteRiflePresentation>(); joints=GetComponent<AthleteJointVolume>(); }
             MaximumResidualMeters=0;
             if (rifle != null && rifle.HandWeight>0)
             {
@@ -24,9 +25,11 @@ namespace Biathlon.Unity.Presentation
                     FitRifle(rig,false,rifle.SupportGripWorld,supportRifleEuler,blend);
                     FitRifle(rig,true,rifle.TriggerGripWorld,triggerRifleEuler,blend);
                 }
+                if(joints!=null)joints.Render(rig);
                 return;
             }
             Fit(false,equipment.LeftPole); Fit(true,equipment.RightPole);
+            if(joints!=null)joints.Render(rig);
             void Fit(bool right,Transform pole)
             {
                 var position=pole.position;var rotation=pole.rotation;
