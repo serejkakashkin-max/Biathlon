@@ -39,7 +39,9 @@ for variant,(person,name,neck,scale) in enumerate([('person_06','rp_eric_rigged_
     for k in range(sides):
      a=k*math.tau/sides;radial=Vector((math.cos(a)*rx,0,math.sin(a)*rz))
      if axis is not None:radial=axis@radial
-     verts.append(Vector(center)+radial)
+     # Small alternating quilt volume, not disconnected cylinders. Lower LOD keeps silhouette.
+     quilt=1+.035*math.sin(j*2.3+k*1.7) if color==coat else 1
+     verts.append(Vector(center)+radial*quilt)
    for j in range(len(rings)-1):
     for k in range(sides):a=j*sides+k;b=j*sides+(k+1)%sides;faces.append((a,a+sides,b+sides,b))
    faces.extend((tuple(range(sides)),tuple((len(rings)-1)*sides+k for k in reversed(range(sides)))))
@@ -49,12 +51,19 @@ for variant,(person,name,neck,scale) in enumerate([('person_06','rp_eric_rigged_
    for tri in m.loop_triangles:
     for loop in tri.loops:
      p=m.vertices[m.loops[loop].vertex_index].co;n=m.corner_normals[loop].vector
-     data['indices'].append(append(p,n,color,pivot))
+     # Encode a second elbow hinge for forearm/glove vertices; blended at the sleeve seam.
+     control=pivot
+     if pivot[3]>1:
+      direction=Vector((-math.copysign(.035,pivot[0]),0,-.20)).normalized()
+      influence=max(0,min(1,(p-Vector(pivot[:3])).dot(direction)/.09))
+      control=(*pivot[:3],1+influence)
+     data['indices'].append(append(p,n,color,control))
    bpy.data.meshes.remove(m)
   def limb(a,b,radii,color,pivot=(0,0,0,0)):
    a=Vector(a);b=Vector(b);q=Vector((0,1,0)).rotation_difference((b-a).normalized()).to_matrix();loft([(a+(b-a)*t,rx,rz) for t,rx,rz in radii],color,pivot,q)
   # Shaped coat rings and raised hem/collar replace the former disconnected torso ellipsoids.
-  loft([((0,.33,0),.18,.135),((0,.38,0),.205,.155),((0,.45,0),.213,.16),((0,.55,0),.2,.155),((0,.68,0),.206,.16),((0,.81,0),.218,.163),((0,.94,0),.229,.145),((0,1.01,0),.20,.13),((0,1.04,0),.10,.105)],coat)
+  waist=.92 if variant else 1
+  loft([((0,.33,0),.18,.135),((0,.39,-.008),.207,.157),((0,.49,-.014),.205,.15),((0,.61,-.010),.185*waist,.139),((0,.73,-.004),.20*waist,.15),((0,.85,0),.218,.163),((0,.94,0),.229,.145),((0,1.00,0),.20,.13),((0,1.04,0),.10,.105)],coat)
   loft([((0,1.00,0),.112,.114),((0,1.035,0),.13,.122),((0,1.08,0),.124,.119),((0,1.10,0),.105,.11)],scarf)
   for sign in [-1,1]:
    hip=(sign*.105,.39,0);knee=(sign*.115,.3,-.29);ankle=(sign*.115,-.015,-.31)
@@ -63,8 +72,8 @@ for variant,(person,name,neck,scale) in enumerate([('person_06','rp_eric_rigged_
    loft([((sign*.115,-.09,-.38),.076,.145),((sign*.115,-.065,-.38),.077,.15),((sign*.115,.015,-.37),.073,.134),((sign*.115,.09,-.31),.061,.065)],boot)
    shoulder=(sign*.20,.96,0);elbow=(sign*.245,.69,-.055);hand=(sign*.21,.69,-.255);pivot=(*shoulder,1)
    limb(shoulder,elbow,[(0,.085,.085),(.2,.088,.082),(.6,.073,.069),(1,.067,.064)],coat,pivot)
-   limb(elbow,hand,[(0,.068,.065),(.4,.065,.061),(.85,.052,.051),(1,.049,.046)],coat,pivot)
-   limb(hand,(sign*.21,.675,-.34),[(0,.046,.043),(.45,.052,.042),(1,.037,.027)],boot,pivot)
+   limb(elbow,hand,[(0,.068,.065),(.3,.069,.064),(.65,.057,.054),(.88,.054,.052),(1,.049,.046)],coat,(*elbow,2))
+   limb(hand,(sign*.21,.675,-.34),[(0,.046,.043),(.45,.052,.042),(1,.037,.027)],boot,(*elbow,2))
   loft([((0,1.285,.012),.113,.107),((0,1.32,.012),.119,.112),((0,1.37,.014),.112,.104),((0,1.42,.016),.075,.077),((0,1.445,.016),.012,.016)],coat)
   path=out/f'Crowd{variant}LOD{lod}.json';path.write_text(json.dumps(data,separators=(',',':')))
   outputs.append(dict(file=path.name,triangles=len(data['indices'])//3,vertices=len(data['vertices'])//3,sha256=hashlib.sha256(path.read_bytes()).hexdigest()))

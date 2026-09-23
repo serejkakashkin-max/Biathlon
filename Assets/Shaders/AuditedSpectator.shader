@@ -18,9 +18,19 @@ Shader "Biathlon/AuditedSpectator"
    V o=(V)0;UNITY_SETUP_INSTANCE_ID(v);UNITY_TRANSFER_INSTANCE_ID(v,o);UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
    float3 root=TransformObjectToWorld(float3(0,0,0));float rank=frac(sin(dot(root,float3(12.9898,19.37,78.233)))*43758.5453);float phase=rank*6.2831853;
    float cheer=smoothstep(.35,.85,sin(_Motion.x*.32+phase));
-   float angle=v.pivot.w*(1-_Motion.w)*_Motion.y*(.15+cheer*(.55+.3*sin(_Motion.x*_Motion.z+phase+sign(v.pivot.x)*.35)));
-   float sn=sin(angle),cs=cos(angle);float3 p=v.positionOS.xyz-v.pivot.xyz,n=v.normalOS;
+   float active=(1-_Motion.w)*_Motion.y,side=sign(v.pivot.x);
+   float angle=saturate(v.pivot.w)*active*(.08+cheer*(.45+.22*sin(_Motion.x*_Motion.z+phase+side*.65)));
+   float3 p=v.positionOS.xyz,n=v.normalOS;
+   // Forearms bend around their own elbow before the whole arm moves at the shoulder.
+   float elbow=saturate(v.pivot.w-1)*active*cheer*(.28+.22*sin(_Motion.x*_Motion.z*1.3+phase+side));
+   float sn=sin(elbow),cs=cos(elbow);p-=v.pivot.xyz;
    p.yz=float2(cs*p.y-sn*p.z,sn*p.y+cs*p.z);n.yz=float2(cs*n.y-sn*n.z,sn*n.y+cs*n.z);p+=v.pivot.xyz;
+   float3 shoulder=float3(side*.20,.96,0);p-=shoulder;sn=sin(angle);cs=cos(angle);
+   p.yz=float2(cs*p.y-sn*p.z,sn*p.y+cs*p.z);n.yz=float2(cs*n.y-sn*n.z,sn*n.y+cs*n.z);p+=shoulder;
+   // Head and hat turn together; the collar boundary fades to zero displacement.
+   float head=smoothstep(1.08,1.18,v.positionOS.y)*(.12*sin(phase)+active*.06*sin(_Motion.x*.45+phase));
+   sn=sin(head);cs=cos(head);p.xz=float2(cs*p.x-sn*p.z,sn*p.x+cs*p.z);n.xz=float2(cs*n.x-sn*n.z,sn*n.x+cs*n.z);
+   float width=.94+.10*rank;p.x*=width;n.x/=width;
    half3 coat=rank<.2?half3(.42,.07,.075):rank<.4?half3(.06,.19,.38):rank<.6?half3(.55,.34,.10):rank<.8?half3(.66,.61,.51):half3(.10,.32,.23);
    o.cloth=float4(v.positionOS.xyz,v.color.a);o.face=v.face;o.color=lerp(v.color.rgb,v.color.rgb*coat,v.color.a);o.positionWS=TransformObjectToWorld(p);o.normalWS=TransformObjectToWorldNormal(n);o.positionCS=TransformWorldToHClip(o.positionWS);o.fog=ComputeFogFactor(o.positionCS.z);return o;
   }

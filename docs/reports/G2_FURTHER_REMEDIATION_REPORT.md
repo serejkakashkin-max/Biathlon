@@ -31,3 +31,9 @@
 Голова посажена на50mm ниже относительно cheek rest и получает12° бокового наклона. Пробный8° pitch был отклонён существующим тестом направления взгляда; pitch удалён, исходный failing result сохранён. Rifle forward, butt socket, физический sight и hit resolver не меняются. Близкие standing/prone кадры повторно осмотрены: разрыв у приклада уменьшен; финальное качество ещё оценивается в012.
 
 Unity MCP: целевые2/2, полный151/151 в139.068s после исправления pitch. Тесты проверяют всеLOD, bounded deltas, rest, фактическую baked deformation, сохранение sockets и нулевые warm allocations; существующие stance/sight/transition проверки сохранены. [Evidence](../quality/g2/joints-c/). Новый Windows/profile будет измерен вместе с010–011 в012;009B остаётся последним player profile, не выдаётся за проверку009C. Authoritative race/shooting и баланс не менялись.
+
+## 010 — силуэты и реакции зрителей
+
+Собственные зимние куртки получили талию/объём простёжки и отличающийся профиль двух вариантов. Предплечья/перчатки имеют отдельный elbow pivot с затухающим влиянием у шва; после сгиба локтя применяется движение плеча. Голова и шапка поворачиваются вместе, ширина силуэта слегка варьируется по позиции. Плотность168/quality tiers и прежние culling/LOD сохраняются. Near/far бюджеты3500/1400tri на персонажа соблюдены.
+
+Unity MCP4/4 целевых tests, включая новый контроль shoulder/elbow channels, existing bounds/face-only channels/density/zero-GC/captures. [Кадры и проверки](../quality/g2/crowd-b/). В close views остаются повтор двух лиц, простая одежда и отдельные сегменты рукавов: G2-VIS-003 улучшен, но не объявлен финальным production crowd. Новых внешних sources нет. Restricted derivatives по-прежнему ignored; обновлены только публичные recipes/source-output hashes/render images. Общий player/profile следует в012.

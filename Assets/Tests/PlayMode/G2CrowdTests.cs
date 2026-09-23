@@ -12,6 +12,21 @@ namespace Biathlon.PlayModeTests
 {
     public class G2CrowdTests
     {
+        [Test] public void SleeveChannelsKeepElbowAndShoulderPivotsDistinct()
+        {
+            for(int variant=0;variant<2;variant++)for(int lod=0;lod<2;lod++)
+            {
+                var mesh=Resources.Load<Mesh>("Biathlon/RestrictedG2Crowd/Crowd"+variant+"LOD"+lod);
+                var pivots=new List<Vector4>();mesh.GetUVs(0,pivots);int forearms=0,upper=0;
+                foreach(var p in pivots)
+                {
+                    Assert.That(p.w,Is.InRange(0,2));
+                    if(p.w>1.1f){Assert.That(p.y,Is.EqualTo(.69f).Within(.0001f));forearms++;}
+                    if(p.w==1&&p.y>.9f)upper++;
+                }
+                Assert.That(forearms,Is.GreaterThan(50));Assert.That(upper,Is.GreaterThan(50));
+            }
+        }
         [Test] public void LocalDerivativesHaveBoundedSeatedLodsAndHeadOnlyTextureChannels()
         {
             for(int variant=0;variant<2;variant++)for(int lod=0;lod<2;lod++)
