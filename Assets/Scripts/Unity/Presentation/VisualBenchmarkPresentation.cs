@@ -12,11 +12,12 @@ namespace Biathlon.Unity.Presentation
         public bool Animate,ShowControls=true;public double SampleTime=8;
         private RenderQualityPresentation quality;private WeatherPresentation weather;private LightingVisualDefinition lighting;
         private SpectatorCrowd crowd;private BroadcastCameraDirector director;
+        public G2BenchmarkBackdrop Backdrop {get;private set;}
         public VisualBenchmarkAthletes Athletes {get;private set;}
         public G2GroundDressing GroundDressing {get;private set;}
         public G2Understory Understory {get;private set;}
         public bool Ready {get;private set;}
-        public int VisibleTrees {get{int count=0;foreach(var f in Forests)count+=f.VisibleInstances;return count;}}
+        public int VisibleTrees {get{int count=Backdrop!=null?Backdrop.VisibleTrees:0;foreach(var f in Forests)count+=f.VisibleInstances;return count;}}
         public int VisibleSpectators=>crowd.Visible;
         public void Initialize()
         {
@@ -32,6 +33,7 @@ namespace Biathlon.Unity.Presentation
             }
             GroundDressing=gameObject.AddComponent<G2GroundDressing>();GroundDressing.Initialize();
             Understory=gameObject.AddComponent<G2Understory>();Understory.Initialize();
+            Backdrop=gameObject.AddComponent<G2BenchmarkBackdrop>();Backdrop.Initialize();
             Athletes=gameObject.AddComponent<VisualBenchmarkAthletes>();Athletes.Initialize(View);Athletes.SetEnvironment(new BreathEnvironment(-12,new Vector2(1,.3f)));
             director=gameObject.AddComponent<BroadcastCameraDirector>();director.Initialize(View,BroadcastShotDefinition.Load());director.Bind("athlete",Athletes.Subject);Ready=true;Seek(SampleTime);
         }
@@ -47,6 +49,8 @@ namespace Biathlon.Unity.Presentation
             if(!Ready)return;SampleTime=time;Athletes.RenderAt(time);director.Render(Shot,time);
             if(Tier!=quality.TierId)quality.Apply(Tier);
             var wind=new Vector2(1,.3f);weather.Render(WeatherPreset,Tier,time,wind,VisualBenchmarkAthletes.Height(View.transform.position),lighting.Get(LightingPreset));
+            Backdrop.ApplyAtmosphere(WeatherPreset);
+            Backdrop.RenderTrees(View);
             foreach(var f in Forests)f.Render(View,Tier,(float)time,wind);GroundDressing.Render(View);Understory.Render(View);crowd.Render(View,Tier,(float)time);
         }
         private void LateUpdate(){if(!Ready)return;double next=Animate?SampleTime+Time.deltaTime:SampleTime;if(next>3600)Seek(0);else RenderFrame(next);}

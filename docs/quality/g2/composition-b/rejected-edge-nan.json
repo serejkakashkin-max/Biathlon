@@ -1,0 +1,41 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":154,\"PassedTests\":0,\"FailedTests\":2,\"SkippedTests\":0,\"Duration\":\"00:00:03.1222577\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.G2BackdropTests.DistantLandscapeIsBoundedUpwardAndOutsideEveryRouteSegment\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0200000\",\"Message\":\"  Expected: True\\r\\n  But was:  False\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.G2BackdropTests.DistantLandscapeIsBoundedUpwardAndOutsideEveryRouteSegment () [0x0004b] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\G2BackdropTests.cs:19\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.G2BackdropTests.IntegratedBackdropKeepsWeatherStableAndHasNoGameplayColliders\",\"Status\":\"Failed\",\"Duration\":\"00:00:03.0670000\",\"Message\":\"Unhandled log message: \\u0027[Error] Mesh \\u0027Original distant winter basin\\u0027: abnormal mesh bounds - most likely it has some invalid vertices (\\u002B/-inifinity or NANs) due to errors exporting.\\nMesh bounds min=(-480.00, -nan(ind), -515.00), max=(480.00, -nan(ind), 445.00). Please make sure the mesh is exported without any errors.\\u0027. Use UnityEngine.TestTools.LogAssert.Expect\",\"StackTrace\":\"UnityEditor.GUIView:ProcessEvent (UnityEngine.EntityId,intptr,bool\\u0026)\\r\\n\\r\\n\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 154,
+          "PassedTests": 0,
+          "FailedTests": 2,
+          "SkippedTests": 0,
+          "Duration": "00:00:03.1222577"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.G2BackdropTests.DistantLandscapeIsBoundedUpwardAndOutsideEveryRouteSegment",
+            "Status": "Failed",
+            "Duration": "00:00:00.0200000",
+            "Message": "  Expected: True\r\n  But was:  False\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.G2BackdropTests.DistantLandscapeIsBoundedUpwardAndOutsideEveryRouteSegment () [0x0004b] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\G2BackdropTests.cs:19\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.G2BackdropTests.IntegratedBackdropKeepsWeatherStableAndHasNoGameplayColliders",
+            "Status": "Failed",
+            "Duration": "00:00:03.0670000",
+            "Message": "Unhandled log message: '[Error] Mesh 'Original distant winter basin': abnormal mesh bounds - most likely it has some invalid vertices (+/-inifinity or NANs) due to errors exporting.\nMesh bounds min=(-480.00, -nan(ind), -515.00), max=(480.00, -nan(ind), 445.00). Please make sure the mesh is exported without any errors.'. Use UnityEngine.TestTools.LogAssert.Expect",
+            "StackTrace": "UnityEditor.GUIView:ProcessEvent (UnityEngine.EntityId,intptr,bool&)\r\n\r\n"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}
