@@ -99,6 +99,7 @@ namespace Biathlon.PlayModeTests
                     }
                     void SubmitEnvironment(double time)
                     {
+                        p.Backdrop.RenderTrees(p.View);
                         foreach(var f in p.Forests)f.Render(p.View,p.Tier,(float)time,new Vector2(1,.3f));p.GroundDressing.Render(p.View);p.Understory.Render(p.View);p.GetComponent<SpectatorCrowd>().Render(p.View,p.Tier,(float)time);
                     }
                 }

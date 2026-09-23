@@ -1,4 +1,6 @@
-# G2 — итоговый benchmark review
+# G2 — исторический benchmark review008A
+
+> Актуальный пакет после дальнейших доработок: [review012](G2_REVIEW_012.md). Этот документ и008Acaptures сохранены как исходное сравнение.
 
 23 сентября 2026. **Рекомендация: G2 FAIL / more remediation needed.** Пакет проверки G2-VR-008A готов; визуальная цель remediation не достигнута. G2 остаётся NOT APPROVED. Остановка перед решением владельца, согласно шагу9 [директивы](../owner/CODEX_POST_WP166_G2_VISUAL_REMEDIATION_DIRECTIVE_RU.md). M13/WP167 не начаты; Master Plan не изменён.
 

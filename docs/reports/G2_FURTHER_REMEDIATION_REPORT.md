@@ -51,3 +51,9 @@ Benchmark-only fog distance в ясную погоду расширен в2.7р�
 В012 close capture выявлены складки-«плавники» у плеч. Recipe независимо проецировал два края ленты на соседние поверхности, а противоположные совпадающие грани ухудшали нормали. Лента теперь строится от сглаженной центральной линии с общими весами на сечение, без дублированной обратной грани. ТриLOD пересозданы; updated hero derivation/runtime hashes сохранены. [Тот же close ракурс до/после, изолированный вид, тесты](../quality/g2/harness-d/).
 
 Hero6/6 и полный155/155(144.852s) PASS. Новый тест запрещает совпадающие обратные треугольники ремней. Изображение стало ровнее; тонкая подгонка bib/harness на всех крайних позах остаётся художественным ограничением. Это найденный review defect, не скрытый tuning. Финальный player/profile012 повторяется после этой геометрии; прежние замеры не выдаются за окончательные.
+
+## 012 — повторный integrated owner package
+
+Финальные155/155 PlayMode, Windows hidden9/9,10cases без observable budget FAIL (max2791998tri,109SetPass,1246draw calls,main p95max1.571ms), build0errors/0warnings; Console после build0/0. GPU/render-thread/batches UNAVAILABLE. Галерея45matched008A/012pairs,48motionframes/2s,rewind equality;393buildfiles скопированы с проверкой SHA-256. [Полный review012](G2_REVIEW_012.md). Новых third-party sources нет; restricted payload не tracked.
+
+Запрошенные checkpoints завершены, художественный target не объявлен достигнутым. **Recommend G2 FAIL / more remediation needed. STOP / WAITING_OWNER_G2.** M13/WP167 не начаты; OWNER-FEEL-001 OPEN.

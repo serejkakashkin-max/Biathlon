@@ -3,24 +3,24 @@
 Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs.
 
 ```yaml
-project_phase: post-WP166 / pre-G2 further visual remediation authorized2026-09-23; visual targets unmet; M12 technical work complete with profiling/visual actions; M11 PASS WITH ACTIONS; M10 owner-approved
-active_work_package: G2-VR-012 integrated owner review; M13/WP167 BLOCKED_G2
-active_task: G2-VR-012 Windows/profile/captures and owner decision package
-last_completed_task: G2-VR-009D review-found harness folds fixed;hero6/6,full155/155; final012 packaging
-last_verified_commit: 6e373909e22c23a8776715acc04bb447c1a7e1cc;011 verified on origin
+project_phase: post-WP166 / pre-G2;012 review complete, visual target unmet; STOP WAITING_OWNER_G2; M13/WP167 blocked
+active_work_package: G2 owner review012; M13/WP167 BLOCKED_G2
+active_task: WAITING_OWNER_G2 decision on docs/reports/G2_REVIEW_012.md
+last_completed_task: G2-VR-012 integrated review; full155/155,hidden9/9,10observable budgets PASS; recommend G2 FAIL
+last_verified_commit: af271ddd2349c871386477005d0799bea29961f0;009D verified on origin;012 publication follows
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: 550 discovered; WP159 observations4/4 PASS; WP151 observations4/4 PASS; WP141 observations4/4; WP138 grid5/5; prior qualification4/4; prior player-pack2/2; prior HUD1/1; prior penalty10/10; prior shooting/session5/5; prior snapshot1/1, device8/8; M9 actual-season byte parity PASS
 playmode_tests: G2-VR009D full155/155,hero6/6 PASS; G2-VR011 full154/154,target2/2 PASS; G2-VR010 targeted4/4 PASS; G2-VR009C full151/151,target2/2 PASS; G2-VR009B full149/149, targeted3/3,preview3/3 PASS; G2-VR009A full146/146, appearance2/2,hero5/5,profiler3/3 PASS; G2-VR008A focused1/1 PASS (144 discovered, not full144); G2-VR007A full143/143, focused3/3 PASS; G2-VR006A full140/140, focused3/3 PASS; G2-VR005B full137/137, focused3/3 PASS; G2-VR005A full134/134 twice (before/after shader), focused3/3 PASS; G2-VR004G full131/131, focused3/3 PASS; G2-VR004F full128/128, focused3/3 PASS; G2-VR004E full125/125, shadow4/4, probe3/3 PASS; G2-VR004D full118/118 and focused4/4 PASS; G2-VR004C full114/114 and focused3/3 PASS; G2-VR004B full111/111 and final4/4 PASS; G2-VR004A full107/107 PASS; G2-VR003A full104/104 and focused3/3 PASS; G2-VR002B full101/101 and focused5/5 PASS; G2-VR002A full99/99 and final3/3 PASS; WP166 full96/96 and final focused3/3 PASS; WP164 full93/93 PASS; WP163 full90/90 PASS; WP162 full86/86 PASS; WP161 full83/83 PASS; WP160 full78/78 PASS and final focused4/4; WP159 full74/74 PASS and final focused4/4; WP158 full70/70 PASS; WP157 full66/66 PASS; WP156 full63/63 PASS and final focused3/3; WP155 full60/60 PASS; WP154 full57/57 PASS; WP153 full53/53 PASS; WP152 full51/51 PASS; WP151 full48/48 PASS; WP150 full46/46 PASS; WP149 full44/44 PASS; WP148 full42/42 PASS; WP147 full39/39 PASS; WP146 full38/38 PASS; WP145 full37/37 PASS; WP144 full36/36 PASS; WP143 full33/33 PASS; WP142 full30/30 PASS; WP141 full28/28 PASS; WP140 full25/25 PASS; prior WP139 evidence1/1 (24 discovered); prior full30 host1/1; prior Sprint-Pursuit chain1/1; prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
 standalone_tests: WP159 observations4/4 PASS; WP151 observations/snapshots5/5 PASS; WP141 observations/regression19/19; WP138 grid/results7/7; WP137 qualification/field6/6; WP136 player-pack/snapshot3/3; WP135 HUD/snapshot2/2; WP134 penalty10/10; WP133 aim/session10/10; WP130 input/replay11/11; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
-unity_console_errors: 0 after G2-VR-009B verification
-unity_console_warnings: 1 post-test MCP disposal warning; compilation_failed=false; two existing CS0618 warnings separately recorded during test compilation
-current_known_blockers: [] # Owner authorized further remediation; G2/M13 remain unapproved.
+unity_console_errors: 0 after final012 build; compilation_failed=false
+unity_console_warnings: 0 after final012 build; capture0errors/3warnings retained; existing editor analyzer/obsolete and MCP lifecycle warnings documented
+current_known_blockers: [OWNER_G2_DECISION_REQUIRED; visual target unmet, no M13 authorization]
 owner_gate_g1: APPROVED 2026-09-13; owner hands-on Windows greybox Sprint and Pursuit
-owner_gate_g2: NOT APPROVED;008A recommended FAIL; owner authorized further remediation2026-09-23, next decision after corrections
-owner_decisions_needed: [] # Further remediation authorized2026-09-23; next G2 review after corrections.
+owner_gate_g2: NOT APPROVED;012 recommends FAIL / more remediation needed; STOP awaiting new owner decision
+owner_decisions_needed: [G2 decision on review012; no automatic PASS or M13]
 free_asset_authorization: APPROVED 2026-09-23; may search/download/use better free assets after source/license/de-branding audit; docs/owner/FREE_ASSET_AUTHORIZATION_2026-09-23.md
 owner_gameplay_feel_issues: [OWNER-FEEL-001 player shooting feels too easy; OPEN; required WP229/WP230/WP232 review]
-next_unlocked_work_packages: [G2-VR-009 hero/motion, G2-VR-010 crowd, G2-VR-011 composition, G2-VR-012 review] # owner/G2_FURTHER_REMEDIATION_2026-09-23.md
+next_unlocked_work_packages: [] #009–012 requested checkpoints delivered; next owner G2 decision
 ```
 
 ## Work packages
@@ -342,3 +342,5 @@ WP139 visual finding: coplanar schematic ribbons overlap near the penalty loop; 
 - G2-VR-011 DONE as corrective checkpoint: distant basin/forest/service shelters, benchmark-only atmospheric depth;full154/154,target2/2. Profile and final acceptance follow in012.
 
 - G2-VR-009D DONE: final review-found harness edge projection/duplicate-face defect fixed;hero6/6,full155/155. New source imports:none; runtime/derivation hashes updated.
+
+- G2-VR-012 DONE as review package, not visual acceptance:45matched008A/012 camera pairs,48motion frames,rewind pixel parity; full155/155,hero6/6,hidden9/9,10observable budgets PASS(max2791998tri/109SetPass;GPU unavailable). Local build Builds/G2OwnerReview-20260923-012/Windows verified393files. Recommend G2 FAIL; STOP awaiting owner. Master Plan unchanged, M13 blocked, OWNER-FEEL-001 OPEN. See reports/G2_REVIEW_012.md.

@@ -14,10 +14,10 @@
 | G2-VR-006 | Crowd: ограниченное число адаптированных людей, LOD/вариации, интеграция без раскрытия restricted mesh data | Локальный reproducible conversion recipe, credits, runtime/render checks; restricted sources/derivatives исключены из public Git | 006A technical checkpoint DONE; close quality OPEN |
 | G2-VR-007 | Свет/атмосфера и целостность benchmark | Snow/skin/forest exposure, silhouette, haze, weather, chase/shooting cameras; offscreen captures | 007A technical DONE;008A reviewed, visual actions OPEN |
 | G2-VR-008 | Новый benchmark owner review package и честная self-review | Итоговые build/captures/tests/profiling, attribution, G2_VISUAL_BENCHMARK_REVIEW.md, G2_OPEN_ITEMS.md, PROJECT_STATE | 008A DONE2026-09-23; recommend FAIL; STOP / WAITING_OWNER_G2 |
-| G2-VR-009 | Hero appearance, ski poling/weight transfer/contact, joint and rifle-body refinement | Focused + full tests, pose/motion captures, no authoritative changes | ACTIVE by owner instruction2026-09-23 |
-| G2-VR-010 | Crowd winter silhouettes and bounded reactions | Restricted-data boundary, LOD, close captures and budgets | NEXT |
-| G2-VR-011 | Distant terrain, stadium composition and lighting continuity | Benchmark-only, camera/corridor guards, same profiling matrix | NEXT |
-| G2-VR-012 | Повторный integrated review после доработок | New capture/build evidence, honest recommendation, G2 owner gate | AFTER009–011 |
+| G2-VR-009 | Hero appearance, ski poling/weight transfer/contact, joint and rifle-body refinement | Focused + full tests, pose/motion captures, no authoritative changes |009A–D corrective checkpoints DONE;012 visual target remains UNMET |
+| G2-VR-010 | Crowd winter silhouettes and bounded reactions | Restricted-data boundary, LOD, close captures and budgets | DONE; evidence/report009–012 |
+| G2-VR-011 | Distant terrain, stadium composition and lighting continuity | Benchmark-only, camera/corridor guards, same profiling matrix | DONE; evidence/report009–012 |
+| G2-VR-012 | Повторный integrated review после доработок | New capture/build evidence, honest recommendation, G2 owner gate | DONE2026-09-23; recommend FAIL; STOP / WAITING_OWNER_G2 |
 
 ## Правила исполнения
 
@@ -40,3 +40,5 @@ Hero сохраняет архитектуру ADR-0020: presentation-only rig, 
 2026-09-23: [008A integrated review](G2_VISUAL_BENCHMARK_REVIEW.md) выполнен:45stills,30before/after,48motion frames,focused1/1 PASS; prior runtime143/143/hidden9/9. **Review package завершён, visual remediation не объявляется успешной.** Рекомендация FAIL; owner gate STOP. Прежние «далее008» выше — последовательность технических checkpoints, уже выполненная. Hero/animation/crowd/composition actions остаются открытыми. Разрешение владельца на дополнительные бесплатные ассеты записано отдельно в owner/FREE_ASSET_AUTHORIZATION_2026-09-23.md.
 
 Hero/animation/environment/event/crowd/lighting представлены совместно в benchmark, а не только isolated assets. Review показывает chase, dedicated shooting camera и близкие планы с одинаково честной подачей, список использованных источников/изменений, technical evidence и remaining issues. Сравнение с owner references/NGL2026 должно оценивать фактическое изображение, а не объём импорта. Если результат остаётся слабым, рекомендация — FAIL/ещё доработка. **G2 утверждает только owner; WP167/M13 остаётся BLOCKED_G2.**
+
+Final009–012 result: [review012](G2_REVIEW_012.md), [gallery](../quality/g2/owner-review-012/index.html). All requested corrective checkpoints delivered; production-quality target remains unmet and owner gate is open.
