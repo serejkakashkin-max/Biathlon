@@ -239,19 +239,26 @@ for side in (-1,1):
     for a,b in zip(path,path[1:]):
         for step in range(8):centres.append(Vector(a).lerp(Vector(b),step/8))
     centres.append(Vector(path[-1]))
+    # Fit one centre per cross-section. Independently projecting the two edges can
+    # snap one onto the upper arm and the other onto the bib, creating folded fins.
+    fitted=[surface_tree.find_nearest(blender(p)) for p in centres]
+    points=[p+n*.012 for p,n,_,_ in fitted]
+    for iteration in range(3):
+        points=[points[0]]+[(points[i-1]+points[i]*2+points[i+1])/4 for i in range(1,len(points)-1)]+[points[-1]]
     verts=[];faces=[];skin_weights=[]
-    for x,y,z in centres:
+    for index,(nearest,normal,face,_) in enumerate(fitted):
+        tangent=(points[min(index+1,len(points)-1)]-points[max(0,index-1)]).normalized()
+        width=normal.cross(tangent).normalized()
+        if width.x<0:width=-width
+        triangle=surface_faces[face]
+        bary=barycentric_transform(nearest,*(surface_vertices[i] for i in triangle),Vector((1,0,0)),Vector((0,1,0)),Vector((0,0,1)))
+        w={}
+        for i,factor in zip(triangle,bary):
+            for bone,weight in surface_weights[i].items():w[bone]=w.get(bone,0)+max(0,factor)*weight
         for edge in (-.014,.014):
-            nearest,normal,face,_=surface_tree.find_nearest(blender((x+edge,y,z)))
-            verts.append(nearest+normal*.012)
-            triangle=surface_faces[face]
-            bary=barycentric_transform(nearest,*(surface_vertices[i] for i in triangle),Vector((1,0,0)),Vector((0,1,0)),Vector((0,0,1)))
-            w={}
-            for i,factor in zip(triangle,bary):
-                for bone,weight in surface_weights[i].items():w[bone]=w.get(bone,0)+max(0,factor)*weight
-            skin_weights.append(w)
+            verts.append(points[index]+width*edge);skin_weights.append(w)
     for i in range(len(centres)-1):
-        a=i*2;faces.extend([(a,a+1,a+3,a+2),(a+2,a+3,a+1,a)])
+        a=i*2;faces.append((a,a+1,a+3,a+2))
     mesh=bpy.data.meshes.new('OriginalHarness');mesh.from_pydata(verts,[],faces);mesh.update()
     harness=bpy.data.objects.new('OriginalHarness',mesh);bpy.context.collection.objects.link(harness)
     for mat in body.data.materials:mesh.materials.append(mat)

@@ -111,6 +111,20 @@ namespace Biathlon.PlayModeTests
             finally { Object.DestroyImmediate(rig.gameObject); }
         }
 
+        [Test] public void ShoulderHarnessHasNoOpposedDuplicateFaces()
+        {
+            var mesh=Resources.Load<Mesh>(Root+"Meshes/HeroLOD0");var vertices=mesh.vertices;var indices=mesh.GetTriangles(4);
+            var faces=new System.Collections.Generic.HashSet<string>();int checkedFaces=0;
+            for(int i=0;i<indices.Length;i+=3)
+            {
+                var a=vertices[indices[i]];var b=vertices[indices[i+1]];var c=vertices[indices[i+2]];var centre=(a+b+c)/3;
+                if(centre.y<1.15f||centre.y>1.55f||Mathf.Abs(centre.x)>.25f||Mathf.Abs(centre.z)>.3f)continue;
+                var points=new[]{a.ToString("F5"),b.ToString("F5"),c.ToString("F5")};System.Array.Sort(points,System.StringComparer.Ordinal);
+                Assert.That(faces.Add(string.Join("/",points)),Is.True,"Coincident reverse-winding ribbon faces cancel smooth normals.");checkedFaces++;
+            }
+            Assert.That(checkedFaces,Is.GreaterThan(30));
+        }
+
         [UnityTest]
         public IEnumerator ExistingMotionContractDeformsHeroAndCapturesReviewFrames()
         {
