@@ -51,6 +51,13 @@ namespace Biathlon.PlayModeTests
             var fog=RenderSettings.fogColor;
             var scene=UnityEditor.SceneManagement.EditorSceneManager.LoadSceneInPlayMode("Assets/Scenes/VisualBenchmark.unity",new LoadSceneParameters(LoadSceneMode.Additive));yield return null;
             var p=Object.FindFirstObjectByType<VisualBenchmarkPresentation>();Assert.That(p,Is.Not.Null);Assert.That(p.Ready,Is.True);p.ShowControls=false;
+            Assert.That(p.View.isActiveAndEnabled,Is.True,"Normal benchmark startup must enable its window camera.");
+            Assert.That(p.View.targetTexture,Is.Null,"Interactive review renders to the window.");
+            int rendered=0;
+            void Observe(UnityEngine.Rendering.ScriptableRenderContext context,Camera camera){if(camera==p.View)rendered++;}
+            UnityEngine.Rendering.RenderPipelineManager.endCameraRendering+=Observe;
+            try{yield return null;yield return null;Assert.That(rendered,Is.GreaterThan(0),"URP must actually render the interactive benchmark camera.");}
+            finally{UnityEngine.Rendering.RenderPipelineManager.endCameraRendering-=Observe;}
             Assert.That(p.Athletes.Count,Is.EqualTo(10));long source=p.Athletes.SourceTick;Assert.That(source,Is.EqualTo(400));
             foreach(string shot in new[]{"sector","athlete","rail"}){p.Shot=shot;p.Seek(8);Assert.That(p.Athletes.MaximumFootResidual,Is.LessThan(.002f));Assert.That(p.Athletes.SourceTick,Is.EqualTo(source));}
             foreach(string tier in new[]{"low","balanced","high"}){p.Tier=tier;p.RenderFrame(8);Assert.That(p.VisibleSpectators,Is.GreaterThan(0));}

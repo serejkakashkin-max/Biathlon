@@ -41,7 +41,7 @@ namespace Biathlon.Unity.Presentation
             Screen.SetResolution(settings.width,settings.height,FullScreenMode.Windowed);
             yield return SceneManager.LoadSceneAsync("VisualBenchmark");yield return null;
             var p=FindAnyObjectByType<VisualBenchmarkPresentation>();if(p==null||!p.Ready)throw new InvalidOperationException("Benchmark initialization failed.");
-            p.ShowControls=false;p.Animate=false;p.enabled=false;
+            p.ShowControls=false;p.Animate=false;p.enabled=false;p.View.enabled=false;
             // CPU vegetation/crowd culling must use the target frustum too, even when
             // the OS constrains the hidden window independently of the offscreen image.
             p.View.aspect=(float)settings.width/settings.height;

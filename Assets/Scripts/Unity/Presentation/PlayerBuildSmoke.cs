@@ -68,6 +68,15 @@ namespace Biathlon.Unity.Presentation
         }
         private IEnumerator Start()
         {
+            yield return null;
+            string startup=SceneManager.GetActiveScene().name;
+            if(startup=="VisualBenchmark")
+            {
+                var preview=FindAnyObjectByType<VisualBenchmarkPresentation>();
+                if(preview==null||!preview.Ready||!preview.View.isActiveAndEnabled||preview.View.targetTexture!=null||!preview.ShowControls)
+                {failed=true;Debug.LogError("Visual review startup requires an active window camera and review controls.");}
+                else Debug.Log("BIATHLON_SMOKE_STARTUP VisualBenchmark CAMERA_ACTIVE CONTROLS_VISIBLE");
+            }
             foreach (string scene in new[] { "PlayableSprint", "PlayableMassStart" })
             {
                 if (SceneManager.GetActiveScene().name != scene) yield return SceneManager.LoadSceneAsync(scene);
@@ -94,7 +103,7 @@ namespace Biathlon.Unity.Presentation
             var benchmark=FindAnyObjectByType<VisualBenchmarkPresentation>();
             foreach(string tier in new[]{"low","balanced","high"})
             {
-                try{if(benchmark==null||!benchmark.Ready||benchmark.Athletes.Count!=10)throw new InvalidOperationException("Integrated benchmark is missing.");benchmark.Tier=tier;benchmark.ShowControls=false;benchmark.Shot="athlete";benchmark.Seek(8);}
+                try{if(benchmark==null||!benchmark.Ready||benchmark.Athletes.Count!=10)throw new InvalidOperationException("Integrated benchmark is missing.");benchmark.View.enabled=false;benchmark.Tier=tier;benchmark.ShowControls=false;benchmark.Shot="athlete";benchmark.Seek(8);}
                 catch(Exception ex){failed=true;Debug.LogException(ex);}yield return null;yield return RenderAndVerify(benchmark.View,"VisualBenchmark",tier);Debug.Log("BIATHLON_SMOKE_BENCHMARK "+tier);
             }
             Debug.Log(failed ? "BIATHLON_SMOKE_FAIL" : "BIATHLON_SMOKE_PASS");

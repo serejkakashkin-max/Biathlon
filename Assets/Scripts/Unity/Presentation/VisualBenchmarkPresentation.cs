@@ -37,7 +37,8 @@ namespace Biathlon.Unity.Presentation
             Athletes=gameObject.AddComponent<VisualBenchmarkAthletes>();Athletes.Initialize(View);Athletes.SetEnvironment(new BreathEnvironment(-12,new Vector2(1,.3f)));
             director=gameObject.AddComponent<BroadcastCameraDirector>();director.Initialize(View,BroadcastShotDefinition.Load());director.Bind("athlete",Athletes.Subject);Ready=true;Seek(SampleTime);
         }
-        private void Start(){if(!Ready)Initialize();}
+        // Authored camera starts disabled for Edit Mode captures. Interactive play must render to the window.
+        private void Start(){if(!Ready)Initialize();View.enabled=true;}
         public void Seek(double time)
         {
             if(!Ready)throw new System.InvalidOperationException("Initialize benchmark first.");SampleTime=time;
