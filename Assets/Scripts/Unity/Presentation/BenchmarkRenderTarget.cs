@@ -11,6 +11,8 @@ namespace Biathlon.Unity.Presentation
     {
         private RenderTexture target;
         private Camera queuedCamera;
+        public int Width => target!=null?target.width:throw new ObjectDisposedException(nameof(BenchmarkRenderTarget));
+        public int Height => target!=null?target.height:throw new ObjectDisposedException(nameof(BenchmarkRenderTarget));
         private readonly UniversalRenderPipeline.SingleCameraRequest request=new UniversalRenderPipeline.SingleCameraRequest();
         public BenchmarkRenderTarget(int width,int height)
         {

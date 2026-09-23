@@ -23,6 +23,7 @@ namespace Biathlon.Unity.Presentation
             if (properties == null) properties = new MaterialPropertyBlock();
             body.GetPropertyBlock(properties,materialIndex); properties.SetFloat(NumberProperty,number);
             body.SetPropertyBlock(properties,materialIndex); Number=number;
+            var appearance=GetComponent<AthleteAppearancePresentation>();if(appearance!=null)appearance.Apply(number);
         }
     }
 }

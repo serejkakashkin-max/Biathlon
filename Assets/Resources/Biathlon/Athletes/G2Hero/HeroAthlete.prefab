@@ -1144,6 +1144,7 @@ GameObject:
   - component: {fileID: 6685739874626453034}
   - component: {fileID: 1942069230247102723}
   - component: {fileID: 6454471350779079322}
+  - component: {fileID: 9009764346613438274}
   m_Layer: 0
   m_Name: HeroAthlete
   m_TagString: Untagged
@@ -1319,6 +1320,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteGripPresentation
   supportRifleEuler: {x: -90, y: 0, z: 0}
   triggerRifleEuler: {x: 0, y: 0, z: 0}
+--- !u!114 &9009764346613438274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6310867250616634142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2da55bf0e419ad4199cc2196fbd5295, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Biathlon.Unity.Presentation::Biathlon.Unity.Presentation.AthleteAppearancePresentation
 --- !u!1 &6646540620618126452
 GameObject:
   m_ObjectHideFlags: 0

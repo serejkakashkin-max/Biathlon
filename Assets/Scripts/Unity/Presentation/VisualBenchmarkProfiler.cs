@@ -42,6 +42,9 @@ namespace Biathlon.Unity.Presentation
             yield return SceneManager.LoadSceneAsync("VisualBenchmark");yield return null;
             var p=FindAnyObjectByType<VisualBenchmarkPresentation>();if(p==null||!p.Ready)throw new InvalidOperationException("Benchmark initialization failed.");
             p.ShowControls=false;p.Animate=false;p.enabled=false;
+            // CPU vegetation/crowd culling must use the target frustum too, even when
+            // the OS constrains the hidden window independently of the offscreen image.
+            p.View.aspect=(float)settings.width/settings.height;
             UnityEngine.Profiling.Profiler.enabled=true;
             UnityEngine.Profiling.Profiler.SetAreaEnabled(UnityEngine.Profiling.ProfilerArea.Rendering,true);
             UnityEngine.Profiling.Profiler.SetAreaEnabled(UnityEngine.Profiling.ProfilerArea.GPU,true);
@@ -61,8 +64,8 @@ namespace Biathlon.Unity.Presentation
                     double time=settings.start_time+(settings.warmup_frames+8+i)*settings.step_seconds;p.RenderFrame(time);target.Render(p.View);counters.Request();yield return null;
                     samples[i]=counters.Read(i,time,Time.unscaledDeltaTime*1000.0);
                 }
-                if(Screen.width!=settings.width||Screen.height!=settings.height)throw new InvalidOperationException("Actual player resolution differs from profiling definition.");
-                var evidence=new CaseEvidence{case_id=c.id,definition_id=settings.id,tier=c.tier,shot=c.shot,weather=c.weather,lighting=c.lighting,width=Screen.width,height=Screen.height,
+                if(target.Width!=settings.width||target.Height!=settings.height)throw new InvalidOperationException("Actual offscreen target differs from profiling definition.");
+                var evidence=new CaseEvidence{case_id=c.id,definition_id=settings.id,tier=c.tier,shot=c.shot,weather=c.weather,lighting=c.lighting,width=target.Width,height=target.Height,window_width=Screen.width,window_height=Screen.height,camera_aspect=p.View.aspect,
                     unity=Application.unityVersion,gpu=SystemInfo.graphicsDeviceName,cpu=SystemInfo.processorType,api=SystemInfo.graphicsDeviceType.ToString(),ram_mb=SystemInfo.systemMemorySize,vram_mb=SystemInfo.graphicsMemorySize,
                     warmup_frames=settings.warmup_frames+8,frame_timing_enabled=counters.TimingEnabled,source_tick=p.Athletes.SourceTick,athletes=p.Athletes.Count,visible_trees=p.VisibleTrees,visible_spectators=p.VisibleSpectators,samples=samples,
                     diagnostic_only=probe.IsDiagnostic,diagnostic_probe=probe.Name};
@@ -76,7 +79,8 @@ namespace Biathlon.Unity.Presentation
         [Serializable] private sealed class CaseEvidence
         {
             public int schema_version=1;public string id="visual_benchmark_frame_samples_v1",case_id,definition_id,tier,shot,weather,lighting,unity,gpu,cpu,api;
-            public int width,height,ram_mb,vram_mb,warmup_frames,athletes,visible_trees,visible_spectators;public bool frame_timing_enabled;public long source_tick;
+            public int width,height,window_width,window_height,ram_mb,vram_mb,warmup_frames,athletes,visible_trees,visible_spectators;public bool frame_timing_enabled;public long source_tick;
+            public float camera_aspect;
             public bool diagnostic_only;public string diagnostic_probe;
             public string render_mode="explicit URP SingleCameraRequest to offscreen RenderTexture; hidden window, no onscreen presentation/HUD cost; Rendering/GPU profiler enabled";
             public string timing_note="FrameTimingManager is delayed; counters/wall time are recent frames. -1 means unavailable or repeated timing timestamp. Timing includes waits; no deep profiling.";

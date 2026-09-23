@@ -86,7 +86,10 @@ namespace Biathlon.Unity
                     string path = DirectoryPath + "/Materials/" + data.materials[i] + ".mat";
                     var mat = AssetDatabase.LoadAssetAtPath<Material>(path);
                     if (mat == null) { mat = new Material(Resources.Load<Material>("Biathlon/GreyboxLit")); AssetDatabase.CreateAsset(mat, path); }
+                    if(i!=2)mat.shader=Shader.Find("Biathlon/AthleteSurface");
+                    if(mat.shader==null)throw new InvalidDataException("Hero surface shader missing.");
                     mat.name = data.materials[i]; mat.color = colors[i]; mat.SetColor("_BaseColor", colors[i]);
+                    if(i!=2){mat.SetFloat("_SurfaceKind",i==3?1:i==7?2:i==4||i==5?3:0);mat.SetFloat("_KitWeight",i==1||i==6?1:i==0?.12f:0);}
                     mat.SetFloat("_Smoothness", i == 7 ? .92f : i == 3 ? .28f : i == 5 ? .35f : .16f);
                     mat.SetFloat("_Metallic", i == 7 ? .7f : i == 5 ? .15f : 0); mat.enableInstancing = true;
                     if (i == 7) { mat.SetFloat("_Cull", 0); mat.doubleSidedGI = true; }
@@ -111,6 +114,7 @@ namespace Biathlon.Unity
                 rig.gameObject.AddComponent<AthleteSkinDetailBinding>().Configure(skin, lodMeshes, 12, 45, 2);
                 rig.gameObject.AddComponent<AthleteBibPresentation>().Configure(skin,2);
                 rig.gameObject.AddComponent<AthleteGripPresentation>();
+                rig.gameObject.AddComponent<AthleteAppearancePresentation>();
                 G2RifleAuthoring.Apply(rig);
                 skin.name = "Continuous athlete body"; rig.name = "G2 benchmark hero athlete";
                 PrefabUtility.SaveAsPrefabAsset(rig.gameObject, PrefabPath);
@@ -153,6 +157,7 @@ namespace Biathlon.Unity
                 foreach (int i in indices) if (i < 0 || i >= count) throw new InvalidDataException("Triangle outside vertex buffer.");
                 mesh.SetTriangles(indices, sub);
             }
+            mesh.SetUVs(1,vertices); // Bind-space material coordinates, preserved by every LOD.
             mesh.RecalculateBounds(); mesh.RecalculateTangents(); return mesh;
         }
     }

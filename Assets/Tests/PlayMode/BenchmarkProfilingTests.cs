@@ -14,7 +14,7 @@ namespace Biathlon.PlayModeTests
             var go=new GameObject("Offscreen profiling test");var camera=go.AddComponent<Camera>();
             camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=Color.red;camera.cullingMask=0;
             var previous=new RenderTexture(64,64,24);camera.targetTexture=previous;
-            var target=new BenchmarkRenderTarget(64,64);var image=new Texture2D(2,2);
+            var target=new BenchmarkRenderTarget(96,64);var image=new Texture2D(2,2);
             string path=System.IO.Path.Combine(Application.temporaryCachePath,"biathlon-profile-target-test.png");
             try
             {
@@ -23,6 +23,8 @@ namespace Biathlon.PlayModeTests
                 Assert.That(camera.targetTexture,Is.SameAs(previous));
                 yield return null;yield return null;yield return null;
                 target.SavePng(path);Assert.That(image.LoadImage(System.IO.File.ReadAllBytes(path)),Is.True);
+                Assert.That(image.width,Is.EqualTo(target.Width));Assert.That(image.height,Is.EqualTo(target.Height));
+                Assert.That(target.Width,Is.EqualTo(96));Assert.That(target.Height,Is.EqualTo(64));
                 var pixel=image.GetPixel(32,32);Assert.That(pixel.r,Is.GreaterThan(.8f));Assert.That(pixel.g,Is.LessThan(.1f));
                 target.Dispose();Assert.That(camera.targetTexture,Is.SameAs(previous));target.Dispose();
                 Assert.That(CountRenderLeases(),Is.EqualTo(leases));

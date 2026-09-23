@@ -1,6 +1,6 @@
 # G2 Open Items
 
-2026-09-23. G2 **NOT APPROVED / OWNER REVIEW READY**. [Итоговый review](G2_VISUAL_BENCHMARK_REVIEW.md) рекомендует **FAIL / more remediation needed**. M13/WP167 BLOCKED_G2.
+2026-09-23. G2 **NOT APPROVED / FURTHER REMEDIATION ACTIVE**. После [008A review](G2_VISUAL_BENCHMARK_REVIEW.md) с рекомендацией FAIL владелец [поручил выполнить доработки](../owner/G2_FURTHER_REMEDIATION_2026-09-23.md). M13/WP167 BLOCKED_G2.
 
 | ID | Issue / evidence | Required next action | Status |
 |---|---|---|---|
@@ -13,6 +13,6 @@
 | G2-LIC-002 | Used goggles/fir/pine/stand CC BY notices and modifications shipped; CC0/crowd/sky sources recorded; integrated views reviewed for branding | Preserve notices/modification records on further imports; audit final release distribution | DONE for selected current imports; release audit pending |
 | G2-ASSET-001 | 4 Unity Asset Store entries are metadata only; Anderson Rohr pack needs manual action | Optional deferred alternatives; not a blocker while approved staged alternatives suffice | DEFERRED |
 | OWNER-FEEL-001 | Owner: player shooting feels too easy | Mandatory gameplay-feel/difficulty/race-balance review at WP229/WP230/WP232; physical/geometric shots, no hidden RNG, no covert M11/remediation tuning | OPEN |
-| G2-OWNER-001 |008A review ready:45stills,30before/after comparisons,48motion frames, technical evidence and explicit FAIL recommendation | STOP; owner reviews package and determines G2/next remediation | WAITING_OWNER_DECISION |
+| G2-OWNER-001 |008A review delivered; owner authorized further stage corrections2026-09-23 | Execute009–011, then prepare012 review; G2 remains owner-only | REMEDIATION_AUTHORIZED |
 
-Owner review is now the next gate. WP166 technical work and008A evidence package are complete; visual targets remain unmet. [Free asset authorization](../owner/FREE_ASSET_AUTHORIZATION_2026-09-23.md) is recorded, but does not approve G2/M13 or visible testing. Hidden counters remain explicit limitations.
+WP166 and008A evidence remain historical checkpoints. Current work is authorized009–012 remediation, not M13. [Free asset authorization](../owner/FREE_ASSET_AUTHORIZATION_2026-09-23.md) remains valid; no further permission is needed for these bounded corrections. Hidden counters remain explicit limitations.

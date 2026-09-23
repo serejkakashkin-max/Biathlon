@@ -243,7 +243,7 @@ for side in (-1,1):
     for x,y,z in centres:
         for edge in (-.014,.014):
             nearest,normal,face,_=surface_tree.find_nearest(blender((x+edge,y,z)))
-            verts.append(nearest+normal*.003)
+            verts.append(nearest+normal*.012)
             triangle=surface_faces[face]
             bary=barycentric_transform(nearest,*(surface_vertices[i] for i in triangle),Vector((1,0,0)),Vector((0,1,0)),Vector((0,0,1)))
             w={}
@@ -255,7 +255,7 @@ for side in (-1,1):
     mesh=bpy.data.meshes.new('OriginalHarness');mesh.from_pydata(verts,[],faces);mesh.update()
     harness=bpy.data.objects.new('OriginalHarness',mesh);bpy.context.collection.objects.link(harness)
     for mat in body.data.materials:mesh.materials.append(mat)
-    for p in mesh.polygons:p.material_index=4;p.use_smooth=False
+    for p in mesh.polygons:p.material_index=4;p.use_smooth=True
     for name in names:harness.vertex_groups.new(name=name)
     for v,w in zip(mesh.vertices,skin_weights):
         for bone,weight in w.items():harness.vertex_groups[bone].add([v.index],weight,'REPLACE')
@@ -270,8 +270,8 @@ for o, material in zip(loaded.objects,[7,4,6]):
     matrix=o.matrix_world.copy()
     for v in o.data.vertices:
         p=matrix@v.co
-        front_clearance=.05*max(0,min(1,(p.x+3.5)/2.8))
-        v.co=(p.y*.064,-p.x*.055-.105-front_clearance,(p.z-.4)*.047+1.723)
+        front_clearance=.033*max(0,min(1,(p.x+3.5)/2.8))
+        v.co=(p.y*.055,-p.x*.051-.103-front_clearance,(p.z-.4)*.035+1.716)
     o.matrix_world=Matrix.Identity(4);o.modifiers.clear();o.data.materials.clear()
     for mat in body.data.materials:o.data.materials.append(mat)
     for p in o.data.polygons:p.material_index=material;p.use_smooth=True
