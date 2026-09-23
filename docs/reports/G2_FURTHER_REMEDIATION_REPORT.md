@@ -15,3 +15,11 @@
 Проверки: полный PlayMode146/146 в139.930s, целевые appearance2/2, hero5/5, profiler3/3; Windows hidden9/9;10observable profile cases без FAIL. GPU/render-thread/batches по-прежнему UNAVAILABLE. [Evidence](../quality/g2/appearance-a/). Полный финальный прогон включает новую внешность, размер offscreen target и existing race/animation integration; последующее явное16:9 подтверждено финальным player/profile. Console0errors/1MCP lifecycle warning, shader has_error=False. Authoritative gameplay и shooting tuning не менялись. OWNER-FEEL-001 OPEN.
 
 Далее009B: симметричное отталкивание палками, перенос веса и проверяемый контакт при движении;009C: суставы и rifle-body fit. Hero visual target остаётся OPEN до новой интегрированной проверки.
+
+## 009B — лыжный перенос веса и контакт палок
+
+Обе руки теперь отталкиваются парно. На равнине две пары отталкиваний на полный цикл ног, на подъёме одна; частота плавно переходит при смене состояния. Усилены боковой перенос таза и небольшая вертикальная/корпусная фаза. Это presentation approximation skating techniques, не сертифицированная спортивная анимация: асимметрия V1 и полный силовой контакт ещё упрощены. Описание uphill G2/V1 сверено с [первичным исследованием](https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0197592).
+
+Краткий контакт наконечника удерживается в world space, пока коррекция кисти укладывается в10cm. При недостижимом хвате палка освобождается до следующего recovery; перемотка, телепорт, большой временной разрыв и стрельба сбрасывают контакт. Preview использует тот же путь. Никаких gameplay forces/root-motion. Все новые параметры вынесены в versioned ski_technique_visual_v1.
+
+Проверено через Unity MCP:149/149 PlayMode(138.217s), целевые3/3, затем3/3 motion/preview после подключения preview. Контакт, геометрическая длина палки, перенос веса, сбросы, отсутствие warm allocations покрыты тестами. Hidden Windows9/9, build0errors/0warnings;10profile cases без observable budget FAIL, main-thread p95 максимум1.443ms. GPU/render-thread/batches UNAVAILABLE. Console после build0errors/0warnings. [Кадры, клип24fps и результаты](../quality/g2/ski-technique-b/) сохранены; частота клипа не является FPS измерением. Движение стало согласованнее, но остаётся процедурным; G2-VIS-001 не закрыт. Authoritative shooting/race не менялись.

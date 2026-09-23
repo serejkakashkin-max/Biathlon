@@ -75,7 +75,7 @@ namespace Biathlon.Unity.Presentation
                 shooting[i].Sample(rigs[i], stance, progress);
                 rifles[i].Sample(rigs[i], progress, atRange && i == 4 ? new WeaponAimState(.025, .012) : default, atRange ? stance : (ShootingStance?)null);
                 // This fixture's ground is flat; slope-specific evidence is the WP148 fixture.
-                contacts[i].Sample(rigs[i], 0, drivers[i].Cycle, drivers[i].State, rifles[i].HandWeight);
+                contacts[i].SampleMoving(rigs[i], 0, drivers[i].PoleCycle, drivers[i].State, rifles[i].HandWeight, time);
                 if (grips[i] != null) grips[i].Render(rigs[i]);
             }
             renderedSet = StateSet; hasRendered = true;

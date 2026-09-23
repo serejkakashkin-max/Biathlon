@@ -22,7 +22,7 @@ namespace Biathlon.Unity.Presentation
     }
 
     /// <summary>Bounded limb/prop corrections against a local presentation plane. No colliders,
-    /// race movement, aim adjustment or claims of world-locked pole friction.</summary>
+    /// race movement or aim adjustment. Moving samples retain short visual pole anchors.</summary>
     public sealed class AthleteGroundContact : MonoBehaviour
     {
         private GroundContactSettings settings;
@@ -30,6 +30,12 @@ namespace Biathlon.Unity.Presentation
         private AthleteEquipmentBinding equipment;
         private AthleteLocomotionDriver driver;
         private AthleteRiflePresentation rifle;
+        private SkiTechniqueVisualSettings technique;
+        private Vector3 leftAnchor,rightAnchor,previousRoot;
+        private bool leftPlanted,rightPlanted,leftReleased,rightReleased;
+        private double previousTime=-1;
+        public bool LeftPlanted=>leftPlanted;
+        public bool RightPlanted=>rightPlanted;
         public Vector3 SurfaceNormal { get; private set; }
         public float MaxFootResidualMeters { get; private set; }
         public Vector3 LeftPoleTip { get; private set; }
@@ -39,11 +45,35 @@ namespace Biathlon.Unity.Presentation
         {
             if (driver == null) driver = GetComponent<AthleteLocomotionDriver>();
             if (rifle == null) rifle = GetComponent<AthleteRiflePresentation>();
-            Sample(rig, (float)frame.PresentationGrade, driver != null ? driver.Cycle : 0,
-                driver != null ? driver.State : SkiLocomotion.Idle, rifle != null ? rifle.HandWeight : 0);
+            SampleMoving(rig,(float)frame.PresentationGrade,driver!=null?driver.PoleCycle:0,
+                driver!=null?driver.State:SkiLocomotion.Idle,rifle!=null?rifle.HandWeight:0,frame.TimeSeconds);
         }
 
-        public void Sample(AthleteRigBinding rig, float grade, double cycle, SkiLocomotion state, float stowWeight)
+        /// <summary>Short world-space plant lease. Release instead of dragging an unreachable arm;
+        /// rewinds, teleports, LOD gaps and shooting clear the lease. No gameplay contact forces.</summary>
+        public void SampleMoving(AthleteRigBinding rig,float grade,double cycle,SkiLocomotion state,float stowWeight,double time)
+        {
+            if(!double.IsFinite(time)||time<0)throw new ArgumentOutOfRangeException(nameof(time));
+            if(technique==null)technique=SkiTechniqueVisualSettings.Load();
+            bool reset=previousTime<0||time<previousTime||time-previousTime>technique.contact_reset_gap_s||Vector3.Distance(previousRoot,rig.ModelRoot.position)>technique.contact_reset_distance_m;
+            Sample(rig,grade,cycle,state,stowWeight,true);
+            bool plant=stowWeight==0&&(state==SkiLocomotion.Flat||state==SkiLocomotion.Climb||state==SkiLocomotion.Acceleration||state==SkiLocomotion.Sprint)&&Math.Cos(cycle*Math.PI*2)<=0;
+            if(reset){leftPlanted=rightPlanted=leftReleased=rightReleased=false;}
+            LeftPoleTip=Fit(equipment.LeftPole,LeftPoleTip,ref leftAnchor,ref leftPlanted,ref leftReleased);
+            RightPoleTip=Fit(equipment.RightPole,RightPoleTip,ref rightAnchor,ref rightPlanted,ref rightReleased);
+            previousTime=time;previousRoot=rig.ModelRoot.position;
+            Vector3 Fit(Transform pole,Vector3 tip,ref Vector3 anchor,ref bool planted,ref bool released)
+            {
+                if(!plant){planted=false;released=false;return tip;}
+                if(released)return tip;
+                if(!planted){anchor=tip;planted=true;}
+                var direction=(pole.position-anchor).normalized;var grip=anchor+direction*settings.pole_length_m;
+                if(Vector3.Distance(grip,pole.position)>technique.contact_max_grip_correction_m){planted=false;released=true;return tip;}
+                pole.SetPositionAndRotation(grip,Quaternion.FromToRotation(Vector3.down,-direction));return anchor;
+            }
+        }
+
+        public void Sample(AthleteRigBinding rig, float grade, double cycle, SkiLocomotion state, float stowWeight,bool paired=false)
         {
             if (!float.IsFinite(grade) || !double.IsFinite(cycle) || !float.IsFinite(stowWeight) || stowWeight < 0 || stowWeight > 1) throw new ArgumentOutOfRangeException();
             if (settings == null) { settings = GroundContactSettings.Load(); motion = AthleteLocomotionSettings.Load(); equipment = GetComponent<AthleteEquipmentBinding>(); equipment.Validate(); }
@@ -54,7 +84,7 @@ namespace Biathlon.Unity.Presentation
             MaxFootResidualMeters = 0;
             Foot(false); Foot(true);
             LeftPoleTip = Pole(equipment.LeftPole, 0);
-            RightPoleTip = Pole(equipment.RightPole, .5f);
+            RightPoleTip = Pole(equipment.RightPole, paired?0:.5f);
 
             void Foot(bool right)
             {

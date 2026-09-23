@@ -9,6 +9,9 @@ namespace Biathlon.Unity.Presentation
     public sealed class AthleteLocomotionDriver : AthletePoseDriver
     {
         private AthleteLocomotionSettings settings;
+        private SkiTechniqueVisualSettings technique;
+        private double poleCycle;
+        private float polingRatio;
         private readonly LocomotionPose blended = new LocomotionPose();
         private readonly LocomotionPose start = new LocomotionPose();
         private readonly LocomotionPose motion = new LocomotionPose();
@@ -19,6 +22,7 @@ namespace Biathlon.Unity.Presentation
         public SkiLocomotion State { get; private set; }
         public float BlendProgress { get; private set; }
         public double Cycle => cycle;
+        public double PoleCycle => poleCycle;
         public float CornerLeanDegrees { get; private set; }
         public float ExertionIntensity => exertion.Intensity;
         public float FinishWeight => exertion.FinishWeight;
@@ -36,7 +40,7 @@ namespace Biathlon.Unity.Presentation
         public void Sample(AthleteRigBinding rig, LocomotionInput input, double time, ExertionInput? observedExertion = null)
         {
             if (double.IsNaN(time) || double.IsInfinity(time) || time < 0) throw new ArgumentOutOfRangeException(nameof(time));
-            if (settings == null) settings = AthleteLocomotionSettings.Load();
+            if (settings == null) {settings = AthleteLocomotionSettings.Load();technique=SkiTechniqueVisualSettings.Load();}
             var selected = AthleteLocomotion.Select(input, settings);
             float requestedLean = AthleteLocomotion.CornerLean(input, settings);
             float requestedIntensity = selected == SkiLocomotion.Climb ? Mathf.Lerp(settings.climb_motion_low, settings.climb_motion_high,
@@ -49,6 +53,8 @@ namespace Biathlon.Unity.Presentation
                 LocomotionPose.Blend(settings.poses[(int)State], settings.poses[(int)State], 1, blended);
                 LocomotionPose.Blend(blended, blended, 1, start);
                 cycle = time * blended.cadence_hz % 1;
+                polingRatio=selected==SkiLocomotion.Climb?technique.climb_poles_per_cycle:technique.flat_poles_per_cycle;
+                poleCycle=time*blended.cadence_hz*polingRatio%1;
                 dt = 0;
                 climbIntensity = requestedIntensity;
                 CornerLeanDegrees = requestedLean;
@@ -67,6 +73,8 @@ namespace Biathlon.Unity.Presentation
             motion.arm_swing_m *= climbIntensity;
             exertion.Apply(motion, observedExertion ?? new ExertionInput(0, 1, 0), State, time, dt, reset);
             cycle = (cycle + dt * motion.cadence_hz) % 1;
+            polingRatio=Mathf.Lerp(polingRatio,selected==SkiLocomotion.Climb?technique.climb_poles_per_cycle:technique.flat_poles_per_cycle,1-Mathf.Exp(-(float)dt/settings.transition_s));
+            poleCycle=(poleCycle+dt*motion.cadence_hz*polingRatio)%1;
             previousTime = time;
             CornerLeanDegrees = Mathf.Lerp(CornerLeanDegrees, requestedLean, 1 - Mathf.Exp(-(float)dt / settings.corner_response_s));
             Pose(rig, motion, (float)(cycle * Math.PI * 2));
@@ -75,13 +83,17 @@ namespace Biathlon.Unity.Presentation
         private void Pose(AthleteRigBinding rig, LocomotionPose pose, float phase)
         {
             rig.ResetPose();
-            rig.Offset(AthleteBone.Hips, new Vector3(Mathf.Sin(phase) * pose.skate_width_m * .25f, -pose.hip_drop_m, 0));
+            float polePhase=(float)(poleCycle*Math.PI*2);
+            float active=Mathf.Clamp01(pose.arm_swing_m/technique.motion_reference_swing_m);
+            float pulse=-Mathf.Sin(polePhase)*active;
+            rig.Offset(AthleteBone.Hips, new Vector3(Mathf.Sin(phase) * pose.skate_width_m * technique.hip_transfer_fraction, -pose.hip_drop_m-technique.hip_pulse_m*pulse, 0));
             rig.Rotate(AthleteBone.Hips, Quaternion.Euler(0, 0, -CornerLeanDegrees));
-            rig.Rotate(AthleteBone.Spine, Quaternion.Euler(pose.torso_lean_deg * .6f, 0, 0));
-            rig.Rotate(AthleteBone.Chest, Quaternion.Euler(pose.torso_lean_deg * .4f, 0, 0));
+            float lean=pose.torso_lean_deg+technique.torso_pulse_deg*pulse;
+            rig.Rotate(AthleteBone.Spine, Quaternion.Euler(lean * .6f, 0, 0));
+            rig.Rotate(AthleteBone.Chest, Quaternion.Euler(lean * .4f, 0, 0));
             rig.Rotate(AthleteBone.Neck, Quaternion.Euler(-pose.torso_lean_deg * .7f, 0, 0));
             Leg(false, phase); Leg(true, phase + Mathf.PI);
-            Arm(false, phase); Arm(true, phase + Mathf.PI);
+            Arm(false, polePhase); Arm(true, polePhase);
 
             void Leg(bool right, float angle)
             {

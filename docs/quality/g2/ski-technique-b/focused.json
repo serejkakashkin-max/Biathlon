@@ -1,0 +1,42 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":149,\"PassedTests\":3,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:00.0805957\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.G2SkiTechniqueTests.BothHandsPushTogetherAndHipsTransferWithoutRootMovement\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0350000\"},{\"Name\":\"Biathlon.PlayModeTests.G2SkiTechniqueTests.MovingContactHasNoWarmAllocationsAndRejectsInvalidConfiguration\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0060000\"},{\"Name\":\"Biathlon.PlayModeTests.G2SkiTechniqueTests.MovingPlantStaysInWorldAndReleasesForRecoveryTeleportAndShooting\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0040000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 149,
+          "PassedTests": 3,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.0805957"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.G2SkiTechniqueTests.BothHandsPushTogetherAndHipsTransferWithoutRootMovement",
+            "Status": "Passed",
+            "Duration": "00:00:00.0350000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.G2SkiTechniqueTests.MovingContactHasNoWarmAllocationsAndRejectsInvalidConfiguration",
+            "Status": "Passed",
+            "Duration": "00:00:00.0060000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.G2SkiTechniqueTests.MovingPlantStaysInWorldAndReleasesForRecoveryTeleportAndShooting",
+            "Status": "Passed",
+            "Duration": "00:00:00.0040000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}
