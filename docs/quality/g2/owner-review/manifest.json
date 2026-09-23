@@ -1,0 +1,670 @@
+{
+  "schema_version": 1,
+  "id": "g2-owner-review-capture-manifest-v1",
+  "git_commit": "85d07ca12a50ab2e02d991f42e6af47e6396dc0d",
+  "working_tree_dirty": true,
+  "capture_count": 45,
+  "motion_frames": 48,
+  "rewind_pixel_equal": true,
+  "camera_comparisons": [
+    {
+      "id": "balanced-clear-approach",
+      "camera_max_component_difference": 8.23154447382457e-10,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/balanced-clear-approach.png",
+        "bytes": 1136406,
+        "sha256": "984a0b747fc3fd196ffb4ab8a1616a48965e47e6055efa97538af75be9b3400f"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/balanced-clear-approach.png",
+        "bytes": 2601969,
+        "sha256": "9034332a4ae03305e312ae442364d25814ecb903a863d6e64c0961f72b002179"
+      }
+    },
+    {
+      "id": "balanced-clear-athlete",
+      "camera_max_component_difference": 1.8652343740654942e-06,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/balanced-clear-athlete.png",
+        "bytes": 2390633,
+        "sha256": "6fc2949c57a496329075641c0b6db383413df7360f755d3139d332b2d2080591"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/balanced-clear-athlete.png",
+        "bytes": 3536150,
+        "sha256": "3eaf7e493f0bf0407e2adf8852ec085d242f510835d0752f5ac81cebeb0980b4"
+      }
+    },
+    {
+      "id": "balanced-clear-targets",
+      "camera_max_component_difference": 4.768371586472142e-08,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/balanced-clear-targets.png",
+        "bytes": 236193,
+        "sha256": "ebecba1dbbcbbf6f59bb7032632c9c58857203949cf1d9cbf4b093c1bc564ef5"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/balanced-clear-targets.png",
+        "bytes": 2428214,
+        "sha256": "08523d0580051a625f67182fe0675d6d79c3e11a06da5e49b33b55fcf92ccf57"
+      }
+    },
+    {
+      "id": "balanced-overcast-approach",
+      "camera_max_component_difference": 8.23154447382457e-10,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/balanced-overcast-approach.png",
+        "bytes": 1038359,
+        "sha256": "aa56218e337883e02027217a58681cc3bc741efdc7896a2a1670f80d8a4a0520"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/balanced-overcast-approach.png",
+        "bytes": 2138656,
+        "sha256": "a3a6e38cc0c165379269c8a16ad90aeb83e0dbcb5f8a84125a96c6341432b6b6"
+      }
+    },
+    {
+      "id": "balanced-overcast-athlete",
+      "camera_max_component_difference": 1.8652343740654942e-06,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/balanced-overcast-athlete.png",
+        "bytes": 2026175,
+        "sha256": "7b629a3da1ffa9367bf1c5a044bd7ba68c3088a1ed9c02ac965aecbcf2c114dd"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/balanced-overcast-athlete.png",
+        "bytes": 2931403,
+        "sha256": "eed08ee5186cf61eb4bcce26a9dd09a3ea0e67e8a848392214da56fb558066cb"
+      }
+    },
+    {
+      "id": "balanced-overcast-targets",
+      "camera_max_component_difference": 4.768371586472142e-08,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/balanced-overcast-targets.png",
+        "bytes": 116111,
+        "sha256": "533f4153ce114f496cd983a20ed9a5fd549bd4b298b41c3d1154b1e9185d0ce5"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/balanced-overcast-targets.png",
+        "bytes": 2230156,
+        "sha256": "6eea55ab6bfbb2fbb77b76da11b1517b11a7d7724f8af0c85936eda1de2b0aa3"
+      }
+    },
+    {
+      "id": "balanced-snowfall-approach",
+      "camera_max_component_difference": 8.23154447382457e-10,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/balanced-snowfall-approach.png",
+        "bytes": 824892,
+        "sha256": "d9cdd429197529919188f1d268548bfde45af1cb8c8cb4bb0d6fcb1802c7f9ac"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/balanced-snowfall-approach.png",
+        "bytes": 1740320,
+        "sha256": "de8262438deb27e1ff9e22c1b711cbd805c32fe41afb0a5f1a79dc8fd529c9e1"
+      }
+    },
+    {
+      "id": "balanced-snowfall-athlete",
+      "camera_max_component_difference": 1.8652343740654942e-06,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/balanced-snowfall-athlete.png",
+        "bytes": 1730034,
+        "sha256": "2994b7ccddb0c7a6482a0df5e1277b283742589af26ce3851f57fe6e5971a36b"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/balanced-snowfall-athlete.png",
+        "bytes": 2479868,
+        "sha256": "aa97c19fe7c25d381c3e422a070bfdd32315c6b2153153e0894da58dc5473586"
+      }
+    },
+    {
+      "id": "balanced-snowfall-targets",
+      "camera_max_component_difference": 4.768371586472142e-08,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/balanced-snowfall-targets.png",
+        "bytes": 95310,
+        "sha256": "a89b0f626574de95e2786befee34d140cad6557bb67ad6d5a62985ecbbf0100a"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/balanced-snowfall-targets.png",
+        "bytes": 1507956,
+        "sha256": "bc1b1eb48ec1c613a01e6149b3ef14a4ff732d54b2e94ba7b593311cc6ec6846"
+      }
+    },
+    {
+      "id": "high-clear-approach",
+      "camera_max_component_difference": 8.23154447382457e-10,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/high-clear-approach.png",
+        "bytes": 1309311,
+        "sha256": "8a1385c60e111e4db5acc94fd560e36b749e9243d37582fa0a82d30d1a09a7bc"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/high-clear-approach.png",
+        "bytes": 2750735,
+        "sha256": "67035a85b0af811f4ec85e59274212816f79544646559d00b3a253e2006baee5"
+      }
+    },
+    {
+      "id": "high-clear-athlete",
+      "camera_max_component_difference": 1.8652343740654942e-06,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/high-clear-athlete.png",
+        "bytes": 2520261,
+        "sha256": "e0a233941f6bfd39c49ea9e26e7798a3e16d856dec586d44f93649df5a1b70eb"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/high-clear-athlete.png",
+        "bytes": 3590994,
+        "sha256": "630979ba1af053bb82df57cf358a13cfdcb872c9f3d2aa6896728468328ba134"
+      }
+    },
+    {
+      "id": "high-clear-targets",
+      "camera_max_component_difference": 4.768371586472142e-08,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/high-clear-targets.png",
+        "bytes": 237362,
+        "sha256": "51cac88645765a54550c549db318dc3dcf64dd2ebc50b9f0ece1d258708571fe"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/high-clear-targets.png",
+        "bytes": 2346867,
+        "sha256": "cab6a315ece3fbc725eba3d441d0a579c5a583fd1c30bbfe15a7b21d17b0abea"
+      }
+    },
+    {
+      "id": "high-overcast-approach",
+      "camera_max_component_difference": 8.23154447382457e-10,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/high-overcast-approach.png",
+        "bytes": 1201534,
+        "sha256": "418a304377e75f205dcc8a9c2155f6025b743a38816bd299904c16aa7d91dcd6"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/high-overcast-approach.png",
+        "bytes": 2317437,
+        "sha256": "88262b39ae9246e3ac46096582f6e4aa50a0b5b3dd8b9c0029217255d7dbe206"
+      }
+    },
+    {
+      "id": "high-overcast-athlete",
+      "camera_max_component_difference": 1.8652343740654942e-06,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/high-overcast-athlete.png",
+        "bytes": 2170717,
+        "sha256": "f794c129909ea6e42d2b65f506b3f040e27e59af81c890ac12532d4764d376c9"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/high-overcast-athlete.png",
+        "bytes": 2998961,
+        "sha256": "54ac947120c98d2b1be91b870d7d5eb5a61532fd94fa593c706c3dbd8201a9fb"
+      }
+    },
+    {
+      "id": "high-overcast-targets",
+      "camera_max_component_difference": 4.768371586472142e-08,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/high-overcast-targets.png",
+        "bytes": 133472,
+        "sha256": "eb723d43799ea630730e785fba8168046da4a2a938c2e76b7dce0e98717305a3"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/high-overcast-targets.png",
+        "bytes": 2157982,
+        "sha256": "deb5e756bd64402aef442e410de201202bef9c52f6083581c748f7da5ad8e303"
+      }
+    },
+    {
+      "id": "high-snowfall-approach",
+      "camera_max_component_difference": 8.23154447382457e-10,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/high-snowfall-approach.png",
+        "bytes": 945777,
+        "sha256": "3c2ab73ed50c510123f5c8d136158692054f88df2dfe5e4c9e89d707867eb84a"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/high-snowfall-approach.png",
+        "bytes": 1978211,
+        "sha256": "482653fa3cd7854865d43cf8577fb357e567c88f077dbf6b7810d2763800d791"
+      }
+    },
+    {
+      "id": "high-snowfall-athlete",
+      "camera_max_component_difference": 1.8652343740654942e-06,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/high-snowfall-athlete.png",
+        "bytes": 1842637,
+        "sha256": "aa983b0c3e7ca845da7a623d4fb777457ceae56ee92d4609e6abe60da40bb25c"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/high-snowfall-athlete.png",
+        "bytes": 2542579,
+        "sha256": "22aae032f2b1015bffe0c4009e029a9fdea357232b39ef3aa729a01e1a8e76ca"
+      }
+    },
+    {
+      "id": "high-snowfall-targets",
+      "camera_max_component_difference": 4.768371586472142e-08,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/high-snowfall-targets.png",
+        "bytes": 110275,
+        "sha256": "fe5187a57958c3053c4871a4831b4559b35bdf440a6e6273e6507740bc04f7aa"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/high-snowfall-targets.png",
+        "bytes": 1479828,
+        "sha256": "242ab989cb9b35019c1becfa9d6f9bc32735f0c5eb98412206144a195f86819f"
+      }
+    },
+    {
+      "id": "low-clear-approach",
+      "camera_max_component_difference": 8.23154447382457e-10,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/low-clear-approach.png",
+        "bytes": 968352,
+        "sha256": "3705058d639a293f9fa47f3670d4ad7ca24448e70303f5904b86ab2d8d107994"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/low-clear-approach.png",
+        "bytes": 2757566,
+        "sha256": "f1347660d842c86eb8bb004fd2bf014f4324d2b60c6fc07c436cf17774319b96"
+      }
+    },
+    {
+      "id": "low-clear-athlete",
+      "camera_max_component_difference": 1.8652343740654942e-06,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/low-clear-athlete.png",
+        "bytes": 2160846,
+        "sha256": "85834f97bc78d901372cfd004087397a245eb8952e766d7d44048618aa792f58"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/low-clear-athlete.png",
+        "bytes": 3541523,
+        "sha256": "d93c44c1ecd8514a4f0b71faf16f62fec32a0ba95de181ffcdea7a5278bea1a3"
+      }
+    },
+    {
+      "id": "low-clear-targets",
+      "camera_max_component_difference": 4.768371586472142e-08,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/low-clear-targets.png",
+        "bytes": 148714,
+        "sha256": "c3253c83651c65dfab31894d070b9c9b568102d5f6c6873b8cf95c8e4db977f2"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/low-clear-targets.png",
+        "bytes": 2428935,
+        "sha256": "152116d0e1414a6b179399048c0c2bd1e49cc1cdf5494ec5b113b88a8e8f1b76"
+      }
+    },
+    {
+      "id": "low-overcast-approach",
+      "camera_max_component_difference": 8.23154447382457e-10,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/low-overcast-approach.png",
+        "bytes": 970690,
+        "sha256": "2053d4754c1f9eb021b6bdbd9633295c5b968e942fe270817fad5f54b4e90395"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/low-overcast-approach.png",
+        "bytes": 2341091,
+        "sha256": "30a9645b8620b945eacd65e5d58ca1696662987ecebe121f739bf6e84f16deae"
+      }
+    },
+    {
+      "id": "low-overcast-athlete",
+      "camera_max_component_difference": 1.8652343740654942e-06,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/low-overcast-athlete.png",
+        "bytes": 1958409,
+        "sha256": "978a2d11c7d27e295efb2562018a8ace56f506b6ca1935f543bd69519e62aad1"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/low-overcast-athlete.png",
+        "bytes": 3022802,
+        "sha256": "baeb738e7e997676c57f482a66da7891af9594debac1372a6762f420cf48d0a0"
+      }
+    },
+    {
+      "id": "low-overcast-targets",
+      "camera_max_component_difference": 4.768371586472142e-08,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/low-overcast-targets.png",
+        "bytes": 128820,
+        "sha256": "4086b96c51318e4b3f9d1faeaab4742405e90cdd9f5ce606aec88c51e96d68d5"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/low-overcast-targets.png",
+        "bytes": 2153838,
+        "sha256": "fb3a65fc445fbfa60b5c8afdc3091940a9b48dbd013f346fd66d226b777ea77f"
+      }
+    },
+    {
+      "id": "low-snowfall-approach",
+      "camera_max_component_difference": 8.23154447382457e-10,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/low-snowfall-approach.png",
+        "bytes": 746980,
+        "sha256": "4fbfba88b796b5999a5333a6de47139a605c0738b2996af48d5b0425b4947ac5"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/low-snowfall-approach.png",
+        "bytes": 1946624,
+        "sha256": "45b3774a89e56f0d87b54a18d62bb705a1a45c5f0d32facabf0b35cd4e5357f5"
+      }
+    },
+    {
+      "id": "low-snowfall-athlete",
+      "camera_max_component_difference": 1.8652343740654942e-06,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/low-snowfall-athlete.png",
+        "bytes": 1672766,
+        "sha256": "ca8d8ef189329b41e39ceb2b5d8634f3dc15f100c511ac33bb672a53c5415225"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/low-snowfall-athlete.png",
+        "bytes": 2551044,
+        "sha256": "0878119b2dcd1b10ae015f4cd7887d003da7e91667067f9d40915becfb337a58"
+      }
+    },
+    {
+      "id": "low-snowfall-targets",
+      "camera_max_component_difference": 4.768371586472142e-08,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/low-snowfall-targets.png",
+        "bytes": 108681,
+        "sha256": "8ccf5c0df3a62bcaf47287ef535a739154da0e452843398f5561cdfc06d8f748"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/low-snowfall-targets.png",
+        "bytes": 1568305,
+        "sha256": "481edb37b86632b5f07c357012f8806bd076d2800fe01bf58598580053f7eba9"
+      }
+    },
+    {
+      "id": "rewind-a",
+      "camera_max_component_difference": 1.901664728465313e-09,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/rewind-a.png",
+        "bytes": 976102,
+        "sha256": "3b244ad68633634c94c8c4dff985a5629d6307a554f7b490cc7402ef2fc03844"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/rewind-a.png",
+        "bytes": 1935227,
+        "sha256": "79845a65464827d2deff92016571eedfdb59d22632e14b4fb28efb487d254564"
+      }
+    },
+    {
+      "id": "rewind-away",
+      "camera_max_component_difference": 8.48731995795049e-09,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/rewind-away.png",
+        "bytes": 1290654,
+        "sha256": "c7c1a92967ba4a8db0628449981efdc45ebae887a4b30c256f77c5ac1169bf45"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/rewind-away.png",
+        "bytes": 1984657,
+        "sha256": "fc900c321b4ae3d9f43a7ef354f8651e5d0b2c5b5089fc74e2d68721c055a94e"
+      }
+    },
+    {
+      "id": "rewind-b",
+      "camera_max_component_difference": 1.901664728465313e-09,
+      "before": {
+        "path": "docs/quality/m12/wp165/matrix/rewind-b.png",
+        "bytes": 976102,
+        "sha256": "3b244ad68633634c94c8c4dff985a5629d6307a554f7b490cc7402ef2fc03844"
+      },
+      "after": {
+        "path": "docs/quality/g2/owner-review/rewind-b.png",
+        "bytes": 1935227,
+        "sha256": "79845a65464827d2deff92016571eedfdb59d22632e14b4fb28efb487d254564"
+      }
+    }
+  ],
+  "images": [
+    {
+      "path": "docs/quality/g2/owner-review/balanced-clear-approach.png",
+      "bytes": 2601969,
+      "sha256": "9034332a4ae03305e312ae442364d25814ecb903a863d6e64c0961f72b002179"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/balanced-clear-athlete.png",
+      "bytes": 3536150,
+      "sha256": "3eaf7e493f0bf0407e2adf8852ec085d242f510835d0752f5ac81cebeb0980b4"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/balanced-clear-targets.png",
+      "bytes": 2428214,
+      "sha256": "08523d0580051a625f67182fe0675d6d79c3e11a06da5e49b33b55fcf92ccf57"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/balanced-overcast-approach.png",
+      "bytes": 2138656,
+      "sha256": "a3a6e38cc0c165379269c8a16ad90aeb83e0dbcb5f8a84125a96c6341432b6b6"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/balanced-overcast-athlete.png",
+      "bytes": 2931403,
+      "sha256": "eed08ee5186cf61eb4bcce26a9dd09a3ea0e67e8a848392214da56fb558066cb"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/balanced-overcast-targets.png",
+      "bytes": 2230156,
+      "sha256": "6eea55ab6bfbb2fbb77b76da11b1517b11a7d7724f8af0c85936eda1de2b0aa3"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/balanced-snowfall-approach.png",
+      "bytes": 1740320,
+      "sha256": "de8262438deb27e1ff9e22c1b711cbd805c32fe41afb0a5f1a79dc8fd529c9e1"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/balanced-snowfall-athlete.png",
+      "bytes": 2479868,
+      "sha256": "aa97c19fe7c25d381c3e422a070bfdd32315c6b2153153e0894da58dc5473586"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/balanced-snowfall-targets.png",
+      "bytes": 1507956,
+      "sha256": "bc1b1eb48ec1c613a01e6149b3ef14a4ff732d54b2e94ba7b593311cc6ec6846"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/dedicated-aim-Prone.png",
+      "bytes": 111646,
+      "sha256": "6b8ff5e9320565f0b9fe33002ed597d2841c4fc4f3b87e16b7c9ca584e2738af"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/dedicated-aim-Standing.png",
+      "bytes": 114074,
+      "sha256": "bfbb9f7126134e0cb7501ca8b106b7eca85dd72af2db89581c0bff895a503916"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/event-crowd_zoom.png",
+      "bytes": 3875357,
+      "sha256": "a771b5e00e0e3af6fb9415177f04def180b0e04bc10fd07970dade7d1a70c7d4"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/event-finish.png",
+      "bytes": 2441150,
+      "sha256": "63d9ba28a5606bcf9dcd5eee79afd1c0b03fced4bac9908d3eb0dd7afbc4e731"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/event-range.png",
+      "bytes": 2809019,
+      "sha256": "32f70903915b1a5eb38dc87c8791da91d9600897373ef5deda8a3b328d899462"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/event-sector.png",
+      "bytes": 3243276,
+      "sha256": "8eb9e995675eb892f06f6a82e640eaeca9284b09237950c5f3b008bd47d8b34c"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/gameplay-chase.png",
+      "bytes": 3625117,
+      "sha256": "2b038e5cb43815f9ceca1342980a47de0c7f5008fe1e9a597f04030d3394ad2a"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/hero-back.png",
+      "bytes": 3348494,
+      "sha256": "0628a565268bf1e58dd99ccdb83585ce1edc594f9485d170cf6aa0a07d672c80"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/hero-face.png",
+      "bytes": 2350472,
+      "sha256": "543b045c47c8f5d9ae3a13d6c3f20c11101b331aa23e1d8d935a05d91b092e89"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/hero-front.png",
+      "bytes": 3186256,
+      "sha256": "e6268a811700ac6c83c7ad5f2398f4d99dc0ae15d038c48a9ae975855c6dcc23"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/hero-side.png",
+      "bytes": 4712815,
+      "sha256": "f849031ba9738d9627a9c17b55909439cf3c7d07d1dfc0aab176fd7cf946994f"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/high-clear-approach.png",
+      "bytes": 2750735,
+      "sha256": "67035a85b0af811f4ec85e59274212816f79544646559d00b3a253e2006baee5"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/high-clear-athlete.png",
+      "bytes": 3590994,
+      "sha256": "630979ba1af053bb82df57cf358a13cfdcb872c9f3d2aa6896728468328ba134"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/high-clear-targets.png",
+      "bytes": 2346867,
+      "sha256": "cab6a315ece3fbc725eba3d441d0a579c5a583fd1c30bbfe15a7b21d17b0abea"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/high-overcast-approach.png",
+      "bytes": 2317437,
+      "sha256": "88262b39ae9246e3ac46096582f6e4aa50a0b5b3dd8b9c0029217255d7dbe206"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/high-overcast-athlete.png",
+      "bytes": 2998961,
+      "sha256": "54ac947120c98d2b1be91b870d7d5eb5a61532fd94fa593c706c3dbd8201a9fb"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/high-overcast-targets.png",
+      "bytes": 2157982,
+      "sha256": "deb5e756bd64402aef442e410de201202bef9c52f6083581c748f7da5ad8e303"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/high-snowfall-approach.png",
+      "bytes": 1978211,
+      "sha256": "482653fa3cd7854865d43cf8577fb357e567c88f077dbf6b7810d2763800d791"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/high-snowfall-athlete.png",
+      "bytes": 2542579,
+      "sha256": "22aae032f2b1015bffe0c4009e029a9fdea357232b39ef3aa729a01e1a8e76ca"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/high-snowfall-targets.png",
+      "bytes": 1479828,
+      "sha256": "242ab989cb9b35019c1becfa9d6f9bc32735f0c5eb98412206144a195f86819f"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/low-clear-approach.png",
+      "bytes": 2757566,
+      "sha256": "f1347660d842c86eb8bb004fd2bf014f4324d2b60c6fc07c436cf17774319b96"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/low-clear-athlete.png",
+      "bytes": 3541523,
+      "sha256": "d93c44c1ecd8514a4f0b71faf16f62fec32a0ba95de181ffcdea7a5278bea1a3"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/low-clear-targets.png",
+      "bytes": 2428935,
+      "sha256": "152116d0e1414a6b179399048c0c2bd1e49cc1cdf5494ec5b113b88a8e8f1b76"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/low-overcast-approach.png",
+      "bytes": 2341091,
+      "sha256": "30a9645b8620b945eacd65e5d58ca1696662987ecebe121f739bf6e84f16deae"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/low-overcast-athlete.png",
+      "bytes": 3022802,
+      "sha256": "baeb738e7e997676c57f482a66da7891af9594debac1372a6762f420cf48d0a0"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/low-overcast-targets.png",
+      "bytes": 2153838,
+      "sha256": "fb3a65fc445fbfa60b5c8afdc3091940a9b48dbd013f346fd66d226b777ea77f"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/low-snowfall-approach.png",
+      "bytes": 1946624,
+      "sha256": "45b3774a89e56f0d87b54a18d62bb705a1a45c5f0d32facabf0b35cd4e5357f5"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/low-snowfall-athlete.png",
+      "bytes": 2551044,
+      "sha256": "0878119b2dcd1b10ae015f4cd7887d003da7e91667067f9d40915becfb337a58"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/low-snowfall-targets.png",
+      "bytes": 1568305,
+      "sha256": "481edb37b86632b5f07c357012f8806bd076d2800fe01bf58598580053f7eba9"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/rewind-a.png",
+      "bytes": 1935227,
+      "sha256": "79845a65464827d2deff92016571eedfdb59d22632e14b4fb28efb487d254564"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/rewind-away.png",
+      "bytes": 1984657,
+      "sha256": "fc900c321b4ae3d9f43a7ef354f8651e5d0b2c5b5089fc74e2d68721c055a94e"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/rewind-b.png",
+      "bytes": 1935227,
+      "sha256": "79845a65464827d2deff92016571eedfdb59d22632e14b4fb28efb487d254564"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/shooting-Prone-front.png",
+      "bytes": 2683093,
+      "sha256": "fbead1099b4232a3101da2be23ae2c367d8f2886a2e6d5eb9faa73147d25552d"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/shooting-Prone-side.png",
+      "bytes": 3589015,
+      "sha256": "61e66ca28324ddb72a35c197d1f7112ca4cc0a093831d2ea3a89f9ebc04cce47"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/shooting-Standing-front.png",
+      "bytes": 2877245,
+      "sha256": "e50dcbb8a926ad32bdae5188e7a63877baef79c421a3f142a3908416ef8119b8"
+    },
+    {
+      "path": "docs/quality/g2/owner-review/shooting-Standing-side.png",
+      "bytes": 3921980,
+      "sha256": "016fd726e5cb7e4173ec7b12bc2c07144854ba95a5e914001493b4c8c181edb1"
+    }
+  ],
+  "capture_harness": {
+    "path": "Assets/Tests/PlayMode/G2OwnerReviewTests.cs",
+    "bytes": 10587,
+    "sha256": "9df1e231b9ddcb5dc1b5d339587e1a6291484f291e8f4f77dbc6ee85e53dcf03"
+  },
+  "motion_manifest": {
+    "path": "docs/quality/g2/owner-review/motion-manifest.json",
+    "bytes": 7655,
+    "sha256": "1592805987836d33eab4a74e4d15e580f989c9b7ddb7023ac59886e012ff16bb"
+  },
+  "runtime_build_manifest": "../lighting-a/player/build-files.json",
+  "restricted_payload_tracked": false
+}

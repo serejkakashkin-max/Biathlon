@@ -7,13 +7,13 @@
 | Task | Результат | Проверка / evidence | Статус |
 |---|---|---|---|
 | G2-VR-001 | Источники, лицензии, форматы, хеши, решения по всем 37 кандидатам | Inventory, 235 source hashes, первичные license declarations, 6 Sketchfab metadata | DONE; Unity imports: 0 |
-| G2-VR-002 | Hero athlete: непрерывное анатомическое тело, костюм/лицо/головной убор, de-branded goggles, собственные материалы, skin weights и LOD | Typed M11 bones/sockets, сохранение equipment, skin deformation в ski/prone/standing, front/back/side/close captures, bounded geometry, source-to-output manifest | ACTIVE |
+| G2-VR-002 | Hero athlete: непрерывное анатомическое тело, костюм/лицо/головной убор, de-branded goggles, собственные материалы, skin weights и LOD | Typed M11 bones/sockets, сохранение equipment, skin deformation в ski/prone/standing, front/back/side/close captures, bounded geometry, source-to-output manifest | 002A/B technical DONE;008A confirms visual target UNMET |
 | G2-VR-003 | Animation/presentation: контакты лыж/палок, перенос веса, tuck, переходы и позы стрельбы на новом теле | Последовательности кадров, существующие motion/contact/shooting tests, snapshot/zero-allocation checks; authoritative state неизменён | 003A technical checkpoint DONE; visual actions OPEN |
-| G2-VR-004 | Лес/снег/terrain: реальные выбранные fir/pine LOD, подлесок/камни, snow material и читаемая трасса | Малые import batches, camera composition, alpha/shadow/LOD проверка, повторение WP166 counters с теми же budgets | 004A–G technical batch DONE; final integrated visual review OPEN |
-| G2-VR-005 | Stadium/event dressing: выборочный CC0 kitbash, трибуна CC BY, оригинальные event panels | Масштаб, материалы, отсутствие реальных/похожих брендов, читаемость рубежа, screenshot comparison | 005A/B technical checkpoints DONE; combined visual review OPEN |
+| G2-VR-004 | Лес/снег/terrain: реальные выбранные fir/pine LOD, подлесок/камни, snow material и читаемая трасса | Малые import batches, camera composition, alpha/shadow/LOD проверка, повторение WP166 counters с теми же budgets | 004A–G technical DONE;008A reviewed, composition actions OPEN |
+| G2-VR-005 | Stadium/event dressing: выборочный CC0 kitbash, трибуна CC BY, оригинальные event panels | Масштаб, материалы, отсутствие реальных/похожих брендов, читаемость рубежа, screenshot comparison | 005A/B technical DONE;008A reviewed, visual actions OPEN |
 | G2-VR-006 | Crowd: ограниченное число адаптированных людей, LOD/вариации, интеграция без раскрытия restricted mesh data | Локальный reproducible conversion recipe, credits, runtime/render checks; restricted sources/derivatives исключены из public Git | 006A technical checkpoint DONE; close quality OPEN |
-| G2-VR-007 | Свет/атмосфера и целостность benchmark | Snow/skin/forest exposure, silhouette, haze, weather, chase/shooting cameras; offscreen captures | 007A technical checkpoint DONE; final visual review OPEN |
-| G2-VR-008 | Новый benchmark owner review package и честная self-review | Итоговые build/captures/tests/profiling, attribution, G2_VISUAL_BENCHMARK_REVIEW.md, G2_OPEN_ITEMS.md, PROJECT_STATE | ACTIVE:008A; затем STOP перед G2 |
+| G2-VR-007 | Свет/атмосфера и целостность benchmark | Snow/skin/forest exposure, silhouette, haze, weather, chase/shooting cameras; offscreen captures | 007A technical DONE;008A reviewed, visual actions OPEN |
+| G2-VR-008 | Новый benchmark owner review package и честная self-review | Итоговые build/captures/tests/profiling, attribution, G2_VISUAL_BENCHMARK_REVIEW.md, G2_OPEN_ITEMS.md, PROJECT_STATE | 008A DONE2026-09-23; recommend FAIL; STOP / WAITING_OWNER_G2 |
 
 ## Правила исполнения
 
@@ -30,5 +30,7 @@ Hero сохраняет архитектуру ADR-0020: presentation-only rig, 
 **Только скрытые проверки**, согласно ответу owner. Используется проверенный WP166 offscreen render path; видимые окна player/Blender не запускаются. Нельзя объявлять GPU timing/FPS/min-spec qualification при unavailable counters. Triangle/draw/CPU budgets не повышаются ради PASS. Три прежних triangle-budget failures устранены в004E без повышения budgets; последующие изменения повторно проверяются по той же матрице.
 
 ## Условия завершения remediation
+
+2026-09-23: [008A integrated review](G2_VISUAL_BENCHMARK_REVIEW.md) выполнен:45stills,30before/after,48motion frames,focused1/1 PASS; prior runtime143/143/hidden9/9. **Review package завершён, visual remediation не объявляется успешной.** Рекомендация FAIL; owner gate STOP. Прежние «далее008» выше — последовательность технических checkpoints, уже выполненная. Hero/animation/crowd/composition actions остаются открытыми. Разрешение владельца на дополнительные бесплатные ассеты записано отдельно в owner/FREE_ASSET_AUTHORIZATION_2026-09-23.md.
 
 Hero/animation/environment/event/crowd/lighting представлены совместно в benchmark, а не только isolated assets. Review показывает chase, dedicated shooting camera и близкие планы с одинаково честной подачей, список использованных источников/изменений, technical evidence и remaining issues. Сравнение с owner references/NGL2026 должно оценивать фактическое изображение, а не объём импорта. Если результат остаётся слабым, рекомендация — FAIL/ещё доработка. **G2 утверждает только owner; WP167/M13 остаётся BLOCKED_G2.**

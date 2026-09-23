@@ -1,0 +1,27 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":[{\"LogType\":\"Warning\",\"Message\":\"Assets\\\\Tests\\\\PlayMode\\\\PlaytestEvidenceTests.cs(22,40): warning CS0618: \\u0027Object.FindFirstObjectByType\\u003CT\\u003E()\\u0027 is obsolete: \\u0027FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.\\u0027\",\"Timestamp\":\"2026-09-23T12:32:01.9667005\\u002B03:00\"},{\"LogType\":\"Warning\",\"Message\":\"Assets\\\\Tests\\\\PlayMode\\\\VisualBenchmarkTests.cs(53,19): warning CS0618: \\u0027Object.FindFirstObjectByType\\u003CT\\u003E()\\u0027 is obsolete: \\u0027FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.\\u0027\",\"Timestamp\":\"2026-09-23T12:32:01.9667005\\u002B03:00\"}]}"
+      }
+    ],
+    "structuredContent": {
+      "result": [
+        {
+          "LogType": "Warning",
+          "Message": "Assets\\Tests\\PlayMode\\PlaytestEvidenceTests.cs(22,40): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+          "Timestamp": "2026-09-23T12:32:01.9667005+03:00"
+        },
+        {
+          "LogType": "Warning",
+          "Message": "Assets\\Tests\\PlayMode\\VisualBenchmarkTests.cs(53,19): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+          "Timestamp": "2026-09-23T12:32:01.9667005+03:00"
+        }
+      ]
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

@@ -21,4 +21,8 @@ Evidence: [focused tests](../quality/g2/motion-a/playmode-focused.json), [full t
 
 The rifle silhouette is clearer; ready-state support/trigger grips align with explicit contacts, and full-body stance/transfer images remain readable. Close elbow/knee deformation is still angular, the procedural motion remains mechanical, and pole contact is a local presentation-plane correction rather than world-locked friction. This checkpoint does not claim production animation quality. Natural weight transfer, skin/joint shaping, equipment/body intersections across more close angles, cloth/skin response and athlete variation require another integrated visual pass.
 
-Next: **G2-VR-004A controlled fir LOD/material import**, then snow/terrain composition. Preserve002/003 visual actions for the combined benchmark review; do not scale this still-incomplete presentation to production venues. GPU-counter availability and unchanged WP166 performance budgets remain tracked in G2_OPEN_ITEMS.
+Next at003A: **G2-VR-004A controlled fir LOD/material import**, then snow/terrain composition. Preserve002/003 visual actions for the combined benchmark review; do not scale this still-incomplete presentation to production venues. GPU-counter availability and unchanged WP166 performance budgets remain tracked in G2_OPEN_ITEMS.
+
+## Integrated review008A —2026-09-23
+
+Записаны48кадров/2s с production chase camera на detached benchmark subject и близкие prone/standing fixtures; отдельно dedicated camera на двух реальных замороженных AI bouts. Клип подтверждает механический шаг, слабый перенос веса и неубедительный контакт палок. Крупные планы сохраняют угловатые суставы и необходимость доработки weapon/body fit. **Visual actions003 OPEN**, [recommend G2 FAIL](G2_VISUAL_BENCHMARK_REVIEW.md); STOP на owner gate. Capture harness не меняет runtime animation или authoritative shooting. Запись24fps не является измерением FPS.

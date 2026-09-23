@@ -1,0 +1,82 @@
+Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+GPU Resident Drawer created.
+GPU Resident Drawer disposed.
+<color=#ffaa00>warn:</color> [12:32:23:1653] <color=#B4FF32>[AI]</color> <color=#85C1E2><b>BufferedFileLogStorage</b></color> Flush called but already disposed, ignored.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogWarning (object)
+com.IvanMurzak.Unity.MCP.Utils.UnityLogger:Log<Microsoft.Extensions.Logging.FormattedLogValues> (Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,Microsoft.Extensions.Logging.FormattedLogValues,System.Exception,System.Func`3<Microsoft.Extensions.Logging.FormattedLogValues, System.Exception, string>) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@18ba6a411b25/Runtime/Logger/UnityLogger.cs:125)
+Microsoft.Extensions.Logging.Logger:<Log>g__LoggerLog|14_0<Microsoft.Extensions.Logging.FormattedLogValues> (Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,Microsoft.Extensions.Logging.ILogger,System.Exception,System.Func`3<Microsoft.Extensions.Logging.FormattedLogValues, System.Exception, string>,System.Collections.Generic.List`1<System.Exception>&,Microsoft.Extensions.Logging.FormattedLogValues&)
+Microsoft.Extensions.Logging.Logger:Log<Microsoft.Extensions.Logging.FormattedLogValues> (Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,Microsoft.Extensions.Logging.FormattedLogValues,System.Exception,System.Func`3<Microsoft.Extensions.Logging.FormattedLogValues, System.Exception, string>)
+Microsoft.Extensions.Logging.LoggerExtensions:Log (Microsoft.Extensions.Logging.ILogger,Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.Exception,string,object[])
+Microsoft.Extensions.Logging.LoggerExtensions:Log (Microsoft.Extensions.Logging.ILogger,Microsoft.Extensions.Logging.LogLevel,string,object[])
+Microsoft.Extensions.Logging.LoggerExtensions:LogWarning (Microsoft.Extensions.Logging.ILogger,string,object[])
+com.IvanMurzak.Unity.MCP.BufferedFileLogStorage:Flush () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@18ba6a411b25/Runtime/Unity/Logs/BufferedFileLogStorage.cs:52)
+com.IvanMurzak.Unity.MCP.FileLogStorage:Dispose () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@18ba6a411b25/Runtime/Unity/Logs/FileLogStorage.cs:438)
+com.IvanMurzak.Unity.MCP.UnityLogCollector:Dispose () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@18ba6a411b25/Runtime/Unity/Logs/UnityLogCollector.cs:121)
+com.IvanMurzak.Unity.MCP.UnityMcpPlugin:DisposeLogCollector () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@18ba6a411b25/Runtime/UnityMcpPlugin.cs:112)
+com.IvanMurzak.Unity.MCP.Editor.Startup:TryDisconnectAndCleanup (string,bool) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@18ba6a411b25/Editor/Scripts/Startup.Editor.cs:89)
+com.IvanMurzak.Unity.MCP.Editor.Startup:OnApplicationQuitting () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@18ba6a411b25/Editor/Scripts/Startup.Editor.cs:34)
+UnityEngine.Application:Internal_ApplicationQuit ()
+
+(Filename: ./Library/PackageCache/com.ivanmurzak.unity.mcp@18ba6a411b25/Runtime/Unity/Logs/BufferedFileLogStorage.cs Line: 52)
+
+Unloading 282 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Temp/__Backupscenes/0.backup'
+	Deserialize:            0.999 ms
+	Integration:            29.285 ms
+	Integration of assets:  0.001 ms
+	Thread Wait Time:       0.016 ms
+	Total Operation Time:   30.301 ms
+Unloading 1466 unused Assets / (71.0 MB). Loaded Objects now: 13170.
+Memory consumption went from 0.96 GB to 0.89 GB.
+Total: 54.839000 ms (FindLiveObjects: 0.602100 ms CreateObjectMapping: 0.112900 ms MarkObjects: 51.212600 ms  DeleteObjects: 2.737500 ms)
+
+[Licensing::Client] Successfully resolved entitlement details
+GPU Resident Drawer created.
+Executing IPostBuildCleanup for: Unity.PerformanceTesting.Editor.TestRunBuilder.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+UnityEditor.TestTools.TestRunner.TestRun.Tasks.BuildActionTaskBase`1/<ExecuteMethods>d__8<UnityEngine.TestTools.IPostBuildCleanup>:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/TestRun/Tasks/BuildActionTaskBase.cs:48)
+UnityEditor.TestTools.TestRunner.TestRun.Tasks.BuildActionTaskBase`1/<Execute>d__7<UnityEngine.TestTools.IPostBuildCleanup>:MoveNext () (at ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/TestRun/Tasks/BuildActionTaskBase.cs:34)
+UnityEditor.TestTools.TestRunner.TestRun.TestJobRunner:ExecuteStep () (at ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/TestRun/TestJobRunner.cs:194)
+UnityEditor.TestTools.TestRunner.TestRun.TestJobRunner:ExecuteCallback () (at ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/TestRun/TestJobRunner.cs:129)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: ./Library/PackageCache/com.unity.test-framework@7a3849e09bd0/UnityEditor.TestRunner/TestRun/Tasks/BuildActionTaskBase.cs Line: 48)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/GreyboxVenue.unity'
+	Deserialize:            5.705 ms
+	Integration:            43.221 ms
+	Integration of assets:  0.004 ms
+	Thread Wait Time:       0.020 ms
+	Total Operation Time:   48.949 ms
+Unloading 1 unused Assets / (18.9 KB). Loaded Objects now: 14150.
+Memory consumption went from 0.90 GB to 0.90 GB.
+Total: 52.778900 ms (FindLiveObjects: 0.689200 ms CreateObjectMapping: 0.166300 ms MarkObjects: 51.696800 ms  DeleteObjects: 0.027200 ms)
+
+Asset Pipeline Refresh (id=1c20d664b70abff439600967376826ef): Total: 0.046 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+{"errors":0,"warnings":1,"logs":2,"compilation_failed":false}
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+Script:Main ()
+System.Reflection.RuntimeMethodInfo:Invoke (object,System.Reflection.BindingFlags,System.Reflection.Binder,object[],System.Globalization.CultureInfo)
+System.Reflection.MethodBase:Invoke (object,object[])
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script:ExecuteCSharpCode (string,string,string,com.IvanMurzak.ReflectorNet.Model.SerializedMemberList,object&,System.Type&,string&,Microsoft.Extensions.Logging.ILogger) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@18ba6a411b25/Editor/Scripts/API/Tool/Script.Execute.cs:310)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<>c__DisplayClass3_0:<Execute>b__0 () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@18ba6a411b25/Editor/Scripts/API/Tool/Script.Execute.cs:122)
+com.IvanMurzak.Unity.MCP.Runtime.Utils.UnityMainThread/<>c__DisplayClass6_0`1<com.IvanMurzak.ReflectorNet.Model.SerializedMember>:<Dispatch>g__Execute|0 () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@18ba6a411b25/Runtime/Utils/MainThread.Editor.cs:53)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+(Filename: ./Library/PackageCache/com.ivanmurzak.unity.mcp@18ba6a411b25/Editor/Scripts/API/Tool/Script.Execute.cs Line: 310)

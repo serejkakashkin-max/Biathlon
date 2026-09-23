@@ -1,0 +1,34 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":144,\"PassedTests\":0,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:09.2480695\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.G2OwnerReviewTests.CaptureOwnerMatrixControlsAndCloseMotionWithoutAdvancingBenchmarkRace\",\"Status\":\"Failed\",\"Duration\":\"00:00:09.2100000\",\"Message\":\"  Capture must retain chase composition, not the broadcast director pose.\\r\\n  Expected: less than 0.00100000005f\\r\\n  But was:  6.34212112f\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.G2OwnerReviewTests\\u002B\\u003CCaptureOwnerMatrixControlsAndCloseMotionWithoutAdvancingBenchmarkRace\\u003Ed__1.MoveNext () [0x00bc0] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\G2OwnerReviewTests.cs:58\\r\\nat UnityEngine.TestTools.TestEnumerator\\u002B\\u003CExecute\\u003Ed__8.MoveNext () [0x0003a] in .\\\\Library\\\\PackageCache\\\\com.unity.test-framework@7a3849e09bd0\\\\UnityEngine.TestRunner\\\\NUnitExtensions\\\\Attributes\\\\TestEnumerator.cs:52\\r\\n\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 144,
+          "PassedTests": 0,
+          "FailedTests": 1,
+          "SkippedTests": 0,
+          "Duration": "00:00:09.2480695"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.G2OwnerReviewTests.CaptureOwnerMatrixControlsAndCloseMotionWithoutAdvancingBenchmarkRace",
+            "Status": "Failed",
+            "Duration": "00:00:09.2100000",
+            "Message": "  Capture must retain chase composition, not the broadcast director pose.\r\n  Expected: less than 0.00100000005f\r\n  But was:  6.34212112f\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.G2OwnerReviewTests+<CaptureOwnerMatrixControlsAndCloseMotionWithoutAdvancingBenchmarkRace>d__1.MoveNext () [0x00bc0] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\G2OwnerReviewTests.cs:58\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}
