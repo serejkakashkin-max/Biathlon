@@ -68,3 +68,7 @@ Legend for **Status** (last column): `DOWNLOADED` (file staged), `MANUAL` (MANUA
 ## Post-WP166 audit correction (2026-09-20)
 
 The original operator summary above is retained as received. Its 33 DOWNLOADED count is inconsistent with the table: verified inventory is **32 DOWNLOADED +1 MANUAL +4 METADATA =37**. Raw/extracted duplicates are not extra candidates. `external_downloads/` is now ignored by Git. See `docs/reports/G2_VISUAL_ASSET_AUDIT.md`; no import is implied by downloaded status.
+
+## Winter addition, 2026-09-24
+
+Three additional owner-staged downloads audited via official Sketchfab API; all CC BY 4.0. Puffer contains Matte and Shiny, so all three packs provide four garment variants. See [winter audit](winter/README.md), source hashes and attribution in Resources/Biathlon/G2ThirdPartyCredits.txt. Arctic Explorer link is metadata-only: no corresponding local file was found. Derived crowd geometry remains ignored because it also includes separately licensed Renderpeople heads.

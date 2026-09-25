@@ -1,6 +1,6 @@
 Shader "Biathlon/AuditedSpectator"
 {
- Properties {_FaceMap("Local licensed face",2D)="white"{} _Motion("Time amplitude frequency LOD",Vector)=(0,.9,2.4,0)}
+ Properties {_FaceMap("Local licensed face",2D)="white"{} _Garment("Smoothness, seams, arm motion",Vector)=(.12,1,1,0) _Motion("Time amplitude frequency LOD",Vector)=(0,.9,2.4,0)}
  SubShader
  {
   Tags {"RenderPipeline"="UniversalPipeline" "RenderType"="Opaque"}
@@ -8,7 +8,7 @@ Shader "Biathlon/AuditedSpectator"
   #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
   #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
   CBUFFER_START(UnityPerMaterial)
-  float4 _Motion;
+  float4 _Motion;float4 _Garment;
   CBUFFER_END
   TEXTURE2D(_FaceMap);SAMPLER(sampler_FaceMap);
   struct A {float4 positionOS:POSITION;float3 normalOS:NORMAL;float4 color:COLOR;float4 pivot:TEXCOORD0;float3 face:TEXCOORD1;UNITY_VERTEX_INPUT_INSTANCE_ID};
@@ -19,10 +19,10 @@ Shader "Biathlon/AuditedSpectator"
    float3 root=TransformObjectToWorld(float3(0,0,0));float rank=frac(sin(dot(root,float3(12.9898,19.37,78.233)))*43758.5453);float phase=rank*6.2831853;
    float cheer=smoothstep(.35,.85,sin(_Motion.x*.32+phase));
    float active=(1-_Motion.w)*_Motion.y,side=sign(v.pivot.x);
-   float angle=saturate(v.pivot.w)*active*(.08+cheer*(.45+.22*sin(_Motion.x*_Motion.z+phase+side*.65)));
+   float angle=saturate(v.pivot.w)*active*_Garment.z*(.08+cheer*(.45+.22*sin(_Motion.x*_Motion.z+phase+side*.65)));
    float3 p=v.positionOS.xyz,n=v.normalOS;
    // Forearms bend around their own elbow before the whole arm moves at the shoulder.
-   float elbow=saturate(v.pivot.w-1)*active*cheer*(.28+.22*sin(_Motion.x*_Motion.z*1.3+phase+side));
+   float elbow=saturate(v.pivot.w-1)*active*_Garment.z*cheer*(.28+.22*sin(_Motion.x*_Motion.z*1.3+phase+side));
    float sn=sin(elbow),cs=cos(elbow);p-=v.pivot.xyz;
    p.yz=float2(cs*p.y-sn*p.z,sn*p.y+cs*p.z);n.yz=float2(cs*n.y-sn*n.z,sn*n.y+cs*n.z);p+=v.pivot.xyz;
    float3 shoulder=float3(side*.20,.96,0);p-=shoulder;sn=sin(angle);cs=cos(angle);
@@ -40,8 +40,8 @@ Shader "Biathlon/AuditedSpectator"
    float seam=1-smoothstep(.025,.025+max(fwidth(i.cloth.y*12),.035),abs(frac(i.cloth.y*12)-.5));
    float torso=step(.4,i.cloth.y)*step(i.cloth.y,1.015)*step(i.cloth.z,-.11)*i.cloth.w;
    float zip=(1-smoothstep(.003,.006+fwidth(i.cloth.x),abs(i.cloth.x)))*torso;
-   half3 fabric=i.color*lerp(1,.68,seam*i.cloth.w);fabric=lerp(fabric,half3(.1,.12,.13),zip);
-   SurfaceData s=(SurfaceData)0;s.albedo=lerp(fabric,SAMPLE_TEXTURE2D(_FaceMap,sampler_FaceMap,i.face.xy).rgb,saturate(i.face.z));s.smoothness=.12;s.occlusion=.9;s.alpha=1;s.normalTS=half3(0,0,1);
+   half3 fabric=i.color*lerp(1,.68,seam*i.cloth.w*_Garment.y);fabric=lerp(fabric,half3(.1,.12,.13),zip*_Garment.y);
+   SurfaceData s=(SurfaceData)0;s.albedo=lerp(fabric,SAMPLE_TEXTURE2D(_FaceMap,sampler_FaceMap,i.face.xy).rgb,saturate(i.face.z));s.smoothness=lerp(_Garment.x,.12,saturate(i.face.z));s.occlusion=.9;s.alpha=1;s.normalTS=half3(0,0,1);
    InputData d=(InputData)0;d.positionWS=i.positionWS;d.normalWS=n;d.viewDirectionWS=GetWorldSpaceNormalizeViewDir(i.positionWS);d.shadowCoord=TransformWorldToShadowCoord(i.positionWS);d.bakedGI=SampleSH(n);d.shadowMask=1;d.normalizedScreenSpaceUV=GetNormalizedScreenSpaceUV(i.positionCS);
    half4 c=UniversalFragmentPBR(d,s);c.rgb=MixFog(c.rgb,i.fog);return c;
   }

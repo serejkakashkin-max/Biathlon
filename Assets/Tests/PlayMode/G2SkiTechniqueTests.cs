@@ -7,6 +7,27 @@ namespace Biathlon.PlayModeTests
 {
     public class G2SkiTechniqueTests
     {
+        [Test] public void SkateCycleKeepsSupportDuringLiftedRecoveryAndReturnsContinuously()
+        {
+            var rig=AthleteRigFactory.Create(null);
+            try
+            {
+                var driver=rig.GetComponent<AthleteLocomotionDriver>();int leftLifted=0,rightLifted=0,bothGrounded=0;
+                Vector3 previousLeft=default,previousRight=default;
+                for(int i=0;i<360;i++)
+                {
+                    driver.Sample(rig,new LocomotionInput(7,0,.9f),i/120.0);
+                    var left=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.LeftFoot).position);
+                    var right=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.RightFoot).position);
+                    bool l=left.y>.125f,r=right.y>.125f;if(l)leftLifted++;if(r)rightLifted++;if(!l&&!r)bothGrounded++;
+                    Assert.That(l&&r,Is.False,"Skating cycle must retain one grounded support ski.");
+                    if(i>0){Assert.That(Vector3.Distance(left,previousLeft),Is.LessThan(.03f));Assert.That(Vector3.Distance(right,previousRight),Is.LessThan(.03f));}
+                    previousLeft=left;previousRight=right;
+                }
+                Assert.That(leftLifted,Is.GreaterThan(30));Assert.That(rightLifted,Is.GreaterThan(30));Assert.That(bothGrounded,Is.GreaterThan(30));
+            }
+            finally{Object.DestroyImmediate(rig.gameObject);}
+        }
         [Test] public void BothHandsPushTogetherAndHipsTransferWithoutRootMovement()
         {
             var rig=AthleteRigFactory.Create(null);

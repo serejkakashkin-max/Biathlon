@@ -69,3 +69,5 @@ Renderpeople Eric rigged001 / Carla rigged001, head/upper-neck only, source clot
 ## Actual use — G2-VR-007A
 
 G2-023 Passendorf Snow — Poly Haven, CC0, https://polyhaven.com/a/passendorf_snow , https://polyhaven.com/license . Selected2K HDR derivative: source sun/halo neutralized, only upper sky above haze used, source ground/horizon excluded. Runtime sun follows key; ambient lighting authored separately. G2-022/024 rejected for benchmark sky composition after panorama inspection; no runtime copies. Actual credits ship with build. See lighting-derivation.json and lighting report.
+
+Winter garment attribution and changes: [audit](winter/README.md). Runtime notices have been appended to Assets/Resources/Biathlon/G2ThirdPartyCredits.txt for iGauravRajput (Black Leather Coat), Kaze (Puffer Jacket, both variants), grs (Warm Jacket), all CC BY 4.0. Arctic Explorer not used: no corresponding source file staged.

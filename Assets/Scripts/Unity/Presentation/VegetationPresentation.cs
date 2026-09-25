@@ -28,6 +28,7 @@ namespace Biathlon.Unity.Presentation
         public bool UsesAuditedFir { get; private set; }
         public bool UsesAuditedPine { get; private set; }
         public bool UsesSimplifiedShadows {get;private set;}
+        public bool SimplifyingCurrentShadows {get;private set;}
         public int InstanceSpecies(int index)=>species[index];
         public Vector3 InstanceWorldPosition(int index)=>transform.TransformPoint(instances[index].Position);
         public void Initialize(Vector3[] route,bool useAuditedFir=false,Func<Vector3,float> groundHeight=null,bool useAuditedPine=false,bool useSimplifiedShadows=false,VegetationInstance[] authoredInstances=null)
@@ -73,6 +74,7 @@ namespace Biathlon.Unity.Presentation
             if(definition==null||camera==null||!float.IsFinite(presentationTime))throw new ArgumentException("Initialized forest, camera and finite time required.");
             if((transform.lossyScale-Vector3.one).sqrMagnitude>.000001f||Vector3.Dot(transform.up,Vector3.up)<.99999f)throw new ArgumentException("Forest root supports translation/yaw only; placement owns tree scale.");
             if(observedWind.HasValue&&(!float.IsFinite(observedWind.Value.x)||!float.IsFinite(observedWind.Value.y)))throw new ArgumentException("Finite visual wind required.");
+            SimplifyingCurrentShadows=UsesSimplifiedShadows&&tier!="high";
             float density=definition.Density(tier);for(int i=0;i<counts.Length;i++)counts[i]=0;SubmittedTriangles=0;ShadowSourceTriangles=0;
             GeometryUtility.CalculateFrustumPlanes(camera,planes);
             var world=transform.localToWorldMatrix;var eye=camera.transform.position;float lodScale=ProjectionAwareLod.Scale(camera);
@@ -86,7 +88,7 @@ namespace Biathlon.Unity.Presentation
                 if(!GeometryUtility.TestPlanesAABB(planes,bounds))continue;
                 int group=species[index]*3+lod;
                 matrices[group][counts[group]++]=world*tree.Matrix;SubmittedTriangles+=triangles[group];
-                if(lod<2)ShadowSourceTriangles+=triangles[UsesSimplifiedShadows?group+1:group];
+                if(lod<2)ShadowSourceTriangles+=triangles[SimplifyingCurrentShadows?group+1:group];
             }
             var direction=observedWind.HasValue?observedWind.Value.normalized:new Vector2(1,.35f);
             float strength=observedWind.HasValue?Mathf.Clamp01(observedWind.Value.magnitude/5):1;
@@ -99,13 +101,13 @@ namespace Biathlon.Unity.Presentation
             Prepare(camera,tier,presentationTime,observedWind);
             for(int i=0;i<groups;i++)if(counts[i]>0)
             {
-                var p=new RenderParams(materials[i/3]){camera=camera,matProps=properties,shadowCastingMode=!UsesSimplifiedShadows&&i%3<2?ShadowCastingMode.On:ShadowCastingMode.Off,receiveShadows=true,
+                var p=new RenderParams(materials[i/3]){camera=camera,matProps=properties,shadowCastingMode=!SimplifyingCurrentShadows&&i%3<2?ShadowCastingMode.On:ShadowCastingMode.Off,receiveShadows=true,
                     worldBounds=new Bounds(transform.position,new Vector3(500,50,500)),layer=gameObject.layer};
                 // Default instancing includes inverse matrices; stay below the 511-instance limit
                 // without relying on platform-dependent uniform-scaling shader optimizations.
                 for(int offset=0;offset<counts[i];offset+=500)
                     Graphics.RenderMeshInstanced(p,meshes[i],0,matrices[i],Math.Min(500,counts[i]-offset),offset);
-                if(UsesSimplifiedShadows&&i%3<2)
+                if(SimplifyingCurrentShadows&&i%3<2)
                 {
                     p.shadowCastingMode=ShadowCastingMode.ShadowsOnly;p.receiveShadows=false;
                     for(int offset=0;offset<counts[i];offset+=500)

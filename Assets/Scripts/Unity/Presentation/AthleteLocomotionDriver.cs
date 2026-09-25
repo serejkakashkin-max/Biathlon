@@ -86,7 +86,7 @@ namespace Biathlon.Unity.Presentation
             float polePhase=(float)(poleCycle*Math.PI*2);
             float active=Mathf.Clamp01(pose.arm_swing_m/technique.motion_reference_swing_m);
             float pulse=-Mathf.Sin(polePhase)*active;
-            rig.Offset(AthleteBone.Hips, new Vector3(Mathf.Sin(phase) * pose.skate_width_m * technique.hip_transfer_fraction, -pose.hip_drop_m-technique.hip_pulse_m*pulse, 0));
+            rig.Offset(AthleteBone.Hips, new Vector3(-Mathf.Sin(phase) * pose.skate_width_m * technique.hip_transfer_fraction, -pose.hip_drop_m-technique.hip_pulse_m*pulse, 0));
             rig.Rotate(AthleteBone.Hips, Quaternion.Euler(0, 0, -CornerLeanDegrees));
             float lean=pose.torso_lean_deg+technique.torso_pulse_deg*pulse;
             rig.Rotate(AthleteBone.Spine, Quaternion.Euler(lean * .6f, 0, 0));
@@ -98,14 +98,20 @@ namespace Biathlon.Unity.Presentation
             void Leg(bool right, float angle)
             {
                 float side = right ? 1 : -1;
-                float stroke = .5f + .5f * Mathf.Sin(angle);
+                float cyclePhase=Mathf.Repeat(angle/(2*Mathf.PI),1);
+                float recovery=cyclePhase<technique.glide_fraction?0:(cyclePhase-technique.glide_fraction)/(1-technique.glide_fraction);
+                float stroke=cyclePhase<technique.glide_fraction?Mathf.SmoothStep(0,1,cyclePhase/technique.glide_fraction):Mathf.SmoothStep(1,0,recovery);
                 var upper = rig.Bone(right ? AthleteBone.RightUpperLeg : AthleteBone.LeftUpperLeg);
                 var lower = rig.Bone(right ? AthleteBone.RightLowerLeg : AthleteBone.LeftLowerLeg);
                 var foot = rig.Bone(right ? AthleteBone.RightFoot : AthleteBone.LeftFoot);
-                var at = new Vector3(side * (.105f + pose.skate_width_m * stroke), settings.ankle_height_m + Mathf.Max(0, Mathf.Cos(angle)) * pose.foot_lift_m,
-                    Mathf.Cos(angle) * pose.stride_m);
+                // Long grounded push/glide, then a shorter lifted return. Opposite legs overlap
+                // support instead of tracing two equal airborne/grounded semicircles.
+                float lift=Mathf.Sin(recovery*Mathf.PI);lift*=lift;
+                var at = new Vector3(side * (.105f + pose.skate_width_m * stroke), settings.ankle_height_m + lift * pose.foot_lift_m,
+                    (1-2*stroke) * pose.stride_m);
                 SolveTwoBone(upper, lower, foot, rig.ModelRoot.TransformPoint(at), rig.ModelRoot.forward, rig.ModelRoot.rotation);
-                foot.rotation = rig.ModelRoot.rotation * Quaternion.Euler(0, side * settings.ski_v_deg * Mathf.Clamp01(pose.skate_width_m / .15f), 0);
+                float yaw=Mathf.Lerp(1,technique.recovery_yaw_fraction,lift);
+                foot.rotation = rig.ModelRoot.rotation * Quaternion.Euler(0, side * settings.ski_v_deg * Mathf.Clamp01(pose.skate_width_m / .15f)*yaw, 0);
             }
             void Arm(bool right, float angle)
             {

@@ -9,6 +9,8 @@ try {
  if($tracked.Count -ne 0){throw 'Restricted crowd derivatives are tracked; stop publication and review.'}
  $p=Start-Process -FilePath (Resolve-Path -LiteralPath $BlenderPath).Path -ArgumentList '--background --factory-startup --disable-autoexec --python-exit-code 1 --python scripts/art/Build-G2Crowd.py' -WindowStyle Hidden -PassThru -RedirectStandardOutput artifacts/g2-audit/crowd-build.log -RedirectStandardError artifacts/g2-audit/crowd-build.err
  if(!$p.WaitForExit(60000)){throw 'Crowd derivation timed out.'};if($p.ExitCode -ne 0){throw 'Crowd derivation failed.'}
+ $winter=Start-Process -FilePath (Resolve-Path -LiteralPath $BlenderPath).Path -ArgumentList '--background --factory-startup --disable-autoexec --python-exit-code 1 --python scripts/art/Build-G2WinterCrowd.py' -WindowStyle Hidden -PassThru -RedirectStandardOutput artifacts/g2-audit/winter-build.log -RedirectStandardError artifacts/g2-audit/winter-build.err
+ if(!$winter.WaitForExit(60000)){throw 'Winter derivation timed out.'};if($winter.ExitCode -ne 0){throw 'Winter derivation failed.'}
  & "$PSScriptRoot/Invoke-UnityMcp.ps1" -Tool assets-refresh -Arguments @{} -TimeoutSec 90 | Out-Null
  & "$PSScriptRoot/Invoke-UnityMcp.ps1" -Tool script-execute -Arguments @{csharpCode='Biathlon.Unity.G2CrowdAuthoring.Generate();';isMethodBody=$true} -TimeoutSec 60 | Out-Null
 } finally {Pop-Location}

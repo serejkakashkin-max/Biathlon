@@ -12,6 +12,20 @@ namespace Biathlon.PlayModeTests
 {
     public class G2CrowdTests
     {
+        [Test] public void AllWinterGarmentsHaveTwoFacesAndDistinctNearFarGeometry()
+        {
+            for(int variant=2;variant<10;variant++)
+            {
+                var near=Resources.Load<Mesh>("Biathlon/RestrictedG2Crowd/Crowd"+variant+"LOD0");
+                var far=Resources.Load<Mesh>("Biathlon/RestrictedG2Crowd/Crowd"+variant+"LOD1");
+                Assert.That(near,Is.Not.Null);Assert.That(far,Is.Not.Null);Assert.That(near.GetIndexCount(0),Is.GreaterThan(far.GetIndexCount(0)));
+                foreach(var point in near.vertices)Assert.That(float.IsFinite(point.sqrMagnitude)&&point.magnitude<2,Is.True,"Fitted winter garment must stay in the seated spectator envelope.");
+                var material=Resources.Load<Material>("Biathlon/RestrictedG2Crowd/Spectator"+variant);
+                Assert.That(material.GetTexture("_FaceMap"),Is.Not.Null);Assert.That(material.GetVector("_Garment").y,Is.Zero,"Original garment shape replaces artificial seams.");
+            }
+            var matte=Resources.Load<Material>("Biathlon/RestrictedG2Crowd/Spectator4");var shiny=Resources.Load<Material>("Biathlon/RestrictedG2Crowd/Spectator6");
+            Assert.That(shiny.GetVector("_Garment").x,Is.GreaterThan(matte.GetVector("_Garment").x));
+        }
         [Test] public void SleeveChannelsKeepElbowAndShoulderPivotsDistinct()
         {
             for(int variant=0;variant<2;variant++)for(int lod=0;lod<2;lod++)
@@ -45,7 +59,7 @@ namespace Biathlon.PlayModeTests
             try
             {
                 var seating=go.AddComponent<SpectatorSeating>();seating.Configure(Resources.Load<GameObject>("Biathlon/Stadium/G2Grandstand/Grandstand").GetComponent<SpectatorSeating>().CopyAnchors());var c=go.AddComponent<SpectatorCrowd>();c.Initialize(seating,true,true);
-                var camera=view.AddComponent<Camera>();camera.enabled=false;camera.transform.position=new Vector3(0,4,-20);camera.transform.LookAt(new Vector3(0,4,3));c.Prepare(camera,"high",8);Assert.That(c.Visible,Is.EqualTo(168));Assert.That(c.VisibleVariant(0),Is.InRange(40,128));Assert.That(c.VisibleVariant(1),Is.InRange(40,128));long shadow=c.ShadowSourceTriangles;Assert.That(shadow,Is.GreaterThan(0).And.LessThan(c.SubmittedTriangles*.5));
+                var camera=view.AddComponent<Camera>();camera.enabled=false;camera.transform.position=new Vector3(0,4,-20);camera.transform.LookAt(new Vector3(0,4,3));c.Prepare(camera,"high",8);Assert.That(c.Visible,Is.EqualTo(168));for(int variant=0;variant<10;variant++)Assert.That(c.VisibleVariant(variant),Is.InRange(1,40));long shadow=c.ShadowSourceTriangles;Assert.That(shadow,Is.EqualTo(c.SubmittedTriangles));
                 c.Prepare(camera,"balanced",8);int balanced=c.Visible;c.Prepare(camera,"low",8);Assert.That(c.Visible,Is.LessThan(balanced));camera.transform.position=new Vector3(0,4,-60);camera.transform.LookAt(new Vector3(0,4,3));c.Prepare(camera,"high",8);Assert.That(c.Far,Is.EqualTo(168));
                 for(int i=0;i<20;i++)c.Render(camera,"high",8);long before=GC.GetAllocatedBytesForCurrentThread();for(int i=0;i<100;i++)c.Render(camera,"high",i*.1f);Assert.That(GC.GetAllocatedBytesForCurrentThread()-before,Is.Zero);
                 camera.transform.position=new Vector3(0,4,-140);c.Prepare(camera,"high",8);Assert.That(c.Visible,Is.Zero);Assert.Throws<ArgumentException>(()=>c.Prepare(camera,"high",float.NaN));

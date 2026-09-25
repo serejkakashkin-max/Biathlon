@@ -24,7 +24,8 @@ namespace Biathlon.PlayModeTests
                 foreach(string tier in new[]{"low","balanced","high"})
                 {
                     a.Prepare(camera,tier,8);b.Prepare(camera,tier,8);Assert.That(b.VisibleInstances,Is.EqualTo(a.VisibleInstances));Assert.That(b.SubmittedTriangles,Is.EqualTo(a.SubmittedTriangles));
-                    Assert.That(b.ShadowSourceTriangles,Is.GreaterThan(0).And.LessThan(a.ShadowSourceTriangles));
+                    if(tier=="high")Assert.That(b.ShadowSourceTriangles,Is.EqualTo(a.ShadowSourceTriangles));
+                    else Assert.That(b.ShadowSourceTriangles,Is.GreaterThan(0).And.LessThan(a.ShadowSourceTriangles));
                     for(int i=0;i<a.TotalInstances;i++)Assert.That(b.InstanceWorldPosition(i),Is.EqualTo(a.InstanceWorldPosition(i)));
                 }
                 for(int i=0;i<10;i++)b.Render(camera,"high",8);long before=GC.GetAllocatedBytesForCurrentThread();for(int i=0;i<100;i++)b.Render(camera,"high",8);
@@ -44,7 +45,8 @@ namespace Biathlon.PlayModeTests
                 foreach(string tier in new[]{"low","balanced","high"})
                 {
                     a.Prepare(camera,tier,8);b.Prepare(camera,tier,8);Assert.That(b.Visible,Is.EqualTo(a.Visible));Assert.That(b.Near,Is.EqualTo(a.Near));Assert.That(b.SubmittedTriangles,Is.EqualTo(a.SubmittedTriangles));
-                    Assert.That(b.ShadowSourceTriangles,Is.GreaterThan(0).And.LessThan(a.ShadowSourceTriangles*.25));
+                    if(tier=="high")Assert.That(b.ShadowSourceTriangles,Is.EqualTo(a.ShadowSourceTriangles));
+                    else Assert.That(b.ShadowSourceTriangles,Is.GreaterThan(0).And.LessThan(a.ShadowSourceTriangles*.25));
                 }
                 for(int i=0;i<10;i++)b.Render(camera,"high",8);long before=GC.GetAllocatedBytesForCurrentThread();for(int i=0;i<100;i++)b.Render(camera,"high",8);
                 Assert.That(GC.GetAllocatedBytesForCurrentThread()-before,Is.Zero);

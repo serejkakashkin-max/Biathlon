@@ -16,11 +16,11 @@ namespace Biathlon.Unity
         public static void Generate()
         {
             Directory.CreateDirectory(Root);AssetDatabase.Refresh();var shader=Shader.Find("Biathlon/AuditedSpectator");if(shader==null||ShaderUtil.ShaderHasError(shader))throw new InvalidDataException("Audited crowd shader unavailable.");
-            for(int variant=0;variant<2;variant++)
+            for(int variant=0;variant<10;variant++)
             {
-                string texturePath=Root+"Face"+variant+".png";var importer=AssetImporter.GetAtPath(texturePath) as TextureImporter;if(importer==null)throw new InvalidDataException("Run local restricted crowd recipe first.");
+                string texturePath=Root+"Face"+(variant%2)+".png";var importer=AssetImporter.GetAtPath(texturePath) as TextureImporter;if(importer==null)throw new InvalidDataException("Run local restricted crowd recipe first.");
                 importer.textureType=TextureImporterType.Default;importer.sRGBTexture=true;importer.maxTextureSize=1024;importer.mipmapEnabled=true;importer.wrapMode=TextureWrapMode.Clamp;importer.SaveAndReimport();
-                string path=Root+"Spectator"+variant+".mat";var mat=AssetDatabase.LoadAssetAtPath<Material>(path);if(mat==null){mat=new Material(shader);AssetDatabase.CreateAsset(mat,path);}mat.shader=shader;mat.enableInstancing=true;mat.SetTexture("_FaceMap",AssetDatabase.LoadAssetAtPath<Texture2D>(texturePath));EditorUtility.SetDirty(mat);
+                string path=Root+"Spectator"+variant+".mat";var mat=AssetDatabase.LoadAssetAtPath<Material>(path);if(mat==null){mat=new Material(shader);AssetDatabase.CreateAsset(mat,path);}mat.shader=shader;mat.enableInstancing=true;mat.SetTexture("_FaceMap",AssetDatabase.LoadAssetAtPath<Texture2D>(texturePath));mat.SetVector("_Garment",new Vector4(variant>=6&&variant<8?.55f:variant>=2&&variant<4?.4f:.12f,variant<2?1:0,variant<2?1:0,0));EditorUtility.SetDirty(mat);
                 for(int lod=0;lod<2;lod++)
                 {
                     string id="Crowd"+variant+"LOD"+lod;var d=JsonUtility.FromJson<Data>(File.ReadAllText("artifacts/g2-crowd/"+id+".json"));
@@ -33,7 +33,7 @@ namespace Biathlon.Unity
                         if(!float.IsFinite(v[i].sqrMagnitude)||!float.IsFinite(n[i].sqrMagnitude)||!float.IsFinite(uv[i].sqrMagnitude)||!float.IsFinite(pivot[i].sqrMagnitude))throw new InvalidDataException("Nonfinite local crowd data.");
                     }
                     foreach(int i in d.indices)if(i<0||i>=v.Length)throw new InvalidDataException("Invalid local crowd index.");
-                    var mesh=new Mesh{name=id,vertices=v,normals=n,colors=c,triangles=d.indices};mesh.SetUVs(0,pivot);mesh.SetUVs(1,uv);mesh.RecalculateBounds();path=Root+id+".asset";var old=AssetDatabase.LoadAssetAtPath<Mesh>(path);
+                    var mesh=new Mesh{name=id,indexFormat=UnityEngine.Rendering.IndexFormat.UInt32,vertices=v,normals=n,colors=c,triangles=d.indices};mesh.SetUVs(0,pivot);mesh.SetUVs(1,uv);mesh.RecalculateBounds();path=Root+id+".asset";var old=AssetDatabase.LoadAssetAtPath<Mesh>(path);
                     if(old==null)AssetDatabase.CreateAsset(mesh,path);else{EditorUtility.CopySerialized(mesh,old);Object.DestroyImmediate(mesh);EditorUtility.SetDirty(old);}
                 }
             }
