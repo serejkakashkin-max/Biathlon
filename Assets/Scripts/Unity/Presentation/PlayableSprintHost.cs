@@ -69,7 +69,7 @@ namespace Biathlon.Unity.Presentation
             if(current){shot.Capture(UseGamepad?null:Mouse.current,UseGamepad?null:Keyboard.current,UseGamepad?Gamepad.current:null);ski.ReleaseHeldInput();}
             else{ski.Capture(UseGamepad?null:Keyboard.current,UseGamepad?Gamepad.current:null);shot.ReleaseHeldInput();}
             accumulator+=Time.deltaTime;double dt=1.0/Runner.Field.TickFrequency;
-            while(accumulator>=dt&&!Runner.Field.IsComplete){var t=Runner.Field.Tick.Next();Step(ski.Build(t),shot.Build(t));accumulator-=dt;}
+            while(accumulator>=dt&&!Runner.Field.IsComplete){var t=Runner.Field.Tick.Next();Step(ski.BuildDirectional(t,Runner.Field.GetLateral(PlayerIndex),extent),shot.Build(t));accumulator-=dt;}
         }
         public void Step(PlayerCommand command,ShootingDeviceCommand shooting)
         {

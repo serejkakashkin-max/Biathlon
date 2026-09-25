@@ -19,7 +19,9 @@ namespace Biathlon.Unity.Presentation
         public void Apply(TargetGeometryDefinition geometry,ShootingStance stance,int closedMask)
         {
             if(geometry==null||apertures==null||apertures.Length!=5||closedMask<0||closedMask>31)throw new ArgumentException("Valid geometry, bound bank and five-bit closure mask required.");
-            float diameter=(float)(2*geometry.Radius(stance));
+            // The aiming mark stays 115 mm in both stances; scoring remains 45/115 mm in simulation.
+            geometry.Radius(stance); // Validate the observation without using its scoring radius for artwork.
+            float diameter=(float)(2*geometry.Radius(ShootingStance.Standing));
             for(int i=0;i<apertures.Length;i++)
             {
                 var face=apertures[i];face.transform.localPosition=new Vector3((float)geometry.CenterX(i),0,0);

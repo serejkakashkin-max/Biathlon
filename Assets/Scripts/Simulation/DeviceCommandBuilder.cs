@@ -42,6 +42,17 @@ namespace Biathlon.Simulation
             cancel |= cancelPressed; overtake = (overtake || overtakePressed) && !cancel;
         }
         public PlayerCommand Build(SimulationTick target)
+            => BuildCore(target, null, 0, 0);
+        /// <summary>Live steering is directional; recorded commands remain absolute line targets.
+        /// Neutral input holds the achieved line, including after a blocked manoeuvre.</summary>
+        public PlayerCommand BuildDirectional(SimulationTick target, double currentMeters, double extentMeters, double speedMetersPerSecond)
+        {
+            if(double.IsNaN(currentMeters)||double.IsInfinity(currentMeters)||double.IsNaN(extentMeters)||double.IsInfinity(extentMeters)||extentMeters<=0||
+                double.IsNaN(speedMetersPerSecond)||double.IsInfinity(speedMetersPerSecond)||speedMetersPerSecond<=0)
+                throw new ArgumentOutOfRangeException(nameof(extentMeters));
+            return BuildCore(target,currentMeters,extentMeters,speedMetersPerSecond);
+        }
+        private PlayerCommand BuildCore(SimulationTick target,double? currentMeters,double extentMeters,double speedMetersPerSecond)
         {
             if (target.Value != checked(tick + 1)) throw new ArgumentException("Commands require consecutive target ticks.");
             double nextEffort = sample.Gamepad ? keyboardEffort : Math.Max(0, Math.Min(1000,
@@ -50,6 +61,8 @@ namespace Biathlon.Simulation
             if (sample.Gamepad)
                 line = Math.Abs(line) <= definition.StickDeadzone ? 0 : Math.Sign(line) *
                     Math.Pow((Math.Abs(line) - definition.StickDeadzone) / (1 - definition.StickDeadzone), definition.StickExponent);
+            if(currentMeters.HasValue)
+                line=Math.Max(-1,Math.Min(1,(currentMeters.Value+line*speedMetersPerSecond/frequency)/extentMeters));
             var command = new PlayerCommand(target, athlete,
                 (int)Math.Round(sample.Gamepad ? sample.Effort * 1000 : nextEffort, MidpointRounding.ToEven),
                 (int)Math.Round(line * PlayerCommand.LineIntentUnits, MidpointRounding.ToEven), sample.Preset,

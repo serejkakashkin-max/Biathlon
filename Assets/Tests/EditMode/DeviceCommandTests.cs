@@ -8,6 +8,33 @@ namespace Biathlon.Tests
 {
     public class DeviceCommandTests
     {
+        [TestCase(false)] [TestCase(true)]
+        public void DirectionalInputHoldsAchievedLineOnReleaseAndReversesWithoutSpringToCenter(bool gamepad)
+        {
+            var b=Create();b.Sample(new DeviceControlSample(gamepad,0,-1));
+            Assert.That(b.BuildDirectional(new SimulationTick(1),0,2,1).LineIntent,Is.EqualTo(-25));
+            b.Sample(new DeviceControlSample(gamepad,0,0));
+            Assert.That(b.BuildDirectional(new SimulationTick(2),-.6,2,1).LineIntent,Is.EqualTo(-300));
+            // A blocked attempt must not leave a pending target that moves the athlete on release.
+            Assert.That(b.BuildDirectional(new SimulationTick(3),-.2,2,1).LineIntent,Is.EqualTo(-100));
+            b.Sample(new DeviceControlSample(gamepad,0,1));
+            Assert.That(b.BuildDirectional(new SimulationTick(4),-.6,2,1).LineIntent,Is.EqualTo(-275));
+            Assert.That(b.BuildDirectional(new SimulationTick(5),2,2,1).LineIntent,Is.EqualTo(1000));
+        }
+        [Test] public void DirectionalCommandsAreIndependentOfRenderSamplingAndReplayAsAbsoluteTargets()
+        {
+            var a=Create();var b=Create();double line=0;
+            for(int tick=1;tick<=100;tick++)
+            {
+                var sample=new DeviceControlSample(false,.8,tick<40?-1:tick<70?0:1);
+                a.Sample(sample);for(int frame=0;frame<7;frame++)b.Sample(sample);
+                var ca=a.BuildDirectional(new SimulationTick(tick),line,2,1);
+                var cb=b.BuildDirectional(new SimulationTick(tick),line,2,1);
+                Assert.That(ca.ToJson(),Is.EqualTo(cb.ToJson()));
+                Assert.That(PlayerCommand.FromJson(ca.ToJson()).LineIntent,Is.EqualTo(ca.LineIntent));
+                line=ca.LineIntent*2.0/PlayerCommand.LineIntentUnits;
+            }
+        }
         private static DeviceCommandBuilder Create(int frequency = 20) => new DeviceCommandBuilder(
             DeviceControlDefinition.FromJson(PhysiologyContractTests.DefinitionJson("device_control_v1.json")),
             new AthleteId("player"), frequency);

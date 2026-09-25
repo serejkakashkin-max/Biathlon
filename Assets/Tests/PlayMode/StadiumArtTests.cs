@@ -14,7 +14,7 @@ namespace Biathlon.PlayModeTests
             for(int i=1;i<d.lane_count;i++)Assert.That(d.LaneX(i)-d.LaneX(i-1)-d.mat_width_m,Is.GreaterThanOrEqualTo(.3f));
             Assert.Throws<ArgumentOutOfRangeException>(()=>d.LaneX(d.lane_count));d.mat_width_m=d.lane_pitch_m;Assert.Throws<ArgumentException>(()=>StadiumArtDefinition.FromJson(JsonUtility.ToJson(d)));
         }
-        [Test] public void BankUsesExactAuthoredTargetCentersAndStanceDiameters()
+        [Test] public void BankKeepsFullAimingMarkInBothStancesWithoutChangingScoringGeometry()
         {
             var source=Resources.Load<GameObject>("Biathlon/Stadium/TargetBank");Assert.That(source,Is.Not.Null);var go=Object.Instantiate(source);
             try
@@ -25,7 +25,7 @@ namespace Biathlon.PlayModeTests
                     bank.Apply(g,stance,0);for(int i=0;i<5;i++)
                     {
                         var face=bank.Aperture(i);Assert.That(face.transform.localPosition.x,Is.EqualTo(g.CenterX(i)).Within(.0000001));Assert.That(face.transform.localPosition.z,Is.Zero);
-                        float radius=(float)g.Radius(stance);var mesh=face.GetComponent<MeshFilter>().sharedMesh;
+                        float radius=(float)g.Radius(ShootingStance.Standing);var mesh=face.GetComponent<MeshFilter>().sharedMesh;
                         foreach(var v in mesh.vertices)Assert.That(Vector3.Scale(v,face.transform.localScale).magnitude,Is.LessThanOrEqualTo(radius+.0000001));
                         Assert.That(mesh.bounds.size.x*face.transform.localScale.x,Is.EqualTo(radius*2).Within(.0000001));
                     }

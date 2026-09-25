@@ -25,7 +25,7 @@ namespace Biathlon.PlayModeTests
                 if(view.Visible){sawRange=true;Assert.That(view.ClosedMask,Is.EqualTo(feed.Current.Get(0).ClosedTargetsMask));Assert.That(view.AimCamera.enabled,Is.True);
                     var geometry=TargetGeometryDefinition.FromJson(Read("target_geometry_v1.json"));var observed=feed.Current.Get(0);
                     Assert.That(view.Bank.transform.localPosition.z,Is.EqualTo((float)geometry.DistanceMeters));
-                    for(int j=0;j<5;j++){var aperture=view.Bank.Aperture(j);Assert.That(aperture.transform.localPosition,Is.EqualTo(new Vector3((float)geometry.CenterX(j),0,0)));Assert.That(aperture.transform.localScale.x,Is.EqualTo((float)(2*geometry.Radius(observed.Stance))));Assert.That(aperture.transform.localScale.y,Is.EqualTo(aperture.transform.localScale.x));}
+                    for(int j=0;j<5;j++){var aperture=view.Bank.Aperture(j);Assert.That(aperture.transform.localPosition,Is.EqualTo(new Vector3((float)geometry.CenterX(j),0,0)));Assert.That(aperture.transform.localScale.x,Is.EqualTo((float)(2*geometry.Radius(ShootingStance.Standing))));Assert.That(aperture.transform.localScale.y,Is.EqualTo(aperture.transform.localScale.x));}
                     Assert.That(view.Bank.GetComponentsInChildren<Collider>(),Is.Empty);
                 }
                 if(view.Status.Length>0)sawShot=true;

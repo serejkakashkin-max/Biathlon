@@ -80,5 +80,15 @@ namespace Biathlon.PlayModeTests
             Assert.That(c.TuckHeld && c.OvertakeRequested, Is.True);
             Assert.That(adapter.Build(new SimulationTick(2)).OvertakeRequested, Is.False);
         }
+        [Test] public void LiveKeyboardReleaseAndFocusLossKeepTheAchievedPassingLine()
+        {
+            InputSystem.QueueStateEvent(keyboard,new KeyboardState(Key.A));InputTestScope.Update();adapter.Capture(keyboard,null);
+            Assert.That(adapter.BuildDirectional(new SimulationTick(1),-.6,2).LineIntent,Is.LessThan(-300));
+            InputSystem.QueueStateEvent(keyboard,new KeyboardState());InputTestScope.Update();adapter.Capture(keyboard,null);
+            Assert.That(adapter.BuildDirectional(new SimulationTick(2),-.6,2).LineIntent,Is.EqualTo(-300));
+            adapter.SetInputFocus(false);
+            var lost=adapter.BuildDirectional(new SimulationTick(3),-.6,2);Assert.That(lost.LineIntent,Is.EqualTo(-300));
+            Assert.That(lost.Preset,Is.EqualTo(EffortPreset.Recovery));Assert.That(lost.CancelOvertake,Is.True);
+        }
     }
 }

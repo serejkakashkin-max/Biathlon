@@ -10,12 +10,14 @@ namespace Biathlon.Unity.Presentation
     {
         public bool UseGamepad { get; set; }
         private DeviceCommandBuilder builder;
+        private double steeringSpeed;
         private bool previousOvertake, previousCancel, inactive;
         private bool focused = true;
         public void Initialize(AthleteId athlete, int frequency)
         {
             builder = new DeviceCommandBuilder(DeviceControlDefinition.FromJson(
                 Resources.Load<TextAsset>("Biathlon/device_control_v1").text), athlete, frequency);
+            steeringSpeed=SteeringDefinition.FromJson(Resources.Load<TextAsset>("Biathlon/steering_provisional_v1").text).LateralSpeed;
             previousOvertake = previousCancel = inactive = false;
         }
         private void Update()
@@ -69,5 +71,7 @@ namespace Biathlon.Unity.Presentation
         private void OnDisable() => ReleaseHeldInput();
         public PlayerCommand Build(SimulationTick target) => builder != null ? builder.Build(target) :
             throw new System.InvalidOperationException("Initialize input before building commands.");
+        public PlayerCommand BuildDirectional(SimulationTick target,double currentMeters,double extentMeters)=>builder!=null?
+            builder.BuildDirectional(target,currentMeters,extentMeters,steeringSpeed):throw new System.InvalidOperationException("Initialize input before building commands.");
     }
 }
