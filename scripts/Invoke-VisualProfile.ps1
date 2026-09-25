@@ -1,13 +1,13 @@
-param([switch]$SkipBuild,[switch]$SingleThreadedDiagnostic,[string]$OutputDirectory,[int]$TimeoutSeconds=180)
+param([switch]$SkipBuild,[switch]$VisualReview,[switch]$SingleThreadedDiagnostic,[string]$OutputDirectory,[int]$TimeoutSeconds=180)
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
 Push-Location $root
 try {
- if(!$SkipBuild){& "$PSScriptRoot/Invoke-PlayerBuildSmoke.ps1" | Out-Null}
+ if(!$SkipBuild){& "$PSScriptRoot/Invoke-PlayerBuildSmoke.ps1" -VisualReview:$VisualReview | Out-Null}
  if(!$OutputDirectory){$OutputDirectory='artifacts/visual-profile/'+[DateTime]::UtcNow.ToString('yyyyMMdd-HHmmss-fff')}
  New-Item -ItemType Directory -Path $OutputDirectory -ErrorAction Stop | Out-Null
  $run=(Resolve-Path $OutputDirectory).Path
- $build=Join-Path $root 'Builds/WindowsDevelopment'
+ $build=Join-Path $root $(if($VisualReview){'Builds/VisualReviewWindows'}else{'Builds/WindowsDevelopment'})
  $log=Join-Path $run 'Player.log'
  $playerArgs=@('-force-d3d11','-screen-fullscreen','0','-screen-width','1920','-screen-height','1080','-biathlonProfile','-biathlonProfileOutput',('"'+$run+'"'),'-logFile',('"'+$log+'"'))
  if($SingleThreadedDiagnostic){$playerArgs+='-force-gfx-direct'}
