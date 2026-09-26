@@ -16,6 +16,7 @@ namespace Biathlon.Unity.Presentation
         public VisualBenchmarkAthletes Athletes {get;private set;}
         public G2GroundDressing GroundDressing {get;private set;}
         public G2Understory Understory {get;private set;}
+        public BenchmarkReflectionPresentation Reflections {get;private set;}
         public bool Ready {get;private set;}
         public int VisibleTrees {get{int count=Backdrop!=null?Backdrop.VisibleTrees:0;foreach(var f in Forests)count+=f.VisibleInstances;return count;}}
         public int VisibleSpectators=>crowd.Visible;
@@ -35,6 +36,7 @@ namespace Biathlon.Unity.Presentation
             Understory=gameObject.AddComponent<G2Understory>();Understory.Initialize();
             Backdrop=gameObject.AddComponent<G2BenchmarkBackdrop>();Backdrop.Initialize();
             Athletes=gameObject.AddComponent<VisualBenchmarkAthletes>();Athletes.Initialize(View);Athletes.SetEnvironment(new BreathEnvironment(-12,new Vector2(1,.3f)));
+            Reflections=gameObject.AddComponent<BenchmarkReflectionPresentation>();Reflections.Initialize();
             director=gameObject.AddComponent<BroadcastCameraDirector>();director.Initialize(View,BroadcastShotDefinition.Load());director.Bind("athlete",Athletes.Subject);Ready=true;Seek(SampleTime);
         }
         // Authored camera starts disabled for Edit Mode captures. Interactive play must render to the window.
@@ -53,6 +55,7 @@ namespace Biathlon.Unity.Presentation
             Backdrop.ApplyAtmosphere(WeatherPreset);
             Backdrop.RenderTrees(View);
             foreach(var f in Forests)f.Render(View,Tier,(float)time,wind);GroundDressing.Render(View);Understory.Render(View);crowd.Render(View,Tier,(float)time);
+            Reflections.Render(WeatherPreset,LightingPreset);
         }
         private void LateUpdate(){if(!Ready)return;double next=Animate?SampleTime+Time.deltaTime:SampleTime;if(next>3600)Seek(0);else RenderFrame(next);}
         private void OnGUI()

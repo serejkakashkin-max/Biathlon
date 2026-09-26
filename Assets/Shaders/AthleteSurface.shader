@@ -10,6 +10,8 @@ Shader "Biathlon/AthleteSurface"
   _Smoothness("Smoothness",Range(0,1))=.3
   _BumpMap("Audited micro normal",2D)="bump"{}
   _BumpScale("Normal strength",Float)=.2
+  _RoughnessMap("Audited cloth roughness",2D)="white"{}
+  _DetailTiling("Material repeats in UV",Float)=16
   _SkinVariation("Skin variation",Range(0,1))=.5
   [Enum(UnityEngine.Rendering.CullMode)] _Cull("Cull",Float)=2
  }
@@ -21,8 +23,9 @@ Shader "Biathlon/AthleteSurface"
   #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
   #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
   TEXTURE2D(_BumpMap);SAMPLER(sampler_BumpMap);
+  TEXTURE2D(_RoughnessMap);SAMPLER(sampler_RoughnessMap);
   CBUFFER_START(UnityPerMaterial)
-  half4 _BaseColor,_KitColor,_TrimColor;float _KitWeight,_SurfaceKind,_Smoothness,_BumpScale,_SkinVariation;
+  half4 _BaseColor,_KitColor,_TrimColor;float _KitWeight,_SurfaceKind,_Smoothness,_BumpScale,_SkinVariation,_DetailTiling;
   CBUFFER_END
   struct A {float4 positionOS:POSITION;float3 normalOS:NORMAL;float4 tangentOS:TANGENT;float2 uv:TEXCOORD0;float3 rest:TEXCOORD1;UNITY_VERTEX_INPUT_INSTANCE_ID};
   struct V {float4 positionCS:SV_POSITION;float3 positionWS:TEXCOORD0;half3 normalWS:TEXCOORD1;half4 tangentWS:TEXCOORD2;float2 uv:TEXCOORD3;float3 rest:TEXCOORD4;half fog:TEXCOORD5;UNITY_VERTEX_INPUT_INSTANCE_ID UNITY_VERTEX_OUTPUT_STEREO};
@@ -45,8 +48,9 @@ Shader "Biathlon/AthleteSurface"
     float stripe=(1-smoothstep(.0015,.003+fwidth(p.x),abs(abs(p.x)-path)))*smoothstep(.015,.035,p.z);
     float cuff=1-smoothstep(.003,.008+fwidth(p.y),abs(p.y-.24));
     base=lerp(base,_TrimColor.rgb,.25*max(stripe,cuff));
-    half3 detail=UnpackNormalScale(SAMPLE_TEXTURE2D(_BumpMap,sampler_BumpMap,i.uv*16),_BumpScale);
+    half3 detail=UnpackNormalScale(SAMPLE_TEXTURE2D(_BumpMap,sampler_BumpMap,i.uv*_DetailTiling),_BumpScale);
     n=normalize(t*detail.x+b*detail.y+n*detail.z);
+    smoothness=saturate(1-SAMPLE_TEXTURE2D(_RoughnessMap,sampler_RoughnessMap,i.uv*_DetailTiling).r)*(1-_Smoothness)+_Smoothness;
    }
    else if(_SurfaceKind<1.5)
    {
@@ -54,7 +58,7 @@ Shader "Biathlon/AthleteSurface"
     float cheeks=exp(-pow((abs(p.x)-.056)/.031,2)-pow((p.y-1.673)/.029,2))*smoothstep(.045,.09,p.z);
     float lips=exp(-pow(p.x/.028,4)-pow((p.y-1.632)/.009,2))*smoothstep(.075,.105,p.z);
     base=lerp(base,base*half3(1.07,.77,.73),cheeks*.45);base=lerp(base,base*half3(.83,.51,.49),lips*.65);
-    half3 detail=UnpackNormalScale(SAMPLE_TEXTURE2D(_BumpMap,sampler_BumpMap,i.uv*6),_BumpScale);
+    half3 detail=UnpackNormalScale(SAMPLE_TEXTURE2D(_BumpMap,sampler_BumpMap,i.uv*_DetailTiling),_BumpScale);
     n=normalize(t*detail.x+b*detail.y+n*detail.z);smoothness+=.09*cheeks;
    }
    else if(_SurfaceKind<2.5)

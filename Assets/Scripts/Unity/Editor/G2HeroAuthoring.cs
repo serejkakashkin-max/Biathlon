@@ -32,13 +32,14 @@ namespace Biathlon.Unity
             Directory.CreateDirectory(DirectoryPath + "/Meshes");
             Directory.CreateDirectory(DirectoryPath + "/Materials");
             AssetDatabase.Refresh();
-            foreach (string texture in new[] { "SuitNormal", "BibNormal", "SkinNormal" })
+            foreach (string texture in new[] { "SuitNormal", "BibNormal", "SkinNormal", "SuitRoughness", "BibRoughness" })
             {
                 string path = DirectoryPath + "/Textures/" + texture + ".png";
                 var importer = AssetImporter.GetAtPath(path) as TextureImporter;
                 if (importer == null) throw new InvalidDataException("Generate audited material derivative: " + path);
-                importer.textureType = TextureImporterType.NormalMap; importer.sRGBTexture = false;
+                importer.textureType = texture.EndsWith("Normal",StringComparison.Ordinal) ? TextureImporterType.NormalMap : TextureImporterType.Default; importer.sRGBTexture = false;
                 importer.maxTextureSize = 1024; importer.mipmapEnabled = true; importer.textureCompression = TextureImporterCompression.Compressed;
+                importer.wrapMode = TextureWrapMode.Repeat; importer.anisoLevel = 4;
                 importer.SaveAndReimport();
             }
             var rig = OriginalAthleteRigBuilder.CreateDevelopment(null);
@@ -87,7 +88,7 @@ namespace Biathlon.Unity
                     string path = DirectoryPath + "/Materials/" + data.materials[i] + ".mat";
                     var mat = AssetDatabase.LoadAssetAtPath<Material>(path);
                     if (mat == null) { mat = new Material(Resources.Load<Material>("Biathlon/GreyboxLit")); AssetDatabase.CreateAsset(mat, path); }
-                    if(i!=2)mat.shader=Shader.Find("Biathlon/AthleteSurface");
+                    mat.shader=Shader.Find(i==2?"Biathlon/AthleteBib":"Biathlon/AthleteSurface");
                     if(mat.shader==null)throw new InvalidDataException("Hero surface shader missing.");
                     mat.name = data.materials[i]; mat.color = colors[i]; mat.SetColor("_BaseColor", colors[i]);
                     if(i!=2){mat.SetFloat("_SurfaceKind",i==3?1:i==7?2:i==4||i==5?3:0);mat.SetFloat("_KitWeight",i==1||i==6?1:i==0?.12f:0);}
@@ -98,8 +99,9 @@ namespace Biathlon.Unity
                     {
                         string texture = i == 3 ? "SkinNormal" : i == 2 ? "BibNormal" : "SuitNormal";
                         mat.SetTexture("_BumpMap", AssetDatabase.LoadAssetAtPath<Texture2D>(DirectoryPath + "/Textures/" + texture + ".png"));
-                        mat.SetFloat("_BumpScale", i == 3 ? .12f : .3f); mat.EnableKeyword("_NORMALMAP");
-                        mat.SetTextureScale("_BaseMap", Vector2.one * (i == 3 ? 6 : 16));
+                        mat.SetFloat("_BumpScale", i == 3 ? .12f : .3f);
+                        mat.SetFloat("_DetailTiling", i == 3 || i == 2 ? 6 : 16);
+                        if(i!=3)mat.SetTexture("_RoughnessMap",AssetDatabase.LoadAssetAtPath<Texture2D>(DirectoryPath+"/Textures/"+(i==2?"BibRoughness":"SuitRoughness")+".png"));
                     }
                     if (i == 2)
                     {

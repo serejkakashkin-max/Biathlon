@@ -10,6 +10,20 @@ namespace Biathlon.PlayModeTests
 {
     public class G2BackdropTests
     {
+        [Test] public void RootHeightMatchesRenderedTrianglePlanesAcrossTheEntireBasin()
+        {
+            var settings=BenchmarkBackdropSettings.Load();var mesh=G2BenchmarkBackdrop.BuildLandscape(settings);
+            try
+            {
+                var vertices=mesh.vertices;var indices=mesh.triangles;
+                for(int i=0;i<indices.Length;i+=3)
+                {
+                    var p=vertices[indices[i]]*.23f+vertices[indices[i+1]]*.31f+vertices[indices[i+2]]*.46f;
+                    Assert.That(G2BenchmarkBackdrop.SurfaceHeight(settings,p),Is.EqualTo(p.y).Within(.001f),"Root sample must match the actual rendered triangle.");
+                }
+            }
+            finally{Object.DestroyImmediate(mesh);}
+        }
         [Test] public void DistantLandscapeIsBoundedUpwardAndOutsideEveryRouteSegment()
         {
             var settings=BenchmarkBackdropSettings.Load();var mesh=G2BenchmarkBackdrop.BuildLandscape(settings);
@@ -36,7 +50,7 @@ namespace Biathlon.PlayModeTests
                 foreach(string weather in new[]{"clear","overcast","snowfall"})
                 {
                     p.WeatherPreset=weather;p.Shot="approach";p.Seek(8);float fog=RenderSettings.fogEndDistance;
-                    Assert.That(p.Backdrop.VisibleTrees,Is.InRange(1,512));
+                    Assert.That(p.Backdrop.VisibleTrees,Is.InRange(1,p.Backdrop.TreeCount));
                     for(int i=0;i<10;i++)p.Backdrop.RenderTrees(p.View);
                     long bytes=System.GC.GetAllocatedBytesForCurrentThread();for(int i=0;i<30;i++)p.Backdrop.RenderTrees(p.View);
                     Assert.That(System.GC.GetAllocatedBytesForCurrentThread()-bytes,Is.Zero);

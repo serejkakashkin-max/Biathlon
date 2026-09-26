@@ -8,6 +8,7 @@ namespace Biathlon.Unity.Presentation
     {
         public int schema_version,segments,rings,tree_rows,tree_columns;public string id;
         public float inner_radius_m,outer_radius_m,height_m,clear_fog_scale,overcast_fog_scale;
+        public float tree_depth_m=85;
         public Vector3 centre;public Vector3[] service_tents;
         public static BenchmarkBackdropSettings Load()
         {
@@ -17,7 +18,7 @@ namespace Biathlon.Unity.Presentation
                 !(d.height_m>=20&&d.height_m<=100)||!float.IsFinite(d.centre.sqrMagnitude)||d.centre.y!=0||
                 !(d.clear_fog_scale>=1&&d.clear_fog_scale<=3&&d.overcast_fog_scale>=1&&d.overcast_fog_scale<=2)||d.service_tents==null||d.service_tents.Length>6)
                 throw new ArgumentException("Invalid benchmark backdrop definition.");
-            if(d.tree_rows<1||d.tree_rows>4||d.tree_columns<32||d.tree_columns>128)throw new ArgumentException("Invalid distant tree budget.");
+            if(d.tree_rows<1||d.tree_rows>16||d.tree_columns<32||d.tree_columns>384||!float.IsFinite(d.tree_depth_m)||d.tree_depth_m<20||d.tree_depth_m>d.outer_radius_m-d.inner_radius_m-20)throw new ArgumentException("Invalid distant forest layout.");
             foreach(var p in d.service_tents)if(!float.IsFinite(p.sqrMagnitude)||p.y!=0||VegetationDefinition.DistanceToRoute(p,G2BenchmarkSurface.CopyRoute())<9||p.z>0||p.sqrMagnitude>10000)throw new ArgumentException("Service tent inside protected event space.");
             return d;
         }
@@ -29,6 +30,8 @@ namespace Biathlon.Unity.Presentation
         private BenchmarkBackdropSettings settings;
         private Matrix4x4[] trees,visibleTrees;private readonly Plane[] planes=new Plane[6];private Mesh treeMesh;private Material treeMaterial;private MaterialPropertyBlock treeProperties;
         public int VisibleTrees {get;private set;}
+        public int TreeCount=>trees?.Length??0;
+        public Matrix4x4 TreeTransform(int index)=>trees[index];
         public Mesh Landscape {get;private set;}
         public int TriangleCount {get;private set;}
         public void Initialize()
@@ -40,11 +43,16 @@ namespace Biathlon.Unity.Presentation
             trees=new Matrix4x4[settings.tree_rows*settings.tree_columns];visibleTrees=new Matrix4x4[trees.Length];treeProperties=new MaterialPropertyBlock();treeProperties.SetFloat("_SnowCoverage",.72f);
             for(int row=0;row<settings.tree_rows;row++)for(int col=0;col<settings.tree_columns;col++)
             {
-                float phase=(col+.8f*Mathf.Sin(col*1.7f+row))*Mathf.PI*2/settings.tree_columns;
-                phase+=.10f*Mathf.Sin(phase*4+row*.35f);
-                float radius=settings.inner_radius_m+19+row*22+12*Mathf.Sin(col*.73f+row*2);
-                var p=settings.centre+new Vector3(Mathf.Sin(phase)*radius,SurfaceHeight(settings,radius,phase)-.25f,Mathf.Cos(phase)*radius);
-                float scale=.85f+.3f*(.5f+.5f*Mathf.Sin(col*2.9f+row));trees[row*settings.tree_columns+col]=Matrix4x4.TRS(p,Quaternion.Euler(0,col*137.5f,0),Vector3.one*scale);
+                // Jittered strata plus broad groves: no repeated radial rows on the skyline.
+                uint seed=VegetationDefinition.Mix((uint)(row*settings.tree_columns+col+917));
+                float Jitter(uint salt)=>(VegetationDefinition.Mix(seed^salt)&0xffff)/65535f;
+                float phase=(col+Jitter(31))*Mathf.PI*2/settings.tree_columns;
+                phase+=.13f*Mathf.Sin(phase*5+row*.21f);
+                float radius=settings.inner_radius_m+12+(row+Jitter(73))/settings.tree_rows*settings.tree_depth_m;
+                float scale=.7f+.55f*Jitter(109);
+                var p=settings.centre+new Vector3(Mathf.Sin(phase)*radius,0,Mathf.Cos(phase)*radius);
+                p.y=SurfaceHeight(settings,p)-treeMesh.bounds.min.y*scale-.12f;
+                trees[row*settings.tree_columns+col]=Matrix4x4.TRS(p,Quaternion.Euler(0,Jitter(211)*360,0),Vector3.one*scale);
             }
             var cloth=new Material(Resources.Load<Material>("Biathlon/GreyboxLit"));cloth.SetColor("_BaseColor",new Color(.12f,.28f,.32f));materials.Add(cloth);
             var roofs=new List<Vector3>();var roofIndices=new List<int>();var walls=new List<Vector3>();var wallIndices=new List<int>();
@@ -78,15 +86,31 @@ namespace Biathlon.Unity.Presentation
             float peaks=.57f+.22f*Mathf.Sin(angle*3+.8f)+.14f*Mathf.Sin(angle*7-1.2f)+.07f*Mathf.Sin(angle*17+t*11);
             return -1+Mathf.Pow(Mathf.Max(0,Mathf.Sin(t*Mathf.PI)),1.35f)*d.height_m*peaks;
         }
-        private static float SurfaceHeight(BenchmarkBackdropSettings d,float radius,float angle)
+        public static float SurfaceHeight(BenchmarkBackdropSettings d,Vector3 worldPosition)
         {
+            var local=worldPosition-d.centre;float radius=new Vector2(local.x,local.z).magnitude,angle=Mathf.Atan2(local.x,local.z);
             float row=Mathf.InverseLerp(d.inner_radius_m,d.outer_radius_m,radius)*d.rings;
             float col=Mathf.Repeat(angle/(2*Mathf.PI),1)*d.segments;
             int r=Mathf.Min(d.rings-1,Mathf.FloorToInt(row)),c=Mathf.FloorToInt(col);float v=row-r,u=col-c;
-            float Sample(int dr,int dc)=>Height(d,(float)(r+dr)/d.rings,((c+dc)%d.segments)*2*Mathf.PI/d.segments);
-            float a=Sample(0,0),b=Sample(1,0),e=Sample(0,1),f=Sample(1,1);
-            return u+v<=1?a+(e-a)*u+(b-a)*v:f+(b-f)*(1-u)+(e-f)*(1-v);
+            Vector3 Vertex(int dr,int dc)
+            {
+                float t=(float)(r+dr)/d.rings,a=((c+dc)%d.segments)*2*Mathf.PI/d.segments,rad=Mathf.Lerp(d.inner_radius_m,d.outer_radius_m,t);
+                return new Vector3(Mathf.Sin(a)*rad,Height(d,t,a),Mathf.Cos(a)*rad);
+            }
+            // Interpolate in Cartesian XZ, exactly as the rendered mesh does. Polar fractions
+            // interpolate a different surface and leave roots hovering on sloped cells.
+            var a=Vertex(0,0);var b=Vertex(1,0);var e=Vertex(0,1);var f=Vertex(1,1);
+            var weights=Barycentric(a,b,e,local);
+            return d.centre.y+(weights.x>=0&&weights.y>=0&&weights.z>=0?weights.x*a.y+weights.y*b.y+weights.z*e.y:HeightInTriangle(e,b,f,local));
         }
+        private static Vector3 Barycentric(Vector3 a,Vector3 b,Vector3 c,Vector3 p)
+        {
+            float det=(b.z-c.z)*(a.x-c.x)+(c.x-b.x)*(a.z-c.z);
+            float x=((b.z-c.z)*(p.x-c.x)+(c.x-b.x)*(p.z-c.z))/det;
+            float y=((c.z-a.z)*(p.x-c.x)+(a.x-c.x)*(p.z-c.z))/det;
+            return new Vector3(x,y,1-x-y);
+        }
+        private static float HeightInTriangle(Vector3 a,Vector3 b,Vector3 c,Vector3 p){var w=Barycentric(a,b,c,p);return w.x*a.y+w.y*b.y+w.z*c.y;}
         public void RenderTrees(Camera camera)
         {
             GeometryUtility.CalculateFrustumPlanes(camera,planes);VisibleTrees=0;
