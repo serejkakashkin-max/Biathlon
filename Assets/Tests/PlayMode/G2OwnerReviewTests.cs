@@ -66,10 +66,17 @@ namespace Biathlon.PlayModeTests
                         motionTarget.SavePng(Path.Combine(clipFolder,"chase-"+frame.ToString("D3")+".png"));Assert.That(p.Athletes.SourceTick,Is.EqualTo(sourceTick));
                     }
                     Object.DestroyImmediate(chase);Object.DestroyImmediate(pivot);
-                    var pose=AthleteRigFactory.Create(extra.transform);pose.transform.position=new Vector3(-10,0,0);pose.GetComponent<AthleteBibPresentation>().SetNumber(12);
+                    var stadium=StadiumArtDefinition.Load();const int reviewLane=1;
+                    var pose=AthleteRigFactory.Create(extra.transform);pose.transform.position=new Vector3(stadium.LaneX(reviewLane),.0675f,0);pose.GetComponent<AthleteBibPresentation>().SetNumber(12);
                     foreach(var stance in new[]{ShootingStance.Prone,ShootingStance.Standing})
                     {
                         pose.ResetPose();pose.GetComponent<AthleteShootingPose>().Sample(pose,stance,1);pose.GetComponent<AthleteRiflePresentation>().Sample(pose,1,stance:stance);pose.GetComponent<AthleteGroundContact>().Sample(pose,0,0,SkiLocomotion.Idle,1);pose.GetComponent<AthleteGripPresentation>().Render(pose);
+                        foreach(var bone in new[]{AthleteBone.Hips,AthleteBone.LeftFoot,AthleteBone.RightFoot})
+                        {
+                            var point=pose.Bone(bone).position;
+                            Assert.That(Mathf.Abs(point.x-stadium.LaneX(reviewLane)),Is.LessThan(stadium.mat_width_m*.5f));
+                            Assert.That(Mathf.Abs(point.z),Is.LessThan(stadium.mat_length_m*.5f));
+                        }
                         foreach(var angle in new[]{"front","side"})
                         {
                             for(int i=0;i<4;i++){p.Athletes.RenderAt(8);var at=pose.transform.position+new Vector3(0,stance==ShootingStance.Prone?.6f:1.1f,.25f);p.View.transform.position=at+(angle=="side"?new Vector3(3.8f,.4f,.1f):new Vector3(1.5f,.4f,3.3f));p.View.transform.LookAt(at);p.View.fieldOfView=35;SubmitEnvironment(8);target.Render(p.View);yield return null;}

@@ -86,7 +86,18 @@ namespace Biathlon.Unity.Presentation
             float polePhase=(float)(poleCycle*Math.PI*2);
             float active=Mathf.Clamp01(pose.arm_swing_m/technique.motion_reference_swing_m);
             float pulse=-Mathf.Sin(polePhase)*active;
-            rig.Offset(AthleteBone.Hips, new Vector3(-Mathf.Sin(phase) * pose.skate_width_m * technique.hip_transfer_fraction, -pose.hip_drop_m-technique.hip_pulse_m*pulse, 0));
+            float leftPhase=Mathf.Repeat(phase/(2*Mathf.PI),1);
+            float rightPhase=Mathf.Repeat(leftPhase+.5f,1);
+            // Transfer during the overlap of grounded skis, then stay over the support
+            // side throughout the other ski's recovery. No presentation root motion.
+            float overlap=technique.glide_fraction-.5f;
+            float leftWeight=leftPhase<overlap?Mathf.SmoothStep(0,1,leftPhase/overlap):
+                leftPhase<.5f?1:leftPhase<technique.glide_fraction?
+                Mathf.SmoothStep(1,0,(leftPhase-.5f)/overlap):0;
+            float leftX=-(.105f+pose.skate_width_m*Stroke(leftPhase));
+            float rightX=.105f+pose.skate_width_m*Stroke(rightPhase);
+            float transfer=Mathf.Lerp(rightX,leftX,leftWeight)*technique.hip_transfer_fraction;
+            rig.Offset(AthleteBone.Hips, new Vector3(transfer*active, -pose.hip_drop_m-technique.hip_pulse_m*pulse, 0));
             rig.Rotate(AthleteBone.Hips, Quaternion.Euler(0, 0, -CornerLeanDegrees));
             float lean=pose.torso_lean_deg+technique.torso_pulse_deg*pulse;
             rig.Rotate(AthleteBone.Spine, Quaternion.Euler(lean * .6f, 0, 0));
@@ -100,7 +111,7 @@ namespace Biathlon.Unity.Presentation
                 float side = right ? 1 : -1;
                 float cyclePhase=Mathf.Repeat(angle/(2*Mathf.PI),1);
                 float recovery=cyclePhase<technique.glide_fraction?0:(cyclePhase-technique.glide_fraction)/(1-technique.glide_fraction);
-                float stroke=cyclePhase<technique.glide_fraction?Mathf.SmoothStep(0,1,cyclePhase/technique.glide_fraction):Mathf.SmoothStep(1,0,recovery);
+                float stroke=Stroke(cyclePhase);
                 var upper = rig.Bone(right ? AthleteBone.RightUpperLeg : AthleteBone.LeftUpperLeg);
                 var lower = rig.Bone(right ? AthleteBone.RightLowerLeg : AthleteBone.LeftLowerLeg);
                 var foot = rig.Bone(right ? AthleteBone.RightFoot : AthleteBone.LeftFoot);
@@ -113,17 +124,17 @@ namespace Biathlon.Unity.Presentation
                 float yaw=Mathf.Lerp(1,technique.recovery_yaw_fraction,lift);
                 foot.rotation = rig.ModelRoot.rotation * Quaternion.Euler(0, side * settings.ski_v_deg * Mathf.Clamp01(pose.skate_width_m / .15f)*yaw, 0);
             }
+            float Stroke(float at)=>at<technique.glide_fraction?Mathf.SmoothStep(0,1,at/technique.glide_fraction):
+                Mathf.SmoothStep(1,0,(at-technique.glide_fraction)/(1-technique.glide_fraction));
             void Arm(bool right, float angle)
             {
                 float side = right ? 1 : -1;
                 var upper = rig.Bone(right ? AthleteBone.RightUpperArm : AthleteBone.LeftUpperArm);
                 var lower = rig.Bone(right ? AthleteBone.RightLowerArm : AthleteBone.LeftLowerArm);
                 var hand = rig.Bone(right ? AthleteBone.RightHand : AthleteBone.LeftHand);
-                // Raise the hands as they return forward; behind the hip they stay low.
-                // The former quarter-cycle offset folded high wrists against the shoulders.
-                var at = new Vector3(side * pose.hand_width_m, pose.hand_height_m + (Mathf.Sin(angle) + Mathf.Cos(angle)*technique.hand_recovery_roundness) * pose.arm_swing_m * technique.hand_vertical_fraction,
+                var at = new Vector3(side * pose.hand_width_m, pose.hand_height_m + Mathf.Cos(angle) * pose.arm_swing_m * .3f,
                     pose.hand_forward_m + Mathf.Sin(angle) * pose.arm_swing_m);
-                SolveTwoBone(upper, lower, hand, rig.ModelRoot.TransformPoint(at), rig.ModelRoot.TransformDirection(new Vector3(side * .05f, -1, -.25f)), rig.ModelRoot.rotation);
+                SolveTwoBone(upper, lower, hand, rig.ModelRoot.TransformPoint(at), rig.ModelRoot.TransformDirection(new Vector3(side * .25f, -.3f, -1)), rig.ModelRoot.rotation);
                 hand.rotation = rig.ModelRoot.rotation;
             }
         }

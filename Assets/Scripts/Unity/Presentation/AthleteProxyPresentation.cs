@@ -60,6 +60,15 @@ namespace Biathlon.Unity.Presentation
                 bool finished=state.Phase==CompetitionPhase.Finished;
                 go.SetActive(state.OnCourse||finished);if(!state.OnCourse&&!finished)continue;var position=feed.Position(i,alpha);var route=visual.Get(position.LoopId);
                 double sampleDistance=position.LocalMeters,lateral=position.LateralMeters;
+                // A skiing line offset can remain in the observation while the athlete is
+                // stopped at its assigned firing point. Center only the visible setup pose
+                // on that lane, easing in/out with the existing rifle transition. Never
+                // change the feed, occupancy, route distance or authoritative sight ray.
+                if(state.ShootingActive)
+                {
+                    float setup=AthleteRiflePresentation.Progress(state.ShootingPhase,state.ShootingPhaseElapsedTicks,state.ShootingPhaseDurationTicks);
+                    lateral*=1-Mathf.SmoothStep(0,1,setup);
+                }
                 if(finished){var offset=finishStaging.Offset(i);sampleDistance=Math.Min(route.Get(route.Count-1).Distance,sampleDistance+offset.z);lateral+=offset.x;}
                 var point=route.Sample(sampleDistance);
                 go.transform.localPosition=new Vector3((float)(point.X+point.ForwardZ*lateral),(float)point.Y+1,(float)(point.Z-point.ForwardX*lateral));

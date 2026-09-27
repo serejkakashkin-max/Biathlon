@@ -21,6 +21,7 @@ namespace Biathlon.Unity
                 string texturePath=Root+"Face"+(variant%2)+".png";var importer=AssetImporter.GetAtPath(texturePath) as TextureImporter;if(importer==null)throw new InvalidDataException("Run local restricted crowd recipe first.");
                 importer.textureType=TextureImporterType.Default;importer.sRGBTexture=true;importer.maxTextureSize=1024;importer.mipmapEnabled=true;importer.wrapMode=TextureWrapMode.Clamp;importer.SaveAndReimport();
                 string path=Root+"Spectator"+variant+".mat";var mat=AssetDatabase.LoadAssetAtPath<Material>(path);if(mat==null){mat=new Material(shader);AssetDatabase.CreateAsset(mat,path);}mat.shader=shader;mat.enableInstancing=true;mat.SetTexture("_FaceMap",AssetDatabase.LoadAssetAtPath<Texture2D>(texturePath));mat.SetVector("_Garment",new Vector4(variant>=6&&variant<8?.55f:variant>=2&&variant<4?.4f:.12f,variant<2?1:0,variant<2?1:0,0));EditorUtility.SetDirty(mat);
+                mat.SetFloat("_FaceDetail",0); // Owner corrective directive: readable winter silhouettes, no photo faces.
                 for(int lod=0;lod<2;lod++)
                 {
                     string id="Crowd"+variant+"LOD"+lod;var d=JsonUtility.FromJson<Data>(File.ReadAllText("artifacts/g2-crowd/"+id+".json"));

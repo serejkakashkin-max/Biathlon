@@ -1,6 +1,6 @@
 Shader "Biathlon/AuditedSpectator"
 {
- Properties {_FaceMap("Local licensed face",2D)="white"{} _Garment("Smoothness, seams, arm motion",Vector)=(.12,1,1,0) _Motion("Time amplitude frequency LOD",Vector)=(0,.9,2.4,0)}
+ Properties {_FaceMap("Local licensed face",2D)="white"{} _FaceDetail("Photographic face detail",Range(0,1))=0 _SkinColor("Simple skin",Color)=(.48,.29,.19,1) _Garment("Smoothness, seams, arm motion",Vector)=(.12,1,1,0) _Motion("Time amplitude frequency LOD",Vector)=(0,.9,2.4,0)}
  SubShader
  {
   Tags {"RenderPipeline"="UniversalPipeline" "RenderType"="Opaque"}
@@ -8,7 +8,7 @@ Shader "Biathlon/AuditedSpectator"
   #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
   #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
   CBUFFER_START(UnityPerMaterial)
-  float4 _Motion;float4 _Garment;
+  float4 _Motion;float4 _Garment;float4 _SkinColor;float _FaceDetail;
   CBUFFER_END
   TEXTURE2D(_FaceMap);SAMPLER(sampler_FaceMap);
   struct A {float4 positionOS:POSITION;float3 normalOS:NORMAL;float4 color:COLOR;float4 pivot:TEXCOORD0;float3 face:TEXCOORD1;UNITY_VERTEX_INPUT_INSTANCE_ID};
@@ -41,7 +41,8 @@ Shader "Biathlon/AuditedSpectator"
    float torso=step(.4,i.cloth.y)*step(i.cloth.y,1.015)*step(i.cloth.z,-.11)*i.cloth.w;
    float zip=(1-smoothstep(.003,.006+fwidth(i.cloth.x),abs(i.cloth.x)))*torso;
    half3 fabric=i.color*lerp(1,.68,seam*i.cloth.w*_Garment.y);fabric=lerp(fabric,half3(.1,.12,.13),zip*_Garment.y);
-   SurfaceData s=(SurfaceData)0;s.albedo=lerp(fabric,SAMPLE_TEXTURE2D(_FaceMap,sampler_FaceMap,i.face.xy).rgb,saturate(i.face.z));s.smoothness=lerp(_Garment.x,.12,saturate(i.face.z));s.occlusion=.9;s.alpha=1;s.normalTS=half3(0,0,1);
+   half3 skin=lerp(_SkinColor.rgb,SAMPLE_TEXTURE2D(_FaceMap,sampler_FaceMap,i.face.xy).rgb,_FaceDetail);
+   SurfaceData s=(SurfaceData)0;s.albedo=lerp(fabric,skin,saturate(i.face.z));s.smoothness=lerp(_Garment.x,.12,saturate(i.face.z));s.occlusion=.9;s.alpha=1;s.normalTS=half3(0,0,1);
    InputData d=(InputData)0;d.positionWS=i.positionWS;d.normalWS=n;d.viewDirectionWS=GetWorldSpaceNormalizeViewDir(i.positionWS);d.shadowCoord=TransformWorldToShadowCoord(i.positionWS);d.bakedGI=SampleSH(n);d.shadowMask=1;d.normalizedScreenSpaceUV=GetNormalizedScreenSpaceUV(i.positionCS);
    half4 c=UniversalFragmentPBR(d,s);c.rgb=MixFog(c.rgb,i.fog);return c;
   }

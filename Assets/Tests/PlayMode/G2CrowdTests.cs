@@ -22,6 +22,7 @@ namespace Biathlon.PlayModeTests
                 foreach(var point in near.vertices)Assert.That(float.IsFinite(point.sqrMagnitude)&&point.magnitude<2,Is.True,"Fitted winter garment must stay in the seated spectator envelope.");
                 var material=Resources.Load<Material>("Biathlon/RestrictedG2Crowd/Spectator"+variant);
                 Assert.That(material.GetTexture("_FaceMap"),Is.Not.Null);Assert.That(material.GetVector("_Garment").y,Is.Zero,"Original garment shape replaces artificial seams.");
+                Assert.That(material.GetFloat("_FaceDetail"),Is.Zero,"Owner corrective pass keeps simple shaded faces.");
             }
             var matte=Resources.Load<Material>("Biathlon/RestrictedG2Crowd/Spectator4");var shiny=Resources.Load<Material>("Biathlon/RestrictedG2Crowd/Spectator6");
             Assert.That(shiny.GetVector("_Garment").x,Is.GreaterThan(matte.GetVector("_Garment").x));

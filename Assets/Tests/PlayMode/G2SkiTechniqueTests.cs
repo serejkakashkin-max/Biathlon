@@ -7,20 +7,26 @@ namespace Biathlon.PlayModeTests
 {
     public class G2SkiTechniqueTests
     {
-        [Test] public void PolingHasRaisedRecoveryAndFollowThroughBehindTheHip()
+        [Test] public void WeightStaysOverSupportSideAndTechniqueTransitionsRemainContinuous()
         {
             var rig=AthleteRigFactory.Create(null);
             try
             {
-                var d=rig.GetComponent<AthleteLocomotionDriver>();float minZ=10,maxZ=-10,minY=10,maxY=-10;
-                for(int i=0;i<240;i++)
+                var d=rig.GetComponent<AthleteLocomotionDriver>();Vector3 priorHip=default,priorHand=default;int supportSamples=0;
+                for(int i=0;i<960;i++)
                 {
-                    d.Sample(rig,new LocomotionInput(7,0,.9f),i/120.0);
-                    var p=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.LeftHand).position);
-                    minZ=Mathf.Min(minZ,p.z);maxZ=Mathf.Max(maxZ,p.z);minY=Mathf.Min(minY,p.y);maxY=Mathf.Max(maxY,p.y);
+                    var input=i<360?new LocomotionInput(7,0,.9f):i<600?new LocomotionInput(4,.08f,.9f):new LocomotionInput(7,0,.9f);
+                    d.Sample(rig,input,i/120.0);
+                    var left=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.LeftFoot).position);
+                    var right=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.RightFoot).position);
+                    var hip=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.Hips).position);
+                    var hand=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.LeftHand).position);
+                    if(left.y>.13f){Assert.That(hip.x,Is.GreaterThan(.04f));supportSamples++;}
+                    if(right.y>.13f){Assert.That(hip.x,Is.LessThan(-.04f));supportSamples++;}
+                    if(i>0){Assert.That(Vector3.Distance(hip,priorHip),Is.LessThan(.035f));Assert.That(Vector3.Distance(hand,priorHand),Is.LessThan(.035f));}
+                    priorHip=hip;priorHand=hand;
                 }
-                Assert.That(minZ,Is.LessThan(-.1f));Assert.That(maxZ,Is.GreaterThan(.45f));
-                Assert.That(maxY,Is.GreaterThan(1.3f));Assert.That(maxY-minY,Is.GreaterThan(.35f));
+                Assert.That(supportSamples,Is.GreaterThan(200));
             }
             finally{Object.DestroyImmediate(rig.gameObject);}
         }

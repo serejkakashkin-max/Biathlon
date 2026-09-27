@@ -1,5 +1,7 @@
 # Local hero face derivative
 
+**Архив 015, superseded 2026-09-27.** По новой owner directive герой возвращён к CC0 baseline014. `Build-G2Hero.ps1` больше не вызывает рецепт этого лица; runtime-компонент и бафф удалены. Локальный `RestrictedG2Hero` вынесен из Resources в `artifacts/g2-hero-face/retired-runtime-015` и не входит в новую сборку016. Ниже сохранено описание исторического015, а не инструкция для текущей сборки. Ограничения лицензии продолжают действовать на архивные производные.
+
 2026-09-26. Source: the already staged Renderpeople Eric rigged001 free model, reused for a fitted athlete head. [Source](https://renderpeople.com/free-3d-people/) · [terms](https://renderpeople.com/general-terms-and-conditions/), checked 2026-09-26. Sections 2.5/4.1 allow the free model in rendered games; 4.2/4.3 restrict redistribution of original or modified 3D data. This is not a CC0 import.
 
 `Assets/Resources/Biathlon/RestrictedG2Hero/` and its meta are ignored. Never publish its meshes, textures, materials, JSON intermediates or raw source files, including through LFS. Public code, derivation hashes, prefab references and rendered game screenshots contain no source payload. Release packaging remains integrated compiled player content only.
