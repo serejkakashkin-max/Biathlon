@@ -40,6 +40,8 @@ namespace Biathlon.Unity.Presentation
                 }
             }
             skin.sharedMaterials=variants[variant];
+            var face=GetComponent<AthleteFaceDetailBinding>();
+            if(face!=null)face.Cap.GetComponent<MeshRenderer>().sharedMaterial=variants[variant][6];
             current=ordinal;
         }
     }

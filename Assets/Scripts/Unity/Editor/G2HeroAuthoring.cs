@@ -71,6 +71,10 @@ namespace Biathlon.Unity
                 {
                     data = JsonUtility.FromJson<MeshData>(File.ReadAllText("artifacts/g2-hero/hero_lod" + lod + ".json"));
                     var mesh = Import(data, bind);
+                    // Public mesh remains a CC0 derivative. The separately licensed rigid head
+                    // replaces only this anatomical submesh; no restricted vertices enter it.
+                    mesh.SetTriangles(Array.Empty<int>(),3);
+                    mesh.SetTriangles(Array.Empty<int>(),6);
                     G2JointVolumeAuthoring.Apply(mesh);
                     mesh.name = "HeroLOD" + lod;
                     string path = DirectoryPath + "/Meshes/HeroLOD" + lod + ".asset";
@@ -114,6 +118,7 @@ namespace Biathlon.Unity
                     EditorUtility.SetDirty(mat); materials[i] = mat;
                 }
                 skin.sharedMaterials = materials; skin.bones = bones; skin.quality = SkinQuality.Bone4;
+                G2HeroFaceAuthoring.Apply(rig);
                 rig.gameObject.AddComponent<AthleteSkinDetailBinding>().Configure(skin, lodMeshes, 12, 45, 2);
                 rig.gameObject.AddComponent<AthleteBibPresentation>().Configure(skin,2);
                 rig.gameObject.AddComponent<AthleteGripPresentation>();

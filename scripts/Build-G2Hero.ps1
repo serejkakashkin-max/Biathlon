@@ -5,6 +5,10 @@ Push-Location $projectRoot
 try {
     $blender = (Resolve-Path -LiteralPath $BlenderPath).Path
     New-Item -ItemType Directory -Force -Path artifacts/g2-hero | Out-Null
+    New-Item -ItemType Directory -Force -Path artifacts/g2-hero-face | Out-Null
+    if (git ls-files Assets/Resources/Biathlon/RestrictedG2Hero) { throw 'Restricted hero derivatives must never be tracked.' }
+    git check-ignore -q Assets/Resources/Biathlon/RestrictedG2Hero/Face.png
+    if ($LASTEXITCODE -ne 0) { throw 'Restricted hero ignore rule is missing.' }
     $export = @'
 var rig=Biathlon.Unity.Presentation.OriginalAthleteRigBuilder.CreateDevelopment(null);
 try {
@@ -20,6 +24,7 @@ try {
     $jobs = @(
         @{name='body'; arguments='--background --factory-startup --disable-autoexec --python-exit-code 1 --python scripts/art/Build-G2Hero.py -- --source external_downloads/g2_visual_remediation/01_characters/hero_base/blender_human_base_v1.4.1/extracted/human-base-meshes-bundle-v1.4.1/human_base_meshes_bundle.blend --bones artifacts/g2-hero/m11-bones.json --goggles external_downloads/g2_visual_remediation/03_equipment/goggles/blurryrender/extracted/source/cyberpunk_Ski_Goggles.blend --output artifacts/g2-hero'},
         @{name='materials'; arguments='--background --factory-startup --disable-autoexec --python-exit-code 1 --python scripts/art/Build-G2HeroMaterials.py'},
+        @{name='face'; arguments='--background --factory-startup --disable-autoexec --python-exit-code 1 --python scripts/art/Build-G2HeroFace.py'},
         @{name='rifle'; arguments='--background --factory-startup --disable-autoexec --python-exit-code 1 --python scripts/art/Build-G2Rifle.py'}
     )
     foreach ($job in $jobs) {

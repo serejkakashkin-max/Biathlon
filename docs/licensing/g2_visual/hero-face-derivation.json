@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "id": "g2-local-hero-face-v1",
+  "source": "external_downloads/g2_visual_remediation/01_characters/crowd_people/renderpeople/person_06/extracted/rp_eric_rigged_001_u3d.fbx",
+  "source_sha256": "077ac01d17b78ce99fc1be2f383268ba1733ae71eec6d1ff4577b84968c7b9c7",
+  "diffuse_sha256": "586ca7aa7acdd4a66258045553d434d9cb52f45c6f49a992d897c3fd4705ac2e",
+  "source_url": "https://renderpeople.com/free-3d-people/",
+  "license_url": "https://renderpeople.com/general-terms-and-conditions/",
+  "license": "Renderpeople restricted game use; no public raw/modified 3D data",
+  "texture_crop_pixels": [
+    [
+      164,
+      122
+    ],
+    [
+      8045,
+      5790
+    ]
+  ],
+  "texture_sha256": "7ad3a5de36ded237decb5da5e212475a8436cf1d0e06eed1018ba27a6ed9e17a",
+  "outputs": [
+    {
+      "file": "FaceLOD0.json",
+      "vertices": 8658,
+      "triangles": 2886,
+      "sha256": "5e6b7d2196551b633080492f8877edae62da0469d1d03236a21efb15b0554796"
+    },
+    {
+      "file": "FaceLOD1.json",
+      "vertices": 3462,
+      "triangles": 1154,
+      "sha256": "e2b1a8d54a0bc9cbf7b8603e553b46523becc1d8b49a3e4d8e66af4f3e62626a"
+    },
+    {
+      "file": "FaceLOD2.json",
+      "vertices": 1005,
+      "triangles": 335,
+      "sha256": "b25e5922f9a85f34faab3059d315b224dcacbef79ddb4ecd34e206a2f87b829e"
+    },
+    {
+      "file": "CapLOD0.json",
+      "vertices": 1494,
+      "triangles": 498,
+      "sha256": "46227bdbce0b854ea517c23fe1f22ed66dd48d6345f2d9573fb646a72afd3870"
+    },
+    {
+      "file": "CapLOD1.json",
+      "vertices": 594,
+      "triangles": 198,
+      "sha256": "bfefae205d3c50fa1058350bc9222c01201cf45f2396c34c789248ff1131a284"
+    },
+    {
+      "file": "CapLOD2.json",
+      "vertices": 174,
+      "triangles": 58,
+      "sha256": "ecbc07048ec39834d6e5bdd3328ba11c871a00e5636d810cd6e75997d4cd7a79"
+    }
+  ],
+  "changes": [
+    "head/upper-neck only; source clothes/materials excluded",
+    "source UV region cropped to 2K; no invented facial texture",
+    "three rigid-head LODs, 0.9 uniform scale and fitted vertical offset",
+    "local ignored derivatives only; integrated compiled game/rendered review evidence permitted",
+    "original smooth cap fitted to head envelope; source hair/ear topology not copied",
+    "unused diffuse atlas pixels discarded; UV island edge colors padded 16 pixels"
+  ]
+}

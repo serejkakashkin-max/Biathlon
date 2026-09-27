@@ -1,0 +1,13 @@
+# Local hero face derivative
+
+2026-09-26. Source: the already staged Renderpeople Eric rigged001 free model, reused for a fitted athlete head. [Source](https://renderpeople.com/free-3d-people/) · [terms](https://renderpeople.com/general-terms-and-conditions/), checked 2026-09-26. Sections 2.5/4.1 allow the free model in rendered games; 4.2/4.3 restrict redistribution of original or modified 3D data. This is not a CC0 import.
+
+`Assets/Resources/Biathlon/RestrictedG2Hero/` and its meta are ignored. Never publish its meshes, textures, materials, JSON intermediates or raw source files, including through LFS. Public code, derivation hashes, prefab references and rendered game screenshots contain no source payload. Release packaging remains integrated compiled player content only.
+
+Run `scripts/Build-G2Hero.ps1` with Unity open. It now invokes `scripts/art/Build-G2HeroFace.py` before Unity authoring. Required local sources are `person_06/extracted/rp_eric_rigged_001_u3d.fbx` and `tex/rp_eric_rigged_001_dif.jpg` beneath `external_downloads/g2_visual_remediation/01_characters/crowd_people/renderpeople/`.
+
+The recipe retains the head/upper neck, removes the source outfit and crops the scalp beneath the project cap. It preserves the source facial proportions with uniform scaling and a placement offset. The diffuse atlas retains only UV pixels used by the head; a 16px edge-color gutter replaces unused atlas background, clothing and logo-like markings. A project-authored neck gaiter covers the join. The hero body remains a public CC0 derivative, with its old head submesh removed; no Renderpeople vertices enter the public body meshes. Three separate local head LODs follow the typed Head bone and body LOD selection. There is no face animation or authoritative gameplay logic.
+
+Regenerate missing local assets rather than substituting an empty or old head. Runtime validation reports missing face/LOD bindings. `git ls-files Assets/Resources/Biathlon/RestrictedG2Hero` must be empty before every push. Source/derivative hashes are in `hero-face-derivation.json`; runtime hashes contain metadata only. The player credits identify the source and modifications.
+
+Owner follow-up, 2026-09-27: the previous CC0 cap was too large for this head. Its public submesh is now disabled. An original smooth fitted shell is generated alongside the local head, with three LODs and shared kit material selection; no source hair or ear topology is reused for the cap. A two-bone original gaiter follows Neck/Head articulation. These additions do not change source redistribution restrictions.

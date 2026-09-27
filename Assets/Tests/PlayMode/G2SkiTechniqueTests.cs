@@ -7,6 +7,23 @@ namespace Biathlon.PlayModeTests
 {
     public class G2SkiTechniqueTests
     {
+        [Test] public void PolingHasRaisedRecoveryAndFollowThroughBehindTheHip()
+        {
+            var rig=AthleteRigFactory.Create(null);
+            try
+            {
+                var d=rig.GetComponent<AthleteLocomotionDriver>();float minZ=10,maxZ=-10,minY=10,maxY=-10;
+                for(int i=0;i<240;i++)
+                {
+                    d.Sample(rig,new LocomotionInput(7,0,.9f),i/120.0);
+                    var p=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.LeftHand).position);
+                    minZ=Mathf.Min(minZ,p.z);maxZ=Mathf.Max(maxZ,p.z);minY=Mathf.Min(minY,p.y);maxY=Mathf.Max(maxY,p.y);
+                }
+                Assert.That(minZ,Is.LessThan(-.1f));Assert.That(maxZ,Is.GreaterThan(.45f));
+                Assert.That(maxY,Is.GreaterThan(1.3f));Assert.That(maxY-minY,Is.GreaterThan(.35f));
+            }
+            finally{Object.DestroyImmediate(rig.gameObject);}
+        }
         [Test] public void SkateCycleKeepsSupportDuringLiftedRecoveryAndReturnsContinuously()
         {
             var rig=AthleteRigFactory.Create(null);

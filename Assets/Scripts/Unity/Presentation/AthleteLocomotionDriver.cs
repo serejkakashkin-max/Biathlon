@@ -119,9 +119,11 @@ namespace Biathlon.Unity.Presentation
                 var upper = rig.Bone(right ? AthleteBone.RightUpperArm : AthleteBone.LeftUpperArm);
                 var lower = rig.Bone(right ? AthleteBone.RightLowerArm : AthleteBone.LeftLowerArm);
                 var hand = rig.Bone(right ? AthleteBone.RightHand : AthleteBone.LeftHand);
-                var at = new Vector3(side * pose.hand_width_m, pose.hand_height_m + Mathf.Cos(angle) * pose.arm_swing_m * .3f,
+                // Raise the hands as they return forward; behind the hip they stay low.
+                // The former quarter-cycle offset folded high wrists against the shoulders.
+                var at = new Vector3(side * pose.hand_width_m, pose.hand_height_m + (Mathf.Sin(angle) + Mathf.Cos(angle)*technique.hand_recovery_roundness) * pose.arm_swing_m * technique.hand_vertical_fraction,
                     pose.hand_forward_m + Mathf.Sin(angle) * pose.arm_swing_m);
-                SolveTwoBone(upper, lower, hand, rig.ModelRoot.TransformPoint(at), rig.ModelRoot.TransformDirection(new Vector3(side * .25f, -.3f, -1)), rig.ModelRoot.rotation);
+                SolveTwoBone(upper, lower, hand, rig.ModelRoot.TransformPoint(at), rig.ModelRoot.TransformDirection(new Vector3(side * .05f, -1, -.25f)), rig.ModelRoot.rotation);
                 hand.rotation = rig.ModelRoot.rotation;
             }
         }

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "visual_profile_execution_v1",
+  "passed": true,
+  "exit_code": 0,
+  "git_commit": "79d6c5ace43de35b484c22dfa1d4ae36b31ca0b2",
+  "working_tree_dirty": true,
+  "case_ids": [
+    "low-approach",
+    "low-athlete",
+    "low-range",
+    "balanced-approach",
+    "balanced-athlete",
+    "balanced-range",
+    "high-approach",
+    "high-athlete",
+    "high-range",
+    "high-snowfall-athlete"
+  ],
+  "build": {
+    "schema_version": 1,
+    "id": "biathlon_windows_development_build_v1",
+    "result": "Succeeded",
+    "unity": "6000.6.0f1",
+    "startup_scene": "Assets/Scenes/VisualBenchmark.unity",
+    "errors": 0,
+    "warnings": 0,
+    "bytes": 353657157,
+    "seconds": 2.8597330999999997
+  },
+  "build_manifest_sha256": "6cf666df7a2da88e403a4e56ed423dd57ae34d2a23e376ad7a597991eab272f0",
+  "log_sha256": "ce9f79c872cacf5c996e4c09f94289b5ba6cb625bbc92ddb5cdb2e2c05e2e7a0",
+  "output_directory": "C:\\game\\Biathlon\\Biathlon\\artifacts\\visual-profile\\g2-review-015-20260927",
+  "single_threaded_diagnostic": false
+}
