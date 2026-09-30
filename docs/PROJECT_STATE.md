@@ -3,9 +3,9 @@
 Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs.
 
 ```yaml
-project_phase: post-WP166 / pre-G2; owner rejected G2 and authorized further remediation 2026-09-24; M13/WP167 blocked
-active_work_package: G2 target018 DELIVERED 2026-09-30; owner ready to approve; WAITING_FINAL_G2_DECISION; M13/WP167 BLOCKED_G2
-active_task: Await final owner G2 approval; target018 complete; next roadmap WP167 after gate
+project_phase: M13 Production Venue Pipeline and Launch Content; G2 APPROVED 2026-09-30
+active_work_package: WP-167 IN_PROGRESS; venue authoring schema/tools
+active_task: TASK-167A versioned venue manifest and deterministic authoring plan; then Unity generation/validation
 last_completed_task: G2-target018 prone45mm visible inside115mm; PlayMode166/166; geometry5/5; Windows9/9; 395 hashes verified; reports/G2_TARGET_CORRECTION_018.md; owner-review-018
 last_verified_commit: fb3d532cb652b628b4c3ae233858a95f87390d36; target018 report/state/review verified on origin 2026-09-30; implementation28dc3bd
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
@@ -14,13 +14,13 @@ playmode_tests: G2-target018 full166/166 PASS,0failed/0skipped; G2-motion017 ful
 standalone_tests: G2-VR013 full553/553 PASS,focused18/18; WP159 observations4/4 PASS; WP151 observations/snapshots5/5 PASS; WP141 observations/regression19/19; WP138 grid/results7/7; WP137 qualification/field6/6; WP136 player-pack/snapshot3/3; WP135 HUD/snapshot2/2; WP134 penalty10/10; WP133 aim/session10/10; WP130 input/replay11/11; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
 unity_console_errors: 0 at target018 final snapshot 2026-09-30; compilation_failed=false; full PlayMode and Windows build PASS
 unity_console_warnings: final Console snapshot0; MCP cache contains ConvGeneric build warnings (last20 recorded); BuildReport0 warnings
-current_known_blockers: [M13_BLOCKED_G2; final owner G2 decision following completed target018]
+current_known_blockers: [] #G2 approved; production range flow remains acceptance work, not owner blocker
 owner_gate_g1: APPROVED 2026-09-13; owner hands-on Windows greybox Sprint and Pursuit
-owner_gate_g2: OWNER_READY_TO_APPROVE; target018 COMPLETE; final APPROVED not yet stated; motion017 positively reviewed; crowd approved; no M13
-owner_decisions_needed: [final G2 approval following target018; owner ready to approve; no other new corrective scope]
+owner_gate_g2: APPROVED 2026-09-30; explicit owner confirmation after target018; M12 PASS owner-approved
+owner_decisions_needed: []
 free_asset_authorization: APPROVED 2026-09-23; may search/download/use better free assets after source/license/de-branding audit; docs/owner/FREE_ASSET_AUTHORIZATION_2026-09-23.md
 owner_gameplay_feel_issues: [OWNER-FEEL-001 player shooting feels too easy; OPEN; required WP229/WP230/WP232 review]
-next_unlocked_work_packages: [] #target018 delivered; WP167 follows final owner G2 approval
+next_unlocked_work_packages: [WP167] #WP168 follows authoring contract; M13 gate after WP178
 ```
 
 ## Work packages
@@ -192,7 +192,7 @@ next_unlocked_work_packages: [] #target018 delivered; WP167 follows final owner 
 - WP-164 TECHNICAL DONE / VISUAL ACTIONS OPEN. Integrated winter sector with10 detached pose fixtures, authored actual target bank and visible slope-aligned finish recovery. Full93/93 PASS; Windows3-scene/9-quality smoke PASS; Console0/0. Final visual quality not accepted. See TASK-164-integrated-visual-benchmark-REPORT.md.
 - WP-165 DONE.27 fixed camera/weather/quality captures plus3 rail rewind captures; pixel-exact rewind, manifest/metadata verification PASS; Console0/0. Comparative review recommends Visual Gate FAIL; G2 not approved. See TASK-165-visual-screenshot-matrix-REPORT.md.
 - WP-166 DONE (profiling/report); PERFORMANCE ACTION_REQUIRED. Windows hidden offscreen10×300 samples, CPU/draw/SetPass/triangles evidence, budgets and unavailable GPU/render-thread/batches explicitly recorded. Full96/96, focused3/3, Python3/3; build0 errors/0 warnings;9/9 real render smoke; Console0/0. Three triangle-budget failures recorded at WP166 were later resolved in004E; latest007A all10 observable budgets PASS, unavailable GPU limitation remains. See reports/WP-166-PROFILING-REPORT.md.
-- WP-167 BLOCKED_G2. M13 not started; no production-venue scaling.
+- WP-167 IN_PROGRESS. G2 approved30September; authoring schema/tools with explicit side-entry range requirement.
 - G2-VR-001 DONE: all37 candidates audited; actual32 downloaded +1 manual +4 metadata,235 source hashes,6 Sketchfab CC BY metadata, CC0/limited-redistribution decisions recorded. No Unity imports at audit close. See reports/G2_VISUAL_ASSET_AUDIT.md.
 - G2-VR-002 VISUAL TARGET UNMET: controlled hero body/rig/clothing/goggles/LOD checkpoints002A/B complete; integrated008A review confirms remaining hero quality actions. Remediation plan and open issues retained; awaiting G2 owner decision, M13 BLOCKED_G2.
 - G2-VR-002A DONE: five audited candidates selectively adapted; continuous four-weight M11 skin, three LODs29224/13064/3482 triangles, CC0 normals and de-branded CC BY goggles; hero factory integrated in races/benchmark. Full99/99, final3/3, Windows build0/0, hidden9/9 render smoke, Console0/0. Source/derivative manifests and shipped credits recorded. Hero visual acceptance remains OPEN; glove/grip/bib/equipment/motion refinement continues in002B/003. See reports/G2_HERO_ATHLETE_IMPLEMENTATION.md.
@@ -386,3 +386,7 @@ Fabric shader defect fixed, CC0 roughness integrated, benchmark reflections and 
 Owner положительно оценил motion017 и готов согласовывать G2 после исправления мишени. Исправление018 завершено; окончательное APPROVED не подменяется агентом. M13/WP167 ждёт owner gate. Боковой подъезд внесён в production flow acceptance с проверенными official reference Ленцерхайде/Хохфильцен; тестовая карта не переделывалась. Crowd APPROVED; OWNER-FEEL-001 остаётся OPEN.
 
 Публикация018 подтверждена: implementation28dc3bd, review/state fb3d532cb652b628b4c3ae233858a95f87390d36; origin совпадает. LFS3/3 отправлены;14 review files и395 build files сверены по manifest. Ожидается окончательное решение G2.
+
+## OWNER GATE G2 — APPROVED 2026-09-30
+
+Владелец явно подтвердил завершение G2 и переход далее. [Approval](owner/OWNER_G2_APPROVAL_2026-09-30.md). M12 PASS / owner-approved. M13 начат с WP167; обязательные боковой подъезд и dense range flow входят в pipeline acceptance. OWNER-FEEL-001 и hidden-only measurement limitations сохранены. Исторические G2 pending/rejected записи выше отражают прошлые checkpoints, а не текущее состояние.
