@@ -1,0 +1,34 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":164,\"PassedTests\":163,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:03:14.1323160\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.AthleteExertionTests.TiredAndFinishPosesAreReadableWhileShootingSightRemainsUnmodified\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0030000\",\"Message\":\"  Expected: less than 1.43939042f\\r\\n  But was:  1.44361103f\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.AthleteExertionTests.TiredAndFinishPosesAreReadableWhileShootingSightRemainsUnmodified () [0x000ad] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\AthleteExertionTests.cs:55\\r\\n\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 164,
+          "PassedTests": 163,
+          "FailedTests": 1,
+          "SkippedTests": 0,
+          "Duration": "00:03:14.1323160"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteExertionTests.TiredAndFinishPosesAreReadableWhileShootingSightRemainsUnmodified",
+            "Status": "Failed",
+            "Duration": "00:00:00.0030000",
+            "Message": "  Expected: less than 1.43939042f\r\n  But was:  1.44361103f\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.AthleteExertionTests.TiredAndFinishPosesAreReadableWhileShootingSightRemainsUnmodified () [0x000ad] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\AthleteExertionTests.cs:55\r\n"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

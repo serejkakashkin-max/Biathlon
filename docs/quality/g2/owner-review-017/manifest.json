@@ -1,0 +1,234 @@
+{
+  "schema_version": 1,
+  "id": "g2-owner-review-017",
+  "review_date": "2026-09-30",
+  "base_commit": "0cf1aa8b6abb6c51d7866b2b9882256632af2580",
+  "working_tree_dirty": true,
+  "test_summary": {
+    "Status": "Passed",
+    "TotalTests": 164,
+    "PassedTests": 164,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:03:14.7568901"
+  },
+  "g2": "OWNER_DECISION_PENDING",
+  "crowd": "OWNER_APPROVED_2026-09-30",
+  "build_files_verified": 395,
+  "clips": [
+    {
+      "id": "benchmark-chase",
+      "sample_hz": 24,
+      "frame_count": 48,
+      "source_sha256": [
+        "61ffa1752b182dfbb70ed615247a0c1068d928ecedcb712662e15614d20ccfb0",
+        "cf02e95d65777d10668fdbbd82675b5d0aa50344550df8ff33c9c974a7b311a2",
+        "da04cb159802dd587252fbd7322dd135de95857f8667fb1f009e815b0f2cf212",
+        "55dc2bc87119c20fa70762d6fd79c033710a219c9c3b8b0c00c11bccacf608f0",
+        "a8da396fbb9c37c774c89dbfca1eb7536f0678f6cec65aea9d711ca3f08b09e2",
+        "ad4e141b80f6be559a8c86608533bacd58a838c473fce6a4857752e7031fbfd1",
+        "f291d5a4f4ad695c4adb87a54c66e9f0c86b3755395203435daa992abc89fd9f",
+        "a7eefb1a89c43397085793bce2cce9920400fa8342eb3758262647a70295b0ff",
+        "d5cf17b69e91b26bf122743c3bb979fe8af666c32d82885447b7326ac762e628",
+        "e920852c894cce75486dc27d138943e29711fd4a41ea98438ce333d8d9a40964",
+        "65ef09d596e7f5e6ee431782224444a328a2f0ae3dfd4930ce6ceff674f3d058",
+        "0546990bd315f06be863c208791d38cfbb7e93c62474fa7750ec7d5b7b3f5fda",
+        "85c1c541982bf5a879d41d569cd2fd3d2f6c655a7713db61743e31fc8aee3dbe",
+        "45872583378e5a2fe7aa87832def3ee62fc14321a1c5dc75d0101847d641700f",
+        "41af1c5f4e15f5155731cd95067c8d75bb32dad71f58f64844879668e0e6a23b",
+        "085c43817de53a293bf9df0149958a40e71a05f54e82d233e048b64e107e2c1f",
+        "e2a727bfcbae46855fc3691e2e95354025374246b70e2d96c7a4973680a45981",
+        "8b02a871a1d94a9f0c47493943cdea6b624f418e00cac5a403f7d7e5e6fe0def",
+        "3fd4a04b77d56f832df23b263b9fd38927dcf8f34258357e8225b92600207827",
+        "564892d9c8c853be39374c1c02a651c6ce7d837790ee4ffa1f0ae1070f50dc03",
+        "e4b81b84f31b0d0e50606e0ca4ad32515d3cbf0b3531195552678301a71b3f71",
+        "ab84a3c8ff024a395208aaffed6aa62a61040af8a43c6850172ae706eaed0240",
+        "514274e1384a6be88f74b3a746369b29a15bbe53e3c64ddd44c8f035d70d7da5",
+        "a573798ab19f6a8e9e04307863bc055a3d15fc5d20a94f35121baa0a85625e3a",
+        "944617f5653688002e70401baa969be4828ddb4a5d0d05b9cbb935f3081ea0fa",
+        "28ad661bcb38323f7ac8423a19541478bbe6abc3515df5e6049e9057203fa004",
+        "98d63c57f619bb366e305f4db8f8b297f3063faa83df4cec90de84ffc8f760a9",
+        "bdac3766d26412a8fefb0c9202b520920c5e248efad49f1ccffdfd1be4a308f3",
+        "0d50d83cd9e24cd3cf6cfe31a8d6246dcda687fd8af3f2320f55f1030296baf5",
+        "765d8c9fef58f492b286054b14ccdc7869b321c5be6be919a175dfce52e737e1",
+        "7026d54898092464af3f660d0694df7fbce2573b69e07449a69546fcb83ccb82",
+        "72238898225e3273afc15f2f4a870229681a5c0262bb9444cf097eb737ee07fb",
+        "7184a0397d240a81cbf0772bf3d3552b14c2249163c91a6688afd40d0a8f3b1d",
+        "06eaf2f8f2ba79d44d2f827015edaa86f7e56378b3e3f0e5e54bde4e5ed9dd7f",
+        "1dae0f77baa951599d3afa44344ee0f739dbabb062e5886c4d0ecc4800242965",
+        "f4a2a0562a37bb62b9f55a2cc94aba011d29b48756a92bcf56c3b487628accb6",
+        "abd8c5b1f1f914512296725598bf2b5fdd4a1e03d5a00866ec41b699865945db",
+        "71b770e13d1143fbd8369c06d74f97f1299345f7cb995519c86288c201c8d4f1",
+        "f72f12d29d2b62cf60c11e185c6a5821d1253b550b83fb50be8165c1c1ffd841",
+        "189cedc7231b7ec02cb7b37c8d4cb814c2ad5c826a75a96e75585aa44a441619",
+        "59b225c1cbf11581e24432c61a6dfd7903b99ba41de09c8262158e44f79bf7ca",
+        "647085cb462b9a9dacbaff50633ac81a42edc8212682da24dfc4be292d4fe5d7",
+        "08c0690bff092a6259d66473ccd1288aa52d591995b7c71abf59e77fbad3b5c9",
+        "9835b372779e309c7b098589361b59adb789d22d2eaa0bbd3de24c8d5b7564c4",
+        "53e085ac3ba2d5af0b997a3bea18867be8ddf897f2c06ac1e23e340eda0731ee",
+        "9ab6f2a527bde153d6b45774f76b37877cc3f9789d19550204e604fb552c6aa2",
+        "c5e4b25ddd98ef8693128aec23e56fccd1efd926d80126ce274cbef78deec92e",
+        "b4bfd1d973aa0468c470cba7194c40cbadb2fc28bfa8770029a6bb15f3612b86"
+      ]
+    },
+    {
+      "id": "race-chase",
+      "sample_hz": 20,
+      "frame_count": 60,
+      "source_sha256": [
+        "ba1199b28b6512d16ecbac8ce1de9bc0683076440aee6455c7580175f4593bac",
+        "a34c3d9a3fb84c534a7e06c3b33bdd0daa9b0d0ded4a980ca6b63c68f81b3193",
+        "efe8a6f46a34dba661a203f893480fc4634da51eab0bf335105f982113f8f727",
+        "f7b401faa2a77336bb638a5c639acfc2bd41d9291f21abf0b3e0fbccf2c72cdf",
+        "031556dbdc86f9c58534d7805a4d711224e99964681804a143ac86c4dded8a02",
+        "fb43eab08c4ee4bcbe259da85c62199690d204cd8feb02fadc0a5352e5a50284",
+        "6d54b567f8837357329dd9e80c4dcd816f887be97fffd03d47e21ba0f66f851d",
+        "b58cea9c16081a1ea519cf1717b4bc370870faf0aac3cecea7872d874f35b1d7",
+        "627f05c4d8183dbd394b8d5c6d2a8b805e0cf3be9019f7fc2b5c5390ced06727",
+        "7366c58d081595a7fe8837a55866066935b527c583e9153d4ecaa54e0da46411",
+        "7b2da1679e1ceaefcdbfa439f5874455dd5a0ed48a311e925f0a8a8cf6d8080a",
+        "df14a02fe8b0fdcc9995ba3a938443a3258878e7603c0b91cd6a4a71c491e078",
+        "56e70e6cde8382613b08bbf4819b6243cca0d82fc14b93f45235e4225bc71da8",
+        "8857d0e5a8db7ce5b741be4ca46ffe56bb8c1519402a27b36ad0b1c29278ee6f",
+        "3d20363f3ffc3b2aca01285ee336372abaab3eb79ccb4995af9a7501978a6f8d",
+        "1717ddf9c7f8a38ebce2c3bc765dbc9c4178d9006642e11260be7abb1d553eee",
+        "f27e0e3012694648319982fa128c964ea53e0538ffcedfa3c92ba65ad7d4a8cf",
+        "7f068ca34990b2f9bd92ed7da42238b3f481fd9cac4d34ed708091aab1423d64",
+        "b4a906506c80104d9f43f55513f82b620d8ea8642ac5e87cae1ad065e1f6cfd7",
+        "3fbb6de84c5ea9520d8da95e9402fd089f07f3f9f434f8689b5326a6034cb8e8",
+        "dd4a245c640da5de2c041afc65f3e09bf80977a4b5cdd828d3e28034098202ee",
+        "8a37a8ea1c57bc02d0d9fda3e812b36c9eacb007461007c9a4a160439fbcbac8",
+        "7b03b837cb5eed4e1e51c064a9f94ef4d51b2831b6de3eefa8a4ffda78bdd6ea",
+        "15fdf66ae54ed97d98a73e6fb2af660fd8f4cc2e4346b54465ddf6eabe301107",
+        "a266377dafca1f14f8340788dd19786433dba0e87df12adf6d975718a9ff2e7a",
+        "84a0b12b95fda20130ee6bc43aa3285100b16ae50cbca95aac1b2c754aad35a6",
+        "be8f202dab64a6992d572f0ef63c5838005045f3af97a327da0755ce1461125b",
+        "9fd90eff03ffbb1813d6cd83cf461ec30152bf5c1165cb106458f2e177a21cc2",
+        "47524f667b967996aa9702fe329ed663aae1068dc5796d937902a09446705a17",
+        "58f8d2b1a4ed5b14925dd615fe30017a23de95e821551ced17c9700e7032b0fd",
+        "5d36dd580e7d6109d92fd75d1e44ef7c218cf9041836bd49d174b9ed4017a166",
+        "98093bf87af8383590be23cce859074087604ed6a846d9ad890a0dc2d762e99b",
+        "73135318f0a838b6a7b4c71ffc24757b47037d7c4e41090b178f6685d98f890c",
+        "edc649b8d2a39efd69018ccdce0130e2f529b27ebefef190872f93df675de31a",
+        "814311ad6e80dde24015041140301f8642f666b2cf04f1737e1a4ecab6e330e1",
+        "880a285f7fc627c860dc3409c23d6a56027928a4cfbd09aff51357943b0f6c1a",
+        "9e090edcdf514cf052defa83b86982be5b012ca18d55edbcbb3c2415ba55e5b9",
+        "a867dd06402673ad9c0fd26e71c9518577af5ced7946f62ba5c3bfc66b846ab1",
+        "db5fd5af208ab90b56099f71daf8eb82b178483444af18f38c5b43714d698e56",
+        "41bd40d7ce54ff7b0613336fab288538363291e00cc961f750d74d6121b0ad0f",
+        "06f13627187db0e88659065c632cf5282c1e70a3a49149570217d646968d7b93",
+        "7d4b69b89d82428ade8046d5a0f1b58e052b14c21222ab5fdcb0eab23b5825aa",
+        "16ed58a62ec14dc62df6173d9de904388051a896a1d37b6590a59ff6ffb9e83d",
+        "59d81734f597132ae74e5ffd5b188814d9ddd35e65778c06f0dbd70fac54a6f7",
+        "bc6a633b853a4e2e28539b8bfef28a83277d3074c46cf4edc8306ef7dfde3376",
+        "668b380c31939b2520c42dfa52963952edc4d15a796710244385de5b009ef229",
+        "e2117009316d34191fb4bcb68ba5b08c784bcf6078128952b5c6e2ceaf630df5",
+        "e79efdc44d9ef8f119ed46ada0676468eee119b8c6e2d7a64987d7cb74031053",
+        "2cbf3e93e51224065d14447e7ae283f973692b30f768f7c25c19145261e847dd",
+        "4a9a60e21e9e16f904612f30770e9bcff4ec146d34d7b7f7bdaa2c045f03989f",
+        "50c9db7573931d2d365fcd39a7e6ab317a4d78b8510ae06f78bd5789ee01edb5",
+        "588012f92c913e8ce9b6762becbb084b1f3b99edf1909e40a200a158189864db",
+        "9557acc6d29fa195168d8df44a142950a26d06d91bacf069547db660d8a6c5bb",
+        "78ba52350cfb8b60900fcaa3331c5ef702d1f1fb74417f5b3330cae122081fd9",
+        "91dfaecfa0cc48cd93c6fab90428b522da19b7f67a179dc9d5a85f0b9d004ecc",
+        "32eb215b77dcb2c881f557da62b9fd4c67e64aaa92cba89f0f8d78fa6d42d894",
+        "0d073640fb0fc4175ad6ea678500403c80b6919cb4576e882294823eff7d1cb8",
+        "370f823b96020ba3c30b9d12213b295215e3cd810a6a2f2729da5c7a7b9e4cc7",
+        "24073e45bfcb6a3747075f5587e1d2d0997d83ed4cab3bc876f807750c714e58",
+        "b31c45d974d333794f512bd06f65139a150e220892df366a77ebeab417a4b43a"
+      ]
+    }
+  ],
+  "historical_comparison": [
+    {
+      "path": "../owner-review-016/benchmark-chase.webp",
+      "sha256": "b619dd22ee119fe4a660e312eac9b53f73c8444d081eb267dce41d37ea70f099"
+    },
+    {
+      "path": "../owner-review-016/race-chase.webp",
+      "sha256": "e3168c550b3a35ff0f6e3ba75df89c4dc8dcdad25def101c85f049b406842efc"
+    }
+  ],
+  "files": [
+    {
+      "path": "benchmark-chase.webp",
+      "bytes": 6477228,
+      "sha256": "155a736d20a9f6bd462b968100a38468db8295e21c3015cd2b33fc5b3f2b20e9"
+    },
+    {
+      "path": "build-files.json",
+      "bytes": 73181,
+      "sha256": "7e6454b08f588a4ef7b316e6f8fab3095a9ffc33f15cc2007bd0e6e0cca933a8"
+    },
+    {
+      "path": "build-summary.json",
+      "bytes": 278,
+      "sha256": "d1fdc93f89d572941166eb808a2dd282b6388b39f974fb28d0d615671b3c059a"
+    },
+    {
+      "path": "console-final.json",
+      "bytes": 61,
+      "sha256": "b9051ce9f2327710468db5531526f4247b116f6d46a32bdeb5cf91d522b2129d"
+    },
+    {
+      "path": "exertion-initial-failed.json",
+      "bytes": 1754,
+      "sha256": "286c20d10d5e10f6432ffa16d15495370c2e8b42a5acd7945dd92785f70d81dc"
+    },
+    {
+      "path": "exertion-tests.json",
+      "bytes": 655,
+      "sha256": "2c0abdbcc19712cdc0e3e1477c6ceb308adfa30b209a172a99d6f3861e8d3515"
+    },
+    {
+      "path": "full-initial-failed.json",
+      "bytes": 1758,
+      "sha256": "fe84e15d3337978976799e2b8fe551459f9559e874795364fb9b85f7a861b846"
+    },
+    {
+      "path": "full-release-tests.json",
+      "bytes": 659,
+      "sha256": "1cfa61e27daa1da5c8ab5d4907c53ab17823c2309e15eeac41d507f250e67718"
+    },
+    {
+      "path": "hero-skiing.png",
+      "bytes": 156104,
+      "sha256": "4be78808ebb6b60f51008180935b1b1893c2e3510cb0663245ad4b66c5a30313"
+    },
+    {
+      "path": "index.html",
+      "bytes": 3747,
+      "sha256": "bf2bf167014f84ee650d8c95c379042716023e0dfa7cfbd4f502ac0e88da87de"
+    },
+    {
+      "path": "motion-tests.json",
+      "bytes": 655,
+      "sha256": "14eacf7395dc2c9143a6f1e6e16ee5f22a53480d493462656a3c3c437a926fef"
+    },
+    {
+      "path": "player-build-run.json",
+      "bytes": 2273,
+      "sha256": "ede4738c27511bb2abb13f1b4684e8f523429174eb9f1214483b1482eb327906"
+    },
+    {
+      "path": "race-chase.webp",
+      "bytes": 589868,
+      "sha256": "b88691c4f84bd08d9aeb2e6a1d48a54359189950a27a5094a8aac16a8631ed23"
+    },
+    {
+      "path": "READ_ME_RU.txt",
+      "bytes": 4636,
+      "sha256": "9ff73e81cd48ea0dd46463e281cae5d31c31b77f50d707a0d2d8e2e8b84c315c"
+    },
+    {
+      "path": "THIRD_PARTY_CREDITS.txt",
+      "bytes": 7346,
+      "sha256": "52bc8e8f53a384a7f2e6b86dfd1591d77b3d1d07f4f319a7c37793941ab7c7bd"
+    },
+    {
+      "path": "warnings-final.json",
+      "bytes": 14427,
+      "sha256": "782017c72c50b4906dc2d6d26cdfcdb70dc58749ef0bdc4c7df8fc49aa969fcb"
+    }
+  ]
+}

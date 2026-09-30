@@ -1,0 +1,14 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BIATHLON — движение 017</title><style>body{background:#14212b;color:#edf4fa;font:17px/1.6 system-ui;margin:0}main{max-width:1200px;margin:auto;padding:26px}a{color:#9edee5}img{max-width:100%;display:block}.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}figure{margin:0}figcaption{padding:10px 0}.status{padding:15px;border-left:4px solid #eda887;background:#473238}@media(max-width:800px){.pair{grid-template-columns:1fr}}</style>
+<main><h1>G2 · доработка движения 017</h1><p>30 сентября 2026. Руки и корпус по отзыву владельца.</p>
+<p class="status">Упрощённая толпа согласована. G2 в целом ожидает решения владельца; M13 не начат.</p>
+<p>На равнине и при ускорении руки теперь выполняют один парный толчок на два шага вместо двух. Корпус мягко наклоняется в толчок и возвращается к базовому положению. Уменьшено вертикальное качание таза. Темп ног, скольжение, возврат лыжи и боковой перенос веса сохранены.</p>
+<p>Запуск обновлённой сборки: <code>Builds/VisualReviewWindows/START_VISUAL_REVIEW.cmd</code>. Сначала benchmark; Sprint / Mass Start — прежние игровые greybox-трассы.</p>
+<p><a href="../../../reports/G2_MOTION_REFINEMENT_017.md">Отчёт</a> · <a href="manifest.json">Manifest</a> · <a href="full-release-tests.json">164 Unity tests</a> · <a href="player-build-run.json">Windows checks</a></p>
+<h2>Одинаковые ракурсы: 016 → 017</h2><p>Benchmark: демонстрация по наблюдениям, 48 кадров / 24 Гц.</p>
+<div class="pair"><figure><img src="../owner-review-016/benchmark-chase.webp" alt="Benchmark016"><figcaption>016 · до</figcaption></figure><figure><img src="benchmark-chase.webp" alt="Benchmark017"><figcaption>017 · после</figcaption></figure></div>
+<p>Настоящая Sprint-гонка: 60 последовательных ticks / 20 Гц. Это не постановочная модель.</p>
+<div class="pair"><figure><img src="../owner-review-016/race-chase.webp" alt="Sprint016"><figcaption>016 · до</figcaption></figure><figure><img src="race-chase.webp" alt="Sprint017"><figcaption>017 · после</figcaption></figure></div>
+<p>Клипы зациклены; короткий сброс на границе записи не является скачком анимации в игре. Частота записи не измеряет FPS. Скрытые проверки не подтверждают GPU-производительность.</p>
+<h2>Поза полного силуэта</h2><img src="hero-skiing.png" alt="Изолированная проверка лыжной позы">
+<p>Анимация остаётся процедурной, без mocap. Более спокойный ритм — вариант для hands-on оценки, не утверждение финальной биомеханической точности. Очередь на тестовой карте принята владельцем как ограничение; для production venues записаны отдельные требования к распределению плотной группы. Физика гонки и стрельбы не изменена.</p></main></html>
