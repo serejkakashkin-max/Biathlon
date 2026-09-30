@@ -165,11 +165,22 @@ namespace Biathlon.Unity
         }
         private static void Materials()
         {
+            GenerateProneTargetMaterial();
             materials.Clear();Lit("white",new Color(.85f,.87f,.86f),0,.32f);Lit("dark",new Color(.055f,.085f,.105f),.55f,.35f);Lit("metal",new Color(.30f,.35f,.39f),.75f,.48f);Lit("accent",new Color(.025f,.24f,.29f),.2f,.32f);
             Material("SignText","Biathlon/VenueSignText");
             Lit("concrete",new Color(.39f,.42f,.43f),0,.15f);Lit("wood",new Color(.25f,.14f,.075f),0,.18f);Lit("woodLight",new Color(.34f,.20f,.11f),0,.18f);Lit("glass",new Color(.12f,.23f,.30f),.65f,.88f);
             Lit("rubber",new Color(.08f,.10f,.105f),0,.05f);Lit("mat",new Color(.13f,.18f,.19f),0,.12f);Lit("seat",new Color(.055f,.19f,.24f),.1f,.4f);
             Unlit("ink",new Color(.015f,.02f,.024f));Unlit("closure",new Color(.88f,.9f,.9f));materials["snow"]=Resources.Load<Material>("Biathlon/Snow/cold");materials["packed"]=Resources.Load<Material>("Biathlon/Snow/wet");
+        }
+        public static void GenerateProneTargetMaterial()
+        {
+            const string path=Root+"ProneTargetFace.mat";
+            var shader=Shader.Find("Biathlon/ProneTargetFace");
+            if(shader==null)throw new InvalidOperationException("Prone target shader is not imported.");
+            var material=AssetDatabase.LoadAssetAtPath<Material>(path);
+            if(material==null){material=new Material(shader);AssetDatabase.CreateAsset(material,path);}
+            else material.shader=shader;
+            EditorUtility.SetDirty(material);AssetDatabase.SaveAssets();
         }
         private static void Lit(string id,Color color,float metallic,float smoothness){var m=Material(id,"Universal Render Pipeline/Lit");m.SetColor("_BaseColor",color);m.SetFloat("_Metallic",metallic);m.SetFloat("_Smoothness",smoothness);EditorUtility.SetDirty(m);}
         private static void Unlit(string id,Color color){var m=Material(id,"Universal Render Pipeline/Unlit");m.SetColor("_BaseColor",color);EditorUtility.SetDirty(m);}

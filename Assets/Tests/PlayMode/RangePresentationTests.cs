@@ -27,6 +27,8 @@ namespace Biathlon.PlayModeTests
                     Assert.That(view.Bank.transform.localPosition.z,Is.EqualTo((float)geometry.DistanceMeters));
                     for(int j=0;j<5;j++){var aperture=view.Bank.Aperture(j);Assert.That(aperture.transform.localPosition,Is.EqualTo(new Vector3((float)geometry.CenterX(j),0,0)));Assert.That(aperture.transform.localScale.x,Is.EqualTo((float)(2*geometry.Radius(ShootingStance.Standing))));Assert.That(aperture.transform.localScale.y,Is.EqualTo(aperture.transform.localScale.x));}
                     Assert.That(view.Bank.GetComponentsInChildren<Collider>(),Is.Empty);
+                    for(int j=0;j<5;j++)Assert.That(view.Bank.Aperture(j).sharedMaterial.shader.name=="Biathlon/ProneTargetFace",
+                        Is.EqualTo(observed.Stance==ShootingStance.Prone&&(observed.ClosedTargetsMask&(1<<j))==0));
                 }
                 if(view.Status.Length>0)sawShot=true;
                 if(sawShot&&!view.Visible)break;

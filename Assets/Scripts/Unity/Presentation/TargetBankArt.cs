@@ -9,6 +9,9 @@ namespace Biathlon.Unity.Presentation
     {
         [SerializeField] private Renderer[] apertures;
         [SerializeField] private Material openMaterial,closedMaterial;
+        private Material proneMaterial;
+        private MaterialPropertyBlock apertureProperties;
+        private static readonly int ScoringRadius=Shader.PropertyToID("_ScoringRadius");
         public Renderer Aperture(int index)=>apertures[index];
         public void Bind(Renderer[] renderers,Material open,Material closed)
         {
@@ -20,13 +23,23 @@ namespace Biathlon.Unity.Presentation
         {
             if(geometry==null||apertures==null||apertures.Length!=5||closedMask<0||closedMask>31)throw new ArgumentException("Valid geometry, bound bank and five-bit closure mask required.");
             // The aiming mark stays 115 mm in both stances; scoring remains 45/115 mm in simulation.
-            geometry.Radius(stance); // Validate the observation without using its scoring radius for artwork.
+            float scoringRadius=(float)geometry.Radius(stance);
             float diameter=(float)(2*geometry.Radius(ShootingStance.Standing));
+            if(proneMaterial==null)
+            {
+                proneMaterial=Resources.Load<Material>("Biathlon/Stadium/ProneTargetFace");
+                if(proneMaterial==null)throw new InvalidOperationException("Generate the prone target face material first.");
+                apertureProperties=new MaterialPropertyBlock();
+            }
+            apertureProperties.SetFloat(ScoringRadius,scoringRadius/diameter);
             for(int i=0;i<apertures.Length;i++)
             {
                 var face=apertures[i];face.transform.localPosition=new Vector3((float)geometry.CenterX(i),0,0);
                 face.transform.localRotation=Quaternion.identity;face.transform.localScale=new Vector3(diameter,diameter,1);
-                face.sharedMaterial=(closedMask&(1<<i))==0?openMaterial:closedMaterial;
+                bool closed=(closedMask&(1<<i))!=0;
+                bool showInner=stance==ShootingStance.Prone&&!closed;
+                face.sharedMaterial=closed?closedMaterial:showInner?proneMaterial:openMaterial;
+                face.SetPropertyBlock(showInner?apertureProperties:null);
             }
         }
     }
