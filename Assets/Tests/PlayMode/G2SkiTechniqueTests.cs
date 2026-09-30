@@ -7,6 +7,37 @@ namespace Biathlon.PlayModeTests
 {
     public class G2SkiTechniqueTests
     {
+        [Test] public void PairedHandsCompleteOnePushPerTwoSkatesWithoutRepeatedTorsoPumping()
+        {
+            var rig=AthleteRigFactory.Create(null);
+            try
+            {
+                var driver=rig.GetComponent<AthleteLocomotionDriver>();
+                foreach(var input in new[]{new LocomotionInput(7,0,.9f),new LocomotionInput(4,.08f,.9f),new LocomotionInput(9,0,1.2f)})
+                {
+                    driver.Sample(rig,input,0);float previousZ=0,previousDelta=0,lowPitch=100,highPitch=-100,lowHip=10,highHip=-10;
+                    bool priorLeft=false,priorRight=false;int pushes=0,leftReturns=0,rightReturns=0;
+                    for(int i=0;i<=2400;i++)
+                    {
+                        driver.Sample(rig,input,i/240.0);
+                        float handZ=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.LeftHand).position).z;
+                        float delta=handZ-previousZ;if(i>1&&previousDelta>0&&delta<=0)pushes++;
+                        bool left=rig.Bone(AthleteBone.LeftFoot).position.y>.13f,right=rig.Bone(AthleteBone.RightFoot).position.y>.13f;
+                        if(left&&!priorLeft)leftReturns++;if(right&&!priorRight)rightReturns++;
+                        float pitch=Mathf.DeltaAngle(0,rig.Bone(AthleteBone.Chest).eulerAngles.x);
+                        lowPitch=Mathf.Min(lowPitch,pitch);highPitch=Mathf.Max(highPitch,pitch);
+                        float hip=rig.Bone(AthleteBone.Hips).position.y;lowHip=Mathf.Min(lowHip,hip);highHip=Mathf.Max(highHip,hip);
+                        previousZ=handZ;previousDelta=delta;priorLeft=left;priorRight=right;
+                    }
+                    Assert.That(pushes,Is.GreaterThan(5));
+                    Assert.That(Mathf.Abs(pushes-leftReturns),Is.LessThanOrEqualTo(1));
+                    Assert.That(Mathf.Abs(pushes-rightReturns),Is.LessThanOrEqualTo(1),"Hands must not repeat twice during each left/right ski pair.");
+                    Assert.That(highPitch-lowPitch,Is.LessThan(2.1f),"Torso compression must remain small, not a seven-degree pumping wave.");
+                    Assert.That(highHip-lowHip,Is.LessThan(.0061f),"Preserve lateral weight transfer without vertical bouncing.");
+                }
+            }
+            finally{Object.DestroyImmediate(rig.gameObject);}
+        }
         [Test] public void WeightStaysOverSupportSideAndTechniqueTransitionsRemainContinuous()
         {
             var rig=AthleteRigFactory.Create(null);

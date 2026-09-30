@@ -54,7 +54,7 @@ namespace Biathlon.Unity.Presentation
                 LocomotionPose.Blend(blended, blended, 1, start);
                 cycle = time * blended.cadence_hz % 1;
                 polingRatio=selected==SkiLocomotion.Climb?technique.climb_poles_per_cycle:technique.flat_poles_per_cycle;
-                poleCycle=time*blended.cadence_hz*polingRatio%1;
+                poleCycle=(time*blended.cadence_hz*polingRatio+technique.pole_phase_offset_cycles)%1;
                 dt = 0;
                 climbIntensity = requestedIntensity;
                 CornerLeanDegrees = requestedLean;
@@ -85,7 +85,9 @@ namespace Biathlon.Unity.Presentation
             rig.ResetPose();
             float polePhase=(float)(poleCycle*Math.PI*2);
             float active=Mathf.Clamp01(pose.arm_swing_m/technique.motion_reference_swing_m);
-            float pulse=-Mathf.Sin(polePhase)*active;
+            // Small compression into the paired pole push, followed by a gradual return.
+            // Do not rock backwards past the base skiing lean during recovery.
+            float pulse=(.5f-.5f*Mathf.Sin(polePhase))*active;
             float leftPhase=Mathf.Repeat(phase/(2*Mathf.PI),1);
             float rightPhase=Mathf.Repeat(leftPhase+.5f,1);
             // Transfer during the overlap of grounded skis, then stay over the support

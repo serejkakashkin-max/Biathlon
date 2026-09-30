@@ -44,15 +44,23 @@ namespace Biathlon.PlayModeTests
         public void TiredAndFinishPosesAreReadableWhileShootingSightRemainsUnmodified()
         {
             var rig = OriginalAthleteRigBuilder.Create(null);
+            var freshRig = OriginalAthleteRigBuilder.Create(null);
             try
             {
                 var driver = rig.GetComponent<AthleteLocomotionDriver>(); var rifle = rig.GetComponent<AthleteRiflePresentation>();
                 var pose = rig.GetComponent<AthleteShootingPose>(); var contact = rig.GetComponent<AthleteGroundContact>();
                 var motion = new LocomotionInput(8, 0, .9f);
-                driver.Sample(rig, motion, 2, new ExertionInput(0, 1, 60));
-                float fresh = rig.Bone(AthleteBone.Head).position.y;
-                driver.Sample(rig, motion, 0, new ExertionInput(1, 0, 190));
-                Assert.That(rig.Bone(AthleteBone.Head).position.y, Is.LessThan(fresh - .06f));
+                var freshDriver = freshRig.GetComponent<AthleteLocomotionDriver>();
+                float fresh = 0;
+                // Compare matched phases throughout multiple cycles, not two unrelated
+                // timestamps whose poling compression can hide the exertion difference.
+                for (int i = 0; i <= 240; i++)
+                {
+                    freshDriver.Sample(freshRig, motion, i / 60.0, new ExertionInput(0, 1, 60));
+                    driver.Sample(rig, motion, i / 60.0, new ExertionInput(1, 0, 190));
+                    fresh = freshRig.Bone(AthleteBone.Head).position.y;
+                    Assert.That(rig.Bone(AthleteBone.Head).position.y, Is.LessThan(fresh - .06f));
+                }
                 driver.Sample(rig, new LocomotionInput(0, 0, 0, travelling: false), 2, new ExertionInput(1, 0, 190, finished: true));
                 rifle.Sample(rig, 0); contact.Sample(rig, 0, driver.Cycle, SkiLocomotion.Idle, 0);
                 Assert.That(driver.FinishWeight, Is.EqualTo(1));
@@ -68,7 +76,7 @@ namespace Biathlon.PlayModeTests
                         weapon.TransformPoint(RiflePresentationSettings.Load().trigger_grip)), Is.LessThan(.02f));
                 }
             }
-            finally { Object.DestroyImmediate(rig.gameObject); }
+            finally { Object.DestroyImmediate(rig.gameObject); Object.DestroyImmediate(freshRig.gameObject); }
         }
     }
 }
