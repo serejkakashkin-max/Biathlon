@@ -4,23 +4,23 @@ Authority: AGENTS.md → BIATHLON_MASTER_PLAN_FINAL_v2.0.md → GDD/TDD → ADRs
 
 ```yaml
 project_phase: post-WP166 / pre-G2; owner rejected G2 and authorized further remediation 2026-09-24; M13/WP167 blocked
-active_work_package: G2 corrective016 IN_PROGRESS per owner directive 2026-09-27; M13/WP167 BLOCKED_G2
-active_task: G2-VR016 corrections verified 163/163 PlayMode; Windows rebuild/review packaging in progress; no environment expansion
-last_completed_task: G2-VR015 hero face/cap/neck/motion; PlayMode164/164; Windows9/9; profile10cases; reports/G2_VISUAL_REMEDIATION_015.md; owner-review-015
-last_verified_commit: b55e4bc7d63dd1fb5242dcc1bdbf4096b99b93fe; G2-VR015 verified on origin; visuals subsequently rejected by owner; superseded by corrective016
+active_work_package: G2 corrective016 DELIVERED 2026-09-30; WAITING_OWNER_G2; M13/WP167 BLOCKED_G2
+active_task: STOP for owner G2 decision on review016; no further autonomous art expansion
+last_completed_task: G2-VR016 rollback / support transfer / physical mat alignment; PlayMode163/163; Windows9/9; 395 build hashes verified; reports/G2_VISUAL_REMEDIATION_016.md; owner-review-016
+last_verified_commit: 8fbdb0464d86d7deb20829a2868b90fa69e16634; corrective016 implementation verified on origin; review publication follows
 foundation_status: DONE; standalone baseline reverified 2026-09-06, 14/14
 editmode_tests: G2-VR013 device11/11 PASS (553 discovered); prior observations and M9 parity retained
 playmode_tests: G2-VR016 full163/163 PASS,0failed/0skipped; G2-VR015 full164/164 PASS; G2-VR014 full161/161 PASS; G2-VR013 full158/158 PASS; current-design Windows delivery full155/155 PASS including actual interactive camera rendering; G2-VR009D full155/155,hero6/6 PASS; G2-VR011 full154/154,target2/2 PASS; G2-VR010 targeted4/4 PASS; G2-VR009C full151/151,target2/2 PASS; G2-VR009B full149/149, targeted3/3,preview3/3 PASS; G2-VR009A full146/146, appearance2/2,hero5/5,profiler3/3 PASS; G2-VR008A focused1/1 PASS (144 discovered, not full144); G2-VR007A full143/143, focused3/3 PASS; G2-VR006A full140/140, focused3/3 PASS; G2-VR005B full137/137, focused3/3 PASS; G2-VR005A full134/134 twice (before/after shader), focused3/3 PASS; G2-VR004G full131/131, focused3/3 PASS; G2-VR004F full128/128, focused3/3 PASS; G2-VR004E full125/125, shadow4/4, probe3/3 PASS; G2-VR004D full118/118 and focused4/4 PASS; G2-VR004C full114/114 and focused3/3 PASS; G2-VR004B full111/111 and final4/4 PASS; G2-VR004A full107/107 PASS; G2-VR003A full104/104 and focused3/3 PASS; G2-VR002B full101/101 and focused5/5 PASS; G2-VR002A full99/99 and final3/3 PASS; WP166 full96/96 and final focused3/3 PASS; WP164 full93/93 PASS; WP163 full90/90 PASS; WP162 full86/86 PASS; WP161 full83/83 PASS; WP160 full78/78 PASS and final focused4/4; WP159 full74/74 PASS and final focused4/4; WP158 full70/70 PASS; WP157 full66/66 PASS; WP156 full63/63 PASS and final focused3/3; WP155 full60/60 PASS; WP154 full57/57 PASS; WP153 full53/53 PASS; WP152 full51/51 PASS; WP151 full48/48 PASS; WP150 full46/46 PASS; WP149 full44/44 PASS; WP148 full42/42 PASS; WP147 full39/39 PASS; WP146 full38/38 PASS; WP145 full37/37 PASS; WP144 full36/36 PASS; WP143 full33/33 PASS; WP142 full30/30 PASS; WP141 full28/28 PASS; WP140 full25/25 PASS; prior WP139 evidence1/1 (24 discovered); prior full30 host1/1; prior Sprint-Pursuit chain1/1; prior full host1/1; prior HUD1/1; prior penalty1/1; prior shooting input3/3; prior range1/1; prior HUD1/1; prior device4/4, camera1/1; prior proxy1/1, scene1/1, mesh1/1 and full7/7
 standalone_tests: G2-VR013 full553/553 PASS,focused18/18; WP159 observations4/4 PASS; WP151 observations/snapshots5/5 PASS; WP141 observations/regression19/19; WP138 grid/results7/7; WP137 qualification/field6/6; WP136 player-pack/snapshot3/3; WP135 HUD/snapshot2/2; WP134 penalty10/10; WP133 aim/session10/10; WP130 input/replay11/11; prior full540/540, corrected career30/30, final lock3/3, 15-season soak PASS
-unity_console_errors: 0 at G2-VR015 final verification; compilation_failed=false
+unity_console_errors: 0 at G2-VR016 final snapshot 2026-09-27; full PlayMode and Windows build PASS
 unity_console_warnings: final Console snapshot0; MCP cache contains ConvGeneric build warnings (last20 recorded); BuildReport0 warnings
-current_known_blockers: [M13_BLOCKED_G2; visual target unmet; further remediation authorized]
+current_known_blockers: [M13_BLOCKED_G2; owner decision on constrained review016 required]
 owner_gate_g1: APPROVED 2026-09-13; owner hands-on Windows greybox Sprint and Pursuit
-owner_gate_g2: NOT APPROVED by owner 2026-09-24; further remediation authorized; no M13
-owner_decisions_needed: [] #G2 rejected; further remediation already authorized; future G2 approval remains owner-only
+owner_gate_g2: NOT APPROVED; corrective016 delivered 2026-09-30 under owner directive 2026-09-27; WAITING_OWNER; no M13
+owner_decisions_needed: [G2 approval or specific rejection of corrective016; owner evaluates listed remaining limitations]
 free_asset_authorization: APPROVED 2026-09-23; may search/download/use better free assets after source/license/de-branding audit; docs/owner/FREE_ASSET_AUTHORIZATION_2026-09-23.md
 owner_gameplay_feel_issues: [OWNER-FEEL-001 player shooting feels too easy; OPEN; required WP229/WP230/WP232 review]
-next_unlocked_work_packages: [G2 corrective016 only; constrained review build then STOP for owner G2 decision; no M13]
+next_unlocked_work_packages: [] #corrective016 delivered; STOP before owner G2; WP167 remains blocked
 ```
 
 ## Work packages
@@ -359,4 +359,9 @@ Fabric shader defect fixed, CC0 roughness integrated, benchmark reflections and 
 
 [Отчёт](reports/G2_VISUAL_REMEDIATION_015.md) · [Review015](quality/g2/owner-review-015/index.html). Лицо, новая прилегающая шапка по замечанию владельца27сентября, шейный бафф и траектория рук проверены;164/164 PlayMode,9/9 Windows render checks,10×300 hidden profile samples. Сборка `Builds/VisualReviewWindows/START_VISUAL_REVIEW.cmd` теперь015, включает014. G2 NOT APPROVED; визуальная цель ещё не заявляется достигнутой. Дальний белый склон/связность освещения леса, костюм/движение/толпа и range admission остаются OPEN. Новая площадка пока демонстрационная; production venues иM13 заблокированы. OWNER-FEEL-001 сохраняется без изменения shooting tuning.
 
+
+
+## G2-VR016 — передано владельцу 2026-09-30
+
+[Отчёт](reports/G2_VISUAL_REMEDIATION_016.md) · [Review016](quality/g2/owner-review-016/index.html). Возвращён hero baseline014 без нового баффа, упрощены лица толпы, перенос таза согласован с опорной лыжей. Исправлены коврики/визуальное центрирование всех30 lanes и review-постановка; реальные Sprint/Mass Start prone/standing проверены. Unity163/163, Windows9/9 PASS; 395 файлов сборки сверены по SHA-256. Сборка Builds/VisualReviewWindows/START_VISUAL_REVIEW.cmd — версия016 от27сентября. 10 кадров и2клипа переданы для owner review. Код8fbdb04 уже на origin. G2 НЕ PASS; M13 не начат. После этой поставки STOP до решения владельца согласно новой директиве. Ограничения процедурной анимации/костюма/crowd, старые игровые трассы и очередь перед общим входом перечислены в отчёте. OWNER-FEEL-001 остаётся OPEN для WP229/WP230/WP232; simulation/баланс не менялись.
 

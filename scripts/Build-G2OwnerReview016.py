@@ -43,6 +43,9 @@ for name, source, caption in shots:
     cards.append(f'<figure><img loading="lazy" src="{name}" alt="{html.escape(caption)}"><figcaption>{html.escape(caption)}</figcaption></figure>')
 for name in ('full-release-tests.json', 'player-build-run.json', 'console-final.json', 'warnings-final.json'):
     shutil.copyfile(RUN/name, OUT/name)
+for name in ('build-summary.json', 'THIRD_PARTY_CREDITS.txt', 'READ_ME_RU.txt'):
+    shutil.copyfile(ROOT/'Builds/VisualReviewWindows'/name, OUT/name)
+shutil.copyfile(Path(player['log']).parent/'build-files.json', OUT/'build-files.json')
 for source in RUN.glob('*on-mat.txt'):
     shutil.copyfile(source, OUT/source.name)
 clips = []
@@ -58,7 +61,7 @@ for name, folder, hz, count in (
     clips.append(dict(id=name, sample_hz=hz, frame_count=count, source_sha256=[sha(p) for p in paths]))
 page = '''<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>BIATHLON — G2 corrective 016</title><style>body{background:#14212b;color:#edf4fa;font:17px/1.6 system-ui;margin:0}main{max-width:1100px;margin:auto;padding:26px}a{color:#9edee5}img{max-width:100%;display:block}figure{margin:30px 0}figcaption{padding:10px 0}.status{padding:15px;border-left:4px solid #eda887;background:#473238}</style>
-<main><h1>G2 · корректирующая сборка 016</h1><p>27 сентября 2026</p>
+<main><h1>G2 · корректирующая сборка 016</h1><p>Сборка и Unity-проверки: 27 сентября 2026. Пакет для владельца: 30 сентября 2026.</p>
 <p class="status">Готово к решению владельца. G2 не помечен PASS; M13 не начат.</p>
 <p>Возвращён герой до неудачной версии 015: прежнее лицо и траектория рук, без нового воротника. Сохранены материалы ткани. У зрителей отключена фотографическая детализация лиц; четыре формы зимней одежды и десять вариантов сохранены.</p>
 <p>Таз следует опорной лыже и плавно переносится на другую во время двойной опоры. Длинная фаза скольжения, короткий возврат лыжи, парная работа палок и плавные переходы сохранены. Движение остаётся процедурным, без mocap.</p>

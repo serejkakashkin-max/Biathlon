@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "biathlon_player_smoke_run_v1",
+  "passed": true,
+  "exit_code": 0,
+  "git_commit": "8fbdb0464d86d7deb20829a2868b90fa69e16634",
+  "working_tree_dirty": true,
+  "exe_sha256": "718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00",
+  "log_sha256": "82f808a3a58821995e50eb28ee05bf8e3c279e5896e1a41be724ec6b9515041b",
+  "build_manifest_sha256": "ee06881045f85fa58e85187a9031d814115d052c2255a6d7e7967ca011c8bf51",
+  "build": {
+    "schema_version": 1,
+    "id": "biathlon_windows_development_build_v1",
+    "result": "Succeeded",
+    "unity": "6000.6.0f1",
+    "startup_scene": "Assets/Scenes/VisualBenchmark.unity",
+    "errors": 0,
+    "warnings": 0,
+    "bytes": 350145594,
+    "seconds": 3.2271155
+  },
+  "visual_review_startup": true,
+  "scenes": [
+    {
+      "schema_version": 1,
+      "id": "biathlon_player_smoke_v1",
+      "scene": "PlayableSprint",
+      "tick": 400,
+      "athletes": 6
+    },
+    {
+      "schema_version": 1,
+      "id": "biathlon_player_smoke_v1",
+      "scene": "PlayableMassStart",
+      "tick": 400,
+      "athletes": 30
+    }
+  ],
+  "quality_checks": [
+    "BIATHLON_SMOKE_QUALITY PlayableSprint low",
+    "BIATHLON_SMOKE_QUALITY PlayableSprint balanced",
+    "BIATHLON_SMOKE_QUALITY PlayableSprint high",
+    "BIATHLON_SMOKE_QUALITY PlayableMassStart low",
+    "BIATHLON_SMOKE_QUALITY PlayableMassStart balanced",
+    "BIATHLON_SMOKE_QUALITY PlayableMassStart high"
+  ],
+  "benchmark_checks": [
+    "BIATHLON_SMOKE_BENCHMARK low",
+    "BIATHLON_SMOKE_BENCHMARK balanced",
+    "BIATHLON_SMOKE_BENCHMARK high"
+  ],
+  "render_checks": [
+    "BIATHLON_SMOKE_RENDER PlayableSprint low 29",
+    "BIATHLON_SMOKE_RENDER PlayableSprint balanced 35",
+    "BIATHLON_SMOKE_RENDER PlayableSprint high 35",
+    "BIATHLON_SMOKE_RENDER PlayableMassStart low 726",
+    "BIATHLON_SMOKE_RENDER PlayableMassStart balanced 704",
+    "BIATHLON_SMOKE_RENDER PlayableMassStart high 564",
+    "BIATHLON_SMOKE_RENDER VisualBenchmark low 641",
+    "BIATHLON_SMOKE_RENDER VisualBenchmark balanced 789",
+    "BIATHLON_SMOKE_RENDER VisualBenchmark high 828"
+  ],
+  "log": "C:\\game\\Biathlon\\Biathlon\\artifacts\\player-smoke\\20260927-140209-839\\Player.log"
+}
