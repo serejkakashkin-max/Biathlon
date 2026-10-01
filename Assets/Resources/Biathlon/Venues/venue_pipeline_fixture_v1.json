@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "id": "venue_pipeline_fixture_v1",
+  "track_resource": "Biathlon/Tracks/synthetic_stadium_v1",
+  "visual_resource": "Biathlon/stadium_visual_v1",
+  "lanes_resource": "Biathlon/Tracks/synthetic_stadium_lanes_v1",
+  "junctions_resource": "Biathlon/Tracks/synthetic_stadium_junctions_v1",
+  "connections_resource": "Biathlon/Tracks/synthetic_stadium_connections_v1",
+  "range_layout": {
+    "approach": "side_entry",
+    "entry": {
+      "loop_id": "main_long",
+      "distance_m": 800
+    },
+    "exit": {
+      "loop_id": "main_long",
+      "distance_m": 900
+    },
+    "firing_origin": {
+      "x": -100,
+      "y": 0,
+      "z": 50
+    },
+    "forward": {
+      "x": 0,
+      "y": 0,
+      "z": -1
+    },
+    "lane_pitch_m": 3,
+    "apron_depth_m": 10
+  },
+  "cameras": [
+    {
+      "id": "range_overview",
+      "anchor": {
+        "loop_id": "main_long",
+        "distance_m": 850
+      },
+      "offset": {
+        "x": 40,
+        "y": 16,
+        "z": 45
+      },
+      "look_offset": {
+        "x": 0,
+        "y": 1,
+        "z": -10
+      },
+      "fov_deg": 52
+    },
+    {
+      "id": "forest_follow",
+      "anchor": {
+        "loop_id": "main_long",
+        "distance_m": 400
+      },
+      "offset": {
+        "x": 8,
+        "y": 3,
+        "z": -12
+      },
+      "look_offset": {
+        "x": 0,
+        "y": 1,
+        "z": 0
+      },
+      "fov_deg": 60
+    }
+  ],
+  "ambience": [
+    {
+      "id": "stadium_crowd",
+      "anchor": {
+        "loop_id": "main_long",
+        "distance_m": 850
+      },
+      "event_id": "ambience_stadium_crowd",
+      "radius_m": 100
+    },
+    {
+      "id": "forest_wind",
+      "anchor": {
+        "loop_id": "main_long",
+        "distance_m": 400
+      },
+      "event_id": "ambience_forest_wind",
+      "radius_m": 180
+    }
+  ],
+  "assets": [
+    {
+      "id": "target_reference",
+      "resource": "Biathlon/Stadium/TargetBank",
+      "anchor": {
+        "loop_id": "main_long",
+        "distance_m": 850
+      },
+      "offset": {
+        "x": 0,
+        "y": 1.15,
+        "z": -50
+      },
+      "yaw_deg": 180
+    }
+  ]
+}

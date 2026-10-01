@@ -1,6 +1,6 @@
 # G2 Open Items
 
-2026-09-30. G2 **OWNER READY TO APPROVE AFTER TARGET018**, окончательное APPROVED ещё не записано. Новый отзыв владельца разрешает ограниченный motion017 (руки/корпус), согласовывает упрощённую толпу и оставляет очередь greybox как известное ограничение. См. [feedback](../owner/OWNER_G2_MOTION_FEEDBACK_2026-09-30.md). Предыдущая [owner directive](../owner/OWNER_G2_CONSTRAINED_CORRECTIVE_DIRECTIVE_2026-09-27.md) ограничивает работу corrective016: rollback → locomotion → mat placement → review build → STOP для решения владельца. Указания015 продолжать окружение/asset search отменены. M13/WP167 BLOCKED_G2.
+2026-09-30. G2 **APPROVED**, M12 **PASS / owner-approved**. Explicit decision: [owner approval](../owner/OWNER_G2_APPROVAL_2026-09-30.md). M13 is unlocked. The entries below preserve accepted limitations and requirements transferred into production; they do not reopen G2.
 
 | ID | Issue / evidence | Required next action | Status |
 |---|---|---|---|
@@ -17,10 +17,10 @@
 | G2-TARGET-001 | 018: обозначена внутренняя граница45мм для prone при внешнем115мм; standing/closed без отметки | Передать исправленную сборку; scoring неизменен | FIXED; PlayMode166/166, geometry5/5 PASS; Windows9/9; review018 DELIVERED |
 | G2-RANGE-001 | Очередь перед общим входом greybox; 30lanes,11concurrent shooters | Тестовую карту не дорабатывать; production venues обязаны пройти [flow acceptance](../quality/PRODUCTION_RANGE_FLOW_ACCEPTANCE.md) при WP167/168/169–174/177/178 | ACCEPTED TEST LIMITATION; PRODUCTION REQUIREMENT OPEN |
 | G2-RANGE-002 | 016: коврики в физических anchors; видимое боковое смещение плавно убирается во время Setup; review fixture на собственном коврике | Проверить реальные Sprint/Mass Start prone/standing и итоговую сборку | FIXED / реальные Sprint и Mass Start PASS; review016 |
-| G2-OWNER-001 | После017 owner готов согласовывать G2, последнее условие — обозначить prone aperture | Target018 и итоговая сборка; [feedback](../owner/OWNER_G2_TARGET_FEEDBACK_2026-09-30.md) | READY TO APPROVE; final decision pending; no M13 |
+| G2-OWNER-001 | После017 owner готов согласовывать G2, последнее условие — обозначить prone aperture | Target018 и итоговая сборка; [feedback](../owner/OWNER_G2_TARGET_FEEDBACK_2026-09-30.md) | APPROVED 2026-09-30; M13 unlocked |
 
-WP166/008A/012/015 остаются историческими доказательствами. Пункты OPEN не являются разрешением автоматически расширять corrective016. По последнему отзыву30September выполняется только target018; затем завершение owner gate. Hidden-only measurement limitations сохранены.
+WP166/008A/012/015 остаются историческими доказательствами. G2 закрыт явным решением владельца после target018. Открытые production/release требования перенесены в следующие этапы. Hidden-only measurement limitations сохранены.
 
-Motion017: один парный толчок на пару шагов, меньшая компрессия корпуса; физика/ноги сохранены. Full164/164, Windows9/9 PASS; [review017](../quality/g2/owner-review-017/index.html) передан владельцу. STOP до G2.
+Motion017: один парный толчок на пару шагов, меньшая компрессия корпуса; физика/ноги сохранены. Full164/164, Windows9/9 PASS; [review017](../quality/g2/owner-review-017/index.html) передан владельцу. G2 APPROVED; этот review сохранён как историческое доказательство.
 
 Для production-трасс добавлен обязательный боковой подъезд по официальным reference Ленцерхайде/Хохфильцен. Greybox не переделывался.
