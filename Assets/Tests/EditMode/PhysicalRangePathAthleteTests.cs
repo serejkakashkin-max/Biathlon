@@ -14,7 +14,7 @@ namespace Biathlon.Tests
     {
         private const long M=SkiState.NanometersPerMeter;
         public static SprintAthleteSession Create(RaceEventLog events,out PhysicalRangePathMap path,int laneIndex=0,bool privateMuscleLoad=false,
-            bool wrongLane=false,PhysicalRangePathMap foreignPath=null)
+            bool wrongLane=false,PhysicalRangePathMap foreignPath=null,bool preparedChoices=false)
         {
             string trackJson=PhysicalRangePathDefinitionTests.Fixture("track");
             if(privateMuscleLoad)
@@ -26,12 +26,18 @@ namespace Biathlon.Tests
             var profile=CompetitionProfile.FromJson(PhysiologyContractTests.ReplaceNumber(CompetitionProfileTests.TestProfile().ToJson(),"distance_m","900"));
             var route=new RaceRoute(track,RaceRoutePlan.TimeTrial("range_athlete_route",track.Id,"main",profile.ToRouteRequirements()),profile.ToRouteRequirements());
             path=new PhysicalRangePathMap(new PhysicalTrackMap(track,route),track,route,definition,laneIndex);
+            PhysicalRangePathMap[] choices=null;
+            if(preparedChoices)
+            {
+                choices=new PhysicalRangePathMap[definition.Count];
+                for(int i=0;i<choices.Length;i++)choices[i]=i==laneIndex?path:new PhysicalRangePathMap(path.PhysicalMap,track,route,definition,i);
+            }
             var ski=TimeTrialTests.Athlete();var shooting=ShootingSessionTests.Athlete();
             shooting=ShootingAthleteDefinition.FromJson(shooting.ToJson().Replace(shooting.Id,ski.Id));
             return new SprintAthleteSession(new SimulationConfig(1,"range_athlete_sim",20,123),profile,
                 new SkiModelDefinitions(PhysiologyContractTests.DefinitionJson),ShootingSessionTests.Model(),ski,shooting,track,route,
                 new CheckpointLayout(track,route),RaceSnowConditions.FromJson(SnowConditionTests.Conditions().ToJson().Replace("snow_test_packed","packed")),
-                "ski_neutral",new SimulationTick(1),new ShootingLaneAssignment(track.Range.Id,wrongLane?"lane_2":path.LaneId,wrongLane?2:path.LaneOrdinal),events,physicalRangePath:foreignPath??path);
+                "ski_neutral",new SimulationTick(1),new ShootingLaneAssignment(track.Range.Id,wrongLane?"lane_2":path.LaneId,wrongLane?2:path.LaneOrdinal),events,physicalRangePath:foreignPath??path,rangePathChoices:choices);
         }
         [TestCase(0)] [TestCase(1)]
         public void CompleteAthleteStopsAtEachOwnMatAndKeepsActualTravelAndPenaltyCredit(int laneIndex)

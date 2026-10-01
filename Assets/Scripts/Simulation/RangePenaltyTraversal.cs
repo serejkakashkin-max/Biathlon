@@ -36,6 +36,9 @@ namespace Biathlon.Simulation
         private const long NmPerMm = 1000000;
         private readonly long firing, exit, entry, rejoin, penaltyLength;
         private readonly TrackSampler penaltySampler;
+        private readonly CompetitionProfile profile;
+        private readonly TrackDefinition track;
+        private readonly RaceRoute route;
         private readonly AthleteId athlete;
         private readonly int frequency, shots;
         private readonly IRaceEventSink events;
@@ -88,6 +91,7 @@ namespace Biathlon.Simulation
             PhysicalRangePathMap rangePath = null)
         {
             if (profile == null || track == null || route == null) throw new ArgumentNullException();
+            this.profile = profile; this.track = track; this.route = route;
             if (!athlete.IsValid || frequency <= 0 || boutIndex < 0 || boutIndex >= profile.BoutCount)
                 throw new ArgumentException("Invalid traversal identity, clock or bout.");
             if (route.TrackId != track.Id || route.CompetitionProfileId != profile.Id || route.Length.Millimeters != profile.Distance.Millimeters || route.LapCount != profile.LapCount)
@@ -122,6 +126,38 @@ namespace Biathlon.Simulation
             this.frequency = frequency; shots = profile.ShotsPerBout; RangeId = track.Range.Id; BoutIndex = boutIndex;
             Tick = initialTick; RouteNanometers = RangeEntryNanometers;
             LastFrame = new RangeTraversalFrame(Tick, Phase, RouteNanometers, 0, 0, 0, 0, 0, 0);
+        }
+
+        /// <summary>Copies accepted state into an owner-selected preallocated scratch traversal only.
+        /// The owning session must keep this destination outside its accepted traversal array until commit.</summary>
+        internal void StageAcceptedStateFrom(RangePenaltyTraversal accepted, long actualRouteNanometers)
+        {
+            if (accepted == null) throw new ArgumentNullException(nameof(accepted));
+            if (ReferenceEquals(this, accepted) || !ReferenceEquals(profile, accepted.profile) || !ReferenceEquals(track, accepted.track) ||
+                !ReferenceEquals(route, accepted.route) || !athlete.Equals(accepted.athlete) || BoutIndex != accepted.BoutIndex ||
+                frequency != accepted.frequency || shots != accepted.shots || !ReferenceEquals(events, accepted.events) ||
+                RangeId != accepted.RangeId || RangeEntryNanometers != accepted.RangeEntryNanometers || exit != accepted.exit ||
+                entry != accepted.entry || rejoin != accepted.rejoin || penaltyLength != accepted.penaltyLength)
+                throw new ArgumentException("Scratch and accepted traversals must share exact owner, bout and immutable race context.");
+            if (RangePath == null || accepted.RangePath == null || !RangePath.IsSameLayoutFamily(accepted.RangePath))
+                throw new ArgumentException("Scratch and accepted mat paths must belong to the same exact layout family.");
+            int lap = profile.GetBout(BoutIndex).AfterLap - 1;
+            if (accepted.Phase != RangeTraversalPhase.Approach || actualRouteNanometers < 0 ||
+                actualRouteNanometers >= RangePath.FirstForkRouteNanometers(lap))
+                throw new ArgumentException("Mat path staging requires an accepted approach strictly before every physical fork.");
+            if (actualRouteNanometers < accepted.RangeEntryNanometers ?
+                accepted.TravelledNanometers != 0 || accepted.RouteNanometers != accepted.RangeEntryNanometers :
+                accepted.RouteNanometers != actualRouteNanometers)
+                throw new ArgumentException("Accepted traversal state must agree with the actual body coordinate or its untouched pre-entry origin.");
+            var ordinary = RangePath.PhysicalMap.MapRoute(actualRouteNanometers);
+            var sourcePoint = accepted.RangePath.MapRoute(actualRouteNanometers);
+            var targetPoint = RangePath.MapRoute(actualRouteNanometers);
+            if (!RangePath.PhysicalMap.SameLoop(ordinary, sourcePoint) || ordinary.LocalNanometers != sourcePoint.LocalNanometers ||
+                !RangePath.PhysicalMap.SameLoop(ordinary, targetPoint) || ordinary.LocalNanometers != targetPoint.LocalNanometers)
+                throw new ArgumentException("Mat path staging cannot reposition a body already on a private physical path.");
+            Tick = accepted.Tick; Phase = accepted.Phase; RouteNanometers = accepted.RouteNanometers;
+            PenaltyNanometers = accepted.PenaltyNanometers; TravelledNanometers = accepted.TravelledNanometers;
+            RequiredLoops = accepted.RequiredLoops; CompletedLoops = accepted.CompletedLoops; LastFrame = accepted.LastFrame;
         }
 
         public RangeTraversalFrame Step(SimulationTick tick, long displacementNanometers, ShotResolutionFrame? completedBout = null)

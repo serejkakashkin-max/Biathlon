@@ -1,0 +1,15 @@
+# TASK169F — prepared range path choice
+
+2026-10-01. WP169 IN_PROGRESS; Venue01 production is not complete.
+
+SprintAthleteSession now accepts an optional cold array of exact same-layout path choices. It preallocates per-bout traversal variants, validates authored lane order and records the full source context. A revision-bound choice prepares lane, actual path, personal mat stop, physiology and movement together without changing accepted authority or recording events. Replacing a preview invalidates its old handle. Foreign, stale, consumed, default and already locked choices are rejected.
+
+RangePenaltyTraversal stages the exact accepted Approach state into separate owned scratch before the earliest fork in the entire layout. The source and destination must share immutable race/map context and the same ordinary-main body point. This includes the untouched pre-entry state, so lane selection does not add a stop or tick at the admission line. Staging never steps simulation or emits events. The destination retains its own authored firing stop.
+
+Commit publishes the prepared path, lane and traversal only when accepted positive movement reaches the common logical range entry. Cancelled travel and accepted prefixes before entry consume no assignment. The current bout then locks its choice and emits PhysicalRangePathAssigned (event42; existing event numbers unchanged). A later bout cannot replace the previous private exit path. Warm repeated staging/preparation allocates zero bytes.
+
+Validation: .NET focused **118/118 PASS**, including staging28, choice5, all physical-path tests, existing traversal/receipt/athlete preparation, six pinned Sprint scenario trace/event hashes, Sprint replay and legacy Mass Start ordered-range regression. Unity staging **28/28** and choice **5/5 PASS** (673 discovered; these are focused runs). Full PlayMode **168/168 PASS**,0failed/0skipped,190.701s. Console0errors/5existing warnings, compilation_failed=false. The complete new scripted race repeats identical frames/events, uses lane2 then lane1, stops at each personal mat and conserves actual travel including penalty circuits. Independent read-only review found no actionable defect within the session transaction scope. Machine evidence is recorded in ../quality/m13/wp169f-verification.json. An interrupted PlayMode client produced no result artifact and was not counted; the completed rerun above supplies final evidence.
+
+Limits: no field/pack factory selects this path yet. The new scripted repeat proves deterministic choices, not reconstruction of arbitrary external choice commands from a replay tape. Fractional arrival ordering, tentative ordinal reservation, joint pack publication, actual corridor steering/drafting, local crossing guards, retained body tails, occupied mats/penalty flow, dense30 validation and rendered production geometry remain pending. The approved G2 review build and authoritative shooting tuning are unchanged.
+
+Next: TASK169G transactional common-line arrival ordering, then pack flow integration and production venue geometry. G2 remains APPROVED; no owner gate is pending.

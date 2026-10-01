@@ -14,7 +14,7 @@ namespace Biathlon.Simulation
         private readonly PhysicalRangePathLane lane;
         private readonly bool[] usesRange;
         private readonly TrackSampler[] samplers;
-        private readonly long entry, exit, routeEnd;
+        private readonly long entry, exit, routeEnd, firstFork;
         public PhysicalTrackMap PhysicalMap => map;
         public TrackAnchor MatAnchor => lane.MatAnchor;
         public string LaneId => lane.Id;
@@ -34,6 +34,9 @@ namespace Biathlon.Simulation
                 map.RouteRequirementsSnapshotJson!=route.RequirementsSnapshotJson||laneIndex<0||laneIndex>=definition.Count)
                 throw new ArgumentException("Exact physical track/route/path snapshots and lane index required.");
             this.map=map;this.track=track;this.route=route;this.definition=definition;lane=definition.GetLane(laneIndex);LaneOrdinal=laneIndex+1;
+            long firstForkMillimeters=long.MaxValue;
+            for(int i=0;i<definition.Count;i++)firstForkMillimeters=Math.Min(firstForkMillimeters,definition.GetLane(i).Fork.Millimeters);
+            firstFork=checked(firstForkMillimeters*SkiState.NanometersPerMillimeter);
             entry=definition.Entry.Millimeters*SkiState.NanometersPerMillimeter;
             exit=definition.Exit.Millimeters*SkiState.NanometersPerMillimeter;
             routeEnd=route.Length.Millimeters*SkiState.NanometersPerMillimeter;
@@ -107,6 +110,18 @@ namespace Biathlon.Simulation
                 return (route.GetSection(i).Start.Millimeters+definition.Entry.Millimeters+lane.FiringOffset.Millimeters)*SkiState.NanometersPerMillimeter;
             throw new ArgumentException("Lap does not require shooting.");
         }
+
+        /// <summary>The first authored fork of any lane on this shooting lap; it bounds safe shared-prefix staging.</summary>
+        public long FirstForkRouteNanometers(int lapIndex)
+        {
+            if(lapIndex<0||lapIndex>=route.LapCount)throw new ArgumentOutOfRangeException(nameof(lapIndex));
+            for(int i=0;i<usesRange.Length;i++)if(usesRange[i]&&route.GetSection(i).LapIndex==lapIndex)
+                return checked(route.GetSection(i).Start.Millimeters*SkiState.NanometersPerMillimeter+firstFork);
+            throw new ArgumentException("Lap does not require shooting.");
+        }
+
+        internal bool IsSameLayoutFamily(PhysicalRangePathMap other)=>other!=null&&ReferenceEquals(map,other.map)&&
+            ReferenceEquals(track,other.track)&&ReferenceEquals(route,other.route)&&ReferenceEquals(definition,other.definition);
 
         internal bool IsSinglePhysicalSlice(long before,long after)
         {
