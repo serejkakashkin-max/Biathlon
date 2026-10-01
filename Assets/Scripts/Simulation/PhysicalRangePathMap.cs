@@ -18,6 +18,10 @@ namespace Biathlon.Simulation
         public PhysicalTrackMap PhysicalMap => map;
         public TrackAnchor MatAnchor => lane.MatAnchor;
         public string LaneId => lane.Id;
+        public int LaneOrdinal { get; }
+        internal int SliceCount => lane.SliceCount;
+        /// <summary>Cold upper bound for physical terrain receipts across this lane, counting every slice occurrence.</summary>
+        internal int TerrainIntervalCount { get; }
         public string ContextJson { get; }
         internal bool IsBoundTo(TrackDefinition authoredTrack,RaceRoute authoredRoute)=>ReferenceEquals(track,authoredTrack)&&ReferenceEquals(route,authoredRoute);
 
@@ -29,7 +33,7 @@ namespace Biathlon.Simulation
                 route.TrackSnapshotJson!=definition.TrackSnapshotJson||map.RoutePlanSnapshotJson!=route.PlanSnapshotJson||
                 map.RouteRequirementsSnapshotJson!=route.RequirementsSnapshotJson||laneIndex<0||laneIndex>=definition.Count)
                 throw new ArgumentException("Exact physical track/route/path snapshots and lane index required.");
-            this.map=map;this.track=track;this.route=route;this.definition=definition;lane=definition.GetLane(laneIndex);
+            this.map=map;this.track=track;this.route=route;this.definition=definition;lane=definition.GetLane(laneIndex);LaneOrdinal=laneIndex+1;
             entry=definition.Entry.Millimeters*SkiState.NanometersPerMillimeter;
             exit=definition.Exit.Millimeters*SkiState.NanometersPerMillimeter;
             routeEnd=route.Length.Millimeters*SkiState.NanometersPerMillimeter;
@@ -42,6 +46,19 @@ namespace Biathlon.Simulation
             }
             for(int i=0;i<occurrences.Length;i++)if(requirements.RequiresRange(i)&&occurrences[i]!=1)
                 throw new ArgumentException("Exactly one path overlay per required shooting lap expected.");
+            int terrainIntervals=0;
+            for(int i=0;i<lane.SliceCount;i++)
+            {
+                var slice=lane.GetSlice(i);var physicalLoop=track.GetLoop(slice.LoopId);
+                for(int j=0;j<physicalLoop.SegmentCount;j++)
+                {
+                    var segment=physicalLoop.GetSegment(j);
+                    long end=checked(segment.StartDistance.Millimeters+segment.Length.Millimeters);
+                    if(segment.StartDistance.Millimeters<slice.End.Millimeters&&end>slice.Start.Millimeters)
+                        terrainIntervals=checked(terrainIntervals+1);
+                }
+            }
+            TerrainIntervalCount=terrainIntervals;
             samplers=new TrackSampler[track.LoopCount];for(int i=0;i<samplers.Length;i++)samplers[i]=new TrackSampler(track.GetLoop(i));
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{definition.ToJson(),definition.TrackSnapshotJson,definition.JunctionSnapshotJson,definition.ConnectionSnapshotJson,route.PlanSnapshotJson,route.RequirementsSnapshotJson,
                 lane.Id,"range_physical_slices_v1;actual_path_sample;individual_mat_offset;no_admission_grant"});
@@ -89,6 +106,22 @@ namespace Biathlon.Simulation
             for(int i=0;i<usesRange.Length;i++)if(usesRange[i]&&route.GetSection(i).LapIndex==lapIndex)
                 return (route.GetSection(i).Start.Millimeters+definition.Entry.Millimeters+lane.FiringOffset.Millimeters)*SkiState.NanometersPerMillimeter;
             throw new ArgumentException("Lap does not require shooting.");
+        }
+
+        internal bool IsSinglePhysicalSlice(long before,long after)
+        {
+            map.MapRoute(before);map.MapRoute(after);
+            if(after<before)throw new ArgumentException("Ordered receipt coordinates required.");
+            if(before==after)return true;
+            bool a=Locate(before,PhysicalBoundarySide.Outgoing,out int first,out var from,out _);
+            bool b=Locate(after,PhysicalBoundarySide.Incoming,out int last,out var to,out _);
+            if(a||b)return a&&b&&first==last&&ReferenceEquals(from,to);
+            for(int i=0;i<usesRange.Length;i++)if(usesRange[i])
+            {
+                long start=route.GetSection(i).Start.Millimeters*SkiState.NanometersPerMillimeter;
+                if(before<start+exit&&after>start+entry)return false;
+            }
+            return map.IsSingleRouteSection(before,after);
         }
 
         private bool Locate(long distance,PhysicalBoundarySide side,out int sectionIndex,out PhysicalRangePathSlice slice,out long local)

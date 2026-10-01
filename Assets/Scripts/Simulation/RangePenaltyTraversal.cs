@@ -43,6 +43,9 @@ namespace Biathlon.Simulation
         public int BoutIndex { get; }
         public long RangeEntryNanometers { get; }
         public long RangeRejoinNanometers => rejoin;
+        /// <summary>The exact optional physical path that supplied this bout's immutable mat stop.</summary>
+        public PhysicalRangePathMap RangePath { get; }
+        public long FiringRouteNanometers => firing;
         public SimulationTick Tick { get; private set; }
         public RangeTraversalPhase Phase { get; private set; }
         public long RouteNanometers { get; private set; }
@@ -81,7 +84,8 @@ namespace Biathlon.Simulation
         }
 
         public RangePenaltyTraversal(CompetitionProfile profile, TrackDefinition track, RaceRoute route, int boutIndex,
-            AthleteId athlete, int frequency, IRaceEventSink events, SimulationTick initialTick = default)
+            AthleteId athlete, int frequency, IRaceEventSink events, SimulationTick initialTick = default,
+            PhysicalRangePathMap rangePath = null)
         {
             if (profile == null || track == null || route == null) throw new ArgumentNullException();
             if (!athlete.IsValid || frequency <= 0 || boutIndex < 0 || boutIndex >= profile.BoutCount)
@@ -102,10 +106,16 @@ namespace Biathlon.Simulation
             }
             if (matches != 1) throw new ArgumentException("Bout requires exactly one unambiguous range section.");
             RangeEntryNanometers = checked((start + track.Range.Entry.Distance.Millimeters) * NmPerMm);
-            firing = checked((start + track.Range.FiringLine.Distance.Millimeters) * NmPerMm);
+            if (rangePath != null && !rangePath.IsBoundTo(track, route))
+                throw new ArgumentException("The personal mat path must bind this exact traversal track and route.", nameof(rangePath));
+            firing = rangePath == null ? checked((start + track.Range.FiringLine.Distance.Millimeters) * NmPerMm) :
+                rangePath.FiringRouteNanometers(lap);
             exit = checked((start + track.Range.Exit.Distance.Millimeters) * NmPerMm);
             entry = checked((start + track.Penalty.Entry.Distance.Millimeters) * NmPerMm);
             rejoin = checked((start + track.Penalty.Rejoin.Distance.Millimeters) * NmPerMm);
+            if (rangePath != null && (firing <= RangeEntryNanometers || firing >= exit))
+                throw new ArgumentException("The personal mat stop must lie strictly between this bout's range entry and exit.", nameof(rangePath));
+            RangePath = rangePath;
             penaltyLength = checked(penalty.Length.Millimeters * NmPerMm);
             penaltySampler = new TrackSampler(penalty);
             this.events = events ?? throw new ArgumentNullException(nameof(events)); this.athlete = athlete;

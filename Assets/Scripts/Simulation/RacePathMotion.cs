@@ -73,7 +73,8 @@ namespace Biathlon.Simulation
             PhysicalRangePathMap physicalRangePath = null)
         {
             if(physicalRangePath!=null&&!physicalRangePath.IsBoundTo(track,route))throw new ArgumentException("Foreign physical range path.");
-            if(physicalRangePath!=null&&range!=null)throw new NotSupportedException("Physical slice motion requires individual firing-stop integration before it can drive a shooting traversal.");
+            if(range!=null&&!ReferenceEquals(range.RangePath,physicalRangePath))
+                throw new ArgumentException("Range traversal and motion must use the same physical path and personal mat stop.");
             if (initialRouteNanometers < 0 || stopRouteNanometers < initialRouteNanometers || stopRouteNanometers > routeEnd)
                 throw new ArgumentException("Ordered route position/stop required.");
             if(approachRemainingNanometers<0 || (approachRemainingNanometers>0 &&

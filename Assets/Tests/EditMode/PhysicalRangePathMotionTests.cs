@@ -46,7 +46,7 @@ namespace Biathlon.Tests
             Assert.That(GC.GetAllocatedBytesForCurrentThread()-before,Is.Zero);Assert.That(actual,Is.EqualTo(expected));
             Setup(out var foreign);Assert.Throws<ArgumentException>(()=>motion.Preview(initial,20*M,100*M,null,350,0,input,segments,physicalRangePath:foreign));
             var unintegratedRange=RangePenaltyTraversalTests.Create(new RaceEventLog(100));
-            Assert.Throws<NotSupportedException>(()=>motion.Preview(initial,20*M,100*M,unintegratedRange,350,0,input,segments,physicalRangePath:lane));
+            Assert.Throws<ArgumentException>(()=>motion.Preview(initial,20*M,100*M,unintegratedRange,350,0,input,segments,physicalRangePath:lane));
         }
     }
 }

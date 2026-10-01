@@ -23,15 +23,20 @@ namespace Biathlon.Simulation
         private readonly PhysicalTrackMap map;
         private readonly double tickSeconds;
         private readonly PhysicalRangeLaneMap rangeLane;
+        private readonly PhysicalRangePathMap rangePath;
         private readonly StartApproachMap approach;
         private readonly long behind;
         private readonly PhysicalStartApproachMap startOverlay;
         public PhysicalMotionProjection(PhysicalTrackMap map, double tickSeconds, PhysicalRangeLaneMap rangeLane = null,
-            StartApproachMap approach = null, long startBehindLineNanometers = 0, PhysicalStartApproachMap startOverlay = null)
+            StartApproachMap approach = null, long startBehindLineNanometers = 0, PhysicalStartApproachMap startOverlay = null,
+            PhysicalRangePathMap rangePath = null)
         {
             this.map = map ?? throw new ArgumentNullException(nameof(map));
             if (rangeLane != null && !ReferenceEquals(rangeLane.PhysicalMap, map)) throw new ArgumentException("Foreign range lane map.");
+            if(rangePath!=null&&(!ReferenceEquals(rangePath.PhysicalMap,map)||rangeLane!=null))
+                throw new ArgumentException("One physical range layout bound to this map is required.");
             this.rangeLane = rangeLane;
+            this.rangePath = rangePath;
             if(startBehindLineNanometers<0 || (startBehindLineNanometers>0 && approach==null) ||
                 (approach!=null && (approach.TrackJson!=map.TrackSnapshotJson || approach.RoutePlanJson!=map.RoutePlanSnapshotJson ||
                 approach.RouteRequirementsJson!=map.RouteRequirementsSnapshotJson || startBehindLineNanometers>approach.LengthNanometers)))
@@ -67,8 +72,9 @@ namespace Biathlon.Simulation
                 var expected = MapRoute(segment.RouteBefore);
                 if (!map.SameLoop(expected, physicalStart) || expected.LocalNanometers != physicalStart.LocalNanometers)
                     throw new ArgumentException("Physical start disagrees with route receipt.");
-                end = MapRoute(segment.RouteAfter, PhysicalBoundarySide.Incoming);
-                if (!map.IsSingleRouteSection(segment.RouteBefore, segment.RouteAfter) || !map.SameLoop(physicalStart, end) ||
+                end = rangePath!=null&&travel==0 ? physicalStart : MapRoute(segment.RouteAfter, PhysicalBoundarySide.Incoming);
+                bool single=rangePath==null ? map.IsSingleRouteSection(segment.RouteBefore,segment.RouteAfter) : rangePath.IsSinglePhysicalSlice(segment.RouteBefore,segment.RouteAfter);
+                if (!single || !map.SameLoop(physicalStart, end) ||
                     Advance(physicalStart, travel).LocalNanometers != end.LocalNanometers)
                     throw new ArgumentException("Split route receipts at section/branch transitions.");
             }
@@ -76,7 +82,7 @@ namespace Biathlon.Simulation
                 FractionalMotionTimeline.Quantize(segment.StartSeconds, tickSeconds), FractionalMotionTimeline.Quantize(segment.EndSeconds, tickSeconds));
         }
         private PhysicalTrackPoint MapRoute(long distance, PhysicalBoundarySide side = PhysicalBoundarySide.Outgoing)
-            => rangeLane == null ? map.MapRoute(distance, side) : rangeLane.MapRoute(distance, side);
+            => rangePath!=null ? rangePath.MapRoute(distance,side) : rangeLane == null ? map.MapRoute(distance, side) : rangeLane.MapRoute(distance, side);
         public PhysicalOccupancySweep Slice(PhysicalMotionReceipt receipt, AthleteId athlete, long startFraction, long endFraction,
             double lateralBeforeMeters, double lateralAfterMeters)
         {

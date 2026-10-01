@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "wp169de_verification_20261001",
+  "work_package_status": "IN_PROGRESS",
+  "task_status": "DONE",
+  "live_field_selects_new_path": false,
+  "production_venue_approval": false,
+  "dotnet_focused_counters": {
+    "failed": "0",
+    "timeout": "0",
+    "total": "85",
+    "passed": "85",
+    "warning": "0",
+    "inconclusive": "0",
+    "notRunnable": "0",
+    "completed": "0",
+    "aborted": "0",
+    "disconnected": "0",
+    "executed": "85",
+    "error": "0",
+    "pending": "0",
+    "passedButRunAborted": "0",
+    "inProgress": "0",
+    "notExecuted": "0"
+  },
+  "unity_traversal": {
+    "Status": "Passed",
+    "TotalTests": 631,
+    "PassedTests": 9,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:01.1887205"
+  },
+  "unity_athlete": {
+    "Status": "Passed",
+    "TotalTests": 631,
+    "PassedTests": 6,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:01.2693328"
+  },
+  "unity_motion": {
+    "Status": "Passed",
+    "TotalTests": 631,
+    "PassedTests": 3,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:00.9721703"
+  },
+  "unity_capacity": {
+    "Status": "Passed",
+    "TotalTests": 640,
+    "PassedTests": 3,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:02.4632472"
+  },
+  "unity_projection": {
+    "Status": "Passed",
+    "TotalTests": 640,
+    "PassedTests": 6,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:01.0967842"
+  },
+  "full_playmode": {
+    "Status": "Passed",
+    "TotalTests": 168,
+    "PassedTests": 168,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:03:14.3686288"
+  },
+  "console": {
+    "errors": 0,
+    "warnings": 5,
+    "logs": 7,
+    "compilation_failed": false
+  },
+  "capacity_regression": {
+    "events": 0,
+    "slice_count": 29,
+    "terrain_intervals": 26004,
+    "preview_receipts": 26002,
+    "authority_changes": 0,
+    "owned_capacity": 252189,
+    "old_capacity": 18414,
+    "warm_allocation_bytes": 0
+  },
+  "default_regression": "six pinned Sprint trace/event hashes and replay remain unchanged; legacy Mass Start ordered-range test included in85/85",
+  "review": "Independent review: personal-stop/accepted preparation and receipt logic checked; terrain-buffer risk corrected with repeated-loop regression"
+}

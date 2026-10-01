@@ -51,6 +51,9 @@ namespace Biathlon.Simulation
         private readonly RacePathMotion path;
         private readonly RaceRoute route;
         private readonly StartApproachMap startApproach;
+        private readonly PhysicalRangePathMap physicalRangePath;
+        public PhysicalRangePathMap RangePath => physicalRangePath;
+        public string PhysicalRangePathContextJson { get; }
         public long InitialStartApproachNanometers { get; }
         public long RemainingStartApproachNanometers => Math.Max(0, InitialStartApproachNanometers - Motion.DistanceNanometers);
         public FinishTime StartApproachExitTime { get; private set; }
@@ -62,6 +65,8 @@ namespace Biathlon.Simulation
         internal void SetRangeLane(ShootingLaneAssignment assignment)
         {
             if(assignment.RangeId!=lane.RangeId || assignment.Ordinal<=0 || ActiveShooting!=null)throw new InvalidOperationException("Assign physical lane before reaching the mat.");
+            if(physicalRangePath!=null&&(assignment.LaneId!=physicalRangePath.LaneId||assignment.Ordinal!=physicalRangePath.LaneOrdinal))
+                throw new InvalidOperationException("Changing a physical path requires a prepared lane/path transaction.");
             lane=assignment;
         }
         private readonly ShootingWindSystem windValidation;
@@ -123,7 +128,7 @@ namespace Biathlon.Simulation
             ShootingModelDefinitions shootingModel, TimeTrialAthlete skiAthlete, ShootingAthleteDefinition shootingAthlete,
             TrackDefinition track, RaceRoute route, CheckpointLayout checkpoints, RaceSnowConditions conditions, string skiId,
             SimulationTick scheduledStart, ShootingLaneAssignment lane, IRaceEventSink events,
-            StartApproachMap startApproach = null, long startBehindLineNanometers = 0)
+            StartApproachMap startApproach = null, long startBehindLineNanometers = 0, PhysicalRangePathMap physicalRangePath = null)
         {
             if (config == null || profile == null || skiModel == null || shootingModel == null || skiAthlete == null || shootingAthlete == null ||
                 track == null || route == null || checkpoints == null || events == null) throw new ArgumentNullException();
@@ -136,6 +141,14 @@ namespace Biathlon.Simulation
                 (startBehindLineNanometers>0 && (startApproach==null || startBehindLineNanometers>startApproach.LengthNanometers)))
                 throw new ArgumentException("Explicit Mass Start approach and bounded rear-row position required.");
             this.startApproach=startApproach;InitialStartApproachNanometers=startBehindLineNanometers;
+            if(physicalRangePath!=null)
+            {
+                if(!physicalRangePath.IsBoundTo(track,route)||lane.LaneId!=physicalRangePath.LaneId||lane.Ordinal!=physicalRangePath.LaneOrdinal)
+                    throw new ArgumentException("Physical path and assigned shooting lane must match the exact track/route and lane ordinal.");
+                this.physicalRangePath=physicalRangePath;
+                PhysicalRangePathContextJson=ShootingModelDefinitions.EncodeContext(new[]{"athlete_fixed_range_path_v1",physicalRangePath.ContextJson,lane.RangeId,
+                    lane.LaneId,lane.Ordinal.ToString(System.Globalization.CultureInfo.InvariantCulture)});
+            }
             if(startApproach!=null)StartApproachContextJson=ShootingModelDefinitions.EncodeContext(new[]{startApproach.ContextJson,
                 startBehindLineNanometers.ToString(System.Globalization.CultureInfo.InvariantCulture)});
             this.config = config; this.profile = profile; this.skiAthlete = skiAthlete; this.shootingAthlete = shootingAthlete;
@@ -153,7 +166,7 @@ namespace Biathlon.Simulation
             windValidation = new ShootingWindSystem(shootingModel.Wind);
             ranges = new RangePenaltyTraversal[profile.BoutCount]; shooting = new ShootingSession[profile.BoutCount];
             var rangeEvents = new RangeEvents(events);
-            for (int i = 0; i < ranges.Length; i++) ranges[i] = new RangePenaltyTraversal(profile, track, route, i, AthleteId, config.TickFrequency, rangeEvents);
+            for (int i = 0; i < ranges.Length; i++) ranges[i] = new RangePenaltyTraversal(profile, track, route, i, AthleteId, config.TickFrequency, rangeEvents,rangePath:physicalRangePath);
             // Validate the full shooting composition at construction, not only when an athlete reaches the first mat.
             for (int i = 0; i < ranges.Length; i++)
                 _ = new ShootingSession(config, shootingModel, shootingAthlete, profile.GetBout(i).Stance, lane.RangeId, events, physiologyDefinition: physical);
@@ -170,7 +183,7 @@ namespace Biathlon.Simulation
                 for (int j = 0; j < loop.SegmentCount; j++)
                     PhysiologyNumbers.RequireRange(loop.GetSegment(j).TerrainMuscleFactor, 0, physical.MaximumTerrainMuscleFactor, nameof(track));
             }
-            segments = new RaceMotionSegment[checked((route.SectionCount + profile.ShotsPerBout + 1) * (segmentCount + 8))];
+            segments = new RaceMotionSegment[checked((route.SectionCount + profile.ShotsPerBout + 1) * (segmentCount + 8 + (physicalRangePath?.TerrainIntervalCount??0)))];
             receipts = new CompetitionReceipt[profile.LapCount + profile.ShotsPerBout + 4];
         }
         public SprintAthleteFrame Step(SprintAthleteInput input) => CommitStep(PrepareStep(input));
@@ -195,13 +208,13 @@ namespace Biathlon.Simulation
             var range = rangeIndex >= 0 ? ranges[rangeIndex] : null;
             bool onMat = started && range != null && range.Phase == RangeTraversalPhase.Shooting;
             var sample = RemainingStartApproachNanometers>0 ? startApproach.Sample(RemainingStartApproachNanometers) : range != null && range.Phase == RangeTraversalPhase.PenaltyLoop ? range.SamplePenalty() :
-                route.Sample(new TrackDistance(RouteNanometers / SkiState.NanometersPerMillimeter)).Track;
+                physicalRangePath!=null ? physicalRangePath.SampleRoute(RouteNanometers) : route.Sample(new TrackDistance(RouteNanometers / SkiState.NanometersPerMillimeter)).Track;
             var sprintOutput = sprint.Evaluate(started && !onMat && input.Ski.SprintRequested, input.Ski.Effort.RequestedEffort, new SkiState(RouteNanometers, Motion.SpeedMetersPerSecond));
             var posture = tuck.Evaluate(started && !onMat && input.Ski.TuckRequested, sprintOutput.EffectiveEffortControl, skiAthlete.Downhill, Motion, sample);
             var work = new PhysiologyInput(new SimulationInput(tick, AthleteId, started && !onMat ? Math.Min(1000, posture.EffectiveEffortControl + extraEffort) : 0), input.Ski.Form, sample.TerrainMuscleFactor);
             var physical = physiology.Preview(work);
             var movement = started && !onMat ? path.Preview(Motion, RouteNanometers, finishNanometers, range,
-                physical.Effort.DeliveredPowerWatts * propulsionMultiplier, physiology.State.MuscularFatigue, input.Ski, segments, posture.DragAreaMultiplier * dragMultiplier, RemainingStartApproachNanometers) : default;
+                physical.Effort.DeliveredPowerWatts * propulsionMultiplier, physiology.State.MuscularFatigue, input.Ski, segments, posture.DragAreaMultiplier * dragMultiplier, RemainingStartApproachNanometers,physicalRangePath) : default;
             long revision = checked(previewRevision + 1);
             preparedInput = input; preparedWork = work; preparedPosture = posture; preparedSprint = sprintOutput;
             preparedRangeIndex = rangeIndex; preparedSample = sample;
