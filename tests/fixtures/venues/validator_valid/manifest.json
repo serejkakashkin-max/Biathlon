@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "id": "validator_venue_v1",
+  "track_resource": "track",
+  "visual_resource": "visual",
+  "lanes_resource": "lanes",
+  "junctions_resource": "junctions",
+  "connections_resource": "connections",
+  "range_layout": {
+    "approach": "side_entry",
+    "entry": {
+      "loop_id": "main",
+      "distance_m": 0
+    },
+    "exit": {
+      "loop_id": "main",
+      "distance_m": 100.499
+    },
+    "firing_origin": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "forward": {
+      "x": 0,
+      "y": 0,
+      "z": 1
+    },
+    "lane_pitch_m": 3,
+    "apron_depth_m": 10
+  },
+  "cameras": [
+    {
+      "id": "range_camera",
+      "anchor": {
+        "loop_id": "main",
+        "distance_m": 50.249
+      },
+      "offset": {
+        "x": 10,
+        "y": 3,
+        "z": -10
+      },
+      "look_offset": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "fov_deg": 50
+    }
+  ],
+  "ambience": [
+    {
+      "id": "crowd",
+      "anchor": {
+        "loop_id": "main",
+        "distance_m": 50.249
+      },
+      "event_id": "ambience_crowd",
+      "radius_m": 40
+    }
+  ],
+  "assets": [
+    {
+      "id": "target",
+      "resource": "target",
+      "anchor": {
+        "loop_id": "main",
+        "distance_m": 50.249
+      },
+      "offset": {
+        "x": 0,
+        "y": 1,
+        "z": 50
+      },
+      "yaw_deg": 0
+    }
+  ]
+}

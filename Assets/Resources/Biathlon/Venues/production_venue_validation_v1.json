@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "production_venue_validation_v1",
+  "distance_abs_tolerance_m": 0.01,
+  "distance_relative_tolerance": 0.001,
+  "seam_tolerance_m": 0.01,
+  "grade_tolerance": 0.01,
+  "max_abs_grade": 0.25,
+  "min_main_width_m": 6,
+  "min_lane_width_m": 2.5,
+  "min_penalty_width_m": 4,
+  "range_position_tolerance_m": 0.05,
+  "penalty_length_m": 150,
+  "required_lanes": 30,
+  "firing_corridor_depth_m": 50,
+  "intersection_clearance_m": 3
+}

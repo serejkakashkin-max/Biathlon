@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "validator_connections_v1",
+  "junction_definition_id": "validator_junctions_v1",
+  "connections": [
+    {
+      "id": "enter",
+      "junction_id": "entry",
+      "from_port_id": "main_in",
+      "to_port_id": "lane_in",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "leave",
+      "junction_id": "exit",
+      "from_port_id": "lane_out",
+      "to_port_id": "main_out",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "penalty_entry",
+      "junction_id": "exit",
+      "from_port_id": "lane_out",
+      "to_port_id": "penalty_out",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "penalty_exit",
+      "junction_id": "exit",
+      "from_port_id": "penalty_out",
+      "to_port_id": "main_out",
+      "kind": "coincident_seam"
+    }
+  ]
+}

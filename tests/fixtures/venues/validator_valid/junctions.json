@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "id": "validator_junctions_v1",
+  "track_id": "validator_track_v1",
+  "junctions": [
+    {
+      "id": "entry",
+      "ports": [
+        {
+          "id": "main_in",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 0
+          },
+          "guard_before_m": 1,
+          "guard_after_m": 1
+        },
+        {
+          "id": "lane_in",
+          "anchor": {
+            "loop_id": "lane_1",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 1
+        }
+      ]
+    },
+    {
+      "id": "exit",
+      "ports": [
+        {
+          "id": "main_out",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 100.499
+          },
+          "guard_before_m": 1,
+          "guard_after_m": 1
+        },
+        {
+          "id": "lane_out",
+          "anchor": {
+            "loop_id": "lane_1",
+            "distance_m": 100.499
+          },
+          "guard_before_m": 1,
+          "guard_after_m": 0
+        },
+        {
+          "id": "penalty_out",
+          "anchor": {
+            "loop_id": "penalty",
+            "distance_m": 0
+          },
+          "guard_before_m": 1,
+          "guard_after_m": 1
+        }
+      ]
+    }
+  ]
+}
