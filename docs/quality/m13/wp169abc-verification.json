@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "id": "wp169abc_verification_20261001",
+  "work_package_status": "IN_PROGRESS",
+  "task_status": "DONE",
+  "active_race_selects_new_path": false,
+  "production_venue_approval": false,
+  "dotnet_focused_counters": {
+    "disconnected": "0",
+    "error": "0",
+    "notExecuted": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passed": "39",
+    "timeout": "0",
+    "executed": "39",
+    "failed": "0",
+    "warning": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0",
+    "total": "39"
+  },
+  "unity_contract": {
+    "Status": "Passed",
+    "TotalTests": 612,
+    "PassedTests": 13,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:01.0860011"
+  },
+  "unity_map": {
+    "Status": "Passed",
+    "TotalTests": 613,
+    "PassedTests": 7,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:00.9602794"
+  },
+  "unity_motion": {
+    "Status": "Passed",
+    "TotalTests": 616,
+    "PassedTests": 3,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:00.9557703"
+  },
+  "full_playmode": {
+    "Status": "Passed",
+    "TotalTests": 168,
+    "PassedTests": 168,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:03:18.0077468"
+  },
+  "console": {
+    "errors": 0,
+    "warnings": 5,
+    "logs": 7,
+    "compilation_failed": false
+  },
+  "review": "Independent read-only review: no actionable correctness defect within contract/map/optional-preview scope",
+  "regression": "six pinned Sprint trace/event scenario hashes unchanged; focused replay/regression PASS; optional broad .NET run previously interrupted and UNVERIFIED"
+}

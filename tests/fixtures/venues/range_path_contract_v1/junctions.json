@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "id": "range_path_contract_junctions_v1",
+  "track_id": "range_path_contract_track_v1",
+  "junctions": [
+    {
+      "id": "enter_1",
+      "ports": [
+        {
+          "id": "enter_1_from",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 10
+          },
+          "guard_before_m": 1,
+          "guard_after_m": 1
+        },
+        {
+          "id": "enter_1_to",
+          "anchor": {
+            "loop_id": "mat_1",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 1
+        }
+      ]
+    },
+    {
+      "id": "leave_1",
+      "ports": [
+        {
+          "id": "leave_1_from",
+          "anchor": {
+            "loop_id": "mat_1",
+            "distance_m": 40
+          },
+          "guard_before_m": 1,
+          "guard_after_m": 0
+        },
+        {
+          "id": "leave_1_to",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 10
+          },
+          "guard_before_m": 1,
+          "guard_after_m": 1
+        }
+      ]
+    },
+    {
+      "id": "enter_2",
+      "ports": [
+        {
+          "id": "enter_2_from",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 30
+          },
+          "guard_before_m": 1,
+          "guard_after_m": 1
+        },
+        {
+          "id": "enter_2_to",
+          "anchor": {
+            "loop_id": "mat_2",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 1
+        }
+      ]
+    },
+    {
+      "id": "leave_2",
+      "ports": [
+        {
+          "id": "leave_2_from",
+          "anchor": {
+            "loop_id": "mat_2",
+            "distance_m": 40
+          },
+          "guard_before_m": 1,
+          "guard_after_m": 0
+        },
+        {
+          "id": "leave_2_to",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 30
+          },
+          "guard_before_m": 1,
+          "guard_after_m": 1
+        }
+      ]
+    },
+    {
+      "id": "return_main",
+      "ports": [
+        {
+          "id": "return_main_from",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 60
+          },
+          "guard_before_m": 1,
+          "guard_after_m": 0
+        },
+        {
+          "id": "return_main_to",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 100
+          },
+          "guard_before_m": 1,
+          "guard_after_m": 1
+        }
+      ]
+    },
+    {
+      "id": "enter_penalty",
+      "ports": [
+        {
+          "id": "enter_penalty_from",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 60
+          },
+          "guard_before_m": 1,
+          "guard_after_m": 0
+        },
+        {
+          "id": "enter_penalty_to",
+          "anchor": {
+            "loop_id": "penalty",
+            "distance_m": 0
+          },
+          "guard_before_m": 1,
+          "guard_after_m": 1
+        }
+      ]
+    },
+    {
+      "id": "leave_penalty",
+      "ports": [
+        {
+          "id": "leave_penalty_from",
+          "anchor": {
+            "loop_id": "penalty",
+            "distance_m": 0
+          },
+          "guard_before_m": 1,
+          "guard_after_m": 1
+        },
+        {
+          "id": "leave_penalty_to",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 100
+          },
+          "guard_before_m": 1,
+          "guard_after_m": 1
+        }
+      ]
+    }
+  ],
+  "fixture_scope": "Two-lane schema and directed-connectivity contract fixture only; no world geometry or runtime/production acceptance."
+}

@@ -69,8 +69,11 @@ namespace Biathlon.Simulation
         }
         public RacePathMotionFrame Preview(SkiState initial, long initialRouteNanometers, long stopRouteNanometers,
             RangePenaltyTraversal range, double deliveredPower, double fatigue, TimeTrialInput input,
-            Span<RaceMotionSegment> segments, double dragAreaMultiplier = 1, long approachRemainingNanometers = 0)
+            Span<RaceMotionSegment> segments, double dragAreaMultiplier = 1, long approachRemainingNanometers = 0,
+            PhysicalRangePathMap physicalRangePath = null)
         {
+            if(physicalRangePath!=null&&!physicalRangePath.IsBoundTo(track,route))throw new ArgumentException("Foreign physical range path.");
+            if(physicalRangePath!=null&&range!=null)throw new NotSupportedException("Physical slice motion requires individual firing-stop integration before it can drive a shooting traversal.");
             if (initialRouteNanometers < 0 || stopRouteNanometers < initialRouteNanometers || stopRouteNanometers > routeEnd)
                 throw new ArgumentException("Ordered route position/stop required.");
             if(approachRemainingNanometers<0 || (approachRemainingNanometers>0 &&
@@ -104,9 +107,14 @@ namespace Biathlon.Simulation
                 }
                 else
                 {
-                    var sampleRoute = route.Sample(new TrackDistance(main / SkiState.NanometersPerMillimeter)); sample = sampleRoute.Track;
-                    var section = route.GetSection(sampleRoute.SectionIndex); var segment = track.GetLoop(section.LoopId).GetSegment(sample.SegmentIndex);
-                    distance = checked((section.Start.Millimeters + segment.StartDistance.Millimeters + segment.Length.Millimeters) * SkiState.NanometersPerMillimeter) - main;
+                    if(physicalRangePath!=null)
+                    {sample=physicalRangePath.SampleRoute(main);distance=physicalRangePath.DistanceToNextBoundary(main);}
+                    else
+                    {
+                        var sampleRoute = route.Sample(new TrackDistance(main / SkiState.NanometersPerMillimeter)); sample = sampleRoute.Track;
+                        var section = route.GetSection(sampleRoute.SectionIndex); var segment = track.GetLoop(section.LoopId).GetSegment(sample.SegmentIndex);
+                        distance = checked((section.Start.Millimeters + segment.StartDistance.Millimeters + segment.Length.Millimeters) * SkiState.NanometersPerMillimeter) - main;
+                    }
                     distance = Math.Min(distance, stopRouteNanometers - main);
                     if (range != null && main < range.RangeEntryNanometers) distance = Math.Min(distance, range.RangeEntryNanometers - main);
                 }

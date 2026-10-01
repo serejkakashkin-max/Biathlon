@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "id": "range_path_contract_connections_v1",
+  "junction_definition_id": "range_path_contract_junctions_v1",
+  "connections": [
+    {
+      "id": "enter_1",
+      "junction_id": "enter_1",
+      "from_port_id": "enter_1_from",
+      "to_port_id": "enter_1_to",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "leave_1",
+      "junction_id": "leave_1",
+      "from_port_id": "leave_1_from",
+      "to_port_id": "leave_1_to",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "enter_2",
+      "junction_id": "enter_2",
+      "from_port_id": "enter_2_from",
+      "to_port_id": "enter_2_to",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "leave_2",
+      "junction_id": "leave_2",
+      "from_port_id": "leave_2_from",
+      "to_port_id": "leave_2_to",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "return_main",
+      "junction_id": "return_main",
+      "from_port_id": "return_main_from",
+      "to_port_id": "return_main_to",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "enter_penalty",
+      "junction_id": "enter_penalty",
+      "from_port_id": "enter_penalty_from",
+      "to_port_id": "enter_penalty_to",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "leave_penalty",
+      "junction_id": "leave_penalty",
+      "from_port_id": "leave_penalty_from",
+      "to_port_id": "leave_penalty_to",
+      "kind": "coincident_seam"
+    }
+  ],
+  "fixture_scope": "Two-lane schema and directed-connectivity contract fixture only; no world geometry or runtime/production acceptance."
+}

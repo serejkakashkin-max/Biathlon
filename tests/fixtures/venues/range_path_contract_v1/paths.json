@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "range_path_contract_v1",
+  "track_id": "range_path_contract_track_v1",
+  "main_loop_id": "main",
+  "entry_distance_m": 0,
+  "exit_distance_m": 100,
+  "lanes": [
+    {
+      "id": "lane_1",
+      "slices": [
+        {
+          "loop_id": "main",
+          "start_m": 0,
+          "end_m": 10
+        },
+        {
+          "loop_id": "mat_1",
+          "start_m": 0,
+          "end_m": 40
+        },
+        {
+          "loop_id": "exit_aisle",
+          "start_m": 10,
+          "end_m": 60
+        }
+      ],
+      "mat_anchor": {
+        "loop_id": "mat_1",
+        "distance_m": 18
+      }
+    },
+    {
+      "id": "lane_2",
+      "slices": [
+        {
+          "loop_id": "main",
+          "start_m": 0,
+          "end_m": 30
+        },
+        {
+          "loop_id": "mat_2",
+          "start_m": 0,
+          "end_m": 40
+        },
+        {
+          "loop_id": "exit_aisle",
+          "start_m": 30,
+          "end_m": 60
+        }
+      ],
+      "mat_anchor": {
+        "loop_id": "mat_2",
+        "distance_m": 18
+      }
+    }
+  ],
+  "fixture_scope": "Two-lane schema and directed-connectivity contract fixture only; no world geometry or runtime/production acceptance."
+}
