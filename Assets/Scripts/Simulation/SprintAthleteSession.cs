@@ -355,10 +355,11 @@ namespace Biathlon.Simulation
                 preview.Tick.Value != checked(Tick.Value + 1)) throw new ArgumentException("Missing, foreign, replaced or consumed Sprint preview.");
         }
         internal void ValidatePreparedCommit(SprintStepPreview preview) { ValidatePreview(preview); ValidateCommand(preparedInput); }
-        internal RangeMotionPoint? PreviewRangeMotion(SprintStepPreview preview)
+        internal RangeMotionPoint? PreviewRangeMotion(SprintStepPreview preview, long additionalTravelNanometers = 0)
         {
             ValidatePreview(preview);
-            return preparedRangeIndex < 0 ? (RangeMotionPoint?)null : preparedRange.PreviewMotion(preview.Movement.RangeTravelNanometers);
+            if (additionalTravelNanometers < 0) throw new ArgumentOutOfRangeException(nameof(additionalTravelNanometers));
+            return preparedRangeIndex < 0 ? (RangeMotionPoint?)null : preparedRange.PreviewMotion(checked(preview.Movement.RangeTravelNanometers + additionalTravelNanometers));
         }
         public SprintAthleteFrame CommitStep(SprintStepPreview preview)
         {

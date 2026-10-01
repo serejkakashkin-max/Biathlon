@@ -82,6 +82,15 @@ namespace Biathlon.Simulation
             return samplers[LoopIndex(slice.LoopId)].Sample(new TrackDistance(local/SkiState.NanometersPerMillimeter));
         }
 
+        /// <summary>Keep canonical competition lap/section/distance for planning while observing
+        /// the selected physical path's actual terrain. This sample grants no path admission.</summary>
+        public RaceRouteSample SampleRaceRoute(long distance)
+        {
+            var actual = SampleRoute(distance);
+            var canonical = route.Sample(new TrackDistance(distance / SkiState.NanometersPerMillimeter));
+            return new RaceRouteSample(canonical.LapIndex, canonical.SectionIndex, canonical.RouteDistance, actual);
+        }
+
         public long DistanceToNextBoundary(long distance)
         {
             map.MapRoute(distance);

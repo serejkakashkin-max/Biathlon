@@ -61,5 +61,15 @@ namespace Biathlon.Simulation
         }
         internal void Validate(PhysicalSeamTransition transition)
         { if (!ReferenceEquals(transition.Owner, this)) throw new ArgumentException("Foreign/default seam transition."); }
+
+        internal int FindTransition(PhysicalTrackPoint incoming, PhysicalTrackPoint outgoing)
+        {
+            map.Validate(incoming); map.Validate(outgoing);
+            for (int i = 0; i < from.Length; i++)
+                if (map.SameLoop(incoming, from[i]) && incoming.LocalNanometers == from[i].LocalNanometers &&
+                    map.SameLoop(outgoing, to[i]) && outgoing.LocalNanometers == to[i].LocalNanometers)
+                    return i;
+            return -1;
+        }
     }
 }

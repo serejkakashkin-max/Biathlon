@@ -106,7 +106,10 @@ namespace Biathlon.AI
             for (int i = 0; i < offsets.Length; i++)
             {
                 long offset = Math.Min(offsets[i].Millimeters, remainingMm);
-                lookahead[i] = new AiRouteLookahead(new TrackDistance(offset), field.Route.Sample(new TrackDistance(originMm + offset)));
+                var distance = new TrackDistance(originMm + offset);
+                var sample = self.RangePath == null ? field.Route.Sample(distance) :
+                    self.RangePath.SampleRaceRoute(checked(distance.Millimeters * SkiState.NanometersPerMillimeter));
+                lookahead[i] = new AiRouteLookahead(new TrackDistance(offset), sample);
             }
             int count = 0;
             for (int i = 0; i < field.Count; i++)
@@ -131,7 +134,8 @@ namespace Biathlon.AI
                 place = ahead + 1; gap = field.Timing.GapSeconds(self.AthleteId, checkpoint);
             }
             long? range = self.ActiveBout < 0 ? (long?)null : Math.Max(0, rangeEntries[self.ActiveBout] - self.RouteNanometers);
-            var track = field.Route.Sample(new TrackDistance(originMm)).Track;
+            var track = self.RangePath == null ? field.Route.Sample(new TrackDistance(originMm)).Track :
+                self.RangePath.SampleRoute(self.RouteNanometers);
             var motion = self.CurrentRangeMotion;
             if (motion.HasValue && motion.Value.Phase == RangeTraversalPhase.PenaltyLoop)
                 track = penalty.Sample(new TrackDistance(motion.Value.PenaltyNanometers / SkiState.NanometersPerMillimeter));

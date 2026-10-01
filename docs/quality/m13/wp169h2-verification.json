@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "id": "wp169h2_verification_20261001",
+  "task_status": "DONE",
+  "work_package_status": "IN_PROGRESS",
+  "pure_fixture_pack_selects_paths": true,
+  "ordered_admission_joint_commit": true,
+  "persisted_pack_replay": true,
+  "production_venue_approval": false,
+  "dense_30_proof": false,
+  "approved_playable_factory_uses_new_path": false,
+  "owner_gate_g2": "APPROVED",
+  "shooting_tuning_changed": false,
+  "dotnet_final_counters": {
+    "total": 189,
+    "executed": 189,
+    "passed": 189,
+    "failed": 0,
+    "error": 0,
+    "timeout": 0,
+    "aborted": 0,
+    "inconclusive": 0,
+    "passedButRunAborted": 0,
+    "notRunnable": 0,
+    "notExecuted": 0,
+    "disconnected": 0,
+    "warning": 0,
+    "completed": 0,
+    "inProgress": 0,
+    "pending": 0
+  },
+  "focused_unity": {
+    "pack": {
+      "Status": "Passed",
+      "TotalTests": 765,
+      "PassedTests": 7,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:08.7593000"
+    },
+    "PhysicalRangePackTransactionTests": {
+      "Status": "Passed",
+      "TotalTests": 765,
+      "PassedTests": 4,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:00.9731188"
+    },
+    "PhysicalRangePerceptionTests": {
+      "Status": "Passed",
+      "TotalTests": 765,
+      "PassedTests": 8,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:01.4224925"
+    },
+    "pack-replay": {
+      "Status": "Passed",
+      "TotalTests": 782,
+      "PassedTests": 17,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:04.4247118"
+    }
+  },
+  "full_playmode": {
+    "Status": "Passed",
+    "TotalTests": 168,
+    "PassedTests": 168,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:03:14.0489935"
+  },
+  "console": {
+    "errors": 0,
+    "warnings": 5,
+    "logs": 7,
+    "compilation_failed": false
+  },
+  "console_warning_review": "5 MCP logger/connection lifecycle warnings; console-entries.txt inspected, not suppressed. Unity AI NoSubscription entries are informational logs and are not required for this workflow.",
+  "source_sha256": {
+    "Assets/Scripts/Simulation/PackSprintFieldSession.cs": "a740db898b7871ad60e726ad58994fc71966cbb556391ccbe0e97de0a481914e",
+    "Assets/Scripts/Simulation/PhysicalRangeFieldLayout.cs": "0f652053d2c896bdd3efe3df5cad3687822a9a1219576944ade0244bfcc29bd9",
+    "Assets/Scripts/Simulation/PhysicalConnectionMap.cs": "61c0d7e4f169fa3c453788fa43b11a7fee9c84526183f65ea9a776b8dde45106",
+    "Assets/Scripts/Simulation/SprintAthleteSession.cs": "0ac6476d2ae3114fbae97012bb52a0a26d9e6c6570102c50b04bc67b823fb69e",
+    "Assets/Scripts/Simulation/PhysicalRangePathMap.cs": "b9f28d8f9eb3553786a3ea947c7e2bba6c2f836dbdf008e3608c2867ff5812d4",
+    "Assets/Scripts/AI/SprintPerceptionSource.cs": "385204a004a7a0a22cc5f762b23e773486662461a4265b1c29c710f08d0c02f2",
+    "Assets/Scripts/Replay/PackSprintRaceCommandTape.cs": "7c036aeb6d315cbc4b9eb2ca04b01f4d3bef122df7e2b27a18687b475f46ddaa"
+  },
+  "limitations": [
+    "Two-athlete contract fixture has no production world geometry.",
+    "One incoming footprint requires cold seam-spacing bound; short connector itineraries fail closed.",
+    "Current field requires roster coverage by available paths; 60-athlete Pursuit with 30 reusable mats requires separate allocation integration.",
+    "Legacy greybox host/factory and last approved target018 build are unchanged.",
+    "No FPS/GPU or dense30 certification."
+  ],
+  "evidence": [
+    "artifacts/wp169h2/h2-final.trx",
+    "artifacts/wp169h/pack-replay/pack-path-replay.trx",
+    "artifacts/wp169h2/console-entries.txt"
+  ]
+}

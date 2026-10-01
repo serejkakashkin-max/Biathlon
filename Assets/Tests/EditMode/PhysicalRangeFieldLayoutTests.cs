@@ -239,11 +239,11 @@ namespace Biathlon.Tests
             Assert.Throws<ArgumentException>(() => restored.CreateReplay(Field(changed, new RaceEventLog(2000))));
         }
 
-        [Test] public void SharedPackRejectsUnintegratedLayoutBeforeAttemptingOtherConstruction()
+        [Test] public void SharedPackRejectsForeignTrackRouteBindingBeforeAttemptingOtherConstruction()
         {
             var f = Create(); var log = new RaceEventLog(10);
-            // Deliberately incomplete dependencies prove the dedicated rangeLayout rejection
-            // happens before the independent field or physical pack constructor is entered.
+            // Deliberately foreign track/route dependencies prove the exact rangeLayout
+            // binding is rejected before the independent field or pack retains events.
             var error = Assert.Throws<ArgumentException>(() => new PackSprintFieldSession(null, null, null, null,
                 null, null, null, null, Array.Empty<SprintEntrant>(), default, null,
                 null, null, null, null, null, log, rangeLayout: f.Layout));
