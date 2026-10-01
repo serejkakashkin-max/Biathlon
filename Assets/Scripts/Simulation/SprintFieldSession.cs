@@ -52,10 +52,13 @@ namespace Biathlon.Simulation
         public SprintFieldSession(SimulationConfig config, CompetitionProfile profile, SkiModelDefinitions skiModel, ShootingModelDefinitions shootingModel,
             TrackDefinition track, RaceRoute route, RaceSnowConditions conditions, ResultTimingDefinition timing,
             ReadOnlySpan<SprintEntrant> entrants, SimulationTick firstStart, string resultId, IRaceEventSink events, PursuitQualificationSnapshot qualification = null,
-            MassStartGrid massGrid = null, StartApproachMap startApproach = null)
+            MassStartGrid massGrid = null, StartApproachMap startApproach = null, PhysicalRangeFieldLayout rangeLayout = null)
         {
             if (config == null || profile == null || track == null || route == null || string.IsNullOrWhiteSpace(resultId))
                 throw new ArgumentException("Race configuration and result ID required.");
+            if (rangeLayout != null && (!rangeLayout.IsBoundTo(track, route) || entrants.Length > rangeLayout.Count))
+                throw new ArgumentException("The complete roster needs authored paths bound to the exact field track and route.");
+            var rangeChoices = rangeLayout?.CreateChoices();
             var roster = new AthleteId[entrants.Length];
             Track = track; Route = route; Profile = profile;
             for (int i = 0; i < entrants.Length; i++) roster[i] = entrants[i]?.AthleteId ?? throw new ArgumentException("Null entrant.");
@@ -86,12 +89,15 @@ namespace Biathlon.Simulation
             for (int i = 0; i < entrants.Length; i++)
             {
                 var entrant = entrants[i];
+                var rangePath = rangeLayout?.GetPath(i);
+                var shootingLane = new ShootingLaneAssignment(track.Range.Id,
+                    rangePath == null ? "synthetic_lane_" + (i + 1).ToString(CultureInfo.InvariantCulture) : rangePath.LaneId, i + 1);
                 // Start order and seed are part of race configuration; all gameplay uses the same physical models.
                 var athleteConfig = new SimulationConfig(config.SchemaVersion, config.Id, config.TickFrequency, unchecked(config.Seed + (ulong)i));
                 athletes[i] = new SprintAthleteSession(athleteConfig, profile, skiModel, shootingModel, entrant.SkiAthlete, entrant.ShootingAthlete,
                     track, route, checkpoints, conditions, entrant.SkiId, GetStart(i).Tick,
-                    new ShootingLaneAssignment(track.Range.Id, "synthetic_lane_" + (i + 1).ToString(CultureInfo.InvariantCulture), i + 1), events,
-                    startApproach,massGrid==null?0:-massGrid.Get(i).LongitudinalNanometers);
+                    shootingLane, events,
+                    startApproach,massGrid==null?0:-massGrid.Get(i).LongitudinalNanometers,rangePath,rangeChoices);
             }
             var context = new List<string> { "sprint_independent_paths_dedicated_lanes_v1", config.Id,
                 config.TickFrequency.ToString(CultureInfo.InvariantCulture), config.Seed.ToString(CultureInfo.InvariantCulture),
@@ -103,6 +109,11 @@ namespace Biathlon.Simulation
             { context.Add(entrants[i].SkiAthlete.ToJson()); context.Add(entrants[i].ShootingAthlete.ToJson()); context.Add(entrants[i].SkiId); }
             if (qualification != null) { context[0] = "pursuit_gap_field_v1"; context.Add(qualification.ToJson()); context.Add("exact_global_finish_order_v1"); }
             if(massGrid!=null){context[0]="mass_start_shared_clock_v1";context.Add(massGrid.ContextJson);context.Add(startApproach.ContextJson);context.Add("exact_global_finish_order_v1");}
+            if (rangeLayout != null)
+            {
+                context.Add(rangeLayout.ContextJson);
+                context.Add("independent_authored_range_paths_v1;initial_roster_slot;prepared_choices;no_body_admission");
+            }
             ContextJson = ShootingModelDefinitions.EncodeContext(context.ToArray());
         }
         public void Step(ReadOnlySpan<SprintAthleteInput> inputs)

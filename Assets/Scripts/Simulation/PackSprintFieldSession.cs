@@ -83,8 +83,13 @@ namespace Biathlon.Simulation
             OccupancyDefinition body, DraftDefinition draft, OvertakeDefinition movement,
             PhysicalJunctionDefinition junctionDefinition, PhysicalConnectionDefinition connectionDefinition, IRaceEventSink events,
             PhysicalRangeLaneDefinition rangeLanes = null, PursuitQualificationSnapshot qualification = null,
-            MassStartGrid massGrid = null, StartApproachMap startApproach = null, MassStartRangePolicyDefinition rangePolicy = null)
+            MassStartGrid massGrid = null, StartApproachMap startApproach = null, MassStartRangePolicyDefinition rangePolicy = null,
+            PhysicalRangeFieldLayout rangeLayout = null)
         {
+            // Fail before constructing any athlete or retaining a sink. Legacy pack projection,
+            // drafting and corridor control are not compatible with shared range-path choices.
+            if (rangeLayout != null)
+                throw new ArgumentException("Shared range paths require pack projection, drafting, corridor and admission integration.", nameof(rangeLayout));
             this.events = events ?? throw new ArgumentNullException(nameof(events)); this.movement = movement ?? throw new ArgumentNullException(nameof(movement));
             field = new SprintFieldSession(config, profile, skiModel, shootingModel, track, route, conditions, timing, entrants, firstStart, resultId, events, qualification,massGrid,startApproach);
             frequency = config.TickFrequency; map = new PhysicalTrackMap(track, route);

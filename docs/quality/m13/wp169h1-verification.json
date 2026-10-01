@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "id": "wp169h1_verification_20261001",
+  "work_package_status": "IN_PROGRESS",
+  "task_status": "DONE",
+  "independent_fixture_field_selects_new_path": true,
+  "live_pack_selects_new_path": false,
+  "approved_playable_factory_uses_new_path": false,
+  "production_venue_approval": false,
+  "physical_body_admission_proven": false,
+  "external_path_choice_replay_reconstruction": false,
+  "fixed_path_persisted_replay": true,
+  "dotnet_regression_counters": {
+    "passed": "193",
+    "notExecuted": "0",
+    "timeout": "0",
+    "total": "193",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "pending": "0",
+    "executed": "193",
+    "error": "0",
+    "inProgress": "0",
+    "failed": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "aborted": "0",
+    "completed": "0",
+    "notRunnable": "0"
+  },
+  "dotnet_layout_final_counters": {
+    "passed": "14",
+    "notExecuted": "0",
+    "timeout": "0",
+    "total": "14",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "pending": "0",
+    "executed": "14",
+    "error": "0",
+    "inProgress": "0",
+    "failed": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "aborted": "0",
+    "completed": "0",
+    "notRunnable": "0"
+  },
+  "unity_layout_final": {
+    "Status": "Passed",
+    "TotalTests": 730,
+    "PassedTests": 14,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:02.5922526"
+  },
+  "full_playmode": {
+    "Status": "Passed",
+    "TotalTests": 168,
+    "PassedTests": 168,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:03:15.7384078"
+  },
+  "console": {
+    "errors": 0,
+    "warnings": 4,
+    "logs": 8,
+    "compilation_failed": false
+  },
+  "regression_scope": "193 tests include original field3, shared-pack9, ordered Mass Start2, six pinned Sprint hashes, replay3 and physical-path/arrival regressions",
+  "final_test_expansion": "Four additional identity/topology-context test cases only; runtime source unchanged after193-test regression and168-test PlayMode",
+  "review": "Independent read-only source review: no concrete defect; legacy context unchanged and new pack binding rejected before construction",
+  "runtime_hashes": {
+    "Assets/Scripts/Simulation/SprintFieldSession.cs": "A290295BCED82AF06384C1E461026D22E203DC8F23C173EC1A6402E77661E9C7",
+    "Assets/Scripts/Simulation/PhysicalRangeFieldLayout.cs": "C4CBBE35EA84C3D44C557280CB9EA5665B89EDD05AAFCC48DB688298B8CE9683",
+    "Assets/Scripts/Simulation/PhysicalTrackMap.cs": "0E4D66EC1474AACC0804568E87A38EBED1A5E252D714D7E6DA33CA9C0F890149",
+    "Assets/Scripts/Simulation/PackSprintFieldSession.cs": "4947C143CC7EB12759A7774AB18489CB06D11AD954B016133E20E9579BA34C9A"
+  }
+}

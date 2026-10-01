@@ -73,6 +73,8 @@ namespace Biathlon.Simulation
             if(delta<0){if(!from.Closed) throw new ArgumentException("Open loop cannot wrap.");delta+=from.LoopLengthNanometers;}
             return delta;
         }
+        internal bool IsBoundTo(TrackDefinition authoredTrack, RaceRoute authoredRoute)
+            => ReferenceEquals(track, authoredTrack) && ReferenceEquals(route, authoredRoute);
         internal void Validate(PhysicalTrackPoint point)
         { if(!ReferenceEquals(point.Owner,this)) throw new ArgumentException("Foreign/default physical point."); }
         internal bool IsSingleRouteSection(long start, long end)
