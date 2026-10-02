@@ -214,7 +214,65 @@
     "replay_artifact": "artifacts/wp169u/compound-mass30-replay.json"
   },
   "final_mass_replay": "PASS_COMPLETE_EXACT_REPLAY_58125_ZERO_AI_STEPS",
-  "unity_validation": "PENDING_ROOT",
+  "unity_validation": {
+    "status": "PASS_44_EXECUTED_FOCUSED_EDITMODE",
+    "assembly": "Biathlon.Tests",
+    "passed": 44,
+    "failed": 0,
+    "skipped": 0,
+    "classes": {
+      "PhysicalJunctionRouteUsageTests": {
+        "summary": {
+          "Status": "Passed",
+          "TotalTests": 900,
+          "PassedTests": 4,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:05.4811975"
+        },
+        "artifact": "artifacts/wp169u/unity-PhysicalJunctionRouteUsageTests.json",
+        "sha256": "058b76203f3d7ca2ba15169791dd4c4b62e850697a59c6897f4b1edb850bd2f8"
+      },
+      "ProductionVenueRaceFactoryTests": {
+        "summary": {
+          "Status": "Passed",
+          "TotalTests": 900,
+          "PassedTests": 5,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:24.9799788"
+        },
+        "artifact": "artifacts/wp169u/unity-ProductionVenueRaceFactoryTests.json",
+        "sha256": "4d2902a084718827bef6b63b06ac1561a02b44deb57f0e654dac3da2d2237efa"
+      },
+      "PackJunctionTouchCacheTests": {
+        "summary": {
+          "Status": "Passed",
+          "TotalTests": 900,
+          "PassedTests": 6,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:10.8770806"
+        },
+        "artifact": "artifacts/wp169u/unity-PackJunctionTouchCacheTests.json",
+        "sha256": "d46de9c3171d4cded42a350533cdf39112e1aa848389321c699111e5a5466abb"
+      },
+      "PhysicalStartContinuationTests": {
+        "summary": {
+          "Status": "Passed",
+          "TotalTests": 900,
+          "PassedTests": 29,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:02.6376062"
+        },
+        "artifact": "artifacts/wp169u/unity-PhysicalStartContinuationTests.json",
+        "sha256": "8b08913ab63b8f381ae12d08bccf3b0f922aa56603589cf517a0f0f86e73f391"
+      }
+    },
+    "full_playmode_visual": "PENDING",
+    "retained_empty_combined_filter": "artifacts/wp169u/imported-resource-unity-focused.json"
+  },
   "state_git_unity_mutations": "NONE_BY_THIS_AGENT",
   "limitations": [
     "Finite actual scenario evidence; no general liveness theorem for arbitrary authored geometry",
