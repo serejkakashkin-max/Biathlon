@@ -72,6 +72,15 @@ namespace Biathlon.Unity.Presentation
             RenderSettings.ambientMode=oldAmbientMode;RenderSettings.ambientSkyColor=oldSky;RenderSettings.ambientEquatorColor=oldEquator;RenderSettings.ambientGroundColor=oldGround;RenderSettings.skybox=oldSkybox;
             if(key!=null){key.intensity=oldIntensity;key.shadowStrength=oldShadowStrength;key.color=oldKeyColor;key.transform.rotation=oldKeyRotation;}if(view!=null){view.clearFlags=oldClear;view.backgroundColor=oldBackground;}if(mesh!=null)mesh.Clear(false);
         }
-        private void OnDestroy(){Release();if(mesh!=null)Destroy(mesh);if(sky!=null)Destroy(sky);}
+        /// <summary>Release explicitly: editor-generated previews do not receive all play-mode callbacks.</summary>
+        public void Shutdown()
+        {
+            Release();enabled=false;
+            if(mesh!=null){if(Application.isPlaying)Destroy(mesh);else DestroyImmediate(mesh);}
+            if(sky!=null){if(Application.isPlaying)Destroy(sky);else DestroyImmediate(sky);}
+            definition=null;view=null;key=null;mesh=null;sky=null;flakes=null;
+            vertices=null;uv=null;colors=null;indices=null;PresetId=null;
+        }
+        private void OnDestroy()=>Shutdown();
     }
 }

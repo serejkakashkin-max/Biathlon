@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "id": "task169x_editor_environment_lifecycle_v1",
+  "status": "PASS_EDITOR1_AND_RELATED_PLAY18_FULL_SUITE_PENDING",
+  "scope": "Explicit owned collider/weather lease cleanup only; no rendering recipe or authoritative changes",
+  "source_sha256": {
+    "Assets/Scripts/Unity/Presentation/WeatherPresentation.cs": "84e23f0bbc88c31151464fd4d07da9a0c16f2bf20f0366edd36c937c0554f021",
+    "Assets/Scripts/Unity/Presentation/ProductionVenueEnvironment.cs": "bd5a7f7b6d5499fc471588c2a0018122763fbb1adc4ea2ea0a8be4bb192ea273",
+    "Assets/Tests/Editor/ProductionEnvironmentEditorLifecycleTests.cs": "7801c2bb5695326d4e28d3708aaa7a18c5894b67dbd90daba5a7bcae9dfcefa7",
+    "Assets/Tests/Editor/ProductionEnvironmentEditorLifecycleTests.cs.meta": "53a09aa869f5ea2a00aeac8a9909c66c3a3a44665fe09b23a80b1c2d05e5e8b0"
+  },
+  "results": {
+    "editor-lifecycle-final": {
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 901,
+        "PassedTests": 1,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.8866599"
+      },
+      "artifact": "artifacts/wp169x/editor-lifecycle-final.json",
+      "sha256": "d74d8167bc58d320a902790337cc26dc5a31204a035b3d935d5df68c5d53f921"
+    },
+    "weather-regression": {
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 204,
+        "PassedTests": 4,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.1194929"
+      },
+      "artifact": "artifacts/wp169x/weather-regression.json",
+      "sha256": "9ef984257f85c4ec9849120a7b27d958115eac6189bfebee9be87cee52660118"
+    },
+    "fog-regression": {
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 204,
+        "PassedTests": 7,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.2894845"
+      },
+      "artifact": "artifacts/wp169x/fog-regression.json",
+      "sha256": "865b3244a24b5fe93135ea9f24406cd719925048522c0cf6908cecee7a9de286"
+    },
+    "environment-regression": {
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 204,
+        "PassedTests": 7,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:03.7456183"
+      },
+      "artifact": "artifacts/wp169x/environment-regression.json",
+      "sha256": "bf2c1923af36ea420db4fd6791235e8d04a4d3e13e5e7c862159d05daef921c2"
+    }
+  },
+  "retained_negatives": {
+    "editor-lifecycle-before-fix": {
+      "summary": {
+        "Status": "Failed",
+        "TotalTests": 901,
+        "PassedTests": 0,
+        "FailedTests": 1,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.8990202"
+      },
+      "artifact": "artifacts/wp169x/editor-lifecycle-before-fix.json",
+      "sha256": "a4cfba9855c0488e5e8ea2bdfcc0a9602014ca98945b75f088ba74dd7eb6a463"
+    },
+    "editor-lifecycle-after-fix": {
+      "summary": {
+        "Status": "Failed",
+        "TotalTests": 901,
+        "PassedTests": 0,
+        "FailedTests": 1,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.8796612"
+      },
+      "artifact": "artifacts/wp169x/editor-lifecycle-after-fix.json",
+      "sha256": "bd2a6f6176d87eb31464e46c41be92b7c0d7470136c1f5e7c546462bca61f3a4"
+    }
+  },
+  "full_playmode": "PENDING",
+  "wp169": "IN_PROGRESS"
+}

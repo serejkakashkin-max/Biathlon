@@ -229,7 +229,7 @@ namespace Biathlon.Unity.Presentation
         }
         private GameObject Child(string name,Vector3 world,Quaternion rotation)
         {var go=new GameObject(name);go.transform.SetParent(generated.transform,false);go.transform.SetPositionAndRotation(world,rotation);return go;}
-        private static void RemoveColliders(GameObject go){foreach(var collider in go.GetComponentsInChildren<Collider>(true)){collider.enabled=false;Destroy(collider);}}
+        private static void RemoveColliders(GameObject go){foreach(var collider in go.GetComponentsInChildren<Collider>(true)){collider.enabled=false;DestroyOwned(collider);}}
         public void RefreshBanks()
         {
             if(!Initialized)throw new InvalidOperationException("Initialize the environment first.");var snapshot=feed.Current;if(snapshot==null||snapshot.Tick==observedTick)return;
@@ -255,7 +255,7 @@ namespace Biathlon.Unity.Presentation
         private void OnEnable(){if(generated!=null)generated.SetActive(true);}
         public void Shutdown()
         {
-            if(weather!=null)weather.enabled=false;
+            if(weather!=null)weather.Shutdown();
             if(generated!=null){generated.SetActive(false);generated.transform.SetParent(null);DestroyOwned(generated);generated=null;}
             foreach(var mesh in ownedMeshes)DestroyOwned(mesh);foreach(var material in ownedMaterials)DestroyOwned(material);ownedMeshes.Clear();ownedMaterials.Clear();
             recipe=null;heights=null;feed=null;chase=null;shooting=null;weather=null;lighting=null;geometry=null;quality=null;defaultTier=null;tileMeshes=null;forests=null;crowds=null;banks=null;bankStances=null;bankMasks=null;observedTick=-1;VenueTrackId=null;TreeCount=VisibleTrees=0;SubmittedForestTriangles=0;
