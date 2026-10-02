@@ -106,7 +106,8 @@ namespace Biathlon.Simulation
             for (int i = 0; i < route.SectionCount; i++)
             {
                 var section = route.GetSection(i);
-                if (section.LapIndex == lap && section.LoopId == track.Range.Entry.LoopId) { matches++; start = section.Start.Millimeters; }
+                if (section.LapIndex == lap && section.HasRange && section.LoopId == track.Range.Entry.LoopId)
+                { matches++; start = section.Start.Millimeters-section.LoopStart.Millimeters; }
             }
             if (matches != 1) throw new ArgumentException("Bout requires exactly one unambiguous range section.");
             RangeEntryNanometers = checked((start + track.Range.Entry.Distance.Millimeters) * NmPerMm);

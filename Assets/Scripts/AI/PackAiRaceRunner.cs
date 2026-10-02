@@ -13,6 +13,7 @@ namespace Biathlon.AI
     public sealed class PackAiRaceRunner
     {
         private readonly AiRacePolicyDefinition policy;
+        private readonly AiStartTrafficPolicyDefinition startTraffic;
         private readonly AiDifficultyDefinition difficulty;
         private readonly ShootingModelDefinitions shootingModel;
         private readonly ShootingAiDefinition aimDefinition;
@@ -89,6 +90,8 @@ namespace Biathlon.AI
             if(this.raceForms!=null)foreach(double value in this.raceForms)PhysiologyNumbers.RequireRange(value,0,1.1,"race form");
             this.difficulty=difficulty; this.seed=seed; this.events=events; this.telemetry=telemetry; frequency=field.TickFrequency;
             policy=AiRacePolicyDefinition.FromJson(read("ai_race_policy_provisional_v1.json"));
+            if(field.UsesSharedStartContinuation)
+                startTraffic=AiStartTrafficPolicyDefinition.FromJson(read("ai_start_traffic_provisional_v1.json"));
             for(int i=0;i<field.Track.LoopCount;i++)
                 if(field.Track.GetLoop(i).Closed && policy.PhysicalRadius*2>field.Track.GetLoop(i).Length.Meters) throw new ArgumentException("Physical preview exceeds half a periodic loop.");
             var cadence=difficulty.Cadence(); paceDefinition=difficulty.Apply(PaceControllerDefinition.FromJson(read("pace_controller_provisional_v1.json")));
@@ -119,6 +122,11 @@ namespace Biathlon.AI
             var context=new List<string>{"pack_ai_runner_v1",field.ContextJson,seed.ToString(System.Globalization.CultureInfo.InvariantCulture),policy.ToJson(),difficulty.ToJson(),
                 cadence.ToJson(),paceDefinition.ToJson(),shootingModel.ContextJson,aimDefinition.ToJson(),utilityDefinition.ToJson(),terrainDefinition.ToJson(),
                 recoveryDefinition.ToJson(),strategyDefinition.ToJson(),draftDefinition.ToJson(),selectionDefinition.ToJson(),laneDefinition.ToJson(),overtakeDefinition.ToJson(),occupancyDefinition.ToJson()};
+            if(startTraffic!=null)
+            {
+                context.Add(startTraffic.ToJson());
+                context.Add("ai_shared_start_grid_lateral_until_paid_handoff;no_start_overtake;player_intent_preserved_v1");
+            }
             for(int i=0;i<n;i++)
             {
                 var id=field.GetAthlete(i).AthleteId; personalities[i]=new AiPersonalityPolicy(id,profiles[i]);context.Add(personalities[i].ContextJson);
@@ -170,6 +178,7 @@ namespace Biathlon.AI
                 int count=physicalSource.CapturePlacements(i,TrackDistance.FromMeters(policy.PhysicalRadius),placements);
                 var point=Field.GetPhysicalPoint(i); var self=count>0?placements[0]:new SkiPlacement(id,point.LoopId,new SkiState(point.LoopLengthNanometers,actor.Motion.SpeedMetersPerSecond),Field.GetLateral(i));
                 var roster=placements.AsSpan(0,count); bool skiing=count>0 && observation.Phase==CompetitionPhase.Skiing;
+                bool holdStartGrid=startTraffic!=null&&startTraffic.HoldGridLateral&&point.LoopId==Field.StartApproach.LoopId;
                 var window=clocks[i].Step(tick); TacticalIntentDecision? chosen=null; int adjustment=0;bool pass=false;
                 if(window.DecisionDue)
                 {
@@ -179,7 +188,7 @@ namespace Biathlon.AI
                     var segment=Field.Track.GetLoop(observation.CurrentTrack.LoopId).GetSegment(observation.CurrentTrack.SegmentIndex);
                     long clear=segment.StartDistance.Millimeters+segment.Length.Millimeters-observation.CurrentTrack.Distance.Millimeters;
                     if(observation.NextRangeEntryRouteDistanceNanometers.HasValue) clear=Math.Min(clear,observation.NextRangeEntryRouteDistanceNanometers.Value/SkiState.NanometersPerMillimeter);
-                    overtakeFrames[i]=skiing?overtake.Evaluate(self,roster,observation.Physiology,1,observation.CurrentTrack.WidthMeters,
+                    overtakeFrames[i]=holdStartGrid?new OvertakeDecisionFrame(OvertakeDecisionReason.StartGridHold):skiing?overtake.Evaluate(self,roster,observation.Physiology,1,observation.CurrentTrack.WidthMeters,
                         observation.CurrentTrack.OvertakeAllowed,Math.Max(Math.Abs(segment.StartGrade),Math.Abs(segment.EndGrade)),Math.Abs(segment.CurvaturePerMeter),new TrackDistance(clear)):new OvertakeDecisionFrame(OvertakeDecisionReason.Terrain);
                     bool canPass=skiing && overtakeFrames[i].Request && overtakeFrames[i].Opportunity.Available;
                     var selected=draftFrames[i].Selected; bool canDraft=skiing && selected.Strength>0;
@@ -218,9 +227,9 @@ namespace Biathlon.AI
                     strategies[i]=personalities[i].PlanShooting(shootingStrategy,pursuit!=null?pursuitPlans[i].ShootingUrgency:policy.ShootingTimeUrgency,need,0);
                 }
                 paceFrames[i]=pace[i].Step(tick,chosen,adjustment);
-                var lane=lanes[i].Step(paceFrames[i].Input,self,observation.CurrentTrack,roster,pass,!skiing);
-                lateral[i]=lane.DesiredLateralMeters;
-                if(lane.Phase==OvertakePhase.Idle && skiing && (intents[i].Kind==TacticalIntentKind.Draft || intents[i].Kind==TacticalIntentKind.Follow))
+                var lane=lanes[i].Step(paceFrames[i].Input,self,observation.CurrentTrack,roster,pass,!skiing||holdStartGrid);
+                lateral[i]=holdStartGrid?Field.StartGrid.Get(i).LateralNanometers/(double)SkiState.NanometersPerMeter:lane.DesiredLateralMeters;
+                if(!holdStartGrid && lane.Phase==OvertakePhase.Idle && skiing && (intents[i].Kind==TacticalIntentKind.Draft || intents[i].Kind==TacticalIntentKind.Follow))
                     for(int j=0;j<count;j++) if(placements[j].AthleteId.Equals(intents[i].TargetId)) lateral[i]=placements[j].LateralMeters;
                 var aim=new WeaponAimCommand(tick,id,0,0);bool trigger=false,hold=false;var shooting=actor.ActiveShooting;
                 if(shooting!=null)

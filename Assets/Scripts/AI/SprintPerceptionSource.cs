@@ -83,7 +83,7 @@ namespace Biathlon.AI
                 {
                     var section = field.Route.GetSection(i);
                     if (section.LapIndex + 1 != field.Profile.GetBout(bout).AfterLap || !section.HasRange) continue;
-                    rangeEntries[bout] = checked((section.Start.Millimeters + field.Track.Range.Entry.Distance.Millimeters) * SkiState.NanometersPerMillimeter);
+                    rangeEntries[bout] = checked(section.RouteDistanceOf(field.Track.Range.Entry.Distance).Millimeters * SkiState.NanometersPerMillimeter);
                     matches++;
                 }
                 if (matches != 1) throw new ArgumentException("Perception requires an unambiguous range occurrence.");

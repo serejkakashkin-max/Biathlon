@@ -17,13 +17,21 @@ namespace Biathlon.AI
         {
             if(venue==null||profile==null||routePlan==null||conditions==null||read==null||events==null||telemetry==null)
                 throw new ArgumentNullException();
-            if(!venue.UsesPhysicalPaths||count<1||count>venue.LaneCount||count>profile.FieldCapacity||frequency<=0||
+            bool reusableMats=venue.Formats!=null&&(profile.Format==CompetitionFormat.Sprint||profile.Format==CompetitionFormat.Pursuit);
+            if(!venue.UsesPhysicalPaths||count<1||(!reusableMats&&count>venue.LaneCount)||count>profile.FieldCapacity||frequency<=0||
                 (profile.Format==CompetitionFormat.Pursuit)!=(qualification!=null))
                 throw new ArgumentException("Explicit paths, covered roster, clock and format dependency required.");
             if((suppliedEntrants==null)!=(suppliedPersonalities==null)||
                 suppliedEntrants!=null&&(suppliedEntrants.Length!=count||suppliedPersonalities.Length!=count))
                 throw new ArgumentException("Complete supplied entrant and personality roster required.");
-            var track=venue.Track;var route=new RaceRoute(track,routePlan,profile.ToRouteRequirements());
+            if(venue.Formats!=null)
+            {
+                bool bound=false;
+                for(int i=0;i<venue.Formats.Count;i++)
+                {var item=venue.Formats.Get(i);bound|=item.Profile.ToJson()==profile.ToJson()&&item.Route.ToJson()==routePlan.ToJson();}
+                if(!bound)throw new ArgumentException("Production race must use an exact profile/route pair from the venue's format catalog.");
+            }
+            var track=venue.Track;var route=new RaceRoute(track,routePlan,profile.ToRouteRequirements(),venue.Junctions,venue.Connections);
             var physical=new PhysicalTrackMap(track,route);
             var layout=new PhysicalRangeFieldLayout(physical,track,route,venue.Paths);
             var entrants=new SprintEntrant[count];var personalities=new AiPersonalityDefinition[count];var ids=new AthleteId[count];
@@ -57,7 +65,9 @@ namespace Biathlon.AI
                 entrants,new SimulationTick(1),prefix+"_result_v1",venue.Occupancy,DraftDefinition.FromJson(read("draft_provisional_v1.json")),
                 OvertakeDefinition.FromJson(read("overtake_provisional_v1.json")),venue.Junctions,venue.Connections,events,
                 qualification:qualification,massGrid:grid,startApproach:approach,rangePolicy:policy,rangeLayout:layout,
-                authoredStartApproach:approach!=null);
+                authoredStartApproach:approach!=null,startContinuation:approach==null?null:venue.StartContinuation,
+                reusableRangeMats:reusableMats,
+                routeBoundJunctions:venue.Formats!=null);
             return new PackAiRaceRunner(field,read,personalities,AiDifficultyDefinition.FromJson(read("ai_difficulty_expert_v1.json")),seed,events,telemetry);
         }
     }

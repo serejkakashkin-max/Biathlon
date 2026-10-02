@@ -43,7 +43,9 @@ namespace Biathlon.Domain
         AiPursuitTacticsChanged = 39,
         StartApproachCompleted = 40,
         MassStartRangeLaneAssigned = 41,
-        PhysicalRangePathAssigned = 42
+        PhysicalRangePathAssigned = 42,
+        PhysicalRangeReservationAcquired = 43,
+        PhysicalRangeReservationReleased = 44
     }
     public readonly struct RaceEvent
     {

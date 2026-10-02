@@ -12,7 +12,7 @@ namespace Biathlon.Simulation
         public long RouteNanometers { get; }
         internal CheckpointOccurrence(string id, RouteSection section, int index, TrackDistance local)
         { CheckpointId = id; LapId = section.LapId; SectionIndex = index;
-          RouteNanometers = checked((section.Start.Millimeters + local.Millimeters) * SkiState.NanometersPerMillimeter); }
+          RouteNanometers = checked(section.RouteDistanceOf(local).Millimeters * SkiState.NanometersPerMillimeter); }
     }
     public sealed class CheckpointLayout
     {
@@ -25,17 +25,22 @@ namespace Biathlon.Simulation
         public CheckpointLayout(TrackDefinition track, RaceRoute route)
         {
             if (track == null || route == null) throw new ArgumentNullException();
-            if (route.TrackId != track.Id) throw new ArgumentException("Checkpoint track/route mismatch.");
+            if (route.TrackSnapshotJson != track.ToJson()) throw new ArgumentException("Checkpoint track/route mismatch.");
             RouteId = route.Id; RoutePlanJson = route.PlanSnapshotJson; TrackJson = track.ToJson(); var list = new List<CheckpointOccurrence>();
             for (int section = 0; section < route.SectionCount; section++)
             {
                 var part = route.GetSection(section);
-                if (track.GetLoop(part.LoopId).Length.Millimeters != part.Length.Millimeters)
-                    throw new ArgumentException("Checkpoint layout requires the route's authored track.");
                 for (int checkpoint = 0; checkpoint < track.CheckpointCount; checkpoint++)
                 {
                     var marker = track.GetCheckpoint(checkpoint);
-                    if (marker.Anchor.LoopId == part.LoopId) list.Add(new CheckpointOccurrence(marker.Id, part, section, marker.Anchor.Distance));
+                    if (marker.Anchor.LoopId == part.LoopId && part.Contains(marker.Anchor.Distance))
+                    {
+                        // A marker at a split belongs to the following same-loop slice,
+                        // avoiding duplicate splits while preserving physical loop-end markers.
+                        bool nextOwns=marker.Anchor.Distance.Millimeters==part.LoopEnd.Millimeters&&section+1<route.SectionCount&&
+                            route.GetSection(section+1).LoopId==part.LoopId&&route.GetSection(section+1).LoopStart.Millimeters==marker.Anchor.Distance.Millimeters;
+                        if(!nextOwns)list.Add(new CheckpointOccurrence(marker.Id, part, section, marker.Anchor.Distance));
+                    }
                 }
             }
             list.Sort((a, b) => {

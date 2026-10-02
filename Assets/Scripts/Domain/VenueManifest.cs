@@ -79,6 +79,8 @@ namespace Biathlon.Domain
         [DataMember(Name="paths_resource",EmitDefaultValue=false)] public string PathsResource { get; private set; }
         [DataMember(Name="occupancy_resource",EmitDefaultValue=false)] public string OccupancyResource { get; private set; }
         [DataMember(Name="start_approach_resource",EmitDefaultValue=false)] public string StartApproachResource { get; private set; }
+        [DataMember(Name="start_continuation_resource",EmitDefaultValue=false)] public string StartContinuationResource { get; private set; }
+        [DataMember(Name="format_bindings_resource",EmitDefaultValue=false)] public string FormatBindingsResource { get; private set; }
         [DataMember(Name="junctions_resource",IsRequired=true)] public string JunctionsResource { get; private set; }
         [DataMember(Name="connections_resource",IsRequired=true)] public string ConnectionsResource { get; private set; }
         [DataMember(Name="range_layout",IsRequired=true)] public VenueRangeLayout Range { get; private set; }
@@ -93,9 +95,10 @@ namespace Biathlon.Domain
             var v=RouteJson.Read<VenueManifest>(json);
             if(v==null||(v.SchemaVersion!=1&&v.SchemaVersion!=2)||v.Range==null||v.cameras==null||v.ambience==null||v.assets==null)throw new SerializationException("Invalid venue manifest schema.");
             if(v.SchemaVersion==1)
-            {ResourceId(v.LanesResource);if(v.PathsResource!=null||v.OccupancyResource!=null||v.StartApproachResource!=null)throw new SerializationException("Version 1 venues bind lanes only.");}
+            {ResourceId(v.LanesResource);if(v.PathsResource!=null||v.OccupancyResource!=null||v.StartApproachResource!=null||v.StartContinuationResource!=null||v.FormatBindingsResource!=null)throw new SerializationException("Version 1 venues bind lanes only.");}
             else
-            {ResourceId(v.PathsResource);ResourceId(v.OccupancyResource);if(v.StartApproachResource!=null)ResourceId(v.StartApproachResource);if(v.LanesResource!=null)throw new SerializationException("Version 2 venues require an explicit physical path and occupancy binding, without legacy lanes.");}
+            {ResourceId(v.PathsResource);ResourceId(v.OccupancyResource);if(v.StartApproachResource!=null)ResourceId(v.StartApproachResource);if(v.StartContinuationResource!=null){ResourceId(v.StartContinuationResource);if(v.StartApproachResource==null)throw new SerializationException("Start continuation requires its explicit approach binding.");}if(v.LanesResource!=null)throw new SerializationException("Version 2 venues require an explicit physical path and occupancy binding, without legacy lanes.");}
+            if(v.FormatBindingsResource!=null)ResourceId(v.FormatBindingsResource);
             ResourceId(v.Id);
             if(v.Id.IndexOf('/')>=0)throw new SerializationException("Venue ID must be a single path component.");
             if(v.Id=="range_entry"||v.Id=="range_exit"||v.Id.StartsWith("firing_lane_",StringComparison.Ordinal))throw new SerializationException("Venue ID is reserved by generated markers.");
@@ -132,6 +135,8 @@ namespace Biathlon.Domain
         public PhysicalRangeLaneDefinition Lanes {get;} public PhysicalJunctionDefinition Junctions {get;} public PhysicalConnectionDefinition Connections {get;}
         public PhysicalRangePathDefinition Paths {get;} public OccupancyDefinition Occupancy {get;}
         public StartApproachDefinition StartApproach {get;}
+        public PhysicalStartContinuationDefinition StartContinuation {get;}
+        public VenueFormatBindings Formats {get;}
         public bool UsesPhysicalPaths=>Paths!=null;
         public int LaneCount=>UsesPhysicalPaths?Paths.Count:Lanes.Count;
         public string LaneId(int index)=>UsesPhysicalPaths?Paths.GetLane(index).Id:Lanes.GetLane(index);
@@ -155,6 +160,11 @@ namespace Biathlon.Domain
                         throw new ArgumentException("Start approach must bind this exact track and the physical paths' main route entry.");
                     Track.GetLoop(StartApproach.LoopId);
                 }
+                if(manifest.StartContinuationResource!=null)
+                    StartContinuation=PhysicalStartContinuationDefinition.FromJson(readResource(manifest.StartContinuationResource),Track,
+                        StartApproach,Junctions,Connections,Occupancy,readResource);
+                if(manifest.FormatBindingsResource!=null)
+                    Formats=VenueFormatBindings.FromJson(readResource(manifest.FormatBindingsResource),manifest,Track,Junctions,Connections,readResource);
             }
             manifest.Validate(Track);var list=new List<VenueSemanticZone>();
             for(int i=0;i<Track.LoopCount;i++){var loop=Track.GetLoop(i);Visual.Get(loop.Id);for(int j=0;j<loop.SegmentCount;j++)list.Add(new VenueSemanticZone(loop.Id,loop.GetSegment(j)));}

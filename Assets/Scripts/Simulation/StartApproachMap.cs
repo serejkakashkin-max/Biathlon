@@ -14,10 +14,12 @@ namespace Biathlon.Simulation
         public string RoutePlanJson { get; }
         public string RouteRequirementsJson { get; }
         public string ContextJson { get; }
+        internal string DefinitionSnapshotJson { get; }
         public StartApproachMap(TrackDefinition track,RaceRoute route,StartApproachDefinition definition)
         {
             if(track==null || route==null || definition==null)throw new ArgumentNullException();
             TrackJson=track.ToJson();RoutePlanJson=route.PlanSnapshotJson;RouteRequirementsJson=route.RequirementsSnapshotJson;
+            DefinitionSnapshotJson=definition.ToJson();
             if(definition.TrackId!=track.Id || route.TrackSnapshotJson!=TrackJson || route.GetSection(0).LoopId!=definition.RouteEntryLoopId)
                 throw new ArgumentException("Exact approach track and route entry required.");
             loop=track.GetLoop(definition.LoopId);

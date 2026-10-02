@@ -40,7 +40,8 @@ namespace Biathlon.Simulation
                 throw new ArgumentOutOfRangeException();
             int index=route.Sample(new TrackDistance(routeNanometers/SkiState.NanometersPerMillimeter)).SectionIndex;
             if(side==PhysicalBoundarySide.Incoming && index>0 && routeNanometers==route.GetSection(index).Start.Millimeters*SkiState.NanometersPerMillimeter) index--;
-            long local=routeNanometers-route.GetSection(index).Start.Millimeters*SkiState.NanometersPerMillimeter;
+            var section=route.GetSection(index);
+            long local=routeNanometers-(section.Start.Millimeters-section.LoopStart.Millimeters)*SkiState.NanometersPerMillimeter;
             return Point(sectionLoops[index],local);
         }
         public PhysicalTrackPoint MapPenalty(long penaltyNanometers)=>MapLoop(track.Penalty.LoopId,penaltyNanometers);

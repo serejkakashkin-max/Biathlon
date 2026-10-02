@@ -44,7 +44,9 @@ namespace Biathlon.Simulation
             usesRange=new bool[route.SectionCount];var occurrences=new int[route.LapCount];
             for(int i=0;i<route.SectionCount;i++)
             {
-                var section=route.GetSection(i);usesRange[i]=requirements.RequiresRange(section.LapIndex)&&section.LoopId==definition.MainLoopId;
+                var section=route.GetSection(i);usesRange[i]=requirements.RequiresRange(section.LapIndex)&&section.HasRange&&section.LoopId==definition.MainLoopId;
+                if(usesRange[i]&&(section.LoopStart.Millimeters>definition.Entry.Millimeters||section.LoopEnd.Millimeters<definition.Exit.Millimeters))
+                    throw new ArgumentException("A physical range overlay must be wholly contained by its route slice.");
                 if(usesRange[i])occurrences[section.LapIndex]++;
             }
             for(int i=0;i<occurrences.Length;i++)if(requirements.RequiresRange(i)&&occurrences[i]!=1)
@@ -100,23 +102,25 @@ namespace Biathlon.Simulation
                 var sample=samplers[LoopIndex(slice.LoopId)].Sample(new TrackDistance(local/SkiState.NanometersPerMillimeter));
                 var segment=track.GetLoop(slice.LoopId).GetSegment(sample.SegmentIndex);
                 long terrainEnd=(segment.StartDistance.Millimeters+segment.Length.Millimeters)*SkiState.NanometersPerMillimeter;
-                long sliceEnd=(route.GetSection(sectionIndex).Start.Millimeters+definition.Entry.Millimeters+slice.Offset.Millimeters+slice.Length.Millimeters)*SkiState.NanometersPerMillimeter;
+                var section=route.GetSection(sectionIndex);
+                long sliceEnd=(section.Start.Millimeters-section.LoopStart.Millimeters+definition.Entry.Millimeters+slice.Offset.Millimeters+slice.Length.Millimeters)*SkiState.NanometersPerMillimeter;
                 return Math.Min(terrainEnd-local,sliceEnd-distance);
             }
             int index=route.Sample(new TrackDistance(distance/SkiState.NanometersPerMillimeter)).SectionIndex;
             var current=route.GetSection(index);var ordinary=SampleRoute(distance);
             var s=track.GetLoop(current.LoopId).GetSegment(ordinary.SegmentIndex);
-            long boundary=(current.Start.Millimeters+s.StartDistance.Millimeters+s.Length.Millimeters)*SkiState.NanometersPerMillimeter;
-            if(usesRange[index]&&distance<current.Start.Millimeters*SkiState.NanometersPerMillimeter+entry)
-                boundary=Math.Min(boundary,current.Start.Millimeters*SkiState.NanometersPerMillimeter+entry);
-            return Math.Min(boundary,routeEnd)-distance;
+            long origin=(current.Start.Millimeters-current.LoopStart.Millimeters)*SkiState.NanometersPerMillimeter;
+            long boundary=origin+(s.StartDistance.Millimeters+s.Length.Millimeters)*SkiState.NanometersPerMillimeter;
+            if(usesRange[index]&&distance<origin+entry)boundary=Math.Min(boundary,origin+entry);
+            long sectionEnd=(current.Start.Millimeters+current.Length.Millimeters)*SkiState.NanometersPerMillimeter;
+            return Math.Min(boundary,sectionEnd)-distance;
         }
 
         public long FiringRouteNanometers(int lapIndex)
         {
             if(lapIndex<0||lapIndex>=route.LapCount)throw new ArgumentOutOfRangeException(nameof(lapIndex));
             for(int i=0;i<usesRange.Length;i++)if(usesRange[i]&&route.GetSection(i).LapIndex==lapIndex)
-                return (route.GetSection(i).Start.Millimeters+definition.Entry.Millimeters+lane.FiringOffset.Millimeters)*SkiState.NanometersPerMillimeter;
+                return (route.GetSection(i).Start.Millimeters-route.GetSection(i).LoopStart.Millimeters+definition.Entry.Millimeters+lane.FiringOffset.Millimeters)*SkiState.NanometersPerMillimeter;
             throw new ArgumentException("Lap does not require shooting.");
         }
 
@@ -125,7 +129,7 @@ namespace Biathlon.Simulation
         {
             if(lapIndex<0||lapIndex>=route.LapCount)throw new ArgumentOutOfRangeException(nameof(lapIndex));
             for(int i=0;i<usesRange.Length;i++)if(usesRange[i]&&route.GetSection(i).LapIndex==lapIndex)
-                return checked(route.GetSection(i).Start.Millimeters*SkiState.NanometersPerMillimeter+firstFork);
+                return checked((route.GetSection(i).Start.Millimeters-route.GetSection(i).LoopStart.Millimeters)*SkiState.NanometersPerMillimeter+firstFork);
             throw new ArgumentException("Lap does not require shooting.");
         }
 
@@ -142,7 +146,7 @@ namespace Biathlon.Simulation
             if(a||b)return a&&b&&first==last&&ReferenceEquals(from,to);
             for(int i=0;i<usesRange.Length;i++)if(usesRange[i])
             {
-                long start=route.GetSection(i).Start.Millimeters*SkiState.NanometersPerMillimeter;
+                long start=(route.GetSection(i).Start.Millimeters-route.GetSection(i).LoopStart.Millimeters)*SkiState.NanometersPerMillimeter;
                 if(before<start+exit&&after>start+entry)return false;
             }
             return map.IsSingleRouteSection(before,after);
@@ -152,7 +156,8 @@ namespace Biathlon.Simulation
         {
             sectionIndex=route.Sample(new TrackDistance(distance/SkiState.NanometersPerMillimeter)).SectionIndex;
             if(side==PhysicalBoundarySide.Incoming&&sectionIndex>0&&distance==route.GetSection(sectionIndex).Start.Millimeters*SkiState.NanometersPerMillimeter)sectionIndex--;
-            long at=distance-route.GetSection(sectionIndex).Start.Millimeters*SkiState.NanometersPerMillimeter;
+            var section=route.GetSection(sectionIndex);
+            long at=distance-(section.Start.Millimeters-section.LoopStart.Millimeters)*SkiState.NanometersPerMillimeter;
             slice=null;local=0;
             if(!usesRange[sectionIndex]||at<entry||at>exit||at==entry&&side==PhysicalBoundarySide.Incoming||at==exit&&side==PhysicalBoundarySide.Outgoing)return false;
             long offset=at-entry;

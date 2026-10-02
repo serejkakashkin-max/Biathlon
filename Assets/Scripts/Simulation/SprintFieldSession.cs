@@ -34,6 +34,7 @@ namespace Biathlon.Simulation
         private readonly IRaceEventSink events;
         private readonly SimulationTick firstStart;
         private readonly int frequency;
+        private readonly bool requiresPhysicalAdmission;
         private int pursuitFinished;
         public PursuitResultSnapshot PursuitResult { get; private set; }
         private readonly string resultId;
@@ -52,11 +53,15 @@ namespace Biathlon.Simulation
         public SprintFieldSession(SimulationConfig config, CompetitionProfile profile, SkiModelDefinitions skiModel, ShootingModelDefinitions shootingModel,
             TrackDefinition track, RaceRoute route, RaceSnowConditions conditions, ResultTimingDefinition timing,
             ReadOnlySpan<SprintEntrant> entrants, SimulationTick firstStart, string resultId, IRaceEventSink events, PursuitQualificationSnapshot qualification = null,
-            MassStartGrid massGrid = null, StartApproachMap startApproach = null, PhysicalRangeFieldLayout rangeLayout = null)
+            MassStartGrid massGrid = null, StartApproachMap startApproach = null, PhysicalRangeFieldLayout rangeLayout = null,
+            bool requiresPhysicalAdmission = false)
         {
             if (config == null || profile == null || track == null || route == null || string.IsNullOrWhiteSpace(resultId))
                 throw new ArgumentException("Race configuration and result ID required.");
-            if (rangeLayout != null && (!rangeLayout.IsBoundTo(track, route) || entrants.Length > rangeLayout.Count))
+            if(requiresPhysicalAdmission&&(rangeLayout==null||massGrid!=null||profile.Format==CompetitionFormat.MassStart))
+                throw new ArgumentException("Reusable physical admission requires Sprint/Pursuit authored paths.");
+            this.requiresPhysicalAdmission=requiresPhysicalAdmission;
+            if (rangeLayout != null && (!rangeLayout.IsBoundTo(track, route) || !requiresPhysicalAdmission && entrants.Length > rangeLayout.Count))
                 throw new ArgumentException("The complete roster needs authored paths bound to the exact field track and route.");
             var rangeChoices = rangeLayout?.CreateChoices();
             var roster = new AthleteId[entrants.Length];
@@ -89,9 +94,9 @@ namespace Biathlon.Simulation
             for (int i = 0; i < entrants.Length; i++)
             {
                 var entrant = entrants[i];
-                var rangePath = rangeLayout?.GetPath(i);
+                var rangePath = rangeLayout?.GetPath(requiresPhysicalAdmission?0:i);
                 var shootingLane = new ShootingLaneAssignment(track.Range.Id,
-                    rangePath == null ? "synthetic_lane_" + (i + 1).ToString(CultureInfo.InvariantCulture) : rangePath.LaneId, i + 1);
+                    rangePath == null ? "synthetic_lane_" + (i + 1).ToString(CultureInfo.InvariantCulture) : rangePath.LaneId, requiresPhysicalAdmission?1:i + 1);
                 // Start order and seed are part of race configuration; all gameplay uses the same physical models.
                 var athleteConfig = new SimulationConfig(config.SchemaVersion, config.Id, config.TickFrequency, unchecked(config.Seed + (ulong)i));
                 athletes[i] = new SprintAthleteSession(athleteConfig, profile, skiModel, shootingModel, entrant.SkiAthlete, entrant.ShootingAthlete,
@@ -112,12 +117,14 @@ namespace Biathlon.Simulation
             if (rangeLayout != null)
             {
                 context.Add(rangeLayout.ContextJson);
-                context.Add("independent_authored_range_paths_v1;initial_roster_slot;prepared_choices;no_body_admission");
+                context.Add(requiresPhysicalAdmission?"reusable_authored_range_paths_v1;unassigned_shared_prefix_placeholder;external_joint_physical_admission":
+                    "independent_authored_range_paths_v1;initial_roster_slot;prepared_choices;no_body_admission");
             }
             ContextJson = ShootingModelDefinitions.EncodeContext(context.ToArray());
         }
         public void Step(ReadOnlySpan<SprintAthleteInput> inputs)
         {
+            if(requiresPhysicalAdmission)throw new InvalidOperationException("Reusable mats require the Pack field's joint physical admission transaction.");
             ValidateCommands(inputs);
             var tick = Tick.Next();
             if (IsInterval) scheduler.Step(tick, due); else if(massGrid!=null)massScheduler.Step(tick,due); else pursuitScheduler.Step(tick, due);

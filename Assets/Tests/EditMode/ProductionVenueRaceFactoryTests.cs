@@ -93,5 +93,55 @@ namespace Biathlon.Tests
             long before=GC.GetAllocatedBytesForCurrentThread();for(int i=0;i<100;i++)source.CapturePlacements(0,radius,rows);
             Assert.That(GC.GetAllocatedBytesForCurrentThread()-before,Is.Zero);
         }
+        [Test] public void ImportedCatalogRejectsAChangedProfileOrRouteBeforeConstructingTheRace()
+        {
+            string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
+            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read("Biathlon/Venues/woodland_basin_v1/manifest")),Read);
+            var binding=venue.Formats.Get(0);var profile=binding.Profile;var route=binding.Route;
+            var changed=RaceRoutePlan.FromJson(route.ToJson().Replace(route.Id,"changed_catalog_route"));
+            Assert.That(Assert.Throws<ArgumentException>(()=>ProductionVenueRaceFactory.Create(venue,profile,changed,Conditions(),
+                PhysiologyContractTests.DefinitionJson,new RaceEventLog(),new AiDecisionCounts(),count:1)).Message,Does.Contain("catalog"));
+            var changedProfile=CompetitionProfile.FromJson(profile.ToJson().Replace(profile.Id,"changed_catalog_profile"));
+            Assert.That(Assert.Throws<ArgumentException>(()=>ProductionVenueRaceFactory.Create(venue,changedProfile,route,Conditions(),
+                PhysiologyContractTests.DefinitionJson,new RaceEventLog(),new AiDecisionCounts(),count:1)).Message,Does.Contain("catalog"));
+        }
+
+        [Test] public void ProductionSprintAndQualifiedPursuitCoverSixtyEntrantsWithThirtyReusableMats()
+        {
+            string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
+            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read("Biathlon/Venues/woodland_basin_v1/manifest")),Read);
+            var sprint=venue.Formats.Get(1);var pursuit=venue.Formats.Get(2);
+            var conditions=RaceSnowConditions.FromJson(PhysiologyContractTests.DefinitionJson("race_snow_neutral_v1.json"));
+            Assert.That(venue.LaneCount,Is.EqualTo(30));
+            var runner=ProductionVenueRaceFactory.Create(venue,sprint.Profile,sprint.Route,conditions,
+                PhysiologyContractTests.DefinitionJson,new RaceEventLog(),new AiDecisionCounts(),count:60);
+            Assert.That(runner.Field.Count,Is.EqualTo(60));Assert.That(runner.Field.RangeReservations,Is.Not.Null);
+            var ids=new AthleteId[60];for(int i=0;i<ids.Length;i++)ids[i]=runner.Field.GetAthlete(i).AthleteId;
+            var source=new SprintResultBook(sprint.Profile,SprintResultsTests.Timing(),ids,20,new RaceEventLog());
+            for(int i=0;i<ids.Length;i++)
+            {
+                var life=new CompetitionLifecycle(sprint.Profile,ids[i],20,new RaceEventLog(40));
+                life.Step(new SimulationTick(1),CompetitionAction.Start);
+                life.Step(new SimulationTick(2),CompetitionAction.EnterRange);
+                life.Step(new SimulationTick(3),CompetitionAction.CompleteBout,31,5);
+                life.Step(new SimulationTick(4),CompetitionAction.ReachLapBoundary);
+                life.Step(new SimulationTick(5),CompetitionAction.EnterRange);
+                life.Step(new SimulationTick(6),CompetitionAction.CompleteBout,31,5);
+                life.Step(new SimulationTick(7),CompetitionAction.ReachLapBoundary);
+                long finish=201+i;for(long tick=8;tick<finish;tick++)life.Step(new SimulationTick(tick));
+                life.Step(new SimulationTick(finish),CompetitionAction.Finish,finish:new FinishTime(finish,0,20));
+                source.Record(life);
+            }
+            var qualification=PursuitQualificationSnapshot.Create("production_sixty_qualification",source.Complete("production_sixty_source"),pursuit.Profile);
+            var chased=ProductionVenueRaceFactory.Create(venue,pursuit.Profile,pursuit.Route,conditions,
+                PhysiologyContractTests.DefinitionJson,new RaceEventLog(),new AiDecisionCounts(),qualification:qualification,count:60);
+            Assert.That(chased.Field.RangeReservations,Is.Not.Null);Assert.That(chased.Field.Count,Is.EqualTo(60));
+            for(int i=0;i<ids.Length;i++)Assert.That(chased.Field.GetAthlete(i).AthleteId.Value,Is.EqualTo(qualification.Get(i).AthleteId));
+            var mass=venue.Formats.Get(0);
+            Assert.Throws<ArgumentException>(()=>ProductionVenueRaceFactory.Create(venue,mass.Profile,mass.Route,conditions,
+                PhysiologyContractTests.DefinitionJson,new RaceEventLog(),new AiDecisionCounts(),count:31));
+            Assert.Throws<ArgumentException>(()=>ProductionVenueRaceFactory.Create(venue,sprint.Profile,sprint.Route,conditions,
+                PhysiologyContractTests.DefinitionJson,new RaceEventLog(),new AiDecisionCounts(),count:61));
+        }
     }
 }

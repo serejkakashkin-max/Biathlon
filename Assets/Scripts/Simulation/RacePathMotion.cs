@@ -114,7 +114,9 @@ namespace Biathlon.Simulation
                     {
                         var sampleRoute = route.Sample(new TrackDistance(main / SkiState.NanometersPerMillimeter)); sample = sampleRoute.Track;
                         var section = route.GetSection(sampleRoute.SectionIndex); var segment = track.GetLoop(section.LoopId).GetSegment(sample.SegmentIndex);
-                        distance = checked((section.Start.Millimeters + segment.StartDistance.Millimeters + segment.Length.Millimeters) * SkiState.NanometersPerMillimeter) - main;
+                        long segmentEnd=checked((section.Start.Millimeters-section.LoopStart.Millimeters+segment.StartDistance.Millimeters+segment.Length.Millimeters)*SkiState.NanometersPerMillimeter);
+                        long sectionEnd=checked((section.Start.Millimeters+section.Length.Millimeters)*SkiState.NanometersPerMillimeter);
+                        distance = Math.Min(segmentEnd,sectionEnd)-main;
                     }
                     distance = Math.Min(distance, stopRouteNanometers - main);
                     if (range != null && main < range.RangeEntryNanometers) distance = Math.Min(distance, range.RangeEntryNanometers - main);

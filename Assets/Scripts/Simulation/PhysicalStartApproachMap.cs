@@ -45,9 +45,10 @@ namespace Biathlon.Simulation
             length=checked(main.Length.Millimeters*SkiState.NanometersPerMillimeter);
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{approach.ContextJson,"pre_start_main_loop_overlay_v1"});
         }
-        public PhysicalTrackPoint MapRemaining(long remaining)
+        public PhysicalTrackPoint MapRemaining(long remaining,PhysicalBoundarySide side=PhysicalBoundarySide.Outgoing)
         {
-            if(remaining<0 || remaining>Approach.LengthNanometers)throw new ArgumentOutOfRangeException(nameof(remaining));
+            if(remaining<0 || remaining>Approach.LengthNanometers||(side!=PhysicalBoundarySide.Outgoing&&side!=PhysicalBoundarySide.Incoming))throw new ArgumentOutOfRangeException(nameof(remaining));
+            if(UsesAuthoredBranch&&remaining==0&&side==PhysicalBoundarySide.Incoming)return PhysicalMap.MapLoop(Approach.LoopId,length);
             return PhysicalMap.MapLoop(UsesAuthoredBranch&&remaining>0?Approach.LoopId:MainLoopId,remaining==0?0:length-remaining);
         }
     }

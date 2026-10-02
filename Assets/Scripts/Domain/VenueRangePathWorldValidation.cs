@@ -31,6 +31,9 @@ namespace Biathlon.Domain
             if(plan==null||policy==null||assetExists==null)throw new ArgumentNullException();
             if(!plan.UsesPhysicalPaths)throw new ArgumentException("Explicit physical path binding required.");
             var issues=new List<VenueValidationIssue>();var track=plan.Track;var paths=plan.Paths;var layout=plan.Manifest.Range;
+            if(plan.StartContinuation!=null&&!plan.StartContinuation.MatchesPresentation(plan.Visual))
+                issues.Add(new VenueValidationIssue("start_continuation.presentation_mismatch","start_continuation",
+                    "Rendering geometry differs from the authoritative start continuation corridors."));
             var usage=new Dictionary<string,int>(StringComparer.Ordinal);
             for(int lane=0;lane<paths.Count;lane++)
             {
@@ -45,7 +48,8 @@ namespace Biathlon.Domain
                 bool used=usage.TryGetValue(loop.Id,out int uses);
                 double minimum=loop.Kind==TrackLoopKind.Penalty?policy.PenaltyWidth:loop.Id!=paths.MainLoopId&&used&&uses==1?policy.LaneWidth:policy.MainWidth;
                 bool startApproach=plan.StartApproach!=null&&loop.Id==plan.StartApproach.LoopId;
-                if(!loop.Closed&&!used&&!startApproach)Add("loop.open",path,"Open race loops must be explicitly used by the physical range paths or a bound start approach.");
+                if(!loop.Closed&&!used&&!startApproach&&(plan.Formats==null||!plan.Formats.UsesLoop(loop.Id)))
+                    Add("loop.open",path,"Open race loops require physical range paths, a bound start approach or a validated directed format route.");
                 for(int j=0;j<loop.SegmentCount;j++)
                 {
                     var segment=loop.GetSegment(j);
@@ -64,7 +68,7 @@ namespace Biathlon.Domain
                     if(Math.Abs(grade)>policy.MaxGrade)Add("grade.world_limit",edgePath,"World grade exceeds production policy.");
                     for(int j=0;j<loop.SegmentCount;j++)
                     {
-                        var segment=loop.GetSegment(j);double low=Math.Max(a.Distance,segment.StartDistance.Meters),high=Math.Min(b.Distance,segment.StartDistance.Meters+segment.Length.Meters);
+                        var segment=loop.GetSegment(j);double low=Math.Max(a.Distance,segment.StartDistance.Meters),high=Math.Min(b.Distance,new TrackDistance(checked(segment.StartDistance.Millimeters+segment.Length.Millimeters)).Meters);
                         if(high<=low)continue;width=Math.Max(width,segment.WidthMeters);
                         double first=segment.StartGrade+(segment.EndGrade-segment.StartGrade)*(low-segment.StartDistance.Meters)/segment.Length.Meters;
                         double last=segment.StartGrade+(segment.EndGrade-segment.StartGrade)*(high-segment.StartDistance.Meters)/segment.Length.Meters;

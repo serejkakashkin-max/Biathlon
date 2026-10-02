@@ -15,6 +15,9 @@ namespace Biathlon.Simulation
 
         public int Count => paths.Length;
         public string ContextJson { get; }
+        internal TrackDefinition Track => track;
+        internal RaceRoute Route => route;
+        internal PhysicalRangePathDefinition Definition => definition;
 
         public PhysicalRangeFieldLayout(PhysicalTrackMap map, TrackDefinition track,
             RaceRoute route, PhysicalRangePathDefinition definition)
@@ -73,15 +76,16 @@ namespace Biathlon.Simulation
                     {
                         RequireSpacing(origin); previous = origin;
                     }
-                    if (section.LoopId != definition.MainLoopId || !requirements.RequiresRange(section.LapIndex)) continue;
-                    long entry = checked(origin + definition.Entry.Millimeters * SkiState.NanometersPerMillimeter);
+                    if (section.LoopId != definition.MainLoopId || !section.HasRange || !requirements.RequiresRange(section.LapIndex)) continue;
+                    long localOrigin=checked(origin-section.LoopStart.Millimeters*SkiState.NanometersPerMillimeter);
+                    long entry = checked(localOrigin + definition.Entry.Millimeters * SkiState.NanometersPerMillimeter);
                     for (int s = 1; s < lane.SliceCount; s++)
                         if (lane.GetSlice(s - 1).LoopId != lane.GetSlice(s).LoopId)
                         {
                             long at = checked(entry + lane.GetSlice(s).Offset.Millimeters * SkiState.NanometersPerMillimeter);
                             RequireSpacing(at); previous = at;
                         }
-                    long exit = checked(origin + definition.Exit.Millimeters * SkiState.NanometersPerMillimeter);
+                    long exit = checked(localOrigin + definition.Exit.Millimeters * SkiState.NanometersPerMillimeter);
                     RequireSpacing(exit); previous = exit;
                 }
                 void RequireSpacing(long at)

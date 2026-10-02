@@ -28,7 +28,9 @@ namespace Biathlon.Simulation
             for (int i = 0; i < usesRange.Length; i++)
             {
                 var section = route.GetSection(i);
-                usesRange[i] = requirements.RequiresRange(section.LapIndex) && section.LoopId == definition.MainLoopId;
+                usesRange[i] = requirements.RequiresRange(section.LapIndex) && section.HasRange && section.LoopId == definition.MainLoopId;
+                if(usesRange[i]&&(section.LoopStart.Millimeters>definition.Entry.Millimeters||section.LoopEnd.Millimeters<definition.Exit.Millimeters))
+                    throw new ArgumentException("A range lane overlay must be wholly contained by its route slice.");
                 if (usesRange[i]) occurrences[section.LapIndex]++;
             }
             for (int i = 0; i < occurrences.Length; i++)
@@ -38,8 +40,9 @@ namespace Biathlon.Simulation
         {
             var ordinary = map.MapRoute(distance, side); // includes bounds/side validation
             int index = route.Sample(new TrackDistance(distance / SkiState.NanometersPerMillimeter)).SectionIndex;
+            if(side==PhysicalBoundarySide.Incoming&&index>0&&distance==route.GetSection(index).Start.Millimeters*SkiState.NanometersPerMillimeter)index--;
             var section = route.GetSection(index);
-            long local = distance - section.Start.Millimeters * SkiState.NanometersPerMillimeter;
+            long local = distance - (section.Start.Millimeters-section.LoopStart.Millimeters) * SkiState.NanometersPerMillimeter;
             if (!usesRange[index] || local < entry || local > exit ||
                 local == entry && side == PhysicalBoundarySide.Incoming || local == exit && side == PhysicalBoundarySide.Outgoing) return ordinary;
             return map.MapLoop(lane, local - entry);

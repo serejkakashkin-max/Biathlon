@@ -1,0 +1,221 @@
+{
+  "schema_version": 1,
+  "id": "wp169m_reusable_reservations_verification_20261002",
+  "date": "2026-10-02",
+  "status": "PASS_BOUNDED_RESERVATION_SCOPE",
+  "work_package_status": "IN_PROGRESS",
+  "milestone_status": "IN_PROGRESS",
+  "owner_state_publication": "root_owned",
+  "scope": "Opt-in Sprint/Pursuit reusable physical mats; independent allocator and three entrants on two authored mats. Production routes, factory and Unity validation are owned by the root agent.",
+  "changes": [
+    "Clamp unrestricted reusable replan caps to each newly prepared available forward prefix.",
+    "Publish capacity wait telemetry only after the joint reservation commit.",
+    "Reject allocator rosters exceeding the exact competition profile capacity.",
+    "Wire optional routeBoundJunctions through the Pack with exact authored layout guard, full route/path/penalty/start usage and replay context. Default false preserves the legacy branch.",
+    "Add PhysicalRangeReservationsTests and ReusableRangePackTests with Unity meta files."
+  ],
+  "proof": [
+    "Denied capacity while another athlete moves replans successfully and consumes no denied arrival rank or assignment event.",
+    "Chronological accepted release/arrival ordering, equal-fraction release priority, integer endpoints, stable arrival ties, and rank/lane separation.",
+    "Foreign, stale, consumed and invalid replacement previews cannot mutate committed allocator ownership/history/clock.",
+    "Caller receipt arrays are not retained.",
+    "Strict private-exit plus half-body plus one nanometre clearance and minimum retimed crossing fraction.",
+    "All three Sprint and Pursuit athletes complete their bouts on two mats with actual reuse and accepted body/width checks.",
+    "Reservation remains while an incoming private tail is retained, and selected path remains through the shared return after release.",
+    "Command tape JSON round-trip and replay reproduce exact frames, coordinates, reservation history, events and results.",
+    "Changed exact body, reusable option or route-bound junction option rejects replay before advancement."
+  ],
+  "dotnet_snapshots": [
+    {
+      "artifact": "artifacts/wp169i/reservation-review/reusable-compatibility.trx",
+      "sha256": "1f1ddccc24d1501356db44789dfa11ae1fcda6734ad42b4c3523a1832bead248",
+      "counters": {
+        "total": 100,
+        "executed": 100,
+        "passed": 100,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "started": "2026-10-02T12:17:38.0084829+03:00",
+      "finished": "2026-10-02T12:18:06.6193987+03:00"
+    },
+    {
+      "artifact": "artifacts/wp169i/reservation-review/reusable-warm-pack.trx",
+      "sha256": "52e6df189f349ef71e126137751078175ee286bdef84cfb978972f5628107b01",
+      "counters": {
+        "total": 16,
+        "executed": 16,
+        "passed": 16,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "started": "2026-10-02T12:21:48.2369607+03:00",
+      "finished": "2026-10-02T12:22:00.9169378+03:00"
+    },
+    {
+      "artifact": "artifacts/wp169i/reservation-review/reusable-legacy-regressions.trx",
+      "sha256": "1bf2962df02adc2fdfe2d2a2df4baa12cd60e02e9cff03e0c4ca55602efad4b4",
+      "counters": {
+        "total": 10,
+        "executed": 10,
+        "passed": 10,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "started": "2026-10-02T12:18:31.9860544+03:00",
+      "finished": "2026-10-02T12:37:09.7362960+03:00"
+    },
+    {
+      "artifact": "artifacts/wp169j/production-final-focused.trx",
+      "sha256": "121b189191e65bce85c16bafa54ac77a223bcc759a4a14bc2aaafd0ea39461d2",
+      "counters": {
+        "total": 140,
+        "executed": 140,
+        "passed": 140,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "started": "2026-10-02T12:34:08.6081973+03:00",
+      "finished": "2026-10-02T12:35:39.8943376+03:00"
+    }
+  ],
+  "unity_focused_snapshots": [
+    {
+      "artifact": "artifacts/wp169j/final-PhysicalRangeReservationsTests-unity.json",
+      "sha256": "c18bc6c3c47655c38e1cd05bec829567660759a0ecd7cd0b1a31cf65fa2014ce",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 887,
+        "PassedTests": 12,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:01.1280007"
+      }
+    },
+    {
+      "artifact": "artifacts/wp169j/final-ReusableRangePackTests-unity.json",
+      "sha256": "bcc6f75735a15b5a5a62692a57eae3fc2f776ca04afd76041ae223a6c9a6159a",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 887,
+        "PassedTests": 4,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:10.1485355"
+      }
+    },
+    {
+      "artifact": "artifacts/wp169j/final-ProductionVenueRaceFactoryTests-unity.json",
+      "sha256": "81fd32b81ad0206a7270e61710ff02468d2adf4ba803fc9f6e9d826711d96c01",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 887,
+        "PassedTests": 5,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:22.4239065"
+      }
+    }
+  ],
+  "snapshot_notes": [
+    "The 100-case compatibility snapshot preceded the final added context case and warm Pack allocation assertions. The final 16-case new snapshot includes them. These overlapping suites are separate snapshots; their counts are not summed as unique cases.",
+    "The 10-case legacy matrix used the original Debug binary built after reservation fixes and route-bound wiring, before later optional shared-start AI fixes. Pinned default race paths were exercised.",
+    "The root final integrated .NET snapshot reports 140/140. Full 192-case PlayMode and final Console checks were pending at this reporting snapshot.",
+    "Unity TotalTests=887 is the discovered assembly count, not a full EditMode result. Executed focused results are 12 allocator, 4 Pack and 5 factory cases."
+  ],
+  "warm_allocations": {
+    "allocator_denial_release_bytes": 0,
+    "sustained_pack_hold_ticks": 100,
+    "sustained_pack_hold_bytes": 0,
+    "warm_pack_acquisition_release_bytes": 0,
+    "scope": "Measured after warmup using preallocated command/receipt buffers; assertions run in both final .NET new suite and Unity focused classes."
+  },
+  "production_capacity": {
+    "venue": "woodland_basin_v1",
+    "mats": 30,
+    "sprint_constructor_entrants": 60,
+    "qualified_pursuit_constructor_entrants": 60,
+    "pursuit_qualification_order_checked": true,
+    "rejects_mass_31": true,
+    "rejects_sprint_61": true,
+    "proof_scope": "Construction/capacity binding only. Qualification comes from a test-created completed Sprint result book, not a real 60-actor production source race."
+  },
+  "compatibility": {
+    "new_options_default_false": true,
+    "legacy_event_values_1_to_42_preserved": true,
+    "appended_acquired_event": 43,
+    "appended_released_event": 44,
+    "legacy_goldens_changed": false,
+    "shooting_tuning_changed": false,
+    "capability_tuning_changed": false,
+    "rng_changed": false
+  },
+  "production_full_60_race_proved": false,
+  "production_dense_capacity_waits_proved": false,
+  "production_visual_acceptance": false,
+  "full_playmode_snapshot_status": "ROOT_FULL_192_PASS",
+  "final_console_status": "ROOT_POST_CAPTURE_0_ERRORS_0_WARNINGS",
+  "known_production_blocker": "Root actual Mass30 probe clears the authored start but has a first-private-narrowing AI deadlock at lateral -2; dense-start diagnosis owns the separate fix.",
+  "limitations": [
+    "No 60-on-30 production race acceptance is claimed.",
+    "No Unity compile, Console or EditMode test result was produced by this subagent; the root owns those checks.",
+    "The implementation supports complete distinct open private mat loops with sufficient shared return and one retained incoming footprint.",
+    "An athlete's cold placeholder AssignedShootingLane remains a valid path configuration; Pack GetAssignedRangeLane is the physical reservation ownership query and returns zero before acquisition or after release."
+  ],
+  "next_task": "Resolve production flow; complete actual 60-entrant Sprint and qualified Pursuit on 30 mats with full obligations, body/width checks, observed reuse, bounded waits and exact command tape replay; finish root Unity/venue acceptance.",
+  "current_source_sha256": {
+    "Assets/Scripts/Simulation/PhysicalRangeReservations.cs": "ba8f5c1166ecb56c2a13c88268ef6f1bf77840d7cba5bb2660ea8c5369c2966b",
+    "Assets/Scripts/Simulation/PackSprintFieldSession.cs": "ef40ba6af64239720fc74a894a89d23604cac9d3d9b85ee2309f2d373f899620",
+    "Assets/Scripts/Simulation/SprintFieldSession.cs": "eb502000d38b0b6e310223a8b758442cfe593ad16e9e41212f57dd9e7f71e3b8",
+    "Assets/Scripts/Simulation/PhysicalRangeFieldLayout.cs": "7197e8e448003343703ab260edeb6f66a70472b744b384a76eed1b05a387eb25",
+    "Assets/Scripts/Domain/RaceEvent.cs": "c62bc6d83db0242b02a6a8c1820122b6ebbdfb1ead20e535a500831fcfcbee31",
+    "Assets/Tests/EditMode/PhysicalRangeReservationsTests.cs": "33d641ae28fb18d3c74c50b0281482e426932a5ec030ab69eb9d02a73fe3f95d",
+    "Assets/Tests/EditMode/ReusableRangePackTests.cs": "c751e7de6f28d0a6816dfbb959b313411d421b26fde76f44b0ea730f48a16b4d"
+  },
+  "source_hash_note": "Current frozen reservation source snapshot; earlier test snapshots retain their own distinct binary timing described above.",
+  "root_final_validation": "docs/quality/m13/wp169jklm-verification.json"
+}

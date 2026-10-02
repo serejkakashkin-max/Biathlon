@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "id": "wp169j_shared_authored_start_verification_20261002",
+  "date": "2026-10-02",
+  "status": "PASS_BOUNDED_START_SCOPE",
+  "work_package_status": "IN_PROGRESS",
+  "scope": "Exact authored source/Main continuation proof and AI grid lateral hold through actual physical handoff",
+  "sources": [
+    {
+      "path": "Assets/Scripts/Domain/PhysicalStartContinuationDefinition.cs",
+      "sha256": "ef7fc501a0a67734536f87c079d14dbe948e1c2c3375c0bee9264dad8cd8384a"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalStartContinuationMap.cs",
+      "sha256": "2fdea1f7130fd927a426c441a87a640d01b61899ab7bb4e8ca93c58fa5e947b8"
+    },
+    {
+      "path": "Assets/Scripts/Domain/AiStartTrafficPolicyDefinition.cs",
+      "sha256": "8b1930089058443a0c80169ba28da69b8a7a5effb6d5f6bcaacb0851093ff2bc"
+    },
+    {
+      "path": "Assets/Scripts/AI/PackAiRaceRunner.cs",
+      "sha256": "27f0d2e1f0c1777e4171454a6e3cf4ddd8c0a74d9574ce0aa694bd537066b10e"
+    },
+    {
+      "path": "Assets/Scripts/AI/OvertakeDecisionEvaluator.cs",
+      "sha256": "dd997fda0b5438e1684f8aefdfb3e571b36d3aeb4fc72eac27a7ab0fe5d4a3f8"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ai_start_traffic_provisional_v1.json",
+      "sha256": "dbbc85fb5d66d26be5cec9b2a5c96b4f0b91916994971cc312b7c348f8d0755d"
+    },
+    {
+      "path": "Assets/Tests/EditMode/PhysicalStartContinuationTests.cs",
+      "sha256": "47c100071c31c81628836b5f480f1306566756cb609da864ecd2919b4bb65ee9"
+    },
+    {
+      "path": "Assets/Tests/EditMode/AiStartTrafficTests.cs",
+      "sha256": "3984858a7053d79dd57ea8e1ca64cdd453f7ad400f56d8cb62860695e858a830"
+    }
+  ],
+  "dotnet_snapshots": [
+    {
+      "artifact": "artifacts/wp169j/dense-start-probe/tests/start-policy-final-physical-handoff.trx",
+      "sha256": "2c957fed69ca72b5f7209a5e001aab5bbe7181ebbfc1dfbe3b4ca33e874a7197",
+      "total": 41,
+      "passed": 41,
+      "failed": 0
+    },
+    {
+      "artifact": "artifacts/wp169j/production-final-focused.trx",
+      "sha256": "121b189191e65bce85c16bafa54ac77a223bcc759a4a14bc2aaafd0ea39461d2",
+      "total": 140,
+      "passed": 140,
+      "failed": 0
+    }
+  ],
+  "unity_focused_snapshots": [
+    {
+      "artifact": "artifacts/wp169j/final-PhysicalStartContinuationTests-unity.json",
+      "sha256": "987954d09ced555da537ebc3c9d96fc2d23b811343f749246eaf62f6b75b90b9",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 887,
+        "PassedTests": 29,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:02.5561987"
+      }
+    },
+    {
+      "artifact": "artifacts/wp169j/final-AiStartTrafficTests-unity.json",
+      "sha256": "f62c417e5d092c3daf1ca7f141e73b77331dcc01be126c9d13b7ef4728d6d999",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 887,
+        "PassedTests": 6,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:01:07.2121337"
+      }
+    }
+  ],
+  "combined_core_unity_passed": 73,
+  "production_prefix": {
+    "ticks": 1000,
+    "athletes": 30,
+    "all_source_cleared": true,
+    "minimum_main_m": 253.155710227,
+    "input_index": "artifacts/wp169j/dense-start-probe/actual-source-json-v1-index.json",
+    "debug_artifact": "artifacts/wp169j/dense-start-probe/mass30-debug-prefix1000.json",
+    "release_artifact": "artifacts/wp169j/dense-start-probe/mass30-release-prefix1000.json",
+    "parity": {
+      "schema_version": 1,
+      "id": "mass30_debug_release_prefix_parity_v1",
+      "status": "PASS",
+      "ticks": 1000,
+      "all_actor_values_exact": true,
+      "event_count": 12554,
+      "event_fingerprint": "f0ad8a39ad08d21f",
+      "debug_wall_seconds": 67.6550872,
+      "release_wall_seconds": 10.0904507,
+      "speedup": 6.7048627669327
+    }
+  },
+  "negative_full_integration": {
+    "artifact": "artifacts/wp169j/dense-start-probe/mass30-release-complete.json",
+    "sha256": "f82e10c0c4093fe4cdfc306a6822afbd0d2192819503ba034c889e582102f046",
+    "status": "PREFIX_ONLY",
+    "ticks": 120000,
+    "peak_shooting": 1,
+    "max_stationary_ticks": 111571,
+    "event_count": 2718226,
+    "event_fingerprint": "112b923d10f2401f",
+    "finding": "Start cleared; first narrow range-path traffic fails with retained broad AI ski lines",
+    "next_task": "TASK169N physical range AI steering and dense queue flow"
+  },
+  "limitations": [
+    "No complete production race or repeated full event/replay acceptance",
+    "Full Unity/Console and production visual evidence owned by root",
+    "Planar captured polyline and rectangular body proof; missing separation remains blocking",
+    "Player commands, body guards, capability and shooting tuning unchanged"
+  ]
+}
