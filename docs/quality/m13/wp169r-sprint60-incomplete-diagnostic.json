@@ -17,6 +17,13 @@
   "report_path": "artifacts/wp169r/full-sprint60-record.json",
   "report_sha256": "fe11982d49a8584901cbce9295e6fb6bc792206aae682817fe61de807314444a",
   "pursuit_qualification": "NOT_CREATED_PREFIX_RESULT_IS_INELIGIBLE",
-  "replay": "PENDING_PREFIX_REPLAY_ONLY",
-  "capacity_not_increased": true
+  "replay": "PASS_PREFIX_EXACT_REPLAY",
+  "capacity_not_increased": true,
+  "prefix_replay": {
+    "complete_race": false,
+    "ai_steps": 0,
+    "ticks": 108385,
+    "artifact_sha256": "a9ea194f8ef80a9177de5409c1b00e72b4f14ddcc01c660ab77c1a0a6acf0e0a",
+    "artifact": "artifacts/wp169r/full-sprint60-prefix-replay.json"
+  }
 }
