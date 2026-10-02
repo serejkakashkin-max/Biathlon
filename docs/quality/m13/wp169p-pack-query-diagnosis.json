@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "id": "wp169p_pack_query_diagnosis_20261002",
+  "date": "2026-10-02",
+  "status": "PASS_BOUNDED_DIAGNOSTIC_PARITY",
+  "work_package_status": "IN_PROGRESS",
+  "production_optimization_implemented": false,
+  "production_sources_modified": false,
+  "cases": [
+    {
+      "case": "mass30",
+      "ticks": 1000,
+      "roster": 30,
+      "active_at_end": 30,
+      "status": "PREFIX_ONLY",
+      "baseline_wall_seconds": 6.4817128,
+      "cached_wall_seconds": 1.7451994,
+      "speedup": 3.714024196891198,
+      "original_touch_queries": 200511742,
+      "cached_core_touch_queries": 7756380,
+      "avoided_queries_percent": 96.13170783783825,
+      "cli_state_exact": true,
+      "cli_final_actor_values_exact": true,
+      "instrumentation_cli_state_exact": true,
+      "instrumentation_cli_actor_values_exact": true,
+      "event_count": 12554,
+      "event_fingerprint": "f0ad8a39ad08d21f",
+      "final_actor_fields": [
+        "athlete",
+        "route_m",
+        "loop",
+        "local_m",
+        "lateral_m",
+        "shooting",
+        "stationary_ticks"
+      ],
+      "result_complete": false,
+      "shooting_seen": 0,
+      "baseline": "mass30-baseline-prefix1000.json",
+      "cached": "mass30-cached-prefix1000.json",
+      "instrumentation": "mass30-prefix1000.json"
+    },
+    {
+      "case": "sprint60",
+      "ticks": 6000,
+      "roster": 60,
+      "active_at_end": 10,
+      "status": "PREFIX_ONLY",
+      "baseline_wall_seconds": 3.761843,
+      "cached_wall_seconds": 2.3052376,
+      "speedup": 1.6318677953196667,
+      "original_touch_queries": 55584739,
+      "cached_core_touch_queries": 8443506,
+      "avoided_queries_percent": 84.80966871140656,
+      "cli_state_exact": true,
+      "cli_final_actor_values_exact": true,
+      "instrumentation_cli_state_exact": true,
+      "instrumentation_cli_actor_values_exact": true,
+      "event_count": 9755,
+      "event_fingerprint": "53a00d3b91095db7",
+      "final_actor_fields": [
+        "athlete",
+        "route_m",
+        "loop",
+        "local_m",
+        "lateral_m",
+        "shooting",
+        "stationary_ticks"
+      ],
+      "result_complete": false,
+      "shooting_seen": 0,
+      "baseline": "sprint60-baseline-prefix6000.json",
+      "cached": "sprint60-cached-prefix6000.json",
+      "instrumentation": "sprint60-instrumented-prefix6000.json"
+    }
+  ],
+  "limits": [
+    "Wall timings are observations from one run per variant under concurrent project work, not a stable performance benchmark.",
+    "CLI actor/state parity plus event fingerprints does not compare complete physiology frames or every event byte; full race/replay regressions are required before production implementation.",
+    "Sprint has sixty entrants but only ten active at tick6000; this is not dense60 runtime proof.",
+    "Prefixes do not cover private mat acquisition/release, penalty or completed results.",
+    "Production copies preserve known flow problems and do not establish venue acceptance."
+  ],
+  "methodology": "Sequential Release runs from copied source projects with unique intermediates/binaries and the immutable actual-source-json-v1 resource snapshot. Aggregate timed instrumentation is a separate copied assembly; timing comparisons use uninstrumented baseline versus memoized copy.",
+  "proposal": "Cold per-trace/per-source-junction tri-state memo; invalidate before every candidate BuildTrace and every stationary snapshot mutation. Each miss retains the original complete start/end/tail/receipt query and route-bound/self-crossing validation.",
+  "required_before_implementation_acceptance": [
+    "Joint path/reservation replanning and whole-field atomicity tests",
+    "Private-seam tail and release-boundary integration cases",
+    "Complete race command-tape and pinned legacy parity",
+    "Warm zero-managed-allocation assertions",
+    "Actual immutable prefix parity and completed production races"
+  ],
+  "evidence": {
+    "verifier": "artifacts/wp169i/reservation-review/query-profile/verify-probes.ps1",
+    "diagnosis_sha256": "347baf52991e6b943c9f3398305f38d829c5283ecd5d8fabb97a34a90b3e71dc",
+    "resource_snapshot": "artifacts/wp169j/dense-start-probe/actual-source-json-v1",
+    "diagnosis": "artifacts/wp169i/reservation-review/query-profile/diagnosis.json",
+    "detail": "artifacts/wp169i/reservation-review/query-profile/QUERY_PROFILE_DIAGNOSIS.md",
+    "original_source_index": "artifacts/wp169i/reservation-review/query-profile/original-source-sha256.json"
+  }
+}
