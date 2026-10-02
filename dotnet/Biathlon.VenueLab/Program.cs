@@ -40,6 +40,7 @@ internal static class Program
                     local_nanometers=point.LocalNanometers,lateral_m=field.GetLateral(i),remaining_start_nanometers=field.GetAthlete(i).RemainingStartApproachNanometers});
             }
             int peakShooting=0;long maximumStationaryTicks=0;var stationary=new long[count];var previous=new long[count];
+            var watch=System.Diagnostics.Stopwatch.StartNew();
             while(!field.IsComplete&&field.Tick.Value<limit)
             {
                 for(int i=0;i<count;i++)previous[i]=field.GetAthlete(i).Motion.DistanceNanometers;
@@ -52,6 +53,16 @@ internal static class Program
                     maximumStationaryTicks=Math.Max(maximumStationaryTicks,stationary[i]);
                 }
                 peakShooting=Math.Max(peakShooting,shooting);
+                if(field.Tick.Value%1000==0)
+                {
+                    var progress=new List<object>();
+                    for(int i=0;i<count;i++)
+                    {var actor=field.GetAthlete(i);var point=field.GetPhysicalPoint(i);progress.Add(new{athlete=actor.AthleteId.Value,
+                        route_m=actor.RouteNanometers/(double)SkiState.NanometersPerMeter,loop=point.LoopId,local_m=point.LocalNanometers/(double)SkiState.NanometersPerMeter,
+                        lateral_m=field.GetLateral(i),shooting=actor.ActiveShooting?.Phase.ToString(),stationary_ticks=stationary[i]});}
+                    var checkpoint=new{schema_version=1,id="production_venue_race_progress_v1",status="RUNNING",ticks=field.Tick.Value,elapsed_wall_seconds=watch.Elapsed.TotalSeconds,actors=progress};
+                    Save(output+".progress.json",checkpoint);Console.WriteLine("tick="+field.Tick.Value+" wall_s="+watch.Elapsed.TotalSeconds.ToString("F1",CultureInfo.InvariantCulture)+" shooting="+shooting+" max_stationary="+maximumStationaryTicks);
+                }
             }
             var state=new{schema_version=1,id="production_venue_race_probe_v1",status=field.IsComplete?"RACE_COMPLETE":limit==0?"CONSTRUCTION_PASS":"PREFIX_ONLY",
                 venue=venue.Manifest.Id,profile=profile.Id,athletes=count,ticks=field.Tick.Value,distance_m=field.Route.Length.Meters,

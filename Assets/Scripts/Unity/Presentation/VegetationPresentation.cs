@@ -13,6 +13,8 @@ namespace Biathlon.Unity.Presentation
         private readonly Mesh[] meshes=new Mesh[6];
         private readonly int[] counts=new int[6];
         private byte[] species;
+        private readonly float[] canopyRadius=new float[2],canopyMinY=new float[2],canopyMaxY=new float[2];
+        private Bounds preparedWorldBounds;
         private int groups=3;
         private readonly Plane[] planes=new Plane[6];
         private readonly Material[] materials=new Material[2];
@@ -29,12 +31,19 @@ namespace Biathlon.Unity.Presentation
         public bool UsesAuditedPine { get; private set; }
         public bool UsesSimplifiedShadows {get;private set;}
         public bool SimplifyingCurrentShadows {get;private set;}
+        public bool UsesExplicitSpecies {get;private set;}
+        public Bounds PreparedWorldBounds=>preparedWorldBounds;
         public int InstanceSpecies(int index)=>species[index];
         public Vector3 InstanceWorldPosition(int index)=>transform.TransformPoint(instances[index].Position);
-        public void Initialize(Vector3[] route,bool useAuditedFir=false,Func<Vector3,float> groundHeight=null,bool useAuditedPine=false,bool useSimplifiedShadows=false,VegetationInstance[] authoredInstances=null)
+        public void Initialize(Vector3[] route,bool useAuditedFir=false,Func<Vector3,float> groundHeight=null,bool useAuditedPine=false,bool useSimplifiedShadows=false,VegetationInstance[] authoredInstances=null,byte[] authoredSpecies=null)
         {
             if(definition!=null)throw new InvalidOperationException("Forest already initialized.");
             if(useAuditedPine&&!useAuditedFir)throw new ArgumentException("Pine composition requires the audited forest.");
+            if(authoredSpecies!=null)
+            {
+                if(authoredInstances==null||authoredSpecies.Length!=authoredInstances.Length||!useAuditedFir||!useAuditedPine)throw new ArgumentException("Explicit species require matching authored audited fir/pine instances.");
+                foreach(byte type in authoredSpecies)if(type>1)throw new ArgumentException("Unknown authored forest species.");
+            }
             definition=VegetationDefinition.Load();
             if(authoredInstances!=null)
             {
@@ -44,8 +53,8 @@ namespace Biathlon.Unity.Presentation
                 instances=(VegetationInstance[])authoredInstances.Clone();
             }
             else instances=definition.Place(route);
-            species=new byte[instances.Length];groups=useAuditedPine?6:3;
-            if(useAuditedPine)
+            species=authoredSpecies==null?new byte[instances.Length]:(byte[])authoredSpecies.Clone();groups=useAuditedPine?6:3;
+            if(useAuditedPine&&authoredSpecies==null)
             {
                 var composition=G2ForestComposition.Load();
                 for(int i=0;i<instances.Length;i++)species[i]=(byte)composition.Species(transform.TransformPoint(instances[i].Position));
@@ -63,10 +72,16 @@ namespace Biathlon.Unity.Presentation
                 string name=type==1?"Pine":useAuditedFir?"Fir":"Conifer";
                 materials[type]=Resources.Load<Material>(root+name);
                 if(materials[type]==null)throw new InvalidOperationException("Generate vegetation assets.");
-                for(int lod=0;lod<3;lod++){int i=type*3+lod;meshes[i]=Resources.Load<Mesh>(root+name+"LOD"+lod);if(meshes[i]==null)throw new InvalidOperationException("Missing vegetation LOD.");matrices[i]=new Matrix4x4[definition.max_instances];triangles[i]=(int)meshes[i].GetIndexCount(0)/3;}
+                for(int lod=0;lod<3;lod++)
+                {
+                    int i=type*3+lod;meshes[i]=Resources.Load<Mesh>(root+name+"LOD"+lod);if(meshes[i]==null)throw new InvalidOperationException("Missing vegetation LOD.");matrices[i]=new Matrix4x4[definition.max_instances];triangles[i]=(int)meshes[i].GetIndexCount(0)/3;
+                    var bounds=meshes[i].bounds;float x=Mathf.Max(Mathf.Abs(bounds.min.x),Mathf.Abs(bounds.max.x)),z=Mathf.Max(Mathf.Abs(bounds.min.z),Mathf.Abs(bounds.max.z));
+                    canopyRadius[type]=Mathf.Max(canopyRadius[type],Mathf.Sqrt(x*x+z*z));canopyMinY[type]=Mathf.Min(canopyMinY[type],bounds.min.y);canopyMaxY[type]=Mathf.Max(canopyMaxY[type],bounds.max.y);
+                }
             }
             UsesAuditedFir=useAuditedFir;UsesAuditedPine=useAuditedPine;
             UsesSimplifiedShadows=useSimplifiedShadows;
+            UsesExplicitSpecies=authoredSpecies!=null;
             properties=new MaterialPropertyBlock();
         }
         public void Prepare(Camera camera,string tier,float presentationTime,Vector2? observedWind=null)
@@ -77,15 +92,19 @@ namespace Biathlon.Unity.Presentation
             SimplifyingCurrentShadows=UsesSimplifiedShadows&&tier!="high";
             float density=definition.Density(tier);for(int i=0;i<counts.Length;i++)counts[i]=0;SubmittedTriangles=0;ShadowSourceTriangles=0;
             GeometryUtility.CalculateFrustumPlanes(camera,planes);
-            var world=transform.localToWorldMatrix;var eye=camera.transform.position;float lodScale=ProjectionAwareLod.Scale(camera);
+            var world=transform.localToWorldMatrix;var eye=camera.transform.position;float lodScale=ProjectionAwareLod.Scale(camera);bool firstBounds=true;
+            preparedWorldBounds=new Bounds(transform.position,Vector3.zero);
             for(int index=0;index<instances.Length;index++)
             {
                 var tree=instances[index];
                 if(tree.DensityRank>=density)continue;
                 var position=world.MultiplyPoint3x4(tree.Position);float distance=Vector3.Distance(position,eye);if(definition.Lod(distance)<0)continue;int lod=definition.Lod(distance*lodScale);
                 // Includes canopy, height and maximum wind excursion. Intended sector root is unit scale.
-                var bounds=new Bounds(position+Vector3.up*4*tree.Scale,new Vector3(6,9,6)*tree.Scale);
+                int type=species[index];float radius=canopyRadius[type]*tree.Scale+definition.wind_amplitude_m;
+                var bounds=UsesExplicitSpecies?new Bounds(position+Vector3.up*((canopyMinY[type]+canopyMaxY[type])*.5f*tree.Scale),
+                    new Vector3(radius*2,(canopyMaxY[type]-canopyMinY[type])*tree.Scale,radius*2)):new Bounds(position+Vector3.up*4*tree.Scale,new Vector3(6,9,6)*tree.Scale);
                 if(!GeometryUtility.TestPlanesAABB(planes,bounds))continue;
+                if(firstBounds){preparedWorldBounds=bounds;firstBounds=false;}else preparedWorldBounds.Encapsulate(bounds);
                 int group=species[index]*3+lod;
                 matrices[group][counts[group]++]=world*tree.Matrix;SubmittedTriangles+=triangles[group];
                 if(lod<2)ShadowSourceTriangles+=triangles[SimplifyingCurrentShadows?group+1:group];
@@ -102,7 +121,7 @@ namespace Biathlon.Unity.Presentation
             for(int i=0;i<groups;i++)if(counts[i]>0)
             {
                 var p=new RenderParams(materials[i/3]){camera=camera,matProps=properties,shadowCastingMode=!SimplifyingCurrentShadows&&i%3<2?ShadowCastingMode.On:ShadowCastingMode.Off,receiveShadows=true,
-                    worldBounds=new Bounds(transform.position,new Vector3(500,50,500)),layer=gameObject.layer};
+                    worldBounds=UsesExplicitSpecies?preparedWorldBounds:new Bounds(transform.position,new Vector3(500,50,500)),layer=gameObject.layer};
                 // Default instancing includes inverse matrices; stay below the 511-instance limit
                 // without relying on platform-dependent uniform-scaling shader optimizations.
                 for(int offset=0;offset<counts[i];offset+=500)

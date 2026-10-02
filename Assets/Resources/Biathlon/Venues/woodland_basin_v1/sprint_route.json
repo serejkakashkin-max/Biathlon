@@ -1,0 +1,79 @@
+{
+  "schema_version": 2,
+  "id": "woodland_basin_sprint_route_v2",
+  "track_id": "woodland_basin_track_v1",
+  "competition_profile_id": "woodland_basin_sprint_men_v1",
+  "laps": [
+    {
+      "id": "lap_1",
+      "slices": [
+        {
+          "loop_id": "main",
+          "start_m": 0,
+          "end_m": 549.048
+        },
+        {
+          "loop_id": "sprint_extension",
+          "start_m": 0,
+          "end_m": 513.333,
+          "enter_connection_id": "sprint_depart_connection"
+        },
+        {
+          "loop_id": "main",
+          "start_m": 729.048,
+          "end_m": 3000,
+          "enter_connection_id": "sprint_return_connection"
+        }
+      ]
+    },
+    {
+      "id": "lap_2",
+      "slices": [
+        {
+          "loop_id": "main",
+          "start_m": 0,
+          "end_m": 549.048
+        },
+        {
+          "loop_id": "sprint_extension",
+          "start_m": 0,
+          "end_m": 513.333,
+          "enter_connection_id": "sprint_depart_connection"
+        },
+        {
+          "loop_id": "main",
+          "start_m": 729.048,
+          "end_m": 3000,
+          "enter_connection_id": "sprint_return_connection"
+        }
+      ]
+    },
+    {
+      "id": "lap_3",
+      "slices": [
+        {
+          "loop_id": "main",
+          "start_m": 0,
+          "end_m": 549.048
+        },
+        {
+          "loop_id": "sprint_extension",
+          "start_m": 0,
+          "end_m": 513.333,
+          "enter_connection_id": "sprint_depart_connection"
+        },
+        {
+          "loop_id": "main",
+          "start_m": 729.048,
+          "end_m": 3000,
+          "enter_connection_id": "sprint_return_connection"
+        },
+        {
+          "loop_id": "main",
+          "start_m": 0,
+          "end_m": 0.001
+        }
+      ]
+    }
+  ]
+}

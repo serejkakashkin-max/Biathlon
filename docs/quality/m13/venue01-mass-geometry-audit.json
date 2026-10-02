@@ -1,0 +1,655 @@
+{
+  "schema_version": 1,
+  "id": "woodland_basin_geometry_draft_audit_v1",
+  "status": "STATIC_PRODUCTION_POLICY_PASS_RUNTIME_AND_VISUAL_PENDING",
+  "recipe": {
+    "schema_version": 1,
+    "id": "woodland_basin_geometry_recipe_v1",
+    "lane_count": 30,
+    "lane_pitch_m": 6,
+    "side_margin_m": 11,
+    "main_width_m": 6,
+    "private_width_m": 2.5,
+    "penalty_width_m": 4,
+    "private_quarter_segments": 8,
+    "private_arc_chord_m": 0.294,
+    "private_inbound_straight_m": 9,
+    "private_outbound_straight_m": 21,
+    "outer_quarter_segments": 8,
+    "outer_arc_chord_m": 5.881,
+    "outer_west_straight_m": 202,
+    "climb_travel_m": 600,
+    "descent_travel_m": 611.9,
+    "penalty_segments": 60,
+    "penalty_length_m": 150,
+    "lap_length_m": 3000,
+    "finish_lead_m": 50,
+    "logical_entry_offset_m": 5,
+    "start_approach_length_m": 40,
+    "start_quarter_segments": 16,
+    "start_arc_chord_m": 1.963,
+    "start_terminal_straight_m": 1,
+    "minimum_seam_clearance_m": 3.8,
+    "authoring_status": "DRAFT_STATIC_GEOMETRY_RUNTIME_AND_VISUAL_ACCEPTANCE_PENDING"
+  },
+  "loop_count": 34,
+  "lane_count": 30,
+  "main_length_m": 3000.0,
+  "penalty_length_m": 150.0,
+  "private_length_m": 39.408,
+  "private_firing_m": 13.704,
+  "range_interval_m": [
+    2714.592,
+    2950
+  ],
+  "climb_rise_m": 78.06083685067124,
+  "entry_z": -11.999475387789229,
+  "exit_z": -23.99947538778923,
+  "maximum_world_edge_error_m": 8.171241461241152e-14,
+  "guard_region_count": 124,
+  "connection_count": 65,
+  "guard_purposes": {
+    "fork_01": "one_mat_fork",
+    "outbound_cross_01": "private_return_crosses_entry_aisle",
+    "merge_01": "one_mat_exit_merge",
+    "mat_turn_01": "private_turn_only_no_other_lane",
+    "fork_02": "one_mat_fork",
+    "outbound_cross_02": "private_return_crosses_entry_aisle",
+    "merge_02": "one_mat_exit_merge",
+    "mat_turn_02": "private_turn_only_no_other_lane",
+    "fork_03": "one_mat_fork",
+    "outbound_cross_03": "private_return_crosses_entry_aisle",
+    "merge_03": "one_mat_exit_merge",
+    "mat_turn_03": "private_turn_only_no_other_lane",
+    "fork_04": "one_mat_fork",
+    "outbound_cross_04": "private_return_crosses_entry_aisle",
+    "merge_04": "one_mat_exit_merge",
+    "mat_turn_04": "private_turn_only_no_other_lane",
+    "fork_05": "one_mat_fork",
+    "outbound_cross_05": "private_return_crosses_entry_aisle",
+    "merge_05": "one_mat_exit_merge",
+    "mat_turn_05": "private_turn_only_no_other_lane",
+    "fork_06": "one_mat_fork",
+    "outbound_cross_06": "private_return_crosses_entry_aisle",
+    "merge_06": "one_mat_exit_merge",
+    "mat_turn_06": "private_turn_only_no_other_lane",
+    "fork_07": "one_mat_fork",
+    "outbound_cross_07": "private_return_crosses_entry_aisle",
+    "merge_07": "one_mat_exit_merge",
+    "mat_turn_07": "private_turn_only_no_other_lane",
+    "fork_08": "one_mat_fork",
+    "outbound_cross_08": "private_return_crosses_entry_aisle",
+    "merge_08": "one_mat_exit_merge",
+    "mat_turn_08": "private_turn_only_no_other_lane",
+    "fork_09": "one_mat_fork",
+    "outbound_cross_09": "private_return_crosses_entry_aisle",
+    "merge_09": "one_mat_exit_merge",
+    "mat_turn_09": "private_turn_only_no_other_lane",
+    "fork_10": "one_mat_fork",
+    "outbound_cross_10": "private_return_crosses_entry_aisle",
+    "merge_10": "one_mat_exit_merge",
+    "mat_turn_10": "private_turn_only_no_other_lane",
+    "fork_11": "one_mat_fork",
+    "outbound_cross_11": "private_return_crosses_entry_aisle",
+    "merge_11": "one_mat_exit_merge",
+    "mat_turn_11": "private_turn_only_no_other_lane",
+    "fork_12": "one_mat_fork",
+    "outbound_cross_12": "private_return_crosses_entry_aisle",
+    "merge_12": "one_mat_exit_merge",
+    "mat_turn_12": "private_turn_only_no_other_lane",
+    "fork_13": "one_mat_fork",
+    "outbound_cross_13": "private_return_crosses_entry_aisle",
+    "merge_13": "one_mat_exit_merge",
+    "mat_turn_13": "private_turn_only_no_other_lane",
+    "fork_14": "one_mat_fork",
+    "outbound_cross_14": "private_return_crosses_entry_aisle",
+    "merge_14": "one_mat_exit_merge",
+    "mat_turn_14": "private_turn_only_no_other_lane",
+    "fork_15": "one_mat_fork",
+    "outbound_cross_15": "private_return_crosses_entry_aisle",
+    "merge_15": "one_mat_exit_merge",
+    "mat_turn_15": "private_turn_only_no_other_lane",
+    "fork_16": "one_mat_fork",
+    "outbound_cross_16": "private_return_crosses_entry_aisle",
+    "merge_16": "one_mat_exit_merge",
+    "mat_turn_16": "private_turn_only_no_other_lane",
+    "fork_17": "one_mat_fork",
+    "outbound_cross_17": "private_return_crosses_entry_aisle",
+    "merge_17": "one_mat_exit_merge",
+    "mat_turn_17": "private_turn_only_no_other_lane",
+    "fork_18": "one_mat_fork",
+    "outbound_cross_18": "private_return_crosses_entry_aisle",
+    "merge_18": "one_mat_exit_merge",
+    "mat_turn_18": "private_turn_only_no_other_lane",
+    "fork_19": "one_mat_fork",
+    "outbound_cross_19": "private_return_crosses_entry_aisle",
+    "merge_19": "one_mat_exit_merge",
+    "mat_turn_19": "private_turn_only_no_other_lane",
+    "fork_20": "one_mat_fork",
+    "outbound_cross_20": "private_return_crosses_entry_aisle",
+    "merge_20": "one_mat_exit_merge",
+    "mat_turn_20": "private_turn_only_no_other_lane",
+    "fork_21": "one_mat_fork",
+    "outbound_cross_21": "private_return_crosses_entry_aisle",
+    "merge_21": "one_mat_exit_merge",
+    "mat_turn_21": "private_turn_only_no_other_lane",
+    "fork_22": "one_mat_fork",
+    "outbound_cross_22": "private_return_crosses_entry_aisle",
+    "merge_22": "one_mat_exit_merge",
+    "mat_turn_22": "private_turn_only_no_other_lane",
+    "fork_23": "one_mat_fork",
+    "outbound_cross_23": "private_return_crosses_entry_aisle",
+    "merge_23": "one_mat_exit_merge",
+    "mat_turn_23": "private_turn_only_no_other_lane",
+    "fork_24": "one_mat_fork",
+    "outbound_cross_24": "private_return_crosses_entry_aisle",
+    "merge_24": "one_mat_exit_merge",
+    "mat_turn_24": "private_turn_only_no_other_lane",
+    "fork_25": "one_mat_fork",
+    "outbound_cross_25": "private_return_crosses_entry_aisle",
+    "merge_25": "one_mat_exit_merge",
+    "mat_turn_25": "private_turn_only_no_other_lane",
+    "fork_26": "one_mat_fork",
+    "outbound_cross_26": "private_return_crosses_entry_aisle",
+    "merge_26": "one_mat_exit_merge",
+    "mat_turn_26": "private_turn_only_no_other_lane",
+    "fork_27": "one_mat_fork",
+    "outbound_cross_27": "private_return_crosses_entry_aisle",
+    "merge_27": "one_mat_exit_merge",
+    "mat_turn_27": "private_turn_only_no_other_lane",
+    "fork_28": "one_mat_fork",
+    "outbound_cross_28": "private_return_crosses_entry_aisle",
+    "merge_28": "one_mat_exit_merge",
+    "mat_turn_28": "private_turn_only_no_other_lane",
+    "fork_29": "one_mat_fork",
+    "outbound_cross_29": "private_return_crosses_entry_aisle",
+    "merge_29": "one_mat_exit_merge",
+    "mat_turn_29": "private_turn_only_no_other_lane",
+    "fork_30": "one_mat_fork",
+    "outbound_cross_30": "private_return_crosses_entry_aisle",
+    "merge_30": "one_mat_exit_merge",
+    "mat_turn_30": "private_turn_only_no_other_lane",
+    "range_rejoin": "common_exit_and_penalty_access",
+    "bypass_turn": "outer_bypass_only_not_mat_forks",
+    "penalty_tail_cross_mat_30": "local_penalty_overlap_with_last_mat_departure_only",
+    "start_join": "single_local_start_to_main_merge"
+  },
+  "guard_mat_members": {
+    "fork_01": [],
+    "outbound_cross_01": [],
+    "merge_01": [],
+    "mat_turn_01": [
+      "mat_01"
+    ],
+    "fork_02": [],
+    "outbound_cross_02": [],
+    "merge_02": [],
+    "mat_turn_02": [
+      "mat_02"
+    ],
+    "fork_03": [],
+    "outbound_cross_03": [],
+    "merge_03": [],
+    "mat_turn_03": [
+      "mat_03"
+    ],
+    "fork_04": [],
+    "outbound_cross_04": [],
+    "merge_04": [],
+    "mat_turn_04": [
+      "mat_04"
+    ],
+    "fork_05": [],
+    "outbound_cross_05": [],
+    "merge_05": [],
+    "mat_turn_05": [
+      "mat_05"
+    ],
+    "fork_06": [],
+    "outbound_cross_06": [],
+    "merge_06": [],
+    "mat_turn_06": [
+      "mat_06"
+    ],
+    "fork_07": [],
+    "outbound_cross_07": [],
+    "merge_07": [],
+    "mat_turn_07": [
+      "mat_07"
+    ],
+    "fork_08": [],
+    "outbound_cross_08": [],
+    "merge_08": [],
+    "mat_turn_08": [
+      "mat_08"
+    ],
+    "fork_09": [],
+    "outbound_cross_09": [],
+    "merge_09": [],
+    "mat_turn_09": [
+      "mat_09"
+    ],
+    "fork_10": [],
+    "outbound_cross_10": [],
+    "merge_10": [],
+    "mat_turn_10": [
+      "mat_10"
+    ],
+    "fork_11": [],
+    "outbound_cross_11": [],
+    "merge_11": [],
+    "mat_turn_11": [
+      "mat_11"
+    ],
+    "fork_12": [],
+    "outbound_cross_12": [],
+    "merge_12": [],
+    "mat_turn_12": [
+      "mat_12"
+    ],
+    "fork_13": [],
+    "outbound_cross_13": [],
+    "merge_13": [],
+    "mat_turn_13": [
+      "mat_13"
+    ],
+    "fork_14": [],
+    "outbound_cross_14": [],
+    "merge_14": [],
+    "mat_turn_14": [
+      "mat_14"
+    ],
+    "fork_15": [],
+    "outbound_cross_15": [],
+    "merge_15": [],
+    "mat_turn_15": [
+      "mat_15"
+    ],
+    "fork_16": [],
+    "outbound_cross_16": [],
+    "merge_16": [],
+    "mat_turn_16": [
+      "mat_16"
+    ],
+    "fork_17": [],
+    "outbound_cross_17": [],
+    "merge_17": [],
+    "mat_turn_17": [
+      "mat_17"
+    ],
+    "fork_18": [],
+    "outbound_cross_18": [],
+    "merge_18": [],
+    "mat_turn_18": [
+      "mat_18"
+    ],
+    "fork_19": [],
+    "outbound_cross_19": [],
+    "merge_19": [],
+    "mat_turn_19": [
+      "mat_19"
+    ],
+    "fork_20": [],
+    "outbound_cross_20": [],
+    "merge_20": [],
+    "mat_turn_20": [
+      "mat_20"
+    ],
+    "fork_21": [],
+    "outbound_cross_21": [],
+    "merge_21": [],
+    "mat_turn_21": [
+      "mat_21"
+    ],
+    "fork_22": [],
+    "outbound_cross_22": [],
+    "merge_22": [],
+    "mat_turn_22": [
+      "mat_22"
+    ],
+    "fork_23": [],
+    "outbound_cross_23": [],
+    "merge_23": [],
+    "mat_turn_23": [
+      "mat_23"
+    ],
+    "fork_24": [],
+    "outbound_cross_24": [],
+    "merge_24": [],
+    "mat_turn_24": [
+      "mat_24"
+    ],
+    "fork_25": [],
+    "outbound_cross_25": [],
+    "merge_25": [],
+    "mat_turn_25": [
+      "mat_25"
+    ],
+    "fork_26": [],
+    "outbound_cross_26": [],
+    "merge_26": [],
+    "mat_turn_26": [
+      "mat_26"
+    ],
+    "fork_27": [],
+    "outbound_cross_27": [],
+    "merge_27": [],
+    "mat_turn_27": [
+      "mat_27"
+    ],
+    "fork_28": [],
+    "outbound_cross_28": [],
+    "merge_28": [],
+    "mat_turn_28": [
+      "mat_28"
+    ],
+    "fork_29": [],
+    "outbound_cross_29": [],
+    "merge_29": [],
+    "mat_turn_29": [
+      "mat_29"
+    ],
+    "fork_30": [],
+    "outbound_cross_30": [],
+    "merge_30": [],
+    "mat_turn_30": [
+      "mat_30"
+    ],
+    "range_rejoin": [],
+    "bypass_turn": [],
+    "penalty_tail_cross_mat_30": [],
+    "start_join": []
+  },
+  "guard_main_fork_members": {
+    "fork_01": [
+      "lane_01"
+    ],
+    "outbound_cross_01": [
+      "lane_01"
+    ],
+    "merge_01": [],
+    "mat_turn_01": [],
+    "fork_02": [
+      "lane_02"
+    ],
+    "outbound_cross_02": [
+      "lane_02"
+    ],
+    "merge_02": [],
+    "mat_turn_02": [],
+    "fork_03": [
+      "lane_03"
+    ],
+    "outbound_cross_03": [
+      "lane_03"
+    ],
+    "merge_03": [],
+    "mat_turn_03": [],
+    "fork_04": [
+      "lane_04"
+    ],
+    "outbound_cross_04": [
+      "lane_04"
+    ],
+    "merge_04": [],
+    "mat_turn_04": [],
+    "fork_05": [
+      "lane_05"
+    ],
+    "outbound_cross_05": [
+      "lane_05"
+    ],
+    "merge_05": [],
+    "mat_turn_05": [],
+    "fork_06": [
+      "lane_06"
+    ],
+    "outbound_cross_06": [
+      "lane_06"
+    ],
+    "merge_06": [],
+    "mat_turn_06": [],
+    "fork_07": [
+      "lane_07"
+    ],
+    "outbound_cross_07": [
+      "lane_07"
+    ],
+    "merge_07": [],
+    "mat_turn_07": [],
+    "fork_08": [
+      "lane_08"
+    ],
+    "outbound_cross_08": [
+      "lane_08"
+    ],
+    "merge_08": [],
+    "mat_turn_08": [],
+    "fork_09": [
+      "lane_09"
+    ],
+    "outbound_cross_09": [
+      "lane_09"
+    ],
+    "merge_09": [],
+    "mat_turn_09": [],
+    "fork_10": [
+      "lane_10"
+    ],
+    "outbound_cross_10": [
+      "lane_10"
+    ],
+    "merge_10": [],
+    "mat_turn_10": [],
+    "fork_11": [
+      "lane_11"
+    ],
+    "outbound_cross_11": [
+      "lane_11"
+    ],
+    "merge_11": [],
+    "mat_turn_11": [],
+    "fork_12": [
+      "lane_12"
+    ],
+    "outbound_cross_12": [
+      "lane_12"
+    ],
+    "merge_12": [],
+    "mat_turn_12": [],
+    "fork_13": [
+      "lane_13"
+    ],
+    "outbound_cross_13": [
+      "lane_13"
+    ],
+    "merge_13": [],
+    "mat_turn_13": [],
+    "fork_14": [
+      "lane_14"
+    ],
+    "outbound_cross_14": [
+      "lane_14"
+    ],
+    "merge_14": [],
+    "mat_turn_14": [],
+    "fork_15": [
+      "lane_15"
+    ],
+    "outbound_cross_15": [
+      "lane_15"
+    ],
+    "merge_15": [],
+    "mat_turn_15": [],
+    "fork_16": [
+      "lane_16"
+    ],
+    "outbound_cross_16": [
+      "lane_16"
+    ],
+    "merge_16": [],
+    "mat_turn_16": [],
+    "fork_17": [
+      "lane_17"
+    ],
+    "outbound_cross_17": [
+      "lane_17"
+    ],
+    "merge_17": [],
+    "mat_turn_17": [],
+    "fork_18": [
+      "lane_18"
+    ],
+    "outbound_cross_18": [
+      "lane_18"
+    ],
+    "merge_18": [],
+    "mat_turn_18": [],
+    "fork_19": [
+      "lane_19"
+    ],
+    "outbound_cross_19": [
+      "lane_19"
+    ],
+    "merge_19": [],
+    "mat_turn_19": [],
+    "fork_20": [
+      "lane_20"
+    ],
+    "outbound_cross_20": [
+      "lane_20"
+    ],
+    "merge_20": [],
+    "mat_turn_20": [],
+    "fork_21": [
+      "lane_21"
+    ],
+    "outbound_cross_21": [
+      "lane_21"
+    ],
+    "merge_21": [],
+    "mat_turn_21": [],
+    "fork_22": [
+      "lane_22"
+    ],
+    "outbound_cross_22": [
+      "lane_22"
+    ],
+    "merge_22": [],
+    "mat_turn_22": [],
+    "fork_23": [
+      "lane_23"
+    ],
+    "outbound_cross_23": [
+      "lane_23"
+    ],
+    "merge_23": [],
+    "mat_turn_23": [],
+    "fork_24": [
+      "lane_24"
+    ],
+    "outbound_cross_24": [
+      "lane_24"
+    ],
+    "merge_24": [],
+    "mat_turn_24": [],
+    "fork_25": [
+      "lane_25"
+    ],
+    "outbound_cross_25": [
+      "lane_25"
+    ],
+    "merge_25": [],
+    "mat_turn_25": [],
+    "fork_26": [
+      "lane_26"
+    ],
+    "outbound_cross_26": [
+      "lane_26"
+    ],
+    "merge_26": [],
+    "mat_turn_26": [],
+    "fork_27": [
+      "lane_27"
+    ],
+    "outbound_cross_27": [
+      "lane_27"
+    ],
+    "merge_27": [],
+    "mat_turn_27": [],
+    "fork_28": [
+      "lane_28"
+    ],
+    "outbound_cross_28": [
+      "lane_28"
+    ],
+    "merge_28": [],
+    "mat_turn_28": [],
+    "fork_29": [
+      "lane_29"
+    ],
+    "outbound_cross_29": [
+      "lane_29"
+    ],
+    "merge_29": [],
+    "mat_turn_29": [],
+    "fork_30": [
+      "lane_30"
+    ],
+    "outbound_cross_30": [
+      "lane_30"
+    ],
+    "merge_30": [],
+    "mat_turn_30": [],
+    "range_rejoin": [],
+    "bypass_turn": [],
+    "penalty_tail_cross_mat_30": [],
+    "start_join": []
+  },
+  "maximum_mat_stops_per_exclusive_region": 1,
+  "maximum_forks_per_exclusive_region": 1,
+  "minimum_mat_center_separation_m": 6.0,
+  "stationary_mat_body_gap_m": 5.3,
+  "neighbor_private_corridor_bound_gap_m": 0.40052461221077174,
+  "maximum_directed_seam_world_gap_m": 0.0,
+  "start_approach_length_m": 40.0,
+  "start_approach_radius_m": 20.002985946524834,
+  "start_guard_length_m": 18,
+  "start_seam_tangent": [
+    -1.0,
+    0.0
+  ],
+  "main_start_tangent": [
+    -1.0,
+    0.0
+  ],
+  "stationary_mat_oriented_body_pair_count": 435,
+  "stationary_mat_oriented_body_checks": "PASS",
+  "mass_start_grid_oriented_body_pair_count": 435,
+  "mass_start_grid_oriented_body_checks": "PASS_WITH_CANONICAL_GRID_AND_OCCUPANCY",
+  "grid_definition_resource": "Biathlon/mass_start_grid_provisional_v1",
+  "grid_definition_sha256": "9a9f66c94002277fdec5fe9c398b0e4eb2500b97e502cb907fe9987eeb79cb24",
+  "lane_assignment_and_runtime": "NOT_PROVED",
+  "simultaneous_mat_static_body_envelope": "PASS_WITH_CANONICAL_OCCUPANCY_WIDTH_AND_SHOOTING_FORWARD",
+  "visual_acceptance": "PENDING",
+  "source_file_hashes": {
+    "Biathlon/occupancy_provisional_v1.json": "e6ccb9b7e2a79bf53f42be040101064377cbb43f0f035cfcf4cd8acc90294fef",
+    "Biathlon/Venues/production_venue_validation_v1.json": "d6a48f3276e7ab32d11d15d79e304be69a71af6f7666bfe50f687fa1eeb2f00b",
+    "Biathlon/Stadium/G2Event/Event.prefab": "0c3e540cc2f89dab9fbbbf4a112910e9447fb50e80e68a56ceb2ca6686442222",
+    "Biathlon/Stadium/G2Grandstand/Grandstand.prefab": "cb3bc7029204540b338f40d234fc611008fb47e72b4fa975f26c772a518a09ac",
+    "Biathlon/Venues/woodland_basin_v1/connections.json": "86eac9920ea3969008ce87f16b53c1aa4282a276bccc43e7c4fd8cd519999a44",
+    "Biathlon/Venues/woodland_basin_v1/junctions.json": "98a3bd673c62a806a7ca0a8513d741aaa26be6fa402ee83438fbe7325a16637e",
+    "Biathlon/Venues/woodland_basin_v1/manifest.json": "5fbdfc7465e3ef63fa74d616af2b2a557b5570c233d64c253e339a1a45dc2d3b",
+    "Biathlon/Venues/woodland_basin_v1/mass_start_profile.json": "e06ba78cdf5c9c7d08282bc8bdff9f94d3f0ee4302698b6cd0e017a6f48d83ba",
+    "Biathlon/Venues/woodland_basin_v1/mass_start_route.json": "91835d00c76ba270701704a9b019fac18f40cd16cde7ccafe7829168ca5fe785",
+    "Biathlon/Venues/woodland_basin_v1/paths.json": "9516c087f323ad79ad1ab8e9fd8899080dc34cc6001fdb14451501b569bbebb6",
+    "Biathlon/Venues/woodland_basin_v1/start_approach.json": "7f511c99cf239aaa78b606b7c6dbf122df6552e903bec2cfbd80d6ed63d50c4d",
+    "Biathlon/Venues/woodland_basin_v1/start_continuation.json": "fff5b7656fbd0d1db08394cf0fd4a3838af4cb05064696832ad0aead2a8417ac",
+    "Biathlon/Venues/woodland_basin_v1/track.json": "f5bf7b5d64ddf5b2b51f1ab610b9ae3cc956e7be40348190a35dd8e6ac877aab",
+    "Biathlon/Venues/woodland_basin_v1/visual.json": "6c8385ffe9e51f57cd7cb0558933ef902e1ad1950a7032a59d22628579ac7f90"
+  },
+  "static_report_sha256": "be9d994f9a0bd6bf77ff122ac70d442a45c6f72070198abd85c731019471e0cc",
+  "validator_dll_sha256": "425269b83513b52c35d3264e9508f0c6e10f0ab109a973b416145615943d9b51",
+  "generator_sha256": "9e3b1ebef4a120ca0bb6810cc85752cc900d12ba4c52b71e89109698e7762d9e",
+  "recipe_sha256": "ea72b2ce138635256b21613ab6e516e79b5db93ce2e7453122b97dd21a0395b9"
+}

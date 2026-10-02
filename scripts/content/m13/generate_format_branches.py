@@ -1,0 +1,216 @@
+"""Generate original exact-distance format branches into a separate draft root.
+
+Shared Main is never copied to another physical loop ID. Each open branch has
+actual whole-mm world chords, explicit directed seams and local world guards.
+This tool does not import Unity Assets or claim static/runtime acceptance.
+"""
+from pathlib import Path
+import argparse, bisect, hashlib, json, math, shutil
+
+SCRIPT=Path(__file__).resolve().parent
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--project-root',type=Path,default=SCRIPT.parents[2])
+parser.add_argument('--base-root',type=Path,default=None)
+parser.add_argument('--output-root',type=Path,default=None)
+parser.add_argument('--recipe',type=Path,default=SCRIPT/'recipes/woodland_basin_formats_recipe_v1.json')
+args=parser.parse_args()
+PROJECT=args.project_root.resolve()
+BASE=(args.base_root or PROJECT/'artifacts/wp169i/draft').resolve()
+OUT=(args.output_root or PROJECT/'artifacts/wp169j/formats-draft').resolve()
+assert OUT!=BASE,'Full formats must not overwrite the Mass checkpoint.'
+OUT.mkdir(parents=True,exist_ok=True)
+RES=OUT/'resources'
+recipe=json.loads(args.recipe.read_text(encoding='utf-8-sig'))
+assert recipe['schema_version']==1
+VENUE=recipe['venue_id'];assert VENUE.replace('_','').isalnum() and VENUE.endswith('_v1')
+LABEL=VENUE[:-3];PREFIX='Biathlon/Venues/'+VENUE
+
+def read(name):return json.loads((BASE/'resources'/PREFIX/(name+'.json')).read_text(encoding='utf-8-sig'))
+def write(name,data):
+    path=RES/PREFIX/(name+'.json');path.parent.mkdir(parents=True,exist_ok=True)
+    path.write_text(json.dumps(data,indent=2,allow_nan=False)+'\n',encoding='utf-8')
+def mm(x):
+    n=round(x*1000);assert abs(n/1000-x)<1e-9,(x,n);return n
+def add(a,b):return tuple(x+y for x,y in zip(a,b))
+def sub(a,b):return tuple(x-y for x,y in zip(a,b))
+def mul(a,s):return tuple(x*s for x in a)
+def dot(a,b):return sum(x*y for x,y in zip(a,b))
+def norm(a):return math.sqrt(dot(a,a))
+def unit(a):return mul(a,1/norm(a))
+def coord(k):return tuple(k[x] for x in ('x','y','z'))
+
+track=read('track');visual=read('visual');junctions=read('junctions');connections=read('connections');manifest=read('manifest')
+main=next(loop for loop in visual['loops'] if loop['loop_id']==recipe['main_loop_id'])
+main_distances=[k['distance_m'] for k in main['knots']]
+def sample(d):
+    i=min(bisect.bisect_right(main_distances,d)-1,len(main_distances)-2)
+    a,b=main['knots'][i:i+2];t=(d-a['distance_m'])/(b['distance_m']-a['distance_m'])
+    return add(coord(a),mul(sub(coord(b),coord(a)),t))
+def tangent(d):
+    i=min(bisect.bisect_right(main_distances,d)-1,len(main_distances)-2)
+    return unit(sub(coord(main['knots'][i+1]),coord(main['knots'][i])))
+def length(points):return sum(math.dist(a,b) for a,b in zip(points,points[1:]))
+def append_arc(points,center,radius,start,end,q,height):
+    for i in range(1,q+1):
+        angle=start+(end-start)*i/q
+        x,z=center[0]+radius*math.cos(angle),center[1]+radius*math.sin(angle)
+        points.append((x,height(z),z))
+def append_straight(points,end):
+    # An even pair leaves fixed control points on both ends for chord solving.
+    points.append(mul(add(points[-1],end),.5));points.append(end)
+
+terminal=recipe['aligned_terminal_edge_m'];q=recipe['quarter_segments'];slack=recipe['world_chord_real_slack_m']
+
+def solve_parameter(builder,target,lo,hi):
+    increasing=length(builder(hi))>length(builder(lo))
+    assert min(length(builder(lo)),length(builder(hi)))<=target<=max(length(builder(lo)),length(builder(hi)))
+    for _ in range(80):
+        mid=(lo+hi)/2
+        if (length(builder(mid))<target)==increasing:lo=mid
+        else:hi=mid
+    return (lo+hi)/2
+
+def exact_chords(points,target_mm):
+    """Keep even controls and move odd controls onto exact sphere intersections."""
+    assert len(points)%2==1
+    pairs=[]
+    for i in range(0,len(points)-2,2):
+        a,p,b=points[i:i+3];l1,l2=math.dist(a,p),math.dist(p,b);d=math.dist(a,b)
+        budget=max(math.floor(l1*1000)+math.floor(l2*1000),math.ceil(d*1000-1e-8))
+        pairs.append({'i':i,'budget':budget,'raw':(l1+l2)*1000,'l1':l1,'l2':l2})
+    remaining=target_mm-sum(p['budget'] for p in pairs)
+    assert remaining>=0,('Increase real geometric slack',remaining)
+    ordered=sorted(pairs,key=lambda p:-(p['raw']-p['budget']))
+    for i in range(remaining):ordered[i%len(ordered)]['budget']+=1
+    result=points[:];edge_mm=[]
+    for p in pairs:
+        i=p['i'];a,old,b=points[i:i+3];d=math.dist(a,b)
+        l1_mm=round(p['budget']*p['l1']/(p['l1']+p['l2']))
+        l2_mm=p['budget']-l1_mm;l1,l2=l1_mm/1000,l2_mm/1000
+        assert abs(l1-l2)<=d+1e-9 and d<=l1+l2+1e-9,(i,d,l1,l2)
+        axis=unit(sub(b,a));axial=(l1*l1-l2*l2+d*d)/(2*d)
+        projection=add(a,mul(axis,axial));perp=sub(old,add(a,mul(axis,dot(sub(old,a),axis))))
+        if norm(perp)<1e-8:
+            perp=(-axis[2],0,axis[0]);perp=sub(perp,mul(axis,dot(perp,axis)))
+        h=math.sqrt(max(0,l1*l1-axial*axial))
+        result[i+1]=add(projection,mul(unit(perp),h));edge_mm.extend((l1_mm,l2_mm))
+    assert sum(edge_mm)==target_mm
+    assert max(abs(math.dist(a,b)-n/1000) for a,b,n in zip(result,result[1:],edge_mm))<1e-8
+    return result,edge_mm
+
+def pursuit_points(parameter):
+    spec=recipe['pursuit'];a,b=sample(spec['main_depart_m']),sample(spec['main_return_m'])
+    p=add(a,mul(tangent(spec['main_depart_m']),terminal));end=sub(b,mul(tangent(spec['main_return_m']),terminal))
+    r1=parameter;r2=r1+end[2]-p[2]
+    climb=-tangent(spec['main_depart_m'])[1]/tangent(spec['main_depart_m'])[2]
+    descent=-tangent(spec['main_return_m'])[1]/tangent(spec['main_return_m'])[2]
+    height1=lambda z:a[1]+climb*(a[2]-z)
+    height2=lambda z:b[1]+descent*(b[2]-z)
+    points=[p]
+    append_arc(points,(p[0]+r1,p[2]),r1,math.pi,1.5*math.pi,q,height1)
+    straight_end=(end[0]-r2,height2(end[2]-r2),end[2]-r2)
+    append_straight(points,straight_end)
+    append_arc(points,(end[0]-r2,end[2]),r2,1.5*math.pi,2*math.pi,q,height2)
+    points[-1]=end
+    return points
+
+def sprint_points(straight):
+    spec=recipe['sprint'];a,b=sample(spec['main_depart_m']),sample(spec['main_return_m'])
+    p=add(a,mul(tangent(spec['main_depart_m']),terminal));end=sub(b,mul(tangent(spec['main_return_m']),terminal))
+    r=spec['turn_radius_m'];vertical=p[2]-end[2]-4*r;assert vertical>0
+    climb=-tangent(spec['main_depart_m'])[1]/tangent(spec['main_depart_m'])[2]
+    height=lambda z:a[1]+climb*(a[2]-z)
+    points=[p]
+    append_arc(points,(p[0]-r,p[2]),r,0,-math.pi/2,q,height)
+    left=p[0]-r-straight
+    append_straight(points,(left,height(p[2]-r),p[2]-r))
+    append_arc(points,(left,p[2]-2*r),r,math.pi/2,math.pi,q,height)
+    append_straight(points,(left-r,height(p[2]-2*r-vertical),p[2]-2*r-vertical))
+    append_arc(points,(left,p[2]-2*r-vertical),r,math.pi,1.5*math.pi,q,height)
+    append_straight(points,(p[0]-r,height(p[2]-3*r-vertical),p[2]-3*r-vertical))
+    append_arc(points,(p[0]-r,end[2]),r,math.pi/2,0,q,height)
+    points[-1]=end
+    return points
+
+def branch(spec,builder,lo,hi):
+    target=spec['length_m']-2*terminal
+    parameter=solve_parameter(builder,target-slack,lo,hi)
+    raw=builder(parameter);points,chords=exact_chords(raw,mm(target))
+    points=[sample(spec['main_depart_m'])]+points+[sample(spec['main_return_m'])]
+    chords=[mm(terminal)]+chords+[mm(terminal)]
+    knots=[];segments=[];travel=0
+    for i,p in enumerate(points):
+        knots.append({'distance_m':travel/1000,'x':p[0],'y':p[1],'z':p[2]})
+        if i==len(points)-1:break
+        delta=sub(points[i+1],p);horizontal=math.hypot(delta[0],delta[2]);grade=delta[1]/horizontal
+        curvature=0
+        if i>0:
+            prior=sub(p,points[i-1]);angle=math.atan2(prior[0]*delta[2]-prior[2]*delta[0],prior[0]*delta[0]+prior[2]*delta[2])
+            curvature=angle/((math.hypot(prior[0],prior[2])+horizontal)/2)
+        segments.append({'id':f'edge_{i:03d}','length_m':chords[i]/1000,'start_grade':grade,'end_grade':grade,
+            'curvature_per_m':curvature,'width_m':recipe['width_m'],'snow_profile_id':'snow_test_packed','wind_exposure':.45 if spec is recipe['sprint'] else .25,
+            'terrain_muscle_factor':1.18 if grade>.02 else 1,'draft_allowed':True,'overtake_allowed':True,'risk_level':.25 if abs(curvature)>.01 else .05,'semantic_zone':'climb_long' if grade>.02 else 'descent_technical' if grade<-.02 else 'rolling' if abs(curvature)>.01 else 'flat'})
+        overrides=spec.get('tactical_profile',{})
+        assert set(overrides)<= {'wind_exposure','draft_allowed','overtake_allowed','risk_level'}
+        segments[-1].update(overrides)
+        travel+=chords[i]
+    assert travel==mm(spec['length_m'])
+    assert math.dist(unit(sub(points[1],points[0])),tangent(spec['main_depart_m']))<1e-10
+    assert math.dist(unit(sub(points[-1],points[-2])),tangent(spec['main_return_m']))<1e-10
+    return {'id':spec['loop_id'],'kind':'race','closed':False,'segments':segments},{'loop_id':spec['loop_id'],'knots':knots},parameter
+
+proofs=[]
+for key,builder,lo,hi in [('pursuit',pursuit_points,20,250),('sprint',sprint_points,20,250)]:
+    spec=recipe[key];definition,mapping,parameter=branch(spec,builder,lo,hi)
+    track['loops'].append(definition);visual['loops'].append(mapping)
+    guard=spec.get('guard_distance_m',recipe['guard_distance_m'])
+    for side,main_d,branch_d in [('depart',spec['main_depart_m'],0),('return',spec['main_return_m'],spec['length_m'])]:
+        rid=f'{key}_{side}';main_port=rid+'_main';branch_port=rid+'_branch'
+        junctions['junctions'].append({'id':rid,'ports':[
+            {'id':main_port,'anchor':{'loop_id':'main','distance_m':main_d},'guard_before_m':guard,'guard_after_m':guard},
+            {'id':branch_port,'anchor':{'loop_id':spec['loop_id'],'distance_m':branch_d},'guard_before_m':guard if side=='return' else 0,'guard_after_m':guard if side=='depart' else 0}]})
+        connections['connections'].append({'id':rid+'_connection','junction_id':rid,
+            'from_port_id':main_port if side=='depart' else branch_port,'to_port_id':branch_port if side=='depart' else main_port,'kind':'coincident_seam'})
+    profile={'schema_version':1,'id':f'{LABEL}_{key}_men_v1','rules_revision':'production_distance_structure_v1',
+        'format':0 if key=='sprint' else 1,'category':0,'distance_m':spec['race_distance_m'],'laps':spec['laps'],
+        'start_type':0 if key=='sprint' else 1,'start_interval_s':30 if key=='sprint' else 0,'field_capacity':spec['field_capacity'],
+        'shots_per_bout':5,'penalty_loop_m':150,'shooting_bouts':[{'id':f'bout_{i+1}','after_lap':i+1,'stance':0 if i<(1 if key=='sprint' else 2) else 1} for i in range(2 if key=='sprint' else 4)]}
+    laps=[]
+    for i in range(spec['laps']):
+        slices=[{'loop_id':'main','start_m':0,'end_m':spec['main_depart_m']},
+            {'loop_id':spec['loop_id'],'start_m':0,'end_m':spec['length_m'],'enter_connection_id':key+'_depart_connection'},
+            {'loop_id':'main','start_m':spec['main_return_m'],'end_m':3000,'enter_connection_id':key+'_return_connection'}]
+        if key=='sprint' and i==spec['laps']-1:slices.append({'loop_id':'main','start_m':0,'end_m':spec['paid_final_main_continuation_m']})
+        laps.append({'id':f'lap_{i+1}','slices':slices})
+    route={'schema_version':2,'id':f'{LABEL}_{key}_route_v2','track_id':track['id'],'competition_profile_id':profile['id'],'laps':laps}
+    race_mm=sum(mm(s['end_m'])-mm(s['start_m']) for lap in laps for s in lap['slices'])
+    assert race_mm==mm(profile['distance_m'])
+    write(key+'_profile',profile);write(key+'_route',route)
+    errors=[abs(math.dist(coord(a),coord(b))-(b['distance_m']-a['distance_m'])) for a,b in zip(mapping['knots'],mapping['knots'][1:])]
+    proofs.append({'format':key,'loop_id':spec['loop_id'],'length_m':spec['length_m'],'main_depart_m':spec['main_depart_m'],'main_return_m':spec['main_return_m'],
+        'world_parameter_m':parameter,'edge_count':len(definition['segments']),'maximum_world_edge_length_error_m':max(errors),
+        'maximum_grade':max(abs(s['start_grade']) for s in definition['segments']),'maximum_curvature_per_m':max(abs(s['curvature_per_m']) for s in definition['segments']),
+        'actual_race_distance_m':race_mm/1000,'lap_distances_m':[sum(mm(s['end_m'])-mm(s['start_m']) for s in lap['slices'])/1000 for lap in laps],
+        'seam_world_gap_m':0,'endpoint_tangents':'EXACT_MAIN_DIRECTION','guard_before_after_m':guard})
+
+# Only small definitions and actual native dependencies are copied. Environment
+# is regenerated from all resulting corridors, never carried over as stale data.
+for path in (BASE/'resources').rglob('*'):
+    relative=path.relative_to(BASE/'resources');unix=str(relative).replace('\\','/')
+    if not path.is_file() or '/environment/' in unix or path.name=='environment.json':continue
+    if relative.parts[-1] in ('track.json','visual.json','junctions.json','connections.json'):continue
+    destination=RES/relative;destination.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(path,destination)
+manifest['format_bindings_resource']=PREFIX+'/format_bindings'
+for name,data in [('track',track),('visual',visual),('junctions',junctions),('connections',connections),('manifest',manifest)]:write(name,data)
+catalog={'schema_version':1,'id':LABEL+'_format_bindings_v1','venue_id':recipe['venue_id'],'track_id':track['id'],
+    'formats':[{'id':key,'profile_resource':PREFIX+'/'+key+'_profile','route_resource':PREFIX+'/'+key+'_route'} for key in ('mass_start','sprint','pursuit')]}
+write('format_bindings',catalog)
+shutil.copyfile(SCRIPT/'presentation-resource-recipe.json' if VENUE=='woodland_basin_v1' else BASE/'presentation-resource-recipe.json',OUT/'presentation-resource-recipe.json')
+(OUT/'formats-recipe.json').write_text(json.dumps(recipe,indent=2)+'\n',encoding='utf-8')
+audit={'schema_version':1,'id':LABEL+'_format_branch_geometry_audit_v1','status':'DRAFT_WORLD_GUARD_AND_FORMAT_BINDING_VALIDATION_PENDING',
+    'venue_id':recipe['venue_id'],'track_id':track['id'],'base_main_identity_unchanged':main==next(l for l in visual['loops'] if l['loop_id']=='main'),
+    'branches':proofs,'catalog_binding':'EXPLICIT_MANIFEST_CONTRACT_COLD_VALIDATION_PENDING','runtime_and_visual_acceptance':'PENDING',
+    'generator_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'recipe_sha256':hashlib.sha256(args.recipe.read_bytes()).hexdigest(),
+    'generated_definition_sha256':{name:hashlib.sha256((RES/PREFIX/(name+'.json')).read_bytes()).hexdigest() for name in ('track','visual','junctions','connections','sprint_route','pursuit_route','format_bindings')}}
+(OUT/'formats-audit.json').write_text(json.dumps(audit,indent=2)+'\n',encoding='utf-8')
+print(json.dumps(proofs,indent=2),flush=True)

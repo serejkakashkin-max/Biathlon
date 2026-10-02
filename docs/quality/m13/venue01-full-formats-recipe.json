@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "woodland_basin_formats_recipe_v1",
+  "venue_id": "woodland_basin_v1",
+  "main_loop_id": "main",
+  "width_m": 6,
+  "aligned_terminal_edge_m": 1,
+  "quarter_segments": 8,
+  "world_chord_real_slack_m": 0.02,
+  "guard_distance_m": 25,
+  "pursuit": {
+    "loop_id": "pursuit_shortcut",
+    "main_depart_m": 597.048,
+    "main_return_m": 1980.392,
+    "length_m": 883.344,
+    "race_distance_m": 12500,
+    "laps": 5,
+    "field_capacity": 60
+  },
+  "sprint": {
+    "loop_id": "sprint_extension",
+    "main_depart_m": 549.048,
+    "main_return_m": 729.048,
+    "length_m": 513.333,
+    "turn_radius_m": 30,
+    "race_distance_m": 10000,
+    "laps": 3,
+    "field_capacity": 60,
+    "paid_final_main_continuation_m": 0.001
+  },
+  "status": "DRAFT_FORMAT_BINDING_RUNTIME_AND_VISUAL_ACCEPTANCE_PENDING"
+}

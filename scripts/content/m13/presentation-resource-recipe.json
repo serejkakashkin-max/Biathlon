@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "id": "woodland_basin_presentation_resource_recipe_v1",
+  "status": "EXISTING_LICENSED_RESOURCES_ONLY_PRESENTATION_NOT_GENERATED",
+  "venue_manifest_resource": "Biathlon/Venues/woodland_basin_v1/manifest",
+  "snow": {
+    "material_resource": "Biathlon/Terrain/G2Snow/WinterBlend",
+    "derivation_record": "docs/licensing/g2_visual/snow-derivation.json"
+  },
+  "vegetation": [
+    {
+      "id": "fir",
+      "lod_mesh_resources": ["Biathlon/Vegetation/G2Fir/FirLOD0", "Biathlon/Vegetation/G2Fir/FirLOD1", "Biathlon/Vegetation/G2Fir/FirLOD2"],
+      "material_resource": "Biathlon/Vegetation/G2Fir/Fir",
+      "derivation_record": "docs/licensing/g2_visual/fir-derivation.json"
+    },
+    {
+      "id": "pine",
+      "lod_mesh_resources": ["Biathlon/Vegetation/G2Pine/PineLOD0", "Biathlon/Vegetation/G2Pine/PineLOD1", "Biathlon/Vegetation/G2Pine/PineLOD2"],
+      "material_resource": "Biathlon/Vegetation/G2Pine/Pine",
+      "derivation_record": "docs/licensing/g2_visual/pine-derivation.json"
+    },
+    {
+      "id": "shrub",
+      "lod_mesh_resources": ["Biathlon/Vegetation/G2Shrub/ShrubLOD0", "Biathlon/Vegetation/G2Shrub/ShrubLOD1", "Biathlon/Vegetation/G2Shrub/ShrubLOD2"],
+      "material_resource": "Biathlon/Vegetation/G2Shrub/Shrub",
+      "derivation_record": "docs/licensing/g2_visual/shrub-derivation.json"
+    }
+  ],
+  "rocks": {
+    "lod_mesh_resources": ["Biathlon/Terrain/G2Rock/RockLOD0", "Biathlon/Terrain/G2Rock/RockLOD1"],
+    "material_resource": "Biathlon/Terrain/G2Rock/SnowyRock",
+    "derivation_record": "docs/licensing/g2_visual/rock-derivation.json"
+  },
+  "stadium": {
+    "grandstand_resource": "Biathlon/Stadium/G2Grandstand/Grandstand",
+    "event_resource": "Biathlon/Stadium/G2Event/Event",
+    "derivation_records": ["docs/licensing/g2_visual/grandstand-derivation.json", "docs/licensing/g2_visual/event-derivation.json"]
+  },
+  "lighting": {
+    "sky_material_resource": "Biathlon/Weather/G2Lighting/BenchmarkSky",
+    "derivation_record": "docs/licensing/g2_visual/lighting-derivation.json"
+  },
+  "generation_contract": {
+    "track_surface": "Generate ribbons from this venue's exact world knots and widths; preserve snow physics IDs.",
+    "terrain": "Generate bounded chunks with authored course elevation, blend around the complete 3 km lap and stadium; do not stretch the benchmark surface.",
+    "forest": "Generate bounded spatial clusters with explicit ground heights and route clearance; reuse native mesh/material LOD resources.",
+    "stadium": "Position event modules for the 30-mat stadium and dedicated northern start approach; current manifest placements are authoring previews only.",
+    "crowd": "Owner-approved simplified crowd is allowed. Restricted Renderpeople derivatives remain local ignored resources and are never copied into this draft.",
+    "credits": "Retain all existing G2 shipped credits and derivation records. No newly downloaded assets are introduced."
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "id": "woodland_basin_serialized_format_routes_verification_v1",
+  "status": "PASS_EXACT_SERIALIZED_GEOMETRY_TOPOLOGY_ROUTE_ARITHMETIC_RUNTIME_PENDING",
+  "venue_id": "woodland_basin_v1",
+  "edge_count": 1322,
+  "slice_count": 30,
+  "maximum_world_edge_length_error_m": 9.769962616701378e-14,
+  "maximum_grade_error": 0.0,
+  "directed_connection_count": 69,
+  "maximum_directed_seam_world_gap_m": 0.0,
+  "unchanged_base_loop_count": 34,
+  "unchanged_lane_path_count": 30,
+  "formats": [
+    {
+      "format": "mass_start",
+      "distance_m": 15000.0,
+      "lap_distances_m": [
+        3000.0,
+        3000.0,
+        3000.0,
+        3000.0,
+        3000.0
+      ],
+      "finish_anchor": {
+        "loop_id": "main",
+        "distance_m": 3000.0
+      }
+    },
+    {
+      "format": "sprint",
+      "distance_m": 10000.0,
+      "lap_distances_m": [
+        3333.333,
+        3333.333,
+        3333.334
+      ],
+      "finish_anchor": {
+        "loop_id": "main",
+        "distance_m": 0.001
+      }
+    },
+    {
+      "format": "pursuit",
+      "distance_m": 12500.0,
+      "lap_distances_m": [
+        2500.0,
+        2500.0,
+        2500.0,
+        2500.0,
+        2500.0
+      ],
+      "finish_anchor": {
+        "loop_id": "main",
+        "distance_m": 3000.0
+      }
+    }
+  ],
+  "authority_boundary": "Independent serialized proof; full cold catalog/occupancy/Unity/race/replay acceptance still required",
+  "source_hashes": {
+    "track": "4492d896160b3368c22d79ca66711aa9dc738fee51cb231c36625fb8f63b1a2c",
+    "visual": "31bfd448d876800f10ca1ed3742b7a8620b496fe969fbd2e894086129afdfedd",
+    "paths": "9516c087f323ad79ad1ab8e9fd8899080dc34cc6001fdb14451501b569bbebb6",
+    "junctions": "d54f6e978ecfb85dcab1ff011eb0264ba4984d3e7345edcb333657fe2c6f18ef",
+    "connections": "7f4370678bd87792b93b95f12ac3c1ddb2a8c8e1d3e9a283471f3db7f8024566",
+    "sprint_route": "28864f04320e5f9e384a6a65667f3a9fbb36a7496fca50c4e7c5a2552e4be77b",
+    "pursuit_route": "bc262cab07b0b05b307e4671a1ecc3032e80a81ed0f9cef5429f0243cfe309a3"
+  }
+}

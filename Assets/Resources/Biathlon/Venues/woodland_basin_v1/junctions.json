@@ -1,0 +1,2960 @@
+{
+  "schema_version": 1,
+  "id": "woodland_basin_junctions_v1",
+  "track_id": "woodland_basin_track_v1",
+  "junctions": [
+    {
+      "id": "fork_01",
+      "ports": [
+        {
+          "id": "fork_01_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2725.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_01_private",
+          "anchor": {
+            "loop_id": "mat_01",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_01",
+      "ports": [
+        {
+          "id": "outbound_cross_01_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2724.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_01_private",
+          "anchor": {
+            "loop_id": "mat_01",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_01",
+      "ports": [
+        {
+          "id": "merge_01_private",
+          "anchor": {
+            "loop_id": "mat_01",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_01_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 11.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_01",
+      "ports": [
+        {
+          "id": "mat_turn_01_incoming",
+          "anchor": {
+            "loop_id": "mat_01",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_01_outgoing",
+          "anchor": {
+            "loop_id": "mat_01",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_02",
+      "ports": [
+        {
+          "id": "fork_02_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2731.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_02_private",
+          "anchor": {
+            "loop_id": "mat_02",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_02",
+      "ports": [
+        {
+          "id": "outbound_cross_02_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2730.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_02_private",
+          "anchor": {
+            "loop_id": "mat_02",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_02",
+      "ports": [
+        {
+          "id": "merge_02_private",
+          "anchor": {
+            "loop_id": "mat_02",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_02_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 17.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_02",
+      "ports": [
+        {
+          "id": "mat_turn_02_incoming",
+          "anchor": {
+            "loop_id": "mat_02",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_02_outgoing",
+          "anchor": {
+            "loop_id": "mat_02",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_03",
+      "ports": [
+        {
+          "id": "fork_03_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2737.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_03_private",
+          "anchor": {
+            "loop_id": "mat_03",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_03",
+      "ports": [
+        {
+          "id": "outbound_cross_03_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2736.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_03_private",
+          "anchor": {
+            "loop_id": "mat_03",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_03",
+      "ports": [
+        {
+          "id": "merge_03_private",
+          "anchor": {
+            "loop_id": "mat_03",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_03_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 23.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_03",
+      "ports": [
+        {
+          "id": "mat_turn_03_incoming",
+          "anchor": {
+            "loop_id": "mat_03",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_03_outgoing",
+          "anchor": {
+            "loop_id": "mat_03",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_04",
+      "ports": [
+        {
+          "id": "fork_04_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2743.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_04_private",
+          "anchor": {
+            "loop_id": "mat_04",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_04",
+      "ports": [
+        {
+          "id": "outbound_cross_04_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2742.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_04_private",
+          "anchor": {
+            "loop_id": "mat_04",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_04",
+      "ports": [
+        {
+          "id": "merge_04_private",
+          "anchor": {
+            "loop_id": "mat_04",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_04_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 29.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_04",
+      "ports": [
+        {
+          "id": "mat_turn_04_incoming",
+          "anchor": {
+            "loop_id": "mat_04",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_04_outgoing",
+          "anchor": {
+            "loop_id": "mat_04",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_05",
+      "ports": [
+        {
+          "id": "fork_05_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2749.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_05_private",
+          "anchor": {
+            "loop_id": "mat_05",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_05",
+      "ports": [
+        {
+          "id": "outbound_cross_05_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2748.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_05_private",
+          "anchor": {
+            "loop_id": "mat_05",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_05",
+      "ports": [
+        {
+          "id": "merge_05_private",
+          "anchor": {
+            "loop_id": "mat_05",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_05_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 35.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_05",
+      "ports": [
+        {
+          "id": "mat_turn_05_incoming",
+          "anchor": {
+            "loop_id": "mat_05",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_05_outgoing",
+          "anchor": {
+            "loop_id": "mat_05",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_06",
+      "ports": [
+        {
+          "id": "fork_06_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2755.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_06_private",
+          "anchor": {
+            "loop_id": "mat_06",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_06",
+      "ports": [
+        {
+          "id": "outbound_cross_06_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2754.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_06_private",
+          "anchor": {
+            "loop_id": "mat_06",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_06",
+      "ports": [
+        {
+          "id": "merge_06_private",
+          "anchor": {
+            "loop_id": "mat_06",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_06_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 41.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_06",
+      "ports": [
+        {
+          "id": "mat_turn_06_incoming",
+          "anchor": {
+            "loop_id": "mat_06",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_06_outgoing",
+          "anchor": {
+            "loop_id": "mat_06",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_07",
+      "ports": [
+        {
+          "id": "fork_07_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2761.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_07_private",
+          "anchor": {
+            "loop_id": "mat_07",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_07",
+      "ports": [
+        {
+          "id": "outbound_cross_07_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2760.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_07_private",
+          "anchor": {
+            "loop_id": "mat_07",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_07",
+      "ports": [
+        {
+          "id": "merge_07_private",
+          "anchor": {
+            "loop_id": "mat_07",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_07_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 47.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_07",
+      "ports": [
+        {
+          "id": "mat_turn_07_incoming",
+          "anchor": {
+            "loop_id": "mat_07",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_07_outgoing",
+          "anchor": {
+            "loop_id": "mat_07",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_08",
+      "ports": [
+        {
+          "id": "fork_08_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2767.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_08_private",
+          "anchor": {
+            "loop_id": "mat_08",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_08",
+      "ports": [
+        {
+          "id": "outbound_cross_08_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2766.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_08_private",
+          "anchor": {
+            "loop_id": "mat_08",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_08",
+      "ports": [
+        {
+          "id": "merge_08_private",
+          "anchor": {
+            "loop_id": "mat_08",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_08_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 53.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_08",
+      "ports": [
+        {
+          "id": "mat_turn_08_incoming",
+          "anchor": {
+            "loop_id": "mat_08",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_08_outgoing",
+          "anchor": {
+            "loop_id": "mat_08",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_09",
+      "ports": [
+        {
+          "id": "fork_09_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2773.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_09_private",
+          "anchor": {
+            "loop_id": "mat_09",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_09",
+      "ports": [
+        {
+          "id": "outbound_cross_09_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2772.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_09_private",
+          "anchor": {
+            "loop_id": "mat_09",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_09",
+      "ports": [
+        {
+          "id": "merge_09_private",
+          "anchor": {
+            "loop_id": "mat_09",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_09_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 59.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_09",
+      "ports": [
+        {
+          "id": "mat_turn_09_incoming",
+          "anchor": {
+            "loop_id": "mat_09",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_09_outgoing",
+          "anchor": {
+            "loop_id": "mat_09",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_10",
+      "ports": [
+        {
+          "id": "fork_10_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2779.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_10_private",
+          "anchor": {
+            "loop_id": "mat_10",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_10",
+      "ports": [
+        {
+          "id": "outbound_cross_10_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2778.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_10_private",
+          "anchor": {
+            "loop_id": "mat_10",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_10",
+      "ports": [
+        {
+          "id": "merge_10_private",
+          "anchor": {
+            "loop_id": "mat_10",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_10_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 65.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_10",
+      "ports": [
+        {
+          "id": "mat_turn_10_incoming",
+          "anchor": {
+            "loop_id": "mat_10",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_10_outgoing",
+          "anchor": {
+            "loop_id": "mat_10",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_11",
+      "ports": [
+        {
+          "id": "fork_11_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2785.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_11_private",
+          "anchor": {
+            "loop_id": "mat_11",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_11",
+      "ports": [
+        {
+          "id": "outbound_cross_11_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2784.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_11_private",
+          "anchor": {
+            "loop_id": "mat_11",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_11",
+      "ports": [
+        {
+          "id": "merge_11_private",
+          "anchor": {
+            "loop_id": "mat_11",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_11_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 71.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_11",
+      "ports": [
+        {
+          "id": "mat_turn_11_incoming",
+          "anchor": {
+            "loop_id": "mat_11",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_11_outgoing",
+          "anchor": {
+            "loop_id": "mat_11",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_12",
+      "ports": [
+        {
+          "id": "fork_12_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2791.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_12_private",
+          "anchor": {
+            "loop_id": "mat_12",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_12",
+      "ports": [
+        {
+          "id": "outbound_cross_12_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2790.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_12_private",
+          "anchor": {
+            "loop_id": "mat_12",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_12",
+      "ports": [
+        {
+          "id": "merge_12_private",
+          "anchor": {
+            "loop_id": "mat_12",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_12_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 77.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_12",
+      "ports": [
+        {
+          "id": "mat_turn_12_incoming",
+          "anchor": {
+            "loop_id": "mat_12",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_12_outgoing",
+          "anchor": {
+            "loop_id": "mat_12",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_13",
+      "ports": [
+        {
+          "id": "fork_13_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2797.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_13_private",
+          "anchor": {
+            "loop_id": "mat_13",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_13",
+      "ports": [
+        {
+          "id": "outbound_cross_13_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2796.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_13_private",
+          "anchor": {
+            "loop_id": "mat_13",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_13",
+      "ports": [
+        {
+          "id": "merge_13_private",
+          "anchor": {
+            "loop_id": "mat_13",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_13_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 83.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_13",
+      "ports": [
+        {
+          "id": "mat_turn_13_incoming",
+          "anchor": {
+            "loop_id": "mat_13",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_13_outgoing",
+          "anchor": {
+            "loop_id": "mat_13",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_14",
+      "ports": [
+        {
+          "id": "fork_14_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2803.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_14_private",
+          "anchor": {
+            "loop_id": "mat_14",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_14",
+      "ports": [
+        {
+          "id": "outbound_cross_14_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2802.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_14_private",
+          "anchor": {
+            "loop_id": "mat_14",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_14",
+      "ports": [
+        {
+          "id": "merge_14_private",
+          "anchor": {
+            "loop_id": "mat_14",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_14_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 89.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_14",
+      "ports": [
+        {
+          "id": "mat_turn_14_incoming",
+          "anchor": {
+            "loop_id": "mat_14",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_14_outgoing",
+          "anchor": {
+            "loop_id": "mat_14",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_15",
+      "ports": [
+        {
+          "id": "fork_15_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2809.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_15_private",
+          "anchor": {
+            "loop_id": "mat_15",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_15",
+      "ports": [
+        {
+          "id": "outbound_cross_15_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2808.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_15_private",
+          "anchor": {
+            "loop_id": "mat_15",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_15",
+      "ports": [
+        {
+          "id": "merge_15_private",
+          "anchor": {
+            "loop_id": "mat_15",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_15_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 95.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_15",
+      "ports": [
+        {
+          "id": "mat_turn_15_incoming",
+          "anchor": {
+            "loop_id": "mat_15",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_15_outgoing",
+          "anchor": {
+            "loop_id": "mat_15",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_16",
+      "ports": [
+        {
+          "id": "fork_16_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2815.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_16_private",
+          "anchor": {
+            "loop_id": "mat_16",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_16",
+      "ports": [
+        {
+          "id": "outbound_cross_16_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2814.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_16_private",
+          "anchor": {
+            "loop_id": "mat_16",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_16",
+      "ports": [
+        {
+          "id": "merge_16_private",
+          "anchor": {
+            "loop_id": "mat_16",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_16_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 101.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_16",
+      "ports": [
+        {
+          "id": "mat_turn_16_incoming",
+          "anchor": {
+            "loop_id": "mat_16",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_16_outgoing",
+          "anchor": {
+            "loop_id": "mat_16",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_17",
+      "ports": [
+        {
+          "id": "fork_17_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2821.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_17_private",
+          "anchor": {
+            "loop_id": "mat_17",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_17",
+      "ports": [
+        {
+          "id": "outbound_cross_17_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2820.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_17_private",
+          "anchor": {
+            "loop_id": "mat_17",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_17",
+      "ports": [
+        {
+          "id": "merge_17_private",
+          "anchor": {
+            "loop_id": "mat_17",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_17_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 107.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_17",
+      "ports": [
+        {
+          "id": "mat_turn_17_incoming",
+          "anchor": {
+            "loop_id": "mat_17",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_17_outgoing",
+          "anchor": {
+            "loop_id": "mat_17",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_18",
+      "ports": [
+        {
+          "id": "fork_18_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2827.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_18_private",
+          "anchor": {
+            "loop_id": "mat_18",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_18",
+      "ports": [
+        {
+          "id": "outbound_cross_18_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2826.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_18_private",
+          "anchor": {
+            "loop_id": "mat_18",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_18",
+      "ports": [
+        {
+          "id": "merge_18_private",
+          "anchor": {
+            "loop_id": "mat_18",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_18_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 113.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_18",
+      "ports": [
+        {
+          "id": "mat_turn_18_incoming",
+          "anchor": {
+            "loop_id": "mat_18",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_18_outgoing",
+          "anchor": {
+            "loop_id": "mat_18",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_19",
+      "ports": [
+        {
+          "id": "fork_19_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2833.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_19_private",
+          "anchor": {
+            "loop_id": "mat_19",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_19",
+      "ports": [
+        {
+          "id": "outbound_cross_19_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2832.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_19_private",
+          "anchor": {
+            "loop_id": "mat_19",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_19",
+      "ports": [
+        {
+          "id": "merge_19_private",
+          "anchor": {
+            "loop_id": "mat_19",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_19_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 119.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_19",
+      "ports": [
+        {
+          "id": "mat_turn_19_incoming",
+          "anchor": {
+            "loop_id": "mat_19",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_19_outgoing",
+          "anchor": {
+            "loop_id": "mat_19",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_20",
+      "ports": [
+        {
+          "id": "fork_20_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2839.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_20_private",
+          "anchor": {
+            "loop_id": "mat_20",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_20",
+      "ports": [
+        {
+          "id": "outbound_cross_20_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2838.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_20_private",
+          "anchor": {
+            "loop_id": "mat_20",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_20",
+      "ports": [
+        {
+          "id": "merge_20_private",
+          "anchor": {
+            "loop_id": "mat_20",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_20_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 125.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_20",
+      "ports": [
+        {
+          "id": "mat_turn_20_incoming",
+          "anchor": {
+            "loop_id": "mat_20",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_20_outgoing",
+          "anchor": {
+            "loop_id": "mat_20",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_21",
+      "ports": [
+        {
+          "id": "fork_21_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2845.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_21_private",
+          "anchor": {
+            "loop_id": "mat_21",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_21",
+      "ports": [
+        {
+          "id": "outbound_cross_21_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2844.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_21_private",
+          "anchor": {
+            "loop_id": "mat_21",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_21",
+      "ports": [
+        {
+          "id": "merge_21_private",
+          "anchor": {
+            "loop_id": "mat_21",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_21_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 131.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_21",
+      "ports": [
+        {
+          "id": "mat_turn_21_incoming",
+          "anchor": {
+            "loop_id": "mat_21",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_21_outgoing",
+          "anchor": {
+            "loop_id": "mat_21",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_22",
+      "ports": [
+        {
+          "id": "fork_22_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2851.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_22_private",
+          "anchor": {
+            "loop_id": "mat_22",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_22",
+      "ports": [
+        {
+          "id": "outbound_cross_22_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2850.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_22_private",
+          "anchor": {
+            "loop_id": "mat_22",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_22",
+      "ports": [
+        {
+          "id": "merge_22_private",
+          "anchor": {
+            "loop_id": "mat_22",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_22_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 137.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_22",
+      "ports": [
+        {
+          "id": "mat_turn_22_incoming",
+          "anchor": {
+            "loop_id": "mat_22",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_22_outgoing",
+          "anchor": {
+            "loop_id": "mat_22",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_23",
+      "ports": [
+        {
+          "id": "fork_23_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2857.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_23_private",
+          "anchor": {
+            "loop_id": "mat_23",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_23",
+      "ports": [
+        {
+          "id": "outbound_cross_23_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2856.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_23_private",
+          "anchor": {
+            "loop_id": "mat_23",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_23",
+      "ports": [
+        {
+          "id": "merge_23_private",
+          "anchor": {
+            "loop_id": "mat_23",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_23_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 143.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_23",
+      "ports": [
+        {
+          "id": "mat_turn_23_incoming",
+          "anchor": {
+            "loop_id": "mat_23",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_23_outgoing",
+          "anchor": {
+            "loop_id": "mat_23",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_24",
+      "ports": [
+        {
+          "id": "fork_24_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2863.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_24_private",
+          "anchor": {
+            "loop_id": "mat_24",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_24",
+      "ports": [
+        {
+          "id": "outbound_cross_24_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2862.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_24_private",
+          "anchor": {
+            "loop_id": "mat_24",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_24",
+      "ports": [
+        {
+          "id": "merge_24_private",
+          "anchor": {
+            "loop_id": "mat_24",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_24_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 149.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_24",
+      "ports": [
+        {
+          "id": "mat_turn_24_incoming",
+          "anchor": {
+            "loop_id": "mat_24",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_24_outgoing",
+          "anchor": {
+            "loop_id": "mat_24",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_25",
+      "ports": [
+        {
+          "id": "fork_25_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2869.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_25_private",
+          "anchor": {
+            "loop_id": "mat_25",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_25",
+      "ports": [
+        {
+          "id": "outbound_cross_25_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2868.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_25_private",
+          "anchor": {
+            "loop_id": "mat_25",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_25",
+      "ports": [
+        {
+          "id": "merge_25_private",
+          "anchor": {
+            "loop_id": "mat_25",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_25_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 155.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_25",
+      "ports": [
+        {
+          "id": "mat_turn_25_incoming",
+          "anchor": {
+            "loop_id": "mat_25",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_25_outgoing",
+          "anchor": {
+            "loop_id": "mat_25",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_26",
+      "ports": [
+        {
+          "id": "fork_26_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2875.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_26_private",
+          "anchor": {
+            "loop_id": "mat_26",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_26",
+      "ports": [
+        {
+          "id": "outbound_cross_26_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2874.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_26_private",
+          "anchor": {
+            "loop_id": "mat_26",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_26",
+      "ports": [
+        {
+          "id": "merge_26_private",
+          "anchor": {
+            "loop_id": "mat_26",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_26_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 161.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_26",
+      "ports": [
+        {
+          "id": "mat_turn_26_incoming",
+          "anchor": {
+            "loop_id": "mat_26",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_26_outgoing",
+          "anchor": {
+            "loop_id": "mat_26",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_27",
+      "ports": [
+        {
+          "id": "fork_27_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2881.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_27_private",
+          "anchor": {
+            "loop_id": "mat_27",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_27",
+      "ports": [
+        {
+          "id": "outbound_cross_27_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2880.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_27_private",
+          "anchor": {
+            "loop_id": "mat_27",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_27",
+      "ports": [
+        {
+          "id": "merge_27_private",
+          "anchor": {
+            "loop_id": "mat_27",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_27_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 167.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_27",
+      "ports": [
+        {
+          "id": "mat_turn_27_incoming",
+          "anchor": {
+            "loop_id": "mat_27",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_27_outgoing",
+          "anchor": {
+            "loop_id": "mat_27",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_28",
+      "ports": [
+        {
+          "id": "fork_28_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2887.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_28_private",
+          "anchor": {
+            "loop_id": "mat_28",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_28",
+      "ports": [
+        {
+          "id": "outbound_cross_28_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2886.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_28_private",
+          "anchor": {
+            "loop_id": "mat_28",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_28",
+      "ports": [
+        {
+          "id": "merge_28_private",
+          "anchor": {
+            "loop_id": "mat_28",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_28_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 173.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_28",
+      "ports": [
+        {
+          "id": "mat_turn_28_incoming",
+          "anchor": {
+            "loop_id": "mat_28",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_28_outgoing",
+          "anchor": {
+            "loop_id": "mat_28",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_29",
+      "ports": [
+        {
+          "id": "fork_29_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2893.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_29_private",
+          "anchor": {
+            "loop_id": "mat_29",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_29",
+      "ports": [
+        {
+          "id": "outbound_cross_29_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2892.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_29_private",
+          "anchor": {
+            "loop_id": "mat_29",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_29",
+      "ports": [
+        {
+          "id": "merge_29_private",
+          "anchor": {
+            "loop_id": "mat_29",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_29_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 179.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_29",
+      "ports": [
+        {
+          "id": "mat_turn_29_incoming",
+          "anchor": {
+            "loop_id": "mat_29",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_29_outgoing",
+          "anchor": {
+            "loop_id": "mat_29",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "fork_30",
+      "ports": [
+        {
+          "id": "fork_30_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2899.592
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "fork_30_private",
+          "anchor": {
+            "loop_id": "mat_30",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 7
+        }
+      ]
+    },
+    {
+      "id": "outbound_cross_30",
+      "ports": [
+        {
+          "id": "outbound_cross_30_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2898.092
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        },
+        {
+          "id": "outbound_cross_30_private",
+          "anchor": {
+            "loop_id": "mat_30",
+            "distance_m": 26.556
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "merge_30",
+      "ports": [
+        {
+          "id": "merge_30_private",
+          "anchor": {
+            "loop_id": "mat_30",
+            "distance_m": 39.408
+          },
+          "guard_before_m": 7,
+          "guard_after_m": 0
+        },
+        {
+          "id": "merge_30_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 185.0
+          },
+          "guard_before_m": 4,
+          "guard_after_m": 4
+        }
+      ]
+    },
+    {
+      "id": "mat_turn_30",
+      "ports": [
+        {
+          "id": "mat_turn_30_incoming",
+          "anchor": {
+            "loop_id": "mat_30",
+            "distance_m": 11.352
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        },
+        {
+          "id": "mat_turn_30_outgoing",
+          "anchor": {
+            "loop_id": "mat_30",
+            "distance_m": 16.056
+          },
+          "guard_before_m": 5,
+          "guard_after_m": 5
+        }
+      ]
+    },
+    {
+      "id": "range_rejoin",
+      "ports": [
+        {
+          "id": "rejoin_exit",
+          "anchor": {
+            "loop_id": "exit_aisle",
+            "distance_m": 196.0
+          },
+          "guard_before_m": 18,
+          "guard_after_m": 0
+        },
+        {
+          "id": "rejoin_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2950.0
+          },
+          "guard_before_m": 18,
+          "guard_after_m": 18
+        },
+        {
+          "id": "rejoin_penalty",
+          "anchor": {
+            "loop_id": "penalty_150",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 18,
+          "guard_after_m": 18
+        }
+      ]
+    },
+    {
+      "id": "bypass_turn",
+      "ports": [
+        {
+          "id": "bypass_in",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2910.592
+          },
+          "guard_before_m": 7.9,
+          "guard_after_m": 25
+        },
+        {
+          "id": "bypass_out",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 2940.0
+          },
+          "guard_before_m": 25,
+          "guard_after_m": 25
+        }
+      ]
+    },
+    {
+      "id": "penalty_tail_cross_mat_30",
+      "ports": [
+        {
+          "id": "penalty_tail_mat",
+          "anchor": {
+            "loop_id": "mat_30",
+            "distance_m": 38.8
+          },
+          "guard_before_m": 2,
+          "guard_after_m": 0.608
+        },
+        {
+          "id": "penalty_tail_loop",
+          "anchor": {
+            "loop_id": "penalty_150",
+            "distance_m": 139.0
+          },
+          "guard_before_m": 3,
+          "guard_after_m": 3
+        }
+      ]
+    },
+    {
+      "id": "start_join",
+      "ports": [
+        {
+          "id": "start_join_end",
+          "anchor": {
+            "loop_id": "start_approach",
+            "distance_m": 40.0
+          },
+          "guard_before_m": 18,
+          "guard_after_m": 0
+        },
+        {
+          "id": "start_join_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 0.0
+          },
+          "guard_before_m": 18,
+          "guard_after_m": 2
+        }
+      ]
+    },
+    {
+      "id": "pursuit_depart",
+      "ports": [
+        {
+          "id": "pursuit_depart_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 597.048
+          },
+          "guard_before_m": 25,
+          "guard_after_m": 25
+        },
+        {
+          "id": "pursuit_depart_branch",
+          "anchor": {
+            "loop_id": "pursuit_shortcut",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 25
+        }
+      ]
+    },
+    {
+      "id": "pursuit_return",
+      "ports": [
+        {
+          "id": "pursuit_return_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 1980.392
+          },
+          "guard_before_m": 25,
+          "guard_after_m": 25
+        },
+        {
+          "id": "pursuit_return_branch",
+          "anchor": {
+            "loop_id": "pursuit_shortcut",
+            "distance_m": 883.344
+          },
+          "guard_before_m": 25,
+          "guard_after_m": 0
+        }
+      ]
+    },
+    {
+      "id": "sprint_depart",
+      "ports": [
+        {
+          "id": "sprint_depart_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 549.048
+          },
+          "guard_before_m": 25,
+          "guard_after_m": 25
+        },
+        {
+          "id": "sprint_depart_branch",
+          "anchor": {
+            "loop_id": "sprint_extension",
+            "distance_m": 0
+          },
+          "guard_before_m": 0,
+          "guard_after_m": 25
+        }
+      ]
+    },
+    {
+      "id": "sprint_return",
+      "ports": [
+        {
+          "id": "sprint_return_main",
+          "anchor": {
+            "loop_id": "main",
+            "distance_m": 729.048
+          },
+          "guard_before_m": 25,
+          "guard_after_m": 25
+        },
+        {
+          "id": "sprint_return_branch",
+          "anchor": {
+            "loop_id": "sprint_extension",
+            "distance_m": 513.333
+          },
+          "guard_before_m": 25,
+          "guard_after_m": 0
+        }
+      ]
+    }
+  ]
+}

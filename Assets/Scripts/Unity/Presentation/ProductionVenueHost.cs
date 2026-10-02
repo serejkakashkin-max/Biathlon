@@ -16,6 +16,7 @@ namespace Biathlon.Unity.Presentation
         public string ProfileResource="Biathlon/Venues/woodland_basin_v1/mass_start_profile";
         public string RouteResource="Biathlon/Venues/woodland_basin_v1/mass_start_route";
         public string ConditionsResource="Biathlon/race_snow_neutral_v1";
+        public string EnvironmentResource="Biathlon/Venues/woodland_basin_v1/environment";
         public bool AutoStart=true,UseGamepad;
         public int FieldCount=30;
         public PackAiRaceRunner Runner {get;private set;}
@@ -23,7 +24,9 @@ namespace Biathlon.Unity.Presentation
         public RacePresentationFeed Feed {get;private set;}
         public AthleteProxyPresentation Proxies {get;private set;}
         public RangeMatPresentation Mats {get;private set;}
+        public ProductionCoursePresentation Course {get;private set;}
         public Camera ChaseCamera {get;private set;}
+        public ProductionVenueEnvironment Environment {get;private set;}
         public int PlayerIndex {get;private set;}
         private PlayerDeviceInput ski;
         private ShootingDeviceInput shot;
@@ -48,6 +51,20 @@ namespace Biathlon.Unity.Presentation
             var venue=new VenueAuthoringPlan(VenueManifest.FromJson(ReadResource(VenueResource)),ReadResource);
             Initialize(venue,CompetitionProfile.FromJson(ReadResource(ProfileResource)),RaceRoutePlan.FromJson(ReadResource(RouteResource)),
                 RaceSnowConditions.FromJson(ReadResource(ConditionsResource)),FieldCount);
+            if(!string.IsNullOrEmpty(EnvironmentResource))InitializeEnvironment(ProductionEnvironmentDefinition.FromJson(ReadResource(EnvironmentResource)));
+        }
+        public void InitializeEnvironment(ProductionEnvironmentDefinition definition)
+        {
+            if(Runner==null)throw new InvalidOperationException("Initialize the authored race before its environment.");
+            if(Environment!=null)throw new InvalidOperationException("This host already owns an environment.");
+            var environment=gameObject.AddComponent<ProductionVenueEnvironment>();
+            try
+            {
+                environment.Initialize(Venue,definition,ReadResource,Feed,ChaseCamera,range.AimCamera);
+                Course.JoinGround(environment,definition.terrain.grid_spacing_m,environment.TerrainGridOrigin);
+                Environment=environment;
+            }
+            catch{Destroy(environment);throw;}
         }
         public void Initialize(VenueAuthoringPlan venue,CompetitionProfile profile,RaceRoutePlan route,
             RaceSnowConditions conditions,int count=30,int playerIndex=0,PursuitQualificationSnapshot qualification=null)
@@ -63,6 +80,7 @@ namespace Biathlon.Unity.Presentation
             shot=gameObject.AddComponent<ShootingDeviceInput>();shot.enabled=false;shot.Initialize(id,field.TickFrequency);
             effort=new EffortControlSystem(EffortControlDefinition.FromJson(ReadCore("effort_control_provisional_v1.json")),id,field.TickFrequency);
             Mats=gameObject.AddComponent<RangeMatPresentation>();Mats.Initialize(venue);
+            Course=gameObject.AddComponent<ProductionCoursePresentation>();Course.Initialize(venue);
             Proxies=gameObject.AddComponent<AthleteProxyPresentation>();Proxies.Initialize(Feed,venue.Visual,
                 shootingDirection:new Vector3((float)venue.Manifest.Range.Forward.X,0,(float)venue.Manifest.Range.Forward.Z));Proxies.Render(1);
             var cameraObject=new GameObject("Production chase camera");cameraObject.transform.SetParent(transform,false);

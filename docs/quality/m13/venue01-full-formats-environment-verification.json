@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "id": "woodland_basin_environment_serialized_verification_v1",
+  "status": "PASS_STATIC_DATA_RUNTIME_VISUAL_AND_PERFORMANCE_PENDING",
+  "tile_count": 99,
+  "coincident_terrain_border_checks": 11490,
+  "unique_world_height_vertices": 406785,
+  "authored_corridor_width_sample_count": 1358,
+  "forest_group_count": 88,
+  "tree_count": 26382,
+  "maximum_tree_to_triangle_height_error_m": 1.706518006017177e-06,
+  "minimum_checked_full_canopy_corridor_gap_m": 3.0272616193333013,
+  "target_count": 30,
+  "course_surface_samples": 5280,
+  "minimum_terrain_minus_route_height_m": -0.2154123263136043,
+  "maximum_terrain_minus_route_height_m": -0.02999958095181654,
+  "full_runtime_ribbon_triangle_clearance": {
+    "method": "exact affine extrema of every runtime ribbon/terrain triangle overlay",
+    "ribbon_triangle_count": 8524,
+    "overlay_vertex_count": 268110,
+    "buried_ribbon_triangle_count": 0,
+    "minimum_ribbon_minus_terrain_m": 0.02999720466323197,
+    "maximum_ribbon_minus_terrain_m": 0.3446660615688373,
+    "minimum_gap_location": {
+      "loop_id": "main",
+      "row_start_distance_m": 816.0,
+      "row_end_distance_m": 818.0,
+      "world": {
+        "x": -376.9998474121094,
+        "y": 74.02144622802734,
+        "z": -618.1156616210938
+      }
+    },
+    "maximum_gap_location": {
+      "loop_id": "main",
+      "row_start_distance_m": 568.0,
+      "row_end_distance_m": 570.0,
+      "world": {
+        "x": -382.9998474121094,
+        "y": 41.72698182163976,
+        "z": -372.0
+      }
+    },
+    "per_loop": {
+      "main": {
+        "minimum_gap_m": 0.02999720466323197,
+        "maximum_gap_m": 0.3446660615688373
+      },
+      "mat_01": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_02": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_03": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_04": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_05": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_06": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_07": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_08": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_09": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_10": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_11": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_12": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_13": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_14": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_15": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_16": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_17": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_18": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_19": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_20": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_21": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_22": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_23": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_24": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_25": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_26": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_27": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_28": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_29": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_30": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "exit_aisle": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "penalty_150": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "start_approach": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "pursuit_shortcut": {
+        "minimum_gap_m": 0.029998595237749726,
+        "maximum_gap_m": 0.24533197231458104
+      },
+      "sprint_extension": {
+        "minimum_gap_m": 0.02999828513738123,
+        "maximum_gap_m": 0.3372199666504372
+      }
+    }
+  },
+  "environment_sha256": "a1a9dfeb1299edc53221df8980e56922bf8d5acf573256dd9768ceb905487896"
+}

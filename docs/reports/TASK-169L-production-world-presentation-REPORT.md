@@ -1,0 +1,17 @@
+# TASK169L — production terrain, course and playable scene binding
+
+2026-10-02. Engineering checkpoint; visual review and complete production race acceptance remain OPEN.
+
+The full Venue01 source pack contains203 JSON resources: actual three-format geometry plus99 shared-border terrain tiles,88 explicit native forest groups (26382 trees),thirty canonical50m target banks and native licensed stadium/event dressing. Source/import hashes match. No third-party assets were downloaded or imported by this task.
+
+`ProductionVenueEnvironment` preflights detached source data, actual per-knot corridor widths, triangle-interpolated tree ground contacts, target anchors and audited native resources. It owns and cleans its generated meshes, materials, trees, crowd and weather lease. Target faces observe stance/closures from race snapshots. `ProductionCoursePresentation` owns a separate groomed snow ribbon for every stable physical loop, with metre UVs, joined closed boundaries and approved native material.
+
+An independent complete triangle overlay found terrain burial up to.177613m despite the earlier knot-only check. The generator now conservatively lowers7583 grid vertices (maximum.207615m), preserving exact shared borders and tree contacts. An independent float32 proof covers8524 ribbon triangles and268110 overlap vertices: no burial; gap.029997–.344666m. The real Unity terrain/course renderer test also passes; it inspects the joined rendered ribbons rather than a reconstructed generator assumption. The original failed tests and probe remain in artifacts.
+
+Separate snow edge meshes bridge the validated terrain to both ribbon edges and open end caps. Their feet include actual grid and terrain triangle crossings. Exact grid bindings are required; malformed spacing/origin and buried ground reject before publication. These meshes reuse native snow material and change no source ribbon, terrain heights, physics, collision body or race geometry. Lifecycle and midpoint contact tests pass. Test corrections preserve float world-transform precision and explicitly release an earlier weather owner before a retry fixture.
+
+`ProductionPlayableAuthoring` generates an explicitly bound Sprint60 and Mass Start30 scene, verifies imported components in an isolated preview scene, and preserves caller scenes and selection. Fresh Pursuit requires its real qualification dependency and is not fabricated. The host attaches course, mats, proxies, cameras and environment with no manual Inspector setup.
+
+Validation: Python geometry3/3; Unity terrain contact1/1, course8/8, environment7/7 and scene authoring3/3 PASS. Artifacts are under `artifacts/wp169j` with explicit final/corrected filenames. Full PlayMode192/192 PASS (3m25s), post-capture Console0errors/0warnings. Six actual GameView captures show native forest/crowd and joined snow edges; review remains OPEN for a dark edge line and an off-route highland camera. Forced Camera.Render snapshots omitted deferred instancing; rejected captures remain in artifacts. See `wp169jklm-verification.json` for exact hashes and retained production completion failure. Earlier filtered summaries report total discovered tests, not the number executed.
+
+No FPS/GPU qualification is inferred from hidden checks or screenshots. Owner-approved G2 target018 remains the last Windows delivery. Production captures, a new playable delivery, full dense completion and WP175–178 qualification remain separate work. OWNER-FEEL-001 remains OPEN with no shooting retuning.

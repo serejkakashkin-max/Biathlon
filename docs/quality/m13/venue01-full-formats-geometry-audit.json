@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "id": "woodland_basin_format_branch_geometry_audit_v1",
+  "status": "STATIC_PRODUCTION_POLICY_AND_SERIALIZED_FORMATS_PASS_RUNTIME_AND_VISUAL_PENDING",
+  "venue_id": "woodland_basin_v1",
+  "track_id": "woodland_basin_track_v1",
+  "base_main_identity_unchanged": true,
+  "branches": [
+    {
+      "format": "pursuit",
+      "loop_id": "pursuit_shortcut",
+      "length_m": 883.344,
+      "main_depart_m": 597.048,
+      "main_return_m": 1980.392,
+      "world_parameter_m": 33.20529938899821,
+      "edge_count": 20,
+      "maximum_world_edge_length_error_m": 1.2789769243681803E-13,
+      "maximum_grade": 0.1312166451119057,
+      "maximum_curvature_per_m": 0.030729610531392167,
+      "actual_race_distance_m": 12500.0,
+      "lap_distances_m": [
+        2500.0,
+        2500.0,
+        2500.0,
+        2500.0,
+        2500.0
+      ],
+      "seam_world_gap_m": 0,
+      "endpoint_tangents": "EXACT_MAIN_DIRECTION",
+      "guard_before_after_m": 25
+    },
+    {
+      "format": "sprint",
+      "loop_id": "sprint_extension",
+      "length_m": 513.333,
+      "main_depart_m": 549.048,
+      "main_return_m": 729.048,
+      "world_parameter_m": 132.67063968392262,
+      "edge_count": 40,
+      "maximum_world_edge_length_error_m": 1.1457501614131615E-13,
+      "maximum_grade": 0.1312166451119057,
+      "maximum_curvature_per_m": 0.03377706709041112,
+      "actual_race_distance_m": 10000.0,
+      "lap_distances_m": [
+        3333.333,
+        3333.333,
+        3333.334
+      ],
+      "seam_world_gap_m": 0,
+      "endpoint_tangents": "EXACT_MAIN_DIRECTION",
+      "guard_before_after_m": 25
+    }
+  ],
+  "catalog_binding": "EXPLICIT_MANIFEST_CONTRACT_COLD_VALIDATION_PASS",
+  "runtime_and_visual_acceptance": "PENDING",
+  "generator_sha256": "e7687be601440185c719ee62e0536c4b509f6ebdbf181e1ede9469aa010e0fa4",
+  "recipe_sha256": "084ea867b32a5e1cb6cd4d1c26146a79052ab24492fd6f3b3cad306267982e35",
+  "generated_definition_sha256": {
+    "track": "4492d896160b3368c22d79ca66711aa9dc738fee51cb231c36625fb8f63b1a2c",
+    "visual": "31bfd448d876800f10ca1ed3742b7a8620b496fe969fbd2e894086129afdfedd",
+    "junctions": "d54f6e978ecfb85dcab1ff011eb0264ba4984d3e7345edcb333657fe2c6f18ef",
+    "connections": "7f4370678bd87792b93b95f12ac3c1ddb2a8c8e1d3e9a283471f3db7f8024566",
+    "sprint_route": "28864f04320e5f9e384a6a65667f3a9fbb36a7496fca50c4e7c5a2552e4be77b",
+    "pursuit_route": "bc262cab07b0b05b307e4671a1ecc3032e80a81ed0f9cef5429f0243cfe309a3",
+    "format_bindings": "a302c85a4df8b4e48a17a695351a9406879597f3ccdf926dce91ab621c56b956"
+  },
+  "static_report_sha256": "be9d994f9a0bd6bf77ff122ac70d442a45c6f72070198abd85c731019471e0cc",
+  "validator_dll_sha256": "5d946350f09256fb3599a9e2cf2131104f9d70319652bce3189c22e648041900"
+}

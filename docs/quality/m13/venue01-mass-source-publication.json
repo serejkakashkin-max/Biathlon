@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "venue01_mass_source_publication_v1",
+  "date": "2026-10-02",
+  "status": "STATIC_PASS_UNITY_RUNTIME_VISUAL_ACCEPTANCE_PENDING",
+  "canonical_tool_root": "scripts/content/m13",
+  "output_root_parameterization": "PASS_EQUAL_BYTES_DISTINCT_OUTPUT_ROOTS",
+  "definition_file_count": 10,
+  "definition_sha256": {
+    "connections.json": "86eac9920ea3969008ce87f16b53c1aa4282a276bccc43e7c4fd8cd519999a44",
+    "junctions.json": "98a3bd673c62a806a7ca0a8513d741aaa26be6fa402ee83438fbe7325a16637e",
+    "manifest.json": "5fbdfc7465e3ef63fa74d616af2b2a557b5570c233d64c253e339a1a45dc2d3b",
+    "mass_start_profile.json": "e06ba78cdf5c9c7d08282bc8bdff9f94d3f0ee4302698b6cd0e017a6f48d83ba",
+    "mass_start_route.json": "91835d00c76ba270701704a9b019fac18f40cd16cde7ccafe7829168ca5fe785",
+    "paths.json": "9516c087f323ad79ad1ab8e9fd8899080dc34cc6001fdb14451501b569bbebb6",
+    "start_approach.json": "7f511c99cf239aaa78b606b7c6dbf122df6552e903bec2cfbd80d6ed63d50c4d",
+    "start_continuation.json": "fff5b7656fbd0d1db08394cf0fd4a3838af4cb05064696832ad0aead2a8417ac",
+    "track.json": "f5bf7b5d64ddf5b2b51f1ab610b9ae3cc956e7be40348190a35dd8e6ac877aab",
+    "visual.json": "6c8385ffe9e51f57cd7cb0558933ef902e1ad1950a7032a59d22628579ac7f90"
+  },
+  "authority_note": "Only static data and serialized checks; root owns imported source and runtime evidence"
+}
