@@ -2,10 +2,10 @@
   "schema_version": 1,
   "id": "wp169p_pack_query_diagnosis_20261002",
   "date": "2026-10-02",
-  "status": "PASS_BOUNDED_DIAGNOSTIC_PARITY",
+  "status": "PASS_DOTNET_MEMO_VERIFICATION",
   "work_package_status": "IN_PROGRESS",
-  "production_optimization_implemented": false,
-  "production_sources_modified": false,
+  "production_optimization_implemented": true,
+  "production_sources_modified": true,
   "cases": [
     {
       "case": "mass30",
@@ -75,20 +75,18 @@
     }
   ],
   "limits": [
-    "Wall timings are observations from one run per variant under concurrent project work, not a stable performance benchmark.",
-    "CLI actor/state parity plus event fingerprints does not compare complete physiology frames or every event byte; full race/replay regressions are required before production implementation.",
-    "Sprint has sixty entrants but only ten active at tick6000; this is not dense60 runtime proof.",
-    "Prefixes do not cover private mat acquisition/release, penalty or completed results.",
-    "Production copies preserve known flow problems and do not establish venue acceptance."
+    "Latest-AI completed production30/60, Unity compilation/Console/PlayMode and venue acceptance are root-owned and not claimed here.",
+    "Full cached/direct frames, event values and result parity is established by synthetic three-on-two Sprint/Pursuit and ordered physical Mass tests; it is not completed production60 proof.",
+    "Original immutable CLI prefixes preserve frozen diagnosis AI/data and contain no shooting. Sprint has sixty entrants but only ten active at tick6000.",
+    "Wall timings are observations under concurrent work, not a stable benchmark or Unity FPS result.",
+    "Warm0B scope excludes cold constructor allocations and first shooting initialization.",
+    "Production prefix query-profile counters are zero because the production memo has no instrumentation; historical call counts come from the original diagnostic copies."
   ],
   "methodology": "Sequential Release runs from copied source projects with unique intermediates/binaries and the immutable actual-source-json-v1 resource snapshot. Aggregate timed instrumentation is a separate copied assembly; timing comparisons use uninstrumented baseline versus memoized copy.",
-  "proposal": "Cold per-trace/per-source-junction tri-state memo; invalidate before every candidate BuildTrace and every stationary snapshot mutation. Each miss retains the original complete start/end/tail/receipt query and route-bound/self-crossing validation.",
+  "proposal": "Implemented cold per-trace/per-source-junction tri-state memo; invalidate before every BuildTrace and stationary snapshot mutation. Each miss retains the original complete body/tail/receipt membership query. No other cache, context or policy change.",
   "required_before_implementation_acceptance": [
-    "Joint path/reservation replanning and whole-field atomicity tests",
-    "Private-seam tail and release-boundary integration cases",
-    "Complete race command-tape and pinned legacy parity",
-    "Warm zero-managed-allocation assertions",
-    "Actual immutable prefix parity and completed production races"
+    "Root Unity compile/Console and relevant PlayMode checks",
+    "Latest-AI complete actual production30/60 verification; known flow issues remain separate"
   ],
   "evidence": {
     "verifier": "artifacts/wp169i/reservation-review/query-profile/verify-probes.ps1",
@@ -96,6 +94,169 @@
     "resource_snapshot": "artifacts/wp169j/dense-start-probe/actual-source-json-v1",
     "diagnosis": "artifacts/wp169i/reservation-review/query-profile/diagnosis.json",
     "detail": "artifacts/wp169i/reservation-review/query-profile/QUERY_PROFILE_DIAGNOSIS.md",
-    "original_source_index": "artifacts/wp169i/reservation-review/query-profile/original-source-sha256.json"
+    "original_source_index": "artifacts/wp169i/reservation-review/query-profile/original-source-sha256.json",
+    "production_verification": {
+      "path": "artifacts/wp169p/verification.json",
+      "sha256": "570db3ab12c0edddfd711908831635d30cce74cebaa0b064acaa69cd57a34043"
+    },
+    "production_prefix_parity": {
+      "path": "artifacts/wp169p/production-prefix/parity.json",
+      "sha256": "eacb4ec629264646541d6735d974f9f9b5146168f87a063872f9ed46f5bbc79d"
+    },
+    "invalidation_mutants": {
+      "path": "artifacts/wp169p/invalidation-mutants/verification.json",
+      "sha256": "fc46758295002975f0f9577eeb641869d9d17f2000ea23fcb45c4395f026e759"
+    }
+  },
+  "preserved_diagnosis_status": "PASS_BOUNDED_DIAGNOSTIC_PARITY",
+  "implementation": {
+    "source_frozen": true,
+    "configuration": "Release net8.0; test host tiered compilation disabled by repository test project",
+    "runs": [
+      {
+        "name": "cache-focused-final",
+        "total": 6,
+        "passed": 6,
+        "failed": 0,
+        "scope": "Six new cache cases; included again in the broad matrix.",
+        "result": {
+          "path": "artifacts/wp169p/tests/cache-focused-final.trx",
+          "sha256": "4c831e91d2fda23a7d158fed70ceb9ae49d1113fc481c4e3ca701a652575e065"
+        }
+      },
+      {
+        "name": "cache-integration-matrix",
+        "total": 246,
+        "passed": 246,
+        "failed": 0,
+        "scope": "Cache, physical range/path/layout/arrival/reservation/transaction, authored start, junction, Pack replay/field/force/AI.",
+        "result": {
+          "path": "artifacts/wp169p/tests/cache-integration-matrix.trx",
+          "sha256": "3247a6f5c5d3c1944fd91c0c63b359472ed92f93156c6af6a86f6c80d7a9531a"
+        }
+      },
+      {
+        "name": "cache-legacy-matrix",
+        "total": 10,
+        "passed": 10,
+        "failed": 0,
+        "scope": "Pinned Sprint/Pursuit/MassStart regression, Sprint capacity and Mass range-order/field.",
+        "result": {
+          "path": "artifacts/wp169p/tests/cache-legacy-matrix.trx",
+          "sha256": "ef73bce7d747a7e297b32f49e7084774e60bc140944226c82eaf35a9de01ce56"
+        }
+      }
+    ],
+    "unique_passing_tests": 256,
+    "new_cache_cases": 6,
+    "cache_cases_included_in_broad_total": true,
+    "warm_allocation": {
+      "bytes": 0,
+      "ticks": 400,
+      "scope": "After both shooting sessions and the reusable capacity replan are warmed, hold both mats and continue third actor denial; cold allocations and first shooting initialization are excluded."
+    },
+    "exact_differential_scope": [
+      "Full SprintAthleteFrame values each committed tick",
+      "Physical position, lateral, drafting, junction wait, selected path and capacity wait",
+      "Every reservation record, every RaceEvent value and complete result JSON",
+      "Complete three-on-two Sprint and qualified Pursuit races, denial/reuse/private incoming tail/release/penalty",
+      "Ordered private-path Mass race, lateral narrowing and accepted arrival records",
+      "Authored curved start handoff",
+      "Persisted command tape roundtrip against uncached reference"
+    ],
+    "killed_invalidation_mutants": [
+      "candidate BuildTrace reset omitted",
+      "stationary tick snapshot reset omitted"
+    ],
+    "evidence": [
+      {
+        "path": "Assets/Scripts/Simulation/PackSprintFieldSession.cs",
+        "sha256": "f8d4898d0f5d69e8ddf91322c5811e34df7d629e269bc9cf24541824a3020745"
+      },
+      {
+        "path": "Assets/Tests/EditMode/PackJunctionTouchCacheTests.cs",
+        "sha256": "cbe60bb4e54567b3b963911154b627dc118d7ca4cd4cd69b7b95c381bc61938f"
+      },
+      {
+        "path": "Assets/Tests/EditMode/PackJunctionTouchCacheTests.cs.meta",
+        "sha256": "5fb0fe94d104ffee0edb6fb33fb7362ab170e2e4f4c04bb8a06fac0815e03d19"
+      },
+      {
+        "path": "artifacts/wp169p/focused-final/bin/Biathlon.Tests/release/Biathlon.Tests.dll",
+        "sha256": "3917786d1679086ec3c9a4f3ccfc07ec44ae16639f3a87706a2f92e091403c30"
+      },
+      {
+        "path": "artifacts/wp169p/focused-final/bin/Biathlon.Simulation/release/Biathlon.Simulation.dll",
+        "sha256": "b156f5bb4f6fc16267d40c3f0bb3b735a5a077df9ce2eb7f67f5bcea93f4fb9c"
+      },
+      {
+        "path": "artifacts/wp169p/production-prefix/build/bin/Biathlon.VenueLab/release/Biathlon.VenueLab.dll",
+        "sha256": "4330f5c1e4b415d896d3998ff3d5acaadb4bd9f2368ff86a118b0fc0210bfbc5"
+      },
+      {
+        "path": "artifacts/wp169p/production-prefix/parity.json",
+        "sha256": "eacb4ec629264646541d6735d974f9f9b5146168f87a063872f9ed46f5bbc79d"
+      },
+      {
+        "path": "artifacts/wp169p/invalidation-mutants/verification.json",
+        "sha256": "fc46758295002975f0f9577eeb641869d9d17f2000ea23fcb45c4395f026e759"
+      }
+    ],
+    "prefix_parity": {
+      "status": "PASS_PREFIX_PARITY",
+      "cases": [
+        {
+          "case": "mass30",
+          "status": "PREFIX_ONLY",
+          "ticks": 1000,
+          "roster": 30,
+          "complete_cli_state_exact": true,
+          "final_cli_actor_values_exact": true,
+          "event_count": 12554,
+          "event_fingerprint": "f0ad8a39ad08d21f",
+          "production_output": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169p\\production-prefix\\mass30-production-prefix1000.json",
+          "original_output": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169i\\reservation-review\\query-profile\\mass30-baseline-prefix1000.json",
+          "production_output_sha256": "05b37d63c8d339ac2903f34dcced05f82cd7ca5901b9664601c27c9d50aee12f",
+          "original_output_sha256": "05b37d63c8d339ac2903f34dcced05f82cd7ca5901b9664601c27c9d50aee12f"
+        },
+        {
+          "case": "sprint60",
+          "status": "PREFIX_ONLY",
+          "ticks": 6000,
+          "roster": 60,
+          "complete_cli_state_exact": true,
+          "final_cli_actor_values_exact": true,
+          "event_count": 9755,
+          "event_fingerprint": "53a00d3b91095db7",
+          "production_output": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169p\\production-prefix\\sprint60-production-prefix6000.json",
+          "original_output": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169i\\reservation-review\\query-profile\\sprint60-baseline-prefix6000.json",
+          "production_output_sha256": "2764fc0c91e55502f18bc74b18e20db1b5884c54d66e070d3761f4d907bee4fa",
+          "original_output_sha256": "2764fc0c91e55502f18bc74b18e20db1b5884c54d66e070d3761f4d907bee4fa"
+        }
+      ],
+      "limits": [
+        "Original frozen diagnosis AI and data; not latest production AI.",
+        "CLI actor/state and event fingerprints only; complete frames/events/results are checked separately by cache integration tests.",
+        "Both prefixes remain incomplete, without shooting; Sprint has only ten active entrants."
+      ]
+    },
+    "production_probe_observed_wall_seconds": {
+      "mass30": 1.7666421,
+      "sprint60": 1.8088039
+    },
+    "historical_failed_warm_test": "artifacts/wp169p/tests/cache-focused.trx: first shooting initialization was inside measurement; corrected warm boundary only. Final 400 warmed ticks allocate 0 B."
+  },
+  "unity": {
+    "sha256": "ea9d4619c789fa658f73bcb0a134c0ddf9115212b148f68a03af254b4c79a11d",
+    "scope": "six differential cache tests; final production completion remains pending",
+    "summary": {
+      "Status": "Passed",
+      "TotalTests": 900,
+      "PassedTests": 6,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:08.6974561"
+    },
+    "artifact": "artifacts/wp169nopq/final-PackJunctionTouchCacheTests-unity.json"
   }
 }

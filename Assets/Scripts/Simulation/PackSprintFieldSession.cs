@@ -12,12 +12,17 @@ namespace Biathlon.Simulation
         private sealed class Trace
         {
             internal readonly PhysicalMotionReceipt[] Segments;
+            // 0 unknown, 1 absent, 2 present. Junction definitions/body are immutable;
+            // start/end/receipts and both incoming tails belong to one trace revision.
+            internal readonly byte[] JunctionTouches;
+            internal void ResetJunctionTouches() => Array.Clear(JunctionTouches,0,JunctionTouches.Length);
             internal int Count;
             internal PhysicalTrackPoint Start, End;
             internal double LateralStart, LateralEnd;
             internal Tail OldTail, NewTail, EndTail;
             internal int SeamIndex;
-            internal Trace(int capacity) { Segments = new PhysicalMotionReceipt[capacity]; }
+            internal Trace(int capacity,int junctionCount)
+            { Segments = new PhysicalMotionReceipt[capacity]; JunctionTouches = new byte[junctionCount]; }
         }
         private readonly SprintFieldSession field;
         private readonly PhysicalTrackMap map;
@@ -65,6 +70,8 @@ namespace Biathlon.Simulation
         private readonly OvertakeDefinition movement;
         private readonly IRaceEventSink events;
         private readonly Trace[] traces, stationary;
+        // Private reflection-only differential reference; no gameplay/context option.
+        private bool bypassJunctionTouchCache = false;
         private readonly SprintStepPreview[] previews;
         private readonly Tail[] tails;
         private readonly bool[] onCourse, active, processed, priorContact, constrained;
@@ -257,7 +264,7 @@ namespace Biathlon.Simulation
             extraEffort = new int[Count]; order = new int[Count]; drafts = new DraftOutput[Count]; committedDrafts = new DraftOutput[Count]; draftRoster = new SkiPlacement[Count];
             junctionWaitSince = new long[Count]; preparedJunctionWaitSince = new long[Count];
             int capacity = 0;
-            for (int i = 0; i < Count; i++) { traces[i] = new Trace(GetAthlete(i).MotionSegmentCapacity); stationary[i] = new Trace(0); capacity += traces[i].Segments.Length; }
+            for (int i = 0; i < Count; i++) { traces[i] = new Trace(GetAthlete(i).MotionSegmentCapacity,junctionCount); stationary[i] = new Trace(0,junctionCount); capacity += traces[i].Segments.Length; }
             allSegments = new RaceMotionSegment[capacity]; grid = new long[2 + capacity * 2]; timeScratch = new double[grid.Length];
             if(massGrid!=null)
             {
@@ -270,7 +277,7 @@ namespace Biathlon.Simulation
                     if(UsesAuthoredStartApproach&&(!FitsLoopEnvelope(point,lateral[i])||
                         !FitsApproachExitEnvelope(GetAthlete(i).RemainingStartApproachNanometers,GetAthlete(i).RangePath,lateral[i])))
                         throw new ArgumentException("Grid body does not fit the complete authored start corridor envelope.");
-                    var idle=stationary[i];idle.Start=idle.End=point;idle.LateralStart=idle.LateralEnd=lateral[i];
+                    var idle=stationary[i];idle.ResetJunctionTouches();idle.Start=idle.End=point;idle.LateralStart=idle.LateralEnd=lateral[i];
                     for(int j=0;j<i;j++)if(Conflict(idle,i,stationary[j],j))throw new ArgumentException("Grid conflicts with physical corridor/junctions.");
                 }
             }
@@ -304,6 +311,7 @@ namespace Biathlon.Simulation
             for (int i = 0; i < Count; i++)
             {
                 var athlete = GetAthlete(i); var start = CurrentPoint(i); var idle = stationary[i];
+                idle.ResetJunctionTouches();
                 idle.Start = idle.End = start; idle.LateralStart = idle.LateralEnd = lateral[i]; idle.Count = 0;
                 idle.OldTail = tails[i]; idle.NewTail = default; idle.EndTail = tails[i];
                 active[i] = onCourse[i] && !athlete.HasFinished; processed[i] = false; constrained[i] = false; order[i] = i;
@@ -774,6 +782,7 @@ namespace Biathlon.Simulation
         private void BuildTrace(int i, SprintStepPreview preview, double line)
         {
             var athlete = GetAthlete(i); var trace = traces[i]; var idle = stationary[i];
+            trace.ResetJunctionTouches();
             trace.Start = idle.Start; trace.End = idle.End; trace.LateralStart = lateral[i]; trace.LateralEnd = line;
             trace.Count = 0; trace.OldTail = tails[i]; trace.NewTail = default; trace.EndTail = tails[i]; trace.SeamIndex = -1;
             if (trace.OldTail.Active) trace.LateralEnd = trace.LateralStart;
@@ -837,6 +846,14 @@ namespace Biathlon.Simulation
         { if (rangeLayout != null && !FitsActualWidth(i, traces[i])) return false;
           for (int j = 0; j < Count; j++) if (j != i && active[j] && Conflict(traces[i], i, processed[j] ? traces[j] : stationary[j], j)) return false; return true; }
         private bool Touches(Trace trace, int junction)
+        {
+            if(bypassJunctionTouchCache)return TouchesCore(trace,junction);
+            byte known=trace.JunctionTouches[junction];
+            if(known!=0)return known==2;
+            bool result=TouchesCore(trace,junction);
+            trace.JunctionTouches[junction]=(byte)(result?2:1);return result;
+        }
+        private bool TouchesCore(Trace trace, int junction)
         {
             if (junctions.TouchesForwardSweep(junction, trace.Start, 0, halfBody) || junctions.TouchesForwardSweep(junction, trace.End, 0, halfBody)) return true;
             if (trace.OldTail.Active && junctions.TouchesForwardSweep(junction, trace.OldTail.Point, 0, halfBody)) return true;
