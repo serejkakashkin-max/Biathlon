@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "wp169t_bounded_snow_shoulder_geometry_v1",
   "created_utc": "2026-10-02T19:35:51.048566+00:00",
-  "status": "ACTUAL_UNITY_CONTACT_11_COURSE_8_FULL_PLAY_210_PASS; FIVE_GAMEVIEWS_CAPTURED_VISUAL_DEFECTS_OPEN",
+  "status": "ACTUAL_UNITY_CONTACT_11_COURSE_8_FULL_PLAY_210_PASS_FINAL_CAPTURES_VISUAL_OPEN",
   "source_inputs": [
     {
       "path": "Assets/Scripts/Unity/Presentation/ProductionCoursePresentation.cs",
@@ -192,7 +192,8 @@
     "artifacts/wp169t/rejected-general-contact-tests.cs.txt"
   ],
   "pending": [
-    "Five actual production GameView captures and visual review"
+    "Resolve/review visible multi-format overlap wall before visual acceptance",
+    "Root final state publication"
   ],
   "limitations": [
     "Only validity-gated straight panels taper. Bends, crossings and other rejected panels retain original exact vertical joins.",
@@ -1021,5 +1022,303 @@
       "logs": 5,
       "compilation_failed": false
     }
+  },
+  "final_visual_review": {
+    "status": "CAPTURES_REVIEW_COMPLETE_VISUAL_OPEN",
+    "frozen_tick": 1030,
+    "inventory": {
+      "schema_version": 1,
+      "id": "task169t_independent_five_capture_inventory_v1",
+      "status": "PASS_CAPTURE_METADATA_AND_PNG_BINDING_VISUAL_ACCEPTANCE_OPEN",
+      "scope": "Read-only saved normal Game View evidence; no Unity commands or performance measurement",
+      "sources": [
+        {
+          "path": "Assets/Scripts/Unity/Presentation/ProductionCoursePresentation.cs",
+          "sha256": "97f01ad3c90ae9804c65601fa0b6c1bcb36b2a2998c62b576379efaf968ce506",
+          "current_sha256": "97f01ad3c90ae9804c65601fa0b6c1bcb36b2a2998c62b576379efaf968ce506",
+          "current_matches_capture": true
+        },
+        {
+          "path": "Assets/Tests/PlayMode/ProductionTerrainContactTests.cs",
+          "sha256": "0209aa53f9a25626d43c0227d703e5b146eceef5bd11c03b19a5d06fea87c79c",
+          "current_sha256": "0209aa53f9a25626d43c0227d703e5b146eceef5bd11c03b19a5d06fea87c79c",
+          "current_matches_capture": true
+        },
+        {
+          "path": "Assets/Scripts/Unity/Presentation/ProductionVenueHost.cs",
+          "sha256": "ffec37e1f5a8ce600f2b91089987adf53d3e7acf36bc4a22bd59959f7d67a602",
+          "current_sha256": "ffec37e1f5a8ce600f2b91089987adf53d3e7acf36bc4a22bd59959f7d67a602",
+          "current_matches_capture": true
+        },
+        {
+          "path": "Assets/Scripts/Unity/Presentation/ProductionVenueEnvironment.cs",
+          "sha256": "bd5a7f7b6d5499fc471588c2a0018122763fbb1adc4ea2ea0a8be4bb192ea273",
+          "current_sha256": "a6956ed22554a3c3ffe71e0894981645571a0d6552558f2a196e882b21327767",
+          "current_matches_capture": false
+        },
+        {
+          "path": "Assets/Scripts/Unity/Presentation/WeatherPresentation.cs",
+          "sha256": "84e23f0bbc88c31151464fd4d07da9a0c16f2bf20f0366edd36c937c0554f021",
+          "current_sha256": "84e23f0bbc88c31151464fd4d07da9a0c16f2bf20f0366edd36c937c0554f021",
+          "current_matches_capture": true
+        },
+        {
+          "path": "Assets/Shaders/Snow.shader",
+          "sha256": "93491565cd0dbf7a17d4faecd4d77bf54821a321a31355f7691ca387498d51c5",
+          "current_sha256": "93491565cd0dbf7a17d4faecd4d77bf54821a321a31355f7691ca387498d51c5",
+          "current_matches_capture": true
+        }
+      ],
+      "resources": [
+        {
+          "path": "Biathlon/Venues/woodland_basin_v1/manifest",
+          "sha256": "195c44cf28c1c5f0ff57a8c4ae3ad3a372a3413b2116ac300f925f5e7f3807bf",
+          "hash_basis": "TextAsset UTF-8 text",
+          "current_text_sha256": "195c44cf28c1c5f0ff57a8c4ae3ad3a372a3413b2116ac300f925f5e7f3807bf",
+          "current_matches_capture": true
+        },
+        {
+          "path": "Biathlon/Venues/woodland_basin_v1/mass_start_profile",
+          "sha256": "e06ba78cdf5c9c7d08282bc8bdff9f94d3f0ee4302698b6cd0e017a6f48d83ba",
+          "hash_basis": "TextAsset UTF-8 text",
+          "current_text_sha256": "e06ba78cdf5c9c7d08282bc8bdff9f94d3f0ee4302698b6cd0e017a6f48d83ba",
+          "current_matches_capture": true
+        },
+        {
+          "path": "Biathlon/Venues/woodland_basin_v1/mass_start_route",
+          "sha256": "91835d00c76ba270701704a9b019fac18f40cd16cde7ccafe7829168ca5fe785",
+          "hash_basis": "TextAsset UTF-8 text",
+          "current_text_sha256": "91835d00c76ba270701704a9b019fac18f40cd16cde7ccafe7829168ca5fe785",
+          "current_matches_capture": true
+        },
+        {
+          "path": "Biathlon/race_snow_neutral_v1",
+          "sha256": "16106bfee89b08149ab82b1c68dd8951cf14069c5d26fe56f7c88210f708f421",
+          "hash_basis": "TextAsset UTF-8 text",
+          "current_text_sha256": "16106bfee89b08149ab82b1c68dd8951cf14069c5d26fe56f7c88210f708f421",
+          "current_matches_capture": true
+        },
+        {
+          "path": "Biathlon/Venues/woodland_basin_v1/environment",
+          "sha256": "e215d8024c93de0b7145dcd124b577e102fd835a989351e142d216856c65e3a5",
+          "hash_basis": "TextAsset UTF-8 text",
+          "current_text_sha256": "e215d8024c93de0b7145dcd124b577e102fd835a989351e142d216856c65e3a5",
+          "current_matches_capture": true
+        },
+        {
+          "path": "Biathlon/Venues/woodland_basin_v1/track",
+          "sha256": "4f660db9aedcaacf7993a5dc02fda28fbadf0246ee561bbed9ec3057f512d8e0",
+          "hash_basis": "TextAsset UTF-8 text",
+          "current_text_sha256": "4f660db9aedcaacf7993a5dc02fda28fbadf0246ee561bbed9ec3057f512d8e0",
+          "current_matches_capture": true
+        },
+        {
+          "path": "Biathlon/Venues/woodland_basin_v1/visual",
+          "sha256": "23c79b905c18b1e72ca3445125117d9300b614bd7eedb67d16a4c000fddf7238",
+          "hash_basis": "TextAsset UTF-8 text",
+          "current_text_sha256": "23c79b905c18b1e72ca3445125117d9300b614bd7eedb67d16a4c000fddf7238",
+          "current_matches_capture": true
+        },
+        {
+          "path": "Biathlon/Venues/woodland_basin_v1/paths",
+          "sha256": "d2e3b41cc2076c4b77a28226ccbc4e5408c0980038c9a74969b79f9508fa8112",
+          "hash_basis": "TextAsset UTF-8 text",
+          "current_text_sha256": "d2e3b41cc2076c4b77a28226ccbc4e5408c0980038c9a74969b79f9508fa8112",
+          "current_matches_capture": true
+        }
+      ],
+      "captures": [
+        {
+          "id": "climb-forest",
+          "metadata": "docs/quality/m13/venue01-captures-shoulder-review/climb-forest.json",
+          "metadata_sha256": "e46b99ec5ad7a215cbd576bb8baacad7843181d71ffeedb8631a5ce62e324cfc",
+          "png": "docs/quality/m13/venue01-captures-shoulder-review/climb-forest.png",
+          "png_sha256": "ee85c8a5ce64834518b18f347e71e3a05711cfb547bd0c4e5b2d8554f18c0fee",
+          "dimensions": [
+            2560,
+            1440
+          ],
+          "host_entity_id": "40481:55552",
+          "tick": 1030,
+          "quality": "high",
+          "visible_trees": 219,
+          "camera_position": {
+            "x": -426.9998474121094,
+            "y": 51.65934371948242,
+            "z": -392.9684753417969
+          },
+          "look_at": {
+            "x": -413.9998474121094,
+            "y": 46.65934371948242,
+            "z": -407.9684753417969
+          },
+          "fov": 58.0,
+          "camera_frame": 123168,
+          "save_frame": 123235,
+          "historical_metadata_sha256": "d3b88b58a6a020cda9f9c57a387e434e25603a9e2d4819e158c5298e4b1bf2f7",
+          "historical_png_sha256": "b24e89b76404fd12bca2ed91bf7a4faa2c443d51cc2c3f8e9103a4d4e1a1f9e4",
+          "historical_tick": 809,
+          "same_pose_max_error_m": 4.1210938661606633e-07,
+          "same_look_max_error_m": 4.1210938661606633e-07,
+          "pixel_identity_asserted": false
+        },
+        {
+          "id": "highland-chase",
+          "metadata": "docs/quality/m13/venue01-captures-shoulder-review/highland-chase.json",
+          "metadata_sha256": "75a67ed1b9b7060ed46d7eda369490de9ed0078dd4af00b7db3c3df31a10b8d8",
+          "png": "docs/quality/m13/venue01-captures-shoulder-review/highland-chase.png",
+          "png_sha256": "0b05c50849d0ff3cd1dd5c56325e18f39656c13896730d4a15e18c6cc07dad40",
+          "dimensions": [
+            2560,
+            1440
+          ],
+          "host_entity_id": "40481:55552",
+          "tick": 1030,
+          "quality": "high",
+          "visible_trees": 301,
+          "camera_position": {
+            "x": 13.903999328613281,
+            "y": 80.86083984375,
+            "z": -678.8995971679688
+          },
+          "look_at": {
+            "x": 26.90399932861328,
+            "y": 79.4608383178711,
+            "z": -678.8995971679688
+          },
+          "fov": 62.0,
+          "camera_frame": 141206,
+          "save_frame": 141246,
+          "historical_metadata_sha256": "8d47025b0aaeb384db59e5866a5ffdacac56803a445c569f1a553c8d7368ef55",
+          "historical_png_sha256": "3585f9af0ea7450d90cea22225e44210e3fd2cf0a4440d032c2a2b64800979e2",
+          "historical_tick": 809,
+          "same_pose_max_error_m": 2.83203121398401e-06,
+          "same_look_max_error_m": 2.83203121398401e-06,
+          "pixel_identity_asserted": false
+        },
+        {
+          "id": "side-entry",
+          "metadata": "docs/quality/m13/venue01-captures-shoulder-review/side-entry.json",
+          "metadata_sha256": "1c6a660b5927f702263762186ef8beaa5b2e8d00fdaf5fb6ea822228fdbbe739",
+          "png": "docs/quality/m13/venue01-captures-shoulder-review/side-entry.png",
+          "png_sha256": "5b453ea8e4ba5de0b7075314aa04927c7b0a9e17058913c8d13c6f2068fc669a",
+          "dimensions": [
+            2560,
+            1440
+          ],
+          "host_entity_id": "40481:55552",
+          "tick": 1030,
+          "quality": "high",
+          "visible_trees": 11,
+          "camera_position": {
+            "x": 110.0,
+            "y": 5.0,
+            "z": -32.0
+          },
+          "look_at": {
+            "x": 70.0,
+            "y": 0.800000011920929,
+            "z": -13.0
+          },
+          "fov": 58.0,
+          "camera_frame": 117843,
+          "save_frame": 117866,
+          "historical_metadata_sha256": "da5fde7330dc7b3ee3bd9412b998ebc8fdfc5b9f6b2370bc71b2119acd87fbad",
+          "historical_png_sha256": "0f187794fc4382f9cf904297ac4f58299e7237f66604c789e2ccb233cc0c17d8",
+          "historical_tick": 809,
+          "same_pose_max_error_m": 0.0,
+          "same_look_max_error_m": 1.1920928910669204e-08,
+          "pixel_identity_asserted": false
+        },
+        {
+          "id": "snow-edge",
+          "metadata": "docs/quality/m13/venue01-captures-shoulder-review/snow-edge.json",
+          "metadata_sha256": "71a8e9b806fb42da433f47c1773524b1e8b100956b3ee91054254eb9024a5153",
+          "png": "docs/quality/m13/venue01-captures-shoulder-review/snow-edge.png",
+          "png_sha256": "6d0011027934823f3648d8cfd5cb9e284f7caaefd95c0b9cd44a68227deecf65",
+          "dimensions": [
+            2560,
+            1440
+          ],
+          "host_entity_id": "40481:55552",
+          "tick": 1030,
+          "quality": "high",
+          "visible_trees": 246,
+          "camera_position": {
+            "x": -420.9998474121094,
+            "y": 42.79610061645508,
+            "z": -367.2404479980469
+          },
+          "look_at": {
+            "x": -413.9998474121094,
+            "y": 41.79610061645508,
+            "z": -372.2404479980469
+          },
+          "fov": 55.0,
+          "camera_frame": 150981,
+          "save_frame": 151041,
+          "historical_metadata_sha256": "1ba809d5b42c7d8814c04cd87e8b99da64eb68c5dfe7771ff5721d9edf3fe301",
+          "historical_png_sha256": "7c459e0510a5220b8f77c6d8c8a216dc064d4350fce970aa8bad3a73d49522bf",
+          "historical_tick": 809,
+          "same_pose_max_error_m": 6.164550754306219e-07,
+          "same_look_max_error_m": 6.164550754306219e-07,
+          "pixel_identity_asserted": false
+        },
+        {
+          "id": "stadium-overview",
+          "metadata": "docs/quality/m13/venue01-captures-shoulder-review/stadium-overview.json",
+          "metadata_sha256": "8f0c71a3ed232dc7879355f2d8a6ebd0b028230fbd2b5b780f7795c7d3401240",
+          "png": "docs/quality/m13/venue01-captures-shoulder-review/stadium-overview.png",
+          "png_sha256": "cb0a94b119ef61a7d9c99c8b5becf00525174981f2aa298b1c3d5ed2e2295f57",
+          "dimensions": [
+            2560,
+            1440
+          ],
+          "host_entity_id": "40481:55552",
+          "tick": 1030,
+          "quality": "high",
+          "visible_trees": 1,
+          "camera_position": {
+            "x": 110.0,
+            "y": 35.0,
+            "z": -72.0
+          },
+          "look_at": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 8.0
+          },
+          "fov": 64.0,
+          "camera_frame": 111821,
+          "save_frame": 111825,
+          "historical_metadata_sha256": "c16e765a90e2004ef18bbffcd5ab7d55efb7e77d14f7b3872ef53977c487e55e",
+          "historical_png_sha256": "06d9861a709ce3b271f76d2b753eccd7483947a04294217629d627e38c0094a2",
+          "historical_tick": 809,
+          "same_pose_max_error_m": 0.0,
+          "same_look_max_error_m": 0.0,
+          "pixel_identity_asserted": false
+        }
+      ]
+    },
+    "artifact_sha256": [
+      {
+        "path": "artifacts/wp169t/final-visual-review.md",
+        "sha256": "3d8f0201a9b75928821017e102fcf156932cda30257beac7aefa1b90c19b6e76"
+      },
+      {
+        "path": "artifacts/wp169t/final-five-capture-inventory.json",
+        "sha256": "a15f3afb817ca8722cc9add1e1a52b8a25f5c50f23c87d7a4315a72012f8da18"
+      },
+      {
+        "path": "artifacts/wp169t/independent-snow-edge-probe/main568-gate-provenance.json",
+        "sha256": "0d65b960670e3417dcb593f6623c4a532735c646259d4bb5a42e5fc74416f002"
+      }
+    ],
+    "snow_edge_cause": "Main row292/course568 west original wall retained due real Sprint footprint overlap; Main top above Sprint by0.185537m",
+    "root_console": {
+      "errors": 0,
+      "retained_warnings": 5
+    },
+    "scope": "Actual frozen GameView and read-only gate/geometry diagnosis; no final visual acceptance or performance qualification."
   }
 }

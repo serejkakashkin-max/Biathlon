@@ -16,4 +16,6 @@ Inspection of all five PNGs confirms the production High visibility correction: 
 
 Z focused9/9 and full219/219PlayMode tests pass with zero failed/skipped/Error logs. These captures establish the bounded visibility result only. Their metadata explicitly has `performance_qualification=false`: GPU, FPS, general quality/balance and overall WP169 completion are not qualified. More distant submitted geometry is an intentional cost.
 
+The comparison rerun at **2026-10-02T21:56:52Z** verifies the captured frozen revision. Its exact source/resource hashes remain historical evidence if T2 changes presentation afterward; a comparison against another source revision is a separate result. The post-capture Console contains 0 errors, 5 retained warnings and 5 logs, with compilation_failed=false and the Editor idle.
+
 [Z machine proof](../wp169z-production-high-forest-visibility.json) binds the exact five-view comparison, tests and source hashes. The replayable metadata comparison is `artifacts/wp169z/compare_captures.py`; its saved result is `actual-five-capture-comparison.json`. [Report](../../../reports/TASK-169Z-production-high-forest-visibility-REPORT.md).

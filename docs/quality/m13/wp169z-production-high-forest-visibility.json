@@ -358,7 +358,7 @@
   },
   "final_actual_captures": {
     "path": "artifacts/wp169z/actual-five-capture-comparison.json",
-    "sha256": "e3251f4db35917064ab2c92f8a165891ad96da6b36b2b525305438b6b58d383e",
+    "sha256": "4f11b2915fd61e7a48dd8c5428d41eb7aa0c5281b402915c12e6e2f1cb7093bd",
     "comparison": {
       "schema_version": 1,
       "id": "wp169z_actual_five_capture_comparison_v1",
@@ -886,15 +886,19 @@
             }
           ]
         }
-      ]
+      ],
+      "verified_at_utc": "2026-10-02T21:56:52.0884553Z",
+      "binding_scope": "Historical frozen revision verified at this timestamp; later source changes do not invalidate the saved capture evidence. Re-running against another revision is a new comparison."
     },
     "review_path": "artifacts/wp169z/final-visual-review.md",
-    "review_sha256": "1d12b21a8543eb0fca3d363d57c1432fa1d94f7017aed69474b15c9de2bcce75",
+    "review_sha256": "c829d47b07ea4b967575650cf5896e6456312e9b96f0ceca39ce8c9c8f001e05",
     "folder_readme": "docs/quality/m13/venue01-captures-high-forest-review/README.md",
-    "folder_readme_sha256": "e849ae8b0d444ca85c1d931ea1f87d439797b94637949ad791249c611746f6d6",
+    "folder_readme_sha256": "74cf390e671fb8fdb81b5c3d0696051de341c1ead1b845e5732d5daca64686d7",
     "visibility_review": "PASS for boundedproductionHigh forest correction; allfivePNG independently inspected",
     "performance_qualification": false,
-    "overall_wp169_visual_acceptance": "OPEN originalMain568multi-format overlap wall remains"
+    "overall_wp169_visual_acceptance": "OPEN originalMain568multi-format overlap wall remains",
+    "comparison_script_sha256": "7bcb5c54ef47cf22c8695e13f294b551272c0f88034a1b2b9785c885c4954134",
+    "binding_verified_at_utc": "2026-10-02T21:56:52.0884553Z"
   },
   "known_limitations": [
     "No GPU/FPS/frame-time qualification",
@@ -902,5 +906,100 @@
     "Orthographic/physical/custom projection uses conservative completefrustum",
     "Projection-aware zoom retains existing nearLOD/shadow policy and mayadd shadow casters",
     "Separate T2/live-route-presentation overlap step remains visuallyOPEN; no WP169DONE"
-  ]
+  ],
+  "verification_revision": {
+    "verified_at_utc": "2026-10-02T21:56:52.0884553Z",
+    "scope": "Historical frozen revision verified at this timestamp; later source changes do not invalidate the saved capture evidence. Re-running against another revision is a new comparison.",
+    "captured_source_sha256": [
+      {
+        "path": "Assets/Scripts/Unity/Presentation/ProductionCoursePresentation.cs",
+        "sha256": "97f01ad3c90ae9804c65601fa0b6c1bcb36b2a2998c62b576379efaf968ce506"
+      },
+      {
+        "path": "Assets/Tests/PlayMode/ProductionTerrainContactTests.cs",
+        "sha256": "0209aa53f9a25626d43c0227d703e5b146eceef5bd11c03b19a5d06fea87c79c"
+      },
+      {
+        "path": "Assets/Scripts/Unity/Presentation/ProductionVenueHost.cs",
+        "sha256": "ffec37e1f5a8ce600f2b91089987adf53d3e7acf36bc4a22bd59959f7d67a602"
+      },
+      {
+        "path": "Assets/Scripts/Unity/Presentation/ProductionVenueEnvironment.cs",
+        "sha256": "a6956ed22554a3c3ffe71e0894981645571a0d6552558f2a196e882b21327767"
+      },
+      {
+        "path": "Assets/Scripts/Unity/Presentation/ProductionEnvironmentDefinition.cs",
+        "sha256": "628c70c127a3cc074f4b5e5ae31000b50324a2e19e9dc6cc63fde5f8cecd31a3"
+      },
+      {
+        "path": "Assets/Scripts/Unity/Presentation/VegetationPresentation.cs",
+        "sha256": "1a7c3ca577782aefd04aaed0be3d6e1d6c6f8a35599075706126183f4071aef5"
+      },
+      {
+        "path": "Assets/Tests/PlayMode/ProductionForestVisibilityTests.cs",
+        "sha256": "39bb7bc29b99100d44b000672391649cfd9a2701b17d76e9f7b7ce38b149ee9d"
+      },
+      {
+        "path": "Assets/Scripts/Unity/Presentation/WeatherPresentation.cs",
+        "sha256": "84e23f0bbc88c31151464fd4d07da9a0c16f2bf20f0366edd36c937c0554f021"
+      },
+      {
+        "path": "Assets/Shaders/Snow.shader",
+        "sha256": "93491565cd0dbf7a17d4faecd4d77bf54821a321a31355f7691ca387498d51c5"
+      },
+      {
+        "path": "scripts/content/m13/generate_environment.py",
+        "sha256": "2d8530631891306b73c7fc7eaf1c7a1413be784ad437d3133bca4b3e5f680acb"
+      },
+      {
+        "path": "scripts/content/m13/recipes/woodland_basin_environment_recipe_v1.json",
+        "sha256": "37fe6e83ebfd98236a62bcec71f41de22fad242ac7a72862932197db25b8315c"
+      }
+    ],
+    "captured_resource_sha256": [
+      {
+        "path": "Biathlon/Venues/woodland_basin_v1/manifest",
+        "sha256": "195c44cf28c1c5f0ff57a8c4ae3ad3a372a3413b2116ac300f925f5e7f3807bf"
+      },
+      {
+        "path": "Biathlon/Venues/woodland_basin_v1/mass_start_profile",
+        "sha256": "e06ba78cdf5c9c7d08282bc8bdff9f94d3f0ee4302698b6cd0e017a6f48d83ba"
+      },
+      {
+        "path": "Biathlon/Venues/woodland_basin_v1/mass_start_route",
+        "sha256": "91835d00c76ba270701704a9b019fac18f40cd16cde7ccafe7829168ca5fe785"
+      },
+      {
+        "path": "Biathlon/race_snow_neutral_v1",
+        "sha256": "16106bfee89b08149ab82b1c68dd8951cf14069c5d26fe56f7c88210f708f421"
+      },
+      {
+        "path": "Biathlon/Venues/woodland_basin_v1/environment",
+        "sha256": "fdc32da3f73ef4a405b430d56df66fb5f77f5d3293936fb51899bda27701c377"
+      },
+      {
+        "path": "Biathlon/Venues/woodland_basin_v1/track",
+        "sha256": "4f660db9aedcaacf7993a5dc02fda28fbadf0246ee561bbed9ec3057f512d8e0"
+      },
+      {
+        "path": "Biathlon/Venues/woodland_basin_v1/visual",
+        "sha256": "23c79b905c18b1e72ca3445125117d9300b614bd7eedb67d16a4c000fddf7238"
+      },
+      {
+        "path": "Biathlon/Venues/woodland_basin_v1/paths",
+        "sha256": "d2e3b41cc2076c4b77a28226ccbc4e5408c0980038c9a74969b79f9508fa8112"
+      }
+    ]
+  },
+  "root_after_captures_console": {
+    "path": "artifacts/wp169z/unity-console-after-captures.json",
+    "sha256": "6ec9e8c430cb9f9dbf0e2a39077295d70bc011c80576b6a34590c24ce320b93d",
+    "observed": {
+      "errors": 0,
+      "warnings": 5,
+      "logs": 5,
+      "compilation_failed": false
+    },
+    "editor_idle": "Root-reported; no additional Unity mutation by reporting agent"
+  }
 }
