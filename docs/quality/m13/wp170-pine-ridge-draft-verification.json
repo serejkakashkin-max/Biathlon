@@ -1,0 +1,375 @@
+{
+  "schema_version": 1,
+  "id": "pine_ridge_wp170_draft_acceptance_v1",
+  "status": "DRAFT_STATIC_DATA_PASS_RUNTIME_VISUAL_BALANCE_WEATHER_PERFORMANCE_PENDING",
+  "venue_id": "pine_ridge_v1",
+  "wp170_complete": false,
+  "authority_boundary": "Unimported draft resources only; catalog, calendar, source C#, core tuning and accepted Venue01 resources unchanged.",
+  "design_source": "docs/proposals/M13-LAUNCH-VENUE-IDENTITY-RECIPES.md",
+  "milestones_m": {
+    "climb_start": 209.208,
+    "climb_end": 1029.208,
+    "ridge_start": 1068.416,
+    "ridge_end": 1649.2,
+    "descent_start": 1688.408,
+    "descent_end": 2520.188
+  },
+  "ridge_span_m": 571.196,
+  "ridge_actual_travel_m": 580.784,
+  "shared_range": {
+    "lane_count": 30,
+    "pitch_m": 6,
+    "unchanged_lane_paths": 30,
+    "unchanged_physical_loops": 33,
+    "range_layout_equal": true,
+    "firing_distance_m": 50,
+    "penalty_length_m": 150
+  },
+  "formats": [
+    {
+      "format": "mass_start",
+      "distance_m": 15000.0,
+      "lap_distances_m": [
+        3000.0,
+        3000.0,
+        3000.0,
+        3000.0,
+        3000.0
+      ],
+      "finish_anchor": {
+        "loop_id": "main",
+        "distance_m": 3000.0
+      }
+    },
+    {
+      "format": "sprint",
+      "distance_m": 10000.0,
+      "lap_distances_m": [
+        3333.333,
+        3333.333,
+        3333.334
+      ],
+      "finish_anchor": {
+        "loop_id": "main",
+        "distance_m": 0.001
+      }
+    },
+    {
+      "format": "pursuit",
+      "distance_m": 12500.0,
+      "lap_distances_m": [
+        2500.0,
+        2500.0,
+        2500.0,
+        2500.0,
+        2500.0
+      ],
+      "finish_anchor": {
+        "loop_id": "main",
+        "distance_m": 3000.0
+      }
+    }
+  ],
+  "format_branches": [
+    {
+      "format": "pursuit",
+      "loop_id": "pursuit_shortcut",
+      "length_m": 852.948,
+      "main_depart_m": 684.808,
+      "main_return_m": 2037.756,
+      "world_parameter_m": 194.5206927276193,
+      "edge_count": 20,
+      "maximum_world_edge_length_error_m": 1.4921397450962104e-13,
+      "maximum_grade": 0.1956079453514954,
+      "maximum_curvature_per_m": 0.005166315325734506,
+      "actual_race_distance_m": 12500.0,
+      "lap_distances_m": [
+        2500.0,
+        2500.0,
+        2500.0,
+        2500.0,
+        2500.0
+      ],
+      "seam_world_gap_m": 0,
+      "endpoint_tangents": "EXACT_MAIN_DIRECTION",
+      "guard_before_after_m": 55
+    },
+    {
+      "format": "sprint",
+      "loop_id": "sprint_extension",
+      "length_m": 513.333,
+      "main_depart_m": 619.208,
+      "main_return_m": 799.208,
+      "world_parameter_m": 132.80341032209873,
+      "edge_count": 40,
+      "maximum_world_edge_length_error_m": 1.3677947663381929e-13,
+      "maximum_grade": 0.1956079453514954,
+      "maximum_curvature_per_m": 0.03379961473706298,
+      "actual_race_distance_m": 10000.0,
+      "lap_distances_m": [
+        3333.333,
+        3333.333,
+        3333.334
+      ],
+      "seam_world_gap_m": 0,
+      "endpoint_tangents": "EXACT_MAIN_DIRECTION",
+      "guard_before_after_m": 25
+    }
+  ],
+  "static_diagnostic_count": 0,
+  "forest_identity": {
+    "pine_count": 16279,
+    "fir_count": 7585,
+    "actual_pine_fraction": 0.6821572242708682,
+    "explicit_clearing_count": 2,
+    "exposed_tree_count": 1868,
+    "clearing_canopy_and_scale_checks": "PASS",
+    "minimum_actual_scale": 0.900017,
+    "maximum_actual_scale": 1.379992,
+    "mean_actual_scale": 1.1389370987680187,
+    "environment_recipe": {
+      "schema_version": 1,
+      "id": "pine_ridge_environment_recipe_v1",
+      "venue_id": "pine_ridge_v1",
+      "forest": {
+        "grid_spacing_m": 5.5,
+        "minimum_scale": 0.9,
+        "maximum_scale": 1.38,
+        "pine_fraction": 0.68,
+        "species_seed": 1701,
+        "exposed_height_m": 145,
+        "exposed_density_fraction": 0.32,
+        "clearings": [
+          {
+            "id": "sheltered_lower_glade",
+            "loop_id": "main",
+            "distance_m": 496.208,
+            "lateral_m": 35,
+            "radius_m": 24
+          },
+          {
+            "id": "ridge_view_glade",
+            "loop_id": "main",
+            "distance_m": 1213.612,
+            "lateral_m": -35,
+            "radius_m": 28
+          }
+        ]
+      },
+      "lighting": {
+        "preset_id": "dawn",
+        "weather_preset": "clear",
+        "visual_wind": {
+          "x": 0.85,
+          "y": 0.15
+        },
+        "temperature_c": -13
+      },
+      "status": "DRAFT_ORIGINAL_VENUE_PRESENTATION_RUNTIME_VISUAL_AND_WEATHER_PENDING"
+    }
+  },
+  "deterministic_venue01_byte_regression": {
+    "resource_count": 203,
+    "independent_generations": 2,
+    "byte_differences": [
+      0,
+      0
+    ],
+    "report_sha256": "90848315b906631899651f12edd75e47133568518cb7a9fe4dc5b4840e60da62"
+  },
+  "recipe_sha256": {
+    "pine_ridge_environment_recipe_v1.json": "4762f748f4ee3e89da2cb74b8a10e9e1bc26143d5b1c865af32a57db33934bfa",
+    "pine_ridge_formats_recipe_v1.json": "cdf13651a6cc41222135e7bd80cbe5a31b530028b6e5f9c61018c428b6a4dd85",
+    "pine_ridge_geometry_recipe_v1.json": "488831f403ebe683e6bf27f69fe6200449d221e8755d380c4a0bab60b1eb9506"
+  },
+  "source_code_sha256": {
+    "scripts/content/m13/audit_pine_ridge_draft.py": "643ba503471cb08576c56712371fd640b59094612c625668d6ab3ed8cc50943e",
+    "scripts/content/m13/corridor_sampling.py": "ca006ce87798d549cf90d1001794e22030d1235e105e03a066b102e188673c01",
+    "scripts/content/m13/environment_serialization.py": "0afff19e6148c5917995f8100544a56d1ac9f79adea9945f931a6743e0bba2bf",
+    "scripts/content/m13/exact_polyline.py": "aa50fc5ed779a65270e627378f798598fa15b846549dffa5a28e838ddfda0b5d",
+    "scripts/content/m13/generate_environment.py": "336f429be2bf0c8793af45d513523273ad1c6a9e4a9e86114fb0526610aa3cfc",
+    "scripts/content/m13/generate_format_branches.py": "4af3b40894e9ac08b65bdd6aca0aab8bdd9c89f06407e2227b284941a2857da5",
+    "scripts/content/m13/generate_venue01.py": "2c053e229d3cddc9c88a74ec197de8c1851856a3e0cc0caf9b50dfe048ab93ab",
+    "scripts/content/m13/refresh_environment_corridors.py": "ec128039085f57d276c18823c76bd5230c000a1cbb99d17ade03251ef6fa5d53",
+    "scripts/content/m13/regress_venue01_defaults.py": "a2c2bc4cdf1e02de2f411c2db08d8156e119a8a5183161e7922db2964ca98013",
+    "scripts/content/m13/test_environment_geometry.py": "7c860d4799fc30eed190b82387574a62ec7ed69806c6d246db3e3cbfa550da17",
+    "scripts/content/m13/test_environment_serialization.py": "cdd021a82b8ee276fcba4232c2e0ec82be035d111693dfe4cf6ed7239112e282",
+    "scripts/content/m13/test_pine_ridge_geometry.py": "52923f680207e18c359c9b5699d8585750555f5bafd7e34b4e89f9b383090538",
+    "scripts/content/m13/test_range_exit_tail.py": "2c0212ba6de14d80b552968de697f13cbadb879892e9c8f2dfcb196f4f03f71c",
+    "scripts/content/m13/verify_environment.py": "2366ea0decaa233ae93c93508aba457bacc61b495a79aa77ddf2020df24d014f",
+    "scripts/content/m13/verify_format_branches.py": "15f70edc70b9dac53c2f2eb7e4d54b99f07b779da23229376eed586ae9dc67fa"
+  },
+  "proof_sha256": {
+    "static-report.json": "6a307bfef18c16cbb2f458d582843162e5b45fb2593d0cfffafb5dc3b4fa4d71",
+    "formats-verification.json": "6699c1b034a4359a2b9f7f07fb7ab2af52ca801aadff8e7f97cfbb2b60d834ff",
+    "environment-verification.json": "6a49248aa51c6d4e19e89a81f5437b3362d9c2f5a76c5cf87724c93131daf872",
+    "regression.json": "90848315b906631899651f12edd75e47133568518cb7a9fe4dc5b4840e60da62"
+  },
+  "pending_acceptance": [
+    "Cold Unity import and actual groomed closed-seam mesh/terrain test",
+    "All format race admission, dense pack liveness, deterministic results and replay",
+    "Dawn forest/ridge/stadium visibility and full snow-join camera review",
+    "Worst-condition weather readability, LOD and performance",
+    "Race-balance calibration of the longer .195608-grade climb"
+  ],
+  "known_visual_risk": "Conservative terrain capping creates up to 0.597949 m separation below the Main. Snow joins and this steeper venue require visual inspection; no visual PASS is claimed.",
+  "main_metrics": {
+    "woodland_basin_v1": {
+      "main_length_m": 3000.0,
+      "sustained_climb_travel_m": 600.0,
+      "sustained_climb_grade": 0.1312166451118998,
+      "sustained_climb_width_m": 6,
+      "sustained_climb_draft_allowed": true,
+      "main_ascent_m": 78.06083685067124,
+      "main_descent_m": 78.06083685067124,
+      "main_peak_y_m": 78.06083685067124,
+      "main_widths_m": [
+        6
+      ],
+      "draft_allowed_travel_m": 2576.4,
+      "distance_weighted_wind_exposure": 0.5528077000000009
+    },
+    "pine_ridge_v1": {
+      "main_length_m": 3000.0,
+      "sustained_climb_travel_m": 820.0,
+      "sustained_climb_grade": 0.19560794535148007,
+      "sustained_climb_width_m": 7,
+      "sustained_climb_draft_allowed": false,
+      "main_ascent_m": 171.4152364711423,
+      "main_descent_m": 171.4152364711423,
+      "main_peak_y_m": 164.4152364711423,
+      "main_widths_m": [
+        6,
+        7,
+        7.5,
+        8
+      ],
+      "draft_allowed_travel_m": 704.796,
+      "distance_weighted_wind_exposure": 0.3951787333333339
+    }
+  },
+  "exact_chord_seam_proof": {
+    "schema_version": 1,
+    "id": "pine_ridge_serialized_format_routes_verification_v1",
+    "status": "PASS_EXACT_SERIALIZED_GEOMETRY_TOPOLOGY_ROUTE_ARITHMETIC_RUNTIME_PENDING",
+    "venue_id": "pine_ridge_v1",
+    "edge_count": 1329,
+    "slice_count": 30,
+    "maximum_world_edge_length_error_m": 1.1457501614131615e-13,
+    "maximum_grade_error": 0.0,
+    "directed_connection_count": 69,
+    "maximum_directed_seam_world_gap_m": 0.0,
+    "unchanged_base_loop_count": 34,
+    "unchanged_lane_path_count": 30,
+    "formats": [
+      {
+        "format": "mass_start",
+        "distance_m": 15000.0,
+        "lap_distances_m": [
+          3000.0,
+          3000.0,
+          3000.0,
+          3000.0,
+          3000.0
+        ],
+        "finish_anchor": {
+          "loop_id": "main",
+          "distance_m": 3000.0
+        }
+      },
+      {
+        "format": "sprint",
+        "distance_m": 10000.0,
+        "lap_distances_m": [
+          3333.333,
+          3333.333,
+          3333.334
+        ],
+        "finish_anchor": {
+          "loop_id": "main",
+          "distance_m": 0.001
+        }
+      },
+      {
+        "format": "pursuit",
+        "distance_m": 12500.0,
+        "lap_distances_m": [
+          2500.0,
+          2500.0,
+          2500.0,
+          2500.0,
+          2500.0
+        ],
+        "finish_anchor": {
+          "loop_id": "main",
+          "distance_m": 3000.0
+        }
+      }
+    ],
+    "authority_boundary": "Independent serialized proof; full cold catalog/occupancy/Unity/race/replay acceptance still required"
+  },
+  "environment_proof": {
+    "schema_version": 1,
+    "id": "pine_ridge_environment_serialized_verification_v1",
+    "status": "PASS_STATIC_DATA_RUNTIME_VISUAL_AND_PERFORMANCE_PENDING",
+    "tile_count": 100,
+    "coincident_terrain_border_checks": 11619,
+    "unique_world_height_vertices": 410881,
+    "authored_corridor_width_sample_count": 1365,
+    "forest_group_count": 80,
+    "tree_count": 23864,
+    "maximum_tree_to_triangle_height_error_m": 4.999600093924528e-07,
+    "minimum_checked_full_canopy_corridor_gap_m": 3.0007281429808623,
+    "target_count": 30,
+    "course_surface_samples": 5286,
+    "minimum_terrain_minus_route_height_m": -0.30652826106086195,
+    "maximum_terrain_minus_route_height_m": -0.029999505497116274,
+    "environment_sha256": "cb5a92f8b120bc1b4de4d2736eefec1f0eadd4a1880d48c70035f430528df3f6",
+    "original_venue_identity": {
+      "pine_count": 16279,
+      "fir_count": 7585,
+      "actual_pine_fraction": 0.6821572242708682,
+      "explicit_clearing_count": 2,
+      "exposed_tree_count": 1868,
+      "clearing_canopy_and_scale_checks": "PASS"
+    }
+  },
+  "whole_triangle_proof": {
+    "method": "exact affine extrema of every runtime ribbon/terrain triangle overlay",
+    "ribbon_triangle_count": 8508,
+    "overlay_vertex_count": 277678,
+    "buried_ribbon_triangle_count": 0,
+    "minimum_ribbon_minus_terrain_m": 0.029992616998072208,
+    "maximum_ribbon_minus_terrain_m": 0.5979486544514288,
+    "minimum_gap_location": {
+      "loop_id": "pursuit_shortcut",
+      "row_start_distance_m": 593.2682810304449,
+      "row_end_distance_m": 595.2658173302108,
+      "world": {
+        "x": 136.0,
+        "y": 128.10679010234963,
+        "z": -700.0
+      }
+    },
+    "maximum_gap_location": {
+      "loop_id": "main",
+      "row_start_distance_m": 638.0,
+      "row_end_distance_m": 640.0,
+      "world": {
+        "x": -346.0,
+        "y": 82.35090885952955,
+        "z": -470.0
+      }
+    }
+  },
+  "python_tests": {
+    "schema_version": 1,
+    "id": "pine_ridge_python_geometry_regression_v1",
+    "status": "PASS",
+    "test_count": 8,
+    "command": "python -m unittest discover -s scripts/content/m13 -p test_*.py -v",
+    "exit_code": 0
+  },
+  "full_artifact_report": "artifacts/wp170/pine-ridge-draft-verification.json",
+  "full_artifact_report_sha256": "9c324a28e1c887839f5f7912145f049df3f3031409bd3c06587f9804e221e70a"
+}

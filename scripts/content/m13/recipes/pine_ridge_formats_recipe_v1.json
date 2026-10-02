@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "pine_ridge_formats_recipe_v1",
+  "venue_id": "pine_ridge_v1",
+  "main_loop_id": "main",
+  "width_m": 6,
+  "aligned_terminal_edge_m": 1,
+  "quarter_segments": 8,
+  "world_chord_real_slack_m": 0.02,
+  "guard_distance_m": 25,
+  "pursuit": {
+    "loop_id": "pursuit_shortcut",
+    "main_depart_m": 684.808,
+    "main_return_m": 2037.756,
+    "length_m": 852.948,
+    "race_distance_m": 12500,
+    "laps": 5,
+    "field_capacity": 60,
+    "tactical_profile": {
+      "wind_exposure": 0.18,
+      "draft_allowed": true,
+      "overtake_allowed": true
+    },
+    "guard_distance_m": 55,
+    "guard_design_note": "Actual wider Main and radius194.52m Pursuit convergence overlaps up to50.6m after departure and51.3m before return, including canonical body clearance; bounded55m endpoint regions cover these actual shared footprints."
+  },
+  "sprint": {
+    "loop_id": "sprint_extension",
+    "main_depart_m": 619.208,
+    "main_return_m": 799.208,
+    "length_m": 513.333,
+    "turn_radius_m": 30,
+    "race_distance_m": 10000,
+    "laps": 3,
+    "field_capacity": 60,
+    "paid_final_main_continuation_m": 0.001,
+    "tactical_profile": {
+      "wind_exposure": 0.15,
+      "draft_allowed": false,
+      "overtake_allowed": false
+    }
+  },
+  "status": "DRAFT_FORMAT_BINDING_RUNTIME_AND_VISUAL_ACCEPTANCE_PENDING"
+}

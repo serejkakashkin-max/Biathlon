@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "id": "pine_ridge_geometry_recipe_v1",
+  "lane_count": 30,
+  "lane_pitch_m": 6,
+  "side_margin_m": 11,
+  "exit_tail_extension_m": 34,
+  "compound_range_rejoin": true,
+  "main_width_m": 6,
+  "private_width_m": 2.5,
+  "penalty_width_m": 4,
+  "private_quarter_segments": 8,
+  "private_arc_chord_m": 0.294,
+  "private_inbound_straight_m": 9,
+  "private_outbound_straight_m": 21,
+  "outer_quarter_segments": 8,
+  "outer_arc_chord_m": 4.901,
+  "outer_west_straight_m": 170,
+  "climb_travel_m": 820,
+  "descent_travel_m": 831.78,
+  "penalty_segments": 60,
+  "penalty_length_m": 150,
+  "lap_length_m": 3000,
+  "finish_lead_m": 50,
+  "logical_entry_offset_m": 5,
+  "start_approach_length_m": 40,
+  "start_quarter_segments": 16,
+  "start_arc_chord_m": 1.963,
+  "start_terminal_straight_m": 1,
+  "minimum_seam_clearance_m": 3.8,
+  "authoring_status": "DRAFT_STATIC_GEOMETRY_RUNTIME_AND_VISUAL_ACCEPTANCE_PENDING",
+  "venue_id": "pine_ridge_v1",
+  "track_id": "pine_ridge_track_v1",
+  "plateau_chord_real_slack_m": 0.03,
+  "plateau_controls": [
+    {
+      "fraction": 0.0,
+      "z_offset_m": 0,
+      "y_offset_m": 0
+    },
+    {
+      "fraction": 0.125,
+      "z_offset_m": -8,
+      "y_offset_m": 3
+    },
+    {
+      "fraction": 0.25,
+      "z_offset_m": -24,
+      "y_offset_m": 7
+    },
+    {
+      "fraction": 0.375,
+      "z_offset_m": -8,
+      "y_offset_m": 3
+    },
+    {
+      "fraction": 0.5,
+      "z_offset_m": 0,
+      "y_offset_m": 0
+    },
+    {
+      "fraction": 0.625,
+      "z_offset_m": 8,
+      "y_offset_m": -3
+    },
+    {
+      "fraction": 0.75,
+      "z_offset_m": 24,
+      "y_offset_m": -7
+    },
+    {
+      "fraction": 0.875,
+      "z_offset_m": 8,
+      "y_offset_m": -3
+    },
+    {
+      "fraction": 1.0,
+      "z_offset_m": 0,
+      "y_offset_m": 0
+    }
+  ],
+  "plateau_sectors": [
+    "ridge_narrow",
+    "ridge_narrow",
+    "ridge_narrow",
+    "ridge_narrow",
+    "ridge_passing",
+    "ridge_passing",
+    "ridge_passing",
+    "ridge_passing"
+  ],
+  "course_sectors": {
+    "lower_turn": {
+      "width_m": 7.5,
+      "wind_exposure": 0.15,
+      "draft_allowed": true,
+      "overtake_allowed": true
+    },
+    "climb": {
+      "width_m": 7,
+      "wind_exposure": 0.22,
+      "draft_allowed": false,
+      "overtake_allowed": false
+    },
+    "crest_turn": {
+      "width_m": 6,
+      "wind_exposure": 0.85,
+      "draft_allowed": false,
+      "overtake_allowed": false
+    },
+    "ridge_narrow": {
+      "width_m": 6,
+      "wind_exposure": 0.95,
+      "draft_allowed": false,
+      "overtake_allowed": false
+    },
+    "ridge_passing": {
+      "width_m": 8,
+      "wind_exposure": 0.8,
+      "draft_allowed": true,
+      "overtake_allowed": true
+    },
+    "descent_turn": {
+      "width_m": 6,
+      "wind_exposure": 0.7,
+      "draft_allowed": false,
+      "overtake_allowed": false
+    },
+    "descent": {
+      "width_m": 7,
+      "wind_exposure": 0.35,
+      "draft_allowed": false,
+      "overtake_allowed": false
+    },
+    "recovery_turn": {
+      "width_m": 6,
+      "wind_exposure": 0.25,
+      "draft_allowed": false,
+      "overtake_allowed": false
+    },
+    "recovery": {
+      "width_m": 6,
+      "wind_exposure": 0.1,
+      "draft_allowed": true,
+      "overtake_allowed": true
+    }
+  }
+}

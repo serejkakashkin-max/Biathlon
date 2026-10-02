@@ -1,0 +1,254 @@
+{
+  "schema_version": 1,
+  "id": "pine_ridge_u34_compound_draft_compact_proof_v1",
+  "status": "DRAFT_STATIC_DATA_PASS_RUNTIME_VISUAL_BALANCE_WEATHER_PERFORMANCE_PENDING",
+  "wp170_complete": false,
+  "imported": false,
+  "replacement_scope": "Replaces the initial isolated Pine content candidate only; historical acceptance proof remains unchanged.",
+  "artifact_root": "artifacts/wp170/u34-compound-draft",
+  "full_report": "artifacts/wp170/u34-compound-draft/pine-ridge-updated-draft-verification.json",
+  "full_report_sha256": "9409e434d3c047b6dd471b1c8942520c0bb2437df7a619880f21947d9736c4b5",
+  "initial_proof_sha256_unchanged": "a066568aa3c398d2dd72ae4a4f18c19c041b19337896e552b051350c86deee38",
+  "initial_recipe_snapshot_sha256": {
+    "pine_ridge_environment_recipe_v1.json": "4762f748f4ee3e89da2cb74b8a10e9e1bc26143d5b1c865af32a57db33934bfa",
+    "pine_ridge_formats_recipe_v1.json": "cdf13651a6cc41222135e7bd80cbe5a31b530028b6e5f9c61018c428b6a4dd85",
+    "pine_ridge_geometry_recipe_v1.json": "488831f403ebe683e6bf27f69fe6200449d221e8755d380c4a0bab60b1eb9506"
+  },
+  "only_recipe_changes": {
+    "geometry": {
+      "exit_tail_extension_m": 34,
+      "compound_range_rejoin": true
+    },
+    "environment_lighting": {
+      "fog_distance_scale": 2.7
+    },
+    "formats": "BYTE_IDENTICAL",
+    "forest": "STRUCTURALLY_IDENTICAL"
+  },
+  "source_code_sha256": {
+    "scripts/content/m13/generate_venue01.py": "bd7b5631b673e68d3868d3c502f86bcaef0df5995185a9f4304f255b6584cf63",
+    "scripts/content/m13/generate_format_branches.py": "4af3b40894e9ac08b65bdd6aca0aab8bdd9c89f06407e2227b284941a2857da5",
+    "scripts/content/m13/generate_environment.py": "419d165d1e72bef1fcc5e44478d6f98512f3ec713b1a340d75093d621198385e",
+    "scripts/content/m13/verify_environment.py": "2366ea0decaa233ae93c93508aba457bacc61b495a79aa77ddf2020df24d014f",
+    "scripts/content/m13/verify_format_branches.py": "15f70edc70b9dac53c2f2eb7e4d54b99f07b779da23229376eed586ae9dc67fa",
+    "scripts/content/m13/exact_polyline.py": "aa50fc5ed779a65270e627378f798598fa15b846549dffa5a28e838ddfda0b5d",
+    "scripts/content/m13/corridor_sampling.py": "ca006ce87798d549cf90d1001794e22030d1235e105e03a066b102e188673c01",
+    "scripts/content/m13/environment_serialization.py": "0afff19e6148c5917995f8100544a56d1ac9f79adea9945f931a6743e0bba2bf",
+    "scripts/content/m13/regress_venue01_defaults.py": "4a38b652d8a0f4be20828631b50c4f26c0bca595d90e04fa878ebd78c40a6ab7",
+    "scripts/content/m13/audit_pine_ridge_draft.py": "722a2e16e729427c0b6caea5c08b8712d7af85148e38590e21af30e564e25457",
+    "scripts/content/m13/test_pine_ridge_geometry.py": "10a589759c18666e9d38d2d8ed3e3e38e51443334c757ea396943ca778b8adb3"
+  },
+  "recipe_sha256": {
+    "pine_ridge_environment_recipe_v1.json": "012d9a740afb96908da11f4cb03f082c87b8d5a3631f5052e37c852106130b58",
+    "pine_ridge_formats_recipe_v1.json": "cdf13651a6cc41222135e7bd80cbe5a31b530028b6e5f9c61018c428b6a4dd85",
+    "pine_ridge_geometry_recipe_v1.json": "0e9731068ebef620db3845e9742694ca6b6f883133298fd95d3bbffd98485b94"
+  },
+  "shared_range": {
+    "lane_count": 30,
+    "pitch_m": 6,
+    "identical_current_woodland_lane_paths": 30,
+    "identical_current_woodland_physical_loops": 33,
+    "range_layout_equal": true,
+    "private_path_length_m": 39.408,
+    "equal_full_personal_path_length_m": 269.408,
+    "exit_aisle_length_m": 230,
+    "firing_distance_m": 50,
+    "penalty_length_m": 150
+  },
+  "previous_draft_geometry_delta": {
+    "private_physical_loops_unchanged": 30,
+    "mat_anchors_unchanged": 30,
+    "private_slices_unchanged": 30,
+    "full_personal_path_length_change_m": 34,
+    "entry_main_anchor_change_m": -34,
+    "exit_aisle_length_change_m": 34,
+    "directed_connections_unchanged": true,
+    "all_port_ids_and_guard_extents_unchanged": true,
+    "guard_port_count": 257,
+    "junction_count_before": 128,
+    "junction_count_after": 127,
+    "compound_range_rejoin_port_ids": [
+      "rejoin_exit",
+      "rejoin_main",
+      "rejoin_penalty",
+      "bypass_in",
+      "bypass_out"
+    ],
+    "bypass_turn_region_removed": true,
+    "draft_allowed_travel_change_m": -34.0
+  },
+  "static_diagnostic_count": 0,
+  "formats": [
+    {
+      "format": "mass_start",
+      "distance_m": 15000.0,
+      "lap_distances_m": [
+        3000.0,
+        3000.0,
+        3000.0,
+        3000.0,
+        3000.0
+      ],
+      "finish_anchor": {
+        "loop_id": "main",
+        "distance_m": 3000.0
+      }
+    },
+    {
+      "format": "sprint",
+      "distance_m": 10000.0,
+      "lap_distances_m": [
+        3333.333,
+        3333.333,
+        3333.334
+      ],
+      "finish_anchor": {
+        "loop_id": "main",
+        "distance_m": 0.001
+      }
+    },
+    {
+      "format": "pursuit",
+      "distance_m": 12500.0,
+      "lap_distances_m": [
+        2500.0,
+        2500.0,
+        2500.0,
+        2500.0,
+        2500.0
+      ],
+      "finish_anchor": {
+        "loop_id": "main",
+        "distance_m": 3000.0
+      }
+    }
+  ],
+  "exact_edges": 1329,
+  "maximum_chord_error_m": 9.681144774731365e-14,
+  "directed_seams": 69,
+  "maximum_seam_gap_m": 0.0,
+  "full_face_clearance": {
+    "method": "exact affine extrema of every runtime ribbon/terrain triangle overlay",
+    "ribbon_triangle_count": 8542,
+    "overlay_vertex_count": 279208,
+    "buried_ribbon_triangle_count": 0,
+    "minimum_ribbon_minus_terrain_m": 0.029992910227747416,
+    "maximum_ribbon_minus_terrain_m": 0.5979486544514288,
+    "minimum_gap_location": {
+      "loop_id": "main",
+      "row_start_distance_m": 1362.0,
+      "row_end_distance_m": 1364.0,
+      "world": {
+        "x": -61.42405003538496,
+        "y": 157.19921875,
+        "z": -876.575949964615
+      }
+    },
+    "maximum_gap_location": {
+      "loop_id": "main",
+      "row_start_distance_m": 638.0,
+      "row_end_distance_m": 640.0,
+      "world": {
+        "x": -380.0,
+        "y": 82.35090885952955,
+        "z": -470.0
+      }
+    }
+  },
+  "terrain_borders_checked": 10393,
+  "maximum_tree_ground_error_m": 4.999379967784989e-07,
+  "minimum_full_canopy_corridor_gap_m": 3.000774072905461,
+  "environment_sha256": "2de1da551ec91ddf73ab0ddbad99d10ea8746cfecd71dd93c0d9580c12913bd3",
+  "environment_delta": {
+    "tile_count_change": -10,
+    "forest_group_count_change": -1,
+    "tree_count_change": -603,
+    "reason": "The exit-tail extension translates the outer Main/branches and penalty/start by 34 m west, shortens recovery, and changes tile bounds and forest exclusions. Forest recipe identity is retained; instance bytes/counts are intentionally regenerated."
+  },
+  "forest_identity": {
+    "pine_count": 15904,
+    "fir_count": 7357,
+    "actual_pine_fraction": 0.6837195305446885,
+    "explicit_clearing_count": 2,
+    "exposed_tree_count": 1856,
+    "clearing_canopy_and_scale_checks": "PASS",
+    "minimum_actual_scale": 0.900017,
+    "maximum_actual_scale": 1.379989,
+    "mean_actual_scale": 1.1394060470745024,
+    "environment_recipe": {
+      "schema_version": 1,
+      "id": "pine_ridge_environment_recipe_v1",
+      "venue_id": "pine_ridge_v1",
+      "forest": {
+        "grid_spacing_m": 5.5,
+        "minimum_scale": 0.9,
+        "maximum_scale": 1.38,
+        "pine_fraction": 0.68,
+        "species_seed": 1701,
+        "exposed_height_m": 145,
+        "exposed_density_fraction": 0.32,
+        "clearings": [
+          {
+            "id": "sheltered_lower_glade",
+            "loop_id": "main",
+            "distance_m": 496.208,
+            "lateral_m": 35,
+            "radius_m": 24
+          },
+          {
+            "id": "ridge_view_glade",
+            "loop_id": "main",
+            "distance_m": 1213.612,
+            "lateral_m": -35,
+            "radius_m": 28
+          }
+        ]
+      },
+      "lighting": {
+        "preset_id": "dawn",
+        "weather_preset": "clear",
+        "fog_distance_scale": 2.7,
+        "visual_wind": {
+          "x": 0.85,
+          "y": 0.15
+        },
+        "temperature_c": -13
+      },
+      "status": "DRAFT_ORIGINAL_VENUE_PRESENTATION_RUNTIME_VISUAL_AND_WEATHER_PENDING"
+    }
+  },
+  "deterministic_pine_repeat": {
+    "independent_generations": 2,
+    "resource_count": 186,
+    "byte_difference_count": 0,
+    "repeat_root": "artifacts/wp170/u34-compound-draft/repeat/formats-draft",
+    "input_snapshot_sha256": "914e970d1fe1d5aee31675ba43359cf12942bf5563cb6b1d0ff9f468a5c8f759",
+    "dependencies_and_protected_data_unchanged_during_repeat": true,
+    "snapshot_scope": "Captured after the first draft generation and before the independent repeat; not a historical generation proof rerun."
+  },
+  "venue01_source_addendum_sha256": "a8dfa791f987d7d6669f2f815167bfb8cd806ac203777fb1733f31d811c22fdf",
+  "python_tests": {
+    "command": "python -B -m unittest discover -s scripts/content/m13 -p test_*.py -v",
+    "passed": 29,
+    "failed": 0,
+    "pine_tests": 6,
+    "corruption_case": "A reduced private merge body guard is rejected by the replacement audit.",
+    "log": "artifacts/wp170/u34-compound-draft/python-tests.log",
+    "log_sha256": "6cefc16f8bdecdb303a0b916862297847f47b74e38139cd1f491ee89676f074f"
+  },
+  "proof_sha256": {
+    "static-report.json": "6a307bfef18c16cbb2f458d582843162e5b45fb2593d0cfffafb5dc3b4fa4d71",
+    "formats-verification.json": "1d4312c04baa673904459f37e81ea40c1df8eb2da5766bfc1bd0647c7116d955",
+    "environment-verification.json": "9bc385a5e6ca4476429c732e24961ec636b955b2458090e24d21ddbb16485597",
+    "input-snapshot.json": "914e970d1fe1d5aee31675ba43359cf12942bf5563cb6b1d0ff9f468a5c8f759",
+    "regression.json": "a6520454464943fa1499e30cab7f7c1357e74e135713fe3e79f6f3b158cd3818"
+  },
+  "known_visual_risk": "The independent float32 TrackRibbonBuilder reconstruction is not the final Unity-groomed mesh. Conservative capping creates up to 0.597949 m separation below the Main. Actual snow joins, dawn/fog and the steeper venue require Unity inspection; no visual PASS is claimed.",
+  "pending_acceptance": [
+    "Cold Unity import and actual groomed closed-seam mesh/terrain test",
+    "All format race admission, dense pack liveness, deterministic results and replay",
+    "Dawn forest/ridge/stadium visibility and full snow-join camera review",
+    "Worst-condition weather readability, LOD and performance",
+    "Race-balance calibration of the longer .195608-grade climb"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "id": "pine_ridge_u34_generator_source_addendum_v1",
+  "status": "CURRENT_SOURCE_MATCHES_RECORDED_U_DEFAULT_205_BYTE_PROOF_HISTORICAL_203_PRESERVED",
+  "historical_203_addendum": "docs/quality/m13/venue01-generic-generator-regression-addendum.json",
+  "historical_203_addendum_sha256": "5ff6cb4723bae8994ff5bfbb9a028d4e3d166f4c6b9fb7fe2aeb3af5c1189ad0",
+  "historical_203_rerun": false,
+  "recorded_current_source_205_regression": "artifacts/wp169u/default-byte-reproduction/regression.json",
+  "recorded_current_source_205_regression_sha256": "a6520454464943fa1499e30cab7f7c1357e74e135713fe3e79f6f3b158cd3818",
+  "recorded_205_recipe_input_sha256": {
+    "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169u\\default-geometry-recipe.json": "31b10cb682dfe9fa7393e3d68b4915d9823c647c712f416392c4e00b128a2286",
+    "C:\\game\\Biathlon\\Biathlon\\scripts\\content\\m13\\recipes\\woodland_basin_formats_recipe_v1.json": "084ea867b32a5e1cb6cd4d1c26146a79052ab24492fd6f3b3cad306267982e35",
+    "C:\\game\\Biathlon\\Biathlon\\scripts\\content\\m13\\recipes\\woodland_basin_environment_recipe_v1.json": "5c53a9a02b128e79c2c514c4a111893d3292a43d30308d99bc44c3d0d016e092"
+  },
+  "recorded_205_regression_generator_sha256": {
+    "generate_venue01.py": "bd7b5631b673e68d3868d3c502f86bcaef0df5995185a9f4304f255b6584cf63",
+    "generate_format_branches.py": "4af3b40894e9ac08b65bdd6aca0aab8bdd9c89f06407e2227b284941a2857da5",
+    "generate_environment.py": "419d165d1e72bef1fcc5e44478d6f98512f3ec713b1a340d75093d621198385e",
+    "verify_environment.py": "2366ea0decaa233ae93c93508aba457bacc61b495a79aa77ddf2020df24d014f",
+    "exact_polyline.py": "aa50fc5ed779a65270e627378f798598fa15b846549dffa5a28e838ddfda0b5d",
+    "corridor_sampling.py": "ca006ce87798d549cf90d1001794e22030d1235e105e03a066b102e188673c01",
+    "environment_serialization.py": "0afff19e6148c5917995f8100544a56d1ac9f79adea9945f931a6743e0bba2bf",
+    "regress_venue01_defaults.py": "4a38b652d8a0f4be20828631b50c4f26c0bca595d90e04fa878ebd78c40a6ab7"
+  },
+  "current_sources_match_recorded_205": true,
+  "changed_since_historical_203": {
+    "scripts/content/m13/generate_environment.py": {
+      "historical": "336f429be2bf0c8793af45d513523273ad1c6a9e4a9e86114fb0526610aa3cfc",
+      "current": "419d165d1e72bef1fcc5e44478d6f98512f3ec713b1a340d75093d621198385e"
+    },
+    "scripts/content/m13/generate_venue01.py": {
+      "historical": "2c053e229d3cddc9c88a74ec197de8c1851856a3e0cc0caf9b50dfe048ab93ab",
+      "current": "bd7b5631b673e68d3868d3c502f86bcaef0df5995185a9f4304f255b6584cf63"
+    },
+    "scripts/content/m13/regress_venue01_defaults.py": {
+      "historical": "a2c2bc4cdf1e02de2f411c2db08d8156e119a8a5183161e7922db2964ca98013",
+      "current": "4a38b652d8a0f4be20828631b50c4f26c0bca595d90e04fa878ebd78c40a6ab7"
+    }
+  },
+  "helper_dependency": {
+    "path": "scripts/content/m13/environment_serialization.py",
+    "sha256": "0afff19e6148c5917995f8100544a56d1ac9f79adea9945f931a6743e0bba2bf"
+  },
+  "scope": "References existing U proof of the 205-file pre-compound O34/fog checkpoint with compound omitted; Pine explicitly opts into compound. No Venue01 generator/recipe/resource writes or new Venue01 generation in this Pine task."
+}

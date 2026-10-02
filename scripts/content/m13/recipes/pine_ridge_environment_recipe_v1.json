@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "id": "pine_ridge_environment_recipe_v1",
+  "venue_id": "pine_ridge_v1",
+  "forest": {
+    "grid_spacing_m": 5.5,
+    "minimum_scale": 0.9,
+    "maximum_scale": 1.38,
+    "pine_fraction": 0.68,
+    "species_seed": 1701,
+    "exposed_height_m": 145,
+    "exposed_density_fraction": 0.32,
+    "clearings": [
+      {
+        "id": "sheltered_lower_glade",
+        "loop_id": "main",
+        "distance_m": 496.208,
+        "lateral_m": 35,
+        "radius_m": 24
+      },
+      {
+        "id": "ridge_view_glade",
+        "loop_id": "main",
+        "distance_m": 1213.612,
+        "lateral_m": -35,
+        "radius_m": 28
+      }
+    ]
+  },
+  "lighting": {
+    "preset_id": "dawn",
+    "weather_preset": "clear",
+    "fog_distance_scale": 2.7,
+    "visual_wind": {
+      "x": 0.85,
+      "y": 0.15
+    },
+    "temperature_c": -13
+  },
+  "status": "DRAFT_ORIGINAL_VENUE_PRESENTATION_RUNTIME_VISUAL_AND_WEATHER_PENDING"
+}

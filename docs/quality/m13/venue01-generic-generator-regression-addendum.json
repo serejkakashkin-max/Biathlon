@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "venue01_generic_generator_hash_addendum_v1",
+  "status": "PASS_BYTE_IDENTICAL_203_RESOURCES_RUNTIME_ACCEPTANCE_UNCHANGED",
+  "previous_published_generator_sha256": {
+    "scripts/content/m13/generate_environment.py": "024b3317d001a247ba96f2dce3c49363a13d45f7161d0eb1e07c10d5a028c9dd",
+    "scripts/content/m13/verify_environment.py": "d535c31a08e42a43add94ad47f92ce224ba9e8627ce3f4fc893a865a66640784",
+    "scripts/content/m13/test_environment_geometry.py": "7c860d4799fc30eed190b82387574a62ec7ed69806c6d246db3e3cbfa550da17"
+  },
+  "current_generator_sha256": {
+    "scripts/content/m13/corridor_sampling.py": "ca006ce87798d549cf90d1001794e22030d1235e105e03a066b102e188673c01",
+    "scripts/content/m13/exact_polyline.py": "aa50fc5ed779a65270e627378f798598fa15b846549dffa5a28e838ddfda0b5d",
+    "scripts/content/m13/generate_environment.py": "336f429be2bf0c8793af45d513523273ad1c6a9e4a9e86114fb0526610aa3cfc",
+    "scripts/content/m13/generate_format_branches.py": "4af3b40894e9ac08b65bdd6aca0aab8bdd9c89f06407e2227b284941a2857da5",
+    "scripts/content/m13/generate_venue01.py": "2c053e229d3cddc9c88a74ec197de8c1851856a3e0cc0caf9b50dfe048ab93ab",
+    "scripts/content/m13/regress_venue01_defaults.py": "a2c2bc4cdf1e02de2f411c2db08d8156e119a8a5183161e7922db2964ca98013",
+    "scripts/content/m13/verify_environment.py": "2366ea0decaa233ae93c93508aba457bacc61b495a79aa77ddf2020df24d014f"
+  },
+  "regression_report": "artifacts/wp170/venue01-checkpoint-regression/regression.json",
+  "regression_report_sha256": "90848315b906631899651f12edd75e47133568518cb7a9fe4dc5b4840e60da62",
+  "recipe_input_sha256": {
+    "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp170\\venue01-regression\\pinned-inputs\\woodland_basin_geometry_recipe_v1.json": "ea72b2ce138635256b21613ab6e516e79b5db93ce2e7453122b97dd21a0395b9",
+    "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp170\\venue01-regression\\pinned-inputs\\woodland_basin_formats_recipe_v1.json": "a873eb78c5e930e222b41f0ba36fa74406469cb984b6b9e32c287263254beb37"
+  },
+  "unchanged_environment_sha256": "a1a9dfeb1299edc53221df8980e56922bf8d5acf573256dd9768ceb905487896",
+  "canonical_resource_count": 203,
+  "independent_generation_count": 2,
+  "byte_differences": [
+    0,
+    0
+  ],
+  "reason": "Optional exact ridge controls, tactics, explicit forest recipes and downstream tail; pinned checkpoint recipes retain every accepted resource byte. The separately authorized current Woodland 34m tail recipe intentionally changes geometry."
+}

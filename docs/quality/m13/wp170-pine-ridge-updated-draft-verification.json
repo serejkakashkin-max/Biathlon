@@ -1,0 +1,1243 @@
+{
+  "schema_version": 1,
+  "id": "pine_ridge_wp170_updated_draft_acceptance_v2",
+  "status": "DRAFT_STATIC_DATA_PASS_RUNTIME_VISUAL_BALANCE_WEATHER_PERFORMANCE_PENDING",
+  "venue_id": "pine_ridge_v1",
+  "wp170_complete": false,
+  "replacement_label": "Replaces the initial isolated Pine content candidate only; historical acceptance proof remains unchanged.",
+  "previous_draft_proof": "docs/quality/m13/wp170-pine-ridge-draft-verification.json",
+  "previous_draft_proof_sha256": "a066568aa3c398d2dd72ae4a4f18c19c041b19337896e552b051350c86deee38",
+  "authority_boundary": "Unimported draft resources only; no Assets/C#/catalog/calendar/core/state/Git mutation by this task.",
+  "design_source": "docs/proposals/M13-LAUNCH-VENUE-IDENTITY-RECIPES.md",
+  "reference_woodland_root": "artifacts/wp169u/final-format-draft/resources/Biathlon/Venues/woodland_basin_v1",
+  "geometry_comparison": {
+    "woodland_basin_current_compound": {
+      "main_length_m": 3000.0,
+      "sustained_climb_travel_m": 600.0,
+      "sustained_climb_grade": 0.1312166451118998,
+      "sustained_climb_width_m": 6,
+      "sustained_climb_draft_allowed": true,
+      "main_ascent_m": 78.06083685067124,
+      "main_descent_m": 78.06083685067124,
+      "main_peak_y_m": 78.06083685067124,
+      "main_widths_m": [
+        6
+      ],
+      "draft_allowed_travel_m": 2542.4,
+      "distance_weighted_wind_exposure": 0.5533743666666676,
+      "sectors": [
+        {
+          "start_m": 0.0,
+          "end_m": 202.0,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.25,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "semantic_zone": "stadium",
+          "length_m": 202.0
+        },
+        {
+          "start_m": 202.0,
+          "end_m": 249.048,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.25,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "semantic_zone": "rolling",
+          "length_m": 47.048
+        },
+        {
+          "start_m": 249.048,
+          "end_m": 849.048,
+          "minimum_grade": 0.1312166451118998,
+          "maximum_grade": 0.1312166451118998,
+          "width_m": 6,
+          "wind_exposure": 0.45,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "semantic_zone": "climb_long",
+          "length_m": 600.0
+        },
+        {
+          "start_m": 849.048,
+          "end_m": 896.096,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.6,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "semantic_zone": "rolling",
+          "length_m": 47.048
+        },
+        {
+          "start_m": 896.096,
+          "end_m": 1676.346,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.95,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "semantic_zone": "flat",
+          "length_m": 780.25
+        },
+        {
+          "start_m": 1676.346,
+          "end_m": 1723.394,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.75,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "semantic_zone": "descent_technical",
+          "length_m": 47.048
+        },
+        {
+          "start_m": 1723.394,
+          "end_m": 2335.294,
+          "minimum_grade": -0.12862215069716348,
+          "maximum_grade": -0.12862215069716348,
+          "width_m": 6,
+          "wind_exposure": 0.6,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "semantic_zone": "descent_fast",
+          "length_m": 611.9
+        },
+        {
+          "start_m": 2335.294,
+          "end_m": 2382.342,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.35,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "semantic_zone": "descent_technical",
+          "length_m": 47.048
+        },
+        {
+          "start_m": 2382.342,
+          "end_m": 2680.592,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.2,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "semantic_zone": "range_approach",
+          "length_m": 298.25
+        },
+        {
+          "start_m": 2680.592,
+          "end_m": 2950.0,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.25,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "semantic_zone": "range_approach",
+          "length_m": 269.408
+        },
+        {
+          "start_m": 2950.0,
+          "end_m": 3000.0,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.25,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "semantic_zone": "stadium",
+          "length_m": 50.0
+        }
+      ]
+    },
+    "pine_ridge_previous": {
+      "main_length_m": 3000.0,
+      "sustained_climb_travel_m": 820.0,
+      "sustained_climb_grade": 0.19560794535148007,
+      "sustained_climb_width_m": 7,
+      "sustained_climb_draft_allowed": false,
+      "main_ascent_m": 171.4152364711423,
+      "main_descent_m": 171.4152364711423,
+      "main_peak_y_m": 164.4152364711423,
+      "main_widths_m": [
+        6,
+        7,
+        7.5,
+        8
+      ],
+      "draft_allowed_travel_m": 704.796,
+      "distance_weighted_wind_exposure": 0.3951787333333339,
+      "sectors": [
+        {
+          "start_m": 0.0,
+          "end_m": 170.0,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.25,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "semantic_zone": "stadium",
+          "length_m": 170.0
+        },
+        {
+          "start_m": 170.0,
+          "end_m": 209.208,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 7.5,
+          "wind_exposure": 0.15,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "semantic_zone": "rolling",
+          "length_m": 39.208
+        },
+        {
+          "start_m": 209.208,
+          "end_m": 1029.208,
+          "minimum_grade": 0.19560794535148007,
+          "maximum_grade": 0.19560794535148007,
+          "width_m": 7,
+          "wind_exposure": 0.22,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "semantic_zone": "climb_long",
+          "length_m": 820.0
+        },
+        {
+          "start_m": 1029.208,
+          "end_m": 1068.416,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.85,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "semantic_zone": "rolling",
+          "length_m": 39.208
+        },
+        {
+          "start_m": 1068.416,
+          "end_m": 1358.808,
+          "minimum_grade": -0.05477491935951988,
+          "maximum_grade": 0.0547749193595199,
+          "width_m": 6,
+          "wind_exposure": 0.95,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "semantic_zone": "rolling",
+          "length_m": 290.392
+        },
+        {
+          "start_m": 1358.808,
+          "end_m": 1649.2,
+          "minimum_grade": -0.0547749193595199,
+          "maximum_grade": 0.0547749193595199,
+          "width_m": 8,
+          "wind_exposure": 0.8,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "semantic_zone": "rolling",
+          "length_m": 290.392
+        },
+        {
+          "start_m": 1649.2,
+          "end_m": 1688.408,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.7,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "semantic_zone": "descent_technical",
+          "length_m": 39.208
+        },
+        {
+          "start_m": 1688.408,
+          "end_m": 2520.188,
+          "minimum_grade": -0.19273399478122885,
+          "maximum_grade": -0.19273399478122885,
+          "width_m": 7,
+          "wind_exposure": 0.35,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "semantic_zone": "descent_fast",
+          "length_m": 831.78
+        },
+        {
+          "start_m": 2520.188,
+          "end_m": 2559.396,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.25,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "semantic_zone": "descent_technical",
+          "length_m": 39.208
+        },
+        {
+          "start_m": 2559.396,
+          "end_m": 2714.592,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.1,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "semantic_zone": "range_approach",
+          "length_m": 155.196
+        },
+        {
+          "start_m": 2714.592,
+          "end_m": 2950.0,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.25,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "semantic_zone": "range_approach",
+          "length_m": 235.408
+        },
+        {
+          "start_m": 2950.0,
+          "end_m": 3000.0,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.25,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "semantic_zone": "stadium",
+          "length_m": 50.0
+        }
+      ]
+    },
+    "pine_ridge_updated": {
+      "main_length_m": 3000.0,
+      "sustained_climb_travel_m": 820.0,
+      "sustained_climb_grade": 0.19560794535148007,
+      "sustained_climb_width_m": 7,
+      "sustained_climb_draft_allowed": false,
+      "main_ascent_m": 171.4152364711423,
+      "main_descent_m": 171.4152364711423,
+      "main_peak_y_m": 164.4152364711423,
+      "main_widths_m": [
+        6,
+        7,
+        7.5,
+        8
+      ],
+      "draft_allowed_travel_m": 670.796,
+      "distance_weighted_wind_exposure": 0.3968787333333339,
+      "sectors": [
+        {
+          "start_m": 0.0,
+          "end_m": 170.0,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.25,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "semantic_zone": "stadium",
+          "length_m": 170.0
+        },
+        {
+          "start_m": 170.0,
+          "end_m": 209.208,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 7.5,
+          "wind_exposure": 0.15,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "semantic_zone": "rolling",
+          "length_m": 39.208
+        },
+        {
+          "start_m": 209.208,
+          "end_m": 1029.208,
+          "minimum_grade": 0.19560794535148007,
+          "maximum_grade": 0.19560794535148007,
+          "width_m": 7,
+          "wind_exposure": 0.22,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "semantic_zone": "climb_long",
+          "length_m": 820.0
+        },
+        {
+          "start_m": 1029.208,
+          "end_m": 1068.416,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.85,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "semantic_zone": "rolling",
+          "length_m": 39.208
+        },
+        {
+          "start_m": 1068.416,
+          "end_m": 1358.808,
+          "minimum_grade": -0.05477491935951988,
+          "maximum_grade": 0.05477491935951992,
+          "width_m": 6,
+          "wind_exposure": 0.95,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "semantic_zone": "rolling",
+          "length_m": 290.392
+        },
+        {
+          "start_m": 1358.808,
+          "end_m": 1649.2,
+          "minimum_grade": -0.0547749193595199,
+          "maximum_grade": 0.0547749193595199,
+          "width_m": 8,
+          "wind_exposure": 0.8,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "semantic_zone": "rolling",
+          "length_m": 290.392
+        },
+        {
+          "start_m": 1649.2,
+          "end_m": 1688.408,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.7,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "semantic_zone": "descent_technical",
+          "length_m": 39.208
+        },
+        {
+          "start_m": 1688.408,
+          "end_m": 2520.188,
+          "minimum_grade": -0.19273399478122885,
+          "maximum_grade": -0.19273399478122885,
+          "width_m": 7,
+          "wind_exposure": 0.35,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "semantic_zone": "descent_fast",
+          "length_m": 831.78
+        },
+        {
+          "start_m": 2520.188,
+          "end_m": 2559.396,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.25,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "semantic_zone": "descent_technical",
+          "length_m": 39.208
+        },
+        {
+          "start_m": 2559.396,
+          "end_m": 2680.592,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.1,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "semantic_zone": "range_approach",
+          "length_m": 121.196
+        },
+        {
+          "start_m": 2680.592,
+          "end_m": 2950.0,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.25,
+          "draft_allowed": false,
+          "overtake_allowed": false,
+          "semantic_zone": "range_approach",
+          "length_m": 269.408
+        },
+        {
+          "start_m": 2950.0,
+          "end_m": 3000.0,
+          "minimum_grade": 0.0,
+          "maximum_grade": 0.0,
+          "width_m": 6,
+          "wind_exposure": 0.25,
+          "draft_allowed": true,
+          "overtake_allowed": true,
+          "semantic_zone": "stadium",
+          "length_m": 50.0
+        }
+      ]
+    }
+  },
+  "previous_draft_geometry_delta": {
+    "private_physical_loops_unchanged": 30,
+    "mat_anchors_unchanged": 30,
+    "private_slices_unchanged": 30,
+    "full_personal_path_length_change_m": 34,
+    "entry_main_anchor_change_m": -34,
+    "exit_aisle_length_change_m": 34,
+    "directed_connections_unchanged": true,
+    "all_port_ids_and_guard_extents_unchanged": true,
+    "guard_port_count": 257,
+    "junction_count_before": 128,
+    "junction_count_after": 127,
+    "compound_range_rejoin_port_ids": [
+      "rejoin_exit",
+      "rejoin_main",
+      "rejoin_penalty",
+      "bypass_in",
+      "bypass_out"
+    ],
+    "bypass_turn_region_removed": true,
+    "draft_allowed_travel_change_m": -34.0
+  },
+  "milestones_m": {
+    "climb_start": 209.208,
+    "climb_end": 1029.208,
+    "ridge_start": 1068.416,
+    "ridge_end": 1649.2,
+    "descent_start": 1688.408,
+    "descent_end": 2520.188
+  },
+  "ridge_span_m": 571.196,
+  "ridge_actual_travel_m": 580.784,
+  "shared_range": {
+    "lane_count": 30,
+    "pitch_m": 6,
+    "identical_current_woodland_lane_paths": 30,
+    "identical_current_woodland_physical_loops": 33,
+    "range_layout_equal": true,
+    "private_path_length_m": 39.408,
+    "equal_full_personal_path_length_m": 269.408,
+    "exit_aisle_length_m": 230,
+    "firing_distance_m": 50,
+    "penalty_length_m": 150
+  },
+  "formats": [
+    {
+      "format": "mass_start",
+      "distance_m": 15000.0,
+      "lap_distances_m": [
+        3000.0,
+        3000.0,
+        3000.0,
+        3000.0,
+        3000.0
+      ],
+      "finish_anchor": {
+        "loop_id": "main",
+        "distance_m": 3000.0
+      }
+    },
+    {
+      "format": "sprint",
+      "distance_m": 10000.0,
+      "lap_distances_m": [
+        3333.333,
+        3333.333,
+        3333.334
+      ],
+      "finish_anchor": {
+        "loop_id": "main",
+        "distance_m": 0.001
+      }
+    },
+    {
+      "format": "pursuit",
+      "distance_m": 12500.0,
+      "lap_distances_m": [
+        2500.0,
+        2500.0,
+        2500.0,
+        2500.0,
+        2500.0
+      ],
+      "finish_anchor": {
+        "loop_id": "main",
+        "distance_m": 3000.0
+      }
+    }
+  ],
+  "format_branches": [
+    {
+      "format": "pursuit",
+      "loop_id": "pursuit_shortcut",
+      "length_m": 852.948,
+      "main_depart_m": 684.808,
+      "main_return_m": 2037.756,
+      "world_parameter_m": 194.5206927276193,
+      "edge_count": 20,
+      "maximum_world_edge_length_error_m": 1.4921397450962104e-13,
+      "maximum_grade": 0.1956079453514954,
+      "maximum_curvature_per_m": 0.005166315325734506,
+      "actual_race_distance_m": 12500.0,
+      "lap_distances_m": [
+        2500.0,
+        2500.0,
+        2500.0,
+        2500.0,
+        2500.0
+      ],
+      "seam_world_gap_m": 0,
+      "endpoint_tangents": "EXACT_MAIN_DIRECTION",
+      "guard_before_after_m": 55
+    },
+    {
+      "format": "sprint",
+      "loop_id": "sprint_extension",
+      "length_m": 513.333,
+      "main_depart_m": 619.208,
+      "main_return_m": 799.208,
+      "world_parameter_m": 132.80341032209873,
+      "edge_count": 40,
+      "maximum_world_edge_length_error_m": 1.0036416142611415e-13,
+      "maximum_grade": 0.1956079453514954,
+      "maximum_curvature_per_m": 0.0337996147370678,
+      "actual_race_distance_m": 10000.0,
+      "lap_distances_m": [
+        3333.333,
+        3333.333,
+        3333.334
+      ],
+      "seam_world_gap_m": 0,
+      "endpoint_tangents": "EXACT_MAIN_DIRECTION",
+      "guard_before_after_m": 25
+    }
+  ],
+  "static_diagnostic_count": 0,
+  "exact_chord_seam_proof": {
+    "schema_version": 1,
+    "id": "pine_ridge_serialized_format_routes_verification_v1",
+    "status": "PASS_EXACT_SERIALIZED_GEOMETRY_TOPOLOGY_ROUTE_ARITHMETIC_RUNTIME_PENDING",
+    "venue_id": "pine_ridge_v1",
+    "edge_count": 1329,
+    "slice_count": 30,
+    "maximum_world_edge_length_error_m": 9.681144774731365e-14,
+    "maximum_grade_error": 0.0,
+    "directed_connection_count": 69,
+    "maximum_directed_seam_world_gap_m": 0.0,
+    "unchanged_base_loop_count": 34,
+    "unchanged_lane_path_count": 30,
+    "formats": [
+      {
+        "format": "mass_start",
+        "distance_m": 15000.0,
+        "lap_distances_m": [
+          3000.0,
+          3000.0,
+          3000.0,
+          3000.0,
+          3000.0
+        ],
+        "finish_anchor": {
+          "loop_id": "main",
+          "distance_m": 3000.0
+        }
+      },
+      {
+        "format": "sprint",
+        "distance_m": 10000.0,
+        "lap_distances_m": [
+          3333.333,
+          3333.333,
+          3333.334
+        ],
+        "finish_anchor": {
+          "loop_id": "main",
+          "distance_m": 0.001
+        }
+      },
+      {
+        "format": "pursuit",
+        "distance_m": 12500.0,
+        "lap_distances_m": [
+          2500.0,
+          2500.0,
+          2500.0,
+          2500.0,
+          2500.0
+        ],
+        "finish_anchor": {
+          "loop_id": "main",
+          "distance_m": 3000.0
+        }
+      }
+    ],
+    "authority_boundary": "Independent serialized proof; full cold catalog/occupancy/Unity/race/replay acceptance still required",
+    "source_hashes": {
+      "track": "21b150fa680c81b9cdc52e6233039ffded3f725fb0316087d123ec7417b4c5ad",
+      "visual": "38c160164750abb987b250308fb554d662852ff83d6417779d7268d1d66b731f",
+      "paths": "502cd245dc5a60b8b063e021e607c685a44f5c1cc574dfb1febe752272e7e276",
+      "junctions": "6eeb7a2427c3876bb356e9b6896e90ee8f95c7f30556ec6194ee5f30cc61050e",
+      "connections": "b172389da0a0c9eb90d1a7e32e9ee4b52c5cc74d4e0f85e8551a252fe6b230ca",
+      "sprint_route": "3368c9622d2ebd11971a4538d0da13845ab6b741628a17edb71ba57c693f3229",
+      "pursuit_route": "0ed887e9fe5598cb20c7a1cac8d1d6b3520645054a18a35a07326c5dbba3da5c"
+    }
+  },
+  "environment_proof": {
+    "schema_version": 1,
+    "id": "pine_ridge_environment_serialized_verification_v1",
+    "status": "PASS_STATIC_DATA_RUNTIME_VISUAL_AND_PERFORMANCE_PENDING",
+    "tile_count": 90,
+    "coincident_terrain_border_checks": 10393,
+    "unique_world_height_vertices": 369857,
+    "authored_corridor_width_sample_count": 1365,
+    "forest_group_count": 79,
+    "tree_count": 23261,
+    "maximum_tree_to_triangle_height_error_m": 4.999379967784989e-07,
+    "minimum_checked_full_canopy_corridor_gap_m": 3.000774072905461,
+    "target_count": 30,
+    "course_surface_samples": 5303,
+    "minimum_terrain_minus_route_height_m": -0.30652826106086195,
+    "maximum_terrain_minus_route_height_m": -0.029999505497116274,
+    "full_runtime_ribbon_triangle_clearance": {
+      "method": "exact affine extrema of every runtime ribbon/terrain triangle overlay",
+      "ribbon_triangle_count": 8542,
+      "overlay_vertex_count": 279208,
+      "buried_ribbon_triangle_count": 0,
+      "minimum_ribbon_minus_terrain_m": 0.029992910227747416,
+      "maximum_ribbon_minus_terrain_m": 0.5979486544514288,
+      "minimum_gap_location": {
+        "loop_id": "main",
+        "row_start_distance_m": 1362.0,
+        "row_end_distance_m": 1364.0,
+        "world": {
+          "x": -61.42405003538496,
+          "y": 157.19921875,
+          "z": -876.575949964615
+        }
+      },
+      "maximum_gap_location": {
+        "loop_id": "main",
+        "row_start_distance_m": 638.0,
+        "row_end_distance_m": 640.0,
+        "world": {
+          "x": -380.0,
+          "y": 82.35090885952955,
+          "z": -470.0
+        }
+      },
+      "per_loop": {
+        "main": {
+          "minimum_gap_m": 0.029992910227747416,
+          "maximum_gap_m": 0.5979486544514288
+        },
+        "mat_01": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_02": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_03": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_04": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_05": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_06": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_07": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_08": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_09": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_10": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_11": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_12": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_13": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_14": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_15": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_16": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_17": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_18": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_19": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_20": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_21": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_22": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_23": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_24": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_25": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_26": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_27": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_28": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_29": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "mat_30": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "exit_aisle": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "penalty_150": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "start_approach": {
+          "minimum_gap_m": 0.029999999329447746,
+          "maximum_gap_m": 0.029999999329447746
+        },
+        "pursuit_shortcut": {
+          "minimum_gap_m": 0.029993201777301692,
+          "maximum_gap_m": 0.20053261819479928
+        },
+        "sprint_extension": {
+          "minimum_gap_m": 0.029996554042568846,
+          "maximum_gap_m": 0.5507471205005601
+        }
+      }
+    },
+    "environment_sha256": "2de1da551ec91ddf73ab0ddbad99d10ea8746cfecd71dd93c0d9580c12913bd3",
+    "original_venue_identity": {
+      "pine_count": 15904,
+      "fir_count": 7357,
+      "actual_pine_fraction": 0.6837195305446885,
+      "explicit_clearing_count": 2,
+      "exposed_tree_count": 1856,
+      "clearing_canopy_and_scale_checks": "PASS"
+    }
+  },
+  "environment_delta": {
+    "tile_count_change": -10,
+    "forest_group_count_change": -1,
+    "tree_count_change": -603,
+    "reason": "The exit-tail extension translates the outer Main/branches and penalty/start by 34 m west, shortens recovery, and changes tile bounds and forest exclusions. Forest recipe identity is retained; instance bytes/counts are intentionally regenerated."
+  },
+  "lighting": {
+    "resource": "Biathlon/g2_lighting_visual_v1",
+    "preset_id": "dawn",
+    "weather_resource": "Biathlon/weather_visual_v1",
+    "weather_preset": "clear",
+    "sky_material_resource": "Biathlon/Weather/G2Lighting/BenchmarkSky",
+    "visual_wind": {
+      "x": 0.85,
+      "y": 0.15
+    },
+    "temperature_c": -13,
+    "fog_distance_scale": 2.7
+  },
+  "forest_identity": {
+    "pine_count": 15904,
+    "fir_count": 7357,
+    "actual_pine_fraction": 0.6837195305446885,
+    "explicit_clearing_count": 2,
+    "exposed_tree_count": 1856,
+    "clearing_canopy_and_scale_checks": "PASS",
+    "minimum_actual_scale": 0.900017,
+    "maximum_actual_scale": 1.379989,
+    "mean_actual_scale": 1.1394060470745024,
+    "environment_recipe": {
+      "schema_version": 1,
+      "id": "pine_ridge_environment_recipe_v1",
+      "venue_id": "pine_ridge_v1",
+      "forest": {
+        "grid_spacing_m": 5.5,
+        "minimum_scale": 0.9,
+        "maximum_scale": 1.38,
+        "pine_fraction": 0.68,
+        "species_seed": 1701,
+        "exposed_height_m": 145,
+        "exposed_density_fraction": 0.32,
+        "clearings": [
+          {
+            "id": "sheltered_lower_glade",
+            "loop_id": "main",
+            "distance_m": 496.208,
+            "lateral_m": 35,
+            "radius_m": 24
+          },
+          {
+            "id": "ridge_view_glade",
+            "loop_id": "main",
+            "distance_m": 1213.612,
+            "lateral_m": -35,
+            "radius_m": 28
+          }
+        ]
+      },
+      "lighting": {
+        "preset_id": "dawn",
+        "weather_preset": "clear",
+        "fog_distance_scale": 2.7,
+        "visual_wind": {
+          "x": 0.85,
+          "y": 0.15
+        },
+        "temperature_c": -13
+      },
+      "status": "DRAFT_ORIGINAL_VENUE_PRESENTATION_RUNTIME_VISUAL_AND_WEATHER_PENDING"
+    }
+  },
+  "deterministic_pine_repeat": {
+    "independent_generations": 2,
+    "resource_count": 186,
+    "byte_difference_count": 0,
+    "repeat_root": "artifacts/wp170/u34-compound-draft/repeat/formats-draft",
+    "input_snapshot_sha256": "914e970d1fe1d5aee31675ba43359cf12942bf5563cb6b1d0ff9f468a5c8f759",
+    "dependencies_and_protected_data_unchanged_during_repeat": true,
+    "snapshot_scope": "Captured after the first draft generation and before the independent repeat; not a historical generation proof rerun."
+  },
+  "venue01_byte_regression_reference": {
+    "schema_version": 1,
+    "id": "pine_ridge_u34_generator_source_addendum_v1",
+    "status": "CURRENT_SOURCE_MATCHES_RECORDED_U_DEFAULT_205_BYTE_PROOF_HISTORICAL_203_PRESERVED",
+    "historical_203_addendum": "docs/quality/m13/venue01-generic-generator-regression-addendum.json",
+    "historical_203_addendum_sha256": "5ff6cb4723bae8994ff5bfbb9a028d4e3d166f4c6b9fb7fe2aeb3af5c1189ad0",
+    "historical_203_rerun": false,
+    "recorded_current_source_205_regression": "artifacts/wp169u/default-byte-reproduction/regression.json",
+    "recorded_current_source_205_regression_sha256": "a6520454464943fa1499e30cab7f7c1357e74e135713fe3e79f6f3b158cd3818",
+    "recorded_205_recipe_input_sha256": {
+      "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169u\\default-geometry-recipe.json": "31b10cb682dfe9fa7393e3d68b4915d9823c647c712f416392c4e00b128a2286",
+      "C:\\game\\Biathlon\\Biathlon\\scripts\\content\\m13\\recipes\\woodland_basin_formats_recipe_v1.json": "084ea867b32a5e1cb6cd4d1c26146a79052ab24492fd6f3b3cad306267982e35",
+      "C:\\game\\Biathlon\\Biathlon\\scripts\\content\\m13\\recipes\\woodland_basin_environment_recipe_v1.json": "5c53a9a02b128e79c2c514c4a111893d3292a43d30308d99bc44c3d0d016e092"
+    },
+    "recorded_205_regression_generator_sha256": {
+      "generate_venue01.py": "bd7b5631b673e68d3868d3c502f86bcaef0df5995185a9f4304f255b6584cf63",
+      "generate_format_branches.py": "4af3b40894e9ac08b65bdd6aca0aab8bdd9c89f06407e2227b284941a2857da5",
+      "generate_environment.py": "419d165d1e72bef1fcc5e44478d6f98512f3ec713b1a340d75093d621198385e",
+      "verify_environment.py": "2366ea0decaa233ae93c93508aba457bacc61b495a79aa77ddf2020df24d014f",
+      "exact_polyline.py": "aa50fc5ed779a65270e627378f798598fa15b846549dffa5a28e838ddfda0b5d",
+      "corridor_sampling.py": "ca006ce87798d549cf90d1001794e22030d1235e105e03a066b102e188673c01",
+      "environment_serialization.py": "0afff19e6148c5917995f8100544a56d1ac9f79adea9945f931a6743e0bba2bf",
+      "regress_venue01_defaults.py": "4a38b652d8a0f4be20828631b50c4f26c0bca595d90e04fa878ebd78c40a6ab7"
+    },
+    "current_sources_match_recorded_205": true,
+    "changed_since_historical_203": {
+      "scripts/content/m13/generate_environment.py": {
+        "historical": "336f429be2bf0c8793af45d513523273ad1c6a9e4a9e86114fb0526610aa3cfc",
+        "current": "419d165d1e72bef1fcc5e44478d6f98512f3ec713b1a340d75093d621198385e"
+      },
+      "scripts/content/m13/generate_venue01.py": {
+        "historical": "2c053e229d3cddc9c88a74ec197de8c1851856a3e0cc0caf9b50dfe048ab93ab",
+        "current": "bd7b5631b673e68d3868d3c502f86bcaef0df5995185a9f4304f255b6584cf63"
+      },
+      "scripts/content/m13/regress_venue01_defaults.py": {
+        "historical": "a2c2bc4cdf1e02de2f411c2db08d8156e119a8a5183161e7922db2964ca98013",
+        "current": "4a38b652d8a0f4be20828631b50c4f26c0bca595d90e04fa878ebd78c40a6ab7"
+      }
+    },
+    "helper_dependency": {
+      "path": "scripts/content/m13/environment_serialization.py",
+      "sha256": "0afff19e6148c5917995f8100544a56d1ac9f79adea9945f931a6743e0bba2bf"
+    },
+    "scope": "References existing U proof of the 205-file pre-compound O34/fog checkpoint with compound omitted; Pine explicitly opts into compound. No Venue01 generator/recipe/resource writes or new Venue01 generation in this Pine task."
+  },
+  "source_code_sha256": {
+    "scripts/content/m13/generate_venue01.py": "bd7b5631b673e68d3868d3c502f86bcaef0df5995185a9f4304f255b6584cf63",
+    "scripts/content/m13/generate_format_branches.py": "4af3b40894e9ac08b65bdd6aca0aab8bdd9c89f06407e2227b284941a2857da5",
+    "scripts/content/m13/generate_environment.py": "419d165d1e72bef1fcc5e44478d6f98512f3ec713b1a340d75093d621198385e",
+    "scripts/content/m13/verify_environment.py": "2366ea0decaa233ae93c93508aba457bacc61b495a79aa77ddf2020df24d014f",
+    "scripts/content/m13/verify_format_branches.py": "15f70edc70b9dac53c2f2eb7e4d54b99f07b779da23229376eed586ae9dc67fa",
+    "scripts/content/m13/exact_polyline.py": "aa50fc5ed779a65270e627378f798598fa15b846549dffa5a28e838ddfda0b5d",
+    "scripts/content/m13/corridor_sampling.py": "ca006ce87798d549cf90d1001794e22030d1235e105e03a066b102e188673c01",
+    "scripts/content/m13/environment_serialization.py": "0afff19e6148c5917995f8100544a56d1ac9f79adea9945f931a6743e0bba2bf",
+    "scripts/content/m13/regress_venue01_defaults.py": "4a38b652d8a0f4be20828631b50c4f26c0bca595d90e04fa878ebd78c40a6ab7",
+    "scripts/content/m13/audit_pine_ridge_draft.py": "722a2e16e729427c0b6caea5c08b8712d7af85148e38590e21af30e564e25457",
+    "scripts/content/m13/test_pine_ridge_geometry.py": "10a589759c18666e9d38d2d8ed3e3e38e51443334c757ea396943ca778b8adb3"
+  },
+  "recipe_sha256": {
+    "pine_ridge_environment_recipe_v1.json": "012d9a740afb96908da11f4cb03f082c87b8d5a3631f5052e37c852106130b58",
+    "pine_ridge_formats_recipe_v1.json": "cdf13651a6cc41222135e7bd80cbe5a31b530028b6e5f9c61018c428b6a4dd85",
+    "pine_ridge_geometry_recipe_v1.json": "0e9731068ebef620db3845e9742694ca6b6f883133298fd95d3bbffd98485b94"
+  },
+  "draft_resource_sha256": {
+    "connections.json": "b172389da0a0c9eb90d1a7e32e9ee4b52c5cc74d4e0f85e8551a252fe6b230ca",
+    "environment/forest/forest_00_02.json": "4602fac6f76432c515391fe84f91b66ebd8545f16983333c53bc24dcc024c188",
+    "environment/forest/forest_00_03.json": "e148646793ca3d55fd5059256d153dea69e5b90b38e14f2c2edfa4ff8b36a5e9",
+    "environment/forest/forest_00_04.json": "fd3b4e3a9730f21087124d8e474565c214ce200b7b0b605a111483d4b1e3033a",
+    "environment/forest/forest_00_05.json": "c6527e42fb491706ad12da2e4617f8f1213c4575d62bf0292b253636a95b2bd2",
+    "environment/forest/forest_01_00.json": "5ecf02ae2694fa49999444d0f3e8e409bbfa37602272001bf1bbf4e2509db0f3",
+    "environment/forest/forest_01_01.json": "c8527631711997808ce8e5ac831864d13359b91134f606422350f64ce7c2f7de",
+    "environment/forest/forest_01_02.json": "fedd0a2444807decf593f029c13d77321dbb2faf7ae59e3e1568461384c04390",
+    "environment/forest/forest_01_03.json": "4660b988909f0594b0b165fd9603279005d867c101907080371cd707600bac7b",
+    "environment/forest/forest_01_04.json": "948fc6c28411517e4a1a84b8a592c5348409a718aa42599ae57de552d7bf027f",
+    "environment/forest/forest_01_05.json": "bc4d2579970d6a898f185110b8258ff898b0d42bc7fa7c97943621ab7f890442",
+    "environment/forest/forest_01_06.json": "f78ce4c4ee90c3579a28f18400ce4958013b362dc66f41b7b83a51b343690b7d",
+    "environment/forest/forest_01_07.json": "890782d606999bf4166eb21a7dee881735039c1e62dd003929359c4d4ce6d197",
+    "environment/forest/forest_01_08.json": "9abb21a02c23e982129ae40b1bc55e1d6d70a2747f3a2a5fd2695ba1875463f9",
+    "environment/forest/forest_02_00.json": "117b64c60b14a204c0630094aa56a37ea4471fb64680eabc9e32c4246b5967e1",
+    "environment/forest/forest_02_01.json": "253701f23d732446441a1803bd5900744ad71cf04d434616af6911849c8abc33",
+    "environment/forest/forest_02_02.json": "7605ec987bbe11995fc6a5fc9edcbf93a9a500c1eb9c674da8bd4029a814ed6d",
+    "environment/forest/forest_02_03.json": "39b1339f20882c24c2ce1455dbec3e157c1241209e54c0657de12d1929240e0d",
+    "environment/forest/forest_02_04.json": "97b9e75118d3e65fd6c7f885ad1abc93b28bdd32bef2c578c614781bc81e739e",
+    "environment/forest/forest_02_05.json": "532898298f42ea54bf14f6d0ed068a6cc932207d296a37202096a3584b9b1a47",
+    "environment/forest/forest_02_06.json": "edc4601a8c9f28c63eb307731b3415b620fa363e8ddd468a767565cb7bd6d0d5",
+    "environment/forest/forest_02_07.json": "7304777be9950b071032902a48f74f1d569d34d9e7fd39b7d7464efdd6a920da",
+    "environment/forest/forest_02_08.json": "b0bd7f86d4d340fa13ed9772b2cad3f7ce468fc74c6c3a39c30524c471b89cea",
+    "environment/forest/forest_03_00.json": "a00727c084b41f5643c44be5054d0367863706e1a4e8e8be28394a9bb8751e9f",
+    "environment/forest/forest_03_01.json": "3d0c8b067cfd8546db1c3fdc428cc5831cc5e8b363c0c94561364018053a42ba",
+    "environment/forest/forest_03_02.json": "208a022a74b8a562f2027539f09ae1a797416aae1a3ae58e9d000537f5a6e1b6",
+    "environment/forest/forest_03_03.json": "c2cf5d316339f54b1f8578e65445c24d383bfc31fb33e50de82c7e6b7657c890",
+    "environment/forest/forest_03_04.json": "e3aad8dbfaf6e5e13aa5f85acfacdb55da53da75d952c48c8bf0ccdffae8b4d1",
+    "environment/forest/forest_03_05.json": "37bae7fef41511aefa1884c9e276fd116a22b806aef6e3c404e11d7baef8c0dc",
+    "environment/forest/forest_03_06.json": "8c1c8da675ce7e69606d01d01362696fa4ea244780bf270462b2ca7002874f0a",
+    "environment/forest/forest_03_07.json": "84e90fe783304329b11ba2541b0a81217b92a390ef303a180ef5a17a9738cc47",
+    "environment/forest/forest_03_08.json": "23445d6d9b871d39290259d7ca8c4dc83bd6129dcaef510da236d59e9c63efb0",
+    "environment/forest/forest_04_00.json": "2a727e257be34ab4b69a1b01b71577c214b4e222ed7dfa035a7aae89198e0228",
+    "environment/forest/forest_04_01.json": "a5384d6d507b0c6cbc91188a0de67f4b7a81c5bfa54321b63dfd66ee40202088",
+    "environment/forest/forest_04_02.json": "c6c2498f24234226365da6ea9e82414c954b6677d1cee40b2c026d9dc3418b49",
+    "environment/forest/forest_04_03.json": "9e068350ac9ecc1531457bbc785ed6c23b0e3659c1bf78a211b05f9f7d47a25c",
+    "environment/forest/forest_04_04.json": "bfdd9b25a75b39473faa4af7b22d1d3cf998151d597b7091ef2dbae06e2f6974",
+    "environment/forest/forest_04_05.json": "515748d3b25052e67d3dc7a22dabeef8ff95dc0f1e3a6c94f00888af4d2291dc",
+    "environment/forest/forest_04_06.json": "d5ac0f119cdfce6a056ba51b48f9bda1401beb4de10665729aff79e86a63e178",
+    "environment/forest/forest_04_07.json": "9a16b36cb48601d585f1b2c911cd200608ee3a2d1a40bbaca8b2f8125bad0e24",
+    "environment/forest/forest_04_08.json": "ab3b71e42efcada2f23b60fa8ea01139453fe4ab581a15289b673c8d97964ebf",
+    "environment/forest/forest_04_09.json": "05ac6ebfee9913097d850d3d817ae2cdabf83c2a2bf4deea1a4b1f50aaaf6b6f",
+    "environment/forest/forest_05_00.json": "540634ef12f31222a230072b7ba769fc83693f2378ec67112d1e959c9692dd33",
+    "environment/forest/forest_05_01.json": "5ddbd6d8811493d1f04cea12f2ba89b87e732154cb800a28b82288349cc4571b",
+    "environment/forest/forest_05_02.json": "20e5bb4b5bd069d2c04141d75d983dcc911863976521f5be447ea1613041dd5d",
+    "environment/forest/forest_05_03.json": "239cefa241045407ea2cee32f2fd99c704475812d8e881f9068092a08c8d4323",
+    "environment/forest/forest_05_06.json": "976b302beb85b1d7d7c92bec367eaa696626a5454b88acef6ac36c11cb2e03d8",
+    "environment/forest/forest_05_07.json": "1513a15cf458a3a2a4c9fa349db2ad8bb42cb14f55bdf19a98625f87d8a7f07e",
+    "environment/forest/forest_05_08.json": "1e2a1a1145804eb6f256fcf5875ca8bb18655a127690da739d7c0964b708918c",
+    "environment/forest/forest_05_09.json": "0f02e36d5500e2dd5de82e1a39226d8b5a2f664f3f3c96d9db3b4cabc5c07dbc",
+    "environment/forest/forest_06_00.json": "4f498109c286ca8502332aad675453e65bb92cf7ef95438fb154d34d9a4c3975",
+    "environment/forest/forest_06_01.json": "5ef5350171df8bea97e59adccdfc7be7f27af5d7cfc659541abbb8a9cd19a97f",
+    "environment/forest/forest_06_02.json": "9871b88d1d0efb41d932e32df26a41a93c86857fa27ba8245c7ecfc95b049f6a",
+    "environment/forest/forest_06_03.json": "74707efa6e33556ea1ec4caa8eaadea4eebb2b79ca8e113106e32a7b787edbb2",
+    "environment/forest/forest_06_04.json": "6f128540639fa010070d48604d01db895b035b4b0755ac6f94f0ab90b297bbcf",
+    "environment/forest/forest_06_05.json": "379c9692306067c196a08399e726a56fb3a6af80e2ef065148113b8af53451cf",
+    "environment/forest/forest_06_06.json": "a65d87231594dea6f5cde087ae9c16e39f3b9fa108d423d1688f91447b41ba27",
+    "environment/forest/forest_06_07.json": "7a7af5aa9c5fe353d7d61ed3dbd3aa9c7ce2af7706f916010b22b3504b90bc70",
+    "environment/forest/forest_06_08.json": "8e36bdfe0b09a223d655373e711f6fbc5f968b5c67216799acbf15f593deedd3",
+    "environment/forest/forest_06_09.json": "fb6c50cf7131c6e19795e74095cbef8ef439669a4b1b20f3fedaec32e7d4c3b5",
+    "environment/forest/forest_07_00.json": "9b801b8647c6f723c5d5a37dd40745bfd708cb4e790c40133f9f11ffe1f8dad0",
+    "environment/forest/forest_07_01.json": "6e63445accc89bd1b203c3a2bc96f888584b57109926d93ba83a8298a436de26",
+    "environment/forest/forest_07_02.json": "a08f0681c06e91415ca62612218a274b94f6edb6e7874d74b2f740982f454a95",
+    "environment/forest/forest_07_03.json": "c295df6211ddd5cf9a0c8098d7a34b589442375f2a7e407a0277f42125327e48",
+    "environment/forest/forest_07_04.json": "1eeb92d10eb3d06f8339fc8a485a9bd2067364ee5f1d8f50126840843bb346d4",
+    "environment/forest/forest_07_05.json": "a24e3b50bc1b78fcbc45de0f02613445d43c80ec3387c5b4d81b1d9354779e86",
+    "environment/forest/forest_07_06.json": "73fab47d445fcd78319a48e06ec47f64ccb1dd0687711df245f82a69becc7605",
+    "environment/forest/forest_07_07.json": "d028eb469c78cb1b920204e652a94f60000f10adf8502454fe53e5d01c74eae7",
+    "environment/forest/forest_07_08.json": "d475eb27e0995ee349295f67c5bfae89789bb97745347c0aef5028af1147d4dc",
+    "environment/forest/forest_07_09.json": "9c11c0c04ed24ec3c106751e2976cb57a9948dfc2f12e6c82c5523169c45799f",
+    "environment/forest/forest_08_00.json": "796f95fe1f09d900e2f60d4553a832fce1e3af06b3f3f7fc72fccbb45fb8a21a",
+    "environment/forest/forest_08_01.json": "88c8d8cd2dcfe6ebefe96342871c24150ba88c5c4bd7e97c1db8076a894d8784",
+    "environment/forest/forest_08_02.json": "a8c23c9b7f8edafc8b3cf86cf97366cebaa7dfdc68c2b16791fea498e1749f65",
+    "environment/forest/forest_08_03.json": "091110628d07e11e150c698db02c79fd9ab9f50fd7ec76d331bd1b720c3c0a36",
+    "environment/forest/forest_08_04.json": "8edf0296686e058c5cd34b6e9b0a6e9b74b0f022fe2c84cc3fa63d7351c7b27d",
+    "environment/forest/forest_08_05.json": "030e12378637c80044f6ac64dec1ae2792b0afe2b220b89807e06139d367e706",
+    "environment/forest/forest_08_06.json": "33e6c90345ae9bcc70286de1c59280e8d34125a21ac42cfbef1634e0e7c3e871",
+    "environment/forest/forest_08_07.json": "3bd09bf45946d67c753110e76bd8ca40b415b83309435f2d183a0dc486f4876c",
+    "environment/forest/forest_08_08.json": "3fdc3415390b644080204e4b692a1c0ad245b8364e3f03e6de364bab2240a719",
+    "environment/forest/forest_08_09.json": "3f4c7b791d1b9234d2172e2d1c0911536f17dc3983154ce6a1dadf508580d781",
+    "environment/terrain/tile_00_00.json": "82552bb85dc05fcc70eb8fd4aec550fa653cc233fe89a27829ec8b5e38b49118",
+    "environment/terrain/tile_00_01.json": "31b76fa7cc27871d2e1bb921f9a1d8b5d5cdac15c25dad44df4e8fb48592076b",
+    "environment/terrain/tile_00_02.json": "99dd5fc0d471149b7d61f0511d366f7a3a40fdff45d651dbb0bf8434f79593f9",
+    "environment/terrain/tile_00_03.json": "b86898426ebbbf1014f8112f73e4a8043f60a029aa5c3c75a3da437f14f9b813",
+    "environment/terrain/tile_00_04.json": "f8c4fb0d9813181a2ba77b4a88476098955d04a9bd81360d5f7f91e551ef001a",
+    "environment/terrain/tile_00_05.json": "953d03fd4a131881c0ca5e9bd7811d65a30460a4e4186fe78983d4017b0ff83e",
+    "environment/terrain/tile_00_06.json": "3abb5fae4859e9aa1472ded5d9ab1eec4d2a92477ed7f3092cb00045896f58e7",
+    "environment/terrain/tile_00_07.json": "2d1906067da973ec11314a90cbfee91338f28b2ab00d3e28ee049412966b8d40",
+    "environment/terrain/tile_00_08.json": "f50bedeea305e665d11a97c3e63fc34d577cfced8b18b9cedeb831143b32d5ed",
+    "environment/terrain/tile_00_09.json": "840aa3447b6d7a83c706a58e2c637f4da1a1732b1cc5ace58443518fa434cda1",
+    "environment/terrain/tile_01_00.json": "5209d04ed4cf8f6ead24df57faa5817c85c41b19ccec86c238a9e70a92f91663",
+    "environment/terrain/tile_01_01.json": "4a80e2104ace1741dcfcd2403a330378e3eebaaff6dfa73c8a0b7c7f6df30e16",
+    "environment/terrain/tile_01_02.json": "1e72a20a276bb44f5f62254bbf0ba69910315ded763d760c809476d04e93ed84",
+    "environment/terrain/tile_01_03.json": "b7975c94780334d370d511f23a7b9c4efd6d347e0cd8ed89d1fe436172c2d779",
+    "environment/terrain/tile_01_04.json": "a85ed3eebc43b99d2e436a94585a5bd4cbdb54d1d6d0c658da8c7c5f3f5a1129",
+    "environment/terrain/tile_01_05.json": "68f7cb132c0ea7e75b5583df2bec8e22462f9b0125a6662ae48815d5bfa44d7f",
+    "environment/terrain/tile_01_06.json": "466adadb14d1065d72711d53a8b42805b999ed9b998335bd9441ff0253cf1b0a",
+    "environment/terrain/tile_01_07.json": "ecf08738fbde44545c2b5489e245a0698781a3d19b5ce0b3b2127c20ac75f42b",
+    "environment/terrain/tile_01_08.json": "b2b79ff313c57369d125683961de5d4a664bef8b9f0ead993268d95fbd0d720e",
+    "environment/terrain/tile_01_09.json": "6d28f639baa8e246b800cc7961fccd70daf6d0b00e8106e2a8e9608fe77f5a2e",
+    "environment/terrain/tile_02_00.json": "035e9294fa951c7bcad6c1a18aa744eb1f54d7610f040d11d5a14e2273fbdf97",
+    "environment/terrain/tile_02_01.json": "00f71ea9d29615f60597b9a5764d31557e8a8b84a850531192ddd2caf683dd03",
+    "environment/terrain/tile_02_02.json": "508339a8e1f6afd915e0b6842e66b69ce3db758fbc71f5d5eaa2a5b5ec8d9af7",
+    "environment/terrain/tile_02_03.json": "1355d787cae04f4206f6f37b78fb05233ca0b3d175d3e753f777eb57368ca424",
+    "environment/terrain/tile_02_04.json": "b971c57be05dce5afb94ec9f66ef7ba7679eb77f39c65a2a1d693a6ab490709f",
+    "environment/terrain/tile_02_05.json": "2efe9c7c6ab397131df32e53ac4ac116c7fe4ce260077432707324ebbddd3472",
+    "environment/terrain/tile_02_06.json": "14c5d150c3b581f829fccb8b3ff82f0c0a8e8bd1fafee845c26ced9dda2410ba",
+    "environment/terrain/tile_02_07.json": "66a8bc8ffd6d3cd3c684078e62128e62df75daf62b44fd5f703cd741f315811c",
+    "environment/terrain/tile_02_08.json": "54a2c206aae3d8d643731b74e2fdb4d864221bf04c7c9593f99d66916aea2290",
+    "environment/terrain/tile_02_09.json": "01585265882e6292d987309c11c5f414a280f2d83a237d4cd8db699a6126e7f0",
+    "environment/terrain/tile_03_00.json": "ec612553c05f3576819c0736931b6bea6322db756dbcd7b80cbe9fa7b03725f7",
+    "environment/terrain/tile_03_01.json": "a76fc0ff9b2eacde15e496880f692cb056bedeb60cc6d4c668d1a57be05b9915",
+    "environment/terrain/tile_03_02.json": "f4e5a06a3da2e1a7ab7ad2211f298e99aa052608f922309fe0a70690c9e8cf27",
+    "environment/terrain/tile_03_03.json": "f0b8d1e6ad438f11735f2a3b4125c52307ace7acfa8aac11f1a1ea297403e1d8",
+    "environment/terrain/tile_03_04.json": "ec367bd585796a3c349b672f68584cac0fc6f54167e82dabde2c1aed46513dcf",
+    "environment/terrain/tile_03_05.json": "cdfce1755c254847c2919e6722ed37f6985defd4fa520fcfc936903e26d8f6bd",
+    "environment/terrain/tile_03_06.json": "1e2b9c2ebbc00b01a55442e43ab0f0a4e71cc6e3e9814b073d7449f0f57fec46",
+    "environment/terrain/tile_03_07.json": "12d53a517721f4f547ec1f2d3d19f714cf171d09c2b3b0912405e822da68f8a4",
+    "environment/terrain/tile_03_08.json": "01dbff59e7a70f0a968b7dc5b2813e95d302ac05347e0ee7361e8470b4d16f57",
+    "environment/terrain/tile_03_09.json": "7599d0c47bbebf0e308778d48e45a079e12662142d68f0e1d8edf5e0e73ec23f",
+    "environment/terrain/tile_04_00.json": "ea4d6b1016a4ff50b203fa9d55e8b30d529820304e4dacaaf7480c8dca1e8419",
+    "environment/terrain/tile_04_01.json": "1d1f81f138bb89f7ac38e0d2b4768c4f1bfb29abb6cde27a07d8d07f595097c3",
+    "environment/terrain/tile_04_02.json": "cd0e4bdddce5b00a32b71dba09244c5a2f38f57a0f5b59bc98cae7c13be52f55",
+    "environment/terrain/tile_04_03.json": "2afe6860ecfaaaeebc5df2a10c8c8ac2759fc224e5cc7a83147bf59373d89594",
+    "environment/terrain/tile_04_04.json": "bb89ea3a4fc1c7915bd6c7370ec4e82282e1783fb69d8e2a2ea3703dede86815",
+    "environment/terrain/tile_04_05.json": "1c0e35ec9360618c0c9c7aef74a38ecc34995ca4267adf3ce88c1b5316d57e09",
+    "environment/terrain/tile_04_06.json": "8f2954a92cc71f725ecc6a59513c7bfeb2ba06ece02d29cf0e3ad88f6a878e75",
+    "environment/terrain/tile_04_07.json": "1acb386251187379d7d216c6872f783e72b633684dd47fb979245db52d85577f",
+    "environment/terrain/tile_04_08.json": "40e0638d8932d15bf48e37a40a6868467a5398a6b11cd47743b1a4fd4651178e",
+    "environment/terrain/tile_04_09.json": "94ae805ca2013e31dfc85465723a879c729bc1d1d8f3a5fc16452e46eba44320",
+    "environment/terrain/tile_05_00.json": "a10b9cdc98bd88136bd8f04fb00a909d059f9392ca5b88d5a9872cc7bdd2a460",
+    "environment/terrain/tile_05_01.json": "52b2139bd32dfad7699179f89dc0dad64f48ae69ea8621e1fe7e2d0032612b3b",
+    "environment/terrain/tile_05_02.json": "79ad7b8c9ca28ee9cc2d4122c9a6bae03142b7fb5d6d25a096303a7d498fb325",
+    "environment/terrain/tile_05_03.json": "aebc2dc086f084574bdaedb90684b2571ce842c787b6bddf419fdbc544d7ba72",
+    "environment/terrain/tile_05_04.json": "18cf90cf2d76e0262b4643cf0f7fe2f681c6f67c48e3c93e9c3ba003bef7781c",
+    "environment/terrain/tile_05_05.json": "45ae37522d5d1c8c821e875719e90d227135ed271225ab5ead090032784227eb",
+    "environment/terrain/tile_05_06.json": "bc32d7dc045464c103362df1052ba24c1b85092643ce73d97386499892d1d203",
+    "environment/terrain/tile_05_07.json": "da39c6925d42efe39b57a3ebe5ba1351a6357a9bc8669ad1bfcdd58f05578e8c",
+    "environment/terrain/tile_05_08.json": "a30fb9f0c29729dc8d8f2574d71005ab0b04d4fdcf425beb5c1ea17379e2d723",
+    "environment/terrain/tile_05_09.json": "bbf1ac0b68b35578fe162fa1c8a547267c7f1094a42d19c14cc54795e15a63ef",
+    "environment/terrain/tile_06_00.json": "497ecaee20574693c893538940d047d7a332e928e67b108501a6303a6d64faee",
+    "environment/terrain/tile_06_01.json": "26ce1d496484cd9b853c1bf05f47969b5de3948164df2863b4fdf5c0265762d8",
+    "environment/terrain/tile_06_02.json": "bd6ac7c4b8a0f63e2e3703a4560229a6a93d8d255b2f7226b7f0387eff5891fd",
+    "environment/terrain/tile_06_03.json": "5f5f07904953b57d53cf0257d0b4196d82133e071c13dde7e80b945e44f3e7b0",
+    "environment/terrain/tile_06_04.json": "53fde814a8986a8abd0a87b7ee73c6062f1f6217ff693cd874ae035d74ecd34e",
+    "environment/terrain/tile_06_05.json": "e53a865c4756eb59d725f16532a7c589d3d3f0bd50900af4abd938a491e6dc2b",
+    "environment/terrain/tile_06_06.json": "a0511021897936edb6d3c58d6e1458eba6201beb73f8b3567f4aaf2868e1b5e2",
+    "environment/terrain/tile_06_07.json": "1cd89f1b1ca060c10b92631fee733316a6fd25f99214fda1d7890880993628a4",
+    "environment/terrain/tile_06_08.json": "224a94ff67aa21f3f7ff5bbd1a8348187276cf1b2076a738f5dd49bc8cb214e2",
+    "environment/terrain/tile_06_09.json": "3006ffe453469efcbf30f3ed023ed3fd95863ab24bfe01daf6ae6ae78bfcc6e8",
+    "environment/terrain/tile_07_00.json": "f93c834fc4c555868c4d486ed5674438510ead5776341d4a2f61a2e12be9db4b",
+    "environment/terrain/tile_07_01.json": "6cee135e93bf64134414771bb3b0f9dd480ab2197496039483331fc52ba84bf7",
+    "environment/terrain/tile_07_02.json": "93f4cc6171a3c7dd582d0c4bda36e6ac4d37f0a0b4e526f73d0b639c8ed37302",
+    "environment/terrain/tile_07_03.json": "70c354d11f7c1b71874f6bcae99fd442ac9f9c26b1de4cd5b3493d0631b3d7f8",
+    "environment/terrain/tile_07_04.json": "fe24cb7a227b0c41782162f639409579ac04e063f3bfb8bad3a5c308e1343104",
+    "environment/terrain/tile_07_05.json": "c2416cecbdee684f083904949575640f9fb6d815eee7aa8ccfa9fd32972b7107",
+    "environment/terrain/tile_07_06.json": "aa931e2bfb9be10164b586be475fce963030f4e9419cc3b591f61629ce5ec911",
+    "environment/terrain/tile_07_07.json": "afd51177f0650284e254f200305e06376bd89d9b0a54192e87115e2b6cbae2eb",
+    "environment/terrain/tile_07_08.json": "b65fb490ca3841af7a4083c08d9bcfcdbb5799bfeafebfca377ef176f7b933f9",
+    "environment/terrain/tile_07_09.json": "83f4a5d6d437118cc385b8f7169c20db54726327191558f42ce49f62b040170f",
+    "environment/terrain/tile_08_00.json": "d845a2a615b5f05fdc98fc8fda2955bace98da95d87f499ec4a7af6a940a0d57",
+    "environment/terrain/tile_08_01.json": "74ca8987932d6583f4398e5a2b5ad4ee0ee8951a091ae87e85c9c2e2913bff8c",
+    "environment/terrain/tile_08_02.json": "9aa1e977050365a58ea1ad379d12c291dd50be087c60d8128cde85b7129bb925",
+    "environment/terrain/tile_08_03.json": "f125a793224ef4a90c14335ba4e35afff8cb041304441df65eec47b6fa6ca715",
+    "environment/terrain/tile_08_04.json": "91050c0fe709ce64215fac7e7b8cb6586a4ed724b1446eaa7ecd97d33b84ffc6",
+    "environment/terrain/tile_08_05.json": "37e3928730798d775cb3bc8216bebd2872ef93687b995ef2852ff11159be38c1",
+    "environment/terrain/tile_08_06.json": "5aa3e3b9fd4314bc4cfc907bc2c32da8ee09399f20af814d26ea8de8df8c99b8",
+    "environment/terrain/tile_08_07.json": "2d205fb9241236ceb03ce17fa0ddb33ad7b34aec507fb0bcec426c8b41f6a373",
+    "environment/terrain/tile_08_08.json": "85f2b9e4486131b7ce3a67c96dbe3faedd2b282cf264be3929aea12bebd29aec",
+    "environment/terrain/tile_08_09.json": "3151eb11eb2d98bddb0e98ab5c9a6155df76af31dc13414016e041e4ff139578",
+    "environment.json": "2de1da551ec91ddf73ab0ddbad99d10ea8746cfecd71dd93c0d9580c12913bd3",
+    "forest_composition.json": "b7e1dbb9aa0497dbb602af4b56253e2a5da3b3840b8d61936a71506c5cfd2dfc",
+    "format_bindings.json": "e7e8ced2abb801450a05ae35601dade06bd3282880e046fa42b4103a09c8de21",
+    "junctions.json": "6eeb7a2427c3876bb356e9b6896e90ee8f95c7f30556ec6194ee5f30cc61050e",
+    "manifest.json": "f3be77a1f3a3db9d4e5b429ab010a7242dd96074d8a630762ec73550d652c911",
+    "mass_start_profile.json": "90b4b4a7f8c0972b716099a647d8ef847e7349d42e7d4190885ed774b3e581c7",
+    "mass_start_route.json": "f993e20ae92ce2dcf9a77f8b706a58c2d7480c3da9ef20ee88e18b7f81235e1d",
+    "paths.json": "502cd245dc5a60b8b063e021e607c685a44f5c1cc574dfb1febe752272e7e276",
+    "pursuit_profile.json": "c3c54b00fb6f38eb73a322887d5accbb973181c31e2fc4f65d1bda46d416680b",
+    "pursuit_route.json": "0ed887e9fe5598cb20c7a1cac8d1d6b3520645054a18a35a07326c5dbba3da5c",
+    "sprint_profile.json": "8d093d177da3c90f1cf4cb4cf7f88614d5baf4294bda999547e08c5157e44e2a",
+    "sprint_route.json": "3368c9622d2ebd11971a4538d0da13845ab6b741628a17edb71ba57c693f3229",
+    "start_approach.json": "00cf39889654294d4ac21cc9a03ee9edb3d179ec0e131111d5cd6f1056d6ce93",
+    "start_continuation.json": "84cb7e225deff306af205cc3566257cd1a599c2ebb72175f44a703ed3212e4fc",
+    "track.json": "21b150fa680c81b9cdc52e6233039ffded3f725fb0316087d123ec7417b4c5ad",
+    "visual.json": "38c160164750abb987b250308fb554d662852ff83d6417779d7268d1d66b731f"
+  },
+  "proof_sha256": {
+    "static-report.json": "6a307bfef18c16cbb2f458d582843162e5b45fb2593d0cfffafb5dc3b4fa4d71",
+    "formats-verification.json": "1d4312c04baa673904459f37e81ea40c1df8eb2da5766bfc1bd0647c7116d955",
+    "environment-verification.json": "9bc385a5e6ca4476429c732e24961ec636b955b2458090e24d21ddbb16485597",
+    "input-snapshot.json": "914e970d1fe1d5aee31675ba43359cf12942bf5563cb6b1d0ff9f468a5c8f759",
+    "regression.json": "a6520454464943fa1499e30cab7f7c1357e74e135713fe3e79f6f3b158cd3818"
+  },
+  "pending_acceptance": [
+    "Cold Unity import and actual groomed closed-seam mesh/terrain test",
+    "All format race admission, dense pack liveness, deterministic results and replay",
+    "Dawn forest/ridge/stadium visibility and full snow-join camera review",
+    "Worst-condition weather readability, LOD and performance",
+    "Race-balance calibration of the longer .195608-grade climb"
+  ],
+  "known_visual_risk": "The independent float32 TrackRibbonBuilder reconstruction is not the final Unity-groomed mesh. Conservative capping creates up to 0.597949 m separation below the Main. Actual snow joins, dawn/fog and the steeper venue require Unity inspection; no visual PASS is claimed."
+}
