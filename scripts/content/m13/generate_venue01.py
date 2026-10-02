@@ -16,10 +16,14 @@ parser.add_argument('--recipe', type=Path, default=SCRIPT_DIRECTORY/'recipes/woo
 arguments = parser.parse_args()
 PROJECT = arguments.project_root.resolve()
 HERE = (arguments.output_root if arguments.output_root is not None else PROJECT/'artifacts/wp169i/draft').resolve()
-HERE.mkdir(parents=True, exist_ok=True)
 RESOURCES = HERE / "resources"
 RECIPE = json.loads(arguments.recipe.read_text(encoding='utf-8-sig'))
 assert RECIPE['schema_version']==1
+compound_range_rejoin = RECIPE.get("compound_range_rejoin", False)
+if type(compound_range_rejoin) is not bool:
+    raise ValueError("compound_range_rejoin must be an explicit boolean when supplied")
+# Reject malformed optional admission topology before creating or replacing output.
+HERE.mkdir(parents=True, exist_ok=True)
 VENUE=RECIPE.get('venue_id','woodland_basin_v1')
 assert VENUE.replace('_','').isalnum() and VENUE.endswith('_v1')
 LABEL=VENUE[:-3]
@@ -251,12 +255,20 @@ for i, line in enumerate(private):
     rid=f"mat_turn_{ordinal:02d}"
     region(rid,[port(rid+"_incoming",name,q*chord+9,5,5),port(rid+"_outgoing",name,q*chord+9+2*q*chord,5,5)],"private_turn_only_no_other_lane")
 
-region("range_rejoin",[port("rejoin_exit","exit_aisle",aisle_length,18,0),port("rejoin_main","main",overlay_exit,18,18),port("rejoin_penalty","penalty_150",0,18,18)],"common_exit_and_penalty_access")
+rejoin_ports=[port("rejoin_exit","exit_aisle",aisle_length,18,0),port("rejoin_main","main",overlay_exit,18,18),port("rejoin_penalty","penalty_150",0,18,18)]
+bypass_ports=[port("bypass_in","main",overlay_entry+aisle_length,7.9,25),port("bypass_out","main",overlay_exit-10,25,25)]
+if compound_range_rejoin:
+    # These full guards overlap on Main. One conservative region prevents two
+    # incumbents owning opposite halves of the same site and waiting for each
+    # other. Keep every original port/anchor/guard and all directed seams exact.
+    rejoin_ports.extend(bypass_ports)
+region("range_rejoin",rejoin_ports,"compound_common_exit_penalty_and_outer_bypass" if compound_range_rejoin else "common_exit_and_penalty_access")
 seam("range_rejoin_connection","range_rejoin","rejoin_exit","rejoin_main")
 seam("range_penalty_enter","range_rejoin","rejoin_exit","rejoin_penalty")
 seam("range_penalty_enter_main","range_rejoin","rejoin_main","rejoin_penalty")
 seam("range_penalty_leave","range_rejoin","rejoin_penalty","rejoin_main")
-region("bypass_turn",[port("bypass_in","main",overlay_entry+aisle_length,7.9,25),port("bypass_out","main",overlay_exit-10,25,25)],"outer_bypass_only_not_mat_forks")
+if not compound_range_rejoin:
+    region("bypass_turn",bypass_ports,"outer_bypass_only_not_mat_forks")
 region("penalty_tail_cross_mat_30",[port("penalty_tail_mat","mat_30",38.8,2,.608),port("penalty_tail_loop","penalty_150",139,3,3)],"local_penalty_overlap_with_last_mat_departure_only")
 region("start_join",[port("start_join_end","start_approach",RECIPE["start_approach_length_m"],18,0),port("start_join_main","main",0,18,2)],"single_local_start_to_main_merge")
 seam("start_join_connection","start_join","start_join_end","start_join_main")

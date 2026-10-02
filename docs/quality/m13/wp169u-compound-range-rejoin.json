@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "id": "task169u_compound_range_rejoin_v1",
+  "status": "PASS_BOUNDED_DATA_FIX_IMPORT_COMPLETE_SPRINT_MASS_EXACT_REPLAY",
+  "overall_wp169": "IN_PROGRESS",
+  "scope": "One optional compound conflict region; no core/AI/body/tuning/physical geometry/length/seam changes",
+  "source_sha256": {
+    "scripts/content/m13/generate_venue01.py": "bd7b5631b673e68d3868d3c502f86bcaef0df5995185a9f4304f255b6584cf63",
+    "scripts/content/m13/recipes/woodland_basin_geometry_recipe_v1.json": "3e10e821eb26ea15f2ca32aa60784d521b6cb8439a4f38c847dbe27bcf99b995",
+    "scripts/content/m13/test_compound_range_rejoin.py": "23846fea6694a92e66417f91f6a6cabc8389dbb1469ba49ede0e0f4cac8d2f71"
+  },
+  "immutable_assembly_sha256": {
+    "Biathlon.AI": "94364590d3f6ca5bf2a25e8699a461d54acb651e3e3a191fc3b206d0add7bf24",
+    "Biathlon.Career": "2d6c8a625d4ab4102d8c3e393fa22b3eba5493e3a14ee45287ad26a2e4807e66",
+    "Biathlon.Domain": "45977a0efadb898ebd260147f16cc80be8b20f2b7894f8d82d369d4e3c4f2703",
+    "Biathlon.Replay": "e891fdd219123956538b1e858a8f06a7747304c636c1d47b48e075a537e9c6b5",
+    "Biathlon.Simulation": "03f7d1e7cb4c3a2f0d3081cb0ff4c6f41d707bca97a165f09e91bac04b2afb00",
+    "Biathlon.VenueLab": "5718f572a46ee8e3f035d1d6b6e0ddbf483e83630c85d17f31e9525a6314723c"
+  },
+  "confirmed_actual_cycle": {
+    "tick": 36000,
+    "complete_public_state_exact_to_preserved_tape": true,
+    "two_incumbents": [
+      2,
+      36
+    ],
+    "tickets": [
+      0,
+      0
+    ],
+    "old_tails_active": [
+      false,
+      false
+    ],
+    "candidate_conflicts_reciprocal_and_sole": true
+  },
+  "recipe": {
+    "flag": "compound_range_rejoin",
+    "omitted_default": false,
+    "woodland_explicit": true,
+    "malformed_rejected_before_any_output_mutation": true
+  },
+  "python_tests": {
+    "new_compound_generator": {
+      "passed": 4,
+      "failed": 0
+    },
+    "existing_exit_tail": {
+      "passed": 4,
+      "failed": 0
+    }
+  },
+  "dotnet_imported_resource_tests": {
+    "status": "PASS",
+    "passed": 44,
+    "failed": 0,
+    "skipped": 0,
+    "classes": {
+      "PhysicalJunctionRouteUsageTests": 4,
+      "ProductionVenueRaceFactoryTests": 5,
+      "PackJunctionTouchCacheTests": 6,
+      "PhysicalStartContinuationTests": 29
+    },
+    "artifact": "artifacts/wp169u/test-results/compound-final-resource-tests.trx",
+    "executed_by": "root"
+  },
+  "data_invariants": {
+    "original_ports": 257,
+    "final_ports": 257,
+    "all_port_ids_anchors_guards_exact": true,
+    "regions_before": 128,
+    "regions_after": 127,
+    "only_changed_resource": "junctions.json",
+    "full_format_resource_count": 205,
+    "final_junction_bytes_exact_to_completed_prototype": true,
+    "all_other_204_resource_bytes_exact": true,
+    "connections_track_paths_profiles_routes_body_unchanged": true
+  },
+  "default_byte_reproduction": {
+    "status": "PASS",
+    "independent_full_generations": 2,
+    "resource_count": 205,
+    "differences": 0,
+    "sources_inputs_canonical_unchanged": true
+  },
+  "frozen_runtime_guard_query": {
+    "original_pair_shared_regions": [],
+    "compound_pair_shared_regions": [
+      "range_rejoin"
+    ],
+    "half_body_nanometers": 750000000,
+    "route_usage_bound": true
+  },
+  "serialized_geometry": {
+    "static_diagnostics": 0,
+    "exact_edges": 1322,
+    "route_slices": 30,
+    "directed_connections": 69,
+    "maximum_directed_seam_gap_m": 0.0,
+    "standard_distances_m": [
+      15000,
+      10000,
+      12500
+    ]
+  },
+  "environment": {
+    "tiles": 99,
+    "trees": 26441,
+    "banks": 30,
+    "resource_bytes_unchanged": true
+  },
+  "actual_sprint60": {
+    "status": "RACE_COMPLETE",
+    "ticks": 94500,
+    "distance_m": 10000,
+    "athletes": 60,
+    "peak_shooting": 2,
+    "max_stationary_ticks": 2117,
+    "event_count": 1932001,
+    "event_fingerprint": "983a47a06f9c593e",
+    "finished_rows": 60,
+    "result_json_sha256": "480aec4574d16b505303a6a315a97ae772a8452f309b7ffbd87d690107b869d8",
+    "artifact": "artifacts/wp169u/compound-sprint60-completion.json"
+  },
+  "independent_sprint_repeat": {
+    "status": "PASS_COMPLETE_REPORT_BYTES_EXACT",
+    "ticks_results_events_exact": true,
+    "report_sha256": "1c0718baadf38b0cb0ff603ebe1669e116a20ecf3db03eae0f5637fcd8a5ae54"
+  },
+  "actual_mass30": {
+    "status": "RACE_COMPLETE",
+    "ticks": 58125,
+    "distance_m": 15000,
+    "athletes": 30,
+    "peak_shooting": 10,
+    "max_stationary_ticks": 311,
+    "event_count": 758242,
+    "event_fingerprint": "e754576c423bbd49",
+    "finished_rows": 30,
+    "result_json_sha256": "654b81d1549c8453610df5f36129603d4e527549371cc6ce19057ef118b5b2c4",
+    "artifact": "artifacts/wp169u/compound-mass30-frozen-completion.json"
+  },
+  "retained_negative": {
+    "original_no_recorder_status": "PREFIX_ONLY",
+    "ticks": 60000,
+    "maximum_stationary": 24035,
+    "original_preserved_record_ticks": 108385,
+    "original_prefix_exact_replay": "PASS_BY_ROOT",
+    "initial_mass_context_missing_grid": "artifacts/wp169u/compound-mass30-completion.json"
+  },
+  "qualified_pursuit60": {
+    "status": "PREFIX_ONLY_AT_120000_DIAGNOSIS_CONTINUES",
+    "unfinished_athletes": 48,
+    "maximum_live_stationary_ticks": 2166,
+    "event_count": 4110451,
+    "event_fingerprint": "656ad08d93984e2a",
+    "complete_sprint_source": true,
+    "artifact": "artifacts/wp169u/compound-pursuit60-completion.json"
+  },
+  "final_import": {
+    "status": "PASS_BY_ROOT_INDEPENDENT_SHA_CONFIRMED",
+    "json_count": 205,
+    "changed_resources": [
+      "junctions.json"
+    ],
+    "prototype_draft_import_sha256": "c28406db3ea76f5bd1b3d093f919e296d62b15292303d51e517614d7b94c0eca",
+    "meta_guid_retained": true
+  },
+  "persisted_corrected_sprint_record": {
+    "status": "PASS_COMPLETE_EXACT_REPLAY",
+    "ticks": 94500,
+    "athletes": 60,
+    "field_event_count": 1805360,
+    "excluded_ai_events": 126641,
+    "maximum_live_stationary_ticks": 2117,
+    "compressed_tape_bytes": 3921466701,
+    "raw_tick_record_bytes": 48168956919,
+    "tape_sha256": "da40f94726849c67f100a28c23cc5b8227e67644c0c74aa321ea84a7c8730ae1",
+    "context_sha256": "dac615ff9024e1a41629b520f8f359af9cd396baaab5e0a49f3528349c4e00a9",
+    "result_json_sha256": "480aec4574d16b505303a6a315a97ae772a8452f309b7ffbd87d690107b869d8",
+    "record_sha256": "b6b10f8aca4f5c53d2bea537a0001bbfbfa4b0d2c9e3904b9e5f60ce4daf29fe",
+    "replay_sha256": "50726dc34862ae1d8328e4f170d3e5c63b9722a328c7443302f1f8006c64e34d",
+    "independent_full_tape_context_rehash": "PASS",
+    "per_tick_public_state": "EXACT_SERIALIZED_BYTE_EQUALITY",
+    "ordered_field_events": "EXACT_SERIALIZED_BYTE_EQUALITY",
+    "replay_ai_steps": 0,
+    "result_exact_to_independent_no_recorder_probe": true,
+    "source_inventory_unchanged_at_verification": true,
+    "record_artifact": "artifacts/wp169u/compound-sprint60-record.json",
+    "replay_artifact": "artifacts/wp169u/compound-sprint60-replay.json"
+  },
+  "persisted_corrected_sprint_replay": "PASS_COMPLETE_EXACT_REPLAY_94500_ZERO_AI_STEPS",
+  "final_mass_record": {
+    "status": "PASS_COMPLETE_EXACT_REPLAY",
+    "ticks": 58125,
+    "athletes": 30,
+    "field_event_count": 680957,
+    "excluded_ai_events": 77285,
+    "maximum_live_stationary_ticks": 311,
+    "compressed_tape_bytes": 1584467028,
+    "raw_tick_record_bytes": 17502644470,
+    "tape_sha256": "579f24b48bb78654108c17a624e5badf5c8b0dbad2d72e9ff22019d68df65eea",
+    "context_sha256": "243cc637d1881f6d2ccaf71befeb590cf1e8f56369713470c3e4b06f59901e11",
+    "result_json_sha256": "654b81d1549c8453610df5f36129603d4e527549371cc6ce19057ef118b5b2c4",
+    "record_sha256": "8d7e0ae82850e0e85cbc0aafca6e26158c94b1301c45a1e9935350a406c1c9c7",
+    "replay_sha256": "ed9c9652f8fdd2aabb5065ca9a40d58ac03cb77a27dac20554ac2a671f2b7038",
+    "independent_full_tape_context_rehash": "PASS",
+    "per_tick_public_state": "EXACT_SERIALIZED_BYTE_EQUALITY",
+    "ordered_field_events": "EXACT_SERIALIZED_BYTE_EQUALITY",
+    "replay_ai_steps": 0,
+    "result_exact_to_independent_no_recorder_probe": true,
+    "source_inventory_unchanged_at_verification": true,
+    "record_artifact": "artifacts/wp169u/compound-mass30-record.json",
+    "replay_artifact": "artifacts/wp169u/compound-mass30-replay.json"
+  },
+  "final_mass_replay": "PASS_COMPLETE_EXACT_REPLAY_58125_ZERO_AI_STEPS",
+  "unity_validation": "PENDING_ROOT",
+  "state_git_unity_mutations": "NONE_BY_THIS_AGENT",
+  "limitations": [
+    "Finite actual scenario evidence; no general liveness theorem for arbitrary authored geometry",
+    "Compound reservation changes admission/event/result semantics conservatively; replay context includes exact new junction snapshot",
+    "Qualified Pursuit completion/replay and final Unity/visual acceptance still required for WP169"
+  ],
+  "evidence_sha256": {
+    "artifacts/wp169u/actual-cycle-proof.json": "dd94e3ba126c01a5021d45f871a0d19fbb0f7a07c51a0eaee86d99efe4caa47c",
+    "artifacts/wp169u/live-dependency-36000.json": "39c954981c976efdcde1c8dfbad1c23b2b6dcc6ec3201f8ec706b1af7894a334",
+    "artifacts/wp169u/tape-36000.metadata.json": "3aa5a31ebdbf43974b437dc2d18710c842ceac4c7553464bb2076537a907bee1",
+    "artifacts/wp169u/compound-zone-static-proof.json": "02e6b185eacc5ffce9fa905dc0c57d80e756bf123f8e7e46aafea91ac7798086",
+    "artifacts/wp169u/original-runtime-guard-query.json": "92ff6e51f992753a47a019537f03f5ae3bb82c011abb2dc3480f48e643a61e7d",
+    "artifacts/wp169u/compound-runtime-guard-query.json": "47641afa01f110b3d85e3e9fa41d4d804a9e90f2c5ff6cda548c4d26cd5e3094",
+    "artifacts/wp169u/default-byte-reproduction/regression.json": "a6520454464943fa1499e30cab7f7c1357e74e135713fe3e79f6f3b158cd3818",
+    "artifacts/wp169u/compound-sprint60-completion.json": "1c0718baadf38b0cb0ff603ebe1669e116a20ecf3db03eae0f5637fcd8a5ae54",
+    "artifacts/wp169u/compound-sprint60-repeat.json": "1c0718baadf38b0cb0ff603ebe1669e116a20ecf3db03eae0f5637fcd8a5ae54",
+    "artifacts/wp169u/compound-mass30-frozen-completion.json": "e9b2c1e7d73c676d2ca547cb79988fd7eeced7363db571f4e4eb4a7b300d49fd",
+    "artifacts/wp169u/final-format-draft/static-report.json": "be9d994f9a0bd6bf77ff122ac70d442a45c6f72070198abd85c731019471e0cc",
+    "artifacts/wp169u/final-format-draft/formats-verification.json": "d5de48db5ba51cf9932477124c1cc3578317aa7a8306dd00a4548a01ecf5e915",
+    "artifacts/wp169u/final-format-draft/environment-verification.json": "12b7ffb66f19822f79d17721767b6674fb41676d392a0b0f443070ac2bdda86a",
+    "artifacts/wp169u/import-verification.json": "9998cd54db4471876c47a3e15953261b4a1922a77ffbbfdabe43159c2eb91c6d",
+    "artifacts/wp169u/test-results/compound-final-resource-tests.trx": "7f8b43508b62bb9fa2c397842773a2deaccd9ecd805e4e0f6cda254c0cebf3d5",
+    "docs/quality/m13/wp169u-final-record-replay-binding.json": "0607ca415f8350613863da8632760593d598b4b970d1e4381cae6f37e1cbe247"
+  }
+}
