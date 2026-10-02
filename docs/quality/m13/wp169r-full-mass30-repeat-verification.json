@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "id": "task169r_full_mass30_independent_ai_repeat_v1",
+  "status": "PASS_FULL_MASS30_EXACT_REPLAY_AND_INDEPENDENT_AI_REPEAT",
+  "wp169_complete": false,
+  "kind": "production_venue_stream_commands_v1",
+  "venue": "woodland_basin_v1",
+  "format": "MassStart",
+  "source": "O34 imported actual production resources and frozen N/P factory/AI/simulation assemblies",
+  "ticks": 57832,
+  "athletes": 30,
+  "field_event_count": 680897,
+  "excluded_ai_event_count": 77285,
+  "max_live_on_course_stationary_ticks": 311,
+  "compressed_tape_bytes": 1573337595,
+  "uncompressed_tick_record_bytes": 17377466028,
+  "peak_tick_record_bytes": 427597,
+  "context_compressed_bytes": 1545691,
+  "context_uncompressed_bytes": 80774424,
+  "result_sha256": "0eb91f3e2cc943272357a10733a754b82f1dfd81e092b9c4ad2908da508e905d",
+  "repeat_comparison": {
+    "every_record_property_except_output_paths_and_wall_time": "EXACT_EQUAL",
+    "excluded_record_properties": [
+      "context_file",
+      "elapsed_wall_seconds",
+      "tape_file"
+    ],
+    "full_compressed_tape_sha256": "EXACT_EQUAL",
+    "full_compressed_context_sha256": "EXACT_EQUAL",
+    "final_result_json": "EXACT_SERIALIZED_BYTE_EQUALITY",
+    "field_and_excluded_ai_event_totals": "EXACT_EQUAL",
+    "source_files_unchanged_at_independent_verification": true,
+    "resource_files_unchanged_at_independent_verification": true
+  },
+  "replay": {
+    "status": "PASS_COMPLETE_EXACT_REPLAY",
+    "complete_race": true,
+    "ai_steps": 0,
+    "every_tick_public_state": "EXACT_SERIALIZED_BYTE_EQUALITY",
+    "ordered_field_events": "EXACT_SERIALIZED_BYTE_EQUALITY",
+    "ai_event_filter": [
+      "AiIntentChanged",
+      "AiShootingPolicyChanged",
+      "AiPursuitTacticsChanged",
+      "OvertakeStarted",
+      "OvertakeCompleted",
+      "OvertakeAborted"
+    ],
+    "coverage": "all 57832 ticks; every athlete physiology/physical coordinates/lifecycle/shooting/reservations/history/checkpoints; exact final result and event total",
+    "reuse_for_independent_repeat": "The independently SHA256-verified full tape and context are byte-identical to the full replayed inputs; a second replay is unnecessary."
+  },
+  "report_files": {
+    "first_record": {
+      "path": "artifacts/wp169r/full-mass30-record.json",
+      "sha256": "613916a75559ead46cecfe74acbaf3dd7752393700026007ee9091f23b89180a"
+    },
+    "independent_repeat_record": {
+      "path": "artifacts/wp169r/full-mass30-repeat-record.json",
+      "sha256": "8d50bc5429f7ac17991e854838652a41edd5ae41c9ed4af3ce46dfb4e8db2a25"
+    },
+    "first_replay": {
+      "path": "artifacts/wp169r/full-mass30-replay.json",
+      "sha256": "0eeb08a26703d39db05b3e2168b524b2c70869432e29b7d5b601108a678f0d07"
+    }
+  },
+  "artifacts": {
+    "first_tape_file": {
+      "path": "artifacts/wp169r/full-mass30.commands.gz",
+      "bytes": 1573337595,
+      "sha256": "d3a9a04e9d30962d003fb8cc54ba2c008563adff1f191db89cfbe259d0ff5014"
+    },
+    "first_context_file": {
+      "path": "artifacts/wp169r/full-mass30.commands.gz.context.json.gz",
+      "bytes": 1545691,
+      "sha256": "2f8ef2ee616f0aa617b5b7cacffa8465dc28be96aabe82caa5d8ff4cd1ab3be7"
+    },
+    "independent_repeat_tape_file": {
+      "path": "artifacts/wp169r/full-mass30-repeat.commands.gz",
+      "bytes": 1573337595,
+      "sha256": "d3a9a04e9d30962d003fb8cc54ba2c008563adff1f191db89cfbe259d0ff5014"
+    },
+    "independent_repeat_context_file": {
+      "path": "artifacts/wp169r/full-mass30-repeat.commands.gz.context.json.gz",
+      "bytes": 1545691,
+      "sha256": "2f8ef2ee616f0aa617b5b7cacffa8465dc28be96aabe82caa5d8ff4cd1ab3be7"
+    }
+  },
+  "assembly_sha256": {
+    "Biathlon.AI": "94364590d3f6ca5bf2a25e8699a461d54acb651e3e3a191fc3b206d0add7bf24",
+    "Biathlon.Career": "2d6c8a625d4ab4102d8c3e393fa22b3eba5493e3a14ee45287ad26a2e4807e66",
+    "Biathlon.Domain": "45977a0efadb898ebd260147f16cc80be8b20f2b7894f8d82d369d4e3c4f2703",
+    "Biathlon.Replay": "e891fdd219123956538b1e858a8f06a7747304c636c1d47b48e075a537e9c6b5",
+    "Biathlon.Simulation": "03f7d1e7cb4c3a2f0d3081cb0ff4c6f41d707bca97a165f09e91bac04b2afb00",
+    "Biathlon.VenueLab": "5718f572a46ee8e3f035d1d6b6e0ddbf483e83630c85d17f31e9525a6314723c"
+  },
+  "source_inventory_sha256": "8c5bde92146af02682baa120f3ab4fde513c2dfd02d46dc03998c4313bf6a222",
+  "source_file_count": 247,
+  "resource_inventory_sha256": "6c14affd2ff0bfa5f370ac6315bf3a9c85cb96ea403fbd82e487c962fdc1f2ee",
+  "resource_count": 60,
+  "independent_verifier": {
+    "path": "artifacts/wp169r/verify_mass30_repeat.py",
+    "sha256": "add85db20992347bbc8654cf418c24848fb39447fbaf887304a01f99994f57f3"
+  },
+  "wall_seconds_diagnostic_only": {
+    "first_record": 123.3053452,
+    "independent_repeat_record": 120.0635744,
+    "first_replay": 101.118193
+  },
+  "pending": [
+    "Full production Sprint60 independent repeat/exact replay",
+    "Actual full Sprint60 result -> Pursuit60 qualification/completion/exact replay",
+    "Unity/runtime/visual and remaining WP169 acceptance"
+  ]
+}

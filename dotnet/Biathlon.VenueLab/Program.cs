@@ -13,9 +13,10 @@ internal static class Program
     // only; it never claims a completed race. CLI counters are diagnostics, not gameplay tuning.
     private static int Main(string[] args)
     {
-        if(args.Length!=10||args[0]!="race")
+        if(args.Length>0&&(args[0]=="record"||args[0]=="replay"))return ProductionReplayHarness.Run(args);
+        if(args.Length<10||args[0]!="race")
         {
-            Console.Error.WriteLine("race <venue-resource-root> <core-resource-root> <manifest> <profile> <route> <conditions> <count> <tick-limit> <output.json>");return 2;
+            Console.Error.WriteLine("race <venue-resource-root> <core-resource-root> <manifest> <profile> <route> <conditions> <count> <tick-limit> <output.json> [--sprint-result <source.json>]");return 2;
         }
         string output=Path.GetFullPath(args[9]);
         try
@@ -32,7 +33,14 @@ internal static class Program
             var conditions=RaceSnowConditions.FromJson(Read(args[6]));
             int count=int.Parse(args[7],CultureInfo.InvariantCulture);long limit=long.Parse(args[8],CultureInfo.InvariantCulture);
             if(limit<0)throw new ArgumentOutOfRangeException("tick-limit");
-            var events=new Audit();var runner=ProductionVenueRaceFactory.Create(venue,profile,route,conditions,Core,events,new AiDecisionCounts(),count:count);
+            PursuitQualificationSnapshot qualification=null;
+            if(args.Length>10)
+            {
+                if(args.Length!=12||args[10]!="--sprint-result")throw new ArgumentException("Only --sprint-result <source.json> is supported for race.");
+                qualification=ProductionReplayHarness.Qualification(File.ReadAllText(args[11]),profile,venue.Manifest.Id);
+                if(qualification.Count!=count)throw new ArgumentException("Qualification and requested field counts must match exactly.");
+            }
+            var events=new Audit();var runner=ProductionVenueRaceFactory.Create(venue,profile,route,conditions,Core,events,new AiDecisionCounts(),qualification:qualification,count:count);
             var field=runner.Field;var initial=new List<object>();
             for(int i=0;i<field.Count;i++)
             {
@@ -49,7 +57,7 @@ internal static class Program
                 {
                     var actor=field.GetAthlete(i);
                     if(actor.ActiveShooting!=null)shooting++;
-                    stationary[i]=field.IsOnCourse(i)&&actor.ActiveShooting==null&&actor.Motion.DistanceNanometers==previous[i]?stationary[i]+1:0;
+                    stationary[i]=!actor.HasFinished&&field.IsOnCourse(i)&&actor.ActiveShooting==null&&actor.Motion.DistanceNanometers==previous[i]?stationary[i]+1:0;
                     maximumStationaryTicks=Math.Max(maximumStationaryTicks,stationary[i]);
                 }
                 peakShooting=Math.Max(peakShooting,shooting);

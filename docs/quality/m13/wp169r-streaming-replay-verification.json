@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "id": "task169r_streaming_production_replay_acceptance_v1",
+  "status": "PASS_CLI_CONTRACT_AND_PRODUCTION_PREFIXES_FULL_PRODUCTION_PENDING",
+  "wp169_complete": false,
+  "kind": "production_venue_stream_commands_v1",
+  "scope": "VenueLab CLI and new harness test project only; no authoritative core, Assets import, Unity, PROJECT_STATE or Git changes",
+  "source_sha256": {
+    "dotnet/Biathlon.VenueLab/Program.cs": "29839f1b59e944e12d94afe54fa37c29f88e885a60c69f7d803be153cb5a3663",
+    "dotnet/Biathlon.VenueLab/ProductionReplayHarness.cs": "8b26a4afd6589bae4aaedffd2a596546e41cab1f4a4af021d7e4a9c3cd58668b",
+    "dotnet/Biathlon.VenueLab/Biathlon.VenueLab.csproj": "050c4d3af6bdcde052718d7c96d1e3fd24dda929a0ac60b818e1e089df4cd5d6",
+    "dotnet/Biathlon.VenueLab.Tests/Biathlon.VenueLab.Tests.csproj": "b0eda13568f248a60adca3a35cfa6344b21628cb185d4aa06d0c051be1de08d0",
+    "dotnet/Biathlon.VenueLab.Tests/StreamingReplayTests.cs": "62dcd95ff1803aae2048f91109156d705ae3f1950b3fcec999ee8237f98040e6",
+    "dotnet/Biathlon.VenueLab.Tests/TinyVenueFixture.cs": "18fb7d0e5144c045044d8eb78029f8ed07341cd3fc09808ec1b022a64ca54151"
+  },
+  "contract_document": "docs/quality/m13/wp169r-streaming-replay-contract.md",
+  "contract_sha256": "1176e8adafee0a3b65962c225131447adf001c3eb7944f27acbd0ff699602483",
+  "binary": "artifacts/wp169r/dotnet/bin/Biathlon.VenueLab/release/Biathlon.VenueLab.dll",
+  "binary_sha256": "5718f572a46ee8e3f035d1d6b6e0ddbf483e83630c85d17f31e9525a6314723c",
+  "hard_limits": {
+    "ticks": 120000,
+    "athletes": 60,
+    "tick_record_bytes": 8388608,
+    "events_per_tick": 16384,
+    "context_compressed_bytes": 16777216,
+    "context_uncompressed_bytes": 134217728,
+    "default_tape_compressed_bytes": 268435456,
+    "default_tape_raw_bytes": 4294967296,
+    "maximum_tape_compressed_bytes": 4294967296,
+    "maximum_tape_raw_bytes": 68719476736
+  },
+  "production_prefixes": [
+    {
+      "ticks": 1000,
+      "athletes": 30,
+      "tape_sha256": "48e7a1f5e6d64475ccb12c488fd627da446cc73baf0fcf3135de9a18549cf9e4",
+      "context_sha256": "2f8ef2ee616f0aa617b5b7cacffa8465dc28be96aabe82caa5d8ff4cd1ab3be7",
+      "field_event_count": 8130,
+      "excluded_ai_event_count": 4424,
+      "compressed_bytes": 12523327,
+      "uncompressed_record_bytes": 157037471,
+      "context_compressed_bytes": 1545691,
+      "context_uncompressed_bytes": 80774424,
+      "peak_tick_record_bytes": 161454,
+      "max_stationary_ticks": 2,
+      "name": "mass30",
+      "status": "PASS_PREFIX_EXACT_REPLAY",
+      "complete_race": false,
+      "replay_ai_steps": 0,
+      "record_report": "artifacts/wp169r/mass30-prefix-record.json",
+      "record_report_sha256": "bb3542196ccb38f0ed9f4dab968c45946e005d552f899a5cf7bbe4f257a9e7ba",
+      "replay_report": "artifacts/wp169r/mass30-prefix-replay.json",
+      "replay_report_sha256": "03c3fcbb62b32db960bc9c3170d6d30c30eb29f38a2af114281b57645583c4ca",
+      "resource_inventory_sha256": "6c14affd2ff0bfa5f370ac6315bf3a9c85cb96ea403fbd82e487c962fdc1f2ee",
+      "resource_count": 60,
+      "source_inventory_sha256": "8c5bde92146af02682baa120f3ab4fde513c2dfd02d46dc03998c4313bf6a222",
+      "source_count": 247,
+      "source_files_unchanged_at_verification": true
+    },
+    {
+      "ticks": 1000,
+      "athletes": 60,
+      "tape_sha256": "73b96d11928be5b690a853f8442238fd7774b500b07c8d50b39b37268b7c97bd",
+      "context_sha256": "4fc1cee85d1a0f188bcb6949a91e5706034ef302c8d0c025515b1ca2e85f78b6",
+      "field_event_count": 336,
+      "excluded_ai_event_count": 263,
+      "compressed_bytes": 7228692,
+      "uncompressed_record_bytes": 338223215,
+      "context_compressed_bytes": 451626,
+      "context_uncompressed_bytes": 17215141,
+      "peak_tick_record_bytes": 338802,
+      "max_stationary_ticks": 1,
+      "name": "sprint60",
+      "status": "PASS_PREFIX_EXACT_REPLAY",
+      "complete_race": false,
+      "replay_ai_steps": 0,
+      "record_report": "artifacts/wp169r/sprint60-prefix-record.json",
+      "record_report_sha256": "ce723134ebc0b4976245f8e63d2ff3f3b825e412a8878c32f7eae33963c0555d",
+      "replay_report": "artifacts/wp169r/sprint60-prefix-replay.json",
+      "replay_report_sha256": "237346bb674701ecfff00110e876058acfdff610d516ea44c12aa253a4759d02",
+      "resource_inventory_sha256": "651568399f5cfd4119eb3d95ccdf44c467524abe8aa226b16c1c77e0b5c32235",
+      "resource_count": 57,
+      "source_inventory_sha256": "8c5bde92146af02682baa120f3ab4fde513c2dfd02d46dc03998c4313bf6a222",
+      "source_count": 247,
+      "source_files_unchanged_at_verification": true
+    }
+  ],
+  "completed_integration_fixture": {
+    "purpose": "actual factory shooting, exact final results, qualification and full replay contract; not production traffic acceptance",
+    "sprint_ticks": 1849,
+    "qualified_pursuit_ticks": 3613,
+    "qualification_source": "completed actual Sprint result, exact one-athlete roster",
+    "sprint_status": "PASS_COMPLETE_EXACT_REPLAY",
+    "pursuit_status": "PASS_COMPLETE_EXACT_REPLAY"
+  },
+  "pending": [
+    "Full production Mass Start 30 completion/liveness and exact replay",
+    "Full production Sprint 60 result and exact replay",
+    "Actual complete Sprint 60 result -> Pursuit 60 qualification, completion and exact replay",
+    "Unity runtime/visual acceptance; no WP169 completion claim"
+  ],
+  "limitations": [
+    "The factory still constructs its large cold exact context string; streaming limits persistent context expansion and per-tick storage, not all cold allocation.",
+    "State snapshots dominate tape size. Capacity exhaustion is a replayable prefix, not complete acceptance.",
+    "Frozen assembly hashes are required; this is not cross-runtime replay or migration acceptance."
+  ],
+  "tests": {
+    "configuration": "Release/net8.0",
+    "command": "dotnet test dotnet/Biathlon.VenueLab.Tests/Biathlon.VenueLab.Tests.csproj --artifacts-path artifacts/wp169r/dotnet -c Release -p:NuGetAudit=false --logger 'trx;LogFileName=streaming-replay-tests.trx' --results-directory artifacts/wp169r/results",
+    "passed": 9,
+    "failed": 0,
+    "trx": "artifacts/wp169r/results/streaming-replay-tests.trx",
+    "trx_sha256": "b0effcde9cd909b0f17861ae364d8b1230c06cc1f9e9f1abec91c54f9b4b0add",
+    "cases": [
+      {
+        "name": "TinyActualFactoryCompletesShootingAndReplaysTheExactFinalResult",
+        "outcome": "Passed"
+      },
+      {
+        "name": "ZeroTickAndInvalidCapacityRemainExplicitBoundedPrefixes",
+        "outcome": "Passed"
+      },
+      {
+        "name": "ReplayReportCannotOverwriteItsOwnTapeOrContext",
+        "outcome": "Passed"
+      },
+      {
+        "name": "ExplicitFileCapacityStopsAtAReplayablePrefixWithoutACompletionClaim",
+        "outcome": "Passed"
+      },
+      {
+        "name": "CompressedContextExpansionIsBoundedBeforeFactoryReconstruction",
+        "outcome": "Passed"
+      },
+      {
+        "name": "AlteredPersistedContextOrOversizedRecordCannotClaimReplayPass",
+        "outcome": "Passed"
+      },
+      {
+        "name": "CorruptedAcceptedCommandFailsAtItsFirstStateMismatch",
+        "outcome": "Passed"
+      },
+      {
+        "name": "AllAcceptedCommandFieldsRoundTripAtCallerOwnedTickAndIdentity",
+        "outcome": "Passed"
+      },
+      {
+        "name": "ActualFactoryPrefixIsPersistedDeterministicallyAndReplaysWithoutAi",
+        "outcome": "Passed"
+      }
+    ]
+  },
+  "assembly_sha256": {
+    "Biathlon.AI": "94364590d3f6ca5bf2a25e8699a461d54acb651e3e3a191fc3b206d0add7bf24",
+    "Biathlon.Career": "2d6c8a625d4ab4102d8c3e393fa22b3eba5493e3a14ee45287ad26a2e4807e66",
+    "Biathlon.Domain": "45977a0efadb898ebd260147f16cc80be8b20f2b7894f8d82d369d4e3c4f2703",
+    "Biathlon.Replay": "e891fdd219123956538b1e858a8f06a7747304c636c1d47b48e075a537e9c6b5",
+    "Biathlon.Simulation": "03f7d1e7cb4c3a2f0d3081cb0ff4c6f41d707bca97a165f09e91bac04b2afb00",
+    "Biathlon.VenueLab": "5718f572a46ee8e3f035d1d6b6e0ddbf483e83630c85d17f31e9525a6314723c"
+  },
+  "key_core_sha256": {
+    "Assets/Scripts/AI/PackAiRaceRunner.cs": "7adc80ae9d5474a9bb9c2de867a942ea9bbcd21428ad3f47a6cd42c6fbc61799",
+    "Assets/Scripts/AI/AiRangeTrafficPlanner.cs": "e9a2f6a81e3aff590d7d9ca5e0e37e43a7b15ba9dfa8a0890e959087ec71a4bc",
+    "Assets/Scripts/Simulation/PackSprintFieldSession.cs": "f8d4898d0f5d69e8ddf91322c5811e34df7d629e269bc9cf24541824a3020745",
+    "Assets/Scripts/Replay/PackSprintRaceCommandTape.cs": "7c036aeb6d315cbc4b9eb2ca04b01f4d3bef122df7e2b27a18687b475f46ddaa"
+  }
+}
