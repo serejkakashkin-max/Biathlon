@@ -8,10 +8,17 @@ namespace Biathlon.Simulation
     /// Prestart staging and classified athletes are outside the racing corridor.</summary>
     public sealed class PackSprintFieldSession : ISprintFieldView
     {
-        private struct Tail { public bool Active; public PhysicalTrackPoint Point; public double Lateral; public long BirthTravel; }
+        private struct Tail
+        {
+            public bool Active; public PhysicalTrackPoint Point; public double Lateral; public long BirthTravel;
+            // Provenance belongs to the accepted physical seam, including later ticks when
+            // no new seam is present. A loop name alone cannot authorize a directed passage.
+            public int ConnectionIndex, SourceSection; public long SeamRouteNanometers;
+        }
         private sealed class Trace
         {
             internal readonly PhysicalMotionReceipt[] Segments;
+            internal readonly long[] RouteBefore, RouteAfter;
             // 0 unknown, 1 absent, 2 present. Junction definitions/body are immutable;
             // start/end/receipts and both incoming tails belong to one trace revision.
             internal readonly byte[] JunctionTouches;
@@ -21,8 +28,12 @@ namespace Biathlon.Simulation
             internal double LateralStart, LateralEnd;
             internal Tail OldTail, NewTail, EndTail;
             internal int SeamIndex;
-            internal Trace(int capacity,int junctionCount)
-            { Segments = new PhysicalMotionReceipt[capacity]; JunctionTouches = new byte[junctionCount]; }
+            internal long StartRoute, EndRoute;
+            internal Trace(int capacity,int junctionCount,bool passageRoutes=false)
+            {
+                Segments = new PhysicalMotionReceipt[capacity]; JunctionTouches = new byte[junctionCount];
+                if(passageRoutes){RouteBefore=new long[capacity];RouteAfter=new long[capacity];}
+            }
         }
         private readonly SprintFieldSession field;
         private readonly PhysicalTrackMap map;
@@ -42,10 +53,17 @@ namespace Biathlon.Simulation
         private readonly TrackSampler[] physicalSamplers;
         private readonly PhysicalStartApproachMap startOverlay;
         private readonly PhysicalStartContinuationMap startContinuation;
+        private readonly PhysicalDirectedPassageMap directedPassages;
+        private readonly bool[] passageSharing;
         public MassStartGrid StartGrid { get; }
         public StartApproachMap StartApproach => startOverlay?.Approach;
         public bool UsesAuthoredStartApproach => startOverlay!=null&&startOverlay.UsesAuthoredBranch;
         public bool UsesSharedStartContinuation => startContinuation!=null;
+        public bool UsesDirectedPassages => directedPassages!=null;
+        public int DirectedPassageCount => directedPassages?.Count??0;
+        public long DirectedPassageTickReserveNanometers { get; }
+        public bool IsDirectedPassageSharingEnabled(int passage)
+            =>passageSharing!=null&&passage>=0&&passage<passageSharing.Length?passageSharing[passage]:throw new ArgumentOutOfRangeException(nameof(passage));
         private readonly PhysicalMotionProjection[][] orderedLaneProjections;
         private readonly int[] assignedLane, workingLane, assignedBout, workingBout, arrivals, workingArrivals;
         private readonly long[] rangeForks;
@@ -115,12 +133,16 @@ namespace Biathlon.Simulation
             PhysicalRangeLaneDefinition rangeLanes = null, PursuitQualificationSnapshot qualification = null,
             MassStartGrid massGrid = null, StartApproachMap startApproach = null, MassStartRangePolicyDefinition rangePolicy = null,
             PhysicalRangeFieldLayout rangeLayout = null, bool authoredStartApproach = false,
-            PhysicalStartContinuationDefinition startContinuation = null, bool reusableRangeMats = false, bool routeBoundJunctions = false)
+            PhysicalStartContinuationDefinition startContinuation = null, bool reusableRangeMats = false, bool routeBoundJunctions = false,
+            PhysicalDirectedPassageDefinition directedPassages = null)
         {
             if (rangeLayout != null && (rangeLanes != null || !rangeLayout.IsBoundTo(track, route)))
                 throw new ArgumentException("One exact authored range layout is required.", nameof(rangeLayout));
             if(routeBoundJunctions&&rangeLayout==null)
                 throw new ArgumentException("Route-bound junctions require an exact authored physical range layout.",nameof(rangeLayout));
+            if(directedPassages!=null&&(profile==null||profile.Format!=CompetitionFormat.Pursuit||rangeLayout==null||
+                !routeBoundJunctions||!reusableRangeMats||massGrid!=null||startContinuation!=null))
+                throw new ArgumentException("Directed format passages require an exact route-bound Pursuit field with reusable mats.",nameof(directedPassages));
             if(reusableRangeMats)
             {
                 if(rangeLayout==null||rangePolicy!=null||massGrid!=null||startApproach!=null||startContinuation!=null||config==null)
@@ -139,10 +161,16 @@ namespace Biathlon.Simulation
                 throw new ArgumentException("Shared continuation requires an explicitly authored start branch.",nameof(startContinuation));
             this.startContinuation=startContinuation==null?null:new PhysicalStartContinuationMap(rangeLayout.GetPath(0).PhysicalMap,
                 track,route,startApproach,junctionDefinition,connectionDefinition,body,startContinuation);
+            // Optional policy failures must precede schedulers and their roster events. Reuse
+            // this exact map for receipts; the null branch retains its original construction.
+            var passagePhysicalMap=directedPassages==null?null:rangeLayout.GetPath(0).PhysicalMap;
+            this.directedPassages=directedPassages==null?null:new PhysicalDirectedPassageMap(passagePhysicalMap,
+                track,route,junctionDefinition,connectionDefinition,body,directedPassages);
+            passageSharing=this.directedPassages==null?null:new bool[this.directedPassages.Count];
             this.events = events ?? throw new ArgumentNullException(nameof(events)); this.movement = movement ?? throw new ArgumentNullException(nameof(movement));
             this.rangeLayout = rangeLayout;
             field = new SprintFieldSession(config, profile, skiModel, shootingModel, track, route, conditions, timing, entrants, firstStart, resultId, events, qualification,massGrid,startApproach,rangeLayout,reusableRangeMats);
-            frequency = config.TickFrequency; map = rangeLayout == null ? new PhysicalTrackMap(track, route) : rangeLayout.GetPath(0).PhysicalMap;
+            frequency = config.TickFrequency; map = passagePhysicalMap??(rangeLayout == null ? new PhysicalTrackMap(track, route) : rangeLayout.GetPath(0).PhysicalMap);
             StartGrid=massGrid;
             if(massGrid!=null)
             {
@@ -209,6 +237,7 @@ namespace Biathlon.Simulation
             widths = new OccupancySystem(body); occupancy = new PhysicalOccupancySystem(map, body); drafting = new DraftingSystem(draft);
             penaltySampler = new TrackSampler(track.GetLoop(track.Penalty.LoopId));
             halfBody = (long)Math.Ceiling(body.LongitudinalSeparation * SkiState.NanometersPerMeter / 2);
+            long passageTickReserve=0;
             if (rangeLayout != null)
             {
                 int largest = 0;
@@ -223,6 +252,25 @@ namespace Biathlon.Simulation
                             startOverlay:startOverlay, rangePath:rangeLayout.GetPath(j));
                 }
                 long maximumTickTravel = checked((long)Math.Ceiling(skiModel.Physics.MaximumSpeedMetersPerSecond / frequency * SkiState.NanometersPerMeter) + largest);
+                if(this.directedPassages!=null)
+                {
+                    passageTickReserve=maximumTickTravel;
+                    for(int p=0;p<directedPassages.Count;p++)
+                    {
+                        var passage=directedPassages.Get(p);var region=junctionDefinition.Get(passage.JunctionIndex);
+                        var connection=connectionDefinition.Get(passage.ConnectionIndex);
+                        PhysicalJunctionPort source=null,target=null;
+                        for(int j=0;j<region.PortCount;j++)
+                        {var port=region.GetPort(j);if(port.Id==connection.FromPortId)source=port;if(port.Id==connection.ToPortId)target=port;}
+                        long entry=checked((source.Anchor.Distance.Millimeters-source.GuardBefore.Millimeters)*SkiState.NanometersPerMillimeter-halfBody-maximumTickTravel);
+                        long exit=checked((target.Anchor.Distance.Millimeters+target.GuardAfter.Millimeters)*SkiState.NanometersPerMillimeter+halfBody+maximumTickTravel);
+                        long first=checked(TrackDistance.FromMeters(passage.Source.Start).Millimeters*SkiState.NanometersPerMillimeter);
+                        long last=checked(TrackDistance.FromMeters(passage.Target.End).Millimeters*SkiState.NanometersPerMillimeter);
+                        // Whole-trace coverage must survive both guard boundaries while other
+                        // bodies own this passage. Short custom windows retain full exclusivity.
+                        passageSharing[p]=first<=entry&&last>=exit;
+                    }
+                }
                 rangeLayout.ValidatePackTopology(junctionDefinition, connectionDefinition, checked(halfBody + maximumTickTravel));
                 if(UsesAuthoredStartApproach)
                     for(int i=0;i<rangeLayout.Count;i++)
@@ -251,6 +299,7 @@ namespace Biathlon.Simulation
                     {reservationReleases=new PhysicalRangeRelease[Count];reservationCaps=new long[Count];reservationWaiting=new bool[Count];preparedReservationWaiting=new bool[Count];}
                 }
             }
+            DirectedPassageTickReserveNanometers=passageTickReserve;
             lateralStep = movement.LateralSpeed / frequency; minimumWidth = double.MaxValue;
             for (int i = 0; i < track.LoopCount; i++)
             {
@@ -264,7 +313,7 @@ namespace Biathlon.Simulation
             extraEffort = new int[Count]; order = new int[Count]; drafts = new DraftOutput[Count]; committedDrafts = new DraftOutput[Count]; draftRoster = new SkiPlacement[Count];
             junctionWaitSince = new long[Count]; preparedJunctionWaitSince = new long[Count];
             int capacity = 0;
-            for (int i = 0; i < Count; i++) { traces[i] = new Trace(GetAthlete(i).MotionSegmentCapacity,junctionCount); stationary[i] = new Trace(0,junctionCount); capacity += traces[i].Segments.Length; }
+            for (int i = 0; i < Count; i++) { traces[i] = new Trace(GetAthlete(i).MotionSegmentCapacity,junctionCount,this.directedPassages!=null); stationary[i] = new Trace(0,junctionCount,this.directedPassages!=null); capacity += traces[i].Segments.Length; }
             allSegments = new RaceMotionSegment[capacity]; grid = new long[2 + capacity * 2]; timeScratch = new double[grid.Length];
             if(massGrid!=null)
             {
@@ -297,6 +346,14 @@ namespace Biathlon.Simulation
                 "reachable_physical_ports_v1;preserve_self_crossings;reject_unbound_points;full_source_region_indices"});
             if(this.startContinuation!=null)ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,
                 this.startContinuation.ContextJson,"front_incoming_endpoint_until_accepted_handoff_v1"});
+            if(this.directedPassages!=null)
+            {
+                var coverage=new string[passageSharing.Length+1];
+                coverage[0]=passageTickReserve.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                for(int p=0;p<passageSharing.Length;p++)coverage[p+1]=passageSharing[p]?"shared":"exclusive";
+                ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,this.directedPassages.ContextJson,
+                    ShootingModelDefinitions.EncodeContext(coverage),"directed_format_passages_v1;exact_route_occurrences;accepted_connection_tail_provenance;all_receipts_and_tail_pairs;whole_guard_plus_maximum_tick_window_v1;short_windows_exclusive;other_regions_exclusive"});
+            }
         }
 
         public void Step(ReadOnlySpan<SprintAthleteInput> inputs, ReadOnlySpan<double> requestedLateral)
@@ -313,6 +370,7 @@ namespace Biathlon.Simulation
                 var athlete = GetAthlete(i); var start = CurrentPoint(i); var idle = stationary[i];
                 idle.ResetJunctionTouches();
                 idle.Start = idle.End = start; idle.LateralStart = idle.LateralEnd = lateral[i]; idle.Count = 0;
+                idle.StartRoute=idle.EndRoute=athlete.RouteNanometers;
                 idle.OldTail = tails[i]; idle.NewTail = default; idle.EndTail = tails[i];
                 active[i] = onCourse[i] && !athlete.HasFinished; processed[i] = false; constrained[i] = false; order[i] = i;
             }
@@ -784,6 +842,7 @@ namespace Biathlon.Simulation
             var athlete = GetAthlete(i); var trace = traces[i]; var idle = stationary[i];
             trace.ResetJunctionTouches();
             trace.Start = idle.Start; trace.End = idle.End; trace.LateralStart = lateral[i]; trace.LateralEnd = line;
+            trace.StartRoute=trace.EndRoute=athlete.RouteNanometers;
             trace.Count = 0; trace.OldTail = tails[i]; trace.NewTail = default; trace.EndTail = tails[i]; trace.SeamIndex = -1;
             if (trace.OldTail.Active) trace.LateralEnd = trace.LateralStart;
             if (!preview.MovementActive) return;
@@ -793,26 +852,34 @@ namespace Biathlon.Simulation
             {
                 var segment = athlete.GetPreparedSegment(preview, s);
                 var start = segment.OnStartApproach ? startOverlay.MapRemaining(athlete.InitialStartApproachNanometers-segment.TravelBefore) : segment.OnPenaltyLoop ? map.MapPenalty(penalty) : RoutePoint(i, segment.RouteBefore);
-                Seam(trace, prior, start, segment.TravelBefore);
-                var receipt = Projection(i).Project(segment, start); trace.Segments[trace.Count++] = receipt;
+                Seam(trace, prior, start, segment.TravelBefore,segment.RouteBefore);
+                var receipt = Projection(i).Project(segment, start); trace.Segments[trace.Count] = receipt;
+                if(directedPassages!=null){trace.RouteBefore[trace.Count]=segment.RouteBefore;trace.RouteAfter[trace.Count]=segment.RouteAfter;}
+                trace.Count++;
                 if (segment.OnPenaltyLoop) penalty = receipt.End.LocalNanometers;
                 prior = receipt.End;
             }
             var range = athlete.PreviewRangeMotion(preview);
             long remainingApproach=athlete.InitialStartApproachNanometers-preview.Movement.Motion.DistanceNanometers;
             trace.End = remainingApproach>0 ? startOverlay.MapRemaining(remainingApproach) : range.HasValue && range.Value.Phase == RangeTraversalPhase.PenaltyLoop ? map.MapPenalty(range.Value.PenaltyNanometers) : RoutePoint(i, preview.Movement.RouteNanometers);
-            Seam(trace, prior, trace.End, preview.Movement.Motion.DistanceNanometers);
+            trace.EndRoute=preview.Movement.RouteNanometers;
+            Seam(trace, prior, trace.End, preview.Movement.Motion.DistanceNanometers,trace.EndRoute);
             trace.EndTail = trace.NewTail.Active ? trace.NewTail : trace.OldTail;
             if (trace.EndTail.Active && preview.Movement.Motion.DistanceNanometers - trace.EndTail.BirthTravel > halfBody) trace.EndTail = default;
         }
-        private void Seam(Trace trace, PhysicalTrackPoint before, PhysicalTrackPoint after, long travel)
+        private void Seam(Trace trace, PhysicalTrackPoint before, PhysicalTrackPoint after, long travel,long routeNanometers)
         {
             if (map.SameLoop(before, after))
             { if (before.LocalNanometers != after.LocalNanometers) throw new InvalidOperationException("Unaccounted physical displacement at tick " + Tick.Value + ": " + before.LoopId + " " + before.LocalNanometers + " -> " + after.LocalNanometers + "; travel=" + travel); return; }
             int connection = ConnectionIndex(before, after);
             if (connection < 0 || trace.NewTail.Active || (trace.OldTail.Active && travel - trace.OldTail.BirthTravel <= halfBody))
                 throw new InvalidOperationException("Unsupported or uncleared pack seam.");
-            trace.NewTail = new Tail { Active = true, Point = before, Lateral = trace.LateralStart, BirthTravel = travel };
+            int sourceSection=-1;
+            if(directedPassages!=null)
+                for(int p=0;p<directedPassages.Count;p++)if(directedPassages.GetConnectionIndex(p)==connection)
+                {sourceSection=directedPassages.FindOccurrence(p,routeNanometers,before);break;}
+            trace.NewTail = new Tail { Active = true, Point = before, Lateral = trace.LateralStart, BirthTravel = travel,
+                ConnectionIndex=connection,SourceSection=sourceSection,SeamRouteNanometers=routeNanometers };
             // Keep the incoming proxy exact laterally throughout a bend/transition. Requested
             // steering work is still paid, but lateral transfer waits until the tail is clear.
             trace.LateralEnd = trace.LateralStart;
@@ -864,9 +931,14 @@ namespace Biathlon.Simulation
         private bool Conflict(Trace a, int ai, Trace b, int bi)
         {
             bool worldContinuation=startContinuation!=null&&CanContinueStart(a,ai)&&CanContinueStart(b,bi);
+            int passage=-1;
             for (int j = 0; j < junctionCount; j++) if (Touches(a, j) && Touches(b, j))
             {
-                if(!worldContinuation||j!=startContinuation.JunctionIndex)return true;
+                if(worldContinuation&&j==startContinuation.JunctionIndex)continue;
+                int candidate=directedPassages==null?-1:directedPassages.FindPassageForJunction(j);
+                if(candidate<0||!CanContinuePassage(a,ai,candidate)||!CanContinuePassage(b,bi,candidate)||
+                    passage>=0&&passage!=candidate)return true;
+                passage=candidate;
             }
             int count = 2; grid[0] = 0; grid[1] = JunctionAdmissionSession.FractionParts;
             for (int i = 0; i < a.Count; i++) { Insert(a.Segments[i].StartFraction, ref count); Insert(a.Segments[i].EndFraction, ref count); }
@@ -876,11 +948,15 @@ namespace Biathlon.Simulation
                 var aa = Sweep(a, ai, grid[i - 1], grid[i]); var bb = Sweep(b, bi, grid[i - 1], grid[i]);
                 if(worldContinuation&&(startContinuation.Conflicts(aa,bb)||WorldGhostHit(a.OldTail,ai,bb)||WorldGhostHit(a.NewTail,ai,bb)||
                     WorldGhostHit(b.OldTail,bi,aa)||WorldGhostHit(b.NewTail,bi,aa)))return true;
+                if(passage>=0&&(directedPassages.Conflicts(passage,aa,bb)||PassageGhostHit(passage,a.OldTail,ai,bb)||
+                    PassageGhostHit(passage,a.NewTail,ai,bb)||PassageGhostHit(passage,b.OldTail,bi,aa)||PassageGhostHit(passage,b.NewTail,bi,aa)))return true;
                 if (occupancy.QueryRelativeMove(aa, bb).Blocked || GhostHit(a.OldTail, ai, bb) || GhostHit(a.NewTail, ai, bb) ||
                     GhostHit(b.OldTail, bi, aa) || GhostHit(b.NewTail, bi, aa)) return true;
             }
             if(worldContinuation&&(WorldGhostPair(a.OldTail,ai,b.OldTail,bi)||WorldGhostPair(a.NewTail,ai,b.OldTail,bi)||
                 WorldGhostPair(a.OldTail,ai,b.NewTail,bi)||WorldGhostPair(a.NewTail,ai,b.NewTail,bi)))return true;
+            if(passage>=0&&(PassageGhostPair(passage,a.OldTail,ai,b.OldTail,bi)||PassageGhostPair(passage,a.NewTail,ai,b.OldTail,bi)||
+                PassageGhostPair(passage,a.OldTail,ai,b.NewTail,bi)||PassageGhostPair(passage,a.NewTail,ai,b.NewTail,bi)))return true;
             return GhostPair(a.OldTail, ai, b.OldTail, bi) || GhostPair(a.NewTail, ai, b.OldTail, bi) ||
                 GhostPair(a.OldTail, ai, b.NewTail, bi) || GhostPair(a.NewTail, ai, b.NewTail, bi);
         }
@@ -902,6 +978,31 @@ namespace Biathlon.Simulation
         private bool WorldGhostHit(Tail tail,int index,PhysicalOccupancySweep other)
             =>tail.Active&&startContinuation.Conflicts(new PhysicalOccupancySweep(GetAthlete(index).AthleteId,tail.Point,0,tail.Lateral,tail.Lateral),other);
         private bool WorldGhostPair(Tail a,int ai,Tail b,int bi)=>a.Active&&b.Active&&WorldGhostHit(a,ai,
+            new PhysicalOccupancySweep(GetAthlete(bi).AthleteId,b.Point,0,b.Lateral,b.Lateral));
+        private bool CanContinuePassage(Trace trace,int index,int passage)
+        {
+            if(!passageSharing[passage])return false;
+            int occurrence=directedPassages.FindOccurrence(passage,trace.StartRoute,trace.Start);
+            if(occurrence<0||!directedPassages.Contains(passage,occurrence,trace.EndRoute,trace.End)||
+                !PassageTailMatches(passage,occurrence,trace.OldTail)||!PassageTailMatches(passage,occurrence,trace.NewTail))return false;
+            for(int i=0;i<trace.Count;i++)
+            {
+                var receipt=trace.Segments[i];
+                if(!directedPassages.Contains(passage,occurrence,trace.RouteBefore[i],receipt.Start)||
+                    !directedPassages.Contains(passage,occurrence,trace.RouteAfter[i],receipt.End)||
+                    !directedPassages.Contains(passage,new PhysicalOccupancySweep(GetAthlete(index).AthleteId,receipt.Start,
+                        receipt.TravelNanometers,trace.LateralStart,trace.LateralEnd)))return false;
+            }
+            return true;
+        }
+        private bool PassageTailMatches(int passage,int occurrence,Tail tail)
+            =>!tail.Active||tail.ConnectionIndex==directedPassages.GetConnectionIndex(passage)&&tail.SourceSection==occurrence&&
+                tail.Point.LoopId==directedPassages.SourceLoopId(passage)&&
+                directedPassages.Contains(passage,occurrence,tail.SeamRouteNanometers,tail.Point);
+        private bool PassageGhostHit(int passage,Tail tail,int index,PhysicalOccupancySweep other)
+            =>tail.Active&&directedPassages.Conflicts(passage,new PhysicalOccupancySweep(GetAthlete(index).AthleteId,
+                tail.Point,0,tail.Lateral,tail.Lateral),other);
+        private bool PassageGhostPair(int passage,Tail a,int ai,Tail b,int bi)=>a.Active&&b.Active&&PassageGhostHit(passage,a,ai,
             new PhysicalOccupancySweep(GetAthlete(bi).AthleteId,b.Point,0,b.Lateral,b.Lateral));
         private bool GhostPair(Tail a, int ai, Tail b, int bi) => a.Active && b.Active && GhostHit(a, ai,
             new PhysicalOccupancySweep(GetAthlete(bi).AthleteId, b.Point, 0, b.Lateral, b.Lateral));

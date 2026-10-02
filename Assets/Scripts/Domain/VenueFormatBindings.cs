@@ -9,9 +9,11 @@ namespace Biathlon.Domain
         [DataMember(Name="id",IsRequired=true)] public string Id {get;private set;}
         [DataMember(Name="profile_resource",IsRequired=true)] public string ProfileResource {get;private set;}
         [DataMember(Name="route_resource",IsRequired=true)] public string RouteResource {get;private set;}
+        [DataMember(Name="directed_passages_resource",EmitDefaultValue=false)] public string DirectedPassagesResource {get;private set;}
         public CompetitionProfile Profile {get;private set;}
         public RaceRoutePlan Route {get;private set;}
-        internal void Bind(TrackDefinition track,PhysicalJunctionDefinition junctions,PhysicalConnectionDefinition connections,Func<string,string> read)
+        public PhysicalDirectedPassageDefinition DirectedPassages {get;private set;}
+        internal void Bind(TrackDefinition track,PhysicalJunctionDefinition junctions,PhysicalConnectionDefinition connections,Func<string,string> read,OccupancyDefinition body)
         {
             if(Id!="sprint"&&Id!="pursuit"&&Id!="mass_start")throw new ArgumentException("Unknown venue competition format.");
             VenueManifest.ResourceId(ProfileResource);VenueManifest.ResourceId(RouteResource);
@@ -24,6 +26,13 @@ namespace Biathlon.Domain
             // Legacy whole-loop routes cannot certify an open production branch.
             if(Route.SchemaVersion==1)for(int lap=0;lap<Route.LapCount;lap++)for(int i=0;i<Route.GetLap(lap).LoopCount;i++)
                 if(!track.GetLoop(Route.GetLap(lap).GetLoopId(i)).Closed)throw new ArgumentException("Open competition branches require explicit directed slices.");
+            if(DirectedPassagesResource!=null)
+            {
+                if(Profile.Format!=CompetitionFormat.Pursuit)throw new ArgumentException("The initial directed-passage policy binds Pursuit only.");
+                VenueManifest.ResourceId(DirectedPassagesResource);
+                DirectedPassages=PhysicalDirectedPassageDefinition.FromJson(read(DirectedPassagesResource),track,Route,junctions,connections,
+                    body??throw new ArgumentException("Directed passages require the exact venue occupancy definition."),read);
+            }
         }
     }
     [DataContract] public sealed class VenueFormatBindings
@@ -36,7 +45,7 @@ namespace Biathlon.Domain
         public int Count=>Formats.Length;
         public VenueFormatBinding Get(int index)=>Formats[index];
         public static VenueFormatBindings FromJson(string json,VenueManifest manifest,TrackDefinition track,
-            PhysicalJunctionDefinition junctions,PhysicalConnectionDefinition connections,Func<string,string> read)
+            PhysicalJunctionDefinition junctions,PhysicalConnectionDefinition connections,Func<string,string> read,OccupancyDefinition body=null)
         {
             if(manifest==null||track==null||read==null)throw new ArgumentNullException();var value=RouteJson.Read<VenueFormatBindings>(json);
             if(value==null||value.SchemaVersion!=1||value.Formats==null||value.Count<1||value.Count>3)throw new SerializationException("Invalid venue format catalog schema/count.");
@@ -45,7 +54,7 @@ namespace Biathlon.Domain
             var ids=new HashSet<string>(StringComparer.Ordinal);var profiles=new HashSet<string>(StringComparer.Ordinal);var routes=new HashSet<string>(StringComparer.Ordinal);
             foreach(var item in value.Formats)
             {
-                if(item==null||!ids.Add(item.Id))throw new ArgumentException("Null or duplicate format binding.");item.Bind(track,junctions,connections,read);
+                if(item==null||!ids.Add(item.Id))throw new ArgumentException("Null or duplicate format binding.");item.Bind(track,junctions,connections,read,body);
                 if(!profiles.Add(item.Profile.Id)||!routes.Add(item.Route.Id))throw new ArgumentException("Format profile/route IDs must be distinct.");
             }
             return value;

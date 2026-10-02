@@ -1,0 +1,281 @@
+{
+  "schema_version": 1,
+  "id": "task169y_directed_physical_passage_draft_core_and_actual_preflight_v1",
+  "status": "PASS_FROZEN_CORE_FULL_TESTS_AND_IMPORTED_COMPLETE_EXACT_REPLAY; WP169_VISUAL_ACCEPTANCE_PENDING",
+  "wp169_status": "IN_PROGRESS",
+  "source_sha256": {
+    "Assets/Scripts/Domain/PhysicalDirectedPassageDefinition.cs": "71d8d8e844d57a4b01a513dab9a12751eba27b5b96faa54fc50f1d15c2e0e76a",
+    "Assets/Scripts/Domain/VenueFormatBindings.cs": "59da80a463a5227eff5b60fa2d9c3262b6ed7c8b1482039983d5347250f63230",
+    "Assets/Scripts/Domain/VenueManifest.cs": "dfdbc3d1706e182947d27686adacc0b07dc172691922dec9cc1a96b4e20c5ba4",
+    "Assets/Scripts/Simulation/PhysicalDirectedPassageMap.cs": "66ac30ba8008510f0301d38cbefd8c9712e94c94d2491354d98450a3aae7595c",
+    "Assets/Scripts/Simulation/PhysicalPassageWorldProjection.cs": "3490686d293b66076e1634c1ea9c103098b542569502fe2e255ecc080f2ea594",
+    "Assets/Tests/EditMode/PhysicalDirectedPassageTests.cs": "6edc10f01d0d8de296d3e0cad5749d918e59b3148c17963d8d7b21f38fc2a2cb",
+    "Assets/Scripts/Simulation/PackSprintFieldSession.cs": "3a165276f991980abd81c7fc404c2046faa0210ab99167218a6662ec1c3384b0",
+    "Assets/Scripts/AI/ProductionVenueRaceFactory.cs": "d494cdd505ab733ecfc7f6d03d46fb6daedd66476dd344bc41cb817bb869d0cf",
+    "Assets/Tests/EditMode/DirectedPassageFieldTests.cs": "be221c742f8213681bea0c6df56c8a6cf814f43677cbb3b1cacebf4ad2d6ea53",
+    "Assets/Tests/EditMode/DirectedPassageFieldTests.cs.meta": "64ff3805589fae77ffab3e49d0279ad9bacd0ee6e05b8ad718a771baadc077a0"
+  },
+  "unchanged_start_map_sha256": "2fdea1f7130fd927a426c441a87a640d01b61899ab7bb4e8ca93c58fa5e947b8",
+  "frozen_preflight_input_proof": {
+    "artifact": "artifacts/wp169y/preflight/input-proof.json",
+    "sha256": "29dc51b4e2f8ed3412837ba285913847c9c52df71e9c4fbb1c70baab2f277631",
+    "resources": 59,
+    "old_resource_delta": "catalog only plus one new directed passage resource",
+    "source_and_assembly_inventory_verified": true
+  },
+  "dotnet": [
+    {
+      "artifact": "artifacts/wp169y/test-results/passage-final-draft-focused.trx",
+      "sha256": "251610d11ce89ca840b91310d7fa470426f58fbce4c0097c9a7d442c649d4089",
+      "executed": 60,
+      "passed": 60,
+      "failed": 0,
+      "skipped": 0,
+      "duration_seconds": 4.732518
+    },
+    {
+      "artifact": "artifacts/wp169y/test-results/passage-legacy-field-regression.trx",
+      "sha256": "1420e48a6eeeb6f64c1b5ce3b0847b3b96304cda9018f2552d951bd094d3832a",
+      "executed": 156,
+      "passed": 156,
+      "failed": 0,
+      "skipped": 0,
+      "duration_seconds": 85.425871
+    }
+  ],
+  "dotnet_full_final_assembly": {
+    "artifact": "artifacts/wp169y/final-core-test-results/snkashkin_DESKTOP-G3075GA_2026-10-02_22_32_12.trx",
+    "sha256": "919698c6edfe91909060a9b00db4197c27621bcc60f8e34ab3682f11aec661ca",
+    "executed": 921,
+    "passed": 921,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 1025.646909,
+    "source_binding": {
+      "artifact": "artifacts/wp169y/test-source-binding/full-test-sources.json",
+      "sha256": "94ab33a5c1d39879168e1624e41bbc707ff6ef004da9063de7bb96d085e1255d",
+      "assembly_pdb_pairs": 6,
+      "compiled_assets_sources_current_exact": 427,
+      "all_promoted_y_sources_exact": true,
+      "helper_sha256": {
+        "artifacts/wp169y/test-source-binding/Program.cs": "fec63a946241c8dcbd96031012078a8c7c3189cac5315cd28c8ceab1049e2c7b",
+        "artifacts/wp169y/test-source-binding/SourceBinding.csproj": "0a2d3f5f01fca092eb5a40b8d4c9123de28db4a38b7f8a0e4f7dc7ce5db14a54",
+        "artifacts/wp169y/test-source-binding/bin/Release/net8.0/SourceBinding.dll": "791f0ebb516e54d2802ab9c9f7ad7d749527bce273109a6bb9e90de787467868"
+      },
+      "scope": "Separate full test build; portable-PDB content IDs match test DLLs and every compiled source checksum matches the frozen tree. Test DLL hashes are not asserted equal to the recorded race build."
+    }
+  },
+  "native_unity": [
+    {
+      "artifact": "artifacts/wp169y/unity-directed-contract-world.json",
+      "sha256": "7761db523bd6290f05170f6bf54cdb152b05886851f5e9c82e3542353954fd3c",
+      "passed": 24,
+      "failed": 0,
+      "skipped": 0,
+      "discovered": 932,
+      "duration": "00:00:10.9993713"
+    },
+    {
+      "artifact": "artifacts/wp169y/unity-directed-field.json",
+      "sha256": "185015fe9e59330eaa9539b6776a51dce9734ce9f9e372847485c67c6608846e",
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "discovered": 932,
+      "duration": "00:00:06.2970166"
+    },
+    {
+      "artifact": "artifacts/wp169y/unity-start-compatibility.json",
+      "sha256": "e177853cae050dfc65ea1a29c4dc962315927fdf1744015199f0f6a1e7aade8e",
+      "passed": 29,
+      "failed": 0,
+      "skipped": 0,
+      "discovered": 932,
+      "duration": "00:00:02.6829513"
+    },
+    {
+      "artifact": "artifacts/wp169y/unity-imported-factory-final.json",
+      "sha256": "2068bb382816eee2c2ba3fad0f9d6ec36c373140b4a1b355dc6bf355de976a36",
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "discovered": 932,
+      "duration": "00:00:29.7710998"
+    },
+    {
+      "artifact": "artifacts/wp169y/unity-imported-catalog-final.json",
+      "sha256": "cd1cb9ffb0089dedf8289a6dca3fc13accbbebdaba9842b0d8c546606c831fdd",
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "discovered": 932,
+      "duration": "00:00:06.9649517"
+    }
+  ],
+  "native_total_passed": 71,
+  "root_imported_opt_in": {
+    "artifact": "artifacts/wp169y/import-verification.json",
+    "sha256": "703f5cc15d6fbce6955e24bf414dcac1665f94c584038cff4f6fb4db88003bfc",
+    "imported_resources": 206,
+    "unchanged_resources": 204,
+    "changed_resource": "format_bindings.json",
+    "added_resource": "pursuit_directed_passages.json",
+    "authority_and_catalog_byte_exact_to_preflight": true,
+    "static_diagnostics": 0,
+    "serialized_edges": 1322,
+    "directed_seams": 69,
+    "native_final_data_validation": "PASS_FACTORY5_CATALOG6",
+    "full_imported_record_replay": "PASS_COMPLETE_EXACT_REPLAY_BOUND",
+    "failed_initial_record_command": "artifacts/wp169y/final-pursuit60-record.json; missing race_conditions_test_v1; no simulation step; retained separately"
+  },
+  "imported_meta_cosmetic_normalization": {
+    "artifact": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/pursuit_directed_passages.json.meta",
+    "original_sha256": "172ea5c7c3d2a27b06f3c3da6c039439b99bbaf87b68324567f207ffcbce0957",
+    "current_sha256": "d6f2b462c2dded1284c8b1626a7932ba3e786887c0a0ac5f93e369fb4ddafa1f",
+    "guid_unchanged": "d672a7471c564d33b989684a848ed370",
+    "exact_change": "Only one trailing space removed from each empty userData, assetBundleName and assetBundleVariant field; reconstructing those three spaces reproduces the original import metadata hash exactly. Runtime JSON/core/tape inputs unchanged."
+  },
+  "two_independent_opted_content_generations": {
+    "artifact": "artifacts/wp169y/opted-byte-regression/regression.json",
+    "sha256": "a130b5e0cb4fd912bb211919970d7b62fa62ccb91142c7abd6612910986924bb",
+    "status": "PASS",
+    "resources_per_run": 206,
+    "all_206_current_imported_bytes_equal_both_runs": true
+  },
+  "imported_complete_record_independent_binding": {
+    "artifact": "artifacts/wp169y/imported-record-replay-binding.json",
+    "sha256": "448831574184fd8c430b33c8a77626bf20afab1b2ef6606bb48a8c6a329e3f93",
+    "status": "PASS_COMPLETE_EXACT_REPLAY_BOUND",
+    "record_ticks": 97152,
+    "compressed_bytes": 3331646870,
+    "field_events": 1729676,
+    "excluded_ai_events": 157877,
+    "whole_tape_and_context_rehashed": true,
+    "captured_resources_current_exact": 59,
+    "captured_runtime_sources_current_exact": 250,
+    "result_draft_repeat_exact": true,
+    "per_tick_full_public_state_and_ordered_field_events_exact": true,
+    "replay_ai_steps": 0,
+    "terminal_scope": "PASS_FINAL_ROW_CHECKSUM_FOOTER_AND_REPEAT_PUBLIC_STATE"
+  },
+  "negative_mutants": {
+    "angular_support_omitted": {
+      "killed": 3,
+      "artifact": "artifacts/wp169y/test-results/deliberate-no-angular-mutant.trx"
+    },
+    "final_zero_forward_lateral_endpoint_omitted": {
+      "killed": 1,
+      "artifact": "artifacts/wp169y/test-results/deliberate-no-final-lateral-mutant.trx"
+    }
+  },
+  "actual_qualified_pursuit_draft": {
+    "first": "artifacts/wp169y/preflight/qualified-pursuit60-draft.json",
+    "repeat_telemetry": "artifacts/wp169y/preflight/qualified-pursuit60-repeat-accepted-telemetry.97152.json",
+    "complete_finishers": 60,
+    "ticks": 97152,
+    "original_exclusive_ticks": 172022,
+    "field_completion_tick_reduction_fraction": 0.435235028077804,
+    "distance_m": 12500,
+    "peak_shooting": 6,
+    "max_stationary_ticks": 648,
+    "event_count": 1887553,
+    "event_fingerprint": "6b8b6b2a253217d3",
+    "result_json_sha256": "ac9e141d44c87e5ceebf3304a80f62cb9049e184da4d06e634bb43013474aada",
+    "result_and_event_repeat_exact": true,
+    "actual_sprint_source_sha256": "1c0718baadf38b0cb0ff603ebe1669e116a20ecf3db03eae0f5637fcd8a5ae54"
+  },
+  "accepted_passage_observations": {
+    "artifact": "artifacts/wp169y/preflight/qualified-pursuit60-repeat-accepted-telemetry.passages.json",
+    "sha256": "7a25e8a9b51b1cc69a87b5c23753faf9cd51f20c1e97cbc4f20aa1e835473209",
+    "pair_checks": 73261,
+    "common_interval_checks": 75413,
+    "incoming_tail_checks": 3024,
+    "complete_body_query_violations": 0,
+    "maximum_simultaneous_point_owners": [
+      7,
+      3
+    ],
+    "shared_guard_ticks": [
+      35520,
+      2624
+    ],
+    "tick_reserve_nanometers": 3000029925,
+    "half_body_nanometers": 750000000,
+    "actual_cross_loop_and_retained_tail_witnesses_both_passages": true,
+    "guard_dwells": [
+      {
+        "passage": 0,
+        "count": 300,
+        "median_seconds": 19.2,
+        "min_seconds": 17.35,
+        "max_seconds": 22.4
+      },
+      {
+        "passage": 1,
+        "count": 300,
+        "median_seconds": 4.7,
+        "min_seconds": 4.65,
+        "max_seconds": 4.8
+      }
+    ]
+  },
+  "throughput_limitations": {
+    "snapshot_tick": 80000,
+    "unfinished": 41,
+    "median_stopped_ski_fraction": 0.332634850786666,
+    "original_exclusive_median_stopped_ski_fraction": 0.6155145460099549,
+    "unfinished_aggregate_stopped_ski_fraction": 0.3369025978424233,
+    "full_complete_field_aggregate_stopped_ski_fraction": 0.3004705765118224,
+    "scope": "remaining stop time material; no residual cause, balance quality or queue-free production claim"
+  },
+  "null_production_complete_reports": [
+    {
+      "format": "Sprint60",
+      "old": "artifacts/wp169u/compound-sprint60-completion.json",
+      "new": "artifacts/wp169y/null-production/sprint60-completion.json",
+      "byte_exact_complete_report": true,
+      "sha256": "1c0718baadf38b0cb0ff603ebe1669e116a20ecf3db03eae0f5637fcd8a5ae54",
+      "ticks": 94500,
+      "event_count": 1932001,
+      "event_fingerprint": "983a47a06f9c593e",
+      "result_json_sha256": "480aec4574d16b505303a6a315a97ae772a8452f309b7ffbd87d690107b869d8"
+    },
+    {
+      "format": "Mass30",
+      "old": "artifacts/wp169u/compound-mass30-frozen-completion.json",
+      "new": "artifacts/wp169y/null-production/mass30-completion.json",
+      "byte_exact_complete_report": true,
+      "sha256": "e9b2c1e7d73c676d2ca547cb79988fd7eeced7363db571f4e4eb4a7b300d49fd",
+      "ticks": 58125,
+      "event_count": 758242,
+      "event_fingerprint": "e754576c423bbd49",
+      "result_json_sha256": "654b81d1549c8453610df5f36129603d4e527549371cc6ce19057ef118b5b2c4"
+    }
+  ],
+  "null_initial_final_public_parity": {
+    "artifact": "artifacts/wp169y/null-parity/null-public-parity-proof.json",
+    "sha256": "ec5fc080f22295148bb6faa259aebd62ab4b3eb3c3eaf76e5b575e829c0a6f16",
+    "status": "PASS_NULL_SPRINT60_MASS30_INITIAL_FINAL_PUBLIC_PARITY",
+    "initial_context_public_state_and_ordered_events_exact": true,
+    "final_full_public_state_exact": true,
+    "final_state_sha256": {
+      "sprint60": "3f6b1ca79410a4b254c255724d1668ba1b830a53020884a3df5095861a7d2bd6",
+      "mass30": "5afc84347e9e231d80fbf015de0abd110b48b1cbc6d84c4da5c6f08a97af0cd8"
+    },
+    "scope": "initial and final accepted U contexts/tape rows; intermediate per-tick Y public-state parity not claimed"
+  },
+  "observer_repair": {
+    "aborted_initial_observer_retained": "artifacts/wp169y/telemetry-aborted-preview-observer",
+    "reason": "Postcommit field Projection requires consumed preparing preview; observational helper repaired to use exact captured receipt.Owner.Slice. Gameplay sources and binaries unchanged."
+  },
+  "accepted_observer_input_proof": {
+    "artifact": "artifacts/wp169y/telemetry-accepted-input-proof.json",
+    "sha256": "5ce7f71c9fe9be54ad9a64fbd34eb18f59fa07805d003120556e792eb74eebe0",
+    "gameplay_dependency_parity": true
+  },
+  "pending": [
+    "WP169 final visual acceptance, including the root-reported Highforest culling defect"
+  ],
+  "verification_script_sha256": "67c8ad8630982eff3efa8c27f9d885406d93352d42680a26f6dd70952c106fc2",
+  "scope": "bounded optional directed passage proof; full guards/body/tuning/course lengths and null/start policies preserved; no recorder-cap increase"
+}

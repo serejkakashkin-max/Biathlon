@@ -24,11 +24,16 @@ namespace Biathlon.AI
             if((suppliedEntrants==null)!=(suppliedPersonalities==null)||
                 suppliedEntrants!=null&&(suppliedEntrants.Length!=count||suppliedPersonalities.Length!=count))
                 throw new ArgumentException("Complete supplied entrant and personality roster required.");
+            PhysicalDirectedPassageDefinition directedPassages=null;
             if(venue.Formats!=null)
             {
                 bool bound=false;
                 for(int i=0;i<venue.Formats.Count;i++)
-                {var item=venue.Formats.Get(i);bound|=item.Profile.ToJson()==profile.ToJson()&&item.Route.ToJson()==routePlan.ToJson();}
+                {
+                    var item=venue.Formats.Get(i);
+                    if(item.Profile.ToJson()==profile.ToJson()&&item.Route.ToJson()==routePlan.ToJson())
+                    {bound=true;directedPassages=item.DirectedPassages;}
+                }
                 if(!bound)throw new ArgumentException("Production race must use an exact profile/route pair from the venue's format catalog.");
             }
             var track=venue.Track;var route=new RaceRoute(track,routePlan,profile.ToRouteRequirements(),venue.Junctions,venue.Connections);
@@ -67,7 +72,7 @@ namespace Biathlon.AI
                 qualification:qualification,massGrid:grid,startApproach:approach,rangePolicy:policy,rangeLayout:layout,
                 authoredStartApproach:approach!=null,startContinuation:approach==null?null:venue.StartContinuation,
                 reusableRangeMats:reusableMats,
-                routeBoundJunctions:venue.Formats!=null);
+                routeBoundJunctions:venue.Formats!=null,directedPassages:directedPassages);
             return new PackAiRaceRunner(field,read,personalities,AiDifficultyDefinition.FromJson(read("ai_difficulty_expert_v1.json")),seed,events,telemetry,
                 rangeTrafficPolicy:AiRangeTrafficPolicyDefinition.FromJson(read("ai_range_traffic_provisional_v1.json")));
         }

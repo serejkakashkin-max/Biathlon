@@ -164,7 +164,10 @@ namespace Biathlon.Domain
                     StartContinuation=PhysicalStartContinuationDefinition.FromJson(readResource(manifest.StartContinuationResource),Track,
                         StartApproach,Junctions,Connections,Occupancy,readResource);
                 if(manifest.FormatBindingsResource!=null)
-                    Formats=VenueFormatBindings.FromJson(readResource(manifest.FormatBindingsResource),manifest,Track,Junctions,Connections,readResource);
+                    Formats=VenueFormatBindings.FromJson(readResource(manifest.FormatBindingsResource),manifest,Track,Junctions,Connections,readResource,Occupancy);
+                if(Formats!=null)for(int i=0;i<Formats.Count;i++)
+                    if(Formats.Get(i).DirectedPassages!=null&&!Formats.Get(i).DirectedPassages.MatchesPresentation(Visual))
+                        throw new ArgumentException("Directed passage rendering must match its exact authoritative world corridors.");
             }
             manifest.Validate(Track);var list=new List<VenueSemanticZone>();
             for(int i=0;i<Track.LoopCount;i++){var loop=Track.GetLoop(i);Visual.Get(loop.Id);for(int j=0;j<loop.SegmentCount;j++)list.Add(new VenueSemanticZone(loop.Id,loop.GetSegment(j)));}
