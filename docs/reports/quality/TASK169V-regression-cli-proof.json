@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "id": "task169v_generic_venue01_regression_cli_v1",
+  "status": "PASS_GENERIC_CLI_TESTS_AND_ACTUAL_CURRENT205_HISTORICAL203_REGRESSIONS",
+  "wp169_complete": false,
+  "wp170_complete": false,
+  "scope": "One regression CLI and portable test source; isolated tests/artifacts and TASK169V documentation. No generator, imported Assets, state, Git or T source mutation.",
+  "generation_scope": "FROZEN_PRE_U_V_SNAPSHOT_NO_GENERATIONS_RERUN_FOR_PORTABLE_TEST_PUBLICATION",
+  "source": "scripts/content/m13/regress_venue01_defaults.py",
+  "source_sha256": "4a38b652d8a0f4be20828631b50c4f26c0bca595d90e04fa878ebd78c40a6ab7",
+  "tests": {
+    "passed": 8,
+    "failed": 0,
+    "test_script": "scripts/content/m13/test_regression_cli.py",
+    "test_script_sha256": "3bd2dcac9f29073df01cc3be53a3f5fd6a4ace3859882ff77c77c42633380b6b",
+    "log": "artifacts/wp169v/portable-cli-tests.log",
+    "log_sha256": "91703eb9536a34985e6e72a4496637ca60e23a28536fc56efcddaed9794f6eb4",
+    "command": "python -B scripts/content/m13/test_regression_cli.py",
+    "retained_historical_artifact_test": {
+      "path": "artifacts/wp169v/test_regression_cli.py",
+      "sha256": "ff998627ee77371d3d431e8d9f53a756106b4644619e8ebd6398baeca7f6924f"
+    }
+  },
+  "actual_regressions": [
+    {
+      "checkpoint": "current205-regression",
+      "status": "PASS",
+      "canonical_count": 205,
+      "independent_generations": 2,
+      "generated_counts": [
+        205,
+        205
+      ],
+      "byte_difference_counts": [
+        0,
+        0
+      ],
+      "canonical_unchanged": true,
+      "sources_and_recipes_unchanged_during_run": true,
+      "resource_files_independently_rehashed_at_publication": true,
+      "report": "artifacts/wp169v/current205-regression/regression.json",
+      "report_sha256": "677e3f98c88fbce97e5be55c45ffc94fdced360d720e1e7adff9058a34bd2f10",
+      "environment_recipe": "C:\\game\\Biathlon\\Biathlon\\scripts\\content\\m13\\recipes\\woodland_basin_environment_recipe_v1.json",
+      "recipe_input_sha256": {
+        "C:\\game\\Biathlon\\Biathlon\\scripts\\content\\m13\\recipes\\woodland_basin_geometry_recipe_v1.json": "31b10cb682dfe9fa7393e3d68b4915d9823c647c712f416392c4e00b128a2286",
+        "C:\\game\\Biathlon\\Biathlon\\scripts\\content\\m13\\recipes\\woodland_basin_formats_recipe_v1.json": "084ea867b32a5e1cb6cd4d1c26146a79052ab24492fd6f3b3cad306267982e35",
+        "C:\\game\\Biathlon\\Biathlon\\scripts\\content\\m13\\recipes\\woodland_basin_environment_recipe_v1.json": "5c53a9a02b128e79c2c514c4a111893d3292a43d30308d99bc44c3d0d016e092"
+      },
+      "generator_sha256": {
+        "generate_venue01.py": "2c053e229d3cddc9c88a74ec197de8c1851856a3e0cc0caf9b50dfe048ab93ab",
+        "generate_format_branches.py": "4af3b40894e9ac08b65bdd6aca0aab8bdd9c89f06407e2227b284941a2857da5",
+        "generate_environment.py": "419d165d1e72bef1fcc5e44478d6f98512f3ec713b1a340d75093d621198385e",
+        "verify_environment.py": "2366ea0decaa233ae93c93508aba457bacc61b495a79aa77ddf2020df24d014f",
+        "exact_polyline.py": "aa50fc5ed779a65270e627378f798598fa15b846549dffa5a28e838ddfda0b5d",
+        "corridor_sampling.py": "ca006ce87798d549cf90d1001794e22030d1235e105e03a066b102e188673c01",
+        "environment_serialization.py": "0afff19e6148c5917995f8100544a56d1ac9f79adea9945f931a6743e0bba2bf",
+        "regress_venue01_defaults.py": "4a38b652d8a0f4be20828631b50c4f26c0bca595d90e04fa878ebd78c40a6ab7"
+      },
+      "later_repository_source_differences": {},
+      "later_repository_recipe_differences": {}
+    },
+    {
+      "checkpoint": "historical203-regression",
+      "status": "PASS",
+      "canonical_count": 203,
+      "independent_generations": 2,
+      "generated_counts": [
+        203,
+        203
+      ],
+      "byte_difference_counts": [
+        0,
+        0
+      ],
+      "canonical_unchanged": true,
+      "sources_and_recipes_unchanged_during_run": true,
+      "resource_files_independently_rehashed_at_publication": true,
+      "report": "artifacts/wp169v/historical203-regression/regression.json",
+      "report_sha256": "73500d292fbee490020587c2a48fa044109e733c40a0df95afb6fceb096908d3",
+      "environment_recipe": null,
+      "recipe_input_sha256": {
+        "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp170\\venue01-regression\\pinned-inputs\\woodland_basin_geometry_recipe_v1.json": "ea72b2ce138635256b21613ab6e516e79b5db93ce2e7453122b97dd21a0395b9",
+        "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp170\\venue01-regression\\pinned-inputs\\woodland_basin_formats_recipe_v1.json": "a873eb78c5e930e222b41f0ba36fa74406469cb984b6b9e32c287263254beb37"
+      },
+      "generator_sha256": {
+        "generate_venue01.py": "2c053e229d3cddc9c88a74ec197de8c1851856a3e0cc0caf9b50dfe048ab93ab",
+        "generate_format_branches.py": "4af3b40894e9ac08b65bdd6aca0aab8bdd9c89f06407e2227b284941a2857da5",
+        "generate_environment.py": "419d165d1e72bef1fcc5e44478d6f98512f3ec713b1a340d75093d621198385e",
+        "verify_environment.py": "2366ea0decaa233ae93c93508aba457bacc61b495a79aa77ddf2020df24d014f",
+        "exact_polyline.py": "aa50fc5ed779a65270e627378f798598fa15b846549dffa5a28e838ddfda0b5d",
+        "corridor_sampling.py": "ca006ce87798d549cf90d1001794e22030d1235e105e03a066b102e188673c01",
+        "environment_serialization.py": "0afff19e6148c5917995f8100544a56d1ac9f79adea9945f931a6743e0bba2bf",
+        "regress_venue01_defaults.py": "4a38b652d8a0f4be20828631b50c4f26c0bca595d90e04fa878ebd78c40a6ab7"
+      },
+      "later_repository_source_differences": {},
+      "later_repository_recipe_differences": {}
+    }
+  ],
+  "guarantees": [
+    "Canonical/output overlap in either direction rejects before writes.",
+    "Fresh/empty output required so stale JSON cannot hide omissions.",
+    "Expected count optional and only a preflight check; every resource byte still compared.",
+    "Optional environment recipe forwarded explicitly and included in immutable recipe hashes.",
+    "Explicit forest serialization helper included in dependency hashes even when unused by the chosen recipe.",
+    "Changed helper/recipe, identical-count byte mismatch and divergent generations cannot pass.",
+    "Historical203 report ID and fields retained with pinned recipes; current205 uses generic report ID."
+  ],
+  "limits": {
+    "independent_generations": 2,
+    "maximum_generator_process_seconds": 600,
+    "maximum_workers": 2
+  },
+  "limitations": [
+    "Byte reproduction only; no race, balance, runtime or visual acceptance is inferred.",
+    "Reports validate the recorded generator snapshot; later approved generator/data changes need a new regression."
+  ]
+}

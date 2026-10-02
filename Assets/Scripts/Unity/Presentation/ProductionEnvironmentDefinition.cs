@@ -19,7 +19,10 @@ namespace Biathlon.Unity.Presentation
         public ProductionLightingRecipe lighting;
         public static ProductionEnvironmentDefinition FromJson(string json)
         {
-            var value=JsonUtility.FromJson<ProductionEnvironmentDefinition>(json);
+            // Overwrite explicit defaults so legacy JSON omitting the optional atmosphere
+            // scale retains 1, while an authored zero still fails validation.
+            var value=new ProductionEnvironmentDefinition{lighting=new ProductionLightingRecipe()};
+            JsonUtility.FromJsonOverwrite(json,value);
             if(value==null||value.schema_version!=1)throw new ArgumentException("Invalid production environment schema.");
             value.Validate();return value;
         }
@@ -160,10 +163,12 @@ namespace Biathlon.Unity.Presentation
     [Serializable] public sealed class ProductionLightingRecipe
     {
         public string resource,preset_id,weather_resource,weather_preset,sky_material_resource;public Vector2 visual_wind;public float temperature_c;
+        public float fog_distance_scale=1;
         internal void Validate()
         {
             ProductionEnvironmentDefinition.Resource(resource);ProductionEnvironmentDefinition.Resource(weather_resource);ProductionEnvironmentDefinition.Resource(sky_material_resource);ProductionEnvironmentDefinition.Identity(preset_id);ProductionEnvironmentDefinition.Identity(weather_preset);
             ProductionEnvironmentDefinition.Bound(visual_wind.x,-40,40);ProductionEnvironmentDefinition.Bound(visual_wind.y,-40,40);if(visual_wind.sqrMagnitude>1600)throw new ArgumentException("Visual wind exceeds weather capacity.");ProductionEnvironmentDefinition.Bound(temperature_c,-100,100);
+            ProductionEnvironmentDefinition.Bound(fog_distance_scale,1,3);
         }
     }
 }

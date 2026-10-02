@@ -1,0 +1,251 @@
+{
+  "schema_version": 1,
+  "id": "task169s_production_fog_distance_scale_v1",
+  "status": "PASS_BOUNDED_FOG_RUNTIME_AND_GENERATOR_SCOPE_FULL_SUITE_VISUAL_PENDING",
+  "overall_wp169": "IN_PROGRESS",
+  "scope": "Optional production presentation fog distances only; no simulation or course/terrain geometry change",
+  "fog_scale": {
+    "optional_default": 1,
+    "minimum": 1,
+    "maximum": 3,
+    "woodland_explicit": 2.7,
+    "global_clear_start_m": 90,
+    "global_clear_end_m": 220,
+    "scaled_clear_start_m": 243,
+    "scaled_clear_end_m": 594,
+    "repeated_frames": "assign from selected preset, never compound"
+  },
+  "source_sha256": {
+    "Assets/Scripts/Unity/Presentation/WeatherPresentation.cs": "90b81639c748a0d773a8f01f116cc59481c00f3d7c307761c3283eaf1d35e8ac",
+    "Assets/Scripts/Unity/Presentation/ProductionEnvironmentDefinition.cs": "cc31480e7b309895320fcfb4add236bb68004f54af0dbad910ecd36282aa955f",
+    "Assets/Scripts/Unity/Presentation/ProductionVenueEnvironment.cs": "788e06edaa4cd0ebb378685dd1b267984d0660bdeecafa302899148cb9db7c2a",
+    "Assets/Tests/PlayMode/ProductionFogPresentationTests.cs": "4b30c7d74f45f40763410b31bc99eaa25a9f83a663fe22b2535be3f0448b9f5c",
+    "Assets/Tests/PlayMode/ProductionFogPresentationTests.cs.meta": "d34667f4a53cd55f2c97f9e2a5540b4dc2465f00bc8e2dd50b766aafba8f6039",
+    "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment.json": "e215d8024c93de0b7145dcd124b577e102fd835a989351e142d216856c65e3a5",
+    "scripts/content/m13/generate_environment.py": "419d165d1e72bef1fcc5e44478d6f98512f3ec713b1a340d75093d621198385e",
+    "scripts/content/m13/validate-draft.ps1": "6ef0d30177296f2007013be8a55c78dc2d7e80e39219e28e5a8ca3b645a2e09f",
+    "scripts/content/m13/validate-format-draft.ps1": "030be5b14aed2778f7002367ada8b67b7950991fec09b0141d249b045b4146d5",
+    "scripts/content/m13/recipes/woodland_basin_environment_recipe_v1.json": "5c53a9a02b128e79c2c514c4a111893d3292a43d30308d99bc44c3d0d016e092",
+    "scripts/content/m13/test_environment_fog.py": "9f638c639e02dca6c624a373b0bc7df5dec8e86bf4e0190d6cc4c6ed993d4e35"
+  },
+  "python_tests": {
+    "passed": 7,
+    "failed": 0,
+    "new_fog_recipe_tests": 3,
+    "existing_environment_geometry_tests": 3,
+    "existing_serialization_tests": 1
+  },
+  "wrapper_syntax": "PASS_BOTH",
+  "draft_reproduction": {
+    "baseline_resource_count": 205,
+    "default_byte_differences": 0,
+    "scaled_byte_differences": 1,
+    "only_changed_resource": "environment.json",
+    "only_logical_delta": "lighting.fog_distance_scale:2.7",
+    "imported_scaled_environment_byte_match": true
+  },
+  "serialized_environment_verification": {
+    "default": "PASS_STATIC_DATA_RUNTIME_VISUAL_AND_PERFORMANCE_PENDING",
+    "scaled": "PASS_STATIC_DATA_RUNTIME_VISUAL_AND_PERFORMANCE_PENDING",
+    "terrain_tiles": 99,
+    "trees": 26441,
+    "target_banks": 30,
+    "buried_ribbon_triangles": 0
+  },
+  "unity_focused_tests": {
+    "status": "PASS",
+    "assembly": "Biathlon.PlayModeTests",
+    "new_test_class": "Biathlon.PlayModeTests.ProductionFogPresentationTests",
+    "new_test_count": 7,
+    "requested_existing_classes": [
+      "WeatherTests",
+      "LightingBenchmarkTests",
+      "G2LightingTests",
+      "ProductionEnvironmentTests"
+    ],
+    "repaired_compile_error": "Missing Biathlon.Simulation import for RacePresentationSnapshot",
+    "passed": 7,
+    "failed": 0,
+    "skipped": 0,
+    "total_discovered": 200,
+    "duration": "00:00:00.3234183",
+    "per_test_results": [
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionFogPresentationTests.EnvironmentUsesDetachedFogRecipeAndDoesNotMutateTheRaceSnapshotOrEvents",
+        "Status": "Passed",
+        "Duration": "00:00:00.1960000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionFogPresentationTests.InvalidDetachedEnvironmentScaleIsRejectedBeforeObjectsOrGlobalsChange",
+        "Status": "Passed",
+        "Duration": "00:00:00.0300000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionFogPresentationTests.InvalidRenderScaleLeavesAppliedAtmosphereAndLeaseUnchanged",
+        "Status": "Passed",
+        "Duration": "00:00:00.0030000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionFogPresentationTests.LegacyEnvironmentJsonDefaultsToOneAndWoodlandOptsIntoExplicitScale",
+        "Status": "Passed",
+        "Duration": "00:00:00.0270000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionFogPresentationTests.ScaledLeaseRestoresAllSceneCameraAndLightValuesAndCanBeReacquired",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionFogPresentationTests.ScaleUsesEachActualPresetWithoutChangingWeatherLightSkyOrSnowAndNeverCompounds",
+        "Status": "Passed",
+        "Duration": "00:00:00.0030000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionFogPresentationTests.WarmScaledClearPresentationAllocatesNoManagedMemory",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      }
+    ]
+  },
+  "visual_recap": "PENDING_ROOT_SAME_STADIUM_CAMERAS",
+  "performance_qualification": false,
+  "evidence_sha256": {
+    "artifacts/wp169s/scaled-draft/environment-verification.json": "12b7ffb66f19822f79d17721767b6674fb41676d392a0b0f443070ac2bdda86a",
+    "artifacts/wp169s/python-environment-tests.txt": "8a7e7a970d2b70f43586bd255327eda48221ac226073e1e9fb5818346e25adaf",
+    "artifacts/wp169s/default-draft/environment-verification.json": "61dc0e929cd0512e89e05267a49dcaf9ca92259d00cbc2084b84b85e83396e82",
+    "artifacts/wp169s/fog-draft-proof.json": "3121bd79fe51811d53c9491adae254206a2613fc95aadfa57233888153d00bca",
+    "artifacts/wp169s/fog-focused-unity.json": "82c73d0f0d29b009fa5c5f055cf5febf9d44e10cadc2be77d733a833a387f7aa",
+    "artifacts/wp169s/existing-WeatherTests-unity.json": "b82f35d7dbd68fbf906bed11b01a40839dab86c9b385ea0ecf3a6f336fafcf9c",
+    "artifacts/wp169s/existing-LightingBenchmarkTests-retry-unity.json": "c1bdc3ba5acf0b3d8b2286fafad4fdb777eb91772e1fde2480786cf95211d3dd",
+    "artifacts/wp169s/existing-G2LightingTests-unity.json": "689a6b14b7c7c0b538e402ad7bdca81d4e83a8842035c1c75335b15521e760fa",
+    "artifacts/wp169s/existing-ProductionEnvironmentTests-unity.json": "098c06c405714be349473daec96da01205b3d8159fae8ceea39b3010cd0c1d7a",
+    "artifacts/wp169s/existing-LightingBenchmarkTests-unity.json": "da09e5e229f8d0c7cdd19cee56c82a9f50005ef21ae50d798ca0012687f36a62"
+  },
+  "limitations": [
+    "Full PlayMode regression and final Console pending",
+    "Camera recapture pending",
+    "Blue course-ground lip remains separate",
+    "Multi-venue weather matrix remains WP175"
+  ],
+  "full_playmode_regression": "PENDING_ROOT",
+  "final_console_check": "PENDING_ROOT",
+  "unity_existing_related_regression": {
+    "status": "PASS",
+    "passed": 17,
+    "failed": 0,
+    "skipped": 0,
+    "source_scope": "Loaded frozen S assembly; T not refreshed or qualified",
+    "class_results": [
+      {
+        "artifact": "artifacts/wp169s/existing-WeatherTests-unity.json",
+        "summary": {
+          "Status": "Passed",
+          "TotalTests": 200,
+          "PassedTests": 4,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.1149558"
+        }
+      },
+      {
+        "artifact": "artifacts/wp169s/existing-LightingBenchmarkTests-retry-unity.json",
+        "summary": {
+          "Status": "Passed",
+          "TotalTests": 200,
+          "PassedTests": 3,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.0756245"
+        }
+      },
+      {
+        "artifact": "artifacts/wp169s/existing-G2LightingTests-unity.json",
+        "summary": {
+          "Status": "Passed",
+          "TotalTests": 200,
+          "PassedTests": 3,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:05.0263704"
+        }
+      },
+      {
+        "artifact": "artifacts/wp169s/existing-ProductionEnvironmentTests-unity.json",
+        "summary": {
+          "Status": "Passed",
+          "TotalTests": 200,
+          "PassedTests": 7,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:03.9251380"
+        }
+      }
+    ],
+    "retained_connection_failure": "artifacts/wp169s/existing-LightingBenchmarkTests-unity.json",
+    "connection_failure_is_test_result": false
+  },
+  "s_related_executed_passed": 24,
+  "existing_focused_regression": {
+    "failed": 0,
+    "retained_automation_error": "artifacts/wp169s/existing-LightingBenchmarkTests-unity.json; connection retry error, successful retry separately recorded",
+    "passed": 17,
+    "scope": "Frozen S presentation source; full final S/T tree not yet accepted",
+    "skipped": 0,
+    "runs": [
+      {
+        "artifact": "artifacts/wp169s/existing-WeatherTests-unity.json",
+        "sha256": "b82f35d7dbd68fbf906bed11b01a40839dab86c9b385ea0ecf3a6f336fafcf9c",
+        "summary": {
+          "Status": "Passed",
+          "TotalTests": 200,
+          "PassedTests": 4,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.1149558"
+        }
+      },
+      {
+        "artifact": "artifacts/wp169s/existing-LightingBenchmarkTests-retry-unity.json",
+        "sha256": "c1bdc3ba5acf0b3d8b2286fafad4fdb777eb91772e1fde2480786cf95211d3dd",
+        "summary": {
+          "Status": "Passed",
+          "TotalTests": 200,
+          "PassedTests": 3,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.0756245"
+        }
+      },
+      {
+        "artifact": "artifacts/wp169s/existing-G2LightingTests-unity.json",
+        "sha256": "689a6b14b7c7c0b538e402ad7bdca81d4e83a8842035c1c75335b15521e760fa",
+        "summary": {
+          "Status": "Passed",
+          "TotalTests": 200,
+          "PassedTests": 3,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:05.0263704"
+        }
+      },
+      {
+        "artifact": "artifacts/wp169s/existing-ProductionEnvironmentTests-unity.json",
+        "sha256": "098c06c405714be349473daec96da01205b3d8159fae8ceea39b3010cd0c1d7a",
+        "summary": {
+          "Status": "Passed",
+          "TotalTests": 200,
+          "PassedTests": 7,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:03.9251380"
+        }
+      }
+    ]
+  },
+  "console_snapshot": {
+    "errors": 0,
+    "compilation_failed": false,
+    "scope": "FoundationDiagnostics after focused S tests; final S/T check remains pending",
+    "warnings": 5
+  }
+}

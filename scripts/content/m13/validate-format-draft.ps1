@@ -3,19 +3,21 @@ param(
     [string]$ProjectRoot = '',
     [string]$BaseRoot = '',
     [string]$OutputRoot = '',
-    [string]$RecipePath = ''
+    [string]$RecipePath = '',
+    [string]$EnvironmentRecipePath = ''
 )
 $ErrorActionPreference = 'Stop'
 $projectDirectory = if ($ProjectRoot) { [System.IO.Path]::GetFullPath($ProjectRoot) } else { [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..')) }
 $baseDirectory = if ($BaseRoot) { [System.IO.Path]::GetFullPath($BaseRoot) } else { Join-Path $projectDirectory 'artifacts/wp169i/draft' }
 $draftDirectory = if ($OutputRoot) { [System.IO.Path]::GetFullPath($OutputRoot) } else { Join-Path $projectDirectory 'artifacts/wp169j/formats-draft' }
 $recipe = if ($RecipePath) { [System.IO.Path]::GetFullPath($RecipePath) } else { Join-Path $PSScriptRoot 'recipes/woodland_basin_formats_recipe_v1.json' }
+$environmentRecipe = if ($EnvironmentRecipePath) { [System.IO.Path]::GetFullPath($EnvironmentRecipePath) } else { Join-Path $PSScriptRoot 'recipes/woodland_basin_environment_recipe_v1.json' }
 if ($baseDirectory -eq $draftDirectory) { throw 'Use a distinct format output root to preserve the Mass checkpoint.' }
 & $PythonPath (Join-Path $PSScriptRoot 'generate_format_branches.py') --project-root $projectDirectory --base-root $baseDirectory --output-root $draftDirectory --recipe $recipe
 if ($LASTEXITCODE -ne 0) { throw 'Exact format branch generator failed.' }
 & $PythonPath (Join-Path $PSScriptRoot 'verify_format_branches.py') --project-root $projectDirectory --base-root $baseDirectory --output-root $draftDirectory
 if ($LASTEXITCODE -ne 0) { throw 'Independent serialized format checks failed.' }
-& $PythonPath (Join-Path $PSScriptRoot 'generate_environment.py') --project-root $projectDirectory --output-root $draftDirectory
+& $PythonPath (Join-Path $PSScriptRoot 'generate_environment.py') --project-root $projectDirectory --output-root $draftDirectory --recipe $environmentRecipe
 if ($LASTEXITCODE -ne 0) { throw 'Full-format environment generation failed.' }
 & $PythonPath (Join-Path $PSScriptRoot 'verify_environment.py') --project-root $projectDirectory --output-root $draftDirectory
 if ($LASTEXITCODE -ne 0) { throw 'Full-format environment serialized checks failed.' }

@@ -37,13 +37,14 @@ namespace Biathlon.Unity.Presentation
             oldIntensity=key.intensity;oldShadowStrength=key.shadowStrength;oldKeyColor=key.color;oldClear=view.clearFlags;oldBackground=view.backgroundColor;
             oldKeyRotation=key.transform.rotation;
         }
-        public void Render(string preset,string tier,double time,Vector2 observedWind,float localGroundHeight,LightingVisualPreset lighting=null)
+        public void Render(string preset,string tier,double time,Vector2 observedWind,float localGroundHeight,LightingVisualPreset lighting=null,float fogDistanceScale=1)
         {
             if(!leased||view==null||key==null||!float.IsFinite(localGroundHeight))throw new InvalidOperationException("Active weather lease required.");
+            if(!float.IsFinite(fogDistanceScale)||fogDistanceScale<1||fogDistanceScale>3)throw new ArgumentException("Fog distance scale must be finite and within 1–3.",nameof(fogDistanceScale));
             // Validate observation before mutating any scene state, including for zero-snow presets.
             definition.Sample(0,time,view.transform.position,observedWind);var p=definition.Get(preset);int count=definition.Count(tier,p.snowfall);
             lighting?.Validate();var fogColor=p.fog_color*(lighting?.horizon_tint??Color.white);var ambient=p.fog_color*p.ambient_intensity*(lighting?.ambient_tint??Color.white)*(lighting?.ambient_gain??1);
-            PresetId=preset;RenderSettings.fog=true;RenderSettings.fogMode=FogMode.Linear;RenderSettings.fogStartDistance=p.fog_start_m;RenderSettings.fogEndDistance=p.fog_end_m;RenderSettings.fogColor=fogColor;
+            PresetId=preset;RenderSettings.fog=true;RenderSettings.fogMode=FogMode.Linear;RenderSettings.fogStartDistance=p.fog_start_m*fogDistanceScale;RenderSettings.fogEndDistance=p.fog_end_m*fogDistanceScale;RenderSettings.fogColor=fogColor;
             RenderSettings.ambientMode=AmbientMode.Trilight;RenderSettings.ambientSkyColor=ambient;RenderSettings.ambientEquatorColor=ambient*(lighting?.ambient_equator_fraction??.65f);RenderSettings.ambientGroundColor=ambient*(lighting?.ambient_ground_fraction??.35f);
             key.color=p.light_color*(lighting?.sun_tint??Color.white);key.intensity=p.light_intensity*(lighting?.sun_gain??1);key.shadowStrength=p.shadow_strength;key.transform.rotation=lighting!=null?Quaternion.Euler(lighting.sun_elevation,lighting.sun_azimuth,0):oldKeyRotation;
             view.clearFlags=CameraClearFlags.Skybox;view.backgroundColor=fogColor;RenderSettings.skybox=sky;

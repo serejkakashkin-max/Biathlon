@@ -2,19 +2,21 @@ param(
     [string]$PythonPath = 'python',
     [string]$OutputRoot = '',
     [string]$ProjectRoot = '',
-    [string]$RecipePath = ''
+    [string]$RecipePath = '',
+    [string]$EnvironmentRecipePath = ''
 )
 $ErrorActionPreference = 'Stop'
 $projectDirectory = if ($ProjectRoot) { [System.IO.Path]::GetFullPath($ProjectRoot) } else { [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..')) }
 $draftDirectory = if ($OutputRoot) { [System.IO.Path]::GetFullPath($OutputRoot) } else { Join-Path $projectDirectory 'artifacts/wp169i/draft' }
 $recipe = if ($RecipePath) { [System.IO.Path]::GetFullPath($RecipePath) } else { Join-Path $PSScriptRoot 'recipes/woodland_basin_geometry_recipe_v1.json' }
+$environmentRecipe = if ($EnvironmentRecipePath) { [System.IO.Path]::GetFullPath($EnvironmentRecipePath) } else { Join-Path $PSScriptRoot 'recipes/woodland_basin_environment_recipe_v1.json' }
 $buildDirectory = Join-Path $draftDirectory 'dotnet-validator'
 $resourcesDirectory = Join-Path $draftDirectory 'resources'
 $reportPath = Join-Path $draftDirectory 'static-report.json'
 
 & $PythonPath (Join-Path $PSScriptRoot 'generate_venue01.py') --project-root $projectDirectory --output-root $draftDirectory --recipe $recipe
 if ($LASTEXITCODE -ne 0) { throw 'Venue draft generator failed.' }
-& $PythonPath (Join-Path $PSScriptRoot 'generate_environment.py') --project-root $projectDirectory --output-root $draftDirectory
+& $PythonPath (Join-Path $PSScriptRoot 'generate_environment.py') --project-root $projectDirectory --output-root $draftDirectory --recipe $environmentRecipe
 if ($LASTEXITCODE -ne 0) { throw 'Venue environment draft generator failed.' }
 & $PythonPath (Join-Path $PSScriptRoot 'verify_environment.py') --project-root $projectDirectory --output-root $draftDirectory
 if ($LASTEXITCODE -ne 0) { throw 'Serialized venue environment checks failed.' }

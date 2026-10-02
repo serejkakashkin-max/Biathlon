@@ -248,7 +248,7 @@ namespace Biathlon.Unity.Presentation
             RefreshBanks();VisibleTrees=0;SubmittedForestTriangles=0;
             foreach(var forest in forests){forest.Render(camera,tier,time,recipe.lighting.visual_wind);VisibleTrees+=forest.VisibleInstances;SubmittedForestTriangles+=forest.SubmittedTriangles;}
             foreach(var crowd in crowds)crowd.Render(camera,tier,time);
-            weather.Render(recipe.lighting.weather_preset,tier,time,recipe.lighting.visual_wind,SampleGround(chase.transform.position),lighting);
+            weather.Render(recipe.lighting.weather_preset,tier,time,recipe.lighting.visual_wind,SampleGround(chase.transform.position),lighting,recipe.lighting.fog_distance_scale);
         }
         private void LateUpdate(){if(Initialized)Render(shooting!=null&&shooting.isActiveAndEnabled?shooting:chase,quality!=null?quality.TierId:defaultTier,Time.time);}
         private void OnDisable(){if(generated!=null)generated.SetActive(false);}

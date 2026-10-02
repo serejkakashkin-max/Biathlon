@@ -90,6 +90,16 @@ def cap_terrain_below_ribbons(grid,spacing,triangles,clearance):
         'maximum_world_grid_vertex_lowering_m':max(reductions.values(),default=0.),'minimum_ribbon_clearance_m':clearance,
         'method':'exact runtime ribbon/terrain triangle overlay; conservative uniform triangle lowering'}
 
+def lighting_overrides(recipe):
+    """Optional atmosphere tuning affects only the explicitly selected venue."""
+    lighting=recipe.get('lighting',{})
+    if not isinstance(lighting,dict):raise ValueError('Environment lighting overrides must be an object.')
+    if 'fog_distance_scale' in lighting:
+        scale=lighting['fog_distance_scale']
+        if isinstance(scale,bool) or not isinstance(scale,(int,float)) or not math.isfinite(scale) or not 1<=scale<=3:
+            raise ValueError('Fog distance scale must be finite and within 1–3.')
+    return dict(lighting)
+
 SCRIPT_DIRECTORY=Path(__file__).resolve().parent
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--project-root',type=Path,default=SCRIPT_DIRECTORY.parents[2])
@@ -105,6 +115,7 @@ assert VENUE.replace('_','').isalnum() and VENUE.endswith('_v1')
 ENVIRONMENT_RECIPE={} if arguments.recipe is None else json.loads(arguments.recipe.read_text(encoding='utf-8-sig'))
 if ENVIRONMENT_RECIPE:assert ENVIRONMENT_RECIPE['schema_version']==1 and ENVIRONMENT_RECIPE['venue_id']==VENUE
 forest_recipe=ENVIRONMENT_RECIPE.get('forest',{})
+environment_lighting=lighting_overrides(ENVIRONMENT_RECIPE)
 def read(relative):return json.loads((RESOURCES/(relative+'.json')).read_text(encoding='utf-8-sig'))
 def project_read(relative):return json.loads((PROJECT/'Assets/Resources'/(relative+'.json')).read_text(encoding='utf-8-sig'))
 def write(relative,data):
@@ -234,6 +245,10 @@ for iz in range(math.ceil(minimum_z/forest_spacing)+1,math.floor(maximum_z/fores
     for ix in range(math.ceil(minimum_x/forest_spacing)+1,math.floor(maximum_x/forest_spacing)-1):
         x=(ix+(unit(ix,iz,0)-.5)*.5)*forest_spacing
         z=(iz+(unit(ix,iz,1)-.5)*.5)*forest_spacing
+        if forest_recipe:
+            # New explicit recipes ground and validate the serialized position.
+            # Keep the accepted default Venue01 resource bytes unchanged.
+            x,z=round(x,6),round(z,6)
         scale=forest_minimum_scale+(forest_maximum_scale-forest_minimum_scale)*unit(ix,iz,2)
         canopy=CANOPY_BOUND*scale+vegetation['wind_amplitude_m']
         # The complete firing corridor, target line, rear apron, crowd and event
@@ -247,7 +262,11 @@ for iz in range(math.ceil(minimum_z/forest_spacing)+1,math.floor(maximum_z/fores
         if forest_recipe and mesh_height(x,z)>forest_recipe['exposed_height_m'] and unit(ix,iz,6)>=forest_recipe['exposed_density_fraction']:continue
         group_id=f'forest_{math.floor((x-minimum_x)/TILE):02d}_{math.floor((z-minimum_z)/TILE):02d}'
         species='pine' if unit(ix,iz,5)<composition['pine_fraction'] else 'fir'
-        instance={'id':f'tree_{ix+10000}_{iz+10000}','position':point(x,mesh_height(x,z),z),'scale':round(scale,6),'yaw_deg':round(unit(ix,iz,3)*360,6),'density_rank':round(unit(ix,iz,4),6),'species':species}
+        if forest_recipe:
+            from environment_serialization import grounded_tree_position
+            position=grounded_tree_position(x,z,mesh_height)
+        else:position=point(x,mesh_height(x,z),z)
+        instance={'id':f'tree_{ix+10000}_{iz+10000}','position':position,'scale':round(scale,6),'yaw_deg':round(unit(ix,iz,3)*360,6),'density_rank':round(unit(ix,iz,4),6),'species':species}
         # Rounding must not turn a valid density rank into the forbidden1 value.
         instance['density_rank']=min(instance['density_rank'],.999999)
         groups.setdefault(group_id,[]).append(instance);tree_count+=1;pine_count+=species=='pine';min_gap=min(min_gap,gap)
@@ -304,10 +323,10 @@ environment={'schema_version':1,'id':VENUE+'_environment_v1','venue_id':VENUE,'s
     'crowd':{'mode':'owner_approved_simplified','seat_binding':'SpectatorSeating on each existing unit-scale grandstand','resource_root':'Biathlon/Crowd','restricted_resources_allowed':False},
     'lighting':{'resource':'Biathlon/g2_lighting_visual_v1','preset_id':'clear_cold','weather_resource':'Biathlon/weather_visual_v1','weather_preset':'clear','sky_material_resource':'Biathlon/Weather/G2Lighting/BenchmarkSky','visual_wind':{'x':.75,'y':.2},'temperature_c':-8},
     'license_recipe':'presentation-resource-recipe.json'}
-if ENVIRONMENT_RECIPE:
+if forest_recipe:
     environment['forest']['original_venue_identity']={'recipe_id':ENVIRONMENT_RECIPE['id'],'explicit_clearings':clearings,
         'minimum_scale':forest_minimum_scale,'maximum_scale':forest_maximum_scale,'exposed_height_m':forest_recipe['exposed_height_m'],'exposed_density_fraction':forest_recipe['exposed_density_fraction']}
-    environment['lighting'].update(ENVIRONMENT_RECIPE['lighting'])
+environment['lighting'].update(environment_lighting)
 if len(height_loop_ids)>1:
     height_recipe=environment['terrain']['height_recipe']
     height_recipe['id']='nearest_counted_course_height_with_basin_blend_v1'
@@ -353,6 +372,7 @@ audit['corridor_width_sample_count']=sum(len(c['widths_m']) for c in environment
 audit['corridor_width_sampling']='TrackSampler Reject mode: outgoing segment at interior boundaries, last segment at terminal knot'
 if ENVIRONMENT_RECIPE:
     audit['environment_identity_recipe_sha256']=hashlib.sha256(arguments.recipe.read_bytes()).hexdigest()
+if forest_recipe:
     audit['original_venue_identity']=environment['forest']['original_venue_identity']
 (HERE/'environment-audit.json').write_text(json.dumps(audit,indent=2)+'\n',encoding='utf-8')
 print(json.dumps({key:audit[key] for key in ('terrain_tile_count','terrain_vertices_per_tile','forest_group_count','forest_instance_count','maximum_forest_group_count','minimum_canopy_to_corridor_edge_gap_m','target_bank_count','native_resource_count')},indent=2),flush=True)
