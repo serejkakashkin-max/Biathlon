@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "id": "wp169q_snow_vertical_detail_basis_20261002",
+  "date": "2026-10-02",
+  "status": "PASS_FOCUSED_GPU_REGRESSION",
+  "work_package_status": "IN_PROGRESS",
+  "milestone_status": "IN_PROGRESS",
+  "problem": "Snow detail tangent normalizes a zero world-X projection for exact +/-X vertical surface normals.",
+  "actual_geometry": {
+    "main_distance_start": 249.048,
+    "main_distance_end": 849.048,
+    "capture_distances": [
+      568,
+      600
+    ],
+    "constant_x": true,
+    "skirt_normal_axis": "plus_or_minus_X",
+    "private_mat_axis_witnesses": [
+      "mat_01",
+      "mat_30"
+    ],
+    "outward_winding_faces_verified": [
+      "left",
+      "right",
+      "start",
+      "end"
+    ]
+  },
+  "fix": "Keep the world-X projection when squared length>=1e-4. Use the projected world-Z reference below that threshold; normalize only the nondegenerate projection.",
+  "horizontal_basis_preserved": true,
+  "geometry_changed": false,
+  "palette_changed": false,
+  "lighting_changed": false,
+  "simulation_changed": false,
+  "replay_balance_impact": "None; presentation-only shader basis change.",
+  "baseline": {
+    "artifact": "artifacts/wp169q/baseline-shader-tests-direct.json",
+    "summary": {
+      "Status": "Failed",
+      "TotalTests": 193,
+      "PassedTests": 0,
+      "FailedTests": 1,
+      "SkippedTests": 0,
+      "Duration": "00:00:00.2241601"
+    },
+    "render_evidence": "artifacts/wp169q/snow-basis-old/render-evidence.json",
+    "axes": [
+      {
+        "axis": "positive-x",
+        "control_luminance": 0.8630233407020569,
+        "detail_luminance": 0.0,
+        "ratio": 0.0
+      }
+    ],
+    "failure": "Positive-X detail-on luminance is zero despite lit control; baseline stops at this first assertion.",
+    "shader_sha256": "7d90f31d24ae8faccebd489cc21c2a41527011ee102abd4c81f2a17312d9ddce"
+  },
+  "fixed": {
+    "artifact": "artifacts/wp169q/fixed-shader-tests-direct.json",
+    "summary": {
+      "Status": "Passed",
+      "TotalTests": 193,
+      "PassedTests": 1,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:00.5016156"
+    },
+    "render_evidence": "artifacts/wp169q/snow-basis/render-evidence.json",
+    "axes": [
+      {
+        "axis": "positive-x",
+        "control_luminance": 0.8630233407020569,
+        "detail_luminance": 0.863983154296875,
+        "ratio": 1.0011121034622192
+      },
+      {
+        "axis": "negative-x",
+        "control_luminance": 0.8566393256187439,
+        "detail_luminance": 0.8574575185775757,
+        "ratio": 1.0009551048278809
+      },
+      {
+        "axis": "up",
+        "control_luminance": 0.8506802320480347,
+        "detail_luminance": 0.8518400192260742,
+        "ratio": 1.0013633966445923
+      }
+    ],
+    "shader_sha256": "93491565cd0dbf7a17d4faecd4d77bf54821a321a31355f7691ca387498d51c5"
+  },
+  "test_scope": "Actual native GPU shader renders on +/-X and +Y packed-snow faces with neutral detail; positive control and detail luminance comparisons. Not a shader-source assertion.",
+  "discovered_test_count_note": "193 discovered,1 executed; no full PlayMode claim.",
+  "execution_provider": "Root direct Unity MCP tools",
+  "wrapper_limitation": "PowerShell MCP wrapper application-state call failed after10 retries; its artifact is not a successful editor/compile-state proof.",
+  "final_console_snapshot": "ROOT_OWNED_NOT_INCLUDED",
+  "full_playmode": "ROOT_OWNED_NOT_INCLUDED",
+  "production_visual_acceptance": false,
+  "production_postfix_camera_recapture": false,
+  "frame_rate_qualification": false,
+  "original_captures": [
+    {
+      "id": "climb-forest",
+      "tick": 1029,
+      "ground_joined": true,
+      "maximum_edge_gap_m": 0.344665527,
+      "png": "docs/quality/m13/venue01-captures/climb-forest.png",
+      "png_sha256": "f0f2e8ee7498ffece2e0be3fb461db98bcffe7f00818cb5bbf2eb99bd7c21fbc"
+    },
+    {
+      "id": "snow-edge",
+      "tick": 1029,
+      "ground_joined": true,
+      "maximum_edge_gap_m": 0.344665527,
+      "png": "docs/quality/m13/venue01-captures/snow-edge.png",
+      "png_sha256": "1f42dd02c8b282e495b24829715e69d02484ac934e378d0a890c5e25fd6d9da2"
+    },
+    {
+      "id": "side-entry",
+      "tick": 1029,
+      "ground_joined": true,
+      "maximum_edge_gap_m": 0.344665527,
+      "png": "docs/quality/m13/venue01-captures/side-entry.png",
+      "png_sha256": "9f9bd3d9f7d217822dfccfb6837ee72ab19ff4a2099b947d642bf4a598a0bfa4"
+    }
+  ],
+  "limitations": [
+    "The shader-specific black witness is fixed, but every dark production pixel has not been attributed by a native scene A/B.",
+    "Actual terrain clearance permits a snow lip up to0.344665527m; continuous vertical-face shading and cast shadow may remain independently.",
+    "No post-fix climb-forest/snow-edge/side-entry production recaptures or performance certification are included.",
+    "Fixed ratios come from8bit rendered/readback images; they validate nonblack lighting rather than raw GPU intermediate NaN inspection."
+  ],
+  "next_task": "Root final Console/full test checks and same-clock/camera production recaptures; if a band remains, independently restore detail-weight and course/skirt-shadow A/B probes.",
+  "source_sha256": {
+    "Assets/Shaders/Snow.shader": "93491565cd0dbf7a17d4faecd4d77bf54821a321a31355f7691ca387498d51c5",
+    "Assets/Tests/PlayMode/SnowVerticalSurfaceShaderTests.cs": "52d3a8152a854284a40aea3a4688611aab4db9cdcd79ebbbce1f6cd29bd3a909",
+    "Assets/Tests/PlayMode/SnowVerticalSurfaceShaderTests.cs.meta": "b0289ac03f3e9d406eae6c1d5e89d2d21a467269397782874c5b5875e625d6d6",
+    "Assets/Scripts/Unity/Presentation/ProductionCoursePresentation.cs": "9705209dde552dd52da32c4896c7b6b01da694c9ecd67ba64f804e8a8d1c9b40",
+    "Assets/Scripts/Unity/Presentation/TrackRibbonBuilder.cs": "ab4e0db1c22162971316cce6bc4498b4744da25f52f17a0836569248f251ff36",
+    "Assets/Resources/Biathlon/Terrain/G2Snow/WinterBlend.mat": "39d434a7c51291d6de74884a41044802a17d0b71f3a03a3a3db92a492f7fcc25"
+  },
+  "evidence_sha256": {
+    "artifacts/wp169q/baseline-application-state.json": "3918500eb84c4b5d680a503c6eca3b3947ea5dac5521f44da952e12c4d691b94",
+    "artifacts/wp169q/baseline-shader-tests-direct.json": "681674b7714c647df93ae77ed74dfbef9f8afa804ac797bbcd2a307a961ac49f",
+    "artifacts/wp169q/fixed-shader-tests-direct.json": "12312658a207468d593f4d4fea8d305787bfa71ff35b2c422454ce4a42c6afdd",
+    "artifacts/wp169q/snow-basis/negative-x-detail-0.png": "a902b80a524fc534840662787d7342506ed089b10bde1ed938d30ffe3e7b5837",
+    "artifacts/wp169q/snow-basis/negative-x-detail-1.png": "4e762421932f8fafdaee4b93c088eeb58eb8152d1febbbe3d6dcea54a14b55ec",
+    "artifacts/wp169q/snow-basis/positive-x-detail-0.png": "44b68a956da580108799f8646b9b38e123604d6d96e248f36590c51005e7d588",
+    "artifacts/wp169q/snow-basis/positive-x-detail-1.png": "8825ad3f20432ec63bc179f49b407ec42e5d0ce3fd0cc698911c48f83d33b47e",
+    "artifacts/wp169q/snow-basis/render-evidence.json": "42d02bb2bc6ec5dbf85f45404282e1cb897b95a4e0f6938d8515e3341a012f46",
+    "artifacts/wp169q/snow-basis/up-detail-0.png": "2327ba401b472e1be5d65041023457330fc40e9bbb41292a477bd6dfe2b279e1",
+    "artifacts/wp169q/snow-basis/up-detail-1.png": "339e2565dfbb410316fdf82a4595ee7a718723d36ef11685d679c0f7e2302889",
+    "artifacts/wp169q/snow-basis-old/positive-x-detail-0.png": "44b68a956da580108799f8646b9b38e123604d6d96e248f36590c51005e7d588",
+    "artifacts/wp169q/snow-basis-old/positive-x-detail-1.png": "ac09985eaceed9a9e0220de9f380902cbbbf6f6487334d5310b0ffe1619e5196",
+    "artifacts/wp169q/snow-basis-old/render-evidence.json": "65f048b4de469e23a4068bdb22bd0c3ddb090b98ef99d637e5518fa6bb6e0066"
+  },
+  "static_witness": "artifacts/wp169i/reservation-review/snow-edge-diagnosis.json",
+  "static_witness_note": "Immutable read-only diagnosis predates shader implementation and retains its original pending-runtime label; baseline/fixed GPU results above supersede that runtime status."
+}

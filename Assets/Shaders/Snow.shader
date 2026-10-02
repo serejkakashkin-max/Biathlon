@@ -87,7 +87,12 @@ Shader "Biathlon/Snow"
                 // dark repeated route markings. Metre mapping is independent of the mesh UVs.
                 albedo*=lerp(1,.78+.35*detailColor,weight);
                 half3 detail=UnpackNormal(SAMPLE_TEXTURE2D(_DetailNormal,sampler_DetailNormal,detailUv));
-                float3 tangent=normalize(float3(1,0,0)-n*n.x),bitangent=normalize(cross(tangent,n));
+                // Vertical snow edges can have an exact +/-X normal. Keep the existing
+                // X reference elsewhere, but use Z when its projected tangent degenerates.
+                float3 tangentProjection=float3(1,0,0)-n*n.x;
+                if(dot(tangentProjection,tangentProjection)<1e-4)
+                    tangentProjection=float3(0,0,1)-n*n.z;
+                float3 tangent=normalize(tangentProjection),bitangent=normalize(cross(tangent,n));
                 float3 mapped=normalize(tangent*detail.x+bitangent*detail.y+n*detail.z);
                 n=normalize(lerp(n,mapped,weight*_DetailNormalStrength));
                 float detailRoughness=SAMPLE_TEXTURE2D(_DetailRoughness,sampler_DetailRoughness,detailUv).r;
