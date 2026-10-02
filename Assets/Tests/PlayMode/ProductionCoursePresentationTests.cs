@@ -169,26 +169,10 @@ namespace Biathlon.PlayModeTests
                 for(int i=0;i<view.LoopCount;i++)
                 {
                     string id=view.LoopId(i);bool closed=fixture.Plan.Track.GetLoop(id).Closed;var mesh=view.SkirtMesh(id);var vertices=mesh.vertices;var indices=mesh.triangles;var colors=mesh.colors;
-                    Assert.That(mesh,Is.Not.SameAs(view.LoopMesh(i)));Assert.That(vertices.Length%2,Is.Zero);Assert.That(indices.Length,Is.GreaterThan(0));Assert.That(indices.Length%6,Is.Zero);
+                    Assert.That(mesh,Is.Not.SameAs(view.LoopMesh(i)));Assert.That(indices.Length,Is.GreaterThan(0));
                     Assert.That(view.SkirtRenderer(id).sharedMaterial,Is.SameAs(view.GroomedMaterial));
                     Assert.That(view.SkirtRenderer(id).transform.position.sqrMagnitude,Is.LessThan(1e-8f),"A rotated parent preserves authored world origin within float transform precision.");
-                    for(int row=0;row<vertices.Length;row+=2)
-                    {
-                        var top=vertices[row];var bottom=vertices[row+1];
-                        Assert.That(BoundaryDistance(top,ribbons[i],closed),Is.LessThan(1e-4f),"A join must start on the exact existing ribbon boundary.");
-                        Assert.That(bottom.x,Is.EqualTo(top.x));Assert.That(bottom.z,Is.EqualTo(top.z));Assert.That(bottom.y,Is.EqualTo(environment.SampleGround(bottom)).Within(1e-5));
-                        Assert.That(top.y,Is.GreaterThan(bottom.y));Assert.That(colors[row],Is.EqualTo(new Color(0,1,0,0)));Assert.That(colors[row+1],Is.EqualTo(new Color(0,0,0,1)));
-                        var bounds=mesh.bounds;bounds.Expand(2e-4f);Assert.That(bounds.Contains(top)&&bounds.Contains(bottom),Is.True);
-                    }
-                    // Terrain breakpoints protect the foot between samples, rather than only
-                    // connecting heights at the original ribbon rows with a floating straight line.
-                    for(int triangle=0;triangle<indices.Length;triangle+=6)
-                    {
-                        int a=int.MaxValue,b=-1;
-                        for(int vertex=0;vertex<3;vertex++){int candidate=indices[triangle+vertex];if(candidate%2==0){a=Math.Min(a,candidate);b=Math.Max(b,candidate);}}
-                        Assert.That(b,Is.GreaterThan(a));var midpoint=(vertices[a+1]+vertices[b+1])*.5f;
-                        Assert.That(midpoint.y,Is.EqualTo(environment.SampleGround(midpoint)).Within(1e-4),"Every skirt foot segment must follow its actual terrain triangle.");
-                    }
+                    ProductionTerrainContactTests.AssertJoinedGeometry(environment,view,id,ribbons[i],closed);
                     CollectionAssert.AreEqual(ribbons[i],view.LoopMesh(i).vertices);CollectionAssert.AreEqual(ribbonIndices[i],view.LoopMesh(i).triangles);CollectionAssert.AreEqual(ribbonUv[i],view.LoopMesh(i).uv);
                     foreach(var normal in mesh.normals)Assert.That(float.IsFinite(normal.x)&&float.IsFinite(normal.y)&&float.IsFinite(normal.z),Is.True);
                 }

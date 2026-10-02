@@ -1,0 +1,1025 @@
+{
+  "schema_version": 1,
+  "id": "wp169t_bounded_snow_shoulder_geometry_v1",
+  "created_utc": "2026-10-02T19:35:51.048566+00:00",
+  "status": "ACTUAL_UNITY_CONTACT_11_COURSE_8_FULL_PLAY_210_PASS; FIVE_GAMEVIEWS_CAPTURED_VISUAL_DEFECTS_OPEN",
+  "source_inputs": [
+    {
+      "path": "Assets/Scripts/Unity/Presentation/ProductionCoursePresentation.cs",
+      "sha256": "97f01ad3c90ae9804c65601fa0b6c1bcb36b2a2998c62b576379efaf968ce506"
+    },
+    {
+      "path": "Assets/Tests/PlayMode/ProductionTerrainContactTests.cs",
+      "sha256": "0209aa53f9a25626d43c0227d703e5b146eceef5bd11c03b19a5d06fea87c79c"
+    },
+    {
+      "path": "Assets/Tests/PlayMode/ProductionCoursePresentationTests.cs",
+      "sha256": "3d0ac9b864f8d4da94696583c558c2f3993537a434d78ec44d28990c5717ab97"
+    }
+  ],
+  "native_compile": {
+    "project": "artifacts/wp169t/NativeCompile.csproj",
+    "configuration": "Release",
+    "exit_code": 0,
+    "errors": 0,
+    "warnings": 0,
+    "log": "artifacts/wp169t/native-compile-cap-final.json",
+    "scope": "C# compiler against installed Unity assemblies, not Unity Editor compilation or runtime"
+  },
+  "extracted_geometry": {
+    "schema_version": 1,
+    "id": "wp169t_extracted_geometry_full_contact_v1",
+    "status": "PASS",
+    "cases": [
+      {
+        "test": "flat_open",
+        "status": "PASS",
+        "triangles": 40,
+        "maximum_gap_m": 0.35,
+        "minimum_face_up_normal": 0,
+        "tapered_panels": 2,
+        "retained_vertical_panels": 2
+      },
+      {
+        "test": "grid_diagonal_slopes",
+        "status": "PASS",
+        "triangles": 83,
+        "maximum_gap_m": 0.64,
+        "minimum_face_up_normal": 0,
+        "tapered_panels": 2,
+        "retained_vertical_panels": 2
+      },
+      {
+        "test": "external_ground_peak_clipping",
+        "status": "PASS",
+        "triangles": 40,
+        "maximum_gap_m": 3,
+        "minimum_face_up_normal": 0,
+        "tapered_panels": 2,
+        "retained_vertical_panels": 2
+      },
+      {
+        "test": "closed_curve",
+        "status": "PASS",
+        "triangles": 152,
+        "maximum_gap_m": 0.35,
+        "minimum_face_up_normal": 0,
+        "tapered_panels": 0,
+        "retained_vertical_panels": 32
+      },
+      {
+        "test": "actual_main_inside_bend",
+        "status": "PASS",
+        "triangles": 24,
+        "maximum_gap_m": 0.03,
+        "minimum_face_up_normal": 0,
+        "tapered_panels": 0,
+        "retained_vertical_panels": 10
+      },
+      {
+        "test": "straight_to_bend_transition",
+        "status": "PASS",
+        "triangles": 42,
+        "maximum_gap_m": 0.35,
+        "minimum_face_up_normal": 0,
+        "tapered_panels": 2,
+        "retained_vertical_panels": 6
+      },
+      {
+        "test": "venue_wide_ribbon_veto",
+        "status": "PASS",
+        "triangles": 32,
+        "maximum_gap_m": 0.35,
+        "minimum_face_up_normal": 0,
+        "tapered_panels": 1,
+        "retained_vertical_panels": 3
+      },
+      {
+        "test": "exact_retraced_original_boundary",
+        "status": "PASS",
+        "triangles": 36,
+        "maximum_gap_m": 0.39,
+        "minimum_face_up_normal": 0,
+        "tapered_panels": 0,
+        "retained_vertical_panels": 12
+      },
+      {
+        "test": "convex_transition_cap_falls_back",
+        "status": "PASS",
+        "triangles": 29,
+        "maximum_gap_m": 3,
+        "minimum_face_up_normal": 0,
+        "tapered_panels": 1,
+        "retained_vertical_panels": 3
+      },
+      {
+        "test": "retained_original_self_overlap",
+        "status": "PASS",
+        "triangles": 50,
+        "maximum_gap_m": 0.35,
+        "minimum_face_up_normal": 0,
+        "tapered_panels": 5,
+        "retained_vertical_panels": 13
+      },
+      {
+        "test": "partial_weld_curtain",
+        "status": "PASS_EXPECTED_REJECTION"
+      },
+      {
+        "test": "high_weld_curtain",
+        "status": "PASS_EXPECTED_REJECTION"
+      },
+      {
+        "test": "buried_inner_edge_rejected",
+        "status": "PASS_EXPECTED_REJECTION"
+      },
+      {
+        "test": "uncovered_shoulder_rejected",
+        "status": "PASS_EXPECTED_REJECTION"
+      }
+    ],
+    "source_inputs": [
+      {
+        "path": "Assets/Scripts/Unity/Presentation/ProductionCoursePresentation.cs",
+        "sha256": "97f01ad3c90ae9804c65601fa0b6c1bcb36b2a2998c62b576379efaf968ce506"
+      },
+      {
+        "path": "Assets/Tests/PlayMode/ProductionTerrainContactTests.cs",
+        "sha256": "0209aa53f9a25626d43c0227d703e5b146eceef5bd11c03b19a5d06fea87c79c"
+      },
+      {
+        "path": "Assets/Tests/PlayMode/ProductionCoursePresentationTests.cs",
+        "sha256": "3d0ac9b864f8d4da94696583c558c2f3993537a434d78ec44d28990c5717ab97"
+      }
+    ],
+    "extra_exact_overlay_regression": "PASS"
+  },
+  "negative_mutants": [
+    {
+      "id": "removed_transition_caps",
+      "status": "PASS_EXPECTED_FAILURE",
+      "reason": "  Every exposed snow foot must meet the entire actual terrain segment, including diagonal breaks: removed_transition_caps (-2,0,0) / (-2,8,-0,35,0)\r\n  Expected: -0.34999999403953552d +/- 0.0001d\r\n  But was:  0.0d\r\n  Off by:   -0.34999999403953552d\r\n",
+      "path": "artifacts/wp169t/negative-probes/removed_transition_caps/cap-final-result.json",
+      "base_source_sha256": "97f01ad3c90ae9804c65601fa0b6c1bcb36b2a2998c62b576379efaf968ce506"
+    },
+    {
+      "id": "disabled_venue_union_gate",
+      "status": "PASS_EXPECTED_FAILURE",
+      "reason": "  Snow shoulders must stay outside the existing groomed ribbon within the float contact tolerance.\r\n  Expected: less than or equal to 0.0012282875061035156d\r\n  But was:  3.1578941345214844d\r\n",
+      "path": "artifacts/wp169t/negative-probes/disabled_venue_union_gate/cap-final-result.json",
+      "base_source_sha256": "97f01ad3c90ae9804c65601fa0b6c1bcb36b2a2998c62b576379efaf968ce506"
+    },
+    {
+      "schema_version": 1,
+      "id": "wp169t_removed_hidden_neighbor_v1",
+      "status": "PASS_EXPECTED_REJECTION",
+      "removed_faces": 1,
+      "mutation": "Remove one retained fully certified hidden original curtain; exposed neighbor must lose contact proof."
+    },
+    {
+      "id": "partly_exposed_wall_10um_weld",
+      "status": "PASS_EXPECTED_REJECTION",
+      "scope": "Whole full-contact helper rejects canonical count-three wall; hidden-original certificate false."
+    },
+    {
+      "id": "too_high_wall_10um_weld",
+      "status": "PASS_EXPECTED_REJECTION",
+      "scope": "Whole full-contact helper rejects canonical count-three wall; hidden-original certificate false."
+    }
+  ],
+  "rejected_prototypes": [
+    "artifacts/wp169t/rejected-general-shoulder.cs.txt",
+    "artifacts/wp169t/rejected-general-contact-tests.cs.txt"
+  ],
+  "pending": [
+    "Five actual production GameView captures and visual review"
+  ],
+  "limitations": [
+    "Only validity-gated straight panels taper. Bends, crossings and other rejected panels retain original exact vertical joins.",
+    "Existing source blend.edge_width_m supplies 0.8m width. Groomed and terrain/source data unchanged.",
+    "Generalized ribbon-union Boolean prototype was rejected. No acceptance is attributed to its artifacts.",
+    "Extracted stub harness is mathematical preflight; actual native Mesh resource/lifecycle and full production terrain are Unity-owned acceptance.",
+    "No whole-venue removal of walls, shadow removal, performance qualification or gameplay change claimed."
+  ],
+  "first_unity_run": {
+    "path": "artifacts/wp169t/terrain-contact-unity.json",
+    "focused_passed": 3,
+    "focused_failed": 1,
+    "discovered": 203,
+    "full_suite_claimed": false,
+    "failure": "Full production finite/nondegenerate face invariant; three finite float slivers among74218 actual faces."
+  },
+  "actual_failure_witness": {
+    "path": "artifacts/wp169t/actual-loaded-degenerate-faces.json",
+    "expected_source_sha256": "2ca86b3628dfe2b0b92e5500f469b3694acee59aab6e9b6ad47f1ed4f6269043",
+    "actual_faces": 74218,
+    "bad_faces": 3,
+    "loops": [
+      "main",
+      "pursuit_shortcut"
+    ],
+    "cross_square_bound": 1e-16,
+    "observed_cross_square": [
+      9.931292e-17,
+      3.469447e-18,
+      1.66547853e-18
+    ]
+  },
+  "sliver_repair": {
+    "emitter": "Tapered faces use the existing retained Curtain float-space cross.sqrMagnitude>=1e-16 bound.",
+    "tests": "Finite/nondegenerate test bound unchanged; added exact face/loop/coordinate diagnostics.",
+    "normals": "Explicit normalization of finite nonzero accumulated face areas preserves unit normals below Vector3.normalized epsilon."
+  },
+  "outer_seam_repair": {
+    "actual_source_snapshot": "artifacts/wp169t/actual-loaded-shortcut-topology.json",
+    "raw_topology": "artifacts/wp169t/shortcut-topology-diagnosis.json",
+    "independent_analysis": "artifacts/wp169t/independent-tiny-turn-review/shortcut-topology-analysis.json",
+    "exact_raw_count_three_edges": 10,
+    "canonical_1e4_count_three_edges": 7,
+    "exact_overlap_witnesses_m2": [
+      6.1031434199e-06,
+      9.2320129947e-06
+    ],
+    "policy": "Both incident panels taper only when their actual float outer shared endpoint is exactly equal. Otherwise both retain original curtains. No topology/clearance invariant changed.",
+    "negative_then_positive_fixture": [
+      {
+        "path": "artifacts/wp169t/tiny-turn-green.json",
+        "result": {
+          "status": "PASS",
+          "slopes": 2,
+          "walls": 6
+        }
+      },
+      {
+        "path": "artifacts/wp169t/imported-shortcut-panel-green.json",
+        "result": {
+          "status": "PASS",
+          "slopes": 0,
+          "walls": 10
+        }
+      }
+    ]
+  },
+  "second_unity_run": {
+    "path": "artifacts/wp169t/terrain-contact-unity-sliver-repair.json",
+    "passed": 3,
+    "failed": 1,
+    "failure": "Actual pursuit_shortcut non-manifold edgecount3; exact raw overlap confirmed, not test canonicalization only."
+  },
+  "independent_final_source_review": {
+    "reviewed_source_sha256": "752c5a0c333dce230a8b269e2ff6a07370082b31c40a838cc3b34ab363bad2fe",
+    "status": "NO_FURTHER_CONCRETE_BLOCKER_FOUND",
+    "scope": "Read-only geometry/winding/ownership review; actual full Unity and visual acceptance still required.",
+    "applies_to_current_source": false
+  },
+  "historical_outer_seam_focused_unity": {
+    "path": "artifacts/wp169t/terrain-contact-unity-outer-seam-repair.json",
+    "sha256": "3b77351a9386fc97931e7f67e29141b06e52a78ab96f51f451b642d16e6e0806",
+    "summary": {
+      "Status": "Passed",
+      "TotalTests": 204,
+      "PassedTests": 5,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:11.0843547"
+    },
+    "results": [
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.ActualRenderedTerrainRemainsBeneathEveryProductionRibbonTriangle",
+        "Status": "Passed",
+        "Duration": "00:00:10.8580000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.OtherGroomedLoopRejectsAnIntrudingShoulderWithoutChangingEitherRibbon",
+        "Status": "Passed",
+        "Duration": "00:00:00.0880000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.StraightShouldersKeepRecipeWidthAndCloseBothOpenEnds",
+        "Status": "Passed",
+        "Duration": "00:00:00.0260000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.StraightToBendTransitionsKeepFullTerrainContactWithoutHoles",
+        "Status": "Passed",
+        "Duration": "00:00:00.0280000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.TinyTangentChangesRejectUnequalOuterSeamsAndRetainWholeJoins",
+        "Status": "Passed",
+        "Duration": "00:00:00.0370000"
+      }
+    ],
+    "scope": "Actual native complete production mesh contact/topology plus4adversarial fixtures.204discovered is not a fullsuite result.",
+    "source_inputs": [
+      {
+        "path": "Assets/Scripts/Unity/Presentation/ProductionCoursePresentation.cs",
+        "sha256": "752c5a0c333dce230a8b269e2ff6a07370082b31c40a838cc3b34ab363bad2fe"
+      },
+      {
+        "path": "Assets/Tests/PlayMode/ProductionTerrainContactTests.cs",
+        "sha256": "93f7f9b08ae978f0a708ffbdcd0b782165e577ed6a8020215da5c18e850d755f"
+      },
+      {
+        "path": "Assets/Tests/PlayMode/ProductionCoursePresentationTests.cs",
+        "sha256": "3d0ac9b864f8d4da94696583c558c2f3993537a434d78ec44d28990c5717ab97"
+      }
+    ],
+    "applies_to_current_source": false
+  },
+  "rotated_actual_snapshot_preflight": {
+    "schema_version": 1,
+    "id": "wp169t_actual_rotated_float_mesh_cap_repair_math_v1",
+    "status": "PASS",
+    "source_inputs": [
+      {
+        "path": "Assets/Scripts/Unity/Presentation/ProductionCoursePresentation.cs",
+        "sha256": "97f01ad3c90ae9804c65601fa0b6c1bcb36b2a2998c62b576379efaf968ce506"
+      },
+      {
+        "path": "Assets/Tests/PlayMode/ProductionTerrainContactTests.cs",
+        "sha256": "0209aa53f9a25626d43c0227d703e5b146eceef5bd11c03b19a5d06fea87c79c"
+      },
+      {
+        "path": "Assets/Tests/PlayMode/ProductionCoursePresentationTests.cs",
+        "sha256": "3d0ac9b864f8d4da94696583c558c2f3993537a434d78ec44d28990c5717ab97"
+      }
+    ],
+    "snapshot": "artifacts/wp169t/actual-rotated-fixture-coverage.json",
+    "scope": "Exact immutable Unity-extracted float triangles through isolated math builder; not current Unity runtime validation",
+    "results": [
+      {
+        "loop": "main",
+        "status": "PASS",
+        "tapered_panels": 510,
+        "retained_vertical_panels": 90
+      },
+      {
+        "loop": "mat_1",
+        "status": "PASS",
+        "tapered_panels": 44,
+        "retained_vertical_panels": 38
+      },
+      {
+        "loop": "mat_2",
+        "status": "PASS",
+        "tapered_panels": 54,
+        "retained_vertical_panels": 28
+      },
+      {
+        "loop": "exit_aisle",
+        "status": "PASS",
+        "tapered_panels": 120,
+        "retained_vertical_panels": 2
+      },
+      {
+        "loop": "penalty",
+        "status": "PASS",
+        "tapered_panels": 0,
+        "retained_vertical_panels": 154
+      }
+    ]
+  },
+  "course_unity_failure": {
+    "path": "artifacts/wp169t/course-presentation-unity-final.json",
+    "sha256": "84e293952896a914b5d50449e61463977e78081c12bc39c82ce7d0cbf11e5898",
+    "passed": 7,
+    "failed": 1,
+    "scope": "Historical frozen source 752c5a0c; rotated terrain candidate coverage failure retained, not current source result"
+  },
+  "coverage_and_original_contact_repair": {
+    "actual_snapshot": "artifacts/wp169t/actual-rotated-fixture-coverage.json",
+    "coverage_witness": {
+      "loop": "mat_1",
+      "expected_area_twice": 0.8000001907348633,
+      "actual_covered_area_twice": 0.7999562459820312,
+      "deficit": 4.3944752832e-05,
+      "unchanged_allowed_deficit": 8.0000019073e-07
+    },
+    "policy": "Validate complete candidate coverage and positive-area overlap against actual transformed terrain triangles, then validate emitted float faces. Conservatively retain original curtain if any candidate gate fails. Reject candidate shoulders intersecting nonadjacent potential shoulders venue-wide. Original missing-edge coverage still throws atomically.",
+    "overlay_classifier": "Exact halfplane >=0 prevents the old epsilon classifier from interpolating to an unshifted zero outside the clipped edge; actual witness t=1.000125078 retained at overlay-classifier-extrapolation.json. No physical threshold widened.",
+    "original_topology": "rotated-original-topology-diagnosis.json distinguishes pre-existing sharp self-overlap/retrace from generated overlap. Only complete original vertical faces under actual groomed surfaces on both sides and throughout height are omitted from exposed non-manifold counting; all retain full finite/terrain checks. Their exact raw opposite incident edges remain in a complete collinear contact atlas. No partial/high face or slope qualifies.",
+    "duplicate_original_panels": "Suppress only exact whole source-top and actual lower grid/diagonal terrain-polyline duplicates with equivalent outward winding. Caps and opposite-facing surfaces remain.",
+    "new_native_fixtures": [
+      "ExactOverlayNeverExtrapolatesAnAlmostOutsideClippedEdge",
+      "TerrainBoundaryRejectsAnUncoveredShoulderAndKeepsCompleteOriginalJoin",
+      "RetainedOriginalSelfOverlapKeepsCompleteCertifiedCurtainContact",
+      "PartlyExposedAndHighCurtainsStillRejectRawTopologyAcrossCanonicalWelds",
+      "ExactRetracedOriginalBoundaryPublishesOneWholeOutwardCurtain"
+    ]
+  },
+  "actual_production_snapshot_preflight": {
+    "schema_version": 1,
+    "id": "wp169t_actual_production_cap_repair_math_v1",
+    "status": "PASS",
+    "source_inputs": [
+      {
+        "path": "Assets/Scripts/Unity/Presentation/ProductionCoursePresentation.cs",
+        "sha256": "97f01ad3c90ae9804c65601fa0b6c1bcb36b2a2998c62b576379efaf968ce506"
+      },
+      {
+        "path": "Assets/Tests/PlayMode/ProductionTerrainContactTests.cs",
+        "sha256": "0209aa53f9a25626d43c0227d703e5b146eceef5bd11c03b19a5d06fea87c79c"
+      },
+      {
+        "path": "Assets/Tests/PlayMode/ProductionCoursePresentationTests.cs",
+        "sha256": "3d0ac9b864f8d4da94696583c558c2f3993537a434d78ec44d28990c5717ab97"
+      }
+    ],
+    "input": {
+      "path": "artifacts/wp169t/actual-production-cap-failure-world.json",
+      "sha256": "b4ab8725e1128e26751e3227c0a48023df1cda4ffb0b668c98f1f394b06fd7ec"
+    },
+    "scope": "Observed extracted math run over immutable exact Unity world-space float meshes with full actual terrain/ribbon/foot/topology contact helpers. Not final Unity runtime/resource validation.",
+    "command": "dotnet artifacts/wp169t/production-cap-green-probe/build/bin/Probe/release/Probe.dll",
+    "loops_checked": 36,
+    "results": [
+      {
+        "loop": "main",
+        "status": "PASS",
+        "tapered_panels": 2490,
+        "retained_vertical_panels": 770
+      },
+      {
+        "loop": "mat_01",
+        "status": "PASS",
+        "tapered_panels": 4,
+        "retained_vertical_panels": 104
+      },
+      {
+        "loop": "mat_02",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_03",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_04",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_05",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_06",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_07",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_08",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_09",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_10",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_11",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_12",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_13",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_14",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_15",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_16",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_17",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_18",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_19",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_20",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_21",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_22",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_23",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_24",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_25",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_26",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_27",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_28",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_29",
+        "status": "PASS",
+        "tapered_panels": 2,
+        "retained_vertical_panels": 106
+      },
+      {
+        "loop": "mat_30",
+        "status": "PASS",
+        "tapered_panels": 3,
+        "retained_vertical_panels": 105
+      },
+      {
+        "loop": "exit_aisle",
+        "status": "PASS",
+        "tapered_panels": 158,
+        "retained_vertical_panels": 134
+      },
+      {
+        "loop": "penalty_150",
+        "status": "PASS",
+        "tapered_panels": 0,
+        "retained_vertical_panels": 240
+      },
+      {
+        "loop": "start_approach",
+        "status": "PASS",
+        "tapered_panels": 4,
+        "retained_vertical_panels": 72
+      },
+      {
+        "loop": "pursuit_shortcut",
+        "status": "PASS",
+        "tapered_panels": 274,
+        "retained_vertical_panels": 650
+      },
+      {
+        "loop": "sprint_extension",
+        "status": "PASS",
+        "tapered_panels": 277,
+        "retained_vertical_panels": 317
+      }
+    ]
+  },
+  "pre_cap_repair_unity": {
+    "path": "artifacts/wp169t/terrain-contact-unity-final-transformed.json",
+    "sha256": "16880695cf094dd8e71ec633c2bc1dc631fdead83337f0ac2007674766006a41",
+    "source_sha256": "b80fcfa83a4ea455b077ee515728eae1f926d08c98378f03112b77be1be40b55",
+    "summary": {
+      "Status": "Failed",
+      "TotalTests": 209,
+      "PassedTests": 9,
+      "FailedTests": 1,
+      "SkippedTests": 0,
+      "Duration": "00:00:05.9100108"
+    },
+    "scope": "9 fixture PASS, actual full production failed transition cap clearance. Not current source acceptance."
+  },
+  "cap_repair": {
+    "actual_old_witness": {
+      "loop": "main",
+      "status": "EXPECTED_RED_FAILURE",
+      "reason": "{\"original\":false,\"a\":[-410.99985,48.521576,-423.7815],\"b\":[-410.19986,48.487648,-423.7815],\"top\":[-410.2185,48.488438,-423.7815],\"ground\":[-410.2185,48.491573,-423.7815],\"gap\":-0.0031356812}",
+      "witness": {
+        "original": false,
+        "a": [
+          -410.99985,
+          48.521576,
+          -423.7815
+        ],
+        "b": [
+          -410.19986,
+          48.487648,
+          -423.7815
+        ],
+        "top": [
+          -410.2185,
+          48.488438,
+          -423.7815
+        ],
+        "ground": [
+          -410.2185,
+          48.491573,
+          -423.7815
+        ],
+        "gap": -0.0031356812
+      },
+      "source_sha256": "b80fcfa83a4ea455b077ee515728eae1f926d08c98378f03112b77be1be40b55",
+      "input": {
+        "path": "artifacts/wp169t/actual-production-cap-failure-world.json",
+        "sha256": "b4ab8725e1128e26751e3227c0a48023df1cda4ffb0b668c98f1f394b06fd7ec"
+      }
+    },
+    "policy": "Cold preflight of all cap top chords against every real terrain triangle affine interval at unchanged -1e-4 clearance. Reject the complete eligible taper when either transition fails. Repeated deterministic eligibility reduction settles any newly created neighboring transition before emission; original ribbons/curtains are retained.",
+    "new_native_regression": "ConvexTerrainRejectsABuriedTransitionCapWhileOriginalRibbonRemainsClear",
+    "regression_original_ribbon_minimum_gap_m": ">=.025 whole affine terrain overlay",
+    "candidate_invalidity_is_not_original_ribbon_failure": true,
+    "actual_unity_final_pending": false
+  },
+  "latest_independent_read_only_review": {
+    "reviewed_source_sha256": "97f01ad3c90ae9804c65601fa0b6c1bcb36b2a2998c62b576379efaf968ce506",
+    "reviewed_contact_sha256": "0209aa53f9a25626d43c0227d703e5b146eceef5bd11c03b19a5d06fea87c79c",
+    "reviewer": "terrain_binding_review",
+    "status": "NO_NEW_CONCRETE_SOURCE_BLOCKER_FOUND",
+    "findings": "Whole cap ClearCurtain checks actual terrain affine extrema; fixed-point rejection settles transitions. Full hidden-original/partial/high-weld tests unchanged. Cap lower feet retain declared grid cuts; independent full actual contact tests must verify complete ground polyline at current transforms. No actual visual or performance acceptance inferred.",
+    "path": "artifacts/wp169t/independent-final-review.md",
+    "sha256": "2438c96f902582107b61943936a3ab64c8912fa713b31d0cef6480c2f43b5eb8"
+  },
+  "cap_final_seam_regressions": [
+    {
+      "path": "artifacts/wp169t/tiny-turn-probe/cap-final-result.json",
+      "result": {
+        "status": "PASS",
+        "slopes": 2,
+        "walls": 6
+      }
+    },
+    {
+      "path": "artifacts/wp169t/imported-panel-probe/cap-final-result.json",
+      "result": {
+        "status": "PASS",
+        "slopes": 0,
+        "walls": 10
+      }
+    }
+  ],
+  "final_focused_unity": {
+    "path": "artifacts/wp169t/unity-contact-cap-final.json",
+    "sha256": "ba99811a66285197dc8d5702a45c850263a5772bc82a21ff9edde4ff1717ffff",
+    "source_inputs": [
+      {
+        "path": "Assets/Scripts/Unity/Presentation/ProductionCoursePresentation.cs",
+        "sha256": "97f01ad3c90ae9804c65601fa0b6c1bcb36b2a2998c62b576379efaf968ce506"
+      },
+      {
+        "path": "Assets/Tests/PlayMode/ProductionTerrainContactTests.cs",
+        "sha256": "0209aa53f9a25626d43c0227d703e5b146eceef5bd11c03b19a5d06fea87c79c"
+      },
+      {
+        "path": "Assets/Tests/PlayMode/ProductionCoursePresentationTests.cs",
+        "sha256": "3d0ac9b864f8d4da94696583c558c2f3993537a434d78ec44d28990c5717ab97"
+      }
+    ],
+    "summary": {
+      "Status": "Passed",
+      "TotalTests": 210,
+      "PassedTests": 11,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:15.9310389"
+    },
+    "results": [
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.ActualRenderedTerrainRemainsBeneathEveryProductionRibbonTriangle",
+        "Status": "Passed",
+        "Duration": "00:00:15.4710000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.ConvexTerrainRejectsABuriedTransitionCapWhileOriginalRibbonRemainsClear",
+        "Status": "Passed",
+        "Duration": "00:00:00.1200000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.ExactOverlayNeverExtrapolatesAnAlmostOutsideClippedEdge",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.ExactRetracedOriginalBoundaryPublishesOneWholeOutwardCurtain",
+        "Status": "Passed",
+        "Duration": "00:00:00.0300000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.OtherGroomedLoopRejectsAnIntrudingShoulderWithoutChangingEitherRibbon",
+        "Status": "Passed",
+        "Duration": "00:00:00.0240000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.PartlyExposedAndHighCurtainsStillRejectRawTopologyAcrossCanonicalWelds",
+        "Status": "Passed",
+        "Duration": "00:00:00.0650000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.RetainedOriginalSelfOverlapKeepsCompleteCertifiedCurtainContact",
+        "Status": "Passed",
+        "Duration": "00:00:00.0280000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.StraightShouldersKeepRecipeWidthAndCloseBothOpenEnds",
+        "Status": "Passed",
+        "Duration": "00:00:00.0250000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.StraightToBendTransitionsKeepFullTerrainContactWithoutHoles",
+        "Status": "Passed",
+        "Duration": "00:00:00.0270000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.TerrainBoundaryRejectsAnUncoveredShoulderAndKeepsCompleteOriginalJoin",
+        "Status": "Passed",
+        "Duration": "00:00:00.0250000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.TinyTangentChangesRejectUnequalOuterSeamsAndRetainWholeJoins",
+        "Status": "Passed",
+        "Duration": "00:00:00.0480000"
+      }
+    ],
+    "scope": "Actual native complete production geometry plus ten adversarial/measurement fixtures. 210 discovered is not a full PlayMode result. Logs empty; root reports no console errors."
+  },
+  "final_course_focused_unity": {
+    "path": "artifacts/wp169t/unity-course-cap-final.json",
+    "sha256": "5b28ed7fbf86090304de1acba9ffc5e53054a81da539607d43078f5df61bd696",
+    "summary": {
+      "Status": "Passed",
+      "TotalTests": 210,
+      "PassedTests": 8,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:08.0105986"
+    },
+    "results": [
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.InvalidOrBuriedGroundDoesNotPublishPartialJoinsAndCanRetry",
+        "Status": "Passed",
+        "Duration": "00:00:01.8720000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.LateMeshPreparationFailureRollsBackBeforeExposureAndAllowsRetry",
+        "Status": "Passed",
+        "Duration": "00:00:00.0300000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.MissingBindingsAndInvalidRootRejectBeforeCreatingObjects",
+        "Status": "Passed",
+        "Duration": "00:00:00.0050000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.OwnedResourcesSurviveDisableAndAreReleasedOnShutdownAndDestruction",
+        "Status": "Passed",
+        "Duration": "00:00:00.0370000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.ProductionCourseIncludesEveryActualLoopAndClosedSeamAtSourceHeight",
+        "Status": "Passed",
+        "Duration": "00:00:00.7340000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.SnowJoinResourcesFollowCourseLifecycleAndLeaveTerrainOwnedSeparately",
+        "Status": "Passed",
+        "Duration": "00:00:03.0740000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.SnowJoinsFollowWholeTerrainEdgesWithoutChangingAnySourceSurface",
+        "Status": "Passed",
+        "Duration": "00:00:02.1580000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.StableLoopSurfacesKeepActualHeightWidthAndIndependentTopology",
+        "Status": "Passed",
+        "Duration": "00:00:00.0260000"
+      }
+    ],
+    "source_inputs": [
+      {
+        "path": "Assets/Scripts/Unity/Presentation/ProductionCoursePresentation.cs",
+        "sha256": "97f01ad3c90ae9804c65601fa0b6c1bcb36b2a2998c62b576379efaf968ce506"
+      },
+      {
+        "path": "Assets/Tests/PlayMode/ProductionTerrainContactTests.cs",
+        "sha256": "0209aa53f9a25626d43c0227d703e5b146eceef5bd11c03b19a5d06fea87c79c"
+      },
+      {
+        "path": "Assets/Tests/PlayMode/ProductionCoursePresentationTests.cs",
+        "sha256": "3d0ac9b864f8d4da94696583c558c2f3993537a434d78ec44d28990c5717ab97"
+      }
+    ],
+    "scope": "Actual native final course source/ownership/negative atomicity tests. Not full suite."
+  },
+  "full_playmode_unity": {
+    "path": "artifacts/wp169t/unity-full-play-final.json",
+    "sha256": "3023e4a2db5d0e9f0707682075d390a95ec22641bdeca40a399bd16a1123a52e",
+    "summary": {
+      "Status": "Passed",
+      "TotalTests": 210,
+      "PassedTests": 210,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:02:17.5257017"
+    },
+    "error_log_count": 0,
+    "source_inputs": [
+      {
+        "path": "Assets/Scripts/Unity/Presentation/ProductionCoursePresentation.cs",
+        "sha256": "97f01ad3c90ae9804c65601fa0b6c1bcb36b2a2998c62b576379efaf968ce506"
+      },
+      {
+        "path": "Assets/Tests/PlayMode/ProductionTerrainContactTests.cs",
+        "sha256": "0209aa53f9a25626d43c0227d703e5b146eceef5bd11c03b19a5d06fea87c79c"
+      },
+      {
+        "path": "Assets/Tests/PlayMode/ProductionCoursePresentationTests.cs",
+        "sha256": "3d0ac9b864f8d4da94696583c558c2f3993537a434d78ec44d28990c5717ab97"
+      }
+    ],
+    "scope": "Full final frozen T plus root-imported Y tree native PlayMode suite; root reports0Errorlogs. Not visual acceptance."
+  },
+  "visual_review": {
+    "status": "NOT_ACCEPTED_FINAL_PRODUCTION_VISUALS",
+    "tick": 1030,
+    "normal_game_view": true,
+    "views": [
+      {
+        "path": "docs/quality/m13/venue01-captures-shoulder-review/climb-forest.json",
+        "sha256": "e46b99ec5ad7a215cbd576bb8baacad7843181d71ffeedb8631a5ce62e324cfc",
+        "png": "docs/quality/m13/venue01-captures-shoulder-review/climb-forest.png",
+        "png_sha256": "ee85c8a5ce64834518b18f347e71e3a05711cfb547bd0c4e5b2d8554f18c0fee",
+        "visible_trees": 219,
+        "camera": {
+          "x": -426.9998474121094,
+          "y": 51.65934371948242,
+          "z": -392.9684753417969
+        },
+        "look": {
+          "x": -413.9998474121094,
+          "y": 46.65934371948242,
+          "z": -407.9684753417969
+        }
+      },
+      {
+        "path": "docs/quality/m13/venue01-captures-shoulder-review/highland-chase.json",
+        "sha256": "75a67ed1b9b7060ed46d7eda369490de9ed0078dd4af00b7db3c3df31a10b8d8",
+        "png": "docs/quality/m13/venue01-captures-shoulder-review/highland-chase.png",
+        "png_sha256": "0b05c50849d0ff3cd1dd5c56325e18f39656c13896730d4a15e18c6cc07dad40",
+        "visible_trees": 301,
+        "camera": {
+          "x": 13.903999328613281,
+          "y": 80.86083984375,
+          "z": -678.8995971679688
+        },
+        "look": {
+          "x": 26.90399932861328,
+          "y": 79.4608383178711,
+          "z": -678.8995971679688
+        }
+      },
+      {
+        "path": "docs/quality/m13/venue01-captures-shoulder-review/side-entry.json",
+        "sha256": "1c6a660b5927f702263762186ef8beaa5b2e8d00fdaf5fb6ea822228fdbbe739",
+        "png": "docs/quality/m13/venue01-captures-shoulder-review/side-entry.png",
+        "png_sha256": "5b453ea8e4ba5de0b7075314aa04927c7b0a9e17058913c8d13c6f2068fc669a",
+        "visible_trees": 11,
+        "camera": {
+          "x": 110.0,
+          "y": 5.0,
+          "z": -32.0
+        },
+        "look": {
+          "x": 70.0,
+          "y": 0.800000011920929,
+          "z": -13.0
+        }
+      },
+      {
+        "path": "docs/quality/m13/venue01-captures-shoulder-review/snow-edge.json",
+        "sha256": "71a8e9b806fb42da433f47c1773524b1e8b100956b3ee91054254eb9024a5153",
+        "png": "docs/quality/m13/venue01-captures-shoulder-review/snow-edge.png",
+        "png_sha256": "6d0011027934823f3648d8cfd5cb9e284f7caaefd95c0b9cd44a68227deecf65",
+        "visible_trees": 246,
+        "camera": {
+          "x": -420.9998474121094,
+          "y": 42.79610061645508,
+          "z": -367.2404479980469
+        },
+        "look": {
+          "x": -413.9998474121094,
+          "y": 41.79610061645508,
+          "z": -372.2404479980469
+        }
+      },
+      {
+        "path": "docs/quality/m13/venue01-captures-shoulder-review/stadium-overview.json",
+        "sha256": "8f0c71a3ed232dc7879355f2d8a6ebd0b028230fbd2b5b780f7795c7d3401240",
+        "png": "docs/quality/m13/venue01-captures-shoulder-review/stadium-overview.png",
+        "png_sha256": "cb0a94b119ef61a7d9c99c8b5becf00525174981f2aa298b1c3d5ed2e2295f57",
+        "visible_trees": 1,
+        "camera": {
+          "x": 110.0,
+          "y": 35.0,
+          "z": -72.0
+        },
+        "look": {
+          "x": 0.0,
+          "y": 1.0,
+          "z": 8.0
+        }
+      }
+    ],
+    "findings": [
+      "120m legacy pivot forest cull excludes authored visible trees before243\u2013594m fog",
+      "Main568 upper step at actual lower Sprint surface overlap; format/route presentation follow-up required"
+    ],
+    "performance_qualification": false
+  },
+  "console_after_final_captures": {
+    "path": "artifacts/wp169t/unity-console-after-final-captures.json",
+    "sha256": "6ec9e8c430cb9f9dbf0e2a39077295d70bc011c80576b6a34590c24ce320b93d",
+    "counts": {
+      "errors": 0,
+      "warnings": 5,
+      "logs": 5,
+      "compilation_failed": false
+    }
+  }
+}
