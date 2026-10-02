@@ -18,12 +18,15 @@ PROJECT=args.project_root.resolve()
 BASE=(args.base_root or PROJECT/'artifacts/wp169i/draft').resolve()
 OUT=(args.output_root or PROJECT/'artifacts/wp169j/formats-draft').resolve()
 assert OUT!=BASE,'Full formats must not overwrite the Mass checkpoint.'
-OUT.mkdir(parents=True,exist_ok=True)
 RES=OUT/'resources'
 recipe=json.loads(args.recipe.read_text(encoding='utf-8-sig'))
+directed_passages=recipe.get('directed_format_passages',False)
+if type(directed_passages) is not bool:
+    raise ValueError('directed_format_passages must be an explicit boolean when supplied')
 assert recipe['schema_version']==1
 VENUE=recipe['venue_id'];assert VENUE.replace('_','').isalnum() and VENUE.endswith('_v1')
 LABEL=VENUE[:-3];PREFIX='Biathlon/Venues/'+VENUE
+OUT.mkdir(parents=True,exist_ok=True)
 
 def read(name):return json.loads((BASE/'resources'/PREFIX/(name+'.json')).read_text(encoding='utf-8-sig'))
 def write(name,data):
@@ -204,6 +207,41 @@ manifest['format_bindings_resource']=PREFIX+'/format_bindings'
 for name,data in [('track',track),('visual',visual),('junctions',junctions),('connections',connections),('manifest',manifest)]:write(name,data)
 catalog={'schema_version':1,'id':LABEL+'_format_bindings_v1','venue_id':recipe['venue_id'],'track_id':track['id'],
     'formats':[{'id':key,'profile_resource':PREFIX+'/'+key+'_profile','route_resource':PREFIX+'/'+key+'_route'} for key in ('mass_start','sprint','pursuit')]}
+if directed_passages:
+    # This optional authority binds only the two explicit Pursuit seams. The
+    # additional window extent reuses the authored guard distance; it neither
+    # shortens guards nor changes the source centreline. Complete paid receipts
+    # can begin/end outside a guarded region without losing their world proof.
+    body_relative=Path(manifest['occupancy_resource']+'.json')
+    body_path=BASE/'resources'/body_relative
+    if not body_path.is_file():body_path=PROJECT/'Assets/Resources'/body_relative
+    body=json.loads(body_path.read_text(encoding='utf-8-sig'))
+    half_body=(body['body_length_m']+body['personal_clearance_m'])/2
+    visual_loops={loop['loop_id']:loop for loop in visual['loops']}
+    def corridor(loop_id,start,end):
+        original=visual_loops[loop_id]['knots'];distances=[p['distance_m'] for p in original]
+        def endpoint(distance):
+            i=min(bisect.bisect_right(distances,distance)-1,len(original)-2)
+            a,b=original[i:i+2];fraction=(distance-a['distance_m'])/(b['distance_m']-a['distance_m'])
+            return {'distance_m':distance,**{axis:a[axis]+(b[axis]-a[axis])*fraction for axis in ('x','y','z')}}
+        knots=[endpoint(start)]+[dict(p) for p in original if start<p['distance_m']<end]+[endpoint(end)]
+        return {'loop_id':loop_id,'knots':knots}
+    spec=recipe['pursuit'];guard=spec.get('guard_distance_m',recipe['guard_distance_m'])
+    extent=2*guard+half_body
+    before=lambda distance:max(0,math.floor((distance-extent)*1000)/1000)
+    after=lambda distance,length:min(length,math.ceil((distance+extent)*1000)/1000)
+    passage_definition={'schema_version':1,'id':LABEL+'_pursuit_directed_passages_v1','track_id':track['id'],
+        'route_id':LABEL+'_pursuit_route_v2','occupancy_definition_id':body['id'],
+        'validation_policy_resource':read('start_continuation')['validation_policy_resource'],
+        'passages':[
+            {'id':'pursuit_depart_forward','connection_id':'pursuit_depart_connection',
+             'source':corridor(recipe['main_loop_id'],before(spec['main_depart_m']),spec['main_depart_m']),
+             'target':corridor(spec['loop_id'],0,after(0,spec['length_m']))},
+            {'id':'pursuit_return_forward','connection_id':'pursuit_return_connection',
+             'source':corridor(spec['loop_id'],before(spec['length_m']),spec['length_m']),
+             'target':corridor(recipe['main_loop_id'],spec['main_return_m'],after(spec['main_return_m'],main['knots'][-1]['distance_m']))}]}
+    write('pursuit_directed_passages',passage_definition)
+    next(binding for binding in catalog['formats'] if binding['id']=='pursuit')['directed_passages_resource']=PREFIX+'/pursuit_directed_passages'
 write('format_bindings',catalog)
 shutil.copyfile(SCRIPT/'presentation-resource-recipe.json' if VENUE=='woodland_basin_v1' else BASE/'presentation-resource-recipe.json',OUT/'presentation-resource-recipe.json')
 (OUT/'formats-recipe.json').write_text(json.dumps(recipe,indent=2)+'\n',encoding='utf-8')

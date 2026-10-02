@@ -1,0 +1,13 @@
+# TASK169Y1 — optional directed-passage authoring prerequisite
+
+2026-10-02. Generator prerequisite PASS: Python34/34, including five new authoring tests; two independent full generations reproduce all205 final-U Woodland resource bytes exactly with the flag omitted. No Unity data import or production runtime acceptance is claimed. WP169 remains IN_PROGRESS.
+
+`generate_format_branches.py` now accepts the optional strict boolean `directed_format_passages`, defaultfalse. Invalid values reject before creating or modifying the output root. The opt-in draft adds one versioned Pursuit authority and changes only its catalog binding; sixteen preceding small resource files remain byte-exact. Sprint and Mass Start have no directed-passage binding. The production recipe is still omitted/defaultfalse.
+
+The authority names the two existing directed Pursuit connections and captures their original world centreline knots. Source/target endpoints coincide exactly and every original interior knot is retained; no track, route, profile, junction port, guard or body geometry changes. Body extent comes from the manifest's occupancy resource, and the validation policy comes from the existing start-continuation binding. Windows include the full incident guard and body half extent plus one additional authored guard distance. This extra captured extent lets whole paid movement receipts begin/end outside the admission zone; it does not reduce that zone. The simulation integration separately checks that each captured window covers a complete maximum-speed tick before enabling compatibility.
+
+Tests check omitted/false byte identity, repeat generation, the sole catalog delta, exact source knots/world chord distances/coincident seams, complete guard/body/window coverage and malformed-value output atomicity. The complete existing Python suite also passes. The generic two-generation regression binds unchanged source/recipe hashes during execution and compares every resource against the immutable final-U205-file checkpoint, with zero byte differences.
+
+The new authority remains an outside-Assets draft at `artifacts/wp169y/format-draft`. The cold Domain/map/field integration, native Unity tests, actual qualified Pursuit traffic, complete persisted replay and final venue acceptance are separate pending TASK169Y work. Existing start-continuation behavior and null/default runtime context must remain exact. No balance, shooting, AI effort, guard, body or recording-cap tuning is part of this prerequisite.
+
+[Machine-readable evidence](../quality/m13/wp169y1-directed-passage-generator.json) contains source hashes, default-resource regression and the opt-in draft inventory. No new Windows build was delivered.
