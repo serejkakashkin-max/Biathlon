@@ -18,7 +18,7 @@ namespace Biathlon.AI
                 throw new ArgumentException("Valid athlete and worst-case field buffer required.");
             var self = field.GetPhysicalPoint(athleteIndex);
             long limit = checked(radius.Millimeters * SkiState.NanometersPerMillimeter);
-            if (limit > self.LoopLengthNanometers / 2)
+            if (self.Closed && limit > self.LoopLengthNanometers / 2)
                 throw new ArgumentException("Local pack perception radius must not exceed half the physical loop.");
             for (int i = 0; i < field.Count; i++)
                 if (!field.GetAthlete(i).HasFinished && field.GetAthlete(i).Tick.Value != field.Tick.Value)

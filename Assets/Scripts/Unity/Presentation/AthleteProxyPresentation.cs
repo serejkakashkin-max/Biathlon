@@ -23,14 +23,30 @@ namespace Biathlon.Unity.Presentation
         private SnowSprayPresentation snowSpray;
         private BreathVaporPresentation breathVapor;
         private FinishStagingSettings finishStaging;
+        private Quaternion? shootingRotation;
         public void SetVisualBreathEnvironment(BreathEnvironment? environment) { if(breathVapor==null)throw new InvalidOperationException("Initialize proxies first.");breathVapor.SetEnvironment(environment); }
         public void SetViewCamera(Camera camera) => viewCamera = camera;
         public int Count=>proxies.Count;
         public Transform GetProxy(string athleteId)=>proxies[athleteId].transform;
         public AthleteRigBinding GetRig(string athleteId)=>animation[athleteId].Rig;
-        public void Initialize(RacePresentationFeed source,TrackVisualDefinition geometry,AthleteRigBinding template=null)
+        public void Initialize(RacePresentationFeed source,VenueAuthoringPlan plan,AthleteRigBinding template=null)
         {
-            if(source==null||geometry==null)throw new ArgumentNullException();Clear();feed=source;visual=geometry;
+            if(plan==null)throw new ArgumentNullException(nameof(plan));
+            var forward=plan.Manifest.Range.Forward;
+            Initialize(source,plan.Visual,template,plan.UsesPhysicalPaths?(Vector3?)new Vector3((float)forward.X,(float)forward.Y,(float)forward.Z):null);
+        }
+        public void Initialize(RacePresentationFeed source,TrackVisualDefinition geometry,AthleteRigBinding template=null,Vector3? shootingDirection=null)
+        {
+            if(source==null||geometry==null)throw new ArgumentNullException();
+            Quaternion? direction=null;
+            if(shootingDirection.HasValue)
+            {
+                var value=shootingDirection.Value;
+                if(!float.IsFinite(value.x)||!float.IsFinite(value.y)||!float.IsFinite(value.z)||Mathf.Abs(value.y)>1e-6f||Mathf.Abs(value.sqrMagnitude-1)>1e-5f)
+                    throw new ArgumentException("A finite horizontal unit shooting direction is required.",nameof(shootingDirection));
+                direction=Quaternion.LookRotation(new Vector3(value.x,0,value.z).normalized,Vector3.up);
+            }
+            Clear();feed=source;visual=geometry;shootingRotation=direction;
             rigPrefab=template;
             motionSettings=AthleteLocomotionSettings.Load();
             contactSettings=GroundContactSettings.Load();
@@ -64,15 +80,19 @@ namespace Biathlon.Unity.Presentation
                 // stopped at its assigned firing point. Center only the visible setup pose
                 // on that lane, easing in/out with the existing rifle transition. Never
                 // change the feed, occupancy, route distance or authoritative sight ray.
+                float setupWeight=0;
                 if(state.ShootingActive)
                 {
                     float setup=AthleteRiflePresentation.Progress(state.ShootingPhase,state.ShootingPhaseElapsedTicks,state.ShootingPhaseDurationTicks);
-                    lateral*=1-Mathf.SmoothStep(0,1,setup);
+                    setupWeight=Mathf.SmoothStep(0,1,setup);lateral*=1-setupWeight;
                 }
                 if(finished){var offset=finishStaging.Offset(i);sampleDistance=Math.Min(route.Get(route.Count-1).Distance,sampleDistance+offset.z);lateral+=offset.x;}
                 var point=route.Sample(sampleDistance);
                 go.transform.localPosition=new Vector3((float)(point.X+point.ForwardZ*lateral),(float)point.Y+1,(float)(point.Z-point.ForwardX*lateral));
-                go.transform.localRotation=Quaternion.LookRotation(new Vector3((float)point.ForwardX,0,(float)point.ForwardZ),Vector3.up);
+                var heading=Quaternion.LookRotation(new Vector3((float)point.ForwardX,0,(float)point.ForwardZ),Vector3.up);
+                // The entry/exit tangent can be perpendicular to the target bank. Reuse the
+                // observed rifle timing to turn only the visible body, including its return.
+                go.transform.localRotation=shootingRotation.HasValue&&state.ShootingActive?Quaternion.Slerp(heading,shootingRotation.Value,setupWeight):heading;
                 double curvature=VisualRouteCurvature.Sample(visual.Get(position.LoopId),position.LocalMeters,motionSettings.corner_sample_half_span_m);
                 double grade=VisualRouteSurface.Grade(route,sampleDistance,contactSettings.sample_half_span_m);
                 float distance=viewCamera!=null?Vector3.Distance(viewCamera.transform.position,go.transform.position):0;

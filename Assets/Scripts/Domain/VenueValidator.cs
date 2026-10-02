@@ -56,6 +56,7 @@ namespace Biathlon.Domain
         public static VenueValidationReport Validate(VenueAuthoringPlan plan,VenueValidationPolicy policy,Func<string,bool> assetExists)
         {
             if(plan==null||policy==null||assetExists==null)throw new ArgumentNullException();
+            if(plan.UsesPhysicalPaths)return VenueRangePathWorldValidation.Validate(plan,policy,assetExists);
             var issues=new List<VenueValidationIssue>();var track=plan.Track;var layout=plan.Manifest.Range;
             var lanes=new HashSet<string>(StringComparer.Ordinal);for(int i=0;i<plan.Lanes.Count;i++)lanes.Add(plan.Lanes.GetLane(i));
             for(int i=0;i<track.LoopCount;i++)

@@ -34,6 +34,7 @@ namespace Biathlon.Simulation
         private readonly PhysicalStartApproachMap startOverlay;
         public MassStartGrid StartGrid { get; }
         public StartApproachMap StartApproach => startOverlay?.Approach;
+        public bool UsesAuthoredStartApproach => startOverlay!=null&&startOverlay.UsesAuthoredBranch;
         private readonly PhysicalMotionProjection[][] orderedLaneProjections;
         private readonly int[] assignedLane, workingLane, assignedBout, workingBout, arrivals, workingArrivals;
         private readonly long[] rangeForks;
@@ -93,10 +94,15 @@ namespace Biathlon.Simulation
             PhysicalJunctionDefinition junctionDefinition, PhysicalConnectionDefinition connectionDefinition, IRaceEventSink events,
             PhysicalRangeLaneDefinition rangeLanes = null, PursuitQualificationSnapshot qualification = null,
             MassStartGrid massGrid = null, StartApproachMap startApproach = null, MassStartRangePolicyDefinition rangePolicy = null,
-            PhysicalRangeFieldLayout rangeLayout = null)
+            PhysicalRangeFieldLayout rangeLayout = null, bool authoredStartApproach = false)
         {
             if (rangeLayout != null && (rangeLanes != null || !rangeLayout.IsBoundTo(track, route)))
                 throw new ArgumentException("One exact authored range layout is required.", nameof(rangeLayout));
+            if(authoredStartApproach&&(rangeLayout==null||massGrid==null||startApproach==null))
+                throw new ArgumentException("Authored start mapping requires an explicit physical range layout, grid and approach.",nameof(authoredStartApproach));
+            // Prove the optional new seam before constructing a field that may emit roster events.
+            var authoredStart=authoredStartApproach?new PhysicalStartApproachMap(rangeLayout.GetPath(0).PhysicalMap,track,route,
+                startApproach,true,junctionDefinition,connectionDefinition):null;
             this.events = events ?? throw new ArgumentNullException(nameof(events)); this.movement = movement ?? throw new ArgumentNullException(nameof(movement));
             this.rangeLayout = rangeLayout;
             field = new SprintFieldSession(config, profile, skiModel, shootingModel, track, route, conditions, timing, entrants, firstStart, resultId, events, qualification,massGrid,startApproach,rangeLayout);
@@ -105,7 +111,7 @@ namespace Biathlon.Simulation
             if(massGrid!=null)
             {
                 if(massGrid.BodyJson!=body.ToJson())throw new ArgumentException("Grid and field bodies must match.");
-                startOverlay=new PhysicalStartApproachMap(map,track,route,startApproach);
+                startOverlay=authoredStart??new PhysicalStartApproachMap(map,track,route,startApproach);
             }
             for (int i = 0; i < route.SectionCount; i++)
             {
@@ -181,6 +187,10 @@ namespace Biathlon.Simulation
                 }
                 long maximumTickTravel = checked((long)Math.Ceiling(skiModel.Physics.MaximumSpeedMetersPerSecond / frequency * SkiState.NanometersPerMeter) + largest);
                 rangeLayout.ValidatePackTopology(junctionDefinition, connectionDefinition, checked(halfBody + maximumTickTravel));
+                if(UsesAuthoredStartApproach)
+                    for(int i=0;i<rangeLayout.Count;i++)
+                        if(rangeLayout.GetPath(i).FirstForkRouteNanometers(0)<=checked(halfBody+maximumTickTravel))
+                            throw new ArgumentException("The authored start seam must clear its incoming body before a first-lap range fork.");
                 physicalSamplers = new TrackSampler[track.LoopCount];
                 for (int i = 0; i < physicalSamplers.Length; i++) physicalSamplers[i] = new TrackSampler(track.GetLoop(i));
                 if (rangePolicy != null)
@@ -219,9 +229,13 @@ namespace Biathlon.Simulation
                 for(int i=0;i<Count;i++)
                 {
                     lateral[i]=massGrid.Get(i).LateralNanometers/1e9;onCourse[i]=true;
-                    double startWidth=track.GetLoop(startApproach.LoopId).GetSegment(0).WidthMeters;
+                    var point=CurrentPoint(i);
+                    double startWidth=UsesAuthoredStartApproach?WidthAt(point):track.GetLoop(startApproach.LoopId).GetSegment(0).WidthMeters;
                     if(!widths.FitsWidth(lateral[i],startWidth))throw new ArgumentException("Grid does not fit actual start corridor.");
-                    var point=CurrentPoint(i);var idle=stationary[i];idle.Start=idle.End=point;idle.LateralStart=idle.LateralEnd=lateral[i];
+                    if(UsesAuthoredStartApproach&&(!FitsLoopEnvelope(point,lateral[i])||
+                        !FitsApproachExitEnvelope(GetAthlete(i).RemainingStartApproachNanometers,GetAthlete(i).RangePath,lateral[i])))
+                        throw new ArgumentException("Grid body does not fit the complete authored start corridor envelope.");
+                    var idle=stationary[i];idle.Start=idle.End=point;idle.LateralStart=idle.LateralEnd=lateral[i];
                     for(int j=0;j<i;j++)if(Conflict(idle,i,stationary[j],j))throw new ArgumentException("Grid conflicts with physical corridor/junctions.");
                 }
             }
@@ -515,6 +529,8 @@ namespace Biathlon.Simulation
                 start = Math.Min(end, checked(start + next));
             }
         }
+        private bool FitsApproachExitEnvelope(long remaining,PhysicalRangePathMap path,double line)
+            =>remaining>halfBody||FitsRouteEnvelope(path,0,line);
         private bool FitsActualWidth(int index, Trace trace)
         {
             if (!FitsLoopEnvelope(trace.Start, trace.LateralStart) || !FitsLoopEnvelope(trace.End, trace.LateralEnd)) return false;
@@ -526,8 +542,11 @@ namespace Biathlon.Simulation
             bool startPenalty = currentRange.HasValue && currentRange.Value.Phase == RangeTraversalPhase.PenaltyLoop;
             bool endPenalty = endRange.HasValue && endRange.Value.Phase == RangeTraversalPhase.PenaltyLoop;
             long endRoute = previews[index].MovementActive ? previews[index].Movement.RouteNanometers : actor.RouteNanometers;
-            if (!startPenalty && !FitsRouteEnvelope(path, actor.RouteNanometers, trace.LateralStart) ||
-                !endPenalty && !FitsRouteEnvelope(path, endRoute, trace.LateralEnd)) return false;
+            long remainingStart=actor.RemainingStartApproachNanometers;
+            long remainingEnd=previews[index].MovementActive?actor.InitialStartApproachNanometers-previews[index].Movement.Motion.DistanceNanometers:remainingStart;
+            bool actualStart=UsesAuthoredStartApproach&&remainingStart>0,actualEnd=UsesAuthoredStartApproach&&remainingEnd>0;
+            if (!startPenalty && !(actualStart?FitsApproachExitEnvelope(remainingStart,path,trace.LateralStart):FitsRouteEnvelope(path, actor.RouteNanometers, trace.LateralStart)) ||
+                !endPenalty && !(actualEnd?FitsApproachExitEnvelope(remainingEnd,path,trace.LateralEnd):FitsRouteEnvelope(path, endRoute, trace.LateralEnd))) return false;
             var front = actor.PreviewRangeMotion(previews[index], halfBody);
             if (front.HasValue && front.Value.Phase == RangeTraversalPhase.PenaltyLoop &&
                 !FitsLoopEnvelope(map.MapPenalty(front.Value.PenaltyNanometers), trace.LateralEnd)) return false;
@@ -542,7 +561,10 @@ namespace Biathlon.Simulation
                 var segment = actor.GetPreparedSegment(previews[index], s);
                 if (!FitsLoopEnvelope(receipt.Start, LineAt(trace, receipt.StartFraction)) ||
                     !FitsLoopEnvelope(receipt.End, LineAt(trace, receipt.EndFraction)) ||
-                    !segment.OnPenaltyLoop && (!FitsRouteEnvelope(path, segment.RouteBefore, LineAt(trace, receipt.StartFraction)) ||
+                    !segment.OnPenaltyLoop && (UsesAuthoredStartApproach&&segment.OnStartApproach?
+                    !FitsApproachExitEnvelope(actor.InitialStartApproachNanometers-segment.TravelBefore,path,LineAt(trace,receipt.StartFraction))||
+                    !FitsApproachExitEnvelope(actor.InitialStartApproachNanometers-segment.TravelAfter,path,LineAt(trace,receipt.EndFraction)):
+                    !FitsRouteEnvelope(path, segment.RouteBefore, LineAt(trace, receipt.StartFraction)) ||
                     !FitsRouteEnvelope(path, segment.RouteAfter, LineAt(trace, receipt.EndFraction)))) return false;
             }
             return true;

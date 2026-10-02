@@ -75,7 +75,10 @@ namespace Biathlon.Domain
         [DataMember(Name="id",IsRequired=true)] public string Id { get; private set; }
         [DataMember(Name="track_resource",IsRequired=true)] public string TrackResource { get; private set; }
         [DataMember(Name="visual_resource",IsRequired=true)] public string VisualResource { get; private set; }
-        [DataMember(Name="lanes_resource",IsRequired=true)] public string LanesResource { get; private set; }
+        [DataMember(Name="lanes_resource",EmitDefaultValue=false)] public string LanesResource { get; private set; }
+        [DataMember(Name="paths_resource",EmitDefaultValue=false)] public string PathsResource { get; private set; }
+        [DataMember(Name="occupancy_resource",EmitDefaultValue=false)] public string OccupancyResource { get; private set; }
+        [DataMember(Name="start_approach_resource",EmitDefaultValue=false)] public string StartApproachResource { get; private set; }
         [DataMember(Name="junctions_resource",IsRequired=true)] public string JunctionsResource { get; private set; }
         [DataMember(Name="connections_resource",IsRequired=true)] public string ConnectionsResource { get; private set; }
         [DataMember(Name="range_layout",IsRequired=true)] public VenueRangeLayout Range { get; private set; }
@@ -88,11 +91,15 @@ namespace Biathlon.Domain
         public static VenueManifest FromJson(string json)
         {
             var v=RouteJson.Read<VenueManifest>(json);
-            if(v==null||v.SchemaVersion!=1||v.Range==null||v.cameras==null||v.ambience==null||v.assets==null)throw new SerializationException("Invalid venue manifest schema.");
+            if(v==null||(v.SchemaVersion!=1&&v.SchemaVersion!=2)||v.Range==null||v.cameras==null||v.ambience==null||v.assets==null)throw new SerializationException("Invalid venue manifest schema.");
+            if(v.SchemaVersion==1)
+            {ResourceId(v.LanesResource);if(v.PathsResource!=null||v.OccupancyResource!=null||v.StartApproachResource!=null)throw new SerializationException("Version 1 venues bind lanes only.");}
+            else
+            {ResourceId(v.PathsResource);ResourceId(v.OccupancyResource);if(v.StartApproachResource!=null)ResourceId(v.StartApproachResource);if(v.LanesResource!=null)throw new SerializationException("Version 2 venues require an explicit physical path and occupancy binding, without legacy lanes.");}
             ResourceId(v.Id);
             if(v.Id.IndexOf('/')>=0)throw new SerializationException("Venue ID must be a single path component.");
             if(v.Id=="range_entry"||v.Id=="range_exit"||v.Id.StartsWith("firing_lane_",StringComparison.Ordinal))throw new SerializationException("Venue ID is reserved by generated markers.");
-            foreach(string resource in new[]{v.TrackResource,v.VisualResource,v.LanesResource,v.JunctionsResource,v.ConnectionsResource})ResourceId(resource);
+            foreach(string resource in new[]{v.TrackResource,v.VisualResource,v.JunctionsResource,v.ConnectionsResource})ResourceId(resource);
             if(v.CameraCount<1||v.CameraCount>128||v.AmbienceCount>1024||v.AssetCount>10000)throw new SerializationException("Venue collection outside authoring bounds.");
             return v;
         }
@@ -123,6 +130,12 @@ namespace Biathlon.Domain
     {
         public VenueManifest Manifest {get;} public TrackDefinition Track {get;} public TrackVisualDefinition Visual {get;}
         public PhysicalRangeLaneDefinition Lanes {get;} public PhysicalJunctionDefinition Junctions {get;} public PhysicalConnectionDefinition Connections {get;}
+        public PhysicalRangePathDefinition Paths {get;} public OccupancyDefinition Occupancy {get;}
+        public StartApproachDefinition StartApproach {get;}
+        public bool UsesPhysicalPaths=>Paths!=null;
+        public int LaneCount=>UsesPhysicalPaths?Paths.Count:Lanes.Count;
+        public string LaneId(int index)=>UsesPhysicalPaths?Paths.GetLane(index).Id:Lanes.GetLane(index);
+        public TrackVisualPoint MatPoint(int index)=>UsesPhysicalPaths?At(Paths.GetLane(index).MatAnchor):Visual.Get(Lanes.GetLane(index)).Sample(Track.Range.FiringLine.Distance.Meters-Lanes.Entry.Meters);
         private readonly VenueSemanticZone[] zones;
         public int ZoneCount=>zones.Length; public VenueSemanticZone Zone(int i)=>zones[i];
         public TrackVisualPoint At(TrackAnchor anchor)=>Visual.Get(anchor.LoopId).Sample(anchor.Distance.Meters);
@@ -130,8 +143,19 @@ namespace Biathlon.Domain
         {
             Manifest=manifest??throw new ArgumentNullException(nameof(manifest));if(readResource==null)throw new ArgumentNullException(nameof(readResource));
             Track=TrackDefinition.FromJson(readResource(manifest.TrackResource));Visual=TrackVisualDefinition.FromJson(readResource(manifest.VisualResource),Track);
-            Lanes=PhysicalRangeLaneDefinition.FromJson(readResource(manifest.LanesResource),Track);
             Junctions=PhysicalJunctionDefinition.FromJson(readResource(manifest.JunctionsResource),Track);Connections=PhysicalConnectionDefinition.FromJson(readResource(manifest.ConnectionsResource),Junctions);
+            if(manifest.SchemaVersion==1)Lanes=PhysicalRangeLaneDefinition.FromJson(readResource(manifest.LanesResource),Track);
+            else
+            {
+                Paths=PhysicalRangePathDefinition.FromJson(readResource(manifest.PathsResource),Track,Junctions,Connections);Occupancy=OccupancyDefinition.FromJson(readResource(manifest.OccupancyResource));
+                if(manifest.StartApproachResource!=null)
+                {
+                    StartApproach=StartApproachDefinition.FromJson(readResource(manifest.StartApproachResource));
+                    if(StartApproach.TrackId!=Track.Id||StartApproach.RouteEntryLoopId!=Paths.MainLoopId||StartApproach.LoopId==Paths.MainLoopId)
+                        throw new ArgumentException("Start approach must bind this exact track and the physical paths' main route entry.");
+                    Track.GetLoop(StartApproach.LoopId);
+                }
+            }
             manifest.Validate(Track);var list=new List<VenueSemanticZone>();
             for(int i=0;i<Track.LoopCount;i++){var loop=Track.GetLoop(i);Visual.Get(loop.Id);for(int j=0;j<loop.SegmentCount;j++)list.Add(new VenueSemanticZone(loop.Id,loop.GetSegment(j)));}
             zones=list.ToArray();

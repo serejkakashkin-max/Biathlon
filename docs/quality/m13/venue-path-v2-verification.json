@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "id": "wp169_i1_i2_adapter_verification_2026_10_02",
+  "status": "VALIDATED_ADAPTERS_PRODUCTION_PENDING",
+  "standalone": [
+    {
+      "executed": 70,
+      "file": "artifacts/wp169i/authoring-final.trx",
+      "passed": 70,
+      "failed": 0,
+      "sha256": "1ddae579dd072486e899914cb7e63724046047da8432481a35f5f4267da91c29"
+    },
+    {
+      "executed": 8,
+      "file": "artifacts/wp169i/authored-start/authored-start-focused.trx",
+      "passed": 8,
+      "failed": 0,
+      "sha256": "50d5f35e8d6d8d6fa60bf020b75e0a0b37723173ebc229c8c8a07cac31eb95f8"
+    },
+    {
+      "executed": 36,
+      "file": "artifacts/wp169i/authored-start/authored-start.trx",
+      "passed": 36,
+      "failed": 0,
+      "sha256": "02a1eb997cb99fdafb979c7abf875a45a193e0aba025b2cfc780e2bafcb9b236"
+    },
+    {
+      "executed": 10,
+      "file": "artifacts/wp169i/factory-ready.trx",
+      "passed": 10,
+      "failed": 0,
+      "sha256": "0d01c64ae6bd314ec93b434eaa37aaac1b8c73bd16040f4e4b05f1220f1bf0ca"
+    }
+  ],
+  "unity": [
+    {
+      "file": "artifacts\\wp169i\\VenuePathAuthoringTests-unity.json",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 814,
+        "PassedTests": 5,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:01.0762137"
+      },
+      "sha256": "c668d10162e42570ac84eb305bf5f77a11fdf8835de092ced5f40602f1d3bdb2"
+    },
+    {
+      "file": "artifacts\\wp169i\\VenuePathWorldValidationTests-unity.json",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 814,
+        "PassedTests": 11,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.9726439"
+      },
+      "sha256": "91a761db5d0a6e08a4cb1f001b8cf8eb34c497618c863919d4374e07797ec90e"
+    },
+    {
+      "file": "artifacts\\wp169i\\VenueLocalRangeGuardTests-unity.json",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 814,
+        "PassedTests": 14,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:01.1876181"
+      },
+      "sha256": "59632eb321e82e261ec3496e5432450383fa487e9942c9168e3fb593cad65ce1"
+    },
+    {
+      "file": "artifacts\\wp169i\\editor-authoring-final-unity.json",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 814,
+        "PassedTests": 7,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:01.5304124"
+      },
+      "sha256": "41ffc36995d29950afce7323af195a06e998781e957f63a34380e48241b8c749"
+    },
+    {
+      "file": "artifacts\\wp169i\\mat-presentation-unity.json",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 176,
+        "PassedTests": 4,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.2608037"
+      },
+      "sha256": "5e92b5e4f7f5f08ffd59dc4d10770904cd4713a6a40939e0ed321dd013bf02b5"
+    },
+    {
+      "file": "artifacts\\wp169i\\proxy-direction-ready-unity.json",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 176,
+        "PassedTests": 2,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.4760258"
+      },
+      "sha256": "dd96223660bc3220add3b18f1b25494f8339728dd29d2e059a06f434b86d92a1"
+    },
+    {
+      "file": "artifacts\\wp169i\\AuthoredStartApproachTests-unity.json",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 814,
+        "PassedTests": 8,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:02.6768734"
+      },
+      "sha256": "bffd86dda31d2af7c7a1c60aa18166c279f8dd5999364b2a16684d3de7d68bce"
+    },
+    {
+      "file": "artifacts\\wp169i\\ProductionVenueRaceFactoryTests-unity.json",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 814,
+        "PassedTests": 3,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:01.2040534"
+      },
+      "sha256": "06210db57fe9883fd431a6dfde7193fd2ed96b887f685addde7ed70929ae28ed"
+    },
+    {
+      "file": "artifacts\\wp169i\\production-host-ready-unity.json",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 176,
+        "PassedTests": 2,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.6549873"
+      },
+      "sha256": "fc84308a84215bed5d6352950c2bdc8caf0e3c0b601a4d23bb2d29c14955d4ce"
+    },
+    {
+      "file": "artifacts\\wp169i\\full-playmode-final-unity.json",
+      "summary": {
+        "Status": "Passed",
+        "TotalTests": 176,
+        "PassedTests": 176,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:03:12.2935414"
+      },
+      "sha256": "7ada5547a834c09e58c8aaa70d10e2019e77e78b77e08035492f379c08c4edf1"
+    }
+  ],
+  "console": {
+    "errors": 0,
+    "warnings": 3,
+    "logs": 5,
+    "compilation_failed": false
+  },
+  "console_evidence": "artifacts/wp169i/console-final-actual.txt",
+  "source_sha256": [
+    {
+      "sha256": "90e401925508837d51e1ee31dab7e718104a91c0c3c1f50f1198bf5b95ead2d3",
+      "file": "Assets/Scripts/Domain/VenueManifest.cs"
+    },
+    {
+      "sha256": "28aa0e9b5ab3117015ea34df53171997382564dfb9caffc3c8fb348e5f050296",
+      "file": "Assets/Scripts/Domain/VenueValidator.cs"
+    },
+    {
+      "sha256": "7975dfb4382d95137a457465fa2e487de64dc5c3a0ae733d54ef9aceb682baa6",
+      "file": "Assets/Scripts/Domain/VenueRangePathWorldValidation.cs"
+    },
+    {
+      "sha256": "f66aeee54c8a088a2ee6995baba9e0abdb4a74b5fc83bf9c094eacfb0660efe1",
+      "file": "Assets/Scripts/Unity/Editor/ProductionVenueAuthoring.cs"
+    },
+    {
+      "sha256": "1228b6d6dba1d30ddfdd8b8d4bcb2efac987dc5b353d45e5243b53adbf0b752b",
+      "file": "Assets/Scripts/Unity/Presentation/RangeMatPresentation.cs"
+    },
+    {
+      "sha256": "5f6425cbd33f4db33b81effcda84353989ec1b85de9b8f61fe87d48114ee51ec",
+      "file": "Assets/Scripts/Unity/Presentation/AthleteProxyPresentation.cs"
+    },
+    {
+      "sha256": "161880a9cfbd6022eebadb5e96ab258a9745205da088739f1abffb3f225844e8",
+      "file": "Assets/Scripts/AI/ProductionVenueRaceFactory.cs"
+    },
+    {
+      "sha256": "3e2cbf493a28d1a13ee48cdd41ee07ec2c3eb367170effe44b49342b34138b64",
+      "file": "Assets/Scripts/AI/PackAiRaceRunner.cs"
+    },
+    {
+      "sha256": "1baff4c5225bc4c509af5f44c0d1f8d49ad570d214272a8cb3ce3065e8cc74e1",
+      "file": "Assets/Scripts/AI/PackPerceptionSource.cs"
+    },
+    {
+      "sha256": "d6f1b5018c7028647e132a6ca82193703c68b5449d4946ec5dc9b8a7d8f8574a",
+      "file": "Assets/Scripts/Simulation/PhysicalStartApproachMap.cs"
+    },
+    {
+      "sha256": "a1ee128af96bd552845d08b314c6d013cd021b414f7baf49394fda055699de52",
+      "file": "Assets/Scripts/Simulation/PackSprintFieldSession.cs"
+    },
+    {
+      "sha256": "6a669a513460fdf23f98b5357bb0a81b481693efa3df35529ca80bc231d783cb",
+      "file": "Assets/Scripts/Simulation/RacePresentationSnapshot.cs"
+    },
+    {
+      "sha256": "2df5d70e174989cda337880123511599c9a3cf7f951851512d9f1da8150f0ffc",
+      "file": "Assets/Scripts/Unity/Presentation/ProductionVenueHost.cs"
+    }
+  ],
+  "production_status": "WP169 IN_PROGRESS: actual30 start construction fails exclusive guard;60entrants30mats reuse/exact format routes/environment/render acceptance pending",
+  "owner_gate_g2": "APPROVED",
+  "owner_feel_001": "OPEN: no shooting tuning",
+  "limitations": [
+    "Focused contract fixtures are not production acceptance.",
+    "No new production playable build.",
+    "Hidden-only checks do not establish measured FPS/GPU qualification."
+  ]
+}

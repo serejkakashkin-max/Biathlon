@@ -51,7 +51,8 @@ namespace Biathlon.Simulation
             var course=a.RemainingStartApproachNanometers>0 ? field.StartApproach.Sample(a.RemainingStartApproachNanometers) :
                 range.HasValue&&range.Value.Phase==RangeTraversalPhase.PenaltyLoop ?
                     penaltySampler.Sample(new TrackDistance(range.Value.PenaltyNanometers/SkiState.NanometersPerMillimeter)) :
-                    field.Route.Sample(new TrackDistance(a.RouteNanometers/SkiState.NanometersPerMillimeter)).Track;
+                    a.RangePath==null ? field.Route.Sample(new TrackDistance(a.RouteNanometers/SkiState.NanometersPerMillimeter)).Track :
+                    a.RangePath.SampleRoute(a.RouteNanometers);
             CourseGrade=course.Grade;CourseCurvaturePerMeter=course.CurvaturePerMeter;
             Effort=a.LastFrame.Physiology.Effort;Draft=field.GetDraft(index);
             CompletedLaps=a.Lifecycle.CompletedLaps;CompletedBouts=a.Lifecycle.CompletedBouts;PendingPenaltyLoops=a.Lifecycle.PendingPenaltyLoops;TotalPenaltyLoops=a.TotalPenaltyLoops;
