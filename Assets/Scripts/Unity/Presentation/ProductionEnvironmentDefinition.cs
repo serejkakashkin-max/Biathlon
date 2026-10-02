@@ -1,5 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.Text;
 using Biathlon.Domain;
 using UnityEngine;
 
@@ -23,10 +27,32 @@ namespace Biathlon.Unity.Presentation
             // scale retains 1, while an authored zero still fails validation.
             var value=new ProductionEnvironmentDefinition{lighting=new ProductionLightingRecipe()};
             JsonUtility.FromJsonOverwrite(json,value);
+            // Unity's inline class serializer materializes absent/null nested objects.
+            // Read this optional member with the project's existing JSON serializer
+            // family so omission stays distinct from an explicitly invalid object.
+            if(value.forest!=null)value.forest.high_visibility=ReadHighVisibility(json);
             if(value==null||value.schema_version!=1)throw new ArgumentException("Invalid production environment schema.");
             value.Validate();return value;
         }
-        public string ToJson()=>JsonUtility.ToJson(this);
+        public string ToJson()
+        {
+            string json=JsonUtility.ToJson(this);
+            if(forest!=null&&forest.high_visibility==null)
+                json=json.Replace("\"high_visibility\":"+JsonUtility.ToJson(new ProductionForestHighVisibility()),"\"high_visibility\":null");
+            return json;
+        }
+        [DataContract] private sealed class PolicyEnvelope {[DataMember] public PolicyForest forest=null;}
+        [DataContract] private sealed class PolicyForest {[DataMember] public ProductionForestHighVisibility high_visibility=null;}
+        private static ProductionForestHighVisibility ReadHighVisibility(string json)
+        {
+            try
+            {
+                using(var stream=new MemoryStream(Encoding.UTF8.GetBytes(json)))
+                    return ((PolicyEnvelope)new DataContractJsonSerializer(typeof(PolicyEnvelope)).ReadObject(stream))?.forest?.high_visibility;
+            }
+            catch(SerializationException error){throw new ArgumentException("Invalid production High forest policy JSON.",nameof(json),error);}
+            catch(InvalidDataContractException error){throw new ArgumentException("Invalid production High forest policy contract.",nameof(json),error);}
+        }
         internal void Validate()
         {
             Identity(id);Identity(venue_id);Resource(manifest_resource);Resource(track_resource);Resource(visual_resource);
@@ -97,12 +123,26 @@ namespace Biathlon.Unity.Presentation
     [Serializable] public sealed class ProductionForestRecipe
     {
         public string definition_resource,composition_resource,instance_space;public int max_instances_per_group;public ProductionForestGroup[] groups;
+        public ProductionForestHighVisibility high_visibility;
         internal void Validate(HashSet<string> ids)
         {
             ProductionEnvironmentDefinition.Resource(definition_resource);ProductionEnvironmentDefinition.Resource(composition_resource);
+            high_visibility?.Validate();
             if(instance_space!="world"||max_instances_per_group<1||max_instances_per_group>1023)throw new ArgumentException("Explicit bounded world forest required.");
             ProductionEnvironmentDefinition.Collection(groups,0,4096);
             foreach(var group in groups){if(group==null||group.count<1||group.count>max_instances_per_group)throw new ArgumentException("Invalid forest group capacity.");ProductionEnvironmentDefinition.Unique(group.id,ids);ProductionEnvironmentDefinition.Position(group.center);ProductionEnvironmentDefinition.Position(group.size);ProductionEnvironmentDefinition.Resource(group.instances_resource);}
+        }
+    }
+    /// <summary>Explicit production High opt-in; the bound weather owns its visibility horizon.</summary>
+    [Serializable,DataContract] public sealed class ProductionForestHighVisibility
+    {
+        [DataMember] public int schema_version;
+        [DataMember] public string id;
+        [DataMember] public string mode;
+        internal void Validate()
+        {
+            if(schema_version!=1||mode!="fog_frustum_v1")throw new ArgumentException("Unsupported production High forest visibility policy.");
+            ProductionEnvironmentDefinition.Identity(id);
         }
     }
     [Serializable] public sealed class ProductionForestGroup {public string id,instances_resource;public Vector3 center,size;public int count;}

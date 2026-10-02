@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "id": "side-entry",
+    "kind": "frozen_simulation_actual_game_view",
+    "venue": "woodland_basin_v1",
+    "profile": "woodland_basin_mass_start_men_v1",
+    "route": "woodland_basin_mass_start_route_v1",
+    "unity": "6000.6.0f1",
+    "quality": "high",
+    "mode": "world",
+    "loop_id": "",
+    "host_entity_id": "40369:62208",
+    "tick": 0,
+    "athletes": 30,
+    "banks": 30,
+    "trees": 26441,
+    "visible_trees": 3758,
+    "tiles": 99,
+    "shoulder_panels": 3267,
+    "vertical_panels": 5359,
+    "camera_frame": 6453,
+    "width": 2560,
+    "height": 1440,
+    "save_frame": 10425,
+    "ground_joined": true,
+    "performance_qualification": false,
+    "y_flipped": true,
+    "maximum_edge_gap_m": 0.34466552734375,
+    "fov": 58.0,
+    "near_clip": 0.05000000074505806,
+    "far_clip": 700.0,
+    "camera_time": 32.96576690673828,
+    "save_time": 54.175106048583984,
+    "course_distance_m": 0.0,
+    "source_distance_m": 0.0,
+    "camera_position": {
+        "x": 110.0,
+        "y": 5.0,
+        "z": -32.0
+    },
+    "look_at": {
+        "x": 70.0,
+        "y": 0.800000011920929,
+        "z": -13.0
+    },
+    "anchor": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "forward": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 1.0
+    },
+    "right": {
+        "x": 1.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "capture_api": "UnityEditor.GameView.m_RenderTexture;normal camera loop;no Camera.Render",
+    "png_sha256": "7953363659f79e995e4ce8cf56dde4a512a85b090d3e920af07b625767177af9"
+,"source_sha256":[{"path":"Assets/Scripts/Unity/Presentation/ProductionCoursePresentation.cs","sha256":"97f01ad3c90ae9804c65601fa0b6c1bcb36b2a2998c62b576379efaf968ce506"},{"path":"Assets/Tests/PlayMode/ProductionTerrainContactTests.cs","sha256":"0209aa53f9a25626d43c0227d703e5b146eceef5bd11c03b19a5d06fea87c79c"},{"path":"Assets/Scripts/Unity/Presentation/ProductionVenueHost.cs","sha256":"ffec37e1f5a8ce600f2b91089987adf53d3e7acf36bc4a22bd59959f7d67a602"},{"path":"Assets/Scripts/Unity/Presentation/ProductionVenueEnvironment.cs","sha256":"a6956ed22554a3c3ffe71e0894981645571a0d6552558f2a196e882b21327767"},{"path":"Assets/Scripts/Unity/Presentation/ProductionEnvironmentDefinition.cs","sha256":"628c70c127a3cc074f4b5e5ae31000b50324a2e19e9dc6cc63fde5f8cecd31a3"},{"path":"Assets/Scripts/Unity/Presentation/VegetationPresentation.cs","sha256":"1a7c3ca577782aefd04aaed0be3d6e1d6c6f8a35599075706126183f4071aef5"},{"path":"Assets/Tests/PlayMode/ProductionForestVisibilityTests.cs","sha256":"39bb7bc29b99100d44b000672391649cfd9a2701b17d76e9f7b7ce38b149ee9d"},{"path":"Assets/Scripts/Unity/Presentation/WeatherPresentation.cs","sha256":"84e23f0bbc88c31151464fd4d07da9a0c16f2bf20f0366edd36c937c0554f021"},{"path":"Assets/Shaders/Snow.shader","sha256":"93491565cd0dbf7a17d4faecd4d77bf54821a321a31355f7691ca387498d51c5"},{"path":"scripts/content/m13/generate_environment.py","sha256":"2d8530631891306b73c7fc7eaf1c7a1413be784ad437d3133bca4b3e5f680acb"},{"path":"scripts/content/m13/recipes/woodland_basin_environment_recipe_v1.json","sha256":"37fe6e83ebfd98236a62bcec71f41de22fad242ac7a72862932197db25b8315c"}],"resource_sha256":[{"path":"Biathlon/Venues/woodland_basin_v1/manifest","sha256":"195c44cf28c1c5f0ff57a8c4ae3ad3a372a3413b2116ac300f925f5e7f3807bf"},{"path":"Biathlon/Venues/woodland_basin_v1/mass_start_profile","sha256":"e06ba78cdf5c9c7d08282bc8bdff9f94d3f0ee4302698b6cd0e017a6f48d83ba"},{"path":"Biathlon/Venues/woodland_basin_v1/mass_start_route","sha256":"91835d00c76ba270701704a9b019fac18f40cd16cde7ccafe7829168ca5fe785"},{"path":"Biathlon/race_snow_neutral_v1","sha256":"16106bfee89b08149ab82b1c68dd8951cf14069c5d26fe56f7c88210f708f421"},{"path":"Biathlon/Venues/woodland_basin_v1/environment","sha256":"fdc32da3f73ef4a405b430d56df66fb5f77f5d3293936fb51899bda27701c377"},{"path":"Biathlon/Venues/woodland_basin_v1/track","sha256":"4f660db9aedcaacf7993a5dc02fda28fbadf0246ee561bbed9ec3057f512d8e0"},{"path":"Biathlon/Venues/woodland_basin_v1/visual","sha256":"23c79b905c18b1e72ca3445125117d9300b614bd7eedb67d16a4c000fddf7238"},{"path":"Biathlon/Venues/woodland_basin_v1/paths","sha256":"d2e3b41cc2076c4b77a28226ccbc4e5408c0980038c9a74969b79f9508fa8112"}]}

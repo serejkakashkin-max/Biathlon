@@ -1,0 +1,906 @@
+{
+  "schema_version": 1,
+  "id": "wp169z_production_high_forest_visibility_v1",
+  "status": "PASS_BOUNDED_PRODUCTION_HIGH_VISIBILITY_FOCUSED_9_FULL_PLAYMODE_219_FIVE_ACTUAL_VIEWS",
+  "source_frozen": true,
+  "source_sha256": [
+    {
+      "path": "Assets/Scripts/Unity/Presentation/VegetationPresentation.cs",
+      "sha256": "1a7c3ca577782aefd04aaed0be3d6e1d6c6f8a35599075706126183f4071aef5"
+    },
+    {
+      "path": "Assets/Scripts/Unity/Presentation/ProductionEnvironmentDefinition.cs",
+      "sha256": "628c70c127a3cc074f4b5e5ae31000b50324a2e19e9dc6cc63fde5f8cecd31a3"
+    },
+    {
+      "path": "Assets/Scripts/Unity/Presentation/ProductionVenueEnvironment.cs",
+      "sha256": "a6956ed22554a3c3ffe71e0894981645571a0d6552558f2a196e882b21327767"
+    },
+    {
+      "path": "Assets/Tests/PlayMode/ProductionForestVisibilityTests.cs",
+      "sha256": "39bb7bc29b99100d44b000672391649cfd9a2701b17d76e9f7b7ce38b149ee9d"
+    },
+    {
+      "path": "scripts/content/m13/generate_environment.py",
+      "sha256": "2d8530631891306b73c7fc7eaf1c7a1413be784ad437d3133bca4b3e5f680acb"
+    },
+    {
+      "path": "scripts/content/m13/test_environment_forest_visibility.py",
+      "sha256": "20cdb8e01172ce34f357baea0a58325a8ffc998154fa3064fcb0ce3de596eaf9"
+    },
+    {
+      "path": "scripts/content/m13/recipes/woodland_basin_environment_recipe_v1.json",
+      "sha256": "37fe6e83ebfd98236a62bcec71f41de22fad242ac7a72862932197db25b8315c"
+    }
+  ],
+  "policy": {
+    "schema_version": 1,
+    "id": "woodland_basin_high_fog_visibility_v1",
+    "mode": "fog_frustum_v1",
+    "horizon_source": "bound cold weather preset fog_end_m times authored production fog_distance_scale",
+    "standard_perspective_visibility": "whole audited canopy/scale/max-wind AABB intersects explicit camera frustum and fog-end forward-depth halfspace plus near clip",
+    "unsupported_projection_visibility": "orthographic/physical/custom-oblique matrix conservatively retains complete frustum",
+    "absent_policy": "existing every-tier and G2 benchmark pivot-cull/LOD/density/shadow behavior",
+    "low_balanced": "existing pivot-cull/LOD/density/shadow behavior",
+    "projection_zoom": "existing projection-aware near/far thresholds and corresponding shadows preserved; far-LOD/no-extra-shadow claim only applies to five unzoomed baseline views"
+  },
+  "read_only_baseline": {
+    "path": "artifacts/forest-visibility-diagnosis/visibility.json",
+    "sha256": "d27aae56a08ef9733d706efac58448df7e54378e3f13b99d3ca51ef803631de7",
+    "recorded_native_counts_and_independent_reconstruction": "five exact matches: climb219, highland301, side11, snow246, stadium1"
+  },
+  "local_checks": {
+    "native_reference_compile": {
+      "schema_version": 1,
+      "id": "wp169z_native_reference_compile_v1",
+      "status": "PASS",
+      "errors": 0,
+      "warnings": 0,
+      "command": "dotnet build artifacts/wp169z/NativeCompile.csproj -c Release --artifacts-path artifacts/wp169z/native-build --nologo",
+      "scope": "C# compiler references installed Unity assemblies; not native Unity Editor compilation or test execution.",
+      "source_sha256": [
+        {
+          "path": "Assets/Scripts/Unity/Presentation/VegetationPresentation.cs",
+          "sha256": "1a7c3ca577782aefd04aaed0be3d6e1d6c6f8a35599075706126183f4071aef5"
+        },
+        {
+          "path": "Assets/Scripts/Unity/Presentation/ProductionEnvironmentDefinition.cs",
+          "sha256": "628c70c127a3cc074f4b5e5ae31000b50324a2e19e9dc6cc63fde5f8cecd31a3"
+        },
+        {
+          "path": "Assets/Scripts/Unity/Presentation/ProductionVenueEnvironment.cs",
+          "sha256": "a6956ed22554a3c3ffe71e0894981645571a0d6552558f2a196e882b21327767"
+        },
+        {
+          "path": "Assets/Tests/PlayMode/ProductionForestVisibilityTests.cs",
+          "sha256": "39bb7bc29b99100d44b000672391649cfd9a2701b17d76e9f7b7ce38b149ee9d"
+        },
+        {
+          "path": "scripts/content/m13/generate_environment.py",
+          "sha256": "2d8530631891306b73c7fc7eaf1c7a1413be784ad437d3133bca4b3e5f680acb"
+        },
+        {
+          "path": "scripts/content/m13/test_environment_forest_visibility.py",
+          "sha256": "20cdb8e01172ce34f357baea0a58325a8ffc998154fa3064fcb0ce3de596eaf9"
+        },
+        {
+          "path": "scripts/content/m13/recipes/woodland_basin_environment_recipe_v1.json",
+          "sha256": "37fe6e83ebfd98236a62bcec71f41de22fad242ac7a72862932197db25b8315c"
+        }
+      ],
+      "output_assembly_sha256": "ad87cfc17b8a4271fbb24e54caa403714c656f642abf4a32237487c08d6e8bb0",
+      "checkpoint": "Strict nullable serializer and deferred-collider test repair"
+    },
+    "python_environment_tests": {
+      "status": "PASS",
+      "total": 10,
+      "failures": 0,
+      "command": "python -m unittest discover -s scripts/content/m13 -p 'test_environment*.py' -v",
+      "scope": "Pure geometry/recipe/serialization unit tests only"
+    },
+    "regeneration_delta": {
+      "path": "artifacts/wp169z/regeneration-delta-proof.json",
+      "sha256": "ce65b5a358fd9b8317ca74261c1b30b120f3d997fe44bb9cf7c6886c39360c09",
+      "scope": "Isolated regeneration/static data only; no Assets import, native render, race or GPU qualification."
+    },
+    "candidate_environment_static_verifier": {
+      "status": "PASS",
+      "path": "artifacts/wp169z/candidate/environment-verification.json",
+      "terrain_tiles": 99,
+      "tree_count": 26441,
+      "border_checks": 11490,
+      "ribbon_triangles": 8558,
+      "ribbon_overlay_vertices": 269640,
+      "buried_ribbon_triangles": 0,
+      "minimum_ribbon_minus_terrain_m": 0.02999720466323197,
+      "minimum_full_canopy_corridor_gap_m": 3.073589534392203
+    }
+  },
+  "native_test_class": "Biathlon.PlayModeTests.ProductionForestVisibilityTests",
+  "native_new_tests_expected": 9,
+  "candidate_environment_path": "artifacts/wp169z/candidate/resources/Biathlon/Venues/woodland_basin_v1/environment.json",
+  "candidate_environment_sha256": "fdc32da3f73ef4a405b430d56df66fb5f77f5d3293936fb51899bda27701c377",
+  "imported_environment_baseline_sha256": "e215d8024c93de0b7145dcd124b577e102fd835a989351e142d216856c65e3a5",
+  "known_cost": "analytic canonical-capture submitted geometry grows to2.59\u20135.48million triangles; fixed LOD/density/content retained, no GPU or frame-time qualification",
+  "excluded_changes": [
+    "core gameplay",
+    "route/replay data",
+    "tree placement/density ranks/species",
+    "terrain/ribbon geometry",
+    "owner URP assets",
+    "native meshes/materials/shaders",
+    "T source/tests",
+    "PROJECT_STATE",
+    "Git"
+  ],
+  "pending": [],
+  "root_import": {
+    "path": "artifacts/wp169z/import-verification.json",
+    "sha256": "7d0e0a0ce078779f29b712ac07692a311ed77ed189ed4d68515d7768a73479f0",
+    "result": {
+      "schema_version": 1,
+      "id": "wp169z_root_single_resource_import_v1",
+      "status": "PASS_RESOURCE_IMPORT_NATIVE_RENDER_PENDING",
+      "changed_resources": [
+        "Biathlon/Venues/woodland_basin_v1/environment.json"
+      ],
+      "unchanged_resources": 205,
+      "policy": {
+        "schema_version": 1,
+        "id": "woodland_basin_high_fog_visibility_v1",
+        "mode": "fog_frustum_v1"
+      },
+      "before_environment_sha256": "e215d8024c93de0b7145dcd124b577e102fd835a989351e142d216856c65e3a5",
+      "after_environment_sha256": "fdc32da3f73ef4a405b430d56df66fb5f77f5d3293936fb51899bda27701c377",
+      "unchanged_meta_sha256": "6bfe4e0fb5bce520714d8cf6b561609e9bb879a44de6edfb6ac5d92d6ebf88d9"
+    }
+  },
+  "first_native_unity": {
+    "path": "artifacts/wp169z/unity-forest-visibility-first-failed.json",
+    "sha256": "66d15e7f888befd8c7d7f957f7f4b47429008104cfeabf3bde82884a35be2e6a",
+    "summary": {
+      "Status": "Failed",
+      "TotalTests": 219,
+      "PassedTests": 6,
+      "FailedTests": 3,
+      "SkippedTests": 0,
+      "Duration": "00:00:03.9151778"
+    },
+    "executed_tests": 9,
+    "scope": "Native focused9 executes6PASS3FAIL;219 is discovered suite, not219executed",
+    "source_sha256": [
+      {
+        "path": "Assets/Scripts/Unity/Presentation/VegetationPresentation.cs",
+        "sha256": "1a7c3ca577782aefd04aaed0be3d6e1d6c6f8a35599075706126183f4071aef5"
+      },
+      {
+        "path": "Assets/Scripts/Unity/Presentation/ProductionEnvironmentDefinition.cs",
+        "sha256": "ae085494edb89af2c61b0d6b2fe4f4c779e643bdba9b7008b358bd91057c9d45"
+      },
+      {
+        "path": "Assets/Scripts/Unity/Presentation/ProductionVenueEnvironment.cs",
+        "sha256": "a6956ed22554a3c3ffe71e0894981645571a0d6552558f2a196e882b21327767"
+      },
+      {
+        "path": "Assets/Tests/PlayMode/ProductionForestVisibilityTests.cs",
+        "sha256": "f6ae691987f3627ce534ef38d910c1bb4e01b5b69c0bf08b1444eaadc4fead93"
+      },
+      {
+        "path": "scripts/content/m13/generate_environment.py",
+        "sha256": "2d8530631891306b73c7fc7eaf1c7a1413be784ad437d3133bca4b3e5f680acb"
+      },
+      {
+        "path": "scripts/content/m13/test_environment_forest_visibility.py",
+        "sha256": "20cdb8e01172ce34f357baea0a58325a8ffc998154fa3064fcb0ce3de596eaf9"
+      },
+      {
+        "path": "scripts/content/m13/recipes/woodland_basin_environment_recipe_v1.json",
+        "sha256": "37fe6e83ebfd98236a62bcec71f41de22fad242ac7a72862932197db25b8315c"
+      }
+    ],
+    "failure_diagnosis": "Real omitted/null JsonUtility inline-policy serialization defect; two synchronous checks ran before deferred disabled collider destruction. Renderer canopy/projection/rewind0B/invalid6tests PASS."
+  },
+  "nullable_policy_contract": {
+    "parser": "Cold DataContractJsonSerializer envelope overrides only forest.high_visibility after JsonUtility",
+    "omitted_or_literal_null": "legacy nullable reference",
+    "explicit_empty_or_version_zero": "strict rejection",
+    "serializer": "Only null DTO emittedinline-default policy token normalized to literalnull; presentemptyDTO unchanged/rejects",
+    "regressions": "rawomitted/null/{}/version0/valid/valid_to_nulltoggle/unrelatedescapedauthoringtext"
+  },
+  "repaired_native_unity": {
+    "path": "artifacts/wp169z/unity-forest-visibility-repaired.json",
+    "sha256": "01c1aadcee661aa213abcc1ddd88f802bab5e5976d876608431a3c26ddf292e4",
+    "summary": {
+      "Status": "Passed",
+      "TotalTests": 219,
+      "PassedTests": 9,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:03.8950188"
+    },
+    "executed_tests": 9,
+    "results": [
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.ActualProductionStadiumPolicyPreservesAllAuthoredContentAndExactLegacyCounts",
+        "Status": "Passed",
+        "Duration": "00:00:03.7160000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.CameraDepthRatherThanPivotRadiusWorksForWideAndRotatedViewsAndRewindsWithoutAllocation",
+        "Status": "Passed",
+        "Duration": "00:00:00.0040000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.HighRetainsFarAndPartialCanopiesWhileAllOtherTiersKeepExactLegacyLodsAndShadows",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.InvalidHorizonRejectsBeforeForestMutationAndCanRetry",
+        "Status": "Passed",
+        "Duration": "00:00:00.0040000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.InvalidPolicyOrBoundWeatherRejectsTheWholeEnvironmentBeforeChildrenOrWeatherLease",
+        "Status": "Passed",
+        "Duration": "00:00:00.0350000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.ProductionColdPolicyUsesCopiedBoundWeatherAndLeavesSourcesAndPlacementImmutable",
+        "Status": "Passed",
+        "Duration": "00:00:00.0450000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.UnsupportedProjectionRetainsTheWholeFrustumAndZoomKeepsExistingLodAndShadowDecisions",
+        "Status": "Passed",
+        "Duration": "00:00:00.0050000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.VersionedPolicyRoundTripsAndOmissionPreservesTheLegacyContract",
+        "Status": "Passed",
+        "Duration": "00:00:00.0180000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.WholeNativeCanopyAndWindSupportProtectsTheFogPlaneAndPreparedBounds",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      }
+    ],
+    "error_log_count": 0,
+    "source_sha256": [
+      {
+        "path": "Assets/Scripts/Unity/Presentation/VegetationPresentation.cs",
+        "sha256": "1a7c3ca577782aefd04aaed0be3d6e1d6c6f8a35599075706126183f4071aef5"
+      },
+      {
+        "path": "Assets/Scripts/Unity/Presentation/ProductionEnvironmentDefinition.cs",
+        "sha256": "628c70c127a3cc074f4b5e5ae31000b50324a2e19e9dc6cc63fde5f8cecd31a3"
+      },
+      {
+        "path": "Assets/Scripts/Unity/Presentation/ProductionVenueEnvironment.cs",
+        "sha256": "a6956ed22554a3c3ffe71e0894981645571a0d6552558f2a196e882b21327767"
+      },
+      {
+        "path": "Assets/Tests/PlayMode/ProductionForestVisibilityTests.cs",
+        "sha256": "39bb7bc29b99100d44b000672391649cfd9a2701b17d76e9f7b7ce38b149ee9d"
+      },
+      {
+        "path": "scripts/content/m13/generate_environment.py",
+        "sha256": "2d8530631891306b73c7fc7eaf1c7a1413be784ad437d3133bca4b3e5f680acb"
+      },
+      {
+        "path": "scripts/content/m13/test_environment_forest_visibility.py",
+        "sha256": "20cdb8e01172ce34f357baea0a58325a8ffc998154fa3064fcb0ce3de596eaf9"
+      },
+      {
+        "path": "scripts/content/m13/recipes/woodland_basin_environment_recipe_v1.json",
+        "sha256": "37fe6e83ebfd98236a62bcec71f41de22fad242ac7a72862932197db25b8315c"
+      }
+    ],
+    "scope": "Actual focused9tests PASS;219is discovered suite size, not219executed. Root reports0Errorlogs."
+  },
+  "independent_review": {
+    "path": "artifacts/wp169z/independent-final-review.md",
+    "sha256": "0df6b79a1ad498803522b714d28b262eba950ca7b2cbb2fb2504e9d367eb580a",
+    "status": "NO_REMAINING_BOUNDED_SOURCE_BLOCKER",
+    "scope": "Read-only source/serializer/generator review plus exact native9rows; no full219/visual/GPU qualification"
+  },
+  "full_playmode_unity": {
+    "path": "artifacts/wp169z/unity-full-play-final.json",
+    "sha256": "1bb36997e4a1b70fef13740426fdc68071849149019028b891c0b42c318bca08",
+    "summary": {
+      "Status": "Passed",
+      "TotalTests": 219,
+      "PassedTests": 219,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:02:14.6361949"
+    },
+    "executed_tests": 219,
+    "error_log_count": 0,
+    "source_sha256": [
+      {
+        "path": "Assets/Scripts/Unity/Presentation/VegetationPresentation.cs",
+        "sha256": "1a7c3ca577782aefd04aaed0be3d6e1d6c6f8a35599075706126183f4071aef5"
+      },
+      {
+        "path": "Assets/Scripts/Unity/Presentation/ProductionEnvironmentDefinition.cs",
+        "sha256": "628c70c127a3cc074f4b5e5ae31000b50324a2e19e9dc6cc63fde5f8cecd31a3"
+      },
+      {
+        "path": "Assets/Scripts/Unity/Presentation/ProductionVenueEnvironment.cs",
+        "sha256": "a6956ed22554a3c3ffe71e0894981645571a0d6552558f2a196e882b21327767"
+      },
+      {
+        "path": "Assets/Tests/PlayMode/ProductionForestVisibilityTests.cs",
+        "sha256": "39bb7bc29b99100d44b000672391649cfd9a2701b17d76e9f7b7ce38b149ee9d"
+      },
+      {
+        "path": "scripts/content/m13/generate_environment.py",
+        "sha256": "2d8530631891306b73c7fc7eaf1c7a1413be784ad437d3133bca4b3e5f680acb"
+      },
+      {
+        "path": "scripts/content/m13/test_environment_forest_visibility.py",
+        "sha256": "20cdb8e01172ce34f357baea0a58325a8ffc998154fa3064fcb0ce3de596eaf9"
+      },
+      {
+        "path": "scripts/content/m13/recipes/woodland_basin_environment_recipe_v1.json",
+        "sha256": "37fe6e83ebfd98236a62bcec71f41de22fad242ac7a72862932197db25b8315c"
+      }
+    ],
+    "scope": "Actual native final219tests, including previous environment/G2/terrain tests; no GPU/performance/visual qualification"
+  },
+  "root_after_full_console": {
+    "errors": 0,
+    "retained_warnings": 5,
+    "logs": 7,
+    "compilation_failed": false
+  },
+  "final_actual_captures": {
+    "path": "artifacts/wp169z/actual-five-capture-comparison.json",
+    "sha256": "e3251f4db35917064ab2c92f8a165891ad96da6b36b2b525305438b6b58d383e",
+    "comparison": {
+      "schema_version": 1,
+      "id": "wp169z_actual_five_capture_comparison_v1",
+      "status": "PASS_CAPTURE_METADATA_BINDING_VISUAL_REVIEW_PENDING",
+      "scope": "Actual saved native counts, PNG byte/hash/dimensions and same-pose metadata; not pixel identity, rendered pixel visibility, GPU timing or visual acceptance.",
+      "all_independent_counts_match_native": true,
+      "captures": [
+        {
+          "id": "stadium-overview",
+          "metadata_path": "docs/quality/m13/venue01-captures-high-forest-review/stadium-overview.json",
+          "metadata_sha256": "7790f7fce837ea177cf7dce9b7bd23ebd555c88832a3bb57b87974411a49ccb9",
+          "png_path": "docs/quality/m13/venue01-captures-high-forest-review/stadium-overview.png",
+          "png_sha256": "b45db731c01eb520e1d8d9e1c28f409b97e37e7c9930437e521687925d99e1a7",
+          "size": [
+            2560,
+            1440
+          ],
+          "baseline_native_visible_trees": 1,
+          "actual_native_visible_trees": 3507,
+          "independent_conservative_canopy_prediction": 3507,
+          "actual_matches_independent_prediction": true,
+          "camera_maximum_component_difference_m": {
+            "camera_position": 0.0,
+            "look_at": 0.0
+          },
+          "tick": 0,
+          "camera_frame": 2,
+          "save_frame": 6452,
+          "baseline_tick": 1030,
+          "all_current_source_and_resource_hashes_match": true,
+          "source_sha256": [
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionCoursePresentation.cs",
+              "sha256": "97f01ad3c90ae9804c65601fa0b6c1bcb36b2a2998c62b576379efaf968ce506"
+            },
+            {
+              "path": "Assets/Tests/PlayMode/ProductionTerrainContactTests.cs",
+              "sha256": "0209aa53f9a25626d43c0227d703e5b146eceef5bd11c03b19a5d06fea87c79c"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionVenueHost.cs",
+              "sha256": "ffec37e1f5a8ce600f2b91089987adf53d3e7acf36bc4a22bd59959f7d67a602"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionVenueEnvironment.cs",
+              "sha256": "a6956ed22554a3c3ffe71e0894981645571a0d6552558f2a196e882b21327767"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionEnvironmentDefinition.cs",
+              "sha256": "628c70c127a3cc074f4b5e5ae31000b50324a2e19e9dc6cc63fde5f8cecd31a3"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/VegetationPresentation.cs",
+              "sha256": "1a7c3ca577782aefd04aaed0be3d6e1d6c6f8a35599075706126183f4071aef5"
+            },
+            {
+              "path": "Assets/Tests/PlayMode/ProductionForestVisibilityTests.cs",
+              "sha256": "39bb7bc29b99100d44b000672391649cfd9a2701b17d76e9f7b7ce38b149ee9d"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/WeatherPresentation.cs",
+              "sha256": "84e23f0bbc88c31151464fd4d07da9a0c16f2bf20f0366edd36c937c0554f021"
+            },
+            {
+              "path": "Assets/Shaders/Snow.shader",
+              "sha256": "93491565cd0dbf7a17d4faecd4d77bf54821a321a31355f7691ca387498d51c5"
+            },
+            {
+              "path": "scripts/content/m13/generate_environment.py",
+              "sha256": "2d8530631891306b73c7fc7eaf1c7a1413be784ad437d3133bca4b3e5f680acb"
+            },
+            {
+              "path": "scripts/content/m13/recipes/woodland_basin_environment_recipe_v1.json",
+              "sha256": "37fe6e83ebfd98236a62bcec71f41de22fad242ac7a72862932197db25b8315c"
+            }
+          ],
+          "resource_sha256": [
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/manifest",
+              "sha256": "195c44cf28c1c5f0ff57a8c4ae3ad3a372a3413b2116ac300f925f5e7f3807bf"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/mass_start_profile",
+              "sha256": "e06ba78cdf5c9c7d08282bc8bdff9f94d3f0ee4302698b6cd0e017a6f48d83ba"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/mass_start_route",
+              "sha256": "91835d00c76ba270701704a9b019fac18f40cd16cde7ccafe7829168ca5fe785"
+            },
+            {
+              "path": "Biathlon/race_snow_neutral_v1",
+              "sha256": "16106bfee89b08149ab82b1c68dd8951cf14069c5d26fe56f7c88210f708f421"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/environment",
+              "sha256": "fdc32da3f73ef4a405b430d56df66fb5f77f5d3293936fb51899bda27701c377"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/track",
+              "sha256": "4f660db9aedcaacf7993a5dc02fda28fbadf0246ee561bbed9ec3057f512d8e0"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/visual",
+              "sha256": "23c79b905c18b1e72ca3445125117d9300b614bd7eedb67d16a4c000fddf7238"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/paths",
+              "sha256": "d2e3b41cc2076c4b77a28226ccbc4e5408c0980038c9a74969b79f9508fa8112"
+            }
+          ]
+        },
+        {
+          "id": "side-entry",
+          "metadata_path": "docs/quality/m13/venue01-captures-high-forest-review/side-entry.json",
+          "metadata_sha256": "1e3e1fc4ac59734b4b93f305245c74927944dc965cc97723f8830d30a83dbf2c",
+          "png_path": "docs/quality/m13/venue01-captures-high-forest-review/side-entry.png",
+          "png_sha256": "7953363659f79e995e4ce8cf56dde4a512a85b090d3e920af07b625767177af9",
+          "size": [
+            2560,
+            1440
+          ],
+          "baseline_native_visible_trees": 11,
+          "actual_native_visible_trees": 3758,
+          "independent_conservative_canopy_prediction": 3758,
+          "actual_matches_independent_prediction": true,
+          "camera_maximum_component_difference_m": {
+            "camera_position": 0.0,
+            "look_at": 0.0
+          },
+          "tick": 0,
+          "camera_frame": 6453,
+          "save_frame": 10425,
+          "baseline_tick": 1030,
+          "all_current_source_and_resource_hashes_match": true,
+          "source_sha256": [
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionCoursePresentation.cs",
+              "sha256": "97f01ad3c90ae9804c65601fa0b6c1bcb36b2a2998c62b576379efaf968ce506"
+            },
+            {
+              "path": "Assets/Tests/PlayMode/ProductionTerrainContactTests.cs",
+              "sha256": "0209aa53f9a25626d43c0227d703e5b146eceef5bd11c03b19a5d06fea87c79c"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionVenueHost.cs",
+              "sha256": "ffec37e1f5a8ce600f2b91089987adf53d3e7acf36bc4a22bd59959f7d67a602"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionVenueEnvironment.cs",
+              "sha256": "a6956ed22554a3c3ffe71e0894981645571a0d6552558f2a196e882b21327767"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionEnvironmentDefinition.cs",
+              "sha256": "628c70c127a3cc074f4b5e5ae31000b50324a2e19e9dc6cc63fde5f8cecd31a3"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/VegetationPresentation.cs",
+              "sha256": "1a7c3ca577782aefd04aaed0be3d6e1d6c6f8a35599075706126183f4071aef5"
+            },
+            {
+              "path": "Assets/Tests/PlayMode/ProductionForestVisibilityTests.cs",
+              "sha256": "39bb7bc29b99100d44b000672391649cfd9a2701b17d76e9f7b7ce38b149ee9d"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/WeatherPresentation.cs",
+              "sha256": "84e23f0bbc88c31151464fd4d07da9a0c16f2bf20f0366edd36c937c0554f021"
+            },
+            {
+              "path": "Assets/Shaders/Snow.shader",
+              "sha256": "93491565cd0dbf7a17d4faecd4d77bf54821a321a31355f7691ca387498d51c5"
+            },
+            {
+              "path": "scripts/content/m13/generate_environment.py",
+              "sha256": "2d8530631891306b73c7fc7eaf1c7a1413be784ad437d3133bca4b3e5f680acb"
+            },
+            {
+              "path": "scripts/content/m13/recipes/woodland_basin_environment_recipe_v1.json",
+              "sha256": "37fe6e83ebfd98236a62bcec71f41de22fad242ac7a72862932197db25b8315c"
+            }
+          ],
+          "resource_sha256": [
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/manifest",
+              "sha256": "195c44cf28c1c5f0ff57a8c4ae3ad3a372a3413b2116ac300f925f5e7f3807bf"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/mass_start_profile",
+              "sha256": "e06ba78cdf5c9c7d08282bc8bdff9f94d3f0ee4302698b6cd0e017a6f48d83ba"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/mass_start_route",
+              "sha256": "91835d00c76ba270701704a9b019fac18f40cd16cde7ccafe7829168ca5fe785"
+            },
+            {
+              "path": "Biathlon/race_snow_neutral_v1",
+              "sha256": "16106bfee89b08149ab82b1c68dd8951cf14069c5d26fe56f7c88210f708f421"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/environment",
+              "sha256": "fdc32da3f73ef4a405b430d56df66fb5f77f5d3293936fb51899bda27701c377"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/track",
+              "sha256": "4f660db9aedcaacf7993a5dc02fda28fbadf0246ee561bbed9ec3057f512d8e0"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/visual",
+              "sha256": "23c79b905c18b1e72ca3445125117d9300b614bd7eedb67d16a4c000fddf7238"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/paths",
+              "sha256": "d2e3b41cc2076c4b77a28226ccbc4e5408c0980038c9a74969b79f9508fa8112"
+            }
+          ]
+        },
+        {
+          "id": "climb-forest",
+          "metadata_path": "docs/quality/m13/venue01-captures-high-forest-review/climb-forest.json",
+          "metadata_sha256": "c1d1fe4830594e596e919e59d26eff121e0bb387ba285f6f516c923eb9b4a1ca",
+          "png_path": "docs/quality/m13/venue01-captures-high-forest-review/climb-forest.png",
+          "png_sha256": "e595daf698618b2d8d8a46af1ef6653b46efc569671b72c9ee34a2e4d1dad6e5",
+          "size": [
+            2560,
+            1440
+          ],
+          "baseline_native_visible_trees": 219,
+          "actual_native_visible_trees": 6988,
+          "independent_conservative_canopy_prediction": 6988,
+          "actual_matches_independent_prediction": true,
+          "camera_maximum_component_difference_m": {
+            "camera_position": 0.0,
+            "look_at": 0.0
+          },
+          "tick": 0,
+          "camera_frame": 10427,
+          "save_frame": 15800,
+          "baseline_tick": 1030,
+          "all_current_source_and_resource_hashes_match": true,
+          "source_sha256": [
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionCoursePresentation.cs",
+              "sha256": "97f01ad3c90ae9804c65601fa0b6c1bcb36b2a2998c62b576379efaf968ce506"
+            },
+            {
+              "path": "Assets/Tests/PlayMode/ProductionTerrainContactTests.cs",
+              "sha256": "0209aa53f9a25626d43c0227d703e5b146eceef5bd11c03b19a5d06fea87c79c"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionVenueHost.cs",
+              "sha256": "ffec37e1f5a8ce600f2b91089987adf53d3e7acf36bc4a22bd59959f7d67a602"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionVenueEnvironment.cs",
+              "sha256": "a6956ed22554a3c3ffe71e0894981645571a0d6552558f2a196e882b21327767"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionEnvironmentDefinition.cs",
+              "sha256": "628c70c127a3cc074f4b5e5ae31000b50324a2e19e9dc6cc63fde5f8cecd31a3"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/VegetationPresentation.cs",
+              "sha256": "1a7c3ca577782aefd04aaed0be3d6e1d6c6f8a35599075706126183f4071aef5"
+            },
+            {
+              "path": "Assets/Tests/PlayMode/ProductionForestVisibilityTests.cs",
+              "sha256": "39bb7bc29b99100d44b000672391649cfd9a2701b17d76e9f7b7ce38b149ee9d"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/WeatherPresentation.cs",
+              "sha256": "84e23f0bbc88c31151464fd4d07da9a0c16f2bf20f0366edd36c937c0554f021"
+            },
+            {
+              "path": "Assets/Shaders/Snow.shader",
+              "sha256": "93491565cd0dbf7a17d4faecd4d77bf54821a321a31355f7691ca387498d51c5"
+            },
+            {
+              "path": "scripts/content/m13/generate_environment.py",
+              "sha256": "2d8530631891306b73c7fc7eaf1c7a1413be784ad437d3133bca4b3e5f680acb"
+            },
+            {
+              "path": "scripts/content/m13/recipes/woodland_basin_environment_recipe_v1.json",
+              "sha256": "37fe6e83ebfd98236a62bcec71f41de22fad242ac7a72862932197db25b8315c"
+            }
+          ],
+          "resource_sha256": [
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/manifest",
+              "sha256": "195c44cf28c1c5f0ff57a8c4ae3ad3a372a3413b2116ac300f925f5e7f3807bf"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/mass_start_profile",
+              "sha256": "e06ba78cdf5c9c7d08282bc8bdff9f94d3f0ee4302698b6cd0e017a6f48d83ba"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/mass_start_route",
+              "sha256": "91835d00c76ba270701704a9b019fac18f40cd16cde7ccafe7829168ca5fe785"
+            },
+            {
+              "path": "Biathlon/race_snow_neutral_v1",
+              "sha256": "16106bfee89b08149ab82b1c68dd8951cf14069c5d26fe56f7c88210f708f421"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/environment",
+              "sha256": "fdc32da3f73ef4a405b430d56df66fb5f77f5d3293936fb51899bda27701c377"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/track",
+              "sha256": "4f660db9aedcaacf7993a5dc02fda28fbadf0246ee561bbed9ec3057f512d8e0"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/visual",
+              "sha256": "23c79b905c18b1e72ca3445125117d9300b614bd7eedb67d16a4c000fddf7238"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/paths",
+              "sha256": "d2e3b41cc2076c4b77a28226ccbc4e5408c0980038c9a74969b79f9508fa8112"
+            }
+          ]
+        },
+        {
+          "id": "highland-chase",
+          "metadata_path": "docs/quality/m13/venue01-captures-high-forest-review/highland-chase.json",
+          "metadata_sha256": "a11396810fb664bc8275c5d8994f88e471930de827c5a39309fb492f2b99e2b2",
+          "png_path": "docs/quality/m13/venue01-captures-high-forest-review/highland-chase.png",
+          "png_sha256": "62968953faf39db612361c1d227a9233d7a641f9779cd973c46285e90a441281",
+          "size": [
+            2560,
+            1440
+          ],
+          "baseline_native_visible_trees": 301,
+          "actual_native_visible_trees": 6201,
+          "independent_conservative_canopy_prediction": 6201,
+          "actual_matches_independent_prediction": true,
+          "camera_maximum_component_difference_m": {
+            "camera_position": 0.0,
+            "look_at": 0.0
+          },
+          "tick": 0,
+          "camera_frame": 15802,
+          "save_frame": 20844,
+          "baseline_tick": 1030,
+          "all_current_source_and_resource_hashes_match": true,
+          "source_sha256": [
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionCoursePresentation.cs",
+              "sha256": "97f01ad3c90ae9804c65601fa0b6c1bcb36b2a2998c62b576379efaf968ce506"
+            },
+            {
+              "path": "Assets/Tests/PlayMode/ProductionTerrainContactTests.cs",
+              "sha256": "0209aa53f9a25626d43c0227d703e5b146eceef5bd11c03b19a5d06fea87c79c"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionVenueHost.cs",
+              "sha256": "ffec37e1f5a8ce600f2b91089987adf53d3e7acf36bc4a22bd59959f7d67a602"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionVenueEnvironment.cs",
+              "sha256": "a6956ed22554a3c3ffe71e0894981645571a0d6552558f2a196e882b21327767"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionEnvironmentDefinition.cs",
+              "sha256": "628c70c127a3cc074f4b5e5ae31000b50324a2e19e9dc6cc63fde5f8cecd31a3"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/VegetationPresentation.cs",
+              "sha256": "1a7c3ca577782aefd04aaed0be3d6e1d6c6f8a35599075706126183f4071aef5"
+            },
+            {
+              "path": "Assets/Tests/PlayMode/ProductionForestVisibilityTests.cs",
+              "sha256": "39bb7bc29b99100d44b000672391649cfd9a2701b17d76e9f7b7ce38b149ee9d"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/WeatherPresentation.cs",
+              "sha256": "84e23f0bbc88c31151464fd4d07da9a0c16f2bf20f0366edd36c937c0554f021"
+            },
+            {
+              "path": "Assets/Shaders/Snow.shader",
+              "sha256": "93491565cd0dbf7a17d4faecd4d77bf54821a321a31355f7691ca387498d51c5"
+            },
+            {
+              "path": "scripts/content/m13/generate_environment.py",
+              "sha256": "2d8530631891306b73c7fc7eaf1c7a1413be784ad437d3133bca4b3e5f680acb"
+            },
+            {
+              "path": "scripts/content/m13/recipes/woodland_basin_environment_recipe_v1.json",
+              "sha256": "37fe6e83ebfd98236a62bcec71f41de22fad242ac7a72862932197db25b8315c"
+            }
+          ],
+          "resource_sha256": [
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/manifest",
+              "sha256": "195c44cf28c1c5f0ff57a8c4ae3ad3a372a3413b2116ac300f925f5e7f3807bf"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/mass_start_profile",
+              "sha256": "e06ba78cdf5c9c7d08282bc8bdff9f94d3f0ee4302698b6cd0e017a6f48d83ba"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/mass_start_route",
+              "sha256": "91835d00c76ba270701704a9b019fac18f40cd16cde7ccafe7829168ca5fe785"
+            },
+            {
+              "path": "Biathlon/race_snow_neutral_v1",
+              "sha256": "16106bfee89b08149ab82b1c68dd8951cf14069c5d26fe56f7c88210f708f421"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/environment",
+              "sha256": "fdc32da3f73ef4a405b430d56df66fb5f77f5d3293936fb51899bda27701c377"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/track",
+              "sha256": "4f660db9aedcaacf7993a5dc02fda28fbadf0246ee561bbed9ec3057f512d8e0"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/visual",
+              "sha256": "23c79b905c18b1e72ca3445125117d9300b614bd7eedb67d16a4c000fddf7238"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/paths",
+              "sha256": "d2e3b41cc2076c4b77a28226ccbc4e5408c0980038c9a74969b79f9508fa8112"
+            }
+          ]
+        },
+        {
+          "id": "snow-edge",
+          "metadata_path": "docs/quality/m13/venue01-captures-high-forest-review/snow-edge.json",
+          "metadata_sha256": "f89ea6a8f395b114fb717c7e9176ae950cc40773073bd3a3adf36a90c60302a3",
+          "png_path": "docs/quality/m13/venue01-captures-high-forest-review/snow-edge.png",
+          "png_sha256": "98f4f489f528f8ba2a666bb3fb8dcd02e55ae9d690568120d121e2950cd09abd",
+          "size": [
+            2560,
+            1440
+          ],
+          "baseline_native_visible_trees": 246,
+          "actual_native_visible_trees": 7370,
+          "independent_conservative_canopy_prediction": 7370,
+          "actual_matches_independent_prediction": true,
+          "camera_maximum_component_difference_m": {
+            "camera_position": 0.0,
+            "look_at": 0.0
+          },
+          "tick": 0,
+          "camera_frame": 20846,
+          "save_frame": 25075,
+          "baseline_tick": 1030,
+          "all_current_source_and_resource_hashes_match": true,
+          "source_sha256": [
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionCoursePresentation.cs",
+              "sha256": "97f01ad3c90ae9804c65601fa0b6c1bcb36b2a2998c62b576379efaf968ce506"
+            },
+            {
+              "path": "Assets/Tests/PlayMode/ProductionTerrainContactTests.cs",
+              "sha256": "0209aa53f9a25626d43c0227d703e5b146eceef5bd11c03b19a5d06fea87c79c"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionVenueHost.cs",
+              "sha256": "ffec37e1f5a8ce600f2b91089987adf53d3e7acf36bc4a22bd59959f7d67a602"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionVenueEnvironment.cs",
+              "sha256": "a6956ed22554a3c3ffe71e0894981645571a0d6552558f2a196e882b21327767"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/ProductionEnvironmentDefinition.cs",
+              "sha256": "628c70c127a3cc074f4b5e5ae31000b50324a2e19e9dc6cc63fde5f8cecd31a3"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/VegetationPresentation.cs",
+              "sha256": "1a7c3ca577782aefd04aaed0be3d6e1d6c6f8a35599075706126183f4071aef5"
+            },
+            {
+              "path": "Assets/Tests/PlayMode/ProductionForestVisibilityTests.cs",
+              "sha256": "39bb7bc29b99100d44b000672391649cfd9a2701b17d76e9f7b7ce38b149ee9d"
+            },
+            {
+              "path": "Assets/Scripts/Unity/Presentation/WeatherPresentation.cs",
+              "sha256": "84e23f0bbc88c31151464fd4d07da9a0c16f2bf20f0366edd36c937c0554f021"
+            },
+            {
+              "path": "Assets/Shaders/Snow.shader",
+              "sha256": "93491565cd0dbf7a17d4faecd4d77bf54821a321a31355f7691ca387498d51c5"
+            },
+            {
+              "path": "scripts/content/m13/generate_environment.py",
+              "sha256": "2d8530631891306b73c7fc7eaf1c7a1413be784ad437d3133bca4b3e5f680acb"
+            },
+            {
+              "path": "scripts/content/m13/recipes/woodland_basin_environment_recipe_v1.json",
+              "sha256": "37fe6e83ebfd98236a62bcec71f41de22fad242ac7a72862932197db25b8315c"
+            }
+          ],
+          "resource_sha256": [
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/manifest",
+              "sha256": "195c44cf28c1c5f0ff57a8c4ae3ad3a372a3413b2116ac300f925f5e7f3807bf"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/mass_start_profile",
+              "sha256": "e06ba78cdf5c9c7d08282bc8bdff9f94d3f0ee4302698b6cd0e017a6f48d83ba"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/mass_start_route",
+              "sha256": "91835d00c76ba270701704a9b019fac18f40cd16cde7ccafe7829168ca5fe785"
+            },
+            {
+              "path": "Biathlon/race_snow_neutral_v1",
+              "sha256": "16106bfee89b08149ab82b1c68dd8951cf14069c5d26fe56f7c88210f708f421"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/environment",
+              "sha256": "fdc32da3f73ef4a405b430d56df66fb5f77f5d3293936fb51899bda27701c377"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/track",
+              "sha256": "4f660db9aedcaacf7993a5dc02fda28fbadf0246ee561bbed9ec3057f512d8e0"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/visual",
+              "sha256": "23c79b905c18b1e72ca3445125117d9300b614bd7eedb67d16a4c000fddf7238"
+            },
+            {
+              "path": "Biathlon/Venues/woodland_basin_v1/paths",
+              "sha256": "d2e3b41cc2076c4b77a28226ccbc4e5408c0980038c9a74969b79f9508fa8112"
+            }
+          ]
+        }
+      ]
+    },
+    "review_path": "artifacts/wp169z/final-visual-review.md",
+    "review_sha256": "1d12b21a8543eb0fca3d363d57c1432fa1d94f7017aed69474b15c9de2bcce75",
+    "folder_readme": "docs/quality/m13/venue01-captures-high-forest-review/README.md",
+    "folder_readme_sha256": "e849ae8b0d444ca85c1d931ea1f87d439797b94637949ad791249c611746f6d6",
+    "visibility_review": "PASS for boundedproductionHigh forest correction; allfivePNG independently inspected",
+    "performance_qualification": false,
+    "overall_wp169_visual_acceptance": "OPEN originalMain568multi-format overlap wall remains"
+  },
+  "known_limitations": [
+    "No GPU/FPS/frame-time qualification",
+    "High visibility deliberately submits more geometry",
+    "Orthographic/physical/custom projection uses conservative completefrustum",
+    "Projection-aware zoom retains existing nearLOD/shadow policy and mayadd shadow casters",
+    "Separate T2/live-route-presentation overlap step remains visuallyOPEN; no WP169DONE"
+  ]
+}

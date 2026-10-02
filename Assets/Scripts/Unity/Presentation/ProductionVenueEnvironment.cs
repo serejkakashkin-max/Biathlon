@@ -84,7 +84,7 @@ namespace Biathlon.Unity.Presentation
                     var placement=new VegetationInstance[trees.Length];var species=new byte[trees.Length];
                     for(int t=0;t<trees.Length;t++){var tree=trees[t];placement[t]=new VegetationInstance(tree.position-group.center,tree.scale,tree.yaw_deg,tree.density_rank);species[t]=(byte)(tree.species=="pine"?1:0);}
                     var go=Child(group.id,group.center,Quaternion.identity);var forest=go.AddComponent<VegetationPresentation>();
-                    forest.Initialize(null,true,null,true,true,placement,species);forests[i]=forest;TreeCount+=trees.Length;
+                    forest.Initialize(null,true,null,true,true,placement,species,prepared.HighForestFogEndMeters);forests[i]=forest;TreeCount+=trees.Length;
                 }
                 var crowdList=new List<SpectatorCrowd>();
                 for(int i=0;i<data.assets.Length;i++)
@@ -123,6 +123,7 @@ namespace Biathlon.Unity.Presentation
             internal ProductionTerrainHeights[] Heights;internal ProductionForestInstances[] Trees;internal TerrainBlendCorridor[] Corridors;
             internal TerrainBlendDefinition Blend;internal LightingVisualPreset Lighting;internal TargetGeometryDefinition Geometry;
             internal string DefaultTier;
+            internal float? HighForestFogEndMeters;
             internal Material Snow,Sky,Backstop;internal TargetBankArt Bank;internal GameObject[] Prefabs;internal Mesh[] Meshes;internal Material[] Materials;
         }
         private static Prepared Prepare(VenueAuthoringPlan plan,ProductionEnvironmentDefinition data,Func<string,string> read)
@@ -172,7 +173,8 @@ namespace Biathlon.Unity.Presentation
                     Vector3.Angle(Quaternion.Euler(0,bank.yaw_deg,0)*Vector3.forward,forward)>.01f)throw new ArgumentException("Target bank does not bind its actual personal mat.");
             }
             p.Lighting=LightingVisualDefinition.FromJson(Read(read,data.lighting.resource)).Get(data.lighting.preset_id);
-            WeatherVisualDefinition.FromJson(Read(read,data.lighting.weather_resource)).Get(data.lighting.weather_preset);
+            var weatherPreset=WeatherVisualDefinition.FromJson(Read(read,data.lighting.weather_resource)).Get(data.lighting.weather_preset);
+            if(data.forest.high_visibility!=null)p.HighForestFogEndMeters=weatherPreset.fog_end_m*data.lighting.fog_distance_scale;
             p.Snow=Require<Material>(data.terrain.material_resource);p.Sky=Require<Material>(data.lighting.sky_material_resource);p.Bank=Require<TargetBankArt>(data.range.bank_resource);
             for(int i=0;i<5;i++)if(p.Bank.Aperture(i)==null)throw new ArgumentException("Native target bank has an unbound face.");
             Require<Material>("Biathlon/Stadium/ProneTargetFace");Require<Material>("Biathlon/Snow/Spray");SnowMaterialDefinition.FromJson(Read(read,"Biathlon/snow_material_v1"));

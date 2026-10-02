@@ -8,6 +8,7 @@ namespace Biathlon.Unity.Presentation
     public sealed class VegetationPresentation : MonoBehaviour
     {
         private VegetationDefinition definition;
+        private float? productionHighFogEndMeters;
         private VegetationInstance[] instances;
         private readonly Matrix4x4[][] matrices=new Matrix4x4[6][];
         private readonly Mesh[] meshes=new Mesh[6];
@@ -32,12 +33,15 @@ namespace Biathlon.Unity.Presentation
         public bool UsesSimplifiedShadows {get;private set;}
         public bool SimplifyingCurrentShadows {get;private set;}
         public bool UsesExplicitSpecies {get;private set;}
+        public float? ProductionHighFogEndMeters=>productionHighFogEndMeters;
         public Bounds PreparedWorldBounds=>preparedWorldBounds;
         public int InstanceSpecies(int index)=>species[index];
         public Vector3 InstanceWorldPosition(int index)=>transform.TransformPoint(instances[index].Position);
-        public void Initialize(Vector3[] route,bool useAuditedFir=false,Func<Vector3,float> groundHeight=null,bool useAuditedPine=false,bool useSimplifiedShadows=false,VegetationInstance[] authoredInstances=null,byte[] authoredSpecies=null)
+        public void Initialize(Vector3[] route,bool useAuditedFir=false,Func<Vector3,float> groundHeight=null,bool useAuditedPine=false,bool useSimplifiedShadows=false,VegetationInstance[] authoredInstances=null,byte[] authoredSpecies=null,float? productionHighFogEndMeters=null)
         {
             if(definition!=null)throw new InvalidOperationException("Forest already initialized.");
+            if(productionHighFogEndMeters.HasValue&&(!float.IsFinite(productionHighFogEndMeters.Value)||productionHighFogEndMeters.Value<=0||authoredInstances==null||authoredSpecies==null||!useAuditedFir||!useAuditedPine))
+                throw new ArgumentException("Production High fog visibility requires a finite positive horizon and explicit audited trees.");
             if(useAuditedPine&&!useAuditedFir)throw new ArgumentException("Pine composition requires the audited forest.");
             if(authoredSpecies!=null)
             {
@@ -82,6 +86,7 @@ namespace Biathlon.Unity.Presentation
             UsesAuditedFir=useAuditedFir;UsesAuditedPine=useAuditedPine;
             UsesSimplifiedShadows=useSimplifiedShadows;
             UsesExplicitSpecies=authoredSpecies!=null;
+            this.productionHighFogEndMeters=productionHighFogEndMeters;
             properties=new MaterialPropertyBlock();
         }
         public void Prepare(Camera camera,string tier,float presentationTime,Vector2? observedWind=null)
@@ -93,16 +98,30 @@ namespace Biathlon.Unity.Presentation
             float density=definition.Density(tier);for(int i=0;i<counts.Length;i++)counts[i]=0;SubmittedTriangles=0;ShadowSourceTriangles=0;
             GeometryUtility.CalculateFrustumPlanes(camera,planes);
             var world=transform.localToWorldMatrix;var eye=camera.transform.position;float lodScale=ProjectionAwareLod.Scale(camera);bool firstBounds=true;
+            bool fogBoundedHigh=productionHighFogEndMeters.HasValue&&tier=="high";
+            // The shader's clip-Z fog remap is certified for the standard perspective
+            // matrix. Unsupported orthographic/physical/oblique projections retain
+            // their complete frustum rather than discarding potentially unfogged trees.
+            bool fogDepthSupported=fogBoundedHigh&&!camera.orthographic&&!camera.usePhysicalProperties&&
+                SameProjection(camera.projectionMatrix,Matrix4x4.Perspective(camera.fieldOfView,camera.aspect,camera.nearClipPlane,camera.farClipPlane));
+            var forward=camera.transform.forward;var absoluteForward=new Vector3(Mathf.Abs(forward.x),Mathf.Abs(forward.y),Mathf.Abs(forward.z));
+            float fogDepth=fogBoundedHigh?productionHighFogEndMeters.Value+camera.nearClipPlane:0;
             preparedWorldBounds=new Bounds(transform.position,Vector3.zero);
             for(int index=0;index<instances.Length;index++)
             {
                 var tree=instances[index];
                 if(tree.DensityRank>=density)continue;
-                var position=world.MultiplyPoint3x4(tree.Position);float distance=Vector3.Distance(position,eye);if(definition.Lod(distance)<0)continue;int lod=definition.Lod(distance*lodScale);
+                var position=world.MultiplyPoint3x4(tree.Position);float distance=Vector3.Distance(position,eye);
+                if(!fogBoundedHigh&&definition.Lod(distance)<0)continue;
+                float lodDistance=distance*lodScale;
+                int lod=fogBoundedHigh?(lodDistance>=definition.far_lod_m?2:lodDistance>=definition.near_lod_m?1:0):definition.Lod(lodDistance);
                 // Includes canopy, height and maximum wind excursion. Intended sector root is unit scale.
                 int type=species[index];float radius=canopyRadius[type]*tree.Scale+definition.wind_amplitude_m;
                 var bounds=UsesExplicitSpecies?new Bounds(position+Vector3.up*((canopyMinY[type]+canopyMaxY[type])*.5f*tree.Scale),
                     new Vector3(radius*2,(canopyMaxY[type]-canopyMinY[type])*tree.Scale,radius*2)):new Bounds(position+Vector3.up*4*tree.Scale,new Vector3(6,9,6)*tree.Scale);
+                // URP linear fog uses camera depth. Keep any canopy/wind portion in front
+                // of the bound fog plane, including the conservative near-clip margin.
+                if(fogDepthSupported&&Vector3.Dot(bounds.center-eye,forward)-Vector3.Dot(bounds.extents,absoluteForward)>=fogDepth)continue;
                 if(!GeometryUtility.TestPlanesAABB(planes,bounds))continue;
                 if(firstBounds){preparedWorldBounds=bounds;firstBounds=false;}else preparedWorldBounds.Encapsulate(bounds);
                 int group=species[index]*3+lod;
@@ -115,6 +134,8 @@ namespace Biathlon.Unity.Presentation
             properties.SetVector(WindDirection,new Vector4(direction.x,direction.y,0,0));
             properties.SetFloat(Snow,definition.snow_coverage);
         }
+        private static bool SameProjection(Matrix4x4 actual,Matrix4x4 expected)
+        {for(int i=0;i<16;i++)if(actual[i]!=expected[i])return false;return true;}
         public void Render(Camera camera,string tier,float presentationTime,Vector2? observedWind=null)
         {
             Prepare(camera,tier,presentationTime,observedWind);

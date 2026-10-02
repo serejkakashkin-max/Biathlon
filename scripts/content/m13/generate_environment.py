@@ -100,6 +100,21 @@ def lighting_overrides(recipe):
             raise ValueError('Fog distance scale must be finite and within 1–3.')
     return dict(lighting)
 
+def forest_high_visibility(recipe):
+    """Independent optional renderer policy; never activates forest identity tuning."""
+    policy=recipe.get('forest_high_visibility')
+    if policy is None:
+        if 'forest_high_visibility' in recipe:raise ValueError('High forest visibility policy must be an object.')
+        return None
+    if not isinstance(policy,dict) or set(policy)!={'schema_version','id','mode'}:
+        raise ValueError('High forest visibility policy requires version, identity and mode only.')
+    if type(policy['schema_version']) is not int or policy['schema_version']!=1 or policy['mode']!='fog_frustum_v1':
+        raise ValueError('Unsupported High forest visibility policy.')
+    identity=policy['id']
+    if not isinstance(identity,str) or len(identity)>256 or not re.fullmatch(r'[A-Za-z0-9_-]+',identity):
+        raise ValueError('Stable single-component High forest visibility identity required.')
+    return dict(policy)
+
 SCRIPT_DIRECTORY=Path(__file__).resolve().parent
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--project-root',type=Path,default=SCRIPT_DIRECTORY.parents[2])
@@ -116,6 +131,7 @@ ENVIRONMENT_RECIPE={} if arguments.recipe is None else json.loads(arguments.reci
 if ENVIRONMENT_RECIPE:assert ENVIRONMENT_RECIPE['schema_version']==1 and ENVIRONMENT_RECIPE['venue_id']==VENUE
 forest_recipe=ENVIRONMENT_RECIPE.get('forest',{})
 environment_lighting=lighting_overrides(ENVIRONMENT_RECIPE)
+environment_high_visibility=forest_high_visibility(ENVIRONMENT_RECIPE)
 def read(relative):return json.loads((RESOURCES/(relative+'.json')).read_text(encoding='utf-8-sig'))
 def project_read(relative):return json.loads((PROJECT/'Assets/Resources'/(relative+'.json')).read_text(encoding='utf-8-sig'))
 def write(relative,data):
@@ -327,6 +343,8 @@ if forest_recipe:
     environment['forest']['original_venue_identity']={'recipe_id':ENVIRONMENT_RECIPE['id'],'explicit_clearings':clearings,
         'minimum_scale':forest_minimum_scale,'maximum_scale':forest_maximum_scale,'exposed_height_m':forest_recipe['exposed_height_m'],'exposed_density_fraction':forest_recipe['exposed_density_fraction']}
 environment['lighting'].update(environment_lighting)
+if environment_high_visibility is not None:
+    environment['forest']['high_visibility']=environment_high_visibility
 if len(height_loop_ids)>1:
     height_recipe=environment['terrain']['height_recipe']
     height_recipe['id']='nearest_counted_course_height_with_basin_blend_v1'
