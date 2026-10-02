@@ -114,9 +114,16 @@ private_stop = q * chord + 9 + q * chord
 lane_count = RECIPE["lane_count"]
 pitch = RECIPE["lane_pitch_m"]
 side = RECIPE["side_margin_m"]
-aisle_length = (lane_count - 1) * pitch + 2 * side
-right = aisle_length / 2
-left = -right
+base_aisle_length = (lane_count - 1) * pitch + 2 * side
+# Optional counted space after the last mat merge separates it from the common
+# rejoin guard. Keep mat positions/pitch and incoming staging unchanged. The
+# longer overlay starts earlier within the same exact lap, with no path rescale.
+exit_tail_extension = RECIPE.get("exit_tail_extension_m", 0)
+assert exit_tail_extension >= 0
+mm(exit_tail_extension)
+aisle_length = base_aisle_length + exit_tail_extension
+right = base_aisle_length / 2
+left = right - aisle_length
 overlay_length = aisle_length + private_length
 overlay_exit = RECIPE["lap_length_m"] - RECIPE["finish_lead_m"]
 overlay_entry = overlay_exit - overlay_length

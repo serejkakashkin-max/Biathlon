@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "id": "wp169o_counted_range_exit_tail_verification_20261002",
+  "date": "2026-10-02",
+  "status": "PASS_BOUNDED_GEOMETRY_STATIC_IMPORT_SCOPE",
+  "work_package_status": "IN_PROGRESS",
+  "sources": [
+    {
+      "path": "scripts/content/m13/generate_venue01.py",
+      "sha256": "2c053e229d3cddc9c88a74ec197de8c1851856a3e0cc0caf9b50dfe048ab93ab"
+    },
+    {
+      "path": "scripts/content/m13/recipes/woodland_basin_geometry_recipe_v1.json",
+      "sha256": "31b10cb682dfe9fa7393e3d68b4915d9823c647c712f416392c4e00b128a2286"
+    },
+    {
+      "path": "scripts/content/m13/test_range_exit_tail.py",
+      "sha256": "2c0212ba6de14d80b552968de697f13cbadb879892e9c8f2dfcb196f4f03f71c"
+    }
+  ],
+  "recipe": {
+    "default_extension_m": 0,
+    "woodland_extension_m": 34,
+    "last_merge_m": 185,
+    "exit_rejoin_m": 230,
+    "actual_downstream_travel_m": 45,
+    "full_body_guard_clear_interval_m": 21.5,
+    "main_overlay_entry_m": 2680.592,
+    "main_overlay_exit_m": 2950,
+    "overlay_length_m": 269.408,
+    "main_length_m": 3000,
+    "penalty_length_m": 150,
+    "guards_shrunk": 0,
+    "guards_removed": 0,
+    "mat_positions_or_body_changed": false
+  },
+  "python_tests": {
+    "command": "python -m unittest discover -s scripts/content/m13 -p test_range_exit_tail.py -v",
+    "passed": 4,
+    "failed": 0,
+    "cases": [
+      "All exact counted lanes and standard lap/penalty totals",
+      "Existing guard lengths/private body corridors/world mat geometry retained",
+      "Historical negative clear interval becomes positive21.5m",
+      "Negative recipe extension rejected"
+    ]
+  },
+  "static": {
+    "artifact": "artifacts/wp169o/formats-draft/static-report.json",
+    "sha256": "be9d994f9a0bd6bf77ff122ac70d442a45c6f72070198abd85c731019471e0cc",
+    "result": {
+      "id": "woodland_basin_v1",
+      "issues": [],
+      "policy_id": "production_venue_validation_v1",
+      "schema_version": 1,
+      "static_checks_pass": true
+    }
+  },
+  "formats": {
+    "artifact": "artifacts/wp169o/formats-draft/formats-verification.json",
+    "sha256": "f22709d2010821b1050986298f464cb4e652551893466437250f5740fb247b1f",
+    "result": {
+      "schema_version": 1,
+      "id": "woodland_basin_serialized_format_routes_verification_v1",
+      "status": "PASS_EXACT_SERIALIZED_GEOMETRY_TOPOLOGY_ROUTE_ARITHMETIC_RUNTIME_PENDING",
+      "venue_id": "woodland_basin_v1",
+      "edge_count": 1322,
+      "slice_count": 30,
+      "maximum_world_edge_length_error_m": 9.769962616701378E-14,
+      "maximum_grade_error": 0.0,
+      "directed_connection_count": 69,
+      "maximum_directed_seam_world_gap_m": 0.0,
+      "unchanged_base_loop_count": 34,
+      "unchanged_lane_path_count": 30,
+      "formats": [
+        {
+          "format": "mass_start",
+          "distance_m": 15000.0,
+          "lap_distances_m": [
+            3000.0,
+            3000.0,
+            3000.0,
+            3000.0,
+            3000.0
+          ],
+          "finish_anchor": {
+            "loop_id": "main",
+            "distance_m": 3000.0
+          }
+        },
+        {
+          "format": "sprint",
+          "distance_m": 10000.0,
+          "lap_distances_m": [
+            3333.333,
+            3333.333,
+            3333.334
+          ],
+          "finish_anchor": {
+            "loop_id": "main",
+            "distance_m": 0.001
+          }
+        },
+        {
+          "format": "pursuit",
+          "distance_m": 12500.0,
+          "lap_distances_m": [
+            2500.0,
+            2500.0,
+            2500.0,
+            2500.0,
+            2500.0
+          ],
+          "finish_anchor": {
+            "loop_id": "main",
+            "distance_m": 3000.0
+          }
+        }
+      ],
+      "authority_boundary": "Independent serialized proof; full cold catalog/occupancy/Unity/race/replay acceptance still required",
+      "source_hashes": {
+        "track": "4f660db9aedcaacf7993a5dc02fda28fbadf0246ee561bbed9ec3057f512d8e0",
+        "visual": "23c79b905c18b1e72ca3445125117d9300b614bd7eedb67d16a4c000fddf7238",
+        "paths": "d2e3b41cc2076c4b77a28226ccbc4e5408c0980038c9a74969b79f9508fa8112",
+        "junctions": "3d3789c918474ee4ee57a7fe29aceceef1669602defa2959350f7b4a689948d0",
+        "connections": "7f4370678bd87792b93b95f12ac3c1ddb2a8c8e1d3e9a283471f3db7f8024566",
+        "sprint_route": "28864f04320e5f9e384a6a65667f3a9fbb36a7496fca50c4e7c5a2552e4be77b",
+        "pursuit_route": "bc262cab07b0b05b307e4671a1ecc3032e80a81ed0f9cef5429f0243cfe309a3"
+      }
+    }
+  },
+  "environment": {
+    "artifact": "artifacts/wp169o/formats-draft/environment-verification.json",
+    "sha256": "61dc0e929cd0512e89e05267a49dcaf9ca92259d00cbc2084b84b85e83396e82",
+    "status": "PASS_STATIC_DATA_RUNTIME_VISUAL_AND_PERFORMANCE_PENDING",
+    "tiles": 99,
+    "trees": 26441,
+    "ribbon_triangle_count": 8558,
+    "buried_ribbon_triangle_count": 0,
+    "minimum_ribbon_minus_terrain_m": 0.02999720466323197
+  },
+  "import": {
+    "artifact": "artifacts/wp169o/imported-resource-index.json",
+    "sha256": "3e360ec44d8fb813d95e93fe280f2d3cdf76e499e5f77588854246fe84e1e3be",
+    "resources": 205,
+    "indexed_hash_mismatches": 0,
+    "draft_to_assets_byte_mismatches": 0
+  },
+  "dotnet_compatibility": {
+    "artifact": "artifacts/wp169n/tests/range-ai-final-compatible.trx",
+    "sha256": "c08e39b35d8b42d75a288f32b9658fc712b19332b80d9719e10124793fa9e872",
+    "configuration": "Release",
+    "total": 58,
+    "passed": 58,
+    "failed": 0,
+    "classes": [
+      {
+        "class": "Biathlon.Tests.AiRangeTrafficTests",
+        "count": 7
+      },
+      {
+        "class": "Biathlon.Tests.AiStartTrafficTests",
+        "count": 6
+      },
+      {
+        "class": "Biathlon.Tests.AiTelemetryTests",
+        "count": 3
+      },
+      {
+        "class": "Biathlon.Tests.PhysicalRangePerceptionTests",
+        "count": 8
+      },
+      {
+        "class": "Biathlon.Tests.PhysicalStartContinuationTests",
+        "count": 29
+      },
+      {
+        "class": "Biathlon.Tests.ProductionVenueRaceFactoryTests",
+        "count": 5
+      }
+    ]
+  },
+  "prototype": {
+    "scenario": "Isolated cloned safe-centering runner plus regenerated Mass base34m exit tail; original immutable Release core",
+    "artifact": "artifacts/wp169j/dense-start-probe/range-safe-centre-exit-tail34-v2-prefix.json",
+    "sha256": "ab88c0d7c374dc42cd3b35fc3f2a6857535a441967a1c81af2fe48ba9895c371",
+    "completed_tick": 57832,
+    "peak_shooting": 10,
+    "final_source_acceptance": false,
+    "stationary_counter_note": "Clone includes finished athletes; live maximum311 before first finishes, accumulated finished-idle9478 is not a traffic stall"
+  },
+  "pending": [
+    "Final immutable Mass/Sprint/Pursuit complete production races after P/R freeze",
+    "Exact complete repeat event/result comparison and persisted production replay",
+    "Root-owned final integrated Unity/visual acceptance"
+  ],
+  "legacy_complete_replay": {
+    "status": "PASS",
+    "artifact": "artifacts/wp169n/tests/range-ai-final-legacy-replay.trx",
+    "sha256": "77030c0b452a537cf7e7ce61df1f11ecb4937eba042df94ffbe96c511a1d9be5",
+    "total": 25,
+    "passed": 25,
+    "failed": 0,
+    "classes": [
+      {
+        "class": "Biathlon.Tests.MassStartFieldTests",
+        "count": 3
+      },
+      {
+        "class": "Biathlon.Tests.PackSprintRaceReplayTests",
+        "count": 17
+      },
+      {
+        "class": "Biathlon.Tests.PursuitFieldTests",
+        "count": 2
+      },
+      {
+        "class": "Biathlon.Tests.SprintRaceReplayTests",
+        "count": 3
+      }
+    ],
+    "same_immutable_build": true
+  }
+}
