@@ -280,7 +280,10 @@ namespace Biathlon.Tests
         [Test] public void WarmCurvedWorldProofAndSharedPackStepsAllocateNothing()
         {
             var f=Fixture();var map=Map(f);var a=Sweep(f,"a","authored_start",30,.1,-1,-1);var b=Sweep(f,"b","authored_start",30,.1,1,1);map.Conflicts(a,b);
-            long before=GC.GetAllocatedBytesForCurrentThread();int clear=0;for(int i=0;i<1000;i++)if(!map.Conflicts(a,b))clear++;long bytes=GC.GetAllocatedBytesForCurrentThread()-before;Assert.That(clear,Is.EqualTo(1000));Assert.That(bytes,Is.Zero);
+            // Release JIT may allocate the boxed expected value before the ending GC
+            // counter. Build the assertion constraint outside the measured query window.
+            var expectedClear=Is.EqualTo(1000);
+            long before=GC.GetAllocatedBytesForCurrentThread();int clear=0;for(int i=0;i<1000;i++)if(!map.Conflicts(a,b))clear++;long bytes=GC.GetAllocatedBytesForCurrentThread()-before;Assert.That(clear,expectedClear);Assert.That(bytes,Is.Zero);
             var field=Create(f,new RaceEventLog(1000),Definition(f));var commands=new SprintAthleteInput[3];var lines=new[]{-2d,0,2d};for(int i=0;i<30;i++){Fill(field,commands);field.Step(commands,lines);}
             before=GC.GetAllocatedBytesForCurrentThread();for(int i=0;i<10;i++){Fill(field,commands);field.Step(commands,lines);}bytes=GC.GetAllocatedBytesForCurrentThread()-before;Assert.That(bytes,Is.Zero);
         }

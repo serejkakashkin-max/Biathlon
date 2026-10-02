@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "id": "wp169n_paid_physical_range_ai_verification_20261002",
+  "date": "2026-10-02",
+  "status": "PASS_BOUNDED_AI_POLICY_SCOPE",
+  "work_package_status": "IN_PROGRESS",
+  "sources": [
+    {
+      "path": "Assets/Scripts/Domain/AiRangeTrafficPolicyDefinition.cs",
+      "sha256": "46863ae4045532dc685f202602550fa9e28fc214cb9b82226b90f680ae4d9a6c"
+    },
+    {
+      "path": "Assets/Scripts/AI/AiRangeTrafficPlanner.cs",
+      "sha256": "e9a2f6a81e3aff590d7d9ca5e0e37e43a7b15ba9dfa8a0890e959087ec71a4bc"
+    },
+    {
+      "path": "Assets/Scripts/AI/PackAiRaceRunner.cs",
+      "sha256": "7adc80ae9d5474a9bb9c2de867a942ea9bbcd21428ad3f47a6cd42c6fbc61799"
+    },
+    {
+      "path": "Assets/Scripts/AI/ProductionVenueRaceFactory.cs",
+      "sha256": "3f36d5d54d9820161c40464a6ec80b2068aa82798adbed4317296044cb547dbd"
+    },
+    {
+      "path": "Assets/Scripts/AI/OvertakeDecisionEvaluator.cs",
+      "sha256": "3c576edef9e120926970b13ad1343d8f47100dd5e47cfe6a4f96ceb000bb656a"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ai_range_traffic_provisional_v1.json",
+      "sha256": "47b83b65f2a96355f63499dc189a2e4991ae3f3f59ed1c3b3ef9718455beb509"
+    },
+    {
+      "path": "Assets/Tests/EditMode/AiRangeTrafficTests.cs",
+      "sha256": "9f104c7fcc3ec11206a74a8216e49bb5d3632514019d5aad3161d1c9bd0579fa"
+    },
+    {
+      "path": "Assets/Tests/EditMode/PhysicalStartContinuationTests.cs",
+      "sha256": "b71fa032492c0ae938dbca3f120adc4a022434f6ce66987a7bdaf41a00f3e3b9"
+    }
+  ],
+  "dotnet": {
+    "artifact": "artifacts/wp169n/tests/range-ai-final-compatible.trx",
+    "sha256": "c08e39b35d8b42d75a288f32b9658fc712b19332b80d9719e10124793fa9e872",
+    "configuration": "Release",
+    "total": 58,
+    "passed": 58,
+    "failed": 0,
+    "classes": [
+      {
+        "class": "Biathlon.Tests.AiRangeTrafficTests",
+        "count": 7
+      },
+      {
+        "class": "Biathlon.Tests.AiStartTrafficTests",
+        "count": 6
+      },
+      {
+        "class": "Biathlon.Tests.AiTelemetryTests",
+        "count": 3
+      },
+      {
+        "class": "Biathlon.Tests.PhysicalRangePerceptionTests",
+        "count": 8
+      },
+      {
+        "class": "Biathlon.Tests.PhysicalStartContinuationTests",
+        "count": 29
+      },
+      {
+        "class": "Biathlon.Tests.ProductionVenueRaceFactoryTests",
+        "count": 5
+      }
+    ]
+  },
+  "unity": {
+    "artifact": "artifacts/wp169n/final-ai-range-unity-correct-assembly.json",
+    "sha256": "047961aeccd9665b03ae4634cce39e4349c6c6723a27b61aaf759bbb4447e58c",
+    "summary": {
+      "Status": "Passed",
+      "TotalTests": 894,
+      "PassedTests": 7,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:02.8024069"
+    }
+  },
+  "proof": [
+    "Explicit optional policy: legacy null constructor neither reads nor records range policy",
+    "Lead distance bound to observed physical radius; exact threshold covered",
+    "Actual exit and final-bout exit remain aligned when next entry changes or disappears",
+    "Body-blocked convergence retains real line, allowing forward separation",
+    "Disabled broad-line fixture stalls before its narrow private mat; enabled reaches shooting",
+    "Same drive command pays greater relative effort for one gradual lateral step",
+    "Repeated AI and round-tripped command tape reproduce exact physical frames/events",
+    "Player input and desired lateral unchanged",
+    "Warm planner allocates zero"
+  ],
+  "release_allocation_harness": {
+    "original_artifact": "artifacts/wp169j/dense-start-probe/tests/range-ai-compatible.trx",
+    "original_passed": 56,
+    "original_failed": 1,
+    "cause": "Release JIT hoisted24-byte boxed NUnit expected1000 before final GC counter; isolated Map measurement0",
+    "disassembly": "artifacts/wp169j/dense-start-probe/allocation-probe/release-test-disassembly.txt",
+    "sha256": "a595295cbf00e8c959219069e928233608fe96f9f0a0edfc0f22df9eb6e1e3bb",
+    "repair": "Construct expectedClear constraint before measurement; retain1000 query-count and0-byte invariants",
+    "final_focused_artifact": "artifacts/wp169j/dense-start-probe/tests/range-ai-final-focused.trx",
+    "final_focused_passed": 8
+  },
+  "prototype": {
+    "scenario": "Isolated cloned safe-centering runner plus regenerated Mass base34m exit tail; original immutable Release core",
+    "artifact": "artifacts/wp169j/dense-start-probe/range-safe-centre-exit-tail34-v2-prefix.json",
+    "sha256": "ab88c0d7c374dc42cd3b35fc3f2a6857535a441967a1c81af2fe48ba9895c371",
+    "completed_tick": 57832,
+    "peak_shooting": 10,
+    "final_source_acceptance": false,
+    "stationary_counter_note": "Clone includes finished athletes; live maximum311 before first finishes, accumulated finished-idle9478 is not a traffic stall"
+  },
+  "pending": [
+    "Final immutable Mass/Sprint/Pursuit complete production races after P/R freeze",
+    "Exact complete repeat event/result comparison and persisted production replay",
+    "Root-owned final integrated Unity/visual acceptance"
+  ],
+  "legacy_complete_replay": {
+    "status": "PASS",
+    "artifact": "artifacts/wp169n/tests/range-ai-final-legacy-replay.trx",
+    "sha256": "77030c0b452a537cf7e7ce61df1f11ecb4937eba042df94ffbe96c511a1d9be5",
+    "total": 25,
+    "passed": 25,
+    "failed": 0,
+    "classes": [
+      {
+        "class": "Biathlon.Tests.MassStartFieldTests",
+        "count": 3
+      },
+      {
+        "class": "Biathlon.Tests.PackSprintRaceReplayTests",
+        "count": 17
+      },
+      {
+        "class": "Biathlon.Tests.PursuitFieldTests",
+        "count": 2
+      },
+      {
+        "class": "Biathlon.Tests.SprintRaceReplayTests",
+        "count": 3
+      }
+    ],
+    "same_immutable_build": true
+  }
+}
