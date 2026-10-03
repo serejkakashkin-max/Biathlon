@@ -14,7 +14,7 @@ The production field maximum is 40 total athletes, including the player. Sprint 
 - [Osrblie 2019 official stadium plans](https://osrblie2019.biathlon.sk/public/site/files/source/Mapy/Stadion/Plan_of_stadium_final.pdf), second PDF page: range, penalty loop, coaches, media and spectator areas.
 - [Oberhof official course overview](https://www.biathlon-oberhof.com/program/courses/).
 
-These are geometric and operational references, not licensed production venues or permission to copy branding/map artwork. Text and source references have been checked; rendered map diagrams still require inspection before claiming visual comparison.
+These are geometric and operational references, not licensed production venues or permission to copy branding/map artwork. Text and source references have been checked. Lenzerheide PDF pages11/12 and Osrblie PDF page2 were also rendered and visually inspected; the read-only source/render hashes and findings are recorded in [reference review](../quality/m13/production-range-realism-reference-review-2026-10-03.md).
 
 ## Engineering status and acceptance
 
