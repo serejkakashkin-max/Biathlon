@@ -1,0 +1,648 @@
+{
+  "schema_version": 1,
+  "id": "wp169t2_route_scoped_course_presentation_v1",
+  "status": "PASS_T2_ROUTE_SCOPED_NATIVE_RENDERED_CONTACT_ACCEPTANCE",
+  "wp169_done": false,
+  "visual_pass": false,
+  "new_compact_range": false,
+  "max40_qualification": false,
+  "new_race_qualification": false,
+  "scope": "Presentation-only original paid panel selection, shared native renderer-frame joins and complete taper rollback on projected-degenerate face. Environment terrain vertex coordinate representation explicitly changes from tile-local to original Build+center; raw terrain buffers are not claimed byte-identical across that implementation change.",
+  "sources": [
+    {
+      "path": "Assets/Scripts/Unity/Presentation/TrackRibbonBuilder.cs",
+      "sha256": "8750ab299077c3e7c9430fe55617206d57a9072a602cd15fec251646856ab1ec",
+      "bytes": 2514
+    },
+    {
+      "path": "Assets/Scripts/Unity/Presentation/ProductionCoursePresentation.cs",
+      "sha256": "9c723536a3a55c1850cec081038b087365cda09b2540d0aa07d43e3a5dcaaa0b",
+      "bytes": 55544
+    },
+    {
+      "path": "Assets/Scripts/Unity/Presentation/ProductionVenueEnvironment.cs",
+      "sha256": "eee8abdca04dab5075c1fc5b1018a3f842fc40e9882ef4dcdc64648a4e5cf5b6",
+      "bytes": 24883
+    },
+    {
+      "path": "Assets/Tests/PlayMode/ProductionTerrainContactTests.cs",
+      "sha256": "4e72bd7ee7d2dc6efc8df529ded7d8bd182b6349b8fe3d0630b74ec0ac1e1f8f",
+      "bytes": 74263
+    },
+    {
+      "path": "Assets/Tests/PlayMode/ProductionRouteVisibilityTests.cs",
+      "sha256": "a8c1d31d34da975ed57bbf6e4d138a4c9f599c082d8abef8ca9b060a918f3063",
+      "bytes": 22219
+    },
+    {
+      "path": "Assets/Tests/PlayMode/ProductionRouteVisibilityTests.cs.meta",
+      "sha256": "2e6849c54586c807412aa47d924d22b6ad7be08f762937e5c39dc2e7dc47c859",
+      "bytes": 60
+    }
+  ],
+  "root_owned_host": [
+    {
+      "path": "Assets/Scripts/Unity/Presentation/ProductionVenueHost.cs",
+      "sha256": "49a61d4ba1c263adea5ff2b243f4b69e78824ecaa1fa24e0f90852d6ee316383",
+      "bytes": 9349
+    },
+    {
+      "path": "Assets/Tests/PlayMode/ProductionVenueHostTests.cs",
+      "sha256": "26b1f23d5bbfc89a146976d4a341eeb2073766887f25164904d68796de7a89ef",
+      "bytes": 4683
+    }
+  ],
+  "freeze_inventory": {
+    "path": "artifacts/wp169t2/render-certified-frozen-source-and-inputs.json",
+    "sha256": "51ab28a60a1599bff959443de79fd5d8e90919b2923233ebc2435ab11f7ac7ae",
+    "bytes": 96611
+  },
+  "authority_and206venue_json_hashes_unchanged_since_final_source_freeze": true,
+  "reference_compile": {
+    "command": "dotnet build artifacts/wp169t2/reference-compile/NativeCompile.csproj -c Release --artifacts-path artifacts/wp169t2/reference-compile/dotnet --nologo",
+    "warnings": 0,
+    "errors": 0,
+    "project": {
+      "path": "artifacts/wp169t2/reference-compile/NativeCompile.csproj",
+      "sha256": "9e10f7f50b5c5d9201816f2ee78f6406faa229a5949b07f4c9823d6196d0ee9e",
+      "bytes": 2270
+    },
+    "log": {
+      "path": "artifacts/wp169t2/reference-compile/build-render-certified.log",
+      "sha256": "2dde2f94bdc59d9ad0a9e280e98b6f89e9ce4b33d479ecbe2eb16c0adc2f39db",
+      "bytes": 448
+    },
+    "dll": {
+      "path": "artifacts/wp169t2/reference-compile/dotnet/bin/NativeCompile/release/NativeCompile.dll",
+      "sha256": "1cc78be8db79ae80dbb35c0c6bbf26d3b8c8d0f2e649834c3d42612dcffa7410",
+      "bytes": 207360
+    }
+  },
+  "final_source_unrotated_numeric": {
+    "status": "PASS_EXTRACTED_SCOPE_ONLY",
+    "proof": {
+      "path": "artifacts/wp169t2/build-support-render-certified/verification.json",
+      "sha256": "285e5a69864a4df5840de3c378ab020d8f8ebf82d9819139b58d7c8ee8b2a333",
+      "bytes": 3829
+    },
+    "comparison": {
+      "path": "artifacts/wp169t2/build-support-render-certified/comparison.json",
+      "sha256": "9b136051ad71578719bdd49feb75cdac7d45f456bce8bda91545ecad5e9b4473",
+      "bytes": 2465
+    },
+    "records": 144,
+    "prior_all4_result_files_byte_identical": true,
+    "published_t97_null_geometry_exact": true,
+    "scope": "Standalone float stubs, legacy3-argument ground constructor and old captured unrotated worlds. This does not execute new shared-native-frame or yaw45 rendering/contact/visual acceptance."
+  },
+  "cold_negative_fixtures": {
+    "status": "PASS_VALID_CHANGED_SNAPSHOTS_NO_STEPS",
+    "proof": {
+      "path": "artifacts/wp169t2/cold-negative-fixtures/result.json",
+      "sha256": "0d624c635e98f1e1998c46d1809b54a47e2cfa7888d4df94eeba7c2655ceed34",
+      "bytes": 1224
+    }
+  },
+  "native": {
+    "route": {
+      "status": "PASS",
+      "proof": {
+        "path": "artifacts/wp169t2/unity-route-render-certified.json",
+        "sha256": "1caaa93d5fae47a7a1c53e14ce35b077a54672b461be64ce47532f8eacac4672",
+        "bytes": 2671
+      },
+      "discovered": 224,
+      "executed": 5,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "error_logs": 0,
+      "duration": "00:01:37.7039606",
+      "artifact_provenance": "Direct saved native tool result"
+    },
+    "contact": {
+      "status": "PASS",
+      "proof": {
+        "path": "artifacts/wp169t2/unity-contact-render-certified.json",
+        "sha256": "87671f26adffaeb533b218216ac56d0e17fe1473942783826093aa109c73092a",
+        "bytes": 4424
+      },
+      "discovered": 224,
+      "executed": 11,
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "error_logs": 0,
+      "duration": "00:00:14.5554454",
+      "artifact_provenance": "Direct saved native tool result"
+    },
+    "course": {
+      "status": "PASS",
+      "proof": {
+        "path": "artifacts/wp169t2/unity-course-render-certified.json",
+        "sha256": "edb222d1ca01e811a963308345991908b074fbe6207b64985ec9fcc887d0404f",
+        "bytes": 3390
+      },
+      "discovered": 224,
+      "executed": 8,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "error_logs": 0,
+      "duration": "00:00:06.3704333",
+      "artifact_provenance": "Direct saved native tool result"
+    },
+    "host": {
+      "status": "PASS",
+      "proof": {
+        "path": "artifacts/wp169t2/unity-host-render-certified.json",
+        "sha256": "508a3d4ec4b64e890b342485a2bb8660fb17ea553fe52eea857b7c8d47a7f654",
+        "bytes": 1128
+      },
+      "discovered": 224,
+      "executed": 2,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "error_logs": 0,
+      "duration": "00:00:00.8349826",
+      "artifact_provenance": "Direct saved native tool result"
+    },
+    "full": {
+      "status": "PASS",
+      "proof": {
+        "path": "artifacts/wp169t2/unity-full-play-render-certified.json",
+        "sha256": "23e3a2765a04fb50a08ba3d96d2078dcd34240c7a1df5d2d471859199196927e",
+        "bytes": 36766
+      },
+      "discovered": 224,
+      "executed": 224,
+      "passed": 224,
+      "failed": 0,
+      "skipped": 0,
+      "error_logs": 0,
+      "duration": "00:03:48.2104687",
+      "artifact_provenance": "Recovered read-only from unchanged last native MCP collector after shell artifact write exceeded Windows command length; tests were not rerun"
+    }
+  },
+  "reporting_only_recovery": {
+    "no_test_failure": true,
+    "no_rerun": true,
+    "reason": "The completed full224 native test result exceeded Windows command-length206 during shell artifact persistence. Root recovered the unchanged last native collector through a read-only script, retaining all224 results, Summary and Error logs.",
+    "helper": {
+      "path": "artifacts/wp169t2/recover-full-native-result.cs.txt",
+      "sha256": "2e8c7803291367770fc2cb38a0724cc7cd7ebd420b1e04ebf93d34fc4f9e9768",
+      "bytes": 1621
+    }
+  },
+  "failures_preserved": {
+    "first_native": {
+      "passed": 3,
+      "failed": 1,
+      "proof": {
+        "path": "artifacts/wp169t2/unity-route-visibility-first.json",
+        "sha256": "9fc84b2cc37e5fa4a1ff5dee01b2bb0606bec1a8e7bd7339c6c37ce8249a10d4",
+        "bytes": 8847
+      },
+      "diagnostic": {
+        "path": "artifacts/wp169t2/unity-route-contact-diagnostic-first.json",
+        "sha256": "b40ed208be020a1d8d12cba28cdb26cb0c76f261ebe4668e0129c6033f733bf3",
+        "bytes": 8699
+      }
+    },
+    "local_child_attempt": {
+      "passed": 3,
+      "failed": 1,
+      "proof": {
+        "path": "artifacts/wp169t2/unity-route-visibility-repaired.json",
+        "sha256": "0a99504f64c5c4a716b1fa434ecfb225c11d8c4fc2f489bc1e5e747e4b022c6a",
+        "bytes": 4885
+      },
+      "inventory": {
+        "path": "artifacts/wp169t2/local-child-failed-snapshot/artifacts/wp169t2/frozen-source-and-inputs.json",
+        "sha256": "10054f8ddb286f7a8a53b193c5db96ea02a1e56d1f9475ad6d69cbc49d1f2648",
+        "bytes": 96430
+      }
+    },
+    "legacy_contact_double_center": {
+      "passed": 10,
+      "failed": 1,
+      "binding": {
+        "path": "artifacts/wp169t2/absolute-buffer-legacy-contact-failed/historical-evidence-binding.json",
+        "sha256": "aff57ece7fe6f1ce50a02f5d1b6197177fc7ff0b1cf34ccac6efe3eaf8c750db",
+        "bytes": 2390
+      }
+    },
+    "identity_anchor_assumption": {
+      "course_passed": 7,
+      "course_failed": 1,
+      "binding": {
+        "path": "artifacts/wp169t2/absolute-buffer-identity-anchor-failed/historical-evidence-binding.json",
+        "sha256": "d9e9cb62b7779fbe3e679f1640b93eb51dc7eb9d1a2d00fe70855e751a37541f",
+        "bytes": 3491
+      }
+    },
+    "rendered_taper_collapse": {
+      "route_passed": 4,
+      "route_failed": 1,
+      "binding": {
+        "path": "artifacts/wp169t2/shared-frame-render-collapse-failed/historical-evidence-binding.json",
+        "sha256": "e8fa13b0f7274e7ce78884f8a8ada88881d0ba21b0ece81517327b29be82f592",
+        "bytes": 3246
+      },
+      "native_face_witness": {
+        "path": "artifacts/wp169t2/native-yaw45-main-face2610-source329.json",
+        "sha256": "3c6a91a47bc55256777a0d3a15ac55237a05f44f3330accf28e4053af50ec53e",
+        "bytes": 3505763
+      },
+      "raw_cross_squared": 5.97436545e-10,
+      "rendered_cross_squared": 0,
+      "whole_candidate_rollback": true,
+      "no_contact_threshold_relaxation": true
+    }
+  },
+  "renderer_witness": {
+    "status": "PASS_BOUNDED_NATIVE_CAPTURED_DATA_SCOPE",
+    "helper": {
+      "path": "artifacts/wp169t2/corrected-renderer-witness.cs.txt",
+      "sha256": "7ff781bc5af242c04dcd1c558257983bc708d79554c6f1a14bacd897a842e6ce",
+      "bytes": 15161
+    },
+    "verifier": {
+      "path": "artifacts/wp169t2/verify-corrected-renderer-witness.py",
+      "sha256": "41952f4283b897a29dff13377c5d9a2fb0973602567f34250bccfe42f27af8b4",
+      "bytes": 7604
+    },
+    "helper_entry_points": [
+      "T2CorrectedRendererWitness.Main",
+      "T2CorrectedRendererWitness.Main45"
+    ],
+    "expected_outputs": [
+      "artifacts/wp169t2/native-corrected-renderer-world-source9c.json",
+      "artifacts/wp169t2/native-corrected-renderer-world-source9c-yaw45.json"
+    ],
+    "results": [
+      {
+        "status": "PASS_NATIVE_CAPTURED_RENDER_FRAME_BUFFER_BORDER_IMMUTABILITY_SCOPE",
+        "yaw": 31,
+        "output": {
+          "path": "artifacts/wp169t2/native-corrected-renderer-world-source9c.json",
+          "sha256": "14898ccdc8b76092e6eb77e78b0dfa10e71683ff0abe2d62dc2fbbbf7a5e51cb",
+          "bytes": 90319481
+        },
+        "receipt": {
+          "path": "artifacts/wp169t2/native-corrected-renderer-world-source9c.receipt.json",
+          "sha256": "4c17864be2c02c332da15a0072a40512d6602a31e742e62b88424aae1314cabf",
+          "bytes": 828
+        },
+        "verification": {
+          "path": "artifacts/wp169t2/renderer-world-verification-source9c.json",
+          "sha256": "b61cd219fb202ce4c6693409eaf23c4088523fb85edc6ad0598671072cb33013",
+          "bytes": 48415
+        },
+        "manual_dispatch_provenance": {
+          "path": "artifacts/wp169t2/native-witness-yaw31-manual-dispatch.json",
+          "sha256": "a0d6336e0a7cadf710dcfd3053f8c6ba4965c87669717dd83b549db75f0f30d7",
+          "bytes": 309
+        },
+        "dispatch": "Registered as EditorApplication.delayCall; idle callback remained queued, then root invoked only the exact registered callback once on native ScriptExecute MainThread. No automatic editor frame/GameView claim.",
+        "all_matrices_identity": true,
+        "common_renderer_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "captured_tiles": 99,
+        "vertices": 418275,
+        "exact_shared_vertex_checks": 11490,
+        "adjacent_border_pairs": 178,
+        "gap_pairs": 0,
+        "overlap_pairs": 0
+      },
+      {
+        "status": "PASS_NATIVE_CAPTURED_RENDER_FRAME_BUFFER_BORDER_IMMUTABILITY_SCOPE",
+        "yaw": 45,
+        "output": {
+          "path": "artifacts/wp169t2/native-corrected-renderer-world-source9c-yaw45.json",
+          "sha256": "ce4e7017ee0139418b07a75c00353a020fdf7b8045f5c48dde537ce1849334f8",
+          "bytes": 91703618
+        },
+        "receipt": {
+          "path": "artifacts/wp169t2/native-corrected-renderer-world-source9c-yaw45.receipt.json",
+          "sha256": "a5c19b06e68aaf7a11de873d7fc85bb311e3a175476f10f41177616bcfc1bf60",
+          "bytes": 840
+        },
+        "verification": {
+          "path": "artifacts/wp169t2/renderer-world-verification-source9c-yaw45.json",
+          "sha256": "1f2aaf319b63e60849b24a5ddc46f803b9c56274e60970b946934385ed1de4e9",
+          "bytes": 48437
+        },
+        "manual_dispatch_provenance": {
+          "path": "artifacts/wp169t2/native-witness-yaw45-manual-dispatch.json",
+          "sha256": "a0d6336e0a7cadf710dcfd3053f8c6ba4965c87669717dd83b549db75f0f30d7",
+          "bytes": 309
+        },
+        "dispatch": "Registered as EditorApplication.delayCall; idle callback remained queued, then root invoked only the exact registered callback once on native ScriptExecute MainThread. No automatic editor frame/GameView claim.",
+        "all_matrices_identity": false,
+        "common_renderer_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.52587890625e-05,
+          1.0
+        ],
+        "captured_tiles": 99,
+        "vertices": 418275,
+        "exact_shared_vertex_checks": 11490,
+        "adjacent_border_pairs": 178,
+        "gap_pairs": 0,
+        "overlap_pairs": 0
+      }
+    ],
+    "actual_renderer_frame_requirement": "Bit-identical matrices across all Course/terrain/join renderers; yaw31 identity and yaw45 original common numeric translation are recorded separately. Native contact tests independently evaluate actual projected world geometry."
+  },
+  "gameview_review": {
+    "status": "PASS_9_NORMAL_GAMEVIEW_BINDINGS_BOUNDED_ROUTE_AND_RESTORATION_REVIEW",
+    "capture_folder": "docs/quality/m13/venue01-captures-route-scoped",
+    "stadium_private_loop_isolation": {
+      "path": "artifacts/wp169t2/stadium-isolation-verification.json",
+      "sha256": "d2d5fe105f89cdba47ede9d24a023ff65000ed32a4ff310e8bc2baf12a1cffdf",
+      "bytes": 4864
+    },
+    "actual3format_snow_capture_bindings": {
+      "path": "artifacts/wp169t2/format-snow-capture-verification.json",
+      "sha256": "fc8bf4e750843a4a0ceb22bb9493bd9a39b5cbbef679809f6b01f62ea05a6237",
+      "bytes": 6583
+    },
+    "root_review": "Mass/Pursuit Main568 old inactive Sprint wall absent. Actual paid Sprint branch retains source-height curtain. Private-loop suppression removes crisp raised U outlines while pale terrain rectangles remain; exact enabled states restored. Final white-patch correction/whole-venue visual acceptance is not claimed.",
+    "performance_qualification": false,
+    "captures": [
+      {
+        "name": "stadium",
+        "metadata": {
+          "path": "docs/quality/m13/venue01-captures-route-scoped/stadium.json",
+          "sha256": "9bb3466efea73fa9439f3c96bb78959edecc17a3597f788c69520025fd100b5c",
+          "bytes": 160991
+        },
+        "png": {
+          "path": "docs/quality/m13/venue01-captures-route-scoped/stadium.png",
+          "sha256": "77aefbe31f0af1bdd56d2572cc319139c8503c4fcd0651abbcea5a10ac84c7ef",
+          "bytes": 2973944
+        },
+        "format": "MassStart",
+        "athletes": 30,
+        "host_entity_id": "38169:30976",
+        "field_context_sha256": "38d74f7e6e31134233af91dd0a4fb8ffacd305a4a7520dd5353db5cd306609f9",
+        "tick": 0
+      },
+      {
+        "name": "stadium-private-hidden-diagnostic",
+        "metadata": {
+          "path": "docs/quality/m13/venue01-captures-route-scoped/stadium-private-hidden-diagnostic.json",
+          "sha256": "b284fb3200579834127a501dc29f0501ab73b6da7fb11c8481f17bf00c3be5ca",
+          "bytes": 161047
+        },
+        "png": {
+          "path": "docs/quality/m13/venue01-captures-route-scoped/stadium-private-hidden-diagnostic.png",
+          "sha256": "f76567165812ddd81255137f6faa3524c4f3937e656012d153f2e4623f5761ec",
+          "bytes": 2975136
+        },
+        "format": "MassStart",
+        "athletes": 30,
+        "host_entity_id": "38169:30976",
+        "field_context_sha256": "38d74f7e6e31134233af91dd0a4fb8ffacd305a4a7520dd5353db5cd306609f9",
+        "tick": 0
+      },
+      {
+        "name": "stadium-restored",
+        "metadata": {
+          "path": "docs/quality/m13/venue01-captures-route-scoped/stadium-restored.json",
+          "sha256": "eb3aa3731500f176e95292ad7a4b6bef60b82410323aec73cc02043483725af4",
+          "bytes": 161002
+        },
+        "png": {
+          "path": "docs/quality/m13/venue01-captures-route-scoped/stadium-restored.png",
+          "sha256": "9b7d1f876485d4ba3f8e299a38939fb040a5bc2cc1e0889ae77717708ec714b6",
+          "bytes": 2974120
+        },
+        "format": "MassStart",
+        "athletes": 30,
+        "host_entity_id": "38169:30976",
+        "field_context_sha256": "38d74f7e6e31134233af91dd0a4fb8ffacd305a4a7520dd5353db5cd306609f9",
+        "tick": 0
+      },
+      {
+        "name": "mass-main568",
+        "metadata": {
+          "path": "docs/quality/m13/venue01-captures-route-scoped/mass-main568.json",
+          "sha256": "5620f3044efc46efbe37ceb864134085ea9d7cc726c8c2cba52d193c68bd66f6",
+          "bytes": 161129
+        },
+        "png": {
+          "path": "docs/quality/m13/venue01-captures-route-scoped/mass-main568.png",
+          "sha256": "19759e681fd95a00784f958459d07927e24eb46f5c01163c3c2801e71e90b492",
+          "bytes": 4710434
+        },
+        "format": "MassStart",
+        "athletes": 30,
+        "host_entity_id": "38169:30976",
+        "field_context_sha256": "38d74f7e6e31134233af91dd0a4fb8ffacd305a4a7520dd5353db5cd306609f9",
+        "tick": 0
+      },
+      {
+        "name": "sprint-paid-extension568",
+        "metadata": {
+          "path": "docs/quality/m13/venue01-captures-route-scoped/sprint-paid-extension568.json",
+          "sha256": "0fe544d092293b3491d9bed6fe9bd9ce6f268ac26c27656fc3900c760799385a",
+          "bytes": 161216
+        },
+        "png": {
+          "path": "docs/quality/m13/venue01-captures-route-scoped/sprint-paid-extension568.png",
+          "sha256": "0b2f8bc5d6441753bf3233c0b9c6741dae31150b456debc1f7eb7d5ff6981944",
+          "bytes": 4514648
+        },
+        "format": "Sprint",
+        "athletes": 60,
+        "host_entity_id": "38191:29952",
+        "field_context_sha256": "ee9f863e582d3aedf3b96a93b3bd712620c5952db7ca780fd8ac461e56c54067",
+        "tick": 0
+      },
+      {
+        "name": "pursuit-main568",
+        "metadata": {
+          "path": "docs/quality/m13/venue01-captures-route-scoped/pursuit-main568.json",
+          "sha256": "5e397c4a6d15a7f4b0970a2a7bebaec94a01fb5ae2f15844bde94380fedbc822",
+          "bytes": 161483
+        },
+        "png": {
+          "path": "docs/quality/m13/venue01-captures-route-scoped/pursuit-main568.png",
+          "sha256": "c7eb933272a9e913d4a4253415cf6c49318e449aaefec323e3d19ce3ef2f47de",
+          "bytes": 4708789
+        },
+        "format": "Pursuit",
+        "athletes": 60,
+        "host_entity_id": "38431:29440",
+        "field_context_sha256": "764114305ab8a8d99021c3bc4fde84fa9383639fbb1297b56ee0aaec779ffbd1",
+        "tick": 0
+      },
+      {
+        "name": "pursuit-stadium-terrain-baseline",
+        "metadata": {
+          "path": "docs/quality/m13/venue01-captures-route-scoped/pursuit-stadium-terrain-baseline.json",
+          "sha256": "9d490729f4cdf4861f98a5344d4a73ca332eea34856465c1c0d5442f0c5c5641",
+          "bytes": 161365
+        },
+        "png": {
+          "path": "docs/quality/m13/venue01-captures-route-scoped/pursuit-stadium-terrain-baseline.png",
+          "sha256": "0bab36095462d809cb6e4c7801e2dfcc142e7178b8c894b7c8460931db304aca",
+          "bytes": 2971035
+        },
+        "format": "Pursuit",
+        "athletes": 60,
+        "host_entity_id": "38431:29440",
+        "field_context_sha256": "764114305ab8a8d99021c3bc4fde84fa9383639fbb1297b56ee0aaec779ffbd1",
+        "tick": 0
+      },
+      {
+        "name": "pursuit-stadium-terrain-suppressed",
+        "metadata": {
+          "path": "docs/quality/m13/venue01-captures-route-scoped/pursuit-stadium-terrain-suppressed.json",
+          "sha256": "91d4d04fd9d2892b47692ece78eb823bf675008b9bf077e34d5a970f5a64b827",
+          "bytes": 161389
+        },
+        "png": {
+          "path": "docs/quality/m13/venue01-captures-route-scoped/pursuit-stadium-terrain-suppressed.png",
+          "sha256": "562d9c13c0e0178bfca7bf929b9cbd1d3c8cc6c4d1d847808fbb1327d7bca82b",
+          "bytes": 2980389
+        },
+        "format": "Pursuit",
+        "athletes": 60,
+        "host_entity_id": "38431:29440",
+        "field_context_sha256": "764114305ab8a8d99021c3bc4fde84fa9383639fbb1297b56ee0aaec779ffbd1",
+        "tick": 0
+      },
+      {
+        "name": "pursuit-stadium-terrain-restored",
+        "metadata": {
+          "path": "docs/quality/m13/venue01-captures-route-scoped/pursuit-stadium-terrain-restored.json",
+          "sha256": "4e515fc55e608d9113d2cb2d5d876a6d60301a2b0e64e26ee538c80ea097d88d",
+          "bytes": 161365
+        },
+        "png": {
+          "path": "docs/quality/m13/venue01-captures-route-scoped/pursuit-stadium-terrain-restored.png",
+          "sha256": "56e488cb425b8602c80a16c2f22c34c98850ec3ef8366a3a052ad55be47f4f40",
+          "bytes": 2971838
+        },
+        "format": "Pursuit",
+        "athletes": 60,
+        "host_entity_id": "38431:29440",
+        "field_context_sha256": "764114305ab8a8d99021c3bc4fde84fa9383639fbb1297b56ee0aaec779ffbd1",
+        "tick": 0
+      }
+    ],
+    "capture_count": 9,
+    "readme": {
+      "path": "docs/quality/m13/venue01-captures-route-scoped/README.md",
+      "sha256": "987794cd8e39fb067883d856566f83c17819c1db5f4ad98cd42da0195536b189",
+      "bytes": 4294
+    },
+    "owned_terrain_material_isolation": {
+      "status": "PASS_NATIVE_DIAGNOSTIC_BINDINGS_AND_RESTORATION_ONLY",
+      "proof": {
+        "path": "artifacts/wp169t2/capture-support/terrain-blend-independent-native-verification.json",
+        "sha256": "a60029932b4ee5c78834a421d00d83c0f002e912c02e4df738efbaed1bf51d72",
+        "bytes": 5234
+      },
+      "terrain_renderers": 99,
+      "original_and_restored_empty_native_blocks": 198,
+      "root_observation": "Transient terrain blend suppression does not remove pale/U regions, whose edges become crisper. Restored view returns to baseline with white-patch issue unchanged. Cause probe only, no production correction/final visual PASS."
+    }
+  },
+  "pursuit_capture_context": {
+    "status": "PASS_EXACT_NATIVE_RAW_CAPTURE_GUARD_WITH_UNCHANGED_HISTORICAL_QUALIFICATION_ONLY",
+    "bit_exact_all_input_values": {
+      "path": "artifacts/wp169t2/native-pursuit-context-bit-exact-proof.json",
+      "sha256": "208a93423a6dfdf4810ffd74afb88abb689129ff2d61c2dc7d2e6c75fff1e414",
+      "bytes": 198762
+    },
+    "no_duplicate_key_field_loss": {
+      "path": "artifacts/wp169t2/native-pursuit-context-unique-keys-proof.json",
+      "sha256": "8df4859e6fd44e5335c96d68c9c439c07dd4f837ff88da93ef0b0963f2721e3f",
+      "bytes": 1344
+    },
+    "frozen_source_binding": {
+      "path": "artifacts/wp169t2/native-pursuit-context-source-bound-proof.json",
+      "sha256": "4960712eba7cf9219bd6a73e386b0b8150770e948716c674cbc7a45d0020bc26",
+      "bytes": 3268
+    },
+    "historical_raw_context_identity": false,
+    "escape_only_normalization_sufficient": false,
+    "numeric_tolerance": 0,
+    "differing_decimal_lexemes": 645,
+    "integer_tokens_exact": 26881,
+    "decimal_tokens_binary64_bits_exact": 32659,
+    "unchanged_qualification_participants": 60,
+    "new_completed_race_qualification": false,
+    "scope": "Transient actual native Pursuit60 frozen-host visual capture only. All original input values/key order/array members match; source/qualification bytes unchanged. Original decimal lexemes and raw .NET/native context difference preserved. Authoritative raw context/replay equality unchanged."
+  },
+  "reviewed_transient_capture_failures": {
+    "proof": {
+      "path": "artifacts/wp169t2/unity-reviewed-capture-helper-errors.json",
+      "sha256": "8cf3cb7f198845a6d217ce7975bd8c545b0bf3a2d6c1d94750331cbe236fd525",
+      "bytes": 53987
+    },
+    "root_review": "All9previous transient capture-helper Console entries reviewed and preserved: three known helper failures, each one Exception plus two MCP errors. No compile failure. Clearing reviewed entries does not erase their evidence or imply historic zero errors.",
+    "clean_final_console_status": "PASS_FRESH_NATIVE_CONSOLE_AFTER_SUCCESSFUL_CAPTURE_AND_RESTORATION",
+    "final_console": {
+      "path": "artifacts/wp169t2/unity-console-final-source9c.json",
+      "sha256": "f4550285f9775590784d2d48da73f27823f42ceab628757448c19b85714af0ce",
+      "bytes": 525
+    },
+    "final_native_counts": {
+      "errors": 0,
+      "warnings": 0,
+      "logs": 0,
+      "compilation_failed": false
+    }
+  },
+  "limitations": [
+    "T2 acceptance is bounded to paid route selection, native rendered contact, source-bound witnesses/captures and restoration. Final whole-venue visual quality/white-patch correction remains open.",
+    "No current40field or compact3m range implementation/qualification.",
+    "White patch source/correction remains separate pending actual runtime isolation.",
+    "No new Windows build or GPU/FPS qualification.",
+    "Original60contexts remain historical compatibility evidence, not relabeled/truncated40races."
+  ],
+  "t2_done": true,
+  "route_selection_and_native_contact_acceptance": true,
+  "whole_venue_final_visual_quality_acceptance": false,
+  "next_logical_task": "Separate compact real-venue range and max40 source/data work, fresh actual40 race/Pursuit qualification and replay, then content correction of remaining pale/private-path patches and actual paid Sprint curtain.",
+  "report": {
+    "path": "docs/reports/TASK-169T2-route-scoped-course-presentation-REPORT.md",
+    "sha256": "8f36146b48286472b5660ae90d44273a56175428ee1e6be366e2bb7acbd5448e",
+    "bytes": 18631
+  }
+}

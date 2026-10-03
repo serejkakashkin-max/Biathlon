@@ -114,10 +114,9 @@ namespace Biathlon.PlayModeTests
             var cells=new Dictionary<CellKey,TerrainCell>();var filters=environment.GetComponentsInChildren<MeshFilter>(true);
             for(int tile=0;tile<environment.TerrainTileCount;tile++)
             {
-                var mesh=environment.TileMesh(tile);Transform owner=null;
-                foreach(var filter in filters)if(filter.sharedMesh==mesh){owner=filter.transform;break;}
-                Assert.That(owner,Is.Not.Null);var vertices=mesh.vertices;var indices=mesh.triangles;
-                for(int i=0;i<vertices.Length;i++)vertices[i]=owner.TransformPoint(vertices[i]);
+                var mesh=environment.TileMesh(tile);MeshRenderer owner=null;
+                foreach(var filter in filters)if(filter.sharedMesh==mesh){owner=filter.GetComponent<MeshRenderer>();break;}
+                Assert.That(owner,Is.Not.Null);var vertices=RenderedVertices(mesh,owner);var indices=mesh.triangles;
                 for(int i=0;i<indices.Length;i+=3)
                 {
                     var triangle=new Triangle(vertices[indices[i]],vertices[indices[i+1]],vertices[indices[i+2]]);
@@ -130,7 +129,9 @@ namespace Biathlon.PlayModeTests
             var ribbonCells=new Dictionary<CellKey,List<int>>();var ribbonTriangles=new List<Triangle>();
             for(int loop=0;loop<course.LoopCount;loop++)
             {
-                var actual=course.LoopMesh(loop);var visible=actual.vertices;var ribbonFaces=actual.triangles;
+                // Deliberately injected adversarial fixtures are explicit world-space meshes;
+                // every initialized live course is evaluated through its actual renderer.
+                var actual=course.LoopMesh(loop);var visible=course.Initialized?RenderedVertices(actual,course.LoopRenderer(course.LoopId(loop))):actual.vertices;var ribbonFaces=actual.triangles;
                 for(int i=0;i<ribbonFaces.Length;i+=3)
                 {
                     var triangle=new Triangle(visible[ribbonFaces[i]],visible[ribbonFaces[i+1]],visible[ribbonFaces[i+2]]);
@@ -150,7 +151,14 @@ namespace Biathlon.PlayModeTests
             }
         }
 
-        private static bool HiddenOriginalCurtain(Triangle face,Vector3[] source,bool closed,JoinedWorld world)
+        private static Vector3[] RenderedVertices(Mesh mesh,MeshRenderer renderer)
+        {
+            Assert.That(renderer,Is.Not.Null,"Live geometry must retain its actual renderer.");
+            var filter=renderer.GetComponent<MeshFilter>();Assert.That(filter,Is.Not.Null);Assert.That(filter.sharedMesh,Is.SameAs(mesh));var points=mesh.vertices;var world=renderer.localToWorldMatrix;
+            for(int i=0;i<points.Length;i++)points[i]=world.MultiplyPoint3x4(points[i]);return points;
+        }
+
+        private static bool HiddenOriginalCurtain(Triangle face,Vector3[] source,bool closed,JoinedWorld world,List<(Vector3,Vector3)> drawnBoundary=null)
         {
             if(Math.Abs(face.Area)>1e-12)return false;
             var corners=new[]{face.A,face.B,face.C};var a=face.A;var b=face.B;double longest=0;
@@ -159,8 +167,10 @@ namespace Biathlon.PlayModeTests
             if(longest<1e-12)return false;const double fractionTolerance=0;
             double Parameter(Vector3 p)=>(((double)p.x-a.x)*(b.x-a.x)+((double)p.z-a.z)*(b.z-a.z))/longest;
             var sourceIntervals=new List<(double,double)>();
-            for(int side=0;side<2;side++)for(int row=side+2;row<source.Length;row+=2)Original(source[row-2],source[row]);
-            if(!closed){Original(source[0],source[1]);Original(source[source.Length-2],source[source.Length-1]);}
+            if(drawnBoundary==null)
+            {for(int side=0;side<2;side++)for(int row=side+2;row<source.Length;row+=2)Original(source[row-2],source[row]);
+                if(!closed){Original(source[0],source[1]);Original(source[source.Length-2],source[source.Length-1]);}}
+            else foreach(var line in drawnBoundary)Original(line.Item1,line.Item2);
             if(!Covered(sourceIntervals))return false;
             var left=new List<(double,double)>();var right=new List<(double,double)>();var seen=new HashSet<int>();
             for(int z=world.Z(Math.Min(a.z,b.z))-1;z<=world.Z(Math.Max(a.z,b.z))+1;z++)for(int x=world.X(Math.Min(a.x,b.x))-1;x<=world.X(Math.Max(a.x,b.x))+1;x++)
@@ -222,10 +232,22 @@ namespace Biathlon.PlayModeTests
             string loopId,Vector3[] ribbon,bool closed,JoinedWorld world=null)
         {
             world=world??new JoinedWorld(environment,course);
+            // Independently derive a live draw boundary from actual source triangle indices.
+            // The presentation's claimed panel mask never supplies a contact exemption.
+            var drawnBoundary=course.PresentationRouteId==null?null:DrawnSourceBoundary(course.NativeLoopMesh(loopId),course.LoopMesh(loopId),closed);
+            if(course.Initialized)
+            {
+                // Source buffers stay immutable, while contact witnesses must use the
+                // same actual renderer space as terrain and the published join mesh.
+                var frame=course.LoopRenderer(loopId).localToWorldMatrix;ribbon=(Vector3[])ribbon.Clone();
+                for(int i=0;i<ribbon.Length;i++)ribbon[i]=frame.MultiplyPoint3x4(ribbon[i]);
+                if(drawnBoundary!=null)for(int i=0;i<drawnBoundary.Count;i++)
+                    drawnBoundary[i]=(frame.MultiplyPoint3x4(drawnBoundary[i].Item1),frame.MultiplyPoint3x4(drawnBoundary[i].Item2));
+            }
             var ribbonCells=world.RibbonCells;var ribbonTriangles=world.RibbonTriangles;
             int X(double p)=>world.X(p);int Z(double p)=>world.Z(p);
             IEnumerable<Triangle> Over(Vector3 a,Vector3 b,Vector3 c)=>world.Over(a,b,c);
-            var join=course.SkirtMesh(loopId);var points=join.vertices;var faces=join.triangles;var bounds=join.bounds;bounds.Expand(2e-4f);
+            var join=course.SkirtMesh(loopId);var points=course.Initialized?RenderedVertices(join,course.SkirtRenderer(loopId)):join.vertices;var faces=join.triangles;var bounds=join.bounds;bounds.Expand(2e-4f);
             Assert.That(faces.Length,Is.GreaterThan(0));Assert.That(faces.Length%3,Is.Zero);
             double minimum=double.PositiveInfinity;long overlayVertices=0;
             // The clearance difference is affine on each overlap polygon. Its extrema
@@ -300,7 +322,7 @@ namespace Biathlon.PlayModeTests
             for(int i=0;i<faces.Length;i+=3)
             {
                 var actualFace=new Triangle(points[faces[i]],points[faces[i+1]],points[faces[i+2]]);
-                if(HiddenOriginalCurtain(actualFace,ribbon,closed,world))
+                if(HiddenOriginalCurtain(actualFace,ribbon,closed,world,drawnBoundary))
                 {
                     hiddenCurtainEdges.Add((actualFace.A,actualFace.B));hiddenCurtainEdges.Add((actualFace.B,actualFace.C));hiddenCurtainEdges.Add((actualFace.C,actualFace.A));continue;
                 }
@@ -339,8 +361,10 @@ namespace Biathlon.PlayModeTests
             foreach(var edge in topEdges)
                 for(int z=Z(Math.Min(edge.Item1.z,edge.Item2.z));z<=Z(Math.Max(edge.Item1.z,edge.Item2.z));z++)for(int x=X(Math.Min(edge.Item1.x,edge.Item2.x));x<=X(Math.Max(edge.Item1.x,edge.Item2.x));x++)
                 {var key=new CellKey(x,z);if(!topCells.TryGetValue(key,out var list)){list=new List<(Vector3,Vector3)>();topCells.Add(key,list);}list.Add(edge);}
-            for(int side=0;side<2;side++)for(int row=side+2;row<ribbon.Length;row+=2)AssertRibbonLine(ribbon[row-2],ribbon[row]);
-            if(!closed){AssertRibbonLine(ribbon[0],ribbon[1]);AssertRibbonLine(ribbon[ribbon.Length-2],ribbon[ribbon.Length-1]);}
+            if(drawnBoundary==null)
+            {for(int side=0;side<2;side++)for(int row=side+2;row<ribbon.Length;row+=2)AssertRibbonLine(ribbon[row-2],ribbon[row]);
+                if(!closed){AssertRibbonLine(ribbon[0],ribbon[1]);AssertRibbonLine(ribbon[ribbon.Length-2],ribbon[ribbon.Length-1]);}}
+            else foreach(var line in drawnBoundary)AssertRibbonLine(line.Item1,line.Item2);
             TestContext.WriteLine("{\"loop\":\""+loopId+"\",\"shoulder_triangles\":"+(faces.Length/3)+",\"overlay_vertices\":"+overlayVertices+
                 ",\"minimum_shouldergap_m\":"+minimum.ToString("R",CultureInfo.InvariantCulture)+",\"ribbon_edges\":"+topEdges.Count+",\"ground_edges\":"+groundEdges+"}");
 
@@ -547,6 +571,64 @@ namespace Biathlon.PlayModeTests
                 foreach(var interval in intervals){if(interval.Item2<interval.Item1)continue;Assert.That(interval.Item1,Is.LessThanOrEqualTo(end+tolerance),reason);end=Math.Max(end,interval.Item2);}
                 Assert.That(end,Is.GreaterThanOrEqualTo(1-tolerance),reason);
             }
+        }
+        internal static void AssertDrawnRibbonGroundClearance(ProductionVenueEnvironment environment,ProductionCoursePresentation course,JoinedWorld world=null)
+        {
+            world=world??new JoinedWorld(environment,course);double minimum=double.PositiveInfinity,maximum=double.NegativeInfinity;long verticesChecked=0;
+            for(int loop=0;loop<course.LoopCount;loop++)
+            {
+                string id=course.LoopId(loop);var mesh=course.LoopMesh(id);var points=course.Initialized?RenderedVertices(mesh,course.LoopRenderer(id)):mesh.vertices;var indices=mesh.triangles;
+                for(int i=0;i<indices.Length;i+=3)
+                {
+                    var face=new Triangle(points[indices[i]],points[indices[i+1]],points[indices[i+2]]);if(Math.Abs(face.Area)<1e-12)continue;
+                    double coverage=0;
+                    foreach(var terrain in world.Over(face.A,face.B,face.C))
+                    {
+                        var overlap=Overlay(face,terrain);
+                        for(int vertex=1;vertex<overlap.Count-1;vertex++)coverage+=Math.Abs(Cross(overlap[0],overlap[vertex],overlap[vertex+1]));
+                        foreach(var point in overlap)
+                        {
+                            double gap=face.Height(point)-terrain.Height(point);minimum=Math.Min(minimum,gap);maximum=Math.Max(maximum,gap);verticesChecked++;
+                            Assert.That(double.IsFinite(gap)&&gap>=.025,Is.True,"Every actual drawn ribbon face retains the full terrain clearance: "+id+" triangle "+(i/3));
+                        }
+                    }
+                    Assert.That(coverage,Is.EqualTo(Math.Abs(face.Area)).Within(Math.Max(1e-6,Math.Abs(face.Area)*1e-5)),"Every drawn original face has complete actual terrain coverage.");
+                }
+            }
+            Assert.That(verticesChecked,Is.GreaterThan(0));Assert.That(double.IsFinite(maximum),Is.True);
+            TestContext.WriteLine("{\"route\":\""+course.PresentationRouteId+"\",\"drawn_clearance_vertices\":"+verticesChecked+",\"minimum_ribbon_gap_m\":"+minimum.ToString("R",CultureInfo.InvariantCulture)+",\"maximum_ribbon_gap_m\":"+maximum.ToString("R",CultureInfo.InvariantCulture)+"}");
+        }
+        internal static bool[] DrawnSourcePanels(Mesh native,Mesh drawn)
+        {
+            CollectionAssert.AreEqual(native.vertices,drawn.vertices,"Every paid and retained native sampled vertex must remain exact.");
+            CollectionAssert.AreEqual(native.uv,drawn.uv,"Native texture precision must not be resampled.");
+            CollectionAssert.AreEqual(native.colors,drawn.colors);CollectionAssert.AreEqual(native.normals,drawn.normals);
+            var source=native.triangles;var actual=drawn.triangles;
+            Assert.That(source.Length%6,Is.Zero);Assert.That(actual.Length%6,Is.Zero);
+            var paid=new bool[source.Length/6];int last=-1;
+            for(int i=0;i<actual.Length;i+=6)
+            {
+                int panel=actual[i]/2;Assert.That(actual[i]%2,Is.Zero);
+                Assert.That(panel,Is.InRange(0,paid.Length-1));Assert.That(panel,Is.GreaterThan(last),"Native panels remain ordered and are never duplicated.");
+                for(int corner=0;corner<6;corner++)Assert.That(actual[i+corner],Is.EqualTo(source[panel*6+corner]),"Drawn triangles are original source triangles, not rebuilt geometry.");
+                paid[panel]=true;last=panel;
+            }
+            return paid;
+        }
+        private static List<(Vector3,Vector3)> DrawnSourceBoundary(Mesh native,Mesh drawn,bool closed)
+        {
+            var selected=DrawnSourcePanels(native,drawn);var source=native.vertices;var lines=new List<(Vector3,Vector3)>();
+            for(int panel=0;panel<selected.Length;panel++)if(selected[panel])for(int side=0;side<2;side++)lines.Add((source[panel*2+side],source[(panel+1)*2+side]));
+            // Cancel the exact original closed seam by incidence, while preserving true
+            // active/inactive cuts and all original lateral boundaries for whole-height checks.
+            for(int row=0;row<=selected.Length;row++)
+            {
+                bool before=row>0?selected[row-1]:closed&&selected[selected.Length-1];
+                bool after=row<selected.Length?selected[row]:closed&&selected[0];
+                if(before==after||closed&&row==0&&before||closed&&row==selected.Length&&after)continue;
+                lines.Add((source[row*2],source[row*2+1]));
+            }
+            return lines;
         }
         private static Mesh TestRibbon(params Vector3[] points)
         {
@@ -756,13 +838,14 @@ namespace Biathlon.PlayModeTests
                 double spacing = recipe.terrain.grid_spacing_m;
                 var cells = new Dictionary<CellKey, TerrainCell>();
                 var sharedHeights = new Dictionary<CellKey, float>(); int sharedBorderChecks = 0;
+                var terrainFilters=view.GetComponentsInChildren<MeshFilter>(true);
                 for (int tileIndex = 0; tileIndex < view.TerrainTileCount; tileIndex++)
                 {
-                    var vertices = view.TileMesh(tileIndex).vertices; var indices = view.TileMesh(tileIndex).triangles;
-                    Vector3 center = recipe.terrain.tiles[tileIndex].center;
+                    var terrainMesh=view.TileMesh(tileIndex);MeshRenderer renderer=null;
+                    foreach(var filter in terrainFilters)if(filter.sharedMesh==terrainMesh){renderer=filter.GetComponent<MeshRenderer>();break;}
+                    var vertices=RenderedVertices(terrainMesh,renderer);var indices=terrainMesh.triangles;
                     for (int i = 0; i < vertices.Length; i++)
                     {
-                        vertices[i] += center;
                         var key = new CellKey((int)Math.Round(vertices[i].x / spacing), (int)Math.Round(vertices[i].z / spacing));
                         if (Math.Abs(vertices[i].x - key.X * spacing) >= 1e-5 || Math.Abs(vertices[i].z - key.Z * spacing) >= 1e-5)
                             Assert.Fail("Actual terrain vertex does not use the declared shared world grid.");
@@ -793,7 +876,7 @@ namespace Biathlon.PlayModeTests
                     // Inspect the actual course renderer, including its joined closed-loop edge.
                     var mesh = course.LoopMesh(loopId);
                     {
-                        var vertices = mesh.vertices; var indices = mesh.triangles;
+                        var vertices = RenderedVertices(mesh,course.LoopRenderer(loopId)); var indices = mesh.triangles;
                         for (int i = 0; i < indices.Length; i += 3)
                         {
                             var ribbon = new Triangle(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]]);

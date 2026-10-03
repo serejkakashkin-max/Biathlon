@@ -75,7 +75,14 @@ namespace Biathlon.Unity.Presentation
                 for(int i=0;i<tileMeshes.Length;i++)
                 {
                     var tile=data.terrain.tiles[i];var mesh=TerrainBlendMesh.Build(prepared.Corridors,tile.center,new Vector2(tile.size.x,tile.size.z),data.terrain.grid_spacing_m,prepared.Blend,SampleGround);
-                    ownedMeshes.Add(mesh);tileMeshes[i]=mesh;var go=Child(tile.id,tile.center,Quaternion.identity);go.AddComponent<MeshFilter>().sharedMesh=mesh;go.AddComponent<MeshRenderer>().sharedMaterial=snow;
+                    // Keep the original authored world geometry in an absolute vertex buffer.
+                    // Zero-pose children share one render matrix, avoiding per-tile float
+                    // translations which can open cracks under a rotated host hierarchy.
+                    var worldVertices=mesh.vertices;for(int vertex=0;vertex<worldVertices.Length;vertex++)worldVertices[vertex]+=tile.center;
+                    mesh.vertices=worldVertices;mesh.RecalculateBounds();ownedMeshes.Add(mesh);tileMeshes[i]=mesh;
+                    var go=new GameObject(tile.id);go.transform.SetParent(generated.transform,false);
+                    go.transform.localPosition=Vector3.zero;go.transform.localRotation=Quaternion.identity;
+                    go.AddComponent<MeshFilter>().sharedMesh=mesh;go.AddComponent<MeshRenderer>().sharedMaterial=snow;
                 }
                 forests=new VegetationPresentation[data.forest.groups.Length];
                 for(int i=0;i<forests.Length;i++)

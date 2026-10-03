@@ -24,6 +24,9 @@ namespace Biathlon.PlayModeTests
             {
                 var host=root.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;
                 host.Initialize(venue,profile,route,conditions,count:1);
+                Assert.That(host.Course.PresentationRouteId,Is.EqualTo(host.Runner.Field.Route.Id));
+                Assert.That(host.Course.PresentationRouteSnapshotJson,Is.EqualTo(host.Runner.Field.Route.PlanSnapshotJson));
+                Assert.That(host.Course.PresentationRequirementsSnapshotJson,Is.EqualTo(host.Runner.Field.Route.RequirementsSnapshotJson));
                 var body=venue.Occupancy;double wide=3-body.EdgeMargin;
                 Assert.That(host.CurrentLateralExtent,Is.EqualTo(wide));Assert.That(host.Mats.Count,Is.EqualTo(2));
                 Assert.That(host.Mats.LaneId(1),Is.EqualTo("zulu_mat"));

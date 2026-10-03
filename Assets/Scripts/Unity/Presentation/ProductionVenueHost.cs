@@ -80,7 +80,7 @@ namespace Biathlon.Unity.Presentation
             shot=gameObject.AddComponent<ShootingDeviceInput>();shot.enabled=false;shot.Initialize(id,field.TickFrequency);
             effort=new EffortControlSystem(EffortControlDefinition.FromJson(ReadCore("effort_control_provisional_v1.json")),id,field.TickFrequency);
             Mats=gameObject.AddComponent<RangeMatPresentation>();Mats.Initialize(venue);
-            Course=gameObject.AddComponent<ProductionCoursePresentation>();Course.Initialize(venue);
+            Course=gameObject.AddComponent<ProductionCoursePresentation>();Course.Initialize(venue,route:field.Route);
             Proxies=gameObject.AddComponent<AthleteProxyPresentation>();Proxies.Initialize(Feed,venue.Visual,
                 shootingDirection:new Vector3((float)venue.Manifest.Range.Forward.X,0,(float)venue.Manifest.Range.Forward.Z));Proxies.Render(1);
             var cameraObject=new GameObject("Production chase camera");cameraObject.transform.SetParent(transform,false);

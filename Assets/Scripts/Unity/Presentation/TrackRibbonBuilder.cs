@@ -8,10 +8,14 @@ namespace Biathlon.Unity.Presentation
     public static class TrackRibbonBuilder
     {
         public static Mesh Build(TrackDefinition track,TrackVisualDefinition visual,string loopId)
+            =>Build(track,visual,loopId,out _);
+        /// <summary>The original double sample set, before UV float conversion; no route resampling.</summary>
+        public static Mesh Build(TrackDefinition track,TrackVisualDefinition visual,string loopId,out double[] nativeDistances)
         {
             if(track==null||visual==null||visual.TrackId!=track.Id)throw new ArgumentException("Matching track required.");var path=visual.Get(loopId);var loop=track.GetLoop(loopId);var sampler=new TrackSampler(loop);
             var distances=new SortedSet<double>{0,loop.Length.Meters};for(int i=0;i<path.Count;i++)distances.Add(path.Get(i).Distance);for(int i=0;i<loop.SegmentCount;i++)distances.Add(loop.GetSegment(i).StartDistance.Meters);
             int steps=(int)Math.Ceiling(loop.Length.Meters/visual.SampleSpacing);if(steps>100000)throw new ArgumentException("Visual mesh sample budget exceeded.");for(int i=1;i<steps;i++)distances.Add(loop.Length.Meters*i/steps);
+            nativeDistances=new double[distances.Count];distances.CopyTo(nativeDistances);
             var vertices=new Vector3[distances.Count*2];var uv=new Vector2[vertices.Length];var triangles=new int[(distances.Count-1)*6];int row=0;
             foreach(double distance in distances)
             {
