@@ -59,6 +59,30 @@ namespace Biathlon.PlayModeTests
             }
             finally{Object.Destroy(root);}
         }
+        [UnityTest] public IEnumerator ProductionSprintFortyOneRejectsBeforeHostStateComponentsOrChildren()
+        {
+            string venueRoot="Biathlon/Venues/woodland_basin_v1/";
+            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(ProductionVenueHost.ReadResource(venueRoot+"manifest")),ProductionVenueHost.ReadResource);
+            var profile=CompetitionProfile.FromJson(ProductionVenueHost.ReadResource(venueRoot+"sprint_profile"));
+            var route=RaceRoutePlan.FromJson(ProductionVenueHost.ReadResource(venueRoot+"sprint_route"));
+            var conditions=RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1"));
+            Assert.That(profile.FieldCapacity,Is.EqualTo(40));
+            Assert.That(venue.Formats.Get(1).Profile.ToJson(),Is.EqualTo(profile.ToJson()));
+            Assert.That(venue.Formats.Get(1).Route.ToJson(),Is.EqualTo(route.ToJson()));
+            var root=new GameObject("Production cap atomic host rejection");
+            try
+            {
+                var host=root.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;
+                int before=root.GetComponents<Component>().Length;
+                Assert.Throws<ArgumentException>(()=>host.Initialize(venue,profile,route,conditions,count:41));
+                Assert.That(host.Runner,Is.Null);Assert.That(host.Venue,Is.Null);Assert.That(host.Feed,Is.Null);
+                Assert.That(host.Proxies,Is.Null);Assert.That(host.Mats,Is.Null);Assert.That(host.Course,Is.Null);
+                Assert.That(host.ChaseCamera,Is.Null);Assert.That(host.Environment,Is.Null);
+                Assert.That(root.GetComponents<Component>().Length,Is.EqualTo(before));Assert.That(root.transform.childCount,Is.Zero);
+                yield return null;
+            }
+            finally{Object.Destroy(root);}
+        }
         [UnityTest] public IEnumerator InvalidPlayerSlotRejectsBeforeAddingComponentsOrChildren()
         {
             var root=new GameObject("Production host rejection test");

@@ -13,7 +13,7 @@ namespace Biathlon.VenueEditorTests
     public class ProductionPlayableAuthoringTests
     {
         private const string Output="Assets/Scenes/Production/ProductionAuthoringContractTest.unity";
-        [TestCase("mass_start",30)] [TestCase("sprint",60)]
+        [TestCase("mass_start",30)] [TestCase("sprint",40)]
         public void GeneratedSceneBindsActualCatalogEnvironmentAndPreservesCallerSceneAndSelection(string format,int count)
         {
             Assert.That(AssetDatabase.LoadAssetAtPath<SceneAsset>(Output),Is.Null,"The test must not overwrite an existing scene.");
@@ -43,7 +43,7 @@ namespace Biathlon.VenueEditorTests
             Assert.Throws<ArgumentException>(()=>ProductionPlayableAuthoring.Generate(null,null,"sprint",30,"../outside.unity"));
             foreach(var format in new[]{"missing","pursuit"})Assert.Throws<ArgumentException>(()=>ProductionPlayableAuthoring.Generate(ProductionPlayableAuthoring.Venue01+"manifest",ProductionPlayableAuthoring.Venue01+"environment",format,30,Output));
             Assert.Throws<ArgumentException>(()=>ProductionPlayableAuthoring.Generate(ProductionPlayableAuthoring.Venue01+"manifest",ProductionPlayableAuthoring.Venue01+"environment","mass_start",31,Output));
-            Assert.Throws<ArgumentException>(()=>ProductionPlayableAuthoring.Generate(ProductionPlayableAuthoring.Venue01+"manifest",ProductionPlayableAuthoring.Venue01+"environment","sprint",61,Output));
+            Assert.Throws<ArgumentException>(()=>ProductionPlayableAuthoring.Generate(ProductionPlayableAuthoring.Venue01+"manifest",ProductionPlayableAuthoring.Venue01+"environment","sprint",41,Output));
             Assert.That(AssetDatabase.LoadAssetAtPath<SceneAsset>(Output),Is.Null);Assert.That(SceneManager.sceneCount,Is.EqualTo(count));Assert.That(SceneManager.GetActiveScene(),Is.EqualTo(active));
         }
     }

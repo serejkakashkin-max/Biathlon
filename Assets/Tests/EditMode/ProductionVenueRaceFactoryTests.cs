@@ -22,6 +22,38 @@ namespace Biathlon.Tests
             resources["track"]=Regex.Replace(resources["track"],"(\"id\":\"mat\"[\\s\\S]*?\"curvature_per_m\":)0", "${1}0.08");
             return VenuePathAuthoringTests.Plan(resources);
         }
+        private static VenueAuthoringPlan ProductionPlan(bool historical=false)
+        {
+            // Historical60 is an explicit detached stress authority, never an imported profile.
+            string Read(string id)
+            {
+                var value=PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
+                if(historical&&(id.EndsWith("/sprint_profile",StringComparison.Ordinal)||id.EndsWith("/pursuit_profile",StringComparison.Ordinal)))
+                    value=PhysiologyContractTests.ReplaceNumber(value,"field_capacity","60");
+                return value;
+            }
+            return new VenueAuthoringPlan(VenueManifest.FromJson(Read("Biathlon/Venues/woodland_basin_v1/manifest")),Read);
+        }
+        private static PursuitQualificationSnapshot ContractQualification(CompetitionProfile sprint,CompetitionProfile pursuit,AthleteId[] ids)
+        {
+            // Synthetic completed lifecycle rows test the qualification/factory contract only.
+            // No movement/shooting simulation, actual race completion or production result is claimed.
+            var source=new SprintResultBook(sprint,SprintResultsTests.Timing(),ids,20,new RaceEventLog());
+            for(int i=0;i<ids.Length;i++)
+            {
+                var life=new CompetitionLifecycle(sprint,ids[i],20,new RaceEventLog(40));
+                life.Step(new SimulationTick(1),CompetitionAction.Start);
+                life.Step(new SimulationTick(2),CompetitionAction.EnterRange);
+                life.Step(new SimulationTick(3),CompetitionAction.CompleteBout,31,5);
+                life.Step(new SimulationTick(4),CompetitionAction.ReachLapBoundary);
+                life.Step(new SimulationTick(5),CompetitionAction.EnterRange);
+                life.Step(new SimulationTick(6),CompetitionAction.CompleteBout,31,5);
+                life.Step(new SimulationTick(7),CompetitionAction.ReachLapBoundary);
+                long finish=201+i;for(long tick=8;tick<finish;tick++)life.Step(new SimulationTick(tick));
+                life.Step(new SimulationTick(finish),CompetitionAction.Finish,finish:new FinishTime(finish,0,20));source.Record(life);
+            }
+            return PursuitQualificationSnapshot.Create("production_contract_qualification",source.Complete("production_contract_source"),pursuit);
+        }
 
         [Test] public void ExplicitPathAiRaceCompletesAndItsPersistedCommandsReplayWithoutAi()
         {
@@ -106,42 +138,61 @@ namespace Biathlon.Tests
                 PhysiologyContractTests.DefinitionJson,new RaceEventLog(),new AiDecisionCounts(),count:1)).Message,Does.Contain("catalog"));
         }
 
-        [Test] public void ProductionSprintAndQualifiedPursuitCoverSixtyEntrantsWithThirtyReusableMats()
+        [TestCase(40,false)] [TestCase(60,true)] public void ProductionFortyAndDetachedHistoricalSixtyUseThirtyReusableMats(int count,bool historical)
         {
-            string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
-            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read("Biathlon/Venues/woodland_basin_v1/manifest")),Read);
+            var venue=ProductionPlan(historical);
             var sprint=venue.Formats.Get(1);var pursuit=venue.Formats.Get(2);
+            Assert.That(sprint.Profile.FieldCapacity,Is.EqualTo(count));Assert.That(pursuit.Profile.FieldCapacity,Is.EqualTo(count));
             var conditions=RaceSnowConditions.FromJson(PhysiologyContractTests.DefinitionJson("race_snow_neutral_v1.json"));
             Assert.That(venue.LaneCount,Is.EqualTo(30));
             var runner=ProductionVenueRaceFactory.Create(venue,sprint.Profile,sprint.Route,conditions,
-                PhysiologyContractTests.DefinitionJson,new RaceEventLog(),new AiDecisionCounts(),count:60);
-            Assert.That(runner.Field.Count,Is.EqualTo(60));Assert.That(runner.Field.RangeReservations,Is.Not.Null);
-            var ids=new AthleteId[60];for(int i=0;i<ids.Length;i++)ids[i]=runner.Field.GetAthlete(i).AthleteId;
-            var source=new SprintResultBook(sprint.Profile,SprintResultsTests.Timing(),ids,20,new RaceEventLog());
-            for(int i=0;i<ids.Length;i++)
-            {
-                var life=new CompetitionLifecycle(sprint.Profile,ids[i],20,new RaceEventLog(40));
-                life.Step(new SimulationTick(1),CompetitionAction.Start);
-                life.Step(new SimulationTick(2),CompetitionAction.EnterRange);
-                life.Step(new SimulationTick(3),CompetitionAction.CompleteBout,31,5);
-                life.Step(new SimulationTick(4),CompetitionAction.ReachLapBoundary);
-                life.Step(new SimulationTick(5),CompetitionAction.EnterRange);
-                life.Step(new SimulationTick(6),CompetitionAction.CompleteBout,31,5);
-                life.Step(new SimulationTick(7),CompetitionAction.ReachLapBoundary);
-                long finish=201+i;for(long tick=8;tick<finish;tick++)life.Step(new SimulationTick(tick));
-                life.Step(new SimulationTick(finish),CompetitionAction.Finish,finish:new FinishTime(finish,0,20));
-                source.Record(life);
-            }
-            var qualification=PursuitQualificationSnapshot.Create("production_sixty_qualification",source.Complete("production_sixty_source"),pursuit.Profile);
+                PhysiologyContractTests.DefinitionJson,new RaceEventLog(),new AiDecisionCounts(),count:count);
+            Assert.That(runner.Field.Count,Is.EqualTo(count));Assert.That(runner.Field.RangeReservations,Is.Not.Null);
+            var ids=new AthleteId[count];for(int i=0;i<ids.Length;i++)ids[i]=runner.Field.GetAthlete(i).AthleteId;
+            var qualification=ContractQualification(sprint.Profile,pursuit.Profile,ids);
             var chased=ProductionVenueRaceFactory.Create(venue,pursuit.Profile,pursuit.Route,conditions,
-                PhysiologyContractTests.DefinitionJson,new RaceEventLog(),new AiDecisionCounts(),qualification:qualification,count:60);
-            Assert.That(chased.Field.RangeReservations,Is.Not.Null);Assert.That(chased.Field.Count,Is.EqualTo(60));
+                PhysiologyContractTests.DefinitionJson,new RaceEventLog(),new AiDecisionCounts(),qualification:qualification,count:count);
+            Assert.That(chased.Field.RangeReservations,Is.Not.Null);Assert.That(chased.Field.Count,Is.EqualTo(count));
             for(int i=0;i<ids.Length;i++)Assert.That(chased.Field.GetAthlete(i).AthleteId.Value,Is.EqualTo(qualification.Get(i).AthleteId));
             var mass=venue.Formats.Get(0);
             Assert.Throws<ArgumentException>(()=>ProductionVenueRaceFactory.Create(venue,mass.Profile,mass.Route,conditions,
                 PhysiologyContractTests.DefinitionJson,new RaceEventLog(),new AiDecisionCounts(),count:31));
             Assert.Throws<ArgumentException>(()=>ProductionVenueRaceFactory.Create(venue,sprint.Profile,sprint.Route,conditions,
-                PhysiologyContractTests.DefinitionJson,new RaceEventLog(),new AiDecisionCounts(),count:61));
+                PhysiologyContractTests.DefinitionJson,new RaceEventLog(),new AiDecisionCounts(),count:count+1));
+        }
+        [TestCase("sprint",41)] [TestCase("pursuit",41)] [TestCase("mass_start",31)]
+        public void OversizedProductionRosterRejectsBeforeAnyCoreReadEventOrTelemetry(string format,int count)
+        {
+            var venue=ProductionPlan();VenueFormatBinding selected=null;
+            for(int i=0;i<venue.Formats.Count;i++)if(venue.Formats.Get(i).Id==format)selected=venue.Formats.Get(i);
+            Assert.That(selected,Is.Not.Null);var conditions=RaceSnowConditions.FromJson(PhysiologyContractTests.DefinitionJson("race_snow_neutral_v1.json"));
+            PursuitQualificationSnapshot qualification=null;
+            if(format=="pursuit")
+            {
+                var ids=new AthleteId[40];for(int i=0;i<ids.Length;i++)ids[i]=new AthleteId(venue.Manifest.Id+"_athlete_"+i);
+                qualification=ContractQualification(venue.Formats.Get(1).Profile,selected.Profile,ids);
+                Assert.That(qualification.Count,Is.EqualTo(40),"A valid40 qualification must reach the capacity guard; missing qualification would be an unrelated rejection.");
+            }
+            var events=new RaceEventLog();var telemetry=new AiDecisionCounts();int reads=0;
+            string ForbiddenRead(string resource){reads++;throw new InvalidOperationException("Oversized roster read core resource: "+resource);}
+            Assert.Throws<ArgumentException>(()=>ProductionVenueRaceFactory.Create(venue,selected.Profile,selected.Route,conditions,ForbiddenRead,events,telemetry,qualification:qualification,count:count));
+            Assert.That(reads,Is.Zero);Assert.That(events.Count,Is.Zero);Assert.That(telemetry.Tactical,Is.Zero);Assert.That(telemetry.Shooting,Is.Zero);
+            for(int i=0;i<8;i++)Assert.That(telemetry.IntentCount(i),Is.Zero);for(int i=0;i<=1000;i++)Assert.That(telemetry.EffortCount(i),Is.Zero);
+        }
+        [Test] public void CurrentCatalogAndBothAuthoritativeRecipesBindFortyMaximumWithThirtyMassLanes()
+        {
+            var venue=ProductionPlan();Assert.That(venue.Formats.Count,Is.EqualTo(3));Assert.That(venue.LaneCount,Is.EqualTo(30));
+            for(int i=0;i<venue.Formats.Count;i++)
+            {
+                var profile=venue.Formats.Get(i).Profile;Assert.That(profile.FieldCapacity,Is.LessThanOrEqualTo(40));
+                Assert.That(profile.FieldCapacity,Is.EqualTo(profile.Format==CompetitionFormat.MassStart?30:40));
+            }
+            foreach(string recipe in new[]{"woodland_basin","pine_ridge"})
+            {
+                var json=PhysiologyContractTests.ProjectFile("scripts/content/m13/recipes/"+recipe+"_formats_recipe_v1.json");
+                var capacities=Regex.Matches(json,"\\\"field_capacity\\\"\\s*:\\s*(\\d+)");Assert.That(capacities.Count,Is.EqualTo(2));
+                foreach(Match value in capacities)Assert.That(value.Groups[1].Value,Is.EqualTo("40"),"Both prepared format recipes must retain the owner limit.");
+            }
         }
     }
 }

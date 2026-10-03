@@ -16,7 +16,7 @@ namespace Biathlon.Unity
         [MenuItem("BIATHLON/Venues/Generate Venue01 Playable Scenes")]
         public static void GenerateVenue01()
         {
-            Generate(Venue01+"manifest",Venue01+"environment","sprint",60,"Assets/Scenes/Production/WoodlandBasinSprint.unity");
+            Generate(Venue01+"manifest",Venue01+"environment","sprint",40,"Assets/Scenes/Production/WoodlandBasinSprint.unity");
             Generate(Venue01+"manifest",Venue01+"environment","mass_start",30,"Assets/Scenes/Production/WoodlandBasinMassStart.unity");
         }
         public static string Generate(string manifestResource,string environmentResource,string formatId,int count,string output)
