@@ -23,7 +23,8 @@ public static class ProductionReplayHarness
     private const long MaximumTicks=120000;
     private const int MaximumRecordBytes=8*1024*1024;
     public const string ContextSuffix=".context.json.gz";
-    private const long MaximumContextBytes=128*1024*1024;
+    private const long DefaultContextBytes=128L*1024*1024;
+    private const int MaximumContextMiB=512;
     private const long MaximumCompressedContextBytes=16*1024*1024;
     private static readonly JsonSerializerOptions Json=Options(false);
     private static readonly JsonSerializerOptions Pretty=Options(true);
@@ -40,23 +41,39 @@ public static class ProductionReplayHarness
         string output=null;
         try
         {
-            if(args.Length==3&&args[0]=="replay")
-            {string tape=Path.GetFullPath(args[1]),report=Path.GetFullPath(args[2]);ValidatePaths(tape,report);output=report;Replay(tape,output);return 0;}
+            if(args.Length>=3&&args[0]=="replay")
+            {
+                string tape=Path.GetFullPath(args[1]),report=Path.GetFullPath(args[2]);ValidatePaths(tape,report);output=report;
+                long contextLimit=DefaultContextBytes;bool configured=false;
+                for(int i=3;i<args.Length;i+=2)
+                {
+                    if(i+1==args.Length)throw new ArgumentException("Option requires a value.");
+                    if(args[i]!="--max-context-mib")throw new ArgumentException("Unknown option "+args[i]);
+                    if(configured)throw new ArgumentException("--max-context-mib may only be specified once.");
+                    contextLimit=BoundedMiB(args[i+1],128,MaximumContextMiB);configured=true;
+                }
+                Replay(tape,output,contextLimit);return 0;
+            }
             if(args.Length<11||args[0]!="record")throw new ArgumentException(
-                "record <venue-root> <core-root> <manifest> <profile> <route> <conditions> <count> <tick-limit> <tape.gz> <output.json> [--sprint-result <source.json>] [--max-tape-mib <16..4096>] [--max-raw-mib <16..65536>]\nreplay <tape.gz> <output.json>");
+                "record <venue-root> <core-root> <manifest> <profile> <route> <conditions> <count> <tick-limit> <tape.gz> <output.json> [--sprint-result <source.json>] [--max-tape-mib <16..4096>] [--max-raw-mib <16..65536>] [--max-context-mib <128..512>]\nreplay <tape.gz> <output.json> [--max-context-mib <128..512>]");
             string tapeFile=Path.GetFullPath(args[9]),reportFile=Path.GetFullPath(args[10]);ValidatePaths(tapeFile,reportFile);output=reportFile;
-            long compressedLimit=256L*1024*1024,rawLimit=4096L*1024*1024;string qualification=null;
+            long compressedLimit=256L*1024*1024,rawLimit=4096L*1024*1024,recordContextLimit=DefaultContextBytes;string qualification=null;bool contextConfigured=false;
             for(int i=11;i<args.Length;i+=2)
             {
                 if(i+1==args.Length)throw new ArgumentException("Option requires a value.");
                 if(args[i]=="--sprint-result")qualification=File.ReadAllText(args[i+1]);
                 else if(args[i]=="--max-tape-mib")compressedLimit=BoundedMiB(args[i+1],16,4096);
                 else if(args[i]=="--max-raw-mib")rawLimit=BoundedMiB(args[i+1],16,65536);
+                else if(args[i]=="--max-context-mib")
+                {
+                    if(contextConfigured)throw new ArgumentException("--max-context-mib may only be specified once.");
+                    recordContextLimit=BoundedMiB(args[i+1],128,MaximumContextMiB);contextConfigured=true;
+                }
                 else throw new ArgumentException("Unknown option "+args[i]);
             }
             int count=int.Parse(args[7],CultureInfo.InvariantCulture);long ticks=long.Parse(args[8],CultureInfo.InvariantCulture);
             if(ticks<0||ticks>MaximumTicks)throw new ArgumentOutOfRangeException("tick-limit","Tick limit must be 0..120000.");
-            Record(args[1],args[2],args[3],args[4],args[5],args[6],count,ticks,tapeFile,output,qualification,compressedLimit,rawLimit);
+            Record(args[1],args[2],args[3],args[4],args[5],args[6],count,ticks,tapeFile,output,qualification,compressedLimit,rawLimit,recordContextLimit);
             return 0;
         }
         catch(Exception error)
@@ -136,7 +153,7 @@ public static class ProductionReplayHarness
             count:context.Count,frequency:context.Frequency,seed:context.Seed);
     }
     private static void Record(string venueRoot,string coreRoot,string manifest,string profile,string route,string conditions,int count,long tickLimit,
-        string tapePath,string reportPath,string sprintSource,long compressedLimit,long rawLimit)
+        string tapePath,string reportPath,string sprintSource,long compressedLimit,long rawLimit,long contextLimit)
     {
         if(count<1||count>60)throw new ArgumentOutOfRangeException(nameof(count));
         if(tapePath==reportPath||tapePath+ContextSuffix==reportPath)throw new ArgumentException("Tape, context and report paths must differ.");
@@ -158,7 +175,7 @@ public static class ProductionReplayHarness
         Directory.CreateDirectory(Path.GetDirectoryName(tapePath));
         string contextFile=tapePath+ContextSuffix;long contextRawBytes;
         using(var file=File.Create(contextFile))using(var gzip=new GZipStream(file,CompressionLevel.Fastest))
-        using(var bounded=new CapacityStream(gzip,MaximumContextBytes,true))
+        using(var bounded=new CapacityStream(gzip,contextLimit,true))
         {JsonSerializer.Serialize(bounded,context,Json);contextRawBytes=bounded.Transferred;}
         long contextCompressedBytes=new FileInfo(contextFile).Length;
         if(contextCompressedBytes>MaximumCompressedContextBytes)throw new InvalidOperationException("Compressed context exceeds 16 MiB.");
@@ -206,7 +223,7 @@ public static class ProductionReplayHarness
             kind=Kind,ticks=field.Tick.Value,requested_tick_limit=tickLimit,athletes=count,stopped_reason=field.IsComplete?"RACE_COMPLETE":stopped,
             tape_file=tapePath,tape_sha256=HashFile(tapePath),context_file=contextFile,context_sha256=contextHash,
             context_compressed_bytes=contextCompressedBytes,context_uncompressed_bytes=contextRawBytes,
-            context_compressed_capacity_bytes=MaximumCompressedContextBytes,context_uncompressed_capacity_bytes=MaximumContextBytes,
+            context_compressed_capacity_bytes=MaximumCompressedContextBytes,context_uncompressed_capacity_bytes=contextLimit,
             compressed_bytes=compressedBytes,uncompressed_record_bytes=rawBytes,
             compressed_capacity_bytes=compressedLimit,uncompressed_capacity_bytes=rawLimit,peak_tick_record_bytes=peakRecord,
             field_event_count=events.FieldCount,excluded_ai_event_count=events.ExcludedCount,max_stationary_ticks=maximumStationary,
@@ -214,7 +231,7 @@ public static class ProductionReplayHarness
             source_code_sha256=context.SourceCodeSha256,result_json=Result(field)});
         Console.WriteLine("record "+(field.IsComplete?"complete":"prefix")+" ticks="+field.Tick.Value+" bytes="+compressedBytes);
     }
-    private static void Replay(string tapePath,string reportPath)
+    private static void Replay(string tapePath,string reportPath,long contextLimit)
     {
         if(reportPath==tapePath||reportPath==tapePath+ContextSuffix)throw new ArgumentException("Replay report must differ from tape/context.");
         if(new FileInfo(tapePath).Length>4096L*1024*1024)throw new InvalidOperationException("Compressed input tape exceeds 4096 MiB.");
@@ -229,7 +246,7 @@ public static class ProductionReplayHarness
         }
         Context context;long contextRawBytes;
         using(var file=File.OpenRead(contextFile))using(var gzip=new GZipStream(file,CompressionMode.Decompress))
-        using(var bounded=new CapacityStream(gzip,MaximumContextBytes,false))
+        using(var bounded=new CapacityStream(gzip,contextLimit,false))
         {context=JsonSerializer.Deserialize<Context>(bounded,Json);contextRawBytes=bounded.Transferred;}
         if(context==null||context.SchemaVersion!=1||context.Kind!=Kind||context.Count<1||context.Count>60)throw new InvalidOperationException("Invalid context contract.");
         if(context.Count!=persistedCount)throw new InvalidOperationException("Persisted context/tape roster mismatch.");
@@ -276,7 +293,8 @@ public static class ProductionReplayHarness
             kind=Kind,ticks=records,athletes=context.Count,complete_race=complete,per_tick_public_state="EXACT_SERIALIZED_BYTE_EQUALITY",
             public_contract="LastFrame including all physiology/shooting outputs; coordinates, motion, lateral, draft, junction tickets, lifecycle, range path/lane, masks, arrival/release/reservation history, checkpoint splits/timing; exact final result when complete",
             ordered_field_events="EXACT_SERIALIZED_BYTE_EQUALITY",ai_event_filter=EventBatch.ExcludedNames,tape_sha256=HashFile(tapePath),
-            context_file=contextFile,context_sha256=contextHash,context_compressed_bytes=new FileInfo(contextFile).Length,context_uncompressed_bytes=contextRawBytes,
+            context_file=contextFile,context_sha256=contextHash,context_compressed_bytes=new FileInfo(contextFile).Length,context_uncompressed_bytes=contextRawBytes,context_uncompressed_capacity_bytes=contextLimit,
+            context_compressed_capacity_bytes=MaximumCompressedContextBytes,
             field_event_count=events.FieldCount,replay_ai_steps=0,elapsed_wall_seconds=watch.Elapsed.TotalSeconds,resource_sha256=context.ResourceSha256,
             assembly_sha256=context.AssemblySha256,source_code_sha256=context.SourceCodeSha256,result_json=Result(field)});
         Console.WriteLine("replay PASS "+(complete?"complete":"prefix")+" ticks="+records);
@@ -369,7 +387,8 @@ public static class ProductionReplayHarness
     private static string HashFile(string path)
     {using(var file=File.OpenRead(path))return Convert.ToHexString(SHA256.HashData(file)).ToLowerInvariant();}
     // A cold context can be large because the factory records the full geometry for
-    // every actor. Stream serialization and reject expansion beyond a fixed bound.
+    // every actor. Stream serialization; the explicit CLI evidence cap is bounded,
+    // defaults to 128 MiB, and never changes persisted context or gameplay inputs.
     private sealed class CapacityStream:Stream
     {
         private readonly Stream inner;private readonly long maximum;private readonly bool writing;
@@ -377,7 +396,7 @@ public static class ProductionReplayHarness
         public CapacityStream(Stream inner,long maximum,bool writing){this.inner=inner;this.maximum=maximum;this.writing=writing;}
         public override bool CanRead=>!writing;public override bool CanWrite=>writing;public override bool CanSeek=>false;
         public override long Length=>throw new NotSupportedException();public override long Position {get=>Transferred;set=>throw new NotSupportedException();}
-        private void Count(int length){if(length>maximum-Transferred)throw new InvalidOperationException("Uncompressed context exceeds 128 MiB capacity.");Transferred+=length;}
+        private void Count(int length){if(length>maximum-Transferred)throw new InvalidOperationException("Uncompressed context exceeds "+(maximum/(1024*1024)).ToString(CultureInfo.InvariantCulture)+" MiB capacity.");Transferred+=length;}
         public override int Read(byte[] buffer,int offset,int count)=>Read(buffer.AsSpan(offset,count));
         public override int Read(Span<byte> buffer)
         {int length=inner.Read(buffer.Slice(0,(int)Math.Min(buffer.Length,maximum-Transferred+1)));Count(length);return length;}

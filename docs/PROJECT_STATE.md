@@ -10,12 +10,12 @@ owner_gate_g1: APPROVED 2026-09-13
 owner_gate_g2: APPROVED 2026-09-30
 m12_status: PASS / owner-approved
 active_work_package: WP-169 IN_PROGRESS / CLOSURE_MODE
-active_task: compact physical range correction
+active_task: resolve actual compact range crossing deadlock and Sprint snow-bank contact
 last_completed_task: TASK169AA production40 import/regression PASS
 production_fields: Sprint40 / Pursuit40 / MassStart30; total includes player
-last_verified_commit: c1bdf15fb712bc62157f7d4d3833ce12bcb5953d; pushed and origin verified
-next_action: integrate bounded compact range circulation and actual mat/body stops; preserve bodies/guards/paid movement
-current_known_blockers: []
+last_verified_commit: a2f706b28bb7c9a3a6e1f6c3a17b44ed04e1b9e5; pushed and origin verified
+next_action: qualify explicit local crossing admission with real Sprint40/Mass30 before recording final replay; fix native Sprint snow contact
+current_known_blockers: [compact crossing mutual stop in actual Sprint40/Mass30, exposed Sprint snow-bank seam]
 owner_decisions_needed: []
 last_delivered_windows_build: G2 target018; no new production build yet
 ```
@@ -39,7 +39,11 @@ Remaining WP-169 acceptance, in execution order:
 6. Windows Development owner review build; hidden-only automated smoke of all3formats plus real rendered third-person/range/stadium/forest views. Preserve unavailable GPU/frame-counter limitations.
 7. One consolidated [WP169 production report](reports/WP169_VENUE01_PRODUCTION_REPORT.md) when ready, review package, state and Git publication. Mark WP169 DONE only after all owner definition-of-done items pass; then immediately begin WP170.
 
-Compact candidates and geometry drafts remain outside Assets and are NOT live admission authority. Existing static shared-entry rejection and unresolved actual shooting-body/seam rotation must be addressed only as concrete range blockers within the coherent range correction. No separate tooling research chain or per-experiment production checkpoint.
+Compact range closure bundle is a local imported draft, not production acceptance:30lanes/3m pitch, left entry/right exit, unchanged body/guards, actual stop-.88m, physical2m mats and extra measured prone support bounds. Static content and bounded2/3-body completion/replay passed; native apron3format checks passed, stadium GameViews show the white rectangles removed. Final native hero pose and mat raster-depth checks remain pending.
+
+Actual production probes exposed a blocking local crossing mutual stop: Sprint40 remains PREFIX_ONLY at60000ticks, first permanent stop near19587; Mass30 also stalls in its first bout. No completed Sprint40/Pursuit40/Mass30 or new build is claimed. Preserve failed evidence under artifacts/wp169closure; fix the named crossing without narrowing bodies/guards, teleporting or adding a global queue. Optional Sprint banks preserve route geometry but native full contact still fails at one exposed seam; repair before acceptance.
+
+Replay CLI now has an explicit bounded --max-context-mib128..512 option, default128 retained. Actual Mass30 cold context exceeded the old128MiB tool limit; its bytes/schema/core remain unchanged. Relevant native .NET tool assembly20/20PASS, including expansion rejection, exact replay and malformed capacity options. Full core/final PlayMode evidence is still required for the final coherent range bundle.
 
 Already-proven authoring/validator/core, Y historical replay, T/T2 frame/seams, Z forest visibility, accepted terrain placement, Mass30 capability and G2 direction are frozen unless new regression evidence appears. Use focused tests/compile/Console/targeted GameView for local presentation; focused range/integration/replay for changed physical paths. Full regressions run at coherent/final acceptance, not after every visual tweak.
 
