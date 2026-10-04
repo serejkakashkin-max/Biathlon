@@ -13,7 +13,7 @@
     "approach": "side_entry",
     "entry": {
       "loop_id": "main",
-      "distance_m": 2680.592
+      "distance_m": 2795.548
     },
     "exit": {
       "loop_id": "main",
@@ -29,18 +29,35 @@
       "y": 0,
       "z": 1
     },
-    "lane_pitch_m": 6,
-    "apron_depth_m": 30
+    "lane_pitch_m": 3,
+    "apron_depth_m": 12,
+    "mat_definition": {
+      "schema_version": 1,
+      "id": "woodland_basin_range_mat_v1",
+      "width_m": 1.5,
+      "length_m": 2,
+      "thickness_m": 0.015,
+      "athlete_stop_depth_m": 0.88,
+      "prone_support": {
+        "schema_version": 1,
+        "id": "hero_prone_mat_support_v1",
+        "lateral_min_m": -0.26,
+        "lateral_max_m": 0.28,
+        "forward_min_m": -0.95,
+        "forward_max_m": 0.83,
+        "clearance_m": 0.01
+      }
+    }
   },
   "cameras": [
     {
       "id": "range_overview",
       "anchor": {
         "loop_id": "main",
-        "distance_m": 2778.592
+        "distance_m": 2893.548
       },
       "offset": {
-        "x": 20,
+        "x": -20,
         "y": 20,
         "z": -30
       },
@@ -58,7 +75,7 @@
         "distance_m": 450.0
       },
       "offset": {
-        "x": -12,
+        "x": 12,
         "y": 5,
         "z": -10
       },
@@ -76,7 +93,7 @@
         "distance_m": 1300.0
       },
       "offset": {
-        "x": 10,
+        "x": -10,
         "y": 4,
         "z": -12
       },
@@ -93,7 +110,7 @@
       "id": "stadium_crowd",
       "anchor": {
         "loop_id": "main",
-        "distance_m": 2778.592
+        "distance_m": 2893.548
       },
       "event_id": "ambience_stadium_crowd",
       "radius_m": 120
@@ -114,21 +131,21 @@
       "resource": "Biathlon/Stadium/G2Grandstand/Grandstand",
       "anchor": {
         "loop_id": "main",
-        "distance_m": 2680.592
+        "distance_m": 2795.548
       },
       "offset": {
-        "x": 15,
+        "x": -15,
         "y": 0,
         "z": -45
       },
-      "yaw_deg": 90
+      "yaw_deg": -90
     },
     {
       "id": "event_dressing",
       "resource": "Biathlon/Stadium/G2Event/Event",
       "anchor": {
         "loop_id": "main",
-        "distance_m": 2680.592
+        "distance_m": 2795.548
       },
       "offset": {
         "x": 0,
@@ -138,5 +155,6 @@
       "yaw_deg": 0
     }
   ],
-  "format_bindings_resource": "Biathlon/Venues/woodland_basin_v1/format_bindings"
+  "format_bindings_resource": "Biathlon/Venues/woodland_basin_v1/format_bindings",
+  "shared_apron_resource": "Biathlon/Venues/woodland_basin_v1/shared_apron"
 }

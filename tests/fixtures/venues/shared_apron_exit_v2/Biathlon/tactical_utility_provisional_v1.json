@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "tactical_utility_provisional_v1",
+  "intents": [
+    {"intent":0,"bias":0,"feature_weights":[4,-1,2,0,0,0,0,0],"personality_weight":1},
+    {"intent":1,"bias":1,"feature_weights":[0,0,0,0,0,0,0,0],"personality_weight":0.5},
+    {"intent":2,"bias":0.5,"feature_weights":[0,0,0,0,1,0,0,0],"personality_weight":1},
+    {"intent":3,"bias":0,"feature_weights":[1,0,1,-1,4,0,0,0],"personality_weight":2},
+    {"intent":4,"bias":0,"feature_weights":[-1,1,-1,-1,0,4,0,0],"personality_weight":2},
+    {"intent":5,"bias":0,"feature_weights":[-2,2,-2,-2,0,0,4,0],"personality_weight":2},
+    {"intent":6,"bias":0,"feature_weights":[-1,1,-1,0,0,0,0,6],"personality_weight":2},
+    {"intent":7,"bias":0,"feature_weights":[3,0,1,4,0,0,0,-2],"personality_weight":2}
+  ]
+}

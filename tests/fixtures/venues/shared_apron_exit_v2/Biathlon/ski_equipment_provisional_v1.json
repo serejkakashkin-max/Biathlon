@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "ski_equipment_provisional_v1",
+  "maximum_modifier_deviation": 0.08,
+  "maximum_affinity_deviation": 0.03,
+  "skis": [
+    { "id": "ski_neutral", "glide_multiplier": 1, "grip_multiplier": 1, "stability_multiplier": 1, "condition_affinities": [] },
+    { "id": "ski_glide", "glide_multiplier": 1.04, "grip_multiplier": 0.97, "stability_multiplier": 0.98, "condition_affinities": [] },
+    { "id": "ski_soft_specialist", "glide_multiplier": 0.99, "grip_multiplier": 1.02, "stability_multiplier": 1.02, "condition_affinities": [
+      { "snow_profile_id": "fresh_soft", "glide_multiplier": 1.03 },
+      { "snow_profile_id": "icy_fast", "glide_multiplier": 0.98 }
+    ] }
+  ]
+}

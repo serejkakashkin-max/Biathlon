@@ -1,0 +1,424 @@
+{
+  "schema_version": 1,
+  "id": "final_production_40_40_30_record_replay_bindings_v1",
+  "status": "PASS_FINAL_PRODUCTION_SPRINT40_PURSUIT40_MASS30_COMPLETE_EXACT_REPLAY_CURRENT_BINDINGS",
+  "verification_kind": "READ_ONLY_REPORT_CONTEXT_AND_EXACT_BYTE_HASH_AUDIT",
+  "inputs": {
+    "final-sprint40-record.json": {
+      "absolute_path": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-sprint40-record.json",
+      "sha256": "0016b935974e97b58052c9ac3692e284f494bed2988ea57c4580e940821b652c"
+    },
+    "final-sprint40-replay.json": {
+      "absolute_path": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-sprint40-replay.json",
+      "sha256": "5dbbf6e1210985c4a081c78653d028795a3d89ea5dd4fca56b3e3455aa5f34c4"
+    },
+    "final-pursuit40-record.json": {
+      "absolute_path": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-pursuit40-record.json",
+      "sha256": "fcc0a691e178bf5aa1a04153c786d59789e9034bdd6d2b5a2ba2d0e0d3638d62"
+    },
+    "final-pursuit40-replay.json": {
+      "absolute_path": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-pursuit40-replay.json",
+      "sha256": "1fdf9c5a82cb3714e3a6e67ee7a47f5ac46f989cd8f8bde5c1dad6392ca8b1ca"
+    },
+    "final-mass30-record.json": {
+      "absolute_path": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-mass30-record.json",
+      "sha256": "cfc58fb1053f24e3a0e0b2ce1a224a01fe845623fe816dee7d2ac3c482a56b27"
+    },
+    "final-mass30-replay.json": {
+      "absolute_path": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-mass30-replay.json",
+      "sha256": "dbd75d7fd24d980c78d2975e0786937cdbae777c5e102a6bbc24d19e8705633c"
+    }
+  },
+  "formats": {
+    "sprint40": {
+      "status": "PASS_COMPLETE_EXACT_REPLAY_AND_CURRENT_BINDINGS",
+      "athletes": 40,
+      "finished_unique_rows": 40,
+      "ticks": 62247,
+      "max_stationary_ticks": 1199,
+      "field_event_count": 670805,
+      "excluded_ai_event_count": 58319,
+      "ordered_field_events_report_exact": true,
+      "replay_ai_steps": 0,
+      "result_sha256": "1ebc4359de869c1f3aea056917ce99510691cb2c39fbc039c3679dcd630ca776",
+      "tape": {
+        "absolute_path": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-sprint40.commands.gz",
+        "sha256": "53518394fc5209958f77038d7f66374ea572373b36eecb095c28af3c2368da16",
+        "compressed_bytes": 1764397095
+      },
+      "context": {
+        "absolute_path": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-sprint40.commands.gz.context.json.gz",
+        "sha256": "7dcfc094051df4b4f11f8f962ca0d51ec64da2dfb9f2506868a5e63bd72546de",
+        "compressed_bytes": 1268863,
+        "uncompressed_bytes": 60113713,
+        "field_context_json_sha256": "b3eb0328f6edc5d2ae1a514825aa3f2fe99346b6b963c84a17570be5d267cbbf"
+      },
+      "current_root_resource_count_verified": 59,
+      "current_root_source_count_verified": 256,
+      "frozen_final_assembly_count_verified": 6
+    },
+    "pursuit40": {
+      "status": "PASS_COMPLETE_EXACT_REPLAY_AND_CURRENT_BINDINGS",
+      "athletes": 40,
+      "finished_unique_rows": 40,
+      "ticks": 57248,
+      "max_stationary_ticks": 691,
+      "field_event_count": 784533,
+      "excluded_ai_event_count": 86063,
+      "ordered_field_events_report_exact": true,
+      "replay_ai_steps": 0,
+      "result_sha256": "5b45e651599800552fcbea64b8159b2bf11b20859a5f924cfff01c03f36284b2",
+      "tape": {
+        "absolute_path": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-pursuit40.commands.gz",
+        "sha256": "713cc426561b5aae0c1087c94f6a1fc1d3f5525ed0b4958212e0e10d28c18a7a",
+        "compressed_bytes": 1425986039
+      },
+      "context": {
+        "absolute_path": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-pursuit40.commands.gz.context.json.gz",
+        "sha256": "220de3034a1a44a8d36668362f54052515f2db99b49ee7e4e2355de0a8028f65",
+        "compressed_bytes": 1915742,
+        "uncompressed_bytes": 114804844,
+        "field_context_json_sha256": "9da36e3de3b56fa8d04b3414d69e9d9e7c8f08c2ce061d59fef095ef4b91da6d"
+      },
+      "current_root_resource_count_verified": 60,
+      "current_root_source_count_verified": 256,
+      "frozen_final_assembly_count_verified": 6
+    },
+    "mass30": {
+      "status": "PASS_COMPLETE_EXACT_REPLAY_AND_CURRENT_BINDINGS",
+      "athletes": 30,
+      "finished_unique_rows": 30,
+      "ticks": 58974,
+      "max_stationary_ticks": 1691,
+      "field_event_count": 628686,
+      "excluded_ai_event_count": 68649,
+      "ordered_field_events_report_exact": true,
+      "replay_ai_steps": 0,
+      "result_sha256": "bd8ac03f4539c15043f718b77866f10dc434727ab8c77a2cd4a4788deabaa86e",
+      "tape": {
+        "absolute_path": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-mass30.commands.gz",
+        "sha256": "30833a392cb6692eb5fe39edec63681bd5fafc37d2703dfaed1816d6a0737855",
+        "compressed_bytes": 1627326475
+      },
+      "context": {
+        "absolute_path": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-mass30.commands.gz.context.json.gz",
+        "sha256": "8de91034b26cedea046041fcf1269a380972a5a2680eb87d97b5da78e597444d",
+        "compressed_bytes": 3590309,
+        "uncompressed_bytes": 309598942,
+        "field_context_json_sha256": "ede6f39e90bcc26cc5f837bf515e694687948f0a29ffda53cb2db1cf78c9ec56"
+      },
+      "current_root_resource_count_verified": 62,
+      "current_root_source_count_verified": 256,
+      "frozen_final_assembly_count_verified": 6
+    }
+  },
+  "known_limitations": [
+    "No independent new replay or race was executed by this audit; per-tick public-state and ordered-field-event equality comes from the existing completed replay harness reports.",
+    "AI tactical events are intentionally excluded from authoritative field replay; replay_ai_steps must remain zero.",
+    "These results qualify the exact fixed-seed authored race workloads and current source/resource bindings. They do not establish visual acceptance, GPU performance, complete IBU compliance or final gameplay balance."
+  ],
+  "pursuit_qualification": {
+    "status": "PASS_EXACT_REAL_SPRINT40_SOURCE_ALL40_GAPS_AND_STARTS",
+    "source_record_sha256": "0016b935974e97b58052c9ac3692e284f494bed2988ea57c4580e940821b652c",
+    "source_result_sha256": "1ebc4359de869c1f3aea056917ce99510691cb2c39fbc039c3679dcd630ca776",
+    "qualification_sha256": "c6d9fcde66286220363ad45c2865bc49df2e97185917dd2bcf69b0143f02461a",
+    "first_start_tick": 1,
+    "gap_units_per_second": 10,
+    "rows": [
+      {
+        "athlete_id": "woodland_basin_v1_athlete_2",
+        "source_rank": 1,
+        "start_ordinal": 1,
+        "gap_units": 0,
+        "scheduled_and_actual_start_tick": 1
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_0",
+        "source_rank": 2,
+        "start_ordinal": 2,
+        "gap_units": 470,
+        "scheduled_and_actual_start_tick": 941
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_4",
+        "source_rank": 3,
+        "start_ordinal": 3,
+        "gap_units": 544,
+        "scheduled_and_actual_start_tick": 1089
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_6",
+        "source_rank": 4,
+        "start_ordinal": 4,
+        "gap_units": 558,
+        "scheduled_and_actual_start_tick": 1117
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_36",
+        "source_rank": 5,
+        "start_ordinal": 5,
+        "gap_units": 680,
+        "scheduled_and_actual_start_tick": 1361
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_8",
+        "source_rank": 6,
+        "start_ordinal": 6,
+        "gap_units": 1247,
+        "scheduled_and_actual_start_tick": 2495
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_1",
+        "source_rank": 7,
+        "start_ordinal": 7,
+        "gap_units": 1313,
+        "scheduled_and_actual_start_tick": 2627
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_3",
+        "source_rank": 8,
+        "start_ordinal": 8,
+        "gap_units": 1327,
+        "scheduled_and_actual_start_tick": 2655
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_33",
+        "source_rank": 9,
+        "start_ordinal": 9,
+        "gap_units": 1443,
+        "scheduled_and_actual_start_tick": 2887
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_30",
+        "source_rank": 10,
+        "start_ordinal": 10,
+        "gap_units": 1469,
+        "scheduled_and_actual_start_tick": 2939
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_37",
+        "source_rank": 11,
+        "start_ordinal": 11,
+        "gap_units": 1828,
+        "scheduled_and_actual_start_tick": 3657
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_39",
+        "source_rank": 12,
+        "start_ordinal": 12,
+        "gap_units": 1851,
+        "scheduled_and_actual_start_tick": 3703
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_14",
+        "source_rank": 13,
+        "start_ordinal": 13,
+        "gap_units": 1931,
+        "scheduled_and_actual_start_tick": 3863
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_5",
+        "source_rank": 14,
+        "start_ordinal": 14,
+        "gap_units": 1939,
+        "scheduled_and_actual_start_tick": 3879
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_16",
+        "source_rank": 15,
+        "start_ordinal": 15,
+        "gap_units": 1970,
+        "scheduled_and_actual_start_tick": 3941
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_18",
+        "source_rank": 16,
+        "start_ordinal": 16,
+        "gap_units": 1994,
+        "scheduled_and_actual_start_tick": 3989
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_24",
+        "source_rank": 17,
+        "start_ordinal": 17,
+        "gap_units": 2450,
+        "scheduled_and_actual_start_tick": 4901
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_7",
+        "source_rank": 18,
+        "start_ordinal": 18,
+        "gap_units": 2600,
+        "scheduled_and_actual_start_tick": 5201
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_25",
+        "source_rank": 19,
+        "start_ordinal": 19,
+        "gap_units": 2620,
+        "scheduled_and_actual_start_tick": 5241
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_11",
+        "source_rank": 20,
+        "start_ordinal": 20,
+        "gap_units": 2700,
+        "scheduled_and_actual_start_tick": 5401
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_9",
+        "source_rank": 21,
+        "start_ordinal": 21,
+        "gap_units": 2706,
+        "scheduled_and_actual_start_tick": 5413
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_35",
+        "source_rank": 22,
+        "start_ordinal": 22,
+        "gap_units": 2757,
+        "scheduled_and_actual_start_tick": 5515
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_38",
+        "source_rank": 23,
+        "start_ordinal": 23,
+        "gap_units": 2769,
+        "scheduled_and_actual_start_tick": 5539
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_31",
+        "source_rank": 24,
+        "start_ordinal": 24,
+        "gap_units": 2825,
+        "scheduled_and_actual_start_tick": 5651
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_27",
+        "source_rank": 25,
+        "start_ordinal": 25,
+        "gap_units": 2853,
+        "scheduled_and_actual_start_tick": 5707
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_32",
+        "source_rank": 26,
+        "start_ordinal": 26,
+        "gap_units": 2929,
+        "scheduled_and_actual_start_tick": 5859
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_12",
+        "source_rank": 27,
+        "start_ordinal": 27,
+        "gap_units": 2957,
+        "scheduled_and_actual_start_tick": 5915
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_29",
+        "source_rank": 28,
+        "start_ordinal": 28,
+        "gap_units": 3264,
+        "scheduled_and_actual_start_tick": 6529
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_26",
+        "source_rank": 29,
+        "start_ordinal": 29,
+        "gap_units": 3290,
+        "scheduled_and_actual_start_tick": 6581
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_28",
+        "source_rank": 29,
+        "start_ordinal": 30,
+        "gap_units": 3290,
+        "scheduled_and_actual_start_tick": 6581
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_20",
+        "source_rank": 31,
+        "start_ordinal": 31,
+        "gap_units": 3572,
+        "scheduled_and_actual_start_tick": 7145
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_34",
+        "source_rank": 32,
+        "start_ordinal": 32,
+        "gap_units": 3576,
+        "scheduled_and_actual_start_tick": 7153
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_21",
+        "source_rank": 33,
+        "start_ordinal": 33,
+        "gap_units": 3629,
+        "scheduled_and_actual_start_tick": 7259
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_19",
+        "source_rank": 34,
+        "start_ordinal": 34,
+        "gap_units": 3662,
+        "scheduled_and_actual_start_tick": 7325
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_22",
+        "source_rank": 35,
+        "start_ordinal": 35,
+        "gap_units": 3679,
+        "scheduled_and_actual_start_tick": 7359
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_13",
+        "source_rank": 36,
+        "start_ordinal": 36,
+        "gap_units": 3819,
+        "scheduled_and_actual_start_tick": 7639
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_23",
+        "source_rank": 37,
+        "start_ordinal": 37,
+        "gap_units": 3856,
+        "scheduled_and_actual_start_tick": 7713
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_17",
+        "source_rank": 38,
+        "start_ordinal": 38,
+        "gap_units": 3857,
+        "scheduled_and_actual_start_tick": 7715
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_15",
+        "source_rank": 39,
+        "start_ordinal": 39,
+        "gap_units": 3906,
+        "scheduled_and_actual_start_tick": 7813
+      },
+      {
+        "athlete_id": "woodland_basin_v1_athlete_10",
+        "source_rank": 40,
+        "start_ordinal": 40,
+        "gap_units": 4181,
+        "scheduled_and_actual_start_tick": 8363
+      }
+    ]
+  },
+  "all_formats_same_final_source_and_assemblies": true,
+  "binding_summary": {
+    "current_root_unique_resource_files_verified": 63,
+    "current_root_unique_source_files_verified": 256,
+    "frozen_assembly_sha256": {
+      "Biathlon.AI": "c12bc05684d362eefcb9ccd2e1ebd7aa38560279cd95e9c001a1d9da3d0836f9",
+      "Biathlon.Career": "11b5b639025524cd4809353ac02ae2ba8a8004a236f95d3862f44b316eb19347",
+      "Biathlon.Domain": "c4c00af797b64d0b5962beacafa1dcdcb128cc36c389b0b1e35c115c3d034869",
+      "Biathlon.Replay": "49c394d048d026b85a6a07d122393824b4c0b206e77a9783f39947feeec6322f",
+      "Biathlon.Simulation": "989518bbea2e8ce3e084ddade766e1517be3001dc3f0b7977a8eaab0bb7311a1",
+      "Biathlon.VenueLab": "15868154f36d9d82af1c746ac1ab29509561c46bbd6a664f781700dc309c63d4"
+    },
+    "shared_apron_schema_version": 2
+  }
+}

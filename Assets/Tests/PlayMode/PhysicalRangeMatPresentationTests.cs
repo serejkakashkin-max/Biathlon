@@ -46,6 +46,37 @@ namespace Biathlon.PlayModeTests
 
     public class PhysicalRangeMatPresentationTests
     {
+        [UnityTest] public IEnumerator ExplicitPhysicalMatKeepsAcceptedAnchorAndCorrectFootprint()
+        {
+            var resources=PathPresentationFixture.Resources();
+            resources["manifest"]=resources["manifest"].Replace("\"apron_depth_m\":10", "\"apron_depth_m\":10,\"mat_definition\":{\"schema_version\":1,\"id\":\"test_mat_v1\",\"width_m\":1.5,\"length_m\":2,\"thickness_m\":0.015,\"athlete_stop_depth_m\":1}");
+            var plan=PathPresentationFixture.Plan(resources);var root=new GameObject("Physical mat footprint test");
+            try
+            {
+                var mats=root.AddComponent<RangeMatPresentation>();mats.Initialize(plan);
+                for(int i=0;i<mats.Count;i++)
+                {
+                    Assert.That(mats.Anchor(i+1).localPosition,Is.EqualTo(PathPresentationFixture.Position(plan.MatPoint(i))));
+                    var mat=mats.Anchor(i+1).GetChild(0);
+                    Assert.That(mat.localScale,Is.EqualTo(new Vector3(1.5f,.015f,2)));
+                    Assert.That(mat.localPosition,Is.EqualTo(new Vector3(0,-.0075f,0)));
+                    Assert.That(mat.localPosition.y+mat.localScale.y*.5f,Is.Zero);
+                    var material=mat.GetComponent<Renderer>().sharedMaterial;
+                    Assert.That(material.shader.name,Is.EqualTo("Biathlon/PhysicalRangeMat"));
+                    var expectedColour=Resources.Load<Material>("Biathlon/Stadium/rubber").GetColor("_BaseColor");
+                    var actualColour=material.GetColor("_BaseColor");
+                    // Unity colour properties round-trip through colour-space conversion (about 3e-8 here).
+                    // Check every channel to float precision; this does not change any physical geometry check.
+                    for(int channel=0;channel<4;channel++)
+                        Assert.That(actualColour[channel],Is.EqualTo(expectedColour[channel]).Within(1e-7f));
+                    var front=mat.localPosition.z+mat.localScale.z*.5f;
+                    Assert.That(front,Is.EqualTo((float)plan.FiringDatumDepth));
+                }
+                foreach(var collider in root.GetComponentsInChildren<Collider>(true))Assert.That(collider.enabled,Is.False,"Mat initialization must disable physics before deferred collider destruction.");
+                yield return null;Assert.That(root.GetComponentsInChildren<Collider>(),Is.Empty);
+            }
+            finally{Object.Destroy(root);}
+        }
         [UnityTest] public IEnumerator IndividualMatAnchorsAndExplicitShootingHeadingRemainReadOnly()
         {
             var plan=PathPresentationFixture.Plan();string track=plan.Track.ToJson(),paths=plan.Paths.ToJson(),visual=plan.Visual.ToJson();
@@ -67,6 +98,7 @@ namespace Biathlon.PlayModeTests
                 }
                 Assert.Throws<ArgumentOutOfRangeException>(()=>mats.Anchor(0));Assert.Throws<ArgumentOutOfRangeException>(()=>mats.LaneId(3));
                 Assert.That(plan.Track.ToJson(),Is.EqualTo(track));Assert.That(plan.Paths.ToJson(),Is.EqualTo(paths));Assert.That(plan.Visual.ToJson(),Is.EqualTo(visual));
+                foreach(var collider in root.GetComponentsInChildren<Collider>(true))Assert.That(collider.enabled,Is.False);
                 yield return null;Assert.That(root.GetComponentsInChildren<Collider>(),Is.Empty);
             }
             finally{Object.Destroy(root);}
@@ -86,6 +118,8 @@ namespace Biathlon.PlayModeTests
                     Assert.That(a.LaneId(i+1),Is.EqualTo(plan.Lanes.GetLane(i)));
                     Assert.That(Vector3.Distance(a.Anchor(i+1).forward,new Vector3((float)point.ForwardX,0,(float)point.ForwardZ)),Is.LessThan(1e-6f));
                 }
+                foreach(var collider in planned.GetComponentsInChildren<Collider>(true))Assert.That(collider.enabled,Is.False);
+                foreach(var collider in direct.GetComponentsInChildren<Collider>(true))Assert.That(collider.enabled,Is.False);
                 yield return null;Assert.That(planned.GetComponentsInChildren<Collider>(),Is.Empty);Assert.That(direct.GetComponentsInChildren<Collider>(),Is.Empty);
             }
             finally{Object.Destroy(planned);Object.Destroy(direct);}

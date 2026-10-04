@@ -27,6 +27,8 @@ namespace Biathlon.Simulation
         private readonly StartApproachMap approach;
         private readonly long behind;
         private readonly PhysicalStartApproachMap startOverlay;
+        internal bool IsBoundTo(PhysicalTrackMap exactMap, PhysicalRangePathMap exactPath, double exactTickSeconds)
+            => ReferenceEquals(map, exactMap) && ReferenceEquals(rangePath, exactPath) && tickSeconds == exactTickSeconds;
         public PhysicalMotionProjection(PhysicalTrackMap map, double tickSeconds, PhysicalRangeLaneMap rangeLane = null,
             StartApproachMap approach = null, long startBehindLineNanometers = 0, PhysicalStartApproachMap startOverlay = null,
             PhysicalRangePathMap rangePath = null)

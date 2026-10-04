@@ -221,7 +221,12 @@ namespace Biathlon.PlayModeTests
             {
                 var camera=View(root);camera.transform.position=new Vector3(110,35,-72);camera.transform.LookAt(new Vector3(0,1,8));camera.fieldOfView=64;camera.nearClipPlane=.05f;camera.farClipPlane=700;
                 var environment=root.AddComponent<ProductionVenueEnvironment>();environment.Initialize(plan,recipe,Read,root.AddComponent<RacePresentationFeed>(),camera);
-                Assert.That(environment.TreeCount,Is.EqualTo(26441));int high=0;long shadows=0;
+                // The compact venue regeneration changes the authored forest inventory.
+                // Freeze the new content count while retaining exact per-instance and
+                // Low/Balanced comparisons against the existing adapter below.
+                Assert.That(environment.TreeCount,Is.EqualTo(26614));int declared=0;
+                foreach(var group in recipe.forest.groups)declared+=group.count;
+                Assert.That(environment.TreeCount,Is.EqualTo(declared));int high=0;long shadows=0;
                 for(int i=0;i<environment.ForestGroupCount;i++)
                 {
                     var forest=environment.Forest(i);Assert.That(forest.ProductionHighFogEndMeters,Is.EqualTo(594));forest.Prepare(camera,"high",12);high+=forest.VisibleInstances;shadows+=forest.ShadowSourceTriangles;
@@ -237,7 +242,7 @@ namespace Biathlon.PlayModeTests
                     }
                     finally{Object.DestroyImmediate(legacyRoot);}
                 }
-                Assert.That(high,Is.EqualTo(3507),"Frozen stadium camera proves the opted-in canopy horizon on all actual native instances.");Assert.That(shadows,Is.Zero);
+                Assert.That(high,Is.EqualTo(4167),"Frozen stadium camera proves the opted-in canopy horizon on all current compact-venue native instances.");Assert.That(shadows,Is.Zero);
                 Assert.That(plan.Track.ToJson(),Is.EqualTo(track));Assert.That(plan.Visual.ToJson(),Is.EqualTo(visual));Assert.That(plan.Paths.ToJson(),Is.EqualTo(paths));
                 foreach(var collider in root.GetComponentsInChildren<Collider>())Assert.That(collider.enabled,Is.False,"No gameplay collision while native destruction is pending.");
                 yield return null;Assert.That(root.GetComponentsInChildren<Collider>(),Is.Empty);

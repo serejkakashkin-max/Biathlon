@@ -17,6 +17,8 @@ namespace Biathlon.Unity.Presentation
         public string RouteResource="Biathlon/Venues/woodland_basin_v1/mass_start_route";
         public string ConditionsResource="Biathlon/race_snow_neutral_v1";
         public string EnvironmentResource="Biathlon/Venues/woodland_basin_v1/environment";
+        public string ReviewDefinitionResource;
+        public ProductionReviewPresentation Review {get;private set;}
         public bool AutoStart=true,UseGamepad;
         public int FieldCount=30;
         public PackAiRaceRunner Runner {get;private set;}
@@ -48,19 +50,44 @@ namespace Biathlon.Unity.Presentation
         private void Start()
         {
             if(!AutoStart)return;
+            var review=ReadOptionalReview(ReviewDefinitionResource);
+            var entry=review?.ForScene(gameObject.scene.path);
+            if(entry!=null&&entry.field_count!=FieldCount)throw new ArgumentException("Review entry must match the scene roster.");
             var venue=new VenueAuthoringPlan(VenueManifest.FromJson(ReadResource(VenueResource)),ReadResource);
-            Initialize(venue,CompetitionProfile.FromJson(ReadResource(ProfileResource)),RaceRoutePlan.FromJson(ReadResource(RouteResource)),
+            if(review!=null&&review.venue_id!=venue.Manifest.Id)throw new ArgumentException("Review venue mismatch.");
+            var profile=CompetitionProfile.FromJson(ReadResource(ProfileResource));
+            if(entry!=null&&(entry.format_id=="sprint"?CompetitionFormat.Sprint:CompetitionFormat.MassStart)!=profile.Format)throw new ArgumentException("Review format mismatch.");
+            Initialize(venue,profile,RaceRoutePlan.FromJson(ReadResource(RouteResource)),
                 RaceSnowConditions.FromJson(ReadResource(ConditionsResource)),FieldCount);
+            if(review!=null)InitializeReview(review,entry.id);
             if(!string.IsNullOrEmpty(EnvironmentResource))InitializeEnvironment(ProductionEnvironmentDefinition.FromJson(ReadResource(EnvironmentResource)));
+        }
+        public static ProductionReviewDefinition ReadOptionalReview(string resource)
+        {
+            if(string.IsNullOrEmpty(resource))return null;
+            var value=ProductionReviewDefinition.FromJson(ReadResource(resource));RenderQualityDefinition.Load().Get(value.initial_quality_tier);return value;
+        }
+        public void InitializeReview(ProductionReviewDefinition definition,string entryId)
+        {
+            if(Runner==null||Review!=null)throw new InvalidOperationException("Fresh initialized host review required.");
+            if(!gameObject.activeInHierarchy)throw new InvalidOperationException("Active review host required.");
+            if(definition==null)throw new ArgumentNullException(nameof(definition));
+            var detached=ProductionReviewDefinition.FromJson(definition.ToJson());var entry=detached.Get(entryId);
+            if(detached.venue_id!=Venue.Manifest.Id||entry.field_count!=Runner.Field.Count||(entry.format_id=="sprint"?CompetitionFormat.Sprint:CompetitionFormat.MassStart)!=Runner.Field.Profile.Format)throw new ArgumentException("Review source differs from this scene.");
+            RenderQualityDefinition.Load().Get(detached.initial_quality_tier);
+            var adapter=gameObject.AddComponent<ProductionReviewPresentation>();
+            try{adapter.Initialize(this,detached,entryId);Review=adapter;}catch{Destroy(adapter);throw;}
         }
         public void InitializeEnvironment(ProductionEnvironmentDefinition definition)
         {
             if(Runner==null)throw new InvalidOperationException("Initialize the authored race before its environment.");
             if(Environment!=null)throw new InvalidOperationException("This host already owns an environment.");
+            if(!string.IsNullOrEmpty(definition.terrain.snow_shoulders_resource))
+                Course.ConfigureSnowBanks(Venue,ProductionSnowShoulderDefinition.FromJson(ReadResource(definition.terrain.snow_shoulders_resource),Venue));
             var environment=gameObject.AddComponent<ProductionVenueEnvironment>();
             try
             {
-                environment.Initialize(Venue,definition,ReadResource,Feed,ChaseCamera,range.AimCamera);
+                environment.Initialize(Venue,definition,ReadResource,Feed,ChaseCamera,range.AimCamera,apron:Course.Apron);
                 Course.JoinGround(environment,definition.terrain.grid_spacing_m,environment.TerrainGridOrigin);
                 Environment=environment;
             }
@@ -80,9 +107,8 @@ namespace Biathlon.Unity.Presentation
             shot=gameObject.AddComponent<ShootingDeviceInput>();shot.enabled=false;shot.Initialize(id,field.TickFrequency);
             effort=new EffortControlSystem(EffortControlDefinition.FromJson(ReadCore("effort_control_provisional_v1.json")),id,field.TickFrequency);
             Mats=gameObject.AddComponent<RangeMatPresentation>();Mats.Initialize(venue);
-            Course=gameObject.AddComponent<ProductionCoursePresentation>();Course.Initialize(venue,route:field.Route);
-            Proxies=gameObject.AddComponent<AthleteProxyPresentation>();Proxies.Initialize(Feed,venue.Visual,
-                shootingDirection:new Vector3((float)venue.Manifest.Range.Forward.X,0,(float)venue.Manifest.Range.Forward.Z));Proxies.Render(1);
+            Course=gameObject.AddComponent<ProductionCoursePresentation>();Course.Initialize(venue,route:field.Route,sharedApron:venue.SharedApron);
+            Proxies=gameObject.AddComponent<AthleteProxyPresentation>();Proxies.Initialize(Feed,venue);Proxies.Render(1);
             var cameraObject=new GameObject("Production chase camera");cameraObject.transform.SetParent(transform,false);
             ChaseCamera=cameraObject.AddComponent<Camera>();ChaseCamera.depth=100;
             cameraObject.AddComponent<AthleteChaseCamera>().Follow(Proxies.GetProxy(id.Value),ChaseCameraSettings.FromJson(ReadCore("chase_camera_v1.json")));
@@ -109,7 +135,7 @@ namespace Biathlon.Unity.Presentation
             if(Runner==null||Runner.Field.IsComplete)return;
             bool shooting=Runner.Field.GetAthlete(PlayerIndex).ActiveShooting!=null;
             if(shooting!=shootingContext){ski.ReleaseHeldInput();shot.ReleaseHeldInput();shootingContext=shooting;}
-            if(shooting){shot.Capture(UseGamepad?null:Mouse.current,UseGamepad?null:Keyboard.current,UseGamepad?Gamepad.current:null);ski.ReleaseHeldInput();}
+            if(shooting){bool reviewMouse=Review!=null&&Mouse.current!=null&&Review.ContainsScreenPointer(Mouse.current.position.ReadValue());shot.Capture(UseGamepad||reviewMouse?null:Mouse.current,UseGamepad?null:Keyboard.current,UseGamepad?Gamepad.current:null);ski.ReleaseHeldInput();}
             else{ski.Capture(UseGamepad?null:Keyboard.current,UseGamepad?Gamepad.current:null);shot.ReleaseHeldInput();}
             accumulator+=Time.deltaTime;double dt=1.0/Runner.Field.TickFrequency;
             while(accumulator>=dt&&!Runner.Field.IsComplete)

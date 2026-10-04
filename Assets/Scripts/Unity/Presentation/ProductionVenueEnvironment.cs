@@ -18,6 +18,7 @@ namespace Biathlon.Unity.Presentation
         private readonly List<Mesh> ownedMeshes=new List<Mesh>();
         private readonly List<Material> ownedMaterials=new List<Material>();
         private Mesh[] tileMeshes;
+        public RangeApronDrawPlan Apron {get;private set;}
         private VegetationPresentation[] forests;
         private SpectatorCrowd[] crowds;
         private TargetBankArt[] banks;
@@ -55,16 +56,17 @@ namespace Biathlon.Unity.Presentation
         public TargetBankArt Bank(int index)=>banks[index];
         public SpectatorCrowd Crowd(int index)=>crowds[index];
         public void Initialize(VenueAuthoringPlan plan,ProductionEnvironmentDefinition definition,Func<string,string> read,
-            RacePresentationFeed source,Camera chaseCamera,Camera shootingCamera=null)
+            RacePresentationFeed source,Camera chaseCamera,Camera shootingCamera=null,RangeApronDrawPlan apron=null)
         {
             if(Initialized||generated!=null)throw new InvalidOperationException("Initialize the production environment once.");
             if(plan==null||definition==null||read==null||source==null||chaseCamera==null)throw new ArgumentNullException();
             if(!isActiveAndEnabled||(transform.lossyScale-Vector3.one).sqrMagnitude>1e-6f)throw new ArgumentException("Enabled unit-scale environment root required.");
             if(source.Current!=null&&source.Current.TrackId!=plan.Track.Id)throw new ArgumentException("Presentation feed belongs to another venue.");
+            apron?.RequireBinding(plan);
             // Detached copy protects the live presentation from subsequent caller DTO edits.
             var data=ProductionEnvironmentDefinition.FromJson(definition.ToJson());
             var prepared=Prepare(plan,data,read);
-            recipe=data;heights=prepared.Heights;feed=source;chase=chaseCamera;shooting=shootingCamera;lighting=prepared.Lighting;geometry=prepared.Geometry;VenueTrackId=plan.Track.Id;
+            Apron=apron;recipe=data;heights=prepared.Heights;feed=source;chase=chaseCamera;shooting=shootingCamera;lighting=prepared.Lighting;geometry=prepared.Geometry;VenueTrackId=plan.Track.Id;
             quality=GetComponent<RenderQualityPresentation>();defaultTier=prepared.DefaultTier;
             try
             {
@@ -79,6 +81,13 @@ namespace Biathlon.Unity.Presentation
                     // Zero-pose children share one render matrix, avoiding per-tile float
                     // translations which can open cracks under a rotated host hierarchy.
                     var worldVertices=mesh.vertices;for(int vertex=0;vertex<worldVertices.Length;vertex++)worldVertices[vertex]+=tile.center;
+                    if(apron!=null)
+                    {
+                        var weights=mesh.colors;
+                        if(weights.Length!=worldVertices.Length)throw new ArgumentException("Complete native terrain weights required.");
+                        for(int vertex=0;vertex<weights.Length;vertex++)weights[vertex]=apron.TerrainWeights(worldVertices[vertex],weights[vertex]);
+                        mesh.colors=weights;
+                    }
                     mesh.vertices=worldVertices;mesh.RecalculateBounds();ownedMeshes.Add(mesh);tileMeshes[i]=mesh;
                     var go=new GameObject(tile.id);go.transform.SetParent(generated.transform,false);
                     go.transform.localPosition=Vector3.zero;go.transform.localRotation=Quaternion.identity;
@@ -176,7 +185,7 @@ namespace Biathlon.Unity.Presentation
             {
                 var bank=data.range.banks[i];var lane=plan.Paths.GetLane(i);var mat=plan.MatPoint(i);var position=new Vector3((float)mat.X,(float)mat.Y,(float)mat.Z);
                 if(bank.lane_id!=plan.LaneId(i)||bank.mat_anchor.loop_id!=lane.MatAnchor.LoopId||Math.Abs(bank.mat_anchor.distance_m-lane.MatAnchor.Distance.Meters)>.002||
-                    (bank.mat_position-position).sqrMagnitude>1e-6f||(bank.position-(position+forward*(float)p.Geometry.DistanceMeters+Vector3.up*data.range.target_height_m)).sqrMagnitude>1e-6f||
+                    (bank.mat_position-position).sqrMagnitude>1e-6f||(bank.position-(position+forward*(float)(p.Geometry.DistanceMeters+plan.FiringDatumDepth)+Vector3.up*data.range.target_height_m)).sqrMagnitude>1e-6f||
                     Vector3.Angle(Quaternion.Euler(0,bank.yaw_deg,0)*Vector3.forward,forward)>.01f)throw new ArgumentException("Target bank does not bind its actual personal mat.");
             }
             p.Lighting=LightingVisualDefinition.FromJson(Read(read,data.lighting.resource)).Get(data.lighting.preset_id);
@@ -267,7 +276,7 @@ namespace Biathlon.Unity.Presentation
             if(weather!=null)weather.Shutdown();
             if(generated!=null){generated.SetActive(false);generated.transform.SetParent(null);DestroyOwned(generated);generated=null;}
             foreach(var mesh in ownedMeshes)DestroyOwned(mesh);foreach(var material in ownedMaterials)DestroyOwned(material);ownedMeshes.Clear();ownedMaterials.Clear();
-            recipe=null;heights=null;feed=null;chase=null;shooting=null;weather=null;lighting=null;geometry=null;quality=null;defaultTier=null;tileMeshes=null;forests=null;crowds=null;banks=null;bankStances=null;bankMasks=null;observedTick=-1;VenueTrackId=null;TreeCount=VisibleTrees=0;SubmittedForestTriangles=0;
+            Apron=null;recipe=null;heights=null;feed=null;chase=null;shooting=null;weather=null;lighting=null;geometry=null;quality=null;defaultTier=null;tileMeshes=null;forests=null;crowds=null;banks=null;bankStances=null;bankMasks=null;observedTick=-1;VenueTrackId=null;TreeCount=VisibleTrees=0;SubmittedForestTriangles=0;
         }
         private static void DestroyOwned(Object value){if(value==null)return;if(Application.isPlaying)Destroy(value);else DestroyImmediate(value);}
         private void OnDestroy()=>Shutdown();

@@ -1,0 +1,475 @@
+{
+  "schema_version": 1,
+  "id": "wp169_woodland_production_acceptance_v1",
+  "status": "PASS",
+  "work_package": "WP-169",
+  "date": "2026-10-03",
+  "venue_id": "woodland_basin_v1",
+  "production_fields": {
+    "sprint": 40,
+    "pursuit": 40,
+    "mass_start": 30
+  },
+  "range": {
+    "lanes": 30,
+    "pitch_m": 3,
+    "mat_width_m": 1.5,
+    "mat_length_m": 2,
+    "rear_apron_depth_m": 12,
+    "entry": "left",
+    "exit": "right",
+    "firing_front_z_m": 0,
+    "body_stop_z_m": -0.88,
+    "target_front_z_m": 50
+  },
+  "completed_flows": {
+    "sprint40": {
+      "status": "PASS_COMPLETE_EXACT_REPLAY_AND_CURRENT_BINDINGS",
+      "athletes": 40,
+      "finished_unique_rows": 40,
+      "ticks": 62247,
+      "max_stationary_ticks": 1199,
+      "field_event_count": 670805,
+      "excluded_ai_event_count": 58319,
+      "ordered_field_events_report_exact": true,
+      "replay_ai_steps": 0,
+      "result_sha256": "1ebc4359de869c1f3aea056917ce99510691cb2c39fbc039c3679dcd630ca776",
+      "tape": {
+        "absolute_path": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-sprint40.commands.gz",
+        "sha256": "53518394fc5209958f77038d7f66374ea572373b36eecb095c28af3c2368da16",
+        "compressed_bytes": 1764397095
+      },
+      "context": {
+        "absolute_path": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-sprint40.commands.gz.context.json.gz",
+        "sha256": "7dcfc094051df4b4f11f8f962ca0d51ec64da2dfb9f2506868a5e63bd72546de",
+        "compressed_bytes": 1268863,
+        "uncompressed_bytes": 60113713,
+        "field_context_json_sha256": "b3eb0328f6edc5d2ae1a514825aa3f2fe99346b6b963c84a17570be5d267cbbf"
+      },
+      "current_root_resource_count_verified": 59,
+      "current_root_source_count_verified": 256,
+      "frozen_final_assembly_count_verified": 6
+    },
+    "pursuit40": {
+      "status": "PASS_COMPLETE_EXACT_REPLAY_AND_CURRENT_BINDINGS",
+      "athletes": 40,
+      "finished_unique_rows": 40,
+      "ticks": 57248,
+      "max_stationary_ticks": 691,
+      "field_event_count": 784533,
+      "excluded_ai_event_count": 86063,
+      "ordered_field_events_report_exact": true,
+      "replay_ai_steps": 0,
+      "result_sha256": "5b45e651599800552fcbea64b8159b2bf11b20859a5f924cfff01c03f36284b2",
+      "tape": {
+        "absolute_path": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-pursuit40.commands.gz",
+        "sha256": "713cc426561b5aae0c1087c94f6a1fc1d3f5525ed0b4958212e0e10d28c18a7a",
+        "compressed_bytes": 1425986039
+      },
+      "context": {
+        "absolute_path": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-pursuit40.commands.gz.context.json.gz",
+        "sha256": "220de3034a1a44a8d36668362f54052515f2db99b49ee7e4e2355de0a8028f65",
+        "compressed_bytes": 1915742,
+        "uncompressed_bytes": 114804844,
+        "field_context_json_sha256": "9da36e3de3b56fa8d04b3414d69e9d9e7c8f08c2ce061d59fef095ef4b91da6d"
+      },
+      "current_root_resource_count_verified": 60,
+      "current_root_source_count_verified": 256,
+      "frozen_final_assembly_count_verified": 6
+    },
+    "mass30": {
+      "status": "PASS_COMPLETE_EXACT_REPLAY_AND_CURRENT_BINDINGS",
+      "athletes": 30,
+      "finished_unique_rows": 30,
+      "ticks": 58974,
+      "max_stationary_ticks": 1691,
+      "field_event_count": 628686,
+      "excluded_ai_event_count": 68649,
+      "ordered_field_events_report_exact": true,
+      "replay_ai_steps": 0,
+      "result_sha256": "bd8ac03f4539c15043f718b77866f10dc434727ab8c77a2cd4a4788deabaa86e",
+      "tape": {
+        "absolute_path": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-mass30.commands.gz",
+        "sha256": "30833a392cb6692eb5fe39edec63681bd5fafc37d2703dfaed1816d6a0737855",
+        "compressed_bytes": 1627326475
+      },
+      "context": {
+        "absolute_path": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-mass30.commands.gz.context.json.gz",
+        "sha256": "8de91034b26cedea046041fcf1269a380972a5a2680eb87d97b5da78e597444d",
+        "compressed_bytes": 3590309,
+        "uncompressed_bytes": 309598942,
+        "field_context_json_sha256": "ede6f39e90bcc26cc5f837bf515e694687948f0a29ffda53cb2db1cf78c9ec56"
+      },
+      "current_root_resource_count_verified": 62,
+      "current_root_source_count_verified": 256,
+      "frozen_final_assembly_count_verified": 6
+    }
+  },
+  "proof": {
+    "path": "docs/quality/m13/wp169-production/production-flows-proof.json",
+    "sha256": "7913cba6ae8a38e362d7fd8f24bfdd65b44810fcf5c1e65139ea6363fa9eb6bd"
+  },
+  "native_playmode": {
+    "schema_version": 1,
+    "id": "wp169_final_playmode_v2_native_saved_result",
+    "status": "PASS",
+    "counts": {
+      "Passed": 234,
+      "Failed": 0,
+      "Skipped": 0,
+      "Inconclusive": 0
+    },
+    "total_tests": 234,
+    "duration_seconds": "290,9483266",
+    "start_time": "2026-10-03 15:38:18Z",
+    "end_time": "2026-10-03 15:43:09Z",
+    "result_file": "artifacts\\wp169closure\\native-full-playmode-final-v2.xml",
+    "sha256": "e736229e6028672a579af864658138a4b6e3bd3358b3794d851aa9e4916776fc",
+    "transport_note": "MCP request timed out after300s; Unity completed and saved actual Test Runner XML. This report reads its234 individual cases without repeating the run."
+  },
+  "core_regression": {
+    "passed": 1015,
+    "failed": 0,
+    "skipped": 0,
+    "trx": {
+      "path": "artifacts/wp169closure/core-regression-final-results/final-core.trx",
+      "sha256": "09512e7c00c7c270c20708027304cd5285c94386906d5d7bd36f381c55cb7730"
+    }
+  },
+  "build_lease_tests": {
+    "passed": 6,
+    "failed": 0,
+    "summary": {
+      "path": "docs/quality/m13/wp169-production/build-lease-summary.json",
+      "sha256": "ea26d750cc0919771e085467efc791b1ee51ad0366f88495ff3c0b7510a6b55b"
+    }
+  },
+  "review_layout_focused_tests": {
+    "passed": 3,
+    "failed": 0,
+    "duration_seconds": 0.8935209
+  },
+  "native_prone_standing_support": [
+    {
+      "path": "artifacts/wp169closure/native-prone-support/results/20261003T135445766-nominal_ai/bout-0-focused-verification.json",
+      "sha256": "33660af43302e43386f21544cad3f8185405e11f0097726859cb13c92f9c29be"
+    },
+    {
+      "path": "artifacts/wp169closure/native-prone-support/results/20261003T135445766-nominal_ai/bout-1-focused-verification.json",
+      "sha256": "95750b61ab32e58df547d563190d4544b71590db8278fbe97a6b8bab897355a7"
+    },
+    {
+      "path": "artifacts/wp169closure/native-prone-support/results/20261003T140010709-rear_paid/bout-0-focused-verification.json",
+      "sha256": "e98180a1f04cca1635bb3c948a110019fd32a8478d88caf7dab065ce6be5b42d"
+    },
+    {
+      "path": "artifacts/wp169closure/native-prone-support/results/20261003T140010709-rear_paid/bout-1-focused-verification.json",
+      "sha256": "cebb0e8085eb239efd90e0386ac7735f6ece193dcec29496127b0306092f2ae8"
+    },
+    {
+      "path": "artifacts/wp169closure/native-prone-support/results/20261003T140929655-front_paid/bout-0-focused-verification.json",
+      "sha256": "c0f8f7754d316d2e166828424b247f7195fe3f021de1f694d408d497b9cf3867"
+    },
+    {
+      "path": "artifacts/wp169closure/native-prone-support/results/20261003T140929655-front_paid/bout-1-focused-verification.json",
+      "sha256": "4c8b874e65edf66904b6c1acc1ee73519dc2957cadebd681198689466fd311fd"
+    }
+  ],
+  "visual_review": [
+    {
+      "view": "final-review-layout-chase",
+      "image": {
+        "path": "docs/quality/m13/wp169-production/final-review-layout-chase.png",
+        "sha256": "14601c0623db87ade792ea75083c89858783b8df2aa54981d42e796a907ec511"
+      },
+      "metadata": {
+        "path": "docs/quality/m13/wp169-production/final-review-layout-chase.json",
+        "sha256": "295b6638e4b08bbb222cc45b4ded71b0e4ff1be7de255133dfb297557df96c3b"
+      },
+      "capture_api": "UnityEditor.GameView.m_RenderTexture; normal PlayerLoop; no Camera.Render"
+    },
+    {
+      "view": "final-range-repaint",
+      "image": {
+        "path": "docs/quality/m13/wp169-production/final-range-repaint.png",
+        "sha256": "77a56b723daebd4265fdc8bc91061e00a69a4ca6a323d8a936f15d82402e3035"
+      },
+      "metadata": {
+        "path": "docs/quality/m13/wp169-production/final-range-repaint.json",
+        "sha256": "89cef85f303171a4a67927a693a2c5bbfe18b6baee20800dd8a7663494edded0"
+      },
+      "capture_api": "UnityEditor.GameView.m_RenderTexture; normal PlayerLoop; no Camera.Render"
+    },
+    {
+      "view": "final-stadium-repaint",
+      "image": {
+        "path": "docs/quality/m13/wp169-production/final-stadium-repaint.png",
+        "sha256": "eb6558de8aa645096ac9d61dea949981a354337d4b35b17d4cf9cf69ef3377a0"
+      },
+      "metadata": {
+        "path": "docs/quality/m13/wp169-production/final-stadium-repaint.json",
+        "sha256": "3de4f0864a50c10ce5b64cdad02804cb44f473e81a63d659df81b60a79dc60ef"
+      },
+      "capture_api": "UnityEditor.GameView.m_RenderTexture; normal PlayerLoop; no Camera.Render"
+    },
+    {
+      "view": "final-sprint-shoulders",
+      "image": {
+        "path": "docs/quality/m13/wp169-production/final-sprint-shoulders.png",
+        "sha256": "82fc4bc53ce98ca1aeaafe0912d6d180974b14f1ae479be3116f402e26f9da3d"
+      },
+      "metadata": {
+        "path": "docs/quality/m13/wp169-production/final-sprint-shoulders.json",
+        "sha256": "c211c2ac2ab14b9b6b830e87fa48b51b3b0aeee1a7ff79b7a97d140dbe3012a3"
+      },
+      "capture_api": "UnityEditor.GameView.m_RenderTexture; normal PlayerLoop; no Camera.Render"
+    }
+  ],
+  "windows_build": {
+    "summary": {
+      "schema_version": 1,
+      "id": "woodland_windows_review_build_v1",
+      "result": "Succeeded",
+      "unity": "6000.6.0f1",
+      "startup_scene": "Assets/Scenes/Production/WoodlandBasinMassStart.unity",
+      "review_definition_id": "woodland_review_v1",
+      "initial_quality": "high",
+      "errors": 0,
+      "warnings": 0,
+      "bytes": 359411877,
+      "seconds": 12.3892695
+    },
+    "directory": "Builds/WoodlandReviewWindows",
+    "executable": "Builds/WoodlandReviewWindows/Biathlon.exe",
+    "managed_assemblies": [
+      {
+        "path": "Biathlon_Data\\Managed\\Biathlon.AI.dll",
+        "bytes": 103424,
+        "sha256": "d7b207c2bf0c1fe1b0ab34dc220e8ac39bb2366d2c5dce30602acc178868a30d"
+      },
+      {
+        "path": "Biathlon_Data\\Managed\\Biathlon.AI.pdb",
+        "bytes": 38712,
+        "sha256": "124e9fe647a306500319f817393e265ce203808268767864a30e58ff744d9066"
+      },
+      {
+        "path": "Biathlon_Data\\Managed\\Biathlon.Career.dll",
+        "bytes": 78848,
+        "sha256": "591f5b30ead4e845b3d232469e9dc6fdcabba5875133f27c6793e207f8cea857"
+      },
+      {
+        "path": "Biathlon_Data\\Managed\\Biathlon.Career.pdb",
+        "bytes": 37480,
+        "sha256": "d7d8007498b2bff1f32b2f526e41e5ce62b11d2e38314801622127ec46fdcb5e"
+      },
+      {
+        "path": "Biathlon_Data\\Managed\\Biathlon.Domain.dll",
+        "bytes": 319488,
+        "sha256": "32bf000d4e6bb753c584824ff5c8bd42f7c61a9260a9ff9d6f81fd493598427e"
+      },
+      {
+        "path": "Biathlon_Data\\Managed\\Biathlon.Domain.pdb",
+        "bytes": 106816,
+        "sha256": "095be00a3ab939bd0e7a5de6bc4a9a955f5eba0db2fd0a80a0431a97e8fc079a"
+      },
+      {
+        "path": "Biathlon_Data\\Managed\\Biathlon.Replay.dll",
+        "bytes": 47616,
+        "sha256": "f927a7022d6dfccaaabff86a5647ac86d891430b5655e9c0dbcec7a54f9357fc"
+      },
+      {
+        "path": "Biathlon_Data\\Managed\\Biathlon.Replay.pdb",
+        "bytes": 20824,
+        "sha256": "e10e3c4645ea0ac12f84fd76ae64d834ef7d970d71927c42a3d51dacdc761fe2"
+      },
+      {
+        "path": "Biathlon_Data\\Managed\\Biathlon.Simulation.dll",
+        "bytes": 350720,
+        "sha256": "f9562b25c6d51d94bc6a230ba5055dafea774f38600ca8c02421cda3d9c4e533"
+      },
+      {
+        "path": "Biathlon_Data\\Managed\\Biathlon.Simulation.pdb",
+        "bytes": 122412,
+        "sha256": "2d9eafd8cb5dae90fbbd09555868f2accef74091f8813641e7c6c2a36f26fbd8"
+      },
+      {
+        "path": "Biathlon_Data\\Managed\\Biathlon.Unity.Presentation.dll",
+        "bytes": 341504,
+        "sha256": "e9754714fc8e6d03128ea3c1f0c320a4819ac51d4d1f2418147cf739e853a002"
+      },
+      {
+        "path": "Biathlon_Data\\Managed\\Biathlon.Unity.Presentation.pdb",
+        "bytes": 122892,
+        "sha256": "d78464d76172db0180fe12b843cda1ebc5fab115f85be5098bfb0e20036a1013"
+      }
+    ],
+    "file_manifest": {
+      "path": "artifacts/production-player-smoke/20261003-161201-355/build-files.json",
+      "sha256": "cc7be8a103646d1ce7910c7ee0ed2c0422fe9afeb2268ffbbf3d96f315e103a9"
+    },
+    "credits": {
+      "path": "Builds/WoodlandReviewWindows/THIRD_PARTY_CREDITS.txt",
+      "sha256": "52bc8e8f53a384a7f2e6b86dfd1591d77b3d1d07f4f319a7c37793941ab7c7bd"
+    }
+  },
+  "hidden_smokes": [
+    {
+      "receipt": {
+        "path": "artifacts/production-player-smoke/20261003-161201-355/verification.json",
+        "sha256": "972c7f1207ec2b143dbf7787f427002062b268074af7a0c95ad46daf45283aec"
+      },
+      "data": {
+        "schema_version": 1,
+        "id": "production_player_content_smoke_v1",
+        "passed": true,
+        "scope": "Initialized final Woodland Sprint40/Mass30 content, resource-owned startup quality, paid400-tick controls and real scene transition. Hidden-window rendering may be suspended: zero frames then supplies no visual evidence; draw_calls=-1 is unavailable. Native normal Game View supplies separate visual review. No FPS/GPU or full-race claim.",
+        "window_rendering_suspended": true,
+        "exit_code": 0,
+        "build": {
+          "schema_version": 1,
+          "id": "woodland_windows_review_build_v1",
+          "result": "Succeeded",
+          "unity": "6000.6.0f1",
+          "startup_scene": "Assets/Scenes/Production/WoodlandBasinMassStart.unity",
+          "review_definition_id": "woodland_review_v1",
+          "initial_quality": "high",
+          "errors": 0,
+          "warnings": 0,
+          "bytes": 359411877,
+          "seconds": 12.3892695
+        },
+        "review": {
+          "schema_version": 1,
+          "id": "woodland_review_v1",
+          "venue_id": "woodland_basin_v1",
+          "initial_entry_id": "mass30",
+          "initial_quality_tier": "high",
+          "entries": [
+            {
+              "id": "mass30",
+              "label": "Woodland Mass Start \u00b7 30",
+              "scene_path": "Assets/Scenes/Production/WoodlandBasinMassStart.unity",
+              "format_id": "mass_start",
+              "field_count": 30
+            },
+            {
+              "id": "sprint40",
+              "label": "Woodland Sprint \u00b7 40",
+              "scene_path": "Assets/Scenes/Production/WoodlandBasinSprint.unity",
+              "format_id": "sprint",
+              "field_count": 40
+            }
+          ]
+        },
+        "rows": [
+          {
+            "schema_version": 1,
+            "id": "production_player_content_smoke_v1",
+            "entry": "mass30",
+            "scene": "Assets/Scenes/Production/WoodlandBasinMassStart.unity",
+            "initial_quality": "high",
+            "route_id": "woodland_basin_mass_start_route_v1",
+            "start_tick": 0,
+            "tick": 400,
+            "athletes": 30,
+            "terrain_tiles": 99,
+            "forest_groups": 90,
+            "trees": 26614,
+            "mats": 30,
+            "banks": 30,
+            "visible_loops": 34
+          },
+          {
+            "schema_version": 1,
+            "id": "production_player_content_smoke_v1",
+            "entry": "sprint40",
+            "scene": "Assets/Scenes/Production/WoodlandBasinSprint.unity",
+            "initial_quality": "high",
+            "route_id": "woodland_basin_sprint_route_v2",
+            "start_tick": 0,
+            "tick": 400,
+            "athletes": 40,
+            "terrain_tiles": 99,
+            "forest_groups": 90,
+            "trees": 26614,
+            "mats": 30,
+            "banks": 30,
+            "visible_loops": 35
+          }
+        ],
+        "exe_sha256": "718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00",
+        "log_sha256": "62e0f51516741b2a64a5d10705144cc5013ab35bc91bc65bd347bade766ae8ff",
+        "build_files_sha256": "cc7be8a103646d1ce7910c7ee0ed2c0422fe9afeb2268ffbbf3d96f315e103a9",
+        "log": "C:\\game\\Biathlon\\Biathlon\\artifacts\\production-player-smoke\\20261003-161201-355\\Player.log"
+      }
+    },
+    {
+      "receipt": {
+        "path": "artifacts/production-player-smoke/qualified-20261003-161201-407/verification.json",
+        "sha256": "202bde545b11cb3e6426669ed971b093ccc3af7aa395f5da2b7e9131457df040"
+      },
+      "data": {
+        "schema_version": 1,
+        "id": "qualified_pursuit40_player_content_smoke_v1",
+        "passed": true,
+        "scope": "Actual Sprint40 qualification identities and exact start gaps; initialized current Pursuit40 content; paid400-tick normal-player prefix. Hidden-window rendering may be suspended: zero frames supplies no visual evidence; draw_calls=-1 is unavailable. Native Game View supplies separate review. No full-race/FPS/GPU claim.",
+        "window_rendering_suspended": true,
+        "exit_code": 0,
+        "build": {
+          "schema_version": 1,
+          "id": "woodland_windows_review_build_v1",
+          "result": "Succeeded",
+          "unity": "6000.6.0f1",
+          "startup_scene": "Assets/Scenes/Production/WoodlandBasinMassStart.unity",
+          "review_definition_id": "woodland_review_v1",
+          "initial_quality": "high",
+          "errors": 0,
+          "warnings": 0,
+          "bytes": 359411877,
+          "seconds": 12.3892695
+        },
+        "rows": [
+          {
+            "schema_version": 1,
+            "id": "qualified_pursuit40_player_content_smoke_v1",
+            "venue": "woodland_basin_v1",
+            "profile": "woodland_basin_pursuit_men_v1",
+            "route_id": "woodland_basin_pursuit_route_v2",
+            "source_result_id": "woodland_basin_v1_sprint_result_v1",
+            "source_sha256": "0016b935974e97b58052c9ac3692e284f494bed2988ea57c4580e940821b652c",
+            "athletes": 40,
+            "mats": 30,
+            "banks": 30,
+            "qualified_count": 40,
+            "terrain_tiles": 99,
+            "forest_groups": 90,
+            "trees": 26614,
+            "start_tick": 0,
+            "tick": 400
+          }
+        ],
+        "source_record": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-sprint40-record.json",
+        "source_record_sha256": "0016b935974e97b58052c9ac3692e284f494bed2988ea57c4580e940821b652c",
+        "source_replay": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-sprint40-replay.json",
+        "source_replay_sha256": "5dbbf6e1210985c4a081c78653d028795a3d89ea5dd4fca56b3e3455aa5f34c4",
+        "exe_sha256": "718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00",
+        "log_sha256": "398f4b813833ee0dac5ceaf586eeaf07258fb01ad6b80dadea530142073717a8",
+        "log": "C:\\game\\Biathlon\\Biathlon\\artifacts\\production-player-smoke\\qualified-20261003-161201-407\\Pursuit40-Player.log"
+      }
+    }
+  ],
+  "owner_files_byte_exact": 19,
+  "owner_native_values_and_dirty_flags_exact": true,
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "compilation_failed": false
+  },
+  "limitations": [
+    "Hidden Windows rendering is suspended: zero window frames/draw counters provide no GPU/FPS or rendered-player evidence. Visual review uses normal Unity Game View.",
+    "Interactive review exposes Sprint40 and Mass30; qualified Pursuit40 is smoke-tested from the actual completed Sprint record. Career/UI flow remains M14.",
+    "Final headless replay and inspected native poses/views qualify these fixed workloads; weather matrix, balance and worst-case performance remain WP175/WP177/WP178.",
+    "Restricted crowd source meshes/textures remain local and are shipped only within compiled game content."
+  ],
+  "deferred_owner_issue": "OWNER-FEEL-001 remains OPEN for WP229/WP230/WP232"
+}

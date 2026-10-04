@@ -161,9 +161,11 @@ assert max_height_error<=2e-6,max_height_error
 geometry=json.loads((project/'Assets/Resources/Biathlon/target_geometry_v1.json').read_text(encoding='utf-8-sig'))
 stadium=json.loads((project/'Assets/Resources/Biathlon/stadium_art_v1.json').read_text(encoding='utf-8-sig'))
 assert len(environment['range']['banks'])==30
+physical_mat=read(PREFIX+'/manifest')['range_layout'].get('mat_definition')
+firing_datum_depth=0 if physical_mat is None else physical_mat['athlete_stop_depth_m']
 for bank in environment['range']['banks']:
     for axis in ('x','y','z'):
-        expected=bank['mat_position'][axis]+environment['range']['forward'][axis]*geometry['distance_m']+(stadium['target_height_m'] if axis=='y' else 0)
+        expected=bank['mat_position'][axis]+environment['range']['forward'][axis]*(geometry['distance_m']+firing_datum_depth)+(stadium['target_height_m'] if axis=='y' else 0)
         assert abs(bank['position'][axis]-expected)<1e-6
 assert environment['range']['target_distance_m']==geometry['distance_m'] and environment['range']['target_height_m']==stadium['target_height_m']
 mesh_minus_route=[]

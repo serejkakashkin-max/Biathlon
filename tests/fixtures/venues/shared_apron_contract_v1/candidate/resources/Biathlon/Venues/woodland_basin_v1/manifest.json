@@ -1,0 +1,142 @@
+{
+  "schema_version": 2,
+  "id": "woodland_basin_v1",
+  "track_resource": "Biathlon/Venues/woodland_basin_v1/track",
+  "visual_resource": "Biathlon/Venues/woodland_basin_v1/visual",
+  "paths_resource": "Biathlon/Venues/woodland_basin_v1/paths",
+  "start_approach_resource": "Biathlon/Venues/woodland_basin_v1/start_approach",
+  "start_continuation_resource": "Biathlon/Venues/woodland_basin_v1/start_continuation",
+  "occupancy_resource": "Biathlon/occupancy_provisional_v1",
+  "junctions_resource": "Biathlon/Venues/woodland_basin_v1/junctions",
+  "connections_resource": "Biathlon/Venues/woodland_basin_v1/connections",
+  "range_layout": {
+    "approach": "side_entry",
+    "entry": {
+      "loop_id": "main",
+      "distance_m": 2791.592
+    },
+    "exit": {
+      "loop_id": "main",
+      "distance_m": 2950.0
+    },
+    "firing_origin": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "forward": {
+      "x": 0,
+      "y": 0,
+      "z": 1
+    },
+    "lane_pitch_m": 3,
+    "apron_depth_m": 12
+  },
+  "cameras": [
+    {
+      "id": "range_overview",
+      "anchor": {
+        "loop_id": "main",
+        "distance_m": 2889.592
+      },
+      "offset": {
+        "x": -20,
+        "y": 20,
+        "z": -30
+      },
+      "look_offset": {
+        "x": 0,
+        "y": 1,
+        "z": 20
+      },
+      "fov_deg": 52
+    },
+    {
+      "id": "forest_climb",
+      "anchor": {
+        "loop_id": "main",
+        "distance_m": 450.0
+      },
+      "offset": {
+        "x": 12,
+        "y": 5,
+        "z": -10
+      },
+      "look_offset": {
+        "x": 0,
+        "y": 1,
+        "z": 0
+      },
+      "fov_deg": 48
+    },
+    {
+      "id": "plateau_broadcast",
+      "anchor": {
+        "loop_id": "main",
+        "distance_m": 1300.0
+      },
+      "offset": {
+        "x": -10,
+        "y": 4,
+        "z": -12
+      },
+      "look_offset": {
+        "x": 0,
+        "y": 1,
+        "z": 0
+      },
+      "fov_deg": 48
+    }
+  ],
+  "ambience": [
+    {
+      "id": "stadium_crowd",
+      "anchor": {
+        "loop_id": "main",
+        "distance_m": 2889.592
+      },
+      "event_id": "ambience_stadium_crowd",
+      "radius_m": 120
+    },
+    {
+      "id": "forest_wind",
+      "anchor": {
+        "loop_id": "main",
+        "distance_m": 600.0
+      },
+      "event_id": "ambience_forest_wind",
+      "radius_m": 100
+    }
+  ],
+  "assets": [
+    {
+      "id": "grandstand",
+      "resource": "Biathlon/Stadium/G2Grandstand/Grandstand",
+      "anchor": {
+        "loop_id": "main",
+        "distance_m": 2791.592
+      },
+      "offset": {
+        "x": -15,
+        "y": 0,
+        "z": -45
+      },
+      "yaw_deg": -90
+    },
+    {
+      "id": "event_dressing",
+      "resource": "Biathlon/Stadium/G2Event/Event",
+      "anchor": {
+        "loop_id": "main",
+        "distance_m": 2791.592
+      },
+      "offset": {
+        "x": 0,
+        "y": 0,
+        "z": -80
+      },
+      "yaw_deg": 0
+    }
+  ],
+  "format_bindings_resource": "Biathlon/Venues/woodland_basin_v1/format_bindings"
+}

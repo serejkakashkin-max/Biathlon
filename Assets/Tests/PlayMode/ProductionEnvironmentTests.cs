@@ -213,7 +213,9 @@ namespace Biathlon.PlayModeTests
                 // certify the ribbon edges; lowering affected cells may deepen the base gap.
                 foreach(var loop in recipe.route_corridors)foreach(var knot in loop.knots)
                     Assert.That(knot.y-view.SampleGround(knot.Position),Is.GreaterThanOrEqualTo(.025f),"Terrain must remain beneath the exact groomed course, including climbing/highland loops.");
-                for(int i=0;i<30;i++){var mat=PathPresentationFixture.Position(plan.MatPoint(i));Assert.That(view.Bank(i).transform.position,Is.EqualTo(mat+recipe.range.forward*50+Vector3.up*.85f));}
+                // Compact mats stop behind the firing datum. Banks still bind the
+                // canonical 50m shooting plane, rather than following that rearward stop.
+                for(int i=0;i<30;i++){var mat=PathPresentationFixture.Position(plan.MatPoint(i));Assert.That(view.Bank(i).transform.position,Is.EqualTo(mat+recipe.range.forward*(float)(50+plan.FiringDatumDepth)+Vector3.up*.85f));}
                 view.Render(camera,"high",0);for(int i=0;i<view.CrowdCount;i++)Assert.That(view.Crowd(i).UsesAuditedCrowd,Is.False);
                 yield return null;Assert.That(root.GetComponentsInChildren<Collider>(),Is.Empty);
             }

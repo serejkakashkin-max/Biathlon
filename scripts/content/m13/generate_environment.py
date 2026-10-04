@@ -154,6 +154,8 @@ forest_minimum_scale=forest_recipe.get('minimum_scale',vegetation['minimum_scale
 forest_maximum_scale=forest_recipe.get('maximum_scale',vegetation['maximum_scale'])
 assert .5<=forest_minimum_scale<=forest_maximum_scale<=1.5
 stadium=project_read('Biathlon/stadium_art_v1');target=project_read('Biathlon/target_geometry_v1')
+physical_mat=manifest['range_layout'].get('mat_definition')
+firing_datum_depth=0 if physical_mat is None else physical_mat['athlete_stop_depth_m']
 native_canopy_bounds={}
 for species in ('Fir','Pine'):
     mesh=PROJECT/'Assets/Resources/Biathlon/Vegetation'/('G2'+species)/(species+'LOD0.asset')
@@ -261,7 +263,7 @@ for iz in range(math.ceil(minimum_z/forest_spacing)+1,math.floor(maximum_z/fores
     for ix in range(math.ceil(minimum_x/forest_spacing)+1,math.floor(maximum_x/forest_spacing)-1):
         x=(ix+(unit(ix,iz,0)-.5)*.5)*forest_spacing
         z=(iz+(unit(ix,iz,1)-.5)*.5)*forest_spacing
-        if forest_recipe:
+        if forest_recipe or physical_mat:
             # New explicit recipes ground and validate the serialized position.
             # Keep the accepted default Venue01 resource bytes unchanged.
             x,z=round(x,6),round(z,6)
@@ -278,7 +280,7 @@ for iz in range(math.ceil(minimum_z/forest_spacing)+1,math.floor(maximum_z/fores
         if forest_recipe and mesh_height(x,z)>forest_recipe['exposed_height_m'] and unit(ix,iz,6)>=forest_recipe['exposed_density_fraction']:continue
         group_id=f'forest_{math.floor((x-minimum_x)/TILE):02d}_{math.floor((z-minimum_z)/TILE):02d}'
         species='pine' if unit(ix,iz,5)<composition['pine_fraction'] else 'fir'
-        if forest_recipe:
+        if forest_recipe or physical_mat:
             from environment_serialization import grounded_tree_position
             position=grounded_tree_position(x,z,mesh_height)
         else:position=point(x,mesh_height(x,z),z)
@@ -298,7 +300,7 @@ target_banks=[]
 for i,lane in enumerate(paths['lanes']):
     a=lane['mat_anchor'];mat=next(k for k in maps[a['loop_id']]['knots'] if abs(k['distance_m']-a['distance_m'])<1e-8)
     target_banks.append({'id':f'target_bank_{i+1:02d}','lane_id':lane['id'],'mat_anchor':a,'mat_position':point(mat['x'],mat['y'],mat['z']),
-        'position':point(mat['x']+range_forward['x']*target['distance_m'],mat['y']+stadium['target_height_m'],mat['z']+range_forward['z']*target['distance_m']),
+        'position':point(mat['x']+range_forward['x']*(target['distance_m']+firing_datum_depth),mat['y']+stadium['target_height_m'],mat['z']+range_forward['z']*(target['distance_m']+firing_datum_depth)),
         'yaw_deg':math.degrees(math.atan2(range_forward['x'],range_forward['z'])),'scale':1,'initial_stance':'Standing','initial_closed_mask':0})
 stands=[{'id':f'grandstand_{i+1:02d}','resource':'Biathlon/Stadium/G2Grandstand/Grandstand','position':point(-80+i*20,0,-50),'yaw_deg':180,'scale':1} for i in range(9)]
 screen_parts=[{'id':'event_screen_'+name,'mesh_resource':'Biathlon/Stadium/G2Event/'+name,'material_resource':'Biathlon/Stadium/G2Event/'+material,'position':point(112,0,-45),'yaw_deg':-90,'scale':1} for name,material in (('ScreenFrame','Charcoal'),('ScreenSteel','Steel'),('EventPanel','Display'))]
@@ -333,7 +335,7 @@ environment={'schema_version':1,'id':VENUE+'_environment_v1','venue_id':VENUE,'s
         'grid_spacing_m':forest_spacing,'additional_canopy_corridor_clearance_m':3,'native_canopy_bound_radius_m':native_canopy_bounds,'conservative_all_species_canopy_radius_m':CANOPY_BOUND,
         'corridor_clearance_includes':'every physical loop width plus yaw-independent radial bound from native mesh AABB, instance scale and canonical visual wind amplitude','firing_and_stadium_apron_exclusion':{'min_x':FLAT[0],'min_z':FLAT[1],'max_x':FLAT[2],'max_z':FLAT[3]}},
     'range':{'geometry_resource':'Biathlon/target_geometry_v1','stadium_art_resource':'Biathlon/stadium_art_v1','bank_resource':'Biathlon/Stadium/TargetBank','forward':range_forward,'origin':firing_origin,
-        'target_distance_m':target['distance_m'],'target_height_m':stadium['target_height_m'],'banks':target_banks,'mats':{'width_m':stadium['mat_width_m'],'length_m':stadium['mat_length_m'],'generate_from_banks_mat_positions':True},
+        'target_distance_m':target['distance_m'],'target_height_m':stadium['target_height_m'],'banks':target_banks,'mats':{'width_m':stadium['mat_width_m'] if physical_mat is None else physical_mat['width_m'],'length_m':stadium['mat_length_m'] if physical_mat is None else physical_mat['length_m'],'generate_from_banks_mat_positions':True},
         'backstop':{'position':point(0,1.9,target['distance_m']+2),'size':{'x':len(paths['lanes'])*manifest['range_layout']['lane_pitch_m']+4,'y':3.8,'z':.5},'material_resource':'Biathlon/Stadium/G2Event/concrete','generate_original_mesh':True}},
     'assets':stands,'mesh_assets':screen_parts+banner_parts+lodge_parts+finish_parts,
     'crowd':{'mode':'owner_approved_simplified','seat_binding':'SpectatorSeating on each existing unit-scale grandstand','resource_root':'Biathlon/Crowd','restricted_resources_allowed':False},
@@ -343,6 +345,11 @@ if forest_recipe:
     environment['forest']['original_venue_identity']={'recipe_id':ENVIRONMENT_RECIPE['id'],'explicit_clearings':clearings,
         'minimum_scale':forest_minimum_scale,'maximum_scale':forest_maximum_scale,'exposed_height_m':forest_recipe['exposed_height_m'],'exposed_density_fraction':forest_recipe['exposed_density_fraction']}
 environment['lighting'].update(environment_lighting)
+snow_shoulders_resource=ENVIRONMENT_RECIPE.get('terrain',{}).get('snow_shoulders_resource')
+if snow_shoulders_resource is not None:
+    assert isinstance(snow_shoulders_resource,str) and snow_shoulders_resource==PREFIX+'/sprint_fork_snow_shoulders'
+    assert physical_mat is not None
+    environment['terrain']['snow_shoulders_resource']=snow_shoulders_resource
 if environment_high_visibility is not None:
     environment['forest']['high_visibility']=environment_high_visibility
 if len(height_loop_ids)>1:

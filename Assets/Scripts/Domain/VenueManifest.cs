@@ -59,12 +59,14 @@ namespace Biathlon.Domain
         [DataMember(Name="forward",IsRequired=true)] public VenueVector Forward { get; private set; }
         [DataMember(Name="lane_pitch_m",IsRequired=true)] public double LanePitch { get; private set; }
         [DataMember(Name="apron_depth_m",IsRequired=true)] public double ApronDepth { get; private set; }
+        [DataMember(Name="mat_definition",EmitDefaultValue=false)] public VenueRangeMatDefinition MatDefinition { get; private set; }
         internal void Validate(TrackDefinition track)
         {
             if(Approach!="side_entry"||Entry==null||Exit==null||Origin==null||Forward==null)throw new ArgumentException("Explicit side-entry range layout required.");
             Entry.Validate(track);Exit.Validate(track);Origin.Validate();Forward.Validate();
             if(Math.Abs(Forward.Y)>1e-9||Math.Abs(Forward.X*Forward.X+Forward.Z*Forward.Z-1)>1e-9)throw new ArgumentException("Horizontal unit range direction required.");
             TrackValidation.Finite(LanePitch,1,10,"lane pitch");TrackValidation.Finite(ApronDepth,1,100,"range apron depth");
+            if(MatDefinition!=null)MatDefinition.Validate();
         }
     }
     /// <summary>Versioned production authoring sidecar. Core coordinates remain in TrackDefinition.
@@ -81,6 +83,7 @@ namespace Biathlon.Domain
         [DataMember(Name="start_approach_resource",EmitDefaultValue=false)] public string StartApproachResource { get; private set; }
         [DataMember(Name="start_continuation_resource",EmitDefaultValue=false)] public string StartContinuationResource { get; private set; }
         [DataMember(Name="format_bindings_resource",EmitDefaultValue=false)] public string FormatBindingsResource { get; private set; }
+        [DataMember(Name="shared_apron_resource",EmitDefaultValue=false)] public string SharedApronResource { get; private set; }
         [DataMember(Name="junctions_resource",IsRequired=true)] public string JunctionsResource { get; private set; }
         [DataMember(Name="connections_resource",IsRequired=true)] public string ConnectionsResource { get; private set; }
         [DataMember(Name="range_layout",IsRequired=true)] public VenueRangeLayout Range { get; private set; }
@@ -95,10 +98,11 @@ namespace Biathlon.Domain
             var v=RouteJson.Read<VenueManifest>(json);
             if(v==null||(v.SchemaVersion!=1&&v.SchemaVersion!=2)||v.Range==null||v.cameras==null||v.ambience==null||v.assets==null)throw new SerializationException("Invalid venue manifest schema.");
             if(v.SchemaVersion==1)
-            {ResourceId(v.LanesResource);if(v.PathsResource!=null||v.OccupancyResource!=null||v.StartApproachResource!=null||v.StartContinuationResource!=null||v.FormatBindingsResource!=null)throw new SerializationException("Version 1 venues bind lanes only.");}
+            {ResourceId(v.LanesResource);if(v.PathsResource!=null||v.OccupancyResource!=null||v.StartApproachResource!=null||v.StartContinuationResource!=null||v.FormatBindingsResource!=null||v.SharedApronResource!=null||v.Range.MatDefinition!=null)throw new SerializationException("Version 1 venues bind lanes only.");}
             else
             {ResourceId(v.PathsResource);ResourceId(v.OccupancyResource);if(v.StartApproachResource!=null)ResourceId(v.StartApproachResource);if(v.StartContinuationResource!=null){ResourceId(v.StartContinuationResource);if(v.StartApproachResource==null)throw new SerializationException("Start continuation requires its explicit approach binding.");}if(v.LanesResource!=null)throw new SerializationException("Version 2 venues require an explicit physical path and occupancy binding, without legacy lanes.");}
             if(v.FormatBindingsResource!=null)ResourceId(v.FormatBindingsResource);
+            if(v.SharedApronResource!=null)ResourceId(v.SharedApronResource);
             ResourceId(v.Id);
             if(v.Id.IndexOf('/')>=0)throw new SerializationException("Venue ID must be a single path component.");
             if(v.Id=="range_entry"||v.Id=="range_exit"||v.Id.StartsWith("firing_lane_",StringComparison.Ordinal))throw new SerializationException("Venue ID is reserved by generated markers.");
@@ -137,10 +141,12 @@ namespace Biathlon.Domain
         public StartApproachDefinition StartApproach {get;}
         public PhysicalStartContinuationDefinition StartContinuation {get;}
         public VenueFormatBindings Formats {get;}
+        public PhysicalSharedApronDefinition SharedApron {get;}
         public bool UsesPhysicalPaths=>Paths!=null;
         public int LaneCount=>UsesPhysicalPaths?Paths.Count:Lanes.Count;
         public string LaneId(int index)=>UsesPhysicalPaths?Paths.GetLane(index).Id:Lanes.GetLane(index);
         public TrackVisualPoint MatPoint(int index)=>UsesPhysicalPaths?At(Paths.GetLane(index).MatAnchor):Visual.Get(Lanes.GetLane(index)).Sample(Track.Range.FiringLine.Distance.Meters-Lanes.Entry.Meters);
+        public double FiringDatumDepth=>Manifest.Range.MatDefinition?.AthleteStopDepth??0;
         private readonly VenueSemanticZone[] zones;
         public int ZoneCount=>zones.Length; public VenueSemanticZone Zone(int i)=>zones[i];
         public TrackVisualPoint At(TrackAnchor anchor)=>Visual.Get(anchor.LoopId).Sample(anchor.Distance.Meters);
@@ -153,6 +159,9 @@ namespace Biathlon.Domain
             else
             {
                 Paths=PhysicalRangePathDefinition.FromJson(readResource(manifest.PathsResource),Track,Junctions,Connections);Occupancy=OccupancyDefinition.FromJson(readResource(manifest.OccupancyResource));
+                if(manifest.Range.MatDefinition!=null)manifest.Range.MatDefinition.Validate(Occupancy);
+                if(manifest.SharedApronResource!=null)
+                    SharedApron=PhysicalSharedApronDefinition.FromJson(readResource(manifest.SharedApronResource),Track,Visual,Paths,Junctions,Connections,Occupancy,readResource);
                 if(manifest.StartApproachResource!=null)
                 {
                     StartApproach=StartApproachDefinition.FromJson(readResource(manifest.StartApproachResource));

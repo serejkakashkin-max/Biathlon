@@ -89,7 +89,7 @@ namespace Biathlon.Domain
             {
                 var lane=paths.GetLane(i);var mat=plan.At(lane.MatAnchor);Project(mat.X,mat.Y,mat.Z,out double lateral,out double depth,out double height);
                 double expected=(paths.Count*.5-.5-i)*layout.LanePitch;
-                if(Math.Abs(lateral-expected)>policy.RangeTolerance||Math.Abs(depth)>policy.RangeTolerance||Math.Abs(height)>policy.RangeTolerance)
+                if(Math.Abs(lateral-expected)>policy.RangeTolerance||Math.Abs(depth+plan.FiringDatumDepth)>policy.RangeTolerance||Math.Abs(height)>policy.RangeTolerance)
                     Add("range.mat_alignment","range/lanes/"+lane.Id,"Authored mat anchor does not match its right-to-left firing-line slot.");
                 var end=lane.GetSlice(lane.SliceCount-1);
                 if(!Connected(end.LoopId,end.End,track.Penalty.LoopId,new TrackDistance(0))&&
@@ -131,7 +131,8 @@ namespace Biathlon.Domain
                         Covers(junction,b.LoopId,b.Start.Meters,b.Start.Meters,track.GetLoop(b.LoopId)))
                         forks.Add((a.LoopId,a.End.Millimeters,b.LoopId,b.Start.Millimeters));
                 }
-                if(forks.Count>1)Add("range.shared_entry_gate","junctions/"+junction.Id,"One exclusive guard region covers multiple distinct mat forks; local independent access is not certified.");
+                if(forks.Count>1&&(plan.SharedApron==null||!plan.SharedApron.ContainsRegion(i)))
+                    Add("range.shared_entry_gate","junctions/"+junction.Id,"One exclusive guard region covers multiple distinct mat forks without bounded pairwise body admission.");
             }
             for(int i=0;i<edges.Count;i++)for(int j=i+1;j<edges.Count;j++)
             {

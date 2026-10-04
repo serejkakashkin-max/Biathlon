@@ -39,12 +39,13 @@ namespace Biathlon.PlayModeTests
         [UnityTest] public IEnumerator RealPersonalMatTurnsTowardTargetsAndBackWithoutChangingTheSnapshotOrAuthority()
         {
             var plan=Plan();var events=new RaceEventLog(6000);var field=Field(plan,events);
-            var legacyRoot=new GameObject("Legacy tangent proxy test");var directedRoot=new GameObject("Explicit heading proxy test");var plannedRoot=new GameObject("Venue heading proxy test");
+            var legacyRoot=new GameObject("Legacy tangent proxy test");var directedRoot=new GameObject("Explicit heading proxy test");var plannedRoot=new GameObject("Venue heading proxy test");var physicalRoot=new GameObject("Accepted physical shooting center test");
             try
             {
                 var feed=legacyRoot.AddComponent<RacePresentationFeed>();var legacy=legacyRoot.AddComponent<AthleteProxyPresentation>();legacy.Initialize(feed,plan.Visual);legacy.enabled=false;
                 var directed=directedRoot.AddComponent<AthleteProxyPresentation>();directed.Initialize(feed,plan.Visual,null,Vector3.forward);directed.enabled=false;
                 var planned=plannedRoot.AddComponent<AthleteProxyPresentation>();planned.Initialize(feed,plan);planned.enabled=false;
+                var physicalView=physicalRoot.AddComponent<AthleteProxyPresentation>();physicalView.Initialize(feed,plan.Visual,null,Vector3.forward,preserveAcceptedLine:true);physicalView.enabled=false;
                 var mats=plannedRoot.AddComponent<RangeMatPresentation>();mats.Initialize(plan);
                 var inputs=new SprintAthleteInput[1];var lines=new[]{.2};bool priorShooting=false,setupPartial=false,exitPartial=false,returned=false;int stances=0,seen=0;
                 float priorAngle=0,priorWeight=0;bool havePrior=false;
@@ -58,9 +59,12 @@ namespace Biathlon.PlayModeTests
                     if(!state.ShootingActive&&!priorShooting&&field.Tick.Value>10)continue;
                     var physical=field.GetPhysicalPoint(0);long routeBefore=actor.RouteNanometers,motionBefore=actor.Motion.DistanceNanometers,tickBefore=field.Tick.Value;
                     int eventCount=events.Count;double lateralBefore=field.GetLateral(0);var sightBefore=actor.ActiveShooting?.Sight??default;var frameBefore=actor.LastFrame;
-                    legacy.Render(1);directed.Render(1);planned.Render(1);
+                    legacy.Render(1);directed.Render(1);planned.Render(1);physicalView.Render(1);
                     var a=legacy.GetProxy(state.AthleteId);var b=directed.GetProxy(state.AthleteId);var c=planned.GetProxy(state.AthleteId);
                     var point=plan.Visual.Get(state.LoopId).Sample(state.LocalNanometers/(double)SkiState.NanometersPerMeter);var tangent=new Vector3((float)point.ForwardX,0,(float)point.ForwardZ);
+                    var acceptedCentre=new Vector3((float)(point.X+point.ForwardZ*lateralBefore),(float)point.Y+1,(float)(point.Z-point.ForwardX*lateralBefore));
+                    Assert.That(Vector3.Distance(physicalView.GetProxy(state.AthleteId).localPosition,acceptedCentre),Is.LessThan(1e-6f),"Physical shooting keeps the actual accepted line during every setup/aim/recovery phase.");
+                    Assert.That(Quaternion.Angle(physicalView.GetProxy(state.AthleteId).localRotation,b.localRotation),Is.LessThan(.03f));
                     Assert.That(Vector3.Angle(a.forward,tangent),Is.LessThan(.03f));Assert.That(Vector3.Distance(a.localPosition,b.localPosition),Is.LessThan(1e-6f));
                     Assert.That(Quaternion.Angle(b.localRotation,c.localRotation),Is.LessThan(.03f));Assert.That(Vector3.Distance(b.localPosition,c.localPosition),Is.LessThan(1e-6f));
                     float weight=state.ShootingActive?Mathf.SmoothStep(0,1,AthleteRiflePresentation.Progress(state.ShootingPhase,state.ShootingPhaseElapsedTicks,state.ShootingPhaseDurationTicks)):0;
@@ -75,6 +79,7 @@ namespace Biathlon.PlayModeTests
                         if(state.ShootingPhase==ShootingPhase.Aiming)
                         {
                             stances|=1<<(int)state.Stance;Assert.That(Vector3.Angle(b.forward,Vector3.forward),Is.LessThan(.03f));
+                            Assert.That(Vector3.Distance(physicalView.GetRig(state.AthleteId).transform.position,directed.GetRig(state.AthleteId).transform.position),Is.EqualTo((float)Math.Abs(lateralBefore)).Within(1e-5f));
                             Assert.That(Vector3.Distance(directed.GetRig(state.AthleteId).transform.position,mats.Anchor(state.RangeLane).position),Is.LessThan(.001f));
                             var rig=directed.GetRig(state.AthleteId);var ray=state.Sight.Ray;
                             Assert.That(Vector3.Angle(rig.GetComponent<AthleteEquipmentBinding>().Rifle.forward,rig.ModelRoot.TransformDirection(new Vector3((float)ray.DirectionX,(float)ray.DirectionY,(float)ray.DirectionZ))),Is.LessThan(.03f));
@@ -95,7 +100,7 @@ namespace Biathlon.PlayModeTests
                 foreach(var phase in new[]{ShootingPhase.Setup,ShootingPhase.Aiming,ShootingPhase.BoltCycle,ShootingPhase.Exiting})Assert.That(seen&(1<<(int)phase),Is.Not.Zero);
                 yield return null;
             }
-            finally{Object.Destroy(legacyRoot);Object.Destroy(directedRoot);Object.Destroy(plannedRoot);}
+            finally{Object.Destroy(legacyRoot);Object.Destroy(directedRoot);Object.Destroy(plannedRoot);Object.Destroy(physicalRoot);}
         }
         [UnityTest] public IEnumerator InvalidShootingDirectionRejectsBeforeClearingExistingPresentation()
         {

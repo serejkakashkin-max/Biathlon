@@ -9,6 +9,7 @@ namespace Biathlon.Unity.Presentation
     {
         private Transform[] anchors;
         private string[] laneIds;
+        private Material physicalMaterial;
         public int Count=>anchors?.Length??0;
         // Observations expose one-based logical lane numbers, like the range signage.
         public Transform Anchor(int lane)=>lane>=1&&lane<=Count?anchors[lane-1]:throw new ArgumentOutOfRangeException(nameof(lane));
@@ -16,7 +17,7 @@ namespace Biathlon.Unity.Presentation
         public void Initialize(VenueAuthoringPlan plan)
         {
             if(plan==null)throw new ArgumentNullException(nameof(plan));
-            if(plan.UsesPhysicalPaths)Initialize(plan.Track,plan.Visual,plan.Paths,plan.Manifest.Range.Forward);
+            if(plan.UsesPhysicalPaths)Initialize(plan.Track,plan.Visual,plan.Paths,plan.Manifest.Range.Forward,plan.Manifest.Range.MatDefinition);
             else Initialize(plan.Track,plan.Visual,plan.Lanes);
         }
         public void Initialize(TrackDefinition track,TrackVisualDefinition visual,PhysicalRangeLaneDefinition lanes)
@@ -32,7 +33,7 @@ namespace Biathlon.Unity.Presentation
             }
             Create(points,rotations,ids);
         }
-        public void Initialize(TrackDefinition track,TrackVisualDefinition visual,PhysicalRangePathDefinition paths,VenueVector rangeForward)
+        public void Initialize(TrackDefinition track,TrackVisualDefinition visual,PhysicalRangePathDefinition paths,VenueVector rangeForward,VenueRangeMatDefinition matDefinition=null)
         {
             if(anchors!=null||track==null||visual==null||paths==null||rangeForward==null||
                 track.Id!=visual.TrackId||track.Id!=paths.TrackId||track.ToJson()!=paths.TrackSnapshotJson)
@@ -40,6 +41,7 @@ namespace Biathlon.Unity.Presentation
             double x=rangeForward.X,y=rangeForward.Y,z=rangeForward.Z;
             if(!double.IsFinite(x)||!double.IsFinite(y)||!double.IsFinite(z)||Math.Abs(y)>1e-9||Math.Abs(x*x+z*z-1)>1e-9)
                 throw new ArgumentException("A finite horizontal unit shooting direction is required.",nameof(rangeForward));
+            if(matDefinition!=null)VenueRangeMatDefinition.FromJson(matDefinition.ToJson());
             var rotation=Quaternion.LookRotation(new Vector3((float)x,0,(float)z).normalized);
             var points=new TrackVisualPoint[paths.Count];var rotations=new Quaternion[paths.Count];var ids=new string[paths.Count];
             // Resolve every mat before adding any children; a missing final loop cannot leave a partial venue.
@@ -48,11 +50,18 @@ namespace Biathlon.Unity.Presentation
                 var path=paths.GetLane(lane);ids[lane]=path.Id;
                 points[lane]=visual.Get(path.MatAnchor.LoopId).Sample(path.MatAnchor.Distance.Meters);rotations[lane]=rotation;
             }
-            Create(points,rotations,ids);
+            Create(points,rotations,ids,matDefinition);
         }
-        private void Create(TrackVisualPoint[] points,Quaternion[] rotations,string[] ids)
+        private void Create(TrackVisualPoint[] points,Quaternion[] rotations,string[] ids,VenueRangeMatDefinition matDefinition=null)
         {
             var art=StadiumArtDefinition.Load();var material=Resources.Load<Material>("Biathlon/Stadium/rubber");
+            if(matDefinition!=null)
+            {
+                var shader=Resources.Load<Shader>("Biathlon/Stadium/PhysicalRangeMat");
+                if(shader==null||material==null)throw new InvalidOperationException("Physical mat shader and rubber material required.");
+                physicalMaterial=new Material(shader){name="Physical range rubber"};
+                physicalMaterial.SetColor("_BaseColor",material.GetColor("_BaseColor"));material=physicalMaterial;
+            }
             anchors=new Transform[points.Length];laneIds=ids;
             for(int lane=0;lane<points.Length;lane++)
             {
@@ -62,10 +71,15 @@ namespace Biathlon.Unity.Presentation
                 anchor.localRotation=rotations[lane];anchors[lane]=anchor;
                 var mat=GameObject.CreatePrimitive(PrimitiveType.Cube);mat.name="Shooting mat";mat.transform.SetParent(anchor,false);
                 // Flush surface: never lift the athlete or move its authoritative stop point.
-                mat.transform.localPosition=new Vector3(0,-.022f,0);mat.transform.localScale=new Vector3(art.mat_width_m,.05f,art.mat_length_m);
+                mat.transform.localPosition=matDefinition==null?new Vector3(0,-.022f,0):
+                    new Vector3(0,(float)(-matDefinition.Thickness*.5),(float)matDefinition.CentreForwardFromStop);
+                mat.transform.localScale=matDefinition==null?new Vector3(art.mat_width_m,.05f,art.mat_length_m):
+                    new Vector3((float)matDefinition.Width,(float)matDefinition.Thickness,(float)matDefinition.Length);
                 mat.GetComponent<Renderer>().sharedMaterial=material;
-                Destroy(mat.GetComponent<Collider>());
+                var collider=mat.GetComponent<Collider>();
+                if(collider!=null){collider.enabled=false;Destroy(collider);}
             }
         }
+        private void OnDestroy(){if(physicalMaterial!=null)Destroy(physicalMaterial);}
     }
 }

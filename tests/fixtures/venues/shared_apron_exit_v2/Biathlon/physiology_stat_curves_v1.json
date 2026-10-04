@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "id": "physiology_stat_curves_v1",
+  "endurance_power": { "knots": [{"stat":0,"factor":0.75},{"stat":50,"factor":1},{"stat":100,"factor":1.2}] },
+  "anaerobic_capacity": { "knots": [{"stat":0,"factor":0.5},{"stat":50,"factor":1},{"stat":100,"factor":1.5}] },
+  "recovery": { "knots": [{"stat":0,"factor":0.8},{"stat":50,"factor":1},{"stat":100,"factor":1.3}] },
+  "strength_fatigue_gain": { "knots": [{"stat":0,"factor":1.5},{"stat":50,"factor":1},{"stat":100,"factor":0.5}] }
+}

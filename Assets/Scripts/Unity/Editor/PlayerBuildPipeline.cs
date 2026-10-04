@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Biathlon.Unity
 {
-    public static class PlayerBuildPipeline
+    public static partial class PlayerBuildPipeline
     {
         public static void BuildWindows()
             => BuildWindows("Builds/WindowsDevelopment", false);

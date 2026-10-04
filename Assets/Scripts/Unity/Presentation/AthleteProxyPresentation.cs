@@ -24,6 +24,7 @@ namespace Biathlon.Unity.Presentation
         private BreathVaporPresentation breathVapor;
         private FinishStagingSettings finishStaging;
         private Quaternion? shootingRotation;
+        private bool preserveAcceptedShootingLine;
         public void SetVisualBreathEnvironment(BreathEnvironment? environment) { if(breathVapor==null)throw new InvalidOperationException("Initialize proxies first.");breathVapor.SetEnvironment(environment); }
         public void SetViewCamera(Camera camera) => viewCamera = camera;
         public int Count=>proxies.Count;
@@ -33,9 +34,10 @@ namespace Biathlon.Unity.Presentation
         {
             if(plan==null)throw new ArgumentNullException(nameof(plan));
             var forward=plan.Manifest.Range.Forward;
-            Initialize(source,plan.Visual,template,plan.UsesPhysicalPaths?(Vector3?)new Vector3((float)forward.X,(float)forward.Y,(float)forward.Z):null);
+            Initialize(source,plan.Visual,template,plan.UsesPhysicalPaths?(Vector3?)new Vector3((float)forward.X,(float)forward.Y,(float)forward.Z):null,
+                preserveAcceptedLine:plan.Manifest.Range.MatDefinition!=null);
         }
-        public void Initialize(RacePresentationFeed source,TrackVisualDefinition geometry,AthleteRigBinding template=null,Vector3? shootingDirection=null)
+        public void Initialize(RacePresentationFeed source,TrackVisualDefinition geometry,AthleteRigBinding template=null,Vector3? shootingDirection=null,bool preserveAcceptedLine=false)
         {
             if(source==null||geometry==null)throw new ArgumentNullException();
             Quaternion? direction=null;
@@ -46,7 +48,7 @@ namespace Biathlon.Unity.Presentation
                     throw new ArgumentException("A finite horizontal unit shooting direction is required.",nameof(shootingDirection));
                 direction=Quaternion.LookRotation(new Vector3(value.x,0,value.z).normalized,Vector3.up);
             }
-            Clear();feed=source;visual=geometry;shootingRotation=direction;
+            Clear();feed=source;visual=geometry;shootingRotation=direction;preserveAcceptedShootingLine=preserveAcceptedLine;
             rigPrefab=template;
             motionSettings=AthleteLocomotionSettings.Load();
             contactSettings=GroundContactSettings.Load();
@@ -76,15 +78,13 @@ namespace Biathlon.Unity.Presentation
                 bool finished=state.Phase==CompetitionPhase.Finished;
                 go.SetActive(state.OnCourse||finished);if(!state.OnCourse&&!finished)continue;var position=feed.Position(i,alpha);var route=visual.Get(position.LoopId);
                 double sampleDistance=position.LocalMeters,lateral=position.LateralMeters;
-                // A skiing line offset can remain in the observation while the athlete is
-                // stopped at its assigned firing point. Center only the visible setup pose
-                // on that lane, easing in/out with the existing rifle transition. Never
-                // change the feed, occupancy, route distance or authoritative sight ray.
+                // Explicit physical mats preserve the accepted body center throughout setup,
+                // shooting and recovery. Legacy schematic adapters keep their previous pose.
                 float setupWeight=0;
                 if(state.ShootingActive)
                 {
                     float setup=AthleteRiflePresentation.Progress(state.ShootingPhase,state.ShootingPhaseElapsedTicks,state.ShootingPhaseDurationTicks);
-                    setupWeight=Mathf.SmoothStep(0,1,setup);lateral*=1-setupWeight;
+                    setupWeight=Mathf.SmoothStep(0,1,setup);if(!preserveAcceptedShootingLine)lateral*=1-setupWeight;
                 }
                 if(finished){var offset=finishStaging.Offset(i);sampleDistance=Math.Min(route.Get(route.Count-1).Distance,sampleDistance+offset.z);lateral+=offset.x;}
                 var point=route.Sample(sampleDistance);

@@ -80,13 +80,14 @@ namespace Biathlon.Unity.Presentation
     [Serializable] public sealed class ProductionTerrainRecipe
     {
         public ProductionBounds bounds;public float tile_size_m,grid_spacing_m;
-        public string blend_resource,material_resource;public ProductionTerrainTile[] tiles;
+        public string blend_resource,material_resource,snow_shoulders_resource;public ProductionTerrainTile[] tiles;
         internal void Validate(HashSet<string> ids)
         {
             if(bounds==null)throw new ArgumentException("Terrain bounds required.");ProductionEnvironmentDefinition.Position(bounds.center);ProductionEnvironmentDefinition.Position(bounds.size);
             ProductionEnvironmentDefinition.Bound(bounds.size.x,.1f,100000);ProductionEnvironmentDefinition.Bound(bounds.size.z,.1f,100000);
             ProductionEnvironmentDefinition.Bound(tile_size_m,.1f,10000);ProductionEnvironmentDefinition.Bound(grid_spacing_m,.1f,100);
             ProductionEnvironmentDefinition.Resource(blend_resource);ProductionEnvironmentDefinition.Resource(material_resource);ProductionEnvironmentDefinition.Collection(tiles,1,4096);
+            if(!string.IsNullOrEmpty(snow_shoulders_resource))ProductionEnvironmentDefinition.Resource(snow_shoulders_resource);
             foreach(var tile in tiles)
             {
                 if(tile==null)throw new ArgumentException("Null terrain tile.");ProductionEnvironmentDefinition.Unique(tile.id,ids);ProductionEnvironmentDefinition.Position(tile.center);ProductionEnvironmentDefinition.Position(tile.size);

@@ -5,7 +5,7 @@ radii are derived from chord lengths. Elevation is solved from two exact slope
 edge lengths whose horizontal difference matches the12m aisle separation.
 """
 from pathlib import Path
-import argparse, json, math, shutil, hashlib
+import argparse, json, math, shutil, hashlib, re
 from exact_polyline import ridge_span
 
 SCRIPT_DIRECTORY = Path(__file__).resolve().parent
@@ -19,6 +19,9 @@ HERE = (arguments.output_root if arguments.output_root is not None else PROJECT/
 RESOURCES = HERE / "resources"
 RECIPE = json.loads(arguments.recipe.read_text(encoding='utf-8-sig'))
 assert RECIPE['schema_version']==1
+compact_range = RECIPE.get("compact_range", False)
+if type(compact_range) is not bool:
+    raise ValueError("compact_range must be an explicit boolean")
 compound_range_rejoin = RECIPE.get("compound_range_rejoin", False)
 if type(compound_range_rejoin) is not bool:
     raise ValueError("compound_range_rejoin must be an explicit boolean when supplied")
@@ -37,7 +40,27 @@ if presentation_recipe.resolve()!=(HERE/presentation_recipe.name).resolve():
         presentation['id']=LABEL+'_presentation_resource_recipe_v1';presentation['venue_manifest_resource']=PREFIX+'/manifest'
         (HERE/presentation_recipe.name).write_text(json.dumps(presentation,indent=2)+'\n',encoding='utf-8')
 
+def compact_left_entry(value):
+    # Stable lane 1 remains on the right as viewed toward the target bank.
+    if isinstance(value,str):
+        return re.sub(r'(?<![A-Za-z0-9])(?:mat|lane|fork|outbound_cross|merge|mat_turn)_(\d{2})(?!\d)',
+                      lambda m:m.group(0)[:-2]+f'{RECIPE["lane_count"]+1-int(m.group(1)):02d}',value)
+    if isinstance(value,list):return [compact_left_entry(x) for x in value]
+    if isinstance(value,dict):
+        result={k:compact_left_entry(v) for k,v in value.items()}
+        if set(('x','y','z'))<=value.keys():result['x']=-value['x']
+        if 'curvature_per_m' in value:result['curvature_per_m']=-value['curvature_per_m']
+        if 'yaw_deg' in value:result['yaw_deg']=-value['yaw_deg']
+        return result
+    return value
+
 def write(relative, value):
+    if compact_range:
+        value=compact_left_entry(value)
+        if relative.endswith('/paths'):value['lanes'].reverse()
+        if relative.endswith('/manifest'):
+            value['range_layout']['apron_depth_m']=RECIPE['apron_depth_m']
+            value['range_layout']['mat_definition']=RECIPE['mat_definition']
     path = RESOURCES / (relative + ".json")
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(value, indent=2, allow_nan=False) + "\n", encoding="utf-8")
@@ -111,10 +134,13 @@ class Polyline:
 q = RECIPE["private_quarter_segments"]
 chord = RECIPE["private_arc_chord_m"]
 radius = chord / (2 * math.sin(math.pi / (4 * q)))
-entry_z = -RECIPE["private_inbound_straight_m"] - 2 * radius
-exit_z = -RECIPE["private_outbound_straight_m"] - 2 * radius
-private_length = 9 + 21 + 4 * q * chord
-private_stop = q * chord + 9 + q * chord
+stop_z = -RECIPE["athlete_stop_depth_m"] if "athlete_stop_depth_m" in RECIPE else 0.
+inbound = RECIPE["private_inbound_straight_m"]
+outbound = RECIPE["private_outbound_straight_m"]
+entry_z = stop_z - inbound - 2 * radius
+exit_z = stop_z - outbound - 2 * radius
+private_length = inbound + outbound + 4 * q * chord
+private_stop = q * chord + inbound + q * chord
 lane_count = RECIPE["lane_count"]
 pitch = RECIPE["lane_pitch_m"]
 side = RECIPE["side_margin_m"]
@@ -135,13 +161,13 @@ overlay_entry = overlay_exit - overlay_length
 def private_u(loop, x, width):
     line = Polyline(loop, (x, 0, entry_z), width)
     line.arc((x, 0, entry_z + radius), radius, -math.pi/2, -math.pi, q, chord)
-    line.edge((x-radius, 0, -radius), 9)
-    line.arc((x, 0, -radius), radius, math.pi, 0, 2*q, chord)
-    line.edge((x+radius, 0, exit_z + radius), 21)
+    if inbound > 0: line.edge((x-radius, 0, stop_z-radius), inbound)
+    line.arc((x, 0, stop_z-radius), radius, math.pi, 0, 2*q, chord)
+    line.edge((x+radius, 0, exit_z + radius), outbound)
     line.arc((x, 0, exit_z + radius), radius, 0, -math.pi/2, q, chord)
     # Exact coincidence at seams, not residual trigonometric drift.
     line.knots[-1].update(x=x, y=0., z=exit_z)
-    line.knots[q+1+q].update(x=x, y=0., z=0.)
+    line.knots[q+(1 if inbound > 0 else 0)+q].update(x=x, y=0., z=stop_z)
     assert line.distance_mm == mm(private_length)
     return line
 
@@ -247,13 +273,17 @@ for i, line in enumerate(private):
     rid=f"fork_{ordinal:02d}"
     region(rid,[port(rid+"_main","main",overlay_entry+fork,4,4),port(rid+"_private",name,0,0,7)],"one_mat_fork")
     seam(rid+"_connection",rid,rid+"_main",rid+"_private")
-    rid=f"outbound_cross_{ordinal:02d}"; outgoing=round(q*chord+9+2*q*chord+9+radius,3)
+    rid=f"outbound_cross_{ordinal:02d}"; outgoing=round(q*chord+inbound+2*q*chord+inbound+radius,3)
     region(rid,[port(rid+"_main","main",overlay_entry+cross,4,4),port(rid+"_private",name,outgoing,4,4)],"private_return_crosses_entry_aisle")
     rid=f"merge_{ordinal:02d}"
     region(rid,[port(rid+"_private",name,private_length,7,0),port(rid+"_exit","exit_aisle",fork,4,4)],"one_mat_exit_merge")
     seam(rid+"_connection",rid,rid+"_private",rid+"_exit")
     rid=f"mat_turn_{ordinal:02d}"
-    region(rid,[port(rid+"_incoming",name,q*chord+9,5,5),port(rid+"_outgoing",name,q*chord+9+2*q*chord,5,5)],"private_turn_only_no_other_lane")
+    if compact_range:
+        turn_anchor=max(5.,min(private_length-5.,private_stop))
+        region(rid,[port(rid+"_incoming",name,turn_anchor,5,5),port(rid+"_outgoing",name,turn_anchor,5,5)],"private_turn_only_no_other_lane")
+    else:
+        region(rid,[port(rid+"_incoming",name,q*chord+9,5,5),port(rid+"_outgoing",name,q*chord+9+2*q*chord,5,5)],"private_turn_only_no_other_lane")
 
 rejoin_ports=[port("rejoin_exit","exit_aisle",aisle_length,18,0),port("rejoin_main","main",overlay_exit,18,18),port("rejoin_penalty","penalty_150",0,18,18)]
 bypass_ports=[port("bypass_in","main",overlay_entry+aisle_length,7.9,25),port("bypass_out","main",overlay_exit-10,25,25)]
@@ -269,7 +299,8 @@ seam("range_penalty_enter_main","range_rejoin","rejoin_main","rejoin_penalty")
 seam("range_penalty_leave","range_rejoin","rejoin_penalty","rejoin_main")
 if not compound_range_rejoin:
     region("bypass_turn",bypass_ports,"outer_bypass_only_not_mat_forks")
-region("penalty_tail_cross_mat_30",[port("penalty_tail_mat","mat_30",38.8,2,.608),port("penalty_tail_loop","penalty_150",139,3,3)],"local_penalty_overlap_with_last_mat_departure_only")
+if not compact_range:
+    region("penalty_tail_cross_mat_30",[port("penalty_tail_mat","mat_30",38.8,2,.608),port("penalty_tail_loop","penalty_150",139,3,3)],"local_penalty_overlap_with_last_mat_departure_only")
 region("start_join",[port("start_join_end","start_approach",RECIPE["start_approach_length_m"],18,0),port("start_join_main","main",0,18,2)],"single_local_start_to_main_merge")
 seam("start_join_connection","start_join","start_join_end","start_join_main")
 
@@ -278,7 +309,7 @@ for i, line in enumerate(private):
     fork=side+i*pitch
     paths.append({"id":f"lane_{i+1:02d}","slices":[{"loop_id":"main","start_m":overlay_entry,"end_m":overlay_entry+fork},
         {"loop_id":line.loop,"start_m":0,"end_m":private_length},{"loop_id":"exit_aisle","start_m":fork,"end_m":aisle_length}],"mat_anchor":anchor(line.loop,private_stop)})
-track={"schema_version":1,"id":TRACK_ID,"authoring_limits":{"max_abs_grade":.25,"max_abs_curvature_per_m":1,"min_width_m":1,"max_width_m":20},
+track={"schema_version":1,"id":TRACK_ID,"authoring_limits":{"max_abs_grade":.25,"max_abs_curvature_per_m":RECIPE.get("max_abs_curvature_per_m",1),"min_width_m":1,"max_width_m":20},
     "loops":[line.definition("penalty" if line is penalty else "race",line is main or line is penalty) for line in all_lines],
     "checkpoints":[{"id":"climb_top","anchor":anchor("main",main.knots[oq+2]["distance_m"])},{"id":"plateau_exit","anchor":anchor("main",main.knots[oq*2+3]["distance_m"])}],
     "range":{"id":LABEL+"_range","entry":anchor("main",overlay_entry+5),"firing_line":anchor("main",overlay_entry+side+private_stop),"exit":anchor("main",overlay_exit-5)},
@@ -332,7 +363,7 @@ for junction in junctions:
     if purpose[junction["id"]] in ("one_mat_fork","private_return_crosses_entry_aisle","one_mat_exit_merge"):
         for p in junction["ports"]:
             if p["anchor"]["loop_id"].startswith("mat_"):
-                assert not p["anchor"]["distance_m"]-p["guard_before_m"]<=private_stop<=p["anchor"]["distance_m"]+p["guard_after_m"]
+                if not compact_range: assert not p["anchor"]["distance_m"]-p["guard_before_m"]<=private_stop<=p["anchor"]["distance_m"]+p["guard_after_m"]
 
 def region_contains(junction, loop, coordinate):
     length = line_map[loop].distance_mm / 1000
@@ -349,14 +380,14 @@ def region_contains(junction, loop, coordinate):
 mat_members = {j["id"]:[line.loop for line in private if region_contains(j, line.loop, private_stop)] for j in junctions}
 fork_members = {j["id"]:[p["id"] for p in paths if region_contains(j, p["slices"][0]["loop_id"], p["slices"][0]["end_m"])] for j in junctions}
 assert max(map(len, mat_members.values())) == 1
-assert max(map(len, fork_members.values())) <= 1, {key:value for key,value in fork_members.items() if len(value)>1}
+if not compact_range: assert max(map(len, fork_members.values())) <= 1, {key:value for key,value in fork_members.items() if len(value)>1}
 occupancy = json.loads((RESOURCES/"Biathlon/occupancy_provisional_v1.json").read_text(encoding="utf-8-sig"))
 body_width_with_clearance = occupancy["body_width_m"] + occupancy["personal_clearance_m"]
 private_width_with_clearance = RECIPE["private_width_m"] + occupancy["personal_clearance_m"]
 minimum_mat_center_separation = min(math.dist(a.at(private_stop), b.at(private_stop)) for i,a in enumerate(private) for b in private[i+1:])
 neighbor_private_corridor_bound_gap = pitch - (2*radius+private_width_with_clearance)
 assert minimum_mat_center_separation > body_width_with_clearance
-assert neighbor_private_corridor_bound_gap > 0
+if not compact_range: assert neighbor_private_corridor_bound_gap > 0
 seam_gaps=[]
 port_map={p["id"]:p for j in junctions for p in j["ports"]}
 for c in connections:

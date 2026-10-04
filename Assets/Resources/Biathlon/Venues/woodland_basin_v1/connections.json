@@ -4,395 +4,17 @@
   "junction_definition_id": "woodland_basin_junctions_v1",
   "connections": [
     {
-      "id": "fork_01_connection",
-      "junction_id": "fork_01",
-      "from_port_id": "fork_01_main",
-      "to_port_id": "fork_01_private",
+      "id": "fork_30_connection",
+      "junction_id": "fork_30",
+      "from_port_id": "fork_30_main",
+      "to_port_id": "fork_30_private",
       "kind": "coincident_seam"
     },
     {
-      "id": "merge_01_connection",
-      "junction_id": "merge_01",
-      "from_port_id": "merge_01_private",
-      "to_port_id": "merge_01_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_02_connection",
-      "junction_id": "fork_02",
-      "from_port_id": "fork_02_main",
-      "to_port_id": "fork_02_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_02_connection",
-      "junction_id": "merge_02",
-      "from_port_id": "merge_02_private",
-      "to_port_id": "merge_02_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_03_connection",
-      "junction_id": "fork_03",
-      "from_port_id": "fork_03_main",
-      "to_port_id": "fork_03_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_03_connection",
-      "junction_id": "merge_03",
-      "from_port_id": "merge_03_private",
-      "to_port_id": "merge_03_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_04_connection",
-      "junction_id": "fork_04",
-      "from_port_id": "fork_04_main",
-      "to_port_id": "fork_04_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_04_connection",
-      "junction_id": "merge_04",
-      "from_port_id": "merge_04_private",
-      "to_port_id": "merge_04_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_05_connection",
-      "junction_id": "fork_05",
-      "from_port_id": "fork_05_main",
-      "to_port_id": "fork_05_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_05_connection",
-      "junction_id": "merge_05",
-      "from_port_id": "merge_05_private",
-      "to_port_id": "merge_05_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_06_connection",
-      "junction_id": "fork_06",
-      "from_port_id": "fork_06_main",
-      "to_port_id": "fork_06_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_06_connection",
-      "junction_id": "merge_06",
-      "from_port_id": "merge_06_private",
-      "to_port_id": "merge_06_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_07_connection",
-      "junction_id": "fork_07",
-      "from_port_id": "fork_07_main",
-      "to_port_id": "fork_07_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_07_connection",
-      "junction_id": "merge_07",
-      "from_port_id": "merge_07_private",
-      "to_port_id": "merge_07_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_08_connection",
-      "junction_id": "fork_08",
-      "from_port_id": "fork_08_main",
-      "to_port_id": "fork_08_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_08_connection",
-      "junction_id": "merge_08",
-      "from_port_id": "merge_08_private",
-      "to_port_id": "merge_08_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_09_connection",
-      "junction_id": "fork_09",
-      "from_port_id": "fork_09_main",
-      "to_port_id": "fork_09_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_09_connection",
-      "junction_id": "merge_09",
-      "from_port_id": "merge_09_private",
-      "to_port_id": "merge_09_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_10_connection",
-      "junction_id": "fork_10",
-      "from_port_id": "fork_10_main",
-      "to_port_id": "fork_10_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_10_connection",
-      "junction_id": "merge_10",
-      "from_port_id": "merge_10_private",
-      "to_port_id": "merge_10_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_11_connection",
-      "junction_id": "fork_11",
-      "from_port_id": "fork_11_main",
-      "to_port_id": "fork_11_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_11_connection",
-      "junction_id": "merge_11",
-      "from_port_id": "merge_11_private",
-      "to_port_id": "merge_11_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_12_connection",
-      "junction_id": "fork_12",
-      "from_port_id": "fork_12_main",
-      "to_port_id": "fork_12_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_12_connection",
-      "junction_id": "merge_12",
-      "from_port_id": "merge_12_private",
-      "to_port_id": "merge_12_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_13_connection",
-      "junction_id": "fork_13",
-      "from_port_id": "fork_13_main",
-      "to_port_id": "fork_13_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_13_connection",
-      "junction_id": "merge_13",
-      "from_port_id": "merge_13_private",
-      "to_port_id": "merge_13_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_14_connection",
-      "junction_id": "fork_14",
-      "from_port_id": "fork_14_main",
-      "to_port_id": "fork_14_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_14_connection",
-      "junction_id": "merge_14",
-      "from_port_id": "merge_14_private",
-      "to_port_id": "merge_14_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_15_connection",
-      "junction_id": "fork_15",
-      "from_port_id": "fork_15_main",
-      "to_port_id": "fork_15_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_15_connection",
-      "junction_id": "merge_15",
-      "from_port_id": "merge_15_private",
-      "to_port_id": "merge_15_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_16_connection",
-      "junction_id": "fork_16",
-      "from_port_id": "fork_16_main",
-      "to_port_id": "fork_16_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_16_connection",
-      "junction_id": "merge_16",
-      "from_port_id": "merge_16_private",
-      "to_port_id": "merge_16_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_17_connection",
-      "junction_id": "fork_17",
-      "from_port_id": "fork_17_main",
-      "to_port_id": "fork_17_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_17_connection",
-      "junction_id": "merge_17",
-      "from_port_id": "merge_17_private",
-      "to_port_id": "merge_17_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_18_connection",
-      "junction_id": "fork_18",
-      "from_port_id": "fork_18_main",
-      "to_port_id": "fork_18_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_18_connection",
-      "junction_id": "merge_18",
-      "from_port_id": "merge_18_private",
-      "to_port_id": "merge_18_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_19_connection",
-      "junction_id": "fork_19",
-      "from_port_id": "fork_19_main",
-      "to_port_id": "fork_19_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_19_connection",
-      "junction_id": "merge_19",
-      "from_port_id": "merge_19_private",
-      "to_port_id": "merge_19_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_20_connection",
-      "junction_id": "fork_20",
-      "from_port_id": "fork_20_main",
-      "to_port_id": "fork_20_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_20_connection",
-      "junction_id": "merge_20",
-      "from_port_id": "merge_20_private",
-      "to_port_id": "merge_20_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_21_connection",
-      "junction_id": "fork_21",
-      "from_port_id": "fork_21_main",
-      "to_port_id": "fork_21_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_21_connection",
-      "junction_id": "merge_21",
-      "from_port_id": "merge_21_private",
-      "to_port_id": "merge_21_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_22_connection",
-      "junction_id": "fork_22",
-      "from_port_id": "fork_22_main",
-      "to_port_id": "fork_22_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_22_connection",
-      "junction_id": "merge_22",
-      "from_port_id": "merge_22_private",
-      "to_port_id": "merge_22_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_23_connection",
-      "junction_id": "fork_23",
-      "from_port_id": "fork_23_main",
-      "to_port_id": "fork_23_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_23_connection",
-      "junction_id": "merge_23",
-      "from_port_id": "merge_23_private",
-      "to_port_id": "merge_23_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_24_connection",
-      "junction_id": "fork_24",
-      "from_port_id": "fork_24_main",
-      "to_port_id": "fork_24_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_24_connection",
-      "junction_id": "merge_24",
-      "from_port_id": "merge_24_private",
-      "to_port_id": "merge_24_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_25_connection",
-      "junction_id": "fork_25",
-      "from_port_id": "fork_25_main",
-      "to_port_id": "fork_25_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_25_connection",
-      "junction_id": "merge_25",
-      "from_port_id": "merge_25_private",
-      "to_port_id": "merge_25_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_26_connection",
-      "junction_id": "fork_26",
-      "from_port_id": "fork_26_main",
-      "to_port_id": "fork_26_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_26_connection",
-      "junction_id": "merge_26",
-      "from_port_id": "merge_26_private",
-      "to_port_id": "merge_26_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_27_connection",
-      "junction_id": "fork_27",
-      "from_port_id": "fork_27_main",
-      "to_port_id": "fork_27_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_27_connection",
-      "junction_id": "merge_27",
-      "from_port_id": "merge_27_private",
-      "to_port_id": "merge_27_exit",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "fork_28_connection",
-      "junction_id": "fork_28",
-      "from_port_id": "fork_28_main",
-      "to_port_id": "fork_28_private",
-      "kind": "coincident_seam"
-    },
-    {
-      "id": "merge_28_connection",
-      "junction_id": "merge_28",
-      "from_port_id": "merge_28_private",
-      "to_port_id": "merge_28_exit",
+      "id": "merge_30_connection",
+      "junction_id": "merge_30",
+      "from_port_id": "merge_30_private",
+      "to_port_id": "merge_30_exit",
       "kind": "coincident_seam"
     },
     {
@@ -410,17 +32,395 @@
       "kind": "coincident_seam"
     },
     {
-      "id": "fork_30_connection",
-      "junction_id": "fork_30",
-      "from_port_id": "fork_30_main",
-      "to_port_id": "fork_30_private",
+      "id": "fork_28_connection",
+      "junction_id": "fork_28",
+      "from_port_id": "fork_28_main",
+      "to_port_id": "fork_28_private",
       "kind": "coincident_seam"
     },
     {
-      "id": "merge_30_connection",
-      "junction_id": "merge_30",
-      "from_port_id": "merge_30_private",
-      "to_port_id": "merge_30_exit",
+      "id": "merge_28_connection",
+      "junction_id": "merge_28",
+      "from_port_id": "merge_28_private",
+      "to_port_id": "merge_28_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_27_connection",
+      "junction_id": "fork_27",
+      "from_port_id": "fork_27_main",
+      "to_port_id": "fork_27_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_27_connection",
+      "junction_id": "merge_27",
+      "from_port_id": "merge_27_private",
+      "to_port_id": "merge_27_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_26_connection",
+      "junction_id": "fork_26",
+      "from_port_id": "fork_26_main",
+      "to_port_id": "fork_26_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_26_connection",
+      "junction_id": "merge_26",
+      "from_port_id": "merge_26_private",
+      "to_port_id": "merge_26_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_25_connection",
+      "junction_id": "fork_25",
+      "from_port_id": "fork_25_main",
+      "to_port_id": "fork_25_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_25_connection",
+      "junction_id": "merge_25",
+      "from_port_id": "merge_25_private",
+      "to_port_id": "merge_25_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_24_connection",
+      "junction_id": "fork_24",
+      "from_port_id": "fork_24_main",
+      "to_port_id": "fork_24_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_24_connection",
+      "junction_id": "merge_24",
+      "from_port_id": "merge_24_private",
+      "to_port_id": "merge_24_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_23_connection",
+      "junction_id": "fork_23",
+      "from_port_id": "fork_23_main",
+      "to_port_id": "fork_23_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_23_connection",
+      "junction_id": "merge_23",
+      "from_port_id": "merge_23_private",
+      "to_port_id": "merge_23_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_22_connection",
+      "junction_id": "fork_22",
+      "from_port_id": "fork_22_main",
+      "to_port_id": "fork_22_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_22_connection",
+      "junction_id": "merge_22",
+      "from_port_id": "merge_22_private",
+      "to_port_id": "merge_22_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_21_connection",
+      "junction_id": "fork_21",
+      "from_port_id": "fork_21_main",
+      "to_port_id": "fork_21_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_21_connection",
+      "junction_id": "merge_21",
+      "from_port_id": "merge_21_private",
+      "to_port_id": "merge_21_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_20_connection",
+      "junction_id": "fork_20",
+      "from_port_id": "fork_20_main",
+      "to_port_id": "fork_20_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_20_connection",
+      "junction_id": "merge_20",
+      "from_port_id": "merge_20_private",
+      "to_port_id": "merge_20_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_19_connection",
+      "junction_id": "fork_19",
+      "from_port_id": "fork_19_main",
+      "to_port_id": "fork_19_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_19_connection",
+      "junction_id": "merge_19",
+      "from_port_id": "merge_19_private",
+      "to_port_id": "merge_19_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_18_connection",
+      "junction_id": "fork_18",
+      "from_port_id": "fork_18_main",
+      "to_port_id": "fork_18_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_18_connection",
+      "junction_id": "merge_18",
+      "from_port_id": "merge_18_private",
+      "to_port_id": "merge_18_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_17_connection",
+      "junction_id": "fork_17",
+      "from_port_id": "fork_17_main",
+      "to_port_id": "fork_17_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_17_connection",
+      "junction_id": "merge_17",
+      "from_port_id": "merge_17_private",
+      "to_port_id": "merge_17_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_16_connection",
+      "junction_id": "fork_16",
+      "from_port_id": "fork_16_main",
+      "to_port_id": "fork_16_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_16_connection",
+      "junction_id": "merge_16",
+      "from_port_id": "merge_16_private",
+      "to_port_id": "merge_16_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_15_connection",
+      "junction_id": "fork_15",
+      "from_port_id": "fork_15_main",
+      "to_port_id": "fork_15_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_15_connection",
+      "junction_id": "merge_15",
+      "from_port_id": "merge_15_private",
+      "to_port_id": "merge_15_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_14_connection",
+      "junction_id": "fork_14",
+      "from_port_id": "fork_14_main",
+      "to_port_id": "fork_14_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_14_connection",
+      "junction_id": "merge_14",
+      "from_port_id": "merge_14_private",
+      "to_port_id": "merge_14_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_13_connection",
+      "junction_id": "fork_13",
+      "from_port_id": "fork_13_main",
+      "to_port_id": "fork_13_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_13_connection",
+      "junction_id": "merge_13",
+      "from_port_id": "merge_13_private",
+      "to_port_id": "merge_13_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_12_connection",
+      "junction_id": "fork_12",
+      "from_port_id": "fork_12_main",
+      "to_port_id": "fork_12_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_12_connection",
+      "junction_id": "merge_12",
+      "from_port_id": "merge_12_private",
+      "to_port_id": "merge_12_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_11_connection",
+      "junction_id": "fork_11",
+      "from_port_id": "fork_11_main",
+      "to_port_id": "fork_11_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_11_connection",
+      "junction_id": "merge_11",
+      "from_port_id": "merge_11_private",
+      "to_port_id": "merge_11_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_10_connection",
+      "junction_id": "fork_10",
+      "from_port_id": "fork_10_main",
+      "to_port_id": "fork_10_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_10_connection",
+      "junction_id": "merge_10",
+      "from_port_id": "merge_10_private",
+      "to_port_id": "merge_10_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_09_connection",
+      "junction_id": "fork_09",
+      "from_port_id": "fork_09_main",
+      "to_port_id": "fork_09_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_09_connection",
+      "junction_id": "merge_09",
+      "from_port_id": "merge_09_private",
+      "to_port_id": "merge_09_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_08_connection",
+      "junction_id": "fork_08",
+      "from_port_id": "fork_08_main",
+      "to_port_id": "fork_08_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_08_connection",
+      "junction_id": "merge_08",
+      "from_port_id": "merge_08_private",
+      "to_port_id": "merge_08_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_07_connection",
+      "junction_id": "fork_07",
+      "from_port_id": "fork_07_main",
+      "to_port_id": "fork_07_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_07_connection",
+      "junction_id": "merge_07",
+      "from_port_id": "merge_07_private",
+      "to_port_id": "merge_07_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_06_connection",
+      "junction_id": "fork_06",
+      "from_port_id": "fork_06_main",
+      "to_port_id": "fork_06_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_06_connection",
+      "junction_id": "merge_06",
+      "from_port_id": "merge_06_private",
+      "to_port_id": "merge_06_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_05_connection",
+      "junction_id": "fork_05",
+      "from_port_id": "fork_05_main",
+      "to_port_id": "fork_05_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_05_connection",
+      "junction_id": "merge_05",
+      "from_port_id": "merge_05_private",
+      "to_port_id": "merge_05_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_04_connection",
+      "junction_id": "fork_04",
+      "from_port_id": "fork_04_main",
+      "to_port_id": "fork_04_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_04_connection",
+      "junction_id": "merge_04",
+      "from_port_id": "merge_04_private",
+      "to_port_id": "merge_04_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_03_connection",
+      "junction_id": "fork_03",
+      "from_port_id": "fork_03_main",
+      "to_port_id": "fork_03_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_03_connection",
+      "junction_id": "merge_03",
+      "from_port_id": "merge_03_private",
+      "to_port_id": "merge_03_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_02_connection",
+      "junction_id": "fork_02",
+      "from_port_id": "fork_02_main",
+      "to_port_id": "fork_02_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_02_connection",
+      "junction_id": "merge_02",
+      "from_port_id": "merge_02_private",
+      "to_port_id": "merge_02_exit",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "fork_01_connection",
+      "junction_id": "fork_01",
+      "from_port_id": "fork_01_main",
+      "to_port_id": "fork_01_private",
+      "kind": "coincident_seam"
+    },
+    {
+      "id": "merge_01_connection",
+      "junction_id": "merge_01",
+      "from_port_id": "merge_01_private",
+      "to_port_id": "merge_01_exit",
       "kind": "coincident_seam"
     },
     {

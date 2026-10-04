@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "ski_technique_provisional_v1",
+  "full_climb_grade": 0.12,
+  "minimum_skill_efficiency": 0.65,
+  "minimum_climbing_efficiency": 0.75,
+  "exhausted_technique_modifier": 0.8,
+  "profiles": [
+    { "id": "skate_cruise", "flat_affinity": 1.0, "climb_affinity": 0.7 },
+    { "id": "skate_climb", "flat_affinity": 0.75, "climb_affinity": 1.0 }
+  ]
+}

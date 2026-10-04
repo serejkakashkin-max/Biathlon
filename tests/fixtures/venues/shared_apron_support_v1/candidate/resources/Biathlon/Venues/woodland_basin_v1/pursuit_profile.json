@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "woodland_basin_pursuit_men_v1",
+  "rules_revision": "production_distance_structure_v1",
+  "format": 1,
+  "category": 0,
+  "distance_m": 12500,
+  "laps": 5,
+  "start_type": 1,
+  "start_interval_s": 0,
+  "field_capacity": 40,
+  "shots_per_bout": 5,
+  "penalty_loop_m": 150,
+  "shooting_bouts": [
+    {
+      "id": "bout_1",
+      "after_lap": 1,
+      "stance": 0
+    },
+    {
+      "id": "bout_2",
+      "after_lap": 2,
+      "stance": 0
+    },
+    {
+      "id": "bout_3",
+      "after_lap": 3,
+      "stance": 1
+    },
+    {
+      "id": "bout_4",
+      "after_lap": 4,
+      "stance": 1
+    }
+  ]
+}

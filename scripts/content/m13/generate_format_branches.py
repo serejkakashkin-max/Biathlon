@@ -6,6 +6,7 @@ This tool does not import Unity Assets or claim static/runtime acceptance.
 """
 from pathlib import Path
 import argparse, bisect, hashlib, json, math, shutil
+from compact_range_authoring import reflect_range_family
 
 SCRIPT=Path(__file__).resolve().parent
 parser=argparse.ArgumentParser(description=__doc__)
@@ -28,8 +29,15 @@ VENUE=recipe['venue_id'];assert VENUE.replace('_','').isalnum() and VENUE.endswi
 LABEL=VENUE[:-3];PREFIX='Biathlon/Venues/'+VENUE
 OUT.mkdir(parents=True,exist_ok=True)
 
-def read(name):return json.loads((BASE/'resources'/PREFIX/(name+'.json')).read_text(encoding='utf-8-sig'))
+raw_manifest=json.loads((BASE/'resources'/PREFIX/'manifest.json').read_text(encoding='utf-8-sig'))
+compact_range=raw_manifest['range_layout'].get('mat_definition') is not None
+lane_count=json.loads((BASE/'resources'/PREFIX/'paths.json').read_text(encoding='utf-8-sig'))['lanes']
+lane_count=len(lane_count)
+def read(name):
+    data=json.loads((BASE/'resources'/PREFIX/(name+'.json')).read_text(encoding='utf-8-sig'))
+    return reflect_range_family(data,lane_count) if compact_range else data
 def write(name,data):
+    if compact_range:data=reflect_range_family(data,lane_count)
     path=RES/PREFIX/(name+'.json');path.parent.mkdir(parents=True,exist_ok=True)
     path.write_text(json.dumps(data,indent=2,allow_nan=False)+'\n',encoding='utf-8')
 def mm(x):

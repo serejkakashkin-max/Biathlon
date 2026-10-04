@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "woodland_basin_format_bindings_v1",
+  "venue_id": "woodland_basin_v1",
+  "track_id": "woodland_basin_track_v1",
+  "formats": [
+    {
+      "id": "mass_start",
+      "profile_resource": "Biathlon/Venues/woodland_basin_v1/mass_start_profile",
+      "route_resource": "Biathlon/Venues/woodland_basin_v1/mass_start_route"
+    },
+    {
+      "id": "sprint",
+      "profile_resource": "Biathlon/Venues/woodland_basin_v1/sprint_profile",
+      "route_resource": "Biathlon/Venues/woodland_basin_v1/sprint_route"
+    },
+    {
+      "id": "pursuit",
+      "profile_resource": "Biathlon/Venues/woodland_basin_v1/pursuit_profile",
+      "route_resource": "Biathlon/Venues/woodland_basin_v1/pursuit_route",
+      "directed_passages_resource": "Biathlon/Venues/woodland_basin_v1/pursuit_directed_passages"
+    }
+  ]
+}
