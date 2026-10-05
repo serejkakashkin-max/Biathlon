@@ -21004,3 +21004,84 @@ Fresh completed records:Mass30 tick23087 and Sprint40 tick43157; their exact per
 Dense merge defect remains OPEN: Sprint actor16 stops2003ticks(100.15s) at Main150.106m near the penalty return; several others also wait. This is not acceptable owner traffic feel and the prior traffic task is not fully closed. Latest owner contact authorization requires a documented shared contact/steering solution rather than weakened legacy tests.
 Build delivered for owner testing:Builds/WoodlandTrafficGuidanceReview20261005/START_WOODLAND_REVIEW.cmd. Owner23 disk paths and6 native owner assets/dirty flags were verified preserved after exact build-only serialization restoration.
 Active next work: forced-wait/contact diagnosis, manual heading integration and the owner animation/guidance/descent corrections. M13 and WP175–178 remain OPEN. G1/G2 remain APPROVED; no new owner approval is inferred.
+
+
+---
+
+## 2026-10-05 — Published baseline and owner presentation correction
+
+History restoration and append-only policy are published at b1a01cd; implementation
+commits a79e4cc/58567d9/c9a660c are on origin/codex/wp-078-ai-pack. The last
+Pursuit40 replay completed:46092ticks, exact state/events/result, zero AI steps.
+All three frozen shipping format records now have exact replay PASS. Full frozen
+core1067/1067 PASS remains evidence for that implementation, not a waiver of the
+owner's new issues. Portable receipts:quality/m13/traffic-guidance-shipping-20261005.json.
+
+TASK_M13_OWNER_REALISM_PRESENTATION_01 IN_PROGRESS: early7-chevron mat trail from
+90m, no mat label, final3m capture retained; actual Woodland early-guidance native
+test went red at86.934m nearest mat arrow and now passes with the trail ahead.
+Tuck now hinges at hips behind boots, compact hands/bent elbows, airborne trailing
+poles. Native full hero/contact/grip and locomotion6PASS; actual High30-body paid
+tuck side/chase frames inspected after a real rendered Editor frame. Stale paused
+render captures were rejected. Camera reads actual visual slope and blends it;
+camera2nativePASS. Setup/recovery stays in athlete view; dedicated sight camera
+is active only for aiming/bolt cycle. Camera regression red→green, native rifle
+pipeline3PASS including both actual stance deadlines and unchanged shooting clock.
+Windows delivery of these new corrections is pending. Terrain/layout clarity and
+natural AI bypass need additional work; no fully manual playable steering claim.
+
+Next: dense post-third-bout forced-wait reproduction, shared contact/heading
+integration, final native presentation review and a new explicitly delivered build.
+M13/WP175–178 OPEN. G1/G2 APPROVED. All nine owner corrections remain tracked in
+owner/OWNER_PLAYABLE_REALISM_CONTACT_AND_STATE_2026-10-05.md.
+
+
+---
+
+## 2026-10-05 — Realism validation and retained Pursuit witness correction
+
+Checkpoint time:2026-10-05T23:13:05+03:00. Presentation correction committed at b935e38; mapped
+build-settings restoration committed at ee21fcf. Native presentation20/20 and
+Editor build-lease13/13 PASS. No shooting authority, setup deadlines, player tuck
+physics or approved minimal ordinary body motion was retuned. Early arrows appear
+ahead on the selected paid path from90m; mat label removed; preparation/recovery
+is visible in chase view before/after actual aiming. The slope camera reads grade.
+The restored195-version history remains byte-identical; this entry is appended.
+
+Traffic work remains IN_PROGRESS. Native four new guard/scope reproductions pass.
+The v3 same-loop correction removes the later-lap Main/start-join hold, but an
+unbound Sprint branch then trapped the field. Its long record was REJECTED because
+the source freeze was violated during recording; it is not acceptance evidence.
+Independent frozen v3 diagnostics show the real Main177.357m trap. The v4 full
+paid-route body capture and branch proof correct it: actual Sprint40 prefix12000
+ticks has maximum stationary2ticks in both .NET and native Unity.
+
+Fresh v4 whole races and exact persisted state/event/result replay PASS without AI:
+Mass30:22987ticks,max_stationary378; Sprint40:36431ticks,max_stationary12;
+actual-new-Sprint-qualified Pursuit40:19794ticks,max_stationary30. The full v4 core
+suite nevertheless has1070PASS/1FAIL,0skips: the retained historical actual Sprint
+schedule's Pursuit40 does not finish within its unchanged40000tick deadline.
+No failing test was weakened or disabled. Frozen diagnostics identify five
+PursuitShortcut bodies held before its first curved knot at1m, with cleared tails
+and available paid lateral requests, while the planner only escapes Main/range.
+TASK_M13_OWNER_COURSE_TRAFFIC_SCOPE_01 adds an explicit optional venue setting for
+captured paid route loops; private mat approach and unknown/start loops stay out.
+Its focused validation is running. V4 full-race replay does not waive this failure.
+
+Builds/WoodlandRealismReview20261005 was explicitly delivered for visual testing;
+Builds/WoodlandRealismFlowReview20261005 adds v4 branch flow and builds successfully
+with0errors/0warnings. Its generic hidden Mass30/Sprint40 smoke passes. One parallel
+qualified Pursuit startup crashed in Unity's resource loader; that failed receipt
+is retained. Two subsequent sequential runs of the same binary passed. The cause
+of the parallel crash is not established and no engine fix is claimed. Hidden
+rendering was suspended and proves no GPU/FPS or standalone visual quality.
+Final course-scope correction/build qualification is pending; do not call v4 a
+fully regression-qualified final build. All23 owner disk paths remain preserved.
+
+Open owner work: physically coupled natural bypass and full manual heading(2/9),
+rare shared deterministic contacts(7), remaining dense mat approach holds(6;
+Mass30 mat06 first-bout378ticks/18.9s), and broader terrain readability(8).
+The post-third-bout issue is improved, not a claim that all traffic delays are gone.
+M13/WP175–178 OPEN; G1/G2 APPROVED; no new owner approval is inferred.
+Next: complete the unchanged retained Pursuit witness, full regression and fresh
+final format replays, native/hidden Windows checks, append evidence and publish.
