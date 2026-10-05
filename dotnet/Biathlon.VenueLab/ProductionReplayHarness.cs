@@ -109,6 +109,7 @@ public static class ProductionReplayHarness
         public Dictionary<string,string> ResourceSha256 {get;set;}=new Dictionary<string,string>(StringComparer.Ordinal);
         public Dictionary<string,string> AssemblySha256 {get;set;}
         public Dictionary<string,string> SourceCodeSha256 {get;set;}
+        [JsonConverter(typeof(FieldContextJsonConverter))]
         public string FieldContextJson {get;set;}
         public string InitialPublicState {get;set;}
         public string InitialFieldEvents {get;set;}
@@ -176,7 +177,7 @@ public static class ProductionReplayHarness
         string contextFile=tapePath+ContextSuffix;long contextRawBytes;
         using(var file=File.Create(contextFile))using(var gzip=new GZipStream(file,CompressionLevel.Fastest))
         using(var bounded=new CapacityStream(gzip,contextLimit,true))
-        {JsonSerializer.Serialize(bounded,context,Json);contextRawBytes=bounded.Transferred;}
+        {using(var jsonWriter=new Utf8JsonWriter(bounded))JsonSerializer.Serialize(jsonWriter,context,Json);contextRawBytes=bounded.Transferred;}
         long contextCompressedBytes=new FileInfo(contextFile).Length;
         if(contextCompressedBytes>MaximumCompressedContextBytes)throw new InvalidOperationException("Compressed context exceeds 16 MiB.");
         string contextHash=HashFile(contextFile);
