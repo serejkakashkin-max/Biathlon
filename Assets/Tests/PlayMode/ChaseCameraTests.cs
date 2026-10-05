@@ -8,6 +8,22 @@ namespace Biathlon.PlayModeTests
     public class ChaseCameraTests
     {
         private static ChaseCameraSettings Settings()=>ChaseCameraSettings.FromJson(Resources.Load<TextAsset>("Biathlon/chase_camera_v1").text);
+        [Test] public void CameraUsesObservedDescentPlaneWithoutTiltingOrMovingAthlete()
+        {
+            var athlete=new GameObject("Slope camera target");var camera=new GameObject("Slope camera").AddComponent<AthleteChaseCamera>();
+            try
+            {
+                camera.enabled=false;camera.Follow(athlete.transform,Settings(),0);camera.SetTerrainGrade(-.12f);camera.Render(0);
+                float expectedHeight=Settings().height_m+.12f/Mathf.Sqrt(1+.12f*.12f)*Settings().distance_m;
+                Assert.That(camera.transform.position.y,Is.EqualTo(expectedHeight).Within(.001));
+                Assert.That(athlete.transform.position,Is.EqualTo(Vector3.zero));Assert.That(athlete.transform.rotation,Is.EqualTo(Quaternion.identity));
+                Assert.Throws<System.ArgumentOutOfRangeException>(()=>camera.SetTerrainGrade(float.NaN));
+                Assert.Throws<System.ArgumentOutOfRangeException>(()=>camera.SetTerrainGrade(1));
+                camera.SetTerrainGrade(.12f);var before=camera.transform.position;camera.Render(.01f);
+                Assert.That(Vector3.Distance(before,camera.transform.position),Is.LessThan(.1f),"A slope seam blends instead of pitching abruptly.");
+            }
+            finally{Object.DestroyImmediate(camera.gameObject);Object.DestroyImmediate(athlete);}
+        }
         [UnityTest] public IEnumerator CameraFollowsWithoutMovingTargetAndAvoidsVisualObstacles()
         {
             var athlete=new GameObject("camera_target");athlete.transform.position=new Vector3(0,1,0);var camera=new GameObject("camera_test").AddComponent<AthleteChaseCamera>();camera.enabled=false;camera.Follow(athlete.transform,Settings(),1<<29);camera.Render(0);

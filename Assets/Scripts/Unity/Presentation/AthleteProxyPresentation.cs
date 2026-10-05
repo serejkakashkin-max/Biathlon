@@ -19,6 +19,7 @@ namespace Biathlon.Unity.Presentation
         private AthleteLocomotionSettings motionSettings;
         private GroundContactSettings contactSettings;
         private Camera viewCamera;
+        private AthleteChaseCamera chaseCamera;
         private SnowTrackPresentation snowTracks;
         private SnowSprayPresentation snowSpray;
         private BreathVaporPresentation breathVapor;
@@ -26,7 +27,8 @@ namespace Biathlon.Unity.Presentation
         private Quaternion? shootingRotation;
         private bool preserveAcceptedShootingLine;
         public void SetVisualBreathEnvironment(BreathEnvironment? environment) { if(breathVapor==null)throw new InvalidOperationException("Initialize proxies first.");breathVapor.SetEnvironment(environment); }
-        public void SetViewCamera(Camera camera) => viewCamera = camera;
+        public void SetViewCamera(Camera camera)
+        {viewCamera=camera;chaseCamera=camera!=null?camera.GetComponent<AthleteChaseCamera>():null;}
         public int Count=>proxies.Count;
         public Transform GetProxy(string athleteId)=>proxies[athleteId].transform;
         public AthleteRigBinding GetRig(string athleteId)=>animation[athleteId].Rig;
@@ -95,6 +97,7 @@ namespace Biathlon.Unity.Presentation
                 go.transform.localRotation=shootingRotation.HasValue&&state.ShootingActive?Quaternion.Slerp(heading,shootingRotation.Value,setupWeight):heading;
                 double curvature=VisualRouteCurvature.Sample(visual.Get(position.LoopId),position.LocalMeters,motionSettings.corner_sample_half_span_m);
                 double grade=VisualRouteSurface.Grade(route,sampleDistance,contactSettings.sample_half_span_m);
+                if(chaseCamera!=null&&chaseCamera.Target==go.transform)chaseCamera.SetTerrainGrade((float)grade);
                 float distance=viewCamera!=null?Vector3.Distance(viewCamera.transform.position,go.transform.position):0;
                 long poseTick=current.Tick;double poseAlpha=alpha;
                 if(finished&&current.Complete){double ticks=completedSeconds*current.TickFrequency;poseTick+=(long)Math.Floor(ticks);poseAlpha=ticks-Math.Floor(ticks);}

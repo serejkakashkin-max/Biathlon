@@ -18,10 +18,15 @@ namespace Biathlon.PlayModeTests
             var runner=ChampionshipRaceFactory.Create(Read,Fixture,CompetitionFormat.Sprint,new BalanceEventAudit(5),new AiDecisionCounts(),count:1);
             var root=new GameObject("range_test");var feed=root.AddComponent<RacePresentationFeed>();var view=root.AddComponent<RangePresentation>();
             view.Initialize(feed,runner.Field.GetAthlete(0).AthleteId.Value,TargetGeometryDefinition.FromJson(Read("target_geometry_v1.json")));
-            bool sawRange=false,sawShot=false;
+            bool sawRange=false,sawShot=false,sawSetup=false,sawExit=false;
             for(int i=0;i<20000;i++)
             {
                 runner.Step();feed.Publish(RacePresentationSnapshot.Capture(runner.Field));view.Refresh();
+                var state=feed.Current.Get(0);
+                bool aiming=state.ShootingActive&&(state.ShootingPhase==ShootingPhase.Aiming||state.ShootingPhase==ShootingPhase.BoltCycle);
+                Assert.That(view.Visible,Is.EqualTo(aiming),"Preparation and rifle recovery must stay visible in the athlete camera.");
+                if(state.ShootingActive&&state.ShootingPhase==ShootingPhase.Setup)sawSetup=true;
+                if(state.ShootingActive&&state.ShootingPhase==ShootingPhase.Exiting)sawExit=true;
                 if(view.Visible){sawRange=true;Assert.That(view.ClosedMask,Is.EqualTo(feed.Current.Get(0).ClosedTargetsMask));Assert.That(view.AimCamera.enabled,Is.True);
                     var geometry=TargetGeometryDefinition.FromJson(Read("target_geometry_v1.json"));var observed=feed.Current.Get(0);
                     Assert.That(view.Bank.transform.localPosition.z,Is.EqualTo((float)geometry.DistanceMeters));
@@ -34,6 +39,7 @@ namespace Biathlon.PlayModeTests
                 if(sawShot&&!view.Visible)break;
             }
             Assert.That(sawRange&&sawShot,Is.True);Assert.That(view.Visible,Is.False);
+            Assert.That(sawSetup&&sawExit,Is.True);
             feed.ResetRace();view.Refresh();Assert.That(view.Status,Is.Empty);
             Object.Destroy(root);yield return null;
         }

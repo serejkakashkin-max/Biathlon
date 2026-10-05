@@ -22,16 +22,25 @@ namespace Biathlon.Unity.Presentation
         private ChaseCameraSettings settings;
         private int environmentMask;
         private bool initialized;
+        private float requestedGrade,blendedGrade;
         public Transform Target=>target;
+        public void SetTerrainGrade(float grade)
+        {
+            if(!float.IsFinite(grade)||Mathf.Abs(grade)>.5f)throw new ArgumentOutOfRangeException(nameof(grade));
+            requestedGrade=grade;
+        }
         public void Follow(Transform athlete,ChaseCameraSettings definition,int collisionMask=Physics.DefaultRaycastLayers)
         {if(athlete==null||definition==null)throw new ArgumentNullException();if(athlete==transform)throw new ArgumentException("Camera cannot follow itself.");target=athlete;settings=ChaseCameraSettings.FromJson(JsonUtility.ToJson(definition));environmentMask=collisionMask;initialized=false;}
         public void Render(float deltaTime)
         {
             if(float.IsNaN(deltaTime)||float.IsInfinity(deltaTime)||deltaTime<0)throw new ArgumentOutOfRangeException(nameof(deltaTime));if(target==null||settings==null)return;
             var forward=Vector3.ProjectOnPlane(target.forward,Vector3.up).normalized;if(forward.sqrMagnitude<.001f)forward=Vector3.forward;
+            float weight=1-Mathf.Exp(-settings.response_per_s*deltaTime);
+            blendedGrade=initialized?Mathf.Lerp(blendedGrade,requestedGrade,weight):requestedGrade;
+            var terrainForward=(forward+Vector3.up*blendedGrade).normalized;
             var pivot=target.position+Vector3.up*settings.look_height_m;
-            var desired=target.position-forward*settings.distance_m+Vector3.up*settings.height_m;
-            float weight=1-Mathf.Exp(-settings.response_per_s*deltaTime);var position=initialized?Vector3.Lerp(transform.position,desired,weight):desired;
+            var desired=target.position-terrainForward*settings.distance_m+Vector3.up*settings.height_m;
+            var position=initialized?Vector3.Lerp(transform.position,desired,weight):desired;
             // Terrain probing and obstruction handling are presentation-only. No physics
             // result is fed to race movement, aim or the deterministic command stream.
             var probe=position+Vector3.up*settings.ground_probe_m;
@@ -39,7 +48,7 @@ namespace Biathlon.Unity.Presentation
             else position.y=Mathf.Max(position.y,target.position.y+settings.clearance_m);
             var arm=position-pivot;
             if(arm.magnitude>settings.collision_radius_m&&Physics.SphereCast(pivot,settings.collision_radius_m,arm.normalized,out var obstacle,arm.magnitude,environmentMask,QueryTriggerInteraction.Ignore))position=pivot+arm.normalized*Mathf.Max(0,obstacle.distance-settings.clearance_m);
-            transform.position=position;var look=target.position+forward*settings.look_ahead_m+Vector3.up*settings.look_height_m;
+            transform.position=position;var look=target.position+terrainForward*settings.look_ahead_m+Vector3.up*settings.look_height_m;
             if((look-position).sqrMagnitude>.0001f)transform.rotation=Quaternion.LookRotation(look-position,Vector3.up);initialized=true;
         }
         private void LateUpdate()=>Render(Time.deltaTime);

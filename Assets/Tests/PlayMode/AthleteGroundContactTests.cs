@@ -10,6 +10,37 @@ namespace Biathlon.PlayModeTests
     public class AthleteGroundContactTests
     {
         [Test]
+        public void HeroTuckUsesHipHingeCompactHandsAndTrailingAirbornePoles()
+        {
+            var rig=AthleteRigFactory.Create(null);
+            try
+            {
+                var driver=rig.GetComponent<AthleteLocomotionDriver>();var rifle=rig.GetComponent<AthleteRiflePresentation>();
+                var contact=rig.GetComponent<AthleteGroundContact>();var grip=rig.GetComponent<AthleteGripPresentation>();
+                Assert.That(grip,Is.Not.Null,"Exercise the shipped hero including its late glove fit.");
+                var equipment=rig.GetComponent<AthleteEquipmentBinding>();var origin=rig.transform.position;var rotation=rig.transform.rotation;
+                foreach(float grade in new[]{0f,-.08f,-.15f})
+                {
+                    driver.Sample(rig,new LocomotionInput(12,grade,.1f,tuck:true),10);
+                    rifle.Sample(rig,0);contact.Sample(rig,grade,0,SkiLocomotion.Tuck,0);grip.Render(rig);
+                    Vector3 Local(AthleteBone bone)=>rig.ModelRoot.InverseTransformPoint(rig.Bone(bone).position);
+                    var hip=Local(AthleteBone.Hips);var foot=Local(AthleteBone.LeftFoot);var shoulder=Local(AthleteBone.LeftUpperArm);
+                    Assert.That(hip.z,Is.LessThan(foot.z-.09f),"The crouch hinges at hips behind the boots.");
+                    Assert.That(hip.y,Is.InRange(.68f,.9f));
+                    Assert.That(shoulder.y-hip.y,Is.LessThan(.25f),"Torso is low and forward, not an upright curved back.");
+                    Assert.That(Vector3.Distance(Local(AthleteBone.LeftHand),Local(AthleteBone.RightHand)),Is.LessThan(.15f));
+                    var elbow=Local(AthleteBone.LeftLowerArm);var hand=Local(AthleteBone.LeftHand);
+                    Assert.That(Vector3.Angle(elbow-shoulder,hand-elbow),Is.GreaterThan(50),"Elbows bend instead of reaching straight forward.");
+                    foreach(var pole in new[]{equipment.LeftPole,equipment.RightPole})
+                        Assert.That(Vector3.Dot(-pole.up,-rig.ModelRoot.forward),Is.GreaterThan(.96f),"Poles trail in the air.");
+                    Assert.That(Vector3.Dot(contact.LeftPoleTip-rig.ModelRoot.position,contact.SurfaceNormal),Is.GreaterThan(.6f));
+                    Assert.That(contact.MaxFootResidualMeters,Is.LessThan(.025f));Assert.That(grip.MaximumResidualMeters,Is.LessThan(.02f));
+                    Assert.That(rig.transform.position,Is.EqualTo(origin));Assert.That(rig.transform.rotation,Is.EqualTo(rotation));
+                }
+            }
+            finally{Object.DestroyImmediate(rig.gameObject);}
+        }
+        [Test]
         public void RenderedGradeUsesGeometryAndRejectsInvalidSampling()
         {
             var track = TrackDefinition.FromJson(System.IO.File.ReadAllText(System.IO.Path.Combine(Application.dataPath, "../tests/fixtures/tracks/synthetic_stadium_v1.json")));

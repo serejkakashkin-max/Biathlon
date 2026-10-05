@@ -99,11 +99,12 @@ namespace Biathlon.Unity.Presentation
             // Leg/pole timing and ground contact stay independent of this bone offset.
             float overlap=technique.glide_fraction-.5f;
             float transfer=-Mathf.Sin(phase-Mathf.PI*overlap)*(.105f+pose.skate_width_m)*technique.hip_transfer_fraction;
-            rig.Offset(AthleteBone.Hips, new Vector3(transfer*active, -pose.hip_drop_m-technique.hip_pulse_m*pulse, 0));
-            rig.Rotate(AthleteBone.Hips, Quaternion.Euler(0, 0, -CornerLeanDegrees));
+            rig.Offset(AthleteBone.Hips, new Vector3(transfer*active, -pose.hip_drop_m-technique.hip_pulse_m*pulse, -pose.hip_back_m));
             float lean=pose.torso_lean_deg+technique.torso_pulse_deg*pulse;
-            rig.Rotate(AthleteBone.Spine, Quaternion.Euler(lean * .6f, 0, 0));
-            rig.Rotate(AthleteBone.Chest, Quaternion.Euler(lean * .4f, 0, 0));
+            float hinge=lean*pose.hip_hinge_fraction;
+            rig.Rotate(AthleteBone.Hips, Quaternion.Euler(hinge, 0, -CornerLeanDegrees));
+            rig.Rotate(AthleteBone.Spine, Quaternion.Euler((lean-hinge) * .6f, 0, 0));
+            rig.Rotate(AthleteBone.Chest, Quaternion.Euler((lean-hinge) * .4f, 0, 0));
             rig.Rotate(AthleteBone.Neck, Quaternion.Euler(-pose.torso_lean_deg * .7f, 0, 0));
             Leg(false, phase); Leg(true, phase + Mathf.PI);
             Arm(false, polePhase); Arm(true, polePhase);

@@ -10,6 +10,40 @@ namespace Biathlon.PlayModeTests
 {
     public class PlayerRouteGuidanceTests
     {
+        [UnityTest] public IEnumerator WoodlandMatTrailAppearsBeforeFinalApproachAndStartsAheadOfSkier()
+        {
+            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/manifest")),ProductionVenueHost.ReadResource);
+            var profile=CompetitionProfile.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/sprint_profile"));
+            var route=RaceRoutePlan.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/sprint_route"));
+            var conditions=RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1"));
+            var root=new GameObject("Early Woodland assigned-mat navigation test");
+            try
+            {
+                var host=root.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;host.Initialize(venue,profile,route,conditions,count:1);
+                var field=host.Runner.Field;var id=field.GetAthlete(0).AthleteId;bool found=false;
+                for(int t=0;t<8000;t++)
+                {
+                    var actor=field.GetAthlete(0);var tick=field.Tick.Next();
+                    host.Step(new PlayerCommand(tick,id,900,0),new ShootingDeviceCommand(new WeaponAimCommand(tick,id,0,0),false,false));
+                    host.Guidance.Refresh(.125f);
+                    double remaining=(actor.RangePath.FiringRouteNanometers(0)-actor.RouteNanometers)/(double)SkiState.NanometersPerMeter;
+                    if(remaining>90)continue;
+                    Assert.That(remaining,Is.GreaterThan(30));
+                    Assert.That(host.Guidance.GuidedLaneOrdinal,Is.EqualTo(actor.RangePath.LaneOrdinal));
+                    Assert.That(host.Guidance.MatArrowCount,Is.GreaterThan(0),"Show the actual mat route before entering the final mat branch.");
+                    var point=field.GetPhysicalPoint(0);
+                    var sample=venue.Visual.Get(point.LoopId).Sample(point.LocalNanometers/(double)SkiState.NanometersPerMeter);
+                    var here=new Vector3((float)sample.X,(float)sample.Y,(float)sample.Z);float nearest=float.MaxValue;
+                    foreach(var arrow in host.Guidance.GetComponentsInChildren<MeshFilter>())
+                        if(arrow.gameObject.name=="Assigned mat chevron")nearest=Mathf.Min(nearest,Vector3.Distance(here,arrow.transform.position));
+                    Assert.That(nearest,Is.LessThan(6),"The trail starts in front of the skier, not at the distant mat.");
+                    Assert.That(host.Guidance.GetComponentsInChildren<TextMesh>(true),Is.Empty);
+                    found=true;break;
+                }
+                Assert.That(found,Is.True);yield return null;
+            }
+            finally{Object.Destroy(root);}
+        }
         [UnityTest] public IEnumerator ActualAssignedMatGuideAndBoundedAidReturnManualIntentAfterDeparture()
         {
             var venue=PathPresentationFixture.Plan();
@@ -32,6 +66,7 @@ namespace Biathlon.PlayModeTests
                     {
                         arrows=true;Assert.That(host.Guidance.GuidedLaneOrdinal,Is.EqualTo(actor.AssignedShootingLane.Ordinal));
                         Assert.That(host.Guidance.MatArrowCount,Is.GreaterThan(0));
+                        Assert.That(host.Guidance.GetComponentsInChildren<TextMesh>(true),Is.Empty,"Owner removed the mat label.");
                     }
                     if(host.LastRangeAssistance.Mode==PlayerRangeAssistMode.FinalApproach)
                     {approach=true;Assert.That(host.Runner.GetLastLateral(0),Is.Zero);}
@@ -50,7 +85,8 @@ namespace Biathlon.PlayModeTests
                     }
                     Assert.That(actor.Motion.DistanceNanometers,Is.GreaterThanOrEqualTo(lastDistance));lastDistance=actor.Motion.DistanceNanometers;
                 }
-                Assert.That(arrows,Is.True);Assert.That(approach,Is.True);Assert.That(departure,Is.True);Assert.That(returned,Is.True);
+                Assert.That(arrows,Is.True);
+                Assert.That(approach,Is.True);Assert.That(departure,Is.True);Assert.That(returned,Is.True);
                 Assert.That(continuePenalty,Is.True);Assert.That(leavePenalty,Is.True);
                 yield return null;
             }

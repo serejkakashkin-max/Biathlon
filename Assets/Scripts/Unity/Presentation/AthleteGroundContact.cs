@@ -9,13 +9,15 @@ namespace Biathlon.Unity.Presentation
         public int schema_version;
         public string id;
         public float sample_half_span_m, max_grade, pole_length_m, pole_recovery_m, pole_tuck_clearance_m;
+        public float tuck_pole_pitch_deg;
         public static GroundContactSettings Load()
         {
             var d = JsonUtility.FromJson<GroundContactSettings>(Resources.Load<TextAsset>("Biathlon/athlete_ground_contact_v1").text);
             if (d == null || d.schema_version != 1 || string.IsNullOrWhiteSpace(d.id) ||
                 !(d.sample_half_span_m > 0 && d.sample_half_span_m <= 5) || !(d.max_grade > 0 && d.max_grade <= .5f) ||
                 !(d.pole_length_m > 1 && d.pole_length_m < 2) || !(d.pole_recovery_m > 0 && d.pole_recovery_m < .5f) ||
-                !(d.pole_tuck_clearance_m > 0 && d.pole_tuck_clearance_m < .5f))
+                !(d.pole_tuck_clearance_m > 0 && d.pole_tuck_clearance_m < .5f)||
+                !float.IsFinite(d.tuck_pole_pitch_deg)||d.tuck_pole_pitch_deg<0||d.tuck_pole_pitch_deg>15)
                 throw new ArgumentException("Invalid ground contact definition.");
             return d;
         }
@@ -114,6 +116,15 @@ namespace Biathlon.Unity.Presentation
                 float height = Mathf.Clamp(Vector3.Dot(grip, normal) - lift, 0, settings.pole_length_m);
                 var rear = Vector3.ProjectOnPlane(Vector3.back, normal).normalized;
                 var tip = grip - normal * height + rear * Mathf.Sqrt(Mathf.Max(0, settings.pole_length_m * settings.pole_length_m - height * height));
+                if(state==SkiLocomotion.Tuck)
+                {
+                    // During aerodynamic coasting the pole shafts trail above the snow,
+                    // rather than reaching down as if pushing. Blend into ordinary stow.
+                    float pitch=settings.tuck_pole_pitch_deg*Mathf.Deg2Rad;
+                    var airborne=grip+(rear*Mathf.Cos(pitch)-normal*Mathf.Sin(pitch))*settings.pole_length_m;
+                    var direction=Vector3.Slerp(airborne-grip,tip-grip,stowWeight).normalized;
+                    tip=grip+direction*settings.pole_length_m;
+                }
                 pole.SetPositionAndRotation(root.TransformPoint(grip), Quaternion.FromToRotation(Vector3.down, root.TransformDirection(tip - grip)));
                 return root.TransformPoint(tip);
             }

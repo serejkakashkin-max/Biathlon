@@ -46,7 +46,10 @@ namespace Biathlon.Unity.Presentation
             for(int i=0;i<snapshot.Count;i++)
             {
                 var a=snapshot.Get(i);if(a.AthleteId!=athleteId)continue;
-                SetVisible(a.ShootingActive&&a.Phase==CompetitionPhase.Range);
+                // Keep the full athlete/equipment setup and recovery visible in the
+                // chase view. The dedicated sight camera owns only actual aim/cycling.
+                SetVisible(a.ShootingActive&&a.Phase==CompetitionPhase.Range&&
+                    (a.ShootingPhase==ShootingPhase.Aiming||a.ShootingPhase==ShootingPhase.BoltCycle));
                 if(!Visible)return;
                 if(observedBout!=a.CompletedBouts){observedBout=a.CompletedBouts;Status="";}
                 ClosedMask=a.ClosedTargetsMask;

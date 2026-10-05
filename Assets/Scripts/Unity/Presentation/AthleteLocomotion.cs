@@ -10,11 +10,14 @@ namespace Biathlon.Unity.Presentation
     {
         public string state;
         public float hip_drop_m, torso_lean_deg, skate_width_m, stride_m, foot_lift_m;
+        public float hip_back_m, hip_hinge_fraction;
         public float cadence_hz, hand_forward_m, hand_height_m, arm_swing_m, hand_width_m;
 
         public static LocomotionPose Blend(LocomotionPose a, LocomotionPose b, float t, LocomotionPose result)
         {
             result.hip_drop_m = Mathf.Lerp(a.hip_drop_m, b.hip_drop_m, t);
+            result.hip_back_m = Mathf.Lerp(a.hip_back_m, b.hip_back_m, t);
+            result.hip_hinge_fraction = Mathf.Lerp(a.hip_hinge_fraction, b.hip_hinge_fraction, t);
             result.torso_lean_deg = Mathf.Lerp(a.torso_lean_deg, b.torso_lean_deg, t);
             result.skate_width_m = Mathf.Lerp(a.skate_width_m, b.skate_width_m, t);
             result.stride_m = Mathf.Lerp(a.stride_m, b.stride_m, t);
@@ -50,13 +53,15 @@ namespace Biathlon.Unity.Presentation
             {
                 var p = d.poses[i];
                 if (p == null || p.state != ((SkiLocomotion)i).ToString()) throw new ArgumentException("Locomotion poses require canonical state order.");
-                foreach (float value in new[] { p.hip_drop_m, p.torso_lean_deg, p.skate_width_m, p.stride_m, p.foot_lift_m, p.cadence_hz, p.hand_forward_m, p.hand_height_m, p.arm_swing_m, p.hand_width_m,
+                foreach (float value in new[] { p.hip_drop_m, p.hip_back_m, p.hip_hinge_fraction, p.torso_lean_deg, p.skate_width_m, p.stride_m, p.foot_lift_m, p.cadence_hz, p.hand_forward_m, p.hand_height_m, p.arm_swing_m, p.hand_width_m,
                     d.idle_speed_mps, d.climb_grade, d.descent_grade, d.attack_effort, d.sprint_effort, d.transition_s, d.ski_v_deg, d.ankle_height_m,
                     d.corner_max_lean_deg, d.corner_response_s, d.corner_gravity_mps2, d.corner_sample_half_span_m,
                     d.climb_effort_low,d.climb_effort_high,d.climb_motion_low,d.climb_motion_high })
                     if (float.IsNaN(value) || float.IsInfinity(value)) throw new ArgumentException("Locomotion values must be finite.");
                 if (p.hip_drop_m < 0 || p.hip_drop_m > .5f || p.cadence_hz < 0 || p.cadence_hz > 4 || p.skate_width_m < 0 || p.skate_width_m > .5f || p.stride_m < 0 || p.stride_m > .5f || p.foot_lift_m < 0 || p.foot_lift_m > .2f)
                     throw new ArgumentException("Pose exceeds supported rig envelope.");
+                if(p.hip_back_m<0||p.hip_back_m>.3f||p.hip_hinge_fraction<0||p.hip_hinge_fraction>1)
+                    throw new ArgumentException("Invalid hip hinge envelope.");
             }
             if (d.climb_effort_high <= d.climb_effort_low || d.climb_motion_low <= 0 || d.climb_motion_high < d.climb_motion_low)
                 throw new ArgumentException("Invalid climb intensity envelope.");

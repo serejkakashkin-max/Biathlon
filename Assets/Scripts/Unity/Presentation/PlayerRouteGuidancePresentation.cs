@@ -15,7 +15,6 @@ namespace Biathlon.Unity.Presentation
         private GameObject[] matArrows,forkArrows;
         private Material material;
         private Mesh mesh;
-        private TextMesh label;
         public int MatArrowCount {get;private set;}
         public int ForkArrowCount {get;private set;}
         public int GuidedLaneOrdinal {get;private set;}
@@ -30,9 +29,6 @@ namespace Biathlon.Unity.Presentation
             material.name="Original cyan race guidance";material.SetColor("_BaseColor",new Color(.03f,.85f,1f,1));
             material.SetFloat("_Cull",(float)CullMode.Off);
             mesh=ChevronMesh();matArrows=CreateArrows("Assigned mat chevron");forkArrows=CreateArrows("Selected branch chevron");
-            var text=new GameObject("Assigned mat label");text.transform.SetParent(transform,false);
-            label=text.AddComponent<TextMesh>();label.anchor=TextAnchor.MiddleCenter;label.characterSize=.04f;label.fontSize=48;
-            label.color=new Color(.05f,.85f,1f);text.SetActive(false);
         }
         private GameObject[] CreateArrows(string prefix)
         {
@@ -56,7 +52,7 @@ namespace Biathlon.Unity.Presentation
         public void Refresh(float unscaledSeconds)
         {
             if(host==null||host.Runner==null)return;
-            Hide(matArrows);Hide(forkArrows);label.gameObject.SetActive(false);MatArrowCount=ForkArrowCount=GuidedLaneOrdinal=0;GuidedBranchRoute=-1;GuidedNextLoopId=null;MatPulseActive=false;
+            Hide(matArrows);Hide(forkArrows);MatArrowCount=ForkArrowCount=GuidedLaneOrdinal=0;GuidedBranchRoute=-1;GuidedNextLoopId=null;MatPulseActive=false;
             var field=host.Runner.Field;var actor=field.GetAthlete(host.PlayerIndex);var path=actor.RangePath;
             if(actor.HasFinished||path==null||actor.ActiveShooting!=null||actor.RemainingStartApproachNanometers>0)return;
             var phase=actor.CurrentRangeMotion?.Phase;
@@ -84,15 +80,28 @@ namespace Biathlon.Unity.Presentation
                 bool on=!MatPulseActive||Mathf.Sin(unscaledSeconds*(float)(2*Math.PI*definition.FlashHz))>-.15f;
                 for(int i=0;i<matArrows.Length;i++)
                 {
-                    // The final approach has original arrows at3,2,1m before the
-                    // actual reserved mat; earlier arrows lie on its paid branch.
-                    double before=definition.MatAssistLead*(matArrows.Length-i)/(matArrows.Length+1.0);
-                    Place(matArrows[i],path.MapRoute(stop-(long)Math.Round(before*SkiState.NanometersPerMeter)),on,true);
+                    // Early navigation travels in front of the athlete along the selected
+                    // paid path. Final capture retains three small, separated mat arrows.
+                    int count=MatPulseActive?3:matArrows.Length;
+                    if(i>=count)break;
+                    long at;
+                    if(MatPulseActive)
+                    {
+                        double before=definition.MatAssistLead*(count-i)/(count+1.0);
+                        at=stop-(long)Math.Round(before*SkiState.NanometersPerMeter);
+                    }
+                    else
+                    {
+                        at=actor.RouteNanometers+(long)Math.Round((i+1)*definition.ChevronSpacing*SkiState.NanometersPerMeter);
+                        if(at>=stop)
+                        {
+                            if(i>0)break;
+                            at=actor.RouteNanometers+(stop-actor.RouteNanometers)/2;
+                        }
+                    }
+                    Place(matArrows[i],path.MapRoute(at),on,MatPulseActive);
                     if(on)MatArrowCount++;
                 }
-                var p=host.Venue.Visual.Get(path.MatAnchor.LoopId).Sample(path.MatAnchor.Distance.Meters);
-                label.text="КОВРИК "+path.LaneOrdinal;label.transform.position=new Vector3((float)p.X,(float)p.Y+1.2f,(float)p.Z);
-                if(host.ChaseCamera!=null)label.transform.rotation=host.ChaseCamera.transform.rotation;label.gameObject.SetActive(true);
             }
             GuidedBranchRoute=RaceRouteGuidance.NextBranch(path,field.Route,actor.RouteNanometers,(long)Math.Round(definition.ForkShowLead*SkiState.NanometersPerMeter));
             if(GuidedBranchRoute>=0)
