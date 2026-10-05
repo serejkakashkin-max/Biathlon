@@ -47,9 +47,11 @@ Native authoring/standing/dressing/forest/route/weather component checks passed
 separately; no WP175 condition-race acceptance follows. Initial broad core has
 1042 PASS/2 FAIL: stale old-distance assertion and an injected skipped-point
 test expecting exclusivity instead of rejection. Both updated to explicit new
-contracts and pass focused .NET/native. Final full run is pending. Historical
-2600-byte world-query allocation defect did not reproduce in that initial full
-run; cause remains unresolved, strict test retained. No full-green claim yet.
+contracts and pass focused .NET/native. Final frozen short-course full run:
+1044 PASS /0 FAIL /0 skipped in15m25s (`short-course-full-core-final.trx`).
+Historical2600-byte world-query allocation defect did not reproduce in either
+full run; cause remains unresolved, strict test retained. This receipt qualifies
+the delivered short-course revision, not subsequent traffic/guidance/tuck changes.
 
 Windows: `Builds/WoodlandShortCourseReview20261005/Biathlon.exe`, Development,
 High startup,0 build errors/warnings. Hidden paid400-tick Sprint40/Mass30 and
