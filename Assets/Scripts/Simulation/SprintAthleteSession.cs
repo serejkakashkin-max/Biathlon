@@ -109,6 +109,7 @@ namespace Biathlon.Simulation
         public SimulationTick Tick => physiology.Clock.Tick;
         public SimulationTick ScheduledStart { get; }
         public AthleteId AthleteId => physiology.AthleteId;
+        public int DownhillSkill => skiAthlete.Downhill;
         public PhysiologyState PhysiologyState => physiology.State;
         public PhysiologyDefinition PhysiologyDefinition => physiology.Definition;
         public CompetitionLifecycle Lifecycle { get; }
@@ -349,6 +350,10 @@ namespace Biathlon.Simulation
             previewRevision = revision;
             return new SprintStepPreview(this, revision, preview.Tick, preview.Physiology, movement, true, false);
         }
+        public int CurrentRangeRequiredPenaltyLoops
+        {get{for(int i=0;i<ranges.Length;i++)if(ranges[i].Phase!=RangeTraversalPhase.Complete)return ranges[i].RequiredLoops;return 0;}}
+        public int CurrentRangeRemainingPenaltyLoops
+        {get{for(int i=0;i<ranges.Length;i++)if(ranges[i].Phase!=RangeTraversalPhase.Complete)return ranges[i].RequiredLoops-ranges[i].CompletedLoops;return 0;}}
         private void ValidatePreview(SprintStepPreview preview)
         {
             if (!previewReady || !ReferenceEquals(preview.Owner, this) || preview.Revision != previewRevision ||

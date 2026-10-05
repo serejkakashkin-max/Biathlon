@@ -10,12 +10,14 @@ namespace Biathlon.Simulation
     {
         private readonly PhysicalPassageCorridor source,target;
         private readonly double halfLength,halfWidth,radius,margin;
+        private readonly bool indexedBounds;
         private const double DoubleUnitRoundoff=2.2204460492503131e-16;
         public double ProjectionMarginMeters=>margin;
         public PhysicalApronBodySupportDraft(PhysicalPassageCorridor source,PhysicalPassageCorridor target,
-            OccupancyDefinition body,VenueValidationPolicy policy, bool allBodyHeadings = false)
+            OccupancyDefinition body,VenueValidationPolicy policy, bool allBodyHeadings = false, bool indexedBounds = false)
         {
             this.source=source;this.target=target;
+            this.indexedBounds=indexedBounds;
             halfLength=body.LongitudinalSeparation*.5;halfWidth=body.LateralSeparation*.5;
             radius=Math.Sqrt(halfLength*halfLength+halfWidth*halfWidth);
             // An enclosing square in every path heading contains the unchanged rectangular
@@ -66,9 +68,10 @@ namespace Biathlon.Simulation
             double start=sweep.Start.LocalNanometers/(double)SkiState.NanometersPerMeter;
             double travel=sweep.TravelNanometers/(double)SkiState.NanometersPerMeter,end=start+travel;
             double minimum=double.MaxValue,maximum=double.MinValue;
-            for(int i=1;i<corridor.Count;i++)
+            for(int i=indexedBounds?FirstIntersectingEdge(corridor,start):1;i<corridor.Count;i++)
             {
                 var a=corridor.Get(i-1);var b=corridor.Get(i);
+                if(indexedBounds&&a.Distance>end)break;
                 double from=Math.Max(start,a.Distance),to=Math.Min(end,b.Distance);
                 if(from>to)continue;
                 double dx=b.X-a.X,dz=b.Z-a.Z;Direction(dx,dz,out double fx,out double fz,out _);
@@ -134,6 +137,14 @@ namespace Biathlon.Simulation
             }
             if(minimum==double.MaxValue)throw new InvalidOperationException("Authoritative corridor did not cover the sweep.");
             low=minimum;high=maximum;
+        }
+        private static int FirstIntersectingEdge(PhysicalPassageCorridor corridor,double start)
+        {
+            // Include the incoming edge at an exact knot, as the legacy exhaustive scan
+            // does. Only disjoint edges are skipped; projection arithmetic/order is identical.
+            int low=1,high=corridor.Count-1;
+            while(low<high){int middle=low+(high-low)/2;if(corridor.Get(middle).Distance<start)low=middle+1;else high=middle;}
+            return low;
         }
         private static void Direction(double x,double z,out double fx,out double fz,out double length)
         {

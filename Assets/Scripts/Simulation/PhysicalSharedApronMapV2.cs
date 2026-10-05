@@ -110,6 +110,7 @@ namespace Biathlon.Simulation
         private readonly Dictionary<string,PhysicalApronExitClearance[]> exitClearanceByLoop=new Dictionary<string,PhysicalApronExitClearance[]>(StringComparer.Ordinal);
         public string ContextJson { get; }
         public int RegionCount => definition.RegionCount;
+        public bool UsesParallelPostShootDepartures => definition.ParallelPostShootDepartures==true;
 
         public PhysicalSharedApronMapV2(PhysicalTrackMap map, TrackDefinition track, RaceRoute route,
             CompetitionProfile profile, PhysicalRangeFieldLayout layout, TrackVisualDefinition visual,
@@ -244,11 +245,17 @@ namespace Biathlon.Simulation
             return ac < 0 || bc < 0 || projections[ac, bc].Conflicts(a, b);
         }
         public bool Conflicts(int region, PhysicalApronTraceV2 a, PhysicalApronTraceV2 b, PhysicalApronPairScratchV2 scratch)
+            => ConflictsCore(region,a,b,scratch,true);
+        /// <summary>Complete selected-path body/tail proof for an overlapping local departure
+        /// lease. This grants no junction, reservation or same-loop exemption.</summary>
+        public bool DepartureBodiesConflict(PhysicalApronTraceV2 a,PhysicalApronTraceV2 b,PhysicalApronPairScratchV2 scratch)
+            => !UsesParallelPostShootDepartures||ConflictsCore(0,a,b,scratch,false);
+        private bool ConflictsCore(int region, PhysicalApronTraceV2 a, PhysicalApronTraceV2 b, PhysicalApronPairScratchV2 scratch,bool requireRegionContact)
         {
             if (!IsEligible(region) || a == null || b == null || scratch == null || !a.Prepared || !b.Prepared ||
                 !ReferenceEquals(a.Owner, this) || !ReferenceEquals(b.Owner, this) || a.AthleteId.Equals(b.AthleteId) ||
                 scratch.Grid.Length < 2 + 2 * (a.Count + b.Count) || !InScope(region, a) || !InScope(region, b) ||
-                !Touches(region, a) || !Touches(region, b)) return true;
+                requireRegionContact&&(!Touches(region, a) || !Touches(region, b))) return true;
             int count = 2; scratch.Grid[0] = 0; scratch.Grid[1] = JunctionAdmissionSession.FractionParts;
             for (int i = 0; i < a.Count; i++) { Insert(a.Motions[i].Receipt.StartFraction); Insert(a.Motions[i].Receipt.EndFraction); }
             for (int i = 0; i < b.Count; i++) { Insert(b.Motions[i].Receipt.StartFraction); Insert(b.Motions[i].Receipt.EndFraction); }

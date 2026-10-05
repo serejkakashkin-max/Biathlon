@@ -85,6 +85,7 @@ namespace Biathlon.Domain
         [DataMember(Name="format_bindings_resource",EmitDefaultValue=false)] public string FormatBindingsResource { get; private set; }
         [DataMember(Name="shared_apron_resource",EmitDefaultValue=false)] public string SharedApronResource { get; private set; }
         [DataMember(Name="ai_range_traffic_resource",EmitDefaultValue=false)] public string AiRangeTrafficResource { get; private set; }
+        [DataMember(Name="ai_ski_policy_resource",EmitDefaultValue=false)] public string AiSkiPolicyResource { get; private set; }
         [DataMember(Name="junctions_resource",IsRequired=true)] public string JunctionsResource { get; private set; }
         [DataMember(Name="connections_resource",IsRequired=true)] public string ConnectionsResource { get; private set; }
         [DataMember(Name="range_layout",IsRequired=true)] public VenueRangeLayout Range { get; private set; }
@@ -106,6 +107,7 @@ namespace Biathlon.Domain
             if(v.SharedApronResource!=null)ResourceId(v.SharedApronResource);
             if(v.AiRangeTrafficResource!=null)
             {if(v.SchemaVersion!=2)throw new SerializationException("Venue traffic requires physical range paths.");ResourceId(v.AiRangeTrafficResource);}
+            if(v.AiSkiPolicyResource!=null)ResourceId(v.AiSkiPolicyResource);
             ResourceId(v.Id);
             if(v.Id.IndexOf('/')>=0)throw new SerializationException("Venue ID must be a single path component.");
             if(v.Id=="range_entry"||v.Id=="range_exit"||v.Id.StartsWith("firing_lane_",StringComparison.Ordinal))throw new SerializationException("Venue ID is reserved by generated markers.");
@@ -146,6 +148,7 @@ namespace Biathlon.Domain
         public VenueFormatBindings Formats {get;}
         public PhysicalSharedApronDefinition SharedApron {get;}
         public AiRangeTrafficPolicyDefinition AiRangeTraffic {get;}
+        public AiSkiPolicyDefinition AiSkiPolicy {get;}
         public bool UsesPhysicalPaths=>Paths!=null;
         public int LaneCount=>UsesPhysicalPaths?Paths.Count:Lanes.Count;
         public string LaneId(int index)=>UsesPhysicalPaths?Paths.GetLane(index).Id:Lanes.GetLane(index);
@@ -157,6 +160,7 @@ namespace Biathlon.Domain
         public VenueAuthoringPlan(VenueManifest manifest,Func<string,string> readResource)
         {
             Manifest=manifest??throw new ArgumentNullException(nameof(manifest));if(readResource==null)throw new ArgumentNullException(nameof(readResource));
+            if(manifest.AiSkiPolicyResource!=null)AiSkiPolicy=AiSkiPolicyDefinition.FromJson(readResource(manifest.AiSkiPolicyResource));
             Track=TrackDefinition.FromJson(readResource(manifest.TrackResource));Visual=TrackVisualDefinition.FromJson(readResource(manifest.VisualResource),Track);
             Junctions=PhysicalJunctionDefinition.FromJson(readResource(manifest.JunctionsResource),Track);Connections=PhysicalConnectionDefinition.FromJson(readResource(manifest.ConnectionsResource),Junctions);
             if(manifest.SchemaVersion==1)Lanes=PhysicalRangeLaneDefinition.FromJson(readResource(manifest.LanesResource),Track);

@@ -13,6 +13,15 @@ namespace Biathlon.Domain
         public PhysicalCorridorKnot Get(int index)=>knots[index];
         public double Start=>knots[0].Distance;
         public double End=>knots[knots.Length-1].Distance;
+        public static PhysicalPassageCorridor CaptureFullLoop(TrackVisualLoop visual,TrackDefinition track,VenueValidationPolicy policy)
+        {
+            if(visual==null||track==null||policy==null)throw new ArgumentNullException();
+            var c=new PhysicalPassageCorridor{LoopId=visual.LoopId,knots=new PhysicalCorridorKnot[visual.Count]};
+            for(int i=0;i<c.Count;i++)c.knots[i]=PhysicalCorridorKnot.Capture(visual.Get(i));
+            c.Validate(track,policy);
+            if(c.Start!=0||c.End!=track.GetLoop(c.LoopId).Length.Meters)throw new ArgumentException("Complete paid-loop geometry required.");
+            return c;
+        }
         internal void Validate(TrackDefinition track,VenueValidationPolicy policy)
         {
             TrackValidation.Id(LoopId);var loop=track.GetLoop(LoopId);

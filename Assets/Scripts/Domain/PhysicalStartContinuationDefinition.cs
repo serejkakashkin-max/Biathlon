@@ -10,6 +10,8 @@ namespace Biathlon.Domain
         [DataMember(Name="y",IsRequired=true)] public double Y { get; private set; }
         [DataMember(Name="z",IsRequired=true)] public double Z { get; private set; }
         internal void BindDistance(TrackDistance distance)=>Distance=distance.Meters;
+        internal static PhysicalCorridorKnot Capture(TrackVisualKnot knot)=>new PhysicalCorridorKnot
+            {Distance=knot.Distance,X=knot.X,Y=knot.Y,Z=knot.Z};
     }
     /// <summary>Authoritative piecewise-linear world centreline, independent of presentation assets.</summary>
     [DataContract] public sealed class PhysicalStartCorridor

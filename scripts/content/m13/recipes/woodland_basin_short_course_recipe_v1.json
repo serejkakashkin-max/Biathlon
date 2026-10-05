@@ -81,12 +81,23 @@
       400
     ]
   },
+  "ai_ski_policy": {
+    "schema_version": 1,
+    "id": "woodland_basin_ai_ski_policy_v1",
+    "downhill_tuck_enabled": true
+  },
   "ai_range_traffic_policy": {
     "schema_version": 1,
     "id": "woodland_basin_range_traffic_v1",
     "align_physical_range_paths": true,
     "alignment_lead_m": 75,
     "blocked_alignment_effort": 0,
-    "entry_lateral_m": 0.35
+    "entry_lateral_m": 0.35,
+    "exit_lateral_m": 1.3,
+    "penalty_lateral_m": -1.3,
+    "world_bypass_after_seconds": 0.5,
+    "world_bypass_lateral_step_m": 0.3,
+    "world_bypass_preview_m": 0.3,
+    "world_bypass_hold_seconds": 1
   }
 }

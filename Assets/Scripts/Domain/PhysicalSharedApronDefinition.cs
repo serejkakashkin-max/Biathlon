@@ -35,6 +35,10 @@ namespace Biathlon.Domain
         [DataMember(Name = "range_paths_id", IsRequired = true)] public string RangePathsId { get; private set; }
         [DataMember(Name = "occupancy_definition_id", IsRequired = true)] public string OccupancyId { get; private set; }
         [DataMember(Name = "validation_policy_resource", IsRequired = true)] public string ValidationPolicyResource { get; private set; }
+        [DataMember(Name = "parallel_post_shoot_departures", EmitDefaultValue = false)] public bool? ParallelPostShootDepartures { get; private set; }
+        [DataMember(Name = "penalty_world_merge_junctions", EmitDefaultValue = false)] private string[] penaltyWorldMerges {get;set;}
+        public int PenaltyWorldMergeCount=>penaltyWorldMerges?.Length??0;
+        public string GetPenaltyWorldMerge(int index)=>penaltyWorldMerges[index];
         [DataMember(Name = "corridors", IsRequired = true)] private PhysicalPassageCorridor[] corridors { get; set; }
         [DataMember(Name = "regions", IsRequired = true)] private PhysicalSharedApronRegion[] regions { get; set; }
         public int CorridorCount => corridors.Length;
@@ -160,6 +164,30 @@ namespace Biathlon.Domain
                 }
             }
             if(value.SchemaVersion==2&&!hasExitClearance)throw new ArgumentException("Schema2 requires an explicit local exit-clearance policy.");
+            if(value.ParallelPostShootDepartures.HasValue&&value.SchemaVersion!=2)
+                throw new ArgumentException("Parallel departure proof requires explicit schema2 exit-clearance authority.");
+            if(value.penaltyWorldMerges!=null)
+            {
+                if(value.ParallelPostShootDepartures!=true||value.PenaltyWorldMergeCount<1||value.PenaltyWorldMergeCount>16)
+                    throw new ArgumentException("Explicit bounded parallel penalty merge authority required.");
+                var ids=new HashSet<string>(StringComparer.Ordinal);
+                foreach(string id in value.penaltyWorldMerges)
+                {
+                    TrackValidation.Id(id);if(!ids.Add(id))throw new ArgumentException("Duplicate penalty merge.");
+                    PhysicalJunction junction=null;
+                    for(int j=0;j<junctions.Count;j++)if(junctions.Get(j).Id==id)junction=junctions.Get(j);
+                    if(junction==null)throw new ArgumentException("Unknown penalty merge.");
+                    bool penalty=false,race=false;
+                    for(int p=0;p<junction.PortCount;p++)
+                    {
+                        string loop=junction.GetPort(p).Anchor.LoopId;
+                        if(loop==track.Penalty.LoopId)penalty=true;
+                        else if(pathLoops.Contains(loop))race=true;
+                        else throw new ArgumentException("Penalty merge includes an unrelated corridor.");
+                    }
+                    if(!penalty||!race)throw new ArgumentException("Penalty merge must bind penalty and paid range traffic.");
+                }
+            }
             for (int c = 0; c < used.Length; c++) if (!used[c]) throw new ArgumentException("An unrelated corridor cannot enter the apron authority.");
             if (!value.MatchesPresentation(visual)) throw new ArgumentException("Every captured and intervening visual knot must match apron authority.");
             value.TrackSnapshotJson = trackJson; value.VisualSnapshotJson = visual.ToJson(); value.RangePathsSnapshotJson = paths.ToJson();

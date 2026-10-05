@@ -13,6 +13,7 @@ namespace Biathlon.Domain
         [DataMember(Name="attack_minimum_reserve",IsRequired=true)] public double AttackMinimumReserve { get; private set; }
         [DataMember(Name="final_sprint_distance_m",IsRequired=true)] public double FinalSprintDistance { get; private set; }
         [DataMember(Name="shooting_time_urgency",IsRequired=true)] public double ShootingTimeUrgency { get; private set; }
+        [DataMember(Name="downhill_tuck_enabled",EmitDefaultValue=false)] public bool? DownhillTuckEnabled { get; private set; }
         public static AiRacePolicyDefinition FromJson(string json)
         {
             var d=RouteJson.Read<AiRacePolicyDefinition>(json);

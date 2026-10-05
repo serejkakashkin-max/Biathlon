@@ -270,6 +270,7 @@ def bind(resource_root, venue_id, recipe_path, report_path):
              "regions": [{"junction_id": j["id"]} for j in selected]}
     if recipe.get("post_shoot_exit_clearance", False):
         bind_exit_clearance(apron, selected, paths, lengths, half_body)
+    bind_departure_policy(apron, junctions, paths, track, recipe)
     manifest["range_layout"]["mat_definition"] = mat
     manifest["shared_apron_resource"] = apron_resource
     # Compute all outputs before any write: malformed report/recipe cannot partially bind.
@@ -291,6 +292,35 @@ def bind(resource_root, venue_id, recipe_path, report_path):
             "recipe_sha256": hashlib.sha256(recipe_path.read_bytes()).hexdigest(),
             "native_static_report_sha256": result["input_static_report_sha256"],
             "outputs_sha256": {path.relative_to(root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest() for path in encoded}}
+
+
+def bind_departure_policy(apron, junctions, paths, track, recipe):
+    """Bind only explicit optional traffic authority; geometry/guards stay intact."""
+    key = "parallel_post_shoot_departures"
+    regions_key = "penalty_world_merge_junctions"
+    if key not in recipe and regions_key not in recipe:
+        return
+    enabled = recipe.get(key)
+    if not isinstance(enabled, bool) or apron["schema_version"] != 2:
+        raise ValueError("Parallel departures require an explicit boolean and schema2 exit clearance")
+    regions = recipe.get(regions_key)
+    if regions is not None:
+        if not enabled or not isinstance(regions, list) or not 1 <= len(regions) <= 16:
+            raise ValueError("A bounded explicit parallel penalty region list is required")
+        if len(set(identity(item, "penalty junction id") for item in regions)) != len(regions):
+            raise ValueError("Duplicate penalty junction")
+        penalty = track["penalty"]["loop_id"]
+        family = {s["loop_id"] for lane in paths["lanes"] for s in lane["slices"]}
+        known = {j["id"]: j for j in junctions["junctions"]}
+        for region in regions:
+            if region not in known:
+                raise ValueError("Unknown penalty junction: " + region)
+            loops = {p["anchor"]["loop_id"] for p in known[region]["ports"]}
+            if penalty not in loops or not loops - {penalty} or not loops <= family | {penalty}:
+                raise ValueError("Penalty region must join actual penalty and paid range paths")
+    apron[key] = enabled
+    if regions is not None:
+        apron[regions_key] = list(regions)
 
 
 def main():

@@ -12,7 +12,7 @@ namespace Biathlon.AI
         public PackPerceptionSource(PackSprintFieldSession field)
         { this.field = field ?? throw new ArgumentNullException(nameof(field)); }
 
-        public int CapturePlacements(int athleteIndex, TrackDistance radius, Span<SkiPlacement> destination)
+        public int CapturePlacements(int athleteIndex, TrackDistance radius, Span<SkiPlacement> destination,bool includeStartContinuation=false)
         {
             if (athleteIndex < 0 || athleteIndex >= field.Count || destination.Length < field.Count)
                 throw new ArgumentException("Valid athlete and worst-case field buffer required.");
@@ -24,20 +24,26 @@ namespace Biathlon.AI
                 if (!field.GetAthlete(i).HasFinished && field.GetAthlete(i).Tick.Value != field.Tick.Value)
                     throw new InvalidOperationException("Pack observations require a coherent completed field tick.");
             if (!field.IsOnCourse(athleteIndex)) return 0;
+            bool continuation=includeStartContinuation&&field.TryGetStartContinuationObservation(athleteIndex,out _);
+            long selfStation=self.LocalNanometers;
+            if(continuation)field.TryGetStartContinuationObservation(athleteIndex,out selfStation);
+            string corridor=continuation?field.StartApproach.LoopId:self.LoopId;
             long origin = self.LoopLengthNanometers;
-            destination[0] = Placement(athleteIndex, self.LoopId, origin);
+            destination[0] = Placement(athleteIndex, corridor, origin);
             int count = 1;
             for (int i = 0; i < field.Count; i++) if (i != athleteIndex && field.IsOnCourse(i))
             {
-                var other = field.GetPhysicalPoint(i); if (other.LoopId != self.LoopId) continue;
-                long gap = other.LocalNanometers - self.LocalNanometers;
-                if (self.Closed)
+                var other = field.GetPhysicalPoint(i);long otherStation=other.LocalNanometers;
+                if(continuation){if(!field.TryGetStartContinuationObservation(i,out otherStation))continue;}
+                else if (other.LoopId != self.LoopId) continue;
+                long gap = otherStation - selfStation;
+                if (self.Closed&&!continuation)
                 {
                     if (gap > self.LoopLengthNanometers / 2) gap -= self.LoopLengthNanometers;
                     else if (gap < -self.LoopLengthNanometers / 2) gap += self.LoopLengthNanometers;
                 }
                 if (gap < -limit || gap > limit) continue;
-                destination[count++] = Placement(i, self.LoopId, checked(origin + gap));
+                destination[count++] = Placement(i, corridor, checked(origin + gap));
             }
             return count;
         }

@@ -14,6 +14,7 @@ namespace Biathlon.Simulation
         private readonly PhysicalTrackPoint sourcePoint, targetPoint;
         private readonly double x, z, tx, tz, fx, fz, nx, nz, turn, halfLength, halfWidth, radius, margin;
         private readonly bool ambiguous;
+        private readonly bool completePeriodicGeometry;
         public double ProjectionMarginMeters => margin;
 
         public PhysicalApronSeamProjectionDraft(PhysicalTrackMap map, PhysicalSharedApronDefinition definition,
@@ -43,6 +44,28 @@ namespace Biathlon.Simulation
             margin = Math.Max(seamReserve.ProjectionMarginMeters, support.ProjectionMarginMeters);
             PhysicalPassageCorridor Find(string id)
             { for (int i = 0; i < definition.CorridorCount; i++) if (definition.GetCorridor(i).LoopId == id) return definition.GetCorridor(i); throw new ArgumentException("Unbound seam/opponent corridor."); }
+        }
+
+        // Explicit complete paid-loop geometry for the optional named penalty merges.
+        // The existing bounded-apron constructor and arithmetic remain unchanged.
+        internal PhysicalApronSeamProjectionDraft(PhysicalTrackMap map,OccupancyDefinition body,
+            PhysicalTrackPoint sourcePoint,PhysicalTrackPoint targetPoint,PhysicalPassageCorridor source,
+            PhysicalPassageCorridor target,PhysicalPassageCorridor opponent,VenueValidationPolicy policy,bool periodicSeam=false,bool allBodyHeadings=false)
+        {
+            if(map==null||body==null||source==null||target==null||opponent==null||policy==null)throw new ArgumentNullException();
+            map.Validate(sourcePoint);map.Validate(targetPoint);
+            if(map.SameLoop(sourcePoint,targetPoint)&&!periodicSeam)throw new ArgumentException("Explicit seam required.");
+            this.map=map;this.sourcePoint=sourcePoint;this.targetPoint=targetPoint;this.opponent=opponent;completePeriodicGeometry=true;
+            Point(source,sourcePoint,true,out x,out double sy,out z,out fx,out fz,true);
+            Point(target,targetPoint,false,out tx,out double ty,out tz,out nx,out nz,true);
+            double dx=tx-x,dy=ty-sy,dz=tz-z;
+            if(Math.Sqrt(dx*dx+dy*dy+dz*dz)>policy.SeamTolerance)throw new ArgumentException("Captured complete seam is not coincident.");
+            double cross=fx*nz-fz*nx,dot=fx*nx+fz*nz;turn=Math.Atan2(cross,dot);ambiguous=cross==0&&dot<0;
+            radius=Math.Sqrt(Math.Pow(body.LongitudinalSeparation*.5,2)+Math.Pow(body.LateralSeparation*.5,2));
+            halfLength=allBodyHeadings?radius:body.LongitudinalSeparation*.5;
+            halfWidth=allBodyHeadings?radius:body.LateralSeparation*.5;
+            support=new PhysicalApronBodySupportDraft(opponent,opponent,body,policy,allBodyHeadings,true);
+            margin=Math.Max(new PhysicalPassageWorldProjection(source,target,body,policy).ProjectionMarginMeters,support.ProjectionMarginMeters);
         }
 
         public bool Conflicts(double lateralBefore, double lateralAfter, PhysicalOccupancySweep other)
@@ -121,7 +144,8 @@ namespace Biathlon.Simulation
             try { map.Validate(s.Start); } catch (ArgumentException) { return false; }
             long low = Nm(opponent.Start), high = Nm(opponent.End);
             return s.Start.LoopId == opponent.LoopId && s.Start.LocalNanometers >= low && s.TravelNanometers <= high - s.Start.LocalNanometers &&
-                (!s.Start.Closed || s.Start.LocalNanometers + s.TravelNanometers < s.Start.LoopLengthNanometers);
+                (!s.Start.Closed || s.Start.LocalNanometers + s.TravelNanometers < s.Start.LoopLengthNanometers||
+                    completePeriodicGeometry&&s.Start.LocalNanometers+s.TravelNanometers==s.Start.LoopLengthNanometers);
         }
         // A selected path may cross a seam outside this optional apron window. Keep that
         // cache absent and the existing exclusive policy; never extrapolate a seam tangent.
@@ -137,9 +161,10 @@ namespace Biathlon.Simulation
             }
             return false;
         }
-        private static void Point(PhysicalPassageCorridor c, PhysicalTrackPoint point, bool incoming, out double x, out double y, out double z, out double fx, out double fz)
+        private static void Point(PhysicalPassageCorridor c, PhysicalTrackPoint point, bool incoming, out double x, out double y, out double z, out double fx, out double fz,bool periodicIncoming=false)
         {
             double at = point.LocalNanometers / (double)SkiState.NanometersPerMeter;
+            if(periodicIncoming&&incoming&&point.Closed&&at==0&&c.Start==0&&c.End==point.LoopLengthNanometers/(double)SkiState.NanometersPerMeter)at=c.End;
             if (at < c.Start || at > c.End || incoming && at == c.Start || !incoming && at == c.End) throw new ArgumentException("Complete incident seam tangent required.");
             int e = 1;
             while (e < c.Count - 1 && (incoming ? c.Get(e).Distance < at : c.Get(e).Distance <= at)) e++;

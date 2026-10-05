@@ -380,6 +380,13 @@ if 'ai_range_traffic_policy' in RECIPE:
         raise ValueError('Explicit versioned venue traffic identity required')
     manifest['ai_range_traffic_resource']=PREFIX+'/ai_range_traffic'
     write(PREFIX+'/ai_range_traffic',traffic)
+if 'ai_ski_policy' in RECIPE:
+    skiing=RECIPE['ai_ski_policy']
+    if (skiing.get('schema_version')!=1 or skiing.get('id')!=LABEL+'_ai_ski_policy_v1'
+            or not isinstance(skiing.get('downhill_tuck_enabled'),bool)):
+        raise ValueError('Explicit versioned venue ski policy required')
+    manifest['ai_ski_policy_resource']=PREFIX+'/ai_ski_policy'
+    write(PREFIX+'/ai_ski_policy',skiing)
 write(PREFIX+"/manifest",manifest)
 write(PREFIX+"/start_approach",{"schema_version":1,"id":LABEL+"_start_approach_v1","track_id":TRACK_ID,"loop_id":start.loop,"route_entry_loop_id":"main"})
 main_prefix_point=main.at(10)

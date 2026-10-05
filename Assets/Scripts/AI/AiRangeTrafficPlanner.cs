@@ -26,14 +26,21 @@ namespace Biathlon.AI
             occupancy=new OccupancySystem(body);lead=TrackDistance.FromMeters(definition.AlignmentLeadMeters).Millimeters*SkiState.NanometersPerMillimeter;
         }
         public AiRangeTrafficPlan Evaluate(bool hasPhysicalPath,long? distanceToRangeEntry,RangeTraversalPhase? traversal,
-            SkiPlacement self,TrackSample track,ReadOnlySpan<SkiPlacement> observed,bool onEntryAisle=false)
+            SkiPlacement self,TrackSample track,ReadOnlySpan<SkiPlacement> observed,bool onEntryAisle=false,
+            bool onSharedExitCorridor=false,bool leavingPenalty=false)
         {
             bool active=definition.AlignPhysicalPaths&&hasPhysicalPath&&
                 (distanceToRangeEntry.HasValue&&distanceToRangeEntry.Value<=lead||
                 traversal==RangeTraversalPhase.Shooting||traversal==RangeTraversalPhase.RangeExit||
-                traversal==RangeTraversalPhase.PenaltyApproach||traversal==RangeTraversalPhase.Rejoin);
+                traversal==RangeTraversalPhase.PenaltyApproach||traversal==RangeTraversalPhase.Rejoin||
+                traversal==RangeTraversalPhase.PenaltyLoop&&definition.PenaltyLateralMeters.HasValue);
             if(!active)return new AiRangeTrafficPlan(false,false,self.LateralMeters);
             double desired=onEntryAisle?definition.EntryLateralMeters??0:0;
+            if(traversal==RangeTraversalPhase.PenaltyLoop||traversal==RangeTraversalPhase.Rejoin&&leavingPenalty)
+                desired=definition.PenaltyLateralMeters??0;
+            else if(onSharedExitCorridor&&(traversal==RangeTraversalPhase.RangeExit||traversal==RangeTraversalPhase.PenaltyApproach||traversal==RangeTraversalPhase.Rejoin))
+                desired=definition.ExitLateralMeters??0;
+            desired=Math.Max(-track.WidthMeters*.5+occupancy.Definition.EdgeMargin,Math.Min(track.WidthMeters*.5-occupancy.Definition.EdgeMargin,desired));
             var destination=new SkiPlacement(self.AthleteId,self.CorridorId,self.Motion,desired);
             var query=occupancy.QueryMove(self,destination,track.WidthMeters,observed);
             bool blocked=query.Blocked;bool yield=false;

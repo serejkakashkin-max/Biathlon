@@ -76,7 +76,7 @@ namespace Biathlon.AI
                 sharedApron:venue.SharedApron,sharedApronVisual:venue.SharedApron==null?null:venue.Visual,
                 sharedApronRange:venue.SharedApron==null?null:venue.Manifest.Range);
             return new PackAiRaceRunner(field,read,personalities,AiDifficultyDefinition.FromJson(read("ai_difficulty_expert_v1.json")),seed,events,telemetry,
-                rangeTrafficPolicy:venue.AiRangeTraffic??AiRangeTrafficPolicyDefinition.FromJson(read("ai_range_traffic_provisional_v1.json")));
+                rangeTrafficPolicy:venue.AiRangeTraffic??AiRangeTrafficPolicyDefinition.FromJson(read("ai_range_traffic_provisional_v1.json")),skiPolicy:venue.AiSkiPolicy);
         }
     }
 }

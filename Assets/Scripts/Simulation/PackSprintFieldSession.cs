@@ -61,6 +61,7 @@ namespace Biathlon.Simulation
         private readonly PhysicalDirectedPassageMap directedPassages;
         private readonly bool[] passageSharing;
         private readonly PhysicalSharedApronMapV2 sharedApron;
+        private readonly PhysicalRangeWorldTrafficMap rangeWorldTraffic;
         private readonly PhysicalRangeMatAdmissionMap matAdmission;
         private readonly PhysicalApronPairScratchV2 apronScratch;
         private long preparedApronPairProofs;
@@ -133,10 +134,105 @@ namespace Biathlon.Simulation
         public SprintAthleteSession GetAthlete(int index) => field.GetAthlete(index);
         public bool IsOnCourse(int index) => onCourse[index] && !GetAthlete(index).HasFinished;
         public double GetLateral(int index) => lateral[index];
+        /// <summary>Read-only preview of the next ordinary paid lateral step on the
+        /// first start continuation, including bent bodies and retained incoming tails.</summary>
+        public bool IsStartContinuationLateralRequestClear(int index,double requested)
+        {
+            if(index<0||index>=Count)throw new ArgumentOutOfRangeException(nameof(index));
+            PhysiologyNumbers.RequireRange(requested,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,nameof(requested));
+            if(!TryGetStartContinuationObservation(index,out _)||tails[index].Active)return false;
+            var point=GetPhysicalPoint(index);
+            double next=PhysiologyNumbers.Quantize(lateral[index]+Math.Max(-lateralStep,Math.Min(lateralStep,requested-lateral[index])));
+            if(!FitsLoopEnvelope(point,next))return false;
+            long travel=Math.Min((long)Math.Round(GetAthlete(index).Motion.SpeedMetersPerSecond/frequency*SkiState.NanometersPerMeter),point.LoopLengthNanometers-point.LocalNanometers);
+            var sweep=new PhysicalOccupancySweep(GetAthlete(index).AthleteId,point,travel,lateral[index],next);
+            if(!startContinuation.Contains(sweep))return false;
+            for(int j=0;j<Count;j++)if(j!=index&&TryGetStartContinuationObservation(j,out _))
+            {
+                var other=GetPhysicalPoint(j);
+                var body=new PhysicalOccupancySweep(GetAthlete(j).AthleteId,other,0,lateral[j],lateral[j]);
+                if(startContinuation.Conflicts(sweep,body)||WorldGhostHit(tails[j],j,sweep))return false;
+            }
+            return true;
+        }
+        /// <summary>Conservative destination-lane preview through the first start seam.
+        /// This selects an AI intent; only the next paid step is ever accepted.</summary>
+        public bool IsStartContinuationBypassGoalClear(int index,double requested,double lookaheadMeters)
+        {
+            PhysiologyNumbers.RequireRange(lookaheadMeters,.001,100,nameof(lookaheadMeters));
+            if(!IsStartContinuationLateralRequestClear(index,requested))return false;
+            var point=GetPhysicalPoint(index);if(!FitsLoopEnvelope(point,requested))return false;
+            long remaining=(long)Math.Round(lookaheadMeters*SkiState.NanometersPerMeter);
+            long travel=Math.Min(remaining,point.LoopLengthNanometers-point.LocalNanometers);
+            var sweep=new PhysicalOccupancySweep(GetAthlete(index).AthleteId,point,travel,requested,requested);
+            if(!Clear(sweep))return false;
+            if(remaining>travel&&point.LoopId==startContinuation.SourceLoopId)
+            {
+                var main=rangeLayout.GetPath(index).PhysicalMap.MapRoute(0);
+                var continued=new PhysicalOccupancySweep(GetAthlete(index).AthleteId,main,Math.Min(remaining-travel,startContinuation.MainPrefixNanometers),requested,requested);
+                if(!FitsLoopEnvelope(main,requested)||!Clear(continued))return false;
+            }
+            return true;
+            bool Clear(PhysicalOccupancySweep candidate)
+            {
+                if(!startContinuation.Contains(candidate))return false;
+                for(int j=0;j<Count;j++)if(j!=index&&TryGetStartContinuationObservation(j,out _))
+                {
+                    var body=new PhysicalOccupancySweep(GetAthlete(j).AthleteId,GetPhysicalPoint(j),0,lateral[j],lateral[j]);
+                    if(startContinuation.Conflicts(candidate,body)||WorldGhostHit(tails[j],j,candidate))return false;
+                }
+                return true;
+            }
+        }
+        /// <summary>Read-only AI lookahead; a clear request still pays ordinary lateral
+        /// effort and is fully revalidated by the accepting field transaction.</summary>
+        public bool IsRangeWorldLateralRequestClear(int index,double requested,double previewMeters)
+        {
+            if(index<0||index>=Count)throw new ArgumentOutOfRangeException(nameof(index));
+            PhysiologyNumbers.RequireRange(requested,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,nameof(requested));
+            PhysiologyNumbers.RequireRange(previewMeters,.001,5,nameof(previewMeters));
+            if(rangeWorldTraffic==null||tails[index].Active||GetAthlete(index).ActiveShooting!=null)return false;
+            var point=GetPhysicalPoint(index);if(!rangeWorldTraffic.Contains(point))return false;
+            double next=lateral[index]+Math.Max(-lateralStep,Math.Min(lateralStep,requested-lateral[index]));
+            if(!FitsLoopEnvelope(point,next))return false;
+            var selfId=GetAthlete(index).AthleteId;
+            var self=new SkiPlacement(selfId,point.LoopId,new SkiState(point.LocalNanometers,GetAthlete(index).Motion.SpeedMetersPerSecond),lateral[index]);
+            int count=0;
+            for(int j=0;j<Count;j++)if(j!=index&&IsOnCourse(j))
+            {
+                var other=GetPhysicalPoint(j);
+                if(other.LoopId==point.LoopId)draftRoster[count++]=new SkiPlacement(GetAthlete(j).AthleteId,point.LoopId,new SkiState(other.LocalNanometers,GetAthlete(j).Motion.SpeedMetersPerSecond),lateral[j]);
+            }
+            double width=GetAthlete(index).RangePath.SampleRoute(GetAthlete(index).RouteNanometers).WidthMeters;
+            if(point.LoopId==Track.Penalty.LoopId)width=penaltySampler.Sample(new TrackDistance(point.LocalNanometers/SkiState.NanometersPerMillimeter)).WidthMeters;
+            if(widths.QueryMove(self,new SkiPlacement(selfId,point.LoopId,self.Motion,next),width,draftRoster.AsSpan(0,count)).Blocked)return false;
+            long travel=Math.Min((long)Math.Round(Math.Min(previewMeters,GetAthlete(index).Motion.SpeedMetersPerSecond/frequency)*SkiState.NanometersPerMeter),point.LoopLengthNanometers-point.LocalNanometers);
+            var sweep=new PhysicalOccupancySweep(selfId,point,travel,lateral[index],next);
+            for(int j=0;j<Count;j++)if(j!=index&&IsOnCourse(j))
+            {
+                var other=GetPhysicalPoint(j);if(!rangeWorldTraffic.Contains(other))continue;
+                if(other.LoopId==point.LoopId&&!point.Closed&&!tails[j].Active)continue;
+                var body=new PhysicalOccupancySweep(GetAthlete(j).AthleteId,other,0,lateral[j],lateral[j]);
+                bool pose=GetAthlete(j).CurrentRangeMotion?.Phase==RangeTraversalPhase.Shooting;
+                if(rangeWorldTraffic.Conflicts(sweep,body,false,pose)||tails[j].Active&&rangeWorldTraffic.TailConflicts(tails[j].Point,tails[j].Lateral,sweep,tails[j].ConnectionIndex,pose))return false;
+            }
+            return true;
+        }
         /// <summary>First unserved junction arrival tick; zero means no pending ticket.</summary>
         public long GetJunctionWaitSince(int index) => junctionWaitSince[index];
         public DraftOutput GetDraft(int index) => committedDrafts[index];
         public PhysicalTrackPoint GetPhysicalPoint(int index) => CurrentPoint(index);
+        /// <summary>First-pass paid station used only for AI observation across the exact
+        /// authored start seam. Admission still uses the world swept-body continuation.</summary>
+        public bool TryGetStartContinuationObservation(int index,out long stationNanometers)
+        {
+            var athlete=GetAthlete(index);var point=GetPhysicalPoint(index);stationNanometers=0;
+            if(startContinuation==null||!IsOnCourse(index)||!startContinuation.Contains(point)||
+                point.LoopId==startContinuation.MainLoopId&&athlete.RouteNanometers>startContinuation.MainPrefixNanometers)return false;
+            stationNanometers=point.LoopId==startContinuation.SourceLoopId?point.LocalNanometers:
+                checked(StartApproach.LengthNanometers+point.LocalNanometers);
+            return true;
+        }
 
         public PackSprintFieldSession(SimulationConfig config, CompetitionProfile profile, SkiModelDefinitions skiModel,
             ShootingModelDefinitions shootingModel, TrackDefinition track, RaceRoute route, RaceSnowConditions conditions,
@@ -165,6 +261,8 @@ namespace Biathlon.Simulation
                 // The final map below adds the unchanged source-receipt rounding reserve.
                 _ = new PhysicalSharedApronMapV2(rangeLayout.GetPath(0).PhysicalMap,track,route,profile,rangeLayout,
                     sharedApronVisual,junctionDefinition,connectionDefinition,body,sharedApron,1.0/config.TickFrequency,0);
+                if(sharedApron.PenaltyWorldMergeCount>0)
+                    rangeWorldTraffic=new PhysicalRangeWorldTrafficMap(rangeLayout.GetPath(0).PhysicalMap,track,route,sharedApronVisual,rangeLayout,junctionDefinition,connectionDefinition,body,sharedApron);
                 if(sharedApronRange!=null)
                 {
                     if(sharedApronRange.MatDefinition==null||sharedApronRange.Forward==null||Math.Abs(sharedApronRange.Forward.Y)>1e-9)
@@ -401,6 +499,14 @@ namespace Biathlon.Simulation
             if(this.sharedApron!=null)ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,this.sharedApron.ContextJson,
                 "shared_range_apron_field_v1;exact_selected_path_receipts_and_accepted_tail_occurrences;each_shared_region_independent;same_loop_body_and_other_guards_unchanged;final_precommit_joint_validation"});
             if(matAdmission!=null)ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,matAdmission.ContextJson});
+            if(rangeWorldTraffic!=null)
+            {
+                // Append the new optional proof to the existing JSON string array. Re-encoding
+                // the entire nested legacy context doubles its escaping at every new layer.
+                // All legacy bytes and every proof value remain present; absent policy is unchanged.
+                string added=ShootingModelDefinitions.EncodeContext(new[]{rangeWorldTraffic.ContextJson});
+                ContextJson=ContextJson.Substring(0,ContextJson.Length-1)+","+added.Substring(1);
+            }
         }
 
         private void PrepareApronBuffers(Trace trace,int index,int capacity)
@@ -979,6 +1085,11 @@ namespace Biathlon.Simulation
         }
         private bool Priority(int a, int b)
         {
+            if(rangeWorldTraffic!=null)
+            {
+                bool ap=PenaltyOverEntering(a,b),bp=PenaltyOverEntering(b,a);
+                if(ap!=bp)return ap;
+            }
             bool ao = OwnsJunction(a), bo = OwnsJunction(b);
             if (ao != bo) return ao;
             long aw = preparedJunctionWaitSince[a], bw = preparedJunctionWaitSince[b];
@@ -986,6 +1097,14 @@ namespace Biathlon.Simulation
             long ar = GetAthlete(a).RouteNanometers, br = GetAthlete(b).RouteNanometers;
             if(startOverlay!=null){ar-=GetAthlete(a).RemainingStartApproachNanometers;br-=GetAthlete(b).RemainingStartApproachNanometers;}
             return ar != br ? ar > br : string.CompareOrdinal(GetAthlete(a).AthleteId.Value, GetAthlete(b).AthleteId.Value) < 0;
+        }
+        private bool PenaltyOverEntering(int priority,int entering)
+        {
+            var p=GetAthlete(priority);var e=GetAthlete(entering);var phase=p.CurrentRangeMotion?.Phase;
+            if(!(phase==RangeTraversalPhase.PenaltyLoop||phase==RangeTraversalPhase.Rejoin&&p.CurrentRangeRequiredPenaltyLoops>0)||
+                e.CurrentRangeMotion?.Phase!=RangeTraversalPhase.PenaltyApproach)return false;
+            for(int j=0;j<junctionCount;j++)if(rangeWorldTraffic.IsPenaltyRegion(j)&&Touches(stationary[priority],j)&&Touches(stationary[entering],j))return true;
+            return false;
         }
         private bool OwnsJunction(int i)
         { if (!active[i]) return false; for (int j = 0; j < junctionCount; j++) if (Touches(stationary[i], j)) return true; return false; }
@@ -1010,14 +1129,31 @@ namespace Biathlon.Simulation
         }
         private bool Conflict(Trace a, int ai, Trace b, int bi)
         {
-            if(sharedApron!=null&&LocalExitLeaseConflict(a,b))return true;
+            if(rangeWorldTraffic!=null&&CanCheckCrossLoopWorldBodies(a,b)&&RangeWorldConflict(a,ai,b,bi))return true;
+            bool departureSeparated=false;
+            if(sharedApron!=null&&LocalExitLeaseConflict(a,b))
+            {
+                departureSeparated=rangeWorldTraffic!=null&&!RangeWorldConflict(a,ai,b,bi)||
+                    sharedApron.UsesParallelPostShootDepartures&&TryPrepareApron(a,ai)&&TryPrepareApron(b,bi)&&
+                    !sharedApron.DepartureBodiesConflict(a.ApronTrace,b.ApronTrace,apronScratch);
+                if(!departureSeparated)return true;
+                preparedApronPairProofs++;
+            }
             bool worldContinuation=startContinuation!=null&&CanContinueStart(a,ai)&&CanContinueStart(b,bi);
             int passage=-1;
             for (int j = 0; j < junctionCount; j++) if (Touches(a, j) && Touches(b, j))
             {
                 if(worldContinuation&&j==startContinuation.JunctionIndex)continue;
+                if(rangeWorldTraffic!=null&&rangeWorldTraffic.Applies(j)&&!RangeWorldConflict(a,ai,b,bi))
+                {preparedApronPairProofs++;continue;}
                 int apron=sharedApron==null?-1:sharedApron.FindRegionForJunction(j);
-                if(apron>=0&&LocalExitClearanceConflict(a,b,sharedApron.GetExitClearance(apron)))return true;
+                if(apron>=0&&LocalExitClearanceConflict(a,b,sharedApron.GetExitClearance(apron))&&!departureSeparated)
+                {
+                    departureSeparated=sharedApron.UsesParallelPostShootDepartures&&TryPrepareApron(a,ai)&&TryPrepareApron(b,bi)&&
+                        !sharedApron.DepartureBodiesConflict(a.ApronTrace,b.ApronTrace,apronScratch);
+                    if(!departureSeparated)return true;
+                    preparedApronPairProofs++;
+                }
                 if(apron>=0&&sharedApron.IsEligible(apron)&&TryPrepareApron(a,ai)&&TryPrepareApron(b,bi)&&
                     !sharedApron.Conflicts(apron,a.ApronTrace,b.ApronTrace,apronScratch))
                 {preparedApronPairProofs++;continue;}
@@ -1045,6 +1181,49 @@ namespace Biathlon.Simulation
                 PassageGhostPair(passage,a.OldTail,ai,b.NewTail,bi)||PassageGhostPair(passage,a.NewTail,ai,b.NewTail,bi)))return true;
             return GhostPair(a.OldTail, ai, b.OldTail, bi) || GhostPair(a.NewTail, ai, b.OldTail, bi) ||
                 GhostPair(a.OldTail, ai, b.NewTail, bi) || GhostPair(a.NewTail, ai, b.NewTail, bi);
+        }
+        private bool RangeWorldConflict(Trace a,int ai,Trace b,int bi)
+        {
+            // These are the field's exact staged receipts from the chosen path projections,
+            // not reconstructed route-distance guesses. Final joint validation repeats them.
+            int count=2;grid[0]=0;grid[1]=JunctionAdmissionSession.FractionParts;
+            bool pose=UsesRangePoseEnvelope(a,ai)||UsesRangePoseEnvelope(b,bi);
+            for(int i=0;i<a.Count;i++){Insert(a.Segments[i].StartFraction,ref count);Insert(a.Segments[i].EndFraction,ref count);}
+            for(int i=0;i<b.Count;i++){Insert(b.Segments[i].StartFraction,ref count);Insert(b.Segments[i].EndFraction,ref count);}
+            for(int i=1;i<count;i++)
+            {
+                var aa=Sweep(a,ai,grid[i-1],grid[i]);var bb=Sweep(b,bi,grid[i-1],grid[i]);
+                if(rangeWorldTraffic.Conflicts(aa,bb,pose)||TailHit(a.OldTail,bb)||TailHit(a.NewTail,bb)||TailHit(b.OldTail,aa)||TailHit(b.NewTail,aa))return true;
+            }
+            return Pair(a.OldTail,b.OldTail)||Pair(a.NewTail,b.OldTail)||Pair(a.OldTail,b.NewTail)||Pair(a.NewTail,b.NewTail);
+            bool TailHit(Tail tail,PhysicalOccupancySweep other)=>tail.Active&&rangeWorldTraffic.TailConflicts(tail.Point,tail.Lateral,other,tail.ConnectionIndex,pose);
+            bool Pair(Tail first,Tail second)=>first.Active&&second.Active&&rangeWorldTraffic.TailPairConflicts(first.Point,first.Lateral,first.ConnectionIndex,second.Point,second.Lateral,second.ConnectionIndex,pose);
+        }
+        private bool CanCheckCrossLoopWorldBodies(Trace a,Trace b)
+        {
+            // Protect before a named point guard is reached: a rectangular body can
+            // contact another physical branch several metres before their centre lines join.
+            // Ordinary same-loop spacing and unknown geometry keep their existing rules.
+            if(!Known(a)||!Known(b))return false;
+            if(a.Start.LoopId!=b.Start.LoopId||a.End.LoopId!=b.End.LoopId||a.Start.LoopId!=a.End.LoopId||
+                b.Start.LoopId!=b.End.LoopId)return true;
+            return a.OldTail.Active||a.NewTail.Active||b.OldTail.Active||b.NewTail.Active;
+            bool Known(Trace trace)
+            {
+                if(!rangeWorldTraffic.Contains(trace.Start)||!rangeWorldTraffic.Contains(trace.End)||
+                    trace.OldTail.Active&&!rangeWorldTraffic.Contains(trace.OldTail.Point)||
+                    trace.NewTail.Active&&!rangeWorldTraffic.Contains(trace.NewTail.Point))return false;
+                for(int i=0;i<trace.Count;i++)if(!rangeWorldTraffic.Contains(trace.Segments[i].Start)||!rangeWorldTraffic.Contains(trace.Segments[i].End))return false;
+                return true;
+            }
+        }
+        private bool UsesRangePoseEnvelope(Trace trace,int index)
+        {
+            var actor=GetAthlete(index);bool shooting=actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.Shooting;
+            if(ReferenceEquals(trace,traces[index]))shooting|=actor.PreviewRangeMotion(previews[index])?.Phase==RangeTraversalPhase.Shooting||
+                previews[index].MovementActive&&previews[index].Movement.AtFiringLine;
+            string mat=rangeLayout.GetPath(trace.ApronPath).MatAnchor.LoopId;
+            return shooting||trace.OldTail.Active&&trace.OldTail.Point.LoopId==mat||trace.NewTail.Active&&trace.NewTail.Point.LoopId==mat;
         }
         private static bool LocalExitClearanceConflict(Trace a,Trace b,PhysicalApronExitClearance clearance)
         {

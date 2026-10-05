@@ -14,8 +14,17 @@ namespace Biathlon.AI
     public sealed class PackAiRaceRunner
     {
         private readonly AiRacePolicyDefinition policy;
+        private readonly TuckSystem downhillTuck;
         private readonly double physicalRadius;
         private readonly AiStartTrafficPolicyDefinition startTraffic;
+        private readonly OccupancySystem occupancy;
+        private readonly OvertakeDefinition laneDefinition;
+        private readonly long[] previousObservedTravel, stationaryObservedTicks;
+        private readonly AiRangeTrafficPolicyDefinition worldBypassPolicy;
+        private readonly long[] escapeUntil;
+        private readonly double[] escapeLine;
+        private readonly long[] startEscapeUntil;
+        private readonly double[] startEscapeLine;
         private readonly AiRangeTrafficPlanner rangeTraffic;
         private readonly AiRangeTrafficPlan[] rangeTrafficPlans;
         private readonly AiDifficultyDefinition difficulty;
@@ -85,7 +94,7 @@ namespace Biathlon.AI
         public PackAiRaceRunner(PackSprintFieldSession field,Func<string,string> read,
             ReadOnlySpan<AiPersonalityDefinition> profiles,AiDifficultyDefinition difficulty,ulong seed,
             IRaceEventSink events,IAiDecisionSink telemetry,double[] raceForms=null,ShootingPressureContext[] racePressures=null,
-            AiRangeTrafficPolicyDefinition rangeTrafficPolicy=null)
+            AiRangeTrafficPolicyDefinition rangeTrafficPolicy=null,AiSkiPolicyDefinition skiPolicy=null)
         {
             Field=field??throw new ArgumentNullException(nameof(field));
             if(read==null || difficulty==null || events==null || telemetry==null) throw new ArgumentNullException();
@@ -95,7 +104,10 @@ namespace Biathlon.AI
             this.raceForms=raceForms==null?null:(double[])raceForms.Clone();this.racePressures=racePressures==null?null:(ShootingPressureContext[])racePressures.Clone();
             if(this.raceForms!=null)foreach(double value in this.raceForms)PhysiologyNumbers.RequireRange(value,0,1.1,"race form");
             this.difficulty=difficulty; this.seed=seed; this.events=events; this.telemetry=telemetry; frequency=field.TickFrequency;
+            worldBypassPolicy=rangeTrafficPolicy?.WorldBypassAfterSeconds.HasValue==true?rangeTrafficPolicy:null;
             policy=AiRacePolicyDefinition.FromJson(read("ai_race_policy_provisional_v1.json"));
+            TuckDefinition tuckDefinition=(skiPolicy?.DownhillTuckEnabled??policy.DownhillTuckEnabled==true)?TuckDefinition.FromJson(read("tuck_provisional_v1.json")):null;
+            if(tuckDefinition!=null)downhillTuck=new TuckSystem(tuckDefinition);
             physicalRadius=Math.Max(policy.PhysicalRadius,rangeTrafficPolicy?.AlignmentLeadMeters??0);
             if(field.UsesSharedStartContinuation)
                 startTraffic=AiStartTrafficPolicyDefinition.FromJson(read("ai_start_traffic_provisional_v1.json"));
@@ -109,10 +121,10 @@ namespace Biathlon.AI
             var strategyDefinition=ShootingStrategyDefinition.FromJson(read("shooting_strategy_provisional_v1.json"));
             var draftDefinition=DraftDefinition.FromJson(read("draft_provisional_v1.json"));
             var selectionDefinition=DraftSelectionDefinition.FromJson(read("draft_selection_provisional_v1.json"));
-            var laneDefinition=OvertakeDefinition.FromJson(read("overtake_provisional_v1.json"));
+            laneDefinition=OvertakeDefinition.FromJson(read("overtake_provisional_v1.json"));
             var overtakeDefinition=OvertakeDecisionDefinition.FromJson(read("overtake_decision_provisional_v1.json"));
             var occupancyDefinition=OccupancyDefinition.FromJson(read("occupancy_provisional_v1.json"));
-            var occupancy=new OccupancySystem(occupancyDefinition);
+            occupancy=new OccupancySystem(occupancyDefinition);
             if(rangeTrafficPolicy!=null)
             {
                 if(field.GetAthlete(0).RangePath==null)
@@ -124,6 +136,9 @@ namespace Biathlon.AI
             overtake=new OvertakeDecisionEvaluator(overtakeDefinition,laneDefinition,occupancy);
             raceSource=new SprintPerceptionSource(field); physicalSource=new PackPerceptionSource(field);
             int n=field.Count; journal=new EventJournal(n*4);
+            previousObservedTravel=new long[n];stationaryObservedTicks=new long[n];
+            escapeUntil=new long[n];escapeLine=new double[n];
+            startEscapeUntil=new long[n];startEscapeLine=new double[n];
             pursuitPlans=new PursuitTacticalPlan[n];publishedPursuitPlans=new PursuitTacticalPlan[n];
             personalities=new AiPersonalityPolicy[n];clocks=new TacticalDecisionClock[n];pace=new PaceController[n];draft=new DraftTargetSelector[n];lanes=new OvertakeController[n];
             shooters=new ShootingAiController[n];previousShooting=new ShootingSession[n];intents=new TacticalIntentDecision[n];publishedIntents=new TacticalIntentDecision[n];
@@ -139,13 +154,21 @@ namespace Biathlon.AI
             if(startTraffic!=null)
             {
                 context.Add(startTraffic.ToJson());
-                context.Add("ai_shared_start_grid_lateral_until_paid_handoff;no_start_overtake;player_intent_preserved_v1");
+                context.Add(startTraffic.StationaryBypassAfterSeconds.HasValue?
+                    "ai_shared_start_grid_lateral_until_paid_handoff;stationary_obstruction_exception;player_intent_preserved_v1":
+                    "ai_shared_start_grid_lateral_until_paid_handoff;no_start_overtake;player_intent_preserved_v1");
+                if(startTraffic.StationaryBypassAfterSeconds.HasValue)
+                    context.Add("ai_start_stationary_obstruction_safe_paid_overtake_v2;world_body_and_tail_preview;destination_lane_continuation_preview_initiation_gap;probe_stride_body_separation_plus_passing_clearance;goal_hold_overtake_timeout_first_continuation_only;ordinary_moving_grid_hold;player_intent_preserved");
             }
+            if(tuckDefinition!=null)
+            {context.Add(tuckDefinition.ToJson());context.Add("ai_shared_downhill_tuck_v1;actual_grade_speed_curvature_risk_skill;ordinary_input_and_costs");}
+            if(skiPolicy!=null)context.Add(skiPolicy.ToJson());
             if(rangeTrafficPolicy!=null)
             {
                 context.Add(rangeTrafficPolicy.ToJson());
                 if(physicalRadius!=policy.PhysicalRadius)context.Add("range_traffic_observed_radius_m:"+physicalRadius.ToString("R",CultureInfo.InvariantCulture));
                 context.Add("ai_physical_range_safe_alignment_v1;actual_traversal_exit;stationary_body_clearance;paid_lateral;player_intent_preserved");
+                if(worldBypassPolicy!=null)context.Add("ai_range_world_stalled_paid_lateral_escape_v2;shared_corridors_and_post_shoot_private_departure_and_main;bounded_goal_hold;ordinary_drive;full_field_revalidation;player_intent_preserved");
             }
             for(int i=0;i<n;i++)
             {
@@ -195,14 +218,31 @@ namespace Biathlon.AI
                 if(actor.HasFinished) { inputs[i]=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(tick,id,0),1,1,0),new WeaponAimCommand(tick,id,0,0));continue; }
                 if(i==playerIndex){inputs[i]=playerInput;lateral[i]=playerLateral;continue;}
                 var observation=raceSource.Capture(i,TrackDistance.FromMeters(physicalRadius),offsets,ahead,neighbors);
-                int count=physicalSource.CapturePlacements(i,TrackDistance.FromMeters(physicalRadius),placements);
+                int count=physicalSource.CapturePlacements(i,TrackDistance.FromMeters(physicalRadius),placements,startTraffic?.StationaryBypassAfterSeconds.HasValue==true);
                 var point=Field.GetPhysicalPoint(i); var self=count>0?placements[0]:new SkiPlacement(id,point.LoopId,new SkiState(point.LoopLengthNanometers,actor.Motion.SpeedMetersPerSecond),Field.GetLateral(i));
                 var roster=placements.AsSpan(0,count); bool skiing=count>0 && observation.Phase==CompetitionPhase.Skiing;
-                bool holdStartGrid=startTraffic!=null&&startTraffic.HoldGridLateral&&point.LoopId==Field.StartApproach.LoopId;
+                bool onSharedStart=startTraffic!=null&&point.LoopId==Field.StartApproach.LoopId;
+                bool onStartContinuation=startTraffic!=null&&Field.TryGetStartContinuationObservation(i,out _);
+                stationaryObservedTicks[i]=actor.Motion.DistanceNanometers==previousObservedTravel[i]?stationaryObservedTicks[i]+1:0;
+                previousObservedTravel[i]=actor.Motion.DistanceNanometers;
+                bool obstructionPass=false;
+                if(onStartContinuation&&startTraffic.StationaryBypassAfterSeconds.HasValue&&count>0&&
+                    stationaryObservedTicks[i]>=Math.Ceiling(startTraffic.StationaryBypassAfterSeconds.Value*frequency))
+                {
+                    var opportunity=OvertakeOpportunityQuery.Evaluate(laneDefinition,occupancy,self,
+                        observation.CurrentTrack.WidthMeters,observation.CurrentTrack.OvertakeAllowed,roster);
+                    obstructionPass=opportunity.Available&&opportunity.Target.Motion.SpeedMetersPerSecond<=startTraffic.StationaryMaximumSpeed.Value;
+                }
+                bool stalledStart=onStartContinuation&&startTraffic.StationaryBypassAfterSeconds.HasValue&&
+                    stationaryObservedTicks[i]>=Math.Ceiling(startTraffic.StationaryBypassAfterSeconds.Value*frequency);
+                bool startManeuver=onSharedStart&&(obstructionPass||stalledStart||tick.Value<startEscapeUntil[i]||startTraffic.StationaryBypassAfterSeconds.HasValue&&lanes[i].Phase!=OvertakePhase.Idle);
+                bool holdStartGrid=onSharedStart&&startTraffic.HoldGridLateral&&!startManeuver;
                 rangeTrafficPlans[i]=rangeTraffic==null||holdStartGrid||count==0?default:
                     rangeTraffic.Evaluate(actor.RangePath!=null,observation.NextRangeEntryRouteDistanceNanometers,
                         actor.CurrentRangeMotion?.Phase,self,observation.CurrentTrack,roster,
-                        point.LoopId==Field.Track.Range.Entry.LoopId);
+                        point.LoopId==Field.Track.Range.Entry.LoopId,
+                        actor.RangePath!=null&&point.LoopId!=actor.RangePath.MatAnchor.LoopId,
+                        actor.CurrentRangeRequiredPenaltyLoops>0);
                 bool alignRange=rangeTrafficPlans[i].Active;
                 var window=clocks[i].Step(tick); TacticalIntentDecision? chosen=null; int adjustment=0;bool pass=false;
                 if(window.DecisionDue)
@@ -252,10 +292,44 @@ namespace Biathlon.AI
                     strategies[i]=personalities[i].PlanShooting(shootingStrategy,pursuit!=null?pursuitPlans[i].ShootingUrgency:policy.ShootingTimeUrgency,need,0);
                 }
                 paceFrames[i]=pace[i].Step(tick,chosen,adjustment);
-                var lane=lanes[i].Step(paceFrames[i].Input,self,observation.CurrentTrack,roster,pass,!skiing||holdStartGrid||alignRange);
+                var lane=lanes[i].Step(paceFrames[i].Input,self,observation.CurrentTrack,roster,pass||obstructionPass,!skiing||holdStartGrid||alignRange);
                 lateral[i]=holdStartGrid?Field.StartGrid.Get(i).LateralNanometers/(double)SkiState.NanometersPerMeter:
                     alignRange?rangeTrafficPlans[i].DesiredLateralMeters:lane.DesiredLateralMeters;
-                if(!holdStartGrid && !alignRange && lane.Phase==OvertakePhase.Idle && skiing && (intents[i].Kind==TacticalIntentKind.Draft || intents[i].Kind==TacticalIntentKind.Follow))
+                bool holdStartEscape=onStartContinuation&&tick.Value<startEscapeUntil[i];
+                if(holdStartEscape)lateral[i]=startEscapeLine[i];
+                else if(stalledStart)
+                {
+                    double extent=observation.CurrentTrack.WidthMeters*.5-occupancy.Definition.EdgeMargin;
+                    double stride=occupancy.Definition.LateralSeparation+laneDefinition.PassingClearance;
+                    int probes=(int)Math.Ceiling(extent*2/stride);
+                    for(int p=1;p<=probes;p++)
+                    {
+                        double left=Math.Max(-extent,Field.GetLateral(i)-p*stride),right=Math.Min(extent,Field.GetLateral(i)+p*stride);
+                        if(left!=Field.GetLateral(i)&&Field.IsStartContinuationBypassGoalClear(i,left,laneDefinition.InitiationGap)){HoldStart(left);break;}
+                        if(right!=Field.GetLateral(i)&&Field.IsStartContinuationBypassGoalClear(i,right,laneDefinition.InitiationGap)){HoldStart(right);break;}
+                    }
+                    void HoldStart(double line)
+                    {lateral[i]=startEscapeLine[i]=line;startEscapeUntil[i]=tick.Value+(long)Math.Ceiling(laneDefinition.TimeoutSeconds*frequency);}
+                }
+                bool canEscapeRange=worldBypassPolicy!=null&&actor.RangePath!=null&&actor.ActiveShooting==null&&
+                    !onSharedStart&&(alignRange||point.LoopId==Field.Track.Range.Entry.LoopId)&&
+                    (point.LoopId!=actor.RangePath.MatAnchor.LoopId||actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.RangeExit);
+                if(canEscapeRange&&tick.Value<escapeUntil[i])
+                {lateral[i]=escapeLine[i];rangeTrafficPlans[i]=new AiRangeTrafficPlan(true,false,lateral[i]);}
+                else if(canEscapeRange&&stationaryObservedTicks[i]>=Math.Ceiling(worldBypassPolicy.WorldBypassAfterSeconds.Value*frequency))
+                {
+                    double extent=observation.CurrentTrack.WidthMeters*.5-occupancy.Definition.EdgeMargin;
+                    double step=worldBypassPolicy.WorldBypassLateralStep.Value;
+                    int probes=(int)Math.Ceiling(extent*2/step);
+                    for(int p=1;p<=probes;p++)
+                    {
+                        double left=Math.Max(-extent,Field.GetLateral(i)-p*step),right=Math.Min(extent,Field.GetLateral(i)+p*step);
+                        if(left!=Field.GetLateral(i)&&Field.IsRangeWorldLateralRequestClear(i,left,worldBypassPolicy.WorldBypassPreview.Value)){lateral[i]=left;rangeTrafficPlans[i]=new AiRangeTrafficPlan(true,false,left);HoldEscape();break;}
+                        if(right!=Field.GetLateral(i)&&Field.IsRangeWorldLateralRequestClear(i,right,worldBypassPolicy.WorldBypassPreview.Value)){lateral[i]=right;rangeTrafficPlans[i]=new AiRangeTrafficPlan(true,false,right);HoldEscape();break;}
+                    }
+                    void HoldEscape(){escapeLine[i]=lateral[i];escapeUntil[i]=tick.Value+(long)Math.Ceiling(worldBypassPolicy.WorldBypassHoldSeconds.Value*frequency);}
+                }
+                if(!holdStartGrid && !rangeTrafficPlans[i].Active && !holdStartEscape && !stalledStart && lane.Phase==OvertakePhase.Idle && skiing && (intents[i].Kind==TacticalIntentKind.Draft || intents[i].Kind==TacticalIntentKind.Follow))
                     for(int j=0;j<count;j++) if(placements[j].AthleteId.Equals(intents[i].TargetId)) lateral[i]=placements[j].LateralMeters;
                 var aim=new WeaponAimCommand(tick,id,0,0);bool trigger=false,hold=false;var shooting=actor.ActiveShooting;
                 if(shooting!=null)
@@ -272,7 +346,10 @@ namespace Biathlon.AI
                 var alignmentCap=rangeTrafficPlans[i].RequestedEffortCap;
                 if(alignmentCap.HasValue&&drive.RequestedEffort>alignmentCap.Value)
                     drive=new SimulationInput(tick,id,alignmentCap.Value);
-                inputs[i]=new SprintAthleteInput(new TimeTrialInput(drive,raceForms==null?1:raceForms[i],1,0,sprintRequested:intents[i].Kind==TacticalIntentKind.FinalSprint),aim,trigger,hold,pressure:racePressures==null?default:racePressures[i]);
+                bool requestTuck=downhillTuck!=null&&skiing&&!onSharedStart&&!alignRange&&
+                    downhillTuck.Evaluate(true,drive.RequestedEffort,actor.DownhillSkill,actor.Motion,observation.CurrentTrack).Active;
+                inputs[i]=new SprintAthleteInput(new TimeTrialInput(drive,raceForms==null?1:raceForms[i],1,0,
+                    tuckRequested:requestTuck,sprintRequested:intents[i].Kind==TacticalIntentKind.FinalSprint),aim,trigger,hold,pressure:racePressures==null?default:racePressures[i]);
             }
             Field.Step(inputs,lateral);journal.Flush(events);
             for(int i=0;i<Field.Count;i++)
