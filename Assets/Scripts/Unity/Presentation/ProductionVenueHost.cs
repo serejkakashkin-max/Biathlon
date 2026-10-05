@@ -29,10 +29,13 @@ namespace Biathlon.Unity.Presentation
         public ProductionCoursePresentation Course {get;private set;}
         public Camera ChaseCamera {get;private set;}
         public ProductionVenueEnvironment Environment {get;private set;}
+        public PlayerRouteGuidancePresentation Guidance {get;private set;}
+        public PlayerRangeAssistPlan LastRangeAssistance {get;private set;}
         public int PlayerIndex {get;private set;}
         private PlayerDeviceInput ski;
         private ShootingDeviceInput shot;
         private EffortControlSystem effort;
+        private PlayerRangeAssistanceSystem rangeAssistance;
         private RangePresentation range;
         private RaceHud hud;
         private SkiDebugHud debugHud;
@@ -41,6 +44,8 @@ namespace Biathlon.Unity.Presentation
         private OccupancyDefinition body;
         private double accumulator;
         private bool shootingContext;
+        private bool[] shootingLaps;
+        public bool IsShootingLap(int lap)=>shootingLaps!=null&&lap>=0&&lap<shootingLaps.Length&&shootingLaps[lap];
         public static string ReadResource(string id)
         {
             VenueManifest.ResourceId(id);var text=Resources.Load<TextAsset>(id);
@@ -100,6 +105,8 @@ namespace Biathlon.Unity.Presentation
             if(playerIndex<0||playerIndex>=count)throw new ArgumentOutOfRangeException(nameof(playerIndex));
             var runner=ProductionVenueRaceFactory.Create(venue,profile,route,conditions,ReadCore,new BalanceEventAudit(5),new AiDecisionCounts(),qualification,count);
             Venue=venue;Runner=runner;PlayerIndex=playerIndex;body=venue.Occupancy;
+            var requirements=profile.ToRouteRequirements();shootingLaps=new bool[profile.LapCount];
+            for(int lap=0;lap<shootingLaps.Length;lap++)shootingLaps[lap]=requirements.RequiresRange(lap);
             samplers=new TrackSampler[venue.Track.LoopCount];for(int i=0;i<samplers.Length;i++)samplers[i]=new TrackSampler(venue.Track.GetLoop(i));
             var field=Runner.Field;var id=field.GetAthlete(PlayerIndex).AthleteId;
             Feed=gameObject.AddComponent<RacePresentationFeed>();Feed.Publish(RacePresentationSnapshot.Capture(field));
@@ -118,6 +125,9 @@ namespace Biathlon.Unity.Presentation
             hud=gameObject.AddComponent<RaceHud>();hud.Initialize(Feed,id.Value);
             debugHud=gameObject.AddComponent<SkiDebugHud>();debugHud.Initialize(Feed,id.Value);
             penalty=gameObject.AddComponent<PenaltyLoopPresentation>();penalty.Initialize(Feed,id.Value,venue.Track,venue.Visual);
+            var guidance=RangeGuidanceDefinition.FromJson(ReadCore("range_guidance_v1.json"));
+            rangeAssistance=new PlayerRangeAssistanceSystem(guidance);
+            Guidance=gameObject.AddComponent<PlayerRouteGuidancePresentation>();Guidance.Initialize(this,guidance);
         }
         public double CurrentLateralExtent
         {
@@ -148,9 +158,17 @@ namespace Biathlon.Unity.Presentation
         {
             if(Runner==null)throw new InvalidOperationException("Initialize the host first.");
             var applied=effort.Step(command,true);
-            var input=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(command.Tick,command.AthleteId,applied.AppliedControl),1,1,0,
-                command.TuckHeld,applied.FinalSprintRequested),shooting.Aim,shooting.Trigger,shooting.HoldBreath);
-            Runner.StepWithPlayer(PlayerIndex,input,CurrentLateralExtent*command.LineIntent/PlayerCommand.LineIntentUnits);
+            var actor=Runner.Field.GetAthlete(PlayerIndex);var point=Runner.Field.GetPhysicalPoint(PlayerIndex);
+            double manualLine=CurrentLateralExtent*command.LineIntent/PlayerCommand.LineIntentUnits;
+            long stopDistance=long.MaxValue;
+            int lap=Runner.Field.Route.Sample(new TrackDistance(actor.RouteNanometers/SkiState.NanometersPerMillimeter)).LapIndex;
+            if(actor.RangePath!=null&&IsShootingLap(lap))
+                stopDistance=actor.RangePath.FiringRouteNanometers(lap)-actor.RouteNanometers;
+            var assist=rangeAssistance.Evaluate(actor.CurrentRangeMotion?.Phase,actor.RangePath!=null&&point.LoopId==actor.RangePath.MatAnchor.LoopId,
+                stopDistance,applied.AppliedControl,manualLine,actor.Motion.SpeedMetersPerSecond);
+            var input=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(command.Tick,command.AthleteId,assist.RequestedEffort),1,1,0,
+                !assist.Active&&command.TuckHeld,!assist.Active&&applied.FinalSprintRequested),shooting.Aim,shooting.Trigger,shooting.HoldBreath);
+            Runner.StepWithPlayer(PlayerIndex,input,assist.RequestedLateral);LastRangeAssistance=assist;
             Feed.Publish(RacePresentationSnapshot.Capture(Runner.Field));range.Refresh();hud.Refresh();debugHud.Refresh();penalty.Refresh();
         }
         private void OnApplicationFocus(bool value){if(ski!=null)ski.SetInputFocus(value);if(shot!=null)shot.SetInputFocus(value);}
@@ -158,6 +176,7 @@ namespace Biathlon.Unity.Presentation
         {
             if(Runner==null)return;
             GUI.Box(new Rect(12,Screen.height-30,1000,24),"SKI: W/S effort, A/D line, Space tuck | RANGE: mouse aim, LMB fire, RMB fine, Space breath");
+            if(LastRangeAssistance.Active)GUI.Box(new Rect(Screen.width/2f-170,Screen.height-90,340,28),LastRangeAssistance.Mode==PlayerRangeAssistMode.FinalApproach?"Подъезд к назначенному коврику":"Старт с коврика — управление возвращается");
         }
     }
 }
