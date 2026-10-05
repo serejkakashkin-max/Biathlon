@@ -9,10 +9,10 @@ project_phase: M13 Production Venue Pipeline and Launch Content
 owner_gate_g1: APPROVED 2026-09-13
 owner_gate_g2: APPROVED 2026-09-30
 m12_status: PASS / owner-approved
-active_work_package: M13 owner presentation/manual-steering work; WP-175 preparation
-active_task: integrate owner-approved manual ski direction; WP-175 fresh weather views and complete condition flows
+active_work_package: M13 owner shortened/varied Woodland revision; manual steering; WP-175 OPEN
+active_task: shorten actual ski loops at least 2x; early curves/real rises and descents; roadside tape/standing crowd/flags; fix penalty stadium overlap; deliver owner review build
 owner_motion_task: TASK_M13_OWNER_MOTION_01 PASS 2026-10-05
-owner_course_dressing_task: TASK_M13_WOODLAND_DRESSING_01 PASS 2026-10-05; Windows review delivered
+owner_course_dressing_task: TASK_M13_WOODLAND_DRESSING_01 bounded checks PASS; owner requests substantial course/layout/dressing revision
 owner_manual_task: TASK_M13_OWNER_MANUAL_01 IN_PROGRESS; foundation focused/native PASS; integration pending
 open_regression_defect: full core1025 PASS /1 FAIL; legacy world-query allocation2600bytes; cause unresolved
 production_venue_count: 1
@@ -21,7 +21,7 @@ deferred_work_packages: WP-170/171/172/173/174 DEFERRED_OWNER_SCOPE_REDUCTION
 last_completed_work_package: WP-169 PASS / DONE 2026-10-04
 production_fields: Sprint40 / Pursuit40 / MassStart30; includes player
 last_verified_commit: 5fa259c; pushed; current motion+dressing Windows review and WP175 component proofs; full core failure retained
-next_action: separate world travel from route station and connect manual steering; WP175 fresh weather environments and condition race/replay qualification
+next_action: regenerate shortened varied actual Woodland geometry and paid profiles; relocate stadium overlaps; dress roadsides; test/replay and explicitly deliver Windows review
 wp175_preparation: five visual rows and four canonical physical snow bindings; execution/acceptance OPEN
 wp175_physical_component_checks: four canonical snow bindings; dotnet10/native10 PASS; full condition races OPEN
 review_tooling_task: explicit bounded build/smoke paths; native lease10 and generic authoring11 PASS
@@ -30,6 +30,8 @@ open_acceptance: [manual steering integration; Woodland quality; WP-175/176/177/
 owner_decisions_needed: []
 last_delivered_windows_build: Builds/WoodlandReview20261005/Biathlon.exe; Development/High; current motion+dressing; build/hidden3formats PASS
 ```
+
+[Owner playable course revision](owner/OWNER_WOODLAND_PLAYABLE_COURSE_REVISION_2026-10-05.md): latest hands-on feedback approves athlete motion, but the current course remains too long and monotonous. Actual skiing distance must reduce by at least half, with early turns and multiple real rises/descents. Owner means course-edge ribbon tape and standing spectators, billboards/flag steles, not only remote stands. Confirmed old stadium grandstands08/09 and event screen intrude on the penalty corridor. Geometry/layout/dressing revision is IN_PROGRESS; each new build must be explicitly delivered for owner testing. Earlier WP169 race acceptance is historical and does not qualify the new course until rerun.
 
 WP-167/168/169 are DONE. [WP169 consolidated report](reports/WP169_VENUE01_PRODUCTION_REPORT.md) and [acceptance](quality/m13/wp169-production/acceptance.json) contain the final evidence. Woodland is now the sole production venue. WP170–174 are deferred by explicit owner scope reduction, not completed. Pine's corrected Sprint40 finished tick53,594 with exact persisted replay; Mass30/range and Pursuit40/shortcut acceptance remained OPEN. [Pine diagnostic record](quality/m13/wp170-pine-profile-repair.md), failed artifacts and [recoverable source checkpoint](deferred/wp170/README.md) are retained for later work. All412 Pine asset/meta files were removed from active Assets after byte/hash verification; the469-entry archive is outside Unity Resources. WP175–178 remain OPEN for Woodland; continue to the actual M13 gate.
 
