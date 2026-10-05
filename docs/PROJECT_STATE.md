@@ -22,6 +22,7 @@ production_fields: Sprint40 / Pursuit40 / MassStart30; includes player
 last_verified_commit: 04ea339606de703e722acbb5bbe315f3c3994b18; pushed; WP169 DONE
 next_action: verify and connect versioned manual steering; import/review bounded Woodland course dressing; WP-175 matrix
 wp175_preparation: five visual rows and four canonical physical snow bindings; execution/acceptance OPEN
+wp175_physical_component_checks: four canonical snow bindings; dotnet10/native10 PASS; full condition races OPEN
 review_tooling_task: explicit bounded build/smoke paths; native lease10 and generic authoring11 PASS
 current_known_blockers: []
 open_acceptance: [manual steering integration; Woodland quality; WP-175/176/177/178]
@@ -48,6 +49,8 @@ Hidden-only standalone checks remain the owner's instruction. Windows suspended 
 Frozen historical60/Y/T/T2/Z/tooling proofs require no broad rerun without new evidence. Historical Pursuit60 stopped ski time30.05% -> WP-177 cause/balance review where relevant to the retained course. Woodland weather/snow matrix -> WP-175. OWNER-FEEL-001 shooting too easy remains OPEN for WP-229/230/232; no hidden RNG or silent rebalance.
 
 WP175 preparation: [single-Woodland conditions/readability plan](../scripts/content/m13/WP175_WOODLAND_WEATHER_PLAN.md) defines five fresh visual environments (High clear/overcast/snowfall, Balanced/Low snowfall) and four canonical physical snow bindings. Eleven planner/validation tests PASS; current candidate inputs are outside Assets under `artifacts/wp175-woodland-weather-plan-20261005-v2`. These are planned inputs, not native views, completed condition races, performance evidence or WP175 acceptance. Preserve the hidden-only standalone limit.
+
+[WP175 physical component report](reports/TASK_WP175_WOODLAND_CONDITIONS_01_REPORT.md): .NET10/native10 PASS, all36loops/1,291segments and5,164samples per canonical profile; shared force/cornering trade-offs and short exact repeats verified. No completed condition race/replay or weather view claim. Main descent_technical labels currently have zero grade; real downhill views/profile review must use actual geometry/grade, not labels. WP175/177 remain OPEN.
 
 Preserve approved chase/shooting cameras, licenses/CC BY notices/de-branding, pure deterministic core and unrelated owner edits. Standing authorization covers coherent commits/pushes and audited free assets. Stop only at real owner gate, technical blocker, licensing/paid/account action or material scope decision.
 

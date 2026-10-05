@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "id": "woodland_wp175_condition_component_probe_v1",
+  "status": "PORTABLE_COMPONENT_TESTS_PASS_NATIVE_AND_FULL_RACES_UNVERIFIED",
+  "test_count": 10,
+  "passed": 10,
+  "failed": 0,
+  "rows": [
+    {
+      "kind": "probe",
+      "data": {
+        "profile_id": "wet_slow",
+        "ticks": 1200,
+        "frequency_hz": 20,
+        "distance_nm": 361800003408,
+        "speed_mps": 3.428338797,
+        "completed_race": false
+      }
+    },
+    {
+      "kind": "probe",
+      "data": {
+        "profile_id": "icy_fast",
+        "ticks": 1200,
+        "frequency_hz": 20,
+        "distance_nm": 366560884007,
+        "speed_mps": 3.576315621,
+        "completed_race": false
+      }
+    },
+    {
+      "kind": "tradeoff",
+      "data": {
+        "loop_id": "main",
+        "segment_id": "edge_019",
+        "neutral_snow_n": 11.036249999999999,
+        "ice_snow_n": 9.531306818181816,
+        "soft_snow_n": 15.580588235294117,
+        "wet_snow_n": 14.101874999999998,
+        "neutral_safe_mps": 10.535628296313924,
+        "ice_safe_mps": 8.494095086515038,
+        "ice_braking_n": 300
+      }
+    },
+    {
+      "kind": "binding",
+      "data": {
+        "profile_id": "fresh_soft",
+        "loops": 36,
+        "samples": 5164,
+        "surfaces": 1
+      }
+    },
+    {
+      "kind": "probe",
+      "data": {
+        "profile_id": "packed_neutral",
+        "ticks": 1200,
+        "frequency_hz": 20,
+        "distance_nm": 368994927594,
+        "speed_mps": 3.526371517,
+        "completed_race": false
+      }
+    },
+    {
+      "kind": "binding",
+      "data": {
+        "profile_id": "packed_neutral",
+        "loops": 36,
+        "samples": 5164,
+        "surfaces": 1
+      }
+    },
+    {
+      "kind": "binding",
+      "data": {
+        "profile_id": "icy_fast",
+        "loops": 36,
+        "samples": 5164,
+        "surfaces": 1
+      }
+    },
+    {
+      "kind": "binding",
+      "data": {
+        "profile_id": "wet_slow",
+        "loops": 36,
+        "samples": 5164,
+        "surfaces": 1
+      }
+    },
+    {
+      "kind": "probe",
+      "data": {
+        "profile_id": "fresh_soft",
+        "ticks": 1200,
+        "frequency_hz": 20,
+        "distance_nm": 358395639436,
+        "speed_mps": 3.382793689,
+        "completed_race": false
+      }
+    }
+  ],
+  "source_sha256": [
+    {
+      "path": "Assets/Tests/EditMode/WoodlandSnowMatrixTests.cs",
+      "sha256": "7bde1026116212ffc1308d498b45ec3b568b354e67b53719cf533100be002170"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/track.json",
+      "sha256": "1b3b39ea396803d139d9747cdecddecd72c745dc1e9f3f93655a4a36d00161c4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/snow_catalog_provisional_v1.json",
+      "sha256": "97eb422d47e4b311a1482c2a0cf27a5a47c00c7725a21ea2c993f8197dd5fc8d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ski_physics_provisional_v1.json",
+      "sha256": "6aa6317be1e8afdf4ba07aaab5d306fb03fde97ce35fb863af8e2f0baa591e27"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/cornering_provisional_v1.json",
+      "sha256": "4bf9289385b9cf189261bc084aeb55b864dd454b583ff148a3a0e298013b44dc"
+    },
+    {
+      "path": "scripts/content/m13/wp175_weather_matrix.py",
+      "sha256": "a96dc996746d955c59660ce03a9ce00aaae68a78bc4eacf57c66a817aacd76f8"
+    }
+  ],
+  "full_races_executed": 0,
+  "wp175_complete": false,
+  "production_tuning_changed": false
+}
