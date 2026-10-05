@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "id": "woodland_scenery_candidate03_boundary_audit_v1",
+  "status": "PASS_STATIC_ONLY_NATIVE_REVIEW_PENDING",
+  "source_json_count": 216,
+  "changed_json_count": 11,
+  "byte_exact_unchanged_json_count": 205,
+  "source_immutability_verified": true,
+  "prior_pruned_instances_preserved": 55,
+  "additional_viewing_strip_removals": [
+    {
+      "id": "tree_9948_9997",
+      "group_id": "forest_02_06",
+      "instance": {
+        "id": "tree_9948_9997",
+        "position": {
+          "x": -311.37973,
+          "y": -0.03,
+          "z": -16.504853
+        },
+        "scale": 0.988102,
+        "yaw_deg": 197.459762,
+        "density_rank": 0.139027,
+        "species": "fir"
+      },
+      "canopy_gap_m": -2.71245707987472,
+      "nearest_pruning_zone_id": "return_spectator_viewing_strip",
+      "pruning_zone_kind": "spectator_viewing_strip"
+    },
+    {
+      "id": "tree_9949_9997",
+      "group_id": "forest_02_06",
+      "instance": {
+        "id": "tree_9949_9997",
+        "position": {
+          "x": -305.992167,
+          "y": -0.03,
+          "z": -17.926376
+        },
+        "scale": 1.085305,
+        "yaw_deg": 211.972496,
+        "density_rank": 0.400106,
+        "species": "pine"
+      },
+      "canopy_gap_m": 0.31783413786678727,
+      "nearest_pruning_zone_id": "return_spectator_viewing_strip",
+      "pruning_zone_kind": "spectator_viewing_strip"
+    },
+    {
+      "id": "tree_10019_9892",
+      "group_id": "forest_05_01",
+      "instance": {
+        "id": "tree_10019_9892",
+        "position": {
+          "x": 113.231334,
+          "y": 68.870047,
+          "z": -649.465957
+        },
+        "scale": 0.967723,
+        "yaw_deg": 12.201499,
+        "density_rank": 0.544361,
+        "species": "pine"
+      },
+      "canopy_gap_m": 0.3541677576194444,
+      "nearest_pruning_zone_id": "plateau_spectator_viewing_strip",
+      "pruning_zone_kind": "spectator_viewing_strip"
+    },
+    {
+      "id": "tree_10020_9892",
+      "group_id": "forest_05_01",
+      "instance": {
+        "id": "tree_10020_9892",
+        "position": {
+          "x": 119.128743,
+          "y": 68.870047,
+          "z": -647.528001
+        },
+        "scale": 0.964222,
+        "yaw_deg": 202.594967,
+        "density_rank": 0.320621,
+        "species": "fir"
+      },
+      "canopy_gap_m": -0.053594548250484486,
+      "nearest_pruning_zone_id": "plateau_spectator_viewing_strip",
+      "pruning_zone_kind": "spectator_viewing_strip"
+    },
+    {
+      "id": "tree_10024_9891",
+      "group_id": "forest_06_01",
+      "instance": {
+        "id": "tree_10024_9891",
+        "position": {
+          "x": 144.46084,
+          "y": 68.870047,
+          "z": -652.503763
+        },
+        "scale": 0.96773,
+        "yaw_deg": 331.822443,
+        "density_rank": 0.378867,
+        "species": "fir"
+      },
+      "canopy_gap_m": -0.7753819997146847,
+      "nearest_pruning_zone_id": "plateau_spectator_viewing_strip",
+      "pruning_zone_kind": "spectator_viewing_strip"
+    }
+  ],
+  "total_pruned_tree_count": 60,
+  "forest_after": 26554,
+  "unchanged_asset_footprints_and_yaw": true,
+  "rigid_stand_hut_fence_placements_unchanged": true,
+  "banner_maximum_bottom_above_snow_m": 0.0,
+  "banner_maximum_snow_embedding_m": 0.15721395999999999,
+  "proof_sha256": "a6ec5e0cc62afee952c56c1b25a50309de3f0764ec4be38a08b533c13c9d313f"
+}

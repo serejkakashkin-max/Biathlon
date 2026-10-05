@@ -13397,7 +13397,7 @@
           "y": 50,
           "z": 128
         },
-        "count": 392,
+        "count": 391,
         "instances_resource": "Biathlon/Venues/woodland_basin_v1/environment/forest/forest_01_02"
       },
       {
@@ -13457,7 +13457,7 @@
           "y": 50,
           "z": 128
         },
-        "count": 368,
+        "count": 366,
         "instances_resource": "Biathlon/Venues/woodland_basin_v1/environment/forest/forest_01_06"
       },
       {
@@ -13592,7 +13592,7 @@
           "y": 50,
           "z": 128
         },
-        "count": 416,
+        "count": 396,
         "instances_resource": "Biathlon/Venues/woodland_basin_v1/environment/forest/forest_02_06"
       },
       {
@@ -13652,7 +13652,7 @@
           "y": 50,
           "z": 128
         },
-        "count": 385,
+        "count": 370,
         "instances_resource": "Biathlon/Venues/woodland_basin_v1/environment/forest/forest_03_01"
       },
       {
@@ -13922,7 +13922,7 @@
           "y": 50,
           "z": 128
         },
-        "count": 394,
+        "count": 388,
         "instances_resource": "Biathlon/Venues/woodland_basin_v1/environment/forest/forest_05_01"
       },
       {
@@ -13937,7 +13937,7 @@
           "y": 50,
           "z": 128
         },
-        "count": 454,
+        "count": 453,
         "instances_resource": "Biathlon/Venues/woodland_basin_v1/environment/forest/forest_05_02"
       },
       {
@@ -14057,7 +14057,7 @@
           "y": 50,
           "z": 128
         },
-        "count": 388,
+        "count": 378,
         "instances_resource": "Biathlon/Venues/woodland_basin_v1/environment/forest/forest_06_01"
       },
       {
@@ -14072,7 +14072,7 @@
           "y": 50,
           "z": 128
         },
-        "count": 441,
+        "count": 438,
         "instances_resource": "Biathlon/Venues/woodland_basin_v1/environment/forest/forest_06_02"
       },
       {
@@ -14207,7 +14207,7 @@
           "y": 50,
           "z": 128
         },
-        "count": 385,
+        "count": 384,
         "instances_resource": "Biathlon/Venues/woodland_basin_v1/environment/forest/forest_07_02"
       },
       {
@@ -14267,7 +14267,7 @@
           "y": 50,
           "z": 128
         },
-        "count": 345,
+        "count": 344,
         "instances_resource": "Biathlon/Venues/woodland_basin_v1/environment/forest/forest_07_06"
       },
       {
@@ -15412,6 +15412,28 @@
       },
       "yaw_deg": 180,
       "scale": 1
+    },
+    {
+      "id": "course_plateau_spectators",
+      "position": {
+        "x": 136.59599999999998,
+        "y": 68.8700663,
+        "z": -646.7223515829513
+      },
+      "yaw_deg": 0.0,
+      "scale": 1,
+      "resource": "Biathlon/Stadium/G2Grandstand/Grandstand"
+    },
+    {
+      "id": "course_return_spectators",
+      "position": {
+        "x": -330.04799999999994,
+        "y": -0.029980700000000055,
+        "z": -20.583783638642178
+      },
+      "yaw_deg": 180.0,
+      "scale": 1,
+      "resource": "Biathlon/Stadium/G2Grandstand/Grandstand"
     }
   ],
   "mesh_assets": [
@@ -15714,6 +15736,318 @@
       },
       "yaw_deg": -90,
       "scale": 1
+    },
+    {
+      "id": "course_climb_entry_banner_1",
+      "position": {
+        "x": 362.499855026511,
+        "y": 8.002061856953903,
+        "z": -109.17427438032416
+      },
+      "yaw_deg": 270.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/G2Event/BannerPole",
+      "material_resource": "Biathlon/Stadium/G2Event/Steel"
+    },
+    {
+      "id": "course_climb_entry_banner_2",
+      "position": {
+        "x": 362.499855026511,
+        "y": 8.002061856953903,
+        "z": -109.17427438032416
+      },
+      "yaw_deg": 270.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/G2Event/BannerFabric",
+      "material_resource": "Biathlon/Stadium/G2Event/EventTeal"
+    },
+    {
+      "id": "course_summit_banner_1",
+      "position": {
+        "x": 361.499855026511,
+        "y": 65.41876769524755,
+        "z": -605.8666559563968
+      },
+      "yaw_deg": 270.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/G2Event/BannerPole",
+      "material_resource": "Biathlon/Stadium/G2Event/Steel"
+    },
+    {
+      "id": "course_summit_banner_2",
+      "position": {
+        "x": 361.499855026511,
+        "y": 65.41876769524755,
+        "z": -605.8666559563968
+      },
+      "yaw_deg": 270.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/G2Event/BannerFabric",
+      "material_resource": "Biathlon/Stadium/G2Event/EventTeal"
+    },
+    {
+      "id": "course_plateau_boundary_1",
+      "position": {
+        "x": 136.59599999999998,
+        "y": 68.870047,
+        "z": -656.7223515829513
+      },
+      "yaw_deg": -90.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/FinishBarrierLeft_metal",
+      "material_resource": "Biathlon/Stadium/metal"
+    },
+    {
+      "id": "course_plateau_boundary_2",
+      "position": {
+        "x": 136.59599999999998,
+        "y": 68.870047,
+        "z": -656.7223515829513
+      },
+      "yaw_deg": -90.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/FinishBarrierLeft_white",
+      "material_resource": "Biathlon/Stadium/white"
+    },
+    {
+      "id": "course_plateau_boundary_3",
+      "position": {
+        "x": 136.59599999999998,
+        "y": 68.870047,
+        "z": -656.7223515829513
+      },
+      "yaw_deg": -90.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/FinishBarrierLeft_accent",
+      "material_resource": "Biathlon/Stadium/accent"
+    },
+    {
+      "id": "course_plateau_support_hut_1",
+      "position": {
+        "x": -213.404,
+        "y": 68.870047,
+        "z": -688.7223515829513
+      },
+      "yaw_deg": -180.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/TimingLodge_wood",
+      "material_resource": "Biathlon/Stadium/wood"
+    },
+    {
+      "id": "course_plateau_support_hut_2",
+      "position": {
+        "x": -213.404,
+        "y": 68.870047,
+        "z": -688.7223515829513
+      },
+      "yaw_deg": -180.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/TimingLodge_woodLight",
+      "material_resource": "Biathlon/Stadium/woodLight"
+    },
+    {
+      "id": "course_plateau_support_hut_3",
+      "position": {
+        "x": -213.404,
+        "y": 68.870047,
+        "z": -688.7223515829513
+      },
+      "yaw_deg": -180.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/TimingLodge_snow",
+      "material_resource": "Biathlon/Snow/cold"
+    },
+    {
+      "id": "course_plateau_support_hut_4",
+      "position": {
+        "x": -213.404,
+        "y": 68.870047,
+        "z": -688.7223515829513
+      },
+      "yaw_deg": -180.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/TimingLodge_metal",
+      "material_resource": "Biathlon/Stadium/metal"
+    },
+    {
+      "id": "course_plateau_support_hut_5",
+      "position": {
+        "x": -213.404,
+        "y": 68.870047,
+        "z": -688.7223515829513
+      },
+      "yaw_deg": -180.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/TimingLodge_glass",
+      "material_resource": "Biathlon/Stadium/glass"
+    },
+    {
+      "id": "course_plateau_support_hut_6",
+      "position": {
+        "x": -213.404,
+        "y": 68.870047,
+        "z": -688.7223515829513
+      },
+      "yaw_deg": -180.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/G2Event/Mapped_TimingLodge_dark",
+      "material_resource": "Biathlon/Stadium/G2Event/corrugated_iron"
+    },
+    {
+      "id": "course_plateau_support_hut_7",
+      "position": {
+        "x": -213.404,
+        "y": 68.870047,
+        "z": -688.7223515829513
+      },
+      "yaw_deg": -180.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/G2Event/Mapped_TimingLodge_concrete",
+      "material_resource": "Biathlon/Stadium/G2Event/concrete"
+    },
+    {
+      "id": "course_plateau_support_hut_8",
+      "position": {
+        "x": -213.404,
+        "y": 68.870047,
+        "z": -688.7223515829513
+      },
+      "yaw_deg": -180.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/TimingLodge_accent",
+      "material_resource": "Biathlon/Stadium/accent"
+    },
+    {
+      "id": "course_plateau_hut_banner_1",
+      "position": {
+        "x": -198.404,
+        "y": 68.870047,
+        "z": -673.7223515829513
+      },
+      "yaw_deg": -180.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/G2Event/BannerPole",
+      "material_resource": "Biathlon/Stadium/G2Event/Steel"
+    },
+    {
+      "id": "course_plateau_hut_banner_2",
+      "position": {
+        "x": -198.404,
+        "y": 68.870047,
+        "z": -673.7223515829513
+      },
+      "yaw_deg": -180.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/G2Event/BannerFabric",
+      "material_resource": "Biathlon/Stadium/G2Event/EventTeal"
+    },
+    {
+      "id": "course_descent_entry_banner_1",
+      "position": {
+        "x": -477.643855026511,
+        "y": 67.1563059761861,
+        "z": -620.1058745316897
+      },
+      "yaw_deg": 90.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/G2Event/BannerPole",
+      "material_resource": "Biathlon/Stadium/G2Event/Steel"
+    },
+    {
+      "id": "course_descent_entry_banner_2",
+      "position": {
+        "x": -477.643855026511,
+        "y": 67.1563059761861,
+        "z": -620.1058745316897
+      },
+      "yaw_deg": 90.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/G2Event/BannerFabric",
+      "material_resource": "Biathlon/Stadium/G2Event/EventTeal"
+    },
+    {
+      "id": "course_descent_exit_banner_1",
+      "position": {
+        "x": -495.643855026511,
+        "y": 3.987563884815792,
+        "z": -68.70394252131405
+      },
+      "yaw_deg": -90.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/G2Event/BannerPole",
+      "material_resource": "Biathlon/Stadium/G2Event/Steel"
+    },
+    {
+      "id": "course_descent_exit_banner_2",
+      "position": {
+        "x": -495.643855026511,
+        "y": 3.987563884815792,
+        "z": -68.70394252131405
+      },
+      "yaw_deg": -90.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/G2Event/BannerFabric",
+      "material_resource": "Biathlon/Stadium/G2Event/EventTeal"
+    },
+    {
+      "id": "course_return_boundary_1",
+      "position": {
+        "x": -330.04799999999994,
+        "y": -0.03,
+        "z": -10.583783638642178
+      },
+      "yaw_deg": 90.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/FinishBarrierLeft_metal",
+      "material_resource": "Biathlon/Stadium/metal"
+    },
+    {
+      "id": "course_return_boundary_2",
+      "position": {
+        "x": -330.04799999999994,
+        "y": -0.03,
+        "z": -10.583783638642178
+      },
+      "yaw_deg": 90.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/FinishBarrierLeft_white",
+      "material_resource": "Biathlon/Stadium/white"
+    },
+    {
+      "id": "course_return_boundary_3",
+      "position": {
+        "x": -330.04799999999994,
+        "y": -0.03,
+        "z": -10.583783638642178
+      },
+      "yaw_deg": 90.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/FinishBarrierLeft_accent",
+      "material_resource": "Biathlon/Stadium/accent"
+    },
+    {
+      "id": "course_return_landmark_banner_1",
+      "position": {
+        "x": -120.04799999999977,
+        "y": -0.03,
+        "z": 6.41621636135782
+      },
+      "yaw_deg": 0.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/G2Event/BannerPole",
+      "material_resource": "Biathlon/Stadium/G2Event/Steel"
+    },
+    {
+      "id": "course_return_landmark_banner_2",
+      "position": {
+        "x": -120.04799999999977,
+        "y": -0.03,
+        "z": 6.41621636135782
+      },
+      "yaw_deg": 0.0,
+      "scale": 1,
+      "mesh_resource": "Biathlon/Stadium/G2Event/BannerFabric",
+      "material_resource": "Biathlon/Stadium/G2Event/EventTeal"
     }
   ],
   "crowd": {

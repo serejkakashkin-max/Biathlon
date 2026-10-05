@@ -10,8 +10,9 @@ owner_gate_g1: APPROVED 2026-09-13
 owner_gate_g2: APPROVED 2026-09-30
 m12_status: PASS / owner-approved
 active_work_package: M13 owner presentation/manual-steering work; WP-175 preparation
-active_task: integrate owner-approved manual ski direction; Woodland course dressing and quality
+active_task: integrate owner-approved manual ski direction; WP-175 fresh weather views and complete condition flows
 owner_motion_task: TASK_M13_OWNER_MOTION_01 PASS 2026-10-05
+owner_course_dressing_task: TASK_M13_WOODLAND_DRESSING_01 PASS 2026-10-05; Windows review delivered
 owner_manual_task: TASK_M13_OWNER_MANUAL_01 IN_PROGRESS; foundation focused/native PASS; integration pending
 open_regression_defect: full core1025 PASS /1 FAIL; legacy world-query allocation2600bytes; cause unresolved
 production_venue_count: 1
@@ -19,20 +20,22 @@ production_venue: woodland_basin_v1
 deferred_work_packages: WP-170/171/172/173/174 DEFERRED_OWNER_SCOPE_REDUCTION
 last_completed_work_package: WP-169 PASS / DONE 2026-10-04
 production_fields: Sprint40 / Pursuit40 / MassStart30; includes player
-last_verified_commit: 04ea339606de703e722acbb5bbe315f3c3994b18; pushed; WP169 DONE
-next_action: verify and connect versioned manual steering; import/review bounded Woodland course dressing; WP-175 matrix
+last_verified_commit: 48c9082; pushed; motion/manual foundation/tooling and WP175 component records current; full core failure retained
+next_action: separate world travel from route station and connect manual steering; WP175 fresh weather environments and condition race/replay qualification
 wp175_preparation: five visual rows and four canonical physical snow bindings; execution/acceptance OPEN
 wp175_physical_component_checks: four canonical snow bindings; dotnet10/native10 PASS; full condition races OPEN
 review_tooling_task: explicit bounded build/smoke paths; native lease10 and generic authoring11 PASS
 current_known_blockers: []
 open_acceptance: [manual steering integration; Woodland quality; WP-175/176/177/178]
 owner_decisions_needed: []
-last_delivered_windows_build: Builds/WoodlandReviewWindows/Biathlon.exe; Development; final build/smokes PASS
+last_delivered_windows_build: Builds/WoodlandReview20261005/Biathlon.exe; Development/High; current motion+dressing; build/hidden3formats PASS
 ```
 
 WP-167/168/169 are DONE. [WP169 consolidated report](reports/WP169_VENUE01_PRODUCTION_REPORT.md) and [acceptance](quality/m13/wp169-production/acceptance.json) contain the final evidence. Woodland is now the sole production venue. WP170–174 are deferred by explicit owner scope reduction, not completed. Pine's corrected Sprint40 finished tick53,594 with exact persisted replay; Mass30/range and Pursuit40/shortcut acceptance remained OPEN. [Pine diagnostic record](quality/m13/wp170-pine-profile-repair.md), failed artifacts and [recoverable source checkpoint](deferred/wp170/README.md) are retained for later work. All412 Pine asset/meta files were removed from active Assets after byte/hash verification; the469-entry archive is outside Unity Resources. WP175–178 remain OPEN for Woodland; continue to the actual M13 gate.
 
 Owner minimal torso refinement is PASS: [TASK M13 motion01 report](reports/TASK_M13_OWNER_MOTION_01_REPORT.md). Actual native lateral ranges Flat1.877cm/Sprint2.920cm/descent0.426cm/Tuck0; nineteen focused PlayMode tests PASS and normal GameView inspected. Legs/poles/root and authoritative gameplay are preserved. Manual steering is separately IN_PROGRESS and is not yet connected to the playable host.
+
+[Woodland course dressing report](reports/TASK_M13_WOODLAND_DRESSING_01_REPORT.md): six banner groups/two fences/two crowd pockets/one hut imported and inspected;336 new actual seats,26,554 retained trees. Eleven presentation JSON changed;205 venue JSON and all meta GUIDs exact. Nine authoring tests plus one actual native footprint/ground/crowd test PASS. Current Windows review at `Builds/WoodlandReview20261005` contains minimized torso motion and course dressing;0build errors/warnings, hidden Mass30/Sprint40/actual-qualified Pursuit40 each400ticks PASS, shipped credits exact. Owner20files/3absent paths and6native assets/dirty flags preserved. No hidden rendering FPS/GPU claim and no playable manual-heading claim. This closes the bounded dressing TASK, not M13 or a new owner gate.
 
 [Manual heading foundation report](reports/TASK_M13_OWNER_MANUAL_01_REPORT.md): separate v2 signed steering/world yaw has no automatic centre or course-follow target. Focused .NET21/native11 PASS with the same actual10,000-step final pose. Full core1,026 retains one legacy allocation failure (2,600bytes), despite isolated/context/40-repeat zero-allocation passes; its cause is unresolved and tests remain strict. Manual input/AI/shared-body/replay integration is OPEN; no complete-task or full-regression PASS claim.
 

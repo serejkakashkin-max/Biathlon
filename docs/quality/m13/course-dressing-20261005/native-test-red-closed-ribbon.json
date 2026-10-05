@@ -1,0 +1,19 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 241,
+    "PassedTests": 0,
+    "FailedTests": 1,
+    "SkippedTests": 0,
+    "Duration": "00:00:06.6195585"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.WoodlandCourseDressingTests.ActualDressingKeepsGroundedBannerFootprintsPaidClearanceAndRealSeatedCrowds",
+      "Status": "Failed",
+      "Duration": "00:00:06.5620000",
+      "Message": "  penalty_150: dressing keeps the exact source course vertices.\r\n  Expected and actual are both <UnityEngine.Vector3[242]>\r\n  Values differ at index [240]\r\n  Expected: (88.40, 0.00, -6.69)\r\n  But was:  (88.60, 0.00, -6.69)\r\n",
+      "StackTrace": "at NUnit.Framework.CollectionAssert.AreEqual (System.Collections.IEnumerable expected, System.Collections.IEnumerable actual, System.String message, System.Object[] args) [0x00008] in <8b63e8ac0a4746599ed207982825ae6c>:0\r\nat Biathlon.PlayModeTests.WoodlandCourseDressingTests+<ActualDressingKeepsGroundedBannerFootprintsPaidClearanceAndRealSeatedCrowds>d__3.MoveNext () [0x0069d] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\WoodlandCourseDressingTests.cs:112\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "qualified_pursuit40_player_content_smoke_v1",
+  "passed": true,
+  "scope": "Actual Sprint40 qualification identities and exact start gaps; initialized current Pursuit40 content; paid400-tick normal-player prefix. Hidden-window rendering may be suspended: zero frames supplies no visual evidence; draw_calls=-1 is unavailable. Native Game View supplies separate review. No full-race/FPS/GPU claim.",
+  "window_rendering_suspended": true,
+  "exit_code": 0,
+  "build": {
+    "schema_version": 1,
+    "id": "woodland_basin_v1_windows_review_build_v1",
+    "result": "Succeeded",
+    "unity": "6000.6.0f1",
+    "startup_scene": "Assets/Scenes/Production/WoodlandBasinMassStart.unity",
+    "review_definition_id": "woodland_review_v1",
+    "initial_quality": "high",
+    "errors": 0,
+    "warnings": 0,
+    "bytes": 359783913,
+    "seconds": 3.0761738999999997
+  },
+  "rows": [
+    {
+      "schema_version": 1,
+      "id": "qualified_pursuit40_player_content_smoke_v1",
+      "venue": "woodland_basin_v1",
+      "profile": "woodland_basin_pursuit_men_v1",
+      "route_id": "woodland_basin_pursuit_route_v2",
+      "source_result_id": "woodland_basin_v1_sprint_result_v1",
+      "source_sha256": "0016b935974e97b58052c9ac3692e284f494bed2988ea57c4580e940821b652c",
+      "athletes": 40,
+      "mats": 30,
+      "banks": 30,
+      "qualified_count": 40,
+      "terrain_tiles": 99,
+      "forest_groups": 90,
+      "trees": 26554,
+      "start_tick": 0,
+      "tick": 400
+    }
+  ],
+  "source_record": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-sprint40-record.json",
+  "source_record_sha256": "0016b935974e97b58052c9ac3692e284f494bed2988ea57c4580e940821b652c",
+  "source_replay": "C:\\game\\Biathlon\\Biathlon\\artifacts\\wp169closure\\final-sprint40-replay.json",
+  "source_replay_sha256": "5dbbf6e1210985c4a081c78653d028795a3d89ea5dd4fca56b3e3455aa5f34c4",
+  "exe_sha256": "718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00",
+  "log_sha256": "2e4aa3219658519cd969c5e8563f1f07d74fa729f800d16226d3773003051c65",
+  "log": "C:\\game\\Biathlon\\Biathlon\\artifacts\\production-player-smoke\\qualified-20261005-090606-444\\Pursuit40-Player.log"
+}

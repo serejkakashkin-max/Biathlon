@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "id": "production_player_content_smoke_v1",
+  "passed": true,
+  "venue_id": "woodland_basin_v1",
+  "scope": "Initialized bound Sprint40/Mass30 content, resource-owned startup quality, paid400-tick controls and real scene transition. Hidden-window rendering may be suspended: zero frames then supplies no visual evidence; draw_calls=-1 is unavailable. Native normal Game View supplies separate visual review. No FPS/GPU or full-race claim.",
+  "window_rendering_suspended": true,
+  "exit_code": 0,
+  "build": {
+    "schema_version": 1,
+    "id": "woodland_basin_v1_windows_review_build_v1",
+    "result": "Succeeded",
+    "unity": "6000.6.0f1",
+    "startup_scene": "Assets/Scenes/Production/WoodlandBasinMassStart.unity",
+    "review_definition_id": "woodland_review_v1",
+    "initial_quality": "high",
+    "errors": 0,
+    "warnings": 0,
+    "bytes": 359783913,
+    "seconds": 3.0761738999999997
+  },
+  "review": {
+    "schema_version": 1,
+    "id": "woodland_review_v1",
+    "venue_id": "woodland_basin_v1",
+    "initial_entry_id": "mass30",
+    "initial_quality_tier": "high",
+    "entries": [
+      {
+        "id": "mass30",
+        "label": "Woodland Mass Start · 30",
+        "scene_path": "Assets/Scenes/Production/WoodlandBasinMassStart.unity",
+        "format_id": "mass_start",
+        "field_count": 30
+      },
+      {
+        "id": "sprint40",
+        "label": "Woodland Sprint · 40",
+        "scene_path": "Assets/Scenes/Production/WoodlandBasinSprint.unity",
+        "format_id": "sprint",
+        "field_count": 40
+      }
+    ]
+  },
+  "rows": [
+    {
+      "schema_version": 1,
+      "id": "production_player_content_smoke_v1",
+      "entry": "mass30",
+      "scene": "Assets/Scenes/Production/WoodlandBasinMassStart.unity",
+      "initial_quality": "high",
+      "route_id": "woodland_basin_mass_start_route_v1",
+      "start_tick": 0,
+      "tick": 400,
+      "athletes": 30,
+      "terrain_tiles": 99,
+      "forest_groups": 90,
+      "trees": 26554,
+      "mats": 30,
+      "banks": 30,
+      "visible_loops": 34
+    },
+    {
+      "schema_version": 1,
+      "id": "production_player_content_smoke_v1",
+      "entry": "sprint40",
+      "scene": "Assets/Scenes/Production/WoodlandBasinSprint.unity",
+      "initial_quality": "high",
+      "route_id": "woodland_basin_sprint_route_v2",
+      "start_tick": 0,
+      "tick": 400,
+      "athletes": 40,
+      "terrain_tiles": 99,
+      "forest_groups": 90,
+      "trees": 26554,
+      "mats": 30,
+      "banks": 30,
+      "visible_loops": 35
+    }
+  ],
+  "exe_sha256": "718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00",
+  "log_sha256": "20d17bb9169161f10eecd449c2f6efc4351ae4d137ddb78f4c26508793a7feec",
+  "build_files_sha256": "2d05fb7a7edae67c052b50a48fc8c87bf71f82f86179b214513d3259d9d6b2d1",
+  "log": "C:\\game\\Biathlon\\Biathlon\\artifacts\\production-player-smoke\\20261005-090606-401\\Player.log"
+}

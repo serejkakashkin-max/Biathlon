@@ -1,0 +1,19 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 241,
+    "PassedTests": 0,
+    "FailedTests": 1,
+    "SkippedTests": 0,
+    "Duration": "00:00:06.4214679"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.WoodlandCourseDressingTests.ActualDressingKeepsGroundedBannerFootprintsPaidClearanceAndRealSeatedCrowds",
+      "Status": "Failed",
+      "Duration": "00:00:06.3630000",
+      "Message": "  Expected: (1.00, 1.00, 1.00)\r\n  But was:  (1.00, 1.00, 1.00)\r\n",
+      "StackTrace": "at Biathlon.PlayModeTests.WoodlandCourseDressingTests.NativeMeshFootprint (System.Collections.Generic.List`1[T] parts, UnityEngine.MeshFilter[] filters, System.Double& bottom) [0x00101] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\WoodlandCourseDressingTests.cs:145\r\nat Biathlon.PlayModeTests.WoodlandCourseDressingTests+<ActualDressingKeepsGroundedBannerFootprintsPaidClearanceAndRealSeatedCrowds>d__3.MoveNext () [0x0024d] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\WoodlandCourseDressingTests.cs:64\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+    }
+  ]
+}

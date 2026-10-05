@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "woodland_candidate03_independent_reproduction_receipt_v1",
+  "status": "PASS_STATIC_REPRODUCIBLE_NOT_IMPORTED_NATIVE_REVIEW_PENDING",
+  "source_assets_immutable": true,
+  "byte_exact_regenerated_resources": 216,
+  "byte_exact_regenerated_proof": true,
+  "byte_exact_regenerated_independent_environment_verification": true,
+  "focused_authoring_tests": {
+    "passed": 9,
+    "failed": 0
+  },
+  "source_code_sha256": {
+    "scripts/content/m13/dress_woodland_course.py": "037b3743fad3a7a0b86d8d7d26944607d0ca79cc1816c232c05c0e79f5eeb90f",
+    "scripts/content/m13/test_woodland_course_dressing.py": "72f1e66c74ee38692181b44e50ce37fabf2131adb35fd02e4da220681588a3f4",
+    "scripts/content/m13/recipes/woodland_basin_course_dressing_v1.json": "7c032eef3d75bffaff47e430dad1c5e2750d88cfd9d1ab8823c2286a29074307"
+  },
+  "proof_sha256": "a6ec5e0cc62afee952c56c1b25a50309de3f0764ec4be38a08b533c13c9d313f",
+  "boundary_audit_sha256": "902e3d88f871cd73d6f509c5defb51ca9cb9b176ec3ad1a610661edab941de56",
+  "environment_verification_sha256": "6e3c87d377ea98edad201809ac3db902b698467c5b5e8328bfa39af15cd40890",
+  "source_json": 216,
+  "changed_json": 11,
+  "unchanged_json": 205,
+  "pruned_trees": 60,
+  "retained_trees": 26554,
+  "additional_spectator_anchors": 336,
+  "maximum_banner_embedding_m": 0.15721395999999999,
+  "commands": [
+    "python scripts/content/m13/test_woodland_course_dressing.py -v",
+    "python scripts/content/m13/dress_woodland_course.py --output-root artifacts/owner-woodland-scenery-20261005/candidate-03/reproduction",
+    "python scripts/content/m13/verify_environment.py --output-root artifacts/owner-woodland-scenery-20261005/candidate-03/reproduction",
+    "python artifacts/owner-woodland-scenery-20261005/candidate-03/review-reproduction.py"
+  ]
+}

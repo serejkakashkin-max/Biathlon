@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "id": "woodland_basin_environment_serialized_verification_v1",
+  "status": "PASS_STATIC_DATA_RUNTIME_VISUAL_AND_PERFORMANCE_PENDING",
+  "tile_count": 99,
+  "coincident_terrain_border_checks": 11490,
+  "unique_world_height_vertices": 406785,
+  "authored_corridor_width_sample_count": 1327,
+  "forest_group_count": 90,
+  "tree_count": 26554,
+  "maximum_tree_to_triangle_height_error_m": 4.999560019314231e-07,
+  "minimum_checked_full_canopy_corridor_gap_m": 3.000675571789384,
+  "target_count": 30,
+  "course_surface_samples": 4893,
+  "minimum_terrain_minus_route_height_m": -0.25941703687436757,
+  "maximum_terrain_minus_route_height_m": -0.029999549647881096,
+  "full_runtime_ribbon_triangle_clearance": {
+    "method": "exact affine extrema of every runtime ribbon/terrain triangle overlay",
+    "ribbon_triangle_count": 7570,
+    "overlay_vertex_count": 250484,
+    "buried_ribbon_triangle_count": 0,
+    "minimum_ribbon_minus_terrain_m": 0.029997147619724274,
+    "maximum_ribbon_minus_terrain_m": 0.357685261900059,
+    "minimum_gap_location": {
+      "loop_id": "main",
+      "row_start_distance_m": 1750.0,
+      "row_end_distance_m": 1752.0,
+      "world": {
+        "x": -489.64385986328125,
+        "y": 67.5685806274414,
+        "z": -623.08642578125
+      }
+    },
+    "maximum_gap_location": {
+      "loop_id": "main",
+      "row_start_distance_m": 1968.0,
+      "row_end_distance_m": 1970.0,
+      "world": {
+        "x": -483.64385986328125,
+        "y": 42.99795937471137,
+        "z": -408.35614013671875
+      }
+    },
+    "per_loop": {
+      "main": {
+        "minimum_gap_m": 0.029997147619724274,
+        "maximum_gap_m": 0.357685261900059
+      },
+      "mat_30": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_29": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_28": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_27": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_26": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_25": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_24": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_23": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_22": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_21": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_20": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_19": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_18": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_17": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_16": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_15": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_14": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_13": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_12": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_11": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_10": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_09": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_08": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_07": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_06": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_05": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_04": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_03": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_02": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "mat_01": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "exit_aisle": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "penalty_150": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "start_approach": {
+        "minimum_gap_m": 0.029999999329447746,
+        "maximum_gap_m": 0.029999999329447746
+      },
+      "pursuit_shortcut": {
+        "minimum_gap_m": 0.02999842840573308,
+        "maximum_gap_m": 0.27581263161349057
+      },
+      "sprint_extension": {
+        "minimum_gap_m": 0.02999850878485688,
+        "maximum_gap_m": 0.34057143233903986
+      }
+    }
+  },
+  "environment_sha256": "ed72f39fc87ee2d3e190f5b3a93ec8114032ef47553ba9a16b9bf9fefe797e5f"
+}

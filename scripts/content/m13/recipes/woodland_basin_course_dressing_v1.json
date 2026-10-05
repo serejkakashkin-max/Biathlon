@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "id": "woodland_basin_course_dressing_v1",
+  "venue_id": "woodland_basin_v1",
+  "minimum_course_edge_clearance_m": 3,
+  "canopy_landmark_clearance_m": 1,
+  "templates": {
+    "banner": {
+      "maximum_foundation_variation_m": 0.25,
+      "foundation_mode": "embed_footing_into_snow",
+      "maximum_snow_embedding_m": 0.25,
+      "parts": [
+        {"mesh_resource": "Biathlon/Stadium/G2Event/BannerPole", "material_resource": "Biathlon/Stadium/G2Event/Steel"},
+        {"mesh_resource": "Biathlon/Stadium/G2Event/BannerFabric", "material_resource": "Biathlon/Stadium/G2Event/EventTeal"}
+      ]
+    },
+    "short_fence": {
+      "maximum_foundation_variation_m": 0.25,
+      "parts": [
+        {"mesh_resource": "Biathlon/Stadium/FinishBarrierLeft_metal", "material_resource": "Biathlon/Stadium/metal"},
+        {"mesh_resource": "Biathlon/Stadium/FinishBarrierLeft_white", "material_resource": "Biathlon/Stadium/white"},
+        {"mesh_resource": "Biathlon/Stadium/FinishBarrierLeft_accent", "material_resource": "Biathlon/Stadium/accent"}
+      ]
+    },
+    "spectator_pocket": {
+      "maximum_foundation_variation_m": 0.25,
+      "prefab_resource": "Biathlon/Stadium/G2Grandstand/Grandstand"
+    },
+    "support_hut": {
+      "maximum_foundation_variation_m": 0.25,
+      "parts": [
+        {"mesh_resource": "Biathlon/Stadium/TimingLodge_wood", "material_resource": "Biathlon/Stadium/wood"},
+        {"mesh_resource": "Biathlon/Stadium/TimingLodge_woodLight", "material_resource": "Biathlon/Stadium/woodLight"},
+        {"mesh_resource": "Biathlon/Stadium/TimingLodge_snow", "material_resource": "Biathlon/Snow/cold"},
+        {"mesh_resource": "Biathlon/Stadium/TimingLodge_metal", "material_resource": "Biathlon/Stadium/metal"},
+        {"mesh_resource": "Biathlon/Stadium/TimingLodge_glass", "material_resource": "Biathlon/Stadium/glass"},
+        {"mesh_resource": "Biathlon/Stadium/G2Event/Mapped_TimingLodge_dark", "material_resource": "Biathlon/Stadium/G2Event/corrugated_iron"},
+        {"mesh_resource": "Biathlon/Stadium/G2Event/Mapped_TimingLodge_concrete", "material_resource": "Biathlon/Stadium/G2Event/concrete"},
+        {"mesh_resource": "Biathlon/Stadium/TimingLodge_accent", "material_resource": "Biathlon/Stadium/accent"}
+      ]
+    }
+  },
+  "landmarks": [
+    {"id": "course_climb_entry_banner", "template": "banner", "loop_id": "main", "distance_m": 320, "lateral_offset_m": 8, "yaw_offset_deg": 90},
+    {"id": "course_summit_banner", "template": "banner", "loop_id": "main", "distance_m": 820, "lateral_offset_m": 9, "yaw_offset_deg": 90},
+    {"id": "course_plateau_spectators", "template": "spectator_pocket", "loop_id": "main", "distance_m": 1100, "lateral_offset_m": 18, "yaw_offset_deg": 90},
+    {"id": "course_plateau_boundary", "template": "short_fence", "loop_id": "main", "distance_m": 1100, "lateral_offset_m": 8, "yaw_offset_deg": 0},
+    {"id": "course_plateau_support_hut", "template": "support_hut", "loop_id": "main", "distance_m": 1450, "lateral_offset_m": -24, "yaw_offset_deg": -90},
+    {"id": "course_plateau_hut_banner", "template": "banner", "loop_id": "main", "distance_m": 1435, "lateral_offset_m": -9, "yaw_offset_deg": -90},
+    {"id": "course_descent_entry_banner", "template": "banner", "loop_id": "main", "distance_m": 1755, "lateral_offset_m": 9, "yaw_offset_deg": 90},
+    {"id": "course_descent_exit_banner", "template": "banner", "loop_id": "main", "distance_m": 2310, "lateral_offset_m": -9, "yaw_offset_deg": -90},
+    {"id": "course_return_spectators", "template": "spectator_pocket", "loop_id": "main", "distance_m": 2520, "lateral_offset_m": 18, "yaw_offset_deg": 90},
+    {"id": "course_return_boundary", "template": "short_fence", "loop_id": "main", "distance_m": 2520, "lateral_offset_m": 8, "yaw_offset_deg": 0},
+    {"id": "course_return_landmark_banner", "template": "banner", "loop_id": "main", "distance_m": 2730, "lateral_offset_m": -9, "yaw_offset_deg": -90}
+  ],
+  "viewing_strips": [
+    {
+      "id": "plateau_spectator_viewing_strip",
+      "spectator_landmark_id": "course_plateau_spectators",
+      "fence_landmark_id": "course_plateau_boundary",
+      "loop_id": "main",
+      "distance_m": 1100,
+      "polygon_forward_lateral_m": [[-0.090001, 8.325], [31.290001, 8.325], [9.76, 17.05032501], [-9.76, 17.05032501]]
+    },
+    {
+      "id": "return_spectator_viewing_strip",
+      "spectator_landmark_id": "course_return_spectators",
+      "fence_landmark_id": "course_return_boundary",
+      "loop_id": "main",
+      "distance_m": 2520,
+      "polygon_forward_lateral_m": [[-0.090001, 8.325], [31.290001, 8.325], [9.76, 17.05032501], [-9.76, 17.05032501]]
+    }
+  ],
+  "provenance": [
+    "docs/licensing/g2_visual/grandstand-derivation.json",
+    "docs/licensing/g2_visual/grandstand-runtime-manifest.json",
+    "docs/licensing/g2_visual/event-derivation.json",
+    "Assets/Resources/Biathlon/G2ThirdPartyCredits.txt"
+  ],
+  "status": "CANDIDATE_NOT_IMPORTED_NATIVE_VISUAL_REVIEW_REQUIRED"
+}

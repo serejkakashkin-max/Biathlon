@@ -1,0 +1,19 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 241,
+    "PassedTests": 0,
+    "FailedTests": 1,
+    "SkippedTests": 0,
+    "Duration": "00:00:05.2865509"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.WoodlandCourseDressingTests.ActualDressingKeepsGroundedBannerFootprintsPaidClearanceAndRealSeatedCrowds",
+      "Status": "Failed",
+      "Duration": "00:00:05.2340000",
+      "Message": "  Expected: same as <woodland_basin_visual_v1_main (UnityEngine.Mesh)>\r\n  But was:  <woodland_basin_shared_apron_v1 outside paid draw main (UnityEngine.Mesh)>\r\n",
+      "StackTrace": "at Biathlon.PlayModeTests.ProductionTerrainContactTests.RenderedVertices (UnityEngine.Mesh mesh, UnityEngine.MeshRenderer renderer) [0x00030] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:157\r\nat Biathlon.PlayModeTests.ProductionTerrainContactTests+JoinedWorld..ctor (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course) [0x001fe] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:134\r\nat Biathlon.PlayModeTests.WoodlandCourseDressingTests+<ActualDressingKeepsGroundedBannerFootprintsPaidClearanceAndRealSeatedCrowds>d__3.MoveNext () [0x001c1] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\WoodlandCourseDressingTests.cs:54\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+    }
+  ]
+}

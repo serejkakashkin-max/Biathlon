@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "id": "woodland_course_dressing_acceptance_20261005",
+  "status": "PASS_BOUNDED_PRESENTATION_TASK",
+  "venue_id": "woodland_basin_v1",
+  "m13_complete": false,
+  "manual_steering_playable": false,
+  "full_core_regression": "OPEN_RETAINED_LEGACY_ALLOCATION_FAILURE_1025PASS_1FAIL",
+  "authoring_tests_passed": 9,
+  "native_tests_passed": 1,
+  "changed_presentation_json": 11,
+  "unchanged_venue_json": 205,
+  "meta_guids_preserved": true,
+  "landmarks": 11,
+  "banners": 6,
+  "fences": 2,
+  "crowd_pockets": 2,
+  "support_huts": 1,
+  "added_actual_seats": 336,
+  "forest_groups": 90,
+  "trees": 26554,
+  "pruned_original_instances": 60,
+  "proof_sha256": "a6ec5e0cc62afee952c56c1b25a50309de3f0764ec4be38a08b533c13c9d313f",
+  "import_receipt_sha256": "1d7aec45a0b280a74caa434017b8aabb6664d0aae3f739c6fa1db10a43dc1fa5",
+  "native_test_sha256": "d5be4d9d6124618392d6c395e7f506265cb616fe3b1c83a80a708f51d7a6b3d9",
+  "captures": {
+    "candidate03-climb-banner-base.png": {
+      "sha256": "1f4a50bde4848255a311e62ddaf3ccb03839bd45bb9331eb3e8139c330cee39d",
+      "bytes": 5047486,
+      "kind": "actual ordinary GameView; detached frozen field tick0; not race evidence"
+    },
+    "candidate03-hut.png": {
+      "sha256": "844bb82e8633768e5bba836f4f49f0d45a0d1995e4a0b3033f6f196fe0e028cd",
+      "bytes": 3418231,
+      "kind": "actual ordinary GameView; detached frozen field tick0; not race evidence"
+    },
+    "candidate03-plateau.png": {
+      "sha256": "c3ac9a4e733e10a62cc6bfbb72d408d21ab18f0da6c6048ce43043b6ff9b8601",
+      "bytes": 3383032,
+      "kind": "actual ordinary GameView; detached frozen field tick0; not race evidence"
+    },
+    "candidate03-return.png": {
+      "sha256": "11378250f930bc63356ed63011ac45d8079fbb7cfa82c2b3f50a91912c13f346",
+      "bytes": 3152178,
+      "kind": "actual ordinary GameView; detached frozen field tick0; not race evidence"
+    }
+  },
+  "build": {
+    "schema_version": 1,
+    "id": "woodland_basin_v1_windows_review_build_v1",
+    "result": "Succeeded",
+    "unity": "6000.6.0f1",
+    "startup_scene": "Assets/Scenes/Production/WoodlandBasinMassStart.unity",
+    "review_definition_id": "woodland_review_v1",
+    "initial_quality": "high",
+    "errors": 0,
+    "warnings": 0,
+    "bytes": 359783913,
+    "seconds": 3.0761738999999997
+  },
+  "hidden_content_formats": [
+    {
+      "id": "mass30",
+      "ticks": 400,
+      "passed": true
+    },
+    {
+      "id": "sprint40",
+      "ticks": 400,
+      "passed": true
+    },
+    {
+      "id": "actual_qualified_pursuit40",
+      "ticks": 400,
+      "passed": true
+    }
+  ],
+  "shipped_credits_exact": true,
+  "hidden_rendering_suspended": true,
+  "fps_gpu_qualified": false,
+  "owner_file_preservation": {
+    "schema_version": 1,
+    "id": "woodland_review_owner_file_preservation",
+    "owner_paths": 23,
+    "existing_files": 20,
+    "missing_paths_preserved": 3,
+    "changed": [],
+    "passed": true
+  },
+  "native_owner_preservation": {
+    "schema_version": 1,
+    "id": "woodland_review_native_owner_preservation",
+    "passed": true,
+    "native_owner_assets": 6,
+    "serialized_values_and_dirty_flags_exact": true,
+    "frame_timing_exact": true
+  },
+  "console": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 4,
+    "compilation_failed": false
+  }
+}
