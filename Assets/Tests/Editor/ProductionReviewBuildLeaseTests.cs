@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.IO;
+using System.IO.MemoryMappedFiles;
 using System.Reflection;
 using System.Text;
 using Biathlon.Unity;
@@ -15,6 +16,30 @@ namespace Biathlon.VenueEditorTests
 {
     public sealed class ProductionReviewBuildLeaseTests
     {
+        [Test] public void TimingRestorationSurvivesTheEditorsMappedInputSettingsFile()
+        {
+            string path=Path.Combine(Path.GetTempPath(),"biathlon-mapped-build-lease-"+Guid.NewGuid().ToString("N")+".asset");
+            const string preload="  - {fileID: 123, guid: test_input_actions, type: 3}";
+            var original=Encoding.UTF8.GetBytes("PlayerSettings:\n  preloadedAssets: []\n  metroInputSource: 0\n  ownerField: preserved\n  enableFrameTimingStats: 0\n");
+            var temporary=Encoding.UTF8.GetBytes(Encoding.UTF8.GetString(original).Replace("preloadedAssets: []","preloadedAssets:\n"+preload).Replace("enableFrameTimingStats: 0","enableFrameTimingStats: 1"));
+            try
+            {
+                File.WriteAllBytes(path,temporary);
+                // Unity can retain a mapped read view while the post-build scope restores
+                // a shorter settings document. Truncating that file produces Win32 1224.
+                using(var stream=new FileStream(path,FileMode.Open,FileAccess.Read,FileShare.ReadWrite|FileShare.Delete))
+                using(var mapped=MemoryMappedFile.CreateFromFile(stream,null,0,MemoryMappedFileAccess.Read,HandleInheritability.None,true))
+                using(var view=mapped.CreateViewAccessor(0,0,MemoryMappedFileAccess.Read))
+                {
+                    var restore=typeof(PlayerBuildPipeline).GetMethod("RestoreProductionTimingFile",BindingFlags.NonPublic|BindingFlags.Static);
+                    Assert.That((bool)restore.Invoke(null,new object[]{path,original,false,preload}),Is.True);
+                    CollectionAssert.AreEqual(original,File.ReadAllBytes(path));
+                    Assert.That(view.ReadByte(0),Is.EqualTo(temporary[0]),"An existing reader keeps its complete original mapping.");
+                }
+                Assert.That(Directory.GetFiles(Path.GetDirectoryName(path),Path.GetFileName(path)+".biathlon-restore-*"),Is.Empty);
+            }
+            finally{if(File.Exists(path))File.Delete(path);}
+        }
         [TestCase(false)][TestCase(true)] public void IdleEditorWithoutActivePipelineGetsTemporaryBuildBindingAndRestoresIt(bool reject)
         {
             var priorQuality=QualitySettings.renderPipeline;var priorDefault=GraphicsSettings.defaultRenderPipeline;

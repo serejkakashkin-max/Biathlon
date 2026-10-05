@@ -96,7 +96,19 @@ namespace Biathlon.Unity
             }
             foreach(var candidate in new[]{text,text.Replace("\r\n","\n"),text.Replace("\r\n","\n").Replace("\n","\r\n")})
                 if(ProductionBytesEqual(System.Text.Encoding.UTF8.GetBytes(candidate),original))
-                {File.WriteAllBytes(path,original);return true;}
+                {
+                    // Unity may retain a mapped input-settings reader after BuildPipeline.
+                    // Truncating its file fails with Win32 1224. Replace the fully proven
+                    // document atomically, preserving the existing reader's old mapping.
+                    string temporary=path+".biathlon-restore-"+Guid.NewGuid().ToString("N");
+                    try
+                    {
+                        File.WriteAllBytes(temporary,original);
+                        if(!ProductionBytesEqual(File.ReadAllBytes(path),current))return false;
+                        File.Replace(temporary,path,null);return true;
+                    }
+                    finally{if(File.Exists(temporary))File.Delete(temporary);}
+                }
             return false;
         }
         private static bool ProductionBytesEqual(byte[] a,byte[] b)
