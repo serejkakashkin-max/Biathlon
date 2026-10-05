@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "id": "woodland_weather_matrix_v1",
+  "venue_id": "woodland_basin_v1",
+  "status": "PLANNED_NATIVE_CONDITIONS_READABILITY_AND_PERFORMANCE_UNVERIFIED",
+  "resources": {
+    "manifest": "Biathlon/Venues/woodland_basin_v1/manifest",
+    "track": "Biathlon/Venues/woodland_basin_v1/track",
+    "environment": "Biathlon/Venues/woodland_basin_v1/environment",
+    "weather": "Biathlon/weather_visual_v1",
+    "lighting": "Biathlon/g2_lighting_visual_v1",
+    "snow_catalog": "Biathlon/snow_catalog_provisional_v1"
+  },
+  "visual_rows": [
+    {"id": "high_clear", "tier": "high", "weather_preset": "clear", "lighting_preset": "clear_cold"},
+    {"id": "high_overcast", "tier": "high", "weather_preset": "overcast", "lighting_preset": "overcast"},
+    {"id": "high_snowfall", "tier": "high", "weather_preset": "snowfall", "lighting_preset": "overcast"},
+    {"id": "balanced_snowfall", "tier": "balanced", "weather_preset": "snowfall", "lighting_preset": "overcast"},
+    {"id": "low_snowfall", "tier": "low", "weather_preset": "snowfall", "lighting_preset": "overcast"}
+  ],
+  "physical_snow_profiles": ["packed_neutral", "fresh_soft", "icy_fast", "wet_slow"],
+  "native_view_requirements": [
+    {"id": "chase_course", "evidence": "ordinary_game_view_actual_accepted_athlete_pose", "checks": ["athlete_silhouette", "course_edges", "nearby_rivals", "snow_contact"]},
+    {"id": "technical_descent", "evidence": "ordinary_game_view_actual_descent_or_tuck", "checks": ["forward_visibility", "turn_readability", "snowfall_depth", "terrain_contact"]},
+    {"id": "stadium_mass30", "evidence": "ordinary_game_view_actual_mass_start_30_field", "checks": ["athlete_separation", "range_entry", "crowd_and_event_dressing", "snowfall_occlusion"]},
+    {"id": "broadcast_stadium", "evidence": "ordinary_game_view_explicit_camera_actual_mass_start_field", "checks": ["whole_stadium_readability", "forest_horizon", "crowd_lod", "course_landmarks"]},
+    {"id": "range_prone", "evidence": "ordinary_game_view_actual_paid_prone_bout", "checks": ["small_inner_aperture", "same_outer_target_size", "aim_visibility", "weather_occlusion"]},
+    {"id": "range_standing", "evidence": "ordinary_game_view_actual_paid_standing_bout", "checks": ["large_aperture", "same_outer_target_size", "aim_visibility", "weather_occlusion"]}
+  ],
+  "race_formats": [
+    {"id": "sprint", "profile_resource": "Biathlon/Venues/woodland_basin_v1/sprint_profile", "route_resource": "Biathlon/Venues/woodland_basin_v1/sprint_route", "field_count": 40},
+    {"id": "pursuit", "profile_resource": "Biathlon/Venues/woodland_basin_v1/pursuit_profile", "route_resource": "Biathlon/Venues/woodland_basin_v1/pursuit_route", "field_count": 40, "qualification": "actual_sprint_result_same_snow_condition"},
+    {"id": "mass_start", "profile_resource": "Biathlon/Venues/woodland_basin_v1/mass_start_profile", "route_resource": "Biathlon/Venues/woodland_basin_v1/mass_start_route", "field_count": 30}
+  ],
+  "evidence_policy": {
+    "capture_tool": "screenshot-game-view",
+    "physical_condition_inputs_must_be_explicit": true,
+    "presentation_weather_does_not_change_authoritative_wind_or_snow": true,
+    "synthetic_frame_timings_qualify_performance": false,
+    "hidden_player_qualifies_sustained_fps_or_gpu": false,
+    "planned_matrix_qualifies_wp175": false
+  }
+}

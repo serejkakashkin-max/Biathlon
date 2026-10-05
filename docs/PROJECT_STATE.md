@@ -21,6 +21,7 @@ last_completed_work_package: WP-169 PASS / DONE 2026-10-04
 production_fields: Sprint40 / Pursuit40 / MassStart30; includes player
 last_verified_commit: 04ea339606de703e722acbb5bbe315f3c3994b18; pushed; WP169 DONE
 next_action: verify and connect versioned manual steering; import/review bounded Woodland course dressing; WP-175 matrix
+wp175_preparation: five visual rows and four canonical physical snow bindings; execution/acceptance OPEN
 current_known_blockers: []
 open_acceptance: [manual steering integration; Woodland quality; WP-175/176/177/178]
 owner_decisions_needed: []
@@ -44,6 +45,8 @@ WP169 final acceptance (historical baseline):
 Hidden-only standalone checks remain the owner's instruction. Windows suspended normal-camera rendering (`HIDDEN_WINDOW_SUSPENDED`); GPU/frame counters, Windows visual/FPS proof unavailable. Ordinary Unity GameViews supply visual review separately. No sustained performance claim follows from headless timing or hidden content checks; WP-178 owns final performance/LOD.
 
 Frozen historical60/Y/T/T2/Z/tooling proofs require no broad rerun without new evidence. Historical Pursuit60 stopped ski time30.05% -> WP-177 cause/balance review where relevant to the retained course. Woodland weather/snow matrix -> WP-175. OWNER-FEEL-001 shooting too easy remains OPEN for WP-229/230/232; no hidden RNG or silent rebalance.
+
+WP175 preparation: [single-Woodland conditions/readability plan](../scripts/content/m13/WP175_WOODLAND_WEATHER_PLAN.md) defines five fresh visual environments (High clear/overcast/snowfall, Balanced/Low snowfall) and four canonical physical snow bindings. Eleven planner/validation tests PASS; current candidate inputs are outside Assets under `artifacts/wp175-woodland-weather-plan-20261005-v2`. These are planned inputs, not native views, completed condition races, performance evidence or WP175 acceptance. Preserve the hidden-only standalone limit.
 
 Preserve approved chase/shooting cameras, licenses/CC BY notices/de-branding, pure deterministic core and unrelated owner edits. Standing authorization covers coherent commits/pushes and audited free assets. Stop only at real owner gate, technical blocker, licensing/paid/account action or material scope decision.
 
