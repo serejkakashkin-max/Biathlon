@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "id": "manual_heading_foundation_20261005",
+  "status": "IN_PROGRESS_FULL_CORE_FAILURE_RETAINED",
+  "production_enabled": false,
+  "focused_dotnet": {
+    "status": "PURE_KERNEL_PASS_INTEGRATION_PENDING",
+    "source_hashes": {
+      "Assets/Scripts/Domain/ManualSkiCommand.cs": "f54290ae153a439477ef39c3f49fa51d139de90662ec33bde7b4d1e7c7e10dc9",
+      "Assets/Scripts/Domain/ManualSkiHeadingState.cs": "a229166d10ff98f510cb2dbbaf3ce78cf35ba6aed8fff15ad9ab8e952ac2d4a9",
+      "Assets/Scripts/Domain/ManualSkiSteeringDefinition.cs": "3dd410b7d6a895eb2328b08068d1593d71d23c1682dfa40a78bffcf1bb4ec2b6",
+      "Assets/Scripts/Simulation/ManualSkiSteeringSystem.cs": "f908b01c337869968e9e36f903968d8ede5c61fd8704832a2fda4351ff46aefd",
+      "Assets/Tests/EditMode/ManualSkiSteeringTests.cs": "c91a34df10915b102513a56e051ddf166ebe3b2681a1bd7614c9390eaeea709d",
+      "docs/adr/ADR-0028-manual-world-ski-heading.md": "3afdb778f7facd745e4c57eede1ba24fd651d5bc23ca8f03bc5d7a2b8aff8065"
+    },
+    "test_trx_sha256": "1ae3ff4694f67415566ffb89b26915342d106c81c6fbfaec341be6c72459dfd2",
+    "actual_test_counts": {
+      "total": "21",
+      "executed": "21",
+      "passed": "21",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "new_tests_passed": 11,
+    "all_focused_passed": 21,
+    "build": "Release net8 tests / netstandard2.1 pure core / LangVersion9 TreatWarningsAsErrors",
+    "native_validation": "11 native EditMode PASS; actual10,000step fingerprint exact",
+    "production_enabled": false,
+    "race_balance_impact": "NONE: no existing factory, field, context, tape, input or gameplay file changed",
+    "limitations": [
+      "No route station/physical odometer integration",
+      "No collision, edge, topology or body sweep admission",
+      "Planar supplied travel distance with uniform density in time, not force-profile integration",
+      "Fractional quadrature samples are approximate; reserve or qualified representation required",
+      "Grip excess exposed, braking/slip not yet implemented",
+      "No AI controller or replay v2 integration",
+      "No production tuning definition imported",
+      "Yaw/grip speed argument is planar horizontal speed; velocity-profile demand qualification remains pending"
+    ]
+  },
+  "native_tests": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 1047,
+      "PassedTests": 11,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:00.9746192"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.ManualSkiSteeringTests.ConstantRateTrajectoryMatchesCircularArcAndSamplesPaidPrefix",
+        "Status": "Passed",
+        "Duration": "00:00:00.0160000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiSteeringTests.ExplicitV2RoundTripPreservesLargeTickAndRejectsLegacyStream",
+        "Status": "Passed",
+        "Duration": "00:00:00.0050000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiSteeringTests.GripDropReportsExistingMomentumInsteadOfSnappingDirectionOrHidingCost",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiSteeringTests.HeadingWrapIsCanonicalAndOppositeWorldHeadingDoesNotBecomeForwardRouteTravel",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiSteeringTests.HigherSpeedTuckAndGripBoundRequestsUsingTheSameActorIndependentKernel",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiSteeringTests.InvalidInputsFailBeforeChangingTheImmutablePose",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiSteeringTests.LeftRightRequestsChangeTravelDirectionSymmetricallyWithAngularAcceleration",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiSteeringTests.LongFixedCommandStreamRepeatsExactlyWithoutHotLoopAllocation",
+        "Status": "Passed",
+        "Duration": "00:00:00.0180000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiSteeringTests.NeutralInputKeepsAbsoluteWorldDirectionAndDoesNotSeekCentre",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiSteeringTests.ReleaseDampsYawWithoutSnappingHeadingAndStopsAtExactSubtick",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiSteeringTests.RequiredV2IntentAndTuningFieldsRejectMissingInvalidOrAmbiguousData",
+        "Status": "Passed",
+        "Duration": "00:00:00.0030000"
+      }
+    ]
+  },
+  "native_fingerprint": {
+    "schema_version": 1,
+    "x": 1.992276616,
+    "z": -117.49378606,
+    "heading_nanoradians": 5545540272,
+    "yaw_rate": 0.651
+  },
+  "full_regression": {
+    "status": "FULL_REGRESSION_FAILED_RETAINED",
+    "counts": {
+      "total": "1026",
+      "executed": "1026",
+      "passed": "1025",
+      "failed": "1",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "times": {
+      "creation": "2026-10-05T11:09:41.0755929+03:00",
+      "queuing": "2026-10-05T11:09:41.0755930+03:00",
+      "start": "2026-10-05T11:09:39.2291044+03:00",
+      "finish": "2026-10-05T11:24:35.5387678+03:00"
+    },
+    "trx_sha256": "010d366b478243f38c1d0e2e0dd7666e46412f689bcf424faad0ca0e53850d90",
+    "failed_tests": [
+      {
+        "name": "WorldQueriesAndOccurrenceLookupAllocateZeroBytesAfterColdBinding",
+        "duration": "00:00:00.0603090",
+        "message": "  Expected: 0\r\n  But was:  2600\r\n"
+      }
+    ],
+    "captured_source_files": 449,
+    "source_changes_during_run": []
+  },
+  "allocation_diagnosis": {
+    "schema_version": 1,
+    "id": "retained_directed_passage_allocation_failure_diagnosis",
+    "date": "2026-10-05",
+    "status": "UNRESOLVED_FULL_SUITE_ONLY_FAILURE",
+    "retained_failure": {
+      "test": "WorldQueriesAndOccurrenceLookupAllocateZeroBytesAfterColdBinding",
+      "expected_bytes": 0,
+      "actual_bytes": 2600,
+      "full_run_passed": 1025,
+      "full_run_failed": 1,
+      "source_files_changed_during_full_run": 0
+    },
+    "source_modified": false,
+    "test_weakened_disabled_or_deleted": false,
+    "traces": [
+      {
+        "path": "artifacts/owner-manual-steering-20261005/tests/manual-ski-full-core.trx",
+        "sha256": "010d366b478243f38c1d0e2e0dd7666e46412f689bcf424faad0ca0e53850d90",
+        "total": 1026,
+        "passed": 1025,
+        "failed": 1
+      },
+      {
+        "path": "artifacts/owner-manual-steering-20261005/tests/legacy-allocation-isolated.trx",
+        "sha256": "9e6028cd2c7902fae71ea355a5e4367ac88276a69d99cca89dddc6bc51185dbb",
+        "total": 1,
+        "passed": 1,
+        "failed": 0
+      },
+      {
+        "path": "artifacts/owner-manual-steering-20261005/tests/legacy-allocation-class-context.trx",
+        "sha256": "d8163a0e9c963583757847b4a026cd1df318058f0e25232f055a1fb5db45ace3",
+        "total": 35,
+        "passed": 35,
+        "failed": 0
+      }
+    ],
+    "bounded_repetition_proof": "same-process-probe.json",
+    "original_test_repetitions": 40,
+    "original_test_repetitions_passed": 40,
+    "separate_exact_loop_repetitions": 40,
+    "separate_exact_loop_allocated_bytes": 0,
+    "counter_probe_bytes": 4120,
+    "runtime": ".NET 8.0.30",
+    "tiered_compilation": false,
+    "testhost_config_confirmed": "legacy-allocation-vstest.log lines 290 and 297 explicitly select Biathlon.Tests.runtimeconfig.json",
+    "parallel_test_overlap_in_failed_interval": 0,
+    "inspected_sources": [
+      {
+        "path": "Assets/Tests/EditMode/PhysicalDirectedPassageTests.cs",
+        "sha256": "6edc10f01d0d8de296d3e0cad5749d918e59b3148c17963d8d7b21f38fc2a2cb",
+        "matches_failed_run": true
+      },
+      {
+        "path": "Assets/Scripts/Simulation/PhysicalDirectedPassageMap.cs",
+        "sha256": "66ac30ba8008510f0301d38cbefd8c9712e94c94d2491354d98450a3aae7595c",
+        "matches_failed_run": true
+      },
+      {
+        "path": "Assets/Scripts/Simulation/PhysicalPassageWorldProjection.cs",
+        "sha256": "3490686d293b66076e1634c1ea9c103098b542569502fe2e255ecc080f2ea594",
+        "matches_failed_run": true
+      },
+      {
+        "path": "Assets/Scripts/Simulation/PhysicalTrackMap.cs",
+        "sha256": "ddb388117a63910f44a147c2a18234d2561ff07203415dcc555e587efa753b3e",
+        "matches_failed_run": true
+      },
+      {
+        "path": "Assets/Scripts/Domain/AthleteId.cs",
+        "sha256": "eb8de2b90da667423ee179fe7ef909f6c9a687d52499f514b24c0b25ecc6a34a",
+        "matches_failed_run": true
+      },
+      {
+        "path": "Assets/Scripts/Domain/TrackDistance.cs",
+        "sha256": "9e80f565823fe569073744ac0e1e5b6ca658e4b9dab580e5b9aef9254fa661c1",
+        "matches_failed_run": true
+      },
+      {
+        "path": "dotnet/Biathlon.Tests/Biathlon.Tests.csproj",
+        "sha256": "0bdfdacae42aeaf8c29010ed2512c956769a2aa90d31d1bae43d7000d019820b",
+        "matches_failed_run": true
+      }
+    ],
+    "assemblies": [
+      {
+        "path": "dotnet/Biathlon.Tests/bin/Release/net8.0/Biathlon.AI.dll",
+        "sha256": "5231f8d70b36359c9c1cfdcc7ff2c44573eaca2c5511dec39382d848aee2009c",
+        "matches_failed_run": true
+      },
+      {
+        "path": "dotnet/Biathlon.Tests/bin/Release/net8.0/Biathlon.Career.dll",
+        "sha256": "6d96e302fca95d8c6608eea552728932b357098a6ae49101a673a196d4b37daf",
+        "matches_failed_run": true
+      },
+      {
+        "path": "dotnet/Biathlon.Tests/bin/Release/net8.0/Biathlon.Domain.dll",
+        "sha256": "a392fce18bd497283eb9be4126a604031d0c216793e31a2e44bf30da5eeac74c",
+        "matches_failed_run": true
+      },
+      {
+        "path": "dotnet/Biathlon.Tests/bin/Release/net8.0/Biathlon.Replay.dll",
+        "sha256": "1ceb9856cc31115ac8b0d4358bdc412f797c9ba86007972f103c9a6cde3fee24",
+        "matches_failed_run": true
+      },
+      {
+        "path": "dotnet/Biathlon.Tests/bin/Release/net8.0/Biathlon.Simulation.dll",
+        "sha256": "5be23db76f06b8cfc243bd2b9365e8050e26af279b5ef94f00a6632a3ee45e0e",
+        "matches_failed_run": true
+      },
+      {
+        "path": "dotnet/Biathlon.Tests/bin/Release/net8.0/Biathlon.Tests.dll",
+        "sha256": "d30cf23f58de557f9fe627456b21767803a3001a27553e6fb2a017fcc6ae225a",
+        "matches_failed_run": true
+      }
+    ],
+    "findings": [
+      "The failing source path is pre-existing PhysicalDirectedPassageMap/PhysicalPassageWorldProjection, not the new unconnected manual-heading kernel.",
+      "No allocation site was found in the successful hot query path; capturing local functions are direct calls rather than allocated delegates. This observation is not proof of the failed runtime cause.",
+      "The exact zero-byte assertion is retained. Isolation and repetitions are additional diagnostics and do not supersede the failed full-suite acceptance.",
+      "No minimal production/test correction is justified by current evidence. No new full-suite rerun was launched."
+    ],
+    "next_evidence": "If a controlled full-suite reproduction is required, preserve the existing red run and collect runtime allocation stack/type evidence around this test; avoid changing zero tolerance or attributing the failure to tiering without causal evidence."
+  }
+}

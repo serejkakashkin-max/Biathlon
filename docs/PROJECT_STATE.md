@@ -12,6 +12,8 @@ m12_status: PASS / owner-approved
 active_work_package: M13 owner presentation/manual-steering work; WP-175 preparation
 active_task: integrate owner-approved manual ski direction; Woodland course dressing and quality
 owner_motion_task: TASK_M13_OWNER_MOTION_01 PASS 2026-10-05
+owner_manual_task: TASK_M13_OWNER_MANUAL_01 IN_PROGRESS; foundation focused/native PASS; integration pending
+open_regression_defect: full core1025 PASS /1 FAIL; legacy world-query allocation2600bytes; cause unresolved
 production_venue_count: 1
 production_venue: woodland_basin_v1
 deferred_work_packages: WP-170/171/172/173/174 DEFERRED_OWNER_SCOPE_REDUCTION
@@ -28,6 +30,8 @@ last_delivered_windows_build: Builds/WoodlandReviewWindows/Biathlon.exe; Develop
 WP-167/168/169 are DONE. [WP169 consolidated report](reports/WP169_VENUE01_PRODUCTION_REPORT.md) and [acceptance](quality/m13/wp169-production/acceptance.json) contain the final evidence. Woodland is now the sole production venue. WP170–174 are deferred by explicit owner scope reduction, not completed. Pine's corrected Sprint40 finished tick53,594 with exact persisted replay; Mass30/range and Pursuit40/shortcut acceptance remained OPEN. [Pine diagnostic record](quality/m13/wp170-pine-profile-repair.md), failed artifacts and [recoverable source checkpoint](deferred/wp170/README.md) are retained for later work. All412 Pine asset/meta files were removed from active Assets after byte/hash verification; the469-entry archive is outside Unity Resources. WP175–178 remain OPEN for Woodland; continue to the actual M13 gate.
 
 Owner minimal torso refinement is PASS: [TASK M13 motion01 report](reports/TASK_M13_OWNER_MOTION_01_REPORT.md). Actual native lateral ranges Flat1.877cm/Sprint2.920cm/descent0.426cm/Tuck0; nineteen focused PlayMode tests PASS and normal GameView inspected. Legs/poles/root and authoritative gameplay are preserved. Manual steering is separately IN_PROGRESS and is not yet connected to the playable host.
+
+[Manual heading foundation report](reports/TASK_M13_OWNER_MANUAL_01_REPORT.md): separate v2 signed steering/world yaw has no automatic centre or course-follow target. Focused .NET21/native11 PASS with the same actual10,000-step final pose. Full core1,026 retains one legacy allocation failure (2,600bytes), despite isolated/context/40-repeat zero-allocation passes; its cause is unresolved and tests remain strict. Manual input/AI/shared-body/replay integration is OPEN; no complete-task or full-regression PASS claim.
 
 WP169 final acceptance (historical baseline):
 
