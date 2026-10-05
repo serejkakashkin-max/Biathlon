@@ -20,7 +20,7 @@ production_venue: woodland_basin_v1
 deferred_work_packages: WP-170/171/172/173/174 DEFERRED_OWNER_SCOPE_REDUCTION
 last_completed_work_package: WP-169 PASS / DONE 2026-10-04
 production_fields: Sprint40 / Pursuit40 / MassStart30; includes player
-last_verified_commit: 48c9082; pushed; motion/manual foundation/tooling and WP175 component records current; full core failure retained
+last_verified_commit: 5fa259c; pushed; current motion+dressing Windows review and WP175 component proofs; full core failure retained
 next_action: separate world travel from route station and connect manual steering; WP175 fresh weather environments and condition race/replay qualification
 wp175_preparation: five visual rows and four canonical physical snow bindings; execution/acceptance OPEN
 wp175_physical_component_checks: four canonical snow bindings; dotnet10/native10 PASS; full condition races OPEN
