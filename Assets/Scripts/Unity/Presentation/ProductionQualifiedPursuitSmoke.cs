@@ -82,7 +82,7 @@ namespace Biathlon.Unity.Presentation
                 throw new InvalidOperationException("Fresh production bootstrap and normal graphics player required.");
             var venue=new VenueAuthoringPlan(VenueManifest.FromJson(ProductionVenueHost.ReadResource(host.VenueResource)),ProductionVenueHost.ReadResource);
             VenueFormatBinding pursuit=null;for(int i=0;i<venue.Formats.Count;i++)if(venue.Formats.Get(i).Id=="pursuit")pursuit=venue.Formats.Get(i);
-            if(pursuit==null||venue.Manifest.Id!="woodland_basin_v1")throw new ArgumentException("Current Woodland production Pursuit binding required.");
+            if(pursuit==null)throw new ArgumentException("Current catalog-bound production Pursuit binding required.");
             string sourcePath=Argument("-biathlonSprintRecord");string source=File.ReadAllText(sourcePath);
             qualification=ReadQualification(source,venue,pursuit.Profile);
             using(var sha=System.Security.Cryptography.SHA256.Create())using(var stream=File.OpenRead(sourcePath))sourceHash=BitConverter.ToString(sha.ComputeHash(stream)).Replace("-","").ToLowerInvariant();

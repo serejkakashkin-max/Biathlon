@@ -1,12 +1,14 @@
-param([switch]$SkipBuild,[int]$TimeoutSeconds=300,[string]$RepositoryRoot=(Split-Path $PSScriptRoot -Parent))
+param([switch]$SkipBuild,[int]$TimeoutSeconds=300,[string]$RepositoryRoot=(Split-Path $PSScriptRoot -Parent),[string]$BuildDirectory='Builds/WoodlandReviewWindows',[string]$ReviewResource='Biathlon/woodland_review_v1')
 $ErrorActionPreference='Stop'
 $taskRoot=[IO.Path]::GetFullPath($RepositoryRoot)
+if($BuildDirectory -notmatch '^Builds/[A-Za-z0-9_-]+$' -or $ReviewResource -notmatch '^Biathlon/[A-Za-z0-9_-]+$'){throw 'Explicit bounded build directory and review resource required.'}
 Push-Location $taskRoot
 try {
     if(!$SkipBuild) {
-        & (Join-Path $taskRoot 'scripts/Invoke-UnityMcp.ps1') -Tool script-execute -Arguments @{csharpCode='Biathlon.Unity.PlayerBuildPipeline.BuildWindowsProductionReview();';isMethodBody=$true} -TimeoutSec 1800 | Out-Null
+        $buildCode='Biathlon.Unity.PlayerBuildPipeline.BuildWindowsProductionReview("'+$ReviewResource+'","'+$BuildDirectory+'");'
+        & (Join-Path $taskRoot 'scripts/Invoke-UnityMcp.ps1') -Tool script-execute -Arguments @{csharpCode=$buildCode;isMethodBody=$true} -TimeoutSec 1800 | Out-Null
     }
-    $build=Join-Path $taskRoot 'Builds/WoodlandReviewWindows';$exe=Join-Path $build 'Biathlon.exe'
+    $build=Join-Path $taskRoot $BuildDirectory;$exe=Join-Path $build 'Biathlon.exe'
     $summary=Get-Content -Raw -LiteralPath (Join-Path $build 'build-summary.json') | ConvertFrom-Json
     $review=Get-Content -Raw -LiteralPath (Join-Path $build 'review-definition.json') | ConvertFrom-Json
     $startup=@($review.entries | Where-Object {$_.id -eq $review.initial_entry_id})
@@ -31,7 +33,7 @@ try {
     $passed=$passed -and [regex]::Matches($content,'BIATHLON_PRODUCTION_SMOKE_TRANSITION [A-Za-z0-9_-]+ [A-Za-z0-9_-]+ PENDING_REJECTED').Count -eq 1
     $manifest=@(Get-ChildItem -LiteralPath $build -Recurse -File | Where-Object {$_.FullName -notlike '*BackUpThisFolder*'} | Sort-Object FullName | ForEach-Object {[ordered]@{path=[IO.Path]::GetRelativePath($build,$_.FullName);bytes=$_.Length;sha256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})
     $manifest | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $run 'build-files.json') -Encoding utf8
-    $evidence=[ordered]@{schema_version=1;id='production_player_content_smoke_v1';passed=$passed;scope='Initialized final Woodland Sprint40/Mass30 content, resource-owned startup quality, paid400-tick controls and real scene transition. Hidden-window rendering may be suspended: zero frames then supplies no visual evidence; draw_calls=-1 is unavailable. Native normal Game View supplies separate visual review. No FPS/GPU or full-race claim.';window_rendering_suspended=$content.Contains('HIDDEN_WINDOW_SUSPENDED');exit_code=$process.ExitCode;build=$summary;review=$review;rows=$rows;exe_sha256=(Get-FileHash -LiteralPath $exe -Algorithm SHA256).Hash.ToLowerInvariant();log_sha256=(Get-FileHash -LiteralPath $log -Algorithm SHA256).Hash.ToLowerInvariant();build_files_sha256=(Get-FileHash -LiteralPath (Join-Path $run 'build-files.json') -Algorithm SHA256).Hash.ToLowerInvariant();log=$log}
+    $evidence=[ordered]@{schema_version=1;id='production_player_content_smoke_v1';passed=$passed;venue_id=$review.venue_id;scope='Initialized bound Sprint40/Mass30 content, resource-owned startup quality, paid400-tick controls and real scene transition. Hidden-window rendering may be suspended: zero frames then supplies no visual evidence; draw_calls=-1 is unavailable. Native normal Game View supplies separate visual review. No FPS/GPU or full-race claim.';window_rendering_suspended=$content.Contains('HIDDEN_WINDOW_SUSPENDED');exit_code=$process.ExitCode;build=$summary;review=$review;rows=$rows;exe_sha256=(Get-FileHash -LiteralPath $exe -Algorithm SHA256).Hash.ToLowerInvariant();log_sha256=(Get-FileHash -LiteralPath $log -Algorithm SHA256).Hash.ToLowerInvariant();build_files_sha256=(Get-FileHash -LiteralPath (Join-Path $run 'build-files.json') -Algorithm SHA256).Hash.ToLowerInvariant();log=$log}
     $evidence | ConvertTo-Json -Depth 9 | Set-Content -LiteralPath (Join-Path $run 'verification.json') -Encoding utf8
     $evidence | ConvertTo-Json -Depth 9
     if(!$passed) {throw "Production content smoke failed; retained log: $log"}

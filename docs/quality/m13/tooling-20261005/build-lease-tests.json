@@ -1,0 +1,62 @@
+{
+  "Summary": {
+    "Status": "Passed",
+    "TotalTests": 1047,
+    "PassedTests": 10,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:01.4324733"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.PersistedTimingLeaseRestoresExactBytesAndPreservesIndependentOwnerEdits(False,False)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0230000"
+    },
+    {
+      "Name": "Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.PersistedTimingLeaseRestoresExactBytesAndPreservesIndependentOwnerEdits(True,False)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0020000"
+    },
+    {
+      "Name": "Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.PersistedTimingLeaseRestoresExactBytesAndPreservesIndependentOwnerEdits(False,True)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.PersistedTimingLeaseRestoresExactBytesAndPreservesIndependentOwnerEdits(True,True)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.ProductionBuildLeaseRestoresLabelsSettingsAndExistingDirtyOwnersWhenCallbackRejects(False)",
+      "Status": "Passed",
+      "Duration": "00:00:00.2200000"
+    },
+    {
+      "Name": "Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.ProductionBuildLeaseRestoresLabelsSettingsAndExistingDirtyOwnersWhenCallbackRejects(True)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0270000"
+    },
+    {
+      "Name": "Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners(\"Builds/\")",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners(\"Assets/Replacement\")",
+      "Status": "Passed",
+      "Duration": "00:00:00"
+    },
+    {
+      "Name": "Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners(\"Builds/../Owner\")",
+      "Status": "Passed",
+      "Duration": "00:00:00"
+    },
+    {
+      "Name": "Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners(\"C:/Owner\")",
+      "Status": "Passed",
+      "Duration": "00:00:00"
+    }
+  ]
+}

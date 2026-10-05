@@ -8,6 +8,17 @@ from pathlib import Path
 import argparse, bisect, hashlib, json, math, shutil
 from compact_range_authoring import reflect_range_family
 
+def validated_quarter_segments(value):
+    # Even arcs keep the existing fixed-control paired-chord solver applicable.
+    if type(value) is not int or not 2<=value<=1024 or value%2:
+        raise ValueError('quarter_segments must be an even integer between 2 and 1024')
+    return value
+
+def validated_world_chord_slack(value):
+    if type(value) not in (int,float) or not math.isfinite(value) or not 0<value<=1:
+        raise ValueError('world_chord_real_slack_m must be finite, positive and at most 1m')
+    return value
+
 SCRIPT=Path(__file__).resolve().parent
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--project-root',type=Path,default=SCRIPT.parents[2])
@@ -25,6 +36,15 @@ directed_passages=recipe.get('directed_format_passages',False)
 if type(directed_passages) is not bool:
     raise ValueError('directed_format_passages must be an explicit boolean when supplied')
 assert recipe['schema_version']==1
+default_quarter_segments=validated_quarter_segments(recipe.get('quarter_segments',8))
+format_quarter_segments={key:validated_quarter_segments(recipe[key].get('quarter_segments',default_quarter_segments))
+                         for key in ('pursuit','sprint')}
+default_world_chord_slack=validated_world_chord_slack(recipe['world_chord_real_slack_m'])
+format_world_chord_slack={key:validated_world_chord_slack(recipe[key].get('world_chord_real_slack_m',default_world_chord_slack))
+                          for key in ('pursuit','sprint')}
+analytic_paid_arcs=recipe['pursuit'].get('analytic_paid_arcs',False)
+if type(analytic_paid_arcs) is not bool:
+    raise ValueError('pursuit analytic_paid_arcs must be an explicit boolean when supplied')
 VENUE=recipe['venue_id'];assert VENUE.replace('_','').isalnum() and VENUE.endswith('_v1')
 LABEL=VENUE[:-3];PREFIX='Biathlon/Venues/'+VENUE
 OUT.mkdir(parents=True,exist_ok=True)
@@ -70,7 +90,7 @@ def append_straight(points,end):
     # An even pair leaves fixed control points on both ends for chord solving.
     points.append(mul(add(points[-1],end),.5));points.append(end)
 
-terminal=recipe['aligned_terminal_edge_m'];q=recipe['quarter_segments'];slack=recipe['world_chord_real_slack_m']
+terminal=recipe['aligned_terminal_edge_m'];q=default_quarter_segments;slack=default_world_chord_slack
 
 def solve_parameter(builder,target,lo,hi):
     increasing=length(builder(hi))>length(builder(lo))
@@ -125,6 +145,55 @@ def pursuit_points(parameter):
     points[-1]=end
     return points
 
+def exact_analytic_arc(point_at,start,end,radius_guess):
+    """Pay every chord on the analytic arc; calibrate its radius, not odd controls."""
+    nominal=[point_at(radius_guess,start+(end-start)*i/q) for i in range(q+1)]
+    lengths=[round(math.dist(a,b)*1000) for a,b in zip(nominal,nominal[1:])]
+    assert min(lengths)>0
+    def walk(radius):
+        angle=start;points=[point_at(radius,angle)]
+        for paid_mm in lengths:
+            low,high=angle,angle+2*(end-start)/q
+            assert math.dist(points[-1],point_at(radius,high))>paid_mm/1000
+            for _ in range(42):
+                middle=(low+high)/2
+                if math.dist(points[-1],point_at(radius,middle))<paid_mm/1000:low=middle
+                else:high=middle
+            angle=(low+high)/2;points.append(point_at(radius,angle))
+        return angle,points
+    low,high=radius_guess*.99,radius_guess*1.01
+    assert walk(low)[0]>end and walk(high)[0]<end
+    for _ in range(44):
+        middle=(low+high)/2
+        if walk(middle)[0]>end:low=middle
+        else:high=middle
+    radius=(low+high)/2;angle,points=walk(radius)
+    assert abs(angle-end)<1e-10
+    points[-1]=point_at(radius,end)
+    assert max(abs(math.dist(a,b)-n/1000) for a,b,n in zip(points,points[1:],lengths))<1e-8
+    return points,lengths
+
+def exact_analytic_pursuit(parameter,target_mm):
+    spec=recipe['pursuit'];a,b=sample(spec['main_depart_m']),sample(spec['main_return_m'])
+    p=add(a,mul(tangent(spec['main_depart_m']),terminal));end=sub(b,mul(tangent(spec['main_return_m']),terminal))
+    climb=-tangent(spec['main_depart_m'])[1]/tangent(spec['main_depart_m'])[2]
+    descent=-tangent(spec['main_return_m'])[1]/tangent(spec['main_return_m'])[2]
+    def first(radius,angle):
+        x=p[0]+radius*(1+math.cos(angle));z=p[2]+radius*math.sin(angle)
+        return (x,a[1]+climb*(a[2]-z),z)
+    def second(radius,angle):
+        x=end[0]+radius*(math.cos(angle)-1);z=end[2]+radius*math.sin(angle)
+        return (x,b[1]+descent*(b[2]-z),z)
+    left,left_mm=exact_analytic_arc(first,math.pi,1.5*math.pi,parameter)
+    right,right_mm=exact_analytic_arc(second,1.5*math.pi,2*math.pi,parameter+end[2]-p[2])
+    left[0]=p;right[-1]=end
+    middle=mul(add(left[-1],right[0]),.5)
+    straight,straight_mm=exact_chords([left[-1],middle,right[0]],target_mm-sum(left_mm)-sum(right_mm))
+    points=left+straight[1:]+right[1:];lengths=left_mm+straight_mm+right_mm
+    assert sum(lengths)==target_mm
+    assert max(abs(math.dist(a,b)-n/1000) for a,b,n in zip(points,points[1:],lengths))<1e-8
+    return points,lengths
+
 def sprint_points(straight):
     spec=recipe['sprint'];a,b=sample(spec['main_depart_m']),sample(spec['main_return_m'])
     p=add(a,mul(tangent(spec['main_depart_m']),terminal));end=sub(b,mul(tangent(spec['main_return_m']),terminal))
@@ -146,7 +215,10 @@ def sprint_points(straight):
 def branch(spec,builder,lo,hi):
     target=spec['length_m']-2*terminal
     parameter=solve_parameter(builder,target-slack,lo,hi)
-    raw=builder(parameter);points,chords=exact_chords(raw,mm(target))
+    if spec is recipe['pursuit'] and analytic_paid_arcs:
+        points,chords=exact_analytic_pursuit(parameter,mm(target))
+    else:
+        raw=builder(parameter);points,chords=exact_chords(raw,mm(target))
     points=[sample(spec['main_depart_m'])]+points+[sample(spec['main_return_m'])]
     chords=[mm(terminal)]+chords+[mm(terminal)]
     knots=[];segments=[];travel=0
@@ -172,7 +244,8 @@ def branch(spec,builder,lo,hi):
 
 proofs=[]
 for key,builder,lo,hi in [('pursuit',pursuit_points,20,250),('sprint',sprint_points,20,250)]:
-    spec=recipe[key];definition,mapping,parameter=branch(spec,builder,lo,hi)
+    spec=recipe[key];q=format_quarter_segments[key];slack=format_world_chord_slack[key]
+    definition,mapping,parameter=branch(spec,builder,lo,hi)
     track['loops'].append(definition);visual['loops'].append(mapping)
     guard=spec.get('guard_distance_m',recipe['guard_distance_m'])
     for side,main_d,branch_d in [('depart',spec['main_depart_m'],0),('return',spec['main_return_m'],spec['length_m'])]:

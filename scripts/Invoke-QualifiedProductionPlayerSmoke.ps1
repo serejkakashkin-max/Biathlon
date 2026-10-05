@@ -2,11 +2,14 @@ param(
     [Parameter(Mandatory=$true)][string]$SprintRecord,
     [Parameter(Mandatory=$true)][string]$SprintReplay,
     [string]$RepositoryRoot='C:\game\Biathlon\Biathlon',
+    [string]$BuildDirectory='Builds/WoodlandReviewWindows',
+    [string]$VenueId='woodland_basin_v1',
     [int]$TimeoutSeconds=300
 )
 $ErrorActionPreference='Stop'
 if($TimeoutSeconds -lt 1 -or $TimeoutSeconds -gt 1800){throw 'TimeoutSeconds must be 1..1800.'}
 $taskRoot=[IO.Path]::GetFullPath($RepositoryRoot)
+if($BuildDirectory -notmatch '^Builds/[A-Za-z0-9_-]+$' -or $VenueId -notmatch '^[a-z0-9_]+$'){throw 'Explicit bounded build directory and venue ID required.'}
 $sourcePath=[IO.Path]::GetFullPath($SprintRecord)
 $replayPath=[IO.Path]::GetFullPath($SprintReplay)
 $source=Get-Content -Raw -LiteralPath $sourcePath | ConvertFrom-Json
@@ -24,10 +27,11 @@ if($replay.schema_version -ne 1 -or $replay.id -ne 'production_venue_stream_repl
 }
 $sprint=$source.result_json | ConvertFrom-Json
 $profile=$sprint.competition_profile_json | ConvertFrom-Json
-$currentProfile=Get-Content -Raw -LiteralPath (Join-Path $taskRoot 'Assets/Resources/Biathlon/Venues/woodland_basin_v1/sprint_profile.json') | ConvertFrom-Json
+$profileResource='Biathlon/Venues/'+$VenueId+'/sprint_profile'
+$currentProfile=Get-Content -Raw -LiteralPath (Join-Path $taskRoot ('Assets/Resources/'+$profileResource+'.json')) | ConvertFrom-Json
 if(@($sprint.rows).Count -ne 40 -or $sprint.tick_frequency -ne 20 -or $profile.id -cne $currentProfile.id -or
    @($sprint.rows | Where-Object {$_.status -ne 0}).Count -ne 0) {throw 'Exact completed current Sprint40 roster/clock/profile required.'}
-if($null -eq $source.resource_sha256 -or $null -eq $source.resource_sha256.PSObject.Properties['Biathlon/Venues/woodland_basin_v1/sprint_profile']) {
+if($null -eq $source.resource_sha256 -or $null -eq $source.resource_sha256.PSObject.Properties[$profileResource]) {
     throw 'Current production source resource binding is missing.'
 }
 foreach($resource in $source.resource_sha256.PSObject.Properties) {
@@ -37,7 +41,7 @@ foreach($resource in $source.resource_sha256.PSObject.Properties) {
         throw ('Sprint authority resource differs from current build input: '+$resource.Name)
     }
 }
-$build=Join-Path $taskRoot 'Builds/WoodlandReviewWindows';$exe=Join-Path $build 'Biathlon.exe'
+$build=Join-Path $taskRoot $BuildDirectory;$exe=Join-Path $build 'Biathlon.exe'
 $summary=Get-Content -Raw -LiteralPath (Join-Path $build 'build-summary.json') | ConvertFrom-Json
 if($summary.result -ne 'Succeeded' -or !(Test-Path -LiteralPath $exe)){throw 'No successful existing production review build. This script never builds.'}
 $run=Join-Path $taskRoot ('artifacts/production-player-smoke/qualified-'+[DateTime]::UtcNow.ToString('yyyyMMdd-HHmmss-fff'))
@@ -61,7 +65,7 @@ $passed=$process.ExitCode -eq 0 -and $content.Contains('BIATHLON_QUALIFIED_PURSU
     ![regex]::IsMatch($content,$fatal) -and $rows.Count -eq 1
 if($rows.Count -eq 1) {
     $row=$rows[0]
-    $passed=$passed -and $row.schema_version -eq 1 -and $row.venue -ceq 'woodland_basin_v1' -and
+    $passed=$passed -and $row.schema_version -eq 1 -and $row.venue -ceq $VenueId -and
         $row.athletes -eq 40 -and $row.qualified_count -eq 40 -and $row.mats -eq 30 -and $row.banks -eq 30 -and
         ($row.tick-$row.start_tick) -eq 400 -and $row.source_result_id -ceq $sprint.id -and $row.source_sha256 -ceq $sourceHash -and
         $row.terrain_tiles -gt 0 -and $row.forest_groups -gt 0 -and $row.trees -gt 0 -and ![string]::IsNullOrEmpty($row.route_id)

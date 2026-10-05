@@ -15,6 +15,15 @@ namespace Biathlon.VenueEditorTests
 {
     public sealed class ProductionReviewBuildLeaseTests
     {
+        [TestCase("Builds/")][TestCase("Assets/Replacement")][TestCase("Builds/../Owner")][TestCase("C:/Owner")]
+        public void ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners(string output)
+        {
+            bool timing=PlayerSettings.enableFrameTimingStats;
+            var scenes=EditorBuildSettings.scenes.Select(s=>s.path+"|"+s.enabled).ToArray();
+            Assert.Throws<ArgumentException>(()=>PlayerBuildPipeline.BuildWindowsProductionReview("missing",output));
+            Assert.That(PlayerSettings.enableFrameTimingStats,Is.EqualTo(timing));
+            CollectionAssert.AreEqual(scenes,EditorBuildSettings.scenes.Select(s=>s.path+"|"+s.enabled).ToArray());
+        }
         [TestCase(false,false)][TestCase(true,false)][TestCase(false,true)][TestCase(true,true)]
         public void PersistedTimingLeaseRestoresExactBytesAndPreservesIndependentOwnerEdits(bool previous,bool ownerEdit)
         {

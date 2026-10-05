@@ -22,6 +22,7 @@ production_fields: Sprint40 / Pursuit40 / MassStart30; includes player
 last_verified_commit: 04ea339606de703e722acbb5bbe315f3c3994b18; pushed; WP169 DONE
 next_action: verify and connect versioned manual steering; import/review bounded Woodland course dressing; WP-175 matrix
 wp175_preparation: five visual rows and four canonical physical snow bindings; execution/acceptance OPEN
+review_tooling_task: explicit bounded build/smoke paths; native lease10 and generic authoring11 PASS
 current_known_blockers: []
 open_acceptance: [manual steering integration; Woodland quality; WP-175/176/177/178]
 owner_decisions_needed: []
