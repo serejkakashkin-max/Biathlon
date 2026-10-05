@@ -15,6 +15,24 @@ PROJECT = HERE.parents[2]
 
 
 class WoodlandCourseDressingTests(unittest.TestCase):
+    def test_saved_standing_boot_contacts_reject_steep_terrain_before_placement(self):
+        contacts = DRESS.standing_contact_geometry(PROJECT)
+        feet, anchors = contacts
+        self.assertEqual(len(anchors), 16)
+        self.assertTrue(all(abs(p[1]) < 1e-6 for p in feet))
+        self.assertGreater(max(p[0] for p in feet) - min(p[0] for p in feet), .27)
+        template = {'maximum_foot_contact_gap_m': .03}
+        flat = {(x, z): 0. for x in range(-16, 25, 8) for z in range(-16, 25, 8)}
+        self.assertEqual(DRESS.require_standing_contact(flat, 8., (0., 0., 0.), 0., contacts, template), 0.)
+        for yaw in (0., 90.):
+            # Actual two-foot vertices, including fore/aft support, cross this slope.
+            steep = {(x, z): .6 * (x + z) for x, z in flat}
+            with self.subTest(yaw=yaw), self.assertRaisesRegex(ValueError, 'boot contacts'):
+                DRESS.require_standing_contact(steep, 8., (0., 0., 0.), yaw, contacts, template)
+        for limit in (None, True, float('nan'), float('inf'), .030001, 0.):
+            with self.subTest(limit=limit), self.assertRaisesRegex(ValueError, 'foot-contact bound'):
+                DRESS.require_standing_contact(flat, 8., (0., 0., 0.), 0., contacts, {'maximum_foot_contact_gap_m': limit})
+
     def test_crossing_segment_and_inside_endpoint_are_zero_clearance(self):
         polygon = [(0., 0.), (2., 0.), (2., 2.), (0., 2.)]
         self.assertEqual(DRESS.segment_polygon((-10., 1.), (10., 1.), polygon), 0.)
@@ -106,6 +124,14 @@ class WoodlandCourseDressingTests(unittest.TestCase):
                 path.write_text(json.dumps(bad), encoding='utf-8')
                 with self.subTest(value=value), self.assertRaises(ValueError):
                     DRESS.run(PROJECT, path, output)
+                self.assertFalse(output.exists())
+
+    def test_detached_source_cannot_point_into_assets_or_outside_artifacts(self):
+        with tempfile.TemporaryDirectory(dir=PROJECT / 'artifacts') as directory:
+            output = Path(directory) / 'candidate'
+            for source in (PROJECT / 'Assets/Resources', PROJECT, Path(directory) / 'missing'):
+                with self.subTest(source=source), self.assertRaisesRegex(ValueError, 'Detached source'):
+                    DRESS.run(PROJECT, HERE / 'recipes/woodland_basin_course_dressing_v1.json', output, source)
                 self.assertFalse(output.exists())
 
 

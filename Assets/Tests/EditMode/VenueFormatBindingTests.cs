@@ -65,7 +65,9 @@ namespace Biathlon.Tests
             const string root="Biathlon/Venues/woodland_basin_v1/";
             string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
             var plan=new VenueAuthoringPlan(VenueManifest.FromJson(Read(root+"manifest")),Read);Assert.That(plan.Formats.Count,Is.EqualTo(3));
-            var expected=new Dictionary<string,long>{{"sprint",10000000},{"pursuit",12500000},{"mass_start",15000000}};
+            // Owner-authorized compressed game distances; WP169 historic lengths remain
+            // frozen separately in docs/quality/fixtures/directed-passages-wp169.
+            var expected=new Dictionary<string,long>{{"sprint",4200001},{"pursuit",5000000},{"mass_start",6000000}};
             for(int i=0;i<plan.Formats.Count;i++)
             {
                 var format=plan.Formats.Get(i);var route=new RaceRoute(plan.Track,format.Route,format.Profile.ToRouteRequirements(),plan.Junctions,plan.Connections);

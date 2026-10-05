@@ -115,6 +115,98 @@ def forest_high_visibility(recipe):
         raise ValueError('Stable single-component High forest visibility identity required.')
     return dict(policy)
 
+def stadium_placement_overrides(recipe):
+    """An explicit presentation-only layout; missing policy keeps legacy bytes."""
+    policy=recipe.get('stadium_placement')
+    if policy is None:
+        if 'stadium_placement' in recipe:raise ValueError('Stadium placement must be an object.')
+        return None
+    fields={'schema_version','id','grandstand_row','event_screen','minimum_paid_clearance_m','maximum_foundation_variation_m'}
+    if not isinstance(policy,dict) or set(policy)!=fields or type(policy['schema_version']) is not int or policy['schema_version']!=1:
+        raise ValueError('Versioned explicit stadium placement policy required.')
+    identity=policy['id']
+    if not isinstance(identity,str) or not re.fullmatch(r'[A-Za-z0-9_-]{1,256}',identity):
+        raise ValueError('Stable stadium placement identity required.')
+    def bounded(value,low,high):
+        return not isinstance(value,bool) and isinstance(value,(int,float)) and math.isfinite(value) and low<=value<=high
+    row=policy['grandstand_row'];screen=policy['event_screen']
+    if not isinstance(row,dict) or set(row)!={'start_x','z','pitch_m','yaw_deg'} or not isinstance(screen,dict) or set(screen)!={'x','z','yaw_deg'}:
+        raise ValueError('Explicit complete row and screen poses required.')
+    for pose,axes in ((row,('start_x','z')),(screen,('x','z'))):
+        if any(not bounded(pose[axis],-5000,5000) for axis in axes) or not bounded(pose['yaw_deg'],-360,360):
+            raise ValueError('Finite bounded stadium pose required.')
+    if not bounded(row['pitch_m'],5,100) or not bounded(policy['minimum_paid_clearance_m'],3,20) or not bounded(policy['maximum_foundation_variation_m'],0,.25):
+        raise ValueError('Bounded pitch, full-course clearance and foundation variation required.')
+    return dict(policy,grandstand_row=dict(row),event_screen=dict(screen))
+
+def terrain_stadium_policy(recipe):
+    """Resolve optional stadium flattening without changing the legacy defaults."""
+    terrain=recipe.get('terrain',{})
+    if not isinstance(terrain,dict):raise ValueError('Terrain recipe must be an object.')
+    flat=terrain.get('stadium_flat_bounds',(-180,-95,130,62))
+    blend=terrain.get('stadium_blend_m',40)
+    if not isinstance(flat,(list,tuple)) or len(flat)!=4 or any(isinstance(value,bool) or not isinstance(value,(int,float)) or not math.isfinite(value) for value in flat) or not flat[0]<flat[2] or not flat[1]<flat[3]:
+        raise ValueError('Finite ordered four-component stadium flat bounds required.')
+    if isinstance(blend,bool) or not isinstance(blend,(int,float)) or not math.isfinite(blend) or not 1<=blend<=80:
+        raise ValueError('Finite stadium blend distance in [1,80] required.')
+    return tuple(flat),blend
+
+def apply_stadium_placements(recipe,stands,screen_parts,project,corridors,grid,spacing):
+    """Ground full native bounds and reject paid-corridor intrusion before output.
+
+    This checks the relocated row and screen, not a finish portal's intentionally
+    spanning AABB. The complete nine prefab meshes retain their actual seat and
+    unit-scale geometry; the screen keeps its three existing native parts.
+    """
+    policy=stadium_placement_overrides(recipe)
+    if policy is None:return None
+    import dress_woodland_course as dressing
+    if len(stands)!=9 or len(screen_parts)!=3:
+        raise ValueError('Existing nine grandstands and three screen parts required.')
+    prefab=dressing.resource_path(project,'Biathlon/Stadium/G2Grandstand/Grandstand','.prefab')
+    text=prefab.read_text(encoding='utf-8-sig')
+    for field,expected,axes in (('m_LocalPosition',(0.,0.,0.),('x','y','z')),('m_LocalScale',(1.,1.,1.),('x','y','z')),('m_LocalRotation',(0.,0.,0.,1.),('x','y','z','w'))):
+        if any(dressing.numbers(value,axes)!=expected for value in re.findall(field+r':\s*({[^}]+})',text)):
+            raise ValueError('Transformed prefab requires an actual composed native witness.')
+    paths={}
+    for meta in (project/'Assets/Resources/Biathlon/Stadium').rglob('*.asset.meta'):
+        match=re.search(r'^guid:\s*(\w+)',meta.read_text(encoding='utf-8-sig'),re.M)
+        if match:paths[match.group(1)]=meta.with_suffix('')
+    native=[paths[guid] for guid in re.findall(r'm_Mesh:.*?guid:\s*(\w+)',text)]
+    if not native:raise ValueError('Actual grandstand native mesh bounds required.')
+    stand_bounds=dressing.merged_bounds([dressing.mesh_bounds(path) for path in native])
+    screen_native=[dressing.resource_path(project,item['mesh_resource'],'.asset') for item in screen_parts]
+    screen_bounds=dressing.merged_bounds([dressing.mesh_bounds(path) for path in screen_native])
+    row=policy['grandstand_row'];screen=policy['event_screen'];witnesses=[];pending=[]
+    groups=[(item,stand_bounds,row['start_x']+index*row['pitch_m'],row['z'],row['yaw_deg']) for index,item in enumerate(stands)]
+    groups.append((screen_parts[0],screen_bounds,screen['x'],screen['z'],screen['yaw_deg']))
+    for item,bounds,x,z,yaw in groups:
+        polygon=dressing.footprint(bounds,(x,0,z),yaw)
+        samples=dressing.foundation_samples(grid,spacing,polygon);heights=[height for _,height in samples]
+        variation=max(heights)-min(heights)
+        if variation>policy['maximum_foundation_variation_m']:
+            raise ValueError('Stadium native footprint has uneven terrain: '+item['id'])
+        minimum=float('inf');nearest=None
+        for corridor in corridors:
+            for index,(a,b) in enumerate(zip(corridor['knots'],corridor['knots'][1:])):
+                gap=dressing.segment_polygon((a['x'],a['z']),(b['x'],b['z']),polygon)-max(corridor['widths_m'][index:index+2])/2
+                if gap<minimum:minimum=gap;nearest={'loop_id':corridor['loop_id'],'from_m':a['distance_m'],'to_m':b['distance_m']}
+        if minimum<policy['minimum_paid_clearance_m']:
+            raise ValueError('Stadium native footprint intrudes on a paid route: '+item['id'])
+        y=max(heights)-bounds[0][1]
+        placement={'position':{'x':x,'y':y,'z':z},'yaw_deg':yaw,'scale':1}
+        targets=screen_parts if item is screen_parts[0] else [item]
+        pending.append((targets,placement))
+        witnesses.append({'id':item['id'],'native_bounds':bounds,'world_footprint':polygon,'position':placement['position'],'yaw_deg':yaw,'minimum_paid_clearance_m':minimum,'nearest_corridor':nearest,'foundation_variation_m':variation,'foundation_samples':[{'x':p[0],'z':p[1],'terrain_y':height} for p,height in samples]})
+    for index,witness in enumerate(witnesses):
+        polygon=witness['world_footprint']
+        for prior in witnesses[:index]:
+            gap=min(dressing.segment_polygon(polygon[i],polygon[(i+1)%4],prior['world_footprint']) for i in range(4))
+            if gap<=1e-9:raise ValueError('Stadium native full footprints overlap: '+prior['id']+' / '+witness['id'])
+    for targets,placement in pending:
+        for target in targets:target.update(placement,position=dict(placement['position']))
+    return {'schema_version':1,'id':policy['id']+'_native_placement_proof','policy':policy,'full_paid_loop_count':len(corridors),'prefab_count':9,'screen_part_count':3,'witnesses':witnesses,'native_source_sha256':{str(path.relative_to(project)).replace('\\','/'):hashlib.sha256(path.read_bytes()).hexdigest() for path in [prefab,*native,*screen_native]},'authoritative_geometry_changed':False}
+
 SCRIPT_DIRECTORY=Path(__file__).resolve().parent
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--project-root',type=Path,default=SCRIPT_DIRECTORY.parents[2])
@@ -132,6 +224,8 @@ if ENVIRONMENT_RECIPE:assert ENVIRONMENT_RECIPE['schema_version']==1 and ENVIRON
 forest_recipe=ENVIRONMENT_RECIPE.get('forest',{})
 environment_lighting=lighting_overrides(ENVIRONMENT_RECIPE)
 environment_high_visibility=forest_high_visibility(ENVIRONMENT_RECIPE)
+stadium_placement_overrides(ENVIRONMENT_RECIPE)
+terrain_stadium_policy(ENVIRONMENT_RECIPE)
 def read(relative):return json.loads((RESOURCES/(relative+'.json')).read_text(encoding='utf-8-sig'))
 def project_read(relative):return json.loads((PROJECT/'Assets/Resources'/(relative+'.json')).read_text(encoding='utf-8-sig'))
 def write(relative,data):
@@ -223,14 +317,14 @@ rise=max(k['y'] for k in maps['main']['knots'])
 level_top=[k for k in maps['main']['knots'] if abs(k['y']-rise)<1e-8]
 base_south=max(k['z'] for k in level_top)
 base_north=min(k['z'] for k in maps['main']['knots'] if abs(k['y'])<1e-8)
-FLAT=(-180,-95,130,62)
+FLAT,STADIUM_BLEND=terrain_stadium_policy(ENVIRONMENT_RECIPE)
 def surface_height(x,z):
     distance,y,half=nearest_main(x,z)
     base=rise*max(0.,min(1.,(base_north-z)/(base_north-base_south)))
     weight=smooth((distance-half-4)/100)
     height=y*(1-weight)+base*weight
     away=math.hypot(max(FLAT[0]-x,0,x-FLAT[2]),max(FLAT[1]-z,0,z-FLAT[3]))
-    return height*smooth(away/40)+SURFACE_OFFSET
+    return height*smooth(away/STADIUM_BLEND)+SURFACE_OFFSET
 
 print('Generating shared world terrain samples...',flush=True)
 height_cache={}
@@ -304,6 +398,10 @@ for i,lane in enumerate(paths['lanes']):
         'yaw_deg':math.degrees(math.atan2(range_forward['x'],range_forward['z'])),'scale':1,'initial_stance':'Standing','initial_closed_mask':0})
 stands=[{'id':f'grandstand_{i+1:02d}','resource':'Biathlon/Stadium/G2Grandstand/Grandstand','position':point(-80+i*20,0,-50),'yaw_deg':180,'scale':1} for i in range(9)]
 screen_parts=[{'id':'event_screen_'+name,'mesh_resource':'Biathlon/Stadium/G2Event/'+name,'material_resource':'Biathlon/Stadium/G2Event/'+material,'position':point(112,0,-45),'yaw_deg':-90,'scale':1} for name,material in (('ScreenFrame','Charcoal'),('ScreenSteel','Steel'),('EventPanel','Display'))]
+stadium_placement_proof=apply_stadium_placements(ENVIRONMENT_RECIPE,stands,screen_parts,PROJECT,
+    [{'loop_id':loop['loop_id'],'knots':loop['knots'],'widths_m':authored_corridor_widths(tracks[loop['loop_id']],loop)} for loop in visual['loops']],height_cache,SPACING)
+if stadium_placement_proof is not None:
+    (HERE/'stadium-placement-proof.json').write_text(json.dumps(stadium_placement_proof,indent=2,allow_nan=False)+'\n',encoding='utf-8')
 banner_parts=[]
 for i,(x,z,yaw) in enumerate(((-110,8,90),(110,8,-90),(-160,-40,0),(-140,-40,0))):
     for mesh,material in (('BannerPole','Steel'),('BannerFabric','EventTeal')):
@@ -325,7 +423,7 @@ environment={'schema_version':1,'id':VENUE+'_environment_v1','venue_id':VENUE,'s
         'tile_size_m':TILE,'grid_spacing_m':SPACING,'blend_resource':'Biathlon/terrain_blend_v1','material_resource':'Biathlon/Terrain/G2Snow/WinterBlend','tiles':tiles,
         'height_recipe':{'id':'nearest_main_course_height_with_basin_blend_v1','source_visual_resource':PREFIX+'/visual','source_loop_id':'main','source_knots':maps['main']['knots'],
             'height_control_points':[{'z':base_north,'y':0},{'z':base_south,'y':rise}],'route_edge_keep_m':4,'offroute_blend_m':100,'surface_offset_m':SURFACE_OFFSET,
-            'stadium_flat_bounds':{'min_x':FLAT[0],'min_z':FLAT[1],'max_x':FLAT[2],'max_z':FLAT[3]},'stadium_blend_m':40,
+            'stadium_flat_bounds':{'min_x':FLAT[0],'min_z':FLAT[1],'max_x':FLAT[2],'max_z':FLAT[3]},'stadium_blend_m':STADIUM_BLEND,
             'ribbon_clearance_cap':terrain_cap,
             'description':'Nearest main edge supplies the basin base surface; exact runtime ribbon/terrain triangle overlays lower affected grid triangles to retain the authored surface offset beneath every groomed interior and edge. Base samples outside affected course cells remain unchanged; tree heights use the final terrain triangles. No physics changes.'}},
     'route_corridors':[{'loop_id':loop['loop_id'],'source_visual_resource':PREFIX+'/visual','knots':loop['knots'],'widths_m':authored_corridor_widths(tracks[loop['loop_id']],loop)} for loop in visual['loops']],

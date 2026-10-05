@@ -7,6 +7,7 @@ edge lengths whose horizontal difference matches the12m aisle separation.
 from pathlib import Path
 import argparse, json, math, shutil, hashlib, re
 from exact_polyline import ridge_span
+from short_outer_course import build_short_outer_course
 
 SCRIPT_DIRECTORY = Path(__file__).resolve().parent
 parser = argparse.ArgumentParser(description=__doc__)
@@ -174,47 +175,73 @@ def private_u(loop, x, width):
 private = [private_u(f"mat_{i+1:02d}", (lane_count*.5-.5-i)*pitch, RECIPE["private_width_m"]) for i in range(lane_count)]
 bypass = private_u("bypass", left, RECIPE["main_width_m"])
 
-oq = RECIPE["outer_quarter_segments"]
-ochord = RECIPE["outer_arc_chord_m"]
-outer_radius = ochord / (2 * math.sin(math.pi / (4 * oq)))
-climb = RECIPE["climb_travel_m"]
-descent = RECIPE["descent_travel_m"]
-separation = entry_z - exit_z
-climb_horizontal = (descent**2 - climb**2 - separation**2) / (2 * separation)
-rise = math.sqrt(climb**2 - climb_horizontal**2)
-outer_arc_total = 4 * oq * ochord
-bottom = (overlay_entry - climb - descent - outer_arc_total + aisle_length + RECIPE["finish_lead_m"]) / 2
-bottom = mm(bottom) / 1000
-west = left - RECIPE["finish_lead_m"] - RECIPE["outer_west_straight_m"]
-ridge=None
-if 'plateau_controls' in RECIPE:
-    bottom,ridge,ridge_chords=ridge_span(RECIPE['plateau_controls'],bottom*2,rise,exit_z-outer_radius-climb_horizontal-outer_radius,RECIPE['plateau_chord_real_slack_m'])
-east = west + bottom
-top_straight = east - right
-south_z = exit_z - outer_radius - climb_horizontal
-main = Polyline("main", (left-RECIPE["finish_lead_m"], 0, exit_z), RECIPE["main_width_m"])
-main.edge((west, 0, exit_z), RECIPE["outer_west_straight_m"], "stadium", draft=True)
-main.arc((west, 0, exit_z-outer_radius), outer_radius, math.pi/2, math.pi, oq, ochord, "rolling",sector='lower_turn')
-climb_start=main.distance_mm/1000
-main.edge((west-outer_radius, rise, south_z), climb, "climb_long", exposure=.45, draft=True,sector='climb')
-climb_end=main.distance_mm/1000
-main.arc((west, rise, south_z), outer_radius, math.pi, math.pi*1.5, oq, ochord, "rolling", .6,sector='crest_turn')
-ridge_start=main.distance_mm/1000
-if ridge is None:main.edge((east, rise, south_z-outer_radius), bottom, "flat", exposure=.95, draft=True)
+short_course_audit = None
+if 'short_outer_course' in RECIPE:
+    oq = RECIPE["outer_quarter_segments"]
+    start_x = left-RECIPE["finish_lead_m"]
+    points, paid_chords, labels, short_course_audit = build_short_outer_course(
+        RECIPE['short_outer_course'], start_x, right, exit_z, entry_z, mm(overlay_entry))
+    main = Polyline("main", points[0], RECIPE["main_width_m"])
+    zones = {'stadium_launch':'stadium', 'early_turn':'rolling', 'early_rolling':'rolling',
+             'climb_window':'climb_long', 'crest_climb':'climb_long', 'crest_turn':'rolling',
+             'ridge_descent':'descent_fast', 'ridge_climb':'rolling',
+             'technical_descent_turn':'descent_technical', 'descent_roll':'descent_fast',
+             'descent_window':'descent_fast', 'late_rolling':'descent_fast',
+             'recovery_turn':'descent_technical', 'range_recovery':'range_approach'}
+    previous_direction = None
+    for a, b, paid, label in zip(points, points[1:], paid_chords, labels):
+        direction = (b[0]-a[0], b[2]-a[2])
+        horizontal = math.hypot(*direction)
+        curvature = 0. if previous_direction is None else math.atan2(
+            previous_direction[0]*direction[1]-previous_direction[1]*direction[0],
+            previous_direction[0]*direction[0]+previous_direction[1]*direction[1])/horizontal
+        main.edge(b, paid/1000, zones[label], curvature, .6,
+                  draft=label in ('stadium_launch','climb_window','descent_window','range_recovery'))
+        previous_direction = direction
+    rise = short_course_audit['maximum_height_m']
+    ridge = None
 else:
-    ridge=[(x+west,y,z) for x,y,z in ridge]
-    for index,(point,chord_mm) in enumerate(zip(ridge[1:],ridge_chords)):
-        a=main.knots[-1];dx,dz=point[0]-a['x'],point[2]-a['z'];horizontal=math.hypot(dx,dz)
-        previous=(a['x']-main.knots[-2]['x'],a['z']-main.knots[-2]['z'])
-        curvature=math.atan2(previous[0]*dz-previous[1]*dx,previous[0]*dx+previous[1]*dz)/horizontal
-        main.edge(point,chord_mm/1000,'rolling',curvature,.8,sector=RECIPE['plateau_sectors'][index])
-ridge_end=main.distance_mm/1000
-main.arc((east, rise, south_z), outer_radius, -math.pi/2, 0, oq, ochord, "descent_technical", .75,sector='descent_turn')
-descent_start=main.distance_mm/1000
-main.edge((east+outer_radius, 0, entry_z-outer_radius), descent, "descent_fast", exposure=.6, draft=True,sector='descent')
-descent_end=main.distance_mm/1000
-main.arc((east, 0, entry_z-outer_radius), outer_radius, 0, math.pi/2, oq, ochord, "descent_technical", .35,sector='recovery_turn')
-main.edge((right, 0, entry_z), top_straight, "range_approach", exposure=.2, draft=True,sector='recovery')
+    oq = RECIPE["outer_quarter_segments"]
+    ochord = RECIPE["outer_arc_chord_m"]
+    outer_radius = ochord / (2 * math.sin(math.pi / (4 * oq)))
+    climb = RECIPE["climb_travel_m"]
+    descent = RECIPE["descent_travel_m"]
+    separation = entry_z - exit_z
+    climb_horizontal = (descent**2 - climb**2 - separation**2) / (2 * separation)
+    rise = math.sqrt(climb**2 - climb_horizontal**2)
+    outer_arc_total = 4 * oq * ochord
+    bottom = (overlay_entry - climb - descent - outer_arc_total + aisle_length + RECIPE["finish_lead_m"]) / 2
+    bottom = mm(bottom) / 1000
+    west = left - RECIPE["finish_lead_m"] - RECIPE["outer_west_straight_m"]
+    ridge=None
+    if 'plateau_controls' in RECIPE:
+        bottom,ridge,ridge_chords=ridge_span(RECIPE['plateau_controls'],bottom*2,rise,exit_z-outer_radius-climb_horizontal-outer_radius,RECIPE['plateau_chord_real_slack_m'])
+    east = west + bottom
+    top_straight = east - right
+    south_z = exit_z - outer_radius - climb_horizontal
+    main = Polyline("main", (left-RECIPE["finish_lead_m"], 0, exit_z), RECIPE["main_width_m"])
+    main.edge((west, 0, exit_z), RECIPE["outer_west_straight_m"], "stadium", draft=True)
+    main.arc((west, 0, exit_z-outer_radius), outer_radius, math.pi/2, math.pi, oq, ochord, "rolling",sector='lower_turn')
+    climb_start=main.distance_mm/1000
+    main.edge((west-outer_radius, rise, south_z), climb, "climb_long", exposure=.45, draft=True,sector='climb')
+    climb_end=main.distance_mm/1000
+    main.arc((west, rise, south_z), outer_radius, math.pi, math.pi*1.5, oq, ochord, "rolling", .6,sector='crest_turn')
+    ridge_start=main.distance_mm/1000
+    if ridge is None:main.edge((east, rise, south_z-outer_radius), bottom, "flat", exposure=.95, draft=True)
+    else:
+        ridge=[(x+west,y,z) for x,y,z in ridge]
+        for index,(point,chord_mm) in enumerate(zip(ridge[1:],ridge_chords)):
+            a=main.knots[-1];dx,dz=point[0]-a['x'],point[2]-a['z'];horizontal=math.hypot(dx,dz)
+            previous=(a['x']-main.knots[-2]['x'],a['z']-main.knots[-2]['z'])
+            curvature=math.atan2(previous[0]*dz-previous[1]*dx,previous[0]*dx+previous[1]*dz)/horizontal
+            main.edge(point,chord_mm/1000,'rolling',curvature,.8,sector=RECIPE['plateau_sectors'][index])
+    ridge_end=main.distance_mm/1000
+    main.arc((east, rise, south_z), outer_radius, -math.pi/2, 0, oq, ochord, "descent_technical", .75,sector='descent_turn')
+    descent_start=main.distance_mm/1000
+    main.edge((east+outer_radius, 0, entry_z-outer_radius), descent, "descent_fast", exposure=.6, draft=True,sector='descent')
+    descent_end=main.distance_mm/1000
+    main.arc((east, 0, entry_z-outer_radius), outer_radius, 0, math.pi/2, oq, ochord, "descent_technical", .35,sector='recovery_turn')
+    main.edge((right, 0, entry_z), top_straight, "range_approach", exposure=.2, draft=True,sector='recovery')
 assert main.distance_mm == mm(overlay_entry), (main.distance_mm, overlay_entry)
 # Break shared aisle at every whole-mm fork and crossing coordinate for exact static samples.
 cuts = {0., aisle_length}
@@ -316,6 +343,9 @@ track={"schema_version":1,"id":TRACK_ID,"authoring_limits":{"max_abs_grade":.25,
     "penalty":{"loop_id":"penalty_150","entry":anchor("main",overlay_exit),"rejoin":anchor("main",overlay_exit)}}
 if ridge is not None:
     track['checkpoints'][1]['anchor']=anchor('main',ridge_end)
+if short_course_audit is not None:
+    track['checkpoints'][0]['anchor']=anchor('main',short_course_audit['milestones']['crest_turn']['end_m'])
+    track['checkpoints'][1]['anchor']=anchor('main',short_course_audit['milestones']['ridge_climb']['end_m'])
 write(PREFIX+"/track",track)
 write(PREFIX+"/visual",{"schema_version":1,"id":LABEL+"_visual_v1","track_id":TRACK_ID,"sample_spacing_m":2,"loops":[line.visual() for line in all_lines]})
 write(PREFIX+"/paths",{"schema_version":1,"id":LABEL+"_paths_v1","track_id":TRACK_ID,"main_loop_id":"main","entry_distance_m":overlay_entry,"exit_distance_m":overlay_exit,"lanes":paths})
@@ -338,6 +368,18 @@ if ridge is not None:
     manifest['cameras'][1]['anchor']=anchor('main',round((climb_start+climb_end)/2,3))
     manifest['cameras'][2]['id']='ridge_broadcast';manifest['cameras'][2]['anchor']=anchor('main',round(ridge_start+(ridge_end-ridge_start)*.25,3))
     manifest['ambience'][1]['anchor']=anchor('main',round(climb_start+(climb_end-climb_start)*.35,3))
+if short_course_audit is not None:
+    milestones = short_course_audit['milestones']
+    manifest['cameras'][1]['anchor']=anchor('main',round(sum(milestones['climb_window'].values())/2,3))
+    manifest['cameras'][2]['id']='ridge_broadcast'
+    manifest['cameras'][2]['anchor']=anchor('main',round(sum(milestones['ridge_descent'].values())/2,3))
+    manifest['ambience'][1]['anchor']=manifest['cameras'][1]['anchor']
+if 'ai_range_traffic_policy' in RECIPE:
+    traffic=RECIPE['ai_range_traffic_policy']
+    if traffic.get('schema_version')!=1 or traffic.get('id')!=LABEL+'_range_traffic_v1':
+        raise ValueError('Explicit versioned venue traffic identity required')
+    manifest['ai_range_traffic_resource']=PREFIX+'/ai_range_traffic'
+    write(PREFIX+'/ai_range_traffic',traffic)
 write(PREFIX+"/manifest",manifest)
 write(PREFIX+"/start_approach",{"schema_version":1,"id":LABEL+"_start_approach_v1","track_id":TRACK_ID,"loop_id":start.loop,"route_entry_loop_id":"main"})
 main_prefix_point=main.at(10)
@@ -346,8 +388,10 @@ write(PREFIX+"/start_continuation",{"schema_version":1,"id":LABEL+"_start_contin
     "validation_policy_resource":"Biathlon/Venues/production_venue_validation_v1",
     "corridors":[{"loop_id":"start_approach","knots":start.knots},{"loop_id":"main","knots":[main.knots[0],
         {"distance_m":10,"x":main_prefix_point[0],"y":main_prefix_point[1],"z":main_prefix_point[2]}]}]})
-profile={"schema_version":1,"id":LABEL+"_mass_start_men_v1","rules_revision":"production_distance_structure_v1","format":2,"category":0,"distance_m":15000,"laps":5,"start_type":2,"start_interval_s":0,"field_capacity":30,"shots_per_bout":5,"penalty_loop_m":150,
+profile={"schema_version":1,"id":LABEL+"_mass_start_men_v1","rules_revision":RECIPE.get("rules_revision","production_distance_structure_v1"),"format":2,"category":0,"distance_m":RECIPE.get("mass_start_distance_m",15000),"laps":5,"start_type":2,"start_interval_s":0,"field_capacity":30,"shots_per_bout":5,"penalty_loop_m":150,
     "shooting_bouts":[{"id":f"bout_{i+1}","after_lap":i+1,"stance":0 if i<2 else 1} for i in range(4)]}
+if short_course_audit is not None and mm(profile['distance_m']) != main.distance_mm*profile['laps']:
+    raise ValueError('compressed Mass Start profile must pay its exact five Main laps')
 write(PREFIX+"/mass_start_profile",profile)
 write(PREFIX+"/mass_start_route",{"schema_version":1,"id":LABEL+"_mass_start_route_v1","track_id":TRACK_ID,"competition_profile_id":profile["id"],"laps":[{"id":f"lap_{i+1}","loop_ids":["main"]} for i in range(5)]})
 for relative in ("Biathlon/occupancy_provisional_v1.json","Biathlon/Venues/production_venue_validation_v1.json"):
@@ -444,6 +488,8 @@ if ridge is not None:
     audit['milestones_m']={'climb_start':climb_start,'climb_end':climb_end,'ridge_start':ridge_start,'ridge_end':ridge_end,'descent_start':descent_start,'descent_end':descent_end}
     audit['plateau_span_m']=bottom;audit['plateau_actual_travel_m']=sum(ridge_chords)/1000
     audit['plateau_control_points_world']=ridge
+if short_course_audit is not None:
+    audit['short_outer_course'] = short_course_audit
 (HERE/"recipe.json").write_text(json.dumps(RECIPE,indent=2)+"\n",encoding="utf-8")
 (HERE/"audit.json").write_text(json.dumps(audit,indent=2)+"\n",encoding="utf-8")
 
@@ -467,5 +513,11 @@ def plot_svg(path, bounds, title):
     output.append('<text x="30" y="632" font-family="sans-serif" font-size="13">Blue main | Rose private mats | Teal shared exit | Orange penalty | Purple start</text></svg>')
     path.write_text('\n'.join(output)+'\n',encoding="utf-8")
 plot_svg(HERE/"stadium-plan.svg",(-160,-80,115,15),"Venue01: 30-mat side-entry stadium geometry (metres)")
-plot_svg(HERE/"course-plan.svg",(-410,-720,490,25),"Venue01: exact 3 km lap, 150 m penalty, 40 m start approach")
+course_bounds=(-410,-720,490,25)
+if short_course_audit is not None:
+    knots=[k for line in all_lines for k in line.knots]
+    course_bounds=(min(k['x'] for k in knots)-25,min(k['z'] for k in knots)-25,
+                   max(k['x'] for k in knots)+25,max(k['z'] for k in knots)+25)
+plot_svg(HERE/"course-plan.svg",course_bounds,
+         f"Venue01: exact {RECIPE['lap_length_m']/1000:g} km lap, 150 m penalty, 40 m start approach")
 print(json.dumps({k:audit[k] for k in ("main_length_m","penalty_length_m","lane_count","private_length_m","maximum_world_edge_error_m","guard_region_count","connection_count")},indent=2))

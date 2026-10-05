@@ -29,24 +29,29 @@ namespace Biathlon.Unity
             }
             finally{SceneManager.SetActiveScene(prior);EditorSceneManager.CloseScene(scene,true);}
         }
-        public static Mesh Build(int lod)
+        public static Mesh Build(int lod)=>Build(lod,SpectatorPose.Seated);
+        public static Mesh Build(int lod,SpectatorPose pose)
         {
+            if(lod!=0&&lod!=1)throw new System.ArgumentOutOfRangeException(nameof(lod));
+            if(pose!=SpectatorPose.Seated&&pose!=SpectatorPose.Standing)throw new System.ArgumentOutOfRangeException(nameof(pose));
+            bool standing=pose==SpectatorPose.Standing;
             var vertices=new List<Vector3>();var normals=new List<Vector3>();var colors=new List<Color>();var pivots=new List<Vector4>();var triangles=new List<int>();int sides=lod==0?12:6,rings=lod==0?8:4;
             var coat=new Color(.8f,.8f,.8f,1);var cloth=new Color(.07f,.085f,.11f,0);var boot=new Color(.035f,.043f,.052f,0);var skin=new Color(.64f,.41f,.29f,0);var scarf=new Color(.65f,.64f,.59f,0);
-            Ellipsoid(new Vector3(0,.76f,0),new Vector3(.225f,.32f,.15f),coat);
-            Ellipsoid(new Vector3(0,.45f,0),new Vector3(.22f,.15f,.16f),coat);
-            Ellipsoid(new Vector3(0,1.07f,0),new Vector3(.115f,.07f,.11f),scarf);
-            Ellipsoid(new Vector3(0,1.23f,-.005f),new Vector3(.108f,.14f,.10f),skin);
-            Ellipsoid(new Vector3(0,1.34f,0),new Vector3(.118f,.075f,.105f),coat);
-            if(lod==0){Ellipsoid(new Vector3(0,1.205f,-.101f),new Vector3(.019f,.025f,.024f),skin);for(int s=-1;s<=1;s+=2)Ellipsoid(new Vector3(s*.039f,1.247f,-.095f),new Vector3(.01f,.006f,.006f),boot);}
+            float upperOffset=standing?.46f:0;
+            Ellipsoid(new Vector3(0,.76f+upperOffset,0),new Vector3(.225f,.32f,.15f),coat);
+            Ellipsoid(new Vector3(0,.45f+upperOffset,0),new Vector3(.22f,.15f,.16f),coat);
+            Ellipsoid(new Vector3(0,1.07f+upperOffset,0),new Vector3(.115f,.07f,.11f),scarf);
+            Ellipsoid(new Vector3(0,1.23f+upperOffset,-.005f),new Vector3(.108f,.14f,.10f),skin);
+            Ellipsoid(new Vector3(0,1.34f+upperOffset,0),new Vector3(.118f,.075f,.105f),coat);
+            if(lod==0){Ellipsoid(new Vector3(0,1.205f+upperOffset,-.101f),new Vector3(.019f,.025f,.024f),skin);for(int s=-1;s<=1;s+=2)Ellipsoid(new Vector3(s*.039f,1.247f+upperOffset,-.095f),new Vector3(.01f,.006f,.006f),boot);}
             for(int s=-1;s<=1;s+=2)
             {
-                var hip=new Vector3(s*.11f,.43f,0);var knee=new Vector3(s*.12f,.34f,-.30f);var ankle=new Vector3(s*.12f,.09f,-.33f);
-                Limb(hip,knee,.075f,cloth,Vector4.zero);Limb(knee,ankle,.061f,cloth,Vector4.zero);Ellipsoid(new Vector3(s*.12f,.07f,-.41f),new Vector3(.077f,.07f,.15f),boot);
-                var shoulder=new Vector3(s*.21f,.99f,0);var elbow=new Vector3(s*.265f,.72f,-.03f);var hand=new Vector3(s*.24f,.73f,-.245f);var pivot=new Vector4(shoulder.x,shoulder.y,shoulder.z,1);
+                var hip=new Vector3(s*.11f,standing?.91f:.43f,0);var knee=new Vector3(s*(standing?.13f:.12f),standing?.49f:.34f,standing?-.025f:-.30f);var ankle=new Vector3(s*(standing?.14f:.12f),standing?.10f:.09f,standing?0:-.33f);
+                Limb(hip,knee,.075f,cloth,Vector4.zero);Limb(knee,ankle,.061f,cloth,Vector4.zero);Ellipsoid(new Vector3(s*(standing?.14f:.12f),standing?.08f:.07f,standing?-.07f:-.41f),new Vector3(.077f,standing?.08f:.07f,.15f),boot);
+                var shoulder=new Vector3(s*.21f,.99f+upperOffset,0);var elbow=new Vector3(s*.265f,.72f+upperOffset,standing?-.12f:-.03f);var hand=new Vector3(s*.24f,(standing?.93f:.73f)+upperOffset,standing?-.33f:-.245f);var pivot=new Vector4(shoulder.x,shoulder.y,shoulder.z,1);
                 Limb(shoulder,elbow,.07f,coat,pivot);Limb(elbow,hand,.06f,coat,pivot);Ellipsoid(hand,new Vector3(.06f,.05f,.07f),boot,pivot);
             }
-            var mesh=new Mesh{name="SpectatorLOD"+lod};mesh.SetVertices(vertices);mesh.SetNormals(normals);mesh.SetColors(colors);mesh.SetUVs(0,pivots);mesh.SetTriangles(triangles,0);mesh.RecalculateBounds();return mesh;
+            var mesh=new Mesh{name=(standing?"StandingSpectatorLOD":"SpectatorLOD")+lod};mesh.SetVertices(vertices);mesh.SetNormals(normals);mesh.SetColors(colors);mesh.SetUVs(0,pivots);mesh.SetTriangles(triangles,0);mesh.RecalculateBounds();return mesh;
             void Limb(Vector3 a,Vector3 b,float radius,Color color,Vector4 pivot)=>Ellipsoid((a+b)*.5f,new Vector3(radius,radius,(b-a).magnitude*.5f+radius*.35f),color,pivot,Quaternion.LookRotation(b-a));
             void Ellipsoid(Vector3 center,Vector3 extent,Color color,Vector4 pivot=default,Quaternion? orientation=null)
             {

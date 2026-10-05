@@ -27,18 +27,22 @@ namespace Biathlon.Unity.Presentation
         public bool UsesSimplifiedShadows{get;private set;}
         public bool SimplifyingCurrentShadows{get;private set;}
         public bool UsesAuditedCrowd{get;private set;}
+        public SpectatorPose Pose{get;private set;}
         public int VisibleVariant(int variant)=>variant>=0&&variant<groups/2?counts[variant*2]+counts[variant*2+1]:throw new ArgumentOutOfRangeException(nameof(variant));
         public long ShadowSourceTriangles {get{long total=0;for(int i=0;i<groups;i+=2)total+=counts[i]*triangles[SimplifyingCurrentShadows?i+1:i];return total;}}
         public void Initialize(SpectatorSeating source,bool useSimplifiedShadows=false,bool useAuditedCrowd=false)
         {
             if(settings!=null||source==null)throw new ArgumentException("Initialize once with explicit seating.");var d=SpectatorCrowdSettings.Load();if(source.Count==0||source.Count>d.max_instances)throw new ArgumentException("Seating exceeds crowd budget.");
+            if(source.Pose!=SpectatorPose.Seated&&source.Pose!=SpectatorPose.Standing)throw new ArgumentException("Unknown spectator source pose.");
+            if(useAuditedCrowd&&source.Pose==SpectatorPose.Standing)throw new ArgumentException("Audited seated crowd cannot represent standing spectators.");
+            Pose=source.Pose;
             settings=d;seating=source;UsesSimplifiedShadows=useSimplifiedShadows;anchors=source.CopyAnchors();ranks=new float[anchors.Length];for(int i=0;i<ranks.Length;i++)ranks[i]=settings.Rank(i);
             UsesAuditedCrowd=useAuditedCrowd;groups=useAuditedCrowd?20:2;
             for(int variant=0;variant<groups/2;variant++)
             {
                 materials[variant]=Resources.Load<Material>(useAuditedCrowd?"Biathlon/RestrictedG2Crowd/Spectator"+variant:"Biathlon/Crowd/Spectator");
                 if(materials[variant]==null)throw new InvalidOperationException("Missing spectator assets. G2 requires local licensed inputs: run scripts/Build-G2Crowd.ps1; never publish restricted derivatives.");
-                for(int lod=0;lod<2;lod++){int i=variant*2+lod;meshes[i]=Resources.Load<Mesh>(useAuditedCrowd?"Biathlon/RestrictedG2Crowd/Crowd"+variant+"LOD"+lod:"Biathlon/Crowd/SpectatorLOD"+lod);if(meshes[i]==null)throw new InvalidOperationException("Missing spectator LOD; regenerate local crowd assets.");triangles[i]=(int)meshes[i].GetIndexCount(0)/3;matrices[i]=new Matrix4x4[d.max_instances];}
+                for(int lod=0;lod<2;lod++){int i=variant*2+lod;meshes[i]=Resources.Load<Mesh>(useAuditedCrowd?"Biathlon/RestrictedG2Crowd/Crowd"+variant+"LOD"+lod:"Biathlon/Crowd/"+(Pose==SpectatorPose.Standing?"StandingSpectatorLOD":"SpectatorLOD")+lod);if(meshes[i]==null)throw new InvalidOperationException("Missing spectator LOD; regenerate local crowd assets.");triangles[i]=(int)meshes[i].GetIndexCount(0)/3;matrices[i]=new Matrix4x4[d.max_instances];}
             }
             properties=new MaterialPropertyBlock();
         }
@@ -51,7 +55,7 @@ namespace Biathlon.Unity.Presentation
             for(int i=0;i<anchors.Length;i++)
             {
                 if(ranks[i]>=density)continue;var position=matrix.MultiplyPoint3x4(anchors[i]);float distance=Vector3.Distance(position,eye);if(distance>=settings.cull_m)continue;
-                var bounds=new Bounds(position+Vector3.up*.8f,new Vector3(1.2f,2,2));if(!GeometryUtility.TestPlanesAABB(planes,bounds))continue;
+                var bounds=Pose==SpectatorPose.Standing?new Bounds(position+Vector3.up,new Vector3(1.2f,2.1f,2)):new Bounds(position+Vector3.up*.8f,new Vector3(1.2f,2,2));if(!GeometryUtility.TestPlanesAABB(planes,bounds))continue;
                 int lod=distance*lodScale>=settings.lod_m?1:0;int variant=UsesAuditedCrowd?(int)(VegetationDefinition.Mix(unchecked((uint)(i+settings.seed)))%(uint)(groups/2)):0;int group=variant*2+lod;
                 matrices[group][counts[group]++]=matrix*Matrix4x4.Translate(anchors[i]);SubmittedTriangles+=triangles[group];if(first){worldBounds=bounds;first=false;}else worldBounds.Encapsulate(bounds);
             }

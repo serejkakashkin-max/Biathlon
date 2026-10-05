@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "woodland_basin_short_formats_recipe_v1",
+  "venue_id": "woodland_basin_v1",
+  "rules_revision": "owner_compressed_gameplay_distance_v1",
+  "main_loop_id": "main",
+  "width_m": 6,
+  "aligned_terminal_edge_m": 1,
+  "quarter_segments": 8,
+  "world_chord_real_slack_m": 0.02,
+  "guard_distance_m": 25,
+  "directed_format_passages": true,
+  "pursuit": {
+    "loop_id": "pursuit_shortcut",
+    "main_depart_m": 201.357,
+    "main_return_m": 825.731,
+    "length_m": 424.374,
+    "race_distance_m": 5000,
+    "laps": 5,
+    "field_capacity": 40,
+    "analytic_paid_arcs": true,
+    "quarter_segments": 16
+  },
+  "sprint": {
+    "loop_id": "sprint_extension",
+    "main_depart_m": 177.357,
+    "main_return_m": 255.357,
+    "length_m": 278,
+    "turn_radius_m": 15,
+    "race_distance_m": 4200.001,
+    "laps": 3,
+    "field_capacity": 40,
+    "paid_final_main_continuation_m": 0.001
+  },
+  "status": "OWNER_COMPRESSED_GAMEPLAY_CANDIDATE_NATIVE_AND_RACE_ACCEPTANCE_PENDING"
+}

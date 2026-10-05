@@ -13,11 +13,11 @@
     "approach": "side_entry",
     "entry": {
       "loop_id": "main",
-      "distance_m": 2795.548
+      "distance_m": 995.548
     },
     "exit": {
       "loop_id": "main",
-      "distance_m": 2950.0
+      "distance_m": 1150.0
     },
     "firing_origin": {
       "x": 0,
@@ -54,7 +54,7 @@
       "id": "range_overview",
       "anchor": {
         "loop_id": "main",
-        "distance_m": 2893.548
+        "distance_m": 1093.548
       },
       "offset": {
         "x": -20,
@@ -72,7 +72,7 @@
       "id": "forest_climb",
       "anchor": {
         "loop_id": "main",
-        "distance_m": 450.0
+        "distance_m": 216.357
       },
       "offset": {
         "x": 12,
@@ -87,10 +87,10 @@
       "fov_deg": 48
     },
     {
-      "id": "plateau_broadcast",
+      "id": "ridge_broadcast",
       "anchor": {
         "loop_id": "main",
-        "distance_m": 1300.0
+        "distance_m": 442.173
       },
       "offset": {
         "x": -10,
@@ -110,7 +110,7 @@
       "id": "stadium_crowd",
       "anchor": {
         "loop_id": "main",
-        "distance_m": 2893.548
+        "distance_m": 1093.548
       },
       "event_id": "ambience_stadium_crowd",
       "radius_m": 120
@@ -119,7 +119,7 @@
       "id": "forest_wind",
       "anchor": {
         "loop_id": "main",
-        "distance_m": 600.0
+        "distance_m": 216.357
       },
       "event_id": "ambience_forest_wind",
       "radius_m": 100
@@ -131,7 +131,7 @@
       "resource": "Biathlon/Stadium/G2Grandstand/Grandstand",
       "anchor": {
         "loop_id": "main",
-        "distance_m": 2795.548
+        "distance_m": 995.548
       },
       "offset": {
         "x": -15,
@@ -145,7 +145,7 @@
       "resource": "Biathlon/Stadium/G2Event/Event",
       "anchor": {
         "loop_id": "main",
-        "distance_m": 2795.548
+        "distance_m": 995.548
       },
       "offset": {
         "x": 0,
@@ -156,5 +156,6 @@
     }
   ],
   "format_bindings_resource": "Biathlon/Venues/woodland_basin_v1/format_bindings",
-  "shared_apron_resource": "Biathlon/Venues/woodland_basin_v1/shared_apron"
+  "shared_apron_resource": "Biathlon/Venues/woodland_basin_v1/shared_apron",
+  "ai_range_traffic_resource": "Biathlon/Venues/woodland_basin_v1/ai_range_traffic"
 }

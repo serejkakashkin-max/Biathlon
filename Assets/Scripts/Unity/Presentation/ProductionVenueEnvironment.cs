@@ -107,6 +107,24 @@ namespace Biathlon.Unity.Presentation
                 {
                     var asset=data.assets[i];var go=Instantiate(prepared.Prefabs[i],generated.transform,false);go.name=asset.id;go.transform.SetPositionAndRotation(asset.position,Quaternion.Euler(0,asset.yaw_deg,0));
                     RemoveColliders(go);var seating=go.GetComponentInChildren<SpectatorSeating>();
+                    if(seating!=null&&seating.Pose==SpectatorPose.Standing)
+                    {
+                        // These are clone-owned roadside feet anchors, not rigid
+                        // seating platforms. Each person stands on the actual
+                        // captured terrain instead of floating over a slope.
+                        var anchors=seating.CopyAnchors();
+                        float bottom=Require<Mesh>("Biathlon/Crowd/StandingSpectatorLOD0").bounds.min.y;
+                        for(int anchor=0;anchor<anchors.Length;anchor++)
+                        {
+                            var foot=seating.transform.TransformPoint(anchors[anchor]);
+                            foot.y=SampleGround(foot)-bottom;
+                            // Project height only. A yaw inverse round-trip can
+                            // otherwise perturb the exact authored X/Z float bits.
+                            var local=seating.transform.InverseTransformPoint(foot);
+                            anchors[anchor]=new Vector3(anchors[anchor].x,local.y,anchors[anchor].z);
+                        }
+                        seating.Configure(anchors,SpectatorPose.Standing);
+                    }
                     if(seating!=null){var crowd=go.AddComponent<SpectatorCrowd>();crowd.Initialize(seating,true,false);crowdList.Add(crowd);}
                 }
                 crowds=crowdList.ToArray();
@@ -204,7 +222,15 @@ namespace Biathlon.Unity.Presentation
             p.Prefabs=new GameObject[data.assets.Length];for(int i=0;i<p.Prefabs.Length;i++)
             {
                 var prefab=Require<GameObject>(data.assets[i].resource);if(prefab.GetComponentInChildren<SpectatorCrowd>(true)!=null)throw new ArgumentException("Environment owns crowd initialization.");
-                var seating=prefab.GetComponentInChildren<SpectatorSeating>();if(seating!=null&&(seating.Count<1||seating.Count>crowd.max_instances))throw new ArgumentException("Prefab seating exceeds the native crowd capacity.");p.Prefabs[i]=prefab;
+                var seating=prefab.GetComponentInChildren<SpectatorSeating>();
+                if(seating!=null)
+                {
+                    if(seating.Count<1||seating.Count>crowd.max_instances)throw new ArgumentException("Prefab seating exceeds the native crowd capacity.");
+                    if(seating.Pose==SpectatorPose.Standing)
+                    {Require<Mesh>("Biathlon/Crowd/StandingSpectatorLOD0");Require<Mesh>("Biathlon/Crowd/StandingSpectatorLOD1");}
+                    else if(seating.Pose!=SpectatorPose.Seated)throw new ArgumentException("Unknown prefab spectator pose.");
+                }
+                p.Prefabs[i]=prefab;
             }
             p.Meshes=new Mesh[data.mesh_assets.Length];p.Materials=new Material[p.Meshes.Length];for(int i=0;i<p.Meshes.Length;i++){p.Meshes[i]=Require<Mesh>(data.mesh_assets[i].mesh_resource);p.Materials[i]=Require<Material>(data.mesh_assets[i].material_resource);}
             if(data.range.backstop!=null)p.Backstop=Require<Material>(data.range.backstop.material_resource);return p;

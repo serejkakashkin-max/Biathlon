@@ -73,6 +73,9 @@ def coord(k):return tuple(k[x] for x in ('x','y','z'))
 track=read('track');visual=read('visual');junctions=read('junctions');connections=read('connections');manifest=read('manifest')
 main=next(loop for loop in visual['loops'] if loop['loop_id']==recipe['main_loop_id'])
 main_distances=[k['distance_m'] for k in main['knots']]
+main_end=main_distances[-1]
+# Preserve the historical integer JSON representation of whole-metre endpoints.
+if main_end==int(main_end):main_end=int(main_end)
 def sample(d):
     i=min(bisect.bisect_right(main_distances,d)-1,len(main_distances)-2)
     a,b=main['knots'][i:i+2];t=(d-a['distance_m'])/(b['distance_m']-a['distance_m'])
@@ -255,7 +258,7 @@ for key,builder,lo,hi in [('pursuit',pursuit_points,20,250),('sprint',sprint_poi
             {'id':branch_port,'anchor':{'loop_id':spec['loop_id'],'distance_m':branch_d},'guard_before_m':guard if side=='return' else 0,'guard_after_m':guard if side=='depart' else 0}]})
         connections['connections'].append({'id':rid+'_connection','junction_id':rid,
             'from_port_id':main_port if side=='depart' else branch_port,'to_port_id':branch_port if side=='depart' else main_port,'kind':'coincident_seam'})
-    profile={'schema_version':1,'id':f'{LABEL}_{key}_men_v1','rules_revision':'production_distance_structure_v1',
+    profile={'schema_version':1,'id':f'{LABEL}_{key}_men_v1','rules_revision':recipe.get('rules_revision','production_distance_structure_v1'),
         'format':0 if key=='sprint' else 1,'category':0,'distance_m':spec['race_distance_m'],'laps':spec['laps'],
         'start_type':0 if key=='sprint' else 1,'start_interval_s':30 if key=='sprint' else 0,'field_capacity':spec['field_capacity'],
         'shots_per_bout':5,'penalty_loop_m':150,'shooting_bouts':[{'id':f'bout_{i+1}','after_lap':i+1,'stance':0 if i<(1 if key=='sprint' else 2) else 1} for i in range(2 if key=='sprint' else 4)]}
@@ -263,7 +266,7 @@ for key,builder,lo,hi in [('pursuit',pursuit_points,20,250),('sprint',sprint_poi
     for i in range(spec['laps']):
         slices=[{'loop_id':'main','start_m':0,'end_m':spec['main_depart_m']},
             {'loop_id':spec['loop_id'],'start_m':0,'end_m':spec['length_m'],'enter_connection_id':key+'_depart_connection'},
-            {'loop_id':'main','start_m':spec['main_return_m'],'end_m':3000,'enter_connection_id':key+'_return_connection'}]
+            {'loop_id':'main','start_m':spec['main_return_m'],'end_m':main_end,'enter_connection_id':key+'_return_connection'}]
         if key=='sprint' and i==spec['laps']-1:slices.append({'loop_id':'main','start_m':0,'end_m':spec['paid_final_main_continuation_m']})
         laps.append({'id':f'lap_{i+1}','slices':slices})
     route={'schema_version':2,'id':f'{LABEL}_{key}_route_v2','track_id':track['id'],'competition_profile_id':profile['id'],'laps':laps}

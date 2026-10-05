@@ -28,7 +28,7 @@ namespace Biathlon.PlayModeTests
         }
         private static void ExactRenderedTerrainBorders(ProductionVenueEnvironment environment,ProductionEnvironmentDefinition recipe,Matrix4x4? sharedFrame=null)
         {
-            Assert.That(environment.TerrainTileCount,Is.EqualTo(99));var filters=environment.GetComponentsInChildren<MeshFilter>(true);
+            Assert.That(environment.TerrainTileCount,Is.EqualTo(recipe.terrain.tiles.Length));var filters=environment.GetComponentsInChildren<MeshFilter>(true);
             var borders=new Dictionary<Vector2,Vector3>();int shared=0;
             for(int tile=0;tile<environment.TerrainTileCount;tile++)
             {
@@ -54,11 +54,21 @@ namespace Biathlon.PlayModeTests
         private static void PaidCoverage(ProductionCoursePresentation course,VenueAuthoringPlan plan,RaceRoute route)
         {
             var masks=new Dictionary<string,bool[]>(StringComparer.Ordinal);
+            var paidLoops=new HashSet<string>(StringComparer.Ordinal){plan.StartApproach.LoopId,plan.Track.Penalty.LoopId};
+            var routeLoops=new HashSet<string>(StringComparer.Ordinal);
+            for(int section=0;section<route.SectionCount;section++){var occurrence=route.GetSection(section);paidLoops.Add(occurrence.LoopId);routeLoops.Add(occurrence.LoopId);}
+            for(int lane=0;lane<plan.Paths.Count;lane++)for(int slice=0;slice<plan.Paths.GetLane(lane).SliceCount;slice++)paidLoops.Add(plan.Paths.GetLane(lane).GetSlice(slice).LoopId);
+            Assert.That(course.VisibleLoopCount,Is.EqualTo(paidLoops.Count));
             for(int loop=0;loop<course.LoopCount;loop++)
             {
                 string id=course.LoopId(loop);var native=course.NativeLoopMesh(id);var draw=course.LoopMesh(id);
                 var selected=ProductionTerrainContactTests.DrawnSourcePanels(native,draw);masks.Add(id,selected);
-                for(int panel=0;panel<selected.Length;panel++)Assert.That(course.PanelVisible(id,panel),Is.EqualTo(selected[panel]));
+                for(int panel=0;panel<selected.Length;panel++)
+                {
+                    bool expected=PaidPanel(id,course.NativeDistance(id,panel),course.NativeDistance(id,panel+1));
+                    Assert.That(course.PanelVisible(id,panel),Is.EqualTo(selected[panel]));
+                    Assert.That(selected[panel],Is.EqualTo(expected),"Every drawn/excluded original face must match the current typed paid union: "+id+" panel "+panel);
+                }
                 Assert.That(course.LoopRenderer(id).enabled,Is.EqualTo(draw.triangles.Length>0));
             }
             for(int section=0;section<route.SectionCount;section++)
@@ -70,7 +80,16 @@ namespace Biathlon.PlayModeTests
             for(int lane=0;lane<plan.Paths.Count;lane++)for(int slice=0;slice<plan.Paths.GetLane(lane).SliceCount;slice++)
             {var occurrence=plan.Paths.GetLane(lane).GetSlice(slice);if(occurrence.LoopId!=plan.Paths.MainLoopId)auxiliary.Add(occurrence.LoopId);}
             foreach(string id in auxiliary){SameArrays(course.NativeLoopMesh(id),course.LoopMesh(id));Assert.That(course.LoopRenderer(id).enabled,Is.True);}
-            Assert.That(plan.LaneCount,Is.EqualTo(30));
+            Assert.That(plan.LaneCount,Is.EqualTo(plan.Paths.Count));
+            bool PaidPanel(string id,double first,double last)
+            {
+                if(id==plan.StartApproach.LoopId||id==plan.Track.Penalty.LoopId)return true;
+                for(int section=0;section<route.SectionCount;section++)
+                {var occurrence=route.GetSection(section);if(occurrence.LoopId==id&&last>occurrence.LoopStart.Meters&&first<occurrence.LoopEnd.Meters)return true;}
+                for(int lane=0;lane<plan.Paths.Count;lane++)for(int slice=0;slice<plan.Paths.GetLane(lane).SliceCount;slice++)
+                {var occurrence=plan.Paths.GetLane(lane).GetSlice(slice);if(occurrence.LoopId==id&&(!routeLoops.Contains(id)||last>occurrence.Start.Meters&&first<occurrence.End.Meters))return true;}
+                return false;
+            }
             void Cover(string id,double start,double end)
             {
                 int covered=0;var selected=masks[id];
@@ -91,10 +110,15 @@ namespace Biathlon.PlayModeTests
                 {
                     string id=course.LoopId(loop);Assert.That(course.LoopMesh(id),Is.SameAs(course.NativeLoopMesh(id)));
                     var rows=course.NativeRowCount(id);Assert.That(rows*2,Is.EqualTo(course.LoopMesh(id).vertexCount));
+                    var expectedRows=new SortedSet<double>{0,plan.Track.GetLoop(id).Length.Meters};
+                    var authored=plan.Visual.Get(id);for(int knot=0;knot<authored.Count;knot++)expectedRows.Add(authored.Get(knot).Distance);
+                    var typedLoop=plan.Track.GetLoop(id);for(int segment=0;segment<typedLoop.SegmentCount;segment++)expectedRows.Add(typedLoop.GetSegment(segment).StartDistance.Meters);
+                    int steps=(int)Math.Ceiling(typedLoop.Length.Meters/plan.Visual.SampleSpacing);for(int sample=1;sample<steps;sample++)expectedRows.Add(typedLoop.Length.Meters*sample/steps);
+                    Assert.That(rows,Is.EqualTo(expectedRows.Count));int expectedRow=0;foreach(double distance in expectedRows)Assert.That(course.NativeDistance(id,expectedRow++),Is.EqualTo(distance));
                     Assert.That(course.NativeDistance(id,0),Is.Zero);Assert.That(course.NativeDistance(id,rows-1),Is.EqualTo(plan.Track.GetLoop(id).Length.Meters));
                     for(int row=1;row<rows;row++){Assert.That(course.NativeDistance(id,row),Is.GreaterThan(course.NativeDistance(id,row-1)));Assert.That(course.PanelVisible(id,row-1),Is.True);}
                 }
-                Assert.That(course.NativeDistance("main",292),Is.EqualTo(568));Assert.That(Snapshots(plan),Is.EqualTo(before));
+                Assert.That(Snapshots(plan),Is.EqualTo(before));
                 course.Shutdown();yield return null;Assert.That(course.VisibleLoopCount,Is.Zero);Assert.That(root.transform.childCount,Is.Zero);
             }
             finally{root.GetComponent<ProductionCoursePresentation>()?.Shutdown();Object.Destroy(root);}
@@ -115,12 +139,11 @@ namespace Biathlon.PlayModeTests
                     for(int loop=0;loop<course.LoopCount;loop++){string id=course.LoopId(loop);SameArrays(baseline.NativeLoopMesh(id),course.NativeLoopMesh(id));}
                     bool sprint=plan.Formats.Get(format).Profile.Format==CompetitionFormat.Sprint;
                     bool mass=plan.Formats.Get(format).Profile.Format==CompetitionFormat.MassStart;
-                    Assert.That(course.PanelVisible("main",292),Is.EqualTo(!sprint));Assert.That(course.VisibleLoopCount,Is.EqualTo(mass?34:35));
                     Assert.That(course.LoopRenderer("sprint_extension").enabled,Is.EqualTo(sprint));Assert.That(course.LoopRenderer("pursuit_shortcut").enabled,Is.EqualTo(!mass&&!sprint));
                     if(sprint)
                     {
-                        Assert.That(course.NativeDistance("main",282),Is.EqualTo(548));Assert.That(course.NativeDistance("main",283),Is.EqualTo(550));
-                        Assert.That(course.PanelVisible("main",282),Is.True);Assert.That(course.PanelVisible("main",283),Is.False);
+                        int excluded=0;for(int panel=0;panel<course.NativeRowCount("main")-1;panel++)if(!course.PanelVisible("main",panel))excluded++;
+                        Assert.That(excluded,Is.GreaterThan(0),"The current sprint detour must exclude its untravelled main faces.");
                         Assert.That(course.PanelVisible("main",0),Is.True);Assert.That(course.PanelVisible("main",course.NativeRowCount("main")-2),Is.True);
                     }
                     Assert.That(route.PlanSnapshotJson,Is.EqualTo(routeBefore));Assert.That(route.RequirementsSnapshotJson,Is.EqualTo(requirementsBefore));Assert.That(Snapshots(plan),Is.EqualTo(before));

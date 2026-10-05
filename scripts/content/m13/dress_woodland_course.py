@@ -6,6 +6,7 @@ import json
 import math
 from pathlib import Path
 import re
+import struct
 
 
 def sha(path):
@@ -45,6 +46,48 @@ def mesh_bounds(path):
 
 def merged_bounds(bounds):
     return tuple(min(b[0][i] for b in bounds) for i in range(3)), tuple(max(b[1][i] for b in bounds) for i in range(3))
+
+
+def standing_contact_geometry(project):
+    """Read contact witnesses from the actual saved native float vertex stream."""
+    path = resource_path(project, 'Biathlon/Crowd/StandingSpectatorLOD0', '.asset')
+    text = path.read_text(encoding='utf-8-sig')
+    count = int(re.search(r'm_VertexCount:\s*(\d+)', text).group(1))
+    size = int(re.search(r'm_DataSize:\s*(\d+)', text).group(1))
+    data = bytes.fromhex(re.search(r'_typelessdata:\s*([0-9a-fA-F]+)', text).group(1))
+    if size != len(data) or size != count * 56:
+        raise ValueError('Known native standing float position/normal/color/UV stream required')
+    vertices = [struct.unpack_from('<fff', data, i * 56) for i in range(count)]
+    bottom = min(v[1] for v in vertices)
+    feet = sorted({v for v in vertices if abs(v[1] - bottom) <= 1e-6})
+    prefab = resource_path(project, 'Biathlon/Roadside/StandingCrowd16', '.prefab').read_text(encoding='utf-8-sig')
+    block = re.search(r'anchors:\s*\n((?:\s*-\s*{[^}]+}\s*\n)+)', prefab).group(1)
+    anchors = [numbers(p) for p in re.findall(r'-\s*({[^}]+})', block)]
+    return feet, anchors
+
+
+def standing_contact_gap(grid, spacing, position, yaw, contacts):
+    feet, anchors = contacts
+    maximum = 0.
+    for anchor in anchors:
+        ax, az = rotate(anchor[0], anchor[2], yaw)
+        x, z = position[0] + ax, position[2] + az
+        y = ground(grid, spacing, x, z)
+        for foot in feet:
+            fx, fz = rotate(foot[0], foot[2], yaw)
+            maximum = max(maximum, abs(y - ground(grid, spacing, x + fx, z + fz)))
+    return maximum
+
+
+def require_standing_contact(grid, spacing, position, yaw, contacts, template):
+    limit = template.get('maximum_foot_contact_gap_m')
+    if type(limit) not in (int, float) or not math.isfinite(limit) or not .001 <= limit <= .03:
+        raise ValueError('Standing crowd requires a finite foot-contact bound up to 3cm')
+    gap = standing_contact_gap(grid, spacing, position, yaw, contacts)
+    # Keep the native float transform reserve used by the placement resolver.
+    if gap > limit - .0002:
+        raise ValueError('Standing boot contacts exceed authored terrain bound')
+    return gap
 
 
 def rotate(x, z, yaw):
@@ -96,10 +139,11 @@ def point_polygon(point, polygon):
     return 0. if inside(point, polygon) else min(point_segment(point, p, polygon[(i + 1) % len(polygon)]) for i, p in enumerate(polygon))
 
 
-def terrain_grid(project, environment):
+def terrain_grid(project, environment, json_root=None):
     grid = {}; spacing = environment['terrain']['grid_spacing_m']
     for tile in environment['terrain']['tiles']:
-        heights = read_json(resource_path(project, tile['height_resource'], '.json'))
+        path = resource_path(project, tile['height_resource'], '.json') if json_root is None else json_root / (tile['height_resource'] + '.json')
+        heights = read_json(path)
         if heights['tile_id'] != tile['id'] or heights['venue_id'] != environment['venue_id'] or len(heights['heights_m']) != tile['columns'] * tile['rows']:
             raise ValueError('Exact matching terrain tile required')
         for iz in range(tile['rows']):
@@ -198,25 +242,28 @@ def viewing_strip(visual, item):
     return polygon
 
 
-def run(project, recipe_path, output):
+def run(project, recipe_path, output, source_resources=None):
     project = project.resolve(); output = output.resolve()
     if not output.is_relative_to(project / 'artifacts') or output.exists():
         raise ValueError('Fresh candidate directory inside ignored artifacts required')
     recipe = read_json(recipe_path)
-    if recipe.get('schema_version') != 1 or recipe.get('id') != 'woodland_basin_course_dressing_v1' or recipe.get('venue_id') != 'woodland_basin_v1':
+    if recipe.get('schema_version') != 1 or recipe.get('id') not in ('woodland_basin_course_dressing_v1', 'woodland_basin_course_dressing_v2') or recipe.get('venue_id') != 'woodland_basin_v1':
         raise ValueError('Exact versioned Woodland recipe required')
     for field, low, high in (('minimum_course_edge_clearance_m', 2., 20.), ('canopy_landmark_clearance_m', 0., 10.)):
         value = recipe[field]
         if isinstance(value, bool) or not isinstance(value, (float, int)) or not math.isfinite(value) or not low <= value <= high:
             raise ValueError('Finite bounded presentation clearance required')
-    prefix = 'Biathlon/Venues/woodland_basin_v1'; source = project / 'Assets/Resources' / prefix
-    original = {str(p.relative_to(project / 'Assets/Resources')).replace('\\', '/'): p.read_bytes() for p in source.rglob('*.json')}
+    json_root = project / 'Assets/Resources' if source_resources is None else Path(source_resources).resolve()
+    if source_resources is not None and (not json_root.is_relative_to(project / 'artifacts') or not json_root.is_dir()):
+        raise ValueError('Detached source resources must be an existing directory under project artifacts')
+    prefix = 'Biathlon/Venues/woodland_basin_v1'; source = json_root / prefix
+    original = {str(p.relative_to(json_root)).replace('\\', '/'): p.read_bytes() for p in source.rglob('*.json')}
     documents = {p: json.loads(v.decode('utf-8-sig')) for p, v in original.items()}
     environment = documents[prefix + '/environment.json']; visual = documents[prefix + '/visual.json']
-    grid, spacing = terrain_grid(project, environment)
-    sources = {}; templates = {}
+    grid, spacing = terrain_grid(project, environment, json_root)
+    sources = {}; templates = {}; standing_templates = set()
     guid_paths = {}
-    for meta in (project / 'Assets/Resources/Biathlon/Stadium').rglob('*.asset.meta'):
+    for meta in (project / 'Assets/Resources/Biathlon').rglob('*.asset.meta'):
         match = re.search(r'^guid:\s*(\w+)', meta.read_text(encoding='utf-8-sig'), re.M)
         if match:
             guid_paths[match.group(1)] = meta.with_suffix('')
@@ -225,7 +272,8 @@ def run(project, recipe_path, output):
         return mesh_bounds(p)
     for name, template in recipe['templates'].items():
         variation = template['maximum_foundation_variation_m']
-        if isinstance(variation, bool) or not math.isfinite(variation) or not 0 <= variation <= .5:
+        maximum_variation = 2. if template.get('foundation_mode') == 'standing_ground_anchors' else .5
+        if isinstance(variation, bool) or not math.isfinite(variation) or not 0 <= variation <= maximum_variation:
             raise ValueError('Bounded rigid foundation variation required')
         if 'prefab_resource' in template:
             p = resource_path(project, template['prefab_resource'], '.prefab'); text = p.read_text(encoding='utf-8-sig'); sources[str(p.relative_to(project))] = sha(p)
@@ -239,8 +287,16 @@ def run(project, recipe_path, output):
                 mesh = guid_paths[guid]; sources[str(mesh.relative_to(project))] = sha(mesh); bounds.append(mesh_bounds(mesh))
             seating = re.search(r'anchors:\s*\n((?:\s*-\s*{[^}]+}\s*\n)+)', text)
             seats = len(re.findall(r'-\s*{', seating.group(1))) if seating else 0
-            if seats < 1 or seats > 512 or 'Biathlon.Unity.Presentation.SpectatorSeating' not in text:
-                raise ValueError('Existing real spectator anchors required')
+            if seating and re.search(r'^\s*pose:\s*1\s*$', text, re.M):
+                standing_templates.add(name)
+            if not bounds and name in standing_templates:
+                # Standing roadside crowds have no solid stand. Derive their
+                # complete envelope from real LOD0 bounds and every actual anchor.
+                body = native_mesh('Biathlon/Crowd/StandingSpectatorLOD0')
+                anchors = [numbers(value) for value in re.findall(r'-\s*({[^}]+})', seating.group(1))]
+                bounds = [(tuple(body[0][i] + a[i] for i in range(3)), tuple(body[1][i] + a[i] for i in range(3))) for a in anchors]
+            if not bounds or seats > 512 or (seating and 'Biathlon.Unity.Presentation.SpectatorSeating' not in text):
+                raise ValueError('Native prefab bounds and valid optional spectator anchors required')
             templates[name] = (merged_bounds(bounds), seats)
         else:
             bounds = []
@@ -267,7 +323,16 @@ def run(project, recipe_path, output):
         samples = [p for p, _ in footing]; heights = [y for _, y in footing]
         if max(heights) - min(heights) > template['maximum_foundation_variation_m']:
             raise ValueError('Uneven native terrain foundation: ' + identity)
-        position = (position[0], foundation_y(heights, bounds[0][1], template), position[2]); minimum_gap = float('inf'); nearest = None
+        if template.get('foundation_mode') == 'standing_ground_anchors':
+            if seats < 1 or item['template'] not in standing_templates:
+                raise ValueError('Ground-following feet require an explicit standing crowd prefab')
+            # Runtime grounds each cloned foot anchor independently. A crowd has
+            # no shared solid base whose top must flatten an entire hillside.
+            position = (position[0], ground(grid, spacing, position[0], position[2]), position[2])
+            require_standing_contact(grid, spacing, position, yaw, standing_contact_geometry(project), template)
+        else:
+            position = (position[0], foundation_y(heights, bounds[0][1], template), position[2])
+        minimum_gap = float('inf'); nearest = None
         for corridor in environment['route_corridors']:
             for i, (a, b) in enumerate(zip(corridor['knots'], corridor['knots'][1:])):
                 gap = segment_polygon((a['x'], a['z']), (b['x'], b['z']), polygon) - max(corridor['widths_m'][i:i + 2]) / 2
@@ -348,6 +413,7 @@ if __name__ == '__main__':
     parser.add_argument('--project-root', type=Path, default=Path(__file__).resolve().parents[3])
     parser.add_argument('--recipe', type=Path, default=Path(__file__).with_name('recipes') / 'woodland_basin_course_dressing_v1.json')
     parser.add_argument('--output-root', type=Path, required=True)
+    parser.add_argument('--source-resources', type=Path, help='Optional detached generated resources under project artifacts')
     args = parser.parse_args()
-    proof = run(args.project_root, args.recipe, args.output_root)
+    proof = run(args.project_root, args.recipe, args.output_root, args.source_resources)
     print(json.dumps({k: proof[k] for k in ('status', 'pruned_tree_count', 'forest_after', 'actual_added_spectator_anchors', 'changed_resources')}))

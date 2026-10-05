@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "woodland_basin_short_environment_recipe_v1",
+  "venue_id": "woodland_basin_v1",
+  "lighting": {"fog_distance_scale": 2.7},
+  "forest_high_visibility": {"schema_version": 1, "id": "woodland_basin_high_fog_visibility_v1", "mode": "fog_frustum_v1"},
+  "terrain": {"snow_shoulders_resource": "Biathlon/Venues/woodland_basin_v1/sprint_fork_snow_shoulders", "stadium_flat_bounds": [-65, -95, 130, 62], "stadium_blend_m": 10},
+  "stadium_placement": {
+    "schema_version": 1,
+    "id": "woodland_short_course_clear_stadium_v1",
+    "grandstand_row": {"start_x": -55, "z": -72, "pitch_m": 20, "yaw_deg": 180},
+    "event_screen": {"x": 128, "z": -45, "yaw_deg": -90},
+    "minimum_paid_clearance_m": 3,
+    "maximum_foundation_variation_m": 0.25
+  },
+  "status": "OWNER_SHORT_COURSE_CANDIDATE_NATIVE_AND_RACE_ACCEPTANCE_PENDING"
+}

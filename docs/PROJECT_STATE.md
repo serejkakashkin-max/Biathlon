@@ -10,7 +10,7 @@ owner_gate_g1: APPROVED 2026-09-13
 owner_gate_g2: APPROVED 2026-09-30
 m12_status: PASS / owner-approved
 active_work_package: M13 owner shortened/varied Woodland revision; manual steering; WP-175 OPEN
-active_task: shorten actual ski loops at least 2x; early curves/real rises and descents; roadside tape/standing crowd/flags; fix penalty stadium overlap; deliver owner review build
+active_task: owner stationary-player avoidance; moving range/penalty merges; mat/fork arrows and bounded range assistance; downhill tuck player/AI
 owner_motion_task: TASK_M13_OWNER_MOTION_01 PASS 2026-10-05
 owner_course_dressing_task: TASK_M13_WOODLAND_DRESSING_01 bounded checks PASS; owner requests substantial course/layout/dressing revision
 owner_manual_task: TASK_M13_OWNER_MANUAL_01 IN_PROGRESS; foundation focused/native PASS; integration pending
@@ -20,20 +20,22 @@ production_venue: woodland_basin_v1
 deferred_work_packages: WP-170/171/172/173/174 DEFERRED_OWNER_SCOPE_REDUCTION
 last_completed_work_package: WP-169 PASS / DONE 2026-10-04
 production_fields: Sprint40 / Pursuit40 / MassStart30; includes player
-last_verified_commit: 5fa259c; pushed; current motion+dressing Windows review and WP175 component proofs; full core failure retained
-next_action: regenerate shortened varied actual Woodland geometry and paid profiles; relocate stadium overlaps; dress roadsides; test/replay and explicitly deliver Windows review
+last_verified_commit: 18ee222; pushed; bounded oversized replay context tooling; shortened course changes in working tree
+next_action: finish frozen short-course full regression; reproduce standing-player/exit queues; implement owner traffic/guidance/tuck directive
 wp175_preparation: five visual rows and four canonical physical snow bindings; execution/acceptance OPEN
 wp175_physical_component_checks: four canonical snow bindings; dotnet10/native10 PASS; full condition races OPEN
 review_tooling_task: explicit bounded build/smoke paths; native lease10 and generic authoring11 PASS
 current_known_blockers: []
 open_acceptance: [manual steering integration; Woodland quality; WP-175/176/177/178]
 owner_decisions_needed: []
-last_delivered_windows_build: Builds/WoodlandReview20261005/Biathlon.exe; Development/High; current motion+dressing; build/hidden3formats PASS
+last_delivered_windows_build: Builds/WoodlandShortCourseReview20261005/Biathlon.exe; Development/High; new short course/roadside/stadium; build/hidden3formats PASS; owner played and approves improvement, further traffic/guidance/tuck requests open
 ```
 
 [Owner playable course revision](owner/OWNER_WOODLAND_PLAYABLE_COURSE_REVISION_2026-10-05.md): latest hands-on feedback approves athlete motion, but the current course remains too long and monotonous. Actual skiing distance must reduce by at least half, with early turns and multiple real rises/descents. Owner means course-edge ribbon tape and standing spectators, billboards/flag steles, not only remote stands. Confirmed old stadium grandstands08/09 and event screen intrude on the penalty corridor. Geometry/layout/dressing revision is IN_PROGRESS; each new build must be explicitly delivered for owner testing. Earlier WP169 race acceptance is historical and does not qualify the new course until rerun.
 
-[Large replay context tooling](reports/TASK_M13_LARGE_REPLAY_CONTEXT_REPORT.md) PASS: complete CLI test assembly28/28; scoped chunk encoding removes the actual oversized JSON-token failure while retaining exact legacy strings and outer capacity limits. The shortened geometry/static/native dressing checks pass, but complete races revealed a dense-entry deadlock. Traffic diagnosis is IN_PROGRESS; experimental prefix runs and rejected geometry/control variants are retained, and no new build or completed-race acceptance is claimed yet.
+[Large replay context tooling](reports/TASK_M13_LARGE_REPLAY_CONTEXT_REPORT.md) PASS: complete CLI test assembly28/28; scoped chunk encoding removes the actual oversized JSON-token failure while retaining exact legacy strings and outer capacity limits.
+
+Shortened-course checkpoint: actual Main1200m, Sprint4200.001m, Pursuit5000m, MassStart6000m; first turn60m, real rises/descent,30mats at3m pitch, paid penalty150m preserved. Roadside1372 ribbon segments,26 standing crowd groups/416 anchors,18 billboards,18 flag steles,6 banners/1hut,8280 trees. Native full stadium meshes clear all36 paid penalty loops by at least3m; exact world seams and terrain/crowd grounding checked. Three normal native High GameViews inspected. Sprint40 completes tick43417 and Mass30 tick37106; their persisted current-source replays PASS with exact per-tick states/events/results. Qualified Pursuit40 completion/replay remains OPEN. Venue-scoped AI coasting and positive entry aisle address dense range traffic; exact route interval reachability ([ADR0030](adr/ADR-0030-exact-route-interval-junction-reachability.md)) removes a false Main crossing inside a skipped Pursuit interval without shrinking bodies/guards. Focused .NET50+30/native junction8/directed24 tests PASS; historical WP169 numerical witnesses now retain their exact19-file authority outside Resources. Broad core suite running; earlier allocation defect retained. No new Windows build yet. Failed prefixes and rejected geometry/control experiments are retained under artifacts/owner-short-course-20261005.
 
 WP-167/168/169 are DONE. [WP169 consolidated report](reports/WP169_VENUE01_PRODUCTION_REPORT.md) and [acceptance](quality/m13/wp169-production/acceptance.json) contain the final evidence. Woodland is now the sole production venue. WP170–174 are deferred by explicit owner scope reduction, not completed. Pine's corrected Sprint40 finished tick53,594 with exact persisted replay; Mass30/range and Pursuit40/shortcut acceptance remained OPEN. [Pine diagnostic record](quality/m13/wp170-pine-profile-repair.md), failed artifacts and [recoverable source checkpoint](deferred/wp170/README.md) are retained for later work. All412 Pine asset/meta files were removed from active Assets after byte/hash verification; the469-entry archive is outside Unity Resources. WP175–178 remain OPEN for Woodland; continue to the actual M13 gate.
 

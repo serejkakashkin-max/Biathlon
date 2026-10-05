@@ -221,15 +221,16 @@ namespace Biathlon.PlayModeTests
             {
                 var camera=View(root);camera.transform.position=new Vector3(110,35,-72);camera.transform.LookAt(new Vector3(0,1,8));camera.fieldOfView=64;camera.nearClipPlane=.05f;camera.farClipPlane=700;
                 var environment=root.AddComponent<ProductionVenueEnvironment>();environment.Initialize(plan,recipe,Read,root.AddComponent<RacePresentationFeed>(),camera);
-                // The compact venue regeneration changes the authored forest inventory.
-                // Freeze the new content count while retaining exact per-instance and
-                // Low/Balanced comparisons against the existing adapter below.
-                Assert.That(environment.TreeCount,Is.EqualTo(26614));int declared=0;
+                // Bind the current inventory; retain exact per-instance and native
+                // Low/Balanced comparisons instead of freezing a historical count.
+                Assert.That(environment.ForestGroupCount,Is.EqualTo(recipe.forest.groups.Length));int declared=0;
                 foreach(var group in recipe.forest.groups)declared+=group.count;
-                Assert.That(environment.TreeCount,Is.EqualTo(declared));int high=0;long shadows=0;
+                Assert.That(environment.TreeCount,Is.EqualTo(declared));int high=0,expectedHigh=0;long shadows=0;
+                float fog=WeatherVisualDefinition.Load().Get(recipe.lighting.weather_preset).fog_end_m*recipe.lighting.fog_distance_scale;
+                var frustum=GeometryUtility.CalculateFrustumPlanes(camera);
                 for(int i=0;i<environment.ForestGroupCount;i++)
                 {
-                    var forest=environment.Forest(i);Assert.That(forest.ProductionHighFogEndMeters,Is.EqualTo(594));forest.Prepare(camera,"high",12);high+=forest.VisibleInstances;shadows+=forest.ShadowSourceTriangles;
+                    var forest=environment.Forest(i);Assert.That(forest.ProductionHighFogEndMeters,Is.EqualTo(fog));forest.Prepare(camera,"high",12);high+=forest.VisibleInstances;shadows+=forest.ShadowSourceTriangles;
                     var group=recipe.forest.groups[i];var authored=JsonUtility.FromJson<ProductionForestInstances>(Read(group.instances_resource));
                     var legacyRoot=new GameObject("Exact default group comparison");
                     try
@@ -237,12 +238,27 @@ namespace Biathlon.PlayModeTests
                         legacyRoot.transform.position=group.center;var placement=new VegetationInstance[authored.instances.Length];var species=new byte[placement.Length];
                         for(int tree=0;tree<placement.Length;tree++){var value=authored.instances[tree];placement[tree]=new VegetationInstance(value.position-group.center,value.scale,value.yaw_deg,value.density_rank);species[tree]=(byte)(value.species=="pine"?1:0);}
                         var legacy=legacyRoot.AddComponent<VegetationPresentation>();legacy.Initialize(null,true,null,true,true,placement,species);
-                        for(int tree=0;tree<placement.Length;tree++)Assert.That(forest.InstanceWorldPosition(tree),Is.EqualTo(legacy.InstanceWorldPosition(tree)),"Published float placement must remain exactly equal to the existing adapter.");
+                        for(int tree=0;tree<placement.Length;tree++)
+                        {
+                            var pivot=forest.InstanceWorldPosition(tree);
+                            Assert.That(pivot,Is.EqualTo(legacy.InstanceWorldPosition(tree)),"Published float placement must remain exactly equal to the existing adapter.");
+                            float radius=0,minY=0,maxY=0;
+                            for(int lod=0;lod<3;lod++)
+                            {
+                                var b=Resources.Load<Mesh>("Biathlon/Vegetation/G2"+(species[tree]==1?"Pine":"Fir")+"/"+(species[tree]==1?"Pine":"Fir")+"LOD"+lod).bounds;
+                                float x=Mathf.Max(Mathf.Abs(b.min.x),Mathf.Abs(b.max.x)),z=Mathf.Max(Mathf.Abs(b.min.z),Mathf.Abs(b.max.z));
+                                radius=Mathf.Max(radius,Mathf.Sqrt(x*x+z*z));minY=Mathf.Min(minY,b.min.y);maxY=Mathf.Max(maxY,b.max.y);
+                            }
+                            float scale=placement[tree].Scale;radius=radius*scale+VegetationDefinition.Load().wind_amplitude_m;
+                            var canopy=new Bounds(pivot+Vector3.up*((minY+maxY)*.5f*scale),new Vector3(radius*2,(maxY-minY)*scale,radius*2));
+                            var forward=camera.transform.forward;float support=Vector3.Dot(canopy.extents,new Vector3(Mathf.Abs(forward.x),Mathf.Abs(forward.y),Mathf.Abs(forward.z)));
+                            if(GeometryUtility.TestPlanesAABB(frustum,canopy)&&Vector3.Dot(canopy.center-camera.transform.position,forward)-support<fog+camera.nearClipPlane)expectedHigh++;
+                        }
                         foreach(string tier in new[]{"low","balanced"}){forest.Prepare(camera,tier,12);legacy.Prepare(camera,tier,12);Assert.That(forest.VisibleInstances,Is.EqualTo(legacy.VisibleInstances));Assert.That(forest.SubmittedTriangles,Is.EqualTo(legacy.SubmittedTriangles));Assert.That(forest.ShadowSourceTriangles,Is.EqualTo(legacy.ShadowSourceTriangles));Assert.That(forest.PreparedWorldBounds,Is.EqualTo(legacy.PreparedWorldBounds));}
                     }
                     finally{Object.DestroyImmediate(legacyRoot);}
                 }
-                Assert.That(high,Is.EqualTo(4167),"Frozen stadium camera proves the opted-in canopy horizon on all current compact-venue native instances.");Assert.That(shadows,Is.Zero);
+                Assert.That(high,Is.EqualTo(expectedHigh),"Every current source canopy must match the native full-bound frustum/fog witness, independent of historical inventory counts.");Assert.That(high,Is.GreaterThan(0));Assert.That(shadows,Is.Zero);
                 Assert.That(plan.Track.ToJson(),Is.EqualTo(track));Assert.That(plan.Visual.ToJson(),Is.EqualTo(visual));Assert.That(plan.Paths.ToJson(),Is.EqualTo(paths));
                 foreach(var collider in root.GetComponentsInChildren<Collider>())Assert.That(collider.enabled,Is.False,"No gameplay collision while native destruction is pending.");
                 yield return null;Assert.That(root.GetComponentsInChildren<Collider>(),Is.Empty);
