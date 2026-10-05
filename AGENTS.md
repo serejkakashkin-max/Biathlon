@@ -102,3 +102,11 @@ Report:
 - next logical task.
 
 A task is not done while the project has compile errors or required tests are failing.
+
+## Production state history
+
+Owner directive 2026-10-05: `docs/PROJECT_STATE.md` is append-only. Never delete,
+compact, summarize away, or replace historical entries. Append dated progress,
+corrections, evidence and the latest operational state at the end of the file.
+Historical statuses keep their original dates; the latest appended record controls
+current work. Preserve the history from Foundation onward.

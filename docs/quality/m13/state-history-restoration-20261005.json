@@ -1,0 +1,1377 @@
+{
+  "schema_version": 1,
+  "id": "project_state_history_restoration_20261005_v1",
+  "status": "ALL_HISTORICAL_BLOCKS_RETAINED",
+  "versions": 195,
+  "policy": "Append dated updates only; no history deletion or compaction",
+  "uncommitted_checkpoint_sha256": "2b642ea3fcd3038b4307149be162a4a49c585fba1dc4225ad6d6feb66e2d4e11",
+  "restored_bytes": 2713223,
+  "restored_sha256": "c330e56ce3e335bfc083336a84a2a0ff386d02181c2409b5a61efb63d3a0f7e8",
+  "sources": [
+    {
+      "commit": "9697564949ee883ec839dc2c5ecafb846475bc9d",
+      "date": "2026-09-09T18:02:26+03:00",
+      "source_sha256": "8c641fc4f312944a6159868f618810d290094b3b3a4c15296b9da65f43664f00",
+      "blocks": 20,
+      "new_retained_blocks": 20
+    },
+    {
+      "commit": "d841f795518f59f1aa69050d4e8632169f2374a4",
+      "date": "2026-09-09T18:03:11+03:00",
+      "source_sha256": "3887eb37167054be61eeb8c38a413aa12a3488f709af3752cbc19e6e6d582cce",
+      "blocks": 21,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "95249b12c0b5c5a1ecab1e3281455bc6705ee17f",
+      "date": "2026-09-09T22:58:10+03:00",
+      "source_sha256": "0b84fda6bb82c454c34ded2b0951d2d31805dfd635bf96a6f6e578a636196fa5",
+      "blocks": 21,
+      "new_retained_blocks": 6
+    },
+    {
+      "commit": "123631efcbc5594f040c3d0b8de9e3a379d09a19",
+      "date": "2026-09-09T23:22:57+03:00",
+      "source_sha256": "2ab0c786a11296fd1bd1d6f6f13791adbd94c02752e0ae3a4fedee730e7595be",
+      "blocks": 24,
+      "new_retained_blocks": 9
+    },
+    {
+      "commit": "4fefea18d2e05477e0d9f40dca8701001c55dca6",
+      "date": "2026-09-10T07:36:32+03:00",
+      "source_sha256": "ea5d0672d55a2d981254b9e302be3385d62d5ce8767295fa481cdbba9f7b0a73",
+      "blocks": 26,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "c3dee536b6b215906a8eed84fa9cefc208fd6428",
+      "date": "2026-09-10T07:39:25+03:00",
+      "source_sha256": "c14871fa14332294624f6c3ceb13ee983cc4bc85ab5f738eac8dc8963ec0aa50",
+      "blocks": 28,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "05e1a7cd4428970d1f5290f2228b238f9b8a75e0",
+      "date": "2026-09-10T07:42:45+03:00",
+      "source_sha256": "baebd0be6d1f354bea88f81ef9059aa2566a6128a03ab972e4397e0f9b7f6892",
+      "blocks": 30,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "46bddd0a633d1c0be5ffaee7b52c4aec19d8c491",
+      "date": "2026-09-10T07:55:37+03:00",
+      "source_sha256": "8c2c63839e9c0ca8f1f348fb8f0c95ab997afa543d796b67d70bc1e34ccd6288",
+      "blocks": 30,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "1150138cba3b1981f103008c0d7769d1e0074d48",
+      "date": "2026-09-10T12:37:50+03:00",
+      "source_sha256": "2668ea329901e6b7949e11f84961561a287ef29b27a74629fae786912359d591",
+      "blocks": 32,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "7e52280e0873863ef6a979327ce1c67e1d54ce34",
+      "date": "2026-09-10T12:43:46+03:00",
+      "source_sha256": "3cafa5d9e88e2ca46ba0f09b61de2b4d40ff4f4c1b8a7d252aad37206fa1306f",
+      "blocks": 34,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "8ac2c8a420be619b1c65ad9bc590120e3fb25361",
+      "date": "2026-09-10T12:44:01+03:00",
+      "source_sha256": "5b0507b87bc8e8fb214f8ea1fd12c45ee62c374c350e8e37c6257d9e2fef779c",
+      "blocks": 35,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "3e342206926e6f32053759356012163077e8f79c",
+      "date": "2026-09-10T12:57:35+03:00",
+      "source_sha256": "6a2bff9310cf49022e983ef54b25b7635f859fab24d5ee23fa26d9243b4d6f74",
+      "blocks": 37,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "133e5484cb540489524725fd53dcc5d2b6f51865",
+      "date": "2026-09-10T12:57:50+03:00",
+      "source_sha256": "273f51111d9219eaefc01525ed017b4b590abf13ca2d29cfe855535f473a576b",
+      "blocks": 38,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "a171ec99a4b0959ab28fce00a96cdf2815c4e0bc",
+      "date": "2026-09-10T17:42:57+03:00",
+      "source_sha256": "9e21acb3be314d9e701ef59a0a8e66218e965893251ffdb79437f701510cf3d4",
+      "blocks": 38,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "2e32f7c807c5a2a8dedac3e36e7620960bf4bd3f",
+      "date": "2026-09-10T17:44:26+03:00",
+      "source_sha256": "8c58ef59d134a67931ce4f91f962b6d6fbc9c07da116c8459f106a3a0a621f78",
+      "blocks": 39,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "ef705df62724e289529554af6e625e7e9ca48cdc",
+      "date": "2026-09-10T17:55:34+03:00",
+      "source_sha256": "cdd8b7a6621e6437f1173e08a20ab6f2769796e99f96c88ad26094690c7ea6f1",
+      "blocks": 39,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "892126dda3b49a060f51d31d9bfe50398edd3fb2",
+      "date": "2026-09-10T18:00:07+03:00",
+      "source_sha256": "4cdc3ba39d0be64568ded526c460ea9a2b9cef70d5302e4c86ee66443e13f50e",
+      "blocks": 40,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "1f0a43d8f8da59d354e58d2189d9e08c736872fa",
+      "date": "2026-09-10T22:47:06+03:00",
+      "source_sha256": "f426195839d25be08b462a378546a72b816516347b4402fad53a9d1ae24c7772",
+      "blocks": 41,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "4f5087669892b67f8f4e2bc0f6f8831c46ce781c",
+      "date": "2026-09-11T09:50:17+03:00",
+      "source_sha256": "c303ea95e96b2f64632528d086c44e0e69e036f101b3be415fbfa86392e10a44",
+      "blocks": 43,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "fa4cb932f65391328ac18274f72d497a1bef7acc",
+      "date": "2026-09-11T09:52:38+03:00",
+      "source_sha256": "30c40cc861f1e74d415e616adcabb067a89fbe3bc16351d2c7477c8fd197b68e",
+      "blocks": 42,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "52f53a4878125e7aabeb5b5145874ddf119be600",
+      "date": "2026-09-11T09:52:55+03:00",
+      "source_sha256": "c7b6aa34eb17321d740eedb58dc6b48b80aa5810a3ac6d9e825ade669a89b875",
+      "blocks": 43,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "0d19af36c47ac16b2edcab2c1d30b81564daecca",
+      "date": "2026-09-11T10:03:31+03:00",
+      "source_sha256": "48bdc11dd3c9cc722c14a9b22daf613d03c8041325547332f20a4867994e1e43",
+      "blocks": 46,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "d83b08e2e51c58dd62b00a210ffb91d24543827f",
+      "date": "2026-09-11T14:33:56+03:00",
+      "source_sha256": "d0b9794162749c2a71ad5405237c6ab681d4926ac8b2dc276326aca36842a7ac",
+      "blocks": 47,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "ab963b68993824f76674a191e406ae054684f59e",
+      "date": "2026-09-11T14:49:18+03:00",
+      "source_sha256": "8560a00f3af4da6d870a189975682a81921cbd1840ef7b9e3d1d8f524753c8c0",
+      "blocks": 50,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "c4b0796650c1e5b06d6a8397c050581aabdb85f9",
+      "date": "2026-09-11T14:49:41+03:00",
+      "source_sha256": "db43851d52d9d96acea1e7c1f3f89f4d1f6a4928a181cd14191f1953e3870939",
+      "blocks": 51,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "92d3888bc52d0abb92560ca65fb315424e3dc523",
+      "date": "2026-09-11T19:41:50+03:00",
+      "source_sha256": "18a4543c901ed7286e9026014abd8934d8b7caebb0944d321bec5dc0f9ae64d2",
+      "blocks": 51,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "11a65924f293b009fee3b90592960599ba007182",
+      "date": "2026-09-11T19:55:30+03:00",
+      "source_sha256": "0e2c21f0dcee6c7e5a137e5b8f7563559c3e7a6d663e2f639a19332c0d217511",
+      "blocks": 51,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "0311edf2e95dc6e33ff4603ad45a39cc997686b8",
+      "date": "2026-09-12T08:30:01+03:00",
+      "source_sha256": "39e523e482ddba7c77e3d3fc3d92b8bfc2a2aa0aded72ab8af83a81c1ba4528c",
+      "blocks": 49,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "83008776ea1bf6a680400baaad3a3b088eac1cd2",
+      "date": "2026-09-12T08:32:43+03:00",
+      "source_sha256": "8811ce13eb8c9bc03e2bd0f9bd7b5e68c9e9fbd3df8e0ef0f4347b568e11c546",
+      "blocks": 49,
+      "new_retained_blocks": 1
+    },
+    {
+      "commit": "d3fcf016f8e33f1c2882588d33fb0c2f4456b0bf",
+      "date": "2026-09-12T08:42:07+03:00",
+      "source_sha256": "885b622eae0946e634a3b09c887dddd483e79204ef98c96cabf95026747ffa84",
+      "blocks": 49,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "37a651f88667110ce2a6cbc9ed5ef25f12255ed2",
+      "date": "2026-09-12T08:44:25+03:00",
+      "source_sha256": "8c95e2efb7d070312518a65a127f0b5043b6d50d74caf7f5af252c1c8e58bd12",
+      "blocks": 25,
+      "new_retained_blocks": 10
+    },
+    {
+      "commit": "37559383a0481ff4bdf9ba7249d7f2b0b098793b",
+      "date": "2026-09-12T12:57:46+03:00",
+      "source_sha256": "e249ef15f3a30ce066f3e81eebd63b47d239f36d2656073629a5829e3c9a069c",
+      "blocks": 25,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "db4d15f36124647f8735ce2a950b43cf6beaf16e",
+      "date": "2026-09-12T13:00:52+03:00",
+      "source_sha256": "09fa38f6e9509db730098384ff49a317e922f3c86ab5ac055762457c7a79af05",
+      "blocks": 26,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "820aff728c46dffe8a7133431a36eeb240c3bf1b",
+      "date": "2026-09-12T13:03:00+03:00",
+      "source_sha256": "89be2167168577bd5d9dccf39b5b3bc3f4aaf0baa9f793d198871f0adfa538e7",
+      "blocks": 27,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "251bd8969e4a97bedee4d7917cf2e16f8f9e2a4d",
+      "date": "2026-09-12T13:05:03+03:00",
+      "source_sha256": "742b842aa61fb44fa0f324d5f7bc0fa02554902876076c016bf8afa7cd1cc671",
+      "blocks": 28,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "213caabc7f7e4a44ca1362f0e6d59ee9312f58e6",
+      "date": "2026-09-12T13:06:53+03:00",
+      "source_sha256": "c09f801790c7bab72f477445346367dfa0e3d6d43f799926847676010ad14064",
+      "blocks": 29,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "6d88ff77a9d0cacf9931f5334e7f17ffff7120cf",
+      "date": "2026-09-12T13:08:34+03:00",
+      "source_sha256": "51464ff6976cb9283b21b835e99593355d2a9ee67a9adcd2af3b5a51e2870cd2",
+      "blocks": 30,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "3def284eaa198655561bc4279bd8c8cd714a145f",
+      "date": "2026-09-12T13:10:21+03:00",
+      "source_sha256": "34157e0b0e71b5595d228d964529cfcbbb113ad0998024793e565bf1857d9928",
+      "blocks": 31,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "b81fcc22a8db87687566c760ebf1907d21eb4f6a",
+      "date": "2026-09-12T13:11:42+03:00",
+      "source_sha256": "60c189e4483b3af140111f6fb1a2ebb209071d7c3fcecf54a813dbb3bedec318",
+      "blocks": 32,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "c900968359199994c70ed45dddbd70b19c89cd1a",
+      "date": "2026-09-12T13:18:16+03:00",
+      "source_sha256": "5357f857038f818305c24d34474a223ed2635920704388615e5c7ea8b4c586d5",
+      "blocks": 32,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "637b810883836c82b97aefa536a3c89efc3df98a",
+      "date": "2026-09-12T13:20:30+03:00",
+      "source_sha256": "e7bac2dc9d5720a70bfabd49559305887d1160c57d2399b809252ad6b6eecc39",
+      "blocks": 32,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "eaee4068cecd8b0816aec70391f41b697d12596d",
+      "date": "2026-09-12T13:23:06+03:00",
+      "source_sha256": "72d70297e782cf0629615d5ed083cdb9c0efba3f3c31eb707a216c70a59dc6f7",
+      "blocks": 32,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "011066a1efa2de1fb1edfcb12275d5ccea4ebfbe",
+      "date": "2026-09-12T13:24:47+03:00",
+      "source_sha256": "09b5bcede1cec5778b5dd63f47b0e13db42689bdd9fdb7c7cbe9529d294271c1",
+      "blocks": 32,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "f1708c6e37e6304546bddd0314844cdba029f99a",
+      "date": "2026-09-12T13:27:37+03:00",
+      "source_sha256": "78ce803015c804803bf9bf616553c4fd66db009da51d919f15410bb23f09a17d",
+      "blocks": 32,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "79303a7eafa32ead1b1c366fa91ebe39739ed810",
+      "date": "2026-09-12T13:29:57+03:00",
+      "source_sha256": "1c2676a5c3e19836216d89f294fe3e0d4b5bcef80805b570504608fa810b3d8e",
+      "blocks": 32,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "8a9dedb1c472a9a22809399ff99e5da2d32a6b50",
+      "date": "2026-09-12T16:38:31+03:00",
+      "source_sha256": "a2b318cb2577ef27a58b8f302332eac5867024af6044e451bba87139b2e111b2",
+      "blocks": 33,
+      "new_retained_blocks": 6
+    },
+    {
+      "commit": "4aa74dcb439048a7f499118f9fb011b879b9b97f",
+      "date": "2026-09-12T16:45:22+03:00",
+      "source_sha256": "4134c2e87bc99919b2420dc5fa8c3f093ec1b9e41cd2e1f95fbe82c182c229ff",
+      "blocks": 33,
+      "new_retained_blocks": 6
+    },
+    {
+      "commit": "4aef1d6aefc3c192b6bf77229dba9f57e82ef685",
+      "date": "2026-09-12T16:45:58+03:00",
+      "source_sha256": "6c6012400aaf488c1ad23acde27c077ba5e1feff72d5affef8445e83e95b9ad2",
+      "blocks": 33,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "b8ee32bac075cbd658a18172aa53fd8d2db42dbe",
+      "date": "2026-09-12T16:47:58+03:00",
+      "source_sha256": "a1374d7764ea22d139a165ff97490b6bf100a5c5e606c1c93948db2c0807f987",
+      "blocks": 33,
+      "new_retained_blocks": 6
+    },
+    {
+      "commit": "4538e74aaf0440a080085e9e75d50b3f9350a188",
+      "date": "2026-09-12T16:48:35+03:00",
+      "source_sha256": "6b6b70e7896fe05cfda80b5fafcfdbdcfdfe88ceeceea3f58283a8ca7caa2569",
+      "blocks": 34,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "0fb894f4e0829d79b976f2eaf8fdc5f3ee1d4a87",
+      "date": "2026-09-12T16:52:33+03:00",
+      "source_sha256": "a8f7b2e74d8b5c81e7e99aca7c1647251fd12447f9edd4188417ce4bb7f8ed0e",
+      "blocks": 34,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "d58a2b1ed36d42d5878f711df3ebe62934a0a724",
+      "date": "2026-09-12T18:19:44+03:00",
+      "source_sha256": "e1d0a55ece1d6e316c05ef5784198f3cf00bdabb4433b4554a2c2f97db7bf085",
+      "blocks": 34,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "9c703b382f1c22af27010bcb0f1e7394dd74beab",
+      "date": "2026-09-12T18:23:19+03:00",
+      "source_sha256": "603113e8ea2911325006471832e055749fb328a7cd0a4db45a96613aac0fa5de",
+      "blocks": 34,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "181f80e54cb0b2a7a3e3989c6c463fd24ce47bca",
+      "date": "2026-09-12T18:27:35+03:00",
+      "source_sha256": "8d43655df8fc138cd12e963d0b5497746badb5171c239c771dc31101a343597a",
+      "blocks": 34,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "7426f17a9c27d2d7e8f44013bba401b5b5bca3fa",
+      "date": "2026-09-12T18:28:09+03:00",
+      "source_sha256": "5ce0185a81851ab4bad344dfd7e6f5ab4a36b382fff352f2ba225eb20e4ffc4a",
+      "blocks": 34,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "0e1d3f8ebff40e86dc889f65dda30c094467aa3c",
+      "date": "2026-09-12T18:42:00+03:00",
+      "source_sha256": "2b693371f3ef7c24e087a8036be9de93cada8c03a491ac195fa5586e671bfe82",
+      "blocks": 34,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "95343feedad7d74853afa36c15720ef30d7d1981",
+      "date": "2026-09-12T18:44:44+03:00",
+      "source_sha256": "48b487559299a2d597eed6f2b49c8ecd2ffce1303b34c2b75057bbebe80a7f79",
+      "blocks": 34,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "bf43c444aec2f12a66d07521d8fc0d033c678185",
+      "date": "2026-09-12T21:33:19+03:00",
+      "source_sha256": "6fe96b1b8ac18259bfc908c55fba56ea2d5d987f6b40bbdeef1e11f55347818e",
+      "blocks": 34,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "cd7bcbeed1c7d8a21acdffc691810afc9943f408",
+      "date": "2026-09-12T21:34:13+03:00",
+      "source_sha256": "92abda5c08a6fe7f1f21def6ee8ce7322eb39b71e9f96788f0c232095e43dbb2",
+      "blocks": 34,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "b88a562fb63885d2e392c3e27d27e0bd5bf4533b",
+      "date": "2026-09-12T21:38:09+03:00",
+      "source_sha256": "e1c9ead7b4b3c9b52592c727860fa549bb4ea523bf44df421c5f508d5cf99560",
+      "blocks": 34,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "cd86195854d9c97ebb9bdc47dd9d9f8e9c6ebcbd",
+      "date": "2026-09-12T21:38:24+03:00",
+      "source_sha256": "fb13c540d2ae421c37fa4f69e1ebb3b22a15e72649b5c2b7cd7b6d9b0345583e",
+      "blocks": 34,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "cad8d237de27c1cb392f9845ae39b73c9650e059",
+      "date": "2026-09-12T21:41:35+03:00",
+      "source_sha256": "551eceb59d0051edc15d48c8bb81f8ef8ea68e2c905692440d7608e1ae631cd4",
+      "blocks": 34,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "39ef0bb7810748d41cd3785b68e46f7549e03daa",
+      "date": "2026-09-12T21:47:13+03:00",
+      "source_sha256": "ec77a16515882c5ac75555b2d4fc4b7f6d616cdbfbf2a014f819f6a50c4b949f",
+      "blocks": 34,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "975e8070cbc743384c1f2984329bdf699e5d442e",
+      "date": "2026-09-12T21:47:27+03:00",
+      "source_sha256": "6c138897d5302699184ae626109f36eb5b0c3ef8da14d64be4d212bc0b2a349b",
+      "blocks": 34,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "917face2052df6490c22409f8e11f61152566340",
+      "date": "2026-09-12T23:21:41+03:00",
+      "source_sha256": "ec475bb0d571350ef6a48ac24b640f7eb2b45054180ac1011e9fa6b84998fcb6",
+      "blocks": 34,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "dd61b0a9075336d80b7b9910c03838accd13ad37",
+      "date": "2026-09-12T23:21:55+03:00",
+      "source_sha256": "5503497e1128e6775bda4d35ede597447ac1c0a876b9582fccb5f20b229ec0b8",
+      "blocks": 34,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "79fee2a4eed02a34c0d57302785129cc0571cf64",
+      "date": "2026-09-12T23:27:30+03:00",
+      "source_sha256": "23aa969c548c40b0e9dcdc81ffbdb26c3128da78cc9a6424b2daefbb8abe48eb",
+      "blocks": 34,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "1d6cfa3c22ef36031b5536a7fd2b5c0c584978d1",
+      "date": "2026-09-12T23:27:44+03:00",
+      "source_sha256": "77093621ddac2ebbcd0202dacf613f99ca0b2e7efc91f1a5a18a620f85d28a10",
+      "blocks": 34,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "25a57e33e5fb3aeb7409a1a4fa5c7682d1affb81",
+      "date": "2026-09-12T23:30:39+03:00",
+      "source_sha256": "5755c984b8a15157965b4d9c9f141b31bb4d7a4e053cd4bd97f558eb23318e88",
+      "blocks": 34,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "bb0c5a295473441f440a2adf589302ee49d74393",
+      "date": "2026-09-12T23:30:53+03:00",
+      "source_sha256": "5a03bdc58a2308e000d83ac6152da9ea755393fa996ad6d9f6e605080dc34a96",
+      "blocks": 34,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "233e43f6df626b031fa4863d2c0173c936697936",
+      "date": "2026-09-13T08:28:23+03:00",
+      "source_sha256": "84947d9cc21fc72825e69ce7f049051ac1f975eb10fb59a58a5798f825825038",
+      "blocks": 34,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "cf03f4e5800cb55a18495b82fea1cff296e35374",
+      "date": "2026-09-13T08:28:36+03:00",
+      "source_sha256": "76c5616688dffda3448aa518dd65c51aff83a68548b5a58f616f24342318e518",
+      "blocks": 34,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "c64dc114cfb067e80e4edf829ca61c5a11572ebd",
+      "date": "2026-09-13T08:32:48+03:00",
+      "source_sha256": "b75d62fc03660b498c949029ca8eab22e319fadd36c507f003ca954a0e990801",
+      "blocks": 35,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "f58f7c2f7e5d7a464b6ac730f768fa7042649f60",
+      "date": "2026-09-13T08:36:36+03:00",
+      "source_sha256": "e9e817c1977d9983ebecc12f0d9d64aadbf2fbf10c4ec72a56322b2431135b8d",
+      "blocks": 35,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "3466bf6e887bb837091aed570440d5a597c28360",
+      "date": "2026-09-13T08:46:03+03:00",
+      "source_sha256": "68e5a208ee388fa0a8bf4755c8789767b127dcacffd3cdf686d4890acce161b3",
+      "blocks": 35,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "0e55ee363112ff153b4b876e19c53a072ed487a7",
+      "date": "2026-09-13T08:46:17+03:00",
+      "source_sha256": "1ee6f1f52e9f15fa3b61fce3b4f8287cbe917a647d14ea7ad927a15f1f7b8d21",
+      "blocks": 35,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "b506ec193e3d40a762ae4ab9bfb7310c7f9041ba",
+      "date": "2026-09-13T10:20:16+03:00",
+      "source_sha256": "68f1204ad186f9b33507b5d20c74e3fb00a4ac746c43de2286eb1ffba257bce4",
+      "blocks": 44,
+      "new_retained_blocks": 13
+    },
+    {
+      "commit": "c1fa425ff421cf03b21dd9e25bcf3d9da1cb18b8",
+      "date": "2026-09-13T14:33:04+03:00",
+      "source_sha256": "02cbbc7610a9f84454304eefca89461e4b6023bf93732ee7b451468fb474e3f1",
+      "blocks": 44,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "297bde2c6adc8db7b2f751d15bc5d46675061b74",
+      "date": "2026-09-13T18:28:37+03:00",
+      "source_sha256": "62d970fb98df732ead72b2bfca6977c61e96208ecc77278f5b3066ad09b59fd4",
+      "blocks": 44,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "80e4c28aa536dd9a954c4cb01d1b0788451b173e",
+      "date": "2026-09-13T18:35:27+03:00",
+      "source_sha256": "9c54576beb61ee751bcb1555f6bc1518c321065104b06006743bef0e8ebd9099",
+      "blocks": 44,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "864e6790618596ebfbb2be4c895b0f84eea069ed",
+      "date": "2026-09-13T18:43:31+03:00",
+      "source_sha256": "293c29fcd5ba5eac10a5350488d70f37cf0a9fc6ce9d63f1b689981e7942ea89",
+      "blocks": 44,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "6b2268382091d3b8855bd3df4edc234df0cf5f38",
+      "date": "2026-09-13T18:51:41+03:00",
+      "source_sha256": "9539e64beda959b2868fd6c2d8e5a0f5511b42af27b2a969eddb28c2a556f5ed",
+      "blocks": 44,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "2d27ed7b558d0eb9d9dcbd58b4436d482b5b87b4",
+      "date": "2026-09-13T20:59:52+03:00",
+      "source_sha256": "c7cbde8916bf7a936a0b00b520e98530bfcaacb65a3a643580bdb13e8882593b",
+      "blocks": 44,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "84798f033b4c44377c3c4c53eef13fd1107864ac",
+      "date": "2026-09-13T21:07:05+03:00",
+      "source_sha256": "550fc6c8ec0a5f99e6813fdaef9c2d8e116032fbb6fd11e782f35e4c3098bc4b",
+      "blocks": 44,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "1cf2281da39e3b9f3e9817d73d61ddaadd4c540f",
+      "date": "2026-09-13T21:21:30+03:00",
+      "source_sha256": "1649e553c9115946c3c15e16cf577814bc0082e9c3d2fe6d3b175202710531a0",
+      "blocks": 44,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "b2785678c7f87923a90c4ba86f6a7c399f4a105b",
+      "date": "2026-09-15T19:27:26+03:00",
+      "source_sha256": "2b6207f60430503cfc156a891234142bf3dd18f790817daf251f11494af23650",
+      "blocks": 44,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "7c7f03ec6c5141c0ff4e70ebb03a42b619579da8",
+      "date": "2026-09-15T19:28:43+03:00",
+      "source_sha256": "38d9aaf256cb1cc97d0a07c5c302e55c0f321e39bbd28c1ddea790d28962a21f",
+      "blocks": 44,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "70b33ca968215cc70a8bf26bf6d5cc6d2312050a",
+      "date": "2026-09-15T19:39:41+03:00",
+      "source_sha256": "22117728b2af664f5db9d2361df8ce1d335ec7d11514ced60e5e431d96a38dce",
+      "blocks": 44,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "63d0817ffb2e372de21159cfc90d5d3e74d74b91",
+      "date": "2026-09-16T07:23:06+03:00",
+      "source_sha256": "47de20430ff32937bd76b3908b6c50b2c4df050ec8aa25a956a1c8ebe72393df",
+      "blocks": 44,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "10f34246a12d4dba7daaa1d59282867f0e94cf25",
+      "date": "2026-09-16T07:34:30+03:00",
+      "source_sha256": "4503e230d1bea9b49714c71d3a912c8f0f60095929ee7a110fd222ec33f3f1a2",
+      "blocks": 44,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "72dad283761359d682f7c6c3c41c754b10c62a48",
+      "date": "2026-09-16T07:44:29+03:00",
+      "source_sha256": "9db7878c27a22e06d9801883253212fadcbbaac7ba4f4af3ca4d8410a42715c0",
+      "blocks": 44,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "af1ed19741fe5bf4f35bacd758ebef631bf7941b",
+      "date": "2026-09-16T14:27:05+03:00",
+      "source_sha256": "1aacdfc12ede59ebf4b8590451ea9939432043f5261857fc58e990323c9a2f45",
+      "blocks": 44,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "dacb31db6596d75ef5f0ebcac26112d4513a2582",
+      "date": "2026-09-19T13:57:08+03:00",
+      "source_sha256": "617fc177971d07496a97a334f6129ab0857ad6e38d70067a9ed6beb918797b2a",
+      "blocks": 44,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "eb621917d2bd39200ae7848dca2c85973be209e9",
+      "date": "2026-09-19T14:10:45+03:00",
+      "source_sha256": "5dfd23745c2443a498d49d3552c4988a9234fe69737440fce040c4a9a8c5805b",
+      "blocks": 44,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "757ebb0492864e15524336945b56230e448c83b9",
+      "date": "2026-09-19T18:58:29+03:00",
+      "source_sha256": "282540696958095b45e334e248bf37a9491279eb35f3a1760e47b80c1c8f64ed",
+      "blocks": 44,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "f2bc7ca87b24ee9e769d0c91cb7c7e435b32b7ed",
+      "date": "2026-09-19T19:10:53+03:00",
+      "source_sha256": "4055d45e8ce3396336905a456c598266a7892bcc8b33d6c19fef6b1b9a0eb0ac",
+      "blocks": 44,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "ded26f6be7db4901085b74b39d55dfc5b061bbcd",
+      "date": "2026-09-19T20:50:24+03:00",
+      "source_sha256": "d8a246d3908f63fe6e08c604f0d2374cc3b34ad167112e6af423610588e3f389",
+      "blocks": 44,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "2de24841539c7a177873f9fac92cd29c3cef651f",
+      "date": "2026-09-19T21:31:59+03:00",
+      "source_sha256": "f215a89e8cbc635604cd114c4982be5acf2e76eb5b243396591bd9e44fdbadbc",
+      "blocks": 44,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "276a057ade739d73634550d1af0ff929766bbf4e",
+      "date": "2026-09-19T21:48:54+03:00",
+      "source_sha256": "8853502b5c199042fb08612cb2b623a493817ecc6708643e97f4af331a32b3fa",
+      "blocks": 44,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "5f7c5dc989c0592e0c1cb16004eaed4f945a88c0",
+      "date": "2026-09-20T07:49:04+03:00",
+      "source_sha256": "2ef10bcee22e1bc33d925043d01b0e09664aab759dac51150281e92355ee435c",
+      "blocks": 44,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "c526139648d679c19f664fb367afc05905de998b",
+      "date": "2026-09-20T07:57:04+03:00",
+      "source_sha256": "a30e30d11a51e4a939955651b3153c8f6d2e2b26bc29be31355c8f0925d3e0ab",
+      "blocks": 44,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "8f73b5fb4d8b38c85c57899d8bcd174b03faa7fa",
+      "date": "2026-09-20T08:28:22+03:00",
+      "source_sha256": "5bd71a10a5d28238b0e26a5bd03a061b58bc0e9adac8c8f25cb2231b65a2fbc4",
+      "blocks": 44,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "03c68af579cff0ffde832445d6729257d14bb7d4",
+      "date": "2026-09-20T08:33:47+03:00",
+      "source_sha256": "59e684ca090c339665a776a718b37b2a9e750b0bf24c1741e1bd3ea2b1de45f2",
+      "blocks": 44,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "ab200ded2e969b19e8fff11b665d5525f0d127ad",
+      "date": "2026-09-20T14:10:20+03:00",
+      "source_sha256": "3da38096d119281a02440c224af2058ec51113c3206355638ac9b690965edd0c",
+      "blocks": 44,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "ed712ba684fa084ecd2e07f2e6a03b985e3c5ef4",
+      "date": "2026-09-20T14:24:40+03:00",
+      "source_sha256": "d2db008b9cabc1360374a2e63a2f4a10ed3af8733f544c713e925eea2ead1cb3",
+      "blocks": 44,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "6bf1f6273cf02ae9402784e26dc84d81191db058",
+      "date": "2026-09-20T14:53:53+03:00",
+      "source_sha256": "68ea73884203322a60d5ee865b34a145847dc2b429cbe83c0aff8f1fb1e0883f",
+      "blocks": 44,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "10dc945d0dbedfa2c45d329d29e6554949b7942c",
+      "date": "2026-09-20T19:35:58+03:00",
+      "source_sha256": "3759438fd3a50493d57052d290799c40a9114c56d4f84a327e1f65199cf61b27",
+      "blocks": 44,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "43b4dfe4e7087d1ed6764d8f84fd7c039d0c8f49",
+      "date": "2026-09-20T19:48:50+03:00",
+      "source_sha256": "8597fad14a1e276e3b1aace79c21cad4477b9d043f093013a3789bcdf605187e",
+      "blocks": 44,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "3bb4d8220c2fba6190b87afb6b66c7ac46a3dbe4",
+      "date": "2026-09-20T20:04:45+03:00",
+      "source_sha256": "1b5b4d7ac4414869a20a5a579c0db57cdc9fd3e46b0f9a102758cfc3bab82c14",
+      "blocks": 44,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "aa90a064f748fe4533210795308b06a59795d905",
+      "date": "2026-09-20T20:24:39+03:00",
+      "source_sha256": "250db91c3d8aa5d8c98b4dbbab936673618b9f830b440e7b9189dff2a06d09ec",
+      "blocks": 44,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "2955d79093a93ed790af56041175488579417316",
+      "date": "2026-09-21T18:33:20+03:00",
+      "source_sha256": "64dd2693351d7621ba20ce21e387736f85413161d776a28bb6f9828bdd1b14d9",
+      "blocks": 44,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "6d20b4891ff9f31cd5e907525459dc5db7399661",
+      "date": "2026-09-21T18:46:31+03:00",
+      "source_sha256": "4a9943f28d9149808f565bab948800f6579fa125218d03a7a38772c133076c71",
+      "blocks": 44,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "fbe7f85caae9ac95383ae60ac76d9b4cfc9eba94",
+      "date": "2026-09-21T19:13:23+03:00",
+      "source_sha256": "f92b5828401ee3bfd5a6993c0061373723d964537dc68c5cd80b71e915a76b05",
+      "blocks": 44,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "7b6a821d42ac7c3a15ce7b1891ac29ac6830aac6",
+      "date": "2026-09-21T19:25:46+03:00",
+      "source_sha256": "ce28c8dd228f357bcfcd0652c6e62b83975cf2ad2033615e5df82f74c0235ce1",
+      "blocks": 44,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "415a796be2a8d423adce11713bc92eea9e95e06a",
+      "date": "2026-09-21T19:37:04+03:00",
+      "source_sha256": "4e0849e2e5501f483c072c6f35f4c84c5e71d8781d3528619bc8747ac4918251",
+      "blocks": 44,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "2cfc0a12ccaebaca7a924fdc9c96aec45fbe3bf3",
+      "date": "2026-09-22T20:21:27+03:00",
+      "source_sha256": "d385652ce09782570624fa1a572dadda05ddc44a9d5b36912ac519f94d0283fd",
+      "blocks": 44,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "895aa3bfc76b9f05d694ce72a7dac8129c2d623b",
+      "date": "2026-09-22T20:37:58+03:00",
+      "source_sha256": "c5f40363adbe78a8db5f235b53da54c8e903a0f74b5c7a8b431a41bbe32dc0d9",
+      "blocks": 44,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "df7231c1067c31fe22235326b26ab6b857b7125c",
+      "date": "2026-09-22T20:58:17+03:00",
+      "source_sha256": "68d0416d080b2b0196e15e50692aeaf91237d4ebaa72dc8ca401b10b99954afc",
+      "blocks": 44,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "85d07ca12a50ab2e02d991f42e6af47e6396dc0d",
+      "date": "2026-09-22T21:22:18+03:00",
+      "source_sha256": "227af5a7cd13605ef70363c05dbd567a54bd18a8fd4d52aa0d9a23527d18afb3",
+      "blocks": 44,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "f666a1c3f0f094c65186656529c866364987f698",
+      "date": "2026-09-23T12:39:56+03:00",
+      "source_sha256": "aa3d31f42ac89292fa7fee0ed523fb569da1f345632272f5541df7b2f6f5496d",
+      "blocks": 44,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "371bc133f513995bc42e9acd4fb5a7c9ac548dfe",
+      "date": "2026-09-23T13:07:05+03:00",
+      "source_sha256": "91297d0a575e0bcf2581d7edefc8345cb313dcb93f276dc8c07207ce1cc3aae4",
+      "blocks": 45,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "12dc5df3aa06f571a646a72daf7054bd01c7a1c7",
+      "date": "2026-09-23T13:18:29+03:00",
+      "source_sha256": "b16d9e6c168b2505405083615c7b16ecd4124824c45b87f13badf0acda95835e",
+      "blocks": 45,
+      "new_retained_blocks": 1
+    },
+    {
+      "commit": "459a54ef7a04d98d56612c7ef33b1ee4823c7a45",
+      "date": "2026-09-23T18:51:51+03:00",
+      "source_sha256": "d98a653660e5690cc45253cf10fab0d6905d2326e2218fc3c70f3a0c6a175b97",
+      "blocks": 46,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "6d88d5a7fc0c0ba57b58d46400bd83cbe1ee31d4",
+      "date": "2026-09-23T18:54:31+03:00",
+      "source_sha256": "34ec71f3ad3eeaa8f0cbfc239472c6b8cff6a46818e256d0f76bff80800be8c7",
+      "blocks": 47,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "6e373909e22c23a8776715acc04bb447c1a7e1cc",
+      "date": "2026-09-23T19:03:36+03:00",
+      "source_sha256": "3fb8bfbeb42d6a08c88094a3c6ccde727fb54495619eca4a655594655fd123ff",
+      "blocks": 48,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "af271ddd2349c871386477005d0799bea29961f0",
+      "date": "2026-09-23T19:11:15+03:00",
+      "source_sha256": "1f8c32dae4f704e4e8cc5837e1b2765f8f7992d12c53793c1943782e85364469",
+      "blocks": 49,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "96f4503847accd5caa088724a97e19f79edc5936",
+      "date": "2026-09-23T19:15:53+03:00",
+      "source_sha256": "c23c2b239aa2e3029bd073cb63abf891df99fc81561e7dc4265c32f1af248679",
+      "blocks": 50,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "f5bc534c8b758a45425e0d7c69c78dea337b7239",
+      "date": "2026-09-23T19:16:35+03:00",
+      "source_sha256": "80f4e7c9ab3d00a468c093e8de2bcb7c7852d56f3f46fb25f734e878d29c9685",
+      "blocks": 50,
+      "new_retained_blocks": 1
+    },
+    {
+      "commit": "dc17ba1a7a70e6487848008f9ef6c2e2aacb55cb",
+      "date": "2026-09-23T19:33:33+03:00",
+      "source_sha256": "46bc0dfe7a05c402b5db0e3588891ef6767fc3b18a6793e736001fb6dd10a73f",
+      "blocks": 51,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "d640a3cfc587c580ad7bb2962f7a93a835a613c9",
+      "date": "2026-09-23T19:33:56+03:00",
+      "source_sha256": "cab57e3874c18935024b8ae89c7376f9c5c5bcc83bd1a70733a19f84fbf38ff9",
+      "blocks": 51,
+      "new_retained_blocks": 1
+    },
+    {
+      "commit": "e26bc6123352dda89102777b9b7291f1b2038b03",
+      "date": "2026-09-25T18:19:48+03:00",
+      "source_sha256": "38a2b9f2c60c0bd2f8da5f3f4b014a8ccd68f86939e62b8302f38acb4cdc8482",
+      "blocks": 52,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "f6ef4675133be49a19b09c8e2b4789579e74beed",
+      "date": "2026-09-25T18:21:01+03:00",
+      "source_sha256": "589a0a39b7803d868b4596b666d8203f2282bc5c40ad96fd3f76c2ce70dd409a",
+      "blocks": 53,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "79d6c5ace43de35b484c22dfa1d4ae36b31ca0b2",
+      "date": "2026-09-26T18:48:10+03:00",
+      "source_sha256": "59a620e2480986ef424ce79630fd984747b8ae250ff9a4a470ac38b59d13e980",
+      "blocks": 55,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "b55e4bc7d63dd1fb5242dcc1bdbf4096b99b93fe",
+      "date": "2026-09-27T10:09:06+03:00",
+      "source_sha256": "09b07ff4a97988014742febb341f0e75cb391be2d63e0fed36ef48aa63630eba",
+      "blocks": 57,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "8fbdb0464d86d7deb20829a2868b90fa69e16634",
+      "date": "2026-09-27T17:01:41+03:00",
+      "source_sha256": "fa79b96a97b214f9013b1293652ad92239da8c4f733ee1e53b5cb1655bf6431a",
+      "blocks": 57,
+      "new_retained_blocks": 1
+    },
+    {
+      "commit": "649ab522d0cfb02efbcd2fbd74048f51b5026372",
+      "date": "2026-09-30T11:45:15+03:00",
+      "source_sha256": "e73154b9c3a41c50f26ce9f1d6f0f98a777ceeadc115d36580bc5e14505df4b8",
+      "blocks": 59,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "3a22426c135e64dcc8e1c7e29a8cfb4ca5ac4ca3",
+      "date": "2026-09-30T11:46:01+03:00",
+      "source_sha256": "0460d48b48dc10e2cb2990febd6ef015b3194cc9200351e05a0811c513c8ece4",
+      "blocks": 60,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "4254b2433cd1e9d0f8315e960b191495cc9ffb1f",
+      "date": "2026-09-30T12:11:53+03:00",
+      "source_sha256": "7e7fa46142f66339216585c890f65d17071ac18421162e6467dcecf6bf943dd7",
+      "blocks": 64,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "79e499de34db444a0746c423afb71355dcd74b04",
+      "date": "2026-09-30T12:12:19+03:00",
+      "source_sha256": "31a3f4dfa19656c0e23e99b49d023119614cf217ee7e19e30dc6034ef0de93db",
+      "blocks": 65,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "fb3d532cb652b628b4c3ae233858a95f87390d36",
+      "date": "2026-09-30T18:33:40+03:00",
+      "source_sha256": "eaba0468b68e8a671fb8dc1206a52c5f51a0eb74d8c1c73788b944b808149029",
+      "blocks": 68,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "60dc1b359d9c6223efab0204cc48a9a1eea32d08",
+      "date": "2026-09-30T18:34:02+03:00",
+      "source_sha256": "b910d2297ad828b904e0431c1f968f85b58804faa4b76e12bbf50211fa1a558d",
+      "blocks": 69,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "0ec6c78785a9a665f508d8261102edf01683bbbf",
+      "date": "2026-09-30T18:39:39+03:00",
+      "source_sha256": "3fab6f1fa73d0119bbfc31aa7e31bd9e5f0e9096597d274489e6e180f2186b58",
+      "blocks": 71,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "d6b6806c2a50669ed04e877cfca61f4b5c20ec87",
+      "date": "2026-10-01T11:20:24+03:00",
+      "source_sha256": "3ed89eb872c53c1511a7fbe25b226869ff7cf4817b86e2cc62175707c07e5a4d",
+      "blocks": 71,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "e9cd5a8a9aaf16300b2b492cd76f4c90ec07adac",
+      "date": "2026-10-01T11:25:07+03:00",
+      "source_sha256": "60530099d2d27c48eac80fe5e288844c80a0b64e8ea199e7bbde58b5154571e1",
+      "blocks": 71,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "b681f90ba6528ac8e202e5c4403f4c0648a35a3f",
+      "date": "2026-10-01T11:46:09+03:00",
+      "source_sha256": "88e90529a4f324033771488d8336ded59aacc2930fbb247ed6e0963805bd780a",
+      "blocks": 71,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "9fbd2025fd2292c29a66d7d62eec4976f1014756",
+      "date": "2026-10-01T12:15:06+03:00",
+      "source_sha256": "ab5d3bd346153d77a5049186375f2cf29067d257b637a09cfddc8de877246918",
+      "blocks": 71,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "f9c7a4122ca72ceaedacc87d7cff6276d167cb78",
+      "date": "2026-10-01T12:44:09+03:00",
+      "source_sha256": "36ef846948e4a1d675da1e0410b351670fcd39d3529e974844d795fe0596a3ca",
+      "blocks": 71,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "b293bb7d417f71eb00c50c1d5a1a2bfeebe1ed0c",
+      "date": "2026-10-01T13:03:30+03:00",
+      "source_sha256": "cd589e2a949049e48811b14b9efaa2cc22b6d864ef8430ef258549d755753cfb",
+      "blocks": 73,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "d5499437c2ea5d9542a8a42f405ee908399f8761",
+      "date": "2026-10-01T13:16:05+03:00",
+      "source_sha256": "5c78b6225b97f0101f627322d16f9eab2162332909a23fc2e8d265122a087dfd",
+      "blocks": 74,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "e1ec5c25f75c8f34af039b3dbaa3d64bc5a261de",
+      "date": "2026-10-01T13:17:00+03:00",
+      "source_sha256": "56414fedb93f9376025984582c0e5ba4e80012ca184cba163ead9f675f17f5d6",
+      "blocks": 74,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "b6137bba76b2ed9022be103c85ddc85edb51df9f",
+      "date": "2026-10-01T20:07:33+03:00",
+      "source_sha256": "5a0d931279073ae99db0253507c37c7f5325bb6d6bd169c31affb2669a8e8b13",
+      "blocks": 75,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "f90e625b9bc5ade50d2b2cccf99fc080299649c3",
+      "date": "2026-10-01T20:08:31+03:00",
+      "source_sha256": "2a44e73904ff355db21d76ac2408859c65132cd5017c5e80aa630ee6408b48dc",
+      "blocks": 75,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "51b6be3020d3cf78ce7016b59cbfa50b67cbafa4",
+      "date": "2026-10-02T09:37:16+03:00",
+      "source_sha256": "18aab618720921c41da71605415b3992323c929cdcaa577cce6b44e8daf38867",
+      "blocks": 75,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "83cbf20b39f32fe4e1e179f938814f9056037da6",
+      "date": "2026-10-02T09:37:43+03:00",
+      "source_sha256": "c49688edb5a7688fef655fd604bd22d976f3f4f8ae41ca4264a4dc5bf52425e3",
+      "blocks": 75,
+      "new_retained_blocks": 1
+    },
+    {
+      "commit": "88143b04677cdbce0bd52f4678d53b326a99e5e6",
+      "date": "2026-10-02T12:08:12+03:00",
+      "source_sha256": "04c3203bccb03a240a51e3f54227b49c48a53a6b74a8096dab0e4f370d82e65f",
+      "blocks": 75,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "468c0b488841dbfb45192644fea148dfe13d25c1",
+      "date": "2026-10-02T17:49:49+03:00",
+      "source_sha256": "eb4ac9075be8f0c30a4d8bcd79985197fbe77ce501dc2983f307abbb1ca44353",
+      "blocks": 75,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "2e1fe97eae816358358d60bc0bd2ad510aea158f",
+      "date": "2026-10-02T17:52:52+03:00",
+      "source_sha256": "6d67daa90550d7ae71d009245d96168de8241490b8006e6546af73b4d8f8b28c",
+      "blocks": 75,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "3b9ba3325594d199e2d4b316eb72569d2cfdaf77",
+      "date": "2026-10-02T18:29:24+03:00",
+      "source_sha256": "b7f0188e15e347825fe850d71020f787893351bd5358dc30a67674b11c916965",
+      "blocks": 75,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "81e2e24b04a46893db24eeec4cbbcfec646f1511",
+      "date": "2026-10-02T18:36:00+03:00",
+      "source_sha256": "f783ef6415c5666bb60936760dd23593fdd7c2c97eda21f15c1fb2cc8c4112de",
+      "blocks": 75,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "103b86d5a27b415a0c4ff72758e598cfa4ab96ba",
+      "date": "2026-10-02T18:37:00+03:00",
+      "source_sha256": "30cb676b546f84c45c20c5d4d6853c28fb7f76284834e8f6ec3b987c134cb152",
+      "blocks": 75,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "c0404400981338ded81e9762dca72eb2a5d5b1fd",
+      "date": "2026-10-02T18:51:45+03:00",
+      "source_sha256": "3c5b0f4c4aa7bfae504f3cab0361290559461e0c0f43fe7a371232891230c8d2",
+      "blocks": 75,
+      "new_retained_blocks": 1
+    },
+    {
+      "commit": "f37b52a66b158a7c52e641d17d6f522f515db30e",
+      "date": "2026-10-02T19:11:32+03:00",
+      "source_sha256": "8dc623b048cd7904d3bf103aea1ba197c82a603f61bfd5f30524c027905045fe",
+      "blocks": 75,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "4f00ed058bf4726e83a2d28954c3d71ff2856f59",
+      "date": "2026-10-02T19:50:47+03:00",
+      "source_sha256": "1b05fe2a6af73d09a089522a51097101b7a46d73e5afddffee0f7c1cfeca4986",
+      "blocks": 75,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "a52e3f745e061be007df6406a9a0d415f0de5acd",
+      "date": "2026-10-02T20:11:24+03:00",
+      "source_sha256": "756a38233a406aee5f1ad592baaa3e82818dab116591bb54b9786e65316675ce",
+      "blocks": 75,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "2626b9deaa97a931f7bfc5c0395b4b5edf31e017",
+      "date": "2026-10-02T20:30:23+03:00",
+      "source_sha256": "5bc4780d85f434fbdc703ee1160c26fc8c80ffb747176a08530729b4b56e8a35",
+      "blocks": 75,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "ddf49a167e97cbd37fad81f87eb40d559fc7cfd7",
+      "date": "2026-10-02T20:40:50+03:00",
+      "source_sha256": "0f3ade1b37b5e254367915c7c1a8634252ea803501fda1979c9dbed88792acf9",
+      "blocks": 75,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "271c13163e9cb5902a9e63669f487bcb598f248a",
+      "date": "2026-10-02T21:00:19+03:00",
+      "source_sha256": "1d049305706deaaa3058a8da66e8295e95c3dd2365f5d3ed506fb6980cf73634",
+      "blocks": 75,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "d99e44bd9c1e300b248daf7c1c52db7b043c5a98",
+      "date": "2026-10-02T21:02:09+03:00",
+      "source_sha256": "fc5a4446b5746496396727dfc4c0b95d635b667732fd904efd8657de6df21b8c",
+      "blocks": 75,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "fa1f79cd8235dc5e15317ca6edbded7d46ff2943",
+      "date": "2026-10-02T21:10:31+03:00",
+      "source_sha256": "024b0f54912b792794312e1579c7f60ae9efdebe04e4b897fdb97e19dbdf9fb2",
+      "blocks": 75,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "2b175fff32a4fd3ae405b936118871b8f52f32e1",
+      "date": "2026-10-02T21:22:20+03:00",
+      "source_sha256": "ebdb009a2a31fe07acb7ba52a6c432ce4adb7beae26b9c0e2e9cc8742ea9264b",
+      "blocks": 75,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "6092ea01590baef0f01708c38082628d9db97aaf",
+      "date": "2026-10-03T00:22:59+03:00",
+      "source_sha256": "c7abb5bd2dad5b3c47ba86aaa1350c0438add2a5d0a9a48087418c56a15cd5da",
+      "blocks": 79,
+      "new_retained_blocks": 5
+    },
+    {
+      "commit": "3b9e7bf7f10e13bdd0eb25056ea83d01ba7af298",
+      "date": "2026-10-03T00:32:52+03:00",
+      "source_sha256": "b76b9c8b63f5c1d7f5a593ce7fe1ee2d70e84b0bd450506b43fab808235539e2",
+      "blocks": 79,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "f17697205fcd2baa5ce70eb2f55041fd47d7e60a",
+      "date": "2026-10-03T00:56:27+03:00",
+      "source_sha256": "11d22b081e6db0fe7c0a9f2543cc40ad165718e6e5d7aa3d2117167471dbfc69",
+      "blocks": 80,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "0e9ffa4a79a3a11d7c034e9d72f77a76a03a11a4",
+      "date": "2026-10-03T00:59:08+03:00",
+      "source_sha256": "d7b5e55665e6a90050b5ea693f0c0fa89df7d953ec4152e4d7d6e4ec53873f62",
+      "blocks": 80,
+      "new_retained_blocks": 1
+    },
+    {
+      "commit": "5e2a941cf795bba1c515476f1a230968018c3429",
+      "date": "2026-10-03T10:01:42+03:00",
+      "source_sha256": "ed24f86317965b254738de1ca8934f204499970e12dffd891e7c1ffadcc43b92",
+      "blocks": 81,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "17675d4f37cadb186e6ce98aeffc9055b6a304a7",
+      "date": "2026-10-03T10:21:55+03:00",
+      "source_sha256": "e1a41ceab03be0e46c77c6472911bee559b34ac707bdf7958a9d30aa49d07790",
+      "blocks": 83,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "c5eb554cbd8d3965fe3bf96817b50f1b1eb4a613",
+      "date": "2026-10-03T11:09:42+03:00",
+      "source_sha256": "a8f134e7b85903a289a4aa65d697ea0fa62ec3a44d0bce0f502c6657c0158025",
+      "blocks": 84,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "8210895177fc3c8e7a196a9e02f76373a8e3a2bf",
+      "date": "2026-10-03T12:19:43+03:00",
+      "source_sha256": "ada008b7b76c4dcc98f7144510f78907250a9938382505408a7402caf0549125",
+      "blocks": 87,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "c1bdf15fb712bc62157f7d4d3833ce12bcb5953d",
+      "date": "2026-10-03T12:21:32+03:00",
+      "source_sha256": "6c28c803f66769fd1e5081f09ba421bdaf58dbb262189bbb6cfff71fbe6cfc79",
+      "blocks": 87,
+      "new_retained_blocks": 1
+    },
+    {
+      "commit": "a2f706b28bb7c9a3a6e1f6c3a17b44ed04e1b9e5",
+      "date": "2026-10-03T12:55:32+03:00",
+      "source_sha256": "ccfbde4c00374c2a3e982092112024e662c75c6263dc435a6c35dd03dd72625b",
+      "blocks": 14,
+      "new_retained_blocks": 13
+    },
+    {
+      "commit": "73aa50ca32715761b8f63c1797f86e9c475d420d",
+      "date": "2026-10-03T16:15:56+03:00",
+      "source_sha256": "54198895cacd294bc332bd395f6c4648993fbac95f7d2b8a47b6a3cc46dc4af4",
+      "blocks": 16,
+      "new_retained_blocks": 4
+    },
+    {
+      "commit": "04ea339606de703e722acbb5bbe315f3c3994b18",
+      "date": "2026-10-04T20:50:51+03:00",
+      "source_sha256": "0f51c169442fa420fd50e2ccd0b30fa5066afa7d0f57e031800cda5243627328",
+      "blocks": 11,
+      "new_retained_blocks": 10
+    },
+    {
+      "commit": "a273bc045345757b15458c81887a37807304d4c5",
+      "date": "2026-10-05T10:53:25+03:00",
+      "source_sha256": "61bf3998ca1505b491e87a78d9d5313d9447fe741d44d6a5d62cd5eb4364f18d",
+      "blocks": 11,
+      "new_retained_blocks": 6
+    },
+    {
+      "commit": "4da78af51d478e5cd6c10c70f2149676d2879e10",
+      "date": "2026-10-05T11:00:28+03:00",
+      "source_sha256": "5d63c29a01b2c5dcc5104f65d9de151be719b662778a1018de2e50674dd71411",
+      "blocks": 11,
+      "new_retained_blocks": 1
+    },
+    {
+      "commit": "f386fbc251329342996f6b1e91a5f70c476b440b",
+      "date": "2026-10-05T11:13:37+03:00",
+      "source_sha256": "ee4a9ab8b5190101eaaec01588ec0c1f2022d9cd10459232e6a4704e96e287f1",
+      "blocks": 12,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "b95609939014dc21e944e7eeecc784e1e3b37a58",
+      "date": "2026-10-05T11:46:07+03:00",
+      "source_sha256": "158e2b0b68a28ce1e0ea90e6dab305c46028bf3d81b225bbb4568ac2019826ed",
+      "blocks": 13,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "135936ac7910265f02ae71202ac68e13f87c2e44",
+      "date": "2026-10-05T11:47:13+03:00",
+      "source_sha256": "937dfaf3720927f39da9e9492c43a2db59407eadca8b9a7ab67d709abd1028be",
+      "blocks": 14,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "86ae18197438dcbf6bf5ad18f5f9d79af1691673",
+      "date": "2026-10-05T11:50:36+03:00",
+      "source_sha256": "4833d02a789d17f1b4b184d07227ac5f7b492393c9bc5a2a03759682888d4fef",
+      "blocks": 14,
+      "new_retained_blocks": 1
+    },
+    {
+      "commit": "48c908211113cbba70fc6411c1f98fba621b28e4",
+      "date": "2026-10-05T12:05:06+03:00",
+      "source_sha256": "0c3cf59e6250d1d210b48ffff3f930108e0c1ffac95c16030dd007c93a8f5b49",
+      "blocks": 15,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "5fa259cc6a6f6e2c645981f635fa3b7079692e1e",
+      "date": "2026-10-05T12:12:31+03:00",
+      "source_sha256": "38fb71113ab41edc8422dc9b5d77587774b429e97a450ed51d17c3f8126de8bc",
+      "blocks": 16,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "dfe7f36a9360368be3767abd5535b3b465343516",
+      "date": "2026-10-05T12:15:09+03:00",
+      "source_sha256": "75e4f0478f94d9c93d6dbf6966bf702e6380b0721628342e685ab30f1978f04d",
+      "blocks": 16,
+      "new_retained_blocks": 1
+    },
+    {
+      "commit": "b51e9b719b52161a963d2fccc9360997fff04950",
+      "date": "2026-10-05T12:34:29+03:00",
+      "source_sha256": "1bec871265edf2600cfdfb5ee2cbae7cafd1e2b9fdc72cf924b1f7b2729b4a4a",
+      "blocks": 17,
+      "new_retained_blocks": 2
+    },
+    {
+      "commit": "18ee222a51908f2d2495efac3daa9268d16a6804",
+      "date": "2026-10-05T14:05:34+03:00",
+      "source_sha256": "022b55c00f9a2633b7a0a51bb6e804919feca0bbcddbee64d7e5627a3557d7a4",
+      "blocks": 18,
+      "new_retained_blocks": 1
+    },
+    {
+      "commit": "da31ee9f6f40fdb02f51b6d8fbfe86d0e61f46ee",
+      "date": "2026-10-05T16:29:13+03:00",
+      "source_sha256": "66d6c8324d2771e1c328baf26a1e1c288f6986c36c44abc3d133b960acf2f6cb",
+      "blocks": 19,
+      "new_retained_blocks": 3
+    },
+    {
+      "commit": "c785c2b68be1947b75e069781ff82c2a7df7fa97",
+      "date": "2026-10-05T16:45:59+03:00",
+      "source_sha256": "c33e4385f7aee3fd30146951b2214b6ec28a334626a5000b9348f0e58a10b973",
+      "blocks": 19,
+      "new_retained_blocks": 3
+    }
+  ]
+}
