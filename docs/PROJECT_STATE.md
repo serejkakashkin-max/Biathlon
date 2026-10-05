@@ -24,7 +24,7 @@ owner_decisions_needed: []
 last_delivered_windows_build: Builds/WoodlandReviewWindows/Biathlon.exe; Development; final build/smokes PASS
 ```
 
-WP-167/168/169 are DONE. [WP169 consolidated report](reports/WP169_VENUE01_PRODUCTION_REPORT.md) and [acceptance](quality/m13/wp169-production/acceptance.json) contain the final evidence. Woodland is now the sole production venue. WP170–174 are deferred by explicit owner scope reduction, not completed. Pine's corrected Sprint40 finished tick53,594 with exact persisted replay; Mass30/range and Pursuit40/shortcut acceptance remained OPEN. [Pine diagnostic record](quality/m13/wp170-pine-profile-repair.md), failed artifacts and source prototypes are retained for later work. No additional production venue is to ship in active Unity Resources. WP175–178 remain OPEN for Woodland; continue to the actual M13 gate.
+WP-167/168/169 are DONE. [WP169 consolidated report](reports/WP169_VENUE01_PRODUCTION_REPORT.md) and [acceptance](quality/m13/wp169-production/acceptance.json) contain the final evidence. Woodland is now the sole production venue. WP170–174 are deferred by explicit owner scope reduction, not completed. Pine's corrected Sprint40 finished tick53,594 with exact persisted replay; Mass30/range and Pursuit40/shortcut acceptance remained OPEN. [Pine diagnostic record](quality/m13/wp170-pine-profile-repair.md), failed artifacts and [recoverable source checkpoint](deferred/wp170/README.md) are retained for later work. All412 Pine asset/meta files were removed from active Assets after byte/hash verification; the469-entry archive is outside Unity Resources. WP175–178 remain OPEN for Woodland; continue to the actual M13 gate.
 
 WP169 final acceptance:
 
