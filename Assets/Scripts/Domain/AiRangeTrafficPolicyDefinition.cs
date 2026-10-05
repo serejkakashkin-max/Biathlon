@@ -9,11 +9,16 @@ namespace Biathlon.Domain
         [DataMember(Name="id",IsRequired=true)] public string Id { get; private set; }
         [DataMember(Name="align_physical_range_paths",IsRequired=true)] public bool AlignPhysicalPaths { get; private set; }
         [DataMember(Name="alignment_lead_m",IsRequired=true)] public double AlignmentLeadMeters { get; private set; }
+        [DataMember(Name="blocked_alignment_effort",EmitDefaultValue=false)] public int? BlockedAlignmentEffort { get; private set; }
+        [DataMember(Name="entry_lateral_m",EmitDefaultValue=false)] public double? EntryLateralMeters { get; private set; }
         public static AiRangeTrafficPolicyDefinition FromJson(string json)
         {
             var value=RouteJson.Read<AiRangeTrafficPolicyDefinition>(json);
             if(value==null||value.SchemaVersion!=1)throw new SerializationException("Unsupported AI range traffic policy.");
-            TrackValidation.Id(value.Id);TrackValidation.Finite(value.AlignmentLeadMeters,.001,1000,nameof(AlignmentLeadMeters));return value;
+            TrackValidation.Id(value.Id);TrackValidation.Finite(value.AlignmentLeadMeters,.001,1000,nameof(AlignmentLeadMeters));
+            if(value.BlockedAlignmentEffort.HasValue)AthleteState.ValidateEffort(value.BlockedAlignmentEffort.Value);
+            if(value.EntryLateralMeters.HasValue)TrackValidation.Finite(value.EntryLateralMeters.Value,-1000,1000,nameof(EntryLateralMeters));
+            return value;
         }
         public string ToJson()=>RouteJson.Write(this);
     }

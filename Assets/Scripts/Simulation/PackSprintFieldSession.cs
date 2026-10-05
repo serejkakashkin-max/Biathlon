@@ -215,8 +215,9 @@ namespace Biathlon.Simulation
                     throw new ArgumentException("Pack multi-section routes require closed physical loops; open endpoints need explicit routed connectors.");
             }
             projection = new PhysicalMotionProjection(map, 1.0 / frequency);
-            junctions = new PhysicalJunctionMap(map, junctionDefinition, routeBoundJunctions?
-                PhysicalJunctionMap.CaptureUsage(track,route,rangeLayout,authoredStartApproach?startApproach.LoopId:null):null); junctionCount = junctionDefinition.Count;
+            junctions = routeBoundJunctions?
+                new PhysicalJunctionMap(map,junctionDefinition,track,route,rangeLayout,body,authoredStartApproach?startApproach.LoopId:null):
+                new PhysicalJunctionMap(map,junctionDefinition); junctionCount = junctionDefinition.Count;
             this.connectionDefinition = connectionDefinition; connections = new PhysicalConnectionMap(map, junctionDefinition, connectionDefinition);
             if (rangeLanes != null)
             {

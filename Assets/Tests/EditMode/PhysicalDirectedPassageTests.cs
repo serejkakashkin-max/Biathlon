@@ -14,7 +14,12 @@ namespace Biathlon.Tests
         private const long M=SkiState.NanometersPerMeter;
         private const string Venue="Biathlon/Venues/woodland_basin_v1/";
         private const string Policy="Biathlon/Venues/production_venue_validation_v1";
-        public static string Read(string resource)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+resource+".json");
+        // Numerical witnesses belong to the accepted WP169 3km course. Keep their
+        // original exact authority as a regression fixture when production geometry changes.
+        public static string Read(string resource)=>PhysiologyContractTests.ProjectFile(
+            resource.StartsWith(Venue,StringComparison.Ordinal)?
+            "docs/quality/fixtures/directed-passages-wp169/"+resource.Substring(Venue.Length)+".json":
+            "Assets/Resources/"+resource+".json");
         public sealed class Fixture
         {
             public TrackDefinition Track;

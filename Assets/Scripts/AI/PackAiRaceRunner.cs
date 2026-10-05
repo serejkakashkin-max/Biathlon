@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
@@ -13,6 +14,7 @@ namespace Biathlon.AI
     public sealed class PackAiRaceRunner
     {
         private readonly AiRacePolicyDefinition policy;
+        private readonly double physicalRadius;
         private readonly AiStartTrafficPolicyDefinition startTraffic;
         private readonly AiRangeTrafficPlanner rangeTraffic;
         private readonly AiRangeTrafficPlan[] rangeTrafficPlans;
@@ -94,10 +96,11 @@ namespace Biathlon.AI
             if(this.raceForms!=null)foreach(double value in this.raceForms)PhysiologyNumbers.RequireRange(value,0,1.1,"race form");
             this.difficulty=difficulty; this.seed=seed; this.events=events; this.telemetry=telemetry; frequency=field.TickFrequency;
             policy=AiRacePolicyDefinition.FromJson(read("ai_race_policy_provisional_v1.json"));
+            physicalRadius=Math.Max(policy.PhysicalRadius,rangeTrafficPolicy?.AlignmentLeadMeters??0);
             if(field.UsesSharedStartContinuation)
                 startTraffic=AiStartTrafficPolicyDefinition.FromJson(read("ai_start_traffic_provisional_v1.json"));
             for(int i=0;i<field.Track.LoopCount;i++)
-                if(field.Track.GetLoop(i).Closed && policy.PhysicalRadius*2>field.Track.GetLoop(i).Length.Meters) throw new ArgumentException("Physical preview exceeds half a periodic loop.");
+                if(field.Track.GetLoop(i).Closed && physicalRadius*2>field.Track.GetLoop(i).Length.Meters) throw new ArgumentException("Physical preview exceeds half a periodic loop.");
             var cadence=difficulty.Cadence(); paceDefinition=difficulty.Apply(PaceControllerDefinition.FromJson(read("pace_controller_provisional_v1.json")));
             shootingModel=new ShootingModelDefinitions(read); aimDefinition=difficulty.Apply(ShootingAiDefinition.FromJson(read("shooting_ai_v1.json")));
             var utilityDefinition=TacticalUtilityDefinition.FromJson(read("tactical_utility_provisional_v1.json"));
@@ -112,7 +115,7 @@ namespace Biathlon.AI
             var occupancy=new OccupancySystem(occupancyDefinition);
             if(rangeTrafficPolicy!=null)
             {
-                if(field.GetAthlete(0).RangePath==null||rangeTrafficPolicy.AlignmentLeadMeters>policy.PhysicalRadius)
+                if(field.GetAthlete(0).RangePath==null)
                     throw new ArgumentException("Range alignment requires authored paths and an observed lead distance.");
                 rangeTraffic=new AiRangeTrafficPlanner(rangeTrafficPolicy,occupancyDefinition);
             }
@@ -141,6 +144,7 @@ namespace Biathlon.AI
             if(rangeTrafficPolicy!=null)
             {
                 context.Add(rangeTrafficPolicy.ToJson());
+                if(physicalRadius!=policy.PhysicalRadius)context.Add("range_traffic_observed_radius_m:"+physicalRadius.ToString("R",CultureInfo.InvariantCulture));
                 context.Add("ai_physical_range_safe_alignment_v1;actual_traversal_exit;stationary_body_clearance;paid_lateral;player_intent_preserved");
             }
             for(int i=0;i<n;i++)
@@ -152,7 +156,7 @@ namespace Biathlon.AI
             if(field.Profile.Format==CompetitionFormat.Pursuit)
             {
                 var definition=PursuitTacticsDefinition.FromJson(read("pursuit_tactics_provisional_v1.json"));
-                if(definition.DefenseRadius>policy.PhysicalRadius) throw new ArgumentException("Pursuit defense must fit the observed neighborhood.");
+                if(definition.DefenseRadius>physicalRadius) throw new ArgumentException("Pursuit defense must fit the observed neighborhood.");
                 pursuit=new PursuitTacticalPlanner(definition);context.Add(definition.ToJson());
                 context.Add("pursuit_global_checkpoint_or_source_gap;bounded_preferences;last_range_risk_v1");
             }
@@ -190,14 +194,15 @@ namespace Biathlon.AI
                 var actor=Field.GetAthlete(i); var id=actor.AthleteId; tacticalDue[i]=shootingDue[i]=false;
                 if(actor.HasFinished) { inputs[i]=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(tick,id,0),1,1,0),new WeaponAimCommand(tick,id,0,0));continue; }
                 if(i==playerIndex){inputs[i]=playerInput;lateral[i]=playerLateral;continue;}
-                var observation=raceSource.Capture(i,TrackDistance.FromMeters(policy.PhysicalRadius),offsets,ahead,neighbors);
-                int count=physicalSource.CapturePlacements(i,TrackDistance.FromMeters(policy.PhysicalRadius),placements);
+                var observation=raceSource.Capture(i,TrackDistance.FromMeters(physicalRadius),offsets,ahead,neighbors);
+                int count=physicalSource.CapturePlacements(i,TrackDistance.FromMeters(physicalRadius),placements);
                 var point=Field.GetPhysicalPoint(i); var self=count>0?placements[0]:new SkiPlacement(id,point.LoopId,new SkiState(point.LoopLengthNanometers,actor.Motion.SpeedMetersPerSecond),Field.GetLateral(i));
                 var roster=placements.AsSpan(0,count); bool skiing=count>0 && observation.Phase==CompetitionPhase.Skiing;
                 bool holdStartGrid=startTraffic!=null&&startTraffic.HoldGridLateral&&point.LoopId==Field.StartApproach.LoopId;
                 rangeTrafficPlans[i]=rangeTraffic==null||holdStartGrid||count==0?default:
                     rangeTraffic.Evaluate(actor.RangePath!=null,observation.NextRangeEntryRouteDistanceNanometers,
-                        actor.CurrentRangeMotion?.Phase,self,observation.CurrentTrack,roster);
+                        actor.CurrentRangeMotion?.Phase,self,observation.CurrentTrack,roster,
+                        point.LoopId==Field.Track.Range.Entry.LoopId);
                 bool alignRange=rangeTrafficPlans[i].Active;
                 var window=clocks[i].Step(tick); TacticalIntentDecision? chosen=null; int adjustment=0;bool pass=false;
                 if(window.DecisionDue)
@@ -263,7 +268,11 @@ namespace Biathlon.AI
                     aim=shootingFrames[i].Aim;trigger=shootingFrames[i].Trigger;hold=shootingFrames[i].HoldBreath;shootingDue[i]=shootingFrames[i].DecisionMade;
                 }
                 else shootingFrames[i]=default;
-                inputs[i]=new SprintAthleteInput(new TimeTrialInput(paceFrames[i].Input,raceForms==null?1:raceForms[i],1,0,sprintRequested:intents[i].Kind==TacticalIntentKind.FinalSprint),aim,trigger,hold,pressure:racePressures==null?default:racePressures[i]);
+                var drive=paceFrames[i].Input;
+                var alignmentCap=rangeTrafficPlans[i].RequestedEffortCap;
+                if(alignmentCap.HasValue&&drive.RequestedEffort>alignmentCap.Value)
+                    drive=new SimulationInput(tick,id,alignmentCap.Value);
+                inputs[i]=new SprintAthleteInput(new TimeTrialInput(drive,raceForms==null?1:raceForms[i],1,0,sprintRequested:intents[i].Kind==TacticalIntentKind.FinalSprint),aim,trigger,hold,pressure:racePressures==null?default:racePressures[i]);
             }
             Field.Step(inputs,lateral);journal.Flush(events);
             for(int i=0;i<Field.Count;i++)

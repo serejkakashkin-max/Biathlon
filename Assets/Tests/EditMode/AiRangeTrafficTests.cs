@@ -14,12 +14,43 @@ namespace Biathlon.Tests
         private static SkiPlacement Placement(string id,double position,double line)=>new SkiPlacement(new AthleteId(id),"main",
             new SkiState((long)Math.Round(position*SkiState.NanometersPerMeter),5),line);
         private static TrackSample Track()=>new TrackSampler(TrackDefinition.FromJson(PhysicalRangePathDefinitionTests.Fixture("track")).GetLoop("main")).Sample(default);
-        private static PackAiRaceRunner Create(PhysicalRangePackTests.Fixture fixture,RaceEventLog log,bool enabled=true)
+        private static AiRangeTrafficPolicyDefinition YieldPolicy()=>AiRangeTrafficPolicyDefinition.FromJson(
+            Definition().ToJson().TrimEnd().TrimEnd('}')+",\"blocked_alignment_effort\":0}");
+        private static PackAiRaceRunner Create(PhysicalRangePackTests.Fixture fixture,RaceEventLog log,bool enabled=true,AiRangeTrafficPolicyDefinition traffic=null)
         {
             var profiles=new AiPersonalityDefinition[fixture.Entrants.Length];
             for(int i=0;i<profiles.Length;i++)profiles[i]=AiPersonalityTests.Definition(i%2==0?"attacker":"patient");
             return new PackAiRaceRunner(PhysicalRangePackTests.CreatePack(fixture,log),PhysiologyContractTests.DefinitionJson,
-                profiles,AiDifficultyTests.Definition("expert"),123,log,new AiDecisionCounts(),rangeTrafficPolicy:Definition(enabled));
+                profiles,AiDifficultyTests.Definition("expert"),123,log,new AiDecisionCounts(),rangeTrafficPolicy:traffic??Definition(enabled));
+        }
+        [Test] public void BlockedConvergenceRequestsObservedYieldAndReleasesItAfterBodySeparation()
+        {
+            var d=YieldPolicy();Assert.That(d.BlockedAlignmentEffort,Is.Zero);
+            Assert.That(AiRangeTrafficPolicyDefinition.FromJson(d.ToJson()).ToJson(),Is.EqualTo(d.ToJson()));
+            foreach(int invalid in new[]{-1,1001})Assert.Catch(()=>AiRangeTrafficPolicyDefinition.FromJson(d.ToJson().Replace("\"blocked_alignment_effort\":0","\"blocked_alignment_effort\":"+invalid)));
+            var self=Placement("self",0,-.35);var other=Placement("other",.3,.35);
+            var planner=new AiRangeTrafficPlanner(d,OccupancyTests.Definition());
+            var blocked=planner.Evaluate(true,0,RangeTraversalPhase.Approach,self,Track(),new[]{self,other});
+            Assert.That(blocked.RequestedEffortCap,Is.Zero);Assert.That(blocked.DesiredLateralMeters,Is.EqualTo(self.LateralMeters));
+            var behind=Placement("other",.7,.35);var aheadSelf=Placement("self",1,-.35);
+            Assert.That(planner.Evaluate(true,0,RangeTraversalPhase.Approach,aheadSelf,Track(),new[]{aheadSelf,behind}).RequestedEffortCap,Is.Null,"Only the trailing actor yields; simultaneous coasting cannot open a gap.");
+            other=Placement("other",OccupancyTests.Definition().LongitudinalSeparation,.35);
+            Assert.That(planner.Evaluate(true,0,RangeTraversalPhase.Approach,self,Track(),new[]{self,other}).RequestedEffortCap,Is.Null);
+            Assert.That(new AiRangeTrafficPlanner(Definition(),OccupancyTests.Definition()).Evaluate(true,0,RangeTraversalPhase.Approach,self,Track(),new[]{self,Placement("other",.3,.35)}).RequestedEffortCap,Is.Null);
+            Assert.That(Definition().ToJson(),Does.Not.Contain("blocked_alignment_effort"),"Omitted option preserves legacy JSON/context.");
+        }
+        [Test] public void TwoParallelAthletesUseOrdinaryPaidCoastingToOpenAnInwardLine()
+        {
+            var fixture=PhysicalRangePackTests.CreateFixture(count:2,flatPrivate:true,gridColumns:3);
+            var runner=Create(fixture,new RaceEventLog(30000),traffic:YieldPolicy());bool yielded=false,aligned=false;
+            for(int tick=0;tick<1800;tick++)
+            {
+                runner.Step();PhysicalRangePackTests.AssertBodiesAndWidth(runner.Field,fixture);
+                var plan=runner.GetLastRangeTrafficPlan(0);
+                if(plan.RequestedEffortCap.HasValue){yielded=true;Assert.That(runner.GetLastInput(0).Ski.Effort.RequestedEffort,Is.Zero);}
+                aligned|=yielded&&runner.Field.GetLateral(0)==0;
+            }
+            Assert.That(yielded,Is.True);Assert.That(aligned,Is.True,"Body-safe convergence must follow paid forward separation.");
         }
         [Test] public void PolicyRequiresVersionIdentityEnableChoiceAndObservedPositiveLead()
         {
@@ -33,6 +64,27 @@ namespace Biathlon.Tests
             var field=PackSprintFieldTests.Create(new RaceEventLog(10000),1,2);
             Assert.Catch(()=>new PackAiRaceRunner(field,PhysiologyContractTests.DefinitionJson,new[]{AiPersonalityTests.Definition("attacker")},
                 AiDifficultyTests.Definition("expert"),123,new RaceEventLog(10000),new AiDecisionCounts(),rangeTrafficPolicy:Definition()));
+        }
+        [Test] public void OptionalEntryLinePreservesPrivateCentreAndResolvesMeasuredIncomingRotation()
+        {
+            var policy=AiRangeTrafficPolicyDefinition.FromJson(YieldPolicy().ToJson().TrimEnd('}')+",\"entry_lateral_m\":0.35}");
+            Assert.That(AiRangeTrafficPolicyDefinition.FromJson(policy.ToJson()).ToJson(),Is.EqualTo(policy.ToJson()));
+            foreach(string value in new[]{"1001","-1001","\"NaN\""})Assert.Catch(()=>AiRangeTrafficPolicyDefinition.FromJson(policy.ToJson().Replace("\"entry_lateral_m\":0.35","\"entry_lateral_m\":"+value)));
+            var planner=new AiRangeTrafficPlanner(policy,OccupancyTests.Definition());var self=Placement("self",0,0);
+            Assert.That(planner.Evaluate(true,0,RangeTraversalPhase.Approach,self,Track(),new[]{self},true).DesiredLateralMeters,Is.EqualTo(.35));
+            Assert.That(planner.Evaluate(true,0,RangeTraversalPhase.Approach,self,Track(),new[]{self}).DesiredLateralMeters,Is.Zero);
+            string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
+            const string root="Biathlon/Venues/woodland_basin_v1/";
+            var plan=new VenueAuthoringPlan(VenueManifest.FromJson(Read(root+"manifest")),Read);
+            var profile=CompetitionProfile.FromJson(Read(root+"mass_start_profile"));
+            var route=new RaceRoute(plan.Track,RaceRoutePlan.FromJson(Read(root+"mass_start_route")),profile.ToRouteRequirements(),plan.Junctions,plan.Connections);
+            var map=new PhysicalTrackMap(plan.Track,route);var lane=plan.Paths.GetLane(28);
+            long at=lane.Fork.Millimeters*SkiState.NanometersPerMillimeter;
+            var seam=new PhysicalApronSeamProjectionDraft(map,plan.SharedApron,plan.Occupancy,
+                map.MapLoop(plan.Paths.MainLoopId,at),map.MapLoop(lane.MatAnchor.LoopId,0),plan.Paths.MainLoopId);
+            var follower=map.MapLoop(plan.Paths.MainLoopId,at-1521127833L);
+            Assert.That(seam.Conflicts(0,0,new PhysicalOccupancySweep(new AthleteId("follower"),follower,0,0,0)),Is.True,"Measured close follower reproduces the original full-body rotation block.");
+            Assert.That(seam.Conflicts(.35,.35,new PhysicalOccupancySweep(new AthleteId("follower"),follower,0,.35,.35)),Is.False,"The same unchanged body, guards and numerical reserve fit the data-driven inward line.");
         }
         [Test] public void ApproachingWindowUsesExactLeadAndExitRemainsActiveAfterNextBoutAdvances()
         {

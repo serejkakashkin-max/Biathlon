@@ -236,7 +236,7 @@ namespace Biathlon.Tests
             Assert.That(visited&&field.IsComplete,Is.True,"A short optional window retains conservative finite default passage behavior.");
         }
 
-        [Test] public void DifferentLapOccurrencesShareOnlyTheirExactPassageAndUnknownThroughMainRemainsExclusive()
+        [Test] public void DifferentLapOccurrencesShareOnlyTheirExactPassageAndSkippedThroughMainRejects()
         {
             var f=Fixture(2);var field=Create(f,new RaceEventLog(100),Definition(f));
             var a=Trace(field,"stationary",0);var b=Trace(field,"stationary",1);var type=a.GetType();
@@ -254,7 +254,8 @@ namespace Biathlon.Tests
             Point(a,"main",130*M,130*M+1);
             Assert.That((bool)conflict.Invoke(field,new[]{a,(object)0,b,1}),Is.True,"One-nanometre stale route provenance cannot authorize sharing.");
             Point(a,"main",142*M,142*M);
-            Assert.That((bool)conflict.Invoke(field,new[]{a,(object)0,b,1}),Is.True,"Through-Main traffic is outside this directed passage.");
+            var skipped=Assert.Throws<TargetInvocationException>(()=>conflict.Invoke(field,new[]{a,(object)0,b,1}));
+            Assert.That(skipped.InnerException,Is.TypeOf<ArgumentException>(),"A skipped Main interval cannot supply traffic authority.");
             Point(a,"main",10*M,10*M);Point(b,"mat_1",0,10*M);
             Assert.That((bool)conflict.Invoke(field,new[]{a,(object)0,b,1}),Is.True,"Other reachable range regions retain their exclusive rule.");
         }

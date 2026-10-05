@@ -34,6 +34,24 @@ namespace Biathlon.Tests
             }
             return new VenueAuthoringPlan(VenueManifest.FromJson(Read("Biathlon/Venues/woodland_basin_v1/manifest")),Read);
         }
+        [Test] public void VenueTrafficIsExplicitBoundAndWidensOnlyItsObservedNeighborhood()
+        {
+            var venue=ProductionPlan();Assert.That(venue.AiRangeTraffic,Is.Not.Null);
+            var manifest=venue.Manifest.ToJson();Assert.That(VenueManifest.FromJson(manifest).ToJson(),Is.EqualTo(manifest));
+            foreach(string invalid in new[]{"../invalid","Biathlon/invalid.json",""})
+                Assert.Catch(()=>VenueManifest.FromJson(manifest.Replace(venue.Manifest.AiRangeTrafficResource.Replace("/","\\/"),invalid)));
+            var race=venue.Formats.Get(0);
+            var runner=ProductionVenueRaceFactory.Create(venue,race.Profile,race.Route,
+                RaceSnowConditions.FromJson(PhysiologyContractTests.DefinitionJson("race_snow_neutral_v1.json")),PhysiologyContractTests.DefinitionJson,
+                new RaceEventLog(5000),new AiDecisionCounts(),count:1);
+            Assert.That(runner.ContextJson,Does.Contain("range_traffic_observed_radius_m:75"));
+            Assert.That(runner.ContextJson,Does.Contain("woodland_basin_range_traffic_v1"));
+            string Missing(string id){if(id==venue.Manifest.AiRangeTrafficResource)throw new InvalidOperationException("Missing explicit traffic resource.");return PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");}
+            Assert.Throws<InvalidOperationException>(()=>new VenueAuthoringPlan(venue.Manifest,Missing));
+            var tooWide=AiRangeTrafficPolicyDefinition.FromJson(PhysiologyContractTests.ReplaceNumber(venue.AiRangeTraffic.ToJson(),"alignment_lead_m","76"));
+            Assert.That(Assert.Throws<ArgumentException>(()=>new PackAiRaceRunner(runner.Field,PhysiologyContractTests.DefinitionJson,
+                new[]{AiPersonalityTests.Definition("attacker")},AiDifficultyTests.Definition("expert"),123,new RaceEventLog(),new AiDecisionCounts(),rangeTrafficPolicy:tooWide)).Message,Does.Contain("periodic"));
+        }
         private static PursuitQualificationSnapshot ContractQualification(CompetitionProfile sprint,CompetitionProfile pursuit,AthleteId[] ids)
         {
             // Synthetic completed lifecycle rows test the qualification/factory contract only.
