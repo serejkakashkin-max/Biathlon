@@ -17,6 +17,25 @@ namespace Biathlon.Unity
         /// Temporarily include our tiers by label while preserving the owner's existing settings.</summary>
         public static void WithBuildProfiles(System.Action build)
         {
+            if(build==null)throw new System.ArgumentNullException(nameof(build));
+            // A restored idle Editor may have no active pipeline even though its URP
+            // global settings exist. The public graphics-settings query then returns
+            // null. Bind a build tier only for this scope and restore the owner value.
+            var previous=QualitySettings.renderPipeline;
+            try
+            {
+                if(GraphicsSettings.currentRenderPipeline==null)
+                {
+                    var high=AssetDatabase.LoadAssetAtPath<UniversalRenderPipelineAsset>(Root+"high.asset");
+                    if(high==null)throw new System.InvalidOperationException("Missing High render build tier.");
+                    QualitySettings.renderPipeline=high;
+                }
+                WithBoundBuildProfiles(build);
+            }
+            finally{QualitySettings.renderPipeline=previous;}
+        }
+        private static void WithBoundBuildProfiles(System.Action build)
+        {
             var setting = GraphicsSettings.GetRenderPipelineSettings<IncludeAdditionalRPAssets>();
             if (setting == null) throw new System.InvalidOperationException("URP build inclusion settings unavailable.");
             bool enabled = setting.includeAssetsByLabel; string label = setting.labelToInclude;

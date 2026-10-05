@@ -15,6 +15,22 @@ namespace Biathlon.VenueEditorTests
 {
     public sealed class ProductionReviewBuildLeaseTests
     {
+        [TestCase(false)][TestCase(true)] public void IdleEditorWithoutActivePipelineGetsTemporaryBuildBindingAndRestoresIt(bool reject)
+        {
+            var priorQuality=QualitySettings.renderPipeline;var priorDefault=GraphicsSettings.defaultRenderPipeline;
+            string[] paths={"Assets/Resources/Biathlon/Rendering/high.asset","Assets/Resources/Biathlon/Rendering/balanced.asset","Assets/Resources/Biathlon/Rendering/low.asset"};
+            var owners=paths.Select(AssetDatabase.LoadMainAssetAtPath).ToArray();var labels=owners.Select(AssetDatabase.GetLabels).ToArray();
+            try
+            {
+                QualitySettings.renderPipeline=null;GraphicsSettings.defaultRenderPipeline=null;
+                Assert.That(GraphicsSettings.currentRenderPipeline,Is.Null);
+                Action callback=()=>{Assert.That(GraphicsSettings.currentRenderPipeline,Is.Not.Null);Assert.That(GraphicsSettings.GetRenderPipelineSettings<IncludeAdditionalRPAssets>().includeAssetsByLabel,Is.True);if(reject)throw new InvalidOperationException("Expected callback rejection");};
+                if(reject)Assert.Throws<InvalidOperationException>(()=>RenderQualityAuthoring.WithBuildProfiles(callback));else RenderQualityAuthoring.WithBuildProfiles(callback);
+                Assert.That(QualitySettings.renderPipeline,Is.Null);Assert.That(GraphicsSettings.defaultRenderPipeline,Is.Null);
+                for(int i=0;i<owners.Length;i++)CollectionAssert.AreEqual(labels[i],AssetDatabase.GetLabels(owners[i]));
+            }
+            finally{QualitySettings.renderPipeline=priorQuality;GraphicsSettings.defaultRenderPipeline=priorDefault;}
+        }
         [TestCase("Builds/")][TestCase("Assets/Replacement")][TestCase("Builds/../Owner")][TestCase("C:/Owner")]
         public void ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners(string output)
         {
@@ -49,6 +65,18 @@ namespace Biathlon.VenueEditorTests
             finally{if(File.Exists(path))File.Delete(path);}
         }
         [TestCase(false)][TestCase(true)] public void ProductionBuildLeaseRestoresLabelsSettingsAndExistingDirtyOwnersWhenCallbackRejects(bool reject)
+        {
+            var prior=QualitySettings.renderPipeline;
+            try
+            {
+                // This fixture exercises existing active-URP owner values. The separate
+                // null-pipeline fixture checks restoration of an idle unbound Editor.
+                if(GraphicsSettings.currentRenderPipeline==null)QualitySettings.renderPipeline=AssetDatabase.LoadAssetAtPath<UniversalRenderPipelineAsset>("Assets/Resources/Biathlon/Rendering/high.asset");
+                AssertActiveBuildLeaseRestoration(reject);
+            }
+            finally{QualitySettings.renderPipeline=prior;}
+        }
+        private static void AssertActiveBuildLeaseRestoration(bool reject)
         {
             var assets=new UnityEngine.Object[]{GraphicsSettings.GetSettingsForRenderPipeline<UniversalRenderPipeline>(),AssetDatabase.LoadAssetAtPath<UniversalRenderPipelineAsset>("Assets/Resources/Biathlon/Rendering/high.asset"),AssetDatabase.LoadAssetAtPath<UniversalRenderPipelineAsset>("Assets/Resources/Biathlon/Rendering/balanced.asset"),AssetDatabase.LoadAssetAtPath<UniversalRenderPipelineAsset>("Assets/Resources/Biathlon/Rendering/low.asset")};
             Assert.That(assets.All(a=>a!=null),Is.True);var dirty=assets.Select(EditorUtility.IsDirty).ToArray();var values=assets.Select(a=>EditorJsonUtility.ToJson(a)).ToArray();var labels=assets.Select(AssetDatabase.GetLabels).ToArray();
