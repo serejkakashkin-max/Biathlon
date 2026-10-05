@@ -52,7 +52,7 @@ namespace Biathlon.Unity.Presentation
         private ExertionPresentationSettings settings;
         public float Intensity { get; private set; }
         public float FinishWeight { get; private set; }
-        public void Apply(LocomotionPose pose, ExertionInput input, SkiLocomotion state, double time, double dt, bool reset)
+        public void Apply(LocomotionPose pose, ExertionInput input, float tuckWeight, double time, double dt, bool reset)
         {
             if (settings == null) settings = ExertionPresentationSettings.Load();
             float target = settings.Intensity(input);
@@ -61,7 +61,9 @@ namespace Biathlon.Unity.Presentation
             FinishWeight = Mathf.Lerp(FinishWeight, input.Finished ? 1 : 0, blend);
             // Do not add an independent breathing oscillator to authoritative shooting sway.
             if (input.Shooting) return;
-            float activity = state == SkiLocomotion.Tuck ? 0 : Intensity;
+            // Follow the same blend as the visible tuck posture, including interruptions.
+            // A selected-state switch must not instantly remove fatigue from the body.
+            float activity = (1 - tuckWeight) * Intensity;
             pose.torso_lean_deg += activity * (settings.tired_lean_deg + settings.breathing_deg * Mathf.Sin((float)(time * settings.breathing_hz * Math.PI * 2)));
             pose.hip_drop_m += activity * settings.tired_hip_drop_m;
             pose.arm_swing_m *= 1 - activity * settings.arm_reduction;

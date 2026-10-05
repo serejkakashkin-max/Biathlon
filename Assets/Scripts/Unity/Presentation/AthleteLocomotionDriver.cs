@@ -17,6 +17,7 @@ namespace Biathlon.Unity.Presentation
         private readonly LocomotionPose motion = new LocomotionPose();
         private readonly AthleteExertionPresentation exertion = new AthleteExertionPresentation();
         private float climbIntensity = 1;
+        private float tuckWeight, tuckStartWeight;
         private double previousTime = -1, transitionAt, cycle;
         private string athleteId;
         public SkiLocomotion State { get; private set; }
@@ -58,20 +59,24 @@ namespace Biathlon.Unity.Presentation
                 dt = 0;
                 climbIntensity = requestedIntensity;
                 CornerLeanDegrees = requestedLean;
+                tuckStartWeight = tuckWeight = selected == SkiLocomotion.Tuck ? 1 : 0;
             }
             else if (selected != State)
             {
                 LocomotionPose.Blend(blended, blended, 1, start);
+                tuckStartWeight = tuckWeight;
                 State = selected; transitionAt = time;
             }
             BlendProgress = Mathf.Clamp01((float)((time - transitionAt) / settings.transition_s));
-            LocomotionPose.Blend(start, settings.poses[(int)State], Mathf.SmoothStep(0, 1, BlendProgress), blended);
+            float transitionWeight = Mathf.SmoothStep(0, 1, BlendProgress);
+            LocomotionPose.Blend(start, settings.poses[(int)State], transitionWeight, blended);
+            tuckWeight = Mathf.Lerp(tuckStartWeight, State == SkiLocomotion.Tuck ? 1 : 0, transitionWeight);
             climbIntensity = Mathf.Lerp(climbIntensity, requestedIntensity, 1 - Mathf.Exp(-(float)dt / settings.transition_s));
             LocomotionPose.Blend(blended, blended, 1, motion);
             motion.cadence_hz *= climbIntensity;
             motion.torso_lean_deg *= climbIntensity;
             motion.arm_swing_m *= climbIntensity;
-            exertion.Apply(motion, observedExertion ?? new ExertionInput(0, 1, 0), State, time, dt, reset);
+            exertion.Apply(motion, observedExertion ?? new ExertionInput(0, 1, 0), tuckWeight, time, dt, reset);
             cycle = (cycle + dt * motion.cadence_hz) % 1;
             polingRatio=Mathf.Lerp(polingRatio,selected==SkiLocomotion.Climb?technique.climb_poles_per_cycle:technique.flat_poles_per_cycle,1-Mathf.Exp(-(float)dt/settings.transition_s));
             poleCycle=(poleCycle+dt*motion.cadence_hz*polingRatio)%1;
@@ -88,17 +93,12 @@ namespace Biathlon.Unity.Presentation
             // Small compression into the paired pole push, followed by a gradual return.
             // Do not rock backwards past the base skiing lean during recovery.
             float pulse=(.5f-.5f*Mathf.Sin(polePhase))*active;
-            float leftPhase=Mathf.Repeat(phase/(2*Mathf.PI),1);
-            float rightPhase=Mathf.Repeat(leftPhase+.5f,1);
-            // Transfer during the overlap of grounded skis, then stay over the support
-            // side throughout the other ski's recovery. No presentation root motion.
+            // Keep weight transfer small and toward the planted ski during recovery.
+            // The continuous wave avoids a rapid jump across the grounded overlap;
+            // its resource scalar sets the owner-requested minimal body motion.
+            // Leg/pole timing and ground contact stay independent of this bone offset.
             float overlap=technique.glide_fraction-.5f;
-            float leftWeight=leftPhase<overlap?Mathf.SmoothStep(0,1,leftPhase/overlap):
-                leftPhase<.5f?1:leftPhase<technique.glide_fraction?
-                Mathf.SmoothStep(1,0,(leftPhase-.5f)/overlap):0;
-            float leftX=-(.105f+pose.skate_width_m*Stroke(leftPhase));
-            float rightX=.105f+pose.skate_width_m*Stroke(rightPhase);
-            float transfer=Mathf.Lerp(rightX,leftX,leftWeight)*technique.hip_transfer_fraction;
+            float transfer=-Mathf.Sin(phase-Mathf.PI*overlap)*(.105f+pose.skate_width_m)*technique.hip_transfer_fraction;
             rig.Offset(AthleteBone.Hips, new Vector3(transfer*active, -pose.hip_drop_m-technique.hip_pulse_m*pulse, 0));
             rig.Rotate(AthleteBone.Hips, Quaternion.Euler(0, 0, -CornerLeanDegrees));
             float lean=pose.torso_lean_deg+technique.torso_pulse_deg*pulse;

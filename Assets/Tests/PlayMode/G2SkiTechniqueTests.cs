@@ -38,7 +38,7 @@ namespace Biathlon.PlayModeTests
             }
             finally{Object.DestroyImmediate(rig.gameObject);}
         }
-        [Test] public void WeightStaysOverSupportSideAndTechniqueTransitionsRemainContinuous()
+        [Test] public void MinimalWeightTransferTracksSupportSideAndTechniqueTransitionsRemainContinuous()
         {
             var rig=AthleteRigFactory.Create(null);
             try
@@ -52,8 +52,9 @@ namespace Biathlon.PlayModeTests
                     var right=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.RightFoot).position);
                     var hip=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.Hips).position);
                     var hand=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.LeftHand).position);
-                    if(left.y>.13f){Assert.That(hip.x,Is.GreaterThan(.04f));supportSamples++;}
-                    if(right.y>.13f){Assert.That(hip.x,Is.LessThan(-.04f));supportSamples++;}
+                    if(left.y>.13f){Assert.That(hip.x,Is.GreaterThan(.001f));supportSamples++;}
+                    if(right.y>.13f){Assert.That(hip.x,Is.LessThan(-.001f));supportSamples++;}
+                    Assert.That(Mathf.Abs(hip.x),Is.LessThan(.0155f),"Support timing must not require exaggerated sideways body motion.");
                     if(i>0){Assert.That(Vector3.Distance(hip,priorHip),Is.LessThan(.035f));Assert.That(Vector3.Distance(hand,priorHand),Is.LessThan(.035f));}
                     priorHip=hip;priorHand=hand;
                 }
@@ -82,21 +83,23 @@ namespace Biathlon.PlayModeTests
             }
             finally{Object.DestroyImmediate(rig.gameObject);}
         }
-        [Test] public void BothHandsPushTogetherAndHipsTransferWithoutRootMovement()
+        [Test] public void BothHandsPushTogetherWithMinimalHipTransferAndNoRootMovement()
         {
             var rig=AthleteRigFactory.Create(null);
             try
             {
-                var d=rig.GetComponent<AthleteLocomotionDriver>();float lo=10,hi=-10;
+                var d=rig.GetComponent<AthleteLocomotionDriver>();float lo=10,hi=-10,lowHand=10,highHand=-10;
                 for(int i=0;i<180;i++)
                 {
                     d.Sample(rig,new LocomotionInput(7,0,.9f),i/60.0);
                     var l=rig.Bone(AthleteBone.LeftHand).position;var right=rig.Bone(AthleteBone.RightHand).position;
                     Assert.That(Mathf.Abs(l.z-right.z),Is.LessThan(.02f),"Skating poling must not alternate like walking.");
+                    lowHand=Mathf.Min(lowHand,l.z);highHand=Mathf.Max(highHand,l.z);
                     float hip=rig.Bone(AthleteBone.Hips).position.x;lo=Mathf.Min(lo,hip);hi=Mathf.Max(hi,hip);
                     Assert.That(rig.transform.position,Is.EqualTo(Vector3.zero));
                 }
-                Assert.That(hi-lo,Is.GreaterThan(.17f));
+                Assert.That(hi-lo,Is.LessThan(.031f),"Minimal weight transfer is the owner-approved body motion.");
+                Assert.That(highHand-lowHand,Is.GreaterThan(.35f),"Reducing body sway must preserve the pole push and recovery.");
                 long before=GC.GetAllocatedBytesForCurrentThread();for(int i=180;i<300;i++)d.Sample(rig,new LocomotionInput(7,0,.9f),i/60.0);
                 Assert.That(GC.GetAllocatedBytesForCurrentThread()-before,Is.Zero);
             }
