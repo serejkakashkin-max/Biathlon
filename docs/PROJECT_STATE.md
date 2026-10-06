@@ -21670,3 +21670,24 @@ remains intact; this record was appended.
 
 Full world-motion host, route/lifecycle/event transaction, AI and race replay
 remain open. WP-175–178 and M13 remain OPEN. No intermediate Windows build.
+
+## 2026-10-06 — M13 atomic common-time world and route frames
+
+The selected-route joint solver now produces one non-committing frame per actor
+at the same proven group-safe time. Each frame binds world pose, planar
+velocity and selected-route projection. The entire roster is validated before
+any caller-owned frame slot is written; failure of a later actor cannot publish
+partial proposed world state. The same Woodland body-contact fixture yields a
+shared limited time for both actors; warm repeated frame queries allocate no
+managed memory.
+
+Focused Release .NET joint tests 9/9 PASS; native Unity EditMode joint tests
+9/9 PASS. Unity compiled, Editor idle, recent Error Console empty. Evidence:
+docs/quality/m13/owner-manual-route-joint-20261006/m13-manual-common-frames.trx
+and native-common-frames.xml. ADR-0037 and the joint report extended. No
+authoritative motion, route/lap credit, collision response or race events were
+committed. Historical PROJECT_STATE content was only appended.
+
+Playable manual steering still requires the race transaction, route and
+range/penalty lifecycle transitions, repeated contacts, complete event/replay
+binding and host wiring. WP-175–178 and M13 remain OPEN. No intermediate build.

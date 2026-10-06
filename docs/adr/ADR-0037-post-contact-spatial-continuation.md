@@ -163,3 +163,13 @@ capacity overflow. Warm per-tick append allocates no managed memory. The tape
 only persists/retrieves intent; it has no authority to step or reconstruct a
 race. A future world-motion host must bind context, roster, starting state,
 all AI commands/events and race output before claiming whole-race replay.
+
+## 2026-10-06 atomic common-prefix actor frames
+
+The joint sweep can now return each actor's world pose, planar velocity and
+selected-route projection at its single proven group-safe time. It validates
+the whole roster before writing any caller-owned frame. Failure of a later
+actor's projection cannot publish a partial world/route proposal. The receipt
+does not commit motion, route/lap credit, contact response or events. This
+shared-time frame is the input to a future authoritative race transaction,
+not a transaction itself.

@@ -34,6 +34,19 @@ namespace Biathlon.Simulation
             SkiJointSweepPreview bodyOrEdge=default,ManualRouteTubePreview tube=default)
         {IsValid=true;Status=status;ClearUntilSeconds=clear;Athlete=athlete;BodyOrEdge=bodyOrEdge;Tube=tube;}
     }
+    /// <summary>One actor's world motion and selected-route observation at the
+    /// same group-safe time. This is a proposal, not a committed race state.</summary>
+    public readonly struct ManualRouteActorFrame
+    {
+        public bool IsValid => Athlete.IsValid&&Pose.IsValid&&Projection.IsValid;
+        public AthleteId Athlete {get;}
+        public ManualSkiHeadingState Pose {get;}
+        public SkiPlanarVelocity Velocity {get;}
+        public ManualRouteProjection Projection {get;}
+        internal ManualRouteActorFrame(AthleteId athlete,ManualSkiHeadingState pose,
+            SkiPlanarVelocity velocity,ManualRouteProjection projection)
+        {Athlete=athlete;Pose=pose;Velocity=velocity;Projection=projection;}
+    }
 
     /// <summary>One common non-committing prefix for the actual world bodies,
     /// explicit local edges, and selected-route inner tubes. The caller retains
@@ -112,6 +125,30 @@ namespace Biathlon.Simulation
             {
                 TryProjectActor(actors[i],routeWindows,count,joint.ClearUntilSeconds,out var observation);
                 projections[i]=observation;
+            }
+            return true;
+        }
+
+        /// <summary>Propose the entire roster's world pose, velocity and route
+        /// observation at one proven common prefix. No output is written unless
+        /// every selected-route projection succeeds; no progress is committed.</summary>
+        public bool TryPreviewCommonPrefixFrames(SkiWorldMotionCandidate[] actors,int count,
+            SkiReachedContactPair[] reached,int reachedCount,ManualRouteActorWindow[] routeWindows,
+            SkiActorCourseEdge[] additionalEdges,int additionalEdgeCount,
+            ManualRouteActorFrame[] frames,out ManualRouteJointPreview joint)
+        {
+            if(frames==null||count<1||frames.Length<count)
+                throw new ArgumentException("One frame slot per actor required.",nameof(frames));
+            joint=Preview(actors,count,reached,reachedCount,routeWindows,additionalEdges,additionalEdgeCount);
+            for(int i=0;i<count;i++)
+                if(!TryProjectActor(actors[i],routeWindows,count,joint.ClearUntilSeconds,out _))return false;
+            for(int i=0;i<count;i++)
+            {
+                var actor=actors[i];
+                double fraction=joint.ClearUntilSeconds/actor.Trajectory.DurationSeconds;
+                TryProjectActor(actor,routeWindows,count,joint.ClearUntilSeconds,out var observation);
+                frames[i]=new ManualRouteActorFrame(actor.Athlete,actor.Trajectory.Sample(fraction),
+                    actor.Trajectory.VelocityAt(fraction),observation);
             }
             return true;
         }

@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="7a9a6136-7b0f-4c67-b590-4964f4336dfb" name="snkashkin@DESKTOP-G3075GA 2026-10-06 20:10:17" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-06T20:10:17.5108632+03:00" queuing="2026-10-06T20:10:17.5108633+03:00" start="2026-10-06T20:10:15.8965137+03:00" finish="2026-10-06T20:10:17.5143165+03:00" />
+  <TestSettings name="default" id="89df9a2a-e35a-412d-a405-1da5e97e7faf">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-06_20_10_17" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9b7c81fb-aeff-4c3d-8390-0aeeb97293a4" testId="a77ecd9b-5295-17fe-00a4-afbe11773142" testName="FullRosterAndSelectedRouteWindowsAreRequiredWithoutSilentOmission" computerName="DESKTOP-G3075GA" duration="00:00:00.0810530" startTime="2026-10-06T20:10:17.3500616+03:00" endTime="2026-10-06T20:10:17.4311136+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b7c81fb-aeff-4c3d-8390-0aeeb97293a4" />
+    <UnitTestResult executionId="03b7a459-f601-466b-9c2e-15e4b1310ef9" testId="9dd7472c-59cc-6a08-3c8b-3f3f9e2c240a" testName="CommonPrefixStopsAtTheCourseBeforeAnOutwardActorLeavesTheTrack" computerName="DESKTOP-G3075GA" duration="00:00:00.0844920" startTime="2026-10-06T20:10:16.9113992+03:00" endTime="2026-10-06T20:10:16.9958901+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="03b7a459-f601-466b-9c2e-15e4b1310ef9" />
+    <UnitTestResult executionId="3a2c134d-45aa-4946-a02f-7099b2b499eb" testId="bd7cf1d8-294b-c35b-c5b1-d7cc4a6c5613" testName="ClearCommonPrefixIsDeterministicWithoutWarmAllocation" computerName="DESKTOP-G3075GA" duration="00:00:00.0977160" startTime="2026-10-06T20:10:16.7333075+03:00" endTime="2026-10-06T20:10:16.8310233+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3a2c134d-45aa-4946-a02f-7099b2b499eb" />
+    <UnitTestResult executionId="2ccd5999-32aa-488f-a912-a5c3cdacb235" testId="402db272-43d6-a6ff-1baa-15f7232b3561" testName="CommonSafeTimeBindsWholeRosterWorldAndRouteFrames" computerName="DESKTOP-G3075GA" duration="00:00:00.0876270" startTime="2026-10-06T20:10:16.9959158+03:00" endTime="2026-10-06T20:10:17.0835426+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2ccd5999-32aa-488f-a912-a5c3cdacb235" />
+    <UnitTestResult executionId="6073c3c8-4a4a-4b0b-982e-aae82300ab08" testId="f0813a94-ea9b-655e-92f8-04aec2f75f5c" testName="CommonPrefixProjectsWorldPoseWithoutTurningOrAwardingDistance" computerName="DESKTOP-G3075GA" duration="00:00:00.0803180" startTime="2026-10-06T20:10:16.8310547+03:00" endTime="2026-10-06T20:10:16.9113721+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6073c3c8-4a4a-4b0b-982e-aae82300ab08" />
+    <UnitTestResult executionId="68dbb9d0-9e89-46a8-b20b-f9e42220c0b9" testId="2cd9b3e7-c1fe-09c8-840e-6f328fe9db7b" testName="FailedRosterFrameProjectionCannotPublishPartialWorldState" computerName="DESKTOP-G3075GA" duration="00:00:00.0736260" startTime="2026-10-06T20:10:17.1805744+03:00" endTime="2026-10-06T20:10:17.2541999+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="68dbb9d0-9e89-46a8-b20b-f9e42220c0b9" />
+    <UnitTestResult executionId="ac9e22cf-c4c4-474b-b984-80f8eabdfb05" testId="bb54589d-4a3c-c31f-f43b-4ffde48ce9fd" testName="FailedSecondProjectionLeavesEveryOutputSlotUntouched" computerName="DESKTOP-G3075GA" duration="00:00:00.0958080" startTime="2026-10-06T20:10:17.2542275+03:00" endTime="2026-10-06T20:10:17.3500352+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ac9e22cf-c4c4-474b-b984-80f8eabdfb05" />
+    <UnitTestResult executionId="0cfb48b7-8fb5-4af2-b418-f15a312084ac" testId="af4569d0-2b08-6f8c-92fd-1690fe5afd3b" testName="ActualBodyConflictLimitsTheSameRouteSweepBeforeTheCourseBoundary" computerName="DESKTOP-G3075GA" duration="00:00:00.2910430" startTime="2026-10-06T20:10:16.4416675+03:00" endTime="2026-10-06T20:10:16.7326816+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0cfb48b7-8fb5-4af2-b418-f15a312084ac" />
+    <UnitTestResult executionId="eb79fc09-260c-4519-9af7-7254e1a019ea" testId="1cb5e39c-3904-f7a2-9ecd-3bf9be833b67" testName="CourseProofWorkLimitWinsTheCommonPrefixWithoutGhosting" computerName="DESKTOP-G3075GA" duration="00:00:00.0969820" startTime="2026-10-06T20:10:17.0835674+03:00" endTime="2026-10-06T20:10:17.1805484+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eb79fc09-260c-4519-9af7-7254e1a019ea" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="CourseProofWorkLimitWinsTheCommonPrefixWithoutGhosting" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="1cb5e39c-3904-f7a2-9ecd-3bf9be833b67">
+      <Execution id="eb79fc09-260c-4519-9af7-7254e1a019ea" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteJointSweepTests" name="CourseProofWorkLimitWinsTheCommonPrefixWithoutGhosting" />
+    </UnitTest>
+    <UnitTest name="ClearCommonPrefixIsDeterministicWithoutWarmAllocation" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="bd7cf1d8-294b-c35b-c5b1-d7cc4a6c5613">
+      <Execution id="3a2c134d-45aa-4946-a02f-7099b2b499eb" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteJointSweepTests" name="ClearCommonPrefixIsDeterministicWithoutWarmAllocation" />
+    </UnitTest>
+    <UnitTest name="CommonSafeTimeBindsWholeRosterWorldAndRouteFrames" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="402db272-43d6-a6ff-1baa-15f7232b3561">
+      <Execution id="2ccd5999-32aa-488f-a912-a5c3cdacb235" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteJointSweepTests" name="CommonSafeTimeBindsWholeRosterWorldAndRouteFrames" />
+    </UnitTest>
+    <UnitTest name="CommonPrefixProjectsWorldPoseWithoutTurningOrAwardingDistance" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="f0813a94-ea9b-655e-92f8-04aec2f75f5c">
+      <Execution id="6073c3c8-4a4a-4b0b-982e-aae82300ab08" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteJointSweepTests" name="CommonPrefixProjectsWorldPoseWithoutTurningOrAwardingDistance" />
+    </UnitTest>
+    <UnitTest name="FailedSecondProjectionLeavesEveryOutputSlotUntouched" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="bb54589d-4a3c-c31f-f43b-4ffde48ce9fd">
+      <Execution id="ac9e22cf-c4c4-474b-b984-80f8eabdfb05" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteJointSweepTests" name="FailedSecondProjectionLeavesEveryOutputSlotUntouched" />
+    </UnitTest>
+    <UnitTest name="ActualBodyConflictLimitsTheSameRouteSweepBeforeTheCourseBoundary" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="af4569d0-2b08-6f8c-92fd-1690fe5afd3b">
+      <Execution id="0cfb48b7-8fb5-4af2-b418-f15a312084ac" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteJointSweepTests" name="ActualBodyConflictLimitsTheSameRouteSweepBeforeTheCourseBoundary" />
+    </UnitTest>
+    <UnitTest name="FullRosterAndSelectedRouteWindowsAreRequiredWithoutSilentOmission" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="a77ecd9b-5295-17fe-00a4-afbe11773142">
+      <Execution id="9b7c81fb-aeff-4c3d-8390-0aeeb97293a4" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteJointSweepTests" name="FullRosterAndSelectedRouteWindowsAreRequiredWithoutSilentOmission" />
+    </UnitTest>
+    <UnitTest name="FailedRosterFrameProjectionCannotPublishPartialWorldState" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="2cd9b3e7-c1fe-09c8-840e-6f328fe9db7b">
+      <Execution id="68dbb9d0-9e89-46a8-b20b-f9e42220c0b9" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteJointSweepTests" name="FailedRosterFrameProjectionCannotPublishPartialWorldState" />
+    </UnitTest>
+    <UnitTest name="CommonPrefixStopsAtTheCourseBeforeAnOutwardActorLeavesTheTrack" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="9dd7472c-59cc-6a08-3c8b-3f3f9e2c240a">
+      <Execution id="03b7a459-f601-466b-9c2e-15e4b1310ef9" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteJointSweepTests" name="CommonPrefixStopsAtTheCourseBeforeAnOutwardActorLeavesTheTrack" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="a77ecd9b-5295-17fe-00a4-afbe11773142" executionId="9b7c81fb-aeff-4c3d-8390-0aeeb97293a4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9dd7472c-59cc-6a08-3c8b-3f3f9e2c240a" executionId="03b7a459-f601-466b-9c2e-15e4b1310ef9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bd7cf1d8-294b-c35b-c5b1-d7cc4a6c5613" executionId="3a2c134d-45aa-4946-a02f-7099b2b499eb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="402db272-43d6-a6ff-1baa-15f7232b3561" executionId="2ccd5999-32aa-488f-a912-a5c3cdacb235" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f0813a94-ea9b-655e-92f8-04aec2f75f5c" executionId="6073c3c8-4a4a-4b0b-982e-aae82300ab08" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2cd9b3e7-c1fe-09c8-840e-6f328fe9db7b" executionId="68dbb9d0-9e89-46a8-b20b-f9e42220c0b9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bb54589d-4a3c-c31f-f43b-4ffde48ce9fd" executionId="ac9e22cf-c4c4-474b-b984-80f8eabdfb05" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="af4569d0-2b08-6f8c-92fd-1690fe5afd3b" executionId="0cfb48b7-8fb5-4af2-b418-f15a312084ac" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1cb5e39c-3904-f7a2-9ecd-3bf9be833b67" executionId="eb79fc09-260c-4519-9af7-7254e1a019ea" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="9" executed="9" passed="9" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 9 of 9 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

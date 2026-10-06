@@ -38,3 +38,13 @@ Focused .NET route/spatial tests 25/25 PASS; Unity joint class 7/7 PASS, Editor
 idle, recent Error Console empty. The earlier hidden PlayMode FMOD diagnostic
 remains separate. Additional receipts are `common-projection-dotnet.trx` and
 `native-common-projection.xml` in the evidence directory above.
+
+The solver now also offers an atomic shared-time frame proposal containing
+world pose, planar velocity and route projection for each actor. A later actor
+projection failure leaves the entire caller-owned frame array untouched.
+Actual Woodland pair-contact and failure fixtures pass; warm repeated queries
+allocate zero managed bytes. Focused .NET joint class 9/9 and native Unity
+EditMode joint class 9/9 PASS. Evidence:
+`docs/quality/m13/owner-manual-route-joint-20261006/m13-manual-common-frames.trx`
+and `native-common-frames.xml`. Unity compiled, Editor idle, Error Console
+empty. No pose or race state was committed; live manual control remains open.

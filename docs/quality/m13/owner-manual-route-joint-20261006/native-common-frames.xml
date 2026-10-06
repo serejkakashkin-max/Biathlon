@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="9" result="Passed" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 17:10:55Z" end-time="2026-10-06 17:11:02Z" duration="7,5375903">
+  <test-suite type="TestSuite" id="2536" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1216" result="Passed" start-time="2026-10-06 17:10:55Z" end-time="2026-10-06 17:11:02Z" duration="7.537590" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2481" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="1189" result="Passed" start-time="2026-10-06 17:10:55Z" end-time="2026-10-06 17:11:02Z" duration="7.428296" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="61532" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2482" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1189" result="Passed" start-time="2026-10-06 17:10:55Z" end-time="2026-10-06 17:11:02Z" duration="7.323951" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2483" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="1189" result="Passed" start-time="2026-10-06 17:10:55Z" end-time="2026-10-06 17:11:02Z" duration="7.214846" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1324" name="ManualRouteJointSweepTests" fullname="Biathlon.Tests.ManualRouteJointSweepTests" classname="Biathlon.Tests.ManualRouteJointSweepTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-06 17:10:55Z" end-time="2026-10-06 17:11:02Z" duration="7.109100" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1326" name="ActualBodyConflictLimitsTheSameRouteSweepBeforeTheCourseBoundary" fullname="Biathlon.Tests.ManualRouteJointSweepTests.ActualBodyConflictLimitsTheSameRouteSweepBeforeTheCourseBoundary" methodname="ActualBodyConflictLimitsTheSameRouteSweepBeforeTheCourseBoundary" classname="Biathlon.Tests.ManualRouteJointSweepTests" runstate="Runnable" seed="474560329" result="Passed" start-time="2026-10-06 17:10:55Z" end-time="2026-10-06 17:10:56Z" duration="0.897430" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1328" name="ClearCommonPrefixIsDeterministicWithoutWarmAllocation" fullname="Biathlon.Tests.ManualRouteJointSweepTests.ClearCommonPrefixIsDeterministicWithoutWarmAllocation" methodname="ClearCommonPrefixIsDeterministicWithoutWarmAllocation" classname="Biathlon.Tests.ManualRouteJointSweepTests" runstate="Runnable" seed="1586287558" result="Passed" start-time="2026-10-06 17:10:56Z" end-time="2026-10-06 17:10:57Z" duration="0.731815" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1330" name="CommonPrefixProjectsWorldPoseWithoutTurningOrAwardingDistance" fullname="Biathlon.Tests.ManualRouteJointSweepTests.CommonPrefixProjectsWorldPoseWithoutTurningOrAwardingDistance" methodname="CommonPrefixProjectsWorldPoseWithoutTurningOrAwardingDistance" classname="Biathlon.Tests.ManualRouteJointSweepTests" runstate="Runnable" seed="1936580411" result="Passed" start-time="2026-10-06 17:10:57Z" end-time="2026-10-06 17:10:58Z" duration="0.754180" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1325" name="CommonPrefixStopsAtTheCourseBeforeAnOutwardActorLeavesTheTrack" fullname="Biathlon.Tests.ManualRouteJointSweepTests.CommonPrefixStopsAtTheCourseBeforeAnOutwardActorLeavesTheTrack" methodname="CommonPrefixStopsAtTheCourseBeforeAnOutwardActorLeavesTheTrack" classname="Biathlon.Tests.ManualRouteJointSweepTests" runstate="Runnable" seed="1347242826" result="Passed" start-time="2026-10-06 17:10:58Z" end-time="2026-10-06 17:10:59Z" duration="0.712124" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1332" name="CommonSafeTimeBindsWholeRosterWorldAndRouteFrames" fullname="Biathlon.Tests.ManualRouteJointSweepTests.CommonSafeTimeBindsWholeRosterWorldAndRouteFrames" methodname="CommonSafeTimeBindsWholeRosterWorldAndRouteFrames" classname="Biathlon.Tests.ManualRouteJointSweepTests" runstate="Runnable" seed="1130789777" result="Passed" start-time="2026-10-06 17:10:59Z" end-time="2026-10-06 17:10:59Z" duration="0.772506" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1329" name="CourseProofWorkLimitWinsTheCommonPrefixWithoutGhosting" fullname="Biathlon.Tests.ManualRouteJointSweepTests.CourseProofWorkLimitWinsTheCommonPrefixWithoutGhosting" methodname="CourseProofWorkLimitWinsTheCommonPrefixWithoutGhosting" classname="Biathlon.Tests.ManualRouteJointSweepTests" runstate="Runnable" seed="1157880188" result="Passed" start-time="2026-10-06 17:10:59Z" end-time="2026-10-06 17:11:00Z" duration="0.823500" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1333" name="FailedRosterFrameProjectionCannotPublishPartialWorldState" fullname="Biathlon.Tests.ManualRouteJointSweepTests.FailedRosterFrameProjectionCannotPublishPartialWorldState" methodname="FailedRosterFrameProjectionCannotPublishPartialWorldState" classname="Biathlon.Tests.ManualRouteJointSweepTests" runstate="Runnable" seed="448368056" result="Passed" start-time="2026-10-06 17:11:00Z" end-time="2026-10-06 17:11:01Z" duration="0.784239" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1331" name="FailedSecondProjectionLeavesEveryOutputSlotUntouched" fullname="Biathlon.Tests.ManualRouteJointSweepTests.FailedSecondProjectionLeavesEveryOutputSlotUntouched" methodname="FailedSecondProjectionLeavesEveryOutputSlotUntouched" classname="Biathlon.Tests.ManualRouteJointSweepTests" runstate="Runnable" seed="274151364" result="Passed" start-time="2026-10-06 17:11:01Z" end-time="2026-10-06 17:11:02Z" duration="0.763255" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1327" name="FullRosterAndSelectedRouteWindowsAreRequiredWithoutSilentOmission" fullname="Biathlon.Tests.ManualRouteJointSweepTests.FullRosterAndSelectedRouteWindowsAreRequiredWithoutSilentOmission" methodname="FullRosterAndSelectedRouteWindowsAreRequiredWithoutSilentOmission" classname="Biathlon.Tests.ManualRouteJointSweepTests" runstate="Runnable" seed="1460540459" result="Passed" start-time="2026-10-06 17:11:02Z" end-time="2026-10-06 17:11:02Z" duration="0.753862" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -139,5 +139,45 @@ namespace Biathlon.Tests
             Assert.That(projections[0].IsValid,Is.False);
             Assert.That(projections[1].IsValid,Is.False);
         }
+        [Test] public void CommonSafeTimeBindsWholeRosterWorldAndRouteFrames()
+        {
+            var f=Create();var loop=f.visual.Get(f.route.GetSection(0).LoopId);
+            var a=loop.Sample(10);var b=loop.Sample(12);
+            var actors=new[]{Actor("a",f.body,a,6*a.ForwardX,6*a.ForwardZ),Actor("b",f.body,b,0,0)};
+            var windows=new[]{Scope("a",10),Scope("b",12)};
+            var frames=new ManualRouteActorFrame[2];
+            bool ok=f.solver.TryPreviewCommonPrefixFrames(actors,2,Array.Empty<SkiReachedContactPair>(),0,
+                windows,Array.Empty<SkiActorCourseEdge>(),0,frames,out var joint);
+            Assert.That(ok,Is.True);
+            Assert.That(joint.Status,Is.EqualTo(ManualRouteJointStatus.BodyOrEdge));
+            Assert.That(joint.ClearUntilSeconds,Is.GreaterThan(0).And.LessThan(.5));
+            for(int i=0;i<2;i++)
+            {
+                double fraction=joint.ClearUntilSeconds/actors[i].Trajectory.DurationSeconds;
+                Assert.That(frames[i].Athlete,Is.EqualTo(actors[i].Athlete));
+                Assert.That(frames[i].Pose,Is.EqualTo(actors[i].Trajectory.Sample(fraction)));
+                Assert.That(frames[i].Velocity,Is.EqualTo(actors[i].Trajectory.VelocityAt(fraction)));
+                Assert.That(frames[i].Projection.IsValid,Is.True);
+            }
+            Assert.That(frames[0].Projection.RouteNanometers,Is.GreaterThan(Nano(10)));
+            for(int i=0;i<100;i++)f.solver.TryPreviewCommonPrefixFrames(actors,2,
+                Array.Empty<SkiReachedContactPair>(),0,windows,Array.Empty<SkiActorCourseEdge>(),0,frames,out _);
+            long bytes=GC.GetAllocatedBytesForCurrentThread();
+            for(int i=0;i<1000;i++)f.solver.TryPreviewCommonPrefixFrames(actors,2,
+                Array.Empty<SkiReachedContactPair>(),0,windows,Array.Empty<SkiActorCourseEdge>(),0,frames,out _);
+            Assert.That(GC.GetAllocatedBytesForCurrentThread()-bytes,Is.Zero);
+        }
+        [Test] public void FailedRosterFrameProjectionCannotPublishPartialWorldState()
+        {
+            var f=Create();var loop=f.visual.Get(f.route.GetSection(0).LoopId);
+            var a=loop.Sample(10);var b=loop.Sample(30);
+            var actors=new[]{Actor("a",f.body,a,0,0),Actor("b",f.body,b,0,0)};
+            var frames=new ManualRouteActorFrame[2];
+            bool ok=f.solver.TryPreviewCommonPrefixFrames(actors,2,Array.Empty<SkiReachedContactPair>(),0,
+                new[]{Scope("a",10),Scope("b",200,.01)},Array.Empty<SkiActorCourseEdge>(),0,frames,out _);
+            Assert.That(ok,Is.False);
+            Assert.That(frames[0].IsValid,Is.False);
+            Assert.That(frames[1].IsValid,Is.False);
+        }
     }
 }
