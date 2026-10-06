@@ -23,3 +23,14 @@ field timing/results, start/range/penalty geometry, AI steering, contact
 replanning or v2 race replay. It assumes ordinary nonthrowing race event
 sinks during publication, as the existing field commit does. No playable
 host switch and no intermediate Windows review build were made.
+
+Follow-up: `CommitField` now routes the same full-clear base-section proposal
+through the independent `SprintFieldSession` clock and checkpoint machinery.
+The Woodland one-athlete fixture advances a real field, prepares manual
+force/yaw, proves the world tick, and checks field, athlete, checkpoint and
+world clocks match after publication. Release .NET focused 4/4 PASS; broader
+field/manual regression 26/26 PASS; hidden Unity EditMode 4/4 PASS. Evidence:
+`docs/quality/m13/manual-field-integration-final.trx`,
+`docs/quality/m13/manual-field-regression.trx`, and
+`docs/quality/m13/manual-field-integration-unity.xml`. This does not update
+the extra physical state owned by `PackSprintFieldSession`.

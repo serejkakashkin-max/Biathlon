@@ -575,7 +575,7 @@ namespace Biathlon.Simulation
             if(route==null||world==null||!world.HasPhysicalOdometer||
                 !world.IsBoundTo(route)||roster.Length==0||roster.Length!=world.Count)
                 throw new ArgumentException("A matching physical world and complete race roster are required.");
-            this.world=world;
+            this.world=world;worldRoute=route;
             athletes=roster.ToArray();resolved=new SprintStepPreview[roster.Length];
             for(int i=0;i<athletes.Length;i++)
             {
@@ -593,6 +593,37 @@ namespace Biathlon.Simulation
         public void Commit(ReadOnlySpan<SprintStepPreview> pending,
             ManualWorldRosterPreview proposal)
         {
+            var prepared=Resolve(pending,proposal);
+            for(int i=0;i<athletes.Length;i++)athletes[i].ValidatePreparedCommit(prepared[i]);
+            // The production field will also own timing/results and journal
+            // publication. This base-section batch assumes ordinary nonthrowing
+            // race event sinks, as existing SprintFieldSession commits do.
+            for(int i=0;i<athletes.Length;i++)athletes[i].CommitStep(prepared[i]);
+            world.Commit(proposal);
+        }
+
+        /// <summary>Publish one full-clear base-route tick through the existing
+        /// Sprint field scheduler, checkpoint timing and results. A Pack field
+        /// must also replace its physical side state before this becomes a
+        /// playable manual-race transaction.</summary>
+        public void CommitField(SprintFieldSession field,ReadOnlySpan<SprintAthleteInput> inputs,
+            ReadOnlySpan<SprintStepPreview> pending,ManualWorldRosterPreview proposal)
+        {
+            if(field==null||!ReferenceEquals(field.Route,worldRoute)||
+                field.Count!=athletes.Length||field.Tick.Value!=world.Tick.Value)
+                throw new ArgumentException("Matching active Sprint field required.");
+            for(int i=0;i<athletes.Length;i++)if(!ReferenceEquals(field.GetAthlete(i),athletes[i]))
+                throw new ArgumentException("Field and world roster must share athlete sessions in order.");
+            field.ValidateCommands(inputs);
+            var prepared=Resolve(pending,proposal);
+            field.CommitPrepared(inputs,prepared);
+            world.Commit(proposal);
+        }
+
+        private readonly RaceRoute worldRoute;
+        private ReadOnlySpan<SprintStepPreview> Resolve(ReadOnlySpan<SprintStepPreview> pending,
+            ManualWorldRosterPreview proposal)
+        {
             if(pending.Length!=athletes.Length||!ReferenceEquals(proposal.Owner,world))
                 throw new ArgumentException("One current preview per accepted world actor is required.");
             world.ValidatePrepared(proposal);
@@ -605,12 +636,7 @@ namespace Biathlon.Simulation
                     throw new ArgumentException("Accepted world and race state diverged.");
                 resolved[i]=athlete.PrepareManualBaseRouteCommit(pending[i],proposal,i);
             }
-            for(int i=0;i<athletes.Length;i++)athletes[i].ValidatePreparedCommit(resolved[i]);
-            // The production field will also own timing/results and journal
-            // publication. This base-section batch assumes ordinary nonthrowing
-            // race event sinks, as existing SprintFieldSession commits do.
-            for(int i=0;i<athletes.Length;i++)athletes[i].CommitStep(resolved[i]);
-            world.Commit(proposal);
+            return resolved;
         }
     }
 }

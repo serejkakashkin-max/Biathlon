@@ -21893,3 +21893,26 @@ docs/reports/TASK_M13_MANUAL_AI_PASS_LINE_20261006.md. ADR-0028 extended.
 Shared-world AI decisions, contact replan, range/penalty phase movement,
 field/replay/host integration and owner hands-on verification remain open.
 WP-175–178 and M13 remain OPEN. No Windows review build yet.
+
+## 2026-10-06 — M13 independent Sprint field clock bridge
+
+A full-clear manual world/odometer tick on one Woodland base-route section
+can now publish through the independent `SprintFieldSession` clock and
+checkpoint machinery. The real force/yaw trajectory, athlete, field,
+checkpoint and world clocks agree after publication. The ledger is not
+committed before the field accepts its prepared race receipts.
+
+Release .NET focused 4/4 PASS, broader field/manual regression 26/26 PASS,
+hidden Unity 6 EditMode 4/4 PASS with process exit 0 and no compilation
+error in the batch log. Evidence:
+docs/quality/m13/manual-field-integration-final.trx,
+docs/quality/m13/manual-field-regression.trx and
+docs/quality/m13/manual-field-integration-unity.xml. The report at
+docs/reports/TASK_M13_MANUAL_BASE_ROSTER_SESSION_20261006.md and ADR-0037
+were extended. Unity MCP was unavailable, so no Editor Console snapshot
+is claimed.
+
+The shared Pack field still owns separate physical line/tail/reservation
+state, and start/range/penalty world geometry, AI/replay/host integration
+remain open. Owner-observed queues and playable auto turns are not cleared.
+WP-175–178 and M13 remain OPEN; no Windows review build yet.

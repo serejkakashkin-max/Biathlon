@@ -285,3 +285,13 @@ assumption of `SprintFieldSession` during publication. It does not yet own
 field timing/results or the `PackSprintFieldSession` physical side state.
 Therefore this is an intermediate base-section composition, not a complete
 race transaction, all-phase admission, or playable manual steering.
+
+## 2026-10-06 independent Sprint field clock bridge
+
+The same prevalidated base-section roster can now publish through
+`SprintFieldSession.CommitPrepared` so the independent Sprint field clock,
+checkpoint tracker/board and result lifecycle use the world-derived motion
+receipt. The world ledger commits only after that field publication. This
+keeps the existing event-sink assumption and is limited to the independent
+field: the `PackSprintFieldSession` has additional physical side state that
+must be migrated before Mass Start, Pursuit and the playable host can use it.
