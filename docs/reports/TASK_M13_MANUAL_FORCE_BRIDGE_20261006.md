@@ -26,3 +26,12 @@ host still uses the legacy route path. Full-roster race commit, start/range/
 penalty paths, contact replan, AI direction, v2 replay and owner hands-on
 validation remain open. Per the owner batch directive, no intermediate
 Windows build was produced.
+
+Follow-up verification: the integration fixture now sends the actual shared
+force/yaw trajectory through the full-clear world/odometer ledger before the
+race commit. Both normal and intentionally invalidated proposals pass in
+Release .NET 2/2 and hidden Unity EditMode 2/2. This exposed an exact-state
+contract: the initial planar velocity must use the saved yaw angle and
+directional grade, not an unrounded course tangent. Evidence:
+`docs/quality/m13/manual-force-trajectory.trx` and
+`docs/quality/m13/manual-force-trajectory-unity.xml`.

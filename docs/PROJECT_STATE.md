@@ -21834,3 +21834,19 @@ Full-roster race commit, start/range/penalty world paths, contact replan,
 AI heading, v2 replay and playable host input remain open. WP-175–178 and
 M13 remain OPEN. No intermediate Windows review build was issued under
 the owner batch directive.
+
+## 2026-10-06 — M13 actual force-to-world-to-race bridge verification
+
+The one-section bridge integration fixture now uses a real shared force/yaw
+trajectory, proves the full world/physical odometer tick and then commits the
+race session. It tests both ordinary commit and deliberate stale-proposal
+rejection. Exact initial planar velocity is reconstructed from the accepted
+yaw and directional grade; using a raw track tangent gave a mismatched world
+start state and was corrected in the fixture.
+
+Release .NET 2/2 PASS and hidden Unity 6 EditMode 2/2 PASS, process exit 0.
+Evidence: docs/quality/m13/manual-force-trajectory.trx and
+docs/quality/m13/manual-force-trajectory-unity.xml. The report at
+docs/reports/TASK_M13_MANUAL_FORCE_BRIDGE_20261006.md was extended.
+This remains one base-route section only; full playable roster/phase/replay
+integration is open. WP-175–178 and M13 remain OPEN; no review build yet.

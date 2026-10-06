@@ -37,8 +37,11 @@ namespace Biathlon.Tests
             Assert.That(projection.TrySampleAhead(0,0,session.RouteNanometers/(double)SkiState.NanometersPerMeter,
                 false,out var target),Is.True);
             var pose=new ManualSkiHeadingState(target.X,target.Z,Math.Atan2(target.ForwardX,target.ForwardZ));
-            var velocity=new SkiPlanarVelocity(session.Motion.SpeedMetersPerSecond*target.ForwardX,
-                session.Motion.SpeedMetersPerSecond*target.ForwardZ);
+            Assert.That(projection.TryProject(pose,0,session.RouteNanometers,.001,false,out var atStart),Is.True,
+                "The sampled initial world pose must project onto the selected base route.");
+            double grade=atStart.GradeAlong(pose),planarSpeed=session.Motion.SpeedMetersPerSecond/Math.Sqrt(1+grade*grade);
+            var velocity=new SkiPlanarVelocity(planarSpeed*Math.Sin(pose.HeadingRadians),
+                planarSpeed*Math.Cos(pose.HeadingRadians));
             var body=venue.Occupancy;
             var contact=SkiContactDefinition.FromJson("{\"schema_version\":1,\"id\":\"bridge_contact\",\"restitution\":0,\"sliding_friction\":0.2,\"contact_tolerance_m\":0.000001}");
             var work=SkiContactSweepDefinition.FromJson("{\"schema_version\":1,\"id\":\"bridge_sweep\",\"maximum_depth\":32,\"maximum_interval_checks\":4096,\"time_tolerance_s\":0.0000001}");
@@ -47,16 +50,6 @@ namespace Biathlon.Tests
                 new ManualRouteJointSweep(projection,body,contact,work),progress,
                 new[]{progress.Reconstitute(session.AthleteId,0,session.RouteNanometers,session.RouteNanometers)},
                 new[]{pose},new[]{velocity},20,new[]{session.Motion},session.Tick);
-            var trajectory=new ManualSkiSnowContactSystem(body,20).PreviewTrajectory(
-                new ManualSkiContactBody(session.AthleteId,pose,velocity,75),
-                new SkiContactMotion(velocity,0),0,0,.05);
-            var actors=new[]{new SkiWorldMotionCandidate(session.AthleteId,
-                new ManualSkiWorldTrajectory(trajectory))};
-            var windows=new[]{new ManualRouteActorWindow(session.AthleteId,0,session.RouteNanometers,2,false)};
-            Assert.That(ledger.TryPrepareWithOdometer(actors,windows,
-                new[]{session.RouteNanometers+2*SkiState.NanometersPerMeter},
-                Array.Empty<SkiReachedContactPair>(),0,Array.Empty<SkiActorCourseEdge>(),0,
-                new[]{0d},out var world),Is.True);
             var pending=session.PrepareManualBaseStep(SprintAthleteSessionTests.Script(session));
             Assert.That(pending.ManualWorldRequired,Is.True);
             Assert.That(pending.Movement.SegmentCount,Is.Zero);
@@ -86,6 +79,17 @@ namespace Biathlon.Tests
             var steering=solver.Preview(session.Motion,accepted.Pose,accepted.Projection,surface,input);
             Assert.That(steering.Heading.State.HeadingNanoradians,
                 Is.Not.EqualTo(accepted.Pose.HeadingNanoradians));
+            var actors=new[]{new SkiWorldMotionCandidate(session.AthleteId,
+                new ManualSkiWorldTrajectory(steering.Heading))};
+            var windows=new[]{new ManualRouteActorWindow(session.AthleteId,0,session.RouteNanometers,2,false)};
+            Assert.That(ledger.TryPrepareWithOdometer(actors,windows,
+                new[]{session.RouteNanometers+2*SkiState.NanometersPerMeter},
+                Array.Empty<SkiReachedContactPair>(),0,Array.Empty<SkiActorCourseEdge>(),0,
+                new[]{grade},out var world),Is.True,
+                "The shared force trajectory must clear the base route tube and world roster.");
+            Assert.That(ledger.GetProposedPhysicalMotion(world,0).DistanceNanometers-session.Motion.DistanceNanometers,
+                Is.EqualTo((long)Math.Round(steering.Heading.TravelDistanceAt(1)*SkiState.NanometersPerMeter,
+                    MidpointRounding.ToEven)));
             var manual=session.PrepareManualBaseRouteCommit(pending,world,0);
             Assert.Throws<ArgumentException>(()=>session.CommitStep(pending));
             Assert.That(manual.Movement.SegmentCount,Is.EqualTo(1));
