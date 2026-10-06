@@ -43,6 +43,7 @@ namespace Biathlon.Simulation
                 "manual_selected_section_zero_credit_handoff_v1",ContextJson,
                 "accepted_exact_end;both_world_endpoint_observations;ordered_successor_only"});
         }
+        internal bool IsBoundTo(RaceRoute selectedRoute)=>ReferenceEquals(route,selectedRoute);
 
         /// <summary>Initialize only from an accepted race snapshot. A new race
         /// starts at section zero/station zero; later sections need explicit

@@ -21738,3 +21738,30 @@ Junction traffic admission, start/range/penalty world paths, atomic physiology
 and lifecycle commit, contact continuation, full-field replay and playable
 manual steering remain open. WP-175–178 and M13 remain OPEN. No intermediate
 Windows review build before the complete owner correction batch.
+
+## 2026-10-06 — M13 fixed-tick manual world roster ledger
+
+Added a stable-ID ordered, event-free world/route ledger for the manual-motion
+path. It validates each athlete's accepted starting pose, planar velocity,
+selected occurrence/window and fixed duration. Shared body/course and route
+credit are staged for the full roster; only an entirely clear common tick can
+produce a one-use proposal. Commit publishes every world pose, velocity and
+route cursor together. Contact, edge or phase cap leaves accepted state and
+tick unchanged so a later solver can replan; no partial prefix is charged as
+an artificial stopped tick. Warm preview allocations were removed.
+
+Release .NET final manual-world regression 49/49 PASS; Unity EditMode ledger
+4/4 PASS; Editor compilation idle and recent Error Console empty. The initial
+contact fixture and a boxed-equality allocation test failed and were fixed.
+A separate 48-case run saw a 688-byte allocation in an existing manual-force
+allocation assertion; the unchanged serial rerun and final 49-case run passed.
+All diagnostics are retained, and the isolated cause is not claimed solved.
+Evidence: docs/quality/m13/wp175-manual-world-ledger/. Report:
+docs/reports/TASK_M13_MANUAL_WORLD_ROSTER_20261006.md. ADR-0037 extended.
+PROJECT_STATE history remains append-only.
+
+This ledger is not a full race commit and does not yet change playable manual
+control, queues, race results, tuning or balance. Contact continuation,
+start/range/penalty geometry, physiology/lifecycle/events and full v2 replay
+remain open. WP-175–178 and M13 remain OPEN. No interim Windows build until
+the owner M13 correction batch is complete.

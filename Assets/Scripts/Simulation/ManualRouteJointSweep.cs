@@ -66,6 +66,7 @@ namespace Biathlon.Simulation
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_route_body_tube_common_prefix_v1",
                 bodies.ContextJson,course.ContextJson});
         }
+        internal bool IsBoundTo(ManualRouteProjectionMap selectedRoute)=>ReferenceEquals(route,selectedRoute);
         public ManualRouteJointPreview Preview(SkiWorldMotionCandidate[] actors,int count,
             SkiReachedContactPair[] reached,int reachedCount,ManualRouteActorWindow[] routeWindows,
             SkiActorCourseEdge[] additionalEdges,int additionalEdgeCount)

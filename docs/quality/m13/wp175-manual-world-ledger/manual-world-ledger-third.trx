@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="20f04da2-0f17-48dd-a6ed-df159c366aaf" name="snkashkin@DESKTOP-G3075GA 2026-10-06 20:45:29" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-06T20:45:29.4211483+03:00" queuing="2026-10-06T20:45:29.4211485+03:00" start="2026-10-06T20:45:28.2610710+03:00" finish="2026-10-06T20:45:29.4252362+03:00" />
+  <TestSettings name="default" id="0a2cf6b5-965a-48e5-8b35-0b935faf4fb7">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-06_20_45_29" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="cf040fbe-62d1-4c76-9e17-d508917046b6" testId="b9d3aaff-67f0-c974-96a1-404cdee803bc" testName="PairContactOrRangeCapCannotPublishOneAthleteOrAdvanceTick" computerName="DESKTOP-G3075GA" duration="00:00:00.1296499" startTime="2026-10-06T20:45:29.0407941+03:00" endTime="2026-10-06T20:45:29.1704440+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cf040fbe-62d1-4c76-9e17-d508917046b6" />
+    <UnitTestResult executionId="5d9854d2-dcd2-4810-8b07-64386348c3ef" testId="50da43cf-25eb-3d89-5ba0-e44d6b123502" testName="EntireClearRosterCommitsOnceWithoutGuessingRaceOdometer" computerName="DESKTOP-G3075GA" duration="00:00:00.3074620" startTime="2026-10-06T20:45:28.7327465+03:00" endTime="2026-10-06T20:45:29.0401788+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5d9854d2-dcd2-4810-8b07-64386348c3ef">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: 0&#xD;
+  But was:  1392000&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualWorldRosterLedgerTests.EntireClearRosterCommitsOnceWithoutGuessingRaceOdometer() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualWorldRosterLedgerTests.cs:line 78&#xD;
+
+1)    at Biathlon.Tests.ManualWorldRosterLedgerTests.EntireClearRosterCommitsOnceWithoutGuessingRaceOdometer() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualWorldRosterLedgerTests.cs:line 78&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="60915da4-5afc-49f5-be5e-9c1c2e321ca7" testId="cdb4a576-f854-98a2-fdbf-48101bbb2c92" testName="StaleWorldStartAndForeignRouteCannotEnterPreparedLedger" computerName="DESKTOP-G3075GA" duration="00:00:00.1666510" startTime="2026-10-06T20:45:29.1704838+03:00" endTime="2026-10-06T20:45:29.3371341+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="60915da4-5afc-49f5-be5e-9c1c2e321ca7" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="EntireClearRosterCommitsOnceWithoutGuessingRaceOdometer" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="50da43cf-25eb-3d89-5ba0-e44d6b123502">
+      <Execution id="5d9854d2-dcd2-4810-8b07-64386348c3ef" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualWorldRosterLedgerTests" name="EntireClearRosterCommitsOnceWithoutGuessingRaceOdometer" />
+    </UnitTest>
+    <UnitTest name="PairContactOrRangeCapCannotPublishOneAthleteOrAdvanceTick" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="b9d3aaff-67f0-c974-96a1-404cdee803bc">
+      <Execution id="cf040fbe-62d1-4c76-9e17-d508917046b6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualWorldRosterLedgerTests" name="PairContactOrRangeCapCannotPublishOneAthleteOrAdvanceTick" />
+    </UnitTest>
+    <UnitTest name="StaleWorldStartAndForeignRouteCannotEnterPreparedLedger" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="cdb4a576-f854-98a2-fdbf-48101bbb2c92">
+      <Execution id="60915da4-5afc-49f5-be5e-9c1c2e321ca7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualWorldRosterLedgerTests" name="StaleWorldStartAndForeignRouteCannotEnterPreparedLedger" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b9d3aaff-67f0-c974-96a1-404cdee803bc" executionId="cf040fbe-62d1-4c76-9e17-d508917046b6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="50da43cf-25eb-3d89-5ba0-e44d6b123502" executionId="5d9854d2-dcd2-4810-8b07-64386348c3ef" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cdb4a576-f854-98a2-fdbf-48101bbb2c92" executionId="60915da4-5afc-49f5-be5e-9c1c2e321ca7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="2" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 3 of 3 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

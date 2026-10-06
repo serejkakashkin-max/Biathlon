@@ -203,3 +203,22 @@ physical endpoint observations and the accepted current cursor. This does not
 rotate/reposition the athlete, choose a different route, admit junction traffic
 or commit lifecycle events. Same-loop Mass Start and directed Sprint sections
 pass the focused tests; full topology/range transaction remains outstanding.
+
+## 2026-10-06 full-clear world roster ledger
+
+`ManualWorldRosterLedger` owns accepted poses, planar velocities and selected
+route cursors in stable athlete order. It validates an exact fixed-tick start
+for every candidate, then stages the shared body/course and high-water route
+proofs in private scratch. Only an entirely clear common interval can produce
+a one-use preview; a contact, edge or phase cap keeps the accepted tick and
+whole roster unchanged. That failure is a request for replan/contact
+continuation, not an authorization to charge a stopped tick. Committing the
+preview publishes all world frames/cursors together without per-tick managed
+allocations after warmup. Exact policy contexts and ordered actor identities
+are bound to a distinct world-ledger marker.
+
+This does not merge world movement with physical odometer, physiology,
+range/penalty traversal, competition receipts, race events or replay. It is
+not yet connected to the playable host. An unresolved full-tick contact must
+be resolved by future joint response work; this ledger alone does not cure
+owner-observed queues or complete manual steering.
