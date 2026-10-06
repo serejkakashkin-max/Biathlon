@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="5" result="Passed" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 07:38:54Z" end-time="2026-10-06 07:38:54Z" duration="0,1119876">
+  <test-suite type="TestSuite" id="1357" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="259" result="Passed" start-time="2026-10-06 07:38:54Z" end-time="2026-10-06 07:38:54Z" duration="0.111988" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1351" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="259" result="Passed" start-time="2026-10-06 07:38:54Z" end-time="2026-10-06 07:38:54Z" duration="0.092017" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="13188" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1352" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="259" result="Passed" start-time="2026-10-06 07:38:54Z" end-time="2026-10-06 07:38:54Z" duration="0.087274" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1353" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="259" result="Passed" start-time="2026-10-06 07:38:54Z" end-time="2026-10-06 07:38:54Z" duration="0.084656" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1019" name="AthleteLocomotionTests" fullname="Biathlon.PlayModeTests.AthleteLocomotionTests" classname="Biathlon.PlayModeTests.AthleteLocomotionTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-06 07:38:54Z" end-time="2026-10-06 07:38:54Z" duration="0.078210" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1020" name="AcceptedLateralBypassLiftsAndPlacesSkisInsteadOfSlidingInIdle" fullname="Biathlon.PlayModeTests.AthleteLocomotionTests.AcceptedLateralBypassLiftsAndPlacesSkisInsteadOfSlidingInIdle" methodname="AcceptedLateralBypassLiftsAndPlacesSkisInsteadOfSlidingInIdle" classname="Biathlon.PlayModeTests.AthleteLocomotionTests" runstate="Runnable" seed="1089261794" result="Passed" start-time="2026-10-06 07:38:54Z" end-time="2026-10-06 07:38:54Z" duration="0.030106" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1022" name="LateralStepDataRejectsPartialOrUnboundedMotionAndPreservesAbsentLegacySettings" fullname="Biathlon.PlayModeTests.AthleteLocomotionTests.LateralStepDataRejectsPartialOrUnboundedMotionAndPreservesAbsentLegacySettings" methodname="LateralStepDataRejectsPartialOrUnboundedMotionAndPreservesAbsentLegacySettings" classname="Biathlon.PlayModeTests.AthleteLocomotionTests" runstate="Runnable" seed="557654221" result="Passed" start-time="2026-10-06 07:38:54Z" end-time="2026-10-06 07:38:54Z" duration="0.004110" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1024" name="MotionBlendsWithoutSnapsOrRootDriftAndPreservesLimbLengths" fullname="Biathlon.PlayModeTests.AthleteLocomotionTests.MotionBlendsWithoutSnapsOrRootDriftAndPreservesLimbLengths" methodname="MotionBlendsWithoutSnapsOrRootDriftAndPreservesLimbLengths" classname="Biathlon.PlayModeTests.AthleteLocomotionTests" runstate="Runnable" seed="612611048" result="Passed" start-time="2026-10-06 07:38:54Z" end-time="2026-10-06 07:38:54Z" duration="0.007633" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1021" name="SidestepKeepsBootOrderForBothDirections" fullname="Biathlon.PlayModeTests.AthleteLocomotionTests.SidestepKeepsBootOrderForBothDirections" methodname="SidestepKeepsBootOrderForBothDirections" classname="Biathlon.PlayModeTests.AthleteLocomotionTests" runstate="Runnable" seed="643584295" result="Passed" start-time="2026-10-06 07:38:54Z" end-time="2026-10-06 07:38:54Z" duration="0.025705" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1023" name="StatesUseAcceptedTuckGradeAndEffortWithExplicitPriority" fullname="Biathlon.PlayModeTests.AthleteLocomotionTests.StatesUseAcceptedTuckGradeAndEffortWithExplicitPriority" methodname="StatesUseAcceptedTuckGradeAndEffortWithExplicitPriority" classname="Biathlon.PlayModeTests.AthleteLocomotionTests" runstate="Runnable" seed="1505083942" result="Passed" start-time="2026-10-06 07:38:54Z" end-time="2026-10-06 07:38:54Z" duration="0.000615" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

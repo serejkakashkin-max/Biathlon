@@ -21085,3 +21085,68 @@ The post-third-bout issue is improved, not a claim that all traffic delays are g
 M13/WP175–178 OPEN; G1/G2 APPROVED; no new owner approval is inferred.
 Next: complete the unchanged retained Pursuit witness, full regression and fresh
 final format replays, native/hidden Windows checks, append evidence and publish.
+
+
+---
+
+## 2026-10-06 — Owner batches all M13 corrections before next build
+
+Queue remains open: owner screenshot tick7396, exit_aisle139m, after two bouts.
+No intermediate Windows builds: finish accumulated owner corrections first.
+Owner directive: owner/OWNER_M13_BATCH_CORRECTIONS_2026-10-06.md.
+History restoration retained repeated historical snapshots; those are not new
+progress. All historical bytes remain preserved under the append-only rule.
+October5 v5 full suite, whole-race records and native Pursuit call were interrupted
+without completion receipts; partial artifacts are not PASS evidence. Focused
+v5 tests passed but final regression remains pending. M13/WP175–178 remain OPEN.
+Next: early traffic avoidance and natural directional motion, shared contact
+response/manual heading, then one consolidated review build after required checks.
+
+
+---
+
+## 2026-10-06 — Verified exit-flow and sidestep checkpoint; manual course projection
+
+Current-work reading index: [PROJECT_CURRENT.md](PROJECT_CURRENT.md). Historical
+snapshots remain unchanged; their repeated text is not new progress. The restored
+2,713,223-byte history prefix still matches its committed SHA-256 receipt. This
+entry is appended; no historical entry was deleted or rewritten.
+
+Traffic: Woodland retains parallel shared-exit lines, checks observed bodies five
+metres ahead at tactical cadence on shared departures, rejects lateral no-ops at
+committed precision, and respects narrower penalty-entry width before the body's
+centre arrives. Full paid-route world geometry and simple branch/single-incident
+guard corrections are included. Actual30-body repeated-range reproduction improved
+from5,046 stopped ticks to55ticks (2.75s); 21,229departure/10,526penalty frames were
+observed. This does NOT establish zero stops or close the owner's player screenshot.
+The rejected broad-lookahead attempt caused4,899 stopped ticks and was not retained.
+
+Validation: traffic37/37PASS including retained actual-qualified Pursuit40 and
+persisted7,000tick replay without AI; lookahead boundary2/2PASS; full frozen traffic
+core1075/1075PASS,0FAIL,0SKIP,19m45s. Receipt exists in the October6 evidence folder.
+This supersedes the interrupted October5 run only for its compiled traffic version.
+
+Presentation: accepted lateral motion now drives alternate ski lifting/placement
+instead of Idle sliding. A real visual check found crossed feet; the new regression
+failed before correcting the full-stroke envelope. Native locomotion5,proxy2,
+ground/grip/tuck4 PASS. The actual hero's corrected pose was inspected in Unity.
+Ordinary quiet torso motion and shooting authority are unchanged. An unsupported
+preview render and temporary MCP helper failures are recorded as rejected checks;
+the subsequent runtime capture and final native checks succeeded.
+
+Manual direction: ADR-0033 adds a read-only local base-route projection primitive.
+It binds the selected occurrence, restricts branch/lap transitions, preserves world
+pose/heading, reports backward station honestly and derives directional grade.
+Combined heading/projection19/19 .NET and projection8/8 native PASS. This new code
+was added after the frozen1075-test assembly: these are separate receipts. It is
+NOT connected to the playable host, field contacts, range/penalty cursors or v2 tape.
+Full manual steering remains OPEN, not cosmetically substituted by body rotation.
+
+Report: reports/TASK_M13_EXIT_FLOW_AND_SIDE_STEP_20261006.md.
+Portable evidence: quality/m13/owner-batch-20261006/checkpoint.json and native/TRX
+receipts. Older October5 visuals/build files are explicitly marked historical.
+No Windows build was made. Finish the accumulated batch before the next owner build.
+Remaining: coupled manual motion/AI/contacts, player-specific exit delays, broader
+terrain readability, then consolidated format/replay/build qualification. M13 and
+WP175–178 OPEN; G1/G2 APPROVED; one production venue retained. Shooting-too-easy
+feedback remains mandatory for the later tuning stages; no hidden hit RNG added.

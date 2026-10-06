@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 07:27:04Z" end-time="2026-10-06 07:27:21Z" duration="17,0684877">
+  <test-suite type="TestSuite" id="1356" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="258" result="Passed" start-time="2026-10-06 07:27:04Z" end-time="2026-10-06 07:27:21Z" duration="17.068488" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1350" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="258" result="Passed" start-time="2026-10-06 07:27:04Z" end-time="2026-10-06 07:27:21Z" duration="17.053284" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="13188" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1351" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="258" result="Passed" start-time="2026-10-06 07:27:04Z" end-time="2026-10-06 07:27:21Z" duration="17.035718" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1352" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="258" result="Passed" start-time="2026-10-06 07:27:04Z" end-time="2026-10-06 07:27:21Z" duration="17.032646" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1035" name="AthleteProxyTests" fullname="Biathlon.PlayModeTests.AthleteProxyTests" classname="Biathlon.PlayModeTests.AthleteProxyTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-06 07:27:04Z" end-time="2026-10-06 07:27:21Z" duration="17.025601" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1036" name="ProductionBypassFeedsAcceptedLateralSpeedToSkisWithoutMovingRace" fullname="Biathlon.PlayModeTests.AthleteProxyTests.ProductionBypassFeedsAcceptedLateralSpeedToSkisWithoutMovingRace" methodname="ProductionBypassFeedsAcceptedLateralSpeedToSkisWithoutMovingRace" classname="Biathlon.PlayModeTests.AthleteProxyTests" runstate="Runnable" seed="1932612513" result="Passed" start-time="2026-10-06 07:27:04Z" end-time="2026-10-06 07:27:21Z" duration="16.898092" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+]]></output>
+            </test-case>
+            <test-case id="1037" name="ThirtyStableIdentitiesFollowSnapshotsWithoutMovingAuthority" fullname="Biathlon.PlayModeTests.AthleteProxyTests.ThirtyStableIdentitiesFollowSnapshotsWithoutMovingAuthority" methodname="ThirtyStableIdentitiesFollowSnapshotsWithoutMovingAuthority" classname="Biathlon.PlayModeTests.AthleteProxyTests" runstate="Runnable" seed="1389320071" result="Passed" start-time="2026-10-06 07:27:21Z" end-time="2026-10-06 07:27:21Z" duration="0.117906" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

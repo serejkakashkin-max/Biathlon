@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-05 18:37:58Z" end-time="2026-10-05 18:37:58Z" duration="0,3398419">
+  <test-suite type="TestSuite" id="1353" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="255" result="Passed" start-time="2026-10-05 18:37:58Z" end-time="2026-10-05 18:37:58Z" duration="0.339842" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1347" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="255" result="Passed" start-time="2026-10-05 18:37:58Z" end-time="2026-10-05 18:37:58Z" duration="0.318418" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="45272" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1348" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="255" result="Passed" start-time="2026-10-05 18:37:58Z" end-time="2026-10-05 18:37:58Z" duration="0.312586" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1349" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="255" result="Passed" start-time="2026-10-05 18:37:58Z" end-time="2026-10-05 18:37:58Z" duration="0.308428" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1261" name="RangePresentationTests" fullname="Biathlon.PlayModeTests.RangePresentationTests" classname="Biathlon.PlayModeTests.RangePresentationTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-05 18:37:58Z" end-time="2026-10-05 18:37:58Z" duration="0.302151" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1262" name="ActualBoutDrivesCameraAndClosuresWithoutAuthorityWrites" fullname="Biathlon.PlayModeTests.RangePresentationTests.ActualBoutDrivesCameraAndClosuresWithoutAuthorityWrites" methodname="ActualBoutDrivesCameraAndClosuresWithoutAuthorityWrites" classname="Biathlon.PlayModeTests.RangePresentationTests" runstate="Runnable" seed="1229586906" result="Passed" start-time="2026-10-05 18:37:58Z" end-time="2026-10-05 18:37:58Z" duration="0.293263" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -1,0 +1,12 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BIATHLON — исправления по отзыву 5 октября</title><style>body{margin:0;background:#14212b;color:#edf4fa;font:17px/1.6 system-ui}main{max-width:1200px;margin:auto;padding:26px}img{max-width:100%;display:block}a{color:#9edee5}figure{margin:26px 0}</style>
+<main><h1>Woodland · исправления по отзыву</h1><p>5 октября2026. M13 остаётся открыт.</p>
+<p>Новая поза на спуске: таз назад, согнутые колени, собранные руки, палки сзади. Ранние стрелки идут перед спортсменом по назначенному маршруту. Во время изготовки камера показывает снятие винтовки и принятие положения; прицел включается на фазе прицеливания. Камера лыжной части учитывает фактический уклон.</p>
+<figure><img src="native-tuck-side.png" alt="Поза на спуске сбоку"><figcaption>Действующая симуляция, Space/tuck, tick1563, Main391m; боковая камера для проверки позы.</figcaption></figure>
+<figure><img src="native-tuck-chase.png" alt="Поза на спуске сзади"><figcaption>Тот же спортсмен и состояние, камера сзади.</figcaption></figure>
+<figure><img src="native-early-mat-trail-accepted.png" alt="Ранние стрелки на рубеже"><figcaption>Семь стрелок появляются перед спортсменом задолго до коврика; текст с номером коврика удалён.</figcaption></figure>
+<figure><img src="native-prone-lowering.png" alt="Изготовка лёжа"><figcaption>Настоящая фаза Setup: изготовка остаётся видимой до перехода к прицелу.</figcaption></figure>
+<p>35 native tests и полная core-регрессия 1069/1069 PASS. Полные записи и повторы форматов фиксируются отдельно. Скрытый запуск Windows подтверждает загрузку и ввод; GPU/FPS и визуальное качество standalone такими проверками не измерены.</p>
+<p>Исправлена ложная очередь у стартового слияния на последующих кругах. Оставшиеся очереди, физически связанное руление AI, редкие контакты, полное ручное направление и дальнейшая читаемость рельефа остаются открытыми.</p>
+<p><a href="../../../reports/TASK_M13_OWNER_REALISM_PRESENTATION_01_REPORT.md">Отчёт</a> · <a href="manifest.json">Проверки и хеши</a></p>
+<p>Сборка: <code>Builds/WoodlandRealismReview20261005/START_WOODLAND_REVIEW.cmd</code>.</p></main></html>

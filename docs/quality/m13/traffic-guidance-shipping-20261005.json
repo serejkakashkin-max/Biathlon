@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "m13_traffic_guidance_shipping_20261005",
+  "implementation_commits": [
+    "a79e4cc",
+    "58567d9",
+    "c9a660c"
+  ],
+  "frozen_full_core": {
+    "passed": 1067,
+    "failed": 0,
+    "skipped": 0
+  },
+  "exact_replays": [
+    {
+      "status": "PASS_COMPLETE_EXACT_REPLAY",
+      "ticks": 23087,
+      "tape_sha256": "60f469bd6fc176a691e2206dd7f3a69992e04f769e871b9b23bc24c231a733ac",
+      "context_sha256": "221f9380f9376084dd7dd2a6a3b20efbfbdbc18e594d8975dc5cf4459c01377b",
+      "replay_ai_steps": 0,
+      "elapsed_wall_seconds": 91.7489534,
+      "format": "mass30",
+      "receipt_sha256": "1aa33300ffef4ba783e39cef946ea7a437cdb2ad49436ede4483f65dfada74df",
+      "receipt": "artifacts\\owner-traffic-guidance-20261005\\mass30-shipping-replay.json"
+    },
+    {
+      "status": "PASS_COMPLETE_EXACT_REPLAY",
+      "ticks": 43157,
+      "tape_sha256": "dbe324e0b5c282e46ae067a090362cc773f31899bf23d6c6ec4eeeca8764995d",
+      "context_sha256": "89697e8a4a9179439aa5bfac90f4c392ef79c4dfaeffd86d10769f49f3d52df7",
+      "replay_ai_steps": 0,
+      "elapsed_wall_seconds": 132.4797209,
+      "format": "sprint40",
+      "receipt_sha256": "3bc9f5399703cccc02a0a1c105925c64f2fb52faacdb62707a6a601a1b500c40",
+      "receipt": "artifacts\\owner-traffic-guidance-20261005\\sprint40-shipping-replay.json"
+    },
+    {
+      "status": "PASS_COMPLETE_EXACT_REPLAY",
+      "ticks": 46092,
+      "tape_sha256": "f496e2eb7bd8b3dabd28b5acf625c06b5c65346d9df41b5e49e1978d78e2815e",
+      "context_sha256": "e22ac730cd41d02a1bb6121043865da7976aa4d42bec5477e519d6d15c77d913",
+      "replay_ai_steps": 0,
+      "elapsed_wall_seconds": 243.2592706,
+      "format": "pursuit40",
+      "receipt_sha256": "c7d9bc144bbbf346f0ff4b74ae6a4a00bcb385e420edae7983a794bfcf234011",
+      "receipt": "artifacts\\owner-traffic-guidance-20261005\\pursuit40-shipping-replay.json"
+    }
+  ],
+  "windows_build": "Builds/WoodlandTrafficGuidanceReview20261005/START_WOODLAND_REVIEW.cmd",
+  "build_errors": 0,
+  "build_warnings": 496,
+  "owner_review": "Corrections requested; dense merge delays and full manual direction remain OPEN."
+}

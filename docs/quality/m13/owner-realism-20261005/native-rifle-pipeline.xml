@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Passed" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-05 18:38:35Z" end-time="2026-10-05 18:38:35Z" duration="0,4981757">
+  <test-suite type="TestSuite" id="1353" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="255" result="Passed" start-time="2026-10-05 18:38:35Z" end-time="2026-10-05 18:38:35Z" duration="0.498176" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1347" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="255" result="Passed" start-time="2026-10-05 18:38:35Z" end-time="2026-10-05 18:38:35Z" duration="0.478100" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="45272" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1348" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="255" result="Passed" start-time="2026-10-05 18:38:35Z" end-time="2026-10-05 18:38:35Z" duration="0.474167" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1349" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="255" result="Passed" start-time="2026-10-05 18:38:35Z" end-time="2026-10-05 18:38:35Z" duration="0.471923" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1035" name="AthleteRifleTests" fullname="Biathlon.PlayModeTests.AthleteRifleTests" classname="Biathlon.PlayModeTests.AthleteRifleTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-05 18:38:35Z" end-time="2026-10-05 18:38:35Z" duration="0.465198" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1036" name="RealBoutObservationsDriveTransferWithoutChangingTheShootingClock" fullname="Biathlon.PlayModeTests.AthleteRifleTests.RealBoutObservationsDriveTransferWithoutChangingTheShootingClock" methodname="RealBoutObservationsDriveTransferWithoutChangingTheShootingClock" classname="Biathlon.PlayModeTests.AthleteRifleTests" runstate="Runnable" seed="1990283755" result="Passed" start-time="2026-10-05 18:38:35Z" end-time="2026-10-05 18:38:35Z" duration="0.449642" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1038" name="RifleTransferReturnsExactlyAndHandsReachReadyWithoutRootOrPropDrift" fullname="Biathlon.PlayModeTests.AthleteRifleTests.RifleTransferReturnsExactlyAndHandsReachReadyWithoutRootOrPropDrift" methodname="RifleTransferReturnsExactlyAndHandsReachReadyWithoutRootOrPropDrift" classname="Biathlon.PlayModeTests.AthleteRifleTests" runstate="Runnable" seed="1235060127" result="Passed" start-time="2026-10-05 18:38:35Z" end-time="2026-10-05 18:38:35Z" duration="0.005046" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1037" name="TransferUsesTheActualPhaseDeadlineAtDifferentTickRates" fullname="Biathlon.PlayModeTests.AthleteRifleTests.TransferUsesTheActualPhaseDeadlineAtDifferentTickRates" methodname="TransferUsesTheActualPhaseDeadlineAtDifferentTickRates" classname="Biathlon.PlayModeTests.AthleteRifleTests" runstate="Runnable" seed="491353634" result="Passed" start-time="2026-10-05 18:38:35Z" end-time="2026-10-05 18:38:35Z" duration="0.001221" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

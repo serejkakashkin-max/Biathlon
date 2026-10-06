@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="5" result="Passed" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-05 18:43:22Z" end-time="2026-10-05 18:43:30Z" duration="8,2887514">
+  <test-suite type="TestSuite" id="2751" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1093" result="Passed" start-time="2026-10-05 18:43:22Z" end-time="2026-10-05 18:43:30Z" duration="8.288751" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2697" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="1067" result="Passed" start-time="2026-10-05 18:43:22Z" end-time="2026-10-05 18:43:30Z" duration="8.179141" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="45272" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2698" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1067" result="Passed" start-time="2026-10-05 18:43:22Z" end-time="2026-10-05 18:43:30Z" duration="8.064116" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2699" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="1067" result="Passed" start-time="2026-10-05 18:43:22Z" end-time="2026-10-05 18:43:30Z" duration="7.947292" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="2202" name="PlayerRangeAssistanceTests" fullname="Biathlon.Tests.PlayerRangeAssistanceTests" classname="Biathlon.Tests.PlayerRangeAssistanceTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-05 18:43:22Z" end-time="2026-10-05 18:43:30Z" duration="7.856948" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="2203" name="AutomationIsBoundedToAssignedFinalThreeMetresAndFirstDepartureMetre" fullname="Biathlon.Tests.PlayerRangeAssistanceTests.AutomationIsBoundedToAssignedFinalThreeMetresAndFirstDepartureMetre" methodname="AutomationIsBoundedToAssignedFinalThreeMetresAndFirstDepartureMetre" classname="Biathlon.Tests.PlayerRangeAssistanceTests" runstate="Runnable" seed="397697536" result="Passed" start-time="2026-10-05 18:43:22Z" end-time="2026-10-05 18:43:22Z" duration="0.002599" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="2208" name="ExactFormatPathGuidesAtActualBranchesAndDoesNotTreatTerrainKnotsAsForks" fullname="Biathlon.Tests.PlayerRangeAssistanceTests.ExactFormatPathGuidesAtActualBranchesAndDoesNotTreatTerrainKnotsAsForks" classname="Biathlon.Tests.PlayerRangeAssistanceTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-05 18:43:22Z" end-time="2026-10-05 18:43:30Z" duration="7.741418" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="2205" name="ExactFormatPathGuidesAtActualBranchesAndDoesNotTreatTerrainKnotsAsForks(&quot;sprint&quot;)" fullname="Biathlon.Tests.PlayerRangeAssistanceTests.ExactFormatPathGuidesAtActualBranchesAndDoesNotTreatTerrainKnotsAsForks(&quot;sprint&quot;)" methodname="ExactFormatPathGuidesAtActualBranchesAndDoesNotTreatTerrainKnotsAsForks" classname="Biathlon.Tests.PlayerRangeAssistanceTests" runstate="Runnable" seed="1047972426" result="Passed" start-time="2026-10-05 18:43:23Z" end-time="2026-10-05 18:43:25Z" duration="2.659223" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="2206" name="ExactFormatPathGuidesAtActualBranchesAndDoesNotTreatTerrainKnotsAsForks(&quot;mass_start&quot;)" fullname="Biathlon.Tests.PlayerRangeAssistanceTests.ExactFormatPathGuidesAtActualBranchesAndDoesNotTreatTerrainKnotsAsForks(&quot;mass_start&quot;)" methodname="ExactFormatPathGuidesAtActualBranchesAndDoesNotTreatTerrainKnotsAsForks" classname="Biathlon.Tests.PlayerRangeAssistanceTests" runstate="Runnable" seed="850210819" result="Passed" start-time="2026-10-05 18:43:25Z" end-time="2026-10-05 18:43:28Z" duration="2.511512" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="2207" name="ExactFormatPathGuidesAtActualBranchesAndDoesNotTreatTerrainKnotsAsForks(&quot;pursuit&quot;)" fullname="Biathlon.Tests.PlayerRangeAssistanceTests.ExactFormatPathGuidesAtActualBranchesAndDoesNotTreatTerrainKnotsAsForks(&quot;pursuit&quot;)" methodname="ExactFormatPathGuidesAtActualBranchesAndDoesNotTreatTerrainKnotsAsForks" classname="Biathlon.Tests.PlayerRangeAssistanceTests" runstate="Runnable" seed="1394568714" result="Passed" start-time="2026-10-05 18:43:28Z" end-time="2026-10-05 18:43:30Z" duration="2.464684" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="2204" name="RoundTripBoundsAndHotQueriesRemainStrictAndAllocationFree" fullname="Biathlon.Tests.PlayerRangeAssistanceTests.RoundTripBoundsAndHotQueriesRemainStrictAndAllocationFree" methodname="RoundTripBoundsAndHotQueriesRemainStrictAndAllocationFree" classname="Biathlon.Tests.PlayerRangeAssistanceTests" runstate="Runnable" seed="1223107212" result="Passed" start-time="2026-10-05 18:43:30Z" end-time="2026-10-05 18:43:30Z" duration="0.002051" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

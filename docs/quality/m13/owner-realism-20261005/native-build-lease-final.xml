@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="13" result="Passed" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-05 19:08:59Z" end-time="2026-10-05 19:09:00Z" duration="1,0346529">
+  <test-suite type="TestSuite" id="2400" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1096" result="Passed" start-time="2026-10-05 19:08:59Z" end-time="2026-10-05 19:09:00Z" duration="1.034653" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2388" name="Biathlon.VenueEditorTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.VenueEditorTests.dll" runstate="Runnable" testcasecount="27" result="Passed" start-time="2026-10-05 19:08:59Z" end-time="2026-10-05 19:09:00Z" duration="0.934238" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="45272" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2389" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="27" result="Passed" start-time="2026-10-05 19:08:59Z" end-time="2026-10-05 19:09:00Z" duration="0.828679" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2390" name="VenueEditorTests" fullname="Biathlon.VenueEditorTests" runstate="Runnable" testcasecount="27" result="Passed" start-time="2026-10-05 19:09:00Z" end-time="2026-10-05 19:09:00Z" duration="0.719199" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="2365" name="ProductionReviewBuildLeaseTests" fullname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests" classname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-10-05 19:09:00Z" end-time="2026-10-05 19:09:00Z" duration="0.609193" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="2369" name="IdleEditorWithoutActivePipelineGetsTemporaryBuildBindingAndRestoresIt" fullname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.IdleEditorWithoutActivePipelineGetsTemporaryBuildBindingAndRestoresIt" classname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-05 19:09:00Z" end-time="2026-10-05 19:09:00Z" duration="0.213681" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="2367" name="IdleEditorWithoutActivePipelineGetsTemporaryBuildBindingAndRestoresIt(False)" fullname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.IdleEditorWithoutActivePipelineGetsTemporaryBuildBindingAndRestoresIt(False)" methodname="IdleEditorWithoutActivePipelineGetsTemporaryBuildBindingAndRestoresIt" classname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests" runstate="Runnable" seed="1519305805" result="Passed" start-time="2026-10-05 19:09:00Z" end-time="2026-10-05 19:09:00Z" duration="0.069868" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="2368" name="IdleEditorWithoutActivePipelineGetsTemporaryBuildBindingAndRestoresIt(True)" fullname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.IdleEditorWithoutActivePipelineGetsTemporaryBuildBindingAndRestoresIt(True)" methodname="IdleEditorWithoutActivePipelineGetsTemporaryBuildBindingAndRestoresIt" classname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests" runstate="Runnable" seed="705217169" result="Passed" start-time="2026-10-05 19:09:00Z" end-time="2026-10-05 19:09:00Z" duration="0.029012" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="2379" name="PersistedTimingLeaseRestoresExactBytesAndPreservesIndependentOwnerEdits" fullname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.PersistedTimingLeaseRestoresExactBytesAndPreservesIndependentOwnerEdits" classname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-05 19:09:00Z" end-time="2026-10-05 19:09:00Z" duration="0.015656" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="2375" name="PersistedTimingLeaseRestoresExactBytesAndPreservesIndependentOwnerEdits(False,False)" fullname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.PersistedTimingLeaseRestoresExactBytesAndPreservesIndependentOwnerEdits(False,False)" methodname="PersistedTimingLeaseRestoresExactBytesAndPreservesIndependentOwnerEdits" classname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests" runstate="Runnable" seed="1697997298" result="Passed" start-time="2026-10-05 19:09:00Z" end-time="2026-10-05 19:09:00Z" duration="0.008073" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="2376" name="PersistedTimingLeaseRestoresExactBytesAndPreservesIndependentOwnerEdits(True,False)" fullname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.PersistedTimingLeaseRestoresExactBytesAndPreservesIndependentOwnerEdits(True,False)" methodname="PersistedTimingLeaseRestoresExactBytesAndPreservesIndependentOwnerEdits" classname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests" runstate="Runnable" seed="1893340436" result="Passed" start-time="2026-10-05 19:09:00Z" end-time="2026-10-05 19:09:00Z" duration="0.003188" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="2377" name="PersistedTimingLeaseRestoresExactBytesAndPreservesIndependentOwnerEdits(False,True)" fullname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.PersistedTimingLeaseRestoresExactBytesAndPreservesIndependentOwnerEdits(False,True)" methodname="PersistedTimingLeaseRestoresExactBytesAndPreservesIndependentOwnerEdits" classname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests" runstate="Runnable" seed="2140254851" result="Passed" start-time="2026-10-05 19:09:00Z" end-time="2026-10-05 19:09:00Z" duration="0.001414" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="2378" name="PersistedTimingLeaseRestoresExactBytesAndPreservesIndependentOwnerEdits(True,True)" fullname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.PersistedTimingLeaseRestoresExactBytesAndPreservesIndependentOwnerEdits(True,True)" methodname="PersistedTimingLeaseRestoresExactBytesAndPreservesIndependentOwnerEdits" classname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests" runstate="Runnable" seed="285026729" result="Passed" start-time="2026-10-05 19:09:00Z" end-time="2026-10-05 19:09:00Z" duration="0.001371" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="2382" name="ProductionBuildLeaseRestoresLabelsSettingsAndExistingDirtyOwnersWhenCallbackRejects" fullname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.ProductionBuildLeaseRestoresLabelsSettingsAndExistingDirtyOwnersWhenCallbackRejects" classname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-05 19:09:00Z" end-time="2026-10-05 19:09:00Z" duration="0.156431" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="2380" name="ProductionBuildLeaseRestoresLabelsSettingsAndExistingDirtyOwnersWhenCallbackRejects(False)" fullname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.ProductionBuildLeaseRestoresLabelsSettingsAndExistingDirtyOwnersWhenCallbackRejects(False)" methodname="ProductionBuildLeaseRestoresLabelsSettingsAndExistingDirtyOwnersWhenCallbackRejects" classname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests" runstate="Runnable" seed="137426469" result="Passed" start-time="2026-10-05 19:09:00Z" end-time="2026-10-05 19:09:00Z" duration="0.034482" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="2381" name="ProductionBuildLeaseRestoresLabelsSettingsAndExistingDirtyOwnersWhenCallbackRejects(True)" fullname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.ProductionBuildLeaseRestoresLabelsSettingsAndExistingDirtyOwnersWhenCallbackRejects(True)" methodname="ProductionBuildLeaseRestoresLabelsSettingsAndExistingDirtyOwnersWhenCallbackRejects" classname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests" runstate="Runnable" seed="77350152" result="Passed" start-time="2026-10-05 19:09:00Z" end-time="2026-10-05 19:09:00Z" duration="0.024591" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="2374" name="ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners" fullname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners" classname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-05 19:09:00Z" end-time="2026-10-05 19:09:00Z" duration="0.051195" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="2370" name="ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners(&quot;Builds/&quot;)" fullname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners(&quot;Builds/&quot;)" methodname="ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners" classname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests" runstate="Runnable" seed="1508250281" result="Passed" start-time="2026-10-05 19:09:00Z" end-time="2026-10-05 19:09:00Z" duration="0.001153" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="2371" name="ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners(&quot;Assets/Replacement&quot;)" fullname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners(&quot;Assets/Replacement&quot;)" methodname="ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners" classname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests" runstate="Runnable" seed="438088991" result="Passed" start-time="2026-10-05 19:09:00Z" end-time="2026-10-05 19:09:00Z" duration="0.000076" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="2372" name="ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners(&quot;Builds/../Owner&quot;)" fullname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners(&quot;Builds/../Owner&quot;)" methodname="ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners" classname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests" runstate="Runnable" seed="330605380" result="Passed" start-time="2026-10-05 19:09:00Z" end-time="2026-10-05 19:09:00Z" duration="0.000051" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="2373" name="ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners(&quot;C:/Owner&quot;)" fullname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners(&quot;C:/Owner&quot;)" methodname="ReviewOutputRejectsOutsideBuildsBeforeReadingResourcesOrLeasingOwners" classname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests" runstate="Runnable" seed="1474442387" result="Passed" start-time="2026-10-05 19:09:00Z" end-time="2026-10-05 19:09:00Z" duration="0.000070" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="2366" name="TimingRestorationSurvivesTheEditorsMappedInputSettingsFile" fullname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests.TimingRestorationSurvivesTheEditorsMappedInputSettingsFile" methodname="TimingRestorationSurvivesTheEditorsMappedInputSettingsFile" classname="Biathlon.VenueEditorTests.ProductionReviewBuildLeaseTests" runstate="Runnable" seed="1332732414" result="Passed" start-time="2026-10-05 19:09:00Z" end-time="2026-10-05 19:09:00Z" duration="0.060156" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
