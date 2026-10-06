@@ -240,3 +240,19 @@ yet qualified for changing surface geometry within a tick. More importantly,
 the roster still does not own physiology, range/penalty state, lifecycle,
 race events or replay. No playable steering or queue-completion claim follows
 from the odometer binding alone.
+
+## 2026-10-06 one-section race commit bridge
+
+An athlete session can replace the prepared legacy path frame using a
+still-live, jointly clear world-roster proposal bound to the same athlete,
+race tick, accepted route station and physical odometer. This first bridge
+supports one base-route section strictly before range entry. It writes a
+continuous timed race segment while retaining the common physiology preview,
+and rejects stale world proposals or legacy clipping. A world ledger can be
+reconstituted at the accepted race tick; the bound tick is recorded in the
+versioned context. The bridge is not a separate movement rule: it only
+converts an already proven world movement into existing race receipts.
+
+No cross-athlete commit orchestrator, phase-specific geometry or v2 replay
+exists yet. The live host remains on v1; this bridge does not authorize an
+intermediate player build or manual-steering completion claim.

@@ -39,7 +39,8 @@ namespace Biathlon.Simulation
         public ManualWorldRosterLedger(RaceRoute route,ManualRouteProjectionMap map,
             ManualRouteJointSweep sweep,ManualRouteProgression progress,
             ManualRouteProgressCursor[] initialCursors,ManualSkiHeadingState[] initialPoses,
-            SkiPlanarVelocity[] initialVelocities,int tickFrequency,SkiState[] initialMotion=null)
+            SkiPlanarVelocity[] initialVelocities,int tickFrequency,SkiState[] initialMotion=null,
+            SimulationTick initialTick=default)
         {
             if(route==null||map==null||sweep==null||progress==null||initialCursors==null||
                 initialPoses==null||initialVelocities==null)throw new ArgumentNullException();
@@ -49,6 +50,7 @@ namespace Biathlon.Simulation
                 initialMotion!=null&&initialMotion.Length!=initialCursors.Length)
                 throw new ArgumentException("Exact route solvers, roster and fixed clock required.");
             this.map=map;this.sweep=sweep;this.progress=progress;duration=1.0/tickFrequency;
+            Tick=initialTick;
             accepted=new ManualRouteActorFrame[initialCursors.Length];staged=new ManualRouteActorFrame[Count];
             cursors=new ManualRouteProgressCursor[Count];stagedProgress=new ManualRouteProgressFrame[Count];
             if(initialMotion!=null)
@@ -72,7 +74,8 @@ namespace Biathlon.Simulation
             }
             if(initialMotion!=null)
             {
-                context[Count+4]="force_slope_distance;contact_linear_velocity_simpson_64;grade_frozen_per_tick";
+                context[Count+4]="force_slope_distance;contact_linear_velocity_simpson_64;grade_frozen_per_tick;initial_tick="+
+                    initialTick.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 for(int i=0;i<Count;i++)context[Count+5+i]=
                     initialMotion[i].DistanceNanometers.ToString(System.Globalization.CultureInfo.InvariantCulture)+":"+
                     initialMotion[i].SpeedMetersPerSecond.ToString("R",System.Globalization.CultureInfo.InvariantCulture);
@@ -85,6 +88,25 @@ namespace Biathlon.Simulation
         public SkiState GetPhysicalMotion(int index)=>acceptedMotion==null
             ?throw new InvalidOperationException("Physical odometer was not bound to this roster.")
             :acceptedMotion[index];
+        internal void ValidatePrepared(ManualWorldRosterPreview proposal)
+        {
+            if(!ready||!ReferenceEquals(proposal.Owner,this)||proposal.Revision!=revision||
+                proposal.Tick.Value!=Tick.Value+1)
+                throw new ArgumentException("Missing, foreign, replaced or consumed world roster proposal.");
+        }
+        /// <summary>Read the jointly safe but uncommitted full-tick actor. A race
+        /// adapter may prepare its lifecycle only against this exact proposal.</summary>
+        public ManualRouteActorFrame GetProposedActor(ManualWorldRosterPreview proposal,int index)
+        {ValidatePrepared(proposal);return staged[index];}
+        public ManualRouteProgressCursor GetProposedCursor(ManualWorldRosterPreview proposal,int index)
+        {ValidatePrepared(proposal);return stagedProgress[index].Cursor;}
+        public SkiState GetProposedPhysicalMotion(ManualWorldRosterPreview proposal,int index)
+        {
+            ValidatePrepared(proposal);
+            return stagedMotion==null
+                ?throw new InvalidOperationException("Physical odometer was not bound to this roster.")
+                :stagedMotion[index];
+        }
 
         /// <summary>Caller supplies every actor in stable roster order. An unresolved
         /// body/course interval or station limit invalidates the entire proposal;
@@ -168,9 +190,7 @@ namespace Biathlon.Simulation
         /// events or physical ski odometer are inferred from projected station.</summary>
         public void Commit(ManualWorldRosterPreview proposal)
         {
-            if(!ready||!ReferenceEquals(proposal.Owner,this)||proposal.Revision!=revision||
-                proposal.Tick.Value!=Tick.Value+1)
-                throw new ArgumentException("Missing, foreign, replaced or consumed world roster proposal.");
+            ValidatePrepared(proposal);
             ready=false;
             for(int i=0;i<Count;i++)
             { accepted[i]=staged[i];cursors[i]=stagedProgress[i].Cursor;

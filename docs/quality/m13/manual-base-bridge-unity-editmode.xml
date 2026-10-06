@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 18:10:57Z" end-time="2026-10-06 18:11:00Z" duration="2,9216408">
+  <test-suite type="TestSuite" id="2554" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1230" result="Passed" start-time="2026-10-06 18:10:57Z" end-time="2026-10-06 18:11:00Z" duration="2.921641" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2499" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="1203" result="Passed" start-time="2026-10-06 18:10:58Z" end-time="2026-10-06 18:11:00Z" duration="2.809954" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="61532" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2500" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1203" result="Passed" start-time="2026-10-06 18:10:58Z" end-time="2026-10-06 18:11:00Z" duration="2.704891" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2501" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="1203" result="Passed" start-time="2026-10-06 18:10:58Z" end-time="2026-10-06 18:11:00Z" duration="2.597599" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1324" name="ManualBaseRouteCommitTests" fullname="Biathlon.Tests.ManualBaseRouteCommitTests" classname="Biathlon.Tests.ManualBaseRouteCommitTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-06 18:10:58Z" end-time="2026-10-06 18:11:00Z" duration="2.491766" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="1327" name="FullClearWorldProposalCanReplaceOnlyBaseRouteMovement" fullname="Biathlon.Tests.ManualBaseRouteCommitTests.FullClearWorldProposalCanReplaceOnlyBaseRouteMovement" classname="Biathlon.Tests.ManualBaseRouteCommitTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-06 18:10:58Z" end-time="2026-10-06 18:11:00Z" duration="2.382928" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1325" name="FullClearWorldProposalCanReplaceOnlyBaseRouteMovement(False)" fullname="Biathlon.Tests.ManualBaseRouteCommitTests.FullClearWorldProposalCanReplaceOnlyBaseRouteMovement(False)" methodname="FullClearWorldProposalCanReplaceOnlyBaseRouteMovement" classname="Biathlon.Tests.ManualBaseRouteCommitTests" runstate="Runnable" seed="459471401" result="Passed" start-time="2026-10-06 18:10:58Z" end-time="2026-10-06 18:10:59Z" duration="1.184573" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1326" name="FullClearWorldProposalCanReplaceOnlyBaseRouteMovement(True)" fullname="Biathlon.Tests.ManualBaseRouteCommitTests.FullClearWorldProposalCanReplaceOnlyBaseRouteMovement(True)" methodname="FullClearWorldProposalCanReplaceOnlyBaseRouteMovement" classname="Biathlon.Tests.ManualBaseRouteCommitTests" runstate="Runnable" seed="68739159" result="Passed" start-time="2026-10-06 18:10:59Z" end-time="2026-10-06 18:11:00Z" duration="1.085826" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

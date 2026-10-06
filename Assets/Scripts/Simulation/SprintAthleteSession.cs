@@ -36,9 +36,12 @@ namespace Biathlon.Simulation
         public RacePathMotionFrame Movement { get; }
         public bool MovementActive { get; }
         public bool ShootingActive { get; }
+        internal ManualWorldRosterPreview World { get; }
         internal SprintStepPreview(SprintAthleteSession owner, long revision, SimulationTick tick,
-            PhysiologyFrame physiology, RacePathMotionFrame movement, bool moving, bool shooting)
-        { Owner=owner; Revision=revision; Tick=tick; Physiology=physiology; Movement=movement; MovementActive=moving; ShootingActive=shooting; }
+            PhysiologyFrame physiology, RacePathMotionFrame movement, bool moving, bool shooting,
+            ManualWorldRosterPreview world=default)
+        { Owner=owner; Revision=revision; Tick=tick; Physiology=physiology; Movement=movement;
+          MovementActive=moving; ShootingActive=shooting; World=world; }
     }
     public readonly struct SprintRangePathChoice
     {
@@ -327,11 +330,55 @@ namespace Biathlon.Simulation
             if (index < 0 || index >= preview.Movement.SegmentCount) throw new ArgumentOutOfRangeException(nameof(index));
             return segments[index];
         }
+        /// <summary>Replace the legacy route-following ski preview only after a
+        /// whole manual world roster tick is proven clear. This first bridge is
+        /// limited to one base-route section before its range entry; it cannot
+        /// authorize a seam, start lane, mat or penalty loop.</summary>
+        public SprintStepPreview PrepareManualBaseRouteCommit(SprintStepPreview preview,
+            ManualWorldRosterPreview world,int actorIndex)
+        {
+            ValidatePreview(preview);
+            var ledger=world.Owner;
+            if(ledger==null||!ledger.HasPhysicalOdometer||ledger.Tick.Value!=Tick.Value||
+                world.Tick.Value!=preview.Tick.Value||!preview.MovementActive||
+                preview.ShootingActive||RemainingStartApproachNanometers!=0||preparedChoosesPath)
+                throw new ArgumentException("Active base-route movement and a bound full-world tick required.");
+            var before=ledger.GetCursor(actorIndex);
+            var after=ledger.GetProposedCursor(world,actorIndex);
+            var actor=ledger.GetProposedActor(world,actorIndex);
+            var physicalBefore=ledger.GetPhysicalMotion(actorIndex);
+            var physicalAfter=ledger.GetProposedPhysicalMotion(world,actorIndex);
+            if(!before.Athlete.Equals(AthleteId)||!after.Athlete.Equals(AthleteId)||
+                !actor.Athlete.Equals(AthleteId)||before.SectionIndex!=after.SectionIndex||
+                before.CreditedStationNanometers!=RouteNanometers||
+                physicalBefore.DistanceNanometers!=Motion.DistanceNanometers||
+                physicalBefore.SpeedMetersPerSecond!=Motion.SpeedMetersPerSecond||
+                after.CreditedStationNanometers<RouteNanometers||
+                after.CreditedStationNanometers>finishNanometers||
+                physicalAfter.DistanceNanometers<Motion.DistanceNanometers||
+                preparedRange!=null&&preparedRange.Phase!=RangeTraversalPhase.Approach&&
+                    preparedRange.Phase!=RangeTraversalPhase.Complete||
+                preparedRange!=null&&preparedRange.Phase==RangeTraversalPhase.Approach&&
+                    after.CreditedStationNanometers>=preparedRange.RangeEntryNanometers)
+                throw new ArgumentException("World proposal is stale or crosses an unadmitted race phase.");
+            double dt=1.0/config.TickFrequency;
+            segments[0]=new RaceMotionSegment(RouteNanometers,
+                after.CreditedStationNanometers,Motion.DistanceNanometers,
+                physicalAfter.DistanceNanometers,0,dt,false);
+            var movement=new RacePathMotionFrame(physicalAfter,after.CreditedStationNanometers,0,
+                dt,0,1,false,after.CreditedStationNanometers==finishNanometers);
+            long revision=checked(previewRevision+1);
+            previewRevision=revision;
+            return new SprintStepPreview(this,revision,preview.Tick,preview.Physiology,
+                movement,true,false,world);
+        }
         /// <summary>Retain a verified forward prefix and stop. Caller must prove continuous safety.
         /// Full prepared physiology is preserved; this is not a collision solver.</summary>
         public SprintStepPreview ConstrainPreparedTravel(SprintStepPreview preview, long maximumTravelNanometers)
         {
             ValidatePreview(preview);
+            if(preview.World.IsValid)
+                throw new InvalidOperationException("A proven world tick cannot be clipped by legacy route travel.");
             if (!preview.MovementActive || maximumTravelNanometers < 0)
                 throw new ArgumentException("Active movement and nonnegative travel cap required.");
             long available = preview.Movement.Motion.DistanceNanometers - Motion.DistanceNanometers;
@@ -367,6 +414,7 @@ namespace Biathlon.Simulation
         {
             if (!previewReady || !ReferenceEquals(preview.Owner, this) || preview.Revision != previewRevision ||
                 preview.Tick.Value != checked(Tick.Value + 1)) throw new ArgumentException("Missing, foreign, replaced or consumed Sprint preview.");
+            if(preview.World.IsValid)preview.World.Owner.ValidatePrepared(preview.World);
         }
         internal void ValidatePreparedCommit(SprintStepPreview preview) { ValidatePreview(preview); ValidateCommand(preparedInput); }
         internal RangeMotionPoint? PreviewRangeMotion(SprintStepPreview preview, long additionalTravelNanometers = 0)

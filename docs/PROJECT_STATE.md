@@ -21788,3 +21788,27 @@ This is not a playable steering or queue fix. Contact integration, topology
 handoff, start/range/penalty world paths, physiology/lifecycle/events, v2
 replay, Unity host and hands-on correction review remain open. M13 and
 WP-175–178 remain OPEN. No Windows review build was issued at this stage.
+
+## 2026-10-06 — M13 manual world/base-route race bridge (intermediate)
+
+The accepted full-clear manual world proposal can replace legacy ski travel
+inside `SprintAthleteSession` for a single base-route section before range
+entry. The bridge stages world-derived odometer, physical speed, high-water
+route station and one timed checkpoint segment with the existing prepared
+physiology. A stale/consumed world proposal or legacy route clipping is
+rejected. A reconstructed world ledger now carries its actual accepted race
+tick in the versioned odometer context.
+
+Release .NET bridge/roster/Sprint/pack/replay regression 40/40 PASS; Unity
+EditMode bridge 2/2 PASS; Editor compilation idle and recent Error Console
+empty. The first focused test found that a mid-race ledger had started at
+tick zero; constructor/tape context were corrected and final tests pass.
+Evidence: docs/quality/m13/manual-base-bridge-regression.trx and
+docs/quality/m13/manual-base-bridge-unity-editmode.xml. Report:
+docs/reports/TASK_M13_MANUAL_BASE_ROUTE_BRIDGE_20261006.md.
+
+No playable host or AI was switched to manual steering. Shared roster race
+transaction, force/physiology coupling, contact response, section/start/
+range/penalty transitions, complete race events, v2 replay and owner review
+remain open. WP-175–178 and M13 remain OPEN. Per the owner batch directive,
+no intermediate Windows build was made.
