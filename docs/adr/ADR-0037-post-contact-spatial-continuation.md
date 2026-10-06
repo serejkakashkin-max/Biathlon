@@ -173,3 +173,20 @@ actor's projection cannot publish a partial world/route proposal. The receipt
 does not commit motion, route/lap credit, contact response or events. This
 shared-time frame is the input to a future authoritative race transaction,
 not a transaction itself.
+
+## 2026-10-06 bounded same-section route credit proposal
+
+`ManualRouteProgression` reads only an already group-safe world/route frame and
+an accepted cursor for the same athlete and selected section. Its observed
+station may move backward; its credited high-water station never decreases.
+Retracing previously visited metres yields zero new credit. The owning race
+phase supplies a maximum station, so an unadmitted firing line, finish or
+section boundary fails closed. The full roster is validated before any
+proposal slot is written. Invalid or duplicate identities, a foreign selected
+route occurrence and a missing observation cannot partially advance a field.
+
+This is an event-free proposal, not a commit. The policy context binds the
+exact route and an explicit version marker. It does not supply the missing
+topology transition, start/range/penalty world paths, physical odometer,
+physiology/lifecycle/event transaction, contact continuation or race replay.
+No playable host switches to v2 on this evidence.

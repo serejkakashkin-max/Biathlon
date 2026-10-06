@@ -21691,3 +21691,27 @@ committed. Historical PROJECT_STATE content was only appended.
 Playable manual steering still requires the race transaction, route and
 range/penalty lifecycle transitions, repeated contacts, complete event/replay
 binding and host wiring. WP-175–178 and M13 remain OPEN. No intermediate build.
+
+## 2026-10-06 — M13 bounded same-section manual route progress
+
+Added an event-free progress proposal for already group-safe world/route actor
+frames. It stores observed route station separately from high-water credited
+station, so backward movement and retracing cannot grant duplicate race
+distance. A race-phase-supplied maximum station rejects unadmitted firing-line,
+finish or section travel. The entire roster is checked before any proposal is
+published; a failed actor leaves all output slots unchanged. Exact route
+snapshots are part of the versioned context.
+
+Release .NET joint/projection/tube/AI/manual-force regression 43/43 PASS; native
+Unity EditMode joint/progress 12/12 PASS. Unity compiled, Editor idle, recent
+Error Console empty. Evidence: docs/quality/m13/wp175-manual-route-progress/.
+Report: docs/reports/TASK_M13_MANUAL_ROUTE_PROGRESS_20261006.md. The initial
+native fully qualified class filter found no tests; the corrected short-class
+filter ran and passed all 12. No race outputs, balance or tuning changed.
+Historical PROJECT_STATE bytes were preserved; this record was appended.
+
+This cursor is not a race commit, does not cross route seams or own start,
+range/penalty geometry, and does not switch the playable host to manual input.
+Full transaction, repeated contacts, lifecycle/events and v2 full-field replay
+remain open. WP-175–178 and M13 remain OPEN. The next Windows review build is
+still withheld until the complete owner M13 correction batch.
