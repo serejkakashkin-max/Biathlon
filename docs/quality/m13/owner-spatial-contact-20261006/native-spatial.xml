@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="13" result="Passed" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 12:45:17Z" end-time="2026-10-06 12:45:18Z" duration="0,6225362">
+  <test-suite type="TestSuite" id="1000" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1182" result="Passed" start-time="2026-10-06 12:45:17Z" end-time="2026-10-06 12:45:18Z" duration="0.622536" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2440" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="1155" result="Passed" start-time="2026-10-06 12:45:17Z" end-time="2026-10-06 12:45:18Z" duration="0.513508" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="61532" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2441" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1155" result="Passed" start-time="2026-10-06 12:45:17Z" end-time="2026-10-06 12:45:18Z" duration="0.406371" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2442" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="1155" result="Passed" start-time="2026-10-06 12:45:18Z" end-time="2026-10-06 12:45:18Z" duration="0.297202" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1389" name="ManualSkiSpatialContactTests" fullname="Biathlon.Tests.ManualSkiSpatialContactTests" classname="Biathlon.Tests.ManualSkiSpatialContactTests" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-10-06 12:45:18Z" end-time="2026-10-06 12:45:18Z" duration="0.193979" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1393" name="ContactContinuationAndOrdinaryMotionUseTheSameContinuousPairCheck" fullname="Biathlon.Tests.ManualSkiSpatialContactTests.ContactContinuationAndOrdinaryMotionUseTheSameContinuousPairCheck" methodname="ContactContinuationAndOrdinaryMotionUseTheSameContinuousPairCheck" classname="Biathlon.Tests.ManualSkiSpatialContactTests" runstate="Runnable" seed="283824022" result="Passed" start-time="2026-10-06 12:45:18Z" end-time="2026-10-06 12:45:18Z" duration="0.057539" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1395" name="EdgeCheckStopsAtSkiFootprintBeforeTheCentreLeavesTheCourse" fullname="Biathlon.Tests.ManualSkiSpatialContactTests.EdgeCheckStopsAtSkiFootprintBeforeTheCentreLeavesTheCourse" methodname="EdgeCheckStopsAtSkiFootprintBeforeTheCentreLeavesTheCourse" classname="Biathlon.Tests.ManualSkiSpatialContactTests" runstate="Runnable" seed="1194356799" result="Passed" start-time="2026-10-06 12:45:18Z" end-time="2026-10-06 12:45:18Z" duration="0.002919" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1398" name="EdgeWorkExhaustionAndOutsideStartNeverAuthorizeMotion" fullname="Biathlon.Tests.ManualSkiSpatialContactTests.EdgeWorkExhaustionAndOutsideStartNeverAuthorizeMotion" methodname="EdgeWorkExhaustionAndOutsideStartNeverAuthorizeMotion" classname="Biathlon.Tests.ManualSkiSpatialContactTests" runstate="Runnable" seed="113442338" result="Passed" start-time="2026-10-06 12:45:18Z" end-time="2026-10-06 12:45:18Z" duration="0.001037" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1394" name="GroupResponseCanContinueSpatiallyWithoutStoppingEveryAthlete" fullname="Biathlon.Tests.ManualSkiSpatialContactTests.GroupResponseCanContinueSpatiallyWithoutStoppingEveryAthlete" methodname="GroupResponseCanContinueSpatiallyWithoutStoppingEveryAthlete" classname="Biathlon.Tests.ManualSkiSpatialContactTests" runstate="Runnable" seed="479548035" result="Passed" start-time="2026-10-06 12:45:18Z" end-time="2026-10-06 12:45:18Z" duration="0.005871" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1401" name="JointQueryTiesAreStableAndQueriesDoNotAllocate" fullname="Biathlon.Tests.ManualSkiSpatialContactTests.JointQueryTiesAreStableAndQueriesDoNotAllocate" methodname="JointQueryTiesAreStableAndQueriesDoNotAllocate" classname="Biathlon.Tests.ManualSkiSpatialContactTests" runstate="Runnable" seed="215313718" result="Passed" start-time="2026-10-06 12:45:18Z" end-time="2026-10-06 12:45:18Z" duration="0.003755" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1399" name="JointSweepChoosesEarliestEdgeOrPairAcrossTheWholeGroup" fullname="Biathlon.Tests.ManualSkiSpatialContactTests.JointSweepChoosesEarliestEdgeOrPairAcrossTheWholeGroup" methodname="JointSweepChoosesEarliestEdgeOrPairAcrossTheWholeGroup" classname="Biathlon.Tests.ManualSkiSpatialContactTests" runstate="Runnable" seed="1239550440" result="Passed" start-time="2026-10-06 12:45:18Z" end-time="2026-10-06 12:45:18Z" duration="0.001571" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1391" name="PassiveImpulseIntegratesAsOneFrozenRampWithConsistentPrefixes" fullname="Biathlon.Tests.ManualSkiSpatialContactTests.PassiveImpulseIntegratesAsOneFrozenRampWithConsistentPrefixes" methodname="PassiveImpulseIntegratesAsOneFrozenRampWithConsistentPrefixes" classname="Biathlon.Tests.ManualSkiSpatialContactTests" runstate="Runnable" seed="2019372918" result="Passed" start-time="2026-10-06 12:45:18Z" end-time="2026-10-06 12:45:18Z" duration="0.000516" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1392" name="RawPostImpactSpinMayExceedCommandedYawWithoutBeingClamped" fullname="Biathlon.Tests.ManualSkiSpatialContactTests.RawPostImpactSpinMayExceedCommandedYawWithoutBeingClamped" methodname="RawPostImpactSpinMayExceedCommandedYawWithoutBeingClamped" classname="Biathlon.Tests.ManualSkiSpatialContactTests" runstate="Runnable" seed="1436340047" result="Passed" start-time="2026-10-06 12:45:18Z" end-time="2026-10-06 12:45:18Z" duration="0.000456" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1400" name="ReachedContactIsExplicitAndUnknownOrDuplicateBindingsAreRejected" fullname="Biathlon.Tests.ManualSkiSpatialContactTests.ReachedContactIsExplicitAndUnknownOrDuplicateBindingsAreRejected" methodname="ReachedContactIsExplicitAndUnknownOrDuplicateBindingsAreRejected" classname="Biathlon.Tests.ManualSkiSpatialContactTests" runstate="Runnable" seed="1953833324" result="Passed" start-time="2026-10-06 12:45:18Z" end-time="2026-10-06 12:45:18Z" duration="0.001665" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1396" name="RotatingRearCanCrossAnEdgeWhileItsCentreStaysInside" fullname="Biathlon.Tests.ManualSkiSpatialContactTests.RotatingRearCanCrossAnEdgeWhileItsCentreStaysInside" methodname="RotatingRearCanCrossAnEdgeWhileItsCentreStaysInside" classname="Biathlon.Tests.ManualSkiSpatialContactTests" runstate="Runnable" seed="1227780985" result="Passed" start-time="2026-10-06 12:45:18Z" end-time="2026-10-06 12:45:18Z" duration="0.000993" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1390" name="SpatialContinuationRetainsSideVelocityAndSpinInsteadOfTurningItIntoForwardSpeed" fullname="Biathlon.Tests.ManualSkiSpatialContactTests.SpatialContinuationRetainsSideVelocityAndSpinInsteadOfTurningItIntoForwardSpeed" methodname="SpatialContinuationRetainsSideVelocityAndSpinInsteadOfTurningItIntoForwardSpeed" classname="Biathlon.Tests.ManualSkiSpatialContactTests" runstate="Runnable" seed="22489428" result="Passed" start-time="2026-10-06 12:45:18Z" end-time="2026-10-06 12:45:18Z" duration="0.000745" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1402" name="SpatialQueriesAreRepeatableAllocationFreeAndRejectInvalidFrames" fullname="Biathlon.Tests.ManualSkiSpatialContactTests.SpatialQueriesAreRepeatableAllocationFreeAndRejectInvalidFrames" methodname="SpatialQueriesAreRepeatableAllocationFreeAndRejectInvalidFrames" classname="Biathlon.Tests.ManualSkiSpatialContactTests" runstate="Runnable" seed="673077500" result="Passed" start-time="2026-10-06 12:45:18Z" end-time="2026-10-06 12:45:18Z" duration="0.002167" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1397" name="TangentialMotionAlongAnEdgeDoesNotAutoSteerOrStop" fullname="Biathlon.Tests.ManualSkiSpatialContactTests.TangentialMotionAlongAnEdgeDoesNotAutoSteerOrStop" methodname="TangentialMotionAlongAnEdgeDoesNotAutoSteerOrStop" classname="Biathlon.Tests.ManualSkiSpatialContactTests" runstate="Runnable" seed="659222418" result="Passed" start-time="2026-10-06 12:45:18Z" end-time="2026-10-06 12:45:18Z" duration="0.000664" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

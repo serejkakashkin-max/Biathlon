@@ -22,6 +22,7 @@ namespace Biathlon.Simulation
     {
         private readonly double arm,inertiaPerMass,duration;
         public string ContextJson {get;}
+        public string TrajectoryContextJson {get;}
         public ManualSkiSnowContactSystem(OccupancyDefinition body,int frequency)
         {
             if(body==null)throw new ArgumentNullException(nameof(body));
@@ -32,7 +33,15 @@ namespace Biathlon.Simulation
             inertiaPerMass=(body.LongitudinalSeparation*body.LongitudinalSeparation+body.LateralSeparation*body.LateralSeparation)/12;
             duration=1.0/frequency;
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_snow_slip_impulse_v1",body.ToJson(),frequency.ToString(CultureInfo.InvariantCulture)});
+            TrajectoryContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_contact_frozen_velocity_ramp_v1",ContextJson});
         }
+
+        /// <summary>Spread this interval's passive impulse as constant acceleration.
+        /// Retain world side-slip and physical spin, without heading realignment.
+        /// Caller must still admit the trajectory against other bodies and edges.</summary>
+        public SkiContactTrajectory PreviewTrajectory(ManualSkiContactBody body,SkiContactMotion motion,
+            double lateralAccelerationLimit,double reservedTurningAcceleration,double seconds)
+            =>new SkiContactTrajectory(body.Pose,motion,Preview(body,motion,lateralAccelerationLimit,reservedTurningAcceleration,seconds),seconds);
 
         /// <param name="lateralAccelerationLimit">Existing skill/snow/equipment cornering capability.</param>
         /// <param name="reservedTurningAcceleration">Grip already consumed by the admitted turn; cannot be spent twice on slip.</param>

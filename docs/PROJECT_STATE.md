@@ -21328,3 +21328,36 @@ remain OPEN. No intermediate Windows build. Next: arrival refinement, joint spat
 continuation with post-contact slip/spin and edges, then route/lifecycle, AI, v2 race
 replay and host integration. Do not mistake the velocity operator or continuation
 receipt for a complete tick solver; snow must not be charged repeatedly per tick.
+
+## 2026-10-06 — M13 post-contact spatial continuation and joint edge checks
+
+Added an analytic spatial continuation retaining post-impact world side velocity
+and raw spin. A single passive snow impulse defines a frozen acceleration ramp;
+prefixes sample that same interval instead of recharging snow or snapping onto
+forward heading. No odometer/route/lap/range progress is awarded by this primitive.
+
+Ordinary force-weighted skiing and contact motion now share continuous pair checks.
+Added oriented-body checks for explicitly supplied local convex course-edge planes
+and a joint all-pair/all-edge common-prefix query with stable-ID tie ordering.
+Registered reached contacts remain explicit. Work exhaustion and unresolved
+geometry do not authorize travel; no teleport, auto-steering or body shrink.
+A three-body integration test transfers momentum and admits forward motion after
+contact inside a simple corridor. This is not a production-queue acceptance test.
+
+Validation: 129 focused .NET tests PASS, including 23 legacy replay tests. Native
+Unity: 13 spatial tests and 13 sweep regressions PASS; compilation complete, recent
+Error Console empty. The initial joint tie test exposed enum boxing (48 bytes per
+query); integer comparison fixes it. Failed and passing receipts are retained.
+No allocation assertion or safety test was removed/relaxed. An internal Domain
+validator access error was fixed before passing compilation/test runs.
+
+ADR: docs/adr/ADR-0037-post-contact-spatial-continuation.md.
+Report: docs/reports/TASK_M13_SPATIAL_CONTACT_20261006.md.
+Evidence: docs/quality/m13/owner-spatial-contact-20261006/.
+Current index updated; all previous PROJECT_STATE bytes preserved.
+
+No playable caller or legacy race output changed. No Windows build. M13/WP175–178,
+owner queues and full manual steering remain OPEN. Remaining: arrival refinement,
+combined propulsion/gravity/drag with slip, successive contacts, actual corridor
+cells/topology and route/lifecycle/events, AI signed steering, v2 replay and host.
+A Clear joint receipt only covers supplied actors/edges, not the whole course.

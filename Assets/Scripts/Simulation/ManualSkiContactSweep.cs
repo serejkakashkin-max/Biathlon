@@ -29,6 +29,7 @@ namespace Biathlon.Simulation
         private readonly double radius,tolerance;
         public string ContextJson {get;}
         public string ContinuationContextJson {get;}
+        public string SpatialContextJson {get;}
         public ManualSkiContactSweep(OccupancyDefinition body,SkiContactDefinition contactDefinition,SkiContactSweepDefinition definition)
         {
             if(body==null||contactDefinition==null||definition==null)throw new ArgumentNullException();
@@ -37,20 +38,27 @@ namespace Biathlon.Simulation
             tolerance=contactDefinition.ContactTolerance;
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_force_turn_sweep_v1",contact.ContextJson,definition.ToJson()});
             ContinuationContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_existing_contact_sweep_v1",ContextJson});
+            SpatialContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_mixed_world_trajectory_sweep_v1",ContinuationContextJson});
         }
 
         public SkiContactSweepPreview Preview(AthleteId first,ManualSkiHeadingFrame a,AthleteId second,ManualSkiHeadingFrame b)
+            => PreviewCore(first,new ManualSkiWorldTrajectory(a),second,new ManualSkiWorldTrajectory(b),false);
+
+        public SkiContactSweepPreview Preview(AthleteId first,ManualSkiWorldTrajectory a,AthleteId second,ManualSkiWorldTrajectory b)
             => PreviewCore(first,a,second,b,false);
 
         /// <summary>For an explicitly registered, already reached contact pair only.
         /// Allows numerical contact depth while proving the whole continuation does
         /// not exceed it. Does not exempt other pairs, edges or force admission.</summary>
         public SkiContactSweepPreview PreviewExistingContact(AthleteId first,ManualSkiHeadingFrame a,AthleteId second,ManualSkiHeadingFrame b)
+            => PreviewCore(first,new ManualSkiWorldTrajectory(a),second,new ManualSkiWorldTrajectory(b),true);
+
+        public SkiContactSweepPreview PreviewExistingContact(AthleteId first,ManualSkiWorldTrajectory a,AthleteId second,ManualSkiWorldTrajectory b)
             => PreviewCore(first,a,second,b,true);
 
-        private SkiContactSweepPreview PreviewCore(AthleteId first,ManualSkiHeadingFrame a,AthleteId second,ManualSkiHeadingFrame b,bool continuation)
+        private SkiContactSweepPreview PreviewCore(AthleteId first,ManualSkiWorldTrajectory a,AthleteId second,ManualSkiWorldTrajectory b,bool continuation)
         {
-            if(!first.IsValid||!second.IsValid||first.Equals(second)||!a.HasForceTrajectory||!b.HasForceTrajectory||a.DurationSeconds!=b.DurationSeconds)
+            if(!first.IsValid||!second.IsValid||first.Equals(second)||!a.IsValid||!b.IsValid||a.DurationSeconds!=b.DurationSeconds)
                 throw new ArgumentException("Distinct actors and equal-duration force-weighted frames required.");
             if(string.CompareOrdinal(first.Value,second.Value)>0)return PreviewCore(second,b,first,a,continuation);
             // Cover errors at both the midpoint used for exclusion and any encoded
@@ -67,7 +75,7 @@ namespace Biathlon.Simulation
             return Search(first,a,second,b,0,a.DurationSeconds,0,reserve,requiredGap,continuation,ref checks);
         }
 
-        private SkiContactSweepPreview Search(AthleteId first,ManualSkiHeadingFrame a,AthleteId second,ManualSkiHeadingFrame b,
+        private SkiContactSweepPreview Search(AthleteId first,ManualSkiWorldTrajectory a,AthleteId second,ManualSkiWorldTrajectory b,
             double from,double to,int depth,double reserve,double requiredGap,bool continuation,ref int checks)
         {
             if(checks>=definition.MaximumIntervalChecks)
@@ -93,7 +101,7 @@ namespace Biathlon.Simulation
             return Search(first,a,second,b,mid,to,depth+1,reserve,requiredGap,continuation,ref checks);
         }
 
-        private SkiContactPreview Geometry(AthleteId first,ManualSkiHeadingFrame a,AthleteId second,ManualSkiHeadingFrame b,double fraction)
+        private SkiContactPreview Geometry(AthleteId first,ManualSkiWorldTrajectory a,AthleteId second,ManualSkiWorldTrajectory b,double fraction)
         {
             // Zero velocities avoid invoking response while querying geometry. Mass is
             // an unused unit placeholder, not an athlete physics parameter.
