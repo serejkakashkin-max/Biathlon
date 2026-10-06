@@ -222,3 +222,21 @@ range/penalty traversal, competition receipts, race events or replay. It is
 not yet connected to the playable host. An unresolved full-tick contact must
 be resolved by future joint response work; this ledger alone does not cure
 owner-observed queues or complete manual steering.
+
+## 2026-10-06 bound physical odometer
+
+The roster may now bind an initial `SkiState` for each athlete. A full-clear
+proposal stages odometer and slope-path speed with its world pose and route
+cursor, and the same one-use commit publishes all four. Force-driven travel
+uses the shared force trajectory's path distance. Post-contact side-slip
+integrates the norm of its linear planar velocity ramp with 64 fixed Simpson
+panels and a caller-supplied frozen directional grade. Route station remains
+a separate high-water credit; a sideways or backward ski can pay physical
+distance without advancing the race. The optional binding has a new context
+marker and retains the prior world-only behavior for existing callers.
+
+The contact integral and frozen grade are deterministic approximations, not
+yet qualified for changing surface geometry within a tick. More importantly,
+the roster still does not own physiology, range/penalty state, lifecycle,
+race events or replay. No playable steering or queue-completion claim follows
+from the odometer binding alone.
