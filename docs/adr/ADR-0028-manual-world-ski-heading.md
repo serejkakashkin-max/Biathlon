@@ -47,3 +47,14 @@ admitted target yields an invalid plan rather than an automatic turn or free
 movement. The policy currently exists only as a tested schema, without chosen
 production tuning or a live race caller. This does not satisfy integration items
 2–6 above or authorize declaring auto turns removed in the playable build.
+
+## 2026-10-06 intermediate AI passing-line yaw intent
+
+The AI route controller can now aim at a caller-selected lateral passing
+line on its locally admitted route target. The caller supplies an already
+calculated usable half-width; the target is clamped to it. That target changes
+the signed yaw request, never the accepted world pose or route credit. A
+versioned context marker identifies the policy surface. This provides a
+physical steering intent for a future world-roster planner; it does not
+choose a safe passing side, grant body/course admission or replace the live
+pack AI. The player command remains separate and unassisted.

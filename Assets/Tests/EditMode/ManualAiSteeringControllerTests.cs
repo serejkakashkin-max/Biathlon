@@ -79,6 +79,33 @@ namespace Biathlon.Tests
             Assert.That(admitted.IsValid,Is.True);
             Assert.That(admitted.Target.SectionIndex,Is.EqualTo(edge+1));
         }
+        [Test] public void PassingLineChangesYawWithoutSlidingOrGrantingAdmission()
+        {
+            var f=Create();var first=f.route.GetSection(0);
+            var p=f.visual.Get(first.LoopId).Sample(first.LoopStart.Meters+10);
+            var pose=new ManualSkiHeadingState(p.X,p.Z,Math.Atan2(p.ForwardX,p.ForwardZ));
+            Assert.That(f.map.TryProject(pose,0,Nano(first.Start.Meters+10),.01,false,
+                out var observation),Is.True);
+            var neutral=f.controller.Plan(pose,observation,0,false);
+            var right=f.controller.Plan(pose,observation,0,false,1.5,2);
+            var left=f.controller.Plan(pose,observation,0,false,-1.5,2);
+            Assert.That(right.IsValid&&left.IsValid,Is.True);
+            Assert.That(right.SteeringInput,Is.GreaterThan(neutral.SteeringInput));
+            Assert.That(left.SteeringInput,Is.LessThan(neutral.SteeringInput));
+            Assert.That(right.TargetLateralMeters,Is.EqualTo(1.5));
+            Assert.That(left.TargetLateralMeters,Is.EqualTo(-1.5));
+            Assert.That(f.controller.Plan(pose,observation,0,false,5,1).TargetLateralMeters,
+                Is.EqualTo(1));
+            Assert.That(pose,Is.EqualTo(new ManualSkiHeadingState(p.X,p.Z,
+                Math.Atan2(p.ForwardX,p.ForwardZ))));
+            Assert.That(f.controller.ContextJson,Does.Contain("manual_ai_bounded_pass_line_yaw_v2"));
+            for(int i=0;i<100;i++)f.controller.Plan(pose,observation,0,false,1.5,2);
+            long bytes=GC.GetAllocatedBytesForCurrentThread();
+            for(int i=0;i<1000;i++)
+                if(f.controller.Plan(pose,observation,0,false,1.5,2).SteeringInput!=right.SteeringInput)
+                    Assert.Fail("Passing-line yaw changed across identical observations.");
+            Assert.That(GC.GetAllocatedBytesForCurrentThread()-bytes,Is.Zero);
+        }
         [Test] public void IntentIsDeterministicAllocationFreeAndDoesNotReplacePhysicalSteering()
         {
             var f=Create();var first=f.route.GetSection(0);var p=f.visual.Get(first.LoopId).Sample(first.LoopStart.Meters+10);

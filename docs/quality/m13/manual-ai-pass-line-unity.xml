@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="5" result="Passed" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 20:03:18Z" end-time="2026-10-06 20:03:21Z" duration="3,4106916">
+  <test-suite type="TestSuite" id="1000" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1232" result="Passed" start-time="2026-10-06 20:03:18Z" end-time="2026-10-06 20:03:21Z" duration="3.410692" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2501" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="1205" result="Passed" start-time="2026-10-06 20:03:18Z" end-time="2026-10-06 20:03:21Z" duration="3.399523" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="67492" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2502" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1205" result="Passed" start-time="2026-10-06 20:03:18Z" end-time="2026-10-06 20:03:21Z" duration="3.383598" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2503" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="1205" result="Passed" start-time="2026-10-06 20:03:18Z" end-time="2026-10-06 20:03:21Z" duration="3.376879" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1319" name="ManualAiSteeringControllerTests" fullname="Biathlon.Tests.ManualAiSteeringControllerTests" classname="Biathlon.Tests.ManualAiSteeringControllerTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-06 20:03:18Z" end-time="2026-10-06 20:03:21Z" duration="3.364936" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1324" name="IntentIsDeterministicAllocationFreeAndDoesNotReplacePhysicalSteering" fullname="Biathlon.Tests.ManualAiSteeringControllerTests.IntentIsDeterministicAllocationFreeAndDoesNotReplacePhysicalSteering" methodname="IntentIsDeterministicAllocationFreeAndDoesNotReplacePhysicalSteering" classname="Biathlon.Tests.ManualAiSteeringControllerTests" runstate="Runnable" seed="114403867" result="Passed" start-time="2026-10-06 20:03:18Z" end-time="2026-10-06 20:03:19Z" duration="0.748804" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1321" name="OffCentreAiRequestsMirroredPhysicalYawWithoutMovingEitherWorldPose" fullname="Biathlon.Tests.ManualAiSteeringControllerTests.OffCentreAiRequestsMirroredPhysicalYawWithoutMovingEitherWorldPose" methodname="OffCentreAiRequestsMirroredPhysicalYawWithoutMovingEitherWorldPose" classname="Biathlon.Tests.ManualAiSteeringControllerTests" runstate="Runnable" seed="1050108845" result="Passed" start-time="2026-10-06 20:03:19Z" end-time="2026-10-06 20:03:19Z" duration="0.654518" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1323" name="PassingLineChangesYawWithoutSlidingOrGrantingAdmission" fullname="Biathlon.Tests.ManualAiSteeringControllerTests.PassingLineChangesYawWithoutSlidingOrGrantingAdmission" methodname="PassingLineChangesYawWithoutSlidingOrGrantingAdmission" classname="Biathlon.Tests.ManualAiSteeringControllerTests" runstate="Runnable" seed="405145225" result="Passed" start-time="2026-10-06 20:03:19Z" end-time="2026-10-06 20:03:20Z" duration="0.614691" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1320" name="PolicyIsVersionedValidatedAndBoundInReplayContext" fullname="Biathlon.Tests.ManualAiSteeringControllerTests.PolicyIsVersionedValidatedAndBoundInReplayContext" methodname="PolicyIsVersionedValidatedAndBoundInReplayContext" classname="Biathlon.Tests.ManualAiSteeringControllerTests" runstate="Runnable" seed="524582323" result="Passed" start-time="2026-10-06 20:03:20Z" end-time="2026-10-06 20:03:20Z" duration="0.636196" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1322" name="SpeedLookaheadIsBoundedAndUnadmittedBranchReturnsNoCommand" fullname="Biathlon.Tests.ManualAiSteeringControllerTests.SpeedLookaheadIsBoundedAndUnadmittedBranchReturnsNoCommand" methodname="SpeedLookaheadIsBoundedAndUnadmittedBranchReturnsNoCommand" classname="Biathlon.Tests.ManualAiSteeringControllerTests" runstate="Runnable" seed="468284631" result="Passed" start-time="2026-10-06 20:03:20Z" end-time="2026-10-06 20:03:21Z" duration="0.700149" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

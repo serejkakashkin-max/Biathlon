@@ -21875,3 +21875,21 @@ Pack field side state, timing/results, start/range/penalty world geometry,
 AI steering, contact replan, v2 replay and playable host remain open. This
 does not clear the owner-observed queues or automatic turns. WP-175–178 and
 M13 remain OPEN. No intermediate Windows review build was issued.
+
+## 2026-10-06 — M13 manual AI passing-line yaw intent
+
+The manual AI controller can convert a caller-selected, width-bounded
+passing line into a signed yaw request instead of changing lateral position
+directly. Opposite lines produce opposite steering; the accepted world pose
+remains unchanged until the common body/course solver accepts a trajectory.
+The controller does not yet choose a safe side or run in the playable AI.
+
+Release .NET 5/5 PASS; hidden Unity 6 EditMode 5/5 PASS, process exit 0;
+deterministic repetition and zero per-call allocation covered. Evidence:
+docs/quality/m13/manual-ai-pass-line.trx and
+docs/quality/m13/manual-ai-pass-line-unity.xml. Report:
+docs/reports/TASK_M13_MANUAL_AI_PASS_LINE_20261006.md. ADR-0028 extended.
+
+Shared-world AI decisions, contact replan, range/penalty phase movement,
+field/replay/host integration and owner hands-on verification remain open.
+WP-175–178 and M13 remain OPEN. No Windows review build yet.
