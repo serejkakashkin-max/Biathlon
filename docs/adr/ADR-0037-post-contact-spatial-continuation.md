@@ -108,3 +108,8 @@ This proves containment in the authored polyline inner-tube model, not exact
 equivalence to the rendered mesh at every join or complete race admission.
 Start/finish, branching, range/penalty ownership, pair contacts, route progress
 and event commit remain separate. The playable v1 field still follows its route.
+
+The native Woodland Main ribbon was also sampled at every interior mesh row:
+7,368 radial points at the inner-tube radius lay inside its actual X/Z triangles.
+This is a useful mesh/geometry agreement check, not a continuous whole-ribbon
+proof or permission to bypass the route/topology checks above.

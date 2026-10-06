@@ -20,7 +20,13 @@ Validation: focused .NET route/spatial tests 33/33 PASS; native Unity tube tests
 4/4 PASS. Unity compilation completed and recent Error Console was empty.
 Evidence: `docs/quality/m13/owner-manual-route-tube-20261006/`.
 
-This is a conservative authored-polyline model. Exact correspondence to the
+A subsequent PlayMode cross-check passed 2/2, including 7,368 radial samples
+inside the actual Woodland Main ribbon triangles at all interior native mesh
+rows. The hidden PlayMode run emitted an FMOD output-device initialization
+error; it did not fail tests or indicate a script compilation error. Its XML
+receipt is in the same evidence directory.
+
+This is a conservative authored-polyline model. Continuous equivalence to the
 rendered ribbon at all joins, actual branch/range/penalty admission, group
 contacts, route events, v2 replay and playable host integration remain open.
 The present auto-turn game has not changed. M13/WP175–178 remain open; no

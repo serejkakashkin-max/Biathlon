@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 15:15:50Z" end-time="2026-10-06 15:15:50Z" duration="0,3125905">
+  <test-suite type="TestSuite" id="1359" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="261" result="Passed" start-time="2026-10-06 15:15:50Z" end-time="2026-10-06 15:15:50Z" duration="0.312591" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1353" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="261" result="Passed" start-time="2026-10-06 15:15:50Z" end-time="2026-10-06 15:15:50Z" duration="0.282298" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="61532" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1354" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="261" result="Passed" start-time="2026-10-06 15:15:50Z" end-time="2026-10-06 15:15:50Z" duration="0.273125" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1355" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="261" result="Passed" start-time="2026-10-06 15:15:50Z" end-time="2026-10-06 15:15:50Z" duration="0.267318" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1324" name="TrackRibbonTests" fullname="Biathlon.PlayModeTests.TrackRibbonTests" classname="Biathlon.PlayModeTests.TrackRibbonTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-06 15:15:50Z" end-time="2026-10-06 15:15:50Z" duration="0.259789" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1325" name="AuthoredLoopsGenerateFiniteRepeatableMeshAndUpwardSurface" fullname="Biathlon.PlayModeTests.TrackRibbonTests.AuthoredLoopsGenerateFiniteRepeatableMeshAndUpwardSurface" methodname="AuthoredLoopsGenerateFiniteRepeatableMeshAndUpwardSurface" classname="Biathlon.PlayModeTests.TrackRibbonTests" runstate="Runnable" seed="155887293" result="Passed" start-time="2026-10-06 15:15:50Z" end-time="2026-10-06 15:15:50Z" duration="0.128899" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1326" name="WoodlandMainInnerTubeAtEveryNativeRowFitsInsideTheRenderedRibbon" fullname="Biathlon.PlayModeTests.TrackRibbonTests.WoodlandMainInnerTubeAtEveryNativeRowFitsInsideTheRenderedRibbon" methodname="WoodlandMainInnerTubeAtEveryNativeRowFitsInsideTheRenderedRibbon" classname="Biathlon.PlayModeTests.TrackRibbonTests" runstate="Runnable" seed="470178034" result="Passed" start-time="2026-10-06 15:15:50Z" end-time="2026-10-06 15:15:50Z" duration="0.119305" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[woodland_main_inner_tube_native_mesh_samples=7368 conservative_radius_m=1.7768785220660286
+Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

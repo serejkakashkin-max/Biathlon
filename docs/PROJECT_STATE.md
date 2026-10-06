@@ -21466,3 +21466,20 @@ This is an authored-polyline inner-tube proof, not yet an exact rendered-mesh
 or whole-race admission. Branch/range/penalty transitions, contacts, progress,
 events, replay and live input/presentation remain OPEN. Playable auto turns are
 still present; M13/WP175–178 OPEN. No intermediate Windows build.
+
+## 2026-10-06 — M13 inner-tube/native-ribbon agreement check
+
+Cross-checked the selected-route inner tube against the actual Unity
+TrackRibbonBuilder mesh for Woodland Main. At all interior native mesh rows,
+7,368 radial points at the conservative tube radius lay inside the X/Z ribbon
+triangles. PlayMode class 2/2 PASS. This supports geometry agreement at sampled
+rows, not a continuous proof over every surface point or permission to skip
+topology/range/contact checks. Evidence:
+docs/quality/m13/owner-manual-route-tube-20261006/native-ribbon-containment.xml.
+The associated route-tube report and ADR-0037 were updated. This STATE entry
+was appended; all previous bytes remain unchanged.
+
+Unity scripts were compiled. A hidden PlayMode run logged FMOD output-device
+initialization error (60); tests still passed. No compile error was observed.
+No gameplay tuning, playable host, replay or race result changed. M13/WP175–178
+remain OPEN; no intermediate Windows build.
