@@ -21211,3 +21211,31 @@ at interval start; residual grip excess still requires the joint movement/contac
 solver. Remaining: oriented body/edge admission and contact response, start/range/
 penalty cursors, AI steering, versioned race replay and host wiring. Queues are
 still an open owner defect. M13/WP175–178 remain OPEN. Preserve all prior history.
+
+## 2026-10-06 — M13 oriented pair contact checkpoint
+
+Implemented a shared event-free oriented pair contact primitive. The rectangle
+keeps existing complete body/clearance dimensions and follows actual world yaw.
+At a nonrotating contact, equal/opposite normal impulses transfer momentum;
+friction is bounded and a side swipe can retain forward speed. Separating bodies
+are not pulled together. No teleport, ghosting, body shrink or AI bonus.
+
+The fixed-orientation constant-velocity sweep finds first contact inside a step,
+including a fast pass-through missed by endpoint-only tests. It does not grant
+course or group admission. Initial penetration remains explicitly unresolved;
+rotating contacts require the next angular-contact work. Post-contact side slip
+must be retained and physically resolved before playable integration.
+
+Validation: focused .NET movement/contact selection 61 PASS, 0 FAIL/SKIP; native
+Unity contact class 13 PASS. Momentum, energy, actual orientation, symmetric ID
+ordering, high-speed crossing and warm allocation checks pass. The earlier 23
+legacy replay tests are a separate earlier receipt. No live race caller switched,
+no race output/tuning change and no intermediate Windows build.
+
+Contract: docs/adr/ADR-0035-oriented-ski-pair-contact.md.
+Report: docs/reports/TASK_M13_ORIENTED_PAIR_CONTACT_20261006.md.
+Evidence: docs/quality/m13/owner-force-heading-20261006/motion-contact-core.trx
+and native-contact.xml. Current index: docs/PROJECT_CURRENT.md.
+M13/WP175–178 remain OPEN. Next: continuous rotating-body contact and course edges,
+slip response, route lifecycle/AI/replay/host integration. Owner queues and full
+manual steering are NOT marked fixed. All historical STATE bytes preserved.
