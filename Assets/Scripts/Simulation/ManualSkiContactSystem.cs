@@ -126,21 +126,29 @@ namespace Biathlon.Simulation
         /// planar inertia. Requires the caller to have reached contact continuously.
         /// Does not sweep a rotating trajectory or advance bodies after the impulse.</summary>
         public SkiAngularContactPreview PreviewAngularContact(ManualSkiContactBody first,ManualSkiContactBody second)
+            => PreviewAngularContact(first,first.Pose.YawRateRadiansPerSecond,second,second.Pose.YawRateRadiansPerSecond);
+
+        /// <summary>Retains unquantized physical spin between simultaneous contact
+        /// impulses. Encoding belongs to the future joint motion commit, not each pair.</summary>
+        public SkiAngularContactPreview PreviewAngularContact(ManualSkiContactBody first,double firstYaw,
+            ManualSkiContactBody second,double secondYaw)
         {
+            PhysiologyNumbers.RequireRange(firstYaw,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,nameof(firstYaw));
+            PhysiologyNumbers.RequireRange(secondYaw,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,nameof(secondYaw));
             // Canonical order also preserves exact swap symmetry of the angular solve.
             if(!first.IsValid||!second.IsValid||first.Athlete.Equals(second.Athlete))throw new ArgumentException("Two distinct initialized bodies required.");
             if(string.CompareOrdinal(first.Athlete.Value,second.Athlete.Value)>0)
             {
-                var reverse=Angular(second,first);var c=reverse.Contact;
+                var reverse=Angular(second,first,secondYaw,firstYaw);var c=reverse.Contact;
                 return new SkiAngularContactPreview(new SkiContactPreview(c.Status,c.GapMeters,-c.NormalX,-c.NormalZ,
                     c.SecondVelocity,c.FirstVelocity,c.NormalImpulseNewtonSeconds,c.TangentImpulseNewtonSeconds),
                     reverse.SecondYawRate,reverse.FirstYawRate,reverse.ContactX,reverse.ContactZ);
             }
-            return Angular(first,second);
+            return Angular(first,second,firstYaw,secondYaw);
         }
-        private SkiAngularContactPreview Angular(ManualSkiContactBody a,ManualSkiContactBody b)
+        private SkiAngularContactPreview Angular(ManualSkiContactBody a,ManualSkiContactBody b,double wa,double wb)
         {
-            var initial=Preview(a,b);double wa=a.Pose.YawRateRadiansPerSecond,wb=b.Pose.YawRateRadiansPerSecond;
+            var initial=Preview(a,b);
             if(initial.Status==SkiContactPreviewStatus.Separated||initial.Status==SkiContactPreviewStatus.Penetrating)
                 return new SkiAngularContactPreview(initial,wa,wb,0,0);
             double nx=initial.NormalX,nz=initial.NormalZ,tx=-nz,tz=nx;

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="8" result="Passed" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 12:14:29Z" end-time="2026-10-06 12:14:29Z" duration="0,5629352">
+  <test-suite type="TestSuite" id="2470" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1159" result="Passed" start-time="2026-10-06 12:14:29Z" end-time="2026-10-06 12:14:29Z" duration="0.562935" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2415" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="1132" result="Passed" start-time="2026-10-06 12:14:29Z" end-time="2026-10-06 12:14:29Z" duration="0.463366" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="61532" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2416" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1132" result="Passed" start-time="2026-10-06 12:14:29Z" end-time="2026-10-06 12:14:29Z" duration="0.366791" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2417" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="1132" result="Passed" start-time="2026-10-06 12:14:29Z" end-time="2026-10-06 12:14:29Z" duration="0.267205" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1324" name="ManualSkiContactGroupTests" fullname="Biathlon.Tests.ManualSkiContactGroupTests" classname="Biathlon.Tests.ManualSkiContactGroupTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-10-06 12:14:29Z" end-time="2026-10-06 12:14:29Z" duration="0.170785" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1328" name="AngularGroupRetainsRawSpinBetweenImpulsesAndConservesMomentum" fullname="Biathlon.Tests.ManualSkiContactGroupTests.AngularGroupRetainsRawSpinBetweenImpulsesAndConservesMomentum" methodname="AngularGroupRetainsRawSpinBetweenImpulsesAndConservesMomentum" classname="Biathlon.Tests.ManualSkiContactGroupTests" runstate="Runnable" seed="783216436" result="Passed" start-time="2026-10-06 12:14:29Z" end-time="2026-10-06 12:14:29Z" duration="0.053496" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1327" name="CanonicalIdOrderMakesAllInputPermutationsExactlyIdentical" fullname="Biathlon.Tests.ManualSkiContactGroupTests.CanonicalIdOrderMakesAllInputPermutationsExactlyIdentical" methodname="CanonicalIdOrderMakesAllInputPermutationsExactlyIdentical" classname="Biathlon.Tests.ManualSkiContactGroupTests" runstate="Runnable" seed="414035439" result="Passed" start-time="2026-10-06 12:14:29Z" end-time="2026-10-06 12:14:29Z" duration="0.001678" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1329" name="FortyActorFieldKeepsUninvolvedAthletesUnchanged" fullname="Biathlon.Tests.ManualSkiContactGroupTests.FortyActorFieldKeepsUninvolvedAthletesUnchanged" methodname="FortyActorFieldKeepsUninvolvedAthletesUnchanged" classname="Biathlon.Tests.ManualSkiContactGroupTests" runstate="Runnable" seed="882437649" result="Passed" start-time="2026-10-06 12:14:29Z" end-time="2026-10-06 12:14:29Z" duration="0.001593" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1326" name="InsufficientPassesExposeResidualClosingInsteadOfGrantingAdmission" fullname="Biathlon.Tests.ManualSkiContactGroupTests.InsufficientPassesExposeResidualClosingInsteadOfGrantingAdmission" methodname="InsufficientPassesExposeResidualClosingInsteadOfGrantingAdmission" classname="Biathlon.Tests.ManualSkiContactGroupTests" runstate="Runnable" seed="554652327" result="Passed" start-time="2026-10-06 12:14:29Z" end-time="2026-10-06 12:14:29Z" duration="0.001288" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1332" name="InvalidBodiesBuffersAndDefinitionsFailBeforeWritingOutputs" fullname="Biathlon.Tests.ManualSkiContactGroupTests.InvalidBodiesBuffersAndDefinitionsFailBeforeWritingOutputs" methodname="InvalidBodiesBuffersAndDefinitionsFailBeforeWritingOutputs" classname="Biathlon.Tests.ManualSkiContactGroupTests" runstate="Runnable" seed="1676873596" result="Passed" start-time="2026-10-06 12:14:29Z" end-time="2026-10-06 12:14:29Z" duration="0.002655" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1330" name="PenetrationIsReportedWithoutMovingOrTeleportingAnyBody" fullname="Biathlon.Tests.ManualSkiContactGroupTests.PenetrationIsReportedWithoutMovingOrTeleportingAnyBody" methodname="PenetrationIsReportedWithoutMovingOrTeleportingAnyBody" classname="Biathlon.Tests.ManualSkiContactGroupTests" runstate="Runnable" seed="201638966" result="Passed" start-time="2026-10-06 12:14:29Z" end-time="2026-10-06 12:14:29Z" duration="0.000511" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1331" name="RepeatedGroupResolutionDoesNotAllocateOrChangeInputs" fullname="Biathlon.Tests.ManualSkiContactGroupTests.RepeatedGroupResolutionDoesNotAllocateOrChangeInputs" methodname="RepeatedGroupResolutionDoesNotAllocateOrChangeInputs" classname="Biathlon.Tests.ManualSkiContactGroupTests" runstate="Runnable" seed="332225879" result="Passed" start-time="2026-10-06 12:14:29Z" end-time="2026-10-06 12:14:29Z" duration="0.003920" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1325" name="ThreeWayRearContactSharesMomentumWithoutArtificialFullStop" fullname="Biathlon.Tests.ManualSkiContactGroupTests.ThreeWayRearContactSharesMomentumWithoutArtificialFullStop" methodname="ThreeWayRearContactSharesMomentumWithoutArtificialFullStop" classname="Biathlon.Tests.ManualSkiContactGroupTests" runstate="Runnable" seed="2042013636" result="Passed" start-time="2026-10-06 12:14:29Z" end-time="2026-10-06 12:14:29Z" duration="0.000787" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

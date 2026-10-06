@@ -21265,3 +21265,35 @@ contact time during rotating/accelerating travel, simultaneous group response,
 ski/snow slip response and edges, route lifecycle, AI, v2 race replay and live host.
 New contact yaw/slip must not be discarded or clamped into the old forward-only
 state. All previous PROJECT_STATE bytes retained unchanged.
+
+## 2026-10-06 — M13 continuous turning contact and simultaneous group response
+
+Added a continuous pair sweep for force-weighted manual trajectories. It accounts
+for translation, acceleration, rotation and numerical integration/encoding reserve.
+It finds a first non-excluded interval even when both endpoints are separated.
+PotentialContact is not exact impact time; InitialProximity includes tolerance.
+Work exhaustion stays unresolved. Actual occupied rectangle dimensions remain
+unchanged; no permanent turning-circle inflation or ghosting is introduced.
+
+Added stable-ID-ordered simultaneous angular contact response at reached poses.
+Impulses retain raw physical spin, recheck all pairs after each pass, preserve
+linear/angular momentum and do not create energy in the regression scenarios.
+Explicit residual closing speed/pass limits prevent falsely declaring an
+unconverged group resolved. Output remains provisional and does not move actors.
+
+Validation: 106 focused .NET tests PASS (83 movement/contact, 23 legacy replay).
+Native Unity: 11 sweep, 8 group, 16 pair tests PASS. Compilation complete and
+recent Error Console empty. The earlier allocation anomaly is preserved in its
+original report; it did not recur in this run. No full-suite claim or Windows build.
+
+Contract: docs/adr/ADR-0036-continuous-manual-contact-and-group-response.md.
+Report: docs/reports/TASK_M13_CONTINUOUS_GROUP_CONTACT_20261006.md.
+Evidence: docs/quality/m13/owner-contact-sweep-20261006/.
+Current readable index: docs/PROJECT_CURRENT.md. All previous STATE bytes retained.
+
+No playable race caller changed; no production tuning or legacy replay changed.
+Queues and full manual steering remain OPEN. Next: contact-arrival refinement,
+resting/departing contacts, post-impact slip/spin integration and course edges;
+then paid route/lifecycle, AI, v2 replay and host wiring. Group Resolved describes
+contact velocities at fixed poses, not permission to advance the rest of a tick.
+M13/WP175–178 remain OPEN. One consolidated owner build follows the complete batch.

@@ -25,6 +25,44 @@ namespace Biathlon.Simulation
         public bool RequestLimited => Math.Abs(RequestedYawRate) > YawRateLimit;
         public bool ExceedsGrip => LateralAccelerationDemand > GripAccelerationLimit;
         public bool IsValid => DurationSeconds > 0 && State.IsValid;
+        public bool HasForceTrajectory => IsValid && travel.IsValid;
+        public double PeakPlanarSpeed => travel.IsValid ? travel.PeakSpeed * planarScale : PlanarTravelDistanceMeters / DurationSeconds;
+        /// <summary>Bound on centre acceleration, including the change of direction.</summary>
+        public double PlanarAccelerationBound => Math.Abs(travel.Acceleration) * planarScale + PeakPlanarSpeed * PeakYawRate;
+
+        /// <summary>Euclidean integration/encoding reserve for any force-weighted sample.
+        /// The uniform-distance legacy overload has an unsplit angular kink and is not supported.</summary>
+        public double PositionErrorBoundMeters
+        {
+            get
+            {
+                if (!HasForceTrajectory) throw new InvalidOperationException("Force-weighted trajectory required.");
+                double w = PeakYawRate, alpha = Math.Abs(acceleration), a = Math.Abs(travel.Acceleration) * planarScale;
+                // For f=v*exp(i*heading), |f''''| <= v*(w^4+6*w^2*alpha+3*alpha^2)
+                // +4*|a|*(w^3+3*w*alpha). Each ramp kink is split by Integrate.
+                double fourth = PeakPlanarSpeed * (w*w*w*w + 6*w*w*alpha + 3*alpha*alpha)
+                    + 4*a*(w*w*w + 3*w*alpha);
+                double panel = DurationSeconds / substeps;
+                double quadrature = Math.Sqrt(2) * fourth * DurationSeconds * panel*panel*panel*panel / 2880;
+                // At most three pieces; include coordinate summation, transcendental
+                // arithmetic and nanometre state encoding. This is a numerical reserve,
+                // not a claim of platform-independent interval arithmetic for libm.
+                double roundoff = 64 * 2.2204460492503131e-16 * (3*substeps+1)
+                    * (Math.Abs(initial.X)+Math.Abs(initial.Z)+PeakPlanarSpeed*DurationSeconds+1);
+                return quadrature + roundoff + 1e-9;
+            }
+        }
+        /// <summary>Includes rounding and the integer full-turn encoding's tiny difference from 2*pi.</summary>
+        public double HeadingErrorBoundRadians => 2e-9 * (1 + PeakYawRate * DurationSeconds);
+
+        public SkiPlanarVelocity VelocityAt(double fraction)
+        {
+            if (!HasForceTrajectory) throw new InvalidOperationException("Force-weighted trajectory required.");
+            PhysiologyNumbers.RequireRange(fraction, 0, 1, nameof(fraction));
+            double time = DurationSeconds*fraction, heading = initial.HeadingRadians+AngleAt(time);
+            double speed = travel.SpeedRaw(time)*planarScale;
+            return new SkiPlanarVelocity(speed*Math.Sin(heading), speed*Math.Cos(heading));
+        }
 
         internal ManualSkiHeadingFrame(ManualSkiHeadingState initial, double duration, double distance,
             double requestedRate, double targetRate, double rateLimit, double acceleration, double reach,
