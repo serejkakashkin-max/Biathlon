@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 07:52:14Z" end-time="2026-10-06 07:52:26Z" duration="12,8739702">
+  <test-suite type="TestSuite" id="1358" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="260" result="Passed" start-time="2026-10-06 07:52:14Z" end-time="2026-10-06 07:52:26Z" duration="12.873970" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1352" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="260" result="Passed" start-time="2026-10-06 07:52:14Z" end-time="2026-10-06 07:52:26Z" duration="12.852539" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="13188" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1353" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="260" result="Passed" start-time="2026-10-06 07:52:14Z" end-time="2026-10-06 07:52:26Z" duration="12.846490" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1354" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="260" result="Passed" start-time="2026-10-06 07:52:14Z" end-time="2026-10-06 07:52:26Z" duration="12.842693" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1193" name="PlayerRouteGuidanceTests" fullname="Biathlon.PlayModeTests.PlayerRouteGuidanceTests" classname="Biathlon.PlayModeTests.PlayerRouteGuidanceTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-06 07:52:14Z" end-time="2026-10-06 07:52:26Z" duration="12.836154" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1195" name="ActualAssignedMatGuideAndBoundedAidReturnManualIntentAfterDeparture" fullname="Biathlon.PlayModeTests.PlayerRouteGuidanceTests.ActualAssignedMatGuideAndBoundedAidReturnManualIntentAfterDeparture" methodname="ActualAssignedMatGuideAndBoundedAidReturnManualIntentAfterDeparture" classname="Biathlon.PlayModeTests.PlayerRouteGuidanceTests" runstate="Runnable" seed="1857808947" result="Passed" start-time="2026-10-06 07:52:14Z" end-time="2026-10-06 07:52:14Z" duration="0.514370" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+]]></output>
+            </test-case>
+            <test-case id="1194" name="WoodlandMatTrailAppearsBeforeFinalApproachAndStartsAheadOfSkier" fullname="Biathlon.PlayModeTests.PlayerRouteGuidanceTests.WoodlandMatTrailAppearsBeforeFinalApproachAndStartsAheadOfSkier" methodname="WoodlandMatTrailAppearsBeforeFinalApproachAndStartsAheadOfSkier" classname="Biathlon.PlayModeTests.PlayerRouteGuidanceTests" runstate="Runnable" seed="54375968" result="Passed" start-time="2026-10-06 07:52:14Z" end-time="2026-10-06 07:52:26Z" duration="12.312374" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

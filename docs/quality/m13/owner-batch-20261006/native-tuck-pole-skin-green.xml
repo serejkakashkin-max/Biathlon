@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="5" result="Passed" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 07:48:54Z" end-time="2026-10-06 07:48:54Z" duration="0,141957">
+  <test-suite type="TestSuite" id="1358" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="260" result="Passed" start-time="2026-10-06 07:48:54Z" end-time="2026-10-06 07:48:54Z" duration="0.141957" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1352" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="260" result="Passed" start-time="2026-10-06 07:48:54Z" end-time="2026-10-06 07:48:54Z" duration="0.120527" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="13188" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1353" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="260" result="Passed" start-time="2026-10-06 07:48:54Z" end-time="2026-10-06 07:48:54Z" duration="0.116200" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1354" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="260" result="Passed" start-time="2026-10-06 07:48:54Z" end-time="2026-10-06 07:48:54Z" duration="0.113282" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1014" name="AthleteGroundContactTests" fullname="Biathlon.PlayModeTests.AthleteGroundContactTests" classname="Biathlon.PlayModeTests.AthleteGroundContactTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-06 07:48:54Z" end-time="2026-10-06 07:48:54Z" duration="0.106631" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1016" name="HeroTuckUsesHipHingeCompactHandsAndTrailingAirbornePoles" fullname="Biathlon.PlayModeTests.AthleteGroundContactTests.HeroTuckUsesHipHingeCompactHandsAndTrailingAirbornePoles" methodname="HeroTuckUsesHipHingeCompactHandsAndTrailingAirbornePoles" classname="Biathlon.PlayModeTests.AthleteGroundContactTests" runstate="Runnable" seed="1922602067" result="Passed" start-time="2026-10-06 07:48:54Z" end-time="2026-10-06 07:48:54Z" duration="0.036060" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1017" name="RenderedGradeUsesGeometryAndRejectsInvalidSampling" fullname="Biathlon.PlayModeTests.AthleteGroundContactTests.RenderedGradeUsesGeometryAndRejectsInvalidSampling" methodname="RenderedGradeUsesGeometryAndRejectsInvalidSampling" classname="Biathlon.PlayModeTests.AthleteGroundContactTests" runstate="Runnable" seed="1317242912" result="Passed" start-time="2026-10-06 07:48:54Z" end-time="2026-10-06 07:48:54Z" duration="0.037261" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1018" name="SkiNormalsAndPoleTipsFollowFlatUphillAndDownhillWithoutMovingRoot" fullname="Biathlon.PlayModeTests.AthleteGroundContactTests.SkiNormalsAndPoleTipsFollowFlatUphillAndDownhillWithoutMovingRoot" methodname="SkiNormalsAndPoleTipsFollowFlatUphillAndDownhillWithoutMovingRoot" classname="Biathlon.PlayModeTests.AthleteGroundContactTests" runstate="Runnable" seed="2015815662" result="Passed" start-time="2026-10-06 07:48:54Z" end-time="2026-10-06 07:48:54Z" duration="0.009491" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1019" name="StagedPolesMeetSurfaceAndShootingAlignmentSurvivesContact" fullname="Biathlon.PlayModeTests.AthleteGroundContactTests.StagedPolesMeetSurfaceAndShootingAlignmentSurvivesContact" methodname="StagedPolesMeetSurfaceAndShootingAlignmentSurvivesContact" classname="Biathlon.PlayModeTests.AthleteGroundContactTests" runstate="Runnable" seed="23385503" result="Passed" start-time="2026-10-06 07:48:54Z" end-time="2026-10-06 07:48:54Z" duration="0.002709" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1015" name="TuckPoleShaftsClearTheActualHeroSkinAfterTheHandGrip" fullname="Biathlon.PlayModeTests.AthleteGroundContactTests.TuckPoleShaftsClearTheActualHeroSkinAfterTheHandGrip" methodname="TuckPoleShaftsClearTheActualHeroSkinAfterTheHandGrip" classname="Biathlon.PlayModeTests.AthleteGroundContactTests" runstate="Runnable" seed="691995606" result="Passed" start-time="2026-10-06 07:48:54Z" end-time="2026-10-06 07:48:54Z" duration="0.011749" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

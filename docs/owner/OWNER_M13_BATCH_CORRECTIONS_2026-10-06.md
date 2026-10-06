@@ -25,3 +25,11 @@ appended entry. Do not describe repeated historical snapshots as fresh progress.
 The interrupted October5 v5 full suite/record jobs have no completion receipts.
 Their partial tapes are diagnostic artifacts, not passing acceptance. Previous
 v4 full-suite failure remains recorded; the focused v5 Pursuit correction passed.
+
+## Additional owner feedback, 2026-10-06
+
+The downhill tuck poles visibly pass through the torso. Keep the compact tuck,
+but route both shafts outside the athlete's body. The approach chevrons must run
+through the open passage, separated from the row of mats, and curve toward the
+selected place, as illustrated by the supplied Biathlon2006 screenshot. These
+are additions to the accumulated batch, not replacement tasks or build approval.

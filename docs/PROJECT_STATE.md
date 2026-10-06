@@ -21150,3 +21150,33 @@ Remaining: coupled manual motion/AI/contacts, player-specific exit delays, broad
 terrain readability, then consolidated format/replay/build qualification. M13 and
 WP175–178 OPEN; G1/G2 APPROVED; one production venue retained. Shooting-too-easy
 feedback remains mandatory for the later tuning stages; no hidden hit RNG added.
+
+
+## 2026-10-06 — Additional owner feedback: pole clearance and separated mat trail
+
+Owner screenshots add two corrections to the existing M13 batch; they do not
+authorize an intermediate build or replace earlier requirements.
+
+- Reproduced tuck poles crossing the shipped hero torso (0.759 m from the grip).
+  Added data-driven outward pole splay, retaining compact hands and airborne poles.
+  Native ground/contact/tuck suite: 5 PASS. Clearance is verified against the
+  skinned mesh on flat ground and two descending grades, after hand contact.
+- Replaced close-to-mat chevrons with a separated open-passage trail, curving to
+  the selected mat. All arrow vertices keep a snow gap; final flashing arrows
+  stay outside the mat. No mat label; no duplicate branch trail beside the mats.
+  Native actual Woodland guide/assistance suite: 2 PASS.
+- Visuals inspected in Unity. The ad-hoc guidance screenshot helper timed out
+  after writing the file; its automatic transport retries later ran in Edit Mode
+  and produced Destroy-in-EditMode logs. Temporary roots were removed; the
+  original scene is retained and clean. Native passing receipts remain separate
+  from this helper issue. The guidance image is a layout illustration only.
+- Simulation, route allocation, hit geometry and balance are unchanged by these
+  presentation fixes. The earlier frozen 1075 PASS traffic suite remains an
+  earlier result, not a rerun after these changes.
+- Report: docs/reports/TASK_M13_TUCK_POLES_AND_MAT_TRAIL_20261006.md.
+  Evidence: docs/quality/m13/owner-batch-20261006/visual-supplement.json and listed
+  native XML receipts/images. Current-work index: docs/PROJECT_CURRENT.md.
+- M13 / WP175–178 remain OPEN. Physically coupled manual steering, shared contacts,
+  remaining player traffic delays and terrain readability are not marked done.
+  No new Windows build. The next build follows the complete accumulated batch
+  and is then handed to the owner for hands-on review. Historical bytes preserved.
