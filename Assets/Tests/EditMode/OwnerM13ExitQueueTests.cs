@@ -18,13 +18,24 @@ namespace Biathlon.Tests
             return ProductionVenueRaceFactory.Create(venue, CompetitionProfile.FromJson(Read(root + "mass_start_profile")),
                 RaceRoutePlan.FromJson(Read(root + "mass_start_route")),
                 RaceSnowConditions.FromJson(Read("Biathlon/race_snow_neutral_v1")),
-                PhysiologyContractTests.DefinitionJson, new RaceEventLog(300000), new AiDecisionCounts(), count:count);
+                PhysiologyContractTests.DefinitionJson, new RaceEventLog(500000), new AiDecisionCounts(), count:count);
         }
 
         [Test, Timeout(600000)]
         public void PlayerHeldOnActualExitDoesNotProduceAStationaryFollowerQueue()
+            => VerifyHeldExit(30,2,12000);
+
+#if !UNITY_EDITOR
+        // Long headless stress regression. The shorter second-bout variant is
+        // the Unity-native smoke check; this one reaches the third range exit.
+        [Test, Timeout(600000)]
+        public void PlayerHeldAfterThirdBoutDoesNotProduceAStationaryFollowerQueue()
+            => VerifyHeldExit(30,3,22000);
+#endif
+
+        private static void VerifyHeldExit(int count,int completedBouts,int maximumTicks)
         {
-            const int count = 30, player = 17;
+            const int player = 17;
             Assert.That(AiRangeTrafficPolicyDefinition.FromJson(
                 Read("Biathlon/Venues/woodland_basin_v1/ai_range_traffic")).RetainSharedExitLine,
                 Is.True, "The shared exit must not converge everyone onto one lateral line.");
@@ -41,7 +52,7 @@ namespace Biathlon.Tests
             var didPass = new bool[count];
             int witnessedBodyBlocks = 0;
             long playerStation = 0;
-            for (int tick = 0; tick < 12000 && holdTicks < 240; tick++)
+            for (int tick = 0; tick < maximumTicks && holdTicks < 240; tick++)
             {
                 for (int i = 0; i < count; i++) previous[i] = controlled.Field.GetAthlete(i).Motion.DistanceNanometers;
                 reference.Step();
@@ -49,7 +60,7 @@ namespace Biathlon.Tests
                 double line = reference.GetLastLateral(player);
                 var prior = controlled.Field.GetAthlete(player);
                 var point = controlled.Field.GetPhysicalPoint(player);
-                if (!held && prior.Lifecycle.CompletedBouts >= 2 && point.LoopId == "exit_aisle" &&
+                if (!held && prior.Lifecycle.CompletedBouts >= completedBouts && point.LoopId == "exit_aisle" &&
                     point.LocalNanometers >= 115 * SkiState.NanometersPerMeter)
                 {
                     held = true;

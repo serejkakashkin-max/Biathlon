@@ -21546,3 +21546,31 @@ This is still a non-committing observation, not live manual steering or a
 whole-race transaction. Range/penalty topology, repeated collision response,
 event-log, v2 replay and playable input remain open. M13/WP175–178 OPEN; no
 intermediate Windows build before owner batch completion.
+
+## 2026-10-06 — M13 third-bout Mass Start exit queue regression
+
+Extended the actual Woodland Mass Start stopped-player witness to the third
+shooting bout. At tick 13,035 the player was held on the shared exit at
+115.362 m for 240 ticks. Two nearby following athletes passed; their maximum
+stationary run was zero ticks. The existing second-bout scenario again had
+four passers and zero follower-stall ticks. This is a regression witness for
+the prior AI/field correction, not a new race-logic or balance change.
+
+The final long third-bout test is headless .NET only and passed 1/1; the final
+Unity-native second-bout smoke test passed 1/1. A prior combined run of both
+scenarios passed .NET 2/2 and Unity 2/2. Unity MCP timed out at 300 s while
+the editor continued; the later TestResults.xml records completed PASS results
+(656 s for the combined run, 312 s for the final native smoke). Unity compiled,
+Editor idle, recent Error Console empty. Report:
+docs/reports/TASK_M13_THIRD_BOUT_EXIT_REGRESSION_20261006.md. Receipts:
+docs/quality/m13/owner-exit-third-bout-20261006/.
+
+An attempted 40-person Mass Start fixture was rejected before racing because
+the authored Mass Start capacity and lane roster are 30. Its failing TRX is
+retained as diagnostic evidence; the valid third-bout witness uses 30. General
+project cap 40 and production capacity definitions were not altered.
+PROJECT_STATE history was only appended.
+
+The owner queue issue still needs hands-on review in the consolidated build.
+Manual steering, whole-race collision response and v2 replay are unfinished;
+M13/WP175–178 remain OPEN. No intermediate Windows build.
