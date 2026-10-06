@@ -3,6 +3,14 @@ using Biathlon.Domain;
 
 namespace Biathlon.Simulation
 {
+    public enum PackMovementBlockKind { None, Width, Athlete }
+    public readonly struct PackMovementBlock
+    {
+        public PackMovementBlockKind Kind { get; }
+        public AthleteId Blocker { get; }
+        internal PackMovementBlock(PackMovementBlockKind kind,AthleteId blocker=default)
+        {Kind=kind;Blocker=blocker;}
+    }
     /// <summary>Shared physical Sprint/Pursuit field. Physics/physiology are prepared before continuous
     /// pack validation; accepted forward prefixes, stops and lateral motion commit together.
     /// Prestart staging and classified athletes are outside the racing corridor.</summary>
@@ -107,6 +115,7 @@ namespace Biathlon.Simulation
         private readonly SprintStepPreview[] previews;
         private readonly Tail[] tails;
         private readonly bool[] onCourse, active, processed, priorContact, constrained;
+        private readonly PackMovementBlock[] initialBlocks;
         private readonly double[] lateral, desiredLateral, drag, propulsion;
         private readonly int[] extraEffort, order;
         private readonly DraftOutput[] drafts, committedDrafts;
@@ -121,6 +130,10 @@ namespace Biathlon.Simulation
         public SimulationTick Tick => field.Tick;
         public int TickFrequency => frequency;
         public int Count => field.Count;
+        /// <summary>Why the first full-speed candidate was shortened on the last tick.
+        /// The blocker is a stable athlete ID; absence means no initial pack block.</summary>
+        public PackMovementBlock GetInitialMovementBlock(int index)
+            =>index>=0&&index<Count?initialBlocks[index]:throw new ArgumentOutOfRangeException(nameof(index));
         public bool IsComplete => field.IsComplete;
         public SprintResultSnapshot Result => field.Result;
         public PursuitResultSnapshot PursuitResult => field.PursuitResult;
@@ -485,6 +498,7 @@ namespace Biathlon.Simulation
             if (!widths.FitsWidth(0, minimumWidth)) throw new ArgumentException("Race paths must contain the body.");
             traces = new Trace[Count]; stationary = new Trace[Count]; previews = new SprintStepPreview[Count]; tails = new Tail[Count];
             onCourse = new bool[Count]; active = new bool[Count]; processed = new bool[Count]; priorContact = new bool[Count]; constrained = new bool[Count];
+            initialBlocks = new PackMovementBlock[Count];
             lateral = new double[Count]; desiredLateral = new double[Count]; drag = new double[Count]; propulsion = new double[Count];
             extraEffort = new int[Count]; order = new int[Count]; drafts = new DraftOutput[Count]; committedDrafts = new DraftOutput[Count]; draftRoster = new SkiPlacement[Count];
             junctionWaitSince = new long[Count]; preparedJunctionWaitSince = new long[Count];
@@ -573,6 +587,7 @@ namespace Biathlon.Simulation
                 if(sharedApron!=null)idle.ApronPath=athlete.RangePath.LaneOrdinal-1;
                 idle.OldTail = tails[i]; idle.NewTail = default; idle.EndTail = tails[i];
                 active[i] = onCourse[i] && !athlete.HasFinished; processed[i] = false; constrained[i] = false; order[i] = i;
+                initialBlocks[i]=default;
             }
             // Official start clock is unchanged; if the line is occupied the athlete waits in staging.
             for (int i = 0; i < Count; i++) if (!active[i] && !GetAthlete(i).HasFinished && tick.Value > GetAthlete(i).ScheduledStart.Value)
@@ -616,7 +631,7 @@ namespace Biathlon.Simulation
                 int i = order[rank]; var athlete = GetAthlete(i);
                 if (!active[i] || athlete.HasFinished) { processed[i] = true; continue; }
                 PrepareLaneChoice(i);
-                if (!Safe(i))
+                if (!Safe(i, true))
                 {
                     constrained[i] = true;
                     long available = previews[i].MovementActive ? previews[i].Movement.Motion.DistanceNanometers - athlete.Motion.DistanceNanometers : 0;
@@ -1148,9 +1163,20 @@ namespace Biathlon.Simulation
         }
         private bool OwnsJunction(int i)
         { if (!active[i]) return false; for (int j = 0; j < junctionCount; j++) if (Touches(stationary[i], j)) return true; return false; }
-        private bool Safe(int i)
-        { if (rangeLayout != null && !FitsActualWidth(i, traces[i])) return false;
-          for (int j = 0; j < Count; j++) if (j != i && active[j] && Conflict(traces[i], i, processed[j] ? traces[j] : stationary[j], j)) return false; return true; }
+        private bool Safe(int i, bool recordInitialBlock = false)
+        {
+            if(rangeLayout!=null&&!FitsActualWidth(i,traces[i]))
+            {
+                if(recordInitialBlock) initialBlocks[i]=new PackMovementBlock(PackMovementBlockKind.Width);
+                return false;
+            }
+            for(int j=0;j<Count;j++)if(j!=i&&active[j]&&Conflict(traces[i],i,processed[j]?traces[j]:stationary[j],j))
+            {
+                if(recordInitialBlock) initialBlocks[i]=new PackMovementBlock(PackMovementBlockKind.Athlete,GetAthlete(j).AthleteId);
+                return false;
+            }
+            return true;
+        }
         private bool Touches(Trace trace, int junction)
         {
             if(bypassJunctionTouchCache)return TouchesCore(trace,junction);

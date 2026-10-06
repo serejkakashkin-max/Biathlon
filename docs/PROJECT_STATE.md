@@ -21361,3 +21361,34 @@ owner queues and full manual steering remain OPEN. Remaining: arrival refinement
 combined propulsion/gravity/drag with slip, successive contacts, actual corridor
 cells/topology and route/lifecycle/events, AI signed steering, v2 replay and host.
 A Clear joint receipt only covers supplied actors/edges, not the whole course.
+
+## 2026-10-06 — M13 range frontage and owner exit-queue regression
+
+Owner's Mass Start exit screenshot remained an open defect. The actual Woodland
+AI definition forced zero effort when alignment was blocked. Removing that cap
+alone exposed a physical main/mat/penalty-return crossing conflict: the Main
+safe-side goal stopped before the penalty merge. AI now plans the existing
+data-defined lateral safe-side goal on the paid Main passage from before range
+entry through penalty entry, even without an active range traversal on the last
+lap. Production blocked-alignment effort override was removed. The field still
+charges lateral movement and checks complete bodies; no ghosting, teleport or
+hidden speed/power multiplier was added. First initial movement block now records
+width or stable athlete ID within the original safety check, without a second
+per-tick collision pass.
+
+Focused .NET validation: 15/15 PASS. Qualified Pursuit with 40 finished at tick
+28,923, maximum stationary run 28 ticks. Repeated 30-body penalty merge stopped
+at most 68 ticks. With an effort-zero player at the actual Mass Start exit after
+the second shooting bout, all four nearby followers passed, maximum follower
+stationary run zero ticks. Six-athlete paid-exit replay passed. Native Unity
+owner scenario: 1/1 PASS; scripts compiled and recent Error Console was empty.
+Earlier failed no-cap-only experiments remain under artifacts as diagnostic
+history; final evidence is in docs/quality/m13/owner-exit-alignment-20261006/.
+Report: docs/reports/TASK_M13_RANGE_FRONTAGE_20261006.md.
+
+AI decisions and replay context changed deterministically; player shooting and
+controls did not. This focused result does not close all real-game queues.
+Owner hands-on acceptance awaits the single consolidated Windows build after
+all M13 corrections. Full manual directional steering and live physical contact
+integration remain OPEN. M13/WP175–178 remain OPEN. No intermediate build.
+All previous PROJECT_STATE history preserved without modification.

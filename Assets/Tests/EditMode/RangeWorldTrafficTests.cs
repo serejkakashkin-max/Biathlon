@@ -346,7 +346,8 @@ namespace Biathlon.Tests
             var runner=ProductionVenueRaceFactory.Create(venue,profile,RaceRoutePlan.FromJson(Read(root+"pursuit_route")),
                 RaceSnowConditions.FromJson(Read("Biathlon/race_snow_neutral_v1")),PhysiologyContractTests.DefinitionJson,
                 new RaceEventLog(500000),new AiDecisionCounts(),qualification,count:40);
-            var field=runner.Field;var previous=new long[40];var stopped=new int[40];int longest=0;bool mainEscape=false;
+            double frontageMinimum=AiRangeTrafficPolicyDefinition.FromJson(Read(root+"ai_range_traffic")).EntryLateralMeters.Value;
+            var field=runner.Field;var previous=new long[40];var stopped=new int[40];int longest=0,frontageSamples=0;bool mainEscape=false;
             for(int t=0;t<40000&&!field.IsComplete;t++)
             {
                 for(int i=0;i<40;i++)previous[i]=field.GetAthlete(i).Motion.DistanceNanometers;
@@ -354,12 +355,52 @@ namespace Biathlon.Tests
                 for(int i=0;i<40;i++)
                 {
                     var actor=field.GetAthlete(i);
+                    var location=field.GetPhysicalPoint(i);
+                    if(actor.CurrentRangeMotion==null&&location.LoopId==field.Track.Range.Entry.LoopId&&
+                        location.LocalNanometers>=field.Track.Range.Exit.Distance.Millimeters*SkiState.NanometersPerMillimeter+
+                            2*SkiState.NanometersPerMeter&&
+                        location.LocalNanometers<=field.Track.Penalty.Entry.Distance.Millimeters*SkiState.NanometersPerMillimeter)
+                    {
+                        frontageSamples++;
+                        Assert.That(runner.GetLastLateral(i),Is.GreaterThanOrEqualTo(frontageMinimum),
+                            "AI must plan the paid safe side through the physical penalty merge.");
+                    }
                     stopped[i]=field.IsOnCourse(i)&&!actor.HasFinished&&actor.ActiveShooting==null&&previous[i]==actor.Motion.DistanceNanometers?stopped[i]+1:0;
                     longest=Math.Max(longest,stopped[i]);
+                    if(stopped[i]>=200)
+                    {
+                        var blocked=field.GetPhysicalPoint(i);
+                        var traces=(Array)typeof(PackSprintFieldSession).GetField("stationary",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(field);
+                        var conflict=typeof(PackSprintFieldSession).GetMethod("Conflict",BindingFlags.Instance|BindingFlags.NonPublic);
+                        TestContext.Out.WriteLine("blocked tick="+field.Tick.Value+" athlete="+i+" loop="+blocked.LoopId+
+                            " local_m="+blocked.LocalNanometers/1e9+" line="+field.GetLateral(i)+
+                            " route_m="+actor.RouteNanometers/1e9+" range_phase="+actor.CurrentRangeMotion?.Phase+
+                            " requested_line="+runner.GetLastLateral(i)+" plan_blocked="+runner.GetLastRangeTrafficPlan(i).AlignmentBlocked+
+                            " effort="+runner.GetLastInput(i).Ski.Effort.RequestedEffort+
+                            " speed="+actor.Motion.SpeedMetersPerSecond+
+                            " constrained="+((bool[])typeof(PackSprintFieldSession).GetField("constrained",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(field))[i]+
+                            " initial_block="+field.GetInitialMovementBlock(i).Kind+
+                            " blocker="+field.GetInitialMovementBlock(i).Blocker.Value+
+                            " precision_fallback="+field.PrecisionFallbackTicks+
+                            " junction_wait_since="+field.GetJunctionWaitSince(i));
+                        for(int j=0;j<40;j++)if(j!=i)
+                        {
+                            var other=field.GetPhysicalPoint(j);
+                            bool conflictNow=(bool)conflict.Invoke(field,new object[]{traces.GetValue(i),i,traces.GetValue(j),j});
+                            if(conflictNow || field.GetAthlete(j).AthleteId.Equals(field.GetInitialMovementBlock(i).Blocker) ||
+                                other.LoopId==blocked.LoopId&&Math.Abs(other.LocalNanometers-blocked.LocalNanometers)<20*SkiState.NanometersPerMeter)
+                                TestContext.Out.WriteLine("near athlete="+j+" conflict="+conflictNow+" loop="+other.LoopId+
+                                    " local_m="+other.LocalNanometers/1e9+" line="+field.GetLateral(j)+
+                                    " phase="+field.GetAthlete(j).CurrentRangeMotion?.Phase+
+                                    " distance_m="+field.GetAthlete(j).Motion.DistanceNanometers/1e9);
+                        }
+                        Assert.Fail("A circular wait must fail immediately instead of consuming the entire race timeout.");
+                    }
                     mainEscape|=actor.CurrentRangeMotion==null&&field.GetPhysicalPoint(i).LoopId==venue.Track.Range.Entry.LoopId&&runner.GetLastRangeTrafficPlan(i).Active;
                 }
             }
             Assert.That(mainEscape,Is.True,"An actor beyond the range planner must still find paid clear space on Main.");
+            Assert.That(frontageSamples,Is.GreaterThan(0),"The real range-frontage merge must be exercised.");
             Assert.That(field.IsComplete,Is.True,"All forty must finish rather than form the observed circular Main/penalty wait.");
             Assert.That(longest,Is.LessThan(1000),"A transient body-safe yield must not become a permanent traffic queue.");
             TestContext.Out.WriteLine("qualified_pursuit_complete_tick="+field.Tick.Value+" maximum_stationary_ticks="+longest);

@@ -168,7 +168,7 @@ namespace Biathlon.AI
                 context.Add(rangeTrafficPolicy.ToJson());
                 if(physicalRadius!=policy.PhysicalRadius)context.Add("range_traffic_observed_radius_m:"+physicalRadius.ToString("R",CultureInfo.InvariantCulture));
                 context.Add("ai_physical_range_safe_alignment_v1;actual_traversal_exit;stationary_body_clearance;paid_lateral;player_intent_preserved");
-                if(worldBypassPolicy!=null)context.Add("ai_range_world_stalled_paid_lateral_escape_v2;shared_corridors_and_post_shoot_private_departure_and_main;bounded_goal_hold;ordinary_drive;full_field_revalidation;player_intent_preserved");
+                if(worldBypassPolicy!=null)context.Add("ai_range_world_anticipatory_paid_lateral_escape_v3;shared_corridors_post_shoot_departure_and_paid_main;paid_range_frontage_minimum_from_entry_line;bounded_goal_hold;ordinary_drive;full_field_revalidation;player_intent_preserved");
             }
             for(int i=0;i<n;i++)
             {
@@ -320,7 +320,10 @@ namespace Biathlon.AI
                 else if(canEscapeRange&&(stationaryObservedTicks[i]>=Math.Ceiling(worldBypassPolicy.WorldBypassAfterSeconds.Value*frequency)||
                     window.DecisionDue&&worldBypassPolicy.WorldBypassLookaheadMeters.HasValue&&
                     point.LoopId!=Field.Track.Penalty.LoopId&&point.LoopId!=actor.RangePath.MatAnchor.LoopId&&
-                    (actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.RangeExit||actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.PenaltyApproach||actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.Rejoin)&&
+                    (actor.CurrentRangeMotion==null&&Field.HasPaidRouteWorldGeometry(point)||
+                        actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.RangeExit||
+                        actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.PenaltyApproach||
+                        actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.Rejoin)&&
                     !Field.IsRangeWorldForwardLaneClear(i,lateral[i],worldBypassPolicy.WorldBypassLookaheadMeters.Value)))
                 {
                     double extent=observation.CurrentTrack.WidthMeters*.5-occupancy.Definition.EdgeMargin;
@@ -343,6 +346,20 @@ namespace Biathlon.AI
                 }
                 if(!holdStartGrid && !rangeTrafficPlans[i].Active && !holdStartEscape && !stalledStart && lane.Phase==OvertakePhase.Idle && skiing && (intents[i].Kind==TacticalIntentKind.Draft || intents[i].Kind==TacticalIntentKind.Follow))
                     for(int j=0;j<count;j++) if(placements[j].AthleteId.Equals(intents[i].TargetId)) lateral[i]=placements[j].LateralMeters;
+                // The paid main passage runs alongside firing mats and the penalty return.
+                // Plan a safe side before reaching it, even on the final skiing lap when
+                // there is no next shooting entry to activate the ordinary range planner.
+                // This is an AI goal only: Field still charges the gradual lateral move
+                // and validates the whole body against every mat/return trajectory.
+                if(worldBypassPolicy?.EntryLateralMeters.HasValue==true&&actor.CurrentRangeMotion==null&&
+                    point.LoopId==Field.Track.Range.Entry.LoopId&&point.LoopId==Field.Track.Range.Exit.LoopId&&
+                    point.LoopId==Field.Track.Penalty.Entry.LoopId&&
+                    point.LocalNanometers>=Field.Track.Range.Entry.Distance.Millimeters*SkiState.NanometersPerMillimeter-
+                        (long)Math.Round(worldBypassPolicy.AlignmentLeadMeters*SkiState.NanometersPerMeter)&&
+                    point.LocalNanometers<=Math.Max(Field.Track.Range.Exit.Distance.Millimeters,
+                        Field.Track.Penalty.Entry.Distance.Millimeters)*SkiState.NanometersPerMillimeter+
+                        (long)Math.Round((worldBypassPolicy.WorldBypassLookaheadMeters??0)*SkiState.NanometersPerMeter))
+                    lateral[i]=Math.Max(lateral[i],worldBypassPolicy.EntryLateralMeters.Value);
                 var aim=new WeaponAimCommand(tick,id,0,0);bool trigger=false,hold=false;var shooting=actor.ActiveShooting;
                 if(shooting!=null)
                 {
