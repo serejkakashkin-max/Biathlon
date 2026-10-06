@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="5" result="Passed" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 15:22:11Z" end-time="2026-10-06 15:22:16Z" duration="5,1886762">
+  <test-suite type="TestSuite" id="2523" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1205" result="Passed" start-time="2026-10-06 15:22:11Z" end-time="2026-10-06 15:22:16Z" duration="5.188676" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2468" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="1178" result="Passed" start-time="2026-10-06 15:22:11Z" end-time="2026-10-06 15:22:16Z" duration="5.093838" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="61532" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2469" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1178" result="Passed" start-time="2026-10-06 15:22:11Z" end-time="2026-10-06 15:22:16Z" duration="4.995730" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2470" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="1178" result="Passed" start-time="2026-10-06 15:22:11Z" end-time="2026-10-06 15:22:16Z" duration="4.898117" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1344" name="ManualRouteTubeSweepTests" fullname="Biathlon.Tests.ManualRouteTubeSweepTests" classname="Biathlon.Tests.ManualRouteTubeSweepTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-06 15:22:11Z" end-time="2026-10-06 15:22:16Z" duration="4.803067" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1349" name="ExhaustedProofBudgetNeverTurnsAnOutwardDepartureIntoClearTravel" fullname="Biathlon.Tests.ManualRouteTubeSweepTests.ExhaustedProofBudgetNeverTurnsAnOutwardDepartureIntoClearTravel" methodname="ExhaustedProofBudgetNeverTurnsAnOutwardDepartureIntoClearTravel" classname="Biathlon.Tests.ManualRouteTubeSweepTests" runstate="Runnable" seed="1122709764" result="Passed" start-time="2026-10-06 15:22:12Z" end-time="2026-10-06 15:22:13Z" duration="1.058341" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1346" name="OutwardCourseDepartureHasAContinuousUnprovedPrefixInsteadOfAClamp" fullname="Biathlon.Tests.ManualRouteTubeSweepTests.OutwardCourseDepartureHasAContinuousUnprovedPrefixInsteadOfAClamp" methodname="OutwardCourseDepartureHasAContinuousUnprovedPrefixInsteadOfAClamp" classname="Biathlon.Tests.ManualRouteTubeSweepTests" runstate="Runnable" seed="1449238258" result="Passed" start-time="2026-10-06 15:22:13Z" end-time="2026-10-06 15:22:13Z" duration="0.895909" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1348" name="RepeatedTubeSweepIsDeterministicAndWarmAllocationFree" fullname="Biathlon.Tests.ManualRouteTubeSweepTests.RepeatedTubeSweepIsDeterministicAndWarmAllocationFree" methodname="RepeatedTubeSweepIsDeterministicAndWarmAllocationFree" classname="Biathlon.Tests.ManualRouteTubeSweepTests" runstate="Runnable" seed="307020988" result="Passed" start-time="2026-10-06 15:22:13Z" end-time="2026-10-06 15:22:14Z" duration="0.952219" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1345" name="ShortWoodlandVisualEdgesDoNotStopContinuousForwardTravelAtTheirKnots" fullname="Biathlon.Tests.ManualRouteTubeSweepTests.ShortWoodlandVisualEdgesDoNotStopContinuousForwardTravelAtTheirKnots" methodname="ShortWoodlandVisualEdgesDoNotStopContinuousForwardTravelAtTheirKnots" classname="Biathlon.Tests.ManualRouteTubeSweepTests" runstate="Runnable" seed="1353227700" result="Passed" start-time="2026-10-06 15:22:14Z" end-time="2026-10-06 15:22:15Z" duration="0.835117" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1347" name="TubeQueryKeepsSelectedLapIdentityAndRejectsOutsideStart" fullname="Biathlon.Tests.ManualRouteTubeSweepTests.TubeQueryKeepsSelectedLapIdentityAndRejectsOutsideStart" methodname="TubeQueryKeepsSelectedLapIdentityAndRejectsOutsideStart" classname="Biathlon.Tests.ManualRouteTubeSweepTests" runstate="Runnable" seed="1213691738" result="Passed" start-time="2026-10-06 15:22:15Z" end-time="2026-10-06 15:22:16Z" duration="0.953584" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -12,8 +12,15 @@ an overtaking athlete approaching a stopped body is limited first by contact.
 The reversed actor order gives the same pair/time. Clear repeated previews
 allocate no managed memory after construction.
 
-Validation: 21/21 focused .NET spatial/route tests PASS and native Unity
-joint class 4/4 PASS. Scripts compiled; no compile errors observed. An earlier
+The work-limit regression now checks both the route-tube query and the common
+joint query. When the interval proof exhausts its one-check budget during an
+outward departure, neither query may report any clear travel. This prevents a
+future optimization from accidentally interpreting an incomplete proof as an
+unobstructed path.
+
+Validation: 23/23 focused .NET spatial/route tests PASS, native Unity joint
+class 5/5 PASS, and native route-tube class 5/5 PASS. Unity scripts compiled,
+Editor is idle, and the recent Error Console is empty. An earlier
 hidden PlayMode ribbon test had logged an FMOD output-device error, unrelated
 to this EditMode check. Evidence:
 `docs/quality/m13/owner-manual-route-joint-20261006/`.

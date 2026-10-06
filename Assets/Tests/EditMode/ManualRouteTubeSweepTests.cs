@@ -99,5 +99,15 @@ namespace Biathlon.Tests
             }
             Assert.That(GC.GetAllocatedBytesForCurrentThread()-bytes,Is.Zero);
         }
+        [Test] public void ExhaustedProofBudgetNeverTurnsAnOutwardDepartureIntoClearTravel()
+        {
+            var f=Create();var body=Body();var p=f.visual.Get(f.route.GetSection(0).LoopId).Sample(10);
+            var pose=new ManualSkiHeadingState(p.X,p.Z,Math.Atan2(p.ForwardX,p.ForwardZ));
+            var trajectory=Travel(body,pose,10*p.ForwardZ,-10*p.ForwardX,.5);
+            var limited=new ManualRouteTubeSweep(f.map,body,Work(1)).Preview(trajectory,0,Nano(10),6,false);
+            Assert.That(limited.Status,Is.EqualTo(ManualRouteTubeStatus.WorkLimit));
+            Assert.That(limited.ClearUntilSeconds,Is.Zero);
+            Assert.That(limited.IntervalChecks,Is.EqualTo(1));
+        }
     }
 }

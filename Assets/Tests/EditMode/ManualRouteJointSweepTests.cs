@@ -93,5 +93,17 @@ namespace Biathlon.Tests
             }
             Assert.That(GC.GetAllocatedBytesForCurrentThread()-bytes,Is.Zero);
         }
+        [Test] public void CourseProofWorkLimitWinsTheCommonPrefixWithoutGhosting()
+        {
+            var f=Create();var p=f.visual.Get(f.route.GetSection(0).LoopId).Sample(10);
+            var actor=Actor("a",f.body,p,10*p.ForwardZ,-10*p.ForwardX);
+            var contact=SkiContactDefinition.FromJson("{\"schema_version\":1,\"id\":\"route_joint_limit_v1\",\"restitution\":0,\"sliding_friction\":0.2,\"contact_tolerance_m\":0.000001}");
+            var work=SkiContactSweepDefinition.FromJson("{\"schema_version\":1,\"id\":\"route_joint_limit_work_v1\",\"maximum_depth\":32,\"maximum_interval_checks\":1,\"time_tolerance_s\":0.0000001}");
+            var limited=new ManualRouteJointSweep(new ManualRouteProjectionMap(f.route,f.visual),f.body,contact,work);
+            var result=Preview(limited,new[]{actor},new[]{Scope("a",10)});
+            Assert.That(result.Status,Is.EqualTo(ManualRouteJointStatus.RouteTube));
+            Assert.That(result.Tube.Status,Is.EqualTo(ManualRouteTubeStatus.WorkLimit));
+            Assert.That(result.ClearUntilSeconds,Is.Zero);
+        }
     }
 }

@@ -21505,3 +21505,22 @@ All historical PROJECT_STATE bytes preserved; this record only appended.
 No pose/contact response, route lifecycle, range/penalty ownership, event-log,
 v2 replay or Unity host behavior changed. M13/WP175–178 remain OPEN. No
 intermediate Windows build before the full owner correction batch.
+
+## 2026-10-06 — M13 route proof work-limit regression
+
+Added separate route-tube and common joint-sweep regressions for an outward
+departure with only one allowed interval check. Both must report an exhausted
+proof budget and zero clear travel; incomplete spatial proof cannot grant a
+free course crossing. No production geometry, tuning or playable race behavior
+changed in this checkpoint.
+
+Focused .NET spatial/route tests 23/23 PASS. Native Unity route-tube class
+5/5 PASS and joint class 5/5 PASS. Scripts compiled, Editor idle, recent Error
+Console empty. The earlier hidden PlayMode FMOD output-device diagnostic is
+unchanged. Evidence: docs/quality/m13/owner-manual-route-tube-20261006/
+and docs/quality/m13/owner-manual-route-joint-20261006/. The joint report
+contains the updated validation. PROJECT_STATE history was only appended.
+
+Manual steering is still not connected to the playable host. Route lifecycle,
+range/penalty ownership, collision response, event-log and replay remain open;
+M13/WP175–178 remain OPEN. No intermediate Windows build.
