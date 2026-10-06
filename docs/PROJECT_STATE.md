@@ -21297,3 +21297,34 @@ resting/departing contacts, post-impact slip/spin integration and course edges;
 then paid route/lifecycle, AI, v2 replay and host wiring. Group Resolved describes
 contact velocities at fixed poses, not permission to advance the rest of a tick.
 M13/WP175–178 remain OPEN. One consolidated owner build follows the complete batch.
+
+## 2026-10-06 — M13 snow slip resistance and persistent contact continuation
+
+Added a passive snow velocity operator using the existing cornering grip budget,
+minus grip already reserved for turning. Coupled front/rear impulses dissipate
+side-slip/spin energy without inventing rotation from pure lateral slip or stopping
+forward travel. Raw physical spin is retained and energy/impulses are observable.
+No duplicate production tuning. This fixed-pose operator does not integrate space.
+
+Added a separately tagged/context-bound continuation check for registered reached
+contacts. Parallel contact and direct separation need not cause a zero-time stop;
+new rear-ski overlap, initial deep overlap and exhausted work remain unresolved.
+Ordinary new-contact exclusion is unchanged. Only numerical contact tolerance is
+allowed; no body shrink, teleport, player/AI exemption or arbitrary overlap.
+
+Final .NET motion/contact/replay selection: 116 PASS (93 motion/contact + 23 replay).
+Native Unity: updated sweep 13 PASS; snow 8 PASS. Earlier unchanged group 8 and
+pair 16 receipts retained. The snow matrix checks 300 fixed scenarios. A nose-away
+turn fixture initially expected separation; sampled geometry showed rear overlap.
+It now explicitly tests that collision, alongside a truly departing straight case.
+No production restriction or failing test was removed to hide the result.
+
+Evidence: docs/quality/m13/owner-contact-sweep-20261006/continuation-snow-core-replay.trx,
+native-continuation.xml, native-snow.xml. ADR-0036 and the continuous/group report
+contain the contract and limits. Current index updated; historical STATE preserved.
+
+No live race caller or legacy tape changed. M13/WP175–178, queues and manual steering
+remain OPEN. No intermediate Windows build. Next: arrival refinement, joint spatial
+continuation with post-contact slip/spin and edges, then route/lifecycle, AI, v2 race
+replay and host integration. Do not mistake the velocity operator or continuation
+receipt for a complete tick solver; snow must not be charged repeatedly per tick.

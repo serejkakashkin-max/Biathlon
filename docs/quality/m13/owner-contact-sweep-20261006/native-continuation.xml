@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="13" result="Passed" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 12:24:56Z" end-time="2026-10-06 12:24:57Z" duration="1,3721135">
+  <test-suite type="TestSuite" id="1000" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1169" result="Passed" start-time="2026-10-06 12:24:56Z" end-time="2026-10-06 12:24:57Z" duration="1.372114" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2426" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="1142" result="Passed" start-time="2026-10-06 12:24:56Z" end-time="2026-10-06 12:24:57Z" duration="1.262830" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="61532" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2427" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1142" result="Passed" start-time="2026-10-06 12:24:56Z" end-time="2026-10-06 12:24:57Z" duration="1.158400" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2428" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="1142" result="Passed" start-time="2026-10-06 12:24:56Z" end-time="2026-10-06 12:24:57Z" duration="1.048917" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1333" name="ManualSkiContactSweepTests" fullname="Biathlon.Tests.ManualSkiContactSweepTests" classname="Biathlon.Tests.ManualSkiContactSweepTests" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-10-06 12:24:56Z" end-time="2026-10-06 12:24:57Z" duration="0.943856" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1336" name="AcceleratingRearArrivalUsesQuadraticPhysicalTravel" fullname="Biathlon.Tests.ManualSkiContactSweepTests.AcceleratingRearArrivalUsesQuadraticPhysicalTravel" methodname="AcceleratingRearArrivalUsesQuadraticPhysicalTravel" classname="Biathlon.Tests.ManualSkiContactSweepTests" runstate="Runnable" seed="632644731" result="Passed" start-time="2026-10-06 12:24:56Z" end-time="2026-10-06 12:24:56Z" duration="0.060863" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1343" name="ClearPrefixesStaySeparatedAcrossFixedTurningAndAccelerationMatrix" fullname="Biathlon.Tests.ManualSkiContactSweepTests.ClearPrefixesStaySeparatedAcrossFixedTurningAndAccelerationMatrix" methodname="ClearPrefixesStaySeparatedAcrossFixedTurningAndAccelerationMatrix" classname="Biathlon.Tests.ManualSkiContactSweepTests" runstate="Runnable" seed="613930590" result="Passed" start-time="2026-10-06 12:24:56Z" end-time="2026-10-06 12:24:57Z" duration="0.538690" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1345" name="ExistingContactStillRejectsTurningIntoAnotherBodyOrRealPenetration" fullname="Biathlon.Tests.ManualSkiContactSweepTests.ExistingContactStillRejectsTurningIntoAnotherBodyOrRealPenetration" methodname="ExistingContactStillRejectsTurningIntoAnotherBodyOrRealPenetration" classname="Biathlon.Tests.ManualSkiContactSweepTests" runstate="Runnable" seed="321500158" result="Passed" start-time="2026-10-06 12:24:57Z" end-time="2026-10-06 12:24:57Z" duration="0.010260" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1344" name="ExistingParallelOrDepartingContactDoesNotCauseAnAutomaticZeroTimeStop" fullname="Biathlon.Tests.ManualSkiContactSweepTests.ExistingParallelOrDepartingContactDoesNotCauseAnAutomaticZeroTimeStop" methodname="ExistingParallelOrDepartingContactDoesNotCauseAnAutomaticZeroTimeStop" classname="Biathlon.Tests.ManualSkiContactSweepTests" runstate="Runnable" seed="571200682" result="Passed" start-time="2026-10-06 12:24:57Z" end-time="2026-10-06 12:24:57Z" duration="0.005046" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1335" name="FastPassThroughIsNotClearedBySeparatedEndpoints" fullname="Biathlon.Tests.ManualSkiContactSweepTests.FastPassThroughIsNotClearedBySeparatedEndpoints" methodname="FastPassThroughIsNotClearedBySeparatedEndpoints" classname="Biathlon.Tests.ManualSkiContactSweepTests" runstate="Runnable" seed="1674202507" result="Passed" start-time="2026-10-06 12:24:57Z" end-time="2026-10-06 12:24:57Z" duration="0.003782" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1342" name="IndependentAnalyticAcceleratingArcFitsTheIntegrationReserve" fullname="Biathlon.Tests.ManualSkiContactSweepTests.IndependentAnalyticAcceleratingArcFitsTheIntegrationReserve" methodname="IndependentAnalyticAcceleratingArcFitsTheIntegrationReserve" classname="Biathlon.Tests.ManualSkiContactSweepTests" runstate="Runnable" seed="993900176" result="Passed" start-time="2026-10-06 12:24:57Z" end-time="2026-10-06 12:24:57Z" duration="0.006350" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1346" name="InvalidOrUnboundedInputsAreRejectedAndDefaultReceiptIsInvalid" fullname="Biathlon.Tests.ManualSkiContactSweepTests.InvalidOrUnboundedInputsAreRejectedAndDefaultReceiptIsInvalid" methodname="InvalidOrUnboundedInputsAreRejectedAndDefaultReceiptIsInvalid" classname="Biathlon.Tests.ManualSkiContactSweepTests" runstate="Runnable" seed="1522814042" result="Passed" start-time="2026-10-06 12:24:57Z" end-time="2026-10-06 12:24:57Z" duration="0.004068" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1337" name="MidStepStopDoesNotInventTravelIntoTheAthleteAhead" fullname="Biathlon.Tests.ManualSkiContactSweepTests.MidStepStopDoesNotInventTravelIntoTheAthleteAhead" methodname="MidStepStopDoesNotInventTravelIntoTheAthleteAhead" classname="Biathlon.Tests.ManualSkiContactSweepTests" runstate="Runnable" seed="861260925" result="Passed" start-time="2026-10-06 12:24:57Z" end-time="2026-10-06 12:24:57Z" duration="0.002420" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1338" name="ParallelClosePassUsesActualBoxesNotPermanentTurningCircles" fullname="Biathlon.Tests.ManualSkiContactSweepTests.ParallelClosePassUsesActualBoxesNotPermanentTurningCircles" methodname="ParallelClosePassUsesActualBoxesNotPermanentTurningCircles" classname="Biathlon.Tests.ManualSkiContactSweepTests" runstate="Runnable" seed="1170489815" result="Passed" start-time="2026-10-06 12:24:57Z" end-time="2026-10-06 12:24:57Z" duration="0.002362" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1339" name="StoppedAndDistantTurningBodiesCanBeExcluded" fullname="Biathlon.Tests.ManualSkiContactSweepTests.StoppedAndDistantTurningBodiesCanBeExcluded" methodname="StoppedAndDistantTurningBodiesCanBeExcluded" classname="Biathlon.Tests.ManualSkiContactSweepTests" runstate="Runnable" seed="1418935761" result="Passed" start-time="2026-10-06 12:24:57Z" end-time="2026-10-06 12:24:57Z" duration="0.004080" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1341" name="SwapRepeatabilityAndHotQueriesAllocateNothing" fullname="Biathlon.Tests.ManualSkiContactSweepTests.SwapRepeatabilityAndHotQueriesAllocateNothing" methodname="SwapRepeatabilityAndHotQueriesAllocateNothing" classname="Biathlon.Tests.ManualSkiContactSweepTests" runstate="Runnable" seed="685193014" result="Passed" start-time="2026-10-06 12:24:57Z" end-time="2026-10-06 12:24:57Z" duration="0.165999" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1334" name="TurningSkisCrossBetweenClearEndpointsWithoutMovingTheirCentres" fullname="Biathlon.Tests.ManualSkiContactSweepTests.TurningSkisCrossBetweenClearEndpointsWithoutMovingTheirCentres" methodname="TurningSkisCrossBetweenClearEndpointsWithoutMovingTheirCentres" classname="Biathlon.Tests.ManualSkiContactSweepTests" runstate="Runnable" seed="1153292360" result="Passed" start-time="2026-10-06 12:24:57Z" end-time="2026-10-06 12:24:57Z" duration="0.020033" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1340" name="WorkExhaustionAndInitialOverlapNeverBecomeClear" fullname="Biathlon.Tests.ManualSkiContactSweepTests.WorkExhaustionAndInitialOverlapNeverBecomeClear" methodname="WorkExhaustionAndInitialOverlapNeverBecomeClear" classname="Biathlon.Tests.ManualSkiContactSweepTests" runstate="Runnable" seed="585865822" result="Passed" start-time="2026-10-06 12:24:57Z" end-time="2026-10-06 12:24:57Z" duration="0.003781" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

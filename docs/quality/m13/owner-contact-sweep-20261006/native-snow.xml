@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="8" result="Passed" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 12:21:35Z" end-time="2026-10-06 12:21:35Z" duration="0,7171615">
+  <test-suite type="TestSuite" id="1000" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1167" result="Passed" start-time="2026-10-06 12:21:35Z" end-time="2026-10-06 12:21:35Z" duration="0.717162" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2424" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="1140" result="Passed" start-time="2026-10-06 12:21:35Z" end-time="2026-10-06 12:21:35Z" duration="0.616769" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="61532" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2425" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1140" result="Passed" start-time="2026-10-06 12:21:35Z" end-time="2026-10-06 12:21:35Z" duration="0.519696" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2426" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="1140" result="Passed" start-time="2026-10-06 12:21:35Z" end-time="2026-10-06 12:21:35Z" duration="0.417736" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1378" name="ManualSkiSnowContactTests" fullname="Biathlon.Tests.ManualSkiSnowContactTests" classname="Biathlon.Tests.ManualSkiSnowContactTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-10-06 12:21:35Z" end-time="2026-10-06 12:21:35Z" duration="0.325248" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1383" name="FixedHeadingSlipSpinMatrixNeverAddsEnergyOrConsumesForwardMomentum" fullname="Biathlon.Tests.ManualSkiSnowContactTests.FixedHeadingSlipSpinMatrixNeverAddsEnergyOrConsumesForwardMomentum" methodname="FixedHeadingSlipSpinMatrixNeverAddsEnergyOrConsumesForwardMomentum" classname="Biathlon.Tests.ManualSkiSnowContactTests" runstate="Runnable" seed="462008942" result="Passed" start-time="2026-10-06 12:21:35Z" end-time="2026-10-06 12:21:35Z" duration="0.196214" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1381" name="GripConsumedByTurningCannotAlsoCancelContactSlip" fullname="Biathlon.Tests.ManualSkiSnowContactTests.GripConsumedByTurningCannotAlsoCancelContactSlip" methodname="GripConsumedByTurningCannotAlsoCancelContactSlip" classname="Biathlon.Tests.ManualSkiSnowContactTests" runstate="Runnable" seed="827643677" result="Passed" start-time="2026-10-06 12:21:35Z" end-time="2026-10-06 12:21:35Z" duration="0.001261" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1384" name="MirroringReversesSlipAndSpinButKeepsForwardTravelAndEnergyLoss" fullname="Biathlon.Tests.ManualSkiSnowContactTests.MirroringReversesSlipAndSpinButKeepsForwardTravelAndEnergyLoss" methodname="MirroringReversesSlipAndSpinButKeepsForwardTravelAndEnergyLoss" classname="Biathlon.Tests.ManualSkiSnowContactTests" runstate="Runnable" seed="1112680627" result="Passed" start-time="2026-10-06 12:21:35Z" end-time="2026-10-06 12:21:35Z" duration="0.000491" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1379" name="PureSideSlipDecaysByAvailableGripWithoutSpinOrForwardStop" fullname="Biathlon.Tests.ManualSkiSnowContactTests.PureSideSlipDecaysByAvailableGripWithoutSpinOrForwardStop" methodname="PureSideSlipDecaysByAvailableGripWithoutSpinOrForwardStop" classname="Biathlon.Tests.ManualSkiSnowContactTests" runstate="Runnable" seed="1264235068" result="Passed" start-time="2026-10-06 12:21:35Z" end-time="2026-10-06 12:21:35Z" duration="0.000509" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1380" name="PureSpinDampsWithoutInventingCentreTranslation" fullname="Biathlon.Tests.ManualSkiSnowContactTests.PureSpinDampsWithoutInventingCentreTranslation" methodname="PureSpinDampsWithoutInventingCentreTranslation" classname="Biathlon.Tests.ManualSkiSnowContactTests" runstate="Runnable" seed="1070141088" result="Passed" start-time="2026-10-06 12:21:35Z" end-time="2026-10-06 12:21:35Z" duration="0.000865" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1386" name="RepeatedVelocityOperatorIsAllocationFreeAndInputValidationIsExplicit" fullname="Biathlon.Tests.ManualSkiSnowContactTests.RepeatedVelocityOperatorIsAllocationFreeAndInputValidationIsExplicit" methodname="RepeatedVelocityOperatorIsAllocationFreeAndInputValidationIsExplicit" classname="Biathlon.Tests.ManualSkiSnowContactTests" runstate="Runnable" seed="1919523852" result="Passed" start-time="2026-10-06 12:21:35Z" end-time="2026-10-06 12:21:35Z" duration="0.002842" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1385" name="SharedCorneringCapabilitySuppliesSlipBudgetAndContactOutputIsRetained" fullname="Biathlon.Tests.ManualSkiSnowContactTests.SharedCorneringCapabilitySuppliesSlipBudgetAndContactOutputIsRetained" methodname="SharedCorneringCapabilitySuppliesSlipBudgetAndContactOutputIsRetained" classname="Biathlon.Tests.ManualSkiSnowContactTests" runstate="Runnable" seed="1757612685" result="Passed" start-time="2026-10-06 12:21:35Z" end-time="2026-10-06 12:21:35Z" duration="0.016091" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1382" name="SmallResidualStopsWithoutReversingOrBeingQuantizedPerImpulse" fullname="Biathlon.Tests.ManualSkiSnowContactTests.SmallResidualStopsWithoutReversingOrBeingQuantizedPerImpulse" methodname="SmallResidualStopsWithoutReversingOrBeingQuantizedPerImpulse" classname="Biathlon.Tests.ManualSkiSnowContactTests" runstate="Runnable" seed="1931916771" result="Passed" start-time="2026-10-06 12:21:35Z" end-time="2026-10-06 12:21:35Z" duration="0.001694" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

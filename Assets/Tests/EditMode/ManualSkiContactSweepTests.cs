@@ -164,6 +164,36 @@ namespace Biathlon.Tests
         }
 
         [Test]
+        public void ExistingParallelOrDepartingContactDoesNotCauseAnAutomaticZeroTimeStop()
+        {
+            var sweep=Sweep();var a=Frame(0,0,speed:6,duration:.05);var b=Frame(.7,0,speed:6,duration:.05);
+            Assert.That(sweep.Preview(A,a,B,b).Status,Is.EqualTo(SkiContactSweepStatus.InitialProximity));
+            var continuing=sweep.PreviewExistingContact(A,a,B,b);
+            Assert.That(continuing.IsContactContinuation,Is.True);Assert.That(continuing.Status,Is.EqualTo(SkiContactSweepStatus.Clear));
+            Assert.That(continuing.ClearUntilSeconds,Is.EqualTo(.05));
+            Assert.That(sweep.PreviewExistingContact(B,b,A,a),Is.EqualTo(continuing));
+            var departing=Frame(0,1.5,speed:8,duration:.05);
+            Assert.That(sweep.PreviewExistingContact(A,a,B,departing).Status,Is.EqualTo(SkiContactSweepStatus.Clear));
+            Assert.That(sweep.ContinuationContextJson,Is.Not.EqualTo(sweep.ContextJson));
+        }
+
+        [Test]
+        public void ExistingContactStillRejectsTurningIntoAnotherBodyOrRealPenetration()
+        {
+            var sweep=Sweep();var a=Frame(0,0,duration:.05);var turning=Frame(.7,0,input:-1000,duration:.05);
+            var result=sweep.PreviewExistingContact(A,a,B,turning);
+            Assert.That(result.Status,Is.EqualTo(SkiContactSweepStatus.PotentialContact));
+            Assert.That(result.ClearUntilSeconds,Is.LessThan(.002));
+            Assert.That(sweep.PreviewExistingContact(A,a,B,Frame(.699,0,duration:.05)).Status,Is.EqualTo(SkiContactSweepStatus.InitialProximity));
+            Assert.Catch(()=>sweep.PreviewExistingContact(A,a,B,Frame(2,0,duration:.05)));
+            // Even steering away can swing the rear of a ski into its neighbour
+            // before the centre has translated sideways. Do not exempt that contact.
+            var moving=Frame(0,0,speed:6,duration:.05);var noseAway=Frame(.7,0,input:1000,speed:6,duration:.05);
+            Assert.That(Gap(moving,noseAway,.2),Is.LessThan(-Contact().ContactTolerance));
+            Assert.That(sweep.PreviewExistingContact(A,moving,B,noseAway).Status,Is.EqualTo(SkiContactSweepStatus.PotentialContact));
+        }
+
+        [Test]
         public void InvalidOrUnboundedInputsAreRejectedAndDefaultReceiptIsInvalid()
         {
             var sweep=Sweep();var a=Frame(0,0);var b=Frame(2,0,duration:.5);

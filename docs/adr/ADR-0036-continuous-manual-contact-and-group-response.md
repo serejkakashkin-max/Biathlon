@@ -74,3 +74,42 @@ swap determinism and allocation. Group tests cover simultaneous rear/side/angula
 contacts, all input permutations, a 40-actor field, conservation of linear/angular
 momentum and no energy creation, explicit residual closure and allocation.
 Evidence: `docs/quality/m13/owner-contact-sweep-20261006/`.
+
+## Same-day addition — slip resistance and existing-contact continuation
+
+`ManualSkiSnowContactSystem` supplies a passive velocity impulse at a frozen pose.
+Two longitudinal snow supports use physical body length and equal normal load;
+the planar inertia matches the pair-contact model. A bounded two-variable energy
+minimization solves both support impulses together. Sequential support friction
+would invent spin from pure side slip. The exact unconstrained point and four
+box-edge optima cover the convex quadratic, with zero impulse as a fallback.
+
+The impulse budget uses the existing lateral acceleration capability from skill,
+equipment and snow, minus already reserved turning acceleration. It adds no new
+grip preset and spends no grip twice. It dissipates lateral/spin kinetic energy
+and retains forward velocity and raw physical spin. Energy loss and front/rear
+impulses are exposed. This is a **velocity operator**, not a post-impact spatial
+trajectory, a full coupled snow/contact solver or route advancement. The caller
+must integrate the duration consistently, recheck group constraints and avoid
+applying the same interval's snow impulse repeatedly during solver iteration.
+
+`PreviewExistingContact` is a separately named sweep API/context for a registered,
+already reached pair. Its receipt is tagged `IsContactContinuation`. It checks
+the whole continuation against the negative numerical contact-tolerance floor;
+the ordinary new-contact API still requires positive separation. Initial positions
+outside contact proximity are rejected; deeper or numerically unresolved overlap
+returns an unresolved initial receipt. Work exhaustion never authorizes motion.
+This can admit parallel resting contact or forward separation without a zero-time
+loop, while still detecting a rear ski swinging into a neighbour when the nose
+turns away. It grants no exemption for unregistered pairs or course boundaries.
+
+Validation: current combined .NET selection 116 PASS (93 motion/contact, 23 legacy
+replay); native sweep 13 PASS and snow 8 PASS. Earlier group/pair native receipts
+remain valid for unchanged implementations. The snow matrix covers 300 scenarios
+and verifies energy, impulse bounds and retained forward momentum. One initial
+continuation fixture incorrectly expected a nose-away turn to clear its neighbour;
+the independent sampled gap showed actual rear overlap. The expectation was
+corrected and retained as an explicit rear-swing regression; a genuinely departing
+straight trajectory supplies the positive case. No production check was weakened.
+Neither API is wired into the live race. Arrival refinement, post-impact spatial
+integration, edges, lifecycle, AI, v2 replay and playable integration remain open.

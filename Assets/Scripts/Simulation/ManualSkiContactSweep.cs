@@ -15,8 +15,9 @@ namespace Biathlon.Simulation
         public double IntervalEndSeconds {get;}
         public int IntervalChecks {get;}
         public double GeometryReserveMeters {get;}
-        internal SkiContactSweepPreview(SkiContactSweepStatus status,double from,double to,int checks,double reserve)
-        {IsValid=true;Status=status;ClearUntilSeconds=from;IntervalEndSeconds=to;IntervalChecks=checks;GeometryReserveMeters=reserve;}
+        public bool IsContactContinuation {get;}
+        internal SkiContactSweepPreview(SkiContactSweepStatus status,double from,double to,int checks,double reserve,bool continuation=false)
+        {IsValid=true;Status=status;ClearUntilSeconds=from;IntervalEndSeconds=to;IntervalChecks=checks;GeometryReserveMeters=reserve;IsContactContinuation=continuation;}
     }
 
     /// <summary>Continuous conservative pair exclusion for force-weighted manual turns.
@@ -27,6 +28,7 @@ namespace Biathlon.Simulation
         private readonly SkiContactSweepDefinition definition;
         private readonly double radius,tolerance;
         public string ContextJson {get;}
+        public string ContinuationContextJson {get;}
         public ManualSkiContactSweep(OccupancyDefinition body,SkiContactDefinition contactDefinition,SkiContactSweepDefinition definition)
         {
             if(body==null||contactDefinition==null||definition==null)throw new ArgumentNullException();
@@ -34,29 +36,42 @@ namespace Biathlon.Simulation
             radius=.5*Math.Sqrt(body.LongitudinalSeparation*body.LongitudinalSeparation+body.LateralSeparation*body.LateralSeparation);
             tolerance=contactDefinition.ContactTolerance;
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_force_turn_sweep_v1",contact.ContextJson,definition.ToJson()});
+            ContinuationContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_existing_contact_sweep_v1",ContextJson});
         }
 
         public SkiContactSweepPreview Preview(AthleteId first,ManualSkiHeadingFrame a,AthleteId second,ManualSkiHeadingFrame b)
+            => PreviewCore(first,a,second,b,false);
+
+        /// <summary>For an explicitly registered, already reached contact pair only.
+        /// Allows numerical contact depth while proving the whole continuation does
+        /// not exceed it. Does not exempt other pairs, edges or force admission.</summary>
+        public SkiContactSweepPreview PreviewExistingContact(AthleteId first,ManualSkiHeadingFrame a,AthleteId second,ManualSkiHeadingFrame b)
+            => PreviewCore(first,a,second,b,true);
+
+        private SkiContactSweepPreview PreviewCore(AthleteId first,ManualSkiHeadingFrame a,AthleteId second,ManualSkiHeadingFrame b,bool continuation)
         {
             if(!first.IsValid||!second.IsValid||first.Equals(second)||!a.HasForceTrajectory||!b.HasForceTrajectory||a.DurationSeconds!=b.DurationSeconds)
                 throw new ArgumentException("Distinct actors and equal-duration force-weighted frames required.");
-            if(string.CompareOrdinal(first.Value,second.Value)>0)return Preview(second,b,first,a);
+            if(string.CompareOrdinal(first.Value,second.Value)>0)return PreviewCore(second,b,first,a,continuation);
             // Cover errors at both the midpoint used for exclusion and any encoded
             // sample subsequently committed from the admitted prefix.
             double reserve=2*(a.PositionErrorBoundMeters+b.PositionErrorBoundMeters
                 +radius*(a.HeadingErrorBoundRadians+b.HeadingErrorBoundRadians));
             var start=Geometry(first,a,second,b,0);
-            if(start.GapMeters<=tolerance+reserve)
-                return new SkiContactSweepPreview(SkiContactSweepStatus.InitialProximity,0,0,0,reserve);
+            if(continuation&&start.GapMeters>tolerance+reserve)
+                throw new ArgumentException("Existing-contact continuation must begin at contact proximity.");
+            double requiredGap=continuation?-tolerance:tolerance;
+            if(start.GapMeters<=requiredGap+reserve)
+                return new SkiContactSweepPreview(SkiContactSweepStatus.InitialProximity,0,0,0,reserve,continuation);
             int checks=0;
-            return Search(first,a,second,b,0,a.DurationSeconds,0,reserve,ref checks);
+            return Search(first,a,second,b,0,a.DurationSeconds,0,reserve,requiredGap,continuation,ref checks);
         }
 
         private SkiContactSweepPreview Search(AthleteId first,ManualSkiHeadingFrame a,AthleteId second,ManualSkiHeadingFrame b,
-            double from,double to,int depth,double reserve,ref int checks)
+            double from,double to,int depth,double reserve,double requiredGap,bool continuation,ref int checks)
         {
             if(checks>=definition.MaximumIntervalChecks)
-                return new SkiContactSweepPreview(SkiContactSweepStatus.WorkLimit,from,to,checks,reserve);
+                return new SkiContactSweepPreview(SkiContactSweepStatus.WorkLimit,from,to,checks,reserve,continuation);
             checks++;
             double mid=from+(to-from)*.5,h=(to-from)*.5,fraction=mid/a.DurationSeconds;
             var geometry=Geometry(first,a,second,b,fraction);
@@ -67,15 +82,15 @@ namespace Biathlon.Simulation
             double speed=Math.Abs((va.X-vb.X)*geometry.NormalX+(va.Z-vb.Z)*geometry.NormalZ);
             double translation=speed*h+.5*(a.PlanarAccelerationBound+b.PlanarAccelerationBound)*h*h;
             double rotation=radius*(Math.Min(2,a.PeakYawRate*h)+Math.Min(2,b.PeakYawRate*h));
-            if(geometry.GapMeters>tolerance+reserve+translation+rotation)
-                return new SkiContactSweepPreview(SkiContactSweepStatus.Clear,to,to,checks,reserve);
+            if(geometry.GapMeters>requiredGap+reserve+translation+rotation)
+                return new SkiContactSweepPreview(SkiContactSweepStatus.Clear,to,to,checks,reserve,continuation);
             if(to-from<=definition.TimeToleranceSeconds)
-                return new SkiContactSweepPreview(SkiContactSweepStatus.PotentialContact,from,to,checks,reserve);
+                return new SkiContactSweepPreview(SkiContactSweepStatus.PotentialContact,from,to,checks,reserve,continuation);
             if(depth>=definition.MaximumDepth||mid<=from||mid>=to)
-                return new SkiContactSweepPreview(SkiContactSweepStatus.WorkLimit,from,to,checks,reserve);
-            var left=Search(first,a,second,b,from,mid,depth+1,reserve,ref checks);
+                return new SkiContactSweepPreview(SkiContactSweepStatus.WorkLimit,from,to,checks,reserve,continuation);
+            var left=Search(first,a,second,b,from,mid,depth+1,reserve,requiredGap,continuation,ref checks);
             if(left.Status!=SkiContactSweepStatus.Clear)return left;
-            return Search(first,a,second,b,mid,to,depth+1,reserve,ref checks);
+            return Search(first,a,second,b,mid,to,depth+1,reserve,requiredGap,continuation,ref checks);
         }
 
         private SkiContactPreview Geometry(AthleteId first,ManualSkiHeadingFrame a,AthleteId second,ManualSkiHeadingFrame b,double fraction)

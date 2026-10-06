@@ -36,3 +36,28 @@ Contract: [ADR-0036](../adr/ADR-0036-continuous-manual-contact-and-group-respons
 Receipts: [contact evidence](../quality/m13/owner-contact-sweep-20261006/).
 M13/WP175–178 remain OPEN. Next work is joint movement after contact and course
 edges, followed by the outstanding race integration; then one consolidated build.
+
+## Follow-up — snow impulse and continuing contact
+
+Added passive side-slip/spin resistance using the existing cornering grip budget.
+Simultaneous front/rear snow impulses dissipate energy without inventing spin in
+pure lateral slip or stopping forward travel. Impulses retain unrounded physical
+spin; the new output includes energy loss and applied grip. This is a fixed-pose
+velocity operator; it does not yet integrate the resulting displacement.
+
+Added explicit registered-contact continuation with a tagged receipt and distinct
+context. Parallel contact and forward separation can continue without a zero-time
+stop; rotating a ski rear into a neighbour stays unresolved. Initial deep overlap
+and work exhaustion cannot authorize travel. Ordinary new-contact rules are intact.
+
+Final focused .NET/replay run: 116 PASS, no failures/skips. Native Unity: updated
+sweep 13 PASS and snow 8 PASS. Prior unchanged group 8 and pair 16 native receipts
+are retained. An initial test expected a nose-away turn to be clear; sampling
+demonstrated actual rear overlap. The test now asserts that collision, with a
+straight departing athlete as the positive case. No production relaxation hid it.
+The 300-case snow matrix verifies energy/impulse bounds and forward momentum.
+
+Evidence adds `continuation-snow-core-replay.trx`, `native-continuation.xml` and
+`native-snow.xml`. This remains disconnected from the playable race. M13, owner
+queues, manual steering and the consolidated build remain open. Next: temporal
+arrival refinement and joint spatial continuation/edges, then race integration.

@@ -1,0 +1,81 @@
+using System;
+using System.Globalization;
+using Biathlon.Domain;
+
+namespace Biathlon.Simulation
+{
+    public readonly struct SkiSnowContactPreview
+    {
+        public bool IsValid {get;}
+        public SkiContactMotion Motion {get;}
+        public double AvailableLateralAcceleration {get;}
+        public double FrontImpulseNewtonSeconds {get;}
+        public double RearImpulseNewtonSeconds {get;}
+        public double DissipatedEnergyJoules {get;}
+        internal SkiSnowContactPreview(SkiContactMotion motion,double available,double front,double rear,double energy)
+        {IsValid=true;Motion=motion;AvailableLateralAcceleration=available;FrontImpulseNewtonSeconds=front;RearImpulseNewtonSeconds=rear;DissipatedEnergyJoules=energy;}
+    }
+
+    /// <summary>Passive snow impulse at a frozen pose, retaining contact side-slip
+    /// and spin. This velocity operator alone neither moves nor admits the body.</summary>
+    public sealed class ManualSkiSnowContactSystem
+    {
+        private readonly double arm,inertiaPerMass,duration;
+        public string ContextJson {get;}
+        public ManualSkiSnowContactSystem(OccupancyDefinition body,int frequency)
+        {
+            if(body==null)throw new ArgumentNullException(nameof(body));
+            if(frequency<=0)throw new ArgumentOutOfRangeException(nameof(frequency));
+            arm=body.BodyLength*.5;
+            // Match the pair solver's rigid occupied-body inertia. Snow support uses
+            // physical body length; personal clearance is not an extra ski contact.
+            inertiaPerMass=(body.LongitudinalSeparation*body.LongitudinalSeparation+body.LateralSeparation*body.LateralSeparation)/12;
+            duration=1.0/frequency;
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_snow_slip_impulse_v1",body.ToJson(),frequency.ToString(CultureInfo.InvariantCulture)});
+        }
+
+        /// <param name="lateralAccelerationLimit">Existing skill/snow/equipment cornering capability.</param>
+        /// <param name="reservedTurningAcceleration">Grip already consumed by the admitted turn; cannot be spent twice on slip.</param>
+        public SkiSnowContactPreview Preview(ManualSkiContactBody body,SkiContactMotion motion,
+            double lateralAccelerationLimit,double reservedTurningAcceleration,double seconds)
+        {
+            if(!body.IsValid)throw new ArgumentException("Initialized body required.",nameof(body));
+            PhysiologyNumbers.RequireRange(lateralAccelerationLimit,0,PhysiologyNumbers.MaximumMagnitude,nameof(lateralAccelerationLimit));
+            PhysiologyNumbers.RequireRange(reservedTurningAcceleration,0,PhysiologyNumbers.MaximumMagnitude,nameof(reservedTurningAcceleration));
+            PhysiologyNumbers.RequireRange(seconds,double.Epsilon,duration,nameof(seconds));
+            double available=Math.Max(0,lateralAccelerationLimit-reservedTurningAcceleration);
+            double limit=available*seconds*.5;
+            if(limit==0)return new SkiSnowContactPreview(motion,available,0,0,0);
+            double rightX=Math.Cos(body.Pose.HeadingRadians),rightZ=-Math.Sin(body.Pose.HeadingRadians);
+            double side=motion.Velocity.X*rightX+motion.Velocity.Z*rightZ,w=motion.YawRate;
+            double frontSpeed=side+w*arm,rearSpeed=side-w*arm;
+            double ratio=arm*arm/inertiaPerMass,diagonal=1+ratio,cross=1-ratio;
+            double bestFront=0,bestRear=0,bestEnergy=0;
+
+            // Minimum kinetic energy subject to equal front/rear normal-load impulse
+            // budgets. Solve the unconstrained point and the four box edges exactly;
+            // sequential front/rear friction would invent spin from pure side slip.
+            double freeFront=-side*.5-inertiaPerMass*w/(2*arm);
+            double freeRear=-side*.5+inertiaPerMass*w/(2*arm);
+            if(Math.Abs(freeFront)<=limit&&Math.Abs(freeRear)<=limit)Candidate(freeFront,freeRear);
+            Candidate(-limit,Clamp(-(rearSpeed-cross*limit)/diagonal));
+            Candidate(limit,Clamp(-(rearSpeed+cross*limit)/diagonal));
+            Candidate(Clamp(-(frontSpeed-cross*limit)/diagonal),-limit);
+            Candidate(Clamp(-(frontSpeed+cross*limit)/diagonal),limit);
+
+            double impulse=bestFront+bestRear;
+            var velocity=new SkiPlanarVelocity(motion.Velocity.X+rightX*impulse,motion.Velocity.Z+rightZ*impulse);
+            double yaw=w+arm*(bestFront-bestRear)/inertiaPerMass;
+            return new SkiSnowContactPreview(new SkiContactMotion(velocity,yaw),available,
+                bestFront*body.MassKilograms,bestRear*body.MassKilograms,-bestEnergy*body.MassKilograms);
+
+            double Clamp(double value)=>Math.Max(-limit,Math.Min(limit,value));
+            void Candidate(double front,double rear)
+            {
+                double energy=frontSpeed*front+rearSpeed*rear+.5*diagonal*(front*front+rear*rear)+cross*front*rear;
+                if(energy>=bestEnergy)return;
+                bestEnergy=energy;bestFront=front;bestRear=rear;
+            }
+        }
+    }
+}
