@@ -34,7 +34,9 @@ namespace Biathlon.Simulation
         public SimulationTick Tick { get; private set; }
         public int Count => accepted.Length;
         public bool HasPhysicalOdometer => acceptedMotion!=null;
+        internal int TickFrequency {get;}
         public string ContextJson { get; }
+        internal bool IsBoundTo(RaceRoute route)=>map.IsBoundTo(route);
 
         public ManualWorldRosterLedger(RaceRoute route,ManualRouteProjectionMap map,
             ManualRouteJointSweep sweep,ManualRouteProgression progress,
@@ -50,6 +52,7 @@ namespace Biathlon.Simulation
                 initialMotion!=null&&initialMotion.Length!=initialCursors.Length)
                 throw new ArgumentException("Exact route solvers, roster and fixed clock required.");
             this.map=map;this.sweep=sweep;this.progress=progress;duration=1.0/tickFrequency;
+            TickFrequency=tickFrequency;
             Tick=initialTick;
             accepted=new ManualRouteActorFrame[initialCursors.Length];staged=new ManualRouteActorFrame[Count];
             cursors=new ManualRouteProgressCursor[Count];stagedProgress=new ManualRouteProgressFrame[Count];

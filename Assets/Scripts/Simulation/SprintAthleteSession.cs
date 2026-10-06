@@ -134,6 +134,8 @@ namespace Biathlon.Simulation
             return shooting[index]?.ClosedMask??0;
         }
         public bool HasFinished => Lifecycle.Phase == CompetitionPhase.Finished || Lifecycle.Phase == CompetitionPhase.Classified;
+        internal bool IsBoundTo(RaceRoute selectedRoute)=>ReferenceEquals(route,selectedRoute);
+        internal int TickFrequency=>config.TickFrequency;
         public RangeMotionPoint? CurrentRangeMotion
         {
             get
@@ -555,5 +557,60 @@ namespace Biathlon.Simulation
         }
         private void Transition(bool next, ref bool previous, RaceEventType start, RaceEventType end)
         { if (next != previous) events.Record(new RaceEvent(Tick, config.TickFrequency, AthleteId, next ? start : end, 0)); previous = next; }
+    }
+
+    /// <summary>Prevalidate a full active base-route athlete roster against one
+    /// jointly clear world proposal, then publish those sessions and the world
+    /// ledger on the same fixed tick. Field timing and phase paths remain with
+    /// the eventual full-race orchestrator.</summary>
+    public sealed class ManualBaseRosterSessionCommit
+    {
+        private readonly SprintAthleteSession[] athletes;
+        private readonly ManualWorldRosterLedger world;
+        private readonly SprintStepPreview[] resolved;
+
+        public ManualBaseRosterSessionCommit(RaceRoute route,
+            ReadOnlySpan<SprintAthleteSession> roster,ManualWorldRosterLedger world)
+        {
+            if(route==null||world==null||!world.HasPhysicalOdometer||
+                !world.IsBoundTo(route)||roster.Length==0||roster.Length!=world.Count)
+                throw new ArgumentException("A matching physical world and complete race roster are required.");
+            this.world=world;
+            athletes=roster.ToArray();resolved=new SprintStepPreview[roster.Length];
+            for(int i=0;i<athletes.Length;i++)
+            {
+                var athlete=athletes[i];
+                if(athlete==null||!athlete.IsBoundTo(route)||athlete.HasFinished||
+                    athlete.TickFrequency!=world.TickFrequency||
+                    !athlete.AthleteId.Equals(world.GetCursor(i).Athlete)||
+                    athlete.Tick.Value!=world.Tick.Value||
+                    athlete.RouteNanometers!=world.GetCursor(i).CreditedStationNanometers||
+                    !athlete.Motion.Equals(world.GetPhysicalMotion(i)))
+                    throw new ArgumentException("World and race roster order/state must match exactly.");
+            }
+        }
+
+        public void Commit(ReadOnlySpan<SprintStepPreview> pending,
+            ManualWorldRosterPreview proposal)
+        {
+            if(pending.Length!=athletes.Length||!ReferenceEquals(proposal.Owner,world))
+                throw new ArgumentException("One current preview per accepted world actor is required.");
+            world.ValidatePrepared(proposal);
+            for(int i=0;i<athletes.Length;i++)
+            {
+                var athlete=athletes[i];
+                if(athlete.Tick.Value!=world.Tick.Value||
+                    athlete.RouteNanometers!=world.GetCursor(i).CreditedStationNanometers||
+                    !athlete.Motion.Equals(world.GetPhysicalMotion(i)))
+                    throw new ArgumentException("Accepted world and race state diverged.");
+                resolved[i]=athlete.PrepareManualBaseRouteCommit(pending[i],proposal,i);
+            }
+            for(int i=0;i<athletes.Length;i++)athletes[i].ValidatePreparedCommit(resolved[i]);
+            // The production field will also own timing/results and journal
+            // publication. This base-section batch assumes ordinary nonthrowing
+            // race event sinks, as existing SprintFieldSession commits do.
+            for(int i=0;i<athletes.Length;i++)athletes[i].CommitStep(resolved[i]);
+            world.Commit(proposal);
+        }
     }
 }

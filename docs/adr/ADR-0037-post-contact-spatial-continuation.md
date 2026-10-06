@@ -272,3 +272,16 @@ The existing route motion API remains available for legacy races. This is
 limited to one base section strictly before range entry, and is not a host
 switch. A completed manual race transaction, AI yaw steering, phase paths,
 contact replan and replay are still prerequisites for a review build.
+
+## 2026-10-06 base-section session roster publication
+
+The world ledger and a roster of active `SprintAthleteSession` instances may
+now be bound by exact athlete order, route instance, accepted tick, odometer,
+route credit and tick frequency. A single full-clear world proposal resolves
+all pending manual session previews before any session publishes its step.
+An invalid row leaves all accepted ticks untouched; there is no paid stopped
+row in that case. The bridge reuses the existing nonthrowing race event-sink
+assumption of `SprintFieldSession` during publication. It does not yet own
+field timing/results or the `PackSprintFieldSession` physical side state.
+Therefore this is an intermediate base-section composition, not a complete
+race transaction, all-phase admission, or playable manual steering.

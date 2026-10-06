@@ -21850,3 +21850,28 @@ docs/quality/m13/manual-force-trajectory-unity.xml. The report at
 docs/reports/TASK_M13_MANUAL_FORCE_BRIDGE_20261006.md was extended.
 This remains one base-route section only; full playable roster/phase/replay
 integration is open. WP-175–178 and M13 remain OPEN; no review build yet.
+
+## 2026-10-06 — M13 manual base-section athlete roster bridge
+
+Two active Woodland athlete sessions can now accept one jointly clear manual
+world/odometer proposal on the same fixed tick. The bridge checks exact
+athlete order, route instance, clock, accepted physical motion and route
+credit, then resolves all pending session previews before publishing any
+session. A stale second preview or wrong clock is rejected with both athlete
+ticks and the world tick unchanged. The two-athlete test drives the real
+force/yaw trajectory through world body/course admission and race commit.
+
+Release .NET final focused 9/9 PASS and broader Sprint/field/manual regression
+32/32 PASS; hidden Unity 6 EditMode 3/3 PASS, process exit 0. Evidence:
+docs/quality/m13/manual-roster-session-final.trx,
+docs/quality/m13/manual-roster-session-regression.trx and
+docs/quality/m13/manual-roster-session-final-unity.xml. Report:
+docs/reports/TASK_M13_MANUAL_BASE_ROSTER_SESSION_20261006.md. ADR-0037
+extended. Unity MCP was unavailable; hidden batch compilation and tests
+completed without C# error. Existing nonthrowing race event-sink assumption
+still applies to publication.
+
+Pack field side state, timing/results, start/range/penalty world geometry,
+AI steering, contact replan, v2 replay and playable host remain open. This
+does not clear the owner-observed queues or automatic turns. WP-175–178 and
+M13 remain OPEN. No intermediate Windows review build was issued.
