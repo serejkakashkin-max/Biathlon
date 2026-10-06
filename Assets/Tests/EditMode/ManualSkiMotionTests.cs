@@ -98,6 +98,23 @@ namespace Biathlon.Tests
         }
 
         [Test]
+        public void ForceTrajectoryOdometerIsDistinctFromPlanarAndProjectedTravel()
+        {
+            var f=Slope();var initial=new SkiState(17,9);
+            var frame=System().Preview(initial,f.pose,f.observation,f.surface,
+                new ManualSkiMotionInput(0,0,70,70));
+            var world=new ManualSkiWorldTrajectory(frame.Heading);
+            double physical=world.PhysicalTravelDistanceAt(1,0);
+            Assert.That(physical,Is.EqualTo(frame.Travel.DistanceAt(frame.Travel.DurationSeconds)).Within(1e-12));
+            Assert.That(world.PlanarTravelDistanceAt(1),Is.EqualTo(frame.Heading.PlanarTravelDistanceMeters).Within(1e-12));
+            Assert.That(physical,Is.GreaterThan(world.PlanarTravelDistanceAt(1)),
+                "Climbing distance follows the slope, not the horizontal projection.");
+            Assert.That(world.PhysicalSpeedAt(1,0),Is.EqualTo(frame.Travel.StateAt(frame.Travel.DurationSeconds).SpeedMetersPerSecond).Within(1e-9));
+            Assert.That(f.observation.RouteNanometers,Is.GreaterThan(0),
+                "Observing a course station is independent of the physical travel preview.");
+        }
+
+        [Test]
         public void InvalidAndStaleCourseInputsFailWithoutMutatingState()
         {
             var f=Slope();var system=System();var input=new ManualSkiMotionInput(0,350,70,70);var ski=new SkiState(0,5);

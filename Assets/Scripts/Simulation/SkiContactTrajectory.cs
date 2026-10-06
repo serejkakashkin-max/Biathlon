@@ -106,5 +106,49 @@ namespace Biathlon.Simulation
         }
         public ManualSkiHeadingState Sample(double fraction)=>contact.IsValid?contact.Sample(fraction):heading.Sample(fraction);
         public SkiPlanarVelocity VelocityAt(double fraction)=>contact.IsValid?contact.MotionAt(fraction).Velocity:heading.VelocityAt(fraction);
+        /// <summary>Physical travel along the selected world trajectory. Contact
+        /// side-slip counts as distance even when projected course credit is zero.</summary>
+        public double PlanarTravelDistanceAt(double fraction)
+        {
+            if(!IsValid)throw new InvalidOperationException("Initialized world trajectory required.");
+            PhysiologyNumbers.RequireRange(fraction,0,1,nameof(fraction));
+            if(!contact.IsValid)
+            {
+                double total=heading.TravelDistanceAt(1);
+                return total==0?0:heading.TravelDistanceAt(fraction)*heading.PlanarTravelDistanceMeters/total;
+            }
+            if(fraction==0)return 0;
+            // Integrate the norm of the exact linear contact velocity ramp.
+            // Fixed panels keep deterministic replay independent of frame rate.
+            const int panels=64;
+            double step=fraction/panels,sum=0;
+            for(int i=0;i<=panels;i++)
+            {
+                var v=contact.MotionAt(i*step).Velocity;
+                double speed=Math.Sqrt(v.X*v.X+v.Z*v.Z);
+                sum+=(i==0||i==panels?1:i%2==0?2:4)*speed;
+            }
+            return sum*step*contact.DurationSeconds/3;
+        }
+        public double PhysicalTravelDistanceAt(double fraction,double directionalGrade)
+        {
+            if(!IsValid)throw new InvalidOperationException("Initialized world trajectory required.");
+            PhysiologyNumbers.RequireRange(fraction,0,1,nameof(fraction));
+            PhysiologyNumbers.RequireRange(directionalGrade,-PhysiologyNumbers.MaximumMagnitude,
+                PhysiologyNumbers.MaximumMagnitude,nameof(directionalGrade));
+            return contact.IsValid ? PlanarTravelDistanceAt(fraction)*Math.Sqrt(1+directionalGrade*directionalGrade)
+                : heading.TravelDistanceAt(fraction);
+        }
+        public double PhysicalSpeedAt(double fraction,double directionalGrade)
+        {
+            if(!IsValid)throw new InvalidOperationException("Initialized world trajectory required.");
+            PhysiologyNumbers.RequireRange(fraction,0,1,nameof(fraction));
+            PhysiologyNumbers.RequireRange(directionalGrade,-PhysiologyNumbers.MaximumMagnitude,
+                PhysiologyNumbers.MaximumMagnitude,nameof(directionalGrade));
+            if(!contact.IsValid)return heading.SlopeSpeedAt(fraction);
+            var velocity=contact.MotionAt(fraction).Velocity;
+            return Math.Sqrt(velocity.X*velocity.X+velocity.Z*velocity.Z)*
+                Math.Sqrt(1+directionalGrade*directionalGrade);
+        }
     }
 }

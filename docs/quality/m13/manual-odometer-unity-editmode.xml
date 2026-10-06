@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="6" result="Passed" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 18:00:26Z" end-time="2026-10-06 18:00:32Z" duration="6,7291663">
+  <test-suite type="TestSuite" id="2550" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1228" result="Passed" start-time="2026-10-06 18:00:26Z" end-time="2026-10-06 18:00:32Z" duration="6.729166" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2495" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="1201" result="Passed" start-time="2026-10-06 18:00:26Z" end-time="2026-10-06 18:00:32Z" duration="6.621397" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="61532" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2496" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1201" result="Passed" start-time="2026-10-06 18:00:26Z" end-time="2026-10-06 18:00:32Z" duration="6.514581" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2497" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="1201" result="Passed" start-time="2026-10-06 18:00:26Z" end-time="2026-10-06 18:00:32Z" duration="6.405142" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1461" name="ManualWorldRosterLedgerTests" fullname="Biathlon.Tests.ManualWorldRosterLedgerTests" classname="Biathlon.Tests.ManualWorldRosterLedgerTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-06 18:00:26Z" end-time="2026-10-06 18:00:32Z" duration="6.301241" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1462" name="EntireClearRosterCommitsOnceWithoutGuessingRaceOdometer" fullname="Biathlon.Tests.ManualWorldRosterLedgerTests.EntireClearRosterCommitsOnceWithoutGuessingRaceOdometer" methodname="EntireClearRosterCommitsOnceWithoutGuessingRaceOdometer" classname="Biathlon.Tests.ManualWorldRosterLedgerTests" runstate="Runnable" seed="1621117797" result="Passed" start-time="2026-10-06 18:00:26Z" end-time="2026-10-06 18:00:27Z" duration="0.968864" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1463" name="PairContactOrRangeCapCannotPublishOneAthleteOrAdvanceTick" fullname="Biathlon.Tests.ManualWorldRosterLedgerTests.PairContactOrRangeCapCannotPublishOneAthleteOrAdvanceTick" methodname="PairContactOrRangeCapCannotPublishOneAthleteOrAdvanceTick" classname="Biathlon.Tests.ManualWorldRosterLedgerTests" runstate="Runnable" seed="1973384913" result="Passed" start-time="2026-10-06 18:00:27Z" end-time="2026-10-06 18:00:28Z" duration="0.889401" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1467" name="RejectedWorldCandidateCannotAdvanceBoundPhysicalOdometer" fullname="Biathlon.Tests.ManualWorldRosterLedgerTests.RejectedWorldCandidateCannotAdvanceBoundPhysicalOdometer" methodname="RejectedWorldCandidateCannotAdvanceBoundPhysicalOdometer" classname="Biathlon.Tests.ManualWorldRosterLedgerTests" runstate="Runnable" seed="951629879" result="Passed" start-time="2026-10-06 18:00:28Z" end-time="2026-10-06 18:00:29Z" duration="0.888046" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1465" name="RepeatedFullClearTicksKeepWorldHeadingAndRouteCreditDeterministic" fullname="Biathlon.Tests.ManualWorldRosterLedgerTests.RepeatedFullClearTicksKeepWorldHeadingAndRouteCreditDeterministic" methodname="RepeatedFullClearTicksKeepWorldHeadingAndRouteCreditDeterministic" classname="Biathlon.Tests.ManualWorldRosterLedgerTests" runstate="Runnable" seed="373868116" result="Passed" start-time="2026-10-06 18:00:29Z" end-time="2026-10-06 18:00:30Z" duration="0.851996" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1466" name="SideSlipPaysPhysicalDistanceWithoutAwardingRouteStation" fullname="Biathlon.Tests.ManualWorldRosterLedgerTests.SideSlipPaysPhysicalDistanceWithoutAwardingRouteStation" methodname="SideSlipPaysPhysicalDistanceWithoutAwardingRouteStation" classname="Biathlon.Tests.ManualWorldRosterLedgerTests" runstate="Runnable" seed="1470724634" result="Passed" start-time="2026-10-06 18:00:30Z" end-time="2026-10-06 18:00:31Z" duration="0.924093" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1464" name="StaleWorldStartAndForeignRouteCannotEnterPreparedLedger" fullname="Biathlon.Tests.ManualWorldRosterLedgerTests.StaleWorldStartAndForeignRouteCannotEnterPreparedLedger" methodname="StaleWorldStartAndForeignRouteCannotEnterPreparedLedger" classname="Biathlon.Tests.ManualWorldRosterLedgerTests" runstate="Runnable" seed="911058494" result="Passed" start-time="2026-10-06 18:00:31Z" end-time="2026-10-06 18:00:32Z" duration="1.662791" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

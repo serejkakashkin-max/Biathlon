@@ -21765,3 +21765,26 @@ control, queues, race results, tuning or balance. Contact continuation,
 start/range/penalty geometry, physiology/lifecycle/events and full v2 replay
 remain open. WP-175–178 and M13 remain OPEN. No interim Windows build until
 the owner M13 correction batch is complete.
+
+## 2026-10-06 — M13 manual world physical odometer (intermediate)
+
+The full-clear manual world roster can now bind the physical ski odometer
+alongside accepted world pose, velocity and selected-route station. Force
+travel uses the shared slope-path solver; post-contact side-slip has a
+deterministic 64-panel approximation. Sideways movement advances odometer
+without awarding route credit, and rejected world/contact/phase proposals
+charge neither distance nor a stopped tick. A versioned context records the
+odometer binding and initial states. Existing world-only context remains.
+
+Focused Release .NET motion/roster tests 13/13 PASS; Unity EditMode motion
+7/7 and roster 6/6 PASS; Unity compilation idle and recent Error Console
+empty. The first combined .NET run exposed a test assertion using an internal
+API; that test was corrected and the final run passed. Evidence:
+docs/quality/m13/manual-odometer-final.trx and
+docs/quality/m13/manual-odometer-unity-editmode.xml. Report:
+docs/reports/TASK_M13_MANUAL_WORLD_ODOMETER_20261006.md.
+
+This is not a playable steering or queue fix. Contact integration, topology
+handoff, start/range/penalty world paths, physiology/lifecycle/events, v2
+replay, Unity host and hands-on correction review remain open. M13 and
+WP-175–178 remain OPEN. No Windows review build was issued at this stage.

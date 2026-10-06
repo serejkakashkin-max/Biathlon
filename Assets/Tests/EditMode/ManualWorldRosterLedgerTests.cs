@@ -154,5 +154,53 @@ namespace Biathlon.Tests
             Assert.That(left.Tick.Value,Is.EqualTo(25));
             Assert.That(left.GetCursor(0).CreditedStationNanometers,Is.GreaterThan(Nano(10)));
         }
+
+        [Test] public void SideSlipPaysPhysicalDistanceWithoutAwardingRouteStation()
+        {
+            var f=Create();var point=f.visual.Get(f.route.GetSection(0).LoopId).Sample(10);
+            var id=new AthleteId("sideways");
+            var actor=Actor(id.Value,f.body,At(point),
+                new SkiPlanarVelocity(2*point.ForwardZ,-2*point.ForwardX));
+            long station=Nano(10);
+            var ledger=new ManualWorldRosterLedger(f.route,f.map,f.sweep,f.progress,
+                new[]{f.progress.Reconstitute(id,0,station,station)},
+                new[]{actor.Trajectory.Sample(0)},new[]{actor.Trajectory.VelocityAt(0)},20,
+                new[]{new SkiState(0,2)});
+            var candidates=new[]{actor};
+            var windows=new[]{new ManualRouteActorWindow(id,0,station,2,false)};
+            Assert.That(ledger.TryPrepareWithOdometer(candidates,windows,new[]{Nano(20)},
+                Array.Empty<SkiReachedContactPair>(),0,Array.Empty<SkiActorCourseEdge>(),0,
+                new[]{0d},out var proposal),Is.True);
+            Assert.That(ledger.GetPhysicalMotion(0).DistanceNanometers,Is.Zero);
+            ledger.Commit(proposal);
+            Assert.That(ledger.GetPhysicalMotion(0).DistanceNanometers,Is.EqualTo(Nano(.1)));
+            Assert.That(ledger.GetCursor(0).CreditedStationNanometers,Is.EqualTo(station));
+            Assert.That(ledger.GetActor(0).Pose.HeadingNanoradians,
+                Is.EqualTo(actor.Trajectory.Sample(0).HeadingNanoradians));
+            Assert.That(ledger.ContextJson,Does.Contain("manual_full_clear_world_odometer_roster_v2"));
+        }
+
+        [Test] public void RejectedWorldCandidateCannotAdvanceBoundPhysicalOdometer()
+        {
+            var f=Create();var point=f.visual.Get(f.route.GetSection(0).LoopId).Sample(10);
+            var id=new AthleteId("capped");
+            var actor=Actor(id.Value,f.body,At(point),
+                new SkiPlanarVelocity(3*point.ForwardX,3*point.ForwardZ));
+            long station=Nano(10);
+            var ledger=new ManualWorldRosterLedger(f.route,f.map,f.sweep,f.progress,
+                new[]{f.progress.Reconstitute(id,0,station,station)},
+                new[]{actor.Trajectory.Sample(0)},new[]{actor.Trajectory.VelocityAt(0)},20,
+                new[]{new SkiState(Nano(5),3)});
+            Assert.That(ledger.TryPrepareWithOdometer(new[]{actor},
+                new[]{new ManualRouteActorWindow(id,0,station,2,false)},new[]{station},
+                Array.Empty<SkiReachedContactPair>(),0,Array.Empty<SkiActorCourseEdge>(),0,
+                new[]{0d},out var rejected),Is.False);
+            Assert.That(rejected.IsValid,Is.False);
+            Assert.That(ledger.Tick.Value,Is.Zero);
+            Assert.That(ledger.GetPhysicalMotion(0).DistanceNanometers,Is.EqualTo(Nano(5)));
+            Assert.Throws<InvalidOperationException>(()=>ledger.TryPrepare(new[]{actor},
+                new[]{new ManualRouteActorWindow(id,0,station,2,false)},new[]{Nano(20)},
+                Array.Empty<SkiReachedContactPair>(),0,Array.Empty<SkiActorCourseEdge>(),0,out _));
+        }
     }
 }

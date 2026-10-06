@@ -27,6 +27,20 @@ namespace Biathlon.Simulation
         public bool IsValid => DurationSeconds > 0 && State.IsValid;
         public bool HasForceTrajectory => IsValid && travel.IsValid;
         public double PeakPlanarSpeed => travel.IsValid ? travel.PeakSpeed * planarScale : PlanarTravelDistanceMeters / DurationSeconds;
+        /// <summary>Physical slope-path distance from the shared force solver.
+        /// This is an odometer increment, never a projected route credit.</summary>
+        public double TravelDistanceAt(double fraction)
+        {
+            if (!HasForceTrajectory) throw new InvalidOperationException("Force-weighted trajectory required.");
+            PhysiologyNumbers.RequireRange(fraction, 0, 1, nameof(fraction));
+            return travel.DistanceAt(DurationSeconds * fraction);
+        }
+        public double SlopeSpeedAt(double fraction)
+        {
+            if (!HasForceTrajectory) throw new InvalidOperationException("Force-weighted trajectory required.");
+            PhysiologyNumbers.RequireRange(fraction, 0, 1, nameof(fraction));
+            return travel.SpeedRaw(DurationSeconds * fraction);
+        }
         /// <summary>Bound on centre acceleration, including the change of direction.</summary>
         public double PlanarAccelerationBound => Math.Abs(travel.Acceleration) * planarScale + PeakPlanarSpeed * PeakYawRate;
 
