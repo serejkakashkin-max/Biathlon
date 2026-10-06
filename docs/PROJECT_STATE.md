@@ -21812,3 +21812,25 @@ transaction, force/physiology coupling, contact response, section/start/
 range/penalty transitions, complete race events, v2 replay and owner review
 remain open. WP-175–178 and M13 remain OPEN. Per the owner batch directive,
 no intermediate Windows build was made.
+
+## 2026-10-06 — M13 manual base-route force input (intermediate)
+
+Manual base-route preparation no longer calls legacy automatic path motion.
+It stages shared physiology/posture and uses the accepted world heading and
+directional grade with the existing technique, snow and equipment rules to
+supply the manual force solver. The pending preview cannot commit without a
+full-clear world-roster proposal. This does not change the playable host yet.
+
+Release .NET focused regression 19/19 PASS; hidden Unity 6 EditMode batch
+2/2 PASS, process exit 0, test XML retained. The Unity MCP hub was unavailable
+for a Console snapshot; the batch log reports successful compilation/test
+completion. The initial Unity invocation with `-quit` did not execute tests
+and is diagnostic only. Evidence:
+docs/quality/m13/manual-force-bridge-regression.trx and
+docs/quality/m13/manual-force-unity-noquit.xml. Report:
+docs/reports/TASK_M13_MANUAL_FORCE_BRIDGE_20261006.md. ADR-0037 extended.
+
+Full-roster race commit, start/range/penalty world paths, contact replan,
+AI heading, v2 replay and playable host input remain open. WP-175–178 and
+M13 remain OPEN. No intermediate Windows review build was issued under
+the owner batch directive.

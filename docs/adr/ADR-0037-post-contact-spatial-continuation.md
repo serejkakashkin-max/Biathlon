@@ -256,3 +256,19 @@ converts an already proven world movement into existing race receipts.
 No cross-athlete commit orchestrator, phase-specific geometry or v2 replay
 exists yet. The live host remains on v1; this bridge does not authorize an
 intermediate player build or manual-steering completion claim.
+
+## 2026-10-06 manual base-route force input
+
+Manual base-route preparation no longer calls the legacy route-following
+movement preview. It stages the shared physiology, sprint and tuck decisions
+and returns an intentionally uncommittable preview. The live world actor's
+heading and observed directional grade then feed the existing ski technique,
+snow and equipment definitions into `ManualSkiMotionSystem`. The caller must
+still solve the whole roster, obtain a full-clear world proposal, and bind
+that proposal before the race step can commit. This prevents an unproven
+manual tick from silently falling back to automatic route movement.
+
+The existing route motion API remains available for legacy races. This is
+limited to one base section strictly before range entry, and is not a host
+switch. A completed manual race transaction, AI yaw steering, phase paths,
+contact replan and replay are still prerequisites for a review build.

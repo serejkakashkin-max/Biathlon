@@ -19,10 +19,11 @@ namespace Biathlon.Tests
             var route=new RaceRoute(venue.Track,RaceRoutePlan.FromJson(Read(root+"sprint_route")),
                 profile.ToRouteRequirements(),venue.Junctions,venue.Connections);
             var ski=TimeTrialTests.Athlete();
+            var skiModel=new SkiModelDefinitions(PhysiologyContractTests.DefinitionJson);
             var shooting=ShootingSessionTests.Athlete();
             shooting=ShootingAthleteDefinition.FromJson(shooting.ToJson().Replace(shooting.Id,ski.Id));
             var session=new SprintAthleteSession(new SimulationConfig(1,"manual_base_bridge",20,123),
-                profile,new SkiModelDefinitions(PhysiologyContractTests.DefinitionJson),
+                profile,skiModel,
                 ShootingSessionTests.Model(),ski,shooting,venue.Track,route,
                 new CheckpointLayout(venue.Track,route),SnowConditionTests.Conditions(),
                 "ski_neutral",new SimulationTick(1),
@@ -56,9 +57,37 @@ namespace Biathlon.Tests
                 new[]{session.RouteNanometers+2*SkiState.NanometersPerMeter},
                 Array.Empty<SkiReachedContactPair>(),0,Array.Empty<SkiActorCourseEdge>(),0,
                 new[]{0d},out var world),Is.True);
-            var legacy=session.PrepareStep(SprintAthleteSessionTests.Script(session));
-            var manual=session.PrepareManualBaseRouteCommit(legacy,world,0);
-            Assert.Throws<ArgumentException>(()=>session.CommitStep(legacy));
+            var pending=session.PrepareManualBaseStep(SprintAthleteSessionTests.Script(session));
+            Assert.That(pending.ManualWorldRequired,Is.True);
+            Assert.That(pending.Movement.SegmentCount,Is.Zero);
+            Assert.Throws<InvalidOperationException>(()=>session.CommitStep(pending));
+            var accepted=ledger.GetActor(0);
+            var surface=new TrackSampler(venue.Track.GetLoop(accepted.Projection.LoopId))
+                .Sample(new TrackDistance((long)Math.Floor(accepted.Projection.LocalMeters*1000)));
+            var input=session.GetPreparedManualMotionInput(pending,accepted,surface,500);
+            Assert.That(input.IsValid,Is.True);
+            Assert.That(input.SteeringInput,Is.EqualTo(500));
+            Assert.That(input.DeliveredPowerWatts,Is.GreaterThan(0));
+            var expectedForm=new SkiTechniqueSystem(skiModel.Technique).Evaluate(
+                ski.TechniqueStats,
+                surface.WithTravelGeometry(accepted.Projection.GradeAlong(accepted.Pose),0),
+                session.PhysiologyState.MuscularFatigue,
+                pending.Physiology.Effort.DeliveredPowerWatts);
+            Assert.That(input.DeliveredPowerWatts,
+                Is.EqualTo(expectedForm.PropulsivePowerWatts).Within(1e-9));
+            var snow=new SnowConditionSystem(skiModel.Snow,SnowConditionTests.Conditions(),venue.Track);
+            var gear=new SkiEquipmentSystem(skiModel.Equipment.GetSki("ski_neutral"),skiModel.Snow)
+                .Evaluate(snow.Sample(surface).Id);
+            Assert.That(input.SnowResistanceMultiplier,
+                Is.EqualTo(gear.SnowResistanceMultiplier));
+            Assert.That(input.GripMultiplier,Is.EqualTo(gear.CorneringGripMultiplier));
+            var solver=new ManualSkiMotionSystem(skiModel.Physics,
+                ManualSkiForceTrajectoryTests.HeadingDefinition(),skiModel.Cornering,20);
+            var steering=solver.Preview(session.Motion,accepted.Pose,accepted.Projection,surface,input);
+            Assert.That(steering.Heading.State.HeadingNanoradians,
+                Is.Not.EqualTo(accepted.Pose.HeadingNanoradians));
+            var manual=session.PrepareManualBaseRouteCommit(pending,world,0);
+            Assert.Throws<ArgumentException>(()=>session.CommitStep(pending));
             Assert.That(manual.Movement.SegmentCount,Is.EqualTo(1));
             Assert.That(manual.Movement.Motion.DistanceNanometers,
                 Is.EqualTo(ledger.GetProposedPhysicalMotion(world,0).DistanceNanometers));

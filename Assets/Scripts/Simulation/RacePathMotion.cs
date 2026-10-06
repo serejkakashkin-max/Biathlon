@@ -141,5 +141,32 @@ namespace Biathlon.Simulation
             if (range != null && range.PreviewMotion(rangeTravel).Phase == RangeTraversalPhase.Shooting) firing = true;
             return new RacePathMotionFrame(motion, main, rangeTravel, dt - remaining, remaining, count, firing, main == stopRouteNanometers);
         }
+        /// <summary>Use the same snow, equipment and ski-technique definitions
+        /// as route motion while evaluating grade along actual world heading.
+        /// This is force input only; it cannot advance route station.</summary>
+        internal ManualSkiMotionInput PreviewManualInput(PhysiologyFrame physical,
+            double acceptedFatigue,TimeTrialInput ski,TuckOutput posture,
+            ManualSkiHeadingState pose,ManualRouteProjection observation,TrackSample sample,
+            int steeringInput,double dragMultiplier,double propulsionMultiplier,
+            double windX,double windZ)
+        {
+            if(!pose.IsValid||!observation.IsValid||sample.LoopId!=observation.LoopId||
+                !ski.Effort.AthleteId.IsValid||ski.Effort.AthleteId.Value!=athlete.Id)
+                throw new ArgumentException("Matching athlete, world pose and local surface required.");
+            PhysiologyNumbers.RequireRange(physical.Effort.DeliveredPowerWatts,0,maximumPower,nameof(physical));
+            PhysiologyNumbers.RequireRange(acceptedFatigue,0,1,nameof(acceptedFatigue));
+            PhysiologyNumbers.RequireRange(dragMultiplier,0,1,nameof(dragMultiplier));
+            PhysiologyNumbers.RequireRange(propulsionMultiplier,0,1,nameof(propulsionMultiplier));
+            double directionalGrade=observation.GradeAlong(pose);
+            var directional=sample.WithTravelGeometry(directionalGrade,0);
+            var gear=equipment.Evaluate(snow.Sample(sample).Id);
+            var form=technique.Evaluate(athlete.TechniqueStats,directional,acceptedFatigue,
+                physical.Effort.DeliveredPowerWatts,ski.TechniqueId);
+            return new ManualSkiMotionInput(steeringInput,
+                form.PropulsivePowerWatts*ski.MovementEfficiency*propulsionMultiplier,
+                athlete.Cornering,athlete.Downhill,ski.LineQuality,acceptedFatigue,
+                gear.CorneringGripMultiplier,posture.DragAreaMultiplier*dragMultiplier,
+                gear.SnowResistanceMultiplier,posture.SteeringResponseMultiplier,windX,windZ);
+        }
     }
 }

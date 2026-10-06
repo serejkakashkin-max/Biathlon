@@ -21,7 +21,9 @@ namespace Biathlon.Simulation
         public bool OvertakeAllowed { get; }
         public double RiskLevel { get; }
         public TrackSemanticZone SemanticZone { get; }
-        internal TrackSample WithTravelGeometry(double grade,double curvature)
+        /// <summary>Retain authored surface metadata while substituting observed
+        /// world travel geometry. This never edits the track definition.</summary>
+        public TrackSample WithTravelGeometry(double grade,double curvature)
         {
             if(string.IsNullOrEmpty(SegmentId))throw new ArgumentException("Initialized surface metadata required.");
             PhysiologyNumbers.RequireRange(grade,-1,1,nameof(grade));
