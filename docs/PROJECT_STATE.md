@@ -21483,3 +21483,25 @@ Unity scripts were compiled. A hidden PlayMode run logged FMOD output-device
 initialization error (60); tests still passed. No compile error was observed.
 No gameplay tuning, playable host, replay or race result changed. M13/WP175–178
 remain OPEN; no intermediate Windows build.
+
+## 2026-10-06 — M13 common selected-route/body safe prefix
+
+Added one non-committing common-prefix query over whole-body pair contacts,
+explicit local edge planes and each actor's bounded selected-route inner tube.
+Every motion actor must have exactly one stable-ID-matched route window;
+missing, foreign and duplicate bindings fail rather than omitting a check.
+The earliest unproved time wins, with deterministic actor-order-independent
+ties. On Woodland geometry, a lateral departure is limited by the course;
+an approaching athlete is limited first by the stopped body's contact.
+The common query allocates no managed memory in repeated warm previews.
+
+Focused .NET route/spatial tests 21/21 PASS; native Unity joint tests 4/4 PASS.
+Scripts compiled, no compile error observed. The prior hidden PlayMode FMOD
+output-device error remains a separate environment diagnostic. Evidence:
+docs/quality/m13/owner-manual-route-joint-20261006/. Report:
+docs/reports/TASK_M13_ROUTE_JOINT_PREFIX_20261006.md. ADR-0037 extended.
+All historical PROJECT_STATE bytes preserved; this record only appended.
+
+No pose/contact response, route lifecycle, range/penalty ownership, event-log,
+v2 replay or Unity host behavior changed. M13/WP175–178 remain OPEN. No
+intermediate Windows build before the full owner correction batch.

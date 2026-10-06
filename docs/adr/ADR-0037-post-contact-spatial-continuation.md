@@ -113,3 +113,16 @@ The native Woodland Main ribbon was also sampled at every interior mesh row:
 7,368 radial points at the inner-tube radius lay inside its actual X/Z triangles.
 This is a useful mesh/geometry agreement check, not a continuous whole-ribbon
 proof or permission to bypass the route/topology checks above.
+
+## 2026-10-06 common body/course prefix
+
+`ManualRouteJointSweep` now selects one non-committing clear prefix across
+the supplied whole-body pair/explicit-edge sweep and every actor's bounded
+selected-route inner-tube sweep. Each motion actor must have exactly one
+stable-ID-matched route window; foreign, missing and duplicate bindings fail.
+Earliest limits and ties are independent of actor enumeration. Unknown or
+exhausted geometry cannot be ignored by the other solver. The context binds
+both safety algorithms. This is a common admissibility query only. It does not
+advance poses, resolve repeated impacts, choose a branch or award race events.
+Range/penalty actors require their own correctly admitted world geometry before
+this can be a whole-race authority.
