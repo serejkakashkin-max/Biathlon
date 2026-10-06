@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c1ae5cf2-d5f6-4a34-a417-04d973afedf1" name="snkashkin@DESKTOP-G3075GA 2026-10-06 11:12:51" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-06T11:12:51.6383650+03:00" queuing="2026-10-06T11:12:51.6383652+03:00" start="2026-10-06T11:12:50.4593503+03:00" finish="2026-10-06T11:12:52.2934671+03:00" />
+  <TestSettings name="default" id="be450483-d9d0-4286-8dca-3864d0150c1b">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-06_11_12_51" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="f33c8bc6-4ed8-4109-ae00-252e71ec7523" testId="33c808d0-f607-d0cc-2388-62f741dd5a3f" testName="StoppingShortCannotGrantBoundaryAndLargeCoordinatesRemainExact" computerName="DESKTOP-G3075GA" duration="00:00:00.0010160" startTime="2026-10-06T11:12:52.2151083+03:00" endTime="2026-10-06T11:12:52.2161243+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f33c8bc6-4ed8-4109-ae00-252e71ec7523" />
+    <UnitTestResult executionId="02f81850-f710-4019-adc6-59394a78082d" testId="df09d7d4-61a8-ee80-b818-749bd2df27df" testName="InvalidCursorAndDefaultPosesFailAndWarmProjectionAllocatesNothing" computerName="DESKTOP-G3075GA" duration="00:00:00.0619830" startTime="2026-10-06T11:12:51.5893827+03:00" endTime="2026-10-06T11:12:51.6513650+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="02f81850-f710-4019-adc6-59394a78082d" />
+    <UnitTestResult executionId="86740a00-2337-4b02-bdf4-6d3d83e8642b" testId="eada1a21-e849-ca2a-eef9-4c2cb69a1e22" testName="InvalidInputsFailBeforeChangingTheImmutablePose" computerName="DESKTOP-G3075GA" duration="00:00:00.0014430" startTime="2026-10-06T11:12:52.1937930+03:00" endTime="2026-10-06T11:12:52.1952361+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="86740a00-2337-4b02-bdf4-6d3d83e8642b" />
+    <UnitTestResult executionId="6340ae21-4ac6-4ba2-bdc5-2716e808a28a" testId="26bae80c-c8a8-efaf-2fbd-47ee9683fd16" testName="AccelerationFromRestUsesQuadraticDistanceInsteadOfUniformTickTravel" computerName="DESKTOP-G3075GA" duration="00:00:00.0017760" startTime="2026-10-06T11:12:51.8173755+03:00" endTime="2026-10-06T11:12:51.8191514+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6340ae21-4ac6-4ba2-bdc5-2716e808a28a" />
+    <UnitTestResult executionId="50781775-3359-4eb3-9022-0586d105d46a" testId="3fd401e4-94fa-663f-5071-1a4facff7e0b" testName="HigherSpeedTuckAndGripBoundRequestsUsingTheSameActorIndependentKernel" computerName="DESKTOP-G3075GA" duration="00:00:00.0005190" startTime="2026-10-06T11:12:52.1932618+03:00" endTime="2026-10-06T11:12:52.1937810+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="50781775-3359-4eb3-9022-0586d105d46a" />
+    <UnitTestResult executionId="ec54a6de-4bc7-48c7-820e-886c2f0929c8" testId="3f894acd-923d-0195-0f7f-4820aa43be8f" testName="ExplicitV2RoundTripPreservesLargeTickAndRejectsLegacyStream" computerName="DESKTOP-G3075GA" duration="00:00:00.0092260" startTime="2026-10-06T11:12:52.1834505+03:00" endTime="2026-10-06T11:12:52.1926759+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ec54a6de-4bc7-48c7-820e-886c2f0929c8" />
+    <UnitTestResult executionId="3fb042af-3c48-406a-8e8e-dbcdac8ca0d2" testId="774e8ee2-0247-ea4e-15be-1220b245677b" testName="QuantizedWorldPosesAtAuthoredKnotsRemainProjectable" computerName="DESKTOP-G3075GA" duration="00:00:00.0842880" startTime="2026-10-06T11:12:51.6513887+03:00" endTime="2026-10-06T11:12:51.7356762+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3fb042af-3c48-406a-8e8e-dbcdac8ca0d2" />
+    <UnitTestResult executionId="20f9ab09-ab13-49c8-8ee8-f48a857b410f" testId="95a9e171-d2ed-9177-6068-c22db3100be9" testName="EverySelectedOccurrenceProjectsClippedGeometryWithoutAwardingOdometerOrChangingPose(&quot;mass_start&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0880860" startTime="2026-10-06T11:12:51.3558522+03:00" endTime="2026-10-06T11:12:51.4439373+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="20f9ab09-ab13-49c8-8ee8-f48a857b410f" />
+    <UnitTestResult executionId="1b09477e-b900-44da-a784-001a3ce49f9c" testId="a8f5d028-d807-3686-6852-b1d8447adb32" testName="ActualYawCostsSpeedAndLowSpeedTurningHasNoCurvatureSingularity" computerName="DESKTOP-G3075GA" duration="00:00:00.0613970" startTime="2026-10-06T11:12:51.9093118+03:00" endTime="2026-10-06T11:12:51.9707077+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1b09477e-b900-44da-a784-001a3ce49f9c" />
+    <UnitTestResult executionId="c9603e42-fd63-4c87-bff5-4a6b94135804" testId="7e08cf98-17e2-94c3-b646-3e5e8af82c0c" testName="GripDropReportsExistingMomentumInsteadOfSnappingDirectionOrHidingCost" computerName="DESKTOP-G3075GA" duration="00:00:00.0003230" startTime="2026-10-06T11:12:52.1926903+03:00" endTime="2026-10-06T11:12:52.1930129+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c9603e42-fd63-4c87-bff5-4a6b94135804" />
+    <UnitTestResult executionId="cb274a48-4a1e-4141-9e6f-1901dc6873ee" testId="cf8da8fa-63ac-e7f0-3621-e37e7d81781d" testName="NeutralInputKeepsAbsoluteWorldDirectionAndDoesNotSeekCentre" computerName="DESKTOP-G3075GA" duration="00:00:00.0003680" startTime="2026-10-06T11:12:52.2050226+03:00" endTime="2026-10-06T11:12:52.2053905+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cb274a48-4a1e-4141-9e6f-1901dc6873ee" />
+    <UnitTestResult executionId="111aba65-42e0-440a-b9e4-34ffeca08d57" testId="6707489d-aff2-ba64-2702-0d4f28547403" testName="ReleaseDampsYawWithoutSnappingHeadingAndStopsAtExactSubtick" computerName="DESKTOP-G3075GA" duration="00:00:00.0004950" startTime="2026-10-06T11:12:52.2054017+03:00" endTime="2026-10-06T11:12:52.2058966+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="111aba65-42e0-440a-b9e4-34ffeca08d57" />
+    <UnitTestResult executionId="74c8e0eb-e53d-4d81-810d-2a3e48a9a53d" testId="da0cdd6d-c165-f9e7-1018-53930b1f0879" testName="ForceTrajectoryRetainsLegacyOutputAndEveryStraightMotionPrefix" computerName="DESKTOP-G3075GA" duration="00:00:00.0021930" startTime="2026-10-06T11:12:51.8208944+03:00" endTime="2026-10-06T11:12:51.8230877+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="74c8e0eb-e53d-4d81-810d-2a3e48a9a53d" />
+    <UnitTestResult executionId="e3d0bdbe-6eb8-4d8f-ad32-2425514d9d39" testId="3a7e1638-5688-1fd3-f0a4-0852535711d7" testName="SafeSpeedObeysCurvatureAndSkillWithoutDirectionBias" computerName="DESKTOP-G3075GA" duration="00:00:00.0035900" startTime="2026-10-06T11:12:51.0549096+03:00" endTime="2026-10-06T11:12:51.0584992+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e3d0bdbe-6eb8-4d8f-ad32-2425514d9d39" />
+    <UnitTestResult executionId="532993da-fd01-41e1-a757-1840673ec13b" testId="3d561e49-28b2-7e7b-011e-b6c8dbb9b642" testName="PoorLineRiskAndFatigueReduceSafeCapability" computerName="DESKTOP-G3075GA" duration="00:00:00.0026440" startTime="2026-10-06T11:12:51.0522562+03:00" endTime="2026-10-06T11:12:51.0549004+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="532993da-fd01-41e1-a757-1840673ec13b" />
+    <UnitTestResult executionId="998b0b19-0e1a-4078-a667-7eaf12d98301" testId="b205b0ff-ffe7-59a6-e185-67b6c1d387af" testName="ZeroSpeedPropulsionAndNumericEnvelopeAreBounded" computerName="DESKTOP-G3075GA" duration="00:00:00.0019849" startTime="2026-10-06T11:12:52.2522505+03:00" endTime="2026-10-06T11:12:52.2542353+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="998b0b19-0e1a-4078-a667-7eaf12d98301" />
+    <UnitTestResult executionId="a19883b1-c016-48d7-8506-c3ebd52bcbd4" testId="5e063881-ce04-7f8a-b511-234dcb07f37c" testName="BackwardObservationIsNotClampedIntoForwardProgressAndGradeUsesWorldHeading" computerName="DESKTOP-G3075GA" duration="00:00:00.2128160" startTime="2026-10-06T11:12:51.0594631+03:00" endTime="2026-10-06T11:12:51.2722783+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a19883b1-c016-48d7-8506-c3ebd52bcbd4" />
+    <UnitTestResult executionId="bd287d78-de02-40be-bf76-472b842e7c04" testId="892c9a53-4907-8445-57f2-3e5db5973ca9" testName="SurfaceBoundarySplitsTimeAndRetainsSpeedBeforeNextSurface" computerName="DESKTOP-G3075GA" duration="00:00:00.0013310" startTime="2026-10-06T11:12:52.2161345+03:00" endTime="2026-10-06T11:12:52.2174651+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bd287d78-de02-40be-bf76-472b842e7c04" />
+    <UnitTestResult executionId="98ffbcc6-b2a0-40fb-97ae-3fd8822e45fc" testId="d80ebd6e-2f7c-c3a2-a8c3-fdd9285c0976" testName="RepeatedWorldCoordinatesDoNotAdvanceToAnotherLapOrUnselectedShortcut" computerName="DESKTOP-G3075GA" duration="00:00:00.0731320" startTime="2026-10-06T11:12:51.7357020+03:00" endTime="2026-10-06T11:12:51.8088339+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="98ffbcc6-b2a0-40fb-97ae-3fd8822e45fc" />
+    <UnitTestResult executionId="3e89b369-fc51-4f15-a6bc-28cfd2ff4504" testId="01e8ffc9-bdd8-02f6-7ef4-ed8f04b47f30" testName="LeftRightRequestsChangeTravelDirectionSymmetricallyWithAngularAcceleration" computerName="DESKTOP-G3075GA" duration="00:00:00.0003850" startTime="2026-10-06T11:12:52.1952492+03:00" endTime="2026-10-06T11:12:52.1956341+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3e89b369-fc51-4f15-a6bc-28cfd2ff4504" />
+    <UnitTestResult executionId="52ca9744-6c6b-44ac-aeb6-1b0f3268f0d7" testId="0f03c863-634b-192e-e75b-83cca954204d" testName="CentreLineBendDoesNotBrakeAnAthleteWhoIsNotTurning" computerName="DESKTOP-G3075GA" duration="00:00:00.0013240" startTime="2026-10-06T11:12:51.9707326+03:00" endTime="2026-10-06T11:12:51.9720562+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="52ca9744-6c6b-44ac-aeb6-1b0f3268f0d7" />
+    <UnitTestResult executionId="1fc8e660-e4cb-4c4f-92c6-cc4340b3d670" testId="93505e51-458f-a3ef-b030-de99b08460ac" testName="ForceBreakdownMatchesUnitsAndGradeGeometry" computerName="DESKTOP-G3075GA" duration="00:00:00.0009800" startTime="2026-10-06T11:12:52.2194625+03:00" endTime="2026-10-06T11:12:52.2204426+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1fc8e660-e4cb-4c4f-92c6-cc4340b3d670" />
+    <UnitTestResult executionId="bf091563-4594-4aff-b765-128d4bdfa61f" testId="73c1c453-0340-de59-cf8d-551e97007a21" testName="OverspeedProducesBoundedBrakingAndIntegratedDistanceNotTeleportation" computerName="DESKTOP-G3075GA" duration="00:00:00.0033070" startTime="2026-10-06T11:12:51.0489310+03:00" endTime="2026-10-06T11:12:51.0522380+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bf091563-4594-4aff-b765-128d4bdfa61f" />
+    <UnitTestResult executionId="cea6d4cd-3717-47a6-a4df-1a34c2a1156e" testId="9feb6eb1-6f10-6782-7507-04c2924ae27e" testName="BranchRequiresExplicitNextOccurrenceAndCannotSkipAnOccurrence" computerName="DESKTOP-G3075GA" duration="00:00:00.0834810" startTime="2026-10-06T11:12:51.2723069+03:00" endTime="2026-10-06T11:12:51.3557873+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cea6d4cd-3717-47a6-a4df-1a34c2a1156e" />
+    <UnitTestResult executionId="6a4eac3f-2b84-44e7-bf53-37bf2b8294e3" testId="2b6d3cbf-ebc0-abc3-41d4-cf588acb2ae7" testName="RequiredV2IntentAndTuningFieldsRejectMissingInvalidOrAmbiguousData" computerName="DESKTOP-G3075GA" duration="00:00:00.0033010" startTime="2026-10-06T11:12:52.2059078+03:00" endTime="2026-10-06T11:12:52.2092085+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6a4eac3f-2b84-44e7-bf53-37bf2b8294e3" />
+    <UnitTestResult executionId="7da875bb-98bd-4065-9dc2-01bf85f76f7f" testId="283f0b34-47d9-0033-37bb-727fc1ac837a" testName="InvalidAndStaleCourseInputsFailWithoutMutatingState" computerName="DESKTOP-G3075GA" duration="00:00:00.0725550" startTime="2026-10-06T11:12:52.0479695+03:00" endTime="2026-10-06T11:12:52.1205243+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7da875bb-98bd-4065-9dc2-01bf85f76f7f" />
+    <UnitTestResult executionId="f8412ef3-c6ef-466a-bc06-81803f192a0a" testId="6c0acad5-c404-94f1-5126-523eb769af4c" testName="FractionalTravelDurationAndInvalidProfilesAreExplicit" computerName="DESKTOP-G3075GA" duration="00:00:00.0047300" startTime="2026-10-06T11:12:51.8231017+03:00" endTime="2026-10-06T11:12:51.8278319+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f8412ef3-c6ef-466a-bc06-81803f192a0a" />
+    <UnitTestResult executionId="059e5b38-f673-43cf-8b73-cb01898229e9" testId="e9d5e4b1-e553-9fb5-14cd-bced03811511" testName="LongRunIsRepeatableAllocationFreeAndContractsRejectInvalidData" computerName="DESKTOP-G3075GA" duration="00:00:00.0583920" startTime="2026-10-06T11:12:50.9899840+03:00" endTime="2026-10-06T11:12:51.0483452+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="059e5b38-f673-43cf-8b73-cb01898229e9">
+      <Output>
+        <StdOut>corner_probe=3739410804002:7.441174007</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1ff1d491-538c-4b1a-bbf8-42add56c564a" testId="3ed804a4-d5f8-3e74-3057-fc3dde0a2904" testName="SignedExposedWindChangesDragInCorrectDirection" computerName="DESKTOP-G3075GA" duration="00:00:00.0008970" startTime="2026-10-06T11:12:52.2513395+03:00" endTime="2026-10-06T11:12:52.2522363+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1ff1d491-538c-4b1a-bbf8-42add56c564a" />
+    <UnitTestResult executionId="0083328f-572b-409f-99dd-9b83a5e0076d" testId="0664e512-0212-764d-3951-26db9f96fde2" testName="PhysiologyPowerDrivesRepeatableAllocationFreeMovement" computerName="DESKTOP-G3075GA" duration="00:00:00.0262740" startTime="2026-10-06T11:12:52.2236988+03:00" endTime="2026-10-06T11:12:52.2499727+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0083328f-572b-409f-99dd-9b83a5e0076d">
+      <Output>
+        <StdOut>ski_probe=4602282710307:9.311353007</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="15af8415-d331-4fba-840c-d05e26acc3ba" testId="1c56820d-aee0-359b-4c3d-85116fdb79b1" testName="FlatEquilibriumBalancesPowerAndUphillCostsSpeed" computerName="DESKTOP-G3075GA" duration="00:00:00.0018970" startTime="2026-10-06T11:12:52.2175529+03:00" endTime="2026-10-06T11:12:52.2194497+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="15af8415-d331-4fba-840c-d05e26acc3ba" />
+    <UnitTestResult executionId="7919584c-0b26-43bd-9f39-49f66c5f9721" testId="65da9cb2-bd93-f1ff-f76b-40bd7b03958a" testName="ActualHeadingChangesGradeGravityAndWindWithoutAutoTurning" computerName="DESKTOP-G3075GA" duration="00:00:00.0617960" startTime="2026-10-06T11:12:51.8474902+03:00" endTime="2026-10-06T11:12:51.9092852+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7919584c-0b26-43bd-9f39-49f66c5f9721" />
+    <UnitTestResult executionId="38d437c9-6c21-4b0c-9866-1166cf94ad71" testId="ed00fa55-5f50-9e89-71d3-8effd5627273" testName="LongFixedCommandStreamRepeatsExactlyWithoutHotLoopAllocation" computerName="DESKTOP-G3075GA" duration="00:00:00.0093670" startTime="2026-10-06T11:12:52.1956443+03:00" endTime="2026-10-06T11:12:52.2050112+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="38d437c9-6c21-4b0c-9866-1166cf94ad71">
+      <Output>
+        <StdOut>manual_heading_probe=1.992276616:-117.49378606:5545540272:0.651</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4ed09b77-c351-4a16-910b-ac28063b4896" testId="0d448726-1d40-9ec8-f2db-42c1f5754cbd" testName="FullDurationPreservesExistingFixedTickPhysicsExactly" computerName="DESKTOP-G3075GA" duration="00:00:00.0018870" startTime="2026-10-06T11:12:52.2132087+03:00" endTime="2026-10-06T11:12:52.2150955+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4ed09b77-c351-4a16-910b-ac28063b4896" />
+    <UnitTestResult executionId="6ea1fb11-d4f4-423c-a690-8e551e9646f3" testId="20f6d3ca-f1dd-85a8-d4d5-3822aba31c5d" testName="RestDoesNotReverseAndStoppingInsideTickDoesNotAddExtraDistance" computerName="DESKTOP-G3075GA" duration="00:00:00.0013280" startTime="2026-10-06T11:12:52.2499970+03:00" endTime="2026-10-06T11:12:52.2513252+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6ea1fb11-d4f4-423c-a690-8e551e9646f3" />
+    <UnitTestResult executionId="fd1b4d32-efa2-4b31-a9bc-6259a158df97" testId="634b82e8-3bf6-0267-0cc1-c7edd7ac2bf2" testName="AcceleratingTurnMatchesIndependentWeightedIntegrationAndMirrors" computerName="DESKTOP-G3075GA" duration="00:00:00.0083360" startTime="2026-10-06T11:12:51.8090234+03:00" endTime="2026-10-06T11:12:51.8173588+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fd1b4d32-efa2-4b31-a9bc-6259a158df97" />
+    <UnitTestResult executionId="4fdf8ff7-50e0-462c-8af0-c6ae61769575" testId="5894e829-8009-f783-fd41-08aec7ea222e" testName="PreviewIsRepeatableAllocationFreeAndBindsItsDefinitions" computerName="DESKTOP-G3075GA" duration="00:00:00.0619990" startTime="2026-10-06T11:12:52.1205482+03:00" endTime="2026-10-06T11:12:52.1825465+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4fdf8ff7-50e0-462c-8af0-c6ae61769575" />
+    <UnitTestResult executionId="f7296ae5-1196-413a-a7e5-55f4ec1786c5" testId="7de71026-58c8-ad91-2eee-02631b847822" testName="GripDemandIncludesInternalMaximumOfAcceleratingAndAngularBrakingRamp" computerName="DESKTOP-G3075GA" duration="00:00:00.0013800" startTime="2026-10-06T11:12:51.8278464+03:00" endTime="2026-10-06T11:12:51.8292259+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f7296ae5-1196-413a-a7e5-55f4ec1786c5" />
+    <UnitTestResult executionId="254701ff-c7f2-4c4e-878c-fd09ca9c90b6" testId="1ad96fde-2268-44ef-1e3b-da30e7229fa2" testName="SharedForceAndSteeringStreamRepeatsWithoutWarmAllocations" computerName="DESKTOP-G3075GA" duration="00:00:00.0134680" startTime="2026-10-06T11:12:51.8292392+03:00" endTime="2026-10-06T11:12:51.8427072+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="254701ff-c7f2-4c4e-878c-fd09ca9c90b6">
+      <Output>
+        <StdOut>force_heading_probe=3391240299166:7.29575946:23.132738559:1172274364</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="995b6ae4-5862-4476-8fab-3e4fb011011a" testId="d0b164a1-173d-72c1-f6af-c77300ed3ead" testName="InvalidInputDefinitionsAndDistanceOverflowFail" computerName="DESKTOP-G3075GA" duration="00:00:00.0032320" startTime="2026-10-06T11:12:52.2204544+03:00" endTime="2026-10-06T11:12:52.2236862+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="995b6ae4-5862-4476-8fab-3e4fb011011a" />
+    <UnitTestResult executionId="132212f2-e1ac-49af-8a44-9112a078120e" testId="b8a4da29-d8ab-d461-dfd0-0cb934b5a4e8" testName="HeadingWrapIsCanonicalAndOppositeWorldHeadingDoesNotBecomeForwardRouteTravel" computerName="DESKTOP-G3075GA" duration="00:00:00.0002290" startTime="2026-10-06T11:12:52.1930239+03:00" endTime="2026-10-06T11:12:52.1932524+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="132212f2-e1ac-49af-8a44-9112a078120e" />
+    <UnitTestResult executionId="8c1831c9-0eac-488c-a6f3-1bba1dd5b90f" testId="9ed6727b-b471-fa47-0f8b-8d0b19d913fa" testName="ConstantRateTrajectoryMatchesCircularArcAndSamplesPaidPrefix" computerName="DESKTOP-G3075GA" duration="00:00:00.0007010" startTime="2026-10-06T11:12:52.1827365+03:00" endTime="2026-10-06T11:12:52.1834367+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8c1831c9-0eac-488c-a6f3-1bba1dd5b90f" />
+    <UnitTestResult executionId="510fe83a-ff76-4be1-9eac-82bf5703e398" testId="669a2c05-971b-e23b-c9ee-76d7a741d839" testName="EverySelectedOccurrenceProjectsClippedGeometryWithoutAwardingOdometerOrChangingPose(&quot;sprint&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0754000" startTime="2026-10-06T11:12:51.4439668+03:00" endTime="2026-10-06T11:12:51.5193660+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="510fe83a-ff76-4be1-9eac-82bf5703e398" />
+    <UnitTestResult executionId="a49cb800-1312-4416-af97-048512ca98d9" testId="a99b225b-4049-4522-b654-811f0f7d6d73" testName="ExistingTuckModifiersTradeDragForSteeringResponse" computerName="DESKTOP-G3075GA" duration="00:00:00.0758730" startTime="2026-10-06T11:12:51.9720714+03:00" endTime="2026-10-06T11:12:52.0479437+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a49cb800-1312-4416-af97-048512ca98d9" />
+    <UnitTestResult executionId="8a9c5e64-2134-4b06-9940-887508d4dc22" testId="d3b0b9eb-9071-58d4-8173-51f860351615" testName="BoundarySolvingIsDeterministicAndDoesNotAllocate" computerName="DESKTOP-G3075GA" duration="00:00:00.0039080" startTime="2026-10-06T11:12:52.2092875+03:00" endTime="2026-10-06T11:12:52.2131953+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8a9c5e64-2134-4b06-9940-887508d4dc22" />
+    <UnitTestResult executionId="ed227aa9-4a89-49b5-95bf-f4bf2a53fb0b" testId="4a50af3d-8453-eca7-6fed-1db281a3d9f7" testName="EverySelectedOccurrenceProjectsClippedGeometryWithoutAwardingOdometerOrChangingPose(&quot;pursuit&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0698920" startTime="2026-10-06T11:12:51.5193953+03:00" endTime="2026-10-06T11:12:51.5892869+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ed227aa9-4a89-49b5-95bf-f4bf2a53fb0b" />
+    <UnitTestResult executionId="df29e2c7-b145-4b74-bb6b-0772ca076861" testId="edb419ba-9368-c079-fc77-7f64b736e2a6" testName="SpeedCapAndSlopeConversionRetainPaidTravelAndSharedPlayerAiResult" computerName="DESKTOP-G3075GA" duration="00:00:00.0046800" startTime="2026-10-06T11:12:51.8427200+03:00" endTime="2026-10-06T11:12:51.8473994+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="df29e2c7-b145-4b74-bb6b-0772ca076861" />
+    <UnitTestResult executionId="11887ef4-8d9e-4707-a8f5-89e7b41ae911" testId="2042267e-6b77-3506-bff8-1e330623a423" testName="BrakingStopsTranslationBeforeTickEndsWhilePivotMayContinue" computerName="DESKTOP-G3075GA" duration="00:00:00.0017140" startTime="2026-10-06T11:12:51.8191658+03:00" endTime="2026-10-06T11:12:51.8208800+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="11887ef4-8d9e-4707-a8f5-89e7b41ae911" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="EverySelectedOccurrenceProjectsClippedGeometryWithoutAwardingOdometerOrChangingPose(&quot;pursuit&quot;)" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="4a50af3d-8453-eca7-6fed-1db281a3d9f7">
+      <Execution id="ed227aa9-4a89-49b5-95bf-f4bf2a53fb0b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteProjectionTests" name="EverySelectedOccurrenceProjectsClippedGeometryWithoutAwardingOdometerOrChangingPose(&quot;pursuit&quot;)" />
+    </UnitTest>
+    <UnitTest name="InvalidInputDefinitionsAndDistanceOverflowFail" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="d0b164a1-173d-72c1-f6af-c77300ed3ead">
+      <Execution id="995b6ae4-5862-4476-8fab-3e4fb011011a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.SkiForceTests" name="InvalidInputDefinitionsAndDistanceOverflowFail" />
+    </UnitTest>
+    <UnitTest name="EverySelectedOccurrenceProjectsClippedGeometryWithoutAwardingOdometerOrChangingPose(&quot;sprint&quot;)" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="669a2c05-971b-e23b-c9ee-76d7a741d839">
+      <Execution id="510fe83a-ff76-4be1-9eac-82bf5703e398" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteProjectionTests" name="EverySelectedOccurrenceProjectsClippedGeometryWithoutAwardingOdometerOrChangingPose(&quot;sprint&quot;)" />
+    </UnitTest>
+    <UnitTest name="LongFixedCommandStreamRepeatsExactlyWithoutHotLoopAllocation" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="ed00fa55-5f50-9e89-71d3-8effd5627273">
+      <Execution id="38d437c9-6c21-4b0c-9866-1166cf94ad71" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiSteeringTests" name="LongFixedCommandStreamRepeatsExactlyWithoutHotLoopAllocation" />
+    </UnitTest>
+    <UnitTest name="LeftRightRequestsChangeTravelDirectionSymmetricallyWithAngularAcceleration" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="01e8ffc9-bdd8-02f6-7ef4-ed8f04b47f30">
+      <Execution id="3e89b369-fc51-4f15-a6bc-28cfd2ff4504" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiSteeringTests" name="LeftRightRequestsChangeTravelDirectionSymmetricallyWithAngularAcceleration" />
+    </UnitTest>
+    <UnitTest name="BranchRequiresExplicitNextOccurrenceAndCannotSkipAnOccurrence" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="9feb6eb1-6f10-6782-7507-04c2924ae27e">
+      <Execution id="cea6d4cd-3717-47a6-a4df-1a34c2a1156e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteProjectionTests" name="BranchRequiresExplicitNextOccurrenceAndCannotSkipAnOccurrence" />
+    </UnitTest>
+    <UnitTest name="ActualYawCostsSpeedAndLowSpeedTurningHasNoCurvatureSingularity" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="a8f5d028-d807-3686-6852-b1d8447adb32">
+      <Execution id="1b09477e-b900-44da-a784-001a3ce49f9c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiMotionTests" name="ActualYawCostsSpeedAndLowSpeedTurningHasNoCurvatureSingularity" />
+    </UnitTest>
+    <UnitTest name="ReleaseDampsYawWithoutSnappingHeadingAndStopsAtExactSubtick" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="6707489d-aff2-ba64-2702-0d4f28547403">
+      <Execution id="111aba65-42e0-440a-b9e4-34ffeca08d57" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiSteeringTests" name="ReleaseDampsYawWithoutSnappingHeadingAndStopsAtExactSubtick" />
+    </UnitTest>
+    <UnitTest name="ForceTrajectoryRetainsLegacyOutputAndEveryStraightMotionPrefix" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="da0cdd6d-c165-f9e7-1018-53930b1f0879">
+      <Execution id="74c8e0eb-e53d-4d81-810d-2a3e48a9a53d" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiForceTrajectoryTests" name="ForceTrajectoryRetainsLegacyOutputAndEveryStraightMotionPrefix" />
+    </UnitTest>
+    <UnitTest name="StoppingShortCannotGrantBoundaryAndLargeCoordinatesRemainExact" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="33c808d0-f607-d0cc-2388-62f741dd5a3f">
+      <Execution id="f33c8bc6-4ed8-4109-ae00-252e71ec7523" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.SkiBoundaryStepperTests" name="StoppingShortCannotGrantBoundaryAndLargeCoordinatesRemainExact" />
+    </UnitTest>
+    <UnitTest name="CentreLineBendDoesNotBrakeAnAthleteWhoIsNotTurning" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="0f03c863-634b-192e-e75b-83cca954204d">
+      <Execution id="52ca9744-6c6b-44ac-aeb6-1b0f3268f0d7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiMotionTests" name="CentreLineBendDoesNotBrakeAnAthleteWhoIsNotTurning" />
+    </UnitTest>
+    <UnitTest name="NeutralInputKeepsAbsoluteWorldDirectionAndDoesNotSeekCentre" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="cf8da8fa-63ac-e7f0-3621-e37e7d81781d">
+      <Execution id="cb274a48-4a1e-4141-9e6f-1901dc6873ee" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiSteeringTests" name="NeutralInputKeepsAbsoluteWorldDirectionAndDoesNotSeekCentre" />
+    </UnitTest>
+    <UnitTest name="SignedExposedWindChangesDragInCorrectDirection" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="3ed804a4-d5f8-3e74-3057-fc3dde0a2904">
+      <Execution id="1ff1d491-538c-4b1a-bbf8-42add56c564a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.SkiForceTests" name="SignedExposedWindChangesDragInCorrectDirection" />
+    </UnitTest>
+    <UnitTest name="AcceleratingTurnMatchesIndependentWeightedIntegrationAndMirrors" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="634b82e8-3bf6-0267-0cc1-c7edd7ac2bf2">
+      <Execution id="fd1b4d32-efa2-4b31-a9bc-6259a158df97" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiForceTrajectoryTests" name="AcceleratingTurnMatchesIndependentWeightedIntegrationAndMirrors" />
+    </UnitTest>
+    <UnitTest name="FractionalTravelDurationAndInvalidProfilesAreExplicit" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="6c0acad5-c404-94f1-5126-523eb769af4c">
+      <Execution id="f8412ef3-c6ef-466a-bc06-81803f192a0a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiForceTrajectoryTests" name="FractionalTravelDurationAndInvalidProfilesAreExplicit" />
+    </UnitTest>
+    <UnitTest name="SharedForceAndSteeringStreamRepeatsWithoutWarmAllocations" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="1ad96fde-2268-44ef-1e3b-da30e7229fa2">
+      <Execution id="254701ff-c7f2-4c4e-878c-fd09ca9c90b6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiForceTrajectoryTests" name="SharedForceAndSteeringStreamRepeatsWithoutWarmAllocations" />
+    </UnitTest>
+    <UnitTest name="GripDropReportsExistingMomentumInsteadOfSnappingDirectionOrHidingCost" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="7e08cf98-17e2-94c3-b646-3e5e8af82c0c">
+      <Execution id="c9603e42-fd63-4c87-bff5-4a6b94135804" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiSteeringTests" name="GripDropReportsExistingMomentumInsteadOfSnappingDirectionOrHidingCost" />
+    </UnitTest>
+    <UnitTest name="InvalidCursorAndDefaultPosesFailAndWarmProjectionAllocatesNothing" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="df09d7d4-61a8-ee80-b818-749bd2df27df">
+      <Execution id="02f81850-f710-4019-adc6-59394a78082d" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteProjectionTests" name="InvalidCursorAndDefaultPosesFailAndWarmProjectionAllocatesNothing" />
+    </UnitTest>
+    <UnitTest name="FlatEquilibriumBalancesPowerAndUphillCostsSpeed" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="1c56820d-aee0-359b-4c3d-85116fdb79b1">
+      <Execution id="15af8415-d331-4fba-840c-d05e26acc3ba" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.SkiForceTests" name="FlatEquilibriumBalancesPowerAndUphillCostsSpeed" />
+    </UnitTest>
+    <UnitTest name="ActualHeadingChangesGradeGravityAndWindWithoutAutoTurning" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="65da9cb2-bd93-f1ff-f76b-40bd7b03958a">
+      <Execution id="7919584c-0b26-43bd-9f39-49f66c5f9721" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiMotionTests" name="ActualHeadingChangesGradeGravityAndWindWithoutAutoTurning" />
+    </UnitTest>
+    <UnitTest name="PreviewIsRepeatableAllocationFreeAndBindsItsDefinitions" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="5894e829-8009-f783-fd41-08aec7ea222e">
+      <Execution id="4fdf8ff7-50e0-462c-8af0-c6ae61769575" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiMotionTests" name="PreviewIsRepeatableAllocationFreeAndBindsItsDefinitions" />
+    </UnitTest>
+    <UnitTest name="PhysiologyPowerDrivesRepeatableAllocationFreeMovement" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="0664e512-0212-764d-3951-26db9f96fde2">
+      <Execution id="0083328f-572b-409f-99dd-9b83a5e0076d" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.SkiForceTests" name="PhysiologyPowerDrivesRepeatableAllocationFreeMovement" />
+    </UnitTest>
+    <UnitTest name="ExistingTuckModifiersTradeDragForSteeringResponse" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="a99b225b-4049-4522-b654-811f0f7d6d73">
+      <Execution id="a49cb800-1312-4416-af97-048512ca98d9" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiMotionTests" name="ExistingTuckModifiersTradeDragForSteeringResponse" />
+    </UnitTest>
+    <UnitTest name="HigherSpeedTuckAndGripBoundRequestsUsingTheSameActorIndependentKernel" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="3fd401e4-94fa-663f-5071-1a4facff7e0b">
+      <Execution id="50781775-3359-4eb3-9022-0586d105d46a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiSteeringTests" name="HigherSpeedTuckAndGripBoundRequestsUsingTheSameActorIndependentKernel" />
+    </UnitTest>
+    <UnitTest name="AccelerationFromRestUsesQuadraticDistanceInsteadOfUniformTickTravel" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="26bae80c-c8a8-efaf-2fbd-47ee9683fd16">
+      <Execution id="6340ae21-4ac6-4ba2-bdc5-2716e808a28a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiForceTrajectoryTests" name="AccelerationFromRestUsesQuadraticDistanceInsteadOfUniformTickTravel" />
+    </UnitTest>
+    <UnitTest name="BackwardObservationIsNotClampedIntoForwardProgressAndGradeUsesWorldHeading" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="5e063881-ce04-7f8a-b511-234dcb07f37c">
+      <Execution id="a19883b1-c016-48d7-8506-c3ebd52bcbd4" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteProjectionTests" name="BackwardObservationIsNotClampedIntoForwardProgressAndGradeUsesWorldHeading" />
+    </UnitTest>
+    <UnitTest name="RepeatedWorldCoordinatesDoNotAdvanceToAnotherLapOrUnselectedShortcut" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="d80ebd6e-2f7c-c3a2-a8c3-fdd9285c0976">
+      <Execution id="98ffbcc6-b2a0-40fb-97ae-3fd8822e45fc" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteProjectionTests" name="RepeatedWorldCoordinatesDoNotAdvanceToAnotherLapOrUnselectedShortcut" />
+    </UnitTest>
+    <UnitTest name="LongRunIsRepeatableAllocationFreeAndContractsRejectInvalidData" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="e9d5e4b1-e553-9fb5-14cd-bced03811511">
+      <Execution id="059e5b38-f673-43cf-8b73-cb01898229e9" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CorneringTests" name="LongRunIsRepeatableAllocationFreeAndContractsRejectInvalidData" />
+    </UnitTest>
+    <UnitTest name="FullDurationPreservesExistingFixedTickPhysicsExactly" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="0d448726-1d40-9ec8-f2db-42c1f5754cbd">
+      <Execution id="4ed09b77-c351-4a16-910b-ac28063b4896" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.SkiBoundaryStepperTests" name="FullDurationPreservesExistingFixedTickPhysicsExactly" />
+    </UnitTest>
+    <UnitTest name="SpeedCapAndSlopeConversionRetainPaidTravelAndSharedPlayerAiResult" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="edb419ba-9368-c079-fc77-7f64b736e2a6">
+      <Execution id="df29e2c7-b145-4b74-bb6b-0772ca076861" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiForceTrajectoryTests" name="SpeedCapAndSlopeConversionRetainPaidTravelAndSharedPlayerAiResult" />
+    </UnitTest>
+    <UnitTest name="QuantizedWorldPosesAtAuthoredKnotsRemainProjectable" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="774e8ee2-0247-ea4e-15be-1220b245677b">
+      <Execution id="3fb042af-3c48-406a-8e8e-dbcdac8ca0d2" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteProjectionTests" name="QuantizedWorldPosesAtAuthoredKnotsRemainProjectable" />
+    </UnitTest>
+    <UnitTest name="SafeSpeedObeysCurvatureAndSkillWithoutDirectionBias" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="3a7e1638-5688-1fd3-f0a4-0852535711d7">
+      <Execution id="e3d0bdbe-6eb8-4d8f-ad32-2425514d9d39" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CorneringTests" name="SafeSpeedObeysCurvatureAndSkillWithoutDirectionBias" />
+    </UnitTest>
+    <UnitTest name="EverySelectedOccurrenceProjectsClippedGeometryWithoutAwardingOdometerOrChangingPose(&quot;mass_start&quot;)" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="95a9e171-d2ed-9177-6068-c22db3100be9">
+      <Execution id="20f9ab09-ab13-49c8-8ee8-f48a857b410f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteProjectionTests" name="EverySelectedOccurrenceProjectsClippedGeometryWithoutAwardingOdometerOrChangingPose(&quot;mass_start&quot;)" />
+    </UnitTest>
+    <UnitTest name="GripDemandIncludesInternalMaximumOfAcceleratingAndAngularBrakingRamp" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="7de71026-58c8-ad91-2eee-02631b847822">
+      <Execution id="f7296ae5-1196-413a-a7e5-55f4ec1786c5" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiForceTrajectoryTests" name="GripDemandIncludesInternalMaximumOfAcceleratingAndAngularBrakingRamp" />
+    </UnitTest>
+    <UnitTest name="RestDoesNotReverseAndStoppingInsideTickDoesNotAddExtraDistance" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="20f6d3ca-f1dd-85a8-d4d5-3822aba31c5d">
+      <Execution id="6ea1fb11-d4f4-423c-a690-8e551e9646f3" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.SkiForceTests" name="RestDoesNotReverseAndStoppingInsideTickDoesNotAddExtraDistance" />
+    </UnitTest>
+    <UnitTest name="RequiredV2IntentAndTuningFieldsRejectMissingInvalidOrAmbiguousData" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="2b6d3cbf-ebc0-abc3-41d4-cf588acb2ae7">
+      <Execution id="6a4eac3f-2b84-44e7-bf53-37bf2b8294e3" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiSteeringTests" name="RequiredV2IntentAndTuningFieldsRejectMissingInvalidOrAmbiguousData" />
+    </UnitTest>
+    <UnitTest name="ZeroSpeedPropulsionAndNumericEnvelopeAreBounded" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="b205b0ff-ffe7-59a6-e185-67b6c1d387af">
+      <Execution id="998b0b19-0e1a-4078-a667-7eaf12d98301" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.SkiForceTests" name="ZeroSpeedPropulsionAndNumericEnvelopeAreBounded" />
+    </UnitTest>
+    <UnitTest name="BrakingStopsTranslationBeforeTickEndsWhilePivotMayContinue" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="2042267e-6b77-3506-bff8-1e330623a423">
+      <Execution id="11887ef4-8d9e-4707-a8f5-89e7b41ae911" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiForceTrajectoryTests" name="BrakingStopsTranslationBeforeTickEndsWhilePivotMayContinue" />
+    </UnitTest>
+    <UnitTest name="BoundarySolvingIsDeterministicAndDoesNotAllocate" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="d3b0b9eb-9071-58d4-8173-51f860351615">
+      <Execution id="8a9c5e64-2134-4b06-9940-887508d4dc22" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.SkiBoundaryStepperTests" name="BoundarySolvingIsDeterministicAndDoesNotAllocate" />
+    </UnitTest>
+    <UnitTest name="InvalidInputsFailBeforeChangingTheImmutablePose" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="eada1a21-e849-ca2a-eef9-4c2cb69a1e22">
+      <Execution id="86740a00-2337-4b02-bdf4-6d3d83e8642b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiSteeringTests" name="InvalidInputsFailBeforeChangingTheImmutablePose" />
+    </UnitTest>
+    <UnitTest name="ExplicitV2RoundTripPreservesLargeTickAndRejectsLegacyStream" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="3f894acd-923d-0195-0f7f-4820aa43be8f">
+      <Execution id="ec54a6de-4bc7-48c7-820e-886c2f0929c8" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiSteeringTests" name="ExplicitV2RoundTripPreservesLargeTickAndRejectsLegacyStream" />
+    </UnitTest>
+    <UnitTest name="SurfaceBoundarySplitsTimeAndRetainsSpeedBeforeNextSurface" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="892c9a53-4907-8445-57f2-3e5db5973ca9">
+      <Execution id="bd287d78-de02-40be-bf76-472b842e7c04" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.SkiBoundaryStepperTests" name="SurfaceBoundarySplitsTimeAndRetainsSpeedBeforeNextSurface" />
+    </UnitTest>
+    <UnitTest name="ForceBreakdownMatchesUnitsAndGradeGeometry" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="93505e51-458f-a3ef-b030-de99b08460ac">
+      <Execution id="1fc8e660-e4cb-4c4f-92c6-cc4340b3d670" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.SkiForceTests" name="ForceBreakdownMatchesUnitsAndGradeGeometry" />
+    </UnitTest>
+    <UnitTest name="PoorLineRiskAndFatigueReduceSafeCapability" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="3d561e49-28b2-7e7b-011e-b6c8dbb9b642">
+      <Execution id="532993da-fd01-41e1-a757-1840673ec13b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CorneringTests" name="PoorLineRiskAndFatigueReduceSafeCapability" />
+    </UnitTest>
+    <UnitTest name="InvalidAndStaleCourseInputsFailWithoutMutatingState" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="283f0b34-47d9-0033-37bb-727fc1ac837a">
+      <Execution id="7da875bb-98bd-4065-9dc2-01bf85f76f7f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiMotionTests" name="InvalidAndStaleCourseInputsFailWithoutMutatingState" />
+    </UnitTest>
+    <UnitTest name="HeadingWrapIsCanonicalAndOppositeWorldHeadingDoesNotBecomeForwardRouteTravel" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="b8a4da29-d8ab-d461-dfd0-0cb934b5a4e8">
+      <Execution id="132212f2-e1ac-49af-8a44-9112a078120e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiSteeringTests" name="HeadingWrapIsCanonicalAndOppositeWorldHeadingDoesNotBecomeForwardRouteTravel" />
+    </UnitTest>
+    <UnitTest name="ConstantRateTrajectoryMatchesCircularArcAndSamplesPaidPrefix" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="9ed6727b-b471-fa47-0f8b-8d0b19d913fa">
+      <Execution id="8c1831c9-0eac-488c-a6f3-1bba1dd5b90f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiSteeringTests" name="ConstantRateTrajectoryMatchesCircularArcAndSamplesPaidPrefix" />
+    </UnitTest>
+    <UnitTest name="OverspeedProducesBoundedBrakingAndIntegratedDistanceNotTeleportation" storage="c:\game\biathlon\biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\biathlon.tests\release\biathlon.tests.dll" id="73c1c453-0340-de59-cf8d-551e97007a21">
+      <Execution id="bf091563-4594-4aff-b765-128d4bdfa61f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CorneringTests" name="OverspeedProducesBoundedBrakingAndIntegratedDistanceNotTeleportation" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="33c808d0-f607-d0cc-2388-62f741dd5a3f" executionId="f33c8bc6-4ed8-4109-ae00-252e71ec7523" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="df09d7d4-61a8-ee80-b818-749bd2df27df" executionId="02f81850-f710-4019-adc6-59394a78082d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eada1a21-e849-ca2a-eef9-4c2cb69a1e22" executionId="86740a00-2337-4b02-bdf4-6d3d83e8642b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="26bae80c-c8a8-efaf-2fbd-47ee9683fd16" executionId="6340ae21-4ac6-4ba2-bdc5-2716e808a28a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3fd401e4-94fa-663f-5071-1a4facff7e0b" executionId="50781775-3359-4eb3-9022-0586d105d46a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3f894acd-923d-0195-0f7f-4820aa43be8f" executionId="ec54a6de-4bc7-48c7-820e-886c2f0929c8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="774e8ee2-0247-ea4e-15be-1220b245677b" executionId="3fb042af-3c48-406a-8e8e-dbcdac8ca0d2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="95a9e171-d2ed-9177-6068-c22db3100be9" executionId="20f9ab09-ab13-49c8-8ee8-f48a857b410f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a8f5d028-d807-3686-6852-b1d8447adb32" executionId="1b09477e-b900-44da-a784-001a3ce49f9c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7e08cf98-17e2-94c3-b646-3e5e8af82c0c" executionId="c9603e42-fd63-4c87-bff5-4a6b94135804" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cf8da8fa-63ac-e7f0-3621-e37e7d81781d" executionId="cb274a48-4a1e-4141-9e6f-1901dc6873ee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6707489d-aff2-ba64-2702-0d4f28547403" executionId="111aba65-42e0-440a-b9e4-34ffeca08d57" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="da0cdd6d-c165-f9e7-1018-53930b1f0879" executionId="74c8e0eb-e53d-4d81-810d-2a3e48a9a53d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3a7e1638-5688-1fd3-f0a4-0852535711d7" executionId="e3d0bdbe-6eb8-4d8f-ad32-2425514d9d39" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3d561e49-28b2-7e7b-011e-b6c8dbb9b642" executionId="532993da-fd01-41e1-a757-1840673ec13b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b205b0ff-ffe7-59a6-e185-67b6c1d387af" executionId="998b0b19-0e1a-4078-a667-7eaf12d98301" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5e063881-ce04-7f8a-b511-234dcb07f37c" executionId="a19883b1-c016-48d7-8506-c3ebd52bcbd4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="892c9a53-4907-8445-57f2-3e5db5973ca9" executionId="bd287d78-de02-40be-bf76-472b842e7c04" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d80ebd6e-2f7c-c3a2-a8c3-fdd9285c0976" executionId="98ffbcc6-b2a0-40fb-97ae-3fd8822e45fc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="01e8ffc9-bdd8-02f6-7ef4-ed8f04b47f30" executionId="3e89b369-fc51-4f15-a6bc-28cfd2ff4504" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0f03c863-634b-192e-e75b-83cca954204d" executionId="52ca9744-6c6b-44ac-aeb6-1b0f3268f0d7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="93505e51-458f-a3ef-b030-de99b08460ac" executionId="1fc8e660-e4cb-4c4f-92c6-cc4340b3d670" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="73c1c453-0340-de59-cf8d-551e97007a21" executionId="bf091563-4594-4aff-b765-128d4bdfa61f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9feb6eb1-6f10-6782-7507-04c2924ae27e" executionId="cea6d4cd-3717-47a6-a4df-1a34c2a1156e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2b6d3cbf-ebc0-abc3-41d4-cf588acb2ae7" executionId="6a4eac3f-2b84-44e7-bf53-37bf2b8294e3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="283f0b34-47d9-0033-37bb-727fc1ac837a" executionId="7da875bb-98bd-4065-9dc2-01bf85f76f7f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6c0acad5-c404-94f1-5126-523eb769af4c" executionId="f8412ef3-c6ef-466a-bc06-81803f192a0a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e9d5e4b1-e553-9fb5-14cd-bced03811511" executionId="059e5b38-f673-43cf-8b73-cb01898229e9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3ed804a4-d5f8-3e74-3057-fc3dde0a2904" executionId="1ff1d491-538c-4b1a-bbf8-42add56c564a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0664e512-0212-764d-3951-26db9f96fde2" executionId="0083328f-572b-409f-99dd-9b83a5e0076d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1c56820d-aee0-359b-4c3d-85116fdb79b1" executionId="15af8415-d331-4fba-840c-d05e26acc3ba" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="65da9cb2-bd93-f1ff-f76b-40bd7b03958a" executionId="7919584c-0b26-43bd-9f39-49f66c5f9721" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ed00fa55-5f50-9e89-71d3-8effd5627273" executionId="38d437c9-6c21-4b0c-9866-1166cf94ad71" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0d448726-1d40-9ec8-f2db-42c1f5754cbd" executionId="4ed09b77-c351-4a16-910b-ac28063b4896" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="20f6d3ca-f1dd-85a8-d4d5-3822aba31c5d" executionId="6ea1fb11-d4f4-423c-a690-8e551e9646f3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="634b82e8-3bf6-0267-0cc1-c7edd7ac2bf2" executionId="fd1b4d32-efa2-4b31-a9bc-6259a158df97" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5894e829-8009-f783-fd41-08aec7ea222e" executionId="4fdf8ff7-50e0-462c-8af0-c6ae61769575" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7de71026-58c8-ad91-2eee-02631b847822" executionId="f7296ae5-1196-413a-a7e5-55f4ec1786c5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1ad96fde-2268-44ef-1e3b-da30e7229fa2" executionId="254701ff-c7f2-4c4e-878c-fd09ca9c90b6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d0b164a1-173d-72c1-f6af-c77300ed3ead" executionId="995b6ae4-5862-4476-8fab-3e4fb011011a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b8a4da29-d8ab-d461-dfd0-0cb934b5a4e8" executionId="132212f2-e1ac-49af-8a44-9112a078120e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9ed6727b-b471-fa47-0f8b-8d0b19d913fa" executionId="8c1831c9-0eac-488c-a6f3-1bba1dd5b90f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="669a2c05-971b-e23b-c9ee-76d7a741d839" executionId="510fe83a-ff76-4be1-9eac-82bf5703e398" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a99b225b-4049-4522-b654-811f0f7d6d73" executionId="a49cb800-1312-4416-af97-048512ca98d9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d3b0b9eb-9071-58d4-8173-51f860351615" executionId="8a9c5e64-2134-4b06-9940-887508d4dc22" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4a50af3d-8453-eca7-6fed-1db281a3d9f7" executionId="ed227aa9-4a89-49b5-95bf-f4bf2a53fb0b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="edb419ba-9368-c079-fc77-7f64b736e2a6" executionId="df29e2c7-b145-4b74-bb6b-0772ca076861" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2042267e-6b77-3506-bff8-1e330623a423" executionId="11887ef4-8d9e-4707-a8f5-89e7b41ae911" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="48" executed="48" passed="48" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\artifacts\owner-m13-force-heading-20261006\dotnet\bin\Biathlon.Tests\release\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 48 of 48 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+corner_probe=3739410804002:7.441174007&#xD;
+&#xD;
+force_heading_probe=3391240299166:7.29575946:23.132738559:1172274364&#xD;
+&#xD;
+manual_heading_probe=1.992276616:-117.49378606:5545540272:0.651&#xD;
+&#xD;
+ski_probe=4602282710307:9.311353007&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

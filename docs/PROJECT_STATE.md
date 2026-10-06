@@ -21180,3 +21180,34 @@ authorize an intermediate build or replace earlier requirements.
   remaining player traffic delays and terrain readability are not marked done.
   No new Windows build. The next build follows the complete accumulated batch
   and is then handed to the owner for hands-on review. Historical bytes preserved.
+
+## 2026-10-06 — M13 manual force/heading integration checkpoint
+
+The accumulated owner batch remains active; no intermediate Windows build.
+Implemented an event-free shared movement preview coupling real force-solver
+velocity ramps to continuous manual heading. Acceleration, early stopping and
+speed caps now determine within-step travel instead of uniform distance density.
+A physical stop ends translation while retaining any remaining pivot motion.
+
+Directional grade and world wind use actual heading; turning braking uses actual
+yaw rather than route curvature. Existing cornering capability, braking response,
+snow/drag modifiers and force definitions are reused. No hidden AI bonus or
+shooting change. Neutral input preserves world heading. The preview exposes grip
+excess, force breakdown, speed boundary and physical distance without awarding
+route progress or committing any actor state.
+
+Evidence: 48 focused .NET tests PASS; 23 legacy player/Sprint/pack replay tests
+PASS; native Unity force trajectory 8 PASS and composed movement 6 PASS.
+Warm repeat/allocation checks pass. Unity compiled successfully. Console has one
+MCP error from an unsupported combined test-class selector; individual class runs
+succeeded. It is not a project compile failure or a passing combined test run.
+Receipts: docs/quality/m13/owner-force-heading-20261006/.
+Report: docs/reports/TASK_M13_MANUAL_FORCE_HEADING_20261006.md.
+Contract and limitations: docs/adr/ADR-0034-manual-force-heading-preview.md.
+
+This is NOT live manual-control completion: no playable caller was switched.
+Legacy contexts and race outputs remain unchanged. Directional forces are frozen
+at interval start; residual grip excess still requires the joint movement/contact
+solver. Remaining: oriented body/edge admission and contact response, start/range/
+penalty cursors, AI steering, versioned race replay and host wiring. Queues are
+still an open owner defect. M13/WP175–178 remain OPEN. Preserve all prior history.
