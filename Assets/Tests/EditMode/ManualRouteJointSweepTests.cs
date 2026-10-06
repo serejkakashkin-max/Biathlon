@@ -105,5 +105,39 @@ namespace Biathlon.Tests
             Assert.That(result.Tube.Status,Is.EqualTo(ManualRouteTubeStatus.WorkLimit));
             Assert.That(result.ClearUntilSeconds,Is.Zero);
         }
+        [Test] public void CommonPrefixProjectsWorldPoseWithoutTurningOrAwardingDistance()
+        {
+            var f=Create();var p=f.visual.Get(f.route.GetSection(0).LoopId).Sample(10);
+            var actor=Actor("a",f.body,p,3*p.ForwardX,3*p.ForwardZ,.05);
+            var actors=new[]{actor};var windows=new[]{Scope("a",10,2)};
+            var projections=new ManualRouteProjection[1];
+            bool ok=f.solver.TryProjectCommonPrefix(actors,1,Array.Empty<SkiReachedContactPair>(),0,
+                windows,Array.Empty<SkiActorCourseEdge>(),0,projections,out var joint);
+            Assert.That(ok,Is.True);
+            Assert.That(joint.Status,Is.EqualTo(ManualRouteJointStatus.Clear));
+            Assert.That(projections[0].SectionIndex,Is.Zero);
+            Assert.That(projections[0].RouteNanometers,Is.GreaterThan(Nano(10)));
+            Assert.That(actor.Trajectory.Sample(1).X,Is.EqualTo(p.X+3*p.ForwardX*.05).Within(1e-7));
+            for(int i=0;i<100;i++)f.solver.TryProjectCommonPrefix(actors,1,Array.Empty<SkiReachedContactPair>(),0,
+                windows,Array.Empty<SkiActorCourseEdge>(),0,projections,out _);
+            long bytes=GC.GetAllocatedBytesForCurrentThread();
+            for(int i=0;i<1000;i++)f.solver.TryProjectCommonPrefix(actors,1,Array.Empty<SkiReachedContactPair>(),0,
+                windows,Array.Empty<SkiActorCourseEdge>(),0,projections,out _);
+            Assert.That(GC.GetAllocatedBytesForCurrentThread()-bytes,Is.Zero);
+        }
+        [Test] public void FailedSecondProjectionLeavesEveryOutputSlotUntouched()
+        {
+            var f=Create();var loop=f.visual.Get(f.route.GetSection(0).LoopId);
+            var a=loop.Sample(10);var b=loop.Sample(30);
+            var actors=new[]{Actor("a",f.body,a,0,0),Actor("b",f.body,b,0,0)};
+            var windows=new[]{Scope("a",10),Scope("b",200,.01)};
+            var projections=new ManualRouteProjection[2];
+            bool ok=f.solver.TryProjectCommonPrefix(actors,2,Array.Empty<SkiReachedContactPair>(),0,
+                windows,Array.Empty<SkiActorCourseEdge>(),0,projections,out var joint);
+            Assert.That(ok,Is.False);
+            Assert.That(joint.Status,Is.EqualTo(ManualRouteJointStatus.RouteTube));
+            Assert.That(projections[0].IsValid,Is.False);
+            Assert.That(projections[1].IsValid,Is.False);
+        }
     }
 }

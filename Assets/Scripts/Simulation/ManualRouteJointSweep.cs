@@ -40,12 +40,14 @@ namespace Biathlon.Simulation
     /// ownership of contact response, topology admission and race events.</summary>
     public sealed class ManualRouteJointSweep
     {
+        private readonly ManualRouteProjectionMap route;
         private readonly ManualSkiJointSweep bodies;
         private readonly ManualRouteTubeSweep course;
         public string ContextJson {get;}
         public ManualRouteJointSweep(ManualRouteProjectionMap route,OccupancyDefinition body,
             SkiContactDefinition contact,SkiContactSweepDefinition work)
         {
+            this.route=route??throw new ArgumentNullException(nameof(route));
             bodies=new ManualSkiJointSweep(body,contact,work);
             course=new ManualRouteTubeSweep(route,body,work);
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_route_body_tube_common_prefix_v1",
@@ -88,6 +90,42 @@ namespace Biathlon.Simulation
                     actor.Athlete,tube:tube);
             }
             return best;
+        }
+
+        /// <summary>Observe every candidate at the common proven prefix. This
+        /// does not commit the poses, grant odometer distance, choose a branch,
+        /// or emit race events. A failed local projection leaves output untouched.</summary>
+        public bool TryProjectCommonPrefix(SkiWorldMotionCandidate[] actors,int count,
+            SkiReachedContactPair[] reached,int reachedCount,ManualRouteActorWindow[] routeWindows,
+            SkiActorCourseEdge[] additionalEdges,int additionalEdgeCount,
+            ManualRouteProjection[] projections,out ManualRouteJointPreview joint)
+        {
+            if(projections==null||count<1||projections.Length<count)
+                throw new ArgumentException("One projection slot per actor required.",nameof(projections));
+            joint=Preview(actors,count,reached,reachedCount,routeWindows,additionalEdges,additionalEdgeCount);
+            // Validate the entire roster before writing a slot. In particular,
+            // one athlete outside its selected station window cannot leave a
+            // partial commit-looking array for the caller to consume.
+            for(int i=0;i<count;i++)
+                if(!TryProjectActor(actors[i],routeWindows,count,joint.ClearUntilSeconds,out _))return false;
+            for(int i=0;i<count;i++)
+            {
+                TryProjectActor(actors[i],routeWindows,count,joint.ClearUntilSeconds,out var observation);
+                projections[i]=observation;
+            }
+            return true;
+        }
+
+        private bool TryProjectActor(SkiWorldMotionCandidate actor,ManualRouteActorWindow[] windows,int count,
+            double safeSeconds,out ManualRouteProjection observation)
+        {
+            ManualRouteActorWindow window=default;
+            for(int j=0;j<count;j++)if(windows[j].Athlete.Equals(actor.Athlete))
+            {window=windows[j];break;}
+            double fraction=safeSeconds/actor.Trajectory.DurationSeconds;
+            return route.TryProject(actor.Trajectory.Sample(fraction),window.SectionIndex,
+                window.PreviousStationNanometers,window.MaximumStationDisplacementMeters,
+                window.AdmitNextSection,out observation);
         }
     }
 }

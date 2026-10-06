@@ -21524,3 +21524,25 @@ contains the updated validation. PROJECT_STATE history was only appended.
 Manual steering is still not connected to the playable host. Route lifecycle,
 range/penalty ownership, collision response, event-log and replay remain open;
 M13/WP175–178 remain OPEN. No intermediate Windows build.
+
+## 2026-10-06 — M13 atomic common-prefix route observations
+
+Added a joint-solver query that samples every actor's world pose at the common
+proven safe prefix and projects it only in the actor's selected route window.
+All actor projections must succeed before any caller-owned output slot is
+written. A failed second projection therefore cannot leave a partial roster
+that looks ready to commit. The query does not alter heading or position and
+awards no route or odometer distance. Repeated warm queries allocate no managed
+memory.
+
+Focused .NET spatial/route tests 25/25 PASS; native Unity joint class 7/7
+PASS. Unity compiled, Editor idle, recent Error Console empty. Earlier hidden
+PlayMode FMOD device error remains separately recorded. Evidence:
+docs/quality/m13/owner-manual-route-joint-20261006/common-projection-dotnet.trx
+and native-common-projection.xml. ADR-0037 and the joint report were extended.
+Historical PROJECT_STATE bytes preserved; this record only appended.
+
+This is still a non-committing observation, not live manual steering or a
+whole-race transaction. Range/penalty topology, repeated collision response,
+event-log, v2 replay and playable input remain open. M13/WP175–178 OPEN; no
+intermediate Windows build before owner batch completion.

@@ -28,3 +28,13 @@ to this EditMode check. Evidence:
 The query does not move or bounce athletes, commit route progress, handle all
 range/penalty geometry, record events or bind replay. The playable race still
 uses v1 route following. M13/WP175–178 stay open; no intermediate Windows build.
+
+The next intermediate query now samples every actor's actual world pose at the
+common proven prefix, then projects it only inside that actor's selected route
+window. It validates the full roster before filling any caller-owned result
+slot. A failed second athlete therefore leaves the first athlete's slot
+untouched. No heading change, odometer award or branch admission is implied.
+Focused .NET route/spatial tests 25/25 PASS; Unity joint class 7/7 PASS, Editor
+idle, recent Error Console empty. The earlier hidden PlayMode FMOD diagnostic
+remains separate. Additional receipts are `common-projection-dotnet.trx` and
+`native-common-projection.xml` in the evidence directory above.

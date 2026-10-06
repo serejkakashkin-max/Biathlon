@@ -126,3 +126,14 @@ both safety algorithms. This is a common admissibility query only. It does not
 advance poses, resolve repeated impacts, choose a branch or award race events.
 Range/penalty actors require their own correctly admitted world geometry before
 this can be a whole-race authority.
+
+## 2026-10-06 common-prefix route observations
+
+The joint solver can now observe every candidate at its single proven common
+prefix, using the same selected-route windows that constrained the sweep. It
+first validates all local projections and only then fills caller-owned output
+slots. A missing projection leaves the entire output array unchanged, so a
+partial roster cannot look like a valid transaction. These are observations of
+world poses, not pose commits, odometer awards, branch decisions or event-log
+records. They still do not cover range/penalty ownership or replace the future
+race-state transaction. The query is allocation-free after construction.
