@@ -33,11 +33,15 @@ namespace Biathlon.Simulation
     {
         private readonly RaceRoute route;
         public string ContextJson { get; }
+        public string SectionHandoffContextJson { get; }
         public ManualRouteProgression(RaceRoute route)
         {
             this.route=route??throw new ArgumentNullException(nameof(route));
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_same_section_high_water_credit_v1",
                 route.TrackSnapshotJson,route.PlanSnapshotJson,route.RequirementsSnapshotJson});
+            SectionHandoffContextJson=ShootingModelDefinitions.EncodeContext(new[]{
+                "manual_selected_section_zero_credit_handoff_v1",ContextJson,
+                "accepted_exact_end;both_world_endpoint_observations;ordered_successor_only"});
         }
 
         /// <summary>Initialize only from an accepted race snapshot. A new race
@@ -53,6 +57,45 @@ namespace Biathlon.Simulation
             if(observed<start||observed>end||credited<observed||credited>end)
                 throw new ArgumentException("Observed and credited stations must belong to the selected occurrence.");
             return new ManualRouteProgressCursor(athlete,section,observed,credited);
+        }
+
+        /// <summary>Propose a zero-credit handoff only after the accepted world
+        /// body actually reaches the selected section endpoint. The next route
+        /// occurrence must project the same pose at its exact start. A validated
+        /// RaceRoute supplies the ordered same-loop or directed connection seam;
+        /// this proposal still does not grant junction/traffic admission.</summary>
+        public bool TryPreviewSectionHandoff(ManualRouteProgressCursor accepted,
+            ManualRouteActorFrame safeAtEnd,ManualRouteProjectionMap worldRoute,
+            out ManualRouteProgressCursor next)
+        {
+            next=default;
+            if(worldRoute==null||!worldRoute.IsBoundTo(route)||!accepted.IsValid||
+                !safeAtEnd.IsValid||!safeAtEnd.Athlete.Equals(accepted.Athlete)||
+                accepted.SectionIndex<0||accepted.SectionIndex+1>=route.SectionCount)return false;
+            var current=route.GetSection(accepted.SectionIndex);
+            var successor=route.GetSection(accepted.SectionIndex+1);
+            long end=checked((current.Start.Millimeters+current.Length.Millimeters)*SkiState.NanometersPerMillimeter);
+            long start=checked(successor.Start.Millimeters*SkiState.NanometersPerMillimeter);
+            if(end!=start||accepted.ObservedStationNanometers!=end||
+                accepted.CreditedStationNanometers!=end||
+                safeAtEnd.Projection.RouteNanometers!=end||
+                (safeAtEnd.Projection.SectionIndex!=accepted.SectionIndex&&
+                 safeAtEnd.Projection.SectionIndex!=accepted.SectionIndex+1)||
+                safeAtEnd.Projection.LoopId!=
+                    (safeAtEnd.Projection.SectionIndex==accepted.SectionIndex?current.LoopId:successor.LoopId))return false;
+            // The joint projector may choose either coincident occurrence at a
+            // seam. Require exact endpoint observations of both, so a next-loop
+            // nearest-point tie cannot manufacture a crossing on its own.
+            if(!worldRoute.TryProject(safeAtEnd.Pose,accepted.SectionIndex,end,0,false,
+                out var incoming)||incoming.SectionIndex!=accepted.SectionIndex||
+                incoming.LoopId!=current.LoopId||incoming.RouteNanometers!=end)return false;
+            // The next occurrence is chosen explicitly by the validated route,
+            // never by a nearest-world-point search over repeated laps.
+            if(!worldRoute.TryProject(safeAtEnd.Pose,accepted.SectionIndex+1,start,0,false,
+                out var observation)||observation.SectionIndex!=accepted.SectionIndex+1||
+                observation.LoopId!=successor.LoopId||observation.RouteNanometers!=start)return false;
+            next=new ManualRouteProgressCursor(accepted.Athlete,accepted.SectionIndex+1,start,start);
+            return true;
         }
 
         /// <summary>Preview all safe actor frames atomically. Each maximum station

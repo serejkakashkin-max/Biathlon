@@ -190,3 +190,16 @@ exact route and an explicit version marker. It does not supply the missing
 topology transition, start/range/penalty world paths, physical odometer,
 physiology/lifecycle/event transaction, contact continuation or race replay.
 No playable host switches to v2 on this evidence.
+
+## 2026-10-06 selected route section handoff proposal
+
+A high-water cursor at an exact section end may propose a zero-credit move to
+the ordered next occurrence. The same group-safe world pose must independently
+project onto both the incoming endpoint and successor start through a map bound
+to the exact `RaceRoute` instance. A Sprint seam test exposed a projection tie:
+the joint observation can already name the successor at coincident coordinates.
+The handoff therefore accepts either endpoint label only after verifying both
+physical endpoint observations and the accepted current cursor. This does not
+rotate/reposition the athlete, choose a different route, admit junction traffic
+or commit lifecycle events. Same-loop Mass Start and directed Sprint sections
+pass the focused tests; full topology/range transaction remains outstanding.

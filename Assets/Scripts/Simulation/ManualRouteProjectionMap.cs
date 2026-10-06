@@ -80,6 +80,7 @@ namespace Biathlon.Simulation
     /// follow range/start/penalty paths, or connect the manual kernel to the live host.</summary>
     public sealed class ManualRouteProjectionMap
     {
+        private readonly RaceRoute route;
         private readonly Edge[] edges;
         private readonly int[] firstEdges, edgeEnds;
         private readonly long[] starts, ends;
@@ -119,6 +120,7 @@ namespace Biathlon.Simulation
         {
             if(route==null||geometry==null)throw new ArgumentNullException();
             if(route.TrackId!=geometry.TrackId)throw new ArgumentException("Projection route and geometry must match.");
+            this.route=route;
             var track=TrackDefinition.FromJson(route.TrackSnapshotJson);
             int count=route.SectionCount;firstEdges=new int[count];edgeEnds=new int[count];
             starts=new long[count];ends=new long[count];var list=new List<Edge>();
@@ -164,6 +166,8 @@ namespace Biathlon.Simulation
             CorridorContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_selected_route_convex_cell_v1",
                 ContextJson,"minimum_authored_width_over_visual_edge;four_inward_planes;full_body_interior_only"});
         }
+
+        internal bool IsBoundTo(RaceRoute selectedRoute)=>ReferenceEquals(route,selectedRoute);
 
         /// <summary>Search only the current occurrence and, if explicitly admitted, its
         /// immediate successor. The supplied station window must come from the movement

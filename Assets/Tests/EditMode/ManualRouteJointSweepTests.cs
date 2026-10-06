@@ -8,12 +8,12 @@ namespace Biathlon.Tests
     public class ManualRouteJointSweepTests
     {
         private static string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
-        private static (RaceRoute route,TrackVisualDefinition visual,ManualRouteJointSweep solver,OccupancyDefinition body) Create()
+        private static (RaceRoute route,TrackVisualDefinition visual,ManualRouteJointSweep solver,OccupancyDefinition body) Create(string format="mass_start")
         {
             const string root="Biathlon/Venues/woodland_basin_v1/";
             var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(root+"manifest")),Read);
-            var profile=CompetitionProfile.FromJson(Read(root+"mass_start_profile"));
-            var route=new RaceRoute(venue.Track,RaceRoutePlan.FromJson(Read(root+"mass_start_route")),
+            var profile=CompetitionProfile.FromJson(Read(root+format+"_profile"));
+            var route=new RaceRoute(venue.Track,RaceRoutePlan.FromJson(Read(root+format+"_route")),
                 profile.ToRouteRequirements(),venue.Junctions,venue.Connections);
             var body=OccupancyDefinition.FromJson(Read("Biathlon/occupancy_provisional_v1"));
             var contact=SkiContactDefinition.FromJson("{\"schema_version\":1,\"id\":\"route_joint_test_v1\",\"restitution\":0,\"sliding_friction\":0.2,\"contact_tolerance_m\":0.000001}");
@@ -268,6 +268,44 @@ namespace Biathlon.Tests
                 if(!credit.TryPreviewGroup(frames,accepted,caps,1,output)||
                     output[0].Cursor.CreditedStationNanometers!=frames[0].Projection.RouteNanometers)
                     Assert.Fail("Same-section route credit changed under identical safe frames.");
+            Assert.That(GC.GetAllocatedBytesForCurrentThread()-bytes,Is.Zero);
+        }
+
+        [TestCase("mass_start")][TestCase("sprint")]
+        public void ExactSelectedSectionEndpointProposesZeroCreditHandoffWithoutTurningTheWorldBody(string format)
+        {
+            var f=Create(format);var current=f.route.GetSection(0);var next=f.route.GetSection(1);
+            var end=Nano(current.Start.Meters+current.Length.Meters);
+            var p=f.visual.Get(current.LoopId).Sample(current.LoopEnd.Meters);
+            var actor=Actor("a",f.body,p,0,0,.05);var actors=new[]{actor};
+            var windows=new[]{new ManualRouteActorWindow(new AthleteId("a"),0,end,0,true)};
+            var frames=new ManualRouteActorFrame[1];
+            Assert.That(f.solver.TryPreviewCommonPrefixFrames(actors,1,Array.Empty<SkiReachedContactPair>(),0,
+                windows,Array.Empty<SkiActorCourseEdge>(),0,frames,out var joint),Is.True);
+            Assert.That(joint.Status,Is.EqualTo(ManualRouteJointStatus.Clear));
+            Assert.That(frames[0].Projection.SectionIndex,Is.EqualTo(0).Or.EqualTo(1));
+            Assert.That(frames[0].Projection.RouteNanometers,Is.EqualTo(end));
+            var credit=new ManualRouteProgression(f.route);
+            var cursor=credit.Reconstitute(new AthleteId("a"),0,end,end);
+            Assert.That(credit.SectionHandoffContextJson,Does.Contain("manual_selected_section_zero_credit_handoff_v1"));
+            var worldRoute=new ManualRouteProjectionMap(f.route,f.visual);
+            Assert.That(credit.TryPreviewSectionHandoff(cursor,frames[0],worldRoute,out var handed),Is.True);
+            Assert.That(handed.SectionIndex,Is.EqualTo(1));
+            Assert.That(handed.ObservedStationNanometers,Is.EqualTo(end));
+            Assert.That(handed.CreditedStationNanometers,Is.EqualTo(end));
+            Assert.That(actor.Trajectory.Sample(1),Is.EqualTo(frames[0].Pose));
+            Assert.That(next.Start.Millimeters*SkiState.NanometersPerMillimeter,Is.EqualTo(end));
+            var beforeEnd=credit.Reconstitute(new AthleteId("a"),0,end-1,end);
+            Assert.That(credit.TryPreviewSectionHandoff(beforeEnd,frames[0],worldRoute,out var early),Is.False);
+            Assert.That(early.IsValid,Is.False);
+            var foreign=Create(format);var foreignMap=new ManualRouteProjectionMap(foreign.route,foreign.visual);
+            Assert.That(credit.TryPreviewSectionHandoff(cursor,frames[0],foreignMap,out var foreignResult),Is.False);
+            Assert.That(foreignResult.IsValid,Is.False);
+            for(int i=0;i<100;i++)credit.TryPreviewSectionHandoff(cursor,frames[0],worldRoute,out _);
+            long bytes=GC.GetAllocatedBytesForCurrentThread();
+            for(int i=0;i<1000;i++)
+                if(!credit.TryPreviewSectionHandoff(cursor,frames[0],worldRoute,out var observed)||
+                    observed.SectionIndex!=1)Assert.Fail("Selected zero-credit seam handoff changed.");
             Assert.That(GC.GetAllocatedBytesForCurrentThread()-bytes,Is.Zero);
         }
     }

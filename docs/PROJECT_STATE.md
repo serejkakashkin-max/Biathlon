@@ -21715,3 +21715,26 @@ range/penalty geometry, and does not switch the playable host to manual input.
 Full transaction, repeated contacts, lifecycle/events and v2 full-field replay
 remain open. WP-175–178 and M13 remain OPEN. The next Windows review build is
 still withheld until the complete owner M13 correction batch.
+
+## 2026-10-06 — M13 selected-route section handoff proposal
+
+The manual progress cursor can now propose a zero-distance handoff from an
+accepted exact section endpoint to its ordered successor. The same safe world
+pose must project to both physical endpoints on the exact bound route. No world
+pose or heading snap is applied and no lap or junction event is committed.
+Sprint exposed a coincident-endpoint projection tie, recorded by an initial
+failing diagnostic; the corrected proof accepts either projected label only
+after confirming both endpoint observations. Mass Start same-loop and Sprint
+directed-section witnesses now pass.
+
+Final focused Release .NET route regression 45/45 PASS and native Unity EditMode
+14/14 PASS; compilation idle and recent Error Console empty. Evidence and the
+retained diagnostic: docs/quality/m13/wp175-manual-route-progress/. Report:
+docs/reports/TASK_M13_MANUAL_ROUTE_PROGRESS_20261006.md; ADR-0037 updated.
+No authoritative race result, tuning, host input or balance changed. This is
+an append-only record; earlier PROJECT_STATE history is unchanged.
+
+Junction traffic admission, start/range/penalty world paths, atomic physiology
+and lifecycle commit, contact continuation, full-field replay and playable
+manual steering remain open. WP-175–178 and M13 remain OPEN. No intermediate
+Windows review build before the complete owner correction batch.
