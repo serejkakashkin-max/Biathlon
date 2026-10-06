@@ -73,3 +73,17 @@ Remaining: refine contact arrivals, integrate propulsion/gravity/drag with slip,
 resolve and advance successive contacts inside a tick, admit real corridor cells
 and topology transitions, commit route/lifecycle/events, supply AI signed steering,
 bind v2 replay and wire the playable host. No Windows build or M13 closure.
+
+## 2026-10-06 selected-route interior cells
+
+`ManualRouteProjectionMap` now precomputes four inward planes for each clipped
+visual route edge, using the minimum authoritative physical width crossed by
+that edge. `TryGetInteriorCorridor` returns those planes only when the full body
+and edge clearance fit strictly inside that straight cell. A knot, narrow
+piece, or another unproved start returns false. Planes and IDs are precomputed,
+so warm tick queries allocate nothing. The distinct corridor context binds
+route geometry, widths and this admission rule. An actual Woodland outward
+trajectory is stopped by the joint edge sweep. This remains a local cell
+contract: adjacent-cell transitions, range/penalty paths and composite race
+commit still require explicit topology and collision handling. A failed query
+cannot authorize travel without checking a different admitted cell.

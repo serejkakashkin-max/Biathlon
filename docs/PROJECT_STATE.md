@@ -21418,3 +21418,25 @@ Windows build changed. This controller is not yet wired into the playable race.
 Course-cell admission, actual contact/edge movement, route lifecycle/events,
 v2 tape reconstruction and host input/presentation remain. M13/WP175–178 OPEN.
 No intermediate build, per owner M13 batch directive.
+
+## 2026-10-06 — M13 conservative selected-route corridor cells
+
+The manual route map now precomputes four inward physical planes per straight
+visual edge, with the minimum authoritative track width crossed by that edge.
+`TryGetInteriorCorridor` returns the cell only if the occupied body and edge
+clearance fit strictly inside. At visual knots or unproved narrow/short pieces
+it refuses admission; a future caller must explicitly resolve the adjoining
+topology. Stable edge IDs and a distinct corridor context are precomputed.
+Warm queries allocate zero bytes. A test on real Woodland geometry sends one
+athlete outward and the common joint sweep identifies the right course edge.
+
+Focused .NET route/AI/spatial tests: 33/33 PASS. Native Unity route/corridor
+tests: 16/16 PASS; compilation complete and recent Error Console empty.
+Evidence: docs/quality/m13/owner-manual-corridor-20261006/. Report:
+docs/reports/TASK_M13_MANUAL_CORRIDOR_20261006.md. ADR-0037 amended with the
+bounded local-cell contract. All previous STATE bytes retained unchanged.
+
+This does not switch the playable host to manual steering or solve all track
+seams, range/penalty ownership and simultaneous physical contacts. M13/WP175–178
+remain OPEN. No intermediate Windows build; owner will review the consolidated
+build after the complete correction batch.

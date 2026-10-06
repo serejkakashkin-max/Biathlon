@@ -183,5 +183,112 @@ namespace Biathlon.Tests
             for(int i=0;i<1000;i++)f.map.TrySampleAhead(0,station,1,false,out _);
             Assert.That(GC.GetAllocatedBytesForCurrentThread()-bytes,Is.Zero);
         }
+        [Test] public void ActualWoodlandRouteYieldsConservativeInteriorFourPlaneCellsOnly()
+        {
+            var f=Create();var body=OccupancyDefinition.FromJson(PhysiologyContractTests.DefinitionJson("occupancy_provisional_v1.json"));
+            var track=TrackDefinition.FromJson(f.route.TrackSnapshotJson);
+            int sampled=0,admitted=0,rejectedKnots=0;
+            for(int s=0;s<f.route.SectionCount;s++)
+            {
+                var section=f.route.GetSection(s);var loop=f.geometry.Get(section.LoopId);
+                for(int k=1;k<loop.Count;k++)
+                {
+                    double from=Math.Max(section.LoopStart.Meters,loop.Get(k-1).Distance);
+                    double to=Math.Min(section.LoopEnd.Meters,loop.Get(k).Distance);if(to<=from)continue;
+                    double local=(from+to)*.5,station=section.Start.Meters+local-section.LoopStart.Meters;
+                    var pose=At(loop,local);
+                    Assert.That(f.map.TryProject(pose,s,Nano(station),.01,false,out var observation),Is.True);
+                    sampled++;
+                    if(!f.map.TryGetInteriorCorridor(observation,body,out var cell))continue;
+                    admitted++;
+                    Assert.That(cell.IsValid,Is.True);
+                    Assert.That(cell.SectionIndex,Is.EqualTo(s));
+                    Assert.That(cell.MinimumWidthMeters,Is.GreaterThan(body.LateralSeparation+2*body.EdgeClearance));
+                    Assert.That(new[]{cell.Left.Id,cell.Right.Id,cell.Entry.Id,cell.Exit.Id},Is.Unique);
+                    foreach(var edge in new[]{cell.Left,cell.Right,cell.Entry,cell.Exit})
+                    {
+                        double fx=Math.Sin(pose.HeadingRadians),fz=Math.Cos(pose.HeadingRadians);
+                        double support=body.LongitudinalSeparation*.5*Math.Abs(fx*edge.InwardX+fz*edge.InwardZ)+
+                            body.LateralSeparation*.5*Math.Abs(fz*edge.InwardX-fx*edge.InwardZ);
+                        double gap=(pose.X-edge.X)*edge.InwardX+(pose.Z-edge.Z)*edge.InwardZ-support-body.EdgeClearance;
+                        Assert.That(gap,Is.GreaterThan(0),$"section={s} edge={k} plane={edge.Id}");
+                    }
+                    var physical=track.GetLoop(section.LoopId);
+                    double minimum=double.PositiveInfinity;
+                    for(int p=0;p<physical.SegmentCount;p++)
+                    {
+                        var segment=physical.GetSegment(p);
+                        if(segment.StartDistance.Meters<to&&segment.StartDistance.Meters+segment.Length.Meters>from)
+                            minimum=Math.Min(minimum,segment.WidthMeters);
+                    }
+                    Assert.That(cell.MinimumWidthMeters,Is.EqualTo(minimum));
+                }
+                for(int k=0;k<loop.Count;k++)
+                {
+                    var knot=loop.Get(k);if(knot.Distance<section.LoopStart.Meters||knot.Distance>section.LoopEnd.Meters)continue;
+                    long station=Nano(section.Start.Meters+knot.Distance-section.LoopStart.Meters);
+                    if(f.map.TryProject(new ManualSkiHeadingState(knot.X,knot.Z,0),s,station,.001,false,out var observation))
+                    {
+                        Assert.That(f.map.TryGetInteriorCorridor(observation,body,out _),Is.False,
+                            "A body straddling a cell seam needs explicit topology admission.");
+                        rejectedKnots++;
+                    }
+                }
+            }
+            Assert.That(sampled,Is.GreaterThan(100));Assert.That(admitted,Is.GreaterThan(20));
+            Assert.That(rejectedKnots,Is.GreaterThan(100));
+            Assert.That(f.map.CorridorContextJson,Does.Contain("manual_selected_route_convex_cell_v1"));
+        }
+        [Test] public void InteriorCorridorLookupHasNoWarmAllocationAndRejectsForeignOccurrence()
+        {
+            var f=Create();var section=f.route.GetSection(0);var loop=f.geometry.Get(section.LoopId);
+            var body=OccupancyDefinition.FromJson(PhysiologyContractTests.DefinitionJson("occupancy_provisional_v1.json"));
+            ManualRouteProjection interior=default;
+            for(int k=1;k<loop.Count;k++)
+            {
+                double local=(loop.Get(k-1).Distance+loop.Get(k).Distance)*.5;
+                if(!f.map.TryProject(At(loop,local),0,Nano(local-section.LoopStart.Meters),.01,false,out var p))continue;
+                if(f.map.TryGetInteriorCorridor(p,body,out _)){interior=p;break;}
+            }
+            Assert.That(interior.IsValid,Is.True);
+            Assert.Throws<ArgumentException>(()=>f.map.TryGetInteriorCorridor(default,body,out _));
+            Assert.Throws<ArgumentException>(()=>f.map.TryGetInteriorCorridor(interior,null,out _));
+            for(int i=0;i<100;i++)f.map.TryGetInteriorCorridor(interior,body,out _);
+            long bytes=GC.GetAllocatedBytesForCurrentThread();
+            for(int i=0;i<1000;i++)f.map.TryGetInteriorCorridor(interior,body,out _);
+            Assert.That(GC.GetAllocatedBytesForCurrentThread()-bytes,Is.Zero);
+        }
+        [Test] public void ActualWoodlandCorridorRightEdgeStopsAnOutwardPhysicalTrajectory()
+        {
+            var f=Create();var section=f.route.GetSection(0);var loop=f.geometry.Get(section.LoopId);
+            var body=OccupancyDefinition.FromJson(PhysiologyContractTests.DefinitionJson("occupancy_provisional_v1.json"));
+            ManualSkiHeadingState pose=default;ManualRouteCorridorCell cell=default;
+            for(int k=1;k<loop.Count;k++)
+            {
+                double local=(loop.Get(k-1).Distance+loop.Get(k).Distance)*.5;
+                var candidate=At(loop,local);
+                if(!f.map.TryProject(candidate,0,Nano(local-section.LoopStart.Meters),.01,false,out var observation))continue;
+                if(!f.map.TryGetInteriorCorridor(observation,body,out cell))continue;
+                pose=candidate;break;
+            }
+            Assert.That(pose.IsValid&&cell.IsValid,Is.True);
+            double fx=Math.Sin(pose.HeadingRadians),fz=Math.Cos(pose.HeadingRadians);
+            var outward=new SkiPlanarVelocity(12*fz,-12*fx);
+            var athlete=new ManualSkiContactBody(new AthleteId("corridor_probe"),pose,outward,75);
+            var frame=new ManualSkiSnowContactSystem(body,1).PreviewTrajectory(athlete,
+                new SkiContactMotion(outward,0),0,0,.5);
+            var trajectory=new ManualSkiWorldTrajectory(frame);
+            var contact=SkiContactDefinition.FromJson("{\"schema_version\":1,\"id\":\"corridor_contact_v1\",\"restitution\":0,\"sliding_friction\":0.2,\"contact_tolerance_m\":0.000001}");
+            var checks=SkiContactSweepDefinition.FromJson("{\"schema_version\":1,\"id\":\"corridor_sweep_v1\",\"maximum_depth\":32,\"maximum_interval_checks\":4096,\"time_tolerance_s\":0.0000001}");
+            var joint=new ManualSkiJointSweep(body,contact,checks);
+            var id=athlete.Athlete;
+            var actors=new[]{new SkiWorldMotionCandidate(id,trajectory)};
+            var boundaries=new[]{new SkiActorCourseEdge(id,cell.Left),new SkiActorCourseEdge(id,cell.Right),
+                new SkiActorCourseEdge(id,cell.Entry),new SkiActorCourseEdge(id,cell.Exit)};
+            var result=joint.Preview(actors,1,Array.Empty<SkiReachedContactPair>(),0,boundaries,boundaries.Length);
+            Assert.That(result.Status,Is.EqualTo(SkiJointSweepStatus.EdgeInterval));
+            Assert.That(result.EdgeId,Is.EqualTo(cell.Right.Id));
+            Assert.That(result.ClearUntilSeconds,Is.GreaterThan(0).And.LessThan(.5));
+        }
     }
 }

@@ -51,6 +51,22 @@ namespace Biathlon.Simulation
         {SectionIndex=section;LoopId=loop;RouteNanometers=route;X=x;Y=y;Z=z;ForwardX=forwardX;ForwardZ=forwardZ;}
     }
 
+    /// <summary>Four inward planes of one straight authored corridor cell. A
+    /// transition to another cell needs separate topology admission.</summary>
+    public readonly struct ManualRouteCorridorCell
+    {
+        public bool IsValid {get;}
+        public int SectionIndex {get;}
+        public double MinimumWidthMeters {get;}
+        public SkiCourseEdgePlane Left {get;}
+        public SkiCourseEdgePlane Right {get;}
+        public SkiCourseEdgePlane Entry {get;}
+        public SkiCourseEdgePlane Exit {get;}
+        internal ManualRouteCorridorCell(int section,double width,SkiCourseEdgePlane left,SkiCourseEdgePlane right,
+            SkiCourseEdgePlane entry,SkiCourseEdgePlane exit)
+        {IsValid=true;SectionIndex=section;MinimumWidthMeters=width;Left=left;Right=right;Entry=entry;Exit=exit;}
+    }
+
     /// <summary>Local projection onto an explicitly selected base-race route occurrence.
     /// This geometry primitive does not award distance, choose a branch, admit a body,
     /// follow range/start/penalty paths, or connect the manual kernel to the live host.</summary>
@@ -61,19 +77,30 @@ namespace Biathlon.Simulation
         private readonly long[] starts, ends;
         private readonly long length;
         public string ContextJson { get; }
+        public string CorridorContextJson { get; }
         private readonly struct Edge
         {
             internal readonly int Section;
             internal readonly string Loop;
-            internal readonly double LocalStart,LocalEnd,StationStart,StationEnd,X,Z,Y,DX,DZ,DY,PlanarLength;
-            internal Edge(int section,string loop,double localStart,double localEnd,double stationStart,
-                TrackVisualPoint a,TrackVisualPoint b)
+            internal readonly double LocalStart,LocalEnd,StationStart,StationEnd,X,Z,Y,DX,DZ,DY,PlanarLength,MinimumWidth;
+            internal readonly ManualRouteCorridorCell Corridor;
+            internal Edge(int section,int ordinal,string loop,double localStart,double localEnd,double stationStart,
+                TrackVisualPoint a,TrackVisualPoint b,double minimumWidth)
             {
                 Section=section;Loop=loop;LocalStart=localStart;LocalEnd=localEnd;
                 StationStart=stationStart;StationEnd=stationStart+localEnd-localStart;
                 X=a.X;Y=a.Y;Z=a.Z;DX=b.X-a.X;DY=b.Y-a.Y;DZ=b.Z-a.Z;
                 PlanarLength=Math.Sqrt(DX*DX+DZ*DZ);
+                MinimumWidth=minimumWidth;
                 if(!(PlanarLength>0))throw new ArgumentException("Projection edges need horizontal extent.");
+                double fx=DX/PlanarLength,fz=DZ/PlanarLength,rx=fz,rz=-fx,half=minimumWidth*.5;
+                string id=section.ToString(System.Globalization.CultureInfo.InvariantCulture)+":"+
+                    ordinal.ToString(System.Globalization.CultureInfo.InvariantCulture)+":";
+                Corridor=new ManualRouteCorridorCell(section,minimumWidth,
+                    new SkiCourseEdgePlane(id+"left",X-rx*half,Z-rz*half,rx,rz),
+                    new SkiCourseEdgePlane(id+"right",X+rx*half,Z+rz*half,-rx,-rz),
+                    new SkiCourseEdgePlane(id+"entry",X,Z,fx,fz),
+                    new SkiCourseEdgePlane(id+"exit",X+DX,Z+DZ,-fx,-fz));
             }
         }
 
@@ -81,11 +108,13 @@ namespace Biathlon.Simulation
         {
             if(route==null||geometry==null)throw new ArgumentNullException();
             if(route.TrackId!=geometry.TrackId)throw new ArgumentException("Projection route and geometry must match.");
+            var track=TrackDefinition.FromJson(route.TrackSnapshotJson);
             int count=route.SectionCount;firstEdges=new int[count];edgeEnds=new int[count];
             starts=new long[count];ends=new long[count];var list=new List<Edge>();
             for(int sectionIndex=0;sectionIndex<count;sectionIndex++)
             {
                 var section=route.GetSection(sectionIndex);var loop=geometry.Get(section.LoopId);
+                var physical=track.GetLoop(section.LoopId);
                 starts[sectionIndex]=checked(section.Start.Millimeters*SkiState.NanometersPerMillimeter);
                 ends[sectionIndex]=checked((section.Start.Millimeters+section.Length.Millimeters)*SkiState.NanometersPerMillimeter);
                 firstEdges[sectionIndex]=list.Count;
@@ -94,8 +123,17 @@ namespace Biathlon.Simulation
                     double from=Math.Max(section.LoopStart.Meters,loop.Get(k-1).Distance);
                     double to=Math.Min(section.LoopEnd.Meters,loop.Get(k).Distance);
                     if(to<=from)continue;
-                    list.Add(new Edge(sectionIndex,loop.LoopId,from,to,section.Start.Meters+from-section.LoopStart.Meters,
-                        loop.Sample(from),loop.Sample(to)));
+                    double minimumWidth=double.PositiveInfinity;
+                    for(int p=0;p<physical.SegmentCount;p++)
+                    {
+                        var segment=physical.GetSegment(p);
+                        double end=segment.StartDistance.Meters+segment.Length.Meters;
+                        if(segment.StartDistance.Meters<to&&end>from)
+                            minimumWidth=Math.Min(minimumWidth,segment.WidthMeters);
+                    }
+                    if(double.IsPositiveInfinity(minimumWidth))throw new ArgumentException("Visual edge lacks physical track width.");
+                    list.Add(new Edge(sectionIndex,list.Count,loop.LoopId,from,to,section.Start.Meters+from-section.LoopStart.Meters,
+                        loop.Sample(from),loop.Sample(to),minimumWidth));
                 }
                 edgeEnds[sectionIndex]=list.Count;
                 if(firstEdges[sectionIndex]==edgeEnds[sectionIndex])throw new ArgumentException("Empty projection occurrence.");
@@ -103,6 +141,8 @@ namespace Biathlon.Simulation
             length=ends[count-1];edges=list.ToArray();
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_base_route_local_projection_v1",
                 route.TrackSnapshotJson,route.PlanSnapshotJson,route.RequirementsSnapshotJson,geometry.ToJson()});
+            CorridorContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_selected_route_convex_cell_v1",
+                ContextJson,"minimum_authored_width_over_visual_edge;four_inward_planes;full_body_interior_only"});
         }
 
         /// <summary>Search only the current occurrence and, if explicitly admitted, its
@@ -191,6 +231,35 @@ namespace Biathlon.Simulation
             target=new ManualRouteTarget(section,edge.Loop,station,edge.X+edge.DX*fraction,
                 edge.Y+edge.DY*fraction,edge.Z+edge.DZ*fraction,
                 edge.DX/edge.PlanarLength,edge.DZ/edge.PlanarLength);
+            return true;
+        }
+
+        /// <summary>Admit only a body wholly inside one straight visual/physical
+        /// cell. Its four planes can be passed to the joint continuous sweep; a
+        /// failed query means the caller must handle a seam or unsafe start, not
+        /// skip edge checking. No route progress or transition is awarded.</summary>
+        public bool TryGetInteriorCorridor(ManualRouteProjection observation,OccupancyDefinition body,
+            out ManualRouteCorridorCell cell)
+        {
+            if(!observation.IsValid||body==null)throw new ArgumentException("Initialized route observation and occupied body required.");
+            int section=observation.SectionIndex;
+            if(section<0||section>=starts.Length||observation.LoopId!=edges[firstEdges[section]].Loop||
+                observation.RouteNanometers<starts[section]||observation.RouteNanometers>ends[section])
+                throw new ArgumentException("Projection does not belong to this route occurrence.");
+            double metres=observation.RouteNanometers/(double)SkiState.NanometersPerMeter;
+            int a=firstEdges[section],b=edgeEnds[section];
+            while(a<b){int m=a+(b-a)/2;if(edges[m].StationEnd<metres)a=m+1;else b=m;}
+            cell=default;
+            if(a==edgeEnds[section])return false;
+            var edge=edges[a];
+            if(metres<edge.StationStart||metres>edge.StationEnd)return false;
+            double fraction=(metres-edge.StationStart)/(edge.StationEnd-edge.StationStart);
+            double radius=.5*Math.Sqrt(body.LongitudinalSeparation*body.LongitudinalSeparation+
+                body.LateralSeparation*body.LateralSeparation);
+            double guard=radius+body.EdgeClearance;
+            if(fraction*edge.PlanarLength<=guard||(1-fraction)*edge.PlanarLength<=guard||
+                Math.Abs(observation.LateralMeters)+guard>=edge.MinimumWidth*.5)return false;
+            cell=edge.Corridor;
             return true;
         }
     }
