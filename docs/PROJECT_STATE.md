@@ -21650,3 +21650,23 @@ Manual v2 is not yet wired into the playable race: world/route commit,
 range/penalty transitions, successive contacts, event-log and v2 replay remain
 open. WP-175–178 and M13 remain OPEN. No intermediate Windows build before the
 complete owner correction batch and hands-on gate.
+
+## 2026-10-06 — M13 persisted manual steering input intent
+
+Added a separate `ManualSkiCommandTape` v2 for the fixed-tick signed steering
+commands already produced by the device adapter. It binds one athlete, a
+stable recording ID and exact context, accepts consecutive ticks only and
+rejects v1 player tapes, foreign athletes and capacity overflow. Warm append
+allocates no managed memory. It persists input intent only; no race state is
+advanced or reconstructed by this tape.
+
+Focused Release .NET device/steering/tape selection 29/29 PASS; native Unity
+EditMode `ManualSkiCommandTapeTests` 3/3 PASS. Unity compiled, Editor idle and
+recent Error Console empty. Evidence:
+docs/quality/m13/owner-manual-input-20261006/m13-manual-intent-tape.trx and
+native-manual-intent-tape.xml. Manual input report and ADR-0037 extended.
+No production race physics/balance changed. Historical PROJECT_STATE content
+remains intact; this record was appended.
+
+Full world-motion host, route/lifecycle/event transaction, AI and race replay
+remain open. WP-175–178 and M13 remain OPEN. No intermediate Windows build.

@@ -153,3 +153,13 @@ playable host must not switch to it until authoritative world/route progress,
 range and penalty topology, contact response, event-log and v2 replay are
 committed as a single race transaction. Fixed-tick input parity is not evidence
 that the approved manual-control behavior is already playable.
+
+## 2026-10-06 persisted v2 intent tape
+
+`ManualSkiCommandTape` records consecutive athlete-specific v2 commands with
+an explicit `manual_ski_commands_v2` kind and exact authoritative context.
+It rejects legacy player tapes, schema mismatch, foreign athletes, gaps and
+capacity overflow. Warm per-tick append allocates no managed memory. The tape
+only persists/retrieves intent; it has no authority to step or reconstruct a
+race. A future world-motion host must bind context, roster, starting state,
+all AI commands/events and race output before claiming whole-race replay.

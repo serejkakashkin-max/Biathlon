@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Passed" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 17:06:24Z" end-time="2026-10-06 17:06:25Z" duration="0,602024">
+  <test-suite type="TestSuite" id="2534" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1214" result="Passed" start-time="2026-10-06 17:06:24Z" end-time="2026-10-06 17:06:25Z" duration="0.602024" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2479" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="1187" result="Passed" start-time="2026-10-06 17:06:24Z" end-time="2026-10-06 17:06:25Z" duration="0.492967" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="61532" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2480" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1187" result="Passed" start-time="2026-10-06 17:06:24Z" end-time="2026-10-06 17:06:25Z" duration="0.388662" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2481" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="1187" result="Passed" start-time="2026-10-06 17:06:24Z" end-time="2026-10-06 17:06:25Z" duration="0.279467" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1357" name="ManualSkiCommandTapeTests" fullname="Biathlon.Tests.ManualSkiCommandTapeTests" classname="Biathlon.Tests.ManualSkiCommandTapeTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-06 17:06:25Z" end-time="2026-10-06 17:06:25Z" duration="0.174912" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1359" name="ForeignOrGappedCommandsAndDifferentContextsRejectBeforeAppendOrUse" fullname="Biathlon.Tests.ManualSkiCommandTapeTests.ForeignOrGappedCommandsAndDifferentContextsRejectBeforeAppendOrUse" methodname="ForeignOrGappedCommandsAndDifferentContextsRejectBeforeAppendOrUse" classname="Biathlon.Tests.ManualSkiCommandTapeTests" runstate="Runnable" seed="637205277" result="Passed" start-time="2026-10-06 17:06:25Z" end-time="2026-10-06 17:06:25Z" duration="0.054361" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1358" name="SampledYawAndActionEdgesPersistWithoutLegacyLineTargets" fullname="Biathlon.Tests.ManualSkiCommandTapeTests.SampledYawAndActionEdgesPersistWithoutLegacyLineTargets" methodname="SampledYawAndActionEdgesPersistWithoutLegacyLineTargets" classname="Biathlon.Tests.ManualSkiCommandTapeTests" runstate="Runnable" seed="1236228414" result="Passed" start-time="2026-10-06 17:06:25Z" end-time="2026-10-06 17:06:25Z" duration="0.005843" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1360" name="WarmManualTapeAppendDoesNotAllocate" fullname="Biathlon.Tests.ManualSkiCommandTapeTests.WarmManualTapeAppendDoesNotAllocate" methodname="WarmManualTapeAppendDoesNotAllocate" classname="Biathlon.Tests.ManualSkiCommandTapeTests" runstate="Runnable" seed="632176073" result="Passed" start-time="2026-10-06 17:06:25Z" end-time="2026-10-06 17:06:25Z" duration="0.000959" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
