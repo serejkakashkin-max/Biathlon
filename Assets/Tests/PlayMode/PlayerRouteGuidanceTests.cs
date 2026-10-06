@@ -20,27 +20,41 @@ namespace Biathlon.PlayModeTests
             try
             {
                 var host=root.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;host.Initialize(venue,profile,route,conditions,count:1);
-                var field=host.Runner.Field;var id=field.GetAthlete(0).AthleteId;bool found=false;
+                var field=host.Runner.Field;var id=field.GetAthlete(0).AthleteId;bool found=false,pulse=false,curved=false;
                 for(int t=0;t<8000;t++)
                 {
                     var actor=field.GetAthlete(0);var tick=field.Tick.Next();
                     host.Step(new PlayerCommand(tick,id,900,0),new ShootingDeviceCommand(new WeaponAimCommand(tick,id,0,0),false,false));
                     host.Guidance.Refresh(.125f);
+                    if(actor.ActiveShooting!=null)break;
                     double remaining=(actor.RangePath.FiringRouteNanometers(0)-actor.RouteNanometers)/(double)SkiState.NanometersPerMeter;
                     if(remaining>90)continue;
-                    Assert.That(remaining,Is.GreaterThan(30));
+                    if(!found)Assert.That(remaining,Is.GreaterThan(30));
                     Assert.That(host.Guidance.GuidedLaneOrdinal,Is.EqualTo(actor.RangePath.LaneOrdinal));
                     Assert.That(host.Guidance.MatArrowCount,Is.GreaterThan(0),"Show the actual mat route before entering the final mat branch.");
                     var point=field.GetPhysicalPoint(0);
                     var sample=venue.Visual.Get(point.LoopId).Sample(point.LocalNanometers/(double)SkiState.NanometersPerMeter);
                     var here=new Vector3((float)sample.X,(float)sample.Y,(float)sample.Z);float nearest=float.MaxValue;
+                    var range=venue.Manifest.Range;var mat=range.MatDefinition;
+                    var f=new Vector3((float)range.Forward.X,0,(float)range.Forward.Z);
+                    var anchor=venue.MatPoint(actor.RangePath.LaneOrdinal-1);
+                    var rear=new Vector3((float)anchor.X,(float)anchor.Y,(float)anchor.Z)+f*(float)(mat.AthleteStopDepth-mat.Length);
                     foreach(var arrow in host.Guidance.GetComponentsInChildren<MeshFilter>())
-                        if(arrow.gameObject.name=="Assigned mat chevron")nearest=Mathf.Min(nearest,Vector3.Distance(here,arrow.transform.position));
-                    Assert.That(nearest,Is.LessThan(6),"The trail starts in front of the skier, not at the distant mat.");
+                        if(arrow.gameObject.name=="Assigned mat chevron")
+                        {
+                            nearest=Mathf.Min(nearest,Vector3.Distance(here,arrow.transform.position));
+                            foreach(var vertex in arrow.sharedMesh.vertices)
+                                Assert.That(Vector3.Dot(arrow.transform.TransformPoint(vertex)-rear,f),Is.LessThanOrEqualTo(-.24f),
+                                    "Every visible chevron vertex must leave a snow gap behind the row of mats.");
+                            if(remaining>50)Assert.That(Vector3.Dot(arrow.transform.position-rear,f),Is.LessThan(-2),"Before its final turn, the trail follows the open passage, not the mat edge.");
+                            curved|=Vector3.Dot(arrow.transform.forward,f)>.2f&&Vector3.Dot(arrow.transform.forward,f)<.99f;
+                        }
+                    if(!found)Assert.That(nearest,Is.LessThan(6),"The separated trail still starts ahead of the skier, not at the distant mat.");
+                    Assert.That(host.Guidance.ForkArrowCount,Is.Zero,"Do not overlay the old close-to-mat branch trail.");
                     Assert.That(host.Guidance.GetComponentsInChildren<TextMesh>(true),Is.Empty);
-                    found=true;break;
+                    pulse|=host.Guidance.MatPulseActive;found=true;
                 }
-                Assert.That(found,Is.True);yield return null;
+                Assert.That(found,Is.True);Assert.That(pulse,Is.True);Assert.That(curved,Is.True);yield return null;
             }
             finally{Object.Destroy(root);}
         }
