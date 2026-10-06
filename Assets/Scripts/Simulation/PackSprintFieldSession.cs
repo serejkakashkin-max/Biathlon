@@ -143,7 +143,7 @@ namespace Biathlon.Simulation
             if(!TryGetStartContinuationObservation(index,out _)||tails[index].Active)return false;
             var point=GetPhysicalPoint(index);
             double next=PhysiologyNumbers.Quantize(lateral[index]+Math.Max(-lateralStep,Math.Min(lateralStep,requested-lateral[index])));
-            if(!FitsLoopEnvelope(point,next))return false;
+            if(next==lateral[index]||!FitsLoopEnvelope(point,next))return false;
             long travel=Math.Min((long)Math.Round(GetAthlete(index).Motion.SpeedMetersPerSecond/frequency*SkiState.NanometersPerMeter),point.LoopLengthNanometers-point.LocalNanometers);
             var sweep=new PhysicalOccupancySweep(GetAthlete(index).AthleteId,point,travel,lateral[index],next);
             if(!startContinuation.Contains(sweep))return false;
@@ -186,6 +186,30 @@ namespace Biathlon.Simulation
         }
         /// <summary>Read-only AI lookahead; a clear request still pays ordinary lateral
         /// effort and is fully revalidated by the accepting field transaction.</summary>
+        public bool HasPaidRouteWorldGeometry(PhysicalTrackPoint point)=>rangeWorldTraffic!=null&&rangeWorldTraffic.IsPaidRoutePoint(point);
+        /// <summary>Read-only AI destination-line lookahead against observed bodies
+        /// and retained tails. It grants no admission and never changes player input.
+        /// The ordinary per-tick sweep still pays and validates the lateral transition.</summary>
+        public bool IsRangeWorldForwardLaneClear(int index,double line,double lookaheadMeters)
+        {
+            if(index<0||index>=Count)throw new ArgumentOutOfRangeException(nameof(index));
+            PhysiologyNumbers.RequireRange(line,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,nameof(line));
+            PhysiologyNumbers.RequireRange(lookaheadMeters,.1,100,nameof(lookaheadMeters));
+            if(rangeWorldTraffic==null||GetAthlete(index).ActiveShooting!=null)return false;
+            var point=GetPhysicalPoint(index);
+            if(!rangeWorldTraffic.Contains(point)||!FitsBypassPathWidth(index,point,line,(long)Math.Round(lookaheadMeters*SkiState.NanometersPerMeter)))return false;
+            long travel=Math.Min((long)Math.Round(lookaheadMeters*SkiState.NanometersPerMeter),point.LoopLengthNanometers-point.LocalNanometers);
+            var sweep=new PhysicalOccupancySweep(GetAthlete(index).AthleteId,point,travel,line,line);
+            for(int j=0;j<Count;j++)if(j!=index&&IsOnCourse(j))
+            {
+                var other=GetPhysicalPoint(j);if(!rangeWorldTraffic.Contains(other))continue;
+                var body=new PhysicalOccupancySweep(GetAthlete(j).AthleteId,other,0,lateral[j],lateral[j]);
+                bool pose=GetAthlete(j).CurrentRangeMotion?.Phase==RangeTraversalPhase.Shooting;
+                if(rangeWorldTraffic.Conflicts(sweep,body,false,pose)||tails[j].Active&&
+                    rangeWorldTraffic.TailConflicts(tails[j].Point,tails[j].Lateral,sweep,tails[j].ConnectionIndex,pose))return false;
+            }
+            return true;
+        }
         public bool IsRangeWorldLateralRequestClear(int index,double requested,double previewMeters)
         {
             if(index<0||index>=Count)throw new ArgumentOutOfRangeException(nameof(index));
@@ -193,8 +217,10 @@ namespace Biathlon.Simulation
             PhysiologyNumbers.RequireRange(previewMeters,.001,5,nameof(previewMeters));
             if(rangeWorldTraffic==null||tails[index].Active||GetAthlete(index).ActiveShooting!=null)return false;
             var point=GetPhysicalPoint(index);if(!rangeWorldTraffic.Contains(point))return false;
-            double next=lateral[index]+Math.Max(-lateralStep,Math.Min(lateralStep,requested-lateral[index]));
-            if(!FitsLoopEnvelope(point,next))return false;
+            // Match the field's committed representation. A sub-nanometre residue
+            // otherwise renews an escape forever while every accepted step is zero.
+            double next=PhysiologyNumbers.Quantize(lateral[index]+Math.Max(-lateralStep,Math.Min(lateralStep,requested-lateral[index])));
+            if(next==lateral[index]||!FitsBypassPathWidth(index,point,next,0))return false;
             var selfId=GetAthlete(index).AthleteId;
             var self=new SkiPlacement(selfId,point.LoopId,new SkiState(point.LocalNanometers,GetAthlete(index).Motion.SpeedMetersPerSecond),lateral[index]);
             int count=0;
@@ -216,6 +242,20 @@ namespace Biathlon.Simulation
                 bool pose=GetAthlete(j).CurrentRangeMotion?.Phase==RangeTraversalPhase.Shooting;
                 if(rangeWorldTraffic.Conflicts(sweep,body,false,pose)||tails[j].Active&&rangeWorldTraffic.TailConflicts(tails[j].Point,tails[j].Lateral,sweep,tails[j].ConnectionIndex,pose))return false;
             }
+            return true;
+        }
+        private bool FitsBypassPathWidth(int index,PhysicalTrackPoint point,double line,long forward)
+        {
+            if(!FitsLoopEnvelope(point,line))return false;
+            var actor=GetAthlete(index);
+            if(actor.CurrentRangeMotion?.Phase!=RangeTraversalPhase.PenaltyLoop&&
+                !FitsRouteEnvelope(actor.RangePath,actor.RouteNanometers,line))return false;
+            // The body's front can already enter a narrower penalty lane while
+            // its centre is still on the wide exit aisle. Match that admission
+            // envelope rather than repeatedly proposing an impossible outward step.
+            var front=actor.PreviewCurrentRangeMotion(checked(halfBody+forward));
+            if(front?.Phase==RangeTraversalPhase.PenaltyLoop&&
+                !FitsLoopEnvelope(map.MapPenalty(front.Value.PenaltyNanometers),line))return false;
             return true;
         }
         /// <summary>First unserved junction arrival tick; zero means no pending ticket.</summary>
@@ -1144,7 +1184,13 @@ namespace Biathlon.Simulation
             for (int j = 0; j < junctionCount; j++) if (Touches(a, j) && Touches(b, j))
             {
                 if(worldContinuation&&j==startContinuation.JunctionIndex)continue;
-                if(rangeWorldTraffic!=null&&rangeWorldTraffic.Applies(j)&&!RangeWorldConflict(a,ai,b,bi))
+                // A branch lease must not serialize later-lap traffic on one incident
+                // loop. Admit only the unchanged full world bodies, including wraps
+                // and incoming tails. A same-loop self-crossing has multiple ports
+                // and retains its exclusive guard.
+                if(rangeWorldTraffic!=null&&CanShareIncidentLoop(j,a,b)&&!RangeWorldConflict(a,ai,b,bi))
+                {preparedApronPairProofs++;continue;}
+                if(rangeWorldTraffic!=null&&(rangeWorldTraffic.Applies(j)||rangeWorldTraffic.CanShareCapturedBranch(j))&&!RangeWorldConflict(a,ai,b,bi))
                 {preparedApronPairProofs++;continue;}
                 int apron=sharedApron==null?-1:sharedApron.FindRegionForJunction(j);
                 if(apron>=0&&LocalExitClearanceConflict(a,b,sharedApron.GetExitClearance(apron))&&!departureSeparated)
@@ -1181,6 +1227,19 @@ namespace Biathlon.Simulation
                 PassageGhostPair(passage,a.OldTail,ai,b.NewTail,bi)||PassageGhostPair(passage,a.NewTail,ai,b.NewTail,bi)))return true;
             return GhostPair(a.OldTail, ai, b.OldTail, bi) || GhostPair(a.NewTail, ai, b.OldTail, bi) ||
                 GhostPair(a.OldTail, ai, b.NewTail, bi) || GhostPair(a.NewTail, ai, b.NewTail, bi);
+        }
+        private bool CanShareIncidentLoop(int junction,Trace a,Trace b)
+        {
+            string loop=a.Start.LoopId;
+            return rangeWorldTraffic.CanShareSingleLoopIncidentPort(junction,a.Start)&&Within(a)&&Within(b);
+            bool Within(Trace trace)
+            {
+                if(trace.Start.LoopId!=loop||trace.End.LoopId!=loop||
+                    trace.OldTail.Active&&trace.OldTail.Point.LoopId!=loop||
+                    trace.NewTail.Active&&trace.NewTail.Point.LoopId!=loop)return false;
+                for(int i=0;i<trace.Count;i++)if(trace.Segments[i].Start.LoopId!=loop||trace.Segments[i].End.LoopId!=loop)return false;
+                return true;
+            }
         }
         private bool RangeWorldConflict(Trace a,int ai,Trace b,int bi)
         {

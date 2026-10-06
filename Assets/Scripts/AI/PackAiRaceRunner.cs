@@ -312,21 +312,33 @@ namespace Biathlon.AI
                     {lateral[i]=startEscapeLine[i]=line;startEscapeUntil[i]=tick.Value+(long)Math.Ceiling(laneDefinition.TimeoutSeconds*frequency);}
                 }
                 bool canEscapeRange=worldBypassPolicy!=null&&actor.RangePath!=null&&actor.ActiveShooting==null&&
-                    !onSharedStart&&(alignRange||point.LoopId==Field.Track.Range.Entry.LoopId)&&
+                    !onSharedStart&&(alignRange||point.LoopId==Field.Track.Range.Entry.LoopId||
+                        worldBypassPolicy.WorldBypassPaidRouteLoops&&Field.HasPaidRouteWorldGeometry(point))&&
                     (point.LoopId!=actor.RangePath.MatAnchor.LoopId||actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.RangeExit);
                 if(canEscapeRange&&tick.Value<escapeUntil[i])
                 {lateral[i]=escapeLine[i];rangeTrafficPlans[i]=new AiRangeTrafficPlan(true,false,lateral[i]);}
-                else if(canEscapeRange&&stationaryObservedTicks[i]>=Math.Ceiling(worldBypassPolicy.WorldBypassAfterSeconds.Value*frequency))
+                else if(canEscapeRange&&(stationaryObservedTicks[i]>=Math.Ceiling(worldBypassPolicy.WorldBypassAfterSeconds.Value*frequency)||
+                    window.DecisionDue&&worldBypassPolicy.WorldBypassLookaheadMeters.HasValue&&
+                    point.LoopId!=Field.Track.Penalty.LoopId&&point.LoopId!=actor.RangePath.MatAnchor.LoopId&&
+                    (actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.RangeExit||actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.PenaltyApproach||actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.Rejoin)&&
+                    !Field.IsRangeWorldForwardLaneClear(i,lateral[i],worldBypassPolicy.WorldBypassLookaheadMeters.Value)))
                 {
                     double extent=observation.CurrentTrack.WidthMeters*.5-occupancy.Definition.EdgeMargin;
                     double step=worldBypassPolicy.WorldBypassLateralStep.Value;
                     int probes=(int)Math.Ceiling(extent*2/step);
+                    bool stalledEscape=stationaryObservedTicks[i]>=Math.Ceiling(worldBypassPolicy.WorldBypassAfterSeconds.Value*frequency);
+                    bool selectedEscape=false;
+                    for(int passIndex=0;passIndex<(stalledEscape?2:1)&&!selectedEscape;passIndex++)
                     for(int p=1;p<=probes;p++)
                     {
                         double left=Math.Max(-extent,Field.GetLateral(i)-p*step),right=Math.Min(extent,Field.GetLateral(i)+p*step);
-                        if(left!=Field.GetLateral(i)&&Field.IsRangeWorldLateralRequestClear(i,left,worldBypassPolicy.WorldBypassPreview.Value)){lateral[i]=left;rangeTrafficPlans[i]=new AiRangeTrafficPlan(true,false,left);HoldEscape();break;}
-                        if(right!=Field.GetLateral(i)&&Field.IsRangeWorldLateralRequestClear(i,right,worldBypassPolicy.WorldBypassPreview.Value)){lateral[i]=right;rangeTrafficPlans[i]=new AiRangeTrafficPlan(true,false,right);HoldEscape();break;}
+                        if(left!=Field.GetLateral(i)&&Clear(left,passIndex>0)){lateral[i]=left;rangeTrafficPlans[i]=new AiRangeTrafficPlan(true,false,left);HoldEscape();selectedEscape=true;break;}
+                        if(right!=Field.GetLateral(i)&&Clear(right,passIndex>0)){lateral[i]=right;rangeTrafficPlans[i]=new AiRangeTrafficPlan(true,false,right);HoldEscape();selectedEscape=true;break;}
                     }
+                    // A congested long horizon must not suppress an available short
+                    // paid escape after stopping. Both remain ordinary checked input.
+                    bool Clear(double line,bool shortEscape)=>Field.IsRangeWorldLateralRequestClear(i,line,worldBypassPolicy.WorldBypassPreview.Value)&&
+                        (shortEscape||!worldBypassPolicy.WorldBypassLookaheadMeters.HasValue||Field.IsRangeWorldForwardLaneClear(i,line,worldBypassPolicy.WorldBypassLookaheadMeters.Value));
                     void HoldEscape(){escapeLine[i]=lateral[i];escapeUntil[i]=tick.Value+(long)Math.Ceiling(worldBypassPolicy.WorldBypassHoldSeconds.Value*frequency);}
                 }
                 if(!holdStartGrid && !rangeTrafficPlans[i].Active && !holdStartEscape && !stalledStart && lane.Phase==OvertakePhase.Idle && skiing && (intents[i].Kind==TacticalIntentKind.Draft || intents[i].Kind==TacticalIntentKind.Follow))

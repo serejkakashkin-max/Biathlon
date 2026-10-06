@@ -138,6 +138,15 @@ namespace Biathlon.Simulation
                 return null;
             }
         }
+        /// <summary>Read-only lookahead on the current assigned range/penalty path.
+        /// Does not prepare a tick, choose a mat, grant travel or award progress.</summary>
+        public RangeMotionPoint? PreviewCurrentRangeMotion(long advancedNanometers)
+        {
+            if(advancedNanometers<0)throw new ArgumentOutOfRangeException(nameof(advancedNanometers));
+            for(int i=0;i<ranges.Length;i++)if(ranges[i].Phase!=RangeTraversalPhase.Complete)
+                return ranges[i].PreviewMotion(advancedNanometers);
+            return null;
+        }
         private sealed class RangeEvents : IRaceEventSink
         {
             private readonly IRaceEventSink target;

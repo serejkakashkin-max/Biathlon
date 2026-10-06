@@ -17,6 +17,9 @@ namespace Biathlon.Simulation
         private readonly PhysicalApronSeamProjectionDraft[,] seamRotations,wrapRotations,seamPoseRotations,wrapPoseRotations;
         private readonly int representativeCorridor;
         private readonly bool[] applicable,penaltyRegions;
+        private readonly bool[,] singleIncidentLoop;
+        private readonly bool[] capturedBranchJunction;
+        private readonly bool[] paidRouteLoops;
         private readonly double radius,margin;
         public string ContextJson {get;}
         public PhysicalRangeWorldTrafficMap(PhysicalTrackMap map,TrackDefinition track,RaceRoute route,
@@ -31,6 +34,10 @@ namespace Biathlon.Simulation
                 throw new ArgumentException("Exact named range-world geometry and provenance required.");
             this.map=map;this.track=track;this.visual=visual;this.body=body;
             var loops=new HashSet<string>(StringComparer.Ordinal){track.Penalty.LoopId};
+            var paidLoops=new HashSet<string>(StringComparer.Ordinal);
+            for(int s=0;s<route.SectionCount;s++){string loop=route.GetSection(s).LoopId;loops.Add(loop);paidLoops.Add(loop);}
+            paidRouteLoops=new bool[track.LoopCount];
+            for(int i=0;i<paidRouteLoops.Length;i++)paidRouteLoops[i]=paidLoops.Contains(track.GetLoop(i).Id);
             for(int p=0;p<layout.Definition.Count;p++)for(int s=0;s<layout.Definition.GetLane(p).SliceCount;s++)loops.Add(layout.Definition.GetLane(p).GetSlice(s).LoopId);
             corridors=new PhysicalPassageCorridor[track.LoopCount];projections=new PhysicalApronBodySupportDraft[track.LoopCount,track.LoopCount];
             poseProjections=new PhysicalApronBodySupportDraft[track.LoopCount,track.LoopCount];
@@ -71,6 +78,25 @@ namespace Biathlon.Simulation
                 }
             }
             applicable=new bool[junctions.Count];penaltyRegions=new bool[junctions.Count];
+            singleIncidentLoop=new bool[junctions.Count,corridors.Length];
+            capturedBranchJunction=new bool[junctions.Count];
+            for(int j=0;j<junctions.Count;j++)
+            {
+                var incident=new HashSet<string>(StringComparer.Ordinal);bool complete=junctions.Get(j).PortCount>=2;
+                for(int p=0;p<junctions.Get(j).PortCount;p++)
+                {
+                    string loop=junctions.Get(j).GetPort(p).Anchor.LoopId;
+                    complete&=loops.Contains(loop)&&incident.Add(loop);
+                }
+                capturedBranchJunction[j]=complete;
+            }
+            for(int j=0;j<junctions.Count;j++)for(int c=0;c<corridors.Length;c++)if(corridors[c]!=null)
+            {
+                int ports=0;
+                for(int p=0;p<junctions.Get(j).PortCount;p++)
+                    if(junctions.Get(j).GetPort(p).Anchor.LoopId==track.GetLoop(c).Id)ports++;
+                singleIncidentLoop[j,c]=ports==1;
+            }
             for(int i=0;i<definition.RegionCount;i++)applicable[definition.GetRegion(i).JunctionIndex]=true;
             for(int i=0;i<definition.PenaltyWorldMergeCount;i++)for(int j=0;j<junctions.Count;j++)
                 if(junctions.Get(j).Id==definition.GetPenaltyWorldMerge(i))applicable[j]=penaltyRegions[j]=true;
@@ -80,10 +106,14 @@ namespace Biathlon.Simulation
                 margin=Math.Max(margin,projections[i,j].ProjectionMarginMeters);
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{definition.ToJson(),track.ToJson(),visual.ToJson(),route.PlanSnapshotJson,route.RequirementsSnapshotJson,
                 connections.ToJson(),body.ToJson(),definition.ValidationPolicy.ToJson(),
-                "named_range_penalty_world_bodies_v2;full_paid_receipts;ordinary_ski_rectangle;all_body_headings_on_mat_and_mat_tails_only;whole_interval_and_knots;unsplit_wrap_exclusive;incoming_tail_exact_shortest_rotation;periodic_seam_rotation;same_loop_guards_retained;ibu7_1_4_penalty_over_entering"});
+                "named_range_penalty_world_bodies_v4;paid_route_loops_and_range_paths;full_paid_receipts;ordinary_ski_rectangle;all_body_headings_on_mat_and_mat_tails_only;whole_interval_and_knots;unsplit_wrap_exclusive;incoming_tail_exact_shortest_rotation;periodic_seam_rotation;single_incident_same_loop_junction_requires_complete_world_body_proof;captured_single_port_per_loop_branches_require_complete_world_body_proof;self_crossing_ports_exclusive;same_loop_occupancy_retained;ibu7_1_4_penalty_over_entering"});
         }
         public bool Applies(int junction)=>applicable[junction];
         public bool IsPenaltyRegion(int junction)=>penaltyRegions[junction];
+        public bool CanShareCapturedBranch(int junction)=>capturedBranchJunction[junction];
+        public bool IsPaidRoutePoint(PhysicalTrackPoint point)=>Contains(point)&&paidRouteLoops[point.LoopIndex];
+        public bool CanShareSingleLoopIncidentPort(int junction,PhysicalTrackPoint point)
+            =>Contains(point)&&singleIncidentLoop[junction,point.LoopIndex];
         public bool Contains(PhysicalTrackPoint point)
         {
             try{map.Validate(point);}catch(ArgumentException){return false;}

@@ -9,6 +9,25 @@ namespace Biathlon.Tests
 {
     public class AiRangeTrafficTests
     {
+        [Test] public void WoodlandSharedExitRetainsParallelLinesWithoutArtificialCoasting()
+        {
+            var policy=AiRangeTrafficPolicyDefinition.FromJson(PhysiologyContractTests.ProjectFile(
+                "Assets/Resources/Biathlon/Venues/woodland_basin_v1/ai_range_traffic.json"));
+            var planner=new AiRangeTrafficPlanner(policy,OccupancyTests.Definition());
+            Assert.That(AiRangeTrafficPolicyDefinition.FromJson(policy.ToJson()).RetainSharedExitLine,Is.True);
+            var self=Placement("self",0,-.35);var other=Placement("other",.3,.35);
+            foreach(var phase in new[]{RangeTraversalPhase.RangeExit,RangeTraversalPhase.PenaltyApproach,RangeTraversalPhase.Rejoin})
+            {
+                var plan=planner.Evaluate(true,null,phase,self,Track(),new[]{self,other},
+                    onSharedExitCorridor:true);
+                Assert.That(plan.Active,Is.True);
+                Assert.That(plan.DesiredLateralMeters,Is.EqualTo(self.LateralMeters),phase.ToString());
+                Assert.That(plan.RequestedEffortCap,Is.Null,"Parallel departure must not coast to join an artificial single file.");
+            }
+            var privateExit=planner.Evaluate(true,null,RangeTraversalPhase.RangeExit,self,Track(),new[]{self});
+            Assert.That(privateExit.DesiredLateralMeters,Is.Zero,"Private mat departure still follows its actual narrow path.");
+            Assert.That(Definition().ToJson(),Does.Not.Contain("retain_shared_exit_line"),"Absent policy preserves legacy bindings.");
+        }
         private static AiRangeTrafficPolicyDefinition Definition(bool enabled=true)=>AiRangeTrafficPolicyDefinition.FromJson(
             PhysiologyContractTests.DefinitionJson("ai_range_traffic_provisional_v1.json").Replace("true",enabled?"true":"false"));
         private static SkiPlacement Placement(string id,double position,double line)=>new SkiPlacement(new AthleteId(id),"main",

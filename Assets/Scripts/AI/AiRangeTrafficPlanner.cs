@@ -35,6 +35,12 @@ namespace Biathlon.AI
                 traversal==RangeTraversalPhase.PenaltyApproach||traversal==RangeTraversalPhase.Rejoin||
                 traversal==RangeTraversalPhase.PenaltyLoop&&definition.PenaltyLateralMeters.HasValue);
             if(!active)return new AiRangeTrafficPlan(false,false,self.LateralMeters);
+            // A shared departure has no assigned skiing lane. Keep each body's
+            // current line; the traffic planner may choose a paid bypass when
+            // required. Converging everyone onto one offset creates a queue.
+            if(definition.RetainSharedExitLine&&onSharedExitCorridor&&
+                (traversal==RangeTraversalPhase.RangeExit||traversal==RangeTraversalPhase.PenaltyApproach||traversal==RangeTraversalPhase.Rejoin))
+                return new AiRangeTrafficPlan(true,false,self.LateralMeters);
             double desired=onEntryAisle?definition.EntryLateralMeters??0:0;
             if(traversal==RangeTraversalPhase.PenaltyLoop||traversal==RangeTraversalPhase.Rejoin&&leavingPenalty)
                 desired=definition.PenaltyLateralMeters??0;

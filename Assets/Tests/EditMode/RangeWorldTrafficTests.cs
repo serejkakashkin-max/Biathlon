@@ -11,7 +11,7 @@ namespace Biathlon.Tests
     public class RangeWorldTrafficTests
     {
         private static string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
-        private static PackAiRaceRunner Create(bool enabled,int count=6)
+        private static PackAiRaceRunner Create(bool enabled,int count=6,string format="mass_start")
         {
             const string v="Biathlon/Venues/woodland_basin_v1/";
             string Resource(string id)
@@ -44,12 +44,139 @@ namespace Biathlon.Tests
                 }
                 return json;
             }
-            return ProductionVenueRaceFactory.Create(venue,CompetitionProfile.FromJson(Resource(v+"mass_start_profile")),
-                RaceRoutePlan.FromJson(Resource(v+"mass_start_route")),RaceSnowConditions.FromJson(Resource("Biathlon/race_snow_neutral_v1")),
+            return ProductionVenueRaceFactory.Create(venue,CompetitionProfile.FromJson(Resource(v+format+"_profile")),
+                RaceRoutePlan.FromJson(Resource(v+format+"_route")),RaceSnowConditions.FromJson(Resource("Biathlon/race_snow_neutral_v1")),
                 Core,new RaceEventLog(100000),new AiDecisionCounts(),count:count);
         }
         private static PhysicalRangeWorldTrafficMap Map(PackAiRaceRunner runner)=>(PhysicalRangeWorldTrafficMap)typeof(PackSprintFieldSession).GetField("rangeWorldTraffic",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(runner.Field);
         private static PhysicalTrackMap Physical(PackAiRaceRunner runner)=>(PhysicalTrackMap)typeof(PackSprintFieldSession).GetField("map",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(runner.Field);
+        [Test] public void BypassMustRejectSubNanometerGoalsThatCommitAsNoMovement()
+        {
+            var runner=Create(true,1);for(int i=0;i<1000;i++)runner.Step();
+            var field=runner.Field;double line=field.GetLateral(0);
+            Assert.That(field.IsRangeWorldLateralRequestClear(0,line+.3,.3),Is.True,"Control: an actual paid sidestep is available.");
+            Assert.That(field.IsRangeWorldLateralRequestClear(0,line+1e-12,.3),Is.False,"A floating-point residue is not an escape and must not renew its goal hold.");
+            Assert.That(field.IsRangeWorldLateralRequestClear(0,line-1e-12,.3),Is.False);
+            Assert.That(field.IsRangeWorldLateralRequestClear(0,line,.3),Is.False);
+        }
+        [Test] public void PaidWorldEscapeScopeRequiresAnExplicitPolicyAndExactRouteGeometry()
+        {
+            string json=Read("Biathlon/Venues/woodland_basin_v1/ai_range_traffic");
+            var enabled=AiRangeTrafficPolicyDefinition.FromJson(json);
+            Assert.That(enabled.WorldBypassPaidRouteLoops,Is.True);
+            Assert.That(AiRangeTrafficPolicyDefinition.FromJson(enabled.ToJson()).WorldBypassPaidRouteLoops,Is.True);
+            string absent=Regex.Replace(json,",?\\s*\"world_bypass_paid_route_loops\"\\s*:\\s*true","");
+            var legacy=AiRangeTrafficPolicyDefinition.FromJson(absent);
+            Assert.That(legacy.WorldBypassPaidRouteLoops,Is.False);
+            Assert.That(legacy.ToJson(),Does.Not.Contain("world_bypass_paid_route_loops"));
+            Assert.Catch(()=>AiRangeTrafficPolicyDefinition.FromJson("{\"schema_version\":1,\"id\":\"incomplete_world_scope\",\"align_physical_range_paths\":true,\"alignment_lead_m\":75,\"world_bypass_paid_route_loops\":true}"));
+            var runner=Create(true,1,"sprint");var field=runner.Field;var physical=Physical(runner);
+            var main=physical.MapLoop("main",170*SkiState.NanometersPerMeter);
+            var sprint=physical.MapLoop("sprint_extension",20*SkiState.NanometersPerMeter);
+            Assert.That(field.HasPaidRouteWorldGeometry(main),Is.True);
+            Assert.That(field.HasPaidRouteWorldGeometry(sprint),Is.True);
+            foreach(string loop in new[]{"pursuit_shortcut","start_approach","mat_01","penalty_150"})
+                Assert.That(field.HasPaidRouteWorldGeometry(physical.MapLoop(loop,0)),Is.False,loop);
+            var mass=Create(true,1);Assert.That(mass.Field.HasPaidRouteWorldGeometry(Physical(mass).MapLoop("sprint_extension",20*SkiState.NanometersPerMeter)),Is.False);
+            for(int i=0;i<100;i++)field.HasPaidRouteWorldGeometry(sprint);
+            long before=GC.GetAllocatedBytesForCurrentThread();for(int i=0;i<1000;i++)field.HasPaidRouteWorldGeometry(sprint);
+            Assert.That(GC.GetAllocatedBytesForCurrentThread()-before,Is.Zero);
+        }
+        [Test] public void SeparatedSprintBranchBodiesMustNotClaimAnExclusivePointGuard()
+        {
+            var runner=Create(true,2,"sprint");var field=runner.Field;var physical=Physical(runner);
+            var traces=(Array)typeof(PackSprintFieldSession).GetField("stationary",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(field);
+            var type=traces.GetValue(0).GetType();
+            var conflict=typeof(PackSprintFieldSession).GetMethod("Conflict",BindingFlags.Instance|BindingFlags.NonPublic);
+            void Place(int index,string loop,double metres,double line)
+            {
+                object trace=traces.GetValue(index);var point=physical.MapLoop(loop,(long)Math.Round(metres*SkiState.NanometersPerMeter));
+                foreach(string key in new[]{"Start","End"})type.GetField(key,BindingFlags.Instance|BindingFlags.NonPublic).SetValue(trace,point);
+                foreach(string key in new[]{"LateralStart","LateralEnd"})type.GetField(key,BindingFlags.Instance|BindingFlags.NonPublic).SetValue(trace,line);
+                type.GetMethod("ResetJunctionTouches",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(trace,null);
+            }
+            bool Blocked()=>(bool)conflict.Invoke(field,new object[]{traces.GetValue(0),0,traces.GetValue(1),1});
+            Place(0,"main",170,0);Place(1,"sprint_extension",20,0);
+            Assert.That(Blocked(),Is.False,"Separate real bodies inside a branch point guard must not take a whole-junction lease.");
+            Assert.That(Map(runner).Contains(physical.MapLoop("sprint_extension",0)),Is.True,"All paid route loops need captured body geometry.");
+            Assert.That(Map(runner).Contains(physical.MapLoop("pursuit_shortcut",0)),Is.False,"A different format's unbound route must not grant compatibility.");
+            Place(0,"main",177.357,0);Place(1,"sprint_extension",0,0);
+            Assert.That(Blocked(),Is.True,"Coincident bodies at the authored branch seam retain physical contact protection.");
+            Place(0,"main",170,0);Place(1,"sprint_extension",20,0);
+            runner=Create(false,2,"sprint");field=runner.Field;physical=Physical(runner);
+            traces=(Array)typeof(PackSprintFieldSession).GetField("stationary",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(field);
+            Place(0,"main",170,0);Place(1,"sprint_extension",20,0);
+            Assert.That(Blocked(),Is.True,"Policy-absent legacy admission remains conservative.");
+        }
+        [Test,Timeout(600000)] public void ActualSprintFortyPrefixDoesNotTrapTheFieldBeforeItsBranchSeam()
+        {
+            const string root="Biathlon/Venues/woodland_basin_v1/";
+            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(root+"manifest")),Read);
+            var runner=ProductionVenueRaceFactory.Create(venue,CompetitionProfile.FromJson(Read(root+"sprint_profile")),
+                RaceRoutePlan.FromJson(Read(root+"sprint_route")),RaceSnowConditions.FromJson(Read("Biathlon/race_snow_neutral_v1")),
+                PhysiologyContractTests.DefinitionJson,new RaceEventLog(200000),new AiDecisionCounts(),count:40);
+            var field=runner.Field;var previous=new long[40];var stopped=new int[40];int longest=0,branchFrames=0;
+            for(int t=0;t<12000;t++)
+            {
+                for(int i=0;i<40;i++)previous[i]=field.GetAthlete(i).Motion.DistanceNanometers;
+                runner.Step();if(t%25==0)MassStartFieldTests.AssertClear(field);
+                for(int i=0;i<40;i++)
+                {
+                    var actor=field.GetAthlete(i);
+                    stopped[i]=field.IsOnCourse(i)&&!actor.HasFinished&&actor.ActiveShooting==null&&actor.Motion.DistanceNanometers==previous[i]?stopped[i]+1:0;
+                    longest=Math.Max(longest,stopped[i]);
+                    if(field.IsOnCourse(i)&&field.GetPhysicalPoint(i).LoopId=="sprint_extension")branchFrames++;
+                }
+            }
+            TestContext.Out.WriteLine("sprint40_branch_frames="+branchFrames+" maximum_stationary_ticks="+longest);
+            Assert.That(branchFrames,Is.GreaterThan(0));
+            Assert.That(longest,Is.LessThan(1000),"The observed 5795-tick branch trap must not recur. This prefix does not establish full-race completion.");
+        }
+        [Test] public void LaterLapMainPassageMustNotWaitForAnotherMainBodyAtTheStartJoin()
+        {
+            var runner=Create(true,2);var field=runner.Field;var physical=Physical(runner);
+            var traces=(Array)typeof(PackSprintFieldSession).GetField("stationary",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(field);
+            var type=traces.GetValue(0).GetType();
+            var conflict=typeof(PackSprintFieldSession).GetMethod("Conflict",BindingFlags.Instance|BindingFlags.NonPublic);
+            void Place(int index,double metres,double line)
+            {
+                object trace=traces.GetValue(index);var point=physical.MapLoop("main",(long)Math.Round(metres*SkiState.NanometersPerMeter));
+                foreach(string key in new[]{"Start","End"})type.GetField(key,BindingFlags.Instance|BindingFlags.NonPublic).SetValue(trace,point);
+                foreach(string key in new[]{"LateralStart","LateralEnd"})type.GetField(key,BindingFlags.Instance|BindingFlags.NonPublic).SetValue(trace,line);
+                type.GetMethod("ResetJunctionTouches",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(trace,null);
+            }
+            bool Blocked()=>(bool)conflict.Invoke(field,new object[]{traces.GetValue(0),0,traces.GetValue(1),1});
+            Place(0,1183,-1.3);Place(1,1185,1.3);
+            Assert.That(Blocked(),Is.False,"Two separated Main bodies must not claim the unused start branch exclusively on later laps.");
+            Place(0,1199.9,-1.3);Place(1,.1,1.3);
+            Assert.That(Blocked(),Is.False,"A split closed-loop endpoint is still the same incident Main passage.");
+            Place(0,1199.9,0);Place(1,.1,0);
+            Assert.That(Blocked(),Is.True,"Periodic physical body contact remains blocked by the current collision policy.");
+            Place(0,1183,0);Place(1,1183.1,0);
+            Assert.That(Blocked(),Is.True);
+            Place(0,1183,-1.3);Place(1,1185,1.3);
+            runner=Create(false,2);field=runner.Field;physical=Physical(runner);
+            traces=(Array)typeof(PackSprintFieldSession).GetField("stationary",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(field);
+            Place(0,1183,-1.3);Place(1,1185,1.3);
+            Assert.That(Blocked(),Is.True,"Absent complete world geometry preserves the legacy guard.");
+        }
+        [Test] public void SingleIncidentPortProofRejectsSelfCrossingsAndStaysAllocationFree()
+        {
+            var runner=Create(true,1);var proof=Map(runner);var physical=Physical(runner);
+            var junctions=PhysicalJunctionDefinition.FromJson(Read("Biathlon/Venues/woodland_basin_v1/junctions"),runner.Field.Track);
+            int start=-1,rejoin=-1;
+            for(int j=0;j<junctions.Count;j++){if(junctions.Get(j).Id=="start_join")start=j;if(junctions.Get(j).Id=="range_rejoin")rejoin=j;}
+            var point=physical.MapLoop("main",1183*SkiState.NanometersPerMeter);
+            Assert.That(proof.CanShareSingleLoopIncidentPort(start,point),Is.True);
+            Assert.That(proof.CanShareSingleLoopIncidentPort(rejoin,point),Is.False,"Multiple Main ports cannot be treated as one pass-through port.");
+            Assert.That(proof.CanShareCapturedBranch(rejoin),Is.False,"An independently qualified range self-crossing is not a simple route branch.");
+            Assert.That(proof.CanShareCapturedBranch(start),Is.False,"Uncaptured start geometry cannot grant a branch proof.");
+            Assert.That(proof.CanShareSingleLoopIncidentPort(start,physical.MapLoop("start_approach",39*SkiState.NanometersPerMeter)),Is.False,"The unbound source body still requires start-continuation admission.");
+            Assert.That(proof.ContextJson,Does.Contain("single_incident_same_loop_junction"));
+            for(int i=0;i<100;i++)proof.CanShareSingleLoopIncidentPort(start,point);
+            long before=GC.GetAllocatedBytesForCurrentThread();for(int i=0;i<1000;i++)proof.CanShareSingleLoopIncidentPort(start,point);
+            Assert.That(GC.GetAllocatedBytesForCurrentThread()-before,Is.Zero);
+        }
         [Test] public void IndexedWorldBoundsExactlyMatchExhaustiveProjectionAtKnotsAndInsideEdges()
         {
             var runner=Create(true,1);var proof=Map(runner);var physical=Physical(runner);
@@ -163,15 +290,49 @@ namespace Biathlon.Tests
                 foreach(string bad in new[]{"0","-1","1001","\"NaN\""})
                     Assert.Catch(()=>AiRangeTrafficPolicyDefinition.FromJson(Regex.Replace(json,"\""+key+"\"\\s*:\\s*[0-9.]+","\""+key+"\":"+bad)));
             }
+            foreach(string bad in new[]{"0","-1","100.1","\"NaN\""})
+                Assert.Catch(()=>AiRangeTrafficPolicyDefinition.FromJson(Regex.Replace(json,"\"world_bypass_lookahead_m\"\\s*:\\s*[0-9.]+","\"world_bypass_lookahead_m\":"+bad)));
+            var legacy=AiRangeTrafficPolicyDefinition.FromJson(Regex.Replace(json,",?\\s*\"world_bypass_lookahead_m\"\\s*:\\s*[0-9.]+",""));
+            Assert.That(legacy.WorldBypassLookaheadMeters,Is.Null);
+            Assert.That(legacy.ToJson(),Does.Not.Contain("world_bypass_lookahead_m"));
             var runner=Create(true,1);for(int i=0;i<1000;i++)runner.Step();var field=runner.Field;
             Assert.Throws<ArgumentOutOfRangeException>(()=>field.IsRangeWorldLateralRequestClear(-1,0,.3));
             Assert.Catch(()=>field.IsRangeWorldLateralRequestClear(0,double.NaN,.3));
             Assert.Catch(()=>field.IsRangeWorldLateralRequestClear(0,0,0));
+            Assert.Throws<ArgumentOutOfRangeException>(()=>field.IsRangeWorldForwardLaneClear(-1,0,5));
+            Assert.Catch(()=>field.IsRangeWorldForwardLaneClear(0,double.NaN,5));
+            Assert.Catch(()=>field.IsRangeWorldForwardLaneClear(0,0,0));
             var frame=field.GetAthlete(0).LastFrame;long tick=field.Tick.Value;double line=field.GetLateral(0);
-            for(int i=0;i<100;i++)field.IsRangeWorldLateralRequestClear(0,.3,.3);
-            long before=GC.GetAllocatedBytesForCurrentThread();for(int i=0;i<1000;i++)field.IsRangeWorldLateralRequestClear(0,.3,.3);
+            for(int i=0;i<100;i++){field.IsRangeWorldLateralRequestClear(0,.3,.3);field.IsRangeWorldForwardLaneClear(0,.3,5);}
+            long before=GC.GetAllocatedBytesForCurrentThread();for(int i=0;i<1000;i++){field.IsRangeWorldLateralRequestClear(0,.3,.3);field.IsRangeWorldForwardLaneClear(0,.3,5);}
             Assert.That(GC.GetAllocatedBytesForCurrentThread()-before,Is.Zero);
             Assert.That(field.Tick.Value,Is.EqualTo(tick));Assert.That(field.GetLateral(0),Is.EqualTo(line));Assert.That(field.GetAthlete(0).LastFrame,Is.EqualTo(frame));
+        }
+        [Test] public void ExitBypassLookaheadRespectsNarrowPenaltyEntryBeforeTheCentreReachesIt()
+        {
+            var runner=Create(true);var field=runner.Field;
+            var fits=typeof(PackSprintFieldSession).GetMethod("FitsBypassPathWidth",BindingFlags.Instance|BindingFlags.NonPublic);
+            bool witnessed=false;
+            for(int t=0;t<7000&&!witnessed;t++)
+            {
+                runner.Step();
+                for(int i=0;i<field.Count;i++)
+                {
+                    var actor=field.GetAthlete(i);var point=field.GetPhysicalPoint(i);
+                    if(point.LoopId!="exit_aisle"||actor.CurrentRangeMotion?.Phase!=RangeTraversalPhase.PenaltyApproach||
+                        actor.PreviewCurrentRangeMotion(5*SkiState.NanometersPerMeter)?.Phase!=RangeTraversalPhase.PenaltyLoop)continue;
+                    bool current=(bool)fits.Invoke(field,new object[]{i,point,2d,0L});
+                    if(!current)continue;
+                    witnessed=true;
+                    Assert.That((bool)fits.Invoke(field,new object[]{i,point,2d,5*SkiState.NanometersPerMeter}),Is.False,
+                        "A line that fits the wide exit must be rejected when its lookahead enters the narrower penalty lane.");
+                    var frame=actor.LastFrame;var motion=actor.CurrentRangeMotion;long tick=field.Tick.Value;
+                    Assert.That(field.IsRangeWorldForwardLaneClear(i,2,5),Is.False);
+                    Assert.That(actor.LastFrame,Is.EqualTo(frame));Assert.That(actor.CurrentRangeMotion,Is.EqualTo(motion));
+                    Assert.That(field.Tick.Value,Is.EqualTo(tick));break;
+                }
+            }
+            Assert.That(witnessed,Is.True,"Exercise the real paid approach to a penalty caused by an actual AI miss.");
         }
         [Test,Timeout(600000)] public void ActualQualifiedPursuitFortyClearsTheMainAndPenaltyReturnWithoutCircularWait()
         {

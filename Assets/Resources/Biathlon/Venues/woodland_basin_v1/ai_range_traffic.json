@@ -6,9 +6,12 @@
   "blocked_alignment_effort": 0,
   "entry_lateral_m": 0.35,
   "exit_lateral_m": 1.3,
+  "retain_shared_exit_line": true,
   "penalty_lateral_m": -1.3,
   "world_bypass_after_seconds": 0.5,
   "world_bypass_lateral_step_m": 0.3,
   "world_bypass_preview_m": 0.3,
-  "world_bypass_hold_seconds": 1
+  "world_bypass_hold_seconds": 1,
+  "world_bypass_lookahead_m": 5,
+  "world_bypass_paid_route_loops": true
 }
