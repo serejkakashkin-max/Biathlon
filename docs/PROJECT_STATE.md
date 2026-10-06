@@ -21597,3 +21597,27 @@ No production snow tuning, race logic or venue geometry changed. Full 40/40/30
 condition races, ordinary native visual review and valid performance evidence
 remain open. WP-175 and M13 stay OPEN. No intermediate Windows build before the
 complete owner correction batch and owner hands-on gate.
+
+## 2026-10-06 — WP-175 full Woodland field condition witnesses
+
+The actual 30-athlete Woodland Mass Start on icy_fast snow finished at tick
+21,858 (headless .NET 1/1 PASS). A 40-athlete Sprint on fresh_soft snow finished
+at tick 36,794; its actual completed result qualified the same 40 athletes for
+a same-condition Pursuit, which finished at tick 21,407 (combined .NET 1/1
+PASS). The earlier isolated Sprint40 run also passed 1/1. Finish row counts
+matched each authored field capacity. Evidence:
+docs/quality/m13/wp175-conditions-20261006/wp175-mass30-ice.trx,
+wp175-sprint40-soft.trx and wp175-sprint-pursuit40-soft.trx. Report:
+docs/reports/TASK_WP175_WOODLAND_CONDITIONS_01_REPORT.md.
+
+An attempted simultaneous dual-runner comparison was stopped without a test
+result after approximately 8 GB testhost working set. The completed combined
+Sprint/Pursuit headless process peaked around 8.3 GB; this is a test-resource
+observation for WP-178, not a qualified frame-rate or GPU measurement. Native
+Unity AssetDatabase refreshed; Editor idle, scripts compiled and recent Error
+Console empty. No production simulation, snow coefficients or venue data
+changed. PROJECT_STATE history remains append-only.
+
+All four snow profiles across 40/40/30, persisted full-field replay, ordinary
+native view captures and performance acceptance remain open. WP-175 and M13
+stay OPEN; no intermediate Windows build before the owner correction batch.

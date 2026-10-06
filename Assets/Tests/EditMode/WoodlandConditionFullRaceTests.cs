@@ -21,14 +21,15 @@ namespace Biathlon.Tests
                 .Replace("packed_neutral",profile);
             return RaceSnowConditions.FromJson(json);
         }
-        private static PackAiRaceRunner Create(string profile,IRaceEventSink events)
+        private static PackAiRaceRunner Create(string profile,IRaceEventSink events,
+            string format="sprint",int count=1)
         {
             var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(Root+"manifest")),Read);
             return ProductionVenueRaceFactory.Create(venue,
-                CompetitionProfile.FromJson(Read(Root+"sprint_profile")),
-                RaceRoutePlan.FromJson(Read(Root+"sprint_route")),
+                CompetitionProfile.FromJson(Read(Root+format+"_profile")),
+                RaceRoutePlan.FromJson(Read(Root+format+"_route")),
                 Conditions(profile),PhysiologyContractTests.DefinitionJson,
-                events,new AiDecisionCounts(),count:1);
+                events,new AiDecisionCounts(),count:count);
         }
 
         [TestCase("packed_neutral")]
@@ -68,6 +69,48 @@ namespace Biathlon.Tests
             Assert.That(wrongCondition.Tick.Value,Is.Zero);
             TestContext.WriteLine("wp175_sprint_profile="+profile+" ticks="+steps+
                 " result_chars="+result.Length);
+        }
+
+        [TestCase("fresh_soft","sprint",40)]
+        [TestCase("icy_fast","mass_start",30)]
+        [Timeout(900000)]
+        public void FullWoodlandFieldCompletesUnderNonNeutralSnow(
+            string profile,string format,int count)
+        {
+            var logA=new BalanceEventAudit(5);
+            var first=Create(profile,logA,format,count);
+            const int limit=50000;
+            while(!first.Field.IsComplete&&first.Field.Tick.Value<limit)
+            {
+                first.Step();
+            }
+            Assert.That(first.Field.IsComplete,Is.True,
+                "The actual full field must finish; a traffic queue is a failing condition.");
+            Assert.That(format=="sprint"?first.Field.Result.Count:first.Field.MassStartResult.Count,
+                Is.EqualTo(count));
+            var firstResult=format=="sprint"?first.Field.Result.ToJson():first.Field.MassStartResult.ToJson();
+            Assert.That(firstResult,Is.Not.Empty);
+            TestContext.WriteLine("wp175_full_field="+format+" snow="+profile+
+                " count="+count+" ticks="+first.Field.Tick.Value+" event_hash="+logA.Hash);
+            if(format=="sprint")
+            {
+                var pursuitProfile=CompetitionProfile.FromJson(Read(Root+"pursuit_profile"));
+                var qualification=PursuitQualificationSnapshot.Create(
+                    "woodland_wp175_"+profile+"_qualification_v1",first.Field.Result,pursuitProfile);
+                var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(Root+"manifest")),Read);
+                var pursuitEvents=new BalanceEventAudit(5);
+                var pursuit=ProductionVenueRaceFactory.Create(venue,pursuitProfile,
+                    RaceRoutePlan.FromJson(Read(Root+"pursuit_route")),Conditions(profile),
+                    PhysiologyContractTests.DefinitionJson,pursuitEvents,new AiDecisionCounts(),
+                    qualification,count:count);
+                while(!pursuit.Field.IsComplete&&pursuit.Field.Tick.Value<limit)pursuit.Step();
+                Assert.That(pursuit.Field.IsComplete,Is.True,
+                    "A Pursuit qualified from the completed same-snow Sprint must finish.");
+                Assert.That(pursuit.Field.PursuitResult.Count,Is.EqualTo(count));
+                TestContext.WriteLine("wp175_qualified_pursuit snow="+profile+
+                    " count="+count+" ticks="+pursuit.Field.Tick.Value+
+                    " event_hash="+pursuitEvents.Hash);
+            }
         }
     }
 }
