@@ -67,6 +67,14 @@ namespace Biathlon.Simulation
         {IsValid=true;SectionIndex=section;MinimumWidthMeters=width;Left=left;Right=right;Entry=entry;Exit=exit;}
     }
 
+    internal readonly struct ManualRouteTubeWindow
+    {
+        internal readonly int FirstSection,LastSection;
+        internal readonly double LowStationMeters,HighStationMeters,BodyRadiusMeters;
+        internal ManualRouteTubeWindow(int first,int last,double low,double high,double bodyRadius)
+        {FirstSection=first;LastSection=last;LowStationMeters=low;HighStationMeters=high;BodyRadiusMeters=bodyRadius;}
+    }
+
     /// <summary>Local projection onto an explicitly selected base-race route occurrence.
     /// This geometry primitive does not award distance, choose a branch, admit a body,
     /// follow range/start/penalty paths, or connect the manual kernel to the live host.</summary>
@@ -82,20 +90,23 @@ namespace Biathlon.Simulation
         {
             internal readonly int Section;
             internal readonly string Loop;
-            internal readonly double LocalStart,LocalEnd,StationStart,StationEnd,X,Z,Y,DX,DZ,DY,PlanarLength,MinimumWidth;
+            internal readonly double LocalStart,LocalEnd,StationStart,StationEnd,X,Z,Y,DX,DZ,DY,PlanarLength,MinimumWidth,TubeTurnReserve;
+            internal readonly string TubeId;
             internal readonly ManualRouteCorridorCell Corridor;
             internal Edge(int section,int ordinal,string loop,double localStart,double localEnd,double stationStart,
-                TrackVisualPoint a,TrackVisualPoint b,double minimumWidth)
+                TrackVisualPoint a,TrackVisualPoint b,double minimumWidth,double turnReserveFraction)
             {
                 Section=section;Loop=loop;LocalStart=localStart;LocalEnd=localEnd;
                 StationStart=stationStart;StationEnd=stationStart+localEnd-localStart;
                 X=a.X;Y=a.Y;Z=a.Z;DX=b.X-a.X;DY=b.Y-a.Y;DZ=b.Z-a.Z;
                 PlanarLength=Math.Sqrt(DX*DX+DZ*DZ);
                 MinimumWidth=minimumWidth;
+                TubeTurnReserve=minimumWidth*.5*turnReserveFraction;
                 if(!(PlanarLength>0))throw new ArgumentException("Projection edges need horizontal extent.");
                 double fx=DX/PlanarLength,fz=DZ/PlanarLength,rx=fz,rz=-fx,half=minimumWidth*.5;
                 string id=section.ToString(System.Globalization.CultureInfo.InvariantCulture)+":"+
                     ordinal.ToString(System.Globalization.CultureInfo.InvariantCulture)+":";
+                TubeId=id+"tube";
                 Corridor=new ManualRouteCorridorCell(section,minimumWidth,
                     new SkiCourseEdgePlane(id+"left",X-rx*half,Z-rz*half,rx,rz),
                     new SkiCourseEdgePlane(id+"right",X+rx*half,Z+rz*half,-rx,-rz),
@@ -115,6 +126,15 @@ namespace Biathlon.Simulation
             {
                 var section=route.GetSection(sectionIndex);var loop=geometry.Get(section.LoopId);
                 var physical=track.GetLoop(section.LoopId);
+                double maximumTurn=0;
+                for(int k=1;k+1<loop.Count;k++)
+                {
+                    var p=loop.Get(k-1);var q=loop.Get(k);var r=loop.Get(k+1);
+                    double ax=q.X-p.X,az=q.Z-p.Z,bx=r.X-q.X,bz=r.Z-q.Z;
+                    double angle=Math.Abs(Math.Atan2(ax*bz-az*bx,ax*bx+az*bz));
+                    maximumTurn=Math.Max(maximumTurn,angle);
+                }
+                double turnReserveFraction=maximumTurn>=Math.PI*.5?1:Math.Min(1,Math.Tan(maximumTurn*.5));
                 starts[sectionIndex]=checked(section.Start.Millimeters*SkiState.NanometersPerMillimeter);
                 ends[sectionIndex]=checked((section.Start.Millimeters+section.Length.Millimeters)*SkiState.NanometersPerMillimeter);
                 firstEdges[sectionIndex]=list.Count;
@@ -133,7 +153,7 @@ namespace Biathlon.Simulation
                     }
                     if(double.IsPositiveInfinity(minimumWidth))throw new ArgumentException("Visual edge lacks physical track width.");
                     list.Add(new Edge(sectionIndex,list.Count,loop.LoopId,from,to,section.Start.Meters+from-section.LoopStart.Meters,
-                        loop.Sample(from),loop.Sample(to),minimumWidth));
+                        loop.Sample(from),loop.Sample(to),minimumWidth,turnReserveFraction));
                 }
                 edgeEnds[sectionIndex]=list.Count;
                 if(firstEdges[sectionIndex]==edgeEnds[sectionIndex])throw new ArgumentException("Empty projection occurrence.");
@@ -261,6 +281,46 @@ namespace Biathlon.Simulation
                 Math.Abs(observation.LateralMeters)+guard>=edge.MinimumWidth*.5)return false;
             cell=edge.Corridor;
             return true;
+        }
+
+        internal ManualRouteTubeWindow BuildTubeWindow(int currentSection,long currentStationNanometers,
+            double maximumStationDisplacementMeters,bool admitNextSection,OccupancyDefinition body)
+        {
+            if(body==null)throw new ArgumentNullException(nameof(body));
+            if(currentSection<0||currentSection>=starts.Length)throw new ArgumentOutOfRangeException(nameof(currentSection));
+            if(currentStationNanometers<starts[currentSection]||currentStationNanometers>ends[currentSection])
+                throw new ArgumentOutOfRangeException(nameof(currentStationNanometers));
+            PhysiologyNumbers.RequireRange(maximumStationDisplacementMeters,0,PhysiologyNumbers.MaximumMagnitude,
+                nameof(maximumStationDisplacementMeters));
+            long span=checked((long)Math.Round(maximumStationDisplacementMeters*SkiState.NanometersPerMeter,MidpointRounding.ToEven));
+            long low=Math.Max(starts[currentSection],checked(currentStationNanometers-span));
+            long high=Math.Min(length,checked(currentStationNanometers+span));
+            double radius=.5*Math.Sqrt(body.LongitudinalSeparation*body.LongitudinalSeparation+
+                body.LateralSeparation*body.LateralSeparation)+body.EdgeClearance;
+            return new ManualRouteTubeWindow(currentSection,
+                admitNextSection?Math.Min(currentSection+1,starts.Length-1):currentSection,
+                low/(double)SkiState.NanometersPerMeter,high/(double)SkiState.NanometersPerMeter,radius);
+        }
+
+        internal double TubeClearanceAt(double x,double z,ManualRouteTubeWindow window,out string sourceEdgeId)
+        {
+            double best=double.NegativeInfinity;sourceEdgeId=null;
+            for(int section=window.FirstSection;section<=window.LastSection;section++)
+            {
+                int a=firstEdges[section],b=edgeEnds[section];
+                while(a<b){int m=a+(b-a)/2;if(edges[m].StationEnd<window.LowStationMeters)a=m+1;else b=m;}
+                for(int i=a;i<edgeEnds[section];i++)
+                {
+                    var edge=edges[i];if(edge.StationStart>window.HighStationMeters)break;
+                    double fraction=Math.Max(0,Math.Min(1,((x-edge.X)*edge.DX+(z-edge.Z)*edge.DZ)/
+                        (edge.PlanarLength*edge.PlanarLength)));
+                    double dx=x-edge.X-fraction*edge.DX,dz=z-edge.Z-fraction*edge.DZ;
+                    double allowance=edge.MinimumWidth*.5-window.BodyRadiusMeters-edge.TubeTurnReserve;
+                    double slack=allowance-Math.Sqrt(dx*dx+dz*dz);
+                    if(slack>best){best=slack;sourceEdgeId=edge.TubeId;}
+                }
+            }
+            return best;
         }
     }
 }

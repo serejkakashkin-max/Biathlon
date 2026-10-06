@@ -87,3 +87,24 @@ trajectory is stopped by the joint edge sweep. This remains a local cell
 contract: adjacent-cell transitions, range/penalty paths and composite race
 commit still require explicit topology and collision handling. A failed query
 cannot authorize travel without checking a different admitted cell.
+
+## 2026-10-06 selected-route continuous inner tube
+
+Woodland's Main visual polyline contains many edges shorter than an athlete's
+occupied length, so four-plane cells alone cannot cover normal forward travel.
+`ManualRouteTubeSweep` now proves a conservative body-centre tube across several
+short edges on the **selected** route occurrence. It subtracts a circumscribed
+body radius, edge clearance and a width-derived reserve for the authored maximum
+visual turn from each physical half-width. Each time interval is accepted only
+when one local segment's clearance exceeds a continuous velocity/acceleration
+and numerical-error bound. Recursive work exhaustion and an unproved boundary
+return explicit non-clear receipts; neither can authorize movement. Candidate
+edges are limited by the caller's bounded route-station window and the immediate
+successor only when explicitly admitted. A repeated world location on another
+lap cannot become an implicit route transition. All edge IDs and turn reserves
+are precomputed; warm previews allocate nothing.
+
+This proves containment in the authored polyline inner-tube model, not exact
+equivalence to the rendered mesh at every join or complete race admission.
+Start/finish, branching, range/penalty ownership, pair contacts, route progress
+and event commit remain separate. The playable v1 field still follows its route.

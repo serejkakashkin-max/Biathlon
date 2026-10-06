@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="4" result="Passed" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 15:11:44Z" end-time="2026-10-06 15:11:48Z" duration="4,5709464">
+  <test-suite type="TestSuite" id="2516" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1199" result="Passed" start-time="2026-10-06 15:11:44Z" end-time="2026-10-06 15:11:48Z" duration="4.570946" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2461" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="1172" result="Passed" start-time="2026-10-06 15:11:44Z" end-time="2026-10-06 15:11:48Z" duration="4.461965" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="61532" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2462" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1172" result="Passed" start-time="2026-10-06 15:11:44Z" end-time="2026-10-06 15:11:48Z" duration="4.359344" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2463" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="1172" result="Passed" start-time="2026-10-06 15:11:44Z" end-time="2026-10-06 15:11:48Z" duration="4.247481" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1338" name="ManualRouteTubeSweepTests" fullname="Biathlon.Tests.ManualRouteTubeSweepTests" classname="Biathlon.Tests.ManualRouteTubeSweepTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-06 15:11:44Z" end-time="2026-10-06 15:11:48Z" duration="4.144070" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1340" name="OutwardCourseDepartureHasAContinuousUnprovedPrefixInsteadOfAClamp" fullname="Biathlon.Tests.ManualRouteTubeSweepTests.OutwardCourseDepartureHasAContinuousUnprovedPrefixInsteadOfAClamp" methodname="OutwardCourseDepartureHasAContinuousUnprovedPrefixInsteadOfAClamp" classname="Biathlon.Tests.ManualRouteTubeSweepTests" runstate="Runnable" seed="1631114567" result="Passed" start-time="2026-10-06 15:11:44Z" end-time="2026-10-06 15:11:45Z" duration="1.154613" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1342" name="RepeatedTubeSweepIsDeterministicAndWarmAllocationFree" fullname="Biathlon.Tests.ManualRouteTubeSweepTests.RepeatedTubeSweepIsDeterministicAndWarmAllocationFree" methodname="RepeatedTubeSweepIsDeterministicAndWarmAllocationFree" classname="Biathlon.Tests.ManualRouteTubeSweepTests" runstate="Runnable" seed="16462213" result="Passed" start-time="2026-10-06 15:11:45Z" end-time="2026-10-06 15:11:46Z" duration="0.952742" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1339" name="ShortWoodlandVisualEdgesDoNotStopContinuousForwardTravelAtTheirKnots" fullname="Biathlon.Tests.ManualRouteTubeSweepTests.ShortWoodlandVisualEdgesDoNotStopContinuousForwardTravelAtTheirKnots" methodname="ShortWoodlandVisualEdgesDoNotStopContinuousForwardTravelAtTheirKnots" classname="Biathlon.Tests.ManualRouteTubeSweepTests" runstate="Runnable" seed="1851380729" result="Passed" start-time="2026-10-06 15:11:46Z" end-time="2026-10-06 15:11:47Z" duration="0.952135" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1341" name="TubeQueryKeepsSelectedLapIdentityAndRejectsOutsideStart" fullname="Biathlon.Tests.ManualRouteTubeSweepTests.TubeQueryKeepsSelectedLapIdentityAndRejectsOutsideStart" methodname="TubeQueryKeepsSelectedLapIdentityAndRejectsOutsideStart" classname="Biathlon.Tests.ManualRouteTubeSweepTests" runstate="Runnable" seed="909330680" result="Passed" start-time="2026-10-06 15:11:47Z" end-time="2026-10-06 15:11:48Z" duration="0.968660" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

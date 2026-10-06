@@ -21440,3 +21440,29 @@ This does not switch the playable host to manual steering or solve all track
 seams, range/penalty ownership and simultaneous physical contacts. M13/WP175–178
 remain OPEN. No intermediate Windows build; owner will review the consolidated
 build after the complete correction batch.
+
+## 2026-10-06 — M13 selected-route continuous inner tube across short knots
+
+Woodland Main has 325 visual edges; 190 are shorter than two metres. A whole
+athlete often spans more than one edge, so the previous straight four-plane
+cell cannot cover ordinary travel through every knot. Added a continuous
+inner-tube sweep along bounded local route-station edges. It subtracts the
+whole body's circumscribed radius, edge clearance and a data-derived maximum
+visual-turn reserve from authored physical width. Interval proof uses a
+motion/acceleration and numerical-error bound. A side departure returns the
+first unproved prefix; work exhaustion and invalid starts do not grant travel.
+Selected route occurrence and explicit immediate-successor admission prevent
+spatially repeated later laps from silently becoming the current route. Stable
+edge IDs/reserves are precomputed and warm queries allocate zero bytes.
+
+Focused .NET route/spatial tests: 33/33 PASS. Native Unity tube tests: 4/4 PASS;
+compilation complete and recent Error Console empty. All internal Main knots
+were exercised, including short edges. Evidence:
+docs/quality/m13/owner-manual-route-tube-20261006/. Report:
+docs/reports/TASK_M13_ROUTE_TUBE_20261006.md. ADR-0037 extended with the new
+bounded proof contract. Historical PROJECT_STATE bytes preserved; only appended.
+
+This is an authored-polyline inner-tube proof, not yet an exact rendered-mesh
+or whole-race admission. Branch/range/penalty transitions, contacts, progress,
+events, replay and live input/presentation remain OPEN. Playable auto turns are
+still present; M13/WP175–178 OPEN. No intermediate Windows build.
