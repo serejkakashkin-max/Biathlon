@@ -21,6 +21,15 @@ namespace Biathlon.Simulation
         public bool OvertakeAllowed { get; }
         public double RiskLevel { get; }
         public TrackSemanticZone SemanticZone { get; }
+        internal TrackSample WithTravelGeometry(double grade,double curvature)
+        {
+            if(string.IsNullOrEmpty(SegmentId))throw new ArgumentException("Initialized surface metadata required.");
+            PhysiologyNumbers.RequireRange(grade,-1,1,nameof(grade));
+            PhysiologyNumbers.RequireRange(curvature,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,nameof(curvature));
+            return new TrackSample(this,grade,curvature);
+        }
+        private TrackSample(TrackSample source,double grade,double curvature)
+        { this=source;Grade=grade;CurvaturePerMeter=curvature; }
         internal TrackSample(TrackLoopDefinition loop, TrackSegmentDefinition segment, int index, long millimeters)
         {
             LoopId = loop.Id; SegmentId = segment.Id; SegmentIndex = index;
