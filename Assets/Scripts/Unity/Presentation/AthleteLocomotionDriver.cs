@@ -18,6 +18,8 @@ namespace Biathlon.Unity.Presentation
         private readonly AthleteExertionPresentation exertion = new AthleteExertionPresentation();
         private float climbIntensity = 1;
         private float tuckWeight, tuckStartWeight;
+        private float sidestepWeight,sidestepDirection;
+        public float SidestepWeight=>sidestepWeight;
         private double previousTime = -1, transitionAt, cycle;
         private string athleteId;
         public SkiLocomotion State { get; private set; }
@@ -35,7 +37,7 @@ namespace Biathlon.Unity.Presentation
             Sample(rig, new LocomotionInput((float)a.SpeedMetersPerSecond, (float)a.CourseGrade,
                 (float)a.Effort.DeliveredRelativeEffort, a.TuckActive, a.FinalSprintActive,
                 a.OnCourse && !a.ShootingActive && a.Phase != CompetitionPhase.Finished,
-                (float)frame.PresentationCurvature), frame.TimeSeconds, ExertionInput.From(a));
+                (float)frame.PresentationCurvature,(float)frame.LateralMetersPerSecond), frame.TimeSeconds, ExertionInput.From(a));
         }
 
         public void Sample(AthleteRigBinding rig, LocomotionInput input, double time, ExertionInput? observedExertion = null)
@@ -73,6 +75,20 @@ namespace Biathlon.Unity.Presentation
             tuckWeight = Mathf.Lerp(tuckStartWeight, State == SkiLocomotion.Tuck ? 1 : 0, transitionWeight);
             climbIntensity = Mathf.Lerp(climbIntensity, requestedIntensity, 1 - Mathf.Exp(-(float)dt / settings.transition_s));
             LocomotionPose.Blend(blended, blended, 1, motion);
+            float sideSpeed=Mathf.Abs(input.LateralSpeed);
+            float requestedSide=input.Travelling&&!input.Tuck&&settings.sidestep_span_m>0?
+                sideSpeed/Mathf.Max(settings.idle_speed_mps,input.Speed+sideSpeed):0;
+            float sideBlend=reset?1:1-Mathf.Exp(-(float)dt/settings.transition_s);
+            sidestepWeight=Mathf.Lerp(sidestepWeight,requestedSide,sideBlend);
+            sidestepDirection=Mathf.Lerp(sidestepDirection,Mathf.Sign(input.LateralSpeed),sideBlend);
+            if(sidestepWeight>0)
+            {
+                float cadence=Mathf.Min(settings.sidestep_max_cadence_hz,sideSpeed/(2*settings.sidestep_span_m));
+                motion.cadence_hz=Mathf.Lerp(motion.cadence_hz,cadence,sidestepWeight);
+                motion.foot_lift_m=Mathf.Lerp(motion.foot_lift_m,settings.sidestep_lift_m,sidestepWeight);
+                motion.arm_swing_m*=1-sidestepWeight;
+                motion.stride_m*=1-sidestepWeight;
+            }
             motion.cadence_hz *= climbIntensity;
             motion.torso_lean_deg *= climbIntensity;
             motion.arm_swing_m *= climbIntensity;
@@ -123,9 +139,18 @@ namespace Biathlon.Unity.Presentation
                 float lift=Mathf.Sin(recovery*Mathf.PI);lift*=lift;
                 var at = new Vector3(side * (.105f + pose.skate_width_m * stroke), settings.ankle_height_m + lift * pose.foot_lift_m,
                     (1-2*stroke) * pose.stride_m);
+                // Lift and replace each ski in the observed direction of lateral
+                // travel. A zero-forward-speed bypass must not use the idle pose.
+                // Span is the complete lateral stroke. Widen its centre by half
+                // that span so opposite-phase boots cannot cross on recovery.
+                float sideStep=side*(.105f+settings.sidestep_span_m*.5f)+
+                    sidestepDirection*settings.sidestep_span_m*(.5f-stroke);
+                at.x=Mathf.Lerp(at.x,sideStep,sidestepWeight);
                 SolveTwoBone(upper, lower, foot, rig.ModelRoot.TransformPoint(at), rig.ModelRoot.forward, rig.ModelRoot.rotation);
                 float yaw=Mathf.Lerp(1,technique.recovery_yaw_fraction,lift);
-                foot.rotation = rig.ModelRoot.rotation * Quaternion.Euler(0, side * settings.ski_v_deg * Mathf.Clamp01(pose.skate_width_m / .15f)*yaw, 0);
+                float skiYaw=side*settings.ski_v_deg*Mathf.Clamp01(pose.skate_width_m/.15f)*yaw;
+                skiYaw=Mathf.Lerp(skiYaw,sidestepDirection*settings.sidestep_ski_yaw_deg*lift,sidestepWeight);
+                foot.rotation=rig.ModelRoot.rotation*Quaternion.Euler(0,skiYaw,0);
             }
             float Stroke(float at)=>at<technique.glide_fraction?Mathf.SmoothStep(0,1,at/technique.glide_fraction):
                 Mathf.SmoothStep(1,0,(at-technique.glide_fraction)/(1-technique.glide_fraction));

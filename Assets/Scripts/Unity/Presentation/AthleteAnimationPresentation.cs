@@ -12,13 +12,16 @@ namespace Biathlon.Unity.Presentation
         public long Tick { get; }
         public double PresentationCurvature { get; }
         public double PresentationGrade { get; }
-        public AthleteAnimationFrame(AthletePresentationState athlete, long tick, int frequency, double alpha, double? presentationCurvature = null, double? presentationGrade = null)
+        public double LateralMetersPerSecond { get; }
+        public AthleteAnimationFrame(AthletePresentationState athlete, long tick, int frequency, double alpha, double? presentationCurvature = null, double? presentationGrade = null,double lateralMetersPerSecond=0)
         {
             if (tick < 0 || frequency <= 0 || double.IsNaN(alpha) || double.IsInfinity(alpha) || alpha < 0 || alpha > 1)
                 throw new ArgumentOutOfRangeException(nameof(alpha));
             Athlete = athlete; Tick = tick;
             PresentationCurvature = presentationCurvature ?? athlete.CourseCurvaturePerMeter;
             PresentationGrade = presentationGrade ?? athlete.CourseGrade;
+            if(!double.IsFinite(lateralMetersPerSecond))throw new ArgumentOutOfRangeException(nameof(lateralMetersPerSecond));
+            LateralMetersPerSecond=lateralMetersPerSecond;
             if (!double.IsFinite(PresentationGrade)) throw new ArgumentOutOfRangeException(nameof(presentationGrade));
             if (double.IsNaN(PresentationCurvature) || double.IsInfinity(PresentationCurvature)) throw new ArgumentOutOfRangeException(nameof(presentationCurvature));
             TimeSeconds = Math.Max(0, tick - 1 + alpha) / frequency;

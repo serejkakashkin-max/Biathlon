@@ -40,6 +40,7 @@ namespace Biathlon.Unity.Presentation
         public float transition_s, ski_v_deg, ankle_height_m;
         public float corner_max_lean_deg, corner_response_s, corner_gravity_mps2, corner_sample_half_span_m;
         public float climb_effort_low, climb_effort_high, climb_motion_low, climb_motion_high;
+        public float sidestep_span_m,sidestep_lift_m,sidestep_max_cadence_hz,sidestep_ski_yaw_deg;
         public LocomotionPose[] poses;
         public static AthleteLocomotionSettings Load() => FromJson(Resources.Load<TextAsset>("Biathlon/athlete_locomotion_v1").text);
         public static AthleteLocomotionSettings FromJson(string json)
@@ -67,21 +68,31 @@ namespace Biathlon.Unity.Presentation
                 throw new ArgumentException("Invalid climb intensity envelope.");
             if (d.corner_max_lean_deg <= 0 || d.corner_max_lean_deg > 40 || d.corner_response_s <= 0 || d.corner_gravity_mps2 <= 0 || d.corner_sample_half_span_m <= 0)
                 throw new ArgumentException("Invalid presentation corner envelope.");
+            if(!float.IsFinite(d.sidestep_span_m)||d.sidestep_span_m<0||d.sidestep_span_m>.3f||
+                !float.IsFinite(d.sidestep_lift_m)||d.sidestep_lift_m<0||d.sidestep_lift_m>.15f||
+                !float.IsFinite(d.sidestep_max_cadence_hz)||d.sidestep_max_cadence_hz<0||d.sidestep_max_cadence_hz>3||
+                !float.IsFinite(d.sidestep_ski_yaw_deg)||d.sidestep_ski_yaw_deg<0||d.sidestep_ski_yaw_deg>35)
+                throw new ArgumentException("Invalid observed lateral step envelope.");
+            if(d.sidestep_span_m>0&&(d.sidestep_lift_m<=0||d.sidestep_max_cadence_hz<=0)||
+                d.sidestep_span_m==0&&(d.sidestep_lift_m!=0||d.sidestep_max_cadence_hz!=0||d.sidestep_ski_yaw_deg!=0))
+                throw new ArgumentException("Lateral steps require a complete span, lift and cadence definition.");
             return d;
         }
     }
 
     public readonly struct LocomotionInput
     {
-        public readonly float Speed, Grade, Effort, Curvature;
+        public readonly float Speed, Grade, Effort, Curvature,LateralSpeed;
         public readonly bool Tuck, Sprint, Travelling;
-        public LocomotionInput(float speed, float grade, float effort, bool tuck = false, bool sprint = false, bool travelling = true, float curvature = 0)
+        public LocomotionInput(float speed, float grade, float effort, bool tuck = false, bool sprint = false, bool travelling = true, float curvature = 0,float lateralSpeed=0)
         {
             if (float.IsNaN(speed) || float.IsInfinity(speed) || speed < 0 || float.IsNaN(grade) || float.IsInfinity(grade) || float.IsNaN(effort) || float.IsInfinity(effort) || effort < 0)
                 throw new ArgumentException("Invalid locomotion observation.");
             Speed = speed; Grade = grade; Effort = effort; Tuck = tuck; Sprint = sprint; Travelling = travelling;
             if (float.IsNaN(curvature) || float.IsInfinity(curvature)) throw new ArgumentException("Invalid course curvature.");
             Curvature = curvature;
+            if(!float.IsFinite(lateralSpeed))throw new ArgumentException("Invalid lateral motion observation.");
+            LateralSpeed=lateralSpeed;
         }
     }
 
@@ -97,7 +108,7 @@ namespace Biathlon.Unity.Presentation
         }
         public static SkiLocomotion Select(LocomotionInput input, AthleteLocomotionSettings settings)
         {
-            if (!input.Travelling || input.Speed <= settings.idle_speed_mps) return SkiLocomotion.Idle;
+            if (!input.Travelling || Mathf.Max(input.Speed,Mathf.Abs(input.LateralSpeed)) <= settings.idle_speed_mps) return SkiLocomotion.Idle;
             if (input.Tuck) return SkiLocomotion.Tuck;
             if (input.Sprint || input.Effort >= settings.sprint_effort) return SkiLocomotion.Sprint;
             if (input.Grade >= settings.climb_grade) return SkiLocomotion.Climb;

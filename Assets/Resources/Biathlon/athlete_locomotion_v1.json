@@ -17,6 +17,10 @@
   "climb_motion_low": 0.75,
   "climb_motion_high": 1.1,
   "ankle_height_m": 0.12,
+  "sidestep_span_m": 0.24,
+  "sidestep_lift_m": 0.055,
+  "sidestep_max_cadence_hz": 2.1,
+  "sidestep_ski_yaw_deg": 22,
   "poses": [
     {"state":"Idle", "hip_drop_m":0.025,"torso_lean_deg":3,"skate_width_m":0.01,"stride_m":0,"foot_lift_m":0,"cadence_hz":0,"hand_forward_m":0.08,"hand_height_m":0.91,"arm_swing_m":0,"hand_width_m":0.22},
     {"state":"Flat", "hip_drop_m":0.12,"torso_lean_deg":22,"skate_width_m":0.15,"stride_m":0.22,"foot_lift_m":0.025,"cadence_hz":0.85,"hand_forward_m":0.22,"hand_height_m":1.02,"arm_swing_m":0.23,"hand_width_m":0.25},

@@ -10,6 +10,59 @@ namespace Biathlon.PlayModeTests
 {
     public class AthleteLocomotionTests
     {
+        [UnityTest] public IEnumerator AcceptedLateralBypassLiftsAndPlacesSkisInsteadOfSlidingInIdle()
+        {
+            var rig=OriginalAthleteRigBuilder.Create(null);var driver=rig.GetComponent<AthleteLocomotionDriver>();
+            var start=rig.transform.position;var left=rig.Bone(AthleteBone.LeftFoot);var right=rig.Bone(AthleteBone.RightFoot);
+            float leftLift=0,rightLift=0,yaw=0;Vector3 first=default;float travel=0;
+            for(int i=0;i<=120;i++)
+            {
+                driver.Sample(rig,new LocomotionInput(0,0,.75f,lateralSpeed:.8f),i/60d);
+                Assert.That(driver.State,Is.Not.EqualTo(SkiLocomotion.Idle));
+                if(i==0)first=left.position;
+                leftLift=Mathf.Max(leftLift,left.position.y);rightLift=Mathf.Max(rightLift,right.position.y);
+                travel=Mathf.Max(travel,Vector3.Distance(first,left.position));
+                yaw=Mathf.Max(yaw,Mathf.Abs(Vector3.SignedAngle(rig.ModelRoot.forward,left.forward,Vector3.up)));
+                Assert.That(rig.transform.position,Is.EqualTo(start),"Presentation cannot create lateral movement.");
+            }
+            Assert.That(driver.SidestepWeight,Is.GreaterThan(.95f));
+            Assert.That(leftLift,Is.GreaterThan(.16f));Assert.That(rightLift,Is.GreaterThan(.16f));
+            Assert.That(travel,Is.InRange(.2f,.27f),"The configured .24m is the full stroke, not a twice-as-wide crossed-leg swing.");Assert.That(yaw,Is.GreaterThan(15));
+            driver.Sample(rig,new LocomotionInput(0,0,0),4);
+            Assert.That(driver.State,Is.EqualTo(SkiLocomotion.Idle));
+            Assert.That(driver.SidestepWeight,Is.Zero);
+            Object.Destroy(rig.gameObject);yield return null;
+        }
+        [Test] public void SidestepKeepsBootOrderForBothDirections()
+        {
+            var rig=AthleteRigFactory.Create(null);
+            try
+            {
+                var driver=rig.GetComponent<AthleteLocomotionDriver>();
+                foreach(float direction in new[]{-.8f,.8f})
+                for(int i=0;i<240;i++)
+                {
+                    driver.Sample(rig,new LocomotionInput(0,0,.75f,lateralSpeed:direction),i/60d);
+                    var left=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.LeftFoot).position);
+                    var right=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.RightFoot).position);
+                    Assert.That(right.x-left.x,Is.GreaterThan(.15f),"Side stepping must not cross the boots or reverse their lateral order.");
+                }
+            }
+            finally{Object.DestroyImmediate(rig.gameObject);}
+        }
+        [Test] public void LateralStepDataRejectsPartialOrUnboundedMotionAndPreservesAbsentLegacySettings()
+        {
+            var json=Resources.Load<TextAsset>("Biathlon/athlete_locomotion_v1").text;
+            foreach(string name in new[]{"sidestep_span_m","sidestep_lift_m","sidestep_max_cadence_hz"})
+            {
+                string missing=System.Text.RegularExpressions.Regex.Replace(json,",?\\s*\""+name+"\"\\s*:\\s*[0-9.]+","");
+                Assert.Throws<ArgumentException>(()=>AthleteLocomotionSettings.FromJson(missing),name);
+            }
+            var absent=System.Text.RegularExpressions.Regex.Replace(json,",?\\s*\"sidestep_[a-z_]+\"\\s*:\\s*[0-9.]+","");
+            Assert.That(AthleteLocomotionSettings.FromJson(absent).sidestep_span_m,Is.Zero);
+            Assert.Throws<ArgumentException>(()=>new LocomotionInput(1,0,1,lateralSpeed:float.PositiveInfinity));
+            Assert.Throws<ArgumentException>(()=>AthleteLocomotionSettings.FromJson(json.Replace("\"sidestep_span_m\": 0.24","\"sidestep_span_m\": 1")));
+        }
         [Test]
         public void StatesUseAcceptedTuckGradeAndEffortWithExplicitPriority()
         {

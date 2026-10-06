@@ -11,6 +11,38 @@ namespace Biathlon.PlayModeTests
 {
     public class AthleteProxyTests
     {
+        [UnityTest] public IEnumerator ProductionBypassFeedsAcceptedLateralSpeedToSkisWithoutMovingRace()
+        {
+            string Read(string id)=>Resources.Load<TextAsset>(id).text;
+            string Core(string name)=>Read("Biathlon/"+Path.GetFileNameWithoutExtension(name));
+            const string v="Biathlon/Venues/woodland_basin_v1/";
+            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(v+"manifest")),Read);
+            var runner=ProductionVenueRaceFactory.Create(venue,CompetitionProfile.FromJson(Read(v+"mass_start_profile")),
+                RaceRoutePlan.FromJson(Read(v+"mass_start_route")),RaceSnowConditions.FromJson(Read("Biathlon/race_snow_neutral_v1")),
+                Core,new BalanceEventAudit(5),new AiDecisionCounts(),count:6);
+            var root=new GameObject("accepted_lateral_proxy_test");var feed=root.AddComponent<RacePresentationFeed>();
+            var view=root.AddComponent<AthleteProxyPresentation>();view.Initialize(feed,venue);
+            var field=runner.Field;var player=field.GetAthlete(0).AthleteId;double playerLine=field.GetLateral(0);bool observed=false;
+            feed.Publish(RacePresentationSnapshot.Capture(field));
+            for(int t=0;t<600&&!observed;t++)
+            {
+                var tick=field.Tick.Next();
+                runner.StepWithPlayer(0,new SprintAthleteInput(new TimeTrialInput(new SimulationInput(tick,player,0),1,1,0),new WeaponAimCommand(tick,player,0,0)),playerLine);
+                feed.Publish(RacePresentationSnapshot.Capture(field));
+                for(int i=1;i<field.Count;i++)
+                {
+                    var current=feed.Current.Get(i);var prior=feed.Previous.Get(i);
+                    if(current.LoopId!=prior.LoopId||System.Math.Abs(current.LateralMeters-prior.LateralMeters)<.001)continue;
+                    long before=field.GetAthlete(i).Motion.DistanceNanometers;view.Render(1);
+                    var shown=view.GetProxy(current.AthleteId).GetComponent<AthleteAnimationPresentation>().LastFrame;
+                    Assert.That(shown.LateralMetersPerSecond,Is.EqualTo((current.LateralMeters-prior.LateralMeters)*field.TickFrequency).Within(1e-9));
+                    Assert.That(view.GetRig(current.AthleteId).GetComponent<AthleteLocomotionDriver>().State,Is.Not.EqualTo(SkiLocomotion.Idle));
+                    Assert.That(field.GetAthlete(i).Motion.DistanceNanometers,Is.EqualTo(before));observed=true;break;
+                }
+            }
+            Assert.That(observed,Is.True,"Actual stationary-player bypass must feed the observed sideways movement.");
+            Object.Destroy(root);yield return null;
+        }
         [UnityTest] public IEnumerator ThirtyStableIdentitiesFollowSnapshotsWithoutMovingAuthority()
         {
             string Read(string n)=>Resources.Load<TextAsset>("Biathlon/"+Path.GetFileNameWithoutExtension(n)).text;

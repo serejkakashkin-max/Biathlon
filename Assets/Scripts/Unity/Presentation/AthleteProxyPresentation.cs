@@ -101,7 +101,15 @@ namespace Biathlon.Unity.Presentation
                 float distance=viewCamera!=null?Vector3.Distance(viewCamera.transform.position,go.transform.position):0;
                 long poseTick=current.Tick;double poseAlpha=alpha;
                 if(finished&&current.Complete){double ticks=completedSeconds*current.TickFrequency;poseTick+=(long)Math.Floor(ticks);poseAlpha=ticks-Math.Floor(ticks);}
-                var frame=new AthleteAnimationFrame(state,poseTick,current.TickFrequency,poseAlpha,finished?0:curvature,grade);
+                double lateralSpeed=0;
+                var previous=feed.Previous;
+                if(!finished&&!state.ShootingActive&&previous!=null&&i<previous.Count&&current.Tick>previous.Tick)
+                {
+                    var prior=previous.Get(i);
+                    if(prior.AthleteId==state.AthleteId&&prior.OnCourse&&prior.LoopId==state.LoopId&&!prior.ShootingActive)
+                        lateralSpeed=(state.LateralMeters-prior.LateralMeters)*current.TickFrequency/(current.Tick-previous.Tick);
+                }
+                var frame=new AthleteAnimationFrame(state,poseTick,current.TickFrequency,poseAlpha,finished?0:curvature,grade,lateralSpeed);
                 animation[state.AthleteId].Render(frame,distance*lodScale);
                 snowTracks.Observe(state.AthleteId,animation[state.AthleteId].Rig,frame,distance);
                 snowSpray.Observe(state.AthleteId,animation[state.AthleteId].Rig,frame,distance);
