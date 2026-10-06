@@ -9,6 +9,8 @@ namespace Biathlon.Simulation
         private readonly ManualSkiHeadingState initial;
         private readonly double acceleration, reachSeconds;
         private readonly int substeps;
+        private readonly SkiForceTrajectory travel;
+        private readonly double planarScale;
         public ManualSkiHeadingState State { get; }
         public double DurationSeconds { get; }
         /// <summary>Horizontal world-plane metres, not the legacy slope-path odometer.</summary>
@@ -26,9 +28,10 @@ namespace Biathlon.Simulation
 
         internal ManualSkiHeadingFrame(ManualSkiHeadingState initial, double duration, double distance,
             double requestedRate, double targetRate, double rateLimit, double acceleration, double reach,
-            int substeps, double speed, double gripLimit)
+            int substeps, double speed, double gripLimit, SkiForceTrajectory travel=default, double planarScale=1)
         {
             this.initial = initial; this.acceleration = acceleration; reachSeconds = reach; this.substeps = substeps;
+            this.travel=travel;this.planarScale=planarScale;
             DurationSeconds = duration; PlanarTravelDistanceMeters = distance; RequestedYawRate = requestedRate;
             TargetYawRate = targetRate; YawRateLimit = rateLimit; GripAccelerationLimit = gripLimit;
             // Unity's C# compiler requires every struct field assigned before instance helpers.
@@ -36,7 +39,7 @@ namespace Biathlon.Simulation
             HeadingDeltaRadians = AngleAt(duration);
             double endRate = RateAt(duration);
             PeakYawRate = Math.Max(Math.Abs(initial.YawRateRadiansPerSecond), Math.Abs(endRate));
-            LateralAccelerationDemand = PhysiologyNumbers.Quantize(PhysiologyNumbers.RequireRange(speed * PeakYawRate,
+            LateralAccelerationDemand = PhysiologyNumbers.Quantize(PhysiologyNumbers.RequireRange(travel.IsValid?PeakDemand():speed * PeakYawRate,
                 0, PhysiologyNumbers.MaximumMagnitude, "manual turning acceleration"));
             State = Integrate(duration);
         }
@@ -63,6 +66,27 @@ namespace Biathlon.Simulation
         private ManualSkiHeadingState Integrate(double time)
         {
             double x = initial.X, z = initial.Z;
+            if(travel.IsValid)
+            {
+                // Split at both ramp kinks. A stopped skier may still pivot, but cannot
+                // translate during the stationary suffix of the physics step.
+                double from=0;
+                while(from<time)
+                {
+                    double to=NextBoundary(from,time);
+                    double step=(to-from)/substeps;
+                    for(int i=0;i<substeps;i++)
+                    {
+                        double a=from+i*step,b=a+step*.5,c=a+step;
+                        double va=travel.SpeedRaw(a)*planarScale,vb=travel.SpeedRaw(b)*planarScale,vc=travel.SpeedRaw(c)*planarScale;
+                        double ha=initial.HeadingRadians+AngleAt(a),hb=initial.HeadingRadians+AngleAt(b),hc=initial.HeadingRadians+AngleAt(c);
+                        x+=step/6*(va*Math.Sin(ha)+4*vb*Math.Sin(hb)+vc*Math.Sin(hc));
+                        z+=step/6*(va*Math.Cos(ha)+4*vb*Math.Cos(hb)+vc*Math.Cos(hc));
+                    }
+                    from=to;
+                }
+                return new ManualSkiHeadingState(x,z,initial.HeadingRadians+AngleAt(time),RateAt(time));
+            }
             if (PlanarTravelDistanceMeters != 0)
             {
                 // Fixed composite Simpson quadrature of continuous yaw. Distance is supplied
@@ -80,6 +104,35 @@ namespace Biathlon.Simulation
                 }
             }
             return new ManualSkiHeadingState(x, z, initial.HeadingRadians + AngleAt(time), RateAt(time));
+        }
+
+        private double NextBoundary(double from,double end)
+        {
+            if(reachSeconds>from&&reachSeconds<end)end=reachSeconds;
+            if(travel.SpeedBoundarySeconds>from&&travel.SpeedBoundarySeconds<end)end=travel.SpeedBoundarySeconds;
+            return end;
+        }
+        private double PeakDemand()
+        {
+            double from=0,peak=0;
+            while(from<DurationSeconds)
+            {
+                double to=NextBoundary(from,DurationSeconds);
+                double v=travel.SpeedRaw(from)*planarScale,w=RateAt(from);
+                double a=from<travel.SpeedBoundarySeconds?travel.Acceleration*planarScale:0;
+                double alpha=from<reachSeconds?acceleration:0;
+                peak=Math.Max(peak,Math.Max(Math.Abs(v*w),Math.Abs(travel.SpeedRaw(to)*planarScale*RateAt(to))));
+                // v(t)*yawRate(t) is quadratic on this interval; its internal extremum
+                // matters when acceleration and angular braking act in opposite ways.
+                double quadratic=a*alpha;
+                if(quadratic!=0)
+                {
+                    double t=-(a*w+alpha*v)/(2*quadratic);
+                    if(t>0&&t<to-from)peak=Math.Max(peak,Math.Abs((v+a*t)*(w+alpha*t)));
+                }
+                from=to;
+            }
+            return peak;
         }
     }
 
@@ -108,6 +161,28 @@ namespace Biathlon.Simulation
 
         public ManualSkiHeadingFrame Preview(ManualSkiHeadingState state, int steeringInput,
             double planarTravelDistanceMeters, double speedMetersPerSecond, double gripAccelerationLimit, double postureResponse = 1)
+            => Build(state,steeringInput,planarTravelDistanceMeters,speedMetersPerSecond,gripAccelerationLimit,postureResponse,duration);
+
+        /// <summary>Integrate actual force-solver speed against continuous heading.
+        /// Planar scale is cos(actual travel grade), frozen over this surface interval.
+        /// The caller must split surface changes and still validate swept bodies/edges.</summary>
+        public ManualSkiHeadingFrame Preview(ManualSkiHeadingState state,int steeringInput,
+            SkiForceTrajectory travel,double planarScale,double gripAccelerationLimit,double postureResponse=1)
+        {
+            if(!travel.IsValid||travel.DurationSeconds>duration)throw new ArgumentException("Travel must fit the fixed tick.",nameof(travel));
+            PhysiologyNumbers.RequireRange(planarScale,PhysiologyNumbers.MinimumPositive,1,nameof(planarScale));
+            return Build(state,steeringInput,travel.DistanceAt(travel.DurationSeconds)*planarScale,travel.PeakSpeed*planarScale,
+                gripAccelerationLimit,postureResponse,travel.DurationSeconds,travel,planarScale);
+        }
+        public ManualSkiHeadingFrame Preview(ManualSkiHeadingState state,ManualSkiCommand command,
+            SkiForceTrajectory travel,double planarScale,double gripAccelerationLimit,double postureResponse=1)
+        {
+            if(!command.IsValid)throw new ArgumentException("A valid fixed-tick manual command is required.",nameof(command));
+            return Preview(state,command.SteeringInput,travel,planarScale,gripAccelerationLimit,postureResponse);
+        }
+        private ManualSkiHeadingFrame Build(ManualSkiHeadingState state,int steeringInput,double planarTravelDistanceMeters,
+            double speedMetersPerSecond,double gripAccelerationLimit,double postureResponse,double frameDuration,
+            SkiForceTrajectory travel=default,double planarScale=1)
         {
             if (!state.IsValid) throw new ArgumentException("An explicitly initialized world pose is required.", nameof(state));
             if (steeringInput < -ManualSkiCommand.SteeringUnits || steeringInput > ManualSkiCommand.SteeringUnits)
@@ -131,8 +206,8 @@ namespace Biathlon.Simulation
             double magnitude = steeringInput == 0 ? definition.NeutralYawDeceleration : definition.YawAcceleration * response;
             double acceleration = Math.Sign(change) * magnitude;
             double reach = change == 0 ? 0 : magnitude == 0 ? double.PositiveInfinity : Math.Abs(change) / magnitude;
-            return new ManualSkiHeadingFrame(state, duration, planarTravelDistanceMeters, requestedRate,
-                targetRate, limit, acceleration, reach, definition.PathIntegrationSubsteps, speedMetersPerSecond, gripAccelerationLimit);
+            return new ManualSkiHeadingFrame(state, frameDuration, planarTravelDistanceMeters, requestedRate,
+                targetRate, limit, acceleration, reach, definition.PathIntegrationSubsteps, speedMetersPerSecond, gripAccelerationLimit,travel,planarScale);
         }
     }
 }

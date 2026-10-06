@@ -29,6 +29,16 @@ namespace Biathlon.Simulation
         }
         public SkiForceOutput Step(SkiState state, double deliveredPowerWatts, TrackSample track, double headwindMetersPerSecond = 0, double dragAreaMultiplier = 1, double brakingNewtons = 0, double snowResistanceMultiplier = 1)
             => Integrate(state, deliveredPowerWatts, track, dt, frequency, headwindMetersPerSecond, dragAreaMultiplier, brakingNewtons, snowResistanceMultiplier);
+        /// <summary>Observe the physical velocity ramp used by the ordinary force solver.
+        /// This preview has no side effects and grants no route/contact admission.</summary>
+        public SkiForceTrajectory PreviewTrajectory(SkiState state, double deliveredPowerWatts, TrackSample track,
+            double durationSeconds, double headwindMetersPerSecond = 0, double dragAreaMultiplier = 1,
+            double brakingNewtons = 0, double snowResistanceMultiplier = 1)
+        {
+            var output=StepDuration(state,deliveredPowerWatts,track,durationSeconds,headwindMetersPerSecond,
+                dragAreaMultiplier,brakingNewtons,snowResistanceMultiplier);
+            return new SkiForceTrajectory(state,output,durationSeconds,definition.MassKilograms,definition.MaximumSpeedMetersPerSecond);
+        }
         /// <summary>Deterministic substep inside the configured fixed tick, for authored surface/route boundaries.</summary>
         public SkiForceOutput StepDuration(SkiState state, double deliveredPowerWatts, TrackSample track, double durationSeconds,
             double headwindMetersPerSecond = 0, double dragAreaMultiplier = 1, double brakingNewtons = 0, double snowResistanceMultiplier = 1)
