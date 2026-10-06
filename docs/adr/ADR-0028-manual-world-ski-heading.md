@@ -34,3 +34,16 @@ Lateral-only A/D remains the accepted legacy mode but does not meet the new owne
 ## Consequences and acceptance
 
 This atomic step supplies pure contracts, an allocation-free fixed-tick preview and tests. It changes no race results or balance because it is disconnected. Tests cover neutral world direction, angular acceleration, neutral subtick stopping, mirrored turns, speed/posture/grip limits, circular trajectory and prefix samples, yaw wrapping, invalid inputs, command schema isolation and long-run exact repeatability. A playable manual-steering claim requires all integration work above and native Unity validation on the single production venue.
+
+## 2026-10-06 intermediate route/AI continuation
+
+`ManualRouteProjectionMap.TrySampleAhead` now exposes a target on the current
+selected route occurrence, or its immediate successor only with explicit branch
+admission. It never searches the globally nearest lap. `ManualAiSteeringController`
+turns that target into signed yaw intent using a versioned decision policy; its
+output feeds the same `ManualSkiSteeringSystem` contract as player v2 input.
+Target lookup and decision are allocation-free after construction. A missing
+admitted target yields an invalid plan rather than an automatic turn or free
+movement. The policy currently exists only as a tested schema, without chosen
+production tuning or a live race caller. This does not satisfy integration items
+2–6 above or authorize declaring auto turns removed in the playable build.

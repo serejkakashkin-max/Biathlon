@@ -123,5 +123,65 @@ namespace Biathlon.Tests
             }
             Assert.That(checkedKnots,Is.GreaterThan(100));
         }
+        [TestCase("mass_start")][TestCase("sprint")][TestCase("pursuit")]
+        public void ForwardTargetSamplesOnlyTheSelectedOccurrenceWithoutMovingTheAthlete(string format)
+        {
+            var f=Create(format);int checkedSegments=0;
+            for(int s=0;s<f.route.SectionCount;s++)
+            {
+                var section=f.route.GetSection(s);var loop=f.geometry.Get(section.LoopId);
+                for(int k=1;k<loop.Count;k++)
+                {
+                    double from=Math.Max(section.LoopStart.Meters,loop.Get(k-1).Distance);
+                    double to=Math.Min(section.LoopEnd.Meters,loop.Get(k).Distance);if(to<=from)continue;
+                    double local=(from+to)*.5;
+                    long station=Nano(section.Start.Meters+local-section.LoopStart.Meters);
+                    var pose=At(loop,local,.3);var unchanged=pose;
+                    Assert.That(f.map.TrySampleAhead(s,station,0,false,out var target),Is.True,$"section={s} edge={k}");
+                    var visual=loop.Sample(local);
+                    Assert.That(target.IsValid,Is.True);
+                    Assert.That(target.SectionIndex,Is.EqualTo(s));
+                    Assert.That(target.LoopId,Is.EqualTo(section.LoopId));
+                    Assert.That(target.RouteNanometers,Is.EqualTo(station));
+                    Assert.That(target.X,Is.EqualTo(visual.X).Within(2e-8));
+                    Assert.That(target.Z,Is.EqualTo(visual.Z).Within(2e-8));
+                    Assert.That(target.Y,Is.EqualTo(visual.Y).Within(2e-8));
+                    Assert.That(target.ForwardX*target.ForwardX+target.ForwardZ*target.ForwardZ,Is.EqualTo(1).Within(1e-12));
+                    Assert.That(pose,Is.EqualTo(unchanged));checkedSegments++;
+                }
+            }
+            Assert.That(checkedSegments,Is.GreaterThan(100));
+        }
+        [Test] public void ForwardTargetRequiresExplicitSuccessorAndCannotSkipItOrSelectARepeatedLap()
+        {
+            var f=Create("sprint");int section=0;
+            while(section+1<f.route.SectionCount&&f.route.GetSection(section).LoopId==f.route.GetSection(section+1).LoopId)section++;
+            Assert.That(section+1,Is.LessThan(f.route.SectionCount));
+            var current=f.route.GetSection(section);var next=f.route.GetSection(section+1);
+            long before=Nano(current.Start.Meters+current.Length.Meters-.05);
+            Assert.That(f.map.TrySampleAhead(section,before,.15,false,out var withheld),Is.False);
+            Assert.That(withheld.IsValid,Is.False);
+            Assert.That(f.map.TrySampleAhead(section,before,.15,true,out var admitted),Is.True);
+            Assert.That(admitted.SectionIndex,Is.EqualTo(section+1));
+            Assert.That(admitted.LoopId,Is.EqualTo(next.LoopId));
+            Assert.That(admitted.RouteNanometers,Is.EqualTo(Nano(next.Start.Meters+.1)));
+            Assert.That(f.map.TrySampleAhead(section,before,current.Length.Meters+next.Length.Meters+1,true,out _),Is.False);
+            var first=f.route.GetSection(0);
+            Assert.That(f.map.TrySampleAhead(0,Nano(first.Start.Meters+10),1,false,out var firstTarget),Is.True);
+            Assert.That(firstTarget.SectionIndex,Is.Zero,"World coordinates repeated on later laps must not change occurrence.");
+        }
+        [Test] public void ForwardTargetValidatesCursorAndHasNoWarmPerQueryAllocation()
+        {
+            var f=Create();var section=f.route.GetSection(0);long station=Nano(section.Start.Meters+10);
+            Assert.Throws<ArgumentOutOfRangeException>(()=>f.map.TrySampleAhead(-1,station,1,false,out _));
+            Assert.Throws<ArgumentOutOfRangeException>(()=>f.map.TrySampleAhead(0,-1,1,false,out _));
+            Assert.Throws<ArgumentOutOfRangeException>(()=>f.map.TrySampleAhead(0,Nano(section.Length.Meters+1),1,false,out _));
+            Assert.Throws<ArgumentOutOfRangeException>(()=>f.map.TrySampleAhead(0,station,double.NaN,false,out _));
+            Assert.That(f.map.TrySampleAhead(0,station,1,false,out _),Is.True);
+            for(int i=0;i<100;i++)f.map.TrySampleAhead(0,station,1,false,out _);
+            long bytes=GC.GetAllocatedBytesForCurrentThread();
+            for(int i=0;i<1000;i++)f.map.TrySampleAhead(0,station,1,false,out _);
+            Assert.That(GC.GetAllocatedBytesForCurrentThread()-bytes,Is.Zero);
+        }
     }
 }

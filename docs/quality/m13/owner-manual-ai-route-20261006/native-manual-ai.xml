@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="4" result="Passed" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 14:45:51Z" end-time="2026-10-06 14:45:55Z" duration="3,4955288">
+  <test-suite type="TestSuite" id="2508" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1192" result="Passed" start-time="2026-10-06 14:45:51Z" end-time="2026-10-06 14:45:55Z" duration="3.495529" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2453" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="1165" result="Passed" start-time="2026-10-06 14:45:51Z" end-time="2026-10-06 14:45:55Z" duration="3.386836" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="61532" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2454" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1165" result="Passed" start-time="2026-10-06 14:45:51Z" end-time="2026-10-06 14:45:55Z" duration="3.281458" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2455" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="1165" result="Passed" start-time="2026-10-06 14:45:52Z" end-time="2026-10-06 14:45:55Z" duration="3.172384" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1314" name="ManualAiSteeringControllerTests" fullname="Biathlon.Tests.ManualAiSteeringControllerTests" classname="Biathlon.Tests.ManualAiSteeringControllerTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-06 14:45:52Z" end-time="2026-10-06 14:45:55Z" duration="3.067369" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1318" name="IntentIsDeterministicAllocationFreeAndDoesNotReplacePhysicalSteering" fullname="Biathlon.Tests.ManualAiSteeringControllerTests.IntentIsDeterministicAllocationFreeAndDoesNotReplacePhysicalSteering" methodname="IntentIsDeterministicAllocationFreeAndDoesNotReplacePhysicalSteering" classname="Biathlon.Tests.ManualAiSteeringControllerTests" runstate="Runnable" seed="1500535598" result="Passed" start-time="2026-10-06 14:45:52Z" end-time="2026-10-06 14:45:53Z" duration="0.824442" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1316" name="OffCentreAiRequestsMirroredPhysicalYawWithoutMovingEitherWorldPose" fullname="Biathlon.Tests.ManualAiSteeringControllerTests.OffCentreAiRequestsMirroredPhysicalYawWithoutMovingEitherWorldPose" methodname="OffCentreAiRequestsMirroredPhysicalYawWithoutMovingEitherWorldPose" classname="Biathlon.Tests.ManualAiSteeringControllerTests" runstate="Runnable" seed="346316931" result="Passed" start-time="2026-10-06 14:45:53Z" end-time="2026-10-06 14:45:53Z" duration="0.701776" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1315" name="PolicyIsVersionedValidatedAndBoundInReplayContext" fullname="Biathlon.Tests.ManualAiSteeringControllerTests.PolicyIsVersionedValidatedAndBoundInReplayContext" methodname="PolicyIsVersionedValidatedAndBoundInReplayContext" classname="Biathlon.Tests.ManualAiSteeringControllerTests" runstate="Runnable" seed="362284669" result="Passed" start-time="2026-10-06 14:45:53Z" end-time="2026-10-06 14:45:54Z" duration="0.640192" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1317" name="SpeedLookaheadIsBoundedAndUnadmittedBranchReturnsNoCommand" fullname="Biathlon.Tests.ManualAiSteeringControllerTests.SpeedLookaheadIsBoundedAndUnadmittedBranchReturnsNoCommand" methodname="SpeedLookaheadIsBoundedAndUnadmittedBranchReturnsNoCommand" classname="Biathlon.Tests.ManualAiSteeringControllerTests" runstate="Runnable" seed="23419766" result="Passed" start-time="2026-10-06 14:45:54Z" end-time="2026-10-06 14:45:55Z" duration="0.786610" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

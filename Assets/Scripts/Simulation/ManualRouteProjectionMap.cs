@@ -34,6 +34,23 @@ namespace Biathlon.Simulation
         }
     }
 
+    /// <summary>A course-space observation for an AI controller. Sampling a target
+    /// does not turn, move, admit a branch, or award route distance to an athlete.</summary>
+    public readonly struct ManualRouteTarget
+    {
+        public bool IsValid => LoopId != null;
+        public int SectionIndex { get; }
+        public string LoopId { get; }
+        public long RouteNanometers { get; }
+        public double X { get; }
+        public double Y { get; }
+        public double Z { get; }
+        public double ForwardX { get; }
+        public double ForwardZ { get; }
+        internal ManualRouteTarget(int section,string loop,long route,double x,double y,double z,double forwardX,double forwardZ)
+        {SectionIndex=section;LoopId=loop;RouteNanometers=route;X=x;Y=y;Z=z;ForwardX=forwardX;ForwardZ=forwardZ;}
+    }
+
     /// <summary>Local projection onto an explicitly selected base-race route occurrence.
     /// This geometry primitive does not award distance, choose a branch, admit a body,
     /// follow range/start/penalty paths, or connect the manual kernel to the live host.</summary>
@@ -139,6 +156,42 @@ namespace Biathlon.Simulation
                 }
             }
             return result.IsValid;
+        }
+
+        /// <summary>Sample a bounded forward target on the current route occurrence.
+        /// A successor may be sampled only when its admission is explicitly supplied;
+        /// the query never skips another occurrence or chooses a spatially close lap.</summary>
+        public bool TrySampleAhead(int currentSection,long currentStationNanometers,double lookaheadMeters,
+            bool admitNextSection,out ManualRouteTarget target)
+        {
+            if(currentSection<0||currentSection>=starts.Length)throw new ArgumentOutOfRangeException(nameof(currentSection));
+            if(currentStationNanometers<starts[currentSection]||currentStationNanometers>ends[currentSection])
+                throw new ArgumentOutOfRangeException(nameof(currentStationNanometers));
+            PhysiologyNumbers.RequireRange(lookaheadMeters,0,PhysiologyNumbers.MaximumMagnitude,nameof(lookaheadMeters));
+            long ahead=checked((long)Math.Round(lookaheadMeters*SkiState.NanometersPerMeter,MidpointRounding.ToEven));
+            long station=checked(currentStationNanometers+ahead);
+            int section=currentSection;
+            if(station>ends[section])
+            {
+                if(!admitNextSection||section+1>=starts.Length||station>ends[section+1])
+                {target=default;return false;}
+                section++;
+            }
+            double metres=station/(double)SkiState.NanometersPerMeter;
+            int a=firstEdges[section],b=edgeEnds[section];
+            while(a<b){int m=a+(b-a)/2;if(edges[m].StationEnd<metres)a=m+1;else b=m;}
+            if(a==edgeEnds[section]){target=default;return false;}
+            var edge=edges[a];
+            // Nanometre state encoding and authored doubles may differ at an endpoint.
+            // This reserve is numerical only and cannot extend the selected section.
+            if(metres<edge.StationStart-2*PhysiologyNumbers.MinimumPositive||
+                metres>edge.StationEnd+2*PhysiologyNumbers.MinimumPositive)
+            {target=default;return false;}
+            double fraction=Math.Max(0,Math.Min(1,(metres-edge.StationStart)/(edge.StationEnd-edge.StationStart)));
+            target=new ManualRouteTarget(section,edge.Loop,station,edge.X+edge.DX*fraction,
+                edge.Y+edge.DY*fraction,edge.Z+edge.DZ*fraction,
+                edge.DX/edge.PlanarLength,edge.DZ/edge.PlanarLength);
+            return true;
         }
     }
 }

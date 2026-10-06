@@ -21392,3 +21392,29 @@ Owner hands-on acceptance awaits the single consolidated Windows build after
 all M13 corrections. Full manual directional steering and live physical contact
 integration remain OPEN. M13/WP175–178 remain OPEN. No intermediate build.
 All previous PROJECT_STATE history preserved without modification.
+
+## 2026-10-06 — M13 local route target and signed AI manual steering intent
+
+Added a bounded target sampler to the manual route projection map. It reads the
+selected occurrence of the Woodland route, with the immediate successor only
+when branch admission is explicitly supplied; repeated world coordinates on
+later laps cannot become a target. The target is an observation, not movement,
+branch admission or odometer credit. Added versioned data-driven AI decision
+policy and a pure controller converting local target error into signed yaw
+intent. It observes current yaw rate and physical maximum yaw rate, and returns
+an invalid plan if no admitted target exists. No production policy tuned yet;
+tests use a fixture. Player v2 input remains separate, and the same physical
+steering solver would limit both player and AI.
+
+Focused .NET route/steering tests: 28/28 PASS. Native Unity AI controller 4/4
+and route projection 13/13 PASS; compilation complete, recent Error Console
+empty. Warm allocation checks and repeated-lap/branch tests passed. Evidence:
+docs/quality/m13/owner-manual-ai-route-20261006/. Report:
+docs/reports/TASK_M13_MANUAL_AI_ROUTE_20261006.md. ADR-0028 amended with this
+intermediate contract. Previous STATE bytes preserved; this record only appended.
+
+No live AI/player behavior, authoritative race physics, replay, balance or
+Windows build changed. This controller is not yet wired into the playable race.
+Course-cell admission, actual contact/edge movement, route lifecycle/events,
+v2 tape reconstruction and host input/presentation remain. M13/WP175–178 OPEN.
+No intermediate build, per owner M13 batch directive.
