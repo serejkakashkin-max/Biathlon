@@ -9,6 +9,40 @@ namespace Biathlon.PlayModeTests
 {
     public class AthleteGroundContactTests
     {
+        [Test] public void TuckPoleShaftsClearTheActualHeroSkinAfterTheHandGrip()
+        {
+            var rig=AthleteRigFactory.Create(null);var baked=new Mesh();
+            try
+            {
+                var driver=rig.GetComponent<AthleteLocomotionDriver>();var rifle=rig.GetComponent<AthleteRiflePresentation>();
+                var contact=rig.GetComponent<AthleteGroundContact>();var grip=rig.GetComponent<AthleteGripPresentation>();
+                var equipment=rig.GetComponent<AthleteEquipmentBinding>();
+                foreach(float grade in new[]{0f,-.08f,-.15f})
+                {
+                    driver.Sample(rig,new LocomotionInput(12,grade,.1f,tuck:true),10);
+                    rifle.Sample(rig,0);contact.Sample(rig,grade,0,SkiLocomotion.Tuck,0);grip.Render(rig);
+                    foreach(var renderer in rig.GetComponentsInChildren<SkinnedMeshRenderer>())
+                    {
+                        renderer.BakeMesh(baked);var vertices=baked.vertices;var triangles=baked.triangles;
+                        for(int i=0;i<vertices.Length;i++)vertices[i]=renderer.transform.TransformPoint(vertices[i]);
+                        foreach(var pole in new[]{equipment.LeftPole,equipment.RightPole})
+                        {
+                            var origin=pole.position;var direction=-pole.up;
+                            for(int i=0;i<triangles.Length;i+=3)
+                            {
+                                var a=vertices[triangles[i]];var ab=vertices[triangles[i+1]]-a;var ac=vertices[triangles[i+2]]-a;
+                                var p=Vector3.Cross(direction,ac);float determinant=Vector3.Dot(ab,p);if(Mathf.Abs(determinant)<1e-8f)continue;
+                                var from=origin-a;float u=Vector3.Dot(from,p)/determinant;if(u<0||u>1)continue;
+                                var q=Vector3.Cross(from,ab);float v=Vector3.Dot(direction,q)/determinant;if(v<0||u+v>1)continue;
+                                float distance=Vector3.Dot(ac,q)/determinant;
+                                Assert.That(distance>.1f&&distance<1.36f,Is.False,$"Pole intersects hero skin {renderer.name} at {distance:F3}m, grade={grade}.");
+                            }
+                        }
+                    }
+                }
+            }
+            finally{Object.DestroyImmediate(baked);Object.DestroyImmediate(rig.gameObject);}
+        }
         [Test]
         public void HeroTuckUsesHipHingeCompactHandsAndTrailingAirbornePoles()
         {
@@ -32,7 +66,7 @@ namespace Biathlon.PlayModeTests
                     var elbow=Local(AthleteBone.LeftLowerArm);var hand=Local(AthleteBone.LeftHand);
                     Assert.That(Vector3.Angle(elbow-shoulder,hand-elbow),Is.GreaterThan(50),"Elbows bend instead of reaching straight forward.");
                     foreach(var pole in new[]{equipment.LeftPole,equipment.RightPole})
-                        Assert.That(Vector3.Dot(-pole.up,-rig.ModelRoot.forward),Is.GreaterThan(.96f),"Poles trail in the air.");
+                        Assert.That(Vector3.Dot(-pole.up,-rig.ModelRoot.forward),Is.GreaterThan(.85f),"Poles trail in the air, splayed around the torso.");
                     Assert.That(Vector3.Dot(contact.LeftPoleTip-rig.ModelRoot.position,contact.SurfaceNormal),Is.GreaterThan(.6f));
                     Assert.That(contact.MaxFootResidualMeters,Is.LessThan(.025f));Assert.That(grip.MaximumResidualMeters,Is.LessThan(.02f));
                     Assert.That(rig.transform.position,Is.EqualTo(origin));Assert.That(rig.transform.rotation,Is.EqualTo(rotation));

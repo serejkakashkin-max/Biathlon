@@ -9,7 +9,7 @@ namespace Biathlon.Unity.Presentation
         public int schema_version;
         public string id;
         public float sample_half_span_m, max_grade, pole_length_m, pole_recovery_m, pole_tuck_clearance_m;
-        public float tuck_pole_pitch_deg;
+        public float tuck_pole_pitch_deg,tuck_pole_splay_deg;
         public static GroundContactSettings Load()
         {
             var d = JsonUtility.FromJson<GroundContactSettings>(Resources.Load<TextAsset>("Biathlon/athlete_ground_contact_v1").text);
@@ -17,7 +17,8 @@ namespace Biathlon.Unity.Presentation
                 !(d.sample_half_span_m > 0 && d.sample_half_span_m <= 5) || !(d.max_grade > 0 && d.max_grade <= .5f) ||
                 !(d.pole_length_m > 1 && d.pole_length_m < 2) || !(d.pole_recovery_m > 0 && d.pole_recovery_m < .5f) ||
                 !(d.pole_tuck_clearance_m > 0 && d.pole_tuck_clearance_m < .5f)||
-                !float.IsFinite(d.tuck_pole_pitch_deg)||d.tuck_pole_pitch_deg<0||d.tuck_pole_pitch_deg>15)
+                !float.IsFinite(d.tuck_pole_pitch_deg)||d.tuck_pole_pitch_deg<0||d.tuck_pole_pitch_deg>15||
+                !float.IsFinite(d.tuck_pole_splay_deg)||d.tuck_pole_splay_deg<0||d.tuck_pole_splay_deg>35)
                 throw new ArgumentException("Invalid ground contact definition.");
             return d;
         }
@@ -121,7 +122,10 @@ namespace Biathlon.Unity.Presentation
                     // During aerodynamic coasting the pole shafts trail above the snow,
                     // rather than reaching down as if pushing. Blend into ordinary stow.
                     float pitch=settings.tuck_pole_pitch_deg*Mathf.Deg2Rad;
-                    var airborne=grip+(rear*Mathf.Cos(pitch)-normal*Mathf.Sin(pitch))*settings.pole_length_m;
+                    float splay=settings.tuck_pole_splay_deg*Mathf.Deg2Rad;
+                    float side=pole==equipment.LeftPole?-1:1;
+                    var outward=rear*Mathf.Cos(splay)+Vector3.right*(side*Mathf.Sin(splay));
+                    var airborne=grip+(outward*Mathf.Cos(pitch)-normal*Mathf.Sin(pitch))*settings.pole_length_m;
                     var direction=Vector3.Slerp(airborne-grip,tip-grip,stowWeight).normalized;
                     tip=grip+direction*settings.pole_length_m;
                 }
