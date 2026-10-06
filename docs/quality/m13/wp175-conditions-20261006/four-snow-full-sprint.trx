@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="d0ff57ce-5fb6-4803-8010-a1f684957aa8" name="snkashkin@DESKTOP-G3075GA 2026-10-06 19:33:36" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-06T19:33:36.7859590+03:00" queuing="2026-10-06T19:33:36.7859591+03:00" start="2026-10-06T19:33:29.1103701+03:00" finish="2026-10-06T19:33:57.6096928+03:00" />
+  <TestSettings name="default" id="06d74899-5c9c-4f64-aa9b-93350643131f">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-06_19_33_36" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="99a344a9-1dd3-4712-b014-585c19b93f86" testId="a6e6e4a2-a620-81d8-0fbd-536f46685bbf" testName="ActualWoodlandSprintCompletesAndPersistedCommandsReplayForCanonicalSnow(&quot;packed_neutral&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:07.1347330" startTime="2026-10-06T19:33:29.6176682+03:00" endTime="2026-10-06T19:33:36.7523643+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="99a344a9-1dd3-4712-b014-585c19b93f86">
+      <Output>
+        <StdOut>wp175_sprint_profile=packed_neutral ticks=12546 result_chars=816</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cbd3a783-2e42-4d59-bc72-29227e0eac8a" testId="06146fe0-4a96-1e7e-d711-9cf2f135d9ae" testName="ActualWoodlandSprintCompletesAndPersistedCommandsReplayForCanonicalSnow(&quot;icy_fast&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:07.0128250" startTime="2026-10-06T19:33:43.6381113+03:00" endTime="2026-10-06T19:33:50.6509295+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cbd3a783-2e42-4d59-bc72-29227e0eac8a">
+      <Output>
+        <StdOut>wp175_sprint_profile=icy_fast ticks=13179 result_chars=816</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="797c6c9c-cf07-4db7-9f5a-b4e93bbab481" testId="6e6a2e1e-5176-9a36-da99-cbfdf8ffed64" testName="ActualWoodlandSprintCompletesAndPersistedCommandsReplayForCanonicalSnow(&quot;fresh_soft&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:06.8849420" startTime="2026-10-06T19:33:36.7531343+03:00" endTime="2026-10-06T19:33:43.6380702+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="797c6c9c-cf07-4db7-9f5a-b4e93bbab481">
+      <Output>
+        <StdOut>wp175_sprint_profile=fresh_soft ticks=13236 result_chars=816</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d987b9f5-9451-44bf-adb0-7300ef7e5b43" testId="ca106817-f499-9030-0c97-d3d16ae1d629" testName="ActualWoodlandSprintCompletesAndPersistedCommandsReplayForCanonicalSnow(&quot;wet_slow&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:06.8914720" startTime="2026-10-06T19:33:50.6509569+03:00" endTime="2026-10-06T19:33:57.5424218+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d987b9f5-9451-44bf-adb0-7300ef7e5b43">
+      <Output>
+        <StdOut>wp175_sprint_profile=wet_slow ticks=12810 result_chars=816</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ActualWoodlandSprintCompletesAndPersistedCommandsReplayForCanonicalSnow(&quot;wet_slow&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="ca106817-f499-9030-0c97-d3d16ae1d629">
+      <Execution id="d987b9f5-9451-44bf-adb0-7300ef7e5b43" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.WoodlandConditionFullRaceTests" name="ActualWoodlandSprintCompletesAndPersistedCommandsReplayForCanonicalSnow(&quot;wet_slow&quot;)" />
+    </UnitTest>
+    <UnitTest name="ActualWoodlandSprintCompletesAndPersistedCommandsReplayForCanonicalSnow(&quot;fresh_soft&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="6e6a2e1e-5176-9a36-da99-cbfdf8ffed64">
+      <Execution id="797c6c9c-cf07-4db7-9f5a-b4e93bbab481" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.WoodlandConditionFullRaceTests" name="ActualWoodlandSprintCompletesAndPersistedCommandsReplayForCanonicalSnow(&quot;fresh_soft&quot;)" />
+    </UnitTest>
+    <UnitTest name="ActualWoodlandSprintCompletesAndPersistedCommandsReplayForCanonicalSnow(&quot;packed_neutral&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="a6e6e4a2-a620-81d8-0fbd-536f46685bbf">
+      <Execution id="99a344a9-1dd3-4712-b014-585c19b93f86" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.WoodlandConditionFullRaceTests" name="ActualWoodlandSprintCompletesAndPersistedCommandsReplayForCanonicalSnow(&quot;packed_neutral&quot;)" />
+    </UnitTest>
+    <UnitTest name="ActualWoodlandSprintCompletesAndPersistedCommandsReplayForCanonicalSnow(&quot;icy_fast&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="06146fe0-4a96-1e7e-d711-9cf2f135d9ae">
+      <Execution id="cbd3a783-2e42-4d59-bc72-29227e0eac8a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.WoodlandConditionFullRaceTests" name="ActualWoodlandSprintCompletesAndPersistedCommandsReplayForCanonicalSnow(&quot;icy_fast&quot;)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="a6e6e4a2-a620-81d8-0fbd-536f46685bbf" executionId="99a344a9-1dd3-4712-b014-585c19b93f86" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="06146fe0-4a96-1e7e-d711-9cf2f135d9ae" executionId="cbd3a783-2e42-4d59-bc72-29227e0eac8a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6e6a2e1e-5176-9a36-da99-cbfdf8ffed64" executionId="797c6c9c-cf07-4db7-9f5a-b4e93bbab481" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ca106817-f499-9030-0c97-d3d16ae1d629" executionId="d987b9f5-9451-44bf-adb0-7300ef7e5b43" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 4 of 4 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+wp175_sprint_profile=packed_neutral ticks=12546 result_chars=816&#xD;
+&#xD;
+wp175_sprint_profile=fresh_soft ticks=13236 result_chars=816&#xD;
+&#xD;
+wp175_sprint_profile=icy_fast ticks=13179 result_chars=816&#xD;
+&#xD;
+wp175_sprint_profile=wet_slow ticks=12810 result_chars=816&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

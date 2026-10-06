@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="5" result="Passed" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 16:30:35Z" end-time="2026-10-06 16:30:45Z" duration="9,7486112">
+  <test-suite type="TestSuite" id="1359" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="261" result="Passed" start-time="2026-10-06 16:30:35Z" end-time="2026-10-06 16:30:45Z" duration="9.748611" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1353" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="261" result="Passed" start-time="2026-10-06 16:30:35Z" end-time="2026-10-06 16:30:45Z" duration="9.736853" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="61532" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1354" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="261" result="Passed" start-time="2026-10-06 16:30:35Z" end-time="2026-10-06 16:30:45Z" duration="9.731415" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1355" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="261" result="Passed" start-time="2026-10-06 16:30:35Z" end-time="2026-10-06 16:30:45Z" duration="9.726349" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1346" name="WoodlandWeatherBindingTests" fullname="Biathlon.PlayModeTests.WoodlandWeatherBindingTests" classname="Biathlon.PlayModeTests.WoodlandWeatherBindingTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-06 16:30:35Z" end-time="2026-10-06 16:30:45Z" duration="9.717247" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="1352" name="ColdWoodlandWeatherBindingUsesCanonicalInputsAndRestoresItsLease" fullname="Biathlon.PlayModeTests.WoodlandWeatherBindingTests.ColdWoodlandWeatherBindingUsesCanonicalInputsAndRestoresItsLease" classname="Biathlon.PlayModeTests.WoodlandWeatherBindingTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-06 16:30:35Z" end-time="2026-10-06 16:30:45Z" duration="9.710868" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1347" name="ColdWoodlandWeatherBindingUsesCanonicalInputsAndRestoresItsLease(&quot;high&quot;,&quot;clear&quot;,&quot;clear_cold&quot;)" fullname="Biathlon.PlayModeTests.WoodlandWeatherBindingTests.ColdWoodlandWeatherBindingUsesCanonicalInputsAndRestoresItsLease(&quot;high&quot;,&quot;clear&quot;,&quot;clear_cold&quot;)" methodname="ColdWoodlandWeatherBindingUsesCanonicalInputsAndRestoresItsLease" classname="Biathlon.PlayModeTests.WoodlandWeatherBindingTests" runstate="Runnable" seed="1532768065" result="Passed" start-time="2026-10-06 16:30:35Z" end-time="2026-10-06 16:30:37Z" duration="2.265553" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1348" name="ColdWoodlandWeatherBindingUsesCanonicalInputsAndRestoresItsLease(&quot;high&quot;,&quot;overcast&quot;,&quot;overcast&quot;)" fullname="Biathlon.PlayModeTests.WoodlandWeatherBindingTests.ColdWoodlandWeatherBindingUsesCanonicalInputsAndRestoresItsLease(&quot;high&quot;,&quot;overcast&quot;,&quot;overcast&quot;)" methodname="ColdWoodlandWeatherBindingUsesCanonicalInputsAndRestoresItsLease" classname="Biathlon.PlayModeTests.WoodlandWeatherBindingTests" runstate="Runnable" seed="985421818" result="Passed" start-time="2026-10-06 16:30:37Z" end-time="2026-10-06 16:30:39Z" duration="1.853839" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1349" name="ColdWoodlandWeatherBindingUsesCanonicalInputsAndRestoresItsLease(&quot;high&quot;,&quot;snowfall&quot;,&quot;overcast&quot;)" fullname="Biathlon.PlayModeTests.WoodlandWeatherBindingTests.ColdWoodlandWeatherBindingUsesCanonicalInputsAndRestoresItsLease(&quot;high&quot;,&quot;snowfall&quot;,&quot;overcast&quot;)" methodname="ColdWoodlandWeatherBindingUsesCanonicalInputsAndRestoresItsLease" classname="Biathlon.PlayModeTests.WoodlandWeatherBindingTests" runstate="Runnable" seed="616520952" result="Passed" start-time="2026-10-06 16:30:39Z" end-time="2026-10-06 16:30:41Z" duration="1.912789" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1350" name="ColdWoodlandWeatherBindingUsesCanonicalInputsAndRestoresItsLease(&quot;balanced&quot;,&quot;snowfall&quot;,&quot;overcast&quot;)" fullname="Biathlon.PlayModeTests.WoodlandWeatherBindingTests.ColdWoodlandWeatherBindingUsesCanonicalInputsAndRestoresItsLease(&quot;balanced&quot;,&quot;snowfall&quot;,&quot;overcast&quot;)" methodname="ColdWoodlandWeatherBindingUsesCanonicalInputsAndRestoresItsLease" classname="Biathlon.PlayModeTests.WoodlandWeatherBindingTests" runstate="Runnable" seed="1964555637" result="Passed" start-time="2026-10-06 16:30:41Z" end-time="2026-10-06 16:30:43Z" duration="1.843657" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1351" name="ColdWoodlandWeatherBindingUsesCanonicalInputsAndRestoresItsLease(&quot;low&quot;,&quot;snowfall&quot;,&quot;overcast&quot;)" fullname="Biathlon.PlayModeTests.WoodlandWeatherBindingTests.ColdWoodlandWeatherBindingUsesCanonicalInputsAndRestoresItsLease(&quot;low&quot;,&quot;snowfall&quot;,&quot;overcast&quot;)" methodname="ColdWoodlandWeatherBindingUsesCanonicalInputsAndRestoresItsLease" classname="Biathlon.PlayModeTests.WoodlandWeatherBindingTests" runstate="Runnable" seed="1340341390" result="Passed" start-time="2026-10-06 16:30:43Z" end-time="2026-10-06 16:30:45Z" duration="1.824741" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

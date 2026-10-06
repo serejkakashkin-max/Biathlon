@@ -21574,3 +21574,26 @@ PROJECT_STATE history was only appended.
 The owner queue issue still needs hands-on review in the consolidated build.
 Manual steering, whole-race collision response and v2 replay are unfinished;
 M13/WP175–178 remain OPEN. No intermediate Windows build.
+
+## 2026-10-06 — WP-175 Woodland weather bindings and full solo snow races
+
+Continued the owner-approved single-venue Woodland conditions matrix without
+rewriting the multi-venue Master Plan. A long headless integration fixture now
+finishes an actual solo Sprint for packed_neutral, fresh_soft, icy_fast and
+wet_slow, records commands, restores the serialized tape and reproduces the
+exact race result and final athlete frame. A different snow profile is rejected
+before the first replay tick. Corrected .NET tests 4/4 PASS; race lengths were
+12,546, 13,236, 13,179 and 12,810 ticks respectively. An initial invalid
+test surface binding failed preflight; its diagnostic TRX is preserved.
+
+Unity PlayMode cold weather initialization and lease restoration passed 5/5
+across clear/overcast/snowfall High and snowfall Balanced/Low. The matrix-plan
+Python tests passed 11/11. Unity compiled, Editor idle, recent Error Console
+empty. Evidence: docs/quality/m13/wp175-conditions-20261006/. Report:
+docs/reports/TASK_WP175_WOODLAND_CONDITIONS_01_REPORT.md. This entry was only
+appended; earlier PROJECT_STATE history is preserved.
+
+No production snow tuning, race logic or venue geometry changed. Full 40/40/30
+condition races, ordinary native visual review and valid performance evidence
+remain open. WP-175 and M13 stay OPEN. No intermediate Windows build before the
+complete owner correction batch and owner hands-on gate.
