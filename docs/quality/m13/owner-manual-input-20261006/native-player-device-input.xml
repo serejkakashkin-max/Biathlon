@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="6" result="Passed" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 16:59:39Z" end-time="2026-10-06 16:59:39Z" duration="0,1589258">
+  <test-suite type="TestSuite" id="1360" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="262" result="Passed" start-time="2026-10-06 16:59:39Z" end-time="2026-10-06 16:59:39Z" duration="0.158926" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1354" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="262" result="Passed" start-time="2026-10-06 16:59:39Z" end-time="2026-10-06 16:59:39Z" duration="0.136827" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="61532" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1355" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="262" result="Passed" start-time="2026-10-06 16:59:39Z" end-time="2026-10-06 16:59:39Z" duration="0.131061" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1356" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="262" result="Passed" start-time="2026-10-06 16:59:39Z" end-time="2026-10-06 16:59:39Z" duration="0.126931" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1187" name="PlayerDeviceInputTests" fullname="Biathlon.PlayModeTests.PlayerDeviceInputTests" classname="Biathlon.PlayModeTests.PlayerDeviceInputTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-06 16:59:39Z" end-time="2026-10-06 16:59:39Z" duration="0.119489" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1189" name="FocusLossCancelsPendingEdgeAndDeviceAbsenceStaysNeutral" fullname="Biathlon.PlayModeTests.PlayerDeviceInputTests.FocusLossCancelsPendingEdgeAndDeviceAbsenceStaysNeutral" methodname="FocusLossCancelsPendingEdgeAndDeviceAbsenceStaysNeutral" classname="Biathlon.PlayModeTests.PlayerDeviceInputTests" runstate="Runnable" seed="484328989" result="Passed" start-time="2026-10-06 16:59:39Z" end-time="2026-10-06 16:59:39Z" duration="0.063713" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1191" name="GamepadUsesRawAxisOnceAndSharesCommandContract" fullname="Biathlon.PlayModeTests.PlayerDeviceInputTests.GamepadUsesRawAxisOnceAndSharesCommandContract" methodname="GamepadUsesRawAxisOnceAndSharesCommandContract" classname="Biathlon.PlayModeTests.PlayerDeviceInputTests" runstate="Runnable" seed="248644121" result="Passed" start-time="2026-10-06 16:59:39Z" end-time="2026-10-06 16:59:39Z" duration="0.004450" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1188" name="KeyboardHeldAndEdgesSurviveFramesWithoutTicks" fullname="Biathlon.PlayModeTests.PlayerDeviceInputTests.KeyboardHeldAndEdgesSurviveFramesWithoutTicks" methodname="KeyboardHeldAndEdgesSurviveFramesWithoutTicks" classname="Biathlon.PlayModeTests.PlayerDeviceInputTests" runstate="Runnable" seed="1078052595" result="Passed" start-time="2026-10-06 16:59:39Z" end-time="2026-10-06 16:59:39Z" duration="0.002944" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1192" name="LiveKeyboardReleaseAndFocusLossKeepTheAchievedPassingLine" fullname="Biathlon.PlayModeTests.PlayerDeviceInputTests.LiveKeyboardReleaseAndFocusLossKeepTheAchievedPassingLine" methodname="LiveKeyboardReleaseAndFocusLossKeepTheAchievedPassingLine" classname="Biathlon.PlayModeTests.PlayerDeviceInputTests" runstate="Runnable" seed="158847226" result="Passed" start-time="2026-10-06 16:59:39Z" end-time="2026-10-06 16:59:39Z" duration="0.005053" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1193" name="ManualKeyboardAxisBuildsYawAndFocusLossNeutralizesIt" fullname="Biathlon.PlayModeTests.PlayerDeviceInputTests.ManualKeyboardAxisBuildsYawAndFocusLossNeutralizesIt" methodname="ManualKeyboardAxisBuildsYawAndFocusLossNeutralizesIt" classname="Biathlon.PlayModeTests.PlayerDeviceInputTests" runstate="Runnable" seed="119597530" result="Passed" start-time="2026-10-06 16:59:39Z" end-time="2026-10-06 16:59:39Z" duration="0.002963" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1190" name="PresetsAndRecordedDeviceCommandsRoundTripWithoutFrameTime" fullname="Biathlon.PlayModeTests.PlayerDeviceInputTests.PresetsAndRecordedDeviceCommandsRoundTripWithoutFrameTime" methodname="PresetsAndRecordedDeviceCommandsRoundTripWithoutFrameTime" classname="Biathlon.PlayModeTests.PlayerDeviceInputTests" runstate="Runnable" seed="1264144193" result="Passed" start-time="2026-10-06 16:59:39Z" end-time="2026-10-06 16:59:39Z" duration="0.015292" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

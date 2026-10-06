@@ -90,5 +90,21 @@ namespace Biathlon.PlayModeTests
             var lost=adapter.BuildDirectional(new SimulationTick(3),-.6,2);Assert.That(lost.LineIntent,Is.EqualTo(-300));
             Assert.That(lost.Preset,Is.EqualTo(EffortPreset.Recovery));Assert.That(lost.CancelOvertake,Is.True);
         }
+        [Test] public void ManualKeyboardAxisBuildsYawAndFocusLossNeutralizesIt()
+        {
+            InputSystem.QueueStateEvent(keyboard,new KeyboardState(Key.A,Key.Space));
+            InputTestScope.Update();adapter.Capture(keyboard,null);
+            var left=adapter.BuildManual(new SimulationTick(1));
+            Assert.That(left.SteeringInput,Is.EqualTo(-ManualSkiCommand.SteeringUnits));
+            Assert.That(left.TuckHeld,Is.True);
+            InputSystem.QueueStateEvent(keyboard,new KeyboardState());
+            InputTestScope.Update();adapter.Capture(keyboard,null);
+            Assert.That(adapter.BuildManual(new SimulationTick(2)).SteeringInput,Is.Zero);
+            adapter.SetInputFocus(false);
+            var lost=adapter.BuildManual(new SimulationTick(3));
+            Assert.That(lost.SteeringInput,Is.Zero);
+            Assert.That(lost.Preset,Is.EqualTo(EffortPreset.Recovery));
+            Assert.That(lost.CancelOvertake,Is.True);
+        }
     }
 }

@@ -43,6 +43,16 @@ namespace Biathlon.Simulation
         }
         public PlayerCommand Build(SimulationTick target)
             => BuildCore(target, null, 0, 0);
+        /// <summary>Build the v2 signed-yaw intent from the same sampled device axis.
+        /// This consumes one fixed tick and its latched action edges. No lateral
+        /// position, route centre or previous line is consulted.</summary>
+        public ManualSkiCommand BuildManual(SimulationTick target)
+        {
+            var legacy=BuildCore(target,null,0,0);
+            return new ManualSkiCommand(target,athlete,legacy.AnalogEffort,
+                legacy.LineIntent,legacy.Preset,legacy.TuckHeld,
+                legacy.OvertakeRequested,legacy.CancelOvertake,legacy.TechniqueId);
+        }
         /// <summary>Live steering is directional; recorded commands remain absolute line targets.
         /// Neutral input holds the achieved line, including after a blocked manoeuvre.</summary>
         public PlayerCommand BuildDirectional(SimulationTick target, double currentMeters, double extentMeters, double speedMetersPerSecond)

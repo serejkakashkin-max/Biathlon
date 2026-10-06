@@ -38,6 +38,49 @@ namespace Biathlon.Tests
         private static DeviceCommandBuilder Create(int frequency = 20) => new DeviceCommandBuilder(
             DeviceControlDefinition.FromJson(PhysiologyContractTests.DefinitionJson("device_control_v1.json")),
             new AthleteId("player"), frequency);
+        [TestCase(false)] [TestCase(true)]
+        public void ManualDirectionIsSignedYawAndNeutralNeverRequestsRecentering(bool gamepad)
+        {
+            var b=Create();b.Sample(new DeviceControlSample(gamepad,.8,-1,tuck:true),overtakePressed:true);
+            var left=b.BuildManual(new SimulationTick(1));
+            Assert.That(left.SteeringInput,Is.EqualTo(-ManualSkiCommand.SteeringUnits));
+            Assert.That(left.AnalogEffort,Is.EqualTo(gamepad?800:20));
+            Assert.That(left.TuckHeld&&left.OvertakeRequested,Is.True);
+            Assert.That(left.ToEffortCommand().LineIntent,Is.Zero);
+            b.Sample(new DeviceControlSample(gamepad,0,0));
+            var neutral=b.BuildManual(new SimulationTick(2));
+            Assert.That(neutral.SteeringInput,Is.Zero);
+            Assert.That(neutral.OvertakeRequested,Is.False);
+            b.Sample(new DeviceControlSample(gamepad,0,1));
+            Assert.That(b.BuildManual(new SimulationTick(3)).SteeringInput,
+                Is.EqualTo(ManualSkiCommand.SteeringUnits));
+            Assert.Throws<ArgumentException>(()=>b.BuildManual(new SimulationTick(3)));
+        }
+        [Test]
+        public void ManualGamepadDeadzoneAndActionEdgesMatchTheFixedTickContract()
+        {
+            var b=Create();b.Sample(new DeviceControlSample(true,.8,.1),overtakePressed:true);
+            b.Sample(new DeviceControlSample(true,.8,.1),cancelPressed:true);
+            Assert.Throws<ArgumentException>(()=>b.BuildManual(new SimulationTick(2)));
+            var first=b.BuildManual(new SimulationTick(1));
+            Assert.That(first.SteeringInput,Is.Zero);
+            Assert.That(first.CancelOvertake,Is.True);
+            Assert.That(first.OvertakeRequested,Is.False);
+            b.Sample(new DeviceControlSample(true,.8,.6));
+            int right=b.BuildManual(new SimulationTick(2)).SteeringInput;
+            b.Sample(new DeviceControlSample(true,.8,-.6));
+            Assert.That(b.BuildManual(new SimulationTick(3)).SteeringInput,Is.EqualTo(-right));
+            Assert.That(right,Is.InRange(1,599));
+        }
+        [Test]
+        public void WarmManualDeviceCommandGenerationDoesNotAllocate()
+        {
+            var b=Create();b.Sample(new DeviceControlSample(true,.8,.6));
+            for(int i=1;i<=100;i++)b.BuildManual(new SimulationTick(i));
+            long before=GC.GetAllocatedBytesForCurrentThread();
+            for(int i=101;i<=10100;i++)b.BuildManual(new SimulationTick(i));
+            Assert.That(GC.GetAllocatedBytesForCurrentThread()-before,Is.Zero);
+        }
         [TestCase(20)] [TestCase(30)] [TestCase(144)]
         public void KeyboardEffortUsesTicksAndSaturates(int frequency)
         {

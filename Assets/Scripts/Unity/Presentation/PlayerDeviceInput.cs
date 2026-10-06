@@ -71,6 +71,8 @@ namespace Biathlon.Unity.Presentation
         private void OnDisable() => ReleaseHeldInput();
         public PlayerCommand Build(SimulationTick target) => builder != null ? builder.Build(target) :
             throw new System.InvalidOperationException("Initialize input before building commands.");
+        public ManualSkiCommand BuildManual(SimulationTick target) => builder != null ? builder.BuildManual(target) :
+            throw new System.InvalidOperationException("Initialize input before building commands.");
         public PlayerCommand BuildDirectional(SimulationTick target,double currentMeters,double extentMeters)=>builder!=null?
             builder.BuildDirectional(target,currentMeters,extentMeters,steeringSpeed):throw new System.InvalidOperationException("Initialize input before building commands.");
     }

@@ -137,3 +137,19 @@ partial roster cannot look like a valid transaction. These are observations of
 world poses, not pose commits, odometer awards, branch decisions or event-log
 records. They still do not cover range/penalty ownership or replace the future
 race-state transaction. The query is allocation-free after construction.
+
+## 2026-10-06 fixed-tick manual device intent
+
+The existing `DeviceCommandBuilder` now has a separate `BuildManual` output for
+the v2 `ManualSkiCommand`. It samples the same keyboard A/D or gamepad left-stick
+axis, deadzone/curve, effort and latched actions on one consecutive simulation
+tick. The signed axis becomes a yaw request; neutral input requests zero yaw and
+does not consult or recenter the achieved lateral position. The v1 directional
+line-target path remains unchanged for the playable host. `PlayerDeviceInput`
+exposes the separate v2 build method, including focus-loss neutralization.
+
+This only connects physical devices to the existing v2 command contract. The
+playable host must not switch to it until authoritative world/route progress,
+range and penalty topology, contact response, event-log and v2 replay are
+committed as a single race transaction. Fixed-tick input parity is not evidence
+that the approved manual-control behavior is already playable.

@@ -21621,3 +21621,32 @@ changed. PROJECT_STATE history remains append-only.
 All four snow profiles across 40/40/30, persisted full-field replay, ordinary
 native view captures and performance acceptance remain open. WP-175 and M13
 stay OPEN; no intermediate Windows build before the owner correction batch.
+
+## 2026-10-06 — M13 fixed-tick manual steering device adapter
+
+Added a separate v2 `ManualSkiCommand` build path to the existing device builder
+and Unity player-input adapter. Keyboard A/D and gamepad left-stick now produce
+signed yaw intent from the same sampled axis/deadzone curve, while effort,
+tuck and latched actions remain on the fixed simulation tick. Neutral/released
+input and focus loss request zero steering; no achieved lateral position or
+route-centre target enters the v2 command. The playable v1 host continues to
+use its unchanged directional line-target path.
+
+Focused Release .NET device/command tests 15/15 PASS; native Unity PlayMode
+`PlayerDeviceInputTests` 6/6 PASS. AssetDatabase refreshed, scripts compiled,
+Editor idle and recent Error Console empty. Evidence:
+docs/quality/m13/owner-manual-input-20261006/. Report:
+docs/reports/TASK_M13_MANUAL_DEVICE_INPUT_20261006.md; ADR-0037 extended.
+No production race physics or balance changed. PROJECT_STATE history was only
+appended.
+
+A clear-weather Woodland Mass Start start frame was also captured via ordinary
+Unity Game View at
+docs/quality/m13/wp175-conditions-20261006/native-clear-start.png. This is one
+stationary-player visual baseline, not a weather-matrix or performance pass.
+The dark start gantry and pale roadside panel merit presentation review.
+
+Manual v2 is not yet wired into the playable race: world/route commit,
+range/penalty transitions, successive contacts, event-log and v2 replay remain
+open. WP-175–178 and M13 remain OPEN. No intermediate Windows build before the
+complete owner correction batch and hands-on gate.
