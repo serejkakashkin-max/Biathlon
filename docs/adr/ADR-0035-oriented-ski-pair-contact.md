@@ -50,3 +50,34 @@ actor swap, orientation, initial overlap, angular rejection, high-speed crossing
 mass-weighted momentum, 270 restitution/friction scenarios without energy gain,
 invalid definitions and allocation-free repeated queries. The broader focused
 movement suite passes 61 tests. No Windows build was made.
+
+## Same-day addition — explicit angular contact response
+
+`PreviewAngularContact` is a separate opt-in API. The original centre-only API
+continues reporting rotating contacts as unresolved. The new API derives a shared
+contact point from the two supporting rectangle features, including the midpoint
+of a face-contact interval. It uses contact-point velocities and rectangular planar
+moments of inertia derived from unchanged body dimensions and actor mass.
+
+Equal/opposite impulses change both centre velocities and yaw rates. Normal
+restitution and tangential friction are solved with their coupled effective inertia;
+the tangential impulse minimizes kinetic energy subject to the normal restitution
+constraint and Coulomb impulse bounds. This avoids independently applying friction
+and accidentally restoring normal closing velocity. Linear/angular momentum and
+non-increasing kinetic energy are covered by the test matrix. Coincident/penetrating
+bodies are still not corrected, and unresolved feature geometry stays explicit.
+
+`AngularContextJson` has a distinct algorithm marker. The previous pair context is
+unchanged. This impulse still requires continuous arrival at contact; it neither
+finds contact along a rotating path nor handles the remaining step/group/edges.
+Resulting yaw/slip may exceed commanded turning capability and must be retained
+as physical response by the future joint solver, not silently clamped or passed
+as though it were an ordinary requested yaw. No playable caller is changed.
+
+Validation now includes 16 pair/contact tests, including 270 angular impact cases,
+corner contact with stationary centres, exact swap and central impact without
+invented spin. Native Unity passes 16. The expanded .NET selection passes 64 in
+eight repeated runs. One earlier run recorded 6,984 bytes in the unrelated
+composed-motion allocation test; isolated rerun and all eight unchanged repeats
+passed zero allocation. Cause remains unproven; retain the failed receipt rather
+than attributing it to the runtime or weakening the assertion.

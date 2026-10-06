@@ -21239,3 +21239,29 @@ and native-contact.xml. Current index: docs/PROJECT_CURRENT.md.
 M13/WP175–178 remain OPEN. Next: continuous rotating-body contact and course edges,
 slip response, route lifecycle/AI/replay/host integration. Owner queues and full
 manual steering are NOT marked fixed. All historical STATE bytes preserved.
+
+## 2026-10-06 — M13 angular contact response and validation follow-up
+
+Added a separate opt-in angular-contact preview. Supporting rectangle features
+locate a shared contact point; its velocity includes ski rotation. Equal/opposite
+impulses update centre velocity and yaw using mass and rectangle inertia. Coupled
+normal/friction response preserves linear/angular momentum without adding energy.
+The original centre-only and constant-velocity sweep APIs retain their limitations;
+AngularContextJson explicitly identifies the new algorithm. No race caller changed.
+
+Native Unity final contact suite: 16 PASS. Expanded .NET movement/contact suite:
+64 PASS in each of eight repeated runs. One preceding expanded run failed the
+composed-motion allocation assertion with 6,984 bytes. Isolated rerun and all eight
+unchanged full focused repeats passed zero allocations. No limit was loosened;
+no production patch was applied to hide that result. The transient allocation
+source remains unproven and the failed receipt is preserved for recurrence.
+
+Evidence: docs/quality/m13/owner-force-heading-20261006/native-angular-contact.xml,
+allocation-anomaly.trx, allocation-repro.trx and allocation-sequence-1..8.trx.
+ADR-0035 and TASK_M13_ORIENTED_PAIR_CONTACT_20261006.md contain the amended contract.
+
+No Windows build. M13/WP175–178 and owner queues remain OPEN. Remaining: continuous
+contact time during rotating/accelerating travel, simultaneous group response,
+ski/snow slip response and edges, route lifecycle, AI, v2 race replay and live host.
+New contact yaw/slip must not be discarded or clamped into the old forward-only
+state. All previous PROJECT_STATE bytes retained unchanged.

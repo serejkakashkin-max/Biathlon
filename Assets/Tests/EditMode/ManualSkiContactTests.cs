@@ -176,13 +176,89 @@ namespace Biathlon.Tests
         }
 
         [Test]
+        public void RotatingSkiCornerContactsEvenWhenBothCentresAreStationary()
+        {
+            var body=Body();double angle=Math.PI/4;
+            var a=Actor("a",0,0,0,0);
+            double x=body.LateralSeparation*.5+(body.LongitudinalSeparation+body.LateralSeparation)*.5/Math.Sqrt(2);
+            var b=new ManualSkiContactBody(new AthleteId("b"),new ManualSkiHeadingState(x,0,angle,.3),default,75);
+            var system=System();var hit=system.PreviewAngularContact(a,b);
+            Assert.That(hit.Contact.Status,Is.EqualTo(SkiContactPreviewStatus.Impulse));
+            Assert.That(hit.Contact.NormalImpulseNewtonSeconds,Is.GreaterThan(0));
+            Assert.That(hit.Contact.FirstVelocity.X,Is.LessThan(0));
+            Assert.That(hit.FirstYawRate,Is.Not.Zero);Assert.That(hit.SecondYawRate,Is.LessThan(.3));
+            AssertAngularInvariants(a,b,hit,0);
+            var swap=system.PreviewAngularContact(b,a);
+            Assert.That(swap.FirstYawRate,Is.EqualTo(hit.SecondYawRate));
+            Assert.That(swap.SecondYawRate,Is.EqualTo(hit.FirstYawRate));
+            Assert.That(swap.Contact.FirstVelocity,Is.EqualTo(hit.Contact.SecondVelocity));
+            Assert.That(swap.ContactX,Is.EqualTo(hit.ContactX));Assert.That(swap.ContactZ,Is.EqualTo(hit.ContactZ));
+        }
+
+        [Test]
+        public void AngularImpactConservesLinearAndAngularMomentumWithoutIncreasingEnergy()
+        {
+            var body=Body();int hits=0;
+            foreach(double restitution in new[]{0,.3,1})foreach(double friction in new[]{0,.2,1})
+            for(int i=1;i<=30;i++)
+            {
+                double yaw=.02*i;
+                var encoded=new ManualSkiHeadingState(0,0,yaw);
+                double extent=body.LongitudinalSeparation*.5*Math.Abs(Math.Sin(encoded.HeadingRadians))
+                    +body.LateralSeparation*.5*Math.Abs(Math.Cos(encoded.HeadingRadians));
+                var a=new ManualSkiContactBody(new AthleteId("a"),new ManualSkiHeadingState(0,0,0,(i%5-2)*.1),new SkiPlanarVelocity(.3,6),60);
+                var b=new ManualSkiContactBody(new AthleteId("b"),new ManualSkiHeadingState(body.LateralSeparation*.5+extent,0,yaw,(i%7-3)*.1),new SkiPlanarVelocity(-.5,5),90);
+                var hit=System(friction,restitution).PreviewAngularContact(a,b);
+                Assert.That(hit.Contact.Status,Is.EqualTo(SkiContactPreviewStatus.Impulse));hits++;
+                AssertAngularInvariants(a,b,hit,restitution);
+                Assert.That(Math.Abs(hit.Contact.TangentImpulseNewtonSeconds),Is.LessThanOrEqualTo(friction*hit.Contact.NormalImpulseNewtonSeconds+1e-9));
+            }
+            Assert.That(hits,Is.EqualTo(270));
+        }
+
+        [Test]
+        public void CentralRearAngularImpulseDoesNotInventSpinAndKeepsForwardMotion()
+        {
+            var a=Actor("a",0,0,0,8);var b=Actor("b",0,Body().LongitudinalSeparation,0,4);
+            var result=System().PreviewAngularContact(a,b);
+            Assert.That(result.Contact.Status,Is.EqualTo(SkiContactPreviewStatus.Impulse));
+            Assert.That(result.FirstYawRate,Is.Zero);Assert.That(result.SecondYawRate,Is.Zero);
+            Assert.That(result.Contact.FirstVelocity.Z,Is.EqualTo(6));Assert.That(result.Contact.SecondVelocity.Z,Is.EqualTo(6));
+            AssertAngularInvariants(a,b,result,0);
+        }
+
+        private static void AssertAngularInvariants(ManualSkiContactBody a,ManualSkiContactBody b,SkiAngularContactPreview hit,double restitution)
+        {
+            var body=Body();double inertiaScale=(body.LongitudinalSeparation*body.LongitudinalSeparation+body.LateralSeparation*body.LateralSeparation)/12;
+            double ia=a.MassKilograms*inertiaScale,ib=b.MassKilograms*inertiaScale;
+            var va=hit.Contact.FirstVelocity;var vb=hit.Contact.SecondVelocity;
+            double before=Energy(a.Velocity,a.MassKilograms)+Energy(b.Velocity,b.MassKilograms)+.5*ia*a.Pose.YawRateRadiansPerSecond*a.Pose.YawRateRadiansPerSecond+.5*ib*b.Pose.YawRateRadiansPerSecond*b.Pose.YawRateRadiansPerSecond;
+            double after=Energy(va,a.MassKilograms)+Energy(vb,b.MassKilograms)+.5*ia*hit.FirstYawRate*hit.FirstYawRate+.5*ib*hit.SecondYawRate*hit.SecondYawRate;
+            Assert.That(after,Is.LessThanOrEqualTo(before+1e-9));
+            Assert.That(va.X*a.MassKilograms+vb.X*b.MassKilograms,Is.EqualTo(a.Velocity.X*a.MassKilograms+b.Velocity.X*b.MassKilograms).Within(1e-10));
+            Assert.That(va.Z*a.MassKilograms+vb.Z*b.MassKilograms,Is.EqualTo(a.Velocity.Z*a.MassKilograms+b.Velocity.Z*b.MassKilograms).Within(1e-10));
+            double Moment(ManualSkiContactBody v,SkiPlanarVelocity speed,double spin,double inertia)=>v.MassKilograms*(v.Pose.Z*speed.X-v.Pose.X*speed.Z)+inertia*spin;
+            Assert.That(Moment(a,va,hit.FirstYawRate,ia)+Moment(b,vb,hit.SecondYawRate,ib),
+                Is.EqualTo(Moment(a,a.Velocity,a.Pose.YawRateRadiansPerSecond,ia)+Moment(b,b.Velocity,b.Pose.YawRateRadiansPerSecond,ib)).Within(1e-9));
+            double Closing(SkiPlanarVelocity av,SkiPlanarVelocity bv,double aw,double bw)
+            {
+                double x=av.X+aw*(hit.ContactZ-a.Pose.Z)-bv.X-bw*(hit.ContactZ-b.Pose.Z);
+                double z=av.Z-aw*(hit.ContactX-a.Pose.X)-bv.Z+bw*(hit.ContactX-b.Pose.X);
+                return x*hit.Contact.NormalX+z*hit.Contact.NormalZ;
+            }
+            Assert.That(Closing(va,vb,hit.FirstYawRate,hit.SecondYawRate),
+                Is.EqualTo(-restitution*Closing(a.Velocity,b.Velocity,a.Pose.YawRateRadiansPerSecond,b.Pose.YawRateRadiansPerSecond)).Within(1e-10));
+        }
+
+        [Test]
         public void InstantPairPreviewIsDeterministicAndAllocationFree()
         {
             var system=System();var a=Actor("a",0,0,1,8);var b=Actor("b",Body().LateralSeparation,0,0,6);
             var expected=system.Preview(a,b);long before=GC.GetAllocatedBytesForCurrentThread();SkiContactPreview actual=default;
             var far=Actor("c",5,0,-1,6);system.PreviewLinearContact(a,far,2);
             before=GC.GetAllocatedBytesForCurrentThread();
-            for(int i=0;i<10000;i++){actual=system.Preview(a,b);system.PreviewLinearContact(a,far,2);}
+            system.PreviewAngularContact(a,b);before=GC.GetAllocatedBytesForCurrentThread();
+            for(int i=0;i<10000;i++){actual=system.Preview(a,b);system.PreviewLinearContact(a,far,2);system.PreviewAngularContact(a,b);}
             long allocation=GC.GetAllocatedBytesForCurrentThread()-before;
             Assert.That(allocation,Is.Zero);Assert.That(actual,Is.EqualTo(expected));
             Assert.That(system.ContextJson,Is.EqualTo(System().ContextJson));

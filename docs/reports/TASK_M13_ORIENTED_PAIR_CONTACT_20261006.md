@@ -25,3 +25,25 @@ race events occur because the primitive has no live caller or commit side effect
 
 Contract: ADR-0035. Evidence: docs/quality/m13/owner-force-heading-20261006/.
 M13 and the owner queue issue remain open. No intermediate Windows build.
+
+## Angular-contact addition
+
+The separate angular API now computes the contact-point velocity and impulse using
+both translational mass and rectangular moment of inertia. Turning a ski corner
+into a neighbour is detected even when centre velocities are zero. Glancing
+impulses can rotate the bodies while preserving linear/angular momentum; normal
+and tangential impulse coupling does not create kinetic energy. Original pair and
+linear sweep contracts remain intact. The new angular context is separately named.
+
+Native final contact suite: 16 PASS. Expanded .NET movement/contact suite: 64 PASS
+in eight repeated runs. One previous run failed the composed-motion allocation
+assertion (6,984 bytes); its isolated rerun and all eight unchanged repeats passed.
+No assertion or production implementation was changed to hide it. The source of
+that isolated allocation is not established. Retain the failed and successful
+receipts and investigate further if it recurs. Test-only naming conflict was fixed
+before these runs; Unity compilation is complete.
+
+Remaining: contact time for continuously rotating/accelerating bodies, group
+response, ski/snow slip coupling, edge admission, route progression, AI and host
+wiring. The new angular impulse does not itself prevent tunnelling or fix queues
+in the running build. The consolidated owner build is still deferred.
