@@ -155,16 +155,22 @@ namespace Biathlon.Tests
             Assert.That(f.map.TryProject(pose,0,station,.01,false,out var initial),Is.True);
             var bypass=f.planner.Plan(moverId,initial,neighbors,width);
             Assert.That(bypass.HasPassingLine,Is.True);
+            int heldTicks=0;
             for(int tick=0;tick<220&&station<Nano(42);tick++)
             {
                 Assert.That(f.map.TryProject(pose,0,station,2,false,out var observed),
                     Is.True,"Physical passing line lost its local course observation.");
                 if(double.IsNaN(crossingLateral)&&observed.RouteNanometers>=blockStation)
                     crossingLateral=observed.LateralMeters;
+                var surface=sampler.Sample(new TrackDistance((long)Math.Floor(observed.LocalMeters*1000)));
+                bypass=f.planner.Plan(moverId,observed,neighbors,surface.WidthMeters,bypass);
+                if(bypass.HasPassingLine)heldTicks++;
+                if(observed.RouteNanometers<=blockStation)
+                    Assert.That(bypass.HasPassingLine,Is.True,
+                        "The AI must hold its selected line until the stationary body is passed.");
                 var intent=ai.Plan(pose,observed,skiState.SpeedMetersPerSecond,false,bypass.DesiredLateralMeters,
                     bypass.UsableHalfWidthMeters);
                 Assert.That(intent.IsValid,Is.True);
-                var surface=sampler.Sample(new TrackDistance((long)Math.Floor(observed.LocalMeters*1000)));
                 var motion=ski.Preview(skiState,pose,observed,surface,
                     new ManualSkiMotionInput(intent.SteeringInput,200,70,70));
                 var actors=new[]{new SkiWorldMotionCandidate(moverId,
@@ -183,9 +189,13 @@ namespace Biathlon.Tests
             }
             Assert.That(station,Is.GreaterThanOrEqualTo(Nano(42)));
             Assert.That(count,Is.GreaterThan(25));
+            Assert.That(heldTicks,Is.GreaterThan(25));
+            Assert.That(bypass.HasPassingLine,Is.False,
+                "A fully passed body must release the temporary passing line.");
             Assert.That(crossingLateral,Is.GreaterThan(f.venue.Occupancy.LateralSeparation));
             TestContext.WriteLine("world_bypass_ticks="+count+" station_m="+
-                station/1e9+" crossing_lateral_m="+crossingLateral);
+                station/1e9+" crossing_lateral_m="+crossingLateral+
+                " held_ticks="+heldTicks);
         }
     }
 }

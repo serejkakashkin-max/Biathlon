@@ -22449,3 +22449,20 @@ This controlled two-actor fixture holds one passing line and uses fixed
 power. Full Pack/player integration, traffic re-planning, physiological
 power, start/range/penalty, replay v2 and owner range-exit queue acceptance
 remain OPEN. WP-177/M13 OPEN; no Windows review build issued.
+
+
+## 2026-10-07 — M13 retained bypass intent through full body clearance
+
+The world traffic candidate now accepts its previous observed plan and holds
+the same physical passing line while its blocker remains within the shared
+longitudinal body-clearance interval. It rechecks authored width and other
+observed bodies each tick. After clearing the blocker it releases the
+passing intent; no automatic centre snap is introduced. The two-actor
+force/yaw + joint body/course run still accepts all 128 full ticks from
+10 to 42.279953548 m; 90 ticks retain the chosen line, and lateral position
+at crossing is 0.92736068035782 m. Release .NET AI/joint 31/31 PASS and
+hidden Unity EditMode traffic class 5/5 PASS. Evidence: updated traffic
+candidate report and docs/quality/m13/m13-manual-ai-bypass-held-final.trx.
+
+This is not the playable Pack host or a full player-obstruction race. M13,
+WP-177, range-exit owner defect and review Windows build remain OPEN.

@@ -51,13 +51,14 @@ namespace Biathlon.AI
             using(var stream=new MemoryStream())
             {
                 new DataContractJsonSerializer(typeof(string[])).WriteObject(stream,new[]{
-                    "manual_ai_observed_world_bypass_line_v1",policy.ToJson(),bodies.ToJson(),
-                    "candidate_line_only;common_yaw_and_body_course_admission_required"});
+                    "manual_ai_observed_world_bypass_line_v2",policy.ToJson(),bodies.ToJson(),
+                    "candidate_line_only;observed_blocker_hold_until_body_clear;common_yaw_and_body_course_admission_required"});
                 ContextJson=Encoding.UTF8.GetString(stream.ToArray());
             }
         }
         public ManualAiWorldTrafficPlan Plan(AthleteId self,ManualRouteProjection course,
-            ReadOnlySpan<ManualAiTrafficNeighbor> others,double courseWidthMeters)
+            ReadOnlySpan<ManualAiTrafficNeighbor> others,double courseWidthMeters,
+            ManualAiWorldTrafficPlan previous=default)
         {
             if(!self.IsValid||!course.IsValid)throw new ArgumentException("Observed self required.");
             PhysiologyNumbers.RequireRange(courseWidthMeters,0,PhysiologyNumbers.MaximumMagnitude,
@@ -66,6 +67,21 @@ namespace Biathlon.AI
             if(halfWidth<=0)return new ManualAiWorldTrafficPlan(false,false,default,
                 course.LateralMeters,0,0);
             double lead=policy.ObstructionLookaheadMeters;
+            if(previous.IsValid&&previous.HasPassingLine&&previous.Obstructor.IsValid&&
+                Math.Abs(previous.DesiredLateralMeters)<=halfWidth)
+                for(int i=0;i<others.Length;i++)if(others[i].Athlete.Equals(previous.Obstructor))
+                {
+                    var at=others[i].Course;
+                    if(at.SectionIndex!=course.SectionIndex||at.LoopId!=course.LoopId)break;
+                    double gap=(at.RouteNanometers-course.RouteNanometers)/
+                        (double)SkiState.NanometersPerMeter;
+                    if(gap> -bodies.LongitudinalSeparation&&gap<=lead&&
+                        Math.Abs(at.LateralMeters-previous.DesiredLateralMeters)>=bodies.LateralSeparation&&
+                        OpenLine(previous.DesiredLateralMeters,i,course,others,lead))
+                        return new ManualAiWorldTrafficPlan(true,true,others[i].Athlete,
+                            previous.DesiredLateralMeters,halfWidth,gap);
+                    break;
+                }
             int nearest=-1;double nearestGap=double.MaxValue;
             for(int i=0;i<others.Length;i++)
             {
