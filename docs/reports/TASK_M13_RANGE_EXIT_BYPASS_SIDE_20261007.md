@@ -18,8 +18,9 @@ forward athlete inside the authored lookahead and physical lateral
 separation. Both candidate sides still pass the same read-only lookahead
 and the field's authoritative body/width sweep; the player command, ski
 physics, shooting and collision dimensions are unchanged. The production
-AI context advances from the prior v3 marker to v4, so old recorded
-commands cannot be silently replayed against the new decision policy.
+AI decision context advances from the prior v3 marker to v4. Existing
+command tapes intentionally remain replayable without running AI, because
+they bind field physics and the actual recorded inputs, not AI decisions.
 
 On the same fixed seed, the side-only v4 Mass Start completed in 21,011
 ticks in the isolated Release .NET test. Exit stopped actor-ticks fell from

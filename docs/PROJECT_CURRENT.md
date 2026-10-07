@@ -15,8 +15,10 @@ WP-175: четыре профиля снега прошли физические
 Unity PlayMode 5/5. Полный Mass Start 30 завершён на icy_fast, Sprint 40 и
 квалифицированный им Pursuit 40 — на fresh_soft. Дополнительно полные
 Sprint→Pursuit 40 на packed_neutral и Mass Start 30 на wet_slow PASS.
-Матрица всех условий,
-полносоставный replay, визуальная и performance-оценка остаются открытыми.
+Полный Mass Start 30 на packed_neutral дополнительно записан в JSON и точно
+воспроизведён без AI: 21 011 тиков, 187 948 серий команд, результаты,
+финальные состояния и hash событий совпали; .NET 1/1 PASS. Матрица всех
+условий, player traffic, визуальная и performance-оценка остаются открытыми.
 [Отчёт](reports/TASK_WP175_WOODLAND_CONDITIONS_01_REPORT.md).
 
 WP-176: PASS по production content. Один сезон Woodland содержит 16 стартов:

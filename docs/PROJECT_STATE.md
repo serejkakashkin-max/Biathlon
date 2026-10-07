@@ -22119,3 +22119,22 @@ docs/reports/TASK_M13_RANGE_EXIT_BYPASS_SIDE_20261007.md.
 The remaining 26-tick exit wait, mat traffic and full player/AI manual
 steering integration keep the owner gameplay batch, WP-177 and M13 OPEN.
 WP-175/178 remain OPEN, WP-176 PASS. No Windows review build issued.
+
+## 2026-10-07 — M13 / WP-175 persisted 30-athlete Woodland replay
+
+One actual packed-neutral Woodland Mass Start with 30 athletes completed
+from production AI input, while a separate authoritative field recorded
+every input and lateral request. The 21,011-tick tape was serialized to
+JSON, parsed and replayed in a third fresh field without AI. All result
+JSON, recorded/replayed field-event hashes, final athlete frames and
+physical loop/stations matched. The compressed tape had 187,948 runs and
+436,819,909 JSON characters; its large content was verified in memory, not
+stored in Git. Isolated Release .NET test 1/1 PASS in 2m59s. Unity MCP
+AssetDatabase refresh succeeded, Editor is not compiling, recent Error
+Console empty. Evidence:
+docs/quality/m13/wp175-conditions-20261006/wp175-mass30-persisted-replay.trx;
+interpretation: docs/reports/TASK_WP175_WOODLAND_CONDITIONS_01_REPORT.md.
+
+This is one production-size condition/format replay, not the whole weather
+matrix or visual/performance/player-traffic acceptance. WP-175 and M13
+remain OPEN; WP-176 PASS, WP-177/178 OPEN. No Windows review build yet.

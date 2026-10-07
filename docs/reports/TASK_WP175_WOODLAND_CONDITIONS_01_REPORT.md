@@ -50,3 +50,25 @@ format under every profile.
 The original single-athlete exact replay still covers all four snow profiles.
 Full-field command replay, player-controlled traffic feel, all five weather
 views and sustained rendering performance remain open. WP-175 is not PASS.
+
+## 2026-10-07 persisted full-field Mass Start replay
+
+A complete 30-athlete packed-neutral Woodland Mass Start was stepped from
+production AI commands into a separate authoritative field. The command
+tape was serialized to JSON, parsed into a new tape, and replayed against a
+third independently constructed field **without running AI**. All three
+fields completed; source/recorded/replayed result JSON matched. Recorded
+versus replayed field event hashes matched exactly, as did final frames and
+physical loop/local station for every athlete. The tape covered 21,011
+fixed ticks and compressed to 187,948 command runs. Its in-memory JSON was
+436,819,909 characters; it was validated but deliberately not committed as
+a large binary/text artifact. The bounded [Release .NET receipt](../quality/m13/wp175-conditions-20261006/wp175-mass30-persisted-replay.trx)
+passed 1/1 in 2m59s. Unity AssetDatabase refresh succeeded, the Editor was
+not compiling, and the recent Error Console was empty. The full replay is
+headless-only because it executes three production-size race fields.
+
+This closes the specific missing full-field persisted-command replay witness
+for one Mass Start/snow combination. The full format-by-condition matrix,
+player-controlled traffic feel, five actual weather-view captures, visual
+quality and sustained rendering/LOD performance remain open. WP-175 and M13
+are not PASS; no Windows review build has been issued.
