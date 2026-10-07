@@ -308,3 +308,15 @@ It is bookkeeping for already-admitted topology only; the later whole-race
 transaction must still prove physical seam traffic, record race events and
 join Pack field/replay state. It does not authorize a transition into an
 unmodelled range or penalty corridor.
+
+
+## 2026-10-07 exact initial world context
+
+The world ledger now appends an immutable versioned initial-state receipt
+with every ordered actor's exact pose, yaw, planar velocity, selected cursor,
+observed/credited station, optional physical odometer and initial clock.
+Previously distinct valid initial world states could share a context. The
+receipt uses invariant round-trip numbers and encoded integer units, stays
+unchanged after a commit, and is independent of route-based reconstruction.
+This changes context identity, not accepted movement. It is a prerequisite
+for future manual race replay; the playable Pack bridge is still outstanding.

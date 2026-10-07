@@ -22640,3 +22640,20 @@ world ledger are not yet connected to playable Pack; legacy host still follows
 the route. Next: world/Pack publication, remaining race-phase geometry/contact
 integration, replay/host and final hidden rendering validation. No new owner
 Windows build yet; one complete M13 build remains required for hands-on tests.
+
+
+## 2026-10-07 — M13 manual-world initial state identity
+
+Found six constructor cases where distinct accepted lateral position,
+heading, yaw rate, velocity, route credit or initial world-only clock had
+an identical ledger context. Focused regression6/6 RED before correction.
+The ledger now captures exact ordered initial pose/velocity/cursor/clock and
+optional odometer in immutable versioned InitialStateContextJson, included
+in its complete context. .NET world/base/projection/joint50/50 PASS; hidden
+Unity EditMode ledger15/15 PASS, compile/Console PASS. Exact JSON state
+restoration, ru-RU encoding and stability after world commit are verified.
+Movement and legacy Pack replay are unchanged. This is a manual-replay
+prerequisite, not playable manual steering or M13 completion.
+Report: docs/reports/TASK_M13_MANUAL_WORLD_INITIAL_CONTEXT_20261007.md.
+Next: Pack world publication and remaining phase/contact/host integration.
+WP-175/177/178 and M13 OPEN; final Windows owner build still required.

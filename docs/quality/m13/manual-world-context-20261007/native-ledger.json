@@ -1,0 +1,89 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 1272,
+      "PassedTests": 15,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:13.5356521"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.ManualWorldRosterLedgerTests.EntireClearRosterCommitsOnceWithoutGuessingRaceOdometer",
+        "Status": "Passed",
+        "Duration": "00:00:00.8870000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualWorldRosterLedgerTests.ExactEndpointHandoffKeepsWorldPoseClockAndOdometer",
+        "Status": "Passed",
+        "Duration": "00:00:00.7160000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualWorldRosterLedgerTests.InitialWorldReceiptRoundTripsExactStateAndIsCultureIndependent",
+        "Status": "Passed",
+        "Duration": "00:00:00.8570000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(\"lateral\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.8790000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(\"heading\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.8940000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(\"yaw_rate\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.8450000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(\"velocity\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.8280000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(\"route_credit\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.8100000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(\"clock\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.8160000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualWorldRosterLedgerTests.InvalidSecondHandoffCannotPartiallyMoveFirstCursor",
+        "Status": "Passed",
+        "Duration": "00:00:00.7000000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualWorldRosterLedgerTests.PairContactOrRangeCapCannotPublishOneAthleteOrAdvanceTick",
+        "Status": "Passed",
+        "Duration": "00:00:00.7530000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualWorldRosterLedgerTests.RejectedWorldCandidateCannotAdvanceBoundPhysicalOdometer",
+        "Status": "Passed",
+        "Duration": "00:00:00.7560000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualWorldRosterLedgerTests.RepeatedFullClearTicksKeepWorldHeadingAndRouteCreditDeterministic",
+        "Status": "Passed",
+        "Duration": "00:00:00.7660000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualWorldRosterLedgerTests.SideSlipPaysPhysicalDistanceWithoutAwardingRouteStation",
+        "Status": "Passed",
+        "Duration": "00:00:00.7100000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualWorldRosterLedgerTests.StaleWorldStartAndForeignRouteCannotEnterPreparedLedger",
+        "Status": "Passed",
+        "Duration": "00:00:01.4450000"
+      }
+    ]
+  }
+}

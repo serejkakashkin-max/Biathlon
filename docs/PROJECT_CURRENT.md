@@ -56,3 +56,7 @@ feel/difficulty/balance tuning без hidden RNG и без скрытой пер
 Нельзя считать подготовленные примитивы ручного движения, отдельные
 прогоны или отклонённые эксперименты завершением M13. Следующий шаг —
 публикация ручного мирового тика через Pack и затем все race phases.
+
+Manual replay prerequisite: ledger initial pose/velocity/cursor/clock now have
+an immutable exact receipt. .NET50/50 and native15/15 PASS; movement unchanged.
+[Report](reports/TASK_M13_MANUAL_WORLD_INITIAL_CONTEXT_20261007.md).

@@ -1,4 +1,8 @@
 using System;
+using System.Globalization;
+using System.IO;
+using System.Runtime.Serialization.Json;
+using System.Text;
 using Biathlon.Domain;
 using Biathlon.Simulation;
 using NUnit.Framework;
@@ -58,6 +62,90 @@ namespace Biathlon.Tests
             ManualRouteActorWindow[] windows,long[] caps,out ManualWorldRosterPreview preview)
             =>ledger.TryPrepare(actors,windows,caps,Array.Empty<SkiReachedContactPair>(),0,
                 Array.Empty<SkiActorCourseEdge>(),0,out preview);
+
+        [TestCase("lateral")]
+        [TestCase("heading")]
+        [TestCase("yaw_rate")]
+        [TestCase("velocity")]
+        [TestCase("route_credit")]
+        [TestCase("clock")]
+        public void InitialWorldStateMustHaveAnUnambiguousDeterministicContext(string changed)
+        {
+            var f=Create();var point=f.visual.Get(f.route.GetSection(0).LoopId).Sample(10);
+            var pose=At(point);var velocity=new SkiPlanarVelocity(0,0);var id=new AthleteId("context_actor");
+            long station=Nano(10);
+            ManualWorldRosterLedger Make(bool alternative)
+            {
+                var at=pose;var speed=velocity;long observed=station,credit=station;
+                if(alternative)
+                {
+                    if(changed=="lateral")at=new ManualSkiHeadingState(
+                        pose.X+.1*point.ForwardZ,pose.Z-.1*point.ForwardX,pose.HeadingRadians);
+                    if(changed=="heading")at=new ManualSkiHeadingState(pose.X,pose.Z,pose.HeadingRadians+.1);
+                    if(changed=="yaw_rate")at=new ManualSkiHeadingState(pose.X,pose.Z,pose.HeadingRadians,.1);
+                    if(changed=="velocity")speed=new SkiPlanarVelocity(.1,0);
+                    if(changed=="route_credit")credit=station+Nano(1);
+                }
+                Assert.That(f.map.TryProject(at,0,station,.001,false,out var projection),Is.True);
+                observed=projection.RouteNanometers;credit=Math.Max(credit,observed);
+                return new ManualWorldRosterLedger(f.route,f.map,f.sweep,f.progress,
+                    new[]{f.progress.Reconstitute(id,0,observed,credit)},new[]{at},new[]{speed},20,
+                    initialTick:new SimulationTick(alternative&&changed=="clock"?7:0));
+            }
+            var baseline=Make(false);
+            Assert.That(Make(false).ContextJson,Is.EqualTo(baseline.ContextJson));
+            Assert.That(string.Equals(Make(true).ContextJson,baseline.ContextJson,StringComparison.Ordinal),Is.False,
+                "A replay context must distinguish accepted initial "+changed+" before any world tick.");
+        }
+
+        [Test] public void InitialWorldReceiptRoundTripsExactStateAndIsCultureIndependent()
+        {
+            var f=Create();var point=f.visual.Get(f.route.GetSection(0).LoopId).Sample(10);
+            var actor=Actor("receipt_actor",f.body,At(point),new SkiPlanarVelocity(3*point.ForwardX,3*point.ForwardZ));
+            var pose=actor.Trajectory.Sample(0);var velocity=actor.Trajectory.VelocityAt(0);
+            var cursor=f.progress.Reconstitute(actor.Athlete,0,Nano(10),Nano(12));
+            var motion=new SkiState(Nano(7),3);var tick=new SimulationTick(7);
+            ManualWorldRosterLedger Make()=>new ManualWorldRosterLedger(f.route,f.map,f.sweep,f.progress,
+                new[]{cursor},new[]{pose},new[]{velocity},20,new[]{motion},tick);
+            string[] Decode(string json)
+            {
+                using(var stream=new MemoryStream(Encoding.UTF8.GetBytes(json)))
+                    return (string[])new DataContractJsonSerializer(typeof(string[])).ReadObject(stream);
+            }
+            var original=Make();string receipt=original.InitialStateContextJson;
+            var fields=Decode(receipt);var row=Decode(fields[5]);
+            Assert.That(fields[0],Is.EqualTo("manual_world_initial_roster_state_v1"));
+            Assert.That(fields[1],Is.EqualTo("20"));Assert.That(fields[2],Is.EqualTo("7"));
+            Assert.That(fields[3],Is.EqualTo("1"));Assert.That(row.Length,Is.EqualTo(12));
+            var format=CultureInfo.InvariantCulture;
+            var recoveredPose=new ManualSkiHeadingState(double.Parse(row[4],format),double.Parse(row[5],format),
+                long.Parse(row[6],format)/(double)ManualSkiHeadingState.NanoradiansPerRadian,double.Parse(row[7],format));
+            var restored=new ManualWorldRosterLedger(f.route,f.map,f.sweep,f.progress,
+                new[]{f.progress.Reconstitute(new AthleteId(row[0]),int.Parse(row[1],format),
+                    long.Parse(row[2],format),long.Parse(row[3],format))},new[]{recoveredPose},
+                new[]{new SkiPlanarVelocity(double.Parse(row[8],format),double.Parse(row[9],format))},
+                int.Parse(fields[1],format),new[]{new SkiState(long.Parse(row[10],format),double.Parse(row[11],format))},
+                new SimulationTick(long.Parse(fields[2],format)));
+            Assert.That(restored.GetActor(0).Pose,Is.EqualTo(pose));
+            Assert.That(restored.GetActor(0).Velocity,Is.EqualTo(velocity));
+            Assert.That(restored.GetCursor(0),Is.EqualTo(cursor));
+            Assert.That(restored.GetPhysicalMotion(0),Is.EqualTo(motion));
+            Assert.That(restored.InitialStateContextJson,Is.EqualTo(receipt));
+            var priorCulture=CultureInfo.CurrentCulture;
+            try
+            {
+                CultureInfo.CurrentCulture=new CultureInfo("ru-RU");
+                Assert.That(Make().InitialStateContextJson,Is.EqualTo(receipt));
+            }
+            finally{CultureInfo.CurrentCulture=priorCulture;}
+            Assert.That(original.TryPrepareWithOdometer(new[]{actor},
+                Windows(new[]{actor},new[]{Nano(10)}),new[]{Nano(20)},
+                Array.Empty<SkiReachedContactPair>(),0,Array.Empty<SkiActorCourseEdge>(),0,
+                new[]{0d},out var next),Is.True);
+            original.Commit(next);
+            Assert.That(original.Tick.Value,Is.EqualTo(8));
+            Assert.That(original.InitialStateContextJson,Is.EqualTo(receipt));
+        }
 
         [Test] public void ExactEndpointHandoffKeepsWorldPoseClockAndOdometer()
         {

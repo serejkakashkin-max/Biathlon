@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ec1b2efe-4bed-4b7e-aea2-844bb4fd0886" name="snkashkin@DESKTOP-G3075GA 2026-10-07 21:56:11" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-07T21:56:11.4347266+03:00" queuing="2026-10-07T21:56:11.4347267+03:00" start="2026-10-07T21:56:09.9841557+03:00" finish="2026-10-07T21:56:11.4387021+03:00" />
+  <TestSettings name="default" id="a23642a5-9e06-4060-977a-ab2fd16a6690">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-07_21_56_11" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="c3cef598-f314-42c9-9334-6bfff780c64e" testId="f19bb73f-4724-a7a7-541c-3ec038e34452" testName="InitialWorldStateMustHaveAnUnambiguousDeterministicContext(&quot;velocity&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.1048810" startTime="2026-10-07T21:56:11.0334669+03:00" endTime="2026-10-07T21:56:11.1383468+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c3cef598-f314-42c9-9334-6bfff780c64e">
+      <Output>
+        <ErrorInfo>
+          <Message>  A replay context must distinguish accepted initial velocity before any world tick.&#xD;
+  Expected: False&#xD;
+  But was:  True&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(String changed) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualWorldRosterLedgerTests.cs:line 91&#xD;
+   at InvokeStub_ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(String changed) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualWorldRosterLedgerTests.cs:line 91&#xD;
+   at InvokeStub_ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7ebf6ddc-fdfa-4035-885f-d5dced47a0aa" testId="1a9d6b77-beea-6f36-8d7e-a296c7861dfb" testName="InitialWorldStateMustHaveAnUnambiguousDeterministicContext(&quot;clock&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.1066140" startTime="2026-10-07T21:56:11.2446618+03:00" endTime="2026-10-07T21:56:11.3512748+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7ebf6ddc-fdfa-4035-885f-d5dced47a0aa">
+      <Output>
+        <ErrorInfo>
+          <Message>  A replay context must distinguish accepted initial clock before any world tick.&#xD;
+  Expected: False&#xD;
+  But was:  True&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(String changed) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualWorldRosterLedgerTests.cs:line 91&#xD;
+   at InvokeStub_ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(String changed) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualWorldRosterLedgerTests.cs:line 91&#xD;
+   at InvokeStub_ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6d25fd31-d91f-48b4-adb0-2ecce6ca3d1a" testId="28a3f9fe-1497-d60f-c95f-143640641675" testName="InitialWorldStateMustHaveAnUnambiguousDeterministicContext(&quot;heading&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.1208860" startTime="2026-10-07T21:56:10.8044492+03:00" endTime="2026-10-07T21:56:10.9253340+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6d25fd31-d91f-48b4-adb0-2ecce6ca3d1a">
+      <Output>
+        <ErrorInfo>
+          <Message>  A replay context must distinguish accepted initial heading before any world tick.&#xD;
+  Expected: False&#xD;
+  But was:  True&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(String changed) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualWorldRosterLedgerTests.cs:line 91&#xD;
+   at InvokeStub_ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(String changed) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualWorldRosterLedgerTests.cs:line 91&#xD;
+   at InvokeStub_ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="403a32ec-ac0e-45c6-b47e-9ef60ff67b03" testId="064406d9-95ea-a9f9-1561-74e5d031de10" testName="InitialWorldStateMustHaveAnUnambiguousDeterministicContext(&quot;route_credit&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.1062600" startTime="2026-10-07T21:56:11.1383757+03:00" endTime="2026-10-07T21:56:11.2446353+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="403a32ec-ac0e-45c6-b47e-9ef60ff67b03">
+      <Output>
+        <ErrorInfo>
+          <Message>  A replay context must distinguish accepted initial route_credit before any world tick.&#xD;
+  Expected: False&#xD;
+  But was:  True&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(String changed) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualWorldRosterLedgerTests.cs:line 91&#xD;
+   at InvokeStub_ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(String changed) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualWorldRosterLedgerTests.cs:line 91&#xD;
+   at InvokeStub_ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="316d56a1-e0bc-4c25-83de-d7cc9a35492e" testId="fcd9e1e6-c853-1c76-4b2d-2cd5c3437278" testName="InitialWorldStateMustHaveAnUnambiguousDeterministicContext(&quot;yaw_rate&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.1080670" startTime="2026-10-07T21:56:10.9253718+03:00" endTime="2026-10-07T21:56:11.0334383+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="316d56a1-e0bc-4c25-83de-d7cc9a35492e">
+      <Output>
+        <ErrorInfo>
+          <Message>  A replay context must distinguish accepted initial yaw_rate before any world tick.&#xD;
+  Expected: False&#xD;
+  But was:  True&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(String changed) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualWorldRosterLedgerTests.cs:line 91&#xD;
+   at InvokeStub_ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(String changed) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualWorldRosterLedgerTests.cs:line 91&#xD;
+   at InvokeStub_ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4e84ea06-e6ec-46e0-9244-681981f97010" testId="0b55ae16-4ef5-db71-3bfd-705f3b459929" testName="InitialWorldStateMustHaveAnUnambiguousDeterministicContext(&quot;lateral&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.3164820" startTime="2026-10-07T21:56:10.4874274+03:00" endTime="2026-10-07T21:56:10.8038814+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4e84ea06-e6ec-46e0-9244-681981f97010">
+      <Output>
+        <ErrorInfo>
+          <Message>  A replay context must distinguish accepted initial lateral before any world tick.&#xD;
+  Expected: False&#xD;
+  But was:  True&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(String changed) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualWorldRosterLedgerTests.cs:line 91&#xD;
+
+1)    at Biathlon.Tests.ManualWorldRosterLedgerTests.InitialWorldStateMustHaveAnUnambiguousDeterministicContext(String changed) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualWorldRosterLedgerTests.cs:line 91&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="InitialWorldStateMustHaveAnUnambiguousDeterministicContext(&quot;velocity&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="f19bb73f-4724-a7a7-541c-3ec038e34452">
+      <Execution id="c3cef598-f314-42c9-9334-6bfff780c64e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualWorldRosterLedgerTests" name="InitialWorldStateMustHaveAnUnambiguousDeterministicContext(&quot;velocity&quot;)" />
+    </UnitTest>
+    <UnitTest name="InitialWorldStateMustHaveAnUnambiguousDeterministicContext(&quot;heading&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="28a3f9fe-1497-d60f-c95f-143640641675">
+      <Execution id="6d25fd31-d91f-48b4-adb0-2ecce6ca3d1a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualWorldRosterLedgerTests" name="InitialWorldStateMustHaveAnUnambiguousDeterministicContext(&quot;heading&quot;)" />
+    </UnitTest>
+    <UnitTest name="InitialWorldStateMustHaveAnUnambiguousDeterministicContext(&quot;yaw_rate&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="fcd9e1e6-c853-1c76-4b2d-2cd5c3437278">
+      <Execution id="316d56a1-e0bc-4c25-83de-d7cc9a35492e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualWorldRosterLedgerTests" name="InitialWorldStateMustHaveAnUnambiguousDeterministicContext(&quot;yaw_rate&quot;)" />
+    </UnitTest>
+    <UnitTest name="InitialWorldStateMustHaveAnUnambiguousDeterministicContext(&quot;clock&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="1a9d6b77-beea-6f36-8d7e-a296c7861dfb">
+      <Execution id="7ebf6ddc-fdfa-4035-885f-d5dced47a0aa" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualWorldRosterLedgerTests" name="InitialWorldStateMustHaveAnUnambiguousDeterministicContext(&quot;clock&quot;)" />
+    </UnitTest>
+    <UnitTest name="InitialWorldStateMustHaveAnUnambiguousDeterministicContext(&quot;lateral&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="0b55ae16-4ef5-db71-3bfd-705f3b459929">
+      <Execution id="4e84ea06-e6ec-46e0-9244-681981f97010" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualWorldRosterLedgerTests" name="InitialWorldStateMustHaveAnUnambiguousDeterministicContext(&quot;lateral&quot;)" />
+    </UnitTest>
+    <UnitTest name="InitialWorldStateMustHaveAnUnambiguousDeterministicContext(&quot;route_credit&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="064406d9-95ea-a9f9-1561-74e5d031de10">
+      <Execution id="403a32ec-ac0e-45c6-b47e-9ef60ff67b03" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualWorldRosterLedgerTests" name="InitialWorldStateMustHaveAnUnambiguousDeterministicContext(&quot;route_credit&quot;)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="f19bb73f-4724-a7a7-541c-3ec038e34452" executionId="c3cef598-f314-42c9-9334-6bfff780c64e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1a9d6b77-beea-6f36-8d7e-a296c7861dfb" executionId="7ebf6ddc-fdfa-4035-885f-d5dced47a0aa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="28a3f9fe-1497-d60f-c95f-143640641675" executionId="6d25fd31-d91f-48b4-adb0-2ecce6ca3d1a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="064406d9-95ea-a9f9-1561-74e5d031de10" executionId="403a32ec-ac0e-45c6-b47e-9ef60ff67b03" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fcd9e1e6-c853-1c76-4b2d-2cd5c3437278" executionId="316d56a1-e0bc-4c25-83de-d7cc9a35492e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0b55ae16-4ef5-db71-3bfd-705f3b459929" executionId="4e84ea06-e6ec-46e0-9244-681981f97010" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="6" executed="6" passed="0" failed="6" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 6 of 6 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

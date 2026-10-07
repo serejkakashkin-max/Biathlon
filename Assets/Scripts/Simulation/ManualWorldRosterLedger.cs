@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Biathlon.Domain;
 
 namespace Biathlon.Simulation
@@ -37,6 +38,9 @@ namespace Biathlon.Simulation
         public bool HasPhysicalOdometer => acceptedMotion!=null;
         internal int TickFrequency {get;}
         public string ContextJson { get; }
+        /// <summary>Immutable initial world/cursor/clock identity for replay.
+        /// Separate from mutable accepted state and never inferred from the route.</summary>
+        public string InitialStateContextJson { get; }
         internal bool IsBoundTo(RaceRoute route)=>map.IsBoundTo(route);
 
         public ManualWorldRosterLedger(RaceRoute route,ManualRouteProjectionMap map,
@@ -60,7 +64,13 @@ namespace Biathlon.Simulation
             stagedProgress=new ManualRouteProgressFrame[Count];
             if(initialMotion!=null)
             {acceptedMotion=(SkiState[])initialMotion.Clone();stagedMotion=new SkiState[Count];}
-            var context=new string[Count+5+(initialMotion==null?0:Count+1)];
+            var context=new string[Count+6+(initialMotion==null?0:Count+1)];
+            var initialState=new string[Count+5];
+            initialState[0]="manual_world_initial_roster_state_v1";
+            initialState[1]=tickFrequency.ToString(CultureInfo.InvariantCulture);
+            initialState[2]=initialTick.Value.ToString(CultureInfo.InvariantCulture);
+            initialState[3]=Count.ToString(CultureInfo.InvariantCulture);
+            initialState[4]="row:athlete,section,observed_nm,credited_nm,x_m,z_m,heading_nrad,yaw_radps,vx_mps,vz_mps,odometer_nm_or_none,speed_mps_or_none";
             context[0]=initialMotion==null?"manual_full_clear_world_roster_v1":
                 "manual_full_clear_world_odometer_roster_v2";
             context[1]=sweep.ContextJson;context[2]=progress.ContextJson;
@@ -76,6 +86,17 @@ namespace Biathlon.Simulation
                     throw new ArgumentException("Duplicate athlete in accepted world roster.");
                 accepted[i]=new ManualRouteActorFrame(cursor.Athlete,pose,initialVelocities[i],observation);
                 cursors[i]=cursor;context[i+4]=cursor.Athlete.Value;
+                initialState[i+5]=ShootingModelDefinitions.EncodeContext(new[]{
+                    cursor.Athlete.Value,cursor.SectionIndex.ToString(CultureInfo.InvariantCulture),
+                    cursor.ObservedStationNanometers.ToString(CultureInfo.InvariantCulture),
+                    cursor.CreditedStationNanometers.ToString(CultureInfo.InvariantCulture),
+                    pose.X.ToString("R",CultureInfo.InvariantCulture),pose.Z.ToString("R",CultureInfo.InvariantCulture),
+                    pose.HeadingNanoradians.ToString(CultureInfo.InvariantCulture),
+                    pose.YawRateRadiansPerSecond.ToString("R",CultureInfo.InvariantCulture),
+                    initialVelocities[i].X.ToString("R",CultureInfo.InvariantCulture),
+                    initialVelocities[i].Z.ToString("R",CultureInfo.InvariantCulture),
+                    initialMotion==null?"none":initialMotion[i].DistanceNanometers.ToString(CultureInfo.InvariantCulture),
+                    initialMotion==null?"none":initialMotion[i].SpeedMetersPerSecond.ToString("R",CultureInfo.InvariantCulture)});
             }
             if(initialMotion!=null)
             {
@@ -85,7 +106,9 @@ namespace Biathlon.Simulation
                     initialMotion[i].DistanceNanometers.ToString(System.Globalization.CultureInfo.InvariantCulture)+":"+
                     initialMotion[i].SpeedMetersPerSecond.ToString("R",System.Globalization.CultureInfo.InvariantCulture);
             }
-            context[context.Length-1]=progress.SectionHandoffContextJson;
+            context[context.Length-2]=progress.SectionHandoffContextJson;
+            InitialStateContextJson=ShootingModelDefinitions.EncodeContext(initialState);
+            context[context.Length-1]=InitialStateContextJson;
             ContextJson=ShootingModelDefinitions.EncodeContext(context);
         }
 
