@@ -17,3 +17,18 @@ Fictional competition tiers and an authored calendar avoid external branding dep
 WP121 integration (2026-09-12): AI assembly may reference Career to host the race provider; Career still depends only on Domain. ChampionshipRaceFactory accepts explicit entrants and personality/readiness arrays while omitted inputs retain the historical behavior/context. Career permanent thousandths are rounded to the existing race integer-stat contract with MidpointRounding.ToEven; fractional development remains saved. Temporary race form is the authored form multiplier times an authored fatigue penalty. This projection applies identically to every career entrant, including the player represented by AI control in a headless run. It does not mutate permanent attributes. Mental pressure is passed through the existing shooting pressure context.
 
 Current-season race records optionally retain the complete authoritative result JSON and its SHA-256. Pursuit reconstructs qualification from the saved Sprint authority result; detailed payloads are discarded when the season is archived. The weekly engine clones saves/RNG checkpoints, applies shared training, imports a complete validated eligible field, accounts results once, recovers, and performs history/progression/ageing/generation transitions. A rejected provider result leaves the caller's save intact.
+
+## 2026-10-07 — one-venue production season selection
+
+The approved single-venue M13 scope adds a separately identified 16-event
+Woodland calendar. A caller selects that calendar explicitly; the legacy
+six-event calendar keeps its ID, event order and save compatibility. The
+career provider dispatches Woodland events through the exact authored
+profile/route pair and physical venue race factory. Synthetic fixture
+dispatch remains restricted to its old venue ID. Per-athlete temporary form
+and shooting pressure are forwarded to the production runner as they are to
+the synthetic runner. Pursuit qualification consumes the saved result from
+the referenced Woodland Sprint. This is headless content and race-boundary
+integration, not a change to the authoritative physics, geometry or
+hit-resolution rules. UI selection and whole-season production acceptance
+remain separate work.

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="6522e3bc-bf7b-4f2d-b87d-0a93a30ca297" name="snkashkin@DESKTOP-G3075GA 2026-10-07 10:42:37" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-07T10:42:37.2134505+03:00" queuing="2026-10-07T10:42:37.2134506+03:00" start="2026-10-07T10:42:36.1532360+03:00" finish="2026-10-07T10:42:37.2182895+03:00" />
+  <TestSettings name="default" id="295ef474-2ddc-44bf-ac3a-dc4335728680">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-07_10_42_37" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="ed639855-f362-4044-975f-be4f1ffee442" testId="32ef64db-a3f4-8c67-c2a1-57e7dee2adb2" testName="AllSixteenCalendarEventsAdvanceThroughOneSavedSeason" computerName="DESKTOP-G3075GA" duration="00:00:00.2918910" startTime="2026-10-07T10:42:36.8252544+03:00" endTime="2026-10-07T10:42:37.1171450+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ed639855-f362-4044-975f-be4f1ffee442" />
+    <UnitTestResult executionId="f63dfa45-a644-460b-8da5-d26f83f373ea" testId="7c0ee022-b786-64bb-179d-b91f1c79a87d" testName="OneVenueSeasonHasSixQualifiedPursuitsAndPreservesLegacySaveIdentity" computerName="DESKTOP-G3075GA" duration="00:00:00.0056020" startTime="2026-10-07T10:42:37.1171710+03:00" endTime="2026-10-07T10:42:37.1227723+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f63dfa45-a644-460b-8da5-d26f83f373ea" />
+    <UnitTestResult executionId="41422b6e-2f91-4223-83b6-ecb4849d17f7" testId="4a6ee6be-a43e-f592-57d8-f86ba0440493" testName="CalendarHasTrainingRestWindowsAndValidPursuitDependencies" computerName="DESKTOP-G3075GA" duration="00:00:00.0387780" startTime="2026-10-07T10:42:36.7850402+03:00" endTime="2026-10-07T10:42:36.8237875+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="41422b6e-2f91-4223-83b6-ecb4849d17f7" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OneVenueSeasonHasSixQualifiedPursuitsAndPreservesLegacySaveIdentity" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="7c0ee022-b786-64bb-179d-b91f1c79a87d">
+      <Execution id="f63dfa45-a644-460b-8da5-d26f83f373ea" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.WoodlandCareerCalendarTests" name="OneVenueSeasonHasSixQualifiedPursuitsAndPreservesLegacySaveIdentity" />
+    </UnitTest>
+    <UnitTest name="CalendarHasTrainingRestWindowsAndValidPursuitDependencies" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="4a6ee6be-a43e-f592-57d8-f86ba0440493">
+      <Execution id="41422b6e-2f91-4223-83b6-ecb4849d17f7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerFoundationTests" name="CalendarHasTrainingRestWindowsAndValidPursuitDependencies" />
+    </UnitTest>
+    <UnitTest name="AllSixteenCalendarEventsAdvanceThroughOneSavedSeason" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="32ef64db-a3f4-8c67-c2a1-57e7dee2adb2">
+      <Execution id="ed639855-f362-4044-975f-be4f1ffee442" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.WoodlandCareerCalendarTests" name="AllSixteenCalendarEventsAdvanceThroughOneSavedSeason" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="32ef64db-a3f4-8c67-c2a1-57e7dee2adb2" executionId="ed639855-f362-4044-975f-be4f1ffee442" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7c0ee022-b786-64bb-179d-b91f1c79a87d" executionId="f63dfa45-a644-460b-8da5-d26f83f373ea" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4a6ee6be-a43e-f592-57d8-f86ba0440493" executionId="41422b6e-2f91-4223-83b6-ecb4849d17f7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 3 of 3 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

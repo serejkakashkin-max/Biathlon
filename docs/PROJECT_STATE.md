@@ -21916,3 +21916,29 @@ The shared Pack field still owns separate physical line/tail/reservation
 state, and start/range/penalty world geometry, AI/replay/host integration
 remain open. Owner-observed queues and playable auto turns are not cleared.
 WP-175–178 and M13 remain OPEN; no Windows review build yet.
+
+## 2026-10-07 — M13 / WP-176 Woodland career calendar integration
+
+Added a versioned, explicitly selected 16-event season on the one approved
+production venue: six Sprint/Pursuit pairs and four Mass Starts. The legacy
+six-event calendar/save context is unchanged. Career races now have an
+explicit Woodland production route/format adapter with the same athlete stats,
+equipment, form and shooting-pressure inputs; saved Sprint authority
+qualifies Pursuit. No synthetic track fixture is needed for Woodland.
+
+Release .NET calendar and old-career regression 8/8 PASS; production
+Sprint→Pursuit 1/1 PASS and Mass Start 1/1 PASS, each with 30 athletes;
+post-cleanup fast regression 3/3 PASS. Tick counts: career Sprint 30,450,
+qualified Pursuit 21,300, Mass Start 21,651. Evidence and limitations:
+docs/reports/TASK_WP176_WOODLAND_CAREER_CALENDAR_20261007.md and
+docs/quality/m13/wp176-woodland-career-20261007/. Unity MCP confirmed
+the first code revision compiled without C# errors and one fast EditMode
+test PASS. The final constructor cleanup has .NET compilation only so far.
+The full native class exceeded its HTTP timeout and has no completion
+receipt; subsequent Console errors are from MCP timed-out/concurrent
+requests. No native full-class PASS is claimed.
+
+WP-176 implementation is in progress pending bounded native/full-season
+proof and later UI calendar selection. WP-175, WP-177, WP-178, manual
+steering/traffic integration and M13 remain OPEN. The owner-directed
+batch is still incomplete; no Windows review build has been issued.

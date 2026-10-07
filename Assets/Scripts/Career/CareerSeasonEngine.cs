@@ -19,9 +19,12 @@ namespace Biathlon.Career
         public CareerScoringDefinition Scoring { get; }
         public CareerHistoryDefinition History { get; }
         public CareerProgressionDefinition Progression { get; }
-        public CareerDefinitions(Func<string,string> read)
+        public CareerDefinitions(Func<string,string> read) : this(read,"career_calendar_v1.json") { }
+        public CareerDefinitions(Func<string,string> read,string calendarResource)
         {
-            if(read==null)throw new ArgumentNullException(nameof(read));Roster=CareerRosterDefinition.FromJson(read("career_roster_v1.json"));Calendar=CareerCalendar.FromJson(read("career_calendar_v1.json"));
+            if(read==null)throw new ArgumentNullException(nameof(read));
+            if(string.IsNullOrWhiteSpace(calendarResource))throw new ArgumentException("Explicit calendar resource required.",nameof(calendarResource));
+            Roster=CareerRosterDefinition.FromJson(read("career_roster_v1.json"));Calendar=CareerCalendar.FromJson(read(calendarResource));
             Training=CareerTrainingDefinition.FromJson(read("career_training_v1.json"));Policy=CareerTrainingPolicy.FromJson(read("career_training_policy_v1.json"));Adaptation=CareerAdaptationDefinition.FromJson(read("career_adaptation_v1.json"));
             Fatigue=CareerFatigueDefinition.FromJson(read("career_fatigue_v1.json"));Form=CareerFormDefinition.FromJson(read("career_form_v1.json"));Mental=CareerMentalDefinition.FromJson(read("career_mental_v1.json"));Health=CareerHealthDefinition.FromJson(read("career_health_v1.json"));
             Generation=CareerGenerationDefinition.FromJson(read("career_generation_v1.json"));Economy=CareerEconomyDefinition.FromJson(read("career_economy_v1.json"));Scoring=CareerScoringDefinition.FromJson(read("career_scoring_v1.json"));History=CareerHistoryDefinition.FromJson(read("career_history_v1.json"));Progression=CareerProgressionDefinition.FromJson(read("career_progression_v1.json"));
