@@ -22486,3 +22486,67 @@ production geometry requires physical/visual/traffic/replay validation.
 2026-10-07 — WP-177 уточнение: для 80-метровой геометрии отдельно сгенерирован полный пакет форматов и окружения, штатный bind компактного рубежа добавил 30 измеренных pair guards и правила параллельного выезда. После binding строгий venue-validate PASS с 0 диагностик; независимые format/environment проверки PASS, Python 22/22. Эти широкие guards отличаются от текущих игровых, поэтому это только статический кандидат: Assets не заменены, Mass Start queue/replay, Unity и движущаяся камера спуска не приняты. WP-177/M13 OPEN, итоговый Windows билд не выпущен. Отчёт: docs/reports/TASK_WP177_DESCENT_BINDING_STATIC_20261007.md.
 
 2026-10-07 — WP-177 runtime gate: новая 80-метровая геометрия статически PASS, но детерминированный Mass Start 30 seed 123 отвергнут: максимальная остановка 181 тик при неизменном тестовом пределе 75, 653 тика на личных дорожках, 108 на выходе. Текущие игровые Assets тем же тестом PASS: максимум 55, 590 на личных дорожках, 133 на выходе. Подстановка старых узких guards в новый черновик дала тот же FAIL; требуется устранить затор у входа mat_23 без ослабления теста. Кандидат в Unity не импортирован, билд не собран, WP-177/M13 OPEN. Отчёт и TRX: docs/reports/TASK_WP177_DESCENT_FULL_FIELD_REJECTION_20261007.md.
+
+## 2026-10-07 — WP-177 detached short-descent traffic and hidden Unity review
+
+The revised Woodland candidate reduces the 140 m straight downhill window to
+80 m. Reactive range approach line retention applies only after a real prior
+world-body conflict on the shared entry; the authoritative field still rejects
+physical overlaps and decides movement. The initial candidate's 181-tick stop
+fell to 73 ticks in the complete 30-athlete neutral Mass Start (unchanged
+75-tick regression limit); 532 mat and 107 exit actor-stop ticks, 20,771 race
+ticks, event hash 8253574999866369648. Current playable Assets remain at a
+55-tick maximum in the same fixture. Player-held exits after bouts 2 and 3
+both passed with one actual follower each, zero follower stall ticks, and one
+physical pass each. Exact full-field command replay passed. A proactive line
+hold variant increased the maximum stop to 221 ticks and was rejected.
+
+The reproducible short-course builder passed strict static validation with
+zero issues, environment verification, and byte-identical rebuild of all 89
+venue JSON files. Four moving-player hidden Unity Game View frames at Main
+696/761/839/887 m show a more readable descent and turn. After the preview,
+the existing production venue resources were restored; Unity EditMode
+AiRangeTrafficTests 13/13 and OwnerM13ExitQueueTests 1/1 passed, with no recent
+Error Console entries. Python content tests 88/88 passed. Evidence and remaining
+limits: docs/reports/TASK_WP177_DESCENT_REACTIVE_PARALLEL_REVIEW_20261007.md.
+
+This is a detached candidate, not a replacement of playable Assets or owner
+acceptance. Only one complete Mass seed and two held-exit scenarios have passed;
+manual directional steering is not yet integrated into playable Pack. The
+owner-reported exit queue remains OPEN for broader player/field qualification.
+WP-175/177/178 and M13 remain OPEN; no Windows review build has been issued.
+The concise latest-work index remains docs/PROJECT_CURRENT.md; historical state
+entries above, including repeated restoration snapshots, retain their original
+dates and are not new progress.
+
+## 2026-10-07 — WP-175/177 detached candidate field condition follow-up
+
+With the same detached 80 m descent resources, two additional full-field
+headless test cases passed: icy-fast Mass Start 30 completed at tick 20,800,
+event hash 5868132169835259201; fresh-soft Sprint 40 completed at tick
+36,598, hash 7838924170304713479, and its qualified Pursuit 40 completed
+at tick 19,766, hash 11218792332822993651. The tests prove race completion
+and qualification under these conditions, not absence of every traffic stop.
+Evidence: docs/quality/m13/wp177-descent-review-20261007/wp177-short-condition-full-field.trx.
+The candidate remains outside playable Assets. WP-175/177/178 and M13 OPEN;
+no Windows review build issued.
+
+## 2026-10-07 — WP-177 restored-Assets regression receipt
+
+After the detached Unity preview was removed, the current playable Woodland
+Assets passed the combined Release .NET AI/range/integration and Mass Start
+traffic baseline 16/16; current neutral field metrics remained 20,706 ticks,
+maximum moving-intent stop 55 ticks, 590 mat and 133 exit actor-stop ticks.
+Evidence: docs/quality/m13/wp177-descent-review-20261007/wp177-reactive-current-regression.trx.
+The detached short-course candidate remains unimported. WP-177/M13 OPEN.
+
+## 2026-10-07 — WP-177 visual evidence delivery correction
+
+Four hidden Game View PNGs remain locally at
+artifacts/wp177-descent-review-rebuilt-v2/gameview/. Their size, resolution,
+station and SHA-256 are tracked in
+ docs/quality/m13/wp177-descent-review-20261007/candidate-gameview-manifest.json.
+The PNG binaries were excluded from this Git revision after repeated HTTP 502
+responses from the remote Git LFS batch endpoint. The report and all text/TRX
+race evidence remain included. This does not change the visual or gameplay
+acceptance status: WP-177/M13 OPEN.

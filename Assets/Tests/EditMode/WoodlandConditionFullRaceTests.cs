@@ -13,7 +13,7 @@ namespace Biathlon.Tests
     public sealed class WoodlandConditionFullRaceTests
     {
         private const string Root="Biathlon/Venues/woodland_basin_v1/";
-        private static string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
+        private static string Read(string id)=>OwnerM13ExitQueueTests.Read(id);
         private static RaceSnowConditions Conditions(string profile)
         {
             var json=Read("Biathlon/race_snow_neutral_v1")

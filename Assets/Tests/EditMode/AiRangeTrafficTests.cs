@@ -9,6 +9,25 @@ namespace Biathlon.Tests
 {
     public class AiRangeTrafficTests
     {
+        [Test] public void ProvenWorldBodyContactRetainsApproachLineOnlyAtTheSharedEntry()
+        {
+            var self=Placement("self",0,-.55);
+            var planner=new AiRangeTrafficPlanner(Definition(),OccupancyTests.Definition());
+            var plan=planner.Evaluate(true,0,RangeTraversalPhase.Approach,self,Track(),new[]{self});
+            Assert.That(plan.Active,Is.True);
+            Assert.That(plan.DesiredLateralMeters,Is.Zero);
+            Assert.That(AiRangeTrafficPlanner.ShouldRetainPhysicalApproachLine(plan.Active,
+                RangeTraversalPhase.Approach,true,true,self.LateralMeters,plan.DesiredLateralMeters),Is.True);
+            Assert.That(AiRangeTrafficPlanner.ShouldRetainPhysicalApproachLine(plan.Active,
+                RangeTraversalPhase.Approach,true,false,self.LateralMeters,plan.DesiredLateralMeters),Is.False,
+                "A merely nearby body must not freeze line selection.");
+            Assert.That(AiRangeTrafficPlanner.ShouldRetainPhysicalApproachLine(plan.Active,
+                RangeTraversalPhase.Approach,false,true,self.LateralMeters,plan.DesiredLateralMeters),Is.False);
+            Assert.That(AiRangeTrafficPlanner.ShouldRetainPhysicalApproachLine(plan.Active,
+                RangeTraversalPhase.RangeExit,true,true,self.LateralMeters,plan.DesiredLateralMeters),Is.False);
+            Assert.That(AiRangeTrafficPlanner.ShouldRetainPhysicalApproachLine(plan.Active,
+                RangeTraversalPhase.Approach,true,true,plan.DesiredLateralMeters,plan.DesiredLateralMeters),Is.False);
+        }
         [Test] public void WoodlandSharedExitRetainsParallelLinesWithoutArtificialCoasting()
         {
             var policy=AiRangeTrafficPolicyDefinition.FromJson(PhysiologyContractTests.ProjectFile(

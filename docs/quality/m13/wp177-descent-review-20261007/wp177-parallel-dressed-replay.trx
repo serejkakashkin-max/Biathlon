@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="7251f323-ca72-4200-8338-42e41dcf0152" name="snkashkin@DESKTOP-G3075GA 2026-10-07 19:31:21" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-07T19:31:21.3302288+03:00" queuing="2026-10-07T19:31:21.3302289+03:00" start="2026-10-07T19:28:23.8794892+03:00" finish="2026-10-07T19:31:21.3333623+03:00" />
+  <TestSettings name="default" id="a49cc24f-d1b7-4279-a457-0d6e4ef74af6">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-07_19_31_21" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="f76965db-6d3e-4226-84d4-31f691110b40" testId="43b41a73-7170-80a1-ccc4-5c2d69643318" testName="ThirtyAthleteWoodlandMassStartPersistsAndReplaysExactFieldState" computerName="DESKTOP-G3075GA" duration="00:02:56.7140910" startTime="2026-10-07T19:28:24.3679947+03:00" endTime="2026-10-07T19:31:21.0801741+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f76965db-6d3e-4226-84d4-31f691110b40">
+      <Output>
+        <StdOut>wp175_full_field_replay athletes=30 ticks=20771 command_runs=167818 json_chars=427621145 field_event_hash=3477981866377481033</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ThirtyAthleteWoodlandMassStartPersistsAndReplaysExactFieldState" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="43b41a73-7170-80a1-ccc4-5c2d69643318">
+      <Execution id="f76965db-6d3e-4226-84d4-31f691110b40" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.WoodlandFullFieldCommandReplayTests" name="ThirtyAthleteWoodlandMassStartPersistsAndReplaysExactFieldState" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="43b41a73-7170-80a1-ccc4-5c2d69643318" executionId="f76965db-6d3e-4226-84d4-31f691110b40" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+wp175_full_field_replay athletes=30 ticks=20771 command_runs=167818 json_chars=427621145 field_event_hash=3477981866377481033&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

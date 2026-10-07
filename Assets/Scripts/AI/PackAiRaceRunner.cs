@@ -367,6 +367,17 @@ namespace Biathlon.AI
                         Field.Track.Penalty.Entry.Distance.Millimeters)*SkiState.NanometersPerMillimeter+
                         (long)Math.Round((worldBypassPolicy.WorldBypassLookaheadMeters??0)*SkiState.NanometersPerMeter))
                     lateral[i]=Math.Max(lateral[i],worldBypassPolicy.EntryLateralMeters.Value);
+                // A private fork may cross the common approach beside an occupied
+                // neighboring path. After an actual world-body rejection, keep the
+                // present line and ask the shared field to advance it physically;
+                // repeatedly requesting the crossing line can make the two actors
+                // mutually block each other while both still have positive effort.
+                if(worldBypassPolicy!=null&&AiRangeTrafficPlanner.ShouldRetainPhysicalApproachLine(
+                    alignRange,actor.CurrentRangeMotion?.Phase,
+                    point.LoopId==Field.Track.Range.Entry.LoopId,
+                    Field.GetInitialMovementBlock(i).WorldBodyConflict,
+                    Field.GetLateral(i),lateral[i]))
+                {lateral[i]=Field.GetLateral(i);rangeTrafficPlans[i]=new AiRangeTrafficPlan(true,true,lateral[i]);}
                 var aim=new WeaponAimCommand(tick,id,0,0);bool trigger=false,hold=false;var shooting=actor.ActiveShooting;
                 if(shooting!=null)
                 {

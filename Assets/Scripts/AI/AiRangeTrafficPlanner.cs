@@ -36,6 +36,14 @@ namespace Biathlon.AI
             =>definition.ForkYieldEffort.HasValue&&ownRoute<ownFork&&otherRoute<otherFork&&
               otherFork<ownFork&&Math.Abs(otherRoute-ownRoute)<=forkNeighborGap&&
               (otherLine-ownLine)*definition.ForkYieldOuterSideSign.Value>definition.ForkYieldLateralGapMeters.Value;
+        /// <summary>After the field proves a world-body conflict on the shared approach,
+        /// retain the occupied line for this tick. The normal field step still decides
+        /// whether the athlete may advance; this never grants passage or reduces effort.</summary>
+        public static bool ShouldRetainPhysicalApproachLine(bool active,
+            RangeTraversalPhase? traversal,bool onEntryRoute,bool worldBodyConflict,
+            double currentLine,double requestedLine)
+            =>active&&traversal==RangeTraversalPhase.Approach&&onEntryRoute&&
+              worldBodyConflict&&requestedLine!=currentLine;
         public AiRangeTrafficPlan Evaluate(bool hasPhysicalPath,long? distanceToRangeEntry,RangeTraversalPhase? traversal,
             SkiPlacement self,TrackSample track,ReadOnlySpan<SkiPlacement> observed,bool onEntryAisle=false,
             bool onSharedExitCorridor=false,bool leavingPenalty=false)

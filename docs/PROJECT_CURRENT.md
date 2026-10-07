@@ -266,3 +266,17 @@ WP-177 runtime gate: 80-метровый кандидат **НЕ принят**.
 узких guard zones не сняла его. Кандидат не импортирован, тест не ослаблен.
 [Диагностика и TRX](reports/TASK_WP177_DESCENT_FULL_FIELD_REJECTION_20261007.md).
 WP-177/M13 OPEN, итогового билда нет.
+
+WP-177 latest candidate, 2026-10-07: реактивное сохранение физической линии на
+общем подходе устранило 181-тик затор прежнего 80-метрового кандидата без
+телепортации и искусственного ожидания. Полная Mass Start 30 seed 123:
+20 771 тик, максимум остановки 73 (лимит 75), `mat` 532, `exit` 107;
+player-held выход после рубежей 2/3 и полный command replay PASS. Строгий
+validator 0 ошибок, независимая пересборка совпала по 89 JSON, скрытый Unity
+Game View на Main 696/761/839/887 м сохранён. Кандидат остаётся отдельно от
+игровых Assets; проверен один seed, ручное направление лыж ещё не в playable
+Pack. [Отчёт и манифест локальных кадров](reports/TASK_WP177_DESCENT_REACTIVE_PARALLEL_REVIEW_20261007.md).
+Дополнительные full-field условия на том же кандидате: icy-fast Mass Start 30
+и fresh-soft Sprint 40 с квалифицированным Pursuit 40 завершились (2/2 PASS);
+их тест не измеряет очереди. [TRX](quality/m13/wp177-descent-review-20261007/wp177-short-condition-full-field.trx).
+WP-175/177/178 и M13 OPEN. Финального Windows build пока нет.

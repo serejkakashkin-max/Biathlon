@@ -1,6 +1,5 @@
 #if !UNITY_EDITOR
 using System;
-using System.IO;
 using System.Text.Json;
 using Biathlon.AI;
 using Biathlon.Domain;
@@ -14,24 +13,7 @@ namespace Biathlon.Tests
     /// traffic alone cannot prove that a player will never queue.</summary>
     public sealed class WoodlandTrafficStopBaselineTests
     {
-        private static string Read(string id)
-        {
-            // Optional detached venue candidate. Missing common tuning falls
-            // back to the checked-in project; playable Assets are untouched.
-            string root=Environment.GetEnvironmentVariable("BIATHLON_TEST_VENUE_RESOURCES");
-            if(!string.IsNullOrEmpty(root))
-            {
-                string directory=Path.GetFullPath(root);
-                if(!Directory.Exists(directory))throw new DirectoryNotFoundException(directory);
-                string path=Path.GetFullPath(Path.Combine(directory,id.Replace('/',Path.DirectorySeparatorChar)+".json"));
-                if(!path.StartsWith(directory+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase))
-                    throw new ArgumentException("Candidate resource escaped its root.");
-                if(File.Exists(path))return File.ReadAllText(path);
-                if(id.StartsWith("Biathlon/Venues/woodland_basin_v1/",StringComparison.Ordinal))
-                    throw new FileNotFoundException("Candidate venue resource is missing.",path);
-            }
-            return PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
-        }
+        private static string Read(string id)=>OwnerM13ExitQueueTests.Read(id);
 
         [Test,Timeout(600000)]
         public void FullMassStartRecordsWhereMovingIntentWasStationary()
