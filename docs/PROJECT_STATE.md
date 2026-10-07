@@ -22344,3 +22344,29 @@ downhill still reads mostly as a straight level strip under snowfall/Low.
 It is not a moving-player chase view. WP-175 moving-player visual acceptance,
 WP-177 descent readability and WP-178 sustained profiling remain OPEN.
 M13 is OPEN and no Windows review build has been issued.
+
+## 2026-10-07 — M13 continuous manual AI course admission probe
+
+An existing conservative full-body `ManualRouteTubeSweep` was added to the
+candidate force/yaw AI probe on every fixed tick over Woodland Main 0–940 m.
+It rejected a trajectory near 903 m that the prior endpoint-only test had
+missed. The candidate AI maximum lookahead was changed from 22 m to 18 m;
+force-driven 200 W and 300 W single-actor probes then retained continuous
+course clearance through 940 m. The shared physical yaw/grip solver and
+playable race remain unchanged. Release .NET related tests 32/32 PASS,
+hidden Unity EditMode AI tests 9/9 PASS, recent Error Console empty.
+
+A diagnostic 400 W case remains in the regression as a correctly rejected
+unsafe full-tick proposal at about 72 m, and a faster 0.25 s
+heading response worsened other cases. These failed exploratory trials are
+not passing acceptance. AI corner-effort planning, full roster contacts,
+start/range/penalty phases, player input, replay and Pack host integration
+remain open. Evidence: docs/reports/TASK_M13_MANUAL_CONTINUOUS_COURSE_PROBE_20261007.md
+and docs/quality/m13/m13-manual-ai-tube-final2.trx. WP-177 and M13 remain
+OPEN; no Windows review build has been issued.
+
+Correction to the preceding M13 continuous manual AI course admission entry:
+the final hidden Unity EditMode AI suite ran 10/10 PASS after the 400 W
+conservative-rejection case was added (the earlier 9/9 count was an interim
+run). A rejected conservative tube does not itself prove a physical collision;
+it means that full-body clearance is not established for that proposed tick.

@@ -27,8 +27,11 @@ namespace Biathlon.Tests
         }
         private static long Nano(double metres)=>(long)Math.Round(metres*SkiState.NanometersPerMeter);
 
-        [Test]
-        public void ProductionCandidateFollowsWoodlandWithSharedForceAndDirection()
+        [TestCase(200.0,false)]
+        [TestCase(300.0,false)]
+        [TestCase(400.0,true)]
+        public void ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(double deliveredPowerWatts,
+            bool expectedBoundaryRejection)
         {
             const string root="Biathlon/Venues/woodland_basin_v1/";
             string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
@@ -43,6 +46,9 @@ namespace Biathlon.Tests
             var motion=new ManualSkiMotionSystem(
                 SkiPhysicsDefinition.FromJson(Read("Biathlon/ski_physics_provisional_v1")),heading,
                 CorneringDefinition.FromJson(Read("Biathlon/cornering_provisional_v1")),20);
+            var tube=new ManualRouteTubeSweep(map,venue.Occupancy,SkiContactSweepDefinition.FromJson(
+                "{\"schema_version\":1,\"id\":\"manual_ai_force_probe_work_v1\",\"maximum_depth\":32,"+
+                "\"maximum_interval_checks\":4096,\"time_tolerance_s\":0.0000001}"));
             var first=route.GetSection(0);
             Assert.That(map.TrySampleAhead(0,Nano(first.Start.Meters),5,false,out var target),Is.True);
             var pose=new ManualSkiHeadingState(target.X,target.Z,Math.Atan2(target.ForwardX,target.ForwardZ));
@@ -65,14 +71,32 @@ namespace Biathlon.Tests
                 var plan=controller.Plan(pose,observed,ski.SpeedMetersPerSecond,false);
                 Assert.That(plan.IsValid,Is.True,"AI target missing at tick "+tick);
                 var frame=motion.Preview(ski,pose,observed,surface,
-                    new ManualSkiMotionInput(plan.SteeringInput,300,70,70));
+                    new ManualSkiMotionInput(plan.SteeringInput,deliveredPowerWatts,70,70));
+                var continuous=tube.Preview(new ManualSkiWorldTrajectory(frame.Heading),0,
+                    observed.RouteNanometers,2,false);
+                if(expectedBoundaryRejection&&continuous.Status!=ManualRouteTubeStatus.Clear)
+                {
+                    Assert.That(observed.RouteNanometers,Is.InRange(Nano(65),Nano(80)),
+                        "The high-power limit must be a measured local course boundary.");
+                    Assert.That(continuous.ClearUntilSeconds,Is.LessThan(frame.Heading.DurationSeconds));
+                    TestContext.WriteLine("manual_force_high_power_rejected_at_m="+
+                        observed.RouteNanometers/1e9+" clear_s="+continuous.ClearUntilSeconds);
+                    return;
+                }
+                Assert.That(continuous.Status,Is.EqualTo(ManualRouteTubeStatus.Clear),
+                    "Continuous edge proof failed at tick "+tick+" station_m="+
+                    observed.RouteNanometers/1e9+" edge="+continuous.SourceEdgeId+
+                    " clear_s="+continuous.ClearUntilSeconds);
                 pose=frame.Heading.State;ski=frame.Travel.Output.State;
                 maximumSpeed=Math.Max(maximumSpeed,ski.SpeedMetersPerSecond);
                 station=observed.RouteNanometers;
             }
-            TestContext.WriteLine("manual_force_candidate_station_m="+station/1e9+
+            TestContext.WriteLine("manual_force_candidate_power_w="+deliveredPowerWatts+
+                " station_m="+station/1e9+
                 " maximum_lateral_m="+maximumLateral+" maximum_speed_mps="+maximumSpeed);
             Assert.That(station,Is.GreaterThanOrEqualTo(Nano(940)));
+            Assert.That(expectedBoundaryRejection,Is.False,
+                "The diagnostic high-power input must not silently bypass course proof.");
         }
 
         [TestCase(4.0)]
