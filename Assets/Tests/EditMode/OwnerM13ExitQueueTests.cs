@@ -30,12 +30,47 @@ namespace Biathlon.Tests
         // the Unity-native smoke check; this one reaches the third range exit.
         [Test, Timeout(600000)]
         public void PlayerHeldAfterThirdBoutDoesNotProduceAStationaryFollowerQueue()
-            => VerifyHeldExit(30,3,22000);
+            => VerifyHeldExit(30,3,22000,ScoutThirdBoutPlayerWithActualFollower());
+
+        private static int ScoutThirdBoutPlayerWithActualFollower()
+        {
+            // A decision-policy change may reorder the field. Keep the exact
+            // player-held geometry as the acceptance condition instead of
+            // relying on a historical bib number that no longer has traffic.
+            var scout=Create(30);var firstEligible=new bool[scout.Field.Count];int chosen=-1;
+            while(scout.Field.Tick.Value<22000&&!scout.Field.IsComplete&&chosen<0)
+            {
+                scout.Step();
+                for(int i=0;i<scout.Field.Count;i++)
+                {
+                    var athlete=scout.Field.GetAthlete(i);var point=scout.Field.GetPhysicalPoint(i);
+                    if(firstEligible[i]||athlete.Lifecycle.CompletedBouts<3||point.LoopId!="exit_aisle"||
+                        point.LocalNanometers<115*SkiState.NanometersPerMeter)continue;
+                    firstEligible[i]=true;
+                    for(int j=0;j<scout.Field.Count;j++)if(j!=i)
+                    {
+                        var other=scout.Field.GetPhysicalPoint(j);
+                        if(other.LoopId=="exit_aisle"&&other.LocalNanometers<point.LocalNanometers&&
+                            other.LocalNanometers>point.LocalNanometers-20*SkiState.NanometersPerMeter)
+                        {chosen=i;break;}
+                    }
+                    if(chosen>=0)break;
+                }
+            }
+            TestContext.WriteLine("scouted_third_bout_player="+chosen+
+                " scout_tick="+scout.Field.Tick.Value);
+            scout=null;GC.Collect(GC.MaxGeneration,GCCollectionMode.Forced,true,true);
+            Assert.That(chosen,Is.GreaterThanOrEqualTo(0),
+                "A real third-bout exit follower is needed to qualify this owner regression.");
+            return chosen;
+        }
 #endif
 
-        private static void VerifyHeldExit(int count,int completedBouts,int maximumTicks)
+        private static void VerifyHeldExit(int count,int completedBouts,int maximumTicks,int player=17)
         {
-            const int player = 17;
+            // Zero drive can still coast under accepted physics. These checks
+            // establish physical passing without follower stalls, not a proof
+            // that the controlled athlete stays stationary for all 240 ticks.
             Assert.That(AiRangeTrafficPolicyDefinition.FromJson(
                 Read("Biathlon/Venues/woodland_basin_v1/ai_range_traffic")).RetainSharedExitLine,
                 Is.True, "The shared exit must not converge everyone onto one lateral line.");
@@ -66,7 +101,7 @@ namespace Biathlon.Tests
                     held = true;
                     playerStation = point.LocalNanometers;
                     TestContext.WriteLine("held_exit_tick=" + tick + " station_m=" + playerStation / 1e9);
-                    for (int i = 1; i < count; i++)
+                    for (int i = 0; i < count; i++) if(i!=player)
                     {
                         var other = controlled.Field.GetPhysicalPoint(i);
                         if (other.LoopId == "exit_aisle" && other.LocalNanometers < playerStation &&

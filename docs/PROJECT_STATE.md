@@ -22092,3 +22092,30 @@ docs/reports/TASK_WP177_WOODLAND_COURSE_BASELINE_20261007.md.
 WP-177 remains OPEN for player/AI stopped-time traffic, full-race difficulty
 and chase-camera descent readability after the manual steering batch.
 WP-175/178 and M13 remain OPEN, WP-176 PASS. No Windows review build yet.
+
+## 2026-10-07 — M13 / WP-177 range-exit body-delay reduction, not closure
+
+A reproducible 30-athlete Mass Start showed 344 actor-ticks of zero travel
+despite positive ski effort on exit_aisle, with a longest 53-tick wait. The
+longest sampled athlete requested a leftward pass toward a nearby left-side
+blocker. An AI-only nearest-forward-body side ordering now tries the more
+open side first; authoritative physical sweeps and player commands remain
+unchanged. On the same seed the 30-athlete race completed in 21,011 ticks:
+exit stops 344→320 and longest exit stall 53→26 ticks. Mat-path stopped
+ticks rose 1,569→2,031, so the overall issue is not resolved. The
+AI decision context is versioned v4 for this change.
+
+The bounded side/range selection passed Release .NET 13/13 and two targeted
+Unity MCP EditMode tests 2/2; recent Error Console empty. A proposed held-
+goal recheck was removed after an interrupted slow run with no PASS receipt.
+An old fixed-bib third-bout fixture lacked any follower under the changed
+order and failed its setup condition; the strengthened fixed-seed test
+scouted an actual first-arrival follower and then passed 1/1. Second-bout
+zero-effort player test passed 1/1. Both show followers physically passing
+without their own stop, but the player can coast despite zero input; they
+do not prove a truly stationary-player cure. Evidence and limitations:
+docs/reports/TASK_M13_RANGE_EXIT_BYPASS_SIDE_20261007.md.
+
+The remaining 26-tick exit wait, mat traffic and full player/AI manual
+steering integration keep the owner gameplay batch, WP-177 and M13 OPEN.
+WP-175/178 remain OPEN, WP-176 PASS. No Windows review build issued.

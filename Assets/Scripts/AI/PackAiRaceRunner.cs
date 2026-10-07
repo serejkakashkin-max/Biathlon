@@ -168,7 +168,7 @@ namespace Biathlon.AI
                 context.Add(rangeTrafficPolicy.ToJson());
                 if(physicalRadius!=policy.PhysicalRadius)context.Add("range_traffic_observed_radius_m:"+physicalRadius.ToString("R",CultureInfo.InvariantCulture));
                 context.Add("ai_physical_range_safe_alignment_v1;actual_traversal_exit;stationary_body_clearance;paid_lateral;player_intent_preserved");
-                if(worldBypassPolicy!=null)context.Add("ai_range_world_anticipatory_paid_lateral_escape_v3;shared_corridors_post_shoot_departure_and_paid_main;paid_range_frontage_minimum_from_entry_line;bounded_goal_hold;ordinary_drive;full_field_revalidation;player_intent_preserved");
+                if(worldBypassPolicy!=null)context.Add("ai_range_world_anticipatory_paid_lateral_escape_v4;shared_corridors_post_shoot_departure_and_paid_main;observed_forward_body_side;bounded_goal_hold;paid_range_frontage_minimum_from_entry_line;ordinary_drive;full_field_revalidation;player_intent_preserved");
             }
             for(int i=0;i<n;i++)
             {
@@ -330,13 +330,17 @@ namespace Biathlon.AI
                     double step=worldBypassPolicy.WorldBypassLateralStep.Value;
                     int probes=(int)Math.Ceiling(extent*2/step);
                     bool stalledEscape=stationaryObservedTicks[i]>=Math.Ceiling(worldBypassPolicy.WorldBypassAfterSeconds.Value*frequency);
+                    bool preferRight=count>0&&AiRangeBypassSide.PreferRight(roster,
+                        worldBypassPolicy.WorldBypassLookaheadMeters??worldBypassPolicy.WorldBypassPreview.Value,
+                        occupancy.Definition.LateralSeparation+laneDefinition.PassingClearance);
                     bool selectedEscape=false;
                     for(int passIndex=0;passIndex<(stalledEscape?2:1)&&!selectedEscape;passIndex++)
                     for(int p=1;p<=probes;p++)
                     {
                         double left=Math.Max(-extent,Field.GetLateral(i)-p*step),right=Math.Min(extent,Field.GetLateral(i)+p*step);
-                        if(left!=Field.GetLateral(i)&&Clear(left,passIndex>0)){lateral[i]=left;rangeTrafficPlans[i]=new AiRangeTrafficPlan(true,false,left);HoldEscape();selectedEscape=true;break;}
-                        if(right!=Field.GetLateral(i)&&Clear(right,passIndex>0)){lateral[i]=right;rangeTrafficPlans[i]=new AiRangeTrafficPlan(true,false,right);HoldEscape();selectedEscape=true;break;}
+                        double first=preferRight?right:left,second=preferRight?left:right;
+                        if(first!=Field.GetLateral(i)&&Clear(first,passIndex>0)){lateral[i]=first;rangeTrafficPlans[i]=new AiRangeTrafficPlan(true,false,first);HoldEscape();selectedEscape=true;break;}
+                        if(second!=Field.GetLateral(i)&&Clear(second,passIndex>0)){lateral[i]=second;rangeTrafficPlans[i]=new AiRangeTrafficPlan(true,false,second);HoldEscape();selectedEscape=true;break;}
                     }
                     // A congested long horizon must not suppress an available short
                     // paid escape after stopping. Both remain ordinary checked input.
