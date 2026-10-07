@@ -28,3 +28,17 @@ Next: use bounded exact native methods for compile/behavior qualification;
 run a separate hidden player/benchmark process for a 30-athlete Mass Start and
 broadcast shots when the final M13 gameplay batch is integrated; collect
 frame-time, draw-call, GC and peak process-memory receipts per quality tier.
+
+## Headless season throughput, 2026-10-07
+
+The later isolated Release .NET WP-176 season test completed 16 real
+30-athlete Woodland races, totaling 394,978 unique field ticks at the
+configured 20 Hz. Its elapsed test duration was 13m45s, including weekly
+career work, save/restore and explicit collection of discarded test-runner
+graphs between races. This is about 479 field ticks/s, or roughly 24 times
+realtime for the sequential headless test. The
+[TRX](../quality/m13/wp176-woodland-career-20261007/wp176-full-production-season.trx)
+contains per-event ticks and managed heap retained after each event
+(7.1–7.7 MB). This is not a worst-case instantaneous tick latency, player
+frame rate, GPU, broadcast camera or LOD result. The earlier Editor memory
+snapshot and the separate testhost footprint must not be conflated.

@@ -13,7 +13,9 @@ G1 и G2 одобрены владельцем. **M13 открыт; WP-176 PASS,
 WP-175: четыре профиля снега прошли физические component tests 10/10 и полные
 одиночные Woodland Sprint с точным replay 4/4; пять погодных привязок прошли
 Unity PlayMode 5/5. Полный Mass Start 30 завершён на icy_fast, Sprint 40 и
-квалифицированный им Pursuit 40 — на fresh_soft. Матрица всех условий,
+квалифицированный им Pursuit 40 — на fresh_soft. Дополнительно полные
+Sprint→Pursuit 40 на packed_neutral и Mass Start 30 на wet_slow PASS.
+Матрица всех условий,
 полносоставный replay, визуальная и performance-оценка остаются открытыми.
 [Отчёт](reports/TASK_WP175_WOODLAND_CONDITIONS_01_REPORT.md).
 

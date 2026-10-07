@@ -22048,3 +22048,24 @@ WP-177 still needs paired stat/difficulty effects, stopped-time/traffic
 measurement after manual movement integration, and downhill visual review.
 WP-175, WP-177, WP-178 and M13 remain OPEN; WP-176 remains PASS. No Windows
 review build has been issued.
+
+## 2026-10-07 — M13 / WP-175 additional production snow flows
+
+The two remaining selected canonical condition extremes now have
+production-size race witnesses. Packed-neutral Sprint 40 completed in
+36,438 ticks and its saved-result qualified Pursuit 40 in 18,949 ticks,
+Release .NET 1/1 PASS. Wet-slow Mass Start 30 completed in 21,986 ticks,
+Release .NET 1/1 PASS. Alongside prior fresh-soft Sprint/Pursuit 40 and
+icy-fast Mass Start 30, each of the four canonical snow profiles has at
+least one full-field flow. This is not a full format-by-condition matrix.
+An initial combined run was stopped for testhost memory pressure and has
+no result; the passing Sprint/Pursuit test collected only discarded test
+graphs after qualification had been saved. Unity C# compilation and a
+bounded EditMode selector test passed after the change. Evidence:
+docs/reports/TASK_WP175_WOODLAND_CONDITIONS_01_REPORT.md and
+docs/quality/m13/wp175-conditions-20261006/wp175-packed40-qualified-pursuit.trx,
+wp175-wet-mass30.trx.
+
+Full-field command replay, player traffic, visual weather matrix and
+rendering performance remain OPEN. WP-175 and M13 are not PASS. WP-176
+remains PASS; WP-177/178 remain OPEN; no Windows review build yet.

@@ -27,3 +27,26 @@ The actual 30-athlete Woodland Mass Start finished on icy_fast snow in 21,858 ti
 An initial simultaneous two-runner exact-repeat test was stopped before completion when its testhost reached roughly 8 GB. The final full-field witnesses use one runner at a time; the combined Sprint→Pursuit test still peaked around 8.3 GB of process working set, so test-runner memory and WP-178 performance profiling deserve attention. This is not a frame-rate or GPU measurement. The cancelled attempt supplies no pass claim. The completed cases do not yet provide persisted full-field command replay, all four snow profiles for each format, ordinary native weather/view screenshots, or valid sustained performance acceptance. WP-175 remains OPEN.
 
 A separate [native clear-weather start frame](../quality/m13/wp175-conditions-20261006/native-clear-start.png) was captured from the ordinary Woodland Mass Start Game View with the player stationary. It is a single baseline view, not a five-weather visual matrix or a frame-rate measurement. The large dark start gantry and pale rectangular roadside panel are visually prominent in this view; their final event treatment/readability deserves review with the rest of the venue presentation.
+
+## 2026-10-07 additional full-field canonical conditions
+
+The remaining selected condition extremes were run as separate hidden
+Release .NET tests, with a discarded completed Sprint runner collected
+after its authoritative result had qualified Pursuit. This changes only
+test-process memory hygiene, never the race simulation. The first combined
+attempt was stopped without a result when testhost working set exceeded
+13 GB alongside the already memory-heavy Editor. It is not counted PASS.
+
+[Packed-neutral Sprint 40→qualified Pursuit 40](../quality/m13/wp175-conditions-20261006/wp175-packed40-qualified-pursuit.trx)
+passed 1/1: Sprint 36,438 field ticks; Pursuit 18,949 ticks. The
+[wet-slow Mass Start 30](../quality/m13/wp175-conditions-20261006/wp175-wet-mass30.trx)
+passed 1/1 at 21,986 ticks. Both contain all expected finish rows, and
+their fixed-seed event hashes are retained in the TRX. Combined with the
+previous fresh-soft Sprint/Pursuit 40 and icy-fast Mass Start 30 witnesses,
+all four canonical snow profiles now have at least one completed
+production-size race flow. This is **coverage across profiles**, not every
+format under every profile.
+
+The original single-athlete exact replay still covers all four snow profiles.
+Full-field command replay, player-controlled traffic feel, all five weather
+views and sustained rendering performance remain open. WP-175 is not PASS.

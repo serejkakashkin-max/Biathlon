@@ -76,7 +76,20 @@ namespace Biathlon.Tests
         [Timeout(900000)]
         public void FullWoodlandFieldCompletesUnderNonNeutralSnow(
             string profile,string format,int count)
+            =>VerifyFullField(profile,format,count);
+
+        [TestCase("packed_neutral","sprint",40)]
+        [TestCase("wet_slow","mass_start",30)]
+        [Timeout(900000),NonParallelizable]
+        public void AdditionalCanonicalFullFieldConditionsComplete(
+            string profile,string format,int count)
+            =>VerifyFullField(profile,format,count);
+
+        private static void VerifyFullField(string profile,string format,int count)
         {
+            // This headless matrix runs multiple large fields sequentially in
+            // one testhost; previous completed runners are not race state.
+            GC.Collect(GC.MaxGeneration,GCCollectionMode.Forced,true,true);
             var logA=new BalanceEventAudit(5);
             var first=Create(profile,logA,format,count);
             const int limit=50000;
@@ -97,6 +110,8 @@ namespace Biathlon.Tests
                 var pursuitProfile=CompetitionProfile.FromJson(Read(Root+"pursuit_profile"));
                 var qualification=PursuitQualificationSnapshot.Create(
                     "woodland_wp175_"+profile+"_qualification_v1",first.Field.Result,pursuitProfile);
+                first=null;
+                GC.Collect(GC.MaxGeneration,GCCollectionMode.Forced,true,true);
                 var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(Root+"manifest")),Read);
                 var pursuitEvents=new BalanceEventAudit(5);
                 var pursuit=ProductionVenueRaceFactory.Create(venue,pursuitProfile,
