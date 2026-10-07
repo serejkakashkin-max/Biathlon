@@ -22269,3 +22269,14 @@ without compilation or recent Error Console entries. The focused native
 fork-coordinate and AI policy tests remain 2/2 PASS. The second- and
 third-bout headless .NET player-held regressions remain 2/2 PASS. This does
 not change WP-177/M13 OPEN or authorize a review build.
+
+## 2026-10-07 — WP-177 player-exit native smoke completed after bounded rerun
+
+The Unity-native second-bout regression was made bounded for the Editor by
+using the fixed-seed player identified by the full headless scout. The live
+native run still requires a real nearby follower and a physical pass. Hidden
+Unity MCP EditMode returned 1/1 PASS in 3:39. The headless second-bout rerun
+returned 1/1 PASS: athlete 2, 240 zero-effort ticks, one nearby follower,
+zero follower-stall ticks, one pass. The athlete continued coasting, so this
+proves no follower queue in that moving geometry, not a perfectly stationary
+player bypass. WP-177/M13 remain OPEN; no review build was produced.

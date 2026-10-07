@@ -23,7 +23,17 @@ namespace Biathlon.Tests
 
         [Test, Timeout(600000)]
         public void PlayerHeldOnActualExitDoesNotProduceAStationaryFollowerQueue()
-            => VerifyHeldExit(30,2,12000,ScoutBoutPlayerWithActualFollower(2,12000));
+        {
+#if UNITY_EDITOR
+            // The fixed Woodland native smoke fixture uses the player found by
+            // the complete headless scout. VerifyHeldExit independently requires
+            // a nearby follower, so roster changes fail qualification instead
+            // of silently reporting a vacuous PASS. Avoid a third full native run.
+            VerifyHeldExit(30,2,12000,2);
+#else
+            VerifyHeldExit(30,2,12000,ScoutBoutPlayerWithActualFollower(2,12000));
+#endif
+        }
 
 #if !UNITY_EDITOR
         // Long headless stress regression. The shorter second-bout variant is
