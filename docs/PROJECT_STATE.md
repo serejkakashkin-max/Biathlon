@@ -21991,3 +21991,16 @@ Runner job or pending request before that orphaned lease was cleared.
 This is not a full native-class PASS. Final focused receipt:
 docs/quality/m13/manual-section-handoff-20261007/final.trx.
 Manual Pack field, phase geometry, AI, v2 replay, host and M13 remain OPEN.
+
+## 2026-10-07 — M13 / WP-178 Editor memory diagnostic
+
+After cancelling the timed-out native career EditMode run, a hidden Editor
+snapshot showed 11,121 MB working set, 30,772 MB private bytes, 27,505 MB
+Mono heap capacity and 166 MB Mono-used memory. This is an Editor-after-test
+diagnostic, not a playable build benchmark or evidence that 27 GB of live
+objects are retained. The incomplete career test is not counted as PASS.
+Receipt: docs/quality/m13/wp178-memory-20261007/editor-after-cancel.json;
+interpretation: docs/reports/TASK_WP178_EDITOR_MEMORY_DIAGNOSTIC_20261007.md.
+WP-178 still needs isolated hidden Mass Start/broadcast frame, draw-call,
+GC and memory measurements after the owner-directed gameplay batch. M13 and
+WP-175–178 remain OPEN; no review build has been issued.
