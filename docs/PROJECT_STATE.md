@@ -21942,3 +21942,22 @@ WP-176 implementation is in progress pending bounded native/full-season
 proof and later UI calendar selection. WP-175, WP-177, WP-178, manual
 steering/traffic integration and M13 remain OPEN. The owner-directed
 batch is still incomplete; no Windows review build has been issued.
+
+## 2026-10-07 — M13 / WP-177 authored Woodland course baseline
+
+Added a reproducible read-only course metric script and a SHA-bound JSON
+receipt for the sole production venue. Main is 1,200 m with 27.893 m climb
+and 27.897 m descent; the longest >2% descent is 168.012 m with 11.709 m
+drop. Visual height and physical integrated grade differ by at most
+0.009327 m per authored Main segment. Sprint/Pursuit/Mass Start route lengths
+are 4,200.001/5,000/6,000 m. Draft/overtake flags cover 415.5 m of Main.
+No race tuning changed. Evidence and interpretation:
+docs/reports/TASK_WP177_WOODLAND_COURSE_BASELINE_20261007.md and
+docs/quality/m13/wp177-woodland-course-20261007/authored-metrics.json.
+
+The owner's flat-looking downhill concern remains a visual acceptance issue.
+WP-177 still needs format times, climb advantage, stopped-time/draft success,
+difficulty fairness and chase-camera review. Unity's long native career test
+was still active after MCP HTTP timeout and showed high Editor memory; it
+is not an acceptance result. WP-178 must investigate. M13 and the owner
+batch remain OPEN; no Windows review build yet.

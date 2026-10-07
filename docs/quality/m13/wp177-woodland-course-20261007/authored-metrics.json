@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "id": "woodland_wp177_authored_course_metrics_v1",
+  "track_sha256": "eb6d972b62a14a5445ae6692d16faa4277b9a5a02cf025c87418f726af762ac6",
+  "visual_sha256": "5781cceaabea5979ce0ccf4a86104129c31bd68bfcd944f1b4c6f6a4b0acd5e5",
+  "main_length_m": 1200.0,
+  "route_lengths_m": {
+    "sprint": 4200.001,
+    "pursuit": 5000.0,
+    "mass_start": 6000.0
+  },
+  "main_climb_m": 27.892993,
+  "main_descent_m": 27.897217,
+  "visual_elevation_min_m": 0.0,
+  "visual_elevation_max_m": 20,
+  "main_draft_allowed_m": 415.5,
+  "main_overtake_allowed_m": 415.5,
+  "main_technical_downhill_m": 110.533,
+  "maximum_segment_height_disagreement_m": 0.009327,
+  "descending_runs_over_2_percent": [
+    {
+      "start_m": 122.871,
+      "length_m": 20.642,
+      "drop_m": 2.542657,
+      "steepest_grade": -0.176965
+    },
+    {
+      "start_m": 381.142,
+      "length_m": 122.061,
+      "drop_m": 4.928626,
+      "steepest_grade": -0.057491
+    },
+    {
+      "start_m": 654.256,
+      "length_m": 34.282,
+      "drop_m": 2.946908,
+      "steepest_grade": -0.116668
+    },
+    {
+      "start_m": 736.159,
+      "length_m": 168.012,
+      "drop_m": 11.708798,
+      "steepest_grade": -0.140403
+    },
+    {
+      "start_m": 907.199,
+      "length_m": 21.934,
+      "drop_m": 2.458558,
+      "steepest_grade": -0.156005
+    },
+    {
+      "start_m": 933.207,
+      "length_m": 34.282,
+      "drop_m": 2.946908,
+      "steepest_grade": -0.116668
+    }
+  ],
+  "semantic_zones": {
+    "climb_long": {
+      "length_m": 186.819,
+      "net_rise_m": 12.033714
+    },
+    "descent_fast": {
+      "length_m": 379.019,
+      "net_rise_m": -19.059718
+    },
+    "descent_technical": {
+      "length_m": 78.802,
+      "net_rise_m": -6.027725
+    },
+    "range_approach": {
+      "length_m": 179.952,
+      "net_rise_m": 0.0
+    },
+    "rolling": {
+      "length_m": 265.408,
+      "net_rise_m": 13.049504
+    },
+    "stadium": {
+      "length_m": 110.0,
+      "net_rise_m": 0.0
+    }
+  }
+}
