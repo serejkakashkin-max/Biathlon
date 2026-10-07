@@ -22029,3 +22029,22 @@ WP-176 production content is PASS. The career UI entry point is M14 work;
 the timed-out long native fixture has no PASS receipt. WP-175, WP-177,
 WP-178 and owner gameplay batch remain OPEN. M13 is NOT PASS; no Windows
 review build has been issued.
+
+## 2026-10-07 — M13 / WP-177 fixed-seed Woodland finish baseline
+
+Three actual 30-athlete production-career formats completed in isolated
+Release .NET processes: Sprint plus its saved-result qualified Pursuit 2/2
+PASS; Mass Start 1/1 PASS. Winner/middle-rank/last-rank elapsed times were
+Sprint 10:23.585 / 10:52.511 / 11:36.452, Pursuit 13:04.426 / 14:21.343 /
+16:44.548, Mass Start 15:08.606 / 17:14.228 / 18:02.491 on the authored
+4.2/5.0/6.0 km routes. Field penalty loops were 21/40/40. This one-seed
+sample suggests shooting accuracy needs the already recorded owner review;
+it does not isolate stance, athlete strength, pressure or conditions and
+does not change physical/geometric shooting. Evidence and interpretation:
+docs/reports/TASK_WP177_WOODLAND_COURSE_BASELINE_20261007.md and
+docs/quality/m13/wp177-woodland-course-20261007/.
+
+WP-177 still needs paired stat/difficulty effects, stopped-time/traffic
+measurement after manual movement integration, and downhill visual review.
+WP-175, WP-177, WP-178 and M13 remain OPEN; WP-176 remains PASS. No Windows
+review build has been issued.
