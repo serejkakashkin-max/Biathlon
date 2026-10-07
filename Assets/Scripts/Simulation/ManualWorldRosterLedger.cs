@@ -102,6 +102,7 @@ namespace Biathlon.Simulation
         public bool TryHandoffSections(ReadOnlySpan<int> actorIndexes)
         {
             if(ready||actorIndexes.Length==0)return false;
+            long nextRevision=checked(revision+1);
             for(int i=0;i<actorIndexes.Length;i++)
             {
                 int index=actorIndexes[i];
@@ -127,7 +128,7 @@ namespace Biathlon.Simulation
             {
                 int index=actorIndexes[i];cursors[index]=handoffCursors[i];accepted[index]=staged[i];
             }
-            revision=checked(revision+1);
+            revision=nextRevision;
             return true;
         }
         internal void ValidatePrepared(ManualWorldRosterPreview proposal)

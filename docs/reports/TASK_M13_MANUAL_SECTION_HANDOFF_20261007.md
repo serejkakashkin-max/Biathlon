@@ -22,6 +22,15 @@ compilation diagnostic appeared in the Console query. A subsequent full
 native class request exceeded the MCP HTTP timeout and has no completion
 receipt; it is not counted as passing.
 
+Follow-up: revision overflow is now checked before touching accepted
+roster state. Final Release .NET ledger class 8/8 PASS
+([TRX](../quality/m13/manual-section-handoff-20261007/final.trx)). The
+second, fully qualified Unity EditMode handoff method passed 1/1; together
+the two separately targeted native methods are 2/2 PASS. The cancelled
+class request left an orphaned MCP lease; local plugin inspection confirmed
+no Test Runner job or pending request before clearing only that lease.
+No full native class result is claimed.
+
 This changes no production race result: the world ledger is not connected
 to the shared Pack field, AI, replay or playable host. Endpoint handoff
 still needs explicit traffic/seam admission, simultaneous race-state

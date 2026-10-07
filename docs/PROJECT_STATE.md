@@ -21979,3 +21979,15 @@ extended. The runaway native career run was cancelled using Unity Test Runner;
 its incomplete output is not evidence. Pack field, start/range/penalty,
 contact replan, v2 replay and host binding are still OPEN. M13 remains OPEN;
 no Windows review build.
+
+## 2026-10-07 — M13 handoff validation follow-up
+
+The world-roster section handoff now prechecks revision overflow before
+accepted state changes. Final Release .NET ledger 8/8 PASS and the prior
+26/26 broader manual regression still applies. Two separately targeted
+native Unity EditMode handoff tests passed 2/2. The cancelled broad native
+class request left an MCP lease; the local plugin reported no active Test
+Runner job or pending request before that orphaned lease was cleared.
+This is not a full native-class PASS. Final focused receipt:
+docs/quality/m13/manual-section-handoff-20261007/final.trx.
+Manual Pack field, phase geometry, AI, v2 replay, host and M13 remain OPEN.
