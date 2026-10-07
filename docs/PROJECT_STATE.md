@@ -22410,3 +22410,23 @@ a separately checked test input; no playable route admission is inferred.
 Release .NET focused projection/AI/tube 34/34 PASS and final hidden Unity
 EditMode AI 12/12 PASS; evidence in the updated corner-effort report and
 m13-manual-ai-corner-effort-sealed.trx. WP-177 and M13 remain OPEN.
+
+
+## 2026-10-07 — M13 observed world-body bypass line candidate
+
+A versioned manual AI traffic policy and deterministic no-allocation planner
+now choose a prospective passing line from the selected route observation,
+authored width and the shared circumscribed body tube/edge clearance contract.
+It observes a forward obstruction within 25 m, rejects a side occupied by
+another actor, and returns no passing line when both sides or the corridor
+are blocked. A quantized margin comparison makes exact ties deterministic.
+The selected line feeds signed yaw intent; neither planner moves bodies or
+bypasses shared contact/course admission. .NET focused AI 16/16 PASS;
+hidden Unity EditMode 4/4 PASS, fresh Error Console empty. Initial failed
+exploratory cases exposed a floating-point tie and pose quantization mismatch;
+final tests retain all assertions. Evidence: docs/reports/TASK_M13_MANUAL_AI_WORLD_TRAFFIC_CANDIDATE_20261007.md
+and docs/quality/m13/m13-manual-ai-world-traffic-tube.trx.
+
+No player-stationary full-field bypass or range-exit continuous passage is
+yet proven. Candidate is not connected to playable Pack. Owner queue defect,
+WP-177 and M13 remain OPEN; no Windows review build issued.
