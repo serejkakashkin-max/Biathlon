@@ -22280,3 +22280,24 @@ returned 1/1 PASS: athlete 2, 240 zero-effort ticks, one nearby follower,
 zero follower-stall ticks, one pass. The athlete continued coasting, so this
 proves no follower queue in that moving geometry, not a perfectly stationary
 player bypass. WP-177/M13 remain OPEN; no review build was produced.
+
+## 2026-10-07 — M13 manual steering candidate data and Woodland control probe
+
+Versioned production-candidate resources now define shared manual ski yaw
+physics and AI signed-yaw decision parameters. A deterministic fixed-tick
+probe used real Woodland route geometry through 940 m before the range at
+constant 4 and 7 m/s. Both scenarios retained the selected local route and
+the full body plus edge clearance inside authored course width; maximum
+centre-line offsets were 1.16 m and 1.76 m respectively. The initial 7 m/s
+candidate failed at the first bends; lookahead/heading response were tuned
+and rerun. Release .NET manual AI/steering 18/18 PASS; hidden Unity MCP
+EditMode manual AI class 7/7 PASS, Editor Error Console empty. Evidence:
+docs/reports/TASK_M13_MANUAL_STEERING_POLICY_CANDIDATE_20261007.md.
+
+This is a controller/geometry candidate only. Constant-speed motion does
+not qualify slope, snow, physiology, contact, all race phases or replay. No
+playable host, Pack field, production race factory or v2 replay uses these
+resources yet. No race/balance outputs changed and no Windows build issued.
+M13 and WP-175/177/178 remain OPEN; WP-176 PASS. Next required work is the
+full Pack-world transaction, start/range/penalty topology, player and AI
+v2 inputs/replay, then final quality/weather/performance and owner review.
