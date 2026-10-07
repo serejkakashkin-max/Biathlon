@@ -162,7 +162,8 @@ namespace Biathlon.Simulation
             }
             length=ends[count-1];edges=list.ToArray();
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_base_route_local_projection_v1",
-                route.TrackSnapshotJson,route.PlanSnapshotJson,route.RequirementsSnapshotJson,geometry.ToJson()});
+                route.TrackSnapshotJson,route.PlanSnapshotJson,route.RequirementsSnapshotJson,geometry.ToJson(),
+                "local_clamped_knot_observation_v2"});
             CorridorContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_selected_route_convex_cell_v1",
                 ContextJson,"minimum_authored_width_over_visual_edge;four_inward_planes;full_body_interior_only"});
         }
@@ -202,13 +203,19 @@ namespace Biathlon.Simulation
                     // coordinates are doubles. Reserve two encoding units at an
                     // endpoint; this is numerical tolerance, not course-edge tuning.
                     double endpointReserve=2*PhysiologyNumbers.MinimumPositive/edge.PlanarLength;
-                    if(fraction< -endpointReserve||fraction>1+endpointReserve)continue;
+                    // A rounded world path can lie in the exterior Voronoi wedge
+                    // of a sharp authored knot. Its nearest point is the knot,
+                    // not an unbounded projection onto either adjacent segment.
+                    // Limit this endpoint fallback to the physical corridor so a
+                    // distant pose never snaps to a route occurrence.
+                    bool beyondEndpoint=fraction< -endpointReserve||fraction>1+endpointReserve;
                     fraction=Math.Max(0,Math.Min(1,fraction));
                     double station=edge.StationStart+fraction*(edge.StationEnd-edge.StationStart);
                     long encoded=checked((long)Math.Round(station*SkiState.NanometersPerMeter,MidpointRounding.ToEven));
                     if(encoded<low||encoded>high)continue;
                     double dx=pose.X-edge.X-edge.DX*fraction,dz=pose.Z-edge.Z-edge.DZ*fraction;
                     double distanceSquared=dx*dx+dz*dz;
+                    if(beyondEndpoint&&distanceSquared>edge.MinimumWidth*edge.MinimumWidth*.25)continue;
                     // Stable ties keep the current edge/occurrence. Branch admission is
                     // explicit and may never advance a lap merely because coordinates repeat.
                     if(distanceSquared>=best)continue;

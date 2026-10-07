@@ -22301,3 +22301,28 @@ resources yet. No race/balance outputs changed and no Windows build issued.
 M13 and WP-175/177/178 remain OPEN; WP-176 PASS. Next required work is the
 full Pack-world transaction, start/range/penalty topology, player and AI
 v2 inputs/replay, then final quality/weather/performance and owner review.
+
+## 2026-10-07 — M13 manual-world corner observation correction
+
+With the candidate signed-yaw AI driven by the shared force/terrain motion
+kernel, a deterministic Woodland Main probe lost local route observation at
+approximately 322.8 m. The rounded world pose entered an authored vertex
+wedge: both unlimited line projections fell outside the neighbouring finite
+segments. This was not found by the earlier constant-speed controller probe.
+
+`ManualRouteProjectionMap` now considers a finite segment endpoint when the
+pose is within that edge's physical half-width and the endpoint is within
+the selected local station window. It does not admit another route section,
+move a body, award progress or alter the playable v1 race. The map context
+records `local_clamped_knot_observation_v2`. A fixed-pose regression checks
+the original failure and rejects a remote-lap snap. The force/yaw AI probe
+reached Woodland Main 940.27 m at 20 Hz under 300 W and real sampled grade;
+maximum sampled centre offset was 1.852 m, maximum speed 14.254 m/s. This
+sampled single-actor probe does not prove continuous body/edge safety.
+
+Release .NET related projection/AI/progression/world-roster/race-bridge tests
+37/37 PASS; Unity MCP EditMode projection 17/17 and AI 8/8 PASS. Evidence:
+docs/reports/TASK_M13_MANUAL_KNOT_PROJECTION_20261007.md and
+docs/quality/m13/m13-manual-knot-final.trx. M13 and WP-175/177/178 remain
+OPEN; WP-176 PASS. Manual v2 is still not bound to playable Pack, all race
+phases or replay, so no Windows review build has been issued.

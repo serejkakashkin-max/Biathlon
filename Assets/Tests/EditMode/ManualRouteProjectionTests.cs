@@ -123,6 +123,18 @@ namespace Biathlon.Tests
             }
             Assert.That(checkedKnots,Is.GreaterThan(100));
         }
+        [Test] public void LocalCornerWedgeProjectsToKnotWithoutRemoteRouteSnap()
+        {
+            var f=Create();
+            var pose=new ManualSkiHeadingState(225.348460838,-254.140580187,3.350784975);
+            long previous=Nano(322.788637835);
+            Assert.That(f.map.TryProject(pose,0,previous,2,false,out var observed),Is.True);
+            Assert.That(observed.SectionIndex,Is.Zero);
+            Assert.That(Math.Abs(observed.RouteNanometers-previous),Is.LessThan(Nano(2)));
+            Assert.That(observed.DistanceFromCentreMeters,Is.LessThan(2));
+            Assert.That(f.map.TryProject(pose,1,Nano(f.route.GetSection(1).Start.Meters+50),.1,false,out _),Is.False);
+            Assert.That(f.map.ContextJson,Does.Contain("local_clamped_knot_observation_v2"));
+        }
         [TestCase("mass_start")][TestCase("sprint")][TestCase("pursuit")]
         public void ForwardTargetSamplesOnlyTheSelectedOccurrenceWithoutMovingTheAthlete(string format)
         {

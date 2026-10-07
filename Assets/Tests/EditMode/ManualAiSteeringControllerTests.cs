@@ -27,6 +27,54 @@ namespace Biathlon.Tests
         }
         private static long Nano(double metres)=>(long)Math.Round(metres*SkiState.NanometersPerMeter);
 
+        [Test]
+        public void ProductionCandidateFollowsWoodlandWithSharedForceAndDirection()
+        {
+            const string root="Biathlon/Venues/woodland_basin_v1/";
+            string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
+            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(root+"manifest")),Read);
+            var profile=CompetitionProfile.FromJson(Read(root+"mass_start_profile"));
+            var route=new RaceRoute(venue.Track,RaceRoutePlan.FromJson(Read(root+"mass_start_route")),
+                profile.ToRouteRequirements(),venue.Junctions,venue.Connections);
+            var map=new ManualRouteProjectionMap(route,venue.Visual);
+            var heading=ManualSkiSteeringDefinition.FromJson(Read("Biathlon/manual_ski_steering_v2"));
+            var controller=new ManualAiSteeringController(map,
+                ManualAiSteeringDefinition.FromJson(Read("Biathlon/manual_ai_steering_v2")),heading);
+            var motion=new ManualSkiMotionSystem(
+                SkiPhysicsDefinition.FromJson(Read("Biathlon/ski_physics_provisional_v1")),heading,
+                CorneringDefinition.FromJson(Read("Biathlon/cornering_provisional_v1")),20);
+            var first=route.GetSection(0);
+            Assert.That(map.TrySampleAhead(0,Nano(first.Start.Meters),5,false,out var target),Is.True);
+            var pose=new ManualSkiHeadingState(target.X,target.Z,Math.Atan2(target.ForwardX,target.ForwardZ));
+            var ski=new SkiState(0,4);long station=target.RouteNanometers;
+            double bodyRadius=.5*Math.Sqrt(venue.Occupancy.LongitudinalSeparation*
+                venue.Occupancy.LongitudinalSeparation+venue.Occupancy.LateralSeparation*
+                venue.Occupancy.LateralSeparation)+venue.Occupancy.EdgeClearance;
+            double maximumLateral=0,maximumSpeed=0;
+            var sampler=new TrackSampler(venue.Track.GetLoop(first.LoopId));
+            for(int tick=0;tick<8000&&station<Nano(940);tick++)
+            {
+                Assert.That(map.TryProject(pose,0,station,2,false,
+                    out var observed),Is.True,"Selected route projection failed at tick "+tick+
+                    " station_m="+station/1e9+" speed_mps="+ski.SpeedMetersPerSecond+
+                    " x="+pose.X+" z="+pose.Z+" yaw="+pose.HeadingRadians);
+                var surface=sampler.Sample(new TrackDistance((long)Math.Floor(observed.LocalMeters*1000)));
+                maximumLateral=Math.Max(maximumLateral,Math.Abs(observed.LateralMeters));
+                Assert.That(Math.Abs(observed.LateralMeters)+bodyRadius,Is.LessThan(surface.WidthMeters*.5),
+                    "Full body left the course at tick "+tick);
+                var plan=controller.Plan(pose,observed,ski.SpeedMetersPerSecond,false);
+                Assert.That(plan.IsValid,Is.True,"AI target missing at tick "+tick);
+                var frame=motion.Preview(ski,pose,observed,surface,
+                    new ManualSkiMotionInput(plan.SteeringInput,300,70,70));
+                pose=frame.Heading.State;ski=frame.Travel.Output.State;
+                maximumSpeed=Math.Max(maximumSpeed,ski.SpeedMetersPerSecond);
+                station=observed.RouteNanometers;
+            }
+            TestContext.WriteLine("manual_force_candidate_station_m="+station/1e9+
+                " maximum_lateral_m="+maximumLateral+" maximum_speed_mps="+maximumSpeed);
+            Assert.That(station,Is.GreaterThanOrEqualTo(Nano(940)));
+        }
+
         [TestCase(4.0)]
         [TestCase(7.0)]
         public void ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(double speed)
