@@ -27,6 +27,64 @@ namespace Biathlon.Tests
             return PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
         }
 
+        [Test,Timeout(180000)]
+        public void FirstRangeApproachDoesNotCancelAnAvailablePaidBypass()
+        {
+            const string root="Biathlon/Venues/woodland_basin_v1/";
+            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(root+"manifest")),Read);
+            var runner=ProductionVenueRaceFactory.Create(venue,
+                CompetitionProfile.FromJson(Read(root+"mass_start_profile")),
+                RaceRoutePlan.FromJson(Read(root+"mass_start_route")),
+                RaceSnowConditions.FromJson(Read("Biathlon/race_snow_neutral_v1")),
+                PhysiologyContractTests.DefinitionJson,new BalanceEventAudit(5),new AiDecisionCounts(),count:30,seed:321);
+            int streak=0,maximum=0;bool reachedPrivateApproach=false;
+            // The surrounding field creates this two-body fork encounter. Stop
+            // before the unrelated later-bout traffic; no actor is teleported.
+            while(runner.Field.Tick.Value<3400)
+            {
+                var actor=runner.Field.GetAthlete(12);long prior=actor.Motion.DistanceNanometers;
+                runner.Step();var point=runner.Field.GetPhysicalPoint(12);
+                if(point.LoopId=="mat_13"&&actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.Approach)
+                {
+                    reachedPrivateApproach=true;
+                    streak=actor.Motion.DistanceNanometers==prior?streak+1:0;
+                    maximum=Math.Max(maximum,streak);
+                }
+                else streak=0;
+            }
+            Assert.That(reachedPrivateApproach,Is.True,"The measured first-bout encounter must be exercised.");
+            Assert.That(maximum,Is.LessThanOrEqualTo(75),
+                "An available paid bypass must not be overwritten by reactive line retention.");
+        }
+
+        [Test,Timeout(180000)]
+        public void FirstPenaltyMergeRechecksTheHeldEscapeAgainstForwardBodies()
+        {
+            const string root="Biathlon/Venues/woodland_basin_v1/";
+            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(root+"manifest")),Read);
+            var runner=ProductionVenueRaceFactory.Create(venue,
+                CompetitionProfile.FromJson(Read(root+"mass_start_profile")),
+                RaceRoutePlan.FromJson(Read(root+"mass_start_route")),
+                RaceSnowConditions.FromJson(Read("Biathlon/race_snow_neutral_v1")),
+                PhysiologyContractTests.DefinitionJson,new BalanceEventAudit(5),new AiDecisionCounts(),count:30,seed:123);
+            var prior=new long[30];var streak=new int[30];int maximum=0;bool witnessed=false;
+            while(runner.Field.Tick.Value<5000)
+            {
+                for(int i=0;i<30;i++)prior[i]=runner.Field.GetAthlete(i).Motion.DistanceNanometers;
+                runner.Step();
+                for(int i=0;i<30;i++)
+                {
+                    var actor=runner.Field.GetAthlete(i);
+                    if(runner.Field.GetPhysicalPoint(i).LoopId!="penalty_150"){streak[i]=0;continue;}
+                    witnessed=true;
+                    streak[i]=actor.Motion.DistanceNanometers==prior[i]&&runner.GetLastInput(i).Ski.Effort.RequestedEffort>0?streak[i]+1:0;
+                    maximum=Math.Max(maximum,streak[i]);
+                }
+            }
+            Assert.That(witnessed,Is.True,"The first real AI misses must exercise the penalty merge.");
+            Assert.That(maximum,Is.LessThanOrEqualTo(75),"A held goal that fits laterally can still be blocked immediately ahead.");
+        }
+
         private static PackAiRaceRunner Create(int count)
         {
             const string root = "Biathlon/Venues/woodland_basin_v1/";
@@ -45,7 +103,10 @@ namespace Biathlon.Tests
             // the complete headless scout. VerifyHeldExit independently requires
             // a nearby follower, so roster changes fail qualification instead
             // of silently reporting a vacuous PASS. Avoid a third full native run.
-            VerifyHeldExit(30,2,12000,2);
+            // Final v6 short-course scout: bib-index 9 has a same-penalty-route
+            // follower (index 14) at tick 7607. Index 2's follower instead takes
+            // a different compulsory penalty path and cannot qualify a pass.
+            VerifyHeldExit(30,2,12000,9);
 #else
             VerifyHeldExit(30,2,12000,ScoutBoutPlayerWithActualFollower(2,12000));
 #endif
@@ -77,7 +138,13 @@ namespace Biathlon.Tests
                     for(int j=0;j<scout.Field.Count;j++)if(j!=i)
                     {
                         var other=scout.Field.GetPhysicalPoint(j);
-                        if(other.LoopId=="exit_aisle"&&other.LocalNanometers<point.LocalNanometers&&
+                        // A follower with a different penalty debt leaves the
+                        // common exit on a different compulsory route. It can
+                        // move freely without overtaking this coasting player
+                        // inside the 240-tick window. Qualify a same-route pair;
+                        // VerifyHeldExit still independently requires a pass.
+                        if(scout.Field.GetAthlete(j).CurrentRangeRemainingPenaltyLoops==athlete.CurrentRangeRemainingPenaltyLoops&&
+                            other.LoopId=="exit_aisle"&&other.LocalNanometers<point.LocalNanometers&&
                             other.LocalNanometers>point.LocalNanometers-20*SkiState.NanometersPerMeter)
                         {chosen=i;break;}
                     }

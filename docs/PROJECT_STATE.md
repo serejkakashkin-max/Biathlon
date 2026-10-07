@@ -22550,3 +22550,93 @@ The PNG binaries were excluded from this Git revision after repeated HTTP 502
 responses from the remote Git LFS batch endpoint. The report and all text/TRX
 race evidence remain included. This does not change the visual or gameplay
 acceptance status: WP-177/M13 OPEN.
+
+
+## 2026-10-07 — M13 / WP-177 seed 321 disproves traffic qualification
+
+Correction to the earlier seed-123-only receipt: the detached 80 m candidate
+is NOT traffic-qualified. Seed 321 stalls permanently at mat_13/Main; at the
+25,000-tick diagnostic cutoff one actor had waited 21,792 ticks. Current Assets
+also reproduce the circular hold. Differential testing shows the reactive
+line-retention change in 77214c0 amplified this encounter: a physically clear
+AI escape was overwritten by the subsequent retention fallback. Geometry/
+entry-offset and timed-retention trials were rejected, not promoted to Assets.
+The 13 rejected receipts and machine-readable index are retained under
+ docs/quality/m13/wp177-descent-review-20261007/wp177-seed321-traffic-diagnosis.json.
+
+A focused production-runner regression was observed failing before the fix,
+then passing after preserving an available physical lateral request. Unity
+EditMode ran that same first-bout encounter: 1/1 PASS. The full current-Assets
+seed-321 run then exposed a separate width deadlock at Main 1014.797 m; fixing
+one encounter does not close the owner's queue issue. A second failing test
+shows that forward bypass width preview ignores the narrower assigned mat
+path. Its correction and full-field verification are in progress.
+
+WP-175/177/178 and M13 remain OPEN. Manual directional steering is still not
+connected to playable Pack. No new owner Windows build has been produced.
+Historical PROJECT_STATE bytes are preserved; this is an appended correction.
+
+
+## 2026-10-07 — OWNER approval of measured WP-177 exit-stop budget
+
+Owner reviewed the reported 193 exit actor-stop ticks on the detached short
+Woodland candidate, seed 321, and explicitly approved that result for later
+hands-on build verification ("193 это не много ... давай апрувить"). The
+headless exit aggregate acceptance ceiling is revised from 180 to exactly
+193 actor-ticks. This is an owner-approved review criterion, not a change to
+athlete physics, collisions, race effort, shooting or a hidden waiting timer.
+The independent requirements remain: race completion, maximum continuous
+moving-intent stop <=75 ticks and private-path total <=700 actor-ticks.
+
+The approved seed-321 candidate completed at tick 20,259; maximum continuous
+stop 36 ticks, mat total 634, exit total 193. Actual build hands-on feedback
+remains pending. This approves the measured traffic exception and permits
+candidate promotion after remaining technical checks; it does not close
+manual steering, WP-175/178 or M13 and does not approve release publishing.
+Historical state bytes remain unchanged; approval is appended here.
+
+
+## 2026-10-07 — M13/WP-177 short-course promotion and range bypass v6
+
+The owner-approved 193 exit actor-tick budget is retained. The final held-goal
+revalidation checks the assigned path width horizon, the next paid lateral
+step and the immediate forward body sweep on each tick. Reactive fallback
+cannot overwrite an available checked escape. The observed cross-branch
+blocker side comes from actual world centres, never unrelated station numbers.
+No body shrink, teleport, hidden wait, shooting/stat tuning or speed bonus.
+
+Final short-course full Mass Start30: seed123 complete tick20691, maximum
+continuous moving-intent stop36, private-path aggregate394, exit76, penalty
+maximum3; seed321 complete tick20737, maximum70, private595, exit166, penalty
+maximum11. Both PASS with completion/75/700/193 criteria. .NET traffic17/17,
+full exact command replay1/1 (169026 runs,20691 ticks,
+field_event_hash=15908983522868725793), final player-held exits2/2 PASS.
+Second/third-bout same-route followers each overtake with zero stopped ticks.
+The initially selected second-bout follower instead took its mandatory penalty
+branch; its rejected no-pass receipt is retained. The scout now qualifies a
+same-penalty-debt pair, without deleting the real-pass or stop assertions.
+Zero effort still allows physical coasting; constant stationary-player
+qualification remains for the full manual-world integration.
+
+Promoted the validated 80m downhill-window course plus matching terrain,
+forest/dressing into production Assets:54 JSON changed, all89 candidate JSON
+match byte-for-byte; existing .meta and extra sprint shoulder JSON preserved.
+Main remains1200m. Original resources are backed up locally under
+artifacts/wp177-descent-review-rebuilt-v2/before-production-promotion-20261007.
+Strict production venue-validate PASS with0 diagnostics. Promoted-assets
+geometry/AI/climb/manual-components .NET69/69 PASS. Unity compile PASS;
+hidden EditMode penalty-merge regression1/1 and promoted player-exit1/1 PASS;
+final Error Console empty. The four prior actual hidden Game View descent
+captures remain applicable to this byte-identical package, not GPU/FPS evidence.
+
+Report: docs/reports/TASK_M13_RANGE_BYPASS_INVALIDATION_20261007.md.
+Machine receipts/TRX and promotion SHA-256 manifest:
+docs/quality/m13/wp177-descent-review-20261007/.
+PROJECT_CURRENT.md is refreshed as a concise current pointer; no historical
+PROJECT_STATE bytes were deleted, replaced or compacted.
+
+WP-175/177/178 and M13 remain OPEN, WP-176 remains PASS. Manual yaw/force and
+world ledger are not yet connected to playable Pack; legacy host still follows
+the route. Next: world/Pack publication, remaining race-phase geometry/contact
+integration, replay/host and final hidden rendering validation. No new owner
+Windows build yet; one complete M13 build remains required for hands-on tests.

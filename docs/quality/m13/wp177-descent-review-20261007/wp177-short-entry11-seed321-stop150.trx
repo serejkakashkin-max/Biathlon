@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="71c58488-1522-4fe6-9a31-df4eb26e0d63" name="snkashkin@DESKTOP-G3075GA 2026-10-07 20:27:32" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-07T20:27:32.4702166+03:00" queuing="2026-10-07T20:27:32.4702168+03:00" start="2026-10-07T20:26:32.4949535+03:00" finish="2026-10-07T20:27:32.4755621+03:00" />
+  <TestSettings name="default" id="a580e0d5-f07c-46e6-b070-29626a6337e5">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-07_20_27_32" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9a3206c2-f709-40e2-af66-38c50473b1f6" testId="c2b4d9bb-e8a0-f938-d7a0-3c1c1c68c0a7" testName="FullMassStartRecordsWhereMovingIntentWasStationary" computerName="DESKTOP-G3075GA" duration="00:00:59.2041140" startTime="2026-10-07T20:26:32.9799533+03:00" endTime="2026-10-07T20:27:32.1836543+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9a3206c2-f709-40e2-af66-38c50473b1f6">
+      <Output>
+        <StdOut>wp177_mass30_seed=321 stop_ticks=20511 start=30 main=62 exit=123 penalty=3 mat=2074 other=0 longest=30 longest_main=23 longest_main_at= [28 main:1135,47515275 line=1,1 requested=1,1 speed=0 block=Athlete:woodland_basin_v1_athlete_12 world_body=False] [12 main:1145,681825445 line=1,1 requested=1,1 speed=3,063235606 block=None: world_body=False] longest_exit=17 exit_athlete_block=116 exit_width_block=7 exit_unclassified=0 longest_exit_at=athlete=27 tick=8254 station_m=30,2468344 line=0,9 requested_line=0,8999999999999999 block=Athlete blocker=woodland_basin_v1_athlete_13 blocker_index=13 blocker_loop=exit_aisle blocker_station_m=32,762072773 blocker_line=0 longest_mat=30 mat_capacity_wait=0 mat_body_block=1241 mat_world_body_block=1241 mat_unclassified=833 longest_mat_at=athlete=15 tick=7525 loop=mat_13 station_m=2,671 lane=13 waiting_capacity=False phase=Approach block=Athlete world_body=True blocker=woodland_basin_v1_athlete_10 blocker_index=10 blocker_loop=mat_14 blocker_station_m=1,832730462 blocker_line=0,25 blocker_requested_line=0 blocker_requested_effort=747 blocker_alignment_blocked=False blocker_phase=Approach blocker_shooting=False blocker_lane=14&#xD;
+wp177_mat_block_chain= [15 mat_13:2,671 line=0 requested=0 speed=0 block=Athlete:woodland_basin_v1_athlete_10 world_body=True] [10 mat_14:1,832730462 line=0,25 requested=0 speed=1,420553049 block=None: world_body=False]&#xD;
+wp177_traffic_diagnostic_v2={"tick":20511,"athletes":30,"event_hash":10440786915270470715,"loop_order":["start_approach","main","exit_aisle","penalty_150","mat_or_other"],"block_order":["athlete","width","unclassified"],"stops_by_loop_and_active_bout":[[30,0,0,0,0],[62,0,0,0,0],[0,40,64,19,0],[0,3,0,0,0],[513,591,500,470,0]],"blocks_by_loop_and_kind":[[3,0,27],[59,0,3],[116,7,0],[3,0,0],[1241,0,833]],"stop_episode_starts":316,"maximum_concurrent_moving_intent_stops":30,"maximum_concurrent_tick":2,"mat_capacity_wait_actor_ticks":0,"mat_world_body_block_actor_ticks":1241,"longest_mat_streak_ticks":30,"drafting_actor_ticks":22052,"draft_reduction_sum":1740.9541908367949,"overtake_intent_actor_ticks":108}</StdOut>
+        <ErrorInfo>
+          <Message>  Expected: less than or equal to 700&#xD;
+  But was:  2074&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.WoodlandTrafficStopBaselineTests.FullMassStartRecordsWhereMovingIntentWasStationary() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\WoodlandTrafficStopBaselineTests.cs:line 197&#xD;
+
+1)    at Biathlon.Tests.WoodlandTrafficStopBaselineTests.FullMassStartRecordsWhereMovingIntentWasStationary() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\WoodlandTrafficStopBaselineTests.cs:line 197&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="FullMassStartRecordsWhereMovingIntentWasStationary" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="c2b4d9bb-e8a0-f938-d7a0-3c1c1c68c0a7">
+      <Execution id="9a3206c2-f709-40e2-af66-38c50473b1f6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.WoodlandTrafficStopBaselineTests" name="FullMassStartRecordsWhereMovingIntentWasStationary" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="c2b4d9bb-e8a0-f938-d7a0-3c1c1c68c0a7" executionId="9a3206c2-f709-40e2-af66-38c50473b1f6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+wp177_mass30_seed=321 stop_ticks=20511 start=30 main=62 exit=123 penalty=3 mat=2074 other=0 longest=30 longest_main=23 longest_main_at= [28 main:1135,47515275 line=1,1 requested=1,1 speed=0 block=Athlete:woodland_basin_v1_athlete_12 world_body=False] [12 main:1145,681825445 line=1,1 requested=1,1 speed=3,063235606 block=None: world_body=False] longest_exit=17 exit_athlete_block=116 exit_width_block=7 exit_unclassified=0 longest_exit_at=athlete=27 tick=8254 station_m=30,2468344 line=0,9 requested_line=0,8999999999999999 block=Athlete blocker=woodland_basin_v1_athlete_13 blocker_index=13 blocker_loop=exit_aisle blocker_station_m=32,762072773 blocker_line=0 longest_mat=30 mat_capacity_wait=0 mat_body_block=1241 mat_world_body_block=1241 mat_unclassified=833 longest_mat_at=athlete=15 tick=7525 loop=mat_13 station_m=2,671 lane=13 waiting_capacity=False phase=Approach block=Athlete world_body=True blocker=woodland_basin_v1_athlete_10 blocker_index=10 blocker_loop=mat_14 blocker_station_m=1,832730462 blocker_line=0,25 blocker_requested_line=0 blocker_requested_effort=747 blocker_alignment_blocked=False blocker_phase=Approach blocker_shooting=False blocker_lane=14&#xD;
+wp177_mat_block_chain= [15 mat_13:2,671 line=0 requested=0 speed=0 block=Athlete:woodland_basin_v1_athlete_10 world_body=True] [10 mat_14:1,832730462 line=0,25 requested=0 speed=1,420553049 block=None: world_body=False]&#xD;
+wp177_traffic_diagnostic_v2={"tick":20511,"athletes":30,"event_hash":10440786915270470715,"loop_order":["start_approach","main","exit_aisle","penalty_150","mat_or_other"],"block_order":["athlete","width","unclassified"],"stops_by_loop_and_active_bout":[[30,0,0,0,0],[62,0,0,0,0],[0,40,64,19,0],[0,3,0,0,0],[513,591,500,470,0]],"blocks_by_loop_and_kind":[[3,0,27],[59,0,3],[116,7,0],[3,0,0],[1241,0,833]],"stop_episode_starts":316,"maximum_concurrent_moving_intent_stops":30,"maximum_concurrent_tick":2,"mat_capacity_wait_actor_ticks":0,"mat_world_body_block_actor_ticks":1241,"longest_mat_streak_ticks":30,"drafting_actor_ticks":22052,"draft_reduction_sum":1740.9541908367949,"overtake_intent_actor_ticks":108}&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

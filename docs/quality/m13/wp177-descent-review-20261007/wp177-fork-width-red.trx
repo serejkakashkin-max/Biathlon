@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="95fc415a-82bd-4a74-80bf-4d73ca9144dd" name="snkashkin@DESKTOP-G3075GA 2026-10-07 20:51:59" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-07T20:51:59.4093692+03:00" queuing="2026-10-07T20:51:59.4093693+03:00" start="2026-10-07T20:51:55.7601825+03:00" finish="2026-10-07T20:51:59.4123887+03:00" />
+  <TestSettings name="default" id="7b6950eb-79c4-4191-921e-0787c8b4c5c3">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-07_20_51_59" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="e26b1219-e4e0-4342-9c2d-8e90b0e87f8e" testId="1eaeb182-4ead-500b-e2ed-dc91ed5674e2" testName="ApproachBypassLookaheadRespectsTheAssignedNarrowMatPath" computerName="DESKTOP-G3075GA" duration="00:00:02.9766540" startTime="2026-10-07T20:51:56.2682418+03:00" endTime="2026-10-07T20:51:59.2448538+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e26b1219-e4e0-4342-9c2d-8e90b0e87f8e">
+      <Output>
+        <ErrorInfo>
+          <Message>  The forward escape must fit the assigned private path, not just the shared main corridor.&#xD;
+  Expected: False&#xD;
+  But was:  True&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.RangeWorldTrafficTests.ApproachBypassLookaheadRespectsTheAssignedNarrowMatPath() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RangeWorldTrafficTests.cs:line 325&#xD;
+
+1)    at Biathlon.Tests.RangeWorldTrafficTests.ApproachBypassLookaheadRespectsTheAssignedNarrowMatPath() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RangeWorldTrafficTests.cs:line 325&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ApproachBypassLookaheadRespectsTheAssignedNarrowMatPath" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="1eaeb182-4ead-500b-e2ed-dc91ed5674e2">
+      <Execution id="e26b1219-e4e0-4342-9c2d-8e90b0e87f8e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RangeWorldTrafficTests" name="ApproachBypassLookaheadRespectsTheAssignedNarrowMatPath" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="1eaeb182-4ead-500b-e2ed-dc91ed5674e2" executionId="e26b1219-e4e0-4342-9c2d-8e90b0e87f8e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

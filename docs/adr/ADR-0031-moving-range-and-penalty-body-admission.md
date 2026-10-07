@@ -54,3 +54,21 @@ venue-scoped so locked career/balance scenarios retain their original global pol
 
 Evidence and rejected reproductions: `artifacts/owner-traffic-guidance-20261005/` and the
 three corresponding TASK reports. M13/WP175–178 and full manual-heading integration remain open.
+
+## 2026-10-07 held bypass revalidation
+
+The v6 AI intent marker qualifies a held bypass against the assigned path's
+complete width horizon, the next paid lateral step and the immediate forward
+body sweep on every tick. A short escape may relax distant traffic prediction
+but cannot relax the upcoming width. The reactive approach fallback retains
+the current line only when the newly requested step is actually blocked; it
+cannot cancel an already checked escape. Observing a cross-branch blocker's
+side uses its world centre in the self forward/right frame, never a comparison
+of unrelated branch station numbers. These observations authorize no movement.
+The common field still repeats the complete body/width admission proof.
+
+Two full short-course Mass Start seeds now pass completion and unchanged
+continuous-stop/private-path limits. The owner expressly approved only the
+aggregate exit budget of 193 actor-ticks, previously 180; that decision is not
+a complete M13, all-traffic or manual-steering approval. Exact replay and the
+remaining player/Unity qualification are tracked in the dated TASK report.

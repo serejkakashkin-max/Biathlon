@@ -1,7 +1,6 @@
 {
   "schema_version": 2,
   "id": "woodland_basin_v1",
-  "ai_ski_policy_resource": "Biathlon/Venues/woodland_basin_v1/ai_ski_policy",
   "track_resource": "Biathlon/Venues/woodland_basin_v1/track",
   "visual_resource": "Biathlon/Venues/woodland_basin_v1/visual",
   "paths_resource": "Biathlon/Venues/woodland_basin_v1/paths",
@@ -73,7 +72,7 @@
       "id": "forest_climb",
       "anchor": {
         "loop_id": "main",
-        "distance_m": 216.357
+        "distance_m": 216.287
       },
       "offset": {
         "x": 12,
@@ -91,7 +90,7 @@
       "id": "ridge_broadcast",
       "anchor": {
         "loop_id": "main",
-        "distance_m": 442.173
+        "distance_m": 442.058
       },
       "offset": {
         "x": -10,
@@ -120,7 +119,7 @@
       "id": "forest_wind",
       "anchor": {
         "loop_id": "main",
-        "distance_m": 216.357
+        "distance_m": 216.287
       },
       "event_id": "ambience_forest_wind",
       "radius_m": 100
@@ -156,7 +155,8 @@
       "yaw_deg": 0
     }
   ],
+  "ai_range_traffic_resource": "Biathlon/Venues/woodland_basin_v1/ai_range_traffic",
+  "ai_ski_policy_resource": "Biathlon/Venues/woodland_basin_v1/ai_ski_policy",
   "format_bindings_resource": "Biathlon/Venues/woodland_basin_v1/format_bindings",
-  "shared_apron_resource": "Biathlon/Venues/woodland_basin_v1/shared_apron",
-  "ai_range_traffic_resource": "Biathlon/Venues/woodland_basin_v1/ai_range_traffic"
+  "shared_apron_resource": "Biathlon/Venues/woodland_basin_v1/shared_apron"
 }

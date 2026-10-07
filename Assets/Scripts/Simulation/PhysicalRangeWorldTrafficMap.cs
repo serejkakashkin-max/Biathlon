@@ -119,6 +119,24 @@ namespace Biathlon.Simulation
             try{map.Validate(point);}catch(ArgumentException){return false;}
             return corridors[point.LoopIndex]!=null;
         }
+        /// <summary>Read-only centre observation in the self body's local forward/
+        /// right frame. Different route stations are never compared across branches.
+        /// This observation grants no movement or collision clearance.</summary>
+        public bool TryObserveRelativeBody(PhysicalTrackPoint self,double selfLine,
+            PhysicalTrackPoint other,double otherLine,out double forward,out double right)
+        {
+            forward=right=0;
+            PhysiologyNumbers.RequireRange(selfLine,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,nameof(selfLine));
+            PhysiologyNumbers.RequireRange(otherLine,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,nameof(otherLine));
+            if(!Contains(self)||!Contains(other))return false;
+            var a=visual.Get(self.LoopId).Sample(self.LocalNanometers/(double)SkiState.NanometersPerMeter);
+            var b=visual.Get(other.LoopId).Sample(other.LocalNanometers/(double)SkiState.NanometersPerMeter);
+            double dx=b.X+b.ForwardZ*otherLine-a.X-a.ForwardZ*selfLine;
+            double dz=b.Z-b.ForwardX*otherLine-a.Z+a.ForwardX*selfLine;
+            forward=PhysiologyNumbers.Quantize(dx*a.ForwardX+dz*a.ForwardZ);
+            right=PhysiologyNumbers.Quantize(dx*a.ForwardZ-dz*a.ForwardX);
+            return true;
+        }
         private bool Covered(PhysicalOccupancySweep s)
         {
             try{map.Validate(s.Start);}catch(ArgumentException){return false;}

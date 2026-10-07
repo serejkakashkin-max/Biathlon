@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "id": "wp177_seed321_range_traffic_diagnosis_v1",
+  "note": "Failed timeout or threshold fixtures are rejected, not passing acceptance. Stop150 runs terminate diagnostically at 150 ticks and deliberately fail the original completion assertion.",
+  "runs": [
+    {
+      "id": "wp177-bounded-retain-current-seed321-stop150",
+      "test_status": "Failed",
+      "metrics": {
+        "stop_ticks": 4658,
+        "start": 30,
+        "main": 237,
+        "exit": 456,
+        "penalty": 100,
+        "mat": 247,
+        "other": 0,
+        "longest": 150,
+        "longest_main": 113,
+        "longest_exit": 150,
+        "longest_mat": 62
+      },
+      "recorded_block_chain": " [24 mat_25:11,451468573 line=-0,3 requested=-0,3 speed=0 block=Athlete:woodland_basin_v1_athlete_25 world_body=True] [25 exit_aisle:27,845574825 line=-0,9 requested=-0,8999999999999999 speed=3,498163513 block=None: world_body=False]"
+    },
+    {
+      "id": "wp177-current-pre-reactive-seed321-stop150",
+      "test_status": "Failed",
+      "metrics": {
+        "stop_ticks": 3543,
+        "start": 30,
+        "main": 316,
+        "exit": 0,
+        "penalty": 0,
+        "mat": 65,
+        "other": 0,
+        "longest": 150,
+        "longest_main": 150,
+        "longest_exit": 0,
+        "longest_mat": 15
+      },
+      "recorded_block_chain": " [12 mat_13:1,168024091 line=0 requested=0 speed=0 block=Athlete:woodland_basin_v1_athlete_8 world_body=True] [8 main:1057,247402421 line=0,45 requested=0,6499999999999999 speed=0,204331383 block=None: world_body=False]"
+    },
+    {
+      "id": "wp177-current-traffic-seed321-stop150",
+      "test_status": "Failed",
+      "metrics": {
+        "stop_ticks": 3397,
+        "start": 30,
+        "main": 304,
+        "exit": 0,
+        "penalty": 0,
+        "mat": 168,
+        "other": 0,
+        "longest": 150,
+        "longest_main": 147,
+        "longest_exit": 0,
+        "longest_mat": 150
+      },
+      "recorded_block_chain": " [12 mat_13:1,168024091 line=0 requested=0 speed=0 block=Athlete:woodland_basin_v1_athlete_8 world_body=True] [8 main:1057,237185792 line=0,35 requested=0,35 speed=0 block=Athlete:woodland_basin_v1_athlete_12 world_body=True]"
+    },
+    {
+      "id": "wp177-short-bounded-retain-seed321-stop150",
+      "test_status": "Failed",
+      "metrics": {
+        "stop_ticks": 16471,
+        "start": 30,
+        "main": 105,
+        "exit": 289,
+        "penalty": 16,
+        "mat": 911,
+        "other": 0,
+        "longest": 150,
+        "longest_main": 20,
+        "longest_exit": 17,
+        "longest_mat": 150
+      },
+      "recorded_block_chain": " [29 mat_22:11,451824815 line=-0,8 requested=-0,8 speed=0 block=Athlete:woodland_basin_v1_athlete_3 world_body=True] [3 exit_aisle:35,002732626 line=-1,6 requested=1,1 speed=0 block=Athlete:woodland_basin_v1_athlete_29 world_body=True]"
+    },
+    {
+      "id": "wp177-short-entry09-seed321-stop150",
+      "test_status": "Failed",
+      "metrics": {
+        "stop_ticks": 20281,
+        "start": 30,
+        "main": 169,
+        "exit": 202,
+        "penalty": 27,
+        "mat": 1787,
+        "other": 0,
+        "longest": 40,
+        "longest_main": 40,
+        "longest_exit": 15,
+        "longest_mat": 33
+      },
+      "recorded_block_chain": " [3 mat_22:11,451934137 line=-0,45 requested=-0,6 speed=0 block=Athlete:woodland_basin_v1_athlete_18 world_body=True] [18 exit_aisle:36,859427919 line=0,9 requested=0,9 speed=3,093319556 block=None: world_body=False]"
+    },
+    {
+      "id": "wp177-short-entry10-seed321-stop150",
+      "test_status": "Failed",
+      "metrics": {
+        "stop_ticks": 20701,
+        "start": 30,
+        "main": 81,
+        "exit": 300,
+        "penalty": 47,
+        "mat": 2089,
+        "other": 0,
+        "longest": 129,
+        "longest_main": 28,
+        "longest_exit": 78,
+        "longest_mat": 129
+      },
+      "recorded_block_chain": " [23 mat_18:11,451510154 line=-1,1 requested=-1,1 speed=0 block=Athlete:woodland_basin_v1_athlete_29 world_body=True] [29 exit_aisle:48,9765695 line=-2,1 requested=-2,1 speed=3,212122695 block=None: world_body=False]"
+    },
+    {
+      "id": "wp177-short-entry11-seed321-stop150",
+      "test_status": "Failed",
+      "metrics": {
+        "stop_ticks": 20511,
+        "start": 30,
+        "main": 62,
+        "exit": 123,
+        "penalty": 3,
+        "mat": 2074,
+        "other": 0,
+        "longest": 30,
+        "longest_main": 23,
+        "longest_exit": 17,
+        "longest_mat": 30
+      },
+      "recorded_block_chain": " [15 mat_13:2,671 line=0 requested=0 speed=0 block=Athlete:woodland_basin_v1_athlete_10 world_body=True] [10 mat_14:1,832730462 line=0,25 requested=0 speed=1,420553049 block=None: world_body=False]"
+    },
+    {
+      "id": "wp177-short-entry12-seed321-stop150",
+      "test_status": "Failed",
+      "metrics": {
+        "stop_ticks": 17247,
+        "start": 30,
+        "main": 3055,
+        "exit": 71,
+        "penalty": 154,
+        "mat": 1174,
+        "other": 0,
+        "longest": 150,
+        "longest_main": 133,
+        "longest_exit": 13,
+        "longest_mat": 40
+      },
+      "recorded_block_chain": " [24 mat_17:11,451122733 line=-0,75 requested=-0,75 speed=0 block=Athlete:woodland_basin_v1_athlete_29 world_body=True] [29 exit_aisle:51,704422285 line=0,9 requested=0,9 speed=2,731609775 block=None: world_body=False]"
+    },
+    {
+      "id": "wp177-short-entry125-seed321-stop150",
+      "test_status": "Failed",
+      "metrics": {
+        "stop_ticks": 11540,
+        "start": 30,
+        "main": 2001,
+        "exit": 61,
+        "penalty": 11,
+        "mat": 784,
+        "other": 0,
+        "longest": 150,
+        "longest_main": 150,
+        "longest_exit": 18,
+        "longest_mat": 85
+      },
+      "recorded_block_chain": " [13 mat_14:11,451009257 line=-0,6 requested=-0,6 speed=0 block=Athlete:woodland_basin_v1_athlete_18 world_body=True] [18 exit_aisle:60,742797382 line=0,9 requested=0,9 speed=3,496874041 block=None: world_body=False]"
+    },
+    {
+      "id": "wp177-short-entry13-seed321-stop150",
+      "test_status": "Failed",
+      "metrics": {
+        "stop_ticks": 4755,
+        "start": 30,
+        "main": 630,
+        "exit": 233,
+        "penalty": 233,
+        "mat": 266,
+        "other": 0,
+        "longest": 150,
+        "longest_main": 113,
+        "longest_exit": 150,
+        "longest_mat": 35
+      },
+      "recorded_block_chain": " [4 mat_05:11,451957342 line=-0,05 requested=0 speed=0 block=Athlete:woodland_basin_v1_athlete_7 world_body=True] [7 exit_aisle:87,780812902 line=-1,3 requested=-1,3 speed=3,337233583 block=None: world_body=False]"
+    },
+    {
+      "id": "wp177-short-lookahead15-seed321-stop150",
+      "test_status": "Failed",
+      "metrics": {
+        "stop_ticks": 3358,
+        "start": 30,
+        "main": 201,
+        "exit": 0,
+        "penalty": 0,
+        "mat": 165,
+        "other": 0,
+        "longest": 150,
+        "longest_main": 147,
+        "longest_exit": 0,
+        "longest_mat": 150
+      },
+      "recorded_block_chain": " [12 mat_13:1,168227806 line=0 requested=0 speed=0 block=Athlete:woodland_basin_v1_athlete_6 world_body=True] [6 main:1057,238535199 line=0,35 requested=0,35 speed=0 block=Athlete:woodland_basin_v1_athlete_12 world_body=True]"
+    },
+    {
+      "id": "wp177-short-pre-reactive-seed321-stop150",
+      "test_status": "Failed",
+      "metrics": {
+        "stop_ticks": 20438,
+        "start": 30,
+        "main": 108,
+        "exit": 450,
+        "penalty": 113,
+        "mat": 944,
+        "other": 0,
+        "longest": 126,
+        "longest_main": 13,
+        "longest_exit": 87,
+        "longest_mat": 126
+      },
+      "recorded_block_chain": " [19 mat_20:11,451198614 line=-1 requested=-1 speed=0 block=Athlete:woodland_basin_v1_athlete_28 world_body=True] [28 exit_aisle:42,876265591 line=0,3 requested=0,3 speed=3,07950388 block=None: world_body=False]"
+    },
+    {
+      "id": "wp177-short-traffic-seed321-25k",
+      "test_status": "Failed",
+      "metrics": {
+        "stop_ticks": 25000,
+        "start": 30,
+        "main": 220675,
+        "exit": 199,
+        "penalty": 84,
+        "mat": 44785,
+        "other": 0,
+        "longest": 21792,
+        "longest_main": 21789,
+        "longest_exit": 15,
+        "longest_mat": 21792
+      },
+      "recorded_block_chain": " [12 mat_13:1,168227806 line=0 requested=0 speed=0 block=Athlete:woodland_basin_v1_athlete_4 world_body=True] [4 main:1057,129342908 line=-0,65 requested=-0,65 speed=0 block=Athlete:woodland_basin_v1_athlete_12 world_body=True]"
+    }
+  ]
+}

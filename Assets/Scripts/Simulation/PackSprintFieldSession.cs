@@ -210,7 +210,7 @@ namespace Biathlon.Simulation
         {
             if(index<0||index>=Count)throw new ArgumentOutOfRangeException(nameof(index));
             PhysiologyNumbers.RequireRange(line,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,nameof(line));
-            PhysiologyNumbers.RequireRange(lookaheadMeters,.1,100,nameof(lookaheadMeters));
+            PhysiologyNumbers.RequireRange(lookaheadMeters,.001,100,nameof(lookaheadMeters));
             if(rangeWorldTraffic==null||GetAthlete(index).ActiveShooting!=null)return false;
             var point=GetPhysicalPoint(index);
             if(!rangeWorldTraffic.Contains(point)||!FitsBypassPathWidth(index,point,line,(long)Math.Round(lookaheadMeters*SkiState.NanometersPerMeter)))return false;
@@ -225,6 +225,31 @@ namespace Biathlon.Simulation
                     rangeWorldTraffic.TailConflicts(tails[j].Point,tails[j].Lateral,sweep,tails[j].ConnectionIndex,pose))return false;
             }
             return true;
+        }
+        /// <summary>Observe the last proven world-body blocker in the current
+        /// body's right frame, including bodies on a different branch.</summary>
+        public bool TryObserveInitialWorldBlockerSide(int index,out double right)
+        {
+            if(index<0||index>=Count)throw new ArgumentOutOfRangeException(nameof(index));
+            right=0;var block=initialBlocks[index];
+            if(rangeWorldTraffic==null||!block.WorldBodyConflict||block.Kind!=PackMovementBlockKind.Athlete)return false;
+            for(int j=0;j<Count;j++)if(j!=index&&IsOnCourse(j)&&GetAthlete(j).AthleteId.Equals(block.Blocker))
+                return rangeWorldTraffic.TryObserveRelativeBody(GetPhysicalPoint(index),lateral[index],
+                    GetPhysicalPoint(j),lateral[j],out _,out right);
+            return false;
+        }
+        /// <summary>Width-only planning horizon, independent of bodies occupying
+        /// the forward lane. A short congestion escape may relax body lookahead
+        /// but still must fit the upcoming assigned corridor.</summary>
+        public bool IsRangeWorldBypassLaneWidthClear(int index,double line,double lookaheadMeters)
+        {
+            if(index<0||index>=Count)throw new ArgumentOutOfRangeException(nameof(index));
+            PhysiologyNumbers.RequireRange(line,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,nameof(line));
+            PhysiologyNumbers.RequireRange(lookaheadMeters,.001,100,nameof(lookaheadMeters));
+            if(rangeWorldTraffic==null||GetAthlete(index).ActiveShooting!=null)return false;
+            var point=GetPhysicalPoint(index);
+            return rangeWorldTraffic.Contains(point)&&FitsBypassPathWidth(index,point,line,
+                (long)Math.Round(lookaheadMeters*SkiState.NanometersPerMeter));
         }
         public bool IsRangeWorldLateralRequestClear(int index,double requested,double previewMeters)
         {
@@ -265,7 +290,7 @@ namespace Biathlon.Simulation
             if(!FitsLoopEnvelope(point,line))return false;
             var actor=GetAthlete(index);
             if(actor.CurrentRangeMotion?.Phase!=RangeTraversalPhase.PenaltyLoop&&
-                !FitsRouteEnvelope(actor.RangePath,actor.RouteNanometers,line))return false;
+                !FitsRouteEnvelope(actor.RangePath,actor.RouteNanometers,line,forward))return false;
             // The body's front can already enter a narrower penalty lane while
             // its centre is still on the wide exit aisle. Match that admission
             // envelope rather than repeatedly proposing an impossible outward step.
@@ -961,10 +986,13 @@ namespace Biathlon.Simulation
                 start = Math.Min(end, next);
             }
         }
-        private bool FitsRouteEnvelope(PhysicalRangePathMap path, long routePoint, double line)
+        private bool FitsRouteEnvelope(PhysicalRangePathMap path, long routePoint, double line, long forward = 0)
         {
             long start = Math.Max(0, routePoint - halfBody);
-            long end = Math.Min(checked(Route.Length.Millimeters * SkiState.NanometersPerMillimeter), routePoint + halfBody);
+            // Preview the assigned route, including a private mat fork. Checking
+            // only the current corridor can repeatedly select a line that fits
+            // Main but cannot advance into the narrower path immediately ahead.
+            long end = Math.Min(checked(Route.Length.Millimeters * SkiState.NanometersPerMillimeter), checked(routePoint + halfBody + forward));
             while (true)
             {
                 if (!widths.FitsWidth(line, path.SampleRoute(start).WidthMeters)) return false;

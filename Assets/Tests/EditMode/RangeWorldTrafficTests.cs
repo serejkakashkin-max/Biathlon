@@ -50,6 +50,23 @@ namespace Biathlon.Tests
         }
         private static PhysicalRangeWorldTrafficMap Map(PackAiRaceRunner runner)=>(PhysicalRangeWorldTrafficMap)typeof(PackSprintFieldSession).GetField("rangeWorldTraffic",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(runner.Field);
         private static PhysicalTrackMap Physical(PackAiRaceRunner runner)=>(PhysicalTrackMap)typeof(PackSprintFieldSession).GetField("map",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(runner.Field);
+        [Test] public void CrossBranchBlockerObservationUsesWorldCentresAndRightNormals()
+        {
+            var runner=Create(true,1);var map=Map(runner);var physical=Physical(runner);
+            var main=physical.MapLoop("main",1158505697148L);
+            var penalty=physical.MapLoop("penalty_150",7499004338L);
+            Assert.That(map.TryObserveRelativeBody(main,.55,penalty,-1.6,out double forward,out double right),Is.True);
+            Assert.That(right,Is.LessThan(0),"The penalty body is physically left of the Main body despite unrelated route stations.");
+            Assert.That(map.TryObserveRelativeBody(penalty,-1.6,main,.55,out _,out double reverseRight),Is.True);
+            Assert.That(reverseRight,Is.GreaterThan(0),"The penalty athlete must select the opposite physical side.");
+            Assert.That(map.TryObserveRelativeBody(main,.85,penalty,-1.6,out double shiftedForward,out double shiftedRight),Is.True);
+            Assert.That(shiftedRight,Is.EqualTo(right-.3).Within(1e-8));
+            Assert.That(shiftedForward,Is.EqualTo(forward).Within(1e-8));
+            Assert.Catch(()=>map.TryObserveRelativeBody(main,double.NaN,penalty,0,out _,out _));
+            long before=GC.GetAllocatedBytesForCurrentThread();
+            for(int i=0;i<1000;i++)map.TryObserveRelativeBody(main,.55,penalty,-1.6,out _,out _);
+            Assert.That(GC.GetAllocatedBytesForCurrentThread()-before,Is.Zero);
+        }
         [Test] public void BypassMustRejectSubNanometerGoalsThatCommitAsNoMovement()
         {
             var runner=Create(true,1);for(int i=0;i<1000;i++)runner.Step();
@@ -302,11 +319,36 @@ namespace Biathlon.Tests
             Assert.Throws<ArgumentOutOfRangeException>(()=>field.IsRangeWorldForwardLaneClear(-1,0,5));
             Assert.Catch(()=>field.IsRangeWorldForwardLaneClear(0,double.NaN,5));
             Assert.Catch(()=>field.IsRangeWorldForwardLaneClear(0,0,0));
+            Assert.Throws<ArgumentOutOfRangeException>(()=>field.IsRangeWorldBypassLaneWidthClear(-1,0,5));
+            Assert.Catch(()=>field.IsRangeWorldBypassLaneWidthClear(0,double.NaN,5));
+            Assert.Catch(()=>field.IsRangeWorldBypassLaneWidthClear(0,0,0));
             var frame=field.GetAthlete(0).LastFrame;long tick=field.Tick.Value;double line=field.GetLateral(0);
-            for(int i=0;i<100;i++){field.IsRangeWorldLateralRequestClear(0,.3,.3);field.IsRangeWorldForwardLaneClear(0,.3,5);}
-            long before=GC.GetAllocatedBytesForCurrentThread();for(int i=0;i<1000;i++){field.IsRangeWorldLateralRequestClear(0,.3,.3);field.IsRangeWorldForwardLaneClear(0,.3,5);}
+            for(int i=0;i<100;i++){field.IsRangeWorldLateralRequestClear(0,.3,.3);field.IsRangeWorldForwardLaneClear(0,.3,5);field.IsRangeWorldBypassLaneWidthClear(0,.3,5);}
+            long before=GC.GetAllocatedBytesForCurrentThread();for(int i=0;i<1000;i++){field.IsRangeWorldLateralRequestClear(0,.3,.3);field.IsRangeWorldForwardLaneClear(0,.3,5);field.IsRangeWorldBypassLaneWidthClear(0,.3,5);}
             Assert.That(GC.GetAllocatedBytesForCurrentThread()-before,Is.Zero);
             Assert.That(field.Tick.Value,Is.EqualTo(tick));Assert.That(field.GetLateral(0),Is.EqualTo(line));Assert.That(field.GetAthlete(0).LastFrame,Is.EqualTo(frame));
+        }
+        [Test] public void ApproachBypassLookaheadRespectsTheAssignedNarrowMatPath()
+        {
+            var runner=Create(true,1);var field=runner.Field;
+            var fits=typeof(PackSprintFieldSession).GetMethod("FitsBypassPathWidth",BindingFlags.Instance|BindingFlags.NonPublic);
+            bool witnessed=false;
+            for(int t=0;t<6000&&!witnessed;t++)
+            {
+                runner.Step();var actor=field.GetAthlete(0);var point=field.GetPhysicalPoint(0);
+                if(point.LoopId!="main"||actor.CurrentRangeMotion?.Phase!=RangeTraversalPhase.Approach)continue;
+                long fork=actor.RangePath.LaneForkRouteNanometers(0);
+                long remaining=fork-actor.RouteNanometers;
+                if(remaining<2*SkiState.NanometersPerMeter||remaining>4*SkiState.NanometersPerMeter)continue;
+                witnessed=true;
+                Assert.That((bool)fits.Invoke(field,new object[]{0,point,1.3,0L}),Is.True);
+                Assert.That((bool)fits.Invoke(field,new object[]{0,point,1.3,5*SkiState.NanometersPerMeter}),Is.False,
+                    "The forward escape must fit the assigned private path, not just the shared main corridor.");
+                Assert.That(field.IsRangeWorldBypassLaneWidthClear(0,1.3,5),Is.False);
+                Assert.That(field.IsRangeWorldBypassLaneWidthClear(0,0,5),Is.True);
+                Assert.That((bool)fits.Invoke(field,new object[]{0,point,0d,5*SkiState.NanometersPerMeter}),Is.True);
+            }
+            Assert.That(witnessed,Is.True);
         }
         [Test] public void ExitBypassLookaheadRespectsNarrowPenaltyEntryBeforeTheCentreReachesIt()
         {

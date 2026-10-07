@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "id": "wp177_range_bypass_qualification_v6",
+  "scope": "Short-course Mass Start30 fixed seeds, legacy Pack movement; not manual-host or M13 closure",
+  "exit_actor_tick_budget": 193,
+  "owner_approval_date": "2026-10-07",
+  "continuous_stop_limit_ticks": 75,
+  "private_path_actor_tick_limit": 700,
+  "runs": [
+    {
+      "trx": "wp177-held-forward-short-seed123.trx",
+      "tests": [
+        {
+          "name": "FullMassStartRecordsWhereMovingIntentWasStationary",
+          "outcome": "Passed",
+          "metrics": {
+            "seed": 123,
+            "stop_ticks": 20691,
+            "start": 32,
+            "main": 210,
+            "exit": 76,
+            "penalty": 7,
+            "mat": 394,
+            "other": 0,
+            "longest": 36,
+            "longest_main": 18,
+            "longest_exit": 16,
+            "longest_mat": 36,
+            "longest_penalty": 3
+          }
+        }
+      ]
+    },
+    {
+      "trx": "wp177-held-forward-final-seed321.trx",
+      "tests": [
+        {
+          "name": "FullMassStartRecordsWhereMovingIntentWasStationary",
+          "outcome": "Passed",
+          "metrics": {
+            "seed": 321,
+            "stop_ticks": 20737,
+            "start": 30,
+            "main": 165,
+            "exit": 166,
+            "penalty": 31,
+            "mat": 595,
+            "other": 0,
+            "longest": 70,
+            "longest_main": 16,
+            "longest_exit": 29,
+            "longest_mat": 70,
+            "longest_penalty": 11
+          }
+        }
+      ]
+    },
+    {
+      "trx": "wp177-held-forward-final-focused.trx",
+      "tests": [
+        {
+          "name": "PaidWorldEscapeScopeRequiresAnExplicitPolicyAndExactRouteGeometry",
+          "outcome": "Passed"
+        },
+        {
+          "name": "ExactPenaltyAndExitSweepsAllowSeparatedLinesButContactWrapAndUnknownGeometryBlock",
+          "outcome": "Passed"
+        },
+        {
+          "name": "WorldEscapePolicyIsBoundedCompleteAndQueriesAreReadOnlyWithoutAllocations",
+          "outcome": "Passed"
+        },
+        {
+          "name": "CrossBranchBlockerObservationUsesWorldCentresAndRightNormals",
+          "outcome": "Passed"
+        },
+        {
+          "name": "FirstRangeApproachDoesNotCancelAnAvailablePaidBypass",
+          "outcome": "Passed"
+        },
+        {
+          "name": "LaterLapMainPassageMustNotWaitForAnotherMainBodyAtTheStartJoin",
+          "outcome": "Passed"
+        },
+        {
+          "name": "SingleIncidentPortProofRejectsSelfCrossingsAndStaysAllocationFree",
+          "outcome": "Passed"
+        },
+        {
+          "name": "ActualQualifiedPursuitFortyClearsTheMainAndPenaltyReturnWithoutCircularWait",
+          "outcome": "Passed"
+        },
+        {
+          "name": "ApproachBypassLookaheadRespectsTheAssignedNarrowMatPath",
+          "outcome": "Passed"
+        },
+        {
+          "name": "BypassMustRejectSubNanometerGoalsThatCommitAsNoMovement",
+          "outcome": "Passed"
+        },
+        {
+          "name": "ExitBypassLookaheadRespectsNarrowPenaltyEntryBeforeTheCentreReachesIt",
+          "outcome": "Passed"
+        },
+        {
+          "name": "ActualSixAthleteExitPrefixKeepsPaidBodiesAndReplaysWithoutAi",
+          "outcome": "Passed"
+        },
+        {
+          "name": "FirstPenaltyMergeRechecksTheHeldEscapeAgainstForwardBodies",
+          "outcome": "Passed"
+        },
+        {
+          "name": "ActualSprintFortyPrefixDoesNotTrapTheFieldBeforeItsBranchSeam",
+          "outcome": "Passed"
+        },
+        {
+          "name": "SeparatedSprintBranchBodiesMustNotClaimAnExclusivePointGuard",
+          "outcome": "Passed"
+        },
+        {
+          "name": "ActualThirtyBodyRepeatedPenaltyMergeDoesNotDeadlockOrEscapeAwayFromAMat",
+          "outcome": "Passed"
+        },
+        {
+          "name": "IndexedWorldBoundsExactlyMatchExhaustiveProjectionAtKnotsAndInsideEdges",
+          "outcome": "Passed"
+        }
+      ]
+    },
+    {
+      "trx": "wp177-held-forward-final-replay.trx",
+      "tests": [
+        {
+          "name": "ThirtyAthleteWoodlandMassStartPersistsAndReplaysExactFieldState",
+          "outcome": "Passed"
+        }
+      ]
+    },
+    {
+      "trx": "wp177-held-forward-final-player-exit.trx",
+      "tests": [
+        {
+          "name": "PlayerHeldOnActualExitDoesNotProduceAStationaryFollowerQueue",
+          "outcome": "Failed"
+        },
+        {
+          "name": "PlayerHeldAfterThirdBoutDoesNotProduceAStationaryFollowerQueue",
+          "outcome": "Passed"
+        }
+      ]
+    },
+    {
+      "trx": "wp177-held-forward-final-player-same-route.trx",
+      "tests": [
+        {
+          "name": "PlayerHeldAfterThirdBoutDoesNotProduceAStationaryFollowerQueue",
+          "outcome": "Passed",
+          "telemetry": "scouted_bout=3 player=4 scout_tick=11641\r\nheld_exit_tick=11641 station_m=115,018465326\r\nheld_ticks=240 nearby_at_hold=1 max_follower_stall=0 followers_passing=1 player_final=main:1183,696109691 speed=3,721888596\r\nfollower=0 final=main:8,515061031 speed=9,005157674 line=-1,2"
+        },
+        {
+          "name": "PlayerHeldOnActualExitDoesNotProduceAStationaryFollowerQueue",
+          "outcome": "Passed",
+          "telemetry": "scouted_bout=2 player=9 scout_tick=7607\r\nheld_exit_tick=7607 station_m=115,099873168\r\nheld_ticks=240 nearby_at_hold=1 max_follower_stall=0 followers_passing=1 player_final=penalty_150:26,958637411 speed=3,265040642\r\nfollower=14 final=penalty_150:47,162293159 speed=8,167635028 line=-1,3"
+        }
+      ]
+    }
+  ],
+  "production_assets_promoted": true
+}

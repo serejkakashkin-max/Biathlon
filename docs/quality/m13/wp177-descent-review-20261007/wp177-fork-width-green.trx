@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="47184648-68e4-4ee1-8be1-ae7dc78bdba8" name="snkashkin@DESKTOP-G3075GA 2026-10-07 20:54:02" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-07T20:54:02.9822850+03:00" queuing="2026-10-07T20:54:02.9822851+03:00" start="2026-10-07T20:53:48.5446720+03:00" finish="2026-10-07T20:54:12.7353692+03:00" />
+  <TestSettings name="default" id="dc88a452-5167-474d-9c19-1605bd438103">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-07_20_54_02" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="89467e1b-a1e9-4ebc-93e6-248357c1d98c" testId="dd8412e8-4f00-0ca6-10bb-c306602812ca" testName="FirstRangeApproachDoesNotCancelAnAvailablePaidBypass" computerName="DESKTOP-G3075GA" duration="00:00:13.8713760" startTime="2026-10-07T20:53:49.0739242+03:00" endTime="2026-10-07T20:54:02.9451732+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="89467e1b-a1e9-4ebc-93e6-248357c1d98c" />
+    <UnitTestResult executionId="8fb71d74-9b94-4db8-aef8-8904de9ed7e4" testId="1eaeb182-4ead-500b-e2ed-dc91ed5674e2" testName="ApproachBypassLookaheadRespectsTheAssignedNarrowMatPath" computerName="DESKTOP-G3075GA" duration="00:00:02.7971309" startTime="2026-10-07T20:54:02.9472402+03:00" endTime="2026-10-07T20:54:05.7443571+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8fb71d74-9b94-4db8-aef8-8904de9ed7e4" />
+    <UnitTestResult executionId="c42e77e4-0ba0-4946-85be-2dbfc539dbc8" testId="345cb5b6-b4ba-f7a4-fe41-8aeede2dda71" testName="ExitBypassLookaheadRespectsNarrowPenaltyEntryBeforeTheCentreReachesIt" computerName="DESKTOP-G3075GA" duration="00:00:03.8797290" startTime="2026-10-07T20:54:05.7443918+03:00" endTime="2026-10-07T20:54:09.6241022+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c42e77e4-0ba0-4946-85be-2dbfc539dbc8" />
+    <UnitTestResult executionId="f464de61-3c11-4f7d-bca3-137b628a288b" testId="f67c6314-1dec-988f-5313-50914150c6d4" testName="WorldEscapePolicyIsBoundedCompleteAndQueriesAreReadOnlyWithoutAllocations" computerName="DESKTOP-G3075GA" duration="00:00:02.9473630" startTime="2026-10-07T20:54:09.6241284+03:00" endTime="2026-10-07T20:54:12.5714759+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f464de61-3c11-4f7d-bca3-137b628a288b" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ApproachBypassLookaheadRespectsTheAssignedNarrowMatPath" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="1eaeb182-4ead-500b-e2ed-dc91ed5674e2">
+      <Execution id="8fb71d74-9b94-4db8-aef8-8904de9ed7e4" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RangeWorldTrafficTests" name="ApproachBypassLookaheadRespectsTheAssignedNarrowMatPath" />
+    </UnitTest>
+    <UnitTest name="ExitBypassLookaheadRespectsNarrowPenaltyEntryBeforeTheCentreReachesIt" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="345cb5b6-b4ba-f7a4-fe41-8aeede2dda71">
+      <Execution id="c42e77e4-0ba0-4946-85be-2dbfc539dbc8" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RangeWorldTrafficTests" name="ExitBypassLookaheadRespectsNarrowPenaltyEntryBeforeTheCentreReachesIt" />
+    </UnitTest>
+    <UnitTest name="FirstRangeApproachDoesNotCancelAnAvailablePaidBypass" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="dd8412e8-4f00-0ca6-10bb-c306602812ca">
+      <Execution id="89467e1b-a1e9-4ebc-93e6-248357c1d98c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerM13ExitQueueTests" name="FirstRangeApproachDoesNotCancelAnAvailablePaidBypass" />
+    </UnitTest>
+    <UnitTest name="WorldEscapePolicyIsBoundedCompleteAndQueriesAreReadOnlyWithoutAllocations" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="f67c6314-1dec-988f-5313-50914150c6d4">
+      <Execution id="f464de61-3c11-4f7d-bca3-137b628a288b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RangeWorldTrafficTests" name="WorldEscapePolicyIsBoundedCompleteAndQueriesAreReadOnlyWithoutAllocations" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="dd8412e8-4f00-0ca6-10bb-c306602812ca" executionId="89467e1b-a1e9-4ebc-93e6-248357c1d98c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1eaeb182-4ead-500b-e2ed-dc91ed5674e2" executionId="8fb71d74-9b94-4db8-aef8-8904de9ed7e4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="345cb5b6-b4ba-f7a4-fe41-8aeede2dda71" executionId="c42e77e4-0ba0-4946-85be-2dbfc539dbc8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f67c6314-1dec-988f-5313-50914150c6d4" executionId="f464de61-3c11-4f7d-bca3-137b628a288b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 4 of 4 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -1,5 +1,6 @@
 #if !UNITY_EDITOR
 using System;
+using System.Globalization;
 using System.Text.Json;
 using Biathlon.AI;
 using Biathlon.Domain;
@@ -13,19 +14,32 @@ namespace Biathlon.Tests
     /// traffic alone cannot prove that a player will never queue.</summary>
     public sealed class WoodlandTrafficStopBaselineTests
     {
+        // Owner 2026-10-07 explicitly approved the measured short-course
+        // seed-321 total of 193 actor-ticks (previous review budget: 180).
+        // Completion, continuous-stop and private-path budgets remain separate.
+        private const long OwnerApprovedExitStoppedActorTicks = 193;
         private static string Read(string id)=>OwnerM13ExitQueueTests.Read(id);
 
         [Test,Timeout(600000)]
         public void FullMassStartRecordsWhereMovingIntentWasStationary()
         {
             const string root="Biathlon/Venues/woodland_basin_v1/";
+            string seedText=Environment.GetEnvironmentVariable("BIATHLON_TEST_TRAFFIC_SEED");
+            ulong seed=string.IsNullOrEmpty(seedText)?123UL:ulong.Parse(seedText,CultureInfo.InvariantCulture);
+            string limitText=Environment.GetEnvironmentVariable("BIATHLON_TEST_TRAFFIC_TICK_LIMIT");
+            long tickLimit=string.IsNullOrEmpty(limitText)?50000:long.Parse(limitText,CultureInfo.InvariantCulture);
+            Assert.That(tickLimit,Is.GreaterThan(0));
+            string stopText=Environment.GetEnvironmentVariable("BIATHLON_TEST_TRAFFIC_DIAGNOSTIC_STOP_LIMIT");
+            int diagnosticStopLimit=string.IsNullOrEmpty(stopText)?int.MaxValue:
+                int.Parse(stopText,CultureInfo.InvariantCulture);
+            Assert.That(diagnosticStopLimit,Is.GreaterThan(0));
             var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(root+"manifest")),Read);
             var audit=new BalanceEventAudit(5);
             var runner=ProductionVenueRaceFactory.Create(venue,
                 CompetitionProfile.FromJson(Read(root+"mass_start_profile")),
                 RaceRoutePlan.FromJson(Read(root+"mass_start_route")),
                 RaceSnowConditions.FromJson(Read("Biathlon/race_snow_neutral_v1")),
-                PhysiologyContractTests.DefinitionJson,audit,new AiDecisionCounts(),count:30,seed:123);
+                PhysiologyContractTests.DefinitionJson,audit,new AiDecisionCounts(),count:30,seed:seed);
             var prior=new long[runner.Field.Count];var streak=new int[runner.Field.Count];
             var stopsByLoopAndBout=new long[5][];
             var blockByLoopAndKind=new long[5][];
@@ -37,10 +51,11 @@ namespace Biathlon.Tests
             long draftingActorTicks=0,overtakeIntentActorTicks=0,stopEpisodeStarts=0;
             double draftReductionSum=0;
             int maximumConcurrentStops=0;long maximumConcurrentTick=0;
-            int longest=0,longestMain=0,longestExit=0,longestMat=0;
+            int longest=0,longestMain=0,longestExit=0,longestMat=0,longestPenalty=0;
             string longestMainAt="",longestExitAt="",longestMatAt="";
             string matBlockChain="";
-            while(!runner.Field.IsComplete&&runner.Field.Tick.Value<50000)
+            string penaltyBlockChain="";
+            while(!runner.Field.IsComplete&&runner.Field.Tick.Value<tickLimit&&longest<diagnosticStopLimit)
             {
                 for(int i=0;i<prior.Length;i++)prior[i]=runner.Field.GetAthlete(i).Motion.DistanceNanometers;
                 runner.Step();
@@ -103,7 +118,11 @@ namespace Biathlon.Tests
                                     }
                             }
                             break;
-                        case "penalty_150":penalty++;break;
+                        case "penalty_150":
+                            penalty++;
+                            if(streak[i]>longestPenalty)
+                            {longestPenalty=streak[i];penaltyBlockChain=CaptureBlockChain(runner,i);}
+                            break;
                         default:
                             if(loop.StartsWith("mat_",System.StringComparison.Ordinal))
                             {
@@ -150,7 +169,7 @@ namespace Biathlon.Tests
                 if(concurrentStops>maximumConcurrentStops)
                 {maximumConcurrentStops=concurrentStops;maximumConcurrentTick=runner.Field.Tick.Value;}
             }
-            TestContext.WriteLine("wp177_mass30_stop_ticks="+runner.Field.Tick.Value+
+            TestContext.WriteLine("wp177_mass30_seed="+seed+" stop_ticks="+runner.Field.Tick.Value+
                 " start="+start+" main="+main+" exit="+exit+" penalty="+penalty+
                 " mat="+mat+" other="+other+" longest="+longest+
                 " longest_main="+longestMain+" longest_main_at="+longestMainAt+
@@ -161,6 +180,7 @@ namespace Biathlon.Tests
                 " mat_body_block="+matBodyBlock+" mat_world_body_block="+matWorldBodyBlock+
                 " mat_unclassified="+matUnclassified+
                 " longest_mat_at="+longestMatAt);
+            TestContext.WriteLine("wp177_penalty_longest="+longestPenalty+" block_chain="+penaltyBlockChain);
             TestContext.WriteLine("wp177_mat_block_chain="+matBlockChain);
             TestContext.WriteLine("wp177_traffic_diagnostic_v2="+JsonSerializer.Serialize(new
             {
@@ -185,7 +205,7 @@ namespace Biathlon.Tests
             Assert.That(longest,Is.LessThanOrEqualTo(75),
                 "The full 30-athlete field must not form another multi-second stationary queue.");
             Assert.That(mat,Is.LessThanOrEqualTo(700));
-            Assert.That(exit,Is.LessThanOrEqualTo(180));
+            Assert.That(exit,Is.LessThanOrEqualTo(OwnerApprovedExitStoppedActorTicks));
         }
         private static string CaptureBlockChain(PackAiRaceRunner runner,int start)
         {

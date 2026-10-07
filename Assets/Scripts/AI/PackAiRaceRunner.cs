@@ -170,7 +170,7 @@ namespace Biathlon.AI
                 context.Add(rangeTrafficPolicy.ToJson());
                 if(physicalRadius!=policy.PhysicalRadius)context.Add("range_traffic_observed_radius_m:"+physicalRadius.ToString("R",CultureInfo.InvariantCulture));
                 context.Add("ai_physical_range_safe_alignment_v1;actual_traversal_exit;stationary_body_clearance;paid_lateral;player_intent_preserved");
-                if(worldBypassPolicy!=null)context.Add("ai_range_world_anticipatory_paid_lateral_escape_v4;shared_corridors_post_shoot_departure_and_paid_main;observed_forward_body_side;bounded_goal_hold;paid_range_frontage_minimum_from_entry_line;ordinary_drive;full_field_revalidation;player_intent_preserved");
+                if(worldBypassPolicy!=null)context.Add("ai_range_world_anticipatory_paid_lateral_escape_v6;shared_corridors_post_shoot_departure_and_paid_main;observed_forward_body_side;bounded_goal_hold;paid_range_frontage_minimum_from_entry_line;reactive_retention_only_when_requested_step_blocked;assigned_route_width_horizon;held_escape_next_step_and_forward_revalidation;short_escape_keeps_width_horizon;actual_cross_branch_blocker_side;ordinary_drive;full_field_revalidation;player_intent_preserved");
                 if(forkYieldPolicy!=null)context.Add("ai_range_earlier_private_fork_yield_v1;selected_fork_route_order;adjacent_outer_body;positive_effort;ordinary_paid_world_body_admission;player_intent_preserved");
             }
             for(int i=0;i<n;i++)
@@ -318,9 +318,19 @@ namespace Biathlon.AI
                     !onSharedStart&&(alignRange||point.LoopId==Field.Track.Range.Entry.LoopId||
                         worldBypassPolicy.WorldBypassPaidRouteLoops&&Field.HasPaidRouteWorldGeometry(point))&&
                     (point.LoopId!=actor.RangePath.MatAnchor.LoopId||actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.RangeExit);
-                if(canEscapeRange&&tick.Value<escapeUntil[i])
+                bool holdingRangeEscape=canEscapeRange&&tick.Value<escapeUntil[i];
+                // The observed bodies can change while a goal is being held.
+                // Revalidate the next paid step; an invalid old goal must not
+                // suppress a newly available side for the whole hold interval.
+                bool rangeEscapeStillClear=holdingRangeEscape&&
+                    Field.IsRangeWorldBypassLaneWidthClear(i,escapeLine[i],
+                        worldBypassPolicy.WorldBypassLookaheadMeters??worldBypassPolicy.WorldBypassPreview.Value)&&
+                    Field.IsRangeWorldForwardLaneClear(i,escapeLine[i],worldBypassPolicy.WorldBypassPreview.Value)&&
+                    (escapeLine[i]==Field.GetLateral(i)||
+                        Field.IsRangeWorldLateralRequestClear(i,escapeLine[i],worldBypassPolicy.WorldBypassPreview.Value));
+                if(rangeEscapeStillClear)
                 {lateral[i]=escapeLine[i];rangeTrafficPlans[i]=new AiRangeTrafficPlan(true,false,lateral[i]);}
-                else if(canEscapeRange&&(stationaryObservedTicks[i]>=Math.Ceiling(worldBypassPolicy.WorldBypassAfterSeconds.Value*frequency)||
+                else if(canEscapeRange&&(holdingRangeEscape||stationaryObservedTicks[i]>=Math.Ceiling(worldBypassPolicy.WorldBypassAfterSeconds.Value*frequency)||
                     window.DecisionDue&&worldBypassPolicy.WorldBypassLookaheadMeters.HasValue&&
                     point.LoopId!=Field.Track.Penalty.LoopId&&point.LoopId!=actor.RangePath.MatAnchor.LoopId&&
                     (actor.CurrentRangeMotion==null&&Field.HasPaidRouteWorldGeometry(point)||
@@ -336,6 +346,8 @@ namespace Biathlon.AI
                     bool preferRight=count>0&&AiRangeBypassSide.PreferRight(roster,
                         worldBypassPolicy.WorldBypassLookaheadMeters??worldBypassPolicy.WorldBypassPreview.Value,
                         occupancy.Definition.LateralSeparation+laneDefinition.PassingClearance);
+                    if(Field.TryObserveInitialWorldBlockerSide(i,out double blockerRight))
+                        preferRight=blockerRight<0||blockerRight==0&&Field.GetLateral(i)<=0;
                     bool selectedEscape=false;
                     for(int passIndex=0;passIndex<(stalledEscape?2:1)&&!selectedEscape;passIndex++)
                     for(int p=1;p<=probes;p++)
@@ -347,7 +359,9 @@ namespace Biathlon.AI
                     }
                     // A congested long horizon must not suppress an available short
                     // paid escape after stopping. Both remain ordinary checked input.
-                    bool Clear(double line,bool shortEscape)=>Field.IsRangeWorldLateralRequestClear(i,line,worldBypassPolicy.WorldBypassPreview.Value)&&
+                    bool Clear(double line,bool shortEscape)=>Field.IsRangeWorldBypassLaneWidthClear(i,line,
+                        worldBypassPolicy.WorldBypassLookaheadMeters??worldBypassPolicy.WorldBypassPreview.Value)&&
+                        Field.IsRangeWorldLateralRequestClear(i,line,worldBypassPolicy.WorldBypassPreview.Value)&&
                         (shortEscape||!worldBypassPolicy.WorldBypassLookaheadMeters.HasValue||Field.IsRangeWorldForwardLaneClear(i,line,worldBypassPolicy.WorldBypassLookaheadMeters.Value));
                     void HoldEscape(){escapeLine[i]=lateral[i];escapeUntil[i]=tick.Value+(long)Math.Ceiling(worldBypassPolicy.WorldBypassHoldSeconds.Value*frequency);}
                 }
@@ -369,14 +383,17 @@ namespace Biathlon.AI
                     lateral[i]=Math.Max(lateral[i],worldBypassPolicy.EntryLateralMeters.Value);
                 // A private fork may cross the common approach beside an occupied
                 // neighboring path. After an actual world-body rejection, keep the
-                // present line and ask the shared field to advance it physically;
+                // present line only if the requested lateral step is still blocked;
+                // a freshly checked escape must survive this fallback. Ask the
+                // shared field to advance it physically;
                 // repeatedly requesting the crossing line can make the two actors
                 // mutually block each other while both still have positive effort.
                 if(worldBypassPolicy!=null&&AiRangeTrafficPlanner.ShouldRetainPhysicalApproachLine(
                     alignRange,actor.CurrentRangeMotion?.Phase,
                     point.LoopId==Field.Track.Range.Entry.LoopId,
                     Field.GetInitialMovementBlock(i).WorldBodyConflict,
-                    Field.GetLateral(i),lateral[i]))
+                    Field.GetLateral(i),lateral[i])&&
+                    !Field.IsRangeWorldLateralRequestClear(i,lateral[i],worldBypassPolicy.WorldBypassPreview.Value))
                 {lateral[i]=Field.GetLateral(i);rangeTrafficPlans[i]=new AiRangeTrafficPlan(true,true,lateral[i]);}
                 var aim=new WeaponAimCommand(tick,id,0,0);bool trigger=false,hold=false;var shooting=actor.ActiveShooting;
                 if(shooting!=null)

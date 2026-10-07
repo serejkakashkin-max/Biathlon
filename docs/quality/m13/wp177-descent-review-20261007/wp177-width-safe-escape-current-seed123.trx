@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="7c316cff-20d6-4f1c-a81b-ef2b5fd92446" name="snkashkin@DESKTOP-G3075GA 2026-10-07 21:03:40" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-07T21:03:40.4912175+03:00" queuing="2026-10-07T21:03:40.4912177+03:00" start="2026-10-07T21:03:36.8593552+03:00" finish="2026-10-07T21:05:18.5833821+03:00" />
+  <TestSettings name="default" id="125b57c0-4fd2-48cf-a835-6beb7462b0ba">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-07_21_03_40" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="b27ddee0-06d8-4bd3-80ce-a7ea55c83c3b" testId="1eaeb182-4ead-500b-e2ed-dc91ed5674e2" testName="ApproachBypassLookaheadRespectsTheAssignedNarrowMatPath" computerName="DESKTOP-G3075GA" duration="00:00:03.0735090" startTime="2026-10-07T21:03:37.3778426+03:00" endTime="2026-10-07T21:03:40.4513107+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b27ddee0-06d8-4bd3-80ce-a7ea55c83c3b" />
+    <UnitTestResult executionId="817cca6d-31da-41ad-b731-c278727e3cf8" testId="c2b4d9bb-e8a0-f938-d7a0-3c1c1c68c0a7" testName="FullMassStartRecordsWhereMovingIntentWasStationary" computerName="DESKTOP-G3075GA" duration="00:01:37.8438580" startTime="2026-10-07T21:03:40.4538467+03:00" endTime="2026-10-07T21:05:18.2973413+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="817cca6d-31da-41ad-b731-c278727e3cf8">
+      <Output>
+        <StdOut>wp177_mass30_seed=123 stop_ticks=20593 start=32 main=175 exit=134 penalty=14 mat=526 other=0 longest=27 longest_main=27 longest_main_at= [29 main:1005,797308087 line=1,15 requested=1,1 speed=0 block=Width: world_body=False] longest_exit=14 exit_athlete_block=134 exit_width_block=0 exit_unclassified=0 longest_exit_at=athlete=27 tick=8209 station_m=44,472055482 line=0 requested_line=0 block=Athlete blocker=woodland_basin_v1_athlete_28 blocker_index=28 blocker_loop=mat_18 blocker_station_m=10,115195495 blocker_line=-0,05 longest_mat=23 mat_capacity_wait=0 mat_body_block=378 mat_world_body_block=378 mat_unclassified=148 longest_mat_at=athlete=17 tick=8333 loop=mat_20 station_m=11,451671522 lane=20 waiting_capacity=False phase=RangeExit block=Athlete world_body=True blocker=woodland_basin_v1_athlete_3 blocker_index=3 blocker_loop=exit_aisle blocker_station_m=42,941155605 blocker_line=-1 blocker_requested_line=-1 blocker_requested_effort=742 blocker_alignment_blocked=False blocker_phase=RangeExit blocker_shooting=False blocker_lane=22&#xD;
+wp177_mat_block_chain= [17 mat_20:11,451671522 line=0,3 requested=0,3 speed=0 block=Athlete:woodland_basin_v1_athlete_3 world_body=True] [3 exit_aisle:42,941155605 line=-1 requested=-1 speed=4,752457947 block=None: world_body=False]&#xD;
+wp177_traffic_diagnostic_v2={"tick":20593,"athletes":30,"event_hash":7770235977731030203,"loop_order":["start_approach","main","exit_aisle","penalty_150","mat_or_other"],"block_order":["athlete","width","unclassified"],"stops_by_loop_and_active_bout":[[32,0,0,0,0],[150,2,6,17,0],[28,19,32,55,0],[0,14,0,0,0],[100,101,171,154,0]],"blocks_by_loop_and_kind":[[5,0,27],[122,50,3],[134,0,0],[14,0,0],[378,0,148]],"stop_episode_starts":300,"maximum_concurrent_moving_intent_stops":30,"maximum_concurrent_tick":2,"mat_capacity_wait_actor_ticks":0,"mat_world_body_block_actor_ticks":378,"longest_mat_streak_ticks":23,"drafting_actor_ticks":18945,"draft_reduction_sum":1744.8360189754812,"overtake_intent_actor_ticks":152}</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ApproachBypassLookaheadRespectsTheAssignedNarrowMatPath" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="1eaeb182-4ead-500b-e2ed-dc91ed5674e2">
+      <Execution id="b27ddee0-06d8-4bd3-80ce-a7ea55c83c3b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RangeWorldTrafficTests" name="ApproachBypassLookaheadRespectsTheAssignedNarrowMatPath" />
+    </UnitTest>
+    <UnitTest name="FullMassStartRecordsWhereMovingIntentWasStationary" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="c2b4d9bb-e8a0-f938-d7a0-3c1c1c68c0a7">
+      <Execution id="817cca6d-31da-41ad-b731-c278727e3cf8" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.WoodlandTrafficStopBaselineTests" name="FullMassStartRecordsWhereMovingIntentWasStationary" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="1eaeb182-4ead-500b-e2ed-dc91ed5674e2" executionId="b27ddee0-06d8-4bd3-80ce-a7ea55c83c3b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c2b4d9bb-e8a0-f938-d7a0-3c1c1c68c0a7" executionId="817cca6d-31da-41ad-b731-c278727e3cf8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+wp177_mass30_seed=123 stop_ticks=20593 start=32 main=175 exit=134 penalty=14 mat=526 other=0 longest=27 longest_main=27 longest_main_at= [29 main:1005,797308087 line=1,15 requested=1,1 speed=0 block=Width: world_body=False] longest_exit=14 exit_athlete_block=134 exit_width_block=0 exit_unclassified=0 longest_exit_at=athlete=27 tick=8209 station_m=44,472055482 line=0 requested_line=0 block=Athlete blocker=woodland_basin_v1_athlete_28 blocker_index=28 blocker_loop=mat_18 blocker_station_m=10,115195495 blocker_line=-0,05 longest_mat=23 mat_capacity_wait=0 mat_body_block=378 mat_world_body_block=378 mat_unclassified=148 longest_mat_at=athlete=17 tick=8333 loop=mat_20 station_m=11,451671522 lane=20 waiting_capacity=False phase=RangeExit block=Athlete world_body=True blocker=woodland_basin_v1_athlete_3 blocker_index=3 blocker_loop=exit_aisle blocker_station_m=42,941155605 blocker_line=-1 blocker_requested_line=-1 blocker_requested_effort=742 blocker_alignment_blocked=False blocker_phase=RangeExit blocker_shooting=False blocker_lane=22&#xD;
+wp177_mat_block_chain= [17 mat_20:11,451671522 line=0,3 requested=0,3 speed=0 block=Athlete:woodland_basin_v1_athlete_3 world_body=True] [3 exit_aisle:42,941155605 line=-1 requested=-1 speed=4,752457947 block=None: world_body=False]&#xD;
+wp177_traffic_diagnostic_v2={"tick":20593,"athletes":30,"event_hash":7770235977731030203,"loop_order":["start_approach","main","exit_aisle","penalty_150","mat_or_other"],"block_order":["athlete","width","unclassified"],"stops_by_loop_and_active_bout":[[32,0,0,0,0],[150,2,6,17,0],[28,19,32,55,0],[0,14,0,0,0],[100,101,171,154,0]],"blocks_by_loop_and_kind":[[5,0,27],[122,50,3],[134,0,0],[14,0,0],[378,0,148]],"stop_episode_starts":300,"maximum_concurrent_moving_intent_stops":30,"maximum_concurrent_tick":2,"mat_capacity_wait_actor_ticks":0,"mat_world_body_block_actor_ticks":378,"longest_mat_streak_ticks":23,"drafting_actor_ticks":18945,"draft_reduction_sum":1744.8360189754812,"overtake_intent_actor_ticks":152}&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
