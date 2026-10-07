@@ -22004,3 +22004,28 @@ interpretation: docs/reports/TASK_WP178_EDITOR_MEMORY_DIAGNOSTIC_20261007.md.
 WP-178 still needs isolated hidden Mass Start/broadcast frame, draw-call,
 GC and memory measurements after the owner-directed gameplay batch. M13 and
 WP-175–178 remain OPEN; no review build has been issued.
+
+## 2026-10-07 — M13 / WP-176 production season content PASS
+
+Added named production-calendar selection for new Woodland careers and
+save-ID selection for both Woodland and legacy careers. Unknown or mismatched
+calendar IDs fail rather than silently changing an existing season. The
+legacy default constructor and six-event save context remain unchanged.
+Final Release .NET selector/accounting regression 3/3 PASS; three separately
+targeted Unity MCP EditMode methods 3/3 PASS across the final selection API.
+
+The full 52-week production season completed 16/16 actual Woodland races:
+six saved-result Sprint→Pursuit pairs and four Mass Starts with 30 entrants
+each. All results carried matching authority SHA-256 and were saved/restored;
+the season archived exactly 16 races. Isolated Release .NET full-season test
+1/1 PASS, 13m45s; completion ticks 19,473–30,588. Fixed-seed per-event
+hashes and retained managed heap after each event (7.1–7.7 MB) are in
+docs/quality/m13/wp176-woodland-career-20261007/wp176-full-production-season.trx.
+An earlier unbounded attempt was stopped without result as process memory
+rose; the passing test collects discarded test graphs between saved races.
+See docs/reports/TASK_WP176_WOODLAND_CAREER_CALENDAR_20261007.md.
+
+WP-176 production content is PASS. The career UI entry point is M14 work;
+the timed-out long native fixture has no PASS receipt. WP-175, WP-177,
+WP-178 and owner gameplay batch remain OPEN. M13 is NOT PASS; no Windows
+review build has been issued.

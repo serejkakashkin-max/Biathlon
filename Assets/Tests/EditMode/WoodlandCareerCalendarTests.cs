@@ -26,6 +26,17 @@ namespace Biathlon.Tests
         private static CareerDefinitions Definitions()=>new CareerDefinitions(PhysiologyContractTests.DefinitionJson,CalendarFile);
         private static CareerSave NewCareer(CareerDefinitions definitions)=>CareerFactory.Create(definitions.Roster,
             definitions.Calendar,"woodland_career_test","Alex North","NOR","player_appearance",new SeededRandomSource(71000));
+        private static void ReportFinishSpread(CareerRaceRecord result)
+        {
+            int penalties=0;
+            for(int i=0;i<result.Count;i++)penalties+=result.Get(i).Penalties;
+            TestContext.WriteLine("woodland_finish_spread format="+result.Format+
+                " entrants="+result.Count+
+                " winner_elapsed_ms="+result.Get(0).ElapsedMilliseconds+
+                " middle_rank_elapsed_ms="+result.Get(result.Count/2).ElapsedMilliseconds+
+                " last_elapsed_ms="+result.Get(result.Count-1).ElapsedMilliseconds+
+                " total_penalties="+penalties);
+        }
 
         [Test]
         public void OneVenueSeasonHasSixQualifiedPursuitsAndPreservesLegacySaveIdentity()
@@ -61,6 +72,29 @@ namespace Biathlon.Tests
         }
 
         [Test]
+        public void NewCareerSelectsProductionCalendarAndSavedCareerSelectsItsOwnVersion()
+        {
+            Func<string,string> read=PhysiologyContractTests.DefinitionJson;
+            var production=CareerDefinitions.ForNewProductionCareer(read);
+            var productionSave=NewCareer(production);
+            Assert.That(production.Calendar.Id,Is.EqualTo("woodland_career_calendar_v1"));
+            Assert.That(CareerDefinitions.ForSave(read,productionSave).Calendar.Id,
+                Is.EqualTo(productionSave.CalendarId));
+            var legacy=new CareerDefinitions(read);
+            var legacySave=CareerFactory.Create(legacy.Roster,legacy.Calendar,
+                "legacy_calendar_selection","Alex North","NOR","player_appearance",
+                new SeededRandomSource(71001));
+            Assert.That(CareerDefinitions.ForSave(read,legacySave).Calendar.Id,
+                Is.EqualTo(legacySave.CalendarId));
+            Assert.That(legacy.Calendar.Count,Is.EqualTo(6));
+            var unknown=CareerSave.FromJson(productionSave.ToJson().Replace(
+                "\"calendar_id\":\"woodland_career_calendar_v1\"",
+                "\"calendar_id\":\"unknown_calendar_v1\""));
+            Assert.That(unknown.CalendarId,Is.EqualTo("unknown_calendar_v1"));
+            Assert.Throws<ArgumentException>(()=>CareerDefinitions.ForSave(read,unknown));
+        }
+
+        [Test]
         public void AllSixteenCalendarEventsAdvanceThroughOneSavedSeason()
         {
             var definitions=Definitions();var save=NewCareer(definitions);
@@ -91,6 +125,7 @@ namespace Biathlon.Tests
             Assert.That(result.AuthoritySha256,Is.EqualTo(BalanceRegression.Hash(result.AuthorityResultJson)));
             Assert.That(provider.LastShots,Is.EqualTo(save.AthleteCount*10));
             Assert.That(provider.LastTicks,Is.GreaterThan(0));
+            ReportFinishSpread(result);
             TestContext.WriteLine("woodland_career_sprint_ticks="+provider.LastTicks+
                 " event_hash="+provider.LastEventHash);
         }
@@ -113,6 +148,7 @@ namespace Biathlon.Tests
             Assert.That(save.Race(1).Count,Is.EqualTo(save.AthleteCount));
             Assert.That(save.Race(1).AuthoritySha256,
                 Is.EqualTo(BalanceRegression.Hash(save.Race(1).AuthorityResultJson)));
+            ReportFinishSpread(save.Race(1));
             TestContext.WriteLine("woodland_career_qualified_pursuit_ticks="+provider.LastTicks+
                 " event_hash="+provider.LastEventHash);
         }
@@ -128,8 +164,51 @@ namespace Biathlon.Tests
             Assert.That(result.Count,Is.EqualTo(save.AthleteCount));
             Assert.That(result.AuthoritySha256,Is.EqualTo(BalanceRegression.Hash(result.AuthorityResultJson)));
             Assert.That(provider.LastShots,Is.EqualTo(save.AthleteCount*20));
+            ReportFinishSpread(result);
             TestContext.WriteLine("woodland_career_mass_start_ticks="+provider.LastTicks+
                 " event_hash="+provider.LastEventHash);
         }
+
+        // Long production races are qualified in a separate headless process.
+        // The bounded native methods above cover the Unity import/compiler path.
+#if !UNITY_EDITOR
+        [Test,Timeout(3600000)]
+        public void CompleteWoodlandSeasonRunsAllSixteenAuthoritativeEvents()
+        {
+            var definitions=Definitions();var save=NewCareer(definitions);
+            var provider=new CareerRaceProvider(PhysiologyContractTests.DefinitionJson,definitions,ReadVenue);
+            int completed=0,sprint=0,pursuit=0,mass=0;
+            for(int week=1;week<=definitions.Calendar.WeeksPerSeason;week++)
+            {
+                var scheduled=definitions.Calendar.AtWeek(week);
+                save=CareerSeasonEngine.AdvanceWeek(save,definitions,
+                    CareerSeasonTests.Plan(save,definitions),provider,s=>new SeededRandomSource(s));
+                save=CareerSave.FromJson(save.ToJson());
+                if(scheduled==null)continue;
+                Assert.That(save.RaceCount,Is.EqualTo(++completed),"week "+week);
+                var record=save.Race(completed-1);
+                Assert.That(record.CalendarEventId,Is.EqualTo(scheduled.Id));
+                Assert.That(record.Format,Is.EqualTo(scheduled.Format));
+                Assert.That(record.Count,Is.EqualTo(save.AthleteCount));
+                Assert.That(record.AuthoritySha256,
+                    Is.EqualTo(BalanceRegression.Hash(record.AuthorityResultJson)));
+                Assert.That(provider.LastTicks,Is.GreaterThan(0));
+                if(record.Format==CompetitionFormat.Sprint)sprint++;
+                else if(record.Format==CompetitionFormat.Pursuit)pursuit++;
+                else mass++;
+                // The record/save has already been serialized and restored. The
+                // completed runner is local to the provider call; reclaim its
+                // temporary field graph before starting the next test race.
+                GC.Collect(GC.MaxGeneration,GCCollectionMode.Forced,true,true);
+                GC.WaitForPendingFinalizers();
+                TestContext.WriteLine("woodland_season_event="+record.CalendarEventId+
+                    " ticks="+provider.LastTicks+" event_hash="+provider.LastEventHash+
+                    " retained_mb="+Math.Round(GC.GetTotalMemory(false)/1048576.0,1));
+            }
+            Assert.That((completed,sprint,pursuit,mass),Is.EqualTo((16,6,6,4)));
+            Assert.That(save.Season,Is.EqualTo(2));
+            Assert.That(save.History(0).RaceCount,Is.EqualTo(16));
+        }
+#endif
     }
 }

@@ -5,6 +5,10 @@ namespace Biathlon.Career
 {
     public sealed class CareerDefinitions
     {
+        private const string LegacyCalendarResource="career_calendar_v1.json";
+        private const string LegacyCalendarId="career_calendar_v1";
+        private const string WoodlandCalendarResource="woodland_career_calendar_v1.json";
+        private const string WoodlandCalendarId="woodland_career_calendar_v1";
         public CareerRosterDefinition Roster { get; }
         public CareerCalendar Calendar { get; }
         public CareerTrainingDefinition Training { get; }
@@ -19,7 +23,27 @@ namespace Biathlon.Career
         public CareerScoringDefinition Scoring { get; }
         public CareerHistoryDefinition History { get; }
         public CareerProgressionDefinition Progression { get; }
-        public CareerDefinitions(Func<string,string> read) : this(read,"career_calendar_v1.json") { }
+        public CareerDefinitions(Func<string,string> read) : this(read,LegacyCalendarResource) { }
+        /// <summary>New production careers use the approved one-venue season.
+        /// Existing saves are selected from their persisted calendar ID instead.</summary>
+        public static CareerDefinitions ForNewProductionCareer(Func<string,string> read)
+        {
+            var selected=new CareerDefinitions(read,WoodlandCalendarResource);
+            if(selected.Calendar.Id!=WoodlandCalendarId)
+                throw new InvalidOperationException("Production calendar resource has an unexpected ID.");
+            return selected;
+        }
+        public static CareerDefinitions ForSave(Func<string,string> read,CareerSave save)
+        {
+            if(save==null)throw new ArgumentNullException(nameof(save));
+            string resource=save.CalendarId==LegacyCalendarId?LegacyCalendarResource:
+                save.CalendarId==WoodlandCalendarId?WoodlandCalendarResource:null;
+            if(resource==null)throw new ArgumentException("Unknown saved career calendar.",nameof(save));
+            var selected=new CareerDefinitions(read,resource);
+            if(selected.Calendar.Id!=save.CalendarId)
+                throw new InvalidOperationException("Saved calendar ID does not match its loaded definition.");
+            return selected;
+        }
         public CareerDefinitions(Func<string,string> read,string calendarResource)
         {
             if(read==null)throw new ArgumentNullException(nameof(read));

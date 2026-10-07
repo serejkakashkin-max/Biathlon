@@ -32,3 +32,11 @@ the referenced Woodland Sprint. This is headless content and race-boundary
 integration, not a change to the authoritative physics, geometry or
 hit-resolution rules. UI selection and whole-season production acceptance
 remain separate work.
+
+The production calendar entry point is `CareerDefinitions.ForNewProductionCareer`.
+`CareerDefinitions.ForSave` instead selects the exact legacy or Woodland
+definition from the persisted `calendar_id` and rejects unknown IDs or a
+resource whose internal ID has changed. This keeps new-career selection
+separate from save migration. The historical one-argument constructor still
+selects the legacy calendar for existing headless callers; product UI must
+call the named production entry point when it is added in M14.

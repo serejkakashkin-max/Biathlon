@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="31752c30-69d1-46aa-ad4e-b57c60856b72" name="snkashkin@DESKTOP-G3075GA 2026-10-07 11:24:31" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-07T11:24:31.1999549+03:00" queuing="2026-10-07T11:24:31.1999551+03:00" start="2026-10-07T11:10:44.5679422+03:00" finish="2026-10-07T11:24:31.2033862+03:00" />
+  <TestSettings name="default" id="df3ccf0e-9e1b-4c38-99cf-99b75dab2aaa">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-07_11_24_31" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="19339770-f8e4-4fa5-a62a-8e2e9b3a80bc" testId="b80e4fa5-827f-c0a8-bb24-d34e606643b1" testName="CompleteWoodlandSeasonRunsAllSixteenAuthoritativeEvents" computerName="DESKTOP-G3075GA" duration="00:13:45.8840180" startTime="2026-10-07T11:10:45.0544556+03:00" endTime="2026-10-07T11:24:30.9384109+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="19339770-f8e4-4fa5-a62a-8e2e9b3a80bc">
+      <Output>
+        <StdOut>woodland_season_event=woodland_open_sprint ticks=30260 event_hash=10979440838743746359 retained_mb=7,1&#xD;
+woodland_season_event=woodland_open_pursuit ticks=21300 event_hash=8852538384663191676 retained_mb=7,2&#xD;
+woodland_season_event=woodland_first_mass ticks=22019 event_hash=16352095749278018558 retained_mb=7,3&#xD;
+woodland_season_event=woodland_winter_sprint ticks=30311 event_hash=13623811656091708362 retained_mb=7,4&#xD;
+woodland_season_event=woodland_winter_pursuit ticks=20606 event_hash=14929723803290269966 retained_mb=7,4&#xD;
+woodland_season_event=woodland_winter_mass ticks=22017 event_hash=9840325579260584887 retained_mb=7,4&#xD;
+woodland_season_event=woodland_mid_sprint ticks=30460 event_hash=14782281672103978802 retained_mb=7,4&#xD;
+woodland_season_event=woodland_mid_pursuit ticks=20773 event_hash=2675357791325597899 retained_mb=7,5&#xD;
+woodland_season_event=woodland_mid_mass ticks=21854 event_hash=5423701279442885028 retained_mb=7,5&#xD;
+woodland_season_event=woodland_late_sprint ticks=30496 event_hash=13028878737790803547 retained_mb=7,5&#xD;
+woodland_season_event=woodland_late_pursuit ticks=20626 event_hash=5306777588725023657 retained_mb=7,5&#xD;
+woodland_season_event=woodland_chase_sprint ticks=30524 event_hash=13440831243818388445 retained_mb=7,5&#xD;
+woodland_season_event=woodland_chase_pursuit ticks=20580 event_hash=3490565345945621622 retained_mb=7,6&#xD;
+woodland_season_event=woodland_final_mass ticks=23091 event_hash=3867011134007108871 retained_mb=7,6&#xD;
+woodland_season_event=woodland_final_sprint ticks=30588 event_hash=17285148561502335658 retained_mb=7,6&#xD;
+woodland_season_event=woodland_final_pursuit ticks=19473 event_hash=10364330732469314864 retained_mb=7,7</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="CompleteWoodlandSeasonRunsAllSixteenAuthoritativeEvents" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="b80e4fa5-827f-c0a8-bb24-d34e606643b1">
+      <Execution id="19339770-f8e4-4fa5-a62a-8e2e9b3a80bc" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.WoodlandCareerCalendarTests" name="CompleteWoodlandSeasonRunsAllSixteenAuthoritativeEvents" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b80e4fa5-827f-c0a8-bb24-d34e606643b1" executionId="19339770-f8e4-4fa5-a62a-8e2e9b3a80bc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+woodland_season_event=woodland_open_sprint ticks=30260 event_hash=10979440838743746359 retained_mb=7,1&#xD;
+woodland_season_event=woodland_open_pursuit ticks=21300 event_hash=8852538384663191676 retained_mb=7,2&#xD;
+woodland_season_event=woodland_first_mass ticks=22019 event_hash=16352095749278018558 retained_mb=7,3&#xD;
+woodland_season_event=woodland_winter_sprint ticks=30311 event_hash=13623811656091708362 retained_mb=7,4&#xD;
+woodland_season_event=woodland_winter_pursuit ticks=20606 event_hash=14929723803290269966 retained_mb=7,4&#xD;
+woodland_season_event=woodland_winter_mass ticks=22017 event_hash=9840325579260584887 retained_mb=7,4&#xD;
+woodland_season_event=woodland_mid_sprint ticks=30460 event_hash=14782281672103978802 retained_mb=7,4&#xD;
+woodland_season_event=woodland_mid_pursuit ticks=20773 event_hash=2675357791325597899 retained_mb=7,5&#xD;
+woodland_season_event=woodland_mid_mass ticks=21854 event_hash=5423701279442885028 retained_mb=7,5&#xD;
+woodland_season_event=woodland_late_sprint ticks=30496 event_hash=13028878737790803547 retained_mb=7,5&#xD;
+woodland_season_event=woodland_late_pursuit ticks=20626 event_hash=5306777588725023657 retained_mb=7,5&#xD;
+woodland_season_event=woodland_chase_sprint ticks=30524 event_hash=13440831243818388445 retained_mb=7,5&#xD;
+woodland_season_event=woodland_chase_pursuit ticks=20580 event_hash=3490565345945621622 retained_mb=7,6&#xD;
+woodland_season_event=woodland_final_mass ticks=23091 event_hash=3867011134007108871 retained_mb=7,6&#xD;
+woodland_season_event=woodland_final_sprint ticks=30588 event_hash=17285148561502335658 retained_mb=7,6&#xD;
+woodland_season_event=woodland_final_pursuit ticks=19473 event_hash=10364330732469314864 retained_mb=7,7&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
