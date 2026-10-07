@@ -22326,3 +22326,21 @@ docs/reports/TASK_M13_MANUAL_KNOT_PROJECTION_20261007.md and
 docs/quality/m13/m13-manual-knot-final.trx. M13 and WP-175/177/178 remain
 OPEN; WP-176 PASS. Manual v2 is still not bound to playable Pack, all race
 phases or replay, so no Windows review build has been issued.
+
+## 2026-10-07 — WP-175 native Woodland Game View weather witnesses
+
+The previously failed offscreen-only visual probe has been superseded by
+five real Game View screenshots from hidden Unity Play Mode: clear/High,
+overcast/High, snowfall/High, snowfall/Balanced and snowfall/Low. Each was
+visually inspected for actual course, athlete and UI rendering. Weather
+and quality were changed only in the temporary runtime presentation copy;
+authoritative race conditions and the source recipe were unchanged. The
+first Low frame captured during a render-pipeline switch was incomplete
+and discarded; a stable Low frame was recaptured. Screenshots and exact
+limitations are in docs/reports/TASK_WP175_WOODLAND_CONDITIONS_01_REPORT.md.
+
+A separate camera-only inspection at Woodland Main 750 m shows that the
+downhill still reads mostly as a straight level strip under snowfall/Low.
+It is not a moving-player chase view. WP-175 moving-player visual acceptance,
+WP-177 descent readability and WP-178 sustained profiling remain OPEN.
+M13 is OPEN and no Windows review build has been issued.

@@ -189,3 +189,10 @@ field для Mass Start/Pursuit и его состояние физическо�
 коридора; одиночный force/yaw AI probe дошёл до 940 м. .NET 37/37, Unity
 EditMode 17/17 + 8/8 PASS. [Отчёт](reports/TASK_M13_MANUAL_KNOT_PROJECTION_20261007.md).
 Это не подключение ручного руления к playable Pack и не закрытие M13.
+
+WP-175 visual follow-up: пять режимов clear/overcast/snowfall на High и
+snowfall на Balanced/Low теперь сняты из обычного скрытого Unity Game View,
+а не offscreen рендера; изображения в
+[отчёте](reports/TASK_WP175_WOODLAND_CONDITIONS_01_REPORT.md). Диагностический
+ракурс Main 750 м показывает: спуск всё ещё визуально недостаточно очевиден.
+WP-175 и WP-177 остаются OPEN; кадры не подтверждают игровой FPS.
