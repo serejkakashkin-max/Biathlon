@@ -22069,3 +22069,26 @@ wp175-wet-mass30.trx.
 Full-field command replay, player traffic, visual weather matrix and
 rendering performance remain OPEN. WP-175 and M13 are not PASS. WP-176
 remains PASS; WP-177/178 remain OPEN; no Windows review build yet.
+
+## 2026-10-07 — M13 / WP-177 paired Woodland climb and AI-difficulty evidence
+
+On the actual Woodland Sprint first lap, with identical snow, seed, equipment
+and fixed player effort, climbing 30 versus 90 reached Main station 650 m at
+ticks 3,027 versus 2,900, a 6.35 s advantage for the higher skill at 20 Hz.
+At station 1,000 m the difference was 6.4 s. Both paths stop before shooting,
+so firing results do not confound this comparison. It is a 60-point
+sensitivity bound, not a final roster tuning recommendation.
+
+The identical baseline AI athlete under expert versus developing definitions
+made 851 versus 341 tactical decisions by station 1,000 m and reached it at
+ticks 3,403 versus 3,404. A one-tick solo difference is not evidence of
+meaningful full-race difficulty separation. The selected difficulty changes
+decision cadence, not athlete physical capability. Release .NET paired tests
+2/2 PASS, Unity MCP targeted EditMode methods 2/2 PASS, recent Error Console
+empty. Receipts: docs/quality/m13/wp177-woodland-course-20261007/
+wp177-stats-difficulty-pairs.trx and
+docs/reports/TASK_WP177_WOODLAND_COURSE_BASELINE_20261007.md.
+
+WP-177 remains OPEN for player/AI stopped-time traffic, full-race difficulty
+and chase-camera descent readability after the manual steering batch.
+WP-175/178 and M13 remain OPEN, WP-176 PASS. No Windows review build yet.

@@ -63,3 +63,32 @@ authorize hidden RNG or an unmeasured numerical rebalance.
 WP-177 remains OPEN. Next acceptance work is paired climb-stat and difficulty
 comparisons, phase-level stopped-time/traffic evidence after the manual
 steering batch, and chase-camera readability on the real descents.
+
+## Paired first-lap production calibration, 2026-10-07
+
+The [bounded production-route tests](../../Assets/Tests/EditMode/WoodlandClimbCalibrationTests.cs)
+hold Woodland Sprint, snow, equipment, input and seed fixed. The controlled
+athlete changes only climbing from 30 to 90. At Main stations 110 / 650 /
+1,000 m, the lower skill reached the points at ticks 443 / 3,027 / 3,780;
+the higher skill at ticks 433 / 2,900 / 3,652. At 20 Hz the higher skill
+gained 6.35 s by station 650 and 6.4 s by station 1,000. Both traces end
+before shooting, so hit results cannot explain this paired difference. This
+large 60-point spread is a sensitivity bound, not a proposed athlete roster
+or final balance target.
+
+A second pair uses the identical baseline athlete with expert versus
+developing AI. On the same first-lap section, expert made 851 tactical
+decisions and reached station 1,000 m at tick 3,403; developing made 341
+and reached it at tick 3,404. Total requested effort over those paths was
+2,996,067 versus 3,029,101 effort units respectively. The one-tick time
+difference on a solo section does **not** establish a useful race-difficulty
+spread. It establishes that the two production definitions actually alter
+decision cadence without replacing the athlete or physical model; shooting
+and traffic difficulty still require separate final balance review.
+
+Release .NET paired tests 2/2 PASS in
+[TRX](../quality/m13/wp177-woodland-course-20261007/wp177-stats-difficulty-pairs.trx).
+Both methods also passed individually through Unity MCP EditMode 2/2; the
+recent Unity Error Console was empty. WP-177 remains OPEN pending stopped-time
+traffic evidence after manual movement integration and chase-camera descent
+readability, as well as final race difficulty/feel review.
