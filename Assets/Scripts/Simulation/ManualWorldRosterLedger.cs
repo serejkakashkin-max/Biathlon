@@ -26,6 +26,7 @@ namespace Biathlon.Simulation
         private readonly ManualRouteProgression progress;
         private readonly ManualRouteActorFrame[] accepted,staged;
         private readonly ManualRouteProgressCursor[] cursors;
+        private readonly ManualRouteProgressCursor[] handoffCursors;
         private readonly ManualRouteProgressFrame[] stagedProgress;
         private readonly SkiState[] acceptedMotion,stagedMotion;
         private readonly double duration;
@@ -55,10 +56,11 @@ namespace Biathlon.Simulation
             TickFrequency=tickFrequency;
             Tick=initialTick;
             accepted=new ManualRouteActorFrame[initialCursors.Length];staged=new ManualRouteActorFrame[Count];
-            cursors=new ManualRouteProgressCursor[Count];stagedProgress=new ManualRouteProgressFrame[Count];
+            cursors=new ManualRouteProgressCursor[Count];handoffCursors=new ManualRouteProgressCursor[Count];
+            stagedProgress=new ManualRouteProgressFrame[Count];
             if(initialMotion!=null)
             {acceptedMotion=(SkiState[])initialMotion.Clone();stagedMotion=new SkiState[Count];}
-            var context=new string[Count+4+(initialMotion==null?0:Count+1)];
+            var context=new string[Count+5+(initialMotion==null?0:Count+1)];
             context[0]=initialMotion==null?"manual_full_clear_world_roster_v1":
                 "manual_full_clear_world_odometer_roster_v2";
             context[1]=sweep.ContextJson;context[2]=progress.ContextJson;
@@ -83,6 +85,7 @@ namespace Biathlon.Simulation
                     initialMotion[i].DistanceNanometers.ToString(System.Globalization.CultureInfo.InvariantCulture)+":"+
                     initialMotion[i].SpeedMetersPerSecond.ToString("R",System.Globalization.CultureInfo.InvariantCulture);
             }
+            context[context.Length-1]=progress.SectionHandoffContextJson;
             ContextJson=ShootingModelDefinitions.EncodeContext(context);
         }
 
@@ -91,6 +94,42 @@ namespace Biathlon.Simulation
         public SkiState GetPhysicalMotion(int index)=>acceptedMotion==null
             ?throw new InvalidOperationException("Physical odometer was not bound to this roster.")
             :acceptedMotion[index];
+
+        /// <summary>Rebind selected accepted endpoint poses to their ordered next
+        /// route occurrence without moving, turning, ticking or awarding odometer
+        /// distance. All requested handoffs validate before any accepted cursor
+        /// changes; traffic admission at the seam remains the caller's duty.</summary>
+        public bool TryHandoffSections(ReadOnlySpan<int> actorIndexes)
+        {
+            if(ready||actorIndexes.Length==0)return false;
+            for(int i=0;i<actorIndexes.Length;i++)
+            {
+                int index=actorIndexes[i];
+                if(index<0||index>=Count)throw new ArgumentOutOfRangeException(nameof(actorIndexes));
+                for(int j=0;j<i;j++)if(actorIndexes[j]==index)
+                    throw new ArgumentException("Duplicate actor handoff.",nameof(actorIndexes));
+                if(!progress.TryPreviewSectionHandoff(cursors[index],accepted[index],map,
+                    out handoffCursors[i]))return false;
+            }
+            for(int i=0;i<actorIndexes.Length;i++)
+            {
+                int index=actorIndexes[i];var next=handoffCursors[i];
+                if(!map.TryProject(accepted[index].Pose,next.SectionIndex,
+                    next.ObservedStationNanometers,0,false,out var observation)||
+                    observation.SectionIndex!=next.SectionIndex||
+                    observation.RouteNanometers!=next.ObservedStationNanometers)
+                    throw new InvalidOperationException("Previously verified section endpoint changed.");
+                handoffCursors[i]=next;
+                staged[i]=new ManualRouteActorFrame(next.Athlete,accepted[index].Pose,
+                    accepted[index].Velocity,observation);
+            }
+            for(int i=0;i<actorIndexes.Length;i++)
+            {
+                int index=actorIndexes[i];cursors[index]=handoffCursors[i];accepted[index]=staged[i];
+            }
+            revision=checked(revision+1);
+            return true;
+        }
         internal void ValidatePrepared(ManualWorldRosterPreview proposal)
         {
             if(!ready||!ReferenceEquals(proposal.Owner,this)||proposal.Revision!=revision||

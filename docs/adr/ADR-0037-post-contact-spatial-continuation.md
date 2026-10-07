@@ -295,3 +295,16 @@ receipt. The world ledger commits only after that field publication. This
 keeps the existing event-sink assumption and is limited to the independent
 field: the `PackSprintFieldSession` has additional physical side state that
 must be migrated before Mass Start, Pursuit and the playable host can use it.
+
+## 2026-10-07 roster section handoff
+
+After a fully accepted world tick reaches an exact selected-route endpoint,
+the roster ledger may atomically rebind any explicitly chosen subset of
+athletes to the ordered successor section. The existing two-endpoint world
+projection proof must succeed for every selected athlete before any accepted
+cursor changes. The handoff does not advance simulation time, ski odometer,
+world pose, velocity or credited route station, and it never rotates a body.
+It is bookkeeping for already-admitted topology only; the later whole-race
+transaction must still prove physical seam traffic, record race events and
+join Pack field/replay state. It does not authorize a transition into an
+unmodelled range or penalty corridor.

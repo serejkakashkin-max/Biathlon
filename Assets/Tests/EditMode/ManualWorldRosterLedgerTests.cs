@@ -59,6 +59,49 @@ namespace Biathlon.Tests
             =>ledger.TryPrepare(actors,windows,caps,Array.Empty<SkiReachedContactPair>(),0,
                 Array.Empty<SkiActorCourseEdge>(),0,out preview);
 
+        [Test] public void ExactEndpointHandoffKeepsWorldPoseClockAndOdometer()
+        {
+            var f=Create();var first=f.route.GetSection(0);var second=f.route.GetSection(1);
+            long end=checked((first.Start.Millimeters+first.Length.Millimeters)*SkiState.NanometersPerMillimeter);
+            Assert.That(second.Start.Millimeters*SkiState.NanometersPerMillimeter,Is.EqualTo(end));
+            var point=f.visual.Get(first.LoopId).Sample(first.LoopEnd.Meters);
+            var actor=Actor("handoff",f.body,At(point),new SkiPlanarVelocity(0,0));
+            var cursor=f.progress.Reconstitute(actor.Athlete,0,end,end);
+            var pose=actor.Trajectory.Sample(0);var velocity=actor.Trajectory.VelocityAt(0);
+            var ledger=new ManualWorldRosterLedger(f.route,f.map,f.sweep,f.progress,
+                new[]{cursor},new[]{pose},new[]{velocity},20,
+                new[]{new SkiState(Nano(50),0)});
+            var motion=ledger.GetPhysicalMotion(0);var before=ledger.GetActor(0);
+            Assert.That(ledger.TryHandoffSections(new[]{0}),Is.True);
+            Assert.That(ledger.Tick.Value,Is.Zero);
+            Assert.That(ledger.GetActor(0).Pose,Is.EqualTo(before.Pose));
+            Assert.That(ledger.GetActor(0).Velocity,Is.EqualTo(before.Velocity));
+            Assert.That(ledger.GetPhysicalMotion(0),Is.EqualTo(motion));
+            Assert.That(ledger.GetCursor(0).SectionIndex,Is.EqualTo(1));
+            Assert.That(ledger.GetCursor(0).CreditedStationNanometers,Is.EqualTo(end));
+            Assert.That(ledger.GetActor(0).Projection.SectionIndex,Is.EqualTo(1));
+            Assert.That(ledger.TryHandoffSections(new[]{0}),Is.False);
+            Assert.That(ledger.ContextJson,Does.Contain("manual_selected_section_zero_credit_handoff_v1"));
+        }
+
+        [Test] public void InvalidSecondHandoffCannotPartiallyMoveFirstCursor()
+        {
+            var f=Create();var loop=f.visual.Get(f.route.GetSection(0).LoopId);
+            var first=f.route.GetSection(0);
+            long end=checked((first.Start.Millimeters+first.Length.Millimeters)*SkiState.NanometersPerMillimeter);
+            var atEnd=Actor("end",f.body,At(loop.Sample(first.LoopEnd.Meters)),new SkiPlanarVelocity(0,0));
+            var early=Actor("early",f.body,At(loop.Sample(10)),new SkiPlanarVelocity(0,0));
+            var ledger=Ledger(f.route,f.map,f.sweep,f.progress,new[]{atEnd,early},new[]{end,Nano(10)});
+            var original=ledger.GetActor(0);
+            Assert.That(ledger.TryHandoffSections(new[]{0,1}),Is.False);
+            Assert.That(ledger.GetCursor(0).SectionIndex,Is.Zero);
+            Assert.That(ledger.GetActor(0).Projection.SectionIndex,Is.EqualTo(original.Projection.SectionIndex));
+            Assert.Throws<ArgumentException>(()=>ledger.TryHandoffSections(new[]{0,0}));
+            Assert.That(ledger.TryHandoffSections(new[]{0}),Is.True);
+            Assert.That(ledger.GetCursor(1).SectionIndex,Is.Zero);
+            Assert.That(ledger.Tick.Value,Is.Zero);
+        }
+
         [Test] public void EntireClearRosterCommitsOnceWithoutGuessingRaceOdometer()
         {
             var f=Create();var loop=f.visual.Get(f.route.GetSection(0).LoopId);

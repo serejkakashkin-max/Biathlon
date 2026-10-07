@@ -21961,3 +21961,21 @@ difficulty fairness and chase-camera review. Unity's long native career test
 was still active after MCP HTTP timeout and showed high Editor memory; it
 is not an acceptance result. WP-178 must investigate. M13 and the owner
 batch remain OPEN; no Windows review build yet.
+
+## 2026-10-07 — M13 manual world section handoff
+
+The accepted manual world roster can now atomically switch selected athletes
+from an exact route endpoint to its already-proven ordered successor section.
+No pose, yaw, velocity, physical odometer, route credit or tick is invented.
+Invalid second-actor/duplicate/stale transitions cannot partially move the
+roster. This is route bookkeeping, not a playable AI/player turn or physical
+seam traffic admission. Release .NET ledger class 8/8 PASS; Unity MCP exact
+endpoint EditMode 1/1 PASS; broader .NET manual regression 26/26 PASS.
+The full native class request timed out without
+a completion receipt. Report and .NET evidence:
+docs/reports/TASK_M13_MANUAL_SECTION_HANDOFF_20261007.md and
+docs/quality/m13/manual-section-handoff-20261007/dotnet.trx. ADR-0037 was
+extended. The runaway native career run was cancelled using Unity Test Runner;
+its incomplete output is not evidence. Pack field, start/range/penalty,
+contact replan, v2 replay and host binding are still OPEN. M13 remains OPEN;
+no Windows review build.
