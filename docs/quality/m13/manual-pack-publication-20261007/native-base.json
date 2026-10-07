@@ -1,0 +1,63 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1277,\"PassedTests\":8,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:53.5313134\"},\"Results\":[{\"Name\":\"Biathlon.Tests.ManualBaseRouteCommitTests.FullClearWorldProposalCanReplaceOnlyBaseRouteMovement(False)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.2940000\"},{\"Name\":\"Biathlon.Tests.ManualBaseRouteCommitTests.FullClearWorldProposalCanReplaceOnlyBaseRouteMovement(True)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.1240000\"},{\"Name\":\"Biathlon.Tests.ManualBaseRouteCommitTests.ManualWorldTickPublishesPackSideStateOrRejectsWithoutChangingIt(False,False)\",\"Status\":\"Passed\",\"Duration\":\"00:00:12.7660000\"},{\"Name\":\"Biathlon.Tests.ManualBaseRouteCommitTests.ManualWorldTickPublishesPackSideStateOrRejectsWithoutChangingIt(True,False)\",\"Status\":\"Passed\",\"Duration\":\"00:00:11.3610000\"},{\"Name\":\"Biathlon.Tests.ManualBaseRouteCommitTests.ManualWorldTickPublishesPackSideStateOrRejectsWithoutChangingIt(False,True)\",\"Status\":\"Passed\",\"Duration\":\"00:00:11.5900000\"},{\"Name\":\"Biathlon.Tests.ManualBaseRouteCommitTests.ManualWorldTickPublishesThroughSprintFieldClockAndCheckpoints\",\"Status\":\"Passed\",\"Duration\":\"00:00:01\"},{\"Name\":\"Biathlon.Tests.ManualBaseRouteCommitTests.SecondPackRowFailureLeavesFieldAndWorldUnchangedThenWholeRosterCommits\",\"Status\":\"Passed\",\"Duration\":\"00:00:12.0860000\"},{\"Name\":\"Biathlon.Tests.ManualBaseRouteCommitTests.TwoAthletesCommitOneWorldTickOrNeither\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.3130000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 1277,
+        "PassedTests": 8,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:53.5313134"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.ManualBaseRouteCommitTests.FullClearWorldProposalCanReplaceOnlyBaseRouteMovement(False)",
+          "Status": "Passed",
+          "Duration": "00:00:01.2940000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualBaseRouteCommitTests.FullClearWorldProposalCanReplaceOnlyBaseRouteMovement(True)",
+          "Status": "Passed",
+          "Duration": "00:00:01.1240000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualBaseRouteCommitTests.ManualWorldTickPublishesPackSideStateOrRejectsWithoutChangingIt(False,False)",
+          "Status": "Passed",
+          "Duration": "00:00:12.7660000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualBaseRouteCommitTests.ManualWorldTickPublishesPackSideStateOrRejectsWithoutChangingIt(True,False)",
+          "Status": "Passed",
+          "Duration": "00:00:11.3610000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualBaseRouteCommitTests.ManualWorldTickPublishesPackSideStateOrRejectsWithoutChangingIt(False,True)",
+          "Status": "Passed",
+          "Duration": "00:00:11.5900000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualBaseRouteCommitTests.ManualWorldTickPublishesThroughSprintFieldClockAndCheckpoints",
+          "Status": "Passed",
+          "Duration": "00:00:01"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualBaseRouteCommitTests.SecondPackRowFailureLeavesFieldAndWorldUnchangedThenWholeRosterCommits",
+          "Status": "Passed",
+          "Duration": "00:00:12.0860000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualBaseRouteCommitTests.TwoAthletesCommitOneWorldTickOrNeither",
+          "Status": "Passed",
+          "Duration": "00:00:01.3130000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

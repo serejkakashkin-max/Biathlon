@@ -57,3 +57,15 @@ Validation: 48 focused .NET tests, 23 legacy player/Sprint/pack replay tests;
 native Unity 8 force-trajectory tests and 6 composed-motion tests pass. The changed
 legacy force/cornering entry points retain their regression assertions. No new
 Windows build, production tuning selection or manual gameplay completion claim.
+
+## 2026-10-07 encoded endpoint continuity
+
+The accepted force-heading endpoint velocity now uses the same encoded final
+heading and scalar speed as its accepted pose and SkiState. Interior samples
+retain the continuous force trajectory. The previous raw endpoint arithmetic
+could differ from the next initialized tick by nanometre/nanoradian encoding,
+and the exact world-ledger continuity gate rejected that otherwise valid
+second tick. A 200-tick flat acceleration/turn regression and real Pack
+two-tick publication exercise the correction. Variable grade intervals and
+post-contact side-slip still require their own qualified continuation; no
+continuity gate is relaxed and no full-race integration claim follows.

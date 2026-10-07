@@ -320,3 +320,20 @@ receipt uses invariant round-trip numbers and encoded integer units, stays
 unchanged after a commit, and is independent of route-based reconstruction.
 This changes context identity, not accepted movement. It is a prerequisite
 for future manual race replay; the playable Pack bridge is still outstanding.
+
+## 2026-10-07 Pack base-route publication
+
+The owned full-clear proposal can now publish through Pack's existing field
+timing/lifecycle and its physical side state. Before acceptance, exact roster,
+route instance, body definition, clock, physical odometer, position and all
+session previews are verified. Replacing one row never publishes a partial
+field. Pack caches accepted world frames/physical points and exposes detached
+world pose/velocity through the presentation snapshot. A first binding appends
+an explicit context marker and initial receipt once; subsequent legacy Step
+calls are rejected instead of silently restoring route-following movement.
+
+This bridge admits only active, forward, same-section base movement before
+range entry. The caller supplies draft observations. It does not yet compose
+start/private range/penalty paths, topology/contact continuation, complete
+manual race replay or a playable host. The existing nonthrowing race event-sink
+assumption remains. M13 cannot close on this intermediate publication alone.

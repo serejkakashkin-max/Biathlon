@@ -57,10 +57,12 @@ namespace Biathlon.Simulation
         private readonly ManualSkiJointSweep bodies;
         private readonly ManualRouteTubeSweep course;
         public string ContextJson {get;}
+        internal string BodyContextJson {get;}
         public ManualRouteJointSweep(ManualRouteProjectionMap route,OccupancyDefinition body,
             SkiContactDefinition contact,SkiContactSweepDefinition work)
         {
             this.route=route??throw new ArgumentNullException(nameof(route));
+            BodyContextJson=body?.ToJson()??throw new ArgumentNullException(nameof(body));
             bodies=new ManualSkiJointSweep(body,contact,work);
             course=new ManualRouteTubeSweep(route,body,work);
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_route_body_tube_common_prefix_v1",

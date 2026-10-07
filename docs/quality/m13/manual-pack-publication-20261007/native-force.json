@@ -1,0 +1,68 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1277,\"PassedTests\":9,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:01.2196669\"},\"Results\":[{\"Name\":\"Biathlon.Tests.ManualSkiForceTrajectoryTests.AcceleratingTurnMatchesIndependentWeightedIntegrationAndMirrors\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0060000\"},{\"Name\":\"Biathlon.Tests.ManualSkiForceTrajectoryTests.AccelerationFromRestUsesQuadraticDistanceInsteadOfUniformTickTravel\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.ManualSkiForceTrajectoryTests.BrakingStopsTranslationBeforeTickEndsWhilePivotMayContinue\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.ManualSkiForceTrajectoryTests.EncodedEndpointVelocityStartsTheNextFlatForceTickExactly\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.2850000\"},{\"Name\":\"Biathlon.Tests.ManualSkiForceTrajectoryTests.ForceTrajectoryRetainsLegacyOutputAndEveryStraightMotionPrefix\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.ManualSkiForceTrajectoryTests.FractionalTravelDurationAndInvalidProfilesAreExplicit\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0030000\"},{\"Name\":\"Biathlon.Tests.ManualSkiForceTrajectoryTests.GripDemandIncludesInternalMaximumOfAcceleratingAndAngularBrakingRamp\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.ManualSkiForceTrajectoryTests.SharedForceAndSteeringStreamRepeatsWithoutWarmAllocations\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0350000\"},{\"Name\":\"Biathlon.Tests.ManualSkiForceTrajectoryTests.SpeedCapAndSlopeConversionRetainPaidTravelAndSharedPlayerAiResult\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0100000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 1277,
+        "PassedTests": 9,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:01.2196669"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.ManualSkiForceTrajectoryTests.AcceleratingTurnMatchesIndependentWeightedIntegrationAndMirrors",
+          "Status": "Passed",
+          "Duration": "00:00:00.0060000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiForceTrajectoryTests.AccelerationFromRestUsesQuadraticDistanceInsteadOfUniformTickTravel",
+          "Status": "Passed",
+          "Duration": "00:00:00.0020000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiForceTrajectoryTests.BrakingStopsTranslationBeforeTickEndsWhilePivotMayContinue",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiForceTrajectoryTests.EncodedEndpointVelocityStartsTheNextFlatForceTickExactly",
+          "Status": "Passed",
+          "Duration": "00:00:00.2850000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiForceTrajectoryTests.ForceTrajectoryRetainsLegacyOutputAndEveryStraightMotionPrefix",
+          "Status": "Passed",
+          "Duration": "00:00:00.0020000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiForceTrajectoryTests.FractionalTravelDurationAndInvalidProfilesAreExplicit",
+          "Status": "Passed",
+          "Duration": "00:00:00.0030000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiForceTrajectoryTests.GripDemandIncludesInternalMaximumOfAcceleratingAndAngularBrakingRamp",
+          "Status": "Passed",
+          "Duration": "00:00:00.0020000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiForceTrajectoryTests.SharedForceAndSteeringStreamRepeatsWithoutWarmAllocations",
+          "Status": "Passed",
+          "Duration": "00:00:00.0350000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiForceTrajectoryTests.SpeedCapAndSlopeConversionRetainPaidTravelAndSharedPlayerAiResult",
+          "Status": "Passed",
+          "Duration": "00:00:00.0100000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

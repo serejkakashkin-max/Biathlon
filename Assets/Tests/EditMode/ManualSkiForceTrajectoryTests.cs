@@ -15,6 +15,25 @@ namespace Biathlon.Tests
         private static TrackSample Flat() => new TrackSampler(SyntheticTrackTests.Generated("synthetic_flat_v1").GetLoop("main_long")).Sample(TrackDistance.FromMeters(100));
 
         [Test]
+        public void EncodedEndpointVelocityStartsTheNextFlatForceTickExactly()
+        {
+            var forces=new SkiForceSystem(SkiForceTests.Definition(),20);
+            var steering=Steering();var ski=new SkiState(0,5.123456789);
+            var pose=new ManualSkiHeadingState(0,0,.3);
+            for(int i=0;i<200;i++)
+            {
+                var frame=steering.Preview(pose,i%3==0?500:i%3==1?-500:0,
+                    forces.PreviewTrajectory(ski,350,Flat(),.05),1,4);
+                var endpoint=frame.VelocityAt(1);
+                ski=new SkiState(ski.DistanceNanometers+(long)Math.Round(frame.TravelDistanceAt(1)*1e9),frame.SlopeSpeedAt(1));
+                pose=frame.State;
+                var next=steering.Preview(pose,0,forces.PreviewTrajectory(ski,350,Flat(),.05),1,4);
+                Assert.That(next.VelocityAt(0).X,Is.EqualTo(endpoint.X));
+                Assert.That(next.VelocityAt(0).Z,Is.EqualTo(endpoint.Z));
+            }
+        }
+
+        [Test]
         public void ForceTrajectoryRetainsLegacyOutputAndEveryStraightMotionPrefix()
         {
             var definition=SkiForceTests.Definition();var forces=new SkiForceSystem(definition,20);var flat=Flat();

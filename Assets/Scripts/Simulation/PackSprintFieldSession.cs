@@ -130,6 +130,11 @@ namespace Biathlon.Simulation
         private readonly long halfBody;
         private readonly double lateralStep, minimumWidth;
         private readonly int junctionCount, frequency;
+        private readonly string manualBodyContext;
+        private readonly ManualRouteActorFrame[] manualFrames;
+        private readonly PhysicalTrackPoint[] manualPoints,preparedManualPoints;
+        private ManualWorldRosterLedger manualWorld;
+        public bool HasManualWorldState=>manualWorld!=null;
         public SimulationTick Tick => field.Tick;
         public int TickFrequency => frequency;
         public int Count => field.Count;
@@ -146,10 +151,15 @@ namespace Biathlon.Simulation
         public CompetitionProfile Profile => field.Profile;
         public CheckpointTimingBoard Timing => field.Timing;
         public long PrecisionFallbackTicks { get; private set; }
-        public string ContextJson { get; }
+        public string ContextJson { get; private set; }
         public SprintAthleteSession GetAthlete(int index) => field.GetAthlete(index);
         public bool IsOnCourse(int index) => onCourse[index] && !GetAthlete(index).HasFinished;
         public double GetLateral(int index) => lateral[index];
+        public ManualRouteActorFrame GetManualWorldActor(int index)
+        {
+            if(!HasManualWorldState)throw new InvalidOperationException("No accepted manual world state.");
+            return index>=0&&index<Count?manualFrames[index]:throw new ArgumentOutOfRangeException(nameof(index));
+        }
         /// <summary>Read-only preview of the next ordinary paid lateral step on the
         /// first start continuation, including bent bodies and retained incoming tails.</summary>
         public bool IsStartContinuationLateralRequestClear(int index,double requested)
@@ -446,6 +456,8 @@ namespace Biathlon.Simulation
                 }
             }
             widths = new OccupancySystem(body); occupancy = new PhysicalOccupancySystem(map, body); drafting = new DraftingSystem(draft);
+            manualBodyContext=body.ToJson();manualFrames=new ManualRouteActorFrame[Count];
+            manualPoints=new PhysicalTrackPoint[Count];preparedManualPoints=new PhysicalTrackPoint[Count];
             penaltySampler = new TrackSampler(track.GetLoop(track.Penalty.LoopId));
             halfBody = (long)Math.Ceiling(body.LongitudinalSeparation * SkiState.NanometersPerMeter / 2);
             long passageTickReserve=0;
@@ -598,6 +610,7 @@ namespace Biathlon.Simulation
         }
         public void Step(ReadOnlySpan<SprintAthleteInput> inputs, ReadOnlySpan<double> requestedLateral)
         {
+            if(HasManualWorldState)throw new InvalidOperationException("A manual world field cannot step through legacy route movement.");
             field.ValidateCommands(inputs);
             if (requestedLateral.Length != Count) throw new ArgumentException("Complete lateral command batch required.");
             for (int i = 0; i < Count; i++) PhysiologyNumbers.RequireRange(requestedLateral[i], -1000000, 1000000, nameof(requestedLateral));
@@ -787,6 +800,69 @@ namespace Biathlon.Simulation
                 priorContact[i] = contact;
                 if (traces[i].NewTail.Active) events.Record(new RaceEvent(tick, frequency, GetAthlete(i).AthleteId, RaceEventType.PhysicalSeamCrossed, traces[i].SeamIndex));
             }
+        }
+
+        /// <summary>Prevalidate one forward, same-section world publication.
+        /// Start, range, penalty, seam/contact continuation and world drafting
+        /// orchestration remain separate; this is not the live manual runner.</summary>
+        internal void ValidateManualBasePublication(ManualWorldRosterPreview proposal,ReadOnlySpan<DraftOutput> nextDrafts)
+        {
+            var world=proposal.Owner;
+            if(world==null||!world.HasPhysicalOdometer||!world.IsBoundTo(Route)||
+                world.Count!=Count||world.TickFrequency!=frequency||world.Tick.Value!=Tick.Value||
+                world.BodyContextJson!=manualBodyContext||nextDrafts.Length!=Count||
+                manualWorld!=null&&!ReferenceEquals(manualWorld,world))
+                throw new ArgumentException("Exact complete world, body, clock and draft roster required.");
+            world.ValidatePrepared(proposal);
+            for(int i=0;i<Count;i++)
+            {
+                var athlete=GetAthlete(i);var before=world.GetActor(i);var point=CurrentPoint(i);
+                var cursor=world.GetCursor(i);var after=world.GetProposedActor(proposal,i);
+                var next=world.GetProposedCursor(proposal,i);
+                long oldLocal=checked((long)Math.Round(before.Projection.LocalMeters*SkiState.NanometersPerMeter,MidpointRounding.ToEven));
+                if(!IsOnCourse(i)||athlete.RemainingStartApproachNanometers!=0||tails[i].Active||priorContact[i]||
+                    athlete.ActiveShooting!=null||!before.Athlete.Equals(athlete.AthleteId)||
+                    cursor.CreditedStationNanometers!=athlete.RouteNanometers||
+                    !world.GetPhysicalMotion(i).Equals(athlete.Motion)||
+                    before.Projection.LoopId!=point.LoopId||Math.Abs(oldLocal-point.LocalNanometers)>2||
+                    Math.Abs(before.Projection.LateralMeters-lateral[i])>2*PhysiologyNumbers.MinimumPositive||
+                    cursor.SectionIndex!=next.SectionIndex||
+                    next.ObservedStationNanometers!=next.CreditedStationNanometers)
+                    throw new ArgumentException("Active admitted forward base-route roster required.");
+                PhysiologyNumbers.RequireRange(nextDrafts[i].Strength,0,1,nameof(nextDrafts));
+                PhysiologyNumbers.RequireRange(nextDrafts[i].DragReduction,0,1,nameof(nextDrafts));
+                preparedManualPoints[i]=map.MapLoop(after.Projection.LoopId,
+                    checked((long)Math.Round(after.Projection.LocalMeters*SkiState.NanometersPerMeter,MidpointRounding.ToEven)));
+            }
+        }
+
+        internal void CommitManualBasePrepared(ReadOnlySpan<SprintAthleteInput> inputs,
+            ReadOnlySpan<SprintStepPreview> prepared,ManualWorldRosterPreview proposal,ReadOnlySpan<DraftOutput> nextDrafts)
+        {
+            ValidateManualBasePublication(proposal,nextDrafts);field.ValidateCommands(inputs);
+            if(prepared.Length!=Count)throw new ArgumentException("Complete prepared manual field required.");
+            for(int i=0;i<Count;i++)
+            {
+                if(!ReferenceEquals(prepared[i].World.Owner,proposal.Owner)||prepared[i].World.Tick.Value!=proposal.Tick.Value)
+                    throw new ArgumentException("Each race row needs the same full-world proof.");
+                GetAthlete(i).ValidatePreparedCommit(prepared[i]);
+            }
+            string nextContext=ContextJson;
+            if(manualWorld==null)
+            {
+                // Append encoded values to the existing array without wrapping
+                // and escaping the complete legacy context for another level.
+                string extra=ShootingModelDefinitions.EncodeContext("manual_pack_forward_base_publication_v1",proposal.Owner.ContextJson);
+                nextContext=ContextJson.Substring(0,ContextJson.Length-1)+","+extra.Substring(1);
+            }
+            field.CommitPrepared(inputs,prepared);
+            for(int i=0;i<Count;i++)
+            {
+                manualFrames[i]=proposal.Owner.GetProposedActor(proposal,i);
+                manualPoints[i]=preparedManualPoints[i];lateral[i]=manualFrames[i].Projection.LateralMeters;
+                committedDrafts[i]=nextDrafts[i];initialBlocks[i]=default;junctionWaitSince[i]=0;
+            }
+            proposal.Owner.Commit(proposal);manualWorld=proposal.Owner;ContextJson=nextContext;
         }
 
         private void ValidateCommonBoundaries()
@@ -1066,6 +1142,7 @@ namespace Biathlon.Simulation
         }
         private PhysicalTrackPoint CurrentPoint(int index)
         {
+            if(HasManualWorldState)return manualPoints[index];
             var athlete = GetAthlete(index);
             if(athlete.RemainingStartApproachNanometers>0)return startOverlay.MapRemaining(athlete.RemainingStartApproachNanometers);
             if(startContinuation!=null&&athlete.Motion.DistanceNanometers==0&&!tails[index].Active)

@@ -42,6 +42,7 @@ namespace Biathlon.Simulation
         /// Separate from mutable accepted state and never inferred from the route.</summary>
         public string InitialStateContextJson { get; }
         internal bool IsBoundTo(RaceRoute route)=>map.IsBoundTo(route);
+        internal string BodyContextJson=>sweep.BodyContextJson;
 
         public ManualWorldRosterLedger(RaceRoute route,ManualRouteProjectionMap map,
             ManualRouteJointSweep sweep,ManualRouteProgression progress,

@@ -11,6 +11,8 @@ namespace Biathlon.Simulation
         public long LocalNanometers { get; }
         public double LateralMeters { get; }
         public double SpeedMetersPerSecond { get; }
+        public ManualSkiHeadingState WorldPose {get;}
+        public SkiPlanarVelocity WorldVelocity {get;}
         public bool TuckActive { get; }
         public bool FinalSprintActive { get; }
         /// <summary>Completed-position course slope (rise/run) and signed turning curvature (1/m).</summary>
@@ -46,6 +48,8 @@ namespace Biathlon.Simulation
             var a=field.GetAthlete(index);var point=field.GetPhysicalPoint(index);var shooting=a.ActiveShooting;
             AthleteId=a.AthleteId.Value;LoopId=point.LoopId;LocalNanometers=point.LocalNanometers;LateralMeters=field.GetLateral(index);
             SpeedMetersPerSecond=a.Motion.SpeedMetersPerSecond;Physiology=a.PhysiologyState;Phase=a.Lifecycle.Phase;
+            var world=field.HasManualWorldState?field.GetManualWorldActor(index):default;
+            WorldPose=world.Pose;WorldVelocity=world.Velocity;
             TuckActive=a.TuckActive;FinalSprintActive=a.FinalSprintActive;
             var range=a.CurrentRangeMotion;
             var course=a.RemainingStartApproachNanometers>0 ? field.StartApproach.Sample(a.RemainingStartApproachNanometers) :

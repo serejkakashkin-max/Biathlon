@@ -73,8 +73,13 @@ namespace Biathlon.Simulation
         {
             if (!HasForceTrajectory) throw new InvalidOperationException("Force-weighted trajectory required.");
             PhysiologyNumbers.RequireRange(fraction, 0, 1, nameof(fraction));
-            double time = DurationSeconds*fraction, heading = initial.HeadingRadians+AngleAt(time);
-            double speed = travel.SpeedRaw(time)*planarScale;
+            // The accepted endpoint must share the encoded heading and speed
+            // used to initialize the next force tick. Interior samples retain
+            // the continuous force path; endpoint encoding is covered by the
+            // existing position/heading numerical reserves.
+            double time = DurationSeconds*fraction;
+            double heading = fraction==1?State.HeadingRadians:initial.HeadingRadians+AngleAt(time);
+            double speed = (fraction==1?travel.Output.State.SpeedMetersPerSecond:travel.SpeedRaw(time))*planarScale;
             return new SkiPlanarVelocity(speed*Math.Sin(heading), speed*Math.Cos(heading));
         }
 

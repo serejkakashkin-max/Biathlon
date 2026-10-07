@@ -621,6 +621,21 @@ namespace Biathlon.Simulation
         }
 
         private readonly RaceRoute worldRoute;
+        /// <summary>Publish a prevalidated same-section world tick through Pack
+        /// timing/lifecycle and its physical side state. Caller supplies the draft
+        /// observations used by the common force solver; this does not choose them.</summary>
+        public void CommitPackField(PackSprintFieldSession field,ReadOnlySpan<SprintAthleteInput> inputs,
+            ReadOnlySpan<SprintStepPreview> pending,ManualWorldRosterPreview proposal,ReadOnlySpan<DraftOutput> drafts)
+        {
+            if(field==null||!ReferenceEquals(field.Route,worldRoute)||field.Count!=athletes.Length)
+                throw new ArgumentException("Exact matching Pack roster required.");
+            for(int i=0;i<athletes.Length;i++)if(!ReferenceEquals(field.GetAthlete(i),athletes[i]))
+                throw new ArgumentException("Pack and world must share the same athlete sessions.");
+            field.ValidateManualBasePublication(proposal,drafts);
+            var prepared=Resolve(pending,proposal);
+            field.CommitManualBasePrepared(inputs,prepared,proposal,drafts);
+        }
+
         private ReadOnlySpan<SprintStepPreview> Resolve(ReadOnlySpan<SprintStepPreview> pending,
             ManualWorldRosterPreview proposal)
         {

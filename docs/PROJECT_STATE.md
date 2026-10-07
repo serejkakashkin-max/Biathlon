@@ -22657,3 +22657,32 @@ prerequisite, not playable manual steering or M13 completion.
 Report: docs/reports/TASK_M13_MANUAL_WORLD_INITIAL_CONTEXT_20261007.md.
 Next: Pack world publication and remaining phase/contact/host integration.
 WP-175/177/178 and M13 OPEN; final Windows owner build still required.
+
+
+## 2026-10-07 — M13 manual base-world publication through Pack
+
+Accepted same-section world motion now publishes Pack timing/lifecycle,
+physical point, lateral, world pose/velocity and caller-supplied draft state
+on one fixed tick. Exact route/roster/body/clock/odometer are prevalidated.
+A stale second row leaves both actors, field/world clocks and events unchanged.
+The first binding adds initial-world context once; legacy Step then rejects
+instead of restoring route auto-follow. Detached snapshots retain world state.
+
+A two-tick integration found raw-versus-encoded endpoint velocity mismatch.
+Force-heading endpoint velocity now agrees with accepted heading/speed;
+200 flat acceleration/turn ticks pass exact next-tick continuity. No physical
+capability, shooting or legacy force output change. Variable-grade and
+post-contact continuation are still pending, not hidden by a relaxed gate.
+.NET manual/bridge/world/presentation50/50 and legacy force/player/Pack/replay
+38/38 PASS. Hidden native Unity bridge8/8 and force9/9 PASS; compile PASS,
+fresh Error Console empty. Intermediate RED receipts, including allocation
+observations, preserved; assertions not deleted or disabled. The first native
+regex filter ran zero tests and does not count as validation.
+Report: docs/reports/TASK_M13_MANUAL_PACK_PUBLICATION_20261007.md.
+Evidence: docs/quality/m13/manual-pack-publication-20261007/.
+
+Scope remains active forward base sections before range entry. Full phase
+geometry/contact/seam orchestration, world draft planner, manual race tape
+and ProductionVenueHost input/rig consumption are outstanding. Playable
+host remains lateral v1 with route-following. WP-175/177/178 and M13 OPEN;
+WP-176 PASS; no intermediate Windows build. Historical state bytes preserved.
