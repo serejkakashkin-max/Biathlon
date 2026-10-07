@@ -802,7 +802,7 @@ namespace Biathlon.Simulation
             }
         }
 
-        /// <summary>Prevalidate one forward, same-section world publication.
+        /// <summary>Prevalidate one same-section world publication with high-water credit.
         /// Start, range, penalty, seam/contact continuation and world drafting
         /// orchestration remain separate; this is not the live manual runner.</summary>
         internal void ValidateManualBasePublication(ManualWorldRosterPreview proposal,ReadOnlySpan<DraftOutput> nextDrafts)
@@ -826,9 +826,8 @@ namespace Biathlon.Simulation
                     !world.GetPhysicalMotion(i).Equals(athlete.Motion)||
                     before.Projection.LoopId!=point.LoopId||Math.Abs(oldLocal-point.LocalNanometers)>2||
                     Math.Abs(before.Projection.LateralMeters-lateral[i])>2*PhysiologyNumbers.MinimumPositive||
-                    cursor.SectionIndex!=next.SectionIndex||
-                    next.ObservedStationNanometers!=next.CreditedStationNanometers)
-                    throw new ArgumentException("Active admitted forward base-route roster required.");
+                    cursor.SectionIndex!=next.SectionIndex)
+                    throw new ArgumentException("Active admitted same-section base-route roster required.");
                 PhysiologyNumbers.RequireRange(nextDrafts[i].Strength,0,1,nameof(nextDrafts));
                 PhysiologyNumbers.RequireRange(nextDrafts[i].DragReduction,0,1,nameof(nextDrafts));
                 preparedManualPoints[i]=map.MapLoop(after.Projection.LoopId,
@@ -852,7 +851,7 @@ namespace Biathlon.Simulation
             {
                 // Append encoded values to the existing array without wrapping
                 // and escaping the complete legacy context for another level.
-                string extra=ShootingModelDefinitions.EncodeContext("manual_pack_forward_base_publication_v1",proposal.Owner.ContextJson);
+                string extra=ShootingModelDefinitions.EncodeContext("manual_pack_same_section_high_water_publication_v2",proposal.Owner.ContextJson);
                 nextContext=ContextJson.Substring(0,ContextJson.Length-1)+","+extra.Substring(1);
             }
             field.CommitPrepared(inputs,prepared);

@@ -22719,3 +22719,29 @@ surface/phase splits, start/range/penalty/seams/contact, full manual race tape,
 host input/rig, final weather/performance qualification and one Windows build.
 Live host still lateral v1; no playable manual claim or intermediate build.
 WP-175/177/178 and M13 OPEN; WP-176 PASS. Historical state bytes preserved.
+
+
+## 2026-10-07 — M13 actual-world posture / backward base publication
+
+Latest operational state: G1/G2 APPROVED; M13 OPEN; WP-176 PASS;
+WP-175/177/178 OPEN. Owner-approved exit aggregate 193 does not approve M13.
+
+Manual preparation now samples the body's actual selected physical station and
+heading/yaw for shared tuck/physiology. Pack can publish five consecutive
+backward base-section ticks with physical odometer growth and unchanged earned
+race distance. Exact prepared-source binding rejects foreign observations
+without changing field, physiology or world clocks. Snapshot grade/curvature
+observe world direction. No shooting, athlete or difficulty tuning changed.
+
+Focused .NET39/39 PASS; native Unity base class14/14 PASS; compile PASS;
+final last-minute Error Console empty. All-manual .NET broader runs each
+182/183 PASS: one saw7792 bytes in the accepted-velocity allocation assertion,
+another5072 bytes in the ledger allocation assertion. Isolated velocity1/1 PASS
+is not a root-cause fix. Red receipts retained; allocation risk remains OPEN.
+[Report](reports/TASK_M13_MANUAL_ACTUAL_WORLD_20261007.md).
+
+Playable host still uses legacy lateral/route-following v1. Full manual start,
+range/penalty/phase/surface/contact continuation, replay and host integration
+remain next work. No intermediate Windows build created; next owner build is
+still the combined M13 package. Existing state history retained byte-for-byte;
+this dated record is appended, not a replacement of historical statuses.

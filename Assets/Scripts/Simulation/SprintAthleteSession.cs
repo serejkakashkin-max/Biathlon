@@ -111,6 +111,7 @@ namespace Biathlon.Simulation
         private RangePenaltyTraversal preparedRange;
         private ShootingLaneAssignment preparedLane;
         private bool preparedChoosesPath;
+        private ManualRouteActorFrame preparedManualActor;
         public SimulationTick Tick => physiology.Clock.Tick;
         public SimulationTick ScheduledStart { get; }
         public AthleteId AthleteId => physiology.AthleteId;
@@ -264,9 +265,29 @@ namespace Biathlon.Simulation
             => PreparePackStep(input, 1, 1, 0);
         /// <summary>Prepare shared physiology/posture for a manual base-route
         /// tick without invoking the legacy auto-following path. The result is
-        /// intentionally uncommittable until a full-clear world proposal binds it.</summary>
+        /// intentionally uncommittable until a full-clear world proposal binds it.
+        /// Compatibility for coincident observed/credited stations; a world
+        /// runner uses the accepted-actor overload for actual posture geometry.</summary>
         public SprintStepPreview PrepareManualBaseStep(SprintAthleteInput input)
             =>PreparePackStep(input,1,1,0,default,true);
+        /// <summary>Prepare posture and physiology at the accepted world body,
+        /// independently of its high-water race credit. The complete world
+        /// transaction must bind this exact observation before publication.</summary>
+        public SprintStepPreview PrepareManualBaseStep(SprintAthleteInput input,ManualRouteActorFrame accepted)
+        {
+            previewReady=false;
+            if(!accepted.IsValid||!accepted.Athlete.Equals(AthleteId)||
+                accepted.Projection.SectionIndex<0||accepted.Projection.SectionIndex>=route.SectionCount)
+                throw new ArgumentException("Accepted athlete and selected base occurrence required.");
+            var at=accepted.Projection;var selected=route.GetSection(at.SectionIndex);
+            long start=checked(selected.Start.Millimeters*SkiState.NanometersPerMillimeter);
+            long end=checked((selected.Start.Millimeters+selected.Length.Millimeters)*SkiState.NanometersPerMillimeter);
+            double local=selected.LoopStart.Meters+(at.RouteNanometers-start)/(double)SkiState.NanometersPerMeter;
+            if(at.LoopId!=selected.LoopId||at.RouteNanometers<start||at.RouteNanometers>RouteNanometers||
+                RouteNanometers>end||Math.Abs(at.LocalMeters-local)>2*PhysiologyNumbers.MinimumPositive)
+                throw new ArgumentException("Observed and credited stations must share the selected base occurrence.");
+            return PreparePackStep(input,1,1,0,default,true,accepted);
+        }
 
         public SprintRangePathChoice CreateRangePathChoice(int laneOrdinal)
         {
@@ -292,7 +313,7 @@ namespace Biathlon.Simulation
         internal SprintStepPreview PreparePackStep(SprintAthleteInput input, double dragMultiplier, double propulsionMultiplier, int extraEffort,SprintRangePathChoice choice)
             =>PreparePackStep(input,dragMultiplier,propulsionMultiplier,extraEffort,choice,false);
         private SprintStepPreview PreparePackStep(SprintAthleteInput input, double dragMultiplier, double propulsionMultiplier, int extraEffort,
-            SprintRangePathChoice choice,bool manualBase)
+            SprintRangePathChoice choice,bool manualBase,ManualRouteActorFrame manualActor=default)
         {
             previewReady = false;
             ValidateCommand(input);
@@ -327,8 +348,18 @@ namespace Biathlon.Simulation
                 throw new InvalidOperationException("Manual base-route preview requires an active base section before range entry.");
             var sample = RemainingStartApproachNanometers>0 ? startApproach.Sample(RemainingStartApproachNanometers) : range != null && range.Phase == RangeTraversalPhase.PenaltyLoop ? range.SamplePenalty() :
                 candidatePath!=null ? candidatePath.SampleRoute(RouteNanometers) : route.Sample(new TrackDistance(RouteNanometers / SkiState.NanometersPerMillimeter)).Track;
+            var postureMotion=Motion;
+            if(manualActor.IsValid)
+            {
+                sample=route.SampleSection(manualActor.Projection.SectionIndex,
+                    new TrackDistance((long)Math.Floor(manualActor.Projection.LocalMeters*1000)));
+                double speed=Math.Sqrt(manualActor.Velocity.X*manualActor.Velocity.X+manualActor.Velocity.Z*manualActor.Velocity.Z);
+                double grade=manualActor.Projection.GradeAlong(manualActor.Pose);
+                sample=sample.WithTravelGeometry(grade,speed==0?0:manualActor.Pose.YawRateRadiansPerSecond/speed);
+                postureMotion=new SkiState(Motion.DistanceNanometers,speed*Math.Sqrt(1+grade*grade));
+            }
             var sprintOutput = sprint.Evaluate(started && !onMat && input.Ski.SprintRequested, input.Ski.Effort.RequestedEffort, new SkiState(RouteNanometers, Motion.SpeedMetersPerSecond));
-            var posture = tuck.Evaluate(started && !onMat && input.Ski.TuckRequested, sprintOutput.EffectiveEffortControl, skiAthlete.Downhill, Motion, sample);
+            var posture = tuck.Evaluate(started && !onMat && input.Ski.TuckRequested, sprintOutput.EffectiveEffortControl, skiAthlete.Downhill, postureMotion, sample);
             var work = new PhysiologyInput(new SimulationInput(tick, AthleteId, started && !onMat ? Math.Min(1000, posture.EffectiveEffortControl + extraEffort) : 0), input.Ski.Form, sample.TerrainMuscleFactor);
             var physical = physiology.Preview(work);
             var movement = started && !onMat && !manualBase ? path.Preview(Motion, RouteNanometers, finishNanometers, range,
@@ -337,6 +368,7 @@ namespace Biathlon.Simulation
             preparedInput = input; preparedWork = work; preparedPosture = posture; preparedSprint = sprintOutput;
             preparedRangeIndex = rangeIndex; preparedSample = sample;
             preparedPath=candidatePath;preparedRange=range;preparedLane=candidateLane;preparedChoosesPath=choosing;
+            preparedManualActor=manualActor;
             previewRevision = revision; previewReady = true;
             return new SprintStepPreview(this, revision, tick, physical, movement, started && !onMat, onMat,
                 manualWorldRequired:manualBase);
@@ -358,7 +390,7 @@ namespace Biathlon.Simulation
             if(!preview.ManualWorldRequired||!preview.MovementActive||preview.ShootingActive||preview.World.IsValid||
                 RemainingStartApproachNanometers!=0||preparedChoosesPath||
                 !accepted.IsValid||!accepted.Athlete.Equals(AthleteId)||
-                accepted.Projection.RouteNanometers!=RouteNanometers||
+                (preparedManualActor.IsValid?!SameManualActor(accepted,preparedManualActor):accepted.Projection.RouteNanometers!=RouteNanometers)||
                 surface.LoopId!=accepted.Projection.LoopId||
                 Math.Abs(surface.Distance.Meters-accepted.Projection.LocalMeters)>.001+2*PhysiologyNumbers.MinimumPositive)
                 throw new ArgumentException("Accepted base-route observation and prepared ski tick required.");
@@ -386,6 +418,7 @@ namespace Biathlon.Simulation
             var physicalAfter=ledger.GetProposedPhysicalMotion(world,actorIndex);
             if(!before.Athlete.Equals(AthleteId)||!after.Athlete.Equals(AthleteId)||
                 !actor.Athlete.Equals(AthleteId)||before.SectionIndex!=after.SectionIndex||
+                preparedManualActor.IsValid&&!SameManualActor(preparedManualActor,ledger.GetActor(actorIndex))||
                 before.CreditedStationNanometers!=RouteNanometers||
                 physicalBefore.DistanceNanometers!=Motion.DistanceNanometers||
                 physicalBefore.SpeedMetersPerSecond!=Motion.SpeedMetersPerSecond||
@@ -408,6 +441,21 @@ namespace Biathlon.Simulation
             return new SprintStepPreview(this,revision,preview.Tick,preview.Physiology,
                 movement,true,false,world);
         }
+        private static bool SameManualActor(ManualRouteActorFrame a,ManualRouteActorFrame b)
+            =>a.Athlete.Equals(b.Athlete)&&a.Pose.X==b.Pose.X&&a.Pose.Z==b.Pose.Z&&
+              a.Pose.HeadingNanoradians==b.Pose.HeadingNanoradians&&
+              a.Pose.YawRateRadiansPerSecond==b.Pose.YawRateRadiansPerSecond&&
+              a.Velocity.X==b.Velocity.X&&a.Velocity.Z==b.Velocity.Z&&
+              a.Projection.SectionIndex==b.Projection.SectionIndex&&
+              a.Projection.LoopId==b.Projection.LoopId&&
+              a.Projection.RouteNanometers==b.Projection.RouteNanometers&&
+              a.Projection.LocalMeters==b.Projection.LocalMeters&&
+              a.Projection.LateralMeters==b.Projection.LateralMeters&&
+              a.Projection.DistanceFromCentreMeters==b.Projection.DistanceFromCentreMeters&&
+              a.Projection.HeightMeters==b.Projection.HeightMeters&&
+              a.Projection.GeometricGrade==b.Projection.GeometricGrade&&
+              a.Projection.ForwardX==b.Projection.ForwardX&&a.Projection.ForwardZ==b.Projection.ForwardZ&&
+              a.Projection.StationMetersPerPlanarMeter==b.Projection.StationMetersPerPlanarMeter;
         /// <summary>Retain a verified forward prefix and stop. Caller must prove continuous safety.
         /// Full prepared physiology is preserved; this is not a collision solver.</summary>
         public SprintStepPreview ConstrainPreparedTravel(SprintStepPreview preview, long maximumTravelNanometers)

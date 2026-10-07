@@ -15,7 +15,8 @@ namespace Biathlon.Simulation
         public SkiPlanarVelocity WorldVelocity {get;}
         public bool TuckActive { get; }
         public bool FinalSprintActive { get; }
-        /// <summary>Completed-position course slope (rise/run) and signed turning curvature (1/m).</summary>
+        /// <summary>Completed-position slope (rise/run) and signed turning curvature (1/m).
+        /// Manual world mode observes actual heading/yaw; legacy mode uses course metadata.</summary>
         public double CourseGrade { get; }
         public double CourseCurvaturePerMeter { get; }
         public PhysiologyState Physiology { get; }
@@ -58,6 +59,12 @@ namespace Biathlon.Simulation
                     a.RangePath==null ? field.Route.Sample(new TrackDistance(a.RouteNanometers/SkiState.NanometersPerMillimeter)).Track :
                     a.RangePath.SampleRoute(a.RouteNanometers);
             CourseGrade=course.Grade;CourseCurvaturePerMeter=course.CurvaturePerMeter;
+            if(world.IsValid)
+            {
+                double planar=Math.Sqrt(world.Velocity.X*world.Velocity.X+world.Velocity.Z*world.Velocity.Z);
+                CourseGrade=world.Projection.GradeAlong(world.Pose);
+                CourseCurvaturePerMeter=planar==0?0:world.Pose.YawRateRadiansPerSecond/planar;
+            }
             Effort=a.LastFrame.Physiology.Effort;Draft=field.GetDraft(index);
             CompletedLaps=a.Lifecycle.CompletedLaps;CompletedBouts=a.Lifecycle.CompletedBouts;PendingPenaltyLoops=a.Lifecycle.PendingPenaltyLoops;TotalPenaltyLoops=a.TotalPenaltyLoops;
             OnCourse=field.IsOnCourse(index);RangeLane=field.GetAssignedRangeLane(index);ShootingActive=shooting!=null;

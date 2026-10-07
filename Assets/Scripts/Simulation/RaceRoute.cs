@@ -52,6 +52,14 @@ namespace Biathlon.Simulation
         public int SectionCount => sections.Length;
         public int LapCount => lapStarts.Length;
         public RouteSection GetSection(int index) => sections[index];
+        /// <summary>Sample one explicitly selected occurrence, including its exact
+        /// endpoint. Does not select a successor at a coincident route seam.</summary>
+        public TrackSample SampleSection(int index,TrackDistance local)
+        {
+            if(index<0||index>=sections.Length||!sections[index].Contains(local))
+                throw new ArgumentOutOfRangeException(nameof(index));
+            return samplers[index].Sample(local);
+        }
         public TrackDistance GetLapStart(int index) => new TrackDistance(lapStarts[index]);
         public TrackDistance GetLapLength(int index) => new TrackDistance(lapLengths[index]);
         public RaceRoute(TrackDefinition track, RaceRoutePlan plan, CompetitionRouteRequirements requirements,

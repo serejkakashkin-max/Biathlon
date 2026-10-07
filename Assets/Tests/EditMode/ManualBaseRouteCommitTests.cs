@@ -10,6 +10,165 @@ namespace Biathlon.Tests
     public class ManualBaseRouteCommitTests
     {
         private static string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
+        [Test] public void RetreatedPreparationSamplesActualSurfaceAndCannotBindAForeignWorldObservation()
+        {
+            var f=new ActualWorldFixture(80,true,0);var accepted=f.World.GetActor(0);
+            var command=f.Command(false);var surface=f.Surface();
+            var source=f.Session.PrepareManualBaseStep(command,accepted);
+            var input=f.Session.GetPreparedManualMotionInput(source,accepted,surface,0);
+            var heading=f.Solver.PreviewAcceptedVelocity(f.Session.Motion,accepted.Pose,
+                accepted.Velocity,accepted.Projection,surface,input).Heading;
+            Assert.That(f.World.TryPrepareWithOdometer(
+                new[]{new SkiWorldMotionCandidate(f.Session.AthleteId,new ManualSkiWorldTrajectory(heading))},
+                new[]{new ManualRouteActorWindow(f.Session.AthleteId,0,accepted.Projection.RouteNanometers,2,false)},
+                new[]{f.Session.RouteNanometers+2*SkiState.NanometersPerMeter},Array.Empty<SkiReachedContactPair>(),0,
+                Array.Empty<SkiActorCourseEdge>(),0,new[]{accepted.Projection.GradeAlong(accepted.Pose)},out var proposal),Is.True);
+            var elsewhere=f.AtStation(61,true,0);
+            var actual=f.Field.Route.SampleSection(0,TrackDistance.FromMeters(61));
+            Assert.That(actual.TerrainMuscleFactor,Is.Not.EqualTo(surface.TerrainMuscleFactor));
+            var pending=f.Session.PrepareManualBaseStep(command,elsewhere);
+            var effort=new EffortSystem(f.Session.PhysiologyDefinition).Evaluate(800,f.Session.PhysiologyState,1);
+            var muscle=new FatigueSystem(f.Session.PhysiologyDefinition,20).Step(
+                f.Session.PhysiologyState.MuscularFatigue,effort.DeliveredRelativeEffort,actual.TerrainMuscleFactor);
+            Assert.That(pending.Physiology.State.MuscularFatigue,Is.EqualTo(muscle.Value));
+            Assert.Throws<ArgumentException>(()=>f.Session.GetPreparedManualMotionInput(pending,accepted,surface,0));
+            var oldMotion=f.Session.Motion;var oldPhysiology=f.Session.PhysiologyState;var oldTick=f.Field.Tick;
+            var transaction=new ManualBaseRosterSessionCommit(f.Field.Route,new[]{f.Session},f.World);
+            Assert.Throws<ArgumentException>(()=>transaction.CommitPackField(f.Field,new[]{command},new[]{pending},proposal,new[]{default(DraftOutput)}));
+            Assert.That(f.Field.Tick,Is.EqualTo(oldTick));Assert.That(f.World.Tick,Is.EqualTo(oldTick));
+            Assert.That(f.Session.Motion,Is.EqualTo(oldMotion));Assert.That(f.Session.PhysiologyState,Is.EqualTo(oldPhysiology));
+            Assert.That(f.Field.HasManualWorldState,Is.False);
+            Assert.Throws<ArgumentException>(()=>f.Session.PrepareManualBaseStep(command,default(ManualRouteActorFrame)));
+            Assert.Throws<ArgumentException>(()=>f.Session.GetPreparedManualMotionInput(pending,elsewhere,actual,0),
+                "A failed prepare must invalidate the old scratch handle.");
+        }
+        [Test] public void ActualWorldPosturePreparationDoesNotAllocatePerTick()
+        {
+            var f=new ActualWorldFixture(80,true,0);var accepted=f.World.GetActor(0);
+            var command=f.Command(true);var surface=f.Surface();
+            for(int i=0;i<64;i++)
+            {var warm=f.Session.PrepareManualBaseStep(command,accepted);f.Session.GetPreparedManualMotionInput(warm,accepted,surface,0);}
+            long before=GC.GetAllocatedBytesForCurrentThread();
+            for(int i=0;i<256;i++)
+            {var pending=f.Session.PrepareManualBaseStep(command,accepted);f.Session.GetPreparedManualMotionInput(pending,accepted,surface,0);}
+            long allocated=GC.GetAllocatedBytesForCurrentThread()-before;
+            Assert.That(allocated,Is.Zero);
+        }
+        [TestCase(false,0)]
+        [TestCase(true,0)]
+        [TestCase(true,1)]
+        public void ManualPreparationUsesObservedDirectionAndTurnForTuck(bool reversed,double yaw)
+        {
+            var f=new ActualWorldFixture(80,reversed,yaw);
+            var accepted=f.World.GetActor(0);var surface=f.Surface();
+            var command=f.Command(true);
+            var pending=f.Session.PrepareManualBaseStep(command,accepted);
+            var input=f.Session.GetPreparedManualMotionInput(pending,accepted,surface,0);
+            double speed=Math.Sqrt(accepted.Velocity.X*accepted.Velocity.X+accepted.Velocity.Z*accepted.Velocity.Z);
+            double grade=accepted.Projection.GradeAlong(accepted.Pose);
+            var expected=new TuckSystem(f.Model.Tuck).Evaluate(true,800,f.Session.DownhillSkill,
+                new SkiState(f.Session.Motion.DistanceNanometers,speed*Math.Sqrt(1+grade*grade)),
+                surface.WithTravelGeometry(grade,speed==0?0:yaw/speed));
+            Assert.That(surface.Grade,Is.GreaterThan(0));
+            Assert.That(expected.Active,Is.EqualTo(reversed&&yaw==0));
+            Assert.That(input.DragAreaMultiplier,Is.EqualTo(expected.DragAreaMultiplier));
+            Assert.That(input.SteeringResponse,Is.EqualTo(expected.SteeringResponseMultiplier));
+            var effort=new EffortSystem(f.Session.PhysiologyDefinition).Evaluate(
+                expected.EffectiveEffortControl,f.Session.PhysiologyState,1);
+            Assert.That(pending.Physiology.Effort.DeliveredPowerWatts,Is.EqualTo(effort.DeliveredPowerWatts));
+        }
+        [Test] public void BackwardPackTicksMoveTheBodyAndOdometerWithoutAwardingRaceDistance()
+        {
+            var f=new ActualWorldFixture(10,true,0);long credit=f.Session.RouteNanometers;
+            long oldTick=f.Field.Tick.Value,oldOdometer=f.Session.Motion.DistanceNanometers;
+            double oldObserved=f.World.GetActor(0).Projection.LocalMeters;
+            var transaction=new ManualBaseRosterSessionCommit(f.Field.Route,new[]{f.Session},f.World);
+            for(int i=0;i<5;i++)
+            {
+                var accepted=f.World.GetActor(0);var surface=f.Surface();var command=f.Command(false);
+                var pending=f.Session.PrepareManualBaseStep(command,accepted);
+                var input=f.Session.GetPreparedManualMotionInput(pending,accepted,surface,0);
+                var heading=f.Solver.PreviewAcceptedVelocity(f.Session.Motion,accepted.Pose,
+                    accepted.Velocity,accepted.Projection,surface,input).Heading;
+                Assert.That(f.World.TryPrepareWithOdometer(
+                    new[]{new SkiWorldMotionCandidate(f.Session.AthleteId,new ManualSkiWorldTrajectory(heading))},
+                    new[]{new ManualRouteActorWindow(f.Session.AthleteId,0,accepted.Projection.RouteNanometers,2,false)},
+                    new[]{credit+2*SkiState.NanometersPerMeter},Array.Empty<SkiReachedContactPair>(),0,
+                    Array.Empty<SkiActorCourseEdge>(),0,new[]{accepted.Projection.GradeAlong(accepted.Pose)},out var proposal),Is.True);
+                transaction.CommitPackField(f.Field,new[]{command},new[]{pending},proposal,new[]{default(DraftOutput)});
+                Assert.That(f.Session.RouteNanometers,Is.EqualTo(credit));
+                Assert.That(f.World.GetCursor(0).ObservedStationNanometers,Is.LessThan(credit));
+                Assert.That(f.Field.GetPhysicalPoint(0).LocalNanometers,Is.LessThan(credit));
+                var snapshot=RacePresentationSnapshot.Capture(f.Field).Get(0);
+                Assert.That(snapshot.CourseGrade,Is.EqualTo(f.World.GetActor(0).Projection.GradeAlong(f.World.GetActor(0).Pose)));
+                Assert.That(snapshot.CourseCurvaturePerMeter,Is.Zero);
+                Assert.That(f.Session.Checkpoints.Tick,Is.EqualTo(f.Field.Tick));
+            }
+            Assert.That(f.Field.Tick.Value,Is.EqualTo(oldTick+5));
+            Assert.That(f.World.Tick,Is.EqualTo(f.Field.Tick));
+            Assert.That(f.Session.Motion.DistanceNanometers,Is.GreaterThan(oldOdometer));
+            Assert.That(f.World.GetActor(0).Projection.LocalMeters,Is.LessThan(oldObserved));
+            Assert.That(f.Field.ContextJson,Does.Contain("manual_pack_same_section_high_water_publication_v2"));
+        }
+        private sealed class ActualWorldFixture
+        {
+            internal readonly PackSprintFieldSession Field;
+            internal readonly SprintAthleteSession Session;
+            internal readonly ManualWorldRosterLedger World;
+            internal readonly SkiModelDefinitions Model;
+            internal readonly ManualSkiMotionSystem Solver;
+            private readonly TrackSampler sampler;
+            private readonly ManualRouteProjectionMap map;
+            private readonly ManualRouteProgression progress;
+            private readonly ManualRouteJointSweep sweep;
+            internal ActualWorldFixture(double station,bool reversed,double yaw)
+            {
+                const string root="Biathlon/Venues/woodland_basin_v1/";
+                var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(root+"manifest")),Read);
+                var runner=ProductionVenueRaceFactory.Create(venue,CompetitionProfile.FromJson(Read(root+"sprint_profile")),
+                    RaceRoutePlan.FromJson(Read(root+"sprint_route")),SnowConditionTests.Conditions(),
+                    PhysiologyContractTests.DefinitionJson,new RaceEventLog(4096),new AiDecisionCounts(),count:1);
+                Field=runner.Field;Session=Field.GetAthlete(0);
+                while(Session.RouteNanometers<station*SkiState.NanometersPerMeter)runner.Step();
+                map=new ManualRouteProjectionMap(Field.Route,venue.Visual);
+                Assert.That(map.TrySampleAhead(0,Session.RouteNanometers,0,false,out var target),Is.True);
+                double line=Field.GetLateral(0);
+                var pose=new ManualSkiHeadingState(target.X+target.ForwardZ*line,target.Z-target.ForwardX*line,
+                    Math.Atan2(target.ForwardX,target.ForwardZ)+(reversed?Math.PI:0),yaw);
+                Assert.That(map.TryProject(pose,0,Session.RouteNanometers,0,false,out var at),Is.True);
+                double planar=Session.Motion.SpeedMetersPerSecond/Math.Sqrt(1+Math.Pow(at.GradeAlong(pose),2));
+                var velocity=new SkiPlanarVelocity(planar*Math.Sin(pose.HeadingRadians),planar*Math.Cos(pose.HeadingRadians));
+                progress=new ManualRouteProgression(Field.Route);
+                var contact=SkiContactDefinition.FromJson("{\"schema_version\":1,\"id\":\"actual_contact\",\"restitution\":0,\"sliding_friction\":0.2,\"contact_tolerance_m\":0.000001}");
+                var work=SkiContactSweepDefinition.FromJson("{\"schema_version\":1,\"id\":\"actual_sweep\",\"maximum_depth\":32,\"maximum_interval_checks\":4096,\"time_tolerance_s\":0.0000001}");
+                sweep=new ManualRouteJointSweep(map,venue.Occupancy,contact,work);
+                World=new ManualWorldRosterLedger(Field.Route,map,sweep,progress,
+                    new[]{progress.Reconstitute(Session.AthleteId,0,Session.RouteNanometers,Session.RouteNanometers)},
+                    new[]{pose},new[]{velocity},Field.TickFrequency,new[]{Session.Motion},Field.Tick);
+                sampler=new TrackSampler(venue.Track.GetLoop(at.LoopId));
+                Model=new SkiModelDefinitions(PhysiologyContractTests.DefinitionJson);
+                Solver=new ManualSkiMotionSystem(Model.Physics,
+                    ManualSkiSteeringDefinition.FromJson(Read("Biathlon/manual_ski_steering_v2")),Model.Cornering,Field.TickFrequency);
+            }
+            internal TrackSample Surface()=>sampler.Sample(new TrackDistance((long)Math.Floor(World.GetActor(0).Projection.LocalMeters*1000)));
+            internal ManualRouteActorFrame AtStation(double station,bool reversed,double yaw)
+            {
+                long observed=(long)Math.Round(station*SkiState.NanometersPerMeter);
+                Assert.That(map.TrySampleAhead(0,observed,0,false,out var target),Is.True);
+                var pose=new ManualSkiHeadingState(target.X,target.Z,
+                    Math.Atan2(target.ForwardX,target.ForwardZ)+(reversed?Math.PI:0),yaw);
+                Assert.That(map.TryProject(pose,0,observed,0,false,out var projection),Is.True);
+                double planar=Session.Motion.SpeedMetersPerSecond/Math.Sqrt(1+Math.Pow(projection.GradeAlong(pose),2));
+                var velocity=new SkiPlanarVelocity(planar*Math.Sin(pose.HeadingRadians),planar*Math.Cos(pose.HeadingRadians));
+                var other=new ManualWorldRosterLedger(Field.Route,map,sweep,progress,
+                    new[]{progress.Reconstitute(Session.AthleteId,0,observed,Session.RouteNanometers)},
+                    new[]{pose},new[]{velocity},Field.TickFrequency,new[]{Session.Motion},Field.Tick);
+                return other.GetActor(0);
+            }
+            internal SprintAthleteInput Command(bool tuck)=>new SprintAthleteInput(
+                new TimeTrialInput(new SimulationInput(Session.Tick.Next(),Session.AthleteId,800),1,1,0,tuckRequested:tuck),
+                new WeaponAimCommand(Session.Tick.Next(),Session.AthleteId,0,0));
+        }
         [TestCase(false,false)]
         [TestCase(true,false)]
         [TestCase(false,true)]

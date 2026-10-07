@@ -96,3 +96,20 @@ with changing directional grade. This still does not admit private phases,
 surface boundary splitting, above-cap continuation, full manual replay or host
 input. Repeated whole-runtime allocation anomalies remain unqualified even
 though the final 177-test manual run and native focused cases pass.
+
+## 2026-10-07 actual-world posture and same-section retreat
+
+A manual preparation overload binds an accepted actor value and samples its
+explicit route occurrence/local physical station. Directional geometric slope
+and actual yaw divided by planar speed feed the shared tuck policy; actual
+surface muscle factor feeds physiology. The original compatibility overload
+retains its coincident-credit contract. Commit requires exact pose, velocity and
+projection equality with the owned ledger source, so an observation used for
+preparation cannot manufacture authority or replace world state.
+
+Pack publication now permits observed station below high-water credited station
+within the same selected section. Race progress remains the existing ledger's
+maximum station, separate from its physical odometer. Snapshots use actual
+heading slope/turn curvature in world mode. The distinct v2 Pack binding context
+captures this policy. This does not qualify private paths, full manual replay
+or host integration. Broad .NET allocation failures remain explicitly OPEN.
