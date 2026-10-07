@@ -223,3 +223,10 @@ M13 manual traffic candidate: AI теперь может выбрать своб
 PASS. Соседние траектории и поведение Pack Mass Start с игроком ещё не
 проверены, очередь у рубежа остаётся owner issue.
 [Отчёт](reports/TASK_M13_MANUAL_AI_WORLD_TRAFFIC_CANDIDATE_20261007.md).
+
+Дополнение M13 к manual traffic candidate: двухспортсменный physical bypass
+прошёл общую force/yaw + continuous body/course проверку на каждом из 128
+тиков (10→42,28 м), боковой зазор при обгоне 0,927 м. .NET AI/joint 31/31,
+скрытая Unity EditMode 5/5 PASS. Это не подтверждение полного Pack Mass Start:
+в нём manual yaw и traffic planner ещё не подключены. Owner-дефект очереди OPEN.
+[Отчёт](reports/TASK_M13_MANUAL_AI_WORLD_TRAFFIC_CANDIDATE_20261007.md).

@@ -115,5 +115,77 @@ namespace Biathlon.Tests
                 f.venue.Occupancy.BodyWidth+2*f.venue.Occupancy.EdgeClearance);
             Assert.That(plan.HasPassingLine,Is.False);
         }
+
+        [Test] public void ChosenYawLinePassesStationaryWorldBodyThroughContinuousJointSweep()
+        {
+            var f=Create();var first=f.route.GetSection(0);
+            var start=f.venue.Visual.Get(first.LoopId).Sample(10);
+            var blockPoint=f.venue.Visual.Get(first.LoopId).Sample(30);
+            var moverId=new AthleteId("moving");var blockId=new AthleteId("stopped");
+            var pose=new ManualSkiHeadingState(start.X,start.Z,
+                Math.Atan2(start.ForwardX,start.ForwardZ));
+            var stopped=new ManualSkiHeadingState(blockPoint.X,blockPoint.Z,
+                Math.Atan2(blockPoint.ForwardX,blockPoint.ForwardZ));
+            var heading=ManualSkiSteeringDefinition.FromJson(PhysiologyContractTests.ProjectFile(
+                "Assets/Resources/Biathlon/manual_ski_steering_v2.json"));
+            var ai=new ManualAiSteeringController(f.map,
+                ManualAiSteeringDefinition.FromJson(PhysiologyContractTests.ProjectFile(
+                    "Assets/Resources/Biathlon/manual_ai_steering_v2.json")),heading);
+            var ski=new ManualSkiMotionSystem(SkiPhysicsDefinition.FromJson(
+                PhysiologyContractTests.ProjectFile(
+                    "Assets/Resources/Biathlon/ski_physics_provisional_v1.json")),
+                heading,CorneringDefinition.FromJson(PhysiologyContractTests.ProjectFile(
+                    "Assets/Resources/Biathlon/cornering_provisional_v1.json")),20);
+            var contact=SkiContactDefinition.FromJson("{\"schema_version\":1,\"id\":\"manual_pass_pair_v1\",\"restitution\":0,\"sliding_friction\":0.2,\"contact_tolerance_m\":0.000001}");
+            var work=SkiContactSweepDefinition.FromJson("{\"schema_version\":1,\"id\":\"manual_pass_work_v1\",\"maximum_depth\":32,\"maximum_interval_checks\":4096,\"time_tolerance_s\":0.0000001}");
+            var joint=new ManualRouteJointSweep(f.map,f.venue.Occupancy,contact,work);
+            var stillBody=new ManualSkiContactBody(blockId,stopped,new SkiPlanarVelocity(0,0),75);
+            var stillMotion=new ManualSkiSnowContactSystem(f.venue.Occupancy,1)
+                .PreviewTrajectory(stillBody,new SkiContactMotion(new SkiPlanarVelocity(0,0),0),0,0,.05);
+            var stationary=new SkiWorldMotionCandidate(blockId,
+                new ManualSkiWorldTrajectory(stillMotion));
+            long station=Nano(10),blockStation=Nano(30);int count=0;
+            double crossingLateral=double.NaN;
+            var skiState=new SkiState(0,4);
+            var sampler=new TrackSampler(f.venue.Track.GetLoop(first.LoopId));
+            double width=f.route.Sample(TrackDistance.FromMeters(10)).Track.WidthMeters;
+            Assert.That(f.map.TryProject(stopped,0,blockStation,.01,false,
+                out var blocker),Is.True);
+            var neighbors=new[]{new ManualAiTrafficNeighbor(blockId,blocker)};
+            Assert.That(f.map.TryProject(pose,0,station,.01,false,out var initial),Is.True);
+            var bypass=f.planner.Plan(moverId,initial,neighbors,width);
+            Assert.That(bypass.HasPassingLine,Is.True);
+            for(int tick=0;tick<220&&station<Nano(42);tick++)
+            {
+                Assert.That(f.map.TryProject(pose,0,station,2,false,out var observed),
+                    Is.True,"Physical passing line lost its local course observation.");
+                if(double.IsNaN(crossingLateral)&&observed.RouteNanometers>=blockStation)
+                    crossingLateral=observed.LateralMeters;
+                var intent=ai.Plan(pose,observed,skiState.SpeedMetersPerSecond,false,bypass.DesiredLateralMeters,
+                    bypass.UsableHalfWidthMeters);
+                Assert.That(intent.IsValid,Is.True);
+                var surface=sampler.Sample(new TrackDistance((long)Math.Floor(observed.LocalMeters*1000)));
+                var motion=ski.Preview(skiState,pose,observed,surface,
+                    new ManualSkiMotionInput(intent.SteeringInput,200,70,70));
+                var actors=new[]{new SkiWorldMotionCandidate(moverId,
+                    new ManualSkiWorldTrajectory(motion.Heading)),stationary};
+                var windows=new[]{new ManualRouteActorWindow(moverId,0,observed.RouteNanometers,2,false),
+                    new ManualRouteActorWindow(blockId,0,blockStation,0,false)};
+                var admitted=joint.Preview(actors,2,Array.Empty<SkiReachedContactPair>(),0,
+                    windows,Array.Empty<SkiActorCourseEdge>(),0);
+                Assert.That(admitted.Status,Is.EqualTo(ManualRouteJointStatus.Clear),
+                    "Full-body/world-course passage was not proven at tick "+tick+
+                    " station="+observed.RouteNanometers/1e9+" clear_s="+
+                    admitted.ClearUntilSeconds);
+                pose=motion.Heading.State;skiState=motion.Travel.Output.State;
+                Assert.That(f.map.TryProject(pose,0,station,2,false,out var next),Is.True);
+                station=next.RouteNanometers;count++;
+            }
+            Assert.That(station,Is.GreaterThanOrEqualTo(Nano(42)));
+            Assert.That(count,Is.GreaterThan(25));
+            Assert.That(crossingLateral,Is.GreaterThan(f.venue.Occupancy.LateralSeparation));
+            TestContext.WriteLine("world_bypass_ticks="+count+" station_m="+
+                station/1e9+" crossing_lateral_m="+crossingLateral);
+        }
     }
 }

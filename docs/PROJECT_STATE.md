@@ -22430,3 +22430,22 @@ and docs/quality/m13/m13-manual-ai-world-traffic-tube.trx.
 No player-stationary full-field bypass or range-exit continuous passage is
 yet proven. Candidate is not connected to playable Pack. Owner queue defect,
 WP-177 and M13 remain OPEN; no Windows review build issued.
+
+
+## 2026-10-07 — M13 two-actor stationary-body physical bypass proof
+
+The candidate world traffic line was driven through shared AI yaw, the real
+force-weighted manual ski preview at 200 W, and ManualRouteJointSweep on
+every tick against a stationary second athlete. On Woodland Main the moving
+actor advanced from 10 to 42.279753259 m in 128 accepted full-clear ticks.
+At the blocker station its lateral position was 0.92736068035782 m, beyond
+the shared body lateral separation; no body ghosting or lateral teleport was
+used. Release .NET AI/joint regression 31/31 PASS and hidden Unity EditMode
+traffic class 5/5 PASS; recent Error Console empty. Evidence:
+docs/reports/TASK_M13_MANUAL_AI_WORLD_TRAFFIC_CANDIDATE_20261007.md and
+docs/quality/m13/m13-manual-ai-bypass-world-joint.trx.
+
+This controlled two-actor fixture holds one passing line and uses fixed
+power. Full Pack/player integration, traffic re-planning, physiological
+power, start/range/penalty, replay v2 and owner range-exit queue acceptance
+remain OPEN. WP-177/M13 OPEN; no Windows review build issued.
