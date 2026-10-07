@@ -47,8 +47,11 @@ namespace Biathlon.Tests
                     $"knot={k} local={knot.Distance} edge_length={length} source={preview.SourceEdgeId}");
                 Assert.That(preview.ClearUntilSeconds,Is.EqualTo(.05));accepted++;
             }
-            Assert.That(accepted,Is.GreaterThan(300));
-            Assert.That(shortEdges,Is.GreaterThan(100));
+            Assert.That(accepted,Is.EqualTo(loop.Count-2),"Every authored internal knot must admit the full interval.");
+            // Owner-shortened Woodland contains 62 sub-2m edges, rather than
+            // the previous more-than-100 fixture density. The proof still
+            // visits every knot and must exercise repeated short edges.
+            Assert.That(shortEdges,Is.GreaterThan(1));
         }
         [Test] public void OutwardCourseDepartureHasAContinuousUnprovedPrefixInsteadOfAClamp()
         {

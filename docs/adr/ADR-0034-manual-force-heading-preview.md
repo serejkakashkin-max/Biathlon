@@ -69,3 +69,30 @@ second tick. A 200-tick flat acceleration/turn regression and real Pack
 two-tick publication exercise the correction. Variable grade intervals and
 post-contact side-slip still require their own qualified continuation; no
 continuity gate is relaxed and no full-race integration claim follows.
+
+## 2026-10-07 accepted planar velocity continuation
+
+An explicit accepted-velocity preview treats the incoming horizontal vector
+as the kinematic authority. Its norm and the currently observed directional
+grade rebase the scalar coordinate consumed by the same force solver, retaining
+the physical odometer. The encoded scalar rounds upward; only a 16-ulp floating
+scale/cap reserve repairs representational roundoff. Significant cap excess
+still rejects without changing accepted state. This is a tangent-plane scalar
+conversion, not a full three-dimensional momentum/energy solver.
+
+For heading-aligned nonzero motion, yaw rotates the accepted initial velocity
+basis and the shared scalar ramp scales its magnitude. Simpson position samples
+use this same basis. From rest, ordinary heading-directed force acceleration
+is retained. The exact start vector is never reconstructed from a route tangent
+or relaxed by the ledger's continuity gate. Numerical endpoint encoding and
+trajectory reserves remain explicit. Significant side-slip or reverse-aligned
+velocity must use the contact/slip continuation rather than being silently
+rotated. The separate accepted-velocity context binds the new policy while the
+legacy preview context/API remain unchanged.
+
+Real Woodland Pack publication now exercises 21 jointly proven ticks for two
+sessions in different selected sections, driven by existing AI yaw intent and
+with changing directional grade. This still does not admit private phases,
+surface boundary splitting, above-cap continuation, full manual replay or host
+input. Repeated whole-runtime allocation anomalies remain unqualified even
+though the final 177-test manual run and native focused cases pass.

@@ -131,7 +131,8 @@ namespace Biathlon.Tests
             }
             var contact=SkiContactDefinition.FromJson("{\"schema_version\":1,\"id\":\"pack_two_contact\",\"restitution\":0,\"sliding_friction\":0.2,\"contact_tolerance_m\":0.000001}");
             var work=SkiContactSweepDefinition.FromJson("{\"schema_version\":1,\"id\":\"pack_two_sweep\",\"maximum_depth\":32,\"maximum_interval_checks\":4096,\"time_tolerance_s\":0.0000001}");
-            var world=new ManualWorldRosterLedger(field.Route,map,new ManualRouteJointSweep(map,venue.Occupancy,contact,work),
+            var jointSweep=new ManualRouteJointSweep(map,venue.Occupancy,contact,work);
+            var world=new ManualWorldRosterLedger(field.Route,map,jointSweep,
                 progress,cursors,poses,velocities,field.TickFrequency,motion,field.Tick);
             for(int i=0;i<2;i++)
             {
@@ -168,6 +169,40 @@ namespace Biathlon.Tests
                 Assert.That(field.GetManualWorldActor(i).Pose,Is.EqualTo(world.GetActor(i).Pose));
                 Assert.That(snapshot.Get(i).WorldVelocity,Is.EqualTo(world.GetActor(i).Velocity));
             }
+            var firstSnapshotPose=snapshot.Get(0).WorldPose;
+            double firstGrade=world.GetActor(0).Projection.GradeAlong(world.GetActor(0).Pose),maximumGradeChange=0;
+            var aiSteering=new ManualAiSteeringController(map,
+                ManualAiSteeringDefinition.FromJson(Read("Biathlon/manual_ai_steering_v2")),
+                ManualSkiSteeringDefinition.FromJson(Read("Biathlon/manual_ski_steering_v2")));
+            for(int step=0;step<20;step++)
+            {
+                for(int i=0;i<2;i++)
+                {
+                    var session=sessions[i];var accepted=world.GetActor(i);
+                    commands[i]=SprintAthleteSessionTests.Script(session);pending[i]=session.PrepareManualBaseStep(commands[i]);
+                    var surface=new TrackSampler(venue.Track.GetLoop(accepted.Projection.LoopId))
+                        .Sample(new TrackDistance((long)Math.Floor(accepted.Projection.LocalMeters*1000)));
+                    var velocity=accepted.Velocity;
+                    var plan=aiSteering.Plan(accepted.Pose,accepted.Projection,Math.Sqrt(velocity.X*velocity.X+velocity.Z*velocity.Z),false);
+                    Assert.That(plan.IsValid,Is.True);
+                    var input=session.GetPreparedManualMotionInput(pending[i],accepted,surface,plan.SteeringInput);
+                    var heading=solver.PreviewAcceptedVelocity(session.Motion,accepted.Pose,accepted.Velocity,accepted.Projection,surface,input).Heading;
+                    Assert.That(heading.VelocityAt(0),Is.EqualTo(accepted.Velocity));
+                    actors[i]=new SkiWorldMotionCandidate(session.AthleteId,new ManualSkiWorldTrajectory(heading));
+                    windows[i]=new ManualRouteActorWindow(session.AthleteId,world.GetCursor(i).SectionIndex,session.RouteNanometers,2,false);
+                    caps[i]=session.RouteNanometers+2*SkiState.NanometersPerMeter;
+                    grades[i]=accepted.Projection.GradeAlong(accepted.Pose);
+                    if(i==0)maximumGradeChange=Math.Max(maximumGradeChange,Math.Abs(grades[i]-firstGrade));
+                }
+                bool ok=world.TryPrepareWithOdometer(actors,windows,caps,Array.Empty<SkiReachedContactPair>(),0,
+                    Array.Empty<SkiActorCourseEdge>(),0,grades,out proposal);
+                var joint=jointSweep.Preview(actors,2,Array.Empty<SkiReachedContactPair>(),0,windows,Array.Empty<SkiActorCourseEdge>(),0);
+                Assert.That(ok,Is.True,FormattableString.Invariant($"step={step}, joint={joint.Status}, clear={joint.ClearUntilSeconds:R}, actor={joint.Athlete.Value}, lines={field.GetLateral(0):R},{field.GetLateral(1):R}"));
+                transaction.CommitPackField(field,commands,pending,proposal,new DraftOutput[2]);
+            }
+            Assert.That(field.Tick.Value,Is.EqualTo(oldTick+21));Assert.That(world.Tick,Is.EqualTo(field.Tick));
+            Assert.That(snapshot.Get(0).WorldPose,Is.EqualTo(firstSnapshotPose));
+            Assert.That(maximumGradeChange,Is.GreaterThan(1e-9),"Use real changing Woodland directional grade.");
         }
         [TestCase(false)]
         [TestCase(true)]

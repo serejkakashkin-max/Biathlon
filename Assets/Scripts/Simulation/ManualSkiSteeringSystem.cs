@@ -11,6 +11,8 @@ namespace Biathlon.Simulation
         private readonly int substeps;
         private readonly SkiForceTrajectory travel;
         private readonly double planarScale;
+        private readonly SkiPlanarVelocity acceptedVelocity;
+        private readonly bool hasAcceptedVelocity;
         public ManualSkiHeadingState State { get; }
         public double DurationSeconds { get; }
         /// <summary>Horizontal world-plane metres, not the legacy slope-path odometer.</summary>
@@ -73,6 +75,7 @@ namespace Biathlon.Simulation
         {
             if (!HasForceTrajectory) throw new InvalidOperationException("Force-weighted trajectory required.");
             PhysiologyNumbers.RequireRange(fraction, 0, 1, nameof(fraction));
+            if(fraction==0&&hasAcceptedVelocity)return acceptedVelocity;
             // The accepted endpoint must share the encoded heading and speed
             // used to initialize the next force tick. Interior samples retain
             // the continuous force path; endpoint encoding is covered by the
@@ -80,15 +83,17 @@ namespace Biathlon.Simulation
             double time = DurationSeconds*fraction;
             double heading = fraction==1?State.HeadingRadians:initial.HeadingRadians+AngleAt(time);
             double speed = (fraction==1?travel.Output.State.SpeedMetersPerSecond:travel.SpeedRaw(time))*planarScale;
-            return new SkiPlanarVelocity(speed*Math.Sin(heading), speed*Math.Cos(heading));
+            return fraction==1?new SkiPlanarVelocity(speed*Math.Sin(heading),speed*Math.Cos(heading)):ForceVelocityAt(time);
         }
 
         internal ManualSkiHeadingFrame(ManualSkiHeadingState initial, double duration, double distance,
             double requestedRate, double targetRate, double rateLimit, double acceleration, double reach,
-            int substeps, double speed, double gripLimit, SkiForceTrajectory travel=default, double planarScale=1)
+            int substeps, double speed, double gripLimit, SkiForceTrajectory travel=default, double planarScale=1,
+            bool hasAcceptedVelocity=false,SkiPlanarVelocity acceptedVelocity=default)
         {
             this.initial = initial; this.acceleration = acceleration; reachSeconds = reach; this.substeps = substeps;
             this.travel=travel;this.planarScale=planarScale;
+            this.hasAcceptedVelocity=hasAcceptedVelocity;this.acceptedVelocity=acceptedVelocity;
             DurationSeconds = duration; PlanarTravelDistanceMeters = distance; RequestedYawRate = requestedRate;
             TargetYawRate = targetRate; YawRateLimit = rateLimit; GripAccelerationLimit = gripLimit;
             // Unity's C# compiler requires every struct field assigned before instance helpers.
@@ -135,10 +140,9 @@ namespace Biathlon.Simulation
                     for(int i=0;i<substeps;i++)
                     {
                         double a=from+i*step,b=a+step*.5,c=a+step;
-                        double va=travel.SpeedRaw(a)*planarScale,vb=travel.SpeedRaw(b)*planarScale,vc=travel.SpeedRaw(c)*planarScale;
-                        double ha=initial.HeadingRadians+AngleAt(a),hb=initial.HeadingRadians+AngleAt(b),hc=initial.HeadingRadians+AngleAt(c);
-                        x+=step/6*(va*Math.Sin(ha)+4*vb*Math.Sin(hb)+vc*Math.Sin(hc));
-                        z+=step/6*(va*Math.Cos(ha)+4*vb*Math.Cos(hb)+vc*Math.Cos(hc));
+                        var va=ForceVelocityAt(a);var vb=ForceVelocityAt(b);var vc=ForceVelocityAt(c);
+                        x+=step/6*(va.X+4*vb.X+vc.X);
+                        z+=step/6*(va.Z+4*vb.Z+vc.Z);
                     }
                     from=to;
                 }
@@ -161,6 +165,21 @@ namespace Biathlon.Simulation
                 }
             }
             return new ManualSkiHeadingState(x, z, initial.HeadingRadians + AngleAt(time), RateAt(time));
+        }
+
+        private SkiPlanarVelocity ForceVelocityAt(double time)
+        {
+            double angle=AngleAt(time),speed=travel.SpeedRaw(time);
+            if(hasAcceptedVelocity&&travel.InitialState.SpeedMetersPerSecond>0)
+            {
+                if(time==0)return acceptedVelocity;
+                double ratio=speed/travel.InitialState.SpeedMetersPerSecond;
+                double sine=Math.Sin(angle),cosine=Math.Cos(angle);
+                return new SkiPlanarVelocity((acceptedVelocity.X*cosine+acceptedVelocity.Z*sine)*ratio,
+                    (acceptedVelocity.Z*cosine-acceptedVelocity.X*sine)*ratio);
+            }
+            double heading=initial.HeadingRadians+angle;
+            return new SkiPlanarVelocity(speed*planarScale*Math.Sin(heading),speed*planarScale*Math.Cos(heading));
         }
 
         private double NextBoundary(double from,double end)
@@ -231,6 +250,30 @@ namespace Biathlon.Simulation
             return Build(state,steeringInput,travel.DistanceAt(travel.DurationSeconds)*planarScale,travel.PeakSpeed*planarScale,
                 gripAccelerationLimit,postureResponse,travel.DurationSeconds,travel,planarScale);
         }
+        /// <summary>Continue an accepted heading-aligned velocity exactly. A
+        /// significant side-slip needs its contact/slip continuation solver.</summary>
+        public ManualSkiHeadingFrame PreviewAcceptedVelocity(ManualSkiHeadingState state,SkiPlanarVelocity velocity,
+            int steeringInput,SkiForceTrajectory travel,double planarScale,double gripAccelerationLimit,double postureResponse=1)
+        {
+            if(!travel.IsValid||travel.DurationSeconds>duration)throw new ArgumentException("Travel must fit the fixed tick.",nameof(travel));
+            // A norm of an encoded sin/cos velocity can round one ulp above
+            // its encoded scalar speed. Retain that exact velocity and its
+            // conservative bound; do not clamp or reconstruct it.
+            const double maximumEncodedScale=1+16*2.2204460492503131e-16;
+            PhysiologyNumbers.RequireRange(planarScale,double.Epsilon,maximumEncodedScale,nameof(planarScale));
+            double speed=Math.Sqrt(velocity.X*velocity.X+velocity.Z*velocity.Z);
+            double forward=velocity.X*Math.Sin(state.HeadingRadians)+velocity.Z*Math.Cos(state.HeadingRadians);
+            double side=velocity.X*Math.Cos(state.HeadingRadians)-velocity.Z*Math.Sin(state.HeadingRadians);
+            double reserve=2*PhysiologyNumbers.MinimumPositive*speed;
+            if(!state.IsValid||forward<0||Math.Abs(side)>reserve||
+                Math.Abs(speed-travel.InitialState.SpeedMetersPerSecond*planarScale)>PhysiologyNumbers.MinimumPositive||
+                travel.InitialState.SpeedMetersPerSecond==0&&speed!=0)
+                throw new ArgumentException("Heading-aligned accepted velocity and matching force start required.");
+            double exactScale=travel.InitialState.SpeedMetersPerSecond==0?planarScale:speed/travel.InitialState.SpeedMetersPerSecond;
+            PhysiologyNumbers.RequireRange(exactScale,double.Epsilon,maximumEncodedScale,nameof(velocity));
+            return Build(state,steeringInput,travel.DistanceAt(travel.DurationSeconds)*exactScale,travel.PeakSpeed*exactScale,
+                gripAccelerationLimit,postureResponse,travel.DurationSeconds,travel,exactScale,true,velocity);
+        }
         public ManualSkiHeadingFrame Preview(ManualSkiHeadingState state,ManualSkiCommand command,
             SkiForceTrajectory travel,double planarScale,double gripAccelerationLimit,double postureResponse=1)
         {
@@ -239,7 +282,7 @@ namespace Biathlon.Simulation
         }
         private ManualSkiHeadingFrame Build(ManualSkiHeadingState state,int steeringInput,double planarTravelDistanceMeters,
             double speedMetersPerSecond,double gripAccelerationLimit,double postureResponse,double frameDuration,
-            SkiForceTrajectory travel=default,double planarScale=1)
+            SkiForceTrajectory travel=default,double planarScale=1,bool hasAcceptedVelocity=false,SkiPlanarVelocity acceptedVelocity=default)
         {
             if (!state.IsValid) throw new ArgumentException("An explicitly initialized world pose is required.", nameof(state));
             if (steeringInput < -ManualSkiCommand.SteeringUnits || steeringInput > ManualSkiCommand.SteeringUnits)
@@ -264,7 +307,7 @@ namespace Biathlon.Simulation
             double acceleration = Math.Sign(change) * magnitude;
             double reach = change == 0 ? 0 : magnitude == 0 ? double.PositiveInfinity : Math.Abs(change) / magnitude;
             return new ManualSkiHeadingFrame(state, frameDuration, planarTravelDistanceMeters, requestedRate,
-                targetRate, limit, acceleration, reach, definition.PathIntegrationSubsteps, speedMetersPerSecond, gripAccelerationLimit,travel,planarScale);
+                targetRate, limit, acceleration, reach, definition.PathIntegrationSubsteps, speedMetersPerSecond, gripAccelerationLimit,travel,planarScale,hasAcceptedVelocity,acceptedVelocity);
         }
     }
 }

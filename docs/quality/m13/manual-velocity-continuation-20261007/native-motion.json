@@ -1,0 +1,93 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1284,\"PassedTests\":14,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:11.2006738\"},\"Results\":[{\"Name\":\"Biathlon.Tests.ManualSkiMotionTests.AcceptedRestAccelerationAndWarmPreviewHaveNoHiddenVelocityResetOrAllocation\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.8880000\"},{\"Name\":\"Biathlon.Tests.ManualSkiMotionTests.AcceptedVelocityContinuesExactlyAsTurningChangesDirectionalGrade\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.8240000\"},{\"Name\":\"Biathlon.Tests.ManualSkiMotionTests.ActualHeadingChangesGradeGravityAndWindWithoutAutoTurning\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.7190000\"},{\"Name\":\"Biathlon.Tests.ManualSkiMotionTests.ActualYawCostsSpeedAndLowSpeedTurningHasNoCurvatureSingularity\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.8150000\"},{\"Name\":\"Biathlon.Tests.ManualSkiMotionTests.CentreLineBendDoesNotBrakeAnAthleteWhoIsNotTurning\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.ManualSkiMotionTests.EncodedScalarCapPreservesItsExactAcceptedWorldVelocity(False)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.7970000\"},{\"Name\":\"Biathlon.Tests.ManualSkiMotionTests.EncodedScalarCapPreservesItsExactAcceptedWorldVelocity(True)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.7470000\"},{\"Name\":\"Biathlon.Tests.ManualSkiMotionTests.ExistingTuckModifiersTradeDragForSteeringResponse\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.7990000\"},{\"Name\":\"Biathlon.Tests.ManualSkiMotionTests.ForceTrajectoryOdometerIsDistinctFromPlanarAndProjectedTravel\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.7590000\"},{\"Name\":\"Biathlon.Tests.ManualSkiMotionTests.InvalidAndStaleCourseInputsFailWithoutMutatingState\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.8310000\"},{\"Name\":\"Biathlon.Tests.ManualSkiMotionTests.PreviewIsRepeatableAllocationFreeAndBindsItsDefinitions\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.7900000\"},{\"Name\":\"Biathlon.Tests.ManualSkiMotionTests.UnsupportedAcceptedVelocityCannotBeSilentlyRotatedOrClamped(\\u0022side_slip\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.7550000\"},{\"Name\":\"Biathlon.Tests.ManualSkiMotionTests.UnsupportedAcceptedVelocityCannotBeSilentlyRotatedOrClamped(\\u0022reverse\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.8210000\"},{\"Name\":\"Biathlon.Tests.ManualSkiMotionTests.UnsupportedAcceptedVelocityCannotBeSilentlyRotatedOrClamped(\\u0022above_scalar_cap\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.7740000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 1284,
+        "PassedTests": 14,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:11.2006738"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.ManualSkiMotionTests.AcceptedRestAccelerationAndWarmPreviewHaveNoHiddenVelocityResetOrAllocation",
+          "Status": "Passed",
+          "Duration": "00:00:00.8880000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiMotionTests.AcceptedVelocityContinuesExactlyAsTurningChangesDirectionalGrade",
+          "Status": "Passed",
+          "Duration": "00:00:00.8240000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiMotionTests.ActualHeadingChangesGradeGravityAndWindWithoutAutoTurning",
+          "Status": "Passed",
+          "Duration": "00:00:00.7190000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiMotionTests.ActualYawCostsSpeedAndLowSpeedTurningHasNoCurvatureSingularity",
+          "Status": "Passed",
+          "Duration": "00:00:00.8150000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiMotionTests.CentreLineBendDoesNotBrakeAnAthleteWhoIsNotTurning",
+          "Status": "Passed",
+          "Duration": "00:00:00.0020000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiMotionTests.EncodedScalarCapPreservesItsExactAcceptedWorldVelocity(False)",
+          "Status": "Passed",
+          "Duration": "00:00:00.7970000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiMotionTests.EncodedScalarCapPreservesItsExactAcceptedWorldVelocity(True)",
+          "Status": "Passed",
+          "Duration": "00:00:00.7470000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiMotionTests.ExistingTuckModifiersTradeDragForSteeringResponse",
+          "Status": "Passed",
+          "Duration": "00:00:00.7990000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiMotionTests.ForceTrajectoryOdometerIsDistinctFromPlanarAndProjectedTravel",
+          "Status": "Passed",
+          "Duration": "00:00:00.7590000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiMotionTests.InvalidAndStaleCourseInputsFailWithoutMutatingState",
+          "Status": "Passed",
+          "Duration": "00:00:00.8310000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiMotionTests.PreviewIsRepeatableAllocationFreeAndBindsItsDefinitions",
+          "Status": "Passed",
+          "Duration": "00:00:00.7900000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiMotionTests.UnsupportedAcceptedVelocityCannotBeSilentlyRotatedOrClamped(\"side_slip\")",
+          "Status": "Passed",
+          "Duration": "00:00:00.7550000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiMotionTests.UnsupportedAcceptedVelocityCannotBeSilentlyRotatedOrClamped(\"reverse\")",
+          "Status": "Passed",
+          "Duration": "00:00:00.8210000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiMotionTests.UnsupportedAcceptedVelocityCannotBeSilentlyRotatedOrClamped(\"above_scalar_cap\")",
+          "Status": "Passed",
+          "Duration": "00:00:00.7740000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

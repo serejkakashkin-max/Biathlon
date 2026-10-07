@@ -22686,3 +22686,36 @@ geometry/contact/seam orchestration, world draft planner, manual race tape
 and ProductionVenueHost input/rig consumption are outstanding. Playable
 host remains lateral v1 with route-following. WP-175/177/178 and M13 OPEN;
 WP-176 PASS; no intermediate Windows build. Historical state bytes preserved.
+
+
+## 2026-10-07 — M13 accepted-world velocity across changing grade
+
+A new failing test exposed scalar-to-planar reconstruction changing the
+next trajectory start vector when directional grade changes during a turn.
+The explicit accepted-velocity force preview now preserves that vector
+exactly, rebases only the scalar tangent-plane force coordinate, retains
+odometer and rotates/scales the accepted basis with shared yaw/force ramps.
+Rest acceleration and encoded endpoint continuity remain qualified. Numerical
+scale/cap repair is bounded at16ulp; significant side-slip/reverse-aligned
+velocity/scalar-cap excess reject rather than clamp or manufacture movement.
+
+Real Woodland Pack fixture:21 full jointly proven ticks,2 athletes in different
+sections, existing AI yaw intents, changing observed grade, clocks/odometer and
+detached snapshots checked. The earlier straight intent legitimately reached
+a course-tube boundary; retained RED receipt, no collision/course proof waiver.
+.NET all manual components177/177 PASS twice, including the final explicit
+policy context. Native hidden motion14/14, Pack bridge8/8, tube5/5 and force9/9
+PASS. Compile PASS; Error Console empty. First broad run172/175 included
+allocation anomalies80B/720B and an obsolete >100 short-edge fixture count.
+All short-course internal knots are still checked for full clear intervals;
+coverage now explicitly equals loop.Count-2 and tests repeated short edges.
+Current Main has62 such edges. Allocation assertions unchanged; sporadic
+runtime-allocation cause remains unproven and is not closed by focused passes.
+Report: docs/reports/TASK_M13_MANUAL_ACCEPTED_VELOCITY_20261007.md.
+Evidence: docs/quality/m13/manual-velocity-continuation-20261007/.
+
+Remaining: actual-world posture/physiology and backward/retrace in Pack,
+surface/phase splits, start/range/penalty/seams/contact, full manual race tape,
+host input/rig, final weather/performance qualification and one Windows build.
+Live host still lateral v1; no playable manual claim or intermediate build.
+WP-175/177/178 and M13 OPEN; WP-176 PASS. Historical state bytes preserved.

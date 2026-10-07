@@ -41,7 +41,7 @@ AI объезда у рубежа повторно проверяет удерж
 
 | Направление | Что осталось |
 |---|---|
-| Полностью ручное руление | Ядро yaw, силы, AI, world-body/course sweep, odometer и one-section Sprint commit проверены. Playable Pack всё ещё использует lateral v1 и автоматически следует линии трассы. Pack уже публикует forward base-section world ticks и snapshot pose/velocity. Нужны start/range/penalty/seam paths, variable-grade/contact continuation, события, полный replay и host input/rig подключение. |
+| Полностью ручное руление | Ядро yaw, силы, AI, world-body/course sweep, odometer и one-section Sprint commit проверены. Playable Pack всё ещё использует lateral v1 и автоматически следует линии трассы. Pack уже публикует forward base-section world ticks и snapshot pose/velocity. Нужны start/range/penalty/seam paths, actual-world posture/physiology, backward/retrace, surface/phase/contact continuation, события, полный replay и host input/rig подключение. |
 | WP-175 | Полная headless матрица snow Sprint40→Pursuit40/Mass30 и пять корректных Unity Game View погодных режимов сохранены. После manual интеграции нужны player traffic и rendering/readability проверка итогового пакета. |
 | WP-176 | PASS: 16 authoritative Woodland гонок в сезоне, 52 недели и save/restore. Новый/старый календарь сохраняют собственную identity. UI — M14. |
 | WP-177 | Короткий рельеф перенесён, два traffic seed/replay/выходы проверены. Финальная калибровка с ручным управлением и owner проверка остаются открытыми. |
@@ -65,3 +65,8 @@ Pack base-world bridge: .NET50/50 + legacy38/38; native8/8 +9/9 PASS.
 Stale second-row rejection is atomic; encoded endpoint velocity continuity fixed.
 This is forward same-section publication, not a live manual runner.
 [Report](reports/TASK_M13_MANUAL_PACK_PUBLICATION_20261007.md).
+
+Accepted world velocity now continues through changing directional grade.
+Real Woodland Pack:21 ticks/2 athletes using AI yaw; all-manual .NET177/177,
+native14/14 +8/8 +5/5 +9/9 PASS. Sporadic allocation risk remains OPEN.
+[Report](reports/TASK_M13_MANUAL_ACCEPTED_VELOCITY_20261007.md).

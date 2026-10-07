@@ -58,18 +58,53 @@ namespace Biathlon.Simulation
         private readonly ManualSkiSteeringSystem steering;
         private readonly CorneringSystem cornering;
         private readonly double duration;
+        private readonly double maximumScalarSpeed;
         public string ContextJson { get; }
+        public string AcceptedVelocityContextJson {get;}
         public ManualSkiMotionSystem(SkiPhysicsDefinition physics,ManualSkiSteeringDefinition heading,CorneringDefinition corners,int frequency)
         {
             forces=new SkiForceSystem(physics,frequency);steering=new ManualSkiSteeringSystem(heading,frequency);
             cornering=new CorneringSystem(corners,physics);duration=1.0/frequency;
+            maximumScalarSpeed=physics.MaximumSpeedMetersPerSecond;
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_force_heading_preview_v1",physics.ToJson(),heading.ToJson(),corners.ToJson(),frequency.ToString(System.Globalization.CultureInfo.InvariantCulture)});
+            AcceptedVelocityContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_accepted_planar_velocity_force_v1",ContextJson,
+                "planar_velocity_authority;directional_grade_scalar_rebase;ceil_nmps;initial_basis_rotation;heading_aligned_only;scalar_cap_reject;roundoff_scale_and_cap_16ulp"});
         }
         public ManualSkiMotionFrame Preview(SkiState ski,ManualSkiHeadingState pose,ManualRouteProjection observation,TrackSample surface,ManualSkiMotionInput input)
             =>PreviewDuration(ski,pose,observation,surface,input,duration);
 
+        public ManualSkiMotionFrame PreviewAcceptedVelocity(SkiState ski,ManualSkiHeadingState pose,
+            SkiPlanarVelocity velocity,ManualRouteProjection observation,TrackSample surface,ManualSkiMotionInput input)
+            =>PreviewAcceptedVelocityDuration(ski,pose,velocity,observation,surface,input,duration);
+
+        public ManualSkiMotionFrame PreviewAcceptedVelocityDuration(SkiState ski,ManualSkiHeadingState pose,
+            SkiPlanarVelocity velocity,ManualRouteProjection observation,TrackSample surface,ManualSkiMotionInput input,double seconds)
+        {
+            if(!pose.IsValid||!observation.IsValid)throw new ArgumentException("Initialized world observation required.");
+            double grade=observation.GradeAlong(pose),planar=Math.Sqrt(velocity.X*velocity.X+velocity.Z*velocity.Z);
+            double scalar=planar*Math.Sqrt(1+grade*grade);
+            // Preserve the accepted horizontal velocity; only the scalar force
+            // coordinate is rebased to the currently observed tangent plane.
+            // Rounding upward keeps the effective planar scale at most one,
+            // apart from the explicitly bounded floating encoding reserve.
+            double encoded=Math.Ceiling(scalar/PhysiologyNumbers.MinimumPositive)*PhysiologyNumbers.MinimumPositive;
+            // A sin/cos velocity norm at the encoded cap may round a few ulps
+            // above that cap. Repair only this scalar-coordinate encoding;
+            // the accepted world velocity is retained exactly. A real excess
+            // still fails in the common force solver.
+            if(encoded>maximumScalarSpeed&&scalar<=maximumScalarSpeed*(1+16*2.2204460492503131e-16))
+                encoded=maximumScalarSpeed;
+            var forceStart=new SkiState(ski.DistanceNanometers,encoded);
+            double scale=planar==0?1/Math.Sqrt(1+grade*grade):planar/forceStart.SpeedMetersPerSecond;
+            return PreviewCore(forceStart,pose,observation,surface,input,seconds,true,velocity,scale);
+        }
+
         public ManualSkiMotionFrame PreviewDuration(SkiState ski,ManualSkiHeadingState pose,ManualRouteProjection observation,
             TrackSample surface,ManualSkiMotionInput input,double seconds)
+            =>PreviewCore(ski,pose,observation,surface,input,seconds,false,default,0);
+
+        private ManualSkiMotionFrame PreviewCore(SkiState ski,ManualSkiHeadingState pose,ManualRouteProjection observation,
+            TrackSample surface,ManualSkiMotionInput input,double seconds,bool accepted,SkiPlanarVelocity velocity,double acceptedScale)
         {
             if(!input.IsValid||!pose.IsValid||!observation.IsValid||surface.LoopId!=observation.LoopId)
                 throw new ArgumentException("Initialized motion and matching course/surface observations required.");
@@ -87,7 +122,9 @@ namespace Biathlon.Simulation
             double wind=-(input.WindX*Math.Sin(pose.HeadingRadians)+input.WindZ*Math.Cos(pose.HeadingRadians));
             var travel=forces.PreviewTrajectory(ski,input.DeliveredPowerWatts,actualSurface,seconds,wind,
                 input.DragAreaMultiplier,turn.BrakingNewtons,input.SnowResistanceMultiplier);
-            var heading=steering.Preview(pose,input.SteeringInput,travel,scale,turn.LateralAccelerationLimit,input.SteeringResponse);
+            var heading=accepted?steering.PreviewAcceptedVelocity(pose,velocity,input.SteeringInput,travel,acceptedScale,
+                    turn.LateralAccelerationLimit,input.SteeringResponse):
+                steering.Preview(pose,input.SteeringInput,travel,scale,turn.LateralAccelerationLimit,input.SteeringResponse);
             return new ManualSkiMotionFrame(travel,heading,turn,actualSurface,wind);
         }
     }

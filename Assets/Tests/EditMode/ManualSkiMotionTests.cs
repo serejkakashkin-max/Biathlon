@@ -32,6 +32,68 @@ namespace Biathlon.Tests
         }
 
         [Test]
+        public void AcceptedVelocityContinuesExactlyAsTurningChangesDirectionalGrade()
+        {
+            var f=Slope();var system=System();var ski=new SkiState(17,7);
+            var pose=f.pose;var velocity=new SkiPlanarVelocity(7*Math.Sin(pose.HeadingRadians),7*Math.Cos(pose.HeadingRadians));
+            double initialGrade=f.observation.GradeAlong(pose);var initialVelocity=velocity;
+            for(int i=0;i<200;i++)
+            {
+                var frame=system.PreviewAcceptedVelocity(ski,pose,velocity,f.observation,f.surface,
+                    new ManualSkiMotionInput(i<100?100:-100,250,70,70));
+                Assert.That(frame.Heading.VelocityAt(0).X,Is.EqualTo(velocity.X));
+                Assert.That(frame.Heading.VelocityAt(0).Z,Is.EqualTo(velocity.Z));
+                Assert.That(frame.Travel.InitialState.DistanceNanometers,Is.EqualTo(ski.DistanceNanometers));
+                ski=frame.Travel.Output.State;pose=frame.Heading.State;velocity=frame.Heading.VelocityAt(1);
+            }
+            Assert.That(Math.Abs(f.observation.GradeAlong(pose)-initialGrade),Is.GreaterThan(1e-6));
+            Assert.That(velocity,Is.Not.EqualTo(initialVelocity));
+        }
+
+        [TestCase("side_slip")][TestCase("reverse")][TestCase("above_scalar_cap")]
+        public void UnsupportedAcceptedVelocityCannotBeSilentlyRotatedOrClamped(string kind)
+        {
+            var f=Slope();var pose=f.pose;double speed=kind=="above_scalar_cap"?SkiForceTests.Definition().MaximumSpeedMetersPerSecond+1:7;
+            double angle=pose.HeadingRadians+(kind=="reverse"?Math.PI:kind=="side_slip"?.1:0);
+            var velocity=new SkiPlanarVelocity(speed*Math.Sin(angle),speed*Math.Cos(angle));
+            var before=new SkiState(17,7);var input=new ManualSkiMotionInput(0,250,70,70);
+            Assert.Catch(()=>System().PreviewAcceptedVelocity(before,pose,velocity,f.observation,f.surface,input));
+            Assert.That(before.DistanceNanometers,Is.EqualTo(17));Assert.That(pose,Is.EqualTo(f.pose));
+        }
+
+        [TestCase(false)][TestCase(true)]
+        public void EncodedScalarCapPreservesItsExactAcceptedWorldVelocity(bool reverseDownhill)
+        {
+            var f=Slope();var pose=new ManualSkiHeadingState(f.pose.X,f.pose.Z,f.pose.HeadingRadians+(reverseDownhill?Math.PI:0));
+            double grade=f.observation.GradeAlong(pose),maximum=SkiForceTests.Definition().MaximumSpeedMetersPerSecond;
+            double planar=maximum/Math.Sqrt(1+grade*grade);
+            var velocity=new SkiPlanarVelocity(planar*Math.Sin(pose.HeadingRadians),planar*Math.Cos(pose.HeadingRadians));
+            var frame=System().PreviewAcceptedVelocity(new SkiState(17,maximum),pose,velocity,
+                f.observation,f.surface,new ManualSkiMotionInput(0,0,70,70));
+            Assert.That(frame.Travel.InitialState.SpeedMetersPerSecond,Is.EqualTo(maximum));
+            Assert.That(frame.Heading.VelocityAt(0),Is.EqualTo(velocity));
+            Assert.That(frame.Heading.State.HeadingNanoradians,Is.EqualTo(pose.HeadingNanoradians));
+        }
+
+        [Test] public void AcceptedRestAccelerationAndWarmPreviewHaveNoHiddenVelocityResetOrAllocation()
+        {
+            var f=Slope();var system=System();var input=new ManualSkiMotionInput(100,250,70,70);
+            var rest=system.PreviewAcceptedVelocity(default,f.pose,default,f.observation,f.surface,input);
+            var ordinary=system.Preview(default,f.pose,f.observation,f.surface,input);
+            Assert.That(rest.Heading.VelocityAt(0),Is.EqualTo(default(SkiPlanarVelocity)));
+            Assert.That(rest.Heading.State,Is.EqualTo(ordinary.Heading.State));
+            Assert.That(rest.Travel.Output.State,Is.EqualTo(ordinary.Travel.Output.State));
+            var ski=new SkiState(17,7);var velocity=new SkiPlanarVelocity(7*Math.Sin(f.pose.HeadingRadians),7*Math.Cos(f.pose.HeadingRadians));
+            var expected=system.PreviewAcceptedVelocity(ski,f.pose,velocity,f.observation,f.surface,input);
+            for(int i=0;i<100;i++)system.PreviewAcceptedVelocity(ski,f.pose,velocity,f.observation,f.surface,input);
+            long before=GC.GetAllocatedBytesForCurrentThread();ManualSkiMotionFrame actual=default;
+            for(int i=0;i<10000;i++)actual=system.PreviewAcceptedVelocity(ski,f.pose,velocity,f.observation,f.surface,input);
+            Assert.That(GC.GetAllocatedBytesForCurrentThread()-before,Is.Zero);
+            Assert.That(actual.Heading.State,Is.EqualTo(expected.Heading.State));
+            Assert.That(system.AcceptedVelocityContextJson,Does.Contain("manual_accepted_planar_velocity_force_v1"));
+        }
+
+        [Test]
         public void ActualHeadingChangesGradeGravityAndWindWithoutAutoTurning()
         {
             var f=Slope();var system=System();var ski=new SkiState(123456789,10);
