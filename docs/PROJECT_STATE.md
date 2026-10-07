@@ -22162,3 +22162,30 @@ rejected them and the temporary test/images were removed. No visual PASS is
 claimed. WP-175/177/178 and M13 remain OPEN; WP-176 remains PASS. The
 playable host still uses v1 route-following steering and no new Windows
 review build has been issued under the owner batch directive.
+
+## 2026-10-07 — M13 / WP-177 physical firing-frontage stop diagnosis
+
+A full fixed-seed Woodland Mass Start of 30 athletes and 30 authored firing
+lanes completed in 21,011 ticks (Release .NET 1/1 PASS). Expanded
+machine-readable traffic diagnostics recorded 2,031 moving-intent stopped
+athlete-ticks on mat paths, including 1,903 initial athlete-body blocks and
+zero capacity waits. The longest mat stop was 271 ticks (13.55 seconds):
+athlete 5 on mat_06 and athlete 3 on Main mutually blocked each other's
+attempted movement despite distinct assigned lanes. Exit-aisle stoppage
+remains 320 athlete-ticks, longest 26 ticks. This locates a real physical
+approach/junction problem; all-AI completion does not close the owner's
+player-visible queue defect.
+
+A trial joint paid-sweep rescue had no safe admissions and changed no
+stoppage counts. A trial restriction of AI bypass to the outer firing-frontage
+side slowed the full race markedly and was interrupted without a completion
+receipt. Both trial gameplay changes were removed. Committed work is the
+reproducible diagnostic and report only; authoritative gameplay, AI policy,
+replay context and balance are unchanged. Evidence:
+docs/quality/m13/wp177-woodland-course-20261007/wp177-mass30-traffic-diagnostic-final.trx.
+Interpretation: docs/reports/TASK_WP177_RANGE_FRONTAGE_BLOCK_DIAGNOSTIC_20261007.md.
+
+Next: correct early approach geometry/paid steering and recheck full-field,
+player-held obstruction and deterministic replay. WP-177 and M13 remain OPEN;
+WP-175/178 remain OPEN, WP-176 PASS. Under the owner batch directive no
+intermediate Windows review build was produced.
