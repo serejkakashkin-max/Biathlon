@@ -61,9 +61,8 @@ namespace Biathlon.Tests
             Assert.That(f.map.TryProject(endPose,0,Nano(first.Start.Meters+first.Length.Meters-1),
                 .01,false,out var nearEnd),Is.True);
             var noUnadmittedLookahead=planner.Plan(nearEnd,400,false);
-            Assert.That(noUnadmittedLookahead.LookaheadStationNanometers,
-                Is.EqualTo(nearEnd.RouteNanometers));
-            Assert.That(noUnadmittedLookahead.RequestedPowerWatts,Is.EqualTo(400));
+            Assert.That(noUnadmittedLookahead.IsValid,Is.False,
+                "Missing a target across a sealed section is not proof of a straight road.");
             for(int i=0;i<100;i++)planner.Plan(observation,400,false);
             long before=GC.GetAllocatedBytesForCurrentThread();
             for(int i=0;i<1000;i++)
@@ -122,9 +121,13 @@ namespace Biathlon.Tests
                 if(adaptiveCornerEffort)
                 {
                     var effortPlan=effortPlanner.Plan(observed,deliveredPowerWatts,false);
-                    Assert.That(effortPlan.IsValid,Is.True);
-                    actualPower=effortPlan.RequestedPowerWatts;
-                    if(actualPower<deliveredPowerWatts)reducedTicks++;
+                    if(effortPlan.IsValid)
+                    {
+                        actualPower=effortPlan.RequestedPowerWatts;
+                        if(actualPower<deliveredPowerWatts)reducedTicks++;
+                    }
+                    else Assert.That(observed.RouteNanometers,Is.GreaterThan(Nano(925)),
+                        "Only an explicitly sealed next occurrence may lack this 70 m lookahead.");
                 }
                 var frame=motion.Preview(ski,pose,observed,surface,
                     new ManualSkiMotionInput(plan.SteeringInput,actualPower,70,70));

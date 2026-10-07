@@ -47,8 +47,7 @@ namespace Biathlon.AI
                 PhysiologyNumbers.MaximumMagnitude,nameof(nominalDeliveredPowerWatts));
             if(!route.TrySampleAhead(observation.SectionIndex,observation.RouteNanometers,
                 policy.BendLookaheadMeters,admitNextSection,out var target))
-                return new ManualAiCornerEffortPlan(false,0,nominalDeliveredPowerWatts,
-                    observation.RouteNanometers);
+                return default;
             double cross=observation.ForwardX*target.ForwardZ-
                 observation.ForwardZ*target.ForwardX;
             double dot=observation.ForwardX*target.ForwardX+

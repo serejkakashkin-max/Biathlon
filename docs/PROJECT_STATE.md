@@ -22398,3 +22398,15 @@ out through MCP and is not verification. WP-177 descent presentation,
 full-field manual control, physiology-bound corner decisions, contacts,
 range/penalty integration and replay v2 remain OPEN. M13/WP175/177/178
 remain OPEN; no Windows review build issued.
+
+
+## 2026-10-07 — M13 corner effort sealed-section validity correction
+
+The anticipatory AI effort planner now returns an invalid plan when a
+70 m lookahead crosses a section without explicit next-section admission.
+A missing sample no longer masquerades as a straight and unrestricted
+power request. The single-actor probe treats its last sealed stretch as
+a separately checked test input; no playable route admission is inferred.
+Release .NET focused projection/AI/tube 34/34 PASS and final hidden Unity
+EditMode AI 12/12 PASS; evidence in the updated corner-effort report and
+m13-manual-ai-corner-effort-sealed.trx. WP-177 and M13 remain OPEN.
