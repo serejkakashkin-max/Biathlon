@@ -8,8 +8,11 @@ namespace Biathlon.Simulation
     {
         public PackMovementBlockKind Kind { get; }
         public AthleteId Blocker { get; }
-        internal PackMovementBlock(PackMovementBlockKind kind,AthleteId blocker=default)
-        {Kind=kind;Blocker=blocker;}
+        /// <summary>The complete authored world-body sweep itself rejects the
+        /// first requested move, independently of any coarse junction guard.</summary>
+        public bool WorldBodyConflict { get; }
+        internal PackMovementBlock(PackMovementBlockKind kind,AthleteId blocker=default,bool worldBodyConflict=false)
+        {Kind=kind;Blocker=blocker;WorldBodyConflict=worldBodyConflict;}
     }
     /// <summary>Shared physical Sprint/Pursuit field. Physics/physiology are prepared before continuous
     /// pack validation; accepted forward prefixes, stops and lateral motion commit together.
@@ -1172,7 +1175,13 @@ namespace Biathlon.Simulation
             }
             for(int j=0;j<Count;j++)if(j!=i&&active[j]&&Conflict(traces[i],i,processed[j]?traces[j]:stationary[j],j))
             {
-                if(recordInitialBlock) initialBlocks[i]=new PackMovementBlock(PackMovementBlockKind.Athlete,GetAthlete(j).AthleteId);
+                if(recordInitialBlock)
+                {
+                    var other=processed[j]?traces[j]:stationary[j];
+                    bool world=rangeWorldTraffic!=null&&CanCheckCrossLoopWorldBodies(traces[i],other)&&
+                        RangeWorldConflict(traces[i],i,other,j);
+                    initialBlocks[i]=new PackMovementBlock(PackMovementBlockKind.Athlete,GetAthlete(j).AthleteId,world);
+                }
                 return false;
             }
             return true;

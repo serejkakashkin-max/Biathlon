@@ -33,7 +33,7 @@ namespace Biathlon.Tests
             {stopsByLoopAndBout[loop]=new long[5];blockByLoopAndKind[loop]=new long[3];}
             long start=0,main=0,exit=0,penalty=0,mat=0,other=0;
             long exitAthleteBlock=0,exitWidthBlock=0,exitUnclassified=0;
-            long matCapacityWait=0,matBodyBlock=0,matUnclassified=0;
+            long matCapacityWait=0,matBodyBlock=0,matWorldBodyBlock=0,matUnclassified=0;
             long draftingActorTicks=0,overtakeIntentActorTicks=0,stopEpisodeStarts=0;
             double draftReductionSum=0;
             int maximumConcurrentStops=0;long maximumConcurrentTick=0;
@@ -105,6 +105,7 @@ namespace Biathlon.Tests
                                 mat++;
                                 if(runner.Field.IsWaitingForRangeCapacity(i))matCapacityWait++;
                                 if(firstBlock.Kind==PackMovementBlockKind.Athlete)matBodyBlock++;
+                                if(firstBlock.WorldBodyConflict)matWorldBodyBlock++;
                                 else if(firstBlock.Kind==PackMovementBlockKind.None)matUnclassified++;
                                 if(streak[i]>longestMat)
                                 {
@@ -115,7 +116,8 @@ namespace Biathlon.Tests
                                         " lane="+runner.Field.GetAssignedRangeLane(i)+
                                         " waiting_capacity="+runner.Field.IsWaitingForRangeCapacity(i)+
                                         " phase="+athlete.CurrentRangeMotion?.Phase+
-                                        " block="+firstBlock.Kind+" blocker="+firstBlock.Blocker.Value;
+                                        " block="+firstBlock.Kind+" world_body="+firstBlock.WorldBodyConflict+
+                                        " blocker="+firstBlock.Blocker.Value;
                                     for(int j=0;j<runner.Field.Count;j++)
                                         if(runner.Field.GetAthlete(j).AthleteId.Equals(firstBlock.Blocker))
                                         {
@@ -147,7 +149,8 @@ namespace Biathlon.Tests
                 " exit_width_block="+exitWidthBlock+" exit_unclassified="+exitUnclassified+
                 " longest_exit_at="+longestExitAt+
                 " longest_mat="+longestMat+" mat_capacity_wait="+matCapacityWait+
-                " mat_body_block="+matBodyBlock+" mat_unclassified="+matUnclassified+
+                " mat_body_block="+matBodyBlock+" mat_world_body_block="+matWorldBodyBlock+
+                " mat_unclassified="+matUnclassified+
                 " longest_mat_at="+longestMatAt);
             TestContext.WriteLine("wp177_mat_block_chain="+matBlockChain);
             TestContext.WriteLine("wp177_traffic_diagnostic_v2="+JsonSerializer.Serialize(new
@@ -161,6 +164,7 @@ namespace Biathlon.Tests
                 maximum_concurrent_moving_intent_stops=maximumConcurrentStops,
                 maximum_concurrent_tick=maximumConcurrentTick,
                 mat_capacity_wait_actor_ticks=matCapacityWait,
+                mat_world_body_block_actor_ticks=matWorldBodyBlock,
                 longest_mat_streak_ticks=longestMat,
                 drafting_actor_ticks=draftingActorTicks,
                 draft_reduction_sum=draftReductionSum,
@@ -181,7 +185,8 @@ namespace Biathlon.Tests
                 chain+=" ["+current+" "+point.LoopId+":"+point.LocalNanometers/1e9+
                     " line="+runner.Field.GetLateral(current)+" requested="+runner.GetLastLateral(current)+
                     " speed="+runner.Field.GetAthlete(current).Motion.SpeedMetersPerSecond+
-                    " block="+block.Kind+":"+block.Blocker.Value+"]";
+                    " block="+block.Kind+":"+block.Blocker.Value+
+                    " world_body="+block.WorldBodyConflict+"]";
                 if(block.Kind!=PackMovementBlockKind.Athlete)break;
                 int next=-1;
                 for(int j=0;j<runner.Field.Count;j++)

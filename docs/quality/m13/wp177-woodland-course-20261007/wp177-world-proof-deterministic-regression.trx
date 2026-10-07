@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="70f4cd78-ddb0-4fe0-bf6b-5ee7b16c05a2" name="snkashkin@DESKTOP-G3075GA 2026-10-07 14:25:03" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-07T14:25:03.9710470+03:00" queuing="2026-10-07T14:25:03.9710471+03:00" start="2026-10-07T14:25:00.6688110+03:00" finish="2026-10-07T14:25:49.1513675+03:00" />
+  <TestSettings name="default" id="336c78a3-01d7-4a1e-8963-d9f74d38ad9f">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-07_14_25_03" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="ddeccd73-f338-494b-a95b-8791c3b55d8d" testId="896a2d73-42d7-5467-1df5-d98c1377d09a" testName="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_flat_v1&quot;,30,2,&quot;e55374aadb1053b48b012c74413b319db0cd2bfb4db3dd05b5826b2f88871594&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:44.4312350" startTime="2026-10-07T14:25:03.8784742+03:00" endTime="2026-10-07T14:25:48.3097087+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ddeccd73-f338-494b-a95b-8791c3b55d8d">
+      <Output>
+        <StdOut>Pack scenario synthetic_flat_v1: athletes=30, ticks=55045, events=131521, draft_frames=16815, staging_frames=0, precision_fallback_ticks=0&#xD;
+Result SHA256: e55374aadb1053b48b012c74413b319db0cd2bfb4db3dd05b5826b2f88871594</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f5c9ddc5-2787-4580-aa9c-05690d686459" testId="107c2362-1978-a418-f8ff-6366dc5e4c29" testName="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_technical_descent_v1&quot;,6,1,&quot;c1f89ea3d39d903aa5a7c0d522e374781ed7226ef1a315178436f033e09b1d3e&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.4025120" startTime="2026-10-07T14:25:48.7055550+03:00" endTime="2026-10-07T14:25:49.1080663+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f5c9ddc5-2787-4580-aa9c-05690d686459">
+      <Output>
+        <StdOut>Pack scenario synthetic_technical_descent_v1: athletes=6, ticks=12717, events=812, draft_frames=0, staging_frames=0, precision_fallback_ticks=0&#xD;
+Result SHA256: c1f89ea3d39d903aa5a7c0d522e374781ed7226ef1a315178436f033e09b1d3e</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ec5cd62c-d8ab-41a0-98a8-73d8bd5d3775" testId="25d042aa-201b-5a29-3de3-8209786971a3" testName="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_flat_v1&quot;,12,0.5d,&quot;164f496e078824383039bcf9ca6ac747f407c95b358f21bc2b26ea82a81a9bb7&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:02.7349070" startTime="2026-10-07T14:25:01.1430161+03:00" endTime="2026-10-07T14:25:03.8778953+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ec5cd62c-d8ab-41a0-98a8-73d8bd5d3775">
+      <Output>
+        <StdOut>Pack scenario synthetic_flat_v1: athletes=12, ticks=19305, events=15298, draft_frames=5515, staging_frames=484, precision_fallback_ticks=0&#xD;
+Result SHA256: 164f496e078824383039bcf9ca6ac747f407c95b358f21bc2b26ea82a81a9bb7</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cc02834b-e128-498b-ab0a-75aa3416788f" testId="98471b4b-e691-1390-012a-6de326282ee8" testName="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_rolling_v1&quot;,6,1,&quot;1f03aa6fdc5c237f53b666b2e01524cd0ae49bcb601836b9036a74820fd90895&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.3957820" startTime="2026-10-07T14:25:48.3097449+03:00" endTime="2026-10-07T14:25:48.7055264+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cc02834b-e128-498b-ab0a-75aa3416788f">
+      <Output>
+        <StdOut>Pack scenario synthetic_rolling_v1: athletes=6, ticks=12953, events=786, draft_frames=1274, staging_frames=40, precision_fallback_ticks=0&#xD;
+Result SHA256: 1f03aa6fdc5c237f53b666b2e01524cd0ae49bcb601836b9036a74820fd90895</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_technical_descent_v1&quot;,6,1,&quot;c1f89ea3d39d903aa5a7c0d522e374781ed7226ef1a315178436f033e09b1d3e&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="107c2362-1978-a418-f8ff-6366dc5e4c29">
+      <Execution id="f5c9ddc5-2787-4580-aa9c-05690d686459" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PackSprintFieldTests" name="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_technical_descent_v1&quot;,6,1,&quot;c1f89ea3d39d903aa5a7c0d522e374781ed7226ef1a315178436f033e09b1d3e&quot;)" />
+    </UnitTest>
+    <UnitTest name="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_flat_v1&quot;,30,2,&quot;e55374aadb1053b48b012c74413b319db0cd2bfb4db3dd05b5826b2f88871594&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="896a2d73-42d7-5467-1df5-d98c1377d09a">
+      <Execution id="ddeccd73-f338-494b-a95b-8791c3b55d8d" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PackSprintFieldTests" name="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_flat_v1&quot;,30,2,&quot;e55374aadb1053b48b012c74413b319db0cd2bfb4db3dd05b5826b2f88871594&quot;)" />
+    </UnitTest>
+    <UnitTest name="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_rolling_v1&quot;,6,1,&quot;1f03aa6fdc5c237f53b666b2e01524cd0ae49bcb601836b9036a74820fd90895&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="98471b4b-e691-1390-012a-6de326282ee8">
+      <Execution id="cc02834b-e128-498b-ab0a-75aa3416788f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PackSprintFieldTests" name="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_rolling_v1&quot;,6,1,&quot;1f03aa6fdc5c237f53b666b2e01524cd0ae49bcb601836b9036a74820fd90895&quot;)" />
+    </UnitTest>
+    <UnitTest name="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_flat_v1&quot;,12,0.5d,&quot;164f496e078824383039bcf9ca6ac747f407c95b358f21bc2b26ea82a81a9bb7&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="25d042aa-201b-5a29-3de3-8209786971a3">
+      <Execution id="ec5cd62c-d8ab-41a0-98a8-73d8bd5d3775" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PackSprintFieldTests" name="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_flat_v1&quot;,12,0.5d,&quot;164f496e078824383039bcf9ca6ac747f407c95b358f21bc2b26ea82a81a9bb7&quot;)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="896a2d73-42d7-5467-1df5-d98c1377d09a" executionId="ddeccd73-f338-494b-a95b-8791c3b55d8d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="107c2362-1978-a418-f8ff-6366dc5e4c29" executionId="f5c9ddc5-2787-4580-aa9c-05690d686459" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="25d042aa-201b-5a29-3de3-8209786971a3" executionId="ec5cd62c-d8ab-41a0-98a8-73d8bd5d3775" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="98471b4b-e691-1390-012a-6de326282ee8" executionId="cc02834b-e128-498b-ab0a-75aa3416788f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 4 of 4 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+Pack scenario synthetic_flat_v1: athletes=12, ticks=19305, events=15298, draft_frames=5515, staging_frames=484, precision_fallback_ticks=0&#xD;
+Result SHA256: 164f496e078824383039bcf9ca6ac747f407c95b358f21bc2b26ea82a81a9bb7&#xD;
+&#xD;
+Pack scenario synthetic_flat_v1: athletes=30, ticks=55045, events=131521, draft_frames=16815, staging_frames=0, precision_fallback_ticks=0&#xD;
+Result SHA256: e55374aadb1053b48b012c74413b319db0cd2bfb4db3dd05b5826b2f88871594&#xD;
+&#xD;
+Pack scenario synthetic_rolling_v1: athletes=6, ticks=12953, events=786, draft_frames=1274, staging_frames=40, precision_fallback_ticks=0&#xD;
+Result SHA256: 1f03aa6fdc5c237f53b666b2e01524cd0ae49bcb601836b9036a74820fd90895&#xD;
+&#xD;
+Pack scenario synthetic_technical_descent_v1: athletes=6, ticks=12717, events=812, draft_frames=0, staging_frames=0, precision_fallback_ticks=0&#xD;
+Result SHA256: c1f89ea3d39d903aa5a7c0d522e374781ed7226ef1a315178436f033e09b1d3e&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

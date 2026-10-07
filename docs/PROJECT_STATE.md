@@ -22189,3 +22189,33 @@ Next: correct early approach geometry/paid steering and recheck full-field,
 player-held obstruction and deterministic replay. WP-177 and M13 remain OPEN;
 WP-175/178 remain OPEN, WP-176 PASS. Under the owner batch directive no
 intermediate Windows review build was produced.
+
+## 2026-10-07 — M13 / WP-177 confirmed world-body cause, tuning trials rejected
+
+The first denied full-speed trajectory now exposes a read-only world-body
+conflict flag in PackSprintFieldSession. On the same fixed-seed full Woodland
+Mass Start, every one of 1,903 mat-path athlete blocks was independently
+rejected by the authored cross-loop world-body sweep. Both sides of the
+271-tick reciprocal mat_06/Main stop were world-body conflicts. The race
+still finished in 21,011 ticks with event hash 7863778188216105058;
+Release .NET 1/1 PASS. Dense deterministic hash regression 4/4 PASS.
+Unity MCP asset refresh and focused EditMode Pack Sprint test 1/1 PASS;
+recent Error Console empty, Editor idle. The telemetry changes no race
+command, result, event, replay context, or balance value.
+
+The official IBU Event and Competition Rules (September 2026), articles
+3.4.2.3 and 3.4.3.1-2, confirm left-side range entry, right-side exit,
+30 lanes, 2.75-3 m lane widths, and 2 x 1.5 m mats. Woodland already has
+30 lanes at 3 m pitch with 2 x 1.5 m mats. Blindly widening the lane pitch
+would reduce this realism and would not address the observed approach lines.
+
+Full Mass Start trials of 100 m and 150 m early alignment and 12 m world
+lookahead completed, but one or more worst-case stops became worse; all
+trial tuning and the temporary radius cap were removed. The 150 m trial
+raised the longest mat stop from 271 to 514 ticks; the 12 m lookahead
+raised the longest exit stop from 26 to 90 ticks. Evidence and interpretation:
+docs/reports/TASK_WP177_RANGE_FRONTAGE_BLOCK_DIAGNOSTIC_20261007.md.
+WP-177 and the owner's queue defect remain OPEN; WP-175/178 and M13 OPEN,
+WP-176 PASS. No intermediate Windows review build produced. Next work is
+approach geometry and paid early path divergence, integrated manual world
+steering, then full player/AI traffic acceptance and final hidden checks.
