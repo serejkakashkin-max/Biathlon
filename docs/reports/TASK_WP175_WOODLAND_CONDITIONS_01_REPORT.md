@@ -72,3 +72,33 @@ for one Mass Start/snow combination. The full format-by-condition matrix,
 player-controlled traffic feel, five actual weather-view captures, visual
 quality and sustained rendering/LOD performance remain open. WP-175 and M13
 are not PASS; no Windows review build has been issued.
+
+## 2026-10-07 completed headless snow-by-format race matrix
+
+The previously missing combinations were executed as three isolated Release
+.NET tests. Icy-fast Sprint 40 qualified and completed Pursuit 40 in 37,120
+and 19,738 field ticks; wet-slow did so in 37,178 and 19,252 ticks. Fresh-soft
+Mass Start 30 completed in 22,018 ticks. Each test passed 1/1 with the entire
+field classified, and each full-race event hash is present in its TRX. The
+[icy Sprint/Pursuit](../quality/m13/wp175-conditions-20261006/wp175-icy-sprint-pursuit40.trx),
+[wet Sprint/Pursuit](../quality/m13/wp175-conditions-20261006/wp175-wet-sprint-pursuit40.trx),
+and [fresh Mass Start](../quality/m13/wp175-conditions-20261006/wp175-fresh-mass30.trx)
+are new receipts. Together with the previously passed packed/fresh
+Sprint/Pursuit and packed/icy/wet Mass Start, the
+[machine-readable matrix](../quality/m13/wp175-conditions-20261006/full-field-snow-matrix.json)
+covers all four canonical snow profiles at production field sizes across
+Sprint, its genuinely qualified Pursuit, and Mass Start. The packed-neutral
+Mass Start entry is backed by the stronger full-field persisted-command
+replay receipt. The matrix is completion coverage, not a claim that all
+conditions have balanced times or player traffic feel.
+
+A hidden PlayMode chase-camera inspection of Main stations 710/750/815/885 m
+was attempted. Deferred and direct URP offscreen requests returned black
+frames; direct `Camera.Render()` returned magenta materials. The harness's
+pixel assertion rejected those frames, so they provide **no** visual-quality
+or readable-descent evidence. The temporary inspection test and misleading
+images were removed. The Unity Error Console was empty. No visible game
+window or intermediate Windows build was launched. Actual visual weather
+inspection and sustained rendering/LOD performance remain open, as do
+player-controlled traffic acceptance and WP-177 balance review. WP-175 and
+M13 remain OPEN.

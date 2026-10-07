@@ -22138,3 +22138,27 @@ interpretation: docs/reports/TASK_WP175_WOODLAND_CONDITIONS_01_REPORT.md.
 This is one production-size condition/format replay, not the whole weather
 matrix or visual/performance/player-traffic acceptance. WP-175 and M13
 remain OPEN; WP-176 PASS, WP-177/178 OPEN. No Windows review build yet.
+
+## 2026-10-07 — M13 / WP-175 complete headless Woodland snow-by-format race matrix
+
+The remaining three production-size snow/format witnesses passed in isolated
+Release .NET testhosts: icy_fast Sprint 40 -> qualified Pursuit 40 at 37,120 /
+19,738 field ticks; wet_slow Sprint 40 -> qualified Pursuit 40 at 37,178 /
+19,252 ticks; fresh_soft Mass Start 30 at 22,018 ticks. Each test was 1/1
+PASS and retained its event hashes in TRX. With earlier packed_neutral and
+fresh_soft Sprint/Pursuit, plus packed_neutral, icy_fast and wet_slow Mass
+Start, all four canonical snow conditions have full-field Sprint, Pursuit and
+Mass Start completion witnesses. The packed_neutral Mass Start also has a
+persisted AI-free command replay. Machine-readable receipt:
+docs/quality/m13/wp175-conditions-20261006/full-field-snow-matrix.json.
+Report: docs/reports/TASK_WP175_WOODLAND_CONDITIONS_01_REPORT.md.
+
+This completes the headless race-completion condition matrix, not WP-175.
+Player-controlled traffic after integrated manual steering, five reliable
+weather-view captures and worst-case rendering/LOD performance remain open.
+A hidden chase-camera attempt on the real descent produced black offscreen
+frames, or magenta materials through direct Camera.Render; pixel validation
+rejected them and the temporary test/images were removed. No visual PASS is
+claimed. WP-175/177/178 and M13 remain OPEN; WP-176 remains PASS. The
+playable host still uses v1 route-following steering and no new Windows
+review build has been issued under the owner batch directive.

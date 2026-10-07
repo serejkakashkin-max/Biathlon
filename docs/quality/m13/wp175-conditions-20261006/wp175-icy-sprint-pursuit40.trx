@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="1e25530d-7e21-4cc9-bf5c-f1d5faec1b25" name="snkashkin@DESKTOP-G3075GA 2026-10-07 13:27:53" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-07T13:27:53.4591972+03:00" queuing="2026-10-07T13:27:53.4591973+03:00" start="2026-10-07T13:25:06.3457823+03:00" finish="2026-10-07T13:27:53.4621800+03:00" />
+  <TestSettings name="default" id="a95a1d53-e750-419f-a106-9926e8e800f6">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-07_13_27_53" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="f712a38f-1bd2-4b0d-ae59-88f02cbbc95c" testId="7bab41c2-808e-7bb1-170d-7061a63311a1" testName="IcyFastFullSprintQualifiesAndCompletesPursuit" computerName="DESKTOP-G3075GA" duration="00:02:46.4131620" startTime="2026-10-07T13:25:06.8402034+03:00" endTime="2026-10-07T13:27:53.2533298+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f712a38f-1bd2-4b0d-ae59-88f02cbbc95c">
+      <Output>
+        <StdOut>wp175_full_field=sprint snow=icy_fast count=40 ticks=37120 event_hash=14392476689281522722&#xD;
+wp175_qualified_pursuit snow=icy_fast count=40 ticks=19738 event_hash=6051262292333836998</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="IcyFastFullSprintQualifiesAndCompletesPursuit" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="7bab41c2-808e-7bb1-170d-7061a63311a1">
+      <Execution id="f712a38f-1bd2-4b0d-ae59-88f02cbbc95c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.WoodlandConditionFullRaceTests" name="IcyFastFullSprintQualifiesAndCompletesPursuit" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="7bab41c2-808e-7bb1-170d-7061a63311a1" executionId="f712a38f-1bd2-4b0d-ae59-88f02cbbc95c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+wp175_full_field=sprint snow=icy_fast count=40 ticks=37120 event_hash=14392476689281522722&#xD;
+wp175_qualified_pursuit snow=icy_fast count=40 ticks=19738 event_hash=6051262292333836998&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

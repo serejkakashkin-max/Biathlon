@@ -85,6 +85,18 @@ namespace Biathlon.Tests
             string profile,string format,int count)
             =>VerifyFullField(profile,format,count);
 
+        [Test,Timeout(900000),NonParallelizable]
+        public void IcyFastFullSprintQualifiesAndCompletesPursuit()
+            =>VerifyFullField("icy_fast","sprint",40);
+
+        [Test,Timeout(900000),NonParallelizable]
+        public void WetSlowFullSprintQualifiesAndCompletesPursuit()
+            =>VerifyFullField("wet_slow","sprint",40);
+
+        [Test,Timeout(900000),NonParallelizable]
+        public void FreshSoftFullMassStartCompletes()
+            =>VerifyFullField("fresh_soft","mass_start",30);
+
         private static void VerifyFullField(string profile,string format,int count)
         {
             // This headless matrix runs multiple large fields sequentially in

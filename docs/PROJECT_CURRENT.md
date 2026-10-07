@@ -18,7 +18,14 @@ Sprint→Pursuit 40 на packed_neutral и Mass Start 30 на wet_slow PASS.
 Полный Mass Start 30 на packed_neutral дополнительно записан в JSON и точно
 воспроизведён без AI: 21 011 тиков, 187 948 серий команд, результаты,
 финальные состояния и hash событий совпали; .NET 1/1 PASS. Матрица всех
-условий, player traffic, визуальная и performance-оценка остаются открытыми.
+условий теперь завершена по полноразмерным headless гонкам: для каждого из
+четырёх snow-профилей прошли Sprint 40→квалифицированный Pursuit 40 и Mass
+Start 30; три недостающих изолированных прогона .NET 3/3 PASS. Сверка:
+[машинная матрица](quality/m13/wp175-conditions-20261006/full-field-snow-matrix.json).
+Player traffic после ручного руления, пять достоверных визуальных погодных
+кадров и sustained rendering/LOD performance остаются открытыми. Скрытый
+PlayMode-захват спуска вернул чёрные/magenta кадры; они отвергнуты
+пиксельной проверкой и не считаются визуальным PASS.
 [Отчёт](reports/TASK_WP175_WOODLAND_CONDITIONS_01_REPORT.md).
 
 WP-176: PASS по production content. Один сезон Woodland содержит 16 стартов:

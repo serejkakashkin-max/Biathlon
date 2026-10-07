@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "wp175_woodland_full_field_snow_matrix_20261007",
+  "venue": "woodland_basin_v1",
+  "tick_frequency_hz": 20,
+  "scope": "hidden Release .NET authoritative full fields; Sprint results qualify same-condition Pursuit",
+  "rows": [
+    {
+      "snow": "packed_neutral",
+      "sprint40_ticks": 36438,
+      "pursuit40_ticks": 18949,
+      "sprint_pursuit_trx": "wp175-packed40-qualified-pursuit.trx",
+      "mass30_ticks": 21011,
+      "mass_trx": "wp175-mass30-persisted-replay.trx",
+      "mass_note": "source, recorded command field and parsed AI-free replay all complete"
+    },
+    {
+      "snow": "fresh_soft",
+      "sprint40_ticks": 36794,
+      "pursuit40_ticks": 21407,
+      "sprint_pursuit_trx": "wp175-sprint-pursuit40-soft.trx",
+      "mass30_ticks": 22018,
+      "mass_trx": "wp175-fresh-mass30.trx"
+    },
+    {
+      "snow": "icy_fast",
+      "sprint40_ticks": 37120,
+      "pursuit40_ticks": 19738,
+      "sprint_pursuit_trx": "wp175-icy-sprint-pursuit40.trx",
+      "mass30_ticks": 21858,
+      "mass_trx": "wp175-mass30-ice.trx"
+    },
+    {
+      "snow": "wet_slow",
+      "sprint40_ticks": 37178,
+      "pursuit40_ticks": 19252,
+      "sprint_pursuit_trx": "wp175-wet-sprint-pursuit40.trx",
+      "mass30_ticks": 21986,
+      "mass_trx": "wp175-wet-mass30.trx"
+    }
+  ],
+  "accepted": "full-field snow-by-format completion only",
+  "still_open": [
+    "player-controlled traffic feel after manual steering integration",
+    "readable screenshots for all five production weather views",
+    "sustained rendering, LOD and worst-case Mass Start/broadcast performance"
+  ]
+}
