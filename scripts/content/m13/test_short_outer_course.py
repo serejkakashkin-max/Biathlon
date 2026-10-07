@@ -139,6 +139,11 @@ class ShortOuterCourseTests(unittest.TestCase):
         self.assertLess(audit['format_windows']['descent_window']['end_m']
                         -audit['format_windows']['descent_window']['start_m'],100)
 
+    def test_generated_range_ai_policy_retains_playable_exit_controls(self):
+        generated=self.read('short','ai_range_traffic')
+        playable=json.loads((PROJECT/'Assets/Resources/Biathlon/Venues/woodland_basin_v1/ai_range_traffic.json').read_text())
+        self.assertEqual(generated,playable)
+
     def test_all_three_formats_pay_declared_game_distances_and_preserve_shooting(self):
         expected={'mass_start':(6000,5,30,[0,0,1,1]),'sprint':(4200.001,3,40,[0,1]),
                   'pursuit':(5000,5,40,[0,0,1,1])}
