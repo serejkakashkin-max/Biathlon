@@ -22466,3 +22466,17 @@ candidate report and docs/quality/m13/m13-manual-ai-bypass-held-final.trx.
 
 This is not the playable Pack host or a full player-obstruction race. M13,
 WP-177, range-exit owner defect and review Windows build remain OPEN.
+
+
+## 2026-10-07 — WP-177 authored descent monotony root cause
+
+Read-only audit of the committed Woodland visual/track JSON shows Main edges
+179 and 180 each run 70.000 m with X unchanged and Z +69.855 m, falling
+4.5 m at -6.441896% grade. Together they form a 140 m straight downhill
+with real 9 m vertical loss. The moving-player Unity Game View at 742.2 m
+and 820.3 m had shown this descent reading visually flat. The prior
+presentation-only inference is incomplete: authored horizontal geometry is
+also a direct cause. Inputs, hashes and redesign acceptance are recorded in
+docs/reports/TASK_WP177_DESCENT_GEOMETRY_DIAGNOSIS_20261007.md. This is a
+diagnosis, not a track change or visual PASS. WP-177/M13 remain OPEN; new
+production geometry requires physical/visual/traffic/replay validation.
