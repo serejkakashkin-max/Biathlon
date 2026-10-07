@@ -20,11 +20,22 @@ namespace Biathlon.AI
         private readonly AiRangeTrafficPolicyDefinition definition;
         private readonly OccupancySystem occupancy;
         private readonly long lead;
+        private readonly long forkNeighborGap;
         public AiRangeTrafficPlanner(AiRangeTrafficPolicyDefinition definition,OccupancyDefinition body)
         {
             this.definition=definition??throw new ArgumentNullException(nameof(definition));
             occupancy=new OccupancySystem(body);lead=TrackDistance.FromMeters(definition.AlignmentLeadMeters).Millimeters*SkiState.NanometersPerMillimeter;
+            forkNeighborGap=definition.ForkYieldNeighborGapMeters.HasValue?
+                (long)Math.Round(definition.ForkYieldNeighborGapMeters.Value*SkiState.NanometersPerMeter):0;
         }
+        /// <summary>An adjacent outer-line athlete must take an earlier private turn.
+        /// Ease propulsion before the turn while both bodies are still on the common approach;
+        /// the field remains responsible for every physical admission.</summary>
+        public bool ShouldYieldAtFork(long ownFork,long otherFork,long ownRoute,long otherRoute,
+            double ownLine,double otherLine)
+            =>definition.ForkYieldEffort.HasValue&&ownRoute<ownFork&&otherRoute<otherFork&&
+              otherFork<ownFork&&Math.Abs(otherRoute-ownRoute)<=forkNeighborGap&&
+              (otherLine-ownLine)*definition.ForkYieldOuterSideSign.Value>definition.ForkYieldLateralGapMeters.Value;
         public AiRangeTrafficPlan Evaluate(bool hasPhysicalPath,long? distanceToRangeEntry,RangeTraversalPhase? traversal,
             SkiPlacement self,TrackSample track,ReadOnlySpan<SkiPlacement> observed,bool onEntryAisle=false,
             bool onSharedExitCorridor=false,bool leavingPenalty=false)

@@ -37,7 +37,8 @@ namespace Biathlon.Tests
             long draftingActorTicks=0,overtakeIntentActorTicks=0,stopEpisodeStarts=0;
             double draftReductionSum=0;
             int maximumConcurrentStops=0;long maximumConcurrentTick=0;
-            int longest=0,longestExit=0,longestMat=0;string longestExitAt="",longestMatAt="";
+            int longest=0,longestMain=0,longestExit=0,longestMat=0;
+            string longestMainAt="",longestExitAt="",longestMatAt="";
             string matBlockChain="";
             while(!runner.Field.IsComplete&&runner.Field.Tick.Value<50000)
             {
@@ -71,7 +72,11 @@ namespace Biathlon.Tests
                     switch(loop)
                     {
                         case "start_approach":start++;break;
-                        case "main":main++;break;
+                        case "main":
+                            main++;
+                            if(streak[i]>longestMain)
+                            {longestMain=streak[i];longestMainAt=CaptureBlockChain(runner,i);}
+                            break;
                         case "exit_aisle":
                             exit++;
                             var block=runner.Field.GetInitialMovementBlock(i);
@@ -145,6 +150,7 @@ namespace Biathlon.Tests
             TestContext.WriteLine("wp177_mass30_stop_ticks="+runner.Field.Tick.Value+
                 " start="+start+" main="+main+" exit="+exit+" penalty="+penalty+
                 " mat="+mat+" other="+other+" longest="+longest+
+                " longest_main="+longestMain+" longest_main_at="+longestMainAt+
                 " longest_exit="+longestExit+" exit_athlete_block="+exitAthleteBlock+
                 " exit_width_block="+exitWidthBlock+" exit_unclassified="+exitUnclassified+
                 " longest_exit_at="+longestExitAt+
@@ -173,6 +179,10 @@ namespace Biathlon.Tests
             Assert.That(runner.Field.IsComplete,Is.True,
                 "A reproducible full Mass Start is required for phase-level stopped-time evidence.");
             Assert.That(runner.Field.MassStartResult.Count,Is.EqualTo(30));
+            Assert.That(longest,Is.LessThanOrEqualTo(75),
+                "The full 30-athlete field must not form another multi-second stationary queue.");
+            Assert.That(mat,Is.LessThanOrEqualTo(700));
+            Assert.That(exit,Is.LessThanOrEqualTo(180));
         }
         private static string CaptureBlockChain(PackAiRaceRunner runner,int start)
         {

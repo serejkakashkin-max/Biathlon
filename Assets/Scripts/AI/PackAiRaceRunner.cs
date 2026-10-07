@@ -21,6 +21,7 @@ namespace Biathlon.AI
         private readonly OvertakeDefinition laneDefinition;
         private readonly long[] previousObservedTravel, stationaryObservedTicks;
         private readonly AiRangeTrafficPolicyDefinition worldBypassPolicy;
+        private readonly AiRangeTrafficPolicyDefinition forkYieldPolicy;
         private readonly long[] escapeUntil;
         private readonly double[] escapeLine;
         private readonly long[] startEscapeUntil;
@@ -105,6 +106,7 @@ namespace Biathlon.AI
             if(this.raceForms!=null)foreach(double value in this.raceForms)PhysiologyNumbers.RequireRange(value,0,1.1,"race form");
             this.difficulty=difficulty; this.seed=seed; this.events=events; this.telemetry=telemetry; frequency=field.TickFrequency;
             worldBypassPolicy=rangeTrafficPolicy?.WorldBypassAfterSeconds.HasValue==true?rangeTrafficPolicy:null;
+            forkYieldPolicy=rangeTrafficPolicy?.ForkYieldEffort.HasValue==true?rangeTrafficPolicy:null;
             policy=AiRacePolicyDefinition.FromJson(read("ai_race_policy_provisional_v1.json"));
             TuckDefinition tuckDefinition=(skiPolicy?.DownhillTuckEnabled??policy.DownhillTuckEnabled==true)?TuckDefinition.FromJson(read("tuck_provisional_v1.json")):null;
             if(tuckDefinition!=null)downhillTuck=new TuckSystem(tuckDefinition);
@@ -169,6 +171,7 @@ namespace Biathlon.AI
                 if(physicalRadius!=policy.PhysicalRadius)context.Add("range_traffic_observed_radius_m:"+physicalRadius.ToString("R",CultureInfo.InvariantCulture));
                 context.Add("ai_physical_range_safe_alignment_v1;actual_traversal_exit;stationary_body_clearance;paid_lateral;player_intent_preserved");
                 if(worldBypassPolicy!=null)context.Add("ai_range_world_anticipatory_paid_lateral_escape_v4;shared_corridors_post_shoot_departure_and_paid_main;observed_forward_body_side;bounded_goal_hold;paid_range_frontage_minimum_from_entry_line;ordinary_drive;full_field_revalidation;player_intent_preserved");
+                if(forkYieldPolicy!=null)context.Add("ai_range_earlier_private_fork_yield_v1;selected_fork_route_order;adjacent_outer_body;positive_effort;ordinary_paid_world_body_admission;player_intent_preserved");
             }
             for(int i=0;i<n;i++)
             {
@@ -376,6 +379,29 @@ namespace Biathlon.AI
                 }
                 else shootingFrames[i]=default;
                 var drive=paceFrames[i].Input;
+                if(forkYieldPolicy!=null&&alignRange&&actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.Approach&&
+                   actor.ActiveBout>=0&&actor.RangePath!=null)
+                {
+                    var rangePoint=Field.GetPhysicalPoint(i);
+                    if(rangePoint.LoopId==Field.Track.Range.Entry.LoopId&&
+                       rangePoint.LocalNanometers>=Field.Track.Range.Entry.Distance.Millimeters*SkiState.NanometersPerMillimeter&&
+                       rangePoint.LocalNanometers<=Field.Track.Range.Exit.Distance.Millimeters*SkiState.NanometersPerMillimeter)
+                    {
+                        long ownFork=actor.RangePath.LaneForkRouteNanometers(Field.Profile.GetBout(actor.ActiveBout).AfterLap-1);
+                        for(int j=0;j<Field.Count;j++)if(j!=i)
+                        {
+                            var other=Field.GetAthlete(j);
+                            if(other.ActiveBout!=actor.ActiveBout||other.CurrentRangeMotion?.Phase!=RangeTraversalPhase.Approach||
+                               other.RangePath==null||
+                               Field.GetPhysicalPoint(j).LoopId!=rangePoint.LoopId)continue;
+                            long otherFork=other.RangePath.LaneForkRouteNanometers(Field.Profile.GetBout(other.ActiveBout).AfterLap-1);
+                            if(rangeTraffic.ShouldYieldAtFork(ownFork,otherFork,actor.RouteNanometers,other.RouteNanometers,
+                                Field.GetLateral(i),Field.GetLateral(j)))
+                            {if(drive.RequestedEffort>forkYieldPolicy.ForkYieldEffort.Value)
+                                drive=new SimulationInput(tick,id,forkYieldPolicy.ForkYieldEffort.Value);break;}
+                        }
+                    }
+                }
                 var alignmentCap=rangeTrafficPlans[i].RequestedEffortCap;
                 if(alignmentCap.HasValue&&drive.RequestedEffort>alignmentCap.Value)
                     drive=new SimulationInput(tick,id,alignmentCap.Value);

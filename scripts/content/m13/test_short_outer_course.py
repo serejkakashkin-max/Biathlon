@@ -95,13 +95,22 @@ class ShortOuterCourseTests(unittest.TestCase):
             previous=direction
         self.assertLessEqual(longest,140.001)
 
-    def test_existing_private_penalty_exit_and_start_world_remain_identical(self):
+    def test_existing_private_penalty_exit_and_start_world_preserve_geometry(self):
         for resource,key in [('track','id'),('visual','loop_id')]:
             before={loop[key]:loop for loop in self.read('legacy-current',resource)['loops']}
             after={loop[key]:loop for loop in self.read('short',resource)['loops']}
             shared=before.keys()-{'main'}
             self.assertEqual(len(shared),33)
-            for loop_id in shared:self.assertEqual(before[loop_id],after[loop_id],loop_id)
+            for loop_id in shared:
+                if resource=='track' and loop_id.startswith('mat_'):
+                    self.assertTrue(all(edge['width_m']==2.5 for edge in before[loop_id]['segments']))
+                    self.assertTrue(all(edge['width_m']==3 for edge in after[loop_id]['segments']))
+                    original={**before[loop_id], 'segments':[
+                        {k:v for k,v in edge.items() if k!='width_m'} for edge in before[loop_id]['segments']]}
+                    widened={**after[loop_id], 'segments':[
+                        {k:v for k,v in edge.items() if k!='width_m'} for edge in after[loop_id]['segments']]}
+                    self.assertEqual(original,widened,loop_id)
+                else:self.assertEqual(before[loop_id],after[loop_id],loop_id)
         before,after=(self.read(name,'manifest')['range_layout'] for name in ('legacy-current','short'))
         self.assertEqual({k:v for k,v in before.items() if k not in ('entry','exit')},
                          {k:v for k,v in after.items() if k not in ('entry','exit')})

@@ -22219,3 +22219,53 @@ WP-177 and the owner's queue defect remain OPEN; WP-175/178 and M13 OPEN,
 WP-176 PASS. No intermediate Windows review build produced. Next work is
 approach geometry and paid early path divergence, integrated manual world
 steering, then full player/AI traffic acceptance and final hidden checks.
+
+## 2026-10-07 — M13 / WP-177 positive fork yielding and matched private width
+
+On the 30-athlete Woodland Mass Start, the observed 271-tick reciprocal
+Main/mat_06 wait came from two ordinary full-body sweeps crossing before
+different private mat forks. The collision resolver was correct; there were
+zero mat-capacity waits. The owner-visible queue issue is not declared closed.
+
+The production short-course recipe and physical track now specify 3 m private
+mat corridors at the existing 3 m lane pitch. All 30 environment route
+corridors have matching 3 m sampled widths; all 36 route corridor arrays were
+checked against the track sampler. No athlete body dimensions, pitch, mat
+size, shooting rule or power values were changed. A venue-scoped, versioned
+AI fork-yield policy caps effort at a positive 400/1000 when a close outer
+athlete must take the earlier selected fork. It pays ordinary travel and
+retains all world-body and seam admission. Player input is unchanged. The
+policy is in the replay context. A production-path regression corrected the
+new fork-coordinate calculation for Woodland's nonzero range entry.
+
+The same full Mass Start seed 123 completed in 20,706 ticks with event hash
+10573282619558191407. Moving-intent stopped athlete-ticks: mat 590 vs 2,031
+before; exit aisle 133 vs 320; longest episode 55 vs 271 ticks. Longest mat
+episode 42, longest exit episode 14; mat-capacity waits zero. Full-race
+regression 1/1 PASS with bounded stop assertions; Release .NET policy/path/
+production replay tests 31/31 PASS. Python short-course 9/9 and stadium 8/8
+PASS; Unity MCP refresh, native production fork and AI policy EditMode 2/2
+PASS, recent Error Console empty. Earlier corrected-data player-held second-
+and third-bout headless exit regressions 2/2 PASS; the final Unity-native
+player-held rerun is pending at this appended checkpoint. The player test
+uses zero drive but can coast, so it does not prove absolute stationary-player
+traffic. Evidence and limitations:
+docs/reports/TASK_WP177_RANGE_FORK_YIELD_AND_WIDTH_20261007.md.
+
+WP-177 and owner traffic acceptance remain OPEN. WP-175 and WP-178 remain
+OPEN; WP-176 PASS. M13 remains OPEN. The playable host still uses v1
+route-following steering; manual world-heading v2 has not been integrated.
+No intermediate Windows review build was produced under the owner batch
+directive. Next: finish player/AI obstruction acceptance, integrate manual
+steering across Pack race phases/replay/host, then final weather/performance
+and visual checks before the single review build.
+
+## 2026-10-07 — WP-177 Unity native long-run receipt correction
+
+The hidden Unity MCP second-bout player-held exit run exceeded the tool's
+300-second response limit. No completion result was returned; it is not
+counted as a passing Unity test. The Editor subsequently reported idle,
+without compilation or recent Error Console entries. The focused native
+fork-coordinate and AI policy tests remain 2/2 PASS. The second- and
+third-bout headless .NET player-held regressions remain 2/2 PASS. This does
+not change WP-177/M13 OPEN or authorize a review build.

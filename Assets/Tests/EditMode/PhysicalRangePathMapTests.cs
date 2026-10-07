@@ -31,6 +31,9 @@ namespace Biathlon.Tests
             Assert.That(a.MapRoute(100*M,PhysicalBoundarySide.Incoming).LoopId,Is.EqualTo("exit_aisle"));
             Assert.That(a.MapRoute(100*M).LoopId,Is.EqualTo("main"));
             Assert.That(a.FiringRouteNanometers(0),Is.EqualTo(28*M));Assert.That(b.FiringRouteNanometers(0),Is.EqualTo(48*M));
+            Assert.That(a.LaneForkRouteNanometers(0),Is.EqualTo(10*M));
+            Assert.That(b.LaneForkRouteNanometers(0),Is.EqualTo(30*M));
+            Assert.That(b.LaneForkRouteNanometers(1),Is.EqualTo(route.GetLapStart(1).Millimeters*SkiState.NanometersPerMillimeter+30*M));
             Assert.That(a.MapRoute(a.FiringRouteNanometers(0)).LocalNanometers,Is.EqualTo(a.MatAnchor.Distance.Millimeters*SkiState.NanometersPerMillimeter));
             Assert.That(a.FiringRouteNanometers(1),Is.EqualTo(route.GetLapStart(1).Millimeters*SkiState.NanometersPerMillimeter+28*M));
         }
@@ -45,6 +48,30 @@ namespace Biathlon.Tests
             var left=new PhysicalOccupancySweep(new AthleteId("a"),a.MapRoute(80*M),0,0,0);
             var right=new PhysicalOccupancySweep(new AthleteId("b"),b.MapRoute(80*M),0,0,0);
             Assert.That(occupancy.QueryRelativeMove(left,right).Blocked,Is.True,"A shared exit is never duplicated into invisible private occupancy.");
+        }
+        [Test] public void ProductionForkUsesAbsoluteMainLoopCoordinateAfterNonzeroRangeEntry()
+        {
+            string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
+            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read("Biathlon/Venues/woodland_basin_v1/manifest")),Read);
+            VenueFormatBinding format=null;
+            for(int i=0;i<venue.Formats.Count;i++)if(venue.Formats.Get(i).Id=="mass_start")format=venue.Formats.Get(i);
+            Assert.That(format,Is.Not.Null);
+            var route=new RaceRoute(venue.Track,format.Route,format.Profile.ToRouteRequirements());
+            var map=new PhysicalTrackMap(venue.Track,route);
+            var lane=venue.Paths.GetLane(5);
+            var physical=new PhysicalRangePathMap(map,venue.Track,route,venue.Paths,5);
+            Assert.That(venue.Paths.Entry.Millimeters,Is.GreaterThan(0));
+            long expected=long.MinValue;
+            for(int i=0;i<route.SectionCount;i++)
+            {
+                var section=route.GetSection(i);
+                if(section.LapIndex==0&&section.HasRange&&section.LoopId==venue.Paths.MainLoopId)
+                    expected=(section.Start.Millimeters-section.LoopStart.Millimeters+lane.Fork.Millimeters)*SkiState.NanometersPerMillimeter;
+            }
+            Assert.That(expected,Is.GreaterThan(0));
+            Assert.That(physical.LaneForkRouteNanometers(0),Is.EqualTo(expected));
+            Assert.That(physical.MapRoute(expected,PhysicalBoundarySide.Incoming).LoopId,Is.EqualTo(venue.Paths.MainLoopId));
+            Assert.That(physical.MapRoute(expected).LoopId,Is.EqualTo(lane.GetSlice(1).LoopId));
         }
         [Test] public void ActualSamplesExposePrivateCurvatureAndWidthAndBypassFinalLap()
         {
@@ -79,6 +106,8 @@ namespace Biathlon.Tests
             Assert.Catch(()=>new PhysicalRangePathMap(map,track,other,definition,0));
             Assert.Catch(()=>a.MapRoute(-1));Assert.Catch(()=>a.SampleRoute(-1));Assert.Catch(()=>a.DistanceToNextBoundary(-1));
             Assert.Catch(()=>a.MapRoute(0,(PhysicalBoundarySide)20));Assert.Catch(()=>a.FiringRouteNanometers(2));
+            Assert.Throws<ArgumentException>(()=>a.LaneForkRouteNanometers(2));
+            Assert.Throws<ArgumentOutOfRangeException>(()=>a.LaneForkRouteNanometers(-1));
             Assert.That(a.DistanceToNextBoundary(route.Length.Millimeters*SkiState.NanometersPerMillimeter),Is.Zero);
         }
         [Test] public void WarmMappingSamplingAndBoundaryQueriesAllocateNothing()

@@ -133,6 +133,17 @@ namespace Biathlon.Simulation
             throw new ArgumentException("Lap does not require shooting.");
         }
 
+        /// <summary>The selected lane's own physical turn on the main loop.
+        /// Unlike FirstForkRouteNanometers this is distinct for each mat.</summary>
+        public long LaneForkRouteNanometers(int lapIndex)
+        {
+            if(lapIndex<0||lapIndex>=route.LapCount)throw new ArgumentOutOfRangeException(nameof(lapIndex));
+            for(int i=0;i<usesRange.Length;i++)if(usesRange[i]&&route.GetSection(i).LapIndex==lapIndex)
+                return checked((route.GetSection(i).Start.Millimeters-route.GetSection(i).LoopStart.Millimeters)*
+                    SkiState.NanometersPerMillimeter+lane.Fork.Millimeters*SkiState.NanometersPerMillimeter);
+            throw new ArgumentException("Lap does not require shooting.");
+        }
+
         internal bool IsSameLayoutFamily(PhysicalRangePathMap other)=>other!=null&&ReferenceEquals(map,other.map)&&
             ReferenceEquals(track,other.track)&&ReferenceEquals(route,other.route)&&ReferenceEquals(definition,other.definition);
 

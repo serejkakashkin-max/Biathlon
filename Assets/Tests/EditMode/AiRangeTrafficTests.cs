@@ -35,6 +35,35 @@ namespace Biathlon.Tests
         private static TrackSample Track()=>new TrackSampler(TrackDefinition.FromJson(PhysicalRangePathDefinitionTests.Fixture("track")).GetLoop("main")).Sample(default);
         private static AiRangeTrafficPolicyDefinition YieldPolicy()=>AiRangeTrafficPolicyDefinition.FromJson(
             Definition().ToJson().TrimEnd().TrimEnd('}')+",\"blocked_alignment_effort\":0}");
+        [Test] public void EarlierOuterMatForkGetsPhysicalLeadWithoutAnyPlayerOrSpeedMultiplier()
+        {
+            var policy=AiRangeTrafficPolicyDefinition.FromJson(PhysiologyContractTests.ProjectFile(
+                "Assets/Resources/Biathlon/Venues/woodland_basin_v1/ai_range_traffic.json"));
+            var planner=new AiRangeTrafficPlanner(policy,OccupancyTests.Definition());
+            const long m=SkiState.NanometersPerMeter;
+            Assert.That(policy.ForkYieldEffort,Is.EqualTo(400));
+            Assert.That(AiRangeTrafficPolicyDefinition.FromJson(policy.ToJson()).ToJson(),Is.EqualTo(policy.ToJson()));
+            Assert.That(planner.ShouldYieldAtFork(1084*m,1078*m,1010*m,1010*m,-1,.35),Is.True);
+            Assert.That(planner.ShouldYieldAtFork(1078*m,1084*m,1010*m,1010*m,-1,.35),Is.False,
+                "The nearer mat turn cannot yield to a later one.");
+            Assert.That(planner.ShouldYieldAtFork(1084*m,1078*m,1010*m,1010*m,.35,-1),Is.False,
+                "The inner athlete need not yield to a body on the other side.");
+            Assert.That(planner.ShouldYieldAtFork(1084*m,1078*m,1010*m,1014*m,-1,.35),Is.False);
+            Assert.That(planner.ShouldYieldAtFork(1084*m,1078*m,1084*m,1010*m,-1,.35),Is.False);
+            Assert.That(new AiRangeTrafficPlanner(Definition(),OccupancyTests.Definition())
+                .ShouldYieldAtFork(1084*m,1078*m,1010*m,1010*m,-1,.35),Is.False);
+            Assert.Catch(()=>AiRangeTrafficPolicyDefinition.FromJson(
+                Definition().ToJson().TrimEnd('}')+",\"fork_yield_effort\":400}"));
+            foreach(var bad in new[]{"\"fork_yield_effort\":0","\"fork_yield_effort\":1001","\"fork_yield_neighbor_gap_m\":0",
+                "\"fork_yield_lateral_gap_m\":-1","\"fork_yield_outer_side_sign\":0"})
+            {
+                string key=bad.Substring(0,bad.IndexOf(':')+1);
+                var original=policy.ToJson();
+                string changed=System.Text.RegularExpressions.Regex.Replace(original,
+                    System.Text.RegularExpressions.Regex.Escape(key)+"[^,}]+",bad);
+                Assert.Catch(()=>AiRangeTrafficPolicyDefinition.FromJson(changed));
+            }
+        }
         private static PackAiRaceRunner Create(PhysicalRangePackTests.Fixture fixture,RaceEventLog log,bool enabled=true,AiRangeTrafficPolicyDefinition traffic=null)
         {
             var profiles=new AiPersonalityDefinition[fixture.Entrants.Length];

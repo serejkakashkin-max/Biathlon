@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="cbc2de61-5133-4810-9b31-b8588a3bd6d4" name="snkashkin@DESKTOP-G3075GA 2026-10-07 15:18:18" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-07T15:18:18.9478074+03:00" queuing="2026-10-07T15:18:18.9478075+03:00" start="2026-10-07T15:17:06.0839683+03:00" finish="2026-10-07T15:18:18.9512354+03:00" />
+  <TestSettings name="default" id="bbafad3b-debc-4bf8-994d-6d43f7522858">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-07_15_18_18" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="658119f2-1d1c-486e-a648-40079cc66da2" testId="9213425c-f677-9f86-0599-69779d38bf60" testName="PlayerHeldOnActualExitDoesNotProduceAStationaryFollowerQueue" computerName="DESKTOP-G3075GA" duration="00:01:11.9859300" startTime="2026-10-07T15:17:06.5823981+03:00" endTime="2026-10-07T15:18:18.5630072+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="658119f2-1d1c-486e-a648-40079cc66da2">
+      <Output>
+        <StdOut>scouted_bout=2 player=2 scout_tick=7630&#xD;
+held_exit_tick=7630 station_m=115,282690025&#xD;
+held_ticks=240 nearby_at_hold=1 max_follower_stall=0 followers_passing=1 player_final=main:1178,020922622 speed=3,324331482&#xD;
+follower=0 final=main:9,80042752 speed=8,985786539 line=-0,9</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="PlayerHeldOnActualExitDoesNotProduceAStationaryFollowerQueue" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="9213425c-f677-9f86-0599-69779d38bf60">
+      <Execution id="658119f2-1d1c-486e-a648-40079cc66da2" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerM13ExitQueueTests" name="PlayerHeldOnActualExitDoesNotProduceAStationaryFollowerQueue" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="9213425c-f677-9f86-0599-69779d38bf60" executionId="658119f2-1d1c-486e-a648-40079cc66da2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+scouted_bout=2 player=2 scout_tick=7630&#xD;
+held_exit_tick=7630 station_m=115,282690025&#xD;
+held_ticks=240 nearby_at_hold=1 max_follower_stall=0 followers_passing=1 player_final=main:1178,020922622 speed=3,324331482&#xD;
+follower=0 final=main:9,80042752 speed=8,985786539 line=-0,9&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
