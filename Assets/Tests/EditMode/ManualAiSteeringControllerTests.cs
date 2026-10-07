@@ -27,11 +27,57 @@ namespace Biathlon.Tests
         }
         private static long Nano(double metres)=>(long)Math.Round(metres*SkiState.NanometersPerMeter);
 
-        [TestCase(200.0,false)]
-        [TestCase(300.0,false)]
-        [TestCase(400.0,true)]
+        [Test] public void CornerEffortPolicyIsVersionedBoundedAndAllocationFree()
+        {
+            var json=PhysiologyContractTests.ProjectFile(
+                "Assets/Resources/Biathlon/manual_ai_corner_effort_v1.json");
+            var policy=ManualAiCornerEffortDefinition.FromJson(json);
+            Assert.That(ManualAiCornerEffortDefinition.FromJson(policy.ToJson()).ToJson(),
+                Is.EqualTo(policy.ToJson()));
+            foreach(var field in new[]{"schema_version","id","bend_lookahead_m",
+                "bend_angle_threshold_rad","bend_power_cap_w"})
+                Assert.Catch(()=>ManualAiCornerEffortDefinition.FromJson(
+                    json.Replace("\""+field+"\"","\"missing_"+field+"\"")),field);
+            Assert.Catch(()=>ManualAiCornerEffortDefinition.FromJson(
+                json.Replace("\"bend_lookahead_m\": 70","\"bend_lookahead_m\": 0")));
+            Assert.Catch(()=>ManualAiCornerEffortDefinition.FromJson(
+                json.Replace("\"bend_power_cap_w\": 300","\"bend_power_cap_w\": -1")));
+            var f=Create();var first=f.route.GetSection(0);
+            Assert.That(f.map.TrySampleAhead(0,Nano(first.Start.Meters),5,false,out var start),Is.True);
+            var pose=new ManualSkiHeadingState(start.X,start.Z,
+                Math.Atan2(start.ForwardX,start.ForwardZ));
+            Assert.That(f.map.TryProject(pose,0,start.RouteNanometers,.01,false,
+                out var observation),Is.True);
+            var planner=new ManualAiCornerEffortPlanner(f.map,policy);
+            var plan=planner.Plan(observation,400,false);
+            Assert.That(plan.IsValid&&plan.BendObserved,Is.True);
+            Assert.That(plan.RequestedPowerWatts,Is.EqualTo(300));
+            Assert.That(planner.Plan(observation,200,false).RequestedPowerWatts,
+                Is.EqualTo(200),"A tactical cap cannot increase an athlete's request.");
+            Assert.That(planner.ContextJson,Does.Contain(policy.Id));
+            var endPoint=f.visual.Get(first.LoopId).Sample(first.LoopEnd.Meters-1);
+            var endPose=new ManualSkiHeadingState(endPoint.X,endPoint.Z,
+                Math.Atan2(endPoint.ForwardX,endPoint.ForwardZ));
+            Assert.That(f.map.TryProject(endPose,0,Nano(first.Start.Meters+first.Length.Meters-1),
+                .01,false,out var nearEnd),Is.True);
+            var noUnadmittedLookahead=planner.Plan(nearEnd,400,false);
+            Assert.That(noUnadmittedLookahead.LookaheadStationNanometers,
+                Is.EqualTo(nearEnd.RouteNanometers));
+            Assert.That(noUnadmittedLookahead.RequestedPowerWatts,Is.EqualTo(400));
+            for(int i=0;i<100;i++)planner.Plan(observation,400,false);
+            long before=GC.GetAllocatedBytesForCurrentThread();
+            for(int i=0;i<1000;i++)
+                if(planner.Plan(observation,400,false).RequestedPowerWatts!=300)
+                    Assert.Fail("AI corner effort changed for the same observation.");
+            Assert.That(GC.GetAllocatedBytesForCurrentThread()-before,Is.Zero);
+        }
+
+        [TestCase(200.0,false,false)]
+        [TestCase(300.0,false,false)]
+        [TestCase(400.0,true,false)]
+        [TestCase(400.0,false,true)]
         public void ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(double deliveredPowerWatts,
-            bool expectedBoundaryRejection)
+            bool expectedBoundaryRejection,bool adaptiveCornerEffort)
         {
             const string root="Biathlon/Venues/woodland_basin_v1/";
             string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
@@ -43,6 +89,8 @@ namespace Biathlon.Tests
             var heading=ManualSkiSteeringDefinition.FromJson(Read("Biathlon/manual_ski_steering_v2"));
             var controller=new ManualAiSteeringController(map,
                 ManualAiSteeringDefinition.FromJson(Read("Biathlon/manual_ai_steering_v2")),heading);
+            var effortPlanner=new ManualAiCornerEffortPlanner(map,
+                ManualAiCornerEffortDefinition.FromJson(Read("Biathlon/manual_ai_corner_effort_v1")));
             var motion=new ManualSkiMotionSystem(
                 SkiPhysicsDefinition.FromJson(Read("Biathlon/ski_physics_provisional_v1")),heading,
                 CorneringDefinition.FromJson(Read("Biathlon/cornering_provisional_v1")),20);
@@ -56,7 +104,7 @@ namespace Biathlon.Tests
             double bodyRadius=.5*Math.Sqrt(venue.Occupancy.LongitudinalSeparation*
                 venue.Occupancy.LongitudinalSeparation+venue.Occupancy.LateralSeparation*
                 venue.Occupancy.LateralSeparation)+venue.Occupancy.EdgeClearance;
-            double maximumLateral=0,maximumSpeed=0;
+            double maximumLateral=0,maximumSpeed=0;int reducedTicks=0;
             var sampler=new TrackSampler(venue.Track.GetLoop(first.LoopId));
             for(int tick=0;tick<8000&&station<Nano(940);tick++)
             {
@@ -70,12 +118,29 @@ namespace Biathlon.Tests
                     "Full body left the course at tick "+tick);
                 var plan=controller.Plan(pose,observed,ski.SpeedMetersPerSecond,false);
                 Assert.That(plan.IsValid,Is.True,"AI target missing at tick "+tick);
+                double actualPower=deliveredPowerWatts;
+                if(adaptiveCornerEffort)
+                {
+                    var effortPlan=effortPlanner.Plan(observed,deliveredPowerWatts,false);
+                    Assert.That(effortPlan.IsValid,Is.True);
+                    actualPower=effortPlan.RequestedPowerWatts;
+                    if(actualPower<deliveredPowerWatts)reducedTicks++;
+                }
                 var frame=motion.Preview(ski,pose,observed,surface,
-                    new ManualSkiMotionInput(plan.SteeringInput,deliveredPowerWatts,70,70));
+                    new ManualSkiMotionInput(plan.SteeringInput,actualPower,70,70));
                 var continuous=tube.Preview(new ManualSkiWorldTrajectory(frame.Heading),0,
                     observed.RouteNanometers,2,false);
                 if(expectedBoundaryRejection&&continuous.Status!=ManualRouteTubeStatus.Clear)
                 {
+                    foreach(double trialPower in new[]{300.0,200.0,0.0})
+                    {
+                        var slower=motion.Preview(ski,pose,observed,surface,
+                            new ManualSkiMotionInput(plan.SteeringInput,trialPower,70,70));
+                        var checkedTrial=tube.Preview(new ManualSkiWorldTrajectory(slower.Heading),0,
+                            observed.RouteNanometers,2,false);
+                        TestContext.WriteLine("alternate_w="+trialPower+" status="+checkedTrial.Status+
+                            " clear_s="+checkedTrial.ClearUntilSeconds);
+                    }
                     Assert.That(observed.RouteNanometers,Is.InRange(Nano(65),Nano(80)),
                         "The high-power limit must be a measured local course boundary.");
                     Assert.That(continuous.ClearUntilSeconds,Is.LessThan(frame.Heading.DurationSeconds));
@@ -93,8 +158,10 @@ namespace Biathlon.Tests
             }
             TestContext.WriteLine("manual_force_candidate_power_w="+deliveredPowerWatts+
                 " station_m="+station/1e9+
-                " maximum_lateral_m="+maximumLateral+" maximum_speed_mps="+maximumSpeed);
+                " maximum_lateral_m="+maximumLateral+" maximum_speed_mps="+maximumSpeed+
+                " reduced_ticks="+reducedTicks);
             Assert.That(station,Is.GreaterThanOrEqualTo(Nano(940)));
+            if(adaptiveCornerEffort)Assert.That(reducedTicks,Is.GreaterThan(0));
             Assert.That(expectedBoundaryRejection,Is.False,
                 "The diagnostic high-power input must not silently bypass course proof.");
         }

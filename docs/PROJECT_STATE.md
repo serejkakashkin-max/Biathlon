@@ -22370,3 +22370,31 @@ the final hidden Unity EditMode AI suite ran 10/10 PASS after the 400 W
 conservative-rejection case was added (the earlier 9/9 count was an interim
 run). A rejected conservative tube does not itself prove a physical collision;
 it means that full-body clearance is not established for that proposed tick.
+
+
+## 2026-10-07 — M13 anticipatory AI corner effort candidate and moving descent diagnosis
+
+An AI corner-effort policy with schema/id and a separate no-allocation planner
+observes the selected route 70 m ahead. When the heading changes by over
+0.15 rad, it requests at most 300 W from a 400 W nominal candidate; lower
+requests are not raised. It does not change shared force, athlete capability,
+yaw, position, or branch admission. A constant 400 W single-actor probe is
+conservatively rejected near Woodland Main 71.86 m; reducing to 300/200/0 W
+only on that rejected tick remains unproved. The anticipatory candidate
+passes continuous full-body tube checks on every tick through Main 940 m
+with 1574 reduced-power ticks. This is not a production field result.
+
+Release .NET focused projection/AI/tube 34/34 PASS; final hidden Unity
+EditMode AI class 12/12 PASS. Asset refresh/compile settled; recent Error
+Console empty. Evidence: docs/reports/TASK_M13_AI_CORNER_EFFORT_CANDIDATE_20261007.md
+and docs/quality/m13/m13-manual-ai-corner-effort-final.trx. The initial AI
+assembly compile failure was fixed and the final checks passed.
+
+Hidden real moving-player Game View at Main 742.2 m/tick2910 and
+820.3 m/tick3060 still made the authored descent read like a flat straight
+road. The images were inspected via Unity MCP but not saved as files, so
+this is diagnostic only. The second attempted long 30-actor capture timed
+out through MCP and is not verification. WP-177 descent presentation,
+full-field manual control, physiology-bound corner decisions, contacts,
+range/penalty integration and replay v2 remain OPEN. M13/WP175/177/178
+remain OPEN; no Windows review build issued.
