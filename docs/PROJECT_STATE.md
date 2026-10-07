@@ -22480,3 +22480,5 @@ also a direct cause. Inputs, hashes and redesign acceptance are recorded in
 docs/reports/TASK_WP177_DESCENT_GEOMETRY_DIAGNOSIS_20261007.md. This is a
 diagnosis, not a track change or visual PASS. WP-177/M13 remain OPEN; new
 production geometry requires physical/visual/traffic/replay validation.
+
+2026-10-07 — WP-177, кандидат короткого спуска Woodland: авторское прямое окно сокращено с 140 до 80 м. Python геометрия/стадион 18/18 PASS; независимые Sprint/Pursuit/Mass Start маршруты и пересозданное окружение прошли геометрическую проверку. Полная статическая политика пока FAIL: 1282 диагностик старого генератора компактного рубежа, на текущих Assets отдельно 638 диагностик другого класса. Unity ресурсы не заменены, визуальный и гоночный PASS не заявлены; WP-177/M13 OPEN, финального билда нет. Отчёт: docs/reports/TASK_WP177_DESCENT_SHORT_WINDOW_CANDIDATE_20261007.md.

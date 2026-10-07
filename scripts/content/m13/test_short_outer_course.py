@@ -93,7 +93,7 @@ class ShortOuterCourseTests(unittest.TestCase):
             else:run=segment['length_m']
             longest=max(longest,run)
             previous=direction
-        self.assertLessEqual(longest,140.001)
+        self.assertLessEqual(longest,80.001)
 
     def test_existing_private_penalty_exit_and_start_world_preserve_geometry(self):
         for resource,key in [('track','id'),('visual','loop_id')]:
@@ -122,12 +122,22 @@ class ShortOuterCourseTests(unittest.TestCase):
         audit=json.loads((self.root/'short/audit.json').read_text())['short_outer_course']
         visual=next(loop for loop in self.read('short','visual')['loops'] if loop['loop_id']=='main')
         for name,window in audit['format_windows'].items():
-            self.assertEqual(round((window['end_m']-window['start_m'])*1000),140000)
+            self.assertEqual(round((window['end_m']-window['start_m'])*1000),80000)
             knots=[k for k in visual['knots'] if window['start_m']<=k['distance_m']<=window['end_m']]
             self.assertEqual(len(knots),3)
             self.assertEqual(len({k['x'] for k in knots}),1,'Quantisation must not move a straight midpoint.')
             self.assertAlmostEqual(math.dist(tuple(knots[0][k] for k in ('x','y','z')),
-                tuple(knots[-1][k] for k in ('x','y','z'))),140,places=10)
+                tuple(knots[-1][k] for k in ('x','y','z'))),80,places=10)
+
+    def test_shorter_descent_preserves_both_format_branch_grades(self):
+        track=self.read('formats','track')
+        branches={loop['id']:loop for loop in track['loops']}
+        for loop_id in ('pursuit_shortcut','sprint_extension'):
+            maximum=max(abs(edge['start_grade']) for edge in branches[loop_id]['segments'])
+            self.assertLessEqual(maximum,.25,loop_id)
+        audit=json.loads((self.root/'short/audit.json').read_text())['short_outer_course']
+        self.assertLess(audit['format_windows']['descent_window']['end_m']
+                        -audit['format_windows']['descent_window']['start_m'],100)
 
     def test_all_three_formats_pay_declared_game_distances_and_preserve_shooting(self):
         expected={'mass_start':(6000,5,30,[0,0,1,1]),'sprint':(4200.001,3,40,[0,1]),
