@@ -68,6 +68,19 @@ namespace Biathlon.Simulation
         {IsValid=true;Status=status;GapMeters=gap;NormalX=nx;NormalZ=nz;FirstVelocity=first;SecondVelocity=second;
             NormalImpulseNewtonSeconds=normal;TangentImpulseNewtonSeconds=tangent;}
     }
+    /// <summary>Frozen support interval of an actual reached rectangle contact.
+    /// Both endpoints matter: a face contact cannot be held by one centre point
+    /// when another force would rotate its corner into the other body.</summary>
+    public readonly struct SkiContactManifoldPreview
+    {
+        public SkiContactPreview Contact {get;}
+        public bool HasSupport {get;}
+        public double FirstX {get;} public double FirstZ {get;}
+        public double SecondX {get;} public double SecondZ {get;}
+        public double MiddleX {get;} public double MiddleZ {get;}
+        internal SkiContactManifoldPreview(SkiContactPreview contact,bool support=false,double ax=0,double az=0,double bx=0,double bz=0,double mx=0,double mz=0)
+        {Contact=contact;HasSupport=support;FirstX=ax;FirstZ=az;SecondX=bx;SecondZ=bz;MiddleX=mx;MiddleZ=mz;}
+    }
     /// <summary>Instantaneous pair response at an already reached contact, not a
     /// whole-step collision detector. No position correction, teleport, route or event commit.</summary>
     public sealed class ManualSkiContactSystem
@@ -148,18 +161,14 @@ namespace Biathlon.Simulation
         }
         private SkiAngularContactPreview Angular(ManualSkiContactBody a,ManualSkiContactBody b,double wa,double wb)
         {
-            var initial=Preview(a,b);
+            var manifold=PreviewManifold(a,b);var initial=manifold.Contact;
             if(initial.Status==SkiContactPreviewStatus.Separated||initial.Status==SkiContactPreviewStatus.Penetrating)
                 return new SkiAngularContactPreview(initial,wa,wb,0,0);
             double nx=initial.NormalX,nz=initial.NormalZ,tx=-nz,tz=nx;
-            Feature(a,-1,out double alow,out double ahigh,out double adepth);
-            Feature(b,1,out double blow,out double bhigh,out double bdepth);
-            double low=Math.Max(alow,blow),high=Math.Min(ahigh,bhigh);
-            if(low>high+definition.ContactTolerance)
+            if(!manifold.HasSupport)
                 return new SkiAngularContactPreview(new SkiContactPreview(SkiContactPreviewStatus.RequiresAngularResolution,
                     initial.GapMeters,nx,nz,a.Velocity,b.Velocity),wa,wb,0,0);
-            double tangent=(low+high)*.5,depth=(adepth+bdepth)*.5;
-            double px=nx*depth+tx*tangent,pz=nz*depth+tz*tangent;
+            double px=manifold.MiddleX,pz=manifold.MiddleZ;
             double arx=px-a.Pose.X,arz=pz-a.Pose.Z,brx=px-b.Pose.X,brz=pz-b.Pose.Z;
             double an=arz*nx-arx*nz,at=arz*tx-arx*tz,bn=brz*nx-brx*nz,bt=brz*tx-brx*tz;
             double ia=a.MassKilograms*(halfLength*halfLength+halfWidth*halfWidth)/3;
@@ -189,6 +198,29 @@ namespace Biathlon.Simulation
 
             void Limit(double coefficient,double bound)
             {if(coefficient>0)max=Math.Min(max,bound/coefficient);else if(coefficient<0)min=Math.Max(min,bound/coefficient);}
+        }
+        public SkiContactManifoldPreview PreviewManifold(ManualSkiContactBody a,ManualSkiContactBody b)
+        {
+            // Preserve canonical point order, independent of caller enumeration.
+            if(!a.IsValid||!b.IsValid||a.Athlete.Equals(b.Athlete))throw new ArgumentException("Distinct initialized bodies required.");
+            if(string.CompareOrdinal(a.Athlete.Value,b.Athlete.Value)>0)
+            {
+                var reverse=PreviewManifold(b,a);var c=reverse.Contact;
+                return new SkiContactManifoldPreview(new SkiContactPreview(c.Status,c.GapMeters,-c.NormalX,-c.NormalZ,
+                    c.SecondVelocity,c.FirstVelocity,c.NormalImpulseNewtonSeconds,c.TangentImpulseNewtonSeconds),
+                    reverse.HasSupport,reverse.FirstX,reverse.FirstZ,reverse.SecondX,reverse.SecondZ,reverse.MiddleX,reverse.MiddleZ);
+            }
+            var contact=Preview(a,b);
+            if(contact.Status==SkiContactPreviewStatus.Separated||contact.Status==SkiContactPreviewStatus.Penetrating)
+                return new SkiContactManifoldPreview(contact);
+            double nx=contact.NormalX,nz=contact.NormalZ,tx=-nz,tz=nx;
+            Feature(a,-1,out double alow,out double ahigh,out double adepth);
+            Feature(b,1,out double blow,out double bhigh,out double bdepth);
+            double low=Math.Max(alow,blow),high=Math.Min(ahigh,bhigh);
+            if(low>high+definition.ContactTolerance)return new SkiContactManifoldPreview(contact);
+            double depth=(adepth+bdepth)*.5,tangent=(low+high)*.5;
+            return new SkiContactManifoldPreview(contact,true,nx*depth+tx*low,nz*depth+tz*low,
+                nx*depth+tx*high,nz*depth+tz*high,nx*depth+tx*tangent,nz*depth+tz*tangent);
             void Feature(ManualSkiContactBody body,int sign,out double lower,out double upper,out double extreme)
             {
                 double fx=Math.Sin(body.Pose.HeadingRadians),fz=Math.Cos(body.Pose.HeadingRadians);

@@ -91,32 +91,38 @@ namespace Biathlon.Simulation
         private readonly ManualSkiHeadingFrame heading;
         private readonly SkiContactTrajectory contact;
         private readonly SkiDrivenContactTrajectory driven;
+        private readonly SkiForceCoupledTrajectory coupled;
         private readonly double fromSeconds,toSeconds;
-        public bool IsValid=>heading.HasForceTrajectory||contact.IsValid||driven.IsValid;
-        private bool HasContact=>contact.IsValid||driven.IsValid;
-        private double RootDurationSeconds=>driven.IsValid?driven.DurationSeconds:contact.IsValid?contact.DurationSeconds:heading.DurationSeconds;
+        public bool IsValid=>heading.HasForceTrajectory||contact.IsValid||driven.IsValid||coupled.IsValid;
+        private bool HasContact=>contact.IsValid||driven.IsValid||coupled.IsValid;
+        private double RootDurationSeconds=>coupled.IsValid?coupled.DurationSeconds:driven.IsValid?driven.DurationSeconds:contact.IsValid?contact.DurationSeconds:heading.DurationSeconds;
         public double DurationSeconds=>toSeconds-fromSeconds;
-        public double PeakYawRate=>driven.IsValid?driven.PeakYawRate:contact.IsValid?contact.PeakYawRate:heading.PeakYawRate;
-        public double PlanarAccelerationBound=>driven.IsValid?driven.PlanarAccelerationBound:contact.IsValid?contact.PlanarAccelerationBound:heading.PlanarAccelerationBound;
-        public double PositionErrorBoundMeters=>driven.IsValid?driven.PositionErrorBoundMeters:contact.IsValid?contact.PositionErrorBoundMeters:heading.PositionErrorBoundMeters;
-        public double HeadingErrorBoundRadians=>driven.IsValid?driven.HeadingErrorBoundRadians:contact.IsValid?contact.HeadingErrorBoundRadians:heading.HeadingErrorBoundRadians;
+        public double PeakYawRate=>coupled.IsValid?coupled.PeakYawRate:driven.IsValid?driven.PeakYawRate:contact.IsValid?contact.PeakYawRate:heading.PeakYawRate;
+        public double PlanarAccelerationBound=>coupled.IsValid?coupled.PlanarAccelerationBound:driven.IsValid?driven.PlanarAccelerationBound:contact.IsValid?contact.PlanarAccelerationBound:heading.PlanarAccelerationBound;
+        public double PositionErrorBoundMeters=>coupled.IsValid?coupled.PositionErrorBoundMeters:driven.IsValid?driven.PositionErrorBoundMeters:contact.IsValid?contact.PositionErrorBoundMeters:heading.PositionErrorBoundMeters;
+        public double HeadingErrorBoundRadians=>coupled.IsValid?coupled.HeadingErrorBoundRadians:driven.IsValid?driven.HeadingErrorBoundRadians:contact.IsValid?contact.HeadingErrorBoundRadians:heading.HeadingErrorBoundRadians;
         public ManualSkiWorldTrajectory(ManualSkiHeadingFrame frame)
         {
             if(!frame.HasForceTrajectory)throw new ArgumentException("Force-weighted heading required.");
-            heading=frame;contact=default;driven=default;fromSeconds=0;toSeconds=frame.DurationSeconds;
+            heading=frame;contact=default;driven=default;coupled=default;fromSeconds=0;toSeconds=frame.DurationSeconds;
         }
         public ManualSkiWorldTrajectory(SkiContactTrajectory frame)
         {
             if(!frame.IsValid)throw new ArgumentException("Initialized contact trajectory required.");
-            heading=default;contact=frame;driven=default;fromSeconds=0;toSeconds=frame.DurationSeconds;
+            heading=default;contact=frame;driven=default;coupled=default;fromSeconds=0;toSeconds=frame.DurationSeconds;
         }
         public ManualSkiWorldTrajectory(SkiDrivenContactTrajectory frame)
         {
             if(!frame.IsValid)throw new ArgumentException("Initialized driven contact trajectory required.");
-            heading=default;contact=default;driven=frame;fromSeconds=0;toSeconds=frame.DurationSeconds;
+            heading=default;contact=default;driven=frame;coupled=default;fromSeconds=0;toSeconds=frame.DurationSeconds;
         }
-        private ManualSkiWorldTrajectory(ManualSkiHeadingFrame heading,SkiContactTrajectory contact,SkiDrivenContactTrajectory driven,double from,double to)
-        {this.heading=heading;this.contact=contact;this.driven=driven;fromSeconds=from;toSeconds=to;}
+        public ManualSkiWorldTrajectory(SkiForceCoupledTrajectory frame)
+        {
+            if(!frame.IsValid)throw new ArgumentException("Initialized coupled force trajectory required.");
+            heading=default;contact=default;driven=default;coupled=frame;fromSeconds=0;toSeconds=frame.DurationSeconds;
+        }
+        private ManualSkiWorldTrajectory(ManualSkiHeadingFrame heading,SkiContactTrajectory contact,SkiDrivenContactTrajectory driven,SkiForceCoupledTrajectory coupled,double from,double to)
+        {this.heading=heading;this.contact=contact;this.driven=driven;this.coupled=coupled;fromSeconds=from;toSeconds=to;}
         /// <summary>Reuse a portion of the same frozen force/snow interval. Does
         /// not recalculate an impulse, apply a command twice or admit any body.
         /// Times are relative to this slice; nested slices keep the original root.</summary>
@@ -128,7 +134,7 @@ namespace Biathlon.Simulation
             if(to<=from)throw new ArgumentException("A positive frozen interval is required.");
             double start=from==0?fromSeconds:fromSeconds+from,end=to==DurationSeconds?toSeconds:fromSeconds+to;
             if(end<=start)throw new ArgumentException("Frozen interval is below the source clock's resolution.");
-            return new ManualSkiWorldTrajectory(heading,contact,driven,start,end);
+            return new ManualSkiWorldTrajectory(heading,contact,driven,coupled,start,end);
         }
         private double RootFraction(double fraction)
         {
@@ -140,10 +146,10 @@ namespace Biathlon.Simulation
             return time/RootDurationSeconds;
         }
         public ManualSkiHeadingState Sample(double fraction)
-        {double root=RootFraction(fraction);return driven.IsValid?driven.Sample(root):contact.IsValid?contact.Sample(root):heading.Sample(root);}
+        {double root=RootFraction(fraction);return coupled.IsValid?coupled.Sample(root):driven.IsValid?driven.Sample(root):contact.IsValid?contact.Sample(root):heading.Sample(root);}
         public SkiPlanarVelocity VelocityAt(double fraction)
         {double root=RootFraction(fraction);return HasContact?ContactMotionAt(root).Velocity:heading.VelocityAt(root);}
-        private SkiContactMotion ContactMotionAt(double fraction)=>driven.IsValid?driven.MotionAt(fraction):contact.MotionAt(fraction);
+        private SkiContactMotion ContactMotionAt(double fraction)=>coupled.IsValid?coupled.MotionAt(fraction):driven.IsValid?driven.MotionAt(fraction):contact.MotionAt(fraction);
         /// <summary>Physical travel along the selected world trajectory. Contact
         /// side-slip counts as distance even when projected course credit is zero.</summary>
         public double PlanarTravelDistanceAt(double fraction)

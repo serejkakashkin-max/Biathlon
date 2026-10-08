@@ -240,3 +240,18 @@ pose/time/odometer/credit correction. Unresolved response blocks continuation.
 Telemetry is not future admission. .NET140/140/native11+16 PASS; unequal-force
 contact coupling and prior broad allocation qualification remain OPEN.
 [Report](../reports/TASK_M13_MANUAL_OWNED_CONTACTS_20261008.md).
+
+
+## 2026-10-08 — continuing force reactions at owned contacts
+
+World v12 binds stable-ID force complementarity using two actual face support
+endpoints, unchanged occupied inertia/masses/friction, and configured work bound.
+Frozen drive pieces split at free force and kinetic-slip zero boundaries. Raw
+initial motion is preserved; all trajectories validate before caller output.
+Force preview pays no time and cannot bypass continuous body/course/phase proof.
+A tolerated residual initially accumulated encoded spin at tick8; the solver now
+converges to the stricter configured cap/64-ulp numerical reserve without clamping.
+.NET19/19/native19+8+11 PASS. Hundred-clock pair and 40-body/2507-pass witness do
+not qualify production work budgets. Broad210/211 and211/213 allocation failures
+remain OPEN, as do full slip steering/runner/events/replay/host and M13.
+[Report](../reports/TASK_M13_MANUAL_CONTACT_FORCES_20261008.md).

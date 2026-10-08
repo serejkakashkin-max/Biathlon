@@ -179,3 +179,13 @@ without pose/time correction, separated-pair removal and full-group atomicity.
 contacts remain unproved, earlier allocation qualification OPEN. Full manual
 runner/resources/replay/host and final M13 build remain pending.
 [Report](reports/TASK_M13_MANUAL_OWNED_CONTACTS_20261008.md).
+
+
+2026-10-08 continuing contact forces: actual two-endpoint support reactions share
+unequal traction without pose/velocity correction or a paid stop. New .NET19/19;
+native19+8+11 PASS, compile/Console clear. Actual Woodland pair moves on all100
+complete clocks; 40-body algorithm witness needs2507/4096 passes and is not a
+production performance approval. Broad210/211 then211/213 FAILED on existing
+allocation assertions6256/8088/2576 B; qualification OPEN. Signed slip steering,
+full runner/resources/replay/host and M13/final build remain OPEN.
+[Report](reports/TASK_M13_MANUAL_CONTACT_FORCES_20261008.md).

@@ -17,6 +17,36 @@ namespace Biathlon.Simulation
     public sealed partial class ManualScopedWorldRoster
     {
         public ManualScopedContactSetPreview LastOwnedContacts {get;private set;}
+        public SkiContactForcePreview LastContactForces {get;private set;}
+        public SkiContactForceReaction GetLastContactForceReaction(int index)
+        {
+            if(contactForces==null||!LastContactForces.IsValid)throw new InvalidOperationException("No current contact force preview.");
+            return contactForces.GetReaction(index);
+        }
+        /// <summary>Couple current raw drive forces through actual owned bodies.
+        /// Output covers only the next common constant-force piece. This preview
+        /// pays no time; the normal scheduler, course and phase proofs still
+        /// must admit it. Failure never writes a partial caller candidate array.</summary>
+        public bool TryPreviewContactDrivenMotion(ManualScopedWorldTick tick,SkiDrivenContactTrajectory[] drives,SkiWorldMotionCandidate[] output)
+        {
+            ValidateTick(tick);ready=false;LastContactForces=default;
+            if(pendingContact)return Reject(ManualScopedWorldStatus.PendingContact);
+            if(contactForces==null)throw new InvalidOperationException("Contact force policy and exact masses must be bound.");
+            if(drives==null||output==null||drives.Length!=Count||output.Length!=Count)
+                throw new ArgumentException("Complete current world drive and output roster required.");
+            double remaining=GetRemainingSeconds(tick);
+            for(int i=0;i<Count;i++)
+            {
+                var actor=workingActors[i];var frame=drives[i];
+                if(!frame.IsValid||frame.DurationSeconds>remaining)throw new ArgumentException("Drive must fit the remaining owned clock.");
+                responseBodies[i]=new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,masses[i]);
+            }
+            LastContactForces=contactForces.Preview(responseBodies,drives,Count,coupledTrajectories);
+            if(LastContactForces.Status!=SkiContactForceStatus.Resolved)return Reject(ManualScopedWorldStatus.ContactForces);
+            for(int i=0;i<Count;i++)coupledCandidates[i]=new SkiWorldMotionCandidate(workingActors[i].Athlete,new ManualSkiWorldTrajectory(coupledTrajectories[i]));
+            for(int i=0;i<Count;i++)output[i]=coupledCandidates[i];
+            LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.Clear);return true;
+        }
         public SkiReachedContactPair GetLastOwnedContactPair(int index)
         {
             if(!LastOwnedContacts.IsValid||index<0||index>=LastOwnedContacts.Count)throw new ArgumentOutOfRangeException(nameof(index));

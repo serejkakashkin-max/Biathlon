@@ -68,7 +68,7 @@ namespace Biathlon.Simulation
             }
             var passive=snow.Preview(body,motion,lateralAccelerationLimit,reservedTurningAcceleration,seconds);
             return new SkiDrivenContactTrajectory(body.Pose,motion,passive,first,second,direction,scale,
-                1/Math.Sqrt(1+grade*grade),firstSeconds,seconds);
+                1/Math.Sqrt(1+grade*grade),firstSeconds,seconds,body.MassKilograms);
         }
     }
 
@@ -85,9 +85,25 @@ namespace Biathlon.Simulation
         public SkiForceTrajectory RestartDrive {get;}
         public double DurationSeconds {get;}
         public double FirstDriveSeconds {get;}
+        public double MassKilograms {get;}
         public bool IsValid=>FirstDrive.IsValid&&Snow.IsValid&&InitialPose.IsValid&&DurationSeconds>0;
         private readonly int direction;
         private readonly double scale,restartScale,forwardX,forwardZ,initialForward;
+        /// <summary>The first positive force-law breakpoint. A coupled force
+        /// preview must split here rather than average across a stop or cap.</summary>
+        public double ConstantAccelerationSeconds
+        {
+            get
+            {
+                double end=DurationSeconds;
+                if(FirstDriveSeconds>0&&FirstDriveSeconds<end)end=FirstDriveSeconds;
+                double boundary=FirstDrive.SpeedBoundarySeconds;
+                if(boundary>0&&boundary<FirstDriveSeconds&&boundary<end)end=boundary;
+                boundary=FirstDriveSeconds+RestartDrive.SpeedBoundarySeconds;
+                if(RestartDrive.IsValid&&boundary>0&&boundary<end)end=boundary;
+                return end;
+            }
+        }
         public double PeakYawRate=>Math.Max(Math.Abs(InitialMotion.YawRate),Math.Abs(Snow.Motion.YawRate));
         public double PlanarAccelerationBound=>Math.Max(Math.Abs(FirstDrive.Acceleration),RestartDrive.IsValid?Math.Abs(RestartDrive.Acceleration):0)*
             Math.Max(scale,restartScale)+SnowAcceleration;
@@ -101,11 +117,11 @@ namespace Biathlon.Simulation
             DurationSeconds*(Math.Abs(InitialMotion.Velocity.X)+Math.Abs(InitialMotion.Velocity.Z)+Math.Abs(Snow.Motion.Velocity.X)+
                 Math.Abs(Snow.Motion.Velocity.Z)+FirstDrive.PeakSpeed+(RestartDrive.IsValid?RestartDrive.PeakSpeed:0)));
         internal SkiDrivenContactTrajectory(ManualSkiHeadingState pose,SkiContactMotion initial,SkiSnowContactPreview snow,
-            SkiForceTrajectory first,SkiForceTrajectory restart,int direction,double scale,double restartScale,double firstSeconds,double seconds)
+            SkiForceTrajectory first,SkiForceTrajectory restart,int direction,double scale,double restartScale,double firstSeconds,double seconds,double mass)
         {
             InitialPose=new ManualSkiHeadingState(pose.X,pose.Z,pose.HeadingRadians,initial.YawRate);InitialMotion=initial;Snow=snow;
             FirstDrive=first;RestartDrive=restart;this.direction=direction;this.scale=scale;this.restartScale=restartScale;
-            FirstDriveSeconds=firstSeconds;DurationSeconds=seconds;
+            FirstDriveSeconds=firstSeconds;DurationSeconds=seconds;MassKilograms=mass;
             forwardX=Math.Sin(pose.HeadingRadians);forwardZ=Math.Cos(pose.HeadingRadians);
             initialForward=initial.Velocity.X*forwardX+initial.Velocity.Z*forwardZ;
             State=default;State=Sample(1);ValidateCoordinates();

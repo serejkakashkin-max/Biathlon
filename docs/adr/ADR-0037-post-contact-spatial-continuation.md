@@ -351,3 +351,19 @@ proofs; physical travel uses64-panel norm quadrature with kink error explicit.
 .NET14/14+84/84/native14+17+13 PASS; broad364/365 allocation failure5496 B retained.
 Controlled slip yaw, persistent forces, all-phase runner/replay/host remain open.
 [Report](../reports/TASK_M13_MANUAL_CONTACT_DRIVE_20261008.md).
+
+
+## 2026-10-08 shared contact traction and coupled frozen acceleration
+
+The post-contact drive now uses the common longitudinal power, grade, snow,
+drag/wind and braking law along the frozen ski axis. Backwards propulsion brakes
+backwards travel and pays a forward restart after reaching physical zero;
+independent slip/spin remain. The force coupler adds occupied-face normal/tangent
+reactions at both support endpoints and produces a constant-acceleration piece
+that retains initial raw motion. Free stop/cap/restart and frozen kinetic-slip
+zero are common piece boundaries. Numerical convergence prevents artificial
+encoded spin; no endpoint pose/velocity correction replaces paid motion. Existing
+continuous sweeps/slices/odometer policy still apply. This is a frozen discrete
+operator, not complete changing-surface/steering/contact or playable race proof.
+[Drive report](../reports/TASK_M13_MANUAL_CONTACT_DRIVE_20261008.md);
+[Force report](../reports/TASK_M13_MANUAL_CONTACT_FORCES_20261008.md).

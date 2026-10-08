@@ -23054,3 +23054,47 @@ intermediate build. All earlier state bytes preserved.
 - .NET8/8 initial,11/11 expanded,140/140 relevant scoped/contact/session/field/replay regression PASS. Native Unity11/11 new +16/16 existing roster PASS; compile settled/Error Console empty. Reversed enumeration gives identical three-body pair order/response. Real arrival/owned response/driven suffix pays one full0.05 s clock; warm response/schedule queries0 B. Report: docs/reports/TASK_M13_MANUAL_OWNED_CONTACTS_20261008.md. Evidence: docs/quality/m13/manual-owned-contacts-20261008/.
 - M13/WP-175/177/178 OPEN, WP-176 PASS. Greater rear force at continuing contact still rejects an unproved suffix; continuous force coupling is required, not replaced by a paid wait. Controlled slip yaw, surfaces/seams, reusable mats, finished actors, event/replay/live host and prior broad440 B/5496 B allocation failures remain OPEN. No intermediate Windows build or playable queue/manual-control completion claim.
 - Entire prior history preserved byte-for-byte. Next: continuing-contact force coupling and complete all-phase manual runner.
+
+
+## 2026-10-08 — M13 continuing contact forces / complete-clock pair evidence
+
+Continuation after owned contact sets. M13 OPEN; WP-176 PASS; WP-175/177/178 OPEN.
+One Woodland production venue; maximum40 entrants/Mass30; G1/G2 approvals unchanged.
+Owner direction remains fully manual A/D yaw, no neutral route-following, natural
+motion, no queues, hidden checks, and one combined final owner-test build.
+
+World v12 binds two-endpoint occupied-face force reactions, exact immutable mass
+roster, existing friction/work and stable-ID order. Shared longitudinal/snow drive
+retains raw accepted motion. Constant-force candidates split at stop/cap/restart
+and frozen kinetic-slip zero; all provisional trajectories validate before output.
+No force preview changes position/velocity, pays a stopped tick or skips body/course
+proof. Reactions and convergence are observable. A residual-spin failure at tick8
+was repaired with stricter numerical convergence, not a heading clamp, smaller body,
+wider contact tolerance or weakened test. Exact legacy independent-drive rejection
+remains tested when coupling is omitted.
+
+New.NET19/19 PASS; existing pair/group/drive38/38 PASS. Actual Woodland unequal
+rear350 W/front0 W pair moves/advances odometer on all100 complete world clocks.
+Dense40 bodies/70 support points resolved under explicit4096-pass fixture budget
+in2507 passes; production work/performance remains unqualified. Warm new solver
+and owned-world proposal loops allocate0 B. Native Unity19+8+11 PASS, compilation
+settled, not playing, Error Console empty. Discovery1479 is not execution count.
+Broader.NET210/211 FAILED: old arrival allocation6256 B. Expanded211/213 FAILED:
+old working-phase8088 B and old scoped-roster2576 B assertions. Earlier440/5496 B
+failures remain preserved; this is not an allocation fix or project test closure.
+No assertion was deleted/disabled/weakened. Initial failed receipts retained.
+
+[Report](reports/TASK_M13_MANUAL_CONTACT_FORCES_20261008.md).
+[Evidence](quality/m13/manual-contact-forces-20261008/).
+
+Latest operational state: continuous force coupling is implemented and evidenced
+for these witnesses. Signed steering with slip, rotating/opening recontact and
+changing-surface/cell/phase boundaries, reusable mats, finished actors, race event/
+replay ownership, whole-clock runner and production host remain OPEN. Original
+full-grid outer start seam and pushed scalar overspeed remain unqualified. Owner
+queue removal, live fully manual controls, performance and M13 are not declared
+complete. No Windows build produced. Next: compose commanded motion, contacts,
+force pieces and physical phase transitions into the authoritative race runner,
+qualify host/replay/performance and deliver the single final owner-test build.
+
+PROJECT_STATE exact2847022-byte previous prefix preserved; append only.
