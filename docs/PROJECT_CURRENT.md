@@ -88,3 +88,9 @@ bind the old base-world ledger. Final.NET69/69 and native16/16 PASS; exact endpo
 encoding defect repaired. Intermittent allocation failures retained/risk OPEN.
 Live manual/phase/host and final M13 build remain pending.
 [Report](reports/TASK_M13_MANUAL_PHYSICAL_PATHS_20261008.md).
+
+2026-10-08 scoped progress/ordinary handoff: backward/return credit is protected,
+start/penalty arc never adds base distance, exact same-pose ordinary seams verified.
+Firing/penalty/finish gates remain closed pending race-owner integration.
+.NET26/26 and native10/10 PASS. No live manual or final-build closure.
+[Report](reports/TASK_M13_MANUAL_PHASE_PROGRESS_20261008.md).

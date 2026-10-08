@@ -11,7 +11,7 @@ namespace Biathlon.Tests
         private const string Root="Biathlon/Venues/woodland_basin_v1/";
         private static string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
         private static long Nano(double metres)=>(long)Math.Round(metres*N,MidpointRounding.ToEven);
-        private sealed class Fixture
+        internal sealed class Fixture
         {
             internal readonly VenueAuthoringPlan Venue;
             internal readonly CompetitionProfile Profile;

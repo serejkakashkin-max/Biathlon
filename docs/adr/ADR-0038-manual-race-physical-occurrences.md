@@ -46,3 +46,25 @@ Next: phase-owned cursors and admitted world transitions, mixed moving/stationar
 roster ticks, contact/surface continuation, actual session lifecycle/events,
 complete manual replay, host input and presentation. This catalog does not
 certify private-path body clearance or complete M13; no Windows build is produced.
+
+## 2026-10-08 — scoped high-water progress and ordinary handoff
+
+`ManualRacePathProgression` now proposes event-free per-occurrence high water.
+Backward observed arc remains backward; returning to an already reached point
+does not credit it again. A start/penalty high-water increase cannot add base
+distance. The maximum admitted arc remains supplied by the owning race phase.
+An actor frame is an observation, not a continuous body/movement proof.
+
+Ordinary handoff requires an accepted cursor at the exact endpoint and the same
+world pose observing both endpoints of the ordered successor. It keeps base
+credit and does not advance the clock, odometer or pose. Firing, penalty access,
+penalty-circuit and finish gates are closed in this API. High water at the end
+while the actual accepted body is behind it is insufficient. A future full
+world/session transaction must separately authorize those lifecycle transitions.
+
+The exact catalog, actor, occurrence and pose/observation binding are checked.
+Group proposals validate every row before writing any destination slot. Current
+group proposals belong to one catalog; the heterogeneous world roster still
+needs to combine individually owned lane proposals with all-body clearance.
+Ten new .NET and ten native tests PASS; combined catalog/progression26/26 PASS.
+Live authoritative race output, replay and the playable host are unchanged.

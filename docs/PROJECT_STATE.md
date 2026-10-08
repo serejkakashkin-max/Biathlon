@@ -22792,3 +22792,23 @@ PASS do not identify root cause or qualify the final player. No weakened tests.
 Report: docs/reports/TASK_M13_MANUAL_PHYSICAL_PATHS_20261008.md.
 ADR-0038 accepted; next: phase-owned cursors, world handoffs and complete
 session/contact/surface/replay/host integration, then final M13 package/build.
+
+
+## 2026-10-08 — M13 scoped progress and ordinary world handoff
+
+G1/G2 APPROVED; M13 OPEN, WP-176 PASS, WP-175/177/178 OPEN. No new Windows build.
+ManualRacePathProgression separates observed arc/high water/base competition
+credit on start, counted route, range ingress/exit and penalty occurrences.
+Backward/return travel cannot double-credit; start/penalty high water adds no
+base distance. Exact catalog/actor/occurrence/world-observation checks and
+validate-all-before-write roster proposals added. Ordinary adjacent handoff
+requires accepted exact endpoint and the same pose on both sides; no turning,
+movement, odometer, clock or route-credit grant. Firing/penalty/finish gates
+remain closed to this API; full lifecycle authorization still pending.
+.NET new10/10 and catalog+progress26/26 PASS; native10/10 PASS (discovery1317),
+compile settled, Error Console empty. No authoritative gameplay tuning/output
+change before hookup. Earlier intermittent allocation risk remains OPEN.
+Report: docs/reports/TASK_M13_MANUAL_PHASE_PROGRESS_20261008.md.
+Next: heterogeneous moving/stationary world roster, contacts/course/surface
+continuation and authorized session phase commit, then full replay/host and
+final M13 validation with one combined Windows build for owner tests.
