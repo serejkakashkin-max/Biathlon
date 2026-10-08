@@ -1,0 +1,70 @@
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Text.Json;
+
+internal static class Program
+{
+    private static volatile bool stop;
+    private static int requests;
+    private static Exception? workerError;
+    private static readonly ManualResetEventSlim ready=new(false);
+    private sealed class Root { public readonly long Value; public Root(long value)=>Value=value; }
+    [MethodImpl(MethodImplOptions.NoInlining)] private static object Anchor()=>new byte[37];
+    [MethodImpl(MethodImplOptions.NoInlining)] private static long Empty()
+    {
+        long before=GC.GetAllocatedBytesForCurrentThread();
+        Thread.SpinWait(200000);
+        return GC.GetAllocatedBytesForCurrentThread()-before;
+    }
+    [MethodImpl(MethodImplOptions.NoInlining)] private static long Positive()
+    {
+        long before=GC.GetAllocatedBytesForCurrentThread();object item=Anchor();
+        long after=GC.GetAllocatedBytesForCurrentThread();GC.KeepAlive(item);return after-before;
+    }
+    private static void Pressure()
+    {
+        try
+        {
+            var ring=new byte[10][];for(int i=0;i<ring.Length;i++)ring[i]=new byte[1024*1024];
+            var roots=new Root[131072];for(int i=0;i<roots.Length;i++)roots[i]=new Root(i);
+            GC.Collect(2,GCCollectionMode.Forced,true,false);ready.Set();
+            for(int i=0;i<400&&!stop;i++)
+            {
+                ring[i%ring.Length]=new byte[1024*1024];Interlocked.Increment(ref requests);
+                GC.Collect(2,GCCollectionMode.Forced,false,false);Thread.Sleep(2);
+            }
+            GC.KeepAlive(roots);GC.KeepAlive(ring);
+        }
+        catch(Exception error){workerError=error;ready.Set();}
+    }
+    private static int Main(string[] args)
+    {
+        if(args.Length!=2)throw new ArgumentException("receipt path and configuration label required");
+        var timer=Stopwatch.StartNew();var normal=new long[32];var positive=new long[32];var pressured=new long[256];
+        var beforeGen2=new int[pressured.Length];var afterGen2=new int[pressured.Length];
+        for(int i=0;i<normal.Length;i++)normal[i]=Empty();
+        for(int i=0;i<positive.Length;i++)positive[i]=Positive();
+        var worker=new Thread(Pressure){IsBackground=true,Name="M13 bounded BGC counter diagnosis"};worker.Start();
+        try
+        {
+            if(!ready.Wait(TimeSpan.FromSeconds(5)))throw new TimeoutException("pressure startup");
+            if(workerError!=null)throw new InvalidOperationException("pressure startup failed",workerError);
+            for(int i=0;i<pressured.Length;i++)
+            {
+                if(timer.Elapsed.TotalSeconds>15)throw new TimeoutException("measurement deadline");
+                object anchor=Anchor();beforeGen2[i]=GC.CollectionCount(2);pressured[i]=Empty();afterGen2[i]=GC.CollectionCount(2);GC.KeepAlive(anchor);
+            }
+        }
+        finally {stop=true;if(!worker.Join(TimeSpan.FromSeconds(5)))throw new TimeoutException("pressure shutdown");}
+        if(workerError!=null)throw new InvalidOperationException("pressure failed",workerError);
+        int normalNonzero=normal.Count(v=>v!=0),positive64=positive.Count(v=>v==64),pressureNonzero=pressured.Count(v=>v!=0);
+        var receipt=new {configuration=args[1],runtime=RuntimeInformation.FrameworkDescription,architecture=RuntimeInformation.ProcessArchitecture.ToString(),
+            serverGC=System.Runtime.GCSettings.IsServerGC,requests,gen2=GC.CollectionCount(2),elapsedSeconds=timer.Elapsed.TotalSeconds,
+            normalNonzero,positive64,pressureNonzero,normal,positive,pressured,beforeGen2,afterGen2,
+            pressureHistogram=pressured.GroupBy(v=>v).OrderBy(g=>g.Key).Select(g=>new{bytes=g.Key,count=g.Count()}).ToArray()};
+        File.WriteAllText(args[0],JsonSerializer.Serialize(receipt,new JsonSerializerOptions{WriteIndented=true}));
+        Console.WriteLine($"{args[1]}: normal={normalNonzero}/32; positive64={positive64}/32; pressuredNonzero={pressureNonzero}/256; requests={requests}; gen2={receipt.gen2}");
+        return normalNonzero!=0||positive64!=32?2:pressureNonzero!=0?1:0;
+    }
+}

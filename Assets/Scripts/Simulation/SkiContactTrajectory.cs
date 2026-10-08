@@ -101,6 +101,27 @@ namespace Biathlon.Simulation
         public double PlanarAccelerationBound=>coupled.IsValid?coupled.PlanarAccelerationBound:driven.IsValid?driven.PlanarAccelerationBound:contact.IsValid?contact.PlanarAccelerationBound:heading.PlanarAccelerationBound;
         public double PositionErrorBoundMeters=>coupled.IsValid?coupled.PositionErrorBoundMeters:driven.IsValid?driven.PositionErrorBoundMeters:contact.IsValid?contact.PositionErrorBoundMeters:heading.PositionErrorBoundMeters;
         public double HeadingErrorBoundRadians=>coupled.IsValid?coupled.HeadingErrorBoundRadians:driven.IsValid?driven.HeadingErrorBoundRadians:contact.IsValid?contact.HeadingErrorBoundRadians:heading.HeadingErrorBoundRadians;
+        /// <summary>Expose an actual polynomial centre law, never a fitted chord.
+        /// Curved commanded heading and intervals spanning a force breakpoint
+        /// require another boundary solver; their endpoint velocities cannot
+        /// be averaged to pretend that they have constant acceleration.</summary>
+        public bool TryGetConstantPlanarAcceleration(out SkiPlanarVelocity acceleration)
+        {
+            if(!IsValid)throw new InvalidOperationException("Initialized world trajectory required.");
+            acceleration=default;
+            if(coupled.IsValid)
+            {acceleration=new SkiPlanarVelocity(coupled.Acceleration.X,coupled.Acceleration.Z);return true;}
+            if(contact.IsValid)
+            {
+                acceleration=new SkiPlanarVelocity((contact.Snow.Motion.Velocity.X-contact.InitialMotion.Velocity.X)/contact.DurationSeconds,
+                    (contact.Snow.Motion.Velocity.Z-contact.InitialMotion.Velocity.Z)/contact.DurationSeconds);return true;
+            }
+            // The first piece is known from the force model, not inferred from
+            // a small difference between two arbitrary samples of that model.
+            if(!driven.IsValid||toSeconds>driven.ConstantAccelerationSeconds)return false;
+            var start=VelocityAt(0);var end=VelocityAt(1);
+            acceleration=new SkiPlanarVelocity((end.X-start.X)/DurationSeconds,(end.Z-start.Z)/DurationSeconds);return true;
+        }
         public ManualSkiWorldTrajectory(ManualSkiHeadingFrame frame)
         {
             if(!frame.HasForceTrajectory)throw new ArgumentException("Force-weighted heading required.");

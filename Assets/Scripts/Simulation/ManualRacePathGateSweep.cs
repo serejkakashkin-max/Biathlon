@@ -28,7 +28,7 @@ namespace Biathlon.Simulation
         {this.catalog=catalog??throw new ArgumentNullException(nameof(catalog));this.work=work??throw new ArgumentNullException(nameof(work));}
 
         public ManualRacePathGatePreview Preview(ManualSkiWorldTrajectory trajectory,int occurrence,
-            long previousArcNanometers,double maximumArcDisplacementMeters,long maximumAdmittedArcNanometers)
+            long previousArcNanometers,double maximumArcDisplacementMeters,long maximumAdmittedArcNanometers,bool requireStrictEndClearance=false)
         {
             if(!trajectory.IsValid)throw new ArgumentException("Initialized world trajectory required.",nameof(trajectory));
             var row=catalog.Get(occurrence);
@@ -46,10 +46,10 @@ namespace Biathlon.Simulation
                 if(start.Status!=ManualRacePathGateStatus.Clear)return start;
             }
             if(catalog.WindowTouchesPortalEdge(occurrence,previousArcNanometers,maximumArcDisplacementMeters,maximumAdmittedArcNanometers))
-                return AtBoundary(trajectory,occurrence,maximumAdmittedArcNanometers,1,ref checks);
+                return AtBoundary(trajectory,occurrence,maximumAdmittedArcNanometers,1,ref checks,requireStrictEndClearance);
             return new ManualRacePathGatePreview(ManualRacePathGateStatus.Clear,-1,trajectory.DurationSeconds,trajectory.DurationSeconds,checks);
         }
-        private ManualRacePathGatePreview AtBoundary(ManualSkiWorldTrajectory trajectory,int occurrence,long arc,int sign,ref int checks)
+        private ManualRacePathGatePreview AtBoundary(ManualSkiWorldTrajectory trajectory,int occurrence,long arc,int sign,ref int checks,bool strict=false)
         {
             if(!catalog.TrySample(occurrence,arc,out var boundary))throw new InvalidOperationException("An exact scoped portal is required.");
             var pose=trajectory.Sample(0);
@@ -57,7 +57,10 @@ namespace Biathlon.Simulation
                 (Math.Abs(pose.X)+Math.Abs(pose.Z)+Math.Abs(boundary.X)+Math.Abs(boundary.Z)+1);
             if(Extension(pose,boundary,sign)>reserve)
                 return new ManualRacePathGatePreview(ManualRacePathGateStatus.OutsideStart,arc,0,0,checks);
-            return Search(trajectory,boundary,sign,arc,0,trajectory.DurationSeconds,0,reserve,ref checks);
+            // Existing admission allows an encoded endpoint. An event-free
+            // interval needs the stronger proof that the centre never reaches
+            // that endpoint, including a tangency followed by retreat.
+            return Search(trajectory,boundary,sign,arc,0,trajectory.DurationSeconds,0,strict?-reserve:reserve,ref checks);
         }
         private static double Extension(ManualSkiHeadingState pose,ManualRacePathTarget boundary,int sign)
             =>sign*((pose.X-boundary.X)*boundary.ForwardX+(pose.Z-boundary.Z)*boundary.ForwardZ);

@@ -23098,3 +23098,40 @@ force pieces and physical phase transitions into the authoritative race runner,
 qualify host/replay/performance and deliver the single final owner-test build.
 
 PROJECT_STATE exact2847022-byte previous prefix preserved; append only.
+
+
+## 2026-10-08 — M13: общий физический clock контактов и границ участков
+
+Реализован `ManualScopedWorldRoster.TryAppendToOwnedFirstEvent` (context v13):
+полный roster получает общий физически доказанный интервал до ближайшего
+контакта либо границы текущего участка. Дальнейший handoff выполняет прежний
+владелец обычного перехода/фазы; поза, heading, скорость, odometer и время при
+handoff сохраняются. После события требуется оплатить весь оставшийся fixed tick.
+Уведомление о уже достигнутой границе имеет нулевое время и не является ожиданием.
+
+Root использует настоящую polynomial centre trajectory, не хорду между
+endpoint. Stop/cap сначала разбиваются. Для иной curved trajectory требуется
+strict continuous no-touch proof; недоказанный переход отклоняется. Более ранний
+контакт проверяется на своём префиксе, даже если последующая граница не доказана.
+Сохранены проверки полного body/course/portal и ограничения shooting/penalty.
+
+Новые .NET21/21 PASS; native Unity новые21 + прежние working phases5 + continuing
+forces19 =45 выполненных PASS (discovery1500 не execution). Unity не compiling,
+не playing; Error и Exception Console пусты. Ранние неудачные fixture прогоны
+13/15 и16/18 сохранены; исправлены ожидания физического времени/контактного допуска.
+
+Широкий .NET сначала257/257 PASS, затем итоговый258/260 FAILED: прежние
+RepeatedPreparedFullRosterQueriesAllocateNothing7440 B и
+WarmForceManifoldSolvesAndTrajectorySamplesAllocateNothing3144 B. Нулевые assert
+не ослаблены. Allocation qualification OPEN, ранний PASS не считается ремонтом.
+Пакетный bounded diagnostic без игры/NUnit на Windows/CoreCLR8.0.31:
+BGC7/256 непустых empty intervals (6x8136 B,1x1448 B), идентичный DLL с BGC off0/256;
+контроли32/32 реальных64-byte allocation верны в обоих случаях. Это локальное
+доказательство ошибки измерения при BGC; конкретные прежние test failures отдельно
+проверяются следующим шагом test-host-only настройки. Unity/game config не менялись.
+
+M13 НЕ завершён. WP-176 PASS; WP-175/177/178 OPEN. ProductionVenueHost ещё legacyv1;
+полное manual directional steering, controlled slip yaw, general runner/мат-ресурсы/
+finished actors/full replay/AI/host и 40-body production qualification OPEN.
+Промежуточный билд не собирался; итоговый объединённый owner-test build pending.
+[Отчёт](reports/TASK_M13_MANUAL_COMMON_EVENTS_20261008.md).

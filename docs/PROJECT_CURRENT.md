@@ -189,3 +189,13 @@ production performance approval. Broad210/211 then211/213 FAILED on existing
 allocation assertions6256/8088/2576 B; qualification OPEN. Signed slip steering,
 full runner/resources/replay/host and M13/final build remain OPEN.
 [Report](reports/TASK_M13_MANUAL_CONTACT_FORCES_20261008.md).
+
+
+2026-10-08 common contact/boundary clock: world v13 selects actual common event
+prefixes and preserves velocity/time across paid ordinary and penalty seams.
+Focused.NET21/21/native21+5+19 PASS; compile/Console clear. Final broader.NET258/260
+FAILED on existing allocation assertions7440/3144 B. Windows8.0.31 empty-counter
+BGC diagnostic7/256 versus0/256 for identical DLL without BGC; test-host validation
+is the next bounded step. Full manual runner/slip/resources/replay/host and
+WP-175/177/178/M13/final build remain OPEN; WP-176 PASS. Historical failures remain.
+[Report](reports/TASK_M13_MANUAL_COMMON_EVENTS_20261008.md).

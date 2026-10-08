@@ -255,3 +255,26 @@ converges to the stricter configured cap/64-ulp numerical reserve without clampi
 not qualify production work budgets. Broad210/211 and211/213 allocation failures
 remain OPEN, as do full slip steering/runner/events/replay/host and M13.
 [Report](../reports/TASK_M13_MANUAL_CONTACT_FORCES_20261008.md).
+
+
+## 2026-10-08 amendment — owned common contact/boundary clock (world v13)
+
+`TryAppendToOwnedFirstEvent` combines actual contact prefixes and local physical
+centre boundaries for the complete owned roster. A boundary is a notification,
+not lifecycle authority: ordinary/session phase handoffs retain the same pose,
+velocity, physical odometer and clock. Only the remaining real fixed duration
+can complete the world proof. An owned zero-time endpoint does not pay a wait.
+
+Stable quadratic roots apply to genuine frozen constant-acceleration centre
+pieces. Stop/cap breakpoints must be split first. Other curved centre laws use
+strict continuous no-touch clearance; near an unproved cap they fail explicitly.
+An earlier contact can still be admitted on its own shorter proved interval.
+Body/course/phase proofs and whole-session publication are still mandatory.
+No default legacy portal or shooting/tuning policy changes.
+
+Focused .NET21/21; native new21 + existing phases5 + forces19 PASS. Broader final
+.NET258/260 fails existing allocation assertions7440/3144 B; qualification OPEN.
+Local counter-only diagnostic detects7/256 nonzero empty intervals under BGC
+versus0/256 for the identical DLL without BGC, both real-allocation controls
+32/32. Test-host-only configuration verification follows separately.
+[Report](../reports/TASK_M13_MANUAL_COMMON_EVENTS_20261008.md).
