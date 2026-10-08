@@ -17,7 +17,7 @@ namespace Biathlon.Simulation
     /// <summary>Shared physical Sprint/Pursuit field. Physics/physiology are prepared before continuous
     /// pack validation; accepted forward prefixes, stops and lateral motion commit together.
     /// Prestart staging and classified athletes are outside the racing corridor.</summary>
-    public sealed class PackSprintFieldSession : ISprintFieldView
+    public sealed partial class PackSprintFieldSession : ISprintFieldView
     {
         private struct Tail
         {
@@ -134,7 +134,7 @@ namespace Biathlon.Simulation
         private readonly ManualRouteActorFrame[] manualFrames;
         private readonly PhysicalTrackPoint[] manualPoints,preparedManualPoints;
         private ManualWorldRosterLedger manualWorld;
-        public bool HasManualWorldState=>manualWorld!=null;
+        public bool HasManualWorldState=>manualWorld!=null||manualScopedWorld!=null;
         public SimulationTick Tick => field.Tick;
         public int TickFrequency => frequency;
         public int Count => field.Count;
@@ -157,7 +157,7 @@ namespace Biathlon.Simulation
         public double GetLateral(int index) => lateral[index];
         public ManualRouteActorFrame GetManualWorldActor(int index)
         {
-            if(!HasManualWorldState)throw new InvalidOperationException("No accepted manual world state.");
+            if(manualWorld==null)throw new InvalidOperationException("No accepted base-route manual world state.");
             return index>=0&&index<Count?manualFrames[index]:throw new ArgumentOutOfRangeException(nameof(index));
         }
         /// <summary>Read-only preview of the next ordinary paid lateral step on the
@@ -457,6 +457,7 @@ namespace Biathlon.Simulation
             }
             widths = new OccupancySystem(body); occupancy = new PhysicalOccupancySystem(map, body); drafting = new DraftingSystem(draft);
             manualBodyContext=body.ToJson();manualFrames=new ManualRouteActorFrame[Count];
+            manualScopedFrames=new ManualRacePathActorFrame[Count];
             manualPoints=new PhysicalTrackPoint[Count];preparedManualPoints=new PhysicalTrackPoint[Count];
             penaltySampler = new TrackSampler(track.GetLoop(track.Penalty.LoopId));
             halfBody = (long)Math.Ceiling(body.LongitudinalSeparation * SkiState.NanometersPerMeter / 2);
@@ -811,6 +812,7 @@ namespace Biathlon.Simulation
             if(world==null||!world.HasPhysicalOdometer||!world.IsBoundTo(Route)||
                 world.Count!=Count||world.TickFrequency!=frequency||world.Tick.Value!=Tick.Value||
                 world.BodyContextJson!=manualBodyContext||nextDrafts.Length!=Count||
+                manualScopedWorld!=null||
                 manualWorld!=null&&!ReferenceEquals(manualWorld,world))
                 throw new ArgumentException("Exact complete world, body, clock and draft roster required.");
             world.ValidatePrepared(proposal);

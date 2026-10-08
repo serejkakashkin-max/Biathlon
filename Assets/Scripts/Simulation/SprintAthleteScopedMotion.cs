@@ -254,8 +254,8 @@ namespace Biathlon.Simulation
     }
 
     /// <summary>Prevalidate every session's owned motion intervals, then publish
-    /// sessions and the full world on one clock. Pack side state, field timing,
-    /// contact event journal and cross-phase movement remain separate.</summary>
+    /// sessions, field timing, Pack side state and the full world on one clock.
+    /// Reusable mat ownership and the contact event journal remain separate.</summary>
     public sealed class ManualScopedRosterSessionCommit
     {
         private readonly SprintAthleteSession[] athletes;
@@ -277,13 +277,36 @@ namespace Biathlon.Simulation
         }
         public void Commit(ReadOnlySpan<SprintStepPreview> pending,ManualScopedWorldPreview proposal)
         {
+            Resolve(pending,proposal);
+            // As in the existing session batches, ordinary race event sinks are nonthrowing.
+            for(int i=0;i<athletes.Length;i++)athletes[i].CommitStep(resolved[i]);
+            world.Commit(proposal);
+        }
+        private void Resolve(ReadOnlySpan<SprintStepPreview> pending,ManualScopedWorldPreview proposal)
+        {
             if(pending.Length!=athletes.Length||!ReferenceEquals(proposal.Owner,world))throw new ArgumentException("Exact full world proof and race previews required.");
             world.ValidatePrepared(proposal);
             for(int i=0;i<athletes.Length;i++)resolved[i]=athletes[i].PrepareManualScopedCommit(pending[i],proposal,i);
             for(int i=0;i<athletes.Length;i++)athletes[i].ValidatePreparedCommit(resolved[i]);
-            // As in the existing session batches, ordinary race event sinks are nonthrowing.
-            for(int i=0;i<athletes.Length;i++)athletes[i].CommitStep(resolved[i]);
-            world.Commit(proposal);
+        }
+        public void CommitField(SprintFieldSession field,ReadOnlySpan<SprintAthleteInput> inputs,
+            ReadOnlySpan<SprintStepPreview> pending,ManualScopedWorldPreview proposal)
+        {
+            ValidateField(field);field.ValidateCommands(inputs);Resolve(pending,proposal);
+            field.PublishManualScopedPrepared(inputs,resolved,proposal);world.Commit(proposal);
+        }
+        public void CommitPackField(PackSprintFieldSession field,ReadOnlySpan<SprintAthleteInput> inputs,
+            ReadOnlySpan<SprintStepPreview> pending,ManualScopedWorldPreview proposal,ReadOnlySpan<DraftOutput> drafts)
+        {
+            ValidateField(field);field.ValidateManualScopedPublication(proposal,drafts);Resolve(pending,proposal);
+            field.CommitManualScopedPrepared(inputs,resolved,proposal,drafts);
+        }
+        private void ValidateField(ISprintFieldView field)
+        {
+            if(field==null||field.Count!=athletes.Length||field.Tick.Value!=world.Tick.Value)
+                throw new ArgumentException("Exact active scoped field clock and roster required.");
+            for(int i=0;i<athletes.Length;i++)if(!ReferenceEquals(field.GetAthlete(i),athletes[i]))
+                throw new ArgumentException("Scoped world and field must share sessions in exact order.");
         }
         /// <summary>Zero-time phase handoff backed by the actual accepted bout
         /// or penalty traversal. All requested rows validate before any changes.

@@ -155,3 +155,11 @@ continuous all-pair/edge prefix; world v9 pays contact/response/suffix on one cl
 .NET103/103; native9+9 PASS, Console empty. Full runner/slip/events/field/replay/
 host, prior broad allocation qualification and M13/build remain OPEN.
 [Report](reports/TASK_M13_MANUAL_FIRST_CONTACT_20261008.md).
+
+
+2026-10-08 scoped field/Pack publication: focused.NET94/94, native14+4 PASS,
+compile/Console clear. Strict all-plane straight-cell alternative retains full
+body/phase boundaries; original outer start seam still unqualified. Broad default
+327/328 fails existing allocation test at440 B; qualification OPEN. Driven slip,
+all-phase runner/resources/replay/host and M13/final build remain OPEN.
+[Report](reports/TASK_M13_MANUAL_SCOPED_FIELD_20261008.md).

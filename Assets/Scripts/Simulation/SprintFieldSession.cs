@@ -19,7 +19,7 @@ namespace Biathlon.Simulation
         }
     }
     /// <summary>Independent athlete orchestration with interval Sprint or qualified Pursuit starts. Shared physical geometry is owned by PackSprintFieldSession.</summary>
-    public sealed class SprintFieldSession : ISprintFieldView
+    public sealed partial class SprintFieldSession : ISprintFieldView
     {
         private readonly SprintAthleteSession[] athletes;
         private readonly SprintResultBook results;
@@ -44,7 +44,7 @@ namespace Biathlon.Simulation
         public bool IsComplete => FinishedCount == Count;
         public CheckpointTimingBoard Timing { get; }
         public SprintResultSnapshot Result { get; private set; }
-        public string ContextJson { get; }
+        public string ContextJson { get; private set; }
         public TrackDefinition Track { get; }
         public RaceRoute Route { get; }
         public CompetitionProfile Profile { get; }
@@ -124,6 +124,7 @@ namespace Biathlon.Simulation
         }
         public void Step(ReadOnlySpan<SprintAthleteInput> inputs)
         {
+            if(manualScopedWorld!=null)throw new InvalidOperationException("A scoped world field cannot resume legacy movement.");
             if(requiresPhysicalAdmission)throw new InvalidOperationException("Reusable mats require the Pack field's joint physical admission transaction.");
             ValidateCommands(inputs);
             var tick = Tick.Next();

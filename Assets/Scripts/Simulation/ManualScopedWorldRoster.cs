@@ -47,9 +47,10 @@ namespace Biathlon.Simulation
         public ManualRouteTubePreview Course {get;}
         public ManualRacePathGatePreview Gate {get;}
         public SkiContactGroupPreview Response {get;}
+        public SkiEdgeSweepPreview CourseEdge {get;}
         internal ManualScopedWorldAttempt(ManualScopedWorldStatus status,AthleteId athlete=default,
-            SkiJointSweepPreview body=default,ManualRouteTubePreview course=default,ManualRacePathGatePreview gate=default,SkiContactGroupPreview response=default)
-        {Status=status;Athlete=athlete;BodyOrEdge=body;Course=course;Gate=gate;Response=response;}
+            SkiJointSweepPreview body=default,ManualRouteTubePreview course=default,ManualRacePathGatePreview gate=default,SkiContactGroupPreview response=default,SkiEdgeSweepPreview courseEdge=default)
+        {Status=status;Athlete=athlete;BodyOrEdge=body;Course=course;Gate=gate;Response=response;CourseEdge=courseEdge;}
     }
     public readonly struct ManualScopedWorldPreview
     {
@@ -82,6 +83,8 @@ namespace Biathlon.Simulation
         private readonly ManualRouteTubeSweep[] courses;
         private readonly ManualRacePathGateSweep[] gates;
         private readonly ManualSkiJointSweep bodies;
+        private readonly ManualSkiEdgeSweep courseCells;
+        private readonly OccupancyDefinition occupiedBody;
         private readonly ManualSkiContactScheduler scheduler;
         private readonly SkiWorldMotionCandidate[] scheduledPrefix;
         private readonly SkiReachedContactPair[] scheduledArrivals;
@@ -112,6 +115,7 @@ namespace Biathlon.Simulation
         public int TickFrequency {get;}
         public SimulationTick Tick {get;private set;}
         public string ContextJson {get;}
+        public string BodyContextJson {get;}
         public string InitialStateContextJson {get;}
         public ManualScopedWorldAttempt LastAttempt {get;private set;}
         public ManualScopedWorldRoster(ManualRacePathCatalog[] catalogs,OccupancyDefinition body,
@@ -147,14 +151,16 @@ namespace Biathlon.Simulation
             proposedCursors=new ManualRacePathCursor[count];workingMotion=new SkiState[count];
             workingTravelMeters=new double[count];stagedTravelMeters=new double[count];
             progress=new ManualRacePathProgression[count];courses=new ManualRouteTubeSweep[count];gates=new ManualRacePathGateSweep[count];bodies=new ManualSkiJointSweep(body,contact,work);
+            occupiedBody=body;courseCells=new ManualSkiEdgeSweep(body,contact,work);
             scheduler=new ManualSkiContactScheduler(body,contact,work,count);scheduledPrefix=new SkiWorldMotionCandidate[count];
             scheduledArrivals=new SkiReachedContactPair[checked(count*(count-1)/2)];
             maximumPieces=work.MaximumIntervalChecks;pieces=new ManualScopedWorldMotionPiece[checked(count*maximumPieces)];
             var context=new string[count+7];var initial=new string[count+4];
-            context[0]="manual_scoped_full_clear_world_roster_v9";context[1]=body.ToJson();
+            BodyContextJson=body.ToJson();context[0]="manual_scoped_full_clear_world_roster_v10";context[1]=BodyContextJson;
             context[2]=contact.ToJson();context[3]=work.ToJson();
             context[4]="force_exact_distance;contact_velocity_norm_simpson64;grade_frozen_per_interval;full_duration_tolerance_1e-12;no_implicit_scope_crossing;local_terminal_centre_portals_v1;whole_tube_edge_activation;continuous_acceleration_bound;existing_trajectory_encoding_reserve;staged_full_clock_intervals;exact_remaining_time;round_tick_travel_once;owned_motion_pieces;interval_limit_from_sweep_maximum_checks;accepted_phase_endpoints_authorized_by_session_batch;future_penalty_phases_from_paid_interval_high_water;no_handoff_before_pending_contact_response;"+ManualSkiWorldTrajectory.SlicePolicy;
-            context[5]=ShootingModelDefinitions.EncodeContext(new[]{responseContext,scheduler.ContextJson});
+            context[5]=ShootingModelDefinitions.EncodeContext(new[]{responseContext,scheduler.ContextJson,courseCells.ContextJson,
+                "course_tube_or_strict_source_cell;all_four_oriented_body_planes;no_cell_or_scope_crossing_bypass"});
             initial[0]="manual_scoped_initial_world_roster_v1";initial[1]=tickFrequency.ToString(CultureInfo.InvariantCulture);
             initial[2]=initialTick.Value.ToString(CultureInfo.InvariantCulture);initial[3]="actor,occurrence,observed_arc,high_arc,route_credit,x,z,heading_nrad,yaw,vx,vz,odometer,speed";
             for(int i=0;i<count;i++)
@@ -203,8 +209,8 @@ namespace Biathlon.Simulation
             return pieces[checked(actor*maximumPieces+piece)];
         }
         private bool Reject(ManualScopedWorldStatus status,AthleteId athlete=default,
-            SkiJointSweepPreview joint=default,ManualRouteTubePreview course=default,ManualRacePathGatePreview gate=default,SkiContactGroupPreview response=default)
-        {LastAttempt=new ManualScopedWorldAttempt(status,athlete,joint,course,gate,response);return false;}
+            SkiJointSweepPreview joint=default,ManualRouteTubePreview course=default,ManualRacePathGatePreview gate=default,SkiContactGroupPreview response=default,SkiEdgeSweepPreview courseEdge=default)
+        {LastAttempt=new ManualScopedWorldAttempt(status,athlete,joint,course,gate,response,courseEdge);return false;}
         private static bool SamePose(ManualSkiHeadingState a,ManualSkiHeadingState b)
             =>a.IsValid&&b.IsValid&&a.X==b.X&&a.Z==b.Z&&a.HeadingNanoradians==b.HeadingNanoradians&&
                 a.YawRateRadiansPerSecond==b.YawRateRadiansPerSecond;
@@ -260,7 +266,21 @@ namespace Biathlon.Simulation
                 var course=courses[i].Preview(actor.Trajectory,row.Index,checked(row.GeometryStartNanometers+window.PreviousArcNanometers),
                     window.MaximumArcDisplacementMeters,false);
                 if(course.Status!=ManualRouteTubeStatus.Clear||Math.Abs(course.ClearUntilSeconds-seconds)>seconds*1e-12)
-                    return Reject(ManualScopedWorldStatus.Course,actor.Athlete,course:course);
+                {
+                    // The tube's whole-loop maximum bend reserve can reject a
+                    // safe outer line on a long straight edge. Use an independent
+                    // full oriented-body proof in its strictly admitted source
+                    // cell; never expand a tube, shrink a body or cross a cell.
+                    if(!catalog.ProjectionGeometry.TryGetInteriorCorridor(sources[i].Observation.GeometryProjection,occupiedBody,out var cell))
+                        return Reject(ManualScopedWorldStatus.Course,actor.Athlete,course:course);
+                    for(int k=0;k<4;k++)
+                    {
+                        var plane=k==0?cell.Left:k==1?cell.Right:k==2?cell.Entry:cell.Exit;
+                        var edge=courseCells.Preview(actor.Trajectory,plane);
+                        if(edge.Status!=SkiEdgeSweepStatus.Clear)
+                            return Reject(ManualScopedWorldStatus.Course,actor.Athlete,course:course,courseEdge:edge);
+                    }
+                }
                 var pose=actor.Trajectory.Sample(1);
                 if(!catalog.TryProject(pose,row.Index,window.PreviousArcNanometers,window.MaximumArcDisplacementMeters,out var observation))
                     return Reject(ManualScopedWorldStatus.Projection,actor.Athlete);

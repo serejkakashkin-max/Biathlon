@@ -215,3 +215,16 @@ course/phase checks run before staging, then response and suffix remain required
 .NET103/103/native9+9 PASS. Full live runner/phase/surface/slip/field/replay/host
 and earlier allocation qualification remain open.
 [Report](../reports/TASK_M13_MANUAL_FIRST_CONTACT_20261008.md).
+
+
+## 2026-10-08 — scoped field publication and strict straight-cell proof
+
+World v10 exposes exact body context and can use a strictly source-admitted
+straight cell with all four continuous occupied-body plane proofs when the
+whole-loop conservative tube rejects. No boundary/cell/phase relaxation. Field
+and Pack publication share exact active sessions, complete clock and owned proof;
+world commits last, legacy resumption is rejected, snapshots use actual world
+pose/velocity. Reusable mat ownership and finished actors remain explicit limits.
+Focused.NET94/94/native14+4 PASS; broad327/328 fails prior allocation test440 B.
+Full-grid seams/live manual/M13 qualification remain OPEN.
+[Report](../reports/TASK_M13_MANUAL_SCOPED_FIELD_20261008.md).

@@ -49,8 +49,9 @@ namespace Biathlon.Simulation
             var a=field.GetAthlete(index);var point=field.GetPhysicalPoint(index);var shooting=a.ActiveShooting;
             AthleteId=a.AthleteId.Value;LoopId=point.LoopId;LocalNanometers=point.LocalNanometers;LateralMeters=field.GetLateral(index);
             SpeedMetersPerSecond=a.Motion.SpeedMetersPerSecond;Physiology=a.PhysiologyState;Phase=a.Lifecycle.Phase;
-            var world=field.HasManualWorldState?field.GetManualWorldActor(index):default;
-            WorldPose=world.Pose;WorldVelocity=world.Velocity;
+            var world=field.HasManualWorldState&&!field.HasManualScopedWorldState?field.GetManualWorldActor(index):default;
+            var scoped=field.HasManualScopedWorldState?field.GetManualScopedWorldActor(index):default;
+            WorldPose=scoped.IsValid?scoped.Pose:world.Pose;WorldVelocity=scoped.IsValid?scoped.Velocity:world.Velocity;
             TuckActive=a.TuckActive;FinalSprintActive=a.FinalSprintActive;
             var range=a.CurrentRangeMotion;
             var course=a.RemainingStartApproachNanometers>0 ? field.StartApproach.Sample(a.RemainingStartApproachNanometers) :
@@ -64,6 +65,12 @@ namespace Biathlon.Simulation
                 double planar=Math.Sqrt(world.Velocity.X*world.Velocity.X+world.Velocity.Z*world.Velocity.Z);
                 CourseGrade=world.Projection.GradeAlong(world.Pose);
                 CourseCurvaturePerMeter=planar==0?0:world.Pose.YawRateRadiansPerSecond/planar;
+            }
+            if(scoped.IsValid)
+            {
+                double planar=Math.Sqrt(scoped.Velocity.X*scoped.Velocity.X+scoped.Velocity.Z*scoped.Velocity.Z);
+                CourseGrade=scoped.Observation.GradeAlong(scoped.Pose);
+                CourseCurvaturePerMeter=planar==0?0:scoped.Pose.YawRateRadiansPerSecond/planar;
             }
             Effort=a.LastFrame.Physiology.Effort;Draft=field.GetDraft(index);
             CompletedLaps=a.Lifecycle.CompletedLaps;CompletedBouts=a.Lifecycle.CompletedBouts;PendingPenaltyLoops=a.Lifecycle.PendingPenaltyLoops;TotalPenaltyLoops=a.TotalPenaltyLoops;
