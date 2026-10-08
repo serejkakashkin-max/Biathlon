@@ -76,3 +76,8 @@ native14/14 PASS; five reverse ticks retain credit and grow odometer.
 Two broad183-test runs each have one intermittent allocation failure;
 allocation risk remains OPEN. No live manual/build closure.
 [Report](reports/TASK_M13_MANUAL_ACTUAL_WORLD_20261007.md).
+
+2026-10-08 resume: backward downhill/tuck snapshot.NET2/2 and native2/2 PASS.
+Allocation isolation narrows test invocation versus core loop but root cause
+remains OPEN. Explicit tiered-off183/183 PASS does not erase prior failures.
+[Report](reports/TASK_M13_MANUAL_ALLOCATION_ISOLATION_20261008.md).

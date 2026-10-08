@@ -77,15 +77,17 @@ namespace Biathlon.Tests
                 expected.EffectiveEffortControl,f.Session.PhysiologyState,1);
             Assert.That(pending.Physiology.Effort.DeliveredPowerWatts,Is.EqualTo(effort.DeliveredPowerWatts));
         }
-        [Test] public void BackwardPackTicksMoveTheBodyAndOdometerWithoutAwardingRaceDistance()
+        [TestCase(10,false)]
+        [TestCase(80,true)]
+        public void BackwardPackTicksMoveTheBodyAndOdometerWithoutAwardingRaceDistance(double station,bool tuck)
         {
-            var f=new ActualWorldFixture(10,true,0);long credit=f.Session.RouteNanometers;
+            var f=new ActualWorldFixture(station,true,0);long credit=f.Session.RouteNanometers;
             long oldTick=f.Field.Tick.Value,oldOdometer=f.Session.Motion.DistanceNanometers;
             double oldObserved=f.World.GetActor(0).Projection.LocalMeters;
             var transaction=new ManualBaseRosterSessionCommit(f.Field.Route,new[]{f.Session},f.World);
             for(int i=0;i<5;i++)
             {
-                var accepted=f.World.GetActor(0);var surface=f.Surface();var command=f.Command(false);
+                var accepted=f.World.GetActor(0);var surface=f.Surface();var command=f.Command(tuck);
                 var pending=f.Session.PrepareManualBaseStep(command,accepted);
                 var input=f.Session.GetPreparedManualMotionInput(pending,accepted,surface,0);
                 var heading=f.Solver.PreviewAcceptedVelocity(f.Session.Motion,accepted.Pose,
@@ -102,6 +104,8 @@ namespace Biathlon.Tests
                 var snapshot=RacePresentationSnapshot.Capture(f.Field).Get(0);
                 Assert.That(snapshot.CourseGrade,Is.EqualTo(f.World.GetActor(0).Projection.GradeAlong(f.World.GetActor(0).Pose)));
                 Assert.That(snapshot.CourseCurvaturePerMeter,Is.Zero);
+                Assert.That(snapshot.TuckActive,Is.EqualTo(tuck));
+                if(tuck)Assert.That(snapshot.CourseGrade,Is.LessThan(0),"Actual downhill facing must reach presentation.");
                 Assert.That(f.Session.Checkpoints.Tick,Is.EqualTo(f.Field.Tick));
             }
             Assert.That(f.Field.Tick.Value,Is.EqualTo(oldTick+5));

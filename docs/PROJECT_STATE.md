@@ -22745,3 +22745,28 @@ range/penalty/phase/surface/contact continuation, replay and host integration
 remain next work. No intermediate Windows build created; next owner build is
 still the combined M13 package. Existing state history retained byte-for-byte;
 this dated record is appended, not a replacement of historical statuses.
+
+
+## 2026-10-08 — resume / backward downhill snapshot and allocation isolation
+
+M13 OPEN; WP-176 PASS; WP-175/177/178 OPEN. G1/G2 remain APPROVED.
+After the intentional interruption, no project testhost remains running;
+Unity is stopped/compiled and its recent Error Console is empty. Existing
+unrelated Unity/settings changes are preserved and excluded from these commits.
+
+Backward Pack integration now covers actual flat10 m and reversed downhill80 m
+with tuck: .NET2/2 and native Unity2/2 PASS. Five actual world ticks retain race
+credit, grow physical odometer and publish negative downhill slope/active tuck.
+This is snapshot proof, not yet a playable manual host.
+
+Allocation probes: direct public methods60/60; new-thread methods57/60
+(three motion assertion failures5288/3680/7752 bytes); exact force per-call30
+and bulk60 new-thread batches have0 allocations; empty arithmetic under GC256
+windows have0. Explicit tiered-off broad manual selection183/183 PASS.
+Cause is still unproven; earlier failures/assertions retained and allocation
+qualification OPEN. [Report](reports/TASK_M13_MANUAL_ALLOCATION_ISOLATION_20261008.md).
+
+Next: start/range/penalty physical scope ownership and complete world tick/phase
+continuation, replay/host input/rig, final weather/performance and combined build.
+No new Windows build and no M13 closure. Historical bytes preserved exactly;
+this entry appends the latest operational state.
