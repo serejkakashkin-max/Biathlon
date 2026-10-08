@@ -388,5 +388,20 @@ namespace Biathlon.Simulation
             }
             return best;
         }
+
+        // A tube window includes whole visual edges, including their round caps.
+        // A portal inside one of those edges must be checked even if its station
+        // lies beyond the query's narrower observation window.
+        internal bool WindowTouchesPortalEdge(int section,long stationNanometers,long previousNanometers,double spanMeters)
+        {
+            double station=stationNanometers/(double)SkiState.NanometersPerMeter;
+            double previous=previousNanometers/(double)SkiState.NanometersPerMeter;
+            double reserve=2*PhysiologyNumbers.MinimumPositive;
+            int a=firstEdges[section],b=edgeEnds[section];
+            while(a<b){int m=a+(b-a)/2;if(edges[m].StationEnd<station-reserve)a=m+1;else b=m;}
+            if(a>=edgeEnds[section])return false;
+            var edge=edges[a];
+            return edge.StationStart<=previous+spanMeters+reserve&&edge.StationEnd>=previous-spanMeters-reserve;
+        }
     }
 }

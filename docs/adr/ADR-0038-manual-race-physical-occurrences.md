@@ -98,3 +98,17 @@ mat selections. It does not qualify full traffic, private mat/penalty body
 clearance, continuous phase transitions or a playable manual race. The initial
 contact-test gap was corrected to derive from the actual unchanged occupied
 envelope; its failing receipt remains. Sessions/replay/host remain unwired.
+
+## 2026-10-08 — centre portals are separate from course end caps
+
+A physical body can fit inside a round tube endpoint cap while its centre has
+crossed an unadmitted occurrence. Clamped arc observation cannot prove admission.
+The scoped world now activates local start/upper centre planes for whole visual
+edges covered by its selected tube window. Continuous signed-distance bounds
+use existing trajectory numerical reserves and sweep work limits; broad curved
+terminal windows may require interval/window refinement. Distant planes do not
+constrain the middle of a closed penalty circuit. Rejection is provisional,
+never a paid standing tick. Policy v2; body/course/tuning and live host unchanged.
+Endpoint red retained; .NET87/87 and native16/16 PASS including internal-cap
+out-and-back, long-edge/narrow-window and inward/tangential endpoint cases.
+[Report](../reports/TASK_M13_MANUAL_SCOPE_GATES_20261008.md).

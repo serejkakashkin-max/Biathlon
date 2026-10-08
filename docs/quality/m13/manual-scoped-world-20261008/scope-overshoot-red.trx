@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="38d4edf1-2e45-484d-936a-2845c197b53f" name="snkashkin@DESKTOP-G3075GA 2026-10-08 13:17:15" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-08T13:17:15.5541999+03:00" queuing="2026-10-08T13:17:15.5542000+03:00" start="2026-10-08T13:17:14.3981553+03:00" finish="2026-10-08T13:17:15.5573924+03:00" />
+  <TestSettings name="default" id="3708234a-a2a4-4a8d-b652-d9d9ccd201fd">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-08_13_17_15" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="0400e100-5c9b-463d-8493-f9d0f8454f0a" testId="fb2a0980-6322-e0d9-f1ed-1b5466571523" testName="ClampedEndpointObservationCannotAdmitUnpaidMovementIntoTheNextOccurrence" computerName="DESKTOP-G3075GA" duration="00:00:00.5035220" startTime="2026-10-08T13:17:14.9500359+03:00" endTime="2026-10-08T13:17:15.4535220+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0400e100-5c9b-463d-8493-f9d0f8454f0a">
+      <Output>
+        <ErrorInfo>
+          <Message>  A body moving beyond an unadmitted endpoint cannot be hidden by clamping its arc observation.&#xD;
+  Expected: False&#xD;
+  But was:  True&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedWorldRosterTests.ClampedEndpointObservationCannotAdmitUnpaidMovementIntoTheNextOccurrence() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedWorldRosterTests.cs:line 152&#xD;
+
+1)    at Biathlon.Tests.ManualScopedWorldRosterTests.ClampedEndpointObservationCannotAdmitUnpaidMovementIntoTheNextOccurrence() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedWorldRosterTests.cs:line 152&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ClampedEndpointObservationCannotAdmitUnpaidMovementIntoTheNextOccurrence" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="fb2a0980-6322-e0d9-f1ed-1b5466571523">
+      <Execution id="0400e100-5c9b-463d-8493-f9d0f8454f0a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedWorldRosterTests" name="ClampedEndpointObservationCannotAdmitUnpaidMovementIntoTheNextOccurrence" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="fb2a0980-6322-e0d9-f1ed-1b5466571523" executionId="0400e100-5c9b-463d-8493-f9d0f8454f0a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

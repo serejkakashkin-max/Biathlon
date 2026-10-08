@@ -26,9 +26,10 @@ namespace Biathlon.Simulation
         public AthleteId Athlete {get;}
         public SkiJointSweepPreview BodyOrEdge {get;}
         public ManualRouteTubePreview Course {get;}
+        public ManualRacePathGatePreview Gate {get;}
         internal ManualScopedWorldAttempt(ManualScopedWorldStatus status,AthleteId athlete=default,
-            SkiJointSweepPreview body=default,ManualRouteTubePreview course=default)
-        {Status=status;Athlete=athlete;BodyOrEdge=body;Course=course;}
+            SkiJointSweepPreview body=default,ManualRouteTubePreview course=default,ManualRacePathGatePreview gate=default)
+        {Status=status;Athlete=athlete;BodyOrEdge=body;Course=course;Gate=gate;}
     }
     public readonly struct ManualScopedWorldPreview
     {
@@ -48,6 +49,7 @@ namespace Biathlon.Simulation
         private readonly ManualRacePathCatalog[] catalogs;
         private readonly ManualRacePathProgression[] progress;
         private readonly ManualRouteTubeSweep[] courses;
+        private readonly ManualRacePathGateSweep[] gates;
         private readonly ManualSkiJointSweep bodies;
         private readonly ManualRacePathActorFrame[] accepted,staged;
         private readonly ManualRacePathCursor[] cursors,handoffCursors;
@@ -76,11 +78,11 @@ namespace Biathlon.Simulation
             accepted=new ManualRacePathActorFrame[count];staged=new ManualRacePathActorFrame[count];
             cursors=new ManualRacePathCursor[count];handoffCursors=new ManualRacePathCursor[count];
             stagedProgress=new ManualRacePathProgressFrame[count];motion=(SkiState[])initialMotion.Clone();stagedMotion=new SkiState[count];
-            progress=new ManualRacePathProgression[count];courses=new ManualRouteTubeSweep[count];bodies=new ManualSkiJointSweep(body,contact,work);
+            progress=new ManualRacePathProgression[count];courses=new ManualRouteTubeSweep[count];gates=new ManualRacePathGateSweep[count];bodies=new ManualSkiJointSweep(body,contact,work);
             var context=new string[count+6];var initial=new string[count+4];
-            context[0]="manual_scoped_full_clear_world_roster_v1";context[1]=body.ToJson();
+            context[0]="manual_scoped_full_clear_world_roster_v2";context[1]=body.ToJson();
             context[2]=contact.ToJson();context[3]=work.ToJson();
-            context[4]="force_exact_distance;contact_velocity_norm_simpson64;grade_frozen_per_tick;full_duration_tolerance_1e-12;no_implicit_scope_crossing";
+            context[4]="force_exact_distance;contact_velocity_norm_simpson64;grade_frozen_per_tick;full_duration_tolerance_1e-12;no_implicit_scope_crossing;local_terminal_centre_portals_v1;whole_tube_edge_activation;continuous_acceleration_bound;existing_trajectory_encoding_reserve";
             initial[0]="manual_scoped_initial_world_roster_v1";initial[1]=tickFrequency.ToString(CultureInfo.InvariantCulture);
             initial[2]=initialTick.Value.ToString(CultureInfo.InvariantCulture);initial[3]="actor,occurrence,observed_arc,high_arc,route_credit,x,z,heading_nrad,yaw,vx,vz,odometer,speed";
             for(int i=0;i<count;i++)
@@ -93,6 +95,7 @@ namespace Biathlon.Simulation
                     throw new ArgumentException("Each accepted actor must bind its exact race, path and world observation.");
                 for(int j=0;j<i;j++)if(cursor.Athlete.Equals(cursors[j].Athlete))throw new ArgumentException("Duplicate scoped world actor.");
                 progress[i]=new ManualRacePathProgression(catalog);courses[i]=new ManualRouteTubeSweep(catalog.ProjectionGeometry,body,work);
+                gates[i]=new ManualRacePathGateSweep(catalog,work);
                 cursors[i]=cursor;accepted[i]=new ManualRacePathActorFrame(cursor.Athlete,pose,velocity,observation);
                 context[i+5]=catalog.ContextJson;
                 string Long(long value)=>value.ToString(CultureInfo.InvariantCulture);
@@ -120,8 +123,8 @@ namespace Biathlon.Simulation
         public SkiState GetProposedPhysicalMotion(ManualScopedWorldPreview proposal,int index)
         {ValidatePrepared(proposal);return stagedMotion[index];}
         private bool Reject(ManualScopedWorldStatus status,AthleteId athlete=default,
-            SkiJointSweepPreview joint=default,ManualRouteTubePreview course=default)
-        {LastAttempt=new ManualScopedWorldAttempt(status,athlete,joint,course);return false;}
+            SkiJointSweepPreview joint=default,ManualRouteTubePreview course=default,ManualRacePathGatePreview gate=default)
+        {LastAttempt=new ManualScopedWorldAttempt(status,athlete,joint,course,gate);return false;}
         private static bool SamePose(ManualSkiHeadingState a,ManualSkiHeadingState b)
             =>a.IsValid&&b.IsValid&&a.X==b.X&&a.Z==b.Z&&a.HeadingNanoradians==b.HeadingNanoradians&&
                 a.YawRateRadiansPerSecond==b.YawRateRadiansPerSecond;
@@ -153,6 +156,12 @@ namespace Biathlon.Simulation
             for(int i=0;i<Count;i++)
             {
                 var actor=actors[i];var window=windows[i];var catalog=catalogs[i];var row=catalog.Get(cursors[i].OccurrenceIndex);
+                if(window.MaximumAdmittedArcNanometers<cursors[i].CreditedArcNanometers||window.MaximumAdmittedArcNanometers>row.LengthNanometers)
+                    return Reject(ManualScopedWorldStatus.PhaseLimit,actor.Athlete);
+                var gate=gates[i].Preview(actor.Trajectory,row.Index,window.PreviousArcNanometers,
+                    window.MaximumArcDisplacementMeters,window.MaximumAdmittedArcNanometers);
+                if(gate.Status!=ManualRacePathGateStatus.Clear)
+                    return Reject(ManualScopedWorldStatus.PhaseLimit,actor.Athlete,gate:gate);
                 var course=courses[i].Preview(actor.Trajectory,row.Index,checked(row.GeometryStartNanometers+window.PreviousArcNanometers),
                     window.MaximumArcDisplacementMeters,false);
                 if(course.Status!=ManualRouteTubeStatus.Clear||Math.Abs(course.ClearUntilSeconds-duration)>duration*1e-12)

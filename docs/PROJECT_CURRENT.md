@@ -100,3 +100,8 @@ with different mat paths share a complete owned world tick. Contact/course/cap
 rejections cannot mint standing ticks; ordinary handoff is atomic. .NET34/34,
 native8/8 PASS. Contact continuation, session gates/replay/host and final build OPEN.
 [Report](reports/TASK_M13_MANUAL_SCOPED_WORLD_20261008.md).
+
+2026-10-08 scope-gate correction: full intervals cannot hide end/start or phase-cap
+excursions in clamped observations. .NET87/87 and native16/16 PASS, Console empty.
+Live manual/session continuation and final M13 build remain OPEN.
+[Report](reports/TASK_M13_MANUAL_SCOPE_GATES_20261008.md).

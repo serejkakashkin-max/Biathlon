@@ -13,7 +13,8 @@ namespace Biathlon.Tests
             internal readonly ManualRacePathCatalogTests.Fixture Source=new ManualRacePathCatalogTests.Fixture();
             internal readonly ManualRacePathCatalog[] Catalogs;
             internal readonly ManualScopedWorldRoster World;
-            internal Fixture(bool mixed=true,double gap=20,int endMask=0,double side=0)
+            internal Fixture(bool mixed=true,double gap=20,int endMask=0,double side=0,
+                int startMask=0,double secondSpeed=2,double secondSideSpeed=0)
             {
                 var secondPath=new PhysicalRangePathMap(Source.Path.PhysicalMap,Source.Venue.Track,Source.Route,Source.Venue.Paths,29);
                 var second=new ManualRacePathCatalog(Source.Venue.Track,Source.Route,Source.Profile,Source.Venue.Visual,secondPath,Source.Start);
@@ -24,12 +25,13 @@ namespace Biathlon.Tests
                     int index=mixed&&i==0?0:1;long arc=(long)Math.Round((10+i*gap)*N);
                     var row=Catalogs[i].Get(index);
                     if((endMask&(1<<i))!=0)arc=row.LengthNanometers;
+                    if((startMask&(1<<i))!=0)arc=0;
                     if(!mixed&&gap<0&&i==1)arc=(long)Math.Round((10+Source.Venue.Occupancy.LongitudinalSeparation+.05)*N);
                     var point=Source.Venue.Visual.Get(row.LoopId).Sample((row.LocalStartNanometers+arc)/(double)N);
                     poses[i]=new ManualSkiHeadingState(point.X+point.ForwardZ*side,point.Z-point.ForwardX*side,Math.Atan2(point.ForwardX,point.ForwardZ));
-                    double speed=mixed?(i==0?0:2):(i==0?2:0);
-                    velocities[i]=new SkiPlanarVelocity(speed*Math.Sin(poses[i].HeadingRadians),speed*Math.Cos(poses[i].HeadingRadians));
-                    motion[i]=new SkiState(i*N,speed);
+                    double speed=mixed?(i==0?0:secondSpeed):(i==0?2:0),slip=i==1?secondSideSpeed:0,h=poses[i].HeadingRadians;
+                    velocities[i]=new SkiPlanarVelocity(speed*Math.Sin(h)+slip*Math.Cos(h),speed*Math.Cos(h)-slip*Math.Sin(h));
+                    motion[i]=new SkiState(i*N,Math.Sqrt(speed*speed+slip*slip));
                     cursors[i]=new ManualRacePathProgression(Catalogs[i]).Reconstitute(new AthleteId("scoped_"+i),index,arc,arc,
                         row.RouteStartNanometers+(row.CountsTowardsRoute?arc:0));
                 }
@@ -146,6 +148,57 @@ namespace Biathlon.Tests
             Assert.That(f.World.LastAttempt.Status,Is.EqualTo(ManualScopedWorldStatus.Course));
             Assert.That(f.World.LastAttempt.Course.Status,Is.EqualTo(ManualRouteTubeStatus.UnresolvedStart));
             Assert.That(f.World.GetActor(0),Is.EqualTo(before));Assert.That(f.World.Tick.Value,Is.Zero);
+        }
+        [Test] public void ClampedEndpointObservationCannotAdmitUnpaidMovementIntoTheNextOccurrence()
+        {
+            var f=new Fixture(endMask:2);var before=f.World.GetActor(1);
+            Assert.That(f.Prepare(f.Candidates(),f.Windows(),out _),Is.False,
+                "A body moving beyond an unadmitted endpoint cannot be hidden by clamping its arc observation.");
+            Assert.That(f.World.LastAttempt.Status,Is.EqualTo(ManualScopedWorldStatus.PhaseLimit));
+            Assert.That(f.World.LastAttempt.Gate.IsValid,Is.True);
+            Assert.That(f.World.LastAttempt.Gate.Status,Is.EqualTo(ManualRacePathGateStatus.PotentialCrossing));
+            Assert.That(f.World.GetActor(1),Is.EqualTo(before));Assert.That(f.World.Tick.Value,Is.Zero);
+        }
+        [TestCase(0,0)] [TestCase(-2,0)] [TestCase(0,2)]
+        public void ABodyAtTheEndpointMayStayMoveInwardOrTravelTangentially(double forward,double sideSpeed)
+        {
+            var f=new Fixture(endMask:2,secondSpeed:forward,secondSideSpeed:sideSpeed);
+            Assert.That(f.Prepare(f.Candidates(),f.Windows(),out var next),Is.True,f.World.LastAttempt.Status.ToString());
+            Assert.That(f.World.GetProposedCursor(next,1).CreditedArcNanometers,Is.EqualTo(f.World.GetCursor(1).CreditedArcNanometers));
+            f.World.Commit(next);Assert.That(f.World.Tick.Value,Is.EqualTo(1));
+        }
+        [Test] public void ClampedStartCannotAdmitBackwardsMovementIntoThePreviousOccurrence()
+        {
+            var f=new Fixture(startMask:2,secondSpeed:-2);var before=f.World.GetActor(1);
+            Assert.That(f.Prepare(f.Candidates(),f.Windows(),out _),Is.False);
+            Assert.That(f.World.LastAttempt.Status,Is.EqualTo(ManualScopedWorldStatus.PhaseLimit));
+            Assert.That(f.World.LastAttempt.Gate.BoundaryArcNanometers,Is.Zero);
+            Assert.That(f.World.GetActor(1),Is.EqualTo(before));Assert.That(f.World.Tick.Value,Is.Zero);
+        }
+        [TestCase(false,false)] [TestCase(true,false)] [TestCase(false,true)]
+        public void ReturningToAnAdmittedEndpointCannotHideAnExcursionAcrossAPhasePortal(bool occurrenceEnd,bool narrowWindow)
+        {
+            var f=new Fixture(endMask:occurrenceEnd?2:0,secondSpeed:narrowWindow?80:2);var before=f.World.GetActor(1);
+            var candidates=f.Candidates();var windows=f.Windows();var cursor=f.World.GetCursor(1);
+            // Build an exact constant-acceleration continuation at the representation
+            // boundary, rather than changing the passive snow solver to invent a
+            // reversal. Public world admission must check any supplied continuation.
+            var initial=new SkiContactMotion(before.Velocity,0);
+            var final=new SkiContactMotion(new SkiPlanarVelocity(-before.Velocity.X,-before.Velocity.Z),0);
+            var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+            var snow=(SkiSnowContactPreview)typeof(SkiSnowContactPreview).GetConstructors(flags)[0].Invoke(new object[]{final,0.0,0.0,0.0,0.0});
+            var contact=(SkiContactTrajectory)typeof(SkiContactTrajectory).GetConstructors(flags)[0].Invoke(new object[]{before.Pose,initial,snow,.05});
+            var trajectory=new ManualSkiWorldTrajectory(contact);
+            Assert.That(trajectory.Sample(1),Is.EqualTo(before.Pose));
+            Assert.That(trajectory.Sample(.5),Is.Not.EqualTo(before.Pose));
+            candidates[1]=new SkiWorldMotionCandidate(before.Athlete,trajectory);
+            windows[1]=new ManualScopedWorldWindow(cursor.Athlete,cursor.OccurrenceIndex,cursor.ObservedArcNanometers,
+                narrowWindow?.001:1,cursor.CreditedArcNanometers+(narrowWindow?N/2:0));
+            Assert.That(f.Prepare(candidates,windows,out _),Is.False,"Checking only the endpoint would accept this excursion.");
+            Assert.That(f.World.LastAttempt.Status,Is.EqualTo(ManualScopedWorldStatus.PhaseLimit));
+            Assert.That(f.World.LastAttempt.Gate.IsValid,Is.True);
+            Assert.That(f.World.LastAttempt.Gate.Status,Is.EqualTo(ManualRacePathGateStatus.PotentialCrossing));
+            Assert.That(f.World.GetActor(1),Is.EqualTo(before));Assert.That(f.World.Tick.Value,Is.Zero);
         }
         [Test] public void RepeatedPreparedFullRosterQueriesAllocateNothing()
         {

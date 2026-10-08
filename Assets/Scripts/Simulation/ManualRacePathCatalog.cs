@@ -254,6 +254,12 @@ namespace Biathlon.Simulation
             if(!ProjectionGeometry.TrySampleAhead(occurrenceIndex,checked(row.GeometryStartNanometers+physicalArcNanometers),0,false,out var point))return false;
             target=new ManualRacePathTarget(point,physicalArcNanometers,Mapped(row,physicalArcNanometers));return true;
         }
+        internal bool WindowTouchesPortalEdge(int occurrence,long previousArc,double span,long portalArc)
+        {
+            var row=ValidateArc(occurrence,portalArc);ValidateArc(occurrence,previousArc);
+            return ProjectionGeometry.WindowTouchesPortalEdge(occurrence,checked(row.GeometryStartNanometers+portalArc),
+                checked(row.GeometryStartNanometers+previousArc),span);
+        }
         public TrackSample SampleSurface(ManualRacePathObservation observation)
         {
             if(!ReferenceEquals(observation.Owner,this))throw new ArgumentException("An observation from this exact path catalog is required.");

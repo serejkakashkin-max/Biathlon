@@ -22834,3 +22834,21 @@ Caller still needs within-tick contact/surface/seam continuation, authorized
 phase gates/dynamic mats, atomic session/event commit and full replay/host hookup.
 Current playable host remains lateral route-following. Allocation risk OPEN;
 final player qualification and combined owner-test M13 build remain pending.
+
+
+## 2026-10-08 — M13 scoped centre-portal correction
+
+M13/WP-175/177/178 OPEN; WP-176 PASS. New regression found that body-course round
+end caps plus a clamped observation could accept physical endpoint overshoot.
+Continuous local centre portals now reject that proposal without moving/snapping
+accepted bodies or paying a waiting tick. Whole tube-edge activation also catches
+out-and-back excursions with a narrow observation window. Diagnostics retain
+boundary arc/time bracket/checks; world policy v2. No gameplay tuning changed.
+.NET87/87 PASS including existing replay/projection/tube; native16/16 executed
+PASS (discovery1333,26.9061677 s), Error Console empty. Initial red receipt retained.
+Stationary/inward/tangent endpoint cases pass. Allocation qualification remains
+OPEN. Report: docs/reports/TASK_M13_MANUAL_SCOPE_GATES_20261008.md.
+Next: full-clock staged intervals/ordinary seams, actual contacts/surface and
+lifecycle transitions, all-session transaction/replay/host. Current playable host
+still uses legacy lateral/route following; manual gameplay and final M13 build
+are not closed. No intermediate Windows build. All historical state bytes retained.
