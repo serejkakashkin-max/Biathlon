@@ -22812,3 +22812,25 @@ Report: docs/reports/TASK_M13_MANUAL_PHASE_PROGRESS_20261008.md.
 Next: heterogeneous moving/stationary world roster, contacts/course/surface
 continuation and authorized session phase commit, then full replay/host and
 final M13 validation with one combined Windows build for owner tests.
+
+
+## 2026-10-08 — M13 heterogeneous scoped world roster
+
+G1/G2 APPROVED; M13 OPEN, WP-176 PASS, WP-175/177/178 OPEN. No new Windows build.
+Added ManualScopedWorldRoster: stable complete actors with different assigned
+physical catalogs but the same exact race, moving/stationary all-pair checks,
+individual course/phase caps, immutable initial world context, staged odometer
+and arc/base credit, one-use full-clear world commit. No rejected partial/contact
+prefix is converted into a paid stationary tick. Contact/course/source/cap
+rejection invalidates stale proof and leaves accepted clocks/movement unchanged.
+Ordinary heterogeneous handoff validates every row before occurrence changes.
+World pose/velocity/odometer/clock/base credit preserved; lifecycle gates closed.
+Final.NET34/34 scoped cases PASS; native8/8 PASS, discovery1325,15.3336588s;
+compile settled, Error Console empty. First contact fixture corrected to derive
+actual unchanged body separation; failed receipt preserved. No gameplay tuning.
+Report: docs/reports/TASK_M13_MANUAL_SCOPED_WORLD_20261008.md.
+Limits: mixed fixture is start/base, not full private-range/penalty traffic.
+Caller still needs within-tick contact/surface/seam continuation, authorized
+phase gates/dynamic mats, atomic session/event commit and full replay/host hookup.
+Current playable host remains lateral route-following. Allocation risk OPEN;
+final player qualification and combined owner-test M13 build remain pending.

@@ -68,3 +68,33 @@ group proposals belong to one catalog; the heterogeneous world roster still
 needs to combine individually owned lane proposals with all-body clearance.
 Ten new .NET and ten native tests PASS; combined catalog/progression26/26 PASS.
 Live authoritative race output, replay and the playable host are unchanged.
+
+## 2026-10-08 — heterogeneous full-clear world roster
+
+`ManualScopedWorldRoster` owns accepted world pose/velocity, scoped cursor and
+physical odometer for a complete stable roster. Each actor can have a different
+assigned catalog, but catalogs must share the same exact route/profile objects.
+Stationary and moving actors participate in the same all-pair body check. Each
+actor then checks its own selected physical course and admitted arc limit.
+
+Only a full-clear fixed interval can produce an owned proposal. A body/contact
+prefix, unproved course start, mismatched source or phase limit changes no
+accepted actor/clock/odometer and invalidates an earlier uncommitted proof.
+The diagnostic attempt distinguishes these causes. There is no fallback that
+turns a rejected proposal into a paid standing tick. This is not contact
+continuation: the future world runner must resolve/advance that prefix inside
+the same tick, not pause the race when this primitive returns false.
+
+Force trajectories retain their exact distance; contact trajectories use the
+existing fixed64-panel velocity-norm integral and frozen directional grade.
+All initial scoped coordinates, pose, velocity, odometer, speed and clock are
+captured immutably with body/contact/course context. Ordinary roster handoffs
+validate all requested rows before changing any accepted occurrence, keeping
+the same world motion and clock. Lifecycle gates remain closed.
+
+Eight new tests PASS in .NET and native Unity; combined scoped selection34/34
+PASS. The mixed runtime fixture covers start plus base movement with different
+mat selections. It does not qualify full traffic, private mat/penalty body
+clearance, continuous phase transitions or a playable manual race. The initial
+contact-test gap was corrected to derive from the actual unchanged occupied
+envelope; its failing receipt remains. Sessions/replay/host remain unwired.

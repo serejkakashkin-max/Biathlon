@@ -78,6 +78,7 @@ namespace Biathlon.Simulation
     public sealed class ManualRacePathCatalog
     {
         private readonly RaceRoute route;
+        private readonly CompetitionProfile profile;
         private readonly PhysicalRangePathMap rangePath;
         private readonly ManualRacePathOccurrence[] occurrences;
         private readonly TrackSampler[] samplers;
@@ -96,6 +97,7 @@ namespace Biathlon.Simulation
         public ManualRouteProjectionMap ProjectionGeometry {get;}
         public ManualRacePathOccurrence Get(int index)=>occurrences[index];
         internal bool IsBoundTo(RaceRoute selected,PhysicalRangePathMap path)=>ReferenceEquals(route,selected)&&ReferenceEquals(rangePath,path);
+        internal bool IsSameRace(ManualRacePathCatalog other)=>other!=null&&ReferenceEquals(route,other.route)&&ReferenceEquals(profile,other.profile);
 
         public ManualRacePathCatalog(TrackDefinition track,RaceRoute route,CompetitionProfile profile,
             TrackVisualDefinition visual,PhysicalRangePathMap rangePath,StartApproachMap startApproach=null)
@@ -109,7 +111,7 @@ namespace Biathlon.Simulation
                 startApproach.TrackJson!=route.TrackSnapshotJson||startApproach.RoutePlanJson!=route.PlanSnapshotJson||
                 startApproach.RouteRequirementsJson!=route.RequirementsSnapshotJson))
                 throw new ArgumentException("Start approach must match this exact simultaneous-start race.");
-            this.route=route;this.rangePath=rangePath;Id=route.Id+":"+rangePath.LaneId+":manual_physical_paths_v1";
+            this.route=route;this.profile=profile;this.rangePath=rangePath;Id=route.Id+":"+rangePath.LaneId+":manual_physical_paths_v1";
             firingIndexes=new int[profile.BoutCount];penaltyEntryIndexes=new int[profile.BoutCount];
             penaltyReturnIndexes=new int[profile.BoutCount];penaltyIndexes=new int[profile.BoutCount,profile.ShotsPerBout];
             for(int b=0;b<profile.BoutCount;b++)firingIndexes[b]=penaltyEntryIndexes[b]=penaltyReturnIndexes[b]=-1;

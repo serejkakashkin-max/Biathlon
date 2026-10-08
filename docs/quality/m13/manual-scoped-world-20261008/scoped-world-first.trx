@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c07887fb-bb52-42d2-a609-ad9ff87b64c9" name="snkashkin@DESKTOP-G3075GA 2026-10-08 13:03:27" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-08T13:03:27.0510518+03:00" queuing="2026-10-08T13:03:27.0510519+03:00" start="2026-10-08T13:03:25.2352063+03:00" finish="2026-10-08T13:03:27.7864246+03:00" />
+  <TestSettings name="default" id="e14c186b-65a7-4cd7-b1af-258a3eb8f3f2">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-08_13_03_27" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="7fb47aa4-4327-4de1-9de4-430052509fe9" testId="7814aa5b-20ae-2a0c-a43c-499b96796eb7" testName="ContactPrefixCannotBecomeAStationaryWaitTickOrPartialRosterCommit" computerName="DESKTOP-G3075GA" duration="00:00:00.4791790" startTime="2026-10-08T13:03:25.7774265+03:00" endTime="2026-10-08T13:03:26.2565775+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7fb47aa4-4327-4de1-9de4-430052509fe9">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: False&#xD;
+  But was:  True&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedWorldRosterTests.ContactPrefixCannotBecomeAStationaryWaitTickOrPartialRosterCommit() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedWorldRosterTests.cs:line 79&#xD;
+
+1)    at Biathlon.Tests.ManualScopedWorldRosterTests.ContactPrefixCannotBecomeAStationaryWaitTickOrPartialRosterCommit() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedWorldRosterTests.cs:line 79&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2ef33422-e808-4760-a336-69599dc0ae95" testId="fff8fae7-c4a7-a6c5-bfd3-f797a3dfd76f" testName="LastActorPhaseCapAndStaleSourceInvalidatePreparedProofWithoutChangingAcceptedState" computerName="DESKTOP-G3075GA" duration="00:00:00.2503960" startTime="2026-10-08T13:03:26.9892697+03:00" endTime="2026-10-08T13:03:27.2396650+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2ef33422-e808-4760-a336-69599dc0ae95" />
+    <UnitTestResult executionId="f95710b5-dd9a-4cd6-bb43-aa659e4a289e" testId="75e3fa99-9e15-0d8d-5d42-6f13fe4d7ff5" testName="DifferentAssignedPathsAndStationaryStartBodyShareOneOwnedPhysicalTick" computerName="DESKTOP-G3075GA" duration="00:00:00.2415640" startTime="2026-10-08T13:03:26.2571668+03:00" endTime="2026-10-08T13:03:26.4987304+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f95710b5-dd9a-4cd6-bb43-aa659e4a289e" />
+    <UnitTestResult executionId="becfa473-e09f-428b-a4fb-5b5f67d88805" testId="c8560577-8a8b-88c6-1e84-b6ea4c33565e" testName="ForeignProofIncompleteRosterAndUnacceptedHandoffFail" computerName="DESKTOP-G3075GA" duration="00:00:00.4904840" startTime="2026-10-08T13:03:26.4987604+03:00" endTime="2026-10-08T13:03:26.9892434+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="becfa473-e09f-428b-a4fb-5b5f67d88805" />
+    <UnitTestResult executionId="ba087616-7e16-4465-abdd-5e25a53fa9a6" testId="ef491f24-891e-a720-4154-2bfe3a097891" testName="RestoredInitialWorldIdentityIsImmutableAndIncludesEveryScopedCoordinate" computerName="DESKTOP-G3075GA" duration="00:00:00.2492720" startTime="2026-10-08T13:03:27.4873921+03:00" endTime="2026-10-08T13:03:27.7366637+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ba087616-7e16-4465-abdd-5e25a53fa9a6" />
+    <UnitTestResult executionId="27f800d2-6813-493f-8262-e33a02cffea5" testId="cdc100b6-99b0-45ce-0860-1da3a162758a" testName="RepeatedPreparedFullRosterQueriesAllocateNothing" computerName="DESKTOP-G3075GA" duration="00:00:00.2476700" startTime="2026-10-08T13:03:27.2396970+03:00" endTime="2026-10-08T13:03:27.4873665+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="27f800d2-6813-493f-8262-e33a02cffea5" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="LastActorPhaseCapAndStaleSourceInvalidatePreparedProofWithoutChangingAcceptedState" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="fff8fae7-c4a7-a6c5-bfd3-f797a3dfd76f">
+      <Execution id="2ef33422-e808-4760-a336-69599dc0ae95" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedWorldRosterTests" name="LastActorPhaseCapAndStaleSourceInvalidatePreparedProofWithoutChangingAcceptedState" />
+    </UnitTest>
+    <UnitTest name="ForeignProofIncompleteRosterAndUnacceptedHandoffFail" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="c8560577-8a8b-88c6-1e84-b6ea4c33565e">
+      <Execution id="becfa473-e09f-428b-a4fb-5b5f67d88805" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedWorldRosterTests" name="ForeignProofIncompleteRosterAndUnacceptedHandoffFail" />
+    </UnitTest>
+    <UnitTest name="RepeatedPreparedFullRosterQueriesAllocateNothing" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="cdc100b6-99b0-45ce-0860-1da3a162758a">
+      <Execution id="27f800d2-6813-493f-8262-e33a02cffea5" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedWorldRosterTests" name="RepeatedPreparedFullRosterQueriesAllocateNothing" />
+    </UnitTest>
+    <UnitTest name="RestoredInitialWorldIdentityIsImmutableAndIncludesEveryScopedCoordinate" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="ef491f24-891e-a720-4154-2bfe3a097891">
+      <Execution id="ba087616-7e16-4465-abdd-5e25a53fa9a6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedWorldRosterTests" name="RestoredInitialWorldIdentityIsImmutableAndIncludesEveryScopedCoordinate" />
+    </UnitTest>
+    <UnitTest name="DifferentAssignedPathsAndStationaryStartBodyShareOneOwnedPhysicalTick" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="75e3fa99-9e15-0d8d-5d42-6f13fe4d7ff5">
+      <Execution id="f95710b5-dd9a-4cd6-bb43-aa659e4a289e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedWorldRosterTests" name="DifferentAssignedPathsAndStationaryStartBodyShareOneOwnedPhysicalTick" />
+    </UnitTest>
+    <UnitTest name="ContactPrefixCannotBecomeAStationaryWaitTickOrPartialRosterCommit" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="7814aa5b-20ae-2a0c-a43c-499b96796eb7">
+      <Execution id="7fb47aa4-4327-4de1-9de4-430052509fe9" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedWorldRosterTests" name="ContactPrefixCannotBecomeAStationaryWaitTickOrPartialRosterCommit" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="7814aa5b-20ae-2a0c-a43c-499b96796eb7" executionId="7fb47aa4-4327-4de1-9de4-430052509fe9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fff8fae7-c4a7-a6c5-bfd3-f797a3dfd76f" executionId="2ef33422-e808-4760-a336-69599dc0ae95" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="75e3fa99-9e15-0d8d-5d42-6f13fe4d7ff5" executionId="f95710b5-dd9a-4cd6-bb43-aa659e4a289e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c8560577-8a8b-88c6-1e84-b6ea4c33565e" executionId="becfa473-e09f-428b-a4fb-5b5f67d88805" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ef491f24-891e-a720-4154-2bfe3a097891" executionId="ba087616-7e16-4465-abdd-5e25a53fa9a6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cdc100b6-99b0-45ce-0860-1da3a162758a" executionId="27f800d2-6813-493f-8262-e33a02cffea5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="6" executed="6" passed="5" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 6 of 6 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

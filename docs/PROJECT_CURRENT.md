@@ -94,3 +94,9 @@ start/penalty arc never adds base distance, exact same-pose ordinary seams verif
 Firing/penalty/finish gates remain closed pending race-owner integration.
 .NET26/26 and native10/10 PASS. No live manual or final-build closure.
 [Report](reports/TASK_M13_MANUAL_PHASE_PROGRESS_20261008.md).
+
+2026-10-08 heterogeneous world roster: stationary start plus moving base actor
+with different mat paths share a complete owned world tick. Contact/course/cap
+rejections cannot mint standing ticks; ordinary handoff is atomic. .NET34/34,
+native8/8 PASS. Contact continuation, session gates/replay/host and final build OPEN.
+[Report](reports/TASK_M13_MANUAL_SCOPED_WORLD_20261008.md).

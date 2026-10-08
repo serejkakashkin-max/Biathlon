@@ -1,0 +1,63 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1325,\"PassedTests\":8,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:15.1650798\"},\"Results\":[{\"Name\":\"Biathlon.Tests.ManualScopedWorldRosterTests.AnUnprovedCourseStartCannotClampTheBodyOrCommitAClockTick\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.5550000\"},{\"Name\":\"Biathlon.Tests.ManualScopedWorldRosterTests.ContactPrefixCannotBecomeAStationaryWaitTickOrPartialRosterCommit\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.4050000\"},{\"Name\":\"Biathlon.Tests.ManualScopedWorldRosterTests.DifferentAssignedPathsAndStationaryStartBodyShareOneOwnedPhysicalTick\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.4530000\"},{\"Name\":\"Biathlon.Tests.ManualScopedWorldRosterTests.ForeignProofIncompleteRosterAndUnacceptedHandoffFail\",\"Status\":\"Passed\",\"Duration\":\"00:00:02.8740000\"},{\"Name\":\"Biathlon.Tests.ManualScopedWorldRosterTests.LastActorPhaseCapAndStaleSourceInvalidatePreparedProofWithoutChangingAcceptedState\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.3840000\"},{\"Name\":\"Biathlon.Tests.ManualScopedWorldRosterTests.OrdinaryHandoffsAcrossDifferentPathsValidateAllRowsAndKeepWorldMotionAndClock\",\"Status\":\"Passed\",\"Duration\":\"00:00:02.8180000\"},{\"Name\":\"Biathlon.Tests.ManualScopedWorldRosterTests.RepeatedPreparedFullRosterQueriesAllocateNothing\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.3940000\"},{\"Name\":\"Biathlon.Tests.ManualScopedWorldRosterTests.RestoredInitialWorldIdentityIsImmutableAndIncludesEveryScopedCoordinate\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.4180000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 1325,
+        "PassedTests": 8,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:15.1650798"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.ManualScopedWorldRosterTests.AnUnprovedCourseStartCannotClampTheBodyOrCommitAClockTick",
+          "Status": "Passed",
+          "Duration": "00:00:01.5550000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedWorldRosterTests.ContactPrefixCannotBecomeAStationaryWaitTickOrPartialRosterCommit",
+          "Status": "Passed",
+          "Duration": "00:00:01.4050000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedWorldRosterTests.DifferentAssignedPathsAndStationaryStartBodyShareOneOwnedPhysicalTick",
+          "Status": "Passed",
+          "Duration": "00:00:01.4530000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedWorldRosterTests.ForeignProofIncompleteRosterAndUnacceptedHandoffFail",
+          "Status": "Passed",
+          "Duration": "00:00:02.8740000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedWorldRosterTests.LastActorPhaseCapAndStaleSourceInvalidatePreparedProofWithoutChangingAcceptedState",
+          "Status": "Passed",
+          "Duration": "00:00:01.3840000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedWorldRosterTests.OrdinaryHandoffsAcrossDifferentPathsValidateAllRowsAndKeepWorldMotionAndClock",
+          "Status": "Passed",
+          "Duration": "00:00:02.8180000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedWorldRosterTests.RepeatedPreparedFullRosterQueriesAllocateNothing",
+          "Status": "Passed",
+          "Duration": "00:00:01.3940000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedWorldRosterTests.RestoredInitialWorldIdentityIsImmutableAndIncludesEveryScopedCoordinate",
+          "Status": "Passed",
+          "Duration": "00:00:01.4180000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}
