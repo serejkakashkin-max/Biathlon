@@ -228,3 +228,15 @@ pose/velocity. Reusable mat ownership and finished actors remain explicit limits
 Focused.NET94/94/native14+4 PASS; broad327/328 fails prior allocation test440 B.
 Full-grid seams/live manual/M13 qualification remain OPEN.
 [Report](../reports/TASK_M13_MANUAL_SCOPED_FIELD_20261008.md).
+
+
+## 2026-10-08 — owned current contact sets and initial response
+
+World v11 derives stable pairs from actual working body proximity, not a caller
+registration list. Deep overlap rejects the whole set; separated previous pairs
+return to ordinary first-contact scheduling. Actual initial proximity may invoke
+the immutable mass-bound group solver, prevalidating every provisional row without
+pose/time/odometer/credit correction. Unresolved response blocks continuation.
+Telemetry is not future admission. .NET140/140/native11+16 PASS; unequal-force
+contact coupling and prior broad allocation qualification remain OPEN.
+[Report](../reports/TASK_M13_MANUAL_OWNED_CONTACTS_20261008.md).

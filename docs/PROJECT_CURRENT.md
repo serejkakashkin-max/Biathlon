@@ -171,3 +171,11 @@ backwards braking and paid forward restart. .NET14/14 and focused84/84 PASS; nat
 assertion5496 B; qualification OPEN. Controlled slip yaw/persistent contacts,
 resources/replay/host and M13/final owner build remain OPEN.
 [Report](reports/TASK_M13_MANUAL_CONTACT_DRIVE_20261008.md).
+
+
+2026-10-08 owned current contacts: stable actual proximity pairs, initial response
+without pose/time correction, separated-pair removal and full-group atomicity.
+.NET140/140/native11+16 PASS; compile/Console clear. Unequal-force continuing
+contacts remain unproved, earlier allocation qualification OPEN. Full manual
+runner/resources/replay/host and final M13 build remain pending.
+[Report](reports/TASK_M13_MANUAL_OWNED_CONTACTS_20261008.md).

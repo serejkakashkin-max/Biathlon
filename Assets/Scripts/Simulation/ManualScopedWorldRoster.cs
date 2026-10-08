@@ -19,7 +19,7 @@ namespace Biathlon.Simulation
             MaximumArcDisplacementMeters=span;MaximumAdmittedArcNanometers=maximumArc;
         }
     }
-    public enum ManualScopedWorldStatus { NotPrepared, Clear, SourceMismatch, BodyOrEdge, Course, Projection, PhaseLimit, IncompleteTick, PendingContact, ContactResponse, IntervalLimit, ContactSchedule }
+    public enum ManualScopedWorldStatus { NotPrepared, Clear, SourceMismatch, BodyOrEdge, Course, Projection, PhaseLimit, IncompleteTick, PendingContact, ContactResponse, IntervalLimit, ContactSchedule, ContactGeometry }
     /// <summary>One admitted common clock interval for one roster row. Physical
     /// travel, observed arc and high-water credit remain separate coordinates.</summary>
     public readonly struct ManualScopedWorldMotionPiece
@@ -76,7 +76,7 @@ namespace Biathlon.Simulation
     /// heterogeneous assigned paths. Rejected prefixes never become paid ticks.
     /// Reached contacts respond provisionally before paid continuation;
     /// session/lifecycle commit remains separate.</summary>
-    public sealed class ManualScopedWorldRoster
+    public sealed partial class ManualScopedWorldRoster
     {
         private readonly ManualRacePathCatalog[] catalogs;
         private readonly ManualRacePathProgression[] progress;
@@ -88,6 +88,10 @@ namespace Biathlon.Simulation
         private readonly ManualSkiContactScheduler scheduler;
         private readonly SkiWorldMotionCandidate[] scheduledPrefix;
         private readonly SkiReachedContactPair[] scheduledArrivals;
+        private readonly ManualSkiContactSystem ownedContactGeometry;
+        private readonly SkiReachedContactPair[] ownedContacts;
+        private readonly int[] ownedContactOrder;
+        private readonly double ownedContactTolerance;
         private readonly ManualSkiContactGroup response;
         private readonly double[] masses;
         private readonly ManualSkiContactBody[] responseBodies;
@@ -154,13 +158,15 @@ namespace Biathlon.Simulation
             occupiedBody=body;courseCells=new ManualSkiEdgeSweep(body,contact,work);
             scheduler=new ManualSkiContactScheduler(body,contact,work,count);scheduledPrefix=new SkiWorldMotionCandidate[count];
             scheduledArrivals=new SkiReachedContactPair[checked(count*(count-1)/2)];
+            ownedContactGeometry=new ManualSkiContactSystem(body,contact);ownedContactTolerance=contact.ContactTolerance;
+            ownedContacts=new SkiReachedContactPair[scheduledArrivals.Length];ownedContactOrder=new int[count];
             maximumPieces=work.MaximumIntervalChecks;pieces=new ManualScopedWorldMotionPiece[checked(count*maximumPieces)];
             var context=new string[count+7];var initial=new string[count+4];
-            BodyContextJson=body.ToJson();context[0]="manual_scoped_full_clear_world_roster_v10";context[1]=BodyContextJson;
+            BodyContextJson=body.ToJson();context[0]="manual_scoped_full_clear_world_roster_v11";context[1]=BodyContextJson;
             context[2]=contact.ToJson();context[3]=work.ToJson();
             context[4]="force_exact_distance;contact_velocity_norm_simpson64;grade_frozen_per_interval;full_duration_tolerance_1e-12;no_implicit_scope_crossing;local_terminal_centre_portals_v1;whole_tube_edge_activation;continuous_acceleration_bound;existing_trajectory_encoding_reserve;staged_full_clock_intervals;exact_remaining_time;round_tick_travel_once;owned_motion_pieces;interval_limit_from_sweep_maximum_checks;accepted_phase_endpoints_authorized_by_session_batch;future_penalty_phases_from_paid_interval_high_water;no_handoff_before_pending_contact_response;"+ManualSkiWorldTrajectory.SlicePolicy;
-            context[5]=ShootingModelDefinitions.EncodeContext(new[]{responseContext,scheduler.ContextJson,courseCells.ContextJson,
-                "course_tube_or_strict_source_cell;all_four_oriented_body_planes;no_cell_or_scope_crossing_bypass"});
+            context[5]=ShootingModelDefinitions.EncodeContext(new[]{responseContext,scheduler.ContextJson,courseCells.ContextJson,ownedContactGeometry.ContextJson,
+                "course_tube_or_strict_source_cell;all_four_oriented_body_planes;no_cell_or_scope_crossing_bypass;owned_current_pose_proximity_pairs;stable_identity_order;no_penetration_admission;initial_response_without_clock_or_position"});
             initial[0]="manual_scoped_initial_world_roster_v1";initial[1]=tickFrequency.ToString(CultureInfo.InvariantCulture);
             initial[2]=initialTick.Value.ToString(CultureInfo.InvariantCulture);initial[3]="actor,occurrence,observed_arc,high_arc,route_credit,x,z,heading_nrad,yaw,vx,vz,odometer,speed";
             for(int i=0;i<count;i++)
@@ -182,6 +188,10 @@ namespace Biathlon.Simulation
                     Long(cursor.ObservedArcNanometers),Long(cursor.CreditedArcNanometers),Long(cursor.CreditedRouteNanometers),
                     Double(pose.X),Double(pose.Z),Long(pose.HeadingNanoradians),Double(pose.YawRateRadiansPerSecond),
                     Double(velocity.X),Double(velocity.Z),Long(motion[i].DistanceNanometers),Double(motion[i].SpeedMetersPerSecond)});
+                int at=i;
+                while(at>0&&string.CompareOrdinal(accepted[ownedContactOrder[at-1]].Athlete.Value,cursor.Athlete.Value)>0)
+                {ownedContactOrder[at]=ownedContactOrder[at-1];at--;}
+                ownedContactOrder[at]=i;
             }
             InitialStateContextJson=ShootingModelDefinitions.EncodeContext(initial);context[context.Length-1]=InitialStateContextJson;
             ContextJson=ShootingModelDefinitions.EncodeContext(context);
