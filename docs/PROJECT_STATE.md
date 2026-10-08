@@ -23168,3 +23168,44 @@ course seams/body clearance, mat resources/shooting/finish/full replay/AI/host,
 итоговые условия/balance/performance и объединённый owner-test билд. Нового
 промежуточного билда и owner gate в этом шаге нет.
 [Отчёт](reports/TASK_M13_TEST_COUNTER_BGC_20261008.md).
+
+
+## 2026-10-08 — M13: signed manual steering с независимым contact slip
+
+Предыдущий test-host commit 78bd9e0 уже отправлен в GitHub; история и прежние
+FAILED receipts сохранены. Реализованы ManualSkiSteeredSnowSystem и
+ManualSkiControlledDriveSystem. A/D задаёт направление переднего snow constraint,
+а общие front/rear forces постепенно изменяют скорость и yaw. Нейтральный ввод
+не ищет tangent трассы или центр. Это frozen two-support ski approximation,
+не assignment heading и не точная skating biomechanics.
+
+Используются существующие steering/skill/snow/posture/grip definitions, shared
+power/gravity/drag/snow/stop/cap и actual-yaw cornering. Поворот и slip расходуют
+один grip box; snow impulse минимизирует полную кинетическую энергию, turning
+loss, deflection, request, оба impulse и angular response scale видны в telemetry.
+Raw source spin выше command yaw cap не обрезается; нулевое сцепление и покой
+не создают бесплатный pivot. Pose/heading сохраняют прежний encoded contract.
+Новая policy имеет отдельный versioned context; legacy API/definitions неизменны.
+
+Новых тестов15: parity135 cases, energy/grip/angular bounds1620 cases, reverse,
+mirror/mass, ice/rest, neutral release, raw contact input/frozen slices, reached
+pair force coupling + roster permutation, deterministic100-step model rollout,
+полностью оплаченный signed prepared-session/world clock через общие forces и
+contact/boundary/publication; warm1000 queries0 B. Initial12/13 FAILED на
+bitwise equality floating rotated neutral projection; исправлена fixture assert
+на roundoff2e-15, без velocity snap/tuning/production tolerance relaxation.
+Receipt оставлен. Test-source member-name compile errors устранены до исполнения.
+
+Final all-manual + Sprint/Pack/Player replay .NET431/431 PASS в квалифицированном
+test-host profile. Native Unity15 controlled +11 legacy steering +14 legacy
+contact drive =40 executed PASS; discovery1515 не считается выполнением.
+Unity compile завершён, Error/Exception Console пусты. Unity-facing live visual
+changes нет; Play Mode/Game View/Windows build в этом шаге не запускались.
+
+M13 OPEN; WP-176 PASS; WP-175/177/178 OPEN. Это подключение signed force input к
+примитивам общего world tick, не доказательство полной гонки/устранённых очередей.
+ProductionVenueHost по-прежнему legacyv1. Далее полный common-clock runner,
+all-field/AI signed inputs, course seams/body clearance, mat ownership/shooting/
+finished actors/v2 race replay/host, условия/balance/performance и объединённый
+owner-test билд. Промежуточного билда и owner gate нет.
+[Отчёт](reports/TASK_M13_MANUAL_CONTROLLED_SLIP_20261008.md).

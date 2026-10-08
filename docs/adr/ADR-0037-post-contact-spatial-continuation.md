@@ -367,3 +367,25 @@ continuous sweeps/slices/odometer policy still apply. This is a frozen discrete
 operator, not complete changing-surface/steering/contact or playable race proof.
 [Drive report](../reports/TASK_M13_MANUAL_CONTACT_DRIVE_20261008.md);
 [Force report](../reports/TASK_M13_MANUAL_CONTACT_FORCES_20261008.md).
+
+
+## 2026-10-08 — signed slip steering via bounded snow constraints
+
+The distinct controlled-drive policy deflects the frozen front snow constraint
+from the existing bounded yaw request; the rear follows achieved heading.
+The signed-forward denominator handles reverse travel. The equal-load front/rear
+grip box minimizes translational plus rotational kinetic energy. Shared steering
+angular-response limits scale both impulses together, preserving dissipation;
+physical spin is not clamped to the command yaw ceiling. Neutral has no route
+input, rest cannot pivot, and turning exposes a physical energy loss. It is a
+frozen two-support approximation, not exact continuous friction or biomechanics.
+
+The same longitudinal force implementation receives this internally computed
+snow preview, using actual heading/grade/yaw and existing cornering stats/braking.
+There is one joint snow budget; no second passive/turn reservation is spent.
+The trajectory remains compatible with common force coupling, whole-body/course
+proofs and owned first-event admission. A reached-pair force preview alone does
+not prove that rotating bodies can advance. Legacy APIs/contexts/tuning persist;
+the controlled path binds a distinct context. Full race/AI/replay/host remain OPEN.
+.NET431/431/native15+11+14 PASS; compile/Console clear. No Windows build.
+[Report](../reports/TASK_M13_MANUAL_CONTROLLED_SLIP_20261008.md).

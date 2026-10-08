@@ -211,3 +211,16 @@ qualification now PASS in this test profile, production performance still OPEN.
 Common-event code b5e595f pushed. M13/host/manual runner and WP-175/177/178/final
 owner build OPEN; WP-176 PASS. Next controlled slip yaw + complete common runner.
 [Report](reports/TASK_M13_TEST_COUNTER_BGC_20261008.md).
+
+
+2026-10-08 controlled slip steering: signed A/D deflects a frozen front snow
+constraint; one front/rear grip box changes independent velocity/spin with
+non-increasing kinetic energy and the existing angular-response limits. Shared
+longitudinal physics and actual-yaw cornering retained, distinct policy context.
+New15 tests, 1620-case energy/impulse matrix, actual reached-pair order parity,
+100-step model turn/release, one fully paid signed prepared session/world tick;
+all-manual/replay.NET431/431 and native15+11+14 PASS; compile/Console clear.
+Production host still legacyv1; full runner/seams/resources/shooting/finish/AI/
+replay/host/WP-175/177/178/M13/final owner build OPEN. WP-176 PASS. Next complete
+common-clock runner using controlled drives; no intermediate Windows build.
+[Report](reports/TASK_M13_MANUAL_CONTROLLED_SLIP_20261008.md).

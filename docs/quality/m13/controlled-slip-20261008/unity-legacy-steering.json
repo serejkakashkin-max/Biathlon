@@ -1,0 +1,78 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1515,\"PassedTests\":11,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:00.9691559\"},\"Results\":[{\"Name\":\"Biathlon.Tests.ManualSkiSteeringTests.ConstantRateTrajectoryMatchesCircularArcAndSamplesPaidPrefix\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.ManualSkiSteeringTests.ExplicitV2RoundTripPreservesLargeTickAndRejectsLegacyStream\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0190000\"},{\"Name\":\"Biathlon.Tests.ManualSkiSteeringTests.GripDropReportsExistingMomentumInsteadOfSnappingDirectionOrHidingCost\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.ManualSkiSteeringTests.HeadingWrapIsCanonicalAndOppositeWorldHeadingDoesNotBecomeForwardRouteTravel\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.ManualSkiSteeringTests.HigherSpeedTuckAndGripBoundRequestsUsingTheSameActorIndependentKernel\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.ManualSkiSteeringTests.InvalidInputsFailBeforeChangingTheImmutablePose\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.ManualSkiSteeringTests.LeftRightRequestsChangeTravelDirectionSymmetricallyWithAngularAcceleration\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.ManualSkiSteeringTests.LongFixedCommandStreamRepeatsExactlyWithoutHotLoopAllocation\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0180000\"},{\"Name\":\"Biathlon.Tests.ManualSkiSteeringTests.NeutralInputKeepsAbsoluteWorldDirectionAndDoesNotSeekCentre\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.ManualSkiSteeringTests.ReleaseDampsYawWithoutSnappingHeadingAndStopsAtExactSubtick\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.ManualSkiSteeringTests.RequiredV2IntentAndTuningFieldsRejectMissingInvalidOrAmbiguousData\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0030000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 1515,
+        "PassedTests": 11,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.9691559"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.ManualSkiSteeringTests.ConstantRateTrajectoryMatchesCircularArcAndSamplesPaidPrefix",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSteeringTests.ExplicitV2RoundTripPreservesLargeTickAndRejectsLegacyStream",
+          "Status": "Passed",
+          "Duration": "00:00:00.0190000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSteeringTests.GripDropReportsExistingMomentumInsteadOfSnappingDirectionOrHidingCost",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSteeringTests.HeadingWrapIsCanonicalAndOppositeWorldHeadingDoesNotBecomeForwardRouteTravel",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSteeringTests.HigherSpeedTuckAndGripBoundRequestsUsingTheSameActorIndependentKernel",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSteeringTests.InvalidInputsFailBeforeChangingTheImmutablePose",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSteeringTests.LeftRightRequestsChangeTravelDirectionSymmetricallyWithAngularAcceleration",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSteeringTests.LongFixedCommandStreamRepeatsExactlyWithoutHotLoopAllocation",
+          "Status": "Passed",
+          "Duration": "00:00:00.0180000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSteeringTests.NeutralInputKeepsAbsoluteWorldDirectionAndDoesNotSeekCentre",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSteeringTests.ReleaseDampsYawWithoutSnappingHeadingAndStopsAtExactSubtick",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSteeringTests.RequiredV2IntentAndTuningFieldsRejectMissingInvalidOrAmbiguousData",
+          "Status": "Passed",
+          "Duration": "00:00:00.0030000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

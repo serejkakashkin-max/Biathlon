@@ -33,6 +33,12 @@ namespace Biathlon.Simulation
             ManualRouteProjection observation,TrackSample surface,double deliveredPowerWatts,
             double lateralAccelerationLimit,double reservedTurningAcceleration,double seconds,
             double dragAreaMultiplier=1,double snowResistanceMultiplier=1,double windX=0,double windZ=0,double brakingNewtons=0)
+            =>PreviewWithSnow(body,motion,observation,surface,deliveredPowerWatts,
+                snow.Preview(body,motion,lateralAccelerationLimit,reservedTurningAcceleration,seconds),seconds,
+                dragAreaMultiplier,snowResistanceMultiplier,windX,windZ,brakingNewtons);
+        internal SkiDrivenContactTrajectory PreviewWithSnow(ManualSkiContactBody body,SkiContactMotion motion,
+            ManualRouteProjection observation,TrackSample surface,double deliveredPowerWatts,SkiSnowContactPreview snowPreview,double seconds,
+            double dragAreaMultiplier,double snowResistanceMultiplier,double windX,double windZ,double brakingNewtons)
         {
             if(!body.IsValid||!observation.IsValid||body.MassKilograms!=physics.MassKilograms||surface.LoopId!=observation.LoopId||
                 Math.Abs(surface.Distance.Meters-observation.LocalMeters)>.001+2*PhysiologyNumbers.MinimumPositive)
@@ -66,8 +72,8 @@ namespace Biathlon.Simulation
                         dragAreaMultiplier,brakingNewtons,snowResistanceMultiplier);
                 }
             }
-            var passive=snow.Preview(body,motion,lateralAccelerationLimit,reservedTurningAcceleration,seconds);
-            return new SkiDrivenContactTrajectory(body.Pose,motion,passive,first,second,direction,scale,
+            if(!snowPreview.IsValid)throw new ArgumentException("Initialized frozen snow preview required.");
+            return new SkiDrivenContactTrajectory(body.Pose,motion,snowPreview,first,second,direction,scale,
                 1/Math.Sqrt(1+grade*grade),firstSeconds,seconds,body.MassKilograms);
         }
     }

@@ -212,6 +212,18 @@ namespace Biathlon.Simulation
         }
     }
 
+    /// <summary>A bounded intent, not an assignment to a body's physical yaw.</summary>
+    public readonly struct ManualSkiSteeringRequest
+    {
+        public bool IsValid {get;}
+        public double RequestedYawRate {get;}
+        public double TargetYawRate {get;}
+        public double YawRateLimit {get;}
+        public double AngularAccelerationLimit {get;}
+        internal ManualSkiSteeringRequest(double requested,double target,double limit,double acceleration)
+        {IsValid=true;RequestedYawRate=requested;TargetYawRate=target;YawRateLimit=limit;AngularAccelerationLimit=acceleration;}
+    }
+
     /// <summary>Pure fixed-tick manual heading. Callers retain route, forces, bodies and joint commit ownership.</summary>
     public sealed class ManualSkiSteeringSystem
     {
@@ -280,6 +292,27 @@ namespace Biathlon.Simulation
             if(!command.IsValid)throw new ArgumentException("A valid fixed-tick manual command is required.",nameof(command));
             return Preview(state,command.SteeringInput,travel,planarScale,gripAccelerationLimit,postureResponse);
         }
+        /// <summary>Read the same data-driven command limits without requiring
+        /// post-contact physical spin to fit the commanded yaw ceiling.</summary>
+        public ManualSkiSteeringRequest GetRequest(int steeringInput,double speedMetersPerSecond,
+            double gripAccelerationLimit,double postureResponse=1)
+        {
+            if(steeringInput< -ManualSkiCommand.SteeringUnits||steeringInput>ManualSkiCommand.SteeringUnits)
+                throw new ArgumentOutOfRangeException(nameof(steeringInput));
+            PhysiologyNumbers.RequireRange(speedMetersPerSecond,0,PhysiologyNumbers.MaximumMagnitude,nameof(speedMetersPerSecond));
+            PhysiologyNumbers.RequireRange(gripAccelerationLimit,0,PhysiologyNumbers.MaximumMagnitude,nameof(gripAccelerationLimit));
+            PhysiologyNumbers.RequireRange(postureResponse,0,1,nameof(postureResponse));
+            double response=(1-Math.Min(1,speedMetersPerSecond/definition.HighSpeedReference)*
+                (1-definition.HighSpeedResponseMultiplier))*postureResponse;
+            double requested=definition.MaximumYawRate*steeringInput/ManualSkiCommand.SteeringUnits*response;
+            double limit=Math.Min(definition.MaximumYawRate*response,
+                gripAccelerationLimit/Math.Max(speedMetersPerSecond,definition.MinimumSpeedForGripLimit));
+            double bounded=Math.Max(-limit,Math.Min(limit,requested));
+            double target=Math.Sign(bounded)*Math.Floor(Math.Abs(bounded)*ManualSkiHeadingState.NanoradiansPerRadian)/
+                ManualSkiHeadingState.NanoradiansPerRadian;
+            return new ManualSkiSteeringRequest(requested,target,limit,
+                steeringInput==0?definition.NeutralYawDeceleration:definition.YawAcceleration*response);
+        }
         private ManualSkiHeadingFrame Build(ManualSkiHeadingState state,int steeringInput,double planarTravelDistanceMeters,
             double speedMetersPerSecond,double gripAccelerationLimit,double postureResponse,double frameDuration,
             SkiForceTrajectory travel=default,double planarScale=1,bool hasAcceptedVelocity=false,SkiPlanarVelocity acceptedVelocity=default)
@@ -292,22 +325,13 @@ namespace Biathlon.Simulation
             PhysiologyNumbers.RequireRange(gripAccelerationLimit, 0, PhysiologyNumbers.MaximumMagnitude, nameof(gripAccelerationLimit));
             PhysiologyNumbers.RequireRange(postureResponse, 0, 1, nameof(postureResponse));
             PhysiologyNumbers.RequireRange(state.YawRateRadiansPerSecond, -definition.MaximumYawRate, definition.MaximumYawRate, nameof(state));
-            double speedResponse = 1 - Math.Min(1, speedMetersPerSecond / definition.HighSpeedReference)
-                * (1 - definition.HighSpeedResponseMultiplier);
-            double response = speedResponse * postureResponse;
-            double requestedRate = definition.MaximumYawRate * steeringInput / ManualSkiCommand.SteeringUnits * response;
-            double limit = Math.Min(definition.MaximumYawRate * response,
-                gripAccelerationLimit / Math.Max(speedMetersPerSecond, definition.MinimumSpeedForGripLimit));
-            double boundedRate = Math.Max(-limit, Math.Min(limit, requestedRate));
-            // A physical ceiling is rounded toward zero, so encoding cannot exceed grip.
-            double targetRate = Math.Sign(boundedRate) * Math.Floor(Math.Abs(boundedRate) * ManualSkiHeadingState.NanoradiansPerRadian)
-                / ManualSkiHeadingState.NanoradiansPerRadian;
-            double change = targetRate - state.YawRateRadiansPerSecond;
-            double magnitude = steeringInput == 0 ? definition.NeutralYawDeceleration : definition.YawAcceleration * response;
+            var request=GetRequest(steeringInput,speedMetersPerSecond,gripAccelerationLimit,postureResponse);
+            double change = request.TargetYawRate - state.YawRateRadiansPerSecond;
+            double magnitude = request.AngularAccelerationLimit;
             double acceleration = Math.Sign(change) * magnitude;
             double reach = change == 0 ? 0 : magnitude == 0 ? double.PositiveInfinity : Math.Abs(change) / magnitude;
-            return new ManualSkiHeadingFrame(state, frameDuration, planarTravelDistanceMeters, requestedRate,
-                targetRate, limit, acceleration, reach, definition.PathIntegrationSubsteps, speedMetersPerSecond, gripAccelerationLimit,travel,planarScale,hasAcceptedVelocity,acceptedVelocity);
+            return new ManualSkiHeadingFrame(state, frameDuration, planarTravelDistanceMeters, request.RequestedYawRate,
+                request.TargetYawRate, request.YawRateLimit, acceleration, reach, definition.PathIntegrationSubsteps, speedMetersPerSecond, gripAccelerationLimit,travel,planarScale,hasAcceptedVelocity,acceptedVelocity);
         }
     }
 }
