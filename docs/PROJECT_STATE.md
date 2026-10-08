@@ -23017,3 +23017,12 @@ intermediate build. All earlier state bytes preserved.
 - .NET final82/82 PASS; native Unity5/5 new and6/6 accepted phase cases PASS. Warm successful provisional gate/abort0 B, compile settled/Error Console empty. Evidence: docs/quality/m13/manual-working-phases-20261008/. Report: docs/reports/TASK_M13_MANUAL_WORKING_PHASES_20261008.md.
 - M13/WP-175/177/178 remain OPEN, WP-176 PASS. Full contact timing, surfaces/edges, mat assistance, finished actors, Pack/events/replay/manual host and earlier broad allocation qualification remain required. No intermediate Windows build. Owner193 approval stays narrow.
 - History policy: the complete prior file remains byte-for-byte unchanged; this record is appended. Next: actual first-contact scheduling and all-phase race integration.
+
+
+## 2026-10-08 — M13: actual first-contact scheduling and paid common prefix
+
+- First-contact query uses bounded current-axis conservative advancement, actual endpoint proximity within the unchanged contact tolerance, and continuous full-prefix admission. It does not apply impulses at a guessed possible-contact time. Initial contact/uncertainty/work cap remain unresolved rather than paid standing motion.
+- Complete-roster scheduler groups actual simultaneous endpoint pairs in stable ID order and proves all pairs/explicit edges at one time. World v9 stages the scheduled prefix through existing physical course/phase/progress checks. Real Woodland response and suffix pay one full0.05 s clock with positive speed; failed last-row admission publishes no pose/time/receipt.
+- Final focused .NET103/103 PASS; native Unity9/9 pair and9/9 scheduler cases PASS, compile settled/Error Console empty. Warm pair and four-actor scheduling0 B. Evidence: docs/quality/m13/manual-first-contact-20261008/. Report: docs/reports/TASK_M13_MANUAL_FIRST_CONTACT_20261008.md.
+- M13/WP-175/177/178 OPEN, WP-176 PASS. Scheduler is not the full live runner: surface/phase cuts, continuing-contact management, driven slip, finished actors, events/replay/Pack/manual host and prior broad allocation qualification remain required. No intermediate Windows build; owner193 approval stays narrow.
+- Complete preceding history is preserved byte-for-byte. Next: publish owned scoped movement through field timing/Pack state, then complete the all-phase manual runner and its qualifications.

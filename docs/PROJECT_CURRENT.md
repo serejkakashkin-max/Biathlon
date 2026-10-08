@@ -148,3 +148,10 @@ and pay the suffix; provisional lifecycle preview publishes only with full clock
 .NET82/82; native5+6 PASS, Console empty. Contact/field/replay/host, broad allocation
 qualification and M13/build remain OPEN.
 [Report](reports/TASK_M13_MANUAL_WORKING_PHASES_20261008.md).
+
+
+2026-10-08 actual first-contact scheduling: shared reached endpoint group and
+continuous all-pair/edge prefix; world v9 pays contact/response/suffix on one clock.
+.NET103/103; native9+9 PASS, Console empty. Full runner/slip/events/field/replay/
+host, prior broad allocation qualification and M13/build remain OPEN.
+[Report](reports/TASK_M13_MANUAL_FIRST_CONTACT_20261008.md).

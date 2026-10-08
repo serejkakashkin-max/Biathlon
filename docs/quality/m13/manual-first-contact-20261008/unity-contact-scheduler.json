@@ -1,0 +1,68 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1417,\"PassedTests\":9,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:03.9884739\"},\"Results\":[{\"Name\":\"Biathlon.Tests.ManualSkiContactSchedulerTests.EarlierArrivalDoesNotGiveALaterPairUnreachedAdmission\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0040000\"},{\"Name\":\"Biathlon.Tests.ManualSkiContactSchedulerTests.ExplicitCourseEdgeBeforeBodyArrivalCannotBeIgnored\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0030000\"},{\"Name\":\"Biathlon.Tests.ManualSkiContactSchedulerTests.ExplicitExistingContactCanContinueWhileAnotherPairArrives\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.ManualSkiContactSchedulerTests.FailedWorldCourseAdmissionKeepsClockPoseAndReceiptsUnchanged\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.4630000\"},{\"Name\":\"Biathlon.Tests.ManualSkiContactSchedulerTests.MultipleUnregisteredInitialContactsUseStableIdentityOrder\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0030000\"},{\"Name\":\"Biathlon.Tests.ManualSkiContactSchedulerTests.TwoSimultaneousSeparatedContactsHaveOneStableActualEndpointGroup\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0030000\"},{\"Name\":\"Biathlon.Tests.ManualSkiContactSchedulerTests.WarmCommonArrivalSchedulingAllocatesNothing\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0760000\"},{\"Name\":\"Biathlon.Tests.ManualSkiContactSchedulerTests.WorkLimitAndForeignIdentityDoNotMintPrefixes\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0030000\"},{\"Name\":\"Biathlon.Tests.ManualSkiContactSchedulerTests.WorldSchedulesRespondsAndContinuesTheSameFixedClock\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.5640000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 1417,
+        "PassedTests": 9,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:03.9884739"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.ManualSkiContactSchedulerTests.EarlierArrivalDoesNotGiveALaterPairUnreachedAdmission",
+          "Status": "Passed",
+          "Duration": "00:00:00.0040000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiContactSchedulerTests.ExplicitCourseEdgeBeforeBodyArrivalCannotBeIgnored",
+          "Status": "Passed",
+          "Duration": "00:00:00.0030000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiContactSchedulerTests.ExplicitExistingContactCanContinueWhileAnotherPairArrives",
+          "Status": "Passed",
+          "Duration": "00:00:00.0020000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiContactSchedulerTests.FailedWorldCourseAdmissionKeepsClockPoseAndReceiptsUnchanged",
+          "Status": "Passed",
+          "Duration": "00:00:01.4630000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiContactSchedulerTests.MultipleUnregisteredInitialContactsUseStableIdentityOrder",
+          "Status": "Passed",
+          "Duration": "00:00:00.0030000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiContactSchedulerTests.TwoSimultaneousSeparatedContactsHaveOneStableActualEndpointGroup",
+          "Status": "Passed",
+          "Duration": "00:00:00.0030000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiContactSchedulerTests.WarmCommonArrivalSchedulingAllocatesNothing",
+          "Status": "Passed",
+          "Duration": "00:00:00.0760000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiContactSchedulerTests.WorkLimitAndForeignIdentityDoNotMintPrefixes",
+          "Status": "Passed",
+          "Duration": "00:00:00.0030000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiContactSchedulerTests.WorldSchedulesRespondsAndContinuesTheSameFixedClock",
+          "Status": "Passed",
+          "Duration": "00:00:01.5640000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

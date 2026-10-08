@@ -201,3 +201,17 @@ publishes with full roster clock, and abort restores accepted scope. Moving
 constant-velocity gate fixtures .NET82/82 regression/native5+6 PASS. Full-force,
 zero-debt/all-field and production integration remain unqualified.
 [Report](../reports/TASK_M13_MANUAL_WORKING_PHASES_20261008.md).
+
+
+## 2026-10-08 — actual common first-contact prefix
+
+World v9 binds conservative first-proximity scheduling: current fixed separating
+axis bounds translation/acceleration/rotation and existing numerical reserves.
+Actual endpoint within the existing tolerance half band plus continuous arrival
+proof is required. Whole Clear also requires the existing sweep proof; work limits
+never imply clearance. All proposed pairs and explicit edges admit a common
+endpoint; actual simultaneous proximity pairs are ordered by stable IDs. Scoped
+course/phase checks run before staging, then response and suffix remain required.
+.NET103/103/native9+9 PASS. Full live runner/phase/surface/slip/field/replay/host
+and earlier allocation qualification remain open.
+[Report](../reports/TASK_M13_MANUAL_FIRST_CONTACT_20261008.md).

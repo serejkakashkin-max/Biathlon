@@ -5,6 +5,22 @@ namespace Biathlon.Simulation
 {
     public enum SkiContactSweepStatus { Clear, InitialProximity, PotentialContact, WorkLimit, UnreachedArrival }
 
+    public enum SkiFirstContactStatus { Clear, InitialProximity, Reached, WorkLimit }
+    /// <summary>Actual reached proximity within the existing spatial tolerance,
+    /// with a continuously admitted prefix. Not an exact zero-gap time, impulse,
+    /// course proof or permission to ignore other actors.</summary>
+    public readonly struct SkiFirstContactPreview
+    {
+        public bool IsValid {get;}
+        public SkiFirstContactStatus Status {get;}
+        public double ContactSeconds {get;}
+        public int IntervalChecks {get;}
+        public double GapMeters {get;}
+        public SkiContactSweepPreview Admission {get;}
+        internal SkiFirstContactPreview(SkiFirstContactStatus status,double seconds,int checks,double gap,SkiContactSweepPreview admission=default)
+        {IsValid=true;Status=status;ContactSeconds=seconds;IntervalChecks=checks;GapMeters=gap;Admission=admission;}
+    }
+
     /// <summary>A clear prefix and the first interval not proved clear. PotentialContact
     /// is deliberately not an exact hit time or permission to apply an impulse.</summary>
     public readonly struct SkiContactSweepPreview
@@ -32,6 +48,7 @@ namespace Biathlon.Simulation
         public string ContinuationContextJson {get;}
         public string SpatialContextJson {get;}
         public string ArrivalContextJson {get;}
+        public string FirstContactContextJson {get;}
         public ManualSkiContactSweep(OccupancyDefinition body,SkiContactDefinition contactDefinition,SkiContactSweepDefinition definition)
         {
             if(body==null||contactDefinition==null||definition==null)throw new ArgumentNullException();
@@ -43,6 +60,8 @@ namespace Biathlon.Simulation
             ArrivalContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_reached_terminal_contact_sweep_v1",ContextJson,
                 "endpoint_actual_proximity;continuous_existing_numerical_depth_only;response_before_next_motion"});
             SpatialContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_mixed_world_trajectory_sweep_v2",ContinuationContextJson,ArrivalContextJson});
+            FirstContactContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_first_reached_proximity_v1",SpatialContextJson,
+                "fixed_current_axis_conservative_advancement;existing_tolerance_half_band;actual_endpoint;full_prefix_admission;shared_configured_work_bound;no_unproved_clear"});
         }
 
         public SkiContactSweepPreview Preview(AthleteId first,ManualSkiHeadingFrame a,AthleteId second,ManualSkiHeadingFrame b)
@@ -67,6 +86,53 @@ namespace Biathlon.Simulation
         public SkiContactSweepPreview PreviewArrivalContact(AthleteId first,ManualSkiWorldTrajectory a,AthleteId second,ManualSkiWorldTrajectory b)
             =>PreviewCore(first,a,second,b,false,true);
 
+        /// <summary>Advance toward the first reached body proximity using a fixed
+        /// separating axis for each conservative interval. The bound accounts for
+        /// translation, acceleration, rotation and existing encoding reserves.
+        /// A potential-contact bracket never becomes a guessed impulse time.
+        /// Initial contacts need their own response/continuation policy.</summary>
+        public SkiFirstContactPreview PreviewFirstContact(AthleteId first,ManualSkiWorldTrajectory a,AthleteId second,ManualSkiWorldTrajectory b)
+        {
+            if(!first.IsValid||!second.IsValid||first.Equals(second)||!a.IsValid||!b.IsValid||a.DurationSeconds!=b.DurationSeconds)
+                throw new ArgumentException("Distinct actors and equal-duration world trajectories required.");
+            if(string.CompareOrdinal(first.Value,second.Value)>0)return PreviewFirstContact(second,b,first,a);
+            double reserve=Reserve(a,b),seconds=0,target=tolerance*.5;
+            var geometry=Geometry(first,a,second,b,0);
+            if(geometry.GapMeters<=tolerance)
+                return new SkiFirstContactPreview(SkiFirstContactStatus.InitialProximity,0,0,geometry.GapMeters);
+            int checks=0;
+            while(checks<definition.MaximumIntervalChecks)
+            {
+                checks++;
+                if(geometry.GapMeters<=tolerance-reserve&&geometry.GapMeters> -tolerance+reserve&&seconds>0)
+                {
+                    var proof=Search(first,a,second,b,0,seconds,0,reserve,-tolerance,false,true,ref checks);
+                    return new SkiFirstContactPreview(proof.Status==SkiContactSweepStatus.Clear?SkiFirstContactStatus.Reached:SkiFirstContactStatus.WorkLimit,
+                        seconds,checks,geometry.GapMeters,proof);
+                }
+                double remaining=a.DurationSeconds-seconds;
+                if(remaining==0)
+                {
+                    var proof=Search(first,a,second,b,0,a.DurationSeconds,0,reserve,tolerance,false,false,ref checks);
+                    return new SkiFirstContactPreview(proof.Status==SkiContactSweepStatus.Clear?SkiFirstContactStatus.Clear:SkiFirstContactStatus.WorkLimit,
+                        seconds,checks,geometry.GapMeters,proof);
+                }
+                double allowance=geometry.GapMeters-target-reserve;
+                if(allowance<=0)break; // Numerical uncertainty cannot grant contact or clearance.
+                double fraction=seconds/a.DurationSeconds;var va=a.VelocityAt(fraction);var vb=b.VelocityAt(fraction);
+                double speed=Math.Abs((va.X-vb.X)*geometry.NormalX+(va.Z-vb.Z)*geometry.NormalZ)
+                    +radius*(a.PeakYawRate+b.PeakYawRate);
+                double acceleration=a.PlanarAccelerationBound+b.PlanarAccelerationBound;
+                // Stable positive root of speed*t + acceleration*t*t/2 = allowance.
+                double denominator=speed+Math.Sqrt(speed*speed+2*acceleration*allowance);
+                double step=denominator==0?remaining:Math.Min(remaining,2*allowance/denominator);
+                double next=step==remaining?a.DurationSeconds:seconds+step;
+                if(next<=seconds)break;
+                seconds=next;geometry=Geometry(first,a,second,b,seconds/a.DurationSeconds);
+            }
+            return new SkiFirstContactPreview(SkiFirstContactStatus.WorkLimit,seconds,checks,geometry.GapMeters);
+        }
+
         private SkiContactSweepPreview PreviewCore(AthleteId first,ManualSkiWorldTrajectory a,AthleteId second,ManualSkiWorldTrajectory b,bool continuation,bool arrival=false)
         {
             if(!first.IsValid||!second.IsValid||first.Equals(second)||!a.IsValid||!b.IsValid||a.DurationSeconds!=b.DurationSeconds)
@@ -74,8 +140,7 @@ namespace Biathlon.Simulation
             if(string.CompareOrdinal(first.Value,second.Value)>0)return PreviewCore(second,b,first,a,continuation,arrival);
             // Cover errors at both the midpoint used for exclusion and any encoded
             // sample subsequently committed from the admitted prefix.
-            double reserve=2*(a.PositionErrorBoundMeters+b.PositionErrorBoundMeters
-                +radius*(a.HeadingErrorBoundRadians+b.HeadingErrorBoundRadians));
+            double reserve=Reserve(a,b);
             var start=Geometry(first,a,second,b,0);
             if(arrival)
             {
@@ -91,6 +156,9 @@ namespace Biathlon.Simulation
             int checks=0;
             return Search(first,a,second,b,0,a.DurationSeconds,0,reserve,requiredGap,continuation,arrival,ref checks);
         }
+
+        private double Reserve(ManualSkiWorldTrajectory a,ManualSkiWorldTrajectory b)
+            =>2*(a.PositionErrorBoundMeters+b.PositionErrorBoundMeters+radius*(a.HeadingErrorBoundRadians+b.HeadingErrorBoundRadians));
 
         private SkiContactSweepPreview Search(AthleteId first,ManualSkiWorldTrajectory a,AthleteId second,ManualSkiWorldTrajectory b,
             double from,double to,int depth,double reserve,double requiredGap,bool continuation,bool arrival,ref int checks)

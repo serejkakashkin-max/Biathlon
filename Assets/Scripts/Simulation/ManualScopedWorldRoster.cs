@@ -19,7 +19,7 @@ namespace Biathlon.Simulation
             MaximumArcDisplacementMeters=span;MaximumAdmittedArcNanometers=maximumArc;
         }
     }
-    public enum ManualScopedWorldStatus { NotPrepared, Clear, SourceMismatch, BodyOrEdge, Course, Projection, PhaseLimit, IncompleteTick, PendingContact, ContactResponse, IntervalLimit }
+    public enum ManualScopedWorldStatus { NotPrepared, Clear, SourceMismatch, BodyOrEdge, Course, Projection, PhaseLimit, IncompleteTick, PendingContact, ContactResponse, IntervalLimit, ContactSchedule }
     /// <summary>One admitted common clock interval for one roster row. Physical
     /// travel, observed arc and high-water credit remain separate coordinates.</summary>
     public readonly struct ManualScopedWorldMotionPiece
@@ -82,6 +82,9 @@ namespace Biathlon.Simulation
         private readonly ManualRouteTubeSweep[] courses;
         private readonly ManualRacePathGateSweep[] gates;
         private readonly ManualSkiJointSweep bodies;
+        private readonly ManualSkiContactScheduler scheduler;
+        private readonly SkiWorldMotionCandidate[] scheduledPrefix;
+        private readonly SkiReachedContactPair[] scheduledArrivals;
         private readonly ManualSkiContactGroup response;
         private readonly double[] masses;
         private readonly ManualSkiContactBody[] responseBodies;
@@ -144,12 +147,14 @@ namespace Biathlon.Simulation
             proposedCursors=new ManualRacePathCursor[count];workingMotion=new SkiState[count];
             workingTravelMeters=new double[count];stagedTravelMeters=new double[count];
             progress=new ManualRacePathProgression[count];courses=new ManualRouteTubeSweep[count];gates=new ManualRacePathGateSweep[count];bodies=new ManualSkiJointSweep(body,contact,work);
+            scheduler=new ManualSkiContactScheduler(body,contact,work,count);scheduledPrefix=new SkiWorldMotionCandidate[count];
+            scheduledArrivals=new SkiReachedContactPair[checked(count*(count-1)/2)];
             maximumPieces=work.MaximumIntervalChecks;pieces=new ManualScopedWorldMotionPiece[checked(count*maximumPieces)];
             var context=new string[count+7];var initial=new string[count+4];
-            context[0]="manual_scoped_full_clear_world_roster_v8";context[1]=body.ToJson();
+            context[0]="manual_scoped_full_clear_world_roster_v9";context[1]=body.ToJson();
             context[2]=contact.ToJson();context[3]=work.ToJson();
             context[4]="force_exact_distance;contact_velocity_norm_simpson64;grade_frozen_per_interval;full_duration_tolerance_1e-12;no_implicit_scope_crossing;local_terminal_centre_portals_v1;whole_tube_edge_activation;continuous_acceleration_bound;existing_trajectory_encoding_reserve;staged_full_clock_intervals;exact_remaining_time;round_tick_travel_once;owned_motion_pieces;interval_limit_from_sweep_maximum_checks;accepted_phase_endpoints_authorized_by_session_batch;future_penalty_phases_from_paid_interval_high_water;no_handoff_before_pending_contact_response;"+ManualSkiWorldTrajectory.SlicePolicy;
-            context[5]=responseContext;
+            context[5]=ShootingModelDefinitions.EncodeContext(new[]{responseContext,scheduler.ContextJson});
             initial[0]="manual_scoped_initial_world_roster_v1";initial[1]=tickFrequency.ToString(CultureInfo.InvariantCulture);
             initial[2]=initialTick.Value.ToString(CultureInfo.InvariantCulture);initial[3]="actor,occurrence,observed_arc,high_arc,route_credit,x,z,heading_nrad,yaw,vx,vz,odometer,speed";
             for(int i=0;i<count;i++)
@@ -313,6 +318,28 @@ namespace Biathlon.Simulation
             if(response==null)throw new InvalidOperationException("Contact response policy and athlete masses must be bound before arrival admission.");
             if(arriving==null||arrivingCount<1||arrivingCount>arriving.Length)throw new ArgumentException("At least one exact terminal contact required.");
             return AppendInterval(tick,actors,windows,reached,reachedCount,edges,edgeCount,directionalGrades,arriving,arrivingCount);
+        }
+        /// <summary>Schedule the next actual body arrival and stage its admitted
+        /// common prefix, or pay the entire clear interval. Caller must resolve a
+        /// pending response and continue the remaining fixed clock; failure is
+        /// provisional and cannot be converted into a standing tick.</summary>
+        public bool TryAppendToFirstContact(ManualScopedWorldTick tick,SkiWorldMotionCandidate[] actors,
+            ManualScopedWorldWindow[] windows,SkiReachedContactPair[] reached,int reachedCount,
+            SkiActorCourseEdge[] edges,int edgeCount,double[] directionalGrades,out SkiContactSchedulePreview schedule)
+        {
+            ValidateTick(tick);schedule=default;ready=false;
+            if(pendingContact)return Reject(ManualScopedWorldStatus.PendingContact);
+            if(actors==null||actors.Length!=Count)throw new ArgumentException("Exact complete contact interval roster required.");
+            double seconds=actors[0].Trajectory.DurationSeconds;
+            if(!(seconds>0)||seconds>duration-elapsedSeconds)return Reject(ManualScopedWorldStatus.SourceMismatch);
+            schedule=scheduler.Preview(actors,Count,reached,reachedCount,edges,edgeCount);
+            if(schedule.Status==SkiContactScheduleStatus.Clear)
+                return TryAppendInterval(tick,actors,windows,reached,reachedCount,edges,edgeCount,directionalGrades);
+            if(schedule.Status!=SkiContactScheduleStatus.Arrival)
+                return Reject(ManualScopedWorldStatus.ContactSchedule,schedule.First,schedule.Admission);
+            for(int i=0;i<Count;i++)scheduledPrefix[i]=scheduler.GetPrefix(i);
+            for(int i=0;i<schedule.ArrivingPairs;i++)scheduledArrivals[i]=scheduler.GetArrival(i);
+            return TryAppendArrivalInterval(tick,scheduledPrefix,windows,reached,reachedCount,edges,edgeCount,directionalGrades,scheduledArrivals,schedule.ArrivingPairs);
         }
         private bool AppendInterval(ManualScopedWorldTick tick,SkiWorldMotionCandidate[] actors,
             ManualScopedWorldWindow[] windows,SkiReachedContactPair[] reached,int reachedCount,
