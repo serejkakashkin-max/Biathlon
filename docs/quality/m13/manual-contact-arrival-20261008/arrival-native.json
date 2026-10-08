@@ -1,0 +1,68 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1370,\"PassedTests\":9,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:18.6782641\"},\"Results\":[{\"Name\":\"Biathlon.Tests.ManualScopedContactArrivalTests.AbortingAnAlreadyResolvedScratchImpulseRestoresTheOriginalAcceptedWorld\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.8380000\"},{\"Name\":\"Biathlon.Tests.ManualScopedContactArrivalTests.AReachedEndpointCannotHideEarlierDeepPenetrationInsideTheArrivalInterval\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.4650000\"},{\"Name\":\"Biathlon.Tests.ManualScopedContactArrivalTests.ArrivalPolicyMassesAndPairIdentitiesMustBeComplete\",\"Status\":\"Passed\",\"Duration\":\"00:00:05.5540000\"},{\"Name\":\"Biathlon.Tests.ManualScopedContactArrivalTests.ReachedCollisionRespondsAtTheSamePoseThenPaysTheSuffixInOneWorldTick(75,75)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.5590000\"},{\"Name\":\"Biathlon.Tests.ManualScopedContactArrivalTests.ReachedCollisionRespondsAtTheSamePoseThenPaysTheSuffixInOneWorldTick(100,50)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.4820000\"},{\"Name\":\"Biathlon.Tests.ManualScopedContactArrivalTests.SeparatedOrPenetratingEndpointCannotBeCalledAReachedContact(-0.001d)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.5040000\"},{\"Name\":\"Biathlon.Tests.ManualScopedContactArrivalTests.SeparatedOrPenetratingEndpointCannotBeCalledAReachedContact(0.001d)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.5220000\"},{\"Name\":\"Biathlon.Tests.ManualScopedContactArrivalTests.UnresolvedThreeBodyResponseCannotPublishAnyProvisionalImpulse\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.2970000\"},{\"Name\":\"Biathlon.Tests.ManualScopedContactArrivalTests.WarmArrivalResponseAndPaidContinuationAllocateNothing\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.5850000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 1370,
+        "PassedTests": 9,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:18.6782641"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.ManualScopedContactArrivalTests.AbortingAnAlreadyResolvedScratchImpulseRestoresTheOriginalAcceptedWorld",
+          "Status": "Passed",
+          "Duration": "00:00:01.8380000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedContactArrivalTests.AReachedEndpointCannotHideEarlierDeepPenetrationInsideTheArrivalInterval",
+          "Status": "Passed",
+          "Duration": "00:00:01.4650000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedContactArrivalTests.ArrivalPolicyMassesAndPairIdentitiesMustBeComplete",
+          "Status": "Passed",
+          "Duration": "00:00:05.5540000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedContactArrivalTests.ReachedCollisionRespondsAtTheSamePoseThenPaysTheSuffixInOneWorldTick(75,75)",
+          "Status": "Passed",
+          "Duration": "00:00:01.5590000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedContactArrivalTests.ReachedCollisionRespondsAtTheSamePoseThenPaysTheSuffixInOneWorldTick(100,50)",
+          "Status": "Passed",
+          "Duration": "00:00:01.4820000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedContactArrivalTests.SeparatedOrPenetratingEndpointCannotBeCalledAReachedContact(-0.001d)",
+          "Status": "Passed",
+          "Duration": "00:00:01.5040000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedContactArrivalTests.SeparatedOrPenetratingEndpointCannotBeCalledAReachedContact(0.001d)",
+          "Status": "Passed",
+          "Duration": "00:00:01.5220000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedContactArrivalTests.UnresolvedThreeBodyResponseCannotPublishAnyProvisionalImpulse",
+          "Status": "Passed",
+          "Duration": "00:00:01.2970000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedContactArrivalTests.WarmArrivalResponseAndPaidContinuationAllocateNothing",
+          "Status": "Passed",
+          "Duration": "00:00:01.5850000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

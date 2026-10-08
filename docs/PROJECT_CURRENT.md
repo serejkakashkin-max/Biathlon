@@ -117,3 +117,9 @@ clock cuts. Negative contact-slice quadrature subtraction regression repaired;
 whole query behavior retained. .NET84/84, native17+11+9+8 PASS, Console empty.
 Earlier broad allocation qualification, full manual/host and M13 build OPEN.
 [Report](reports/TASK_M13_MANUAL_TRAJECTORY_SLICES_20261008.md).
+
+2026-10-08 reached contacts: actual terminal admission, immutable mass-bound
+group impulse and paid suffix in one owned tick. .NET94/94; native9+13+8+11 PASS.
+Compile/Console clear. General scheduler, session/replay/host, allocation
+qualification and M13/build OPEN.
+[Report](reports/TASK_M13_MANUAL_CONTACT_ARRIVAL_20261008.md).

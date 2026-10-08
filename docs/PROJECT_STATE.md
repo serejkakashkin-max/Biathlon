@@ -22895,3 +22895,29 @@ mat selection, atomic session/event/replay publication and production input/rig.
 Current playable host still legacy lateral/route following. Full manual play,
 M13 closure and final owner-test build remain pending. No intermediate build.
 History from Foundation preserved byte-for-byte; this is an appended update.
+
+
+## 2026-10-08 — M13 reached contact response and paid same-tick continuation
+
+M13 OPEN; WP-175/177/178 OPEN, WP-176 PASS. Scoped world context v5 binds
+immutable athlete masses and existing deterministic group response. Explicit
+terminal contacts require actual endpoint proximity plus continuous admission;
+a potential-contact bracket or separated/penetrating endpoint is insufficient.
+Pending response blocks further motion/finalization. All impulse rows validate
+before scratch application; a failed three-body response or abort publishes no
+partial velocity. Impulse changes neither pose, time, odometer nor progress.
+A real Woodland equal/unequal-mass collision pays its remaining suffix and
+publishes one complete fixed tick. Body/force/shooting tuning unchanged.
+
+Final focused.NET94/94 PASS. Native9/9 arrival +13/13 pair +8/8 group +11/11
+staged tick PASS, discovery1370; Unity compile settled, Error Console empty.
+Warm arrival/response/continuation0 allocations. Earlier broad intermittent
+allocation qualification remains OPEN. Evidence/report:
+`docs/reports/TASK_M13_MANUAL_CONTACT_ARRIVAL_20261008.md` and
+`docs/quality/m13/manual-contact-arrival-20261008/`.
+
+Actual general contact-time scheduling, surface/phase gates, mat selection,
+session/physiology/contact events/replay and production host remain pending.
+Playable input is still legacy lateral route-following. This does not close
+queues, all-phase manual control, M13 or the final owner Windows build.
+No intermediate build generated. All earlier state bytes preserved.

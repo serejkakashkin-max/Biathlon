@@ -63,8 +63,12 @@ namespace Biathlon.Simulation
         }
         public SkiJointSweepPreview Preview(SkiWorldMotionCandidate[] actors,int count,
             SkiReachedContactPair[] reached,int reachedCount,SkiActorCourseEdge[] boundaries,int boundaryCount)
+            =>Preview(actors,count,reached,reachedCount,boundaries,boundaryCount,Array.Empty<SkiReachedContactPair>(),0);
+        public SkiJointSweepPreview Preview(SkiWorldMotionCandidate[] actors,int count,
+            SkiReachedContactPair[] reached,int reachedCount,SkiActorCourseEdge[] boundaries,int boundaryCount,
+            SkiReachedContactPair[] arriving,int arrivingCount)
         {
-            if(actors==null||reached==null||boundaries==null||count<1||count>actors.Length||reachedCount<0||reachedCount>reached.Length||boundaryCount<0||boundaryCount>boundaries.Length)
+            if(actors==null||reached==null||boundaries==null||arriving==null||count<1||count>actors.Length||reachedCount<0||reachedCount>reached.Length||boundaryCount<0||boundaryCount>boundaries.Length||arrivingCount<0||arrivingCount>arriving.Length)
                 throw new ArgumentException("Valid motion/contact/edge array slices required.");
             double duration=actors[0].Trajectory.DurationSeconds;
             for(int i=0;i<count;i++)
@@ -77,6 +81,13 @@ namespace Biathlon.Simulation
             {
                 if(Find(reached[i].First)<0||Find(reached[i].Second)<0||reached[i].First.Equals(reached[i].Second))throw new ArgumentException("Foreign reached contact.");
                 for(int j=0;j<i;j++)if(reached[i].First.Equals(reached[j].First)&&reached[i].Second.Equals(reached[j].Second))throw new ArgumentException("Duplicate reached contact.");
+            }
+            for(int i=0;i<arrivingCount;i++)
+            {
+                var pair=arriving[i];
+                if(Find(pair.First)<0||Find(pair.Second)<0||pair.First.Equals(pair.Second))throw new ArgumentException("Foreign arrival contact.");
+                for(int j=0;j<i;j++)if(pair.First.Equals(arriving[j].First)&&pair.Second.Equals(arriving[j].Second))throw new ArgumentException("Duplicate arrival contact.");
+                for(int j=0;j<reachedCount;j++)if(pair.First.Equals(reached[j].First)&&pair.Second.Equals(reached[j].Second))throw new ArgumentException("Contact cannot be both continuing and arriving.");
             }
             for(int i=0;i<boundaryCount;i++)
             {
@@ -91,7 +102,10 @@ namespace Biathlon.Simulation
                 if(string.CompareOrdinal(a.Athlete.Value,b.Athlete.Value)>0){var swap=a;a=b;b=swap;}
                 bool continuing=false;
                 for(int k=0;k<reachedCount;k++)if(reached[k].First.Equals(a.Athlete)&&reached[k].Second.Equals(b.Athlete)){continuing=true;break;}
-                var result=continuing?pairs.PreviewExistingContact(a.Athlete,a.Trajectory,b.Athlete,b.Trajectory):pairs.Preview(a.Athlete,a.Trajectory,b.Athlete,b.Trajectory);
+                bool arrival=false;
+                for(int k=0;k<arrivingCount;k++)if(arriving[k].First.Equals(a.Athlete)&&arriving[k].Second.Equals(b.Athlete)){arrival=true;break;}
+                var result=continuing?pairs.PreviewExistingContact(a.Athlete,a.Trajectory,b.Athlete,b.Trajectory):
+                    arrival?pairs.PreviewArrivalContact(a.Athlete,a.Trajectory,b.Athlete,b.Trajectory):pairs.Preview(a.Athlete,a.Trajectory,b.Athlete,b.Trajectory);
                 if(result.Status!=SkiContactSweepStatus.Clear)
                     Consider(new SkiJointSweepPreview(SkiJointSweepStatus.PairInterval,result.ClearUntilSeconds,a.Athlete,b.Athlete,pair:result));
             }

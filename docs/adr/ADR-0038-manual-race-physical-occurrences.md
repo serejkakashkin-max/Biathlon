@@ -138,3 +138,15 @@ sums have numerical quadrature error, not bitwise telescoping. Whole trajectory
 queries stay unchanged. Scoped context v4 records the policy. No spatial/phase
 admission is granted by slicing. .NET84/84 and native17+11+9+8 PASS.
 [Report](../reports/TASK_M13_MANUAL_TRAJECTORY_SLICES_20261008.md).
+
+## 2026-10-08 — actual terminal contacts and provisional response
+
+Explicit arrival requires actual endpoint SAT proximity within existing tolerance
+and continuous no-deep-penetration admission; potential brackets are insufficient.
+Immutable actor masses and group policy bind context v5. Pending response prevents
+next motion/finalization. Validate all impulse rows before applying any scratch
+velocity; no position, time, odometer or credit correction. Failed response/abort
+publishes nothing. Existing contact continuation pays the suffix in the same tick.
+.NET94/94 and native9+13+8+11 PASS. General arrival scheduling and complete race
+phase/event/host ownership remain pending.
+[Report](../reports/TASK_M13_MANUAL_CONTACT_ARRIVAL_20261008.md).
