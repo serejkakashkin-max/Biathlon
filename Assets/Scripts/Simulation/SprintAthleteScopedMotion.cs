@@ -63,7 +63,8 @@ namespace Biathlon.Simulation
                 return;
             }
             if(row.Kind==ManualRacePathKind.RangeApproach&&
-                (range==null||b!=row.BoutIndex||range.Phase!=RangeTraversalPhase.Approach||RouteNanometers<range.RangeEntryNanometers)||
+                (range==null||b!=row.BoutIndex||range.Phase!=RangeTraversalPhase.Approach||
+                    RouteNanometers<range.RangeEntryNanometers&&(range.TravelledNanometers!=0||range.RouteNanometers!=range.RangeEntryNanometers))||
                 row.Kind==ManualRacePathKind.RangeExit&&
                 (range==null||b!=row.BoutIndex||range.Phase!=RangeTraversalPhase.RangeExit&&range.Phase!=RangeTraversalPhase.PenaltyApproach)||
                 row.Kind==ManualRacePathKind.BaseRoute&&range!=null&&RouteNanometers>=range.RangeEntryNanometers&&
@@ -88,9 +89,26 @@ namespace Biathlon.Simulation
                 at.Owner.SampleSurface(at),steeringInput,dragMultiplier,propulsionMultiplier,windX,windZ);
         }
 
-        /// <summary>Bind one complete world proof within the accepted physical
-        /// occurrence to real session progress. Cross-occurrence segments and
-        /// lifecycle handoffs require the subsequent full phase transaction.</summary>
+        /// <summary>Resample force metadata at an owned provisional interval
+        /// source. Staged physiology and the tick's posture decision are reused.</summary>
+        public ManualSkiMotionInput GetPreparedManualMotionInput(SprintStepPreview preview,
+            ManualScopedWorldRoster world,ManualScopedWorldTick tick,int actorIndex,int steeringInput,
+            double dragMultiplier=1,double propulsionMultiplier=1,double windX=0,double windZ=0)
+        {
+            ValidatePreview(preview);
+            if(!ReferenceEquals(preparedScopedWorld,world)||preparedScopedIndex!=actorIndex||
+                !preview.ManualWorldRequired||!preview.MovementActive||preview.ShootingActive||tick.Tick.Value!=preview.Tick.Value)
+                throw new ArgumentException("Matching prepared provisional interval required.");
+            ValidateScopedSource(world,actorIndex);
+            var actor=world.GetWorkingActor(tick,actorIndex);var at=actor.Observation;
+            return path.PreviewManualInput(preview.Physiology,physiology.State.MuscularFatigue,
+                preparedInput.Ski,preparedPosture,actor.Pose,at.GeometryProjection,
+                at.Owner.SampleSurface(at),steeringInput,dragMultiplier,propulsionMultiplier,windX,windZ);
+        }
+
+        /// <summary>Bind complete owned world interval receipts to real session
+        /// progress. Ordinary seams are supported; lifecycle handoffs remain
+        /// separately authorized by the race phase owner.</summary>
         public SprintStepPreview PrepareManualScopedCommit(SprintStepPreview preview,
             ManualScopedWorldPreview world,int actorIndex)
         {
@@ -101,11 +119,11 @@ namespace Biathlon.Simulation
             ValidateScopedSource(ledger,actorIndex);ledger.ValidatePrepared(world);
             var before=ledger.GetCursor(actorIndex);var after=ledger.GetProposedCursor(world,actorIndex);
             var initial=ledger.GetActor(actorIndex);var final=ledger.GetProposedActor(world,actorIndex);
-            var nextMotion=ledger.GetProposedPhysicalMotion(world,actorIndex);var row=before.Owner.Get(before.OccurrenceIndex);
-            if(world.Tick.Value!=preview.Tick.Value||after.OccurrenceIndex!=before.OccurrenceIndex||
+            var nextMotion=ledger.GetProposedPhysicalMotion(world,actorIndex);var row=before.Owner.Get(after.OccurrenceIndex);
+            if(world.Tick.Value!=preview.Tick.Value||
                 after.CreditedRouteNanometers<RouteNanometers||after.CreditedRouteNanometers>finishNanometers||
                 nextMotion.DistanceNanometers<Motion.DistanceNanometers)
-                throw new ArgumentException("A complete same-occurrence world tick is required.");
+                throw new ArgumentException("A complete owned world tick is required.");
             bool moving=preview.MovementActive;
             if(!moving&&(!SameScopedActor(initial,final)||!SameScopedMotion(nextMotion,Motion)||
                 after.ObservedArcNanometers!=before.ObservedArcNanometers||after.CreditedArcNanometers!=before.CreditedArcNanometers))
@@ -113,17 +131,21 @@ namespace Biathlon.Simulation
             bool firing=moving&&row.End==ManualRacePathEnd.FiringLine&&after.ObservedArcNanometers==row.LengthNanometers;
             if(firing&&(final.Velocity.X!=0||final.Velocity.Z!=0||final.Pose.YawRateRadiansPerSecond!=0||nextMotion.SpeedMetersPerSecond!=0))
                 throw new ArgumentException("Firing arrival must physically brake before session admission; no hidden velocity reset.");
-            long rangeTravel=0;
-            if(moving&&preparedRange!=null)
-                rangeTravel=row.Kind==ManualRacePathKind.PenaltyLoop?after.CreditedArcNanometers-before.CreditedArcNanometers:
-                    Math.Max(0,Math.Min(after.CreditedRouteNanometers,preparedRange.RangeRejoinNanometers)-
-                        Math.Max(RouteNanometers,preparedRange.RangeEntryNanometers));
+            long rangeTravel=0;int count=ledger.GetProposedMotionPieceCount(world);
+            if(count<1||count>segments.Length)throw new ArgumentException("World intervals must fit the preallocated race motion receipts.");
+            if(moving)for(int i=0;i<count;i++)
+            {
+                var piece=ledger.GetProposedMotionPiece(world,actorIndex,i);var occurrence=before.Owner.Get(piece.OccurrenceIndex);
+                segments[i]=new RaceMotionSegment(piece.RouteBefore,piece.RouteAfter,piece.TravelBefore,piece.TravelAfter,
+                    piece.StartSeconds,piece.EndSeconds,occurrence.Kind==ManualRacePathKind.PenaltyLoop,occurrence.Kind==ManualRacePathKind.StartApproach);
+                if(preparedRange!=null)rangeTravel=checked(rangeTravel+(occurrence.Kind==ManualRacePathKind.PenaltyLoop?
+                    piece.CreditedArcAfter-piece.CreditedArcBefore:
+                    Math.Max(0,Math.Min(piece.RouteAfter,preparedRange.RangeRejoinNanometers)-
+                        Math.Max(piece.RouteBefore,preparedRange.RangeEntryNanometers))));
+            }
             double dt=1.0/config.TickFrequency;
-            if(moving)segments[0]=new RaceMotionSegment(RouteNanometers,after.CreditedRouteNanometers,
-                Motion.DistanceNanometers,nextMotion.DistanceNanometers,0,dt,
-                row.Kind==ManualRacePathKind.PenaltyLoop,row.Kind==ManualRacePathKind.StartApproach);
             var movement=new RacePathMotionFrame(nextMotion,after.CreditedRouteNanometers,rangeTravel,dt,0,
-                moving?1:0,firing,moving&&row.End==ManualRacePathEnd.Finish&&after.CreditedRouteNanometers==finishNanometers);
+                moving?count:0,firing,moving&&row.End==ManualRacePathEnd.Finish&&after.CreditedRouteNanometers==finishNanometers);
             previewRevision=checked(previewRevision+1);
             return new SprintStepPreview(this,previewRevision,preview.Tick,preview.Physiology,movement,moving,
                 preview.ShootingActive,scopedWorld:world);
@@ -142,18 +164,24 @@ namespace Biathlon.Simulation
         {
             var ledger=preview.ScopedWorld.Owner;var before=ledger.GetCursor(preparedScopedIndex);
             if(before.Owner.Get(before.OccurrenceIndex).Kind!=ManualRacePathKind.StartApproach)return;
-            var after=ledger.GetProposedCursor(preview.ScopedWorld,preparedScopedIndex);
-            long remaining=before.Owner.Get(before.OccurrenceIndex).LengthNanometers-after.CreditedArcNanometers;
+            long remaining=RemainingStartApproachNanometers;double end=0;
+            int count=ledger.GetProposedMotionPieceCount(preview.ScopedWorld);
+            for(int i=0;i<count;i++)
+            {
+                var piece=ledger.GetProposedMotionPiece(preview.ScopedWorld,preparedScopedIndex,i);
+                var row=before.Owner.Get(piece.OccurrenceIndex);if(row.Kind!=ManualRacePathKind.StartApproach)break;
+                remaining=row.LengthNanometers-piece.CreditedArcAfter;end=piece.EndSeconds;
+            }
             if(RemainingStartApproachNanometers>0&&remaining==0)
             {
-                StartApproachExitTime=FinishTime.InsideTick(preview.Tick,config.TickFrequency,preview.Movement.ConsumedSeconds);
+                StartApproachExitTime=FinishTime.InsideTick(preview.Tick,config.TickFrequency,end);
                 events.Record(new RaceEvent(preview.Tick,config.TickFrequency,AthleteId,RaceEventType.StartApproachCompleted,0));
             }
             manualStartRemaining=remaining;
         }
     }
 
-    /// <summary>Prevalidate every same-occurrence session row, then publish
+    /// <summary>Prevalidate every session's owned motion intervals, then publish
     /// sessions and the full world on one clock. Pack side state, field timing,
     /// contact event journal and cross-phase movement remain separate.</summary>
     public sealed class ManualScopedRosterSessionCommit
@@ -166,8 +194,8 @@ namespace Biathlon.Simulation
         {
             if(world==null||roster.Length==0||roster.Length!=world.Count)throw new ArgumentException("Complete scoped race roster required.");
             this.world=world;athletes=roster.ToArray();resolved=new SprintStepPreview[roster.Length];
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_scoped_same_occurrence_session_commit_v1",world.ContextJson,
-                "actual_surface;high_water_range_travel;start_high_water_distinct_from_odometer;full_roster_prevalidation;no_cross_occurrence_segments;no_legacy_resumption"});
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_scoped_interval_session_commit_v2",world.ContextJson,
+                "actual_surface;high_water_range_travel;start_high_water_distinct_from_odometer;full_roster_prevalidation;owned_interval_segments;ordinary_seam_continuation;no_legacy_resumption"});
             for(int i=0;i<athletes.Length;i++)
             {
                 if(athletes[i]==null||athletes[i].HasFinished)throw new ArgumentException("Active athlete session required.");

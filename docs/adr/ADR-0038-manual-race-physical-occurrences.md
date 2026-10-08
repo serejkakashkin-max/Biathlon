@@ -162,3 +162,16 @@ A committed scoped session cannot resume legacy route movement. Context records
 these constraints. .NET92/92 and native14+4 PASS. Cross-occurrence receipts, lifecycle
 mat gates and complete field/contact event/replay/host remain pending.
 [Report](../reports/TASK_M13_MANUAL_SCOPED_SESSION_20261008.md).
+
+## 2026-10-08 — owned common movement interval receipts
+
+Context v6 retains per-actor admitted interval arcs/credit/odometer/times in cold
+preallocated storage bounded by the configured sweep maximum checks. Failed
+intervals add no receipt; abort/replacement/consumption invalidate queries. Impulses
+and zero-time handoffs add no paid interval. Session transaction v2 publishes
+ordinary-seam motion segments and exact start-exit timing. Working metadata queries
+reuse staged physiology/posture and grant no gates. Physical pre-entry approach
+is distinct from logical range admission; untouched logical origin must match.
+.NET71/71 and native4+14 PASS. Phase gates, complete contact/field/replay/host and
+allocation qualification remain open.
+[Report](../reports/TASK_M13_MANUAL_SESSION_INTERVALS_20261008.md).

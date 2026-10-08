@@ -15,7 +15,7 @@ namespace Biathlon.Tests
             internal readonly ManualScopedWorldRoster World;
             internal Fixture(bool mixed=true,double gap=20,int endMask=0,double side=0,
                 int startMask=0,double secondSpeed=2,double secondSideSpeed=0,double secondEndOffsetMeters=0,
-                bool contactResponse=false,double[] actorMasses=null)
+                bool contactResponse=false,double[] actorMasses=null,int intervalChecks=4096)
             {
                 var secondPath=new PhysicalRangePathMap(Source.Path.PhysicalMap,Source.Venue.Track,Source.Route,Source.Venue.Paths,29);
                 var second=new ManualRacePathCatalog(Source.Venue.Track,Source.Route,Source.Profile,Source.Venue.Visual,secondPath,Source.Start);
@@ -38,7 +38,7 @@ namespace Biathlon.Tests
                         row.RouteStartNanometers+(row.CountsTowardsRoute?arc:0));
                 }
                 var contact=SkiContactDefinition.FromJson("{\"schema_version\":1,\"id\":\"scoped_world_contact_v1\",\"restitution\":0,\"sliding_friction\":0.2,\"contact_tolerance_m\":0.000001}");
-                var work=SkiContactSweepDefinition.FromJson("{\"schema_version\":1,\"id\":\"scoped_world_work_v1\",\"maximum_depth\":32,\"maximum_interval_checks\":4096,\"time_tolerance_s\":0.0000001}");
+                var work=SkiContactSweepDefinition.FromJson("{\"schema_version\":1,\"id\":\"scoped_world_work_v1\",\"maximum_depth\":32,\"maximum_interval_checks\":"+intervalChecks+",\"time_tolerance_s\":0.0000001}");
                 var group=contactResponse?SkiContactGroupDefinition.FromJson("{\"schema_version\":1,\"id\":\"scoped_world_response_v1\",\"maximum_passes\":64,\"closing_speed_tolerance_mps\":0.00000001}"):null;
                 World=new ManualScopedWorldRoster(Catalogs,Source.Venue.Occupancy,contact,work,cursors,poses,velocities,motion,20,
                     responseDefinition:group,actorMasses:contactResponse?(actorMasses??new[]{75.0,75}):actorMasses);

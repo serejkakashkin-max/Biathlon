@@ -129,3 +129,9 @@ publication across start/range/penalty, no legacy resumption. .NET92/92 and nati
 14+4 PASS. New reproducible boxing fixed; old allocation qualification OPEN.
 Cross-occurrence/lifecycle/contact scheduler/Pack/replay/host and M13/build OPEN.
 [Report](reports/TASK_M13_MANUAL_SCOPED_SESSION_20261008.md).
+
+2026-10-08 owned interval/session seams: start→base and physical pre-entry
+approach pay complete same-clock motion, exact start exit time. .NET71/71;
+native4+14 PASS. Phase gates, contact scheduler/events, Pack/replay/host and
+allocation qualification/M13/build OPEN.
+[Report](reports/TASK_M13_MANUAL_SESSION_INTERVALS_20261008.md).

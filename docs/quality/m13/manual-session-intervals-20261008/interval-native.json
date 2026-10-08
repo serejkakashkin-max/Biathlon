@@ -1,0 +1,43 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1388,\"PassedTests\":4,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:06.5953995\"},\"Results\":[{\"Name\":\"Biathlon.Tests.ManualScopedSessionIntervalsTests.ARealOrdinarySeamPublishesPhysicalSessionSegmentsWithoutAPaidStop(\\u0022start_seam\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.4230000\"},{\"Name\":\"Biathlon.Tests.ManualScopedSessionIntervalsTests.ARealOrdinarySeamPublishesPhysicalSessionSegmentsWithoutAPaidStop(\\u0022base_seam\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.1860000\"},{\"Name\":\"Biathlon.Tests.ManualScopedSessionIntervalsTests.IntervalWorkLimitCannotMintAPaidStandingSuffix\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.5340000\"},{\"Name\":\"Biathlon.Tests.ManualScopedSessionIntervalsTests.MotionHistoryRetainsOnlyAdmittedIntervalsAndCannotSurviveAbortOrConsumption\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.4750000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 1388,
+        "PassedTests": 4,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:06.5953995"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.ManualScopedSessionIntervalsTests.ARealOrdinarySeamPublishesPhysicalSessionSegmentsWithoutAPaidStop(\"start_seam\")",
+          "Status": "Passed",
+          "Duration": "00:00:01.4230000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedSessionIntervalsTests.ARealOrdinarySeamPublishesPhysicalSessionSegmentsWithoutAPaidStop(\"base_seam\")",
+          "Status": "Passed",
+          "Duration": "00:00:01.1860000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedSessionIntervalsTests.IntervalWorkLimitCannotMintAPaidStandingSuffix",
+          "Status": "Passed",
+          "Duration": "00:00:01.5340000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedSessionIntervalsTests.MotionHistoryRetainsOnlyAdmittedIntervalsAndCannotSurviveAbortOrConsumption",
+          "Status": "Passed",
+          "Duration": "00:00:01.4750000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

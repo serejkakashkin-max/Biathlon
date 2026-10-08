@@ -22949,3 +22949,33 @@ handoffs, complete contact scheduling/event/replay/Pack and production manual ho
 Phase fixtures use legacy stepping to reach the phase, then test manual publication;
 no all-manual race or queue closure claimed. M13 and final owner build remain OPEN.
 No intermediate build. Every earlier state byte preserved.
+
+
+## 2026-10-08 — M13 interval receipts and ordinary-seam session continuation
+
+M13 OPEN; WP-175/177/178 OPEN, WP-176 PASS. Scoped world context v6 retains
+only admitted per-actor movement intervals: occurrence, observed/high-water arc,
+base credit, physical odometer and exact common times. Existing configured sweep
+maximum checks bounds cold preallocated storage; IntervalLimit cannot pay an
+unproved standing suffix. Session transaction v2 publishes multiple owned segments
+through ordinary seams. Start exit uses its exact interval end time. Working force
+input resamples actual physical metadata, reusing tick physiology/posture decision.
+
+Woodland physical approach begins before logical range admission. Pre-entry
+preparation now validates the untouched logical origin; actual range credit/events
+still wait for their logical line. Real start→base and base→approach fixtures pay
+full prefix+suffix at unchanged handoff pose/velocity/yaw with no paid stop. Tests
+use constant-velocity snow trajectories to isolate geometry/session publication;
+not a full manual race or general first-contact scheduler qualification.
+
+.NET compatibility34/34 and final71/71 PASS; native4/4 new +14/14 scoped session
+PASS, discovery1388, Unity compile settled and Error Console empty. Failed initial
+logical-boundary comparison receipts retained. Warm scoped/tick assertions pass;
+earlier broad allocation qualification OPEN. Report/evidence:
+`docs/reports/TASK_M13_MANUAL_SESSION_INTERVALS_20261008.md` and
+`docs/quality/m13/manual-session-intervals-20261008/`.
+
+Next: firing/departure/penalty lifecycle gates, mat choice, general contact timing/
+events, full Pack/field/finished actors, manual replay and production input/rig.
+Playable host remains legacy lateral route-following. M13/final owner build OPEN.
+No intermediate build. All earlier state bytes preserved.

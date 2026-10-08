@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="703ed0b3-8ae1-4f21-a970-7644a590fb91" name="snkashkin@DESKTOP-G3075GA 2026-10-08 15:17:50" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-08T15:17:50.6886226+03:00" queuing="2026-10-08T15:17:50.6886227+03:00" start="2026-10-08T15:17:48.9417822+03:00" finish="2026-10-08T15:17:50.6923065+03:00" />
+  <TestSettings name="default" id="c6b561b3-b6b6-4b19-836e-641cfe86d7fb">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-08_15_17_50" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="a328d093-e04c-4ac5-a749-502631653fa3" testId="071c58e8-dc50-1d2c-6d1e-3a1dc296d092" testName="ARealOrdinarySeamPublishesPhysicalSessionSegmentsWithoutAPaidStop(&quot;base_seam&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.1622720" startTime="2026-10-08T15:17:49.9464916+03:00" endTime="2026-10-08T15:17:50.1087616+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a328d093-e04c-4ac5-a749-502631653fa3">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: 1195566632604&#xD;
+  But was:  1200548000000&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedSessionIntervalsTests.ARealOrdinarySeamPublishesPhysicalSessionSegmentsWithoutAPaidStop(String phase) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedSessionIntervalsTests.cs:line 62&#xD;
+   at InvokeStub_ManualScopedSessionIntervalsTests.ARealOrdinarySeamPublishesPhysicalSessionSegmentsWithoutAPaidStop(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualScopedSessionIntervalsTests.ARealOrdinarySeamPublishesPhysicalSessionSegmentsWithoutAPaidStop(String phase) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedSessionIntervalsTests.cs:line 62&#xD;
+   at InvokeStub_ManualScopedSessionIntervalsTests.ARealOrdinarySeamPublishesPhysicalSessionSegmentsWithoutAPaidStop(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2d9980bd-ed52-44c8-b7c0-db4b9cbe3711" testId="de42d096-8970-ed2e-38cc-ef28e0d50635" testName="ARealOrdinarySeamPublishesPhysicalSessionSegmentsWithoutAPaidStop(&quot;start_seam&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.5218940" startTime="2026-10-08T15:17:49.4240665+03:00" endTime="2026-10-08T15:17:49.9459265+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2d9980bd-ed52-44c8-b7c0-db4b9cbe3711" />
+    <UnitTestResult executionId="19b02223-db66-414a-8546-2665155124f2" testId="9ffd8661-41e3-2aa4-2b5e-31192e2bac0c" testName="MotionHistoryRetainsOnlyAdmittedIntervalsAndCannotSurviveAbortOrConsumption" computerName="DESKTOP-G3075GA" duration="00:00:00.2285510" startTime="2026-10-08T15:17:50.3748539+03:00" endTime="2026-10-08T15:17:50.6034014+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="19b02223-db66-414a-8546-2665155124f2" />
+    <UnitTestResult executionId="cc1c6d5a-da54-4075-9d27-db88cb54bdce" testId="1355c8a4-b258-a383-1115-ec2bf7358bda" testName="IntervalWorkLimitCannotMintAPaidStandingSuffix" computerName="DESKTOP-G3075GA" duration="00:00:00.2654540" startTime="2026-10-08T15:17:50.1093752+03:00" endTime="2026-10-08T15:17:50.3748248+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cc1c6d5a-da54-4075-9d27-db88cb54bdce" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="IntervalWorkLimitCannotMintAPaidStandingSuffix" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="1355c8a4-b258-a383-1115-ec2bf7358bda">
+      <Execution id="cc1c6d5a-da54-4075-9d27-db88cb54bdce" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedSessionIntervalsTests" name="IntervalWorkLimitCannotMintAPaidStandingSuffix" />
+    </UnitTest>
+    <UnitTest name="MotionHistoryRetainsOnlyAdmittedIntervalsAndCannotSurviveAbortOrConsumption" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="9ffd8661-41e3-2aa4-2b5e-31192e2bac0c">
+      <Execution id="19b02223-db66-414a-8546-2665155124f2" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedSessionIntervalsTests" name="MotionHistoryRetainsOnlyAdmittedIntervalsAndCannotSurviveAbortOrConsumption" />
+    </UnitTest>
+    <UnitTest name="ARealOrdinarySeamPublishesPhysicalSessionSegmentsWithoutAPaidStop(&quot;start_seam&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="de42d096-8970-ed2e-38cc-ef28e0d50635">
+      <Execution id="2d9980bd-ed52-44c8-b7c0-db4b9cbe3711" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedSessionIntervalsTests" name="ARealOrdinarySeamPublishesPhysicalSessionSegmentsWithoutAPaidStop(&quot;start_seam&quot;)" />
+    </UnitTest>
+    <UnitTest name="ARealOrdinarySeamPublishesPhysicalSessionSegmentsWithoutAPaidStop(&quot;base_seam&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="071c58e8-dc50-1d2c-6d1e-3a1dc296d092">
+      <Execution id="a328d093-e04c-4ac5-a749-502631653fa3" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedSessionIntervalsTests" name="ARealOrdinarySeamPublishesPhysicalSessionSegmentsWithoutAPaidStop(&quot;base_seam&quot;)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="071c58e8-dc50-1d2c-6d1e-3a1dc296d092" executionId="a328d093-e04c-4ac5-a749-502631653fa3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="de42d096-8970-ed2e-38cc-ef28e0d50635" executionId="2d9980bd-ed52-44c8-b7c0-db4b9cbe3711" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9ffd8661-41e3-2aa4-2b5e-31192e2bac0c" executionId="19b02223-db66-414a-8546-2665155124f2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1355c8a4-b258-a383-1115-ec2bf7358bda" executionId="cc1c6d5a-da54-4075-9d27-db88cb54bdce" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="4" executed="4" passed="3" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 4 of 4 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
