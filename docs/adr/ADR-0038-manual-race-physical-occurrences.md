@@ -175,3 +175,16 @@ is distinct from logical range admission; untouched logical origin must match.
 .NET71/71 and native4+14 PASS. Phase gates, complete contact/field/replay/host and
 allocation qualification remain open.
 [Report](../reports/TASK_M13_MANUAL_SESSION_INTERVALS_20261008.md).
+
+## 2026-10-08 — accepted lifecycle endpoint handoffs
+
+Session batch alone authorizes completed shooting departure and actual penalty
+debt/ordinal successor. Geometry verifies exact source end/target start at the
+same pose and credit. All requested rows validate before changes; pending proofs
+cannot hand off. No movement, time, odometer, physiology or event is added.
+World v7/session v3 capture the policy. Zero-length rejoin may already complete
+the endpoint's bout; its retained traversal controls return authorization.
+.NET77/77 and native6/6 PASS. Penalty tests restore explicitly clipped legacy
+boundaries, not a production waiting policy. Future in-tick phase authorization
+and full field/contact/replay/host integration remain open.
+[Report](../reports/TASK_M13_MANUAL_ACCEPTED_PHASES_20261008.md).

@@ -148,5 +148,21 @@ namespace Biathlon.Simulation
             next=new ManualRacePathCursor(catalog,accepted.Athlete,index,0,0,accepted.CreditedRouteNanometers);
             return true;
         }
+        /// <summary>Geometry only for a target already authorized by the owning
+        /// athlete lifecycle. Never exposed as an arbitrary public gate bypass.</summary>
+        internal bool TryPreviewPhaseHandoff(ManualRacePathCursor accepted,ManualRacePathActorFrame safeAtEnd,
+            int target,out ManualRacePathCursor next)
+        {
+            next=default;
+            if(!accepted.IsValid||!ReferenceEquals(accepted.Owner,catalog)||target<0||target>=catalog.Count)return false;
+            var row=catalog.Get(accepted.OccurrenceIndex);
+            if(row.End==ManualRacePathEnd.Continue||row.End==ManualRacePathEnd.Finish||
+                accepted.ObservedArcNanometers!=row.LengthNanometers||accepted.CreditedArcNanometers!=row.LengthNanometers||
+                !TryPreview(safeAtEnd,accepted,row.LengthNanometers,out var end)||end.NewlyCreditedArcNanometers!=0)return false;
+            var successor=catalog.Get(target);
+            if(successor.RouteStartNanometers!=accepted.CreditedRouteNanometers||
+                !catalog.TryProject(safeAtEnd.Pose,target,0,0,out var observed)||observed.PhysicalArcNanometers!=0)return false;
+            next=new ManualRacePathCursor(catalog,accepted.Athlete,target,0,0,accepted.CreditedRouteNanometers);return true;
+        }
     }
 }

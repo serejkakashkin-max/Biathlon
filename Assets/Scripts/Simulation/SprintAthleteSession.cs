@@ -135,6 +135,11 @@ namespace Biathlon.Simulation
             if(index<0||index>=shooting.Length)throw new ArgumentOutOfRangeException(nameof(index));
             return shooting[index]?.ClosedMask??0;
         }
+        public RangeTraversalFrame GetBoutRangeFrame(int index)
+        {
+            if(index<0||index>=ranges.Length)throw new ArgumentOutOfRangeException(nameof(index));
+            return ranges[index].LastFrame;
+        }
         public bool HasFinished => Lifecycle.Phase == CompetitionPhase.Finished || Lifecycle.Phase == CompetitionPhase.Classified;
         internal bool IsBoundTo(RaceRoute selectedRoute)=>ReferenceEquals(route,selectedRoute);
         internal int TickFrequency=>config.TickFrequency;

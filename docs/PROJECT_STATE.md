@@ -22979,3 +22979,32 @@ Next: firing/departure/penalty lifecycle gates, mat choice, general contact timi
 events, full Pack/field/finished actors, manual replay and production input/rig.
 Playable host remains legacy lateral route-following. M13/final owner build OPEN.
 No intermediate build. All earlier state bytes preserved.
+
+
+## 2026-10-08 — M13 accepted shooting/penalty endpoint authorization
+
+M13 OPEN; WP-175/177/178 OPEN, WP-176 PASS. Session batch authorizes actual
+accepted shooting departure and penalty circuit/return endpoints from completed
+shooting and real bout debt/ordinal. Geometry requires same-pose source end and
+explicit target start with unchanged credit. Every requested row validates before
+world mutation. Pending previews/proofs and incomplete bouts cannot open gates.
+Coordinate handoff adds no time, motion, odometer, physiology or event. World v7 /
+session v3 contexts record this policy; bout-specific traversal telemetry added.
+
+Actual shared five-shot shooting plus stationary world proofs reaches departure;
+next shared-power manual tick moves from rest with no added wait/launch speed.
+Penalty authority snapshots use explicitly clipped legacy boundaries only for
+setup: no claim that production should brake/wait at penalty junctions. Woodland
+entry=rejoin completes the bout immediately; authorizer now reads endpoint's own
+bout rather than the advanced active-bout pointer. Failing receipt preserved.
+
+Final focused.NET77/77 and native6/6 PASS, discovery1394; compile settled and Error
+Console empty. Warm phase rejection0 B. Earlier broad allocation qualification
+OPEN. Report/evidence: `docs/reports/TASK_M13_MANUAL_ACCEPTED_PHASES_20261008.md`,
+`docs/quality/m13/manual-accepted-phases-20261008/`.
+
+Next: future in-tick penalty phase authorization, general contact timing/event
+journal, mat choice, terminal actors, full Pack/field/manual replay and production
+input/rig. Zero-debt/full-roster phase traffic requires integrated qualification.
+Playable queue behavior/full manual/M13/final owner build remain OPEN. No
+intermediate build. All earlier state bytes preserved.

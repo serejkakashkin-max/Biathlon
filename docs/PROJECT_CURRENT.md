@@ -135,3 +135,9 @@ approach pay complete same-clock motion, exact start exit time. .NET71/71;
 native4+14 PASS. Phase gates, contact scheduler/events, Pack/replay/host and
 allocation qualification/M13/build OPEN.
 [Report](reports/TASK_M13_MANUAL_SESSION_INTERVALS_20261008.md).
+
+2026-10-08 accepted phase gates: actual five-shot departure moves on next shared
+force tick; real penalty debt/ordinal endpoints preserve world motion/time.
+.NET77/77, native6/6 PASS. In-tick future gates/contacts/Pack/replay/host and
+allocation qualification/M13/build remain OPEN.
+[Report](reports/TASK_M13_MANUAL_ACCEPTED_PHASES_20261008.md).

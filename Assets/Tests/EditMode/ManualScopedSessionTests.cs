@@ -30,11 +30,33 @@ namespace Biathlon.Tests
                     new SimulationTick(waiting?100:1),new ShootingLaneAssignment(Source.Venue.Track.Range.Id,Source.Path.LaneId,Source.Path.LaneOrdinal),
                     Events,Source.Start,phase.StartsWith("start",StringComparison.Ordinal)?20*N:0,Source.Path);
                 if(!waiting)
-                    while(!AtPhase(phase)&&Session.Tick.Value<30000)Session.Step(SprintAthleteSessionTests.Script(Session));
+                    while(!AtPhase(phase)&&Session.Tick.Value<30000)
+                    {
+                        var point=Session.CurrentRangeMotion;
+                        bool clip=phase=="penalty_entry"&&point?.Phase==RangeTraversalPhase.PenaltyApproach||
+                            phase=="penalty_repeat"&&point?.Phase==RangeTraversalPhase.PenaltyLoop&&Session.CurrentRangeRemainingPenaltyLoops>1||
+                            phase=="penalty_return"&&point?.Phase==RangeTraversalPhase.PenaltyLoop&&Session.CurrentRangeRemainingPenaltyLoops==1;
+                        if(clip)
+                        {
+                            var prepared=Session.PrepareStep(SprintAthleteSessionTests.Script(Session));
+                            long remaining=point.Value.DistanceToBoundaryNanometers;
+                            if(remaining>0&&prepared.Movement.Motion.DistanceNanometers-Session.Motion.DistanceNanometers>=remaining)
+                            {Session.CommitStep(Session.ConstrainPreparedTravel(prepared,remaining));break;}
+                            Session.CommitStep(prepared);
+                        }
+                        else Session.Step(SprintAthleteSessionTests.Script(Session));
+                    }
                 Assert.That(waiting||AtPhase(phase),Is.True,$"Could not reach {phase}: {Session.CurrentRangeMotion?.Phase}, tick {Session.Tick.Value}");
                 long high=0;
                 if(phase.StartsWith("start",StringComparison.Ordinal))
                 {Occurrence=Source.Catalog.StartApproachIndex;high=Source.Start.LengthNanometers-Session.RemainingStartApproachNanometers;}
+                else if(phase=="penalty_entry")
+                {Occurrence=Source.Catalog.GetPenaltyEntryOccurrence(0);high=Source.Catalog.Get(Occurrence).LengthNanometers;}
+                else if(phase=="penalty_repeat"||phase=="penalty_return")
+                {
+                    Occurrence=Source.Catalog.GetPenaltyOccurrence(0,Session.GetBoutRangeFrame(0).CompletedLoops);
+                    high=Source.Catalog.Get(Occurrence).LengthNanometers;
+                }
                 else if(phase=="penalty")
                 {Occurrence=Source.Catalog.GetPenaltyOccurrence(0,Session.CurrentRangeRequiredPenaltyLoops-Session.CurrentRangeRemainingPenaltyLoops+1);high=Session.CurrentRangeMotion.Value.PenaltyNanometers;}
                 else if(phase=="shooting")
@@ -88,6 +110,12 @@ namespace Biathlon.Tests
                     case "approach":return p?.Phase==RangeTraversalPhase.Approach&&Session.RouteNanometers>Source.Venue.Track.Range.Entry.Distance.Millimeters*SkiState.NanometersPerMillimeter+3*N;
                     case "exit":return p?.Phase==RangeTraversalPhase.RangeExit&&Session.RouteNanometers>Source.Path.FiringRouteNanometers(0)+3*N;
                     case "penalty":return p?.Phase==RangeTraversalPhase.PenaltyLoop&&p.Value.PenaltyNanometers>10*N;
+                    case "penalty_entry":return p?.Phase==RangeTraversalPhase.PenaltyLoop&&p.Value.PenaltyNanometers==0&&Session.CurrentRangeRemainingPenaltyLoops>0;
+                    case "penalty_repeat":return p?.Phase==RangeTraversalPhase.PenaltyLoop&&p.Value.PenaltyNanometers==0&&
+                        Session.CurrentRangeRemainingPenaltyLoops<Session.CurrentRangeRequiredPenaltyLoops;
+                    case "penalty_return":
+                        var bout=Session.GetBoutRangeFrame(0);
+                        return (bout.Phase==RangeTraversalPhase.Rejoin||bout.Phase==RangeTraversalPhase.Complete)&&bout.RemainingLoops==0;
                     case "shooting":return p?.Phase==RangeTraversalPhase.Shooting;
                     default:throw new ArgumentException();
                 }
@@ -124,7 +152,7 @@ namespace Biathlon.Tests
                 }
                 var c=World.GetCursor(0);
                 return World.TryPrepare(new[]{new SkiWorldMotionCandidate(actor.Athlete,trajectory)},
-                    new[]{new ManualScopedWorldWindow(actor.Athlete,Occurrence,c.ObservedArcNanometers,2,Source.Catalog.Get(Occurrence).LengthNanometers)},
+                    new[]{new ManualScopedWorldWindow(actor.Athlete,c.OccurrenceIndex,c.ObservedArcNanometers,2,Source.Catalog.Get(c.OccurrenceIndex).LengthNanometers)},
                     NoPairs,0,NoEdges,0,new[]{at.GradeAlong(actor.Pose)},out proof);
             }
         }

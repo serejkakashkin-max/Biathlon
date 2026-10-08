@@ -21,7 +21,7 @@ namespace Biathlon.Simulation
             return PreparePackStep(input,1,1,0,default,false,default,world,actorIndex);
         }
 
-        private void ValidateScopedSource(ManualScopedWorldRoster world,int index)
+        private void ValidateScopedSource(ManualScopedWorldRoster world,int index,bool phaseHandoff=false)
         {
             if(world==null||index<0||index>=world.Count||world.Tick.Value!=Tick.Value||world.TickFrequency!=config.TickFrequency)
                 throw new ArgumentException("Exact accepted scoped actor and race clock required.");
@@ -34,6 +34,7 @@ namespace Biathlon.Simulation
                 throw new ArgumentException("Scoped body, selected path, race credit and physical motion must match this session.");
             if(Tick.Next().Value<=ScheduledStart.Value&&(actor.Velocity.X!=0||actor.Velocity.Z!=0||actor.Pose.YawRateRadiansPerSecond!=0))
                 throw new ArgumentException("A scheduled athlete must retain a stationary start body.");
+            if(phaseHandoff)return;
             var row=catalog.Get(cursor.OccurrenceIndex);int b=FirstUncompletedRange();var range=b<0?null:ranges[b];
             if(RemainingStartApproachNanometers>0)
             {
@@ -179,6 +180,41 @@ namespace Biathlon.Simulation
             }
             manualStartRemaining=remaining;
         }
+        internal bool TryPrepareAcceptedScopedPhase(ManualScopedWorldRoster world,int index,out int target)
+        {
+            target=-1;if(previewReady||HasFinished)return false;
+            ValidateScopedSource(world,index,true);
+            var c=world.GetCursor(index);var row=c.Owner.Get(c.OccurrenceIndex);var actor=world.GetActor(index);
+            int b=row.BoutIndex;if(b<0||b>=ranges.Length)return false;
+            var range=ranges[b];
+            if(c.ObservedArcNanometers!=row.LengthNanometers||c.CreditedArcNanometers!=row.LengthNanometers||
+                range.RouteNanometers!=RouteNanometers)return false;
+            switch(row.End)
+            {
+                case ManualRacePathEnd.FiringLine:
+                    if(range.Phase!=RangeTraversalPhase.RangeExit||shooting[b]?.Phase!=ShootingPhase.Complete||
+                        Lifecycle.CompletedBouts!=b+1||actor.Velocity.X!=0||actor.Velocity.Z!=0||
+                        actor.Pose.YawRateRadiansPerSecond!=0||Motion.SpeedMetersPerSecond!=0)return false;
+                    target=c.Owner.GetBaseFlowSuccessor(row.Index);break;
+                case ManualRacePathEnd.PenaltyDecision:
+                    if(range.Phase==RangeTraversalPhase.PenaltyLoop&&range.PenaltyNanometers==0&&range.CompletedLoops==0&&range.RequiredLoops>0)
+                        target=c.Owner.GetPenaltyOccurrence(b,1);
+                    else if((range.Phase==RangeTraversalPhase.Rejoin||range.Phase==RangeTraversalPhase.Complete)&&range.RequiredLoops==0)
+                        target=c.Owner.GetPenaltyReturnOccurrence(b);
+                    else return false;
+                    break;
+                case ManualRacePathEnd.PenaltyCircuit:
+                    if(range.CompletedLoops!=row.PenaltyOrdinal||range.PenaltyNanometers!=0)return false;
+                    if(range.Phase==RangeTraversalPhase.PenaltyLoop&&range.CompletedLoops<range.RequiredLoops)
+                        target=c.Owner.GetPenaltyOccurrence(b,row.PenaltyOrdinal+1);
+                    else if((range.Phase==RangeTraversalPhase.Rejoin||range.Phase==RangeTraversalPhase.Complete)&&range.CompletedLoops==range.RequiredLoops)
+                        target=c.Owner.GetPenaltyReturnOccurrence(b);
+                    else return false;
+                    break;
+                default:return false;
+            }
+            return target>=0;
+        }
     }
 
     /// <summary>Prevalidate every session's owned motion intervals, then publish
@@ -189,13 +225,14 @@ namespace Biathlon.Simulation
         private readonly SprintAthleteSession[] athletes;
         private readonly SprintStepPreview[] resolved;
         private readonly ManualScopedWorldRoster world;
+        private readonly int[] phaseTargets;
         public string ContextJson {get;}
         public ManualScopedRosterSessionCommit(ReadOnlySpan<SprintAthleteSession> roster,ManualScopedWorldRoster world)
         {
             if(world==null||roster.Length==0||roster.Length!=world.Count)throw new ArgumentException("Complete scoped race roster required.");
-            this.world=world;athletes=roster.ToArray();resolved=new SprintStepPreview[roster.Length];
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_scoped_interval_session_commit_v2",world.ContextJson,
-                "actual_surface;high_water_range_travel;start_high_water_distinct_from_odometer;full_roster_prevalidation;owned_interval_segments;ordinary_seam_continuation;no_legacy_resumption"});
+            this.world=world;athletes=roster.ToArray();resolved=new SprintStepPreview[roster.Length];phaseTargets=new int[roster.Length];
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_scoped_interval_session_commit_v3",world.ContextJson,
+                "actual_surface;high_water_range_travel;start_high_water_distinct_from_odometer;full_roster_prevalidation;owned_interval_segments;ordinary_seam_continuation;no_legacy_resumption;accepted_completed_shooting_departure;actual_penalty_debt_and_ordinal;zero_time_same_pose_phase_handoff"});
             for(int i=0;i<athletes.Length;i++)
             {
                 if(athletes[i]==null||athletes[i].HasFinished)throw new ArgumentException("Active athlete session required.");
@@ -212,9 +249,26 @@ namespace Biathlon.Simulation
             for(int i=0;i<athletes.Length;i++)athletes[i].CommitStep(resolved[i]);
             world.Commit(proposal);
         }
+        /// <summary>Zero-time phase handoff backed by the actual accepted bout
+        /// or penalty traversal. All requested rows validate before any changes.
+        /// In-tick future lifecycle authorization is a separate transaction.</summary>
+        public bool TryHandoffAcceptedPhases(ReadOnlySpan<int> actorIndexes)
+        {
+            if(actorIndexes.Length==0||actorIndexes.Length>athletes.Length)return false;
+            for(int i=0;i<actorIndexes.Length;i++)
+            {
+                int index=actorIndexes[i];if(index<0||index>=athletes.Length)throw new ArgumentOutOfRangeException(nameof(actorIndexes));
+                for(int j=0;j<i;j++)if(actorIndexes[j]==index)throw new ArgumentException("Duplicate phase actor.");
+                if(!athletes[index].TryPrepareAcceptedScopedPhase(world,index,out phaseTargets[i]))return false;
+            }
+            return world.TryHandoffAcceptedPhases(actorIndexes,phaseTargets.AsSpan(0,actorIndexes.Length));
+        }
     }
     public sealed partial class SprintAthleteSession
     {
-        internal void ValidateScopedRosterBinding(ManualScopedWorldRoster world,int index)=>ValidateScopedSource(world,index);
+        internal void ValidateScopedRosterBinding(ManualScopedWorldRoster world,int index)
+        {
+            if(!TryPrepareAcceptedScopedPhase(world,index,out _))ValidateScopedSource(world,index);
+        }
     }
 }
