@@ -1,0 +1,78 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1526,\"PassedTests\":11,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:16.8991842\"},\"Results\":[{\"Name\":\"Biathlon.Tests.ManualScopedShootingHoldTests.AForceDrivenDepartureFromRestCannotHideBehindAHoldMarker\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.4720000\"},{\"Name\":\"Biathlon.Tests.ManualScopedShootingHoldTests.AnAimingAthleteCannotBlockTheOtherAthletesCommonClock(False)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.4530000\"},{\"Name\":\"Biathlon.Tests.ManualScopedShootingHoldTests.AnAimingAthleteCannotBlockTheOtherAthletesCommonClock(True)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.4530000\"},{\"Name\":\"Biathlon.Tests.ManualScopedShootingHoldTests.APhysicalVelocityOrSpinCannotBeRoundedIntoAShootingHold(0.001d,0)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.3320000\"},{\"Name\":\"Biathlon.Tests.ManualScopedShootingHoldTests.APhysicalVelocityOrSpinCannotBeRoundedIntoAShootingHold(-0.001d,0)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.3550000\"},{\"Name\":\"Biathlon.Tests.ManualScopedShootingHoldTests.APhysicalVelocityOrSpinCannotBeRoundedIntoAShootingHold(0,0.001d)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.2310000\"},{\"Name\":\"Biathlon.Tests.ManualScopedShootingHoldTests.DuplicateForeignHoldActorsFailAndTheMarkerDoesNotPersistIntoTheNextCall\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.2850000\"},{\"Name\":\"Biathlon.Tests.ManualScopedShootingHoldTests.ExplicitFiringHoldPaysACompleteShootingSessionTickWithoutDeparture\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.3980000\"},{\"Name\":\"Biathlon.Tests.ManualScopedShootingHoldTests.HoldStillRequiresTheWholeBodyCourseAndExplicitEdgeProof\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.2480000\"},{\"Name\":\"Biathlon.Tests.ManualScopedShootingHoldTests.OrdinaryBoundaryAndPartialFiringCapsCannotBecomeAnUnpaidQueue\",\"Status\":\"Passed\",\"Duration\":\"00:00:02.5120000\"},{\"Name\":\"Biathlon.Tests.ManualScopedShootingHoldTests.WarmStationaryFiringClockAndAbortAllocateNothing\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.2850000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 1526,
+        "PassedTests": 11,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:16.8991842"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.ManualScopedShootingHoldTests.AForceDrivenDepartureFromRestCannotHideBehindAHoldMarker",
+          "Status": "Passed",
+          "Duration": "00:00:01.4720000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedShootingHoldTests.AnAimingAthleteCannotBlockTheOtherAthletesCommonClock(False)",
+          "Status": "Passed",
+          "Duration": "00:00:01.4530000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedShootingHoldTests.AnAimingAthleteCannotBlockTheOtherAthletesCommonClock(True)",
+          "Status": "Passed",
+          "Duration": "00:00:01.4530000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedShootingHoldTests.APhysicalVelocityOrSpinCannotBeRoundedIntoAShootingHold(0.001d,0)",
+          "Status": "Passed",
+          "Duration": "00:00:01.3320000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedShootingHoldTests.APhysicalVelocityOrSpinCannotBeRoundedIntoAShootingHold(-0.001d,0)",
+          "Status": "Passed",
+          "Duration": "00:00:01.3550000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedShootingHoldTests.APhysicalVelocityOrSpinCannotBeRoundedIntoAShootingHold(0,0.001d)",
+          "Status": "Passed",
+          "Duration": "00:00:01.2310000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedShootingHoldTests.DuplicateForeignHoldActorsFailAndTheMarkerDoesNotPersistIntoTheNextCall",
+          "Status": "Passed",
+          "Duration": "00:00:01.2850000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedShootingHoldTests.ExplicitFiringHoldPaysACompleteShootingSessionTickWithoutDeparture",
+          "Status": "Passed",
+          "Duration": "00:00:01.3980000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedShootingHoldTests.HoldStillRequiresTheWholeBodyCourseAndExplicitEdgeProof",
+          "Status": "Passed",
+          "Duration": "00:00:01.2480000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedShootingHoldTests.OrdinaryBoundaryAndPartialFiringCapsCannotBecomeAnUnpaidQueue",
+          "Status": "Passed",
+          "Duration": "00:00:02.5120000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedShootingHoldTests.WarmStationaryFiringClockAndAbortAllocateNothing",
+          "Status": "Passed",
+          "Duration": "00:00:01.2850000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

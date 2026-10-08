@@ -46,9 +46,13 @@ namespace Biathlon.Simulation
         /// A zero-time owned boundary reports an event without inventing a wait.
         /// Frozen polynomial pieces are supported; other unresolved centre laws
         /// fail explicitly rather than being approximated by an endpoint chord.</summary>
+        /// <param name="stationaryFiringActors">Explicit already-owned mat
+        /// endpoints with exactly stationary full trajectories. Their body,
+        /// course, contact and lifecycle checks remain mandatory; this marker
+        /// can neither stop a moving actor nor authorize departure.</param>
         public bool TryAppendToOwnedFirstEvent(ManualScopedWorldTick tick,SkiWorldMotionCandidate[] actors,
             ManualScopedWorldWindow[] windows,SkiActorCourseEdge[] edges,int edgeCount,double[] directionalGrades,
-            out ManualScopedWorldEventPreview result)
+            out ManualScopedWorldEventPreview result,ReadOnlySpan<int> stationaryFiringActors=default)
         {
             ValidateTick(tick);ready=false;LastWorldEvent=default;result=default;
             if(pendingContact)return Reject(ManualScopedWorldStatus.PendingContact);
@@ -71,11 +75,30 @@ namespace Biathlon.Simulation
                     return Reject(ManualScopedWorldStatus.PhaseLimit,cursor.Athlete);
                 PhysiologyNumbers.RequireRange(directionalGrades[i],-1,1,nameof(directionalGrades));
             }
+            Array.Clear(heldFiringActors,0,Count);
+            for(int k=0;k<stationaryFiringActors.Length;k++)
+            {
+                int i=stationaryFiringActors[k];
+                if(i<0||i>=Count||heldFiringActors[i])throw new ArgumentException("Distinct owned firing actor indexes required.");
+                var cursor=workingCursors[i];var window=windows[i];var row=catalogs[i].Get(cursor.OccurrenceIndex);var trajectory=actors[i].Trajectory;
+                var velocity=trajectory.VelocityAt(0);
+                // This is a stationary body already on its own mat, not a
+                // brake, queued start/exit, phase handoff or suppression of a
+                // moving endpoint. No tolerance rounds motion down to rest.
+                if(row.End!=ManualRacePathEnd.FiringLine||window.MaximumAdmittedArcNanometers!=row.LengthNanometers||
+                    cursor.ObservedArcNanometers!=row.LengthNanometers||cursor.CreditedArcNanometers!=row.LengthNanometers||
+                    velocity.X!=0||velocity.Z!=0||trajectory.PeakYawRate!=0||
+                    !trajectory.TryGetConstantPlanarAcceleration(out var acceleration)||acceleration.X!=0||acceleration.Z!=0||
+                    !boundaries[i].IsAtBoundary(trajectory,workingActors[i].Pose,window))
+                    return Reject(ManualScopedWorldStatus.ShootingHold,actors[i].Athlete);
+                heldFiringActors[i]=true;
+            }
             if(!CollectOwnedContacts())return false;
             double earliest=seconds;
             for(int i=0;i<Count;i++)
             {
-                var preview=boundaries[i].Preview(actors[i].Trajectory,windows[i]);boundaryPreviews[i]=preview;
+                var preview=heldFiringActors[i]?new ManualRacePathBoundaryPreview(ManualRacePathBoundaryStatus.Clear,seconds,
+                    windows[i].MaximumAdmittedArcNanometers):boundaries[i].Preview(actors[i].Trajectory,windows[i]);boundaryPreviews[i]=preview;
                 if(preview.Status==ManualRacePathBoundaryStatus.Boundary&&preview.Seconds<earliest)earliest=preview.Seconds;
             }
             if(earliest==0)
@@ -99,6 +122,7 @@ namespace Biathlon.Simulation
             }
             for(int i=0;i<Count;i++)
             {
+                if(heldFiringActors[i])continue;
                 var preview=boundaries[i].Preview(boundaryPrefix[i].Trajectory,windows[i]);
                 if(preview.Status==ManualRacePathBoundaryStatus.Blocked||preview.Status==ManualRacePathBoundaryStatus.UnsupportedTrajectory)
                     return Reject(ManualScopedWorldStatus.BoundarySchedule,actors[i].Athlete,gate:preview.Admission);

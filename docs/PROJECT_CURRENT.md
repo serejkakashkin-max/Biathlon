@@ -224,3 +224,15 @@ Production host still legacyv1; full runner/seams/resources/shooting/finish/AI/
 replay/host/WP-175/177/178/M13/final owner build OPEN. WP-176 PASS. Next complete
 common-clock runner using controlled drives; no intermediate Windows build.
 [Report](reports/TASK_M13_MANUAL_CONTROLLED_SLIP_20261008.md).
+
+
+2026-10-08 stationary firing common clock: world v14 explicitly admits already
+owned FiringLine holds only at exact stationary full trajectories/endpoints.
+Complete body/contact/course/edge/phase/session proof remains required; movers,
+spin, acceleration and start/ordinary/exit/penalty/finish holds reject. Mixed
+shooting + moving actors pay the same clock; no shooting/departure permission.
+.NET442/442 plus final focused11/11, native11+21 PASS; initial NUnit AnyOf compile
+error preserved/fixed; final refresh success, recent Console clear. Controlled
+steering c16794d pushed. M13/WP-175/177/178/full runner/AI/seams/resources/replay/
+host/final owner build OPEN; WP-176 PASS. No intermediate Windows build.
+[Report](reports/TASK_M13_MANUAL_SHOOTING_HOLD_20261008.md).

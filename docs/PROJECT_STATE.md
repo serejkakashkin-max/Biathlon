@@ -23209,3 +23209,47 @@ all-field/AI signed inputs, course seams/body clearance, mat ownership/shooting/
 finished actors/v2 race replay/host, условия/balance/performance и объединённый
 owner-test билд. Промежуточного билда и owner gate нет.
 [Отчёт](reports/TASK_M13_MANUAL_CONTROLLED_SLIP_20261008.md).
+
+
+## 2026-10-08 — M13: stationary firing hold на общем world clock
+
+Signed controlled slip steering c16794d отправлен в GitHub. Продолжена подготовка
+common-clock runner: найдено, что обычный нулевой endpoint event уже стоящего на
+коврике стрелка нельзя повторять вместо оплаты реального stationary interval.
+World context v14 принимает explicit stationaryFiringActors. Разрешено только
+у собственного FiringLine endpoint: exact observed/high-water/full cap и
+независимый actual plane/projection proof. World velocity, genuine constant
+centre acceleration и весь peak yaw должны быть строго0, без tolerance/clamp.
+
+Пропускается только повторный zero-time boundary notification. Полные body,
+contact, course, supplied edge, portal, projection/progress и session lifecycle
+proofs обязательны. Start/ordinary/exit/penalty/finish этим режимом не подавляются.
+Движение, spin или traction с коврика возвращают ShootingHold до оплаты времени.
+Marker не завершает стрельбу, не выдаёт hit/mat ownership/departure permission;
+прежний session gate после пяти выстрелов сохранён. Flags cold-allocated,
+очищаются на каждом valid query; invalid/duplicate actor index отклоняется.
+
+Новых11 tests: unchanged fully-paid shooting session publication; mixed aiming
+actor + moving skier на общем .05s clock в обоих roster orders; forward/reverse,
+spin, accelerating departure/ordinary/partial cap/forbidden edge rejection;
+markers/default-event lifetime; warm1000 queries+abort0 B. Initial.NET11/11 и
+broad all-manual+Sprint/Pack/Player replay442/442 PASS. Final focused11/11 после
+исправления NUnit syntax также PASS. Unity initially FAILED compile: bundled
+NUnit не имеет Is.AnyOf; equivalent EqualTo.Or.EqualTo исправил test source,
+без удаления теста и без weakening/assert-policy/tuning изменений. Initial
+compile-error receipt и Console history сохранены, cache не очищался.
+
+Final native11 hold +21 common-events =32 executed PASS; discovery1526 не
+считается исполнением. Final refresh Success; editor не compiling/playing;
+recent Error/Exception logs за последнюю минуту пусты. Ранее исправленный compile
+error остаётся в исторической Console. Вместе с controlled step за этот проход
+native40+32 =72 executed PASS. Visual Play Mode/Windows build не запускались.
+
+M13 OPEN; WP-176 PASS; WP-175/177/178 OPEN. Production host ещё legacyv1,
+playable queues/manual steering не объявлены завершёнными. Новый stationary
+clock не является запрограммированным ожиданием для движущихся спортсменов.
+Далее operational full common-clock runner/AI signed inputs, seams/occupied body
+admission, reusable mat ownership/shooting/finished actors/v2 full-race replay/
+host, условия/balance/performance и объединённый owner-test build. Owner gate и
+новый intermediate build отсутствуют. Master Plan/history не переписаны.
+[Отчёт](reports/TASK_M13_MANUAL_SHOOTING_HOLD_20261008.md).

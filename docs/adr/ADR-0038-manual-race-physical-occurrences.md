@@ -278,3 +278,20 @@ Local counter-only diagnostic detects7/256 nonzero empty intervals under BGC
 versus0/256 for the identical DLL without BGC, both real-allocation controls
 32/32. Test-host-only configuration verification follows separately.
 [Report](../reports/TASK_M13_MANUAL_COMMON_EVENTS_20261008.md).
+
+
+## 2026-10-08 — stationary firing endpoints on the common clock
+
+World v14 permits an explicit stationary firing actor list in first-event queries.
+It suppresses only a repeated zero-time notification at the actor's exact owned
+FiringLine endpoint. Observed/high-water/full cap, actual plane and projection,
+exact zero velocity, genuine zero centre acceleration and whole-trajectory zero
+peak yaw are required. No tolerance erases motion. Complete contact/body/course/
+edge/portal proof and session shooting authorization remain mandatory. It neither
+stops a mover nor authorizes departure or shooting completion. Default queries
+still report the boundary. Other endpoint types cannot be held by this policy.
+A stationary shooting session and moving actor can now pay the same full clock;
+changing mat/finish resources and the actual runner/host remain OPEN.
+.NET442/442, final focused11/11 and native11+21 PASS. Initial NUnit API compile
+error preserved and corrected; final refresh success/recent Console clear.
+[Report](../reports/TASK_M13_MANUAL_SHOOTING_HOLD_20261008.md).
