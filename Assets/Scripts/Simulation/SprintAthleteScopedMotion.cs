@@ -139,10 +139,7 @@ namespace Biathlon.Simulation
                 var piece=ledger.GetProposedMotionPiece(world,actorIndex,i);var occurrence=before.Owner.Get(piece.OccurrenceIndex);
                 segments[i]=new RaceMotionSegment(piece.RouteBefore,piece.RouteAfter,piece.TravelBefore,piece.TravelAfter,
                     piece.StartSeconds,piece.EndSeconds,occurrence.Kind==ManualRacePathKind.PenaltyLoop,occurrence.Kind==ManualRacePathKind.StartApproach);
-                if(preparedRange!=null)rangeTravel=checked(rangeTravel+(occurrence.Kind==ManualRacePathKind.PenaltyLoop?
-                    piece.CreditedArcAfter-piece.CreditedArcBefore:
-                    Math.Max(0,Math.Min(piece.RouteAfter,preparedRange.RangeRejoinNanometers)-
-                        Math.Max(piece.RouteBefore,preparedRange.RangeEntryNanometers))));
+                if(preparedRange!=null)rangeTravel=checked(rangeTravel+ScopedRangeIncrement(piece,before.Owner,preparedRange));
             }
             double dt=1.0/config.TickFrequency;
             var movement=new RacePathMotionFrame(nextMotion,after.CreditedRouteNanometers,rangeTravel,dt,0,
@@ -161,6 +158,9 @@ namespace Biathlon.Simulation
                 a.Observation.LateralMeters==b.Observation.LateralMeters&&a.Observation.HeightMeters==b.Observation.HeightMeters;
         private static bool SameScopedMotion(SkiState a,SkiState b)
             =>a.DistanceNanometers==b.DistanceNanometers&&a.SpeedMetersPerSecond==b.SpeedMetersPerSecond;
+        private static long ScopedRangeIncrement(ManualScopedWorldMotionPiece piece,ManualRacePathCatalog catalog,RangePenaltyTraversal range)
+            =>catalog.Get(piece.OccurrenceIndex).Kind==ManualRacePathKind.PenaltyLoop?piece.CreditedArcAfter-piece.CreditedArcBefore:
+                Math.Max(0,Math.Min(piece.RouteAfter,range.RangeRejoinNanometers)-Math.Max(piece.RouteBefore,range.RangeEntryNanometers));
         private void CommitScopedStart(SprintStepPreview preview)
         {
             var ledger=preview.ScopedWorld.Owner;var before=ledger.GetCursor(preparedScopedIndex);
@@ -215,6 +215,42 @@ namespace Biathlon.Simulation
             }
             return target>=0;
         }
+        internal bool TryPrepareWorkingScopedPhase(SprintStepPreview preview,ManualScopedWorldRoster world,
+            ManualScopedWorldTick tick,int index,out int target)
+        {
+            target=-1;ValidatePreview(preview);
+            if(!ReferenceEquals(preparedScopedWorld,world)||preparedScopedIndex!=index||!preview.ManualWorldRequired||
+                !preview.MovementActive||preview.ShootingActive||tick.Tick.Value!=preview.Tick.Value)return false;
+            ValidateScopedSource(world,index);
+            if(world.HasPendingContact(tick)||preparedRange==null)return false;
+            var cursor=world.GetWorkingCursor(tick,index);var row=cursor.Owner.Get(cursor.OccurrenceIndex);
+            if(row.BoutIndex!=preparedRangeIndex||cursor.ObservedArcNanometers!=row.LengthNanometers||
+                cursor.CreditedArcNanometers!=row.LengthNanometers)return false;
+            long travel=0;int completed=preparedRange.CompletedLoops;
+            for(int i=0;i<world.GetWorkingMotionPieceCount(tick);i++)
+            {
+                var piece=world.GetWorkingMotionPiece(tick,index,i);var at=cursor.Owner.Get(piece.OccurrenceIndex);
+                travel=checked(travel+ScopedRangeIncrement(piece,cursor.Owner,preparedRange));
+                if(at.Kind==ManualRacePathKind.PenaltyLoop&&piece.CreditedArcAfter==at.LengthNanometers&&piece.CreditedArcBefore<at.LengthNanometers)completed++;
+            }
+            var future=preparedRange.PreviewMotion(travel);
+            if(future.RouteNanometers!=cursor.CreditedRouteNanometers||future.PenaltyNanometers!=0)return false;
+            if(row.End==ManualRacePathEnd.PenaltyDecision)
+            {
+                if(future.Phase==RangeTraversalPhase.PenaltyLoop&&completed==0&&preparedRange.RequiredLoops>0)
+                    target=cursor.Owner.GetPenaltyOccurrence(preparedRangeIndex,1);
+                else if((future.Phase==RangeTraversalPhase.Rejoin||future.Phase==RangeTraversalPhase.Complete)&&preparedRange.RequiredLoops==0)
+                    target=cursor.Owner.GetPenaltyReturnOccurrence(preparedRangeIndex);
+            }
+            else if(row.End==ManualRacePathEnd.PenaltyCircuit&&row.PenaltyOrdinal==completed)
+            {
+                if(future.Phase==RangeTraversalPhase.PenaltyLoop&&completed<preparedRange.RequiredLoops)
+                    target=cursor.Owner.GetPenaltyOccurrence(preparedRangeIndex,completed+1);
+                else if((future.Phase==RangeTraversalPhase.Rejoin||future.Phase==RangeTraversalPhase.Complete)&&completed==preparedRange.RequiredLoops)
+                    target=cursor.Owner.GetPenaltyReturnOccurrence(preparedRangeIndex);
+            }
+            return target>=0;
+        }
     }
 
     /// <summary>Prevalidate every session's owned motion intervals, then publish
@@ -231,8 +267,8 @@ namespace Biathlon.Simulation
         {
             if(world==null||roster.Length==0||roster.Length!=world.Count)throw new ArgumentException("Complete scoped race roster required.");
             this.world=world;athletes=roster.ToArray();resolved=new SprintStepPreview[roster.Length];phaseTargets=new int[roster.Length];
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_scoped_interval_session_commit_v3",world.ContextJson,
-                "actual_surface;high_water_range_travel;start_high_water_distinct_from_odometer;full_roster_prevalidation;owned_interval_segments;ordinary_seam_continuation;no_legacy_resumption;accepted_completed_shooting_departure;actual_penalty_debt_and_ordinal;zero_time_same_pose_phase_handoff"});
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_scoped_interval_session_commit_v4",world.ContextJson,
+                "actual_surface;high_water_range_travel;start_high_water_distinct_from_odometer;full_roster_prevalidation;owned_interval_segments;ordinary_seam_continuation;no_legacy_resumption;accepted_completed_shooting_departure;actual_penalty_debt_and_ordinal;zero_time_same_pose_phase_handoff;event_free_future_penalty_preview;paid_receipt_completed_circuits;full_clock_lifecycle_publication"});
             for(int i=0;i<athletes.Length;i++)
             {
                 if(athletes[i]==null||athletes[i].HasFinished)throw new ArgumentException("Active athlete session required.");
@@ -262,6 +298,17 @@ namespace Biathlon.Simulation
                 if(!athletes[index].TryPrepareAcceptedScopedPhase(world,index,out phaseTargets[i]))return false;
             }
             return world.TryHandoffAcceptedPhases(actorIndexes,phaseTargets.AsSpan(0,actorIndexes.Length));
+        }
+        public bool TryHandoffWorkingPhases(ManualScopedWorldTick tick,ReadOnlySpan<SprintStepPreview> pending,ReadOnlySpan<int> actorIndexes)
+        {
+            if(pending.Length!=athletes.Length||actorIndexes.Length==0||actorIndexes.Length>athletes.Length)return false;
+            for(int i=0;i<actorIndexes.Length;i++)
+            {
+                int index=actorIndexes[i];if(index<0||index>=athletes.Length)throw new ArgumentOutOfRangeException(nameof(actorIndexes));
+                for(int j=0;j<i;j++)if(actorIndexes[j]==index)throw new ArgumentException("Duplicate provisional phase actor.");
+                if(!athletes[index].TryPrepareWorkingScopedPhase(pending[index],world,tick,index,out phaseTargets[i]))return false;
+            }
+            return world.TryHandoffWorkingPhases(tick,actorIndexes,phaseTargets.AsSpan(0,actorIndexes.Length));
         }
     }
     public sealed partial class SprintAthleteSession

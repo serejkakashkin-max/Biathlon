@@ -141,3 +141,10 @@ force tick; real penalty debt/ordinal endpoints preserve world motion/time.
 .NET77/77, native6/6 PASS. In-tick future gates/contacts/Pack/replay/host and
 allocation qualification/M13/build remain OPEN.
 [Report](reports/TASK_M13_MANUAL_ACCEPTED_PHASES_20261008.md).
+
+
+2026-10-08 paid in-tick penalty phases: moving entry/repeat/return preserve speed
+and pay the suffix; provisional lifecycle preview publishes only with full clock.
+.NET82/82; native5+6 PASS, Console empty. Contact/field/replay/host, broad allocation
+qualification and M13/build remain OPEN.
+[Report](reports/TASK_M13_MANUAL_WORKING_PHASES_20261008.md).

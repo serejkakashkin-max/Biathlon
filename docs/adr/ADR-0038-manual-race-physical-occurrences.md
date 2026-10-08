@@ -188,3 +188,16 @@ the endpoint's bout; its retained traversal controls return authorization.
 boundaries, not a production waiting policy. Future in-tick phase authorization
 and full field/contact/replay/host integration remain open.
 [Report](../reports/TASK_M13_MANUAL_ACCEPTED_PHASES_20261008.md).
+
+
+## 2026-10-08 — future penalty authorization from paid receipts
+
+World v8/session transaction v4 can stage penalty entry/repeat/return inside a
+fixed tick. Session traversal preview uses only admitted pieces and actual debt;
+newly completed circuit endpoints determine the future ordinal. All requested
+sources and targets validate before mutation. Pending contact response blocks
+handoffs. Geometry change pays no time/motion and emits no event; actual lifecycle
+publishes with full roster clock, and abort restores accepted scope. Moving
+constant-velocity gate fixtures .NET82/82 regression/native5+6 PASS. Full-force,
+zero-debt/all-field and production integration remain unqualified.
+[Report](../reports/TASK_M13_MANUAL_WORKING_PHASES_20261008.md).

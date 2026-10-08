@@ -1,0 +1,53 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1399,\"PassedTests\":6,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:08.4483137\"},\"Results\":[{\"Name\":\"Biathlon.Tests.ManualScopedAcceptedPhaseTests.AcceptedPenaltySnapshotAuthorizesOnlyItsActualDebtCircuitOrReturn(\\u0022penalty_entry\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.2490000\"},{\"Name\":\"Biathlon.Tests.ManualScopedAcceptedPhaseTests.AcceptedPenaltySnapshotAuthorizesOnlyItsActualDebtCircuitOrReturn(\\u0022penalty_repeat\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.2210000\"},{\"Name\":\"Biathlon.Tests.ManualScopedAcceptedPhaseTests.AcceptedPenaltySnapshotAuthorizesOnlyItsActualDebtCircuitOrReturn(\\u0022penalty_return\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.2670000\"},{\"Name\":\"Biathlon.Tests.ManualScopedAcceptedPhaseTests.ActualCompletedBoutAuthorizesDepartureThenSharedPowerStartsTheAthleteWithoutWaiting\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.2610000\"},{\"Name\":\"Biathlon.Tests.ManualScopedAcceptedPhaseTests.UncompletedOrPendingShootingCannotOpenTheAcceptedPhaseGate\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.2210000\"},{\"Name\":\"Biathlon.Tests.ManualScopedAcceptedPhaseTests.WarmAcceptedPhaseRejectionQueriesAllocateNothing\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.2510000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 1399,
+        "PassedTests": 6,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:08.4483137"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.ManualScopedAcceptedPhaseTests.AcceptedPenaltySnapshotAuthorizesOnlyItsActualDebtCircuitOrReturn(\"penalty_entry\")",
+          "Status": "Passed",
+          "Duration": "00:00:01.2490000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedAcceptedPhaseTests.AcceptedPenaltySnapshotAuthorizesOnlyItsActualDebtCircuitOrReturn(\"penalty_repeat\")",
+          "Status": "Passed",
+          "Duration": "00:00:01.2210000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedAcceptedPhaseTests.AcceptedPenaltySnapshotAuthorizesOnlyItsActualDebtCircuitOrReturn(\"penalty_return\")",
+          "Status": "Passed",
+          "Duration": "00:00:01.2670000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedAcceptedPhaseTests.ActualCompletedBoutAuthorizesDepartureThenSharedPowerStartsTheAthleteWithoutWaiting",
+          "Status": "Passed",
+          "Duration": "00:00:01.2610000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedAcceptedPhaseTests.UncompletedOrPendingShootingCannotOpenTheAcceptedPhaseGate",
+          "Status": "Passed",
+          "Duration": "00:00:01.2210000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedAcceptedPhaseTests.WarmAcceptedPhaseRejectionQueriesAllocateNothing",
+          "Status": "Passed",
+          "Duration": "00:00:01.2510000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

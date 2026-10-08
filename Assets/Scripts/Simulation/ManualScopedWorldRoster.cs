@@ -146,9 +146,9 @@ namespace Biathlon.Simulation
             progress=new ManualRacePathProgression[count];courses=new ManualRouteTubeSweep[count];gates=new ManualRacePathGateSweep[count];bodies=new ManualSkiJointSweep(body,contact,work);
             maximumPieces=work.MaximumIntervalChecks;pieces=new ManualScopedWorldMotionPiece[checked(count*maximumPieces)];
             var context=new string[count+7];var initial=new string[count+4];
-            context[0]="manual_scoped_full_clear_world_roster_v7";context[1]=body.ToJson();
+            context[0]="manual_scoped_full_clear_world_roster_v8";context[1]=body.ToJson();
             context[2]=contact.ToJson();context[3]=work.ToJson();
-            context[4]="force_exact_distance;contact_velocity_norm_simpson64;grade_frozen_per_interval;full_duration_tolerance_1e-12;no_implicit_scope_crossing;local_terminal_centre_portals_v1;whole_tube_edge_activation;continuous_acceleration_bound;existing_trajectory_encoding_reserve;staged_full_clock_intervals;exact_remaining_time;round_tick_travel_once;owned_motion_pieces;interval_limit_from_sweep_maximum_checks;accepted_phase_endpoints_authorized_by_session_batch;no_phase_handoff_with_pending_world;"+ManualSkiWorldTrajectory.SlicePolicy;
+            context[4]="force_exact_distance;contact_velocity_norm_simpson64;grade_frozen_per_interval;full_duration_tolerance_1e-12;no_implicit_scope_crossing;local_terminal_centre_portals_v1;whole_tube_edge_activation;continuous_acceleration_bound;existing_trajectory_encoding_reserve;staged_full_clock_intervals;exact_remaining_time;round_tick_travel_once;owned_motion_pieces;interval_limit_from_sweep_maximum_checks;accepted_phase_endpoints_authorized_by_session_batch;future_penalty_phases_from_paid_interval_high_water;no_handoff_before_pending_contact_response;"+ManualSkiWorldTrajectory.SlicePolicy;
             context[5]=responseContext;
             initial[0]="manual_scoped_initial_world_roster_v1";initial[1]=tickFrequency.ToString(CultureInfo.InvariantCulture);
             initial[2]=initialTick.Value.ToString(CultureInfo.InvariantCulture);initial[3]="actor,occurrence,observed_arc,high_arc,route_credit,x,z,heading_nrad,yaw,vx,vz,odometer,speed";
@@ -362,7 +362,7 @@ namespace Biathlon.Simulation
             pendingContact=false;LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.Clear,response:result);return true;
         }
         public bool TryHandoffOrdinary(ManualScopedWorldTick tick,ReadOnlySpan<int> actorIndexes)
-        {ValidateTick(tick);return HandoffOrdinary(workingActors,workingCursors,actorIndexes);}
+        {ValidateTick(tick);return !pendingContact&&HandoffOrdinary(workingActors,workingCursors,actorIndexes);}
         /// <summary>Only a complete staged fixed clock can become a world proof.
         /// No tolerance rounds up an unpaid interval. Race sessions still validate
         /// and commit their lifecycle/physiology/events before world publication.</summary>
@@ -414,22 +414,34 @@ namespace Biathlon.Simulation
         {
             if(ready||tickActive||actorIndexes.Length==0||actorIndexes.Length!=targets.Length)return false;
             long nextRevision=checked(revision+1);
+            if(!HandoffPhases(accepted,cursors,actorIndexes,targets))return false;
+            revision=nextRevision;return true;
+        }
+        internal bool TryHandoffWorkingPhases(ManualScopedWorldTick tick,ReadOnlySpan<int> actorIndexes,ReadOnlySpan<int> targets)
+        {
+            ValidateTick(tick);
+            if(pendingContact||actorIndexes.Length==0||actorIndexes.Length!=targets.Length)return false;
+            return HandoffPhases(workingActors,workingCursors,actorIndexes,targets);
+        }
+        private bool HandoffPhases(ManualRacePathActorFrame[] sources,ManualRacePathCursor[] sourceCursors,
+            ReadOnlySpan<int> actorIndexes,ReadOnlySpan<int> targets)
+        {
             for(int i=0;i<actorIndexes.Length;i++)
             {
                 int index=actorIndexes[i];if(index<0||index>=Count)throw new ArgumentOutOfRangeException(nameof(actorIndexes));
                 for(int j=0;j<i;j++)if(actorIndexes[j]==index)throw new ArgumentException("Duplicate accepted phase handoff.");
-                if(!progress[index].TryPreviewPhaseHandoff(cursors[index],accepted[index],targets[i],out handoffCursors[i]))return false;
+                if(!progress[index].TryPreviewPhaseHandoff(sourceCursors[index],sources[index],targets[i],out handoffCursors[i]))return false;
             }
             for(int i=0;i<actorIndexes.Length;i++)
             {
                 int index=actorIndexes[i];var next=handoffCursors[i];
-                if(!catalogs[index].TryProject(accepted[index].Pose,next.OccurrenceIndex,0,0,out var observation))
+                if(!catalogs[index].TryProject(sources[index].Pose,next.OccurrenceIndex,0,0,out var observation))
                     throw new InvalidOperationException("Verified phase endpoint changed.");
-                staged[i]=new ManualRacePathActorFrame(next.Athlete,accepted[index].Pose,accepted[index].Velocity,observation);
+                staged[i]=new ManualRacePathActorFrame(next.Athlete,sources[index].Pose,sources[index].Velocity,observation);
             }
             for(int i=0;i<actorIndexes.Length;i++)
-            {int index=actorIndexes[i];accepted[index]=staged[i];cursors[index]=handoffCursors[i];}
-            revision=nextRevision;return true;
+            {int index=actorIndexes[i];sources[index]=staged[i];sourceCursors[index]=handoffCursors[i];}
+            return true;
         }
     }
 }

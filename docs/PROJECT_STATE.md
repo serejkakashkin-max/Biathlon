@@ -23008,3 +23008,12 @@ journal, mat choice, terminal actors, full Pack/field/manual replay and producti
 input/rig. Zero-debt/full-roster phase traffic requires integrated qualification.
 Playable queue behavior/full manual/M13/final owner build remain OPEN. No
 intermediate build. All earlier state bytes preserved.
+
+
+## 2026-10-08 — M13: paid in-tick penalty phase handoffs
+
+- World v8/session transaction v4 authorize future penalty entry, circuit repeat and return from owned paid interval high water plus the actual traversal debt/ordinal. Lifecycle/physiology/events publish only with the complete fixed clock. Pending contacts block handoffs; abort changes no accepted rows.
+- Three moving gate cases preserve pose/heading/velocity/odometer/time at the handoff and pay the same-tick suffix without a wait. Constant-velocity fixtures isolate geometry/lifecycle; they do not qualify a force-driven full race or traffic. Zero-debt/full-field matrix remains pending.
+- .NET final82/82 PASS; native Unity5/5 new and6/6 accepted phase cases PASS. Warm successful provisional gate/abort0 B, compile settled/Error Console empty. Evidence: docs/quality/m13/manual-working-phases-20261008/. Report: docs/reports/TASK_M13_MANUAL_WORKING_PHASES_20261008.md.
+- M13/WP-175/177/178 remain OPEN, WP-176 PASS. Full contact timing, surfaces/edges, mat assistance, finished actors, Pack/events/replay/manual host and earlier broad allocation qualification remain required. No intermediate Windows build. Owner193 approval stays narrow.
+- History policy: the complete prior file remains byte-for-byte unchanged; this record is appended. Next: actual first-contact scheduling and all-phase race integration.

@@ -57,7 +57,7 @@ namespace Biathlon.Tests
                     Occurrence=Source.Catalog.GetPenaltyOccurrence(0,Session.GetBoutRangeFrame(0).CompletedLoops);
                     high=Source.Catalog.Get(Occurrence).LengthNanometers;
                 }
-                else if(phase=="penalty")
+                else if(phase=="penalty"||phase=="penalty_repeat_before"||phase=="penalty_return_before")
                 {Occurrence=Source.Catalog.GetPenaltyOccurrence(0,Session.CurrentRangeRequiredPenaltyLoops-Session.CurrentRangeRemainingPenaltyLoops+1);high=Session.CurrentRangeMotion.Value.PenaltyNanometers;}
                 else if(phase=="shooting")
                 {Occurrence=Source.Catalog.GetFiringOccurrence(0);high=Source.Catalog.Get(Occurrence).LengthNanometers;}
@@ -74,6 +74,19 @@ namespace Biathlon.Tests
                 }
                 long observed=high-(backward?N/10:0);
                 var pose=Source.At(Occurrence,observed,heading:backward?Math.PI:(double?)null);
+                if(phase=="penalty_entry_before"||phase=="penalty_repeat_before"||phase=="penalty_return_before")
+                {
+                    var row=Source.Catalog.Get(Occurrence);
+                    Assert.That(Source.Catalog.TrySample(Occurrence,row.LengthNanometers,out var end),Is.True);
+                    int target=phase=="penalty_entry_before"?Source.Catalog.GetPenaltyOccurrence(row.BoutIndex,1):
+                        phase=="penalty_repeat_before"?Source.Catalog.GetPenaltyOccurrence(row.BoutIndex,row.PenaltyOrdinal+1):Source.Catalog.GetPenaltyReturnOccurrence(row.BoutIndex);
+                    Assert.That(Source.Catalog.TrySample(target,0,out var to),Is.True);
+                    double vx=end.ForwardX+to.ForwardX,vz=end.ForwardZ+to.ForwardZ,norm=Math.Sqrt(vx*vx+vz*vz);
+                    vx/=norm;vz/=norm;
+                    double gap=(end.X-pose.X)*end.ForwardX+(end.Z-pose.Z)*end.ForwardZ;
+                    double side=-gap*(vx*end.ForwardZ-vz*end.ForwardX)/(vx*end.ForwardX+vz*end.ForwardZ);
+                    pose=Source.At(Occurrence,observed,side,Math.Atan2(vx,vz));
+                }
                 if(backward)
                 {
                     var tangent=Source.At(Occurrence,observed);
@@ -110,6 +123,13 @@ namespace Biathlon.Tests
                     case "approach":return p?.Phase==RangeTraversalPhase.Approach&&Session.RouteNanometers>Source.Venue.Track.Range.Entry.Distance.Millimeters*SkiState.NanometersPerMillimeter+3*N;
                     case "exit":return p?.Phase==RangeTraversalPhase.RangeExit&&Session.RouteNanometers>Source.Path.FiringRouteNanometers(0)+3*N;
                     case "penalty":return p?.Phase==RangeTraversalPhase.PenaltyLoop&&p.Value.PenaltyNanometers>10*N;
+                    case "penalty_entry_before":return p?.Phase==RangeTraversalPhase.PenaltyApproach&&
+                        p.Value.DistanceToBoundaryNanometers>0&&Session.Motion.SpeedMetersPerSecond>0&&
+                        p.Value.DistanceToBoundaryNanometers/(double)N/Session.Motion.SpeedMetersPerSecond<.035;
+                    case "penalty_repeat_before":case "penalty_return_before":return p?.Phase==RangeTraversalPhase.PenaltyLoop&&
+                        (phase=="penalty_repeat_before"?Session.CurrentRangeRemainingPenaltyLoops>1:Session.CurrentRangeRemainingPenaltyLoops==1)&&
+                        p.Value.DistanceToBoundaryNanometers>0&&Session.Motion.SpeedMetersPerSecond>0&&
+                        p.Value.DistanceToBoundaryNanometers/(double)N/Session.Motion.SpeedMetersPerSecond<.035;
                     case "penalty_entry":return p?.Phase==RangeTraversalPhase.PenaltyLoop&&p.Value.PenaltyNanometers==0&&Session.CurrentRangeRemainingPenaltyLoops>0;
                     case "penalty_repeat":return p?.Phase==RangeTraversalPhase.PenaltyLoop&&p.Value.PenaltyNanometers==0&&
                         Session.CurrentRangeRemainingPenaltyLoops<Session.CurrentRangeRequiredPenaltyLoops;
