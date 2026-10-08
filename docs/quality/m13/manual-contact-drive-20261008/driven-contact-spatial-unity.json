@@ -1,0 +1,88 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1449,\"PassedTests\":13,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:00.9687481\"},\"Results\":[{\"Name\":\"Biathlon.Tests.ManualSkiSpatialContactTests.ContactContinuationAndOrdinaryMotionUseTheSameContinuousPairCheck\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0030000\"},{\"Name\":\"Biathlon.Tests.ManualSkiSpatialContactTests.EdgeCheckStopsAtSkiFootprintBeforeTheCentreLeavesTheCourse\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.ManualSkiSpatialContactTests.EdgeWorkExhaustionAndOutsideStartNeverAuthorizeMotion\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.ManualSkiSpatialContactTests.GroupResponseCanContinueSpatiallyWithoutStoppingEveryAthlete\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0030000\"},{\"Name\":\"Biathlon.Tests.ManualSkiSpatialContactTests.JointQueryTiesAreStableAndQueriesDoNotAllocate\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0080000\"},{\"Name\":\"Biathlon.Tests.ManualSkiSpatialContactTests.JointSweepChoosesEarliestEdgeOrPairAcrossTheWholeGroup\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.ManualSkiSpatialContactTests.PassiveImpulseIntegratesAsOneFrozenRampWithConsistentPrefixes\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.ManualSkiSpatialContactTests.RawPostImpactSpinMayExceedCommandedYawWithoutBeingClamped\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.ManualSkiSpatialContactTests.ReachedContactIsExplicitAndUnknownOrDuplicateBindingsAreRejected\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.ManualSkiSpatialContactTests.RotatingRearCanCrossAnEdgeWhileItsCentreStaysInside\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.ManualSkiSpatialContactTests.SpatialContinuationRetainsSideVelocityAndSpinInsteadOfTurningItIntoForwardSpeed\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.ManualSkiSpatialContactTests.SpatialQueriesAreRepeatableAllocationFreeAndRejectInvalidFrames\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0060000\"},{\"Name\":\"Biathlon.Tests.ManualSkiSpatialContactTests.TangentialMotionAlongAnEdgeDoesNotAutoSteerOrStop\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 1449,
+        "PassedTests": 13,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.9687481"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.ManualSkiSpatialContactTests.ContactContinuationAndOrdinaryMotionUseTheSameContinuousPairCheck",
+          "Status": "Passed",
+          "Duration": "00:00:00.0030000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSpatialContactTests.EdgeCheckStopsAtSkiFootprintBeforeTheCentreLeavesTheCourse",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSpatialContactTests.EdgeWorkExhaustionAndOutsideStartNeverAuthorizeMotion",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSpatialContactTests.GroupResponseCanContinueSpatiallyWithoutStoppingEveryAthlete",
+          "Status": "Passed",
+          "Duration": "00:00:00.0030000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSpatialContactTests.JointQueryTiesAreStableAndQueriesDoNotAllocate",
+          "Status": "Passed",
+          "Duration": "00:00:00.0080000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSpatialContactTests.JointSweepChoosesEarliestEdgeOrPairAcrossTheWholeGroup",
+          "Status": "Passed",
+          "Duration": "00:00:00.0020000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSpatialContactTests.PassiveImpulseIntegratesAsOneFrozenRampWithConsistentPrefixes",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSpatialContactTests.RawPostImpactSpinMayExceedCommandedYawWithoutBeingClamped",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSpatialContactTests.ReachedContactIsExplicitAndUnknownOrDuplicateBindingsAreRejected",
+          "Status": "Passed",
+          "Duration": "00:00:00.0020000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSpatialContactTests.RotatingRearCanCrossAnEdgeWhileItsCentreStaysInside",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSpatialContactTests.SpatialContinuationRetainsSideVelocityAndSpinInsteadOfTurningItIntoForwardSpeed",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSpatialContactTests.SpatialQueriesAreRepeatableAllocationFreeAndRejectInvalidFrames",
+          "Status": "Passed",
+          "Duration": "00:00:00.0060000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiSpatialContactTests.TangentialMotionAlongAnEdgeDoesNotAutoSteerOrStop",
+          "Status": "Passed",
+          "Duration": "00:00:00.0020000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

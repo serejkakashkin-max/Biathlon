@@ -337,3 +337,17 @@ range entry. The caller supplies draft observations. It does not yet compose
 start/private range/penalty paths, topology/contact continuation, complete
 manual race replay or a playable host. The existing nonthrowing race event-sink
 assumption remains. M13 cannot close on this intermediate publication alone.
+
+
+## 2026-10-08 — shared longitudinal drive with retained slip/spin
+
+The contact drive v1 sums shared longitudinal ski force stop/cap distance along
+a frozen ski axis with the existing passive lateral/spin ramp. It preserves
+exact initial world motion and does not apply a new steering command. Backwards
+propulsion acts as braking; a reached physical zero pays the shared-force forward
+restart on the same interval remainder. Body mass must match force data. World
+trajectory/slices carry this value-type variant through unchanged body/edge
+proofs; physical travel uses64-panel norm quadrature with kink error explicit.
+.NET14/14+84/84/native14+17+13 PASS; broad364/365 allocation failure5496 B retained.
+Controlled slip yaw, persistent forces, all-phase runner/replay/host remain open.
+[Report](../reports/TASK_M13_MANUAL_CONTACT_DRIVE_20261008.md).

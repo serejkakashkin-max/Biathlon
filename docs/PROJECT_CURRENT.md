@@ -163,3 +163,11 @@ body/phase boundaries; original outer start seam still unqualified. Broad defaul
 327/328 fails existing allocation test at440 B; qualification OPEN. Driven slip,
 all-phase runner/resources/replay/host and M13/final build remain OPEN.
 [Report](reports/TASK_M13_MANUAL_SCOPED_FIELD_20261008.md).
+
+
+2026-10-08 shared longitudinal contact drive: no velocity/heading snap; physical
+backwards braking and paid forward restart. .NET14/14 and focused84/84 PASS; native
+14+17+13 PASS/Console empty. Broad manual/replay364/365 fails existing allocation
+assertion5496 B; qualification OPEN. Controlled slip yaw/persistent contacts,
+resources/replay/host and M13/final owner build remain OPEN.
+[Report](reports/TASK_M13_MANUAL_CONTACT_DRIVE_20261008.md).
