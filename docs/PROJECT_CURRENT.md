@@ -1,6 +1,6 @@
 # BIATHLON — текущая работа
 
-Обновлено: 2026-10-07. Это указатель, не исторический журнал.
+Обновлено: 2026-10-08. Это указатель, не исторический журнал.
 Полная история от Foundation сохранена в [PROJECT_STATE.md](PROJECT_STATE.md);
 только последняя датированная запись определяет текущий статус. PROJECT_STATE
 остаётся append-only; исторические записи и восстановленные снимки не удаляются.
@@ -81,3 +81,10 @@ allocation risk remains OPEN. No live manual/build closure.
 Allocation isolation narrows test invocation versus core loop but root cause
 remains OPEN. Explicit tiered-off183/183 PASS does not erase prior failures.
 [Report](reports/TASK_M13_MANUAL_ALLOCATION_ISOLATION_20261008.md).
+
+2026-10-08 physical path catalog: exact start/range/mat/exit and explicit penalty
+ordinals; queries never grant admission or route credit. Scoped geometry cannot
+bind the old base-world ledger. Final.NET69/69 and native16/16 PASS; exact endpoint
+encoding defect repaired. Intermittent allocation failures retained/risk OPEN.
+Live manual/phase/host and final M13 build remain pending.
+[Report](reports/TASK_M13_MANUAL_PHYSICAL_PATHS_20261008.md).

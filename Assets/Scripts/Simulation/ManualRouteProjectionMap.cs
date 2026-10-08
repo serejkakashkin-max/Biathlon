@@ -75,12 +75,23 @@ namespace Biathlon.Simulation
         {FirstSection=first;LastSection=last;LowStationMeters=low;HighStationMeters=high;BodyRadiusMeters=bodyRadius;}
     }
 
+    // A geometry namespace, never a competition-distance receipt. The catalog
+    // keeps the mapping back to counted base distance outside this primitive.
+    internal readonly struct ManualProjectionScope
+    {
+        internal readonly string LoopId;
+        internal readonly long LocalStartNanometers,LocalEndNanometers,StationStartNanometers;
+        internal ManualProjectionScope(string loop,long from,long to,long station)
+        {LoopId=loop;LocalStartNanometers=from;LocalEndNanometers=to;StationStartNanometers=station;}
+    }
+
     /// <summary>Local projection onto an explicitly selected base-race route occurrence.
     /// This geometry primitive does not award distance, choose a branch, admit a body,
     /// follow range/start/penalty paths, or connect the manual kernel to the live host.</summary>
     public sealed class ManualRouteProjectionMap
     {
         private readonly RaceRoute route;
+        private readonly bool baseRouteGeometry;
         private readonly Edge[] edges;
         private readonly int[] firstEdges, edgeEnds;
         private readonly long[] starts, ends;
@@ -117,17 +128,47 @@ namespace Biathlon.Simulation
         }
 
         public ManualRouteProjectionMap(RaceRoute route,TrackVisualDefinition geometry)
+            :this(route,geometry,BaseScopes(route),true,null) { }
+
+        internal static ManualRouteProjectionMap ForPhysicalScopes(RaceRoute route,TrackVisualDefinition geometry,
+            ManualProjectionScope[] scopes,string scopeContext)
+            =>new ManualRouteProjectionMap(route,geometry,scopes,false,scopeContext??throw new ArgumentNullException(nameof(scopeContext)));
+
+        private static ManualProjectionScope[] BaseScopes(RaceRoute route)
         {
-            if(route==null||geometry==null)throw new ArgumentNullException();
+            if(route==null)throw new ArgumentNullException(nameof(route));
+            var scopes=new ManualProjectionScope[route.SectionCount];
+            for(int i=0;i<scopes.Length;i++)
+            {
+                var s=route.GetSection(i);scopes[i]=new ManualProjectionScope(s.LoopId,
+                    checked(s.LoopStart.Millimeters*SkiState.NanometersPerMillimeter),
+                    checked(s.LoopEnd.Millimeters*SkiState.NanometersPerMillimeter),
+                    checked(s.Start.Millimeters*SkiState.NanometersPerMillimeter));
+            }
+            return scopes;
+        }
+
+        private ManualRouteProjectionMap(RaceRoute route,TrackVisualDefinition geometry,ManualProjectionScope[] scopes,
+            bool baseRouteGeometry,string scopeContext)
+        {
+            if(route==null||geometry==null||scopes==null)throw new ArgumentNullException();
             if(route.TrackId!=geometry.TrackId)throw new ArgumentException("Projection route and geometry must match.");
-            this.route=route;
+            if(scopes.Length==0)throw new ArgumentException("Positive physical occurrences required.");
+            this.route=route;this.baseRouteGeometry=baseRouteGeometry;
             var track=TrackDefinition.FromJson(route.TrackSnapshotJson);
-            int count=route.SectionCount;firstEdges=new int[count];edgeEnds=new int[count];
+            int count=scopes.Length;firstEdges=new int[count];edgeEnds=new int[count];
             starts=new long[count];ends=new long[count];var list=new List<Edge>();
             for(int sectionIndex=0;sectionIndex<count;sectionIndex++)
             {
-                var section=route.GetSection(sectionIndex);var loop=geometry.Get(section.LoopId);
-                var physical=track.GetLoop(section.LoopId);
+                var scope=scopes[sectionIndex];var loop=geometry.Get(scope.LoopId);
+                var physical=track.GetLoop(scope.LoopId);
+                if(scope.LocalStartNanometers<0||scope.LocalEndNanometers<=scope.LocalStartNanometers||
+                    scope.LocalEndNanometers>checked(physical.Length.Millimeters*SkiState.NanometersPerMillimeter)||
+                    scope.StationStartNanometers!=(sectionIndex==0?0:ends[sectionIndex-1]))
+                    throw new ArgumentException("Contiguous geometry namespace and positive bounded physical slices required.");
+                double localStart=scope.LocalStartNanometers/(double)SkiState.NanometersPerMeter;
+                double localEnd=scope.LocalEndNanometers/(double)SkiState.NanometersPerMeter;
+                double stationStart=scope.StationStartNanometers/(double)SkiState.NanometersPerMeter;
                 double maximumTurn=0;
                 for(int k=1;k+1<loop.Count;k++)
                 {
@@ -137,13 +178,13 @@ namespace Biathlon.Simulation
                     maximumTurn=Math.Max(maximumTurn,angle);
                 }
                 double turnReserveFraction=maximumTurn>=Math.PI*.5?1:Math.Min(1,Math.Tan(maximumTurn*.5));
-                starts[sectionIndex]=checked(section.Start.Millimeters*SkiState.NanometersPerMillimeter);
-                ends[sectionIndex]=checked((section.Start.Millimeters+section.Length.Millimeters)*SkiState.NanometersPerMillimeter);
+                starts[sectionIndex]=scope.StationStartNanometers;
+                ends[sectionIndex]=checked(scope.StationStartNanometers+scope.LocalEndNanometers-scope.LocalStartNanometers);
                 firstEdges[sectionIndex]=list.Count;
                 for(int k=1;k<loop.Count;k++)
                 {
-                    double from=Math.Max(section.LoopStart.Meters,loop.Get(k-1).Distance);
-                    double to=Math.Min(section.LoopEnd.Meters,loop.Get(k).Distance);
+                    double from=Math.Max(localStart,loop.Get(k-1).Distance);
+                    double to=Math.Min(localEnd,loop.Get(k).Distance);
                     if(to<=from)continue;
                     double minimumWidth=double.PositiveInfinity;
                     for(int p=0;p<physical.SegmentCount;p++)
@@ -154,21 +195,23 @@ namespace Biathlon.Simulation
                             minimumWidth=Math.Min(minimumWidth,segment.WidthMeters);
                     }
                     if(double.IsPositiveInfinity(minimumWidth))throw new ArgumentException("Visual edge lacks physical track width.");
-                    list.Add(new Edge(sectionIndex,list.Count,loop.LoopId,from,to,section.Start.Meters+from-section.LoopStart.Meters,
+                    list.Add(new Edge(sectionIndex,list.Count,loop.LoopId,from,to,stationStart+from-localStart,
                         loop.Sample(from),loop.Sample(to),minimumWidth,turnReserveFraction));
                 }
                 edgeEnds[sectionIndex]=list.Count;
                 if(firstEdges[sectionIndex]==edgeEnds[sectionIndex])throw new ArgumentException("Empty projection occurrence.");
             }
             length=ends[count-1];edges=list.ToArray();
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_base_route_local_projection_v1",
+            ContextJson=baseRouteGeometry?ShootingModelDefinitions.EncodeContext(new[]{"manual_base_route_local_projection_v1",
                 route.TrackSnapshotJson,route.PlanSnapshotJson,route.RequirementsSnapshotJson,geometry.ToJson(),
-                "local_clamped_knot_observation_v2"});
+                "local_clamped_knot_observation_v2"}):ShootingModelDefinitions.EncodeContext(new[]{
+                    "manual_physical_scope_local_projection_v1",scopeContext,geometry.ToJson(),
+                    "geometry_namespace_not_race_credit;local_clamped_knot_observation_v2;scoped_endpoint_encoding_snap_v1"});
             CorridorContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_selected_route_convex_cell_v1",
                 ContextJson,"minimum_authored_width_over_visual_edge;four_inward_planes;full_body_interior_only"});
         }
 
-        internal bool IsBoundTo(RaceRoute selectedRoute)=>ReferenceEquals(route,selectedRoute);
+        internal bool IsBoundTo(RaceRoute selectedRoute)=>baseRouteGeometry&&ReferenceEquals(route,selectedRoute);
 
         /// <summary>Search only the current occurrence and, if explicitly admitted, its
         /// immediate successor. The supplied station window must come from the movement
@@ -188,16 +231,17 @@ namespace Biathlon.Simulation
             long high=Math.Min(length,checked(previousStationNanometers+span));
             int last=admitNextSection?Math.Min(currentSection+1,starts.Length-1):currentSection;
             double lower=low/(double)SkiState.NanometersPerMeter,upper=high/(double)SkiState.NanometersPerMeter;
+            double seekReserve=baseRouteGeometry?0:2*PhysiologyNumbers.MinimumPositive;
             double best=double.PositiveInfinity;result=default;
             for(int section=currentSection;section<=last;section++)
             {
                 int begin=firstEdges[section],end=edgeEnds[section];
                 // Binary seek preserves warm query cost on dense authored geometry.
                 int a=begin,b=end;
-                while(a<b){int m=a+(b-a)/2;if(edges[m].StationEnd<lower)a=m+1;else b=m;}
+                while(a<b){int m=a+(b-a)/2;if(edges[m].StationEnd<lower-seekReserve)a=m+1;else b=m;}
                 for(int i=a;i<end;i++)
                 {
-                    var edge=edges[i];if(edge.StationStart>upper)break;
+                    var edge=edges[i];if(edge.StationStart>upper+seekReserve)break;
                     double fraction=((pose.X-edge.X)*edge.DX+(pose.Z-edge.Z)*edge.DZ)/(edge.PlanarLength*edge.PlanarLength);
                     // World pose is rounded to nanometres while authored knot
                     // coordinates are doubles. Reserve two encoding units at an
@@ -210,6 +254,15 @@ namespace Biathlon.Simulation
                     // distant pose never snaps to a route occurrence.
                     bool beyondEndpoint=fraction< -endpointReserve||fraction>1+endpointReserve;
                     fraction=Math.Max(0,Math.Min(1,fraction));
+                    // A scoped seam has an exact physical-arc coordinate. A
+                    // quantized pose within the existing two-nanometre endpoint
+                    // reserve observes that endpoint; its world pose is unchanged.
+                    // Keep the existing base-route observation contract intact.
+                    if(!baseRouteGeometry)
+                    {
+                        if(fraction<=endpointReserve)fraction=0;
+                        else if(1-fraction<=endpointReserve)fraction=1;
+                    }
                     double station=edge.StationStart+fraction*(edge.StationEnd-edge.StationStart);
                     long encoded=checked((long)Math.Round(station*SkiState.NanometersPerMeter,MidpointRounding.ToEven));
                     if(encoded<low||encoded>high)continue;
@@ -250,7 +303,8 @@ namespace Biathlon.Simulation
             }
             double metres=station/(double)SkiState.NanometersPerMeter;
             int a=firstEdges[section],b=edgeEnds[section];
-            while(a<b){int m=a+(b-a)/2;if(edges[m].StationEnd<metres)a=m+1;else b=m;}
+            double seekReserve=baseRouteGeometry?0:2*PhysiologyNumbers.MinimumPositive;
+            while(a<b){int m=a+(b-a)/2;if(edges[m].StationEnd<metres-seekReserve)a=m+1;else b=m;}
             if(a==edgeEnds[section]){target=default;return false;}
             var edge=edges[a];
             // Nanometre state encoding and authored doubles may differ at an endpoint.
@@ -316,13 +370,14 @@ namespace Biathlon.Simulation
         internal double TubeClearanceAt(double x,double z,ManualRouteTubeWindow window,out string sourceEdgeId)
         {
             double best=double.NegativeInfinity;sourceEdgeId=null;
+            double seekReserve=baseRouteGeometry?0:2*PhysiologyNumbers.MinimumPositive;
             for(int section=window.FirstSection;section<=window.LastSection;section++)
             {
                 int a=firstEdges[section],b=edgeEnds[section];
-                while(a<b){int m=a+(b-a)/2;if(edges[m].StationEnd<window.LowStationMeters)a=m+1;else b=m;}
+                while(a<b){int m=a+(b-a)/2;if(edges[m].StationEnd<window.LowStationMeters-seekReserve)a=m+1;else b=m;}
                 for(int i=a;i<edgeEnds[section];i++)
                 {
-                    var edge=edges[i];if(edge.StationStart>window.HighStationMeters)break;
+                    var edge=edges[i];if(edge.StationStart>window.HighStationMeters+seekReserve)break;
                     double fraction=Math.Max(0,Math.Min(1,((x-edge.X)*edge.DX+(z-edge.Z)*edge.DZ)/
                         (edge.PlanarLength*edge.PlanarLength)));
                     double dx=x-edge.X-fraction*edge.DX,dz=z-edge.Z-fraction*edge.DZ;

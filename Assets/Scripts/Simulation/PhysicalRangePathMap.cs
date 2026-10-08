@@ -20,6 +20,18 @@ namespace Biathlon.Simulation
         public string LaneId => lane.Id;
         public int LaneOrdinal { get; }
         internal int SliceCount => lane.SliceCount;
+        internal PhysicalRangePathSlice GetSlice(int index)=>lane.GetSlice(index);
+        internal int FiringSliceIndex=>lane.FiringSliceIndex;
+        /// <summary>Cold physical-occurrence metadata, not lane or branch admission.</summary>
+        internal bool TryGetOverlayBounds(int sectionIndex,out long entryNanometers,out long exitNanometers)
+        {
+            if(sectionIndex<0||sectionIndex>=usesRange.Length)throw new ArgumentOutOfRangeException(nameof(sectionIndex));
+            entryNanometers=exitNanometers=0;
+            if(!usesRange[sectionIndex])return false;
+            var s=route.GetSection(sectionIndex);
+            long origin=checked((s.Start.Millimeters-s.LoopStart.Millimeters)*SkiState.NanometersPerMillimeter);
+            entryNanometers=checked(origin+entry);exitNanometers=checked(origin+exit);return true;
+        }
         /// <summary>Cold upper bound for physical terrain receipts across this lane, counting every slice occurrence.</summary>
         internal int TerrainIntervalCount { get; }
         public string ContextJson { get; }

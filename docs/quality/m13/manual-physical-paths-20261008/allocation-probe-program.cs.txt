@@ -1,0 +1,162 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading;
+using System.Text.Json;
+using Biathlon.Tests;
+internal static class Program
+{
+    static int Main(string[] args)
+    {
+        if(args.Length>0&&args[0].StartsWith("minimal"))return Minimal(args[0],args[1]);
+        if(args.Length>0&&args[0]=="counter")return Counter(args[1]);
+        if(args.Length>0&&args[0]=="calls")return Calls(args[1]);
+        if(args.Length>0&&args[0]=="bulk")return Bulk(args[1]);
+        bool dedicated=args.Length>0&&args[0]=="dedicated";
+        var rows=new List<object>();int failures=0;
+        for(int i=0;i<30;i++)
+        {
+            foreach(string kind in new[]{"motion","ledger"})
+            {
+                Exception error=null;
+                int thread=0;
+                void Run()
+                {
+                    thread=Environment.CurrentManagedThreadId;
+                    try
+                    {
+                        if(kind=="motion")new ManualSkiMotionTests().AcceptedRestAccelerationAndWarmPreviewHaveNoHiddenVelocityResetOrAllocation();
+                        else new ManualWorldRosterLedgerTests().EntireClearRosterCommitsOnceWithoutGuessingRaceOdometer();
+                    }
+                    catch(Exception e){error=e;}
+                }
+                if(dedicated){var worker=new Thread(Run);worker.Start();worker.Join();}else Run();
+                if(error!=null)failures++;
+                rows.Add(new{iteration=i,kind,thread,passed=error==null,message=error?.Message});
+            }
+        }
+        File.WriteAllText(args[1],JsonSerializer.Serialize(new{mode=dedicated?"dedicated":"direct",count=rows.Count,failures,
+            tieredEnvironment=Environment.GetEnvironmentVariable("DOTNET_TieredCompilation"),rows},new JsonSerializerOptions{WriteIndented=true}));
+        Console.WriteLine($"{(dedicated?"dedicated":"direct")}: {rows.Count-failures}/{rows.Count}");
+        return failures==0?0:1;
+    }
+    static int Minimal(string mode,string output)
+    {
+        var rows=new List<object>();int failures=0;
+        for(int pass=0;pass<300;pass++)
+        {
+            Exception error=null;long delta=-1,guard=-1,checksum=0;int gc=0;
+            var worker=new Thread(()=>
+            {
+                for(int i=0;i<10;i++)NUnit.Framework.Assert.That(1,NUnit.Framework.Is.EqualTo(1));
+                gc=GC.CollectionCount(0);
+                long before=GC.GetAllocatedBytesForCurrentThread();
+                for(int i=0;i<100000;i++)checksum+=i&7;
+                try
+                {
+                    if(mode=="minimal-inline")NUnit.Framework.Assert.That(GC.GetAllocatedBytesForCurrentThread()-before,NUnit.Framework.Is.Zero);
+                    else {delta=GC.GetAllocatedBytesForCurrentThread()-before;NUnit.Framework.Assert.That(delta,NUnit.Framework.Is.Zero);}
+                }
+                catch(Exception ex){error=ex;}
+                guard=GC.GetAllocatedBytesForCurrentThread()-before;gc=GC.CollectionCount(0)-gc;
+            });worker.Start();worker.Join();
+            if(error!=null)failures++;
+            rows.Add(new{pass,passed=error==null,delta,guard,gc,checksum,message=error?.Message});
+        }
+        File.WriteAllText(output,JsonSerializer.Serialize(new{mode,count=rows.Count,failures,rows},new JsonSerializerOptions{WriteIndented=true}));
+        Console.WriteLine($"{mode}: {rows.Count-failures}/{rows.Count}");return failures==0?0:1;
+    }
+
+    static int Counter(string output)
+    {
+        var samples=new long[256];var generations=new int[256];
+        var sizes=new[]{120,256,4096,100000};
+        long checksum=0;bool stop=false;
+        var collector=new Thread(()=>{while(!Volatile.Read(ref stop)){GC.Collect();Thread.Sleep(1);}});
+        for(int i=0;i<100;i++)Thread.SpinWait(1000);
+        collector.Start();
+        for(int i=0;i<samples.Length;i++)
+        {
+            // Initialize a normal thread allocation context before a deliberately
+            // allocation-free measured window. Warm/cold object is kept alive.
+            var warm=new byte[sizes[i%sizes.Length]];
+            int generation=GC.CollectionCount(0);
+            long before=GC.GetAllocatedBytesForCurrentThread();
+            for(int j=0;j<10000;j++)checksum+=j&7;
+            Thread.SpinWait(100000);
+            samples[i]=GC.GetAllocatedBytesForCurrentThread()-before;
+            generations[i]=GC.CollectionCount(0)-generation;
+            GC.KeepAlive(warm);
+        }
+        Volatile.Write(ref stop,true);collector.Join();
+        int nonzero=0;foreach(long bytes in samples)if(bytes!=0)nonzero++;
+        File.WriteAllText(output,JsonSerializer.Serialize(new{kind="allocation_free_arithmetic_under_gc",nonzero,checksum,samples,generations},new JsonSerializerOptions{WriteIndented=true}));
+        Console.WriteLine($"counter nonzero={nonzero}/{samples.Length}");return nonzero==0?0:1;
+    }
+
+    static int Calls(string output)
+    {
+        var rows=new List<object>();int failures=0;
+        for(int pass=0;pass<30;pass++)
+        {
+            var deltas=new long[10000];var collections=new int[10000];long total=0;
+            var worker=new Thread(()=>
+            {
+                var flags=System.Reflection.BindingFlags.Static|System.Reflection.BindingFlags.NonPublic;
+                var f=((Biathlon.Domain.ManualSkiHeadingState,Biathlon.Simulation.ManualRouteProjection,Biathlon.Simulation.TrackSample))
+                    typeof(ManualSkiMotionTests).GetMethod("Slope",flags).Invoke(null,null);
+                var system=(Biathlon.Simulation.ManualSkiMotionSystem)typeof(ManualSkiMotionTests).GetMethod("System",flags).Invoke(null,null);
+                var ski=new Biathlon.Domain.SkiState(17,7);
+                var velocity=new Biathlon.Simulation.SkiPlanarVelocity(7*Math.Sin(f.Item1.HeadingRadians),7*Math.Cos(f.Item1.HeadingRadians));
+                var input=new Biathlon.Simulation.ManualSkiMotionInput(100,250,70,70);
+                for(int i=0;i<100;i++)system.PreviewAcceptedVelocity(ski,f.Item1,velocity,f.Item2,f.Item3,input);
+                long whole=GC.GetAllocatedBytesForCurrentThread();
+                for(int i=0;i<deltas.Length;i++)
+                {
+                    int gc=GC.CollectionCount(0);long before=GC.GetAllocatedBytesForCurrentThread();
+                    system.PreviewAcceptedVelocity(ski,f.Item1,velocity,f.Item2,f.Item3,input);
+                    deltas[i]=GC.GetAllocatedBytesForCurrentThread()-before;
+                    collections[i]=GC.CollectionCount(0)-gc;
+                }
+                total=GC.GetAllocatedBytesForCurrentThread()-whole;
+            });worker.Start();worker.Join();
+            if(total!=0)failures++;
+            var hits=new List<object>();for(int i=0;i<deltas.Length;i++)if(deltas[i]!=0)hits.Add(new{iteration=i,bytes=deltas[i],gc=collections[i]});
+            rows.Add(new{pass,total,hits});
+        }
+        File.WriteAllText(output,JsonSerializer.Serialize(new{kind="per_call_new_thread_motion",failures,rows},new JsonSerializerOptions{WriteIndented=true}));
+        Console.WriteLine($"calls nonzero={failures}/30");return failures==0?0:1;
+    }
+
+    static int Bulk(string output)
+    {
+        var rows=new List<object>();int failures=0;
+        for(int pass=0;pass<60;pass++)
+        {
+            long allocated=0;int gc=0;bool same=false;
+            var worker=new Thread(()=>
+            {
+                var flags=System.Reflection.BindingFlags.Static|System.Reflection.BindingFlags.NonPublic;
+                var f=((Biathlon.Domain.ManualSkiHeadingState,Biathlon.Simulation.ManualRouteProjection,Biathlon.Simulation.TrackSample))
+                    typeof(ManualSkiMotionTests).GetMethod("Slope",flags).Invoke(null,null);
+                var system=(Biathlon.Simulation.ManualSkiMotionSystem)typeof(ManualSkiMotionTests).GetMethod("System",flags).Invoke(null,null);
+                var ski=new Biathlon.Domain.SkiState(17,7);
+                var velocity=new Biathlon.Simulation.SkiPlanarVelocity(7*Math.Sin(f.Item1.HeadingRadians),7*Math.Cos(f.Item1.HeadingRadians));
+                var input=new Biathlon.Simulation.ManualSkiMotionInput(100,250,70,70);
+                var expected=system.PreviewAcceptedVelocity(ski,f.Item1,velocity,f.Item2,f.Item3,input);
+                for(int i=0;i<100;i++)system.PreviewAcceptedVelocity(ski,f.Item1,velocity,f.Item2,f.Item3,input);
+                gc=GC.CollectionCount(0);
+                long before=GC.GetAllocatedBytesForCurrentThread();Biathlon.Simulation.ManualSkiMotionFrame actual=default;
+                for(int i=0;i<10000;i++)actual=system.PreviewAcceptedVelocity(ski,f.Item1,velocity,f.Item2,f.Item3,input);
+                allocated=GC.GetAllocatedBytesForCurrentThread()-before;
+                gc=GC.CollectionCount(0)-gc;
+                same=actual.Heading.State.X==expected.Heading.State.X;
+            });worker.Start();worker.Join();
+            if(allocated!=0)failures++;
+            rows.Add(new{pass,allocated,gc,same});
+        }
+        File.WriteAllText(output,JsonSerializer.Serialize(new{kind="bulk_new_thread_motion_stored_counter",failures,rows},new JsonSerializerOptions{WriteIndented=true}));
+        Console.WriteLine($"bulk nonzero={failures}/60");return failures==0?0:1;
+    }
+
+}

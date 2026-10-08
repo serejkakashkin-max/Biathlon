@@ -22770,3 +22770,25 @@ Next: start/range/penalty physical scope ownership and complete world tick/phase
 continuation, replay/host input/rig, final weather/performance and combined build.
 No new Windows build and no M13 closure. Historical bytes preserved exactly;
 this entry appends the latest operational state.
+
+
+## 2026-10-08 — M13 manual physical start/range/penalty occurrences
+
+G1/G2 APPROVED. M13 OPEN; WP-176 PASS; WP-175/177/178 OPEN. No new Windows build.
+Added pure ManualRacePathCatalog for exact Woodland format/mat geometry:
+start approach, counted route, private firing ingress/exit and each bout/penalty
+ordinal. Physical arc is distinct from base route credit; shared exit identity
+and individual mat anchors are preserved. Catalog queries neither admit bodies
+nor assign mats/penalty debt nor commit race phases. Legacy base-world ledger
+rejects scoped geometry; live host remains lateral route-following, manual hookup OPEN.
+Exact endpoint red test repaired with existing2nm encoding reserve for scoped
+binary seek/observation/sampling. No world pose, body size or gameplay tuning edit.
+Final.NET69/69 PASS (catalog16 + projection/tube/range/legacy replay); native16/16
+PASS, discovery1307; compilation settled; Error Console empty. Broad230 has one
+unchanged motion allocation failure192B; focused69 earlier has unchanged target
+allocation failure4984B. All failed receipts retained; allocation risk OPEN.
+Diagnostic inline/stored empty cycles300/300 each and two public-call batches60/60
+PASS do not identify root cause or qualify the final player. No weakened tests.
+Report: docs/reports/TASK_M13_MANUAL_PHYSICAL_PATHS_20261008.md.
+ADR-0038 accepted; next: phase-owned cursors, world handoffs and complete
+session/contact/surface/replay/host integration, then final M13 package/build.

@@ -1,0 +1,414 @@
+; Assembly listing for method Biathlon.Tests.ManualSkiMotionTests:AcceptedRestAccelerationAndWarmPreviewHaveNoHiddenVelocityResetOrAllocation():this (FullOpts)
+; Emitting BLENDED_CODE for X64 with AVX512 - Windows
+; FullOpts code
+; optimized code
+; rbp based frame
+; partially interruptible
+; No PGO data
+; 0 inlinees with PGO data; 28 single block inlinees; 2 inlinees without PGO data
+
+G_M000_IG01:                ;; offset=0x0000
+       push     rbp
+       push     r15
+       push     r14
+       push     r13
+       push     rdi
+       push     rsi
+       push     rbx
+       lea      r11, [rsp-0x1190]
+       call     CORINFO_HELP_STACK_PROBE
+       mov      rsp, r11
+       vzeroupper
+       vmovaps  xmmword ptr [rsp+0x1180], xmm6
+       vmovaps  xmmword ptr [rsp+0x1170], xmm7
+       vmovaps  xmmword ptr [rsp+0x1160], xmm8
+       lea      rbp, [rsp+0x11C0]
+       xor      eax, eax
+       mov      qword ptr [rbp-0x10D8], rax
+       vxorps   xmm4, xmm4, xmm4
+       vmovdqa  xmmword ptr [rbp-0x10D0], xmm4
+       vmovdqa  xmmword ptr [rbp-0x10C0], xmm4
+       mov      rax, -0x1050
+       vmovdqa  xmmword ptr [rbp+rax-0x60], xmm4
+       vmovdqa  xmmword ptr [rbp+rax-0x50], xmm4
+       vmovdqa  xmmword ptr [rbp+rax-0x40], xmm4
+       add      rax, 48
+       jne      SHORT  -5 instr
+
+G_M000_IG02:                ;; offset=0x007F
+       lea      rcx, [rbp-0x148]
+       call     [Biathlon.Tests.ManualSkiMotionTests:Slope():System.ValueTuple`3[Biathlon.Domain.ManualSkiHeadingState,Biathlon.Simulation.ManualRouteProjection,Biathlon.Simulation.TrackSample]]
+       call     [Biathlon.Tests.ManualSkiMotionTests:System():Biathlon.Simulation.ManualSkiMotionSystem]
+       mov      rbx, rax
+       mov      dword ptr [rsp+0x20], 70
+       vmovsd   xmm2, qword ptr [reloc @RWD00]
+       vmovsd   qword ptr [rsp+0x28], xmm2
+       vxorps   xmm0, xmm0, xmm0
+       vmovsd   qword ptr [rsp+0x30], xmm0
+       vmovsd   qword ptr [rsp+0x38], xmm2
+       vmovsd   qword ptr [rsp+0x40], xmm2
+       vmovsd   qword ptr [rsp+0x48], xmm2
+       vmovsd   qword ptr [rsp+0x50], xmm2
+       vmovsd   qword ptr [rsp+0x58], xmm0
+       vmovsd   qword ptr [rsp+0x60], xmm0
+       lea      rcx, [rbp-0x1A0]
+       vmovsd   xmm2, qword ptr [reloc @RWD08]
+       mov      edx, 100
+       mov      r9d, 70
+       call     [Biathlon.Simulation.ManualSkiMotionInput:.ctor(int,double,int,int,double,double,double,double,double,double,double,double):this]
+       vmovdqu  ymm0, ymmword ptr [rbp-0x148]
+       vmovdqu  ymmword ptr [rbp-0xC18], ymm0
+       mov      rcx, qword ptr [rbp-0x128]
+       mov      qword ptr [rbp-0xBF8], rcx
+       mov      r14, rbx
+       xor      ecx, ecx
+       mov      qword ptr [rbp-0x1008], rcx
+
+G_M000_IG03:                ;; offset=0x0123
+       mov      qword ptr [rbp-0x1000], rcx
+
+G_M000_IG04:                ;; offset=0x012A
+       mov      qword ptr [rbp-0x1018], rcx
+
+G_M000_IG05:                ;; offset=0x0131
+       mov      qword ptr [rbp-0x1010], rcx
+       lea      rdi, bword ptr [rbp-0x1070]
+       lea      rsi, bword ptr [rbp-0x120]
+       mov      ecx, 11
+       rep movsq
+       lea      rdi, bword ptr [rbp-0x10D8]
+       lea      rsi, bword ptr [rbp-0xC8]
+       mov      ecx, 13
+       rep movsq
+       vmovdqu32 zmm0, zmmword ptr [rbp-0x1A0]
+       vmovdqu32 zmmword ptr [rbp-0x1130], zmm0
+       vmovdqu  ymm0, ymmword ptr [rbp-0x168]
+       vmovdqu  ymmword ptr [rbp-0x10F8], ymm0
+       vmovsd   xmm0, qword ptr [r14+0x30]
+       vmovsd   qword ptr [rsp+0x40], xmm0
+       mov      rcx, rbx
+       lea      r8, [rbp-0x1008]
+       lea      r9, [rbp-0x1018]
+       mov      qword ptr [rsp+0x20], r9
+       lea      r9, [rbp-0x1070]
+       mov      qword ptr [rsp+0x28], r9
+       lea      r9, [rbp-0x10D8]
+       mov      qword ptr [rsp+0x30], r9
+       lea      r9, [rbp-0x1130]
+       mov      qword ptr [rsp+0x38], r9
+       lea      r9, [rbp-0xC18]
+       lea      rdx, [rbp-0x3E0]
+       call     [Biathlon.Simulation.ManualSkiMotionSystem:PreviewAcceptedVelocityDuration(Biathlon.Domain.SkiState,Biathlon.Domain.ManualSkiHeadingState,Biathlon.Simulation.SkiPlanarVelocity,Biathlon.Simulation.ManualRouteProjection,Biathlon.Simulation.TrackSample,Biathlon.Simulation.ManualSkiMotionInput,double):Biathlon.Simulation.ManualSkiMotionFrame:this]
+       vmovdqu  ymm0, ymmword ptr [rbp-0x148]
+       vmovdqu  ymmword ptr [rbp-0xEE0], ymm0
+       mov      rcx, qword ptr [rbp-0x128]
+       mov      qword ptr [rbp-0xEC0], rcx
+       lea      rdi, bword ptr [rbp-0xF38]
+       lea      rsi, bword ptr [rbp-0x120]
+       mov      ecx, 11
+       rep movsq
+       lea      rdi, bword ptr [rbp-0xFA0]
+       lea      rsi, bword ptr [rbp-0xC8]
+       mov      ecx, 13
+       rep movsq
+       vmovdqu32 zmm0, zmmword ptr [rbp-0x1A0]
+       vmovdqu32 zmmword ptr [rbp-0xFF8], zmm0
+       vmovdqu  ymm0, ymmword ptr [rbp-0x168]
+       vmovdqu  ymmword ptr [rbp-0xFC0], ymm0
+       vmovsd   xmm0, qword ptr [rbx+0x30]
+       xor      ecx, ecx
+       mov      qword ptr [rbp-0x1008], rcx
+
+G_M000_IG06:                ;; offset=0x025E
+       mov      qword ptr [rbp-0x1000], rcx
+       lea      rcx, [rbp-0xF38]
+       mov      qword ptr [rsp+0x20], rcx
+       lea      rcx, [rbp-0xFA0]
+       mov      qword ptr [rsp+0x28], rcx
+       lea      rcx, [rbp-0xFF8]
+       mov      qword ptr [rsp+0x30], rcx
+       xor      ecx, ecx
+       mov      dword ptr [rsp+0x40], ecx
+
+G_M000_IG07:                ;; offset=0x028F
+       mov      qword ptr [rbp-0x1018], rcx
+
+G_M000_IG08:                ;; offset=0x0296
+       mov      qword ptr [rbp-0x1010], rcx
+       vxorps   xmm1, xmm1, xmm1
+       vmovsd   qword ptr [rsp+0x50], xmm1
+       mov      rcx, rbx
+       lea      r8, [rbp-0x1008]
+       vmovsd   qword ptr [rsp+0x38], xmm0
+       lea      rdx, [rbp-0x1018]
+       mov      qword ptr [rsp+0x48], rdx
+       lea      rdx, [rbp-0x620]
+       lea      r9, [rbp-0xEE0]
+       call     [Biathlon.Simulation.ManualSkiMotionSystem:PreviewCore(Biathlon.Domain.SkiState,Biathlon.Domain.ManualSkiHeadingState,Biathlon.Simulation.ManualRouteProjection,Biathlon.Simulation.TrackSample,Biathlon.Simulation.ManualSkiMotionInput,double,bool,Biathlon.Simulation.SkiPlanarVelocity,double):Biathlon.Simulation.ManualSkiMotionFrame:this]
+       lea      rcx, bword ptr [rbp-0xBF0]
+       lea      rdx, bword ptr [rbp-0x368]
+       mov      r8d, 320
+       call     CORINFO_HELP_MEMCPY
+       lea      rcx, [rbp-0xBF0]
+       lea      rdx, [rbp-0xC28]
+       vxorps   xmm2, xmm2, xmm2
+       call     [Biathlon.Simulation.ManualSkiHeadingFrame:VelocityAt(double):Biathlon.Simulation.SkiPlanarVelocity:this]
+       mov      rcx, 0x7FFA72E32BE0
+       call     CORINFO_HELP_NEWSFAST
+       vxorps   xmm0, xmm0, xmm0
+       vmovdqu  xmmword ptr [rax+0x08], xmm0
+       vmovups  xmm0, xmmword ptr [rbp-0xC28]
+       vmovups  xmmword ptr [rbp-0x1018], xmm0
+       mov      rcx, rax
+       call     [NUnit.Framework.Is:EqualTo(System.Object):NUnit.Framework.Constraints.EqualConstraint]
+       mov      rdx, rax
+       lea      rcx, [rbp-0x1018]
+       call     [NUnit.Framework.Assert:That[Biathlon.Simulation.SkiPlanarVelocity](Biathlon.Simulation.SkiPlanarVelocity,NUnit.Framework.Constraints.IResolveConstraint)]
+       lea      rcx, bword ptr [rbp-0xBF0]
+       lea      rdx, bword ptr [rbp-0x368]
+       mov      r8d, 320
+       call     CORINFO_HELP_MEMCPY
+       vmovdqu  ymm0, ymmword ptr [rbp-0xB20]
+       vmovdqu  ymmword ptr [rbp-0xC50], ymm0
+       mov      rcx, qword ptr [rbp-0xB00]
+       mov      qword ptr [rbp-0xC30], rcx
+       lea      rcx, bword ptr [rbp-0xBF0]
+       lea      rdx, bword ptr [rbp-0x5A8]
+       mov      r8d, 320
+       call     CORINFO_HELP_MEMCPY
+       mov      rcx, 0x7FFA72E30500
+       call     CORINFO_HELP_NEWSFAST
+       vmovdqu  ymm0, ymmword ptr [rbp-0xB20]
+       vmovdqu  ymmword ptr [rax+0x08], ymm0
+       mov      rcx, qword ptr [rbp-0xB00]
+       mov      qword ptr [rax+0x28], rcx
+       mov      rcx, rax
+       call     [NUnit.Framework.Is:EqualTo(System.Object):NUnit.Framework.Constraints.EqualConstraint]
+       mov      rdx, rax
+       lea      rcx, [rbp-0xC50]
+       call     [NUnit.Framework.Assert:That[Biathlon.Domain.ManualSkiHeadingState](Biathlon.Domain.ManualSkiHeadingState,NUnit.Framework.Constraints.IResolveConstraint)]
+       mov      rsi, qword ptr [rbp-0x3C8]
+       vmovsd   xmm6, qword ptr [rbp-0x3C0]
+       mov      rcx, qword ptr [rbp-0x608]
+       mov      rdi, rcx
+       vmovsd   xmm0, qword ptr [rbp-0x600]
+       vmovaps  xmm7, xmm0
+       mov      rcx, 0x7FFA72E32718
+       call     CORINFO_HELP_NEWSFAST
+
+G_M000_IG09:                ;; offset=0x040D
+       mov      qword ptr [rax+0x08], rdi
+       vmovsd   qword ptr [rax+0x10], xmm7
+       mov      qword ptr [rbp-0x1008], rsi
+       vmovsd   qword ptr [rbp-0x1000], xmm6
+       mov      rcx, rax
+       call     [NUnit.Framework.Is:EqualTo(System.Object):NUnit.Framework.Constraints.EqualConstraint]
+       mov      rdx, rax
+       lea      rcx, [rbp-0x1008]
+       call     [NUnit.Framework.Assert:That[Biathlon.Domain.SkiState](Biathlon.Domain.SkiState,NUnit.Framework.Constraints.IResolveConstraint)]
+       vmovsd   xmm0, qword ptr [reloc @RWD16]
+       mov      edx, 9
+       xor      r8d, r8d
+       call     [System.Math:Round(double,int,int):double]
+       vmovaps  xmm6, xmm0
+       vxorps   xmm0, xmm0, xmm0
+       vcvtsi2sd xmm0, xmm0, qword ptr [rbp-0x130]
+       vdivsd   xmm7, xmm0, qword ptr [reloc @RWD24]
+       vmovaps  xmm0, xmm7
+       call     System.Math:Sin(double):double
+       vmulsd   xmm8, xmm0, qword ptr [reloc @RWD16]
+       vmovaps  xmm0, xmm7
+       call     System.Math:Cos(double):double
+       vmulsd   xmm2, xmm0, qword ptr [reloc @RWD16]
+       vmovaps  xmm1, xmm8
+       lea      rcx, [rbp-0x630]
+       call     [Biathlon.Simulation.SkiPlanarVelocity:.ctor(double,double):this]
+       mov      r14, rbx
+       mov      qword ptr [rbp-0x1008], 17
+       vmovsd   qword ptr [rbp-0x1000], xmm6
+       vmovdqu  ymm0, ymmword ptr [rbp-0x148]
+       vmovdqu  ymmword ptr [rbp-0x1158], ymm0
+       mov      rcx, qword ptr [rbp-0x128]
+       mov      qword ptr [rbp-0x1138], rcx
+       vmovups  xmm0, xmmword ptr [rbp-0x630]
+       vmovups  xmmword ptr [rbp-0x1018], xmm0
+       lea      rdi, bword ptr [rbp-0x1070]
+       lea      rsi, bword ptr [rbp-0x120]
+       mov      ecx, 11
+       rep movsq
+       lea      rdi, bword ptr [rbp-0x10D8]
+       lea      rsi, bword ptr [rbp-0xC8]
+       mov      ecx, 13
+       rep movsq
+       vmovdqu32 zmm0, zmmword ptr [rbp-0x1A0]
+       vmovdqu32 zmmword ptr [rbp-0x1130], zmm0
+       vmovdqu  ymm0, ymmword ptr [rbp-0x168]
+       vmovdqu  ymmword ptr [rbp-0x10F8], ymm0
+       vmovsd   xmm0, qword ptr [r14+0x30]
+       vmovsd   qword ptr [rsp+0x40], xmm0
+       mov      rcx, rbx
+       lea      r8, [rbp-0x1008]
+       lea      r9, [rbp-0x1158]
+       lea      rdx, [rbp-0x1018]
+       mov      qword ptr [rsp+0x20], rdx
+       lea      rdx, [rbp-0x1070]
+       mov      qword ptr [rsp+0x28], rdx
+       lea      rdx, [rbp-0x10D8]
+       mov      qword ptr [rsp+0x30], rdx
+       lea      rdx, [rbp-0x1130]
+       mov      qword ptr [rsp+0x38], rdx
+       lea      rdx, [rbp-0x870]
+       call     [Biathlon.Simulation.ManualSkiMotionSystem:PreviewAcceptedVelocityDuration(Biathlon.Domain.SkiState,Biathlon.Domain.ManualSkiHeadingState,Biathlon.Simulation.SkiPlanarVelocity,Biathlon.Simulation.ManualRouteProjection,Biathlon.Simulation.TrackSample,Biathlon.Simulation.ManualSkiMotionInput,double):Biathlon.Simulation.ManualSkiMotionFrame:this]
+       xor      r14d, r14d
+
+G_M000_IG10:                ;; offset=0x0592
+       mov      r15, rbx
+       mov      qword ptr [rbp-0x1008], 17
+       vmovsd   qword ptr [rbp-0x1000], xmm6
+       vmovdqu  ymm0, ymmword ptr [rbp-0x148]
+       vmovdqu  ymmword ptr [rbp-0x1158], ymm0
+       mov      rcx, qword ptr [rbp-0x128]
+       mov      qword ptr [rbp-0x1138], rcx
+       vmovups  xmm0, xmmword ptr [rbp-0x630]
+       vmovups  xmmword ptr [rbp-0x1018], xmm0
+       lea      rdi, bword ptr [rbp-0x1070]
+       lea      rsi, bword ptr [rbp-0x120]
+       mov      ecx, 11
+       rep movsq
+       lea      rdi, bword ptr [rbp-0x10D8]
+       lea      rsi, bword ptr [rbp-0xC8]
+       mov      ecx, 13
+       rep movsq
+       vmovdqu32 zmm0, zmmword ptr [rbp-0x1A0]
+       vmovdqu32 zmmword ptr [rbp-0x1130], zmm0
+       vmovdqu  ymm0, ymmword ptr [rbp-0x168]
+       vmovdqu  ymmword ptr [rbp-0x10F8], ymm0
+       vmovsd   xmm0, qword ptr [r15+0x30]
+       vmovsd   qword ptr [rsp+0x40], xmm0
+       mov      rcx, rbx
+       lea      r8, [rbp-0x1008]
+       lea      r9, [rbp-0x1158]
+       lea      rdx, [rbp-0x1018]
+       mov      qword ptr [rsp+0x20], rdx
+       lea      rdx, [rbp-0x1070]
+       mov      qword ptr [rsp+0x28], rdx
+       lea      rdx, [rbp-0x10D8]
+       mov      qword ptr [rsp+0x30], rdx
+       lea      rdx, [rbp-0x1130]
+       mov      qword ptr [rsp+0x38], rdx
+       lea      rdx, [rbp-0xE90]
+       call     [Biathlon.Simulation.ManualSkiMotionSystem:PreviewAcceptedVelocityDuration(Biathlon.Domain.SkiState,Biathlon.Domain.ManualSkiHeadingState,Biathlon.Simulation.SkiPlanarVelocity,Biathlon.Simulation.ManualRouteProjection,Biathlon.Simulation.TrackSample,Biathlon.Simulation.ManualSkiMotionInput,double):Biathlon.Simulation.ManualSkiMotionFrame:this]
+       inc      r14d
+       cmp      r14d, 100
+       jl       G_M000_IG10
+
+G_M000_IG11:                ;; offset=0x068D
+       call     System.GC:GetAllocatedBytesForCurrentThread():long
+       mov      r14, rax
+       xor      edx, edx
+       lea      rcx, bword ptr [rbp-0xAB0]
+       mov      r8d, 576
+       call     CORINFO_HELP_MEMSET
+       xor      r15d, r15d
+
+G_M000_IG12:                ;; offset=0x06AC
+       mov      r13, rbx
+       mov      qword ptr [rbp-0x1008], 17
+       vmovsd   qword ptr [rbp-0x1000], xmm6
+       vmovdqu  ymm0, ymmword ptr [rbp-0x148]
+       vmovdqu  ymmword ptr [rbp-0x1158], ymm0
+       mov      rcx, qword ptr [rbp-0x128]
+       mov      qword ptr [rbp-0x1138], rcx
+       vmovups  xmm0, xmmword ptr [rbp-0x630]
+       vmovups  xmmword ptr [rbp-0x1018], xmm0
+       lea      rdi, bword ptr [rbp-0x1070]
+       lea      rsi, bword ptr [rbp-0x120]
+       mov      ecx, 11
+       rep movsq
+       lea      rdi, bword ptr [rbp-0x10D8]
+       lea      rsi, bword ptr [rbp-0xC8]
+       mov      ecx, 13
+       rep movsq
+       vmovdqu32 zmm0, zmmword ptr [rbp-0x1A0]
+       vmovdqu32 zmmword ptr [rbp-0x1130], zmm0
+       vmovdqu  ymm0, ymmword ptr [rbp-0x168]
+       vmovdqu  ymmword ptr [rbp-0x10F8], ymm0
+       vmovsd   xmm0, qword ptr [r13+0x30]
+       vmovsd   qword ptr [rsp+0x40], xmm0
+       mov      rcx, rbx
+       lea      r8, [rbp-0x1008]
+       lea      r9, [rbp-0x1158]
+       lea      rdx, [rbp-0x1018]
+       mov      qword ptr [rsp+0x20], rdx
+       lea      rdx, [rbp-0x1070]
+       mov      qword ptr [rsp+0x28], rdx
+       lea      rdx, [rbp-0x10D8]
+       mov      qword ptr [rsp+0x30], rdx
+       lea      rdx, [rbp-0x1130]
+       mov      qword ptr [rsp+0x38], rdx
+       lea      rdx, [rbp-0xAB0]
+       call     [Biathlon.Simulation.ManualSkiMotionSystem:PreviewAcceptedVelocityDuration(Biathlon.Domain.SkiState,Biathlon.Domain.ManualSkiHeadingState,Biathlon.Simulation.SkiPlanarVelocity,Biathlon.Simulation.ManualRouteProjection,Biathlon.Simulation.TrackSample,Biathlon.Simulation.ManualSkiMotionInput,double):Biathlon.Simulation.ManualSkiMotionFrame:this]
+       inc      r15d
+       cmp      r15d, 0x2710
+       jl       G_M000_IG12
+
+G_M000_IG13:                ;; offset=0x07AA
+       call     System.GC:GetAllocatedBytesForCurrentThread():long
+       mov      rsi, rax
+       sub      rsi, r14
+       call     [NUnit.Framework.Is:get_Zero():NUnit.Framework.Constraints.EqualConstraint]
+       mov      rdx, rax
+       mov      rcx, rsi
+       call     [NUnit.Framework.Assert:That[long](long,NUnit.Framework.Constraints.IResolveConstraint)]
+       lea      rcx, bword ptr [rbp-0xBF0]
+       lea      rdx, bword ptr [rbp-0xA38]
+       mov      r8d, 320
+       call     CORINFO_HELP_MEMCPY
+       vmovdqu  ymm0, ymmword ptr [rbp-0xB20]
+       vmovdqu  ymmword ptr [rbp-0xEB8], ymm0
+       mov      rcx, qword ptr [rbp-0xB00]
+       mov      qword ptr [rbp-0xE98], rcx
+       lea      rcx, bword ptr [rbp-0xBF0]
+       lea      rdx, bword ptr [rbp-0x7F8]
+       mov      r8d, 320
+       call     CORINFO_HELP_MEMCPY
+       mov      rcx, 0x7FFA72E30500
+       call     CORINFO_HELP_NEWSFAST
+       vmovdqu  ymm0, ymmword ptr [rbp-0xB20]
+       vmovdqu  ymmword ptr [rax+0x08], ymm0
+       mov      rcx, qword ptr [rbp-0xB00]
+       mov      qword ptr [rax+0x28], rcx
+       mov      rcx, rax
+       call     [NUnit.Framework.Is:EqualTo(System.Object):NUnit.Framework.Constraints.EqualConstraint]
+       mov      rdx, rax
+       lea      rcx, [rbp-0xEB8]
+       call     [NUnit.Framework.Assert:That[Biathlon.Domain.ManualSkiHeadingState](Biathlon.Domain.ManualSkiHeadingState,NUnit.Framework.Constraints.IResolveConstraint)]
+       mov      rbx, gword ptr [rbx+0x28]
+       mov      rcx, 0x19B00106A08
+       call     [NUnit.Framework.Does:Contain(System.String):NUnit.Framework.Constraints.ContainsConstraint]
+       mov      r8, rax
+       mov      rdx, rbx
+       mov      rcx, 0x7FFA72E37F78
+       call     [NUnit.Framework.Assert:That[System.__Canon](System.__Canon,NUnit.Framework.Constraints.IResolveConstraint)]
+       nop
+
+G_M000_IG14:                ;; offset=0x0882
+       vmovaps  xmm6, xmmword ptr [rsp+0x1180]
+       vmovaps  xmm7, xmmword ptr [rsp+0x1170]
+       vmovaps  xmm8, xmmword ptr [rsp+0x1160]
+       add      rsp, 0x1190
+       pop      rbx
+       pop      rsi
+       pop      rdi
+       pop      r13
+       pop      r14
+       pop      r15
+       pop      rbp
+       ret
+
+RWD00  	dq	3FF0000000000000h	;            1
+RWD08  	dq	406F400000000000h	;          250
+RWD16  	dq	401C000000000000h	;            7
+RWD24  	dq	41CDCD6500000000h	;        1e+09
+
+; Total bytes of code 2223
