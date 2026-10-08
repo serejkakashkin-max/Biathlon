@@ -8,13 +8,13 @@ namespace Biathlon.Tests
     public class ManualScopedWorldRosterTests
     {
         private const long N=SkiState.NanometersPerMeter;
-        private sealed class Fixture
+        internal sealed class Fixture
         {
             internal readonly ManualRacePathCatalogTests.Fixture Source=new ManualRacePathCatalogTests.Fixture();
             internal readonly ManualRacePathCatalog[] Catalogs;
             internal readonly ManualScopedWorldRoster World;
             internal Fixture(bool mixed=true,double gap=20,int endMask=0,double side=0,
-                int startMask=0,double secondSpeed=2,double secondSideSpeed=0)
+                int startMask=0,double secondSpeed=2,double secondSideSpeed=0,double secondEndOffsetMeters=0)
             {
                 var secondPath=new PhysicalRangePathMap(Source.Path.PhysicalMap,Source.Venue.Track,Source.Route,Source.Venue.Paths,29);
                 var second=new ManualRacePathCatalog(Source.Venue.Track,Source.Route,Source.Profile,Source.Venue.Visual,secondPath,Source.Start);
@@ -25,6 +25,7 @@ namespace Biathlon.Tests
                     int index=mixed&&i==0?0:1;long arc=(long)Math.Round((10+i*gap)*N);
                     var row=Catalogs[i].Get(index);
                     if((endMask&(1<<i))!=0)arc=row.LengthNanometers;
+                    if(i==1&&(endMask&2)!=0)arc-=checked((long)Math.Round(secondEndOffsetMeters*N));
                     if((startMask&(1<<i))!=0)arc=0;
                     if(!mixed&&gap<0&&i==1)arc=(long)Math.Round((10+Source.Venue.Occupancy.LongitudinalSeparation+.05)*N);
                     var point=Source.Venue.Visual.Get(row.LoopId).Sample((row.LocalStartNanometers+arc)/(double)N);

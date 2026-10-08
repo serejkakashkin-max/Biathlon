@@ -112,3 +112,16 @@ never a paid standing tick. Policy v2; body/course/tuning and live host unchange
 Endpoint red retained; .NET87/87 and native16/16 PASS including internal-cap
 out-and-back, long-edge/narrow-window and inward/tangential endpoint cases.
 [Report](../reports/TASK_M13_MANUAL_SCOPE_GATES_20261008.md).
+
+## 2026-10-08 — complete-clock staged intervals
+
+The scoped world can accumulate common admitted intervals and ordinary handoffs
+in provisional arrays. All rows validate before any scratch mutation. Rejection
+retains the earlier approved prefix for refinement, never publishes a partial
+clock or standing substitute. A complete fixed duration is required exactly;
+exposed remainder lets the caller pay the final interval. Physical travel is
+accumulated before nanometre rounding. World-only proof remains single-use, and
+actual race sessions must still validate lifecycle/physiology/events together.
+Context v3. Ten new and sixteen compatibility native tests PASS. Broad default
+.NET allocation failures remain open despite tiering-off259/259 diagnostic PASS.
+[Report](../reports/TASK_M13_MANUAL_WORLD_TICK_20261008.md).

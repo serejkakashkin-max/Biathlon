@@ -1,0 +1,64 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 1343,
+      "PassedTests": 10,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:17.0090622"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.AContactAfterAClearPrefixCannotBecomeAWaitingTickOrPublishPartialActors",
+        "Status": "Passed",
+        "Duration": "00:00:01.5780000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.ARejectedLastActorKeepsThePaidScratchPrefixAndAllowsRefinementWithoutPublishingIt",
+        "Status": "Passed",
+        "Duration": "00:00:01.4250000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.CompleteCommonIntervalsPublishOneOwnedClockAndAllActorsTogether",
+        "Status": "Passed",
+        "Duration": "00:00:01.4780000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.ForeignAbortedAndFinalizedTransactionsAreNotReusable",
+        "Status": "Passed",
+        "Duration": "00:00:02.9140000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.NearlyCompleteTimeCannotRoundUpAnUnpaidSuffix",
+        "Status": "Passed",
+        "Duration": "00:00:01.4080000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.OrdinarySeamInsideOneTickRetainsDirectionVelocityAndPaysTheWholeSuffix",
+        "Status": "Passed",
+        "Duration": "00:00:01.5030000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.PhysicalOdometerRoundsAccumulatedTravelOnceAcrossFourIntervals",
+        "Status": "Passed",
+        "Duration": "00:00:01.4600000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.StaleOverlongOrIncompleteIntervalSourcesDoNotPayAnyRemainingTime",
+        "Status": "Passed",
+        "Duration": "00:00:01.4370000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.WarmSplitTickAndOrdinarySeamStagingAllocateNothing",
+        "Status": "Passed",
+        "Duration": "00:00:01.4900000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.WorkingOrdinaryHandoffsValidateAllRowsAndStayProvisional",
+        "Status": "Passed",
+        "Duration": "00:00:01.4560000"
+      }
+    ]
+  }
+}

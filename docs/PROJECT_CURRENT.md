@@ -105,3 +105,9 @@ native8/8 PASS. Contact continuation, session gates/replay/host and final build 
 excursions in clamped observations. .NET87/87 and native16/16 PASS, Console empty.
 Live manual/session continuation and final M13 build remain OPEN.
 [Report](reports/TASK_M13_MANUAL_SCOPE_GATES_20261008.md).
+
+2026-10-08 complete-clock interval staging: real ordinary seam pays full0.05 s
+without changing yaw/velocity or publishing partial rows. New.NET10/10, native
+10/10+16/16 PASS. Broad default256/259 has three existing allocation failures;
+explicit tiering-off259/259 is diagnostic only. Qualification and M13 remain OPEN.
+[Report](reports/TASK_M13_MANUAL_WORLD_TICK_20261008.md).

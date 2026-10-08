@@ -22852,3 +22852,23 @@ Next: full-clock staged intervals/ordinary seams, actual contacts/surface and
 lifecycle transitions, all-session transaction/replay/host. Current playable host
 still uses legacy lateral/route following; manual gameplay and final M13 build
 are not closed. No intermediate Windows build. All historical state bytes retained.
+
+
+## 2026-10-08 — M13 complete-clock staged world intervals
+
+M13/WP-175/177/178 OPEN; WP-176 PASS. Scoped world now stages common full-roster
+intervals plus zero-time ordinary handoffs, preserving accepted state until an
+entire fixed tick is proved. A real Woodland seam at0.02 s and paid0.03 s suffix
+retain2 m/s and direction, total physical travel0.10 m, one published tick.
+Late failure retains scratch prefix for refinement; no paid wait/partial clock.
+Nearly complete time cannot round up an unpaid suffix. Travel rounds once per
+tick. Owned handles reject foreign/aborted/finalized/replaced reuse; context v3.
+.NET new10/10 and compatibility16/16 PASS; native10/10+16/16 PASS, discovery1343,
+Error Console empty. Broad default.NET256/259: three existing allocation failures
+1968/248/5312 B retained. Explicit tiering-off diagnostic259/259 PASS; root cause
+and performance qualification remain OPEN. Tests not weakened/disabled.
+Report: docs/reports/TASK_M13_MANUAL_WORLD_TICK_20261008.md.
+Next: reuse frozen trajectory slices, resolve actual contacts/surfaces, authorize
+real lifecycle gates/mat selection, atomic sessions/events/replay/production host.
+Current playable host still legacy lateral/route following. No intermediate or
+final Windows build; M13 is not complete. Full historical state prefix preserved.
