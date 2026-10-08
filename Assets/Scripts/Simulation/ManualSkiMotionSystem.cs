@@ -77,6 +77,17 @@ namespace Biathlon.Simulation
             SkiPlanarVelocity velocity,ManualRouteProjection observation,TrackSample surface,ManualSkiMotionInput input)
             =>PreviewAcceptedVelocityDuration(ski,pose,velocity,observation,surface,input,duration);
 
+        public ManualSkiMotionFrame PreviewAcceptedVelocity(SkiState ski,ManualSkiHeadingState pose,
+            SkiPlanarVelocity velocity,ManualRacePathObservation observation,TrackSample surface,ManualSkiMotionInput input)
+            =>PreviewAcceptedVelocityDuration(ski,pose,velocity,observation,surface,input,duration);
+
+        public ManualSkiMotionFrame PreviewAcceptedVelocityDuration(SkiState ski,ManualSkiHeadingState pose,
+            SkiPlanarVelocity velocity,ManualRacePathObservation observation,TrackSample surface,ManualSkiMotionInput input,double seconds)
+        {
+            if(!observation.IsValid)throw new ArgumentException("Initialized physical occurrence required.");
+            return PreviewAcceptedVelocityDuration(ski,pose,velocity,observation.GeometryProjection,surface,input,seconds);
+        }
+
         public ManualSkiMotionFrame PreviewAcceptedVelocityDuration(SkiState ski,ManualSkiHeadingState pose,
             SkiPlanarVelocity velocity,ManualRouteProjection observation,TrackSample surface,ManualSkiMotionInput input,double seconds)
         {

@@ -37,13 +37,14 @@ namespace Biathlon.Simulation
         public bool MovementActive { get; }
         public bool ShootingActive { get; }
         internal ManualWorldRosterPreview World { get; }
+        internal ManualScopedWorldPreview ScopedWorld {get;}
         public bool ManualWorldRequired { get; }
         internal SprintStepPreview(SprintAthleteSession owner, long revision, SimulationTick tick,
             PhysiologyFrame physiology, RacePathMotionFrame movement, bool moving, bool shooting,
-            ManualWorldRosterPreview world=default,bool manualWorldRequired=false)
+            ManualWorldRosterPreview world=default,bool manualWorldRequired=false,ManualScopedWorldPreview scopedWorld=default)
         { Owner=owner; Revision=revision; Tick=tick; Physiology=physiology; Movement=movement;
           MovementActive=moving; ShootingActive=shooting; World=world;
-          ManualWorldRequired=manualWorldRequired; }
+          ManualWorldRequired=manualWorldRequired; ScopedWorld=scopedWorld; }
     }
     public readonly struct SprintRangePathChoice
     {
@@ -55,7 +56,7 @@ namespace Biathlon.Simulation
         internal SprintRangePathChoice(SprintAthleteSession owner,long revision,SimulationTick tick,int bout,int ordinal)
         {Owner=owner;SourceRevision=revision;SourceTick=tick;BoutIndex=bout;LaneOrdinal=ordinal;}
     }
-    public sealed class SprintAthleteSession
+    public sealed partial class SprintAthleteSession
     {
         private readonly SimulationConfig config;
         private readonly CompetitionProfile profile;
@@ -75,7 +76,7 @@ namespace Biathlon.Simulation
         public int RangePathChoiceCount => rangePathChoices?.Length??0;
         public PhysicalRangePathMap GetRangePathChoice(int index)=>rangePathChoices==null ? throw new InvalidOperationException("No configured path choices.") : rangePathChoices[index];
         public long InitialStartApproachNanometers { get; }
-        public long RemainingStartApproachNanometers => Math.Max(0, InitialStartApproachNanometers - Motion.DistanceNanometers);
+        public long RemainingStartApproachNanometers => manualStartRemaining??Math.Max(0, InitialStartApproachNanometers - Motion.DistanceNanometers);
         public FinishTime StartApproachExitTime { get; private set; }
         public string StartApproachContextJson { get; }
         private readonly RangePenaltyTraversal[] ranges;
@@ -313,9 +314,13 @@ namespace Biathlon.Simulation
         internal SprintStepPreview PreparePackStep(SprintAthleteInput input, double dragMultiplier, double propulsionMultiplier, int extraEffort,SprintRangePathChoice choice)
             =>PreparePackStep(input,dragMultiplier,propulsionMultiplier,extraEffort,choice,false);
         private SprintStepPreview PreparePackStep(SprintAthleteInput input, double dragMultiplier, double propulsionMultiplier, int extraEffort,
-            SprintRangePathChoice choice,bool manualBase,ManualRouteActorFrame manualActor=default)
+            SprintRangePathChoice choice,bool manualBase,ManualRouteActorFrame manualActor=default,
+            ManualScopedWorldRoster scopedWorld=null,int scopedIndex=-1)
         {
             previewReady = false;
+            preparedScopedWorld=null;
+            if(acceptedScopedWorld!=null&&!ReferenceEquals(acceptedScopedWorld,scopedWorld))
+                throw new InvalidOperationException("A bound scoped race cannot resume legacy route-following movement or replace its world.");
             ValidateCommand(input);
             PhysiologyNumbers.RequireRange(dragMultiplier, 0, 1, nameof(dragMultiplier));
             PhysiologyNumbers.RequireRange(propulsionMultiplier, 0, 1, nameof(propulsionMultiplier));
@@ -358,20 +363,30 @@ namespace Biathlon.Simulation
                 sample=sample.WithTravelGeometry(grade,speed==0?0:manualActor.Pose.YawRateRadiansPerSecond/speed);
                 postureMotion=new SkiState(Motion.DistanceNanometers,speed*Math.Sqrt(1+grade*grade));
             }
+            if(scopedWorld!=null)
+            {
+                var actor=scopedWorld.GetActor(scopedIndex);
+                sample=actor.Observation.Owner.SampleSurface(actor.Observation);
+                double speed=Math.Sqrt(actor.Velocity.X*actor.Velocity.X+actor.Velocity.Z*actor.Velocity.Z);
+                double grade=actor.Observation.GradeAlong(actor.Pose);
+                sample=sample.WithTravelGeometry(grade,speed==0?0:actor.Pose.YawRateRadiansPerSecond/speed);
+                postureMotion=new SkiState(Motion.DistanceNanometers,speed*Math.Sqrt(1+grade*grade));
+            }
             var sprintOutput = sprint.Evaluate(started && !onMat && input.Ski.SprintRequested, input.Ski.Effort.RequestedEffort, new SkiState(RouteNanometers, Motion.SpeedMetersPerSecond));
             var posture = tuck.Evaluate(started && !onMat && input.Ski.TuckRequested, sprintOutput.EffectiveEffortControl, skiAthlete.Downhill, postureMotion, sample);
             var work = new PhysiologyInput(new SimulationInput(tick, AthleteId, started && !onMat ? Math.Min(1000, posture.EffectiveEffortControl + extraEffort) : 0), input.Ski.Form, sample.TerrainMuscleFactor);
             var physical = physiology.Preview(work);
-            var movement = started && !onMat && !manualBase ? path.Preview(Motion, RouteNanometers, finishNanometers, range,
+            var movement = started && !onMat && !manualBase && scopedWorld==null ? path.Preview(Motion, RouteNanometers, finishNanometers, range,
                 physical.Effort.DeliveredPowerWatts * propulsionMultiplier, physiology.State.MuscularFatigue, input.Ski, segments, posture.DragAreaMultiplier * dragMultiplier, RemainingStartApproachNanometers,candidatePath) : default;
             long revision = checked(previewRevision + 1);
             preparedInput = input; preparedWork = work; preparedPosture = posture; preparedSprint = sprintOutput;
             preparedRangeIndex = rangeIndex; preparedSample = sample;
             preparedPath=candidatePath;preparedRange=range;preparedLane=candidateLane;preparedChoosesPath=choosing;
             preparedManualActor=manualActor;
+            preparedScopedWorld=scopedWorld;preparedScopedIndex=scopedIndex;
             previewRevision = revision; previewReady = true;
             return new SprintStepPreview(this, revision, tick, physical, movement, started && !onMat, onMat,
-                manualWorldRequired:manualBase);
+                manualWorldRequired:manualBase||scopedWorld!=null);
         }
         public RaceMotionSegment GetPreparedSegment(SprintStepPreview preview, int index)
         {
@@ -387,7 +402,7 @@ namespace Biathlon.Simulation
             double dragMultiplier=1,double propulsionMultiplier=1,double windX=0,double windZ=0)
         {
             ValidatePreview(preview);
-            if(!preview.ManualWorldRequired||!preview.MovementActive||preview.ShootingActive||preview.World.IsValid||
+            if(preparedScopedWorld!=null||!preview.ManualWorldRequired||!preview.MovementActive||preview.ShootingActive||preview.World.IsValid||
                 RemainingStartApproachNanometers!=0||preparedChoosesPath||
                 !accepted.IsValid||!accepted.Athlete.Equals(AthleteId)||
                 (preparedManualActor.IsValid?!SameManualActor(accepted,preparedManualActor):accepted.Projection.RouteNanometers!=RouteNanometers)||
@@ -461,7 +476,7 @@ namespace Biathlon.Simulation
         public SprintStepPreview ConstrainPreparedTravel(SprintStepPreview preview, long maximumTravelNanometers)
         {
             ValidatePreview(preview);
-            if(preview.World.IsValid||preview.ManualWorldRequired)
+            if(preview.World.IsValid||preview.ScopedWorld.IsValid||preview.ManualWorldRequired)
                 throw new InvalidOperationException("A proven world tick cannot be clipped by legacy route travel.");
             if (!preview.MovementActive || maximumTravelNanometers < 0)
                 throw new ArgumentException("Active movement and nonnegative travel cap required.");
@@ -499,6 +514,7 @@ namespace Biathlon.Simulation
             if (!previewReady || !ReferenceEquals(preview.Owner, this) || preview.Revision != previewRevision ||
                 preview.Tick.Value != checked(Tick.Value + 1)) throw new ArgumentException("Missing, foreign, replaced or consumed Sprint preview.");
             if(preview.World.IsValid)preview.World.Owner.ValidatePrepared(preview.World);
+            if(preview.ScopedWorld.IsValid)preview.ScopedWorld.Owner.ValidatePrepared(preview.ScopedWorld);
         }
         internal void ValidatePreparedCommit(SprintStepPreview preview)
         { ValidatePreview(preview);if(preview.ManualWorldRequired)throw new InvalidOperationException("Manual world proof required before race commit.");ValidateCommand(preparedInput); }
@@ -514,6 +530,7 @@ namespace Biathlon.Simulation
             if(preview.ManualWorldRequired)throw new InvalidOperationException("Manual world proof required before race commit.");
             ValidateCommand(preparedInput);
             previewReady = false;
+            if(preview.ScopedWorld.IsValid)acceptedScopedWorld=preview.ScopedWorld.Owner;
             var input = preparedInput; var tick = preview.Tick;
             bool started = tick.Value > ScheduledStart.Value, onMat = preview.ShootingActive;
             int rangeIndex = preparedRangeIndex;
@@ -564,7 +581,8 @@ namespace Biathlon.Simulation
                 for (int i = previousLoops; i < range.CompletedLoops; i++) receipts[receiptCount++] = new CompetitionReceipt(CompetitionAction.CompletePenaltyLoop);
             if (started && !onMat)
             {
-                if(RemainingStartApproachNanometers>0 && movement.Motion.DistanceNanometers>=InitialStartApproachNanometers)
+                if(preview.ScopedWorld.IsValid)CommitScopedStart(preview);
+                else if(RemainingStartApproachNanometers>0 && movement.Motion.DistanceNanometers>=InitialStartApproachNanometers)
                     for(int i=0;i<movement.SegmentCount;i++)
                         if(segments[i].OnStartApproach && segments[i].TravelAfter==InitialStartApproachNanometers)
                         {

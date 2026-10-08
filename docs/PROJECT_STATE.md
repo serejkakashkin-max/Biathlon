@@ -22921,3 +22921,31 @@ session/physiology/contact events/replay and production host remain pending.
 Playable input is still legacy lateral route-following. This does not close
 queues, all-phase manual control, M13 or the final owner Windows build.
 No intermediate build generated. All earlier state bytes preserved.
+
+
+## 2026-10-08 — M13 scoped athlete preparation and whole-roster session publication
+
+M13 OPEN; WP-175/177/178 OPEN, WP-176 PASS. Exact accepted physical start/base/
+range approach/exit/penalty observations now drive existing physiology/posture,
+technique and equipment/snow input without legacy route movement. Same-occurrence
+world proof binds full session/physical motion/checkpoint/event publication;
+all session rows validate before any accepted mutation. Reverse travel retains
+range/penalty high water; start remaining follows scoped high water independently
+of physical odometer. Scheduled/shooting bodies remain stationary. Actual firing
+braking is required; no hidden reset. Bound scoped sessions cannot resume legacy
+route movement. No tuning or production host behavior changed.
+
+Final focused.NET92/92 PASS; native14/14 new +4/4 complete Sprint sessions PASS,
+discovery1384, compile settled and Error Console empty. Reproducible new boxing
+allocation512000 B/1000 queries fixed to0 B. Initial out-of-course two-body fixture
+corrected using unchanged lateral envelope. Failed receipts preserved. Existing
+intermittent force allocation8088 B in prior regression remains qualification OPEN;
+final passing suite does not prove its cause/fix.
+Report: `docs/reports/TASK_M13_MANUAL_SCOPED_SESSION_20261008.md`.
+Evidence: `docs/quality/m13/manual-scoped-session-20261008/`.
+
+Next: retained interval receipts/cross-occurrence session segments, lifecycle/mat
+handoffs, complete contact scheduling/event/replay/Pack and production manual host.
+Phase fixtures use legacy stepping to reach the phase, then test manual publication;
+no all-manual race or queue closure claimed. M13 and final owner build remain OPEN.
+No intermediate build. Every earlier state byte preserved.

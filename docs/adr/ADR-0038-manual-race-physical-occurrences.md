@@ -150,3 +150,15 @@ publishes nothing. Existing contact continuation pays the suffix in the same tic
 .NET94/94 and native9+13+8+11 PASS. General arrival scheduling and complete race
 phase/event/host ownership remain pending.
 [Report](../reports/TASK_M13_MANUAL_CONTACT_ARRIVAL_20261008.md).
+
+## 2026-10-08 — scoped athlete session bridge
+
+Exact accepted occurrence/path/start/clock/motion binds actual-surface physiology,
+posture and common force input. Full world proof required; all session rows validate
+before publication. Current receipt supports one occurrence per tick. Range/penalty
+advance only new high water; start remaining is independent of odometer. Stationary
+shooting/start bodies require unchanged proofs; firing endpoint must already brake.
+A committed scoped session cannot resume legacy route movement. Context records
+these constraints. .NET92/92 and native14+4 PASS. Cross-occurrence receipts, lifecycle
+mat gates and complete field/contact event/replay/host remain pending.
+[Report](../reports/TASK_M13_MANUAL_SCOPED_SESSION_20261008.md).

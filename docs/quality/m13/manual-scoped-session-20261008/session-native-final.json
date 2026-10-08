@@ -1,0 +1,93 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1384,\"PassedTests\":14,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:19.8307398\"},\"Results\":[{\"Name\":\"Biathlon.Tests.ManualScopedSessionTests.ForeignPathOrClockCannotReplaceTheOwnedPreparedSource\",\"Status\":\"Passed\",\"Duration\":\"00:00:02.5350000\"},{\"Name\":\"Biathlon.Tests.ManualScopedSessionTests.PhysicalOccurrenceInputAndWholeTickCommitUseActualSurfaceAndAcceptedRacePhase(\\u0022start\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.2830000\"},{\"Name\":\"Biathlon.Tests.ManualScopedSessionTests.PhysicalOccurrenceInputAndWholeTickCommitUseActualSurfaceAndAcceptedRacePhase(\\u0022base\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.1400000\"},{\"Name\":\"Biathlon.Tests.ManualScopedSessionTests.PhysicalOccurrenceInputAndWholeTickCommitUseActualSurfaceAndAcceptedRacePhase(\\u0022approach\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.2540000\"},{\"Name\":\"Biathlon.Tests.ManualScopedSessionTests.PhysicalOccurrenceInputAndWholeTickCommitUseActualSurfaceAndAcceptedRacePhase(\\u0022exit\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.2350000\"},{\"Name\":\"Biathlon.Tests.ManualScopedSessionTests.PhysicalOccurrenceInputAndWholeTickCommitUseActualSurfaceAndAcceptedRacePhase(\\u0022penalty\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.1990000\"},{\"Name\":\"Biathlon.Tests.ManualScopedSessionTests.ReversedPhysicalRangeMovementRetainsAcceptedPhaseHighWater(\\u0022approach\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.2110000\"},{\"Name\":\"Biathlon.Tests.ManualScopedSessionTests.ReversedPhysicalRangeMovementRetainsAcceptedPhaseHighWater(\\u0022exit\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.1920000\"},{\"Name\":\"Biathlon.Tests.ManualScopedSessionTests.ReversedPhysicalRangeMovementRetainsAcceptedPhaseHighWater(\\u0022penalty\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.1650000\"},{\"Name\":\"Biathlon.Tests.ManualScopedSessionTests.ReverseStartTravelCannotSpendRemainingApproachOrGrantRaceCredit\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.3000000\"},{\"Name\":\"Biathlon.Tests.ManualScopedSessionTests.StaleLastSessionCannotPublishTheEarlierRosterPhysiologyWorldOrEvents\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.7640000\"},{\"Name\":\"Biathlon.Tests.ManualScopedSessionTests.StationaryShootingAndScheduledStartStillRequireAnUnchangedFullWorldBody(False)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.2230000\"},{\"Name\":\"Biathlon.Tests.ManualScopedSessionTests.StationaryShootingAndScheduledStartStillRequireAnUnchangedFullWorldBody(True)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.3180000\"},{\"Name\":\"Biathlon.Tests.ManualScopedSessionTests.WarmActualOccurrencePreparationAndSharedInputQueriesAllocateNothing\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.1300000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 1384,
+        "PassedTests": 14,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:19.8307398"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.ManualScopedSessionTests.ForeignPathOrClockCannotReplaceTheOwnedPreparedSource",
+          "Status": "Passed",
+          "Duration": "00:00:02.5350000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedSessionTests.PhysicalOccurrenceInputAndWholeTickCommitUseActualSurfaceAndAcceptedRacePhase(\"start\")",
+          "Status": "Passed",
+          "Duration": "00:00:01.2830000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedSessionTests.PhysicalOccurrenceInputAndWholeTickCommitUseActualSurfaceAndAcceptedRacePhase(\"base\")",
+          "Status": "Passed",
+          "Duration": "00:00:01.1400000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedSessionTests.PhysicalOccurrenceInputAndWholeTickCommitUseActualSurfaceAndAcceptedRacePhase(\"approach\")",
+          "Status": "Passed",
+          "Duration": "00:00:01.2540000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedSessionTests.PhysicalOccurrenceInputAndWholeTickCommitUseActualSurfaceAndAcceptedRacePhase(\"exit\")",
+          "Status": "Passed",
+          "Duration": "00:00:01.2350000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedSessionTests.PhysicalOccurrenceInputAndWholeTickCommitUseActualSurfaceAndAcceptedRacePhase(\"penalty\")",
+          "Status": "Passed",
+          "Duration": "00:00:01.1990000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedSessionTests.ReversedPhysicalRangeMovementRetainsAcceptedPhaseHighWater(\"approach\")",
+          "Status": "Passed",
+          "Duration": "00:00:01.2110000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedSessionTests.ReversedPhysicalRangeMovementRetainsAcceptedPhaseHighWater(\"exit\")",
+          "Status": "Passed",
+          "Duration": "00:00:01.1920000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedSessionTests.ReversedPhysicalRangeMovementRetainsAcceptedPhaseHighWater(\"penalty\")",
+          "Status": "Passed",
+          "Duration": "00:00:01.1650000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedSessionTests.ReverseStartTravelCannotSpendRemainingApproachOrGrantRaceCredit",
+          "Status": "Passed",
+          "Duration": "00:00:01.3000000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedSessionTests.StaleLastSessionCannotPublishTheEarlierRosterPhysiologyWorldOrEvents",
+          "Status": "Passed",
+          "Duration": "00:00:01.7640000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedSessionTests.StationaryShootingAndScheduledStartStillRequireAnUnchangedFullWorldBody(False)",
+          "Status": "Passed",
+          "Duration": "00:00:01.2230000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedSessionTests.StationaryShootingAndScheduledStartStillRequireAnUnchangedFullWorldBody(True)",
+          "Status": "Passed",
+          "Duration": "00:00:01.3180000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualScopedSessionTests.WarmActualOccurrencePreparationAndSharedInputQueriesAllocateNothing",
+          "Status": "Passed",
+          "Duration": "00:00:01.1300000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

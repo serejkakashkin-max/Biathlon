@@ -1,0 +1,43 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1384,\"PassedTests\":4,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:01.1806719\"},\"Results\":[{\"Name\":\"Biathlon.Tests.SprintAthleteSessionTests.AiFinishesThroughSharedSessionAndActiveSkiTicksDoNotAllocate\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0460000\"},{\"Name\":\"Biathlon.Tests.SprintAthleteSessionTests.FullScriptedSprintKeepsPhysiologyAndRequiresActualPenaltyDistance\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0350000\"},{\"Name\":\"Biathlon.Tests.SprintAthleteSessionTests.LaterIntervalStartPreservesIndividualRaceDurationAndFinalPhysicalState\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0660000\"},{\"Name\":\"Biathlon.Tests.SprintAthleteSessionTests.RepeatedCompleteSprintFramesAndEventsMatchAndInvalidInputDoesNotAdvance\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.1760000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 1384,
+        "PassedTests": 4,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:01.1806719"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.SprintAthleteSessionTests.AiFinishesThroughSharedSessionAndActiveSkiTicksDoNotAllocate",
+          "Status": "Passed",
+          "Duration": "00:00:00.0460000"
+        },
+        {
+          "Name": "Biathlon.Tests.SprintAthleteSessionTests.FullScriptedSprintKeepsPhysiologyAndRequiresActualPenaltyDistance",
+          "Status": "Passed",
+          "Duration": "00:00:00.0350000"
+        },
+        {
+          "Name": "Biathlon.Tests.SprintAthleteSessionTests.LaterIntervalStartPreservesIndividualRaceDurationAndFinalPhysicalState",
+          "Status": "Passed",
+          "Duration": "00:00:00.0660000"
+        },
+        {
+          "Name": "Biathlon.Tests.SprintAthleteSessionTests.RepeatedCompleteSprintFramesAndEventsMatchAndInvalidInputDoesNotAdvance",
+          "Status": "Passed",
+          "Duration": "00:00:00.1760000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

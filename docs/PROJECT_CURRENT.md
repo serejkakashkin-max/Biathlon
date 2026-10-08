@@ -123,3 +123,9 @@ group impulse and paid suffix in one owned tick. .NET94/94; native9+13+8+11 PASS
 Compile/Console clear. General scheduler, session/replay/host, allocation
 qualification and M13/build OPEN.
 [Report](reports/TASK_M13_MANUAL_CONTACT_ARRIVAL_20261008.md).
+
+2026-10-08 scoped sessions: actual physical input and same-occurrence full-roster
+publication across start/range/penalty, no legacy resumption. .NET92/92 and native
+14+4 PASS. New reproducible boxing fixed; old allocation qualification OPEN.
+Cross-occurrence/lifecycle/contact scheduler/Pack/replay/host and M13/build OPEN.
+[Report](reports/TASK_M13_MANUAL_SCOPED_SESSION_20261008.md).
