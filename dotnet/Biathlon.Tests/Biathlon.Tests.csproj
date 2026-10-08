@@ -3,6 +3,12 @@
   <!-- Keep zero-allocation measurements in a stable JIT mode. This affects the test
        host only; the game and BalanceLab retain their own runtime configuration. -->
   <PropertyGroup><TieredCompilation>false</TieredCompilation></PropertyGroup>
+  <!-- CoreCLR 8.0.31 can count abandoned allocation-context slack as new bytes
+       during background GC (runtime#134724/#134855, reproduced on this Windows
+       host by the package-free M13 counter probe). Keep exact zero-allocation
+       assertions measurable. This is test-host-only; Unity and BalanceLab keep
+       their normal collectors, and real allocation positive controls still pass. -->
+  <PropertyGroup><ConcurrentGarbageCollection>false</ConcurrentGarbageCollection></PropertyGroup>
   <ItemGroup>
     <Compile Include="../../Assets/Tests/EditMode/**/*.cs" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />

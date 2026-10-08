@@ -23135,3 +23135,36 @@ M13 НЕ завершён. WP-176 PASS; WP-175/177/178 OPEN. ProductionVenueHost
 finished actors/full replay/AI/host и 40-body production qualification OPEN.
 Промежуточный билд не собирался; итоговый объединённый owner-test build pending.
 [Отчёт](reports/TASK_M13_MANUAL_COMMON_EVENTS_20261008.md).
+
+
+## 2026-10-08 — M13: диагностика и исправление test-host allocation measurement
+
+Предыдущий common-events commit b5e595f отправлен в GitHub. Исторические записи
+и FAILED TRX сохранены. Уточнение к allocation qualification из предыдущих
+отчётов: на Windows/CoreCLR8.0.31 отдельно воспроизведена ошибка счётчика при BGC
+без игрового кода, NUnit и profiler callbacks. В measured method только два
+GC.GetAllocatedBytesForCurrentThread и SpinWait; real allocation anchor снаружи.
+
+Один и тот же diagnostic DLL: default BGC7/256, confirmation10/256 непустых empty
+intervals; без concurrent GC0/256 в обоих сравнениях; exact test runtime config
+также0/256. Во всех пяти прогонах real64 B controls32/32, ordinary empty32/32
+нулевые. Положительные ложные дельты8136 B (и один1448 B) согласуются с механизмом
+учёта abandoned allocation context; каждый старый test interval отдельно не
+трассировался. Это не объявление исторических FAILED как PASS задним числом.
+
+Изменён только dotnet/Biathlon.Tests/Biathlon.Tests.csproj:
+ConcurrentGarbageCollection=false -> generated System.GC.Concurrent=false.
+Zero-allocation asserts, тесты, numerical tolerance, core/game/Unity/BalanceLab
+настройки не изменены. Это корректировка test measurement, не оптимизация игры.
+Первоначальный expanded subset после изменения260/260 PASS; all-manual +
+Sprint/Pack/Player replay416/416 PASS, включая прежние motion/ledger/roster/forces
+allocation families. Конкретный .NET профиль теперь квалифицирован; production
+40-athlete frame/work/performance qualification всё ещё OPEN. Native21+5+19 PASS
+и пустая Console для неизменённого core source остаются актуальны.
+
+M13 OPEN, WP-176 PASS, WP-175/177/178 OPEN. ProductionVenueHost ещё legacyv1.
+Далее signed controlled slip yaw и полный runner на общем физическом clock,
+course seams/body clearance, mat resources/shooting/finish/full replay/AI/host,
+итоговые условия/balance/performance и объединённый owner-test билд. Нового
+промежуточного билда и owner gate в этом шаге нет.
+[Отчёт](reports/TASK_M13_TEST_COUNTER_BGC_20261008.md).

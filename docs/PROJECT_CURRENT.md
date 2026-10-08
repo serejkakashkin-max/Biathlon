@@ -199,3 +199,15 @@ BGC diagnostic7/256 versus0/256 for identical DLL without BGC; test-host validat
 is the next bounded step. Full manual runner/slip/resources/replay/host and
 WP-175/177/178/M13/final build remain OPEN; WP-176 PASS. Historical failures remain.
 [Report](reports/TASK_M13_MANUAL_COMMON_EVENTS_20261008.md).
+
+
+2026-10-08 allocation measurement correction: package-free Windows/CoreCLR8.0.31
+empty-loop A/B reproduces BGC counter positives twice (7/256,10/256), identical DLL
+without BGC0/256 twice, exact test-runtime0/256; all real64 B controls32/32.
+Test project alone disables concurrent GC; exact assertions and game/Unity/
+BalanceLab settings unchanged. Original subset260/260 and all-manual/replay416/416
+PASS. Earlier failed receipts/statuses preserved; selected .NET allocation
+qualification now PASS in this test profile, production performance still OPEN.
+Common-event code b5e595f pushed. M13/host/manual runner and WP-175/177/178/final
+owner build OPEN; WP-176 PASS. Next controlled slip yaw + complete common runner.
+[Report](reports/TASK_M13_TEST_COUNTER_BGC_20261008.md).
