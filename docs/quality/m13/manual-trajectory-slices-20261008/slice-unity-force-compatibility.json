@@ -1,0 +1,59 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 1361,
+      "PassedTests": 9,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:01.1929761"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.ManualSkiForceTrajectoryTests.AcceleratingTurnMatchesIndependentWeightedIntegrationAndMirrors",
+        "Status": "Passed",
+        "Duration": "00:00:00.0090000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiForceTrajectoryTests.AccelerationFromRestUsesQuadraticDistanceInsteadOfUniformTickTravel",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiForceTrajectoryTests.BrakingStopsTranslationBeforeTickEndsWhilePivotMayContinue",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiForceTrajectoryTests.EncodedEndpointVelocityStartsTheNextFlatForceTickExactly",
+        "Status": "Passed",
+        "Duration": "00:00:00.2660000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiForceTrajectoryTests.ForceTrajectoryRetainsLegacyOutputAndEveryStraightMotionPrefix",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiForceTrajectoryTests.FractionalTravelDurationAndInvalidProfilesAreExplicit",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiForceTrajectoryTests.GripDemandIncludesInternalMaximumOfAcceleratingAndAngularBrakingRamp",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiForceTrajectoryTests.SharedForceAndSteeringStreamRepeatsWithoutWarmAllocations",
+        "Status": "Passed",
+        "Duration": "00:00:00.0370000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiForceTrajectoryTests.SpeedCapAndSlopeConversionRetainPaidTravelAndSharedPlayerAiResult",
+        "Status": "Passed",
+        "Duration": "00:00:00.0110000"
+      }
+    ]
+  }
+}

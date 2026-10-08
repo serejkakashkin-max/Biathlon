@@ -22872,3 +22872,26 @@ Next: reuse frozen trajectory slices, resolve actual contacts/surfaces, authoriz
 real lifecycle gates/mat selection, atomic sessions/events/replay/production host.
 Current playable host still legacy lateral/route following. No intermediate or
 final Windows build; M13 is not complete. Full historical state prefix preserved.
+
+
+## 2026-10-08 — M13 frozen trajectory prefix/suffix reuse
+
+M13/WP-175/177/178 OPEN; WP-176 PASS. New immutable world slices retain original
+force/snow impulse, pose/velocity evolution and conservative bounds across time
+cuts; no repeated command/impulse or automatic turn. Whole queries unchanged.
+A red numerical regression found negative contact-slice travel from subtracting
+independently resized quadratures (-5.1236874812343736E-10 m). Slices now integrate
+nonnegative velocity norm on their actual interval with the existing64 panels,
+without clamping. Contact fragment sums retain ordinary quadrature error; they
+are not claimed bitwise equal to whole approximation. Force cumulative travel
+remains exact. Policy/context v4. No body/grip/force/shooting/live-host tuning.
+Focused.NET84/84 PASS; native17/17 slices +11/11 staged tick +9/9 force +8/8 snow
+PASS, discovery1361, Error Console empty. Original failing receipt retained.
+Real heterogeneous frozen snow interval pays0.02+0.03 s with root endpoint pose/
+velocity and one published tick. Earlier broad allocation qualification OPEN.
+Report: docs/reports/TASK_M13_MANUAL_TRAJECTORY_SLICES_20261008.md.
+Next: actual first-contact/edge response and within-tick surfaces/phase lifecycle,
+mat selection, atomic session/event/replay publication and production input/rig.
+Current playable host still legacy lateral/route following. Full manual play,
+M13 closure and final owner-test build remain pending. No intermediate build.
+History from Foundation preserved byte-for-byte; this is an appended update.

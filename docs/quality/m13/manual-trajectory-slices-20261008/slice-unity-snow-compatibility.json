@@ -1,0 +1,54 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 1361,
+      "PassedTests": 8,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:01.0640341"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.ManualSkiSnowContactTests.FixedHeadingSlipSpinMatrixNeverAddsEnergyOrConsumesForwardMomentum",
+        "Status": "Passed",
+        "Duration": "00:00:00.1860000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiSnowContactTests.GripConsumedByTurningCannotAlsoCancelContactSlip",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiSnowContactTests.MirroringReversesSlipAndSpinButKeepsForwardTravelAndEnergyLoss",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiSnowContactTests.PureSideSlipDecaysByAvailableGripWithoutSpinOrForwardStop",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiSnowContactTests.PureSpinDampsWithoutInventingCentreTranslation",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiSnowContactTests.RepeatedVelocityOperatorIsAllocationFreeAndInputValidationIsExplicit",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiSnowContactTests.SharedCorneringCapabilitySuppliesSlipBudgetAndContactOutputIsRetained",
+        "Status": "Passed",
+        "Duration": "00:00:00.0050000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualSkiSnowContactTests.SmallResidualStopsWithoutReversingOrBeingQuantizedPerImpulse",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      }
+    ]
+  }
+}

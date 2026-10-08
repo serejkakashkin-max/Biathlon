@@ -125,3 +125,16 @@ actual race sessions must still validate lifecycle/physiology/events together.
 Context v3. Ten new and sixteen compatibility native tests PASS. Broad default
 .NET allocation failures remain open despite tiering-off259/259 diagnostic PASS.
 [Report](../reports/TASK_M13_MANUAL_WORLD_TICK_20261008.md).
+
+## 2026-10-08 — reuse the frozen trajectory when cutting time
+
+World slices preserve one root force/snow interval instead of recomputing its
+impulse or command for a shorter time. Nested slices preserve root samples and
+conservative bounds. Force odometer uses original cumulative differences. A red
+case proved that differences of independently rescaled contact quadratures can
+be negative for a tiny slice near a velocity zero. Contact slices integrate the
+nonnegative norm on their actual interval using the existing64 panels; fragment
+sums have numerical quadrature error, not bitwise telescoping. Whole trajectory
+queries stay unchanged. Scoped context v4 records the policy. No spatial/phase
+admission is granted by slicing. .NET84/84 and native17+11+9+8 PASS.
+[Report](../reports/TASK_M13_MANUAL_TRAJECTORY_SLICES_20261008.md).

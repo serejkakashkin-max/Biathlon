@@ -86,10 +86,14 @@ namespace Biathlon.Simulation
     /// continuation. Keeps the same sweep contract for both actors.</summary>
     public readonly struct ManualSkiWorldTrajectory
     {
+        private const int ContactPanels=64;
+        public const string SlicePolicy="frozen_root_interval_slices_v1;force_cumulative_difference;contact_slice_positive_norm_simpson64;whole_query_policy_unchanged";
         private readonly ManualSkiHeadingFrame heading;
         private readonly SkiContactTrajectory contact;
+        private readonly double fromSeconds,toSeconds;
         public bool IsValid=>heading.HasForceTrajectory||contact.IsValid;
-        public double DurationSeconds=>contact.IsValid?contact.DurationSeconds:heading.DurationSeconds;
+        private double RootDurationSeconds=>contact.IsValid?contact.DurationSeconds:heading.DurationSeconds;
+        public double DurationSeconds=>toSeconds-fromSeconds;
         public double PeakYawRate=>contact.IsValid?contact.PeakYawRate:heading.PeakYawRate;
         public double PlanarAccelerationBound=>contact.IsValid?contact.PlanarAccelerationBound:heading.PlanarAccelerationBound;
         public double PositionErrorBoundMeters=>contact.IsValid?contact.PositionErrorBoundMeters:heading.PositionErrorBoundMeters;
@@ -97,21 +101,70 @@ namespace Biathlon.Simulation
         public ManualSkiWorldTrajectory(ManualSkiHeadingFrame frame)
         {
             if(!frame.HasForceTrajectory)throw new ArgumentException("Force-weighted heading required.");
-            heading=frame;contact=default;
+            heading=frame;contact=default;fromSeconds=0;toSeconds=frame.DurationSeconds;
         }
         public ManualSkiWorldTrajectory(SkiContactTrajectory frame)
         {
             if(!frame.IsValid)throw new ArgumentException("Initialized contact trajectory required.");
-            heading=default;contact=frame;
+            heading=default;contact=frame;fromSeconds=0;toSeconds=frame.DurationSeconds;
         }
-        public ManualSkiHeadingState Sample(double fraction)=>contact.IsValid?contact.Sample(fraction):heading.Sample(fraction);
-        public SkiPlanarVelocity VelocityAt(double fraction)=>contact.IsValid?contact.MotionAt(fraction).Velocity:heading.VelocityAt(fraction);
+        private ManualSkiWorldTrajectory(ManualSkiHeadingFrame heading,SkiContactTrajectory contact,double from,double to)
+        {this.heading=heading;this.contact=contact;fromSeconds=from;toSeconds=to;}
+        /// <summary>Reuse a portion of the same frozen force/snow interval. Does
+        /// not recalculate an impulse, apply a command twice or admit any body.
+        /// Times are relative to this slice; nested slices keep the original root.</summary>
+        public ManualSkiWorldTrajectory Slice(double from,double to)
+        {
+            if(!IsValid)throw new InvalidOperationException("Initialized world trajectory required.");
+            PhysiologyNumbers.RequireRange(from,0,DurationSeconds,nameof(from));
+            PhysiologyNumbers.RequireRange(to,0,DurationSeconds,nameof(to));
+            if(to<=from)throw new ArgumentException("A positive frozen interval is required.");
+            double start=from==0?fromSeconds:fromSeconds+from,end=to==DurationSeconds?toSeconds:fromSeconds+to;
+            if(end<=start)throw new ArgumentException("Frozen interval is below the source clock's resolution.");
+            return new ManualSkiWorldTrajectory(heading,contact,start,end);
+        }
+        private double RootFraction(double fraction)
+        {
+            if(!IsValid)throw new InvalidOperationException("Initialized world trajectory required.");
+            PhysiologyNumbers.RequireRange(fraction,0,1,nameof(fraction));
+            // Preserve the exact pre-slice whole-trajectory query policy.
+            if(fromSeconds==0&&toSeconds==RootDurationSeconds)return fraction;
+            double time=fraction==0?fromSeconds:fraction==1?toSeconds:fromSeconds+DurationSeconds*fraction;
+            return time/RootDurationSeconds;
+        }
+        public ManualSkiHeadingState Sample(double fraction)
+        {double root=RootFraction(fraction);return contact.IsValid?contact.Sample(root):heading.Sample(root);}
+        public SkiPlanarVelocity VelocityAt(double fraction)
+        {double root=RootFraction(fraction);return contact.IsValid?contact.MotionAt(root).Velocity:heading.VelocityAt(root);}
         /// <summary>Physical travel along the selected world trajectory. Contact
         /// side-slip counts as distance even when projected course credit is zero.</summary>
         public double PlanarTravelDistanceAt(double fraction)
         {
-            if(!IsValid)throw new InvalidOperationException("Initialized world trajectory required.");
-            PhysiologyNumbers.RequireRange(fraction,0,1,nameof(fraction));
+            double root=RootFraction(fraction);
+            if(fraction==0)return 0;
+            if(contact.IsValid&&(fromSeconds!=0||toSeconds!=RootDurationSeconds))
+                return ContactSliceTravel(fromSeconds/RootDurationSeconds,root);
+            return RootPlanarTravelDistanceAt(root)-(fromSeconds==0?0:RootPlanarTravelDistanceAt(fromSeconds/RootDurationSeconds));
+        }
+        private double ContactSliceTravel(double from,double to)
+        {
+            // Integrate the nonnegative norm on this actual slice. Subtracting
+            // two independently rescaled quadratures is not monotone near a
+            // velocity zero and can invent negative travel for a tiny interval.
+            // Fragment sums have the usual quadrature error, not an exact claim
+            // of bitwise telescoping to the whole interval's approximation.
+            double step=(to-from)/ContactPanels,sum=0;
+            for(int i=0;i<=ContactPanels;i++)
+            {
+                double at=i==0?from:i==ContactPanels?to:from+i*step;
+                var v=contact.MotionAt(at).Velocity;
+                double speed=Math.Sqrt(v.X*v.X+v.Z*v.Z);
+                sum+=(i==0||i==ContactPanels?1:i%2==0?2:4)*speed;
+            }
+            return sum*step*contact.DurationSeconds/3;
+        }
+        private double RootPlanarTravelDistanceAt(double fraction)
+        {
             if(!contact.IsValid)
             {
                 double total=heading.TravelDistanceAt(1);
@@ -120,7 +173,7 @@ namespace Biathlon.Simulation
             if(fraction==0)return 0;
             // Integrate the norm of the exact linear contact velocity ramp.
             // Fixed panels keep deterministic replay independent of frame rate.
-            const int panels=64;
+            const int panels=ContactPanels;
             double step=fraction/panels,sum=0;
             for(int i=0;i<=panels;i++)
             {
@@ -132,21 +185,19 @@ namespace Biathlon.Simulation
         }
         public double PhysicalTravelDistanceAt(double fraction,double directionalGrade)
         {
-            if(!IsValid)throw new InvalidOperationException("Initialized world trajectory required.");
-            PhysiologyNumbers.RequireRange(fraction,0,1,nameof(fraction));
+            double root=RootFraction(fraction);
             PhysiologyNumbers.RequireRange(directionalGrade,-PhysiologyNumbers.MaximumMagnitude,
                 PhysiologyNumbers.MaximumMagnitude,nameof(directionalGrade));
             return contact.IsValid ? PlanarTravelDistanceAt(fraction)*Math.Sqrt(1+directionalGrade*directionalGrade)
-                : heading.TravelDistanceAt(fraction);
+                : heading.TravelDistanceAt(root)-(fromSeconds==0?0:heading.TravelDistanceAt(fromSeconds/RootDurationSeconds));
         }
         public double PhysicalSpeedAt(double fraction,double directionalGrade)
         {
-            if(!IsValid)throw new InvalidOperationException("Initialized world trajectory required.");
-            PhysiologyNumbers.RequireRange(fraction,0,1,nameof(fraction));
+            double root=RootFraction(fraction);
             PhysiologyNumbers.RequireRange(directionalGrade,-PhysiologyNumbers.MaximumMagnitude,
                 PhysiologyNumbers.MaximumMagnitude,nameof(directionalGrade));
-            if(!contact.IsValid)return heading.SlopeSpeedAt(fraction);
-            var velocity=contact.MotionAt(fraction).Velocity;
+            if(!contact.IsValid)return heading.SlopeSpeedAt(root);
+            var velocity=contact.MotionAt(root).Velocity;
             return Math.Sqrt(velocity.X*velocity.X+velocity.Z*velocity.Z)*
                 Math.Sqrt(1+directionalGrade*directionalGrade);
         }

@@ -1,0 +1,69 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 1361,
+      "PassedTests": 11,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:18.2865882"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.AContactAfterAClearPrefixCannotBecomeAWaitingTickOrPublishPartialActors",
+        "Status": "Passed",
+        "Duration": "00:00:01.5390000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.ARejectedLastActorKeepsThePaidScratchPrefixAndAllowsRefinementWithoutPublishingIt",
+        "Status": "Passed",
+        "Duration": "00:00:01.4930000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.CompleteCommonIntervalsPublishOneOwnedClockAndAllActorsTogether",
+        "Status": "Passed",
+        "Duration": "00:00:01.4600000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.ForeignAbortedAndFinalizedTransactionsAreNotReusable",
+        "Status": "Passed",
+        "Duration": "00:00:02.8760000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.NearlyCompleteTimeCannotRoundUpAnUnpaidSuffix",
+        "Status": "Passed",
+        "Duration": "00:00:01.4190000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.OneFrozenSnowIntervalCanPayPrefixAndSuffixWithoutReapplyingItsImpulse",
+        "Status": "Passed",
+        "Duration": "00:00:01.3990000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.OrdinarySeamInsideOneTickRetainsDirectionVelocityAndPaysTheWholeSuffix",
+        "Status": "Passed",
+        "Duration": "00:00:01.4390000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.PhysicalOdometerRoundsAccumulatedTravelOnceAcrossFourIntervals",
+        "Status": "Passed",
+        "Duration": "00:00:01.4180000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.StaleOverlongOrIncompleteIntervalSourcesDoNotPayAnyRemainingTime",
+        "Status": "Passed",
+        "Duration": "00:00:01.4510000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.WarmSplitTickAndOrdinarySeamStagingAllocateNothing",
+        "Status": "Passed",
+        "Duration": "00:00:01.4810000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldTickTests.WorkingOrdinaryHandoffsValidateAllRowsAndStayProvisional",
+        "Status": "Passed",
+        "Duration": "00:00:01.4550000"
+      }
+    ]
+  }
+}

@@ -156,6 +156,26 @@ namespace Biathlon.Tests
             Assert.That(f.World.TryFinalizeTick(tick,out var full),Is.True);
             Assert.That(f.World.GetProposedPhysicalMotion(full,1).DistanceNanometers,Is.EqualTo(N+2));
         }
+        [Test] public void OneFrozenSnowIntervalCanPayPrefixAndSuffixWithoutReapplyingItsImpulse()
+        {
+            var f=new ManualScopedWorldRosterTests.Fixture(secondSideSpeed:.01);var roots=new ManualSkiWorldTrajectory[2];
+            var snow=new ManualSkiSnowContactSystem(f.Source.Venue.Occupancy,20);var candidates=new SkiWorldMotionCandidate[2];
+            for(int i=0;i<2;i++)
+            {
+                var actor=f.World.GetActor(i);var body=new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,75);
+                roots[i]=new ManualSkiWorldTrajectory(snow.PreviewTrajectory(body,new SkiContactMotion(actor.Velocity,0),4,0,.05));
+                candidates[i]=new SkiWorldMotionCandidate(actor.Athlete,roots[i].Slice(0,.02));
+            }
+            var tick=f.World.BeginTick();Assert.That(f.World.TryAppendInterval(tick,candidates,Windows(f,tick),NoPairs,0,NoEdges,0,FlatGrades),Is.True);
+            Assert.That(f.World.GetWorkingActor(tick,1).Velocity,Is.EqualTo(roots[1].VelocityAt(.4)));
+            for(int i=0;i<2;i++)candidates[i]=new SkiWorldMotionCandidate(f.World.GetWorkingActor(tick,i).Athlete,roots[i].Slice(.02,.05));
+            Assert.That(f.World.TryAppendInterval(tick,candidates,Windows(f,tick),NoPairs,0,NoEdges,0,FlatGrades),Is.True);
+            Assert.That(f.World.TryFinalizeTick(tick,out var full),Is.True);
+            Assert.That(f.World.GetProposedActor(full,1).Pose,Is.EqualTo(roots[1].Sample(1)));
+            Assert.That(f.World.GetProposedActor(full,1).Velocity,Is.EqualTo(roots[1].VelocityAt(1)));
+            Assert.That(f.World.GetProposedPhysicalMotion(full,1).DistanceNanometers,Is.EqualTo(N+(long)Math.Round(roots[1].PhysicalTravelDistanceAt(1,0)*N)));
+            f.World.Commit(full);Assert.That(f.World.Tick.Value,Is.EqualTo(1));
+        }
         [Test] public void WarmSplitTickAndOrdinarySeamStagingAllocateNothing()
         {
             var f=new ManualScopedWorldRosterTests.Fixture(endMask:2,secondEndOffsetMeters:.04);var indexes=new[]{1};

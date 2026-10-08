@@ -111,3 +111,9 @@ without changing yaw/velocity or publishing partial rows. New.NET10/10, native
 10/10+16/16 PASS. Broad default256/259 has three existing allocation failures;
 explicit tiering-off259/259 is diagnostic only. Qualification and M13 remain OPEN.
 [Report](reports/TASK_M13_MANUAL_WORLD_TICK_20261008.md).
+
+2026-10-08 frozen trajectory slices: reuse original force/snow interval across
+clock cuts. Negative contact-slice quadrature subtraction regression repaired;
+whole query behavior retained. .NET84/84, native17+11+9+8 PASS, Console empty.
+Earlier broad allocation qualification, full manual/host and M13 build OPEN.
+[Report](reports/TASK_M13_MANUAL_TRAJECTORY_SLICES_20261008.md).

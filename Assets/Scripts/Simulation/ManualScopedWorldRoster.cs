@@ -100,9 +100,9 @@ namespace Biathlon.Simulation
             workingTravelMeters=new double[count];stagedTravelMeters=new double[count];
             progress=new ManualRacePathProgression[count];courses=new ManualRouteTubeSweep[count];gates=new ManualRacePathGateSweep[count];bodies=new ManualSkiJointSweep(body,contact,work);
             var context=new string[count+6];var initial=new string[count+4];
-            context[0]="manual_scoped_full_clear_world_roster_v3";context[1]=body.ToJson();
+            context[0]="manual_scoped_full_clear_world_roster_v4";context[1]=body.ToJson();
             context[2]=contact.ToJson();context[3]=work.ToJson();
-            context[4]="force_exact_distance;contact_velocity_norm_simpson64;grade_frozen_per_interval;full_duration_tolerance_1e-12;no_implicit_scope_crossing;local_terminal_centre_portals_v1;whole_tube_edge_activation;continuous_acceleration_bound;existing_trajectory_encoding_reserve;staged_full_clock_intervals;exact_remaining_time;round_tick_travel_once";
+            context[4]="force_exact_distance;contact_velocity_norm_simpson64;grade_frozen_per_interval;full_duration_tolerance_1e-12;no_implicit_scope_crossing;local_terminal_centre_portals_v1;whole_tube_edge_activation;continuous_acceleration_bound;existing_trajectory_encoding_reserve;staged_full_clock_intervals;exact_remaining_time;round_tick_travel_once;"+ManualSkiWorldTrajectory.SlicePolicy;
             initial[0]="manual_scoped_initial_world_roster_v1";initial[1]=tickFrequency.ToString(CultureInfo.InvariantCulture);
             initial[2]=initialTick.Value.ToString(CultureInfo.InvariantCulture);initial[3]="actor,occurrence,observed_arc,high_arc,route_credit,x,z,heading_nrad,yaw,vx,vz,odometer,speed";
             for(int i=0;i<count;i++)
