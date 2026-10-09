@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="57561e8a-a3c7-4442-a0d5-353dff346ea8" name="snkashkin@DESKTOP-G3075GA 2026-10-09 13:38:01" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T13:38:01.6322971+03:00" queuing="2026-10-09T13:38:01.6322971+03:00" start="2026-10-09T13:37:57.6681085+03:00" finish="2026-10-09T13:38:05.3479559+03:00" />
+  <TestSettings name="default" id="132cda9b-da1b-45b4-afd6-261fbc73540d">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_13_38_01" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="a68d6d2c-27a3-47dd-bd9e-3e973fc5278b" testId="351f60bb-a8af-39f4-a2f1-d355e6552e46" testName="AllFourShootingBoutsReturnToTheManualCourse(3)" computerName="DESKTOP-G3075GA" duration="00:00:03.5128430" startTime="2026-10-09T13:38:01.6037847+03:00" endTime="2026-10-09T13:38:05.1164457+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a68d6d2c-27a3-47dd-bd9e-3e973fc5278b">
+      <Output>
+        <StdOut>[DEBUG-mat-contact] 0: x=35.439269112,z=-2.431933829,h=1.506202773,w=-0.104254683,vx=3.1898385177282504,vz=0.16431677632248906; brake=63.607632989180296, frozen_brake=63.607632989180296; neutral=False; snow_w=-0.08677485215257154; snow_vx=3.189775252294009; snow_vz=0.16431338946580523&#xD;
+[DEBUG-mat-contact] 1: x=36.910351237,z=-1.949714769,h=1.460496364,w=0.159390138,vx=2.5678761051510834,vz=-0.1851211376829588; brake=223.07781469902807, frozen_brake=223.07781469902807; neutral=False; snow_w=0.17733132545315253; snow_vx=2.566216841358649; snow_vz=-0.1848538496129872&#xD;
+[DEBUG-mat-contact] 2: x=37.505951752,z=-0.819570848,h=5.608743611,w=-1.974237039,vx=0.5952926261813697,vz=0.3076842159765709; brake=0, frozen_brake=0; neutral=False; snow_w=0; snow_vx=0; snow_vz=0&#xD;
+[DEBUG-mat-contact] pair=woodland_basin_v1_athlete_0:woodland_basin_v1_athlete_1</StdOut>
+        <ErrorInfo>
+          <Message>tick 7329 / MovingFiringArrival / Clear /  / 0.04172565659606596 / pieces 2 / forces Resolved supports=1 passes=1 seconds=0.04729993673162502 residual=0 closing=0 / Clear /  / Clear / pair : Clear clear 0 end 0 continuation False / working x=37.505951752 z=-0.819570848 yaw=5.608743611 spin=-1.974237039 vx=0.5952926261813697 vz=0.3076842159765709 occurrence=9 arc=2672000000 lateral=0.06072154282714351; gate=Clear; source=2 occurrence=9 arc=2672000000 x=37.505951752 z=-0.819570848 yaw=5.608743611 spin=0 vx=0 vz=0 lateral=0.06072154282714351 vertices=12 clearance=0.6979270366593185 minimum=0.6979270366593185 / System.InvalidOperationException: Manual field step rejected: MovingFiringArrival / Clear / ; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 147&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 474&#xD;
+   at Biathlon.AI.PackAiRaceRunner.Step() in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 219&#xD;
+   at Biathlon.Tests.ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Int32 athletes) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 280</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Int32 athletes) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 281&#xD;
+   at InvokeStub_ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Int32 athletes) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 280&#xD;
+   at InvokeStub_ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8dad2761-c3d4-4969-9ee6-5650332777f8" testId="df90a74b-ee49-5afe-d7ba-f8b6138bdbe1" testName="AllFourShootingBoutsReturnToTheManualCourse(1)" computerName="DESKTOP-G3075GA" duration="00:00:03.4338400" startTime="2026-10-09T13:37:58.1695830+03:00" endTime="2026-10-09T13:38:01.6032199+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8dad2761-c3d4-4969-9ee6-5650332777f8">
+      <Output>
+        <StdOut>Four bouts: tick=16360; penalties=0; maximum moving pieces=2</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="AllFourShootingBoutsReturnToTheManualCourse(1)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="df90a74b-ee49-5afe-d7ba-f8b6138bdbe1">
+      <Execution id="8dad2761-c3d4-4969-9ee6-5650332777f8" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="AllFourShootingBoutsReturnToTheManualCourse(1)" />
+    </UnitTest>
+    <UnitTest name="AllFourShootingBoutsReturnToTheManualCourse(3)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="351f60bb-a8af-39f4-a2f1-d355e6552e46">
+      <Execution id="a68d6d2c-27a3-47dd-bd9e-3e973fc5278b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="AllFourShootingBoutsReturnToTheManualCourse(3)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="351f60bb-a8af-39f4-a2f1-d355e6552e46" executionId="a68d6d2c-27a3-47dd-bd9e-3e973fc5278b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="df90a74b-ee49-5afe-d7ba-f8b6138bdbe1" executionId="8dad2761-c3d4-4969-9ee6-5650332777f8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="1" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+Four bouts: tick=16360; penalties=0; maximum moving pieces=2&#xD;
+&#xD;
+[DEBUG-mat-contact] 0: x=35.439269112,z=-2.431933829,h=1.506202773,w=-0.104254683,vx=3.1898385177282504,vz=0.16431677632248906; brake=63.607632989180296, frozen_brake=63.607632989180296; neutral=False; snow_w=-0.08677485215257154; snow_vx=3.189775252294009; snow_vz=0.16431338946580523&#xD;
+[DEBUG-mat-contact] 1: x=36.910351237,z=-1.949714769,h=1.460496364,w=0.159390138,vx=2.5678761051510834,vz=-0.1851211376829588; brake=223.07781469902807, frozen_brake=223.07781469902807; neutral=False; snow_w=0.17733132545315253; snow_vx=2.566216841358649; snow_vz=-0.1848538496129872&#xD;
+[DEBUG-mat-contact] 2: x=37.505951752,z=-0.819570848,h=5.608743611,w=-1.974237039,vx=0.5952926261813697,vz=0.3076842159765709; brake=0, frozen_brake=0; neutral=False; snow_w=0; snow_vx=0; snow_vz=0&#xD;
+[DEBUG-mat-contact] pair=woodland_basin_v1_athlete_0:woodland_basin_v1_athlete_1&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

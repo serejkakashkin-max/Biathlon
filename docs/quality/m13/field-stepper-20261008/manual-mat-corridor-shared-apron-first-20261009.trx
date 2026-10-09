@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="3c537bed-762a-4f15-bb51-437b606b1341" name="snkashkin@DESKTOP-G3075GA 2026-10-09 13:53:47" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T13:53:47.8281227+03:00" queuing="2026-10-09T13:53:47.8281230+03:00" start="2026-10-09T13:53:46.0146229+03:00" finish="2026-10-09T13:53:53.3037797+03:00" />
+  <TestSettings name="default" id="c07dd044-cf9f-445c-986a-35100f3f3399">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_13_53_47" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="fc6acab0-e6a5-4525-8653-171b5ea8bde9" testId="41d7091f-fad6-9bdd-5ba2-8a241632a3aa" testName="AchievedMotionTowardRotatedMatIsDetectedBeforeCurrentLinesOverlap" computerName="DESKTOP-G3075GA" duration="00:00:00.0003260" startTime="2026-10-09T13:53:46.5363187+03:00" endTime="2026-10-09T13:53:46.5366451+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fc6acab0-e6a5-4525-8653-171b5ea8bde9" />
+    <UnitTestResult executionId="cb1e5a67-47f2-4869-b36f-add70ef5e31f" testId="351f60bb-a8af-39f4-a2f1-d355e6552e46" testName="AllFourShootingBoutsReturnToTheManualCourse(3)" computerName="DESKTOP-G3075GA" duration="00:00:03.2391460" startTime="2026-10-09T13:53:49.8903416+03:00" endTime="2026-10-09T13:53:53.1293676+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cb1e5a67-47f2-4869-b36f-add70ef5e31f">
+      <Output>
+        <StdOut>[DEBUG-mat-ai] tick=3944, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.9496725663578207,x=46.592489998,z=-9.641456205,yaw=2.936860396,speed=3.279082049,vx=2.46219918721068,vz=-2.1656302192503243&#xD;
+[DEBUG-mat-ai] tick=3944, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-981,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.04781428491927021,x=39.789920215,z=-8.208458182,yaw=3.065961276,speed=0.567065078,vx=0.18555079363023527,vz=-0.5358485849171366&#xD;
+[DEBUG-mat-ai] tick=3944, actor=2, pass=False,line=0,obstacle=0,steering=197,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.3051849063578196,x=45.343243678,z=-8.996968545,yaw=1.439362755,speed=2.750332285,vx=2.7401684546217235,vz=0.23622980055605616&#xD;
+[DEBUG-mat-ai] tick=3945, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=1.05968123935782,x=46.714276177,z=-9.751464878,yaw=2.977845314,speed=3.286213073,vx=2.409444144790198,vz=-2.2346756525668634&#xD;
+[DEBUG-mat-ai] tick=3945, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-694,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.04518119165647237,x=39.80019669,z=-8.233269841,yaw=3.053826921,speed=0.509251383,vx=0.22548950741752238,vz=-0.4566086432966356&#xD;
+[DEBUG-mat-ai] tick=3945, actor=2, pass=False,line=0,obstacle=0,steering=173,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.29364295135781937,x=45.48130113,z=-8.98542659,yaw=1.451172221,speed=2.790700026,vx=2.781603795945242,vz=0.22513763544427187&#xD;
+[DEBUG-mat-ai] tick=3946, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=1.1730793343578192,x=46.833294751,z=-9.864862973,yaw=3.021800308,speed=3.290056163,vx=2.351333132239257,vz=-2.3012392440027396&#xD;
+[DEBUG-mat-ai] tick=3946, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-344,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.04526150106578912,x=39.813043161,z=-8.257133533,yaw=3.038347746,speed=0.575404835,vx=0.28839502821132307,vz=-0.49791468377818066&#xD;
+[DEBUG-mat-ai] tick=3946, actor=2, pass=False,line=0,obstacle=0,steering=151,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.2826465603578203,x=45.621368139,z=-8.974430199,yaw=1.462625157,speed=2.82915416,vx=2.8209975817087614,vz=0.21467627737269948&#xD;
+[DEBUG-mat-ai] tick=3947, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=1.28984676035782,x=46.948981271,z=-9.981630399,yaw=3.06867708,speed=3.28158676,vx=2.267726867457227,vz=-2.371966803250549&#xD;
+[DEBUG-mat-ai] tick=3947, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-258,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.045808912562333784,x=39.827035312,z=-8.282149752,yaw=3.021948659,speed=0.571343586,vx=0.27158054628812156,vz=-0.5026703688959874&#xD;
+[DEBUG-mat-ai] tick=3947, actor=2, pass=False,line=0,obstacle=0,steering=129,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.2722499753578198,x=45.76342707,z=-8.964033614,yaw=1.473684403,speed=2.875943665,vx=2.8687754824928375,vz=0.20292658058887175&#xD;
+[DEBUG-mat-ai] tick=3948, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=1.4104328873578194,x=47.059359584,z=-10.102216526,yaw=3.113025105,speed=3.259002423,vx=2.147405647865776,vz=-2.451478284566206&#xD;
+[DEBUG-mat-ai] tick=3948, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-491,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.043755046850545,x=39.841845283,z=-8.305335278,yaw=3.004693994,speed=0.53229457,vx=0.3208183122917309,vz=-0.42475065554977126&#xD;
+[DEBUG-mat-ai] tick=3948, actor=2, pass=False,line=0,obstacle=0,steering=112,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.2620994063578195,x=45.90891147,z=-8.953883045,yaw=1.481661335,speed=2.957582014,vx=2.95060050107054,vz=0.20309616760450466&#xD;
+[DEBUG-mat-ai] tick=3949, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=1.5351681673578206,x=47.163273301,z=-10.226951806,yaw=3.153261862,speed=3.236936709,vx=2.0091430328197957,vz=-2.5379329250153284&#xD;
+[DEBUG-mat-ai] tick=3949, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-116,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.03955360342559222,x=39.856402686,z=-8.329696299,yaw=2.988503601,speed=0.6087117,vx=0.2614777965864844,vz=-0.549690181671087&#xD;
+[DEBUG-mat-ai] tick=3949, actor=2, pass=False,line=0,obstacle=0,steering=113,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.2523690383578199,x=46.05843516,z=-8.944152677,yaw=1.48767283,speed=3.036057269,vx=3.0303471137179736,vz=0.1861185360568745&#xD;
+[DEBUG-mat-ai] tick=3950, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=1.66416062935782,x=47.260231485,z=-10.355944268,yaw=3.190397299,speed=3.219860967,vx=1.8691843339011405,vz=-2.6217655453607343&#xD;
+[DEBUG-mat-ai] tick=3950, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-1000,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.034117336813884645,x=39.870086601,z=-8.354939435,yaw=2.974293328,speed=0.541626355,vx=0.28587879127684596,vz=-0.4600352429630352&#xD;
+[DEBUG-mat-ai] tick=3950, actor=2, pass=False,line=0,obstacle=0,steering=103,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.24316774735781976,x=46.211869629,z=-8.934951386,yaw=1.493424182,speed=3.112353664,vx=3.1070316498882087,vz=0.1819331141352626&#xD;
+[DEBUG-mat-ai] tick=3951, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=1.7972528113578203,x=47.350156898,z=-10.48903645,yaw=3.224170698,speed=3.207145939,vx=1.7278321664523444,vz=-2.7019217379229987&#xD;
+[DEBUG-mat-ai] tick=3951, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-711,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.03119174511646087,x=39.885534433,z=-8.37837431,yaw=2.957854312,speed=0.581480199,vx=0.3320344706957527,vz=-0.4773597515322645&#xD;
+[DEBUG-mat-ai] tick=3951, actor=2, pass=False,line=0,obstacle=0,steering=95,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.23422032435781936,x=46.369084594,z=-8.926003963,yaw=1.498679426,speed=3.186429276,vx=3.1815669513098186,vz=0.1759638096913735&#xD;
+[DEBUG-mat-ai] tick=3952, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=1.9342385823578194,x=47.432995892,z=-10.626022221,yaw=3.254307305,speed=3.198294662,vx=1.5857276024186626,vz=-2.77750908430193&#xD;
+[DEBUG-mat-ai] tick=3952, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-717,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.03081412142275207,x=39.902878278,z=-8.400103098,yaw=2.938855862,speed=0.533236975,vx=0.3617193411265493,vz=-0.39179176843357294&#xD;
+[DEBUG-mat-ai] tick=3952, actor=2, pass=False,line=0,obstacle=0,steering=87,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.22555712735782052,x=46.529973812,z=-8.917340766,yaw=1.503494647,speed=3.258468919,vx=3.254001781130953,vz=0.1705640797597429&#xD;
+[DEBUG-mat-ai] tick=3953, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=2.0748992203578194,x=47.508727733,z=-10.766682859,yaw=3.280498619,speed=3.193767372,vx=1.4435460496365529,vz=-2.8489164301921748&#xD;
+[DEBUG-mat-ai] tick=3953, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-310,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.02980154803189601,x=39.920832704,z=-8.422766649,yaw=2.919943016,speed=0.626122962,vx=0.3564577182930842,vz=-0.5147502880322572&#xD;
+[DEBUG-mat-ai] tick=3953, actor=2, pass=False,line=0,obstacle=0,steering=81,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.21718819035782033,x=46.694424888,z=-8.908971829,yaw=1.507925627,speed=3.32809402,vx=3.3240412644017265,vz=0.1641934105058197</StdOut>
+        <ErrorInfo>
+          <Message>tick 3954 / WorldRejected / Course / woodland_basin_v1_athlete_0 / 0 / pieces 0 / forces Resolved supports=0 passes=1 seconds=0.05 residual=0 closing=0 / PotentialBoundary /  / PotentialBoundary / pair : Clear clear 0 end 0 continuation False / working x=47.508727733 z=-10.766682859 yaw=3.280498619 spin=0.482735024 vx=1.4435460496365529 vz=-2.8489164301921748 occurrence=5 arc=4101370638 lateral=2.0748992203578194; gate=Clear; source=0 occurrence=5 arc=4101370638 x=47.508727733 z=-10.766682859 yaw=3.280498619 spin=0.482735024 vx=1.4435460496365529 vz=-2.8489164301921748 lateral=2.0748992203578194 vertices=24 clearance=0.02723425545494651 minimum=-0.046913600117210574 / System.InvalidOperationException: Manual field step rejected: WorldRejected / Course / woodland_basin_v1_athlete_0; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 149&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 474&#xD;
+   at Biathlon.AI.PackAiRaceRunner.Step() in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 219&#xD;
+   at Biathlon.Tests.ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Int32 athletes) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 294</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Int32 athletes) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 295&#xD;
+   at InvokeStub_ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Int32 athletes) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 294&#xD;
+   at InvokeStub_ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ecca201d-7122-48bd-814a-518f25694a4e" testId="df90a74b-ee49-5afe-d7ba-f8b6138bdbe1" testName="AllFourShootingBoutsReturnToTheManualCourse(1)" computerName="DESKTOP-G3075GA" duration="00:00:03.3500460" startTime="2026-10-09T13:53:46.5403923+03:00" endTime="2026-10-09T13:53:49.8903141+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ecca201d-7122-48bd-814a-518f25694a4e">
+      <Output>
+        <StdOut>Four bouts: tick=16360; penalties=0; maximum moving pieces=2</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8aac2b28-eb6c-464e-a7e9-c9a209bcf479" testId="630bb00f-f846-bf61-c2b9-c97fdefb08ef" testName="RotatedBodyEnvelopeAndAllocationFreeQueryArePreserved" computerName="DESKTOP-G3075GA" duration="00:00:00.0029180" startTime="2026-10-09T13:53:46.5366589+03:00" endTime="2026-10-09T13:53:46.5395770+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8aac2b28-eb6c-464e-a7e9-c9a209bcf479" />
+    <UnitTestResult executionId="a91c093f-2005-40cf-9c23-f89ba6255f1f" testId="f38bf6e0-0189-7eed-b9cd-c79221524767" testName="AchievedMotionAwayFromMatDoesNotInventAnObstruction" computerName="DESKTOP-G3075GA" duration="00:00:00.0126750" startTime="2026-10-09T13:53:46.5231113+03:00" endTime="2026-10-09T13:53:46.5357602+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a91c093f-2005-40cf-9c23-f89ba6255f1f" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="AllFourShootingBoutsReturnToTheManualCourse(1)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="df90a74b-ee49-5afe-d7ba-f8b6138bdbe1">
+      <Execution id="ecca201d-7122-48bd-814a-518f25694a4e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="AllFourShootingBoutsReturnToTheManualCourse(1)" />
+    </UnitTest>
+    <UnitTest name="AllFourShootingBoutsReturnToTheManualCourse(3)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="351f60bb-a8af-39f4-a2f1-d355e6552e46">
+      <Execution id="cb1e5a67-47f2-4869-b36f-add70ef5e31f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="AllFourShootingBoutsReturnToTheManualCourse(3)" />
+    </UnitTest>
+    <UnitTest name="AchievedMotionAwayFromMatDoesNotInventAnObstruction" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="f38bf6e0-0189-7eed-b9cd-c79221524767">
+      <Execution id="a91c093f-2005-40cf-9c23-f89ba6255f1f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiObstacleCorridorTests" name="AchievedMotionAwayFromMatDoesNotInventAnObstruction" />
+    </UnitTest>
+    <UnitTest name="RotatedBodyEnvelopeAndAllocationFreeQueryArePreserved" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="630bb00f-f846-bf61-c2b9-c97fdefb08ef">
+      <Execution id="8aac2b28-eb6c-464e-a7e9-c9a209bcf479" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiObstacleCorridorTests" name="RotatedBodyEnvelopeAndAllocationFreeQueryArePreserved" />
+    </UnitTest>
+    <UnitTest name="AchievedMotionTowardRotatedMatIsDetectedBeforeCurrentLinesOverlap" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="41d7091f-fad6-9bdd-5ba2-8a241632a3aa">
+      <Execution id="fc6acab0-e6a5-4525-8653-171b5ea8bde9" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiObstacleCorridorTests" name="AchievedMotionTowardRotatedMatIsDetectedBeforeCurrentLinesOverlap" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="41d7091f-fad6-9bdd-5ba2-8a241632a3aa" executionId="fc6acab0-e6a5-4525-8653-171b5ea8bde9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="351f60bb-a8af-39f4-a2f1-d355e6552e46" executionId="cb1e5a67-47f2-4869-b36f-add70ef5e31f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="df90a74b-ee49-5afe-d7ba-f8b6138bdbe1" executionId="ecca201d-7122-48bd-814a-518f25694a4e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="630bb00f-f846-bf61-c2b9-c97fdefb08ef" executionId="8aac2b28-eb6c-464e-a7e9-c9a209bcf479" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f38bf6e0-0189-7eed-b9cd-c79221524767" executionId="a91c093f-2005-40cf-9c23-f89ba6255f1f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="5" executed="5" passed="4" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 5 of 5 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+Four bouts: tick=16360; penalties=0; maximum moving pieces=2&#xD;
+&#xD;
+[DEBUG-mat-ai] tick=3944, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.9496725663578207,x=46.592489998,z=-9.641456205,yaw=2.936860396,speed=3.279082049,vx=2.46219918721068,vz=-2.1656302192503243&#xD;
+[DEBUG-mat-ai] tick=3944, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-981,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.04781428491927021,x=39.789920215,z=-8.208458182,yaw=3.065961276,speed=0.567065078,vx=0.18555079363023527,vz=-0.5358485849171366&#xD;
+[DEBUG-mat-ai] tick=3944, actor=2, pass=False,line=0,obstacle=0,steering=197,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.3051849063578196,x=45.343243678,z=-8.996968545,yaw=1.439362755,speed=2.750332285,vx=2.7401684546217235,vz=0.23622980055605616&#xD;
+[DEBUG-mat-ai] tick=3945, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=1.05968123935782,x=46.714276177,z=-9.751464878,yaw=2.977845314,speed=3.286213073,vx=2.409444144790198,vz=-2.2346756525668634&#xD;
+[DEBUG-mat-ai] tick=3945, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-694,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.04518119165647237,x=39.80019669,z=-8.233269841,yaw=3.053826921,speed=0.509251383,vx=0.22548950741752238,vz=-0.4566086432966356&#xD;
+[DEBUG-mat-ai] tick=3945, actor=2, pass=False,line=0,obstacle=0,steering=173,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.29364295135781937,x=45.48130113,z=-8.98542659,yaw=1.451172221,speed=2.790700026,vx=2.781603795945242,vz=0.22513763544427187&#xD;
+[DEBUG-mat-ai] tick=3946, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=1.1730793343578192,x=46.833294751,z=-9.864862973,yaw=3.021800308,speed=3.290056163,vx=2.351333132239257,vz=-2.3012392440027396&#xD;
+[DEBUG-mat-ai] tick=3946, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-344,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.04526150106578912,x=39.813043161,z=-8.257133533,yaw=3.038347746,speed=0.575404835,vx=0.28839502821132307,vz=-0.49791468377818066&#xD;
+[DEBUG-mat-ai] tick=3946, actor=2, pass=False,line=0,obstacle=0,steering=151,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.2826465603578203,x=45.621368139,z=-8.974430199,yaw=1.462625157,speed=2.82915416,vx=2.8209975817087614,vz=0.21467627737269948&#xD;
+[DEBUG-mat-ai] tick=3947, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=1.28984676035782,x=46.948981271,z=-9.981630399,yaw=3.06867708,speed=3.28158676,vx=2.267726867457227,vz=-2.371966803250549&#xD;
+[DEBUG-mat-ai] tick=3947, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-258,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.045808912562333784,x=39.827035312,z=-8.282149752,yaw=3.021948659,speed=0.571343586,vx=0.27158054628812156,vz=-0.5026703688959874&#xD;
+[DEBUG-mat-ai] tick=3947, actor=2, pass=False,line=0,obstacle=0,steering=129,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.2722499753578198,x=45.76342707,z=-8.964033614,yaw=1.473684403,speed=2.875943665,vx=2.8687754824928375,vz=0.20292658058887175&#xD;
+[DEBUG-mat-ai] tick=3948, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=1.4104328873578194,x=47.059359584,z=-10.102216526,yaw=3.113025105,speed=3.259002423,vx=2.147405647865776,vz=-2.451478284566206&#xD;
+[DEBUG-mat-ai] tick=3948, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-491,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.043755046850545,x=39.841845283,z=-8.305335278,yaw=3.004693994,speed=0.53229457,vx=0.3208183122917309,vz=-0.42475065554977126&#xD;
+[DEBUG-mat-ai] tick=3948, actor=2, pass=False,line=0,obstacle=0,steering=112,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.2620994063578195,x=45.90891147,z=-8.953883045,yaw=1.481661335,speed=2.957582014,vx=2.95060050107054,vz=0.20309616760450466&#xD;
+[DEBUG-mat-ai] tick=3949, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=1.5351681673578206,x=47.163273301,z=-10.226951806,yaw=3.153261862,speed=3.236936709,vx=2.0091430328197957,vz=-2.5379329250153284&#xD;
+[DEBUG-mat-ai] tick=3949, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-116,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.03955360342559222,x=39.856402686,z=-8.329696299,yaw=2.988503601,speed=0.6087117,vx=0.2614777965864844,vz=-0.549690181671087&#xD;
+[DEBUG-mat-ai] tick=3949, actor=2, pass=False,line=0,obstacle=0,steering=113,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.2523690383578199,x=46.05843516,z=-8.944152677,yaw=1.48767283,speed=3.036057269,vx=3.0303471137179736,vz=0.1861185360568745&#xD;
+[DEBUG-mat-ai] tick=3950, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=1.66416062935782,x=47.260231485,z=-10.355944268,yaw=3.190397299,speed=3.219860967,vx=1.8691843339011405,vz=-2.6217655453607343&#xD;
+[DEBUG-mat-ai] tick=3950, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-1000,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.034117336813884645,x=39.870086601,z=-8.354939435,yaw=2.974293328,speed=0.541626355,vx=0.28587879127684596,vz=-0.4600352429630352&#xD;
+[DEBUG-mat-ai] tick=3950, actor=2, pass=False,line=0,obstacle=0,steering=103,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.24316774735781976,x=46.211869629,z=-8.934951386,yaw=1.493424182,speed=3.112353664,vx=3.1070316498882087,vz=0.1819331141352626&#xD;
+[DEBUG-mat-ai] tick=3951, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=1.7972528113578203,x=47.350156898,z=-10.48903645,yaw=3.224170698,speed=3.207145939,vx=1.7278321664523444,vz=-2.7019217379229987&#xD;
+[DEBUG-mat-ai] tick=3951, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-711,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.03119174511646087,x=39.885534433,z=-8.37837431,yaw=2.957854312,speed=0.581480199,vx=0.3320344706957527,vz=-0.4773597515322645&#xD;
+[DEBUG-mat-ai] tick=3951, actor=2, pass=False,line=0,obstacle=0,steering=95,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.23422032435781936,x=46.369084594,z=-8.926003963,yaw=1.498679426,speed=3.186429276,vx=3.1815669513098186,vz=0.1759638096913735&#xD;
+[DEBUG-mat-ai] tick=3952, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=1.9342385823578194,x=47.432995892,z=-10.626022221,yaw=3.254307305,speed=3.198294662,vx=1.5857276024186626,vz=-2.77750908430193&#xD;
+[DEBUG-mat-ai] tick=3952, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-717,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.03081412142275207,x=39.902878278,z=-8.400103098,yaw=2.938855862,speed=0.533236975,vx=0.3617193411265493,vz=-0.39179176843357294&#xD;
+[DEBUG-mat-ai] tick=3952, actor=2, pass=False,line=0,obstacle=0,steering=87,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.22555712735782052,x=46.529973812,z=-8.917340766,yaw=1.503494647,speed=3.258468919,vx=3.254001781130953,vz=0.1705640797597429&#xD;
+[DEBUG-mat-ai] tick=3953, actor=0, pass=False,line=0,obstacle=0,steering=-1000,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=2.0748992203578194,x=47.508727733,z=-10.766682859,yaw=3.280498619,speed=3.193767372,vx=1.4435460496365529,vz=-2.8489164301921748&#xD;
+[DEBUG-mat-ai] tick=3953, actor=1, pass=False,line=1.043024789357819,obstacle=0,steering=-310,kind=RangeExit,occ=4,width=3,margin=0.9276472678623424,side=-0.02980154803189601,x=39.920832704,z=-8.422766649,yaw=2.919943016,speed=0.626122962,vx=0.3564577182930842,vz=-0.5147502880322572&#xD;
+[DEBUG-mat-ai] tick=3953, actor=2, pass=False,line=0,obstacle=0,steering=81,kind=RangeExit,occ=5,width=6,margin=0.9276472678623424,side=0.21718819035782033,x=46.694424888,z=-8.908971829,yaw=1.507925627,speed=3.32809402,vx=3.3240412644017265,vz=0.1641934105058197&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -74,6 +74,16 @@ namespace Biathlon.Simulation
                 for(int i=0;i<Count;i++)
                 {
                     var cursor=workingCursors[i];var row=catalogs[i].Get(cursor.OccurrenceIndex);
+                    if(!ownedContactParticipants[i]&&NeutralStop(drives[i]))
+                    {
+                        // This disconnected stop keeps its complete free law,
+                        // including the snow ramp after its forward-speed stop.
+                        // Its internal breakpoint cannot clip the other pair's
+                        // force clock or replace its own exact endpoint.
+                        ownedFreeDrives[i]=drives[i];ownedFreeStarts[i]=elapsedSeconds;
+                        ownedFreeOccurrences[i]=cursor.OccurrenceIndex;ownedFreePhases[i]=0;ownedFreeValid[i]=false;
+                        continue;
+                    }
                     bool hold=row.End==ManualRacePathEnd.FiringLine&&cursor.ObservedArcNanometers==row.LengthNanometers;
                     if(!ownedFreeValid[i]||ownedFreeOccurrences[i]!=cursor.OccurrenceIndex||
                         elapsedSeconds>=ownedFreeStarts[i]+ownedFreeDrives[i].DurationSeconds||hold)
@@ -98,9 +108,24 @@ namespace Biathlon.Simulation
                 LastContactForces=contactForces.PreviewRefined(responseBodies,ownedFreePieces,Count,coupledTrajectories,maximumForceRefinements);
             }
             if(LastContactForces.Status!=SkiContactForceStatus.Resolved)return Reject(ManualScopedWorldStatus.ContactForces);
-            for(int i=0;i<Count;i++)coupledCandidates[i]=new SkiWorldMotionCandidate(workingActors[i].Athlete,new ManualSkiWorldTrajectory(coupledTrajectories[i]));
+            for(int i=0;i<Count;i++)
+            {
+                // An unrelated pair's reaction calendar must not replace a
+                // separated skier's own exact free stop/snow law. Future contact
+                // is still admitted by the common continuous scheduler.
+                var trajectory=LastOwnedContacts.Count>0&&!ownedContactParticipants[i]&&NeutralStop(drives[i])
+                    ?new ManualSkiWorldTrajectory(drives[i]).Slice(0,LastContactForces.DurationSeconds)
+                    :new ManualSkiWorldTrajectory(coupledTrajectories[i]);
+                coupledCandidates[i]=new SkiWorldMotionCandidate(workingActors[i].Athlete,trajectory);
+            }
             for(int i=0;i<Count;i++)output[i]=coupledCandidates[i];
             LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.Clear);return true;
+            bool NeutralStop(SkiDrivenContactTrajectory free)
+            {
+                var end=free.MotionAt(1);
+                return free.Snow.HasExactNeutralConstraint&&free.FirstDrive.InitialState.SpeedMetersPerSecond>0&&
+                    free.FirstDrive.Acceleration<0&&end.Velocity.X==0&&end.Velocity.Z==0;
+            }
         }
         public SkiReachedContactPair GetLastOwnedContactPair(int index)
         {
@@ -109,7 +134,7 @@ namespace Biathlon.Simulation
         }
         private bool CollectOwnedContacts()
         {
-            LastOwnedContacts=default;int count=0;
+            LastOwnedContacts=default;int count=0;Array.Clear(ownedContactParticipants,0,Count);
             for(int i=0;i<Count;i++)for(int j=i+1;j<Count;j++)
             {
                 int ai=ownedContactOrder[i],bi=ownedContactOrder[j];var a=workingActors[ai];var b=workingActors[bi];
@@ -120,7 +145,8 @@ namespace Biathlon.Simulation
                     LastOwnedContacts=new ManualScopedContactSetPreview(false,0,new SkiReachedContactPair(a.Athlete,b.Athlete),gap);
                     return Reject(ManualScopedWorldStatus.ContactGeometry,a.Athlete);
                 }
-                if(gap.GapMeters<=ownedContactTolerance)ownedContacts[count++]=new SkiReachedContactPair(a.Athlete,b.Athlete);
+                if(gap.GapMeters<=ownedContactTolerance)
+                {ownedContacts[count++]=new SkiReachedContactPair(a.Athlete,b.Athlete);ownedContactParticipants[ai]=ownedContactParticipants[bi]=true;}
             }
             LastOwnedContacts=new ManualScopedContactSetPreview(true,count);return true;
         }

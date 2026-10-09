@@ -24,6 +24,7 @@ namespace Biathlon.AI
         private readonly ManualAiSteeringDefinition policy;
         private readonly ManualAiBendBrakingPlanner[] bends;
         private readonly double[] brakes;
+        private readonly ManualAiObstacleCorridor corridor;
         public string ContextJson {get;}
         public ManualScopedAiMovement(ManualScopedFieldStepper stepper,ManualAiSteeringDefinition policy,
             ManualSkiSteeringDefinition physicalSteering)
@@ -31,6 +32,7 @@ namespace Biathlon.AI
             this.stepper=stepper??throw new ArgumentNullException(nameof(stepper));
             if(policy==null||physicalSteering==null)throw new ArgumentNullException();
             this.policy=policy;
+            corridor=new ManualAiObstacleCorridor(stepper.BodyDefinition);
             if(physicalSteering.ToJson()!=stepper.SteeringDefinitionJson)throw new ArgumentException("AI and movement must use the same physical steering definition.");
             int n=stepper.World.Count;controllers=new ManualAiSteeringController[n];catalogs=new ManualRacePathCatalog[n];steering=new int[n];
             bends=new ManualAiBendBrakingPlanner[n];brakes=new double[n];
@@ -44,9 +46,9 @@ namespace Biathlon.AI
                 bends[i]=new ManualAiBendBrakingPlanner(stepper.Field.Track,catalogs[i],stepper.PhysicsDefinition,
                     stepper.CorneringDefinition,physicalSteering,policy,stepper.BodyDefinition);}
             var context=new string[n+5];
-            context[0]="manual_scoped_ai_shared_clock_movement_v4_ordered_bend_braking";
+            context[0]="manual_scoped_ai_shared_clock_movement_v5_stationary_corridor";
             context[1]=stepper.ContextJson;context[2]=policy.ToJson();context[3]=physicalSteering.ToJson();
-            context[4]="player_signed_input_unchanged;ai_target_not_lateral_teleport;stationary_obstacle_detection_from_policy_response;hold_pass_line_until_body_clear;owned_gate_lookahead_cap;geometric_chord_sagitta_reserve;physical_pursuit_actual_velocity_and_shared_speed_response;ordered_bend_braking_and_short_chord_before_entry;common_physical_solver;no_legacy_fallback";
+            context[4]="player_signed_input_unchanged;ai_target_not_lateral_teleport;stationary_obstacle_detection_from_policy_response_or_exact_owned_stationary_mat;full_rotated_body_corridor_and_achieved_velocity_forecast;candidate_line_query_excludes_old_velocity_forecast;hold_pass_line_until_body_clear;owned_gate_lookahead_cap;geometric_chord_sagitta_reserve;physical_pursuit_actual_velocity_and_shared_speed_response;ordered_bend_braking_and_short_chord_before_entry;common_physical_solver;no_legacy_fallback";
             for(int i=0;i<n;i++)context[i+5]=ManualContextIdentity.Sha256(bends[i].ContextJson);
             ContextJson=Encode(context);
         }
@@ -96,7 +98,7 @@ namespace Biathlon.AI
                 // AI intent; actual ribbon admission remains independent.
                 extent=Math.Max(0,extent-Math.Abs(surface.CurvaturePerMeter)*horizon*horizon/8);
                 double separation=stepper.BodyEdgeMargin*2;
-                int blocker=FindBlocker(i,actor.Observation.LateralMeters,horizon);
+                int blocker=FindBlocker(i,actor.Observation.LateralMeters,horizon,true);
                 bool obstructed=blocker>=0;
                 double ahead=passing[i]?Ahead(i,passingObstacle[i]):0;
                 if(passing[i]&&ahead< -stepper.BodyLongitudinalSeparation)passing[i]=false;
@@ -147,13 +149,13 @@ namespace Biathlon.AI
                 throw new InvalidOperationException("Manual field step rejected: "+stepper.LastStep.Status+" / "+
                     stepper.LastStep.WorldAttempt.Status+" / "+stepper.LastStep.WorldAttempt.Athlete+"; candidate clock not paid.");
             bool Blocked(int self,double lateral,double horizon)
-                =>FindBlocker(self,lateral,horizon)>=0;
+                =>FindBlocker(self,lateral,horizon,false)>=0;
             double Ahead(int self,int other)
             {
                 var a=world.GetActor(self);var b=world.GetActor(other);
                 return (b.Pose.X-a.Pose.X)*a.Observation.ForwardX+(b.Pose.Z-a.Pose.Z)*a.Observation.ForwardZ;
             }
-            int FindBlocker(int self,double lateral,double horizon)
+            int FindBlocker(int self,double lateral,double horizon,bool anticipate)
             {
                 var a=world.GetActor(self);double fx=a.Observation.ForwardX,fz=a.Observation.ForwardZ;
                 int closest=-1;double closestDistance=double.PositiveInfinity;
@@ -162,9 +164,12 @@ namespace Biathlon.AI
                     if(j==self)continue;var b=world.GetActor(j);
                     double dx=b.Pose.X-a.Pose.X,dz=b.Pose.Z-a.Pose.Z;
                     double ahead=dx*fx+dz*fz;
-                    if(ahead<=0||ahead>horizon||stationaryTicks[j]<Math.Ceiling(policy.HeadingResponseSeconds*world.TickFrequency))continue;
-                    double line=a.Observation.LateralMeters+dx*fz-dz*fx;
-                    if(Math.Abs(line-lateral)<stepper.BodyEdgeMargin*2&&ahead<closestDistance){closest=j;closestDistance=ahead;}
+                    var otherRow=catalogs[j].Get(b.Observation.OccurrenceIndex);
+                    bool stationaryMat=otherRow.End==ManualRacePathEnd.FiringLine&&b.Observation.PhysicalArcNanometers==otherRow.LengthNanometers&&
+                        b.Velocity.X==0&&b.Velocity.Z==0&&b.Pose.YawRateRadiansPerSecond==0;
+                    if(ahead<=0||ahead>horizon||!stationaryMat&&stationaryTicks[j]<Math.Ceiling(policy.HeadingResponseSeconds*world.TickFrequency))continue;
+                    if(corridor.Overlaps(a.Pose,a.Velocity,fx,fz,a.Observation.LateralMeters,b.Pose,lateral,anticipate)&&ahead<closestDistance)
+                    {closest=j;closestDistance=ahead;}
                 }
                 return closest;
             }

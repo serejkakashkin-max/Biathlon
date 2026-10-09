@@ -405,3 +405,15 @@ limits or pay a stationary fallback. Full body/course/phase proofs remain.
 .NET505/505; native3+21+1+2+4+1+1 PASS, compile/Console clear. Host/full formats,
 resources/draft/manual replay/M13/build OPEN.
 [Report](../reports/TASK_M13_MANUAL_RANGE_DEPARTURE_AND_CONTACT_CLOCK_20261009.md).
+## 2026-10-09 — observed stationary corridors and disconnected neutral stops
+
+AI-only forecast uses actual velocity and the complete rotated body envelope.
+Exact stationary owned mats are recognized immediately; candidate free-line
+queries do not inherit the old velocity forecast. Reached contact participants
+remain coupled. A disconnected certified neutral stop preserves its complete
+free snow ramp/endpoint and cannot clip another pair's force calendar. No pose
+snap, velocity threshold, smaller body or weaker admission. Context versions
+identify changed manual output. Native and .NET three-bout exact repeat PASS;
+whole selection512PASS/1FAIL/513, fourth-approach course proof at15737 OPEN.
+M13/host/full formats/replay/build remain OPEN.
+[Report](../reports/TASK_M13_MANUAL_STATIONARY_CORRIDOR_AND_SEPARATED_STOP_20261009.md).

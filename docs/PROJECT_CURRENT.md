@@ -321,3 +321,27 @@ manual replay and host input/pose/rig/HUD; then WP175/177/178 final checks.
 Full2–3m mat capture/shooting preparation and owner too-easy shooting issue remain
 open. Final Windows review build only after all M13. PROJECT_STATE history stays
 append-only; this entry changes no historical byte.
+2026-10-09 latest — three manual shooting bouts and separated stop clocks
+
+M13 / WP-175 / WP-177 / WP-178 remain OPEN; WP-176 PASS. No owner build.
+Production host still lateral-v1; manual steering is not yet selected there.
+Three Woodland AI athletes complete three bouts and return to the base course;
+exact two-run pose/velocity/motion/physiology/piece/event comparison PASS in .NET
+and native Unity. One athlete completes four bouts at tick16360, zero penalties.
+AI now forecasts stationary-obstacle corridors from achieved velocity and full
+rotated body dimensions. Actual owned stationary mats are recognized immediately;
+passing-line availability does not inherit the old velocity forecast.
+Foreign reached contacts no longer clip a separated certified neutral stop's
+free snow ramp/endpoint. Actual participants retain coupled reactions. Minimal
+baseline failures and controls retained; no position/velocity snap, body shrink,
+paid wait or legacy fallback. Unqualified controller trials removed; evidence kept.
+Focused .NET27/27PASS. Whole manual selection512PASS/1FAIL/513: the remaining
+four-bout three-athlete test fails tick15737, fourth mat approach/athlete1,
+occurrence21/arc1.002m, resolved contact but full-body course rejection.
+No full-format/manual replay/performance/owner approval implied. Native stop2,
+corridor3, three-bout repeat1, forces21, Mass30 stationary-player400ticks1 PASS;
+compilation false, Error/Exception Console empty. Next minimize fourth-approach
+body/course rejection, then penalties/finish/resources/draft/replay/host.
+Full2–3m capture/shooting preparation and owner shooting-feel issue stay open.
+Final Windows review build only after all M13. History preserved byte-for-byte.
+Report: docs/reports/TASK_M13_MANUAL_STATIONARY_CORRIDOR_AND_SEPARATED_STOP_20261009.md.

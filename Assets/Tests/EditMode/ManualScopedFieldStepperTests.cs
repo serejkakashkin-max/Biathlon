@@ -51,7 +51,7 @@ namespace Biathlon.Tests
             for(int i=0;i<s.World.Count;i++)
             {
                 var actor=s.World.GetActor(i);
-                if(!actor.Athlete.Equals(s.LastStep.WorldAttempt.Athlete))continue;
+                if(!actor.Athlete.Equals(s.LastStep.Athlete.IsValid?s.LastStep.Athlete:s.LastStep.WorldAttempt.Athlete))continue;
                 var cursor=s.World.GetCursor(i);var velocity=actor.Velocity;
                 var ribbon=s.World.GetRibbonDiagnostics(i);
                 source+=FormattableString.Invariant($"source={i} occurrence={cursor.OccurrenceIndex} arc={cursor.ObservedArcNanometers} x={actor.Pose.X:R} z={actor.Pose.Z:R} yaw={actor.Pose.HeadingRadians:R} spin={actor.Pose.YawRateRadiansPerSecond:R} vx={velocity.X:R} vz={velocity.Z:R} lateral={actor.Observation.LateralMeters:R} vertices={ribbon.LastVertexCount} clearance={ribbon.LastStartClearance:R} minimum={ribbon.LastMinimumSampledClearance:R}");
@@ -258,6 +258,47 @@ namespace Biathlon.Tests
             }
             Assert.That(returned,Is.EqualTo(3));Assert.That(a.events.Count,Is.EqualTo(b.events.Count));
             for(int i=0;i<a.events.Count;i++)Assert.That(a.events[i],Is.EqualTo(b.events[i]));
+        }
+        [TestCase(1)][TestCase(3)]
+        public void AllFourShootingBoutsReturnToTheManualCourse(int athletes)
+        {
+            var f=InitialCandidate(athletes);int returned=0,maximumPieces=0;
+            for(int i=0;i<30000&&returned<athletes;i++)
+            {
+                try {f.runner.Step();}
+                catch(Exception e){Assert.Fail("tick "+f.runner.Field.Tick.Next().Value+" / "+Explain(f.stepper)+" / "+e);}
+                maximumPieces=Math.Max(maximumPieces,f.stepper.LastStep.Intervals);returned=0;
+                for(int k=0;k<athletes;k++)
+                {
+                    var cursor=f.stepper.World.GetCursor(k);var row=f.stepper.World.GetCatalog(k).Get(cursor.OccurrenceIndex);
+                    if(f.runner.Field.GetAthlete(k).Lifecycle.CompletedBouts==4&&row.Kind==ManualRacePathKind.BaseRoute)returned++;
+                }
+            }
+            Assert.That(returned,Is.EqualTo(athletes));
+            int penalties=0;for(int k=0;k<athletes;k++)penalties+=f.runner.Field.GetAthlete(k).TotalPenaltyLoops;
+            TestContext.WriteLine("Four bouts: tick="+f.runner.Field.Tick.Value+"; penalties="+penalties+"; maximum moving pieces="+maximumPieces);
+        }
+        [Test] public void FirstThreeRangesRepeatActualWorldMotionAndEventsExactly()
+        {
+            var a=InitialCandidate(3);var b=InitialCandidate(3);int returned=0;
+            for(int i=0;i<14000&&returned<3;i++)
+            {
+                a.runner.Step();b.runner.Step();returned=0;
+                for(int k=0;k<3;k++)
+                {
+                    var cursor=a.stepper.World.GetCursor(k);
+                    if(a.runner.Field.GetAthlete(k).Lifecycle.CompletedBouts==3&&
+                        a.stepper.World.GetCatalog(k).Get(cursor.OccurrenceIndex).Kind==ManualRacePathKind.BaseRoute)returned++;
+                    Assert.That(a.stepper.World.GetActor(k).Pose,Is.EqualTo(b.stepper.World.GetActor(k).Pose));
+                    Assert.That(a.stepper.World.GetActor(k).Velocity,Is.EqualTo(b.stepper.World.GetActor(k).Velocity));
+                    Assert.That(a.runner.Field.GetAthlete(k).Motion,Is.EqualTo(b.runner.Field.GetAthlete(k).Motion));
+                    Assert.That(a.runner.Field.GetAthlete(k).PhysiologyState,Is.EqualTo(b.runner.Field.GetAthlete(k).PhysiologyState));
+                }
+                Assert.That(a.stepper.LastStep.Intervals,Is.EqualTo(b.stepper.LastStep.Intervals));
+            }
+            Assert.That(returned,Is.EqualTo(3));Assert.That(a.events.Count,Is.EqualTo(b.events.Count));
+            for(int i=0;i<a.events.Count;i++)Assert.That(a.events[i],Is.EqualTo(b.events[i]));
+            TestContext.WriteLine("Three complete ranges exactly repeated through tick="+a.runner.Field.Tick.Value);
         }
         [Test] public void InvalidFinalIntentCannotPublishAnyFieldClockOrEvent()
         {

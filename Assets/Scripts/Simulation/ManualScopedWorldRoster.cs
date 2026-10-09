@@ -104,7 +104,7 @@ namespace Biathlon.Simulation
         private readonly SkiForceCoupledTrajectory[] ownedFreePieces;
         private readonly double[] ownedFreeStarts;
         private readonly int[] ownedFreeOccurrences,ownedFreePhases;
-        private readonly bool[] ownedFreeValid;
+        private readonly bool[] ownedFreeValid,ownedContactParticipants;
         private readonly int maximumForceRefinements;
         private readonly SkiWorldMotionCandidate[] coupledCandidates;
         private readonly double[] masses;
@@ -206,6 +206,7 @@ namespace Biathlon.Simulation
             workingActors=new ManualRacePathActorFrame[count];workingCursors=new ManualRacePathCursor[count];
             ownedFreeDrives=new SkiDrivenContactTrajectory[count];ownedFreePieces=new SkiForceCoupledTrajectory[count];
             ownedFreeStarts=new double[count];ownedFreeOccurrences=new int[count];ownedFreePhases=new int[count];ownedFreeValid=new bool[count];
+            ownedContactParticipants=new bool[count];
             maximumForceRefinements=work.MaximumDepth;
             proposedCursors=new ManualRacePathCursor[count];workingMotion=new SkiState[count];
             workingTravelMeters=new double[count];stagedTravelMeters=new double[count];
@@ -220,11 +221,11 @@ namespace Biathlon.Simulation
             ownedContacts=new SkiReachedContactPair[scheduledArrivals.Length];ownedContactOrder=new int[count];
             maximumPieces=work.MaximumIntervalChecks;WorkContextJson=work.ToJson();pieces=new ManualScopedWorldMotionPiece[checked(count*maximumPieces)];
             var context=new string[count+7];var initial=new string[count+4];
-            BodyContextJson=body.ToJson();context[0]="manual_scoped_full_clear_world_roster_v18_contact_external_clock";context[1]=BodyContextJson;
+            BodyContextJson=body.ToJson();context[0]="manual_scoped_full_clear_world_roster_v19_disconnected_neutral_stop";context[1]=BodyContextJson;
             context[2]=contact.ToJson();context[3]=work.ToJson();
             context[4]="force_exact_distance;contact_velocity_norm_simpson64;grade_frozen_per_interval;full_duration_tolerance_1e-12;no_implicit_scope_crossing;local_terminal_centre_portals_v1;whole_tube_edge_activation;continuous_acceleration_bound;existing_trajectory_encoding_reserve;staged_full_clock_intervals;exact_remaining_time;round_tick_travel_once;owned_motion_pieces;interval_limit_from_sweep_maximum_checks;accepted_phase_endpoints_authorized_by_session_batch;future_penalty_phases_from_paid_interval_high_water;no_handoff_before_pending_contact_response;"+ManualSkiWorldTrajectory.SlicePolicy;
             context[5]=ShootingModelDefinitions.EncodeContext(new[]{responseContext,scheduler.ContextJson,courseCells.ContextJson,ownedContactGeometry.ContextJson,
-                "course_tube_or_exact_collinear_cell_or_local_cover_v3;all_four_oriented_body_planes_or_continuous_rectangle_disk_cover;simple_ribbon_or_existing_conservative_tube_union;bounded_cell_refinement_without_body_shrink;exact_authored_endpoint_connectivity;shared_ordinary_bisector_station_portals;no_phase_handoff_from_course_proof;owned_current_pose_proximity_pairs;stable_identity_order;no_penetration_admission;initial_response_without_clock_or_position;separated_breakpoint_or_certified_terminal_stop_field_keeps_immutable_full_free_drives_until_actual_event;ordinary_constant_force_representation_retained;reached_contact_external_drive_calendar_frozen_per_tick_until_occurrence_hold_expiry_or_separation;actual_current_raw_motion_for_reactions;half_interval_force_work_refinement_bounded_by_existing_sweep_depth;no_residual_relaxation",
+                "course_tube_or_exact_collinear_cell_or_local_cover_v3;all_four_oriented_body_planes_or_continuous_rectangle_disk_cover;simple_ribbon_or_existing_conservative_tube_union;bounded_cell_refinement_without_body_shrink;exact_authored_endpoint_connectivity;shared_ordinary_bisector_station_portals;no_phase_handoff_from_course_proof;owned_current_pose_proximity_pairs;stable_identity_order;no_penetration_admission;initial_response_without_clock_or_position;separated_breakpoint_or_certified_terminal_stop_field_keeps_immutable_full_free_drives_until_actual_event;ordinary_constant_force_representation_retained;reached_contact_external_drive_calendar_frozen_per_tick_until_occurrence_hold_expiry_or_separation;actual_current_raw_motion_for_reactions;half_interval_force_work_refinement_bounded_by_existing_sweep_depth;no_residual_relaxation;disconnected_certified_neutral_stop_keeps_complete_free_snow_ramp_and_endpoint_without_clipping_foreign_contact_calendar;actual_contact_participants_never_receive_free_override",
                 contactForces==null?"contact_forces_unconfigured":contactForces.ContextJson,ManualRacePathBoundaryScheduler.Policy,
                 "owned_common_contact_and_boundary_prefix;all_roster_sources_before_event_search;stable_boundary_identity_order;zero_clock_owned_endpoint_notification;no_implicit_lifecycle_handoff;"+
                 "explicit_stationary_owned_firing_hold_v1;exact_zero_velocity_acceleration_and_peak_yaw;actual_endpoint_only;whole_contact_course_gate_proof_still_required"});
