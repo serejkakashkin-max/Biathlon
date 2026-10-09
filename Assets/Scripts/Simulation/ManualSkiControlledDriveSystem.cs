@@ -40,7 +40,7 @@ namespace Biathlon.Simulation
             commands=new ManualSkiSteeringSystem(steering,frequency);
             mass=physics.MassKilograms;maximumBrakingNewtons=mass*turns.MaximumBraking;
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_controlled_slip_drive_v4_inverse_stopping",drive.ContextJson,snow.ContextJson,
-                turns.ToJson(),"one_joint_snow_budget;actual_heading_grade;max_actual_or_requested_yaw_braking;explicit_brake_fraction_uses_same_force_cap;max_not_sum;shared_corner_force_limits;inverse_frozen_stopping_intent_with_explicit_infeasibility;unchanged_shared_longitudinal_forces;no_admission"});
+                turns.ToJson(),"one_joint_snow_budget;actual_heading_grade;max_actual_or_requested_yaw_braking;explicit_brake_fraction_uses_same_force_cap;max_not_sum;shared_corner_force_limits;inverse_frozen_stopping_intent_with_explicit_infeasibility;outward_64ulp_inverse_force_reserve_within_cap;unchanged_shared_longitudinal_forces;no_admission"});
         }
         /// <summary>Invert only the shared frozen longitudinal force law for a
         /// neutral, unpowered stopping intent. The requested future stop time
@@ -57,7 +57,9 @@ namespace Biathlon.Simulation
             var baseline=Preview(body,motion,observation,surface,input,seconds);
             double required=baseline.Cornering.BrakingNewtons+mass*(baseline.Drive.FirstDrive.Acceleration+
                 baseline.Drive.FirstDrive.InitialState.SpeedMetersPerSecond/stopAfterSeconds);
-            double fraction=Math.Max(0,Math.Min(1,required/maximumBrakingNewtons));
+            double reserve=64*2.2204460492503131e-16*(Math.Abs(baseline.Cornering.BrakingNewtons)+
+                mass*(Math.Abs(baseline.Drive.FirstDrive.Acceleration)+baseline.Drive.FirstDrive.InitialState.SpeedMetersPerSecond/stopAfterSeconds));
+            double fraction=Math.Max(0,Math.Min(1,(required+reserve)/maximumBrakingNewtons));
             var frame=Preview(body,motion,observation,surface,input.WithBrakeFraction(fraction),seconds);
             return new ManualSkiStoppingPreview(frame,fraction,required>=baseline.Cornering.BrakingNewtons&&required<=maximumBrakingNewtons,
                 required<baseline.Cornering.BrakingNewtons);

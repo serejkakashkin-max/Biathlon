@@ -12,8 +12,11 @@ namespace Biathlon.Simulation
         public double FrontImpulseNewtonSeconds {get;}
         public double RearImpulseNewtonSeconds {get;}
         public double DissipatedEnergyJoules {get;}
+        public bool HasExactNeutralConstraint {get;}
         internal SkiSnowContactPreview(SkiContactMotion motion,double available,double front,double rear,double energy)
-        {IsValid=true;Motion=motion;AvailableLateralAcceleration=available;FrontImpulseNewtonSeconds=front;RearImpulseNewtonSeconds=rear;DissipatedEnergyJoules=energy;}
+            :this(motion,available,front,rear,energy,false) { }
+        internal SkiSnowContactPreview(SkiContactMotion motion,double available,double front,double rear,double energy,bool exactNeutral)
+        {IsValid=true;Motion=motion;AvailableLateralAcceleration=available;FrontImpulseNewtonSeconds=front;RearImpulseNewtonSeconds=rear;DissipatedEnergyJoules=energy;HasExactNeutralConstraint=exactNeutral;}
     }
 
     /// <summary>Passive snow impulse at a frozen pose, retaining contact side-slip
@@ -32,7 +35,8 @@ namespace Biathlon.Simulation
             // physical body length; personal clearance is not an extra ski contact.
             inertiaPerMass=(body.LongitudinalSeparation*body.LongitudinalSeparation+body.LateralSeparation*body.LateralSeparation)/12;
             duration=1.0/frequency;
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_snow_slip_impulse_v2_exact_free_constraint",body.ToJson(),frequency.ToString(CultureInfo.InvariantCulture)});
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_snow_slip_impulse_v2_exact_free_constraint",body.ToJson(),frequency.ToString(CultureInfo.InvariantCulture),
+                "feasible_unconstrained_minimum_wins_analytically;explicit_neutral_null_space_receipt_v1"});
             TrajectoryContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_contact_frozen_velocity_ramp_v1",ContextJson});
         }
 
@@ -66,11 +70,19 @@ namespace Biathlon.Simulation
             // sequential front/rear friction would invent spin from pure side slip.
             double freeFront=-side*.5-inertiaPerMass*w/(2*arm);
             double freeRear=-side*.5+inertiaPerMass*w/(2*arm);
-            if(Math.Abs(freeFront)<=limit&&Math.Abs(freeRear)<=limit)Candidate(freeFront,freeRear,true);
-            Candidate(-limit,Clamp(-(rearSpeed-cross*limit)/diagonal));
-            Candidate(limit,Clamp(-(rearSpeed+cross*limit)/diagonal));
-            Candidate(Clamp(-(frontSpeed-cross*limit)/diagonal),-limit);
-            Candidate(Clamp(-(frontSpeed+cross*limit)/diagonal),limit);
+            if(Math.Abs(freeFront)<=limit&&Math.Abs(freeRear)<=limit)
+            {
+                bestFront=freeFront;bestRear=freeRear;freeChosen=true;
+                bestEnergy=Math.Min(0,frontSpeed*freeFront+rearSpeed*freeRear+
+                    .5*diagonal*(freeFront*freeFront+freeRear*freeRear)+cross*freeFront*freeRear);
+            }
+            else
+            {
+                Candidate(-limit,Clamp(-(rearSpeed-cross*limit)/diagonal));
+                Candidate(limit,Clamp(-(rearSpeed+cross*limit)/diagonal));
+                Candidate(Clamp(-(frontSpeed-cross*limit)/diagonal),-limit);
+                Candidate(Clamp(-(frontSpeed+cross*limit)/diagonal),limit);
+            }
 
             double impulse=bestFront+bestRear;
             var velocity=new SkiPlanarVelocity(motion.Velocity.X+rightX*impulse,motion.Velocity.Z+rightZ*impulse);
@@ -84,14 +96,14 @@ namespace Biathlon.Simulation
                 velocity=new SkiPlanarVelocity(fx*forward,fz*forward);yaw=0;
             }
             return new SkiSnowContactPreview(new SkiContactMotion(velocity,yaw),available,
-                bestFront*body.MassKilograms,bestRear*body.MassKilograms,-bestEnergy*body.MassKilograms);
+                bestFront*body.MassKilograms,bestRear*body.MassKilograms,-bestEnergy*body.MassKilograms,freeChosen);
 
             double Clamp(double value)=>Math.Max(-limit,Math.Min(limit,value));
-            void Candidate(double front,double rear,bool free=false)
+            void Candidate(double front,double rear)
             {
                 double energy=frontSpeed*front+rearSpeed*rear+.5*diagonal*(front*front+rear*rear)+cross*front*rear;
                 if(energy>=bestEnergy)return;
-                bestEnergy=energy;bestFront=front;bestRear=rear;freeChosen=free;
+                bestEnergy=energy;bestFront=front;bestRear=rear;
             }
         }
     }

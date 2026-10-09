@@ -46,7 +46,7 @@ namespace Biathlon.Tests
         private static string Explain(ManualScopedFieldStepper s)
         {
             var rejected=s.LastRejectedWorkingActor;
-            string source=FormattableString.Invariant($"working x={rejected.Pose.X:R} z={rejected.Pose.Z:R} yaw={rejected.Pose.HeadingRadians:R} spin={rejected.Pose.YawRateRadiansPerSecond:R} occurrence={rejected.Observation.OccurrenceIndex} arc={rejected.Observation.PhysicalArcNanometers} lateral={rejected.Observation.LateralMeters:R}; gate={s.LastStep.WorldAttempt.Gate.Status}; ");
+            string source=FormattableString.Invariant($"working x={rejected.Pose.X:R} z={rejected.Pose.Z:R} yaw={rejected.Pose.HeadingRadians:R} spin={rejected.Pose.YawRateRadiansPerSecond:R} vx={rejected.Velocity.X:R} vz={rejected.Velocity.Z:R} occurrence={rejected.Observation.OccurrenceIndex} arc={rejected.Observation.PhysicalArcNanometers} lateral={rejected.Observation.LateralMeters:R}; gate={s.LastStep.WorldAttempt.Gate.Status}; ");
             for(int i=0;i<s.World.Count;i++)
             {
                 var actor=s.World.GetActor(i);
@@ -67,7 +67,8 @@ namespace Biathlon.Tests
                 events,new AiDecisionCounts(),count:count);
             var models=new SkiModelDefinitions(PhysiologyContractTests.DefinitionJson);
             var world=ManualScopedFieldStepper.CreateInitialWorld(runner.Field,venue.Track,venue.Visual,venue.Occupancy,Contact(),Work(),Group(),models.Physics);
-            var stepper=new ManualScopedFieldStepper(runner.Field,world,models,venue.Occupancy,Steering(),Work());
+            var stepper=new ManualScopedFieldStepper(runner.Field,world,models,venue.Occupancy,Steering(),Work(),
+                ManualMatBrakingDefinition.FromJson(Read("Biathlon/manual_mat_braking_v1")));
             runner.BindManualScopedCandidate(stepper,ManualAiSteeringDefinition.FromJson(Read("Biathlon/manual_ai_steering_v2")),Steering());
             return (runner,stepper,events);
         }
@@ -180,6 +181,44 @@ namespace Biathlon.Tests
                 Assert.That(f.World.GetPhysicalMotion(0),Is.EqualTo(motion));
             }
             Assert.That(f.Source.Pack.GetAthlete(0).ActiveShooting,Is.Not.Null);
+        }
+        [Test] public void EveryAiReachesItsFirstBoutWithAnActuallyStationaryBody()
+        {
+            var f=InitialCandidate(3);var arrived=new bool[3];int count=0;
+            for(int i=0;i<4500&&count<3;i++)
+            {
+                try {f.runner.Step();}
+                catch(Exception e){Assert.Fail("tick "+f.runner.Field.Tick.Next().Value+" / "+Explain(f.stepper)+" / "+e);}
+                for(int k=0;k<3;k++)if(!arrived[k]&&f.runner.Field.GetAthlete(k).ActiveShooting!=null)
+                {
+                    var actor=f.stepper.World.GetActor(k);arrived[k]=true;count++;
+                    Assert.That(actor.Velocity.X,Is.Zero);Assert.That(actor.Velocity.Z,Is.Zero);
+                    Assert.That(actor.Pose.YawRateRadiansPerSecond,Is.Zero);
+                    Assert.That(f.stepper.World.Tick,Is.EqualTo(f.runner.Field.Tick));
+                }
+            }
+            Assert.That(count,Is.EqualTo(3));
+        }
+        [Test] public void TerminalMatArrivalRepeatsWorldPhysiologyAndEventsExactly()
+        {
+            var a=InitialCandidate(3);var b=InitialCandidate(3);var arrived=new bool[3];int count=0;
+            for(int i=0;i<4500&&count<3;i++)
+            {
+                a.runner.Step();b.runner.Step();
+                for(int k=0;k<3;k++)if(!arrived[k]&&a.runner.Field.GetAthlete(k).ActiveShooting!=null)
+                {arrived[k]=true;count++;}
+            }
+            Assert.That(count,Is.EqualTo(3));Assert.That(a.stepper.World.Tick,Is.EqualTo(b.stepper.World.Tick));
+            for(int k=0;k<3;k++)
+            {
+                Assert.That(a.stepper.World.GetActor(k).Pose,Is.EqualTo(b.stepper.World.GetActor(k).Pose));
+                Assert.That(a.stepper.World.GetActor(k).Velocity,Is.EqualTo(b.stepper.World.GetActor(k).Velocity));
+                Assert.That(a.runner.Field.GetAthlete(k).Motion,Is.EqualTo(b.runner.Field.GetAthlete(k).Motion));
+                Assert.That(a.runner.Field.GetAthlete(k).RouteNanometers,Is.EqualTo(b.runner.Field.GetAthlete(k).RouteNanometers));
+                Assert.That(a.runner.Field.GetAthlete(k).PhysiologyState,Is.EqualTo(b.runner.Field.GetAthlete(k).PhysiologyState));
+            }
+            Assert.That(a.events.Count,Is.EqualTo(b.events.Count));
+            for(int e=0;e<a.events.Count;e++)Assert.That(a.events[e],Is.EqualTo(b.events[e]));
         }
         [Test] public void InvalidFinalIntentCannotPublishAnyFieldClockOrEvent()
         {

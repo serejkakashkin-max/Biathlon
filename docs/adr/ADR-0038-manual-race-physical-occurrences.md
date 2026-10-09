@@ -370,3 +370,25 @@ Final.NET482/483 retains the known tick3214 moving firing arrival. Native30+4+13
 21+1 PASS; compile/Console clear. Terminal controller trials failed qualification
 and remain evidence outside Unity. Host/manual lifecycle/replay/M13/build OPEN.
 [Report](../reports/TASK_M13_MANUAL_STOP_PIECES_AND_BODY_COVER_20261009.md).
+
+## 2026-10-09 — explicit terminal mat braking and paid stationary arrival
+
+An optional versioned terminal strip supplies a neutral inverse-braking intent
+on the actor's owned firing occurrence only. It uses the existing force cap and
+actual normal distance/speed, retains paid physiology and clips the common field
+piece to a real stop. It cannot grant mat ownership, body/course admission,
+shooting or a paid waiting tick. Ordinary controls remain explicit; production
+and the full2–3m capture are not selected by this atomic qualification.
+
+A feasible unconstrained snow minimum wins analytically. Its exact neutral
+null-space receipt may construct the endpoint of an actually paid forward stop,
+never erase a constrained residual. The separated free-law exception includes
+genuine terminal stops with nonzero source speed, not already stationary actors.
+Firing admission may use a whole paid exact stationary endpoint with continuous
+phase-plane proof instead of an ill-conditioned near-double root. No pose,
+physical domain, velocity threshold or event time is assigned by a query.
+
+Final.NET493/493 plus exact two-run1/1 and native9+1+30+1 PASS; compile/Console
+clear. All-three first bouts are qualified; full formats/resources/replay/host,
+shooting preparation and M13 remain OPEN.
+[Report](../reports/TASK_M13_MANUAL_TERMINAL_MAT_BRAKING_20261009.md).

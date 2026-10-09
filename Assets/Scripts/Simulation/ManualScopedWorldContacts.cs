@@ -46,6 +46,8 @@ namespace Biathlon.Simulation
                     throw new ArgumentException("Exact current physical source, mass and equal-duration remaining drive required.");
                 responseBodies[i]=new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,masses[i]);
                 hasBreakpoint|=frame.ConstantAccelerationSeconds<frame.DurationSeconds;
+                hasBreakpoint|=frame.Snow.HasExactNeutralConstraint&&frame.FirstDrive.InitialState.SpeedMetersPerSecond>0&&frame.FirstDrive.Acceleration<0&&
+                    frame.MotionAt(1).Velocity.X==0&&frame.MotionAt(1).Velocity.Z==0;
             }
             if(!CollectOwnedContacts())return false;
             if(LastOwnedContacts.Count==0&&hasBreakpoint)

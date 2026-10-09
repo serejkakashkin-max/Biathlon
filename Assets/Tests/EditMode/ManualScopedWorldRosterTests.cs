@@ -190,7 +190,7 @@ namespace Biathlon.Tests
             var initial=new SkiContactMotion(before.Velocity,0);
             var final=new SkiContactMotion(new SkiPlanarVelocity(-before.Velocity.X,-before.Velocity.Z),0);
             var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
-            var snow=(SkiSnowContactPreview)typeof(SkiSnowContactPreview).GetConstructors(flags)[0].Invoke(new object[]{final,0.0,0.0,0.0,0.0});
+            var snow=(SkiSnowContactPreview)typeof(SkiSnowContactPreview).GetConstructor(flags,null,new[]{typeof(SkiContactMotion),typeof(double),typeof(double),typeof(double),typeof(double)},null).Invoke(new object[]{final,0.0,0.0,0.0,0.0});
             var contact=(SkiContactTrajectory)typeof(SkiContactTrajectory).GetConstructors(flags)[0].Invoke(new object[]{before.Pose,initial,snow,.05});
             var trajectory=new ManualSkiWorldTrajectory(contact);
             Assert.That(trajectory.Sample(1),Is.EqualTo(before.Pose));

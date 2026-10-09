@@ -32,7 +32,7 @@ namespace Biathlon.Simulation
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_steered_snow_constraint_v2_exact_neutral_constraint",body.ToJson(),definition.ToJson(),
                 frequency.ToString(global::System.Globalization.CultureInfo.InvariantCulture),
                 "frozen_front_deflection_atan_2arm_target_over_signed_forward;rear_ski_axis;equal_support_grip_box;"+
-                "minimum_total_kinetic_energy;shared_angular_acceleration_scale;raw_slip_spin;no_rest_pivot;no_heading_or_velocity_snap"});
+                "minimum_total_kinetic_energy;feasible_unconstrained_minimum_wins_analytically;explicit_neutral_null_space_receipt_v1;shared_angular_acceleration_scale;raw_slip_spin;no_rest_pivot;no_heading_or_velocity_snap"});
         }
         public ManualSkiSteeredSnowPreview Preview(ManualSkiContactBody body,SkiContactMotion motion,
             int steeringInput,double lateralAccelerationLimit,double seconds,double postureResponse=1)
@@ -59,11 +59,17 @@ namespace Biathlon.Simulation
             {
                 double freeFront=(qfr*rearSpeed-qrr*frontSpeed)/det;
                 double freeRear=(qfr*frontSpeed-qff*rearSpeed)/det;
-                if(Math.Abs(freeFront)<=limit&&Math.Abs(freeRear)<=limit)Candidate(freeFront,freeRear,true);
-                Candidate(-limit,Clamp(-(rearSpeed-qfr*limit)/qrr));
-                Candidate(limit,Clamp(-(rearSpeed+qfr*limit)/qrr));
-                Candidate(Clamp(-(frontSpeed-qfr*limit)/qff),-limit);
-                Candidate(Clamp(-(frontSpeed+qfr*limit)/qff),limit);
+                if(Math.Abs(freeFront)<=limit&&Math.Abs(freeRear)<=limit)
+                {
+                    bestFront=freeFront;bestRear=freeRear;freeChosen=true;
+                }
+                else
+                {
+                    Candidate(-limit,Clamp(-(rearSpeed-qfr*limit)/qrr));
+                    Candidate(limit,Clamp(-(rearSpeed+qfr*limit)/qrr));
+                    Candidate(Clamp(-(frontSpeed-qfr*limit)/qff),-limit);
+                    Candidate(Clamp(-(frontSpeed+qfr*limit)/qff),limit);
+                }
             }
             // Scaling a dissipative impulse towards zero remains dissipative.
             // The command's acceleration limit acts on forces, never clamps a
@@ -79,15 +85,15 @@ namespace Biathlon.Simulation
             if(angle==0&&freeChosen&&scale==1)
                 finalMotion=new SkiContactMotion(new SkiPlanarVelocity(fx*forward,fz*forward),0);
             var result=new SkiSnowContactPreview(finalMotion,lateralAccelerationLimit,
-                bestFront*body.MassKilograms,bestRear*body.MassKilograms,-energy*body.MassKilograms);
+                bestFront*body.MassKilograms,bestRear*body.MassKilograms,-Math.Min(0,energy)*body.MassKilograms,angle==0&&freeChosen&&scale==1);
             return new ManualSkiSteeredSnowPreview(request,result,angle,scale);
 
             double Clamp(double value)=>Math.Max(-limit,Math.Min(limit,value));
-            void Candidate(double front,double rear,bool free=false)
+            void Candidate(double front,double rear)
             {
                 double value=frontSpeed*front+rearSpeed*rear+.5*qff*front*front+.5*qrr*rear*rear+qfr*front*rear;
                 if(value>=bestEnergy)return;
-                bestEnergy=value;bestFront=front;bestRear=rear;freeChosen=free;
+                bestEnergy=value;bestFront=front;bestRear=rear;
             }
         }
     }

@@ -278,3 +278,14 @@ controller trials/evidence preserved outside Unity. Host lateral-v1, resources/
 finish/draft/manual replay/WP175/177/178/M13/final build OPEN; WP176 PASS. Next
 qualified last2–3m mat control. PROJECT_STATE appended without historical edits.
 [Report](reports/TASK_M13_MANUAL_STOP_PIECES_AND_BODY_COVER_20261009.md).
+
+2026-10-09 latest: the known first-bout moving arrival is resolved in the scoped
+candidate. Optional data-driven terminal braking, exact paid neutral stop and
+continuous firing-plane admission bring all three Woodland athletes to their
+first bouts with actual zero velocity/spin. Final manual.NET493/493 plus exact
+two-run physiology/world/events1/1 PASS; native9+1+30+1 PASS; compile/Console clear.
+Earlier failed trials remain. This is the final0.1m braking strip, not the full
+2–3m player capture, complete formats, manual replay or host selection. Next:
+shooting/departure/penalty/finish and resource integration. Host lateral-v1,
+M13/WP175/177/178/final build remain OPEN; WP176 PASS. State history preserved.
+[Report](reports/TASK_M13_MANUAL_TERMINAL_MAT_BRAKING_20261009.md).

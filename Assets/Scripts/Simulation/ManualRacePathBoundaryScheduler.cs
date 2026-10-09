@@ -20,7 +20,7 @@ namespace Biathlon.Simulation
     {
         private readonly ManualRacePathCatalog catalog;
         private readonly ManualRacePathGateSweep gates;
-        public const string Policy="scoped_boundary_quadratic_root_v2_shared_portals;actual_centre_plane;shared_ordinary_bisector_chart;race_phase_gate_planes_unchanged;exact_frozen_prefix;no_endpoint_chord_fit;whole_prefix_portal_proof;strict_no_touch_clearance_for_event_free_intervals;actual_nanorounded_station;no_clock_roundup";
+        public const string Policy="scoped_boundary_quadratic_root_v2_shared_portals;actual_centre_plane;shared_ordinary_bisector_chart;race_phase_gate_planes_unchanged;exact_frozen_prefix;no_endpoint_chord_fit;whole_prefix_portal_proof;strict_no_touch_clearance_for_event_free_intervals;actual_nanorounded_station;stationary_firing_whole_paid_stop_v1_with_continuous_gate_proof;no_clock_roundup";
         public ManualRacePathBoundaryScheduler(ManualRacePathCatalog catalog,SkiContactSweepDefinition work)
         {this.catalog=catalog??throw new ArgumentNullException(nameof(catalog));gates=new ManualRacePathGateSweep(catalog,work);}
         public ManualRacePathBoundaryPreview Preview(ManualSkiWorldTrajectory trajectory,ManualScopedWorldWindow window)
@@ -39,6 +39,19 @@ namespace Biathlon.Simulation
             if(window.PreviousArcNanometers==arc&&Math.Abs(offset)<=reserve&&AtStation(pose,window,arc))
                 return new ManualRacePathBoundaryPreview(ManualRacePathBoundaryStatus.Boundary,0,arc);
             if(offset>reserve)return new ManualRacePathBoundaryPreview(ManualRacePathBoundaryStatus.Blocked,0,arc);
+            var stoppedEnd=trajectory.Sample(1);var stoppedVelocity=trajectory.VelocityAt(1);
+            if(row.End==ManualRacePathEnd.FiringLine&&arc==row.LengthNanometers&&
+                stoppedVelocity.X==0&&stoppedVelocity.Z==0&&stoppedEnd.YawRateRadiansPerSecond==0&&
+                IsAtBoundary(trajectory,stoppedEnd,window))
+            {
+                // The real force stop may precede its requested duration by
+                // floating-point roundoff. Admit the already paid stationary
+                // endpoint only after continuous phase-plane proof. Never cut
+                // that law at an ill-conditioned, nearly double quadratic root.
+                var whole=Whole(trajectory,window);
+                if(whole.Status==ManualRacePathBoundaryStatus.Clear)
+                    return new ManualRacePathBoundaryPreview(ManualRacePathBoundaryStatus.Boundary,seconds,arc,whole.Admission);
+            }
             if(!trajectory.TryGetConstantPlanarAcceleration(out var acceleration))
             {
                 var whole=Whole(trajectory,window,true);

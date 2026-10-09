@@ -1,0 +1,68 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1600,\"PassedTests\":9,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:01:01.9422984\"},\"Results\":[{\"Name\":\"Biathlon.Tests.ManualMatBrakingTests.ActualMatWitnessPaysTheWholePhysicalStopBeforeFiringAdmission(0,43.503951769d,-0.842090308d,5.575993686d,-0.00961343878106102d,0.0112482974734188d)\",\"Status\":\"Passed\",\"Duration\":\"00:00:17.4100000\"},{\"Name\":\"Biathlon.Tests.ManualMatBrakingTests.ActualMatWitnessPaysTheWholePhysicalStopBeforeFiringAdmission(2,37.530411878d,-0.571351258d,5.43772393d,-0.00307643892249967d,0.00272742065789187d)\",\"Status\":\"Passed\",\"Duration\":\"00:00:16.7780000\"},{\"Name\":\"Biathlon.Tests.ManualMatBrakingTests.FeasibleNeutralMinimumCannotLoseItsExactNullSpaceToEnergyRoundoff(5.43772393d,0.004111363d)\",\"Status\":\"Passed\",\"Duration\":\"00:00:03.0310000\"},{\"Name\":\"Biathlon.Tests.ManualMatBrakingTests.FeasibleNeutralMinimumCannotLoseItsExactNullSpaceToEnergyRoundoff(5.575993686d,0.014796703d)\",\"Status\":\"Passed\",\"Duration\":\"00:00:03.3380000\"},{\"Name\":\"Biathlon.Tests.ManualMatBrakingTests.InvalidTerminalStripIsRejected(\\u00220\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.ManualMatBrakingTests.InvalidTerminalStripIsRejected(\\u0022-1\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.ManualMatBrakingTests.InvalidTerminalStripIsRejected(\\u00223.01\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.ManualMatBrakingTests.MissingSchemaOrStableIdentityIsRejected\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.ManualMatBrakingTests.TerminalPolicyIsExplicitVersionedData\",\"Status\":\"Passed\",\"Duration\":\"00:00:20.4050000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 1600,
+        "PassedTests": 9,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:01:01.9422984"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.ManualMatBrakingTests.ActualMatWitnessPaysTheWholePhysicalStopBeforeFiringAdmission(0,43.503951769d,-0.842090308d,5.575993686d,-0.00961343878106102d,0.0112482974734188d)",
+          "Status": "Passed",
+          "Duration": "00:00:17.4100000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualMatBrakingTests.ActualMatWitnessPaysTheWholePhysicalStopBeforeFiringAdmission(2,37.530411878d,-0.571351258d,5.43772393d,-0.00307643892249967d,0.00272742065789187d)",
+          "Status": "Passed",
+          "Duration": "00:00:16.7780000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualMatBrakingTests.FeasibleNeutralMinimumCannotLoseItsExactNullSpaceToEnergyRoundoff(5.43772393d,0.004111363d)",
+          "Status": "Passed",
+          "Duration": "00:00:03.0310000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualMatBrakingTests.FeasibleNeutralMinimumCannotLoseItsExactNullSpaceToEnergyRoundoff(5.575993686d,0.014796703d)",
+          "Status": "Passed",
+          "Duration": "00:00:03.3380000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualMatBrakingTests.InvalidTerminalStripIsRejected(\"0\")",
+          "Status": "Passed",
+          "Duration": "00:00:00.0020000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualMatBrakingTests.InvalidTerminalStripIsRejected(\"-1\")",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualMatBrakingTests.InvalidTerminalStripIsRejected(\"3.01\")",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualMatBrakingTests.MissingSchemaOrStableIdentityIsRejected",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualMatBrakingTests.TerminalPolicyIsExplicitVersionedData",
+          "Status": "Passed",
+          "Duration": "00:00:20.4050000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

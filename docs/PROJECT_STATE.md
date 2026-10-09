@@ -23402,3 +23402,35 @@ append-only; current index: docs/PROJECT_CURRENT.md.
 
 Report: docs/reports/TASK_M13_MANUAL_STOP_PIECES_AND_BODY_COVER_20261009.md
 Evidence: docs/quality/m13/field-stepper-20261008/
+
+## 2026-10-09 — M13: qualified terminal mat braking (scoped candidate)
+
+Known first-bout MovingFiringArrival tick3214 is resolved. All three Woodland AI
+athletes now reach their first bouts with exactly zero actual world velocity/spin
+on the fully paid common clock. An optional versioned0.1m terminal strip inverts
+the existing shared brake force. Physiology remains paid; no pose/velocity snap,
+body shrink, paid queue, mat permission or legacy fallback is introduced.
+
+Feasible neutral snow minima are selected analytically, with an explicit exact
+null-space receipt for a fully paid forward stop. A firing endpoint accepts the
+whole real stationary stop only with matching station/plane and continuous phase
+proof; a near-double numerical root cannot cut it prematurely. A stationary
+source cannot trigger the separated genuine-stop exception for other actors.
+
+Final manual.NET493/493 PASS plus new exact two-run world/physiology/events1/1
+PASS. Native Unity9+1+30+1 executed PASS; compilation and recent Error/Exception
+Console clear. Mass30 stationary-player400-clock regression remains PASS.
+Preliminary493-test run482PASS/11FAIL and early geometric/controller trials are
+retained. Constructor compatibility/test reflection and the overbroad free-law
+condition were corrected; no failing assertion was deleted or relaxed.
+
+This qualifies first-bout terminal stopping, not full2–3m player capture,
+shooting preparation, complete formats, reusable Sprint40 mats, achieved draft,
+manual command replay or production selection. Production host remains lateral-v1.
+M13/WP175/177/178 OPEN; WP176 PASS; G1/G2 APPROVED. Next: subsequent
+shooting/departure/penalty/finish/resource integration, then host, final weather/
+balance/performance qualification. Owner shooting-feel issue remains recorded.
+Only after all M13 will the single Windows review build be produced; none made.
+
+Report: docs/reports/TASK_M13_MANUAL_TERMINAL_MAT_BRAKING_20261009.md.
+Current pointer: docs/PROJECT_CURRENT.md. Historical bytes remain untouched.

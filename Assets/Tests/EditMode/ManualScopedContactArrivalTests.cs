@@ -115,7 +115,7 @@ namespace Biathlon.Tests
             double ratio=(-2*gap.GapMeters/seconds-normal)/normal;
             var final=new SkiContactMotion(new SkiPlanarVelocity(a.Velocity.X*ratio,a.Velocity.Z*ratio),0);
             var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
-            var snow=(SkiSnowContactPreview)typeof(SkiSnowContactPreview).GetConstructors(flags)[0].Invoke(new object[]{final,0.0,0.0,0.0,0.0});
+            var snow=(SkiSnowContactPreview)typeof(SkiSnowContactPreview).GetConstructor(flags,null,new[]{typeof(SkiContactMotion),typeof(double),typeof(double),typeof(double),typeof(double)},null).Invoke(new object[]{final,0.0,0.0,0.0,0.0});
             var contact=(SkiContactTrajectory)typeof(SkiContactTrajectory).GetConstructors(flags)[0].Invoke(new object[]{a.Pose,new SkiContactMotion(a.Velocity,0),snow,seconds});
             var candidates=Candidates(f.World,f.Source.Venue.Occupancy,tick,seconds);
             candidates[0]=new SkiWorldMotionCandidate(a.Athlete,new ManualSkiWorldTrajectory(contact));
