@@ -136,16 +136,16 @@ namespace Biathlon.Replay
                 tick = target;
             }
         }
-        private static SprintAthleteInput AtTick(SprintAthleteInput v, long tick) => new SprintAthleteInput(
+        internal static SprintAthleteInput AtTick(SprintAthleteInput v, long tick) => new SprintAthleteInput(
             new TimeTrialInput(new SimulationInput(new SimulationTick(tick), v.Ski.Effort.AthleteId, v.Ski.Effort.RequestedEffort),
                 v.Ski.Form, v.Ski.LineQuality, v.Ski.HeadwindMetersPerSecond, v.Ski.TuckRequested, v.Ski.SprintRequested, v.Ski.TechniqueId, v.Ski.MovementEfficiency),
             new WeaponAimCommand(new SimulationTick(tick), v.Aim.AthleteId, v.Aim.Horizontal, v.Aim.Vertical, v.Aim.FineControl),
             v.Trigger, v.HoldBreath, v.Wind, v.Pressure);
         private static bool SameIntent(Run run, SprintAthleteInput b, double lateral)
+            =>run.Lateral==lateral&&SameCommandIntent(run.Input,b);
+        internal static bool SameCommandIntent(SprintAthleteInput a,SprintAthleteInput b)
         {
-            var a = run.Input;
-            return run.Lateral == lateral &&
-                a.Ski.Effort.RequestedEffort == b.Ski.Effort.RequestedEffort && a.Ski.Form == b.Ski.Form && a.Ski.LineQuality == b.Ski.LineQuality &&
+            return a.Ski.Effort.RequestedEffort == b.Ski.Effort.RequestedEffort && a.Ski.Form == b.Ski.Form && a.Ski.LineQuality == b.Ski.LineQuality &&
                 a.Ski.HeadwindMetersPerSecond == b.Ski.HeadwindMetersPerSecond && a.Ski.TuckRequested == b.Ski.TuckRequested &&
                 a.Ski.SprintRequested == b.Ski.SprintRequested && a.Ski.TechniqueId == b.Ski.TechniqueId && a.Ski.MovementEfficiency == b.Ski.MovementEfficiency &&
                 a.Aim.Horizontal == b.Aim.Horizontal && a.Aim.Vertical == b.Aim.Vertical && a.Aim.FineControl == b.Aim.FineControl &&
@@ -213,7 +213,7 @@ namespace Biathlon.Replay
             [DataMember(Name = "requested_lateral_m", IsRequired = true)] public double Lateral;
             [DataMember(Name = "command", IsRequired = true)] public Payload Command;
         }
-        [DataContract] private sealed class Payload
+        [DataContract] internal sealed class Payload
         {
             [DataMember(Name = "effort", IsRequired = true)] public int Effort;
             [DataMember(Name = "form", IsRequired = true)] public double Form;

@@ -23655,3 +23655,27 @@ command recording/playback without AI, then production field/host qualification.
 Report: docs/reports/TASK_M13_MANUAL_REUSABLE_MATS_20261009.md.
 Evidence: docs/quality/m13/field-stepper-20261008/manual-reuse-*.
 Every historical state byte is preserved; latest appended entry controls work.
+
+
+## 2026-10-09 — M13 complete signed command replay
+
+M13 / WP175 / WP177 / WP178 OPEN; WP176 PASS. Production host lateral-v1.
+No owner Windows build. New versioned manual race tape records complete effort,
+signed yaw, brake, tuck/sprint, aim/trigger/breath, wind and pressure on the exact
+field clock. AI-free playback uses the same field stepper. Initial definition/
+world fingerprints and stable roster bind fresh reconstruction; exact recording
+object/clock bound. Legacy lateral meaning unchanged. Wrong final controls,
+capacity, malformed schema/coverage and external clock changes reject. Runs
+publish only after accepted movement. Warm record/playback allocate zero bytes.
+Complete independent Mass3/Sprint1/Pursuit3 compare actual bodies, all cursor
+values, session frames, physiology, draft, lane and finish. JSON exact roundtrip;
+playback matches field events and resource records with zero AI decisions.
+.NET signed/legacy/device replay32/32PASS, no skips. Native full Mass3 and Pursuit3,
+atomic bad-row/capacity and warm RLE checks1/1PASS each. Prior physics569/569PASS.
+Compile settled; Error+Exception Console empty. No force or shooting tuning.
+Pursuit gaps still synthetic10s; tape fingerprints require original definitions.
+Next actual full manual40/30 fields/Sprint-to-Pursuit, player final2–3m capture,
+production input/presentation and final weather/balance/performance acceptance.
+Owner shooting-feel issue preserved. Build only after ALL M13. History retained.
+Report: docs/reports/TASK_M13_MANUAL_SIGNED_RACE_REPLAY_20261009.md.
+Evidence: docs/quality/m13/field-stepper-20261008/manual-signed-race-replay-*.
