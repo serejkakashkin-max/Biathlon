@@ -58,16 +58,27 @@ namespace Biathlon.Tests
             }
             return FormattableString.Invariant($"{s.LastStep.Status} / {s.LastStep.WorldAttempt.Status} / {s.LastStep.WorldAttempt.Athlete} / {s.LastStep.ProvisionalSeconds:R} / pieces {s.LastStep.Intervals} / forces {forces.Status} supports={forces.SupportPoints} passes={forces.Passes} seconds={forces.DurationSeconds:R} residual={forces.MaximumReactionResidualSpeed:R} closing={forces.MaximumClosingAcceleration:R} / {s.LastStep.WorldAttempt.Course.Status} / {s.LastStep.WorldAttempt.Course.SourceEdgeId} / {s.LastStep.WorldAttempt.CourseEdge.Status} / pair {s.LastStep.WorldAttempt.BodyOrEdge.First}:{s.LastStep.WorldAttempt.BodyOrEdge.Second} {s.LastStep.WorldAttempt.BodyOrEdge.Pair.Status} clear {s.LastStep.WorldAttempt.BodyOrEdge.Pair.ClearUntilSeconds:R} end {s.LastStep.WorldAttempt.BodyOrEdge.Pair.IntervalEndSeconds:R} continuation {s.LastStep.WorldAttempt.BodyOrEdge.Pair.IsContactContinuation} / {source}");
         }
-        internal static (PackAiRaceRunner runner,ManualScopedFieldStepper stepper,RaceEventLog events) InitialCandidate(int count)
+        internal static (PackAiRaceRunner runner,ManualScopedFieldStepper stepper,RaceEventLog events) InitialCandidate(int count,bool withFinish=false,bool withFinishCheckpoint=false)
         {
             const string root="Biathlon/Venues/woodland_basin_v1/";
-            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(root+"manifest")),Read);
+            string Load(string id)
+            {
+                var json=Read(id);
+                if(withFinishCheckpoint&&id==root+"track")
+                {
+                    var length=TrackDefinition.FromJson(json).GetLoop("main").Length.Millimeters/1000.0;
+                    json=json.Replace("\"checkpoints\": [","\"checkpoints\": [{\"id\":\"finish_witness\",\"anchor\":{\"loop_id\":\"main\",\"distance_m\":"+length.ToString("R",System.Globalization.CultureInfo.InvariantCulture)+"}},");
+                }
+                return json;
+            }
+            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(root+"manifest")),Load);
             var profile=CompetitionProfile.FromJson(Read(root+"mass_start_profile"));var events=new RaceEventLog(10000);
             var runner=ProductionVenueRaceFactory.Create(venue,profile,RaceRoutePlan.FromJson(Read(root+"mass_start_route")),
                 RaceSnowConditions.FromJson(PhysiologyContractTests.DefinitionJson("race_snow_neutral_v1.json")),PhysiologyContractTests.DefinitionJson,
                 events,new AiDecisionCounts(),count:count);
             var models=new SkiModelDefinitions(PhysiologyContractTests.DefinitionJson);
-            var world=ManualScopedFieldStepper.CreateInitialWorld(runner.Field,venue.Track,venue.Visual,venue.Occupancy,Contact(),Work(),Group(),models.Physics);
+            var world=ManualScopedFieldStepper.CreateInitialWorld(runner.Field,venue.Track,venue.Visual,venue.Occupancy,Contact(),Work(),Group(),models.Physics,
+                withFinish?ManualFinishRunoutDefinition.FromJson(Read("Biathlon/manual_finish_runout_v1")):null);
             var stepper=new ManualScopedFieldStepper(runner.Field,world,models,venue.Occupancy,Steering(),Work(),
                 ManualMatBrakingDefinition.FromJson(Read("Biathlon/manual_mat_braking_v1")));
             runner.BindManualScopedCandidate(stepper,ManualAiSteeringDefinition.FromJson(Read("Biathlon/manual_ai_steering_v2")),Steering());

@@ -327,7 +327,7 @@ namespace Biathlon.Simulation
             preparedScopedWorld=null;
             if(acceptedScopedWorld!=null&&!ReferenceEquals(acceptedScopedWorld,scopedWorld))
                 throw new InvalidOperationException("A bound scoped race cannot resume legacy route-following movement or replace its world.");
-            ValidateCommand(input);
+            ValidateCommandCore(input,scopedWorld!=null);
             PhysiologyNumbers.RequireRange(dragMultiplier, 0, 1, nameof(dragMultiplier));
             PhysiologyNumbers.RequireRange(propulsionMultiplier, 0, 1, nameof(propulsionMultiplier));
             if (extraEffort < 0 || extraEffort > 1000) throw new ArgumentOutOfRangeException(nameof(extraEffort));
@@ -378,9 +378,9 @@ namespace Biathlon.Simulation
                 sample=sample.WithTravelGeometry(grade,speed==0?0:actor.Pose.YawRateRadiansPerSecond/speed);
                 postureMotion=new SkiState(Motion.DistanceNanometers,speed*Math.Sqrt(1+grade*grade));
             }
-            var sprintOutput = sprint.Evaluate(started && !onMat && input.Ski.SprintRequested, input.Ski.Effort.RequestedEffort, new SkiState(RouteNanometers, Motion.SpeedMetersPerSecond));
-            var posture = tuck.Evaluate(started && !onMat && input.Ski.TuckRequested, sprintOutput.EffectiveEffortControl, skiAthlete.Downhill, postureMotion, sample);
-            var work = new PhysiologyInput(new SimulationInput(tick, AthleteId, started && !onMat ? Math.Min(1000, posture.EffectiveEffortControl + extraEffort) : 0), input.Ski.Form, sample.TerrainMuscleFactor);
+            var sprintOutput = sprint.Evaluate(started && !onMat && !HasFinished && input.Ski.SprintRequested, input.Ski.Effort.RequestedEffort, new SkiState(RouteNanometers, Motion.SpeedMetersPerSecond));
+            var posture = tuck.Evaluate(started && !onMat && !HasFinished && input.Ski.TuckRequested, sprintOutput.EffectiveEffortControl, skiAthlete.Downhill, postureMotion, sample);
+            var work = new PhysiologyInput(new SimulationInput(tick, AthleteId, started && !onMat && !HasFinished ? Math.Min(1000, posture.EffectiveEffortControl + extraEffort) : 0), input.Ski.Form, sample.TerrainMuscleFactor);
             var physical = physiology.Preview(work);
             var movement = started && !onMat && !manualBase && scopedWorld==null ? path.Preview(Motion, RouteNanometers, finishNanometers, range,
                 physical.Effort.DeliveredPowerWatts * propulsionMultiplier, physiology.State.MuscularFatigue, input.Ski, segments, posture.DragAreaMultiplier * dragMultiplier, RemainingStartApproachNanometers,candidatePath) : default;
@@ -523,7 +523,7 @@ namespace Biathlon.Simulation
             if(preview.ScopedWorld.IsValid)preview.ScopedWorld.Owner.ValidatePrepared(preview.ScopedWorld);
         }
         internal void ValidatePreparedCommit(SprintStepPreview preview)
-        { ValidatePreview(preview);if(preview.ManualWorldRequired)throw new InvalidOperationException("Manual world proof required before race commit.");ValidateCommand(preparedInput); }
+        { ValidatePreview(preview);if(preview.ManualWorldRequired)throw new InvalidOperationException("Manual world proof required before race commit.");ValidateCommandCore(preparedInput,preview.ScopedWorld.IsValid); }
         internal RangeMotionPoint? PreviewRangeMotion(SprintStepPreview preview, long additionalTravelNanometers = 0)
         {
             ValidatePreview(preview);
@@ -534,7 +534,7 @@ namespace Biathlon.Simulation
         {
             ValidatePreview(preview);
             if(preview.ManualWorldRequired)throw new InvalidOperationException("Manual world proof required before race commit.");
-            ValidateCommand(preparedInput);
+            ValidateCommandCore(preparedInput,preview.ScopedWorld.IsValid);
             previewReady = false;
             if(preview.ScopedWorld.IsValid)acceptedScopedWorld=preview.ScopedWorld.Owner;
             var input = preparedInput; var tick = preview.Tick;
@@ -609,7 +609,7 @@ namespace Biathlon.Simulation
                     receipts[receiptCount++] = new CompetitionReceipt(CompetitionAction.ReachLapBoundary);
                 }
                 if (movement.AtRouteStop) receipts[receiptCount++] = new CompetitionReceipt(CompetitionAction.Finish,
-                    finish: FinishTime.InsideTick(tick, config.TickFrequency, movement.ConsumedSeconds));
+                    finish: FinishTime.InsideTick(tick, config.TickFrequency, preview.ScopedWorld.IsValid?ScopedFinishSeconds(preview):movement.ConsumedSeconds));
             }
             if (started) Checkpoints.ObserveMotion(tick, started && !onMat ? segments.AsSpan(0, movement.SegmentCount) : ReadOnlySpan<RaceMotionSegment>.Empty);
             var competition = Lifecycle.StepBatch(tick, receipts.AsSpan(0, receiptCount));
@@ -618,9 +618,11 @@ namespace Biathlon.Simulation
             LastFrame = new SprintAthleteFrame(tick, competition, physical, Motion, RouteNanometers, shotFrame, onMat, TotalPenaltyLoops); return LastFrame;
         }
         public void ValidateCommand(SprintAthleteInput input)
+            =>ValidateCommandCore(input,false);
+        private void ValidateCommandCore(SprintAthleteInput input,bool scoped)
         {
             var tick = input.Ski.Effort.Tick;
-            if (HasFinished || tick.Value != checked(Tick.Value + 1) || !input.Ski.Effort.AthleteId.Equals(AthleteId) ||
+            if (HasFinished&&!scoped || tick.Value != checked(Tick.Value + 1) || !input.Ski.Effort.AthleteId.Equals(AthleteId) ||
                 input.Aim.Tick.Value != tick.Value || !input.Aim.AthleteId.Equals(AthleteId)) throw new ArgumentException("Invalid Sprint command/terminal state.");
             windValidation.Evaluate(input.Wind, 0, 1, shootingModel.Targets.DistanceMeters);
             PhysiologyNumbers.RequireRange(input.Ski.HeadwindMetersPerSecond, -maximumHeadwind, maximumHeadwind, nameof(input.Ski.HeadwindMetersPerSecond));

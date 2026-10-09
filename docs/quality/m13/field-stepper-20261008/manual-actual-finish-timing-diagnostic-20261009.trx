@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="98e08d40-d5cd-4e97-8ca4-0a6d6081fad4" name="snkashkin@DESKTOP-G3075GA 2026-10-09 15:42:37" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T15:42:37.4012133+03:00" queuing="2026-10-09T15:42:37.4012134+03:00" start="2026-10-09T15:42:33.3181749+03:00" finish="2026-10-09T15:42:41.4525266+03:00" />
+  <TestSettings name="default" id="1dbb1b57-b0df-4ed8-9745-e56f65477164">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_15_42_37" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="5c702e46-348e-4f2b-a647-f7d545eee234" testId="a1026511-d7e6-24fc-a2fa-8ce65370b233" testName="ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(1)" computerName="DESKTOP-G3075GA" duration="00:00:03.5521010" startTime="2026-10-09T15:42:33.8123395+03:00" endTime="2026-10-09T15:42:37.3643929+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5c702e46-348e-4f2b-a647-f7d545eee234">
+      <Output>
+        <ErrorInfo>
+          <Message>  finish=20000:690891969; last split=18517:0; checkpoint count=10&#xD;
+  Expected: Biathlon.Domain.FinishTime&#xD;
+  But was:  Biathlon.Domain.FinishTime&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualActualFinishTests.ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualActualFinishTests.cs:line 28&#xD;
+
+1)    at Biathlon.Tests.ManualActualFinishTests.ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualActualFinishTests.cs:line 28&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2de9071d-85c9-497d-9b50-e8639d178752" testId="2c98da97-17ab-6ba4-a1e8-cab4fdf220b3" testName="ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(3)" computerName="DESKTOP-G3075GA" duration="00:00:03.9010350" startTime="2026-10-09T15:42:37.3651859+03:00" endTime="2026-10-09T15:42:41.2662010+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2de9071d-85c9-497d-9b50-e8639d178752">
+      <Output>
+        <ErrorInfo>
+          <Message>  finish=20015:616715408; last split=18533:0; checkpoint count=10&#xD;
+  Expected: Biathlon.Domain.FinishTime&#xD;
+  But was:  Biathlon.Domain.FinishTime&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualActualFinishTests.ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualActualFinishTests.cs:line 28&#xD;
+   at InvokeStub_ManualActualFinishTests.ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualActualFinishTests.ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualActualFinishTests.cs:line 28&#xD;
+   at InvokeStub_ManualActualFinishTests.ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(3)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="2c98da97-17ab-6ba4-a1e8-cab4fdf220b3">
+      <Execution id="2de9071d-85c9-497d-9b50-e8639d178752" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualActualFinishTests" name="ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(3)" />
+    </UnitTest>
+    <UnitTest name="ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(1)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="a1026511-d7e6-24fc-a2fa-8ce65370b233">
+      <Execution id="5c702e46-348e-4f2b-a647-f7d545eee234" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualActualFinishTests" name="ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(1)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="a1026511-d7e6-24fc-a2fa-8ce65370b233" executionId="5c702e46-348e-4f2b-a647-f7d545eee234" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2c98da97-17ab-6ba4-a1e8-cab4fdf220b3" executionId="2de9071d-85c9-497d-9b50-e8639d178752" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

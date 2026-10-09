@@ -156,7 +156,7 @@ namespace Biathlon.Simulation
             next=default;
             if(!accepted.IsValid||!ReferenceEquals(accepted.Owner,catalog)||target<0||target>=catalog.Count)return false;
             var row=catalog.Get(accepted.OccurrenceIndex);
-            if(row.End==ManualRacePathEnd.Continue||row.End==ManualRacePathEnd.Finish||
+            if(row.End==ManualRacePathEnd.Continue||row.End==ManualRacePathEnd.Finish&&target!=catalog.FinishRunoutIndex||
                 accepted.ObservedArcNanometers!=row.LengthNanometers||accepted.CreditedArcNanometers!=row.LengthNanometers||
                 !TryPreview(safeAtEnd,accepted,row.LengthNanometers,out var end)||end.NewlyCreditedArcNanometers!=0)return false;
             var successor=catalog.Get(target);

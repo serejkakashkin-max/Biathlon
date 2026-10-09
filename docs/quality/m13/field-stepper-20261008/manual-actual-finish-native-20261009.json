@@ -1,0 +1,64 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 1652,
+      "PassedTests": 10,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:01:34.0851768"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.ManualActualFinishTests.ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(1)",
+        "Status": "Passed",
+        "Duration": "00:00:21.3780000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualActualFinishTests.ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(3)",
+        "Status": "Passed",
+        "Duration": "00:00:22.3330000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualActualFinishTests.FullRaceAndFinishedBodyContinuationRepeatExactly",
+        "Status": "Passed",
+        "Duration": "00:00:45.1360000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualActualFinishTests.InvalidRunoutPolicyIsRejected(\"distance_m\",\"0\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0030000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualActualFinishTests.InvalidRunoutPolicyIsRejected(\"brake_fraction\",\"0\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualActualFinishTests.InvalidRunoutPolicyIsRejected(\"brake_fraction\",\"1.1\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualActualFinishTests.InvalidRunoutPolicyIsRejected(\"schema_version\",\"2\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualActualFinishTests.RunoutSharesTheIncomingPortalButCannotAwardRaceDistance(\"mass_start\")",
+        "Status": "Passed",
+        "Duration": "00:00:01.2850000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualActualFinishTests.RunoutSharesTheIncomingPortalButCannotAwardRaceDistance(\"sprint\")",
+        "Status": "Passed",
+        "Duration": "00:00:01.4760000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualActualFinishTests.RunoutSharesTheIncomingPortalButCannotAwardRaceDistance(\"pursuit\")",
+        "Status": "Passed",
+        "Duration": "00:00:01.4070000"
+      }
+    ]
+  }
+}

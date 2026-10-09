@@ -62,7 +62,7 @@ namespace Biathlon.Simulation
         public static ManualScopedWorldRoster CreateInitialWorld(PackSprintFieldSession field,
             TrackDefinition track,TrackVisualDefinition visual,OccupancyDefinition body,
             SkiContactDefinition contact,SkiContactSweepDefinition work,SkiContactGroupDefinition group,
-            SkiPhysicsDefinition physics)
+            SkiPhysicsDefinition physics,ManualFinishRunoutDefinition finishRunout=null)
         {
             if(field==null||track==null||visual==null||body==null||contact==null||work==null||group==null||physics==null||
                 field.Tick.Value!=0||field.UsesReusableRangeMats)
@@ -73,7 +73,7 @@ namespace Biathlon.Simulation
             var motions=new SkiState[count];var masses=new double[count];
             for(int i=0;i<count;i++)
             {
-                var a=field.GetAthlete(i);var c=catalogs[i]=a.CreateManualPathCatalog(track,visual);
+                var a=field.GetAthlete(i);var c=catalogs[i]=a.CreateManualPathCatalog(track,visual,finishRunout);
                 bool inStart=c.StartApproachIndex>=0&&a.RemainingStartApproachNanometers>0;
                 int occurrence=inStart?c.StartApproachIndex:c.StartApproachIndex>=0?c.GetBaseFlowSuccessor(c.StartApproachIndex):0;
                 long arc=inStart?c.Get(occurrence).LengthNanometers-a.RemainingStartApproachNanometers:0;
@@ -121,9 +121,9 @@ namespace Biathlon.Simulation
             grades=new double[count];matStops=new double[count];drafts=new DraftOutput[count];
             draftBodies=new ManualSkiContactBody[count];
             ordinary=new int[count];phases=new int[count];held=new int[count];
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_scoped_field_stepper_v4_achieved_world_draft","world_context_sha256:"+ManualContextIdentity.Sha256(world.ContextJson),
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_scoped_field_stepper_v5_explicit_finish_runout","world_context_sha256:"+ManualContextIdentity.Sha256(world.ContextJson),
                 commit.ContextJson,drive.ContextJson,work.ToJson(),matBraking?.ToJson()??"terminal_mat_braking_not_selected",
-                "all_signed_intents;bounded_brake_fractions_validated_before_preparation;one_fixed_clock;owned_force_pieces;actual_contact_response;ordinary_and_paid_penalty_handoffs;stationary_firing_hold;explicit_terminal_mat_inverse_shared_force;prepared_physiology_paid_without_propulsion_bonus;abort_not_queue;no_resource_or_finish_fallback;world_drafting_actual_positions_and_leader_velocity_axis;unchanged_pack_draft_definition;world_wind_from_observed_route_and_scalar_headwind;no_station_or_desired_line_wake"});
+                "all_signed_intents;bounded_brake_fractions_validated_before_preparation;one_fixed_clock;owned_force_pieces;actual_contact_response;ordinary_and_paid_penalty_handoffs;stationary_firing_hold;explicit_terminal_mat_inverse_shared_force;prepared_physiology_paid_without_propulsion_bonus;abort_not_queue;no_resource_fallback;selected_finish_runout_shared_braking_and_clock;world_drafting_actual_positions_and_leader_velocity_axis;unchanged_pack_draft_definition;world_wind_from_observed_route_and_scalar_headwind;no_station_or_desired_line_wake"});
         }
 
         public bool TryStep(ReadOnlySpan<SprintAthleteInput> inputs,ReadOnlySpan<int> steeringInputs)
@@ -141,7 +141,7 @@ namespace Biathlon.Simulation
             for(int i=0;i<field.Count;i++)
             {
                 if(brakeFractions.Length!=0)PhysiologyNumbers.RequireRange(brakeFractions[i],0,1,nameof(brakeFractions));
-                if(field.GetAthlete(i).HasFinished)
+                if(field.GetAthlete(i).HasFinished&&world.GetCatalog(i).Get(world.GetCursor(i).OccurrenceIndex).Kind!=ManualRacePathKind.FinishRunout)
                     return Report(ManualFieldStepStatus.FinishedRosterUnsupported,default,field.GetAthlete(i).AthleteId);
                 if(steeringInputs[i]<-ManualSkiCommand.SteeringUnits||steeringInputs[i]>ManualSkiCommand.SteeringUnits||
                     inputs[i].Ski.Effort.Tick.Value!=field.Tick.Next().Value||
@@ -228,7 +228,9 @@ namespace Biathlon.Simulation
                             double wind=inputs[i].Ski.HeadwindMetersPerSecond;
                             var input=field.GetAthlete(i).GetPreparedManualMotionInput(pending[i],world,tick,i,steeringInputs[i],drafts[i].DragAreaMultiplier,
                                 windX:-wind*actor.Observation.ForwardX,windZ:-wind*actor.Observation.ForwardZ);
-                            if(matStops[i]>0)drives[i]=drive.PreviewStopping(body,motion,actor.Observation,surface,Neutral(input),seconds,matStops[i]).Frame.Drive;
+                            if(row.Kind==ManualRacePathKind.FinishRunout)
+                                drives[i]=drive.Preview(body,motion,actor.Observation,surface,Neutral(input).WithBrakeFraction(catalog.FinishRunoutDefinition.BrakeFraction),seconds).Drive;
+                            else if(matStops[i]>0)drives[i]=drive.PreviewStopping(body,motion,actor.Observation,surface,Neutral(input),seconds,matStops[i]).Frame.Drive;
                             else
                             {
                                 if(brakeFractions.Length!=0)input=input.WithBrakeFraction(brakeFractions[i]);
@@ -257,7 +259,8 @@ namespace Biathlon.Simulation
                         var boundary=world.GetLastBoundary(tick,b);
                         if(!boundary.IsOccurrenceEnd)return Report(ManualFieldStepStatus.PhaseRequired,tick,boundary.Athlete);
                         if(boundary.End==ManualRacePathEnd.Continue)ordinary[ordinaryCount++]=boundary.ActorIndex;
-                        else if(boundary.End==ManualRacePathEnd.PenaltyDecision||boundary.End==ManualRacePathEnd.PenaltyCircuit)
+                        else if(boundary.End==ManualRacePathEnd.PenaltyDecision||boundary.End==ManualRacePathEnd.PenaltyCircuit||
+                            boundary.End==ManualRacePathEnd.Finish&&world.GetCatalog(boundary.ActorIndex).FinishRunoutIndex>=0)
                             phases[phaseCount++]=boundary.ActorIndex;
                         else if(boundary.End==ManualRacePathEnd.Finish)
                             return Report(ManualFieldStepStatus.PhaseRequired,tick,boundary.Athlete);

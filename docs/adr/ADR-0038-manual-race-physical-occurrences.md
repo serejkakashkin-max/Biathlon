@@ -484,3 +484,31 @@ full2–3m capture/presentation and final WP175/177/178 checks. Owner shooting-f
 issue remains pending. Final build only after ALL M13. Historical bytes preserved.
 Report: docs/reports/TASK_M13_MANUAL_ACTUAL_PENALTY_CYCLES_20261009.md.
 Evidence: docs/quality/m13/field-stepper-20261008/.
+
+
+## 2026-10-09 — M13 actual manual finish and physical runout
+
+M13 / WP175 / WP177 / WP178 OPEN; WP176 PASS. Production host still lateral-v1.
+No owner Windows build. Signed-heading candidate now finishes actual Woodland
+Mass Start races: one athlete tick20001; three-athlete field tick20636; all four
+bouts and five laps. Exact incoming paid interval supplies finish time; physical
+suffix continues onto an explicit non-counted runway. Finished bodies stay on
+the field clock, brake through the shared force model and recover at zero power.
+No finish speed/pose reset, repeated finish/result events, extra route credit or
+legacy movement fallback. Legacy terminal-command guard retained. Runout distance
+and brake request are data-driven and included in catalog v4 / stepper v5 contexts.
+Independent repeat matches actual body/cursor/motion/physiology/finish/events.
+Finish-checkpoint witness has exact time parity; production's last intermediate
+checkpoint correctly precedes finish. Initial missing phase, wrong intermediate-
+checkpoint expectation and numeric exception expectations are retained in FAIL
+receipts; no assertion disabled. Off-centre finish portal covers all three formats.
+Full manual.NET545/545PASS, zero skipped, 4m07s. Native finish10/10PASS, 1m34s.
+Legacy checkpoint/lifecycle/interval field/time trial35/35PASS. Compile settled;
+Error+Exception Console empty. Full manual Sprint/Pursuit and large-field races,
+reusable resources, command replay, host selection and full player mat capture
+remain open. Final weather/readability, balance and performance gates remain.
+Owner shooting-feel issue preserved. Final owner build only after ALL M13.
+Next reusable mat admission/release and selected catalog transaction. Every
+historical state byte is preserved.
+Report: docs/reports/TASK_M13_MANUAL_ACTUAL_FINISH_RUNOUT_20261009.md.
+Evidence: docs/quality/m13/field-stepper-20261008/.

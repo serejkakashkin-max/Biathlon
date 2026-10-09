@@ -173,19 +173,19 @@ namespace Biathlon.Simulation
                 if (!athlete.HasFinished) athlete.ValidateCommand(input);
             }
         }
-        internal void CommitPrepared(ReadOnlySpan<SprintAthleteInput> inputs, ReadOnlySpan<SprintStepPreview> previews)
+        internal void CommitPrepared(ReadOnlySpan<SprintAthleteInput> inputs, ReadOnlySpan<SprintStepPreview> previews,bool advanceScopedFinishers=false)
         {
             ValidateCommands(inputs);
             if (previews.Length != Count) throw new ArgumentException("Complete prepared field required.");
-            for (int i = 0; i < Count; i++) if (!athletes[i].HasFinished) athletes[i].ValidatePreparedCommit(previews[i]);
+            for (int i = 0; i < Count; i++) if (!athletes[i].HasFinished||advanceScopedFinishers) athletes[i].ValidatePreparedCommit(previews[i]);
             var tick = Tick.Next(); if (IsInterval) scheduler.Step(tick, due); else if(massGrid!=null)massScheduler.Step(tick,due); else pursuitScheduler.Step(tick, due);
             for (int i = 0; i < Count; i++)
             {
-                var athlete = athletes[i]; if (athlete.HasFinished) continue;
+                var athlete = athletes[i];bool alreadyFinished=athlete.HasFinished;if(alreadyFinished&&!advanceScopedFinishers)continue;
                 int oldSplits = athlete.Checkpoints.Count;
                 athlete.CommitStep(previews[i]);
                 for (int checkpoint = oldSplits; checkpoint < athlete.Checkpoints.Count; checkpoint++) Timing.Record(athlete.Checkpoints.Get(checkpoint));
-                if (athlete.HasFinished) RecordFinish(athlete.Lifecycle);
+                if (athlete.HasFinished&&!alreadyFinished) RecordFinish(athlete.Lifecycle);
             }
             Tick = tick; if (IsComplete) CompleteResults();
         }

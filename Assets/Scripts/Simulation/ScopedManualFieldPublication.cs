@@ -16,7 +16,7 @@ namespace Biathlon.Simulation
             ValidateCommands(inputs);world.ValidatePrepared(proof);
             for(int i=0;i<Count;i++)
             {
-                if(GetAthlete(i).HasFinished||!ReferenceEquals(prepared[i].ScopedWorld.Owner,world)||prepared[i].ScopedWorld.Revision!=proof.Revision)
+                if(!ReferenceEquals(prepared[i].ScopedWorld.Owner,world)||prepared[i].ScopedWorld.Revision!=proof.Revision)
                     throw new ArgumentException("Every active field row requires the same scoped world proof.");
                 GetAthlete(i).ValidatePreparedCommit(prepared[i]);
             }
@@ -26,7 +26,7 @@ namespace Biathlon.Simulation
                 string extra=ShootingModelDefinitions.EncodeContext("manual_scoped_field_clock_publication_v1",world.ContextJson,world.InitialStateContextJson);
                 next=ContextJson.Substring(0,ContextJson.Length-1)+","+extra.Substring(1);
             }
-            CommitPrepared(inputs,prepared);manualScopedWorld=world;ContextJson=next;
+            CommitPrepared(inputs,prepared,advanceScopedFinishers:true);manualScopedWorld=world;ContextJson=next;
         }
     }
 
@@ -58,7 +58,7 @@ namespace Biathlon.Simulation
             for(int i=0;i<Count;i++)
             {
                 var a=GetAthlete(i);var source=world.GetActor(i);var target=world.GetProposedActor(proof,i);
-                if(a.HasFinished||!source.Athlete.Equals(a.AthleteId))throw new ArgumentException("Exact active scoped roster required.");
+                if(!source.Athlete.Equals(a.AthleteId))throw new ArgumentException("Exact active scoped roster required.");
                 a.ValidateScopedRosterBinding(world,i);
                 if(manualScopedWorld==null)
                 {

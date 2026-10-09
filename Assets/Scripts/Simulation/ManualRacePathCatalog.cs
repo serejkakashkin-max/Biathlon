@@ -5,8 +5,8 @@ using Biathlon.Domain;
 
 namespace Biathlon.Simulation
 {
-    public enum ManualRacePathKind { BaseRoute, StartApproach, RangeApproach, RangeExit, PenaltyLoop }
-    public enum ManualRacePathEnd { Continue, FiringLine, PenaltyDecision, PenaltyCircuit, Finish }
+    public enum ManualRacePathKind { BaseRoute, StartApproach, RangeApproach, RangeExit, PenaltyLoop, FinishRunout }
+    public enum ManualRacePathEnd { Continue, FiringLine, PenaltyDecision, PenaltyCircuit, Finish, RunoutLimit }
 
     /// <summary>One positive physical interval in one explicit race occurrence.
     /// Mapping a point to competition distance is not permission to award it.</summary>
@@ -24,7 +24,7 @@ namespace Biathlon.Simulation
         public long LocalStartNanometers {get;}
         public long LocalEndNanometers {get;}
         public long LengthNanometers=>LocalEndNanometers-LocalStartNanometers;
-        public bool CountsTowardsRoute=>Kind!=ManualRacePathKind.StartApproach&&Kind!=ManualRacePathKind.PenaltyLoop;
+        public bool CountsTowardsRoute=>Kind!=ManualRacePathKind.StartApproach&&Kind!=ManualRacePathKind.PenaltyLoop&&Kind!=ManualRacePathKind.FinishRunout;
         public long RouteStartNanometers {get;}
         public long RouteEndNanometers=>checked(RouteStartNanometers+(CountsTowardsRoute?LengthNanometers:0));
         internal long GeometryStartNanometers {get;}
@@ -92,6 +92,8 @@ namespace Biathlon.Simulation
         /// <summary>Start plus counted flow, excluding optional penalty occurrences.</summary>
         public int BaseFlowCount {get;}
         public int StartApproachIndex {get;}
+        public int FinishRunoutIndex {get;}
+        public ManualFinishRunoutDefinition FinishRunoutDefinition {get;}
         public string LaneId=>rangePath.LaneId;
         /// <summary>Coordinates here are a geometry namespace, never race distance.
         /// The legacy base-world ledger explicitly rejects this scoped map.</summary>
@@ -105,7 +107,8 @@ namespace Biathlon.Simulation
         internal bool IsSameRace(ManualRacePathCatalog other)=>other!=null&&ReferenceEquals(route,other.route)&&ReferenceEquals(profile,other.profile);
 
         public ManualRacePathCatalog(TrackDefinition track,RaceRoute route,CompetitionProfile profile,
-            TrackVisualDefinition visual,PhysicalRangePathMap rangePath,StartApproachMap startApproach=null)
+            TrackVisualDefinition visual,PhysicalRangePathMap rangePath,StartApproachMap startApproach=null,
+            ManualFinishRunoutDefinition finishRunout=null)
         {
             if(track==null||route==null||profile==null||visual==null||rangePath==null)throw new ArgumentNullException();
             if(!rangePath.IsBoundTo(track,route)||track.ToJson()!=route.TrackSnapshotJson||
@@ -184,6 +187,7 @@ namespace Biathlon.Simulation
                 else penaltyReturnIndexes[bout]=rows.Count;
             }
             BaseFlowCount=rows.Count;
+            FinishRunoutIndex=-1;FinishRunoutDefinition=finishRunout;
             long penaltyLength=Nano(track.GetLoop(track.Penalty.LoopId).Length);
             for(int b=0;b<profile.BoutCount;b++)
             {
@@ -198,20 +202,32 @@ namespace Biathlon.Simulation
                         track.Penalty.LoopId,0,penaltyLength,fixedRoute);
                 }
             }
+            if(finishRunout!=null)
+            {
+                var last=rows[BaseFlowCount-1];var loop=track.GetLoop(last.LoopId);
+                long from=last.LocalEndNanometers;
+                if(from==Nano(loop.Length)&&loop.Closed)from=0;
+                long distance=checked((long)System.Math.Round(finishRunout.DistanceMeters*SkiState.NanometersPerMeter,MidpointRounding.ToEven));
+                if(from+distance>Nano(loop.Length))throw new ArgumentException("Authored physical finish runway is too short.");
+                FinishRunoutIndex=rows.Count;
+                Add(ManualRacePathKind.FinishRunout,ManualRacePathEnd.RunoutLimit,last.BaseSectionIndex,last.LapIndex,-1,0,
+                    last.LoopId,from,from+distance,last.RouteEndNanometers);
+            }
             occurrences=rows.ToArray();samplers=new TrackSampler[track.LoopCount];samplerIndexes=new int[Count];
             for(int i=0;i<samplers.Length;i++)samplers[i]=new TrackSampler(track.GetLoop(i));
-            var scopes=new ManualProjectionScope[Count];var context=new string[Count+9];
-            context[0]="manual_race_physical_occurrences_v3_shared_penalty_portals";context[1]=route.TrackSnapshotJson;
+            var scopes=new ManualProjectionScope[Count];var context=new string[Count+10];
+            context[0]="manual_race_physical_occurrences_v4_explicit_finish_runout";context[1]=route.TrackSnapshotJson;
             context[2]=route.PlanSnapshotJson;context[3]=route.RequirementsSnapshotJson;context[4]=profile.ToJson();
             context[5]=rangePath.ContextJson;context[6]=startApproach?.ContextJson??"no_start_approach";
             context[7]=visual.ToJson();
             context[8]="explicit_occurrence;physical_arc_distinct_from_counted_route;no_mat_branch_or_penalty_admission;firing_departure_reuses_paid_incoming_plane_v1;penalty_entry_repeat_return_reuse_incoming_anchor_plane_v1";
+            context[9]=finishRunout?.ToJson()??"finish_runout_not_selected";
             for(int i=0;i<Count;i++)
             {
                 var row=occurrences[i];scopes[i]=new ManualProjectionScope(row.LoopId,row.LocalStartNanometers,row.LocalEndNanometers,row.GeometryStartNanometers);
                 int loop=-1;for(int k=0;k<track.LoopCount;k++)if(track.GetLoop(k).Id==row.LoopId){loop=k;break;}
                 if(loop<0)throw new ArgumentException("Unknown physical occurrence loop.");samplerIndexes[i]=loop;
-                context[i+9]=ShootingModelDefinitions.EncodeContext(new[]{row.Id,((int)row.Kind).ToString(CultureInfo.InvariantCulture),
+                context[i+10]=ShootingModelDefinitions.EncodeContext(new[]{row.Id,((int)row.Kind).ToString(CultureInfo.InvariantCulture),
                     ((int)row.End).ToString(CultureInfo.InvariantCulture),row.BaseSectionIndex.ToString(CultureInfo.InvariantCulture),
                     row.LapIndex.ToString(CultureInfo.InvariantCulture),row.BoutIndex.ToString(CultureInfo.InvariantCulture),
                     row.PenaltyOrdinal.ToString(CultureInfo.InvariantCulture),row.LoopId,
@@ -236,6 +252,7 @@ namespace Biathlon.Simulation
                 for(int p=0;p<profile.ShotsPerBout;p++)
                 {int index=penaltyIndexes[b,p];phaseEntries[index]=phaseExits[index]=gate;}
             }
+            if(FinishRunoutIndex>=0)phaseEntries[FinishRunoutIndex]=BaseFlowCount-1;
             ProjectionGeometry=ManualRouteProjectionMap.ForPhysicalScopes(route,visual,scopes,ContextJson,ordinaryEntries,firingDepartures,phaseEntries,phaseExits);
         }
 
