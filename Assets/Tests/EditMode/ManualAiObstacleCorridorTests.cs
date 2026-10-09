@@ -14,6 +14,41 @@ namespace Biathlon.Tests
         private static ManualSkiHeadingState Mat()=>new ManualSkiHeadingState(37.505951752,-.819570848,5.608743611);
         private static SkiPlanarVelocity Motion()=>new SkiPlanarVelocity(4.758086687814439,.5362074706213164);
 
+        [Test] public void TwoMovingMatNeighboursAreForecastFromTheirRelativeAchievedMotion()
+        {
+            var query=Create();
+            var a=new ManualSkiHeadingState(41.171640201,-1.576601689,1.40374513,.208494722);
+            var b=new ManualSkiHeadingState(41.325241537,-2.373041476,1.249759586,.303018079);
+            var av=new SkiPlanarVelocity(.9995293502787235,.010814817564830312);
+            var bv=new SkiPlanarVelocity(.5523756277745162,-.0023748583240685885);
+            Assert.That(query.TryClosingInterval(a,av,b,bv,1.5,out double time),Is.True);
+            Assert.That(time,Is.InRange(0,1.5));
+            Assert.That(query.TryClosingInterval(b,bv,a,av,1.5,out double reverse),Is.True);
+            Assert.That(reverse,Is.EqualTo(time));
+            Assert.That(query.TryClosingInterval(a,av,b,av,1.5,out _),Is.False);
+        }
+        [Test] public void MovingBodyOnASeparatedLineOrMovingAwayIsNotAClosingObstacle()
+        {
+            var query=Create();var a=new ManualSkiHeadingState(0,0,Math.PI*.5);
+            var b=new ManualSkiHeadingState(3,2,Math.PI*.5);
+            Assert.That(query.TryClosingInterval(a,new SkiPlanarVelocity(4,0),b,new SkiPlanarVelocity(1,0),2,out _),Is.False);
+            b=new ManualSkiHeadingState(3,0,Math.PI*.5);
+            Assert.That(query.TryClosingInterval(a,new SkiPlanarVelocity(1,0),b,new SkiPlanarVelocity(4,0),2,out _),Is.False);
+            Assert.That(query.TryClosingInterval(a,new SkiPlanarVelocity(4,0),b,new SkiPlanarVelocity(1,0),.1,out _),Is.False);
+            Assert.That(query.TryClosingInterval(a,new SkiPlanarVelocity(4,0),b,new SkiPlanarVelocity(1,0),2,out double time),Is.True);
+            Assert.That(time,Is.EqualTo(.5).Within(1e-15));
+        }
+        [Test] public void WarmMovingBodyForecastDoesNotAllocate()
+        {
+            var query=Create();var a=new ManualSkiHeadingState(0,0,Math.PI*.5);
+            var b=new ManualSkiHeadingState(3,0,Math.PI*.5);var av=new SkiPlanarVelocity(4,0);var bv=new SkiPlanarVelocity(1,0);
+            for(int i=0;i<100;i++)query.TryClosingInterval(a,av,b,bv,2,out _);
+            long before=GC.GetAllocatedBytesForCurrentThread();bool all=true;
+            for(int i=0;i<1000;i++)all&=query.TryClosingInterval(a,av,b,bv,2,out _);
+            long allocated=GC.GetAllocatedBytesForCurrentThread()-before;
+            Assert.That(all,Is.True);Assert.That(allocated,Is.Zero);
+        }
+
         [Test] public void AchievedMotionTowardRotatedMatIsDetectedBeforeCurrentLinesOverlap()
         {
             var query=Create();var self=Mover();var other=Mat();var velocity=Motion();

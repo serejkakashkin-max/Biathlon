@@ -23489,3 +23489,27 @@ body/course rejection, then penalties/finish/resources/draft/replay/host.
 Full2–3m capture/shooting preparation and owner shooting-feel issue stay open.
 Final Windows review build only after all M13. History preserved byte-for-byte.
 Report: docs/reports/TASK_M13_MANUAL_STATIONARY_CORRIDOR_AND_SEPARATED_STOP_20261009.md.
+
+## 2026-10-09 — M13 manual four-range cycles / owned passing-line qualification
+
+M13 / WP-175 / WP-177 / WP-178 remain OPEN; WP-176 PASS. No owner Windows build.
+Production host still lateral-v1; manual steering is not yet selected there.
+The retained four-bout three-athlete failure at tick15737 is resolved. Relative
+achieved-velocity forecasts with four full-body separating-axis time intervals
+warn AI about ahead moving range neighbours. Passing-line intent is scoped to its
+current physical occurrence and discarded on handoff. Ordinary racing contacts,
+player signed intent and physical/course/phase/clock admission remain unchanged.
+Broad avoidance/curved-pass trials failed and were removed; FAIL evidence retained.
+Geometry hypothesis/finer covers did not qualify; no proof or physical domain was
+relaxed. Temporary debug removed; scratch probe preserved outside Unity.
+One athlete completes four bouts at tick16360; three at tick16667, maximum2pieces.
+Zero penalties in these cases: actual penalty debt is not thereby qualified.
+Exact two-run pose/velocity/motion/physiology/piece/events repeat through all4 PASS.
+Focused.NET9/9 and whole manual.NET517/517PASS, zero skipped. Native corridor6,
+four-range exact repeat1 and Mass30 stationary-player400ticks1 PASS; compilation
+false, Error/Exception Console empty. No full-format/performance/owner approval.
+Next lifecycle/resources/penalty/finish/reusable mats/achieved draft/manual replay/
+host selection; full2–3m mat capture/presentation and shooting-feel issue remain.
+Final Windows owner build only after ALL M13. Historical bytes preserved exactly.
+Report: docs/reports/TASK_M13_MANUAL_FOUR_RANGE_OWNED_PASS_20261009.md.
+Evidence: docs/quality/m13/field-stepper-20261008/.

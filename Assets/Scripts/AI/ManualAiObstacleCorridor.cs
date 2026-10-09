@@ -13,6 +13,34 @@ namespace Biathlon.AI
         public ManualAiObstacleCorridor(OccupancyDefinition body)
             =>this.body=body??throw new ArgumentNullException(nameof(body));
 
+        /// <summary>Constant achieved-velocity forecast for two complete rotated
+        /// bodies. This is an AI planning warning, not physical contact admission.
+        /// All four separating axes must have overlapping time intervals.</summary>
+        public bool TryClosingInterval(ManualSkiHeadingState self,SkiPlanarVelocity velocity,
+            ManualSkiHeadingState other,SkiPlanarVelocity otherVelocity,double horizonSeconds,out double seconds)
+        {
+            PhysiologyNumbers.RequireRange(horizonSeconds,0,PhysiologyNumbers.MaximumMagnitude,nameof(horizonSeconds));
+            double dx=other.X-self.X,dz=other.Z-self.Z;
+            double vx=otherVelocity.X-velocity.X,vz=otherVelocity.Z-velocity.Z;
+            seconds=0;
+            if(dx*vx+dz*vz>=0)return false;
+            double afx=Math.Sin(self.HeadingRadians),afz=Math.Cos(self.HeadingRadians);
+            double bfx=Math.Sin(other.HeadingRadians),bfz=Math.Cos(other.HeadingRadians);
+            double enter=0,exit=horizonSeconds;
+            if(!Axis(afx,afz)||!Axis(afz,-afx)||!Axis(bfx,bfz)||!Axis(bfz,-bfx))return false;
+            seconds=enter;return enter<=exit;
+
+            bool Axis(double x,double z)
+            {
+                double extent=.5*body.LongitudinalSeparation*(Math.Abs(afx*x+afz*z)+Math.Abs(bfx*x+bfz*z))+
+                    .5*body.LateralSeparation*(Math.Abs(afz*x-afx*z)+Math.Abs(bfz*x-bfx*z));
+                double position=dx*x+dz*z,change=vx*x+vz*z;
+                if(change==0)return Math.Abs(position)<=extent;
+                double a=(-extent-position)/change,b=(extent-position)/change;
+                enter=Math.Max(enter,Math.Min(a,b));exit=Math.Min(exit,Math.Max(a,b));return enter<=exit;
+            }
+        }
+
         public bool Overlaps(ManualSkiHeadingState self,SkiPlanarVelocity velocity,
             double forwardX,double forwardZ,double currentLateral,
             ManualSkiHeadingState other,double candidateLateral,bool anticipate)

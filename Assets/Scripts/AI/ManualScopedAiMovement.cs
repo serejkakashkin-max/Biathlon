@@ -19,6 +19,7 @@ namespace Biathlon.AI
         private readonly double[] passingLine;
         private readonly bool[] passing;
         private readonly int[] passingObstacle;
+        private readonly int[] passingOccurrence;
         private readonly long[] stationaryTicks;
         private readonly double[] homeLine;
         private readonly ManualAiSteeringDefinition policy;
@@ -38,6 +39,7 @@ namespace Biathlon.AI
             bends=new ManualAiBendBrakingPlanner[n];brakes=new double[n];
             passingLine=new double[n];passing=new bool[n];
             passingObstacle=new int[n];
+            passingOccurrence=new int[n];
             stationaryTicks=new long[n];
             homeLine=new double[n];for(int i=0;i<n;i++)homeLine[i]=stepper.Field.GetLateral(i);
             for(int i=0;i<n;i++)
@@ -46,9 +48,9 @@ namespace Biathlon.AI
                 bends[i]=new ManualAiBendBrakingPlanner(stepper.Field.Track,catalogs[i],stepper.PhysicsDefinition,
                     stepper.CorneringDefinition,physicalSteering,policy,stepper.BodyDefinition);}
             var context=new string[n+5];
-            context[0]="manual_scoped_ai_shared_clock_movement_v5_stationary_corridor";
+            context[0]="manual_scoped_ai_shared_clock_movement_v6_owned_range_pass";
             context[1]=stepper.ContextJson;context[2]=policy.ToJson();context[3]=physicalSteering.ToJson();
-            context[4]="player_signed_input_unchanged;ai_target_not_lateral_teleport;stationary_obstacle_detection_from_policy_response_or_exact_owned_stationary_mat;full_rotated_body_corridor_and_achieved_velocity_forecast;candidate_line_query_excludes_old_velocity_forecast;hold_pass_line_until_body_clear;owned_gate_lookahead_cap;geometric_chord_sagitta_reserve;physical_pursuit_actual_velocity_and_shared_speed_response;ordered_bend_braking_and_short_chord_before_entry;common_physical_solver;no_legacy_fallback";
+            context[4]="player_signed_input_unchanged;ai_target_not_lateral_teleport;stationary_obstacle_detection_from_policy_response_or_exact_owned_stationary_mat;full_rotated_body_corridor_and_achieved_velocity_forecast;candidate_line_query_excludes_old_velocity_forecast;moving_range_body_forecast_four_separating_axes_and_relative_achieved_velocity;only_observed_ahead_bodies;ordinary_racing_keeps_physical_contacts;pass_line_owned_by_current_occurrence;hold_pass_line_until_body_clear_or_occurrence_handoff;owned_gate_lookahead_cap;geometric_chord_sagitta_reserve;physical_pursuit_actual_velocity_and_shared_speed_response;ordered_bend_braking_and_short_chord_before_entry;common_physical_solver;no_legacy_fallback";
             for(int i=0;i<n;i++)context[i+5]=ManualContextIdentity.Sha256(bends[i].ContextJson);
             ContextJson=Encode(context);
         }
@@ -88,6 +90,7 @@ namespace Biathlon.AI
                     inputs[i]=new SprintAthleteInput(reduced,prior.Aim,prior.Trigger,prior.HoldBreath,prior.Wind,prior.Pressure);
                 }
                 double chosen=desiredLateral[i],extent=Math.Max(0,width*.5-stepper.BodyCourseRadius);
+                if(passing[i]&&passingOccurrence[i]!=row.Index)passing[i]=false;
                 // Lateral-v1 grid holding is not a physical obstacle-avoidance
                 // controller. Detect slower world bodies early and request yaw
                 // toward a free side; do not wait for the skier to stop first.
@@ -111,9 +114,9 @@ namespace Biathlon.AI
                         double right=Math.Min(extent,actor.Observation.LateralMeters+separation);
                         double first=actor.Observation.LateralMeters<=0?left:right,second=actor.Observation.LateralMeters<=0?right:left;
                         if(Math.Abs(first-actor.Observation.LateralMeters)>=separation&&!Blocked(i,first,horizon))
-                        {passing[i]=true;passingLine[i]=first;passingObstacle[i]=blocker;}
+                        {passing[i]=true;passingLine[i]=first;passingObstacle[i]=blocker;passingOccurrence[i]=row.Index;}
                         else if(Math.Abs(second-actor.Observation.LateralMeters)>=separation&&!Blocked(i,second,horizon))
-                        {passing[i]=true;passingLine[i]=second;passingObstacle[i]=blocker;}
+                        {passing[i]=true;passingLine[i]=second;passingObstacle[i]=blocker;passingOccurrence[i]=row.Index;}
                     }
                 }
                 if(passing[i])chosen=passingLine[i];
@@ -167,6 +170,21 @@ namespace Biathlon.AI
                     var otherRow=catalogs[j].Get(b.Observation.OccurrenceIndex);
                     bool stationaryMat=otherRow.End==ManualRacePathEnd.FiringLine&&b.Observation.PhysicalArcNanometers==otherRow.LengthNanometers&&
                         b.Velocity.X==0&&b.Velocity.Z==0&&b.Pose.YawRateRadiansPerSecond==0;
+                    if(b.Velocity.X!=0||b.Velocity.Z!=0)
+                    {
+                        var selfRow=catalogs[self].Get(a.Observation.OccurrenceIndex);
+                        if(ahead<=0||ahead>horizon||selfRow.Kind!=ManualRacePathKind.RangeApproach&&selfRow.Kind!=ManualRacePathKind.RangeExit)continue;
+                        double speed=Math.Sqrt(a.Velocity.X*a.Velocity.X+a.Velocity.Z*a.Velocity.Z);
+                        double forecastSeconds=policy.HeadingResponseSeconds+horizon/Math.Max(speed,stepper.BodyLongitudinalSeparation/policy.HeadingResponseSeconds);
+                        var pose=anticipate?a.Pose:new ManualSkiHeadingState(a.Pose.X+(lateral-a.Observation.LateralMeters)*fz,
+                            a.Pose.Z-(lateral-a.Observation.LateralMeters)*fx,a.Pose.HeadingRadians,a.Pose.YawRateRadiansPerSecond);
+                        if(corridor.TryClosingInterval(pose,a.Velocity,b.Pose,b.Velocity,forecastSeconds,out double when))
+                        {
+                            double distance=Math.Max(stepper.BodyLongitudinalSeparation,when*speed);
+                            if(distance<closestDistance){closest=j;closestDistance=distance;}
+                        }
+                        continue;
+                    }
                     if(ahead<=0||ahead>horizon||!stationaryMat&&stationaryTicks[j]<Math.Ceiling(policy.HeadingResponseSeconds*world.TickFrequency))continue;
                     if(corridor.Overlaps(a.Pose,a.Velocity,fx,fz,a.Observation.LateralMeters,b.Pose,lateral,anticipate)&&ahead<closestDistance)
                     {closest=j;closestDistance=ahead;}

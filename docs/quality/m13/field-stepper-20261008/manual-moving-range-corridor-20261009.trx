@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="a88de48f-88c0-4fcd-b19d-21b20dc86d02" name="snkashkin@DESKTOP-G3075GA 2026-10-09 14:32:28" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T14:32:28.3563697+03:00" queuing="2026-10-09T14:32:28.3563698+03:00" start="2026-10-09T14:32:26.5436597+03:00" finish="2026-10-09T14:32:33.9067614+03:00" />
+  <TestSettings name="default" id="f7b1933c-a0a0-47e8-b18a-8d649444e69d">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_14_32_28" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="7cd5fa14-4bf7-4a76-8b38-0211bdb5c46e" testId="2fa907d6-b6b5-117f-a1a4-811c4be752a0" testName="TwoMovingMatNeighboursAreForecastFromTheirRelativeAchievedMotion" computerName="DESKTOP-G3075GA" duration="00:00:00.0013060" startTime="2026-10-09T14:32:27.0658562+03:00" endTime="2026-10-09T14:32:27.0671619+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7cd5fa14-4bf7-4a76-8b38-0211bdb5c46e" />
+    <UnitTestResult executionId="d1cc8b1b-09fd-4b18-a114-79fb063d8f00" testId="81f66cb0-3dc3-e93e-e6cb-365a5dc995af" testName="MovingBodyOnASeparatedLineOrMovingAwayIsNotAClosingObstacle" computerName="DESKTOP-G3075GA" duration="00:00:00.0007670" startTime="2026-10-09T14:32:27.0620165+03:00" endTime="2026-10-09T14:32:27.0627837+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d1cc8b1b-09fd-4b18-a114-79fb063d8f00" />
+    <UnitTestResult executionId="109b57b6-11ca-4da6-bbe2-25409b83c7fc" testId="41d7091f-fad6-9bdd-5ba2-8a241632a3aa" testName="AchievedMotionTowardRotatedMatIsDetectedBeforeCurrentLinesOverlap" computerName="DESKTOP-G3075GA" duration="00:00:00.0003150" startTime="2026-10-09T14:32:27.0616879+03:00" endTime="2026-10-09T14:32:27.0620025+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="109b57b6-11ca-4da6-bbe2-25409b83c7fc" />
+    <UnitTestResult executionId="fe006533-18b5-41b2-88d6-6d16ba69881f" testId="df90a74b-ee49-5afe-d7ba-f8b6138bdbe1" testName="AllFourShootingBoutsReturnToTheManualCourse(1)" computerName="DESKTOP-G3075GA" duration="00:00:03.4119130" startTime="2026-10-09T14:32:27.0680112+03:00" endTime="2026-10-09T14:32:30.4798581+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fe006533-18b5-41b2-88d6-6d16ba69881f">
+      <Output>
+        <StdOut>Four bouts: tick=16360; penalties=0; maximum moving pieces=2</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c144ca62-694c-4ec9-a457-e7f9d56951a2" testId="630bb00f-f846-bf61-c2b9-c97fdefb08ef" testName="RotatedBodyEnvelopeAndAllocationFreeQueryArePreserved" computerName="DESKTOP-G3075GA" duration="00:00:00.0030570" startTime="2026-10-09T14:32:27.0627913+03:00" endTime="2026-10-09T14:32:27.0658477+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c144ca62-694c-4ec9-a457-e7f9d56951a2" />
+    <UnitTestResult executionId="55cd2bfc-9d4d-44a7-a733-2827a53d1194" testId="f38bf6e0-0189-7eed-b9cd-c79221524767" testName="AchievedMotionAwayFromMatDoesNotInventAnObstruction" computerName="DESKTOP-G3075GA" duration="00:00:00.0128740" startTime="2026-10-09T14:32:27.0482722+03:00" endTime="2026-10-09T14:32:27.0611193+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="55cd2bfc-9d4d-44a7-a733-2827a53d1194" />
+    <UnitTestResult executionId="ad008f74-2265-4f5b-886e-36318053db87" testId="351f60bb-a8af-39f4-a2f1-d355e6552e46" testName="AllFourShootingBoutsReturnToTheManualCourse(3)" computerName="DESKTOP-G3075GA" duration="00:00:03.2500110" startTime="2026-10-09T14:32:30.4798869+03:00" endTime="2026-10-09T14:32:33.7298360+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad008f74-2265-4f5b-886e-36318053db87">
+      <Output>
+        <StdOut>[DEBUG-fourth-ai] index=0;occ=7;arc=98278151768;x=224.813740329;z=-32.504204959;h=2.936856132;w=0.105369929;vx=1.0931338260182504;vz=-5.479742507092601;lat=-1.3695509722079187;steer=107;brake=0;passing=False;line=0.901735735357819;obstacle=2&#xD;
+[DEBUG-fourth-ai] index=1;occ=7;arc=81130567678;x=215.647135354;z=-18.419882604;h=3.297248254;w=-0.528607756;vx=-0.14772913948309793;vz=-2.8538489815049566;lat=2.0124976593439756;steer=-489;brake=0;passing=False;line=0.9026771973578191;obstacle=2&#xD;
+[DEBUG-fourth-ai] index=2;occ=7;arc=83795610300;x=216.839167088;z=-20.58214191;h=2.614528805;w=-0.038866912;vx=1.6870215248220453;vz=-2.860450757347317;lat=2.435809939507439;steer=-22;brake=0;passing=True;line=1.998471135357819;obstacle=0</StdOut>
+        <ErrorInfo>
+          <Message>tick 4460 / WorldRejected / Course / woodland_basin_v1_athlete_1 / 0 / pieces 0 / forces Resolved supports=0 passes=1 seconds=0.05 residual=0 closing=0 / PotentialBoundary /  / PotentialBoundary / pair : Clear clear 0 end 0 continuation False / working x=215.647135354 z=-18.419882604 yaw=3.297248254 spin=-0.528607756 vx=-0.14772913948309793 vz=-2.8538489815049566 occurrence=7 arc=81130567678 lateral=2.0124976593439756; gate=Clear; source=1 occurrence=7 arc=81130567678 x=215.647135354 z=-18.419882604 yaw=3.297248254 spin=-0.528607756 vx=-0.14772913948309793 vz=-2.8538489815049566 lateral=2.0124976593439756 vertices=12 clearance=0.07217695212806882 minimum=-0.00010166628479696405 / System.InvalidOperationException: Manual field step rejected: WorldRejected / Course / woodland_basin_v1_athlete_1; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 149&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 474&#xD;
+   at Biathlon.AI.PackAiRaceRunner.Step() in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 219&#xD;
+   at Biathlon.Tests.ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Int32 athletes) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 284</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Int32 athletes) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 275&#xD;
+   at InvokeStub_ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Int32 athletes) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 284&#xD;
+   at InvokeStub_ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="AllFourShootingBoutsReturnToTheManualCourse(1)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="df90a74b-ee49-5afe-d7ba-f8b6138bdbe1">
+      <Execution id="fe006533-18b5-41b2-88d6-6d16ba69881f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="AllFourShootingBoutsReturnToTheManualCourse(1)" />
+    </UnitTest>
+    <UnitTest name="AllFourShootingBoutsReturnToTheManualCourse(3)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="351f60bb-a8af-39f4-a2f1-d355e6552e46">
+      <Execution id="ad008f74-2265-4f5b-886e-36318053db87" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="AllFourShootingBoutsReturnToTheManualCourse(3)" />
+    </UnitTest>
+    <UnitTest name="MovingBodyOnASeparatedLineOrMovingAwayIsNotAClosingObstacle" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="81f66cb0-3dc3-e93e-e6cb-365a5dc995af">
+      <Execution id="d1cc8b1b-09fd-4b18-a114-79fb063d8f00" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiObstacleCorridorTests" name="MovingBodyOnASeparatedLineOrMovingAwayIsNotAClosingObstacle" />
+    </UnitTest>
+    <UnitTest name="TwoMovingMatNeighboursAreForecastFromTheirRelativeAchievedMotion" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="2fa907d6-b6b5-117f-a1a4-811c4be752a0">
+      <Execution id="7cd5fa14-4bf7-4a76-8b38-0211bdb5c46e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiObstacleCorridorTests" name="TwoMovingMatNeighboursAreForecastFromTheirRelativeAchievedMotion" />
+    </UnitTest>
+    <UnitTest name="AchievedMotionAwayFromMatDoesNotInventAnObstruction" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="f38bf6e0-0189-7eed-b9cd-c79221524767">
+      <Execution id="55cd2bfc-9d4d-44a7-a733-2827a53d1194" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiObstacleCorridorTests" name="AchievedMotionAwayFromMatDoesNotInventAnObstruction" />
+    </UnitTest>
+    <UnitTest name="RotatedBodyEnvelopeAndAllocationFreeQueryArePreserved" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="630bb00f-f846-bf61-c2b9-c97fdefb08ef">
+      <Execution id="c144ca62-694c-4ec9-a457-e7f9d56951a2" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiObstacleCorridorTests" name="RotatedBodyEnvelopeAndAllocationFreeQueryArePreserved" />
+    </UnitTest>
+    <UnitTest name="AchievedMotionTowardRotatedMatIsDetectedBeforeCurrentLinesOverlap" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="41d7091f-fad6-9bdd-5ba2-8a241632a3aa">
+      <Execution id="109b57b6-11ca-4da6-bbe2-25409b83c7fc" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiObstacleCorridorTests" name="AchievedMotionTowardRotatedMatIsDetectedBeforeCurrentLinesOverlap" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="2fa907d6-b6b5-117f-a1a4-811c4be752a0" executionId="7cd5fa14-4bf7-4a76-8b38-0211bdb5c46e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="81f66cb0-3dc3-e93e-e6cb-365a5dc995af" executionId="d1cc8b1b-09fd-4b18-a114-79fb063d8f00" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="41d7091f-fad6-9bdd-5ba2-8a241632a3aa" executionId="109b57b6-11ca-4da6-bbe2-25409b83c7fc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="df90a74b-ee49-5afe-d7ba-f8b6138bdbe1" executionId="fe006533-18b5-41b2-88d6-6d16ba69881f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="630bb00f-f846-bf61-c2b9-c97fdefb08ef" executionId="c144ca62-694c-4ec9-a457-e7f9d56951a2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f38bf6e0-0189-7eed-b9cd-c79221524767" executionId="55cd2bfc-9d4d-44a7-a733-2827a53d1194" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="351f60bb-a8af-39f4-a2f1-d355e6552e46" executionId="ad008f74-2265-4f5b-886e-36318053db87" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="7" executed="7" passed="6" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 7 of 7 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+Four bouts: tick=16360; penalties=0; maximum moving pieces=2&#xD;
+&#xD;
+[DEBUG-fourth-ai] index=0;occ=7;arc=98278151768;x=224.813740329;z=-32.504204959;h=2.936856132;w=0.105369929;vx=1.0931338260182504;vz=-5.479742507092601;lat=-1.3695509722079187;steer=107;brake=0;passing=False;line=0.901735735357819;obstacle=2&#xD;
+[DEBUG-fourth-ai] index=1;occ=7;arc=81130567678;x=215.647135354;z=-18.419882604;h=3.297248254;w=-0.528607756;vx=-0.14772913948309793;vz=-2.8538489815049566;lat=2.0124976593439756;steer=-489;brake=0;passing=False;line=0.9026771973578191;obstacle=2&#xD;
+[DEBUG-fourth-ai] index=2;occ=7;arc=83795610300;x=216.839167088;z=-20.58214191;h=2.614528805;w=-0.038866912;vx=1.6870215248220453;vz=-2.860450757347317;lat=2.435809939507439;steer=-22;brake=0;passing=True;line=1.998471135357819;obstacle=0&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

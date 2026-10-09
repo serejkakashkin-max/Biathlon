@@ -279,15 +279,19 @@ namespace Biathlon.Tests
             TestContext.WriteLine("Four bouts: tick="+f.runner.Field.Tick.Value+"; penalties="+penalties+"; maximum moving pieces="+maximumPieces);
         }
         [Test] public void FirstThreeRangesRepeatActualWorldMotionAndEventsExactly()
+            =>RepeatCompletedRangesExactly(3,14000);
+        [Test] public void AllFourRangesRepeatActualWorldMotionAndEventsExactly()
+            =>RepeatCompletedRangesExactly(4,20000);
+        private static void RepeatCompletedRangesExactly(int bouts,int tickLimit)
         {
             var a=InitialCandidate(3);var b=InitialCandidate(3);int returned=0;
-            for(int i=0;i<14000&&returned<3;i++)
+            for(int i=0;i<tickLimit&&returned<3;i++)
             {
                 a.runner.Step();b.runner.Step();returned=0;
                 for(int k=0;k<3;k++)
                 {
                     var cursor=a.stepper.World.GetCursor(k);
-                    if(a.runner.Field.GetAthlete(k).Lifecycle.CompletedBouts==3&&
+                    if(a.runner.Field.GetAthlete(k).Lifecycle.CompletedBouts==bouts&&
                         a.stepper.World.GetCatalog(k).Get(cursor.OccurrenceIndex).Kind==ManualRacePathKind.BaseRoute)returned++;
                     Assert.That(a.stepper.World.GetActor(k).Pose,Is.EqualTo(b.stepper.World.GetActor(k).Pose));
                     Assert.That(a.stepper.World.GetActor(k).Velocity,Is.EqualTo(b.stepper.World.GetActor(k).Velocity));
@@ -298,7 +302,7 @@ namespace Biathlon.Tests
             }
             Assert.That(returned,Is.EqualTo(3));Assert.That(a.events.Count,Is.EqualTo(b.events.Count));
             for(int i=0;i<a.events.Count;i++)Assert.That(a.events[i],Is.EqualTo(b.events[i]));
-            TestContext.WriteLine("Three complete ranges exactly repeated through tick="+a.runner.Field.Tick.Value);
+            TestContext.WriteLine(bouts+" complete ranges exactly repeated through tick="+a.runner.Field.Tick.Value);
         }
         [Test] public void InvalidFinalIntentCannotPublishAnyFieldClockOrEvent()
         {

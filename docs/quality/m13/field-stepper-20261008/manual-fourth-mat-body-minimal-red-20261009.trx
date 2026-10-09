@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c5ece0db-b9cb-4482-978c-7bbdf54ad5fa" name="snkashkin@DESKTOP-G3075GA 2026-10-09 14:25:55" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T14:25:55.6253584+03:00" queuing="2026-10-09T14:25:55.6253585+03:00" start="2026-10-09T14:25:54.6958909+03:00" finish="2026-10-09T14:25:55.6284726+03:00" />
+  <TestSettings name="default" id="45cfab87-8158-45af-b8ab-fc99dcef4074">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_14_25_55" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="8d1a1e9b-6817-4864-9866-486daf522644" testId="fd003d05-5102-7ae2-9382-c3d9b281e9e8" testName="CapturedFourthMatForceIntervalKeepsTheWholeRectangleInsideTheRibbon" computerName="DESKTOP-G3075GA" duration="00:00:00.3484890" startTime="2026-10-09T14:25:55.1826633+03:00" endTime="2026-10-09T14:25:55.5311154+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8d1a1e9b-6817-4864-9866-486daf522644">
+      <Output>
+        <ErrorInfo>
+          <Message>  Captured full-body course witness; start=0,01787996380406298, minimum=-0,0021237427380760288&#xD;
+  Expected: Clear&#xD;
+  But was:  PotentialBoundary&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualFourthMatBodyAdmissionTests.CapturedFourthMatForceIntervalKeepsTheWholeRectangleInsideTheRibbon() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualFourthMatBodyAdmissionTests.cs:line 23&#xD;
+
+1)    at Biathlon.Tests.ManualFourthMatBodyAdmissionTests.CapturedFourthMatForceIntervalKeepsTheWholeRectangleInsideTheRibbon() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualFourthMatBodyAdmissionTests.cs:line 23&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="CapturedFourthMatForceIntervalKeepsTheWholeRectangleInsideTheRibbon" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="fd003d05-5102-7ae2-9382-c3d9b281e9e8">
+      <Execution id="8d1a1e9b-6817-4864-9866-486daf522644" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualFourthMatBodyAdmissionTests" name="CapturedFourthMatForceIntervalKeepsTheWholeRectangleInsideTheRibbon" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="fd003d05-5102-7ae2-9382-c3d9b281e9e8" executionId="8d1a1e9b-6817-4864-9866-486daf522644" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

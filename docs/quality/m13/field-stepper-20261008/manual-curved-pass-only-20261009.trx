@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f2f9bf6b-4cfa-4995-9243-990a67a21f5b" name="snkashkin@DESKTOP-G3075GA 2026-10-09 14:33:26" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T14:33:26.5305928+03:00" queuing="2026-10-09T14:33:26.5305929+03:00" start="2026-10-09T14:33:22.5694494+03:00" finish="2026-10-09T14:33:30.4183607+03:00" />
+  <TestSettings name="default" id="570e89ea-a340-4f37-ba82-cc8ef4ffaca2">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_14_33_26" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="b41be30b-b926-4195-8fc0-c2378acf694e" testId="df90a74b-ee49-5afe-d7ba-f8b6138bdbe1" testName="AllFourShootingBoutsReturnToTheManualCourse(1)" computerName="DESKTOP-G3075GA" duration="00:00:03.4331000" startTime="2026-10-09T14:33:23.0687080+03:00" endTime="2026-10-09T14:33:26.5017166+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b41be30b-b926-4195-8fc0-c2378acf694e">
+      <Output>
+        <StdOut>Four bouts: tick=16360; penalties=0; maximum moving pieces=2</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0a5954f4-50f1-4170-a94a-e1d37b0e08a9" testId="351f60bb-a8af-39f4-a2f1-d355e6552e46" testName="AllFourShootingBoutsReturnToTheManualCourse(3)" computerName="DESKTOP-G3075GA" duration="00:00:03.7304560" startTime="2026-10-09T14:33:26.5022927+03:00" endTime="2026-10-09T14:33:30.2326775+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0a5954f4-50f1-4170-a94a-e1d37b0e08a9">
+      <Output>
+        <StdOut>[DEBUG-fourth-before] index=0;occ=20;arc=95689180943;x=41.189180943;z=-1.600630454;h=1.43009424;w=0.199989791;vx=1.0313698844222925;vz=-0.011017500471539793;lat=-0.9831531846421808&#xD;
+[DEBUG-fourth-before] index=1;occ=21;arc=740460620;x=41.302016138;z=-2.404370476;h=1.275049087;w=0.307476053;vx=0.5825375732851404;vz=0.0004936877594180198;lat=0.19879307461476214&#xD;
+[DEBUG-fourth-ai] index=0;occ=20;arc=96964124595;x=42.464124595;z=-1.780301379;h=1.672623188;w=0.129631849;vx=0.57013011212512;vz=-0.17955750925749134;lat=-0.8034822596421809;steer=135;brake=0.03581685529767327;passing=False;line=0;obstacle=0&#xD;
+[DEBUG-fourth-ai] index=1;occ=21;arc=1002000000;x=42.297023201;z=-2.498865095;h=1.629745584;w=0.178938506;vx=0.5101057002306636;vz=-0.12478867099975294;lat=1.0985919455116906;steer=-1000;brake=0;passing=False;line=0.7317226133578192;obstacle=2&#xD;
+[DEBUG-fourth-ai] index=2;occ=21;arc=2672000000;x=37.507212223;z=-0.806773067;h=5.619827544;w=0;vx=0;vz=0;lat=0.07358124677652775;steer=0;brake=0;passing=False;line=0;obstacle=0&#xD;
+[DEBUG-fourth-body] x=42.297030073;z=-2.498866776;h=1.629747994;w=0.178974857;vx=0.5101065948009055;vz=-0.12480244179367615;ax=0.4185599272752111;az=0.11915188289047599;alpha=-0.6774594826623341;seconds=0.049986529333096205</StdOut>
+        <ErrorInfo>
+          <Message>tick 15739 / WorldRejected / Course / woodland_basin_v1_athlete_1 / 1.347066690379991E-05 / pieces 1 / forces Resolved supports=1 passes=2 seconds=0.049986529333096205 residual=0 closing=0 / PotentialBoundary /  / UnresolvedStart / pair : Clear clear 0 end 0 continuation False / working x=42.297030073 z=-2.498866776 yaw=1.629747994 spin=0.178974857 vx=0.5101065948009055 vz=-0.12480244179367615 occurrence=21 arc=1002000000 lateral=1.0985987984925338; gate=Clear; source=1 occurrence=21 arc=1002000000 x=42.297023201 z=-2.498865095 yaw=1.629745584 spin=0.178938506 vx=0.5101057002306636 vz=-0.12478867099975294 lateral=1.0985919455116906 vertices=46 clearance=0.0033434470602884403 minimum=-0.009707416218714293 / System.InvalidOperationException: Manual field step rejected: WorldRejected / Course / woodland_basin_v1_athlete_1; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 149&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 474&#xD;
+   at Biathlon.AI.PackAiRaceRunner.Step() in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 219&#xD;
+   at Biathlon.Tests.ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Int32 athletes) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 284</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Int32 athletes) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 275&#xD;
+   at InvokeStub_ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Int32 athletes) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 284&#xD;
+   at InvokeStub_ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="AllFourShootingBoutsReturnToTheManualCourse(1)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="df90a74b-ee49-5afe-d7ba-f8b6138bdbe1">
+      <Execution id="b41be30b-b926-4195-8fc0-c2378acf694e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="AllFourShootingBoutsReturnToTheManualCourse(1)" />
+    </UnitTest>
+    <UnitTest name="AllFourShootingBoutsReturnToTheManualCourse(3)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="351f60bb-a8af-39f4-a2f1-d355e6552e46">
+      <Execution id="0a5954f4-50f1-4170-a94a-e1d37b0e08a9" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="AllFourShootingBoutsReturnToTheManualCourse(3)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="df90a74b-ee49-5afe-d7ba-f8b6138bdbe1" executionId="b41be30b-b926-4195-8fc0-c2378acf694e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="351f60bb-a8af-39f4-a2f1-d355e6552e46" executionId="0a5954f4-50f1-4170-a94a-e1d37b0e08a9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="1" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+Four bouts: tick=16360; penalties=0; maximum moving pieces=2&#xD;
+&#xD;
+[DEBUG-fourth-before] index=0;occ=20;arc=95689180943;x=41.189180943;z=-1.600630454;h=1.43009424;w=0.199989791;vx=1.0313698844222925;vz=-0.011017500471539793;lat=-0.9831531846421808&#xD;
+[DEBUG-fourth-before] index=1;occ=21;arc=740460620;x=41.302016138;z=-2.404370476;h=1.275049087;w=0.307476053;vx=0.5825375732851404;vz=0.0004936877594180198;lat=0.19879307461476214&#xD;
+[DEBUG-fourth-ai] index=0;occ=20;arc=96964124595;x=42.464124595;z=-1.780301379;h=1.672623188;w=0.129631849;vx=0.57013011212512;vz=-0.17955750925749134;lat=-0.8034822596421809;steer=135;brake=0.03581685529767327;passing=False;line=0;obstacle=0&#xD;
+[DEBUG-fourth-ai] index=1;occ=21;arc=1002000000;x=42.297023201;z=-2.498865095;h=1.629745584;w=0.178938506;vx=0.5101057002306636;vz=-0.12478867099975294;lat=1.0985919455116906;steer=-1000;brake=0;passing=False;line=0.7317226133578192;obstacle=2&#xD;
+[DEBUG-fourth-ai] index=2;occ=21;arc=2672000000;x=37.507212223;z=-0.806773067;h=5.619827544;w=0;vx=0;vz=0;lat=0.07358124677652775;steer=0;brake=0;passing=False;line=0;obstacle=0&#xD;
+[DEBUG-fourth-body] x=42.297030073;z=-2.498866776;h=1.629747994;w=0.178974857;vx=0.5101065948009055;vz=-0.12480244179367615;ax=0.4185599272752111;az=0.11915188289047599;alpha=-0.6774594826623341;seconds=0.049986529333096205&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

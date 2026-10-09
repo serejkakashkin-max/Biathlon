@@ -417,3 +417,13 @@ identify changed manual output. Native and .NET three-bout exact repeat PASS;
 whole selection512PASS/1FAIL/513, fourth-approach course proof at15737 OPEN.
 M13/host/full formats/replay/build remain OPEN.
 [Report](../reports/TASK_M13_MANUAL_STATIONARY_CORRIDOR_AND_SEPARATED_STOP_20261009.md).
+
+## 2026-10-09 — moving range forecast and occurrence-owned passing line
+
+AI-only relative achieved-motion forecasts use four complete-body separating
+axes and a policy-bounded horizon for ahead moving range neighbours. A passing
+line cannot survive a physical-occurrence handoff. No authoritative course/body/
+phase proof changes. Retained all-four-bout test now passes for1/3athletes; exact
+four-bout repeat passes in native Unity and .NET. Entire manual517/517PASS.
+Host/full formats/penalty debt/resources/draft/replay/M13/build remain OPEN.
+[Report](../reports/TASK_M13_MANUAL_FOUR_RANGE_OWNED_PASS_20261009.md).

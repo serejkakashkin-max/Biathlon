@@ -1,0 +1,78 @@
+using System;
+using System.Reflection;
+using Biathlon.Domain;
+using Biathlon.Simulation;
+using NUnit.Framework;
+
+namespace Biathlon.Tests
+{
+    public sealed class ManualFourthMatBodyAdmissionTests
+    {
+        [Test] public void CapturedFourthMatForceIntervalKeepsTheWholeRectangleInsideTheRibbon()
+        {
+            var f=new ManualRacePathCatalogTests.Fixture(lane:1);
+            var pose=new ManualSkiHeadingState(42.278971887,-2.445722187,1.600142119,.1554964);
+            Assert.That(f.Catalog.TryProject(pose,21,1002000000,1,out var at),Is.True);
+            var constructor=typeof(SkiForceCoupledTrajectory).GetConstructor(BindingFlags.NonPublic|BindingFlags.Instance,null,
+                new[]{typeof(ManualSkiHeadingState),typeof(SkiContactMotion),typeof(SkiContactAcceleration),typeof(double)},null);
+            var frame=(SkiForceCoupledTrajectory)constructor.Invoke(new object[]{pose,
+                new SkiContactMotion(new SkiPlanarVelocity(.5502478275144711,-.09601663296789426),.1554964),
+                new SkiContactAcceleration(.3186339119308934,-.22475384960880343,.4440702724853558),.04773476435815577});
+            var ribbon=new ManualRouteRibbonSweep(f.Catalog.ProjectionGeometry,f.Venue.Occupancy,ManualScopedFieldStepperTests.Work());
+            var preview=ribbon.Preview(new ManualSkiWorldTrajectory(frame),f.Catalog.GetGeometryObservation(at));
+            var flags=BindingFlags.NonPublic|BindingFlags.Instance;
+            var px=(double[])typeof(ManualRouteRibbonSweep).GetField("x",flags).GetValue(ribbon);
+            var pz=(double[])typeof(ManualRouteRibbonSweep).GetField("z",flags).GetValue(ribbon);
+            double minimum=double.PositiveInfinity;
+            for(int k=0;k<=128;k++)minimum=Math.Min(minimum,ExactRectangleClearance(frame.Sample(k/128.0),
+                f.Venue.Occupancy,px,pz,ribbon.LastVertexCount));
+            TestContext.WriteLine("[DEBUG-fourth-exact] simple="+typeof(ManualRouteRibbonSweep).GetField("simpleRibbon",flags).GetValue(ribbon)+", exact minimum="+minimum.ToString("R"));
+            foreach(int cells in new[]{64,128})
+            {
+                int rows=(int)Math.Ceiling(cells*f.Venue.Occupancy.LateralSeparation/f.Venue.Occupancy.LongitudinalSeparation);
+                typeof(ManualRouteRibbonSweep).GetField("disks",flags).SetValue(ribbon,cells);
+                typeof(ManualRouteRibbonSweep).GetField("refinedRows",flags).SetValue(ribbon,rows);
+                double radius=Math.Sqrt(Math.Pow(f.Venue.Occupancy.LongitudinalSeparation*.5/cells,2)+Math.Pow(f.Venue.Occupancy.LateralSeparation*.5/rows,2));
+                typeof(ManualRouteRibbonSweep).GetField("refinedRadius",flags).SetValue(ribbon,radius);
+                var finer=ribbon.Preview(new ManualSkiWorldTrajectory(frame),f.Catalog.GetGeometryObservation(at));
+                TestContext.WriteLine("[DEBUG-fourth-finer] cells="+cells+" rows="+rows+" status="+finer.Status+" start="+ribbon.LastStartClearance.ToString("R")+" min="+ribbon.LastMinimumSampledClearance.ToString("R"));
+            }
+            Assert.That(preview.Status,Is.EqualTo(ManualRouteTubeStatus.Clear),
+                "Captured full-body course witness; start="+ribbon.LastStartClearance+", minimum="+ribbon.LastMinimumSampledClearance);
+        }
+        private static double ExactRectangleClearance(ManualSkiHeadingState p,OccupancyDefinition body,double[] x,double[] z,int count)
+        {
+            double a=body.LongitudinalSeparation*.5,b=body.LateralSeparation*.5,fx=Math.Sin(p.HeadingRadians),fz=Math.Cos(p.HeadingRadians);
+            double[] qx={p.X+fx*a+fz*b,p.X+fx*a-fz*b,p.X-fx*a-fz*b,p.X-fx*a+fz*b};
+            double[] qz={p.Z+fz*a-fx*b,p.Z+fz*a+fx*b,p.Z-fz*a+fx*b,p.Z-fz*a-fx*b};
+            double min=double.PositiveInfinity;
+            for(int k=0;k<4;k++)
+            {
+                int winding=0;
+                for(int i=0,j=count-1;i<count;j=i++)
+                {
+                    double side=(x[i]-x[j])*(qz[k]-z[j])-(qx[k]-x[j])*(z[i]-z[j]);
+                    if(z[j]<=qz[k]){if(z[i]>qz[k]&&side>0)winding++;}else if(z[i]<=qz[k]&&side<0)winding--;
+                    int n=(k+1)%4;
+                    double c1=(qx[n]-qx[k])*(z[j]-qz[k])-(qz[n]-qz[k])*(x[j]-qx[k]);
+                    double c2=(qx[n]-qx[k])*(z[i]-qz[k])-(qz[n]-qz[k])*(x[i]-qx[k]);
+                    double c3=(x[i]-x[j])*(qz[k]-z[j])-(z[i]-z[j])*(qx[k]-x[j]);
+                    double c4=(x[i]-x[j])*(qz[n]-z[j])-(z[i]-z[j])*(qx[n]-x[j]);
+                    if(Math.Max(qx[k],qx[n])>=Math.Min(x[j],x[i])&&Math.Max(x[j],x[i])>=Math.Min(qx[k],qx[n])&&
+                        Math.Max(qz[k],qz[n])>=Math.Min(z[j],z[i])&&Math.Max(z[j],z[i])>=Math.Min(qz[k],qz[n])&&
+                        (c1==0||c2==0||Math.Sign(c1)!=Math.Sign(c2))&&(c3==0||c4==0||Math.Sign(c3)!=Math.Sign(c4)))return -body.EdgeClearance;
+                    min=Math.Min(min,PointSegment(qx[k],qz[k],x[j],z[j],x[i],z[i]));
+                    min=Math.Min(min,PointSegment(x[j],z[j],qx[k],qz[k],qx[n],qz[n]));
+                }
+                if(winding==0)return -body.EdgeClearance;
+            }
+            return Math.Sqrt(min)-body.EdgeClearance;
+        }
+        private static double PointSegment(double px,double pz,double ax,double az,double bx,double bz)
+        {
+            double dx=bx-ax,dz=bz-az,l=dx*dx+dz*dz;
+            double t=l==0?0:Math.Max(0,Math.Min(1,((px-ax)*dx+(pz-az)*dz)/l));
+            double ex=px-ax-t*dx,ez=pz-az-t*dz;return ex*ex+ez*ez;
+        }
+    }
+}
