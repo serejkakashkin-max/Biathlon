@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c5a5c071-e23d-4375-a0f7-257677afd57c" name="snkashkin@DESKTOP-G3075GA 2026-10-09 18:46:29" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T18:46:29.5844290+03:00" queuing="2026-10-09T18:46:29.5844291+03:00" start="2026-10-09T18:46:14.3645113+03:00" finish="2026-10-09T18:46:39.1677946+03:00" />
+  <TestSettings name="default" id="79ebb62f-880e-4576-8ab7-94cba4eac98a">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_18_46_29" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1a778401-3251-4f1c-8c0e-b7e1b3aec7d6" testId="f43a2d86-648a-c9ea-8318-46fb880e7ee0" testName="ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(&quot;sprint&quot;,40)" computerName="DESKTOP-G3075GA" duration="00:00:08.9886160" startTime="2026-10-09T18:46:29.5469220+03:00" endTime="2026-10-09T18:46:38.5355102+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1a778401-3251-4f1c-8c0e-b7e1b3aec7d6">
+      <Output>
+        <StdOut>sprint actors=40 accepted_tick=1000&#xD;
+sprint actors=40 accepted_tick=2000&#xD;
+sprint actors=40 accepted_tick=3000&#xD;
+DEBUG-m13-unstarted actor=woodland_basin_v1_athlete_7 acceleration=0.14714999999999998 peak_yaw=0 source_vx=0 source_vz=0 pose_equal=True duration=0.024327110531875848</StdOut>
+        <ErrorInfo>
+          <Message>format=sprint actors=40 tick=3788; WorldRejected / SourceMismatch / woodland_basin_v1_athlete_7 / 0 / pieces 0 / forces Resolved supports=0 passes=0 seconds=0.024327110531875848 residual=0 closing=0 / Clear /  / Clear / pair : Clear clear 0 end 0 continuation False / working x=138.5 z=-8.691783639 yaw=1.570796327 spin=0 vx=0 vz=0 occurrence=0 arc=0 lateral=3.5782043994458945E-10; gate=Clear; source=7 occurrence=0 arc=0 x=138.5 z=-8.691783639 yaw=1.570796327 spin=0 vx=0 vz=0 lateral=3.5782043994458945E-10 vertices=0 clearance=0 minimum=0; System.InvalidOperationException: Manual field step rejected: WorldRejected / SourceMismatch / woodland_basin_v1_athlete_7; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 220&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 476&#xD;
+   at Biathlon.AI.PackAiRaceRunner.Step() in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 221&#xD;
+   at Biathlon.Tests.ManualProductionFieldTests.ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualProductionFieldTests.cs:line 32</Message>
+          <StackTrace>   at Biathlon.Tests.ManualProductionFieldTests.ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualProductionFieldTests.cs:line 33&#xD;
+   at InvokeStub_ManualProductionFieldTests.ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualProductionFieldTests.ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualProductionFieldTests.cs:line 32&#xD;
+   at InvokeStub_ManualProductionFieldTests.ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="864ef2b9-692e-42ca-a590-044aac1ab218" testId="ba91f1e4-2c20-cf8c-21ac-9f2c50810edf" testName="ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(&quot;mass_start&quot;,30)" computerName="DESKTOP-G3075GA" duration="00:00:14.7044950" startTime="2026-10-09T18:46:14.8418659+03:00" endTime="2026-10-09T18:46:29.5462857+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="864ef2b9-692e-42ca-a590-044aac1ab218">
+      <Output>
+        <ErrorInfo>
+          <Message>format=mass_start actors=30 tick=163; WorldRejected / Course / woodland_basin_v1_athlete_23 / 0.038582432418459746 / pieces 25 / forces Resolved supports=11 passes=2 seconds=0.011417567581540257 residual=8.174934569406075E-19 closing=3.485709984540897E-17 / UnresolvedStart /  / PotentialBoundary / pair : Clear clear 0 end 0 continuation False / working x=146.058043433 z=-11.14441302 yaw=1.437653133 spin=-0.688952709 vx=6.032984482205775 vz=-0.11372525786105367 occurrence=1 arc=7558043433 lateral=2.45262938135782; gate=Clear; source=23 occurrence=1 arc=7322827899 x=145.822827899 z=-11.140850169 yaw=1.466597645 spin=-0.790583048 vx=6.164460594341665 vz=-0.08444959824056877 lateral=2.44906653035782 vertices=14 clearance=-0.00032639194261607773 minimum=-0.00032639194261607773; System.InvalidOperationException: Manual field step rejected: WorldRejected / Course / woodland_basin_v1_athlete_23; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 220&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 476&#xD;
+   at Biathlon.AI.PackAiRaceRunner.Step() in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 221&#xD;
+   at Biathlon.Tests.ManualProductionFieldTests.ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualProductionFieldTests.cs:line 32</Message>
+          <StackTrace>   at Biathlon.Tests.ManualProductionFieldTests.ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualProductionFieldTests.cs:line 33&#xD;
+
+1)    at Biathlon.Tests.ManualProductionFieldTests.ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualProductionFieldTests.cs:line 32&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(&quot;sprint&quot;,40)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="f43a2d86-648a-c9ea-8318-46fb880e7ee0">
+      <Execution id="1a778401-3251-4f1c-8c0e-b7e1b3aec7d6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualProductionFieldTests" name="ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(&quot;sprint&quot;,40)" />
+    </UnitTest>
+    <UnitTest name="ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(&quot;mass_start&quot;,30)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="ba91f1e4-2c20-cf8c-21ac-9f2c50810edf">
+      <Execution id="864ef2b9-692e-42ca-a590-044aac1ab218" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualProductionFieldTests" name="ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(&quot;mass_start&quot;,30)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="f43a2d86-648a-c9ea-8318-46fb880e7ee0" executionId="1a778401-3251-4f1c-8c0e-b7e1b3aec7d6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ba91f1e4-2c20-cf8c-21ac-9f2c50810edf" executionId="864ef2b9-692e-42ca-a590-044aac1ab218" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+sprint actors=40 accepted_tick=1000&#xD;
+sprint actors=40 accepted_tick=2000&#xD;
+sprint actors=40 accepted_tick=3000&#xD;
+DEBUG-m13-unstarted actor=woodland_basin_v1_athlete_7 acceleration=0.14714999999999998 peak_yaw=0 source_vx=0 source_vz=0 pose_equal=True duration=0.024327110531875848&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

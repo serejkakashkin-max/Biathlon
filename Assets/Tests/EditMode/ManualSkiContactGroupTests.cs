@@ -14,6 +14,20 @@ namespace Biathlon.Tests
         private static ManualSkiContactBody Actor(string id,double x,double z,double vx,double vz,double heading=0,double yaw=0,double mass=75)
             =>new ManualSkiContactBody(new AthleteId(id),new ManualSkiHeadingState(x,z,heading,yaw),new SkiPlanarVelocity(vx,vz),mass);
 
+        [Test] public void AttestedAbsentRowsDoNotJoinAnActualTwoBodyImpact()
+        {
+            var group=Group();var actual=new[]{Actor("a",0,0,0,8),Actor("b",0,1.5,0,0)};
+            var expected=new SkiContactMotion[2];Assert.That(group.Preview(actual,2,expected,new int[2]).Status,Is.EqualTo(SkiContactGroupStatus.Resolved));
+            var bodies=new[]{actual[0],actual[1],Actor("waiting",0,0,0,0)};var output=new SkiContactMotion[3];
+            var method=typeof(ManualSkiContactGroup).GetMethod("Preview",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic,
+                null,new[]{typeof(ManualSkiContactBody[]),typeof(int),typeof(SkiContactMotion[]),typeof(int[]),typeof(bool[])},null);
+            var result=(SkiContactGroupPreview)method.Invoke(group,new object[]{bodies,3,output,new int[3],new[]{true,true,false}});
+            Assert.That(result.Status,Is.EqualTo(SkiContactGroupStatus.Resolved));
+            Assert.That(output[0],Is.EqualTo(expected[0]));Assert.That(output[1],Is.EqualTo(expected[1]));
+            Assert.That(output[2].Velocity,Is.EqualTo(default(SkiPlanarVelocity)));Assert.That(output[2].YawRate,Is.Zero);
+            Assert.That(group.Preview(bodies,3,output,new int[3]).Status,Is.EqualTo(SkiContactGroupStatus.Penetrating),"Public generic groups still contain every supplied body.");
+        }
+
         [Test]
         public void ThreeWayRearContactSharesMomentumWithoutArtificialFullStop()
         {

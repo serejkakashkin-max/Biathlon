@@ -164,7 +164,7 @@ namespace Biathlon.Simulation
             }
             initialFieldBinding=field;
             scheduledPresenceStarts=new long[Count];prestartPresence=field.StartGrid!=null;
-            var starts=new string[Count+2];starts[0]="field_attested_scheduled_presence_v2_force_participants";
+            var starts=new string[Count+2];starts[0]="field_attested_scheduled_presence_v3_exact_rest_and_impulse_participants";
             starts[1]=field.StartGrid==null?"scheduled_presence_at_start_tick;waiting_pose_static;all_started_body_proofs_retained":"mass_grid_present_before_start";
             for(int i=0;i<Count;i++)
             {
@@ -349,7 +349,13 @@ namespace Biathlon.Simulation
                     Math.Abs(actor.Trajectory.DurationSeconds-seconds)>seconds*1e-12)
                     return Reject(ManualScopedWorldStatus.SourceMismatch,cursor.Athlete);
                 PhysiologyNumbers.RequireRange(directionalGrades[i],-1,1,nameof(directionalGrades));
-                if(!physicalParticipants[i]&&(actor.Trajectory.PlanarAccelerationBound!=0||actor.Trajectory.PeakYawRate!=0||
+                // A passive drive at rest may retain a conservative nonzero
+                // force bound while its exact stop-constrained polynomial is
+                // stationary. Authenticate that law, never endpoint equality
+                // alone or a fabricated zero-bound replacement trajectory.
+                bool stationaryLaw=physicalParticipants[i]||actor.Trajectory.PlanarAccelerationBound==0||
+                    actor.Trajectory.TryGetConstantPlanarAcceleration(out var acceleration)&&acceleration.X==0&&acceleration.Z==0;
+                if(!physicalParticipants[i]&&(!stationaryLaw||actor.Trajectory.PeakYawRate!=0||
                     sources[i].Velocity.X!=0||sources[i].Velocity.Z!=0||!SamePose(actor.Trajectory.Sample(1),sources[i].Pose)))
                     return Reject(ManualScopedWorldStatus.SourceMismatch,cursor.Athlete);
             }
@@ -505,7 +511,7 @@ namespace Biathlon.Simulation
             if(!pendingContact)throw new InvalidOperationException("No reached terminal contact awaits response.");
             for(int i=0;i<Count;i++)
             {var actor=workingActors[i];responseBodies[i]=new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,masses[i]);}
-            var result=response.Preview(responseBodies,Count,responseMotions,responseOrder);
+            var result=response.Preview(responseBodies,Count,responseMotions,responseOrder,physicalParticipants);
             if(result.Status!=SkiContactGroupStatus.Resolved)return Reject(ManualScopedWorldStatus.ContactResponse,response:result);
             for(int i=0;i<Count;i++)
             {

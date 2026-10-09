@@ -23679,3 +23679,26 @@ production input/presentation and final weather/balance/performance acceptance.
 Owner shooting-feel issue preserved. Build only after ALL M13. History retained.
 Report: docs/reports/TASK_M13_MANUAL_SIGNED_RACE_REPLAY_20261009.md.
 Evidence: docs/quality/m13/field-stepper-20261008/manual-signed-race-replay-*.
+## 2026-10-09 — M13 dense-field contact and rectangle checkpoint
+
+M13 / WP175 / WP177 / WP178 OPEN; WP176 PASS. Production host lateral-v1.
+No owner Windows build. Scheduled absent rows now accept exact passive rest even
+with a nonzero conservative acceleration bound, and remain absent from every
+group impulse pair loop. Public unbound contact groups retain all-body checks.
+Simple authored ribbons now admit a complete rotated rectangle when the disk
+cover alone is too conservative; all corners AND all full edges must fit, with
+unchanged body dimensions, edge clearance and continuous numerical bounds.
+Concave-notch negative control retained. No course widening or pose/speed snap.
+Cold versioned production composition and enabled full Mass30/Sprint40 fixtures
+added. Real dense-traffic course crossings remain red at ticks163/8724; M13 is
+not complete. Initial absent-row3788 and group4858 failures repaired. Experimental
+AI forecast/recovery/passing/friction/retry changes removed; FAIL receipts kept.
+Manual.NET586PASS2FAIL0skipped/588, 6m07s. Native presence6/group9/ribbon16 all PASS.
+Unity compile settled; Error+Exception Console empty. Changed presence/geometry
+context identities capture deterministic admission changes. Shooting unchanged.
+Next real group maneuvers/stationary mat contacts, full signed fields and actual
+Sprint-to-Pursuit, final player mat capture/host, then final weather/balance/perf.
+Owner shooting-feel feedback remains pending. Build only after ALL M13. Existing
+historical bytes retained; this append does not replace or remove earlier records.
+Report: docs/reports/TASK_M13_MANUAL_DENSE_FIELD_CHECKPOINT_20261009.md.
+Evidence: docs/quality/m13/field-stepper-20261008/manual-production-first-diagnosis-20261009.md.

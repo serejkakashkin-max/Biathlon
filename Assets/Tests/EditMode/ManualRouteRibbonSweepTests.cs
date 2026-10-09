@@ -7,6 +7,31 @@ namespace Biathlon.Tests
 {
     public sealed class ManualRouteRibbonSweepTests
     {
+        [Test] public void ExactRectangleProofRejectsAConcaveNotchBetweenItsInsideCorners()
+        {
+            double[] x={-3,3,3,.1,.1,-.1,-.1,-3},z={-3,-3,3,3,0,0,3,3};
+            var method=typeof(ManualRouteRibbonSweep).GetMethod("RectangleClearance",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Static);
+            double clearance=(double)method.Invoke(null,new object[]{new ManualSkiHeadingState(0,.2,0),.75,.35,.1,x,z,x.Length});
+            Assert.That(clearance,Is.LessThanOrEqualTo(0),"All corners fit the two wings, but the top edge crosses the notch.");
+        }
+        [TestCase(0d,ManualRouteTubeStatus.Clear)]
+        [TestCase(-.002d,ManualRouteTubeStatus.UnresolvedStart)]
+        public void CapturedMassStartRectangleKeepsItsActualEdgeClearance(double shiftZ,ManualRouteTubeStatus expected)
+        {
+            var f=new ManualRacePathCatalogTests.Fixture();
+            var pose=new ManualSkiHeadingState(146.058043433,-11.144413020+shiftZ,1.437653133);
+            int index=f.Catalog.GetBaseFlowSuccessor(f.Catalog.StartApproachIndex);
+            Assert.That(f.Catalog.TryProject(pose,index,7558043433L,2,out var at),Is.True);
+            // Straight authored start: all four rectangle sides, including the
+            // unchanged edge clearance, fit. Circumdisks alone overestimate it.
+            double extent=f.Venue.Occupancy.LongitudinalSeparation*.5*Math.Abs(Math.Cos(pose.HeadingRadians))+
+                f.Venue.Occupancy.LateralSeparation*.5*Math.Abs(Math.Sin(pose.HeadingRadians));
+            Assert.That(f.Catalog.ProjectionGeometry.TryGetCollinearCorridor(f.Catalog.GetGeometryObservation(at),out var cell),Is.True);
+            double exact=cell.MinimumWidthMeters*.5-Math.Abs(at.LateralMeters)-extent-f.Venue.Occupancy.EdgeClearance;
+            Assert.That(exact,expected==ManualRouteTubeStatus.Clear?Is.GreaterThan(0):Is.LessThan(0));
+            var sweep=new ManualRouteRibbonSweep(f.Catalog.ProjectionGeometry,f.Venue.Occupancy,ManualScopedFieldStepperTests.Work());
+            Assert.That(sweep.Preview(Travel(f.Venue.Occupancy,pose),f.Catalog.GetGeometryObservation(at)).Status,Is.EqualTo(expected));
+        }
         [Test] public void TightFoldedRibbonCombinesCompleteDiskProofsWithoutAGlobalHull()
         {
             var f=new ManualRacePathCatalogTests.Fixture(lane:2);

@@ -37,9 +37,12 @@ namespace Biathlon.Simulation
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_contact_group_v3_support_endpoints_ulp_convergence",pair.AngularContextJson,definition.ToJson()});
         }
         public SkiContactGroupPreview Preview(ManualSkiContactBody[] bodies,int count,SkiContactMotion[] output,int[] order)
+            =>Preview(bodies,count,output,order,null);
+        internal SkiContactGroupPreview Preview(ManualSkiContactBody[] bodies,int count,SkiContactMotion[] output,int[] order,bool[] participants)
         {
             if(bodies==null||output==null||order==null||count<1||count>bodies.Length||count>output.Length||count>order.Length)
                 throw new ArgumentException("Valid bodies and caller-owned motion/order buffers required.");
+            if(participants!=null&&participants.Length!=count)throw new ArgumentException("Exact attested contact presence required.");
             // Validate all actors before changing scratch/output, including duplicates.
             for(int i=0;i<count;i++)
             {
@@ -58,7 +61,8 @@ namespace Biathlon.Simulation
             for(int i=0;i<count;i++)speedScale=Math.Max(speedScale,Math.Abs(output[i].Velocity.X)+Math.Abs(output[i].Velocity.Z)+Math.Abs(output[i].YawRate));
             convergence=Math.Min(definition.ClosingSpeedTolerance,64*2.2204460492503131e-16*speedScale);
             for(int i=0;i<count;i++)for(int j=i+1;j<count;j++)
-                if(pair.Preview(bodies[order[i]],bodies[order[j]]).Status==SkiContactPreviewStatus.Penetrating)
+                if((participants==null||participants[order[i]]&&participants[order[j]])&&
+                    pair.Preview(bodies[order[i]],bodies[order[j]]).Status==SkiContactPreviewStatus.Penetrating)
                     return new SkiContactGroupPreview(SkiContactGroupStatus.Penetrating,0,0,0);
 
             int impulses=0;
@@ -66,7 +70,8 @@ namespace Biathlon.Simulation
             {
                 for(int i=0;i<count;i++)for(int j=i+1;j<count;j++)
                 {
-                    int ai=order[i],bi=order[j];var a=WithVelocity(bodies[ai],output[ai]);var b=WithVelocity(bodies[bi],output[bi]);
+                    int ai=order[i],bi=order[j];if(participants!=null&&(!participants[ai]||!participants[bi]))continue;
+                    var a=WithVelocity(bodies[ai],output[ai]);var b=WithVelocity(bodies[bi],output[bi]);
                     var manifold=pair.PreviewManifold(a,b);
                     if(manifold.Contact.Status==SkiContactPreviewStatus.Separated)continue;
                     if(!manifold.HasSupport)
@@ -83,7 +88,8 @@ namespace Biathlon.Simulation
                 double remaining=0;
                 for(int i=0;i<count;i++)for(int j=i+1;j<count;j++)
                 {
-                    int ai=order[i],bi=order[j];var a=WithVelocity(bodies[ai],output[ai]);var b=WithVelocity(bodies[bi],output[bi]);
+                    int ai=order[i],bi=order[j];if(participants!=null&&(!participants[ai]||!participants[bi]))continue;
+                    var a=WithVelocity(bodies[ai],output[ai]);var b=WithVelocity(bodies[bi],output[bi]);
                     var manifold=pair.PreviewManifold(a,b);
                     if(manifold.Contact.Status==SkiContactPreviewStatus.Separated)continue;
                     if(!manifold.HasSupport)

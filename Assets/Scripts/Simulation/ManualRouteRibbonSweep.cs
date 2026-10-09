@@ -14,8 +14,9 @@ namespace Biathlon.Simulation
     /// <summary>Continuous whole-body exclusion inside a local authored ribbon.
     /// Overlapping disks cover the complete occupied rectangle, including its
     /// personal clearance. Every disk must fit a simple local polygon or an
-    /// unchanged conservative connected tube. A bounded cell cover refines
-    /// oversized end caps; internal sampling caps are not walls.
+    /// unchanged conservative connected tube. An exact rectangle/polygon
+    /// separation proof avoids oversized disk caps on simple ribbons; a
+    /// bounded cell cover also handles folded connected tubes.
     /// Failure grants no movement, route progress, docking or topology handoff.</summary>
     public sealed class ManualRouteRibbonSweep
     {
@@ -44,8 +45,8 @@ namespace Biathlon.Simulation
             refinedRadius=Math.Sqrt(Math.Pow(halfWidth/refinedRows,2)+Math.Pow(halfLength/disks,2));
             bodyRadius=Math.Sqrt(halfWidth*halfWidth+halfLength*halfLength);edgeClearance=body.EdgeClearance;
             x=new double[map.MaximumRibbonVertices];z=new double[x.Length];
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_local_authored_ribbon_disk_cover_v5_refined_cells",map.ContextJson,
-                body.ToJson(),work.ToJson(),"actual_knot_normals;minimum_window_width;exact_authored_endpoints;simple_polygon_only;per_disk_independent_conservative_tube_cover;unchanged_tube_turn_reserve;disk_count_from_maximum_depth;bounded_rectangular_cell_circumdisks;unchanged_full_body_and_edge_clearance;full_cover_envelope_and_source_offset;continuous_cover_not_corner_samples;no_phase_or_centre_credit"});
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_local_authored_ribbon_v6_exact_rectangle_and_covers",map.ContextJson,
+                body.ToJson(),work.ToJson(),"actual_knot_normals;minimum_window_width;exact_authored_endpoints;simple_polygon_only;all_rectangle_corners_inside_and_all_edges_disjoint;minimum_segment_separation_minus_unchanged_edge_clearance;per_disk_independent_conservative_tube_cover;unchanged_tube_turn_reserve;disk_count_from_maximum_depth;bounded_rectangular_cell_circumdisks;unchanged_full_body_and_edge_clearance;full_cover_envelope_and_source_offset;continuous_whole_body_bound;no_phase_or_centre_credit"});
         }
         public ManualRouteTubePreview Preview(ManualSkiWorldTrajectory trajectory,ManualRouteProjection source)
         {
@@ -92,6 +93,11 @@ namespace Biathlon.Simulation
                 result=Math.Min(result,DiskClearance(px,pz,coverRadius+edgeClearance));
             }
             if(result>0)return result;
+            if(vertices>=4&&simpleRibbon)
+            {
+                result=Math.Max(result,RectangleClearance(pose,halfLength,halfWidth,edgeClearance,x,z,vertices));
+                if(result>0)return result;
+            }
             // The one-dimensional cover has unnecessarily large end caps.
             // A bounded rectangular cell grid refines that cover, never the
             // occupied body. Each cell's circumscribed disk plus the same
@@ -120,6 +126,8 @@ namespace Biathlon.Simulation
                 return Math.Max(diskClearance,Math.Sqrt(distance)-radius);
         }
         private bool Inside(double px,double pz)
+            =>Inside(px,pz,x,z,vertices);
+        private static bool Inside(double px,double pz,double[] x,double[] z,int vertices)
         {
             // Called only after the complete local polygon is proved simple.
             int winding=0;
@@ -130,6 +138,44 @@ namespace Biathlon.Simulation
                 else if(z[i]<=pz&&side<0)winding--;
             }
             return winding!=0;
+        }
+        // For a simple polygon, inside corners plus disjoint complete edges
+        // prove the entire convex rectangle is inside. Corner tests alone do
+        // not exclude a concave notch. Segment separation is a conservative
+        // continuous clearance: translation/rotation obey the same Search
+        // bound as the disk cover, including the unchanged numerical reserve.
+        internal static double RectangleClearance(ManualSkiHeadingState pose,double halfLength,double halfWidth,
+            double edgeClearance,double[] x,double[] z,int vertices)
+        {
+            double fx=Math.Sin(pose.HeadingRadians),fz=Math.Cos(pose.HeadingRadians),minimum=double.PositiveInfinity;
+            for(int k=0;k<4;k++)
+            {
+                RectangleCorner(k,pose,fx,fz,halfLength,halfWidth,out var ax,out var az);
+                if(!Inside(ax,az,x,z,vertices))return double.NegativeInfinity;
+                RectangleCorner((k+1)%4,pose,fx,fz,halfLength,halfWidth,out var bx,out var bz);
+                for(int i=0;i<vertices;i++)
+                {
+                    int j=(i+1)%vertices;
+                    if(Intersect(ax,az,bx,bz,x[i],z[i],x[j],z[j]))return -edgeClearance;
+                    minimum=Math.Min(minimum,PointSegmentSquared(ax,az,x[i],z[i],x[j],z[j]));
+                    minimum=Math.Min(minimum,PointSegmentSquared(bx,bz,x[i],z[i],x[j],z[j]));
+                    minimum=Math.Min(minimum,PointSegmentSquared(x[i],z[i],ax,az,bx,bz));
+                    minimum=Math.Min(minimum,PointSegmentSquared(x[j],z[j],ax,az,bx,bz));
+                }
+            }
+            return Math.Sqrt(minimum)-edgeClearance;
+        }
+        private static void RectangleCorner(int corner,ManualSkiHeadingState pose,double fx,double fz,
+            double halfLength,double halfWidth,out double px,out double pz)
+        {
+            double along=corner<2?halfLength:-halfLength,side=corner==0||corner==3?halfWidth:-halfWidth;
+            px=pose.X+fx*along+fz*side;pz=pose.Z+fz*along-fx*side;
+        }
+        private static double PointSegmentSquared(double px,double pz,double ax,double az,double bx,double bz)
+        {
+            double dx=bx-ax,dz=bz-az,length=dx*dx+dz*dz;
+            double t=length==0?0:Math.Max(0,Math.Min(1,((px-ax)*dx+(pz-az)*dz)/length));
+            dx=px-ax-t*dx;dz=pz-az-t*dz;return dx*dx+dz*dz;
         }
         private bool Simple()
         {

@@ -23,7 +23,7 @@ namespace Biathlon.Tests
             return(runner,world,venue,models);
         }
 
-        private static bool AppendStationary(ManualScopedWorldRoster world,VenueAuthoringPlan venue,ManualScopedWorldTick tick,SkiPhysicsDefinition physics,bool moveWaiting=false)
+        private static bool AppendStationary(ManualScopedWorldRoster world,VenueAuthoringPlan venue,ManualScopedWorldTick tick,SkiPhysicsDefinition physics,bool moveWaiting=false,bool passiveDrive=false)
         {
             var snow=new ManualSkiSnowContactSystem(venue.Occupancy,1);
             var drive=new ManualSkiContactDriveSystem(physics,venue.Occupancy,20);
@@ -33,9 +33,10 @@ namespace Biathlon.Tests
                 var actor=world.GetWorkingActor(tick,i);var cursor=world.GetWorkingCursor(tick,i);
                 var body=new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,physics.MassKilograms);
                 var motion=new SkiContactMotion(actor.Velocity,actor.Pose.YawRateRadiansPerSecond);
-                var trajectory=moveWaiting&&i==1?new ManualSkiWorldTrajectory(drive.Preview(body,motion,actor.Observation,
-                    world.GetCatalog(i).SampleSurface(actor.Observation),400,0,0,.05)):
+                var trajectory=(moveWaiting&&i==1)||passiveDrive?new ManualSkiWorldTrajectory(drive.Preview(body,motion,actor.Observation,
+                    world.GetCatalog(i).SampleSurface(actor.Observation),moveWaiting?400:0,0,0,.05)):
                     new ManualSkiWorldTrajectory(snow.PreviewTrajectory(body,motion,0,0,.05));
+                if(passiveDrive&&i==1)Assert.That(trajectory.PlanarAccelerationBound,Is.GreaterThan(0),"Fixture must retain its conservative bound.");
                 actors[i]=new SkiWorldMotionCandidate(actor.Athlete,trajectory);
                 windows[i]=new ManualScopedWorldWindow(actor.Athlete,cursor.OccurrenceIndex,cursor.ObservedArcNanometers,1,world.GetCatalog(i).Get(cursor.OccurrenceIndex).LengthNanometers);
             }
@@ -61,6 +62,18 @@ namespace Biathlon.Tests
             Assert.That(AppendStationary(f.world,f.venue,tick,f.models.Physics,moveWaiting:true),Is.False);
             Assert.That(f.world.LastAttempt.Status,Is.EqualTo(ManualScopedWorldStatus.SourceMismatch));
             f.world.AbortTick(tick);Assert.That(f.world.Tick.Value,Is.Zero);
+        }
+
+        [Test] public void WaitingExactRestLawCanRetainItsNonzeroConservativeForceBound()
+        {
+            var f=Initial();var tick=f.world.BeginTick();
+            Assert.That(f.world.TryResolveOwnedCurrentContacts(tick),Is.True);
+            Assert.That(AppendStationary(f.world,f.venue,tick,f.models.Physics,passiveDrive:true),Is.True);
+            Assert.That(f.world.TryFinalizeTick(tick,out var proposal),Is.True);
+            var body=f.world.GetActor(1);f.world.Commit(proposal);
+            Assert.That(f.world.GetActor(1).Pose,Is.EqualTo(body.Pose));
+            Assert.That(f.world.GetActor(1).Velocity,Is.EqualTo(body.Velocity));
+            Assert.That(f.world.GetPhysicalMotion(1).DistanceNanometers,Is.Zero);
         }
 
         [Test] public void InitialPresenceBindingDoesNotBypassReusableMatOwnership()

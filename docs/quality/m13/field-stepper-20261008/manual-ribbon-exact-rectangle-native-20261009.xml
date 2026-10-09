@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="16" result="Passed" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-09 16:06:38Z" end-time="2026-10-09 16:06:55Z" duration="16,9701468">
+  <test-suite type="TestSuite" id="3127" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1695" result="Passed" start-time="2026-10-09 16:06:38Z" end-time="2026-10-09 16:06:55Z" duration="16.970147" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="3071" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="1668" result="Passed" start-time="2026-10-09 16:06:38Z" end-time="2026-10-09 16:06:55Z" duration="16.860793" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="36068" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="3072" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1668" result="Passed" start-time="2026-10-09 16:06:38Z" end-time="2026-10-09 16:06:55Z" duration="16.753418" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="3073" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="1668" result="Passed" start-time="2026-10-09 16:06:38Z" end-time="2026-10-09 16:06:55Z" duration="16.643405" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1541" name="ManualRouteRibbonSweepTests" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-10-09 16:06:38Z" end-time="2026-10-09 16:06:55Z" duration="16.541930" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1557" name="ActualLateralDepartureIsStillRejected" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests.ActualLateralDepartureIsStillRejected" methodname="ActualLateralDepartureIsStillRejected" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" seed="864384109" result="Passed" start-time="2026-10-09 16:06:39Z" end-time="2026-10-09 16:06:40Z" duration="1.079661" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1559" name="ADisconnectedOrDistantPositionCannotUseTheTubeCoverAsABridge" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests.ADisconnectedOrDistantPositionCannotUseTheTubeCoverAsABridge" methodname="ADisconnectedOrDistantPositionCannotUseTheTubeCoverAsABridge" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" seed="1657644910" result="Passed" start-time="2026-10-09 16:06:40Z" end-time="2026-10-09 16:06:41Z" duration="1.059716" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1549" name="AnUpcomingNarrowMatDoesNotShrinkTheAlreadyOwnedWiderAisle" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests.AnUpcomingNarrowMatDoesNotShrinkTheAlreadyOwnedWiderAisle" methodname="AnUpcomingNarrowMatDoesNotShrinkTheAlreadyOwnedWiderAisle" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" seed="2061190246" result="Passed" start-time="2026-10-09 16:06:41Z" end-time="2026-10-09 16:06:42Z" duration="1.080695" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1558" name="AuthoredEndpointSurvivesCancellationWhenTheCurveCrossesZeroX" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests.AuthoredEndpointSurvivesCancellationWhenTheCurveCrossesZeroX" methodname="AuthoredEndpointSurvivesCancellationWhenTheCurveCrossesZeroX" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" seed="462211435" result="Passed" start-time="2026-10-09 16:06:42Z" end-time="2026-10-09 16:06:43Z" duration="1.061069" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1545" name="CapturedMassStartRectangleKeepsItsActualEdgeClearance" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests.CapturedMassStartRectangleKeepsItsActualEdgeClearance" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-09 16:06:43Z" end-time="2026-10-09 16:06:45Z" duration="2.141101" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1543" name="CapturedMassStartRectangleKeepsItsActualEdgeClearance(0.0d,Clear)" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests.CapturedMassStartRectangleKeepsItsActualEdgeClearance(0.0d,Clear)" methodname="CapturedMassStartRectangleKeepsItsActualEdgeClearance" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" seed="646361057" result="Passed" start-time="2026-10-09 16:06:43Z" end-time="2026-10-09 16:06:44Z" duration="1.066814" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1544" name="CapturedMassStartRectangleKeepsItsActualEdgeClearance(-0.002d,UnresolvedStart)" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests.CapturedMassStartRectangleKeepsItsActualEdgeClearance(-0.002d,UnresolvedStart)" methodname="CapturedMassStartRectangleKeepsItsActualEdgeClearance" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" seed="1505211536" result="Passed" start-time="2026-10-09 16:06:44Z" end-time="2026-10-09 16:06:45Z" duration="1.066630" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1542" name="ExactRectangleProofRejectsAConcaveNotchBetweenItsInsideCorners" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests.ExactRectangleProofRejectsAConcaveNotchBetweenItsInsideCorners" methodname="ExactRectangleProofRejectsAConcaveNotchBetweenItsInsideCorners" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" seed="51689442" result="Passed" start-time="2026-10-09 16:06:45Z" end-time="2026-10-09 16:06:45Z" duration="0.000595" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1552" name="MatHairpinAdmitsStationaryBodyButRejectsUnbrakedFastArrival" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests.MatHairpinAdmitsStationaryBodyButRejectsUnbrakedFastArrival" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-09 16:06:45Z" end-time="2026-10-09 16:06:47Z" duration="2.124938" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1550" name="MatHairpinAdmitsStationaryBodyButRejectsUnbrakedFastArrival(False)" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests.MatHairpinAdmitsStationaryBodyButRejectsUnbrakedFastArrival(False)" methodname="MatHairpinAdmitsStationaryBodyButRejectsUnbrakedFastArrival" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" seed="1054398462" result="Passed" start-time="2026-10-09 16:06:45Z" end-time="2026-10-09 16:06:46Z" duration="1.055090" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1551" name="MatHairpinAdmitsStationaryBodyButRejectsUnbrakedFastArrival(True)" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests.MatHairpinAdmitsStationaryBodyButRejectsUnbrakedFastArrival(True)" methodname="MatHairpinAdmitsStationaryBodyButRejectsUnbrakedFastArrival" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" seed="40780265" result="Passed" start-time="2026-10-09 16:06:46Z" end-time="2026-10-09 16:06:47Z" duration="1.064111" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1547" name="RefinedCellsDoNotShrinkAnOversizedOccupiedBody" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests.RefinedCellsDoNotShrinkAnOversizedOccupiedBody" methodname="RefinedCellsDoNotShrinkAnOversizedOccupiedBody" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" seed="833367857" result="Passed" start-time="2026-10-09 16:06:47Z" end-time="2026-10-09 16:06:48Z" duration="1.075023" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1556" name="ShortStartSeamWindowIncludesTheWholeDiskCover" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests.ShortStartSeamWindowIncludesTheWholeDiskCover" methodname="ShortStartSeamWindowIncludesTheWholeDiskCover" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" seed="1956372700" result="Passed" start-time="2026-10-09 16:06:48Z" end-time="2026-10-09 16:06:49Z" duration="1.072305" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1546" name="TightFoldedRibbonCombinesCompleteDiskProofsWithoutAGlobalHull" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests.TightFoldedRibbonCombinesCompleteDiskProofsWithoutAGlobalHull" methodname="TightFoldedRibbonCombinesCompleteDiskProofsWithoutAGlobalHull" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" seed="1738372722" result="Passed" start-time="2026-10-09 16:06:49Z" end-time="2026-10-09 16:06:50Z" duration="1.046468" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1555" name="TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests.TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-09 16:06:50Z" end-time="2026-10-09 16:06:52Z" duration="2.128376" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1553" name="TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(0.0d)" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests.TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(0.0d)" methodname="TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" seed="296595947" result="Passed" start-time="2026-10-09 16:06:50Z" end-time="2026-10-09 16:06:51Z" duration="1.054836" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1554" name="TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(-1.6d)" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests.TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(-1.6d)" methodname="TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" seed="1165114334" result="Passed" start-time="2026-10-09 16:06:51Z" end-time="2026-10-09 16:06:52Z" duration="1.069137" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1548" name="WarmRefinedFoldedCoverRemainsAllocationFreeAndRepeatable" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests.WarmRefinedFoldedCoverRemainsAllocationFreeAndRepeatable" methodname="WarmRefinedFoldedCoverRemainsAllocationFreeAndRepeatable" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" seed="991489247" result="Passed" start-time="2026-10-09 16:06:52Z" end-time="2026-10-09 16:06:54Z" duration="1.473710" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1560" name="WarmRepeatedCoverQueriesAreDeterministicAndAllocateNothing" fullname="Biathlon.Tests.ManualRouteRibbonSweepTests.WarmRepeatedCoverQueriesAreDeterministicAndAllocateNothing" methodname="WarmRepeatedCoverQueriesAreDeterministicAndAllocateNothing" classname="Biathlon.Tests.ManualRouteRibbonSweepTests" runstate="Runnable" seed="71169448" result="Passed" start-time="2026-10-09 16:06:54Z" end-time="2026-10-09 16:06:55Z" duration="1.074058" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

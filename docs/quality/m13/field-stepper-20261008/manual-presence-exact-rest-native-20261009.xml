@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="6" result="Passed" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-09 16:03:28Z" end-time="2026-10-09 16:05:26Z" duration="117,4978893">
+  <test-suite type="TestSuite" id="1000" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1695" result="Passed" start-time="2026-10-09 16:03:28Z" end-time="2026-10-09 16:05:26Z" duration="117.497889" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="3071" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="1668" result="Passed" start-time="2026-10-09 16:03:29Z" end-time="2026-10-09 16:05:26Z" duration="117.388877" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="36068" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="3072" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1668" result="Passed" start-time="2026-10-09 16:03:29Z" end-time="2026-10-09 16:05:26Z" duration="117.285377" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="3073" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="1668" result="Passed" start-time="2026-10-09 16:03:29Z" end-time="2026-10-09 16:05:26Z" duration="117.168993" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1567" name="ManualScheduledPresenceTests" fullname="Biathlon.Tests.ManualScheduledPresenceTests" classname="Biathlon.Tests.ManualScheduledPresenceTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-09 16:03:29Z" end-time="2026-10-09 16:05:26Z" duration="117.072539" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1572" name="ArrivalOfTheScheduledStartRestoresRealCollisionAdmission" fullname="Biathlon.Tests.ManualScheduledPresenceTests.ArrivalOfTheScheduledStartRestoresRealCollisionAdmission" methodname="ArrivalOfTheScheduledStartRestoresRealCollisionAdmission" classname="Biathlon.Tests.ManualScheduledPresenceTests" runstate="Runnable" seed="1617632790" result="Passed" start-time="2026-10-09 16:03:29Z" end-time="2026-10-09 16:03:50Z" duration="21.303201" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1573" name="AWorldWithoutAttestedScheduleKeepsEveryBodyPresent" fullname="Biathlon.Tests.ManualScheduledPresenceTests.AWorldWithoutAttestedScheduleKeepsEveryBodyPresent" methodname="AWorldWithoutAttestedScheduleKeepsEveryBodyPresent" classname="Biathlon.Tests.ManualScheduledPresenceTests" runstate="Runnable" seed="1201323233" result="Passed" start-time="2026-10-09 16:03:50Z" end-time="2026-10-09 16:04:09Z" duration="19.158187" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1571" name="InitialPresenceBindingDoesNotBypassReusableMatOwnership" fullname="Biathlon.Tests.ManualScheduledPresenceTests.InitialPresenceBindingDoesNotBypassReusableMatOwnership" methodname="InitialPresenceBindingDoesNotBypassReusableMatOwnership" classname="Biathlon.Tests.ManualScheduledPresenceTests" runstate="Runnable" seed="741258607" result="Passed" start-time="2026-10-09 16:04:09Z" end-time="2026-10-09 16:04:29Z" duration="19.332857" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1569" name="WaitingBodyCannotAcquireHiddenMotion" fullname="Biathlon.Tests.ManualScheduledPresenceTests.WaitingBodyCannotAcquireHiddenMotion" methodname="WaitingBodyCannotAcquireHiddenMotion" classname="Biathlon.Tests.ManualScheduledPresenceTests" runstate="Runnable" seed="1511270247" result="Passed" start-time="2026-10-09 16:04:29Z" end-time="2026-10-09 16:04:48Z" duration="19.523494" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1570" name="WaitingExactRestLawCanRetainItsNonzeroConservativeForceBound" fullname="Biathlon.Tests.ManualScheduledPresenceTests.WaitingExactRestLawCanRetainItsNonzeroConservativeForceBound" methodname="WaitingExactRestLawCanRetainItsNonzeroConservativeForceBound" classname="Biathlon.Tests.ManualScheduledPresenceTests" runstate="Runnable" seed="68710271" result="Passed" start-time="2026-10-09 16:04:48Z" end-time="2026-10-09 16:05:07Z" duration="18.832662" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1568" name="WaitingSprintBodiesDoNotCollideWithTheStartedAthlete" fullname="Biathlon.Tests.ManualScheduledPresenceTests.WaitingSprintBodiesDoNotCollideWithTheStartedAthlete" methodname="WaitingSprintBodiesDoNotCollideWithTheStartedAthlete" classname="Biathlon.Tests.ManualScheduledPresenceTests" runstate="Runnable" seed="337678103" result="Passed" start-time="2026-10-09 16:05:07Z" end-time="2026-10-09 16:05:26Z" duration="18.798262" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
