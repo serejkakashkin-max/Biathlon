@@ -339,7 +339,7 @@ namespace Biathlon.Tests
             Assert.Throws<ArgumentException>(()=>new ManualScopedFieldStepper(f.Source.Pack,f.World,f.Models,body,Steering(),Work()));
             var work=SkiContactSweepDefinition.FromJson(Work().ToJson().Replace("stepper_work","other_work"));
             Assert.Throws<ArgumentException>(()=>new ManualScopedFieldStepper(f.Source.Pack,f.World,f.Models,f.Source.Source.Venue.Occupancy,Steering(),work));
-            Assert.That(f.Stepper.ContextJson,Does.Contain("all_signed_intents"));Assert.That(f.Stepper.ContextJson,Does.Contain("drafting_unqualified"));
+            Assert.That(f.Stepper.ContextJson,Does.Contain("all_signed_intents"));Assert.That(f.Stepper.ContextJson,Does.Contain("world_drafting_actual_positions"));
         }
         [TestCase(1)][TestCase(30)]
         public void InitialWoodlandMassGridUsesActualUnshiftedBodyPositions(int count)

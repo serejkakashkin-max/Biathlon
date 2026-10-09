@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="df7c2d8e-9d9c-4041-a723-e77ebc910a00" name="snkashkin@DESKTOP-G3075GA 2026-10-09 14:48:06" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T14:48:06.1375773+03:00" queuing="2026-10-09T14:48:06.1375774+03:00" start="2026-10-09T14:48:04.3146503+03:00" finish="2026-10-09T14:48:15.7911019+03:00" />
+  <TestSettings name="default" id="be16d009-c850-45fa-95bd-097e92b4269f">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_14_48_06" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="04765fdd-83db-47a2-87b0-52a611de3f30" testId="df90a74b-ee49-5afe-d7ba-f8b6138bdbe1" testName="AllFourShootingBoutsReturnToTheManualCourse(1)" computerName="DESKTOP-G3075GA" duration="00:00:02.8860220" startTime="2026-10-09T14:48:09.1339316+03:00" endTime="2026-10-09T14:48:12.0199140+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="04765fdd-83db-47a2-87b0-52a611de3f30">
+      <Output>
+        <StdOut>Four bouts: tick=16360; penalties=0; maximum moving pieces=2</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9811d29c-44a4-4df7-94e6-3162d4dde627" testId="351f60bb-a8af-39f4-a2f1-d355e6552e46" testName="AllFourShootingBoutsReturnToTheManualCourse(3)" computerName="DESKTOP-G3075GA" duration="00:00:03.6202550" startTime="2026-10-09T14:48:12.0199438+03:00" endTime="2026-10-09T14:48:15.6401485+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9811d29c-44a4-4df7-94e6-3162d4dde627">
+      <Output>
+        <ErrorInfo>
+          <Message>tick 16210 / WorldRejected / BoundarySchedule / woodland_basin_v1_athlete_0 / 0 / pieces 0 / forces Resolved supports=0 passes=0 seconds=0.05 residual=0 closing=0 / Clear /  / Clear / pair : Clear clear 0 end 0 continuation False / working x=43.51443678 z=-8.37568061 yaw=2.913896895 spin=-0.587481722 vx=1.9533871124224198 vz=0.44867487007212153 occurrence=22 arc=8778795684 lateral=-0.3159959580506884; gate=PotentialCrossing; source=0 occurrence=22 arc=8778795684 x=43.51443678 z=-8.37568061 yaw=2.913896895 spin=-0.587481722 vx=1.9533871124224198 vz=0.44867487007212153 lateral=-0.3159959580506884 vertices=12 clearance=0.5405561186898201 minimum=0.5405561186898201 / System.InvalidOperationException: Manual field step rejected: WorldRejected / BoundarySchedule / woodland_basin_v1_athlete_0; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 152&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 474&#xD;
+   at Biathlon.AI.PackAiRaceRunner.Step() in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 219&#xD;
+   at Biathlon.Tests.ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Int32 athletes) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 268</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Int32 athletes) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 269&#xD;
+   at InvokeStub_ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Int32 athletes) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 268&#xD;
+   at InvokeStub_ManualScopedFieldStepperTests.AllFourShootingBoutsReturnToTheManualCourse(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="12f8a3fd-7509-421c-bdea-79a3fb3bb808" testId="3fcefd9a-43a0-df0b-625a-88836a02ad1e" testName="DenseFieldIsAllocationFreeAndMalformedInputFails" computerName="DESKTOP-G3075GA" duration="00:00:00.0583540" startTime="2026-10-09T14:48:04.8543278+03:00" endTime="2026-10-09T14:48:04.9126497+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="12f8a3fd-7509-421c-bdea-79a3fb3bb808" />
+    <UnitTestResult executionId="9461914b-19ed-4771-aad0-c299e030f471" testId="3851935e-e4d3-d60a-2336-3141fbe1b198" testName="WarmWorldWakeIsAllocationFreeAndRejectsMalformedBodiesAndWind" computerName="DESKTOP-G3075GA" duration="00:00:00.0034480" startTime="2026-10-09T14:48:09.1303537+03:00" endTime="2026-10-09T14:48:09.1338010+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9461914b-19ed-4771-aad0-c299e030f471">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: 0&#xD;
+  But was:  24&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualAchievedDraftTests.WarmWorldWakeIsAllocationFreeAndRejectsMalformedBodiesAndWind() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAchievedDraftTests.cs:line 54&#xD;
+
+1)    at Biathlon.Tests.ManualAchievedDraftTests.WarmWorldWakeIsAllocationFreeAndRejectsMalformedBodiesAndWind() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAchievedDraftTests.cs:line 54&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="13301994-def4-40c8-be2a-3a612289c017" testId="9527ba18-2093-efb1-569b-e3190c6bc733" testName="LeaderOrderAndDuplicatesDoNotStackAndTiesUseStableId" computerName="DESKTOP-G3075GA" duration="00:00:00.0028960" startTime="2026-10-09T14:48:04.9233621+03:00" endTime="2026-10-09T14:48:04.9262581+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="13301994-def4-40c8-be2a-3a612289c017" />
+    <UnitTestResult executionId="7620cf40-3a9e-4521-a76f-b0bcba2d4189" testId="576aba79-bec1-39c1-df7a-b1bbea83ec1a" testName="RealSidewaysMotionAndOpposingTrafficCannotUseAFictitiousRouteWake" computerName="DESKTOP-G3075GA" duration="00:00:00.0018870" startTime="2026-10-09T14:48:04.9392213+03:00" endTime="2026-10-09T14:48:04.9411083+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7620cf40-3a9e-4521-a76f-b0bcba2d4189" />
+    <UnitTestResult executionId="a5270f42-f3dc-4939-957f-8a8ea1ba6687" testId="57727a1e-898f-677e-ad0e-5fcf63d86c08" testName="ReducedDragSavesMechanicalPowerWithoutRefundingPhysiology" computerName="DESKTOP-G3075GA" duration="00:00:00.0050110" startTime="2026-10-09T14:48:04.9262733+03:00" endTime="2026-10-09T14:48:04.9312840+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a5270f42-f3dc-4939-957f-8a8ea1ba6687" />
+    <UnitTestResult executionId="05a718e5-f351-4122-9d59-a0bf2f0f73e1" testId="0bfdeea3-d72a-9024-e48a-bc95e1212c69" testName="SlowClimbAndCrosswindReduceDraftWhileHeadwindIncreasesIt" computerName="DESKTOP-G3075GA" duration="00:00:00.0018100" startTime="2026-10-09T14:48:04.9312978+03:00" endTime="2026-10-09T14:48:04.9331075+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="05a718e5-f351-4122-9d59-a0bf2f0f73e1" />
+    <UnitTestResult executionId="5e9ab657-a180-4016-aaa1-1063b9716e25" testId="d3c1accf-8718-1d9d-a092-7b0dc4955c1e" testName="SharedManualFieldPublishesDraftFromItsActualMovingWorldBodies" computerName="DESKTOP-G3075GA" duration="00:00:04.1892319" startTime="2026-10-09T14:48:04.9411212+03:00" endTime="2026-10-09T14:48:09.1302957+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5e9ab657-a180-4016-aaa1-1063b9716e25">
+      <Output>
+        <ErrorInfo>
+          <Message>  Moving followers in the unchanged grid must receive their achieved aerodynamic wake.&#xD;
+  Expected: True&#xD;
+  But was:  False&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualAchievedDraftTests.SharedManualFieldPublishesDraftFromItsActualMovingWorldBodies() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAchievedDraftTests.cs:line 59&#xD;
+
+1)    at Biathlon.Tests.ManualAchievedDraftTests.SharedManualFieldPublishesDraftFromItsActualMovingWorldBodies() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAchievedDraftTests.cs:line 59&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b66f3b9b-81bb-4fbb-9694-d5d2f942742b" testId="73072e4e-f545-b8d0-4bce-d2beb6689a69" testName="AchievedWorldWakeMatchesExistingStraightDraftLaw" computerName="DESKTOP-G3075GA" duration="00:00:00.0033070" startTime="2026-10-09T14:48:04.9341056+03:00" endTime="2026-10-09T14:48:04.9374125+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b66f3b9b-81bb-4fbb-9694-d5d2f942742b" />
+    <UnitTestResult executionId="c278a0ef-0281-42af-bbe3-250114c99c7e" testId="8c327060-085f-a18e-693e-f6a016e1e133" testName="FieldRespectsAheadGapLateralCorridorAndPermission" computerName="DESKTOP-G3075GA" duration="00:00:00.0101250" startTime="2026-10-09T14:48:04.9132230+03:00" endTime="2026-10-09T14:48:04.9233482+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c278a0ef-0281-42af-bbe3-250114c99c7e" />
+    <UnitTestResult executionId="384ee36c-f38d-44c6-b27e-98a5e1e6727d" testId="af690ea1-f24c-d832-686d-01b28793b361" testName="ActualWorldWindShiftsTheWakeAndRetainsStableLeaderTies" computerName="DESKTOP-G3075GA" duration="00:00:00.0017820" startTime="2026-10-09T14:48:04.9374265+03:00" endTime="2026-10-09T14:48:04.9392082+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="384ee36c-f38d-44c6-b27e-98a5e1e6727d" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="RealSidewaysMotionAndOpposingTrafficCannotUseAFictitiousRouteWake" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="576aba79-bec1-39c1-df7a-b1bbea83ec1a">
+      <Execution id="7620cf40-3a9e-4521-a76f-b0bcba2d4189" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAchievedDraftTests" name="RealSidewaysMotionAndOpposingTrafficCannotUseAFictitiousRouteWake" />
+    </UnitTest>
+    <UnitTest name="FieldRespectsAheadGapLateralCorridorAndPermission" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="8c327060-085f-a18e-693e-f6a016e1e133">
+      <Execution id="c278a0ef-0281-42af-bbe3-250114c99c7e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DraftingTests" name="FieldRespectsAheadGapLateralCorridorAndPermission" />
+    </UnitTest>
+    <UnitTest name="ReducedDragSavesMechanicalPowerWithoutRefundingPhysiology" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="57727a1e-898f-677e-ad0e-5fcf63d86c08">
+      <Execution id="a5270f42-f3dc-4939-957f-8a8ea1ba6687" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DraftingTests" name="ReducedDragSavesMechanicalPowerWithoutRefundingPhysiology" />
+    </UnitTest>
+    <UnitTest name="DenseFieldIsAllocationFreeAndMalformedInputFails" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="3fcefd9a-43a0-df0b-625a-88836a02ad1e">
+      <Execution id="12f8a3fd-7509-421c-bdea-79a3fb3bb808" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DraftingTests" name="DenseFieldIsAllocationFreeAndMalformedInputFails" />
+    </UnitTest>
+    <UnitTest name="WarmWorldWakeIsAllocationFreeAndRejectsMalformedBodiesAndWind" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="3851935e-e4d3-d60a-2336-3141fbe1b198">
+      <Execution id="9461914b-19ed-4771-aad0-c299e030f471" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAchievedDraftTests" name="WarmWorldWakeIsAllocationFreeAndRejectsMalformedBodiesAndWind" />
+    </UnitTest>
+    <UnitTest name="SlowClimbAndCrosswindReduceDraftWhileHeadwindIncreasesIt" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="0bfdeea3-d72a-9024-e48a-bc95e1212c69">
+      <Execution id="05a718e5-f351-4122-9d59-a0bf2f0f73e1" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DraftingTests" name="SlowClimbAndCrosswindReduceDraftWhileHeadwindIncreasesIt" />
+    </UnitTest>
+    <UnitTest name="AllFourShootingBoutsReturnToTheManualCourse(1)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="df90a74b-ee49-5afe-d7ba-f8b6138bdbe1">
+      <Execution id="04765fdd-83db-47a2-87b0-52a611de3f30" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="AllFourShootingBoutsReturnToTheManualCourse(1)" />
+    </UnitTest>
+    <UnitTest name="SharedManualFieldPublishesDraftFromItsActualMovingWorldBodies" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="d3c1accf-8718-1d9d-a092-7b0dc4955c1e">
+      <Execution id="5e9ab657-a180-4016-aaa1-1063b9716e25" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAchievedDraftTests" name="SharedManualFieldPublishesDraftFromItsActualMovingWorldBodies" />
+    </UnitTest>
+    <UnitTest name="AchievedWorldWakeMatchesExistingStraightDraftLaw" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="73072e4e-f545-b8d0-4bce-d2beb6689a69">
+      <Execution id="b66f3b9b-81bb-4fbb-9694-d5d2f942742b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAchievedDraftTests" name="AchievedWorldWakeMatchesExistingStraightDraftLaw" />
+    </UnitTest>
+    <UnitTest name="LeaderOrderAndDuplicatesDoNotStackAndTiesUseStableId" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="9527ba18-2093-efb1-569b-e3190c6bc733">
+      <Execution id="13301994-def4-40c8-be2a-3a612289c017" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DraftingTests" name="LeaderOrderAndDuplicatesDoNotStackAndTiesUseStableId" />
+    </UnitTest>
+    <UnitTest name="AllFourShootingBoutsReturnToTheManualCourse(3)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="351f60bb-a8af-39f4-a2f1-d355e6552e46">
+      <Execution id="9811d29c-44a4-4df7-94e6-3162d4dde627" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="AllFourShootingBoutsReturnToTheManualCourse(3)" />
+    </UnitTest>
+    <UnitTest name="ActualWorldWindShiftsTheWakeAndRetainsStableLeaderTies" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="af690ea1-f24c-d832-686d-01b28793b361">
+      <Execution id="384ee36c-f38d-44c6-b27e-98a5e1e6727d" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAchievedDraftTests" name="ActualWorldWindShiftsTheWakeAndRetainsStableLeaderTies" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="df90a74b-ee49-5afe-d7ba-f8b6138bdbe1" executionId="04765fdd-83db-47a2-87b0-52a611de3f30" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="351f60bb-a8af-39f4-a2f1-d355e6552e46" executionId="9811d29c-44a4-4df7-94e6-3162d4dde627" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3fcefd9a-43a0-df0b-625a-88836a02ad1e" executionId="12f8a3fd-7509-421c-bdea-79a3fb3bb808" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3851935e-e4d3-d60a-2336-3141fbe1b198" executionId="9461914b-19ed-4771-aad0-c299e030f471" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9527ba18-2093-efb1-569b-e3190c6bc733" executionId="13301994-def4-40c8-be2a-3a612289c017" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="576aba79-bec1-39c1-df7a-b1bbea83ec1a" executionId="7620cf40-3a9e-4521-a76f-b0bcba2d4189" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="57727a1e-898f-677e-ad0e-5fcf63d86c08" executionId="a5270f42-f3dc-4939-957f-8a8ea1ba6687" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0bfdeea3-d72a-9024-e48a-bc95e1212c69" executionId="05a718e5-f351-4122-9d59-a0bf2f0f73e1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d3c1accf-8718-1d9d-a092-7b0dc4955c1e" executionId="5e9ab657-a180-4016-aaa1-1063b9716e25" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="73072e4e-f545-b8d0-4bce-d2beb6689a69" executionId="b66f3b9b-81bb-4fbb-9694-d5d2f942742b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8c327060-085f-a18e-693e-f6a016e1e133" executionId="c278a0ef-0281-42af-bbe3-250114c99c7e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="af690ea1-f24c-d832-686d-01b28793b361" executionId="384ee36c-f38d-44c6-b27e-98a5e1e6727d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="12" executed="12" passed="9" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 12 of 12 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+Four bouts: tick=16360; penalties=0; maximum moving pieces=2&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

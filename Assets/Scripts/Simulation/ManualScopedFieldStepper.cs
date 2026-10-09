@@ -43,6 +43,7 @@ namespace Biathlon.Simulation
         private readonly double[] matStops;
         private readonly ManualMatBrakingDefinition matBraking;
         private readonly DraftOutput[] drafts;
+        private readonly ManualSkiContactBody[] draftBodies;
         private readonly int[] ordinary,phases,held;
         private readonly int maximumIntervals;
         public string SteeringDefinitionJson {get;}
@@ -118,10 +119,11 @@ namespace Biathlon.Simulation
             pending=new SprintStepPreview[count];drives=new SkiDrivenContactTrajectory[count];
             candidates=new SkiWorldMotionCandidate[count];windows=new ManualScopedWorldWindow[count];
             grades=new double[count];matStops=new double[count];drafts=new DraftOutput[count];
+            draftBodies=new ManualSkiContactBody[count];
             ordinary=new int[count];phases=new int[count];held=new int[count];
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_scoped_field_stepper_v3_terminal_mat_braking","world_context_sha256:"+ManualContextIdentity.Sha256(world.ContextJson),
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_scoped_field_stepper_v4_achieved_world_draft","world_context_sha256:"+ManualContextIdentity.Sha256(world.ContextJson),
                 commit.ContextJson,drive.ContextJson,work.ToJson(),matBraking?.ToJson()??"terminal_mat_braking_not_selected",
-                "all_signed_intents;bounded_brake_fractions_validated_before_preparation;one_fixed_clock;owned_force_pieces;actual_contact_response;ordinary_and_paid_penalty_handoffs;stationary_firing_hold;explicit_terminal_mat_inverse_shared_force;prepared_physiology_paid_without_propulsion_bonus;abort_not_queue;no_resource_or_finish_fallback;drafting_unqualified"});
+                "all_signed_intents;bounded_brake_fractions_validated_before_preparation;one_fixed_clock;owned_force_pieces;actual_contact_response;ordinary_and_paid_penalty_handoffs;stationary_firing_hold;explicit_terminal_mat_inverse_shared_force;prepared_physiology_paid_without_propulsion_bonus;abort_not_queue;no_resource_or_finish_fallback;world_drafting_actual_positions_and_leader_velocity_axis;unchanged_pack_draft_definition;world_wind_from_observed_route_and_scalar_headwind;no_station_or_desired_line_wake"});
         }
 
         public bool TryStep(ReadOnlySpan<SprintAthleteInput> inputs,ReadOnlySpan<int> steeringInputs)
@@ -166,6 +168,24 @@ namespace Biathlon.Simulation
                     if(world.GetWorkingMotionPieceCount(tick)>=maximumIntervals)
                         return Report(ManualFieldStepStatus.MotionPieceLimit,tick);
                     double seconds=world.GetRemainingSeconds(tick);int heldCount=0;
+                    int draftCount=0;
+                    for(int i=0;i<field.Count;i++)
+                    {
+                        var actor=world.GetWorkingActor(tick,i);var cursor=world.GetWorkingCursor(tick,i);
+                        var row=cursor.Owner.Get(cursor.OccurrenceIndex);
+                        if(pending[i].MovementActive&&!(row.End==ManualRacePathEnd.FiringLine&&cursor.ObservedArcNanometers==row.LengthNanometers))
+                            draftBodies[draftCount++]=new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,physics.MassKilograms);
+                    }
+                    for(int i=0;i<field.Count;i++)
+                    {
+                        drafts[i]=default;if(!pending[i].MovementActive)continue;
+                        var actor=world.GetWorkingActor(tick,i);var cursor=world.GetWorkingCursor(tick,i);var row=cursor.Owner.Get(cursor.OccurrenceIndex);
+                        if(row.End==ManualRacePathEnd.FiringLine&&cursor.ObservedArcNanometers==row.LengthNanometers)continue;
+                        var body=new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,physics.MassKilograms);
+                        double wind=inputs[i].Ski.HeadwindMetersPerSecond;
+                        drafts[i]=field.EvaluateScopedWorldDraft(body,draftBodies.AsSpan(0,draftCount),cursor.Owner.SampleSurface(actor.Observation),
+                            -wind*actor.Observation.ForwardX,-wind*actor.Observation.ForwardZ);
+                    }
                     // This explicitly selected last strip may request neutral
                     // braking on the athlete's owned mat only. It removes no
                     // velocity or physiology cost and grants no course/phase
@@ -184,7 +204,9 @@ namespace Biathlon.Simulation
                         if(after<PhysiologyNumbers.MinimumPositive||after>PhysiologyNumbers.MaximumMagnitude)continue;
                         var body=new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,physics.MassKilograms);
                         var motion=new SkiContactMotion(actor.Velocity,actor.Pose.YawRateRadiansPerSecond);
-                        var input=Neutral(field.GetAthlete(i).GetPreparedManualMotionInput(pending[i],world,tick,i,0));
+                        double wind=inputs[i].Ski.HeadwindMetersPerSecond;
+                        var input=Neutral(field.GetAthlete(i).GetPreparedManualMotionInput(pending[i],world,tick,i,0,drafts[i].DragAreaMultiplier,
+                            windX:-wind*actor.Observation.ForwardX,windZ:-wind*actor.Observation.ForwardZ));
                         var preview=drive.PreviewStopping(body,motion,actor.Observation,cursor.Owner.SampleSurface(actor.Observation),input,
                             Math.Min(seconds,after),after);
                         if(!preview.WithinBrakingBudget)continue;
@@ -203,7 +225,9 @@ namespace Biathlon.Simulation
                         var surface=catalog.SampleSurface(actor.Observation);
                         if(pending[i].MovementActive&&!firing)
                         {
-                            var input=field.GetAthlete(i).GetPreparedManualMotionInput(pending[i],world,tick,i,steeringInputs[i]);
+                            double wind=inputs[i].Ski.HeadwindMetersPerSecond;
+                            var input=field.GetAthlete(i).GetPreparedManualMotionInput(pending[i],world,tick,i,steeringInputs[i],drafts[i].DragAreaMultiplier,
+                                windX:-wind*actor.Observation.ForwardX,windZ:-wind*actor.Observation.ForwardZ);
                             if(matStops[i]>0)drives[i]=drive.PreviewStopping(body,motion,actor.Observation,surface,Neutral(input),seconds,matStops[i]).Frame.Drive;
                             else
                             {
@@ -248,9 +272,8 @@ namespace Biathlon.Simulation
                     // pass by an actual stationary-body hold, never a paid wait.
                 }
                 if(!world.TryFinalizeTick(tick,out proof))return Report(ManualFieldStepStatus.WorldRejected,tick);
-                // Drafting must be supplied from achieved world bodies before
-                // production selection. The candidate pays the common forces
-                // with an explicitly unassisted (zero-draft) roster.
+                // Publish the wake used by the last owned force interval.
+                // Physiology and delivered propulsion receive no refund/bonus.
                 int pieces=world.GetProposedMotionPieceCount(proof);
                 commit.CommitPackField(field,inputs,pending,proof,drafts);
                 published=true;

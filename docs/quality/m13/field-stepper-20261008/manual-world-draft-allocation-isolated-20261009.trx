@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="b058cab4-a432-4ff4-88d7-7906d0b4489a" name="snkashkin@DESKTOP-G3075GA 2026-10-09 14:48:01" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T14:48:01.4714111+03:00" queuing="2026-10-09T14:48:01.4714112+03:00" start="2026-10-09T14:48:00.8566715+03:00" finish="2026-10-09T14:48:01.4744563+03:00" />
+  <TestSettings name="default" id="943a8685-7c98-49d8-a276-6243d1af2014">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_14_48_01" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="ac13cf94-c145-459a-8060-fb19a21d6e56" testId="3851935e-e4d3-d60a-2336-3141fbe1b198" testName="WarmWorldWakeIsAllocationFreeAndRejectsMalformedBodiesAndWind" computerName="DESKTOP-G3075GA" duration="00:00:00.0510340" startTime="2026-10-09T14:48:01.3287596+03:00" endTime="2026-10-09T14:48:01.3797649+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ac13cf94-c145-459a-8060-fb19a21d6e56">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: 0&#xD;
+  But was:  24&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualAchievedDraftTests.WarmWorldWakeIsAllocationFreeAndRejectsMalformedBodiesAndWind() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAchievedDraftTests.cs:line 54&#xD;
+
+1)    at Biathlon.Tests.ManualAchievedDraftTests.WarmWorldWakeIsAllocationFreeAndRejectsMalformedBodiesAndWind() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAchievedDraftTests.cs:line 54&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="WarmWorldWakeIsAllocationFreeAndRejectsMalformedBodiesAndWind" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="3851935e-e4d3-d60a-2336-3141fbe1b198">
+      <Execution id="ac13cf94-c145-459a-8060-fb19a21d6e56" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAchievedDraftTests" name="WarmWorldWakeIsAllocationFreeAndRejectsMalformedBodiesAndWind" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="3851935e-e4d3-d60a-2336-3141fbe1b198" executionId="ac13cf94-c145-459a-8060-fb19a21d6e56" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

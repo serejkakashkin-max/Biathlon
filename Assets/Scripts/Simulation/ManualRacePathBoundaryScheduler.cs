@@ -20,7 +20,7 @@ namespace Biathlon.Simulation
     {
         private readonly ManualRacePathCatalog catalog;
         private readonly ManualRacePathGateSweep gates;
-        public const string Policy="scoped_boundary_quadratic_root_v2_shared_portals;actual_centre_plane;shared_ordinary_bisector_chart;race_phase_gate_planes_unchanged;exact_frozen_prefix;no_endpoint_chord_fit;whole_prefix_portal_proof;strict_no_touch_clearance_for_event_free_intervals;actual_nanorounded_station;stationary_firing_whole_paid_stop_v1_with_continuous_gate_proof;no_clock_roundup";
+        public const string Policy="scoped_boundary_original_force_piece_roots_v3;actual_centre_plane;shared_ordinary_bisector_chart;race_phase_gate_planes_unchanged;exact_frozen_prefix;original_stop_cap_restart_calendar;no_endpoint_chord_fit;whole_prefix_portal_proof;strict_no_touch_clearance_for_event_free_intervals;actual_nanorounded_station;stationary_firing_whole_paid_stop_v1_with_continuous_gate_proof;no_clock_roundup";
         public ManualRacePathBoundaryScheduler(ManualRacePathCatalog catalog,SkiContactSweepDefinition work)
         {this.catalog=catalog??throw new ArgumentNullException(nameof(catalog));gates=new ManualRacePathGateSweep(catalog,work);}
         public ManualRacePathBoundaryPreview Preview(ManualSkiWorldTrajectory trajectory,ManualScopedWorldWindow window)
@@ -54,6 +54,23 @@ namespace Biathlon.Simulation
             }
             if(!trajectory.TryGetConstantPlanarAcceleration(out var acceleration))
             {
+                for(int i=0;trajectory.TryGetDrivenForceInterval(i,out double from,out double to);i++)
+                {
+                    var piece=trajectory.Slice(from,to);
+                    if(!piece.TryGetConstantPlanarAcceleration(out var pieceAcceleration))
+                        return new ManualRacePathBoundaryPreview(ManualRacePathBoundaryStatus.UnsupportedTrajectory,from,arc);
+                    var start=piece.Sample(0);var motion=piece.VelocityAt(0);
+                    double v=motion.X*boundary.ForwardX+motion.Z*boundary.ForwardZ;
+                    double force=.5*(pieceAcceleration.X*boundary.ForwardX+pieceAcceleration.Z*boundary.ForwardZ);
+                    if(!TryRoot(force,v,Extension(start,boundary),piece.DurationSeconds,out double local))continue;
+                    double time=from+local;
+                    if(time==0)return new ManualRacePathBoundaryPreview(ManualRacePathBoundaryStatus.Blocked,0,arc);
+                    var piecePrefix=time==seconds?trajectory:trajectory.Slice(0,time);
+                    var pieceAdmission=gates.Preview(piecePrefix,row.Index,window.PreviousArcNanometers,window.MaximumArcDisplacementMeters,arc);
+                    if(pieceAdmission.Status!=ManualRacePathGateStatus.Clear||!AtStation(piecePrefix.Sample(1),window,arc))
+                        return new ManualRacePathBoundaryPreview(ManualRacePathBoundaryStatus.Blocked,time,arc,pieceAdmission);
+                    return new ManualRacePathBoundaryPreview(ManualRacePathBoundaryStatus.Boundary,time,arc,pieceAdmission);
+                }
                 var whole=Whole(trajectory,window,true);
                 return whole.Status==ManualRacePathBoundaryStatus.Clear?whole:
                     new ManualRacePathBoundaryPreview(ManualRacePathBoundaryStatus.UnsupportedTrajectory,whole.Seconds,arc,whole.Admission);

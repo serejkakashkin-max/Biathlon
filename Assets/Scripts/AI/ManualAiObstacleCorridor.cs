@@ -13,6 +13,17 @@ namespace Biathlon.AI
         public ManualAiObstacleCorridor(OccupancyDefinition body)
             =>this.body=body??throw new ArgumentNullException(nameof(body));
 
+        /// <summary>Braking intent for an already forecast moving obstruction.
+        /// Match its achieved forward velocity over the existing response time;
+        /// the shared force solver still owns the actual acceleration and cost.</summary>
+        public double ClosingBrakeFraction(SkiPlanarVelocity velocity,SkiPlanarVelocity otherVelocity,
+            double forwardX,double forwardZ,CorneringDefinition corners,ManualAiSteeringDefinition policy)
+        {
+            if(corners==null||policy==null)throw new ArgumentNullException();
+            double closing=(velocity.X-otherVelocity.X)*forwardX+(velocity.Z-otherVelocity.Z)*forwardZ;
+            return Math.Max(0,Math.Min(1,closing/(corners.MaximumBraking*policy.HeadingResponseSeconds)));
+        }
+
         /// <summary>Constant achieved-velocity forecast for two complete rotated
         /// bodies. This is an AI planning warning, not physical contact admission.
         /// All four separating axes must have overlapping time intervals.</summary>

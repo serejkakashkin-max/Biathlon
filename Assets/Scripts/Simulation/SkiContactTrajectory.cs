@@ -118,9 +118,30 @@ namespace Biathlon.Simulation
             }
             // The first piece is known from the force model, not inferred from
             // a small difference between two arbitrary samples of that model.
-            if(!driven.IsValid||toSeconds>driven.ConstantAccelerationSeconds)return false;
-            var start=VelocityAt(0);var end=VelocityAt(1);
-            acceleration=new SkiPlanarVelocity((end.X-start.X)/DurationSeconds,(end.Z-start.Z)/DurationSeconds);return true;
+            if(!driven.IsValid)return false;
+            for(int i=0;driven.TryGetAccelerationPiece(i,out double from,out double to,out _);i++)
+                if(fromSeconds>=from&&toSeconds<=to)
+                {
+                    var start=VelocityAt(0);var end=VelocityAt(1);
+                    acceleration=new SkiPlanarVelocity((end.X-start.X)/DurationSeconds,(end.Z-start.Z)/DurationSeconds);return true;
+                }
+            return false;
+        }
+        /// <summary>Actual frozen drive stop/cap/restart intervals intersecting
+        /// this slice. These come from the original force calendar, never from
+        /// fitting a chord to arbitrary position samples.</summary>
+        internal bool TryGetDrivenForceInterval(int index,out double from,out double to)
+        {
+            from=to=0;if(index<0)throw new ArgumentOutOfRangeException(nameof(index));
+            if(!driven.IsValid)return false;
+            int selected=0;
+            for(int i=0;driven.TryGetAccelerationPiece(i,out double begin,out double end,out _);i++)
+            {
+                double a=Math.Max(fromSeconds,begin),b=Math.Min(toSeconds,end);
+                if(b<=a)continue;
+                if(selected++==index){from=a-fromSeconds;to=b==toSeconds?DurationSeconds:b-fromSeconds;return true;}
+            }
+            return false;
         }
         public bool TryGetConstantAngularAcceleration(out double acceleration)
         {

@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="23dcaac8-89df-4b4f-b250-a74c24e4dc58" name="snkashkin@DESKTOP-G3075GA 2026-10-09 14:50:01" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T14:50:01.0956120+03:00" queuing="2026-10-09T14:50:01.0956121+03:00" start="2026-10-09T14:49:59.2845781+03:00" finish="2026-10-09T14:50:04.1804837+03:00" />
+  <TestSettings name="default" id="85c72d02-d49a-4ff3-964f-9be7f191e020">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_14_50_01" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="7e59bd42-04cf-4829-bbb1-92c7fcb19d64" testId="af690ea1-f24c-d832-686d-01b28793b361" testName="ActualWorldWindShiftsTheWakeAndRetainsStableLeaderTies" computerName="DESKTOP-G3075GA" duration="00:00:00.0028930" startTime="2026-10-09T14:49:59.8143078+03:00" endTime="2026-10-09T14:49:59.8172010+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7e59bd42-04cf-4829-bbb1-92c7fcb19d64" />
+    <UnitTestResult executionId="f0b1b407-d964-4bae-ab6f-3ae38cc18772" testId="3851935e-e4d3-d60a-2336-3141fbe1b198" testName="WarmWorldWakeIsAllocationFreeAndRejectsMalformedBodiesAndWind" computerName="DESKTOP-G3075GA" duration="00:00:00.0036510" startTime="2026-10-09T14:50:03.9939274+03:00" endTime="2026-10-09T14:50:03.9975785+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f0b1b407-d964-4bae-ab6f-3ae38cc18772" />
+    <UnitTestResult executionId="6555ae15-8529-4e6c-b6bd-d6d0aa8232d3" testId="d3c1accf-8718-1d9d-a092-7b0dc4955c1e" testName="SharedManualFieldPublishesDraftFromItsActualMovingWorldBodies" computerName="DESKTOP-G3075GA" duration="00:00:04.1649079" startTime="2026-10-09T14:49:59.8290199+03:00" endTime="2026-10-09T14:50:03.9938708+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6555ae15-8529-4e6c-b6bd-d6d0aa8232d3">
+      <Output>
+        <StdOut>[DEBUG-draft-grid] i=0 x=138.58330919 z=-6.691783639 vx=0.34827690063085254 vz=-7.143278639208115E-11 allow=True loop=main&#xD;
+[DEBUG-draft-grid] i=1 x=138.58330919 z=-8.691783639 vx=0.34827690063085254 vz=-7.143278639208115E-11 allow=True loop=main&#xD;
+[DEBUG-draft-grid] i=2 x=138.58330919 z=-10.691783639 vx=0.34827690063085254 vz=-7.143278639208115E-11 allow=True loop=main&#xD;
+[DEBUG-draft-grid] i=3 x=135.878877136 z=-6.620777997 vx=0.3455940692678652 vz=-0.03793468548850319 allow=False loop=start_approach&#xD;
+[DEBUG-draft-grid] i=4 x=135.585418923 z=-8.59900368 vx=0.345644201970566 vz=-0.03689410006771078 allow=False loop=start_approach&#xD;
+[DEBUG-draft-grid] i=5 x=135.291961556 z=-10.577201247 vx=0.34564658232871287 vz=-0.036335718967524945 allow=False loop=start_approach</StdOut>
+        <ErrorInfo>
+          <Message>  Moving followers in the unchanged grid must receive their achieved aerodynamic wake.&#xD;
+  Expected: True&#xD;
+  But was:  False&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualAchievedDraftTests.SharedManualFieldPublishesDraftFromItsActualMovingWorldBodies() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAchievedDraftTests.cs:line 64&#xD;
+
+1)    at Biathlon.Tests.ManualAchievedDraftTests.SharedManualFieldPublishesDraftFromItsActualMovingWorldBodies() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAchievedDraftTests.cs:line 64&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7019f730-b2c6-4a45-94dd-bfe2ceb1f28b" testId="576aba79-bec1-39c1-df7a-b1bbea83ec1a" testName="RealSidewaysMotionAndOpposingTrafficCannotUseAFictitiousRouteWake" computerName="DESKTOP-G3075GA" duration="00:00:00.0117880" startTime="2026-10-09T14:49:59.8172147+03:00" endTime="2026-10-09T14:49:59.8290023+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7019f730-b2c6-4a45-94dd-bfe2ceb1f28b" />
+    <UnitTestResult executionId="3c77b345-381a-4d50-af7c-8147b3bf5bd1" testId="73072e4e-f545-b8d0-4bce-d2beb6689a69" testName="AchievedWorldWakeMatchesExistingStraightDraftLaw" computerName="DESKTOP-G3075GA" duration="00:00:00.0411390" startTime="2026-10-09T14:49:59.7725856+03:00" endTime="2026-10-09T14:49:59.8136964+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3c77b345-381a-4d50-af7c-8147b3bf5bd1" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="RealSidewaysMotionAndOpposingTrafficCannotUseAFictitiousRouteWake" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="576aba79-bec1-39c1-df7a-b1bbea83ec1a">
+      <Execution id="7019f730-b2c6-4a45-94dd-bfe2ceb1f28b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAchievedDraftTests" name="RealSidewaysMotionAndOpposingTrafficCannotUseAFictitiousRouteWake" />
+    </UnitTest>
+    <UnitTest name="WarmWorldWakeIsAllocationFreeAndRejectsMalformedBodiesAndWind" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="3851935e-e4d3-d60a-2336-3141fbe1b198">
+      <Execution id="f0b1b407-d964-4bae-ab6f-3ae38cc18772" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAchievedDraftTests" name="WarmWorldWakeIsAllocationFreeAndRejectsMalformedBodiesAndWind" />
+    </UnitTest>
+    <UnitTest name="AchievedWorldWakeMatchesExistingStraightDraftLaw" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="73072e4e-f545-b8d0-4bce-d2beb6689a69">
+      <Execution id="3c77b345-381a-4d50-af7c-8147b3bf5bd1" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAchievedDraftTests" name="AchievedWorldWakeMatchesExistingStraightDraftLaw" />
+    </UnitTest>
+    <UnitTest name="ActualWorldWindShiftsTheWakeAndRetainsStableLeaderTies" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="af690ea1-f24c-d832-686d-01b28793b361">
+      <Execution id="7e59bd42-04cf-4829-bbb1-92c7fcb19d64" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAchievedDraftTests" name="ActualWorldWindShiftsTheWakeAndRetainsStableLeaderTies" />
+    </UnitTest>
+    <UnitTest name="SharedManualFieldPublishesDraftFromItsActualMovingWorldBodies" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="d3c1accf-8718-1d9d-a092-7b0dc4955c1e">
+      <Execution id="6555ae15-8529-4e6c-b6bd-d6d0aa8232d3" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAchievedDraftTests" name="SharedManualFieldPublishesDraftFromItsActualMovingWorldBodies" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="af690ea1-f24c-d832-686d-01b28793b361" executionId="7e59bd42-04cf-4829-bbb1-92c7fcb19d64" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3851935e-e4d3-d60a-2336-3141fbe1b198" executionId="f0b1b407-d964-4bae-ab6f-3ae38cc18772" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d3c1accf-8718-1d9d-a092-7b0dc4955c1e" executionId="6555ae15-8529-4e6c-b6bd-d6d0aa8232d3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="576aba79-bec1-39c1-df7a-b1bbea83ec1a" executionId="7019f730-b2c6-4a45-94dd-bfe2ceb1f28b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="73072e4e-f545-b8d0-4bce-d2beb6689a69" executionId="3c77b345-381a-4d50-af7c-8147b3bf5bd1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="5" executed="5" passed="4" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 5 of 5 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+[DEBUG-draft-grid] i=0 x=138.58330919 z=-6.691783639 vx=0.34827690063085254 vz=-7.143278639208115E-11 allow=True loop=main&#xD;
+[DEBUG-draft-grid] i=1 x=138.58330919 z=-8.691783639 vx=0.34827690063085254 vz=-7.143278639208115E-11 allow=True loop=main&#xD;
+[DEBUG-draft-grid] i=2 x=138.58330919 z=-10.691783639 vx=0.34827690063085254 vz=-7.143278639208115E-11 allow=True loop=main&#xD;
+[DEBUG-draft-grid] i=3 x=135.878877136 z=-6.620777997 vx=0.3455940692678652 vz=-0.03793468548850319 allow=False loop=start_approach&#xD;
+[DEBUG-draft-grid] i=4 x=135.585418923 z=-8.59900368 vx=0.345644201970566 vz=-0.03689410006771078 allow=False loop=start_approach&#xD;
+[DEBUG-draft-grid] i=5 x=135.291961556 z=-10.577201247 vx=0.34564658232871287 vz=-0.036335718967524945 allow=False loop=start_approach&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

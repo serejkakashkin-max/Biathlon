@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f3649c58-7891-4409-adfc-0ae08729e2d5" name="snkashkin@DESKTOP-G3075GA 2026-10-09 14:46:56" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T14:46:56.8862424+03:00" queuing="2026-10-09T14:46:56.8862425+03:00" start="2026-10-09T14:46:55.0546299+03:00" finish="2026-10-09T14:47:00.0474290+03:00" />
+  <TestSettings name="default" id="3c06567a-f587-4d62-8c3a-07033ccc1b9c">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_14_46_56" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="36e73fc7-1f85-463f-bb4c-e92022adf35a" testId="3851935e-e4d3-d60a-2336-3141fbe1b198" testName="WarmWorldWakeIsAllocationFreeAndRejectsMalformedBodiesAndWind" computerName="DESKTOP-G3075GA" duration="00:00:00.0033440" startTime="2026-10-09T14:46:59.8617458+03:00" endTime="2026-10-09T14:46:59.8650897+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="36e73fc7-1f85-463f-bb4c-e92022adf35a">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: 0&#xD;
+  But was:  24&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualAchievedDraftTests.WarmWorldWakeIsAllocationFreeAndRejectsMalformedBodiesAndWind() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAchievedDraftTests.cs:line 54&#xD;
+
+1)    at Biathlon.Tests.ManualAchievedDraftTests.WarmWorldWakeIsAllocationFreeAndRejectsMalformedBodiesAndWind() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAchievedDraftTests.cs:line 54&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c5661add-3a63-444c-b5d4-5c0e0446f8ca" testId="57727a1e-898f-677e-ad0e-5fcf63d86c08" testName="ReducedDragSavesMechanicalPowerWithoutRefundingPhysiology" computerName="DESKTOP-G3075GA" duration="00:00:00.0049660" startTime="2026-10-09T14:46:55.6905321+03:00" endTime="2026-10-09T14:46:55.6954979+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c5661add-3a63-444c-b5d4-5c0e0446f8ca" />
+    <UnitTestResult executionId="d821e791-3830-4afd-be75-7d95fdea94c1" testId="d3c1accf-8718-1d9d-a092-7b0dc4955c1e" testName="SharedManualFieldPublishesDraftFromItsActualMovingWorldBodies" computerName="DESKTOP-G3075GA" duration="00:00:04.1569510" startTime="2026-10-09T14:46:55.7047871+03:00" endTime="2026-10-09T14:46:59.8616815+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d821e791-3830-4afd-be75-7d95fdea94c1">
+      <Output>
+        <ErrorInfo>
+          <Message>  Moving followers in the unchanged grid must receive their achieved aerodynamic wake.&#xD;
+  Expected: True&#xD;
+  But was:  False&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualAchievedDraftTests.SharedManualFieldPublishesDraftFromItsActualMovingWorldBodies() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAchievedDraftTests.cs:line 59&#xD;
+
+1)    at Biathlon.Tests.ManualAchievedDraftTests.SharedManualFieldPublishesDraftFromItsActualMovingWorldBodies() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAchievedDraftTests.cs:line 59&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1117e862-18e3-48d4-a457-b9d27e747e32" testId="73072e4e-f545-b8d0-4bce-d2beb6689a69" testName="AchievedWorldWakeMatchesExistingStraightDraftLaw" computerName="DESKTOP-G3075GA" duration="00:00:00.0029390" startTime="2026-10-09T14:46:55.6982506+03:00" endTime="2026-10-09T14:46:55.7011891+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1117e862-18e3-48d4-a457-b9d27e747e32" />
+    <UnitTestResult executionId="11a9d76a-5c4a-4d35-b76f-4ebec0ba6195" testId="8c327060-085f-a18e-693e-f6a016e1e133" testName="FieldRespectsAheadGapLateralCorridorAndPermission" computerName="DESKTOP-G3075GA" duration="00:00:00.0101190" startTime="2026-10-09T14:46:55.6774283+03:00" endTime="2026-10-09T14:46:55.6875469+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="11a9d76a-5c4a-4d35-b76f-4ebec0ba6195" />
+    <UnitTestResult executionId="4b9d2795-6575-4758-9f80-d929f797e840" testId="3fcefd9a-43a0-df0b-625a-88836a02ad1e" testName="DenseFieldIsAllocationFreeAndMalformedInputFails" computerName="DESKTOP-G3075GA" duration="00:00:00.0571660" startTime="2026-10-09T14:46:55.6197331+03:00" endTime="2026-10-09T14:46:55.6768713+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4b9d2795-6575-4758-9f80-d929f797e840" />
+    <UnitTestResult executionId="a2164b82-0541-48e7-9123-30acba751cee" testId="576aba79-bec1-39c1-df7a-b1bbea83ec1a" testName="RealSidewaysMotionAndOpposingTrafficCannotUseAFictitiousRouteWake" computerName="DESKTOP-G3075GA" duration="00:00:00.0018100" startTime="2026-10-09T14:46:55.7029649+03:00" endTime="2026-10-09T14:46:55.7047742+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a2164b82-0541-48e7-9123-30acba751cee" />
+    <UnitTestResult executionId="e2fd9671-cd49-4184-bea3-6d50460b2d06" testId="0bfdeea3-d72a-9024-e48a-bc95e1212c69" testName="SlowClimbAndCrosswindReduceDraftWhileHeadwindIncreasesIt" computerName="DESKTOP-G3075GA" duration="00:00:00.0017970" startTime="2026-10-09T14:46:55.6955127+03:00" endTime="2026-10-09T14:46:55.6973090+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e2fd9671-cd49-4184-bea3-6d50460b2d06" />
+    <UnitTestResult executionId="97e49602-e93f-49b5-bae8-4aca31e6a367" testId="9527ba18-2093-efb1-569b-e3190c6bc733" testName="LeaderOrderAndDuplicatesDoNotStackAndTiesUseStableId" computerName="DESKTOP-G3075GA" duration="00:00:00.0029530" startTime="2026-10-09T14:46:55.6875640+03:00" endTime="2026-10-09T14:46:55.6905165+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="97e49602-e93f-49b5-bae8-4aca31e6a367" />
+    <UnitTestResult executionId="8334eb83-1450-4fc9-af70-610820893089" testId="af690ea1-f24c-d832-686d-01b28793b361" testName="ActualWorldWindShiftsTheWakeAndRetainsStableLeaderTies" computerName="DESKTOP-G3075GA" duration="00:00:00.0017500" startTime="2026-10-09T14:46:55.7012023+03:00" endTime="2026-10-09T14:46:55.7029521+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8334eb83-1450-4fc9-af70-610820893089" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="RealSidewaysMotionAndOpposingTrafficCannotUseAFictitiousRouteWake" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="576aba79-bec1-39c1-df7a-b1bbea83ec1a">
+      <Execution id="a2164b82-0541-48e7-9123-30acba751cee" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAchievedDraftTests" name="RealSidewaysMotionAndOpposingTrafficCannotUseAFictitiousRouteWake" />
+    </UnitTest>
+    <UnitTest name="FieldRespectsAheadGapLateralCorridorAndPermission" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="8c327060-085f-a18e-693e-f6a016e1e133">
+      <Execution id="11a9d76a-5c4a-4d35-b76f-4ebec0ba6195" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DraftingTests" name="FieldRespectsAheadGapLateralCorridorAndPermission" />
+    </UnitTest>
+    <UnitTest name="WarmWorldWakeIsAllocationFreeAndRejectsMalformedBodiesAndWind" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="3851935e-e4d3-d60a-2336-3141fbe1b198">
+      <Execution id="36e73fc7-1f85-463f-bb4c-e92022adf35a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAchievedDraftTests" name="WarmWorldWakeIsAllocationFreeAndRejectsMalformedBodiesAndWind" />
+    </UnitTest>
+    <UnitTest name="SlowClimbAndCrosswindReduceDraftWhileHeadwindIncreasesIt" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="0bfdeea3-d72a-9024-e48a-bc95e1212c69">
+      <Execution id="e2fd9671-cd49-4184-bea3-6d50460b2d06" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DraftingTests" name="SlowClimbAndCrosswindReduceDraftWhileHeadwindIncreasesIt" />
+    </UnitTest>
+    <UnitTest name="ReducedDragSavesMechanicalPowerWithoutRefundingPhysiology" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="57727a1e-898f-677e-ad0e-5fcf63d86c08">
+      <Execution id="c5661add-3a63-444c-b5d4-5c0e0446f8ca" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DraftingTests" name="ReducedDragSavesMechanicalPowerWithoutRefundingPhysiology" />
+    </UnitTest>
+    <UnitTest name="AchievedWorldWakeMatchesExistingStraightDraftLaw" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="73072e4e-f545-b8d0-4bce-d2beb6689a69">
+      <Execution id="1117e862-18e3-48d4-a457-b9d27e747e32" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAchievedDraftTests" name="AchievedWorldWakeMatchesExistingStraightDraftLaw" />
+    </UnitTest>
+    <UnitTest name="ActualWorldWindShiftsTheWakeAndRetainsStableLeaderTies" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="af690ea1-f24c-d832-686d-01b28793b361">
+      <Execution id="8334eb83-1450-4fc9-af70-610820893089" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAchievedDraftTests" name="ActualWorldWindShiftsTheWakeAndRetainsStableLeaderTies" />
+    </UnitTest>
+    <UnitTest name="SharedManualFieldPublishesDraftFromItsActualMovingWorldBodies" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="d3c1accf-8718-1d9d-a092-7b0dc4955c1e">
+      <Execution id="d821e791-3830-4afd-be75-7d95fdea94c1" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAchievedDraftTests" name="SharedManualFieldPublishesDraftFromItsActualMovingWorldBodies" />
+    </UnitTest>
+    <UnitTest name="LeaderOrderAndDuplicatesDoNotStackAndTiesUseStableId" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="9527ba18-2093-efb1-569b-e3190c6bc733">
+      <Execution id="97e49602-e93f-49b5-bae8-4aca31e6a367" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DraftingTests" name="LeaderOrderAndDuplicatesDoNotStackAndTiesUseStableId" />
+    </UnitTest>
+    <UnitTest name="DenseFieldIsAllocationFreeAndMalformedInputFails" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="3fcefd9a-43a0-df0b-625a-88836a02ad1e">
+      <Execution id="4b9d2795-6575-4758-9f80-d929f797e840" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DraftingTests" name="DenseFieldIsAllocationFreeAndMalformedInputFails" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="3851935e-e4d3-d60a-2336-3141fbe1b198" executionId="36e73fc7-1f85-463f-bb4c-e92022adf35a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="57727a1e-898f-677e-ad0e-5fcf63d86c08" executionId="c5661add-3a63-444c-b5d4-5c0e0446f8ca" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d3c1accf-8718-1d9d-a092-7b0dc4955c1e" executionId="d821e791-3830-4afd-be75-7d95fdea94c1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="73072e4e-f545-b8d0-4bce-d2beb6689a69" executionId="1117e862-18e3-48d4-a457-b9d27e747e32" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8c327060-085f-a18e-693e-f6a016e1e133" executionId="11a9d76a-5c4a-4d35-b76f-4ebec0ba6195" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3fcefd9a-43a0-df0b-625a-88836a02ad1e" executionId="4b9d2795-6575-4758-9f80-d929f797e840" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="576aba79-bec1-39c1-df7a-b1bbea83ec1a" executionId="a2164b82-0541-48e7-9123-30acba751cee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0bfdeea3-d72a-9024-e48a-bc95e1212c69" executionId="e2fd9671-cd49-4184-bea3-6d50460b2d06" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9527ba18-2093-efb1-569b-e3190c6bc733" executionId="97e49602-e93f-49b5-bae8-4aca31e6a367" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="af690ea1-f24c-d832-686d-01b28793b361" executionId="8334eb83-1450-4fc9-af70-610820893089" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="10" executed="10" passed="8" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 10 of 10 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

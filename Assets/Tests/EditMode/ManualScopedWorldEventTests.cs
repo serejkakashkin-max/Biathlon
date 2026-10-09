@@ -169,7 +169,7 @@ namespace Biathlon.Tests
             Assert.That(prefix.Sample(1),Is.EqualTo(root.Sample(preview.Seconds/.05)));Assert.That(prefix.TryGetConstantPlanarAcceleration(out var actual),Is.True);
             Assert.That(actual.X,Is.EqualTo(output[0].Acceleration.X));Assert.That(actual.Z,Is.EqualTo(output[0].Acceleration.Z));
         }
-        [Test] public void AForceBreakpointMustBeSplitBeforePolynomialBoundarySearch()
+        [Test] public void OriginalForceBreakpointsAreSplitBeforePolynomialBoundarySearch()
         {
             var f=new ManualRacePathCatalogTests.Fixture();var pose=f.At(1,10*N);double h=pose.HeadingRadians;
             var velocity=new SkiPlanarVelocity(2*Math.Sin(h),2*Math.Cos(h));var body=new ManualSkiContactBody(new AthleteId("braking"),pose,velocity,75);
@@ -177,9 +177,13 @@ namespace Biathlon.Tests
             var drive=new ManualSkiContactDriveSystem(SkiForceTests.Definition(),f.Venue.Occupancy,20).Preview(body,new SkiContactMotion(velocity,0),at,f.Catalog.SampleSurface(at),0,0,0,.05,brakingNewtons:100000);
             var root=new ManualSkiWorldTrajectory(drive);Assert.That(drive.ConstantAccelerationSeconds,Is.InRange(.00001,.049));Assert.That(root.TryGetConstantPlanarAcceleration(out _),Is.False);
             var window=new ManualScopedWorldWindow(body.Athlete,1,10*N,1,10*N+100000);var scheduler=new ManualRacePathBoundaryScheduler(f.Catalog,Work());
-            Assert.That(scheduler.Preview(root,window).Status,Is.EqualTo(ManualRacePathBoundaryStatus.UnsupportedTrajectory));
+            var whole=scheduler.Preview(root,window);
+            Assert.That(whole.Status,Is.EqualTo(ManualRacePathBoundaryStatus.Boundary));
             var piece=root.Slice(0,drive.ConstantAccelerationSeconds);Assert.That(piece.TryGetConstantPlanarAcceleration(out _),Is.True);
             var boundary=scheduler.Preview(piece,window);Assert.That(boundary.Status,Is.EqualTo(ManualRacePathBoundaryStatus.Boundary));Assert.That(boundary.Seconds,Is.LessThan(drive.ConstantAccelerationSeconds));
+            Assert.That(whole.Seconds,Is.EqualTo(boundary.Seconds));
+            Assert.That(root.Sample(whole.Seconds/root.DurationSeconds),Is.EqualTo(piece.Sample(boundary.Seconds/piece.DurationSeconds)));
+            Assert.That(root.Slice(0,whole.Seconds).VelocityAt(0),Is.EqualTo(velocity));
         }
         [Test] public void CurvedCommandedHeadingIsNotFittedToAFalseConstantAccelerationChord()
         {

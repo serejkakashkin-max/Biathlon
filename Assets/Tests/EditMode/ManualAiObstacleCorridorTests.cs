@@ -14,6 +14,17 @@ namespace Biathlon.Tests
         private static ManualSkiHeadingState Mat()=>new ManualSkiHeadingState(37.505951752,-.819570848,5.608743611);
         private static SkiPlanarVelocity Motion()=>new SkiPlanarVelocity(4.758086687814439,.5362074706213164);
 
+        [TestCase(5,3,.5)][TestCase(3,5,0)][TestCase(3,3,0)][TestCase(20,1,1)]
+        public void MovingRangeClosingBrakeUsesTheSharedPhysicalCapAndResponse(double own,double other,double expected)
+        {
+            var model=new SkiModelDefinitions(PhysiologyContractTests.DefinitionJson);
+            var policy=ManualAiSteeringDefinition.FromJson("{\"schema_version\":1,\"id\":\"closing_test\",\"lookahead_base_m\":1,\"lookahead_speed_seconds\":1,\"lookahead_max_m\":5,\"heading_response_seconds\":1,\"yaw_rate_feedback\":1}");
+            var query=Create();
+            Assert.That(model.Cornering.MaximumBraking,Is.EqualTo(4));
+            Assert.That(query.ClosingBrakeFraction(new SkiPlanarVelocity(own,7),new SkiPlanarVelocity(other,-5),1,0,model.Cornering,policy),Is.EqualTo(expected));
+            Assert.That(query.ClosingBrakeFraction(new SkiPlanarVelocity(7,own),new SkiPlanarVelocity(-5,other),0,1,model.Cornering,policy),Is.EqualTo(expected));
+        }
+
         [Test] public void TwoMovingMatNeighboursAreForecastFromTheirRelativeAchievedMotion()
         {
             var query=Create();
