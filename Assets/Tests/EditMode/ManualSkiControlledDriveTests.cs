@@ -130,6 +130,29 @@ namespace Biathlon.Tests
             internal ManualSkiControlledDriveFrame Preview(ManualSkiContactBody body,int steering=1000,double power=350,double seconds=.05)
                 =>System.Preview(body,Motion(body),Observation,Surface,new ManualSkiMotionInput(steering,power,100,100),seconds);
         }
+        [TestCase(.37)][TestCase(1.57)][TestCase(4.7)]
+        public void FullyPaidNeutralStopReachesPhysicalRestAtArbitraryHeading(double heading)
+        {
+            var f=new Fixture();var b=Actor(.1,.0001,.0001,heading);
+            var result=f.System.Preview(b,Motion(b),f.Observation,f.Surface,
+                new ManualSkiMotionInput(0,0,100,100,brakeFraction:1),.05);
+            Assert.That(result.Drive.FirstDrive.SpeedAt(.05),Is.Zero);
+            Assert.That(result.SteeredSnow.AngularResponseScale,Is.EqualTo(1));
+            Assert.That(result.Drive.MotionAt(0),Is.EqualTo(Motion(b)),"No initial velocity can be reset.");
+            var end=result.Drive.MotionAt(1);
+            Assert.That(end.Velocity.X,Is.Zero);Assert.That(end.Velocity.Z,Is.Zero);Assert.That(end.YawRate,Is.Zero);
+            Assert.That(result.Drive.State.X!=b.Pose.X||result.Drive.State.Z!=b.Pose.Z,Is.True,"The stop must pay real travel.");
+        }
+        [Test] public void ALongitudinalStopCannotEraseUnresolvedSideSlipOrSpin()
+        {
+            var f=new Fixture();var b=Actor(.1,.01,.01,.37);
+            var result=f.System.Preview(b,Motion(b),f.Observation,f.Surface,
+                new ManualSkiMotionInput(0,0,100,100,gripMultiplier:.000001,brakeFraction:1),.05);
+            Assert.That(result.Drive.FirstDrive.SpeedAt(.05),Is.Zero);
+            var end=result.Drive.MotionAt(1);
+            Assert.That(end.Velocity.X*end.Velocity.X+end.Velocity.Z*end.Velocity.Z,Is.GreaterThan(0));
+            Assert.That(end.YawRate,Is.GreaterThan(0));
+        }
         [Test] public void SharedDriveRetainsItsRawSourceForceMeaningAndFrozenPrefix()
         {
             var f=new Fixture();var b=f.Body(.8,3);var result=f.Preview(b);var root=new ManualSkiWorldTrajectory(result.Drive);
@@ -342,7 +365,7 @@ namespace Biathlon.Tests
             Assert.Catch(()=>system.Preview(b,Motion(b),0,-1,.05));Assert.Catch(()=>system.Preview(b,Motion(b),0,4,0));
             Assert.Catch(()=>system.Preview(b,Motion(b),0,4,.051));Assert.Catch(()=>system.Preview(b,Motion(b),0,4,.05,1.1));
             var f=new Fixture();Assert.Catch(()=>f.System.Preview(f.Body(),Motion(f.Body()),f.Observation,f.Surface,default,.05));
-            Assert.That(system.ContextJson,Does.Contain("manual_steered_snow_constraint_v1"));
+            Assert.That(system.ContextJson,Does.Contain("manual_steered_snow_constraint_v2_exact_neutral_constraint"));
             Assert.That(f.System.ContextJson,Does.Contain("manual_controlled_slip_drive_v3_explicit_braking"));
             Assert.That(f.System.ContextJson,Does.Contain("explicit_brake_fraction_uses_same_force_cap"));
         }

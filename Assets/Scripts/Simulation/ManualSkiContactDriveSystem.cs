@@ -17,7 +17,7 @@ namespace Biathlon.Simulation
         {
             this.physics=physics??throw new ArgumentNullException(nameof(physics));
             forces=new SkiForceSystem(physics,frequency);snow=new ManualSkiSnowContactSystem(body,frequency);duration=1.0/frequency;
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_contact_longitudinal_drive_v1",physics.ToJson(),snow.TrajectoryContextJson,
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_contact_longitudinal_drive_v2_exact_endpoint",physics.ToJson(),snow.TrajectoryContextJson,
                 "frozen_ski_axis;forward_work_speed;shared_force_stop_cap;backward_propulsion_is_braking;paid_restart_at_physical_zero;passive_slip_spin;no_new_steering_or_admission"});
         }
         public SkiDrivenContactTrajectory Preview(ManualSkiContactBody body,SkiContactMotion motion,
@@ -152,6 +152,9 @@ namespace Biathlon.Simulation
         {
             Validate(fraction);if(fraction==0)return InitialMotion;
             double change=ForwardSpeed(DurationSeconds*fraction)-initialForward;
+            if(fraction==1)
+                return new SkiContactMotion(new SkiPlanarVelocity(Snow.Motion.Velocity.X+forwardX*change,
+                    Snow.Motion.Velocity.Z+forwardZ*change),Snow.Motion.YawRate);
             return new SkiContactMotion(new SkiPlanarVelocity(InitialMotion.Velocity.X+forwardX*change+(Snow.Motion.Velocity.X-InitialMotion.Velocity.X)*fraction,
                 InitialMotion.Velocity.Z+forwardZ*change+(Snow.Motion.Velocity.Z-InitialMotion.Velocity.Z)*fraction),
                 InitialMotion.YawRate+(Snow.Motion.YawRate-InitialMotion.YawRate)*fraction);

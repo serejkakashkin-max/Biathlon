@@ -23350,3 +23350,18 @@ qualification inferred. Reusable mats/finished actors/achieved draft/full manual
 replay/host and final M13 Windows build remain pending. No intermediate build.
 Owner shooting-feel feedback preserved, authoritative shooting unchanged.
 [Report](reports/TASK_M13_MANUAL_BRAKING_AND_BEND_APPROACH_20261009.md).
+### 2026-10-09 — Exact analytical physical rest
+
+Three regressions reproduced paid-stop cancellation residues of order1e-17 m/s
+at arbitrary headings. Free neutral snow constraints now use their analytical
+null-space state; full grip/impulse/angular payment is required. Driven endpoint
+composition consumes final snow state directly. No tolerance erases motion:
+low-grip unresolved slip/spin still remains. Initial motion, paid travel, force
+and body limits unchanged; physical contexts versioned, shooting untouched.
+
+Focused.NET46/46 PASS; final all-manual470PASS/1FAIL/471. Native controlled25,
+passive8, contact drive14 PASS; refresh/compile/Console clear. Active first-bout
+AI failure still tick3214 MovingFiringArrival with REAL motion, not solved by
+this numerical fix. Next inverse stopping / terminal mat docking. Host lateral-v1;
+M13/WP175/177/178/final build OPEN, WP176 PASS. No intermediate Windows build.
+[Report](reports/TASK_M13_MANUAL_EXACT_PHYSICAL_REST_20261009.md).

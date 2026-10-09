@@ -337,3 +337,15 @@ does not publish movement. Complete manual lap still fails stationary mat arriva
 and production selection remains OPEN. .NET466/467 (one known firing failure),
 native21+1+3+5+10 PASS; compile/Console clear.
 [Report](../reports/TASK_M13_MANUAL_BRAKING_AND_BEND_APPROACH_20261009.md).
+
+## 2026-10-09 — analytical free snow constraint endpoints
+
+An exactly attainable unconstrained neutral snow minimum is represented in its
+analytical forward null space, with zero side motion/spin. The steered solver
+requires zero deflection and full angular-response payment; constrained or scaled
+solutions retain raw physical residuals. Driven endpoint composition consumes
+the final snow state directly. This removes cancellation residue without a
+velocity threshold, pose reset or unearned stationary permission. Physical
+contexts change; full AI mat arrival still fails on real residual motion.
+.NET470/471 (same known arrival failure), native25+8+14 PASS; compile/Console clear.
+[Report](../reports/TASK_M13_MANUAL_EXACT_PHYSICAL_REST_20261009.md).

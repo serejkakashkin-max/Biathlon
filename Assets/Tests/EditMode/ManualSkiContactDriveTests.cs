@@ -194,7 +194,7 @@ namespace Biathlon.Tests
             for(int i=0;i<128;i++)Query();long before=GC.GetAllocatedBytesForCurrentThread();double value=0;
             for(int i=0;i<10000;i++)value=Query();long allocated=GC.GetAllocatedBytesForCurrentThread()-before;
             Assert.That(allocated,Is.Zero);Assert.That(value,Is.EqualTo(Query()));Assert.That(f.Drive(a,grip:4).State,Is.EqualTo(expected.State));
-            Assert.That(f.System.ContextJson,Does.Contain("manual_contact_longitudinal_drive_v1"));
+            Assert.That(f.System.ContextJson,Does.Contain("manual_contact_longitudinal_drive_v2_exact_endpoint"));
         }
     }
 }

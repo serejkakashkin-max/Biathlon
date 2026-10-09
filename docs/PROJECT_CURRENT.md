@@ -260,3 +260,10 @@ no paid wait/snap. Legacy full persisted replay standalone1/1PASS,20691ticks,
 hash15908983522868725793; manual replay still OPEN. Production host lateral-v1;
 M13/WP175/177/178/final build OPEN, WP176 PASS. No intermediate Windows build.
 [Report](reports/TASK_M13_MANUAL_BRAKING_AND_BEND_APPROACH_20261009.md).
+
+2026-10-09 latest: analytical exact neutral physical rest removes floating point
+impulse-cancellation residue only when the full free constraint is attainable.
+Low-grip residuals remain. .NET470PASS/1FAIL/471; native25+8+14 PASS; compile/
+Console clear. Known tick3214 real MovingFiringArrival still OPEN, next inverse
+stopping/docking. Host lateral-v1/M13/WP175/177/178/build OPEN; WP176 PASS.
+[Report](reports/TASK_M13_MANUAL_EXACT_PHYSICAL_REST_20261009.md).

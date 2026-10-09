@@ -32,7 +32,7 @@ namespace Biathlon.Simulation
             // physical body length; personal clearance is not an extra ski contact.
             inertiaPerMass=(body.LongitudinalSeparation*body.LongitudinalSeparation+body.LateralSeparation*body.LateralSeparation)/12;
             duration=1.0/frequency;
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_snow_slip_impulse_v1",body.ToJson(),frequency.ToString(CultureInfo.InvariantCulture)});
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_snow_slip_impulse_v2_exact_free_constraint",body.ToJson(),frequency.ToString(CultureInfo.InvariantCulture)});
             TrajectoryContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_contact_frozen_velocity_ramp_v1",ContextJson});
         }
 
@@ -59,14 +59,14 @@ namespace Biathlon.Simulation
             double side=motion.Velocity.X*rightX+motion.Velocity.Z*rightZ,w=motion.YawRate;
             double frontSpeed=side+w*arm,rearSpeed=side-w*arm;
             double ratio=arm*arm/inertiaPerMass,diagonal=1+ratio,cross=1-ratio;
-            double bestFront=0,bestRear=0,bestEnergy=0;
+            double bestFront=0,bestRear=0,bestEnergy=0;bool freeChosen=false;
 
             // Minimum kinetic energy subject to equal front/rear normal-load impulse
             // budgets. Solve the unconstrained point and the four box edges exactly;
             // sequential front/rear friction would invent spin from pure side slip.
             double freeFront=-side*.5-inertiaPerMass*w/(2*arm);
             double freeRear=-side*.5+inertiaPerMass*w/(2*arm);
-            if(Math.Abs(freeFront)<=limit&&Math.Abs(freeRear)<=limit)Candidate(freeFront,freeRear);
+            if(Math.Abs(freeFront)<=limit&&Math.Abs(freeRear)<=limit)Candidate(freeFront,freeRear,true);
             Candidate(-limit,Clamp(-(rearSpeed-cross*limit)/diagonal));
             Candidate(limit,Clamp(-(rearSpeed+cross*limit)/diagonal));
             Candidate(Clamp(-(frontSpeed-cross*limit)/diagonal),-limit);
@@ -75,15 +75,23 @@ namespace Biathlon.Simulation
             double impulse=bestFront+bestRear;
             var velocity=new SkiPlanarVelocity(motion.Velocity.X+rightX*impulse,motion.Velocity.Z+rightZ*impulse);
             double yaw=w+arm*(bestFront-bestRear)/inertiaPerMass;
+            if(freeChosen)
+            {
+                // The unconstrained minimizer has exactly zero side velocity
+                // and spin. Construct its null-space value directly, rather
+                // than leaving cancellation residue from summed impulses.
+                double fx=-rightZ,fz=rightX,forward=motion.Velocity.X*fx+motion.Velocity.Z*fz;
+                velocity=new SkiPlanarVelocity(fx*forward,fz*forward);yaw=0;
+            }
             return new SkiSnowContactPreview(new SkiContactMotion(velocity,yaw),available,
                 bestFront*body.MassKilograms,bestRear*body.MassKilograms,-bestEnergy*body.MassKilograms);
 
             double Clamp(double value)=>Math.Max(-limit,Math.Min(limit,value));
-            void Candidate(double front,double rear)
+            void Candidate(double front,double rear,bool free=false)
             {
                 double energy=frontSpeed*front+rearSpeed*rear+.5*diagonal*(front*front+rear*rear)+cross*front*rear;
                 if(energy>=bestEnergy)return;
-                bestEnergy=energy;bestFront=front;bestRear=rear;
+                bestEnergy=energy;bestFront=front;bestRear=rear;freeChosen=free;
             }
         }
     }
