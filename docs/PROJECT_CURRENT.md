@@ -251,3 +251,12 @@ build only after all M13. [Report](reports/TASK_M13_MANUAL_FIELD_CONTACTS_AND_PO
 Broad diagnostic:533PASS/1FAIL then ABORTED on a60s watchdog in the additional
 full-field persisted replay (its own timeout900s). Standalone replay is running
 with its declared limit; no PASS claim. New native initial physical AI Mass30:1/1PASS.
+
+2026-10-09 latest: shared controlled braking + ordered AI bend approach. Final
+all-manual.NET466PASS/1FAIL; focused67/67, native21+1+3+5+10 PASS; compilation/
+Console clear. Tight mat bend now passed, known active failure moves to tick3214
+MovingFiringArrival (lane03, residual physical motion). Next stationary docking;
+no paid wait/snap. Legacy full persisted replay standalone1/1PASS,20691ticks,
+hash15908983522868725793; manual replay still OPEN. Production host lateral-v1;
+M13/WP175/177/178/final build OPEN, WP176 PASS. No intermediate Windows build.
+[Report](reports/TASK_M13_MANUAL_BRAKING_AND_BEND_APPROACH_20261009.md).

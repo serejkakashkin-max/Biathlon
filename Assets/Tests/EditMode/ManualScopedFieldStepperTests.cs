@@ -45,13 +45,15 @@ namespace Biathlon.Tests
         }
         private static string Explain(ManualScopedFieldStepper s)
         {
-            string source="";
+            var rejected=s.LastRejectedWorkingActor;
+            string source=FormattableString.Invariant($"working x={rejected.Pose.X:R} z={rejected.Pose.Z:R} yaw={rejected.Pose.HeadingRadians:R} spin={rejected.Pose.YawRateRadiansPerSecond:R} occurrence={rejected.Observation.OccurrenceIndex} arc={rejected.Observation.PhysicalArcNanometers} lateral={rejected.Observation.LateralMeters:R}; gate={s.LastStep.WorldAttempt.Gate.Status}; ");
             for(int i=0;i<s.World.Count;i++)
             {
                 var actor=s.World.GetActor(i);
                 if(!actor.Athlete.Equals(s.LastStep.WorldAttempt.Athlete))continue;
                 var cursor=s.World.GetCursor(i);var velocity=actor.Velocity;
-                source=FormattableString.Invariant($"source={i} occurrence={cursor.OccurrenceIndex} arc={cursor.ObservedArcNanometers} x={actor.Pose.X:R} z={actor.Pose.Z:R} yaw={actor.Pose.HeadingRadians:R} spin={actor.Pose.YawRateRadiansPerSecond:R} vx={velocity.X:R} vz={velocity.Z:R} lateral={actor.Observation.LateralMeters:R}");
+                var ribbon=s.World.GetRibbonDiagnostics(i);
+                source+=FormattableString.Invariant($"source={i} occurrence={cursor.OccurrenceIndex} arc={cursor.ObservedArcNanometers} x={actor.Pose.X:R} z={actor.Pose.Z:R} yaw={actor.Pose.HeadingRadians:R} spin={actor.Pose.YawRateRadiansPerSecond:R} vx={velocity.X:R} vz={velocity.Z:R} lateral={actor.Observation.LateralMeters:R} vertices={ribbon.LastVertexCount} clearance={ribbon.LastStartClearance:R} minimum={ribbon.LastMinimumSampledClearance:R}");
             }
             return FormattableString.Invariant($"{s.LastStep.Status} / {s.LastStep.WorldAttempt.Status} / {s.LastStep.WorldAttempt.Athlete} / {s.LastStep.ProvisionalSeconds:R} / pieces {s.LastStep.Intervals} / {s.LastStep.WorldAttempt.Course.Status} / {s.LastStep.WorldAttempt.Course.SourceEdgeId} / {s.LastStep.WorldAttempt.CourseEdge.Status} / pair {s.LastStep.WorldAttempt.BodyOrEdge.First}:{s.LastStep.WorldAttempt.BodyOrEdge.Second} {s.LastStep.WorldAttempt.BodyOrEdge.Pair.Status} clear {s.LastStep.WorldAttempt.BodyOrEdge.Pair.ClearUntilSeconds:R} end {s.LastStep.WorldAttempt.BodyOrEdge.Pair.IntervalEndSeconds:R} continuation {s.LastStep.WorldAttempt.BodyOrEdge.Pair.IsContactContinuation} / {source}");
         }
@@ -133,6 +135,28 @@ namespace Biathlon.Tests
             Assert.That(f.World.GetActor(0).Pose.HeadingNanoradians,Is.Not.EqualTo(before.Pose.HeadingNanoradians));
             Assert.That(f.Source.Pack.GetManualScopedWorldActor(0).Pose,Is.EqualTo(f.World.GetActor(0).Pose));
             Assert.That(f.Source.Pack.GetAthlete(0).Motion.DistanceNanometers,Is.GreaterThan(travel));
+        }
+        [Test] public void ControlledBrakePaysTheSameFieldClockWithLessPhysicalTravel()
+        {
+            var coast=new Fixture();var brake=new Fixture();coast.Commands(0);brake.Commands(0);
+            var before=brake.World.GetActor(0);long distance=brake.World.GetPhysicalMotion(0).DistanceNanometers;
+            Assert.That(coast.Stepper.TryStep(coast.Source.Inputs,new[]{0}),Is.True,Explain(coast.Stepper));
+            Assert.That(brake.Stepper.TryStep(brake.Source.Inputs,new[]{0},new[]{1d}),Is.True,Explain(brake.Stepper));
+            Assert.That(brake.World.Tick,Is.EqualTo(coast.World.Tick));
+            Assert.That(brake.World.Tick,Is.EqualTo(brake.Source.Pack.Tick));
+            Assert.That(brake.World.GetPhysicalMotion(0).SpeedMetersPerSecond,Is.LessThan(coast.World.GetPhysicalMotion(0).SpeedMetersPerSecond));
+            Assert.That(brake.World.GetPhysicalMotion(0).DistanceNanometers,Is.GreaterThan(distance).And.LessThan(coast.World.GetPhysicalMotion(0).DistanceNanometers));
+            Assert.That(brake.World.GetActor(0).Pose,Is.Not.EqualTo(before.Pose));
+            Assert.That(brake.World.GetActor(0).Pose.HeadingNanoradians,Is.EqualTo(before.Pose.HeadingNanoradians));
+        }
+        [TestCase(-.01)][TestCase(1.01)][TestCase(double.NaN)]
+        public void InvalidLastBrakeCannotPublishEarlierRosterState(double fraction)
+        {
+            var f=new Fixture("start");f.Commands();long tick=f.World.Tick.Value;int events=f.Source.Events.Count;
+            var before=f.World.GetActor(0);
+            Assert.Throws<ArgumentOutOfRangeException>(()=>f.Stepper.TryStep(f.Source.Inputs,new int[4],new[]{0d,0,0,fraction}));
+            Assert.That(f.World.GetActor(0),Is.EqualTo(before));Assert.That(f.World.Tick.Value,Is.EqualTo(tick));
+            Assert.That(f.Source.Pack.Tick.Value,Is.EqualTo(tick));Assert.That(f.Source.Events.Count,Is.EqualTo(events));
         }
         [Test] public void AiRosterReachesItsFirstShootingBoutOnTheManualClock()
         {

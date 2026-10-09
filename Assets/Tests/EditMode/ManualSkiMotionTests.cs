@@ -205,7 +205,7 @@ namespace Biathlon.Tests
             Assert.That(allocated,Is.Zero);Assert.That(actual.Heading.State,Is.EqualTo(expected.Heading.State));
             Assert.That(actual.Travel.Output.State,Is.EqualTo(expected.Travel.Output.State));
             Assert.That(system.ContextJson,Is.EqualTo(System().ContextJson));
-            Assert.That(system.ContextJson,Does.Contain("manual_force_heading_preview_v1"));
+            Assert.That(system.ContextJson,Does.Contain("manual_force_heading_preview_v2_explicit_braking"));
         }
     }
 }

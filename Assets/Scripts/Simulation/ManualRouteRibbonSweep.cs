@@ -41,8 +41,8 @@ namespace Biathlon.Simulation
             coverRadius=Math.Sqrt(halfWidth*halfWidth+Math.Pow(halfLength/disks,2));
             bodyRadius=Math.Sqrt(halfWidth*halfWidth+halfLength*halfLength);edgeClearance=body.EdgeClearance;
             x=new double[map.MaximumRibbonVertices];z=new double[x.Length];
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_local_authored_ribbon_disk_cover_v3",map.ContextJson,
-                body.ToJson(),work.ToJson(),"actual_knot_normals;minimum_window_width;exact_authored_endpoints;simple_polygon_or_union_of_existing_conservative_tubes;unchanged_tube_turn_reserve;disk_count_from_maximum_depth;full_cover_envelope_and_source_offset;continuous_cover_not_corner_samples;no_phase_or_centre_credit"});
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_local_authored_ribbon_disk_cover_v4",map.ContextJson,
+                body.ToJson(),work.ToJson(),"actual_knot_normals;minimum_window_width;exact_authored_endpoints;independent_simple_polygon_or_union_of_existing_conservative_tubes;unchanged_tube_turn_reserve;disk_count_from_maximum_depth;full_cover_envelope_and_source_offset;continuous_cover_not_corner_samples;no_phase_or_centre_credit"});
         }
         public ManualRouteTubePreview Preview(ManualSkiWorldTrajectory trajectory,ManualRouteProjection source)
         {
@@ -57,13 +57,23 @@ namespace Biathlon.Simulation
             LastStartClearance=LastMinimumSampledClearance=double.NaN;
             vertices=map.BuildLocalRibbon(source,reach,x,z);
             useTubes=vertices<4||!Simple();
-            if(useTubes&&!map.TryBuildConnectedWindow(source,reach,out tubeWindow))
+            if(!map.TryBuildConnectedWindow(source,reach,out tubeWindow))
                 return new ManualRouteTubePreview(ManualRouteTubeStatus.UnresolvedStart,0,0,0,null);
             double reserve=2*trajectory.PositionErrorBoundMeters+bodyRadius*trajectory.HeadingErrorBoundRadians+
                 128*2.2204460492503131e-16*(1+Math.Abs(trajectory.Sample(0).X)+Math.Abs(trajectory.Sample(0).Z));
-            LastStartClearance=Clearance(trajectory.Sample(0));LastMinimumSampledClearance=LastStartClearance;
-            if(!(LastStartClearance>reserve))return new ManualRouteTubePreview(ManualRouteTubeStatus.UnresolvedStart,0,0,0,null);
-            int checks=0;return Search(trajectory,0,seconds,0,reserve,ref checks);
+            var result=Prove();
+            if(result.Status==ManualRouteTubeStatus.Clear||useTubes)return result;
+            // A minimum-width polygon can reject a body still on the wider
+            // predecessor. Independently prove the same complete disk cover
+            // in the existing connected, turn-reserved edge tubes. Neither
+            // proof enlarges authored snow or admits a lifecycle portal.
+            useTubes=true;return Prove();
+            ManualRouteTubePreview Prove()
+            {
+                LastStartClearance=Clearance(trajectory.Sample(0));LastMinimumSampledClearance=LastStartClearance;
+                if(!(LastStartClearance>reserve))return new ManualRouteTubePreview(ManualRouteTubeStatus.UnresolvedStart,0,0,0,null);
+                int checks=0;return Search(trajectory,0,seconds,0,reserve,ref checks);
+            }
         }
         private ManualRouteTubePreview Search(ManualSkiWorldTrajectory trajectory,double from,double to,int depth,double reserve,ref int checks)
         {

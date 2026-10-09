@@ -1,0 +1,31 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 1567,
+      "PassedTests": 3,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:22.2698468"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.ManualScopedFieldStepperTests.InvalidLastBrakeCannotPublishEarlierRosterState(-0.01d)",
+        "Status": "Passed",
+        "Duration": "00:00:08.1100000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedFieldStepperTests.InvalidLastBrakeCannotPublishEarlierRosterState(1.01d)",
+        "Status": "Passed",
+        "Duration": "00:00:06.3880000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedFieldStepperTests.InvalidLastBrakeCannotPublishEarlierRosterState(double.NaN)",
+        "Status": "Passed",
+        "Duration": "00:00:06.8210000"
+      }
+    ]
+  },
+  "executedResults": 3,
+  "discoveredTotalIsNotExecuted": true
+}

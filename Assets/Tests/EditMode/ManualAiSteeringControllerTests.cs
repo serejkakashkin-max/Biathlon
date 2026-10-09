@@ -270,7 +270,9 @@ namespace Biathlon.Tests
         {
             var policy=ManualAiSteeringDefinition.FromJson(PolicyJson);
             Assert.That(ManualAiSteeringDefinition.FromJson(policy.ToJson()).ToJson(),Is.EqualTo(policy.ToJson()));
-            Assert.That(Create().controller.ContextJson,Does.Contain("manual_ai_signed_yaw_intent_v2_owned_pursuit"));
+            string context=Create().controller.ContextJson;
+            Assert.That(context.Contains("manual_ai_signed_yaw_intent_v3_physical_pursuit"),Is.True);
+            Assert.That(context.Contains("physical_pursuit_actual_velocity_and_shared_speed_response_v1"),Is.True);
             foreach(var field in new[]{"schema_version","id","lookahead_base_m","lookahead_speed_seconds",
                 "lookahead_max_m","heading_response_seconds","yaw_rate_feedback"})
                 Assert.Catch(()=>ManualAiSteeringDefinition.FromJson(PolicyJson.Replace("\""+field+"\"","\"missing_"+field+"\"")),field);

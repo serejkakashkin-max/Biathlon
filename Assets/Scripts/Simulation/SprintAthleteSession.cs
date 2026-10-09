@@ -117,6 +117,7 @@ namespace Biathlon.Simulation
         public SimulationTick ScheduledStart { get; }
         public AthleteId AthleteId => physiology.AthleteId;
         public int DownhillSkill => skiAthlete.Downhill;
+        public int CorneringSkill => skiAthlete.Cornering;
         public PhysiologyState PhysiologyState => physiology.State;
         public PhysiologyDefinition PhysiologyDefinition => physiology.Definition;
         public CompetitionLifecycle Lifecycle { get; }

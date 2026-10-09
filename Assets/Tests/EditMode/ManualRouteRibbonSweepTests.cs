@@ -7,6 +7,15 @@ namespace Biathlon.Tests
 {
     public sealed class ManualRouteRibbonSweepTests
     {
+        [Test] public void AnUpcomingNarrowMatDoesNotShrinkTheAlreadyOwnedWiderAisle()
+        {
+            var f=new ManualRacePathCatalogTests.Fixture(lane:2);
+            var pose=new ManualSkiHeadingState(37.466923758,-1.910501257,1.757996194,-.04758153);
+            Assert.That(f.Catalog.TryProject(pose,3,0,2,out var at),Is.True);
+            var sweep=new ManualRouteRibbonSweep(f.Catalog.ProjectionGeometry,f.Venue.Occupancy,ManualScopedFieldStepperTests.Work());
+            Assert.That(sweep.Preview(Travel(f.Venue.Occupancy,pose),f.Catalog.GetGeometryObservation(at)).Status,
+                Is.EqualTo(ManualRouteTubeStatus.Clear));
+        }
         [TestCase(false)][TestCase(true)]
         public void MatHairpinAdmitsStationaryBodyButRejectsUnbrakedFastArrival(bool moving)
         {

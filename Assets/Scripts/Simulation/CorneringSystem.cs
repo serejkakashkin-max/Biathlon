@@ -28,6 +28,15 @@ namespace Biathlon.Simulation
             double lineQuality, double muscularFatigue, double gripMultiplier = 1)
             => EvaluateCore(state,track,corneringSkill,downhillSkill,lineQuality,muscularFatigue,gripMultiplier,null);
 
+        /// <summary>Explicit controlled braking uses the existing shared force
+        /// cap. Cornering and voluntary braking do not stack into extra ability.</summary>
+        public double ControlledBrakingNewtons(double automaticNewtons,double fraction)
+        {
+            PhysiologyNumbers.RequireRange(automaticNewtons,0,definition.MaximumBraking*physics.MassKilograms,nameof(automaticNewtons));
+            PhysiologyNumbers.RequireRange(fraction,0,1,nameof(fraction));
+            return Math.Max(automaticNewtons,fraction*definition.MaximumBraking*physics.MassKilograms);
+        }
+
         /// <summary>Observed yaw has lateral demand planarSpeed * abs(yawRate).
         /// It cannot inherit braking from a centre-line turn the skier is not making.</summary>
         public CorneringOutput EvaluateWorldHeading(SkiState state,TrackSample surface,double yawRate,int corneringSkill,int downhillSkill,

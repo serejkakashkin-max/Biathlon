@@ -319,3 +319,21 @@ player intent remains untouched. Full-lap AI still rejects at the tight mat appr
 so this checkpoint does not qualify production selection, replay, resources or M13.
 Focused.NET111/111, native policy4/4 and cover9/9 PASS; broader failures and aborted
 run remain preserved. [Report](../reports/TASK_M13_MANUAL_FIELD_CONTACTS_AND_PORTALS_20261009.md).
+
+## 2026-10-09 — shared controlled braking and independent width-transition cover
+
+Explicit bounded braking intent uses the existing shared maximum braking and max
+with automatic cornering braking. It never resets velocity, pays a waiting clock,
+or stacks a second braking budget. AI stopping-distance queries follow only owned
+ordinary successors and do not admit closed lifecycle gates; early short chords
+and speed-dependent physical limits are intent, not movement authority.
+
+The inscribed minimum-window-width polygon and unchanged conservative connected
+edge tubes are independent sufficient full-body cover proofs. Either may prove
+continuous exclusion. This corrects artificial shrinkage of a still wider aisle
+when its future mat enters the local proof window; no physical widths, body sizes,
+turn reserves or centre phase portals change. Failed provisional actor telemetry
+does not publish movement. Complete manual lap still fails stationary mat arrival
+and production selection remains OPEN. .NET466/467 (one known firing failure),
+native21+1+3+5+10 PASS; compile/Console clear.
+[Report](../reports/TASK_M13_MANUAL_BRAKING_AND_BEND_APPROACH_20261009.md).

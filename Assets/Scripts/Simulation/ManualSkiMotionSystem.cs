@@ -20,9 +20,10 @@ namespace Biathlon.Simulation
         public double SteeringResponse { get; }
         public double WindX { get; }
         public double WindZ { get; }
+        public double BrakeFraction { get; }
         public ManualSkiMotionInput(int steeringInput,double deliveredPowerWatts,int corneringSkill,int downhillSkill,
             double lineQuality=1,double muscularFatigue=0,double gripMultiplier=1,double dragAreaMultiplier=1,
-            double snowResistanceMultiplier=1,double steeringResponse=1,double windX=0,double windZ=0)
+            double snowResistanceMultiplier=1,double steeringResponse=1,double windX=0,double windZ=0,double brakeFraction=0)
         {
             if(steeringInput< -ManualSkiCommand.SteeringUnits||steeringInput>ManualSkiCommand.SteeringUnits||corneringSkill<0||corneringSkill>100||downhillSkill<0||downhillSkill>100)
                 throw new ArgumentOutOfRangeException();
@@ -35,10 +36,16 @@ namespace Biathlon.Simulation
             PhysiologyNumbers.RequireRange(steeringResponse,0,1,nameof(steeringResponse));
             PhysiologyNumbers.RequireRange(windX,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,nameof(windX));
             PhysiologyNumbers.RequireRange(windZ,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,nameof(windZ));
+            PhysiologyNumbers.RequireRange(brakeFraction,0,1,nameof(brakeFraction));
             SteeringInput=steeringInput;DeliveredPowerWatts=deliveredPowerWatts;CorneringSkill=corneringSkill;DownhillSkill=downhillSkill;
             LineQuality=lineQuality;MuscularFatigue=muscularFatigue;GripMultiplier=gripMultiplier;DragAreaMultiplier=dragAreaMultiplier;
             SnowResistanceMultiplier=snowResistanceMultiplier;SteeringResponse=steeringResponse;WindX=windX;WindZ=windZ;IsValid=true;
+            BrakeFraction=brakeFraction;
         }
+        public ManualSkiMotionInput WithBrakeFraction(double fraction)
+            =>new ManualSkiMotionInput(SteeringInput,DeliveredPowerWatts,CorneringSkill,DownhillSkill,
+                LineQuality,MuscularFatigue,GripMultiplier,DragAreaMultiplier,SnowResistanceMultiplier,
+                SteeringResponse,WindX,WindZ,fraction);
     }
     public readonly struct ManualSkiMotionFrame
     {
@@ -66,7 +73,8 @@ namespace Biathlon.Simulation
             forces=new SkiForceSystem(physics,frequency);steering=new ManualSkiSteeringSystem(heading,frequency);
             cornering=new CorneringSystem(corners,physics);duration=1.0/frequency;
             maximumScalarSpeed=physics.MaximumSpeedMetersPerSecond;
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_force_heading_preview_v1",physics.ToJson(),heading.ToJson(),corners.ToJson(),frequency.ToString(System.Globalization.CultureInfo.InvariantCulture)});
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_force_heading_preview_v2_explicit_braking",physics.ToJson(),heading.ToJson(),corners.ToJson(),frequency.ToString(System.Globalization.CultureInfo.InvariantCulture),
+                "controlled_brake_fraction;existing_shared_maximum_braking;max_not_sum;zero_default"});
             AcceptedVelocityContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_accepted_planar_velocity_force_v1",ContextJson,
                 "planar_velocity_authority;directional_grade_scalar_rebase;ceil_nmps;initial_basis_rotation;heading_aligned_only;scalar_cap_reject;roundoff_scale_and_cap_16ulp"});
         }
@@ -132,7 +140,7 @@ namespace Biathlon.Simulation
                 input.LineQuality,input.MuscularFatigue,input.GripMultiplier);
             double wind=-(input.WindX*Math.Sin(pose.HeadingRadians)+input.WindZ*Math.Cos(pose.HeadingRadians));
             var travel=forces.PreviewTrajectory(ski,input.DeliveredPowerWatts,actualSurface,seconds,wind,
-                input.DragAreaMultiplier,turn.BrakingNewtons,input.SnowResistanceMultiplier);
+                input.DragAreaMultiplier,cornering.ControlledBrakingNewtons(turn.BrakingNewtons,input.BrakeFraction),input.SnowResistanceMultiplier);
             var heading=accepted?steering.PreviewAcceptedVelocity(pose,velocity,input.SteeringInput,travel,acceptedScale,
                     turn.LateralAccelerationLimit,input.SteeringResponse):
                 steering.Preview(pose,input.SteeringInput,travel,scale,turn.LateralAccelerationLimit,input.SteeringResponse);

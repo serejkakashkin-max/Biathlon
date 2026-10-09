@@ -23322,3 +23322,31 @@ mat arrival), затем ABORTED на60s watchdog в дорогом full-field r
 defect. Sequence XML/dump сохранены; replay запущен отдельно со штатным лимитом.
 Новый native initial Mass30 уже с physical-pursuit AI:1/1PASS. Остальные
 M13/WP/host/build статусы предыдущей записи сохраняются.
+
+### 2026-10-09 — Shared controlled braking / ordered AI bend approach
+
+M13 OPEN; WP-176 PASS; WP-175/177/178 OPEN. Production host still lateral-v1.
+Shared manual brakes use the existing capped force and max with cornering brakes;
+no velocity snap, extra budget or paid queue. AI anticipates the owned ordinary
+bend chain, reduces effort and requests a shorter chord before a tight mat turn.
+Player signed input unchanged. Future neutral grip is not weather qualification.
+Complete body cover may independently use unchanged conservative connected tubes
+when a minimum-width polygon rejects an actually wider predecessor. Phase gates,
+physical width/body/turn reserves unchanged. Provisional rejected actor recorded
+for diagnosis; failed tick remains unpaid.
+
+Final all-manual .NET:466PASS/1FAIL/467 executed; focused67/67 PASS. Native Unity:
+controlled21, field brake1, atomic invalid fractions3, planner5, cover10 PASS.
+Refresh/compile successful; recent Error Console empty. Tight bend now passes;
+active full-lap test still FAILS tick3214 MovingFiringArrival, athlete2/lane03,
+residual velocity/spin at FiringLine. Earlier mat_01 description was not valid
+for every assigned actor. Next physical stationary docking / all-phase lifecycle.
+Tests not disabled, experimental failures retained, exact allocation tests kept.
+
+Legacy full persisted replay standalone rerun PASS1/1 (prior checkpoint):30actors,
+20691ticks,169026command runs,428175403JSON chars, event hash15908983522868725793,
+179s. The previous60s diagnostic watchdog abort is retained; no manual replay
+qualification inferred. Reusable mats/finished actors/achieved draft/full manual
+replay/host and final M13 Windows build remain pending. No intermediate build.
+Owner shooting-feel feedback preserved, authoritative shooting unchanged.
+[Report](reports/TASK_M13_MANUAL_BRAKING_AND_BEND_APPROACH_20261009.md).

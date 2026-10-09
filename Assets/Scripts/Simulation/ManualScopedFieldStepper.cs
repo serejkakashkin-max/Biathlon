@@ -32,6 +32,9 @@ namespace Biathlon.Simulation
         private readonly ManualSkiControlledDriveSystem drive;
         private readonly ManualSkiContactDriveSystem stationary;
         private readonly SkiPhysicsDefinition physics;
+        public SkiPhysicsDefinition PhysicsDefinition=>physics;
+        public CorneringDefinition CorneringDefinition {get;}
+        public OccupancyDefinition BodyDefinition {get;}
         private readonly SprintStepPreview[] pending;
         private readonly SkiDrivenContactTrajectory[] drives;
         private readonly SkiWorldMotionCandidate[] candidates;
@@ -46,6 +49,7 @@ namespace Biathlon.Simulation
         public double BodyCourseRadius {get;}
         public string ContextJson {get;}
         public ManualFieldStepResult LastStep {get;private set;}
+        public ManualRacePathActorFrame LastRejectedWorkingActor {get;private set;}
         public ManualScopedWorldRoster World=>world;
         public PackSprintFieldSession Field=>field;
 
@@ -101,6 +105,7 @@ namespace Biathlon.Simulation
             for(int i=0;i<sessions.Length;i++)sessions[i]=field.GetAthlete(i);
             commit=new ManualScopedRosterSessionCommit(sessions,world,compactContext:true);
             physics=models.Physics;maximumIntervals=world.MaximumMotionPieces;
+            CorneringDefinition=models.Cornering;BodyDefinition=body;
             SteeringDefinitionJson=steering.ToJson();BodyEdgeMargin=body.LateralSeparation*.5+body.EdgeClearance;
             BodyLongitudinalSeparation=body.LongitudinalSeparation;
             BodyCourseRadius=.5*Math.Sqrt(body.LongitudinalSeparation*body.LongitudinalSeparation+body.LateralSeparation*body.LateralSeparation)+body.EdgeClearance;
@@ -111,20 +116,26 @@ namespace Biathlon.Simulation
             candidates=new SkiWorldMotionCandidate[count];windows=new ManualScopedWorldWindow[count];
             grades=new double[count];drafts=new DraftOutput[count];
             ordinary=new int[count];phases=new int[count];held=new int[count];
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_scoped_field_stepper_v1","world_context_sha256:"+ManualContextIdentity.Sha256(world.ContextJson),
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_scoped_field_stepper_v2_explicit_brakes","world_context_sha256:"+ManualContextIdentity.Sha256(world.ContextJson),
                 commit.ContextJson,drive.ContextJson,work.ToJson(),
-                "all_signed_intents;one_fixed_clock;owned_force_pieces;actual_contact_response;ordinary_and_paid_penalty_handoffs;stationary_firing_hold;abort_not_queue;no_resource_or_finish_fallback;drafting_unqualified"});
+                "all_signed_intents;bounded_brake_fractions_validated_before_preparation;one_fixed_clock;owned_force_pieces;actual_contact_response;ordinary_and_paid_penalty_handoffs;stationary_firing_hold;abort_not_queue;no_resource_or_finish_fallback;drafting_unqualified"});
         }
 
         public bool TryStep(ReadOnlySpan<SprintAthleteInput> inputs,ReadOnlySpan<int> steeringInputs)
+            =>TryStep(inputs,steeringInputs,ReadOnlySpan<double>.Empty);
+
+        public bool TryStep(ReadOnlySpan<SprintAthleteInput> inputs,ReadOnlySpan<int> steeringInputs,
+            ReadOnlySpan<double> brakeFractions)
         {
-            if(inputs.Length!=field.Count||steeringInputs.Length!=field.Count||field.Tick.Value!=world.Tick.Value)
+            if(inputs.Length!=field.Count||steeringInputs.Length!=field.Count||
+                brakeFractions.Length!=0&&brakeFractions.Length!=field.Count||field.Tick.Value!=world.Tick.Value)
                 throw new ArgumentException("Complete signed roster and exact clock required.");
             field.ValidateManualScopedCommands(inputs);
             // Validate even the last row before preparing any physiology or a
             // zero-time accepted phase transition.
             for(int i=0;i<field.Count;i++)
             {
+                if(brakeFractions.Length!=0)PhysiologyNumbers.RequireRange(brakeFractions[i],0,1,nameof(brakeFractions));
                 if(field.GetAthlete(i).HasFinished)
                     return Report(ManualFieldStepStatus.FinishedRosterUnsupported,default,field.GetAthlete(i).AthleteId);
                 if(steeringInputs[i]<-ManualSkiCommand.SteeringUnits||steeringInputs[i]>ManualSkiCommand.SteeringUnits||
@@ -166,6 +177,7 @@ namespace Biathlon.Simulation
                         if(pending[i].MovementActive&&!firing)
                         {
                             var input=field.GetAthlete(i).GetPreparedManualMotionInput(pending[i],world,tick,i,steeringInputs[i]);
+                            if(brakeFractions.Length!=0)input=input.WithBrakeFraction(brakeFractions[i]);
                             drives[i]=drive.Preview(body,motion,actor.Observation,surface,input,seconds).Drive;
                         }
                         else
@@ -211,6 +223,7 @@ namespace Biathlon.Simulation
                 int pieces=world.GetProposedMotionPieceCount(proof);
                 commit.CommitPackField(field,inputs,pending,proof,drafts);
                 published=true;
+                LastRejectedWorkingActor=default;
                 LastStep=new ManualFieldStepResult(ManualFieldStepStatus.Complete,field.Tick,default,world.LastAttempt,
                     1.0/field.TickFrequency,pieces);
                 return true;
@@ -221,6 +234,13 @@ namespace Biathlon.Simulation
         {
             double seconds=tick.IsValid?world.GetElapsedSeconds(tick):0;
             int count=tick.IsValid?world.GetWorkingMotionPieceCount(tick):0;
+            LastRejectedWorkingActor=default;
+            var failed=athlete.IsValid?athlete:world.LastAttempt.Athlete;
+            if(tick.IsValid)for(int i=0;i<world.Count;i++)
+            {
+                var actor=world.GetWorkingActor(tick,i);
+                if(actor.Athlete.Equals(failed)){LastRejectedWorkingActor=actor;break;}
+            }
             LastStep=new ManualFieldStepResult(status,field.Tick.Next(),athlete,world.LastAttempt,seconds,count);return false;
         }
     }

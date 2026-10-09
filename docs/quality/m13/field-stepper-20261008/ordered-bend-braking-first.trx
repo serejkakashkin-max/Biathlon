@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="7c7cb57b-0a10-4b97-9134-a48649df1fcb" name="snkashkin@DESKTOP-G3075GA 2026-10-09 10:38:33" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T10:38:33.8305134+03:00" queuing="2026-10-09T10:38:33.8305135+03:00" start="2026-10-09T10:38:29.6258478+03:00" finish="2026-10-09T10:38:41.4912858+03:00" />
+  <TestSettings name="default" id="56872e8b-49e7-4d5b-98cf-7fd2069f1874">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_10_38_33" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="951c13c1-9eac-4ed7-a4ff-c91caa710ff5" testId="0695782c-3c88-8ea2-8585-513eacbae067" testName="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" computerName="DESKTOP-G3075GA" duration="00:00:07.4049790" startTime="2026-10-09T10:38:33.8018654+03:00" endTime="2026-10-09T10:38:41.2068436+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="951c13c1-9eac-4ed7-a4ff-c91caa710ff5">
+      <Output>
+        <ErrorInfo>
+          <Message>tick 1 / NotStarted / NotPrepared /  / 0 / pieces 0 / Clear /  / Clear / pair : Clear clear 0 end 0 continuation False /  / System.ArgumentException: Track coordinates require whole millimetres. (Parameter 'meters')&#xD;
+   at Biathlon.Domain.TrackDistance.FromMeters(Double meters) in C:\game\Biathlon\Biathlon\Assets\Scripts\Domain\TrackDistance.cs:line 20&#xD;
+   at Biathlon.AI.ManualAiBendBrakingPlanner.Plan(ManualRacePathObservation at, Double speed, Int32 corneringSkill, Int32 downhillSkill, Double fatigue, Double grip, Double steeringResponse) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualAiBendBrakingPlanner.cs:line 70&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 73&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 474&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepPlayer(Int32 index, SprintAthleteInput input, Double desiredLateralMeters) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 244&#xD;
+   at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 113</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 117&#xD;
+
+1)    at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 113&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ec19390a-8121-4c1a-9492-7f74ed5334b1" testId="43b951f1-7462-325a-2614-7ec0654f78a6" testName="AiRosterReachesItsFirstShootingBoutOnTheManualClock" computerName="DESKTOP-G3075GA" duration="00:00:03.6013910" startTime="2026-10-09T10:38:30.1999347+03:00" endTime="2026-10-09T10:38:33.8012904+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ec19390a-8121-4c1a-9492-7f74ed5334b1">
+      <Output>
+        <ErrorInfo>
+          <Message>tick 231 / Complete / Clear /  / 0.05 / pieces 1 / Clear /  / Clear / pair : Clear clear 0 end 0 continuation False /  / System.ArgumentException: Track coordinates require whole millimetres. (Parameter 'meters')&#xD;
+   at Biathlon.Domain.TrackDistance.FromMeters(Double meters) in C:\game\Biathlon\Biathlon\Assets\Scripts\Domain\TrackDistance.cs:line 20&#xD;
+   at Biathlon.AI.ManualAiBendBrakingPlanner.Plan(ManualRacePathObservation at, Double speed, Int32 corneringSkill, Int32 downhillSkill, Double fatigue, Double grip, Double steeringResponse) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualAiBendBrakingPlanner.cs:line 70&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 73&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 474&#xD;
+   at Biathlon.AI.PackAiRaceRunner.Step() in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 219&#xD;
+   at Biathlon.Tests.ManualScopedFieldStepperTests.AiRosterReachesItsFirstShootingBoutOnTheManualClock() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 164</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedFieldStepperTests.AiRosterReachesItsFirstShootingBoutOnTheManualClock() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 166&#xD;
+
+1)    at Biathlon.Tests.ManualScopedFieldStepperTests.AiRosterReachesItsFirstShootingBoutOnTheManualClock() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 164&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="AiRosterReachesItsFirstShootingBoutOnTheManualClock" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="43b951f1-7462-325a-2614-7ec0654f78a6">
+      <Execution id="ec19390a-8121-4c1a-9492-7f74ed5334b1" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="AiRosterReachesItsFirstShootingBoutOnTheManualClock" />
+    </UnitTest>
+    <UnitTest name="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="0695782c-3c88-8ea2-8585-513eacbae067">
+      <Execution id="951c13c1-9eac-4ed7-a4ff-c91caa710ff5" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="0695782c-3c88-8ea2-8585-513eacbae067" executionId="951c13c1-9eac-4ed7-a4ff-c91caa710ff5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="43b951f1-7462-325a-2614-7ec0654f78a6" executionId="ec19390a-8121-4c1a-9492-7f74ed5334b1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -162,6 +162,83 @@ namespace Biathlon.Tests
             Assert.That(right.Drive.Sample(0),Is.EqualTo(b.Pose));
             Assert.That(right.Drive.MotionAt(0),Is.EqualTo(Motion(b)));
         }
+        [Test] public void ExplicitBrakeRequestUsesSharedForceAndDoesNotResetSourceMotion()
+        {
+            var f=new Fixture();var b=f.Body();var input=new ManualSkiMotionInput(0,0,100,100);
+            var coast=f.System.Preview(b,Motion(b),f.Observation,f.Surface,input,.05);
+            var brake=f.System.Preview(b,Motion(b),f.Observation,f.Surface,input.WithBrakeFraction(1),.05);
+            Assert.That(brake.Drive.Sample(0),Is.EqualTo(b.Pose));
+            Assert.That(brake.Drive.MotionAt(0),Is.EqualTo(Motion(b)));
+            Assert.That(brake.Drive.FirstDrive.Output.State.SpeedMetersPerSecond,
+                Is.LessThan(coast.Drive.FirstDrive.Output.State.SpeedMetersPerSecond));
+            Assert.That(brake.Drive.FirstDrive.Acceleration,Is.EqualTo(coast.Drive.FirstDrive.Acceleration-CorneringTests.Definition().MaximumBraking).Within(1e-12));
+        }
+        [Test] public void BrakeRequestIsBoundedAndPreservesAllOtherPreparedControls()
+        {
+            var input=new ManualSkiMotionInput(431,123,70,80,.9,.2,.8,.7,1.1,.65,2,-3);
+            var copied=input.WithBrakeFraction(.4);
+            Assert.That(copied.BrakeFraction,Is.EqualTo(.4));
+            Assert.That(copied.SteeringInput,Is.EqualTo(input.SteeringInput));
+            Assert.That(copied.DeliveredPowerWatts,Is.EqualTo(input.DeliveredPowerWatts));
+            Assert.That(copied.CorneringSkill,Is.EqualTo(input.CorneringSkill));Assert.That(copied.DownhillSkill,Is.EqualTo(input.DownhillSkill));
+            Assert.That(copied.LineQuality,Is.EqualTo(input.LineQuality));Assert.That(copied.MuscularFatigue,Is.EqualTo(input.MuscularFatigue));
+            Assert.That(copied.GripMultiplier,Is.EqualTo(input.GripMultiplier));Assert.That(copied.DragAreaMultiplier,Is.EqualTo(input.DragAreaMultiplier));
+            Assert.That(copied.SnowResistanceMultiplier,Is.EqualTo(input.SnowResistanceMultiplier));Assert.That(copied.SteeringResponse,Is.EqualTo(input.SteeringResponse));
+            Assert.That(copied.WindX,Is.EqualTo(input.WindX));Assert.That(copied.WindZ,Is.EqualTo(input.WindZ));
+            Assert.Throws<ArgumentOutOfRangeException>(()=>input.WithBrakeFraction(-.01));
+            Assert.Throws<ArgumentOutOfRangeException>(()=>input.WithBrakeFraction(1.01));
+            Assert.Throws<ArgumentOutOfRangeException>(()=>input.WithBrakeFraction(double.NaN));
+        }
+        [Test] public void VoluntaryAndCornerBrakingShareOneCapRatherThanStacking()
+        {
+            var f=new Fixture();var b=f.Body(forward:14);
+            var input=new ManualSkiMotionInput(1000,0,100,100,brakeFraction:1);
+            var result=f.System.Preview(b,Motion(b),f.Observation,f.Surface,input,.05);
+            double cap=CorneringTests.Definition().MaximumBraking*b.MassKilograms;
+            Assert.That(result.Cornering.BrakingNewtons,Is.GreaterThan(0));
+            Assert.That(result.Drive.FirstDrive.Output.BrakingNewtons,Is.EqualTo(cap));
+            Assert.That(result.Drive.FirstDrive.Output.BrakingNewtons,Is.LessThan(result.Cornering.BrakingNewtons+cap));
+        }
+        [Test] public void BrakingPaysTheActualStopPrefixAndCannotReverseOrRestartAnUnpoweredSkier()
+        {
+            var f=new Fixture();var b=f.Body(forward:.05);
+            var input=new ManualSkiMotionInput(0,0,100,100,brakeFraction:1);
+            var result=f.System.Preview(b,Motion(b),f.Observation,f.Surface,input,.05);
+            double stopped=result.Drive.FirstDrive.SpeedBoundarySeconds;
+            Assert.That(stopped,Is.GreaterThan(0).And.LessThan(.05));
+            Assert.That(result.Drive.FirstDrive.Output.State.SpeedMetersPerSecond,Is.Zero);
+            Assert.That(result.Drive.ConstantAccelerationSeconds,Is.EqualTo(stopped));
+            var root=new ManualSkiWorldTrajectory(result.Drive);
+            Assert.That(root.PlanarTravelDistanceAt(1),Is.GreaterThan(0).And.LessThan(.05*.05));
+            Assert.That(root.Sample(1),Is.EqualTo(root.Sample(stopped/.05)));
+            Assert.That(root.VelocityAt(1).X,Is.EqualTo(0).Within(1e-15));
+            Assert.That(root.VelocityAt(1).Z,Is.EqualTo(0).Within(1e-15));
+        }
+        [Test] public void BrakedPreviewIsRepeatableAllocationFreeAndIndependentOfActorIdentity()
+        {
+            var f=new Fixture();var b=f.Body(.2,.1);
+            var same=new ManualSkiContactBody(new AthleteId("player"),b.Pose,b.Velocity,b.MassKilograms);
+            var input=new ManualSkiMotionInput(200,0,100,100,brakeFraction:.75);
+            var expected=f.System.Preview(b,Motion(b),f.Observation,f.Surface,input,.05);
+            var player=f.System.Preview(same,Motion(same),f.Observation,f.Surface,input,.05);
+            Assert.That(player.Drive.State,Is.EqualTo(expected.Drive.State));
+            Assert.That(player.Drive.MotionAt(1),Is.EqualTo(expected.Drive.MotionAt(1)));
+            for(int i=0;i<100;i++)f.System.Preview(b,Motion(b),f.Observation,f.Surface,input,.05);
+            long before=GC.GetAllocatedBytesForCurrentThread();bool stable=true;
+            for(int i=0;i<1000;i++)
+            {
+                var actual=f.System.Preview(b,Motion(b),f.Observation,f.Surface,input,.05);
+                var state=actual.Drive.State;var target=expected.Drive.State;
+                var motion=actual.Drive.MotionAt(1);var reference=expected.Drive.MotionAt(1);
+                // Compare scalars: ValueType.Equals would box both structs in
+                // the measurement loop and measure the observer's allocations.
+                stable&=state.X==target.X&&state.Z==target.Z&&state.HeadingNanoradians==target.HeadingNanoradians&&
+                    state.YawRateRadiansPerSecond==target.YawRateRadiansPerSecond&&motion.Velocity.X==reference.Velocity.X&&
+                    motion.Velocity.Z==reference.Velocity.Z&&motion.YawRate==reference.YawRate;
+            }
+            long allocated=GC.GetAllocatedBytesForCurrentThread()-before;
+            Assert.That(stable,Is.True);Assert.That(allocated,Is.Zero);
+        }
         [Test] public void ControlledSourcePassesTheActualContactForceCouplerWithoutAHeadingSnap()
         {
             var f=new Fixture();var b=f.Body(.8,3);var input=f.Preview(b);
@@ -266,7 +343,8 @@ namespace Biathlon.Tests
             Assert.Catch(()=>system.Preview(b,Motion(b),0,4,.051));Assert.Catch(()=>system.Preview(b,Motion(b),0,4,.05,1.1));
             var f=new Fixture();Assert.Catch(()=>f.System.Preview(f.Body(),Motion(f.Body()),f.Observation,f.Surface,default,.05));
             Assert.That(system.ContextJson,Does.Contain("manual_steered_snow_constraint_v1"));
-            Assert.That(f.System.ContextJson,Does.Contain("manual_controlled_slip_drive_v2_requested_turn_cost"));
+            Assert.That(f.System.ContextJson,Does.Contain("manual_controlled_slip_drive_v3_explicit_braking"));
+            Assert.That(f.System.ContextJson,Does.Contain("explicit_brake_fraction_uses_same_force_cap"));
         }
     }
 }

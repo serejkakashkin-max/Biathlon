@@ -28,8 +28,8 @@ namespace Biathlon.Simulation
             drive=new ManualSkiContactDriveSystem(physics,body,frequency);
             snow=new ManualSkiSteeredSnowSystem(body,steering,frequency);cornering=new CorneringSystem(turns,physics);
             commands=new ManualSkiSteeringSystem(steering,frequency);
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_controlled_slip_drive_v2_requested_turn_cost",drive.ContextJson,snow.ContextJson,
-                turns.ToJson(),"one_joint_snow_budget;actual_heading_grade;max_actual_or_requested_yaw_braking;shared_corner_force_limits;unchanged_shared_longitudinal_forces;no_admission"});
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_controlled_slip_drive_v3_explicit_braking",drive.ContextJson,snow.ContextJson,
+                turns.ToJson(),"one_joint_snow_budget;actual_heading_grade;max_actual_or_requested_yaw_braking;explicit_brake_fraction_uses_same_force_cap;max_not_sum;shared_corner_force_limits;unchanged_shared_longitudinal_forces;no_admission"});
         }
         public ManualSkiControlledDriveFrame Preview(ManualSkiContactBody body,SkiContactMotion motion,
             ManualRacePathObservation observation,TrackSample surface,ManualSkiMotionInput input,double seconds)
@@ -47,7 +47,8 @@ namespace Biathlon.Simulation
                 input.LineQuality,input.MuscularFatigue,input.GripMultiplier);
             var steered=snow.Preview(body,motion,input.SteeringInput,turns.LateralAccelerationLimit,seconds,input.SteeringResponse);
             var trajectory=drive.PreviewWithSnow(body,motion,observation.GeometryProjection,surface,input.DeliveredPowerWatts,steered.Snow,seconds,
-                input.DragAreaMultiplier,input.SnowResistanceMultiplier,input.WindX,input.WindZ,turns.BrakingNewtons);
+                input.DragAreaMultiplier,input.SnowResistanceMultiplier,input.WindX,input.WindZ,
+                cornering.ControlledBrakingNewtons(turns.BrakingNewtons,input.BrakeFraction));
             return new ManualSkiControlledDriveFrame(trajectory,steered,turns);
         }
     }

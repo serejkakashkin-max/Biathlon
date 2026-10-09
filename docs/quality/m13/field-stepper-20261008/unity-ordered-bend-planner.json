@@ -1,0 +1,41 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 1574,
+      "PassedTests": 5,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:07.2554417"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.ManualAiBendBrakingPlannerTests.InvalidSourceAndNumbersCannotBecomeIntent",
+        "Status": "Passed",
+        "Duration": "00:00:02.1160000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualAiBendBrakingPlannerTests.OrderedSuccessorBendRequestsBrakingAndShorterChordBeforeEntry",
+        "Status": "Passed",
+        "Duration": "00:00:01.0610000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualAiBendBrakingPlannerTests.SameOrderedQueryIsDeterministicAndAllocationFree",
+        "Status": "Passed",
+        "Duration": "00:00:01.0360000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualAiBendBrakingPlannerTests.StraightOwnedStartDoesNotInventBrakingOrChangeObservation",
+        "Status": "Passed",
+        "Duration": "00:00:01.1180000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualAiBendBrakingPlannerTests.TightBendUsesTheSharedYawAndGripLimits",
+        "Status": "Passed",
+        "Duration": "00:00:01.0470000"
+      }
+    ]
+  },
+  "executedResults": 5,
+  "discoveredTotalIsNotExecuted": true
+}

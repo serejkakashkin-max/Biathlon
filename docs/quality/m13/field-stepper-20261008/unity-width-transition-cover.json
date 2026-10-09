@@ -1,0 +1,66 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 1574,
+      "PassedTests": 10,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:10.9635410"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.ManualRouteRibbonSweepTests.ActualLateralDepartureIsStillRejected",
+        "Status": "Passed",
+        "Duration": "00:00:00.9980000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualRouteRibbonSweepTests.ADisconnectedOrDistantPositionCannotUseTheTubeCoverAsABridge",
+        "Status": "Passed",
+        "Duration": "00:00:00.9870000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualRouteRibbonSweepTests.AnUpcomingNarrowMatDoesNotShrinkTheAlreadyOwnedWiderAisle",
+        "Status": "Passed",
+        "Duration": "00:00:00.9980000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualRouteRibbonSweepTests.AuthoredEndpointSurvivesCancellationWhenTheCurveCrossesZeroX",
+        "Status": "Passed",
+        "Duration": "00:00:00.9860000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualRouteRibbonSweepTests.MatHairpinAdmitsStationaryBodyButRejectsUnbrakedFastArrival(False)",
+        "Status": "Passed",
+        "Duration": "00:00:00.9770000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualRouteRibbonSweepTests.MatHairpinAdmitsStationaryBodyButRejectsUnbrakedFastArrival(True)",
+        "Status": "Passed",
+        "Duration": "00:00:00.9840000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualRouteRibbonSweepTests.ShortStartSeamWindowIncludesTheWholeDiskCover",
+        "Status": "Passed",
+        "Duration": "00:00:01.0110000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualRouteRibbonSweepTests.TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(0.0d)",
+        "Status": "Passed",
+        "Duration": "00:00:01.0630000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualRouteRibbonSweepTests.TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(-1.6d)",
+        "Status": "Passed",
+        "Duration": "00:00:01.0470000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualRouteRibbonSweepTests.WarmRepeatedCoverQueriesAreDeterministicAndAllocateNothing",
+        "Status": "Passed",
+        "Duration": "00:00:01.0500000"
+      }
+    ]
+  },
+  "executedResults": 10,
+  "discoveredTotalIsNotExecuted": true
+}
