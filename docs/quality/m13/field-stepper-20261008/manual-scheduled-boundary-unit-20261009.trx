@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="204a37d0-44a6-45ec-a728-d9d2fef92140" name="snkashkin@DESKTOP-G3075GA 2026-10-09 19:43:41" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T19:43:41.4136279+03:00" queuing="2026-10-09T19:43:41.4136280+03:00" start="2026-10-09T19:43:37.4507897+03:00" finish="2026-10-09T19:43:59.8397632+03:00" />
+  <TestSettings name="default" id="2667ab0f-b206-465d-a7f5-1ec5de05bbe4">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_19_43_41" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="02087388-5d02-41af-b0f7-85de758a991b" testId="400163f1-deb5-9391-12be-d77db0c7dfcf" testName="WaitingSprintBodiesDoNotCollideWithTheStartedAthlete" computerName="DESKTOP-G3075GA" duration="00:00:02.8872150" startTime="2026-10-09T19:43:56.8472690+03:00" endTime="2026-10-09T19:43:59.7344779+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="02087388-5d02-41af-b0f7-85de758a991b" />
+    <UnitTestResult executionId="c2f7d4d5-cedf-4a3c-89c9-460462483394" testId="433647c4-019a-03b9-4016-7252996c28d9" testName="PresenceUsesTheSameFirstMovingTickAsTheActualSession" computerName="DESKTOP-G3075GA" duration="00:00:03.0293739" startTime="2026-10-09T19:43:47.5657522+03:00" endTime="2026-10-09T19:43:50.5951199+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c2f7d4d5-cedf-4a3c-89c9-460462483394" />
+    <UnitTestResult executionId="ffb39e9b-4588-4bcd-8bbb-948d47284a2a" testId="03736c96-db5c-a5c8-a2ec-4631fed97fa8" testName="WaitingBodyCannotAcquireHiddenMotion" computerName="DESKTOP-G3075GA" duration="00:00:03.2119650" startTime="2026-10-09T19:43:50.5951512+03:00" endTime="2026-10-09T19:43:53.8071094+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ffb39e9b-4588-4bcd-8bbb-948d47284a2a" />
+    <UnitTestResult executionId="01e1c22b-deb2-46bb-a9a3-4665970c0b4c" testId="ebfe2216-0a26-9b75-e760-c2960cb9ddf5" testName="InitialPresenceBindingDoesNotBypassReusableMatOwnership" computerName="DESKTOP-G3075GA" duration="00:00:03.0842170" startTime="2026-10-09T19:43:44.4814978+03:00" endTime="2026-10-09T19:43:47.5657073+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="01e1c22b-deb2-46bb-a9a3-4665970c0b4c" />
+    <UnitTestResult executionId="d0dff7ab-3a70-4511-93a8-7dd6f048d5ba" testId="10ef99e1-e673-bd56-a278-ae11ee186668" testName="WaitingExactRestLawCanRetainItsNonzeroConservativeForceBound" computerName="DESKTOP-G3075GA" duration="00:00:03.0401060" startTime="2026-10-09T19:43:53.8071396+03:00" endTime="2026-10-09T19:43:56.8472389+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d0dff7ab-3a70-4511-93a8-7dd6f048d5ba" />
+    <UnitTestResult executionId="c86797d7-0448-4b02-afbb-4f22a8683243" testId="a4cf3d0e-b70d-4541-8bd3-df0449a5730a" testName="AWorldWithoutAttestedScheduleKeepsEveryBodyPresent" computerName="DESKTOP-G3075GA" duration="00:00:03.3896460" startTime="2026-10-09T19:43:37.9853148+03:00" endTime="2026-10-09T19:43:41.3749278+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c86797d7-0448-4b02-afbb-4f22a8683243" />
+    <UnitTestResult executionId="34e916b9-03fe-409a-aade-e2fcf0d4cfa0" testId="52236e68-2f0f-1ce2-3277-08e900a271fe" testName="FirstMovementAfterScheduledStartRestoresRealCollisionAdmission" computerName="DESKTOP-G3075GA" duration="00:00:03.1057110" startTime="2026-10-09T19:43:41.3757583+03:00" endTime="2026-10-09T19:43:44.4814621+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="34e916b9-03fe-409a-aade-e2fcf0d4cfa0" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="FirstMovementAfterScheduledStartRestoresRealCollisionAdmission" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="52236e68-2f0f-1ce2-3277-08e900a271fe">
+      <Execution id="34e916b9-03fe-409a-aade-e2fcf0d4cfa0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScheduledPresenceTests" name="FirstMovementAfterScheduledStartRestoresRealCollisionAdmission" />
+    </UnitTest>
+    <UnitTest name="WaitingBodyCannotAcquireHiddenMotion" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="03736c96-db5c-a5c8-a2ec-4631fed97fa8">
+      <Execution id="ffb39e9b-4588-4bcd-8bbb-948d47284a2a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScheduledPresenceTests" name="WaitingBodyCannotAcquireHiddenMotion" />
+    </UnitTest>
+    <UnitTest name="WaitingExactRestLawCanRetainItsNonzeroConservativeForceBound" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="10ef99e1-e673-bd56-a278-ae11ee186668">
+      <Execution id="d0dff7ab-3a70-4511-93a8-7dd6f048d5ba" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScheduledPresenceTests" name="WaitingExactRestLawCanRetainItsNonzeroConservativeForceBound" />
+    </UnitTest>
+    <UnitTest name="PresenceUsesTheSameFirstMovingTickAsTheActualSession" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="433647c4-019a-03b9-4016-7252996c28d9">
+      <Execution id="c2f7d4d5-cedf-4a3c-89c9-460462483394" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScheduledPresenceTests" name="PresenceUsesTheSameFirstMovingTickAsTheActualSession" />
+    </UnitTest>
+    <UnitTest name="WaitingSprintBodiesDoNotCollideWithTheStartedAthlete" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="400163f1-deb5-9391-12be-d77db0c7dfcf">
+      <Execution id="02087388-5d02-41af-b0f7-85de758a991b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScheduledPresenceTests" name="WaitingSprintBodiesDoNotCollideWithTheStartedAthlete" />
+    </UnitTest>
+    <UnitTest name="InitialPresenceBindingDoesNotBypassReusableMatOwnership" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="ebfe2216-0a26-9b75-e760-c2960cb9ddf5">
+      <Execution id="01e1c22b-deb2-46bb-a9a3-4665970c0b4c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScheduledPresenceTests" name="InitialPresenceBindingDoesNotBypassReusableMatOwnership" />
+    </UnitTest>
+    <UnitTest name="AWorldWithoutAttestedScheduleKeepsEveryBodyPresent" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="a4cf3d0e-b70d-4541-8bd3-df0449a5730a">
+      <Execution id="c86797d7-0448-4b02-afbb-4f22a8683243" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScheduledPresenceTests" name="AWorldWithoutAttestedScheduleKeepsEveryBodyPresent" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="400163f1-deb5-9391-12be-d77db0c7dfcf" executionId="02087388-5d02-41af-b0f7-85de758a991b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="433647c4-019a-03b9-4016-7252996c28d9" executionId="c2f7d4d5-cedf-4a3c-89c9-460462483394" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="03736c96-db5c-a5c8-a2ec-4631fed97fa8" executionId="ffb39e9b-4588-4bcd-8bbb-948d47284a2a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ebfe2216-0a26-9b75-e760-c2960cb9ddf5" executionId="01e1c22b-deb2-46bb-a9a3-4665970c0b4c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="10ef99e1-e673-bd56-a278-ae11ee186668" executionId="d0dff7ab-3a70-4511-93a8-7dd6f048d5ba" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a4cf3d0e-b70d-4541-8bd3-df0449a5730a" executionId="c86797d7-0448-4b02-afbb-4f22a8683243" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="52236e68-2f0f-1ce2-3277-08e900a271fe" executionId="34e916b9-03fe-409a-aade-e2fcf0d4cfa0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="7" executed="7" passed="7" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 7 of 7 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

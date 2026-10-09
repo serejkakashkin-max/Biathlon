@@ -1,0 +1,49 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 1700,
+      "PassedTests": 7,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:02:22.1624904"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.ManualScheduledPresenceTests.AWorldWithoutAttestedScheduleKeepsEveryBodyPresent",
+        "Status": "Passed",
+        "Duration": "00:00:22.7640000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScheduledPresenceTests.FirstMovementAfterScheduledStartRestoresRealCollisionAdmission",
+        "Status": "Passed",
+        "Duration": "00:00:20.7940000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScheduledPresenceTests.InitialPresenceBindingDoesNotBypassReusableMatOwnership",
+        "Status": "Passed",
+        "Duration": "00:00:19.8390000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScheduledPresenceTests.PresenceUsesTheSameFirstMovingTickAsTheActualSession",
+        "Status": "Passed",
+        "Duration": "00:00:20.6620000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScheduledPresenceTests.WaitingBodyCannotAcquireHiddenMotion",
+        "Status": "Passed",
+        "Duration": "00:00:19.1840000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScheduledPresenceTests.WaitingExactRestLawCanRetainItsNonzeroConservativeForceBound",
+        "Status": "Passed",
+        "Duration": "00:00:18.8740000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScheduledPresenceTests.WaitingSprintBodiesDoNotCollideWithTheStartedAthlete",
+        "Status": "Passed",
+        "Duration": "00:00:19.1770000"
+      }
+    ]
+  }
+}

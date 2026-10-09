@@ -614,3 +614,28 @@ full fields/Sprint-to-Pursuit, player mat capture/signed host, final WP175/177/1
 Owner shooting-feel issue preserved. Build only after ALL M13. History retained.
 Report: docs/reports/TASK_M13_MANUAL_RESOURCE_TIME_PRECISION_20261009.md.
 Evidence: docs/quality/m13/field-stepper-20261008/manual-scoped-arrival-*.
+
+## 2026-10-09 — M13 scheduled start collision boundary
+
+M13 / WP175 / WP177 / WP178 OPEN; WP176 PASS. Production host lateral-v1.
+No owner Windows build. Physical presence now starts on the exact first moving
+interval after the scheduled start EVENT, matching actual session preparation.
+Official start events/times unchanged. Mass grid bodies remain present before
+the gun; unbound worlds retain all-body collision checks. Presence context v4.
+Real session/world batch regression and coincident-body admission control both
+red before fix, then presence7/7 PASS in .NET and native Unity (2m22s).
+Native discovery1700 is not the executed count. Console Error/Exception empty.
+The tick10201 held-body impulse defect is fixed. Dense-field traffic remains
+OPEN: baseline production Mass30 tick163 and Sprint40 tick8724 still reject
+real course crossings. Focused regression22PASS2FAIL0skipped/24; no failing test
+removed. Angular-warning/pursuit integration trials still fail and were removed;
+receipts retained, stationary-frame exception instrumentation removed. No body
+shrink, course widening, pose/speed reset, waiting fallback or shooting tuning.
+Correction to preceding record: "Profiled selection30/30" meant focused
+functional tests; it was not a performance profiling result.
+Next full signed fields/actual Sprint-to-Pursuit, player mat capture/host and
+final weather/balance/performance. Full manual steering remains REQUIRED for
+M13. Owner shooting-feel issue preserved. Build only after ALL M13.
+History preserved byte for byte; this append does not replace prior entries.
+Report: docs/reports/TASK_M13_MANUAL_START_BOUNDARY_20261009.md.
+Evidence: docs/quality/m13/field-stepper-20261008/manual-scheduled-boundary-*.

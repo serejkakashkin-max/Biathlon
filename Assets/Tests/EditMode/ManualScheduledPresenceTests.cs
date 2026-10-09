@@ -86,14 +86,39 @@ namespace Biathlon.Tests
             Assert.That(f.world.PathChoiceCount,Is.EqualTo(f.runner.Field.RangeReservations.LaneCount));
         }
 
-        [Test] public void ArrivalOfTheScheduledStartRestoresRealCollisionAdmission()
+        [Test] public void PresenceUsesTheSameFirstMovingTickAsTheActualSession()
+        {
+            var f=Initial();var session=f.runner.Field.GetAthlete(0);
+            Assert.That(session.ScheduledStart.Value,Is.EqualTo(1));
+            var pending=session.PrepareManualScopedStep(SprintAthleteSessionTests.Script(session),f.world,0);
+            Assert.That(pending.Tick,Is.EqualTo(session.ScheduledStart));
+            Assert.That(pending.MovementActive,Is.False,"The official start event is not an already-paid movement interval.");
+            Assert.That(f.world.IsPhysicalParticipant(0,pending.Tick),Is.False,
+                "A held scheduled body must not receive impulses from live traffic at the start event.");
+
+            // Publish the exact unchanged body and session through the actual
+            // scoped batch seam, then examine the following movement interval.
+            var other=f.runner.Field.GetAthlete(1);
+            var sibling=other.PrepareManualScopedStep(SprintAthleteSessionTests.Script(other),f.world,1);
+            var tick=f.world.BeginTick();Assert.That(f.world.TryResolveOwnedCurrentContacts(tick),Is.True);
+            Assert.That(AppendStationary(f.world,f.venue,tick,f.models.Physics),Is.True);
+            Assert.That(f.world.TryFinalizeTick(tick,out var proposal),Is.True);
+            new ManualScopedRosterSessionCommit(new[]{session,other},f.world).Commit(new[]{pending,sibling},proposal);
+            var moving=session.PrepareManualScopedStep(SprintAthleteSessionTests.Script(session),f.world,0);
+            Assert.That(moving.Tick.Value,Is.EqualTo(session.ScheduledStart.Value+1));
+            Assert.That(moving.MovementActive,Is.True);
+            Assert.That(f.world.IsPhysicalParticipant(0,moving.Tick),Is.True);
+        }
+
+        [Test] public void FirstMovementAfterScheduledStartRestoresRealCollisionAdmission()
         {
             var f=Initial();long start=f.runner.Field.GetAthlete(1).ScheduledStart.Value;
             Assert.That(f.world.IsPhysicalParticipant(1,new SimulationTick(start-1)),Is.False);
-            Assert.That(f.world.IsPhysicalParticipant(1,new SimulationTick(start)),Is.True);
+            Assert.That(f.world.IsPhysicalParticipant(1,new SimulationTick(start)),Is.False);
+            Assert.That(f.world.IsPhysicalParticipant(1,new SimulationTick(start+1)),Is.True);
             // Isolate presence on the world clock. These static proposals do
             // not claim full field/session or reusable-resource publication.
-            while(f.world.Tick.Next().Value<start)
+            while(f.world.Tick.Next().Value<=start)
             {
                 var tick=f.world.BeginTick();Assert.That(f.world.TryResolveOwnedCurrentContacts(tick),Is.True);
                 Assert.That(AppendStationary(f.world,f.venue,tick,f.models.Physics),Is.True);
@@ -102,7 +127,7 @@ namespace Biathlon.Tests
             var active=f.world.BeginTick();
             Assert.That(f.world.TryResolveOwnedCurrentContacts(active),Is.False,"Two now-present bodies at the same pose cannot bypass collision checks.");
             Assert.That(f.world.LastAttempt.Status,Is.EqualTo(ManualScopedWorldStatus.ContactGeometry));
-            f.world.AbortTick(active);Assert.That(f.world.Tick.Value,Is.EqualTo(start-1));
+            f.world.AbortTick(active);Assert.That(f.world.Tick.Value,Is.EqualTo(start));
         }
 
         [Test] public void AWorldWithoutAttestedScheduleKeepsEveryBodyPresent()

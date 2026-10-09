@@ -164,8 +164,8 @@ namespace Biathlon.Simulation
             }
             initialFieldBinding=field;
             scheduledPresenceStarts=new long[Count];prestartPresence=field.StartGrid!=null;
-            var starts=new string[Count+2];starts[0]="field_attested_scheduled_presence_v3_exact_rest_and_impulse_participants";
-            starts[1]=field.StartGrid==null?"scheduled_presence_at_start_tick;waiting_pose_static;all_started_body_proofs_retained":"mass_grid_present_before_start";
+            var starts=new string[Count+2];starts[0]="field_attested_scheduled_presence_v4_first_moving_interval";
+            starts[1]=field.StartGrid==null?"scheduled_presence_after_start_event_tick;waiting_pose_static;all_started_body_proofs_retained":"mass_grid_present_before_start";
             for(int i=0;i<Count;i++)
             {
                 scheduledPresenceStarts[i]=field.GetAthlete(i).ScheduledStart.Value;
@@ -284,7 +284,10 @@ namespace Biathlon.Simulation
         public bool IsPhysicalParticipant(int index,SimulationTick tick)
         {
             if(index<0||index>=Count)throw new ArgumentOutOfRangeException(nameof(index));
-            return scheduledPresenceStarts==null||prestartPresence||tick.Value>=scheduledPresenceStarts[index];
+            // The session publishes its start event at ScheduledStart and
+            // first pays movement at the following tick. A held scheduled
+            // body cannot receive live traffic impulses during that event.
+            return scheduledPresenceStarts==null||prestartPresence||tick.Value>scheduledPresenceStarts[index];
         }
         private void UpdatePhysicalParticipants(SimulationTick tick)
         {for(int i=0;i<Count;i++)physicalParticipants[i]=IsPhysicalParticipant(i,tick);}
