@@ -1,0 +1,69 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 1709,
+      "PassedTests": 11,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:08.5357640"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.ManualNumericalToleranceTests.CourseAllowanceOnlyUsesASmallPartOfTheExistingSafetyMargin(-0.002d,Clear)",
+        "Status": "Passed",
+        "Duration": "00:00:01.2550000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualNumericalToleranceTests.CourseAllowanceOnlyUsesASmallPartOfTheExistingSafetyMargin(-0.05d,UnresolvedStart)",
+        "Status": "Passed",
+        "Duration": "00:00:01.1080000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualNumericalToleranceTests.ExcessiveOrNegativeToleranceIsRejected(\"terminal_rest_speed_mps\",\"-0.1\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0040000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualNumericalToleranceTests.ExcessiveOrNegativeToleranceIsRejected(\"terminal_rest_speed_mps\",\"0.1\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualNumericalToleranceTests.ExcessiveOrNegativeToleranceIsRejected(\"terminal_rest_yaw_radps\",\"0.1\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualNumericalToleranceTests.ExcessiveOrNegativeToleranceIsRejected(\"course_clearance_allowance_m\",\"0.1\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualNumericalToleranceTests.OnlyExplicitTerminalNumericalRestIsCanonicalizedAfterTheWholePhysicalProof(True,1.5E-08d,0,True)",
+        "Status": "Passed",
+        "Duration": "00:00:01.3340000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualNumericalToleranceTests.OnlyExplicitTerminalNumericalRestIsCanonicalizedAfterTheWholePhysicalProof(False,1.5E-08d,0,False)",
+        "Status": "Passed",
+        "Duration": "00:00:01.2600000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualNumericalToleranceTests.OnlyExplicitTerminalNumericalRestIsCanonicalizedAfterTheWholePhysicalProof(True,0.002d,0,False)",
+        "Status": "Passed",
+        "Duration": "00:00:01.2560000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualNumericalToleranceTests.OnlyExplicitTerminalNumericalRestIsCanonicalizedAfterTheWholePhysicalProof(True,1.5E-08d,0.002d,False)",
+        "Status": "Passed",
+        "Duration": "00:00:01.2250000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualNumericalToleranceTests.VersionedPolicyRetainsARealCourseGuard",
+        "Status": "Passed",
+        "Duration": "00:00:00.0040000"
+      }
+    ]
+  }
+}

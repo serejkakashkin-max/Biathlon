@@ -35,7 +35,7 @@ namespace Biathlon.Simulation
             {
                 var c=family[p];familyProgress[p]=new ManualRacePathProgression(c);
                 familyCourses[p]=new ManualRouteTubeSweep(c.ProjectionGeometry,occupiedBody,work);
-                familyRibbons[p]=new ManualRouteRibbonSweep(c.ProjectionGeometry,occupiedBody,work);
+                familyRibbons[p]=new ManualRouteRibbonSweep(c.ProjectionGeometry,occupiedBody,work,numericalTolerance);
                 familyGates[p]=new ManualRacePathGateSweep(c,work);familyBoundaries[p]=new ManualRacePathBoundaryScheduler(c,work);
                 context[p+2]=ManualContextIdentity.Sha256(c.ContextJson);
             }

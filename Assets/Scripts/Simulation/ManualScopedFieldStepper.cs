@@ -64,7 +64,7 @@ namespace Biathlon.Simulation
         public static ManualScopedWorldRoster CreateInitialWorld(PackSprintFieldSession field,
             TrackDefinition track,TrackVisualDefinition visual,OccupancyDefinition body,
             SkiContactDefinition contact,SkiContactSweepDefinition work,SkiContactGroupDefinition group,
-            SkiPhysicsDefinition physics,ManualFinishRunoutDefinition finishRunout=null)
+            SkiPhysicsDefinition physics,ManualFinishRunoutDefinition finishRunout=null,ManualNumericalToleranceDefinition numericalTolerance=null)
         {
             if(field==null||track==null||visual==null||body==null||contact==null||work==null||group==null||physics==null||
                 field.Tick.Value!=0)
@@ -96,7 +96,7 @@ namespace Biathlon.Simulation
                 motions[i]=a.Motion;masses[i]=physics.MassKilograms;
             }
             var result=new ManualScopedWorldRoster(catalogs,body,contact,work,cursors,poses,velocities,motions,
-                field.TickFrequency,field.Tick,group,masses);
+                field.TickFrequency,field.Tick,group,masses,numericalTolerance);
             result.BindInitialField(field);if(family!=null)result.BindPathFamily(field,family,work);return result;
         }
 

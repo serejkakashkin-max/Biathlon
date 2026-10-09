@@ -33,20 +33,24 @@ namespace Biathlon.Simulation
         public double LastMinimumSampledClearance {get;private set;}
         public ManualRouteRibbonDiagnostics Diagnostics=>new ManualRouteRibbonDiagnostics(vertices,LastStartClearance,LastMinimumSampledClearance);
         public string ContextJson {get;}
-        public ManualRouteRibbonSweep(ManualRouteProjectionMap map,OccupancyDefinition body,SkiContactSweepDefinition work)
+        public ManualRouteRibbonSweep(ManualRouteProjectionMap map,OccupancyDefinition body,SkiContactSweepDefinition work,
+            ManualNumericalToleranceDefinition tolerance=null)
         {
             this.map=map??throw new ArgumentNullException(nameof(map));
             this.work=work??throw new ArgumentNullException(nameof(work));
             if(body==null)throw new ArgumentNullException(nameof(body));
+            tolerance?.Validate(body);
             disks=work.MaximumDepth;halfLength=body.LongitudinalSeparation*.5;
             halfWidth=body.LateralSeparation*.5;
             coverRadius=Math.Sqrt(halfWidth*halfWidth+Math.Pow(halfLength/disks,2));
             refinedRows=Math.Max(1,Math.Min(disks,(int)Math.Ceiling(disks*halfWidth/halfLength)));
             refinedRadius=Math.Sqrt(Math.Pow(halfWidth/refinedRows,2)+Math.Pow(halfLength/disks,2));
-            bodyRadius=Math.Sqrt(halfWidth*halfWidth+halfLength*halfLength);edgeClearance=body.EdgeClearance;
+            bodyRadius=Math.Sqrt(halfWidth*halfWidth+halfLength*halfLength);
+            edgeClearance=body.EdgeClearance-(tolerance?.CourseClearanceAllowance??0);
             x=new double[map.MaximumRibbonVertices];z=new double[x.Length];
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_local_authored_ribbon_v6_exact_rectangle_and_covers",map.ContextJson,
-                body.ToJson(),work.ToJson(),"actual_knot_normals;minimum_window_width;exact_authored_endpoints;simple_polygon_only;all_rectangle_corners_inside_and_all_edges_disjoint;minimum_segment_separation_minus_unchanged_edge_clearance;per_disk_independent_conservative_tube_cover;unchanged_tube_turn_reserve;disk_count_from_maximum_depth;bounded_rectangular_cell_circumdisks;unchanged_full_body_and_edge_clearance;full_cover_envelope_and_source_offset;continuous_whole_body_bound;no_phase_or_centre_credit"});
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_local_authored_ribbon_v7_explicit_clearance_allowance",map.ContextJson,
+                body.ToJson(),work.ToJson(),tolerance?.ToJson()??"numerical_tolerance_not_selected",
+                "actual_knot_normals;minimum_window_width;exact_authored_endpoints;simple_polygon_only;all_rectangle_corners_inside_and_all_edges_disjoint;minimum_segment_separation_minus_selected_edge_clearance;at_least_half_authored_edge_guard_retained;per_disk_independent_conservative_tube_cover;unchanged_tube_turn_reserve;disk_count_from_maximum_depth;bounded_rectangular_cell_circumdisks;unchanged_full_body;full_cover_envelope_and_source_offset;continuous_whole_body_bound;no_phase_or_centre_credit"});
         }
         public ManualRouteTubePreview Preview(ManualSkiWorldTrajectory trajectory,ManualRouteProjection source)
         {

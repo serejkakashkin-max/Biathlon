@@ -605,3 +605,37 @@ M13. Owner shooting-feel issue preserved. Build only after ALL M13.
 History preserved byte for byte; this append does not replace prior entries.
 Report: docs/reports/TASK_M13_MANUAL_START_BOUNDARY_20261009.md.
 Evidence: docs/quality/m13/field-stepper-20261008/manual-scheduled-boundary-*.
+
+## 2026-10-09 — M13 practical numerical tolerances after owner feedback
+
+Owner asked to stop cycling through overly strict technical tolerances and use
+more practical acceptance. Selected one data-driven policy rather than another
+per-race residue repair: terminal planar speed <=0.001 m/s AND |yaw|<=0.001 rad/s
+may be represented as rest only at the actual owned firing endpoint after the
+continuous physical proof. Exact X/Z/heading, paid time and raw travel remain.
+Course ribbon allowance0.02m uses the existing0.10m guard (0.08m retained), with
+at least half any authored guard required by validation. Full occupied body,
+pair/contact tolerance, explicit wall planes and route/phase authority retained.
+Production signed composition and reusable mat-path family select this policy;
+strict null-policy callers remain strict. World context v20/ribbon v7 bind the
+policy to deterministic reconstruction. Scratch count/max rest speed/yaw exposed.
+Numerical rest and millimetric margin loss no longer require individual repairs.
+Real queues, control failures, course/contact errors and crashes remain blocking.
+Values are implementation choices under owner direction, not a new gate approval.
+New fixture red2FAIL9PASS before behavior; final.NET11/11 and native11/11 PASS.
+Final focused .NET64PASS2FAIL0skipped/66,2m22s includes complete independent signed
+Mass3/Sprint1/Pursuit3 record/replay. Existing production-sized failures stay
+ENABLED: Mass30 course tick164 and Sprint40 course tick8729; both continue toward
+an edge, so further tolerance expansion would hide a real maneuver problem.
+Spin-aware traffic integration regressed existing Mass3 replay and was removed;
+trial receipts retained. Its isolated warning tests were insufficient acceptance.
+Temporary reflection/stop diagnostic instrumentation removed. Unity compilation
+settled; Error/Exception Console empty. No shooting geometry/tuning changes.
+M13/WP175/WP177/WP178 OPEN; WP176 PASS. Production host still lateral-v1; fully
+manual heading remains REQUIRED. No owner Windows build before ALL M13. G1/G2
+remain approved; WP170–174 deferred to the owner one-venue scope. Shooting-feel
+feedback remains OPEN. Next actual dense-field maneuvers and start staging,
+full signed fields/Sprint-to-Pursuit, player capture/manual host, final matrix,
+balance/performance and then owner build. Historical bytes preserved exactly.
+Report: docs/reports/TASK_M13_PRACTICAL_NUMERICAL_TOLERANCES_20261009.md.
+Evidence: docs/quality/m13/field-stepper-20261008/manual-numerical-policy-*.

@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="8cfe4f4f-7ebf-4fed-a04c-4a156eb373ec" name="snkashkin@DESKTOP-G3075GA 2026-10-09 20:09:50" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T20:09:50.1698234+03:00" queuing="2026-10-09T20:09:50.1698235+03:00" start="2026-10-09T20:09:48.6238365+03:00" finish="2026-10-09T20:09:50.3058907+03:00" />
+  <TestSettings name="default" id="909ffe6c-d051-4c91-9077-0045284db374">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_20_09_50" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1903f30d-8d8c-4801-9061-50b92e17cf47" testId="57dc546b-c32c-4927-790a-2573dff22c29" testName="ExcessiveOrNegativeToleranceIsRejected(&quot;terminal_rest_speed_mps&quot;,&quot;-0.1&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0033890" startTime="2026-10-09T20:09:49.6380066+03:00" endTime="2026-10-09T20:09:49.6413950+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1903f30d-8d8c-4801-9061-50b92e17cf47" />
+    <UnitTestResult executionId="c0dbbfbd-68ec-4c22-9c80-47bd9dde9015" testId="6210a607-283e-dd96-a050-cc494aa2d19e" testName="OnlyExplicitTerminalNumericalRestIsCanonicalizedAfterTheWholePhysicalProof(True,1.5E-08d,0,True)" computerName="DESKTOP-G3075GA" duration="00:00:00.1708880" startTime="2026-10-09T20:09:49.6422128+03:00" endTime="2026-10-09T20:09:49.8130996+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c0dbbfbd-68ec-4c22-9c80-47bd9dde9015">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: 0.0d&#xD;
+  But was:  -1.4927770900082954E-08d&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualNumericalToleranceTests.OnlyExplicitTerminalNumericalRestIsCanonicalizedAfterTheWholePhysicalProof(Boolean selected, Double speed, Double yaw, Boolean normalize) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualNumericalToleranceTests.cs:line 59&#xD;
+
+1)    at Biathlon.Tests.ManualNumericalToleranceTests.OnlyExplicitTerminalNumericalRestIsCanonicalizedAfterTheWholePhysicalProof(Boolean selected, Double speed, Double yaw, Boolean normalize) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualNumericalToleranceTests.cs:line 59&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="eb70f4ef-85a1-4ffd-ad4d-5e0fe95da451" testId="97304c5b-3fce-d7ab-1ccf-c2c888005aa8" testName="ExcessiveOrNegativeToleranceIsRejected(&quot;course_clearance_allowance_m&quot;,&quot;0.1&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0001680" startTime="2026-10-09T20:09:49.6420146+03:00" endTime="2026-10-09T20:09:49.6421825+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eb70f4ef-85a1-4ffd-ad4d-5e0fe95da451" />
+    <UnitTestResult executionId="c937abf3-77d4-458a-8bd0-759a136dbe2c" testId="c4e06b3e-5e84-6b1f-079e-12078e6001a6" testName="CourseAllowanceOnlyUsesASmallPartOfTheExistingSafetyMargin(-0.05d,UnresolvedStart)" computerName="DESKTOP-G3075GA" duration="00:00:00.1260840" startTime="2026-10-09T20:09:49.5112384+03:00" endTime="2026-10-09T20:09:49.6373220+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c937abf3-77d4-458a-8bd0-759a136dbe2c" />
+    <UnitTestResult executionId="85c16d29-d667-4f7f-b1d9-ee03b34ed3f7" testId="4cdd71c7-e750-6146-e402-8521cc3a8e20" testName="ExcessiveOrNegativeToleranceIsRejected(&quot;terminal_rest_yaw_radps&quot;,&quot;0.1&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0002050" startTime="2026-10-09T20:09:49.6418016+03:00" endTime="2026-10-09T20:09:49.6420059+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="85c16d29-d667-4f7f-b1d9-ee03b34ed3f7" />
+    <UnitTestResult executionId="e22a34e2-a9f9-4cb9-a008-f238040b3f48" testId="9c7d540f-b6a1-5d2a-e9f9-a42a4059fd12" testName="ExcessiveOrNegativeToleranceIsRejected(&quot;terminal_rest_speed_mps&quot;,&quot;0.1&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0003810" startTime="2026-10-09T20:09:49.6414090+03:00" endTime="2026-10-09T20:09:49.6417897+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e22a34e2-a9f9-4cb9-a008-f238040b3f48" />
+    <UnitTestResult executionId="ad5a015b-ba0d-4a43-9542-bebf3323973a" testId="c9551b12-5d86-7049-75ba-9b0d2d8a0499" testName="OnlyExplicitTerminalNumericalRestIsCanonicalizedAfterTheWholePhysicalProof(True,1.5E-08d,0.002d,False)" computerName="DESKTOP-G3075GA" duration="00:00:00.1433230" startTime="2026-10-09T20:09:50.1203534+03:00" endTime="2026-10-09T20:09:50.2636758+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad5a015b-ba0d-4a43-9542-bebf3323973a" />
+    <UnitTestResult executionId="2ec8572f-3b09-4352-a3f9-37746e42d3d3" testId="37f4a5c0-2bb8-33e7-6c66-34cb88d079ba" testName="CourseAllowanceOnlyUsesASmallPartOfTheExistingSafetyMargin(-0.002d,Clear)" computerName="DESKTOP-G3075GA" duration="00:00:00.3331540" startTime="2026-10-09T20:09:49.1775491+03:00" endTime="2026-10-09T20:09:49.5106742+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2ec8572f-3b09-4352-a3f9-37746e42d3d3">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: Clear&#xD;
+  But was:  UnresolvedStart&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualNumericalToleranceTests.CourseAllowanceOnlyUsesASmallPartOfTheExistingSafetyMargin(Double shift, ManualRouteTubeStatus expected) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualNumericalToleranceTests.cs:line 77&#xD;
+
+1)    at Biathlon.Tests.ManualNumericalToleranceTests.CourseAllowanceOnlyUsesASmallPartOfTheExistingSafetyMargin(Double shift, ManualRouteTubeStatus expected) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualNumericalToleranceTests.cs:line 77&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a0c8ac27-5500-4e06-859f-4752a0f8f463" testId="c0907318-85ca-0637-8c19-4453b37a6dc8" testName="OnlyExplicitTerminalNumericalRestIsCanonicalizedAfterTheWholePhysicalProof(False,1.5E-08d,0,False)" computerName="DESKTOP-G3075GA" duration="00:00:00.1584430" startTime="2026-10-09T20:09:49.8131282+03:00" endTime="2026-10-09T20:09:49.9715705+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a0c8ac27-5500-4e06-859f-4752a0f8f463" />
+    <UnitTestResult executionId="ad6c653e-49b2-4acd-ac03-56100ccbfbad" testId="45cbd7eb-9800-e31c-4e8d-e8fa3d4b1916" testName="OnlyExplicitTerminalNumericalRestIsCanonicalizedAfterTheWholePhysicalProof(True,0.002d,0,False)" computerName="DESKTOP-G3075GA" duration="00:00:00.1487250" startTime="2026-10-09T20:09:49.9716000+03:00" endTime="2026-10-09T20:09:50.1203245+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad6c653e-49b2-4acd-ac03-56100ccbfbad" />
+    <UnitTestResult executionId="255ec6f7-7351-4fa5-94cc-016d53944fe6" testId="fba31945-2c23-f087-bcf4-0075e006a4ae" testName="VersionedPolicyRetainsARealCourseGuard" computerName="DESKTOP-G3075GA" duration="00:00:00.0020439" startTime="2026-10-09T20:09:50.2637265+03:00" endTime="2026-10-09T20:09:50.2657704+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="255ec6f7-7351-4fa5-94cc-016d53944fe6" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ExcessiveOrNegativeToleranceIsRejected(&quot;terminal_rest_speed_mps&quot;,&quot;0.1&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="9c7d540f-b6a1-5d2a-e9f9-a42a4059fd12">
+      <Execution id="e22a34e2-a9f9-4cb9-a008-f238040b3f48" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualNumericalToleranceTests" name="ExcessiveOrNegativeToleranceIsRejected(&quot;terminal_rest_speed_mps&quot;,&quot;0.1&quot;)" />
+    </UnitTest>
+    <UnitTest name="ExcessiveOrNegativeToleranceIsRejected(&quot;course_clearance_allowance_m&quot;,&quot;0.1&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="97304c5b-3fce-d7ab-1ccf-c2c888005aa8">
+      <Execution id="eb70f4ef-85a1-4ffd-ad4d-5e0fe95da451" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualNumericalToleranceTests" name="ExcessiveOrNegativeToleranceIsRejected(&quot;course_clearance_allowance_m&quot;,&quot;0.1&quot;)" />
+    </UnitTest>
+    <UnitTest name="ExcessiveOrNegativeToleranceIsRejected(&quot;terminal_rest_yaw_radps&quot;,&quot;0.1&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="4cdd71c7-e750-6146-e402-8521cc3a8e20">
+      <Execution id="85c16d29-d667-4f7f-b1d9-ee03b34ed3f7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualNumericalToleranceTests" name="ExcessiveOrNegativeToleranceIsRejected(&quot;terminal_rest_yaw_radps&quot;,&quot;0.1&quot;)" />
+    </UnitTest>
+    <UnitTest name="VersionedPolicyRetainsARealCourseGuard" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="fba31945-2c23-f087-bcf4-0075e006a4ae">
+      <Execution id="255ec6f7-7351-4fa5-94cc-016d53944fe6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualNumericalToleranceTests" name="VersionedPolicyRetainsARealCourseGuard" />
+    </UnitTest>
+    <UnitTest name="OnlyExplicitTerminalNumericalRestIsCanonicalizedAfterTheWholePhysicalProof(True,1.5E-08d,0,True)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="6210a607-283e-dd96-a050-cc494aa2d19e">
+      <Execution id="c0dbbfbd-68ec-4c22-9c80-47bd9dde9015" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualNumericalToleranceTests" name="OnlyExplicitTerminalNumericalRestIsCanonicalizedAfterTheWholePhysicalProof(True,1.5E-08d,0,True)" />
+    </UnitTest>
+    <UnitTest name="OnlyExplicitTerminalNumericalRestIsCanonicalizedAfterTheWholePhysicalProof(False,1.5E-08d,0,False)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="c0907318-85ca-0637-8c19-4453b37a6dc8">
+      <Execution id="a0c8ac27-5500-4e06-859f-4752a0f8f463" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualNumericalToleranceTests" name="OnlyExplicitTerminalNumericalRestIsCanonicalizedAfterTheWholePhysicalProof(False,1.5E-08d,0,False)" />
+    </UnitTest>
+    <UnitTest name="OnlyExplicitTerminalNumericalRestIsCanonicalizedAfterTheWholePhysicalProof(True,0.002d,0,False)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="45cbd7eb-9800-e31c-4e8d-e8fa3d4b1916">
+      <Execution id="ad6c653e-49b2-4acd-ac03-56100ccbfbad" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualNumericalToleranceTests" name="OnlyExplicitTerminalNumericalRestIsCanonicalizedAfterTheWholePhysicalProof(True,0.002d,0,False)" />
+    </UnitTest>
+    <UnitTest name="OnlyExplicitTerminalNumericalRestIsCanonicalizedAfterTheWholePhysicalProof(True,1.5E-08d,0.002d,False)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="c9551b12-5d86-7049-75ba-9b0d2d8a0499">
+      <Execution id="ad5a015b-ba0d-4a43-9542-bebf3323973a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualNumericalToleranceTests" name="OnlyExplicitTerminalNumericalRestIsCanonicalizedAfterTheWholePhysicalProof(True,1.5E-08d,0.002d,False)" />
+    </UnitTest>
+    <UnitTest name="ExcessiveOrNegativeToleranceIsRejected(&quot;terminal_rest_speed_mps&quot;,&quot;-0.1&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="57dc546b-c32c-4927-790a-2573dff22c29">
+      <Execution id="1903f30d-8d8c-4801-9061-50b92e17cf47" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualNumericalToleranceTests" name="ExcessiveOrNegativeToleranceIsRejected(&quot;terminal_rest_speed_mps&quot;,&quot;-0.1&quot;)" />
+    </UnitTest>
+    <UnitTest name="CourseAllowanceOnlyUsesASmallPartOfTheExistingSafetyMargin(-0.002d,Clear)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="37f4a5c0-2bb8-33e7-6c66-34cb88d079ba">
+      <Execution id="2ec8572f-3b09-4352-a3f9-37746e42d3d3" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualNumericalToleranceTests" name="CourseAllowanceOnlyUsesASmallPartOfTheExistingSafetyMargin(-0.002d,Clear)" />
+    </UnitTest>
+    <UnitTest name="CourseAllowanceOnlyUsesASmallPartOfTheExistingSafetyMargin(-0.05d,UnresolvedStart)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="c4e06b3e-5e84-6b1f-079e-12078e6001a6">
+      <Execution id="c937abf3-77d4-458a-8bd0-759a136dbe2c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualNumericalToleranceTests" name="CourseAllowanceOnlyUsesASmallPartOfTheExistingSafetyMargin(-0.05d,UnresolvedStart)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="57dc546b-c32c-4927-790a-2573dff22c29" executionId="1903f30d-8d8c-4801-9061-50b92e17cf47" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6210a607-283e-dd96-a050-cc494aa2d19e" executionId="c0dbbfbd-68ec-4c22-9c80-47bd9dde9015" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="97304c5b-3fce-d7ab-1ccf-c2c888005aa8" executionId="eb70f4ef-85a1-4ffd-ad4d-5e0fe95da451" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c4e06b3e-5e84-6b1f-079e-12078e6001a6" executionId="c937abf3-77d4-458a-8bd0-759a136dbe2c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4cdd71c7-e750-6146-e402-8521cc3a8e20" executionId="85c16d29-d667-4f7f-b1d9-ee03b34ed3f7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9c7d540f-b6a1-5d2a-e9f9-a42a4059fd12" executionId="e22a34e2-a9f9-4cb9-a008-f238040b3f48" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c9551b12-5d86-7049-75ba-9b0d2d8a0499" executionId="ad5a015b-ba0d-4a43-9542-bebf3323973a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="37f4a5c0-2bb8-33e7-6c66-34cb88d079ba" executionId="2ec8572f-3b09-4352-a3f9-37746e42d3d3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c0907318-85ca-0637-8c19-4453b37a6dc8" executionId="a0c8ac27-5500-4e06-859f-4752a0f8f463" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="45cbd7eb-9800-e31c-4e8d-e8fa3d4b1916" executionId="ad6c653e-49b2-4acd-ac03-56100ccbfbad" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fba31945-2c23-f087-bcf4-0075e006a4ae" executionId="255ec6f7-7351-4fa5-94cc-016d53944fe6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="11" executed="11" passed="9" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 11 of 11 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

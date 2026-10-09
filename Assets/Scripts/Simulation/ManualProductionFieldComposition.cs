@@ -16,7 +16,8 @@ namespace Biathlon.Simulation
             var group=SkiContactGroupDefinition.FromJson(readCore("manual_ski_contact_group_v1.json"));
             var steering=ManualSkiSteeringDefinition.FromJson(readCore("manual_ski_steering_v2.json"));
             var world=ManualScopedFieldStepper.CreateInitialWorld(field,venue.Track,venue.Visual,venue.Occupancy,contact,work,group,models.Physics,
-                ManualFinishRunoutDefinition.FromJson(readCore("manual_finish_runout_v1.json")));
+                ManualFinishRunoutDefinition.FromJson(readCore("manual_finish_runout_v1.json")),
+                ManualNumericalToleranceDefinition.FromJson(readCore("manual_numerical_tolerance_v1.json")));
             return new ManualScopedFieldStepper(field,world,models,venue.Occupancy,steering,work,
                 ManualMatBrakingDefinition.FromJson(readCore("manual_mat_braking_v1.json")));
         }
