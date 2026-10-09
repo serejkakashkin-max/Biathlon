@@ -161,8 +161,8 @@ namespace Biathlon.Simulation
             :this(route,geometry,BaseScopes(route),true,null) { }
 
         internal static ManualRouteProjectionMap ForPhysicalScopes(RaceRoute route,TrackVisualDefinition geometry,
-            ManualProjectionScope[] scopes,string scopeContext,bool[] ordinaryEntries)
-            =>new ManualRouteProjectionMap(route,geometry,scopes,false,scopeContext??throw new ArgumentNullException(nameof(scopeContext)),ordinaryEntries);
+            ManualProjectionScope[] scopes,string scopeContext,bool[] ordinaryEntries,bool[] firingDepartures)
+            =>new ManualRouteProjectionMap(route,geometry,scopes,false,scopeContext??throw new ArgumentNullException(nameof(scopeContext)),ordinaryEntries,firingDepartures);
 
         private static ManualProjectionScope[] BaseScopes(RaceRoute route)
         {
@@ -179,7 +179,7 @@ namespace Biathlon.Simulation
         }
 
         private ManualRouteProjectionMap(RaceRoute route,TrackVisualDefinition geometry,ManualProjectionScope[] scopes,
-            bool baseRouteGeometry,string scopeContext,bool[] ordinaryEntries=null)
+            bool baseRouteGeometry,string scopeContext,bool[] ordinaryEntries=null,bool[] firingDepartures=null)
         {
             if(route==null||geometry==null||scopes==null)throw new ArgumentNullException();
             if(route.TrackId!=geometry.TrackId)throw new ArgumentException("Projection route and geometry must match.");
@@ -234,12 +234,24 @@ namespace Biathlon.Simulation
             length=ends[count-1];edges=list.ToArray();
             if(ordinaryEntries!=null)
             {
-                if(baseRouteGeometry||ordinaryEntries.Length!=count)throw new ArgumentException("Exact physical-scope entry topology required.");
+                if(baseRouteGeometry||ordinaryEntries.Length!=count||firingDepartures==null||firingDepartures.Length!=count)
+                    throw new ArgumentException("Exact physical-scope entry topology required.");
                 for(int s=1;s<count;s++)
                 {
-                    if(!ordinaryEntries[s])continue;
+                    if(!ordinaryEntries[s]&&!firingDepartures[s])continue;
                     int previous=edgeEnds[s-1]-1,next=firstEdges[s];var a=edges[previous];var b=edges[next];
                     if(!Touching(a,b))throw new ArgumentException("An ordinary portal must join exactly touching authored endpoints.");
+                    if(firingDepartures[s])
+                    {
+                        if(ordinaryEntries[s]||a.Loop!=b.Loop||b.DX*a.ExitX+b.DZ*a.ExitZ<=0)
+                            throw new ArgumentException("Firing departure must enter the unchanged incoming plane on the same selected mat path.");
+                        // Keep the closed firing endpoint exactly as paid.
+                        // Its authorized departure reuses that plane; two
+                        // adjacent polyline tangents must not create a wedge
+                        // that rejects an unchanged off-centre shooting body.
+                        edges[next]=new Edge(b,a.ExitX,a.ExitZ,b.ExitX,b.ExitZ);
+                        continue;
+                    }
                     double fx=a.ExitX+b.EntryX,fz=a.ExitZ+b.EntryZ,norm=Math.Sqrt(fx*fx+fz*fz);
                     if(norm<=PhysiologyNumbers.MinimumPositive)throw new ArgumentException("A reversing seam requires an explicit junction, not an ordinary chart.");
                     fx/=norm;fz/=norm;
@@ -251,7 +263,7 @@ namespace Biathlon.Simulation
                 route.TrackSnapshotJson,route.PlanSnapshotJson,route.RequirementsSnapshotJson,geometry.ToJson(),
                 "local_clamped_knot_observation_v2"}):ShootingModelDefinitions.EncodeContext(new[]{
                     "manual_physical_scope_local_projection_v1",scopeContext,geometry.ToJson(),
-                    "geometry_namespace_not_race_credit;local_clamped_knot_observation_v2;scoped_endpoint_encoding_snap_v1;ordinary_shared_bisector_portal_chart_v1;folded_charts_reject"});
+                    "geometry_namespace_not_race_credit;local_clamped_knot_observation_v2;scoped_endpoint_encoding_snap_v1;ordinary_shared_bisector_portal_chart_v1;firing_departure_reuses_unchanged_paid_incoming_plane_v1;phase_authority_separate;folded_charts_reject"});
             collinearCells=BuildCollinearCells();
             CorridorContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_selected_route_convex_cell_v1",
                 ContextJson,"minimum_authored_width_over_visual_edge;four_inward_planes;full_body_interior_only"});

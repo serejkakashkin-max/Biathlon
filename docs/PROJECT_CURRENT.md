@@ -289,3 +289,35 @@ Earlier failed trials remain. This is the final0.1m braking strip, not the full
 shooting/departure/penalty/finish and resource integration. Host lateral-v1,
 M13/WP175/177/178/final build remain OPEN; WP176 PASS. State history preserved.
 [Report](reports/TASK_M13_MANUAL_TERMINAL_MAT_BRAKING_20261009.md).
+
+2026-10-09 latest — qualified first-range departure/contact clock
+
+M13 / WP-175 / WP-177 / WP-178 remain OPEN; WP-176 PASS. No owner build.
+Production host still lateral-v1; these qualified manual components do not close M13.
+
+All three real Woodland AI athletes complete their first shooting bout, depart
+and return to a base-route occurrence on complete common manual field clocks.
+Exact two-run pose/velocity/motion/physiology/piece-count/events witness PASS.
+Fixed tick3542 departure wedge by reusing the unchanged paid incoming firing
+plane; shooting completion still required. Fixed tick3896 nanosecond contact
+stop-refreeze loop by retaining the original external force calendar inside
+reached contact pieces. Actual raw motion/reactions and full continuous body,
+course, phase and clock admission remain authoritative. Dense-start tick229
+work-limit regression minimized to two bodies and repaired with depth-bounded
+shorter force intervals; residual/pass bounds unchanged. Interval-refinement
+telemetry added. Temporary boxed pose comparison removed; exact allocation
+assertions retained. No pose snap, body shrink, paid queue or legacy fallback.
+
+Final all-manual.NET505/505 PASS; native portals3, forces21, range loop1,
+refinement2, original force pieces4, final Mass30 stationary-player400ticks1,
+final exact two-run departure1 PASS. Compile false/Error+Exception Console empty.
+Historical FAIL receipts (3542/3896/boxing/dense-start229) retained. No graphical
+or full-format/manual AI-free replay/performance approval implied.
+
+Report: docs/reports/TASK_M13_MANUAL_RANGE_DEPARTURE_AND_CONTACT_CLOCK_20261009.md.
+Evidence: docs/quality/m13/field-stepper-20261008/.
+Next: subsequent bouts/penalty debt/finish, reusable mats, achieved draft,
+manual replay and host input/pose/rig/HUD; then WP175/177/178 final checks.
+Full2–3m mat capture/shooting preparation and owner too-easy shooting issue remain
+open. Final Windows review build only after all M13. PROJECT_STATE history stays
+append-only; this entry changes no historical byte.

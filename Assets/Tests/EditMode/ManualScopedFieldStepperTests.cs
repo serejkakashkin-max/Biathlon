@@ -46,6 +46,7 @@ namespace Biathlon.Tests
         private static string Explain(ManualScopedFieldStepper s)
         {
             var rejected=s.LastRejectedWorkingActor;
+            var forces=s.World.LastContactForces;
             string source=FormattableString.Invariant($"working x={rejected.Pose.X:R} z={rejected.Pose.Z:R} yaw={rejected.Pose.HeadingRadians:R} spin={rejected.Pose.YawRateRadiansPerSecond:R} vx={rejected.Velocity.X:R} vz={rejected.Velocity.Z:R} occurrence={rejected.Observation.OccurrenceIndex} arc={rejected.Observation.PhysicalArcNanometers} lateral={rejected.Observation.LateralMeters:R}; gate={s.LastStep.WorldAttempt.Gate.Status}; ");
             for(int i=0;i<s.World.Count;i++)
             {
@@ -55,7 +56,7 @@ namespace Biathlon.Tests
                 var ribbon=s.World.GetRibbonDiagnostics(i);
                 source+=FormattableString.Invariant($"source={i} occurrence={cursor.OccurrenceIndex} arc={cursor.ObservedArcNanometers} x={actor.Pose.X:R} z={actor.Pose.Z:R} yaw={actor.Pose.HeadingRadians:R} spin={actor.Pose.YawRateRadiansPerSecond:R} vx={velocity.X:R} vz={velocity.Z:R} lateral={actor.Observation.LateralMeters:R} vertices={ribbon.LastVertexCount} clearance={ribbon.LastStartClearance:R} minimum={ribbon.LastMinimumSampledClearance:R}");
             }
-            return FormattableString.Invariant($"{s.LastStep.Status} / {s.LastStep.WorldAttempt.Status} / {s.LastStep.WorldAttempt.Athlete} / {s.LastStep.ProvisionalSeconds:R} / pieces {s.LastStep.Intervals} / {s.LastStep.WorldAttempt.Course.Status} / {s.LastStep.WorldAttempt.Course.SourceEdgeId} / {s.LastStep.WorldAttempt.CourseEdge.Status} / pair {s.LastStep.WorldAttempt.BodyOrEdge.First}:{s.LastStep.WorldAttempt.BodyOrEdge.Second} {s.LastStep.WorldAttempt.BodyOrEdge.Pair.Status} clear {s.LastStep.WorldAttempt.BodyOrEdge.Pair.ClearUntilSeconds:R} end {s.LastStep.WorldAttempt.BodyOrEdge.Pair.IntervalEndSeconds:R} continuation {s.LastStep.WorldAttempt.BodyOrEdge.Pair.IsContactContinuation} / {source}");
+            return FormattableString.Invariant($"{s.LastStep.Status} / {s.LastStep.WorldAttempt.Status} / {s.LastStep.WorldAttempt.Athlete} / {s.LastStep.ProvisionalSeconds:R} / pieces {s.LastStep.Intervals} / forces {forces.Status} supports={forces.SupportPoints} passes={forces.Passes} seconds={forces.DurationSeconds:R} residual={forces.MaximumReactionResidualSpeed:R} closing={forces.MaximumClosingAcceleration:R} / {s.LastStep.WorldAttempt.Course.Status} / {s.LastStep.WorldAttempt.Course.SourceEdgeId} / {s.LastStep.WorldAttempt.CourseEdge.Status} / pair {s.LastStep.WorldAttempt.BodyOrEdge.First}:{s.LastStep.WorldAttempt.BodyOrEdge.Second} {s.LastStep.WorldAttempt.BodyOrEdge.Pair.Status} clear {s.LastStep.WorldAttempt.BodyOrEdge.Pair.ClearUntilSeconds:R} end {s.LastStep.WorldAttempt.BodyOrEdge.Pair.IntervalEndSeconds:R} continuation {s.LastStep.WorldAttempt.BodyOrEdge.Pair.IsContactContinuation} / {source}");
         }
         internal static (PackAiRaceRunner runner,ManualScopedFieldStepper stepper,RaceEventLog events) InitialCandidate(int count)
         {
@@ -219,6 +220,44 @@ namespace Biathlon.Tests
             }
             Assert.That(a.events.Count,Is.EqualTo(b.events.Count));
             for(int e=0;e<a.events.Count;e++)Assert.That(a.events[e],Is.EqualTo(b.events[e]));
+        }
+        [Test] public void EveryAiCompletesItsFirstRangeAndResumesTheManualLap()
+        {
+            var f=InitialCandidate(3);int returned=0;
+            for(int i=0;i<6000&&returned<3;i++)
+            {
+                try {f.runner.Step();}
+                catch(Exception e){Assert.Fail("tick "+f.runner.Field.Tick.Next().Value+" / "+Explain(f.stepper)+" / "+e);}
+                returned=0;
+                for(int k=0;k<3;k++)
+                {
+                    var cursor=f.stepper.World.GetCursor(k);var row=f.stepper.World.GetCatalog(k).Get(cursor.OccurrenceIndex);
+                    if(f.runner.Field.GetAthlete(k).Lifecycle.CompletedBouts==1&&row.Kind==ManualRacePathKind.BaseRoute)returned++;
+                }
+            }
+            Assert.That(returned,Is.EqualTo(3),"All actors must complete actual shots, departure, penalty debt and range rejoin on the manual clock.");
+        }
+        [Test] public void FirstRangeDepartureRepeatsActualWorldMotionAndEventsExactly()
+        {
+            var a=InitialCandidate(3);var b=InitialCandidate(3);int returned=0;
+            for(int i=0;i<6000&&returned<3;i++)
+            {
+                a.runner.Step();b.runner.Step();returned=0;
+                for(int k=0;k<3;k++)
+                {
+                    var cursor=a.stepper.World.GetCursor(k);
+                    if(a.runner.Field.GetAthlete(k).Lifecycle.CompletedBouts==1&&
+                        a.stepper.World.GetCatalog(k).Get(cursor.OccurrenceIndex).Kind==ManualRacePathKind.BaseRoute)returned++;
+                    Assert.That(a.stepper.World.GetActor(k).Pose,Is.EqualTo(b.stepper.World.GetActor(k).Pose));
+                    Assert.That(a.stepper.World.GetActor(k).Velocity,Is.EqualTo(b.stepper.World.GetActor(k).Velocity));
+                    Assert.That(a.runner.Field.GetAthlete(k).Motion,Is.EqualTo(b.runner.Field.GetAthlete(k).Motion));
+                    Assert.That(a.runner.Field.GetAthlete(k).PhysiologyState,Is.EqualTo(b.runner.Field.GetAthlete(k).PhysiologyState));
+                }
+                Assert.That(a.stepper.LastStep.Intervals,Is.EqualTo(b.stepper.LastStep.Intervals));
+                Assert.That(a.stepper.World.Tick,Is.EqualTo(b.stepper.World.Tick));
+            }
+            Assert.That(returned,Is.EqualTo(3));Assert.That(a.events.Count,Is.EqualTo(b.events.Count));
+            for(int i=0;i<a.events.Count;i++)Assert.That(a.events[i],Is.EqualTo(b.events[i]));
         }
         [Test] public void InvalidFinalIntentCannotPublishAnyFieldClockOrEvent()
         {

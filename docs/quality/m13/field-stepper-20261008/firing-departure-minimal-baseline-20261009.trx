@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="0e3a6fbf-7268-4377-82f3-9a48b9296394" name="snkashkin@DESKTOP-G3075GA 2026-10-09 12:34:14" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T12:34:14.2502925+03:00" queuing="2026-10-09T12:34:14.2502927+03:00" start="2026-10-09T12:34:13.1137707+03:00" finish="2026-10-09T12:34:14.2537454+03:00" />
+  <TestSettings name="default" id="d5f46585-37f1-4e0d-a660-a466de2f42eb">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_12_34_14" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="16569fb3-f8da-4d96-a241-da59a94b415c" testId="1272821d-dca1-2cc6-d191-74546d4c16d7" testName="AnActualPaidOffCentreMatPoseIsAlsoOnItsDepartureEntry(2,37.530400262d,-0.57134096d,5.43772393d)" computerName="DESKTOP-G3075GA" duration="00:00:00.1190160" startTime="2026-10-09T12:34:14.0495831+03:00" endTime="2026-10-09T12:34:14.1685747+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="16569fb3-f8da-4d96-a241-da59a94b415c">
+      <Output>
+        <ErrorInfo>
+          <Message>  The phase handoff cannot put an unchanged stationary body outside its entry plane.&#xD;
+  Expected: Clear&#xD;
+  But was:  OutsideStart&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualFiringDeparturePortalTests.AnActualPaidOffCentreMatPoseIsAlsoOnItsDepartureEntry(Int32 lane, Double x, Double z, Double heading) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualFiringDeparturePortalTests.cs:line 26&#xD;
+   at InvokeStub_ManualFiringDeparturePortalTests.AnActualPaidOffCentreMatPoseIsAlsoOnItsDepartureEntry(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualFiringDeparturePortalTests.AnActualPaidOffCentreMatPoseIsAlsoOnItsDepartureEntry(Int32 lane, Double x, Double z, Double heading) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualFiringDeparturePortalTests.cs:line 26&#xD;
+   at InvokeStub_ManualFiringDeparturePortalTests.AnActualPaidOffCentreMatPoseIsAlsoOnItsDepartureEntry(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="506c5653-ace3-4c2e-832e-5b2e3429e946" testId="ec8a6137-f457-da26-1d1a-76cc6a10120e" testName="AnActualPaidOffCentreMatPoseIsAlsoOnItsDepartureEntry(0,43.503951769d,-0.842090308d,5.575993686d)" computerName="DESKTOP-G3075GA" duration="00:00:00.3552630" startTime="2026-10-09T12:34:13.6938353+03:00" endTime="2026-10-09T12:34:14.0489918+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="506c5653-ace3-4c2e-832e-5b2e3429e946">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: 2672000000&#xD;
+  But was:  2671783059&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualFiringDeparturePortalTests.AnActualPaidOffCentreMatPoseIsAlsoOnItsDepartureEntry(Int32 lane, Double x, Double z, Double heading) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualFiringDeparturePortalTests.cs:line 17&#xD;
+
+1)    at Biathlon.Tests.ManualFiringDeparturePortalTests.AnActualPaidOffCentreMatPoseIsAlsoOnItsDepartureEntry(Int32 lane, Double x, Double z, Double heading) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualFiringDeparturePortalTests.cs:line 17&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="AnActualPaidOffCentreMatPoseIsAlsoOnItsDepartureEntry(0,43.503951769d,-0.842090308d,5.575993686d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="ec8a6137-f457-da26-1d1a-76cc6a10120e">
+      <Execution id="506c5653-ace3-4c2e-832e-5b2e3429e946" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualFiringDeparturePortalTests" name="AnActualPaidOffCentreMatPoseIsAlsoOnItsDepartureEntry(0,43.503951769d,-0.842090308d,5.575993686d)" />
+    </UnitTest>
+    <UnitTest name="AnActualPaidOffCentreMatPoseIsAlsoOnItsDepartureEntry(2,37.530400262d,-0.57134096d,5.43772393d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="1272821d-dca1-2cc6-d191-74546d4c16d7">
+      <Execution id="16569fb3-f8da-4d96-a241-da59a94b415c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualFiringDeparturePortalTests" name="AnActualPaidOffCentreMatPoseIsAlsoOnItsDepartureEntry(2,37.530400262d,-0.57134096d,5.43772393d)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="1272821d-dca1-2cc6-d191-74546d4c16d7" executionId="16569fb3-f8da-4d96-a241-da59a94b415c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ec8a6137-f457-da26-1d1a-76cc6a10120e" executionId="506c5653-ace3-4c2e-832e-5b2e3429e946" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -205,7 +205,7 @@ namespace Biathlon.Simulation
             context[2]=route.PlanSnapshotJson;context[3]=route.RequirementsSnapshotJson;context[4]=profile.ToJson();
             context[5]=rangePath.ContextJson;context[6]=startApproach?.ContextJson??"no_start_approach";
             context[7]=visual.ToJson();
-            context[8]="explicit_occurrence;physical_arc_distinct_from_counted_route;no_mat_branch_or_penalty_admission";
+            context[8]="explicit_occurrence;physical_arc_distinct_from_counted_route;no_mat_branch_or_penalty_admission;firing_departure_reuses_paid_incoming_plane_v1";
             for(int i=0;i<Count;i++)
             {
                 var row=occurrences[i];scopes[i]=new ManualProjectionScope(row.LoopId,row.LocalStartNanometers,row.LocalEndNanometers,row.GeometryStartNanometers);
@@ -219,9 +219,13 @@ namespace Biathlon.Simulation
                     row.RouteStartNanometers.ToString(CultureInfo.InvariantCulture),row.GeometryStartNanometers.ToString(CultureInfo.InvariantCulture)});
             }
             ContextJson=ShootingModelDefinitions.EncodeContext(context);
-            var ordinaryEntries=new bool[Count];
-            for(int i=1;i<BaseFlowCount;i++)ordinaryEntries[i]=occurrences[i-1].End==ManualRacePathEnd.Continue;
-            ProjectionGeometry=ManualRouteProjectionMap.ForPhysicalScopes(route,visual,scopes,ContextJson,ordinaryEntries);
+            var ordinaryEntries=new bool[Count];var firingDepartures=new bool[Count];
+            for(int i=1;i<BaseFlowCount;i++)
+            {
+                ordinaryEntries[i]=occurrences[i-1].End==ManualRacePathEnd.Continue;
+                firingDepartures[i]=occurrences[i-1].End==ManualRacePathEnd.FiringLine;
+            }
+            ProjectionGeometry=ManualRouteProjectionMap.ForPhysicalScopes(route,visual,scopes,ContextJson,ordinaryEntries,firingDepartures);
         }
 
         public int GetFiringOccurrence(int bout)=>firingIndexes[bout];

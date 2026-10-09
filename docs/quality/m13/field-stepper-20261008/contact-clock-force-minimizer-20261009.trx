@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="e48c44ca-309c-422f-9399-a6330b8884a7" name="snkashkin@DESKTOP-G3075GA 2026-10-09 13:24:20" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T13:24:20.5578152+03:00" queuing="2026-10-09T13:24:20.5578153+03:00" start="2026-10-09T13:24:04.6989128+03:00" finish="2026-10-09T13:24:20.5614606+03:00" />
+  <TestSettings name="default" id="252dbd62-7357-4b43-9e3b-75d434457259">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_13_24_20" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="da444e39-ece2-48b9-bd78-e75b628e8edd" testId="0695782c-3c88-8ea2-8585-513eacbae067" testName="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" computerName="DESKTOP-G3075GA" duration="00:00:15.0135620" startTime="2026-10-09T13:24:05.1960233+03:00" endTime="2026-10-09T13:24:20.2084705+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="da444e39-ece2-48b9-bd78-e75b628e8edd">
+      <Output>
+        <StdOut>[DEBUG-contact-clock] support woodland_basin_v1_athlete_13:woodland_basin_v1_athlete_16&#xD;
+[DEBUG-contact-clock] 13: 180.758657151, -8.680607571, 1.569662608, -0.001131692, 7.439008826303932, 0.006777222015755733, 0.07140446919930099, -0.028678986596326738, 0.11439446435599646; mass=75&#xD;
+[DEBUG-contact-clock] 16: 179.258659418, -8.692812299, 1.56969011, 0.001238063, 7.438191266914689, 0.006848479470796024, 0.2908477156010747, 0.00430224911493542, 0.006659400068505061; mass=75&#xD;
+[DEBUG-contact-clock] support woodland_basin_v1_athlete_15:woodland_basin_v1_athlete_18&#xD;
+[DEBUG-contact-clock] 15: 177.69676311, -6.681848928, 1.564610369, 0.005402183, 7.354163155344258, 0.03773036990592373, 0.08390634431325594, -0.02675737934692904, 0.15173991113027024; mass=75&#xD;
+[DEBUG-contact-clock] 18: 176.197175371, -6.753356812, 1.564609014, 0.005370901, 7.353767999754721, 0.04580790083059142, 0.30903121075033013, -0.05296010585012667, -0.036985666697008965; mass=75&#xD;
+[DEBUG-contact-clock] support woodland_basin_v1_athlete_15:woodland_basin_v1_athlete_18&#xD;
+[DEBUG-contact-clock] 15: 177.69676311, -6.681848928, 1.564610369, 0.005402183, 7.354163155344258, 0.03773036990592373, 0.08390634431325594, -0.02675737934692904, 0.15173991113027024; mass=75&#xD;
+[DEBUG-contact-clock] 18: 176.197175371, -6.753356812, 1.564609014, 0.005370901, 7.353767999754721, 0.04580790083059142, 0.30903121075033013, -0.05296010585012667, -0.036985666697008965; mass=75&#xD;
+[DEBUG-contact-clock] support woodland_basin_v1_athlete_17:woodland_basin_v1_athlete_20&#xD;
+[DEBUG-contact-clock] 17: 176.378518612, -10.723837311, 1.569544649, 0.00084026, 7.462844003238039, 0.009754738035767239, 0.07359284558381418, 0.016105585815898438, -0.05041023878131172; mass=75&#xD;
+[DEBUG-contact-clock] 20: 174.878418817, -10.647352705, 1.569551592, 0.000714903, 7.462950261882479, 0.004636950475813364, 0.28055757767120326, -0.02769072973475838, 0.1580169252964946; mass=75&#xD;
+[DEBUG-contact-clock] support woodland_basin_v1_athlete_23:woodland_basin_v1_athlete_26&#xD;
+[DEBUG-contact-clock] 23: 169.735264222, -10.738642505, 1.568522362, 0.000658185, 7.470640678472538, 0.017537067070941003, 0.07554688459919134, 0.013270868678782466, -0.046330198943778954; mass=75&#xD;
+[DEBUG-contact-clock] 26: 168.235067261, -10.657130243, 1.568547832, 0.001449646, 7.470483317010604, 0.011640414047335127, 0.3092376803823882, -0.0166600444540331, 0.14223952032349177; mass=75&#xD;
+[DEBUG-contact-clock] support woodland_basin_v1_athlete_25:woodland_basin_v1_athlete_28&#xD;
+[DEBUG-contact-clock] 25: 168.445789017, -8.800246442, 1.560396818, 0.006022744, 7.466498811392672, 0.07582133213207978, 0.09178497173682132, -0.047781556656728286, 0.0028907971843479367; mass=75&#xD;
+[DEBUG-contact-clock] 28: 166.94504129, -8.736838977, 1.560419706, 0.007759401, 7.466543804295913, 0.07073607629920506, 0.3044510057937977, -0.05497430218562471, 0.11994410662408322; mass=75&#xD;
+[DEBUG-contact-clock] support woodland_basin_v1_athlete_3:woodland_basin_v1_athlete_6&#xD;
+[DEBUG-contact-clock] 3: 193.170979635, -6.884693221, 1.629367315, 0.114177678, 7.936825991821005, -0.5056639073203807, 0.12047907305332117, -0.8655761599383549, 0.09192040808746416; mass=75&#xD;
+[DEBUG-contact-clock] 6: 191.666531246, -6.807433831, 1.610736784, 0.099628454, 7.940076782617462, -0.34538453806162245, 0.15539061504574292, -0.7408176023244561, -0.14288831589058887; mass=75</StdOut>
+        <ErrorInfo>
+          <Message>tick 229 / WorldRejected / ContactForces /  / 0.001457078734998765 / pieces 19 / forces WorkLimit supports=7 passes=4096 seconds=0.04854292126500124 residual=1.043338218541184E-08 closing=6.342108462212116E-09 / Clear /  / Clear / pair : Clear clear 0 end 0 continuation False / working x=0 z=0 yaw=0 spin=0 vx=0 vz=0 occurrence=0 arc=0 lateral=0; gate=Clear;  / System.InvalidOperationException: Manual field step rejected: WorldRejected / ContactForces / ; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 147&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 474&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepPlayer(Int32 index, SprintAthleteInput input, Double desiredLateralMeters) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 244&#xD;
+   at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 131</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 135&#xD;
+
+1)    at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 131&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="0695782c-3c88-8ea2-8585-513eacbae067">
+      <Execution id="da444e39-ece2-48b9-bd78-e75b628e8edd" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="0695782c-3c88-8ea2-8585-513eacbae067" executionId="da444e39-ece2-48b9-bd78-e75b628e8edd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+[DEBUG-contact-clock] support woodland_basin_v1_athlete_13:woodland_basin_v1_athlete_16&#xD;
+[DEBUG-contact-clock] 13: 180.758657151, -8.680607571, 1.569662608, -0.001131692, 7.439008826303932, 0.006777222015755733, 0.07140446919930099, -0.028678986596326738, 0.11439446435599646; mass=75&#xD;
+[DEBUG-contact-clock] 16: 179.258659418, -8.692812299, 1.56969011, 0.001238063, 7.438191266914689, 0.006848479470796024, 0.2908477156010747, 0.00430224911493542, 0.006659400068505061; mass=75&#xD;
+[DEBUG-contact-clock] support woodland_basin_v1_athlete_15:woodland_basin_v1_athlete_18&#xD;
+[DEBUG-contact-clock] 15: 177.69676311, -6.681848928, 1.564610369, 0.005402183, 7.354163155344258, 0.03773036990592373, 0.08390634431325594, -0.02675737934692904, 0.15173991113027024; mass=75&#xD;
+[DEBUG-contact-clock] 18: 176.197175371, -6.753356812, 1.564609014, 0.005370901, 7.353767999754721, 0.04580790083059142, 0.30903121075033013, -0.05296010585012667, -0.036985666697008965; mass=75&#xD;
+[DEBUG-contact-clock] support woodland_basin_v1_athlete_15:woodland_basin_v1_athlete_18&#xD;
+[DEBUG-contact-clock] 15: 177.69676311, -6.681848928, 1.564610369, 0.005402183, 7.354163155344258, 0.03773036990592373, 0.08390634431325594, -0.02675737934692904, 0.15173991113027024; mass=75&#xD;
+[DEBUG-contact-clock] 18: 176.197175371, -6.753356812, 1.564609014, 0.005370901, 7.353767999754721, 0.04580790083059142, 0.30903121075033013, -0.05296010585012667, -0.036985666697008965; mass=75&#xD;
+[DEBUG-contact-clock] support woodland_basin_v1_athlete_17:woodland_basin_v1_athlete_20&#xD;
+[DEBUG-contact-clock] 17: 176.378518612, -10.723837311, 1.569544649, 0.00084026, 7.462844003238039, 0.009754738035767239, 0.07359284558381418, 0.016105585815898438, -0.05041023878131172; mass=75&#xD;
+[DEBUG-contact-clock] 20: 174.878418817, -10.647352705, 1.569551592, 0.000714903, 7.462950261882479, 0.004636950475813364, 0.28055757767120326, -0.02769072973475838, 0.1580169252964946; mass=75&#xD;
+[DEBUG-contact-clock] support woodland_basin_v1_athlete_23:woodland_basin_v1_athlete_26&#xD;
+[DEBUG-contact-clock] 23: 169.735264222, -10.738642505, 1.568522362, 0.000658185, 7.470640678472538, 0.017537067070941003, 0.07554688459919134, 0.013270868678782466, -0.046330198943778954; mass=75&#xD;
+[DEBUG-contact-clock] 26: 168.235067261, -10.657130243, 1.568547832, 0.001449646, 7.470483317010604, 0.011640414047335127, 0.3092376803823882, -0.0166600444540331, 0.14223952032349177; mass=75&#xD;
+[DEBUG-contact-clock] support woodland_basin_v1_athlete_25:woodland_basin_v1_athlete_28&#xD;
+[DEBUG-contact-clock] 25: 168.445789017, -8.800246442, 1.560396818, 0.006022744, 7.466498811392672, 0.07582133213207978, 0.09178497173682132, -0.047781556656728286, 0.0028907971843479367; mass=75&#xD;
+[DEBUG-contact-clock] 28: 166.94504129, -8.736838977, 1.560419706, 0.007759401, 7.466543804295913, 0.07073607629920506, 0.3044510057937977, -0.05497430218562471, 0.11994410662408322; mass=75&#xD;
+[DEBUG-contact-clock] support woodland_basin_v1_athlete_3:woodland_basin_v1_athlete_6&#xD;
+[DEBUG-contact-clock] 3: 193.170979635, -6.884693221, 1.629367315, 0.114177678, 7.936825991821005, -0.5056639073203807, 0.12047907305332117, -0.8655761599383549, 0.09192040808746416; mass=75&#xD;
+[DEBUG-contact-clock] 6: 191.666531246, -6.807433831, 1.610736784, 0.099628454, 7.940076782617462, -0.34538453806162245, 0.15539061504574292, -0.7408176023244561, -0.14288831589058887; mass=75&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

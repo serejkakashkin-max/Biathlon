@@ -12,8 +12,9 @@ namespace Biathlon.Simulation
         public int SupportPoints {get;} public int Passes {get;}
         public double MaximumClosingAcceleration {get;}
         public double MaximumReactionResidualSpeed {get;}
-        internal SkiContactForcePreview(SkiContactForceStatus status,double seconds,int points,int passes=0,double closing=0,double residual=0)
-        {IsValid=true;Status=status;DurationSeconds=seconds;SupportPoints=points;Passes=passes;MaximumClosingAcceleration=closing;MaximumReactionResidualSpeed=residual;}
+        public int IntervalRefinements {get;}
+        internal SkiContactForcePreview(SkiContactForceStatus status,double seconds,int points,int passes=0,double closing=0,double residual=0,int refinements=0)
+        {IsValid=true;Status=status;DurationSeconds=seconds;SupportPoints=points;Passes=passes;MaximumClosingAcceleration=closing;MaximumReactionResidualSpeed=residual;IntervalRefinements=refinements;}
     }
     public readonly struct SkiContactForceReaction
     {
@@ -43,6 +44,7 @@ namespace Biathlon.Simulation
         private readonly int[] order;
         private readonly SkiContactAcceleration[] accelerations;
         private readonly SkiForceCoupledTrajectory[] staged;
+        private readonly SkiForceCoupledTrajectory[] freePieces;
         private readonly Point[] points;
         private readonly Point[] opening;
         private int openingCount;
@@ -57,17 +59,36 @@ namespace Biathlon.Simulation
             halfLength=body.LongitudinalSeparation*.5;halfWidth=body.LateralSeparation*.5;
             inertiaPerMass=(body.LongitudinalSeparation*body.LongitudinalSeparation+body.LateralSeparation*body.LateralSeparation)/12;
             order=new int[capacity];accelerations=new SkiContactAcceleration[capacity];staged=new SkiForceCoupledTrajectory[capacity];
+            freePieces=new SkiForceCoupledTrajectory[capacity];
             points=new Point[checked(capacity*(capacity-1))];
             opening=new Point[points.Length];
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_frozen_contact_forces_v4_resolvable_opening",geometry.ContextJson,work.ToJson(),
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_frozen_contact_forces_v5_owned_external_piece",geometry.ContextJson,work.ToJson(),
                 "two_support_endpoints;stable_id_pgs;unilateral_accumulated_reactions;static_or_sliding_coulomb_cone;no_force_restitution;raw_initial_motion;"+
                 "shared_drive_constant_prefix_only;physical_centripetal_point_acceleration;rotating_face_sliding_coriolis;finite_interval_nonclosing_support;configured_closing_speed_convergence;opening_requires_displacement_above_existing_spatial_skin;actual_frozen_gap_derivative_peak;"+
-                "first_frozen_slip_zero_boundary;all_trajectories_validate_before_output;full_sweep_still_required"});
+                "first_frozen_slip_zero_boundary;optional_existing_depth_bounded_half_interval_work_refinement;unchanged_residual_and_pass_bounds;actual_raw_source_and_original_external_acceleration;all_trajectories_validate_before_output;full_sweep_still_required"});
         }
         public SkiContactForceReaction GetReaction(int index)
         {
             if(!LastPreview.IsValid||index<0||index>=pointCount)throw new ArgumentOutOfRangeException(nameof(index));
             var p=points[index];return new SkiContactForceReaction(p.First,p.Second,p.X,p.Z,p.Normal,p.Tangent);
+        }
+        /// <summary>A difficult finite-interval reaction may need a shorter
+        /// physical interval. Retain external acceleration and raw source;
+        /// neither convergence tolerance nor the pass limit is increased.
+        /// Refinement alone pays no time and is not a movement proof.</summary>
+        internal SkiContactForcePreview PreviewRefined(ManualSkiContactBody[] bodies,SkiForceCoupledTrajectory[] free,
+            int count,SkiForceCoupledTrajectory[] output,int maximumRefinements)
+        {
+            if(maximumRefinements<0)throw new ArgumentOutOfRangeException(nameof(maximumRefinements));
+            var result=Preview(bodies,free,count,output);int refinements=0;double seconds=free[0].DurationSeconds;
+            while(result.Status==SkiContactForceStatus.WorkLimit&&refinements<maximumRefinements)
+            {
+                seconds*=.5;
+                for(int i=0;i<count;i++)freePieces[i]=new SkiForceCoupledTrajectory(free[i].InitialPose,free[i].InitialMotion,free[i].Acceleration,seconds);
+                result=Preview(bodies,freePieces,count,output);refinements++;
+            }
+            return LastPreview=new SkiContactForcePreview(result.Status,result.DurationSeconds,result.SupportPoints,result.Passes,
+                result.MaximumClosingAcceleration,result.MaximumReactionResidualSpeed,refinements);
         }
         public SkiContactForcePreview Preview(ManualSkiContactBody[] bodies,SkiDrivenContactTrajectory[] free,int count,SkiForceCoupledTrajectory[] output)
         {
@@ -85,14 +106,39 @@ namespace Biathlon.Simulation
                 for(int j=0;j<i;j++)if(b.Athlete.Equals(bodies[j].Athlete))throw new ArgumentException("Duplicate force actor.");
                 seconds=Math.Min(seconds,f.ConstantAccelerationSeconds);
             }
+            for(int i=0;i<count;i++)
+            {
+                var initial=free[i].InitialMotion;var end=free[i].MotionAt(seconds/duration);
+                var acceleration=new SkiContactAcceleration((end.Velocity.X-initial.Velocity.X)/seconds,
+                    (end.Velocity.Z-initial.Velocity.Z)/seconds,(end.YawRate-initial.YawRate)/seconds);
+                freePieces[i]=new SkiForceCoupledTrajectory(bodies[i].Pose,initial,acceleration,seconds);
+            }
+            return Preview(bodies,freePieces,count,output);
+        }
+        /// <summary>Refresh reached contact reactions over one original frozen
+        /// external-force piece, starting from the actual raw current motion.</summary>
+        internal SkiContactForcePreview Preview(ManualSkiContactBody[] bodies,SkiForceCoupledTrajectory[] free,int count,SkiForceCoupledTrajectory[] output)
+        {
+            LastPreview=default;pointCount=openingCount=0;
+            if(bodies==null||free==null||output==null||count<1||count>order.Length||count>bodies.Length||count>free.Length||count>output.Length)
+                throw new ArgumentException("Complete bodies, force pieces and output within cold capacity required.");
+            double seconds=free[0].DurationSeconds;
+            for(int i=0;i<count;i++)
+            {
+                var b=bodies[i];var f=free[i];
+                if(!b.IsValid||!f.IsValid||f.DurationSeconds!=seconds||f.InitialPose.X!=b.Pose.X||f.InitialPose.Z!=b.Pose.Z||
+                    f.InitialPose.HeadingNanoradians!=b.Pose.HeadingNanoradians||
+                    f.InitialMotion.Velocity.X!=b.Velocity.X||f.InitialMotion.Velocity.Z!=b.Velocity.Z||
+                    f.InitialMotion.YawRate!=b.Pose.YawRateRadiansPerSecond)
+                    throw new ArgumentException("Exact body and raw current force-piece source required.");
+                for(int j=0;j<i;j++)if(b.Athlete.Equals(bodies[j].Athlete))throw new ArgumentException("Duplicate force actor.");
+            }
             pieceSeconds=seconds;
             for(int i=0;i<count;i++)
             {
                 int at=i;
                 while(at>0&&string.CompareOrdinal(bodies[order[at-1]].Athlete.Value,bodies[i].Athlete.Value)>0){order[at]=order[at-1];at--;}
-                order[at]=i;var initial=free[i].InitialMotion;var end=free[i].MotionAt(seconds/duration);
-                accelerations[i]=new SkiContactAcceleration((end.Velocity.X-initial.Velocity.X)/seconds,(end.Velocity.Z-initial.Velocity.Z)/seconds,
-                    (end.YawRate-initial.YawRate)/seconds);
+                order[at]=i;accelerations[i]=free[i].Acceleration;
             }
             for(int i=0;i<count;i++)for(int j=i+1;j<count;j++)
             {
@@ -165,7 +211,7 @@ namespace Biathlon.Simulation
         }
         private SkiContactForcePreview Result(SkiContactForceStatus status,double seconds,int passes=0,double closing=0,double residual=0)
         {LastPreview=new SkiContactForcePreview(status,seconds,pointCount,passes,closing,residual);return LastPreview;}
-        private bool Add(int ai,int bi,double x,double z,double nx,double nz,ManualSkiContactBody[] bodies,SkiDrivenContactTrajectory[] free)
+        private bool Add(int ai,int bi,double x,double z,double nx,double nz,ManualSkiContactBody[] bodies,SkiForceCoupledTrajectory[] free)
         {
             var a=bodies[ai];var b=bodies[bi];var am=free[ai].InitialMotion;var bm=free[bi].InitialMotion;
             double arx=x-a.Pose.X,arz=z-a.Pose.Z,brx=x-b.Pose.X,brz=z-b.Pose.Z,tx=-nz,tz=nx;
@@ -191,7 +237,7 @@ namespace Biathlon.Simulation
             else points[pointCount++]=point;
             return true;
         }
-        private void Relative(Point p,ManualSkiContactBody[] bodies,SkiDrivenContactTrajectory[] free,out double normal,out double tangent)
+        private void Relative(Point p,ManualSkiContactBody[] bodies,SkiForceCoupledTrajectory[] free,out double normal,out double tangent)
         {
             var a=bodies[p.A];var b=bodies[p.B];var aa=accelerations[p.A];var ba=accelerations[p.B];
             double aw=free[p.A].InitialMotion.YawRate,bw=free[p.B].InitialMotion.YawRate;
@@ -199,7 +245,7 @@ namespace Biathlon.Simulation
             double rz=aa.Z-aa.Yaw*(p.X-a.Pose.X)-aw*aw*(p.Z-a.Pose.Z)-ba.Z+ba.Yaw*(p.X-b.Pose.X)+bw*bw*(p.Z-b.Pose.Z);
             normal=rx*p.Nx+rz*p.Nz-2*p.AxisYaw*p.InitialTangentSpeed;tangent=-rx*p.Nz+rz*p.Nx;
         }
-        private bool RefreshIntervalBias(ManualSkiContactBody[] bodies,SkiDrivenContactTrajectory[] free)
+        private bool RefreshIntervalBias(ManualSkiContactBody[] bodies,SkiForceCoupledTrajectory[] free)
         {
             bool changed=false;
             // Instantaneous acceleration alone loses the cubic rotation term:
@@ -223,7 +269,7 @@ namespace Biathlon.Simulation
             }
             return changed;
         }
-        private double GapAt(Point p,ManualSkiContactBody[] bodies,SkiDrivenContactTrajectory[] free,double seconds)
+        private double GapAt(Point p,ManualSkiContactBody[] bodies,SkiForceCoupledTrajectory[] free,double seconds)
         {
             var a=bodies[p.A];var b=bodies[p.B];var am=free[p.A].InitialMotion;var bm=free[p.B].InitialMotion;
             var aa=accelerations[p.A];var ba=accelerations[p.B];double t=seconds;
@@ -235,7 +281,7 @@ namespace Biathlon.Simulation
             double Axis(double nx,double nz)=>Math.Abs(dx*nx+dz*nz)-halfLength*(Math.Abs(ax*nx+az*nz)+Math.Abs(bx*nx+bz*nz))-
                 halfWidth*(Math.Abs(az*nx-ax*nz)+Math.Abs(bz*nx-bx*nz));
         }
-        private double GapDerivative(Point p,ManualSkiContactBody[] bodies,SkiDrivenContactTrajectory[] free,double t)
+        private double GapDerivative(Point p,ManualSkiContactBody[] bodies,SkiForceCoupledTrajectory[] free,double t)
         {
             var a=bodies[p.A];var b=bodies[p.B];var am=free[p.A].InitialMotion;var bm=free[p.B].InitialMotion;
             var aa=accelerations[p.A];var ba=accelerations[p.B];
@@ -256,7 +302,7 @@ namespace Biathlon.Simulation
                     halfWidth*(Math.Sign(ar)*(aw-w)*af+Math.Sign(br)*(bw-w)*bf);
             }
         }
-        private void Desired(Point p,ManualSkiContactBody[] bodies,SkiDrivenContactTrajectory[] free,out double n,out double t)
+        private void Desired(Point p,ManualSkiContactBody[] bodies,SkiForceCoupledTrajectory[] free,out double n,out double t)
         {
             Relative(p,bodies,free,out double rn,out double rt);
             rn-=p.NormalBias;

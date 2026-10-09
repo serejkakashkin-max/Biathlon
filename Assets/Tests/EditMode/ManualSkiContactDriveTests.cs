@@ -100,6 +100,29 @@ namespace Biathlon.Tests
             Assert.That(f.Forward(power.MotionAt(1).Velocity),Is.GreaterThan(f.Forward(coast.MotionAt(1).Velocity)));
             Assert.That(f.Distance(power.State),Is.LessThan(0));
         }
+        [TestCase(-.001,350)][TestCase(.001,0)][TestCase(6,350)][TestCase(0,0)]
+        public void OriginalExternalForcePiecesCoverTheWholePaidDriveWithoutRestartingSnow(double forward,double power)
+        {
+            var f=new Fixture();var actor=f.Actor(forward,.4,.3);var frame=f.Drive(actor,power:power,grip:4);
+            var method=typeof(SkiDrivenContactTrajectory).GetMethod("TryGetAccelerationPiece",
+                global::System.Reflection.BindingFlags.NonPublic|global::System.Reflection.BindingFlags.Instance);
+            Assert.That(method,Is.Not.Null);
+            double end=0,x=actor.Velocity.X,z=actor.Velocity.Z,yaw=actor.Pose.YawRateRadiansPerSecond;int count=0;
+            for(;count<4;count++)
+            {
+                object[] args={count,0d,0d,default(SkiContactAcceleration)};
+                if(!(bool)method.Invoke(frame,args))break;
+                double from=(double)args[1],to=(double)args[2];var a=(SkiContactAcceleration)args[3];
+                Assert.That(from,Is.EqualTo(end));Assert.That(to,Is.GreaterThan(from));
+                x+=a.X*(to-from);z+=a.Z*(to-from);yaw+=a.Yaw*(to-from);end=to;
+                var expected=frame.MotionAt(to/frame.DurationSeconds);
+                Assert.That(x,Is.EqualTo(expected.Velocity.X).Within(1e-12));
+                Assert.That(z,Is.EqualTo(expected.Velocity.Z).Within(1e-12));
+                Assert.That(yaw,Is.EqualTo(expected.YawRate).Within(1e-12));
+            }
+            Assert.That(end,Is.EqualTo(frame.DurationSeconds));Assert.That(count,Is.InRange(1,3));
+            if(forward<0||forward>0&&power==0)Assert.That(count,Is.EqualTo(2));
+        }
         [Test] public void DirectionalGradeTuckSnowAndExposedWindKeepTheirSharedForceMeaning()
         {
             var up=new Fixture(slope:true);var down=new Fixture(slope:true,reverse:true);

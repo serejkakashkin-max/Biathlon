@@ -110,6 +110,31 @@ namespace Biathlon.Simulation
                 return end;
             }
         }
+        /// <summary>Observe one original frozen force piece. Later contact
+        /// refreshes may use its acceleration with the actual current motion,
+        /// but cannot restart this drive's already-paid stop/cap or snow ramp.</summary>
+        internal bool TryGetAccelerationPiece(int index,out double from,out double to,out SkiContactAcceleration acceleration)
+        {
+            from=to=0;acceleration=default;
+            if(index<0)throw new ArgumentOutOfRangeException(nameof(index));
+            for(int piece=0;from<DurationSeconds;piece++)
+            {
+                to=DurationSeconds;
+                if(FirstDriveSeconds>from&&FirstDriveSeconds<to)to=FirstDriveSeconds;
+                double boundary=FirstDrive.SpeedBoundarySeconds;
+                if(boundary>from&&boundary<FirstDriveSeconds&&boundary<to)to=boundary;
+                boundary=FirstDriveSeconds+RestartDrive.SpeedBoundarySeconds;
+                if(RestartDrive.IsValid&&boundary>from&&boundary<to)to=boundary;
+                if(piece==index)
+                {
+                    var a=MotionAt(from/DurationSeconds);var b=MotionAt(to/DurationSeconds);double seconds=to-from;
+                    acceleration=new SkiContactAcceleration((b.Velocity.X-a.Velocity.X)/seconds,(b.Velocity.Z-a.Velocity.Z)/seconds,
+                        (b.YawRate-a.YawRate)/seconds);return true;
+                }
+                from=to;
+            }
+            return false;
+        }
         public double PeakYawRate=>Math.Max(Math.Abs(InitialMotion.YawRate),Math.Abs(Snow.Motion.YawRate));
         public double PlanarAccelerationBound=>Math.Max(Math.Abs(FirstDrive.Acceleration),RestartDrive.IsValid?Math.Abs(RestartDrive.Acceleration):0)*
             Math.Max(scale,restartScale)+SnowAcceleration;

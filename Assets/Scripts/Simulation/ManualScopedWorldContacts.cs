@@ -50,6 +50,7 @@ namespace Biathlon.Simulation
                     frame.MotionAt(1).Velocity.X==0&&frame.MotionAt(1).Velocity.Z==0;
             }
             if(!CollectOwnedContacts())return false;
+            if(LastOwnedContacts.Count==0)Array.Clear(ownedFreeValid,0,Count);
             if(LastOwnedContacts.Count==0&&hasBreakpoint)
             {
                 // Recomputing every separated skier at another skier's tiny
@@ -61,7 +62,41 @@ namespace Biathlon.Simulation
                 LastContactForces=new SkiContactForcePreview(SkiContactForceStatus.Resolved,drives[0].DurationSeconds,0);
                 LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.Clear);return true;
             }
-            LastContactForces=contactForces.Preview(responseBodies,drives,Count,coupledTrajectories);
+            if(LastOwnedContacts.Count==0)LastContactForces=contactForces.Preview(responseBodies,drives,Count,coupledTrajectories);
+            else
+            {
+                // Contact reactions may refresh repeatedly inside one fixed
+                // field tick. They must not restart a snow ramp or a free stop
+                // from an externally pushed, almost sideways source each time.
+                // Preserve the original external force calendar; reactions still
+                // start from actual current raw velocity/spin and never snap it.
+                double seconds=drives[0].DurationSeconds;
+                for(int i=0;i<Count;i++)
+                {
+                    var cursor=workingCursors[i];var row=catalogs[i].Get(cursor.OccurrenceIndex);
+                    bool hold=row.End==ManualRacePathEnd.FiringLine&&cursor.ObservedArcNanometers==row.LengthNanometers;
+                    if(!ownedFreeValid[i]||ownedFreeOccurrences[i]!=cursor.OccurrenceIndex||
+                        elapsedSeconds>=ownedFreeStarts[i]+ownedFreeDrives[i].DurationSeconds||hold)
+                    {
+                        ownedFreeDrives[i]=drives[i];ownedFreeStarts[i]=elapsedSeconds;
+                        ownedFreeOccurrences[i]=cursor.OccurrenceIndex;ownedFreePhases[i]=0;ownedFreeValid[i]=true;
+                    }
+                    var original=ownedFreeDrives[i];int phase=ownedFreePhases[i];
+                    while(original.TryGetAccelerationPiece(phase,out _,out double end,out _)&&
+                        ownedFreeStarts[i]+end<=elapsedSeconds)phase++;
+                    ownedFreePhases[i]=phase;
+                    if(!original.TryGetAccelerationPiece(phase,out _,out double to,out _))
+                        return Reject(ManualScopedWorldStatus.ContactForces);
+                    seconds=Math.Min(seconds,ownedFreeStarts[i]+to-elapsedSeconds);
+                }
+                for(int i=0;i<Count;i++)
+                {
+                    ownedFreeDrives[i].TryGetAccelerationPiece(ownedFreePhases[i],out _,out _,out var acceleration);
+                    var body=responseBodies[i];
+                    ownedFreePieces[i]=new SkiForceCoupledTrajectory(body.Pose,new SkiContactMotion(body.Velocity,body.Pose.YawRateRadiansPerSecond),acceleration,seconds);
+                }
+                LastContactForces=contactForces.PreviewRefined(responseBodies,ownedFreePieces,Count,coupledTrajectories,maximumForceRefinements);
+            }
             if(LastContactForces.Status!=SkiContactForceStatus.Resolved)return Reject(ManualScopedWorldStatus.ContactForces);
             for(int i=0;i<Count;i++)coupledCandidates[i]=new SkiWorldMotionCandidate(workingActors[i].Athlete,new ManualSkiWorldTrajectory(coupledTrajectories[i]));
             for(int i=0;i<Count;i++)output[i]=coupledCandidates[i];

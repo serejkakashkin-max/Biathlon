@@ -392,3 +392,16 @@ Final.NET493/493 plus exact two-run1/1 and native9+1+30+1 PASS; compile/Console
 clear. All-three first bouts are qualified; full formats/resources/replay/host,
 shooting preparation and M13 remain OPEN.
 [Report](../reports/TASK_M13_MANUAL_TERMINAL_MAT_BRAKING_20261009.md).
+
+## 2026-10-09 — paid mat departure and original reached-contact force clock
+
+Authorized departure reuses the unchanged paid incoming firing plane, retaining
+closed shooting/phase authority. Reached contacts preserve original external
+snow/drive acceleration pieces within the owned fixed tick; actual raw current
+velocity/spin still seed all reactions. Occurrence/hold/expiry/separation/new-tick
+invalidations prevent stale force calendars. Difficult frozen force intervals
+may halve within the existing sweep-depth bound, never relax residual/pass
+limits or pay a stationary fallback. Full body/course/phase proofs remain.
+.NET505/505; native3+21+1+2+4+1+1 PASS, compile/Console clear. Host/full formats,
+resources/draft/manual replay/M13/build OPEN.
+[Report](../reports/TASK_M13_MANUAL_RANGE_DEPARTURE_AND_CONTACT_CLOCK_20261009.md).
