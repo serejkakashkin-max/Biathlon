@@ -23783,3 +23783,31 @@ full signed fields/Sprint-to-Pursuit, player capture/manual host, final matrix,
 balance/performance and then owner build. Historical bytes preserved exactly.
 Report: docs/reports/TASK_M13_PRACTICAL_NUMERICAL_TOLERANCES_20261009.md.
 Evidence: docs/quality/m13/field-stepper-20261008/manual-numerical-policy-*.
+
+## 2026-10-10 — M13 owner correction: IBU shooting lane selection
+
+Owner requires selection according to IBU, not an invented shared nearest-mat
+policy. Official September 2026 ECR articles 3.4.2.2/3.4.2.3/3.4.5/8.2.1 verified.
+Woodland Sprint/Pursuit/Mass profiles explicitly bind ibu_ecr_2026 separately
+from owner-compressed distances. Sprint filters free lanes by stance half; its
+current automatic helper selects the lowest free eligible number (allowed, not
+mandated by IBU). Pursuit uses the lowest available number across all 30 lanes.
+Mass first bout remains bib-number; later bouts remain arrival order from right.
+Lane 1 is on the right facing targets; range entry left and exit right retained.
+Rejected generic nearest-mat option removed locally, including mat-capture data.
+Recipe/generators retain the explicit rule binding. Unknown revisions reject.
+ADR: docs/adr/ADR-0039-ibu-production-shooting-lane-selection.md.
+.NET policy/profile 27/27 PASS; Mass order/repeated full race 2/2 PASS.
+Unity reservations 16/16 PASS; profile/revision 9/9 PASS. Executed counts used,
+not the native discovery total. No test removed/disabled; no shooting RNG/tuning.
+Evidence: docs/quality/m13/separate-finish-20261009/ibu-lane-policy-final-20261010.trx,
+ibu-mass-order-final-20261010.trx, unity-ibu-lane-selection.json,
+unity-ibu-profile-final.json.
+M13 remains OPEN. WP175/177/178 not declared complete; WP176 stays PASS.
+Separate start/finish, manual host and contact/route corrections are local
+unfinished work; current full Mass30 and Sprint40 still expose physical seam/
+mat-arrival errors. Those real failures need fixes before closure, despite the
+owner-approved practical tolerances. No owner build until all M13 is complete.
+G1/G2 approved; five other venues deferred; max field 40. Shooting-feel issue
+remains OPEN for later gameplay/difficulty/race-balance tuning.
+This record appends to all existing bytes; no historical entry is rewritten.

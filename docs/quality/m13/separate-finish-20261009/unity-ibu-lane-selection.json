@@ -1,0 +1,94 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 1738,
+      "PassedTests": 16,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:01.3265107"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.PhysicalRangeReservationsTests.ArrivalUsesAnotherFreeLaneAndCopiesCallerReceiptsBeforeCommit",
+        "Status": "Passed",
+        "Duration": "00:00:00.1820000"
+      },
+      {
+        "Name": "Biathlon.Tests.PhysicalRangeReservationsTests.ChronologicalReleaseAndArrivalUseOwnedSlotsWithoutConsumingDeniedRank(200000000,300000000,True)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0140000"
+      },
+      {
+        "Name": "Biathlon.Tests.PhysicalRangeReservationsTests.ChronologicalReleaseAndArrivalUseOwnedSlotsWithoutConsumingDeniedRank(300000000,300000000,True)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0160000"
+      },
+      {
+        "Name": "Biathlon.Tests.PhysicalRangeReservationsTests.ChronologicalReleaseAndArrivalUseOwnedSlotsWithoutConsumingDeniedRank(400000000,300000000,False)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0150000"
+      },
+      {
+        "Name": "Biathlon.Tests.PhysicalRangeReservationsTests.ChronologicalReleaseAndArrivalUseOwnedSlotsWithoutConsumingDeniedRank(0,0,True)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0160000"
+      },
+      {
+        "Name": "Biathlon.Tests.PhysicalRangeReservationsTests.ChronologicalReleaseAndArrivalUseOwnedSlotsWithoutConsumingDeniedRank(1000000000,1000000000,True)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0160000"
+      },
+      {
+        "Name": "Biathlon.Tests.PhysicalRangeReservationsTests.ClearanceIsStrictBodyHalfLengthPastPrivateExitAndUsesMinimumRetimedFraction",
+        "Status": "Passed",
+        "Duration": "00:00:00.0190000"
+      },
+      {
+        "Name": "Biathlon.Tests.PhysicalRangeReservationsTests.ExactProfileCapacityAndForeignConfigurationRejectAtConstruction",
+        "Status": "Passed",
+        "Duration": "00:00:00.0270000"
+      },
+      {
+        "Name": "Biathlon.Tests.PhysicalRangeReservationsTests.FullCapacityDenialChangesNoRecordRankOrOwnedLane",
+        "Status": "Passed",
+        "Duration": "00:00:00.0150000"
+      },
+      {
+        "Name": "Biathlon.Tests.PhysicalRangeReservationsTests.IbuPursuitAndSprintUseTheirOwnLaneRules(False,1,True)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0170000"
+      },
+      {
+        "Name": "Biathlon.Tests.PhysicalRangeReservationsTests.IbuPursuitAndSprintUseTheirOwnLaneRules(True,2,False)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0160000"
+      },
+      {
+        "Name": "Biathlon.Tests.PhysicalRangeReservationsTests.IbuSprintStandingCannotUseAFreeProneLane",
+        "Status": "Passed",
+        "Duration": "00:00:00.0270000"
+      },
+      {
+        "Name": "Biathlon.Tests.PhysicalRangeReservationsTests.InvalidReplacementForeignAndConsumedHandlesLeaveCommittedOwnershipUnchanged",
+        "Status": "Passed",
+        "Duration": "00:00:00.0640000"
+      },
+      {
+        "Name": "Biathlon.Tests.PhysicalRangeReservationsTests.ProductionProfilesExplicitlyBindCurrentIbuLaneRules",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.Tests.PhysicalRangeReservationsTests.SequentialBoutsNeedAcceptedReleaseAndRetainHistoricalRecords",
+        "Status": "Passed",
+        "Duration": "00:00:00.0160000"
+      },
+      {
+        "Name": "Biathlon.Tests.PhysicalRangeReservationsTests.WarmDeniedAndReleaseAcquisitionPreparationsAllocateNothing",
+        "Status": "Passed",
+        "Duration": "00:00:00.0170000"
+      }
+    ]
+  }
+}

@@ -21,6 +21,7 @@ namespace Biathlon.Domain
         [DataMember(Name = "schema_version", IsRequired = true)] public int SchemaVersion { get; private set; }
         [DataMember(Name = "id", IsRequired = true)] public string Id { get; private set; }
         [DataMember(Name = "rules_revision", IsRequired = true)] public string RulesRevision { get; private set; }
+        [DataMember(Name = "shooting_lane_rules_revision", EmitDefaultValue = false)] public string ShootingLaneRulesRevision { get; private set; }
         [DataMember(Name = "format", IsRequired = true)] public CompetitionFormat Format { get; private set; }
         [DataMember(Name = "category", IsRequired = true)] public CompetitionCategory Category { get; private set; }
         [DataMember(Name = "distance_m", IsRequired = true)] public double DistanceMeters { get; private set; }
@@ -40,6 +41,8 @@ namespace Biathlon.Domain
             var v = RouteJson.Read<CompetitionProfile>(json);
             if (v == null || v.SchemaVersion != 1 || v.bouts == null) throw new SerializationException("Unsupported competition schema.");
             TrackValidation.Id(v.Id); TrackValidation.Id(v.RulesRevision);
+            if (v.ShootingLaneRulesRevision != null && v.ShootingLaneRulesRevision != "ibu_ecr_2026")
+                throw new SerializationException("Unsupported shooting lane rules revision.");
             if (v.Format < CompetitionFormat.Sprint || v.Format > CompetitionFormat.MassStart || v.Category < CompetitionCategory.Men || v.Category > CompetitionCategory.Test ||
                 v.StartType < CompetitionStartType.Interval || v.StartType > CompetitionStartType.Simultaneous) throw new ArgumentException("Unknown competition enum.");
             if (v.LapCount < 2 || v.LapCount > 100 || v.FieldCapacity < 1 || v.FieldCapacity > 1000 || v.ShotsPerBout != TargetGeometryDefinition.TargetCount ||

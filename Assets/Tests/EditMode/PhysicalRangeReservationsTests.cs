@@ -8,6 +8,37 @@ namespace Biathlon.Tests
 {
     public class PhysicalRangeReservationsTests
     {
+        [TestCase(false,1,true)][TestCase(true,2,false)]
+        public void IbuPursuitAndSprintUseTheirOwnLaneRules(bool pursuit,int second,bool denied)
+        {
+            var f=Fixture(pursuit:pursuit);var ids=Roster(f);
+            var profile=CompetitionProfile.FromJson(f.Profile.ToJson().Replace("\"rules_revision\":","\"shooting_lane_rules_revision\":\"ibu_ecr_2026\",\"rules_revision\":"));
+            var book=new PhysicalRangeReservations(profile,ids,f.Layout,OccupancyTests.Definition(),20);
+            var proposal=book.Prepare(new SimulationTick(1),ReadOnlySpan<PhysicalRangeRelease>.Empty,
+                new[]{Arrival(book,ids,0,0,1,100000000),Arrival(book,ids,1,0,1,200000000)});
+            Assert.That(book.GetOwnedLane(0),Is.Zero);Assert.That(book.GetPreparedRecord(proposal,0,0).LaneOrdinal,Is.EqualTo(1));
+            Assert.That(book.WasPreparedDenied(proposal,1),Is.EqualTo(denied));book.Commit(proposal);
+            Assert.That(book.GetRecord(0,0).ArrivalRank,Is.EqualTo(1));
+            Assert.That(book.GetOwnedLane(1),Is.EqualTo(denied?0:second));
+            if(!denied)Assert.That(book.GetRecord(1,0).ArrivalRank,Is.EqualTo(2));
+        }
+        [Test] public void IbuSprintStandingCannotUseAFreeProneLane()
+        {
+            var f=Fixture();var ids=Roster(f);
+            var profile=CompetitionProfile.FromJson(f.Profile.ToJson().Replace("\"rules_revision\":","\"shooting_lane_rules_revision\":\"ibu_ecr_2026\",\"rules_revision\":"));
+            var book=new PhysicalRangeReservations(profile,ids,f.Layout,OccupancyTests.Definition(),20);
+            book.Commit(book.Prepare(new SimulationTick(1),ReadOnlySpan<PhysicalRangeRelease>.Empty,new[]{Arrival(book,ids,0,0,1,100000000)}));
+            book.Commit(book.Prepare(new SimulationTick(2),new[]{Release(book,ids,0,0,1,2,100000000)},new[]{Arrival(book,ids,0,1,2,200000000)}));
+            Assert.That(book.GetOwner(1),Is.EqualTo(-1));Assert.That(book.GetOwnedLane(0),Is.EqualTo(2));
+        }
+        [Test] public void ProductionProfilesExplicitlyBindCurrentIbuLaneRules()
+        {
+            foreach(string format in new[]{"sprint","pursuit","mass_start"})
+            {
+                var p=CompetitionProfile.FromJson(ManualScopedFieldStepperTests.Read("Biathlon/Venues/woodland_basin_v1/"+format+"_profile"));
+                Assert.That(p.ShootingLaneRulesRevision,Is.EqualTo("ibu_ecr_2026"));
+            }
+        }
         internal static PhysicalRangePackTests.Fixture Fixture(int count = 3, bool pursuit = false)
         {
             var f = PhysicalRangePackTests.CreateFixture(count);

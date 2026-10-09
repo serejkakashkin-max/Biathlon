@@ -85,6 +85,7 @@ namespace Biathlon.Simulation
         private readonly PhysicalRangeRelease[] releases;
         private readonly string[] privateLoops;
         private readonly long[] admissionLines,releaseLines;
+        private readonly CompetitionProfile profile;
         private readonly PhysicalRangeReservationChange[] changes,preparedChanges;
         private int preparedChangeCount;
         private long revision;
@@ -105,7 +106,9 @@ namespace Biathlon.Simulation
                 tickFrequency<=0||athletes.Length<1||athletes.Length>60||athletes.Length>profile.FieldCapacity||
                 layout.Route.CompetitionProfileId!=profile.Id||layout.Route.Length.Millimeters!=profile.Distance.Millimeters||layout.Route.LapCount!=profile.LapCount)
                 throw new ArgumentException("A matched Sprint/Pursuit profile, bounded stable roster, layout and clock are required.");
-            frequency=tickFrequency;roster=athletes.ToArray();
+            frequency=tickFrequency;roster=athletes.ToArray();this.profile=profile;
+            if(profile.ShootingLaneRulesRevision=="ibu_ecr_2026"&&profile.Format==CompetitionFormat.Sprint&&layout.Count%2!=0)
+                throw new ArgumentException("IBU Sprint requires equal prone and standing range halves.");
             for(int i=0;i<Count;i++)
             {
                 if(!roster[i].IsValid)throw new ArgumentException("Valid roster identity required.");
@@ -120,8 +123,8 @@ namespace Biathlon.Simulation
             privateLoops=new string[layout.Count];admissionLines=new long[BoutCount];releaseLines=new long[checked(layout.Count*BoutCount)];
             changes=new PhysicalRangeReservationChange[Count*2];preparedChanges=new PhysicalRangeReservationChange[Count*2];
             CapturePrivateCorridors(profile,layout,body);
-            var context=new string[Count+5];context[0]="physical_range_reservations_v1";context[1]=profile.ToJson();context[2]=layout.ContextJson;context[3]=body.ToJson();
-            context[4]=frequency.ToString(CultureInfo.InvariantCulture)+";accepted_fraction_order;release_before_equal_fraction_arrival;arrival_start_ordinal;lowest_free_physical_lane;strict_private_body_clearance;no_modulo;prepare_commit_only";
+            var context=new string[Count+5];context[0]="physical_range_reservations_v2_ibu_2026";context[1]=profile.ToJson();context[2]=layout.ContextJson;context[3]=body.ToJson();
+            context[4]=frequency.ToString(CultureInfo.InvariantCulture)+";accepted_fraction_order;release_before_equal_fraction_arrival;arrival_start_ordinal;lowest_available_number;selected_ibu_sprint_correct_stance_half;no_distance_override_for_pursuit;strict_private_body_clearance;no_modulo;prepare_commit_only";
             for(int i=0;i<Count;i++)context[i+5]=roster[i].Value;ContextJson=ShootingModelDefinitions.EncodeContext(context);
         }
         private void CapturePrivateCorridors(CompetitionProfile profile,PhysicalRangeFieldLayout layout,OccupancyDefinition body)
@@ -206,8 +209,16 @@ namespace Biathlon.Simulation
                 var row=arrivals[a];int actor=arrivalIndices[a];
                 while(release<acceptedReleases.Length&&releases[release].Fraction<=row.Fraction)ApplyRelease(release++);
                 for(int l=0;l<LaneCount;l++)if(preparedOwner[l]==actor+1)throw new ArgumentException("The previous private reservation must clear before the next arrival.");
-                int free=0;while(free<LaneCount&&preparedOwner[free]!=0)free++;
-                if(free==LaneCount){denied[actor]=true;continue;}
+                int begin=0,end=LaneCount;
+                // ECR 2026 3.4.2.2 and 8.2.1: Sprint may choose a ready target
+                // in the correct half. The current helper chooses its lowest
+                // free number; that strategy is not an IBU requirement.
+                // Pursuit uses all lanes and MUST take the lowest available
+                // number, independently of approach length or arrival rank.
+                if(profile.ShootingLaneRulesRevision=="ibu_ecr_2026"&&profile.Format==CompetitionFormat.Sprint)
+                {if(profile.GetBout(row.BoutIndex).Stance==ShootingStance.Prone)end=LaneCount/2;else begin=LaneCount/2;}
+                int free=begin;while(free<end&&preparedOwner[free]!=0)free++;
+                if(free==end){denied[actor]=true;continue;}
                 preparedOwner[free]=actor+1;preparedOwnerBout[free]=row.BoutIndex;preparedLastBout[actor]=row.BoutIndex;
                 preparedRecords[Slot(actor,row.BoutIndex)]=new PhysicalRangeReservationRecord(row,++preparedRanks[row.BoutIndex],free+1);
                 preparedChanges[preparedChangeCount++]=new PhysicalRangeReservationChange(row.AthleteId,row.BoutIndex,free+1,row.Fraction,false);

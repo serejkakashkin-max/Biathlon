@@ -53,7 +53,9 @@
   "max_abs_curvature_per_m": 1.2,
   "post_shoot_exit_clearance": true,
   "parallel_post_shoot_departures": true,
-  "penalty_world_merge_junctions": ["range_rejoin"],
+  "penalty_world_merge_junctions": [
+    "range_rejoin"
+  ],
   "mass_start_distance_m": 6000,
   "rules_revision": "owner_compressed_gameplay_distance_v1",
   "short_outer_course": {
@@ -107,5 +109,6 @@
     "fork_yield_neighbor_gap_m": 3,
     "fork_yield_lateral_gap_m": 0.5,
     "fork_yield_outer_side_sign": 1
-  }
+  },
+  "shooting_lane_rules_revision": "ibu_ecr_2026"
 }

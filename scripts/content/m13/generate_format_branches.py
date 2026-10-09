@@ -262,6 +262,8 @@ for key,builder,lo,hi in [('pursuit',pursuit_points,20,250),('sprint',sprint_poi
         'format':0 if key=='sprint' else 1,'category':0,'distance_m':spec['race_distance_m'],'laps':spec['laps'],
         'start_type':0 if key=='sprint' else 1,'start_interval_s':30 if key=='sprint' else 0,'field_capacity':spec['field_capacity'],
         'shots_per_bout':5,'penalty_loop_m':150,'shooting_bouts':[{'id':f'bout_{i+1}','after_lap':i+1,'stance':0 if i<(1 if key=='sprint' else 2) else 1} for i in range(2 if key=='sprint' else 4)]}
+    if recipe.get('shooting_lane_rules_revision'):
+        profile['shooting_lane_rules_revision']=recipe['shooting_lane_rules_revision']
     laps=[]
     for i in range(spec['laps']):
         slices=[{'loop_id':'main','start_m':0,'end_m':spec['main_depart_m']},

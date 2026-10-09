@@ -7,6 +7,15 @@ namespace Biathlon.Tests
     public class CompetitionProfileTests
     {
         public static CompetitionProfile TestProfile() => CompetitionProfile.FromJson(PhysiologyContractTests.DefinitionJson("sprint_test_v1.json"));
+        [Test] public void ShootingLaneAuthorityRoundTripsAndRejectsUnknownRevisions()
+        {
+            string legacy=TestProfile().ToJson();
+            Assert.That(TestProfile().ShootingLaneRulesRevision,Is.Null);
+            string current=legacy.Replace("\"rules_revision\":","\"shooting_lane_rules_revision\":\"ibu_ecr_2026\",\"rules_revision\":");
+            var restored=CompetitionProfile.FromJson(current);
+            Assert.That(CompetitionProfile.FromJson(restored.ToJson()).ShootingLaneRulesRevision,Is.EqualTo("ibu_ecr_2026"));
+            Assert.Catch(()=>CompetitionProfile.FromJson(current.Replace("ibu_ecr_2026","nearest_mat")));
+        }
         [TestCase("sprint_standard_men_v1", 10000, 3, 0)] [TestCase("sprint_standard_women_v1", 7500, 3, 0)]
         [TestCase("pursuit_standard_men_v1", 12500, 5, 1)] [TestCase("pursuit_standard_women_v1", 10000, 5, 1)]
         [TestCase("mass_start_standard_men_v1", 15000, 5, 2)] [TestCase("mass_start_standard_women_v1", 12500, 5, 2)]

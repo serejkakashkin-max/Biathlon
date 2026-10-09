@@ -397,6 +397,8 @@ write(PREFIX+"/start_continuation",{"schema_version":1,"id":LABEL+"_start_contin
         {"distance_m":10,"x":main_prefix_point[0],"y":main_prefix_point[1],"z":main_prefix_point[2]}]}]})
 profile={"schema_version":1,"id":LABEL+"_mass_start_men_v1","rules_revision":RECIPE.get("rules_revision","production_distance_structure_v1"),"format":2,"category":0,"distance_m":RECIPE.get("mass_start_distance_m",15000),"laps":5,"start_type":2,"start_interval_s":0,"field_capacity":30,"shots_per_bout":5,"penalty_loop_m":150,
     "shooting_bouts":[{"id":f"bout_{i+1}","after_lap":i+1,"stance":0 if i<2 else 1} for i in range(4)]}
+if RECIPE.get('shooting_lane_rules_revision'):
+    profile['shooting_lane_rules_revision']=RECIPE['shooting_lane_rules_revision']
 if short_course_audit is not None and mm(profile['distance_m']) != main.distance_mm*profile['laps']:
     raise ValueError('compressed Mass Start profile must pay its exact five Main laps')
 write(PREFIX+"/mass_start_profile",profile)
