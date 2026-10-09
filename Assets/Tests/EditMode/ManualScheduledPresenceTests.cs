@@ -66,8 +66,11 @@ namespace Biathlon.Tests
         [Test] public void InitialPresenceBindingDoesNotBypassReusableMatOwnership()
         {
             var f=Initial();
-            Assert.Throws<NotSupportedException>(()=>new ManualScopedFieldStepper(f.runner.Field,f.world,f.models,f.venue.Occupancy,
+            var unbound=UnboundCopy(f);
+            Assert.That(unbound.PathChoiceCount,Is.Zero);
+            Assert.Throws<NotSupportedException>(()=>new ManualScopedFieldStepper(f.runner.Field,unbound,f.models,f.venue.Occupancy,
                 ManualScopedFieldStepperTests.Steering(),ManualScopedFieldStepperTests.Work()));
+            Assert.That(f.world.PathChoiceCount,Is.EqualTo(f.runner.Field.RangeReservations.LaneCount));
         }
 
         [Test] public void ArrivalOfTheScheduledStartRestoresRealCollisionAdmission()
@@ -91,16 +94,20 @@ namespace Biathlon.Tests
 
         [Test] public void AWorldWithoutAttestedScheduleKeepsEveryBodyPresent()
         {
-            var f=Initial();var catalogs=new ManualRacePathCatalog[2];var cursors=new ManualRacePathCursor[2];
-            var poses=new ManualSkiHeadingState[2];var velocities=new SkiPlanarVelocity[2];var motion=new SkiState[2];
-            for(int i=0;i<2;i++)
-            {catalogs[i]=f.world.GetCatalog(i);cursors[i]=f.world.GetCursor(i);poses[i]=f.world.GetActor(i).Pose;velocities[i]=f.world.GetActor(i).Velocity;motion[i]=f.world.GetPhysicalMotion(i);}
-            var world=new ManualScopedWorldRoster(catalogs,f.venue.Occupancy,ManualScopedFieldStepperTests.Contact(),ManualScopedFieldStepperTests.Work(),
-                cursors,poses,velocities,motion,20,responseDefinition:ManualScopedFieldStepperTests.Group(),actorMasses:new[]{f.models.Physics.MassKilograms,f.models.Physics.MassKilograms});
+            var f=Initial();var world=UnboundCopy(f);
             Assert.That(world.IsPhysicalParticipant(1,default),Is.True);
             Assert.That(world.ContextJson,Is.Not.EqualTo(f.world.ContextJson));
             var tick=world.BeginTick();Assert.That(world.TryResolveOwnedCurrentContacts(tick),Is.False);
             world.AbortTick(tick);
+        }
+        private static ManualScopedWorldRoster UnboundCopy((PackAiRaceRunner runner,ManualScopedWorldRoster world,VenueAuthoringPlan venue,SkiModelDefinitions models) f)
+        {
+            var catalogs=new ManualRacePathCatalog[2];var cursors=new ManualRacePathCursor[2];
+            var poses=new ManualSkiHeadingState[2];var velocities=new SkiPlanarVelocity[2];var motion=new SkiState[2];
+            for(int i=0;i<2;i++)
+            {catalogs[i]=f.world.GetCatalog(i);cursors[i]=f.world.GetCursor(i);poses[i]=f.world.GetActor(i).Pose;velocities[i]=f.world.GetActor(i).Velocity;motion[i]=f.world.GetPhysicalMotion(i);}
+            return new ManualScopedWorldRoster(catalogs,f.venue.Occupancy,ManualScopedFieldStepperTests.Contact(),ManualScopedFieldStepperTests.Work(),
+                cursors,poses,velocities,motion,20,responseDefinition:ManualScopedFieldStepperTests.Group(),actorMasses:new[]{f.models.Physics.MassKilograms,f.models.Physics.MassKilograms});
         }
     }
 }

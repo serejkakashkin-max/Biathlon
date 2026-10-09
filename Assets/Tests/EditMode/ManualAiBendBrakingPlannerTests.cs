@@ -45,6 +45,22 @@ namespace Biathlon.Tests
             Assert.That(weakerResponse.SpeedLimit,Is.EqualTo(standard.SpeedLimit*.5).Within(1e-12));
             Assert.That(lowGrip.SpeedLimit,Is.LessThan(standard.SpeedLimit));
         }
+        [Test] public void FuturePrivateWidthIsObservedBeforeForkButClosedFiringGateStopsTheQuery()
+        {
+            var f=new ManualRacePathCatalogTests.Fixture();var planner=Create(f);
+            int privateApproach=f.Catalog.GetFiringOccurrence(0);
+            int common=privateApproach-1;
+            var before=At(f,common,f.Catalog.Get(common).LengthNanometers/(double)SkiState.NanometersPerMeter-2);
+            var inside=At(f,privateApproach,1);
+            double privateWidth=f.Catalog.SampleSurface(inside).WidthMeters;
+            Assert.That(f.Catalog.SampleSurface(before).WidthMeters,Is.GreaterThan(privateWidth));
+            Assert.That(planner.Plan(before,4,70,70,0).MinimumWidthMeters,Is.EqualTo(privateWidth));
+            var firing=At(f,privateApproach,f.Catalog.Get(privateApproach).LengthNanometers/(double)SkiState.NanometersPerMeter-.1);
+            Assert.That(planner.Plan(firing,0,70,70,0).MinimumWidthMeters,
+                Is.EqualTo(f.Catalog.SampleSurface(firing).WidthMeters));
+            Assert.That(before.OccurrenceIndex,Is.EqualTo(common));
+            Assert.That(planner.ContextJson,Does.Contain("v2_owned_future_width"));
+        }
         [Test] public void StraightOwnedStartDoesNotInventBrakingOrChangeObservation()
         {
             var f=new ManualRacePathCatalogTests.Fixture();var planner=Create(f);
@@ -64,7 +80,8 @@ namespace Biathlon.Tests
             {
                 var actual=planner.Plan(at,5,70,70,.1);
                 if(actual.SpeedLimit!=expected.SpeedLimit||actual.BrakeFraction!=expected.BrakeFraction||
-                    actual.ShortLookaheadMeters!=expected.ShortLookaheadMeters)Assert.Fail("Ordered intent changed.");
+                    actual.ShortLookaheadMeters!=expected.ShortLookaheadMeters||
+                    actual.MinimumWidthMeters!=expected.MinimumWidthMeters)Assert.Fail("Ordered intent changed.");
             }
             Assert.That(GC.GetAllocatedBytesForCurrentThread()-before,Is.Zero);
         }

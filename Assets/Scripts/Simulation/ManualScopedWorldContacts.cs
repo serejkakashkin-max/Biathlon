@@ -62,7 +62,7 @@ namespace Biathlon.Simulation
                 LastContactForces=new SkiContactForcePreview(SkiContactForceStatus.Resolved,drives[0].DurationSeconds,0);
                 LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.Clear);return true;
             }
-            if(LastOwnedContacts.Count==0)LastContactForces=contactForces.Preview(responseBodies,drives,Count,coupledTrajectories);
+            if(LastOwnedContacts.Count==0)LastContactForces=contactForces.Preview(responseBodies,drives,Count,coupledTrajectories,physicalParticipants);
             else
             {
                 // Contact reactions may refresh repeatedly inside one fixed
@@ -105,7 +105,7 @@ namespace Biathlon.Simulation
                     var body=responseBodies[i];
                     ownedFreePieces[i]=new SkiForceCoupledTrajectory(body.Pose,new SkiContactMotion(body.Velocity,body.Pose.YawRateRadiansPerSecond),acceleration,seconds);
                 }
-                LastContactForces=contactForces.PreviewRefined(responseBodies,ownedFreePieces,Count,coupledTrajectories,maximumForceRefinements);
+                LastContactForces=contactForces.PreviewRefined(responseBodies,ownedFreePieces,Count,coupledTrajectories,maximumForceRefinements,physicalParticipants);
             }
             if(LastContactForces.Status!=SkiContactForceStatus.Resolved)return Reject(ManualScopedWorldStatus.ContactForces);
             for(int i=0;i<Count;i++)

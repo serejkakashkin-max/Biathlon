@@ -42,9 +42,9 @@ namespace Biathlon.AI
             physicalCommands=physicalSteering;
             using(var stream=new MemoryStream())
             {
-                new DataContractJsonSerializer(typeof(string[])).WriteObject(stream,new[]{"manual_ai_signed_yaw_intent_v3_physical_pursuit",
+                new DataContractJsonSerializer(typeof(string[])).WriteObject(stream,new[]{"manual_ai_signed_yaw_intent_v5_parallel_endpoint",
                     route.ContextJson,policy.ToJson(),physicalSteering.ToJson(),
-                    "manual_ai_bounded_pass_line_yaw_v2;caller_width;owned_gate_lookahead_cap;physical_pursuit_actual_velocity_and_shared_speed_response_v1;body_course_sweep_required"});
+                    "manual_ai_bounded_pass_line_yaw_v2;caller_width;owned_gate_lookahead_cap;fitting_parallel_endpoint_intent;physical_pursuit_actual_velocity_and_shared_speed_response_v2_actual_chord;body_course_sweep_required"});
                 ContextJson=Encoding.UTF8.GetString(stream.ToArray());
             }
         }
@@ -79,6 +79,10 @@ namespace Biathlon.AI
             if(lookaheadOverride>0)lookahead=Math.Min(lookahead,lookaheadOverride);
             if(!route.TrySampleAhead(observation.SectionIndex,observation.RouteNanometers,lookahead,
                 admitNextSection,out var target))return default;
+            return TargetPlan(pose,lookahead,target,targetLateral);
+        }
+        private ManualAiSteeringPlan TargetPlan(ManualSkiHeadingState pose,double lookahead,ManualRouteTarget target,double targetLateral)
+        {
             double x=target.X+target.ForwardZ*targetLateral-pose.X;
             double z=target.Z-target.ForwardX*targetLateral-pose.Z;
             double desired=Math.Abs(x)+Math.Abs(z)<PhysiologyNumbers.MinimumPositive
@@ -90,6 +94,16 @@ namespace Biathlon.AI
             int steering=(int)Math.Round(Math.Max(-1,Math.Min(1,normalized))*ManualSkiCommand.SteeringUnits,
                 MidpointRounding.ToEven);
             return new ManualAiSteeringPlan(steering,error,lookahead,target,targetLateral);
+        }
+        /// <summary>An endpoint is a transverse line, not a compulsory centre
+        /// point. Retain a fitting lateral arrival line through steering intent.</summary>
+        public ManualAiSteeringPlan PlanParallelEndpoint(ManualSkiHeadingState pose,ManualAiSteeringPlan plan,double usableHalfWidth)
+        {
+            if(!pose.IsValid||!plan.IsValid)throw new ArgumentException("Initialized pose and target required.");
+            PhysiologyNumbers.RequireRange(usableHalfWidth,0,PhysiologyNumbers.MaximumMagnitude,nameof(usableHalfWidth));
+            var target=plan.Target;
+            double side=(pose.X-target.X)*target.ForwardZ-(pose.Z-target.Z)*target.ForwardX;
+            return TargetPlan(pose,plan.LookaheadMeters,target,Math.Max(-usableHalfWidth,Math.Min(usableHalfWidth,side)));
         }
         public ManualAiSteeringPlan PlanPassing(ManualSkiHeadingState pose,ManualRouteProjection observation,
             double speed,bool admitNextSection,double targetLateral,double usableHalfWidth,double clearanceDistance)
@@ -117,14 +131,22 @@ namespace Biathlon.AI
         /// bounded spin feedback. This is intent only, never physical yaw.</summary>
         public int PhysicalPursuitIntent(ManualAiSteeringPlan plan,ManualSkiHeadingState pose,SkiPlanarVelocity velocity)
         {
+            double speed=Math.Sqrt(velocity.X*velocity.X+velocity.Z*velocity.Z);
+            double response=ManualSkiSteeringSystem.GetRequest(physicalCommands,ManualSkiCommand.SteeringUnits,speed,PhysiologyNumbers.MaximumMagnitude).RequestedYawRate;
+            double input=PhysicalPursuitYaw(plan,pose,velocity)/response;
+            return (int)Math.Round(Math.Max(-1,Math.Min(1,input))*ManualSkiCommand.SteeringUnits,MidpointRounding.ToEven);
+        }
+        public double PhysicalPursuitYaw(ManualAiSteeringPlan plan,ManualSkiHeadingState pose,SkiPlanarVelocity velocity)
+        {
             if(!plan.IsValid||!pose.IsValid)throw new ArgumentException("Initialized owned plan and pose required.");
             double speed=Math.Sqrt(velocity.X*velocity.X+velocity.Z*velocity.Z);
             double direction=speed>=lowSpeedReference?Math.Atan2(velocity.X,velocity.Z):pose.HeadingRadians;
             double error=pose.HeadingRadians+plan.HeadingErrorRadians-direction;
-            double desired=2*Math.Max(speed,lowSpeedReference)*Math.Sin(error)/plan.LookaheadMeters;
-            double response=ManualSkiSteeringSystem.GetRequest(physicalCommands,ManualSkiCommand.SteeringUnits,speed,PhysiologyNumbers.MaximumMagnitude).RequestedYawRate;
-            double input=(desired-policy.YawRateFeedback*(pose.YawRateRadiansPerSecond-desired))/response;
-            return (int)Math.Round(Math.Max(-1,Math.Min(1,input))*ManualSkiCommand.SteeringUnits,MidpointRounding.ToEven);
+            double dx=plan.Target.X+plan.Target.ForwardZ*plan.TargetLateralMeters-pose.X;
+            double dz=plan.Target.Z-plan.Target.ForwardX*plan.TargetLateralMeters-pose.Z;
+            double chord=Math.Sqrt(dx*dx+dz*dz);
+            double desired=2*Math.Max(speed,lowSpeedReference)*Math.Sin(error)/Math.Max(chord,PhysiologyNumbers.MinimumPositive);
+            return desired-policy.YawRateFeedback*(pose.YawRateRadiansPerSecond-desired);
         }
     }
 }

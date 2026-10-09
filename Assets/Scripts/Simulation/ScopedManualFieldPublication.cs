@@ -54,7 +54,7 @@ namespace Biathlon.Simulation
             world.ValidatePrepared(proof);
             // Reusable mat reservation/path changes still need their own owned
             // transaction. This bridge cannot bypass that resource lifecycle.
-            if(reservations!=null)throw new NotSupportedException("Scoped reusable mat ownership is not yet integrated.");
+            if(reservations!=null&&world.PathChoiceCount!=reservations.LaneCount)throw new NotSupportedException("Scoped reusable mat ownership requires its attested cold family.");
             for(int i=0;i<Count;i++)
             {
                 var a=GetAthlete(i);var source=world.GetActor(i);var target=world.GetProposedActor(proof,i);
@@ -92,9 +92,10 @@ namespace Biathlon.Simulation
             =>a.Athlete.Equals(b.Athlete)&&a.Pose.X==b.Pose.X&&a.Pose.Z==b.Pose.Z&&a.Pose.HeadingNanoradians==b.Pose.HeadingNanoradians&&
                 a.Pose.YawRateRadiansPerSecond==b.Pose.YawRateRadiansPerSecond&&a.Velocity.X==b.Velocity.X&&a.Velocity.Z==b.Velocity.Z;
         internal void CommitManualScopedPrepared(ReadOnlySpan<SprintAthleteInput> inputs,ReadOnlySpan<SprintStepPreview> prepared,
-            ManualScopedWorldPreview proof,ReadOnlySpan<DraftOutput> nextDrafts)
+            ManualScopedWorldPreview proof,ReadOnlySpan<DraftOutput> nextDrafts,PhysicalRangeReservationPreview resource=default)
         {
             ValidateManualScopedPublication(proof,nextDrafts);field.ValidateCommands(inputs);
+            if(reservations!=null)reservations.ValidatePreview(resource);
             string next=ContextJson;
             if(manualScopedWorld==null)
             {
@@ -109,7 +110,9 @@ namespace Biathlon.Simulation
                 initialBlocks[i]=default;junctionWaitSince[i]=0;tails[i]=default;
                 onCourse[i]=StartGrid!=null||field.Tick.Value>=GetAthlete(i).ScheduledStart.Value;
             }
-            proof.Owner.Commit(proof);manualScopedWorld=proof.Owner;ContextJson=next;
+            proof.Owner.Commit(proof);CommitManualScopedReservations(resource);
+            for(int i=0;i<Count;i++)manualScopedFrames[i]=proof.Owner.GetActor(i);
+            manualScopedWorld=proof.Owner;ContextJson=next;
         }
     }
 }

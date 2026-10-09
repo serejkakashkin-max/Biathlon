@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="b167ab1d-4744-4ab2-8af8-d80800b7940f" name="snkashkin@DESKTOP-G3075GA 2026-10-09 17:48:13" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T17:48:13.6757690+03:00" queuing="2026-10-09T17:48:13.6757691+03:00" start="2026-10-09T17:48:13.0476710+03:00" finish="2026-10-09T17:48:13.6794451+03:00" />
+  <TestSettings name="default" id="4bc2f069-426a-47cc-a33c-6ff25848409b">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_17_48_13" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9c684d89-abf1-46a1-83c1-5866c11cb5ca" testId="b68b6b9e-2b95-053b-82f6-5def98eb852d" testName="InvalidPredictionCannotProduceIntent" computerName="DESKTOP-G3075GA" duration="00:00:00.0022140" startTime="2026-10-09T17:48:13.5757385+03:00" endTime="2026-10-09T17:48:13.5779521+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9c684d89-abf1-46a1-83c1-5866c11cb5ca" />
+    <UnitTestResult executionId="1a29f0b2-10a9-4bb9-8f4a-7756a04a7d56" testId="df3891e8-1301-9bc5-13be-41aed4cc1a61" testName="NeutralRestDoesNotInventAControlCorrectionAndWarmQueriesAllocateNothing" computerName="DESKTOP-G3075GA" duration="00:00:00.0051220" startTime="2026-10-09T17:48:13.5779637+03:00" endTime="2026-10-09T17:48:13.5830851+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1a29f0b2-10a9-4bb9-8f4a-7756a04a7d56" />
+    <UnitTestResult executionId="ef4791cc-cc3a-4be0-bbc1-8a8a00d08a21" testId="dd812c8e-e3fa-ee4b-03c0-80702d327dec" testName="ActualSlidingCurveUsesFullBoundedCorrectionWhenRequestedSpinIsUnreachable" computerName="DESKTOP-G3075GA" duration="00:00:00.0261370" startTime="2026-10-09T17:48:13.5490538+03:00" endTime="2026-10-09T17:48:13.5751634+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ef4791cc-cc3a-4be0-bbc1-8a8a00d08a21" />
+    <UnitTestResult executionId="2a19c8ae-6e76-4371-a010-85bb47ff9c4f" testId="117489ea-7637-c251-3d41-545ce335a81a" testName="ReachableYawIsSelectedFromActualSharedSnowResponse(0.35d)" computerName="DESKTOP-G3075GA" duration="00:00:00.0007230" startTime="2026-10-09T17:48:13.5962948+03:00" endTime="2026-10-09T17:48:13.5970173+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2a19c8ae-6e76-4371-a010-85bb47ff9c4f">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: greater than or equal to 0.24352996673953559d&#xD;
+  But was:  0.19999999999999998d&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(Double spin) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSnowSteeringPlannerTests.cs:line 41&#xD;
+   at InvokeStub_ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(Double spin) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSnowSteeringPlannerTests.cs:line 41&#xD;
+   at InvokeStub_ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b37cdf6a-bb39-49b9-aeca-eea7bb105fa5" testId="56551faf-b00b-f4e9-053c-a235c7edfd70" testName="ReachableYawIsSelectedFromActualSharedSnowResponse(-0.35d)" computerName="DESKTOP-G3075GA" duration="00:00:00.0124300" startTime="2026-10-09T17:48:13.5831175+03:00" endTime="2026-10-09T17:48:13.5955474+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b37cdf6a-bb39-49b9-aeca-eea7bb105fa5">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: greater than or equal to -0.32851145439944857d&#xD;
+  But was:  -0.32851744496762741d&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(Double spin) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSnowSteeringPlannerTests.cs:line 41&#xD;
+
+1)    at Biathlon.Tests.ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(Double spin) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSnowSteeringPlannerTests.cs:line 41&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1675e5b0-13df-44e1-940d-4216f42c8484" testId="413738ac-27d3-415d-0dc6-cb0df39c9964" testName="ReachableYawIsSelectedFromActualSharedSnowResponse(0.0d)" computerName="DESKTOP-G3075GA" duration="00:00:00.0006920" startTime="2026-10-09T17:48:13.5955952+03:00" endTime="2026-10-09T17:48:13.5962870+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1675e5b0-13df-44e1-940d-4216f42c8484">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: greater than or equal to 0.021488545600551374d&#xD;
+  But was:  0.021482555032372549d&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(Double spin) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSnowSteeringPlannerTests.cs:line 41&#xD;
+   at InvokeStub_ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(Double spin) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSnowSteeringPlannerTests.cs:line 41&#xD;
+   at InvokeStub_ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ActualSlidingCurveUsesFullBoundedCorrectionWhenRequestedSpinIsUnreachable" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="dd812c8e-e3fa-ee4b-03c0-80702d327dec">
+      <Execution id="ef4791cc-cc3a-4be0-bbc1-8a8a00d08a21" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="ActualSlidingCurveUsesFullBoundedCorrectionWhenRequestedSpinIsUnreachable" />
+    </UnitTest>
+    <UnitTest name="ReachableYawIsSelectedFromActualSharedSnowResponse(-0.35d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="56551faf-b00b-f4e9-053c-a235c7edfd70">
+      <Execution id="b37cdf6a-bb39-49b9-aeca-eea7bb105fa5" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="ReachableYawIsSelectedFromActualSharedSnowResponse(-0.35d)" />
+    </UnitTest>
+    <UnitTest name="NeutralRestDoesNotInventAControlCorrectionAndWarmQueriesAllocateNothing" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="df3891e8-1301-9bc5-13be-41aed4cc1a61">
+      <Execution id="1a29f0b2-10a9-4bb9-8f4a-7756a04a7d56" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="NeutralRestDoesNotInventAControlCorrectionAndWarmQueriesAllocateNothing" />
+    </UnitTest>
+    <UnitTest name="InvalidPredictionCannotProduceIntent" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="b68b6b9e-2b95-053b-82f6-5def98eb852d">
+      <Execution id="9c684d89-abf1-46a1-83c1-5866c11cb5ca" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="InvalidPredictionCannotProduceIntent" />
+    </UnitTest>
+    <UnitTest name="ReachableYawIsSelectedFromActualSharedSnowResponse(0.35d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="117489ea-7637-c251-3d41-545ce335a81a">
+      <Execution id="2a19c8ae-6e76-4371-a010-85bb47ff9c4f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="ReachableYawIsSelectedFromActualSharedSnowResponse(0.35d)" />
+    </UnitTest>
+    <UnitTest name="ReachableYawIsSelectedFromActualSharedSnowResponse(0.0d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="413738ac-27d3-415d-0dc6-cb0df39c9964">
+      <Execution id="1675e5b0-13df-44e1-940d-4216f42c8484" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="ReachableYawIsSelectedFromActualSharedSnowResponse(0.0d)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b68b6b9e-2b95-053b-82f6-5def98eb852d" executionId="9c684d89-abf1-46a1-83c1-5866c11cb5ca" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="df3891e8-1301-9bc5-13be-41aed4cc1a61" executionId="1a29f0b2-10a9-4bb9-8f4a-7756a04a7d56" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dd812c8e-e3fa-ee4b-03c0-80702d327dec" executionId="ef4791cc-cc3a-4be0-bbc1-8a8a00d08a21" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="117489ea-7637-c251-3d41-545ce335a81a" executionId="2a19c8ae-6e76-4371-a010-85bb47ff9c4f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="56551faf-b00b-f4e9-053c-a235c7edfd70" executionId="b37cdf6a-bb39-49b9-aeca-eea7bb105fa5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="413738ac-27d3-415d-0dc6-cb0df39c9964" executionId="1675e5b0-13df-44e1-940d-4216f42c8484" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="6" executed="6" passed="3" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 6 of 6 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

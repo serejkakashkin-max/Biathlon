@@ -35,14 +35,14 @@ namespace Biathlon.Tests
             var system=new ManualSkiContactForces(source.Venue.Occupancy,ManualScopedFieldStepperTests.Contact(),ManualScopedFieldStepperTests.Group(),2);
             var output=new SkiForceCoupledTrajectory[2];
             var method=typeof(ManualSkiContactForces).GetMethod("PreviewRefined",BindingFlags.NonPublic|BindingFlags.Instance);
-            var original=(SkiContactForcePreview)method.Invoke(system,new object[]{bodies,free,2,output,0});
+            var original=(SkiContactForcePreview)method.Invoke(system,new object[]{bodies,free,2,output,0,null});
             if(pair==0)
             {
                 Assert.That(original.Status,Is.EqualTo(SkiContactForceStatus.WorkLimit));
                 Assert.That(output[0].IsValid,Is.False);Assert.That(output[1].IsValid,Is.False);
             }
             else Assert.That(original.Status,Is.EqualTo(SkiContactForceStatus.Resolved));
-            var result=(SkiContactForcePreview)method.Invoke(system,new object[]{bodies,free,2,output,32});
+            var result=(SkiContactForcePreview)method.Invoke(system,new object[]{bodies,free,2,output,32,null});
             Assert.That(result.Status,Is.EqualTo(SkiContactForceStatus.Resolved));
             Assert.That(result.MaximumReactionResidualSpeed,Is.LessThanOrEqualTo(ManualScopedFieldStepperTests.Group().ClosingSpeedTolerance));
             Assert.That(result.DurationSeconds,Is.GreaterThan(0).And.LessThanOrEqualTo(seconds));

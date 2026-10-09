@@ -95,6 +95,7 @@ namespace Biathlon.Simulation
         public int FinishRunoutIndex {get;}
         public ManualFinishRunoutDefinition FinishRunoutDefinition {get;}
         public string LaneId=>rangePath.LaneId;
+        internal PhysicalRangePathMap SelectedPath=>rangePath;
         /// <summary>Coordinates here are a geometry namespace, never race distance.
         /// The legacy base-world ledger explicitly rejects this scoped map.</summary>
         public ManualRouteProjectionMap ProjectionGeometry {get;}
@@ -105,6 +106,8 @@ namespace Biathlon.Simulation
         internal bool IsBoundTo(RaceRoute selected,PhysicalRangePathMap path,StartApproachMap start)
             =>IsBoundTo(selected,path)&&ReferenceEquals(startApproach,start);
         internal bool IsSameRace(ManualRacePathCatalog other)=>other!=null&&ReferenceEquals(route,other.route)&&ReferenceEquals(profile,other.profile);
+        internal bool IsSamePathFamily(ManualRacePathCatalog other)=>IsSameRace(other)&&rangePath.IsSameFamily(other.rangePath)&&
+            ReferenceEquals(startApproach,other.startApproach)&&ReferenceEquals(FinishRunoutDefinition,other.FinishRunoutDefinition);
 
         public ManualRacePathCatalog(TrackDefinition track,RaceRoute route,CompetitionProfile profile,
             TrackVisualDefinition visual,PhysicalRangePathMap rangePath,StartApproachMap startApproach=null,

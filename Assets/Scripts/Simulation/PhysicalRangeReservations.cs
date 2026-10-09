@@ -22,6 +22,13 @@ namespace Biathlon.Simulation
             Tick=receipt.Tick;TickFrequency=receipt.TickFrequency;
             ClearanceRouteNanometers=receipt.AdmissionRouteNanometers;Fraction=receipt.Fraction;
         }
+        private PhysicalRangeRelease(AthleteId athlete,int bout,int lane,SimulationTick tick,int frequency,long line)
+        {AthleteId=athlete;BoutIndex=bout;LaneOrdinal=lane;Tick=tick;TickFrequency=frequency;ClearanceRouteNanometers=line;Fraction=JunctionAdmissionSession.FractionParts;}
+        /// <summary>Conservative end-of-tick release. Only the scoped field may
+        /// provide this fact after checking the actual complete occupied body
+        /// beyond its private portal. It never claims an earlier crossing time.</summary>
+        internal static PhysicalRangeRelease FromScopedClearEndpoint(AthleteId athlete,int bout,int lane,SimulationTick tick,int frequency,long line)
+            =>new PhysicalRangeRelease(athlete,bout,lane,tick,frequency,line);
         public static bool TryFromAcceptedMotion(AthleteId athlete,int bout,int lane,SimulationTick tick,
             int frequency,long clearanceRouteNanometers,RaceMotionPoint initial,
             ReadOnlySpan<RaceMotionSegment> segments,out PhysicalRangeRelease release)

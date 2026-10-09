@@ -23626,3 +23626,32 @@ qualification remain open. Owner shooting-feel issue preserved. Final owner
 build only after ALL M13. Every historical state byte is retained.
 Report: docs/reports/TASK_M13_MANUAL_SCHEDULED_PHYSICAL_PRESENCE_20261009.md.
 Evidence: docs/quality/m13/field-stepper-20261008/.
+
+## 2026-10-09 — M13 owned reusable mats and native Pursuit correction
+
+M13 / WP175 / WP177 / WP178 OPEN; WP176 PASS. Production host lateral-v1.
+No owner Windows build. Small complete manual Sprint1/3 and Pursuit3 now acquire,
+select and release reusable lanes on the exact field/world clock. Cold choices
+rebind only the identical common paid approach before any private fork; unchanged
+pose, velocity, surface, travel and competition credit. Full rotated-body exit
+clearance releases resources conservatively at tick end. Foreign/stale choices,
+invalid final rows and capacity exhaustion cannot partially publish or add a queue.
+Scheduled waiting rows stay absent from contact forces. Paid mat inverse can retain
+already-paid propulsion through the same brake/force law, with no extra effort.
+Native Pursuit's actual spin/slip course failure13219 is fixed by bounded shared-
+snow endpoint intent on reusable base curves. Fitting parallel firing-endpoint
+intent avoids a last-centimetre sideways centre turn. Future width/achieved side
+speed reserve and actual target chord remain intent only. Broad recovery/search
+trials and fixed-Mass endpoint correction removed after new failures. FAIL evidence
+retained; temporary debug removed. No body shrink, pose/speed snap or gate relaxation.
+Final manual.NET569/569PASS, zero skipped. Native reusable7/snow8/steering19/
+five-miss penalty7 all PASS. Compile settled; Error+Exception Console empty.
+Pre-scope full run566PASS3FAIL and new-unit precision correction remain documented.
+Pursuit fixture uses deliberate10s qualification gaps, not actual prior Sprint.
+Full40/30 fields, tied starts, persisted manual replay, player final2–3m capture,
+production host and final weather/balance/performance remain open. Owner shooting-
+feel issue preserved. Final owner build only after ALL M13. Next complete signed
+command recording/playback without AI, then production field/host qualification.
+Report: docs/reports/TASK_M13_MANUAL_REUSABLE_MATS_20261009.md.
+Evidence: docs/quality/m13/field-stepper-20261008/manual-reuse-*.
+Every historical state byte is preserved; latest appended entry controls work.

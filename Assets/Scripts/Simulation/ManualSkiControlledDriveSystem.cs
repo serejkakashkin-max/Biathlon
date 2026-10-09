@@ -39,7 +39,7 @@ namespace Biathlon.Simulation
             snow=new ManualSkiSteeredSnowSystem(body,steering,frequency);cornering=new CorneringSystem(turns,physics);
             commands=new ManualSkiSteeringSystem(steering,frequency);
             mass=physics.MassKilograms;maximumBrakingNewtons=mass*turns.MaximumBraking;
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_controlled_slip_drive_v4_inverse_stopping",drive.ContextJson,snow.ContextJson,
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_controlled_slip_drive_v5_paid_inverse_stopping",drive.ContextJson,snow.ContextJson,
                 turns.ToJson(),"one_joint_snow_budget;actual_heading_grade;max_actual_or_requested_yaw_braking;explicit_brake_fraction_uses_same_force_cap;max_not_sum;shared_corner_force_limits;inverse_frozen_stopping_intent_with_explicit_infeasibility;outward_64ulp_inverse_force_reserve_within_cap;unchanged_shared_longitudinal_forces;no_admission"});
         }
         /// <summary>Invert only the shared frozen longitudinal force law for a
@@ -52,6 +52,20 @@ namespace Biathlon.Simulation
         {
             if(!input.IsValid||input.SteeringInput!=0||input.DeliveredPowerWatts!=0||input.BrakeFraction!=0)
                 throw new ArgumentException("Neutral unpowered input without a competing brake intent required.");
+            return PreviewStoppingCore(body,motion,observation,surface,input,seconds,stopAfterSeconds);
+        }
+        // The owning field may retain some already paid propulsion when passive
+        // resistance would stop before the portal. No extra effort or force cap.
+        internal ManualSkiStoppingPreview PreviewStoppingWithPaidPower(ManualSkiContactBody body,SkiContactMotion motion,
+            ManualRacePathObservation observation,TrackSample surface,ManualSkiMotionInput input,double seconds,double stopAfterSeconds)
+        {
+            if(!input.IsValid||input.SteeringInput!=0||input.BrakeFraction!=0)
+                throw new ArgumentException("Neutral paid input without a competing brake intent required.");
+            return PreviewStoppingCore(body,motion,observation,surface,input,seconds,stopAfterSeconds);
+        }
+        private ManualSkiStoppingPreview PreviewStoppingCore(ManualSkiContactBody body,SkiContactMotion motion,
+            ManualRacePathObservation observation,TrackSample surface,ManualSkiMotionInput input,double seconds,double stopAfterSeconds)
+        {
             PhysiologyNumbers.RequireRange(stopAfterSeconds,Math.Max(seconds,PhysiologyNumbers.MinimumPositive),
                 PhysiologyNumbers.MaximumMagnitude,nameof(stopAfterSeconds));
             var baseline=Preview(body,motion,observation,surface,input,seconds);

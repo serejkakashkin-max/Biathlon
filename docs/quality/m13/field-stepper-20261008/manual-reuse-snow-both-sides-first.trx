@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="d135d291-64a1-46aa-9a86-71f84582719d" name="snkashkin@DESKTOP-G3075GA 2026-10-09 17:53:25" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T17:53:25.0721832+03:00" queuing="2026-10-09T17:53:25.0721833+03:00" start="2026-10-09T17:53:24.4602426+03:00" finish="2026-10-09T17:53:25.0755727+03:00" />
+  <TestSettings name="default" id="a1b84b95-25a1-4458-aa58-832064154612">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_17_53_25" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="868fc4a6-e377-4535-8a32-ecff2725765c" testId="b68b6b9e-2b95-053b-82f6-5def98eb852d" testName="InvalidPredictionCannotProduceIntent" computerName="DESKTOP-G3075GA" duration="00:00:00.0015290" startTime="2026-10-09T17:53:24.9828811+03:00" endTime="2026-10-09T17:53:24.9844104+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="868fc4a6-e377-4535-8a32-ecff2725765c" />
+    <UnitTestResult executionId="1d3a7f2a-7876-4751-b29b-8dec382ea559" testId="413738ac-27d3-415d-0dc6-cb0df39c9964" testName="ReachableYawIsSelectedFromActualSharedSnowResponse(0.0d)" computerName="DESKTOP-G3075GA" duration="00:00:00.0005450" startTime="2026-10-09T17:53:24.9908378+03:00" endTime="2026-10-09T17:53:24.9913832+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1d3a7f2a-7876-4751-b29b-8dec382ea559">
+      <Output>
+        <StdOut>spin=0 target=0,10647003325946437 selected=107 error=1,3877787807814457E-17 best=0 ends=0,021488545601551372:0:0,1064700332594644</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="68a73acc-1986-4490-b461-6b265b816dfd" testId="117489ea-7637-c251-3d41-545ce335a81a" testName="ReachableYawIsSelectedFromActualSharedSnowResponse(0.35d)" computerName="DESKTOP-G3075GA" duration="00:00:00.0003690" startTime="2026-10-09T17:53:24.9913937+03:00" endTime="2026-10-09T17:53:24.9917626+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="68a73acc-1986-4490-b461-6b265b816dfd">
+      <Output>
+        <StdOut>spin=0,35 target=0,2435299667405356 selected=-1000 error=2,7755575615628914E-17 best=0 ends=0,24352996674053562:0,19999999999999998:0,43865925407233164</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f03d38e0-fa76-4c18-ba94-5cb9d44d21d8" testId="a20bef96-b9d8-7445-807b-5529de2c29f4" testName="BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw" computerName="DESKTOP-G3075GA" duration="00:00:00.0151340" startTime="2026-10-09T17:53:24.9676938+03:00" endTime="2026-10-09T17:53:24.9828278+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f03d38e0-fa76-4c18-ba94-5cb9d44d21d8">
+      <Output>
+        <ErrorInfo>
+          <Message>  spin=-0,35 attainable command=-900 selected=-1000&#xD;
+  Expected: -0.32996975978289178d +/- 9.9999999999999998E-13d&#xD;
+  But was:  -0.32851145439844859d&#xD;
+  Off by:   -0.0014583053844431926d&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualAiSnowSteeringPlannerTests.BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSnowSteeringPlannerTests.cs:line 74&#xD;
+
+1)    at Biathlon.Tests.ManualAiSnowSteeringPlannerTests.BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSnowSteeringPlannerTests.cs:line 74&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="45e0dfd5-d9f6-4467-b1ee-3225a00f6cd9" testId="dd812c8e-e3fa-ee4b-03c0-80702d327dec" testName="ActualSlidingCurveUsesFullBoundedCorrectionWhenRequestedSpinIsUnreachable" computerName="DESKTOP-G3075GA" duration="00:00:00.0255720" startTime="2026-10-09T17:53:24.9415932+03:00" endTime="2026-10-09T17:53:24.9671394+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="45e0dfd5-d9f6-4467-b1ee-3225a00f6cd9" />
+    <UnitTestResult executionId="f9fe4051-3e62-4d3b-8471-637b32877cae" testId="df3891e8-1301-9bc5-13be-41aed4cc1a61" testName="NeutralRestDoesNotInventAControlCorrectionAndWarmQueriesAllocateNothing" computerName="DESKTOP-G3075GA" duration="00:00:00.0050060" startTime="2026-10-09T17:53:24.9844183+03:00" endTime="2026-10-09T17:53:24.9894246+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f9fe4051-3e62-4d3b-8471-637b32877cae" />
+    <UnitTestResult executionId="61301597-89e6-4d7f-9636-7bb88dfae03e" testId="56551faf-b00b-f4e9-053c-a235c7edfd70" testName="ReachableYawIsSelectedFromActualSharedSnowResponse(-0.35d)" computerName="DESKTOP-G3075GA" duration="00:00:00.0013699" startTime="2026-10-09T17:53:24.9894558+03:00" endTime="2026-10-09T17:53:24.9908253+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="61301597-89e6-4d7f-9636-7bb88dfae03e">
+      <Output>
+        <StdOut>spin=-0,35 target=-0,24352996674053556 selected=1000 error=0 best=0 ends=-0,3285114543984486:-0,19999999999999998:-0,24352996674053556</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ActualSlidingCurveUsesFullBoundedCorrectionWhenRequestedSpinIsUnreachable" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="dd812c8e-e3fa-ee4b-03c0-80702d327dec">
+      <Execution id="45e0dfd5-d9f6-4467-b1ee-3225a00f6cd9" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="ActualSlidingCurveUsesFullBoundedCorrectionWhenRequestedSpinIsUnreachable" />
+    </UnitTest>
+    <UnitTest name="ReachableYawIsSelectedFromActualSharedSnowResponse(-0.35d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="56551faf-b00b-f4e9-053c-a235c7edfd70">
+      <Execution id="61301597-89e6-4d7f-9636-7bb88dfae03e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="ReachableYawIsSelectedFromActualSharedSnowResponse(-0.35d)" />
+    </UnitTest>
+    <UnitTest name="BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="a20bef96-b9d8-7445-807b-5529de2c29f4">
+      <Execution id="f03d38e0-fa76-4c18-ba94-5cb9d44d21d8" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw" />
+    </UnitTest>
+    <UnitTest name="NeutralRestDoesNotInventAControlCorrectionAndWarmQueriesAllocateNothing" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="df3891e8-1301-9bc5-13be-41aed4cc1a61">
+      <Execution id="f9fe4051-3e62-4d3b-8471-637b32877cae" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="NeutralRestDoesNotInventAControlCorrectionAndWarmQueriesAllocateNothing" />
+    </UnitTest>
+    <UnitTest name="InvalidPredictionCannotProduceIntent" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="b68b6b9e-2b95-053b-82f6-5def98eb852d">
+      <Execution id="868fc4a6-e377-4535-8a32-ecff2725765c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="InvalidPredictionCannotProduceIntent" />
+    </UnitTest>
+    <UnitTest name="ReachableYawIsSelectedFromActualSharedSnowResponse(0.35d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="117489ea-7637-c251-3d41-545ce335a81a">
+      <Execution id="68a73acc-1986-4490-b461-6b265b816dfd" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="ReachableYawIsSelectedFromActualSharedSnowResponse(0.35d)" />
+    </UnitTest>
+    <UnitTest name="ReachableYawIsSelectedFromActualSharedSnowResponse(0.0d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="413738ac-27d3-415d-0dc6-cb0df39c9964">
+      <Execution id="1d3a7f2a-7876-4751-b29b-8dec382ea559" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="ReachableYawIsSelectedFromActualSharedSnowResponse(0.0d)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b68b6b9e-2b95-053b-82f6-5def98eb852d" executionId="868fc4a6-e377-4535-8a32-ecff2725765c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="413738ac-27d3-415d-0dc6-cb0df39c9964" executionId="1d3a7f2a-7876-4751-b29b-8dec382ea559" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="117489ea-7637-c251-3d41-545ce335a81a" executionId="68a73acc-1986-4490-b461-6b265b816dfd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a20bef96-b9d8-7445-807b-5529de2c29f4" executionId="f03d38e0-fa76-4c18-ba94-5cb9d44d21d8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dd812c8e-e3fa-ee4b-03c0-80702d327dec" executionId="45e0dfd5-d9f6-4467-b1ee-3225a00f6cd9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="df3891e8-1301-9bc5-13be-41aed4cc1a61" executionId="f9fe4051-3e62-4d3b-8471-637b32877cae" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="56551faf-b00b-f4e9-053c-a235c7edfd70" executionId="61301597-89e6-4d7f-9636-7bb88dfae03e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="7" executed="7" passed="6" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 7 of 7 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+spin=-0,35 target=-0,24352996674053556 selected=1000 error=0 best=0 ends=-0,3285114543984486:-0,19999999999999998:-0,24352996674053556&#xD;
+&#xD;
+spin=0 target=0,10647003325946437 selected=107 error=1,3877787807814457E-17 best=0 ends=0,021488545601551372:0:0,1064700332594644&#xD;
+&#xD;
+spin=0,35 target=0,2435299667405356 selected=-1000 error=2,7755575615628914E-17 best=0 ends=0,24352996674053562:0,19999999999999998:0,43865925407233164&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -27,6 +27,33 @@ namespace Biathlon.Tests
         }
         private static long Nano(double metres)=>(long)Math.Round(metres*SkiState.NanometersPerMeter);
 
+        [Test] public void OwnedEndpointRetainsFittingParallelLineInsteadOfLateCentreTurn()
+        {
+            var f=Create();var section=f.route.GetSection(0);var loop=f.visual.Get(section.LoopId);
+            int segment=1;while(segment<loop.Count&&loop.Get(segment).Distance-loop.Get(segment-1).Distance<6)segment++;
+            Assert.That(segment,Is.LessThan(loop.Count));
+            double local=(loop.Get(segment-1).Distance+loop.Get(segment).Distance)*.5;
+            var p=loop.Sample(local);double yaw=Math.Atan2(p.ForwardX,p.ForwardZ);
+            var pose=new ManualSkiHeadingState(p.X+p.ForwardZ*.04,p.Z-p.ForwardX*.04,yaw);
+            long station=Nano(section.Start.Meters+local-section.LoopStart.Meters);
+            Assert.That(f.map.TryProject(pose,0,station,.001,false,out var at),Is.True);
+            var centre=f.controller.PlanOwnedTarget(pose,at,0,false,0,.5,.01);
+            var parallel=f.controller.PlanParallelEndpoint(pose,centre,.5);
+            Assert.That(Math.Abs(centre.HeadingErrorRadians),Is.GreaterThan(1));
+            // World-coordinate subtraction at this 1 cm endpoint has a larger
+            // floating angular error than a metre-scale chord; intent is zero.
+            Assert.That(parallel.HeadingErrorRadians,Is.EqualTo(0).Within(1e-9));
+            Assert.That(parallel.SteeringInput,Is.Zero);
+            Assert.That(parallel.TargetLateralMeters,Is.EqualTo(.04).Within(1.0/SkiState.NanometersPerMeter));
+            Assert.That(parallel.Target,Is.EqualTo(centre.Target));
+            Assert.That(parallel.LookaheadMeters,Is.EqualTo(centre.LookaheadMeters));
+            Assert.That(f.controller.PlanParallelEndpoint(pose,centre,.02).TargetLateralMeters,Is.EqualTo(.02));
+            Assert.That(pose.X,Is.EqualTo(p.X+p.ForwardZ*.04));
+            Assert.Throws<ArgumentException>(()=>f.controller.PlanParallelEndpoint(default,centre,.5));
+            Assert.Throws<ArgumentException>(()=>f.controller.PlanParallelEndpoint(pose,default,.5));
+            Assert.Throws<ArgumentOutOfRangeException>(()=>f.controller.PlanParallelEndpoint(pose,centre,-1));
+        }
+
         [TestCase(0d)][TestCase(4d)][TestCase(12d)]
         public void PhysicalPursuitInvertsTheActualSharedSpeedResponse(double speed)
         {
@@ -36,7 +63,9 @@ namespace Biathlon.Tests
             var plan=f.controller.Plan(pose,at,speed,false);
             var velocity=new SkiPlanarVelocity(speed*Math.Sin(pose.HeadingRadians),speed*Math.Cos(pose.HeadingRadians));
             var definition=ManualSkiSteeringDefinition.FromJson(SteeringJson);
-            double desired=2*Math.Max(speed,definition.MinimumSpeedForGripLimit)*Math.Sin(plan.HeadingErrorRadians)/plan.LookaheadMeters;
+            double dx=plan.Target.X+plan.Target.ForwardZ*plan.TargetLateralMeters-pose.X;
+            double dz=plan.Target.Z-plan.Target.ForwardX*plan.TargetLateralMeters-pose.Z;
+            double desired=2*Math.Max(speed,definition.MinimumSpeedForGripLimit)*Math.Sin(plan.HeadingErrorRadians)/Math.Sqrt(dx*dx+dz*dz);
             double target=desired*(1+ManualAiSteeringDefinition.FromJson(PolicyJson).YawRateFeedback);
             int intent=f.controller.PhysicalPursuitIntent(plan,pose,velocity);
             var achieved=ManualSkiSteeringSystem.GetRequest(definition,intent,speed,1000);
@@ -45,6 +74,25 @@ namespace Biathlon.Tests
             Assert.That(achieved.RequestedYawRate,Is.EqualTo(target).Within(full/2000+1e-12));
             Assert.That(new ManualSkiSteeringSystem(definition,50).GetRequest(intent,speed,1000).RequestedYawRate,
                 Is.EqualTo(achieved.RequestedYawRate),"Intent inversion must not invent a tick-frequency dependency.");
+        }
+        [Test] public void OffCentrePursuitUsesActualChordRatherThanCountedLookahead()
+        {
+            var f=Create();var point=f.visual.Get(f.route.GetSection(0).LoopId).Sample(10);
+            double yaw=Math.Atan2(point.ForwardX,point.ForwardZ);
+            var pose=new ManualSkiHeadingState(point.X+point.ForwardZ,point.Z-point.ForwardX,yaw);
+            Assert.That(f.map.TryProject(pose,0,Nano(10),.001,false,out var at),Is.True);
+            var plan=f.controller.Plan(pose,at,1,false);
+            double dx=plan.Target.X-pose.X,dz=plan.Target.Z-pose.Z;
+            double chord=Math.Sqrt(dx*dx+dz*dz);
+            Assert.That(Math.Abs(chord-plan.LookaheadMeters),Is.GreaterThan(.1));
+            var definition=ManualSkiSteeringDefinition.FromJson(SteeringJson);
+            double desired=2*Math.Sin(plan.HeadingErrorRadians)/chord;
+            double expected=desired*(1+ManualAiSteeringDefinition.FromJson(PolicyJson).YawRateFeedback);
+            int command=f.controller.PhysicalPursuitIntent(plan,pose,new SkiPlanarVelocity(Math.Sin(yaw),Math.Cos(yaw)));
+            double full=ManualSkiSteeringSystem.GetRequest(definition,1000,1,1000).RequestedYawRate;
+            Assert.That(Math.Abs(expected),Is.LessThan(full));
+            Assert.That(ManualSkiSteeringSystem.GetRequest(definition,command,1,1000).RequestedYawRate,
+                Is.EqualTo(expected).Within(full/2000+1e-12));
         }
         [Test] public void ActualSlipChangesPursuitIntentWithoutChangingAcceptedPoseOrVelocity()
         {
@@ -271,8 +319,8 @@ namespace Biathlon.Tests
             var policy=ManualAiSteeringDefinition.FromJson(PolicyJson);
             Assert.That(ManualAiSteeringDefinition.FromJson(policy.ToJson()).ToJson(),Is.EqualTo(policy.ToJson()));
             string context=Create().controller.ContextJson;
-            Assert.That(context.Contains("manual_ai_signed_yaw_intent_v3_physical_pursuit"),Is.True);
-            Assert.That(context.Contains("physical_pursuit_actual_velocity_and_shared_speed_response_v1"),Is.True);
+            Assert.That(context.Contains("manual_ai_signed_yaw_intent_v5_parallel_endpoint"),Is.True);
+            Assert.That(context.Contains("physical_pursuit_actual_velocity_and_shared_speed_response_v2_actual_chord"),Is.True);
             foreach(var field in new[]{"schema_version","id","lookahead_base_m","lookahead_speed_seconds",
                 "lookahead_max_m","heading_response_seconds","yaw_rate_feedback"})
                 Assert.Catch(()=>ManualAiSteeringDefinition.FromJson(PolicyJson.Replace("\""+field+"\"","\"missing_"+field+"\"")),field);

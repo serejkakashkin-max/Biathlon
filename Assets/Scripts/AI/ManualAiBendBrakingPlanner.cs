@@ -9,9 +9,10 @@ namespace Biathlon.AI
         public double SpeedLimit {get;}
         public double BrakeFraction {get;}
         public double ShortLookaheadMeters {get;}
+        public double MinimumWidthMeters {get;}
         public bool ReduceEffort=>BrakeFraction>0;
-        internal ManualAiBendBrakingPlan(double limit,double fraction,double lookahead)
-        {SpeedLimit=limit;BrakeFraction=fraction;ShortLookaheadMeters=lookahead;}
+        internal ManualAiBendBrakingPlan(double limit,double fraction,double lookahead,double width)
+        {SpeedLimit=limit;BrakeFraction=fraction;ShortLookaheadMeters=lookahead;MinimumWidthMeters=width;}
     }
     /// <summary>Ordered, already selected ordinary path geometry becomes braking
     /// intent before a tight bend. Querying a successor neither admits a phase
@@ -42,7 +43,7 @@ namespace Biathlon.AI
             loops=new TrackLoopDefinition[catalog.Count];samplers=new TrackSampler[loops.Length];
             for(int i=0;i<loops.Length;i++)
             {loops[i]=track.GetLoop(catalog.Get(i).LoopId);samplers[i]=new TrackSampler(loops[i]);}
-            ContextJson=ManualScopedAiMovement.Encode(new[]{"manual_ai_ordered_bend_braking_v1",
+            ContextJson=ManualScopedAiMovement.Encode(new[]{"manual_ai_ordered_bend_braking_v2_owned_future_width",
                 ManualContextIdentity.Sha256(track.ToJson()),ManualContextIdentity.Sha256(catalog.ContextJson),
                 physics.ToJson(),corners.ToJson(),steering.ToJson(),policy.ToJson(),body.ToJson(),
                 "ordinary_selected_chain_only;closed_phase_stops_lookahead;shared_grip_and_yaw_speed_limits;existing_braking_cap;body_and_response_distance_reserve;intent_only;future_neutral_grip_is_not_weather_qualification"});
@@ -57,7 +58,7 @@ namespace Biathlon.AI
             PhysiologyNumbers.RequireRange(fatigue,0,1,nameof(fatigue));
             PhysiologyNumbers.RequireRange(grip,PhysiologyNumbers.MinimumPositive,PhysiologyNumbers.MaximumMagnitude,nameof(grip));
             PhysiologyNumbers.RequireRange(steeringResponse,PhysiologyNumbers.MinimumPositive,1,nameof(steeringResponse));
-            double limit=physics.MaximumSpeedMetersPerSecond,shortLookahead=0,offset=0,fraction=0;
+            double limit=physics.MaximumSpeedMetersPerSecond,shortLookahead=0,offset=0,fraction=0,width=catalog.SampleSurface(at).WidthMeters;
             int occurrence=at.OccurrenceIndex;long arc=at.PhysicalArcNanometers;
             while(offset<policy.LookaheadMaximumMeters)
             {
@@ -70,6 +71,7 @@ namespace Biathlon.AI
                     var segment=loop.GetSegment(k);double from=Math.Max(local,segment.StartDistance.Meters);
                     double to=Math.Min(end,segment.StartDistance.Meters+segment.Length.Meters);
                     if(to<=from)continue;
+                    width=Math.Min(width,segment.WidthMeters);
                     double curve=Math.Abs(segment.CurvaturePerMeter);if(curve==0)continue;
                     var surface=samplers[occurrence].Sample(new TrackDistance((long)Math.Floor(from*1000)));
                     double safe=cornering.Evaluate(new SkiState(0,speed),surface,corneringSkill,downhillSkill,1,fatigue,grip).SafeSpeedMetersPerSecond;
@@ -93,7 +95,7 @@ namespace Biathlon.AI
                 if(row.End!=ManualRacePathEnd.Continue||row.Index+1>=catalog.BaseFlowCount)break;
                 occurrence=row.Index+1;arc=0;
             }
-            return new ManualAiBendBrakingPlan(limit,fraction,shortLookahead);
+            return new ManualAiBendBrakingPlan(limit,fraction,shortLookahead,width);
         }
     }
 }

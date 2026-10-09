@@ -16,7 +16,8 @@ namespace Biathlon.Tests
             var finished=new bool[count];var times=new FinishTime[count];var finishSpeed=new double[count];bool continued=false,braked=false;
             while(!f.runner.Field.IsComplete&&f.runner.Field.Tick.Value<30000)
             {
-                f.runner.Step();
+                try{f.runner.Step();}
+                catch(Exception e){Assert.Fail("tick="+f.runner.Field.Tick.Next().Value+"; "+ManualScopedFieldStepperTests.Explain(f.stepper)+"; actor="+f.stepper.LastStep.Athlete+"; "+e);}
                 for(int i=0;i<count;i++)
                 {
                     var athlete=f.runner.Field.GetAthlete(i);if(!athlete.HasFinished)continue;

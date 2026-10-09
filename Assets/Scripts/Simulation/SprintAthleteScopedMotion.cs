@@ -9,6 +9,29 @@ namespace Biathlon.Simulation
         /// current mat selection and authored start. No admission or movement.</summary>
         public ManualRacePathCatalog CreateManualPathCatalog(TrackDefinition track,TrackVisualDefinition visual,ManualFinishRunoutDefinition finishRunout=null)
             =>new ManualRacePathCatalog(track,route,profile,visual,physicalRangePath,startApproach,finishRunout);
+        internal ManualRacePathCatalog CreateManualPathCatalogChoice(TrackDefinition track,TrackVisualDefinition visual,int laneOrdinal,ManualFinishRunoutDefinition finishRunout)
+            =>new ManualRacePathCatalog(track,route,profile,visual,GetRangePathChoice(laneOrdinal-1),startApproach,finishRunout);
+
+        /// <summary>Stage the selected resource path after the entire physical
+        /// tick has been proved on its identical common prefix. Physiology and
+        /// owned movement receipts are retained, never recomputed by legacy ski.</summary>
+        internal void StageManualScopedRangeChoice(SprintStepPreview preview,int laneOrdinal)
+        {
+            ValidatePreview(preview);
+            if(!preview.ScopedWorld.IsValid||preparedRangeIndex<0||preparedRangeIndex!=ActiveBout||
+                preparedChoosesPath||pathChosenForBout[preparedRangeIndex]||!preview.MovementActive||
+                ranges[preparedRangeIndex].Phase!=RangeTraversalPhase.Approach||
+                preview.Movement.RouteNanometers<preparedRange.RangeEntryNanometers||
+                preview.Movement.Motion.DistanceNanometers<=Motion.DistanceNanometers)
+                throw new ArgumentException("A newly paid common range arrival requires an owned scoped resource choice.");
+            var candidate=GetRangePathChoice(laneOrdinal-1);
+            if(preview.Movement.RouteNanometers>=candidate.FirstForkRouteNanometers(profile.GetBout(preparedRangeIndex).AfterLap-1))
+                throw new ArgumentException("Scoped path selection must precede every physical fork.");
+            var stagedRange=rangePathVariants[preparedRangeIndex][laneOrdinal-1];
+            if(!ReferenceEquals(stagedRange,ranges[preparedRangeIndex]))stagedRange.StageAcceptedStateFrom(ranges[preparedRangeIndex],RouteNanometers);
+            preparedPath=candidate;preparedRange=stagedRange;
+            preparedLane=new ShootingLaneAssignment(lane.RangeId,candidate.LaneId,candidate.LaneOrdinal);preparedChoosesPath=true;
+        }
         private ManualScopedWorldRoster preparedScopedWorld;
         private ManualScopedWorldRoster acceptedScopedWorld;
         private int preparedScopedIndex=-1;
@@ -343,7 +366,8 @@ namespace Biathlon.Simulation
             ReadOnlySpan<SprintStepPreview> pending,ManualScopedWorldPreview proposal,ReadOnlySpan<DraftOutput> drafts)
         {
             ValidateField(field);field.ValidateManualScopedPublication(proposal,drafts);Resolve(pending,proposal);
-            field.CommitManualScopedPrepared(inputs,resolved,proposal,drafts);
+            var resource=field.PrepareManualScopedReservations(resolved,proposal);
+            field.CommitManualScopedPrepared(inputs,resolved,proposal,drafts,resource);
         }
         private void ValidateField(ISprintFieldView field)
         {

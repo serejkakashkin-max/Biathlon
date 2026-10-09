@@ -1,0 +1,52 @@
+{
+  "Summary": {
+    "Status": "Passed",
+    "TotalTests": 1676,
+    "PassedTests": 8,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:01.0820141"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.Tests.ManualAiSnowSteeringPlannerTests.ActualSlidingCurveUsesFullBoundedCorrectionWhenRequestedSpinIsUnreachable",
+      "Status": "Passed",
+      "Duration": "00:00:00.0030000"
+    },
+    {
+      "Name": "Biathlon.Tests.ManualAiSnowSteeringPlannerTests.BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw",
+      "Status": "Passed",
+      "Duration": "00:00:00.0070000"
+    },
+    {
+      "Name": "Biathlon.Tests.ManualAiSnowSteeringPlannerTests.EndpointCorrectionRetainsNominalInsideEnvelopeAndPaysSharedSnowOutsideIt",
+      "Status": "Passed",
+      "Duration": "00:00:00.0020000"
+    },
+    {
+      "Name": "Biathlon.Tests.ManualAiSnowSteeringPlannerTests.InvalidPredictionCannotProduceIntent",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.Tests.ManualAiSnowSteeringPlannerTests.NeutralRestDoesNotInventAControlCorrectionAndWarmQueriesAllocateNothing",
+      "Status": "Passed",
+      "Duration": "00:00:00.0150000"
+    },
+    {
+      "Name": "Biathlon.Tests.ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(-0.35d)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0020000"
+    },
+    {
+      "Name": "Biathlon.Tests.ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(0.0d)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.Tests.ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(0.35d)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    }
+  ]
+}

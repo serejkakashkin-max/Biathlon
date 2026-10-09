@@ -21,7 +21,8 @@ namespace Biathlon.Tests
                     new WeaponAimCommand(tick,a.AthleteId,miss?1000:0,miss?1000:0),true);
                 lines[i]=mover.PreferredLine(i);
             }
-            mover.Step(inputs,lines);
+            try{mover.Step(inputs,lines);}
+            catch(Exception e){Assert.Fail("tick="+field.Tick.Next().Value+"; "+e);}
         }
         [TestCase(1)][TestCase(3)]
         public void FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(int count)

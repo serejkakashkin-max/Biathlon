@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="d046cc45-35aa-46a3-9475-bffbc40c9eb0" name="snkashkin@DESKTOP-G3075GA 2026-10-09 16:54:20" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T16:54:20.8240348+03:00" queuing="2026-10-09T16:54:20.8240349+03:00" start="2026-10-09T16:54:15.8008937+03:00" finish="2026-10-09T16:54:20.8273488+03:00" />
+  <TestSettings name="default" id="f379a7a9-e8ea-46b0-9b39-3918e495cab7">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_16_54_20" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="bd0faed2-f670-449e-a4c7-4a2ca2579e82" testId="2032503f-66a8-16b6-3a8b-12caea5d53fb" testName="RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(&quot;pursuit&quot;,3)" computerName="DESKTOP-G3075GA" duration="00:00:04.3553140" startTime="2026-10-09T16:54:16.3062674+03:00" endTime="2026-10-09T16:54:20.6614693+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bd0faed2-f670-449e-a4c7-4a2ca2579e82">
+      <Output>
+        <StdOut>TRACE t=6550 row=11 arc=91,527141169 xy=37,008827217,-1,746057987 yaw=1,496010383 spin=0 v=0,5980352312757027,0,04482579602676597 aim=37,84698981738895,-2,5077205552818933 ahead=0,8306533951148543 turn=0,4908738521233962 err=9,054910158634577E-05 lateral=-0,8988093036421807 pass=True steer=0 brake=0,06721275504477553&#xD;
+TRACE t=6560 row=11 arc=91,839674452 xy=37,305379444,-1,723879864 yaw=1,496069129 spin=0 v=0,6202162731179989,0,04645180665481112 aim=37,84698981738895,-2,5077205552818933 ahead=0,5181201121148609 turn=0,4908738521233962 err=-8,838474343164648E-05 lateral=-0,8988093036421807 pass=True steer=0 brake=0,09338164510856264&#xD;
+TRACE t=6570 row=12 arc=1,746490401 xy=37,586790151,-1,693449618 yaw=1,482634237 spin=-0,170494188 v=0,5553475013384228,0,16469477988400374 aim=38,02485715601914,-1,0658932287431895 ahead=0,35779456411485794 turn=0,3926990816987002 err=-0,873216838714476 lateral=0 pass=False steer=-968 brake=0,012146726849142326&#xD;
+TRACE t=6580 row=12 arc=1,786094342 xy=37,810229171,-1,529112537 yaw=1,297544373 spin=-0,435776622 v=0,4581092094831476,0,4317749940276056 aim=37,99424289563181,-1,0407687545464004 ahead=0,35779456411485794 turn=0,3926990816987002 err=-0,9371861775328121 lateral=0 pass=False steer=-1000 brake=0,048050013949524274&#xD;
+TRACE t=6590 row=12 arc=2,051838572 xy=37,92373037,-1,271788309 yaw=1,013669188 spin=-0,640495912 v=0,059455253225002655,0,5528962398707385 aim=37,75745624820826,-0,9240524017720805 ahead=0,35779456411485794 turn=0,39269908169872525 err=-1,4596943275587606 lateral=0 pass=False steer=-1000 brake=0&#xD;
+TRACE t=6600 row=12 arc=2,262490884 xy=37,889316389,-0,98658058 yaw=0,666810474 spin=-0,713890639 v=-0,19156738157318629,0,5470622015979321 aim=37,551465532297144,-0,885068912500469 ahead=0,35779456411485794 turn=0,39269908169871787 err=-1,9457253290730108 lateral=0 pass=False steer=-1000 brake=0,012417858978590286&#xD;
+TRACE t=6610 row=12 arc=2,468980889 xy=37,753214882,-0,733587583 yaw=0,315929931 spin=-0,713185483 v=-0,36756455139171956,0,4474885380759796 aim=37,5,-0,88 ahead=0,203019111 turn=0,1963495408493738 err=-2,4109726697810934 lateral=0 pass=False steer=-1000 brake=0,012032323383896482&#xD;
+TRACE t=6620 row=12 arc=2,643909487 xy=37,560889257,-0,548368764 yaw=6,280411408 spin=-0,266656677 v=-0,18362549150362253,0,20660359004157774 aim=37,5,-0,88 ahead=0,028090513 turn=0 err=-2,9572358569830057 lateral=0 pass=False steer=-1000 brake=0&#xD;
+TRACE t=6630 row=12 arc=2,666639462 xy=37,545130911,-0,476467974 yaw=6,259586666 spin=0 v=-0,002504038631064558,0,1060897432681384 aim=37,5,-0,88 ahead=0,005360538 turn=0 err=-3,006617120109801 lateral=0 pass=False steer=-1000 brake=0&#xD;
+TRACE t=6640 row=12 arc=2,671147366 xy=37,544255237,-0,439367862 yaw=6,259586666 spin=0 v=-0,0009986605707101922,0,04231070649002515 aim=37,5,-0,88 ahead=0,000852634 turn=0 err=-3,0178939030436527 lateral=0 pass=False steer=-1000 brake=0&#xD;
+TRACE t=6971 row=13 arc=0,000189432 xy=37,544034454,-0,430013869 yaw=6,259586666 spin=0 v=-0,002206234141833161,0,0934725250612347 aim=37,152843118502034,-0,9561523809869711 ahead=0,35779456411485794 turn=0,39269908169871787 err=-2,4786569005228656 lateral=0 pass=False steer=-981 brake=0</StdOut>
+        <ErrorInfo>
+          <Message>tick=6972; WorldRejected / Course / manual_reuse_2 / 0 / pieces 0 / forces Resolved supports=0 passes=1 seconds=0.05 residual=0 closing=0 / PotentialBoundary /  / UnresolvedStart / pair : Clear clear 0 end 0 continuation False / working x=37.544034454 z=-0.430013869 yaw=6.259586666 spin=0 vx=-0.002206234141833161 vz=0.0934725250612347 occurrence=13 arc=189432 lateral=0.4435031935284611; gate=Clear; source=2 occurrence=13 arc=189432 x=37.544034454 z=-0.430013869 yaw=6.259586666 spin=0 vx=-0.002206234141833161 vz=0.0934725250612347 lateral=0.4435031935284611 vertices=40 clearance=0.004247910764853868 minimum=-0.00024183892980444988; System.InvalidOperationException: Manual field step rejected: WorldRejected / Course / manual_reuse_2; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 195&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 474&#xD;
+   at Biathlon.AI.PackAiRaceRunner.Step() in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 219&#xD;
+   at Biathlon.Tests.ManualReusableRangeTests.RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualReusableRangeTests.cs:line 64</Message>
+          <StackTrace>   at Biathlon.Tests.ManualReusableRangeTests.RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualReusableRangeTests.cs:line 65&#xD;
+
+1)    at Biathlon.Tests.ManualReusableRangeTests.RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualReusableRangeTests.cs:line 64&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(&quot;pursuit&quot;,3)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="2032503f-66a8-16b6-3a8b-12caea5d53fb">
+      <Execution id="bd0faed2-f670-449e-a4c7-4a2ca2579e82" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualReusableRangeTests" name="RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(&quot;pursuit&quot;,3)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="2032503f-66a8-16b6-3a8b-12caea5d53fb" executionId="bd0faed2-f670-449e-a4c7-4a2ca2579e82" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+TRACE t=6550 row=11 arc=91,527141169 xy=37,008827217,-1,746057987 yaw=1,496010383 spin=0 v=0,5980352312757027,0,04482579602676597 aim=37,84698981738895,-2,5077205552818933 ahead=0,8306533951148543 turn=0,4908738521233962 err=9,054910158634577E-05 lateral=-0,8988093036421807 pass=True steer=0 brake=0,06721275504477553&#xD;
+TRACE t=6560 row=11 arc=91,839674452 xy=37,305379444,-1,723879864 yaw=1,496069129 spin=0 v=0,6202162731179989,0,04645180665481112 aim=37,84698981738895,-2,5077205552818933 ahead=0,5181201121148609 turn=0,4908738521233962 err=-8,838474343164648E-05 lateral=-0,8988093036421807 pass=True steer=0 brake=0,09338164510856264&#xD;
+TRACE t=6570 row=12 arc=1,746490401 xy=37,586790151,-1,693449618 yaw=1,482634237 spin=-0,170494188 v=0,5553475013384228,0,16469477988400374 aim=38,02485715601914,-1,0658932287431895 ahead=0,35779456411485794 turn=0,3926990816987002 err=-0,873216838714476 lateral=0 pass=False steer=-968 brake=0,012146726849142326&#xD;
+TRACE t=6580 row=12 arc=1,786094342 xy=37,810229171,-1,529112537 yaw=1,297544373 spin=-0,435776622 v=0,4581092094831476,0,4317749940276056 aim=37,99424289563181,-1,0407687545464004 ahead=0,35779456411485794 turn=0,3926990816987002 err=-0,9371861775328121 lateral=0 pass=False steer=-1000 brake=0,048050013949524274&#xD;
+TRACE t=6590 row=12 arc=2,051838572 xy=37,92373037,-1,271788309 yaw=1,013669188 spin=-0,640495912 v=0,059455253225002655,0,5528962398707385 aim=37,75745624820826,-0,9240524017720805 ahead=0,35779456411485794 turn=0,39269908169872525 err=-1,4596943275587606 lateral=0 pass=False steer=-1000 brake=0&#xD;
+TRACE t=6600 row=12 arc=2,262490884 xy=37,889316389,-0,98658058 yaw=0,666810474 spin=-0,713890639 v=-0,19156738157318629,0,5470622015979321 aim=37,551465532297144,-0,885068912500469 ahead=0,35779456411485794 turn=0,39269908169871787 err=-1,9457253290730108 lateral=0 pass=False steer=-1000 brake=0,012417858978590286&#xD;
+TRACE t=6610 row=12 arc=2,468980889 xy=37,753214882,-0,733587583 yaw=0,315929931 spin=-0,713185483 v=-0,36756455139171956,0,4474885380759796 aim=37,5,-0,88 ahead=0,203019111 turn=0,1963495408493738 err=-2,4109726697810934 lateral=0 pass=False steer=-1000 brake=0,012032323383896482&#xD;
+TRACE t=6620 row=12 arc=2,643909487 xy=37,560889257,-0,548368764 yaw=6,280411408 spin=-0,266656677 v=-0,18362549150362253,0,20660359004157774 aim=37,5,-0,88 ahead=0,028090513 turn=0 err=-2,9572358569830057 lateral=0 pass=False steer=-1000 brake=0&#xD;
+TRACE t=6630 row=12 arc=2,666639462 xy=37,545130911,-0,476467974 yaw=6,259586666 spin=0 v=-0,002504038631064558,0,1060897432681384 aim=37,5,-0,88 ahead=0,005360538 turn=0 err=-3,006617120109801 lateral=0 pass=False steer=-1000 brake=0&#xD;
+TRACE t=6640 row=12 arc=2,671147366 xy=37,544255237,-0,439367862 yaw=6,259586666 spin=0 v=-0,0009986605707101922,0,04231070649002515 aim=37,5,-0,88 ahead=0,000852634 turn=0 err=-3,0178939030436527 lateral=0 pass=False steer=-1000 brake=0&#xD;
+TRACE t=6971 row=13 arc=0,000189432 xy=37,544034454,-0,430013869 yaw=6,259586666 spin=0 v=-0,002206234141833161,0,0934725250612347 aim=37,152843118502034,-0,9561523809869711 ahead=0,35779456411485794 turn=0,39269908169871787 err=-2,4786569005228656 lateral=0 pass=False steer=-981 brake=0&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

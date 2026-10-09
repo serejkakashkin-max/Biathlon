@@ -36,6 +36,7 @@ namespace Biathlon.Simulation
         internal int TerrainIntervalCount { get; }
         public string ContextJson { get; }
         internal bool IsBoundTo(TrackDefinition authoredTrack,RaceRoute authoredRoute)=>ReferenceEquals(track,authoredTrack)&&ReferenceEquals(route,authoredRoute);
+        internal bool IsSameFamily(PhysicalRangePathMap other)=>other!=null&&ReferenceEquals(track,other.track)&&ReferenceEquals(route,other.route)&&ReferenceEquals(definition,other.definition);
 
         public PhysicalRangePathMap(PhysicalTrackMap map, TrackDefinition track, RaceRoute route,
             PhysicalRangePathDefinition definition, int laneIndex)

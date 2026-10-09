@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="04061177-f2a5-4bc6-9af0-063f3f36d619" name="snkashkin@DESKTOP-G3075GA 2026-10-09 16:29:57" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T16:29:57.9521766+03:00" queuing="2026-10-09T16:29:57.9521767+03:00" start="2026-10-09T16:29:52.8881508+03:00" finish="2026-10-09T16:29:57.9555526+03:00" />
+  <TestSettings name="default" id="26f00aea-8905-47f7-b2cd-7a438b16dcf9">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_16_29_57" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="691dc594-dd55-4924-af69-2212ec915d93" testId="2032503f-66a8-16b6-3a8b-12caea5d53fb" testName="RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(&quot;pursuit&quot;,3)" computerName="DESKTOP-G3075GA" duration="00:00:04.3141760" startTime="2026-10-09T16:29:53.4728149+03:00" endTime="2026-10-09T16:29:57.7868485+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="691dc594-dd55-4924-af69-2212ec915d93">
+      <Output>
+        <ErrorInfo>
+          <Message>tick=2740; Complete / Clear /  / 0.05 / pieces 1 / forces Resolved supports=0 passes=1 seconds=0.05 residual=0 closing=0 / Clear /  / Clear / pair : Clear clear 0 end 0 continuation False / working x=0 z=0 yaw=0 spin=0 vx=0 vz=0 occurrence=0 arc=0 lateral=0; gate=Clear; ; System.ArgumentOutOfRangeException: Finite value outside the supported range. (Parameter 'seconds')&#xD;
+Actual value was 0,3233094078936495.&#xD;
+   at Biathlon.Domain.PhysiologyNumbers.RequireRange(Double value, Double min, Double max, String name) in C:\game\Biathlon\Biathlon\Assets\Scripts\Domain\PhysiologyNumbers.cs:line 13&#xD;
+   at Biathlon.Simulation.ManualSkiSteeredSnowSystem.Preview(ManualSkiContactBody body, SkiContactMotion motion, Int32 steeringInput, Double lateralAccelerationLimit, Double seconds, Double postureResponse) in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\ManualSkiSteeredSnowSystem.cs:line 41&#xD;
+   at Biathlon.Simulation.ManualSkiControlledDriveSystem.Preview(ManualSkiContactBody body, SkiContactMotion motion, ManualRacePathObservation observation, TrackSample surface, ManualSkiMotionInput input, Double seconds) in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\ManualSkiControlledDriveSystem.cs:line 81&#xD;
+   at Biathlon.Simulation.ManualSkiControlledDriveSystem.PreviewStopping(ManualSkiContactBody body, SkiContactMotion motion, ManualRacePathObservation observation, TrackSample surface, ManualSkiMotionInput input, Double seconds, Double stopAfterSeconds) in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\ManualSkiControlledDriveSystem.cs:line 57&#xD;
+   at Biathlon.Simulation.ManualScopedFieldStepper.TryStep(ReadOnlySpan`1 inputs, ReadOnlySpan`1 steeringInputs, ReadOnlySpan`1 brakeFractions) in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\ManualScopedFieldStepper.cs:line 224&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering)&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 474&#xD;
+   at Biathlon.AI.PackAiRaceRunner.Step() in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 219&#xD;
+   at Biathlon.Tests.ManualReusableRangeTests.RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualReusableRangeTests.cs:line 64</Message>
+          <StackTrace>   at Biathlon.Tests.ManualReusableRangeTests.RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualReusableRangeTests.cs:line 65&#xD;
+
+1)    at Biathlon.Tests.ManualReusableRangeTests.RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualReusableRangeTests.cs:line 64&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(&quot;pursuit&quot;,3)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="2032503f-66a8-16b6-3a8b-12caea5d53fb">
+      <Execution id="691dc594-dd55-4924-af69-2212ec915d93" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualReusableRangeTests" name="RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(&quot;pursuit&quot;,3)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="2032503f-66a8-16b6-3a8b-12caea5d53fb" executionId="691dc594-dd55-4924-af69-2212ec915d93" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

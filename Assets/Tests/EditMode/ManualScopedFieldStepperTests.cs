@@ -43,7 +43,7 @@ namespace Biathlon.Tests
                 }
             }
         }
-        private static string Explain(ManualScopedFieldStepper s)
+        internal static string Explain(ManualScopedFieldStepper s)
         {
             var rejected=s.LastRejectedWorkingActor;
             var forces=s.World.LastContactForces;

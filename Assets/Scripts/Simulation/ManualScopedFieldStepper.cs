@@ -41,11 +41,13 @@ namespace Biathlon.Simulation
         private readonly ManualScopedWorldWindow[] windows;
         private readonly double[] grades;
         private readonly double[] matStops;
+        private readonly double[] matStopPowers;
         private readonly ManualMatBrakingDefinition matBraking;
         private readonly DraftOutput[] drafts;
         private readonly ManualSkiContactBody[] draftBodies;
         private readonly int[] ordinary,phases,held;
         private readonly int maximumIntervals;
+        private readonly int workDepth;
         public string SteeringDefinitionJson {get;}
         public double BodyEdgeMargin {get;}
         public double BodyLongitudinalSeparation {get;}
@@ -71,9 +73,15 @@ namespace Biathlon.Simulation
             var catalogs=new ManualRacePathCatalog[count];var cursors=new ManualRacePathCursor[count];
             var poses=new ManualSkiHeadingState[count];var velocities=new SkiPlanarVelocity[count];
             var motions=new SkiState[count];var masses=new double[count];
+            ManualRacePathCatalog[] family=null;
+            if(field.UsesReusableRangeMats)
+            {
+                var first=field.GetAthlete(0);family=new ManualRacePathCatalog[first.RangePathChoiceCount];
+                for(int p=0;p<family.Length;p++)family[p]=first.CreateManualPathCatalogChoice(track,visual,p+1,finishRunout);
+            }
             for(int i=0;i<count;i++)
             {
-                var a=field.GetAthlete(i);var c=catalogs[i]=a.CreateManualPathCatalog(track,visual,finishRunout);
+                var a=field.GetAthlete(i);var c=catalogs[i]=family==null?a.CreateManualPathCatalog(track,visual,finishRunout):family[a.RangePath.LaneOrdinal-1];
                 bool inStart=c.StartApproachIndex>=0&&a.RemainingStartApproachNanometers>0;
                 int occurrence=inStart?c.StartApproachIndex:c.StartApproachIndex>=0?c.GetBaseFlowSuccessor(c.StartApproachIndex):0;
                 long arc=inStart?c.Get(occurrence).LengthNanometers-a.RemainingStartApproachNanometers:0;
@@ -89,7 +97,7 @@ namespace Biathlon.Simulation
             }
             var result=new ManualScopedWorldRoster(catalogs,body,contact,work,cursors,poses,velocities,motions,
                 field.TickFrequency,field.Tick,group,masses);
-            result.BindInitialField(field);return result;
+            result.BindInitialField(field);if(family!=null)result.BindPathFamily(field,family,work);return result;
         }
 
         public ManualScopedFieldStepper(PackSprintFieldSession field,ManualScopedWorldRoster world,
@@ -102,12 +110,12 @@ namespace Biathlon.Simulation
                 field.TickFrequency!=world.TickFrequency||field.Tick.Value!=world.Tick.Value||
                 world.BodyContextJson!=body.ToJson()||world.WorkContextJson!=work.ToJson()||!world.HasContactForcePolicy)
                 throw new ArgumentException("Exact field/world/model composition required.");
-            if(field.UsesReusableRangeMats)
-                throw new NotSupportedException("Reusable mat transactions must be integrated before selecting scoped movement.");
+            if(field.UsesReusableRangeMats&&world.PathChoiceCount!=field.RangeReservations.LaneCount)
+                throw new NotSupportedException("Reusable mat transactions require an attested scoped path family.");
             var sessions=new SprintAthleteSession[field.Count];
             for(int i=0;i<sessions.Length;i++)sessions[i]=field.GetAthlete(i);
             commit=new ManualScopedRosterSessionCommit(sessions,world,compactContext:true);
-            physics=models.Physics;maximumIntervals=world.MaximumMotionPieces;
+            physics=models.Physics;maximumIntervals=world.MaximumMotionPieces;workDepth=work.MaximumDepth;
             CorneringDefinition=models.Cornering;BodyDefinition=body;
             SteeringDefinitionJson=steering.ToJson();BodyEdgeMargin=body.LateralSeparation*.5+body.EdgeClearance;
             BodyLongitudinalSeparation=body.LongitudinalSeparation;
@@ -118,10 +126,10 @@ namespace Biathlon.Simulation
             int count=field.Count;
             pending=new SprintStepPreview[count];drives=new SkiDrivenContactTrajectory[count];
             candidates=new SkiWorldMotionCandidate[count];windows=new ManualScopedWorldWindow[count];
-            grades=new double[count];matStops=new double[count];drafts=new DraftOutput[count];
+            grades=new double[count];matStops=new double[count];matStopPowers=new double[count];drafts=new DraftOutput[count];
             draftBodies=new ManualSkiContactBody[count];
             ordinary=new int[count];phases=new int[count];held=new int[count];
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_scoped_field_stepper_v5_explicit_finish_runout","world_context_sha256:"+ManualContextIdentity.Sha256(world.ContextJson),
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_scoped_field_stepper_v6_reusable_paid_prefix_choices","world_context_sha256:"+ManualContextIdentity.Sha256(world.ContextJson),
                 commit.ContextJson,drive.ContextJson,work.ToJson(),matBraking?.ToJson()??"terminal_mat_braking_not_selected",
                 "all_signed_intents;bounded_brake_fractions_validated_before_preparation;one_fixed_clock;owned_force_pieces;actual_contact_response;ordinary_and_paid_penalty_handoffs;stationary_firing_hold;explicit_terminal_mat_inverse_shared_force;prepared_physiology_paid_without_propulsion_bonus;abort_not_queue;no_resource_fallback;selected_finish_runout_shared_braking_and_clock;world_drafting_actual_positions_and_leader_velocity_axis;unchanged_pack_draft_definition;world_wind_from_observed_route_and_scalar_headwind;no_station_or_desired_line_wake"});
         }
@@ -192,7 +200,7 @@ namespace Biathlon.Simulation
                     // admission. Outside it the supplied signed intent remains.
                     for(int i=0;i<field.Count;i++)
                     {
-                        matStops[i]=0;if(matBraking==null||!pending[i].MovementActive)continue;
+                        matStops[i]=matStopPowers[i]=0;if(matBraking==null||!pending[i].MovementActive)continue;
                         var actor=world.GetWorkingActor(tick,i);var cursor=world.GetWorkingCursor(tick,i);
                         var row=cursor.Owner.Get(cursor.OccurrenceIndex);
                         if(row.End!=ManualRacePathEnd.FiringLine||cursor.ObservedArcNanometers==row.LengthNanometers||
@@ -205,10 +213,23 @@ namespace Biathlon.Simulation
                         var body=new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,physics.MassKilograms);
                         var motion=new SkiContactMotion(actor.Velocity,actor.Pose.YawRateRadiansPerSecond);
                         double wind=inputs[i].Ski.HeadwindMetersPerSecond;
-                        var input=Neutral(field.GetAthlete(i).GetPreparedManualMotionInput(pending[i],world,tick,i,0,drafts[i].DragAreaMultiplier,
-                            windX:-wind*actor.Observation.ForwardX,windZ:-wind*actor.Observation.ForwardZ));
+                        var paid=field.GetAthlete(i).GetPreparedManualMotionInput(pending[i],world,tick,i,0,drafts[i].DragAreaMultiplier,
+                            windX:-wind*actor.Observation.ForwardX,windZ:-wind*actor.Observation.ForwardZ);
+                        var input=Neutral(paid);
                         var preview=drive.PreviewStopping(body,motion,actor.Observation,cursor.Owner.SampleSurface(actor.Observation),input,
                             Math.Min(seconds,after),after);
+                        if(preview.CoastStopsEarlier&&paid.DeliveredPowerWatts>0)
+                        {
+                            double power=paid.DeliveredPowerWatts;
+                            for(int attempt=0;attempt<workDepth;attempt++)
+                            {
+                                input=WithPaidPower(paid,power);
+                                preview=drive.PreviewStoppingWithPaidPower(body,motion,actor.Observation,cursor.Owner.SampleSurface(actor.Observation),input,Math.Min(seconds,after),after);
+                                if(preview.WithinBrakingBudget){matStopPowers[i]=power;break;}
+                                if(preview.CoastStopsEarlier)break;
+                                power*=.5;
+                            }
+                        }
                         if(!preview.WithinBrakingBudget)continue;
                         matStops[i]=after;seconds=Math.Min(seconds,after);
                     }
@@ -230,7 +251,7 @@ namespace Biathlon.Simulation
                                 windX:-wind*actor.Observation.ForwardX,windZ:-wind*actor.Observation.ForwardZ);
                             if(row.Kind==ManualRacePathKind.FinishRunout)
                                 drives[i]=drive.Preview(body,motion,actor.Observation,surface,Neutral(input).WithBrakeFraction(catalog.FinishRunoutDefinition.BrakeFraction),seconds).Drive;
-                            else if(matStops[i]>0)drives[i]=drive.PreviewStopping(body,motion,actor.Observation,surface,Neutral(input),seconds,matStops[i]).Frame.Drive;
+                            else if(matStops[i]>0)drives[i]=drive.PreviewStoppingWithPaidPower(body,motion,actor.Observation,surface,WithPaidPower(input,matStopPowers[i]),seconds,matStops[i]).Frame.Drive;
                             else
                             {
                                 if(brakeFractions.Length!=0)input=input.WithBrakeFraction(brakeFractions[i]);
@@ -289,6 +310,9 @@ namespace Biathlon.Simulation
         }
         private static ManualSkiMotionInput Neutral(ManualSkiMotionInput input)
             =>new ManualSkiMotionInput(0,0,input.CorneringSkill,input.DownhillSkill,input.LineQuality,input.MuscularFatigue,
+                input.GripMultiplier,input.DragAreaMultiplier,input.SnowResistanceMultiplier,input.SteeringResponse,input.WindX,input.WindZ);
+        private static ManualSkiMotionInput WithPaidPower(ManualSkiMotionInput input,double power)
+            =>new ManualSkiMotionInput(0,power,input.CorneringSkill,input.DownhillSkill,input.LineQuality,input.MuscularFatigue,
                 input.GripMultiplier,input.DragAreaMultiplier,input.SnowResistanceMultiplier,input.SteeringResponse,input.WindX,input.WindZ);
         private bool Report(ManualFieldStepStatus status,ManualScopedWorldTick tick,AthleteId athlete=default)
         {

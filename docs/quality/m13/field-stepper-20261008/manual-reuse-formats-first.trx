@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="07a51f74-f1a4-4380-8e59-b896cb1d5f79" name="snkashkin@DESKTOP-G3075GA 2026-10-09 16:25:41" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T16:25:41.8023057+03:00" queuing="2026-10-09T16:25:41.8023058+03:00" start="2026-10-09T16:25:37.5480220+03:00" finish="2026-10-09T16:26:10.4432559+03:00" />
+  <TestSettings name="default" id="43b55234-e4c0-4261-8219-23f13b5fc585">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_16_25_41" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="efd24020-12bd-4aad-a9db-f92e3bc74026" testId="2032503f-66a8-16b6-3a8b-12caea5d53fb" testName="RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(&quot;pursuit&quot;,3)" computerName="DESKTOP-G3075GA" duration="00:00:03.5530610" startTime="2026-10-09T16:25:45.2141422+03:00" endTime="2026-10-09T16:25:48.7671935+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="efd24020-12bd-4aad-a9db-f92e3bc74026">
+      <Output>
+        <ErrorInfo>
+          <Message>tick=1; WorldRejected / ContactForces / ; System.InvalidOperationException: Manual field step rejected: WorldRejected / ContactForces / ; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 193&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 474&#xD;
+   at Biathlon.AI.PackAiRaceRunner.Step() in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 219&#xD;
+   at Biathlon.Tests.ManualReusableRangeTests.RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualReusableRangeTests.cs:line 64</Message>
+          <StackTrace>   at Biathlon.Tests.ManualReusableRangeTests.RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualReusableRangeTests.cs:line 65&#xD;
+   at InvokeStub_ManualReusableRangeTests.RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualReusableRangeTests.RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualReusableRangeTests.cs:line 64&#xD;
+   at InvokeStub_ManualReusableRangeTests.RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0d4b214e-2877-4cb7-b17d-6bf431126470" testId="ebfe2216-0a26-9b75-e760-c2960cb9ddf5" testName="InitialPresenceBindingDoesNotBypassReusableMatOwnership" computerName="DESKTOP-G3075GA" duration="00:00:02.8630720" startTime="2026-10-09T16:26:01.8144974+03:00" endTime="2026-10-09T16:26:04.6775619+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0d4b214e-2877-4cb7-b17d-6bf431126470" />
+    <UnitTestResult executionId="c4d7ec53-a00c-4fc4-a0f3-4293d534af15" testId="03736c96-db5c-a5c8-a2ec-4631fed97fa8" testName="WaitingBodyCannotAcquireHiddenMotion" computerName="DESKTOP-G3075GA" duration="00:00:02.6532160" startTime="2026-10-09T16:26:04.6775887+03:00" endTime="2026-10-09T16:26:07.3307972+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c4d7ec53-a00c-4fc4-a0f3-4293d534af15" />
+    <UnitTestResult executionId="3e7a1ad4-2fc1-482e-a701-892686772489" testId="400163f1-deb5-9391-12be-d77db0c7dfcf" testName="WaitingSprintBodiesDoNotCollideWithTheStartedAthlete" computerName="DESKTOP-G3075GA" duration="00:00:02.8514600" startTime="2026-10-09T16:26:07.3308283+03:00" endTime="2026-10-09T16:26:10.1822824+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3e7a1ad4-2fc1-482e-a701-892686772489" />
+    <UnitTestResult executionId="e553cb34-dba5-456b-aef7-7224cb1ababa" testId="699f692e-dbe0-b527-7953-e4acc6bdacc8" testName="ReusableRaceAndSelectedPathEventsRepeatExactly" computerName="DESKTOP-G3075GA" duration="00:00:07.2480210" startTime="2026-10-09T16:25:48.7681256+03:00" endTime="2026-10-09T16:25:56.0161277+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e553cb34-dba5-456b-aef7-7224cb1ababa">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Manual field step rejected: WorldRejected / ContactForces / ; candidate clock not paid.</Message>
+          <StackTrace>   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 193&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 474&#xD;
+   at Biathlon.AI.PackAiRaceRunner.Step() in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 219&#xD;
+   at Biathlon.Tests.ManualReusableRangeTests.ReusableRaceAndSelectedPathEventsRepeatExactly() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualReusableRangeTests.cs:line 107&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="365d2e5d-07c0-4bf6-81c3-d3180c006681" testId="424d3a2d-cf59-18da-3406-418ce3bd2804" testName="ArrivalOfTheScheduledStartRestoresRealCollisionAdmission" computerName="DESKTOP-G3075GA" duration="00:00:03.0147320" startTime="2026-10-09T16:25:56.0168575+03:00" endTime="2026-10-09T16:25:59.0315818+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="365d2e5d-07c0-4bf6-81c3-d3180c006681" />
+    <UnitTestResult executionId="9d480e40-dd61-4a72-951b-18a6863dd2b2" testId="e3a9806f-6df5-ccdd-1e1e-1bdb86ff72d2" testName="RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(&quot;sprint&quot;,1)" computerName="DESKTOP-G3075GA" duration="00:00:03.7256170" startTime="2026-10-09T16:25:38.0406278+03:00" endTime="2026-10-09T16:25:41.7662094+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9d480e40-dd61-4a72-951b-18a6863dd2b2">
+      <Output>
+        <StdOut>sprint actual complete actors=1 tick=13549 changed=False acquisitions=2 releases=2</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cc320316-d317-4cf1-8cb8-fdec634b775e" testId="9ff542ae-bf1d-19b9-9e94-1f2240340b19" testName="RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(&quot;sprint&quot;,3)" computerName="DESKTOP-G3075GA" duration="00:00:03.4470820" startTime="2026-10-09T16:25:41.7669833+03:00" endTime="2026-10-09T16:25:45.2140559+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cc320316-d317-4cf1-8cb8-fdec634b775e">
+      <Output>
+        <ErrorInfo>
+          <Message>tick=1; WorldRejected / ContactForces / ; System.InvalidOperationException: Manual field step rejected: WorldRejected / ContactForces / ; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 193&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 474&#xD;
+   at Biathlon.AI.PackAiRaceRunner.Step() in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 219&#xD;
+   at Biathlon.Tests.ManualReusableRangeTests.RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualReusableRangeTests.cs:line 64</Message>
+          <StackTrace>   at Biathlon.Tests.ManualReusableRangeTests.RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualReusableRangeTests.cs:line 65&#xD;
+   at InvokeStub_ManualReusableRangeTests.RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualReusableRangeTests.RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualReusableRangeTests.cs:line 64&#xD;
+   at InvokeStub_ManualReusableRangeTests.RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fa42d450-9a3a-4ed1-aaaf-4213735be7a7" testId="a4cf3d0e-b70d-4541-8bd3-df0449a5730a" testName="AWorldWithoutAttestedScheduleKeepsEveryBodyPresent" computerName="DESKTOP-G3075GA" duration="00:00:02.7828590" startTime="2026-10-09T16:25:59.0316134+03:00" endTime="2026-10-09T16:26:01.8144650+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fa42d450-9a3a-4ed1-aaaf-4213735be7a7" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="WaitingBodyCannotAcquireHiddenMotion" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="03736c96-db5c-a5c8-a2ec-4631fed97fa8">
+      <Execution id="c4d7ec53-a00c-4fc4-a0f3-4293d534af15" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScheduledPresenceTests" name="WaitingBodyCannotAcquireHiddenMotion" />
+    </UnitTest>
+    <UnitTest name="RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(&quot;pursuit&quot;,3)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="2032503f-66a8-16b6-3a8b-12caea5d53fb">
+      <Execution id="efd24020-12bd-4aad-a9db-f92e3bc74026" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualReusableRangeTests" name="RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(&quot;pursuit&quot;,3)" />
+    </UnitTest>
+    <UnitTest name="WaitingSprintBodiesDoNotCollideWithTheStartedAthlete" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="400163f1-deb5-9391-12be-d77db0c7dfcf">
+      <Execution id="3e7a1ad4-2fc1-482e-a701-892686772489" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScheduledPresenceTests" name="WaitingSprintBodiesDoNotCollideWithTheStartedAthlete" />
+    </UnitTest>
+    <UnitTest name="ReusableRaceAndSelectedPathEventsRepeatExactly" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="699f692e-dbe0-b527-7953-e4acc6bdacc8">
+      <Execution id="e553cb34-dba5-456b-aef7-7224cb1ababa" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualReusableRangeTests" name="ReusableRaceAndSelectedPathEventsRepeatExactly" />
+    </UnitTest>
+    <UnitTest name="RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(&quot;sprint&quot;,1)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="e3a9806f-6df5-ccdd-1e1e-1bdb86ff72d2">
+      <Execution id="9d480e40-dd61-4a72-951b-18a6863dd2b2" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualReusableRangeTests" name="RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(&quot;sprint&quot;,1)" />
+    </UnitTest>
+    <UnitTest name="InitialPresenceBindingDoesNotBypassReusableMatOwnership" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="ebfe2216-0a26-9b75-e760-c2960cb9ddf5">
+      <Execution id="0d4b214e-2877-4cb7-b17d-6bf431126470" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScheduledPresenceTests" name="InitialPresenceBindingDoesNotBypassReusableMatOwnership" />
+    </UnitTest>
+    <UnitTest name="RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(&quot;sprint&quot;,3)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="9ff542ae-bf1d-19b9-9e94-1f2240340b19">
+      <Execution id="cc320316-d317-4cf1-8cb8-fdec634b775e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualReusableRangeTests" name="RealManualFormatsAcquireAndReleaseEveryMatOnTheFieldClock(&quot;sprint&quot;,3)" />
+    </UnitTest>
+    <UnitTest name="ArrivalOfTheScheduledStartRestoresRealCollisionAdmission" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="424d3a2d-cf59-18da-3406-418ce3bd2804">
+      <Execution id="365d2e5d-07c0-4bf6-81c3-d3180c006681" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScheduledPresenceTests" name="ArrivalOfTheScheduledStartRestoresRealCollisionAdmission" />
+    </UnitTest>
+    <UnitTest name="AWorldWithoutAttestedScheduleKeepsEveryBodyPresent" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="a4cf3d0e-b70d-4541-8bd3-df0449a5730a">
+      <Execution id="fa42d450-9a3a-4ed1-aaaf-4213735be7a7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScheduledPresenceTests" name="AWorldWithoutAttestedScheduleKeepsEveryBodyPresent" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="2032503f-66a8-16b6-3a8b-12caea5d53fb" executionId="efd24020-12bd-4aad-a9db-f92e3bc74026" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ebfe2216-0a26-9b75-e760-c2960cb9ddf5" executionId="0d4b214e-2877-4cb7-b17d-6bf431126470" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="03736c96-db5c-a5c8-a2ec-4631fed97fa8" executionId="c4d7ec53-a00c-4fc4-a0f3-4293d534af15" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="400163f1-deb5-9391-12be-d77db0c7dfcf" executionId="3e7a1ad4-2fc1-482e-a701-892686772489" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="699f692e-dbe0-b527-7953-e4acc6bdacc8" executionId="e553cb34-dba5-456b-aef7-7224cb1ababa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="424d3a2d-cf59-18da-3406-418ce3bd2804" executionId="365d2e5d-07c0-4bf6-81c3-d3180c006681" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e3a9806f-6df5-ccdd-1e1e-1bdb86ff72d2" executionId="9d480e40-dd61-4a72-951b-18a6863dd2b2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9ff542ae-bf1d-19b9-9e94-1f2240340b19" executionId="cc320316-d317-4cf1-8cb8-fdec634b775e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a4cf3d0e-b70d-4541-8bd3-df0449a5730a" executionId="fa42d450-9a3a-4ed1-aaaf-4213735be7a7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="9" executed="9" passed="6" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 9 of 9 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+sprint actual complete actors=1 tick=13549 changed=False acquisitions=2 releases=2&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

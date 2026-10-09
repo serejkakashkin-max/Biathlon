@@ -174,6 +174,24 @@ namespace Biathlon.Tests
             Assert.That(result.Frame.Drive.FirstDrive.SpeedAt(.01),Is.GreaterThan(5));
             Assert.That(result.Frame.Drive.MotionAt(0),Is.EqualTo(Motion(b)));
         }
+        [Test] public void AlreadyPaidPowerCanDelayAPassiveEarlyStopThroughTheSameForceLaw()
+        {
+            var f=new Fixture();var b=f.Body(forward:.005);var unpowered=new ManualSkiMotionInput(0,0,100,100);
+            var early=f.System.PreviewStopping(b,Motion(b),f.Observation,f.Surface,unpowered,.05,.1);
+            Assert.That(early.CoastStopsEarlier,Is.True);Assert.That(early.WithinBrakingBudget,Is.False);
+            var paid=new ManualSkiMotionInput(0,30,100,100);
+            var inverse=(Func<ManualSkiContactBody,SkiContactMotion,ManualRacePathObservation,TrackSample,ManualSkiMotionInput,double,double,ManualSkiStoppingPreview>)
+                typeof(ManualSkiControlledDriveSystem).GetMethod("PreviewStoppingWithPaidPower",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic)
+                    .CreateDelegate(typeof(Func<ManualSkiContactBody,SkiContactMotion,ManualRacePathObservation,TrackSample,ManualSkiMotionInput,double,double,ManualSkiStoppingPreview>),f.System);
+            var stop=inverse(b,Motion(b),f.Observation,f.Surface,paid,.05,.1);
+            Assert.That(stop.WithinBrakingBudget,Is.True);Assert.That(stop.BrakeFraction,Is.InRange(0,1));
+            var exact=f.System.Preview(b,Motion(b),f.Observation,f.Surface,paid.WithBrakeFraction(stop.BrakeFraction),.05);
+            Assert.That(stop.Frame.Drive.State,Is.EqualTo(exact.Drive.State));
+            Assert.That(stop.Frame.Drive.FirstDrive.SpeedAt(.05),Is.EqualTo(.0025).Within(1e-12));
+            Assert.That(stop.Frame.Drive.MotionAt(0),Is.EqualTo(Motion(b)));
+            Assert.Throws<ArgumentException>(()=>inverse(b,Motion(b),f.Observation,f.Surface,
+                new ManualSkiMotionInput(1,30,100,100),.05,.1));
+        }
         [Test] public void InverseStoppingCannotUndoAutomaticCornerBrakingToDelayAStop()
         {
             var f=new Fixture();var b=f.Body(forward:6,yaw:2);var input=new ManualSkiMotionInput(0,0,100,100);
@@ -421,7 +439,7 @@ namespace Biathlon.Tests
             Assert.Catch(()=>system.Preview(b,Motion(b),0,4,.051));Assert.Catch(()=>system.Preview(b,Motion(b),0,4,.05,1.1));
             var f=new Fixture();Assert.Catch(()=>f.System.Preview(f.Body(),Motion(f.Body()),f.Observation,f.Surface,default,.05));
             Assert.That(system.ContextJson,Does.Contain("manual_steered_snow_constraint_v2_exact_neutral_constraint"));
-            Assert.That(f.System.ContextJson,Does.Contain("manual_controlled_slip_drive_v4_inverse_stopping"));
+            Assert.That(f.System.ContextJson,Does.Contain("manual_controlled_slip_drive_v5_paid_inverse_stopping"));
             Assert.That(f.System.ContextJson,Does.Contain("explicit_brake_fraction_uses_same_force_cap"));
         }
     }

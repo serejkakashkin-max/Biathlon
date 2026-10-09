@@ -164,7 +164,7 @@ namespace Biathlon.Simulation
             }
             initialFieldBinding=field;
             scheduledPresenceStarts=new long[Count];prestartPresence=field.StartGrid!=null;
-            var starts=new string[Count+2];starts[0]="field_attested_scheduled_presence_v1";
+            var starts=new string[Count+2];starts[0]="field_attested_scheduled_presence_v2_force_participants";
             starts[1]=field.StartGrid==null?"scheduled_presence_at_start_tick;waiting_pose_static;all_started_body_proofs_retained":"mass_grid_present_before_start";
             for(int i=0;i<Count;i++)
             {
@@ -323,7 +323,7 @@ namespace Biathlon.Simulation
             double[] directionalGrades,out ManualScopedWorldPreview proposal)
         {
             if(tickActive)throw new InvalidOperationException("Finish or abort the active staged world tick before replacing it.");
-            ready=false;proposal=default;pieceCount=0;UpdatePhysicalParticipants(Tick.Next());LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.NotPrepared);
+            ready=false;proposal=default;pieceCount=0;ClearPathChoices();UpdatePhysicalParticipants(Tick.Next());LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.NotPrepared);
             if(!PrepareInterval(actors,windows,reached,reachedCount,edges,edgeCount,directionalGrades,accepted,cursors,duration,null))return false;
             for(int i=0;i<Count;i++)
             {
@@ -408,7 +408,7 @@ namespace Biathlon.Simulation
         public ManualScopedWorldTick BeginTick()
         {
             if(tickActive)throw new InvalidOperationException("A scoped world tick is already active.");
-            long next=checked(tickRevision+1);var target=Tick.Next();ready=false;UpdatePhysicalParticipants(target);
+            long next=checked(tickRevision+1);var target=Tick.Next();ready=false;UpdatePhysicalParticipants(target);ClearPathChoices();
             for(int i=0;i<Count;i++)
             {workingActors[i]=accepted[i];workingCursors[i]=cursors[i];workingMotion[i]=motion[i];workingTravelMeters[i]=0;ownedFreeValid[i]=false;}
             tickRevision=next;elapsedSeconds=0;pieceCount=0;pendingContact=false;tickActive=true;LastWorldEvent=default;
@@ -533,16 +533,16 @@ namespace Biathlon.Simulation
             proposal=PublishPrepared();tickActive=false;LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.Clear);return true;
         }
         public void AbortTick(ManualScopedWorldTick tick)
-        {ValidateTick(tick);tickActive=false;ready=false;pendingContact=false;elapsedSeconds=0;pieceCount=0;LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.NotPrepared);}
+        {ValidateTick(tick);tickActive=false;ready=false;pendingContact=false;elapsedSeconds=0;pieceCount=0;ClearPathChoices();LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.NotPrepared);}
         public void DiscardPrepared(ManualScopedWorldPreview proposal)
-        {ValidatePrepared(proposal);ready=false;pendingContact=false;elapsedSeconds=0;pieceCount=0;LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.NotPrepared);}
+        {ValidatePrepared(proposal);ready=false;pendingContact=false;elapsedSeconds=0;pieceCount=0;ClearPathChoices();LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.NotPrepared);}
         /// <summary>World-only commit. The full race must validate all session
         /// lifecycle/physiology proposals before calling this exactly once.</summary>
         public void Commit(ManualScopedWorldPreview proposal)
         {
             ValidatePrepared(proposal);ready=false;
             for(int i=0;i<Count;i++){accepted[i]=staged[i];cursors[i]=proposedCursors[i];motion[i]=stagedMotion[i];}
-            Tick=proposal.Tick;
+            CommitPathChoices();Tick=proposal.Tick;
         }
         public bool TryHandoffOrdinary(ReadOnlySpan<int> actorIndexes)
         {

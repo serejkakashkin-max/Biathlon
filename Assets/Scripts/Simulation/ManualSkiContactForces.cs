@@ -77,20 +77,22 @@ namespace Biathlon.Simulation
         /// neither convergence tolerance nor the pass limit is increased.
         /// Refinement alone pays no time and is not a movement proof.</summary>
         internal SkiContactForcePreview PreviewRefined(ManualSkiContactBody[] bodies,SkiForceCoupledTrajectory[] free,
-            int count,SkiForceCoupledTrajectory[] output,int maximumRefinements)
+            int count,SkiForceCoupledTrajectory[] output,int maximumRefinements,bool[] participants=null)
         {
             if(maximumRefinements<0)throw new ArgumentOutOfRangeException(nameof(maximumRefinements));
-            var result=Preview(bodies,free,count,output);int refinements=0;double seconds=free[0].DurationSeconds;
+            var result=Preview(bodies,free,count,output,participants);int refinements=0;double seconds=free[0].DurationSeconds;
             while(result.Status==SkiContactForceStatus.WorkLimit&&refinements<maximumRefinements)
             {
                 seconds*=.5;
                 for(int i=0;i<count;i++)freePieces[i]=new SkiForceCoupledTrajectory(free[i].InitialPose,free[i].InitialMotion,free[i].Acceleration,seconds);
-                result=Preview(bodies,freePieces,count,output);refinements++;
+                result=Preview(bodies,freePieces,count,output,participants);refinements++;
             }
             return LastPreview=new SkiContactForcePreview(result.Status,result.DurationSeconds,result.SupportPoints,result.Passes,
                 result.MaximumClosingAcceleration,result.MaximumReactionResidualSpeed,refinements);
         }
         public SkiContactForcePreview Preview(ManualSkiContactBody[] bodies,SkiDrivenContactTrajectory[] free,int count,SkiForceCoupledTrajectory[] output)
+            =>Preview(bodies,free,count,output,null);
+        internal SkiContactForcePreview Preview(ManualSkiContactBody[] bodies,SkiDrivenContactTrajectory[] free,int count,SkiForceCoupledTrajectory[] output,bool[] participants)
         {
             LastPreview=default;pointCount=openingCount=0;
             if(bodies==null||free==null||output==null||count<1||count>order.Length||count>bodies.Length||count>free.Length||count>output.Length)
@@ -113,15 +115,18 @@ namespace Biathlon.Simulation
                     (end.Velocity.Z-initial.Velocity.Z)/seconds,(end.YawRate-initial.YawRate)/seconds);
                 freePieces[i]=new SkiForceCoupledTrajectory(bodies[i].Pose,initial,acceleration,seconds);
             }
-            return Preview(bodies,freePieces,count,output);
+            return Preview(bodies,freePieces,count,output,participants);
         }
         /// <summary>Refresh reached contact reactions over one original frozen
         /// external-force piece, starting from the actual raw current motion.</summary>
         internal SkiContactForcePreview Preview(ManualSkiContactBody[] bodies,SkiForceCoupledTrajectory[] free,int count,SkiForceCoupledTrajectory[] output)
+            =>Preview(bodies,free,count,output,null);
+        private SkiContactForcePreview Preview(ManualSkiContactBody[] bodies,SkiForceCoupledTrajectory[] free,int count,SkiForceCoupledTrajectory[] output,bool[] participants)
         {
             LastPreview=default;pointCount=openingCount=0;
             if(bodies==null||free==null||output==null||count<1||count>order.Length||count>bodies.Length||count>free.Length||count>output.Length)
                 throw new ArgumentException("Complete bodies, force pieces and output within cold capacity required.");
+            if(participants!=null&&participants.Length!=count)throw new ArgumentException("Exact attested force presence roster required.");
             double seconds=free[0].DurationSeconds;
             for(int i=0;i<count;i++)
             {
@@ -142,7 +147,8 @@ namespace Biathlon.Simulation
             }
             for(int i=0;i<count;i++)for(int j=i+1;j<count;j++)
             {
-                int ai=order[i],bi=order[j];var manifold=geometry.PreviewManifold(bodies[ai],bodies[bi]);
+                int ai=order[i],bi=order[j];if(participants!=null&&(!participants[ai]||!participants[bi]))continue;
+                var manifold=geometry.PreviewManifold(bodies[ai],bodies[bi]);
                 if(manifold.Contact.Status==SkiContactPreviewStatus.Separated)continue;
                 if(manifold.Contact.Status==SkiContactPreviewStatus.Penetrating)return Result(SkiContactForceStatus.Penetrating,seconds);
                 if(!manifold.HasSupport)return Result(SkiContactForceStatus.UnresolvedGeometry,seconds);

@@ -24,8 +24,12 @@ namespace Biathlon.AI
         private readonly double[] homeLine;
         private readonly ManualAiSteeringDefinition policy;
         private readonly ManualAiBendBrakingPlanner[] bends;
+        private readonly ManualAiSteeringController[] familyControllers;
+        private readonly ManualAiBendBrakingPlanner[] familyBends;
         private readonly double[] brakes;
         private readonly ManualAiObstacleCorridor corridor;
+        private readonly ManualAiSnowSteeringPlanner snowPlanner;
+        private readonly CorneringSystem steeringGrip;
         public string ContextJson {get;}
         public ManualScopedAiMovement(ManualScopedFieldStepper stepper,ManualAiSteeringDefinition policy,
             ManualSkiSteeringDefinition physicalSteering)
@@ -34,6 +38,8 @@ namespace Biathlon.AI
             if(policy==null||physicalSteering==null)throw new ArgumentNullException();
             this.policy=policy;
             corridor=new ManualAiObstacleCorridor(stepper.BodyDefinition);
+            snowPlanner=new ManualAiSnowSteeringPlanner(stepper.BodyDefinition,physicalSteering,stepper.World.TickFrequency);
+            steeringGrip=new CorneringSystem(stepper.CorneringDefinition,stepper.PhysicsDefinition);
             if(physicalSteering.ToJson()!=stepper.SteeringDefinitionJson)throw new ArgumentException("AI and movement must use the same physical steering definition.");
             int n=stepper.World.Count;controllers=new ManualAiSteeringController[n];catalogs=new ManualRacePathCatalog[n];steering=new int[n];
             bends=new ManualAiBendBrakingPlanner[n];brakes=new double[n];
@@ -42,23 +48,35 @@ namespace Biathlon.AI
             passingOccurrence=new int[n];
             stationaryTicks=new long[n];
             homeLine=new double[n];for(int i=0;i<n;i++)homeLine[i]=stepper.Field.GetLateral(i);
+            int choices=stepper.World.PathChoiceCount;
+            familyControllers=new ManualAiSteeringController[choices];familyBends=new ManualAiBendBrakingPlanner[choices];
+            for(int p=0;p<choices;p++)
+            {
+                var c=stepper.World.GetPathChoice(p);
+                familyControllers[p]=new ManualAiSteeringController(c.ProjectionGeometry,policy,physicalSteering);
+                familyBends[p]=new ManualAiBendBrakingPlanner(stepper.Field.Track,c,stepper.PhysicsDefinition,
+                    stepper.CorneringDefinition,physicalSteering,policy,stepper.BodyDefinition);
+            }
             for(int i=0;i<n;i++)
             {catalogs[i]=stepper.World.GetCatalog(i);
-                controllers[i]=new ManualAiSteeringController(catalogs[i].ProjectionGeometry,policy,physicalSteering);
-                bends[i]=new ManualAiBendBrakingPlanner(stepper.Field.Track,catalogs[i],stepper.PhysicsDefinition,
-                    stepper.CorneringDefinition,physicalSteering,policy,stepper.BodyDefinition);}
-            var context=new string[n+5];
-            context[0]="manual_scoped_ai_shared_clock_movement_v9_attested_scheduled_presence";
-            context[1]=stepper.ContextJson;context[2]=policy.ToJson();context[3]=physicalSteering.ToJson();
-            context[4]="player_signed_input_unchanged;ai_target_not_lateral_teleport;field_attested_waiting_start_bodies_not_obstacles;stationary_obstacle_detection_from_policy_response_or_exact_owned_stationary_mat;full_rotated_body_corridor_and_achieved_velocity_forecast;candidate_line_query_excludes_old_velocity_forecast;moving_range_body_forecast_four_separating_axes_and_relative_achieved_velocity;only_observed_ahead_bodies;ordinary_racing_keeps_physical_contacts;pass_line_owned_by_current_occurrence;hold_pass_line_until_body_clear_or_occurrence_handoff;owned_gate_lookahead_cap;geometric_chord_sagitta_reserve;physical_pursuit_actual_velocity_and_shared_speed_response;ordered_bend_braking_and_short_chord_before_entry;common_physical_solver;no_legacy_fallback";
+                if(choices>0){int p=FindPathChoice(catalogs[i]);controllers[i]=familyControllers[p];bends[i]=familyBends[p];}
+                else
+                {controllers[i]=new ManualAiSteeringController(catalogs[i].ProjectionGeometry,policy,physicalSteering);
+                    bends[i]=new ManualAiBendBrakingPlanner(stepper.Field.Track,catalogs[i],stepper.PhysicsDefinition,
+                        stepper.CorneringDefinition,physicalSteering,policy,stepper.BodyDefinition);}}
+            var context=new string[n+choices+5];
+            context[0]="manual_scoped_ai_shared_clock_movement_v14_snow_endpoint_and_parallel_mat";
+            context[1]=stepper.ContextJson;context[2]=policy.ToJson();context[3]=physicalSteering.ToJson()+";snow_planner_sha256:"+ManualContextIdentity.Sha256(snowPlanner.ContextJson);
+            context[4]="player_signed_input_unchanged;ai_target_not_lateral_teleport;field_attested_waiting_start_bodies_not_obstacles;stationary_obstacle_detection_from_policy_response_or_exact_owned_stationary_mat;full_rotated_body_corridor_and_achieved_velocity_forecast;candidate_line_query_excludes_old_velocity_forecast;moving_range_body_forecast_four_separating_axes_and_relative_achieved_velocity;only_observed_ahead_bodies;ordinary_racing_keeps_physical_contacts;pass_line_owned_by_current_occurrence;hold_pass_line_until_body_clear_or_occurrence_handoff;owned_gate_lookahead_cap;owned_future_width_and_achieved_side_velocity_response_reserve;resource_family_common_to_private_cue_only;reusable_base_curve_signed_snow_endpoint_correction;fitting_parallel_firing_endpoint_intent;current_private_exit_and_fixed_mass_passing_retained;geometric_chord_sagitta_reserve;physical_pursuit_actual_velocity_and_shared_speed_response_v2_actual_chord;ordered_bend_braking_and_short_chord_before_entry;common_physical_solver;no_legacy_fallback";
             for(int i=0;i<n;i++)context[i+5]=ManualContextIdentity.Sha256(bends[i].ContextJson);
+            for(int p=0;p<choices;p++)context[n+p+5]=ManualContextIdentity.Sha256(familyBends[p].ContextJson);
             ContextJson=Encode(context);
         }
         public int GetSteering(int index)=>index>=0&&index<steering.Length?steering[index]:throw new ArgumentOutOfRangeException(nameof(index));
         public double GetBrakeFraction(int index)=>index>=0&&index<brakes.Length?brakes[index]:throw new ArgumentOutOfRangeException(nameof(index));
         public double PreferredLine(int index)
         {
-            var cursor=stepper.World.GetCursor(index);var kind=catalogs[index].Get(cursor.OccurrenceIndex).Kind;
+            var cursor=stepper.World.GetCursor(index);var kind=stepper.World.GetCatalog(index).Get(cursor.OccurrenceIndex).Kind;
             return kind==ManualRacePathKind.BaseRoute||kind==ManualRacePathKind.StartApproach?homeLine[index]:0;
         }
         internal static string Encode(string[] values)
@@ -69,6 +87,14 @@ namespace Biathlon.AI
                 playerIndex<-1||playerIndex>=steering.Length||playerSteering<-ManualSkiCommand.SteeringUnits||playerSteering>ManualSkiCommand.SteeringUnits)
                 throw new ArgumentException("Exact roster and signed player intent required.");
             var world=stepper.World;
+            // A paid resource choice changes only the future path. Use its cold
+            // controller immediately; never keep intent for the previous mat.
+            for(int i=0;i<world.Count;i++)
+            {
+                var current=world.GetCatalog(i);if(ReferenceEquals(current,catalogs[i]))continue;
+                int p=FindPathChoice(current);catalogs[i]=current;controllers[i]=familyControllers[p];bends[i]=familyBends[p];
+                passing[i]=false;
+            }
             for(int i=0;i<world.Count;i++)stationaryTicks[i]=world.GetPhysicalMotion(i).SpeedMetersPerSecond==0?stationaryTicks[i]+1:0;
             for(int i=0;i<steering.Length;i++)
             {
@@ -81,6 +107,7 @@ namespace Biathlon.AI
                 var athlete=stepper.Field.GetAthlete(i);
                 var bend=bends[i].Plan(actor.Observation,Math.Sqrt(actor.Velocity.X*actor.Velocity.X+actor.Velocity.Z*actor.Velocity.Z),
                     athlete.CorneringSkill,athlete.DownhillSkill,athlete.PhysiologyState.MuscularFatigue);
+                width=Math.Min(width,bend.MinimumWidthMeters);
                 brakes[i]=bend.BrakeFraction;
                 if(bend.ReduceEffort)
                 {
@@ -89,7 +116,8 @@ namespace Biathlon.AI
                         ski.Form,ski.LineQuality,ski.HeadwindMetersPerSecond,false,false,ski.TechniqueId,ski.MovementEfficiency);
                     inputs[i]=new SprintAthleteInput(reduced,prior.Aim,prior.Trigger,prior.HoldBreath,prior.Wind,prior.Pressure);
                 }
-                double chosen=desiredLateral[i],extent=Math.Max(0,width*.5-stepper.BodyCourseRadius);
+                double lateralReserve=Math.Abs(actor.Velocity.X*observed.ForwardZ-actor.Velocity.Z*observed.ForwardX)*policy.HeadingResponseSeconds;
+                double chosen=desiredLateral[i],extent=Math.Max(0,width*.5-stepper.BodyCourseRadius-lateralReserve);
                 if(passing[i]&&passingOccurrence[i]!=row.Index)passing[i]=false;
                 // Lateral-v1 grid holding is not a physical obstacle-avoidance
                 // controller. Detect slower world bodies early and request yaw
@@ -148,12 +176,22 @@ namespace Biathlon.AI
                     chosen,extent,Math.Min(available,Math.Max(stepper.BodyLongitudinalSeparation,Ahead(i,passingObstacle[i])-stepper.BodyLongitudinalSeparation))):
                     controllers[i].PlanOwnedTarget(actor.Pose,observed,motion.SpeedMetersPerSecond,ordinaryLookahead,chosen,extent,available);
                 if(!plan.IsValid)throw new InvalidOperationException("Missing owned AI steering target for "+actor.Athlete);
+                // A shared-aisle passing offset cannot be carried into the
+                // selected mat's exclusive turn. Aim for its centre before the
+                // occurrence handoff, through the same bounded yaw controller.
+                if(world.PathChoiceCount>0&&passing[i]&&row.Kind==ManualRacePathKind.RangeApproach&&
+                    row.LoopId!=athlete.RangePath.MatAnchor.LoopId&&plan.Target.LoopId==athlete.RangePath.MatAnchor.LoopId)
+                {
+                    passing[i]=false;chosen=0;
+                    plan=controllers[i].PlanOwnedTarget(actor.Pose,observed,motion.SpeedMetersPerSecond,ordinaryLookahead,chosen,extent,available);
+                    if(!plan.IsValid)throw new InvalidOperationException("Missing selected private AI target for "+actor.Athlete);
+                }
                 double targetTurn=Math.Atan2(observed.ForwardX*plan.Target.ForwardZ-observed.ForwardZ*plan.Target.ForwardX,
                     observed.ForwardX*plan.Target.ForwardX+observed.ForwardZ*plan.Target.ForwardZ);
                 // Physical visual geometry can begin bending before the scalar
                 // surface metadata changes. Reserve the chord's sagitta from
                 // that actual future tangent as well, before committing intent.
-                double geometricExtent=Math.Max(0,width*.5-stepper.BodyCourseRadius-Math.Abs(targetTurn)*plan.LookaheadMeters/8);
+                double geometricExtent=Math.Max(0,width*.5-stepper.BodyCourseRadius-lateralReserve-Math.Abs(targetTurn)*plan.LookaheadMeters/8);
                 if(geometricExtent<extent)
                 {
                     extent=geometricExtent;
@@ -164,8 +202,19 @@ namespace Biathlon.AI
                 }
                 // A curved penalty pass must steer from achieved velocity too;
                 // a current bearing alone cuts inside the physical circuit.
+                if(row.End==ManualRacePathEnd.FiringLine&&plan.LookaheadMeters==gateDistance)
+                    plan=controllers[i].PlanParallelEndpoint(actor.Pose,plan,extent);
                 steering[i]=(passing[i]&&row.Kind!=ManualRacePathKind.PenaltyLoop)||Math.Abs(targetTurn)<=64*2.2204460492503131e-16?plan.SteeringInput:
                     controllers[i].PhysicalPursuitIntent(plan,actor.Pose,actor.Velocity);
+                double pursuitYaw=controllers[i].PhysicalPursuitYaw(plan,actor.Pose,actor.Velocity);
+                if(world.PathChoiceCount>0&&row.Kind==ManualRacePathKind.BaseRoute&&!passing[i]&&Math.Abs(targetTurn)>64*2.2204460492503131e-16)
+                {
+                    double grip=steeringGrip.EvaluateWorldHeading(new SkiState(0,motion.SpeedMetersPerSecond),surface,0,
+                        athlete.CorneringSkill,athlete.DownhillSkill,inputs[i].Ski.LineQuality,athlete.PhysiologyState.MuscularFatigue).LateralAccelerationLimit;
+                    steering[i]=snowPlanner.CorrectUnreachedYaw(new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,stepper.PhysicsDefinition.MassKilograms),
+                        new SkiContactMotion(actor.Velocity,actor.Pose.YawRateRadiansPerSecond),steering[i],pursuitYaw,grip);
+                }
+
             }
             if(!stepper.TryStep(inputs,steering,brakes))
                 throw new InvalidOperationException("Manual field step rejected: "+stepper.LastStep.Status+" / "+
@@ -211,6 +260,11 @@ namespace Biathlon.AI
                 }
                 return closest;
             }
+        }
+        private int FindPathChoice(ManualRacePathCatalog catalog)
+        {
+            for(int p=0;p<stepper.World.PathChoiceCount;p++)if(ReferenceEquals(catalog,stepper.World.GetPathChoice(p)))return p;
+            throw new InvalidOperationException("AI catalog must be an attested cold resource choice.");
         }
     }
 }
