@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="285c01f5-674c-46db-bdab-5ebec90cb348" name="snkashkin@DESKTOP-G3075GA 2026-10-08 22:09:39" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-08T22:09:39.2979822+03:00" queuing="2026-10-08T22:09:39.2979823+03:00" start="2026-10-08T22:09:29.1223638+03:00" finish="2026-10-08T22:09:39.3014869+03:00" />
+  <TestSettings name="default" id="72cdaf0a-b834-4e96-a836-bd41607436f4">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-08_22_09_39" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="4102a4ec-331f-4c24-a6c8-c7b3a42dc80d" testId="0695782c-3c88-8ea2-8585-513eacbae067" testName="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" computerName="DESKTOP-G3075GA" duration="00:00:09.2632270" startTime="2026-10-08T22:09:29.6653902+03:00" endTime="2026-10-08T22:09:38.9285780+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4102a4ec-331f-4c24-a6c8-c7b3a42dc80d">
+      <Output>
+        <StdOut>1 yawIntent -20 heading 2,405281875 road 2,405281875404686 rate 0 line -1,999999999477036 width 6 speed 0 delta -14,532685162000007:6,162129508&#xD;
+6 yawIntent -20 heading 2,405231131 road 2,405281875404686 rate -0,000893097 line -2,0000355364212155 width 6 speed 0,031629052 delta -14,531104013000004:6,1604378959999995&#xD;
+11 yawIntent -19 heading 2,404533794 road 2,405281875404686 rate -0,005330973 line -2,0005289152157797 width 6 speed 0,147440573 delta -14,516848529:6,14544407&#xD;
+16 yawIntent -17 heading 2,402358812 road 2,405281875404686 rate -0,012140863 line -2,002137607042839 width 6 speed 0,347992947 delta -14,475220049:6,101909579&#xD;
+21 yawIntent -18 heading 2,398279372 road 2,405281875404686 rate -0,021136014 line -2,005502387518698 width 6 speed 0,633192464 delta -14,391528262999998:6,014580325&#xD;
+26 yawIntent -29 heading 2,391779617 road 2,405281875404686 rate -0,033592159 line -2,0118751587508616 width 6 speed 1,002780003 delta -14,250671182999994:5,8686580049999995&#xD;
+31 yawIntent -44 heading 2,381303145 road 2,405281875404686 rate -0,05010328 line -2,0243175209330166 width 6 speed 1,456298465 delta -14,036320587000006:5,650686147&#xD;
+36 yawIntent -62 heading 2,366601201 road 2,405281875404686 rate -0,069147595 line -2,0468408665515314 width 6 speed 1,993150823 delta -13,731580464000004:5,347996129999999&#xD;
+41 yawIntent -86 heading 2,345831758 road 2,307107104980005 rate -0,093767438 line -2,036499087872613 width 6 speed 2,529686074 delta -13,321421725999997:4,955119550999999&#xD;
+46 yawIntent -109 heading 2,319320161 road 2,307107104980005 rate -0,116545512 line -2,034644919291072 width 6 speed 2,958639566 delta -12,833171667000016:4,480742841&#xD;
+51 yawIntent -133 heading 2,288085304 road 2,2089323345553225 rate -0,139999062 line -2,0327908935565246 width 6 speed 3,324687632 delta -12,267161767000005:3,9668215420000004&#xD;
+56 yawIntent -150 heading 2,251465891 road 2,2089323345553225 rate -0,155763495 line -1,9994328877132905 width 6 speed 3,645687895 delta -11,608430446000014:3,4216219140000006&#xD;
+61 yawIntent -171 heading 2,210129174 road 2,110757564130641 rate -0,175280374 line -1,9722622295374048 width 6 speed 3,936931453 delta -10,858578907999998:2,8573531669999994&#xD;
+66 yawIntent -191 heading 2,163835769 road 2,110757564130641 rate -0,19347232 line -1,9186643966705423 width 6 speed 4,200478006 delta -10,01762980700002:2,2890796669999993&#xD;
+71 yawIntent -209 heading 2,113579596 road 2,012582793705967 rate -0,209337387 line -1,8538656436259566 width 6 speed 4,44283681 delta -9,093507503000012:1,728839185&#xD;
+[DEBUG-ribbon] pose 138,719359433,-6,66716048 yaw 1,570027845</StdOut>
+        <ErrorInfo>
+          <Message>tick 76 / WorldRejected / ContactSchedule / woodland_basin_v1_athlete_0 / 0,039278225482392355 / Clear /  / Clear / pair woodland_basin_v1_athlete_0:woodland_basin_v1_athlete_9 InitialProximity clear 0 end 0 continuation True / ribbon 0:0:0 arc 219359433/995548000000 kind BaseRoute / force Resolved pass 1 closing 7,494005416219807E-16 residual 1,0221240138160211E-17 / System.InvalidOperationException: Manual field step rejected: WorldRejected / ContactSchedule / woodland_basin_v1_athlete_0; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 106&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 474&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepPlayer(Int32 index, SprintAthleteInput input, Double desiredLateralMeters) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 244&#xD;
+   at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 102</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 114&#xD;
+
+1)    at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 102&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="0695782c-3c88-8ea2-8585-513eacbae067">
+      <Execution id="4102a4ec-331f-4c24-a6c8-c7b3a42dc80d" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="0695782c-3c88-8ea2-8585-513eacbae067" executionId="4102a4ec-331f-4c24-a6c8-c7b3a42dc80d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+1 yawIntent -20 heading 2,405281875 road 2,405281875404686 rate 0 line -1,999999999477036 width 6 speed 0 delta -14,532685162000007:6,162129508&#xD;
+6 yawIntent -20 heading 2,405231131 road 2,405281875404686 rate -0,000893097 line -2,0000355364212155 width 6 speed 0,031629052 delta -14,531104013000004:6,1604378959999995&#xD;
+11 yawIntent -19 heading 2,404533794 road 2,405281875404686 rate -0,005330973 line -2,0005289152157797 width 6 speed 0,147440573 delta -14,516848529:6,14544407&#xD;
+16 yawIntent -17 heading 2,402358812 road 2,405281875404686 rate -0,012140863 line -2,002137607042839 width 6 speed 0,347992947 delta -14,475220049:6,101909579&#xD;
+21 yawIntent -18 heading 2,398279372 road 2,405281875404686 rate -0,021136014 line -2,005502387518698 width 6 speed 0,633192464 delta -14,391528262999998:6,014580325&#xD;
+26 yawIntent -29 heading 2,391779617 road 2,405281875404686 rate -0,033592159 line -2,0118751587508616 width 6 speed 1,002780003 delta -14,250671182999994:5,8686580049999995&#xD;
+31 yawIntent -44 heading 2,381303145 road 2,405281875404686 rate -0,05010328 line -2,0243175209330166 width 6 speed 1,456298465 delta -14,036320587000006:5,650686147&#xD;
+36 yawIntent -62 heading 2,366601201 road 2,405281875404686 rate -0,069147595 line -2,0468408665515314 width 6 speed 1,993150823 delta -13,731580464000004:5,347996129999999&#xD;
+41 yawIntent -86 heading 2,345831758 road 2,307107104980005 rate -0,093767438 line -2,036499087872613 width 6 speed 2,529686074 delta -13,321421725999997:4,955119550999999&#xD;
+46 yawIntent -109 heading 2,319320161 road 2,307107104980005 rate -0,116545512 line -2,034644919291072 width 6 speed 2,958639566 delta -12,833171667000016:4,480742841&#xD;
+51 yawIntent -133 heading 2,288085304 road 2,2089323345553225 rate -0,139999062 line -2,0327908935565246 width 6 speed 3,324687632 delta -12,267161767000005:3,9668215420000004&#xD;
+56 yawIntent -150 heading 2,251465891 road 2,2089323345553225 rate -0,155763495 line -1,9994328877132905 width 6 speed 3,645687895 delta -11,608430446000014:3,4216219140000006&#xD;
+61 yawIntent -171 heading 2,210129174 road 2,110757564130641 rate -0,175280374 line -1,9722622295374048 width 6 speed 3,936931453 delta -10,858578907999998:2,8573531669999994&#xD;
+66 yawIntent -191 heading 2,163835769 road 2,110757564130641 rate -0,19347232 line -1,9186643966705423 width 6 speed 4,200478006 delta -10,01762980700002:2,2890796669999993&#xD;
+71 yawIntent -209 heading 2,113579596 road 2,012582793705967 rate -0,209337387 line -1,8538656436259566 width 6 speed 4,44283681 delta -9,093507503000012:1,728839185&#xD;
+[DEBUG-ribbon] pose 138,719359433,-6,66716048 yaw 1,570027845&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

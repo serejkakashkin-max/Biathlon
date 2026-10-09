@@ -115,6 +115,7 @@ namespace Biathlon.Simulation
         private readonly double[] workingTravelMeters,stagedTravelMeters;
         private readonly double duration;
         private readonly ManualScopedWorldMotionPiece[] pieces;
+        private readonly ManualRouteRibbonSweep[] ribbons;
         private readonly int maximumPieces;
         private int pieceCount;
         private long revision;
@@ -123,7 +124,42 @@ namespace Biathlon.Simulation
         private long tickRevision;
         private double elapsedSeconds;
         private bool pendingContact;
+        private PackSprintFieldSession initialFieldBinding;
+        internal bool IsVerifiedInitialField(PackSprintFieldSession field)=>Tick.Value==0&&ReferenceEquals(initialFieldBinding,field);
+        internal bool IsVerifiedInitialSession(SprintAthleteSession session)
+        {
+            if(Tick.Value!=0||initialFieldBinding==null)return false;
+            for(int i=0;i<Count;i++)if(ReferenceEquals(initialFieldBinding.GetAthlete(i),session))return true;
+            return false;
+        }
+        internal void BindInitialField(PackSprintFieldSession field)
+        {
+            if(Tick.Value!=0||field==null||field.Tick.Value!=0||field.Count!=Count||initialFieldBinding!=null||ready||tickActive)
+                throw new ArgumentException("One unchanged initial field binding required.");
+            // Authenticate exact encoded physical poses against every actual
+            // grid row before accepting canonical projection coordinates.
+            for(int i=0;i<Count;i++)
+            {
+                var a=field.GetAthlete(i);var c=cursors[i];var row=c.Owner.Get(c.OccurrenceIndex);var point=field.GetPhysicalPoint(i);
+                int expectedOccurrence=c.OccurrenceIndex;
+                long expectedArc=row.Kind==ManualRacePathKind.StartApproach?row.LengthNanometers-a.RemainingStartApproachNanometers:0;
+                if(point.LoopId==field.StartApproach?.LoopId&&a.RemainingStartApproachNanometers==0)
+                {expectedOccurrence=c.Owner.StartApproachIndex;expectedArc=c.Owner.Get(expectedOccurrence).LengthNanometers;}
+                if(!c.Owner.TrySample(expectedOccurrence,expectedArc,out var expected)||
+                    !accepted[i].Athlete.Equals(a.AthleteId)||a.RouteNanometers!=0||motion[i].DistanceNanometers!=a.Motion.DistanceNanometers||
+                    accepted[i].Velocity.X!=0||accepted[i].Velocity.Z!=0||accepted[i].Pose.YawRateRadiansPerSecond!=0)
+                    throw new ArgumentException("Every initial world row must authenticate its exact stationary grid source.");
+                double side=field.GetLateral(i);
+                var pose=new ManualSkiHeadingState(expected.X+expected.ForwardZ*side,expected.Z-expected.ForwardX*side,Math.Atan2(expected.ForwardX,expected.ForwardZ));
+                if(!SamePose(pose,accepted[i].Pose))throw new ArgumentException("Canonical initial coordinates cannot move or turn a grid body.");
+            }
+            initialFieldBinding=field;
+        }
         public int Count=>accepted.Length;
+        public int MaximumMotionPieces=>maximumPieces;
+        public ManualRouteRibbonDiagnostics GetRibbonDiagnostics(int index)=>ribbons[index].Diagnostics;
+        public string WorkContextJson {get;}
+        public bool HasContactForcePolicy=>contactForces!=null;
         public int TickFrequency {get;}
         public SimulationTick Tick {get;private set;}
         public string ContextJson {get;}
@@ -164,7 +200,7 @@ namespace Biathlon.Simulation
             workingActors=new ManualRacePathActorFrame[count];workingCursors=new ManualRacePathCursor[count];
             proposedCursors=new ManualRacePathCursor[count];workingMotion=new SkiState[count];
             workingTravelMeters=new double[count];stagedTravelMeters=new double[count];
-            progress=new ManualRacePathProgression[count];courses=new ManualRouteTubeSweep[count];gates=new ManualRacePathGateSweep[count];bodies=new ManualSkiJointSweep(body,contact,work);
+            progress=new ManualRacePathProgression[count];courses=new ManualRouteTubeSweep[count];ribbons=new ManualRouteRibbonSweep[count];gates=new ManualRacePathGateSweep[count];bodies=new ManualSkiJointSweep(body,contact,work,separatedResponseBand:true);
             boundaries=new ManualRacePathBoundaryScheduler[count];boundaryPreviews=new ManualRacePathBoundaryPreview[count];
             boundaryPrefix=new SkiWorldMotionCandidate[count];arrivedBoundaries=new ManualScopedWorldBoundary[count];
             heldFiringActors=new bool[count];
@@ -173,13 +209,13 @@ namespace Biathlon.Simulation
             scheduledArrivals=new SkiReachedContactPair[checked(count*(count-1)/2)];
             ownedContactGeometry=new ManualSkiContactSystem(body,contact);ownedContactTolerance=contact.ContactTolerance;
             ownedContacts=new SkiReachedContactPair[scheduledArrivals.Length];ownedContactOrder=new int[count];
-            maximumPieces=work.MaximumIntervalChecks;pieces=new ManualScopedWorldMotionPiece[checked(count*maximumPieces)];
+            maximumPieces=work.MaximumIntervalChecks;WorkContextJson=work.ToJson();pieces=new ManualScopedWorldMotionPiece[checked(count*maximumPieces)];
             var context=new string[count+7];var initial=new string[count+4];
-            BodyContextJson=body.ToJson();context[0]="manual_scoped_full_clear_world_roster_v14";context[1]=BodyContextJson;
+            BodyContextJson=body.ToJson();context[0]="manual_scoped_full_clear_world_roster_v16";context[1]=BodyContextJson;
             context[2]=contact.ToJson();context[3]=work.ToJson();
             context[4]="force_exact_distance;contact_velocity_norm_simpson64;grade_frozen_per_interval;full_duration_tolerance_1e-12;no_implicit_scope_crossing;local_terminal_centre_portals_v1;whole_tube_edge_activation;continuous_acceleration_bound;existing_trajectory_encoding_reserve;staged_full_clock_intervals;exact_remaining_time;round_tick_travel_once;owned_motion_pieces;interval_limit_from_sweep_maximum_checks;accepted_phase_endpoints_authorized_by_session_batch;future_penalty_phases_from_paid_interval_high_water;no_handoff_before_pending_contact_response;"+ManualSkiWorldTrajectory.SlicePolicy;
             context[5]=ShootingModelDefinitions.EncodeContext(new[]{responseContext,scheduler.ContextJson,courseCells.ContextJson,ownedContactGeometry.ContextJson,
-                "course_tube_or_strict_source_cell;all_four_oriented_body_planes;no_cell_or_scope_crossing_bypass;owned_current_pose_proximity_pairs;stable_identity_order;no_penetration_admission;initial_response_without_clock_or_position",
+                "course_tube_or_exact_collinear_cell_or_local_cover_v2;all_four_oriented_body_planes_or_continuous_rectangle_disk_cover;simple_ribbon_or_existing_conservative_tube_union;exact_authored_endpoint_connectivity;shared_ordinary_bisector_station_portals;no_phase_handoff_from_course_proof;owned_current_pose_proximity_pairs;stable_identity_order;no_penetration_admission;initial_response_without_clock_or_position",
                 contactForces==null?"contact_forces_unconfigured":contactForces.ContextJson,ManualRacePathBoundaryScheduler.Policy,
                 "owned_common_contact_and_boundary_prefix;all_roster_sources_before_event_search;stable_boundary_identity_order;zero_clock_owned_endpoint_notification;no_implicit_lifecycle_handoff;"+
                 "explicit_stationary_owned_firing_hold_v1;exact_zero_velocity_acceleration_and_peak_yaw;actual_endpoint_only;whole_contact_course_gate_proof_still_required"});
@@ -195,6 +231,7 @@ namespace Biathlon.Simulation
                     throw new ArgumentException("Each accepted actor must bind its exact race, path and world observation.");
                 for(int j=0;j<i;j++)if(cursor.Athlete.Equals(cursors[j].Athlete))throw new ArgumentException("Duplicate scoped world actor.");
                 progress[i]=new ManualRacePathProgression(catalog);courses[i]=new ManualRouteTubeSweep(catalog.ProjectionGeometry,body,work);
+                ribbons[i]=new ManualRouteRibbonSweep(catalog.ProjectionGeometry,body,work);
                 gates[i]=new ManualRacePathGateSweep(catalog,work);
                 boundaries[i]=new ManualRacePathBoundaryScheduler(catalog,work);
                 cursors[i]=cursor;accepted[i]=new ManualRacePathActorFrame(cursor.Athlete,pose,velocity,observation);
@@ -214,6 +251,7 @@ namespace Biathlon.Simulation
             ContextJson=ShootingModelDefinitions.EncodeContext(context);
         }
         public ManualRacePathActorFrame GetActor(int index)=>accepted[index];
+        public ManualRacePathCatalog GetCatalog(int index)=>catalogs[index];
         public ManualRacePathCursor GetCursor(int index)=>cursors[index];
         public SkiState GetPhysicalMotion(int index)=>motion[index];
         public void ValidatePrepared(ManualScopedWorldPreview proposal)
@@ -294,18 +332,22 @@ namespace Biathlon.Simulation
                     window.MaximumArcDisplacementMeters,false);
                 if(course.Status!=ManualRouteTubeStatus.Clear||Math.Abs(course.ClearUntilSeconds-seconds)>seconds*1e-12)
                 {
-                    // The tube's whole-loop maximum bend reserve can reject a
-                    // safe outer line on a long straight edge. Use an independent
-                    // full oriented-body proof in its strictly admitted source
-                    // cell; never expand a tube, shrink a body or cross a cell.
-                    if(!catalog.ProjectionGeometry.TryGetInteriorCorridor(sources[i].Observation.GeometryProjection,occupiedBody,out var cell))
-                        return Reject(ManualScopedWorldStatus.Course,actor.Athlete,course:course);
-                    for(int k=0;k<4;k++)
+                    // Independent actual occupied-body proofs. Internal visual
+                    // knot caps are not exterior course walls. Neither proof
+                    // changes body dimensions, pose, velocity or phase authority.
+                    bool clear=catalog.ProjectionGeometry.TryGetCollinearCorridor(sources[i].Observation.GeometryProjection,out var cell);
+                    SkiEdgeSweepPreview failedEdge=default;
+                    for(int k=0;clear&&k<4;k++)
                     {
                         var plane=k==0?cell.Left:k==1?cell.Right:k==2?cell.Entry:cell.Exit;
                         var edge=courseCells.Preview(actor.Trajectory,plane);
-                        if(edge.Status!=SkiEdgeSweepStatus.Clear)
-                            return Reject(ManualScopedWorldStatus.Course,actor.Athlete,course:course,courseEdge:edge);
+                        if(edge.Status!=SkiEdgeSweepStatus.Clear){failedEdge=edge;clear=false;}
+                    }
+                    if(!clear)
+                    {
+                        var ribbon=ribbons[i].Preview(actor.Trajectory,sources[i].Observation.GeometryProjection);
+                        if(ribbon.Status!=ManualRouteTubeStatus.Clear||Math.Abs(ribbon.ClearUntilSeconds-seconds)>seconds*1e-12)
+                            return Reject(ManualScopedWorldStatus.Course,actor.Athlete,course:ribbon,courseEdge:failedEdge);
                     }
                 }
                 var pose=actor.Trajectory.Sample(1);
@@ -382,6 +424,11 @@ namespace Biathlon.Simulation
             schedule=scheduler.Preview(actors,Count,reached,reachedCount,edges,edgeCount);
             if(schedule.Status==SkiContactScheduleStatus.Clear)
                 return TryAppendInterval(tick,actors,windows,reached,reachedCount,edges,edgeCount,directionalGrades);
+            if(schedule.Status==SkiContactScheduleStatus.ForceRefresh)
+            {
+                for(int i=0;i<Count;i++)scheduledPrefix[i]=scheduler.GetPrefix(i);
+                return TryAppendInterval(tick,scheduledPrefix,windows,reached,reachedCount,edges,edgeCount,directionalGrades);
+            }
             if(schedule.Status!=SkiContactScheduleStatus.Arrival)
                 return Reject(ManualScopedWorldStatus.ContactSchedule,schedule.First,schedule.Admission);
             for(int i=0;i<Count;i++)scheduledPrefix[i]=scheduler.GetPrefix(i);
@@ -450,6 +497,8 @@ namespace Biathlon.Simulation
         }
         public void AbortTick(ManualScopedWorldTick tick)
         {ValidateTick(tick);tickActive=false;ready=false;pendingContact=false;elapsedSeconds=0;pieceCount=0;LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.NotPrepared);}
+        public void DiscardPrepared(ManualScopedWorldPreview proposal)
+        {ValidatePrepared(proposal);ready=false;pendingContact=false;elapsedSeconds=0;pieceCount=0;LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.NotPrepared);}
         /// <summary>World-only commit. The full race must validate all session
         /// lifecycle/physiology proposals before calling this exactly once.</summary>
         public void Commit(ManualScopedWorldPreview proposal)

@@ -3,7 +3,7 @@ using Biathlon.Domain;
 using Biathlon.Simulation;
 namespace Biathlon.AI
 {
-    public enum OvertakeDecisionReason { Ready=0, Terrain=1, Energy=2, RaceValue=3, NoTarget=4, Space=5, ClosingSpeed=6, Duration=7, PathEnds=8, StartGridHold=9, RangeTrafficHold=10 }
+    public enum OvertakeDecisionReason { Ready=0, Terrain=1, Energy=2, RaceValue=3, NoTarget=4, Space=5, ClosingSpeed=6, Duration=7, PathEnds=8, StartGridHold=9, RangeTrafficHold=10, WorldHeadingPlanner=11 }
     public readonly struct OvertakeDecisionFrame
     {
         public bool Request => Reason == OvertakeDecisionReason.Ready;

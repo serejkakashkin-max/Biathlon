@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="1e0d2a23-fa0b-48ea-a5e2-3048d6a2fd53" name="snkashkin@DESKTOP-G3075GA 2026-10-09 09:59:20" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T09:59:20.7044529+03:00" queuing="2026-10-09T09:59:20.7044530+03:00" start="2026-10-09T09:59:19.0635686+03:00" finish="2026-10-09T09:59:20.7117430+03:00" />
+  <TestSettings name="default" id="1c767ac7-660a-4ee9-9f94-83bcb1c6e829">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_09_59_20" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="6655b024-743c-4249-ab58-bcd0bee33bb4" testId="214feec7-dc0b-2c49-a488-7584f62d7c64" testName="MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(&quot;penalty_repeat_before&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.2188030" startTime="2026-10-09T09:59:20.1994830+03:00" endTime="2026-10-09T09:59:20.4182852+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6655b024-743c-4249-ab58-bcd0bee33bb4" />
+    <UnitTestResult executionId="a5009204-47d6-413f-8a99-74110ad888bd" testId="1399fc71-da50-fcab-19b7-1d3c42e35ac8" testName="MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(&quot;penalty_return_before&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.1835490" startTime="2026-10-09T09:59:20.4183200+03:00" endTime="2026-10-09T09:59:20.6018683+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a5009204-47d6-413f-8a99-74110ad888bd" />
+    <UnitTestResult executionId="6ce52e79-35c1-42a2-a049-c70f4ccfece3" testId="88ec3173-c3e0-8d53-90ac-58ba854175c8" testName="MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(&quot;penalty_entry_before&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.5224640" startTime="2026-10-09T09:59:19.6764563+03:00" endTime="2026-10-09T09:59:20.1988909+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6ce52e79-35c1-42a2-a049-c70f4ccfece3">
+      <Output>
+        <ErrorInfo>
+          <Message>  penalty_entry_before occurrence 6 expected arc 44806509865; broad projection 44806508795&#xD;
+  Expected: True&#xD;
+  But was:  False&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedSessionTests.Fixture..ctor(String phase, Boolean backward, Boolean waiting) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedSessionTests.cs:line 95&#xD;
+   at Biathlon.Tests.ManualScopedWorkingPhaseTests.MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(String phase) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedWorkingPhaseTests.cs:line 22&#xD;
+
+1)    at Biathlon.Tests.ManualScopedSessionTests.Fixture..ctor(String phase, Boolean backward, Boolean waiting) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedSessionTests.cs:line 95&#xD;
+   at Biathlon.Tests.ManualScopedWorkingPhaseTests.MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(String phase) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedWorkingPhaseTests.cs:line 22&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(&quot;penalty_repeat_before&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="214feec7-dc0b-2c49-a488-7584f62d7c64">
+      <Execution id="6655b024-743c-4249-ab58-bcd0bee33bb4" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedWorkingPhaseTests" name="MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(&quot;penalty_repeat_before&quot;)" />
+    </UnitTest>
+    <UnitTest name="MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(&quot;penalty_entry_before&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="88ec3173-c3e0-8d53-90ac-58ba854175c8">
+      <Execution id="6ce52e79-35c1-42a2-a049-c70f4ccfece3" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedWorkingPhaseTests" name="MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(&quot;penalty_entry_before&quot;)" />
+    </UnitTest>
+    <UnitTest name="MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(&quot;penalty_return_before&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="1399fc71-da50-fcab-19b7-1d3c42e35ac8">
+      <Execution id="a5009204-47d6-413f-8a99-74110ad888bd" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedWorkingPhaseTests" name="MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(&quot;penalty_return_before&quot;)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="214feec7-dc0b-2c49-a488-7584f62d7c64" executionId="6655b024-743c-4249-ab58-bcd0bee33bb4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1399fc71-da50-fcab-19b7-1d3c42e35ac8" executionId="a5009204-47d6-413f-8a99-74110ad888bd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="88ec3173-c3e0-8d53-90ac-58ba854175c8" executionId="6ce52e79-35c1-42a2-a049-c70f4ccfece3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="2" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 3 of 3 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -51,7 +51,7 @@ namespace Biathlon.Simulation
         }
         private ManualRacePathGatePreview AtBoundary(ManualSkiWorldTrajectory trajectory,int occurrence,long arc,int sign,ref int checks,bool strict=false)
         {
-            if(!catalog.TrySample(occurrence,arc,out var boundary))throw new InvalidOperationException("An exact scoped portal is required.");
+            if(!catalog.TrySamplePortal(occurrence,arc,out var boundary))throw new InvalidOperationException("An exact scoped portal is required.");
             var pose=trajectory.Sample(0);
             double reserve=2*trajectory.PositionErrorBoundMeters+64*2.2204460492503131e-16*
                 (Math.Abs(pose.X)+Math.Abs(pose.Z)+Math.Abs(boundary.X)+Math.Abs(boundary.Z)+1);

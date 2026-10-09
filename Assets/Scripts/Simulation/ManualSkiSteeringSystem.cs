@@ -296,7 +296,13 @@ namespace Biathlon.Simulation
         /// post-contact physical spin to fit the commanded yaw ceiling.</summary>
         public ManualSkiSteeringRequest GetRequest(int steeringInput,double speedMetersPerSecond,
             double gripAccelerationLimit,double postureResponse=1)
+            =>GetRequest(definition,steeringInput,speedMetersPerSecond,gripAccelerationLimit,postureResponse);
+        /// <summary>Command response is independent of tick duration. Decision
+        /// planners can invert this same law without inventing a simulation clock.</summary>
+        public static ManualSkiSteeringRequest GetRequest(ManualSkiSteeringDefinition definition,int steeringInput,
+            double speedMetersPerSecond,double gripAccelerationLimit,double postureResponse=1)
         {
+            if(definition==null)throw new ArgumentNullException(nameof(definition));
             if(steeringInput< -ManualSkiCommand.SteeringUnits||steeringInput>ManualSkiCommand.SteeringUnits)
                 throw new ArgumentOutOfRangeException(nameof(steeringInput));
             PhysiologyNumbers.RequireRange(speedMetersPerSecond,0,PhysiologyNumbers.MaximumMagnitude,nameof(speedMetersPerSecond));

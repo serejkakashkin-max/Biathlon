@@ -113,12 +113,13 @@ namespace Biathlon.Simulation
             // that contact must not discard its earlier safe interval.
             var contact=scheduler.Preview(boundaryPrefix,Count,ownedContacts,LastOwnedContacts.Count,edges,edgeCount);
             bool collision=contact.Status==SkiContactScheduleStatus.Arrival;
-            if(contact.Status!=SkiContactScheduleStatus.Clear&&!collision)
+            bool refresh=contact.Status==SkiContactScheduleStatus.ForceRefresh;
+            if(contact.Status!=SkiContactScheduleStatus.Clear&&!collision&&!refresh)
                 return Reject(ManualScopedWorldStatus.ContactSchedule,contact.First,contact.Admission);
-            if(collision)
+            if(collision||refresh)
             {
                 for(int i=0;i<Count;i++)boundaryPrefix[i]=scheduler.GetPrefix(i);
-                for(int i=0;i<contact.ArrivingPairs;i++)scheduledArrivals[i]=scheduler.GetArrival(i);
+                if(collision)for(int i=0;i<contact.ArrivingPairs;i++)scheduledArrivals[i]=scheduler.GetArrival(i);
             }
             for(int i=0;i<Count;i++)
             {

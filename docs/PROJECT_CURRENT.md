@@ -1,6 +1,6 @@
 # BIATHLON — текущая работа
 
-Обновлено: 2026-10-08. Это указатель, не исторический журнал.
+Обновлено: 2026-10-09. Это указатель, не исторический журнал.
 Полная история от Foundation сохранена в [PROJECT_STATE.md](PROJECT_STATE.md);
 только последняя датированная запись определяет текущий статус. PROJECT_STATE
 остаётся append-only; исторические записи и восстановленные снимки не удаляются.
@@ -236,3 +236,18 @@ error preserved/fixed; final refresh success, recent Console clear. Controlled
 steering c16794d pushed. M13/WP-175/177/178/full runner/AI/seams/resources/replay/
 host/final owner build OPEN; WP-176 PASS. No intermediate Windows build.
 [Report](reports/TASK_M13_MANUAL_SHOOTING_HOLD_20261008.md).
+
+2026-10-09 common manual field/contact/ordinary portals: focused.NET111/111;
+phase correction40/40; native portals12, forces21, phases5, controlled16,
+spatial15, physical AI4 and final ribbon9 PASS. Baseline stationary-player
+Mass30 native400ticks PASS. New physical-velocity AI .NET Mass30PASS, but
+first-lap test remains FAIL at tick3021/mat approach (previous tick584/base).
+Anticipatory braking and physical stationary docking are next; no domain widening,
+unpaid velocity reset, paid queue or legacy fallback. Original449/444/5 and aborted
+rerun retained; new broader diagnostic pending. Production host still lateral-v1;
+resources/finish/draft/replay/WP175/177/178/M13/build OPEN. Next Windows review
+build only after all M13. [Report](reports/TASK_M13_MANUAL_FIELD_CONTACTS_AND_PORTALS_20261009.md).
+
+Broad diagnostic:533PASS/1FAIL then ABORTED on a60s watchdog in the additional
+full-field persisted replay (its own timeout900s). Standalone replay is running
+with its declared limit; no PASS claim. New native initial physical AI Mass30:1/1PASS.

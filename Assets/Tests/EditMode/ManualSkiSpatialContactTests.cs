@@ -17,6 +17,22 @@ namespace Biathlon.Tests
             =>new ManualSkiSnowContactSystem(Body(),1).PreviewTrajectory(body,Motion(body),grip,0,seconds);
         private static ManualSkiWorldTrajectory World(ManualSkiContactBody a,double grip=0,double seconds=.05)=>new ManualSkiWorldTrajectory(Frame(a,grip,seconds));
 
+        [TestCase(.0000005,true)][TestCase(-.0000005,false)]
+        public void UnregisteredPositiveResponseSkinNeverAdmitsZeroOrNegativePhysicalGap(double finalGap,bool clear)
+        {
+            var a=Actor("a",0,0,1,0);
+            var b=Actor("b",Body().LateralSeparation+.05+finalGap,0,0,0);
+            var actors=new[]{new SkiWorldMotionCandidate(a.Athlete,World(a)),new SkiWorldMotionCandidate(b.Athlete,World(b))};
+            var none=Array.Empty<SkiReachedContactPair>();var edges=Array.Empty<SkiActorCourseEdge>();
+            var joint=new ManualSkiJointSweep(Body(),Contact(),SweepDefinition(),separatedResponseBand:true);
+            var result=joint.Preview(actors,2,none,0,edges,0);
+            Assert.That(result.Status,Is.EqualTo(clear?SkiJointSweepStatus.Clear:SkiJointSweepStatus.PairInterval));
+            Assert.That(joint.Preview(new[]{actors[1],actors[0]},2,none,0,edges,0),Is.EqualTo(result));
+            if(clear)Assert.That(new ManualSkiJointSweep(Body(),Contact(),SweepDefinition()).Preview(actors,2,none,0,edges,0).Status,
+                Is.EqualTo(SkiJointSweepStatus.PairInterval),"Legacy unregistered proximity policy remains explicit.");
+            else Assert.That(result.ClearUntilSeconds,Is.LessThan(.05));
+        }
+
         [Test]
         public void SpatialContinuationRetainsSideVelocityAndSpinInsteadOfTurningItIntoForwardSpeed()
         {

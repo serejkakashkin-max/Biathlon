@@ -43,7 +43,7 @@ namespace Biathlon.Simulation
     {
         private readonly ManualSkiContactSystem contact;
         private readonly SkiContactSweepDefinition definition;
-        private readonly double radius,tolerance;
+        private readonly double radius,tolerance,halfLength,halfWidth;
         public string ContextJson {get;}
         public string ContinuationContextJson {get;}
         public string SpatialContextJson {get;}
@@ -55,13 +55,14 @@ namespace Biathlon.Simulation
             contact=new ManualSkiContactSystem(body,contactDefinition);this.definition=definition;
             radius=.5*Math.Sqrt(body.LongitudinalSeparation*body.LongitudinalSeparation+body.LateralSeparation*body.LateralSeparation);
             tolerance=contactDefinition.ContactTolerance;
+            halfLength=body.LongitudinalSeparation*.5;halfWidth=body.LateralSeparation*.5;
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_force_turn_sweep_v1",contact.ContextJson,definition.ToJson()});
             ContinuationContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_existing_contact_sweep_v1",ContextJson});
             ArrivalContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_reached_terminal_contact_sweep_v1",ContextJson,
                 "endpoint_actual_proximity;continuous_existing_numerical_depth_only;response_before_next_motion"});
-            SpatialContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_mixed_world_trajectory_sweep_v2",ContinuationContextJson,ArrivalContextJson});
-            FirstContactContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_first_reached_proximity_v1",SpatialContextJson,
-                "fixed_current_axis_conservative_advancement;existing_tolerance_half_band;actual_endpoint;full_prefix_admission;shared_configured_work_bound;no_unproved_clear"});
+            SpatialContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_mixed_world_trajectory_sweep_v3_rotating_axis",ContinuationContextJson,ArrivalContextJson});
+            FirstContactContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_first_reached_proximity_v2_endpoint_skin",SpatialContextJson,
+                "fixed_current_axis_conservative_advancement;existing_tolerance_half_band_target;actual_endpoint_within_configured_skin;full_prefix_admission;shared_configured_work_bound;no_unproved_clear"});
         }
 
         public SkiContactSweepPreview Preview(AthleteId first,ManualSkiHeadingFrame a,AthleteId second,ManualSkiHeadingFrame b)
@@ -69,6 +70,19 @@ namespace Biathlon.Simulation
 
         public SkiContactSweepPreview Preview(AthleteId first,ManualSkiWorldTrajectory a,AthleteId second,ManualSkiWorldTrajectory b)
             => PreviewCore(first,a,second,b,false);
+
+        // The scheduler owns endpoint proximity registration. Its unregistered
+        // pairs may enter the positive response skin while remaining physically
+        // separated throughout the interval. This never admits zero/negative
+        // gap or exempts an already registered contact from its own proof.
+        internal SkiContactSweepPreview PreviewSeparatedResponseBand(AthleteId first,ManualSkiWorldTrajectory a,AthleteId second,ManualSkiWorldTrajectory b)
+        {
+            if(!first.IsValid||!second.IsValid||first.Equals(second)||!a.IsValid||!b.IsValid||a.DurationSeconds!=b.DurationSeconds)
+                throw new ArgumentException("Distinct actors and equal-duration trajectories required.");
+            double reserve=Reserve(a,b);var start=Geometry(first,a,second,b,0);
+            if(start.GapMeters<=tolerance)return new SkiContactSweepPreview(SkiContactSweepStatus.InitialProximity,0,0,0,reserve);
+            int checks=0;return Search(first,a,second,b,0,a.DurationSeconds,0,reserve,0,false,false,ref checks);
+        }
 
         /// <summary>For an explicitly registered, already reached contact pair only.
         /// Allows numerical contact depth while proving the whole continuation does
@@ -104,7 +118,7 @@ namespace Biathlon.Simulation
             while(checks<definition.MaximumIntervalChecks)
             {
                 checks++;
-                if(geometry.GapMeters<=tolerance-reserve&&geometry.GapMeters> -tolerance+reserve&&seconds>0)
+                if(geometry.GapMeters<=tolerance&&geometry.GapMeters> -tolerance+reserve&&seconds>0)
                 {
                     var proof=Search(first,a,second,b,0,seconds,0,reserve,-tolerance,false,true,ref checks);
                     return new SkiFirstContactPreview(proof.Status==SkiContactSweepStatus.Clear?SkiFirstContactStatus.Reached:SkiFirstContactStatus.WorkLimit,
@@ -177,6 +191,8 @@ namespace Biathlon.Simulation
             double rotation=radius*(Math.Min(2,a.PeakYawRate*h)+Math.Min(2,b.PeakYawRate*h));
             if(geometry.GapMeters>requiredGap+reserve+translation+rotation)
                 return new SkiContactSweepPreview(SkiContactSweepStatus.Clear,to,to,checks,reserve,continuation,arrival);
+            if(RotatingAxisClear(a,b,fraction,h,requiredGap+reserve))
+                return new SkiContactSweepPreview(SkiContactSweepStatus.Clear,to,to,checks,reserve,continuation,arrival);
             if(to-from<=definition.TimeToleranceSeconds)
                 return new SkiContactSweepPreview(SkiContactSweepStatus.PotentialContact,from,to,checks,reserve,continuation,arrival);
             if(depth>=definition.MaximumDepth||mid<=from||mid>=to)
@@ -184,6 +200,40 @@ namespace Biathlon.Simulation
             var left=Search(first,a,second,b,from,mid,depth+1,reserve,requiredGap,continuation,arrival,ref checks);
             if(left.Status!=SkiContactSweepStatus.Clear)return left;
             return Search(first,a,second,b,mid,to,depth+1,reserve,requiredGap,continuation,arrival,ref checks);
+        }
+
+        // A fixed axis loses all cancellation when touching skis rotate together.
+        // Each body's continuously rotating SAT axis is also a valid separator.
+        // Use a Taylor enclosure only for an actual constant angular law and
+        // sign-stable support terms; cusp intervals retain the original bound.
+        private bool RotatingAxisClear(ManualSkiWorldTrajectory a,ManualSkiWorldTrajectory b,double fraction,double halfSeconds,double required)
+        {
+            if(!a.TryGetConstantAngularAcceleration(out double aa)||!b.TryGetConstantAngularAcceleration(out double ba))return false;
+            return Axis(a,b,aa,ba,true)||Axis(a,b,aa,ba,false)||Axis(b,a,ba,aa,true)||Axis(b,a,ba,aa,false);
+            bool Axis(ManualSkiWorldTrajectory first,ManualSkiWorldTrajectory second,double alpha,double otherAlpha,bool forward)
+            {
+                var p=first.Sample(fraction);var q=second.Sample(fraction);var v=first.VelocityAt(fraction);var u=second.VelocityAt(fraction);
+                double nx=forward?Math.Sin(p.HeadingRadians):Math.Cos(p.HeadingRadians);
+                double nz=forward?Math.Cos(p.HeadingRadians):-Math.Sin(p.HeadingRadians);
+                double dx=p.X-q.X,dz=p.Z-q.Z,offset=dx*nx+dz*nz;
+                if(offset<0){nx=-nx;nz=-nz;offset=-offset;}
+                double fx=Math.Sin(q.HeadingRadians),fz=Math.Cos(q.HeadingRadians);
+                double along=fx*nx+fz*nz,side=fz*nx-fx*nz;
+                double w=p.YawRateRadiansPerSecond,r=q.YawRateRadiansPerSecond-w,ar=otherAlpha-alpha,h=halfSeconds;
+                double wr=Math.Abs(r)+Math.Abs(ar)*h,angle=wr*h;
+                if((Math.Abs(along)<=angle||Math.Abs(side)<=angle)&&(r!=0||ar!=0))return false;
+                double gap=offset-(forward?halfLength:halfWidth)-halfLength*Math.Abs(along)-halfWidth*Math.Abs(side);
+                double vx=v.X-u.X,vz=v.Z-u.Z;
+                double derivative=vx*nx+vz*nz+w*(dx*nz-dz*nx)-
+                    r*(halfLength*Math.Sign(along)*side-halfWidth*Math.Sign(side)*along);
+                double acceleration=first.PlanarAccelerationBound+second.PlanarAccelerationBound;
+                double relativeSpeed=Math.Sqrt(vx*vx+vz*vz)+acceleration*h;
+                double distance=Math.Sqrt(dx*dx+dz*dz)+relativeSpeed*h+.5*acceleration*h*h;
+                double peak=Math.Abs(w)+Math.Abs(alpha)*h;
+                double secondDerivative=acceleration+2*relativeSpeed*peak+distance*(Math.Abs(alpha)+peak*peak)+
+                    (halfLength+halfWidth)*(Math.Abs(ar)+wr*wr);
+                return gap>required+Math.Abs(derivative)*h+.5*secondDerivative*h*h;
+            }
         }
 
         private SkiContactPreview Geometry(AthleteId first,ManualSkiWorldTrajectory a,AthleteId second,ManualSkiWorldTrajectory b,double fraction)

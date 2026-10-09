@@ -1,0 +1,7 @@
+2026-10-09: broader manual/replay rerun canceled with Ctrl+C after testhost used
+more than 350 CPU seconds, beyond the previous approximately two-minute run.
+The full-lap AI test reported its known tick584 course failure before cancellation.
+No final TRX was produced. This run is ABORTED, never PASS.
+An overlapping attempt to rebuild AI was rejected by MSBuild because this owned
+testhost held Biathlon.AI.dll. No game/Unity compilation failure is implied.
+After cancellation the focused tests are rerun sequentially.

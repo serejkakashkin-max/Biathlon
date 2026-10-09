@@ -74,6 +74,11 @@ namespace Biathlon.Simulation
         internal ManualRouteTubeWindow(int first,int last,double low,double high,double bodyRadius)
         {FirstSection=first;LastSection=last;LowStationMeters=low;HighStationMeters=high;BodyRadiusMeters=bodyRadius;}
     }
+    internal readonly struct ManualConnectedTubeWindow
+    {
+        internal readonly int First,Last;
+        internal ManualConnectedTubeWindow(int first,int last){First=first;Last=last;}
+    }
 
     // A geometry namespace, never a competition-distance receipt. The catalog
     // keeps the mapping back to counted base distance outside this primitive.
@@ -93,6 +98,7 @@ namespace Biathlon.Simulation
         private readonly RaceRoute route;
         private readonly bool baseRouteGeometry;
         private readonly Edge[] edges;
+        private readonly ManualRouteCorridorCell[] collinearCells;
         private readonly int[] firstEdges, edgeEnds;
         private readonly long[] starts, ends;
         private readonly long length;
@@ -105,17 +111,25 @@ namespace Biathlon.Simulation
             internal readonly double LocalStart,LocalEnd,StationStart,StationEnd,X,Z,Y,DX,DZ,DY,PlanarLength,MinimumWidth,TubeTurnReserve;
             internal readonly string TubeId;
             internal readonly ManualRouteCorridorCell Corridor;
+            internal readonly double RibbonStartX,RibbonStartZ,RibbonEndX,RibbonEndZ;
+            internal readonly double EndX,EndY,EndZ;
+            internal readonly double EntryX,EntryZ,ExitX,ExitZ;
+            internal readonly bool SharedPortal;
             internal Edge(int section,int ordinal,string loop,double localStart,double localEnd,double stationStart,
                 TrackVisualPoint a,TrackVisualPoint b,double minimumWidth,double turnReserveFraction)
             {
                 Section=section;Loop=loop;LocalStart=localStart;LocalEnd=localEnd;
                 StationStart=stationStart;StationEnd=stationStart+localEnd-localStart;
                 X=a.X;Y=a.Y;Z=a.Z;DX=b.X-a.X;DY=b.Y-a.Y;DZ=b.Z-a.Z;
+                EndX=b.X;EndY=b.Y;EndZ=b.Z;
                 PlanarLength=Math.Sqrt(DX*DX+DZ*DZ);
                 MinimumWidth=minimumWidth;
+                RibbonStartX=a.ForwardZ;RibbonStartZ=-a.ForwardX;
+                RibbonEndX=b.ForwardZ;RibbonEndZ=-b.ForwardX;
                 TubeTurnReserve=minimumWidth*.5*turnReserveFraction;
                 if(!(PlanarLength>0))throw new ArgumentException("Projection edges need horizontal extent.");
                 double fx=DX/PlanarLength,fz=DZ/PlanarLength,rx=fz,rz=-fx,half=minimumWidth*.5;
+                EntryX=ExitX=fx;EntryZ=ExitZ=fz;SharedPortal=false;
                 string id=section.ToString(System.Globalization.CultureInfo.InvariantCulture)+":"+
                     ordinal.ToString(System.Globalization.CultureInfo.InvariantCulture)+":";
                 TubeId=id+"tube";
@@ -123,7 +137,23 @@ namespace Biathlon.Simulation
                     new SkiCourseEdgePlane(id+"left",X-rx*half,Z-rz*half,rx,rz),
                     new SkiCourseEdgePlane(id+"right",X+rx*half,Z+rz*half,-rx,-rz),
                     new SkiCourseEdgePlane(id+"entry",X,Z,fx,fz),
-                    new SkiCourseEdgePlane(id+"exit",X+DX,Z+DZ,-fx,-fz));
+                    new SkiCourseEdgePlane(id+"exit",EndX,EndZ,-fx,-fz));
+            }
+            internal Edge(Edge source,double entryX,double entryZ,double exitX,double exitZ)
+            {
+                this=source;EntryX=entryX;EntryZ=entryZ;ExitX=exitX;ExitZ=exitZ;SharedPortal=true;
+                Corridor=new ManualRouteCorridorCell(Section,MinimumWidth,source.Corridor.Left,source.Corridor.Right,
+                    new SkiCourseEdgePlane(source.TubeId+":shared-entry",X,Z,entryX,entryZ),
+                    new SkiCourseEdgePlane(source.TubeId+":shared-exit",EndX,EndZ,-exitX,-exitZ));
+            }
+            internal double ProjectionFraction(double x,double z)
+            {
+                if(!SharedPortal)return ((x-X)*DX+(z-Z)*DZ)/(PlanarLength*PlanarLength);
+                double entry=((x-X)*EntryX+(z-Z)*EntryZ)/(DX*EntryX+DZ*EntryZ);
+                double exit=((EndX-x)*ExitX+(EndZ-z)*ExitZ)/(DX*ExitX+DZ*ExitZ);
+                // A folded chart has no unambiguous local station. Never
+                // manufacture one by clamping a negative denominator.
+                return entry+exit>0?entry/(entry+exit):double.NaN;
             }
         }
 
@@ -131,8 +161,8 @@ namespace Biathlon.Simulation
             :this(route,geometry,BaseScopes(route),true,null) { }
 
         internal static ManualRouteProjectionMap ForPhysicalScopes(RaceRoute route,TrackVisualDefinition geometry,
-            ManualProjectionScope[] scopes,string scopeContext)
-            =>new ManualRouteProjectionMap(route,geometry,scopes,false,scopeContext??throw new ArgumentNullException(nameof(scopeContext)));
+            ManualProjectionScope[] scopes,string scopeContext,bool[] ordinaryEntries)
+            =>new ManualRouteProjectionMap(route,geometry,scopes,false,scopeContext??throw new ArgumentNullException(nameof(scopeContext)),ordinaryEntries);
 
         private static ManualProjectionScope[] BaseScopes(RaceRoute route)
         {
@@ -149,7 +179,7 @@ namespace Biathlon.Simulation
         }
 
         private ManualRouteProjectionMap(RaceRoute route,TrackVisualDefinition geometry,ManualProjectionScope[] scopes,
-            bool baseRouteGeometry,string scopeContext)
+            bool baseRouteGeometry,string scopeContext,bool[] ordinaryEntries=null)
         {
             if(route==null||geometry==null||scopes==null)throw new ArgumentNullException();
             if(route.TrackId!=geometry.TrackId)throw new ArgumentException("Projection route and geometry must match.");
@@ -202,11 +232,27 @@ namespace Biathlon.Simulation
                 if(firstEdges[sectionIndex]==edgeEnds[sectionIndex])throw new ArgumentException("Empty projection occurrence.");
             }
             length=ends[count-1];edges=list.ToArray();
+            if(ordinaryEntries!=null)
+            {
+                if(baseRouteGeometry||ordinaryEntries.Length!=count)throw new ArgumentException("Exact physical-scope entry topology required.");
+                for(int s=1;s<count;s++)
+                {
+                    if(!ordinaryEntries[s])continue;
+                    int previous=edgeEnds[s-1]-1,next=firstEdges[s];var a=edges[previous];var b=edges[next];
+                    if(!Touching(a,b))throw new ArgumentException("An ordinary portal must join exactly touching authored endpoints.");
+                    double fx=a.ExitX+b.EntryX,fz=a.ExitZ+b.EntryZ,norm=Math.Sqrt(fx*fx+fz*fz);
+                    if(norm<=PhysiologyNumbers.MinimumPositive)throw new ArgumentException("A reversing seam requires an explicit junction, not an ordinary chart.");
+                    fx/=norm;fz/=norm;
+                    edges[previous]=new Edge(a,a.EntryX,a.EntryZ,fx,fz);
+                    edges[next]=new Edge(b,fx,fz,b.ExitX,b.ExitZ);
+                }
+            }
             ContextJson=baseRouteGeometry?ShootingModelDefinitions.EncodeContext(new[]{"manual_base_route_local_projection_v1",
                 route.TrackSnapshotJson,route.PlanSnapshotJson,route.RequirementsSnapshotJson,geometry.ToJson(),
                 "local_clamped_knot_observation_v2"}):ShootingModelDefinitions.EncodeContext(new[]{
                     "manual_physical_scope_local_projection_v1",scopeContext,geometry.ToJson(),
-                    "geometry_namespace_not_race_credit;local_clamped_knot_observation_v2;scoped_endpoint_encoding_snap_v1"});
+                    "geometry_namespace_not_race_credit;local_clamped_knot_observation_v2;scoped_endpoint_encoding_snap_v1;ordinary_shared_bisector_portal_chart_v1;folded_charts_reject"});
+            collinearCells=BuildCollinearCells();
             CorridorContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_selected_route_convex_cell_v1",
                 ContextJson,"minimum_authored_width_over_visual_edge;four_inward_planes;full_body_interior_only"});
         }
@@ -242,7 +288,8 @@ namespace Biathlon.Simulation
                 for(int i=a;i<end;i++)
                 {
                     var edge=edges[i];if(edge.StationStart>upper+seekReserve)break;
-                    double fraction=((pose.X-edge.X)*edge.DX+(pose.Z-edge.Z)*edge.DZ)/(edge.PlanarLength*edge.PlanarLength);
+                    double fraction=edge.ProjectionFraction(pose.X,pose.Z);
+                    if(double.IsNaN(fraction))continue;
                     // World pose is rounded to nanometres while authored knot
                     // coordinates are doubles. Reserve two encoding units at an
                     // endpoint; this is numerical tolerance, not course-edge tuning.
@@ -280,6 +327,18 @@ namespace Biathlon.Simulation
                 }
             }
             return result.IsValid;
+        }
+
+        // Portal normals belong to station charts. AI targets and surface
+        // tangents still use the actual route edge, never this transverse plane.
+        internal bool TrySamplePortal(int section,long station,out ManualRouteTarget target)
+        {
+            if(!TrySampleAhead(section,station,0,false,out target))return false;
+            if(station!=starts[section]&&station!=ends[section])return true;
+            var edge=edges[station==starts[section]?firstEdges[section]:edgeEnds[section]-1];
+            bool entry=station==starts[section];
+            target=new ManualRouteTarget(section,target.LoopId,station,target.X,target.Y,target.Z,
+                entry?edge.EntryX:edge.ExitX,entry?edge.EntryZ:edge.ExitZ);return true;
         }
 
         /// <summary>Sample a bounded forward target on the current route occurrence.
@@ -347,6 +406,105 @@ namespace Biathlon.Simulation
             cell=edge.Corridor;
             return true;
         }
+
+        // A union of exactly touching, collinear authored rectangles contains
+        // the narrower rectangle spanning their full length. Its four inward
+        // planes therefore prove actual oriented-body occupancy across internal
+        // sampling seams. This does not merge any route/phase coordinate.
+        private ManualRouteCorridorCell[] BuildCollinearCells()
+        {
+            var result=new ManualRouteCorridorCell[edges.Length];int first=0;
+            while(first<edges.Length)
+            {
+                int last=first;double width=edges[first].MinimumWidth;
+                while(last+1<edges.Length&&TouchingCollinear(edges[last],edges[last+1]))
+                {last++;width=Math.Min(width,edges[last].MinimumWidth);}
+                var a=edges[first];var b=edges[last];
+                double fx=a.DX/a.PlanarLength,fz=a.DZ/a.PlanarLength,half=width*.5;
+                string id="collinear:"+first.ToString(System.Globalization.CultureInfo.InvariantCulture)+":"+
+                    last.ToString(System.Globalization.CultureInfo.InvariantCulture)+":";
+                for(int i=first;i<=last;i++)result[i]=new ManualRouteCorridorCell(edges[i].Section,width,
+                    new SkiCourseEdgePlane(id+"left",a.X-fz*half,a.Z+fx*half,fz,-fx),
+                    new SkiCourseEdgePlane(id+"right",a.X+fz*half,a.Z-fx*half,-fz,fx),
+                    new SkiCourseEdgePlane(id+"entry",a.X,a.Z,fx,fz),
+                    new SkiCourseEdgePlane(id+"exit",b.EndX,b.EndZ,-fx,-fz));
+                first=last+1;
+            }
+            return result;
+        }
+        private static bool TouchingCollinear(Edge a,Edge b)
+            =>a.EndX==b.X&&a.EndZ==b.Z&&a.EndY==b.Y&&
+                a.DX*b.DZ-a.DZ*b.DX==0&&a.DX*b.DX+a.DZ*b.DZ>0;
+
+        /// <summary>Only an actual source edge's exact collinear cell union.
+        /// Callers must continuously sweep the complete body against all four
+        /// returned planes. This query grants no boundary or branch handoff.</summary>
+        public bool TryGetCollinearCorridor(ManualRouteProjection observation,out ManualRouteCorridorCell cell)
+        {
+            if(!observation.IsValid)throw new ArgumentException("Initialized owned route observation required.");
+            int section=observation.SectionIndex;
+            if(section<0||section>=starts.Length||observation.LoopId!=edges[firstEdges[section]].Loop||
+                observation.RouteNanometers<starts[section]||observation.RouteNanometers>ends[section])
+                throw new ArgumentException("Projection does not belong to this route occurrence.");
+            double station=observation.RouteNanometers/(double)SkiState.NanometersPerMeter;
+            int a=firstEdges[section],b=edgeEnds[section];
+            while(a<b){int m=a+(b-a)/2;if(edges[m].StationEnd<station)a=m+1;else b=m;}
+            cell=default;
+            if(a>=edgeEnds[section]||station<edges[a].StationStart||station>edges[a].StationEnd)return false;
+            cell=collinearCells[a];return true;
+        }
+
+        internal int MaximumRibbonVertices=>checked(edges.Length*2+2);
+        // Local, exactly connected geometry only. The polygon uses the same
+        // authored knot normals as TrackRibbonBuilder, with the minimum physical
+        // width over its window. It is an inscribed exclusion domain, never a
+        // route/phase admission or a global nearest-path query.
+        internal int BuildLocalRibbon(ManualRouteProjection source,double reach,double[] x,double[] z)
+        {
+            if(!TryBuildConnectedWindow(source,reach,out var window))return 0;
+            int first=window.First,last=window.Last;double width=double.PositiveInfinity;
+            for(int i=first;i<=last;i++)width=Math.Min(width,edges[i].MinimumWidth);
+            int nodes=last-first+2,n=checked(nodes*2);if(x.Length<n||z.Length<n)throw new ArgumentException("Cold ribbon buffers required.");
+            double half=width*.5;
+            for(int k=0;k<nodes;k++)
+            {
+                var edge=edges[k==nodes-1?last:first+k];
+                double px=k==nodes-1?edge.EndX:edge.X,pz=k==nodes-1?edge.EndZ:edge.Z;
+                double rx=k==nodes-1?edge.RibbonEndX:edge.RibbonStartX,rz=k==nodes-1?edge.RibbonEndZ:edge.RibbonStartZ;
+                x[k]=px-rx*half;z[k]=pz-rz*half;
+                x[n-1-k]=px+rx*half;z[n-1-k]=pz+rz*half;
+            }
+            return n;
+        }
+        internal bool TryBuildConnectedWindow(ManualRouteProjection source,double reach,out ManualConnectedTubeWindow window)
+        {
+            window=default;
+            int section=source.SectionIndex,a=firstEdges[section],b=edgeEnds[section];
+            double station=source.RouteNanometers/(double)SkiState.NanometersPerMeter;
+            while(a<b){int m=a+(b-a)/2;if(edges[m].StationEnd<station)a=m+1;else b=m;}
+            if(a>=edgeEnds[section]||station<edges[a].StationStart||station>edges[a].StationEnd)return false;
+            int first=a,last=a;double before=0,after=0;
+            while(first>0&&before<reach&&Touching(edges[first-1],edges[first]))
+            {first--;before+=edges[first].PlanarLength;}
+            while(last+1<edges.Length&&after<reach&&Touching(edges[last],edges[last+1]))
+            {last++;after+=edges[last].PlanarLength;}
+            window=new ManualConnectedTubeWindow(first,last);return true;
+        }
+        // Every disk must fit in at least one of the pre-existing conservative
+        // edge tubes. Their unchanged turn reserve and actual width are retained;
+        // no convex hull, bridging of disconnected paths or enlarged snow domain.
+        internal double ConnectedTubeDiskClearance(double x,double z,ManualConnectedTubeWindow window,double radius)
+        {
+            double result=double.NegativeInfinity;
+            for(int i=window.First;i<=window.Last;i++)
+            {
+                var edge=edges[i];double t=Math.Max(0,Math.Min(1,((x-edge.X)*edge.DX+(z-edge.Z)*edge.DZ)/(edge.PlanarLength*edge.PlanarLength)));
+                double dx=x-edge.X-t*edge.DX,dz=z-edge.Z-t*edge.DZ;
+                result=Math.Max(result,edge.MinimumWidth*.5-edge.TubeTurnReserve-radius-Math.Sqrt(dx*dx+dz*dz));
+            }
+            return result;
+        }
+        private static bool Touching(Edge a,Edge b)=>a.EndX==b.X&&a.EndZ==b.Z&&a.EndY==b.Y;
 
         internal ManualRouteTubeWindow BuildTubeWindow(int currentSection,long currentStationNanometers,
             double maximumStationDisplacementMeters,bool admitNextSection,OccupancyDefinition body)

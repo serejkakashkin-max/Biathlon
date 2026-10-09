@@ -23253,3 +23253,72 @@ admission, reusable mat ownership/shooting/finished actors/v2 full-race replay/
 host, условия/balance/performance и объединённый owner-test build. Owner gate и
 новый intermediate build отсутствуют. Master Plan/history не переписаны.
 [Отчёт](reports/TASK_M13_MANUAL_SHOOTING_HOLD_20261008.md).
+
+## 2026-10-08 — Owner: сборка только после полного завершения M13
+
+Владелец повторно запретил промежуточную сборку: «сборку для меня только
+после полного окончания м13 делай». Отправленный callback сборки
+WoodlandM13Review20261008 снят до запуска: removed=1, buildingPlayer=false.
+Receipt: docs/quality/m13/field-stepper-20261008/windows-build-job.txt.
+Нового build-summary/готового owner build нет. M14 пока не начинается.
+
+Текущая интеграция manual общего clock ещё не квалифицирована. Найден
+и исправлен ложный край на последнем коротком сегменте start_approach:
+локальное окно теперь покрывает весь disk envelope и смещение источника.
+.NET ribbon regression 3/3 и Unity native 3/3 PASS; Console Errors пуст.
+Исходный Mass30 failure tick47 сохранён; после исправления прогон проходит
+дальше и выявляет отдельные ошибки продолжающегося вращающегося контакта.
+Широкая регрессия review-build-regression.trx: 439 PASS / 2 FAIL, не PASS.
+Изолированный вращающийся контакт воспроизведён отдельным тестом; правки
+сил/импульсов и планировщика продолжаются. Не считать их готовым gameplay.
+
+M13 OPEN; WP-176 PASS; WP-175/177/178 OPEN. Production host остаётся lateral
+v1; полное ручное управление, все фазы гонки, replay и итоговые проверки
+должны быть завершены до сборки для владельца. История выше сохранена.
+## 2026-10-09 — Manual field: контакты, общие стыки и AI с фактическим скольжением
+
+M13 OPEN; WP-176 PASS; WP-175/177/178 OPEN. G1/G2 APPROVED. Одна Woodland
+трасса, WP-170–174 owner-deferred; max40/Mass30. Следующий Windows build
+только после полного M13; промежуточной новой сборки нет. Production host
+всё ещё lateral-v1: ручной candidate не выдаётся за подключённое управление.
+
+Общий field stepper объединяет signed yaw, shared snow/drive/contact forces,
+ordinary/penalty seams и полную публикацию Pack на одном fixed clock. Отказ
+отменяет provisional tick; paid standing queue/legacy fallback отсутствуют.
+Вращающиеся контакты учитывают Coriolis/finite interval и разрешимое раскрытие
+относительно существующего skin. Нулевой/отрицательный gap не разрешён.
+Общие наклонные portal planes согласованы с off-centre station chart; authored
+endpoints сохраняются буквально. Полное disk cover тела не сужается до точек.
+AI объезжает stationary player через yaw и использует actual slip direction
+и общий speed-dependent response. Player signed yaw не исправляется по трассе.
+
+Профильная .NET111/111 PASS; исправленные phase/session/events40/40 PASS.
+Unity native: portals12/12, contact forces21/21, phases5/5, controlled16/16,
+spatial15/15, новый physical AI4/4 и final ribbon9/9 PASS. Native baseline
+Mass30 со stationary player400ticks PASS. После physical-pursuit поправки
+.NET Mass30PASS, но полный круг остаётся FAIL: вместо tick584/base теперь
+отказ на tick3021/mat_01 approach при скорости около8.3m/s. Нужны раннее
+физическое торможение и stationary firing docking; ограничения не ослаблены.
+
+Широкий baseline449:444PASS/5FAIL сохранён. Четыре phase failures оказались
+неверным восстановлением synthetic off-centre fixture и исправлены с сохранением
+high-water credit. Последующий broad rerun отменён после >350CPU s, final TRX
+нет — ABORTED, не PASS. Новый широкий diagnostic с per-test hang timeout начат;
+его финальный статус фиксируется отдельным дополнением. Никакие failing tests
+не отключены. Refresh успешен; свежий Error Console пуст; FPS/GPU не подтверждены.
+
+Reusable mats, finished roster, achieved-world draft, complete replay, host,
+WP-175/177/178 и итоговая сборка остаются открытыми. Owner feedback о слишком
+лёгкой стрельбе сохранён; authoritative shooting не перенастроено. Следующий
+шаг — anticipatory braking/короткий target перед mat, затем все race phases.
+[Отчёт](reports/TASK_M13_MANUAL_FIELD_CONTACTS_AND_PORTALS_20261009.md).
+[Текущий указатель](PROJECT_CURRENT.md). Вся предшествующая история сохранена.
+
+### 2026-10-09 — Дополнение к manual field checkpoint
+
+Расширенный manual/replay diagnostic завершил533PASS/1FAIL (тот же manual
+mat arrival), затем ABORTED на60s watchdog в дорогом full-field replay с
+объявленным собственным Timeout900000ms. Это не PASS и не доказанный replay
+defect. Sequence XML/dump сохранены; replay запущен отдельно со штатным лимитом.
+Новый native initial Mass30 уже с physical-pursuit AI:1/1PASS. Остальные
+M13/WP/host/build статусы предыдущей записи сохраняются.

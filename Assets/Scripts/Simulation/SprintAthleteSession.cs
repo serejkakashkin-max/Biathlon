@@ -538,6 +538,10 @@ namespace Biathlon.Simulation
             if(preview.ScopedWorld.IsValid)acceptedScopedWorld=preview.ScopedWorld.Owner;
             var input = preparedInput; var tick = preview.Tick;
             bool started = tick.Value > ScheduledStart.Value, onMat = preview.ShootingActive;
+            // A field-authenticated initial grid may establish canonical
+            // projection coordinates during its stationary start tick. Publish
+            // that owned start high water even before propulsion begins.
+            if(!started&&preview.ScopedWorld.IsValid)CommitScopedStart(preview);
             int rangeIndex = preparedRangeIndex;
             bool publishChoice=preparedChoosesPath&&preview.MovementActive&&preview.Movement.RouteNanometers>=preparedRange.RangeEntryNanometers&&
                 preview.Movement.Motion.DistanceNanometers>Motion.DistanceNanometers;

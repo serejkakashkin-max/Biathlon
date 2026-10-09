@@ -1,0 +1,39 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 1553,
+      "PassedTests": 5,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:07.1080844"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorkingPhaseTests.AbortingAProvisionalPenaltyHandoffRestoresTheWholeAcceptedPhaseAndWorld",
+        "Status": "Passed",
+        "Duration": "00:00:01.3940000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorkingPhaseTests.MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(\"penalty_entry_before\")",
+        "Status": "Passed",
+        "Duration": "00:00:01.1960000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorkingPhaseTests.MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(\"penalty_repeat_before\")",
+        "Status": "Passed",
+        "Duration": "00:00:01.2090000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorkingPhaseTests.MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(\"penalty_return_before\")",
+        "Status": "Passed",
+        "Duration": "00:00:01.2280000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorkingPhaseTests.WarmSuccessfulFutureGateAndAbortAllocateNothing",
+        "Status": "Passed",
+        "Duration": "00:00:01.2200000"
+      }
+    ]
+  }
+}

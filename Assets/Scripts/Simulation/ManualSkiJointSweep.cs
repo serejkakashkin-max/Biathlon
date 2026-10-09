@@ -55,11 +55,13 @@ namespace Biathlon.Simulation
     {
         private readonly ManualSkiContactSweep pairs;
         private readonly ManualSkiEdgeSweep edges;
+        private readonly bool separatedResponseBand;
         public string ContextJson {get;}
-        public ManualSkiJointSweep(OccupancyDefinition body,SkiContactDefinition contact,SkiContactSweepDefinition definition)
+        public ManualSkiJointSweep(OccupancyDefinition body,SkiContactDefinition contact,SkiContactSweepDefinition definition,bool separatedResponseBand=false)
         {
             pairs=new ManualSkiContactSweep(body,contact,definition);edges=new ManualSkiEdgeSweep(body,contact,definition);
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_joint_world_prefix_v1",pairs.SpatialContextJson,edges.ContextJson});
+            this.separatedResponseBand=separatedResponseBand;
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{separatedResponseBand?"manual_joint_world_prefix_v2_positive_response_skin":"manual_joint_world_prefix_v1",pairs.SpatialContextJson,edges.ContextJson});
         }
         public SkiJointSweepPreview Preview(SkiWorldMotionCandidate[] actors,int count,
             SkiReachedContactPair[] reached,int reachedCount,SkiActorCourseEdge[] boundaries,int boundaryCount)
@@ -105,7 +107,8 @@ namespace Biathlon.Simulation
                 bool arrival=false;
                 for(int k=0;k<arrivingCount;k++)if(arriving[k].First.Equals(a.Athlete)&&arriving[k].Second.Equals(b.Athlete)){arrival=true;break;}
                 var result=continuing?pairs.PreviewExistingContact(a.Athlete,a.Trajectory,b.Athlete,b.Trajectory):
-                    arrival?pairs.PreviewArrivalContact(a.Athlete,a.Trajectory,b.Athlete,b.Trajectory):pairs.Preview(a.Athlete,a.Trajectory,b.Athlete,b.Trajectory);
+                    arrival?pairs.PreviewArrivalContact(a.Athlete,a.Trajectory,b.Athlete,b.Trajectory):
+                    separatedResponseBand?pairs.PreviewSeparatedResponseBand(a.Athlete,a.Trajectory,b.Athlete,b.Trajectory):pairs.Preview(a.Athlete,a.Trajectory,b.Athlete,b.Trajectory);
                 if(result.Status!=SkiContactSweepStatus.Clear)
                     Consider(new SkiJointSweepPreview(SkiJointSweepStatus.PairInterval,result.ClearUntilSeconds,a.Athlete,b.Athlete,pair:result));
             }

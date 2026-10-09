@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="200a083a-856d-497b-b54b-147a198d2f41" name="snkashkin@DESKTOP-G3075GA 2026-10-08 21:06:55" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-08T21:06:55.1003243+03:00" queuing="2026-10-08T21:06:55.1003245+03:00" start="2026-10-08T21:06:53.2766251+03:00" finish="2026-10-08T21:07:11.0137163+03:00" />
+  <TestSettings name="default" id="b9efc96e-54dd-4782-adbd-7cb46ddb3971">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-08_21_06_55" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="b1ce980c-2664-487d-8869-d558161afca7" testId="90b216d9-194f-ae26-d5aa-2b4c807ce9a2" testName="InitialWoodlandMassGridUsesActualUnshiftedBodyPositions(1)" computerName="DESKTOP-G3075GA" duration="00:00:02.6557690" startTime="2026-10-08T21:06:54.8368840+03:00" endTime="2026-10-08T21:06:57.4926521+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b1ce980c-2664-487d-8869-d558161afca7">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : Missing, foreign, aborted or finalized staged world tick.</Message>
+          <StackTrace>   at Biathlon.Simulation.ManualScopedWorldRoster.ValidateTick(ManualScopedWorldTick tick) in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\ManualScopedWorldRoster.cs:line 345&#xD;
+   at Biathlon.Simulation.ManualScopedWorldRoster.AbortTick(ManualScopedWorldTick tick) in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\ManualScopedWorldRoster.cs:line 455&#xD;
+   at Biathlon.Simulation.ManualScopedFieldStepper.TryStep(ReadOnlySpan`1 inputs, ReadOnlySpan`1 steeringInputs) in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\ManualScopedFieldStepper.cs:line 208&#xD;
+   at Biathlon.Tests.ManualScopedFieldStepperTests.InitialWoodlandMassGridUsesActualUnshiftedBodyPositions(Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 130&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="68a58592-19af-4545-824f-48c04ebeccc0" testId="e1b580f7-d98c-4ffc-5df9-e10388f40ae5" testName="StaleLastCommandCannotPrepareAnEarlierAcceptedPhase" computerName="DESKTOP-G3075GA" duration="00:00:01.4191680" startTime="2026-10-08T21:07:08.7859213+03:00" endTime="2026-10-08T21:07:10.2050888+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="68a58592-19af-4545-824f-48c04ebeccc0" />
+    <UnitTestResult executionId="b04310f4-db35-4f87-8f64-ebdcb37ff2c7" testId="5175799e-4e57-f7dc-8abf-cccc0480e496" testName="InvalidFinalIntentCannotPublishAnyFieldClockOrEvent" computerName="DESKTOP-G3075GA" duration="00:00:01.5035680" startTime="2026-10-08T21:07:05.4864521+03:00" endTime="2026-10-08T21:07:06.9900195+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b04310f4-db35-4f87-8f64-ebdcb37ff2c7" />
+    <UnitTestResult executionId="696d8074-e68b-4884-8626-0d9f94fb6f30" testId="face1eb3-37b5-5bf0-43e8-e1c89e89a101" testName="RepeatedCommandsReconstructExactly" computerName="DESKTOP-G3075GA" duration="00:00:01.1821050" startTime="2026-10-08T21:07:06.9900525+03:00" endTime="2026-10-08T21:07:08.1721569+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="696d8074-e68b-4884-8626-0d9f94fb6f30" />
+    <UnitTestResult executionId="de9797e4-60e6-4f81-92f0-0702ae87915f" testId="c6a97040-a5c1-8747-b04a-e05e899ad20d" testName="SignedPreparedRosterPublishesOneCommonFieldWorldClock" computerName="DESKTOP-G3075GA" duration="00:00:00.6137030" startTime="2026-10-08T21:07:08.1721874+03:00" endTime="2026-10-08T21:07:08.7858895+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="de9797e4-60e6-4f81-92f0-0702ae87915f" />
+    <UnitTestResult executionId="3b678f68-9457-4366-ade4-c3bc29290aea" testId="4c1d27e6-5882-09c3-cb14-db364ee0f0c3" testName="BoundBodyAndWorkAndForcePolicyAreMandatory" computerName="DESKTOP-G3075GA" duration="00:00:01.0217510" startTime="2026-10-08T21:06:53.8144157+03:00" endTime="2026-10-08T21:06:54.8361326+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3b678f68-9457-4366-ade4-c3bc29290aea" />
+    <UnitTestResult executionId="09c21a07-0bef-4f39-92aa-555473c4ce03" testId="ea3bbe51-aebd-bf8d-c3e0-bbfb77bb8437" testName="StationaryShootingPaysClockWithoutInventingTravel" computerName="DESKTOP-G3075GA" duration="00:00:00.5754650" startTime="2026-10-08T21:07:10.2051198+03:00" endTime="2026-10-08T21:07:10.7805841+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="09c21a07-0bef-4f39-92aa-555473c4ce03" />
+    <UnitTestResult executionId="79c15be1-9460-49b3-bbbf-aeed7e34e555" testId="b2211be6-5cea-41ae-e5f1-0f92c0f9c4ee" testName="InitialWoodlandMassGridUsesActualUnshiftedBodyPositions(30)" computerName="DESKTOP-G3075GA" duration="00:00:07.9930610" startTime="2026-10-08T21:06:57.4927494+03:00" endTime="2026-10-08T21:07:05.4858094+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="79c15be1-9460-49b3-bbbf-aeed7e34e555">
+      <Output>
+        <ErrorInfo>
+          <Message>  WorldRejected / Course / woodland_basin_v1_athlete_3 / 0&#xD;
+  Expected: True&#xD;
+  But was:  False&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedFieldStepperTests.InitialWoodlandMassGridUsesActualUnshiftedBodyPositions(Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 130&#xD;
+   at InvokeStub_ManualScopedFieldStepperTests.InitialWoodlandMassGridUsesActualUnshiftedBodyPositions(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualScopedFieldStepperTests.InitialWoodlandMassGridUsesActualUnshiftedBodyPositions(Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 130&#xD;
+   at InvokeStub_ManualScopedFieldStepperTests.InitialWoodlandMassGridUsesActualUnshiftedBodyPositions(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="StaleLastCommandCannotPrepareAnEarlierAcceptedPhase" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="e1b580f7-d98c-4ffc-5df9-e10388f40ae5">
+      <Execution id="68a58592-19af-4545-824f-48c04ebeccc0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="StaleLastCommandCannotPrepareAnEarlierAcceptedPhase" />
+    </UnitTest>
+    <UnitTest name="InvalidFinalIntentCannotPublishAnyFieldClockOrEvent" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="5175799e-4e57-f7dc-8abf-cccc0480e496">
+      <Execution id="b04310f4-db35-4f87-8f64-ebdcb37ff2c7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="InvalidFinalIntentCannotPublishAnyFieldClockOrEvent" />
+    </UnitTest>
+    <UnitTest name="InitialWoodlandMassGridUsesActualUnshiftedBodyPositions(1)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="90b216d9-194f-ae26-d5aa-2b4c807ce9a2">
+      <Execution id="b1ce980c-2664-487d-8869-d558161afca7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="InitialWoodlandMassGridUsesActualUnshiftedBodyPositions(1)" />
+    </UnitTest>
+    <UnitTest name="RepeatedCommandsReconstructExactly" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="face1eb3-37b5-5bf0-43e8-e1c89e89a101">
+      <Execution id="696d8074-e68b-4884-8626-0d9f94fb6f30" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="RepeatedCommandsReconstructExactly" />
+    </UnitTest>
+    <UnitTest name="InitialWoodlandMassGridUsesActualUnshiftedBodyPositions(30)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="b2211be6-5cea-41ae-e5f1-0f92c0f9c4ee">
+      <Execution id="79c15be1-9460-49b3-bbbf-aeed7e34e555" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="InitialWoodlandMassGridUsesActualUnshiftedBodyPositions(30)" />
+    </UnitTest>
+    <UnitTest name="SignedPreparedRosterPublishesOneCommonFieldWorldClock" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="c6a97040-a5c1-8747-b04a-e05e899ad20d">
+      <Execution id="de9797e4-60e6-4f81-92f0-0702ae87915f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="SignedPreparedRosterPublishesOneCommonFieldWorldClock" />
+    </UnitTest>
+    <UnitTest name="StationaryShootingPaysClockWithoutInventingTravel" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="ea3bbe51-aebd-bf8d-c3e0-bbfb77bb8437">
+      <Execution id="09c21a07-0bef-4f39-92aa-555473c4ce03" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="StationaryShootingPaysClockWithoutInventingTravel" />
+    </UnitTest>
+    <UnitTest name="BoundBodyAndWorkAndForcePolicyAreMandatory" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="4c1d27e6-5882-09c3-cb14-db364ee0f0c3">
+      <Execution id="3b678f68-9457-4366-ade4-c3bc29290aea" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="BoundBodyAndWorkAndForcePolicyAreMandatory" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="90b216d9-194f-ae26-d5aa-2b4c807ce9a2" executionId="b1ce980c-2664-487d-8869-d558161afca7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e1b580f7-d98c-4ffc-5df9-e10388f40ae5" executionId="68a58592-19af-4545-824f-48c04ebeccc0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5175799e-4e57-f7dc-8abf-cccc0480e496" executionId="b04310f4-db35-4f87-8f64-ebdcb37ff2c7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="face1eb3-37b5-5bf0-43e8-e1c89e89a101" executionId="696d8074-e68b-4884-8626-0d9f94fb6f30" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c6a97040-a5c1-8747-b04a-e05e899ad20d" executionId="de9797e4-60e6-4f81-92f0-0702ae87915f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4c1d27e6-5882-09c3-cb14-db364ee0f0c3" executionId="3b678f68-9457-4366-ade4-c3bc29290aea" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ea3bbe51-aebd-bf8d-c3e0-bbfb77bb8437" executionId="09c21a07-0bef-4f39-92aa-555473c4ce03" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b2211be6-5cea-41ae-e5f1-0f92c0f9c4ee" executionId="79c15be1-9460-49b3-bbbf-aeed7e34e555" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="8" executed="8" passed="6" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 8 of 8 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

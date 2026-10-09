@@ -92,7 +92,10 @@ namespace Biathlon.Tests
                     double from=Math.Max(row.LocalStartNanometers/(double)N,loop.Get(k-1).Distance);
                     double to=Math.Min(row.LocalEndNanometers/(double)N,loop.Get(k).Distance);if(to<=from)continue;
                     double local=(from+to)*.5;long arc=Nano(local)-row.LocalStartNanometers;
-                    var pose=f.At(i,arc,.2,.7);var unchanged=pose;
+                    var pose=f.At(i,arc,0,.7);var unchanged=pose;
+                    // A shared oblique portal changes the off-centre station
+                    // chart. Exact authored local-distance parity applies on
+                    // the centreline; off-centre observations are checked below.
                     Assert.That(f.Catalog.TryProject(pose,i,arc,.001,out var observation),Is.True,$"{row.Id} knot {k}");
                     Assert.That(observation.OccurrenceIndex,Is.EqualTo(i));Assert.That(observation.LoopId,Is.EqualTo(row.LoopId));
                     Assert.That(observation.PhysicalArcNanometers,Is.EqualTo(arc).Within(20));
@@ -103,6 +106,13 @@ namespace Biathlon.Tests
                     Assert.That(target.Y,Is.EqualTo(expected.Y).Within(2e-8));Assert.That(target.Z,Is.EqualTo(expected.Z).Within(2e-8));
                     var surface=f.Catalog.SampleSurface(observation);
                     Assert.That(surface.LoopId,Is.EqualTo(row.LoopId));Assert.That(surface.WidthMeters,Is.GreaterThan(0));points++;
+                    var offsetPose=f.At(i,arc,.2,.7);var offsetUnchanged=offsetPose;
+                    Assert.That(f.Catalog.TryProject(offsetPose,i,arc,.2,out var offset),Is.True,$"offset {row.Id} knot {k}");
+                    Assert.That(offset.OccurrenceIndex,Is.EqualTo(i));Assert.That(offset.LoopId,Is.EqualTo(row.LoopId));
+                    Assert.That(offset.PhysicalArcNanometers,Is.InRange(0L,row.LengthNanometers));
+                    Assert.That(offset.MappedRouteNanometers,Is.EqualTo(row.RouteStartNanometers+(row.CountsTowardsRoute?offset.PhysicalArcNanometers:0)));
+                    Assert.That(offset.LocalMeters,Is.EqualTo((row.LocalStartNanometers+offset.PhysicalArcNanometers)/(double)N).Within(2e-8));
+                    Assert.That(offsetPose,Is.EqualTo(offsetUnchanged));
                 }
             }
             Assert.That(points,Is.GreaterThan(100));

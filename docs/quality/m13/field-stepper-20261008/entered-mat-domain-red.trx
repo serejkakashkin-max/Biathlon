@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="a0a426fc-76e6-48e8-9094-9d4bdb5d752e" name="snkashkin@DESKTOP-G3075GA 2026-10-09 10:07:55" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T10:07:55.1177551+03:00" queuing="2026-10-09T10:07:55.1177552+03:00" start="2026-10-09T10:07:54.2013035+03:00" finish="2026-10-09T10:07:55.1205378+03:00" />
+  <TestSettings name="default" id="5f04ab34-8368-4980-9f76-b4e77a2f4f26">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_10_07_55" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9b565636-b25e-4cfc-8a38-df869b8a75a7" testId="8a8b556c-d019-0504-2e0e-dfcb451ca6ab" testName="EnteredMatApproachRetainsItsActuallyConnectedSnowDomain" computerName="DESKTOP-G3075GA" duration="00:00:00.3382440" startTime="2026-10-09T10:07:54.6886803+03:00" endTime="2026-10-09T10:07:55.0268973+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b565636-b25e-4cfc-8a38-df869b8a75a7">
+      <Output>
+        <StdOut>[DEBUG-mat-chart] mat_01 local 2,1885470848537425 width 3 vertices 40 clearance 0,014733344792211&#xD;
+[DEBUG-mat-chart] 0: 43,5,-2,583783638642181&#xD;
+[DEBUG-mat-chart] 0,167: 43,66619584935426,-2,567414776207144&#xD;
+[DEBUG-mat-chart] 0,334: 43,82600488542153,-2,518937235105649&#xD;
+[DEBUG-mat-chart] 0,501: 43,97328573656771,-2,4402139800557077&#xD;
+[DEBUG-mat-chart] 0,668: 44,102378482279285,-2,3342703016003785&#xD;
+[DEBUG-mat-chart] 0,835: 44,20832216073462,-2,2051775558888016&#xD;
+[DEBUG-mat-chart] 1,002: 44,28704541578456,-2,0578967047426264&#xD;
+[DEBUG-mat-chart] 1,169: 44,33552295688605,-1,8980876686753478&#xD;
+[DEBUG-mat-chart] 1,336: 44,35189181932109,-1,7318918193210906&#xD;
+[DEBUG-mat-chart] 1,503: 44,33552295688605,-1,5656959699668331&#xD;
+[DEBUG-mat-chart] 1,67: 44,28704541578456,-1,4058869338995545&#xD;
+[DEBUG-mat-chart] 1,837: 44,20832216073462,-1,2586060827533794&#xD;
+[DEBUG-mat-chart] 2,004: 44,102378482279285,-1,1295133370418022&#xD;
+[DEBUG-mat-chart] 2,171: 43,97328573656771,-1,0235696585864733&#xD;
+[DEBUG-mat-chart] 2,338: 43,82600488542153,-0,9448464035365318&#xD;
+[DEBUG-mat-chart] 2,505: 43,66619584935426,-0,8963688624350367&#xD;
+[DEBUG-mat-chart] 2,672: 43,5,-0,88&#xD;
+[DEBUG-mat-chart] 2,839: 43,33380415064574,-0,8963688624350367&#xD;
+[DEBUG-mat-chart] 3,006: 43,17399511457847,-0,9448464035365318&#xD;
+[DEBUG-mat-chart] 3,173: 43,02671426343229,-1,0235696585864733&#xD;
+[DEBUG-mat-chart] 3,34: 42,897621517720715,-1,1295133370418022&#xD;
+[DEBUG-mat-chart] 3,507: 42,79167783926538,-1,2586060827533796&#xD;
+[DEBUG-mat-chart] 3,674: 42,71295458421544,-1,4058869338995545&#xD;
+[DEBUG-mat-chart] 3,841: 42,66447704311395,-1,5656959699668334&#xD;
+[DEBUG-mat-chart] 4,008: 42,64810818067891,-1,7318918193210904</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="EnteredMatApproachRetainsItsActuallyConnectedSnowDomain" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="8a8b556c-d019-0504-2e0e-dfcb451ca6ab">
+      <Execution id="9b565636-b25e-4cfc-8a38-df869b8a75a7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteRibbonSweepTests" name="EnteredMatApproachRetainsItsActuallyConnectedSnowDomain" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="8a8b556c-d019-0504-2e0e-dfcb451ca6ab" executionId="9b565636-b25e-4cfc-8a38-df869b8a75a7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+[DEBUG-mat-chart] mat_01 local 2,1885470848537425 width 3 vertices 40 clearance 0,014733344792211&#xD;
+[DEBUG-mat-chart] 0: 43,5,-2,583783638642181&#xD;
+[DEBUG-mat-chart] 0,167: 43,66619584935426,-2,567414776207144&#xD;
+[DEBUG-mat-chart] 0,334: 43,82600488542153,-2,518937235105649&#xD;
+[DEBUG-mat-chart] 0,501: 43,97328573656771,-2,4402139800557077&#xD;
+[DEBUG-mat-chart] 0,668: 44,102378482279285,-2,3342703016003785&#xD;
+[DEBUG-mat-chart] 0,835: 44,20832216073462,-2,2051775558888016&#xD;
+[DEBUG-mat-chart] 1,002: 44,28704541578456,-2,0578967047426264&#xD;
+[DEBUG-mat-chart] 1,169: 44,33552295688605,-1,8980876686753478&#xD;
+[DEBUG-mat-chart] 1,336: 44,35189181932109,-1,7318918193210906&#xD;
+[DEBUG-mat-chart] 1,503: 44,33552295688605,-1,5656959699668331&#xD;
+[DEBUG-mat-chart] 1,67: 44,28704541578456,-1,4058869338995545&#xD;
+[DEBUG-mat-chart] 1,837: 44,20832216073462,-1,2586060827533794&#xD;
+[DEBUG-mat-chart] 2,004: 44,102378482279285,-1,1295133370418022&#xD;
+[DEBUG-mat-chart] 2,171: 43,97328573656771,-1,0235696585864733&#xD;
+[DEBUG-mat-chart] 2,338: 43,82600488542153,-0,9448464035365318&#xD;
+[DEBUG-mat-chart] 2,505: 43,66619584935426,-0,8963688624350367&#xD;
+[DEBUG-mat-chart] 2,672: 43,5,-0,88&#xD;
+[DEBUG-mat-chart] 2,839: 43,33380415064574,-0,8963688624350367&#xD;
+[DEBUG-mat-chart] 3,006: 43,17399511457847,-0,9448464035365318&#xD;
+[DEBUG-mat-chart] 3,173: 43,02671426343229,-1,0235696585864733&#xD;
+[DEBUG-mat-chart] 3,34: 42,897621517720715,-1,1295133370418022&#xD;
+[DEBUG-mat-chart] 3,507: 42,79167783926538,-1,2586060827533796&#xD;
+[DEBUG-mat-chart] 3,674: 42,71295458421544,-1,4058869338995545&#xD;
+[DEBUG-mat-chart] 3,841: 42,66447704311395,-1,5656959699668334&#xD;
+[DEBUG-mat-chart] 4,008: 42,64810818067891,-1,7318918193210904&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

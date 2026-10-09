@@ -5,6 +5,10 @@ namespace Biathlon.Simulation
 {
     public sealed partial class SprintAthleteSession
     {
+        /// <summary>Cold geometry bound to this session's exact route, format,
+        /// current mat selection and authored start. No admission or movement.</summary>
+        public ManualRacePathCatalog CreateManualPathCatalog(TrackDefinition track,TrackVisualDefinition visual)
+            =>new ManualRacePathCatalog(track,route,profile,visual,physicalRangePath,startApproach);
         private ManualScopedWorldRoster preparedScopedWorld;
         private ManualScopedWorldRoster acceptedScopedWorld;
         private int preparedScopedIndex=-1;
@@ -38,8 +42,14 @@ namespace Biathlon.Simulation
             var row=catalog.Get(cursor.OccurrenceIndex);int b=FirstUncompletedRange();var range=b<0?null:ranges[b];
             if(RemainingStartApproachNanometers>0)
             {
+                long remaining=row.LengthNanometers-cursor.CreditedArcNanometers;
+                // A curved offset grid can project onto the adjacent knot edge.
+                // Only a complete field-authenticated, unchanged initial pose
+                // may establish that canonical initial coordinate. It grants
+                // no travel or base-route credit. Later receipts remain exact.
+                bool initialProjection=acceptedScopedWorld==null&&world.IsVerifiedInitialSession(this);
                 if(row.Kind!=ManualRacePathKind.StartApproach||
-                    row.LengthNanometers-cursor.CreditedArcNanometers!=RemainingStartApproachNanometers)
+                    remaining!=RemainingStartApproachNanometers&&!initialProjection)
                     throw new ArgumentException("Accepted start high water must match remaining start approach.");
                 return;
             }
@@ -263,11 +273,12 @@ namespace Biathlon.Simulation
         private readonly ManualScopedWorldRoster world;
         private readonly int[] phaseTargets;
         public string ContextJson {get;}
-        public ManualScopedRosterSessionCommit(ReadOnlySpan<SprintAthleteSession> roster,ManualScopedWorldRoster world)
+        public ManualScopedRosterSessionCommit(ReadOnlySpan<SprintAthleteSession> roster,ManualScopedWorldRoster world,bool compactContext=false)
         {
             if(world==null||roster.Length==0||roster.Length!=world.Count)throw new ArgumentException("Complete scoped race roster required.");
             this.world=world;athletes=roster.ToArray();resolved=new SprintStepPreview[roster.Length];phaseTargets=new int[roster.Length];
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_scoped_interval_session_commit_v4",world.ContextJson,
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{compactContext?"manual_scoped_interval_session_commit_v5_context_reference":"manual_scoped_interval_session_commit_v4",
+                compactContext?"world_context_sha256:"+ManualContextIdentity.Sha256(world.ContextJson):world.ContextJson,
                 "actual_surface;high_water_range_travel;start_high_water_distinct_from_odometer;full_roster_prevalidation;owned_interval_segments;ordinary_seam_continuation;no_legacy_resumption;accepted_completed_shooting_departure;actual_penalty_debt_and_ordinal;zero_time_same_pose_phase_handoff;event_free_future_penalty_preview;paid_receipt_completed_circuits;full_clock_lifecycle_publication"});
             for(int i=0;i<athletes.Length;i++)
             {

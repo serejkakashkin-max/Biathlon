@@ -122,6 +122,13 @@ namespace Biathlon.Simulation
             var start=VelocityAt(0);var end=VelocityAt(1);
             acceleration=new SkiPlanarVelocity((end.X-start.X)/DurationSeconds,(end.Z-start.Z)/DurationSeconds);return true;
         }
+        public bool TryGetConstantAngularAcceleration(out double acceleration)
+        {
+            if(!IsValid)throw new InvalidOperationException("Initialized world trajectory required.");
+            acceleration=0;
+            if(!coupled.IsValid)return false;
+            acceleration=coupled.Acceleration.Yaw;return true;
+        }
         public ManualSkiWorldTrajectory(ManualSkiHeadingFrame frame)
         {
             if(!frame.HasForceTrajectory)throw new ArgumentException("Force-weighted heading required.");

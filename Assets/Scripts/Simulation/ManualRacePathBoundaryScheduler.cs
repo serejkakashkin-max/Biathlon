@@ -20,7 +20,7 @@ namespace Biathlon.Simulation
     {
         private readonly ManualRacePathCatalog catalog;
         private readonly ManualRacePathGateSweep gates;
-        public const string Policy="scoped_boundary_quadratic_root_v1;actual_centre_plane;exact_frozen_prefix;no_endpoint_chord_fit;whole_prefix_portal_proof;strict_no_touch_clearance_for_event_free_intervals;actual_nanorounded_station;no_clock_roundup";
+        public const string Policy="scoped_boundary_quadratic_root_v2_shared_portals;actual_centre_plane;shared_ordinary_bisector_chart;race_phase_gate_planes_unchanged;exact_frozen_prefix;no_endpoint_chord_fit;whole_prefix_portal_proof;strict_no_touch_clearance_for_event_free_intervals;actual_nanorounded_station;no_clock_roundup";
         public ManualRacePathBoundaryScheduler(ManualRacePathCatalog catalog,SkiContactSweepDefinition work)
         {this.catalog=catalog??throw new ArgumentNullException(nameof(catalog));gates=new ManualRacePathGateSweep(catalog,work);}
         public ManualRacePathBoundaryPreview Preview(ManualSkiWorldTrajectory trajectory,ManualScopedWorldWindow window)
@@ -31,7 +31,7 @@ namespace Biathlon.Simulation
             double seconds=trajectory.DurationSeconds;
             if(!catalog.WindowTouchesPortalEdge(row.Index,window.PreviousArcNanometers,window.MaximumArcDisplacementMeters,arc))
                 return Whole(trajectory,window);
-            if(!catalog.TrySample(row.Index,arc,out var boundary))throw new InvalidOperationException("Exact scoped boundary required.");
+            if(!catalog.TrySamplePortal(row.Index,arc,out var boundary))throw new InvalidOperationException("Exact scoped boundary required.");
             var pose=trajectory.Sample(0);double offset=Extension(pose,boundary);
             double reserve=Reserve(trajectory,pose,boundary);
             // This is an already owned endpoint event, not a fabricated zero
@@ -77,7 +77,7 @@ namespace Biathlon.Simulation
         }
         internal bool IsAtBoundary(ManualSkiWorldTrajectory source,ManualSkiHeadingState pose,ManualScopedWorldWindow window)
         {
-            if(!catalog.TrySample(window.OccurrenceIndex,window.MaximumAdmittedArcNanometers,out var boundary))return false;
+            if(!catalog.TrySamplePortal(window.OccurrenceIndex,window.MaximumAdmittedArcNanometers,out var boundary))return false;
             return Math.Abs(Extension(pose,boundary))<=Reserve(source,pose,boundary)&&AtStation(pose,window,window.MaximumAdmittedArcNanometers);
         }
         private bool AtStation(ManualSkiHeadingState pose,ManualScopedWorldWindow window,long arc)

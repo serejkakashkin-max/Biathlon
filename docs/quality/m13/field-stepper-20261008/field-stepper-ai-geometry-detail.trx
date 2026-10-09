@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="474b1c52-a4b9-480b-920b-a0c2ba2b6c21" name="snkashkin@DESKTOP-G3075GA 2026-10-08 21:45:14" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-08T21:45:14.3819806+03:00" queuing="2026-10-08T21:45:14.3819808+03:00" start="2026-10-08T21:45:04.5021848+03:00" finish="2026-10-08T21:45:14.3865134+03:00" />
+  <TestSettings name="default" id="315b848a-43a2-451b-b95e-d50c4a4007be">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-08_21_45_14" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="42daef5f-a842-4b7f-a185-27f2509664b7" testId="0695782c-3c88-8ea2-8585-513eacbae067" testName="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" computerName="DESKTOP-G3075GA" duration="00:00:09.0157340" startTime="2026-10-08T21:45:04.9897276+03:00" endTime="2026-10-08T21:45:14.0054160+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="42daef5f-a842-4b7f-a185-27f2509664b7">
+      <Output>
+        <StdOut>1 yawIntent 239 heading 1,718058482 rate 0 line -1,9939960880130683 speed 0 delta -2,703774062000008:0,08010189299999926&#xD;
+6 yawIntent 234 heading 1,718545415 rate 0,008524256 line -1,9934490979710804 speed 0,028816554 delta -2,701728698000011:0,0794537609999999&#xD;
+11 yawIntent 194 heading 1,725042505 rate 0,046494514 line -1,9870970722050105 speed 0,134234387 delta -2,684421324999988:0,07224381799999957&#xD;
+16 yawIntent 111 heading 1,740924988 rate 0,072946219 line -1,9700016013174033 speed 0,327669747 delta -2,632150233999994:0,05255981599999959&#xD;
+21 yawIntent 22 heading 1,754952798 rate 0,025881087 line -1,9456645239094663 speed 0,612795886 delta -2,520312792999988:0,022699166999999854&#xD;
+26 yawIntent -28 heading 1,753278942 rate -0,032455666 line -1,9201272053722995 speed 0,982227695 delta -2,32577547599999:-0,012425955000000322&#xD;
+31 yawIntent -56 heading 1,740702695 rate -0,063814824 line -1,890006496662538 speed 1,4354684 delta -2,0285988630000134:-0,057182340000000664&#xD;
+36 yawIntent -70 heading 1,722658947 rate -0,07813532 line -1,8538389749303543 speed 1,97230937 delta -1,608123756999987:-0,11405009700000068</StdOut>
+        <ErrorInfo>
+          <Message>tick 38 / WorldRejected / ContactSchedule / woodland_basin_v1_athlete_0 / 0,032371491302649234 / Clear /  / Clear / pair woodland_basin_v1_athlete_0:woodland_basin_v1_athlete_3 InitialProximity clear 0 end 0 continuation True / force Resolved pass 1 closing 0 residual 7,814176130464612E-18 / System.InvalidOperationException: Manual field step rejected: WorldRejected / ContactSchedule / woodland_basin_v1_athlete_0; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 86&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 474&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepPlayer(Int32 index, SprintAthleteInput input, Double desiredLateralMeters) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 244&#xD;
+   at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 102</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 105&#xD;
+
+1)    at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 102&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="0695782c-3c88-8ea2-8585-513eacbae067">
+      <Execution id="42daef5f-a842-4b7f-a185-27f2509664b7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="0695782c-3c88-8ea2-8585-513eacbae067" executionId="42daef5f-a842-4b7f-a185-27f2509664b7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+1 yawIntent 239 heading 1,718058482 rate 0 line -1,9939960880130683 speed 0 delta -2,703774062000008:0,08010189299999926&#xD;
+6 yawIntent 234 heading 1,718545415 rate 0,008524256 line -1,9934490979710804 speed 0,028816554 delta -2,701728698000011:0,0794537609999999&#xD;
+11 yawIntent 194 heading 1,725042505 rate 0,046494514 line -1,9870970722050105 speed 0,134234387 delta -2,684421324999988:0,07224381799999957&#xD;
+16 yawIntent 111 heading 1,740924988 rate 0,072946219 line -1,9700016013174033 speed 0,327669747 delta -2,632150233999994:0,05255981599999959&#xD;
+21 yawIntent 22 heading 1,754952798 rate 0,025881087 line -1,9456645239094663 speed 0,612795886 delta -2,520312792999988:0,022699166999999854&#xD;
+26 yawIntent -28 heading 1,753278942 rate -0,032455666 line -1,9201272053722995 speed 0,982227695 delta -2,32577547599999:-0,012425955000000322&#xD;
+31 yawIntent -56 heading 1,740702695 rate -0,063814824 line -1,890006496662538 speed 1,4354684 delta -2,0285988630000134:-0,057182340000000664&#xD;
+36 yawIntent -70 heading 1,722658947 rate -0,07813532 line -1,8538389749303543 speed 1,97230937 delta -1,608123756999987:-0,11405009700000068&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="535d5264-efc2-48e1-89a0-7f27a81b660b" name="snkashkin@DESKTOP-G3075GA 2026-10-08 23:14:38" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-08T23:14:38.3953289+03:00" queuing="2026-10-08T23:14:38.3953290+03:00" start="2026-10-08T23:14:37.3524797+03:00" finish="2026-10-08T23:14:38.3985027+03:00" />
+  <TestSettings name="default" id="f2a381a0-3e37-4d5a-b36b-80095f79b7e1">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-08_23_14_38" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="f12f2e24-898f-438f-91bc-792101869674" testId="12f1254f-1c6c-036a-a1ca-f554ea26d0c6" testName="TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(-1.6d)" computerName="DESKTOP-G3075GA" duration="00:00:00.1441710" startTime="2026-10-08T23:14:38.1695334+03:00" endTime="2026-10-08T23:14:38.3137038+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f12f2e24-898f-438f-91bc-792101869674">
+      <Output>
+        <ErrorInfo>
+          <Message>  vertices 42 clearance не число&#xD;
+  Expected: Clear&#xD;
+  But was:  UnresolvedStart&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualRouteRibbonSweepTests.TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(Double side) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualRouteRibbonSweepTests.cs:line 21&#xD;
+   at InvokeStub_ManualRouteRibbonSweepTests.TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualRouteRibbonSweepTests.TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(Double side) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualRouteRibbonSweepTests.cs:line 21&#xD;
+   at InvokeStub_ManualRouteRibbonSweepTests.TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f1bbed87-898a-47c8-bb61-a00fc1488374" testId="4020fdc2-06e2-e6aa-8655-08a5ac49867f" testName="TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(0.0d)" computerName="DESKTOP-G3075GA" duration="00:00:00.3352890" startTime="2026-10-08T23:14:37.8336781+03:00" endTime="2026-10-08T23:14:38.1689383+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f1bbed87-898a-47c8-bb61-a00fc1488374" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(0.0d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="4020fdc2-06e2-e6aa-8655-08a5ac49867f">
+      <Execution id="f1bbed87-898a-47c8-bb61-a00fc1488374" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteRibbonSweepTests" name="TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(0.0d)" />
+    </UnitTest>
+    <UnitTest name="TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(-1.6d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="12f1254f-1c6c-036a-a1ca-f554ea26d0c6">
+      <Execution id="f12f2e24-898f-438f-91bc-792101869674" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteRibbonSweepTests" name="TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(-1.6d)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="12f1254f-1c6c-036a-a1ca-f554ea26d0c6" executionId="f12f2e24-898f-438f-91bc-792101869674" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4020fdc2-06e2-e6aa-8655-08a5ac49867f" executionId="f1bbed87-898a-47c8-bb61-a00fc1488374" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="1" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

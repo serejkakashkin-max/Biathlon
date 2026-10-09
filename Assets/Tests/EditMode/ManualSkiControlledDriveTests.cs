@@ -150,6 +150,18 @@ namespace Biathlon.Tests
             Assert.That(controlled.Drive.MotionAt(1),Is.EqualTo(original.MotionAt(1)));
             Assert.That(controlled.Drive.FirstDrive.Output,Is.EqualTo(original.FirstDrive.Output));
         }
+        [Test] public void RequestedHighSpeedTurnPaysBrakingBeforeGripLimitedYawCanBuild()
+        {
+            var f=new Fixture();var b=f.Body(forward:14);
+            var neutral=f.Preview(b,0,power:0);var right=f.Preview(b,1000,power:0);var left=f.Preview(b,-1000,power:0);
+            Assert.That(neutral.Cornering.BrakingNewtons,Is.Zero);
+            Assert.That(right.Cornering.BrakingNewtons,Is.GreaterThan(0));
+            Assert.That(left.Cornering.BrakingNewtons,Is.EqualTo(right.Cornering.BrakingNewtons));
+            Assert.That(right.Drive.FirstDrive.Output.State.SpeedMetersPerSecond,
+                Is.LessThan(neutral.Drive.FirstDrive.Output.State.SpeedMetersPerSecond));
+            Assert.That(right.Drive.Sample(0),Is.EqualTo(b.Pose));
+            Assert.That(right.Drive.MotionAt(0),Is.EqualTo(Motion(b)));
+        }
         [Test] public void ControlledSourcePassesTheActualContactForceCouplerWithoutAHeadingSnap()
         {
             var f=new Fixture();var b=f.Body(.8,3);var input=f.Preview(b);
@@ -168,7 +180,9 @@ namespace Biathlon.Tests
             var front=new ManualSkiContactBody(new AthleteId("front"),new ManualSkiHeadingState(rear.Pose.X+length*Math.Sin(h),
                 rear.Pose.Z+length*Math.Cos(h),h),rear.Velocity,75);
             Assert.That(f.Source.Catalog.TryProject(front.Pose,1,10*SkiState.NanometersPerMeter,5,out var observed),Is.True);
-            var free=new[]{f.Preview(rear).Drive,f.System.Preview(front,Motion(front),observed,f.Source.Catalog.SampleSurface(observed),
+            // Request a turn within grip while maintaining rear traction. A
+            // maximum-rate command now pays braking and can open this pair.
+            var free=new[]{f.Preview(rear,steering:200).Drive,f.System.Preview(front,Motion(front),observed,f.Source.Catalog.SampleSurface(observed),
                 new ManualSkiMotionInput(0,0,100,100),.05).Drive};
             var contact=SkiContactDefinition.FromJson("{\"schema_version\":1,\"id\":\"control_pair_contact\",\"restitution\":0,\"sliding_friction\":0.2,\"contact_tolerance_m\":0.000001}");
             var work=SkiContactGroupDefinition.FromJson("{\"schema_version\":1,\"id\":\"control_pair_force\",\"maximum_passes\":128,\"closing_speed_tolerance_mps\":0.00000001}");
@@ -252,7 +266,7 @@ namespace Biathlon.Tests
             Assert.Catch(()=>system.Preview(b,Motion(b),0,4,.051));Assert.Catch(()=>system.Preview(b,Motion(b),0,4,.05,1.1));
             var f=new Fixture();Assert.Catch(()=>f.System.Preview(f.Body(),Motion(f.Body()),f.Observation,f.Surface,default,.05));
             Assert.That(system.ContextJson,Does.Contain("manual_steered_snow_constraint_v1"));
-            Assert.That(f.System.ContextJson,Does.Contain("manual_controlled_slip_drive_v1"));
+            Assert.That(f.System.ContextJson,Does.Contain("manual_controlled_slip_drive_v2_requested_turn_cost"));
         }
     }
 }

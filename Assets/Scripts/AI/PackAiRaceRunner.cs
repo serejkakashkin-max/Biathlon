@@ -75,7 +75,26 @@ namespace Biathlon.AI
         private readonly PursuitTacticalPlan[] pursuitPlans, publishedPursuitPlans;
         public PursuitTacticalPlan GetLastPursuitPlan(int index)=>publishedPursuitPlans[index];
         public PackSprintFieldSession Field { get; }
-        public string ContextJson { get; }
+        public string ContextJson { get; private set; }
+        private ManualScopedAiMovement manualCandidate;
+        private int manualPlayerSteering;
+        public bool UsesManualScopedCandidate=>manualCandidate!=null;
+        public void BindManualScopedCandidate(ManualScopedFieldStepper stepper,ManualAiSteeringDefinition aiPolicy,
+            ManualSkiSteeringDefinition physicalSteering)
+        {
+            if(stepper==null||!ReferenceEquals(stepper.Field,Field)||manualCandidate!=null||Field.Tick.Value!=0||IsFaulted)
+                throw new ArgumentException("One exact initial manual candidate binding required.");
+            var candidate=new ManualScopedAiMovement(stepper,aiPolicy,physicalSteering);
+            // Preserve the existing flat context tokens. Nesting that already
+            // large document as an escaped string multiplies its size at every
+            // composition layer and can exhaust memory for the actual Mass30.
+            string extra=ManualScopedAiMovement.Encode(new[]{"pack_manual_scoped_ai_candidate_v1",candidate.ContextJson,
+                "signed_steering_stream_required;full_replay_and_lifecycle_qualification_pending;not_production_default"});
+            string context=ContextJson.Substring(0,ContextJson.Length-1)+","+extra.Substring(1);
+            manualCandidate=candidate;ContextJson=context;
+        }
+        public int GetLastManualSteering(int index)=>manualCandidate==null?throw new InvalidOperationException("No signed manual movement selected."):
+            manualCandidate.GetSteering(index);
         public long TacticalDecisions { get; private set; }
         public long ShootingDecisions { get; private set; }
         public bool IsFaulted { get; private set; }
@@ -202,6 +221,19 @@ namespace Biathlon.AI
         /// <summary>Replace one actor's intent before shared physics; other AI observes the same prior tick.</summary>
         public void StepWithPlayer(int index,SprintAthleteInput input,double desiredLateralMeters)
         {
+            if(manualCandidate!=null)throw new InvalidOperationException("A lateral-v1 player command cannot drive the manual candidate.");
+            StepPlayer(index,input,desiredLateralMeters);
+        }
+        public void StepWithManualPlayer(int index,SprintAthleteInput input,int signedSteering)
+        {
+            if(manualCandidate==null)throw new InvalidOperationException("Select signed manual movement before using v2 input.");
+            if(index<0||index>=Field.Count)throw new ArgumentOutOfRangeException(nameof(index));
+            if(signedSteering<-ManualSkiCommand.SteeringUnits||signedSteering>ManualSkiCommand.SteeringUnits)
+                throw new ArgumentOutOfRangeException(nameof(signedSteering));
+            manualPlayerSteering=signedSteering;StepPlayer(index,input,Field.GetLateral(index));
+        }
+        private void StepPlayer(int index,SprintAthleteInput input,double desiredLateralMeters)
+        {
             if(index<0||index>=Field.Count)throw new ArgumentOutOfRangeException(nameof(index));
             if(double.IsNaN(desiredLateralMeters)||double.IsInfinity(desiredLateralMeters))throw new ArgumentException("Finite lateral intent required.");
             if(input.Ski.Effort.Tick.Value!=Field.Tick.Value+1||!input.Ski.Effort.AthleteId.Equals(Field.GetAthlete(index).AthleteId))throw new ArgumentException("Player tick/identity mismatch.");
@@ -229,18 +261,18 @@ namespace Biathlon.AI
                 stationaryObservedTicks[i]=actor.Motion.DistanceNanometers==previousObservedTravel[i]?stationaryObservedTicks[i]+1:0;
                 previousObservedTravel[i]=actor.Motion.DistanceNanometers;
                 bool obstructionPass=false;
-                if(onStartContinuation&&startTraffic.StationaryBypassAfterSeconds.HasValue&&count>0&&
+                if(manualCandidate==null&&onStartContinuation&&startTraffic.StationaryBypassAfterSeconds.HasValue&&count>0&&
                     stationaryObservedTicks[i]>=Math.Ceiling(startTraffic.StationaryBypassAfterSeconds.Value*frequency))
                 {
                     var opportunity=OvertakeOpportunityQuery.Evaluate(laneDefinition,occupancy,self,
                         observation.CurrentTrack.WidthMeters,observation.CurrentTrack.OvertakeAllowed,roster);
                     obstructionPass=opportunity.Available&&opportunity.Target.Motion.SpeedMetersPerSecond<=startTraffic.StationaryMaximumSpeed.Value;
                 }
-                bool stalledStart=onStartContinuation&&startTraffic.StationaryBypassAfterSeconds.HasValue&&
+                bool stalledStart=manualCandidate==null&&onStartContinuation&&startTraffic.StationaryBypassAfterSeconds.HasValue&&
                     stationaryObservedTicks[i]>=Math.Ceiling(startTraffic.StationaryBypassAfterSeconds.Value*frequency);
                 bool startManeuver=onSharedStart&&(obstructionPass||stalledStart||tick.Value<startEscapeUntil[i]||startTraffic.StationaryBypassAfterSeconds.HasValue&&lanes[i].Phase!=OvertakePhase.Idle);
                 bool holdStartGrid=onSharedStart&&startTraffic.HoldGridLateral&&!startManeuver;
-                rangeTrafficPlans[i]=rangeTraffic==null||holdStartGrid||count==0?default:
+                rangeTrafficPlans[i]=manualCandidate!=null||rangeTraffic==null||holdStartGrid||count==0?default:
                     rangeTraffic.Evaluate(actor.RangePath!=null,observation.NextRangeEntryRouteDistanceNanometers,
                         actor.CurrentRangeMotion?.Phase,self,observation.CurrentTrack,roster,
                         point.LoopId==Field.Track.Range.Entry.LoopId,
@@ -256,7 +288,7 @@ namespace Biathlon.AI
                     var segment=Field.Track.GetLoop(observation.CurrentTrack.LoopId).GetSegment(observation.CurrentTrack.SegmentIndex);
                     long clear=segment.StartDistance.Millimeters+segment.Length.Millimeters-observation.CurrentTrack.Distance.Millimeters;
                     if(observation.NextRangeEntryRouteDistanceNanometers.HasValue) clear=Math.Min(clear,observation.NextRangeEntryRouteDistanceNanometers.Value/SkiState.NanometersPerMillimeter);
-                    overtakeFrames[i]=holdStartGrid?new OvertakeDecisionFrame(OvertakeDecisionReason.StartGridHold):alignRange?new OvertakeDecisionFrame(OvertakeDecisionReason.RangeTrafficHold):skiing?overtake.Evaluate(self,roster,observation.Physiology,1,observation.CurrentTrack.WidthMeters,
+                    overtakeFrames[i]=manualCandidate!=null?new OvertakeDecisionFrame(OvertakeDecisionReason.WorldHeadingPlanner):holdStartGrid?new OvertakeDecisionFrame(OvertakeDecisionReason.StartGridHold):alignRange?new OvertakeDecisionFrame(OvertakeDecisionReason.RangeTrafficHold):skiing?overtake.Evaluate(self,roster,observation.Physiology,1,observation.CurrentTrack.WidthMeters,
                         observation.CurrentTrack.OvertakeAllowed,Math.Max(Math.Abs(segment.StartGrade),Math.Abs(segment.EndGrade)),Math.Abs(segment.CurvaturePerMeter),new TrackDistance(clear)):new OvertakeDecisionFrame(OvertakeDecisionReason.Terrain);
                     bool canPass=skiing && overtakeFrames[i].Request && overtakeFrames[i].Opportunity.Available;
                     var selected=draftFrames[i].Selected; bool canDraft=skiing && selected.Strength>0;
@@ -295,8 +327,8 @@ namespace Biathlon.AI
                     strategies[i]=personalities[i].PlanShooting(shootingStrategy,pursuit!=null?pursuitPlans[i].ShootingUrgency:policy.ShootingTimeUrgency,need,0);
                 }
                 paceFrames[i]=pace[i].Step(tick,chosen,adjustment);
-                var lane=lanes[i].Step(paceFrames[i].Input,self,observation.CurrentTrack,roster,pass||obstructionPass,!skiing||holdStartGrid||alignRange);
-                lateral[i]=holdStartGrid?Field.StartGrid.Get(i).LateralNanometers/(double)SkiState.NanometersPerMeter:
+                var lane=manualCandidate!=null?default:lanes[i].Step(paceFrames[i].Input,self,observation.CurrentTrack,roster,pass||obstructionPass,!skiing||holdStartGrid||alignRange);
+                lateral[i]=manualCandidate!=null?manualCandidate.PreferredLine(i):holdStartGrid?Field.StartGrid.Get(i).LateralNanometers/(double)SkiState.NanometersPerMeter:
                     alignRange?rangeTrafficPlans[i].DesiredLateralMeters:lane.DesiredLateralMeters;
                 bool holdStartEscape=onStartContinuation&&tick.Value<startEscapeUntil[i];
                 if(holdStartEscape)lateral[i]=startEscapeLine[i];
@@ -314,7 +346,7 @@ namespace Biathlon.AI
                     void HoldStart(double line)
                     {lateral[i]=startEscapeLine[i]=line;startEscapeUntil[i]=tick.Value+(long)Math.Ceiling(laneDefinition.TimeoutSeconds*frequency);}
                 }
-                bool canEscapeRange=worldBypassPolicy!=null&&actor.RangePath!=null&&actor.ActiveShooting==null&&
+                bool canEscapeRange=manualCandidate==null&&worldBypassPolicy!=null&&actor.RangePath!=null&&actor.ActiveShooting==null&&
                     !onSharedStart&&(alignRange||point.LoopId==Field.Track.Range.Entry.LoopId||
                         worldBypassPolicy.WorldBypassPaidRouteLoops&&Field.HasPaidRouteWorldGeometry(point))&&
                     (point.LoopId!=actor.RangePath.MatAnchor.LoopId||actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.RangeExit);
@@ -365,14 +397,14 @@ namespace Biathlon.AI
                         (shortEscape||!worldBypassPolicy.WorldBypassLookaheadMeters.HasValue||Field.IsRangeWorldForwardLaneClear(i,line,worldBypassPolicy.WorldBypassLookaheadMeters.Value));
                     void HoldEscape(){escapeLine[i]=lateral[i];escapeUntil[i]=tick.Value+(long)Math.Ceiling(worldBypassPolicy.WorldBypassHoldSeconds.Value*frequency);}
                 }
-                if(!holdStartGrid && !rangeTrafficPlans[i].Active && !holdStartEscape && !stalledStart && lane.Phase==OvertakePhase.Idle && skiing && (intents[i].Kind==TacticalIntentKind.Draft || intents[i].Kind==TacticalIntentKind.Follow))
+                if(manualCandidate==null && !holdStartGrid && !rangeTrafficPlans[i].Active && !holdStartEscape && !stalledStart && lane.Phase==OvertakePhase.Idle && skiing && (intents[i].Kind==TacticalIntentKind.Draft || intents[i].Kind==TacticalIntentKind.Follow))
                     for(int j=0;j<count;j++) if(placements[j].AthleteId.Equals(intents[i].TargetId)) lateral[i]=placements[j].LateralMeters;
                 // The paid main passage runs alongside firing mats and the penalty return.
                 // Plan a safe side before reaching it, even on the final skiing lap when
                 // there is no next shooting entry to activate the ordinary range planner.
                 // This is an AI goal only: Field still charges the gradual lateral move
                 // and validates the whole body against every mat/return trajectory.
-                if(worldBypassPolicy?.EntryLateralMeters.HasValue==true&&actor.CurrentRangeMotion==null&&
+                if(manualCandidate==null&&worldBypassPolicy?.EntryLateralMeters.HasValue==true&&actor.CurrentRangeMotion==null&&
                     point.LoopId==Field.Track.Range.Entry.LoopId&&point.LoopId==Field.Track.Range.Exit.LoopId&&
                     point.LoopId==Field.Track.Penalty.Entry.LoopId&&
                     point.LocalNanometers>=Field.Track.Range.Entry.Distance.Millimeters*SkiState.NanometersPerMillimeter-
@@ -388,7 +420,7 @@ namespace Biathlon.AI
                 // shared field to advance it physically;
                 // repeatedly requesting the crossing line can make the two actors
                 // mutually block each other while both still have positive effort.
-                if(worldBypassPolicy!=null&&AiRangeTrafficPlanner.ShouldRetainPhysicalApproachLine(
+                if(manualCandidate==null&&worldBypassPolicy!=null&&AiRangeTrafficPlanner.ShouldRetainPhysicalApproachLine(
                     alignRange,actor.CurrentRangeMotion?.Phase,
                     point.LoopId==Field.Track.Range.Entry.LoopId,
                     Field.GetInitialMovementBlock(i).WorldBodyConflict,
@@ -407,7 +439,7 @@ namespace Biathlon.AI
                 }
                 else shootingFrames[i]=default;
                 var drive=paceFrames[i].Input;
-                if(forkYieldPolicy!=null&&alignRange&&actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.Approach&&
+                if(manualCandidate==null&&forkYieldPolicy!=null&&alignRange&&actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.Approach&&
                    actor.ActiveBout>=0&&actor.RangePath!=null)
                 {
                     var rangePoint=Field.GetPhysicalPoint(i);
@@ -438,7 +470,9 @@ namespace Biathlon.AI
                 inputs[i]=new SprintAthleteInput(new TimeTrialInput(drive,raceForms==null?1:raceForms[i],1,0,
                     tuckRequested:requestTuck,sprintRequested:intents[i].Kind==TacticalIntentKind.FinalSprint),aim,trigger,hold,pressure:racePressures==null?default:racePressures[i]);
             }
-            Field.Step(inputs,lateral);journal.Flush(events);
+            if(manualCandidate==null)Field.Step(inputs,lateral);
+            else manualCandidate.Step(inputs,lateral,playerIndex,manualPlayerSteering);
+            journal.Flush(events);
             for(int i=0;i<Field.Count;i++)
             {
                 if(tacticalDue[i])

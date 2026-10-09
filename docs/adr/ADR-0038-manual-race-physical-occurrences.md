@@ -295,3 +295,27 @@ changing mat/finish resources and the actual runner/host remain OPEN.
 .NET442/442, final focused11/11 and native11+21 PASS. Initial NUnit API compile
 error preserved and corrected; final refresh success/recent Console clear.
 [Report](../reports/TASK_M13_MANUAL_SHOOTING_HOLD_20261008.md).
+
+## 2026-10-09 — common field and shared ordinary portal charts
+
+Scoped world v16 uses exact touching authored endpoints, ordinary shared bisector
+portal normals and a corresponding off-centre station chart. Centreline samples
+remain authored; the same offset point observes the predecessor end and successor
+start. Folded charts reject. Closed lifecycle gates retain their own endpoint
+planes. No geometry query grants phase authority or high-water credit.
+
+Whole-body ribbon proof uses overlapping disks and, only for a non-simple local
+polygon, a union of existing conservative edge tubes with unchanged turn reserves.
+No disconnected bridge, convex hull or body shrink. The response skin may register
+a strictly positive physical gap; zero/negative gaps still fail continuous proof.
+Opening contact release requires displacement resolvable above that existing skin.
+Finite-interval support bias and rotating-face Coriolis are retained. Force residual
+convergence now uses the configured closing-speed cap; this corrects the earlier
+64-ulp force policy, while impact convergence keeps its stricter numerical reserve.
+
+Shared field composition aborts an unproved tick and has no paid-wait or legacy
+fallback. Candidate AI inverts shared speed response using actual slip direction;
+player intent remains untouched. Full-lap AI still rejects at the tight mat approach,
+so this checkpoint does not qualify production selection, replay, resources or M13.
+Focused.NET111/111, native policy4/4 and cover9/9 PASS; broader failures and aborted
+run remain preserved. [Report](../reports/TASK_M13_MANUAL_FIELD_CONTACTS_AND_PORTALS_20261009.md).

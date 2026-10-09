@@ -1143,6 +1143,7 @@ namespace Biathlon.Simulation
         }
         private PhysicalTrackPoint CurrentPoint(int index)
         {
+            if(HasManualScopedWorldState)return manualPoints[index];
             if(HasManualWorldState)return manualPoints[index];
             var athlete = GetAthlete(index);
             if(athlete.RemainingStartApproachNanometers>0)return startOverlay.MapRemaining(athlete.RemainingStartApproachNanometers);

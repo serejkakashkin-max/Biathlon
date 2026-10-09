@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="02b6a6a3-498e-40b1-a3e6-a75ea2141828" name="snkashkin@DESKTOP-G3075GA 2026-10-08 23:22:23" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-08T23:22:23.2984418+03:00" queuing="2026-10-08T23:22:23.2984419+03:00" start="2026-10-08T23:22:19.0528720+03:00" finish="2026-10-08T23:22:42.9143106+03:00" />
+  <TestSettings name="default" id="e4fb814c-ff3c-45da-a631-d84c81870871">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-08_23_22_23" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="c10d3bb8-64d0-4b9d-a2a5-590130a06ab1" testId="43b951f1-7462-325a-2614-7ec0654f78a6" testName="AiRosterReachesItsFirstShootingBoutOnTheManualClock" computerName="DESKTOP-G3075GA" duration="00:00:03.6266340" startTime="2026-10-08T23:22:19.6270999+03:00" endTime="2026-10-08T23:22:23.2537055+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c10d3bb8-64d0-4b9d-a2a5-590130a06ab1">
+      <Output>
+        <ErrorInfo>
+          <Message>tick 2808 / WorldRejected / Course / woodland_basin_v1_athlete_2 / 0 / pieces 0 / PotentialBoundary /  / UnresolvedStart / pair : Clear clear 0 end 0 continuation False / source=2 occurrence=1 arc=965343093232 x=-84.347428671 z=-5.209483786 yaw=1.891779163 spin=-0.717531093 vx=3.6381070245386953 vz=-0.8239942097097913 lateral=2.197240367927742 / System.InvalidOperationException: Manual field step rejected: WorldRejected / Course / woodland_basin_v1_athlete_2; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 128&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 474&#xD;
+   at Biathlon.AI.PackAiRaceRunner.Step() in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 219&#xD;
+   at Biathlon.Tests.ManualScopedFieldStepperTests.AiRosterReachesItsFirstShootingBoutOnTheManualClock() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 142</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedFieldStepperTests.AiRosterReachesItsFirstShootingBoutOnTheManualClock() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 144&#xD;
+
+1)    at Biathlon.Tests.ManualScopedFieldStepperTests.AiRosterReachesItsFirstShootingBoutOnTheManualClock() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 142&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="431ad746-1bff-48e3-b5cd-1be3254eea11" testId="0695782c-3c88-8ea2-8585-513eacbae067" testName="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" computerName="DESKTOP-G3075GA" duration="00:00:19.3933220" startTime="2026-10-08T23:22:23.2542942+03:00" endTime="2026-10-08T23:22:42.6476123+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="431ad746-1bff-48e3-b5cd-1be3254eea11">
+      <Output>
+        <ErrorInfo>
+          <Message>tick 319 / WorldRejected / ContactForces /  / 0.0005320425805887027 / pieces 3 / Clear /  / Clear / pair : Clear clear 0 end 0 continuation False /  / System.InvalidOperationException: Manual field step rejected: WorldRejected / ContactForces / ; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 128&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 474&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepPlayer(Int32 index, SprintAthleteInput input, Double desiredLateralMeters) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 244&#xD;
+   at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 113</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 117&#xD;
+
+1)    at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 113&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="AiRosterReachesItsFirstShootingBoutOnTheManualClock" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="43b951f1-7462-325a-2614-7ec0654f78a6">
+      <Execution id="c10d3bb8-64d0-4b9d-a2a5-590130a06ab1" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="AiRosterReachesItsFirstShootingBoutOnTheManualClock" />
+    </UnitTest>
+    <UnitTest name="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="0695782c-3c88-8ea2-8585-513eacbae067">
+      <Execution id="431ad746-1bff-48e3-b5cd-1be3254eea11" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="43b951f1-7462-325a-2614-7ec0654f78a6" executionId="c10d3bb8-64d0-4b9d-a2a5-590130a06ab1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0695782c-3c88-8ea2-8585-513eacbae067" executionId="431ad746-1bff-48e3-b5cd-1be3254eea11" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

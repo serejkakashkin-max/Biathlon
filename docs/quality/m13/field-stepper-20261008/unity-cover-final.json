@@ -1,0 +1,58 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1553,\"PassedTests\":7,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:07.2001113\"},\"Results\":[{\"Name\":\"Biathlon.Tests.ManualRouteRibbonSweepTests.ActualLateralDepartureIsStillRejected\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.9110000\"},{\"Name\":\"Biathlon.Tests.ManualRouteRibbonSweepTests.ADisconnectedOrDistantPositionCannotUseTheTubeCoverAsABridge\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.8980000\"},{\"Name\":\"Biathlon.Tests.ManualRouteRibbonSweepTests.AuthoredEndpointSurvivesCancellationWhenTheCurveCrossesZeroX\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.9040000\"},{\"Name\":\"Biathlon.Tests.ManualRouteRibbonSweepTests.ShortStartSeamWindowIncludesTheWholeDiskCover\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.9150000\"},{\"Name\":\"Biathlon.Tests.ManualRouteRibbonSweepTests.TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(0.0d)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.9090000\"},{\"Name\":\"Biathlon.Tests.ManualRouteRibbonSweepTests.TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(-1.6d)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.9020000\"},{\"Name\":\"Biathlon.Tests.ManualRouteRibbonSweepTests.WarmRepeatedCoverQueriesAreDeterministicAndAllocateNothing\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.9030000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 1553,
+        "PassedTests": 7,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:07.2001113"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.ManualRouteRibbonSweepTests.ActualLateralDepartureIsStillRejected",
+          "Status": "Passed",
+          "Duration": "00:00:00.9110000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualRouteRibbonSweepTests.ADisconnectedOrDistantPositionCannotUseTheTubeCoverAsABridge",
+          "Status": "Passed",
+          "Duration": "00:00:00.8980000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualRouteRibbonSweepTests.AuthoredEndpointSurvivesCancellationWhenTheCurveCrossesZeroX",
+          "Status": "Passed",
+          "Duration": "00:00:00.9040000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualRouteRibbonSweepTests.ShortStartSeamWindowIncludesTheWholeDiskCover",
+          "Status": "Passed",
+          "Duration": "00:00:00.9150000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualRouteRibbonSweepTests.TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(0.0d)",
+          "Status": "Passed",
+          "Duration": "00:00:00.9090000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualRouteRibbonSweepTests.TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(-1.6d)",
+          "Status": "Passed",
+          "Duration": "00:00:00.9020000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualRouteRibbonSweepTests.WarmRepeatedCoverQueriesAreDeterministicAndAllocateNothing",
+          "Status": "Passed",
+          "Duration": "00:00:00.9030000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

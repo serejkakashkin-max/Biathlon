@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="478f3fca-e178-42e5-8fcd-6185248bc606" name="snkashkin@DESKTOP-G3075GA 2026-10-08 22:25:49" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-08T22:25:49.8671796+03:00" queuing="2026-10-08T22:25:49.8671797+03:00" start="2026-10-08T22:25:39.7513261+03:00" finish="2026-10-08T22:25:49.8705521+03:00" />
+  <TestSettings name="default" id="b9dd2478-d224-449c-87cc-55285ca1eceb">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-08_22_25_49" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="d085e57c-6aad-4d70-83b6-c30d82a98a34" testId="0695782c-3c88-8ea2-8585-513eacbae067" testName="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" computerName="DESKTOP-G3075GA" duration="00:00:09.2535850" startTime="2026-10-08T22:25:40.2783072+03:00" endTime="2026-10-08T22:25:49.5318632+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d085e57c-6aad-4d70-83b6-c30d82a98a34">
+      <Output>
+        <StdOut>[DEBUG-contact] row=0 pos=139.285741749,-6.659098595 yaw=1.375053774 spin=-0.776606643 vel=2.6806362413746,0.031832672552218895 accel=-0.1685352415551638,0.8094672587325971,2.7145074912232925 seconds=0.02478044940988902 reserve=1.0679995206514906E-08&#xD;
+[DEBUG-contact] row=9 pos=137.816992622,-7.3173594 yaw=1.664759492 spin=0.285188159 vel=3.0186443598291324,-0.896746982286563 accel=0.6264182989854781,-0.04152508109134187,1.9074163171012242 seconds=0.02478044940988902 reserve=1.0679995206514906E-08</StdOut>
+        <ErrorInfo>
+          <Message>tick 80 / WorldRejected / ContactSchedule / woodland_basin_v1_athlete_21 / 0,02521955059011098 / Clear /  / Clear / pair woodland_basin_v1_athlete_21:woodland_basin_v1_athlete_24 InitialProximity clear 0 end 0 continuation True / ribbon 12:0,5879648012310742:0,5872501554402357 arc 27622237376/40000000000 kind StartApproach / force Resolved pass 2 closing 0 residual 7,920113887871963E-18 / System.InvalidOperationException: Manual field step rejected: WorldRejected / ContactSchedule / woodland_basin_v1_athlete_21; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 106&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 474&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepPlayer(Int32 index, SprintAthleteInput input, Double desiredLateralMeters) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 244&#xD;
+   at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 102</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 112&#xD;
+
+1)    at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 102&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="0695782c-3c88-8ea2-8585-513eacbae067">
+      <Execution id="d085e57c-6aad-4d70-83b6-c30d82a98a34" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="0695782c-3c88-8ea2-8585-513eacbae067" executionId="d085e57c-6aad-4d70-83b6-c30d82a98a34" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+[DEBUG-contact] row=0 pos=139.285741749,-6.659098595 yaw=1.375053774 spin=-0.776606643 vel=2.6806362413746,0.031832672552218895 accel=-0.1685352415551638,0.8094672587325971,2.7145074912232925 seconds=0.02478044940988902 reserve=1.0679995206514906E-08&#xD;
+[DEBUG-contact] row=9 pos=137.816992622,-7.3173594 yaw=1.664759492 spin=0.285188159 vel=3.0186443598291324,-0.896746982286563 accel=0.6264182989854781,-0.04152508109134187,1.9074163171012242 seconds=0.02478044940988902 reserve=1.0679995206514906E-08&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

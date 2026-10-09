@@ -70,6 +70,32 @@ namespace Biathlon.Tests
             Assert.That(f.Forward(output[1].MotionAt(1).Velocity),Is.EqualTo(expected).Within(2e-8));
             AssertConservation(f,bodies,free,output,r.DurationSeconds);
         }
+        [Test] public void SlidingRotatingContactDoesNotSpendItsGapOnEveryFrozenForcePiece()
+        {
+            var f=new Fixture();
+            var bodies=new[]{
+                new ManualSkiContactBody(new AthleteId("a"),new ManualSkiHeadingState(138.792819999,-6.661073462,1.556764023,-.298906705),new SkiPlanarVelocity(1.8808856345668028,.1452044149532977),75),
+                new ManualSkiContactBody(new AthleteId("b"),new ManualSkiHeadingState(137.271529425,-7.151588799,1.645348047,-.839529258),new SkiPlanarVelocity(2.1889557426408057,-.938862874436923),75)};
+            var driver=new ManualSkiControlledDriveSystem(SkiForceTests.Definition(),f.Source.Venue.Occupancy,
+                ManualScopedFieldStepperTests.Steering(),CorneringTests.Definition(),20);
+            var free=new SkiDrivenContactTrajectory[2];
+            for(int i=0;i<2;i++)
+            {
+                Assert.That(f.Source.Catalog.TryProject(bodies[i].Pose,i==0?1:0,
+                    (i==0?0:39)*SkiState.NanometersPerMeter,3,out var observation),Is.True);
+                free[i]=driver.Preview(bodies[i],new SkiContactMotion(bodies[i].Velocity,bodies[i].Pose.YawRateRadiansPerSecond),
+                    observation,f.Source.Catalog.SampleSurface(observation),new ManualSkiMotionInput(0,i==0?0:350,100,100),.05).Drive;
+            }
+            var output=new SkiForceCoupledTrajectory[2];
+            var result=f.System.Preview(bodies,free,2,output);
+            Assert.That(result.Status,Is.EqualTo(SkiContactForceStatus.Resolved));
+            var geometry=new ManualSkiContactSystem(f.Source.Venue.Occupancy,f.Contact);
+            double initial=geometry.Preview(bodies[0],bodies[1]).GapMeters;
+            double end=geometry.Preview(new ManualSkiContactBody(bodies[0].Athlete,output[0].State,output[0].MotionAt(1).Velocity,75),
+                new ManualSkiContactBody(bodies[1].Athlete,output[1].State,output[1].MotionAt(1).Velocity,75)).GapMeters;
+            Assert.That(end,Is.GreaterThanOrEqualTo(initial-1e-8),"A zero instantaneous normal acceleration must not conceal cubic closing over the force interval.");
+            AssertConservation(f,bodies,free,output,result.DurationSeconds);
+        }
         [Test] public void AStrongerFrontAthleteSeparatesWithoutAdhesiveReaction()
         {
             var f=new Fixture();var bodies=new[]{f.Actor("a",0),f.Actor("b",f.Length)};
@@ -84,12 +110,31 @@ namespace Biathlon.Tests
             var f=new Fixture();var bodies=new[]{f.Actor("a",0,6),f.Actor("b",f.Length,6.001)};
             var free=new[]{f.Drive(bodies[0]),f.Drive(bodies[1],0)};var output=new SkiForceCoupledTrajectory[2];
             var r=f.System.Preview(bodies,free,2,output);Assert.That(r.Status,Is.EqualTo(SkiContactForceStatus.Resolved));Assert.That(r.SupportPoints,Is.Zero);
-            Assert.That(output[0].MotionAt(1).Velocity,Is.EqualTo(free[0].MotionAt(1).Velocity));
-            // The preview cannot authorize the later return to contact.
+            Assert.That(r.DurationSeconds,Is.GreaterThan(0).And.LessThan(.05));
+            for(int i=0;i<2;i++)Assert.That(output[i].MotionAt(1).Velocity,Is.EqualTo(free[i].MotionAt(r.DurationSeconds/.05).Velocity));
+            // Free opening motion ends at the actual gap-velocity reversal;
+            // the later return to contact still requires another force solve.
             var work=SkiContactSweepDefinition.FromJson("{\"schema_version\":1,\"id\":\"opening_recontact\",\"maximum_depth\":32,\"maximum_interval_checks\":4096,\"time_tolerance_s\":0.0000001}");
             var receipt=new ManualSkiContactSweep(f.Source.Venue.Occupancy,f.Contact,work).PreviewExistingContact(bodies[0].Athlete,
                 new ManualSkiWorldTrajectory(output[0]),bodies[1].Athlete,new ManualSkiWorldTrajectory(output[1]));
-            Assert.That(receipt.Status,Is.Not.EqualTo(SkiContactSweepStatus.Clear));
+            Assert.That(receipt.Status,Is.EqualTo(SkiContactSweepStatus.Clear));
+            var full=new ManualSkiContactSweep(f.Source.Venue.Occupancy,f.Contact,work).PreviewExistingContact(bodies[0].Athlete,
+                new ManualSkiWorldTrajectory(free[0]),bodies[1].Athlete,new ManualSkiWorldTrajectory(free[1]));
+            Assert.That(full.Status,Is.Not.EqualTo(SkiContactSweepStatus.Clear));
+        }
+        [Test] public void SubSkinOpeningDoesNotRepeatAnUnresolvableGapVelocityPeak()
+        {
+            var f=new Fixture();var bodies=new[]{f.Actor("a",0,6),f.Actor("b",f.Length,6.0000008)};
+            var free=new[]{f.Drive(bodies[0]),f.Drive(bodies[1],0)};var output=new SkiForceCoupledTrajectory[2];
+            var result=f.System.Preview(bodies,free,2,output);
+            Assert.That(result.Status,Is.EqualTo(SkiContactForceStatus.Resolved));
+            Assert.That(result.DurationSeconds,Is.EqualTo(.05));
+            Assert.That(result.SupportPoints,Is.GreaterThan(0));
+            AssertConservation(f,bodies,free,output,result.DurationSeconds);
+            var work=SkiContactSweepDefinition.FromJson("{\"schema_version\":1,\"id\":\"subskin_opening\",\"maximum_depth\":32,\"maximum_interval_checks\":4096,\"time_tolerance_s\":0.0000001}");
+            var proof=new ManualSkiContactSweep(f.Source.Venue.Occupancy,f.Contact,work).PreviewExistingContact(bodies[0].Athlete,
+                new ManualSkiWorldTrajectory(output[0]),bodies[1].Athlete,new ManualSkiWorldTrajectory(output[1]));
+            Assert.That(proof.Status,Is.EqualTo(SkiContactSweepStatus.Clear));
         }
         [Test] public void ThreeBodyForcePropagationIsStableAcrossEveryRosterPermutation()
         {

@@ -35,6 +35,7 @@ namespace Biathlon.Simulation
         private ManualScopedWorldRoster manualScopedWorld;
         private readonly ManualRacePathActorFrame[] manualScopedFrames;
         public bool HasManualScopedWorldState=>manualScopedWorld!=null;
+        internal void ValidateManualScopedCommands(ReadOnlySpan<SprintAthleteInput> inputs)=>field.ValidateCommands(inputs);
         public ManualRacePathActorFrame GetManualScopedWorldActor(int index)
         {
             if(manualScopedWorld==null)throw new InvalidOperationException("No accepted scoped manual world state.");
@@ -61,9 +62,20 @@ namespace Biathlon.Simulation
                     var point=CurrentPoint(i);var at=source.Observation;
                     long local=(long)Math.Round(at.LocalMeters*SkiState.NanometersPerMeter,MidpointRounding.ToEven);
                     if(point.Closed&&local==point.LoopLengthNanometers)local=0;
-                    if(point.LoopId!=at.LoopId||Math.Abs(point.LocalNanometers-local)>2||
-                        Math.Abs(lateral[i]-at.LateralMeters)>2*PhysiologyNumbers.MinimumPositive)
-                        throw new ArgumentException("Initial scoped coordinates must match the accepted physical Pack position.");
+                    // The unstarted front grid row is recorded on the incoming
+                    // authored endpoint by legacy Pack. Its exact selected main
+                    // successor has the same physical pose. Recognize only this
+                    // already validated directed start seam; no arbitrary loop
+                    // alias or presentation coordinate correction is allowed.
+                    bool initialStartSeam=world.Tick.Value==0&&startOverlay!=null&&startOverlay.UsesAuthoredBranch&&
+                        a.RemainingStartApproachNanometers==0&&a.RouteNanometers==0&&
+                        point.LoopId==StartApproach.LoopId&&point.LocalNanometers==StartApproach.LengthNanometers&&
+                        at.LoopId==startOverlay.MainLoopId&&local==0;
+                    if(!world.IsVerifiedInitialField(this)&&(!initialStartSeam&&(point.LoopId!=at.LoopId||Math.Abs(point.LocalNanometers-local)>2)||
+                        Math.Abs(lateral[i]-at.LateralMeters)>2*PhysiologyNumbers.MinimumPositive))
+                        throw new ArgumentException("Initial scoped coordinates must match the accepted physical Pack position: "+
+                            a.AthleteId+"; pack="+point.LoopId+":"+point.LocalNanometers+":"+lateral[i].ToString("R",System.Globalization.CultureInfo.InvariantCulture)+
+                            "; scoped="+at.LoopId+":"+local+":"+at.LateralMeters.ToString("R",System.Globalization.CultureInfo.InvariantCulture));
                 }
                 else if(!SameScopedPoseAndVelocity(source,manualScopedFrames[i]))
                     throw new ArgumentException("Scoped accepted Pack body changed outside its owning world publication.");

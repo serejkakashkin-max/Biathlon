@@ -96,6 +96,8 @@ namespace Biathlon.Simulation
         /// <summary>Coordinates here are a geometry namespace, never race distance.
         /// The legacy base-world ledger explicitly rejects this scoped map.</summary>
         public ManualRouteProjectionMap ProjectionGeometry {get;}
+        public ManualRouteProjection GetGeometryObservation(ManualRacePathObservation observation)
+            =>ReferenceEquals(observation.Owner,this)?observation.GeometryProjection:throw new ArgumentException("Exact owned physical observation required.");
         public ManualRacePathOccurrence Get(int index)=>occurrences[index];
         internal bool IsBoundTo(RaceRoute selected,PhysicalRangePathMap path)=>ReferenceEquals(route,selected)&&ReferenceEquals(rangePath,path);
         internal bool IsBoundTo(RaceRoute selected,PhysicalRangePathMap path,StartApproachMap start)
@@ -199,7 +201,7 @@ namespace Biathlon.Simulation
             occurrences=rows.ToArray();samplers=new TrackSampler[track.LoopCount];samplerIndexes=new int[Count];
             for(int i=0;i<samplers.Length;i++)samplers[i]=new TrackSampler(track.GetLoop(i));
             var scopes=new ManualProjectionScope[Count];var context=new string[Count+9];
-            context[0]="manual_race_physical_occurrences_v1";context[1]=route.TrackSnapshotJson;
+            context[0]="manual_race_physical_occurrences_v2_shared_portals";context[1]=route.TrackSnapshotJson;
             context[2]=route.PlanSnapshotJson;context[3]=route.RequirementsSnapshotJson;context[4]=profile.ToJson();
             context[5]=rangePath.ContextJson;context[6]=startApproach?.ContextJson??"no_start_approach";
             context[7]=visual.ToJson();
@@ -217,7 +219,9 @@ namespace Biathlon.Simulation
                     row.RouteStartNanometers.ToString(CultureInfo.InvariantCulture),row.GeometryStartNanometers.ToString(CultureInfo.InvariantCulture)});
             }
             ContextJson=ShootingModelDefinitions.EncodeContext(context);
-            ProjectionGeometry=ManualRouteProjectionMap.ForPhysicalScopes(route,visual,scopes,ContextJson);
+            var ordinaryEntries=new bool[Count];
+            for(int i=1;i<BaseFlowCount;i++)ordinaryEntries[i]=occurrences[i-1].End==ManualRacePathEnd.Continue;
+            ProjectionGeometry=ManualRouteProjectionMap.ForPhysicalScopes(route,visual,scopes,ContextJson,ordinaryEntries);
         }
 
         public int GetFiringOccurrence(int bout)=>firingIndexes[bout];
@@ -256,6 +260,12 @@ namespace Biathlon.Simulation
         {
             var row=ValidateArc(occurrenceIndex,physicalArcNanometers);target=default;
             if(!ProjectionGeometry.TrySampleAhead(occurrenceIndex,checked(row.GeometryStartNanometers+physicalArcNanometers),0,false,out var point))return false;
+            target=new ManualRacePathTarget(point,physicalArcNanometers,Mapped(row,physicalArcNanometers));return true;
+        }
+        internal bool TrySamplePortal(int occurrenceIndex,long physicalArcNanometers,out ManualRacePathTarget target)
+        {
+            var row=ValidateArc(occurrenceIndex,physicalArcNanometers);target=default;
+            if(!ProjectionGeometry.TrySamplePortal(occurrenceIndex,checked(row.GeometryStartNanometers+physicalArcNanometers),out var point))return false;
             target=new ManualRacePathTarget(point,physicalArcNanometers,Mapped(row,physicalArcNanometers));return true;
         }
         internal bool WindowTouchesPortalEdge(int occurrence,long previousArc,double span,long portalArc)

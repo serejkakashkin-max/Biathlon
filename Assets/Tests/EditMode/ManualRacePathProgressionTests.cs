@@ -70,6 +70,31 @@ namespace Biathlon.Tests
             Assert.That(p.TryPreviewOrdinaryHandoff(retreated,Frame(f,0,row.LengthNanometers),out _),Is.False,
                 "Even a valid proposed endpoint needs an accepted world/phase commit before handoff.");
         }
+        [TestCase(-1.6)][TestCase(1.6)]
+        public void ObliqueOrdinarySeamUsesOneTransverseSectionForBothOccurrences(double side)
+        {
+            var f=new ManualRacePathCatalogTests.Fixture();var c=f.Catalog;
+            int next=c.GetFiringOccurrence(0),source=next-1;
+            var row=c.Get(source);var successor=c.Get(next);
+            Assert.That(row.End,Is.EqualTo(ManualRacePathEnd.Continue));
+            Assert.That(c.TrySample(source,row.LengthNanometers,out var a),Is.True);
+            Assert.That(c.TrySample(next,0,out var b),Is.True);
+            double fx=a.ForwardX+b.ForwardX,fz=a.ForwardZ+b.ForwardZ;
+            double norm=Math.Sqrt(fx*fx+fz*fz);fx/=norm;fz/=norm;
+            var pose=new ManualSkiHeadingState(a.X+fz*side,a.Z-fx*side,Math.Atan2(fx,fz),.17);
+            Assert.That(c.TryProject(pose,source,row.LengthNanometers,.5,out var before),Is.True);
+            Assert.That(before.PhysicalArcNanometers,Is.EqualTo(row.LengthNanometers));
+            Assert.That(c.TryProject(pose,next,0,0,out var after),Is.True);
+            Assert.That(after.PhysicalArcNanometers,Is.Zero);
+            var p=new ManualRacePathProgression(c);
+            var accepted=p.Reconstitute(new AthleteId("a"),source,row.LengthNanometers,row.LengthNanometers,row.RouteEndNanometers);
+            var frame=new ManualRacePathActorFrame(accepted.Athlete,pose,new SkiPlanarVelocity(3,1),before);
+            Assert.That(p.TryPreviewOrdinaryHandoff(accepted,frame,out var entered),Is.True);
+            Assert.That(entered.ObservedArcNanometers,Is.Zero);
+            Assert.That(entered.CreditedArcNanometers,Is.Zero);
+            Assert.That(entered.CreditedRouteNanometers,Is.EqualTo(accepted.CreditedRouteNanometers));
+            Assert.That(frame.Pose,Is.EqualTo(pose));
+        }
         [Test] public void UnadmittedLastRowRejectsTheWholeProgressProposalWithoutWritingEarlierSlots()
         {
             var f=new ManualRacePathCatalogTests.Fixture();var p=new ManualRacePathProgression(f.Catalog);int index=1;

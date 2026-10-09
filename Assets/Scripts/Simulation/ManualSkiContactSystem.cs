@@ -168,7 +168,18 @@ namespace Biathlon.Simulation
             if(!manifold.HasSupport)
                 return new SkiAngularContactPreview(new SkiContactPreview(SkiContactPreviewStatus.RequiresAngularResolution,
                     initial.GapMeters,nx,nz,a.Velocity,b.Velocity),wa,wb,0,0);
-            double px=manifold.MiddleX,pz=manifold.MiddleZ;
+            return AngularAt(a,b,wa,wb,initial,manifold.MiddleX,manifold.MiddleZ);
+        }
+        internal SkiAngularContactPreview PreviewSupportContact(ManualSkiContactBody a,double wa,ManualSkiContactBody b,double wb,double x,double z)
+        {
+            var contact=Preview(a,b);
+            if(contact.Status==SkiContactPreviewStatus.Separated||contact.Status==SkiContactPreviewStatus.Penetrating)
+                return new SkiAngularContactPreview(contact,wa,wb,x,z);
+            return AngularAt(a,b,wa,wb,contact,x,z);
+        }
+        private SkiAngularContactPreview AngularAt(ManualSkiContactBody a,ManualSkiContactBody b,double wa,double wb,SkiContactPreview initial,double px,double pz)
+        {
+            double nx=initial.NormalX,nz=initial.NormalZ,tx=-nz,tz=nx;
             double arx=px-a.Pose.X,arz=pz-a.Pose.Z,brx=px-b.Pose.X,brz=pz-b.Pose.Z;
             double an=arz*nx-arx*nz,at=arz*tx-arx*tz,bn=brz*nx-brx*nz,bt=brz*tx-brx*tz;
             double ia=a.MassKilograms*(halfLength*halfLength+halfWidth*halfWidth)/3;

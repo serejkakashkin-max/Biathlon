@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="6cbb6f6a-ec98-44ba-bba7-5cb66d50b9f0" name="snkashkin@DESKTOP-G3075GA 2026-10-08 22:43:47" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-08T22:43:47.1303291+03:00" queuing="2026-10-08T22:43:47.1303292+03:00" start="2026-10-08T22:43:13.3046015+03:00" finish="2026-10-08T22:43:47.1337853+03:00" />
+  <TestSettings name="default" id="8e82927d-8463-4e26-8f44-3444bb8623c9">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-08_22_43_47" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="cd147f8a-6ef0-4dbc-b0ce-7a04d6a68ff0" testId="0695782c-3c88-8ea2-8585-513eacbae067" testName="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" computerName="DESKTOP-G3075GA" duration="00:00:32.9760860" startTime="2026-10-08T22:43:13.8425466+03:00" endTime="2026-10-08T22:43:46.8185910+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cd147f8a-6ef0-4dbc-b0ce-7a04d6a68ff0">
+      <Output>
+        <StdOut>[DEBUG-contact] forceDuration=3.115636663517361E-06 eventDuration=3.115636663517194E-06 schedule=Clear pair=:&#xD;
+[DEBUG-contact] support woodland_basin_v1_athlete_10:woodland_basin_v1_athlete_7 slip=-0,003939752766280567 sliding=-1&#xD;
+[DEBUG-contact] support woodland_basin_v1_athlete_11:woodland_basin_v1_athlete_14 slip=0,006801650614392049 sliding=1&#xD;
+[DEBUG-contact] support woodland_basin_v1_athlete_12:woodland_basin_v1_athlete_9 slip=0,009032374275931322 sliding=1&#xD;
+[DEBUG-contact] support woodland_basin_v1_athlete_15:woodland_basin_v1_athlete_18 slip=-0,014946299858631952 sliding=-1&#xD;
+[DEBUG-contact] support woodland_basin_v1_athlete_17:woodland_basin_v1_athlete_20 slip=0,03720358612309131 sliding=1&#xD;
+[DEBUG-contact] support woodland_basin_v1_athlete_19:woodland_basin_v1_athlete_22 slip=0,023700936247066116 sliding=1&#xD;
+[DEBUG-contact] support woodland_basin_v1_athlete_23:woodland_basin_v1_athlete_26 slip=0,08462516745802534 sliding=1&#xD;
+[DEBUG-contact] support woodland_basin_v1_athlete_25:woodland_basin_v1_athlete_28 slip=0,08129425546503237 sliding=1&#xD;
+[DEBUG-contact] openings=2&#xD;
+[DEBUG-contact] opening woodland_basin_v1_athlete_13:woodland_basin_v1_athlete_16 derivatives=8,567635668717114E-07:0&#xD;
+[DEBUG-contact] opening woodland_basin_v1_athlete_5:woodland_basin_v1_athlete_8 derivatives=1,9759734860560693E-06:1,3119764108344978E-06&#xD;
+[DEBUG-contact] row=0 pos=138.5,-6.691783639 yaw=1.570796327 spin=0 vel=0,0 accel=0,0,0 seconds=3.115636663517361E-06 reserve=0&#xD;
+[DEBUG-contact] row=17 pos=160.812258164,-10.764145688 yaw=1.564406948 spin=0.00453551 vel=6.973851043707657,0.0428612574520867 accel=0.25042249675282685,-0.009189470521499436,0.02744701701423784 seconds=3.115636663517361E-06 reserve=0</StdOut>
+        <ErrorInfo>
+          <Message>tick 186 / WorldRejected / Clear /  / 0,0023488436397936813 / pieces 4096 / Clear /  / Clear / pair : Clear clear 0 end 0 continuation False / ribbon 0:0:0 arc 0/995548000000 kind BaseRoute / force Resolved pass 63 closing 2,0599841277224584E-17 residual 4,829095094243782E-18 / System.InvalidOperationException: Manual field step rejected: WorldRejected / Clear / ; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 106&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 474&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepPlayer(Int32 index, SprintAthleteInput input, Double desiredLateralMeters) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 244&#xD;
+   at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 102</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 125&#xD;
+
+1)    at Biathlon.Tests.ManualScopedFieldStepperTests.Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 102&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="0695782c-3c88-8ea2-8585-513eacbae067">
+      <Execution id="cd147f8a-6ef0-4dbc-b0ce-7a04d6a68ff0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="0695782c-3c88-8ea2-8585-513eacbae067" executionId="cd147f8a-6ef0-4dbc-b0ce-7a04d6a68ff0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+[DEBUG-contact] forceDuration=3.115636663517361E-06 eventDuration=3.115636663517194E-06 schedule=Clear pair=:&#xD;
+[DEBUG-contact] support woodland_basin_v1_athlete_10:woodland_basin_v1_athlete_7 slip=-0,003939752766280567 sliding=-1&#xD;
+[DEBUG-contact] support woodland_basin_v1_athlete_11:woodland_basin_v1_athlete_14 slip=0,006801650614392049 sliding=1&#xD;
+[DEBUG-contact] support woodland_basin_v1_athlete_12:woodland_basin_v1_athlete_9 slip=0,009032374275931322 sliding=1&#xD;
+[DEBUG-contact] support woodland_basin_v1_athlete_15:woodland_basin_v1_athlete_18 slip=-0,014946299858631952 sliding=-1&#xD;
+[DEBUG-contact] support woodland_basin_v1_athlete_17:woodland_basin_v1_athlete_20 slip=0,03720358612309131 sliding=1&#xD;
+[DEBUG-contact] support woodland_basin_v1_athlete_19:woodland_basin_v1_athlete_22 slip=0,023700936247066116 sliding=1&#xD;
+[DEBUG-contact] support woodland_basin_v1_athlete_23:woodland_basin_v1_athlete_26 slip=0,08462516745802534 sliding=1&#xD;
+[DEBUG-contact] support woodland_basin_v1_athlete_25:woodland_basin_v1_athlete_28 slip=0,08129425546503237 sliding=1&#xD;
+[DEBUG-contact] openings=2&#xD;
+[DEBUG-contact] opening woodland_basin_v1_athlete_13:woodland_basin_v1_athlete_16 derivatives=8,567635668717114E-07:0&#xD;
+[DEBUG-contact] opening woodland_basin_v1_athlete_5:woodland_basin_v1_athlete_8 derivatives=1,9759734860560693E-06:1,3119764108344978E-06&#xD;
+[DEBUG-contact] row=0 pos=138.5,-6.691783639 yaw=1.570796327 spin=0 vel=0,0 accel=0,0,0 seconds=3.115636663517361E-06 reserve=0&#xD;
+[DEBUG-contact] row=17 pos=160.812258164,-10.764145688 yaw=1.564406948 spin=0.00453551 vel=6.973851043707657,0.0428612574520867 accel=0.25042249675282685,-0.009189470521499436,0.02744701701423784 seconds=3.115636663517361E-06 reserve=0&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

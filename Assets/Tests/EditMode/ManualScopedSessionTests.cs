@@ -92,7 +92,17 @@ namespace Biathlon.Tests
                     var tangent=Source.At(Occurrence,observed);
                     pose=new ManualSkiHeadingState(pose.X,pose.Z,tangent.HeadingRadians+Math.PI);
                 }
-                Assert.That(Source.Catalog.TryProject(pose,Occurrence,observed,0,out var at),Is.True);
+                // The synthetic offset above belongs to authored geometry, not
+                // the oblique portal's station chart. Restore the actual local
+                // observation while retaining the already earned high-water
+                // credit. No pose or phase endpoint is moved to fit a hint.
+                bool movingPhase=phase=="penalty_entry_before"||phase=="penalty_repeat_before"||phase=="penalty_return_before";
+                Assert.That(Source.Catalog.TryProject(pose,Occurrence,observed,movingPhase?.001:0,out var at),Is.True);
+                if(movingPhase)
+                {
+                    Assert.That(at.PhysicalArcNanometers,Is.LessThanOrEqualTo(high));
+                    observed=at.PhysicalArcNanometers;
+                }
                 double planar=Session.Motion.SpeedMetersPerSecond/Math.Sqrt(1+Math.Pow(at.GradeAlong(pose),2));
                 var velocity=new SkiPlanarVelocity(planar*Math.Sin(pose.HeadingRadians),planar*Math.Cos(pose.HeadingRadians));
                 var cursor=new ManualRacePathProgression(Source.Catalog).Reconstitute(Session.AthleteId,Occurrence,observed,high,Session.RouteNanometers);

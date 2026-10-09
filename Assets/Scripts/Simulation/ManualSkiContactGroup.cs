@@ -28,12 +28,13 @@ namespace Biathlon.Simulation
     {
         private readonly ManualSkiContactSystem pair;
         private readonly SkiContactGroupDefinition definition;
+        private double convergence;
         public string ContextJson {get;}
         public ManualSkiContactGroup(OccupancyDefinition body,SkiContactDefinition contact,SkiContactGroupDefinition definition)
         {
             if(definition==null)throw new ArgumentNullException(nameof(definition));
             pair=new ManualSkiContactSystem(body,contact);this.definition=definition;
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_contact_group_v1",pair.AngularContextJson,definition.ToJson()});
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_contact_group_v3_support_endpoints_ulp_convergence",pair.AngularContextJson,definition.ToJson()});
         }
         public SkiContactGroupPreview Preview(ManualSkiContactBody[] bodies,int count,SkiContactMotion[] output,int[] order)
         {
@@ -53,6 +54,9 @@ namespace Biathlon.Simulation
                 order[at]=i;
                 output[i]=new SkiContactMotion(bodies[i].Velocity,bodies[i].Pose.YawRateRadiansPerSecond);
             }
+            double speedScale=1;
+            for(int i=0;i<count;i++)speedScale=Math.Max(speedScale,Math.Abs(output[i].Velocity.X)+Math.Abs(output[i].Velocity.Z)+Math.Abs(output[i].YawRate));
+            convergence=Math.Min(definition.ClosingSpeedTolerance,64*2.2204460492503131e-16*speedScale);
             for(int i=0;i<count;i++)for(int j=i+1;j<count;j++)
                 if(pair.Preview(bodies[order[i]],bodies[order[j]]).Status==SkiContactPreviewStatus.Penetrating)
                     return new SkiContactGroupPreview(SkiContactGroupStatus.Penetrating,0,0,0);
@@ -63,12 +67,16 @@ namespace Biathlon.Simulation
                 for(int i=0;i<count;i++)for(int j=i+1;j<count;j++)
                 {
                     int ai=order[i],bi=order[j];var a=WithVelocity(bodies[ai],output[ai]);var b=WithVelocity(bodies[bi],output[bi]);
-                    var hit=pair.PreviewAngularContact(a,output[ai].YawRate,b,output[bi].YawRate);
-                    if(hit.Contact.Status==SkiContactPreviewStatus.RequiresAngularResolution)
+                    var manifold=pair.PreviewManifold(a,b);
+                    if(manifold.Contact.Status==SkiContactPreviewStatus.Separated)continue;
+                    if(!manifold.HasSupport)
                         return new SkiContactGroupPreview(SkiContactGroupStatus.UnresolvedGeometry,pass,impulses,0);
-                    if(hit.Contact.Status!=SkiContactPreviewStatus.Impulse||Closing(a,output[ai],b,output[bi],hit)<=definition.ClosingSpeedTolerance)continue;
-                    output[ai]=new SkiContactMotion(hit.Contact.FirstVelocity,hit.FirstYawRate);
-                    output[bi]=new SkiContactMotion(hit.Contact.SecondVelocity,hit.SecondYawRate);impulses++;
+                    // Preserve the exact symmetric face impact first; endpoint
+                    // corrections are needed only for residual closing spin.
+                    Apply(ai,bi,manifold.MiddleX,manifold.MiddleZ);
+                    Apply(ai,bi,manifold.FirstX,manifold.FirstZ);
+                    if(manifold.FirstX!=manifold.SecondX||manifold.FirstZ!=manifold.SecondZ)
+                        Apply(ai,bi,manifold.SecondX,manifold.SecondZ);
                 }
                 // Later impulses can close an earlier pair again. Inspect the entire
                 // final group, not just the last pair or the count of applied impulses.
@@ -76,18 +84,32 @@ namespace Biathlon.Simulation
                 for(int i=0;i<count;i++)for(int j=i+1;j<count;j++)
                 {
                     int ai=order[i],bi=order[j];var a=WithVelocity(bodies[ai],output[ai]);var b=WithVelocity(bodies[bi],output[bi]);
-                    var hit=pair.PreviewAngularContact(a,output[ai].YawRate,b,output[bi].YawRate);
-                    if(hit.Contact.Status==SkiContactPreviewStatus.RequiresAngularResolution)
+                    var manifold=pair.PreviewManifold(a,b);
+                    if(manifold.Contact.Status==SkiContactPreviewStatus.Separated)continue;
+                    if(!manifold.HasSupport)
                         return new SkiContactGroupPreview(SkiContactGroupStatus.UnresolvedGeometry,pass,impulses,remaining);
-                    if(hit.Contact.Status==SkiContactPreviewStatus.Impulse)
+                    Check(manifold.FirstX,manifold.FirstZ);
+                    Check(manifold.SecondX,manifold.SecondZ);
+                    void Check(double x,double z)
+                    {
+                        var hit=pair.PreviewSupportContact(a,output[ai].YawRate,b,output[bi].YawRate,x,z);
                         remaining=Math.Max(remaining,Closing(a,output[ai],b,output[bi],hit));
+                    }
                 }
-                if(remaining<=definition.ClosingSpeedTolerance)
+                if(remaining<=convergence)
                     return new SkiContactGroupPreview(SkiContactGroupStatus.Resolved,pass,impulses,remaining);
                 if(pass==definition.MaximumPasses)
                     return new SkiContactGroupPreview(SkiContactGroupStatus.WorkLimit,pass,impulses,remaining);
             }
             throw new InvalidOperationException("Validated contact pass limit required.");
+            void Apply(int ai,int bi,double x,double z)
+            {
+                var a=WithVelocity(bodies[ai],output[ai]);var b=WithVelocity(bodies[bi],output[bi]);
+                var hit=pair.PreviewSupportContact(a,output[ai].YawRate,b,output[bi].YawRate,x,z);
+                if(hit.Contact.Status!=SkiContactPreviewStatus.Impulse||Closing(a,output[ai],b,output[bi],hit)<=convergence)return;
+                output[ai]=new SkiContactMotion(hit.Contact.FirstVelocity,hit.FirstYawRate);
+                output[bi]=new SkiContactMotion(hit.Contact.SecondVelocity,hit.SecondYawRate);impulses++;
+            }
         }
         private static ManualSkiContactBody WithVelocity(ManualSkiContactBody body,SkiContactMotion motion)
             =>new ManualSkiContactBody(body.Athlete,body.Pose,motion.Velocity,body.MassKilograms);

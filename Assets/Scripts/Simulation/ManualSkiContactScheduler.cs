@@ -3,7 +3,7 @@ using Biathlon.Domain;
 
 namespace Biathlon.Simulation
 {
-    public enum SkiContactScheduleStatus { Clear, Arrival, InitialProximity, Unresolved }
+    public enum SkiContactScheduleStatus { Clear, Arrival, InitialProximity, Unresolved, ForceRefresh }
     public readonly struct SkiContactSchedulePreview
     {
         public bool IsValid {get;}
@@ -34,10 +34,10 @@ namespace Biathlon.Simulation
         {
             if(maximumActors<1)throw new ArgumentOutOfRangeException(nameof(maximumActors));
             pairSweep=new ManualSkiContactSweep(body,contact,work);geometry=new ManualSkiContactSystem(body,contact);
-            joint=new ManualSkiJointSweep(body,contact,work);tolerance=contact.ContactTolerance;
+            joint=new ManualSkiJointSweep(body,contact,work,separatedResponseBand:true);tolerance=contact.ContactTolerance;
             prefix=new SkiWorldMotionCandidate[maximumActors];arrivals=new SkiReachedContactPair[checked(maximumActors*(maximumActors-1)/2)];
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_common_contact_schedule_v1",pairSweep.FirstContactContextJson,joint.ContextJson,
-                "all_pairs_actual_endpoint_group;stable_pair_order;common_prefix_all_body_and_explicit_edges;no_mutation_or_wait"});
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_common_contact_schedule_v2",pairSweep.FirstContactContextJson,joint.ContextJson,
+                "all_pairs_actual_endpoint_group;stable_pair_order;common_prefix_all_body_and_explicit_edges;existing_contact_proved_half_prefix_force_refresh;no_mutation_or_wait"});
         }
         public SkiReachedContactPair GetArrival(int index)
         {if(index<0||index>=arrivalCount)throw new ArgumentOutOfRangeException(nameof(index));return arrivals[index];}
@@ -73,6 +73,25 @@ namespace Biathlon.Simulation
                 {earliest=hit.ContactSeconds;found=true;}
             }
             if(initialFirst.IsValid)return new SkiContactSchedulePreview(SkiContactScheduleStatus.InitialProximity,0,first:initialFirst,second:initialSecond);
+            // Frozen support reactions cannot remain accurate indefinitely while
+            // two touching boxes rotate. Re-evaluate forces at a continuously
+            // proved interior prefix, before numerical contact depth is spent.
+            // This grants neither an arrival impulse nor any unpaid clock. An
+            // The re-proof includes every pair/edge; zero or unproved prefixes fail.
+            bool coupledRoster=true;
+            for(int i=0;i<count;i++)coupledRoster&=actors[i].Trajectory.TryGetConstantAngularAcceleration(out _);
+            if(coupledRoster&&whole.Status==SkiJointSweepStatus.PairInterval&&
+                whole.ClearUntilSeconds>0&&(!found||whole.ClearUntilSeconds<earliest))
+            {
+                double refresh=whole.ClearUntilSeconds*.5;
+                for(int i=0;i<count;i++)prefix[i]=new SkiWorldMotionCandidate(actors[i].Athlete,actors[i].Trajectory.Slice(0,refresh));
+                var admitted=joint.Preview(prefix,count,continuing,continuingCount,edges,edgeCount);
+                if(admitted.Status==SkiJointSweepStatus.Clear)
+                {
+                    prefixCount=count;
+                    return new SkiContactSchedulePreview(SkiContactScheduleStatus.ForceRefresh,refresh,first:whole.First,second:whole.Second,admission:admitted);
+                }
+            }
             if(!found)return new SkiContactSchedulePreview(SkiContactScheduleStatus.Unresolved,whole.ClearUntilSeconds,first:whole.First,second:whole.Second,admission:whole);
             for(int i=0;i<count;i++)prefix[i]=new SkiWorldMotionCandidate(actors[i].Athlete,actors[i].Trajectory.Slice(0,earliest));
             // Collect actual simultaneous endpoint proximity, not guessed time ties.

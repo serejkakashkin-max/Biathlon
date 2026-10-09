@@ -27,6 +27,57 @@ namespace Biathlon.Tests
         }
         private static long Nano(double metres)=>(long)Math.Round(metres*SkiState.NanometersPerMeter);
 
+        [TestCase(0d)][TestCase(4d)][TestCase(12d)]
+        public void PhysicalPursuitInvertsTheActualSharedSpeedResponse(double speed)
+        {
+            var f=Create();var point=f.visual.Get(f.route.GetSection(0).LoopId).Sample(10);
+            var pose=new ManualSkiHeadingState(point.X,point.Z,Math.Atan2(point.ForwardX,point.ForwardZ)-.05);
+            Assert.That(f.map.TryProject(pose,0,Nano(10),.001,false,out var at),Is.True);
+            var plan=f.controller.Plan(pose,at,speed,false);
+            var velocity=new SkiPlanarVelocity(speed*Math.Sin(pose.HeadingRadians),speed*Math.Cos(pose.HeadingRadians));
+            var definition=ManualSkiSteeringDefinition.FromJson(SteeringJson);
+            double desired=2*Math.Max(speed,definition.MinimumSpeedForGripLimit)*Math.Sin(plan.HeadingErrorRadians)/plan.LookaheadMeters;
+            double target=desired*(1+ManualAiSteeringDefinition.FromJson(PolicyJson).YawRateFeedback);
+            int intent=f.controller.PhysicalPursuitIntent(plan,pose,velocity);
+            var achieved=ManualSkiSteeringSystem.GetRequest(definition,intent,speed,1000);
+            double full=ManualSkiSteeringSystem.GetRequest(definition,1000,speed,1000).RequestedYawRate;
+            Assert.That(Math.Abs(target),Is.LessThan(full));
+            Assert.That(achieved.RequestedYawRate,Is.EqualTo(target).Within(full/2000+1e-12));
+            Assert.That(new ManualSkiSteeringSystem(definition,50).GetRequest(intent,speed,1000).RequestedYawRate,
+                Is.EqualTo(achieved.RequestedYawRate),"Intent inversion must not invent a tick-frequency dependency.");
+        }
+        [Test] public void ActualSlipChangesPursuitIntentWithoutChangingAcceptedPoseOrVelocity()
+        {
+            var f=Create();var point=f.visual.Get(f.route.GetSection(0).LoopId).Sample(10);
+            var pose=new ManualSkiHeadingState(point.X,point.Z,Math.Atan2(point.ForwardX,point.ForwardZ));
+            Assert.That(f.map.TryProject(pose,0,Nano(10),.001,false,out var at),Is.True);
+            var plan=f.controller.Plan(pose,at,4,false);
+            var right=new SkiPlanarVelocity(4*Math.Sin(pose.HeadingRadians+.15),4*Math.Cos(pose.HeadingRadians+.15));
+            var left=new SkiPlanarVelocity(4*Math.Sin(pose.HeadingRadians-.15),4*Math.Cos(pose.HeadingRadians-.15));
+            int expected=f.controller.PhysicalPursuitIntent(plan,pose,right);
+            Assert.That(expected,Is.LessThan(0));
+            Assert.That(f.controller.PhysicalPursuitIntent(plan,pose,left),Is.GreaterThan(0));
+            for(int i=0;i<100;i++)f.controller.PhysicalPursuitIntent(plan,pose,right);
+            long before=GC.GetAllocatedBytesForCurrentThread();
+            for(int i=0;i<1000;i++)if(f.controller.PhysicalPursuitIntent(plan,pose,right)!=expected)Assert.Fail("Changed physical intent.");
+            Assert.That(GC.GetAllocatedBytesForCurrentThread()-before,Is.Zero);
+            Assert.That(pose.X,Is.EqualTo(point.X).Within(1e-9));Assert.That(pose.Z,Is.EqualTo(point.Z).Within(1e-9));
+        }
+
+        [Test] public void ShortOwnedFiringPathTargetsItsEndpointWithoutLookingThroughTheLifecycleGate()
+        {
+            var f=new ManualRacePathCatalogTests.Fixture();var c=f.Catalog;int at=c.GetFiringOccurrence(0);
+            long arc=c.Get(at).LengthNanometers-Nano(.1);var pose=f.At(at,arc);
+            Assert.That(c.TryProject(pose,at,arc,.01,out var observation),Is.True);
+            var controller=new ManualAiSteeringController(c.ProjectionGeometry,ManualAiSteeringDefinition.FromJson(PolicyJson),
+                ManualSkiSteeringDefinition.FromJson(SteeringJson));
+            var plan=controller.PlanOwnedTarget(pose,c.GetGeometryObservation(observation),12,false,0,1,.1);
+            Assert.That(plan.IsValid,Is.True);Assert.That(plan.LookaheadMeters,Is.EqualTo(.1));
+            Assert.That(plan.Target.SectionIndex,Is.EqualTo(at));
+            Assert.That(plan.Target.RouteNanometers,Is.EqualTo(c.GetGeometryObservation(observation).RouteNanometers+Nano(.1)));
+            Assert.Throws<ArgumentOutOfRangeException>(()=>controller.PlanOwnedTarget(pose,c.GetGeometryObservation(observation),12,false,0,1,0));
+        }
+
         [Test] public void CornerEffortPolicyIsVersionedBoundedAndAllocationFree()
         {
             var json=PhysiologyContractTests.ProjectFile(
@@ -219,7 +270,7 @@ namespace Biathlon.Tests
         {
             var policy=ManualAiSteeringDefinition.FromJson(PolicyJson);
             Assert.That(ManualAiSteeringDefinition.FromJson(policy.ToJson()).ToJson(),Is.EqualTo(policy.ToJson()));
-            Assert.That(Create().controller.ContextJson,Does.Contain("manual_ai_signed_yaw_intent_v1"));
+            Assert.That(Create().controller.ContextJson,Does.Contain("manual_ai_signed_yaw_intent_v2_owned_pursuit"));
             foreach(var field in new[]{"schema_version","id","lookahead_base_m","lookahead_speed_seconds",
                 "lookahead_max_m","heading_response_seconds","yaw_rate_feedback"})
                 Assert.Catch(()=>ManualAiSteeringDefinition.FromJson(PolicyJson.Replace("\""+field+"\"","\"missing_"+field+"\"")),field);
