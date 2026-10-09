@@ -87,6 +87,9 @@ namespace Biathlon.Simulation
         private readonly SkiWorldMotionCandidate[] boundaryPrefix;
         private readonly ManualScopedWorldBoundary[] arrivedBoundaries;
         private readonly bool[] heldFiringActors;
+        private readonly bool[] physicalParticipants;
+        private long[] scheduledPresenceStarts;
+        private bool prestartPresence;
         private readonly ManualSkiJointSweep bodies;
         private readonly ManualSkiEdgeSweep courseCells;
         private readonly OccupancyDefinition occupiedBody;
@@ -160,6 +163,17 @@ namespace Biathlon.Simulation
                 if(!SamePose(pose,accepted[i].Pose))throw new ArgumentException("Canonical initial coordinates cannot move or turn a grid body.");
             }
             initialFieldBinding=field;
+            scheduledPresenceStarts=new long[Count];prestartPresence=field.StartGrid!=null;
+            var starts=new string[Count+2];starts[0]="field_attested_scheduled_presence_v1";
+            starts[1]=field.StartGrid==null?"scheduled_presence_at_start_tick;waiting_pose_static;all_started_body_proofs_retained":"mass_grid_present_before_start";
+            for(int i=0;i<Count;i++)
+            {
+                scheduledPresenceStarts[i]=field.GetAthlete(i).ScheduledStart.Value;
+                starts[i+2]=field.GetAthlete(i).AthleteId.Value+":"+scheduledPresenceStarts[i].ToString(CultureInfo.InvariantCulture);
+            }
+            var extra=ShootingModelDefinitions.EncodeContext(starts);
+            ContextJson=ContextJson.Substring(0,ContextJson.Length-1)+","+extra.Substring(1);
+            UpdatePhysicalParticipants(Tick.Next());
         }
         public int Count=>accepted.Length;
         public int MaximumMotionPieces=>maximumPieces;
@@ -168,7 +182,7 @@ namespace Biathlon.Simulation
         public bool HasContactForcePolicy=>contactForces!=null;
         public int TickFrequency {get;}
         public SimulationTick Tick {get;private set;}
-        public string ContextJson {get;}
+        public string ContextJson {get;private set;}
         public string BodyContextJson {get;}
         public string InitialStateContextJson {get;}
         public ManualScopedWorldAttempt LastAttempt {get;private set;}
@@ -213,7 +227,8 @@ namespace Biathlon.Simulation
             progress=new ManualRacePathProgression[count];courses=new ManualRouteTubeSweep[count];ribbons=new ManualRouteRibbonSweep[count];gates=new ManualRacePathGateSweep[count];bodies=new ManualSkiJointSweep(body,contact,work,separatedResponseBand:true);
             boundaries=new ManualRacePathBoundaryScheduler[count];boundaryPreviews=new ManualRacePathBoundaryPreview[count];
             boundaryPrefix=new SkiWorldMotionCandidate[count];arrivedBoundaries=new ManualScopedWorldBoundary[count];
-            heldFiringActors=new bool[count];
+            heldFiringActors=new bool[count];physicalParticipants=new bool[count];
+            for(int i=0;i<count;i++)physicalParticipants[i]=true;
             occupiedBody=body;courseCells=new ManualSkiEdgeSweep(body,contact,work);
             scheduler=new ManualSkiContactScheduler(body,contact,work,count);scheduledPrefix=new SkiWorldMotionCandidate[count];
             scheduledArrivals=new SkiReachedContactPair[checked(count*(count-1)/2)];
@@ -264,6 +279,15 @@ namespace Biathlon.Simulation
         public ManualRacePathCatalog GetCatalog(int index)=>catalogs[index];
         public ManualRacePathCursor GetCursor(int index)=>cursors[index];
         public SkiState GetPhysicalMotion(int index)=>motion[index];
+        /// <summary>Presence is derived from the attested field schedule; callers
+        /// cannot hide a live skier to bypass collision admission.</summary>
+        public bool IsPhysicalParticipant(int index,SimulationTick tick)
+        {
+            if(index<0||index>=Count)throw new ArgumentOutOfRangeException(nameof(index));
+            return scheduledPresenceStarts==null||prestartPresence||tick.Value>=scheduledPresenceStarts[index];
+        }
+        private void UpdatePhysicalParticipants(SimulationTick tick)
+        {for(int i=0;i<Count;i++)physicalParticipants[i]=IsPhysicalParticipant(i,tick);}
         public void ValidatePrepared(ManualScopedWorldPreview proposal)
         {
             if(!ready||!ReferenceEquals(proposal.Owner,this)||proposal.Revision!=revision||proposal.Tick.Value!=checked(Tick.Value+1))
@@ -299,7 +323,7 @@ namespace Biathlon.Simulation
             double[] directionalGrades,out ManualScopedWorldPreview proposal)
         {
             if(tickActive)throw new InvalidOperationException("Finish or abort the active staged world tick before replacing it.");
-            ready=false;proposal=default;pieceCount=0;LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.NotPrepared);
+            ready=false;proposal=default;pieceCount=0;UpdatePhysicalParticipants(Tick.Next());LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.NotPrepared);
             if(!PrepareInterval(actors,windows,reached,reachedCount,edges,edgeCount,directionalGrades,accepted,cursors,duration,null))return false;
             for(int i=0;i<Count;i++)
             {
@@ -325,8 +349,11 @@ namespace Biathlon.Simulation
                     Math.Abs(actor.Trajectory.DurationSeconds-seconds)>seconds*1e-12)
                     return Reject(ManualScopedWorldStatus.SourceMismatch,cursor.Athlete);
                 PhysiologyNumbers.RequireRange(directionalGrades[i],-1,1,nameof(directionalGrades));
+                if(!physicalParticipants[i]&&(actor.Trajectory.PlanarAccelerationBound!=0||actor.Trajectory.PeakYawRate!=0||
+                    sources[i].Velocity.X!=0||sources[i].Velocity.Z!=0||!SamePose(actor.Trajectory.Sample(1),sources[i].Pose)))
+                    return Reject(ManualScopedWorldStatus.SourceMismatch,cursor.Athlete);
             }
-            var joint=bodies.Preview(actors,Count,reached,reachedCount,edges,edgeCount,arriving??Array.Empty<SkiReachedContactPair>(),arrivingCount);
+            var joint=bodies.Preview(actors,Count,reached,reachedCount,edges,edgeCount,arriving??Array.Empty<SkiReachedContactPair>(),arrivingCount,physicalParticipants);
             if(joint.Status!=SkiJointSweepStatus.Clear||Math.Abs(joint.ClearUntilSeconds-seconds)>seconds*1e-12)
                 return Reject(ManualScopedWorldStatus.BodyOrEdge,joint.First,joint);
             for(int i=0;i<Count;i++)
@@ -381,7 +408,7 @@ namespace Biathlon.Simulation
         public ManualScopedWorldTick BeginTick()
         {
             if(tickActive)throw new InvalidOperationException("A scoped world tick is already active.");
-            long next=checked(tickRevision+1);var target=Tick.Next();ready=false;
+            long next=checked(tickRevision+1);var target=Tick.Next();ready=false;UpdatePhysicalParticipants(target);
             for(int i=0;i<Count;i++)
             {workingActors[i]=accepted[i];workingCursors[i]=cursors[i];workingMotion[i]=motion[i];workingTravelMeters[i]=0;ownedFreeValid[i]=false;}
             tickRevision=next;elapsedSeconds=0;pieceCount=0;pendingContact=false;tickActive=true;LastWorldEvent=default;
@@ -431,7 +458,7 @@ namespace Biathlon.Simulation
             if(actors==null||actors.Length!=Count)throw new ArgumentException("Exact complete contact interval roster required.");
             double seconds=actors[0].Trajectory.DurationSeconds;
             if(!(seconds>0)||seconds>duration-elapsedSeconds)return Reject(ManualScopedWorldStatus.SourceMismatch);
-            schedule=scheduler.Preview(actors,Count,reached,reachedCount,edges,edgeCount);
+            schedule=scheduler.Preview(actors,Count,reached,reachedCount,edges,edgeCount,physicalParticipants);
             if(schedule.Status==SkiContactScheduleStatus.Clear)
                 return TryAppendInterval(tick,actors,windows,reached,reachedCount,edges,edgeCount,directionalGrades);
             if(schedule.Status==SkiContactScheduleStatus.ForceRefresh)

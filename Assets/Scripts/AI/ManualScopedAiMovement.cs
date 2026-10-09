@@ -48,9 +48,9 @@ namespace Biathlon.AI
                 bends[i]=new ManualAiBendBrakingPlanner(stepper.Field.Track,catalogs[i],stepper.PhysicsDefinition,
                     stepper.CorneringDefinition,physicalSteering,policy,stepper.BodyDefinition);}
             var context=new string[n+5];
-            context[0]="manual_scoped_ai_shared_clock_movement_v8_owned_range_and_penalty_pass";
+            context[0]="manual_scoped_ai_shared_clock_movement_v9_attested_scheduled_presence";
             context[1]=stepper.ContextJson;context[2]=policy.ToJson();context[3]=physicalSteering.ToJson();
-            context[4]="player_signed_input_unchanged;ai_target_not_lateral_teleport;stationary_obstacle_detection_from_policy_response_or_exact_owned_stationary_mat;full_rotated_body_corridor_and_achieved_velocity_forecast;candidate_line_query_excludes_old_velocity_forecast;moving_range_body_forecast_four_separating_axes_and_relative_achieved_velocity;only_observed_ahead_bodies;ordinary_racing_keeps_physical_contacts;pass_line_owned_by_current_occurrence;hold_pass_line_until_body_clear_or_occurrence_handoff;owned_gate_lookahead_cap;geometric_chord_sagitta_reserve;physical_pursuit_actual_velocity_and_shared_speed_response;ordered_bend_braking_and_short_chord_before_entry;common_physical_solver;no_legacy_fallback";
+            context[4]="player_signed_input_unchanged;ai_target_not_lateral_teleport;field_attested_waiting_start_bodies_not_obstacles;stationary_obstacle_detection_from_policy_response_or_exact_owned_stationary_mat;full_rotated_body_corridor_and_achieved_velocity_forecast;candidate_line_query_excludes_old_velocity_forecast;moving_range_body_forecast_four_separating_axes_and_relative_achieved_velocity;only_observed_ahead_bodies;ordinary_racing_keeps_physical_contacts;pass_line_owned_by_current_occurrence;hold_pass_line_until_body_clear_or_occurrence_handoff;owned_gate_lookahead_cap;geometric_chord_sagitta_reserve;physical_pursuit_actual_velocity_and_shared_speed_response;ordered_bend_braking_and_short_chord_before_entry;common_physical_solver;no_legacy_fallback";
             for(int i=0;i<n;i++)context[i+5]=ManualContextIdentity.Sha256(bends[i].ContextJson);
             ContextJson=Encode(context);
         }
@@ -183,7 +183,7 @@ namespace Biathlon.AI
                 int closest=-1;double closestDistance=double.PositiveInfinity;
                 for(int j=0;j<world.Count;j++)
                 {
-                    if(j==self)continue;var b=world.GetActor(j);
+                    if(j==self||!world.IsPhysicalParticipant(j,world.Tick.Next()))continue;var b=world.GetActor(j);
                     double dx=b.Pose.X-a.Pose.X,dz=b.Pose.Z-a.Pose.Z;
                     double ahead=dx*fx+dz*fz;
                     var otherRow=catalogs[j].Get(b.Observation.OccurrenceIndex);

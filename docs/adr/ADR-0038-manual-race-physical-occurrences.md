@@ -512,3 +512,31 @@ Next reusable mat admission/release and selected catalog transaction. Every
 historical state byte is preserved.
 Report: docs/reports/TASK_M13_MANUAL_ACTUAL_FINISH_RUNOUT_20261009.md.
 Evidence: docs/quality/m13/field-stepper-20261008/.
+
+## 2026-10-09 — M13 scheduled physical presence
+
+M13 / WP175 / WP177 / WP178 OPEN; WP176 PASS. Production host lateral-v1.
+No owner Windows build. Initial manual world now attests Sprint/Pursuit start
+schedules. Waiting roster entries retain exact stationary poses and do not enter
+pair admission, current contact collection, first-contact scheduling or AI
+obstacle forecasts. Presence is captured from the exact field; callers cannot
+hide a live body. Mass grid bodies stay present before their common start.
+All started/finished bodies retain whole collision/course proof. No changed start
+time, body size, pose, velocity, race credit or paid queue. Context captures the
+schedule; AI v9 records this policy. Actual activation restores collision checks;
+two now-present bodies at the same point are rejected. Unbound worlds keep all
+bodies present. Waiting powered movement rejects without clock publication.
+These isolated world-clock witnesses do not claim full Sprint/Pursuit session
+publication. Reusable mat stepper/publication guards remain and negative control
+passes. Initial unsupported factory and incorrectly passive negative fixture
+FAIL receipts retained; powered control corrected without disabling assertions.
+Manual.NET550/550PASS, zero skipped, 4m06s. Native presence5/5PASS, 1m11s.
+Final factory/AI identity.NET12/12PASS; native identity1/1PASS. Compile settled;
+Error+Exception Console empty. Finish JSON metadata whitespace normalized only.
+Next owned reusable admission/release/shared-prefix catalog choice; coincident
+active starts need actual physical staging, not hidden collisions. Full manual
+formats/replay/player mat capture/host and final weather/balance/performance
+qualification remain open. Owner shooting-feel issue preserved. Final owner
+build only after ALL M13. Every historical state byte is retained.
+Report: docs/reports/TASK_M13_MANUAL_SCHEDULED_PHYSICAL_PRESENCE_20261009.md.
+Evidence: docs/quality/m13/field-stepper-20261008/.

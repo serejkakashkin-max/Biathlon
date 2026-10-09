@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="6e79cec4-23f8-43f6-b660-51891cf58636" name="snkashkin@DESKTOP-G3075GA 2026-10-09 15:58:56" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T15:58:56.0669058+03:00" queuing="2026-10-09T15:58:56.0669059+03:00" start="2026-10-09T15:58:52.7478331+03:00" finish="2026-10-09T15:58:56.5632772+03:00" />
+  <TestSettings name="default" id="43a452e5-0577-40cf-86bb-6d3d4648ee09">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_15_58_56" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="4399c4af-70cd-47a4-a6a7-63944cd173e2" testId="03736c96-db5c-a5c8-a2ec-4631fed97fa8" testName="WaitingBodyCannotAcquireHiddenMotion" computerName="DESKTOP-G3075GA" duration="00:00:00.9178840" startTime="2026-10-09T15:58:54.6014292+03:00" endTime="2026-10-09T15:58:55.5193096+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4399c4af-70cd-47a4-a6a7-63944cd173e2">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : Exact initial non-reusable field and owned policies required.</Message>
+          <StackTrace>   at Biathlon.Simulation.ManualScopedFieldStepper.CreateInitialWorld(PackSprintFieldSession field, TrackDefinition track, TrackVisualDefinition visual, OccupancyDefinition body, SkiContactDefinition contact, SkiContactSweepDefinition work, SkiContactGroupDefinition group, SkiPhysicsDefinition physics, ManualFinishRunoutDefinition finishRunout) in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\ManualScopedFieldStepper.cs:line 69&#xD;
+   at Biathlon.Tests.ManualScheduledPresenceTests.Initial() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScheduledPresenceTests.cs:line 20&#xD;
+   at Biathlon.Tests.ManualScheduledPresenceTests.WaitingBodyCannotAcquireHiddenMotion() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScheduledPresenceTests.cs:line 55&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="76b30c33-2a03-46f6-ad36-875d21ae45c6" testId="ebfe2216-0a26-9b75-e760-c2960cb9ddf5" testName="InitialPresenceBindingDoesNotBypassReusableMatOwnership" computerName="DESKTOP-G3075GA" duration="00:00:01.3118390" startTime="2026-10-09T15:58:53.2889721+03:00" endTime="2026-10-09T15:58:54.6007763+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="76b30c33-2a03-46f6-ad36-875d21ae45c6">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : Exact initial non-reusable field and owned policies required.</Message>
+          <StackTrace>   at Biathlon.Simulation.ManualScopedFieldStepper.CreateInitialWorld(PackSprintFieldSession field, TrackDefinition track, TrackVisualDefinition visual, OccupancyDefinition body, SkiContactDefinition contact, SkiContactSweepDefinition work, SkiContactGroupDefinition group, SkiPhysicsDefinition physics, ManualFinishRunoutDefinition finishRunout) in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\ManualScopedFieldStepper.cs:line 69&#xD;
+   at Biathlon.Tests.ManualScheduledPresenceTests.Initial() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScheduledPresenceTests.cs:line 20&#xD;
+   at Biathlon.Tests.ManualScheduledPresenceTests.InitialPresenceBindingDoesNotBypassReusableMatOwnership() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScheduledPresenceTests.cs:line 64&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="bedfdeb7-522d-4d69-acd3-c4b11e109a1e" testId="400163f1-deb5-9391-12be-d77db0c7dfcf" testName="WaitingSprintBodiesDoNotCollideWithTheStartedAthlete" computerName="DESKTOP-G3075GA" duration="00:00:00.9818770" startTime="2026-10-09T15:58:55.5193482+03:00" endTime="2026-10-09T15:58:56.5012209+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bedfdeb7-522d-4d69-acd3-c4b11e109a1e">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : Exact initial non-reusable field and owned policies required.</Message>
+          <StackTrace>   at Biathlon.Simulation.ManualScopedFieldStepper.CreateInitialWorld(PackSprintFieldSession field, TrackDefinition track, TrackVisualDefinition visual, OccupancyDefinition body, SkiContactDefinition contact, SkiContactSweepDefinition work, SkiContactGroupDefinition group, SkiPhysicsDefinition physics, ManualFinishRunoutDefinition finishRunout) in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\ManualScopedFieldStepper.cs:line 69&#xD;
+   at Biathlon.Tests.ManualScheduledPresenceTests.Initial() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScheduledPresenceTests.cs:line 20&#xD;
+   at Biathlon.Tests.ManualScheduledPresenceTests.WaitingSprintBodiesDoNotCollideWithTheStartedAthlete() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScheduledPresenceTests.cs:line 43&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="WaitingBodyCannotAcquireHiddenMotion" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="03736c96-db5c-a5c8-a2ec-4631fed97fa8">
+      <Execution id="4399c4af-70cd-47a4-a6a7-63944cd173e2" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScheduledPresenceTests" name="WaitingBodyCannotAcquireHiddenMotion" />
+    </UnitTest>
+    <UnitTest name="WaitingSprintBodiesDoNotCollideWithTheStartedAthlete" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="400163f1-deb5-9391-12be-d77db0c7dfcf">
+      <Execution id="bedfdeb7-522d-4d69-acd3-c4b11e109a1e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScheduledPresenceTests" name="WaitingSprintBodiesDoNotCollideWithTheStartedAthlete" />
+    </UnitTest>
+    <UnitTest name="InitialPresenceBindingDoesNotBypassReusableMatOwnership" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="ebfe2216-0a26-9b75-e760-c2960cb9ddf5">
+      <Execution id="76b30c33-2a03-46f6-ad36-875d21ae45c6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScheduledPresenceTests" name="InitialPresenceBindingDoesNotBypassReusableMatOwnership" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="03736c96-db5c-a5c8-a2ec-4631fed97fa8" executionId="4399c4af-70cd-47a4-a6a7-63944cd173e2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ebfe2216-0a26-9b75-e760-c2960cb9ddf5" executionId="76b30c33-2a03-46f6-ad36-875d21ae45c6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="400163f1-deb5-9391-12be-d77db0c7dfcf" executionId="bedfdeb7-522d-4d69-acd3-c4b11e109a1e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="0" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 3 of 3 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

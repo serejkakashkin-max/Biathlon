@@ -138,6 +138,7 @@ namespace Biathlon.Simulation
             for(int i=0;i<Count;i++)for(int j=i+1;j<Count;j++)
             {
                 int ai=ownedContactOrder[i],bi=ownedContactOrder[j];var a=workingActors[ai];var b=workingActors[bi];
+                if(!physicalParticipants[ai]||!physicalParticipants[bi])continue;
                 var gap=ownedContactGeometry.Preview(new ManualSkiContactBody(a.Athlete,a.Pose,default,1),
                     new ManualSkiContactBody(b.Athlete,b.Pose,default,1));
                 if(gap.Status==SkiContactPreviewStatus.Penetrating||gap.GapMeters< -ownedContactTolerance)

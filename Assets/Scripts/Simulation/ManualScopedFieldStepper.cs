@@ -65,8 +65,8 @@ namespace Biathlon.Simulation
             SkiPhysicsDefinition physics,ManualFinishRunoutDefinition finishRunout=null)
         {
             if(field==null||track==null||visual==null||body==null||contact==null||work==null||group==null||physics==null||
-                field.Tick.Value!=0||field.UsesReusableRangeMats)
-                throw new ArgumentException("Exact initial non-reusable field and owned policies required.");
+                field.Tick.Value!=0)
+                throw new ArgumentException("Exact initial field and owned policies required.");
             int count=field.Count;
             var catalogs=new ManualRacePathCatalog[count];var cursors=new ManualRacePathCursor[count];
             var poses=new ManualSkiHeadingState[count];var velocities=new SkiPlanarVelocity[count];

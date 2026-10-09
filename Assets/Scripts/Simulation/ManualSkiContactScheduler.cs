@@ -46,12 +46,15 @@ namespace Biathlon.Simulation
         private int prefixCount;
         public SkiContactSchedulePreview Preview(SkiWorldMotionCandidate[] actors,int count,SkiReachedContactPair[] continuing,int continuingCount,
             SkiActorCourseEdge[] edges,int edgeCount)
+            =>Preview(actors,count,continuing,continuingCount,edges,edgeCount,null);
+        internal SkiContactSchedulePreview Preview(SkiWorldMotionCandidate[] actors,int count,SkiReachedContactPair[] continuing,int continuingCount,
+            SkiActorCourseEdge[] edges,int edgeCount,bool[] participants)
         {
             arrivalCount=prefixCount=0;
             if(actors==null||count<1||count>actors.Length||count>prefix.Length)throw new ArgumentException("Complete bounded roster required.");
             // Existing joint validation covers identities, durations, duplicate or
             // foreign contacts and edges even when an earlier pair is unresolved.
-            var whole=joint.Preview(actors,count,continuing,continuingCount,edges,edgeCount);
+            var whole=joint.Preview(actors,count,continuing,continuingCount,edges,edgeCount,Array.Empty<SkiReachedContactPair>(),0,participants);
             double duration=actors[0].Trajectory.DurationSeconds;
             if(whole.Status==SkiJointSweepStatus.Clear)
             {
@@ -61,6 +64,7 @@ namespace Biathlon.Simulation
             double earliest=duration;bool found=false;AthleteId initialFirst=default,initialSecond=default;
             for(int i=0;i<count;i++)for(int j=i+1;j<count;j++)
             {
+                if(participants!=null&&(!participants[i]||!participants[j]))continue;
                 var a=actors[i];var b=actors[j];if(IsContinuing(a.Athlete,b.Athlete))continue;
                 var hit=pairSweep.PreviewFirstContact(a.Athlete,a.Trajectory,b.Athlete,b.Trajectory);
                 if(hit.Status==SkiFirstContactStatus.InitialProximity)
@@ -85,7 +89,7 @@ namespace Biathlon.Simulation
             {
                 double refresh=whole.ClearUntilSeconds*.5;
                 for(int i=0;i<count;i++)prefix[i]=new SkiWorldMotionCandidate(actors[i].Athlete,actors[i].Trajectory.Slice(0,refresh));
-                var admitted=joint.Preview(prefix,count,continuing,continuingCount,edges,edgeCount);
+                var admitted=joint.Preview(prefix,count,continuing,continuingCount,edges,edgeCount,Array.Empty<SkiReachedContactPair>(),0,participants);
                 if(admitted.Status==SkiJointSweepStatus.Clear)
                 {
                     prefixCount=count;
@@ -99,6 +103,7 @@ namespace Biathlon.Simulation
             // after this earlier time, provided the joint prefix now proves it.
             for(int i=0;i<count;i++)for(int j=i+1;j<count;j++)
             {
+                if(participants!=null&&(!participants[i]||!participants[j]))continue;
                 var a=prefix[i];var b=prefix[j];if(IsContinuing(a.Athlete,b.Athlete))continue;
                 var gap=geometry.Preview(new ManualSkiContactBody(a.Athlete,a.Trajectory.Sample(1),default,1),
                     new ManualSkiContactBody(b.Athlete,b.Trajectory.Sample(1),default,1));
@@ -112,7 +117,7 @@ namespace Biathlon.Simulation
                 while(j>=0&&Compare(arrivals[j],value)>0){arrivals[j+1]=arrivals[j];j--;}
                 arrivals[j+1]=value;
             }
-            var proof=joint.Preview(prefix,count,continuing,continuingCount,edges,edgeCount,arrivals,arrivalCount);
+            var proof=joint.Preview(prefix,count,continuing,continuingCount,edges,edgeCount,arrivals,arrivalCount,participants);
             if(proof.Status!=SkiJointSweepStatus.Clear||arrivalCount==0)
             {
                 arrivalCount=0;

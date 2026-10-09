@@ -69,9 +69,14 @@ namespace Biathlon.Simulation
         public SkiJointSweepPreview Preview(SkiWorldMotionCandidate[] actors,int count,
             SkiReachedContactPair[] reached,int reachedCount,SkiActorCourseEdge[] boundaries,int boundaryCount,
             SkiReachedContactPair[] arriving,int arrivingCount)
+            =>Preview(actors,count,reached,reachedCount,boundaries,boundaryCount,arriving,arrivingCount,null);
+        internal SkiJointSweepPreview Preview(SkiWorldMotionCandidate[] actors,int count,
+            SkiReachedContactPair[] reached,int reachedCount,SkiActorCourseEdge[] boundaries,int boundaryCount,
+            SkiReachedContactPair[] arriving,int arrivingCount,bool[] participants)
         {
             if(actors==null||reached==null||boundaries==null||arriving==null||count<1||count>actors.Length||reachedCount<0||reachedCount>reached.Length||boundaryCount<0||boundaryCount>boundaries.Length||arrivingCount<0||arrivingCount>arriving.Length)
                 throw new ArgumentException("Valid motion/contact/edge array slices required.");
+            if(participants!=null&&participants.Length<count)throw new ArgumentException("Complete physical participation slice required.");
             double duration=actors[0].Trajectory.DurationSeconds;
             for(int i=0;i<count;i++)
             {
@@ -81,25 +86,26 @@ namespace Biathlon.Simulation
             }
             for(int i=0;i<reachedCount;i++)
             {
-                if(Find(reached[i].First)<0||Find(reached[i].Second)<0||reached[i].First.Equals(reached[i].Second))throw new ArgumentException("Foreign reached contact.");
+                if(!Present(reached[i].First)||!Present(reached[i].Second)||reached[i].First.Equals(reached[i].Second))throw new ArgumentException("Foreign or inactive reached contact.");
                 for(int j=0;j<i;j++)if(reached[i].First.Equals(reached[j].First)&&reached[i].Second.Equals(reached[j].Second))throw new ArgumentException("Duplicate reached contact.");
             }
             for(int i=0;i<arrivingCount;i++)
             {
                 var pair=arriving[i];
-                if(Find(pair.First)<0||Find(pair.Second)<0||pair.First.Equals(pair.Second))throw new ArgumentException("Foreign arrival contact.");
+                if(!Present(pair.First)||!Present(pair.Second)||pair.First.Equals(pair.Second))throw new ArgumentException("Foreign or inactive arrival contact.");
                 for(int j=0;j<i;j++)if(pair.First.Equals(arriving[j].First)&&pair.Second.Equals(arriving[j].Second))throw new ArgumentException("Duplicate arrival contact.");
                 for(int j=0;j<reachedCount;j++)if(pair.First.Equals(reached[j].First)&&pair.Second.Equals(reached[j].Second))throw new ArgumentException("Contact cannot be both continuing and arriving.");
             }
             for(int i=0;i<boundaryCount;i++)
             {
-                if(Find(boundaries[i].Athlete)<0||!boundaries[i].Edge.IsValid)throw new ArgumentException("Foreign or invalid course edge.");
+                if(!Present(boundaries[i].Athlete)||!boundaries[i].Edge.IsValid)throw new ArgumentException("Foreign, inactive or invalid course edge.");
                 for(int j=0;j<i;j++)if(boundaries[i].Athlete.Equals(boundaries[j].Athlete)&&boundaries[i].Edge.Id==boundaries[j].Edge.Id)
                     throw new ArgumentException("Duplicate actor edge identity.");
             }
             var earliest=new SkiJointSweepPreview(SkiJointSweepStatus.Clear,duration);
             for(int i=0;i<count;i++)for(int j=i+1;j<count;j++)
             {
+                if(participants!=null&&(!participants[i]||!participants[j]))continue;
                 var a=actors[i];var b=actors[j];
                 if(string.CompareOrdinal(a.Athlete.Value,b.Athlete.Value)>0){var swap=a;a=b;b=swap;}
                 bool continuing=false;
@@ -122,6 +128,7 @@ namespace Biathlon.Simulation
 
             int Find(AthleteId id)
             {for(int i=0;i<count;i++)if(actors[i].Athlete.Equals(id))return i;return -1;}
+            bool Present(AthleteId id){int i=Find(id);return i>=0&&(participants==null||participants[i]);}
             void Consider(SkiJointSweepPreview candidate)
             {
                 if(candidate.ClearUntilSeconds>earliest.ClearUntilSeconds)return;

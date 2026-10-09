@@ -1,0 +1,39 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 1657,
+      "PassedTests": 5,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:01:11.1153540"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.ManualScheduledPresenceTests.ArrivalOfTheScheduledStartRestoresRealCollisionAdmission",
+        "Status": "Passed",
+        "Duration": "00:00:14.8790000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScheduledPresenceTests.AWorldWithoutAttestedScheduleKeepsEveryBodyPresent",
+        "Status": "Passed",
+        "Duration": "00:00:13.4310000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScheduledPresenceTests.InitialPresenceBindingDoesNotBypassReusableMatOwnership",
+        "Status": "Passed",
+        "Duration": "00:00:13.6660000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScheduledPresenceTests.WaitingBodyCannotAcquireHiddenMotion",
+        "Status": "Passed",
+        "Duration": "00:00:14.0170000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScheduledPresenceTests.WaitingSprintBodiesDoNotCollideWithTheStartedAthlete",
+        "Status": "Passed",
+        "Duration": "00:00:14.2150000"
+      }
+    ]
+  }
+}
