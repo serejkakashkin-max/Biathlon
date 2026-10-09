@@ -161,8 +161,9 @@ namespace Biathlon.Simulation
             :this(route,geometry,BaseScopes(route),true,null) { }
 
         internal static ManualRouteProjectionMap ForPhysicalScopes(RaceRoute route,TrackVisualDefinition geometry,
-            ManualProjectionScope[] scopes,string scopeContext,bool[] ordinaryEntries,bool[] firingDepartures)
-            =>new ManualRouteProjectionMap(route,geometry,scopes,false,scopeContext??throw new ArgumentNullException(nameof(scopeContext)),ordinaryEntries,firingDepartures);
+            ManualProjectionScope[] scopes,string scopeContext,bool[] ordinaryEntries,bool[] firingDepartures,
+            int[] phaseEntries=null,int[] phaseExits=null)
+            =>new ManualRouteProjectionMap(route,geometry,scopes,false,scopeContext??throw new ArgumentNullException(nameof(scopeContext)),ordinaryEntries,firingDepartures,phaseEntries,phaseExits);
 
         private static ManualProjectionScope[] BaseScopes(RaceRoute route)
         {
@@ -179,7 +180,8 @@ namespace Biathlon.Simulation
         }
 
         private ManualRouteProjectionMap(RaceRoute route,TrackVisualDefinition geometry,ManualProjectionScope[] scopes,
-            bool baseRouteGeometry,string scopeContext,bool[] ordinaryEntries=null,bool[] firingDepartures=null)
+            bool baseRouteGeometry,string scopeContext,bool[] ordinaryEntries=null,bool[] firingDepartures=null,
+            int[] phaseEntries=null,int[] phaseExits=null)
         {
             if(route==null||geometry==null||scopes==null)throw new ArgumentNullException();
             if(route.TrackId!=geometry.TrackId)throw new ArgumentException("Projection route and geometry must match.");
@@ -257,6 +259,32 @@ namespace Biathlon.Simulation
                     fx/=norm;fz/=norm;
                     edges[previous]=new Edge(a,a.EntryX,a.EntryZ,fx,fz);
                     edges[next]=new Edge(b,fx,fz,b.ExitX,b.ExitZ);
+                }
+            }
+            if(phaseEntries!=null||phaseExits!=null)
+            {
+                if(baseRouteGeometry||phaseEntries==null||phaseExits==null||phaseEntries.Length!=count||phaseExits.Length!=count)
+                    throw new ArgumentException("Exact owned phase portal topology required.");
+                for(int s=0;s<count;s++)
+                {
+                    int source=phaseEntries[s];
+                    if(source>=0)
+                    {
+                        if(source>=count)throw new ArgumentException("Unknown phase portal source.");
+                        int next=firstEdges[s];var a=edges[edgeEnds[source]-1];var b=edges[next];
+                        if(!Touching(a,b)||b.DX*a.ExitX+b.DZ*a.ExitZ<=0)
+                            throw new ArgumentException("Phase entry must reuse a touching forward incoming plane.");
+                        edges[next]=new Edge(b,a.ExitX,a.ExitZ,b.ExitX,b.ExitZ);
+                    }
+                    source=phaseExits[s];
+                    if(source>=0)
+                    {
+                        if(source>=count)throw new ArgumentException("Unknown phase portal source.");
+                        int last=edgeEnds[s]-1;var a=edges[edgeEnds[source]-1];var b=edges[last];
+                        if(a.EndX!=b.EndX||a.EndY!=b.EndY||a.EndZ!=b.EndZ||b.DX*a.ExitX+b.DZ*a.ExitZ<=0)
+                            throw new ArgumentException("Phase exit must reuse the same forward authored gate endpoint.");
+                        edges[last]=new Edge(b,b.EntryX,b.EntryZ,a.ExitX,a.ExitZ);
+                    }
                 }
             }
             ContextJson=baseRouteGeometry?ShootingModelDefinitions.EncodeContext(new[]{"manual_base_route_local_projection_v1",

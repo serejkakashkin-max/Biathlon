@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c4756027-1a3e-4999-bc66-34b204482686" name="snkashkin@DESKTOP-G3075GA 2026-10-09 15:27:00" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T15:27:00.9768463+03:00" queuing="2026-10-09T15:27:00.9768464+03:00" start="2026-10-09T15:26:59.1736296+03:00" finish="2026-10-09T15:27:13.4375515+03:00" />
+  <TestSettings name="default" id="d9796ea6-74a8-4047-9a1d-a26f9165a60d">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_15_27_00" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="a0ca65ba-4ef4-4fec-96ac-47306eda8420" testId="33e7c9de-0266-782c-8718-a5db3e4c44c4" testName="EveryPenaltyBranchSharesThePaidPlaneWithoutMovingAnOffCentreBody(&quot;sprint&quot;,0)" computerName="DESKTOP-G3075GA" duration="00:00:00.1592619" startTime="2026-10-09T15:27:00.3816547+03:00" endTime="2026-10-09T15:27:00.5409149+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a0ca65ba-4ef4-4fec-96ac-47306eda8420" />
+    <UnitTestResult executionId="2dbed947-a37c-4a95-ad3b-0e557831554b" testId="0e0a03ad-770d-078d-9a7e-5b577ed57a24" testName="EveryPenaltyBranchSharesThePaidPlaneWithoutMovingAnOffCentreBody(&quot;pursuit&quot;,29)" computerName="DESKTOP-G3075GA" duration="00:00:00.1831140" startTime="2026-10-09T15:27:00.5409447+03:00" endTime="2026-10-09T15:27:00.7240564+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2dbed947-a37c-4a95-ad3b-0e557831554b" />
+    <UnitTestResult executionId="7a910607-cfac-4e24-af74-336b8aa0f743" testId="bb2b849d-5cae-9c06-d8d5-76808bfc4ba1" testName="FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(3)" computerName="DESKTOP-G3075GA" duration="00:00:03.2253580" startTime="2026-10-09T15:27:03.7779053+03:00" endTime="2026-10-09T15:27:07.0032407+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7a910607-cfac-4e24-af74-336b8aa0f743">
+      <Output>
+        <StdOut>Actual five-miss penalty cycle: actors=3; returned tick=6668</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d3aa7365-b0a0-4d01-af57-6b067ba59fd2" testId="887294ed-2baa-a574-0531-f8be3ee9bc38" testName="TheCompleteFiveCircuitDebtRepeatsEveryActualWorldStateAndEventExactly" computerName="DESKTOP-G3075GA" duration="00:00:06.1342220" startTime="2026-10-09T15:27:07.0033058+03:00" endTime="2026-10-09T15:27:13.1374851+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d3aa7365-b0a0-4d01-af57-6b067ba59fd2">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: Biathlon.Simulation.ManualRacePathCursor&#xD;
+  But was:  Biathlon.Simulation.ManualRacePathCursor&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualActualPenaltyCycleTests.TheCompleteFiveCircuitDebtRepeatsEveryActualWorldStateAndEventExactly() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualActualPenaltyCycleTests.cs:line 87&#xD;
+
+1)    at Biathlon.Tests.ManualActualPenaltyCycleTests.TheCompleteFiveCircuitDebtRepeatsEveryActualWorldStateAndEventExactly() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualActualPenaltyCycleTests.cs:line 87&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="992b9fe4-c380-48bf-a75e-dc08411138cd" testId="26d275cf-7684-0b83-e0b6-22f40739b7f0" testName="EveryPenaltyBranchSharesThePaidPlaneWithoutMovingAnOffCentreBody(&quot;mass_start&quot;,29)" computerName="DESKTOP-G3075GA" duration="00:00:00.2273970" startTime="2026-10-09T15:27:00.1542169+03:00" endTime="2026-10-09T15:27:00.3816121+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="992b9fe4-c380-48bf-a75e-dc08411138cd" />
+    <UnitTestResult executionId="0fd0746d-70f5-4368-89ba-5429fac346c1" testId="ce7be621-420f-57b8-7c84-72ff497813af" testName="FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(1)" computerName="DESKTOP-G3075GA" duration="00:00:03.0530050" startTime="2026-10-09T15:27:00.7248937+03:00" endTime="2026-10-09T15:27:03.7778776+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0fd0746d-70f5-4368-89ba-5429fac346c1">
+      <Output>
+        <StdOut>Actual five-miss penalty cycle: actors=1; returned tick=6647</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1a64f866-c6d1-498d-8dc6-f16841e0bb91" testId="dd794454-0c34-88fc-3775-16e3c4ad00c6" testName="EveryPenaltyBranchSharesThePaidPlaneWithoutMovingAnOffCentreBody(&quot;mass_start&quot;,0)" computerName="DESKTOP-G3075GA" duration="00:00:00.4482930" startTime="2026-10-09T15:26:59.7052988+03:00" endTime="2026-10-09T15:27:00.1535544+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1a64f866-c6d1-498d-8dc6-f16841e0bb91" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="EveryPenaltyBranchSharesThePaidPlaneWithoutMovingAnOffCentreBody(&quot;sprint&quot;,0)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="33e7c9de-0266-782c-8718-a5db3e4c44c4">
+      <Execution id="a0ca65ba-4ef4-4fec-96ac-47306eda8420" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualActualPenaltyCycleTests" name="EveryPenaltyBranchSharesThePaidPlaneWithoutMovingAnOffCentreBody(&quot;sprint&quot;,0)" />
+    </UnitTest>
+    <UnitTest name="EveryPenaltyBranchSharesThePaidPlaneWithoutMovingAnOffCentreBody(&quot;mass_start&quot;,29)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="26d275cf-7684-0b83-e0b6-22f40739b7f0">
+      <Execution id="992b9fe4-c380-48bf-a75e-dc08411138cd" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualActualPenaltyCycleTests" name="EveryPenaltyBranchSharesThePaidPlaneWithoutMovingAnOffCentreBody(&quot;mass_start&quot;,29)" />
+    </UnitTest>
+    <UnitTest name="EveryPenaltyBranchSharesThePaidPlaneWithoutMovingAnOffCentreBody(&quot;pursuit&quot;,29)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="0e0a03ad-770d-078d-9a7e-5b577ed57a24">
+      <Execution id="2dbed947-a37c-4a95-ad3b-0e557831554b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualActualPenaltyCycleTests" name="EveryPenaltyBranchSharesThePaidPlaneWithoutMovingAnOffCentreBody(&quot;pursuit&quot;,29)" />
+    </UnitTest>
+    <UnitTest name="TheCompleteFiveCircuitDebtRepeatsEveryActualWorldStateAndEventExactly" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="887294ed-2baa-a574-0531-f8be3ee9bc38">
+      <Execution id="d3aa7365-b0a0-4d01-af57-6b067ba59fd2" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualActualPenaltyCycleTests" name="TheCompleteFiveCircuitDebtRepeatsEveryActualWorldStateAndEventExactly" />
+    </UnitTest>
+    <UnitTest name="FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(1)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="ce7be621-420f-57b8-7c84-72ff497813af">
+      <Execution id="0fd0746d-70f5-4368-89ba-5429fac346c1" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualActualPenaltyCycleTests" name="FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(1)" />
+    </UnitTest>
+    <UnitTest name="EveryPenaltyBranchSharesThePaidPlaneWithoutMovingAnOffCentreBody(&quot;mass_start&quot;,0)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="dd794454-0c34-88fc-3775-16e3c4ad00c6">
+      <Execution id="1a64f866-c6d1-498d-8dc6-f16841e0bb91" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualActualPenaltyCycleTests" name="EveryPenaltyBranchSharesThePaidPlaneWithoutMovingAnOffCentreBody(&quot;mass_start&quot;,0)" />
+    </UnitTest>
+    <UnitTest name="FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(3)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="bb2b849d-5cae-9c06-d8d5-76808bfc4ba1">
+      <Execution id="7a910607-cfac-4e24-af74-336b8aa0f743" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualActualPenaltyCycleTests" name="FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(3)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="33e7c9de-0266-782c-8718-a5db3e4c44c4" executionId="a0ca65ba-4ef4-4fec-96ac-47306eda8420" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0e0a03ad-770d-078d-9a7e-5b577ed57a24" executionId="2dbed947-a37c-4a95-ad3b-0e557831554b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bb2b849d-5cae-9c06-d8d5-76808bfc4ba1" executionId="7a910607-cfac-4e24-af74-336b8aa0f743" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="887294ed-2baa-a574-0531-f8be3ee9bc38" executionId="d3aa7365-b0a0-4d01-af57-6b067ba59fd2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="26d275cf-7684-0b83-e0b6-22f40739b7f0" executionId="992b9fe4-c380-48bf-a75e-dc08411138cd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ce7be621-420f-57b8-7c84-72ff497813af" executionId="0fd0746d-70f5-4368-89ba-5429fac346c1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dd794454-0c34-88fc-3775-16e3c4ad00c6" executionId="1a64f866-c6d1-498d-8dc6-f16841e0bb91" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="7" executed="7" passed="6" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 7 of 7 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+Actual five-miss penalty cycle: actors=1; returned tick=6647&#xD;
+&#xD;
+Actual five-miss penalty cycle: actors=3; returned tick=6668&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

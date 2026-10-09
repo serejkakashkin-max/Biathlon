@@ -201,11 +201,11 @@ namespace Biathlon.Simulation
             occurrences=rows.ToArray();samplers=new TrackSampler[track.LoopCount];samplerIndexes=new int[Count];
             for(int i=0;i<samplers.Length;i++)samplers[i]=new TrackSampler(track.GetLoop(i));
             var scopes=new ManualProjectionScope[Count];var context=new string[Count+9];
-            context[0]="manual_race_physical_occurrences_v2_shared_portals";context[1]=route.TrackSnapshotJson;
+            context[0]="manual_race_physical_occurrences_v3_shared_penalty_portals";context[1]=route.TrackSnapshotJson;
             context[2]=route.PlanSnapshotJson;context[3]=route.RequirementsSnapshotJson;context[4]=profile.ToJson();
             context[5]=rangePath.ContextJson;context[6]=startApproach?.ContextJson??"no_start_approach";
             context[7]=visual.ToJson();
-            context[8]="explicit_occurrence;physical_arc_distinct_from_counted_route;no_mat_branch_or_penalty_admission;firing_departure_reuses_paid_incoming_plane_v1";
+            context[8]="explicit_occurrence;physical_arc_distinct_from_counted_route;no_mat_branch_or_penalty_admission;firing_departure_reuses_paid_incoming_plane_v1;penalty_entry_repeat_return_reuse_incoming_anchor_plane_v1";
             for(int i=0;i<Count;i++)
             {
                 var row=occurrences[i];scopes[i]=new ManualProjectionScope(row.LoopId,row.LocalStartNanometers,row.LocalEndNanometers,row.GeometryStartNanometers);
@@ -220,12 +220,23 @@ namespace Biathlon.Simulation
             }
             ContextJson=ShootingModelDefinitions.EncodeContext(context);
             var ordinaryEntries=new bool[Count];var firingDepartures=new bool[Count];
+            var phaseEntries=new int[Count];var phaseExits=new int[Count];
+            for(int i=0;i<Count;i++)phaseEntries[i]=phaseExits[i]=-1;
             for(int i=1;i<BaseFlowCount;i++)
             {
                 ordinaryEntries[i]=occurrences[i-1].End==ManualRacePathEnd.Continue;
                 firingDepartures[i]=occurrences[i-1].End==ManualRacePathEnd.FiringLine;
             }
-            ProjectionGeometry=ManualRouteProjectionMap.ForPhysicalScopes(route,visual,scopes,ContextJson,ordinaryEntries,firingDepartures);
+            // All alternatives at the same penalty anchor observe one plane.
+            // Selection and debt admission still belong to the race owner.
+            // A changed station chart never changes the actual off-centre pose.
+            for(int b=0;b<profile.BoutCount;b++)
+            {
+                int gate=penaltyEntryIndexes[b];phaseEntries[penaltyReturnIndexes[b]]=gate;
+                for(int p=0;p<profile.ShotsPerBout;p++)
+                {int index=penaltyIndexes[b,p];phaseEntries[index]=phaseExits[index]=gate;}
+            }
+            ProjectionGeometry=ManualRouteProjectionMap.ForPhysicalScopes(route,visual,scopes,ContextJson,ordinaryEntries,firingDepartures,phaseEntries,phaseExits);
         }
 
         public int GetFiringOccurrence(int bout)=>firingIndexes[bout];

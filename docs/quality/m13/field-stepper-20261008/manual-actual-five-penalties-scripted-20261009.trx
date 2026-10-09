@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="e5026778-e2fb-425f-aea2-23532f14d8f7" name="snkashkin@DESKTOP-G3075GA 2026-10-09 15:20:41" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T15:20:41.4686285+03:00" queuing="2026-10-09T15:20:41.4686286+03:00" start="2026-10-09T15:20:37.6265280+03:00" finish="2026-10-09T15:20:44.9185319+03:00" />
+  <TestSettings name="default" id="6afb44fd-9215-4f63-8381-6905ab556b38">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_15_20_41" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="f34c8822-9837-4c3a-85a9-950e28ef30fb" testId="bb2b849d-5cae-9c06-d8d5-76808bfc4ba1" testName="FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(3)" computerName="DESKTOP-G3075GA" duration="00:00:03.3060980" startTime="2026-10-09T15:20:41.4389035+03:00" endTime="2026-10-09T15:20:44.7449783+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f34c8822-9837-4c3a-85a9-950e28ef30fb">
+      <Output>
+        <ErrorInfo>
+          <Message>Actual penalty cycle tick=4698; status=WorldRejected; world=BoundarySchedule; actor=woodland_basin_v1_athlete_0; working=26:0; System.InvalidOperationException: Manual field step rejected: WorldRejected / BoundarySchedule / woodland_basin_v1_athlete_0; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 169&#xD;
+   at Biathlon.Tests.ManualActualPenaltyCycleTests.&lt;FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes&gt;g__Step|0_0(&lt;&gt;c__DisplayClass0_0&amp;) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualActualPenaltyCycleTests.cs:line 29&#xD;
+   at Biathlon.Tests.ManualActualPenaltyCycleTests.FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualActualPenaltyCycleTests.cs:line 46</Message>
+          <StackTrace>   at Biathlon.Tests.ManualActualPenaltyCycleTests.FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualActualPenaltyCycleTests.cs:line 48&#xD;
+   at InvokeStub_ManualActualPenaltyCycleTests.FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualActualPenaltyCycleTests.FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualActualPenaltyCycleTests.cs:line 46&#xD;
+   at InvokeStub_ManualActualPenaltyCycleTests.FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1a7ea795-70c6-40f9-b4d3-5f62caf3a0f7" testId="ce7be621-420f-57b8-7c84-72ff497813af" testName="FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(1)" computerName="DESKTOP-G3075GA" duration="00:00:03.3175400" startTime="2026-10-09T15:20:38.1208102+03:00" endTime="2026-10-09T15:20:41.4382983+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1a7ea795-70c6-40f9-b4d3-5f62caf3a0f7">
+      <Output>
+        <ErrorInfo>
+          <Message>Actual penalty cycle tick=4678; status=PhaseRequired; world=Clear; actor=; working=0:0; System.InvalidOperationException: Manual field step rejected: PhaseRequired / Clear / ; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 169&#xD;
+   at Biathlon.Tests.ManualActualPenaltyCycleTests.&lt;FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes&gt;g__Step|0_0(&lt;&gt;c__DisplayClass0_0&amp;) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualActualPenaltyCycleTests.cs:line 29&#xD;
+   at Biathlon.Tests.ManualActualPenaltyCycleTests.FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualActualPenaltyCycleTests.cs:line 46</Message>
+          <StackTrace>   at Biathlon.Tests.ManualActualPenaltyCycleTests.FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualActualPenaltyCycleTests.cs:line 48&#xD;
+
+1)    at Biathlon.Tests.ManualActualPenaltyCycleTests.FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualActualPenaltyCycleTests.cs:line 46&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(1)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="ce7be621-420f-57b8-7c84-72ff497813af">
+      <Execution id="1a7ea795-70c6-40f9-b4d3-5f62caf3a0f7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualActualPenaltyCycleTests" name="FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(1)" />
+    </UnitTest>
+    <UnitTest name="FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(3)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="bb2b849d-5cae-9c06-d8d5-76808bfc4ba1">
+      <Execution id="f34c8822-9837-4c3a-85a9-950e28ef30fb" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualActualPenaltyCycleTests" name="FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(3)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="bb2b849d-5cae-9c06-d8d5-76808bfc4ba1" executionId="f34c8822-9837-4c3a-85a9-950e28ef30fb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ce7be621-420f-57b8-7c84-72ff497813af" executionId="1a7ea795-70c6-40f9-b4d3-5f62caf3a0f7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

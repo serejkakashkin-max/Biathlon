@@ -116,7 +116,7 @@ namespace Biathlon.Simulation
                 acceleration=new SkiPlanarVelocity((contact.Snow.Motion.Velocity.X-contact.InitialMotion.Velocity.X)/contact.DurationSeconds,
                     (contact.Snow.Motion.Velocity.Z-contact.InitialMotion.Velocity.Z)/contact.DurationSeconds);return true;
             }
-            // The first piece is known from the force model, not inferred from
+            // Each piece is known from the force model, not inferred from
             // a small difference between two arbitrary samples of that model.
             if(!driven.IsValid)return false;
             for(int i=0;driven.TryGetAccelerationPiece(i,out double from,out double to,out _);i++)

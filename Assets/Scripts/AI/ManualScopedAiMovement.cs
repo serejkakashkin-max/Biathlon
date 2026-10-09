@@ -48,7 +48,7 @@ namespace Biathlon.AI
                 bends[i]=new ManualAiBendBrakingPlanner(stepper.Field.Track,catalogs[i],stepper.PhysicsDefinition,
                     stepper.CorneringDefinition,physicalSteering,policy,stepper.BodyDefinition);}
             var context=new string[n+5];
-            context[0]="manual_scoped_ai_shared_clock_movement_v7_owned_range_pass_and_closing_brake";
+            context[0]="manual_scoped_ai_shared_clock_movement_v8_owned_range_and_penalty_pass";
             context[1]=stepper.ContextJson;context[2]=policy.ToJson();context[3]=physicalSteering.ToJson();
             context[4]="player_signed_input_unchanged;ai_target_not_lateral_teleport;stationary_obstacle_detection_from_policy_response_or_exact_owned_stationary_mat;full_rotated_body_corridor_and_achieved_velocity_forecast;candidate_line_query_excludes_old_velocity_forecast;moving_range_body_forecast_four_separating_axes_and_relative_achieved_velocity;only_observed_ahead_bodies;ordinary_racing_keeps_physical_contacts;pass_line_owned_by_current_occurrence;hold_pass_line_until_body_clear_or_occurrence_handoff;owned_gate_lookahead_cap;geometric_chord_sagitta_reserve;physical_pursuit_actual_velocity_and_shared_speed_response;ordered_bend_braking_and_short_chord_before_entry;common_physical_solver;no_legacy_fallback";
             for(int i=0;i<n;i++)context[i+5]=ManualContextIdentity.Sha256(bends[i].ContextJson);
@@ -162,7 +162,9 @@ namespace Biathlon.AI
                         controllers[i].PlanOwnedTarget(actor.Pose,observed,motion.SpeedMetersPerSecond,ordinaryLookahead,chosen,extent,available);
                     if(!plan.IsValid)throw new InvalidOperationException("Missing narrowed owned AI target for "+actor.Athlete);
                 }
-                steering[i]=passing[i]||Math.Abs(targetTurn)<=64*2.2204460492503131e-16?plan.SteeringInput:
+                // A curved penalty pass must steer from achieved velocity too;
+                // a current bearing alone cuts inside the physical circuit.
+                steering[i]=(passing[i]&&row.Kind!=ManualRacePathKind.PenaltyLoop)||Math.Abs(targetTurn)<=64*2.2204460492503131e-16?plan.SteeringInput:
                     controllers[i].PhysicalPursuitIntent(plan,actor.Pose,actor.Velocity);
             }
             if(!stepper.TryStep(inputs,steering,brakes))
@@ -190,7 +192,8 @@ namespace Biathlon.AI
                     if(b.Velocity.X!=0||b.Velocity.Z!=0)
                     {
                         var selfRow=catalogs[self].Get(a.Observation.OccurrenceIndex);
-                        if(ahead<=0||ahead>horizon||selfRow.Kind!=ManualRacePathKind.RangeApproach&&selfRow.Kind!=ManualRacePathKind.RangeExit)continue;
+                        if(ahead<=0||ahead>horizon||selfRow.Kind!=ManualRacePathKind.RangeApproach&&
+                            selfRow.Kind!=ManualRacePathKind.RangeExit&&selfRow.Kind!=ManualRacePathKind.PenaltyLoop)continue;
                         double speed=Math.Sqrt(a.Velocity.X*a.Velocity.X+a.Velocity.Z*a.Velocity.Z);
                         double forecastSeconds=policy.HeadingResponseSeconds+horizon/Math.Max(speed,stepper.BodyLongitudinalSeparation/policy.HeadingResponseSeconds);
                         var pose=anticipate?a.Pose:new ManualSkiHeadingState(a.Pose.X+(lateral-a.Observation.LateralMeters)*fz,

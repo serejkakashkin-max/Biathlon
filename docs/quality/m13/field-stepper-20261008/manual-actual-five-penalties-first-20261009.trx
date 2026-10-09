@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="af7af19d-11dd-4fef-b26e-d85549688d1f" name="snkashkin@DESKTOP-G3075GA 2026-10-09 15:19:02" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T15:19:02.9548222+03:00" queuing="2026-10-09T15:19:02.9548223+03:00" start="2026-10-09T15:18:59.0622091+03:00" finish="2026-10-09T15:19:06.4921879+03:00" />
+  <TestSettings name="default" id="c97bdd6b-dc30-4a91-aa9c-0513ff0f478d">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_15_19_02" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="7772a2a0-e28a-48ea-9771-cd18c6175000" testId="bb2b849d-5cae-9c06-d8d5-76808bfc4ba1" testName="FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(3)" computerName="DESKTOP-G3075GA" duration="00:00:03.3478770" startTime="2026-10-09T15:19:02.9258854+03:00" endTime="2026-10-09T15:19:06.2737391+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7772a2a0-e28a-48ea-9771-cd18c6175000">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Select the player before the race starts.</Message>
+          <StackTrace>   at Biathlon.AI.PackAiRaceRunner.StepPlayer(Int32 index, SprintAthleteInput input, Double desiredLateralMeters) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 241&#xD;
+   at Biathlon.Tests.ManualActualPenaltyCycleTests.FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualActualPenaltyCycleTests.cs:line 22&#xD;
+   at InvokeStub_ManualActualPenaltyCycleTests.FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="15a49beb-6e0a-4f1a-91d5-3dd9584b9b43" testId="ce7be621-420f-57b8-7c84-72ff497813af" testName="FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(1)" computerName="DESKTOP-G3075GA" duration="00:00:03.3122690" startTime="2026-10-09T15:18:59.6130251+03:00" endTime="2026-10-09T15:19:02.9252429+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="15a49beb-6e0a-4f1a-91d5-3dd9584b9b43">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Select the player before the race starts.</Message>
+          <StackTrace>   at Biathlon.AI.PackAiRaceRunner.StepPlayer(Int32 index, SprintAthleteInput input, Double desiredLateralMeters) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 241&#xD;
+   at Biathlon.Tests.ManualActualPenaltyCycleTests.FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualActualPenaltyCycleTests.cs:line 22&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(1)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="ce7be621-420f-57b8-7c84-72ff497813af">
+      <Execution id="15a49beb-6e0a-4f1a-91d5-3dd9584b9b43" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualActualPenaltyCycleTests" name="FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(1)" />
+    </UnitTest>
+    <UnitTest name="FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(3)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="bb2b849d-5cae-9c06-d8d5-76808bfc4ba1">
+      <Execution id="7772a2a0-e28a-48ea-9771-cd18c6175000" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualActualPenaltyCycleTests" name="FiveGeometricMissesPayAllRealCircuitsBeforeTheManualLapResumes(3)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="bb2b849d-5cae-9c06-d8d5-76808bfc4ba1" executionId="7772a2a0-e28a-48ea-9771-cd18c6175000" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ce7be621-420f-57b8-7c84-72ff497813af" executionId="15a49beb-6e0a-4f1a-91d5-3dd9584b9b43" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
