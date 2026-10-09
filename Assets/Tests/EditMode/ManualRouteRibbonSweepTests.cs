@@ -7,6 +7,38 @@ namespace Biathlon.Tests
 {
     public sealed class ManualRouteRibbonSweepTests
     {
+        [Test] public void TightFoldedRibbonCombinesCompleteDiskProofsWithoutAGlobalHull()
+        {
+            var f=new ManualRacePathCatalogTests.Fixture(lane:2);
+            var pose=new ManualSkiHeadingState(38.759850762,-1.659021024,1.180710536,-.566373208);
+            Assert.That(f.Catalog.TryProject(pose,3,1368532934L,2,out var at),Is.True);
+            var sweep=new ManualRouteRibbonSweep(f.Catalog.ProjectionGeometry,f.Venue.Occupancy,ManualScopedFieldStepperTests.Work());
+            Assert.That(sweep.Preview(Travel(f.Venue.Occupancy,pose),f.Catalog.GetGeometryObservation(at)).Status,
+                Is.EqualTo(ManualRouteTubeStatus.Clear));
+        }
+        [Test] public void RefinedCellsDoNotShrinkAnOversizedOccupiedBody()
+        {
+            var f=new ManualRacePathCatalogTests.Fixture(lane:2);
+            var pose=new ManualSkiHeadingState(38.759850762,-1.659021024,1.180710536,-.566373208);
+            Assert.That(f.Catalog.TryProject(pose,3,1368532934L,2,out var at),Is.True);
+            var body=OccupancyDefinition.FromJson(PhysiologyContractTests.ReplaceNumber(f.Venue.Occupancy.ToJson(),"body_width_m","4"));
+            var sweep=new ManualRouteRibbonSweep(f.Catalog.ProjectionGeometry,body,ManualScopedFieldStepperTests.Work());
+            Assert.That(sweep.Preview(Travel(body,pose),f.Catalog.GetGeometryObservation(at)).Status,
+                Is.EqualTo(ManualRouteTubeStatus.UnresolvedStart));
+        }
+        [Test] public void WarmRefinedFoldedCoverRemainsAllocationFreeAndRepeatable()
+        {
+            var f=new ManualRacePathCatalogTests.Fixture(lane:2);
+            var pose=new ManualSkiHeadingState(38.759850762,-1.659021024,1.180710536,-.566373208);
+            Assert.That(f.Catalog.TryProject(pose,3,1368532934L,2,out var at),Is.True);
+            var sweep=new ManualRouteRibbonSweep(f.Catalog.ProjectionGeometry,f.Venue.Occupancy,ManualScopedFieldStepperTests.Work());
+            var trajectory=Travel(f.Venue.Occupancy,pose);var observation=f.Catalog.GetGeometryObservation(at);
+            for(int i=0;i<128;i++)sweep.Preview(trajectory,observation);
+            long before=GC.GetAllocatedBytesForCurrentThread();bool all=true;
+            for(int i=0;i<1000;i++)all&=sweep.Preview(trajectory,observation).Status==ManualRouteTubeStatus.Clear;
+            long allocated=GC.GetAllocatedBytesForCurrentThread()-before;
+            Assert.That(all,Is.True);Assert.That(allocated,Is.Zero);
+        }
         [Test] public void AnUpcomingNarrowMatDoesNotShrinkTheAlreadyOwnedWiderAisle()
         {
             var f=new ManualRacePathCatalogTests.Fixture(lane:2);

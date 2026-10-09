@@ -349,3 +349,24 @@ velocity threshold, pose reset or unearned stationary permission. Physical
 contexts change; full AI mat arrival still fails on real residual motion.
 .NET470/471 (same known arrival failure), native25+8+14 PASS; compile/Console clear.
 [Report](../reports/TASK_M13_MANUAL_EXACT_PHYSICAL_REST_20261009.md).
+
+## 2026-10-09 — separated stop pieces and bounded full-body refinement
+
+A complete separated field with a genuine free-drive stop/cap retains its immutable
+piecewise force law until an actual contact or route event. Other constant-force
+fields retain their established polynomial representation; reached pairs still
+require force complementarity. This avoids repeatedly refreezing a partly paid
+snow ramp at nanosecond stop pieces. Source validation, continuous body/course/
+phase proofs, exact common clock and atomic publication are unchanged.
+
+The local full-body cover may refine its oversized one-dimensional disks with
+bounded rectangular cell circumdisks. Both contain the full rectangle plus the
+same clearance. Each disk requires an existing conservative tube or a proved
+simple polygon. No non-simple winding/hull proof or physical domain enlargement
+is selected. An inverse shared-force stopping query reports infeasibility and
+cannot undo automatic corner braking; it grants no arrival authority.
+
+Final.NET482/483 retains the known tick3214 moving firing arrival. Native30+4+13+
+21+1 PASS; compile/Console clear. Terminal controller trials failed qualification
+and remain evidence outside Unity. Host/manual lifecycle/replay/M13/build OPEN.
+[Report](../reports/TASK_M13_MANUAL_STOP_PIECES_AND_BODY_COVER_20261009.md).

@@ -1,0 +1,173 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1590,\"PassedTests\":30,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:24.0740498\"},\"Results\":[{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.ALongitudinalStopCannotEraseUnresolvedSideSlipOrSpin\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.0560000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.BrakedPreviewIsRepeatableAllocationFreeAndIndependentOfActorIdentity\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.0010000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.BrakeRequestIsBoundedAndPreservesAllOtherPreparedControls\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.BrakingPaysTheActualStopPrefixAndCannotReverseOrRestartAnUnpoweredSkier\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.9990000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.ControlledSourcePassesTheActualContactForceCouplerWithoutAHeadingSnap\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.1010000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.ExistingSpeedGripPostureAndAngularResponseTuningIsShared\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.ExplicitBrakeRequestUsesSharedForceAndDoesNotResetSourceMotion\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.0190000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.FrontAndRearShareOneGripBoxAndNeverAddTotalKineticEnergy\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.5270000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.FullyPaidNeutralStopReachesPhysicalRestAtArbitraryHeading(0.37d)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.0220000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.FullyPaidNeutralStopReachesPhysicalRestAtArbitraryHeading(1.57d)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.9510000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.FullyPaidNeutralStopReachesPhysicalRestAtArbitraryHeading(4.7d)\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.0010000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.InfeasibleStoppingCannotGrantAStopOrExceedTheSharedCap\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.9940000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.InvalidControlSourcesAndContextsAreExplicit\",\"Status\":\"Passed\",\"Duration\":\"00:00:01\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.InverseStoppingCannotUndoAutomaticCornerBrakingToDelayAStop\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.0120000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.InverseStoppingPaysTheExistingForceLawAndPhysicalTravel\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.0320000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.MassScalingAndMirroredReverseTravelKeepTheSamePhysicalAcceleration\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.NeutralAlignedDriveKeepsLegacySharedForcesBitForBit\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.0100000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.NeutralYawDampsLocallyWithoutSeekingAnyCourseTangentOrCentre\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.PreparedSessionSignedIntentPublishesOneFullyPaidOwnedWorldTick\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.5850000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.ReachedPairCouplesSignedSnowForcesInStableActorOrder\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.9970000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.RequestedHighSpeedTurnPaysBrakingBeforeGripLimitedYawCanBuild\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.9980000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.RequestMatchesExistingHeadingLimitsWithoutRejectingPhysicalSpin\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0150000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.RestAndZeroGripCannotAcquireAnUnpaidPivotOrLateralVelocity\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.SharedDriveRetainsItsRawSourceForceMeaningAndFrozenPrefix\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.9780000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.SignedMovingSteeringUsesSnowForceAndRetainsContinuousSlip\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0190000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.StoppingIntentCannotCompeteWithPoweredOrSignedSteeringInput\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.9860000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.SuccessivePhysicalTurnsAndNeutralReleaseAreDeterministicWithoutRecentering\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.0170000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.VoluntaryAndCornerBrakingShareOneCapRatherThanStacking\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.9490000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.WarmControlledSnowAndDrivenQueriesAllocateNothing\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.9540000\"},{\"Name\":\"Biathlon.Tests.ManualSkiControlledDriveTests.WarmInverseStoppingQueriesAreDeterministicWithoutAllocations\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.9540000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 1590,
+        "PassedTests": 30,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:24.0740498"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.ALongitudinalStopCannotEraseUnresolvedSideSlipOrSpin",
+          "Status": "Passed",
+          "Duration": "00:00:01.0560000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.BrakedPreviewIsRepeatableAllocationFreeAndIndependentOfActorIdentity",
+          "Status": "Passed",
+          "Duration": "00:00:01.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.BrakeRequestIsBoundedAndPreservesAllOtherPreparedControls",
+          "Status": "Passed",
+          "Duration": "00:00:00.0020000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.BrakingPaysTheActualStopPrefixAndCannotReverseOrRestartAnUnpoweredSkier",
+          "Status": "Passed",
+          "Duration": "00:00:00.9990000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.ControlledSourcePassesTheActualContactForceCouplerWithoutAHeadingSnap",
+          "Status": "Passed",
+          "Duration": "00:00:01.1010000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.ExistingSpeedGripPostureAndAngularResponseTuningIsShared",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.ExplicitBrakeRequestUsesSharedForceAndDoesNotResetSourceMotion",
+          "Status": "Passed",
+          "Duration": "00:00:01.0190000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.FrontAndRearShareOneGripBoxAndNeverAddTotalKineticEnergy",
+          "Status": "Passed",
+          "Duration": "00:00:00.5270000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.FullyPaidNeutralStopReachesPhysicalRestAtArbitraryHeading(0.37d)",
+          "Status": "Passed",
+          "Duration": "00:00:01.0220000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.FullyPaidNeutralStopReachesPhysicalRestAtArbitraryHeading(1.57d)",
+          "Status": "Passed",
+          "Duration": "00:00:00.9510000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.FullyPaidNeutralStopReachesPhysicalRestAtArbitraryHeading(4.7d)",
+          "Status": "Passed",
+          "Duration": "00:00:01.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.InfeasibleStoppingCannotGrantAStopOrExceedTheSharedCap",
+          "Status": "Passed",
+          "Duration": "00:00:00.9940000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.InvalidControlSourcesAndContextsAreExplicit",
+          "Status": "Passed",
+          "Duration": "00:00:01"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.InverseStoppingCannotUndoAutomaticCornerBrakingToDelayAStop",
+          "Status": "Passed",
+          "Duration": "00:00:01.0120000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.InverseStoppingPaysTheExistingForceLawAndPhysicalTravel",
+          "Status": "Passed",
+          "Duration": "00:00:01.0320000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.MassScalingAndMirroredReverseTravelKeepTheSamePhysicalAcceleration",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.NeutralAlignedDriveKeepsLegacySharedForcesBitForBit",
+          "Status": "Passed",
+          "Duration": "00:00:01.0100000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.NeutralYawDampsLocallyWithoutSeekingAnyCourseTangentOrCentre",
+          "Status": "Passed",
+          "Duration": "00:00:00.0020000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.PreparedSessionSignedIntentPublishesOneFullyPaidOwnedWorldTick",
+          "Status": "Passed",
+          "Duration": "00:00:01.5850000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.ReachedPairCouplesSignedSnowForcesInStableActorOrder",
+          "Status": "Passed",
+          "Duration": "00:00:00.9970000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.RequestedHighSpeedTurnPaysBrakingBeforeGripLimitedYawCanBuild",
+          "Status": "Passed",
+          "Duration": "00:00:00.9980000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.RequestMatchesExistingHeadingLimitsWithoutRejectingPhysicalSpin",
+          "Status": "Passed",
+          "Duration": "00:00:00.0150000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.RestAndZeroGripCannotAcquireAnUnpaidPivotOrLateralVelocity",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.SharedDriveRetainsItsRawSourceForceMeaningAndFrozenPrefix",
+          "Status": "Passed",
+          "Duration": "00:00:00.9780000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.SignedMovingSteeringUsesSnowForceAndRetainsContinuousSlip",
+          "Status": "Passed",
+          "Duration": "00:00:00.0190000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.StoppingIntentCannotCompeteWithPoweredOrSignedSteeringInput",
+          "Status": "Passed",
+          "Duration": "00:00:00.9860000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.SuccessivePhysicalTurnsAndNeutralReleaseAreDeterministicWithoutRecentering",
+          "Status": "Passed",
+          "Duration": "00:00:01.0170000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.VoluntaryAndCornerBrakingShareOneCapRatherThanStacking",
+          "Status": "Passed",
+          "Duration": "00:00:00.9490000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.WarmControlledSnowAndDrivenQueriesAllocateNothing",
+          "Status": "Passed",
+          "Duration": "00:00:00.9540000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualSkiControlledDriveTests.WarmInverseStoppingQueriesAreDeterministicWithoutAllocations",
+          "Status": "Passed",
+          "Duration": "00:00:00.9540000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

@@ -3,6 +3,15 @@ using Biathlon.Domain;
 
 namespace Biathlon.Simulation
 {
+    public readonly struct ManualSkiStoppingPreview
+    {
+        public ManualSkiControlledDriveFrame Frame {get;}
+        public double BrakeFraction {get;}
+        public bool WithinBrakingBudget {get;}
+        public bool CoastStopsEarlier {get;}
+        internal ManualSkiStoppingPreview(ManualSkiControlledDriveFrame frame,double brake,bool within,bool early)
+        {Frame=frame;BrakeFraction=brake;WithinBrakingBudget=within;CoastStopsEarlier=early;}
+    }
     public readonly struct ManualSkiControlledDriveFrame
     {
         public bool IsValid=>Drive.IsValid&&SteeredSnow.IsValid;
@@ -21,6 +30,7 @@ namespace Biathlon.Simulation
         private readonly ManualSkiSteeredSnowSystem snow;
         private readonly CorneringSystem cornering;
         private readonly ManualSkiSteeringSystem commands;
+        private readonly double mass,maximumBrakingNewtons;
         public string ContextJson {get;}
         public ManualSkiControlledDriveSystem(SkiPhysicsDefinition physics,OccupancyDefinition body,
             ManualSkiSteeringDefinition steering,CorneringDefinition turns,int frequency)
@@ -28,8 +38,29 @@ namespace Biathlon.Simulation
             drive=new ManualSkiContactDriveSystem(physics,body,frequency);
             snow=new ManualSkiSteeredSnowSystem(body,steering,frequency);cornering=new CorneringSystem(turns,physics);
             commands=new ManualSkiSteeringSystem(steering,frequency);
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_controlled_slip_drive_v3_explicit_braking",drive.ContextJson,snow.ContextJson,
-                turns.ToJson(),"one_joint_snow_budget;actual_heading_grade;max_actual_or_requested_yaw_braking;explicit_brake_fraction_uses_same_force_cap;max_not_sum;shared_corner_force_limits;unchanged_shared_longitudinal_forces;no_admission"});
+            mass=physics.MassKilograms;maximumBrakingNewtons=mass*turns.MaximumBraking;
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_controlled_slip_drive_v4_inverse_stopping",drive.ContextJson,snow.ContextJson,
+                turns.ToJson(),"one_joint_snow_budget;actual_heading_grade;max_actual_or_requested_yaw_braking;explicit_brake_fraction_uses_same_force_cap;max_not_sum;shared_corner_force_limits;inverse_frozen_stopping_intent_with_explicit_infeasibility;unchanged_shared_longitudinal_forces;no_admission"});
+        }
+        /// <summary>Invert only the shared frozen longitudinal force law for a
+        /// neutral, unpowered stopping intent. The requested future stop time
+        /// is not an arrival proof. Grip, spin, contact, course and phase proofs
+        /// remain independent, and an infeasible request retains the real motion.</summary>
+        public ManualSkiStoppingPreview PreviewStopping(ManualSkiContactBody body,SkiContactMotion motion,
+            ManualRacePathObservation observation,TrackSample surface,ManualSkiMotionInput input,
+            double seconds,double stopAfterSeconds)
+        {
+            if(!input.IsValid||input.SteeringInput!=0||input.DeliveredPowerWatts!=0||input.BrakeFraction!=0)
+                throw new ArgumentException("Neutral unpowered input without a competing brake intent required.");
+            PhysiologyNumbers.RequireRange(stopAfterSeconds,Math.Max(seconds,PhysiologyNumbers.MinimumPositive),
+                PhysiologyNumbers.MaximumMagnitude,nameof(stopAfterSeconds));
+            var baseline=Preview(body,motion,observation,surface,input,seconds);
+            double required=baseline.Cornering.BrakingNewtons+mass*(baseline.Drive.FirstDrive.Acceleration+
+                baseline.Drive.FirstDrive.InitialState.SpeedMetersPerSecond/stopAfterSeconds);
+            double fraction=Math.Max(0,Math.Min(1,required/maximumBrakingNewtons));
+            var frame=Preview(body,motion,observation,surface,input.WithBrakeFraction(fraction),seconds);
+            return new ManualSkiStoppingPreview(frame,fraction,required>=baseline.Cornering.BrakingNewtons&&required<=maximumBrakingNewtons,
+                required<baseline.Cornering.BrakingNewtons);
         }
         public ManualSkiControlledDriveFrame Preview(ManualSkiContactBody body,SkiContactMotion motion,
             ManualRacePathObservation observation,TrackSample surface,ManualSkiMotionInput input,double seconds)

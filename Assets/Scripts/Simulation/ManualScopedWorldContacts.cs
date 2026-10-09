@@ -24,7 +24,9 @@ namespace Biathlon.Simulation
             return contactForces.GetReaction(index);
         }
         /// <summary>Couple current raw drive forces through actual owned bodies.
-        /// Output covers only the next common constant-force piece. This preview
+        /// Reached contacts cover the next common constant-force piece. A field
+        /// with no reached pairs keeps each full immutable free drive, including
+        /// its physical stop/cap, until a real contact or route event. This preview
         /// pays no time; the normal scheduler, course and phase proofs still
         /// must admit it. Failure never writes a partial caller candidate array.</summary>
         public bool TryPreviewContactDrivenMotion(ManualScopedWorldTick tick,SkiDrivenContactTrajectory[] drives,SkiWorldMotionCandidate[] output)
@@ -34,12 +36,28 @@ namespace Biathlon.Simulation
             if(contactForces==null)throw new InvalidOperationException("Contact force policy and exact masses must be bound.");
             if(drives==null||output==null||drives.Length!=Count||output.Length!=Count)
                 throw new ArgumentException("Complete current world drive and output roster required.");
-            double remaining=GetRemainingSeconds(tick);
+            double remaining=GetRemainingSeconds(tick);bool hasBreakpoint=false;
             for(int i=0;i<Count;i++)
             {
                 var actor=workingActors[i];var frame=drives[i];
-                if(!frame.IsValid||frame.DurationSeconds>remaining)throw new ArgumentException("Drive must fit the remaining owned clock.");
+                if(!frame.IsValid||frame.DurationSeconds>remaining||frame.DurationSeconds!=drives[0].DurationSeconds||
+                    !SamePose(frame.InitialPose,actor.Pose)||!SameVelocity(frame.InitialMotion.Velocity,actor.Velocity)||
+                    frame.InitialMotion.YawRate!=actor.Pose.YawRateRadiansPerSecond||frame.MassKilograms!=masses[i])
+                    throw new ArgumentException("Exact current physical source, mass and equal-duration remaining drive required.");
                 responseBodies[i]=new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,masses[i]);
+                hasBreakpoint|=frame.ConstantAccelerationSeconds<frame.DurationSeconds;
+            }
+            if(!CollectOwnedContacts())return false;
+            if(LastOwnedContacts.Count==0&&hasBreakpoint)
+            {
+                // Recomputing every separated skier at another skier's tiny
+                // stop breakpoint repeatedly restarts a partly paid snow ramp.
+                // Keep the exact free law. Future arrivals still go through the
+                // continuous scheduler and all body/course/phase admission.
+                for(int i=0;i<Count;i++)coupledCandidates[i]=new SkiWorldMotionCandidate(workingActors[i].Athlete,new ManualSkiWorldTrajectory(drives[i]));
+                for(int i=0;i<Count;i++)output[i]=coupledCandidates[i];
+                LastContactForces=new SkiContactForcePreview(SkiContactForceStatus.Resolved,drives[0].DurationSeconds,0);
+                LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.Clear);return true;
             }
             LastContactForces=contactForces.Preview(responseBodies,drives,Count,coupledTrajectories);
             if(LastContactForces.Status!=SkiContactForceStatus.Resolved)return Reject(ManualScopedWorldStatus.ContactForces);

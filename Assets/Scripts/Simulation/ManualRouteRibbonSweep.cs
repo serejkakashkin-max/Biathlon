@@ -13,18 +13,19 @@ namespace Biathlon.Simulation
     }
     /// <summary>Continuous whole-body exclusion inside a local authored ribbon.
     /// Overlapping disks cover the complete occupied rectangle, including its
-    /// personal clearance. Every disk must remain inside a simple local polygon
-    /// and clear its exterior boundary; internal sampling caps are not walls.
+    /// personal clearance. Every disk must fit a simple local polygon or an
+    /// unchanged conservative connected tube. A bounded cell cover refines
+    /// oversized end caps; internal sampling caps are not walls.
     /// Failure grants no movement, route progress, docking or topology handoff.</summary>
     public sealed class ManualRouteRibbonSweep
     {
         private readonly ManualRouteProjectionMap map;
         private readonly SkiContactSweepDefinition work;
-        private readonly double halfLength,coverRadius,bodyRadius,edgeClearance;
-        private readonly int disks;
+        private readonly double halfLength,halfWidth,coverRadius,refinedRadius,bodyRadius,edgeClearance;
+        private readonly int disks,refinedRows;
         private readonly double[] x,z;
         private int vertices;
-        private bool useTubes;
+        private bool simpleRibbon;
         private ManualConnectedTubeWindow tubeWindow;
         public int LastVertexCount=>vertices;
         public double LastStartClearance {get;private set;}
@@ -37,12 +38,14 @@ namespace Biathlon.Simulation
             this.work=work??throw new ArgumentNullException(nameof(work));
             if(body==null)throw new ArgumentNullException(nameof(body));
             disks=work.MaximumDepth;halfLength=body.LongitudinalSeparation*.5;
-            double halfWidth=body.LateralSeparation*.5;
+            halfWidth=body.LateralSeparation*.5;
             coverRadius=Math.Sqrt(halfWidth*halfWidth+Math.Pow(halfLength/disks,2));
+            refinedRows=Math.Max(1,Math.Min(disks,(int)Math.Ceiling(disks*halfWidth/halfLength)));
+            refinedRadius=Math.Sqrt(Math.Pow(halfWidth/refinedRows,2)+Math.Pow(halfLength/disks,2));
             bodyRadius=Math.Sqrt(halfWidth*halfWidth+halfLength*halfLength);edgeClearance=body.EdgeClearance;
             x=new double[map.MaximumRibbonVertices];z=new double[x.Length];
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_local_authored_ribbon_disk_cover_v4",map.ContextJson,
-                body.ToJson(),work.ToJson(),"actual_knot_normals;minimum_window_width;exact_authored_endpoints;independent_simple_polygon_or_union_of_existing_conservative_tubes;unchanged_tube_turn_reserve;disk_count_from_maximum_depth;full_cover_envelope_and_source_offset;continuous_cover_not_corner_samples;no_phase_or_centre_credit"});
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_local_authored_ribbon_disk_cover_v5_refined_cells",map.ContextJson,
+                body.ToJson(),work.ToJson(),"actual_knot_normals;minimum_window_width;exact_authored_endpoints;simple_polygon_only;per_disk_independent_conservative_tube_cover;unchanged_tube_turn_reserve;disk_count_from_maximum_depth;bounded_rectangular_cell_circumdisks;unchanged_full_body_and_edge_clearance;full_cover_envelope_and_source_offset;continuous_cover_not_corner_samples;no_phase_or_centre_credit"});
         }
         public ManualRouteTubePreview Preview(ManualSkiWorldTrajectory trajectory,ManualRouteProjection source)
         {
@@ -56,24 +59,14 @@ namespace Biathlon.Simulation
                 .5*trajectory.PlanarAccelerationBound*seconds*seconds;
             LastStartClearance=LastMinimumSampledClearance=double.NaN;
             vertices=map.BuildLocalRibbon(source,reach,x,z);
-            useTubes=vertices<4||!Simple();
+            simpleRibbon=Simple();
             if(!map.TryBuildConnectedWindow(source,reach,out tubeWindow))
                 return new ManualRouteTubePreview(ManualRouteTubeStatus.UnresolvedStart,0,0,0,null);
             double reserve=2*trajectory.PositionErrorBoundMeters+bodyRadius*trajectory.HeadingErrorBoundRadians+
                 128*2.2204460492503131e-16*(1+Math.Abs(trajectory.Sample(0).X)+Math.Abs(trajectory.Sample(0).Z));
-            var result=Prove();
-            if(result.Status==ManualRouteTubeStatus.Clear||useTubes)return result;
-            // A minimum-width polygon can reject a body still on the wider
-            // predecessor. Independently prove the same complete disk cover
-            // in the existing connected, turn-reserved edge tubes. Neither
-            // proof enlarges authored snow or admits a lifecycle portal.
-            useTubes=true;return Prove();
-            ManualRouteTubePreview Prove()
-            {
-                LastStartClearance=Clearance(trajectory.Sample(0));LastMinimumSampledClearance=LastStartClearance;
-                if(!(LastStartClearance>reserve))return new ManualRouteTubePreview(ManualRouteTubeStatus.UnresolvedStart,0,0,0,null);
-                int checks=0;return Search(trajectory,0,seconds,0,reserve,ref checks);
-            }
+            LastStartClearance=Clearance(trajectory.Sample(0));LastMinimumSampledClearance=LastStartClearance;
+            if(!(LastStartClearance>reserve))return new ManualRouteTubePreview(ManualRouteTubeStatus.UnresolvedStart,0,0,0,null);
+            int checks=0;return Search(trajectory,0,seconds,0,reserve,ref checks);
         }
         private ManualRouteTubePreview Search(ManualSkiWorldTrajectory trajectory,double from,double to,int depth,double reserve,ref int checks)
         {
@@ -96,30 +89,47 @@ namespace Biathlon.Simulation
             {
                 double offset=halfLength*(2.0*k+1-disks)/disks;
                 double px=pose.X+fx*offset,pz=pose.Z+fz*offset;
-                if(useTubes)
-                {
-                    result=Math.Min(result,map.ConnectedTubeDiskClearance(px,pz,tubeWindow,coverRadius+edgeClearance));
-                    continue;
-                }
-                if(!Inside(px,pz))return double.NegativeInfinity;
+                result=Math.Min(result,DiskClearance(px,pz,coverRadius+edgeClearance));
+            }
+            if(result>0)return result;
+            // The one-dimensional cover has unnecessarily large end caps.
+            // A bounded rectangular cell grid refines that cover, never the
+            // occupied body. Each cell's circumscribed disk plus the same
+            // clearance covers its entire share of the rectangle.
+            double refined=double.PositiveInfinity;
+            for(int k=0;k<disks;k++)for(int j=0;j<refinedRows;j++)
+            {
+                double along=halfLength*(2.0*k+1-disks)/disks;
+                double side=halfWidth*(2.0*j+1-refinedRows)/refinedRows;
+                refined=Math.Min(refined,DiskClearance(pose.X+fx*along+fz*side,
+                    pose.Z+fz*along-fx*side,refinedRadius+edgeClearance));
+            }
+            return Math.Max(result,refined);
+        }
+        private double DiskClearance(double px,double pz,double radius)
+        {
+                double diskClearance=map.ConnectedTubeDiskClearance(px,pz,tubeWindow,radius);
+                if(vertices<4||!simpleRibbon||!Inside(px,pz))return diskClearance;
                 double distance=double.PositiveInfinity;
                 for(int i=0;i<vertices;i++)
                 {
                     int j=(i+1)%vertices;double dx=x[j]-x[i],dz=z[j]-z[i],length=dx*dx+dz*dz;
-                    if(length==0)return double.NegativeInfinity;
-                    double t=Math.Max(0,Math.Min(1,((px-x[i])*dx+(pz-z[i])*dz)/length));
+                    double t=length==0?0:Math.Max(0,Math.Min(1,((px-x[i])*dx+(pz-z[i])*dz)/length));
                     double ax=px-x[i]-t*dx,az=pz-z[i]-t*dz;distance=Math.Min(distance,ax*ax+az*az);
                 }
-                result=Math.Min(result,Math.Sqrt(distance)-coverRadius-edgeClearance);
-            }
-            return result;
+                return Math.Max(diskClearance,Math.Sqrt(distance)-radius);
         }
         private bool Inside(double px,double pz)
         {
-            bool inside=false;
+            // Called only after the complete local polygon is proved simple.
+            int winding=0;
             for(int i=0,j=vertices-1;i<vertices;j=i++)
-                if((z[i]>pz)!=(z[j]>pz)&&px<(x[j]-x[i])*(pz-z[i])/(z[j]-z[i])+x[i])inside=!inside;
-            return inside;
+            {
+                double side=(x[i]-x[j])*(pz-z[j])-(px-x[j])*(z[i]-z[j]);
+                if(z[j]<=pz){if(z[i]>pz&&side>0)winding++;}
+                else if(z[i]<=pz&&side<0)winding--;
+            }
+            return winding!=0;
         }
         private bool Simple()
         {

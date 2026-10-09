@@ -153,6 +153,61 @@ namespace Biathlon.Tests
             Assert.That(end.Velocity.X*end.Velocity.X+end.Velocity.Z*end.Velocity.Z,Is.GreaterThan(0));
             Assert.That(end.YawRate,Is.GreaterThan(0));
         }
+        [Test] public void InverseStoppingPaysTheExistingForceLawAndPhysicalTravel()
+        {
+            var f=new Fixture();var b=f.Body(forward:.1);var input=new ManualSkiMotionInput(0,0,100,100);
+            var result=f.System.PreviewStopping(b,Motion(b),f.Observation,f.Surface,input,.04,.04);
+            Assert.That(result.WithinBrakingBudget,Is.True);Assert.That(result.CoastStopsEarlier,Is.False);
+            Assert.That(result.BrakeFraction,Is.GreaterThan(0).And.LessThan(1));
+            var actual=result.Frame.Drive;var repeated=f.System.Preview(b,Motion(b),f.Observation,f.Surface,
+                input.WithBrakeFraction(result.BrakeFraction),.04).Drive;
+            Assert.That(actual.State,Is.EqualTo(repeated.State));Assert.That(actual.MotionAt(1),Is.EqualTo(repeated.MotionAt(1)));
+            Assert.That(actual.FirstDrive.DistanceAt(.04),Is.EqualTo(actual.FirstDrive.InitialState.SpeedMetersPerSecond*.02).Within(1e-12));
+            Assert.That(actual.FirstDrive.SpeedAt(.04),Is.EqualTo(0).Within(1e-15));
+            Assert.That(actual.MotionAt(0),Is.EqualTo(Motion(b)));
+        }
+        [Test] public void InfeasibleStoppingCannotGrantAStopOrExceedTheSharedCap()
+        {
+            var f=new Fixture();var b=f.Body(forward:6);var input=new ManualSkiMotionInput(0,0,100,100);
+            var result=f.System.PreviewStopping(b,Motion(b),f.Observation,f.Surface,input,.01,.01);
+            Assert.That(result.WithinBrakingBudget,Is.False);Assert.That(result.BrakeFraction,Is.EqualTo(1));
+            Assert.That(result.Frame.Drive.FirstDrive.SpeedAt(.01),Is.GreaterThan(5));
+            Assert.That(result.Frame.Drive.MotionAt(0),Is.EqualTo(Motion(b)));
+        }
+        [Test] public void InverseStoppingCannotUndoAutomaticCornerBrakingToDelayAStop()
+        {
+            var f=new Fixture();var b=f.Body(forward:6,yaw:2);var input=new ManualSkiMotionInput(0,0,100,100);
+            var baseline=f.System.Preview(b,Motion(b),f.Observation,f.Surface,input,.05);
+            Assert.That(baseline.Cornering.BrakingNewtons,Is.GreaterThan(0));
+            var result=f.System.PreviewStopping(b,Motion(b),f.Observation,f.Surface,input,.05,6);
+            Assert.That(result.WithinBrakingBudget,Is.False);Assert.That(result.CoastStopsEarlier,Is.True);
+            Assert.That(result.Frame.Drive.FirstDrive.Output.BrakingNewtons,Is.EqualTo(baseline.Drive.FirstDrive.Output.BrakingNewtons));
+            Assert.That(result.Frame.Drive.MotionAt(0),Is.EqualTo(Motion(b)));
+        }
+        [Test] public void WarmInverseStoppingQueriesAreDeterministicWithoutAllocations()
+        {
+            var f=new Fixture();var b=f.Body(forward:.1);var input=new ManualSkiMotionInput(0,0,100,100);
+            var motion=Motion(b);var reference=f.System.PreviewStopping(b,motion,f.Observation,f.Surface,input,.04,.04);
+            for(int i=0;i<128;i++)f.System.PreviewStopping(b,motion,f.Observation,f.Surface,input,.04,.04);
+            long before=GC.GetAllocatedBytesForCurrentThread();bool all=true;
+            for(int i=0;i<1000;i++)
+            {
+                var result=f.System.PreviewStopping(b,motion,f.Observation,f.Surface,input,.04,.04);
+                all&=result.WithinBrakingBudget&&result.BrakeFraction==reference.BrakeFraction&&
+                    result.Frame.Drive.State.X==reference.Frame.Drive.State.X&&result.Frame.Drive.State.Z==reference.Frame.Drive.State.Z;
+            }
+            long allocated=GC.GetAllocatedBytesForCurrentThread()-before;
+            Assert.That(all,Is.True);Assert.That(allocated,Is.Zero);
+        }
+        [Test] public void StoppingIntentCannotCompeteWithPoweredOrSignedSteeringInput()
+        {
+            var f=new Fixture();var b=f.Body();
+            foreach(var input in new[]{new ManualSkiMotionInput(1,0,100,100),new ManualSkiMotionInput(0,1,100,100),
+                new ManualSkiMotionInput(0,0,100,100,brakeFraction:.1)})
+                Assert.Throws<ArgumentException>(()=>f.System.PreviewStopping(b,Motion(b),f.Observation,f.Surface,input,.04,.04));
+            Assert.Throws<ArgumentOutOfRangeException>(()=>f.System.PreviewStopping(b,Motion(b),f.Observation,f.Surface,
+                new ManualSkiMotionInput(0,0,100,100),.04,.03));
+        }
         [Test] public void SharedDriveRetainsItsRawSourceForceMeaningAndFrozenPrefix()
         {
             var f=new Fixture();var b=f.Body(.8,3);var result=f.Preview(b);var root=new ManualSkiWorldTrajectory(result.Drive);
@@ -366,7 +421,7 @@ namespace Biathlon.Tests
             Assert.Catch(()=>system.Preview(b,Motion(b),0,4,.051));Assert.Catch(()=>system.Preview(b,Motion(b),0,4,.05,1.1));
             var f=new Fixture();Assert.Catch(()=>f.System.Preview(f.Body(),Motion(f.Body()),f.Observation,f.Surface,default,.05));
             Assert.That(system.ContextJson,Does.Contain("manual_steered_snow_constraint_v2_exact_neutral_constraint"));
-            Assert.That(f.System.ContextJson,Does.Contain("manual_controlled_slip_drive_v3_explicit_braking"));
+            Assert.That(f.System.ContextJson,Does.Contain("manual_controlled_slip_drive_v4_inverse_stopping"));
             Assert.That(f.System.ContextJson,Does.Contain("explicit_brake_fraction_uses_same_force_cap"));
         }
     }

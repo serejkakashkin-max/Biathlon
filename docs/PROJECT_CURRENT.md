@@ -267,3 +267,14 @@ Low-grip residuals remain. .NET470PASS/1FAIL/471; native25+8+14 PASS; compile/
 Console clear. Known tick3214 real MovingFiringArrival still OPEN, next inverse
 stopping/docking. Host lateral-v1/M13/WP175/177/178/build OPEN; WP176 PASS.
 [Report](reports/TASK_M13_MANUAL_EXACT_PHYSICAL_REST_20261009.md).
+
+2026-10-09 latest: separated stop/cap free ramps keep their complete physical law;
+reached contacts and ordinary constant-force representation retained. Refined
+bounded full-rectangle cover and inverse shared-force braking queries qualified
+as components. Final.NET482PASS/1FAIL/483; native30+4+13+21+1 PASS; compile/Console
+clear. Mass30 stationary-player400ticks PASS again after rejected controller
+trials were removed. Known first-bout moving arrival tick3214 still OPEN; terminal
+controller trials/evidence preserved outside Unity. Host lateral-v1, resources/
+finish/draft/manual replay/WP175/177/178/M13/final build OPEN; WP176 PASS. Next
+qualified last2–3m mat control. PROJECT_STATE appended without historical edits.
+[Report](reports/TASK_M13_MANUAL_STOP_PIECES_AND_BODY_COVER_20261009.md).

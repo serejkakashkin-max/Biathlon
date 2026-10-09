@@ -23365,3 +23365,40 @@ AI failure still tick3214 MovingFiringArrival with REAL motion, not solved by
 this numerical fix. Next inverse stopping / terminal mat docking. Host lateral-v1;
 M13/WP175/177/178/final build OPEN, WP176 PASS. No intermediate Windows build.
 [Report](reports/TASK_M13_MANUAL_EXACT_PHYSICAL_REST_20261009.md).
+## 2026-10-09 — M13: physical stop pieces and complete body cover
+
+M13 remains OPEN; WP-176 PASS; WP-175/177/178 OPEN. Production host still lateral-v1.
+No intermediate/final Windows owner build and no M14 transition.
+
+Separated stop/cap previews now keep the immutable full free force/snow law only
+when the complete current field has no reached contacts. Reached force coupling,
+ordinary constant-force representation, continuous future collisions, full body/
+course/phase proof and exact atomic clock remain mandatory. This corrects the
+4096-piece / 0.008603 s nanosecond-stop loop without a paid stationary fallback.
+Bounded rectangular cell disks refine oversized body-cover end caps with unchanged
+body/personal/edge dimensions. Only simple local polygons and existing conservative
+connected tubes are admitted; the trial winding proof was not selected.
+An inverse neutral/unpowered shared-force stopping API exposes feasibility and
+cannot exceed the shared brake cap or undo automatic corner braking. It is not yet
+selected by the field/production host and grants no firing-arrival permission.
+
+Final all-manual .NET: 482 PASS / 1 FAIL / 483 executed. Known first-bout manual AI
+moving firing arrival remains FAIL at tick3214. All added cases pass. Native Unity:
+controlled/inverse30, free drive4, full-body cover13, contact forces21, actual Mass30
+stationary-player bypass1 PASS (400 complete clocks). Final compile/refresh and
+recent Error/Exception Console checks clear. Historical failing tests/receipts kept.
+
+Terminal docking/controller trials did not qualify; their selected-code changes
+were removed. The broader free-drive/pursuit regression in start bypass is corrected;
+final Mass30 bypass passes again. Experiment patch/definition snapshots remain
+outside Unity in the evidence directory. No hidden shooting tuning, pose/velocity
+reset, lane widening, body shrink or unsupported GPU performance approval.
+
+Next: independently qualify approved final2–3m mat approach/stopping, then complete
+manual lifecycle/reusable mats/finish/draft/replay/host. WP175 weather/readability,
+WP177 balance/owner too-easy-shooting follow-up and WP178 hidden sustained profiling
+remain required before final M13 owner build. PROJECT_STATE history remains exact
+append-only; current index: docs/PROJECT_CURRENT.md.
+
+Report: docs/reports/TASK_M13_MANUAL_STOP_PIECES_AND_BODY_COVER_20261009.md
+Evidence: docs/quality/m13/field-stepper-20261008/
