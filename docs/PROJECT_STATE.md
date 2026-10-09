@@ -23702,3 +23702,25 @@ Owner shooting-feel feedback remains pending. Build only after ALL M13. Existing
 historical bytes retained; this append does not replace or remove earlier records.
 Report: docs/reports/TASK_M13_MANUAL_DENSE_FIELD_CHECKPOINT_20261009.md.
 Evidence: docs/quality/m13/field-stepper-20261008/manual-production-first-diagnosis-20261009.md.
+
+## 2026-10-09 — M13 actual-time range resource ordering
+
+M13 / WP175 / WP177 / WP178 OPEN; WP176 PASS. Production host lateral-v1.
+No owner Windows build. Scoped resource arrivals now interpolate the actual
+physical high-water receipt before rounding UP to integer ordering fractions.
+Subfraction contact pieces retain their complete double clock and travel rather
+than throwing because ordering endpoints round to the same integer. All source,
+route/travel, suffix and whole-clock authentication retained. No movement,
+collision, mat or phase authority is granted by this ordering record. Legacy
+retimed timeline unchanged; manual stepper context v7 captures the new policy.
+Minimized real-world two-piece tests red before fix and green after; native2/2.
+Profiled selection30/30PASS. Full manual/legacy arrival616PASS2FAIL0skipped/618,
+5m57s; existing Mass30 tick163 and Sprint40 tick8724 course failures remain OPEN.
+Independent signed full-race recording/replay stays green. Compile settled;
+Error+Exception Console empty. Metadata whitespace only normalized for the three
+new contact definitions. Dense neighbor/pursuit trials failed and were removed;
+receipts retained. Next actual-spin traffic forecast/group maneuver correction,
+full fields/Sprint-to-Pursuit, player mat capture/signed host, final WP175/177/178.
+Owner shooting-feel issue preserved. Build only after ALL M13. History retained.
+Report: docs/reports/TASK_M13_MANUAL_RESOURCE_TIME_PRECISION_20261009.md.
+Evidence: docs/quality/m13/field-stepper-20261008/manual-scoped-arrival-*.

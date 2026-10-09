@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="7673702a-021f-40d2-9da9-353f089d6195" name="snkashkin@DESKTOP-G3075GA 2026-10-09 19:23:58" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T19:23:58.8925428+03:00" queuing="2026-10-09T19:23:58.8925431+03:00" start="2026-10-09T19:23:48.9241394+03:00" finish="2026-10-09T19:24:10.0748729+03:00" />
+  <TestSettings name="default" id="75114e0b-3d72-43b9-9de9-e48ad16fe173">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_19_23_58" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="b203f6eb-14e6-405b-ae08-024a9c04fdb0" testId="ba91f1e4-2c20-cf8c-21ac-9f2c50810edf" testName="ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(&quot;mass_start&quot;,30)" computerName="DESKTOP-G3075GA" duration="00:00:09.4233330" startTime="2026-10-09T19:23:49.4265287+03:00" endTime="2026-10-09T19:23:58.8497972+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b203f6eb-14e6-405b-ae08-024a9c04fdb0">
+      <Output>
+        <StdOut>[DEBUG-dense09] tick=120 self=23 x=132,846611309 z=-9,772302038 yaw=1,803706173 spin=-0,17867715 vx=4,984182796682087 vz=-1,100658860907227 steer=-184 brake=0&#xD;
+[DEBUG-dense09] near=22 x=135,978462588 z=-9,390166345 yaw=1,751241911 spin=-0,198256462 vx=5,136639934446322 vz=-0,8488028668389026 steer=-205 brake=0&#xD;
+[DEBUG-dense09] near=24 x=134,647524389 z=-7,365592547 yaw=1,846310231 spin=-0,157729875 vx=5,018007579772051 vz=-1,345434827915595 steer=-163 brake=0&#xD;
+[DEBUG-dense09] near=25 x=131,768058525 z=-7,838471367 yaw=1,908047413 spin=-0,215604003 vx=4,842675174442882 vz=-1,5964011509387284 steer=-222 brake=0&#xD;
+[DEBUG-dense09] near=26 x=131,188672904 z=-9,140765243 yaw=1,87961182 spin=-0,202797505 vx=4,948312157107177 vz=-1,48437132564855 steer=-210 brake=0,1060307197239182&#xD;
+[DEBUG-dense09] near=28 x=130,067777613 z=-7,86398435 yaw=1,995153826 spin=-0,286755667 vx=4,756276251992022 vz=-2,009837061954318 steer=-296 brake=0&#xD;
+[DEBUG-dense09] tick=125 self=23 x=134,111620045 z=-10,022530137 yaw=1,760337314 spin=-0,161356073 vx=5,132101064413337 vz=-0,9067122647030382 steer=-167 brake=0&#xD;
+[DEBUG-dense09] near=22 x=137,277670122 z=-9,574108413 yaw=1,705049162 spin=-0,168346129 vx=5,2308884293198155 vz=-0,62639185050888 steer=-175 brake=0,05035479172136638&#xD;
+[DEBUG-dense09] near=24 x=135,915936453 z=-7,679914772 yaw=1,808418666 spin=-0,143398686 vx=5,129483191169972 vz=-1,1725832614049398 steer=-149 brake=0,03420863679074535&#xD;
+[DEBUG-dense09] near=25 x=133,000906096 z=-8,207749794 yaw=1,854117008 spin=-0,273439036 vx=4,999872306224925 vz=-1,3119527065042986 steer=-283 brake=0,0018424029610127565&#xD;
+[DEBUG-dense09] near=26 x=132,451579619 z=-9,486303513 yaw=1,831100702 spin=-0,178264821 vx=5,125402388105139 vz=-1,2784542564494992 steer=-185 brake=0&#xD;
+[DEBUG-dense09] near=28 x=131,285107111 z=-8,329129827 yaw=1,926244064 spin=-0,258170984 vx=4,9537641565598625 vz=-1,7084873353393641 steer=-268 brake=0,025333663873219982&#xD;
+[DEBUG-dense09] tick=130 self=23 x=135,411221649 z=-10,226475543 yaw=1,721250554 spin=-0,143211299 vx=5,26567835349585 vz=-0,7116901939035505 steer=-149 brake=0&#xD;
+[DEBUG-dense09] near=22 x=138,601918029 z=-9,719635282 yaw=1,678596176 spin=-0,033533003 vx=5,359816061670262 vz=-0,5597566780442564 steer=-35 brake=0&#xD;
+[DEBUG-dense09] near=24 x=137,223342158 z=-7,953584939 yaw=1,771351597 spin=-0,188608072 vx=5,290804017456308 vz=-0,9595938780959559 steer=-197 brake=0,0496655912737418&#xD;
+[DEBUG-dense09] near=25 x=134,271447644 z=-8,505560074 yaw=1,792968189 spin=-0,224351985 vx=5,169709639876083 vz=-1,0301902192928785 steer=-233 brake=0&#xD;
+[DEBUG-dense09] near=26 x=133,753185894 z=-9,78001247 yaw=1,786152703 spin=-0,175271611 vx=5,289803137175717 vz=-1,049995687702243 steer=-183 brake=0&#xD;
+[DEBUG-dense09] near=27 x=133,318572669 z=-6,981052809 yaw=1,8850976 spin=-0,2139049 vx=5,0381229425403715 vz=-1,5030261149449242 steer=-222 brake=0&#xD;
+[DEBUG-dense09] near=28 x=132,55340275 z=-8,72335681 yaw=1,862828215 spin=-0,236843003 vx=5,176946637666518 vz=-1,4087462714405563 steer=-247 brake=0&#xD;
+[DEBUG-dense09] tick=135 self=23 x=136,742416259 z=-10,386245159 yaw=1,684379888 spin=-0,140848209 vx=5,385480925884168 vz=-0,5262783054042709 steer=-146 brake=0&#xD;
+[DEBUG-dense09] near=22 x=139,961163537 z=-9,829544121 yaw=1,644644714 spin=-0,141990816 vx=5,489430575300812 vz=-0,3162246041022161 steer=-149 brake=0&#xD;
+[DEBUG-dense09] near=24 x=138,567245177 z=-8,170522663 yaw=1,721130615 spin=-0,21668416 vx=5,4468140517794765 vz=-0,7070411399840211 steer=-228 brake=0&#xD;
+[DEBUG-dense09] near=25 x=135,58105236 z=-8,738924561 yaw=1,738965542 spin=-0,20468431 vx=5,312963788618029 vz=-0,7893345593914545 steer=-212 brake=0&#xD;
+[DEBUG-dense09] near=26 x=135,086443081 z=-10,022589941 yaw=1,743984118 spin=-0,161161586 vx=5,381010021144835 vz=-0,8453997777825744 steer=-168 brake=0,05920910672694168&#xD;
+[DEBUG-dense09] near=27 x=134,597288389 z=-7,334836125 yaw=1,833020967 spin=-0,194775447 vx=5,200041889859423 vz=-1,2835870410595847 steer=-204 brake=0&#xD;
+[DEBUG-dense09] near=28 x=133,86669164 z=-9,05006982 yaw=1,805278922 spin=-0,222145862 vx=5,358511706883928 vz=-1,1603805989168023 steer=-232 brake=0&#xD;
+[DEBUG-dense09] tick=140 self=23 x=138,101699921 z=-10,507727709 yaw=1,657050865 spin=-0,075269162 vx=5,489996857706738 vz=-0,4358094974137918 steer=-79 brake=0&#xD;
+[DEBUG-dense09] near=22 x=141,339033451 z=-9,89376898 yaw=1,612227189 spin=-0,118867974 vx=5,556077990580625 vz=-0,17311217761476097 steer=-125 brake=0&#xD;
+[DEBUG-dense09] near=24 x=139,942509451 z=-8,320173912 yaw=1,670620497 spin=-0,189833055 vx=5,533431982973893 vz=-0,46215790297876697 steer=-200 brake=0,04491547780775588&#xD;
+[DEBUG-dense09] near=25 x=136,924779445 z=-8,912175801 yaw=1,691544905 spin=-0,176572185 vx=5,437234551160629 vz=-0,5734434071922586 steer=-185 brake=0&#xD;
+[DEBUG-dense09] near=26 x=136,449389404 z=-10,216366564 yaw=1,703118611 spin=-0,157449661 vx=5,525854025559394 vz=-0,6659632853220392 steer=-159 brake=0&#xD;
+[DEBUG-dense09] near=27 x=135,914751382 z=-7,633647238 yaw=1,786534715 spin=-0,163340788 vx=5,341598470495295 vz=-1,0906880060028141 steer=-171 brake=0&#xD;
+[DEBUG-dense09] near=28 x=135,217359777 z=-9,310202365 yaw=1,751267186 spin=-0,199812847 vx=5,468330432756123 vz=-0,9025627013518582 steer=-202 brake=0&#xD;
+[DEBUG-dense09] tick=145 self=23 x=139,486881619 z=-10,60912141 yaw=1,64133898 spin=-0,058818196 vx=5,590754213467009 vz=-0,37069294678138737 steer=-62 brake=0&#xD;
+[DEBUG-dense09] near=22 x=142,737716812 z=-9,925278792 yaw=1,589685894 spin=-0,08042245 vx=5,671790388589173 vz=-0,07448068866590085 steer=-85 brake=0&#xD;
+[DEBUG-dense09] near=24 x=141,341782751 z=-8,408695861 yaw=1,626650093 spin=-0,163737365 vx=5,658778407075688 vz=-0,24901322271953596 steer=-173 brake=0&#xD;
+[DEBUG-dense09] near=25 x=138,298074123 z=-9,031149487 yaw=1,650800139 spin=-0,150178556 vx=5,547379436257346 vz=-0,382392475326191 steer=-158 brake=0&#xD;
+[DEBUG-dense09] near=26 x=137,844027137 z=-10,362534881 yaw=1,669957004 spin=-0,050147851 vx=5,647974977354192 vz=-0,5529546267044932 steer=-53 brake=0&#xD;
+[DEBUG-dense09] near=27 x=137,26651343 z=-7,882524407 yaw=1,746356892 spin=-0,15504574 vx=5,470023701972247 vz=-0,9044179072486653 steer=-163 brake=0&#xD;
+[DEBUG-dense09] near=28 x=136,602893043 z=-9,508550543 yaw=1,7052172 spin=-0,171367848 vx=5,613699357539561 vz=-0,6877344339111893 steer=-181 brake=0&#xD;
+[DEBUG-dense09] tick=150 self=23 x=140,896515625 z=-10,692444374 yaw=1,62763803 spin=-0,051932182 vx=5,685435853153788 vz=-0,2950811035947886 steer=-55 brake=0&#xD;
+[DEBUG-dense09] near=22 x=144,162913599 z=-9,925194515 yaw=1,567071848 spin=-0,083810513 vx=5,728724483308622 vz=0,06707803652608398 steer=-89 brake=0,025838441530894637&#xD;
+[DEBUG-dense09] near=24 x=142,761840539 z=-8,443484501 yaw=1,589279017 spin=-0,137707859 vx=5,721473089656946 vz=-0,03059863009524634 steer=-146 brake=0&#xD;
+[DEBUG-dense09] near=25 x=139,697142875 z=-9,112767243 yaw=1,626420684 spin=-0,079472074 vx=5,644541010122002 vz=-0,27046021020874567 steer=-84 brake=0&#xD;
+[DEBUG-dense09] near=26 x=139,262662993 z=-10,472151345 yaw=1,64435745 spin=-0,06128663 vx=5,717404055950041 vz=-0,38702197468909155 steer=-65 brake=0&#xD;
+[DEBUG-dense09] near=27 x=138,650517828 z=-8,07467361 yaw=1,700798776 spin=-0,180812264 vx=5,599755722086033 vz=-0,6323656343650804 steer=-191 brake=0&#xD;
+[DEBUG-dense09] near=28 x=138,019217391 z=-9,652723998 yaw=1,665606589 spin=-0,149826547 vx=5,695502896175185 vz=-0,4593742611261403 steer=-159 brake=0,01860346705970097&#xD;
+[DEBUG-dense09] tick=155 self=23 x=142,329037321 z=-10,759814396 yaw=1,615714617 spin=-0,044212459 vx=5,774091540582582 vz=-0,24175887116457934 steer=-47 brake=0&#xD;
+[DEBUG-dense09] near=22 x=145,608251975 z=-9,89802485 yaw=1,548896908 spin=-0,06383648 vx=5,833638639516216 vz=0,15300255334147933 steer=-68 brake=0&#xD;
+[DEBUG-dense09] near=24 x=144,203186742 z=-8,433740197 yaw=1,558820451 spin=-0,10892805 vx=5,828241816069171 vz=0,11318732016202442 steer=-116 brake=0&#xD;
+[DEBUG-dense09] near=25 x=141,119789325 z=-9,170848516 yaw=1,608571156 spin=-0,065974843 vx=5,736011065692598 vz=-0,19005925447962746 steer=-70 brake=0&#xD;
+[DEBUG-dense09] near=26 x=140,706209433 z=-10,555662132 yaw=1,622714174 spin=-0,114515116 vx=5,832287815730228 vz=-0,2550643551678438 steer=-122 brake=0&#xD;
+[DEBUG-dense09] near=27 x=140,063853258 z=-8,211761965 yaw=1,660729584 spin=-0,148065403 vx=5,706149126610569 vz=-0,45427644747498874 steer=-157 brake=0&#xD;
+[DEBUG-dense09] near=28 x=139,458407994 z=-9,765688646 yaw=1,642550968 spin=-0,131542336 vx=5,805227117304095 vz=-0,3662955304346078 steer=-140 brake=0&#xD;
+[DEBUG-dense09] tick=160 self=23 x=143,783466266 z=-10,81316426 yaw=1,605293549 spin=-0,038411476 vx=5,861181914658018 vz=-0,18678202111721462 steer=-41 brake=0&#xD;
+[DEBUG-dense09] near=22 x=147,07931407 z=-9,849344803 yaw=1,534808859 spin=-0,048572883 vx=5,93450508429607 vz=0,2328224413884366 steer=-52 brake=0&#xD;
+[DEBUG-dense09] near=24 x=145,667665819 z=-8,387996912 yaw=1,534592839 spin=-0,084093184 vx=5,927389191726228 vz=0,2477782200108941 steer=-90 brake=0&#xD;
+[DEBUG-dense09] near=25 x=142,564809171 z=-9,207923466 yaw=1,593333171 spin=-0,056318228 vx=5,823504889814779 vz=-0,10838162043107372 steer=-60 brake=0&#xD;
+[DEBUG-dense09] near=26 x=142,168564197 z=-10,615504921 yaw=1,606900061 spin=-0,085203734 vx=5,889460857736982 vz=-0,1835202398111928 steer=-91 brake=0&#xD;
+[DEBUG-dense09] near=27 x=141,50291598 z=-8,301824892 yaw=1,626305547 spin=-0,125851166 vx=5,8049107593889175 vz=-0,271646078136822 steer=-134 brake=0&#xD;
+[DEBUG-dense09] near=28 x=140,920171133 z=-9,834574587 yaw=1,611293141 spin=-0,114057854 vx=5,8682986389817735 vz=-0,1919555815980991 steer=-122 brake=0,019692297849675126</StdOut>
+        <ErrorInfo>
+          <Message>format=mass_start actors=30 tick=260; WorldRejected / Course / woodland_basin_v1_athlete_5 / 0 / pieces 0 / forces Resolved supports=0 passes=1 seconds=0.05 residual=0 closing=0 / UnresolvedStart /  / PotentialBoundary / pair : Clear clear 0 end 0 continuation False / working x=199.844226579 z=-11.210370579 yaw=1.761074987 spin=0.154669399 vx=7.667065131595143 vz=-1.3728121755480762 occurrence=1 arc=61473247775 lateral=2.445437217527974; gate=Clear; source=5 occurrence=1 arc=61473247775 x=199.844226579 z=-11.210370579 yaw=1.761074987 spin=0.154669399 vx=7.667065131595143 vz=-1.3728121755480762 lateral=2.445437217527974 vertices=10 clearance=-0.00931696081516735 minimum=-0.00931696081516735; System.InvalidOperationException: Manual field step rejected: WorldRejected / Course / woodland_basin_v1_athlete_5; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 222&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 476&#xD;
+   at Biathlon.AI.PackAiRaceRunner.Step() in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 221&#xD;
+   at Biathlon.Tests.ManualProductionFieldTests.ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualProductionFieldTests.cs:line 44</Message>
+          <StackTrace>   at Biathlon.Tests.ManualProductionFieldTests.ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualProductionFieldTests.cs:line 45&#xD;
+
+1)    at Biathlon.Tests.ManualProductionFieldTests.ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualProductionFieldTests.cs:line 44&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="946b35ea-44bc-40c3-b2e5-0d3157a57419" testId="f43a2d86-648a-c9ea-8318-46fb880e7ee0" testName="ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(&quot;sprint&quot;,40)" computerName="DESKTOP-G3075GA" duration="00:00:10.8361260" startTime="2026-10-09T19:23:58.8508790+03:00" endTime="2026-10-09T19:24:09.6869812+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="946b35ea-44bc-40c3-b2e5-0d3157a57419">
+      <Output>
+        <StdOut>sprint actors=40 accepted_tick=1000&#xD;
+sprint actors=40 accepted_tick=2000&#xD;
+sprint actors=40 accepted_tick=3000&#xD;
+sprint actors=40 accepted_tick=4000&#xD;
+sprint actors=40 accepted_tick=5000&#xD;
+sprint actors=40 accepted_tick=6000</StdOut>
+        <ErrorInfo>
+          <Message>format=sprint actors=40 tick=6642; WorldRejected / BoundarySchedule / woodland_basin_v1_athlete_4 / 0.013485438788319757 / pieces 1 / forces Resolved supports=1 passes=1 seconds=0.036514561211680244 residual=6.614387872291802E-17 closing=1.915134717478395E-15 / Clear /  / Clear / pair : Clear clear 0 end 0 continuation False / working x=40.504662848 z=-0.832657314 yaw=5.577655879 spin=-1.322241629 vx=0.7766460471244124 vz=0.4325229259988974 occurrence=5 arc=0 lateral=0.046657679000086036; gate=PotentialCrossing; source=4 occurrence=5 arc=0 x=40.504662848 z=-0.832657314 yaw=5.577655879 spin=0 vx=0 vz=0 lateral=0.046657679000086036 vertices=0 clearance=0 minimum=0; System.InvalidOperationException: Manual field step rejected: WorldRejected / BoundarySchedule / woodland_basin_v1_athlete_4; candidate clock not paid.&#xD;
+   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 222&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 476&#xD;
+   at Biathlon.AI.PackAiRaceRunner.Step() in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 221&#xD;
+   at Biathlon.Tests.ManualProductionFieldTests.ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualProductionFieldTests.cs:line 44</Message>
+          <StackTrace>   at Biathlon.Tests.ManualProductionFieldTests.ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualProductionFieldTests.cs:line 45&#xD;
+   at InvokeStub_ManualProductionFieldTests.ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualProductionFieldTests.ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualProductionFieldTests.cs:line 44&#xD;
+   at InvokeStub_ManualProductionFieldTests.ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(&quot;sprint&quot;,40)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="f43a2d86-648a-c9ea-8318-46fb880e7ee0">
+      <Execution id="946b35ea-44bc-40c3-b2e5-0d3157a57419" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualProductionFieldTests" name="ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(&quot;sprint&quot;,40)" />
+    </UnitTest>
+    <UnitTest name="ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(&quot;mass_start&quot;,30)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="ba91f1e4-2c20-cf8c-21ac-9f2c50810edf">
+      <Execution id="b203f6eb-14e6-405b-ae08-024a9c04fdb0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualProductionFieldTests" name="ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(&quot;mass_start&quot;,30)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="ba91f1e4-2c20-cf8c-21ac-9f2c50810edf" executionId="b203f6eb-14e6-405b-ae08-024a9c04fdb0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f43a2d86-648a-c9ea-8318-46fb880e7ee0" executionId="946b35ea-44bc-40c3-b2e5-0d3157a57419" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+[DEBUG-dense09] tick=120 self=23 x=132,846611309 z=-9,772302038 yaw=1,803706173 spin=-0,17867715 vx=4,984182796682087 vz=-1,100658860907227 steer=-184 brake=0&#xD;
+[DEBUG-dense09] near=22 x=135,978462588 z=-9,390166345 yaw=1,751241911 spin=-0,198256462 vx=5,136639934446322 vz=-0,8488028668389026 steer=-205 brake=0&#xD;
+[DEBUG-dense09] near=24 x=134,647524389 z=-7,365592547 yaw=1,846310231 spin=-0,157729875 vx=5,018007579772051 vz=-1,345434827915595 steer=-163 brake=0&#xD;
+[DEBUG-dense09] near=25 x=131,768058525 z=-7,838471367 yaw=1,908047413 spin=-0,215604003 vx=4,842675174442882 vz=-1,5964011509387284 steer=-222 brake=0&#xD;
+[DEBUG-dense09] near=26 x=131,188672904 z=-9,140765243 yaw=1,87961182 spin=-0,202797505 vx=4,948312157107177 vz=-1,48437132564855 steer=-210 brake=0,1060307197239182&#xD;
+[DEBUG-dense09] near=28 x=130,067777613 z=-7,86398435 yaw=1,995153826 spin=-0,286755667 vx=4,756276251992022 vz=-2,009837061954318 steer=-296 brake=0&#xD;
+[DEBUG-dense09] tick=125 self=23 x=134,111620045 z=-10,022530137 yaw=1,760337314 spin=-0,161356073 vx=5,132101064413337 vz=-0,9067122647030382 steer=-167 brake=0&#xD;
+[DEBUG-dense09] near=22 x=137,277670122 z=-9,574108413 yaw=1,705049162 spin=-0,168346129 vx=5,2308884293198155 vz=-0,62639185050888 steer=-175 brake=0,05035479172136638&#xD;
+[DEBUG-dense09] near=24 x=135,915936453 z=-7,679914772 yaw=1,808418666 spin=-0,143398686 vx=5,129483191169972 vz=-1,1725832614049398 steer=-149 brake=0,03420863679074535&#xD;
+[DEBUG-dense09] near=25 x=133,000906096 z=-8,207749794 yaw=1,854117008 spin=-0,273439036 vx=4,999872306224925 vz=-1,3119527065042986 steer=-283 brake=0,0018424029610127565&#xD;
+[DEBUG-dense09] near=26 x=132,451579619 z=-9,486303513 yaw=1,831100702 spin=-0,178264821 vx=5,125402388105139 vz=-1,2784542564494992 steer=-185 brake=0&#xD;
+[DEBUG-dense09] near=28 x=131,285107111 z=-8,329129827 yaw=1,926244064 spin=-0,258170984 vx=4,9537641565598625 vz=-1,7084873353393641 steer=-268 brake=0,025333663873219982&#xD;
+[DEBUG-dense09] tick=130 self=23 x=135,411221649 z=-10,226475543 yaw=1,721250554 spin=-0,143211299 vx=5,26567835349585 vz=-0,7116901939035505 steer=-149 brake=0&#xD;
+[DEBUG-dense09] near=22 x=138,601918029 z=-9,719635282 yaw=1,678596176 spin=-0,033533003 vx=5,359816061670262 vz=-0,5597566780442564 steer=-35 brake=0&#xD;
+[DEBUG-dense09] near=24 x=137,223342158 z=-7,953584939 yaw=1,771351597 spin=-0,188608072 vx=5,290804017456308 vz=-0,9595938780959559 steer=-197 brake=0,0496655912737418&#xD;
+[DEBUG-dense09] near=25 x=134,271447644 z=-8,505560074 yaw=1,792968189 spin=-0,224351985 vx=5,169709639876083 vz=-1,0301902192928785 steer=-233 brake=0&#xD;
+[DEBUG-dense09] near=26 x=133,753185894 z=-9,78001247 yaw=1,786152703 spin=-0,175271611 vx=5,289803137175717 vz=-1,049995687702243 steer=-183 brake=0&#xD;
+[DEBUG-dense09] near=27 x=133,318572669 z=-6,981052809 yaw=1,8850976 spin=-0,2139049 vx=5,0381229425403715 vz=-1,5030261149449242 steer=-222 brake=0&#xD;
+[DEBUG-dense09] near=28 x=132,55340275 z=-8,72335681 yaw=1,862828215 spin=-0,236843003 vx=5,176946637666518 vz=-1,4087462714405563 steer=-247 brake=0&#xD;
+[DEBUG-dense09] tick=135 self=23 x=136,742416259 z=-10,386245159 yaw=1,684379888 spin=-0,140848209 vx=5,385480925884168 vz=-0,5262783054042709 steer=-146 brake=0&#xD;
+[DEBUG-dense09] near=22 x=139,961163537 z=-9,829544121 yaw=1,644644714 spin=-0,141990816 vx=5,489430575300812 vz=-0,3162246041022161 steer=-149 brake=0&#xD;
+[DEBUG-dense09] near=24 x=138,567245177 z=-8,170522663 yaw=1,721130615 spin=-0,21668416 vx=5,4468140517794765 vz=-0,7070411399840211 steer=-228 brake=0&#xD;
+[DEBUG-dense09] near=25 x=135,58105236 z=-8,738924561 yaw=1,738965542 spin=-0,20468431 vx=5,312963788618029 vz=-0,7893345593914545 steer=-212 brake=0&#xD;
+[DEBUG-dense09] near=26 x=135,086443081 z=-10,022589941 yaw=1,743984118 spin=-0,161161586 vx=5,381010021144835 vz=-0,8453997777825744 steer=-168 brake=0,05920910672694168&#xD;
+[DEBUG-dense09] near=27 x=134,597288389 z=-7,334836125 yaw=1,833020967 spin=-0,194775447 vx=5,200041889859423 vz=-1,2835870410595847 steer=-204 brake=0&#xD;
+[DEBUG-dense09] near=28 x=133,86669164 z=-9,05006982 yaw=1,805278922 spin=-0,222145862 vx=5,358511706883928 vz=-1,1603805989168023 steer=-232 brake=0&#xD;
+[DEBUG-dense09] tick=140 self=23 x=138,101699921 z=-10,507727709 yaw=1,657050865 spin=-0,075269162 vx=5,489996857706738 vz=-0,4358094974137918 steer=-79 brake=0&#xD;
+[DEBUG-dense09] near=22 x=141,339033451 z=-9,89376898 yaw=1,612227189 spin=-0,118867974 vx=5,556077990580625 vz=-0,17311217761476097 steer=-125 brake=0&#xD;
+[DEBUG-dense09] near=24 x=139,942509451 z=-8,320173912 yaw=1,670620497 spin=-0,189833055 vx=5,533431982973893 vz=-0,46215790297876697 steer=-200 brake=0,04491547780775588&#xD;
+[DEBUG-dense09] near=25 x=136,924779445 z=-8,912175801 yaw=1,691544905 spin=-0,176572185 vx=5,437234551160629 vz=-0,5734434071922586 steer=-185 brake=0&#xD;
+[DEBUG-dense09] near=26 x=136,449389404 z=-10,216366564 yaw=1,703118611 spin=-0,157449661 vx=5,525854025559394 vz=-0,6659632853220392 steer=-159 brake=0&#xD;
+[DEBUG-dense09] near=27 x=135,914751382 z=-7,633647238 yaw=1,786534715 spin=-0,163340788 vx=5,341598470495295 vz=-1,0906880060028141 steer=-171 brake=0&#xD;
+[DEBUG-dense09] near=28 x=135,217359777 z=-9,310202365 yaw=1,751267186 spin=-0,199812847 vx=5,468330432756123 vz=-0,9025627013518582 steer=-202 brake=0&#xD;
+[DEBUG-dense09] tick=145 self=23 x=139,486881619 z=-10,60912141 yaw=1,64133898 spin=-0,058818196 vx=5,590754213467009 vz=-0,37069294678138737 steer=-62 brake=0&#xD;
+[DEBUG-dense09] near=22 x=142,737716812 z=-9,925278792 yaw=1,589685894 spin=-0,08042245 vx=5,671790388589173 vz=-0,07448068866590085 steer=-85 brake=0&#xD;
+[DEBUG-dense09] near=24 x=141,341782751 z=-8,408695861 yaw=1,626650093 spin=-0,163737365 vx=5,658778407075688 vz=-0,24901322271953596 steer=-173 brake=0&#xD;
+[DEBUG-dense09] near=25 x=138,298074123 z=-9,031149487 yaw=1,650800139 spin=-0,150178556 vx=5,547379436257346 vz=-0,382392475326191 steer=-158 brake=0&#xD;
+[DEBUG-dense09] near=26 x=137,844027137 z=-10,362534881 yaw=1,669957004 spin=-0,050147851 vx=5,647974977354192 vz=-0,5529546267044932 steer=-53 brake=0&#xD;
+[DEBUG-dense09] near=27 x=137,26651343 z=-7,882524407 yaw=1,746356892 spin=-0,15504574 vx=5,470023701972247 vz=-0,9044179072486653 steer=-163 brake=0&#xD;
+[DEBUG-dense09] near=28 x=136,602893043 z=-9,508550543 yaw=1,7052172 spin=-0,171367848 vx=5,613699357539561 vz=-0,6877344339111893 steer=-181 brake=0&#xD;
+[DEBUG-dense09] tick=150 self=23 x=140,896515625 z=-10,692444374 yaw=1,62763803 spin=-0,051932182 vx=5,685435853153788 vz=-0,2950811035947886 steer=-55 brake=0&#xD;
+[DEBUG-dense09] near=22 x=144,162913599 z=-9,925194515 yaw=1,567071848 spin=-0,083810513 vx=5,728724483308622 vz=0,06707803652608398 steer=-89 brake=0,025838441530894637&#xD;
+[DEBUG-dense09] near=24 x=142,761840539 z=-8,443484501 yaw=1,589279017 spin=-0,137707859 vx=5,721473089656946 vz=-0,03059863009524634 steer=-146 brake=0&#xD;
+[DEBUG-dense09] near=25 x=139,697142875 z=-9,112767243 yaw=1,626420684 spin=-0,079472074 vx=5,644541010122002 vz=-0,27046021020874567 steer=-84 brake=0&#xD;
+[DEBUG-dense09] near=26 x=139,262662993 z=-10,472151345 yaw=1,64435745 spin=-0,06128663 vx=5,717404055950041 vz=-0,38702197468909155 steer=-65 brake=0&#xD;
+[DEBUG-dense09] near=27 x=138,650517828 z=-8,07467361 yaw=1,700798776 spin=-0,180812264 vx=5,599755722086033 vz=-0,6323656343650804 steer=-191 brake=0&#xD;
+[DEBUG-dense09] near=28 x=138,019217391 z=-9,652723998 yaw=1,665606589 spin=-0,149826547 vx=5,695502896175185 vz=-0,4593742611261403 steer=-159 brake=0,01860346705970097&#xD;
+[DEBUG-dense09] tick=155 self=23 x=142,329037321 z=-10,759814396 yaw=1,615714617 spin=-0,044212459 vx=5,774091540582582 vz=-0,24175887116457934 steer=-47 brake=0&#xD;
+[DEBUG-dense09] near=22 x=145,608251975 z=-9,89802485 yaw=1,548896908 spin=-0,06383648 vx=5,833638639516216 vz=0,15300255334147933 steer=-68 brake=0&#xD;
+[DEBUG-dense09] near=24 x=144,203186742 z=-8,433740197 yaw=1,558820451 spin=-0,10892805 vx=5,828241816069171 vz=0,11318732016202442 steer=-116 brake=0&#xD;
+[DEBUG-dense09] near=25 x=141,119789325 z=-9,170848516 yaw=1,608571156 spin=-0,065974843 vx=5,736011065692598 vz=-0,19005925447962746 steer=-70 brake=0&#xD;
+[DEBUG-dense09] near=26 x=140,706209433 z=-10,555662132 yaw=1,622714174 spin=-0,114515116 vx=5,832287815730228 vz=-0,2550643551678438 steer=-122 brake=0&#xD;
+[DEBUG-dense09] near=27 x=140,063853258 z=-8,211761965 yaw=1,660729584 spin=-0,148065403 vx=5,706149126610569 vz=-0,45427644747498874 steer=-157 brake=0&#xD;
+[DEBUG-dense09] near=28 x=139,458407994 z=-9,765688646 yaw=1,642550968 spin=-0,131542336 vx=5,805227117304095 vz=-0,3662955304346078 steer=-140 brake=0&#xD;
+[DEBUG-dense09] tick=160 self=23 x=143,783466266 z=-10,81316426 yaw=1,605293549 spin=-0,038411476 vx=5,861181914658018 vz=-0,18678202111721462 steer=-41 brake=0&#xD;
+[DEBUG-dense09] near=22 x=147,07931407 z=-9,849344803 yaw=1,534808859 spin=-0,048572883 vx=5,93450508429607 vz=0,2328224413884366 steer=-52 brake=0&#xD;
+[DEBUG-dense09] near=24 x=145,667665819 z=-8,387996912 yaw=1,534592839 spin=-0,084093184 vx=5,927389191726228 vz=0,2477782200108941 steer=-90 brake=0&#xD;
+[DEBUG-dense09] near=25 x=142,564809171 z=-9,207923466 yaw=1,593333171 spin=-0,056318228 vx=5,823504889814779 vz=-0,10838162043107372 steer=-60 brake=0&#xD;
+[DEBUG-dense09] near=26 x=142,168564197 z=-10,615504921 yaw=1,606900061 spin=-0,085203734 vx=5,889460857736982 vz=-0,1835202398111928 steer=-91 brake=0&#xD;
+[DEBUG-dense09] near=27 x=141,50291598 z=-8,301824892 yaw=1,626305547 spin=-0,125851166 vx=5,8049107593889175 vz=-0,271646078136822 steer=-134 brake=0&#xD;
+[DEBUG-dense09] near=28 x=140,920171133 z=-9,834574587 yaw=1,611293141 spin=-0,114057854 vx=5,8682986389817735 vz=-0,1919555815980991 steer=-122 brake=0,019692297849675126&#xD;
+&#xD;
+sprint actors=40 accepted_tick=1000&#xD;
+sprint actors=40 accepted_tick=2000&#xD;
+sprint actors=40 accepted_tick=3000&#xD;
+sprint actors=40 accepted_tick=4000&#xD;
+sprint actors=40 accepted_tick=5000&#xD;
+sprint actors=40 accepted_tick=6000&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

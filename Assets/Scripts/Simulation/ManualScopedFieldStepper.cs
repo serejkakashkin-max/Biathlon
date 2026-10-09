@@ -129,9 +129,9 @@ namespace Biathlon.Simulation
             grades=new double[count];matStops=new double[count];matStopPowers=new double[count];drafts=new DraftOutput[count];
             draftBodies=new ManualSkiContactBody[count];
             ordinary=new int[count];phases=new int[count];held=new int[count];
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_scoped_field_stepper_v6_reusable_paid_prefix_choices","world_context_sha256:"+ManualContextIdentity.Sha256(world.ContextJson),
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_scoped_field_stepper_v7_actual_time_resource_ordering","world_context_sha256:"+ManualContextIdentity.Sha256(world.ContextJson),
                 commit.ContextJson,drive.ContextJson,work.ToJson(),matBraking?.ToJson()??"terminal_mat_braking_not_selected",
-                "all_signed_intents;bounded_brake_fractions_validated_before_preparation;one_fixed_clock;owned_force_pieces;actual_contact_response;ordinary_and_paid_penalty_handoffs;stationary_firing_hold;explicit_terminal_mat_inverse_shared_force;prepared_physiology_paid_without_propulsion_bonus;abort_not_queue;no_resource_fallback;selected_finish_runout_shared_braking_and_clock;world_drafting_actual_positions_and_leader_velocity_axis;unchanged_pack_draft_definition;world_wind_from_observed_route_and_scalar_headwind;no_station_or_desired_line_wake"});
+                "all_signed_intents;bounded_brake_fractions_validated_before_preparation;one_fixed_clock;owned_force_pieces;actual_contact_response;ordinary_and_paid_penalty_handoffs;stationary_firing_hold;explicit_terminal_mat_inverse_shared_force;prepared_physiology_paid_without_propulsion_bonus;abort_not_queue;no_resource_fallback;actual_time_highwater_arrival_interpolation_then_ceiling_ordering_only;subfraction_pieces_retained;selected_finish_runout_shared_braking_and_clock;world_drafting_actual_positions_and_leader_velocity_axis;unchanged_pack_draft_definition;world_wind_from_observed_route_and_scalar_headwind;no_station_or_desired_line_wake"});
         }
 
         public bool TryStep(ReadOnlySpan<SprintAthleteInput> inputs,ReadOnlySpan<int> steeringInputs)

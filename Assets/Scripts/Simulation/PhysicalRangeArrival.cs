@@ -39,10 +39,18 @@ namespace Biathlon.Simulation
                 if(piece.RouteBefore!=route||piece.TravelBefore!=travel||piece.RouteAfter<route||piece.TravelAfter<travel||
                     piece.StartSeconds!=previous||piece.EndSeconds<=previous||piece.EndSeconds>seconds)
                     throw new ArgumentException("Complete continuous owned high-water motion required.");
-                long start=FractionalMotionTimeline.Quantize(piece.StartSeconds,seconds),end=FractionalMotionTimeline.Quantize(piece.EndSeconds,seconds);
-                if(end<=start)throw new InvalidOperationException("A scoped resource interval cannot collapse at the ordering precision.");
                 if(found<0&&piece.RouteAfter>route&&route<=admissionRouteNanometers&&piece.RouteAfter>=admissionRouteNanometers)
-                    found=start+(long)Math.Ceiling((decimal)(admissionRouteNanometers-route)*(end-start)/(piece.RouteAfter-route));
+                {
+                    // The physical receipt has its own double-precision clock.
+                    // Only this resource ordering fact is retimed to integer
+                    // tick fractions. Distinct physical contact pieces may map
+                    // to the same fraction without erasing any of their motion.
+                    // Interpolate before rounding UP, including tiny pieces;
+                    // retiming both endpoints first can manufacture an early tie.
+                    decimal ratio=(decimal)(admissionRouteNanometers-route)/(piece.RouteAfter-route);
+                    decimal crossing=(decimal)piece.StartSeconds+ratio*((decimal)piece.EndSeconds-(decimal)piece.StartSeconds);
+                    found=(long)Math.Ceiling(crossing/(decimal)seconds*JunctionAdmissionSession.FractionParts);
+                }
                 route=piece.RouteAfter;travel=piece.TravelAfter;previous=piece.EndSeconds;
             }
             if(previous!=seconds||route!=world.GetProposedCursor(proof,actorIndex).CreditedRouteNanometers||

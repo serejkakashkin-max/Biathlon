@@ -49,6 +49,9 @@ edges disjoint from the simple polygon, not just four inside corners.
 | low-slide-friction-trial | 198 Course | 7425 Course |
 | shared-snow-inverse-trial | 292 Course | 6134 pushed shooting hold |
 | forecast7-trial | 160 Course | 8789 collapsed arrival ordering fraction |
+| dense-neighbors | 163 Course; exact near-body trace | not run |
+| shared-long-pursuit-trial | 260 Course at first bend | 6642 pushed mat departure / BoundarySchedule |
+| short-shared-pursuit-trial | 351 Course | 6601 live start / ContactGeometry |
 
 All prefixes are `manual-production-` and suffixes `-20261009.trx`. Experimental
 AI recovery, moving-passing, forecast, friction and retry changes were removed.
@@ -61,3 +64,10 @@ Native actual executions: presence6/6, group9/9, ribbon16/16 PASS. Tool discover
 counts are not execution counts. Source/frame diagnostics were temporary and
 removed. The new collapsed ordering observation needs its own minimized fixture;
 the detached forecast variant is not a passing race or production selection.
+
+Follow-up: the collapsed resource-ordering failure was minimized with real
+prepared physical motion and repaired independently. Actual double-clock pieces
+remain unchanged; only their interpolated arrival time is rounded up to integer
+resource order. Full manual + legacy arrival run616PASS2FAIL/618, zero skipped,
+5m57s. Same large-field tick163/8724 failures remain. Spin-aware body forecast is
+the next independent hypothesis; none of the pursuit trials is retained.

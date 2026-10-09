@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="e6c5fed6-5e56-4468-aea9-f46a609533e7" name="snkashkin@DESKTOP-G3075GA 2026-10-09 19:27:28" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T19:27:28.8594150+03:00" queuing="2026-10-09T19:27:28.8594151+03:00" start="2026-10-09T19:27:27.4824712+03:00" finish="2026-10-09T19:27:28.8627855+03:00" />
+  <TestSettings name="default" id="31af7caf-f8f7-4cf7-82b0-069fd83e55e5">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-09_19_27_28" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="fb34d887-b57c-4249-91ef-30bcbfa61733" testId="0e1bd3fc-d776-20bf-172a-68700b9f58d9" testName="SubOrderingPrecisionPhysicalPieceRetainsWholeClockAndConservativeArrival(False)" computerName="DESKTOP-G3075GA" duration="00:00:00.5226300" startTime="2026-10-09T19:27:27.9684795+03:00" endTime="2026-10-09T19:27:28.4910796+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fb34d887-b57c-4249-91ef-30bcbfa61733">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Reflection.TargetInvocationException : Exception has been thrown by the target of an invocation.&#xD;
+  ----&gt; System.InvalidOperationException : A scoped resource interval cannot collapse at the ordering precision.</Message>
+          <StackTrace>   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+   at Biathlon.Tests.ManualScopedArrivalPrecisionTests.SubOrderingPrecisionPhysicalPieceRetainsWholeClockAndConservativeArrival(Boolean tinySuffix) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedArrivalPrecisionTests.cs:line 38&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+--InvalidOperationException&#xD;
+   at Biathlon.Simulation.PhysicalRangeArrival.TryFromScopedMotion(ManualScopedWorldPreview proof, Int32 actorIndex, Int32 boutIndex, Int64 admissionRouteNanometers, PhysicalRangeArrival&amp; arrival) in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\PhysicalRangeArrival.cs:line 43&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9fa17581-1dfc-4a9c-b849-8c5f6f244745" testId="ac0a5ecb-feb0-d096-0bad-9d5f67b1ff80" testName="SubOrderingPrecisionPhysicalPieceRetainsWholeClockAndConservativeArrival(True)" computerName="DESKTOP-G3075GA" duration="00:00:00.2837550" startTime="2026-10-09T19:27:28.4917050+03:00" endTime="2026-10-09T19:27:28.7754585+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9fa17581-1dfc-4a9c-b849-8c5f6f244745">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Reflection.TargetInvocationException : Exception has been thrown by the target of an invocation.&#xD;
+  ----&gt; System.InvalidOperationException : A scoped resource interval cannot collapse at the ordering precision.</Message>
+          <StackTrace>   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+   at Biathlon.Tests.ManualScopedArrivalPrecisionTests.SubOrderingPrecisionPhysicalPieceRetainsWholeClockAndConservativeArrival(Boolean tinySuffix) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedArrivalPrecisionTests.cs:line 38&#xD;
+   at InvokeStub_ManualScopedArrivalPrecisionTests.SubOrderingPrecisionPhysicalPieceRetainsWholeClockAndConservativeArrival(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+--InvalidOperationException&#xD;
+   at Biathlon.Simulation.PhysicalRangeArrival.TryFromScopedMotion(ManualScopedWorldPreview proof, Int32 actorIndex, Int32 boutIndex, Int64 admissionRouteNanometers, PhysicalRangeArrival&amp; arrival) in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\PhysicalRangeArrival.cs:line 43&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="SubOrderingPrecisionPhysicalPieceRetainsWholeClockAndConservativeArrival(False)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="0e1bd3fc-d776-20bf-172a-68700b9f58d9">
+      <Execution id="fb34d887-b57c-4249-91ef-30bcbfa61733" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedArrivalPrecisionTests" name="SubOrderingPrecisionPhysicalPieceRetainsWholeClockAndConservativeArrival(False)" />
+    </UnitTest>
+    <UnitTest name="SubOrderingPrecisionPhysicalPieceRetainsWholeClockAndConservativeArrival(True)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="ac0a5ecb-feb0-d096-0bad-9d5f67b1ff80">
+      <Execution id="9fa17581-1dfc-4a9c-b849-8c5f6f244745" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedArrivalPrecisionTests" name="SubOrderingPrecisionPhysicalPieceRetainsWholeClockAndConservativeArrival(True)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="0e1bd3fc-d776-20bf-172a-68700b9f58d9" executionId="fb34d887-b57c-4249-91ef-30bcbfa61733" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ac0a5ecb-feb0-d096-0bad-9d5f67b1ff80" executionId="9fa17581-1dfc-4a9c-b849-8c5f6f244745" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
