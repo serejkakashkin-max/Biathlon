@@ -17,6 +17,7 @@ namespace Biathlon.Unity.Presentation
         private readonly LocomotionPose motion = new LocomotionPose();
         private readonly AthleteExertionPresentation exertion = new AthleteExertionPresentation();
         private float climbIntensity = 1;
+        private float climbWeight;
         private float tuckWeight, tuckStartWeight;
         private float sidestepWeight,sidestepDirection;
         public float SidestepWeight=>sidestepWeight;
@@ -75,6 +76,10 @@ namespace Biathlon.Unity.Presentation
             tuckWeight = Mathf.Lerp(tuckStartWeight, State == SkiLocomotion.Tuck ? 1 : 0, transitionWeight);
             climbIntensity = Mathf.Lerp(climbIntensity, requestedIntensity, 1 - Mathf.Exp(-(float)dt / settings.transition_s));
             LocomotionPose.Blend(blended, blended, 1, motion);
+            climbWeight=Mathf.Lerp(climbWeight,selected==SkiLocomotion.Climb?1:0,reset?1:1-Mathf.Exp(-(float)dt/settings.transition_s));
+            float steep=climbWeight*Mathf.InverseLerp(settings.climb_grade,technique.steep_climb_grade,input.Grade);
+            motion.stride_m*=Mathf.Lerp(1,technique.steep_stride_multiplier,steep);
+            motion.skate_width_m*=Mathf.Lerp(1,technique.steep_skate_multiplier,steep);
             float sideSpeed=Mathf.Abs(input.LateralSpeed);
             float requestedSide=input.Travelling&&!input.Tuck&&settings.sidestep_span_m>0?
                 sideSpeed/Mathf.Max(settings.idle_speed_mps,input.Speed+sideSpeed):0;
@@ -162,6 +167,10 @@ namespace Biathlon.Unity.Presentation
                 var hand = rig.Bone(right ? AthleteBone.RightHand : AthleteBone.LeftHand);
                 var at = new Vector3(side * pose.hand_width_m, pose.hand_height_m + Mathf.Cos(angle) * pose.arm_swing_m * .3f,
                     pose.hand_forward_m + Mathf.Sin(angle) * pose.arm_swing_m);
+                // V1 offset poling on the uphill support side; paired push once
+                // per complete left/right skating cycle, without extra rocking.
+                at.y+=side*technique.climb_hand_stagger_m*climbWeight;
+                at.z-=side*technique.climb_hand_stagger_m*climbWeight;
                 SolveTwoBone(upper, lower, hand, rig.ModelRoot.TransformPoint(at), rig.ModelRoot.TransformDirection(new Vector3(side * .25f, -.3f, -1)), rig.ModelRoot.rotation);
                 hand.rotation = rig.ModelRoot.rotation;
             }

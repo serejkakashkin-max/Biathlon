@@ -39,14 +39,14 @@ namespace Biathlon.Unity.Presentation
             for(int i=0;i<snapshot.Count;i++)
             {
                 var a=snapshot.Get(i);if(a.AthleteId!=athleteId)continue;
-                Active=a.OnCourse&&a.LoopId==loopId;guide.enabled=Active;if(!Active)return;
+                Active=a.OnCourse&&a.LoopId==loopId;guide.enabled=false;if(!Active)return;
                 RemainingLoops=a.PendingPenaltyLoops;LoopProgress=Math.Max(0,Math.Min(1,a.LocalNanometers/1e9/length));
                 DisplayText=string.Format(CultureInfo.InvariantCulture,"PENALTY  |  {0} loops remaining\nThis loop {1:F1} / {2:F0} m  |  Race clock {3:F2} s",RemainingLoops,LoopProgress*length,length,RaceSeconds);return;
             }
         }
         private void SetInactive(){Active=false;RemainingLoops=0;LoopProgress=0;DisplayText="";if(guide!=null)guide.enabled=false;}
         private void LateUpdate()=>Refresh();
-        private void OnGUI(){if(Active)GUI.Box(new Rect(Screen.width/2f-260,Screen.height-90,520,60),DisplayText);}
+        private void OnGUI(){if(Active)GUI.Box(new Rect(Screen.width/2f-260,Screen.height-135,520,60),DisplayText);}
         private void OnDestroy(){if(material!=null)Destroy(material);}
     }
 }

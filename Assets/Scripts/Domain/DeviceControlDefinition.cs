@@ -11,6 +11,7 @@ namespace Biathlon.Domain
         [DataMember(Name = "stick_deadzone", IsRequired = true)] public double StickDeadzone { get; private set; }
         [DataMember(Name = "stick_exponent", IsRequired = true)] public double StickExponent { get; private set; }
         [DataMember(Name = "keyboard_effort_units_per_s", IsRequired = true)] public double KeyboardEffortRate { get; private set; }
+        [DataMember(Name="keyboard_effort_ceiling",EmitDefaultValue=false)] public int KeyboardEffortCeiling {get;private set;}=1000;
         public static DeviceControlDefinition FromJson(string json)
         {
             var v = RouteJson.Read<DeviceControlDefinition>(json);
@@ -19,6 +20,8 @@ namespace Biathlon.Domain
             TrackValidation.Finite(v.StickDeadzone, 0, 0.99, nameof(StickDeadzone));
             TrackValidation.Finite(v.StickExponent, 1, 4, nameof(StickExponent));
             TrackValidation.Finite(v.KeyboardEffortRate, 1, 1000, nameof(KeyboardEffortRate));
+            if(v.KeyboardEffortCeiling==0)v.KeyboardEffortCeiling=1000;
+            AthleteState.ValidateEffort(v.KeyboardEffortCeiling);
             return v;
         }
     }

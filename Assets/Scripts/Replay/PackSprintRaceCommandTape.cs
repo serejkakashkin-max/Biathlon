@@ -140,7 +140,7 @@ namespace Biathlon.Replay
             new TimeTrialInput(new SimulationInput(new SimulationTick(tick), v.Ski.Effort.AthleteId, v.Ski.Effort.RequestedEffort),
                 v.Ski.Form, v.Ski.LineQuality, v.Ski.HeadwindMetersPerSecond, v.Ski.TuckRequested, v.Ski.SprintRequested, v.Ski.TechniqueId, v.Ski.MovementEfficiency),
             new WeaponAimCommand(new SimulationTick(tick), v.Aim.AthleteId, v.Aim.Horizontal, v.Aim.Vertical, v.Aim.FineControl),
-            v.Trigger, v.HoldBreath, v.Wind, v.Pressure);
+            v.Trigger, v.HoldBreath, v.Wind, v.Pressure,v.CycleBolt,v.ManualBoltCycle);
         private static bool SameIntent(Run run, SprintAthleteInput b, double lateral)
             =>run.Lateral==lateral&&SameCommandIntent(run.Input,b);
         internal static bool SameCommandIntent(SprintAthleteInput a,SprintAthleteInput b)
@@ -149,7 +149,7 @@ namespace Biathlon.Replay
                 a.Ski.HeadwindMetersPerSecond == b.Ski.HeadwindMetersPerSecond && a.Ski.TuckRequested == b.Ski.TuckRequested &&
                 a.Ski.SprintRequested == b.Ski.SprintRequested && a.Ski.TechniqueId == b.Ski.TechniqueId && a.Ski.MovementEfficiency == b.Ski.MovementEfficiency &&
                 a.Aim.Horizontal == b.Aim.Horizontal && a.Aim.Vertical == b.Aim.Vertical && a.Aim.FineControl == b.Aim.FineControl &&
-                a.Trigger == b.Trigger && a.HoldBreath == b.HoldBreath && a.Wind.EastMetersPerSecond == b.Wind.EastMetersPerSecond &&
+                a.CycleBolt==b.CycleBolt && a.ManualBoltCycle==b.ManualBoltCycle && a.Trigger == b.Trigger && a.HoldBreath == b.HoldBreath && a.Wind.EastMetersPerSecond == b.Wind.EastMetersPerSecond &&
                 a.Wind.NorthMetersPerSecond == b.Wind.NorthMetersPerSecond && a.Pressure.RaceImportance == b.Pressure.RaceImportance &&
                 a.Pressure.PositionImportance == b.Pressure.PositionImportance && a.Pressure.RivalProximity == b.Pressure.RivalProximity &&
                 a.Pressure.Confidence == b.Pressure.Confidence && a.Pressure.FinalStanding == b.Pressure.FinalStanding && a.Pressure.FirstPodium == b.Pressure.FirstPodium;

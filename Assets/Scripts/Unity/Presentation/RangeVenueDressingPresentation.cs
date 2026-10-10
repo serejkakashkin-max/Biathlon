@@ -12,9 +12,10 @@ namespace Biathlon.Unity.Presentation
         [Serializable] private sealed class Settings
         {
             public int schema_version;public string id;
-            public float number_post_height_m,number_board_size_m,number_post_side_m;
+            public float number_post_height_m,number_board_size_m,number_post_side_m,lane_divider_side_m;
             public float wind_flag_height_m,wind_flag_length_m,wind_flag_width_m;
             public float[] wind_flag_fractions;
+            public float wind_streamer_height_m,wind_streamer_length_m,wind_streamer_width_m;public float[] wind_streamer_fractions;
             public float grid_slot_length_m,grid_slot_width_m,grid_line_width_m,surface_offset_m;
             public Color accent_color,number_color;
         }
@@ -26,6 +27,7 @@ namespace Biathlon.Unity.Presentation
         private Material white,dark,accent;
         public int NumberedLaneCount {get;private set;}
         public int WindFlagCount=>flags?.Length??0;
+        public int LaneDividerCount {get;private set;}
         public int StartSlotCount {get;private set;}
         public Vector3 StartSlot(int index)=>startSlots[index];
         private Vector3[] startSlots;
@@ -41,27 +43,43 @@ namespace Biathlon.Unity.Presentation
             white=new Material(template);dark=new Material(template);accent=new Material(template);owned.Add(white);owned.Add(dark);owned.Add(accent);
             white.SetColor("_BaseColor",Color.white);dark.SetColor("_BaseColor",settings.number_color);accent.SetColor("_BaseColor",settings.accent_color);
             var geometry=TargetGeometryDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/target_geometry_v1"));
-            flags=new Transform[venue.LaneCount*settings.wind_flag_fractions.Length];int count=0;
+            flags=new Transform[((venue.LaneCount+1)/2)*settings.wind_streamer_fractions.Length];int count=0;
             for(int lane=0;lane<venue.LaneCount;lane++)
             {
                 var p=venue.MatPoint(lane);var mat=new Vector3((float)p.X,(float)p.Y,(float)p.Z);
                 var post=mat+right*settings.number_post_side_m;
                 Pole(post,settings.number_post_height_m);
-                var board=Cube("Lane number panel",post+Vector3.up*(settings.number_post_height_m-.18f),new Vector3(settings.number_board_size_m,settings.number_board_size_m,.025f),dark);
+                var laneMaterial=lane%2==0?dark:accent;
+                var board=Cube("Lane number panel",post+Vector3.up*(settings.number_post_height_m-.18f),new Vector3(settings.number_board_size_m,settings.number_board_size_m,.025f),laneMaterial);
                 var rotation=Quaternion.LookRotation(forward,Vector3.up);board.rotation=rotation;
                 Text((lane+1).ToString(),board.position-forward*.02f,rotation,settings.number_board_size_m*.65f,Color.white);
                 NumberedLaneCount++;
                 var target=mat+forward*(float)(venue.FiringDatumDepth+geometry.DistanceMeters)+Vector3.up*2;
-                var targetNumber=Cube("Target lane number",target,new Vector3(.7f,.45f,.035f),dark);targetNumber.rotation=rotation;
+                var targetNumber=Cube("Target lane number",target,new Vector3(.7f,.45f,.035f),laneMaterial);targetNumber.rotation=rotation;
                 Text((lane+1).ToString(),target-forward*.025f,rotation,.38f,Color.white);
                 foreach(float fraction in settings.wind_flag_fractions)
                 {
                     if(!(fraction>0&&fraction<1))throw new ArgumentException("Wind flags must lie between the mat and target.");
-                    var origin=mat+forward*(float)(venue.FiringDatumDepth+geometry.DistanceMeters*fraction)+right*settings.number_post_side_m;
+                    var origin=mat+forward*(float)(venue.FiringDatumDepth+geometry.DistanceMeters*fraction)+right*settings.lane_divider_side_m;
                     Pole(origin,settings.wind_flag_height_m);
-                    var pivot=new GameObject("Observed wind flag");pivot.transform.SetParent(transform,false);pivot.transform.position=origin+Vector3.up*settings.wind_flag_height_m;
-                    var fabric=Cube("Wind fabric",pivot.transform.position,new Vector3(settings.wind_flag_width_m,settings.wind_flag_length_m,.008f),accent);
-                    fabric.SetParent(pivot.transform,false);fabric.localPosition=Vector3.down*(settings.wind_flag_length_m*.5f);
+                    var divider=Cube("Fixed lane T-board",origin+Vector3.up*(settings.wind_flag_height_m-settings.wind_flag_length_m*.5f),
+                        new Vector3(settings.wind_flag_width_m,settings.wind_flag_length_m,.008f),lane%2==0?dark:accent);
+                    divider.rotation=rotation;LaneDividerCount++;
+                    if(lane==venue.LaneCount-1)
+                    {
+                        var outer=mat+forward*(float)(venue.FiringDatumDepth+geometry.DistanceMeters*fraction)-right*settings.lane_divider_side_m;
+                        Pole(outer,settings.wind_flag_height_m);
+                        var boardOuter=Cube("Outer lane T-board",outer+Vector3.up*(settings.wind_flag_height_m-settings.wind_flag_length_m*.5f),
+                            new Vector3(settings.wind_flag_width_m,settings.wind_flag_length_m,.008f),laneMaterial);boardOuter.rotation=rotation;LaneDividerCount++;
+                    }
+                }
+                if(lane%2==0)foreach(float fraction in settings.wind_streamer_fractions)
+                {
+                    var origin=mat+forward*(float)(venue.FiringDatumDepth+geometry.DistanceMeters*fraction)+right*settings.number_post_side_m;
+                    Pole(origin,settings.wind_streamer_height_m);
+                    var pivot=new GameObject("Observed wind streamer");pivot.transform.SetParent(transform,false);pivot.transform.position=origin+Vector3.up*settings.wind_streamer_height_m;
+                    var fabric=Cube("Wind fabric",pivot.transform.position,new Vector3(settings.wind_streamer_width_m,settings.wind_streamer_length_m,.008f),accent);
+                    fabric.SetParent(pivot.transform,false);fabric.localPosition=Vector3.down*(settings.wind_streamer_length_m*.5f);
                     flags[count++]=pivot.transform;
                 }
             }
@@ -73,13 +91,7 @@ namespace Biathlon.Unity.Presentation
                 var position=world!=null?new Vector3((float)world.GetActor(i).Pose.X,(float)sample.Y,(float)world.GetActor(i).Pose.Z):
                     new Vector3((float)sample.X,(float)sample.Y,(float)sample.Z)+r*(float)field.GetLateral(i);
                 startSlots[i]=position;
-                var rotation=Quaternion.LookRotation(f,Vector3.up);
-                float half=settings.grid_slot_width_m*.5f;
-                var back=position-f*settings.grid_slot_length_m*.5f+Vector3.up*settings.surface_offset_m;
-                Cube("Start slot back",back,new Vector3(settings.grid_slot_width_m,settings.surface_offset_m,settings.grid_line_width_m),accent).rotation=rotation;
-                for(int side=-1;side<=1;side+=2)Cube("Start slot edge",position+r*(half*side)+Vector3.up*settings.surface_offset_m,
-                    new Vector3(settings.grid_line_width_m,settings.surface_offset_m,settings.grid_slot_length_m),white).rotation=rotation;
-                Text((i+1).ToString(),back-f*.3f,Quaternion.Euler(90,rotation.eulerAngles.y,0),.3f,settings.number_color);
+
             }
             Refresh();
         }

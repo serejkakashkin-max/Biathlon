@@ -3,6 +3,7 @@ using Biathlon.Domain;
 using Biathlon.Simulation;
 using UnityEngine;
 using UnityEngine.Rendering;
+using System.Collections.Generic;
 
 namespace Biathlon.Unity.Presentation
 {
@@ -13,6 +14,8 @@ namespace Biathlon.Unity.Presentation
         public float overview_field_of_view_deg,overview_back_m,overview_up_m;
         public Vector3 rifle_local_position;
         public float rifle_scale,rifle_pitch_deg;
+        public float post_width_m,post_base_y_m,post_tip_y_m,post_z_m;
+        public float bolt_drop_m,bolt_pitch_deg,bolt_roll_deg;
         public static RifleSightSettings Load()
         {
             var d=JsonUtility.FromJson<RifleSightSettings>(Resources.Load<TextAsset>("Biathlon/rifle_sight_presentation_v1").text);
@@ -26,6 +29,8 @@ namespace Biathlon.Unity.Presentation
     public sealed class RifleSightPresentation : MonoBehaviour
     {
         public Transform Weapon {get;private set;}
+        private RifleSightSettings settings;
+        private Mesh ownedMesh;
         public static void Observe(Camera camera,VenueAuthoringPlan venue,int lane,TargetGeometryDefinition geometry,ShotRay ray,ShootingStance stance,RifleSightSettings settings,float targetHeight,bool overview=false)
         {
             if(camera==null||venue==null||!ray.IsValid||ray.DirectionZ<=0||lane<1||lane>venue.LaneCount)throw new ArgumentException("Bound venue lane and forward sight ray required.");
@@ -43,14 +48,38 @@ namespace Biathlon.Unity.Presentation
         }
         public void Initialize(RifleSightSettings settings)
         {
+            this.settings=settings;
             var weapon=new GameObject("Original first person rifle");weapon.transform.SetParent(transform,false);Weapon=weapon.transform;
             Weapon.localPosition=settings.rifle_local_position;Weapon.localRotation=Quaternion.Euler(settings.rifle_pitch_deg,0,0);Weapon.localScale=Vector3.one*settings.rifle_scale;
-            weapon.AddComponent<MeshFilter>().sharedMesh=Resources.Load<Mesh>("Biathlon/Athletes/G2Hero/Meshes/HeroRifle");
+            var original=Resources.Load<Mesh>("Biathlon/Athletes/G2Hero/Meshes/HeroRifle");
+            ownedMesh=Instantiate(original);ownedMesh.name="Original rifle with pointed front sight";
+            // Replace only the original tiny cylindrical sight insert. The stock,
+            // rear diopter and protective front hood stay project-authored.
+            var vertices=new List<Vector3>(original.vertices);var normals=new List<Vector3>(original.normals);
+            int[] source=original.GetTriangles(1);var triangles=new List<int>(source.Length+6);
+            bool Insert(Vector3 p)=>Mathf.Abs(p.x)<.0021f&&p.y>.068f&&p.y<.087f&&Mathf.Abs(p.z-1.008f)<.003f;
+            for(int i=0;i<source.Length;i+=3)if(!(Insert(vertices[source[i]])&&Insert(vertices[source[i+1]])&&Insert(vertices[source[i+2]])))
+            {triangles.Add(source[i]);triangles.Add(source[i+1]);triangles.Add(source[i+2]);}
+            int at=vertices.Count;
+            vertices.Add(new Vector3(-settings.post_width_m*.5f,settings.post_base_y_m,settings.post_z_m));
+            vertices.Add(new Vector3(settings.post_width_m*.5f,settings.post_base_y_m,settings.post_z_m));
+            vertices.Add(new Vector3(0,settings.post_tip_y_m,settings.post_z_m));
+            for(int i=0;i<3;i++)normals.Add(Vector3.back);
+            triangles.AddRange(new[]{at,at+2,at+1,at,at+1,at+2});
+            ownedMesh.SetVertices(vertices);ownedMesh.SetNormals(normals);ownedMesh.SetTriangles(triangles,1);ownedMesh.RecalculateBounds();
+            weapon.AddComponent<MeshFilter>().sharedMesh=ownedMesh;
             var renderer=weapon.AddComponent<MeshRenderer>();renderer.sharedMaterials=new[]{
                 Resources.Load<Material>("Biathlon/Athletes/G2Hero/Materials/RifleComposite"),Resources.Load<Material>("Biathlon/Athletes/G2Hero/Materials/RifleMetal"),
                 Resources.Load<Material>("Biathlon/Athletes/G2Hero/Materials/RifleRubber"),Resources.Load<Material>("Biathlon/Athletes/G2Hero/Materials/RifleAccent")};
             renderer.shadowCastingMode=ShadowCastingMode.Off;renderer.receiveShadows=false;
         }
         public void SetVisible(bool value)=>Weapon.gameObject.SetActive(value);
+        public void AnimateCycle(float progress)
+        {
+            float motion=Mathf.Sin(Mathf.Clamp01(progress)*Mathf.PI);
+            Weapon.localPosition=settings.rifle_local_position+Vector3.down*(settings.bolt_drop_m*motion);
+            Weapon.localRotation=Quaternion.Euler(settings.rifle_pitch_deg+settings.bolt_pitch_deg*motion,0,settings.bolt_roll_deg*motion);
+        }
+        private void OnDestroy(){if(ownedMesh!=null)Destroy(ownedMesh);}
     }
 }

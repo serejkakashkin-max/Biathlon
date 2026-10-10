@@ -3,9 +3,21 @@
   "id": "woodland_finish_presentation_v1",
   "lane_count": 3,
   "straight_marking_m": 50,
-  "marker_width_m": 0.08,
+  "marker_width_m": 0.025,
   "finish_line_width_m": 0.25,
   "surface_offset_m": 0.025,
-  "lane_color": {"r": 0.45, "g": 0.5, "b": 0.55, "a": 1},
-  "finish_color": {"r": 0.8, "g": 0.04, "b": 0.04, "a": 1}
+  "lane_color": {
+    "r": 0.04,
+    "g": 0.45,
+    "b": 0.75,
+    "a": 1
+  },
+  "finish_color": {
+    "r": 0.8,
+    "g": 0.04,
+    "b": 0.04,
+    "a": 1
+  },
+  "marker_height_m": 0.12,
+  "marker_spacing_m": 2
 }

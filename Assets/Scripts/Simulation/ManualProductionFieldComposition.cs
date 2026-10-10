@@ -10,7 +10,7 @@ namespace Biathlon.Simulation
         public static ManualScopedFieldStepper Create(PackSprintFieldSession field,VenueAuthoringPlan venue,Func<string,string> readCore)
         {
             if(field==null||venue==null||readCore==null)throw new ArgumentNullException();
-            var models=new SkiModelDefinitions(readCore);
+            var models=new SkiModelDefinitions(name=>readCore(name=="tuck_provisional_v1.json"?"tuck_gameplay_v2.json":name));
             var contact=SkiContactDefinition.FromJson(readCore("manual_ski_contact_gameplay_v1.json"));
             var work=SkiContactSweepDefinition.FromJson(readCore("manual_ski_contact_sweep_v1.json"));
             var group=SkiContactGroupDefinition.FromJson(readCore("manual_ski_contact_group_gameplay_v1.json"));

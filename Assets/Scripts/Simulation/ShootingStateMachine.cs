@@ -4,7 +4,7 @@ using Biathlon.Domain;
 namespace Biathlon.Simulation
 {
     public enum ShootingPhase { Outside = 0, AwaitingLane = 1, Setup = 2, Aiming = 3, BoltCycle = 4, Exiting = 5, Complete = 6 }
-    public enum ShootingAction { None = 0, EnterRange = 1, AssignLane = 2, Trigger = 3 }
+    public enum ShootingAction { None = 0, EnterRange = 1, AssignLane = 2, Trigger = 3, CycleBolt = 4 }
     public readonly struct ShootingFrame
     {
         public SimulationTick Tick { get; }
@@ -24,6 +24,9 @@ namespace Biathlon.Simulation
         private readonly int frequency, setupTicks, boltTicks, exitTicks;
         private readonly IRaceEventSink events;
         private long tick, ready;
+        private readonly bool manualBoltCycle;
+        private bool chambered;
+        public bool NeedsBoltCycle => manualBoltCycle && Phase == ShootingPhase.Aiming && !chambered;
         public ShootingPhase Phase { get; private set; }
         public ShootingLaneAssignment Lane { get; private set; }
         public int ShotsFired { get; private set; }
@@ -34,8 +37,9 @@ namespace Biathlon.Simulation
         public int PhaseRemainingTicks => PhaseDurationTicks == 0 ? 0 : (int)Math.Max(0, ready - tick);
         public int PhaseElapsedTicks => PhaseDurationTicks - PhaseRemainingTicks;
         public ShootingStateMachine(ShootingDefinition definition, AthleteId athlete, string rangeId, int frequency,
-            IRaceEventSink events, SimulationTick initialTick = default, ShootingStanceProfile stance = null, ShootingHandlingProfile? handling = null)
+            IRaceEventSink events, SimulationTick initialTick = default, ShootingStanceProfile stance = null, ShootingHandlingProfile? handling = null, bool manualBoltCycle = false)
         {
+            this.manualBoltCycle=manualBoltCycle;chambered=!manualBoltCycle;
             this.definition = definition ?? throw new ArgumentNullException(nameof(definition));
             if (!athlete.IsValid || string.IsNullOrWhiteSpace(rangeId) || frequency <= 0 || frequency > 10000)
                 throw new ArgumentException("Invalid shooting identity/clock.");
@@ -52,7 +56,8 @@ namespace Biathlon.Simulation
             ValidateCommand(target, action, lane);
             long setupReady = checked(target.Value + setupTicks), boltReady = checked(target.Value + boltTicks), exitReady = checked(target.Value + exitTicks);
             tick = target.Value;
-            if ((Phase == ShootingPhase.Setup || Phase == ShootingPhase.BoltCycle) && tick >= ready) Change(ShootingPhase.Aiming);
+            if ((Phase == ShootingPhase.Setup || Phase == ShootingPhase.BoltCycle) && tick >= ready)
+            { if(Phase==ShootingPhase.BoltCycle)chambered=true; Change(ShootingPhase.Aiming); }
             if (Phase == ShootingPhase.Exiting && tick >= ready) Change(ShootingPhase.Complete);
             bool accepted = false;
             if (action == ShootingAction.EnterRange) Change(ShootingPhase.AwaitingLane);
@@ -61,11 +66,14 @@ namespace Biathlon.Simulation
                 Lane = lane; Record(RaceEventType.ShootingLaneAssigned, lane.Ordinal);
                 ready = setupReady; Change(ShootingPhase.Setup);
             }
-            else if (action == ShootingAction.Trigger && Phase == ShootingPhase.Aiming)
+            else if(action==ShootingAction.CycleBolt && NeedsBoltCycle)
+            { ready=boltReady; Change(ShootingPhase.BoltCycle); }
+            else if (action == ShootingAction.Trigger && Phase == ShootingPhase.Aiming && chambered)
             {
                 accepted = true; ShotsFired++; Record(RaceEventType.ShotAccepted, ShotsFired);
                 ready = ShotsFired == definition.Rounds ? exitReady : boltReady;
-                Change(ShotsFired == definition.Rounds ? ShootingPhase.Exiting : ShootingPhase.BoltCycle);
+                chambered=!manualBoltCycle;
+                Change(ShotsFired == definition.Rounds ? ShootingPhase.Exiting : manualBoltCycle ? ShootingPhase.Aiming : ShootingPhase.BoltCycle);
             }
             LastFrame = new ShootingFrame(target, Phase, ShotsFired, accepted, ready);
             return LastFrame;
@@ -73,7 +81,7 @@ namespace Biathlon.Simulation
         internal void ValidateCommand(SimulationTick target, ShootingAction action, ShootingLaneAssignment lane)
         {
             if (target.Value != checked(tick + 1)) throw new ArgumentException("Shooting ticks must be consecutive.");
-            if (action < ShootingAction.None || action > ShootingAction.Trigger) throw new ArgumentOutOfRangeException(nameof(action));
+            if (action < ShootingAction.None || action > ShootingAction.CycleBolt) throw new ArgumentOutOfRangeException(nameof(action));
             if (action == ShootingAction.EnterRange && Phase != ShootingPhase.Outside) throw new InvalidOperationException("Bout already entered.");
             if (action == ShootingAction.AssignLane && (Phase != ShootingPhase.AwaitingLane || !lane.IsValid || lane.RangeId != rangeId))
                 throw new ArgumentException("Lane must belong to this range and be assigned while waiting.");

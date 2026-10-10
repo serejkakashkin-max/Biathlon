@@ -28,10 +28,10 @@ namespace Biathlon.Simulation
             double curvatureLimit = definition.NoviceMaximumCurvature + skill * (definition.ExpertMaximumCurvature - definition.NoviceMaximumCurvature);
             double riskLimit = definition.NoviceMaximumRisk + skill * (definition.ExpertMaximumRisk - definition.NoviceMaximumRisk);
             var rejection = !requested ? TuckRejection.NotRequested :
-                track.Grade > definition.MaximumGrade ? TuckRejection.Grade :
-                state.SpeedMetersPerSecond < definition.MinimumSpeed ? TuckRejection.Speed :
-                Math.Abs(track.CurvaturePerMeter) > curvatureLimit ? TuckRejection.Curvature :
-                track.RiskLevel > riskLimit ? TuckRejection.Risk : TuckRejection.None;
+                !definition.AllowRequestedPosture && track.Grade > definition.MaximumGrade ? TuckRejection.Grade :
+                !definition.AllowRequestedPosture && state.SpeedMetersPerSecond < definition.MinimumSpeed ? TuckRejection.Speed :
+                !definition.AllowRequestedPosture && Math.Abs(track.CurvaturePerMeter) > curvatureLimit ? TuckRejection.Curvature :
+                !definition.AllowRequestedPosture && track.RiskLevel > riskLimit ? TuckRejection.Risk : TuckRejection.None;
             bool active = rejection == TuckRejection.None;
             return new TuckOutput(rejection, active ? Math.Min(effortControl, definition.MaximumEffortControl) : effortControl,
                 active ? definition.DragAreaMultiplier : 1, active ? definition.SteeringResponseMultiplier : 1);

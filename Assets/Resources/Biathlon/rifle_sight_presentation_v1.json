@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "id": "rifle_sight_presentation_v1",
-  "field_of_view_deg": 8,
-  "fine_field_of_view_deg": 4,
+  "field_of_view_deg": 3.5,
+  "fine_field_of_view_deg": 2.0,
   "overview_field_of_view_deg": 40,
   "overview_back_m": 8,
   "overview_up_m": 1.7,
@@ -11,9 +11,16 @@
   "prone_eye_height_m": 0.58,
   "rifle_local_position": {
     "x": 0,
-    "y": -0.02784,
+    "y": -0.01218,
     "z": 0.45
   },
-  "rifle_scale": 0.32,
-  "rifle_pitch_deg": 0
+  "rifle_scale": 0.14,
+  "rifle_pitch_deg": 0,
+  "post_width_m": 0.004,
+  "post_base_y_m": 0.069,
+  "post_tip_y_m": 0.087,
+  "post_z_m": 1.008,
+  "bolt_drop_m": 0.012,
+  "bolt_pitch_deg": 3,
+  "bolt_roll_deg": 7
 }

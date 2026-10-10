@@ -50,6 +50,7 @@ namespace Biathlon.Simulation
         public SimulationTick Tick { get; private set; }
         public ShootingPhase Phase => shots.Phase;
         public int ShotsFired => shots.ShotsFired;
+        public bool NeedsBoltCycle => shots.NeedsBoltCycle;
         public int ClosedMask => shots.ClosedMask;
         public int PhaseDurationTicks => shots.PhaseDurationTicks;
         public int PhaseRemainingTicks => shots.PhaseRemainingTicks;
@@ -60,7 +61,7 @@ namespace Biathlon.Simulation
             Clip(LastFrame.Aim.PitchRadians + LastFrame.Sway.VerticalRadians + LastFrame.Handling.VerticalRadians));
         public ShootingSession(SimulationConfig config, ShootingModelDefinitions model, ShootingAthleteDefinition athlete,
             ShootingStance stance, string rangeId, IRaceEventSink events, SimulationTick initialTick = default,
-            PhysiologyDefinition physiologyDefinition = null)
+            PhysiologyDefinition physiologyDefinition = null,bool manualBoltCycle=false)
         {
             if (config == null || model == null || athlete == null) throw new ArgumentNullException(nameof(config));
             this.model = model; this.athlete = athlete; this.stance = model.Stances.Get(stance); Frequency = config.TickFrequency; AthleteId = new AthleteId(athlete.Id);
@@ -72,13 +73,14 @@ namespace Biathlon.Simulation
             breathControl = new BreathControlSystem(model.BreathControl, AthleteId, Frequency, events, this.stance, initialTick);
             pressure = new ShootingPressureSystem(model.Pressure, Frequency, this.stance, initialTick);
             handling = new ShootingHandlingSystem(model.Handling, model.Equipment, athlete.ShootingSpeed, Frequency, initialTick);
-            shots = new ShotResolutionSystem(model.Lifecycle, model.Targets, model.Wind, this.stance, AthleteId, rangeId, Frequency, events, initialTick, handling.Profile);
+            shots = new ShotResolutionSystem(model.Lifecycle, model.Targets, model.Wind, this.stance, AthleteId, rangeId, Frequency, events, initialTick, handling.Profile,manualBoltCycle);
             windValidation = new ShootingWindSystem(model.Wind);
             ContextJson = ShootingModelDefinitions.EncodeContext("biathlon_shooting_session_v1", config.Id,
                 Frequency.ToString(CultureInfo.InvariantCulture), config.Seed.ToString(CultureInfo.InvariantCulture), model.ContextJson, athlete.ToJson(), this.stance.Id, rangeId);
             if (initialTick.Value != 0 || physiologyDefinition != null)
                 ContextJson = ShootingModelDefinitions.EncodeContext("biathlon_shooting_session_v2", ContextJson,
                     initialTick.Value.ToString(CultureInfo.InvariantCulture), this.physiologyDefinition.ToJson());
+            if(manualBoltCycle)ContextJson=ShootingModelDefinitions.EncodeContext("biathlon_manual_bolt_session_v1",ContextJson);
         }
         public ShootingSessionFrame Step(ShootingSessionInput input)
         {

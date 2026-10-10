@@ -66,7 +66,7 @@ namespace Biathlon.AI
             }
             string prefix=venue.Manifest.Id+"_"+profile.Format.ToString().ToLowerInvariant();
             var field=new PackSprintFieldSession(new SimulationConfig(1,prefix+"_simulation_v1",frequency,seed),profile,
-                new SkiModelDefinitions(read),new ShootingModelDefinitions(read),track,route,
+                new SkiModelDefinitions(name=>read(name=="tuck_provisional_v1.json"?"tuck_gameplay_v2.json":name)),new ShootingModelDefinitions(read),track,route,
                 conditions,ResultTimingDefinition.FromJson(read("result_timing_v1.json")),
                 entrants,new SimulationTick(1),prefix+"_result_v1",venue.Occupancy,DraftDefinition.FromJson(read("draft_provisional_v1.json")),
                 OvertakeDefinition.FromJson(read("overtake_provisional_v1.json")),venue.Junctions,venue.Connections,events,

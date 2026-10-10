@@ -1,8 +1,20 @@
 {
- "schema_version":1,"id":"paired_skate_presentation_v1",
- "hip_transfer_fraction":0.04,"hip_pulse_m":0.006,"torso_pulse_deg":2,
- "flat_poles_per_cycle":1,"climb_poles_per_cycle":1,"pole_phase_offset_cycles":0.10,
- "motion_reference_swing_m":0.25,"contact_max_grip_correction_m":0.10,
- "contact_reset_gap_s":0.12,"contact_reset_distance_m":2,
- "glide_fraction":0.65,"recovery_yaw_fraction":0.35
+  "schema_version": 1,
+  "id": "paired_skate_presentation_v1",
+  "hip_transfer_fraction": 0.04,
+  "hip_pulse_m": 0.006,
+  "torso_pulse_deg": 2,
+  "flat_poles_per_cycle": 1,
+  "climb_poles_per_cycle": 1,
+  "pole_phase_offset_cycles": 0.1,
+  "motion_reference_swing_m": 0.25,
+  "contact_max_grip_correction_m": 0.1,
+  "contact_reset_gap_s": 0.12,
+  "contact_reset_distance_m": 2,
+  "glide_fraction": 0.65,
+  "recovery_yaw_fraction": 0.35,
+  "climb_hand_stagger_m": 0.07,
+  "steep_climb_grade": 0.1,
+  "steep_stride_multiplier": 0.75,
+  "steep_skate_multiplier": 1.25
 }

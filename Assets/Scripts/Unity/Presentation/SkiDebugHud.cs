@@ -28,7 +28,7 @@ namespace Biathlon.Unity.Presentation
             {
                 var a=snapshot.Get(i);if(a.AthleteId!=athleteId)continue;
                 DisplayText=string.Format(CultureInfo.InvariantCulture,
-                    "SKI TELEMETRY  |  {0}  |  tick {1}\nSpeed   {2:F1} km/h\nEffort  {3:F0}% sustainable  |  {4:F0} W\nHR      {5:F0} bpm\nReserve {6:F0}%  |  Fatigue {7:F0}%\nDraft   {8:F0}% drag reduction  |  {9}\nPosition {10}  {11:F1} m  |  lateral {12:F1} m\nPhase   {13}",
+                    "SKI TELEMETRY  |  {0}  |  tick {1}\nSpeed   {2:F1} km/h\nEffort  {3:F0}% sustainable  |  {4:F0} W\nHR      {5:F0} bpm\nReserve {6:F0}%  |  Fatigue {7:F0}%\nDraft   {8:F0}% drag reduction  |  {9}\nPosition {10}  {11:F1} m  |  lateral {12:F1} m\nPhase   {13}\nShift: ATTACK / Ctrl: RECOVER / Space: TUCK",
                     a.AthleteId,snapshot.Tick,a.SpeedMetersPerSecond*3.6,a.Effort.DeliveredRelativeEffort*100,
                     a.Effort.DeliveredPowerWatts,a.Physiology.HeartRateBpm,a.Physiology.AnaerobicReserve*100,
                     a.Physiology.MuscularFatigue*100,a.Draft.DragReduction*100,a.Draft.LeaderId.IsValid?a.Draft.LeaderId.Value:"no shelter",

@@ -138,6 +138,7 @@ namespace Biathlon.Unity.Presentation
             Course=gameObject.AddComponent<ProductionCoursePresentation>();Course.Initialize(venue,route:field.Route,sharedApron:venue.SharedApron,
                 finishRunout:ManualStepper?.World.GetCatalog(0).FinishRunoutDefinition);
             gameObject.AddComponent<FinishCorridorPresentation>().Initialize(venue,field.Route);
+            gameObject.AddComponent<PenaltyFencePresentation>().Initialize(venue.Track,venue.Visual);
             Proxies=gameObject.AddComponent<AthleteProxyPresentation>();Proxies.Initialize(Feed,venue);Proxies.Render(1);
             var cameraObject=new GameObject("Production chase camera");cameraObject.transform.SetParent(transform,false);
             ChaseCamera=cameraObject.AddComponent<Camera>();ChaseCamera.depth=100;
@@ -210,7 +211,7 @@ namespace Biathlon.Unity.Presentation
             var assist=rangeAssistance.Evaluate(actor.CurrentRangeMotion?.Phase,actor.RangePath!=null&&point.LoopId==actor.RangePath.MatAnchor.LoopId,
                 stopDistance,applied.AppliedControl,manualLine,actor.Motion.SpeedMetersPerSecond);
             var input=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(command.Tick,command.AthleteId,assist.RequestedEffort),1,1,0,
-                !assist.Active&&command.TuckHeld,!assist.Active&&applied.FinalSprintRequested),shooting.Aim,shooting.Trigger,shooting.HoldBreath);
+                !assist.Active&&command.TuckHeld,!assist.Active&&applied.FinalSprintRequested),shooting.Aim,shooting.Trigger,shooting.HoldBreath,cycleBolt:shooting.CycleBolt,manualBoltCycle:true);
             Runner.StepWithPlayer(PlayerIndex,input,assist.RequestedLateral);LastRangeAssistance=assist;
             effort.Step(command,true);
             if(!batchFrame)PublishPresentation();
@@ -240,7 +241,7 @@ namespace Biathlon.Unity.Presentation
             var assist=rangeAssistance.EvaluateManual(actor.CurrentRangeMotion?.Phase,occurrence.BoutIndex,onArrow,departureTurnComplete,
                 applied.AppliedControl,Runner.Field.GetLateral(PlayerIndex),actor.Motion.SpeedMetersPerSecond);
             var input=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(command.Tick,command.AthleteId,assist.RequestedEffort),1,1,0,
-                !assist.Active&&command.TuckHeld,!assist.Active&&applied.FinalSprintRequested),shooting.Aim,shooting.Trigger,shooting.HoldBreath);
+                !assist.Active&&command.TuckHeld,!assist.Active&&applied.FinalSprintRequested),shooting.Aim,shooting.Trigger,shooting.HoldBreath,cycleBolt:shooting.CycleBolt,manualBoltCycle:true);
             Runner.StepWithManualPlayer(PlayerIndex,input,command.SteeringInput,assist.Active);LastRangeAssistance=assist;
             effort.Step(command.ToEffortCommand(),true);
             if(!batchFrame)PublishPresentation();
@@ -251,7 +252,7 @@ namespace Biathlon.Unity.Presentation
         private void OnGUI()
         {
             if(Runner==null)return;
-            GUI.Box(new Rect(12,Screen.height-30,1000,24),"SKI: W/S effort, A/D steering, Space tuck | RANGE: mouse aim, LMB fire, RMB fine, Space breath");
+            GUI.Box(new Rect(12,Screen.height-48,Mathf.Min(1220,Screen.width-24),42),"ЛЫЖИ: W/S темп · Shift атака · Ctrl восстановление · A/D руление · Space низкая стойка\nСТРЕЛЬБА: ПКМ затвор · ЛКМ выстрел · Space дыхание · F точный прицел · Tab обзор");
             if(LastRangeAssistance.Active)GUI.Box(new Rect(Screen.width/2f-170,Screen.height-90,340,28),LastRangeAssistance.Mode==PlayerRangeAssistMode.FinalApproach?"Подготовка к стрельбе":"Управление возвращается");
         }
     }

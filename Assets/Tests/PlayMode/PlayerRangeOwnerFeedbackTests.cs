@@ -71,7 +71,7 @@ namespace Biathlon.PlayModeTests
                     }
                     else
                     {
-                        host.Step(new ManualSkiCommand(tick,id,650,0),new ShootingDeviceCommand(aim,fire,false));
+                        host.Step(new ManualSkiCommand(tick,id,650,0),new ShootingDeviceCommand(aim,fire,false,actor.ActiveShooting?.NeedsBoltCycle==true));
                         capture|=host.LastRangeAssistance.Mode==PlayerRangeAssistMode.FinalApproach;
                         departure|=host.LastRangeAssistance.Mode==PlayerRangeAssistMode.InitialDeparture;
                         returned=departure&&!host.LastRangeAssistance.Active;

@@ -74,6 +74,21 @@ namespace Biathlon.Unity.Presentation
             int lap=field.Route.Sample(new TrackDistance(actor.RouteNanometers/SkiState.NanometersPerMillimeter)).LapIndex;
             long stop=0;bool shootingLap=host.IsShootingLap(lap);
             if(shootingLap)stop=path.FiringRouteNanometers(lap);
+            if(actor.CurrentRangeRequiredPenaltyLoops>0&&(phase==RangeTraversalPhase.RangeExit||phase==RangeTraversalPhase.PenaltyApproach))
+            {
+                var section=field.Route.GetSection(field.Route.Sample(new TrackDistance(actor.RouteNanometers/SkiState.NanometersPerMillimeter)).SectionIndex);
+                long entry=(section.Start.Millimeters-section.LoopStart.Millimeters+host.Venue.Track.Penalty.Entry.Distance.Millimeters)*SkiState.NanometersPerMillimeter;
+                if(entry>=actor.RouteNanometers&&entry-actor.RouteNanometers<=definition.ForkShowLead*SkiState.NanometersPerMeter)
+                {
+                    GuidedBranchRoute=entry;
+                    for(int i=0;i<forkArrows.Length;i++)
+                    {
+                        long advance=(long)Math.Round((i+1)*definition.ChevronSpacing*SkiState.NanometersPerMeter);
+                        var point=path.PhysicalMap.MapPenalty(advance);GuidedNextLoopId=point.LoopId;Place(forkArrows[i],point,true);ForkArrowCount++;
+                    }
+                    return;
+                }
+            }
             double distance=(stop-actor.RouteNanometers)/(double)SkiState.NanometersPerMeter;
             if(shootingLap&&phase==RangeTraversalPhase.Approach&&distance>0&&distance<=definition.MatShowLead)
             {

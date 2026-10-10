@@ -30,11 +30,13 @@ namespace Biathlon.PlayModeTests
                 Assert.That(snow.MinX,Is.EqualTo((double)apron.MinX));Assert.That(snow.MaxX,Is.EqualTo((double)apron.MaxX));
                 Assert.That(snow.MinZ,Is.EqualTo((double)apron.MinZ));Assert.That(snow.MaxZ,Is.EqualTo((double)apron.MaxZ));
                 var dressing=root.GetComponent<RangeVenueDressingPresentation>();
-                Assert.That(dressing.StartSlotCount,Is.EqualTo(30));Assert.That(dressing.NumberedLaneCount,Is.EqualTo(30));Assert.That(dressing.WindFlagCount,Is.EqualTo(90));
+                Assert.That(dressing.StartSlotCount,Is.EqualTo(30));Assert.That(dressing.NumberedLaneCount,Is.EqualTo(30));Assert.That(dressing.WindFlagCount,Is.EqualTo(30));
+                Assert.That(dressing.LaneDividerCount,Is.EqualTo(155));
                 for(int i=0;i<30;i++)
                 {
                     var body=host.ManualStepper.World.GetActor(i);
                     Assert.That(dressing.StartSlot(i).x,Is.EqualTo((float)body.Pose.X));Assert.That(dressing.StartSlot(i).z,Is.EqualTo((float)body.Pose.Z));
+                    Assert.That(body.Pose.HeadingRadians,Is.EqualTo(Math.PI*.5).Within(.000001),"Every starting skier faces the straight.");
                 }
                 Assert.That(host.Environment.TreeCount,Is.LessThan(3500),"The owner requested removing non-gameplay forest, not reducing the High tier.");
                 var view=root.GetComponent<RangePresentation>();var sight=RifleSightSettings.Load();
@@ -55,7 +57,9 @@ namespace Biathlon.PlayModeTests
                 Assert.That(finish.LaneCount,Is.EqualTo(3));
                 Assert.That(finish.FinishPoint.z,Is.GreaterThan(60),"The finish must stay on the stadium's outside branch.");
                 var paint=finish.transform.Find("Finish lanes").GetComponent<MeshFilter>().sharedMesh;
-                foreach(var normal in paint.normals)Assert.That(normal.y,Is.GreaterThan(.99f),"Finish paint faces the player above the snow.");
+                Assert.That(finish.MarkerCount,Is.EqualTo(100),"Low ski corridor pickets replace continuous paint.");
+                Assert.That(root.GetComponent<PenaltyFencePresentation>().BoardCount,Is.GreaterThan(100));
+                for(int n=paint.normals.Length-4;n<paint.normals.Length;n++)Assert.That(paint.normals[n].y,Is.GreaterThan(.99f),"The red finish line faces above the snow.");
                 foreach(var tier in new[]{"high","balanced","low"})
                 {
                     host.GetComponent<RenderQualityPresentation>().Apply(tier);

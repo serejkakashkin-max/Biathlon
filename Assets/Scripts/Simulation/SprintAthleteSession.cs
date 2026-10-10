@@ -7,12 +7,14 @@ namespace Biathlon.Simulation
     {
         public TimeTrialInput Ski { get; } public WeaponAimCommand Aim { get; }
         public bool Trigger { get; } public bool HoldBreath { get; }
+        public bool CycleBolt {get;} public bool ManualBoltCycle {get;}
         public WindVector Wind { get; } public ShootingPressureContext Pressure { get; }
         public SprintAthleteInput(TimeTrialInput ski, WeaponAimCommand aim, bool trigger = false, bool holdBreath = false,
-            WindVector wind = default, ShootingPressureContext pressure = default)
+            WindVector wind = default, ShootingPressureContext pressure = default,bool cycleBolt=false,bool manualBoltCycle=false)
         {
             if (!ski.Effort.AthleteId.Equals(aim.AthleteId) || ski.Effort.Tick.Value != aim.Tick.Value || !aim.AthleteId.IsValid)
                 throw new ArgumentException("Ski/aim intent must share athlete and tick.");
+            CycleBolt=cycleBolt;ManualBoltCycle=manualBoltCycle;
             Ski = ski; Aim = aim; Trigger = trigger; HoldBreath = holdBreath; Wind = wind; Pressure = pressure;
         }
     }
@@ -572,7 +574,7 @@ namespace Biathlon.Simulation
             {
                 var session = shooting[rangeIndex];
                 var action = session.Phase == ShootingPhase.Outside ? ShootingAction.EnterRange : session.Phase == ShootingPhase.AwaitingLane ? ShootingAction.AssignLane :
-                    input.Trigger ? ShootingAction.Trigger : ShootingAction.None;
+                    input.CycleBolt ? ShootingAction.CycleBolt : input.Trigger ? ShootingAction.Trigger : ShootingAction.None;
                 shotFrame = session.Step(new ShootingSessionInput(input.Aim, action, action == ShootingAction.AssignLane ? lane : default,
                     input.HoldBreath, physical.State.HeartRateBpm, physical.State.MuscularFatigue, physical.State.MuscularFatigue, input.Wind, 0, sample.WindExposure, input.Pressure));
                 if (session.Phase == ShootingPhase.Complete)
@@ -588,7 +590,7 @@ namespace Biathlon.Simulation
                     // One initialization per bout, outside the movement hot loop; no gameplay state is reset.
                     var boutConfig = new SimulationConfig(1, config.Id, config.TickFrequency, unchecked(config.Seed + (ulong)rangeIndex));
                     shooting[rangeIndex] = new ShootingSession(boutConfig, shootingModel, shootingAthlete, profile.GetBout(rangeIndex).Stance,
-                        lane.RangeId, events, tick, physiology.Definition);
+                        lane.RangeId, events, tick, physiology.Definition,input.ManualBoltCycle);
                 }
             }
             physiology.CommitPreview(work, physical);

@@ -42,6 +42,7 @@ namespace Biathlon.Simulation
         public WeaponAimState Sight { get; }
         public WindVector ShootingWind {get;}
         public bool FineAim {get;}
+        public bool NeedsBoltCycle {get;} public bool BreathBlocked {get;} public double BreathDebt {get;} public double BreathSwayMultiplier {get;}
         public ShootingStance Stance { get; }
         public ShotOutcome ShotOutcome { get; }
         public TargetIntersection ShotImpact { get; }
@@ -83,6 +84,8 @@ namespace Biathlon.Simulation
             ShootingPhaseElapsedTicks=shooting?.PhaseElapsedTicks??0;
             ShootingSway=shooting?.LastFrame.Sway??default;
             BreathHolding=shooting?.LastFrame.BreathControl.Holding??false;
+            NeedsBoltCycle=shooting?.NeedsBoltCycle??false;BreathBlocked=shooting?.LastFrame.BreathControl.Blocked??false;
+            BreathDebt=shooting?.LastFrame.BreathControl.Debt??0;BreathSwayMultiplier=shooting?.LastFrame.BreathControl.BreathingMultiplier??1;
             BreathingPhaseCycles=shooting?.LastFrame.Breathing.PhaseCycles??0;
             ClosedTargetsMask=shooting?.ClosedMask??0;ShotsFired=shooting?.ShotsFired??0;
             Sight=shooting?.Sight??default;ShootingWind=shooting?.LastFrame.Input.Wind??default;FineAim=shooting?.LastFrame.Input.Aim.FineControl??false;Stance=field.Profile.GetBout(Math.Min(a.Lifecycle.CompletedBouts,field.Profile.BoutCount-1)).Stance;

@@ -9,7 +9,8 @@ namespace Biathlon.Unity.Presentation
         public WeaponAimCommand Aim { get; }
         public bool Trigger { get; }
         public bool HoldBreath { get; }
-        public ShootingDeviceCommand(WeaponAimCommand aim,bool trigger,bool holdBreath){Aim=aim;Trigger=trigger;HoldBreath=holdBreath;}
+        public bool CycleBolt {get;}
+        public ShootingDeviceCommand(WeaponAimCommand aim,bool trigger,bool holdBreath,bool cycleBolt=false){CycleBolt=cycleBolt;Aim=aim;Trigger=trigger;HoldBreath=holdBreath;}
     }
     [Serializable] public sealed class ShootingDeviceSettings
     {
@@ -35,7 +36,7 @@ namespace Biathlon.Unity.Presentation
         private AthleteId athlete;
         private long tick;
         private double mouseUnitsPerPixel,pendingX,pendingY,stickX,stickY;
-        private bool pad,focused=true,previousTrigger,trigger,breath,fine;
+        private bool pad,focused=true,previousTrigger,trigger,breath,fine,previousCycle,cycle;
         public void Initialize(AthleteId id,int frequency,SimulationTick initialTick=default)
         {
             if(!id.IsValid||frequency<=0)throw new ArgumentException("Invalid input clock/athlete.");
@@ -51,19 +52,20 @@ namespace Biathlon.Unity.Presentation
             if(settings==null)throw new InvalidOperationException("Initialize input first.");
             if(!focused||(mouse==null&&gamepad==null)){ReleaseHeldInput();return;}
             bool nextPad=gamepad!=null;if(nextPad!=pad)ReleaseHeldInput();pad=nextPad;
-            bool down;
+            bool down,cycleDown;
             if(pad)
             {
                 var stick=gamepad.rightStick.ReadUnprocessedValue();double length=Math.Sqrt(stick.x*stick.x+stick.y*stick.y);
                 double strength=length<=settings.stick_deadzone?0:Math.Pow((Math.Min(1,length)-settings.stick_deadzone)/(1-settings.stick_deadzone),settings.stick_exponent);
                 stickX=length>0?stick.x/length*strength:0;stickY=length>0?stick.y/length*strength:0;
-                down=gamepad.rightTrigger.isPressed;breath=gamepad.leftShoulder.isPressed;fine=gamepad.leftTrigger.isPressed;
+                down=gamepad.rightTrigger.isPressed;breath=gamepad.leftShoulder.isPressed;fine=gamepad.leftTrigger.isPressed;cycleDown=gamepad.buttonWest.isPressed;
             }
             else
             {
                 var delta=mouse.delta.ReadValue();pendingX+=delta.x*mouseUnitsPerPixel;pendingY+=delta.y*mouseUnitsPerPixel;
-                down=mouse.leftButton.isPressed;breath=keyboard?.spaceKey.isPressed==true;fine=mouse.rightButton.isPressed;
+                down=mouse.leftButton.isPressed;breath=keyboard?.spaceKey.isPressed==true;fine=keyboard?.fKey.isPressed==true;cycleDown=mouse.rightButton.isPressed;
             }
+            cycle|=cycleDown&&!previousCycle;previousCycle=cycleDown;
             trigger|=down&&!previousTrigger;previousTrigger=down;
         }
         public ShootingDeviceCommand Build(SimulationTick target)
@@ -73,11 +75,11 @@ namespace Biathlon.Unity.Presentation
             double x=pad?stickX*1000:pendingX,y=pad?stickY*1000:pendingY;
             double length=Math.Sqrt(x*x+y*y);if(length>1000){x*=1000/length;y*=1000/length;}
             int horizontal=(int)Math.Round(x,MidpointRounding.ToEven),vertical=(int)Math.Round(y,MidpointRounding.ToEven);
-            var result=new ShootingDeviceCommand(new WeaponAimCommand(target,athlete,horizontal,vertical,fine),trigger,breath);
-            if(!pad){pendingX-=horizontal;pendingY-=vertical;}tick=target.Value;trigger=false;return result;
+            var result=new ShootingDeviceCommand(new WeaponAimCommand(target,athlete,horizontal,vertical,fine),trigger,breath,cycle);
+            if(!pad){pendingX-=horizontal;pendingY-=vertical;}tick=target.Value;trigger=cycle=false;return result;
         }
         public void SetInputFocus(bool value){focused=value;if(!value)ReleaseHeldInput();}
-        public void ReleaseHeldInput(){pendingX=pendingY=stickX=stickY=0;trigger=previousTrigger=breath=fine=false;}
+        public void ReleaseHeldInput(){pendingX=pendingY=stickX=stickY=0;trigger=previousTrigger=breath=fine=previousCycle=cycle=false;}
         private void OnApplicationFocus(bool value)=>SetInputFocus(value);
         private void OnDisable()=>ReleaseHeldInput();
     }

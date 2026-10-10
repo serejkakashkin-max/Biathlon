@@ -82,12 +82,17 @@ namespace Biathlon.Unity.Presentation
                     RifleSightPresentation.Observe(aimCamera,venue,a.RangeLane,geometry,ray,a.Stance,sightSettings,targetHeight,overview);}
                 else aimCamera.transform.localRotation=Quaternion.LookRotation(new Vector3((float)ray.DirectionX,(float)ray.DirectionY,(float)ray.DirectionZ),Vector3.up);
                 if(a.ShotOutcome!=ShotOutcome.NoShot)Status=a.ShotOutcome.ToString();
-                laneText="LANE "+a.RangeLane+"  |  "+a.Stance+"  |  SHOTS "+a.ShotsFired+"  "+Status;
+                boltText=a.NeedsBoltCycle?"ПКМ — зарядить патрон":a.ShootingPhase==ShootingPhase.BoltCycle?"Перезарядка…":"ЛКМ — выстрел";
+                breathText=a.BreathBlocked?"Выдохните: отпустите Space":a.BreathHolding?(a.BreathSwayMultiplier>1?"Долгая задержка — выдохните":"Дыхание задержано"):(a.BreathDebt>.25?"Восстановление дыхания":"Space — задержать дыхание");
+                breathDebt=(float)a.BreathDebt;hrLoad=Mathf.InverseLerp(90,180,(float)a.Physiology.HeartRateBpm);
+                laneText="РУБЕЖ "+a.RangeLane+"  |  "+(a.Stance==ShootingStance.Prone?"ЛЁЖА":"СТОЯ")+"  |  "+a.ShotsFired+" / 5  |  ПУЛЬС "+a.Physiology.HeartRateBpm.ToString("F0")+"  |  "+boltText;
+                rifleSight?.AnimateCycle(a.ShootingPhase==ShootingPhase.BoltCycle&&a.ShootingPhaseDurationTicks>0?(float)a.ShootingPhaseElapsedTicks/a.ShootingPhaseDurationTicks:0);
                 return;
             }
             SetVisible(false);
         }
         private string laneText="";
+        private string breathText="",boltText="";private float hrLoad,breathDebt;
         private void SetVisible(bool value)
         {
             if(value!=Visible&&playerRenderers!=null)
@@ -113,7 +118,10 @@ namespace Biathlon.Unity.Presentation
         private void OnGUI()
         {
             if(!Visible)return;
-            GUI.Box(new Rect(Screen.width/2f-300,Screen.height-52,600,34),laneText+(venue!=null?"  |  RMB: fine sight  Tab: range overview":""));
+            GUI.Box(new Rect(Screen.width/2f-390,Screen.height-155,780,84),laneText+"\n"+breathText+"  |  F — точный прицел  |  Tab — обзор");
+            var saved=GUI.color;GUI.color=Color.Lerp(new Color(.2f,.85f,.4f),new Color(1,.3f,.15f),hrLoad);
+            GUI.DrawTexture(new Rect(Screen.width/2f-350,Screen.height-93,280*hrLoad,5),Texture2D.whiteTexture);
+            GUI.color=Color.Lerp(new Color(.2f,.8f,1),Color.red,breathDebt);GUI.DrawTexture(new Rect(Screen.width/2f+70,Screen.height-93,280*breathDebt,5),Texture2D.whiteTexture);GUI.color=saved;
             // The open physical diopter owns aim feedback in the production venue.
             if(venue==null){var color=GUI.color;GUI.color=Color.red;
                 GUI.DrawTexture(new Rect(Screen.width/2f-8,Screen.height/2f,16,1),Texture2D.whiteTexture);

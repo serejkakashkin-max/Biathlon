@@ -108,8 +108,9 @@ namespace Biathlon.Unity.Presentation
         }
         public static SkiLocomotion Select(LocomotionInput input, AthleteLocomotionSettings settings)
         {
-            if (!input.Travelling || Mathf.Max(input.Speed,Mathf.Abs(input.LateralSpeed)) <= settings.idle_speed_mps) return SkiLocomotion.Idle;
+            if (!input.Travelling) return SkiLocomotion.Idle;
             if (input.Tuck) return SkiLocomotion.Tuck;
+            if (Mathf.Max(input.Speed,Mathf.Abs(input.LateralSpeed)) <= settings.idle_speed_mps) return SkiLocomotion.Idle;
             if (input.Sprint || input.Effort >= settings.sprint_effort) return SkiLocomotion.Sprint;
             if (input.Grade >= settings.climb_grade) return SkiLocomotion.Climb;
             if (input.Grade <= settings.descent_grade) return SkiLocomotion.TechnicalDescent;

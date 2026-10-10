@@ -7,6 +7,22 @@ namespace Biathlon.PlayModeTests
 {
     public class G2SkiTechniqueTests
     {
+        [Test] public void UphillOffsetPushAndFreelyRequestedTuckHaveDistinctPoses()
+        {
+            var rig=AthleteRigFactory.Create(null);
+            try
+            {
+                var driver=rig.GetComponent<AthleteLocomotionDriver>();driver.Sample(rig,new LocomotionInput(4,.10f,.9f),0);
+                var left=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.LeftHand).position);
+                var right=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.RightHand).position);
+                Assert.That(Mathf.Abs(left.y-right.y),Is.GreaterThan(.04f));
+                driver.Sample(rig,new LocomotionInput(5,.1f,.9f,tuck:true),2);
+                Assert.That(driver.State,Is.EqualTo(SkiLocomotion.Tuck));
+                driver.Sample(rig,new LocomotionInput(5,0,.9f,tuck:true,curvature:.04f),4);
+                Assert.That(driver.State,Is.EqualTo(SkiLocomotion.Tuck));
+            }
+            finally{Object.DestroyImmediate(rig.gameObject);}
+        }
         [Test] public void PairedHandsCompleteOnePushPerTwoSkatesWithoutRepeatedTorsoPumping()
         {
             var rig=AthleteRigFactory.Create(null);

@@ -9,6 +9,7 @@ namespace Biathlon.Unity.Presentation
         public float contact_max_grip_correction_m,contact_reset_gap_s,contact_reset_distance_m;
         public float glide_fraction,recovery_yaw_fraction;
         public float pole_phase_offset_cycles;
+        public float climb_hand_stagger_m,steep_climb_grade,steep_stride_multiplier,steep_skate_multiplier;
         public static SkiTechniqueVisualSettings Load()=>FromJson(Resources.Load<TextAsset>("Biathlon/ski_technique_visual_v1").text);
         public static SkiTechniqueVisualSettings FromJson(string json)
         {
@@ -17,6 +18,8 @@ namespace Biathlon.Unity.Presentation
             Check(d.hip_transfer_fraction,0,1);Check(d.hip_pulse_m,0,.05f);Check(d.torso_pulse_deg,0,8);
             Check(d.flat_poles_per_cycle,1,2);Check(d.climb_poles_per_cycle,1,2);Check(d.motion_reference_swing_m,.1f,.5f);
             Check(d.pole_phase_offset_cycles,0,1);
+            Check(d.climb_hand_stagger_m,0,.12f);Check(d.steep_climb_grade,.03f,.2f);
+            Check(d.steep_stride_multiplier,.5f,1);Check(d.steep_skate_multiplier,1,1.5f);
             Check(d.contact_max_grip_correction_m,.01f,.15f);Check(d.contact_reset_gap_s,.05f,.3f);Check(d.contact_reset_distance_m,.5f,3);
             Check(d.glide_fraction,.55f,.8f);Check(d.recovery_yaw_fraction,0,1);
             return d;

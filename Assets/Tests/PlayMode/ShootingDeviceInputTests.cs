@@ -47,5 +47,15 @@ namespace Biathlon.PlayModeTests
             Assert.That(input.Build(new SimulationTick(102)).Aim.Horizontal,Is.EqualTo(1000));
             Assert.That(input.Build(new SimulationTick(103)).Aim.Horizontal,Is.Zero);
         }
+        [Test] public void RightMouseReloadIsOneEdgeAndSpaceAndFRemainIndependent()
+        {
+            InputSystem.QueueStateEvent(mouse,new MouseState().WithButton(MouseButton.Right));
+            InputSystem.QueueStateEvent(keyboard,new KeyboardState(Key.Space,Key.F));InputTestScope.Update();input.Capture(mouse,keyboard,null);
+            var first=input.Build(new SimulationTick(101));Assert.That(first.CycleBolt&&first.HoldBreath&&first.Aim.FineControl,Is.True);Assert.That(first.Trigger,Is.False);
+            input.Capture(mouse,keyboard,null);Assert.That(input.Build(new SimulationTick(102)).CycleBolt,Is.False);
+            InputSystem.QueueStateEvent(mouse,new MouseState());InputTestScope.Update();input.Capture(mouse,keyboard,null);input.Build(new SimulationTick(103));
+            InputSystem.QueueStateEvent(mouse,new MouseState().WithButton(MouseButton.Right));InputTestScope.Update();input.Capture(mouse,keyboard,null);
+            Assert.That(input.Build(new SimulationTick(104)).CycleBolt,Is.True);
+        }
     }
 }

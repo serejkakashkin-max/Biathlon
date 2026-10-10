@@ -65,7 +65,7 @@ namespace Biathlon.Simulation
         private PlayerCommand BuildCore(SimulationTick target,double? currentMeters,double extentMeters,double speedMetersPerSecond)
         {
             if (target.Value != checked(tick + 1)) throw new ArgumentException("Commands require consecutive target ticks.");
-            double nextEffort = sample.Gamepad ? keyboardEffort : Math.Max(0, Math.Min(1000,
+            double nextEffort = sample.Gamepad ? keyboardEffort : Math.Max(0, Math.Min(definition.KeyboardEffortCeiling,
                 keyboardEffort + sample.Effort * definition.KeyboardEffortRate / frequency));
             double line = sample.Line;
             if (sample.Gamepad)

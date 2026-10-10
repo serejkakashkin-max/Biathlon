@@ -25,6 +25,7 @@ namespace Biathlon.Simulation
         public ShotResolutionFrame LastFrame { get; private set; }
         public ShootingPhase Phase => lifecycle.Phase;
         public int ShotsFired => lifecycle.ShotsFired;
+        public bool NeedsBoltCycle => lifecycle.NeedsBoltCycle;
         public int ClosedMask => targets.ClosedMask;
         public int PhaseDurationTicks => lifecycle.PhaseDurationTicks;
         public int PhaseRemainingTicks => lifecycle.PhaseRemainingTicks;
@@ -32,12 +33,12 @@ namespace Biathlon.Simulation
         internal void ValidateCommand(SimulationTick target, ShootingAction action, ShootingLaneAssignment lane) => lifecycle.ValidateCommand(target, action, lane);
         public ShotResolutionSystem(ShootingDefinition definition, TargetGeometryDefinition targetDefinition, ShootingWindDefinition windDefinition,
             ShootingStanceProfile stance, AthleteId athlete, string rangeId, int frequency, IRaceEventSink events, SimulationTick initialTick = default,
-            ShootingHandlingProfile? handling = null)
+            ShootingHandlingProfile? handling = null,bool manualBoltCycle=false)
         {
             this.targetDefinition = targetDefinition ?? throw new ArgumentNullException(nameof(targetDefinition));
             if (stance == null) throw new ArgumentNullException(nameof(stance));
             geometry = new TargetGeometrySystem(targetDefinition); windSystem = new ShootingWindSystem(windDefinition);
-            lifecycle = new ShootingStateMachine(definition, athlete, rangeId, frequency, events, initialTick, stance, handling);
+            lifecycle = new ShootingStateMachine(definition, athlete, rangeId, frequency, events, initialTick, stance, handling,manualBoltCycle);
             this.stance = stance.Stance; this.athlete = athlete; this.frequency = frequency; this.events = events;
         }
         public ShotResolutionFrame Step(SimulationTick target, ShootingAction action = ShootingAction.None,
