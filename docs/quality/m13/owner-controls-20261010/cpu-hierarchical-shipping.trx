@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="b9082f1f-9eaa-433b-826e-e4606829a8ee" name="snkashkin@DESKTOP-G3075GA 2026-10-10 16:47:05" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-10T16:47:05.3992564+03:00" queuing="2026-10-10T16:47:05.3992565+03:00" start="2026-10-10T16:45:12.1332684+03:00" finish="2026-10-10T16:47:05.4023230+03:00" />
+  <TestSettings name="default" id="48be11e2-5bdd-4141-bd44-f6b3c65c36c6">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-10_16_47_05" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="8547be79-b9d8-4182-8a60-72975a4543ed" testId="0c9372d4-312a-f915-c963-fe9e6ff05c6c" testName="FirstBoutAndThirtySecondsOfDepartureCpuProfile" computerName="DESKTOP-G3075GA" duration="00:01:52.5736510" startTime="2026-10-10T16:45:12.6279509+03:00" endTime="2026-10-10T16:47:05.2015747+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8547be79-b9d8-4182-8a60-72975a4543ed">
+      <Output>
+        <StdOut>tick=200 tick_ms=4.129 cumulative_ms=928.5 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=400 tick_ms=4.155 cumulative_ms=2461.7 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=600 tick_ms=4.132 cumulative_ms=3358.6 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=800 tick_ms=4.098 cumulative_ms=4355.7 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1000 tick_ms=4.124 cumulative_ms=5241.3 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1200 tick_ms=4.266 cumulative_ms=6130.6 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1400 tick_ms=4.133 cumulative_ms=7151.8 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1600 tick_ms=4.240 cumulative_ms=8008.7 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1800 tick_ms=4.497 cumulative_ms=8885.8 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2000 tick_ms=4.149 cumulative_ms=9787.7 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2200 tick_ms=7.636 cumulative_ms=10790.6 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2400 tick_ms=4.294 cumulative_ms=11813.9 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2600 tick_ms=4.946 cumulative_ms=12782.0 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2800 tick_ms=4.123 cumulative_ms=13629.8 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3000 tick_ms=4.307 cumulative_ms=14513.4 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3200 tick_ms=4.164 cumulative_ms=15383.1 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3400 tick_ms=4.193 cumulative_ms=16262.3 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3600 tick_ms=5.007 cumulative_ms=17161.5 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3800 tick_ms=4.304 cumulative_ms=18210.4 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=4000 tick_ms=4.230 cumulative_ms=19130.5 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=4200 tick_ms=5.061 cumulative_ms=20260.7 intervals=1 setting_up=1 first_bouts=0 bytes=42025264&#xD;
+tick=4400 tick_ms=7.821 cumulative_ms=21658.5 intervals=2 setting_up=5 first_bouts=0 bytes=42700536&#xD;
+tick=4600 tick_ms=4.442 cumulative_ms=22725.5 intervals=1 setting_up=3 first_bouts=0 bytes=43600896&#xD;
+tick=4800 tick_ms=13.804 cumulative_ms=24950.4 intervals=4 setting_up=1 first_bouts=11 bytes=43976032&#xD;
+tick=5000 tick_ms=16.755 cumulative_ms=27596.0 intervals=5 setting_up=0 first_bouts=22 bytes=43976032&#xD;
+tick=5200 tick_ms=10.717 cumulative_ms=29838.5 intervals=3 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+tick=5400 tick_ms=12.317 cumulative_ms=32579.2 intervals=3 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+actor=28 loop=mat_29 pose=-24,910350898,-13,887367969,3,292967666 clearance_samples=8 disk_queries=270 start_clearance=-0,04595383334686387 edge_responses=0&#xD;
+actor=28 loop=mat_29 pose=-25,145094986,-13,862054402,3,437654549 clearance_samples=8 disk_queries=270 start_clearance=-0,042455956019023855 edge_responses=0&#xD;
+tick=5600 tick_ms=5.789 cumulative_ms=36845.5 intervals=1 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+actor=28 loop=mat_29 pose=-25,442257816,-13,854185114,3,566550368 clearance_samples=16 disk_queries=637 start_clearance=-0,04653376876310089 edge_responses=0&#xD;
+actor=28 loop=mat_29 pose=-25,717379869,-13,860223393,3,747206394 clearance_samples=14 disk_queries=552 start_clearance=-0,04988821853083314 edge_responses=1&#xD;
+actor=28 loop=mat_29 pose=-25,821326122,-13,872758346,3,81009849 clearance_samples=10 disk_queries=368 start_clearance=-0,04977503942388983 edge_responses=1&#xD;
+actor=28 loop=mat_29 pose=-25,843109296,-13,872381914,3,821690634 clearance_samples=12 disk_queries=460 start_clearance=-0,04972994574368128 edge_responses=1&#xD;
+actor=28 loop=mat_29 pose=-26,086888722,-13,90427117,3,951731143 clearance_samples=10 disk_queries=372 start_clearance=-0,04950850614326319 edge_responses=1&#xD;
+actor=28 loop=mat_29 pose=-26,158499367,-13,922520126,3,990105857 clearance_samples=8 disk_queries=279 start_clearance=-0,04396414454737352 edge_responses=0&#xD;
+actor=28 loop=mat_29 pose=-26,171793036,-13,918465796,3,995178148 clearance_samples=14 disk_queries=558 start_clearance=-0,049709151108748184 edge_responses=1&#xD;
+actor=28 loop=mat_29 pose=-26,255510287,-13,936484976,4,028395809 clearance_samples=14 disk_queries=558 start_clearance=-0,04299570549336407 edge_responses=0&#xD;
+actor=28 loop=mat_29 pose=-26,271264907,-13,931484976,4,035243337 clearance_samples=14 disk_queries=558 start_clearance=-0,04946688464238447 edge_responses=1&#xD;
+actor=28 loop=mat_29 pose=-27,260116833,-14,048215449,4,291063314 clearance_samples=8 disk_queries=282 start_clearance=-0,047252980667314315 edge_responses=1&#xD;
+actor=28 loop=mat_29 pose=-27,564457691,-14,086396011,4,352825011 clearance_samples=10 disk_queries=380 start_clearance=-0,03526229072568077 edge_responses=0&#xD;
+actor=28 loop=mat_29 pose=-27,797390156,-14,11136562,4,397191778 clearance_samples=10 disk_queries=380 start_clearance=-0,0373542594000269 edge_responses=0&#xD;
+actor=28 loop=mat_29 pose=-27,844691211,-14,110638936,4,405187874 clearance_samples=10 disk_queries=380 start_clearance=-0,0466089573309012 edge_responses=1&#xD;
+actor=28 loop=mat_29 pose=-28,035373176,-14,137724676,4,433508585 clearance_samples=18 disk_queries=760 start_clearance=-0,04507095148866247 edge_responses=0&#xD;
+tick=5800 tick_ms=14.053 cumulative_ms=41449.9 intervals=3 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+actor=28 loop=mat_29 pose=-28,367551279,-14,170073178,4,485490452 clearance_samples=20 disk_queries=855 start_clearance=-0,04427874690614031 edge_responses=0&#xD;
+actor=28 loop=mat_29 pose=-28,415819179,-14,165458326,4,491699413 clearance_samples=16 disk_queries=665 start_clearance=-0,04821583659430351 edge_responses=1&#xD;
+actor=28 loop=mat_29 pose=-28,753032097,-14,200607483,4,530659362 clearance_samples=28 disk_queries=1235 start_clearance=-0,04714905933868563 edge_responses=0&#xD;
+tick=5810 tick_ms=107.729 cumulative_ms=41775.6 intervals=3 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+actor=28 loop=mat_29 pose=-28,801947087,-14,195843586,4,539459586 clearance_samples=18 disk_queries=760 start_clearance=-0,04862492725859502 edge_responses=1&#xD;
+tick=6000 tick_ms=14.068 cumulative_ms=44283.1 intervals=4 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+tick=6200 tick_ms=13.880 cumulative_ms=46775.0 intervals=4 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+tick=6400 tick_ms=11.020 cumulative_ms=49271.8 intervals=3 setting_up=0 first_bouts=27 bytes=44051064&#xD;
+tick=6600 tick_ms=7.944 cumulative_ms=51369.5 intervals=2 setting_up=0 first_bouts=27 bytes=44051064&#xD;
+tick=6800 tick_ms=10.885 cumulative_ms=53187.2 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7000 tick_ms=7.974 cumulative_ms=54992.1 intervals=2 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7200 tick_ms=8.084 cumulative_ms=56804.2 intervals=2 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7400 tick_ms=8.107 cumulative_ms=58809.0 intervals=2 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7600 tick_ms=13.857 cumulative_ms=61247.0 intervals=4 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7800 tick_ms=13.870 cumulative_ms=63642.3 intervals=4 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8000 tick_ms=13.938 cumulative_ms=65999.2 intervals=4 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8200 tick_ms=11.194 cumulative_ms=68365.0 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8400 tick_ms=10.916 cumulative_ms=70688.6 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8600 tick_ms=11.058 cumulative_ms=72983.8 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8800 tick_ms=8.045 cumulative_ms=75246.4 intervals=2 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=9000 tick_ms=11.002 cumulative_ms=77525.3 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=9200 tick_ms=11.090 cumulative_ms=79818.9 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=9400 tick_ms=11.027 cumulative_ms=82034.9 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=9600 tick_ms=7.948 cumulative_ms=84237.8 intervals=2 setting_up=1 first_bouts=28 bytes=50751208&#xD;
+tick=9800 tick_ms=13.587 cumulative_ms=86485.0 intervals=4 setting_up=2 first_bouts=28 bytes=51051336&#xD;
+tick=10000 tick_ms=15.170 cumulative_ms=89371.9 intervals=4 setting_up=1 first_bouts=28 bytes=51351456&#xD;
+tick=10200 tick_ms=10.616 cumulative_ms=92496.2 intervals=3 setting_up=2 first_bouts=28 bytes=51651616&#xD;
+tick=10400 tick_ms=7.717 cumulative_ms=94575.5 intervals=2 setting_up=1 first_bouts=28 bytes=51951744&#xD;
+tick=10600 tick_ms=7.574 cumulative_ms=96363.5 intervals=2 setting_up=0 first_bouts=28 bytes=52176848&#xD;
+tick=10800 tick_ms=7.980 cumulative_ms=98125.7 intervals=2 setting_up=1 first_bouts=28 bytes=52326920&#xD;
+tick=11000 tick_ms=7.813 cumulative_ms=99865.3 intervals=2 setting_up=0 first_bouts=29 bytes=52326920&#xD;
+tick=11200 tick_ms=8.146 cumulative_ms=101483.9 intervals=2 setting_up=0 first_bouts=29 bytes=52326920&#xD;
+tick=11400 tick_ms=8.082 cumulative_ms=103226.2 intervals=2 setting_up=1 first_bouts=29 bytes=52401960&#xD;
+actor=22 loop=exit_aisle pose=-19,027529577,-13,97212682,2,0892518 clearance_samples=12 disk_queries=675 start_clearance=-0,03364376607961317 edge_responses=1&#xD;
+actor=22 loop=exit_aisle pose=-17,963824372,-14,062252639,1,926289718 clearance_samples=10 disk_queries=432 start_clearance=-0,035249634423939025 edge_responses=1&#xD;
+actor=4 loop=penalty_150 pose=104,248681971,-10,43647346,1,629908505 clearance_samples=16 disk_queries=658 start_clearance=-0,028325863573772647 edge_responses=2&#xD;
+actor=22 loop=exit_aisle pose=-16,888315143,-14,172478734,1,773856454 clearance_samples=10 disk_queries=448 start_clearance=-0,024024958090613335 edge_responses=0&#xD;
+tick=11583 tick_ms=134.144 cumulative_ms=104496.0 intervals=1 setting_up=0 first_bouts=29 bytes=52477000&#xD;
+actor=4 loop=penalty_150 pose=104,339483634,-10,511701749,1,618240073 clearance_samples=184 disk_queries=8554 start_clearance=-0,046590823506322376 edge_responses=3&#xD;
+actor=22 loop=exit_aisle pose=-16,701214984,-14,197583398,1,753124543 clearance_samples=36 disk_queries=1904 start_clearance=-0,034754651366105005 edge_responses=0&#xD;
+tick=11584 tick_ms=309.768 cumulative_ms=104805.8 intervals=1 setting_up=0 first_bouts=29 bytes=52477000&#xD;
+actor=4 loop=penalty_150 pose=104,430627551,-10,58968286,1,613977799 clearance_samples=318 disk_queries=14852 start_clearance=-0,04977810083587908 edge_responses=1&#xD;
+actor=22 loop=exit_aisle pose=-16,511497191,-14,192583398,1,732394866 clearance_samples=28 disk_queries=1456 start_clearance=-0,0459879970663688 edge_responses=1&#xD;
+actor=4 loop=penalty_150 pose=104,525564907,-10,667037912,1,614790756 clearance_samples=68 disk_queries=3102 start_clearance=-0,048221663827400896 edge_responses=0&#xD;
+actor=22 loop=exit_aisle pose=-16,319936596,-14,191769969,1,711592788 clearance_samples=10 disk_queries=448 start_clearance=-0,026911823294903936 edge_responses=0&#xD;
+actor=4 loop=penalty_150 pose=104,625630237,-10,741862385,1,621052492 clearance_samples=192 disk_queries=8930 start_clearance=-0,0475306604340644 edge_responses=0&#xD;
+actor=22 loop=exit_aisle pose=-16,126696253,-14,199307034,1,69079071 clearance_samples=8 disk_queries=333 start_clearance=-0,011771724069297829 edge_responses=0&#xD;
+actor=4 loop=penalty_150 pose=104,721081474,-10,824380629,1,628069948 clearance_samples=116 disk_queries=5358 start_clearance=-0,04986685167321259 edge_responses=1&#xD;
+actor=22 loop=exit_aisle pose=-15,931140394,-14,210998294,1,67182876 clearance_samples=8 disk_queries=333 start_clearance=-0,004786626404225114 edge_responses=0&#xD;
+actor=4 loop=penalty_150 pose=105,014194078,-11,057164327,1,642812949 clearance_samples=26 disk_queries=1128 start_clearance=-0,045036700996484935 edge_responses=1&#xD;
+actor=4 loop=penalty_150 pose=105,309941178,-11,295254197,1,643267242 clearance_samples=30 disk_queries=1316 start_clearance=-0,04476070158494405 edge_responses=1&#xD;
+actor=4 loop=penalty_150 pose=105,61035493,-11,53987169,1,641088508 clearance_samples=30 disk_queries=1316 start_clearance=-0,045619176716511944 edge_responses=1&#xD;
+actor=4 loop=penalty_150 pose=105,917472993,-11,787202699,1,653309893 clearance_samples=22 disk_queries=940 start_clearance=-0,04435931295771667 edge_responses=1&#xD;
+tick=11600 tick_ms=6.061 cumulative_ms=105193.1 intervals=1 setting_up=0 first_bouts=29 bytes=52477000&#xD;
+actor=4 loop=penalty_150 pose=106,446682807,-12,194342431,1,737493619 clearance_samples=26 disk_queries=1128 start_clearance=-0,047394418072223665 edge_responses=1&#xD;
+tick=11800 tick_ms=4.126 cumulative_ms=106151.7 intervals=1 setting_up=0 first_bouts=29 bytes=52552040&#xD;
+tick=12000 tick_ms=4.061 cumulative_ms=106993.2 intervals=1 setting_up=0 first_bouts=29 bytes=52552040&#xD;
+ticks=12000 mean_ms=8,916 worst_ms=309,768 worst_tick=11584 setup_mean_ms=9,928 allocated_bytes=52552040&#xD;
+player_phase=Skiing bouts=1 shooting= needs_bolt= input_manual=False loop=main pose=229,06048274,-60,351694378 speed=4,151770908</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="FirstBoutAndThirtySecondsOfDepartureCpuProfile" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="0c9372d4-312a-f915-c963-fe9e6ff05c6c">
+      <Execution id="8547be79-b9d8-4182-8a60-72975a4543ed" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RangeTransientPerformanceTests" name="FirstBoutAndThirtySecondsOfDepartureCpuProfile" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="0c9372d4-312a-f915-c963-fe9e6ff05c6c" executionId="8547be79-b9d8-4182-8a60-72975a4543ed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Explicit run&#xD;
+tick=200 tick_ms=4.129 cumulative_ms=928.5 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=400 tick_ms=4.155 cumulative_ms=2461.7 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=600 tick_ms=4.132 cumulative_ms=3358.6 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=800 tick_ms=4.098 cumulative_ms=4355.7 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1000 tick_ms=4.124 cumulative_ms=5241.3 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1200 tick_ms=4.266 cumulative_ms=6130.6 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1400 tick_ms=4.133 cumulative_ms=7151.8 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1600 tick_ms=4.240 cumulative_ms=8008.7 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1800 tick_ms=4.497 cumulative_ms=8885.8 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2000 tick_ms=4.149 cumulative_ms=9787.7 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2200 tick_ms=7.636 cumulative_ms=10790.6 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2400 tick_ms=4.294 cumulative_ms=11813.9 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2600 tick_ms=4.946 cumulative_ms=12782.0 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2800 tick_ms=4.123 cumulative_ms=13629.8 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3000 tick_ms=4.307 cumulative_ms=14513.4 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3200 tick_ms=4.164 cumulative_ms=15383.1 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3400 tick_ms=4.193 cumulative_ms=16262.3 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3600 tick_ms=5.007 cumulative_ms=17161.5 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3800 tick_ms=4.304 cumulative_ms=18210.4 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=4000 tick_ms=4.230 cumulative_ms=19130.5 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=4200 tick_ms=5.061 cumulative_ms=20260.7 intervals=1 setting_up=1 first_bouts=0 bytes=42025264&#xD;
+tick=4400 tick_ms=7.821 cumulative_ms=21658.5 intervals=2 setting_up=5 first_bouts=0 bytes=42700536&#xD;
+tick=4600 tick_ms=4.442 cumulative_ms=22725.5 intervals=1 setting_up=3 first_bouts=0 bytes=43600896&#xD;
+tick=4800 tick_ms=13.804 cumulative_ms=24950.4 intervals=4 setting_up=1 first_bouts=11 bytes=43976032&#xD;
+tick=5000 tick_ms=16.755 cumulative_ms=27596.0 intervals=5 setting_up=0 first_bouts=22 bytes=43976032&#xD;
+tick=5200 tick_ms=10.717 cumulative_ms=29838.5 intervals=3 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+tick=5400 tick_ms=12.317 cumulative_ms=32579.2 intervals=3 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+actor=28 loop=mat_29 pose=-24,910350898,-13,887367969,3,292967666 clearance_samples=8 disk_queries=270 start_clearance=-0,04595383334686387 edge_responses=0&#xD;
+actor=28 loop=mat_29 pose=-25,145094986,-13,862054402,3,437654549 clearance_samples=8 disk_queries=270 start_clearance=-0,042455956019023855 edge_responses=0&#xD;
+tick=5600 tick_ms=5.789 cumulative_ms=36845.5 intervals=1 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+actor=28 loop=mat_29 pose=-25,442257816,-13,854185114,3,566550368 clearance_samples=16 disk_queries=637 start_clearance=-0,04653376876310089 edge_responses=0&#xD;
+actor=28 loop=mat_29 pose=-25,717379869,-13,860223393,3,747206394 clearance_samples=14 disk_queries=552 start_clearance=-0,04988821853083314 edge_responses=1&#xD;
+actor=28 loop=mat_29 pose=-25,821326122,-13,872758346,3,81009849 clearance_samples=10 disk_queries=368 start_clearance=-0,04977503942388983 edge_responses=1&#xD;
+actor=28 loop=mat_29 pose=-25,843109296,-13,872381914,3,821690634 clearance_samples=12 disk_queries=460 start_clearance=-0,04972994574368128 edge_responses=1&#xD;
+actor=28 loop=mat_29 pose=-26,086888722,-13,90427117,3,951731143 clearance_samples=10 disk_queries=372 start_clearance=-0,04950850614326319 edge_responses=1&#xD;
+actor=28 loop=mat_29 pose=-26,158499367,-13,922520126,3,990105857 clearance_samples=8 disk_queries=279 start_clearance=-0,04396414454737352 edge_responses=0&#xD;
+actor=28 loop=mat_29 pose=-26,171793036,-13,918465796,3,995178148 clearance_samples=14 disk_queries=558 start_clearance=-0,049709151108748184 edge_responses=1&#xD;
+actor=28 loop=mat_29 pose=-26,255510287,-13,936484976,4,028395809 clearance_samples=14 disk_queries=558 start_clearance=-0,04299570549336407 edge_responses=0&#xD;
+actor=28 loop=mat_29 pose=-26,271264907,-13,931484976,4,035243337 clearance_samples=14 disk_queries=558 start_clearance=-0,04946688464238447 edge_responses=1&#xD;
+actor=28 loop=mat_29 pose=-27,260116833,-14,048215449,4,291063314 clearance_samples=8 disk_queries=282 start_clearance=-0,047252980667314315 edge_responses=1&#xD;
+actor=28 loop=mat_29 pose=-27,564457691,-14,086396011,4,352825011 clearance_samples=10 disk_queries=380 start_clearance=-0,03526229072568077 edge_responses=0&#xD;
+actor=28 loop=mat_29 pose=-27,797390156,-14,11136562,4,397191778 clearance_samples=10 disk_queries=380 start_clearance=-0,0373542594000269 edge_responses=0&#xD;
+actor=28 loop=mat_29 pose=-27,844691211,-14,110638936,4,405187874 clearance_samples=10 disk_queries=380 start_clearance=-0,0466089573309012 edge_responses=1&#xD;
+actor=28 loop=mat_29 pose=-28,035373176,-14,137724676,4,433508585 clearance_samples=18 disk_queries=760 start_clearance=-0,04507095148866247 edge_responses=0&#xD;
+tick=5800 tick_ms=14.053 cumulative_ms=41449.9 intervals=3 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+actor=28 loop=mat_29 pose=-28,367551279,-14,170073178,4,485490452 clearance_samples=20 disk_queries=855 start_clearance=-0,04427874690614031 edge_responses=0&#xD;
+actor=28 loop=mat_29 pose=-28,415819179,-14,165458326,4,491699413 clearance_samples=16 disk_queries=665 start_clearance=-0,04821583659430351 edge_responses=1&#xD;
+actor=28 loop=mat_29 pose=-28,753032097,-14,200607483,4,530659362 clearance_samples=28 disk_queries=1235 start_clearance=-0,04714905933868563 edge_responses=0&#xD;
+tick=5810 tick_ms=107.729 cumulative_ms=41775.6 intervals=3 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+actor=28 loop=mat_29 pose=-28,801947087,-14,195843586,4,539459586 clearance_samples=18 disk_queries=760 start_clearance=-0,04862492725859502 edge_responses=1&#xD;
+tick=6000 tick_ms=14.068 cumulative_ms=44283.1 intervals=4 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+tick=6200 tick_ms=13.880 cumulative_ms=46775.0 intervals=4 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+tick=6400 tick_ms=11.020 cumulative_ms=49271.8 intervals=3 setting_up=0 first_bouts=27 bytes=44051064&#xD;
+tick=6600 tick_ms=7.944 cumulative_ms=51369.5 intervals=2 setting_up=0 first_bouts=27 bytes=44051064&#xD;
+tick=6800 tick_ms=10.885 cumulative_ms=53187.2 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7000 tick_ms=7.974 cumulative_ms=54992.1 intervals=2 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7200 tick_ms=8.084 cumulative_ms=56804.2 intervals=2 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7400 tick_ms=8.107 cumulative_ms=58809.0 intervals=2 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7600 tick_ms=13.857 cumulative_ms=61247.0 intervals=4 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7800 tick_ms=13.870 cumulative_ms=63642.3 intervals=4 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8000 tick_ms=13.938 cumulative_ms=65999.2 intervals=4 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8200 tick_ms=11.194 cumulative_ms=68365.0 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8400 tick_ms=10.916 cumulative_ms=70688.6 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8600 tick_ms=11.058 cumulative_ms=72983.8 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8800 tick_ms=8.045 cumulative_ms=75246.4 intervals=2 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=9000 tick_ms=11.002 cumulative_ms=77525.3 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=9200 tick_ms=11.090 cumulative_ms=79818.9 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=9400 tick_ms=11.027 cumulative_ms=82034.9 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=9600 tick_ms=7.948 cumulative_ms=84237.8 intervals=2 setting_up=1 first_bouts=28 bytes=50751208&#xD;
+tick=9800 tick_ms=13.587 cumulative_ms=86485.0 intervals=4 setting_up=2 first_bouts=28 bytes=51051336&#xD;
+tick=10000 tick_ms=15.170 cumulative_ms=89371.9 intervals=4 setting_up=1 first_bouts=28 bytes=51351456&#xD;
+tick=10200 tick_ms=10.616 cumulative_ms=92496.2 intervals=3 setting_up=2 first_bouts=28 bytes=51651616&#xD;
+tick=10400 tick_ms=7.717 cumulative_ms=94575.5 intervals=2 setting_up=1 first_bouts=28 bytes=51951744&#xD;
+tick=10600 tick_ms=7.574 cumulative_ms=96363.5 intervals=2 setting_up=0 first_bouts=28 bytes=52176848&#xD;
+tick=10800 tick_ms=7.980 cumulative_ms=98125.7 intervals=2 setting_up=1 first_bouts=28 bytes=52326920&#xD;
+tick=11000 tick_ms=7.813 cumulative_ms=99865.3 intervals=2 setting_up=0 first_bouts=29 bytes=52326920&#xD;
+tick=11200 tick_ms=8.146 cumulative_ms=101483.9 intervals=2 setting_up=0 first_bouts=29 bytes=52326920&#xD;
+tick=11400 tick_ms=8.082 cumulative_ms=103226.2 intervals=2 setting_up=1 first_bouts=29 bytes=52401960&#xD;
+actor=22 loop=exit_aisle pose=-19,027529577,-13,97212682,2,0892518 clearance_samples=12 disk_queries=675 start_clearance=-0,03364376607961317 edge_responses=1&#xD;
+actor=22 loop=exit_aisle pose=-17,963824372,-14,062252639,1,926289718 clearance_samples=10 disk_queries=432 start_clearance=-0,035249634423939025 edge_responses=1&#xD;
+actor=4 loop=penalty_150 pose=104,248681971,-10,43647346,1,629908505 clearance_samples=16 disk_queries=658 start_clearance=-0,028325863573772647 edge_responses=2&#xD;
+actor=22 loop=exit_aisle pose=-16,888315143,-14,172478734,1,773856454 clearance_samples=10 disk_queries=448 start_clearance=-0,024024958090613335 edge_responses=0&#xD;
+tick=11583 tick_ms=134.144 cumulative_ms=104496.0 intervals=1 setting_up=0 first_bouts=29 bytes=52477000&#xD;
+actor=4 loop=penalty_150 pose=104,339483634,-10,511701749,1,618240073 clearance_samples=184 disk_queries=8554 start_clearance=-0,046590823506322376 edge_responses=3&#xD;
+actor=22 loop=exit_aisle pose=-16,701214984,-14,197583398,1,753124543 clearance_samples=36 disk_queries=1904 start_clearance=-0,034754651366105005 edge_responses=0&#xD;
+tick=11584 tick_ms=309.768 cumulative_ms=104805.8 intervals=1 setting_up=0 first_bouts=29 bytes=52477000&#xD;
+actor=4 loop=penalty_150 pose=104,430627551,-10,58968286,1,613977799 clearance_samples=318 disk_queries=14852 start_clearance=-0,04977810083587908 edge_responses=1&#xD;
+actor=22 loop=exit_aisle pose=-16,511497191,-14,192583398,1,732394866 clearance_samples=28 disk_queries=1456 start_clearance=-0,0459879970663688 edge_responses=1&#xD;
+actor=4 loop=penalty_150 pose=104,525564907,-10,667037912,1,614790756 clearance_samples=68 disk_queries=3102 start_clearance=-0,048221663827400896 edge_responses=0&#xD;
+actor=22 loop=exit_aisle pose=-16,319936596,-14,191769969,1,711592788 clearance_samples=10 disk_queries=448 start_clearance=-0,026911823294903936 edge_responses=0&#xD;
+actor=4 loop=penalty_150 pose=104,625630237,-10,741862385,1,621052492 clearance_samples=192 disk_queries=8930 start_clearance=-0,0475306604340644 edge_responses=0&#xD;
+actor=22 loop=exit_aisle pose=-16,126696253,-14,199307034,1,69079071 clearance_samples=8 disk_queries=333 start_clearance=-0,011771724069297829 edge_responses=0&#xD;
+actor=4 loop=penalty_150 pose=104,721081474,-10,824380629,1,628069948 clearance_samples=116 disk_queries=5358 start_clearance=-0,04986685167321259 edge_responses=1&#xD;
+actor=22 loop=exit_aisle pose=-15,931140394,-14,210998294,1,67182876 clearance_samples=8 disk_queries=333 start_clearance=-0,004786626404225114 edge_responses=0&#xD;
+actor=4 loop=penalty_150 pose=105,014194078,-11,057164327,1,642812949 clearance_samples=26 disk_queries=1128 start_clearance=-0,045036700996484935 edge_responses=1&#xD;
+actor=4 loop=penalty_150 pose=105,309941178,-11,295254197,1,643267242 clearance_samples=30 disk_queries=1316 start_clearance=-0,04476070158494405 edge_responses=1&#xD;
+actor=4 loop=penalty_150 pose=105,61035493,-11,53987169,1,641088508 clearance_samples=30 disk_queries=1316 start_clearance=-0,045619176716511944 edge_responses=1&#xD;
+actor=4 loop=penalty_150 pose=105,917472993,-11,787202699,1,653309893 clearance_samples=22 disk_queries=940 start_clearance=-0,04435931295771667 edge_responses=1&#xD;
+tick=11600 tick_ms=6.061 cumulative_ms=105193.1 intervals=1 setting_up=0 first_bouts=29 bytes=52477000&#xD;
+actor=4 loop=penalty_150 pose=106,446682807,-12,194342431,1,737493619 clearance_samples=26 disk_queries=1128 start_clearance=-0,047394418072223665 edge_responses=1&#xD;
+tick=11800 tick_ms=4.126 cumulative_ms=106151.7 intervals=1 setting_up=0 first_bouts=29 bytes=52552040&#xD;
+tick=12000 tick_ms=4.061 cumulative_ms=106993.2 intervals=1 setting_up=0 first_bouts=29 bytes=52552040&#xD;
+ticks=12000 mean_ms=8,916 worst_ms=309,768 worst_tick=11584 setup_mean_ms=9,928 allocated_bytes=52552040&#xD;
+player_phase=Skiing bouts=1 shooting= needs_bolt= input_manual=False loop=main pose=229,06048274,-60,351694378 speed=4,151770908&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

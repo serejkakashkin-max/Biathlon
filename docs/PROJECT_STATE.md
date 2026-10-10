@@ -24227,3 +24227,59 @@ captures uploaded through Git LFS. Remote HEAD matched local0bc7e9b on delivery.
 Owner build: Builds/WoodlandM13RangeWorld-20261010/START_WOODLAND_REVIEW.cmd.
 M13 remains OPEN for the owner's final setup/shooting/departure review;
 M14 has not started. All2924203 historical bytes remain unchanged.
+
+
+## 2026-10-10 — M13 owner controls, stadium markers and bounded snow-query correction
+
+Owner request: sharpen the rifle sight, manual RMB bolt before shot1 and between
+shots, readable HR/breath feedback, distinct attack/recovery, voluntary tuck,
+uphill technique, correct straight start/arch, low range markers/windcloth,
+penalty fencing/guidance, finish pickets and a new Windows test build.
+
+Implemented manual bolt policy/commands and replay serialization; Space breath,
+F fine aim; larger optical target view without changed115/45mm hit apertures.
+Selected versioned keyboard pace ceiling800 and requested-tuck model. Shift
+attack1000 and Ctrl recovery350 use existing reserve/fatigue. Space on course
+holds tuck until released, including steering; uphill presentation uses offset
+poling/shorter steep strides. Existing minimum body rocking is preserved.
+
+Straightened the existing40m start approach and added an original start gantry.
+Deleted visual painted-grid boxes and yellow penalty paint. Added155 low lane
+T-posts,30 actual windcloths, low V-board penalty fence/opening and100 low blue
+finish pickets. Misses select cyan penalty-entrance guidance. Existing separate
+outside finish, IBU mat selection, manual turns, achieved-line heading release,
+arrow capture and automatic departure remain. No new third-party assets imported.
+
+CPU diagnosis found repeated oriented-body snow-cover queries, including78526
+disk queries in one penalty actor tick. Conservative candidate pruning and a
+hierarchical minimum over the SAME fine-grid leaves now avoid irrelevant work.
+No collision body shrink, extra course domain, reduced sweep budget or contact
+normal shortcut is shipped. Exact exhaustive-grid oracle and outside rejection
+pass. Race commands/selected models/start geometry can change race output;
+deterministic replay passes. Presentation does not change geometric hit acceptance.
+
+Validation:68/68 focused .NET cases PASS before final cover refinement;27/27
+focused final cases PASS including exact oracle/replay/no-allocation/rejection.
+Native Unity input4, technique7, actual range/rejected-tick2, stadium1 PASS.
+Recent compile errors and post-build exceptions: none. Four native captures
+reviewed. Release CPU diagnostic12000ticks: mean2.348ms, setup mean2.774ms,
+cold first tick134.203ms; no >100ms tick after tick1. Actual player completed
+one bout;29 first AI bouts by this bounded horizon, not a full-race completion
+gate. Debug/Release timing configurations differ; no direct speedup claim.
+
+NEW OWNER BUILD: Builds/WoodlandM13OwnerControls-20261010/START_WOODLAND_REVIEW.cmd.
+READ_ME_RU.txt and attribution accompany it. Unity6000.6.0f1: Succeeded,0 errors,
+496 existing inference shader warnings. Hidden Mass30/Sprint30 startup/control
+and scene transition smoke PASS,EXIT0; hidden rendering suspended. Visible FPS,
+final-setup/off-course performance and post-range feel await owner build testing.
+M13 owner review OPEN; M14 NOT STARTED. G1/G2 APPROVED unchanged. One Woodland
+venue, max30, High default. Master Plan unchanged; no automatic owner approval.
+
+Code commits: d518195 (snow-query correction),044eb21 (controls/stadium).
+Report: docs/reports/TASK_M13_OWNER_CONTROLS_AND_STADIUM_20261010.md.
+ADR: docs/adr/ADR-0045-owner-shooting-controls-and-stadium.md.
+Evidence: docs/quality/m13/owner-controls-20261010/; smoke run20261010-135301-585.
+All2930138 bytes of pre-task PROJECT_STATE history are preserved; prefix SHA256
+bc5f13885682135a845b86d187981982746af457c7cd985a7f011083949d1624.
+Unrelated workspace/Unity settings changes are preserved. Next: owner tests this
+build and decides M13 closure; do not begin M14 automatically.

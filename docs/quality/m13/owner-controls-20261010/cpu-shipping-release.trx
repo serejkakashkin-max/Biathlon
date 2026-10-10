@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="7824aded-4c94-4b22-aae7-2a3ec44a96db" name="snkashkin@DESKTOP-G3075GA 2026-10-10 16:50:23" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-10T16:50:23.2600920+03:00" queuing="2026-10-10T16:50:23.2600921+03:00" start="2026-10-10T16:49:48.7224793+03:00" finish="2026-10-10T16:50:23.2632091+03:00" />
+  <TestSettings name="default" id="8de6735a-43f0-4dc9-a5cb-34129b152f52">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-10_16_50_23" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="acefae60-d1b8-41fc-8f9e-42b7e84b463f" testId="0c9372d4-312a-f915-c963-fe9e6ff05c6c" testName="FirstBoutAndThirtySecondsOfDepartureCpuProfile" computerName="DESKTOP-G3075GA" duration="00:00:33.4948880" startTime="2026-10-10T16:49:49.5030670+03:00" endTime="2026-10-10T16:50:22.9979274+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="acefae60-d1b8-41fc-8f9e-42b7e84b463f">
+      <Output>
+        <StdOut>tick=1 tick_ms=134.203 cumulative_ms=134.2 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=200 tick_ms=0.996 cumulative_ms=430.8 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=400 tick_ms=1.698 cumulative_ms=887.9 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=600 tick_ms=1.037 cumulative_ms=1135.5 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=800 tick_ms=1.105 cumulative_ms=1352.4 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1000 tick_ms=0.988 cumulative_ms=1566.5 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1200 tick_ms=1.084 cumulative_ms=1782.5 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1400 tick_ms=1.075 cumulative_ms=2004.2 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1600 tick_ms=1.073 cumulative_ms=2255.6 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1800 tick_ms=1.046 cumulative_ms=2472.2 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2000 tick_ms=1.121 cumulative_ms=2685.1 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2200 tick_ms=1.316 cumulative_ms=2909.1 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2400 tick_ms=1.013 cumulative_ms=3139.9 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2600 tick_ms=1.015 cumulative_ms=3350.2 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2800 tick_ms=1.188 cumulative_ms=3560.6 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3000 tick_ms=1.071 cumulative_ms=3782.6 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3200 tick_ms=1.625 cumulative_ms=4001.1 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3400 tick_ms=1.273 cumulative_ms=4219.5 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3600 tick_ms=1.250 cumulative_ms=4441.2 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3800 tick_ms=1.002 cumulative_ms=4694.1 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=4000 tick_ms=1.012 cumulative_ms=4916.7 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=4200 tick_ms=1.308 cumulative_ms=5221.3 intervals=1 setting_up=1 first_bouts=0 bytes=42025264&#xD;
+tick=4400 tick_ms=2.042 cumulative_ms=5594.8 intervals=2 setting_up=5 first_bouts=0 bytes=42700536&#xD;
+tick=4600 tick_ms=1.215 cumulative_ms=5882.0 intervals=1 setting_up=3 first_bouts=0 bytes=43600896&#xD;
+tick=4800 tick_ms=3.675 cumulative_ms=6448.0 intervals=4 setting_up=1 first_bouts=11 bytes=43976032&#xD;
+tick=5000 tick_ms=5.378 cumulative_ms=7161.8 intervals=5 setting_up=0 first_bouts=22 bytes=43976032&#xD;
+tick=5200 tick_ms=2.904 cumulative_ms=7758.2 intervals=3 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+tick=5400 tick_ms=3.139 cumulative_ms=8461.9 intervals=3 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+tick=5600 tick_ms=1.425 cumulative_ms=9408.6 intervals=1 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+tick=5800 tick_ms=3.431 cumulative_ms=10391.5 intervals=3 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+tick=6000 tick_ms=3.913 cumulative_ms=11129.7 intervals=4 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+tick=6200 tick_ms=3.746 cumulative_ms=11843.0 intervals=4 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+tick=6400 tick_ms=2.893 cumulative_ms=12508.1 intervals=3 setting_up=0 first_bouts=27 bytes=44051064&#xD;
+tick=6600 tick_ms=2.100 cumulative_ms=13061.0 intervals=2 setting_up=0 first_bouts=27 bytes=44051064&#xD;
+tick=6800 tick_ms=3.209 cumulative_ms=13544.8 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7000 tick_ms=2.176 cumulative_ms=14028.3 intervals=2 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7200 tick_ms=2.192 cumulative_ms=14513.9 intervals=2 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7400 tick_ms=2.181 cumulative_ms=15047.7 intervals=2 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7600 tick_ms=3.789 cumulative_ms=15711.0 intervals=4 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7800 tick_ms=3.684 cumulative_ms=16357.5 intervals=4 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8000 tick_ms=3.652 cumulative_ms=16994.0 intervals=4 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8200 tick_ms=3.018 cumulative_ms=17626.0 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8400 tick_ms=2.975 cumulative_ms=18259.6 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8600 tick_ms=3.019 cumulative_ms=18880.7 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8800 tick_ms=2.094 cumulative_ms=19483.9 intervals=2 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=9000 tick_ms=4.788 cumulative_ms=20110.4 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=9200 tick_ms=2.948 cumulative_ms=20726.1 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=9400 tick_ms=3.366 cumulative_ms=21334.5 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=9600 tick_ms=2.311 cumulative_ms=21953.5 intervals=2 setting_up=1 first_bouts=28 bytes=50751208&#xD;
+tick=9800 tick_ms=3.634 cumulative_ms=22573.4 intervals=4 setting_up=2 first_bouts=28 bytes=51051336&#xD;
+tick=10000 tick_ms=6.597 cumulative_ms=23476.6 intervals=4 setting_up=1 first_bouts=28 bytes=51351456&#xD;
+tick=10200 tick_ms=2.883 cumulative_ms=24416.8 intervals=3 setting_up=2 first_bouts=28 bytes=51651616&#xD;
+tick=10400 tick_ms=2.076 cumulative_ms=24987.2 intervals=2 setting_up=1 first_bouts=28 bytes=51951744&#xD;
+tick=10600 tick_ms=2.073 cumulative_ms=25469.2 intervals=2 setting_up=0 first_bouts=28 bytes=52176848&#xD;
+tick=10800 tick_ms=2.099 cumulative_ms=25945.0 intervals=2 setting_up=1 first_bouts=28 bytes=52326920&#xD;
+tick=11000 tick_ms=2.150 cumulative_ms=26406.2 intervals=2 setting_up=0 first_bouts=29 bytes=52326920&#xD;
+tick=11200 tick_ms=2.159 cumulative_ms=26839.1 intervals=2 setting_up=0 first_bouts=29 bytes=52326920&#xD;
+tick=11400 tick_ms=2.204 cumulative_ms=27314.3 intervals=2 setting_up=1 first_bouts=29 bytes=52401960&#xD;
+actor=4 loop=penalty_150 pose=104,339483634,-10,511701749,1,618240073 clearance_samples=184 disk_queries=8554 start_clearance=-0,046590823506322376 edge_responses=3&#xD;
+actor=22 loop=exit_aisle pose=-16,701214984,-14,197583398,1,753124543 clearance_samples=36 disk_queries=1904 start_clearance=-0,034754651366105005 edge_responses=0&#xD;
+actor=4 loop=penalty_150 pose=104,430627551,-10,58968286,1,613977799 clearance_samples=318 disk_queries=14852 start_clearance=-0,04977810083587908 edge_responses=1&#xD;
+actor=22 loop=exit_aisle pose=-16,511497191,-14,192583398,1,732394866 clearance_samples=28 disk_queries=1456 start_clearance=-0,0459879970663688 edge_responses=1&#xD;
+tick=11600 tick_ms=1.397 cumulative_ms=27724.9 intervals=1 setting_up=0 first_bouts=29 bytes=52477000&#xD;
+tick=11800 tick_ms=1.012 cumulative_ms=27966.5 intervals=1 setting_up=0 first_bouts=29 bytes=52552040&#xD;
+tick=12000 tick_ms=1.113 cumulative_ms=28179.4 intervals=1 setting_up=0 first_bouts=29 bytes=52552040&#xD;
+ticks=12000 mean_ms=2,348 worst_ms=134,203 worst_tick=1 setup_mean_ms=2,774 allocated_bytes=52552040&#xD;
+player_phase=Skiing bouts=1 shooting= needs_bolt= input_manual=False loop=main pose=229,06048274,-60,351694378 speed=4,151770908</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="FirstBoutAndThirtySecondsOfDepartureCpuProfile" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="0c9372d4-312a-f915-c963-fe9e6ff05c6c">
+      <Execution id="acefae60-d1b8-41fc-8f9e-42b7e84b463f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RangeTransientPerformanceTests" name="FirstBoutAndThirtySecondsOfDepartureCpuProfile" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="0c9372d4-312a-f915-c963-fe9e6ff05c6c" executionId="acefae60-d1b8-41fc-8f9e-42b7e84b463f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Explicit run&#xD;
+tick=1 tick_ms=134.203 cumulative_ms=134.2 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=200 tick_ms=0.996 cumulative_ms=430.8 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=400 tick_ms=1.698 cumulative_ms=887.9 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=600 tick_ms=1.037 cumulative_ms=1135.5 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=800 tick_ms=1.105 cumulative_ms=1352.4 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1000 tick_ms=0.988 cumulative_ms=1566.5 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1200 tick_ms=1.084 cumulative_ms=1782.5 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1400 tick_ms=1.075 cumulative_ms=2004.2 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1600 tick_ms=1.073 cumulative_ms=2255.6 intervals=1 setting_up=0 first_bouts=0 bytes=41950088&#xD;
+tick=1800 tick_ms=1.046 cumulative_ms=2472.2 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2000 tick_ms=1.121 cumulative_ms=2685.1 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2200 tick_ms=1.316 cumulative_ms=2909.1 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2400 tick_ms=1.013 cumulative_ms=3139.9 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2600 tick_ms=1.015 cumulative_ms=3350.2 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=2800 tick_ms=1.188 cumulative_ms=3560.6 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3000 tick_ms=1.071 cumulative_ms=3782.6 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3200 tick_ms=1.625 cumulative_ms=4001.1 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3400 tick_ms=1.273 cumulative_ms=4219.5 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3600 tick_ms=1.250 cumulative_ms=4441.2 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=3800 tick_ms=1.002 cumulative_ms=4694.1 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=4000 tick_ms=1.012 cumulative_ms=4916.7 intervals=1 setting_up=0 first_bouts=0 bytes=41950240&#xD;
+tick=4200 tick_ms=1.308 cumulative_ms=5221.3 intervals=1 setting_up=1 first_bouts=0 bytes=42025264&#xD;
+tick=4400 tick_ms=2.042 cumulative_ms=5594.8 intervals=2 setting_up=5 first_bouts=0 bytes=42700536&#xD;
+tick=4600 tick_ms=1.215 cumulative_ms=5882.0 intervals=1 setting_up=3 first_bouts=0 bytes=43600896&#xD;
+tick=4800 tick_ms=3.675 cumulative_ms=6448.0 intervals=4 setting_up=1 first_bouts=11 bytes=43976032&#xD;
+tick=5000 tick_ms=5.378 cumulative_ms=7161.8 intervals=5 setting_up=0 first_bouts=22 bytes=43976032&#xD;
+tick=5200 tick_ms=2.904 cumulative_ms=7758.2 intervals=3 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+tick=5400 tick_ms=3.139 cumulative_ms=8461.9 intervals=3 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+tick=5600 tick_ms=1.425 cumulative_ms=9408.6 intervals=1 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+tick=5800 tick_ms=3.431 cumulative_ms=10391.5 intervals=3 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+tick=6000 tick_ms=3.913 cumulative_ms=11129.7 intervals=4 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+tick=6200 tick_ms=3.746 cumulative_ms=11843.0 intervals=4 setting_up=0 first_bouts=27 bytes=43976032&#xD;
+tick=6400 tick_ms=2.893 cumulative_ms=12508.1 intervals=3 setting_up=0 first_bouts=27 bytes=44051064&#xD;
+tick=6600 tick_ms=2.100 cumulative_ms=13061.0 intervals=2 setting_up=0 first_bouts=27 bytes=44051064&#xD;
+tick=6800 tick_ms=3.209 cumulative_ms=13544.8 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7000 tick_ms=2.176 cumulative_ms=14028.3 intervals=2 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7200 tick_ms=2.192 cumulative_ms=14513.9 intervals=2 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7400 tick_ms=2.181 cumulative_ms=15047.7 intervals=2 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7600 tick_ms=3.789 cumulative_ms=15711.0 intervals=4 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=7800 tick_ms=3.684 cumulative_ms=16357.5 intervals=4 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8000 tick_ms=3.652 cumulative_ms=16994.0 intervals=4 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8200 tick_ms=3.018 cumulative_ms=17626.0 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8400 tick_ms=2.975 cumulative_ms=18259.6 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8600 tick_ms=3.019 cumulative_ms=18880.7 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=8800 tick_ms=2.094 cumulative_ms=19483.9 intervals=2 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=9000 tick_ms=4.788 cumulative_ms=20110.4 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=9200 tick_ms=2.948 cumulative_ms=20726.1 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=9400 tick_ms=3.366 cumulative_ms=21334.5 intervals=3 setting_up=0 first_bouts=28 bytes=44051064&#xD;
+tick=9600 tick_ms=2.311 cumulative_ms=21953.5 intervals=2 setting_up=1 first_bouts=28 bytes=50751208&#xD;
+tick=9800 tick_ms=3.634 cumulative_ms=22573.4 intervals=4 setting_up=2 first_bouts=28 bytes=51051336&#xD;
+tick=10000 tick_ms=6.597 cumulative_ms=23476.6 intervals=4 setting_up=1 first_bouts=28 bytes=51351456&#xD;
+tick=10200 tick_ms=2.883 cumulative_ms=24416.8 intervals=3 setting_up=2 first_bouts=28 bytes=51651616&#xD;
+tick=10400 tick_ms=2.076 cumulative_ms=24987.2 intervals=2 setting_up=1 first_bouts=28 bytes=51951744&#xD;
+tick=10600 tick_ms=2.073 cumulative_ms=25469.2 intervals=2 setting_up=0 first_bouts=28 bytes=52176848&#xD;
+tick=10800 tick_ms=2.099 cumulative_ms=25945.0 intervals=2 setting_up=1 first_bouts=28 bytes=52326920&#xD;
+tick=11000 tick_ms=2.150 cumulative_ms=26406.2 intervals=2 setting_up=0 first_bouts=29 bytes=52326920&#xD;
+tick=11200 tick_ms=2.159 cumulative_ms=26839.1 intervals=2 setting_up=0 first_bouts=29 bytes=52326920&#xD;
+tick=11400 tick_ms=2.204 cumulative_ms=27314.3 intervals=2 setting_up=1 first_bouts=29 bytes=52401960&#xD;
+actor=4 loop=penalty_150 pose=104,339483634,-10,511701749,1,618240073 clearance_samples=184 disk_queries=8554 start_clearance=-0,046590823506322376 edge_responses=3&#xD;
+actor=22 loop=exit_aisle pose=-16,701214984,-14,197583398,1,753124543 clearance_samples=36 disk_queries=1904 start_clearance=-0,034754651366105005 edge_responses=0&#xD;
+actor=4 loop=penalty_150 pose=104,430627551,-10,58968286,1,613977799 clearance_samples=318 disk_queries=14852 start_clearance=-0,04977810083587908 edge_responses=1&#xD;
+actor=22 loop=exit_aisle pose=-16,511497191,-14,192583398,1,732394866 clearance_samples=28 disk_queries=1456 start_clearance=-0,0459879970663688 edge_responses=1&#xD;
+tick=11600 tick_ms=1.397 cumulative_ms=27724.9 intervals=1 setting_up=0 first_bouts=29 bytes=52477000&#xD;
+tick=11800 tick_ms=1.012 cumulative_ms=27966.5 intervals=1 setting_up=0 first_bouts=29 bytes=52552040&#xD;
+tick=12000 tick_ms=1.113 cumulative_ms=28179.4 intervals=1 setting_up=0 first_bouts=29 bytes=52552040&#xD;
+ticks=12000 mean_ms=2,348 worst_ms=134,203 worst_tick=1 setup_mean_ms=2,774 allocated_bytes=52552040&#xD;
+player_phase=Skiing bouts=1 shooting= needs_bolt= input_manual=False loop=main pose=229,06048274,-60,351694378 speed=4,151770908&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

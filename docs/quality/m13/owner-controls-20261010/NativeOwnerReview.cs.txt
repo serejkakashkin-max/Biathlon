@@ -1,0 +1,45 @@
+using System;
+using System.IO;
+using Biathlon.Domain;
+using Biathlon.Simulation;
+using Biathlon.Unity.Presentation;
+using UnityEngine;
+public static class NativeOwnerReview
+{
+    public static string Run()
+    {
+        string folder=Path.GetFullPath("docs/quality/m13/owner-controls-20261010");
+        if(File.Exists(Path.Combine(folder,"native-review-done.json")))return "Already captured.";
+        string prefix="Biathlon/Venues/woodland_basin_v1/";
+        var venue=new VenueAuthoringPlan(VenueManifest.FromJson(ProductionVenueHost.ReadResource(prefix+"manifest")),ProductionVenueHost.ReadResource);
+        var root=new GameObject("Owner controls native review");
+        try
+        {
+            var host=root.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;
+            host.Initialize(venue,CompetitionProfile.FromJson(ProductionVenueHost.ReadResource(prefix+"mass_start_profile")),
+                RaceRoutePlan.FromJson(ProductionVenueHost.ReadResource(prefix+"mass_start_route")),
+                RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1")),1);
+            host.InitializeEnvironment(ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource(prefix+"environment")));
+            host.Proxies.Render(1);var camera=host.ChaseCamera;
+            View(new Vector3(104,8,-20),new Vector3(145,1,-8),"start-straight.png");
+            View(new Vector3(116,13,-62),new Vector3(84,0,-32),"penalty-fence.png");
+            var finish=root.GetComponent<FinishCorridorPresentation>();View(finish.FinishPoint+new Vector3(-8,5,-45),finish.FinishPoint,"finish-markers.png");
+            while(host.Runner.Field.GetAthlete(0).ActiveShooting?.Phase!=ShootingPhase.Aiming&&host.Runner.Field.Tick.Value<12000)host.Runner.Step();
+            var actor=host.Runner.Field.GetAthlete(0);if(actor.ActiveShooting?.Phase!=ShootingPhase.Aiming)throw new Exception("No actual aiming arrival.");
+            host.Feed.Publish(RacePresentationSnapshot.Capture(host.Runner.Field));host.Proxies.Render(1);var range=root.GetComponent<RangePresentation>();range.Refresh();
+            Capture(range.AimCamera,"rifle-prone.png");
+            string status="{\"schema_version\":1,\"id\":\"owner_native_controls_review_v1\",\"aim_tick\":"+host.Runner.Field.Tick.Value+",\"lane\":"+actor.RangePath.LaneOrdinal+",\"views\":4}";
+            File.WriteAllText(Path.Combine(folder,"native-review-done.json"),status);return status;
+            void View(Vector3 position,Vector3 target,string file){camera.transform.SetPositionAndRotation(position,Quaternion.LookRotation(target-position));Capture(camera,file);}
+            void Capture(Camera source,string file)
+            {
+                host.Environment.Render(source,"high",0);host.Proxies.Render(1);
+                var render=RenderTexture.GetTemporary(1600,900,24);var previous=source.targetTexture;var active=RenderTexture.active;
+                var pixels=new Texture2D(1600,900,TextureFormat.RGB24,false);
+                try{source.targetTexture=render;source.Render();RenderTexture.active=render;pixels.ReadPixels(new Rect(0,0,1600,900),0,0);pixels.Apply();File.WriteAllBytes(Path.Combine(folder,file),pixels.EncodeToPNG());}
+                finally{source.targetTexture=previous;RenderTexture.active=active;RenderTexture.ReleaseTemporary(render);UnityEngine.Object.DestroyImmediate(pixels);}
+            }
+        }
+        finally{UnityEngine.Object.DestroyImmediate(root);}
+    }
+}
