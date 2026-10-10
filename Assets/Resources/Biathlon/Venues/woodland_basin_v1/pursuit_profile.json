@@ -2,13 +2,14 @@
   "schema_version": 1,
   "id": "woodland_basin_pursuit_men_v1",
   "rules_revision": "owner_compressed_gameplay_distance_v1",
+  "shooting_lane_rules_revision": "ibu_ecr_2026",
   "format": 1,
   "category": 0,
-  "distance_m": 5000,
+  "distance_m": 4980.0,
   "laps": 5,
   "start_type": 1,
   "start_interval_s": 0,
-  "field_capacity": 40,
+  "field_capacity": 30,
   "shots_per_bout": 5,
   "penalty_loop_m": 150,
   "shooting_bouts": [
@@ -32,6 +33,5 @@
       "after_lap": 4,
       "stance": 1
     }
-  ],
-  "shooting_lane_rules_revision": "ibu_ecr_2026"
+  ]
 }

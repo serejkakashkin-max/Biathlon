@@ -366,7 +366,7 @@ namespace Biathlon.Simulation
                     new TrackDistance((long)Math.Floor(manualActor.Projection.LocalMeters*1000)));
                 double speed=Math.Sqrt(manualActor.Velocity.X*manualActor.Velocity.X+manualActor.Velocity.Z*manualActor.Velocity.Z);
                 double grade=manualActor.Projection.GradeAlong(manualActor.Pose);
-                sample=sample.WithTravelGeometry(grade,speed==0?0:manualActor.Pose.YawRateRadiansPerSecond/speed);
+                sample=sample.WithWorldTravelGeometry(grade,speed,manualActor.Pose.YawRateRadiansPerSecond);
                 postureMotion=new SkiState(Motion.DistanceNanometers,speed*Math.Sqrt(1+grade*grade));
             }
             if(scopedWorld!=null)
@@ -375,7 +375,7 @@ namespace Biathlon.Simulation
                 sample=actor.Observation.Owner.SampleSurface(actor.Observation);
                 double speed=Math.Sqrt(actor.Velocity.X*actor.Velocity.X+actor.Velocity.Z*actor.Velocity.Z);
                 double grade=actor.Observation.GradeAlong(actor.Pose);
-                sample=sample.WithTravelGeometry(grade,speed==0?0:actor.Pose.YawRateRadiansPerSecond/speed);
+                sample=sample.WithWorldTravelGeometry(grade,speed,actor.Pose.YawRateRadiansPerSecond);
                 postureMotion=new SkiState(Motion.DistanceNanometers,speed*Math.Sqrt(1+grade*grade));
             }
             var sprintOutput = sprint.Evaluate(started && !onMat && !HasFinished && input.Ski.SprintRequested, input.Ski.Effort.RequestedEffort, new SkiState(RouteNanometers, Motion.SpeedMetersPerSecond));

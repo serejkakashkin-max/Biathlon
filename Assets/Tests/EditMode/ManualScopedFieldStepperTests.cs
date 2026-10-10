@@ -47,6 +47,8 @@ namespace Biathlon.Tests
         {
             var rejected=s.LastRejectedWorkingActor;
             var forces=s.World.LastContactForces;
+            TestContext.WriteLine("pair_geometry_reserve="+s.LastStep.WorldAttempt.BodyOrEdge.Pair.GeometryReserveMeters.ToString("R",System.Globalization.CultureInfo.InvariantCulture));
+            TestContext.WriteLine($"course_responses={s.World.CourseEdgeResponses} owned_contacts={s.World.LastOwnedContacts.Limit.First}:{s.World.LastOwnedContacts.Limit.Second} gap={s.World.LastOwnedContacts.Geometry.GapMeters:R}");
             string source=FormattableString.Invariant($"working x={rejected.Pose.X:R} z={rejected.Pose.Z:R} yaw={rejected.Pose.HeadingRadians:R} spin={rejected.Pose.YawRateRadiansPerSecond:R} vx={rejected.Velocity.X:R} vz={rejected.Velocity.Z:R} occurrence={rejected.Observation.OccurrenceIndex} arc={rejected.Observation.PhysicalArcNanometers} lateral={rejected.Observation.LateralMeters:R}; gate={s.LastStep.WorldAttempt.Gate.Status}; ");
             for(int i=0;i<s.World.Count;i++)
             {
@@ -66,8 +68,8 @@ namespace Biathlon.Tests
                 var json=Read(id);
                 if(withFinishCheckpoint&&id==root+"track")
                 {
-                    var length=TrackDefinition.FromJson(json).GetLoop("main").Length.Millimeters/1000.0;
-                    json=json.Replace("\"checkpoints\": [","\"checkpoints\": [{\"id\":\"finish_witness\",\"anchor\":{\"loop_id\":\"main\",\"distance_m\":"+length.ToString("R",System.Globalization.CultureInfo.InvariantCulture)+"}},");
+                    var plan=RaceRoutePlan.FromJson(Read(root+"mass_start_route"));var lap=plan.GetLap(plan.LapCount-1);var finish=lap.GetSlice(lap.LoopCount-1);
+                    json=json.Replace("\"checkpoints\": [","\"checkpoints\": [{\"id\":\"finish_witness\",\"anchor\":{\"loop_id\":\""+finish.LoopId+"\",\"distance_m\":"+finish.EndMeters.ToString("R",System.Globalization.CultureInfo.InvariantCulture)+"}},");
                 }
                 return json;
             }
@@ -78,7 +80,10 @@ namespace Biathlon.Tests
                 events,new AiDecisionCounts(),count:count);
             var models=new SkiModelDefinitions(PhysiologyContractTests.DefinitionJson);
             var world=ManualScopedFieldStepper.CreateInitialWorld(runner.Field,venue.Track,venue.Visual,venue.Occupancy,Contact(),Work(),Group(),models.Physics,
-                withFinish?ManualFinishRunoutDefinition.FromJson(Read("Biathlon/manual_finish_runout_v1")):null);
+                withFinish?ManualFinishRunoutDefinition.FromJson(Read("Biathlon/manual_finish_runout_v1")):null,
+                withFinish?ManualNumericalToleranceDefinition.FromJson(Read("Biathlon/manual_gameplay_tolerance_v1")):null,
+                withFinish?ManualMatCaptureDefinition.FromJson(Read("Biathlon/manual_mat_capture_v1")):null,
+                withFinish?ManualCourseContactDefinition.FromJson(Read("Biathlon/manual_course_contact_v1")):null);
             var stepper=new ManualScopedFieldStepper(runner.Field,world,models,venue.Occupancy,Steering(),Work(),
                 ManualMatBrakingDefinition.FromJson(Read("Biathlon/manual_mat_braking_v1")));
             runner.BindManualScopedCandidate(stepper,ManualAiSteeringDefinition.FromJson(Read("Biathlon/manual_ai_steering_v2")),Steering());
@@ -99,7 +104,7 @@ namespace Biathlon.Tests
                 Assert.That(f.runner.Field.GetPhysicalPoint(0).LocalNanometers,
                     Is.EqualTo((long)Math.Round(f.stepper.World.GetActor(0).Observation.LocalMeters*SkiState.NanometersPerMeter)).Within(2));
             }
-            Assert.That(f.runner.ContextJson,Does.Contain("not_production_default"));
+            Assert.That(f.runner.ContextJson,Does.Contain("production_selection_owned_by_host"));
             Assert.That(f.runner.Field.GetAthlete(1).Motion.DistanceNanometers,Is.GreaterThan(0));
         }
 

@@ -29,6 +29,11 @@ namespace Biathlon.PlayModeTests
             Assert.That(ProductionVenueHost.ReadOptionalReview(null),Is.Null);Assert.That(ProductionVenueHost.ReadOptionalReview(""),Is.Null);
             Assert.Throws<ArgumentException>(()=>Definition("venue").Get("unknown"));Assert.That(QualitySettings.renderPipeline,Is.SameAs(baseline));
         }
+        [Test] public void OwnerMaximumAllowsThirtyAndRejectsThirtyOne()
+        {
+            Assert.That(Definition("venue",30).entries[1].field_count,Is.EqualTo(30));
+            Assert.Throws<ArgumentException>(()=>Definition("venue",31));
+        }
         [UnityTest] public IEnumerator ResourceHighAppliesBeforeFirstFrameAndPresentationControlsKeepPrefixExact()
         {
             var baseline=QualitySettings.renderPipeline;var a=new GameObject("Reviewed parity fixture");var b=new GameObject("Legacy parity fixture");

@@ -170,7 +170,10 @@ namespace Biathlon.Simulation
                 throw new ArgumentException("Waiting start or shooting must retain the exact stationary body and progress.");
             bool firing=moving&&row.End==ManualRacePathEnd.FiringLine&&after.ObservedArcNanometers==row.LengthNanometers;
             if(firing&&(final.Velocity.X!=0||final.Velocity.Z!=0||final.Pose.YawRateRadiansPerSecond!=0||nextMotion.SpeedMetersPerSecond!=0))
-                throw new ArgumentException("Firing arrival must physically brake before session admission; no hidden velocity reset.");
+                throw new ArgumentException("Firing arrival must physically brake before session admission; no hidden velocity reset. athlete="+AthleteId+
+                    " occurrence="+row.Index+" pose=("+final.Pose.X+","+final.Pose.Z+") heading="+final.Pose.HeadingRadians+
+                    " velocity=("+final.Velocity.X+","+final.Velocity.Z+") spin="+final.Pose.YawRateRadiansPerSecond+
+                    " arc="+after.ObservedArcNanometers+" length="+row.LengthNanometers+" lateral="+final.Observation.LateralMeters);
             long rangeTravel=0;int count=ledger.GetProposedMotionPieceCount(world);
             if(count<1||count>segments.Length)throw new ArgumentException("World intervals must fit the preallocated race motion receipts.");
             if(moving)for(int i=0;i<count;i++)
@@ -218,6 +221,12 @@ namespace Biathlon.Simulation
         private static long ScopedRangeIncrement(ManualScopedWorldMotionPiece piece,ManualRacePathCatalog catalog,RangePenaltyTraversal range)
             =>catalog.Get(piece.OccurrenceIndex).Kind==ManualRacePathKind.PenaltyLoop?piece.CreditedArcAfter-piece.CreditedArcBefore:
                 Math.Max(0,Math.Min(piece.RouteAfter,range.RangeRejoinNanometers)-Math.Max(piece.RouteBefore,range.RangeEntryNanometers));
+        internal void RecordScopedPhysicalActions(ManualScopedWorldRoster ledger,int index)
+        {
+            int contacts=ledger.GetCourseEdgeResponses(index),captures=ledger.GetMatCaptures(index);
+            if(contacts>0)events.Record(new RaceEvent(Tick,config.TickFrequency,AthleteId,RaceEventType.CourseBoundaryContact,contacts));
+            if(captures>0)events.Record(new RaceEvent(Tick,config.TickFrequency,AthleteId,RaceEventType.ShootingMatCaptured,captures));
+        }
         private void CommitScopedStart(SprintStepPreview preview)
         {
             var ledger=preview.ScopedWorld.Owner;var before=ledger.GetCursor(preparedScopedIndex);
@@ -368,6 +377,7 @@ namespace Biathlon.Simulation
             ValidateField(field);field.ValidateManualScopedPublication(proposal,drafts);Resolve(pending,proposal);
             var resource=field.PrepareManualScopedReservations(resolved,proposal);
             field.CommitManualScopedPrepared(inputs,resolved,proposal,drafts,resource);
+            for(int i=0;i<athletes.Length;i++)athletes[i].RecordScopedPhysicalActions(world,i);
         }
         private void ValidateField(ISprintFieldView field)
         {

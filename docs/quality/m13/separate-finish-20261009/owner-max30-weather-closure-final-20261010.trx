@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="5956ab15-c2ea-46f9-8761-3748d962ecee" name="snkashkin@DESKTOP-G3075GA 2026-10-10 09:46:07" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-10T09:46:07.4700856+03:00" queuing="2026-10-10T09:46:07.4700857+03:00" start="2026-10-10T09:46:03.2443675+03:00" finish="2026-10-10T09:46:19.0610967+03:00" />
+  <TestSettings name="default" id="a3a9a71e-bf98-43b0-a22a-1a3df9b12682">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-10_09_46_07" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="56cf34fb-ae76-4d60-94aa-155390b4b612" testId="a6b027f0-80de-2df9-7f73-476901fcbbe2" testName="ManualProductionSnowConditionsKeepTheSharedClockAndActualProgress(&quot;packed_neutral&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:03.6976810" startTime="2026-10-10T09:46:03.7321068+03:00" endTime="2026-10-10T09:46:07.4297594+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="56cf34fb-ae76-4d60-94aa-155390b4b612">
+      <Output>
+        <StdOut>packed_neutral actual_route_m=252,749142022</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c5a6051e-5034-488d-8253-2870af3038d7" testId="262f6d99-4061-0b5a-f853-c768da1cdef5" testName="ManualProductionSnowConditionsKeepTheSharedClockAndActualProgress(&quot;fresh_soft&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:03.4458800" startTime="2026-10-10T09:46:07.4305628+03:00" endTime="2026-10-10T09:46:10.8764424+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c5a6051e-5034-488d-8253-2870af3038d7">
+      <Output>
+        <StdOut>fresh_soft actual_route_m=235,721857292</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="37843374-e3ec-4a04-96ff-0ae86e4139cb" testId="1044d4d4-1458-6200-19d4-ac5a42ff3c81" testName="ManualProductionSnowConditionsKeepTheSharedClockAndActualProgress(&quot;wet_slow&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:03.6670830" startTime="2026-10-10T09:46:15.2507049+03:00" endTime="2026-10-10T09:46:18.9177877+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="37843374-e3ec-4a04-96ff-0ae86e4139cb">
+      <Output>
+        <StdOut>wet_slow actual_route_m=251,341894454</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a6c3f22c-b019-460b-bb79-3dd0df816b09" testId="47fba0b0-8f50-fe49-2d16-4b666e988983" testName="ManualProductionSnowConditionsKeepTheSharedClockAndActualProgress(&quot;icy_fast&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:04.3741970" startTime="2026-10-10T09:46:10.8764752+03:00" endTime="2026-10-10T09:46:15.2506711+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a6c3f22c-b019-460b-bb79-3dd0df816b09">
+      <Output>
+        <StdOut>icy_fast actual_route_m=223,637448533</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ManualProductionSnowConditionsKeepTheSharedClockAndActualProgress(&quot;wet_slow&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="1044d4d4-1458-6200-19d4-ac5a42ff3c81">
+      <Execution id="37843374-e3ec-4a04-96ff-0ae86e4139cb" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualProductionFieldTests" name="ManualProductionSnowConditionsKeepTheSharedClockAndActualProgress(&quot;wet_slow&quot;)" />
+    </UnitTest>
+    <UnitTest name="ManualProductionSnowConditionsKeepTheSharedClockAndActualProgress(&quot;icy_fast&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="47fba0b0-8f50-fe49-2d16-4b666e988983">
+      <Execution id="a6c3f22c-b019-460b-bb79-3dd0df816b09" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualProductionFieldTests" name="ManualProductionSnowConditionsKeepTheSharedClockAndActualProgress(&quot;icy_fast&quot;)" />
+    </UnitTest>
+    <UnitTest name="ManualProductionSnowConditionsKeepTheSharedClockAndActualProgress(&quot;fresh_soft&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="262f6d99-4061-0b5a-f853-c768da1cdef5">
+      <Execution id="c5a6051e-5034-488d-8253-2870af3038d7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualProductionFieldTests" name="ManualProductionSnowConditionsKeepTheSharedClockAndActualProgress(&quot;fresh_soft&quot;)" />
+    </UnitTest>
+    <UnitTest name="ManualProductionSnowConditionsKeepTheSharedClockAndActualProgress(&quot;packed_neutral&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="a6b027f0-80de-2df9-7f73-476901fcbbe2">
+      <Execution id="56cf34fb-ae76-4d60-94aa-155390b4b612" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualProductionFieldTests" name="ManualProductionSnowConditionsKeepTheSharedClockAndActualProgress(&quot;packed_neutral&quot;)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="a6b027f0-80de-2df9-7f73-476901fcbbe2" executionId="56cf34fb-ae76-4d60-94aa-155390b4b612" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="262f6d99-4061-0b5a-f853-c768da1cdef5" executionId="c5a6051e-5034-488d-8253-2870af3038d7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1044d4d4-1458-6200-19d4-ac5a42ff3c81" executionId="37843374-e3ec-4a04-96ff-0ae86e4139cb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="47fba0b0-8f50-fe49-2d16-4b666e988983" executionId="a6c3f22c-b019-460b-bb79-3dd0df816b09" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 4 of 4 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+packed_neutral actual_route_m=252,749142022&#xD;
+&#xD;
+fresh_soft actual_route_m=235,721857292&#xD;
+&#xD;
+icy_fast actual_route_m=223,637448533&#xD;
+&#xD;
+wet_slow actual_route_m=251,341894454&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

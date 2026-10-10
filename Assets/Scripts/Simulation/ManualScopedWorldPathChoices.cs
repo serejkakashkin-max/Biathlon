@@ -33,6 +33,7 @@ namespace Biathlon.Simulation
             context[1]="cold_choices;paid_whole_tick_common_prefix;exact_pose_velocity_credit_and_surface;no_fork_switch;resource_authority_required";
             for(int p=0;p<family.Length;p++)
             {
+                if(matCapture!=null)family[p].ProjectionGeometry.MatPositionTolerance=matCapture.PositionTolerance;
                 var c=family[p];familyProgress[p]=new ManualRacePathProgression(c);
                 familyCourses[p]=new ManualRouteTubeSweep(c.ProjectionGeometry,occupiedBody,work);
                 familyRibbons[p]=new ManualRouteRibbonSweep(c.ProjectionGeometry,occupiedBody,work,numericalTolerance);

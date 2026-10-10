@@ -1,12 +1,14 @@
 {
   "schema_version": 1,
   "id": "woodland_basin_short_course_recipe_v1",
+  "shooting_lane_rules_revision": "ibu_ecr_2026",
   "lane_count": 30,
   "lane_pitch_m": 3,
   "side_margin_m": 11,
   "exit_tail_extension_m": 34,
   "compound_range_rejoin": true,
-  "main_width_m": 6,
+  "main_width_m": 8,
+  "start_width_m": 6,
   "private_width_m": 3,
   "penalty_width_m": 4,
   "private_quarter_segments": 8,
@@ -109,6 +111,5 @@
     "fork_yield_neighbor_gap_m": 3,
     "fork_yield_lateral_gap_m": 0.5,
     "fork_yield_outer_side_sign": 1
-  },
-  "shooting_lane_rules_revision": "ibu_ecr_2026"
+  }
 }

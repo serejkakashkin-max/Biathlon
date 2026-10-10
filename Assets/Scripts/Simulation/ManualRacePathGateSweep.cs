@@ -36,16 +36,21 @@ namespace Biathlon.Simulation
                 maximumAdmittedArcNanometers<previousArcNanometers||maximumAdmittedArcNanometers>row.LengthNanometers)
                 throw new ArgumentOutOfRangeException(nameof(maximumAdmittedArcNanometers));
             PhysiologyNumbers.RequireRange(maximumArcDisplacementMeters,0,PhysiologyNumbers.MaximumMagnitude,nameof(maximumArcDisplacementMeters));
+            double portalSpan=catalog.PortalSearchSpan(trajectory,maximumArcDisplacementMeters);
             int checks=0;
             // Only the terminal part of the selected station window uses this
             // portal. A closed penalty circuit's distant start/end half-planes
             // must not constrain the middle of that same circuit.
-            if(catalog.WindowTouchesPortalEdge(occurrence,previousArcNanometers,maximumArcDisplacementMeters,0))
+            // The practical snow corridor admits physical retreat within the
+            // already owned occurrence. Its start plane is a station chart,
+            // not a wall. Retreat cannot undo a published race phase or award
+            // another lap; the forward endpoint and lifecycle owner remain.
+            if(!catalog.ProjectionGeometry.UseRoundSnowCorridor&&catalog.WindowTouchesPortalEdge(occurrence,previousArcNanometers,portalSpan,0))
             {
                 var start=AtBoundary(trajectory,occurrence,0,-1,ref checks);
                 if(start.Status!=ManualRacePathGateStatus.Clear)return start;
             }
-            if(catalog.WindowTouchesPortalEdge(occurrence,previousArcNanometers,maximumArcDisplacementMeters,maximumAdmittedArcNanometers))
+            if(catalog.WindowTouchesPortalEdge(occurrence,previousArcNanometers,portalSpan,maximumAdmittedArcNanometers))
                 return AtBoundary(trajectory,occurrence,maximumAdmittedArcNanometers,1,ref checks,requireStrictEndClearance);
             return new ManualRacePathGatePreview(ManualRacePathGateStatus.Clear,-1,trajectory.DurationSeconds,trajectory.DurationSeconds,checks);
         }
@@ -54,13 +59,14 @@ namespace Biathlon.Simulation
             if(!catalog.TrySamplePortal(occurrence,arc,out var boundary))throw new InvalidOperationException("An exact scoped portal is required.");
             var pose=trajectory.Sample(0);
             double reserve=2*trajectory.PositionErrorBoundMeters+64*2.2204460492503131e-16*
-                (Math.Abs(pose.X)+Math.Abs(pose.Z)+Math.Abs(boundary.X)+Math.Abs(boundary.Z)+1);
+                (Math.Abs(pose.X)+Math.Abs(pose.Z)+Math.Abs(boundary.X)+Math.Abs(boundary.Z)+1)+catalog.ProjectionGeometry.PortalPositionTolerance;
+            if(sign<0)reserve+=catalog.ProjectionGeometry.OrdinaryPortalRetreat;
             if(Extension(pose,boundary,sign)>reserve)
                 return new ManualRacePathGatePreview(ManualRacePathGateStatus.OutsideStart,arc,0,0,checks);
             // Existing admission allows an encoded endpoint. An event-free
             // interval needs the stronger proof that the centre never reaches
             // that endpoint, including a tangency followed by retreat.
-            return Search(trajectory,boundary,sign,arc,0,trajectory.DurationSeconds,0,strict?-reserve:reserve,ref checks);
+            return Search(trajectory,boundary,sign,arc,0,trajectory.DurationSeconds,0,strict&&catalog.ProjectionGeometry.PortalPositionTolerance==0?-reserve:reserve,ref checks);
         }
         private static double Extension(ManualSkiHeadingState pose,ManualRacePathTarget boundary,int sign)
             =>sign*((pose.X-boundary.X)*boundary.ForwardX+(pose.Z-boundary.Z)*boundary.ForwardZ);

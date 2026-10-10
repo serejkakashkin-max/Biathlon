@@ -26,7 +26,18 @@ namespace Biathlon.Simulation
             }
             var reservation=reservations.Prepare(proof.Tick,reservationReleases.AsSpan(0,releasesCount),pathArrivals.AsSpan(0,arrivalsCount));
             for(int i=0;i<Count;i++)if(reservations.WasPreparedDenied(reservation,i))
-                throw new InvalidOperationException("Scoped range capacity is exhausted; no paid queue fallback is authorized.");
+            {
+                var detail=new System.Text.StringBuilder("Scoped range capacity is exhausted; no paid queue fallback is authorized. ");
+                for(int l=1;l<=reservations.LaneCount;l++)
+                {
+                    int owner=reservations.GetPreparedOwner(reservation,l);if(owner<0)continue;
+                    var a=GetAthlete(owner);var physical=world.GetProposedActor(proof,owner);
+                    detail.Append(" lane=").Append(l).Append(" actor=").Append(owner).Append(" phase=").Append(a.Lifecycle.Phase)
+                        .Append(" route=").Append(a.RouteNanometers/(double)SkiState.NanometersPerMeter)
+                        .Append(" loop=").Append(physical.Observation.LoopId).Append(" arc=").Append(physical.Observation.PhysicalArcNanometers/(double)SkiState.NanometersPerMeter);
+                }
+                throw new InvalidOperationException(detail.ToString());
+            }
             for(int r=0;r<arrivalsCount;r++)
             {
                 var arrival=pathArrivals[r];int i=0;while(!GetAthlete(i).AthleteId.Equals(arrival.AthleteId))i++;

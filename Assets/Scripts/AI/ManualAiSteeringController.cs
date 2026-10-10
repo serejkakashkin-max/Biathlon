@@ -42,7 +42,7 @@ namespace Biathlon.AI
             physicalCommands=physicalSteering;
             using(var stream=new MemoryStream())
             {
-                new DataContractJsonSerializer(typeof(string[])).WriteObject(stream,new[]{"manual_ai_signed_yaw_intent_v5_parallel_endpoint",
+                new DataContractJsonSerializer(typeof(string[])).WriteObject(stream,new[]{"manual_ai_signed_yaw_intent_v6_behind_target_recovery",
                     route.ContextJson,policy.ToJson(),physicalSteering.ToJson(),
                     "manual_ai_bounded_pass_line_yaw_v2;caller_width;owned_gate_lookahead_cap;fitting_parallel_endpoint_intent;physical_pursuit_actual_velocity_and_shared_speed_response_v2_actual_chord;body_course_sweep_required"});
                 ContextJson=Encoding.UTF8.GetString(stream.ToArray());
@@ -136,12 +136,19 @@ namespace Biathlon.AI
             double input=PhysicalPursuitYaw(plan,pose,velocity)/response;
             return (int)Math.Round(Math.Max(-1,Math.Min(1,input))*ManualSkiCommand.SteeringUnits,MidpointRounding.ToEven);
         }
-        public double PhysicalPursuitYaw(ManualAiSteeringPlan plan,ManualSkiHeadingState pose,SkiPlanarVelocity velocity)
+        public double PhysicalPursuitYaw(ManualAiSteeringPlan plan,ManualSkiHeadingState pose,SkiPlanarVelocity velocity,bool recoverBehindTarget=true)
         {
             if(!plan.IsValid||!pose.IsValid)throw new ArgumentException("Initialized owned plan and pose required.");
             double speed=Math.Sqrt(velocity.X*velocity.X+velocity.Z*velocity.Z);
             double direction=speed>=lowSpeedReference?Math.Atan2(velocity.X,velocity.Z):pose.HeadingRadians;
             double error=pose.HeadingRadians+plan.HeadingErrorRadians-direction;
+            // Pure pursuit is defined for a target ahead. Behind the skis,
+            // sin(pi) requests zero yaw and can trap a slow athlete forever.
+            // Recover through the existing bounded bearing control and shared
+            // physical command response; never change the pose or velocity.
+            if(recoverBehindTarget&&Math.Cos(error)<=0)
+                return ManualSkiSteeringSystem.GetRequest(physicalCommands,plan.SteeringInput,speed,
+                    PhysiologyNumbers.MaximumMagnitude).RequestedYawRate;
             double dx=plan.Target.X+plan.Target.ForwardZ*plan.TargetLateralMeters-pose.X;
             double dz=plan.Target.Z-plan.Target.ForwardX*plan.TargetLateralMeters-pose.Z;
             double chord=Math.Sqrt(dx*dx+dz*dz);

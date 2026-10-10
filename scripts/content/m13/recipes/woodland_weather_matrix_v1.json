@@ -28,8 +28,8 @@
     {"id": "range_standing", "evidence": "ordinary_game_view_actual_paid_standing_bout", "checks": ["large_aperture", "same_outer_target_size", "aim_visibility", "weather_occlusion"]}
   ],
   "race_formats": [
-    {"id": "sprint", "profile_resource": "Biathlon/Venues/woodland_basin_v1/sprint_profile", "route_resource": "Biathlon/Venues/woodland_basin_v1/sprint_route", "field_count": 40},
-    {"id": "pursuit", "profile_resource": "Biathlon/Venues/woodland_basin_v1/pursuit_profile", "route_resource": "Biathlon/Venues/woodland_basin_v1/pursuit_route", "field_count": 40, "qualification": "actual_sprint_result_same_snow_condition"},
+    {"id": "sprint", "profile_resource": "Biathlon/Venues/woodland_basin_v1/sprint_profile", "route_resource": "Biathlon/Venues/woodland_basin_v1/sprint_route", "field_count": 30},
+    {"id": "pursuit", "profile_resource": "Biathlon/Venues/woodland_basin_v1/pursuit_profile", "route_resource": "Biathlon/Venues/woodland_basin_v1/pursuit_route", "field_count": 30, "qualification": "actual_sprint_result_same_snow_condition"},
     {"id": "mass_start", "profile_resource": "Biathlon/Venues/woodland_basin_v1/mass_start_profile", "route_resource": "Biathlon/Venues/woodland_basin_v1/mass_start_route", "field_count": 30}
   ],
   "evidence_policy": {

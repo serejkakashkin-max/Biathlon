@@ -30,6 +30,17 @@ namespace Biathlon.Simulation
             PhysiologyNumbers.RequireRange(curvature,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,nameof(curvature));
             return new TrackSample(this,grade,curvature);
         }
+        /// <summary>Encode observed travel for posture decisions. Near rest,
+        /// yaw/speed can exceed the metadata numeric range although both
+        /// physical values remain valid. Saturate only this derived metadata;
+        /// the actual velocity, rotation and their costs remain unchanged.</summary>
+        public TrackSample WithWorldTravelGeometry(double grade,double planarSpeed,double yawRate)
+        {
+            PhysiologyNumbers.RequireRange(planarSpeed,0,PhysiologyNumbers.MaximumMagnitude,nameof(planarSpeed));
+            PhysiologyNumbers.RequireRange(yawRate,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,nameof(yawRate));
+            double curvature=planarSpeed==0?0:Math.Sign(yawRate)*Math.Min(PhysiologyNumbers.MaximumMagnitude,Math.Abs(yawRate)/planarSpeed);
+            return WithTravelGeometry(grade,curvature);
+        }
         private TrackSample(TrackSample source,double grade,double curvature)
         { this=source;Grade=grade;CurvaturePerMeter=curvature; }
         internal TrackSample(TrackLoopDefinition loop, TrackSegmentDefinition segment, int index, long millimeters)

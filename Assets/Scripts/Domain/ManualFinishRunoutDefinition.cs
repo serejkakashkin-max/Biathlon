@@ -12,6 +12,9 @@ namespace Biathlon.Domain
         [DataMember(Name="id",IsRequired=true)] public string Id {get;private set;}
         [DataMember(Name="distance_m",IsRequired=true)] public double DistanceMeters {get;private set;}
         [DataMember(Name="brake_fraction",IsRequired=true)] public double BrakeFraction {get;private set;}
+        [DataMember(Name="clear_after_rest",EmitDefaultValue=false)] public bool ClearAfterRest {get;private set;}
+        [DataMember(Name="rest_speed_mps",EmitDefaultValue=false)] public double RestSpeed {get;private set;}
+        [DataMember(Name="minimum_clearance_distance_m",EmitDefaultValue=false)] public double MinimumClearanceDistance {get;private set;}
         public static ManualFinishRunoutDefinition FromJson(string json)
         {
             var value=RouteJson.Read<ManualFinishRunoutDefinition>(json);
@@ -19,6 +22,8 @@ namespace Biathlon.Domain
             TrackValidation.Id(value.Id);
             TrackValidation.Finite(value.DistanceMeters,1,10000,nameof(DistanceMeters));
             TrackValidation.Finite(value.BrakeFraction,PhysiologyNumbers.MinimumPositive,1,nameof(BrakeFraction));
+            TrackValidation.Finite(value.RestSpeed,0,.25,nameof(RestSpeed));
+            TrackValidation.Finite(value.MinimumClearanceDistance,0,value.DistanceMeters,nameof(MinimumClearanceDistance));
             return value;
         }
         public string ToJson()=>RouteJson.Write(this);

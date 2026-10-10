@@ -2,13 +2,14 @@
   "schema_version": 1,
   "id": "woodland_basin_sprint_men_v1",
   "rules_revision": "owner_compressed_gameplay_distance_v1",
+  "shooting_lane_rules_revision": "ibu_ecr_2026",
   "format": 0,
   "category": 0,
-  "distance_m": 4200.001,
+  "distance_m": 4180.0,
   "laps": 3,
   "start_type": 0,
   "start_interval_s": 30,
-  "field_capacity": 40,
+  "field_capacity": 30,
   "shots_per_bout": 5,
   "penalty_loop_m": 150,
   "shooting_bouts": [
@@ -22,6 +23,5 @@
       "after_lap": 2,
       "stance": 1
     }
-  ],
-  "shooting_lane_rules_revision": "ibu_ecr_2026"
+  ]
 }

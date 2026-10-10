@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "id": "woodland_wp177_authored_course_metrics_v1",
+  "track_sha256": "961d547c213114a2d8a6713edf3789c7d776f22b192ef9486510d5fcf84d75a8",
+  "visual_sha256": "0ec311e07e3fef9a4d720388251c6fcd6cf8102340bb23dcad6da4e055eb9366",
+  "main_length_m": 1200.0,
+  "route_lengths_m": {
+    "sprint": 4180.0,
+    "pursuit": 4980.0,
+    "mass_start": 5980.0
+  },
+  "main_climb_m": 28.545322,
+  "main_descent_m": 28.556519,
+  "visual_elevation_min_m": 0.0,
+  "visual_elevation_max_m": 20,
+  "main_draft_allowed_m": 295.5,
+  "main_overtake_allowed_m": 295.5,
+  "main_technical_downhill_m": 70.732,
+  "maximum_segment_height_disagreement_m": 0.02875,
+  "descending_runs_over_2_percent": [
+    {
+      "start_m": 140.19,
+      "length_m": 28.958,
+      "drop_m": 2.719754,
+      "steepest_grade": -0.126983
+    },
+    {
+      "start_m": 381.027,
+      "length_m": 122.061,
+      "drop_m": 4.928626,
+      "steepest_grade": -0.057491
+    },
+    {
+      "start_m": 654.141,
+      "length_m": 34.282,
+      "drop_m": 2.946908,
+      "steepest_grade": -0.116668
+    },
+    {
+      "start_m": 760.802,
+      "length_m": 124.952,
+      "drop_m": 12.15063,
+      "steepest_grade": -0.113219
+    },
+    {
+      "start_m": 893.164,
+      "length_m": 35.014,
+      "drop_m": 2.460436,
+      "steepest_grade": -0.094239
+    },
+    {
+      "start_m": 933.207,
+      "length_m": 34.282,
+      "drop_m": 2.946908,
+      "steepest_grade": -0.116668
+    }
+  ],
+  "semantic_zones": {
+    "climb_long": {
+      "length_m": 156.774,
+      "net_rise_m": 12.049745
+    },
+    "descent_fast": {
+      "length_m": 379.134,
+      "net_rise_m": -19.080636
+    },
+    "descent_technical": {
+      "length_m": 78.802,
+      "net_rise_m": -6.027725
+    },
+    "range_approach": {
+      "length_m": 179.952,
+      "net_rise_m": 0.0
+    },
+    "rolling": {
+      "length_m": 295.338,
+      "net_rise_m": 13.047419
+    },
+    "stadium": {
+      "length_m": 110.0,
+      "net_rise_m": 0.0
+    }
+  }
+}

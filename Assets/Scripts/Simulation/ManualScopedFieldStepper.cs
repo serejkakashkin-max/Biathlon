@@ -64,7 +64,7 @@ namespace Biathlon.Simulation
         public static ManualScopedWorldRoster CreateInitialWorld(PackSprintFieldSession field,
             TrackDefinition track,TrackVisualDefinition visual,OccupancyDefinition body,
             SkiContactDefinition contact,SkiContactSweepDefinition work,SkiContactGroupDefinition group,
-            SkiPhysicsDefinition physics,ManualFinishRunoutDefinition finishRunout=null,ManualNumericalToleranceDefinition numericalTolerance=null)
+            SkiPhysicsDefinition physics,ManualFinishRunoutDefinition finishRunout=null,ManualNumericalToleranceDefinition numericalTolerance=null,ManualMatCaptureDefinition matCapture=null,ManualCourseContactDefinition courseContact=null)
         {
             if(field==null||track==null||visual==null||body==null||contact==null||work==null||group==null||physics==null||
                 field.Tick.Value!=0)
@@ -95,8 +95,13 @@ namespace Biathlon.Simulation
                 cursors[i]=new ManualRacePathProgression(c).Reconstitute(a.AthleteId,occurrence,observation.PhysicalArcNanometers,high,0);
                 motions[i]=a.Motion;masses[i]=physics.MassKilograms;
             }
+            if(numericalTolerance?.PortalPositionTolerance>0)
+            {
+                if(family!=null)foreach(var catalog in family)catalog.BindPortalTolerance(numericalTolerance.PortalPositionTolerance,numericalTolerance.UseRoundSnowCorridor,numericalTolerance.ConnectedSnowWindowMultiplier,numericalTolerance.OrdinaryPortalRetreat,numericalTolerance.OrdinaryHandoffWindow);
+                else foreach(var catalog in catalogs)catalog.BindPortalTolerance(numericalTolerance.PortalPositionTolerance,numericalTolerance.UseRoundSnowCorridor,numericalTolerance.ConnectedSnowWindowMultiplier,numericalTolerance.OrdinaryPortalRetreat,numericalTolerance.OrdinaryHandoffWindow);
+            }
             var result=new ManualScopedWorldRoster(catalogs,body,contact,work,cursors,poses,velocities,motions,
-                field.TickFrequency,field.Tick,group,masses,numericalTolerance);
+                field.TickFrequency,field.Tick,group,masses,numericalTolerance,matCapture,courseContact);
             result.BindInitialField(field);if(family!=null)result.BindPathFamily(field,family,work);return result;
         }
 
@@ -164,7 +169,7 @@ namespace Biathlon.Simulation
                     field.GetAthlete(i).TryPrepareAcceptedScopedPhase(world,i,out _))phases[acceptedPhases++]=i;
             }
             if(acceptedPhases>0&&!commit.TryHandoffAcceptedPhases(phases.AsSpan(0,acceptedPhases)))
-                return Report(ManualFieldStepStatus.PhaseRequired,default);
+                return Report(ManualFieldStepStatus.PhaseRequired,default,field.GetAthlete(phases[0]).AthleteId);
             for(int i=0;i<field.Count;i++)pending[i]=field.GetAthlete(i).PrepareManualScopedStep(inputs[i],world,i);
             var tick=world.BeginTick();bool published=false;ManualScopedWorldPreview proof=default;
             try
@@ -271,9 +276,13 @@ namespace Biathlon.Simulation
                         windows[i]=new ManualScopedWorldWindow(actor.Athlete,cursor.OccurrenceIndex,cursor.ObservedArcNanometers,
                             span,row.LengthNanometers);
                     }
-                    if(!world.TryPreviewContactDrivenMotion(tick,drives,candidates)||
-                        !world.TryAppendToOwnedFirstEvent(tick,candidates,windows,Array.Empty<SkiActorCourseEdge>(),0,grades,
-                            out var next,held.AsSpan(0,heldCount)))return Report(ManualFieldStepStatus.WorldRejected,tick);
+                    if(!world.TryPreviewContactDrivenMotion(tick,drives,candidates))return Report(ManualFieldStepStatus.WorldRejected,tick);
+                    if(!world.TryAppendToOwnedFirstEvent(tick,candidates,windows,Array.Empty<SkiActorCourseEdge>(),0,grades,
+                            out var next,held.AsSpan(0,heldCount)))
+                    {
+                        if(world.TryRespondToCourseEdge(tick))continue;
+                        return Report(ManualFieldStepStatus.WorldRejected,tick);
+                    }
                     int ordinaryCount=0,phaseCount=0;
                     for(int b=0;b<next.BoundaryCount;b++)
                     {
@@ -289,9 +298,9 @@ namespace Biathlon.Simulation
                     if(world.HasPendingContact(tick)&&!world.TryResolveArrivals(tick))
                         return Report(ManualFieldStepStatus.WorldRejected,tick);
                     if(ordinaryCount>0&&!world.TryHandoffOrdinary(tick,ordinary.AsSpan(0,ordinaryCount)))
-                        return Report(ManualFieldStepStatus.PhaseRequired,tick);
+                        return Report(ManualFieldStepStatus.PhaseRequired,tick,field.GetAthlete(ordinary[0]).AthleteId);
                     if(phaseCount>0&&!commit.TryHandoffWorkingPhases(tick,pending,phases.AsSpan(0,phaseCount)))
-                        return Report(ManualFieldStepStatus.PhaseRequired,tick);
+                        return Report(ManualFieldStepStatus.PhaseRequired,tick,field.GetAthlete(phases[0]).AthleteId);
                     // A zero-time firing notification is consumed on the next
                     // pass by an actual stationary-body hold, never a paid wait.
                 }

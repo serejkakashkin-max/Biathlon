@@ -9,6 +9,17 @@ namespace Biathlon.Tests
     {
         private static ManualNumericalToleranceDefinition Policy()=>ManualNumericalToleranceDefinition.FromJson(
             PhysiologyContractTests.DefinitionJson("manual_numerical_tolerance_v1.json"));
+        [Test] public void ProductionShoulderAndOrdinaryWindowAreExplicitAndBounded()
+        {
+            var json=PhysiologyContractTests.DefinitionJson("manual_gameplay_tolerance_v1.json");
+            var practical=ManualNumericalToleranceDefinition.FromJson(json);
+            Assert.That(practical.SoftSnowShoulder,Is.EqualTo(2));
+            Assert.That(practical.OrdinaryHandoffWindow,Is.EqualTo(4));
+            Assert.That(ManualNumericalToleranceDefinition.FromJson(practical.ToJson()).ToJson(),Is.EqualTo(practical.ToJson()));
+            Assert.Catch(()=>ManualNumericalToleranceDefinition.FromJson(PhysiologyContractTests.ReplaceNumber(json,"soft_snow_shoulder_m","2.01")));
+            Assert.Catch(()=>ManualNumericalToleranceDefinition.FromJson(PhysiologyContractTests.ReplaceNumber(json,"ordinary_handoff_window_m","4.01")));
+            Assert.That(Policy().SoftSnowShoulder,Is.Zero);Assert.That(Policy().OrdinaryHandoffWindow,Is.Zero);
+        }
 
         [Test] public void VersionedPolicyRetainsARealCourseGuard()
         {
@@ -74,7 +85,7 @@ namespace Biathlon.Tests
         [TestCase(-.05,ManualRouteTubeStatus.UnresolvedStart)]
         public void CourseAllowanceOnlyUsesASmallPartOfTheExistingSafetyMargin(double shift,ManualRouteTubeStatus expected)
         {
-            var f=new ManualRacePathCatalogTests.Fixture();var catalog=f.Catalog;
+            var f=new ManualRacePathCatalogTests.Fixture(historicalCommonWidth:true);var catalog=f.Catalog;
             var pose=new ManualSkiHeadingState(146.058043433,-11.144413020+shift,1.437653133);
             int index=catalog.GetBaseFlowSuccessor(catalog.StartApproachIndex);
             Assert.That(catalog.TryProject(pose,index,7558043433L,2,out var at),Is.True);

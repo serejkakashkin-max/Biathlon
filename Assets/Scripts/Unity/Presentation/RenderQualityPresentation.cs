@@ -52,6 +52,7 @@ namespace Biathlon.Unity.Presentation
             if (owners[owners.Count - 1] == this) QualitySettings.renderPipeline = pipeline;
             foreach (var c in cameras)
             {
+                if(c.Data==null)continue;
                 // Only the owned pipeline's safe default Volume profile applies. Scene volumes
                 // cannot silently introduce blur, lens distortion or exposure changes to aiming.
                 c.Data.volumeLayerMask = 0; c.Data.renderPostProcessing = tier.post_processing;

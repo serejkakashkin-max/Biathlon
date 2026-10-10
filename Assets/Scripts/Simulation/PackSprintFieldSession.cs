@@ -104,6 +104,7 @@ namespace Biathlon.Simulation
             var record=reservations.GetRecord(index,boutIndex);if(!record.IsValid)throw new InvalidOperationException("The athlete has no accepted arrival for this bout.");return record.Arrival;
         }
         private readonly PhysicalJunctionMap junctions;
+        private readonly PhysicalJunctionDefinition junctionDefinition;
         private readonly PhysicalConnectionMap connections;
         private readonly PhysicalConnectionDefinition connectionDefinition;
         private readonly OccupancySystem widths;
@@ -155,6 +156,27 @@ namespace Biathlon.Simulation
         public SprintAthleteSession GetAthlete(int index) => field.GetAthlete(index);
         public bool IsOnCourse(int index) => onCourse[index] && !GetAthlete(index).HasFinished;
         public double GetLateral(int index) => lateral[index];
+        /// <summary>Choose stationary departure lines before signed-world
+        /// binding. Exact Pursuit starts and all athlete capabilities remain.
+        /// Width, body and passing clearance determine the available slots.</summary>
+        internal void ArrangeManualPursuitStartLines(OccupancyDefinition body)
+        {
+            if(Profile.Format!=CompetitionFormat.Pursuit)return;
+            if(Tick.Value!=0)throw new InvalidOperationException("Departure lines must be selected before any paid race tick.");
+            double spacing=body.LateralSeparation+2*movement.PassingClearance;
+            double edgeMargin=Math.Max(body.EdgeMargin,body.LateralSeparation*.5+body.EdgeClearance);
+            int sideSlots=(int)Math.Floor((WidthAt(GetPhysicalPoint(0))*.5-edgeMargin)/spacing);
+            if(sideSlots<1)throw new ArgumentException("Pursuit start snow must fit adjacent departure lines.");
+            int slots=2*sideSlots+1;
+            for(int i=0;i<Count;i++)
+            {
+                int slot=i%slots;
+                lateral[i]=PhysiologyNumbers.Quantize(((slot+1)/2)*spacing*(slot%2==0?1:-1));
+            }
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,"signed_pursuit_initial_departure_lines_v1",
+                spacing.ToString("R",System.Globalization.CultureInfo.InvariantCulture),slots.ToString(System.Globalization.CultureInfo.InvariantCulture),
+                "stationary_initial_layout_only;stable_qualification_order;unchanged_official_start_ticks;no_paid_wait_or_lateral_teleport"});
+        }
         public ManualRouteActorFrame GetManualWorldActor(int index)
         {
             if(manualWorld==null)throw new InvalidOperationException("No accepted base-route manual world state.");
@@ -337,6 +359,7 @@ namespace Biathlon.Simulation
             PhysicalDirectedPassageDefinition directedPassages = null,
             PhysicalSharedApronDefinition sharedApron = null, TrackVisualDefinition sharedApronVisual = null, VenueRangeLayout sharedApronRange = null)
         {
+            this.junctionDefinition=junctionDefinition;
             if (rangeLayout != null && (rangeLanes != null || !rangeLayout.IsBoundTo(track, route)))
                 throw new ArgumentException("One exact authored range layout is required.", nameof(rangeLayout));
             if(routeBoundJunctions&&rangeLayout==null)
@@ -564,7 +587,7 @@ namespace Biathlon.Simulation
                         !FitsApproachExitEnvelope(GetAthlete(i).RemainingStartApproachNanometers,GetAthlete(i).RangePath,lateral[i])))
                         throw new ArgumentException("Grid body does not fit the complete authored start corridor envelope.");
                     var idle=stationary[i];idle.ResetJunctionTouches();idle.Start=idle.End=point;idle.LateralStart=idle.LateralEnd=lateral[i];
-                    for(int j=0;j<i;j++)if(Conflict(idle,i,stationary[j],j))throw new ArgumentException("Grid conflicts with physical corridor/junctions.");
+                    for(int j=0;j<i;j++)if(Conflict(idle,i,stationary[j],j))throw new ArgumentException("Grid conflicts with physical corridor/junctions: "+i+" and "+j+" at "+point.LoopId+"/"+point.LocalNanometers+".");
                 }
             }
             ContextJson = ShootingModelDefinitions.EncodeContext(new[] { "sprint_shared_pack_prefix_v1", field.ContextJson,
@@ -1326,6 +1349,15 @@ namespace Biathlon.Simulation
             for (int j = 0; j < junctionCount; j++) if (Touches(a, j) && Touches(b, j))
             {
                 if(worldContinuation&&j==startContinuation.JunctionIndex)continue;
+                // A newly measured branch guard on the same start corridor
+                // must not reject parallel grid rows. The existing full start
+                // continuation body proof below still decides actual contact.
+                if(worldContinuation&&a.Start.LoopId==b.Start.LoopId&&a.End.LoopId==a.Start.LoopId&&b.End.LoopId==a.Start.LoopId)
+                {
+                    int incidentPorts=0;var region=junctionDefinition.Get(j);
+                    for(int p=0;p<region.PortCount;p++)if(region.GetPort(p).Anchor.LoopId==a.Start.LoopId)incidentPorts++;
+                    if(incidentPorts==1)continue;
+                }
                 // A branch lease must not serialize later-lap traffic on one incident
                 // loop. Admit only the unchanged full world bodies, including wraps
                 // and incoming tails. A same-loop self-crossing has multiple ports

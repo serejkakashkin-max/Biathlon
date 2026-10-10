@@ -68,7 +68,7 @@ namespace Biathlon.Unity.Presentation
             return index;
         }
         public void Initialize(VenueAuthoringPlan plan,
-            string materialResource="Biathlon/Terrain/G2Snow/WinterBlend",string blendResource="Biathlon/terrain_blend_v1",RaceRoute route=null,PhysicalSharedApronDefinition sharedApron=null,ProductionSnowShoulderDefinition snowShoulders=null)
+            string materialResource="Biathlon/Terrain/G2Snow/WinterBlend",string blendResource="Biathlon/terrain_blend_v1",RaceRoute route=null,PhysicalSharedApronDefinition sharedApron=null,ProductionSnowShoulderDefinition snowShoulders=null,ManualFinishRunoutDefinition finishRunout=null)
         {
             if(Initialized||ownedMeshes.Count!=0||material!=null)throw new InvalidOperationException("Initialize the production course once.");
             if(plan==null)throw new ArgumentNullException(nameof(plan));
@@ -100,6 +100,12 @@ namespace Biathlon.Unity.Presentation
                     for(int panel=0;panel<selected.Length;panel++)
                     {
                         bool keep=usage==null;
+                        if(finishRunout!=null&&route!=null)
+                        {
+                            var last=route.GetSection(route.SectionCount-1);
+                            keep|=last.LoopId==id&&distances[panel+1]>last.LoopEnd.Meters&&
+                                distances[panel]<last.LoopEnd.Meters+finishRunout.DistanceMeters;
+                        }
                         if(usage!=null&&usage.TryGetValue(id,out var intervals))foreach(var interval in intervals)
                             if(distances[panel+1]>interval.Item1/1000d&&distances[panel]<interval.Item2/1000d){keep=true;break;}
                         selected[panel]=keep;if(keep)count++;

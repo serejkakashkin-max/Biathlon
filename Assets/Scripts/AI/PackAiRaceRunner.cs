@@ -78,6 +78,7 @@ namespace Biathlon.AI
         public string ContextJson { get; private set; }
         private ManualScopedAiMovement manualCandidate;
         private int manualPlayerSteering;
+        private bool manualPlayerSteeringAssistance;
         public bool UsesManualScopedCandidate=>manualCandidate!=null;
         public void BindManualScopedCandidate(ManualScopedFieldStepper stepper,ManualAiSteeringDefinition aiPolicy,
             ManualSkiSteeringDefinition physicalSteering)
@@ -88,8 +89,8 @@ namespace Biathlon.AI
             // Preserve the existing flat context tokens. Nesting that already
             // large document as an escaped string multiplies its size at every
             // composition layer and can exhaust memory for the actual Mass30.
-            string extra=ManualScopedAiMovement.Encode(new[]{"pack_manual_scoped_ai_candidate_v1",candidate.ContextJson,
-                "signed_steering_stream_required;full_replay_and_lifecycle_qualification_pending;not_production_default"});
+            string extra=ManualScopedAiMovement.Encode(new[]{"pack_manual_scoped_ai_candidate_v2_player_mat_assistance",candidate.ContextJson,
+                "signed_steering_stream_required;explicit_short_player_mat_steering_assistance;record_effective_controls;production_selection_owned_by_host"});
             string context=ContextJson.Substring(0,ContextJson.Length-1)+","+extra.Substring(1);
             manualCandidate=candidate;ContextJson=context;
         }
@@ -226,13 +227,14 @@ namespace Biathlon.AI
             if(manualCandidate!=null)throw new InvalidOperationException("A lateral-v1 player command cannot drive the manual candidate.");
             StepPlayer(index,input,desiredLateralMeters);
         }
-        public void StepWithManualPlayer(int index,SprintAthleteInput input,int signedSteering)
+        public void StepWithManualPlayer(int index,SprintAthleteInput input,int signedSteering,bool finalMatAssistance=false)
         {
             if(manualCandidate==null)throw new InvalidOperationException("Select signed manual movement before using v2 input.");
             if(index<0||index>=Field.Count)throw new ArgumentOutOfRangeException(nameof(index));
             if(signedSteering<-ManualSkiCommand.SteeringUnits||signedSteering>ManualSkiCommand.SteeringUnits)
                 throw new ArgumentOutOfRangeException(nameof(signedSteering));
-            manualPlayerSteering=signedSteering;StepPlayer(index,input,Field.GetLateral(index));
+            manualPlayerSteering=signedSteering;manualPlayerSteeringAssistance=finalMatAssistance;
+            StepPlayer(index,input,Field.GetLateral(index));
         }
         private void StepPlayer(int index,SprintAthleteInput input,double desiredLateralMeters)
         {
@@ -473,7 +475,7 @@ namespace Biathlon.AI
                     tuckRequested:requestTuck,sprintRequested:intents[i].Kind==TacticalIntentKind.FinalSprint),aim,trigger,hold,pressure:racePressures==null?default:racePressures[i]);
             }
             if(manualCandidate==null)Field.Step(inputs,lateral);
-            else manualCandidate.Step(inputs,lateral,playerIndex,manualPlayerSteering);
+            else manualCandidate.Step(inputs,lateral,manualPlayerSteeringAssistance?-1:playerIndex,manualPlayerSteering);
             journal.Flush(events);
             for(int i=0;i<Field.Count;i++)
             {

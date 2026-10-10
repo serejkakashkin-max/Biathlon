@@ -18,7 +18,7 @@ namespace Biathlon.Tests
         [TestCase(-.002d,ManualRouteTubeStatus.UnresolvedStart)]
         public void CapturedMassStartRectangleKeepsItsActualEdgeClearance(double shiftZ,ManualRouteTubeStatus expected)
         {
-            var f=new ManualRacePathCatalogTests.Fixture();
+            var f=new ManualRacePathCatalogTests.Fixture(historicalCommonWidth:true);
             var pose=new ManualSkiHeadingState(146.058043433,-11.144413020+shiftZ,1.437653133);
             int index=f.Catalog.GetBaseFlowSuccessor(f.Catalog.StartApproachIndex);
             Assert.That(f.Catalog.TryProject(pose,index,7558043433L,2,out var at),Is.True);
@@ -34,7 +34,7 @@ namespace Biathlon.Tests
         }
         [Test] public void TightFoldedRibbonCombinesCompleteDiskProofsWithoutAGlobalHull()
         {
-            var f=new ManualRacePathCatalogTests.Fixture(lane:2);
+            var f=new ManualRacePathCatalogTests.Fixture(lane:2,historicalCommonWidth:true);
             var pose=new ManualSkiHeadingState(38.759850762,-1.659021024,1.180710536,-.566373208);
             Assert.That(f.Catalog.TryProject(pose,3,1368532934L,2,out var at),Is.True);
             var sweep=new ManualRouteRibbonSweep(f.Catalog.ProjectionGeometry,f.Venue.Occupancy,ManualScopedFieldStepperTests.Work());
@@ -43,7 +43,7 @@ namespace Biathlon.Tests
         }
         [Test] public void RefinedCellsDoNotShrinkAnOversizedOccupiedBody()
         {
-            var f=new ManualRacePathCatalogTests.Fixture(lane:2);
+            var f=new ManualRacePathCatalogTests.Fixture(lane:2,historicalCommonWidth:true);
             var pose=new ManualSkiHeadingState(38.759850762,-1.659021024,1.180710536,-.566373208);
             Assert.That(f.Catalog.TryProject(pose,3,1368532934L,2,out var at),Is.True);
             var body=OccupancyDefinition.FromJson(PhysiologyContractTests.ReplaceNumber(f.Venue.Occupancy.ToJson(),"body_width_m","4"));
@@ -53,7 +53,7 @@ namespace Biathlon.Tests
         }
         [Test] public void WarmRefinedFoldedCoverRemainsAllocationFreeAndRepeatable()
         {
-            var f=new ManualRacePathCatalogTests.Fixture(lane:2);
+            var f=new ManualRacePathCatalogTests.Fixture(lane:2,historicalCommonWidth:true);
             var pose=new ManualSkiHeadingState(38.759850762,-1.659021024,1.180710536,-.566373208);
             Assert.That(f.Catalog.TryProject(pose,3,1368532934L,2,out var at),Is.True);
             var sweep=new ManualRouteRibbonSweep(f.Catalog.ProjectionGeometry,f.Venue.Occupancy,ManualScopedFieldStepperTests.Work());
@@ -66,7 +66,7 @@ namespace Biathlon.Tests
         }
         [Test] public void AnUpcomingNarrowMatDoesNotShrinkTheAlreadyOwnedWiderAisle()
         {
-            var f=new ManualRacePathCatalogTests.Fixture(lane:2);
+            var f=new ManualRacePathCatalogTests.Fixture(lane:2,historicalCommonWidth:true);
             var pose=new ManualSkiHeadingState(37.466923758,-1.910501257,1.757996194,-.04758153);
             Assert.That(f.Catalog.TryProject(pose,3,0,2,out var at),Is.True);
             var sweep=new ManualRouteRibbonSweep(f.Catalog.ProjectionGeometry,f.Venue.Occupancy,ManualScopedFieldStepperTests.Work());
@@ -76,7 +76,7 @@ namespace Biathlon.Tests
         [TestCase(false)][TestCase(true)]
         public void MatHairpinAdmitsStationaryBodyButRejectsUnbrakedFastArrival(bool moving)
         {
-            var f=new ManualRacePathCatalogTests.Fixture();
+            var f=new ManualRacePathCatalogTests.Fixture(historicalCommonWidth:true);
             var pose=new ManualSkiHeadingState(44.091516134,-.76515254,1.301617099,-.352553986);
             Assert.That(f.Catalog.TryProject(pose,3,2188547085L,2,out var at),Is.True);
             var sweep=new ManualRouteRibbonSweep(f.Catalog.ProjectionGeometry,f.Venue.Occupancy,ManualScopedFieldStepperTests.Work());
@@ -88,7 +88,7 @@ namespace Biathlon.Tests
         [TestCase(0d)][TestCase(-1.6d)]
         public void TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(double side)
         {
-            var f=new ManualRacePathCatalogTests.Fixture();
+            var f=new ManualRacePathCatalogTests.Fixture(historicalCommonWidth:true);
             int index=f.Catalog.GetFiringOccurrence(0);
             f.Catalog.TrySample(index-1,f.Catalog.Get(index-1).LengthNanometers,out var a);
             f.Catalog.TrySample(index,0,out var b);
@@ -111,7 +111,7 @@ namespace Biathlon.Tests
         [Test]
         public void ShortStartSeamWindowIncludesTheWholeDiskCover()
         {
-            var f = new ManualRacePathCatalogTests.Fixture();
+            var f = new ManualRacePathCatalogTests.Fixture(historicalCommonWidth:true);
             // Actual accepted Mass30 pose before tick47. The old local polygon
             // ended at x=138.5: a sampling cap, not the end of skiable snow.
             var pose = new ManualSkiHeadingState(137.405557435, -10.740960171, 1.636739122);
@@ -128,7 +128,7 @@ namespace Biathlon.Tests
         [Test]
         public void ActualLateralDepartureIsStillRejected()
         {
-            var f = new ManualRacePathCatalogTests.Fixture();
+            var f = new ManualRacePathCatalogTests.Fixture(historicalCommonWidth:true);
             int index = f.Catalog.GetBaseFlowSuccessor(f.Catalog.StartApproachIndex);
             var pose = f.At(index, 20 * SkiState.NanometersPerMeter);
             Assert.That(f.Catalog.TryProject(pose, index, 20 * SkiState.NanometersPerMeter, 1, out var observation), Is.True);
@@ -141,7 +141,7 @@ namespace Biathlon.Tests
 
         [Test] public void AuthoredEndpointSurvivesCancellationWhenTheCurveCrossesZeroX()
         {
-            var f=new ManualRacePathCatalogTests.Fixture();
+            var f=new ManualRacePathCatalogTests.Fixture(historicalCommonWidth:true);
             int index=f.Catalog.GetBaseFlowSuccessor(f.Catalog.StartApproachIndex);
             // Actual accepted first-lap witness before tick1778. Rebuilding
             // b.X as a.X+(b.X-a.X) severed an exactly connected visual edge.
@@ -153,7 +153,7 @@ namespace Biathlon.Tests
         }
         [Test] public void ADisconnectedOrDistantPositionCannotUseTheTubeCoverAsABridge()
         {
-            var f=new ManualRacePathCatalogTests.Fixture();int index=f.Catalog.GetFiringOccurrence(0);
+            var f=new ManualRacePathCatalogTests.Fixture(historicalCommonWidth:true);int index=f.Catalog.GetFiringOccurrence(0);
             var centre=f.At(index,0);Assert.That(f.Catalog.TryProject(centre,index,0,0,out var at),Is.True);
             var outside=new ManualSkiHeadingState(centre.X,centre.Z+10,1.34);
             var sweep=new ManualRouteRibbonSweep(f.Catalog.ProjectionGeometry,f.Venue.Occupancy,ManualScopedFieldStepperTests.Work());
@@ -164,7 +164,7 @@ namespace Biathlon.Tests
         [Test]
         public void WarmRepeatedCoverQueriesAreDeterministicAndAllocateNothing()
         {
-            var f = new ManualRacePathCatalogTests.Fixture();
+            var f = new ManualRacePathCatalogTests.Fixture(historicalCommonWidth:true);
             var pose = f.At(f.Catalog.StartApproachIndex, 39 * SkiState.NanometersPerMeter, 2);
             Assert.That(f.Catalog.TryProject(pose, f.Catalog.StartApproachIndex, 39 * SkiState.NanometersPerMeter, 1, out var observation), Is.True);
             var source = f.Catalog.GetGeometryObservation(observation);

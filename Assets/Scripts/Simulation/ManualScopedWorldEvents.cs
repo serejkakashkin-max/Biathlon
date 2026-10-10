@@ -89,7 +89,7 @@ namespace Biathlon.Simulation
                     cursor.ObservedArcNanometers!=row.LengthNanometers||cursor.CreditedArcNanometers!=row.LengthNanometers||
                     velocity.X!=0||velocity.Z!=0||trajectory.PeakYawRate!=0||
                     !trajectory.TryGetConstantPlanarAcceleration(out var acceleration)||acceleration.X!=0||acceleration.Z!=0||
-                    !boundaries[i].IsAtBoundary(trajectory,workingActors[i].Pose,window))
+                    !(boundaries[i].IsAtBoundary(trajectory,workingActors[i].Pose,window)||IsWithinMatPlantArea(catalogs[i],row,workingActors[i].Pose)))
                     return Reject(ManualScopedWorldStatus.ShootingHold,actors[i].Athlete);
                 heldFiringActors[i]=true;
             }

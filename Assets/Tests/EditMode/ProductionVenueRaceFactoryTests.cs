@@ -156,7 +156,7 @@ namespace Biathlon.Tests
                 PhysiologyContractTests.DefinitionJson,new RaceEventLog(),new AiDecisionCounts(),count:1)).Message,Does.Contain("catalog"));
         }
 
-        [TestCase(40,false)] [TestCase(60,true)] public void ProductionFortyAndDetachedHistoricalSixtyUseThirtyReusableMats(int count,bool historical)
+        [TestCase(30,false)] [TestCase(60,true)] public void ProductionThirtyAndDetachedHistoricalSixtyUseThirtyReusableMats(int count,bool historical)
         {
             var venue=ProductionPlan(historical);
             var sprint=venue.Formats.Get(1);var pursuit=venue.Formats.Get(2);
@@ -178,7 +178,7 @@ namespace Biathlon.Tests
             Assert.Throws<ArgumentException>(()=>ProductionVenueRaceFactory.Create(venue,sprint.Profile,sprint.Route,conditions,
                 PhysiologyContractTests.DefinitionJson,new RaceEventLog(),new AiDecisionCounts(),count:count+1));
         }
-        [TestCase("sprint",41)] [TestCase("pursuit",41)] [TestCase("mass_start",31)]
+        [TestCase("sprint",31)] [TestCase("pursuit",31)] [TestCase("mass_start",31)]
         public void OversizedProductionRosterRejectsBeforeAnyCoreReadEventOrTelemetry(string format,int count)
         {
             var venue=ProductionPlan();VenueFormatBinding selected=null;
@@ -187,9 +187,9 @@ namespace Biathlon.Tests
             PursuitQualificationSnapshot qualification=null;
             if(format=="pursuit")
             {
-                var ids=new AthleteId[40];for(int i=0;i<ids.Length;i++)ids[i]=new AthleteId(venue.Manifest.Id+"_athlete_"+i);
+                var ids=new AthleteId[30];for(int i=0;i<ids.Length;i++)ids[i]=new AthleteId(venue.Manifest.Id+"_athlete_"+i);
                 qualification=ContractQualification(venue.Formats.Get(1).Profile,selected.Profile,ids);
-                Assert.That(qualification.Count,Is.EqualTo(40),"A valid40 qualification must reach the capacity guard; missing qualification would be an unrelated rejection.");
+                Assert.That(qualification.Count,Is.EqualTo(30),"A valid30 qualification must reach the capacity guard; missing qualification would be an unrelated rejection.");
             }
             var events=new RaceEventLog();var telemetry=new AiDecisionCounts();int reads=0;
             string ForbiddenRead(string resource){reads++;throw new InvalidOperationException("Oversized roster read core resource: "+resource);}
@@ -197,19 +197,19 @@ namespace Biathlon.Tests
             Assert.That(reads,Is.Zero);Assert.That(events.Count,Is.Zero);Assert.That(telemetry.Tactical,Is.Zero);Assert.That(telemetry.Shooting,Is.Zero);
             for(int i=0;i<8;i++)Assert.That(telemetry.IntentCount(i),Is.Zero);for(int i=0;i<=1000;i++)Assert.That(telemetry.EffortCount(i),Is.Zero);
         }
-        [Test] public void CurrentCatalogAndBothAuthoritativeRecipesBindFortyMaximumWithThirtyMassLanes()
+        [Test] public void CurrentCatalogAndBothAuthoritativeRecipesBindThirtyMaximumWithThirtyMassLanes()
         {
             var venue=ProductionPlan();Assert.That(venue.Formats.Count,Is.EqualTo(3));Assert.That(venue.LaneCount,Is.EqualTo(30));
             for(int i=0;i<venue.Formats.Count;i++)
             {
-                var profile=venue.Formats.Get(i).Profile;Assert.That(profile.FieldCapacity,Is.LessThanOrEqualTo(40));
-                Assert.That(profile.FieldCapacity,Is.EqualTo(profile.Format==CompetitionFormat.MassStart?30:40));
+                var profile=venue.Formats.Get(i).Profile;Assert.That(profile.FieldCapacity,Is.LessThanOrEqualTo(30));
+                Assert.That(profile.FieldCapacity,Is.EqualTo(profile.Format==CompetitionFormat.MassStart?30:30));
             }
             foreach(string recipe in new[]{"woodland_basin","pine_ridge"})
             {
                 var json=PhysiologyContractTests.ProjectFile("scripts/content/m13/recipes/"+recipe+"_formats_recipe_v1.json");
                 var capacities=Regex.Matches(json,"\\\"field_capacity\\\"\\s*:\\s*(\\d+)");Assert.That(capacities.Count,Is.EqualTo(2));
-                foreach(Match value in capacities)Assert.That(value.Groups[1].Value,Is.EqualTo("40"),"Both prepared format recipes must retain the owner limit.");
+                foreach(Match value in capacities)Assert.That(value.Groups[1].Value,Is.EqualTo("30"),"Both prepared format recipes must retain the owner limit.");
             }
         }
     }

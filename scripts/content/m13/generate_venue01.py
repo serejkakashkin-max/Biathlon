@@ -278,7 +278,7 @@ start_arc_x = start_x + RECIPE["start_terminal_straight_m"]
 # The grid approaches from the north of the finish lead rather than sharing an
 # invisible duplicate forty metres of the main loop. Only the final local merge
 # overlaps the westbound finish corridor; that overlap is explicitly guarded.
-start = Polyline("start_approach", (start_arc_x+start_radius, 0, exit_z+start_radius+start_straight), RECIPE["main_width_m"])
+start = Polyline("start_approach", (start_arc_x+start_radius, 0, exit_z+start_radius+start_straight), RECIPE.get("start_width_m",RECIPE["main_width_m"]))
 start.edge((start_arc_x+start_radius, 0, exit_z+start_radius), start_straight, "stadium", draft=True)
 start.arc((start_arc_x, 0, exit_z+start_radius), start_radius, 0, -math.pi/2, start_q, start_chord, "stadium")
 start.knots[-1].update(x=start_arc_x,y=0.,z=exit_z)

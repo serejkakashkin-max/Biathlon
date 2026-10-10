@@ -91,6 +91,14 @@ def build(output):
     run(sys.executable, HERE / "dress_woodland_course.py", "--source-resources", resources,
         "--recipe", dressing_recipe, "--output-root", final)
     copy_validation_dependencies(final / "resources")
+    run(sys.executable, HERE / "separate_woodland_finish.py", "--resource-root", final / "resources",
+        "--report", final / "separate-finish.json")
+    finish_validation, _ = validate(final / "resources", final / "pre-finish-bind-validation.json", (0, 1))
+    if any(issue.get("code") not in allowed for issue in finish_validation.get("issues", [])):
+        raise ValueError("Separate finish diagnostics contain unexpected failures")
+    run(sys.executable, HERE / "refresh_woodland_guards.py", "--resource-root", final / "resources",
+        "--report", final / "pre-finish-bind-validation.json")
+    run(sys.executable, HERE / "refresh_woodland_ground.py", "--resource-root", final / "resources")
     dressed, _ = validate(final / "resources", final / "venue-validation.json", (0,))
     if not dressed.get("static_checks_pass") or dressed.get("issues"):
         raise ValueError("Dressed venue did not pass the strict validator")

@@ -62,19 +62,19 @@ namespace Biathlon.Unity.Presentation
         {
             if(venue==null||target==null)throw new ArgumentNullException();
             var report=JsonUtility.FromJson<SprintRecord>(json);
-            if(report==null||report.schema_version!=1||report.athletes!=40||report.ticks<=0||string.IsNullOrEmpty(report.result_json)||
+            if(report==null||report.schema_version!=1||report.athletes!=30||report.ticks<=0||string.IsNullOrEmpty(report.result_json)||
                 !((report.id=="production_venue_stream_record_report_v1"&&report.status=="RACE_COMPLETE_REPLAY_NOT_YET_PROVED"&&report.stopped_reason=="RACE_COMPLETE")||
                   (report.id=="production_venue_race_probe_v1"&&report.status=="RACE_COMPLETE"&&report.venue==venue.Manifest.Id)))
-                throw new ArgumentException("A completed actual production Sprint40 record is required.");
+                throw new ArgumentException("A completed actual production Sprint30 record is required.");
             var source=SprintResultSnapshot.FromJson(report.result_json);VenueFormatBinding sprint=null;
             for(int i=0;i<venue.Formats.Count;i++)if(venue.Formats.Get(i).Id=="sprint")sprint=venue.Formats.Get(i);
-            if(sprint==null||source.Count!=40||source.TickFrequency!=20||source.CompetitionProfileJson!=sprint.Profile.ToJson()||
-                target.Format!=CompetitionFormat.Pursuit||target.FieldCapacity!=40)
-                throw new ArgumentException("Source Sprint40 profile, exact clock and current target capacity must match.");
+            if(sprint==null||source.Count!=30||source.TickFrequency!=20||source.CompetitionProfileJson!=sprint.Profile.ToJson()||
+                target.Format!=CompetitionFormat.Pursuit||target.FieldCapacity!=30)
+                throw new ArgumentException("Source Sprint30 profile, exact clock and current target capacity must match.");
             for(int i=0;i<source.Count;i++)if(source.Get(i).Status!=RaceResultStatus.Finished)
-                throw new ArgumentException("All 40 actual Sprint entrants must have finished before the Pursuit40 smoke.");
+                throw new ArgumentException("All 30 actual Sprint entrants must have finished before the Pursuit30 smoke.");
             var result=PursuitQualificationSnapshot.Create(venue.Manifest.Id+"_persisted_sprint_qualification_v1",source,target);
-            if(result.Count!=40)throw new ArgumentException("Exact qualified field required.");return result;
+            if(result.Count!=30)throw new ArgumentException("Exact qualified field required.");return result;
         }
         private void Initialize()
         {
@@ -86,8 +86,8 @@ namespace Biathlon.Unity.Presentation
             string sourcePath=Argument("-biathlonSprintRecord");string source=File.ReadAllText(sourcePath);
             qualification=ReadQualification(source,venue,pursuit.Profile);
             using(var sha=System.Security.Cryptography.SHA256.Create())using(var stream=File.OpenRead(sourcePath))sourceHash=BitConverter.ToString(sha.ComputeHash(stream)).Replace("-","").ToLowerInvariant();
-            host.ProfileResource=pursuit.ProfileResource;host.RouteResource=pursuit.RouteResource;host.FieldCount=40;
-            host.Initialize(venue,pursuit.Profile,pursuit.Route,RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource(host.ConditionsResource)),40,0,qualification);
+            host.ProfileResource=pursuit.ProfileResource;host.RouteResource=pursuit.RouteResource;host.FieldCount=30;
+            host.Initialize(venue,pursuit.Profile,pursuit.Route,RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource(host.ConditionsResource)),30,0,qualification);
             host.GetComponent<RenderQualityPresentation>().Apply("high");
             host.InitializeEnvironment(ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource(host.EnvironmentResource)));
             var field=host.Runner.Field;
@@ -103,13 +103,13 @@ namespace Biathlon.Unity.Presentation
         {
             var environment=ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource(host.EnvironmentResource));int trees=0;
             foreach(var group in environment.forest.groups)trees+=group.count;
-            if(host.Runner.Field.Count!=40||host.Runner.Field.Profile.Format!=CompetitionFormat.Pursuit||host.Proxies.Count!=40||
+            if(host.Runner.Field.Count!=30||host.Runner.Field.Profile.Format!=CompetitionFormat.Pursuit||host.Proxies.Count!=30||
                 !host.Course.GroundJoined||host.Course.PresentationRouteSnapshotJson!=host.Runner.Field.Route.PlanSnapshotJson||
                 host.Course.PresentationRequirementsSnapshotJson!=host.Runner.Field.Route.RequirementsSnapshotJson||host.Course.VisibleLoopCount<=0||
                 host.Environment.VenueId!=host.Venue.Manifest.Id||host.Environment.RecipeId!=environment.id||
                 host.Environment.TerrainTileCount!=environment.terrain.tiles.Length||host.Environment.ForestGroupCount!=environment.forest.groups.Length||host.Environment.TreeCount!=trees||
                 host.Mats.Count!=30||host.Environment.BankCount!=30||host.ChaseCamera==null||!host.ChaseCamera.isActiveAndEnabled||host.ChaseCamera.targetTexture!=null)
-                throw new InvalidOperationException("Pursuit40 production environment, route, window camera, mats, targets or roster failed initialization.");
+                throw new InvalidOperationException("Pursuit30 production environment, route, window camera, mats, targets or roster failed initialization.");
             foreach(var collider in host.GetComponentsInChildren<Collider>(true))if(collider.enabled)throw new InvalidOperationException("Presentation introduced an active gameplay collider.");
             if(Resources.Load<Mesh>("Biathlon/Athletes/Meshes/AthleteBodyDistant")==null||Resources.Load<Material>("Biathlon/Terrain/G2Snow/WinterBlend")?.shader?.name!="Biathlon/Snow")
                 throw new InvalidOperationException("Native production athlete or snow asset is missing.");
@@ -117,11 +117,11 @@ namespace Biathlon.Unity.Presentation
         private void Advance()
         {
             var field=host.Runner.Field;long before=field.Tick.Value,distance=field.GetAthlete(0).Motion.DistanceNanometers;var id=field.GetAthlete(0).AthleteId;
-            for(int i=0;i<400;i++){var tick=field.Tick.Next();host.Step(new PlayerCommand(tick,id,800,0),new ShootingDeviceCommand(new WeaponAimCommand(tick,id,0,0),false,false));}
-            if(field.Tick.Value!=before+400||host.Feed.Current.Tick!=field.Tick.Value||host.Feed.Current.Count!=40||field.GetAthlete(0).Motion.DistanceNanometers<=distance)
+            for(int i=0;i<300;i++){var tick=field.Tick.Next();host.Step(new PlayerCommand(tick,id,800,0),new ShootingDeviceCommand(new WeaponAimCommand(tick,id,0,0),false,false));}
+            if(field.Tick.Value!=before+300||host.Feed.Current.Tick!=field.Tick.Value||host.Feed.Current.Count!=30||field.GetAthlete(0).Motion.DistanceNanometers<=distance)
                 throw new InvalidOperationException("Paid normal-player Pursuit prefix failed.");
-            host.Proxies.Render(1);for(int i=0;i<40;i++)host.Proxies.GetRig(field.GetAthlete(i).AthleteId.Value).Validate();
-            Debug.Log("BIATHLON_QUALIFIED_PURSUIT_SMOKE_SCENE "+JsonUtility.ToJson(new Evidence{venue=host.Venue.Manifest.Id,profile=field.Profile.Id,route_id=host.Course.PresentationRouteId,athletes=40,mats=30,banks=30,start_tick=before,tick=field.Tick.Value,source_result_id=qualification.SourceResultId,source_sha256=sourceHash,qualified_count=qualification.Count,terrain_tiles=host.Environment.TerrainTileCount,forest_groups=host.Environment.ForestGroupCount,trees=host.Environment.TreeCount}));
+            host.Proxies.Render(1);for(int i=0;i<30;i++)host.Proxies.GetRig(field.GetAthlete(i).AthleteId.Value).Validate();
+            Debug.Log("BIATHLON_QUALIFIED_PURSUIT_SMOKE_SCENE "+JsonUtility.ToJson(new Evidence{venue=host.Venue.Manifest.Id,profile=field.Profile.Id,route_id=host.Course.PresentationRouteId,athletes=30,mats=30,banks=30,start_tick=before,tick=field.Tick.Value,source_result_id=qualification.SourceResultId,source_sha256=sourceHash,qualified_count=qualification.Count,terrain_tiles=host.Environment.TerrainTileCount,forest_groups=host.Environment.ForestGroupCount,trees=host.Environment.TreeCount}));
         }
         private IEnumerator Start()
         {
@@ -136,7 +136,7 @@ namespace Biathlon.Unity.Presentation
                 if(renderedFrames==before){Debug.Log("BIATHLON_QUALIFIED_PURSUIT_SMOKE_RENDER "+tier+" 0 HIDDEN_WINDOW_SUSPENDED draw_calls="+sample.draw_calls);continue;}
                 if(sample.draw_calls==0){failed=true;Debug.LogError("An available draw counter reported zero for a rendered Pursuit camera.");continue;}
                 Debug.Log("BIATHLON_QUALIFIED_PURSUIT_SMOKE_RENDER "+tier+" "+(renderedFrames-before)+" NORMAL_CAMERA draw_calls="+sample.draw_calls);
-                string output=null;try{output=Argument("-biathlonQualifiedPursuitSmokeOutput");Directory.CreateDirectory(output);ScreenCapture.CaptureScreenshot(Path.Combine(output,"pursuit40-"+tier+".png"));}
+                string output=null;try{output=Argument("-biathlonQualifiedPursuitSmokeOutput");Directory.CreateDirectory(output);ScreenCapture.CaptureScreenshot(Path.Combine(output,"pursuit30-"+tier+".png"));}
                 catch(Exception ex){failed=true;Debug.LogException(ex);}yield return null;
             }
             Debug.Log(failed?"BIATHLON_QUALIFIED_PURSUIT_SMOKE_FAIL":"BIATHLON_QUALIFIED_PURSUIT_SMOKE_PASS");Application.Quit(failed?1:0);
@@ -148,7 +148,7 @@ namespace Biathlon.Unity.Presentation
         }
         [Serializable] private sealed class Evidence
         {
-            public int schema_version=1;public string id="qualified_pursuit40_player_content_smoke_v1",venue,profile,route_id,source_result_id,source_sha256;
+            public int schema_version=1;public string id="qualified_pursuit30_player_content_smoke_v1",venue,profile,route_id,source_result_id,source_sha256;
             public int athletes,mats,banks,qualified_count,terrain_tiles,forest_groups,trees;public long start_tick,tick;
         }
     }

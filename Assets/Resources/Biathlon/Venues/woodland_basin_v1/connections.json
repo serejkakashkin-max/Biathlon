@@ -485,6 +485,13 @@
       "from_port_id": "sprint_return_branch",
       "to_port_id": "sprint_return_main",
       "kind": "coincident_seam"
+    },
+    {
+      "id": "finish_spur_connection",
+      "junction_id": "finish_fork",
+      "from_port_id": "finish_main",
+      "to_port_id": "finish_spur",
+      "kind": "coincident_seam"
     }
   ]
 }

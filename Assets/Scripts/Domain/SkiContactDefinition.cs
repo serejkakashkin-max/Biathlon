@@ -19,7 +19,7 @@ namespace Biathlon.Domain
             TrackValidation.Id(d.Id);
             TrackValidation.Finite(d.Restitution,0,1,nameof(Restitution));
             TrackValidation.Finite(d.SlidingFriction,0,1,nameof(SlidingFriction));
-            TrackValidation.Finite(d.ContactTolerance,PhysiologyNumbers.MinimumPositive,.001,nameof(ContactTolerance));
+            TrackValidation.Finite(d.ContactTolerance,PhysiologyNumbers.MinimumPositive,.05,nameof(ContactTolerance));
             return d;
         }
         public string ToJson()=>RouteJson.Write(this);

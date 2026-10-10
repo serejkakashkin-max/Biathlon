@@ -45,7 +45,9 @@ namespace Biathlon.Domain
         MassStartRangeLaneAssigned = 41,
         PhysicalRangePathAssigned = 42,
         PhysicalRangeReservationAcquired = 43,
-        PhysicalRangeReservationReleased = 44
+        PhysicalRangeReservationReleased = 44,
+        CourseBoundaryContact = 45,
+        ShootingMatCaptured = 46
     }
     public readonly struct RaceEvent
     {

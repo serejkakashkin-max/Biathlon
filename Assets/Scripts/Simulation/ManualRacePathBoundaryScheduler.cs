@@ -20,7 +20,7 @@ namespace Biathlon.Simulation
     {
         private readonly ManualRacePathCatalog catalog;
         private readonly ManualRacePathGateSweep gates;
-        public const string Policy="scoped_boundary_original_force_piece_roots_v3;actual_centre_plane;shared_ordinary_bisector_chart;race_phase_gate_planes_unchanged;exact_frozen_prefix;original_stop_cap_restart_calendar;no_endpoint_chord_fit;whole_prefix_portal_proof;strict_no_touch_clearance_for_event_free_intervals;actual_nanorounded_station;stationary_firing_whole_paid_stop_v1_with_continuous_gate_proof;no_clock_roundup";
+        public const string Policy="scoped_boundary_original_force_piece_roots_v4;actual_centre_plane;shared_ordinary_bisector_chart;selected_reached_ordinary_band_no_early_credit;start_and_race_phase_gate_planes_unchanged;exact_frozen_prefix;original_stop_cap_restart_calendar;no_endpoint_chord_fit;whole_prefix_portal_proof;strict_no_touch_clearance_for_event_free_intervals;actual_nanorounded_station;stationary_firing_whole_paid_stop_v1_with_continuous_gate_proof;no_clock_roundup";
         public ManualRacePathBoundaryScheduler(ManualRacePathCatalog catalog,SkiContactSweepDefinition work)
         {this.catalog=catalog??throw new ArgumentNullException(nameof(catalog));gates=new ManualRacePathGateSweep(catalog,work);}
         public ManualRacePathBoundaryPreview Preview(ManualSkiWorldTrajectory trajectory,ManualScopedWorldWindow window)
@@ -29,14 +29,15 @@ namespace Biathlon.Simulation
             var row=catalog.Get(window.OccurrenceIndex);long arc=window.MaximumAdmittedArcNanometers;
             if(window.PreviousArcNanometers>arc||arc>row.LengthNanometers)throw new ArgumentException("Admitted local station required.");
             double seconds=trajectory.DurationSeconds;
-            if(!catalog.WindowTouchesPortalEdge(row.Index,window.PreviousArcNanometers,window.MaximumArcDisplacementMeters,arc))
+            if(!catalog.WindowTouchesPortalEdge(row.Index,window.PreviousArcNanometers,catalog.PortalSearchSpan(trajectory,window.MaximumArcDisplacementMeters),arc))
                 return Whole(trajectory,window);
             if(!catalog.TrySamplePortal(row.Index,arc,out var boundary))throw new InvalidOperationException("Exact scoped boundary required.");
             var pose=trajectory.Sample(0);double offset=Extension(pose,boundary);
             double reserve=Reserve(trajectory,pose,boundary);
             // This is an already owned endpoint event, not a fabricated zero
             // duration movement. The lifecycle owner must consume or block it.
-            if(window.PreviousArcNanometers==arc&&Math.Abs(offset)<=reserve&&AtStation(pose,window,arc))
+            if(window.PreviousArcNanometers==arc&&
+                (Math.Abs(offset)<=reserve||catalog.ProjectionGeometry.IsOrdinaryEnd(row.Index)&&offset>=-reserve)&&AtStation(pose,window,arc))
                 return new ManualRacePathBoundaryPreview(ManualRacePathBoundaryStatus.Boundary,0,arc);
             if(offset>reserve)return new ManualRacePathBoundaryPreview(ManualRacePathBoundaryStatus.Blocked,0,arc);
             var stoppedEnd=trajectory.Sample(1);var stoppedVelocity=trajectory.VelocityAt(1);
@@ -108,14 +109,17 @@ namespace Biathlon.Simulation
         internal bool IsAtBoundary(ManualSkiWorldTrajectory source,ManualSkiHeadingState pose,ManualScopedWorldWindow window)
         {
             if(!catalog.TrySamplePortal(window.OccurrenceIndex,window.MaximumAdmittedArcNanometers,out var boundary))return false;
-            return Math.Abs(Extension(pose,boundary))<=Reserve(source,pose,boundary)&&AtStation(pose,window,window.MaximumAdmittedArcNanometers);
+            double offset=Extension(pose,boundary),reserve=Reserve(source,pose,boundary);
+            return (Math.Abs(offset)<=reserve||catalog.ProjectionGeometry.IsOrdinaryEnd(window.OccurrenceIndex)&&offset>=-reserve)&&
+                AtStation(pose,window,window.MaximumAdmittedArcNanometers);
         }
         private bool AtStation(ManualSkiHeadingState pose,ManualScopedWorldWindow window,long arc)
             =>catalog.TryProject(pose,window.OccurrenceIndex,window.PreviousArcNanometers,window.MaximumArcDisplacementMeters,out var at)&&at.PhysicalArcNanometers==arc;
         private static double Extension(ManualSkiHeadingState pose,ManualRacePathTarget boundary)
             =>(pose.X-boundary.X)*boundary.ForwardX+(pose.Z-boundary.Z)*boundary.ForwardZ;
-        private static double Reserve(ManualSkiWorldTrajectory trajectory,ManualSkiHeadingState pose,ManualRacePathTarget boundary)
-            =>2*trajectory.PositionErrorBoundMeters+64*2.2204460492503131e-16*(Math.Abs(pose.X)+Math.Abs(pose.Z)+Math.Abs(boundary.X)+Math.Abs(boundary.Z)+1);
+        private double Reserve(ManualSkiWorldTrajectory trajectory,ManualSkiHeadingState pose,ManualRacePathTarget boundary)
+            =>2*trajectory.PositionErrorBoundMeters+64*2.2204460492503131e-16*(Math.Abs(pose.X)+Math.Abs(pose.Z)+Math.Abs(boundary.X)+Math.Abs(boundary.Z)+1)+
+                (catalog.ProjectionGeometry.IsOrdinaryEnd(boundary.OccurrenceIndex)?catalog.ProjectionGeometry.OrdinaryPortalBand:catalog.ProjectionGeometry.PortalPositionTolerance);
         private static bool TryRoot(double a,double b,double c,double duration,out double root)
         {
             double result=double.PositiveInfinity;

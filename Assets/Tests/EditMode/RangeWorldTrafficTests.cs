@@ -125,19 +125,19 @@ namespace Biathlon.Tests
             Place(0,"main",170,0);Place(1,"sprint_extension",20,0);
             Assert.That(Blocked(),Is.True,"Policy-absent legacy admission remains conservative.");
         }
-        [Test,Timeout(600000)] public void ActualSprintFortyPrefixDoesNotTrapTheFieldBeforeItsBranchSeam()
+        [Test,Timeout(600000)] public void ActualSprintThirtyPrefixDoesNotTrapTheFieldBeforeItsBranchSeam()
         {
             const string root="Biathlon/Venues/woodland_basin_v1/";
             var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(root+"manifest")),Read);
             var runner=ProductionVenueRaceFactory.Create(venue,CompetitionProfile.FromJson(Read(root+"sprint_profile")),
                 RaceRoutePlan.FromJson(Read(root+"sprint_route")),RaceSnowConditions.FromJson(Read("Biathlon/race_snow_neutral_v1")),
-                PhysiologyContractTests.DefinitionJson,new RaceEventLog(200000),new AiDecisionCounts(),count:40);
-            var field=runner.Field;var previous=new long[40];var stopped=new int[40];int longest=0,branchFrames=0;
+                PhysiologyContractTests.DefinitionJson,new RaceEventLog(200000),new AiDecisionCounts(),count:30);
+            var field=runner.Field;var previous=new long[30];var stopped=new int[30];int longest=0,branchFrames=0;
             for(int t=0;t<12000;t++)
             {
-                for(int i=0;i<40;i++)previous[i]=field.GetAthlete(i).Motion.DistanceNanometers;
+                for(int i=0;i<30;i++)previous[i]=field.GetAthlete(i).Motion.DistanceNanometers;
                 runner.Step();if(t%25==0)MassStartFieldTests.AssertClear(field);
-                for(int i=0;i<40;i++)
+                for(int i=0;i<30;i++)
                 {
                     var actor=field.GetAthlete(i);
                     stopped[i]=field.IsOnCourse(i)&&!actor.HasFinished&&actor.ActiveShooting==null&&actor.Motion.DistanceNanometers==previous[i]?stopped[i]+1:0;
@@ -145,7 +145,7 @@ namespace Biathlon.Tests
                     if(field.IsOnCourse(i)&&field.GetPhysicalPoint(i).LoopId=="sprint_extension")branchFrames++;
                 }
             }
-            TestContext.Out.WriteLine("sprint40_branch_frames="+branchFrames+" maximum_stationary_ticks="+longest);
+            TestContext.Out.WriteLine("sprint30_branch_frames="+branchFrames+" maximum_stationary_ticks="+longest);
             Assert.That(branchFrames,Is.GreaterThan(0));
             Assert.That(longest,Is.LessThan(1000),"The observed 5795-tick branch trap must not recur. This prefix does not establish full-race completion.");
         }
@@ -376,25 +376,25 @@ namespace Biathlon.Tests
             }
             Assert.That(witnessed,Is.True,"Exercise the real paid approach to a penalty caused by an actual AI miss.");
         }
-        [Test,Timeout(600000)] public void ActualQualifiedPursuitFortyClearsTheMainAndPenaltyReturnWithoutCircularWait()
+        [Test,Timeout(600000)] public void ActualQualifiedPursuitThirtyClearsTheMainAndPenaltyReturnWithoutCircularWait()
         {
             const string root="Biathlon/Venues/woodland_basin_v1/";
             var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(root+"manifest")),Read);
             var profile=CompetitionProfile.FromJson(Read(root+"pursuit_profile"));
-            // Actual completed Sprint40 source retained to reproduce the observed traffic
+            // Actual completed Sprint30 source retained to reproduce the observed traffic
             // schedule. This is an input witness, not a current Sprint acceptance claim.
-            var source=SprintResultSnapshot.FromJson(PhysiologyContractTests.ProjectFile("tests/fixtures/races/woodland_sprint40_traffic_source_v1.json"));
+            var source=SprintResultSnapshot.FromJson(PhysiologyContractTests.ProjectFile("tests/fixtures/races/woodland_sprint30_traffic_source_v1.json"));
             var qualification=PursuitQualificationSnapshot.Create("traffic_pursuit_actual_sprint",source,profile);
             var runner=ProductionVenueRaceFactory.Create(venue,profile,RaceRoutePlan.FromJson(Read(root+"pursuit_route")),
                 RaceSnowConditions.FromJson(Read("Biathlon/race_snow_neutral_v1")),PhysiologyContractTests.DefinitionJson,
-                new RaceEventLog(500000),new AiDecisionCounts(),qualification,count:40);
+                new RaceEventLog(500000),new AiDecisionCounts(),qualification,count:30);
             double frontageMinimum=AiRangeTrafficPolicyDefinition.FromJson(Read(root+"ai_range_traffic")).EntryLateralMeters.Value;
-            var field=runner.Field;var previous=new long[40];var stopped=new int[40];int longest=0,frontageSamples=0;bool mainEscape=false;
+            var field=runner.Field;var previous=new long[30];var stopped=new int[30];int longest=0,frontageSamples=0;bool mainEscape=false;
             for(int t=0;t<40000&&!field.IsComplete;t++)
             {
-                for(int i=0;i<40;i++)previous[i]=field.GetAthlete(i).Motion.DistanceNanometers;
+                for(int i=0;i<30;i++)previous[i]=field.GetAthlete(i).Motion.DistanceNanometers;
                 runner.Step();if(t%25==0)MassStartFieldTests.AssertClear(field);
-                for(int i=0;i<40;i++)
+                for(int i=0;i<30;i++)
                 {
                     var actor=field.GetAthlete(i);
                     var location=field.GetPhysicalPoint(i);
@@ -425,7 +425,7 @@ namespace Biathlon.Tests
                             " blocker="+field.GetInitialMovementBlock(i).Blocker.Value+
                             " precision_fallback="+field.PrecisionFallbackTicks+
                             " junction_wait_since="+field.GetJunctionWaitSince(i));
-                        for(int j=0;j<40;j++)if(j!=i)
+                        for(int j=0;j<30;j++)if(j!=i)
                         {
                             var other=field.GetPhysicalPoint(j);
                             bool conflictNow=(bool)conflict.Invoke(field,new object[]{traces.GetValue(i),i,traces.GetValue(j),j});

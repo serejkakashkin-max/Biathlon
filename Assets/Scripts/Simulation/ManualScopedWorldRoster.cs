@@ -94,6 +94,11 @@ namespace Biathlon.Simulation
         private readonly ManualSkiEdgeSweep courseCells;
         private readonly OccupancyDefinition occupiedBody;
         private readonly ManualNumericalToleranceDefinition numericalTolerance;
+        private readonly ManualMatCaptureDefinition matCapture;
+        public int MatCaptures {get;private set;}
+        private readonly int[] matCaptureCounts;
+        public int GetMatCaptures(int actor)=>matCaptureCounts[actor];
+        public double MatCaptureDissipatedJoules {get;private set;}
         private readonly ManualSkiContactScheduler scheduler;
         private readonly SkiWorldMotionCandidate[] scheduledPrefix;
         private readonly SkiReachedContactPair[] scheduledArrivals;
@@ -196,13 +201,15 @@ namespace Biathlon.Simulation
             SkiContactDefinition contact,SkiContactSweepDefinition work,ManualRacePathCursor[] initialCursors,
             ManualSkiHeadingState[] poses,SkiPlanarVelocity[] velocities,SkiState[] initialMotion,
             int tickFrequency,SimulationTick initialTick=default,SkiContactGroupDefinition responseDefinition=null,double[] actorMasses=null,
-            ManualNumericalToleranceDefinition numericalTolerance=null)
+            ManualNumericalToleranceDefinition numericalTolerance=null,ManualMatCaptureDefinition matCapture=null,ManualCourseContactDefinition courseContact=null)
         {
             if(catalogs==null||body==null||contact==null||work==null||initialCursors==null||poses==null||
                 velocities==null||initialMotion==null)throw new ArgumentNullException();
             int count=catalogs.Length;
             numericalTolerance?.Validate(body);
-            this.numericalTolerance=numericalTolerance;
+            this.numericalTolerance=numericalTolerance;this.matCapture=matCapture;
+            this.courseContact=courseContact;courseNormalsX=new double[count];courseNormalsZ=new double[count];courseLevers=new double[count];
+            courseSupports=new bool[count];courseImpactCounts=new int[count];matCaptureCounts=new int[count];
             if(count==0||initialCursors.Length!=count||poses.Length!=count||velocities.Length!=count||
                 initialMotion.Length!=count||tickFrequency<=0)throw new ArgumentException("Complete scoped roster and fixed clock required.");
             if((responseDefinition==null)!=(actorMasses==null)||actorMasses!=null&&actorMasses.Length!=count)
@@ -245,13 +252,13 @@ namespace Biathlon.Simulation
             ownedContacts=new SkiReachedContactPair[scheduledArrivals.Length];ownedContactOrder=new int[count];
             maximumPieces=work.MaximumIntervalChecks;WorkContextJson=work.ToJson();pieces=new ManualScopedWorldMotionPiece[checked(count*maximumPieces)];
             var context=new string[count+7];var initial=new string[count+4];
-            BodyContextJson=body.ToJson();context[0]="manual_scoped_full_clear_world_roster_v20_explicit_numerical_tolerance";context[1]=BodyContextJson;
+            BodyContextJson=body.ToJson();context[0]="manual_scoped_full_clear_world_roster_v24_inward_snow_edge_rotation";context[1]=BodyContextJson;
             context[2]=contact.ToJson();context[3]=work.ToJson();
             context[4]="force_exact_distance;contact_velocity_norm_simpson64;grade_frozen_per_interval;full_duration_tolerance_1e-12;no_implicit_scope_crossing;local_terminal_centre_portals_v1;whole_tube_edge_activation;continuous_acceleration_bound;existing_trajectory_encoding_reserve;staged_full_clock_intervals;exact_remaining_time;round_tick_travel_once;owned_motion_pieces;interval_limit_from_sweep_maximum_checks;accepted_phase_endpoints_authorized_by_session_batch;future_penalty_phases_from_paid_interval_high_water;no_handoff_before_pending_contact_response;"+ManualSkiWorldTrajectory.SlicePolicy;
             context[5]=ShootingModelDefinitions.EncodeContext(new[]{responseContext,scheduler.ContextJson,courseCells.ContextJson,ownedContactGeometry.ContextJson,
                 "course_tube_or_exact_collinear_cell_or_local_cover_v3;all_four_oriented_body_planes_or_continuous_rectangle_disk_cover;simple_ribbon_or_existing_conservative_tube_union;bounded_cell_refinement_without_body_shrink;exact_authored_endpoint_connectivity;shared_ordinary_bisector_station_portals;no_phase_handoff_from_course_proof;owned_current_pose_proximity_pairs;stable_identity_order;no_penetration_admission;initial_response_without_clock_or_position;separated_breakpoint_or_certified_terminal_stop_field_keeps_immutable_full_free_drives_until_actual_event;ordinary_constant_force_representation_retained;reached_contact_external_drive_calendar_frozen_per_tick_until_occurrence_hold_expiry_or_separation;actual_current_raw_motion_for_reactions;half_interval_force_work_refinement_bounded_by_existing_sweep_depth;no_residual_relaxation;disconnected_certified_neutral_stop_keeps_complete_free_snow_ramp_and_endpoint_without_clipping_foreign_contact_calendar;actual_contact_participants_never_receive_free_override",
                 contactForces==null?"contact_forces_unconfigured":contactForces.ContextJson,ManualRacePathBoundaryScheduler.Policy,
-                numericalTolerance?.ToJson()??"numerical_tolerance_not_selected",
+                numericalTolerance?.ToJson()??"numerical_tolerance_not_selected",matCapture?.ToJson()??"mat_capture_not_selected",courseContact?.ToJson()??"course_contact_not_selected",
                 "terminal_rest_canonicalization_only_after_complete_body_course_gate_proof_and_actual_owned_firing_plane;unchanged_pose_heading_paid_time_and_travel;no_general_velocity_or_contact_relaxation",
                 "owned_common_contact_and_boundary_prefix;all_roster_sources_before_event_search;stable_boundary_identity_order;zero_clock_owned_endpoint_notification;no_implicit_lifecycle_handoff;"+
                 "explicit_stationary_owned_firing_hold_v1;exact_zero_velocity_acceleration_and_peak_yaw;actual_endpoint_only;whole_contact_course_gate_proof_still_required"});
@@ -260,6 +267,7 @@ namespace Biathlon.Simulation
             for(int i=0;i<count;i++)
             {
                 var catalog=this.catalogs[i];var cursor=initialCursors[i];var pose=poses[i];var velocity=velocities[i];
+                if(catalog!=null&&matCapture!=null)catalog.ProjectionGeometry.MatPositionTolerance=matCapture.PositionTolerance;
                 if(catalog==null||!catalog.IsSameRace(this.catalogs[0])||!cursor.IsValid||
                     !ReferenceEquals(cursor.Owner,catalog)||!pose.IsValid||
                     !catalog.TryProject(pose,cursor.OccurrenceIndex,cursor.ObservedArcNanometers,0,out var observation)||
@@ -295,6 +303,10 @@ namespace Biathlon.Simulation
         public bool IsPhysicalParticipant(int index,SimulationTick tick)
         {
             if(index<0||index>=Count)throw new ArgumentOutOfRangeException(nameof(index));
+            var cursor=cursors[index];var catalog=catalogs[index];var finish=catalog.FinishRunoutDefinition;
+            if(finish!=null&&finish.ClearAfterRest&&catalog.Get(cursor.OccurrenceIndex).Kind==ManualRacePathKind.FinishRunout&&
+                cursor.ObservedArcNanometers>=finish.MinimumClearanceDistance*SkiState.NanometersPerMeter&&
+                accepted[index].Velocity.X==0&&accepted[index].Velocity.Z==0&&accepted[index].Pose.YawRateRadiansPerSecond==0)return false;
             // The session publishes its start event at ScheduledStart and
             // first pays movement at the following tick. A held scheduled
             // body cannot receive live traffic impulses during that event.
@@ -382,11 +394,19 @@ namespace Biathlon.Simulation
                 var actor=actors[i];var window=windows[i];var catalog=catalogs[i];var row=catalog.Get(sourceCursors[i].OccurrenceIndex);
                 if(window.MaximumAdmittedArcNanometers<sourceCursors[i].CreditedArcNanometers||window.MaximumAdmittedArcNanometers>row.LengthNanometers)
                     return Reject(ManualScopedWorldStatus.PhaseLimit,actor.Athlete);
-                var gate=gates[i].Preview(actor.Trajectory,row.Index,window.PreviousArcNanometers,
-                    window.MaximumArcDisplacementMeters,window.MaximumAdmittedArcNanometers);
+                // An admitted, planted mat body has already paid its complete
+                // approach proof. Rebuilding a shorter local ribbon window at
+                // rest must not invent a new wall under that unchanged body.
+                // Pair contacts and the exact phase plane are still checked.
+                bool planted=matCapture!=null&&row.End==ManualRacePathEnd.FiringLine&&sourceCursors[i].ObservedArcNanometers==row.LengthNanometers&&
+                    sources[i].Velocity.X==0&&sources[i].Velocity.Z==0&&actor.Trajectory.PeakYawRate==0&&
+                    SamePose(actor.Trajectory.Sample(1),sources[i].Pose)&&
+                    actor.Trajectory.TryGetConstantPlanarAcceleration(out var plantedAcceleration)&&plantedAcceleration.X==0&&plantedAcceleration.Z==0;
+                var gate=planted?new ManualRacePathGatePreview(ManualRacePathGateStatus.Clear,row.LengthNanometers,seconds,seconds,0):
+                    gates[i].Preview(actor.Trajectory,row.Index,window.PreviousArcNanometers,window.MaximumArcDisplacementMeters,window.MaximumAdmittedArcNanometers);
                 if(gate.Status!=ManualRacePathGateStatus.Clear)
                     return Reject(ManualScopedWorldStatus.PhaseLimit,actor.Athlete,gate:gate);
-                var course=courses[i].Preview(actor.Trajectory,row.Index,checked(row.GeometryStartNanometers+window.PreviousArcNanometers),
+                var course=planted?new ManualRouteTubePreview(ManualRouteTubeStatus.Clear,seconds,seconds,0,null):courses[i].Preview(actor.Trajectory,row.Index,checked(row.GeometryStartNanometers+window.PreviousArcNanometers),
                     window.MaximumArcDisplacementMeters,false);
                 if(course.Status!=ManualRouteTubeStatus.Clear||Math.Abs(course.ClearUntilSeconds-seconds)>seconds*1e-12)
                 {
@@ -412,8 +432,14 @@ namespace Biathlon.Simulation
                 if(!catalog.TryProject(pose,row.Index,window.PreviousArcNanometers,window.MaximumArcDisplacementMeters,out var observation))
                     return Reject(ManualScopedWorldStatus.Projection,actor.Athlete);
                 var velocity=actor.Trajectory.VelocityAt(1);
-                bool numericalRest=row.End==ManualRacePathEnd.FiringLine&&observation.PhysicalArcNanometers==row.LengthNanometers&&
-                    boundaries[i].IsAtBoundary(actor.Trajectory,pose,window)&&TryCanonicalizeRest(ref pose,ref velocity);
+                bool numericalRest=planted||row.End==ManualRacePathEnd.FiringLine&&observation.PhysicalArcNanometers==row.LengthNanometers&&
+                    (boundaries[i].IsAtBoundary(actor.Trajectory,pose,window)&&(TryCaptureMat(i,catalog,row,ref pose,ref velocity)||TryCanonicalizeRest(ref pose,ref velocity))||
+                     IsWithinMatPlantArea(catalog,row,pose)&&TryCaptureMat(i,catalog,row,ref pose,ref velocity));
+                var runout=catalog.FinishRunoutDefinition;
+                if(row.Kind==ManualRacePathKind.FinishRunout&&runout!=null&&runout.ClearAfterRest&&
+                    observation.PhysicalArcNanometers>=runout.MinimumClearanceDistance*SkiState.NanometersPerMeter&&
+                    velocity.X*velocity.X+velocity.Z*velocity.Z<=runout.RestSpeed*runout.RestSpeed)
+                {pose=new ManualSkiHeadingState(pose.X,pose.Z,pose.HeadingRadians,0);velocity=default;numericalRest=true;}
                 staged[i]=new ManualRacePathActorFrame(actor.Athlete,pose,velocity,observation);
                 if(!progress[i].TryPreview(staged[i],sourceCursors[i],window.MaximumAdmittedArcNanometers,out stagedProgress[i]))
                     return Reject(ManualScopedWorldStatus.PhaseLimit,actor.Athlete);
@@ -430,7 +456,32 @@ namespace Biathlon.Simulation
             return new ManualScopedWorldPreview(this,revision,Tick.Next());
         }
         private void ResetNumericalDiagnostics()
-        {NumericalRestCanonicalizations=0;MaximumCanonicalizedRestSpeed=MaximumCanonicalizedRestYaw=0;}
+        {NumericalRestCanonicalizations=MatCaptures=CourseEdgeResponses=0;MaximumCanonicalizedRestSpeed=MaximumCanonicalizedRestYaw=MatCaptureDissipatedJoules=0;
+            Array.Clear(courseSupports,0,Count);Array.Clear(courseImpactCounts,0,Count);Array.Clear(matCaptureCounts,0,Count);}
+        private bool TryCaptureMat(int actor,ManualRacePathCatalog catalog,ManualRacePathOccurrence row,
+            ref ManualSkiHeadingState pose,ref SkiPlanarVelocity velocity)
+        {
+            if(matCapture==null)return false;
+            double speed=Math.Sqrt(velocity.X*velocity.X+velocity.Z*velocity.Z);
+            if(speed>matCapture.MaximumSpeed||Math.Abs(pose.YawRateRadiansPerSecond)>matCapture.MaximumYaw)return false;
+            // Planting dissipates motion against the snow. Keep the reached
+            // world position, heading, paid time and physical odometer.
+            MatCaptures++;matCaptureCounts[actor]++;
+            double inertia=masses[actor]*(occupiedBody.LongitudinalSeparation*occupiedBody.LongitudinalSeparation+
+                occupiedBody.LateralSeparation*occupiedBody.LateralSeparation)/12;
+            MatCaptureDissipatedJoules+=.5*masses[actor]*speed*speed+.5*inertia*pose.YawRateRadiansPerSecond*pose.YawRateRadiansPerSecond;
+            pose=new ManualSkiHeadingState(pose.X,pose.Z,pose.HeadingRadians,0);
+            velocity=default;return true;
+        }
+        private bool IsWithinMatPlantArea(ManualRacePathCatalog catalog,ManualRacePathOccurrence row,ManualSkiHeadingState pose)
+        {
+            if(matCapture==null||matCapture.PositionTolerance==0||!catalog.TrySamplePortal(row.Index,row.LengthNanometers,out var target))return false;
+            double dx=pose.X-target.X,dz=pose.Z-target.Z;
+            // The firing line spans the admitted mat corridor. A side approach
+            // need not arrive at its centre point. The whole occupied body has
+            // already passed the snow proof; this band only plants its feet.
+            return Math.Abs(dx*target.ForwardX+dz*target.ForwardZ)<=matCapture.PositionTolerance;
+        }
         private bool TryCanonicalizeRest(ref ManualSkiHeadingState pose,ref SkiPlanarVelocity velocity)
         {
             if(numericalTolerance==null)return false;
@@ -546,7 +597,7 @@ namespace Biathlon.Simulation
             ValidateTick(tick);ready=false;
             if(!pendingContact)throw new InvalidOperationException("No reached terminal contact awaits response.");
             for(int i=0;i<Count;i++)
-            {var actor=workingActors[i];responseBodies[i]=new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,masses[i]);}
+            {var actor=workingActors[i];responseBodies[i]=new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,masses[i],IsGroundedMat(i));}
             var result=response.Preview(responseBodies,Count,responseMotions,responseOrder,physicalParticipants);
             if(result.Status!=SkiContactGroupStatus.Resolved)return Reject(ManualScopedWorldStatus.ContactResponse,response:result);
             for(int i=0;i<Count;i++)

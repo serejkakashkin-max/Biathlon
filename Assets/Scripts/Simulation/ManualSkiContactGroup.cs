@@ -34,7 +34,7 @@ namespace Biathlon.Simulation
         {
             if(definition==null)throw new ArgumentNullException(nameof(definition));
             pair=new ManualSkiContactSystem(body,contact);this.definition=definition;
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_contact_group_v3_support_endpoints_ulp_convergence",pair.AngularContextJson,definition.ToJson()});
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_contact_group_v4_explicit_convergence_grounded_mat",pair.AngularContextJson,definition.ToJson()});
         }
         public SkiContactGroupPreview Preview(ManualSkiContactBody[] bodies,int count,SkiContactMotion[] output,int[] order)
             =>Preview(bodies,count,output,order,null);
@@ -59,7 +59,7 @@ namespace Biathlon.Simulation
             }
             double speedScale=1;
             for(int i=0;i<count;i++)speedScale=Math.Max(speedScale,Math.Abs(output[i].Velocity.X)+Math.Abs(output[i].Velocity.Z)+Math.Abs(output[i].YawRate));
-            convergence=Math.Min(definition.ClosingSpeedTolerance,64*2.2204460492503131e-16*speedScale);
+            convergence=definition.ImpactClosingSpeedTolerance;
             for(int i=0;i<count;i++)for(int j=i+1;j<count;j++)
                 if((participants==null||participants[order[i]]&&participants[order[j]])&&
                     pair.Preview(bodies[order[i]],bodies[order[j]]).Status==SkiContactPreviewStatus.Penetrating)
@@ -118,7 +118,7 @@ namespace Biathlon.Simulation
             }
         }
         private static ManualSkiContactBody WithVelocity(ManualSkiContactBody body,SkiContactMotion motion)
-            =>new ManualSkiContactBody(body.Athlete,body.Pose,motion.Velocity,body.MassKilograms);
+            =>new ManualSkiContactBody(body.Athlete,body.Pose,motion.Velocity,body.MassKilograms,body.Grounded);
         private static double Closing(ManualSkiContactBody a,SkiContactMotion am,ManualSkiContactBody b,SkiContactMotion bm,SkiAngularContactPreview hit)
         {
             double x=am.Velocity.X+am.YawRate*(hit.ContactZ-a.Pose.Z)-bm.Velocity.X-bm.YawRate*(hit.ContactZ-b.Pose.Z);

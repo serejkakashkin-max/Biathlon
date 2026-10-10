@@ -21,12 +21,14 @@ namespace Biathlon.Simulation
         public ManualSkiHeadingState Pose {get;}
         public SkiPlanarVelocity Velocity {get;}
         public double MassKilograms {get;}
+        public bool Grounded {get;}
+        internal double InverseMass=>Grounded?0:1/MassKilograms;
         public bool IsValid=>Athlete.IsValid&&Pose.IsValid&&MassKilograms>0;
-        public ManualSkiContactBody(AthleteId athlete,ManualSkiHeadingState pose,SkiPlanarVelocity velocity,double massKilograms)
+        public ManualSkiContactBody(AthleteId athlete,ManualSkiHeadingState pose,SkiPlanarVelocity velocity,double massKilograms,bool grounded=false)
         {
             if(!athlete.IsValid||!pose.IsValid)throw new ArgumentException("Initialized contact body required.");
             MassKilograms=PhysiologyNumbers.RequireRange(massKilograms,.001,PhysiologyNumbers.MaximumMagnitude,nameof(massKilograms));
-            Athlete=athlete;Pose=pose;Velocity=velocity;
+            Athlete=athlete;Pose=pose;Velocity=velocity;Grounded=grounded;
         }
     }
     public enum SkiContactPreviewStatus { Separated, SeparatingOrResting, Impulse, Penetrating, RequiresAngularResolution }
@@ -133,7 +135,7 @@ namespace Biathlon.Simulation
             }
             ManualSkiContactBody At(ManualSkiContactBody body,double time)=>new ManualSkiContactBody(body.Athlete,
                 new ManualSkiHeadingState(body.Pose.X+body.Velocity.X*time,body.Pose.Z+body.Velocity.Z*time,body.Pose.HeadingRadians),
-                body.Velocity,body.MassKilograms);
+                body.Velocity,body.MassKilograms,body.Grounded);
         }
         /// <summary>One contact-point impulse including angular velocity and rectangular
         /// planar inertia. Requires the caller to have reached contact continuously.
@@ -182,14 +184,14 @@ namespace Biathlon.Simulation
             double nx=initial.NormalX,nz=initial.NormalZ,tx=-nz,tz=nx;
             double arx=px-a.Pose.X,arz=pz-a.Pose.Z,brx=px-b.Pose.X,brz=pz-b.Pose.Z;
             double an=arz*nx-arx*nz,at=arz*tx-arx*tz,bn=brz*nx-brx*nz,bt=brz*tx-brx*tz;
-            double ia=a.MassKilograms*(halfLength*halfLength+halfWidth*halfWidth)/3;
-            double ib=b.MassKilograms*(halfLength*halfLength+halfWidth*halfWidth)/3;
+            double ia=a.Grounded?double.PositiveInfinity:a.MassKilograms*(halfLength*halfLength+halfWidth*halfWidth)/3;
+            double ib=b.Grounded?double.PositiveInfinity:b.MassKilograms*(halfLength*halfLength+halfWidth*halfWidth)/3;
             double rx=a.Velocity.X+wa*arz-b.Velocity.X-wb*brz;
             double rz=a.Velocity.Z-wa*arx-b.Velocity.Z+wb*brx;
             double vn=rx*nx+rz*nz,vt=rx*tx+rz*tz;
             if(vn>=0)return new SkiAngularContactPreview(new SkiContactPreview(SkiContactPreviewStatus.SeparatingOrResting,
                 initial.GapMeters,nx,nz,a.Velocity,b.Velocity),wa,wb,px,pz);
-            double inverseMass=1/a.MassKilograms+1/b.MassKilograms;
+            double inverseMass=a.InverseMass+b.InverseMass;
             double knn=inverseMass+an*an/ia+bn*bn/ib,ktt=inverseMass+at*at/ia+bt*bt/ib,knt=an*at/ia+bn*bt/ib;
             double required=-(1+definition.Restitution)*vn;
             // Minimize kinetic energy subject to the normal restitution constraint
@@ -200,8 +202,8 @@ namespace Biathlon.Simulation
             double jt=-(vt-knt*vn/knn)/(ktt-knt*knt/knn);
             jt=Math.Max(min,Math.Min(max,jt));double jn=Math.Max(0,(required-knt*jt)/knn);
             double ix=nx*jn+tx*jt,iz=nz*jn+tz*jt;
-            var va=new SkiPlanarVelocity(a.Velocity.X+ix/a.MassKilograms,a.Velocity.Z+iz/a.MassKilograms);
-            var vb=new SkiPlanarVelocity(b.Velocity.X-ix/b.MassKilograms,b.Velocity.Z-iz/b.MassKilograms);
+            var va=new SkiPlanarVelocity(a.Velocity.X+ix*a.InverseMass,a.Velocity.Z+iz*a.InverseMass);
+            var vb=new SkiPlanarVelocity(b.Velocity.X-ix*b.InverseMass,b.Velocity.Z-iz*b.InverseMass);
             double nextWa=wa+(an*jn+at*jt)/ia,nextWb=wb-(bn*jn+bt*jt)/ib;
             PhysiologyNumbers.RequireRange(nextWa,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,"contact yaw");
             PhysiologyNumbers.RequireRange(nextWb,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,"contact yaw");
@@ -286,14 +288,14 @@ namespace Biathlon.Simulation
                 else
                 {
                     status=SkiContactPreviewStatus.Impulse;
-                    double inverseMass=1/a.MassKilograms+1/b.MassKilograms;
+                    double inverseMass=a.InverseMass+b.InverseMass;
                     impulse=-(1+definition.Restitution)*closing/inverseMass;
                     double tx=-nz,tz=nx,sliding=rx*tx+rz*tz;
                     double bound=definition.SlidingFriction*impulse;
                     tangent=Math.Max(-bound,Math.Min(bound,-sliding/inverseMass));
                     double ix=nx*impulse+tx*tangent,iz=nz*impulse+tz*tangent;
-                    va=new SkiPlanarVelocity(va.X+ix/a.MassKilograms,va.Z+iz/a.MassKilograms);
-                    vb=new SkiPlanarVelocity(vb.X-ix/b.MassKilograms,vb.Z-iz/b.MassKilograms);
+                    va=new SkiPlanarVelocity(va.X+ix*a.InverseMass,va.Z+iz*a.InverseMass);
+                    vb=new SkiPlanarVelocity(vb.X-ix*b.InverseMass,vb.Z-iz*b.InverseMass);
                 }
             }
             return swap?new SkiContactPreview(status,gap,-nx,-nz,vb,va,impulse,tangent):

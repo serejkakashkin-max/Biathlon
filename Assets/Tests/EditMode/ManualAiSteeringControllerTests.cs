@@ -27,6 +27,18 @@ namespace Biathlon.Tests
         }
         private static long Nano(double metres)=>(long)Math.Round(metres*SkiState.NanometersPerMeter);
 
+        [Test] public void StoppedAthleteFacingAwayCanTurnBackTowardTheOwnedTarget()
+        {
+            var f=Create();var point=f.visual.Get(f.route.GetSection(0).LoopId).Sample(10);
+            var pose=new ManualSkiHeadingState(point.X,point.Z,Math.Atan2(point.ForwardX,point.ForwardZ)+Math.PI);
+            Assert.That(f.map.TryProject(pose,0,Nano(10),.001,false,out var at),Is.True);
+            var plan=f.controller.Plan(pose,at,0,false);
+            Assert.That(Math.Abs(plan.HeadingErrorRadians),Is.GreaterThan(3));
+            double yaw=f.controller.PhysicalPursuitYaw(plan,pose,default);
+            Assert.That(Math.Abs(yaw),Is.GreaterThan(.5),"A target behind the skis must not produce sin(pi) zero steering.");
+            Assert.That(Math.Sign(yaw),Is.EqualTo(Math.Sign(plan.HeadingErrorRadians)));
+        }
+
         [Test] public void OwnedEndpointRetainsFittingParallelLineInsteadOfLateCentreTurn()
         {
             var f=Create();var section=f.route.GetSection(0);var loop=f.visual.Get(section.LoopId);
@@ -172,7 +184,7 @@ namespace Biathlon.Tests
 
         [TestCase(200.0,false,false)]
         [TestCase(300.0,false,false)]
-        [TestCase(400.0,true,false)]
+        [TestCase(400.0,false,false)]
         [TestCase(400.0,false,true)]
         public void ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(double deliveredPowerWatts,
             bool expectedBoundaryRejection,bool adaptiveCornerEffort)
@@ -319,7 +331,7 @@ namespace Biathlon.Tests
             var policy=ManualAiSteeringDefinition.FromJson(PolicyJson);
             Assert.That(ManualAiSteeringDefinition.FromJson(policy.ToJson()).ToJson(),Is.EqualTo(policy.ToJson()));
             string context=Create().controller.ContextJson;
-            Assert.That(context.Contains("manual_ai_signed_yaw_intent_v5_parallel_endpoint"),Is.True);
+            Assert.That(context.Contains("manual_ai_signed_yaw_intent_v6_behind_target_recovery"),Is.True);
             Assert.That(context.Contains("physical_pursuit_actual_velocity_and_shared_speed_response_v2_actual_chord"),Is.True);
             foreach(var field in new[]{"schema_version","id","lookahead_base_m","lookahead_speed_seconds",
                 "lookahead_max_m","heading_response_seconds","yaw_rate_feedback"})

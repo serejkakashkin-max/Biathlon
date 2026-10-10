@@ -88,15 +88,22 @@ namespace Biathlon.Unity.Presentation
                     float setup=AthleteRiflePresentation.Progress(state.ShootingPhase,state.ShootingPhaseElapsedTicks,state.ShootingPhaseDurationTicks);
                     setupWeight=Mathf.SmoothStep(0,1,setup);if(!preserveAcceptedShootingLine)lateral*=1-setupWeight;
                 }
-                if(finished){var offset=finishStaging.Offset(i);sampleDistance=Math.Min(route.Get(route.Count-1).Distance,sampleDistance+offset.z);lateral+=offset.x;}
+                if(finished&&!state.WorldPose.IsValid){var offset=finishStaging.Offset(i);sampleDistance=Math.Min(route.Get(route.Count-1).Distance,sampleDistance+offset.z);lateral+=offset.x;}
                 var point=route.Sample(sampleDistance);
                 go.transform.localPosition=new Vector3((float)(point.X+point.ForwardZ*lateral),(float)point.Y+1,(float)(point.Z-point.ForwardX*lateral));
                 var heading=Quaternion.LookRotation(new Vector3((float)point.ForwardX,0,(float)point.ForwardZ),Vector3.up);
+                var physicalPose=RacePresentationSampling.WorldPose(feed.Previous,current,i,alpha);
+                if(physicalPose.IsValid)
+                {
+                    go.transform.localPosition=new Vector3((float)physicalPose.X,(float)point.Y+1,(float)physicalPose.Z);
+                    heading=Quaternion.Euler(0,(float)(physicalPose.HeadingRadians*180/Math.PI),0);
+                }
                 // The entry/exit tangent can be perpendicular to the target bank. Reuse the
                 // observed rifle timing to turn only the visible body, including its return.
                 go.transform.localRotation=shootingRotation.HasValue&&state.ShootingActive?Quaternion.Slerp(heading,shootingRotation.Value,setupWeight):heading;
                 double curvature=VisualRouteCurvature.Sample(visual.Get(position.LoopId),position.LocalMeters,motionSettings.corner_sample_half_span_m);
                 double grade=VisualRouteSurface.Grade(route,sampleDistance,contactSettings.sample_half_span_m);
+                if(physicalPose.IsValid){curvature=state.CourseCurvaturePerMeter;grade=state.CourseGrade;}
                 if(chaseCamera!=null&&chaseCamera.Target==go.transform)chaseCamera.SetTerrainGrade((float)grade);
                 float distance=viewCamera!=null?Vector3.Distance(viewCamera.transform.position,go.transform.position):0;
                 long poseTick=current.Tick;double poseAlpha=alpha;

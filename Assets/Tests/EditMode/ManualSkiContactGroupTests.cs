@@ -14,6 +14,20 @@ namespace Biathlon.Tests
         private static ManualSkiContactBody Actor(string id,double x,double z,double vx,double vz,double heading=0,double yaw=0,double mass=75)
             =>new ManualSkiContactBody(new AthleteId(id),new ManualSkiHeadingState(x,z,heading,yaw),new SkiPlanarVelocity(vx,vz),mass);
 
+        [Test] public void ImpactResolutionDoesNotLeaveClosingVelocityUnderTheLooserForceResidual()
+        {
+            var policy=SkiContactGroupDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ski_contact_group_gameplay_v1.json"));
+            Assert.That(policy.ClosingSpeedTolerance,Is.EqualTo(.001));
+            Assert.That(policy.ImpactClosingSpeedTolerance,Is.EqualTo(.000001));
+            var bodies=new[]{Actor("a",0,0,0,.0005),Actor("b",0,Body().LongitudinalSeparation,0,0)};
+            var output=new SkiContactMotion[2];var group=new ManualSkiContactGroup(Body(),
+                SkiContactDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ski_contact_gameplay_v1.json")),policy);
+            var result=group.Preview(bodies,2,output,new int[2]);
+            Assert.That(result.Status,Is.EqualTo(SkiContactGroupStatus.Resolved));Assert.That(result.Impulses,Is.GreaterThan(0));
+            Assert.That(output[0].Velocity.Z,Is.EqualTo(.00025).Within(.000001));
+            Assert.That(output[1].Velocity.Z,Is.EqualTo(.00025).Within(.000001));AssertConservation(bodies,output);
+        }
+
         [Test] public void AttestedAbsentRowsDoNotJoinAnActualTwoBodyImpact()
         {
             var group=Group();var actual=new[]{Actor("a",0,0,0,8),Actor("b",0,1.5,0,0)};

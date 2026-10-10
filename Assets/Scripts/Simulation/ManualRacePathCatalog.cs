@@ -87,7 +87,7 @@ namespace Biathlon.Simulation
         private readonly int[,] penaltyIndexes;
         public int SchemaVersion=>1;
         public string Id {get;}
-        public string ContextJson {get;}
+        public string ContextJson {get;private set;}
         public int Count=>occurrences.Length;
         /// <summary>Start plus counted flow, excluding optional penalty occurrences.</summary>
         public int BaseFlowCount {get;}
@@ -257,6 +257,7 @@ namespace Biathlon.Simulation
             }
             if(FinishRunoutIndex>=0)phaseEntries[FinishRunoutIndex]=BaseFlowCount-1;
             ProjectionGeometry=ManualRouteProjectionMap.ForPhysicalScopes(route,visual,scopes,ContextJson,ordinaryEntries,firingDepartures,phaseEntries,phaseExits);
+            ProjectionGeometry.PreserveStartPortal(StartApproachIndex);
         }
 
         public int GetFiringOccurrence(int bout)=>firingIndexes[bout];
@@ -281,6 +282,11 @@ namespace Biathlon.Simulation
             var row=occurrences[index];if(arc<0||arc>row.LengthNanometers)throw new ArgumentOutOfRangeException(nameof(arc));return row;
         }
         private static long Mapped(ManualRacePathOccurrence row,long arc)=>checked(row.RouteStartNanometers+(row.CountsTowardsRoute?arc:0));
+        internal void BindPortalTolerance(double meters,bool roundSnowCorridor=false,double snowWindowMultiplier=1,double ordinaryPortalRetreat=0,double ordinaryHandoffWindow=0)
+        {
+            ProjectionGeometry.BindPortalTolerance(meters,roundSnowCorridor,snowWindowMultiplier,ordinaryPortalRetreat,ordinaryHandoffWindow);
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,"owned_portal_band_m:"+meters.ToString("R",CultureInfo.InvariantCulture),"round_snow_corridor:"+roundSnowCorridor,"snow_window_multiplier:"+snowWindowMultiplier.ToString("R",CultureInfo.InvariantCulture)});
+        }
         public bool TryProject(ManualSkiHeadingState pose,int occurrenceIndex,long previousPhysicalArcNanometers,
             double maximumArcDisplacementMeters,out ManualRacePathObservation observation)
         {
@@ -297,15 +303,27 @@ namespace Biathlon.Simulation
             if(!ProjectionGeometry.TrySampleAhead(occurrenceIndex,checked(row.GeometryStartNanometers+physicalArcNanometers),0,false,out var point))return false;
             target=new ManualRacePathTarget(point,physicalArcNanometers,Mapped(row,physicalArcNanometers));return true;
         }
-        internal bool TrySamplePortal(int occurrenceIndex,long physicalArcNanometers,out ManualRacePathTarget target)
+        /// <summary>Observe the actual shared endpoint plane. This geometry
+        /// query grants no progress, mat, penalty or finish admission.</summary>
+        public bool TrySamplePortal(int occurrenceIndex,long physicalArcNanometers,out ManualRacePathTarget target)
         {
             var row=ValidateArc(occurrenceIndex,physicalArcNanometers);target=default;
             if(!ProjectionGeometry.TrySamplePortal(occurrenceIndex,checked(row.GeometryStartNanometers+physicalArcNanometers),out var point))return false;
             target=new ManualRacePathTarget(point,physicalArcNanometers,Mapped(row,physicalArcNanometers));return true;
         }
+        internal double PortalSearchSpan(ManualSkiWorldTrajectory trajectory,double maximumSpan)
+        {
+            if(ProjectionGeometry.PortalPositionTolerance==0)return maximumSpan;
+            var v=trajectory.VelocityAt(0);double dt=trajectory.DurationSeconds;
+            // A speed ceiling is not the displacement of this frozen piece.
+            return Math.Min(maximumSpan,(Math.Sqrt(v.X*v.X+v.Z*v.Z)*dt+
+                .5*trajectory.PlanarAccelerationBound*dt*dt)+ProjectionGeometry.PortalPositionTolerance);
+        }
         internal bool WindowTouchesPortalEdge(int occurrence,long previousArc,double span,long portalArc)
         {
             var row=ValidateArc(occurrence,portalArc);ValidateArc(occurrence,previousArc);
+            if(ProjectionGeometry.PortalPositionTolerance>0)
+                return Math.Abs((previousArc-portalArc)/(double)SkiState.NanometersPerMeter)<=span+ProjectionGeometry.PortalPositionTolerance;
             return ProjectionGeometry.WindowTouchesPortalEdge(occurrence,checked(row.GeometryStartNanometers+portalArc),
                 checked(row.GeometryStartNanometers+previousArc),span);
         }

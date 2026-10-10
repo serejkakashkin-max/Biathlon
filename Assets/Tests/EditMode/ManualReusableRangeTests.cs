@@ -45,7 +45,10 @@ namespace Biathlon.Tests
             var models=new SkiModelDefinitions(PhysiologyContractTests.DefinitionJson);
             var world=ManualScopedFieldStepper.CreateInitialWorld(runner.Field,venue.Track,venue.Visual,venue.Occupancy,
                 ManualScopedFieldStepperTests.Contact(),ManualScopedFieldStepperTests.Work(),ManualScopedFieldStepperTests.Group(),models.Physics,
-                ManualFinishRunoutDefinition.FromJson(ManualScopedFieldStepperTests.Read("Biathlon/manual_finish_runout_v1")));
+                ManualFinishRunoutDefinition.FromJson(ManualScopedFieldStepperTests.Read("Biathlon/manual_finish_runout_v1")),
+                ManualNumericalToleranceDefinition.FromJson(ManualScopedFieldStepperTests.Read("Biathlon/manual_gameplay_tolerance_v1")),
+                ManualMatCaptureDefinition.FromJson(ManualScopedFieldStepperTests.Read("Biathlon/manual_mat_capture_v1")),
+                ManualCourseContactDefinition.FromJson(ManualScopedFieldStepperTests.Read("Biathlon/manual_course_contact_v1")));
             var stepper=new ManualScopedFieldStepper(runner.Field,world,models,venue.Occupancy,ManualScopedFieldStepperTests.Steering(),
                 ManualScopedFieldStepperTests.Work(),ManualMatBrakingDefinition.FromJson(ManualScopedFieldStepperTests.Read("Biathlon/manual_mat_braking_v1")));
             runner.BindManualScopedCandidate(stepper,ManualAiSteeringDefinition.FromJson(ManualScopedFieldStepperTests.Read("Biathlon/manual_ai_steering_v2")),ManualScopedFieldStepperTests.Steering());

@@ -50,8 +50,9 @@ namespace Biathlon.Unity.Presentation
             var id=field.GetAthlete(host.PlayerIndex).AthleteId;
             for(int i=0;i<ticks;i++)
             {
-                var tick=field.Tick.Next();host.Step(new PlayerCommand(tick,id,800,0),
-                    new ShootingDeviceCommand(new WeaponAimCommand(tick,id,0,0),false,false));
+                var tick=field.Tick.Next();var shooting=new ShootingDeviceCommand(new WeaponAimCommand(tick,id,0,0),false,false);
+                if(host.ManualStepper!=null)host.Step(new ManualSkiCommand(tick,id,800,0),shooting);
+                else host.Step(new PlayerCommand(tick,id,800,0),shooting);
             }
             if(field.Tick.Value!=start+ticks||host.Feed.Current.Tick!=field.Tick.Value||host.Feed.Current.Count!=field.Count||
                 field.GetAthlete(host.PlayerIndex).Motion.DistanceNanometers<=distance)throw new InvalidOperationException("Approved player commands did not advance the paid production prefix.");

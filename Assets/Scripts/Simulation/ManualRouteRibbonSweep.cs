@@ -24,6 +24,7 @@ namespace Biathlon.Simulation
         private readonly SkiContactSweepDefinition work;
         private readonly double halfLength,halfWidth,coverRadius,refinedRadius,bodyRadius,edgeClearance;
         private readonly int disks,refinedRows;
+        private readonly double sweepTolerance,softSnowShoulder;
         private readonly double[] x,z;
         private int vertices;
         private bool simpleRibbon;
@@ -31,6 +32,7 @@ namespace Biathlon.Simulation
         public int LastVertexCount=>vertices;
         public double LastStartClearance {get;private set;}
         public double LastMinimumSampledClearance {get;private set;}
+        internal ManualSkiHeadingState LastThreatenedPose {get;private set;}
         public ManualRouteRibbonDiagnostics Diagnostics=>new ManualRouteRibbonDiagnostics(vertices,LastStartClearance,LastMinimumSampledClearance);
         public string ContextJson {get;}
         public ManualRouteRibbonSweep(ManualRouteProjectionMap map,OccupancyDefinition body,SkiContactSweepDefinition work,
@@ -39,7 +41,8 @@ namespace Biathlon.Simulation
             this.map=map??throw new ArgumentNullException(nameof(map));
             this.work=work??throw new ArgumentNullException(nameof(work));
             if(body==null)throw new ArgumentNullException(nameof(body));
-            tolerance?.Validate(body);
+            tolerance?.Validate(body);sweepTolerance=tolerance?.CourseSweepTolerance??0;
+            softSnowShoulder=tolerance?.SoftSnowShoulder??0;
             disks=work.MaximumDepth;halfLength=body.LongitudinalSeparation*.5;
             halfWidth=body.LateralSeparation*.5;
             coverRadius=Math.Sqrt(halfWidth*halfWidth+Math.Pow(halfLength/disks,2));
@@ -48,9 +51,9 @@ namespace Biathlon.Simulation
             bodyRadius=Math.Sqrt(halfWidth*halfWidth+halfLength*halfLength);
             edgeClearance=body.EdgeClearance-(tolerance?.CourseClearanceAllowance??0);
             x=new double[map.MaximumRibbonVertices];z=new double[x.Length];
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_local_authored_ribbon_v7_explicit_clearance_allowance",map.ContextJson,
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_local_authored_ribbon_v8_bounded_soft_snow_shoulder",map.ContextJson,
                 body.ToJson(),work.ToJson(),tolerance?.ToJson()??"numerical_tolerance_not_selected",
-                "actual_knot_normals;minimum_window_width;exact_authored_endpoints;simple_polygon_only;all_rectangle_corners_inside_and_all_edges_disjoint;minimum_segment_separation_minus_selected_edge_clearance;at_least_half_authored_edge_guard_retained;per_disk_independent_conservative_tube_cover;unchanged_tube_turn_reserve;disk_count_from_maximum_depth;bounded_rectangular_cell_circumdisks;unchanged_full_body;full_cover_envelope_and_source_offset;continuous_whole_body_bound;no_phase_or_centre_credit"});
+                "actual_knot_normals;minimum_window_width;exact_authored_endpoints;simple_polygon_only;all_rectangle_corners_inside_and_all_edges_disjoint;minimum_segment_separation_minus_selected_edge_clearance;bounded_explicit_soft_snow_shoulder;per_disk_independent_conservative_tube_cover;unchanged_tube_turn_reserve;disk_count_from_maximum_depth;bounded_rectangular_cell_circumdisks;unchanged_full_body;full_cover_envelope_and_source_offset;continuous_whole_body_bound;no_phase_or_centre_credit"});
         }
         public ManualRouteTubePreview Preview(ManualSkiWorldTrajectory trajectory,ManualRouteProjection source)
         {
@@ -60,16 +63,18 @@ namespace Biathlon.Simulation
             // The proof uses an overlapping disk cover, whose outer envelope
             // extends beyond the occupied rectangle. Internal window caps must
             // clear that envelope as well as the source projection offset.
-            double reach=source.DistanceFromCentreMeters+halfLength+coverRadius+edgeClearance+seconds*Math.Sqrt(velocity.X*velocity.X+velocity.Z*velocity.Z)+
+            double reach=source.DistanceFromCentreMeters+halfLength+coverRadius+edgeClearance+softSnowShoulder+seconds*Math.Sqrt(velocity.X*velocity.X+velocity.Z*velocity.Z)+
                 .5*trajectory.PlanarAccelerationBound*seconds*seconds;
+            reach*=map.SnowWindowMultiplier;
             LastStartClearance=LastMinimumSampledClearance=double.NaN;
             vertices=map.BuildLocalRibbon(source,reach,x,z);
             simpleRibbon=Simple();
             if(!map.TryBuildConnectedWindow(source,reach,out tubeWindow))
                 return new ManualRouteTubePreview(ManualRouteTubeStatus.UnresolvedStart,0,0,0,null);
             double reserve=2*trajectory.PositionErrorBoundMeters+bodyRadius*trajectory.HeadingErrorBoundRadians+
-                128*2.2204460492503131e-16*(1+Math.Abs(trajectory.Sample(0).X)+Math.Abs(trajectory.Sample(0).Z));
-            LastStartClearance=Clearance(trajectory.Sample(0));LastMinimumSampledClearance=LastStartClearance;
+                128*2.2204460492503131e-16*(1+Math.Abs(trajectory.Sample(0).X)+Math.Abs(trajectory.Sample(0).Z))-sweepTolerance;
+            LastThreatenedPose=trajectory.Sample(0);
+            LastStartClearance=Clearance(LastThreatenedPose);LastMinimumSampledClearance=LastStartClearance;
             if(!(LastStartClearance>reserve))return new ManualRouteTubePreview(ManualRouteTubeStatus.UnresolvedStart,0,0,0,null);
             int checks=0;return Search(trajectory,0,seconds,0,reserve,ref checks);
         }
@@ -78,7 +83,7 @@ namespace Biathlon.Simulation
             if(checks>=work.MaximumIntervalChecks)return new ManualRouteTubePreview(ManualRouteTubeStatus.WorkLimit,from,to,checks,null);
             checks++;double mid=from+(to-from)*.5,h=(to-from)*.5,fraction=mid/trajectory.DurationSeconds;
             double clearance=Clearance(trajectory.Sample(fraction));var v=trajectory.VelocityAt(fraction);
-            LastMinimumSampledClearance=Math.Min(LastMinimumSampledClearance,clearance);
+            if(clearance<LastMinimumSampledClearance){LastMinimumSampledClearance=clearance;LastThreatenedPose=trajectory.Sample(fraction);}
             double bound=Math.Sqrt(v.X*v.X+v.Z*v.Z)*h+.5*trajectory.PlanarAccelerationBound*h*h+
                 bodyRadius*trajectory.PeakYawRate*h;
             if(clearance>bound+reserve)return new ManualRouteTubePreview(ManualRouteTubeStatus.Clear,to,to,checks,null);
@@ -87,7 +92,9 @@ namespace Biathlon.Simulation
             var left=Search(trajectory,from,mid,depth+1,reserve,ref checks);
             return left.Status==ManualRouteTubeStatus.Clear?Search(trajectory,mid,to,depth+1,reserve,ref checks):left;
         }
-        private double Clearance(ManualSkiHeadingState pose)
+        internal double CurrentRibbonClearance(ManualSkiHeadingState pose)=>Clearance(pose);
+        internal double CurrentCoverClearance(ManualSkiHeadingState pose)=>Clearance(pose,true);
+        private double Clearance(ManualSkiHeadingState pose,bool coverOnly=false)
         {
             double result=double.PositiveInfinity,fx=Math.Sin(pose.HeadingRadians),fz=Math.Cos(pose.HeadingRadians);
             for(int k=0;k<disks;k++)
@@ -97,7 +104,7 @@ namespace Biathlon.Simulation
                 result=Math.Min(result,DiskClearance(px,pz,coverRadius+edgeClearance));
             }
             if(result>0)return result;
-            if(vertices>=4&&simpleRibbon)
+            if(!coverOnly&&vertices>=4&&simpleRibbon)
             {
                 result=Math.Max(result,RectangleClearance(pose,halfLength,halfWidth,edgeClearance,x,z,vertices));
                 if(result>0)return result;
@@ -118,7 +125,7 @@ namespace Biathlon.Simulation
         }
         private double DiskClearance(double px,double pz,double radius)
         {
-                double diskClearance=map.ConnectedTubeDiskClearance(px,pz,tubeWindow,radius);
+                double diskClearance=map.ConnectedTubeDiskClearance(px,pz,tubeWindow,radius)+softSnowShoulder;
                 if(vertices<4||!simpleRibbon||!Inside(px,pz))return diskClearance;
                 double distance=double.PositiveInfinity;
                 for(int i=0;i<vertices;i++)

@@ -19,9 +19,16 @@ namespace Biathlon.Tests
             internal readonly PhysicalRangePathMap Path;
             internal readonly StartApproachMap Start;
             internal readonly ManualRacePathCatalog Catalog;
-            internal Fixture(string format="mass_start",int lane=0)
+            internal Fixture(string format="mass_start",int lane=0,bool historicalCommonWidth=false)
             {
-                Venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(Root+"manifest")),Read);
+                // Captured pre-width-change edge regressions retain their exact
+                // historical geometry instead of disappearing after content edits.
+                string ReadFixture(string id)
+                {
+                    string json=Read(id);
+                    return historicalCommonWidth&&id==Root+"track"?json.Replace("\"width_m\": 8","\"width_m\": 6"):json;
+                }
+                Venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(Root+"manifest")),ReadFixture);
                 Profile=CompetitionProfile.FromJson(Read(Root+format+"_profile"));
                 Route=new RaceRoute(Venue.Track,RaceRoutePlan.FromJson(Read(Root+format+"_route")),
                     Profile.ToRouteRequirements(),Venue.Junctions,Venue.Connections);

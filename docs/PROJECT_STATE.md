@@ -23811,3 +23811,88 @@ owner-approved practical tolerances. No owner build until all M13 is complete.
 G1/G2 approved; five other venues deferred; max field 40. Shooting-feel issue
 remains OPEN for later gameplay/difficulty/race-balance tuning.
 This record appends to all existing bytes; no historical entry is rewritten.
+
+## 2026-10-10 — Owner M13 closure directive: maximum field 30
+
+Owner explicitly reduces the maximum production field from 40 to 30 and asks
+for immediate M13 completion and one final test build. All three active Woodland
+profiles, review menu/bootstrap, qualified Pursuit smoke and content recipes now
+use 30. Historical 40-athlete records remain unchanged and are superseded by
+this directive. No published qualification is silently truncated: a completed
+30-athlete Sprint supplies the actual 30-athlete Pursuit qualification.
+Single Woodland venue remains the M13 production scope; WP170–174 are deferred.
+G1/G2 remain approved. Practical production snow shoulder is 0.50 m; legacy
+strict policies are retained. No further cosmetic or strict FPS gates are added.
+Current complete Mass30/Sprint30/Pursuit30 checks are running. Completion and
+build receipts will follow as dated append-only records. No history removed.
+
+## 2026-10-10 — M13 practical side snow supersedes earlier shoulder trial
+
+The owner explicitly asks for looser acceptance and completion. The production
+soft shoulder is now 2.0 m on continuous snow beside the groomed route; the
+previous 0.50 m trial is superseded. Mat planting remains 0.50 m longitudinal,
+with speed/spin limits and unchanged actual pose/time/odometer. Side snow does
+not disable athlete contacts or grant race/penalty/shooting/finish ownership.
+Inward recovery rotation is preserved, and world context v24 binds the change.
+Strict historical definitions retain zero shoulder. Final fields, exact replay,
+roster boundaries and selected native checks use this explicit practical policy.
+The interrupted inward-only trial supplies no PASS claim. Earlier history and
+failed evidence remain. Maximum production field 30; one Woodland venue.
+
+## 2026-10-10 — M13 final technical closure / owner maximum 30
+
+Latest operational state: M13 PASS under the owner's explicit one-venue scope
+and practical acceptance. G1/G2 APPROVED. WP167/168/169 remain PASS; WP170–174
+remain OWNER-DEFERRED. Maximum active production field is 30 in Sprint,
+Pursuit and Mass Start. Historical larger fields are not current scope.
+Master Plan is preserved. No extra owner approval is required for M13 closure.
+
+WP175 PASS — single Woodland weather scope. Earlier complete four-snow x three-
+format matrix and five actual native weather views are retained. Final signed
+production probes for packed_neutral/fresh_soft/icy_fast/wet_slow pass 4/4,
+1200 ticks each. Final renderer/readability checks remain functional evidence;
+sustained GPU/FPS is explicitly unavailable under hidden-only verification.
+
+WP176 PASS — existing saved/restored 52-week, 16-event Woodland calendar content.
+Full player-facing career/menu/results/next-event flow is the next M14 scope.
+
+WP177 PASS — all actual signed 30-athlete fields complete: Mass Start tick36007,
+Sprint tick35465, and Pursuit tick35775 from that real Sprint qualification.
+Every athlete finishes every required bout with no legacy lateral fallback.
+A final-lap finish fork at Main1130 avoids the unsuitable radius0.85m return
+hairpin. Start/finish separation60.3612m; distances Sprint4180/Pursuit4980/
+Mass5980m. Shared contacts and rare contact slowdowns remain physical. No global
+crossing queue, forced standing fallback, player auto-turn or pose teleport.
+Bounded ordinary AI recovery uses shared snow forces; private mats keep forward
+pursuit. Full manual A/D is connected in the playable production host.
+Current complete signed command recording/playback passes all three formats,
+with exact world/resource/event/results agreement without AI on playback.
+Earlier paired stat/draft/difficulty evidence is preserved. Final shooting/
+feel/difficulty/race balance tuning remains M15; easy-shooting owner issue OPEN.
+
+WP178 PASS — practical functional acceptance: native dense30 LOD tier test1/1,
+host/proxy agreement1/1, owner-cap/review checks, strict venue validation0issues,
+selected actual mat-boundary/final-fork native probes1/1 each. Headless full-field
+rates are Mass12.43x/Sprint61.19x/Pursuit18.26x realtime on this machine.
+High broadcast snapshot metrics retain their actual date/scope. They are not
+sustained GPU/FPS qualification; that qualification is carried forward, not
+reported as a passed frame-time budget. High remains the owner build default.
+
+Final .NET subsystem regression81/81 PASS; weather4/4 PASS. The preceding mixed
+36-case receipt has both production-field cases and all12 replay cases PASS,
+but two stale fixture assertions failed. Those assertions were updated for the
+new finish route and guarded mat projection; both now pass in the81-case run
+and in native Unity. No failing test was deleted, disabled or skipped. The
+optional whole native practical fixture exceeded its tool timeout and exhausted
+Editor responsiveness; it supplies NO PASS. Editor recovered hidden after
+preserving disk settings; final selected native checks/compilation pass.
+
+Evidence: docs/quality/m13/separate-finish-20261009/owner-max30-finish-before-
+hairpin-final-20261010.trx, owner-max30-closure-regression-final-20261010.trx,
+owner-max30-weather-closure-final-20261010.trx, unity-max30-mat-boundary-closure-
+final.json, unity-max30-finish-fork-closure-final.json. Report:
+docs/reports/TASK_M13_WOODLAND_FINAL_CLOSURE_20261009.md.
+
+Final Windows owner build is now authorized for Builds/WoodlandM13Review-20261010.
+Its build and hidden-smoke receipts are pending the packaging step and will be
+appended separately. Next milestone M14. No historical state bytes are removed.

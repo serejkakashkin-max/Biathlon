@@ -36,7 +36,7 @@ namespace Biathlon.Unity.Presentation
             var ids=new HashSet<string>(StringComparer.Ordinal);var scenes=new HashSet<string>(StringComparer.Ordinal);var formats=new HashSet<string>(StringComparer.Ordinal);
             foreach(var entry in entries)
             {
-                if(entry==null||!Stable(entry.id)||entry.field_count<1||(entry.format_id!="sprint"&&entry.format_id!="mass_start")||string.IsNullOrWhiteSpace(entry.label)||entry.label.Length>80||entry.label.IndexOfAny(new[]{'\r','\n','\t'})>=0||
+                if(entry==null||!Stable(entry.id)||entry.field_count<1||entry.field_count>30||(entry.format_id!="sprint"&&entry.format_id!="mass_start")||string.IsNullOrWhiteSpace(entry.label)||entry.label.Length>80||entry.label.IndexOfAny(new[]{'\r','\n','\t'})>=0||
                     !ScenePath(entry.scene_path)||!ids.Add(entry.id)||!scenes.Add(entry.scene_path)||!formats.Add(entry.format_id))throw new ArgumentException("Invalid or duplicated review entry.");
             }
             Get(initial_entry_id);

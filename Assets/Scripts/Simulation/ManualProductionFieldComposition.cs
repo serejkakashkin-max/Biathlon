@@ -11,13 +11,16 @@ namespace Biathlon.Simulation
         {
             if(field==null||venue==null||readCore==null)throw new ArgumentNullException();
             var models=new SkiModelDefinitions(readCore);
-            var contact=SkiContactDefinition.FromJson(readCore("manual_ski_contact_v1.json"));
+            var contact=SkiContactDefinition.FromJson(readCore("manual_ski_contact_gameplay_v1.json"));
             var work=SkiContactSweepDefinition.FromJson(readCore("manual_ski_contact_sweep_v1.json"));
-            var group=SkiContactGroupDefinition.FromJson(readCore("manual_ski_contact_group_v1.json"));
+            var group=SkiContactGroupDefinition.FromJson(readCore("manual_ski_contact_group_gameplay_v1.json"));
             var steering=ManualSkiSteeringDefinition.FromJson(readCore("manual_ski_steering_v2.json"));
+            field.ArrangeManualPursuitStartLines(venue.Occupancy);
             var world=ManualScopedFieldStepper.CreateInitialWorld(field,venue.Track,venue.Visual,venue.Occupancy,contact,work,group,models.Physics,
-                ManualFinishRunoutDefinition.FromJson(readCore("manual_finish_runout_v1.json")),
-                ManualNumericalToleranceDefinition.FromJson(readCore("manual_numerical_tolerance_v1.json")));
+                ManualFinishRunoutDefinition.FromJson(readCore("manual_finish_runout_gameplay_v1.json")),
+                ManualNumericalToleranceDefinition.FromJson(readCore("manual_gameplay_tolerance_v1.json")),
+                ManualMatCaptureDefinition.FromJson(readCore("manual_mat_capture_v1.json")),
+                ManualCourseContactDefinition.FromJson(readCore("manual_course_contact_v1.json")));
             return new ManualScopedFieldStepper(field,world,models,venue.Occupancy,steering,work,
                 ManualMatBrakingDefinition.FromJson(readCore("manual_mat_braking_v1.json")));
         }

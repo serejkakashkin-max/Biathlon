@@ -76,8 +76,9 @@ namespace Biathlon.Simulation
     }
     internal readonly struct ManualConnectedTubeWindow
     {
-        internal readonly int First,Last;
-        internal ManualConnectedTubeWindow(int first,int last){First=first;Last=last;}
+        internal readonly int First,Last,IncomingFirst,IncomingLast;
+        internal ManualConnectedTubeWindow(int first,int last,int incomingFirst=-1,int incomingLast=-1)
+        {First=first;Last=last;IncomingFirst=incomingFirst;IncomingLast=incomingLast;}
     }
 
     // A geometry namespace, never a competition-distance receipt. The catalog
@@ -100,9 +101,34 @@ namespace Biathlon.Simulation
         private readonly Edge[] edges;
         private readonly ManualRouteCorridorCell[] collinearCells;
         private readonly int[] firstEdges, edgeEnds;
+        private int[] phaseIncomingEdges;
         private readonly long[] starts, ends;
         private readonly long length;
-        public string ContextJson { get; }
+        public string ContextJson { get; private set; }
+        internal double PortalPositionTolerance {get;private set;}
+        internal bool UseRoundSnowCorridor {get;private set;}
+        internal double SnowWindowMultiplier {get;private set;}=1;
+        internal double OrdinaryPortalRetreat {get;private set;}
+        internal double OrdinaryHandoffWindow {get;private set;}
+        internal double MatPositionTolerance {get;set;}
+        private bool[] matDepartures;
+        private bool[] ordinaryStarts,ordinaryEnds;
+        internal double OrdinaryPortalBand=>UseRoundSnowCorridor?Math.Max(PortalPositionTolerance,OrdinaryPortalRetreat):PortalPositionTolerance;
+        internal bool IsOrdinaryEnd(int section)=>UseRoundSnowCorridor&&ordinaryEnds!=null&&ordinaryEnds[section];
+        internal void PreserveStartPortal(int section)
+        {
+            if(section<0)return;
+            ordinaryEnds[section]=false;
+            if(section+1<ordinaryStarts.Length)ordinaryStarts[section+1]=false;
+        }
+        internal void BindPortalTolerance(double meters,bool roundSnowCorridor=false,double snowWindowMultiplier=1,double ordinaryPortalRetreat=0,double ordinaryHandoffWindow=0)
+        {
+            PhysiologyNumbers.RequireRange(meters,0,.01,nameof(meters));
+            PortalPositionTolerance=meters;UseRoundSnowCorridor=roundSnowCorridor;SnowWindowMultiplier=snowWindowMultiplier;
+            OrdinaryPortalRetreat=ordinaryPortalRetreat;
+            OrdinaryHandoffWindow=ordinaryHandoffWindow;
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,"owned_portal_band_m:"+meters.ToString("R",System.Globalization.CultureInfo.InvariantCulture),"round_snow_corridor:"+roundSnowCorridor,"snow_window_multiplier:"+snowWindowMultiplier.ToString("R",System.Globalization.CultureInfo.InvariantCulture)});
+        }
         public string CorridorContextJson { get; }
         private readonly struct Edge
         {
@@ -238,6 +264,9 @@ namespace Biathlon.Simulation
             {
                 if(baseRouteGeometry||ordinaryEntries.Length!=count||firingDepartures==null||firingDepartures.Length!=count)
                     throw new ArgumentException("Exact physical-scope entry topology required.");
+                matDepartures=(bool[])firingDepartures.Clone();
+                ordinaryStarts=(bool[])ordinaryEntries.Clone();ordinaryEnds=new bool[count];
+                for(int s=1;s<count;s++)if(ordinaryStarts[s])ordinaryEnds[s-1]=true;
                 for(int s=1;s<count;s++)
                 {
                     if(!ordinaryEntries[s]&&!firingDepartures[s])continue;
@@ -265,6 +294,7 @@ namespace Biathlon.Simulation
             {
                 if(baseRouteGeometry||phaseEntries==null||phaseExits==null||phaseEntries.Length!=count||phaseExits.Length!=count)
                     throw new ArgumentException("Exact owned phase portal topology required.");
+                phaseIncomingEdges=new int[count];for(int s=0;s<count;s++)phaseIncomingEdges[s]=-1;
                 for(int s=0;s<count;s++)
                 {
                     int source=phaseEntries[s];
@@ -275,6 +305,7 @@ namespace Biathlon.Simulation
                         if(!Touching(a,b)||b.DX*a.ExitX+b.DZ*a.ExitZ<=0)
                             throw new ArgumentException("Phase entry must reuse a touching forward incoming plane.");
                         edges[next]=new Edge(b,a.ExitX,a.ExitZ,b.ExitX,b.ExitZ);
+                        phaseIncomingEdges[s]=edgeEnds[source]-1;
                     }
                     source=phaseExits[s];
                     if(source>=0)
@@ -313,6 +344,16 @@ namespace Biathlon.Simulation
                 throw new ArgumentOutOfRangeException(nameof(previousStationNanometers));
             PhysiologyNumbers.RequireRange(maximumStationDisplacementMeters,0,PhysiologyNumbers.MaximumMagnitude,nameof(maximumStationDisplacementMeters));
             long span=checked((long)Math.Round(maximumStationDisplacementMeters*SkiState.NanometersPerMeter,MidpointRounding.ToEven));
+            // An authorized departure can start anywhere inside its planted
+            // entry band. Observe that already paid position continuously on
+            // the next moving piece instead of holding station zero and then
+            // rejecting the first piece outside the band as a distance jump.
+            if(!baseRouteGeometry&&span>0&&previousStationNanometers==starts[currentSection])
+            {
+                double entryBand=matDepartures!=null&&matDepartures[currentSection]?MatPositionTolerance:
+                    ordinaryStarts!=null&&ordinaryStarts[currentSection]?Math.Max(OrdinaryPortalBand,OrdinaryHandoffWindow):0;
+                span=checked(span+(long)Math.Round(entryBand*SkiState.NanometersPerMeter,MidpointRounding.ToEven));
+            }
             long low=Math.Max(starts[currentSection],previousStationNanometers-span);
             long high=Math.Min(length,checked(previousStationNanometers+span));
             int last=admitNextSection?Math.Min(currentSection+1,starts.Length-1):currentSection;
@@ -329,17 +370,32 @@ namespace Biathlon.Simulation
                 {
                     var edge=edges[i];if(edge.StationStart>upper+seekReserve)break;
                     double fraction=edge.ProjectionFraction(pose.X,pose.Z);
-                    if(double.IsNaN(fraction))continue;
+                    if(double.IsNaN(fraction))
+                    {
+                        if(!UseRoundSnowCorridor)continue;
+                        // A ski body can occupy the outside of a tight bend.
+                        // Observe its nearest local authored edge without moving
+                        // it or selecting a different route occurrence.
+                        fraction=((pose.X-edge.X)*edge.DX+(pose.Z-edge.Z)*edge.DZ)/(edge.PlanarLength*edge.PlanarLength);
+                    }
                     // World pose is rounded to nanometres while authored knot
                     // coordinates are doubles. Reserve two encoding units at an
                     // endpoint; this is numerical tolerance, not course-edge tuning.
-                    double endpointReserve=2*PhysiologyNumbers.MinimumPositive/edge.PlanarLength;
+                    double endpointReserve=Math.Max(2*PhysiologyNumbers.MinimumPositive,PortalPositionTolerance)/edge.PlanarLength;
+                    double entryReserve=i==begin?endpointReserve:2*PhysiologyNumbers.MinimumPositive/edge.PlanarLength;
+                    double exitReserve=i==end-1?endpointReserve:2*PhysiologyNumbers.MinimumPositive/edge.PlanarLength;
+                    if(UseRoundSnowCorridor&&i==begin&&ordinaryStarts!=null&&ordinaryStarts[section])
+                        entryReserve=Math.Max(entryReserve,Math.Max(OrdinaryPortalBand,Math.Min(OrdinaryHandoffWindow,edge.MinimumWidth*.5))/edge.PlanarLength);
+                    if(UseRoundSnowCorridor&&i==end-1&&ordinaryEnds!=null&&ordinaryEnds[section])
+                        exitReserve=Math.Max(exitReserve,OrdinaryPortalBand/edge.PlanarLength);
+                    if(MatPositionTolerance>0&&i==begin&&matDepartures!=null&&matDepartures[section])
+                        entryReserve=Math.Max(entryReserve,MatPositionTolerance/edge.PlanarLength);
                     // A rounded world path can lie in the exterior Voronoi wedge
                     // of a sharp authored knot. Its nearest point is the knot,
                     // not an unbounded projection onto either adjacent segment.
                     // Limit this endpoint fallback to the physical corridor so a
                     // distant pose never snaps to a route occurrence.
-                    bool beyondEndpoint=fraction< -endpointReserve||fraction>1+endpointReserve;
+                    bool beyondEndpoint=fraction< -entryReserve||fraction>1+exitReserve;
                     fraction=Math.Max(0,Math.Min(1,fraction));
                     // A scoped seam has an exact physical-arc coordinate. A
                     // quantized pose within the existing two-nanometre endpoint
@@ -347,15 +403,29 @@ namespace Biathlon.Simulation
                     // Keep the existing base-route observation contract intact.
                     if(!baseRouteGeometry)
                     {
-                        if(fraction<=endpointReserve)fraction=0;
-                        else if(1-fraction<=endpointReserve)fraction=1;
+                        // The wider ordinary band admits an already reached
+                        // seam; it must not award progress before the centre
+                        // reaches that seam. Only mat departure reuses its
+                        // separately authorized planted-position band.
+                        double entryBand=MatPositionTolerance>0&&i==begin&&matDepartures!=null&&matDepartures[section]
+                            ?MatPositionTolerance:i==begin&&ordinaryStarts!=null&&ordinaryStarts[section]?Math.Max(OrdinaryPortalBand,Math.Min(OrdinaryHandoffWindow,edge.MinimumWidth*.5)):PortalPositionTolerance;
+                        double entryOffset=(pose.X-edge.X)*edge.EntryX+(pose.Z-edge.Z)*edge.EntryZ;
+                        bool plantedDeparture=i==begin&&(MatPositionTolerance>0&&matDepartures!=null&&matDepartures[section]||
+                            UseRoundSnowCorridor&&ordinaryStarts!=null&&ordinaryStarts[section]);
+                        bool atEntry=fraction<=endpointReserve||i==begin&&Math.Abs(entryOffset)<=entryBand&&
+                            (!plantedDeparture||maximumStationDisplacementMeters==0&&previousStationNanometers==starts[section]||entryOffset<=0);
+                        bool atExit=1-fraction<=endpointReserve;
+                        if(atEntry&&i==begin&&maximumStationDisplacementMeters==0&&previousStationNanometers==starts[section])fraction=0;
+                        else if(atEntry||atExit)fraction=atEntry&&atExit?(fraction<=.5?0:1):atEntry?0:1;
                     }
                     double station=edge.StationStart+fraction*(edge.StationEnd-edge.StationStart);
                     long encoded=checked((long)Math.Round(station*SkiState.NanometersPerMeter,MidpointRounding.ToEven));
+                    if(!baseRouteGeometry&&i==begin&&fraction==0)encoded=starts[section];
+                    if(!baseRouteGeometry&&i==end-1&&fraction==1)encoded=ends[section];
                     if(encoded<low||encoded>high)continue;
                     double dx=pose.X-edge.X-edge.DX*fraction,dz=pose.Z-edge.Z-edge.DZ*fraction;
                     double distanceSquared=dx*dx+dz*dz;
-                    if(beyondEndpoint&&distanceSquared>edge.MinimumWidth*edge.MinimumWidth*.25)continue;
+                    if(!UseRoundSnowCorridor&&beyondEndpoint&&distanceSquared>edge.MinimumWidth*edge.MinimumWidth*.25)continue;
                     // Stable ties keep the current edge/occurrence. Branch admission is
                     // explicit and may never advance a lap merely because coordinates repeat.
                     if(distanceSquared>=best)continue;
@@ -502,13 +572,14 @@ namespace Biathlon.Simulation
         internal int BuildLocalRibbon(ManualRouteProjection source,double reach,double[] x,double[] z)
         {
             if(!TryBuildConnectedWindow(source,reach,out var window))return 0;
-            int first=window.First,last=window.Last;double width=double.PositiveInfinity;
-            for(int i=first;i<=last;i++)width=Math.Min(width,edges[i].MinimumWidth);
+            int first=window.First,last=window.Last;
             int nodes=last-first+2,n=checked(nodes*2);if(x.Length<n||z.Length<n)throw new ArgumentException("Cold ribbon buffers required.");
-            double half=width*.5;
             for(int k=0;k<nodes;k++)
             {
                 var edge=edges[k==nodes-1?last:first+k];
+                // Preserve each authored section width. A future narrow mat
+                // must not retroactively shrink the common arrival aisle.
+                double half=edge.MinimumWidth*.5;
                 double px=k==nodes-1?edge.EndX:edge.X,pz=k==nodes-1?edge.EndZ:edge.Z;
                 double rx=k==nodes-1?edge.RibbonEndX:edge.RibbonStartX,rz=k==nodes-1?edge.RibbonEndZ:edge.RibbonStartZ;
                 x[k]=px-rx*half;z[k]=pz-rz*half;
@@ -521,14 +592,28 @@ namespace Biathlon.Simulation
             window=default;
             int section=source.SectionIndex,a=firstEdges[section],b=edgeEnds[section];
             double station=source.RouteNanometers/(double)SkiState.NanometersPerMeter;
-            while(a<b){int m=a+(b-a)/2;if(edges[m].StationEnd<station)a=m+1;else b=m;}
-            if(a>=edgeEnds[section]||station<edges[a].StationStart||station>edges[a].StationEnd)return false;
+            // The cursor is encoded in integer nanometers; authored edge stations
+            // are doubles. Keep an encoded knot attached to its connected snow.
+            double reserve=2*PhysiologyNumbers.MinimumPositive;
+            while(a<b){int m=a+(b-a)/2;if(edges[m].StationEnd<station-reserve)a=m+1;else b=m;}
+            if(a>=edgeEnds[section]||station<edges[a].StationStart-reserve||station>edges[a].StationEnd+reserve)return false;
             int first=a,last=a;double before=0,after=0;
             while(first>0&&before<reach&&Touching(edges[first-1],edges[first]))
             {first--;before+=edges[first].PlanarLength;}
             while(last+1<edges.Length&&after<reach&&Touching(edges[last],edges[last+1]))
             {last++;after+=edges[last].PlanarLength;}
-            window=new ManualConnectedTubeWindow(first,last);return true;
+            int incomingFirst=-1,incomingLast=-1;
+            // An owned penalty/finish transition retains the actual incoming
+            // snow under the rear of the body. Catalog order is not path order:
+            // alternative penalty occurrences are stored after the base flow.
+            if(UseRoundSnowCorridor&&phaseIncomingEdges!=null&&phaseIncomingEdges[section]>=0&&
+                station-starts[section]/(double)SkiState.NanometersPerMeter<reach)
+            {
+                incomingFirst=incomingLast=phaseIncomingEdges[section];double covered=edges[incomingFirst].PlanarLength;
+                while(incomingFirst>0&&covered<reach&&Touching(edges[incomingFirst-1],edges[incomingFirst]))
+                {incomingFirst--;covered+=edges[incomingFirst].PlanarLength;}
+            }
+            window=new ManualConnectedTubeWindow(first,last,incomingFirst,incomingLast);return true;
         }
         // Every disk must fit in at least one of the pre-existing conservative
         // edge tubes. Their unchanged turn reserve and actual width are retained;
@@ -538,13 +623,20 @@ namespace Biathlon.Simulation
             double result=double.NegativeInfinity;
             for(int i=window.First;i<=window.Last;i++)
             {
+                result=Math.Max(result,Clearance(i));
+            }
+            if(window.IncomingFirst>=0)for(int i=window.IncomingFirst;i<=window.IncomingLast;i++)result=Math.Max(result,Clearance(i));
+            return result;
+            double Clearance(int i)
+            {
                 var edge=edges[i];double t=Math.Max(0,Math.Min(1,((x-edge.X)*edge.DX+(z-edge.Z)*edge.DZ)/(edge.PlanarLength*edge.PlanarLength)));
                 double dx=x-edge.X-t*edge.DX,dz=z-edge.Z-t*edge.DZ;
-                result=Math.Max(result,edge.MinimumWidth*.5-edge.TubeTurnReserve-radius-Math.Sqrt(dx*dx+dz*dz));
+                return edge.MinimumWidth*.5-(UseRoundSnowCorridor?0:edge.TubeTurnReserve)-radius-Math.Sqrt(dx*dx+dz*dz);
             }
-            return result;
         }
-        private static bool Touching(Edge a,Edge b)=>a.EndX==b.X&&a.EndZ==b.Z&&a.EndY==b.Y;
+        private bool Touching(Edge a,Edge b)=>a.EndX==b.X&&a.EndZ==b.Z&&a.EndY==b.Y||
+            PortalPositionTolerance>0&&Math.Abs(a.EndX-b.X)<=PortalPositionTolerance&&
+            Math.Abs(a.EndZ-b.Z)<=PortalPositionTolerance&&Math.Abs(a.EndY-b.Y)<=PortalPositionTolerance;
 
         internal ManualRouteTubeWindow BuildTubeWindow(int currentSection,long currentStationNanometers,
             double maximumStationDisplacementMeters,bool admitNextSection,OccupancyDefinition body)

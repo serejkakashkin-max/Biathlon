@@ -12,6 +12,59 @@ namespace Biathlon.PlayModeTests
 {
     public class ProductionVenueHostTests
     {
+        [UnityTest] public IEnumerator WoodlandMassStartManualEnvironmentJoinsAndRendersAllQualityTiers()
+        {
+            const string prefix="Biathlon/Venues/woodland_basin_v1/";
+            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(ProductionVenueHost.ReadResource(prefix+"manifest")),ProductionVenueHost.ReadResource);
+            var root=new GameObject("M13 final dense environment check");
+            try
+            {
+                var host=root.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;
+                host.Initialize(venue,CompetitionProfile.FromJson(ProductionVenueHost.ReadResource(prefix+"mass_start_profile")),
+                    RaceRoutePlan.FromJson(ProductionVenueHost.ReadResource(prefix+"mass_start_route")),
+                    RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1")),30);
+                host.InitializeEnvironment(ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource(prefix+"environment")));
+                Assert.That(host.Course.GroundJoined,Is.True);Assert.That(host.Environment.TreeCount,Is.GreaterThan(100));
+                Assert.That(host.Proxies.Count,Is.EqualTo(30));
+                foreach(var tier in new[]{"high","balanced","low"})
+                {
+                    host.GetComponent<RenderQualityPresentation>().Apply(tier);
+                    host.ChaseCamera.transform.SetPositionAndRotation(new Vector3(60,25,28),Quaternion.LookRotation(new Vector3(0,-.3f,-1)));
+                    host.Environment.Render(host.ChaseCamera,tier,0);host.Proxies.Render(1);
+                    TestContext.WriteLine("m13_broadcast tier="+tier+" visible_trees="+host.Environment.VisibleTrees+" forest_triangles="+host.Environment.SubmittedForestTriangles);
+                    yield return null;
+                }
+            }
+            finally{Object.Destroy(root);}
+        }
+        [UnityTest] public IEnumerator WoodlandHostUsesSignedSteeringAndDisplaysTheAcceptedWorldBody()
+        {
+            const string prefix="Biathlon/Venues/woodland_basin_v1/";
+            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(ProductionVenueHost.ReadResource(prefix+"manifest")),ProductionVenueHost.ReadResource);
+            var root=new GameObject("Manual Woodland player acceptance");
+            try
+            {
+                var host=root.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;
+                host.Initialize(venue,CompetitionProfile.FromJson(ProductionVenueHost.ReadResource(prefix+"mass_start_profile")),
+                    RaceRoutePlan.FromJson(ProductionVenueHost.ReadResource(prefix+"mass_start_route")),
+                    RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1")),count:1);
+                Assert.That(host.ManualStepper,Is.Not.Null);Assert.That(host.Runner.UsesManualScopedCandidate,Is.True);
+                var id=host.Runner.Field.GetAthlete(0).AthleteId;
+                for(int i=0;i<100;i++)
+                {
+                    var tick=host.Runner.Field.Tick.Next();host.Step(new ManualSkiCommand(tick,id,800,i>=92?250:0),
+                        new ShootingDeviceCommand(new WeaponAimCommand(tick,id,0,0),false,false));
+                }
+                host.Proxies.Render(1);
+                var actual=host.ManualStepper.World.GetActor(0);var proxy=host.Proxies.GetProxy(id.Value);
+                Assert.That(proxy.position.x,Is.EqualTo(actual.Pose.X).Within(.02));
+                Assert.That(proxy.position.z,Is.EqualTo(actual.Pose.Z).Within(.02));
+                Assert.That(Vector3.Angle(proxy.forward,new Vector3((float)Math.Sin(actual.Pose.HeadingRadians),0,(float)Math.Cos(actual.Pose.HeadingRadians))),Is.LessThan(1));
+                Assert.That(host.Feed.Current.Get(0).WorldPose.IsValid,Is.True);
+                Assert.That(host.LastRangeAssistance.Active,Is.False);yield return null;
+            }
+            finally{Object.Destroy(root);}
+        }
         [UnityTest] public IEnumerator ExplicitPathPlayerHostCompletesAndUsesTheCurrentCorridorForInputExtent()
         {
             // Adapter contract fixture only; no production geometry or 30-mat acceptance claim.
@@ -59,14 +112,14 @@ namespace Biathlon.PlayModeTests
             }
             finally{Object.Destroy(root);}
         }
-        [UnityTest] public IEnumerator ProductionSprintFortyOneRejectsBeforeHostStateComponentsOrChildren()
+        [UnityTest] public IEnumerator ProductionSprintThirtyOneRejectsBeforeHostStateComponentsOrChildren()
         {
             string venueRoot="Biathlon/Venues/woodland_basin_v1/";
             var venue=new VenueAuthoringPlan(VenueManifest.FromJson(ProductionVenueHost.ReadResource(venueRoot+"manifest")),ProductionVenueHost.ReadResource);
             var profile=CompetitionProfile.FromJson(ProductionVenueHost.ReadResource(venueRoot+"sprint_profile"));
             var route=RaceRoutePlan.FromJson(ProductionVenueHost.ReadResource(venueRoot+"sprint_route"));
             var conditions=RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1"));
-            Assert.That(profile.FieldCapacity,Is.EqualTo(40));
+            Assert.That(profile.FieldCapacity,Is.EqualTo(30));
             Assert.That(venue.Formats.Get(1).Profile.ToJson(),Is.EqualTo(profile.ToJson()));
             Assert.That(venue.Formats.Get(1).Route.ToJson(),Is.EqualTo(route.ToJson()));
             var root=new GameObject("Production cap atomic host rejection");
@@ -74,7 +127,7 @@ namespace Biathlon.PlayModeTests
             {
                 var host=root.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;
                 int before=root.GetComponents<Component>().Length;
-                Assert.Throws<ArgumentException>(()=>host.Initialize(venue,profile,route,conditions,count:41));
+                Assert.Throws<ArgumentException>(()=>host.Initialize(venue,profile,route,conditions,count:31));
                 Assert.That(host.Runner,Is.Null);Assert.That(host.Venue,Is.Null);Assert.That(host.Feed,Is.Null);
                 Assert.That(host.Proxies,Is.Null);Assert.That(host.Mats,Is.Null);Assert.That(host.Course,Is.Null);
                 Assert.That(host.ChaseCamera,Is.Null);Assert.That(host.Environment,Is.Null);

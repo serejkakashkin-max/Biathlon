@@ -20,6 +20,8 @@ namespace Biathlon.Unity.Presentation
         public string ReviewDefinitionResource;
         public ProductionReviewPresentation Review {get;private set;}
         public bool AutoStart=true,UseGamepad;
+        public bool UseManualHeading=true;
+        public ManualScopedFieldStepper ManualStepper {get;private set;}
         public int FieldCount=30;
         public PackAiRaceRunner Runner {get;private set;}
         public VenueAuthoringPlan Venue {get;private set;}
@@ -104,6 +106,12 @@ namespace Biathlon.Unity.Presentation
             if(Runner!=null)throw new InvalidOperationException("A fresh host is required for another race.");
             if(playerIndex<0||playerIndex>=count)throw new ArgumentOutOfRangeException(nameof(playerIndex));
             var runner=ProductionVenueRaceFactory.Create(venue,profile,route,conditions,ReadCore,new BalanceEventAudit(5),new AiDecisionCounts(),qualification,count);
+            if(UseManualHeading&&venue.Formats!=null)
+            {
+                ManualStepper=ManualProductionFieldComposition.Create(runner.Field,venue,ReadCore);
+                runner.BindManualScopedCandidate(ManualStepper,ManualAiSteeringDefinition.FromJson(ReadCore("manual_ai_steering_v2.json")),
+                    ManualSkiSteeringDefinition.FromJson(ReadCore("manual_ski_steering_v2.json")));
+            }
             Venue=venue;Runner=runner;PlayerIndex=playerIndex;body=venue.Occupancy;
             var requirements=profile.ToRouteRequirements();shootingLaps=new bool[profile.LapCount];
             for(int lap=0;lap<shootingLaps.Length;lap++)shootingLaps[lap]=requirements.RequiresRange(lap);
@@ -114,7 +122,8 @@ namespace Biathlon.Unity.Presentation
             shot=gameObject.AddComponent<ShootingDeviceInput>();shot.enabled=false;shot.Initialize(id,field.TickFrequency);
             effort=new EffortControlSystem(EffortControlDefinition.FromJson(ReadCore("effort_control_provisional_v1.json")),id,field.TickFrequency);
             Mats=gameObject.AddComponent<RangeMatPresentation>();Mats.Initialize(venue);
-            Course=gameObject.AddComponent<ProductionCoursePresentation>();Course.Initialize(venue,route:field.Route,sharedApron:venue.SharedApron);
+            Course=gameObject.AddComponent<ProductionCoursePresentation>();Course.Initialize(venue,route:field.Route,sharedApron:venue.SharedApron,
+                finishRunout:ManualStepper?.World.GetCatalog(0).FinishRunoutDefinition);
             Proxies=gameObject.AddComponent<AthleteProxyPresentation>();Proxies.Initialize(Feed,venue);Proxies.Render(1);
             var cameraObject=new GameObject("Production chase camera");cameraObject.transform.SetParent(transform,false);
             ChaseCamera=cameraObject.AddComponent<Camera>();ChaseCamera.depth=100;
@@ -151,7 +160,9 @@ namespace Biathlon.Unity.Presentation
             while(accumulator>=dt&&!Runner.Field.IsComplete)
             {
                 var tick=Runner.Field.Tick.Next();
-                Step(ski.BuildDirectional(tick,Runner.Field.GetLateral(PlayerIndex),CurrentLateralExtent),shot.Build(tick));accumulator-=dt;
+                if(ManualStepper!=null)Step(ski.BuildManual(tick),shot.Build(tick));
+                else Step(ski.BuildDirectional(tick,Runner.Field.GetLateral(PlayerIndex),CurrentLateralExtent),shot.Build(tick));
+                accumulator-=dt;
             }
         }
         public void Step(PlayerCommand command,ShootingDeviceCommand shooting)
@@ -171,12 +182,33 @@ namespace Biathlon.Unity.Presentation
             Runner.StepWithPlayer(PlayerIndex,input,assist.RequestedLateral);LastRangeAssistance=assist;
             Feed.Publish(RacePresentationSnapshot.Capture(Runner.Field));range.Refresh();hud.Refresh();debugHud.Refresh();penalty.Refresh();
         }
+        public void Step(ManualSkiCommand command,ShootingDeviceCommand shooting)
+        {
+            if(ManualStepper==null)throw new InvalidOperationException("Signed heading mode must be selected before manual input.");
+            var applied=effort.Step(command.ToEffortCommand(),true);
+            var actor=Runner.Field.GetAthlete(PlayerIndex);var point=Runner.Field.GetPhysicalPoint(PlayerIndex);
+            long distance=long.MaxValue;
+            var cursor=ManualStepper.World.GetCursor(PlayerIndex);var catalog=ManualStepper.World.GetCatalog(PlayerIndex);
+            var occurrence=catalog.Get(cursor.OccurrenceIndex);
+            // Assistance follows current physical distance, never earlier paid
+            // high water when the player has turned or travelled backwards.
+            if(occurrence.End==ManualRacePathEnd.FiringLine)distance=occurrence.LengthNanometers-cursor.ObservedArcNanometers;
+            else if(occurrence.Kind==ManualRacePathKind.RangeExit&&occurrence.BoutIndex>=0&&
+                cursor.OccurrenceIndex==catalog.GetFiringOccurrence(occurrence.BoutIndex)+1)distance=-cursor.ObservedArcNanometers;
+            var assist=rangeAssistance.Evaluate(actor.CurrentRangeMotion?.Phase,
+                actor.RangePath!=null&&point.LoopId==actor.RangePath.MatAnchor.LoopId,distance,
+                applied.AppliedControl,Runner.Field.GetLateral(PlayerIndex),actor.Motion.SpeedMetersPerSecond);
+            var input=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(command.Tick,command.AthleteId,assist.RequestedEffort),1,1,0,
+                !assist.Active&&command.TuckHeld,!assist.Active&&applied.FinalSprintRequested),shooting.Aim,shooting.Trigger,shooting.HoldBreath);
+            Runner.StepWithManualPlayer(PlayerIndex,input,command.SteeringInput,assist.Active);LastRangeAssistance=assist;
+            Feed.Publish(RacePresentationSnapshot.Capture(Runner.Field));range.Refresh();hud.Refresh();debugHud.Refresh();penalty.Refresh();
+        }
         private void OnApplicationFocus(bool value){if(ski!=null)ski.SetInputFocus(value);if(shot!=null)shot.SetInputFocus(value);}
         private void OnGUI()
         {
             if(Runner==null)return;
-            GUI.Box(new Rect(12,Screen.height-30,1000,24),"SKI: W/S effort, A/D line, Space tuck | RANGE: mouse aim, LMB fire, RMB fine, Space breath");
-            if(LastRangeAssistance.Active)GUI.Box(new Rect(Screen.width/2f-170,Screen.height-90,340,28),LastRangeAssistance.Mode==PlayerRangeAssistMode.FinalApproach?"Подъезд к назначенному коврику":"Старт с коврика — управление возвращается");
+            GUI.Box(new Rect(12,Screen.height-30,1000,24),"SKI: W/S effort, A/D steering, Space tuck | RANGE: mouse aim, LMB fire, RMB fine, Space breath");
+            if(LastRangeAssistance.Active)GUI.Box(new Rect(Screen.width/2f-170,Screen.height-90,340,28),LastRangeAssistance.Mode==PlayerRangeAssistMode.FinalApproach?"Подготовка к стрельбе":"Управление возвращается");
         }
     }
 }

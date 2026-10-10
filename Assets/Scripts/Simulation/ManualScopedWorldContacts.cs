@@ -44,14 +44,14 @@ namespace Biathlon.Simulation
                     !SamePose(frame.InitialPose,actor.Pose)||!SameVelocity(frame.InitialMotion.Velocity,actor.Velocity)||
                     frame.InitialMotion.YawRate!=actor.Pose.YawRateRadiansPerSecond||frame.MassKilograms!=masses[i])
                     throw new ArgumentException("Exact current physical source, mass and equal-duration remaining drive required.");
-                responseBodies[i]=new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,masses[i]);
+                responseBodies[i]=new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,masses[i],IsGroundedMat(i));
                 hasBreakpoint|=frame.ConstantAccelerationSeconds<frame.DurationSeconds;
                 hasBreakpoint|=frame.Snow.HasExactNeutralConstraint&&frame.FirstDrive.InitialState.SpeedMetersPerSecond>0&&frame.FirstDrive.Acceleration<0&&
                     frame.MotionAt(1).Velocity.X==0&&frame.MotionAt(1).Velocity.Z==0;
             }
             if(!CollectOwnedContacts())return false;
-            if(LastOwnedContacts.Count==0)Array.Clear(ownedFreeValid,0,Count);
-            if(LastOwnedContacts.Count==0&&hasBreakpoint)
+            if(LastOwnedContacts.Count==0&&CourseEdgeResponses==0)Array.Clear(ownedFreeValid,0,Count);
+            if(LastOwnedContacts.Count==0&&hasBreakpoint&&CourseEdgeResponses==0)
             {
                 // Recomputing every separated skier at another skier's tiny
                 // stop breakpoint repeatedly restarts a partly paid snow ramp.
@@ -74,7 +74,7 @@ namespace Biathlon.Simulation
                 for(int i=0;i<Count;i++)
                 {
                     var cursor=workingCursors[i];var row=catalogs[i].Get(cursor.OccurrenceIndex);
-                    if(!ownedContactParticipants[i]&&NeutralStop(drives[i]))
+                    if(!ownedContactParticipants[i]&&!courseSupports[i]&&NeutralStop(drives[i]))
                     {
                         // This disconnected stop keeps its complete free law,
                         // including the snow ramp after its forward-speed stop.
@@ -105,7 +105,9 @@ namespace Biathlon.Simulation
                     var body=responseBodies[i];
                     ownedFreePieces[i]=new SkiForceCoupledTrajectory(body.Pose,new SkiContactMotion(body.Velocity,body.Pose.YawRateRadiansPerSecond),acceleration,seconds);
                 }
-                LastContactForces=contactForces.PreviewRefined(responseBodies,ownedFreePieces,Count,coupledTrajectories,maximumForceRefinements,physicalParticipants);
+                LastContactForces=seconds<contactForces.MinimumPieceSeconds
+                    ?contactForces.Preview(responseBodies,drives,Count,coupledTrajectories,physicalParticipants)
+                    :contactForces.PreviewRefined(responseBodies,ownedFreePieces,Count,coupledTrajectories,maximumForceRefinements,physicalParticipants);
             }
             if(LastContactForces.Status!=SkiContactForceStatus.Resolved)return Reject(ManualScopedWorldStatus.ContactForces);
             for(int i=0;i<Count;i++)
@@ -113,7 +115,8 @@ namespace Biathlon.Simulation
                 // An unrelated pair's reaction calendar must not replace a
                 // separated skier's own exact free stop/snow law. Future contact
                 // is still admitted by the common continuous scheduler.
-                var trajectory=LastOwnedContacts.Count>0&&!ownedContactParticipants[i]&&NeutralStop(drives[i])
+                coupledTrajectories[i]=ApplyCourseReaction(i,coupledTrajectories[i]);
+                var trajectory=LastOwnedContacts.Count>0&&!ownedContactParticipants[i]&&!courseSupports[i]&&NeutralStop(drives[i])
                     ?new ManualSkiWorldTrajectory(drives[i]).Slice(0,LastContactForces.DurationSeconds)
                     :new ManualSkiWorldTrajectory(coupledTrajectories[i]);
                 coupledCandidates[i]=new SkiWorldMotionCandidate(workingActors[i].Athlete,trajectory);
@@ -146,7 +149,7 @@ namespace Biathlon.Simulation
                     LastOwnedContacts=new ManualScopedContactSetPreview(false,0,new SkiReachedContactPair(a.Athlete,b.Athlete),gap);
                     return Reject(ManualScopedWorldStatus.ContactGeometry,a.Athlete);
                 }
-                if(gap.GapMeters<=ownedContactTolerance)
+                if(gap.GapMeters<=ownedContactTolerance+4*PhysiologyNumbers.MinimumPositive)
                 {ownedContacts[count++]=new SkiReachedContactPair(a.Athlete,b.Athlete);ownedContactParticipants[ai]=ownedContactParticipants[bi]=true;}
             }
             LastOwnedContacts=new ManualScopedContactSetPreview(true,count);return true;

@@ -7,6 +7,45 @@ namespace Biathlon.Tests
 {
     public class ManualSkiContactForcesTests
     {
+        [Test] public void ContinuingSkinSupportUsesTheForceResidualRatherThanTheImpactConvergence()
+        {
+            var f=new Fixture();var body=f.Source.Venue.Occupancy;
+            var contact=SkiContactDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ski_contact_gameplay_v1.json"));
+            var work=SkiContactGroupDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ski_contact_group_gameplay_v1.json"));
+            var solver=new ManualSkiContactForces(body,contact,work,2);
+            var bodies=new[]{f.Actor("rear",0,6.0005),f.Actor("front",body.LongitudinalSeparation-.005,6)};
+            var free=new[]{f.Drive(bodies[0],0),f.Drive(bodies[1],0)};var output=new SkiForceCoupledTrajectory[2];
+            var result=solver.Preview(bodies,free,2,output);
+            Assert.That(result.Status,Is.EqualTo(SkiContactForceStatus.Resolved));
+            Assert.That(output[0].MotionAt(0).Velocity,Is.EqualTo(bodies[0].Velocity));
+            Assert.That(output[1].MotionAt(0).Velocity,Is.EqualTo(bodies[1].Velocity));
+            var sweep=new ManualSkiContactSweep(body,contact,ManualScopedFieldStepperTests.Work());
+            Assert.That(sweep.PreviewExistingContact(bodies[0].Athlete,new ManualSkiWorldTrajectory(output[0]),
+                bodies[1].Athlete,new ManualSkiWorldTrajectory(output[1])).Status,Is.EqualTo(SkiContactSweepStatus.Clear));
+        }
+        [TestCase(.01)][TestCase(.019999999)]
+        public void PracticalContactSkinDoesNotGenerateAPositionalEjectionForce(double admittedSkin)
+        {
+            var f=new Fixture();var body=f.Source.Venue.Occupancy;
+            var contact=SkiContactDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ski_contact_gameplay_v1.json"));
+            var work=SkiContactGroupDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ski_contact_group_gameplay_v1.json"));
+            var solver=new ManualSkiContactForces(body,contact,work,2);
+            var bodies=new[]{f.Actor("a",0,forward:0),f.Actor("b",body.LongitudinalSeparation-admittedSkin,forward:0)};
+            var drives=new[]{f.Drive(bodies[0],power:0,seconds:.0001),f.Drive(bodies[1],power:0,seconds:.0001)};
+            var output=new SkiForceCoupledTrajectory[2];var result=solver.Preview(bodies,drives,2,output);
+            Assert.That(result.Status,Is.EqualTo(SkiContactForceStatus.Resolved));
+            // The numerical skin reserve may separate touching skis by a few
+            // micrometres. Bound actual displacement to 0.1% of the declared
+            // skin, and reject any visible launch rather than demanding an
+            // arbitrary one-centimetre-per-second threshold.
+            for(int i=0;i<2;i++)
+            {
+                double speed=Math.Sqrt(Math.Pow(output[i].MotionAt(1).Velocity.X,2)+Math.Pow(output[i].MotionAt(1).Velocity.Z,2));
+                Assert.That(speed,Is.LessThan(.1));
+                Assert.That(speed*result.DurationSeconds,Is.LessThan(contact.ContactTolerance*.001));
+            }
+            Assert.That(result.DurationSeconds,Is.EqualTo(.0001));
+        }
         private sealed class Fixture
         {
             internal readonly ManualRacePathCatalogTests.Fixture Source=new ManualRacePathCatalogTests.Fixture();

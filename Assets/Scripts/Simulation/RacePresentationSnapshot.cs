@@ -117,6 +117,27 @@ namespace Biathlon.Simulation
     }
     public static class RacePresentationSampling
     {
+        /// <summary>Interpolate actual accepted world poses, including across
+        /// path seams. This never derives a heading from route tangent knots.</summary>
+        public static ManualSkiHeadingState WorldPose(RacePresentationSnapshot previous,RacePresentationSnapshot current,int index,double alpha)
+        {
+            if(current==null)throw new ArgumentNullException(nameof(current));
+            PhysiologyNumbers.RequireRange(alpha,0,1,nameof(alpha));
+            var b=current.Get(index);if(!b.WorldPose.IsValid)return default;
+            if(previous!=null&&previous.Tick+1==current.Tick&&previous.TrackId==current.TrackId&&previous.ProfileId==current.ProfileId&&index<previous.Count)
+            {
+                var a=previous.Get(index);
+                if(a.AthleteId==b.AthleteId&&a.WorldPose.IsValid)
+                {
+                    double delta=b.WorldPose.HeadingRadians-a.WorldPose.HeadingRadians;
+                    delta=Math.Atan2(Math.Sin(delta),Math.Cos(delta));
+                    return new ManualSkiHeadingState(a.WorldPose.X+(b.WorldPose.X-a.WorldPose.X)*alpha,
+                        a.WorldPose.Z+(b.WorldPose.Z-a.WorldPose.Z)*alpha,a.WorldPose.HeadingRadians+delta*alpha,
+                        a.WorldPose.YawRateRadiansPerSecond+(b.WorldPose.YawRateRadiansPerSecond-a.WorldPose.YawRateRadiansPerSecond)*alpha);
+                }
+            }
+            return b.WorldPose;
+        }
         public static PresentationPosition Position(RacePresentationSnapshot previous,RacePresentationSnapshot current,int index,double alpha)
         {
             if(current==null)throw new ArgumentNullException(nameof(current));if(double.IsNaN(alpha)||double.IsInfinity(alpha)||alpha<0||alpha>1)throw new ArgumentOutOfRangeException(nameof(alpha));

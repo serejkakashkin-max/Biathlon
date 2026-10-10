@@ -71,14 +71,14 @@ namespace Biathlon.Tests
                 " result_chars="+result.Length);
         }
 
-        [TestCase("fresh_soft","sprint",40)]
+        [TestCase("fresh_soft","sprint",30)]
         [TestCase("icy_fast","mass_start",30)]
         [Timeout(900000)]
         public void FullWoodlandFieldCompletesUnderNonNeutralSnow(
             string profile,string format,int count)
             =>VerifyFullField(profile,format,count);
 
-        [TestCase("packed_neutral","sprint",40)]
+        [TestCase("packed_neutral","sprint",30)]
         [TestCase("wet_slow","mass_start",30)]
         [Timeout(900000),NonParallelizable]
         public void AdditionalCanonicalFullFieldConditionsComplete(
@@ -87,11 +87,11 @@ namespace Biathlon.Tests
 
         [Test,Timeout(900000),NonParallelizable]
         public void IcyFastFullSprintQualifiesAndCompletesPursuit()
-            =>VerifyFullField("icy_fast","sprint",40);
+            =>VerifyFullField("icy_fast","sprint",30);
 
         [Test,Timeout(900000),NonParallelizable]
         public void WetSlowFullSprintQualifiesAndCompletesPursuit()
-            =>VerifyFullField("wet_slow","sprint",40);
+            =>VerifyFullField("wet_slow","sprint",30);
 
         [Test,Timeout(900000),NonParallelizable]
         public void FreshSoftFullMassStartCompletes()
