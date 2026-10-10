@@ -14,12 +14,13 @@ namespace Biathlon.Unity.Presentation
     {
         public int schema_version;
         public string id, default_tier;
+        public int target_frame_rate;
         public RenderQualityTier[] tiers;
         public static RenderQualityDefinition Load() => FromJson(Resources.Load<TextAsset>("Biathlon/render_quality_v1").text);
         public static RenderQualityDefinition FromJson(string json)
         {
             var d = JsonUtility.FromJson<RenderQualityDefinition>(json);
-            if (d == null || d.schema_version != 1 || string.IsNullOrWhiteSpace(d.id) || d.tiers == null || d.tiers.Length != 3)
+            if (d == null || d.schema_version != 1 || string.IsNullOrWhiteSpace(d.id) || d.tiers == null || d.tiers.Length != 3 || d.target_frame_rate<30 || d.target_frame_rate>240)
                 throw new ArgumentException("Invalid render quality definition.");
             for (int i = 0; i < d.tiers.Length; i++)
             {

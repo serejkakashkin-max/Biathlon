@@ -1,0 +1,42 @@
+#if UNITY_EDITOR
+using System;
+using System.IO;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+using Biathlon.Domain;
+using Biathlon.Simulation;
+using Biathlon.Unity.Presentation;
+[InitializeOnLoad]
+public static class TemporaryOwnerFrameProbe {
+ static ProductionVenueHost h;static BenchmarkFrameCounters counters;
+ static int stage=-1,frame,lastFrame=-1;static double last;static List<string> rows=new List<string>();
+ const string Folder="docs/quality/m13/perf-ground-20261010/";
+ static TemporaryOwnerFrameProbe(){EditorApplication.playModeStateChanged+=Mode;}
+ public static void Begin(){SessionState.SetBool("OwnerFrames",true);var source=UnityEngine.Object.FindAnyObjectByType<ProductionVenueHost>();source.AutoStart=false;EditorApplication.isPlaying=true;}
+ static void Mode(PlayModeStateChange state){if(state!=PlayModeStateChange.EnteredPlayMode||!SessionState.GetBool("OwnerFrames",false))return;SessionState.SetBool("OwnerFrames",false);EditorApplication.delayCall+=Start;}
+ static void Start(){try{
+  h=UnityEngine.Object.FindAnyObjectByType<ProductionVenueHost>();h.AutoStart=false;h.enabled=false;
+  File.WriteAllText(Folder+"frame-progress.txt","initialize race");
+  var venue=new VenueAuthoringPlan(VenueManifest.FromJson(ProductionVenueHost.ReadResource(h.VenueResource)),ProductionVenueHost.ReadResource);
+  h.Initialize(venue,CompetitionProfile.FromJson(ProductionVenueHost.ReadResource(h.ProfileResource)),RaceRoutePlan.FromJson(ProductionVenueHost.ReadResource(h.RouteResource)),RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource(h.ConditionsResource)),30);
+  File.WriteAllText(Folder+"frame-progress.txt","initialize environment");
+  h.InitializeEnvironment(ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource(h.EnvironmentResource)));
+  File.WriteAllText(Folder+"frame-progress.txt","advancing");
+  counters=new BenchmarkFrameCounters();rows.Clear();rows.Add("stage,frame,wall_ms,draws,triangles,gc_bytes,gpu_ms,cpu_main_ms");stage=-1;frame=0;last=EditorApplication.timeSinceStartup;EditorApplication.update+=Update;
+ }catch(Exception e){File.WriteAllText(Folder+"frame-error.txt",e.ToString());}}
+ static void Publish(){h.Feed.Publish(RacePresentationSnapshot.Capture(h.Runner.Field));h.GetComponent<RangePresentation>().Refresh();}
+ static void Update(){try{
+  if(!EditorApplication.isPlaying){End();return;}if(Time.frameCount==lastFrame)return;lastFrame=Time.frameCount;double now=EditorApplication.timeSinceStartup;
+  if(stage==-1){for(int i=0;i<24&&h.Runner.Field.GetAthlete(0).ActiveShooting==null;i++)h.Runner.Step();Publish();
+   if(h.Runner.Field.GetAthlete(0).ActiveShooting!=null){stage=0;frame=0;h.GetComponent<RenderQualityPresentation>().Apply("high");}last=now;return;}
+  if(frame>15){var f=counters.Read(frame,0,(now-last)*1000);rows.Add(FormattableString.Invariant($"{stage},{frame},{Time.unscaledDeltaTime*1000:F3},{f.draw_calls},{f.triangles},{f.gc_bytes},{f.gpu_ms},{f.cpu_main_ms}"));}
+  counters.Request();last=now;frame++;
+  if(frame==-1)ScreenCapture.CaptureScreenshot(Folder+"frame-"+stage+".png");
+  if(frame<75)return;frame=0;stage++;
+  if(stage==2){for(int i=0;i<80;i++)h.Runner.Step();Publish();}
+  if(stage==4){End();return;}h.GetComponent<RenderQualityPresentation>().Apply(stage%2==0?"high":"low");
+ }catch(Exception e){File.WriteAllText(Folder+"frame-error.txt",e.ToString());End();}}
+ static void End(){EditorApplication.update-=Update;counters?.Dispose();File.WriteAllLines(Folder+"frames-after.csv",rows);File.WriteAllText(Folder+"frame-progress.txt","done");}
+}
+#endif

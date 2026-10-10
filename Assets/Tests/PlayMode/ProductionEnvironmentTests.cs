@@ -207,12 +207,15 @@ namespace Biathlon.PlayModeTests
             try
             {
                 var camera=Camera(root,new Vector3(0,5,-35));var feed=root.AddComponent<RacePresentationFeed>();var view=root.AddComponent<ProductionVenueEnvironment>();view.Initialize(plan,recipe,Read,feed,camera);
-                Assert.That(view.BankCount,Is.EqualTo(30));Assert.That(view.TerrainTileCount,Is.EqualTo(recipe.terrain.tiles.Length));Assert.That(view.ForestGroupCount,Is.EqualTo(recipe.forest.groups.Length));Assert.That(view.TreeCount,Is.GreaterThan(20000));
+                Assert.That(view.BankCount,Is.EqualTo(30));Assert.That(view.TerrainTileCount,Is.EqualTo(recipe.terrain.tiles.Length));Assert.That(view.ForestGroupCount,Is.EqualTo(recipe.forest.groups.Length));Assert.That(view.TreeCount,Is.InRange(2000,4000));
                 // The exact groomed ribbon carries the skis. Terrain now stays below its whole
                 // width, checked separately by exact triangle overlay. Knot contact alone cannot
                 // certify the ribbon edges; lowering affected cells may deepen the base gap.
                 foreach(var loop in recipe.route_corridors)foreach(var knot in loop.knots)
+                {
                     Assert.That(knot.y-view.SampleGround(knot.Position),Is.GreaterThanOrEqualTo(.025f),"Terrain must remain beneath the exact groomed course, including climbing/highland loops.");
+                    Assert.That(knot.y-view.SampleGround(knot.Position),Is.LessThan(.65f),"Snow must fill the old deep trenches beneath the road.");
+                }
                 // Compact mats stop behind the firing datum. Banks still bind the
                 // canonical 50m shooting plane, rather than following that rearward stop.
                 for(int i=0;i<30;i++){var mat=PathPresentationFixture.Position(plan.MatPoint(i));Assert.That(view.Bank(i).transform.position,Is.EqualTo(mat+recipe.range.forward*(float)(50+plan.FiringDatumDepth)+Vector3.up*.85f));}

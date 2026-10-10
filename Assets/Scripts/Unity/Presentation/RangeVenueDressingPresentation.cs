@@ -32,6 +32,7 @@ namespace Biathlon.Unity.Presentation
         public Vector3 StartSlot(int index)=>startSlots[index];
         private Vector3[] startSlots;
         private long observedTick=-1;
+        private readonly List<MeshRenderer> fixedRenderers=new List<MeshRenderer>();
         public void Initialize(VenueAuthoringPlan venue,PackSprintFieldSession field,ManualScopedWorldRoster world,RacePresentationFeed source)
         {
             if(settings!=null||venue==null||field==null||source==null)throw new ArgumentException("Fresh range dressing and a bound venue required.");
@@ -78,7 +79,7 @@ namespace Biathlon.Unity.Presentation
                     var origin=mat+forward*(float)(venue.FiringDatumDepth+geometry.DistanceMeters*fraction)+right*settings.number_post_side_m;
                     Pole(origin,settings.wind_streamer_height_m);
                     var pivot=new GameObject("Observed wind streamer");pivot.transform.SetParent(transform,false);pivot.transform.position=origin+Vector3.up*settings.wind_streamer_height_m;
-                    var fabric=Cube("Wind fabric",pivot.transform.position,new Vector3(settings.wind_streamer_width_m,settings.wind_streamer_length_m,.008f),accent);
+                    var fabric=Cube("Wind fabric",pivot.transform.position,new Vector3(settings.wind_streamer_width_m,settings.wind_streamer_length_m,.008f),accent,false);
                     fabric.SetParent(pivot.transform,false);fabric.localPosition=Vector3.down*(settings.wind_streamer_length_m*.5f);
                     flags[count++]=pivot.transform;
                 }
@@ -94,12 +95,13 @@ namespace Biathlon.Unity.Presentation
 
             }
             Refresh();
+            gameObject.AddComponent<StaticSceneryBatches>().Initialize(fixedRenderers);
         }
         private void Pole(Vector3 foot,float height)=>Cube("Range marker pole",foot+Vector3.up*(height*.5f),new Vector3(.025f,height,.025f),white);
-        private Transform Cube(string label,Vector3 position,Vector3 scale,Material material)
+        private Transform Cube(string label,Vector3 position,Vector3 scale,Material material,bool stationary=true)
         {
             var go=GameObject.CreatePrimitive(PrimitiveType.Cube);go.name=label;go.transform.SetParent(transform,false);go.transform.position=position;go.transform.localScale=scale;
-            go.GetComponent<Renderer>().sharedMaterial=material;var collider=go.GetComponent<Collider>();collider.enabled=false;Release(collider);return go.transform;
+            var renderer=go.GetComponent<MeshRenderer>();renderer.sharedMaterial=material;if(stationary)fixedRenderers.Add(renderer);var collider=go.GetComponent<Collider>();collider.enabled=false;Release(collider);return go.transform;
         }
         private void Text(string value,Vector3 position,Quaternion rotation,float size,Color color)
         {

@@ -24336,3 +24336,37 @@ All2933802 pre-task history bytes preserved; SHA256 prefix
 AEED18348D2ED427D1EDCB87A63FC4999CEE308F0BC6E3354EBD159E061D9630 verified.
 Master Plan unchanged. Next: owner tests visible setup/post-range/off-course
 hitches, shooting difficulty and recovery/pacing, then decides M13 closure.
+
+
+## 2026-10-10 — M13 owner feedback: range submission and snow support
+
+M13 remains OPEN; M14 not started. New owner candidate:
+Builds/WoodlandM13PerfGround-20261010/START_WOODLAND_REVIEW.cmd.
+Previous builds retained. One Woodland venue/max30, High default.
+
+Stationary scenery uses32m spatial material/shadow batches; moving targets,
+wind fabric, athletes, text and property-block renderers remain independent.
+Captured first-range High submissions decrease approximately35% (preparation
+3953 to2567; aiming2835 to1829). Presentation target60 FPS restores the previous
+application target when released. No race physics/input/replay policy changed.
+
+Visual terrain fitted to the current960m road:12697 tile samples adjusted,
+exact ribbon cap then corrects2698 samples by at most0.420m;984 tree heights
+updated. Wide shoulders replace deep cuts/raised slabs. Standing spectator
+anchors still project onto actual terrain. Native road/crowd captures inspected.
+
+Native batching2, quality3, environment7 tests PASS; focused .NET3 PASS.
+Active-host range probe mean6.13ms/max11.03ms for90 steps. Final frozen-frame
+High windows max3.918ms/3.253ms, GPU means2.00ms/1.13ms. These bounded probes
+do not reproduce the owner's long visible hitch or certify full-race FPS.
+Initial editor-callback timing capture includes screenshot stalls and local
+decimal formatting; use final unique-frame CSV for frame timing.
+
+Build Succeeded, Unity6000.6.0f1,0 errors/0 warnings,355704002 bytes. Hidden
+Mass30/Sprint30 startup/400-tick controls/scene transition smoke PASS, exit0;
+rendering suspended. Owner tests preparation and post-range travel before
+M13 closure. ADR0047, TASK_M13_PERF_GROUND_20261010.md and evidence directory
+docs/quality/m13/perf-ground-20261010/ record decisions and limitations.
+
+History preserved: all2937147 pre-task bytes retained exactly; no removal,
+compaction or replacement. Master Plan unchanged.

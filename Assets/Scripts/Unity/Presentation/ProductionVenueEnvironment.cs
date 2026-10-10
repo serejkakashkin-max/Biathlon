@@ -103,10 +103,12 @@ namespace Biathlon.Unity.Presentation
                     forest.Initialize(null,true,null,true,true,placement,species,prepared.HighForestFogEndMeters);forests[i]=forest;TreeCount+=trees.Length;
                 }
                 var crowdList=new List<SpectatorCrowd>();
+                var staticRenderers=new List<MeshRenderer>();
                 for(int i=0;i<data.assets.Length;i++)
                 {
                     var asset=data.assets[i];var go=Instantiate(prepared.Prefabs[i],generated.transform,false);go.name=asset.id;go.transform.SetPositionAndRotation(asset.position,Quaternion.Euler(0,asset.yaw_deg,0));
                     RemoveColliders(go);var seating=go.GetComponentInChildren<SpectatorSeating>();
+                    staticRenderers.AddRange(go.GetComponentsInChildren<MeshRenderer>());
                     if(seating!=null&&seating.Pose==SpectatorPose.Standing)
                     {
                         // These are clone-owned roadside feet anchors, not rigid
@@ -132,6 +134,7 @@ namespace Biathlon.Unity.Presentation
                 {
                     var asset=data.mesh_assets[i];var go=Child(asset.id,asset.position,Quaternion.Euler(0,asset.yaw_deg,0));go.transform.localScale=Vector3.one*asset.scale;
                     go.AddComponent<MeshFilter>().sharedMesh=prepared.Meshes[i];go.AddComponent<MeshRenderer>().sharedMaterial=prepared.Materials[i];
+                    staticRenderers.Add(go.GetComponent<MeshRenderer>());
                 }
                 if(data.range.backstop!=null)
                 {
@@ -146,6 +149,7 @@ namespace Biathlon.Unity.Presentation
                     art.transform.SetPositionAndRotation(bank.position,Quaternion.LookRotation(data.range.forward,Vector3.up));RemoveColliders(art.gameObject);
                     art.Apply(geometry,ShootingStance.Standing,0);banks[i]=art;bankStances[i]=ShootingStance.Standing;
                 }
+                generated.AddComponent<StaticSceneryBatches>().Initialize(staticRenderers);
                 var keyObject=Child("Production directional light",Vector3.zero,Quaternion.identity);var key=keyObject.AddComponent<Light>();key.type=LightType.Directional;key.shadows=LightShadows.Soft;
                 weather=generated.AddComponent<WeatherPresentation>();weather.Initialize(chase,key,prepared.Sky);
                 RefreshBanks();

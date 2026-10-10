@@ -14,6 +14,8 @@ namespace Biathlon.PlayModeTests
             var json = Resources.Load<TextAsset>("Biathlon/render_quality_v1").text;
             var d = RenderQualityDefinition.FromJson(json);
             Assert.That(d.Get(d.default_tier).id, Is.EqualTo("balanced"));
+            Assert.That(d.target_frame_rate,Is.EqualTo(60));
+            Assert.Throws<ArgumentException>(()=>RenderQualityDefinition.FromJson(json.Replace("\"target_frame_rate\": 60","\"target_frame_rate\": 0")));
             Assert.Throws<ArgumentException>(() => RenderQualityDefinition.FromJson(json.Replace("0.8", "0")));
             Assert.Throws<ArgumentException>(() => RenderQualityDefinition.FromJson(json.Replace("\"high\"", "\"low\"")));
             Assert.Throws<ArgumentException>(() => d.Get("unknown"));
@@ -36,6 +38,7 @@ namespace Biathlon.PlayModeTests
         [Test] public void SwitchingAndOverlappingOwnersRestorePipelineAndCameraWithoutChangingGeometry()
         {
             var baseline = QualitySettings.renderPipeline;
+            int originalRate=Application.targetFrameRate;
             var first = new GameObject("quality first"); var second = new GameObject("quality second");
             try
             {
@@ -43,6 +46,7 @@ namespace Biathlon.PlayModeTests
                 var data = first.AddComponent<UniversalAdditionalCameraData>(); data.volumeLayerMask = 123;
                 data.antialiasing = AntialiasingMode.FastApproximateAntialiasing; data.renderPostProcessing = true;
                 var a = first.AddComponent<RenderQualityPresentation>(); a.Initialize(camera);
+                Assert.That(Application.targetFrameRate,Is.EqualTo(60));
                 var originalAsset = Resources.Load<UniversalRenderPipelineAsset>("Biathlon/Rendering/low");
                 a.Apply("low"); Assert.That(a.Pipeline, Is.Not.SameAs(originalAsset));
                 Assert.That(data.volumeLayerMask.value, Is.Zero); Assert.That(data.renderPostProcessing, Is.False);
@@ -58,6 +62,7 @@ namespace Biathlon.PlayModeTests
             }
             finally { Object.DestroyImmediate(first); Object.DestroyImmediate(second); }
             Assert.That(QualitySettings.renderPipeline, Is.SameAs(baseline));
+            Assert.That(Application.targetFrameRate,Is.EqualTo(originalRate));
         }
     }
 }

@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
   "id": "render_quality_v1",
+  "target_frame_rate": 60,
   "default_tier": "balanced",
   "tiers": [
     { "id": "low", "render_scale": 0.8, "shadow_distance_m": 35, "shadow_resolution": 1024, "shadow_cascades": 2, "soft_shadows": false, "post_processing": false },

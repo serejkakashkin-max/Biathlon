@@ -12,6 +12,7 @@ namespace Biathlon.Unity.Presentation
     {
         private static readonly List<RenderQualityPresentation> owners = new List<RenderQualityPresentation>();
         private static RenderPipelineAsset original;
+        private static int originalTargetFrameRate;
         private RenderQualityDefinition definition;
         private UniversalRenderPipelineAsset pipeline;
         private CameraState[] cameras;
@@ -48,7 +49,8 @@ namespace Biathlon.Unity.Presentation
             if (template == null) throw new InvalidOperationException("Generate production render assets first.");
             var next = Instantiate(template); next.name = "BIATHLON runtime " + id;
             var previous = pipeline; pipeline = next; TierId = id;
-            if (!owners.Contains(this)) { if (owners.Count == 0) original = QualitySettings.renderPipeline; owners.Add(this); }
+            if (!owners.Contains(this)) { if (owners.Count == 0) {original = QualitySettings.renderPipeline;originalTargetFrameRate=Application.targetFrameRate;} owners.Add(this); }
+            Application.targetFrameRate=definition.target_frame_rate;
             if (owners[owners.Count - 1] == this) QualitySettings.renderPipeline = pipeline;
             foreach (var c in cameras)
             {
@@ -67,7 +69,7 @@ namespace Biathlon.Unity.Presentation
         {
             if (!owners.Remove(this)) return;
             QualitySettings.renderPipeline = owners.Count == 0 ? original : owners[owners.Count - 1].pipeline;
-            if (owners.Count == 0) original = null;
+            if (owners.Count == 0) {original = null;Application.targetFrameRate=originalTargetFrameRate;}
             foreach (var c in cameras) if (c.Data != null)
             { c.Data.renderPostProcessing = c.Post; c.Data.volumeLayerMask = c.VolumeMask; c.Data.antialiasing = c.AA; }
             if (pipeline != null) Destroy(pipeline); pipeline = null;
