@@ -81,11 +81,11 @@ namespace Biathlon.AI
         private bool manualPlayerSteeringAssistance;
         public bool UsesManualScopedCandidate=>manualCandidate!=null;
         public void BindManualScopedCandidate(ManualScopedFieldStepper stepper,ManualAiSteeringDefinition aiPolicy,
-            ManualSkiSteeringDefinition physicalSteering)
+            ManualSkiSteeringDefinition physicalSteering,PlayerCourseAssistanceDefinition playerAssistance=null)
         {
             if(stepper==null||!ReferenceEquals(stepper.Field,Field)||manualCandidate!=null||Field.Tick.Value!=0||IsFaulted)
                 throw new ArgumentException("One exact initial manual candidate binding required.");
-            var candidate=new ManualScopedAiMovement(stepper,aiPolicy,physicalSteering);
+            var candidate=new ManualScopedAiMovement(stepper,aiPolicy,physicalSteering,playerAssistance);
             // Preserve the existing flat context tokens. Nesting that already
             // large document as an escaped string multiplies its size at every
             // composition layer and can exhaust memory for the actual Mass30.

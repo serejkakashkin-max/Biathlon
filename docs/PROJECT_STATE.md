@@ -23922,3 +23922,70 @@ receipt.json. Build summary and496shader warning messages retained beside it.
 All PROJECT_STATE history preserved; this record is append-only. Next M14:
 complete player UI/UX/TV/replay flow. Easy-shooting owner feedback remains OPEN
 for M15 tuning; no hidden RNG or authoritative shooting retuning in this closure.
+## 2026-10-10 — owner hands-on feedback reopens the M13 review
+
+The owner reports lag approaching the first range and severe slowdown after
+shooting. M13 is reopened for this bounded correction and the next owner build;
+the prior technical PASS remains historical, not the current owner decision.
+M14 has not started. Maximum field remains 30 and the single Woodland venue
+scope, G1/G2 approvals and IBU lane policy remain unchanged.
+
+Required correction: held Space tuck survives small A/D turns; competitors
+approach outside neighbouring mats; player assistance captures physical contact
+with the cyan arrow trail, covers mat arrival and the exit turn, then releases
+control immediately. On release of A/D the owner now requests gentle return to
+the course trajectory. This supersedes the earlier release-keeps-heading policy
+for the default production controls. No forced position/heading snap is allowed.
+
+The owner requests focused checks and a test build, then will decide whether M13
+is closed. Sustained visible-player FPS is not claimed by hidden tests.
+
+## 2026-10-10 — M13 range-feedback corrections and owner test build READY
+
+Current operational status: M13 corrections are implemented; awaiting the owner's
+hands-on decision on the new build. M13 is not declared owner-approved here.
+M14 has not started. G1/G2 remain approved, Woodland is the single production
+venue, maximum field is 30, and IBU range-lane allocation is unchanged.
+
+The reproduced serialized runner context grew to 358,441,282 characters because
+accumulated JSON was repeatedly escaped inside other JSON strings. Flat pack
+extensions and SHA-256 source attachment references reduce it to 11,923,485
+characters (96.7% smaller); scoped world context is 62,359 rather than
+108,849,949 characters. Exact source definitions remain required. Replay context
+identity changes are explicit, with no silent interpretation of foreign tapes.
+The Unity host now limits catch-up to four fixed ticks / 10 ms of work and
+0.2 seconds of backlog, publishing presentation once after a frame batch.
+Paid ticks are not skipped; a severe stall can make simulation slower than wall
+clock. Discarded wall time and simulation-frame work remain observable.
+
+Owner controls implemented: A/D steers physically, then after release returns
+gently toward the course trajectory; fresh input immediately takes precedence.
+Space tuck remains low during steering while retaining grade/speed/risk costs.
+AI approach targets stay in the shared aisle outside neighbouring mats until the
+selected private fork. The fixed world arrow trail supplies physical capture;
+assistance guides the approach, shooting remains under player control, departure
+turns toward the continuation and releases controls on heading alignment.
+Versioned tuning and the design decision are recorded in ADR-0041.
+
+Final focused .NET checks: 65/65 PASS (44 range/control/tuck/replay plus 21 AI /
+first-bout checks). All 30 athletes completed the first bout by tick 6467.
+Complete signed Mass3/Sprint1/Pursuit3 replay fixtures pass. Three selected
+native Unity MCP checks pass: range/departure memory, actual arrow capture and
+shot/exit/control hand-back, and signed steering/body with gentle release.
+No repeated full production-race sweep was required for this bounded correction.
+Windows build succeeds with 0 errors / 0 warnings, Unity 6000.6.0f1. Hidden
+Mass30/Sprint30 startup, 400 paid ticks each and scene transition: PASS / EXIT0.
+Hidden rendering is suspended; sustained FPS/GPU and perceived post-range lag
+are not qualified. The owner will retest those in the new player build.
+The final Console receipt has two MCP log-clear file-lock errors, not game
+exceptions; successful compilation/build is recorded separately.
+
+Owner build: Builds/WoodlandM13RangeFix-20261010/START_WOODLAND_REVIEW.cmd.
+Russian instructions are in the same directory. High remains the default.
+Report: docs/reports/TASK_M13_RANGE_OWNER_FEEDBACK_20261010.md.
+Evidence: docs/quality/m13/range-feedback-20261010/; Windows receipt:
+windows-owner-build-receipt.json. Implementation, report, evidence and state are
+included in the bounded GitHub change. PROJECT_STATE history from Foundation
+is preserved, with this record appended only. PROJECT_CURRENT is updated to
+reflect reopened owner review. Easy-shooting feedback remains OPEN for M15;
+no hidden RNG or authoritative shooting tuning was added.

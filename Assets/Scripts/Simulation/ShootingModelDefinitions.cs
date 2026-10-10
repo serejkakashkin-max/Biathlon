@@ -46,5 +46,13 @@ namespace Biathlon.Simulation
             using (var stream = new MemoryStream())
             { new DataContractJsonSerializer(typeof(string[])).WriteObject(stream, values); return Encoding.UTF8.GetString(stream.ToArray()); }
         }
+        // Extend the existing array without serializing its accumulated JSON as
+        // another string. Nested extensions previously doubled escaping at each
+        // layer and retained hundreds of MB of identical immutable definitions.
+        internal static string AppendContext(string context, params string[] values)
+        {
+            string added=EncodeContext(values);
+            return context.Substring(0,context.Length-1)+","+added.Substring(1);
+        }
     }
 }

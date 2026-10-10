@@ -12,7 +12,7 @@ namespace Biathlon.Unity.Presentation
     {
         private ProductionVenueHost host;
         private RangeGuidanceDefinition definition;
-        private RangeGuidanceVisualSettings visualSettings;
+        private RangeGuidanceTrailDefinition visualSettings;
         private GameObject[] matArrows,forkArrows;
         private Material material;
         private Mesh mesh;
@@ -25,7 +25,7 @@ namespace Biathlon.Unity.Presentation
         public void Initialize(ProductionVenueHost source,RangeGuidanceDefinition settings)
         {
             if(host!=null||source==null||settings==null)throw new ArgumentException("Fresh initialized guidance required.");
-            host=source;definition=settings;visualSettings=RangeGuidanceVisualSettings.Load();
+            host=source;definition=settings;visualSettings=RangeGuidanceTrailDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/range_guidance_visual_v1"));
             material=new Material(Shader.Find("Universal Render Pipeline/Unlit"));
             material.name="Original cyan race guidance";material.SetColor("_BaseColor",new Color(.03f,.85f,1f,1));
             material.SetFloat("_Cull",(float)CullMode.Off);
@@ -93,7 +93,7 @@ namespace Biathlon.Unity.Presentation
                     }
                     else
                     {
-                        at=actor.RouteNanometers+(long)Math.Round((i+1)*definition.ChevronSpacing*SkiState.NanometersPerMeter);
+                        at=RangeMatGuidanceGeometry.Station(definition,actor.RouteNanometers,i);
                         if(at>=stop)
                         {
                             if(i>0)break;
@@ -125,42 +125,15 @@ namespace Biathlon.Unity.Presentation
         }
         private void PlaceMatTrail(GameObject go,PhysicalRangePathMap path,long at,long stop,bool visible,bool pulse,int index,int count)
         {
-            var range=host.Venue.Manifest.Range;var mat=range.MatDefinition;
-            var forward=new Vector3((float)range.Forward.X,0,(float)range.Forward.Z);
-            var anchor=host.Venue.MatPoint(path.LaneOrdinal-1);
-            var stopPoint=new Vector3((float)anchor.X,(float)anchor.Y,(float)anchor.Z);
-            // Reserve the actual chevron footprint as well as a visible snow gap.
-            float footprint=mesh.bounds.extents.magnitude;
-            var rear=stopPoint+forward*(float)(mat.AthleteStopDepth-mat.Length);
-            var end=rear-forward*(visualSettings.mat_edge_clearance_m+footprint);
-            Vector3 position,direction;
-            if(pulse)
+            Vector3 Sample(long station)
             {
-                position=end-forward*((count-1-index)*visualSettings.final_spacing_m);
-                direction=forward;
+                var point=RangeMatGuidanceGeometry.Point(host.Venue,path,visualSettings,station,stop,pulse,index,count);
+                return new Vector3((float)point.X,(float)point.Y,(float)point.Z);
             }
-            else
-            {
-                long turnStart=stop-(long)Math.Round((path.MatAnchor.Distance.Meters+visualSettings.turn_lead_m)*SkiState.NanometersPerMeter);
-                position=Sample(at);
-                direction=Sample(Math.Min(stop,at+SkiState.NanometersPerMeter/5))-position;
-                if(direction.sqrMagnitude<.000001f)direction=forward;
-                Vector3 Sample(long station)
-                {
-                    Vector3 Raw(long d){var p=path.MapRoute(d);var s=host.Venue.Visual.Get(p.LoopId).Sample(p.LocalNanometers/(double)SkiState.NanometersPerMeter);return new Vector3((float)s.X,(float)s.Y,(float)s.Z);}
-                    Vector3 Clear(Vector3 p)
-                    {
-                        float depth=Vector3.Dot(p-rear,forward);
-                        float desired=-(visualSettings.mat_edge_clearance_m+footprint+visualSettings.corridor_extra_clearance_m);
-                        return p+forward*Mathf.Min(0,desired-depth);
-                    }
-                    if(station<=turnStart)return Clear(Raw(station));
-                    var begin=Clear(Raw(Math.Max(0,turnStart)));
-                    var control=end-forward*Vector3.Dot(end-begin,forward);
-                    float t=Mathf.Clamp01((float)((station-turnStart)/(double)(stop-turnStart)));
-                    return (1-t)*(1-t)*begin+2*(1-t)*t*control+t*t*end;
-                }
-            }
+            Vector3 position=Sample(at),direction;
+            if(pulse){var forward=host.Venue.Manifest.Range.Forward;direction=new Vector3((float)forward.X,0,(float)forward.Z);}
+            else direction=Sample(Math.Min(stop,at+SkiState.NanometersPerMeter/5))-position;
+            if(direction.sqrMagnitude<.000001f)direction=Vector3.forward;
             float y=position.y;
             if(host.Environment!=null)y=Mathf.Max(y,host.Environment.SampleGround(position));
             position.y=y+(float)definition.GroundOffset;

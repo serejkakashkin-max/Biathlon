@@ -279,7 +279,7 @@ namespace Biathlon.Simulation
                 gates[i]=new ManualRacePathGateSweep(catalog,work);
                 boundaries[i]=new ManualRacePathBoundaryScheduler(catalog,work);
                 cursors[i]=cursor;accepted[i]=new ManualRacePathActorFrame(cursor.Athlete,pose,velocity,observation);
-                context[i+6]=catalog.ContextJson;
+                context[i+6]="catalog_context_sha256:"+ManualContextIdentity.Sha256(catalog.ContextJson);
                 string Long(long value)=>value.ToString(CultureInfo.InvariantCulture);
                 string Double(double value)=>value.ToString("R",CultureInfo.InvariantCulture);
                 initial[i+4]=ShootingModelDefinitions.EncodeContext(new[]{cursor.Athlete.Value,Long(cursor.OccurrenceIndex),

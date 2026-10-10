@@ -57,7 +57,7 @@ namespace Biathlon.Tests
         [TestCase(false,0)]
         [TestCase(true,0)]
         [TestCase(true,1)]
-        public void ManualPreparationUsesObservedDirectionAndTurnForTuck(bool reversed,double yaw)
+        public void ManualPreparationKeepsTuckDuringSteeringOnAnAuthoredGentleDescent(bool reversed,double yaw)
         {
             var f=new ActualWorldFixture(80,reversed,yaw);
             var accepted=f.World.GetActor(0);var surface=f.Surface();
@@ -68,9 +68,9 @@ namespace Biathlon.Tests
             double grade=accepted.Projection.GradeAlong(accepted.Pose);
             var expected=new TuckSystem(f.Model.Tuck).Evaluate(true,800,f.Session.DownhillSkill,
                 new SkiState(f.Session.Motion.DistanceNanometers,speed*Math.Sqrt(1+grade*grade)),
-                surface.WithTravelGeometry(grade,speed==0?0:yaw/speed));
+                surface.WithTravelGeometry(grade,f.Model.Tuck.WorldHoldThroughTurns?0:surface.CurvaturePerMeter));
             Assert.That(surface.Grade,Is.GreaterThan(0));
-            Assert.That(expected.Active,Is.EqualTo(reversed&&yaw==0));
+            Assert.That(expected.Active,Is.EqualTo(reversed));
             Assert.That(input.DragAreaMultiplier,Is.EqualTo(expected.DragAreaMultiplier));
             Assert.That(input.SteeringResponse,Is.EqualTo(expected.SteeringResponseMultiplier));
             var effort=new EffortSystem(f.Session.PhysiologyDefinition).Evaluate(

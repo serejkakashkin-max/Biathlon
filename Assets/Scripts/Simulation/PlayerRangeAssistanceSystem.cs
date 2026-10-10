@@ -17,9 +17,23 @@ namespace Biathlon.Simulation
     public sealed class PlayerRangeAssistanceSystem
     {
         private readonly RangeGuidanceDefinition definition;
+        private bool captured;
+        private int capturedBout=-1;
         public string ContextJson=>definition.ToJson();
         public PlayerRangeAssistanceSystem(RangeGuidanceDefinition definition)
         {this.definition=definition??throw new ArgumentNullException(nameof(definition));}
+        public PlayerRangeAssistPlan EvaluateManual(RangeTraversalPhase? phase,int bout,bool onArrow,bool departureTurnComplete,
+            int effort,double lateral,double speed)
+        {
+            if(bout!=capturedBout){captured=false;capturedBout=bout;}
+            if(phase==RangeTraversalPhase.Approach&&onArrow)captured=true;
+            if(phase==RangeTraversalPhase.Approach&&captured)
+                return new PlayerRangeAssistPlan(PlayerRangeAssistMode.FinalApproach,definition.ApproachEffort,0);
+            if(phase==RangeTraversalPhase.RangeExit&&!departureTurnComplete)
+                return new PlayerRangeAssistPlan(PlayerRangeAssistMode.InitialDeparture,definition.DepartureEffort,0);
+            if(phase!=RangeTraversalPhase.Shooting&&phase!=RangeTraversalPhase.Approach)captured=false;
+            return new PlayerRangeAssistPlan(PlayerRangeAssistMode.Manual,effort,lateral);
+        }
         public PlayerRangeAssistPlan Evaluate(RangeTraversalPhase? phase,bool onAssignedPrivateMat,
             long distanceToFiringNanometers,int manualEffort,double manualLateral,double speed)
         {

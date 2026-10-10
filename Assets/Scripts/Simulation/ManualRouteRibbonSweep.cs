@@ -51,7 +51,7 @@ namespace Biathlon.Simulation
             bodyRadius=Math.Sqrt(halfWidth*halfWidth+halfLength*halfLength);
             edgeClearance=body.EdgeClearance-(tolerance?.CourseClearanceAllowance??0);
             x=new double[map.MaximumRibbonVertices];z=new double[x.Length];
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_local_authored_ribbon_v8_bounded_soft_snow_shoulder",map.ContextJson,
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_local_authored_ribbon_v9_context_reference","projection_context_sha256:"+ManualContextIdentity.Sha256(map.ContextJson),
                 body.ToJson(),work.ToJson(),tolerance?.ToJson()??"numerical_tolerance_not_selected",
                 "actual_knot_normals;minimum_window_width;exact_authored_endpoints;simple_polygon_only;all_rectangle_corners_inside_and_all_edges_disjoint;minimum_segment_separation_minus_selected_edge_clearance;bounded_explicit_soft_snow_shoulder;per_disk_independent_conservative_tube_cover;unchanged_tube_turn_reserve;disk_count_from_maximum_depth;bounded_rectangular_cell_circumdisks;unchanged_full_body;full_cover_envelope_and_source_offset;continuous_whole_body_bound;no_phase_or_centre_credit"});
         }

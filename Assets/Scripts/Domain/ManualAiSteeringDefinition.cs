@@ -16,6 +16,7 @@ namespace Biathlon.Domain
         [DataMember(Name="lookahead_max_m",IsRequired=true)] public double LookaheadMaximumMeters {get;private set;}
         [DataMember(Name="heading_response_seconds",IsRequired=true)] public double HeadingResponseSeconds {get;private set;}
         [DataMember(Name="yaw_rate_feedback",IsRequired=true)] public double YawRateFeedback {get;private set;}
+        [DataMember(Name="range_approach_minimum_lateral_m",EmitDefaultValue=false)] public double RangeApproachMinimumLateral {get;private set;}
         public static ManualAiSteeringDefinition FromJson(string json)
         {
             var value=RouteJson.Read<ManualAiSteeringDefinition>(json);
@@ -26,6 +27,7 @@ namespace Biathlon.Domain
             TrackValidation.Finite(value.LookaheadMaximumMeters,value.LookaheadBaseMeters,200,nameof(LookaheadMaximumMeters));
             TrackValidation.Finite(value.HeadingResponseSeconds,.05,10,nameof(HeadingResponseSeconds));
             TrackValidation.Finite(value.YawRateFeedback,0,2,nameof(YawRateFeedback));
+            TrackValidation.Finite(value.RangeApproachMinimumLateral,0,3,nameof(RangeApproachMinimumLateral));
             return value;
         }
         public string ToJson()=>RouteJson.Write(this);

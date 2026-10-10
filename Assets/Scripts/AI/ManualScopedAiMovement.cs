@@ -30,13 +30,15 @@ namespace Biathlon.AI
         private readonly ManualAiObstacleCorridor corridor;
         private readonly ManualAiSnowSteeringPlanner snowPlanner;
         private readonly CorneringSystem steeringGrip;
+        private readonly PlayerCourseReturnSystem playerReturn;
         public string ContextJson {get;}
         public ManualScopedAiMovement(ManualScopedFieldStepper stepper,ManualAiSteeringDefinition policy,
-            ManualSkiSteeringDefinition physicalSteering)
+            ManualSkiSteeringDefinition physicalSteering,PlayerCourseAssistanceDefinition playerAssistance=null)
         {
             this.stepper=stepper??throw new ArgumentNullException(nameof(stepper));
             if(policy==null||physicalSteering==null)throw new ArgumentNullException();
             this.policy=policy;
+            if(playerAssistance!=null)playerReturn=new PlayerCourseReturnSystem(playerAssistance,stepper.World.TickFrequency);
             corridor=new ManualAiObstacleCorridor(stepper.BodyDefinition);
             snowPlanner=new ManualAiSnowSteeringPlanner(stepper.BodyDefinition,physicalSteering,stepper.World.TickFrequency);
             steeringGrip=new CorneringSystem(stepper.CorneringDefinition,stepper.PhysicsDefinition);
@@ -71,6 +73,7 @@ namespace Biathlon.AI
             for(int i=0;i<n;i++)context[i+5]=ManualContextIdentity.Sha256(bends[i].ContextJson);
             for(int p=0;p<choices;p++)context[n+p+5]=ManualContextIdentity.Sha256(familyBends[p].ContextJson);
             ContextJson=Encode(context);
+            if(playerAssistance!=null)ContextJson=Encode(new[]{"manual_owner_gentle_release_return_v1",ContextJson,playerAssistance.ToJson()});
         }
         public int GetSteering(int index)=>index>=0&&index<steering.Length?steering[index]:throw new ArgumentOutOfRangeException(nameof(index));
         public double GetBrakeFraction(int index)=>index>=0&&index<brakes.Length?brakes[index]:throw new ArgumentOutOfRangeException(nameof(index));
@@ -99,7 +102,18 @@ namespace Biathlon.AI
             for(int i=0;i<steering.Length;i++)
             {
                 brakes[i]=0;
-                if(i==playerIndex){steering[i]=playerSteering;continue;}
+                if(i==playerIndex)
+                {
+                    int returnIntent=0;var body=world.GetActor(i);var at=world.GetCursor(i);var owned=catalogs[i].Get(at.OccurrenceIndex);
+                    if(playerReturn!=null&&playerSteering==0&&world.GetPhysicalMotion(i).SpeedMetersPerSecond>0)
+                    {
+                        var returnPlan=controllers[i].Plan(body.Pose,catalogs[i].GetGeometryObservation(body.Observation),
+                            world.GetPhysicalMotion(i).SpeedMetersPerSecond,owned.End==ManualRacePathEnd.Continue);
+                        if(returnPlan.IsValid)returnIntent=returnPlan.SteeringInput;
+                    }
+                    steering[i]=playerReturn==null?playerSteering:playerReturn.Evaluate(playerSteering,returnIntent,world.GetPhysicalMotion(i).SpeedMetersPerSecond>0);
+                    continue;
+                }
                 var actor=world.GetActor(i);var motion=world.GetPhysicalMotion(i);var catalog=catalogs[i];
                 var observed=catalog.GetGeometryObservation(actor.Observation);
                 var surface=catalog.SampleSurface(actor.Observation);double width=surface.WidthMeters;
@@ -155,6 +169,8 @@ namespace Biathlon.AI
                     }
                 }
                 if(passing[i])chosen=passingLine[i];
+                if(row.Kind==ManualRacePathKind.RangeApproach&&!privateMat)
+                    chosen=Math.Max(chosen,policy.RangeApproachMinimumLateral);
                 if(obstructed&&!passing[i])
                 {
                     var other=world.GetActor(blocker);
@@ -175,6 +191,10 @@ namespace Biathlon.AI
                 // A controller target is only an intent. The complete body/
                 // course/phase solver is still the sole movement authority.
                 bool ordinaryLookahead=row.End==ManualRacePathEnd.Continue&&row.Index+1<catalog.BaseFlowCount;
+                // Stay in the shared aisle until the owned mat fork. Looking
+                // across a neighbouring mat's future hairpin cut its surface.
+                if(ordinaryLookahead&&row.Kind==ManualRacePathKind.RangeApproach&&!privateMat&&
+                    catalog.Get(row.Index+1).LoopId==athlete.RangePath?.MatAnchor.LoopId)ordinaryLookahead=false;
                 double gateDistance=(row.LengthNanometers-cursor.ObservedArcNanometers)/(double)SkiState.NanometersPerMeter;
                 if(!ordinaryLookahead&&gateDistance==0){steering[i]=0;continue;}
                 double available=gateDistance+(ordinaryLookahead?catalog.Get(row.Index+1).LengthNanometers/(double)SkiState.NanometersPerMeter:0);

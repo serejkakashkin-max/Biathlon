@@ -18,6 +18,7 @@ namespace Biathlon.Domain
         [DataMember(Name = "maximum_effort_control", IsRequired = true)] public int MaximumEffortControl { get; private set; }
         [DataMember(Name = "drag_area_multiplier", IsRequired = true)] public double DragAreaMultiplier { get; private set; }
         [DataMember(Name = "steering_response_multiplier", IsRequired = true)] public double SteeringResponseMultiplier { get; private set; }
+        [DataMember(Name = "world_hold_through_turns", EmitDefaultValue = false)] public bool WorldHoldThroughTurns {get;private set;}
         public static TuckDefinition FromJson(string json)
         {
             var value = RouteJson.Read<TuckDefinition>(json);

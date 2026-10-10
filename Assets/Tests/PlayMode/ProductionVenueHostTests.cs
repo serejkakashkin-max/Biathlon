@@ -61,7 +61,17 @@ namespace Biathlon.PlayModeTests
                 Assert.That(proxy.position.z,Is.EqualTo(actual.Pose.Z).Within(.02));
                 Assert.That(Vector3.Angle(proxy.forward,new Vector3((float)Math.Sin(actual.Pose.HeadingRadians),0,(float)Math.Cos(actual.Pose.HeadingRadians))),Is.LessThan(1));
                 Assert.That(host.Feed.Current.Get(0).WorldPose.IsValid,Is.True);
-                Assert.That(host.LastRangeAssistance.Active,Is.False);yield return null;
+                Assert.That(host.LastRangeAssistance.Active,Is.False);
+                bool gentleReturn=false;
+                for(int i=0;i<20;i++)
+                {
+                    var tick=host.Runner.Field.Tick.Next();host.Step(new ManualSkiCommand(tick,id,800,0),
+                        new ShootingDeviceCommand(new WeaponAimCommand(tick,id,0,0),false,false));
+                    int intent=host.Runner.GetLastManualSteering(0);
+                    if(i<5)Assert.That(intent,Is.Zero);else gentleReturn|=intent!=0;
+                    Assert.That(Math.Abs(intent),Is.LessThanOrEqualTo(220));
+                }
+                Assert.That(gentleReturn,Is.True,"Production default must request a gradual physical return after release.");yield return null;
             }
             finally{Object.Destroy(root);}
         }

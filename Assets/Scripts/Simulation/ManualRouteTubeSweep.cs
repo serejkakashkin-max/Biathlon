@@ -32,7 +32,7 @@ namespace Biathlon.Simulation
             this.body=body??throw new ArgumentNullException(nameof(body));
             this.work=work??throw new ArgumentNullException(nameof(work));
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_selected_route_inner_tube_sweep_v1",
-                route.CorridorContextJson,body.ToJson(),work.ToJson(),
+                "corridor_context_sha256:"+ManualContextIdentity.Sha256(route.CorridorContextJson),body.ToJson(),work.ToJson(),
                 "circumscribed_body;minimum_authored_width;maximum_visual_turn_reserve;local_station_window"});
         }
 

@@ -92,6 +92,7 @@ namespace Biathlon.Simulation
         }
         private readonly ShootingWindSystem windValidation;
         private readonly TuckSystem tuck;
+        private readonly bool worldHoldTuckThroughTurns;
         private readonly FinalSprintSystem sprint;
         private readonly IRaceEventSink events;
         private readonly RaceMotionSegment[] segments;
@@ -224,7 +225,8 @@ namespace Biathlon.Simulation
             Lifecycle = new CompetitionLifecycle(profile, AthleteId, config.TickFrequency, events);
             Checkpoints = new CheckpointTracker(checkpoints, AthleteId, config.TickFrequency, scheduledStart, events);
             path = new RacePathMotion(skiModel, skiAthlete, track, route, conditions, skiId, config.TickFrequency, startApproach);
-            tuck = new TuckSystem(skiModel.Tuck); sprint = new FinalSprintSystem(skiModel.Sprint, route.Length);
+            tuck = new TuckSystem(skiModel.Tuck); worldHoldTuckThroughTurns=skiModel.Tuck.WorldHoldThroughTurns;
+            sprint = new FinalSprintSystem(skiModel.Sprint, route.Length);
             windValidation = new ShootingWindSystem(shootingModel.Wind);
             ranges = new RangePenaltyTraversal[profile.BoutCount]; shooting = new ShootingSession[profile.BoutCount];
             var rangeEvents = new RangeEvents(events);
@@ -360,12 +362,16 @@ namespace Biathlon.Simulation
             var sample = RemainingStartApproachNanometers>0 ? startApproach.Sample(RemainingStartApproachNanometers) : range != null && range.Phase == RangeTraversalPhase.PenaltyLoop ? range.SamplePenalty() :
                 candidatePath!=null ? candidatePath.SampleRoute(RouteNanometers) : route.Sample(new TrackDistance(RouteNanometers / SkiState.NanometersPerMillimeter)).Track;
             var postureMotion=Motion;
+            double authoredPostureCurvature=sample.CurvaturePerMeter;
             if(manualActor.IsValid)
             {
                 sample=route.SampleSection(manualActor.Projection.SectionIndex,
                     new TrackDistance((long)Math.Floor(manualActor.Projection.LocalMeters*1000)));
                 double speed=Math.Sqrt(manualActor.Velocity.X*manualActor.Velocity.X+manualActor.Velocity.Z*manualActor.Velocity.Z);
                 double grade=manualActor.Projection.GradeAlong(manualActor.Pose);
+                // Posture safety follows the authored bend. A small manual
+                // yaw correction must not lift a held downhill tuck.
+                authoredPostureCurvature=sample.CurvaturePerMeter;
                 sample=sample.WithWorldTravelGeometry(grade,speed,manualActor.Pose.YawRateRadiansPerSecond);
                 postureMotion=new SkiState(Motion.DistanceNanometers,speed*Math.Sqrt(1+grade*grade));
             }
@@ -375,11 +381,14 @@ namespace Biathlon.Simulation
                 sample=actor.Observation.Owner.SampleSurface(actor.Observation);
                 double speed=Math.Sqrt(actor.Velocity.X*actor.Velocity.X+actor.Velocity.Z*actor.Velocity.Z);
                 double grade=actor.Observation.GradeAlong(actor.Pose);
+                authoredPostureCurvature=sample.CurvaturePerMeter;
                 sample=sample.WithWorldTravelGeometry(grade,speed,actor.Pose.YawRateRadiansPerSecond);
                 postureMotion=new SkiState(Motion.DistanceNanometers,speed*Math.Sqrt(1+grade*grade));
             }
             var sprintOutput = sprint.Evaluate(started && !onMat && !HasFinished && input.Ski.SprintRequested, input.Ski.Effort.RequestedEffort, new SkiState(RouteNanometers, Motion.SpeedMetersPerSecond));
-            var posture = tuck.Evaluate(started && !onMat && !HasFinished && input.Ski.TuckRequested, sprintOutput.EffectiveEffortControl, skiAthlete.Downhill, postureMotion, sample);
+            var postureSample=manualActor.IsValid||scopedWorld!=null?sample.WithTravelGeometry(sample.Grade,
+                worldHoldTuckThroughTurns?0:authoredPostureCurvature):sample;
+            var posture = tuck.Evaluate(started && !onMat && !HasFinished && input.Ski.TuckRequested, sprintOutput.EffectiveEffortControl, skiAthlete.Downhill, postureMotion, postureSample);
             var work = new PhysiologyInput(new SimulationInput(tick, AthleteId, started && !onMat && !HasFinished ? Math.Min(1000, posture.EffectiveEffortControl + extraEffort) : 0), input.Ski.Form, sample.TerrainMuscleFactor);
             var physical = physiology.Preview(work);
             var movement = started && !onMat && !manualBase && scopedWorld==null ? path.Preview(Motion, RouteNanometers, finishNanometers, range,

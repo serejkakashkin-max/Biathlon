@@ -321,11 +321,11 @@ namespace Biathlon.Simulation
             ContextJson=baseRouteGeometry?ShootingModelDefinitions.EncodeContext(new[]{"manual_base_route_local_projection_v1",
                 route.TrackSnapshotJson,route.PlanSnapshotJson,route.RequirementsSnapshotJson,geometry.ToJson(),
                 "local_clamped_knot_observation_v2"}):ShootingModelDefinitions.EncodeContext(new[]{
-                    "manual_physical_scope_local_projection_v1",scopeContext,geometry.ToJson(),
+                    "manual_physical_scope_local_projection_v2_context_reference","scope_context_sha256:"+ManualContextIdentity.Sha256(scopeContext),geometry.ToJson(),
                     "geometry_namespace_not_race_credit;local_clamped_knot_observation_v2;scoped_endpoint_encoding_snap_v1;ordinary_shared_bisector_portal_chart_v1;firing_departure_reuses_unchanged_paid_incoming_plane_v1;phase_authority_separate;folded_charts_reject"});
             collinearCells=BuildCollinearCells();
             CorridorContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_selected_route_convex_cell_v1",
-                ContextJson,"minimum_authored_width_over_visual_edge;four_inward_planes;full_body_interior_only"});
+                "projection_context_sha256:"+ManualContextIdentity.Sha256(ContextJson),"minimum_authored_width_over_visual_edge;four_inward_planes;full_body_interior_only"});
         }
 
         internal bool IsBoundTo(RaceRoute selectedRoute)=>baseRouteGeometry&&ReferenceEquals(route,selectedRoute);

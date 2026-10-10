@@ -593,30 +593,30 @@ namespace Biathlon.Simulation
             ContextJson = ShootingModelDefinitions.EncodeContext(new[] { "sprint_shared_pack_prefix_v1", field.ContextJson,
                 body.ToJson(), draft.ToJson(), movement.ToJson(), junctionDefinition.ToJson(), connectionDefinition.ToJson(),
                 "tick_start_periodic_draft;fixed_tick_lateral;prefix_stop_mm_quantum;full_interval_junction;seam_tail_lateral_lock;staging_before_admission;finish_exit;fraction_nearest_even_1e9;precision_keep_first_mover;contact_from_replan;junction_fifo_after_incumbent_v1" });
-            if (rangeLanes != null) ContextJson = ShootingModelDefinitions.EncodeContext(new[] { ContextJson, rangeLanes.ToJson(), "physical_range_lanes_v1;unique_roster_slot_lane;last_lap_main_bypass" });
-            if(startOverlay!=null)ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,startOverlay.ContextJson,"grid_bodies_present_before_gun_v1"});
-            if(rangePolicy!=null && rangeLayout == null)ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,rangePolicy.ToJson(),"arrival_at_physical_fork;exclusive_entry_tick_order;first_bib_then_bout_arrival_v1"});
-            if(rangeLayout!=null)ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,rangeLayout.ContextJson,
+            if (rangeLanes != null) ContextJson = ShootingModelDefinitions.AppendContext(ContextJson, new[] { rangeLanes.ToJson(), "physical_range_lanes_v1;unique_roster_slot_lane;last_lap_main_bypass" });
+            if(startOverlay!=null)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,new[]{startOverlay.ContextJson,"grid_bodies_present_before_gun_v1"});
+            if(rangePolicy!=null && rangeLayout == null)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,new[]{rangePolicy.ToJson(),"arrival_at_physical_fork;exclusive_entry_tick_order;first_bib_then_bout_arrival_v1"});
+            if(rangeLayout!=null)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,new[]{rangeLayout.ContextJson,
                 "actual_path_projection_draft_width;gradual_lateral;local_junctions;single_incoming_body;bounded_seam_spacing_v1"});
-            if(pathArrivalOrder!=null)ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,pathArrivalOrder.ContextJson,
+            if(pathArrivalOrder!=null)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,new[]{pathArrivalOrder.ContextJson,
                 "final_accepted_common_prefix;reprepare_identical_receipts;athlete_path_order_joint_commit_v1"});
-            if(reservations!=null)ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,reservations.ContextJson,
+            if(reservations!=null)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,new[]{reservations.ContextJson,
                 "final_accepted_release_and_arrival;monotone_capacity_caps;reprepare_identical_common_receipts;body_tail_clearance;athlete_reservation_joint_commit_v1"});
-            if(routeBoundJunctions)ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,junctions.UsageContextJson,
+            if(routeBoundJunctions)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,new[]{junctions.UsageContextJson,
                 "reachable_physical_ports_v1;preserve_self_crossings;reject_unbound_points;full_source_region_indices"});
-            if(this.startContinuation!=null)ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,
+            if(this.startContinuation!=null)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,new[]{
                 this.startContinuation.ContextJson,"front_incoming_endpoint_until_accepted_handoff_v1"});
             if(this.directedPassages!=null)
             {
                 var coverage=new string[passageSharing.Length+1];
                 coverage[0]=passageTickReserve.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 for(int p=0;p<passageSharing.Length;p++)coverage[p+1]=passageSharing[p]?"shared":"exclusive";
-                ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,this.directedPassages.ContextJson,
+                ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,new[]{this.directedPassages.ContextJson,
                     ShootingModelDefinitions.EncodeContext(coverage),"directed_format_passages_v1;exact_route_occurrences;accepted_connection_tail_provenance;all_receipts_and_tail_pairs;whole_guard_plus_maximum_tick_window_v1;short_windows_exclusive;other_regions_exclusive"});
             }
-            if(this.sharedApron!=null)ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,this.sharedApron.ContextJson,
+            if(this.sharedApron!=null)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,new[]{this.sharedApron.ContextJson,
                 "shared_range_apron_field_v1;exact_selected_path_receipts_and_accepted_tail_occurrences;each_shared_region_independent;same_loop_body_and_other_guards_unchanged;final_precommit_joint_validation"});
-            if(matAdmission!=null)ContextJson=ShootingModelDefinitions.EncodeContext(new[]{ContextJson,matAdmission.ContextJson});
+            if(matAdmission!=null)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,new[]{matAdmission.ContextJson});
             if(rangeWorldTraffic!=null)
             {
                 // Append the new optional proof to the existing JSON string array. Re-encoding

@@ -23,7 +23,7 @@ namespace Biathlon.Simulation
             string next=ContextJson;
             if(manualScopedWorld==null)
             {
-                string extra=ShootingModelDefinitions.EncodeContext("manual_scoped_field_clock_publication_v1",world.ContextJson,world.InitialStateContextJson);
+                string extra=ShootingModelDefinitions.EncodeContext("manual_scoped_field_clock_publication_v2_context_reference","world_context_sha256:"+ManualContextIdentity.Sha256(world.ContextJson),world.InitialStateContextJson);
                 next=ContextJson.Substring(0,ContextJson.Length-1)+","+extra.Substring(1);
             }
             CommitPrepared(inputs,prepared,advanceScopedFinishers:true);manualScopedWorld=world;ContextJson=next;
@@ -99,7 +99,7 @@ namespace Biathlon.Simulation
             string next=ContextJson;
             if(manualScopedWorld==null)
             {
-                string extra=ShootingModelDefinitions.EncodeContext("manual_scoped_pack_publication_v1",proof.Owner.ContextJson,proof.Owner.InitialStateContextJson);
+                string extra=ShootingModelDefinitions.EncodeContext("manual_scoped_pack_publication_v2_context_reference","world_context_sha256:"+ManualContextIdentity.Sha256(proof.Owner.ContextJson),proof.Owner.InitialStateContextJson);
                 next=ContextJson.Substring(0,ContextJson.Length-1)+","+extra.Substring(1);
             }
             field.PublishManualScopedPrepared(inputs,prepared,proof);
