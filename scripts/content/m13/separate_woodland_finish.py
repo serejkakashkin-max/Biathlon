@@ -24,8 +24,10 @@ def author(resource_root, recipe_path=RECIPE):
     a,b=main['knots'][i:i+2]; f=(depart-a['distance_m'])/(b['distance_m']-a['distance_m'])
     start={k:a[k]+f*(b[k]-a[k]) for k in ('x','y','z')}
     dx,dz=b['x']-a['x'],b['z']-a['z']; norm=math.hypot(dx,dz); fx,fz=dx/norm,dz/norm
-    # Right turn is away from the start approach and beyond the penalty edge.
-    sx,sz=fz,-fx; q=recipe['quarter_segments']; chord=recipe['arc_chord_m']
+    # The final-lap branch leaves before the range, on its outside left.
+    # The old right-side branch cut directly through the penalty oval.
+    sign=-1 if recipe.get('turn_side','right')=='left' else 1
+    sx,sz=sign*fz,-sign*fx; q=recipe['quarter_segments']; chord=recipe['arc_chord_m']
     radius=chord/(2*math.sin(math.pi/(4*q)))
     knots=[dict(distance_m=0,**start)];segments=[];paid=0
     def point(forward,side):return dict(x=start['x']+fx*forward+sx*side,y=start['y'],z=start['z']+fz*forward+sz*side)
@@ -42,7 +44,7 @@ def author(resource_root, recipe_path=RECIPE):
     lead=recipe['aligned_lead_m'];edge(point(lead,0),lead)
     for n in range(1,q+1):
         angle=n*math.pi/(2*q)
-        edge(point(lead+radius*math.sin(angle),radius*(1-math.cos(angle))),chord,-1/radius)
+        edge(point(lead+radius*math.sin(angle),radius*(1-math.cos(angle))),chord,-sign/radius)
     finish=recipe['finish_distance_m'];tail=finish-paid/1000
     edge(point(lead+radius,radius+tail),tail)
     finish_point=copy.deepcopy(knots[-1]);runout=recipe['runout_distance_m']

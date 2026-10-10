@@ -31,7 +31,7 @@ namespace Biathlon.PlayModeTests
                     feed.Publish(snapshot); proxies.Render(1);
                     var rifle = proxies.GetRig(a.AthleteId).GetComponent<AthleteRiflePresentation>();
                     var detail = proxies.GetProxy(a.AthleteId).GetComponent<AthleteAnimationPresentation>().Detail;
-                    if (a.ShootingActive) Assert.That(detail.Distant, Is.False, "Shooting forces full detail and immediate sight/phase updates even at distance.");
+                    if (a.ShootingActive) Assert.That(detail.Distant, Is.True, "Distant shooters retain distance detail; phase changes still force an immediate pose update.");
                     Assert.That(proxies.GetRig(a.AthleteId).GetComponent<AthleteLocomotionDriver>().ExertionIntensity, Is.InRange(0, 1));
                     if (a.ShootingPhase == ShootingPhase.Aiming && a.Stance == Biathlon.Domain.ShootingStance.Prone)
                     {

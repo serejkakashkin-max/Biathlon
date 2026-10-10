@@ -26,6 +26,11 @@ namespace Biathlon.PlayModeTests
                 host.InitializeEnvironment(ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource(prefix+"environment")));
                 Assert.That(host.Course.GroundJoined,Is.True);Assert.That(host.Environment.TreeCount,Is.GreaterThan(100));
                 Assert.That(host.Proxies.Count,Is.EqualTo(30));
+                var finish=root.GetComponent<FinishCorridorPresentation>();
+                Assert.That(finish.LaneCount,Is.EqualTo(3));
+                Assert.That(finish.FinishPoint.z,Is.GreaterThan(60),"The finish must stay on the stadium's outside branch.");
+                var paint=finish.transform.Find("Finish lanes").GetComponent<MeshFilter>().sharedMesh;
+                foreach(var normal in paint.normals)Assert.That(normal.y,Is.GreaterThan(.99f),"Finish paint faces the player above the snow.");
                 foreach(var tier in new[]{"high","balanced","low"})
                 {
                     host.GetComponent<RenderQualityPresentation>().Apply(tier);

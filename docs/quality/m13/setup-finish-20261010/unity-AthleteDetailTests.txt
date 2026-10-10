@@ -1,0 +1,41 @@
+
+Run Tool
+  Tool: tests-run
+  URL: http://localhost:29577/api/tools/tests-run
+  Auth: from config or machine store
+──────────────────────────────────────────────────
+Calling tests-run...
+SUCCESS: tests-run completed
+SUCCESS: Response:
+{
+  "status": "success",
+  "structured": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 269,
+        "PassedTests": 3,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.3136757"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.PlayModeTests.AthleteDetailTests.ARealDistantShooterRetainsMeshAndPoseDistanceDetail",
+          "Status": "Passed",
+          "Duration": "00:00:00.2480000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.AthleteDetailTests.DistantMeshRetainsRigMaterialsAndReducesGeometryWithoutLosingNearDetail",
+          "Status": "Passed",
+          "Duration": "00:00:00.0090000"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.AthleteDetailTests.DistantPoseCadenceIsBoundedRewindableAndAllocationFreeAfterWarmup",
+          "Status": "Passed",
+          "Duration": "00:00:00.0030000"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,19 @@
+
+Run Tool
+  Tool: script-execute
+  URL: http://localhost:29577/api/tools/script-execute
+  Auth: from config or machine store
+──────────────────────────────────────────────────
+Calling script-execute...
+SUCCESS: script-execute completed
+SUCCESS: Response:
+{
+  "status": "success",
+  "structured": {
+    "result": {
+      "name": "result",
+      "typeName": "System.String",
+      "value": "Builds/WoodlandM13SetupFinish-20261010"
+    }
+  }
+}

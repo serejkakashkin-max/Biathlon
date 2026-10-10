@@ -136,12 +136,13 @@ namespace Biathlon.Unity.Presentation
             Mats=gameObject.AddComponent<RangeMatPresentation>();Mats.Initialize(venue);
             Course=gameObject.AddComponent<ProductionCoursePresentation>();Course.Initialize(venue,route:field.Route,sharedApron:venue.SharedApron,
                 finishRunout:ManualStepper?.World.GetCatalog(0).FinishRunoutDefinition);
+            gameObject.AddComponent<FinishCorridorPresentation>().Initialize(venue,field.Route);
             Proxies=gameObject.AddComponent<AthleteProxyPresentation>();Proxies.Initialize(Feed,venue);Proxies.Render(1);
             var cameraObject=new GameObject("Production chase camera");cameraObject.transform.SetParent(transform,false);
             ChaseCamera=cameraObject.AddComponent<Camera>();ChaseCamera.depth=100;
             cameraObject.AddComponent<AthleteChaseCamera>().Follow(Proxies.GetProxy(id.Value),ChaseCameraSettings.FromJson(ReadCore("chase_camera_v1.json")));
             Proxies.SetViewCamera(ChaseCamera);
-            range=gameObject.AddComponent<RangePresentation>();range.Initialize(Feed,id.Value,TargetGeometryDefinition.FromJson(ReadCore("target_geometry_v1.json")));
+            range=gameObject.AddComponent<RangePresentation>();range.Initialize(Feed,id.Value,TargetGeometryDefinition.FromJson(ReadCore("target_geometry_v1.json")),ChaseCamera);
             gameObject.AddComponent<RenderQualityPresentation>().Initialize(ChaseCamera,range.AimCamera);
             hud=gameObject.AddComponent<RaceHud>();hud.Initialize(Feed,id.Value);
             debugHud=gameObject.AddComponent<SkiDebugHud>();debugHud.Initialize(Feed,id.Value);

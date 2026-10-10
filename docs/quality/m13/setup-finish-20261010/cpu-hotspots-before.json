@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "m13_sampled_cpu_hotspots_20261010",
+  "source": "dotnet-trace Microsoft-DotNETCore-SampleProfiler, converted to evented speedscope",
+  "inclusive_intervals_overlap": true,
+  "total_profiled_thread_ms": 148548.659,
+  "methods": [
+    {
+      "method": "Biathlon.Simulation!Biathlon.Simulation.ManualScopedFieldStepper.TryStep(value class System.ReadOnlySpan`1<value class Biathlon.Simulation.SprintAthleteInput>,value class System.ReadOnlySpan`1<int32>,value class System.ReadOnlySpan`1<float64>)",
+      "inclusive_ms": 9283.963
+    },
+    {
+      "method": "Biathlon.Simulation!Biathlon.Simulation.ManualScopedWorldRoster.PrepareInterval(value class Biathlon.Simulation.SkiWorldMotionCandidate[],value class Biathlon.Simulation.ManualScopedWorldWindow[],value class Biathlon.Simulation.SkiReachedContactPair[],int32,value class Biathlon.Simulation.SkiActorCourseEdge[],int32,float64[],value class Biathlon.Simulation.ManualRacePathActorFrame[],value class Biathlon.Simulation.ManualRacePathCursor[],float64,float64[],value class Biathlon.Simulation.SkiReachedContactPair[],int32)",
+      "inclusive_ms": 5349.088
+    },
+    {
+      "method": "Biathlon.Simulation!Biathlon.Simulation.ManualRouteRibbonSweep.Clearance(value class Biathlon.Domain.ManualSkiHeadingState,bool)",
+      "inclusive_ms": 3990.664
+    },
+    {
+      "method": "Biathlon.Simulation!Biathlon.Simulation.ManualRouteRibbonSweep.Preview(value class Biathlon.Simulation.ManualSkiWorldTrajectory,value class Biathlon.Simulation.ManualRouteProjection)",
+      "inclusive_ms": 3936.909
+    },
+    {
+      "method": "Biathlon.Simulation!Biathlon.Simulation.ManualRouteRibbonSweep.DiskClearance(float64,float64,float64)",
+      "inclusive_ms": 3882.222
+    },
+    {
+      "method": "Biathlon.Simulation!Biathlon.Simulation.ManualRouteRibbonSweep.Search(value class Biathlon.Simulation.ManualSkiWorldTrajectory,float64,float64,int32,float64,int32&)",
+      "inclusive_ms": 3664.382
+    },
+    {
+      "method": "Biathlon.Simulation!Biathlon.Simulation.ManualRouteProjectionMap.ConnectedTubeDiskClearance(float64,float64,value class Biathlon.Simulation.ManualConnectedTubeWindow,float64)",
+      "inclusive_ms": 2809.811
+    },
+    {
+      "method": "Biathlon.Simulation!Biathlon.Simulation.ManualRouteProjectionMap.<ConnectedTubeDiskClearance>g__Clearance|66_0(int32,value class <>c__DisplayClass66_0&)",
+      "inclusive_ms": 1622.83
+    },
+    {
+      "method": "Biathlon.Simulation!Biathlon.Simulation.ManualRouteRibbonSweep.Inside(float64,float64)",
+      "inclusive_ms": 1034.636
+    },
+    {
+      "method": "Biathlon.Simulation!Biathlon.Simulation.ManualRouteRibbonSweep.Inside(float64,float64,float64[],float64[],int32)",
+      "inclusive_ms": 1027.966
+    },
+    {
+      "method": "Biathlon.Simulation!Biathlon.Simulation.ManualRouteRibbonSweep.CurrentRibbonClearance(value class Biathlon.Domain.ManualSkiHeadingState)",
+      "inclusive_ms": 101.123
+    },
+    {
+      "method": "Biathlon.Simulation!Biathlon.Simulation.ManualRouteRibbonSweep.Simple()",
+      "inclusive_ms": 20.59
+    },
+    {
+      "method": "Biathlon.Simulation!Biathlon.Simulation.ManualRouteRibbonSweep.Intersect(float64,float64,float64,float64,float64,float64,float64,float64)",
+      "inclusive_ms": 10.499
+    }
+  ]
+}

@@ -7,6 +7,25 @@ namespace Biathlon.Tests
 {
     public sealed class ManualRouteRibbonSweepTests
     {
+        [Test] public void CapturedPostRangeSnowShoulderUsesABoundedRectangleCertificate()
+        {
+            var f=new ManualRacePathCatalogTests.Fixture();var c=f.Catalog;
+            var tolerance=ManualNumericalToleranceDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_gameplay_tolerance_v1.json"));
+            typeof(ManualRacePathCatalog).GetMethod("BindPortalTolerance",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance)
+                .Invoke(c,new object[]{tolerance.PortalPositionTolerance,tolerance.UseRoundSnowCorridor,tolerance.ConnectedSnowWindowMultiplier,tolerance.OrdinaryPortalRetreat,tolerance.OrdinaryHandoffWindow});
+            // Actual actor26 after its first range, near the existing soft snow edge.
+            var pose=new ManualSkiHeadingState(144.495588034,-13.985181673,2.125655196);
+            int index=c.GetBaseFlowSuccessor(c.StartApproachIndex);
+            Assert.That(c.TryProject(pose,index,6*SkiState.NanometersPerMeter,10,out var at),Is.True);
+            var sweep=new ManualRouteRibbonSweep(c.ProjectionGeometry,f.Venue.Occupancy,ManualScopedFieldStepperTests.Work(),tolerance);
+            var result=sweep.Preview(Travel(f.Venue.Occupancy,pose),c.GetGeometryObservation(at));
+            Assert.That(result.Status,Is.EqualTo(ManualRouteTubeStatus.Clear));
+            Assert.That(sweep.Diagnostics.LastDiskQueries,Is.Zero,"This paid stationary shoulder witness must not repeat a 512-disk body cover.");
+            // The certificate retains the same shoulder/tolerance; beyond it still fails.
+            var outside=new ManualSkiHeadingState(pose.X,pose.Z-1,pose.HeadingRadians);
+            Assert.That(sweep.Preview(Travel(f.Venue.Occupancy,outside),c.GetGeometryObservation(at)).Status,
+                Is.EqualTo(ManualRouteTubeStatus.UnresolvedStart));
+        }
         [Test] public void ExactRectangleProofRejectsAConcaveNotchBetweenItsInsideCorners()
         {
             double[] x={-3,3,3,.1,.1,-.1,-.1,-3},z={-3,-3,3,3,0,0,3,3};

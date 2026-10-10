@@ -24060,3 +24060,69 @@ Implementation, report, ADR, test evidence and state append committed as
 79ee054 and successfully pushed to origin/codex/wp-078-ai-pack. Windows owner
 build is local at Builds/WoodlandM13RangeHandoff-20261010. The latest operational
 status remains M13 OPEN / owner test pending; M14 has not started.
+
+
+### 2026-10-10 - M13 remaining range CPU spikes and independent outside finish
+
+Owner: movement improved; lag remains during shooting setup and for about
+30 seconds after the first Mass Start bout; finish points across the penalty
+loop. This dated entry controls current work without replacing history.
+M13 remains OPEN / owner review pending. M14 has not started. G1/G2 remain
+APPROVED. One production Woodland venue, max30 racers, High default.
+
+Actual first-bout Mass30 desktop CPU diagnostic reproduced a 320.488 ms tick.
+Sampling and per-preview counters locate stadium snow-shoulder body proof
+work after shooting, including 59,392 disk queries in one preview. A complete
+rectangle certificate inside one owned convex capsule now precedes the
+existing detailed proof. Existing shoulder, sweep tolerance and body sizes
+are unchanged; uncertain geometry still uses the previous proof. The new
+versioned ribbon context is v10. Diagnostic clearance/disk counts are exposed.
+The same bounded diagnostic now peaks at 84.864 ms; whole-run mean 5.892 ms
+versus 6.131 ms, setup mean 9.155 ms versus 10.827 ms. All 30 first bouts still
+complete at tick 6124. Timing is .NET CPU evidence, not native rendered FPS.
+The remaining peak does not establish hitch-free play.
+
+Distant shooters retain normal mesh/pose distance detail; phase changes
+refresh immediately and the nearby player keeps full animated setup. The
+range target stage no longer toggles off/on every paid tick. The chase camera
+is suppressed behind the opaque sight camera and restored during recovery.
+Authoritative shooting geometry, clock, stats and RNG policy are unchanged.
+
+IBU September 2026 rules and official Lenzerheide/Hochfilzen layouts were
+consulted. Final-lap finish now turns left on the outer stadium side at main
+975.548 m: 9 m wide, 63.296 m straight approach, three painted lanes over the
+last 50 m, red finish line and 30 m runout. Finish/runout centreline stays
+at least 133.03 m from the penalty centreline; start/finish separation is
+217.038 m. New corridor is cleared of 40 tree canopies. Three format routes,
+profiles, junction, environment and gantry are regenerated from the recipe.
+Final lap is 124.452 m shorter than the previous spur; earlier laps and
+range/penalty movements are unchanged. This is a fictional stadium informed
+by real layouts, not a full IBU homologation claim.
+
+Bounded verification: 30 .NET ribbon/finish/completion cases PASS; complete
+signed Mass3/Sprint1/Pursuit3 world/resource replays 3/3 PASS without AI.
+Eight native Unity MCP PlayMode cases PASS for LOD, actual setup/transfer,
+shooting camera ownership and environment/finish paint. Native High Game View
+captures verify the separate corridor and upward paint. Windows build
+Succeeded, 0 errors / 0 warnings. Hidden Mass30/Sprint30 smoke PASS, EXIT0:
+400 paid ticks per scene, startup/content/controls/quality/scene transition.
+Hidden rendering was suspended; no sustained FPS/GPU claim.
+
+Development namespace imports and the Vector3 capture serializer were fixed
+before successful verification. Console inspection shows only the MCP
+Console-clear log-file lock in the final query; clearing failed once and on
+one retry. This is an editor infrastructure limitation, not a player fault,
+and raw Console logs are not claimed empty. Compiler/game tests/build pass.
+
+New owner build: Builds/WoodlandM13SetupFinish-20261010/START_WOODLAND_REVIEW.cmd.
+Russian instructions: READ_ME_RU.txt beside the executable.
+EXE SHA256: 718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00.
+Report: docs/reports/TASK_M13_RANGE_CPU_AND_FINISH_20261010.md.
+Decision: docs/adr/ADR-0043-range-cpu-certificate-and-outside-finish.md.
+Evidence: docs/quality/m13/setup-finish-20261010/.
+Next: owner tests setup, first-bout departure and the new finish, then decides
+M13 closure. No automatic M14 transition. Manual steering/released-heading
+policy and IBU lane selection remain. Easy-shooting feedback stays OPEN for
+M15; no hidden hit/miss RNG. PROJECT_STATE history is preserved byte-for-byte
+as this append's prefix; PROJECT_CURRENT is updated separately. Changes and
+evidence are to be committed and pushed under standing owner authorization.

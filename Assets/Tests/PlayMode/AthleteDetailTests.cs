@@ -1,4 +1,5 @@
 using Biathlon.Unity.Presentation;
+using Biathlon.Simulation;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -8,6 +9,31 @@ namespace Biathlon.PlayModeTests
 {
     public class AthleteDetailTests
     {
+        [Test] public void ARealDistantShooterRetainsMeshAndPoseDistanceDetail()
+        {
+            string Read(string n)=>Resources.Load<TextAsset>("Biathlon/"+System.IO.Path.GetFileNameWithoutExtension(n)).text;
+            string Fixture(string n)=>System.IO.File.ReadAllText(System.IO.Path.Combine(Application.dataPath,"../tests/fixtures/tracks/"+n));
+            var runner=Biathlon.AI.ChampionshipRaceFactory.Create(Read,Fixture,Biathlon.Domain.CompetitionFormat.Sprint,
+                new Biathlon.AI.BalanceEventAudit(5),new Biathlon.AI.AiDecisionCounts(),count:1);
+            while(runner.Field.GetAthlete(0).ActiveShooting==null&&runner.Field.Tick.Value<10000)runner.Step();
+            var state=RacePresentationSnapshot.Capture(runner.Field).Get(0);Assert.That(state.ShootingActive,Is.True);
+            long paidTick=runner.Field.Tick.Value;
+            var pivot=new GameObject("distant shooting performance");var rig=AthleteRigFactory.Create(pivot.transform);
+            try
+            {
+                var adapter=pivot.AddComponent<AthleteAnimationPresentation>();adapter.Initialize(rig);
+                var skin=rig.GetComponent<AthleteSkinDetailBinding>();
+                int nearVertices=rig.GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.vertexCount;
+                for(int t=1;t<=60;t++)adapter.Render(new AthleteAnimationFrame(state,t,60,1),80);
+                Assert.That(adapter.Detail.Distant,Is.True);Assert.That(skin.Level,Is.EqualTo(2));
+                Assert.That(adapter.Detail.PoseUpdates,Is.InRange(20,21));
+                Assert.That(rig.GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.vertexCount,Is.LessThan(nearVertices));
+                adapter.Render(new AthleteAnimationFrame(state,61,60,1),1);
+                Assert.That(adapter.Detail.Distant,Is.False);Assert.That(skin.Level,Is.Zero);
+                Assert.That(runner.Field.Tick.Value,Is.EqualTo(paidTick));
+            }
+            finally{Object.DestroyImmediate(pivot);}
+        }
         [Test]
         public void DistantMeshRetainsRigMaterialsAndReducesGeometryWithoutLosingNearDetail()
         {

@@ -17,7 +17,8 @@ namespace Biathlon.PlayModeTests
             string Fixture(string n)=>File.ReadAllText(Path.Combine(Application.dataPath,"../tests/fixtures/tracks/"+n));
             var runner=ChampionshipRaceFactory.Create(Read,Fixture,CompetitionFormat.Sprint,new BalanceEventAudit(5),new AiDecisionCounts(),count:1);
             var root=new GameObject("range_test");var feed=root.AddComponent<RacePresentationFeed>();var view=root.AddComponent<RangePresentation>();
-            view.Initialize(feed,runner.Field.GetAthlete(0).AthleteId.Value,TargetGeometryDefinition.FromJson(Read("target_geometry_v1.json")));
+            var chase=root.AddComponent<Camera>();
+            view.Initialize(feed,runner.Field.GetAthlete(0).AthleteId.Value,TargetGeometryDefinition.FromJson(Read("target_geometry_v1.json")),chase);
             bool sawRange=false,sawShot=false,sawSetup=false,sawExit=false;
             for(int i=0;i<20000;i++)
             {
@@ -25,6 +26,7 @@ namespace Biathlon.PlayModeTests
                 var state=feed.Current.Get(0);
                 bool aiming=state.ShootingActive&&(state.ShootingPhase==ShootingPhase.Aiming||state.ShootingPhase==ShootingPhase.BoltCycle);
                 Assert.That(view.Visible,Is.EqualTo(aiming),"Preparation and rifle recovery must stay visible in the athlete camera.");
+                Assert.That(chase.enabled,Is.EqualTo(!aiming),"Only the active gameplay camera should submit the world.");
                 if(state.ShootingActive&&state.ShootingPhase==ShootingPhase.Setup)sawSetup=true;
                 if(state.ShootingActive&&state.ShootingPhase==ShootingPhase.Exiting)sawExit=true;
                 if(view.Visible){sawRange=true;Assert.That(view.ClosedMask,Is.EqualTo(feed.Current.Get(0).ClosedTargetsMask));Assert.That(view.AimCamera.enabled,Is.True);

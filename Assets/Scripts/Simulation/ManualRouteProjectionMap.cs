@@ -634,6 +634,30 @@ namespace Biathlon.Simulation
                 return edge.MinimumWidth*.5-(UseRoundSnowCorridor?0:edge.TubeTurnReserve)-radius-Math.Sqrt(dx*dx+dz*dz);
             }
         }
+        // A capsule is convex. If every rectangle corner fits the same owned
+        // edge capsule, the complete rectangle and its clearance fit as well.
+        // Do not combine corners from different capsules across a folded path.
+        internal double ConnectedTubeRectangleClearance(ManualSkiHeadingState pose,ManualConnectedTubeWindow window,
+            double halfLength,double halfWidth,double clearance)
+        {
+            double result=double.NegativeInfinity,fx=Math.Sin(pose.HeadingRadians),fz=Math.Cos(pose.HeadingRadians);
+            for(int i=window.First;i<=window.Last;i++)result=Math.Max(result,At(i));
+            if(window.IncomingFirst>=0)for(int i=window.IncomingFirst;i<=window.IncomingLast;i++)result=Math.Max(result,At(i));
+            return result;
+            double At(int i)
+            {
+                var edge=edges[i];double maximumSquared=0;
+                for(int corner=0;corner<4;corner++)
+                {
+                    double along=corner<2?halfLength:-halfLength,side=corner==0||corner==3?halfWidth:-halfWidth;
+                    double px=pose.X+fx*along+fz*side,pz=pose.Z+fz*along-fx*side;
+                    double t=Math.Max(0,Math.Min(1,((px-edge.X)*edge.DX+(pz-edge.Z)*edge.DZ)/(edge.PlanarLength*edge.PlanarLength)));
+                    double dx=px-edge.X-t*edge.DX,dz=pz-edge.Z-t*edge.DZ;
+                    maximumSquared=Math.Max(maximumSquared,dx*dx+dz*dz);
+                }
+                return edge.MinimumWidth*.5-(UseRoundSnowCorridor?0:edge.TubeTurnReserve)-clearance-Math.Sqrt(maximumSquared);
+            }
+        }
         private bool Touching(Edge a,Edge b)=>a.EndX==b.X&&a.EndZ==b.Z&&a.EndY==b.Y||
             PortalPositionTolerance>0&&Math.Abs(a.EndX-b.X)<=PortalPositionTolerance&&
             Math.Abs(a.EndZ-b.Z)<=PortalPositionTolerance&&Math.Abs(a.EndY-b.Y)<=PortalPositionTolerance;

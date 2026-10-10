@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "m13_first_bout_cpu_comparison_20261010",
+  "scope": "Actual deterministic Mass30 simulation, first bout plus >=600 ticks after player first completion and all 30 first bouts. Desktop .NET CPU diagnostic; not rendered Unity frame or sustained FPS qualification.",
+  "timing_threshold_is_test_assertion": false,
+  "cases": [
+    {
+      "source": "cpu-before.trx",
+      "ticks": 6124,
+      "mean_ms": 6.131,
+      "worst_ms": 320.488,
+      "worst_tick": 5621,
+      "setup_mean_ms": 10.827,
+      "allocated_bytes": 42820600
+    },
+    {
+      "source": "cpu-localized.trx",
+      "ticks": 6124,
+      "mean_ms": 6.291,
+      "worst_ms": 329.476,
+      "worst_tick": 5621,
+      "setup_mean_ms": 10.448,
+      "allocated_bytes": 42820824
+    },
+    {
+      "source": "cpu-certificate.trx",
+      "ticks": 6124,
+      "mean_ms": 5.892,
+      "worst_ms": 84.864,
+      "worst_tick": 5626,
+      "setup_mean_ms": 9.155,
+      "allocated_bytes": 42820824
+    }
+  ]
+}
