@@ -24126,3 +24126,12 @@ policy and IBU lane selection remain. Easy-shooting feedback stays OPEN for
 M15; no hidden hit/miss RNG. PROJECT_STATE history is preserved byte-for-byte
 as this append's prefix; PROJECT_CURRENT is updated separately. Changes and
 evidence are to be committed and pushed under standing owner authorization.
+
+
+### 2026-10-10 - Repository delivery for setup/finish correction
+
+Implementation, tests, ADR-0043, report, evidence and state append committed
+as 471a9a6 and successfully pushed to origin/codex/wp-078-ai-pack, including
+the native Game View captures. Owner build is local at
+Builds/WoodlandM13SetupFinish-20261010/START_WOODLAND_REVIEW.cmd.
+M13 remains OPEN for the owner setup/departure/finish test; M14 has not started.

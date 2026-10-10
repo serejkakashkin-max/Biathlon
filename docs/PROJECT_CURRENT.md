@@ -32,6 +32,8 @@ New owner build:
 **Builds/WoodlandM13SetupFinish-20261010/START_WOODLAND_REVIEW.cmd**.
 READ_ME_RU.txt is beside the executable.
 [Report](reports/TASK_M13_RANGE_CPU_AND_FINISH_20261010.md).
+Implementation/report/evidence/state committed as 471a9a6 and pushed to
+origin/codex/wp-078-ai-pack, including the native Game View captures.
 
 The next action is the owner's setup/departure/finish test and M13 decision.
 Previous admitted-mat tick repair and released-heading manual control remain.
