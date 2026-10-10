@@ -24053,3 +24053,10 @@ easy-shooting feedback stays OPEN for M15 and no hidden hit/miss RNG is added.
 PROJECT_STATE history is preserved byte-for-byte as the prefix of this append;
 PROJECT_CURRENT is updated separately. The bounded change is to be committed
 and pushed under the owner's standing repository authorization.
+
+### 2026-10-10 — Repository delivery for the range hand-back build
+
+Implementation, report, ADR, test evidence and state append committed as
+79ee054 and successfully pushed to origin/codex/wp-078-ai-pack. Windows owner
+build is local at Builds/WoodlandM13RangeHandoff-20261010. The latest operational
+status remains M13 OPEN / owner test pending; M14 has not started.
