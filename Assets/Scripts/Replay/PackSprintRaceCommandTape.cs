@@ -140,7 +140,7 @@ namespace Biathlon.Replay
             new TimeTrialInput(new SimulationInput(new SimulationTick(tick), v.Ski.Effort.AthleteId, v.Ski.Effort.RequestedEffort),
                 v.Ski.Form, v.Ski.LineQuality, v.Ski.HeadwindMetersPerSecond, v.Ski.TuckRequested, v.Ski.SprintRequested, v.Ski.TechniqueId, v.Ski.MovementEfficiency),
             new WeaponAimCommand(new SimulationTick(tick), v.Aim.AthleteId, v.Aim.Horizontal, v.Aim.Vertical, v.Aim.FineControl),
-            v.Trigger, v.HoldBreath, v.Wind, v.Pressure,v.CycleBolt,v.ManualBoltCycle);
+            v.Trigger, v.HoldBreath, v.Wind, v.Pressure,v.CycleBolt,v.ManualBoltCycle,v.RangeTransit);
         private static bool SameIntent(Run run, SprintAthleteInput b, double lateral)
             =>run.Lateral==lateral&&SameCommandIntent(run.Input,b);
         internal static bool SameCommandIntent(SprintAthleteInput a,SprintAthleteInput b)
@@ -149,7 +149,7 @@ namespace Biathlon.Replay
                 a.Ski.HeadwindMetersPerSecond == b.Ski.HeadwindMetersPerSecond && a.Ski.TuckRequested == b.Ski.TuckRequested &&
                 a.Ski.SprintRequested == b.Ski.SprintRequested && a.Ski.TechniqueId == b.Ski.TechniqueId && a.Ski.MovementEfficiency == b.Ski.MovementEfficiency &&
                 a.Aim.Horizontal == b.Aim.Horizontal && a.Aim.Vertical == b.Aim.Vertical && a.Aim.FineControl == b.Aim.FineControl &&
-                a.CycleBolt==b.CycleBolt && a.ManualBoltCycle==b.ManualBoltCycle && a.Trigger == b.Trigger && a.HoldBreath == b.HoldBreath && a.Wind.EastMetersPerSecond == b.Wind.EastMetersPerSecond &&
+                a.RangeTransit==b.RangeTransit && a.CycleBolt==b.CycleBolt && a.ManualBoltCycle==b.ManualBoltCycle && a.Trigger == b.Trigger && a.HoldBreath == b.HoldBreath && a.Wind.EastMetersPerSecond == b.Wind.EastMetersPerSecond &&
                 a.Wind.NorthMetersPerSecond == b.Wind.NorthMetersPerSecond && a.Pressure.RaceImportance == b.Pressure.RaceImportance &&
                 a.Pressure.PositionImportance == b.Pressure.PositionImportance && a.Pressure.RivalProximity == b.Pressure.RivalProximity &&
                 a.Pressure.Confidence == b.Pressure.Confidence && a.Pressure.FinalStanding == b.Pressure.FinalStanding && a.Pressure.FirstPodium == b.Pressure.FirstPodium;
@@ -228,6 +228,9 @@ namespace Biathlon.Replay
             [DataMember(Name = "fine_aim", IsRequired = true)] public bool Fine;
             [DataMember(Name = "trigger", IsRequired = true)] public bool Trigger;
             [DataMember(Name = "hold_breath", IsRequired = true)] public bool Hold;
+            [DataMember(Name = "cycle_bolt", EmitDefaultValue=false)] public bool Cycle;
+            [DataMember(Name = "manual_bolt", EmitDefaultValue=false)] public bool Manual;
+            [DataMember(Name = "range_transit_soft_contacts", EmitDefaultValue=false)] public bool RangeTransit;
             [DataMember(Name = "wind_east_mps", IsRequired = true)] public double East;
             [DataMember(Name = "wind_north_mps", IsRequired = true)] public double North;
             [DataMember(Name = "race_importance", IsRequired = true)] public double Race;
@@ -238,13 +241,13 @@ namespace Biathlon.Replay
             [DataMember(Name = "first_podium", IsRequired = true)] public bool Podium;
             public static Payload From(SprintAthleteInput v) => new Payload { Effort = v.Ski.Effort.RequestedEffort, Form = v.Ski.Form, Line = v.Ski.LineQuality,
                 Headwind = v.Ski.HeadwindMetersPerSecond, Tuck = v.Ski.TuckRequested, Sprint = v.Ski.SprintRequested, Technique = v.Ski.TechniqueId, Efficiency = v.Ski.MovementEfficiency,
-                X = v.Aim.Horizontal, Y = v.Aim.Vertical, Fine = v.Aim.FineControl, Trigger = v.Trigger, Hold = v.HoldBreath,
+                X = v.Aim.Horizontal, Y = v.Aim.Vertical, Fine = v.Aim.FineControl, Trigger = v.Trigger, Hold = v.HoldBreath,Cycle=v.CycleBolt,Manual=v.ManualBoltCycle,RangeTransit=v.RangeTransit,
                 East = v.Wind.EastMetersPerSecond, North = v.Wind.NorthMetersPerSecond, Race = v.Pressure.RaceImportance, Position = v.Pressure.PositionImportance,
                 Rivals = v.Pressure.RivalProximity, Confidence = v.Pressure.Confidence, Final = v.Pressure.FinalStanding, Podium = v.Pressure.FirstPodium };
             public SprintAthleteInput ToInput(AthleteId athlete, long tick) => new SprintAthleteInput(
                 new TimeTrialInput(new SimulationInput(new SimulationTick(tick), athlete, Effort), Form, Line, Headwind, Tuck, Sprint, Technique, Efficiency),
                 new WeaponAimCommand(new SimulationTick(tick), athlete, X, Y, Fine), Trigger, Hold, new WindVector(East, North),
-                new ShootingPressureContext(Race, Position, Rivals, Confidence, Final, Podium));
+                new ShootingPressureContext(Race, Position, Rivals, Confidence, Final, Podium),Cycle,Manual,RangeTransit);
         }
     }
 }

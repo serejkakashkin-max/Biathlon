@@ -13,6 +13,7 @@ namespace Biathlon.Simulation
         public double SpeedMetersPerSecond { get; }
         public ManualSkiHeadingState WorldPose {get;}
         public SkiPlanarVelocity WorldVelocity {get;}
+        public bool RangeTransitYielding {get;}
         public bool TuckActive { get; }
         public bool FinalSprintActive { get; }
         /// <summary>Completed-position slope (rise/run) and signed turning curvature (1/m).
@@ -55,6 +56,7 @@ namespace Biathlon.Simulation
             var world=field.HasManualWorldState&&!field.HasManualScopedWorldState?field.GetManualWorldActor(index):default;
             var scoped=field.HasManualScopedWorldState?field.GetManualScopedWorldActor(index):default;
             WorldPose=scoped.IsValid?scoped.Pose:world.Pose;WorldVelocity=scoped.IsValid?scoped.Velocity:world.Velocity;
+            RangeTransitYielding=field.IsRangeTransitYielding(index);
             TuckActive=a.TuckActive;FinalSprintActive=a.FinalSprintActive;
             var range=a.CurrentRangeMotion;
             var course=a.RemainingStartApproachNanometers>0 ? field.StartApproach.Sample(a.RemainingStartApproachNanometers) :

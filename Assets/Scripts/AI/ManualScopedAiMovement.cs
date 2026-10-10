@@ -90,6 +90,12 @@ namespace Biathlon.AI
                 playerIndex<-1||playerIndex>=steering.Length||playerSteering<-ManualSkiCommand.SteeringUnits||playerSteering>ManualSkiCommand.SteeringUnits)
                 throw new ArgumentException("Exact roster and signed player intent required.");
             var world=stepper.World;
+            for(int i=0;i<world.Count;i++)
+            {
+                var c=world.GetCursor(i);var row=world.GetCatalog(i).Get(c.OccurrenceIndex);
+                inputs[i]=inputs[i].WithRangeTransit(policy.RangeTransitSoftContacts&&i!=playerIndex&&
+                    (row.Kind==ManualRacePathKind.RangeApproach||row.Kind==ManualRacePathKind.RangeExit));
+            }
             // An automatic range turn replaces the previous manual heading.
             // Never resume a stale release target when controls are handed back.
             if(playerIndex<0)playerReturn?.Reset();
@@ -169,7 +175,8 @@ namespace Biathlon.AI
                 if(passing[i])chosen=passingLine[i];
                 if(row.Kind==ManualRacePathKind.RangeApproach&&!privateMat)
                     chosen=Math.Max(chosen,policy.RangeApproachMinimumLateral);
-                if(obstructed&&!passing[i]&&row.Kind!=ManualRacePathKind.RangeExit)
+                if(obstructed&&!passing[i]&&row.Kind!=ManualRacePathKind.RangeExit&&
+                    !(policy.RangeTransitSoftContacts&&row.Kind==ManualRacePathKind.RangeApproach))
                 {
                     var other=world.GetActor(blocker);
                     if(other.Velocity.X!=0||other.Velocity.Z!=0)
@@ -235,6 +242,8 @@ namespace Biathlon.AI
                 // The curved penalty circuit retains its forward pursuit.
                 bool ordinaryRecovery=row.Kind!=ManualRacePathKind.PenaltyLoop;
                 double pursuitYaw=controllers[i].PhysicalPursuitYaw(plan,actor.Pose,actor.Velocity,ordinaryRecovery);
+                if(policy.RangeTransitSoftContacts&&privateMat&&row.Kind==ManualRacePathKind.RangeExit)
+                    pursuitYaw=plan.HeadingErrorRadians/policy.HeadingResponseSeconds-policy.YawRateFeedback*actor.Pose.YawRateRadiansPerSecond;
                 if(row.Kind!=ManualRacePathKind.FinishRunout)
                 {
                     double grip=steeringGrip.EvaluateWorldHeading(new SkiState(0,motion.SpeedMetersPerSecond),surface,0,

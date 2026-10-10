@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "id": "m13_range_flow_cpu_probe_20261010",
+  "limitation": "Editor callbacks may have run more than once per frame. Frame/GPU/wall columns are not a comparable FPS benchmark. Per-invocation Stopwatch CPU costs remain useful; phases are observed at the invocation end.",
+  "before": {
+    "Aiming": {
+      "samples": 287,
+      "mean_ms_per_step": 5.989750174216028,
+      "max_ms_per_step": 11.2614,
+      "single_step_samples": 287,
+      "single_step_mean_ms": 5.989750174216028
+    },
+    "Approach": {
+      "samples": 407,
+      "mean_ms_per_step": 4.7619692465192465,
+      "max_ms_per_step": 31.7539,
+      "single_step_samples": 167,
+      "single_step_mean_ms": 4.006953892215569
+    },
+    "AwaitingLane": {
+      "samples": 1,
+      "mean_ms_per_step": 6.249300000000001,
+      "max_ms_per_step": 6.249300000000001,
+      "single_step_samples": 1,
+      "single_step_mean_ms": 6.249300000000001
+    },
+    "BoltCycle": {
+      "samples": 80,
+      "mean_ms_per_step": 5.961728750000001,
+      "max_ms_per_step": 8.7629,
+      "single_step_samples": 80,
+      "single_step_mean_ms": 5.961728750000001
+    },
+    "Exiting": {
+      "samples": 48,
+      "mean_ms_per_step": 3.6015875000000004,
+      "max_ms_per_step": 5.2272,
+      "single_step_samples": 48,
+      "single_step_mean_ms": 3.6015875000000004
+    },
+    "Outside": {
+      "samples": 1,
+      "mean_ms_per_step": 6.5998,
+      "max_ms_per_step": 6.5998,
+      "single_step_samples": 1,
+      "single_step_mean_ms": 6.5998
+    },
+    "PenaltyApproach": {
+      "samples": 2,
+      "mean_ms_per_step": 3.93545,
+      "max_ms_per_step": 4.1263,
+      "single_step_samples": 0,
+      "single_step_mean_ms": null
+    },
+    "PenaltyLoop": {
+      "samples": 75,
+      "mean_ms_per_step": 9.145997777777778,
+      "max_ms_per_step": 28.93819166666667,
+      "single_step_samples": 0,
+      "single_step_mean_ms": null
+    },
+    "RangeExit": {
+      "samples": 156,
+      "mean_ms_per_step": 3.9224957264957268,
+      "max_ms_per_step": 13.163416666666668,
+      "single_step_samples": 140,
+      "single_step_mean_ms": 3.7902757142857144
+    },
+    "Setup": {
+      "samples": 84,
+      "mean_ms_per_step": 6.280977380952382,
+      "max_ms_per_step": 11.3033,
+      "single_step_samples": 84,
+      "single_step_mean_ms": 6.280977380952382
+    }
+  },
+  "after": {
+    "Aiming": {
+      "samples": 68,
+      "mean_ms_per_step": 1.0877764705882353,
+      "max_ms_per_step": 1.463,
+      "single_step_samples": 68,
+      "single_step_mean_ms": 1.0877764705882353
+    },
+    "Approach": {
+      "samples": 118,
+      "mean_ms_per_step": 2.6766401129943507,
+      "max_ms_per_step": 6.083916666666667,
+      "single_step_samples": 43,
+      "single_step_mean_ms": 2.506344186046512
+    },
+    "BoltCycle": {
+      "samples": 20,
+      "mean_ms_per_step": 1.18233,
+      "max_ms_per_step": 1.3223,
+      "single_step_samples": 20,
+      "single_step_mean_ms": 1.18233
+    },
+    "Exiting": {
+      "samples": 12,
+      "mean_ms_per_step": 1.2844,
+      "max_ms_per_step": 1.4280000000000002,
+      "single_step_samples": 12,
+      "single_step_mean_ms": 1.2844
+    },
+    "Outside": {
+      "samples": 1,
+      "mean_ms_per_step": 1.6667,
+      "max_ms_per_step": 1.6667,
+      "single_step_samples": 1,
+      "single_step_mean_ms": 1.6667
+    },
+    "PenaltyLoop": {
+      "samples": 28,
+      "mean_ms_per_step": 9.352064583333334,
+      "max_ms_per_step": 22.544125000000005,
+      "single_step_samples": 0,
+      "single_step_mean_ms": null
+    },
+    "RangeExit": {
+      "samples": 38,
+      "mean_ms_per_step": 1.6025644736842104,
+      "max_ms_per_step": 3.0177,
+      "single_step_samples": 34,
+      "single_step_mean_ms": 1.6137735294117648
+    },
+    "Setup": {
+      "samples": 21,
+      "mean_ms_per_step": 1.1784809523809525,
+      "max_ms_per_step": 1.8050000000000002,
+      "single_step_samples": 21,
+      "single_step_mean_ms": 1.1784809523809525
+    }
+  }
+}

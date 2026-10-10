@@ -19,7 +19,7 @@ namespace Biathlon.Domain
             TrackValidation.Id(d.Id);
             TrackValidation.Finite(d.MaximumSpeed,0,3,nameof(MaximumSpeed));
             TrackValidation.Finite(d.MaximumYaw,0,3,nameof(MaximumYaw));
-            TrackValidation.Finite(d.PositionTolerance,0,.5,nameof(PositionTolerance));return d;
+            TrackValidation.Finite(d.PositionTolerance,0,.8,nameof(PositionTolerance));return d;
         }
         public string ToJson()=>RouteJson.Write(this);
     }

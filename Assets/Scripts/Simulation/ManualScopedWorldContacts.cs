@@ -62,7 +62,7 @@ namespace Biathlon.Simulation
                 LastContactForces=new SkiContactForcePreview(SkiContactForceStatus.Resolved,drives[0].DurationSeconds,0);
                 LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.Clear);return true;
             }
-            if(LastOwnedContacts.Count==0)LastContactForces=contactForces.Preview(responseBodies,drives,Count,coupledTrajectories,physicalParticipants);
+            if(LastOwnedContacts.Count==0)LastContactForces=contactForces.Preview(responseBodies,drives,Count,coupledTrajectories,contactParticipants);
             else
             {
                 // Contact reactions may refresh repeatedly inside one fixed
@@ -106,8 +106,8 @@ namespace Biathlon.Simulation
                     ownedFreePieces[i]=new SkiForceCoupledTrajectory(body.Pose,new SkiContactMotion(body.Velocity,body.Pose.YawRateRadiansPerSecond),acceleration,seconds);
                 }
                 LastContactForces=seconds<contactForces.MinimumPieceSeconds
-                    ?contactForces.Preview(responseBodies,drives,Count,coupledTrajectories,physicalParticipants)
-                    :contactForces.PreviewRefined(responseBodies,ownedFreePieces,Count,coupledTrajectories,maximumForceRefinements,physicalParticipants);
+                    ?contactForces.Preview(responseBodies,drives,Count,coupledTrajectories,contactParticipants)
+                    :contactForces.PreviewRefined(responseBodies,ownedFreePieces,Count,coupledTrajectories,maximumForceRefinements,contactParticipants);
             }
             if(LastContactForces.Status!=SkiContactForceStatus.Resolved)return Reject(ManualScopedWorldStatus.ContactForces);
             for(int i=0;i<Count;i++)
@@ -141,7 +141,7 @@ namespace Biathlon.Simulation
             for(int i=0;i<Count;i++)for(int j=i+1;j<Count;j++)
             {
                 int ai=ownedContactOrder[i],bi=ownedContactOrder[j];var a=workingActors[ai];var b=workingActors[bi];
-                if(!physicalParticipants[ai]||!physicalParticipants[bi])continue;
+                if(!contactParticipants[ai]||!contactParticipants[bi])continue;
                 var gap=ownedContactGeometry.Preview(new ManualSkiContactBody(a.Athlete,a.Pose,default,1),
                     new ManualSkiContactBody(b.Athlete,b.Pose,default,1));
                 if(gap.Status==SkiContactPreviewStatus.Penetrating||gap.GapMeters< -ownedContactTolerance)

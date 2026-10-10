@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="37e1f4e5-8851-4c66-99fa-e823a5cd6a0f" name="snkashkin@DESKTOP-G3075GA 2026-10-10 22:24:28" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-10T22:24:28.7989658+03:00" queuing="2026-10-10T22:24:28.7989659+03:00" start="2026-10-10T22:24:14.6475536+03:00" finish="2026-10-10T22:24:55.7363779+03:00" />
+  <TestSettings name="default" id="892741b4-fd5e-46ff-af15-864bda0b7ed5">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-10_22_24_28" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="85325dca-9546-4d33-86c7-305a18a597d5" testId="564252ea-b3b8-52b9-e30f-eea3fc818ed3" testName="CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(&quot;pursuit&quot;,3)" computerName="DESKTOP-G3075GA" duration="00:00:16.1686960" startTime="2026-10-10T22:24:39.2859025+03:00" endTime="2026-10-10T22:24:55.4541374+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="85325dca-9546-4d33-86c7-305a18a597d5">
+      <Output>
+        <StdOut>actor=0 tick=30000 finished=False phase=Skiing bout=-1 row=33 arc=325242834570/366692000000 x=-81,003283973 z=-114,166155217 speed=3,725419409&#xD;
+actor=1 tick=30000 finished=False phase=Skiing bout=-1 row=33 arc=365854374133/366692000000 x=-104,904788996 z=-83,916834949 speed=4,068944559&#xD;
+actor=2 tick=30000 finished=False phase=Penalty bout=-1 row=53 arc=44609967019/150000000000 x=111,627442909 z=-39,663219921 speed=3,237396731</StdOut>
+        <ErrorInfo>
+          <Message>  Expected: True&#xD;
+  But was:  False&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedRaceCommandTapeTests.CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedRaceCommandTapeTests.cs:line 59&#xD;
+   at InvokeStub_ManualScopedRaceCommandTapeTests.CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualScopedRaceCommandTapeTests.CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedRaceCommandTapeTests.cs:line 59&#xD;
+   at InvokeStub_ManualScopedRaceCommandTapeTests.CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="874f6c0c-c698-49bd-acf8-47e7cc55a315" testId="ce641d68-be27-da70-dfd6-f79cbb12b4bb" testName="CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(&quot;sprint&quot;,1)" computerName="DESKTOP-G3075GA" duration="00:00:10.5177240" startTime="2026-10-10T22:24:28.7684413+03:00" endTime="2026-10-10T22:24:39.2858651+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="874f6c0c-c698-49bd-acf8-47e7cc55a315">
+      <Output>
+        <StdOut>sprint signed replay actors=1 ticks=20233 runs=16246 json_chars=7768252</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="711a2d53-c128-4e28-9201-0bc4b4aa3507" testId="24a436b1-b045-c346-21dd-f18c0d091a8d" testName="CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(&quot;mass_start&quot;,3)" computerName="DESKTOP-G3075GA" duration="00:00:13.6383500" startTime="2026-10-10T22:24:15.1296515+03:00" endTime="2026-10-10T22:24:28.7675837+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="711a2d53-c128-4e28-9201-0bc4b4aa3507">
+      <Output>
+        <StdOut>actor=0 tick=30000 finished=False phase=Skiing bout=-1 row=25 arc=51582023659/735553000000 x=190,082023659 z=-6,466836849 speed=6,837874066&#xD;
+actor=1 tick=30000 finished=True phase=Finished bout=-1 row=47 arc=4532761711/30000000000 x=-63,358911292 z=75,258532811 speed=0&#xD;
+actor=2 tick=30000 finished=False phase=Skiing bout=-1 row=25 arc=670110112310/735553000000 x=-107,098237541 z=-47,839903429 speed=2,833197446</StdOut>
+        <ErrorInfo>
+          <Message>  Expected: True&#xD;
+  But was:  False&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedRaceCommandTapeTests.CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedRaceCommandTapeTests.cs:line 59&#xD;
+
+1)    at Biathlon.Tests.ManualScopedRaceCommandTapeTests.CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(String format, Int32 count) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedRaceCommandTapeTests.cs:line 59&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(&quot;pursuit&quot;,3)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="564252ea-b3b8-52b9-e30f-eea3fc818ed3">
+      <Execution id="85325dca-9546-4d33-86c7-305a18a597d5" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedRaceCommandTapeTests" name="CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(&quot;pursuit&quot;,3)" />
+    </UnitTest>
+    <UnitTest name="CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(&quot;mass_start&quot;,3)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="24a436b1-b045-c346-21dd-f18c0d091a8d">
+      <Execution id="711a2d53-c128-4e28-9201-0bc4b4aa3507" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedRaceCommandTapeTests" name="CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(&quot;mass_start&quot;,3)" />
+    </UnitTest>
+    <UnitTest name="CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(&quot;sprint&quot;,1)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="ce641d68-be27-da70-dfd6-f79cbb12b4bb">
+      <Execution id="874f6c0c-c698-49bd-acf8-47e7cc55a315" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedRaceCommandTapeTests" name="CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(&quot;sprint&quot;,1)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="564252ea-b3b8-52b9-e30f-eea3fc818ed3" executionId="85325dca-9546-4d33-86c7-305a18a597d5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ce641d68-be27-da70-dfd6-f79cbb12b4bb" executionId="874f6c0c-c698-49bd-acf8-47e7cc55a315" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="24a436b1-b045-c346-21dd-f18c0d091a8d" executionId="711a2d53-c128-4e28-9201-0bc4b4aa3507" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="1" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 3 of 3 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+actor=0 tick=30000 finished=False phase=Skiing bout=-1 row=25 arc=51582023659/735553000000 x=190,082023659 z=-6,466836849 speed=6,837874066&#xD;
+actor=1 tick=30000 finished=True phase=Finished bout=-1 row=47 arc=4532761711/30000000000 x=-63,358911292 z=75,258532811 speed=0&#xD;
+actor=2 tick=30000 finished=False phase=Skiing bout=-1 row=25 arc=670110112310/735553000000 x=-107,098237541 z=-47,839903429 speed=2,833197446&#xD;
+&#xD;
+sprint signed replay actors=1 ticks=20233 runs=16246 json_chars=7768252&#xD;
+&#xD;
+actor=0 tick=30000 finished=False phase=Skiing bout=-1 row=33 arc=325242834570/366692000000 x=-81,003283973 z=-114,166155217 speed=3,725419409&#xD;
+actor=1 tick=30000 finished=False phase=Skiing bout=-1 row=33 arc=365854374133/366692000000 x=-104,904788996 z=-83,916834949 speed=4,068944559&#xD;
+actor=2 tick=30000 finished=False phase=Penalty bout=-1 row=53 arc=44609967019/150000000000 x=111,627442909 z=-39,663219921 speed=3,237396731&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

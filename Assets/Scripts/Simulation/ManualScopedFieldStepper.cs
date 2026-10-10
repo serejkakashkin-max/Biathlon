@@ -154,6 +154,9 @@ namespace Biathlon.Simulation
             for(int i=0;i<field.Count;i++)
             {
                 if(brakeFractions.Length!=0)PhysiologyNumbers.RequireRange(brakeFractions[i],0,1,nameof(brakeFractions));
+                var commandRow=world.GetCatalog(i).Get(world.GetCursor(i).OccurrenceIndex);
+                if(inputs[i].RangeTransit&&commandRow.Kind!=ManualRacePathKind.RangeApproach&&commandRow.Kind!=ManualRacePathKind.RangeExit)
+                    throw new ArgumentException("Soft transit contacts require an automatic range approach or exit.");
                 if(field.GetAthlete(i).HasFinished&&world.GetCatalog(i).Get(world.GetCursor(i).OccurrenceIndex).Kind!=ManualRacePathKind.FinishRunout)
                     return Report(ManualFieldStepStatus.FinishedRosterUnsupported,default,field.GetAthlete(i).AthleteId);
                 if(steeringInputs[i]<-ManualSkiCommand.SteeringUnits||steeringInputs[i]>ManualSkiCommand.SteeringUnits||
@@ -171,6 +174,7 @@ namespace Biathlon.Simulation
             if(acceptedPhases>0&&!commit.TryHandoffAcceptedPhases(phases.AsSpan(0,acceptedPhases)))
                 return Report(ManualFieldStepStatus.PhaseRequired,default,field.GetAthlete(phases[0]).AthleteId);
             for(int i=0;i<field.Count;i++)pending[i]=field.GetAthlete(i).PrepareManualScopedStep(inputs[i],world,i);
+            for(int i=0;i<field.Count;i++)world.SetRangeTransit(i,inputs[i].RangeTransit);
             var tick=world.BeginTick();bool published=false;ManualScopedWorldPreview proof=default;
             try
             {

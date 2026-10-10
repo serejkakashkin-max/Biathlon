@@ -17,6 +17,7 @@ namespace Biathlon.Domain
         [DataMember(Name="heading_response_seconds",IsRequired=true)] public double HeadingResponseSeconds {get;private set;}
         [DataMember(Name="yaw_rate_feedback",IsRequired=true)] public double YawRateFeedback {get;private set;}
         [DataMember(Name="range_approach_minimum_lateral_m",EmitDefaultValue=false)] public double RangeApproachMinimumLateral {get;private set;}
+        [DataMember(Name="range_transit_soft_contacts",EmitDefaultValue=false)] public bool RangeTransitSoftContacts {get;private set;}
         public static ManualAiSteeringDefinition FromJson(string json)
         {
             var value=RouteJson.Read<ManualAiSteeringDefinition>(json);

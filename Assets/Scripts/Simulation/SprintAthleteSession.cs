@@ -8,14 +8,16 @@ namespace Biathlon.Simulation
         public TimeTrialInput Ski { get; } public WeaponAimCommand Aim { get; }
         public bool Trigger { get; } public bool HoldBreath { get; }
         public bool CycleBolt {get;} public bool ManualBoltCycle {get;}
+        public bool RangeTransit {get;}
         public WindVector Wind { get; } public ShootingPressureContext Pressure { get; }
-        public SprintAthleteInput WithSki(TimeTrialInput ski) => new SprintAthleteInput(ski,Aim,Trigger,HoldBreath,Wind,Pressure,CycleBolt,ManualBoltCycle);
+        public SprintAthleteInput WithSki(TimeTrialInput ski) => new SprintAthleteInput(ski,Aim,Trigger,HoldBreath,Wind,Pressure,CycleBolt,ManualBoltCycle,RangeTransit);
+        public SprintAthleteInput WithRangeTransit(bool active) => new SprintAthleteInput(Ski,Aim,Trigger,HoldBreath,Wind,Pressure,CycleBolt,ManualBoltCycle,active);
         public SprintAthleteInput(TimeTrialInput ski, WeaponAimCommand aim, bool trigger = false, bool holdBreath = false,
-            WindVector wind = default, ShootingPressureContext pressure = default,bool cycleBolt=false,bool manualBoltCycle=false)
+            WindVector wind = default, ShootingPressureContext pressure = default,bool cycleBolt=false,bool manualBoltCycle=false,bool rangeTransit=false)
         {
             if (!ski.Effort.AthleteId.Equals(aim.AthleteId) || ski.Effort.Tick.Value != aim.Tick.Value || !aim.AthleteId.IsValid)
                 throw new ArgumentException("Ski/aim intent must share athlete and tick.");
-            CycleBolt=cycleBolt;ManualBoltCycle=manualBoltCycle;
+            CycleBolt=cycleBolt;ManualBoltCycle=manualBoltCycle;RangeTransit=rangeTransit;
             Ski = ski; Aim = aim; Trigger = trigger; HoldBreath = holdBreath; Wind = wind; Pressure = pressure;
         }
     }

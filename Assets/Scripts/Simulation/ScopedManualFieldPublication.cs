@@ -35,6 +35,7 @@ namespace Biathlon.Simulation
         private ManualScopedWorldRoster manualScopedWorld;
         private readonly ManualRacePathActorFrame[] manualScopedFrames;
         public bool HasManualScopedWorldState=>manualScopedWorld!=null;
+        public bool IsRangeTransitYielding(int index)=>manualScopedWorld!=null&&manualScopedWorld.IsRangeTransitYielding(index);
         internal DraftOutput EvaluateScopedWorldDraft(ManualSkiContactBody follower,ReadOnlySpan<ManualSkiContactBody> roster,
             TrackSample surface,double windX,double windZ)
             =>drafting.EvaluateWorld(follower,roster,surface,windX,windZ);

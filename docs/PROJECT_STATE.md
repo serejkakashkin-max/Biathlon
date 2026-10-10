@@ -24370,3 +24370,33 @@ docs/quality/m13/perf-ground-20261010/ record decisions and limitations.
 
 History preserved: all2937147 pre-task bytes retained exactly; no removal,
 compaction or replacement. Master Plan unchanged.
+
+## 2026-10-10 — M13 range flow, CPU and snow follow-up
+Record ID: m13-range-flow-owner-feedback-20261010. M13 OPEN; M14 not started.
+
+Owner test build: Builds/WoodlandM13RangeFlow-20261010/START_WOODLAND_REVIEW.cmd.
+Supersedes PerfGround; previous builds retained. Maximum30, High default.
+Automatic approach/departure now uses explicit soft body contacts for AI and
+assisted player, with bounded visual yielding; ordinary manual collisions remain.
+Reproduced MovingFiringArrival at tick3783 /0.62m mat residual. Plant radius0.8m
+retains speed/yaw/travel admission. Shorter departure heading, later bend braking.
+Transit and manual bolt intent are retained in command persistence/replay.
+Conservative pair culling and exact constant-velocity contact distance reduce work.
+Captured setup CPU invocation mean6.281ms ->1.178ms; bounded evidence only.
+Penalty steps remain heavier; Editor callback ambiguity prevents FPS comparison.
+Penalty widened4m ->6m, still150m; fencing follows.36 trees removed before stands.
+14 authored fence mounds and main/penalty snow skirts; native captures reviewed.
+High uses native resolution,2048px/two-cascade shadows and85m distance.
+
+Final.NET36 PASS, geometry6 PASS; native sweep14/environment7/surfaces8/quality3
+PASS. Complete signed Mass/Pursuit/Sprint replay state/resources/events match at
+34102/36270/20233 ticks. Fixture time budget extended30000 ->60000 to accommodate
+current fatigue; completion/steering/braking/replay assertions remain enabled.
+Unity compiles; fresh Play Mode and final Console have no new errors/exceptions.
+Windows build Succeeded,0 errors/0 warnings,355704286 bytes. Hidden Mass30/Sprint30
+400-tick controls and scene transition PASS,exit0; no rendering/FPS proof.
+ADR-0048 and docs/reports/TASK_M13_RANGE_FLOW_20261010.md record policy, evidence
+and limitations. No hidden power boost; race output changes intentionally.
+Pre-task2939061 bytes preserved byte-for-byte; history never replaced/compacted.
+Next: owner tests prone setup, second-approach congestion, departure and penalty
+travel in this build, then decides whether to close M13.

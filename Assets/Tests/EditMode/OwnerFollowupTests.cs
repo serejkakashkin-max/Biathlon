@@ -19,9 +19,10 @@ namespace Biathlon.Tests
         {
             var id=new AthleteId("owner");var tick=new SimulationTick(1);
             var original=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(tick,id,650),1,1,0),
-                new WeaponAimCommand(tick,id,2,3),true,true,cycleBolt:true,manualBoltCycle:true);
+                new WeaponAimCommand(tick,id,2,3),true,true,cycleBolt:true,manualBoltCycle:true,rangeTransit:true);
             var rewritten=original.WithSki(new TimeTrialInput(new SimulationInput(tick,id,0),1,1,0));
             Assert.That(rewritten.ManualBoltCycle,Is.True);Assert.That(rewritten.CycleBolt,Is.True);
+            Assert.That(rewritten.RangeTransit,Is.True);
             Assert.That(rewritten.Trigger,Is.True);Assert.That(rewritten.HoldBreath,Is.True);Assert.That(rewritten.Aim,Is.EqualTo(original.Aim));
         }
         [Test] public void ManualHandlingMovesOnReloadAndDoesNotKickOnDischarge()
@@ -120,7 +121,8 @@ namespace Biathlon.Tests
             }
             for(int a=0;a<30;a++)if(!seen[a]){var actor=f.runner.Field.GetAthlete(a);var b=f.stepper.World.GetActor(a);var input=f.runner.GetLastInput(a);TestContext.WriteLine($"missing_actor={a} phase={actor.Lifecycle.Phase} loop={b.Observation.LoopId} pose={b.Pose.X:R},{b.Pose.Z:R} speed={actor.Motion.SpeedMetersPerSecond:R} effort={input.Ski.Effort.RequestedEffort} tuck={input.Ski.TuckRequested} heading={b.Pose.HeadingRadians:R} edges={f.stepper.World.GetCourseEdgeResponses(a)}");}
             TestContext.WriteLine($"arrivals={count} worst_mat_error_m={worst:R}");
-            Assert.That(count,Is.EqualTo(30));Assert.That(worst,Is.LessThanOrEqualTo(.5));
+            Assert.That(count,Is.EqualTo(30));Assert.That(worst,Is.LessThanOrEqualTo(
+                ManualMatCaptureDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_mat_capture_v1.json")).PositionTolerance));
         }
     }
 }

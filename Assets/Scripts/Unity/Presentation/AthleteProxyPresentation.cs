@@ -26,6 +26,8 @@ namespace Biathlon.Unity.Presentation
         private FinishStagingSettings finishStaging;
         private Quaternion? shootingRotation;
         private bool preserveAcceptedShootingLine;
+        private RangeTransitYieldSettings transitSettings;
+        private readonly Dictionary<string,Vector3> transitOffsets=new Dictionary<string,Vector3>(StringComparer.Ordinal);
         public void SetVisualBreathEnvironment(BreathEnvironment? environment) { if(breathVapor==null)throw new InvalidOperationException("Initialize proxies first.");breathVapor.SetEnvironment(environment); }
         public void SetViewCamera(Camera camera)
         {viewCamera=camera;chaseCamera=camera!=null?camera.GetComponent<AthleteChaseCamera>():null;}
@@ -55,6 +57,7 @@ namespace Biathlon.Unity.Presentation
             motionSettings=AthleteLocomotionSettings.Load();
             contactSettings=GroundContactSettings.Load();
             finishStaging=FinishStagingSettings.Load();
+            transitSettings=RangeTransitYieldSettings.Load();
             snowTracks=GetComponent<SnowTrackPresentation>();if(snowTracks==null)snowTracks=gameObject.AddComponent<SnowTrackPresentation>();snowTracks.Initialize();
             snowSpray=GetComponent<SnowSprayPresentation>();if(snowSpray==null)snowSpray=gameObject.AddComponent<SnowSprayPresentation>();snowSpray.Initialize();
             breathVapor=GetComponent<BreathVaporPresentation>();if(breathVapor==null)breathVapor=gameObject.AddComponent<BreathVaporPresentation>();breathVapor.Initialize();
@@ -96,6 +99,21 @@ namespace Biathlon.Unity.Presentation
                 if(physicalPose.IsValid)
                 {
                     go.transform.localPosition=new Vector3((float)physicalPose.X,(float)point.Y+1,(float)physicalPose.Z);
+                    Vector3 offset=Vector3.zero;
+                    if(state.RangeTransitYielding&&!state.ShootingActive)
+                    for(int other=0;other<current.Count;other++)
+                    {
+                        if(other==i)continue;var b=current.Get(other);if(!b.OnCourse||!b.WorldPose.IsValid)continue;
+                        double dx=physicalPose.X-b.WorldPose.X,dz=physicalPose.Z-b.WorldPose.Z;
+                        float proximity=(float)Math.Sqrt(dx*dx+dz*dz);
+                        if(proximity>=transitSettings.separation_m)continue;
+                        var away=proximity>.001f?new Vector3((float)dx/proximity,0,(float)dz/proximity):Vector3.right*(i<other?-1:1);
+                        offset+=away*(transitSettings.separation_m-proximity)*(b.RangeTransitYielding ? .5f : 1);
+                    }
+                    offset=Vector3.ClampMagnitude(offset,transitSettings.maximum_offset_m);
+                    transitOffsets.TryGetValue(state.AthleteId,out var priorOffset);
+                    offset=Vector3.Lerp(priorOffset,offset,1-Mathf.Exp(-transitSettings.response_per_s*Time.deltaTime));
+                    transitOffsets[state.AthleteId]=offset;go.transform.localPosition+=offset;
                     heading=Quaternion.Euler(0,(float)(physicalPose.HeadingRadians*180/Math.PI),0);
                 }
                 // The entry/exit tangent can be perpendicular to the target bank. Reuse the
@@ -134,7 +152,7 @@ namespace Biathlon.Unity.Presentation
             double elapsed=Time.timeAsDouble-publishedAt;
             Render(Math.Min(1,elapsed*feed.Current.TickFrequency),feed.Current.Complete?Math.Min(86400,elapsed):0);
         }
-        private void Clear(){foreach(var go in proxies.Values)if(go!=null)Destroy(go);proxies.Clear();animation.Clear();keep.Clear();removed.Clear();observedTick=-1;if(snowTracks!=null)snowTracks.Clear();if(snowSpray!=null)snowSpray.Clear();if(breathVapor!=null)breathVapor.Clear();}
+        private void Clear(){foreach(var go in proxies.Values)if(go!=null)Destroy(go);proxies.Clear();transitOffsets.Clear();animation.Clear();keep.Clear();removed.Clear();observedTick=-1;if(snowTracks!=null)snowTracks.Clear();if(snowSpray!=null)snowSpray.Clear();if(breathVapor!=null)breathVapor.Clear();}
         private void OnDestroy()=>Clear();
     }
 }

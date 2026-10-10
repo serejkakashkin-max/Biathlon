@@ -111,7 +111,7 @@ namespace Biathlon.Simulation
                 new SkiWorldMotionCandidate(actors[i].Athlete,actors[i].Trajectory.Slice(0,earliest));
             // First select the actual contact prefix. Portal uncertainty after
             // that contact must not discard its earlier safe interval.
-            var contact=scheduler.Preview(boundaryPrefix,Count,ownedContacts,LastOwnedContacts.Count,edges,edgeCount,physicalParticipants);
+            var contact=scheduler.Preview(boundaryPrefix,Count,ownedContacts,LastOwnedContacts.Count,edges,edgeCount,contactParticipants);
             bool collision=contact.Status==SkiContactScheduleStatus.Arrival;
             bool refresh=contact.Status==SkiContactScheduleStatus.ForceRefresh;
             if(contact.Status!=SkiContactScheduleStatus.Clear&&!collision&&!refresh)

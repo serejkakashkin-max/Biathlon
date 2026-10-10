@@ -193,6 +193,14 @@ namespace Biathlon.Tests
             Assert.That(sweep.PreviewExistingContact(A,moving,B,noseAway).Status,Is.EqualTo(SkiContactSweepStatus.PotentialContact));
         }
 
+        [Test] public void DistantRotatingBodiesUseTheConservativeBroadPhase()
+        {
+            var a=Frame(0,0,yaw:1.2,input:1000);var b=Frame(100,100,speed:20);
+            var result=Sweep().Preview(A,a,B,b);
+            Assert.That(result.Status,Is.EqualTo(SkiContactSweepStatus.Clear));
+            Assert.That(result.IntervalChecks,Is.EqualTo(0));
+            Assert.That(result.ClearUntilSeconds,Is.EqualTo(a.DurationSeconds));
+        }
         [Test]
         public void InvalidOrUnboundedInputsAreRejectedAndDefaultReceiptIsInvalid()
         {

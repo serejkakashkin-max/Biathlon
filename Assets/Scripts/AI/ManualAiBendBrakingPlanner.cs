@@ -131,7 +131,7 @@ namespace Biathlon.AI
                     // A distant turn does not require coasting through the
                     // whole straight. Brake only when its stopping envelope
                     // is reached, retaining the body/response distance reserve.
-                    if(speed>(privateMat?envelope:safe))
+                    if(speed>envelope)
                         fraction=Math.Max(fraction,available==0?
                             Math.Min(1,(speed-safe)/(corners.MaximumBraking*policy.HeadingResponseSeconds)):
                             Math.Min(1,(speed*speed-safe*safe)/(2*available*corners.MaximumBraking)));

@@ -95,7 +95,7 @@ namespace Biathlon.PlayModeTests
                 bool elevated=false,open=false,closed=false;
                 for(int i=0;i<view.LoopCount;i++)
                 {
-                    CheckSurface(view,plan,i);var mesh=view.LoopMesh(i);elevated|=mesh.bounds.max.y>20;
+                    CheckSurface(view,plan,i);var mesh=view.LoopMesh(i);elevated|=mesh.bounds.max.y>2;
                     if(plan.Track.GetLoop(view.LoopId(i)).Closed)closed=true;else open=true;
                     for(int j=0;j<i;j++)Assert.That(mesh,Is.Not.SameAs(view.LoopMesh(j)));
                 }

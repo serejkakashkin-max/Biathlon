@@ -8,9 +8,11 @@ namespace Biathlon.Unity.Presentation
     [Serializable] public sealed class ProductionSnowShoulderDefinition
     {
         [Serializable] public sealed class Window {public double start_m,end_m;}
+        [Serializable] public sealed class RoadWindow {public string loop_id;public double start_m,end_m;}
         public int schema_version;
         public string id,venue_id,track_id,visual_id,loop_id;
         public Window[] windows;
+        public RoadWindow[] additional_windows;
         [NonSerialized] public string TrackSnapshotJson,VisualSnapshotJson,SharedApronSnapshotJson;
         public static ProductionSnowShoulderDefinition FromJson(string json,VenueAuthoringPlan plan)
         {
@@ -32,6 +34,12 @@ namespace Biathlon.Unity.Presentation
             }
             if(value.windows[0].start_m!=0||value.windows[1].end_m!=loop.Length.Meters)
                 throw new ArgumentException("The optional bank policy covers both true branch forks.");
+            if(value.additional_windows!=null)foreach(var w in value.additional_windows)
+            {
+                if(w==null||!double.IsFinite(w.start_m)||!double.IsFinite(w.end_m)||w.start_m<0||w.end_m<=w.start_m||
+                    w.end_m>plan.Track.GetLoop(w.loop_id).Length.Meters)throw new ArgumentException("Snow shoulder window must belong to its actual road.");
+                plan.Visual.Get(w.loop_id);
+            }
             value.TrackSnapshotJson=plan.Track.ToJson();value.VisualSnapshotJson=plan.Visual.ToJson();value.SharedApronSnapshotJson=plan.SharedApron.ToJson();return value;
         }
         public void RequireBinding(VenueAuthoringPlan plan)
@@ -41,6 +49,8 @@ namespace Biathlon.Unity.Presentation
         }
         public bool ContainsPanel(string loop,double start,double end)
         {
+            if(additional_windows!=null)foreach(var w in additional_windows)
+                if(loop==w.loop_id&&start>=w.start_m&&end<=w.end_m)return true;
             if(loop!=loop_id)return false;
             foreach(var window in windows)if(start>=window.start_m&&end<=window.end_m)return true;
             return false;

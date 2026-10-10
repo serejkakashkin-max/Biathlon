@@ -205,6 +205,8 @@ namespace Biathlon.Simulation
         {
             double root=RootFraction(fraction);
             if(fraction==0)return 0;
+            if(HasContact&&PlanarAccelerationBound==0)
+            {var v=ContactMotionAt(RootFraction(0)).Velocity;return Math.Sqrt(v.X*v.X+v.Z*v.Z)*DurationSeconds*fraction;}
             if(HasContact&&(fromSeconds!=0||toSeconds!=RootDurationSeconds))
                 return ContactSliceTravel(fromSeconds/RootDurationSeconds,root);
             return RootPlanarTravelDistanceAt(root)-(fromSeconds==0?0:RootPlanarTravelDistanceAt(fromSeconds/RootDurationSeconds));

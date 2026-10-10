@@ -37,10 +37,13 @@ namespace Biathlon.Tests
         public void CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(string format,int count)
         {
             var source=Initial(format,count);var recorded=Initial(format,count);
-            var tape=new ManualScopedRaceCommandTape("manual_complete_"+format,recorded.stepper,count*30000);
+            // Production fatigue/recovery can extend a five-lap race beyond
+            // the old 25-minute fixture budget. Keep complete-race coverage.
+            const int raceBudget=60000;
+            var tape=new ManualScopedRaceCommandTape("manual_complete_"+format,recorded.stepper,count*raceBudget);
             var inputs=new SprintAthleteInput[count];var yaw=new int[count];var brake=new double[count];
             bool steeringSeen=false,brakeSeen=false;
-            while(!source.runner.Field.IsComplete&&source.runner.Field.Tick.Value<30000)
+            while(!source.runner.Field.IsComplete&&source.runner.Field.Tick.Value<raceBudget)
             {
                 source.runner.Step();
                 for(int i=0;i<count;i++)
@@ -51,12 +54,18 @@ namespace Biathlon.Tests
                 tape.StepAndRecord(recorded.stepper,inputs,yaw,brake);
                 State(source.stepper,recorded.stepper);
             }
+            if(!source.runner.Field.IsComplete)for(int i=0;i<count;i++)
+            {
+                var a=source.runner.Field.GetAthlete(i);var actor=source.stepper.World.GetActor(i);var c=source.stepper.World.GetCursor(i);
+                TestContext.WriteLine($"actor={i} tick={a.Tick.Value} finished={a.HasFinished} phase={a.LastFrame.Competition.Phase} bout={a.ActiveBout} row={c.OccurrenceIndex} arc={c.ObservedArcNanometers}/{source.stepper.World.GetCatalog(i).Get(c.OccurrenceIndex).LengthNanometers} x={actor.Pose.X:R} z={actor.Pose.Z:R} speed={a.Motion.SpeedMetersPerSecond:R}");
+            }
             Assert.That(source.runner.Field.IsComplete&&recorded.runner.Field.IsComplete,Is.True);
             Assert.That(steeringSeen&&brakeSeen,Is.True);
             string json=tape.ToJson();var restored=ManualScopedRaceCommandTape.FromJson(json);
             Assert.That(restored.ToJson(),Is.EqualTo(json));
             Assert.That(json,Does.Contain("requested_yaw_units"));Assert.That(json,Does.Contain("brake_fraction"));
             Assert.That(json,Does.Not.Contain("requested_lateral_m"));
+            Assert.That(json,Does.Contain("range_transit_soft_contacts"));
             Assert.Throws<System.Runtime.Serialization.SerializationException>(()=>PackSprintRaceCommandTape.FromJson(json));
             var replay=Initial(format,count);var cursor=restored.CreateReplay(replay.stepper);
             while(cursor.HasNext)cursor.Step();
@@ -77,6 +86,22 @@ namespace Biathlon.Tests
                 inputs[i]=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(tick,id,effort),1,1,0),new WeaponAimCommand(tick,id,0,0));
             }
             return inputs;
+        }
+        [Test] public void ExplicitBrakeAndBoltCommandsSurvivePersistenceAndPlayback()
+        {
+            var f=Initial("mass_start",1);var tape=new ManualScopedRaceCommandTape("manual_brake_bolt",f.stepper,8);
+            var inputs=Inputs(f.stepper);var brakes=new[]{.2};var yaw=new[]{0};
+            for(int i=0;i<4;i++)
+            {
+                inputs=Inputs(f.stepper);
+                var v=inputs[0];inputs[0]=new SprintAthleteInput(v.Ski,v.Aim,cycleBolt:i%2==0,manualBoltCycle:true);
+                brakes[0]=i%2==0?.2:.7;tape.StepAndRecord(f.stepper,inputs,yaw,brakes);
+            }
+            string json=tape.ToJson();Assert.That(json,Does.Contain("cycle_bolt"));Assert.That(json,Does.Contain("manual_bolt"));
+            Assert.That(json,Does.Contain("0.7"));Assert.That(tape.RunCount,Is.EqualTo(4));
+            var r=Initial("mass_start",1);var restored=ManualScopedRaceCommandTape.FromJson(json);
+            Assert.That(restored.ToJson(),Is.EqualTo(json));var cursor=restored.CreateReplay(r.stepper);
+            while(cursor.HasNext)cursor.Step();State(f.stepper,r.stepper);Events(f.events,r.events);
         }
         [Test] public void BadLastControlAndExhaustedCapacityLeaveAllClocksBodiesEventsAndTapeUnchanged()
         {

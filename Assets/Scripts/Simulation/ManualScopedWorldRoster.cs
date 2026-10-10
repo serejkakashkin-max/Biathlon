@@ -88,6 +88,7 @@ namespace Biathlon.Simulation
         private readonly ManualScopedWorldBoundary[] arrivedBoundaries;
         private readonly bool[] heldFiringActors;
         private readonly bool[] physicalParticipants;
+        private readonly bool[] contactParticipants,rangeTransitRequested,rangeTransitYield;
         private long[] scheduledPresenceStarts;
         private bool prestartPresence;
         private readonly ManualSkiJointSweep bodies;
@@ -254,7 +255,8 @@ namespace Biathlon.Simulation
             boundaries=new ManualRacePathBoundaryScheduler[count];boundaryPreviews=new ManualRacePathBoundaryPreview[count];
             boundaryPrefix=new SkiWorldMotionCandidate[count];arrivedBoundaries=new ManualScopedWorldBoundary[count];
             heldFiringActors=new bool[count];physicalParticipants=new bool[count];
-            for(int i=0;i<count;i++)physicalParticipants[i]=true;
+            contactParticipants=new bool[count];rangeTransitRequested=new bool[count];rangeTransitYield=new bool[count];
+            for(int i=0;i<count;i++)physicalParticipants[i]=contactParticipants[i]=true;
             occupiedBody=body;courseCells=new ManualSkiEdgeSweep(body,contact,work);
             scheduler=new ManualSkiContactScheduler(body,contact,work,count);scheduledPrefix=new SkiWorldMotionCandidate[count];
             scheduledArrivals=new SkiReachedContactPair[checked(count*(count-1)/2)];
@@ -322,8 +324,34 @@ namespace Biathlon.Simulation
             // body cannot receive live traffic impulses during that event.
             return scheduledPresenceStarts==null||prestartPresence||tick.Value>scheduledPresenceStarts[index];
         }
+        public void SetRangeTransit(int actor,bool active)
+        {
+            if(tickActive||actor<0||actor>=Count)throw new InvalidOperationException("Set transit intent before the world tick.");
+            rangeTransitRequested[actor]=active;
+        }
+        public bool IsRangeTransitYielding(int actor)=>rangeTransitYield[actor];
         private void UpdatePhysicalParticipants(SimulationTick tick)
-        {for(int i=0;i<Count;i++)physicalParticipants[i]=IsPhysicalParticipant(i,tick);}
+        {
+            double clearance=occupiedBody.LongitudinalSeparation*occupiedBody.LongitudinalSeparation+
+                occupiedBody.LateralSeparation*occupiedBody.LateralSeparation;
+            for(int i=0;i<Count;i++)physicalParticipants[i]=IsPhysicalParticipant(i,tick);
+            for(int i=0;i<Count;i++)
+            {
+                bool soft=rangeTransitRequested[i];
+                // Restore ordinary contact only after the departing skier is clear.
+                // This avoids introducing penetration at the assistance handoff.
+                if(!soft&&rangeTransitYield[i])for(int j=0;j<Count;j++)
+                {
+                    if(i==j||!physicalParticipants[j])continue;
+                    double dx=accepted[i].Pose.X-accepted[j].Pose.X,dz=accepted[i].Pose.Z-accepted[j].Pose.Z;
+                    if(dx*dx+dz*dz<=clearance&&ownedContactGeometry.Preview(
+                        new ManualSkiContactBody(accepted[i].Athlete,accepted[i].Pose,default,1),
+                        new ManualSkiContactBody(accepted[j].Athlete,accepted[j].Pose,default,1)).GapMeters<=ownedContactTolerance)
+                    {soft=true;break;}
+                }
+                rangeTransitYield[i]=soft;contactParticipants[i]=physicalParticipants[i]&&!soft;
+            }
+        }
         public void ValidatePrepared(ManualScopedWorldPreview proposal)
         {
             if(!ready||!ReferenceEquals(proposal.Owner,this)||proposal.Revision!=revision||proposal.Tick.Value!=checked(Tick.Value+1))
@@ -396,7 +424,7 @@ namespace Biathlon.Simulation
                     sources[i].Velocity.X!=0||sources[i].Velocity.Z!=0||!SamePose(actor.Trajectory.Sample(1),sources[i].Pose)))
                     return Reject(ManualScopedWorldStatus.SourceMismatch,cursor.Athlete);
             }
-            var joint=bodies.Preview(actors,Count,reached,reachedCount,edges,edgeCount,arriving??Array.Empty<SkiReachedContactPair>(),arrivingCount,physicalParticipants);
+            var joint=bodies.Preview(actors,Count,reached,reachedCount,edges,edgeCount,arriving??Array.Empty<SkiReachedContactPair>(),arrivingCount,contactParticipants);
             if(joint.Status!=SkiJointSweepStatus.Clear||Math.Abs(joint.ClearUntilSeconds-seconds)>seconds*1e-12)
                 return Reject(ManualScopedWorldStatus.BodyOrEdge,joint.First,joint);
             for(int i=0;i<Count;i++)
@@ -568,7 +596,7 @@ namespace Biathlon.Simulation
             if(actors==null||actors.Length!=Count)throw new ArgumentException("Exact complete contact interval roster required.");
             double seconds=actors[0].Trajectory.DurationSeconds;
             if(!(seconds>0)||seconds>duration-elapsedSeconds)return Reject(ManualScopedWorldStatus.SourceMismatch);
-            schedule=scheduler.Preview(actors,Count,reached,reachedCount,edges,edgeCount,physicalParticipants);
+            schedule=scheduler.Preview(actors,Count,reached,reachedCount,edges,edgeCount,contactParticipants);
             if(schedule.Status==SkiContactScheduleStatus.Clear)
                 return TryAppendInterval(tick,actors,windows,reached,reachedCount,edges,edgeCount,directionalGrades);
             if(schedule.Status==SkiContactScheduleStatus.ForceRefresh)
@@ -615,7 +643,7 @@ namespace Biathlon.Simulation
             if(!pendingContact)throw new InvalidOperationException("No reached terminal contact awaits response.");
             for(int i=0;i<Count;i++)
             {var actor=workingActors[i];responseBodies[i]=new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,masses[i],IsGroundedMat(i));}
-            var result=response.Preview(responseBodies,Count,responseMotions,responseOrder,physicalParticipants);
+            var result=response.Preview(responseBodies,Count,responseMotions,responseOrder,contactParticipants);
             if(result.Status!=SkiContactGroupStatus.Resolved)return Reject(ManualScopedWorldStatus.ContactResponse,response:result);
             for(int i=0;i<Count;i++)
             {

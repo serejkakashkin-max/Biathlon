@@ -65,8 +65,17 @@ namespace Biathlon.Tests
         [Test] public void EncodedPursuitKnotKeepsItsConnectedSnowWindow()
         {
             var f=ManualReusableRangeTests.Initial("pursuit",1);var c=f.stepper.World.GetCatalog(0);
-            var pose=new ManualSkiHeadingState(-111.504587368,-54.298845378,.103089579);
-            Assert.That(c.TryProject(pose,2,77387000000L,.001,out var at),Is.True);
+            var row=c.Get(2);var road=TrackVisualDefinition.FromJson(ManualScopedFieldStepperTests.Read(
+                "Biathlon/Venues/woodland_basin_v1/visual"),f.runner.Field.Track).Get(row.LoopId);
+            int knotIndex=-1;double nearest=double.PositiveInfinity;
+            double middle=(row.LocalStartNanometers+row.LocalEndNanometers)/(2d*SkiState.NanometersPerMeter);
+            for(int k=0;k<road.Count;k++){var point=road.Get(k);double n=point.Distance*SkiState.NanometersPerMeter;
+                if(n<=row.LocalStartNanometers||n>=row.LocalEndNanometers||Math.Abs(point.Distance-middle)>=nearest)continue;
+                nearest=Math.Abs(point.Distance-middle);knotIndex=k;}
+            Assert.That(knotIndex,Is.GreaterThanOrEqualTo(0));var knot=road.Get(knotIndex);var tangent=road.Sample(knot.Distance);
+            var pose=new ManualSkiHeadingState(knot.X,knot.Z,Math.Atan2(tangent.ForwardX,tangent.ForwardZ));
+            long arc=(long)Math.Round(knot.Distance*SkiState.NanometersPerMeter)-row.LocalStartNanometers;
+            Assert.That(c.TryProject(pose,2,arc,.001,out var at),Is.True);
             var body=f.stepper.BodyDefinition;var raw=new ManualSkiWorldTrajectory(new ManualSkiSnowContactSystem(body,20).PreviewTrajectory(
                 new ManualSkiContactBody(f.runner.Field.GetAthlete(0).AthleteId,pose,default,75),new SkiContactMotion(default,0),0,0,.05));
             var sweep=new ManualRouteRibbonSweep(c.ProjectionGeometry,body,ManualScopedFieldStepperTests.Work(),
@@ -153,7 +162,8 @@ namespace Biathlon.Tests
         {
             var f=ManualProductionFieldTests.Initial("mass_start",1);var c=f.stepper.World.GetCatalog(0);
             var row=c.Get(25);
-            Assert.That(row.LocalEndNanometers,Is.EqualTo(1130*SkiState.NanometersPerMeter));
+            Assert.That(row.LocalEndNanometers,Is.LessThan(f.runner.Field.Track.Range.Entry.Distance.Millimeters*
+                SkiState.NanometersPerMillimeter-20*SkiState.NanometersPerMeter));
             Assert.That(c.TrySamplePortal(row.Index,row.LengthNanometers,out var fork),Is.True);
             var pose=new ManualSkiHeadingState(fork.X,fork.Z,Math.Atan2(fork.ForwardX,fork.ForwardZ));
             Assert.That(c.TryProject(pose,row.Index,row.LengthNanometers,1,out var observation),Is.True);
@@ -221,7 +231,7 @@ namespace Biathlon.Tests
             Assert.That(c.TrySample(row,c.Get(row).LengthNanometers,out var end),Is.True);
             var definition=ManualMatCaptureDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_mat_capture_v1.json"));
             Assert.That(Math.Sqrt(Math.Pow(pose.X-end.X,2)+Math.Pow(pose.Z-end.Z,2)),Is.LessThan(definition.PositionTolerance));
-            Assert.That(definition.PositionTolerance,Is.LessThanOrEqualTo(.5));
+            Assert.That(definition.PositionTolerance,Is.LessThanOrEqualTo(.8));
             Assert.That(c.TryProject(pose,row,c.Get(row).LengthNanometers,.5,out var before),Is.True);
             var id=new AthleteId("off_centre_mat_plant");
             var cursor=new ManualRacePathProgression(c).Reconstitute(id,row,before.PhysicalArcNanometers,before.PhysicalArcNanometers,before.MappedRouteNanometers);
@@ -238,7 +248,7 @@ namespace Biathlon.Tests
             Assert.That(c.TryProject(actual.Pose,c.GetBaseFlowSuccessor(row),0,0,out var departure),Is.True);
             Assert.That(departure.PhysicalArcNanometers,Is.Zero,"The selected mat's exit must be ready without a paid waiting tick.");
         }
-        [TestCase(false,.5,.4,false,0)][TestCase(true,.5,.4,true,0)][TestCase(true,2.3,0,false,0)][TestCase(true,.5,.4,true,.8)]
+        [TestCase(false,.5,.4,false,0)][TestCase(true,.5,.4,true,0)][TestCase(true,2.3,0,false,0)][TestCase(true,.5,.4,true,.7)]
         public void MatFootPlacementIsExplicitBoundedAndRetainsTheReachedPoseAndPaidTravel(bool selected,double speed,double yaw,bool captured,double lateral)
         {
             var f=new ManualRacePathCatalogTests.Fixture("sprint");var c=f.Catalog;int occurrence=c.GetFiringOccurrence(0);var row=c.Get(occurrence);

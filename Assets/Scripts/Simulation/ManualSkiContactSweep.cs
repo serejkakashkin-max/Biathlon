@@ -79,7 +79,9 @@ namespace Biathlon.Simulation
         {
             if(!first.IsValid||!second.IsValid||first.Equals(second)||!a.IsValid||!b.IsValid||a.DurationSeconds!=b.DurationSeconds)
                 throw new ArgumentException("Distinct actors and equal-duration trajectories required.");
-            double reserve=Reserve(a,b);var start=Geometry(first,a,second,b,0);
+            double reserve=Reserve(a,b);
+            if(FarApart(a,b,reserve))return new SkiContactSweepPreview(SkiContactSweepStatus.Clear,a.DurationSeconds,a.DurationSeconds,0,reserve);
+            var start=Geometry(first,a,second,b,0);
             if(start.GapMeters<=tolerance)return new SkiContactSweepPreview(SkiContactSweepStatus.InitialProximity,0,0,0,reserve);
             int checks=0;return Search(first,a,second,b,0,a.DurationSeconds,0,reserve,0,false,false,ref checks);
         }
@@ -111,6 +113,7 @@ namespace Biathlon.Simulation
                 throw new ArgumentException("Distinct actors and equal-duration world trajectories required.");
             if(string.CompareOrdinal(first.Value,second.Value)>0)return PreviewFirstContact(second,b,first,a);
             double reserve=Reserve(a,b),seconds=0,target=tolerance*.5;
+            if(FarApart(a,b,reserve))return new SkiFirstContactPreview(SkiFirstContactStatus.Clear,a.DurationSeconds,0,double.PositiveInfinity);
             var geometry=Geometry(first,a,second,b,0);
             if(geometry.GapMeters<=tolerance)
                 return new SkiFirstContactPreview(SkiFirstContactStatus.InitialProximity,0,0,geometry.GapMeters);
@@ -155,6 +158,8 @@ namespace Biathlon.Simulation
             // Cover errors at both the midpoint used for exclusion and any encoded
             // sample subsequently committed from the admitted prefix.
             double reserve=Reserve(a,b);
+            if(!continuation&&!arrival&&FarApart(a,b,reserve))
+                return new SkiContactSweepPreview(SkiContactSweepStatus.Clear,a.DurationSeconds,a.DurationSeconds,0,reserve);
             var start=Geometry(first,a,second,b,0);
             if(arrival)
             {
@@ -173,6 +178,17 @@ namespace Biathlon.Simulation
 
         private double Reserve(ManualSkiWorldTrajectory a,ManualSkiWorldTrajectory b)
             =>2*(a.PositionErrorBoundMeters+b.PositionErrorBoundMeters+radius*(a.HeadingErrorBoundRadians+b.HeadingErrorBoundRadians));
+
+        // Circumscribed bodies plus a conservative full-interval translation
+        // bound. Distant pairs cannot meet even under arbitrary bounded yaw.
+        private bool FarApart(ManualSkiWorldTrajectory a,ManualSkiWorldTrajectory b,double reserve)
+        {
+            var pa=a.Sample(0);var pb=b.Sample(0);double dx=pa.X-pb.X,dz=pa.Z-pb.Z;
+            double dt=a.DurationSeconds;var va=a.VelocityAt(0);var vb=b.VelocityAt(0);
+            double reach=2*radius+tolerance+reserve+dt*(Math.Sqrt(va.X*va.X+va.Z*va.Z)+Math.Sqrt(vb.X*vb.X+vb.Z*vb.Z))+
+                .5*(a.PlanarAccelerationBound+b.PlanarAccelerationBound)*dt*dt;
+            return dx*dx+dz*dz>reach*reach;
+        }
 
         private SkiContactSweepPreview Search(AthleteId first,ManualSkiWorldTrajectory a,AthleteId second,ManualSkiWorldTrajectory b,
             double from,double to,int depth,double reserve,double requiredGap,bool continuation,bool arrival,ref int checks)

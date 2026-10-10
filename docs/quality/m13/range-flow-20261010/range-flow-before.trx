@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="852454a2-e5fe-4c94-821b-662278acd08c" name="snkashkin@DESKTOP-G3075GA 2026-10-10 21:40:40" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-10T21:40:40.3246156+03:00" queuing="2026-10-10T21:40:40.3246157+03:00" start="2026-10-10T21:40:10.9790552+03:00" finish="2026-10-10T21:40:40.3287095+03:00" />
+  <TestSettings name="default" id="d221f85a-f36d-4dfe-bc1f-c027847061c7">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-10_21_40_40" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="984173b5-74ec-4999-84d8-4a098b9f16a2" testId="5461e4b1-ad3f-f7e0-5680-68014e4197d6" testName="AssistedMassStartCannotWaitBehindBodiesOnTheSecondApproach" computerName="DESKTOP-G3075GA" duration="00:00:28.3589620" startTime="2026-10-10T21:40:11.6188810+03:00" endTime="2026-10-10T21:40:39.9776946+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="984173b5-74ec-4999-84d8-4a098b9f16a2">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Manual field step rejected: MovingFiringArrival / Clear / ; candidate clock not paid.</Message>
+          <StackTrace>   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 248&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 478&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepPlayer(Int32 index, SprintAthleteInput input, Double desiredLateralMeters) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 248&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepWithManualPlayer(Int32 index, SprintAthleteInput input, Int32 signedSteering, Boolean finalMatAssistance) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 237&#xD;
+   at Biathlon.Tests.RangeFlowOwnerTests.AssistedMassStartCannotWaitBehindBodiesOnTheSecondApproach() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RangeFlowOwnerTests.cs:line 20&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="AssistedMassStartCannotWaitBehindBodiesOnTheSecondApproach" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="5461e4b1-ad3f-f7e0-5680-68014e4197d6">
+      <Execution id="984173b5-74ec-4999-84d8-4a098b9f16a2" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RangeFlowOwnerTests" name="AssistedMassStartCannotWaitBehindBodiesOnTheSecondApproach" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="5461e4b1-ad3f-f7e0-5680-68014e4197d6" executionId="984173b5-74ec-4999-84d8-4a098b9f16a2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

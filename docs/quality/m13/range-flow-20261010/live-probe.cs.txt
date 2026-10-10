@@ -1,0 +1,35 @@
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Diagnostics;
+using UnityEngine;
+using UnityEditor;
+using Biathlon.Domain;
+using Biathlon.Simulation;
+using Biathlon.Unity.Presentation;
+public static class LiveRangeProbe {
+ static ProductionVenueHost h; static BenchmarkFrameCounters c; static Stopwatch sw=new Stopwatch();
+ static List<string> rows=new List<string>();static int last=-1,frames;static string suffix;
+ public static void Run() {
+ h=UnityEngine.Object.FindAnyObjectByType<ProductionVenueHost>();h.AutoStart=false;h.enabled=false;
+ var v=new VenueAuthoringPlan(VenueManifest.FromJson(ProductionVenueHost.ReadResource(h.VenueResource)),ProductionVenueHost.ReadResource);
+ h.Initialize(v,CompetitionProfile.FromJson(ProductionVenueHost.ReadResource(h.ProfileResource)),RaceRoutePlan.FromJson(ProductionVenueHost.ReadResource(h.RouteResource)),RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource(h.ConditionsResource)),30);
+ h.InitializeEnvironment(ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource(h.EnvironmentResource)));
+ h.GetComponent<RenderQualityPresentation>().Apply("high");c=new BenchmarkFrameCounters();suffix="before";
+ rows.Add("tick,phase,steps,simulation_ms,publish_ms,allocated_bytes,pieces,frame_ms,draws,gc_bytes,gpu_ms,cpu_main_ms");
+ EditorApplication.update+=Update;
+ }
+ static void Update(){if(Time.frameCount==last)return;last=Time.frameCount;
+ try{
+ if(!EditorApplication.isPlaying){End();return;}
+ var a=h.Runner.Field.GetAthlete(0);bool near=a.CurrentRangeMotion!=null;int steps=near?1:12;
+ var sample=c.Read(frames++,0,Time.unscaledDeltaTime*1000);long bytes=GC.GetAllocatedBytesForCurrentThread();sw.Restart();
+ for(int i=0;i<steps;i++)h.Runner.Step();sw.Stop();double sim=sw.Elapsed.TotalMilliseconds;sw.Restart();
+ h.Feed.Publish(RacePresentationSnapshot.Capture(h.Runner.Field));h.GetComponent<RangePresentation>().Refresh();sw.Stop();
+ rows.Add(FormattableString.Invariant($"{h.Runner.Field.Tick.Value},{a.ActiveShooting?.Phase.ToString()??a.CurrentRangeMotion?.Phase.ToString()??"Ski"},{steps},{sim:R},{sw.Elapsed.TotalMilliseconds:R},{GC.GetAllocatedBytesForCurrentThread()-bytes},{h.ManualStepper.LastStep.Intervals},{Time.unscaledDeltaTime*1000:R},{sample.draw_calls},{sample.gc_bytes},{sample.gpu_ms},{sample.cpu_main_ms}"));
+ c.Request();if(frames%100==0)File.WriteAllLines("docs/quality/m13/range-flow-20261010/live-"+suffix+".csv",rows);
+ if(h.Runner.Field.Tick.Value>=5800||frames>1000)End();
+ }catch(Exception e){File.WriteAllText("docs/quality/m13/range-flow-20261010/live-error.txt",e.ToString());End();}
+ }
+ static void End(){EditorApplication.update-=Update;c?.Dispose();File.WriteAllLines("docs/quality/m13/range-flow-20261010/live-"+suffix+".csv",rows);File.WriteAllText("docs/quality/m13/range-flow-20261010/live-progress.txt","done");}
+}
