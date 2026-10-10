@@ -24135,3 +24135,84 @@ as 471a9a6 and successfully pushed to origin/codex/wp-078-ai-pack, including
 the native Game View captures. Owner build is local at
 Builds/WoodlandM13SetupFinish-20261010/START_WOODLAND_REVIEW.cmd.
 M13 remains OPEN for the owner setup/departure/finish test; M14 has not started.
+
+
+### 2026-10-10 — Owner range crash correction, playable forest and rifle view
+
+Owner reported final shooting setup lag/crash at tick4256, with
+WorldRejected / Course / woodland_basin_v1_athlete_29; candidate clock not paid.
+The new delayed-player Mass30 regression reproduced the same actor/error at
+4306. This dated append controls current work; previous history is preserved.
+M13 remains OPEN / owner build review pending. M14 has not started. G1/G2
+remain APPROVED. One Woodland production venue, max30, High default.
+
+The contacted athlete was on the existing visible flat apron, but private mat
+ribbon admission did not recognize that common snow. Added source-bound
+ManualRangeApronSnowRegion derived from exact track/visual/private-path/body
+snapshots and native float vertices. Native tests match all four rendered apron
+limits exactly. RangeApproach/RangeExit now admit the whole body continuously
+on that actual snow; course-contact normals use the same continuous maximum
+clearance field on both sides of their probe. Replay context explicitly binds
+this geometry. No body collision, clock payment, phase/firing gate or IBU mat
+selection is disabled. No pose correction or hidden hit/miss RNG is introduced.
+Actual recovery trajectories after apron contacts can change deterministically.
+Cold JSON snapshots are reused; no new per-tick JSON allocation is added.
+
+Forest pruned from 8244 to 2959 loaded trees (5285 / 64.1% removed), groups
+33 -> 23. Original dense trees within45m of visual courses and sparse original
+silhouettes through80m remain with unchanged IDs/species/poses/density ranks.
+Two hidden buildings (16 mesh parts) removed. Empty original groups remain
+archived on disk but are not loaded. High settings/terrain/crowds preserved.
+The event screen moved onto existing flat stadium ground. Recipe and static
+original-instance/distance audit PASS. Practical decorative audit now allows
+2.5cm snow footings / 1m noncollidable tape separation; rigid scenery retains
+3m. Exact native joins and simulation tolerances remain unchanged. No failing
+test deleted; no full30 exhaustive sweep added.
+
+Added painted/numeric actual Mass30 start slots, 30 numbered mat signs,
+target-bank number panels and 90 wind flags (three/lane). Flags observe real
+shooting input wind; in calm conditions cloth hangs down. Original project
+materials/geometry are used; no NGL or real branded art copied/imported.
+Production shooting now observes actual venue banks through the existing
+original HeroRifle's diopter/front post. Neighbouring installations remain
+visible; held Tab gives a wide own/neighboring mat overview. RMB fine aim
+retained. Stance/parallax camera tests preserve intersection with the exact
+simulation sight ray. Only one gameplay camera renders the world. Shooting
+geometry/sway/assists remain unchanged; easy-shooting feedback remains OPEN
+for M15. Earlier separate finish, manual bends, line-preserving released
+heading, arrow capture, tuck steering and automatic mat departure remain.
+
+Bounded verification: 24 .NET cases PASS (20 arrival/ribbon; three complete
+signed Mass3/Sprint1/Pursuit3 replays; one actual apron production first-bout
+command replay). Seven native Unity cases PASS: both player Mass30 arrival
+variants, clearance continuity, apron replay, High/Balanced/Low host joins,
+physical scenery audit and range fallback. Delayed case now aims at5881 and
+passes through shooting/departure to6182; fast aims4207 ->4508. Standalone
+.NET delayed-run mean5.139ms / peak65.586ms, 55 ordinary course edge responses;
+this is CPU evidence, not rendered FPS. Native actual review aims at field/
+world4212; Game View captures show grid, rifle/prone aperture, mat flags/signs
+and pruned forest. Final timed Console Error query is empty. Intermediate
+rejected diagnostic trials are not final passes. Source compiles successfully.
+
+Windows Unity6000.6.0f1 build Succeeded: 0 errors, 496 reviewed existing
+inference-package shader warnings (460 ConvGeneric / 36 Hidden/Sentis),
+26.573s,359351634 bytes. No gameplay/rifle shader warning identified; unrelated
+pre-existing package changes preserved. This is not a warning-free build.
+Hidden Mass30/Sprint30 startup/control/quality/scene switching smoke PASS,
+EXIT0,400 paid ticks per entry,2959 trees/23 groups/30 mats/30 banks. Hidden
+rendering was suspended, so sustained GPU/FPS remains the owner's playtest.
+No claim that all visible hitches or later full-field bouts are verified.
+
+Owner build: Builds/WoodlandM13RangeWorld-20261010/START_WOODLAND_REVIEW.cmd.
+Instructions: READ_ME_RU.txt beside the executable. Default Mass30 / High.
+Complete build manifest SHA256:
+dad0dc4a14e339c33fe8c8901786178ca21c2c3b960ea71f66b9f71e17046471.
+Report: docs/reports/TASK_M13_RANGE_APRON_AND_RIFLE_VIEW_20261010.md.
+Decision: docs/adr/ADR-0044-range-apron-snow-and-world-rifle-view.md.
+Evidence: docs/quality/m13/range-world-review-20261010/.
+History prefix: 2924203 bytes, SHA256
+9a8a9fbac5105a4efb7ee7f2a8033b47ed7d20645768a587f1bef87f747906fc,
+verified unchanged before/after this append. PROJECT_CURRENT updated separately.
+Changes/evidence are committed and pushed under standing owner authorization.
+Next: owner tests final setup/shooting and30sec after departure, then decides
+M13 closure. No automatic M14 transition or owner-gate approval.

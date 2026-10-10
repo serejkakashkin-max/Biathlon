@@ -26,6 +26,31 @@ namespace Biathlon.PlayModeTests
                 host.InitializeEnvironment(ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource(prefix+"environment")));
                 Assert.That(host.Course.GroundJoined,Is.True);Assert.That(host.Environment.TreeCount,Is.GreaterThan(100));
                 Assert.That(host.Proxies.Count,Is.EqualTo(30));
+                var snow=new ManualRangeApronSnowRegion(venue);var apron=host.Course.Apron;
+                Assert.That(snow.MinX,Is.EqualTo((double)apron.MinX));Assert.That(snow.MaxX,Is.EqualTo((double)apron.MaxX));
+                Assert.That(snow.MinZ,Is.EqualTo((double)apron.MinZ));Assert.That(snow.MaxZ,Is.EqualTo((double)apron.MaxZ));
+                var dressing=root.GetComponent<RangeVenueDressingPresentation>();
+                Assert.That(dressing.StartSlotCount,Is.EqualTo(30));Assert.That(dressing.NumberedLaneCount,Is.EqualTo(30));Assert.That(dressing.WindFlagCount,Is.EqualTo(90));
+                for(int i=0;i<30;i++)
+                {
+                    var body=host.ManualStepper.World.GetActor(i);
+                    Assert.That(dressing.StartSlot(i).x,Is.EqualTo((float)body.Pose.X));Assert.That(dressing.StartSlot(i).z,Is.EqualTo((float)body.Pose.Z));
+                }
+                Assert.That(host.Environment.TreeCount,Is.LessThan(3500),"The owner requested removing non-gameplay forest, not reducing the High tier.");
+                var view=root.GetComponent<RangePresentation>();var sight=RifleSightSettings.Load();
+                Assert.That(view.AimCamera.GetComponent<RifleSightPresentation>().Weapon.GetComponent<MeshFilter>().sharedMesh,Is.Not.Null);
+                var geometry=TargetGeometryDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/target_geometry_v1"));
+                foreach(var stance in new[]{ShootingStance.Prone,ShootingStance.Standing})
+                {
+                    var ray=new WeaponAimState(.002,-.001).Ray;
+                    RifleSightPresentation.Observe(view.AimCamera,venue,15,geometry,ray,stance,sight,StadiumArtDefinition.Load().target_height_m);
+                    var target=host.Environment.Bank(14).transform.position;var camera=view.AimCamera;
+                    float t=(target.z-camera.transform.position.z)/camera.transform.forward.z;
+                    var optical=camera.transform.position+camera.transform.forward*t;
+                    Assert.That(optical.x-target.x,Is.EqualTo(geometry.DistanceMeters*ray.DirectionX).Within(.00002));
+                    Assert.That(optical.y-target.y,Is.EqualTo(geometry.DistanceMeters*ray.DirectionY).Within(.00002));
+                }
+                Assert.That(host.Runner.Field.Tick.Value,Is.Zero,"Dressing and sight composition never advance simulation.");
                 var finish=root.GetComponent<FinishCorridorPresentation>();
                 Assert.That(finish.LaneCount,Is.EqualTo(3));
                 Assert.That(finish.FinishPoint.z,Is.GreaterThan(60),"The finish must stay on the stadium's outside branch.");

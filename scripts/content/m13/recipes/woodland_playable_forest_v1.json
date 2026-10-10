@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "id": "woodland_playable_forest_v1",
+  "venue_resource": "Biathlon/Venues/woodland_basin_v1",
+  "dense_distance_from_route_m": 45,
+  "silhouette_distance_from_route_m": 80,
+  "silhouette_density_rank_maximum": 0.2,
+  "remove_mesh_prefixes": ["timing_lodge_", "course_plateau_support_hut_"],
+  "grounded_mesh_placements": [{"prefix":"event_screen_","position":{"x":125,"y":0,"z":-82}}]
+}

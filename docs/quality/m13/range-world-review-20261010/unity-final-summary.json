@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "id": "m13_range_world_native_final_v1",
+  "passed": 7,
+  "failed": 0,
+  "results": [
+    {
+      "evidence": "unity-arrival-final.json",
+      "Name": "Biathlon.Tests.OwnerRangeWorldRejectionTests.FoldedMatEdgeClearanceChangesContinuouslyDuringTheNormalProbe",
+      "Status": "Passed",
+      "Duration": "00:00:31.0680000"
+    },
+    {
+      "evidence": "unity-arrival-final.json",
+      "Name": "Biathlon.Tests.OwnerRangeWorldRejectionTests.PlayerMassArrivalKeepsFinalSetupAndOtherActorsOnTheSharedClock(1000,0)",
+      "Status": "Passed",
+      "Duration": "00:00:43.3590000"
+    },
+    {
+      "evidence": "unity-arrival-final.json",
+      "Name": "Biathlon.Tests.OwnerRangeWorldRejectionTests.PlayerMassArrivalKeepsFinalSetupAndOtherActorsOnTheSharedClock(650,500)",
+      "Status": "Passed",
+      "Duration": "00:00:52.1880000"
+    },
+    {
+      "evidence": "unity-apron-replay-final.json",
+      "Name": "Biathlon.Tests.OwnerRangeWorldRejectionTests.ProductionApronCommandsReplayThroughTheFirstBoutWithoutAi",
+      "Status": "Passed",
+      "Duration": "00:00:56.0570000"
+    },
+    {
+      "evidence": "unity-venue-final.json",
+      "Name": "Biathlon.PlayModeTests.ProductionVenueHostTests.WoodlandMassStartManualEnvironmentJoinsAndRendersAllQualityTiers",
+      "Status": "Passed",
+      "Duration": "00:00:29.4720000"
+    },
+    {
+      "evidence": "unity-dressing-final.json",
+      "Name": "Biathlon.PlayModeTests.WoodlandCourseDressingTests.ActualDressingKeepsGroundedLandmarksPaidClearanceAndSeatedAndStandingCrowds",
+      "Status": "Passed",
+      "Duration": "00:00:05.2510000"
+    },
+    {
+      "evidence": "unity-range-final.json",
+      "Name": "Biathlon.PlayModeTests.RangePresentationTests.ActualBoutDrivesCameraAndClosuresWithoutAuthorityWrites",
+      "Status": "Passed",
+      "Duration": "00:00:00.2750000"
+    }
+  ]
+}

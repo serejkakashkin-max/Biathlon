@@ -105,7 +105,7 @@ namespace Biathlon.Unity.Presentation
             {
                 environment.Initialize(Venue,definition,ReadResource,Feed,ChaseCamera,range.AimCamera,apron:Course.Apron);
                 Course.JoinGround(environment,definition.terrain.grid_spacing_m,environment.TerrainGridOrigin);
-                Environment=environment;
+                Environment=environment;range.BindVenue(Venue,environment,Proxies.GetRig(Runner.Field.GetAthlete(PlayerIndex).AthleteId.Value));
             }
             catch{Destroy(environment);throw;}
         }
@@ -134,6 +134,7 @@ namespace Biathlon.Unity.Presentation
             shot=gameObject.AddComponent<ShootingDeviceInput>();shot.enabled=false;shot.Initialize(id,field.TickFrequency);
             effort=new EffortControlSystem(EffortControlDefinition.FromJson(ReadCore("effort_control_provisional_v1.json")),id,field.TickFrequency);
             Mats=gameObject.AddComponent<RangeMatPresentation>();Mats.Initialize(venue);
+            gameObject.AddComponent<RangeVenueDressingPresentation>().Initialize(venue,field,ManualStepper?.World,Feed);
             Course=gameObject.AddComponent<ProductionCoursePresentation>();Course.Initialize(venue,route:field.Route,sharedApron:venue.SharedApron,
                 finishRunout:ManualStepper?.World.GetCatalog(0).FinishRunoutDefinition);
             gameObject.AddComponent<FinishCorridorPresentation>().Initialize(venue,field.Route);

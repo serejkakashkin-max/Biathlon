@@ -40,6 +40,8 @@ namespace Biathlon.Simulation
         public int ClosedTargetsMask { get; }
         public int ShotsFired { get; }
         public WeaponAimState Sight { get; }
+        public WindVector ShootingWind {get;}
+        public bool FineAim {get;}
         public ShootingStance Stance { get; }
         public ShotOutcome ShotOutcome { get; }
         public TargetIntersection ShotImpact { get; }
@@ -83,7 +85,7 @@ namespace Biathlon.Simulation
             BreathHolding=shooting?.LastFrame.BreathControl.Holding??false;
             BreathingPhaseCycles=shooting?.LastFrame.Breathing.PhaseCycles??0;
             ClosedTargetsMask=shooting?.ClosedMask??0;ShotsFired=shooting?.ShotsFired??0;
-            Sight=shooting?.Sight??default;Stance=field.Profile.GetBout(Math.Min(a.Lifecycle.CompletedBouts,field.Profile.BoutCount-1)).Stance;
+            Sight=shooting?.Sight??default;ShootingWind=shooting?.LastFrame.Input.Wind??default;FineAim=shooting?.LastFrame.Input.Aim.FineControl??false;Stance=field.Profile.GetBout(Math.Min(a.Lifecycle.CompletedBouts,field.Profile.BoutCount-1)).Stance;
             ShotOutcome=shooting?.LastFrame.Shot.Outcome??ShotOutcome.NoShot;ShotImpact=shooting?.LastFrame.Shot.Impact??default;
         }
     }

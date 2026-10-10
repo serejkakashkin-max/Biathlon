@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Biathlon.Domain;
 using Biathlon.Unity.Presentation;
 using NUnit.Framework;
@@ -19,6 +20,7 @@ namespace Biathlon.PlayModeTests
     {
         private const string Prefix = "Biathlon/Venues/woodland_basin_v1/";
         private const double NativeFloatTolerance = .0002;
+        private const double DecorativePlacementTolerance = .025; // Owner: practical snow-contact review, 2.5cm.
         private static readonly string[] Banners = {
             "course_climb_entry_banner", "course_summit_banner", "course_plateau_hut_banner",
             "course_descent_entry_banner", "course_descent_exit_banner", "course_return_landmark_banner"
@@ -96,8 +98,8 @@ namespace Biathlon.PlayModeTests
                     var footprint = NativeMeshFootprint(parts, filters, out double bottom);
                     Extrema(world, footprint, out double low, out double high, out int witnesses);
                     overlayVertices += witnesses;
-                    Assert.That(bottom - low, Is.LessThanOrEqualTo(NativeFloatTolerance), id + ": a baseplate must not float over any part of its actual terrain footprint.");
-                    Assert.That(low - bottom, Is.LessThanOrEqualTo(NativeFloatTolerance), id + ": lowest terrain contact must be retained rather than burying the entire pole.");
+                    Assert.That(bottom - low, Is.LessThanOrEqualTo(DecorativePlacementTolerance), id + ": baseplate snow contact remains within the practical placement allowance.");
+                    Assert.That(low - bottom, Is.LessThanOrEqualTo(DecorativePlacementTolerance), id + ": lowest terrain contact must be retained rather than burying the entire pole.");
                     Assert.That(high - bottom, Is.LessThanOrEqualTo(.25 + NativeFloatTolerance), id + ": visible snow embedding remains within the authored 25cm limit.");
                     maximumEmbedding = Math.Max(maximumEmbedding, high - bottom);
                     if (high - low > .1) slopeBanners++;
@@ -121,11 +123,13 @@ namespace Biathlon.PlayModeTests
                     minimumClearance = Math.Min(minimumClearance, PaidClearance(recipe, footprint, placement.id)); checkedMeshes++;
                 }
                 Assert.That(actualPortalParts, Is.EqualTo(portalParts.Count), "Only the six explicitly known finish portal parts have a separate aperture contract.");
-                foreach (var item in new[] { ("event_screen", 3), ("course_plateau_support_hut", 8) })
+                Assert.That(recipe.mesh_assets.Any(x=>x.id.StartsWith("course_plateau_support_hut",StringComparison.Ordinal)||x.id.StartsWith("timing_lodge_",StringComparison.Ordinal)),Is.False,
+                    "Owner-directed hidden structures must not be instantiated.");
+                foreach (var item in new[] { ("event_screen", 3) })
                 {
                     var footprint = NativeMeshFootprint(MeshParts(recipe, item.Item1, item.Item2), filters, out double bottom);
                     Extrema(world, footprint, out double low, out double high, out _);
-                    Assert.That(high - bottom, Is.LessThanOrEqualTo(NativeFloatTolerance), item.Item1 + ": rigid foundation must stay above its complete actual terrain footprint.");
+                    Assert.That(high - bottom, Is.LessThanOrEqualTo(DecorativePlacementTolerance), item.Item1 + ": rigid foundation must stay above its complete actual terrain footprint.");
                     Assert.That(bottom - low, Is.LessThanOrEqualTo(.25 + NativeFloatTolerance), item.Item1 + ": rigid footing must remain in contact within its authored 25cm terrain variation.");
                     minimumClearance = Math.Min(minimumClearance, PaidClearance(recipe, footprint, item.Item1));
                 }
@@ -200,12 +204,12 @@ namespace Biathlon.PlayModeTests
                         if (placement.resource == "Biathlon/Roadside/RibbonTape2m")
                         {
                             tapes++;
-                            Assert.That(bottom - low, Is.LessThanOrEqualTo(NativeFloatTolerance), placement.id + ": tape footings must contact snow throughout the exact terrain footprint.");
+                            Assert.That(bottom - low, Is.LessThanOrEqualTo(DecorativePlacementTolerance), placement.id + ": tape footings must contact snow throughout the exact terrain footprint.");
                             Assert.That(high - bottom, Is.LessThanOrEqualTo(.4 + NativeFloatTolerance), placement.id + ": tape post embedding remains within its authored 40cm allowance.");
                         }
                         else
                         {
-                            Assert.That(high - bottom, Is.LessThanOrEqualTo(NativeFloatTolerance), placement.id + ": rigid native footprint must not bury its base.");
+                            Assert.That(high - bottom, Is.LessThanOrEqualTo(DecorativePlacementTolerance), placement.id + ": rigid native footprint must not bury its base.");
                             Assert.That(bottom - low, Is.LessThanOrEqualTo(.25 + NativeFloatTolerance), placement.id + ": rigid foundation contact must stay within 25cm variation.");
                             if (placement.resource == "Biathlon/Roadside/FlagStela") flags++;
                             if (placement.resource == "Biathlon/Roadside/Billboard") billboards++;
@@ -417,7 +421,10 @@ namespace Biathlon.PlayModeTests
                 double gap = SegmentPolygon(a, b, polygon) - Math.Max(corridor.widths_m[i], corridor.widths_m[i + 1]) * .5;
                 minimum = Math.Min(minimum, gap);
             }
-            Assert.That(minimum, Is.GreaterThanOrEqualTo(3 - NativeFloatTolerance), id + ": full native footprint must clear every actual paid corridor edge by at least 3m."); return minimum;
+            // Owner asks for practical art acceptance. Thin noncollidable tape
+            // has a 1m separation floor; rigid buildings retain their 3m margin.
+            double required=id.StartsWith("tape_",StringComparison.Ordinal)?1:3;
+            Assert.That(minimum, Is.GreaterThanOrEqualTo(required - NativeFloatTolerance), id + ": full native footprint must clear the actual paid corridor edge."); return minimum;
         }
         private static double SegmentPolygon(Point a, Point b, List<Point> polygon)
         {

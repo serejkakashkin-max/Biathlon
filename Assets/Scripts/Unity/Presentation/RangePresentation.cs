@@ -2,6 +2,7 @@ using System;
 using Biathlon.Domain;
 using Biathlon.Simulation;
 using UnityEngine;
+using UnityEngine.InputSystem;
 namespace Biathlon.Unity.Presentation
 {
     /// <summary>Lane-local target camera. Hit decisions belong exclusively to simulation.</summary>
@@ -15,6 +16,15 @@ namespace Biathlon.Unity.Presentation
         private Camera chaseCamera;
         private bool chaseWasEnabled;
         private TargetBankArt bank;
+        private VenueAuthoringPlan venue;
+        private ProductionVenueEnvironment environment;
+        private RifleSightSettings sightSettings;
+        private Renderer[] playerRenderers;
+        private bool[] playerWasEnabled;
+        private float targetHeight;
+        private RifleSightPresentation rifleSight;
+        private bool overview,capturedPlayerVisibility;
+        public bool OverviewRequested {get;set;}
         public TargetBankArt Bank=>bank;
         private long observedTick=-1;
         private int observedBout=-1;
@@ -41,6 +51,15 @@ namespace Biathlon.Unity.Presentation
             aimCamera.fieldOfView=2*Mathf.Atan((float)(geometry.SpacingMeters*TargetGeometryDefinition.TargetCount/(2*geometry.DistanceMeters)))*Mathf.Rad2Deg;
             stage.SetActive(false);
         }
+        public void BindVenue(VenueAuthoringPlan plan,ProductionVenueEnvironment world,AthleteRigBinding playerRig)
+        {
+            if(stage==null||venue!=null||plan==null||world==null||playerRig==null||world.BankCount!=plan.LaneCount)throw new ArgumentException("Initialized venue, world banks and player rig required.");
+            venue=plan;environment=world;sightSettings=RifleSightSettings.Load();targetHeight=StadiumArtDefinition.Load().target_height_m;
+            bank.gameObject.SetActive(false);stage.transform.SetPositionAndRotation(Vector3.zero,Quaternion.identity);
+            aimCamera.farClipPlane=sightSettings.far_clip_m;aimCamera.fieldOfView=sightSettings.field_of_view_deg;aimCamera.clearFlags=CameraClearFlags.Skybox;
+            rifleSight=aimCamera.gameObject.AddComponent<RifleSightPresentation>();rifleSight.Initialize(sightSettings);
+            playerRenderers=playerRig.GetComponentsInChildren<Renderer>(true);playerWasEnabled=new bool[playerRenderers.Length];
+        }
         public void Refresh()
         {
             var snapshot=feed==null?null:feed.Current;
@@ -56,9 +75,12 @@ namespace Biathlon.Unity.Presentation
                 if(!Visible)return;
                 if(observedBout!=a.CompletedBouts){observedBout=a.CompletedBouts;Status="";}
                 ClosedMask=a.ClosedTargetsMask;
-                bank.Apply(geometry,a.Stance,ClosedMask);
+                if(environment!=null){environment.RefreshBanks();bank=environment.Bank(a.RangeLane-1);}else bank.Apply(geometry,a.Stance,ClosedMask);
                 var ray=a.Sight.Ray;
-                aimCamera.transform.localRotation=Quaternion.LookRotation(new Vector3((float)ray.DirectionX,(float)ray.DirectionY,(float)ray.DirectionZ),Vector3.up);
+                if(venue!=null){aimCamera.fieldOfView=overview?sightSettings.overview_field_of_view_deg:a.FineAim?sightSettings.fine_field_of_view_deg:sightSettings.field_of_view_deg;
+                    rifleSight.SetVisible(!overview);
+                    RifleSightPresentation.Observe(aimCamera,venue,a.RangeLane,geometry,ray,a.Stance,sightSettings,targetHeight,overview);}
+                else aimCamera.transform.localRotation=Quaternion.LookRotation(new Vector3((float)ray.DirectionX,(float)ray.DirectionY,(float)ray.DirectionZ),Vector3.up);
                 if(a.ShotOutcome!=ShotOutcome.NoShot)Status=a.ShotOutcome.ToString();
                 laneText="LANE "+a.RangeLane+"  |  "+a.Stance+"  |  SHOTS "+a.ShotsFired+"  "+Status;
                 return;
@@ -68,20 +90,36 @@ namespace Biathlon.Unity.Presentation
         private string laneText="";
         private void SetVisible(bool value)
         {
+            if(value!=Visible&&playerRenderers!=null)
+                for(int i=0;i<playerRenderers.Length;i++)
+                {
+                    if(playerRenderers[i]==null)continue;
+                    if(value){playerWasEnabled[i]=playerRenderers[i].enabled;playerRenderers[i].enabled=overview&&playerWasEnabled[i];}
+                    else playerRenderers[i].enabled=playerWasEnabled[i];
+                }
+            if(value)capturedPlayerVisibility=true;
+            if(playerRenderers!=null&&capturedPlayerVisibility)
+                for(int i=0;i<playerRenderers.Length;i++)if(playerRenderers[i]!=null)playerRenderers[i].enabled=playerWasEnabled[i]&&(!value||overview);
             Visible=value;
             if(stage!=null&&stage.activeSelf!=value)stage.SetActive(value);
             if(chaseCamera!=null)chaseCamera.enabled=chaseWasEnabled&&!value;
         }
         private void LateUpdate()=>Refresh();
+        private void Update()
+        {
+            bool requested=OverviewRequested||(Keyboard.current!=null&&Keyboard.current.tabKey.isPressed);
+            if(requested!=overview){overview=requested;observedTick=-1;Refresh();}
+        }
         private void OnGUI()
         {
             if(!Visible)return;
-            GUI.Box(new Rect(Screen.width/2f-240,Screen.height-52,480,34),laneText);
-            var color=GUI.color;GUI.color=Color.red;
-            GUI.DrawTexture(new Rect(Screen.width/2f-8,Screen.height/2f,16,1),Texture2D.whiteTexture);
-            GUI.DrawTexture(new Rect(Screen.width/2f,Screen.height/2f-8,1,16),Texture2D.whiteTexture);GUI.color=color;
+            GUI.Box(new Rect(Screen.width/2f-300,Screen.height-52,600,34),laneText+(venue!=null?"  |  RMB: fine sight  Tab: range overview":""));
+            // The open physical diopter owns aim feedback in the production venue.
+            if(venue==null){var color=GUI.color;GUI.color=Color.red;
+                GUI.DrawTexture(new Rect(Screen.width/2f-8,Screen.height/2f,16,1),Texture2D.whiteTexture);
+                GUI.DrawTexture(new Rect(Screen.width/2f,Screen.height/2f-8,1,16),Texture2D.whiteTexture);GUI.color=color;}
         }
-        private void Clear(){if(chaseCamera!=null)chaseCamera.enabled=chaseWasEnabled;chaseCamera=null;if(stage!=null)Destroy(stage);bank=null;observedTick=-1;observedBout=-1;Visible=false;}
+        private void Clear(){SetVisible(false);if(chaseCamera!=null)chaseCamera.enabled=chaseWasEnabled;chaseCamera=null;if(stage!=null)Destroy(stage);bank=null;venue=null;environment=null;playerRenderers=null;rifleSight=null;capturedPlayerVisibility=false;overview=false;OverviewRequested=false;observedTick=-1;observedBout=-1;Visible=false;}
         private void OnDestroy()=>Clear();
     }
 }
