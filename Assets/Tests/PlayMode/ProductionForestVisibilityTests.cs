@@ -225,7 +225,7 @@ namespace Biathlon.PlayModeTests
                 // Low/Balanced comparisons instead of freezing a historical count.
                 Assert.That(environment.ForestGroupCount,Is.EqualTo(recipe.forest.groups.Length));int declared=0;
                 foreach(var group in recipe.forest.groups)declared+=group.count;
-                Assert.That(environment.TreeCount,Is.EqualTo(declared));int high=0,expectedHigh=0;long shadows=0;
+                Assert.That(environment.TreeCount,Is.EqualTo(declared));int high=0,expectedHigh=0;long shadows=0,expectedShadows=0;
                 float fog=WeatherVisualDefinition.Load().Get(recipe.lighting.weather_preset).fog_end_m*recipe.lighting.fog_distance_scale;
                 var frustum=GeometryUtility.CalculateFrustumPlanes(camera);
                 for(int i=0;i<environment.ForestGroupCount;i++)
@@ -252,13 +252,19 @@ namespace Biathlon.PlayModeTests
                             float scale=placement[tree].Scale;radius=radius*scale+VegetationDefinition.Load().wind_amplitude_m;
                             var canopy=new Bounds(pivot+Vector3.up*((minY+maxY)*.5f*scale),new Vector3(radius*2,(maxY-minY)*scale,radius*2));
                             var forward=camera.transform.forward;float support=Vector3.Dot(canopy.extents,new Vector3(Mathf.Abs(forward.x),Mathf.Abs(forward.y),Mathf.Abs(forward.z)));
-                            if(GeometryUtility.TestPlanesAABB(frustum,canopy)&&Vector3.Dot(canopy.center-camera.transform.position,forward)-support<fog+camera.nearClipPlane)expectedHigh++;
+                            if(GeometryUtility.TestPlanesAABB(frustum,canopy)&&Vector3.Dot(canopy.center-camera.transform.position,forward)-support<fog+camera.nearClipPlane)
+                            {
+                                expectedHigh++;
+                                var definition=VegetationDefinition.Load();float distance=Vector3.Distance(pivot,camera.transform.position)*ProjectionAwareLod.Scale(camera);
+                                int lod=distance>=definition.far_lod_m?2:distance>=definition.near_lod_m?1:0;
+                                if(lod<2)expectedShadows+=Triangles(species[tree]==1?"Pine":"Fir",lod);
+                            }
                         }
                         foreach(string tier in new[]{"low","balanced"}){forest.Prepare(camera,tier,12);legacy.Prepare(camera,tier,12);Assert.That(forest.VisibleInstances,Is.EqualTo(legacy.VisibleInstances));Assert.That(forest.SubmittedTriangles,Is.EqualTo(legacy.SubmittedTriangles));Assert.That(forest.ShadowSourceTriangles,Is.EqualTo(legacy.ShadowSourceTriangles));Assert.That(forest.PreparedWorldBounds,Is.EqualTo(legacy.PreparedWorldBounds));}
                     }
                     finally{Object.DestroyImmediate(legacyRoot);}
                 }
-                Assert.That(high,Is.EqualTo(expectedHigh),"Every current source canopy must match the native full-bound frustum/fog witness, independent of historical inventory counts.");Assert.That(high,Is.GreaterThan(0));Assert.That(shadows,Is.Zero);
+                Assert.That(high,Is.EqualTo(expectedHigh),"Every current source canopy must match the native full-bound frustum/fog witness, independent of historical inventory counts.");Assert.That(high,Is.GreaterThan(0));Assert.That(shadows,Is.EqualTo(expectedShadows),"Course shortening moves some trees into a closer LOD; its native shadow geometry must remain accounted for.");
                 Assert.That(plan.Track.ToJson(),Is.EqualTo(track));Assert.That(plan.Visual.ToJson(),Is.EqualTo(visual));Assert.That(plan.Paths.ToJson(),Is.EqualTo(paths));
                 foreach(var collider in root.GetComponentsInChildren<Collider>())Assert.That(collider.enabled,Is.False,"No gameplay collision while native destruction is pending.");
                 yield return null;Assert.That(root.GetComponentsInChildren<Collider>(),Is.Empty);

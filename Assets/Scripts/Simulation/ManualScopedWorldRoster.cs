@@ -262,7 +262,7 @@ namespace Biathlon.Simulation
             ownedContacts=new SkiReachedContactPair[scheduledArrivals.Length];ownedContactOrder=new int[count];
             maximumPieces=work.MaximumIntervalChecks;WorkContextJson=work.ToJson();pieces=new ManualScopedWorldMotionPiece[checked(count*maximumPieces)];
             var context=new string[count+7];var initial=new string[count+4];
-            BodyContextJson=body.ToJson();context[0]="manual_scoped_full_clear_world_roster_v24_inward_snow_edge_rotation";context[1]=BodyContextJson;
+            BodyContextJson=body.ToJson();context[0]="manual_scoped_full_clear_world_roster_v25_physical_mat_plant_bounds";context[1]=BodyContextJson;
             context[2]=contact.ToJson();context[3]=work.ToJson();
             context[4]="force_exact_distance;contact_velocity_norm_simpson64;grade_frozen_per_interval;full_duration_tolerance_1e-12;no_implicit_scope_crossing;local_terminal_centre_portals_v1;whole_tube_edge_activation;continuous_acceleration_bound;existing_trajectory_encoding_reserve;staged_full_clock_intervals;exact_remaining_time;round_tick_travel_once;owned_motion_pieces;interval_limit_from_sweep_maximum_checks;accepted_phase_endpoints_authorized_by_session_batch;future_penalty_phases_from_paid_interval_high_water;no_handoff_before_pending_contact_response;"+ManualSkiWorldTrajectory.SlicePolicy;
             context[5]=ShootingModelDefinitions.EncodeContext(new[]{responseContext,scheduler.ContextJson,courseCells.ContextJson,ownedContactGeometry.ContextJson,
@@ -475,7 +475,7 @@ namespace Biathlon.Simulation
         private bool TryCaptureMat(int actor,ManualRacePathCatalog catalog,ManualRacePathOccurrence row,
             ref ManualSkiHeadingState pose,ref SkiPlanarVelocity velocity)
         {
-            if(matCapture==null)return false;
+            if(matCapture==null||!IsWithinMatPlantArea(catalog,row,pose))return false;
             double speed=Math.Sqrt(velocity.X*velocity.X+velocity.Z*velocity.Z);
             if(speed>matCapture.MaximumSpeed||Math.Abs(pose.YawRateRadiansPerSecond)>matCapture.MaximumYaw)return false;
             // Planting dissipates motion against the snow. Keep the reached
@@ -495,8 +495,9 @@ namespace Biathlon.Simulation
             // the centreline portal's narrow plane band. Plant that reached
             // endpoint under the existing bounded speed/spin/energy policy;
             // do not reject the race or move the body onto another plane.
-            return catalog.TryProject(pose,row.Index,row.LengthNanometers,0,out var at)&&
-                at.PhysicalArcNanometers==row.LengthNanometers;
+            if(!catalog.TrySample(row.Index,row.LengthNanometers,out var target))return false;
+            double dx=pose.X-target.X,dz=pose.Z-target.Z;
+            return dx*dx+dz*dz<=matCapture.PositionTolerance*matCapture.PositionTolerance;
         }
         private bool TryCanonicalizeRest(ref ManualSkiHeadingState pose,ref SkiPlanarVelocity velocity)
         {

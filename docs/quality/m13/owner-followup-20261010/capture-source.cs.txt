@@ -1,0 +1,24 @@
+using System;
+using System.IO;
+using UnityEngine;
+using Biathlon.Unity.Presentation;
+using Biathlon.Simulation;
+using Biathlon.Domain;
+public static class OwnerFollowupCapture {
+ public static void Main(){
+  var host=UnityEngine.Object.FindFirstObjectByType<ProductionVenueHost>();if(host==null||host.Runner==null)throw new Exception("Production play host required");host.enabled=false;
+  var camera=host.ChaseCamera;camera.GetComponent<AthleteChaseCamera>().enabled=false;
+  camera.transform.SetPositionAndRotation(new Vector3(142,21,-41),Quaternion.LookRotation(new Vector3(-35,-11,22)));
+  Capture(host,camera,"penalty-opening.png");
+  for(int t=0;t<4500;t++){var actor=host.Runner.Field.GetAthlete(0);var tick=host.Runner.Field.Tick.Next();host.Runner.StepWithManualPlayer(0,new SprintAthleteInput(new TimeTrialInput(new SimulationInput(tick,actor.AthleteId,750),1,1,0),new WeaponAimCommand(tick,actor.AthleteId,0,0),trigger:true,cycleBolt:actor.ActiveShooting?.NeedsBoltCycle==true,manualBoltCycle:true),0,true);int setup=0;for(int a=0;a<30;a++)if(host.Runner.Field.GetAthlete(a).ActiveShooting?.Phase==ShootingPhase.Setup)setup++;if(setup>=8)break;}
+  host.Feed.Publish(RacePresentationSnapshot.Capture(host.Runner.Field));host.Proxies.Render(1);
+  camera.transform.SetPositionAndRotation(new Vector3(76,11,-24),Quaternion.LookRotation(new Vector3(-35,-7,25)));
+  Capture(host,camera,"first-range-arrival.png");
+  File.WriteAllText("docs/quality/m13/owner-followup-20261010/visual-capture.json","{\"tick\":"+host.Runner.Field.Tick.Value+",\"trees\":"+host.Environment.TreeCount+",\"penalty_boards\":"+host.GetComponent<PenaltyFencePresentation>().BoardCount+"}");
+ }
+ static void Capture(ProductionVenueHost host,Camera camera,string name){
+  var previous=RenderTexture.active;var old=camera.targetTexture;var rt=new RenderTexture(1280,720,24);var texture=new Texture2D(1280,720,TextureFormat.RGB24,false);
+  try{camera.targetTexture=rt;host.Environment.Render(camera,"high",0);camera.Render();RenderTexture.active=rt;texture.ReadPixels(new Rect(0,0,1280,720),0,0);texture.Apply();File.WriteAllBytes("docs/quality/m13/owner-followup-20261010/"+name,texture.EncodeToPNG());}
+  finally{camera.targetTexture=old;RenderTexture.active=previous;UnityEngine.Object.Destroy(rt);UnityEngine.Object.Destroy(texture);}
+ }
+}

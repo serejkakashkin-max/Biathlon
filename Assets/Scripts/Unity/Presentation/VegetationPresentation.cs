@@ -17,6 +17,7 @@ namespace Biathlon.Unity.Presentation
         private readonly float[] canopyRadius=new float[2],canopyMinY=new float[2],canopyMaxY=new float[2];
         private Bounds preparedWorldBounds;
         private int groups=3;
+        private Bounds localForestBounds;
         private readonly Plane[] planes=new Plane[6];
         private readonly Material[] materials=new Material[2];
         private MaterialPropertyBlock properties;
@@ -87,6 +88,16 @@ namespace Biathlon.Unity.Presentation
             UsesSimplifiedShadows=useSimplifiedShadows;
             UsesExplicitSpecies=authoredSpecies!=null;
             this.productionHighFogEndMeters=productionHighFogEndMeters;
+            localForestBounds=new Bounds(instances.Length==0?Vector3.zero:instances[0].Position,Vector3.zero);
+            foreach(var tree in instances)
+            {
+                float reach=Mathf.Max(canopyRadius[0],canopyRadius[1])*tree.Scale+definition.wind_amplitude_m;
+                float low=Mathf.Min(0,Mathf.Min(canopyMinY[0],canopyMinY[1]))*tree.Scale;
+                float high=Mathf.Max(canopyMaxY[0],canopyMaxY[1])*tree.Scale;
+                localForestBounds.Encapsulate(UsesExplicitSpecies?
+                    new Bounds(tree.Position+Vector3.up*((low+high)*.5f),new Vector3(reach*2,high-low,reach*2)):
+                    new Bounds(tree.Position+Vector3.up*4*tree.Scale,new Vector3(6,9,6)*tree.Scale));
+            }
             properties=new MaterialPropertyBlock();
         }
         public void Prepare(Camera camera,string tier,float presentationTime,Vector2? observedWind=null)
@@ -96,8 +107,14 @@ namespace Biathlon.Unity.Presentation
             if(observedWind.HasValue&&(!float.IsFinite(observedWind.Value.x)||!float.IsFinite(observedWind.Value.y)))throw new ArgumentException("Finite visual wind required.");
             SimplifyingCurrentShadows=UsesSimplifiedShadows&&tier!="high";
             float density=definition.Density(tier);for(int i=0;i<counts.Length;i++)counts[i]=0;SubmittedTriangles=0;ShadowSourceTriangles=0;
+            preparedWorldBounds=new Bounds(transform.position,Vector3.zero);
             GeometryUtility.CalculateFrustumPlanes(camera,planes);
             var world=transform.localToWorldMatrix;var eye=camera.transform.position;float lodScale=ProjectionAwareLod.Scale(camera);bool firstBounds=true;
+            // Whole-grove rejection precedes the per-tree LOD/frustum loop.
+            // The sphere encloses every species, LOD and wind excursion.
+            Vector3 forestCentre=world.MultiplyPoint3x4(localForestBounds.center);
+            float forestRadius=localForestBounds.extents.magnitude;
+            for(int p=0;p<planes.Length;p++)if(planes[p].GetDistanceToPoint(forestCentre)<-forestRadius)return;
             bool fogBoundedHigh=productionHighFogEndMeters.HasValue&&tier=="high";
             // The shader's clip-Z fog remap is certified for the standard perspective
             // matrix. Unsupported orthographic/physical/oblique projections retain

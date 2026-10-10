@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="82354f53-338e-4e1b-b10f-3cfba5ce5b29" name="snkashkin@DESKTOP-G3075GA 2026-10-10 18:17:06" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-10T18:17:06.5456958+03:00" queuing="2026-10-10T18:17:06.5456959+03:00" start="2026-10-10T18:16:52.9718286+03:00" finish="2026-10-10T18:17:06.5487094+03:00" />
+  <TestSettings name="default" id="2486a57b-f66c-47f8-b0e5-746b551b4e30">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-10_18_17_06" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="5e338ce3-a030-48f7-b623-4055b75172f5" testId="0c9372d4-312a-f915-c963-fe9e6ff05c6c" testName="FirstBoutAndThirtySecondsOfDepartureCpuProfile" computerName="DESKTOP-G3075GA" duration="00:00:12.8622620" startTime="2026-10-10T18:16:53.4532258+03:00" endTime="2026-10-10T18:17:06.3124829+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5e338ce3-a030-48f7-b623-4055b75172f5">
+      <Output>
+        <StdOut>tick=1 tick_ms=104.641 cumulative_ms=104.6 intervals=1 setting_up=0 first_bouts=0 bytes=42680152&#xD;
+tick=200 tick_ms=0.924 cumulative_ms=314.7 intervals=1 setting_up=0 first_bouts=0 bytes=42680152&#xD;
+tick=400 tick_ms=0.977 cumulative_ms=669.7 intervals=1 setting_up=0 first_bouts=0 bytes=42680152&#xD;
+tick=600 tick_ms=1.003 cumulative_ms=873.6 intervals=1 setting_up=0 first_bouts=0 bytes=42680152&#xD;
+tick=800 tick_ms=0.971 cumulative_ms=1074.2 intervals=1 setting_up=0 first_bouts=0 bytes=42680152&#xD;
+tick=1000 tick_ms=0.999 cumulative_ms=1273.0 intervals=1 setting_up=0 first_bouts=0 bytes=42680152&#xD;
+tick=1200 tick_ms=1.015 cumulative_ms=1486.8 intervals=1 setting_up=0 first_bouts=0 bytes=42680152&#xD;
+tick=1400 tick_ms=0.958 cumulative_ms=1690.6 intervals=1 setting_up=0 first_bouts=0 bytes=42680152&#xD;
+tick=1600 tick_ms=0.949 cumulative_ms=1888.3 intervals=1 setting_up=0 first_bouts=0 bytes=42680152&#xD;
+tick=1800 tick_ms=3.664 cumulative_ms=2118.3 intervals=4 setting_up=0 first_bouts=0 bytes=42680304&#xD;
+tick=2000 tick_ms=0.992 cumulative_ms=2327.4 intervals=1 setting_up=0 first_bouts=0 bytes=42680304&#xD;
+tick=2200 tick_ms=1.221 cumulative_ms=2534.5 intervals=1 setting_up=0 first_bouts=0 bytes=42680304&#xD;
+tick=2400 tick_ms=1.006 cumulative_ms=2906.3 intervals=1 setting_up=0 first_bouts=0 bytes=42680304&#xD;
+tick=2600 tick_ms=0.993 cumulative_ms=3153.0 intervals=1 setting_up=0 first_bouts=0 bytes=42680304&#xD;
+tick=2800 tick_ms=1.023 cumulative_ms=3368.4 intervals=1 setting_up=0 first_bouts=0 bytes=42680304&#xD;
+tick=3000 tick_ms=1.212 cumulative_ms=3631.0 intervals=1 setting_up=0 first_bouts=0 bytes=42680304&#xD;
+tick=3200 tick_ms=1.005 cumulative_ms=3847.0 intervals=1 setting_up=0 first_bouts=0 bytes=42680304&#xD;
+tick=3400 tick_ms=3.402 cumulative_ms=4106.0 intervals=3 setting_up=0 first_bouts=0 bytes=42680304&#xD;
+tick=3600 tick_ms=2.859 cumulative_ms=4696.3 intervals=1 setting_up=3 first_bouts=0 bytes=43506048&#xD;
+tick=3800 tick_ms=1.080 cumulative_ms=5005.3 intervals=1 setting_up=9 first_bouts=1 bytes=44632064&#xD;
+tick=4000 tick_ms=2.688 cumulative_ms=5243.4 intervals=3 setting_up=0 first_bouts=8 bytes=44857248&#xD;
+tick=4200 tick_ms=1.929 cumulative_ms=5614.8 intervals=2 setting_up=0 first_bouts=17 bytes=44857248&#xD;
+tick=4400 tick_ms=1.968 cumulative_ms=6072.3 intervals=2 setting_up=0 first_bouts=27 bytes=44857248&#xD;
+tick=4600 tick_ms=5.718 cumulative_ms=6549.2 intervals=2 setting_up=0 first_bouts=29 bytes=44857248&#xD;
+tick=4800 tick_ms=1.007 cumulative_ms=6934.6 intervals=1 setting_up=0 first_bouts=29 bytes=44932304&#xD;
+actor=6 loop=penalty_150 pose=93,919690137,-12,845216465,2,205590757 clearance_samples=286 disk_queries=15336 start_clearance=-0,0495798988768863 edge_responses=4&#xD;
+tick=5000 tick_ms=1.277 cumulative_ms=7427.4 intervals=1 setting_up=0 first_bouts=29 bytes=44932304&#xD;
+tick=5200 tick_ms=2.098 cumulative_ms=7795.7 intervals=2 setting_up=0 first_bouts=29 bytes=44932304&#xD;
+ticks=5270 mean_ms=1,502 worst_ms=104,641 worst_tick=1 setup_mean_ms=1,957 allocated_bytes=44932304&#xD;
+player_phase=Penalty bouts=1 shooting= needs_bolt= input_manual=False loop=penalty_150 pose=66,941964892,-22,447909083 speed=3,085814732</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="FirstBoutAndThirtySecondsOfDepartureCpuProfile" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="0c9372d4-312a-f915-c963-fe9e6ff05c6c">
+      <Execution id="5e338ce3-a030-48f7-b623-4055b75172f5" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RangeTransientPerformanceTests" name="FirstBoutAndThirtySecondsOfDepartureCpuProfile" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="0c9372d4-312a-f915-c963-fe9e6ff05c6c" executionId="5e338ce3-a030-48f7-b623-4055b75172f5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Explicit run&#xD;
+tick=1 tick_ms=104.641 cumulative_ms=104.6 intervals=1 setting_up=0 first_bouts=0 bytes=42680152&#xD;
+tick=200 tick_ms=0.924 cumulative_ms=314.7 intervals=1 setting_up=0 first_bouts=0 bytes=42680152&#xD;
+tick=400 tick_ms=0.977 cumulative_ms=669.7 intervals=1 setting_up=0 first_bouts=0 bytes=42680152&#xD;
+tick=600 tick_ms=1.003 cumulative_ms=873.6 intervals=1 setting_up=0 first_bouts=0 bytes=42680152&#xD;
+tick=800 tick_ms=0.971 cumulative_ms=1074.2 intervals=1 setting_up=0 first_bouts=0 bytes=42680152&#xD;
+tick=1000 tick_ms=0.999 cumulative_ms=1273.0 intervals=1 setting_up=0 first_bouts=0 bytes=42680152&#xD;
+tick=1200 tick_ms=1.015 cumulative_ms=1486.8 intervals=1 setting_up=0 first_bouts=0 bytes=42680152&#xD;
+tick=1400 tick_ms=0.958 cumulative_ms=1690.6 intervals=1 setting_up=0 first_bouts=0 bytes=42680152&#xD;
+tick=1600 tick_ms=0.949 cumulative_ms=1888.3 intervals=1 setting_up=0 first_bouts=0 bytes=42680152&#xD;
+tick=1800 tick_ms=3.664 cumulative_ms=2118.3 intervals=4 setting_up=0 first_bouts=0 bytes=42680304&#xD;
+tick=2000 tick_ms=0.992 cumulative_ms=2327.4 intervals=1 setting_up=0 first_bouts=0 bytes=42680304&#xD;
+tick=2200 tick_ms=1.221 cumulative_ms=2534.5 intervals=1 setting_up=0 first_bouts=0 bytes=42680304&#xD;
+tick=2400 tick_ms=1.006 cumulative_ms=2906.3 intervals=1 setting_up=0 first_bouts=0 bytes=42680304&#xD;
+tick=2600 tick_ms=0.993 cumulative_ms=3153.0 intervals=1 setting_up=0 first_bouts=0 bytes=42680304&#xD;
+tick=2800 tick_ms=1.023 cumulative_ms=3368.4 intervals=1 setting_up=0 first_bouts=0 bytes=42680304&#xD;
+tick=3000 tick_ms=1.212 cumulative_ms=3631.0 intervals=1 setting_up=0 first_bouts=0 bytes=42680304&#xD;
+tick=3200 tick_ms=1.005 cumulative_ms=3847.0 intervals=1 setting_up=0 first_bouts=0 bytes=42680304&#xD;
+tick=3400 tick_ms=3.402 cumulative_ms=4106.0 intervals=3 setting_up=0 first_bouts=0 bytes=42680304&#xD;
+tick=3600 tick_ms=2.859 cumulative_ms=4696.3 intervals=1 setting_up=3 first_bouts=0 bytes=43506048&#xD;
+tick=3800 tick_ms=1.080 cumulative_ms=5005.3 intervals=1 setting_up=9 first_bouts=1 bytes=44632064&#xD;
+tick=4000 tick_ms=2.688 cumulative_ms=5243.4 intervals=3 setting_up=0 first_bouts=8 bytes=44857248&#xD;
+tick=4200 tick_ms=1.929 cumulative_ms=5614.8 intervals=2 setting_up=0 first_bouts=17 bytes=44857248&#xD;
+tick=4400 tick_ms=1.968 cumulative_ms=6072.3 intervals=2 setting_up=0 first_bouts=27 bytes=44857248&#xD;
+tick=4600 tick_ms=5.718 cumulative_ms=6549.2 intervals=2 setting_up=0 first_bouts=29 bytes=44857248&#xD;
+tick=4800 tick_ms=1.007 cumulative_ms=6934.6 intervals=1 setting_up=0 first_bouts=29 bytes=44932304&#xD;
+actor=6 loop=penalty_150 pose=93,919690137,-12,845216465,2,205590757 clearance_samples=286 disk_queries=15336 start_clearance=-0,0495798988768863 edge_responses=4&#xD;
+tick=5000 tick_ms=1.277 cumulative_ms=7427.4 intervals=1 setting_up=0 first_bouts=29 bytes=44932304&#xD;
+tick=5200 tick_ms=2.098 cumulative_ms=7795.7 intervals=2 setting_up=0 first_bouts=29 bytes=44932304&#xD;
+ticks=5270 mean_ms=1,502 worst_ms=104,641 worst_tick=1 setup_mean_ms=1,957 allocated_bytes=44932304&#xD;
+player_phase=Penalty bouts=1 shooting= needs_bolt= input_manual=False loop=penalty_150 pose=66,941964892,-22,447909083 speed=3,085814732&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

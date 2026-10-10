@@ -24283,3 +24283,56 @@ All2930138 bytes of pre-task PROJECT_STATE history are preserved; prefix SHA256
 bc5f13885682135a845b86d187981982746af457c7cd985a7f011083949d1624.
 Unrelated workspace/Unity settings changes are preserved. Next: owner tests this
 build and decides M13 closure; do not begin M14 automatically.
+
+
+## 2026-10-10 — M13 owner follow-up candidate: reached mats, reload, reserve and shorter course
+
+Latest operational record; all preceding history remains unchanged. M13 owner
+review stays OPEN. M14 has not started; G1/G2 approvals remain. One Woodland
+venue, maximum30 racers, High default.
+
+Owner build: Builds/WoodlandM13OwnerFollowup-20261010/START_WOODLAND_REVIEW.cmd.
+READ_ME_RU.txt beside the executable documents controls and review scope.
+Supersedes WoodlandM13OwnerControls-20261010.
+
+Complete shooting commands survive AI effort rewrites. Manual reload is required
+before shot1 and between shots on every bout, including the third; handling kick
+occurs on reload rather than discharge. Production deterministic sway is stronger;
+breath debt and HR remain active. Physical 50m/115mm/45mm hit geometry is unchanged.
+Actual mat capture requires endpoint proximity within the existing0.5m tolerance.
+Missed mat/exit targets use bounded recovery. Automatic exit omits scripted
+closing braking for moving athletes; physical collisions still exchange momentum.
+
+Production versioned physiology: reserve recovery120W, drain2400W, fatigue
+gain0.00045/s and recovery0.00006/s; existing career stat curves still apply.
+Player-held tuck/manual turns remain. AI chooses tuck with downhill decision limits.
+Main lap shortened1200m to960.005m, with depths/heights, stations, paths, profiles,
+guards, snow-bank windows, roadside objects and ground rebound. Penalty150m and
+stadium dimensions stay. Four rounded branch seams rebind to exact main samples
+(maximum0.281mm correction) without relaxing portal admission. Parallel starts
+retain full contact proof. Penalty board feet lie outside the road and connecting
+roads remain open. Forest removes334 trees; whole-grove frustum rejection avoids
+per-tree work when the conservative grove bound is invisible.
+
+Validation: focused.NET19 PASS; all30 actual first arrivals/third-bout manual
+reload2 PASS; explicit CPU1 PASS; final context arrival/third/replay3 PASS;
+playable Mass30/Sprint30 initialization400ticks2 PASS. Native Unity range2,
+production composition5, forest9 and vegetation3 PASS. Worst first mat error
+0.4892m. Bounded5270-tick CPU run completes all30 first bouts: mean1.502ms,
+setup1.957ms, cold tick1=104.641ms, no >100ms tick after1. This is CPU diagnostic
+evidence, not visible Windows FPS/GPU or a complete-race acceptance claim.
+
+Final Windows build Succeeded, Unity6000.6.0f1,0 errors/0 warnings,355699018bytes.
+Hidden Mass30/Sprint30 startup/control/scene-transition smoke PASS, exit0.
+Rendering suspended in the hidden window; native first-arrival and penalty
+junction captures inspected separately. Recent Console has no errors/exceptions.
+Initial smoke caught the Sprint seam mismatch; corrected source and final smoke
+both pass. Prior failure receipt remains available as diagnostic evidence.
+
+Report: docs/reports/TASK_M13_OWNER_FOLLOWUP_20261010.md.
+Decision: docs/adr/ADR-0046-owner-m13-range-reload-reserve-and-short-course.md.
+Evidence: docs/quality/m13/owner-followup-20261010/.
+All2933802 pre-task history bytes preserved; SHA256 prefix
+AEED18348D2ED427D1EDCB87A63FC4999CEE308F0BC6E3354EBD159E061D9630 verified.
+Master Plan unchanged. Next: owner tests visible setup/post-range/off-course
+hitches, shooting difficulty and recovery/pacing, then decides M13 closure.

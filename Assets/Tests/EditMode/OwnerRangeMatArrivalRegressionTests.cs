@@ -51,7 +51,7 @@ namespace Biathlon.Tests
             Assert.That((shot-enter)/20d,Is.LessThan(8),"The last mat turn must not crawl for tens of seconds.");
             Assert.That((exit-leave)/20d,Is.LessThan(8),"The physical two-turn departure must not crawl for tens of seconds.");
         }
-        [Test] public void ActualOwnerAi26ArrivalPlantsWithoutRejectingTheWholeRaceTick()
+        [Test] public void ActualOwnerAi26OutsideMatCannotPlantButReachedMatCan()
         {
             var f=ManualProductionFieldTests.Initial("mass_start",30);
             var c=f.stepper.World.GetCatalog(26);int occurrence=c.GetFiringOccurrence(0);var row=c.Get(occurrence);
@@ -72,7 +72,10 @@ namespace Biathlon.Tests
             var flags=System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance;
             bool eligible=(bool)typeof(ManualScopedWorldRoster).GetMethod("IsWithinMatPlantArea",flags)
                 .Invoke(world,new object[]{c,row,reached});
-            Assert.That(eligible,Is.True,"An admitted folded endpoint cannot require a different centreline plane before planting.");
+            Assert.That(eligible,Is.False,"A projected endpoint three metres beyond the mat must not become a shooting position.");
+            c.TrySample(occurrence,row.LengthNanometers,out var goal);
+            reached=new ManualSkiHeadingState(goal.X,goal.Z,1.878826605,yaw);
+            Assert.That(c.TryProject(reached,occurrence,row.LengthNanometers,2,out at),Is.True);
             object[] args={0,c,row,reached,velocity};
             Assert.That((bool)typeof(ManualScopedWorldRoster).GetMethod("TryCaptureMat",flags).Invoke(world,args),Is.True);
             var final=new ManualRacePathActorFrame(id,(ManualSkiHeadingState)args[3],(SkiPlanarVelocity)args[4],at);

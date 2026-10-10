@@ -1,0 +1,74 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":271,\"PassedTests\":8,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:02.2105276\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.ProductionForestVisibilityTests.ActualProductionStadiumPolicyPreservesAllAuthoredContentAndExactLegacyCounts\",\"Status\":\"Failed\",\"Duration\":\"00:00:02.0400000\",\"Message\":\"  Expected: 0\\r\\n  But was:  7789\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionForestVisibilityTests\\u002B\\u003CActualProductionStadiumPolicyPreservesAllAuthoredContentAndExactLegacyCounts\\u003Ed__13.MoveNext () [0x006c1] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionForestVisibilityTests.cs:261\\r\\nat UnityEngine.TestTools.TestEnumerator\\u002B\\u003CExecute\\u003Ed__8.MoveNext () [0x0003a] in .\\\\Library\\\\PackageCache\\\\com.unity.test-framework@7a3849e09bd0\\\\UnityEngine.TestRunner\\\\NUnitExtensions\\\\Attributes\\\\TestEnumerator.cs:52\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionForestVisibilityTests.CameraDepthRatherThanPivotRadiusWorksForWideAndRotatedViewsAndRewindsWithoutAllocation\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionForestVisibilityTests.HighRetainsFarAndPartialCanopiesWhileAllOtherTiersKeepExactLegacyLodsAndShadows\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionForestVisibilityTests.InvalidHorizonRejectsBeforeForestMutationAndCanRetry\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0150000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionForestVisibilityTests.InvalidPolicyOrBoundWeatherRejectsTheWholeEnvironmentBeforeChildrenOrWeatherLease\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0520000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionForestVisibilityTests.ProductionColdPolicyUsesCopiedBoundWeatherAndLeavesSourcesAndPlacementImmutable\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0420000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionForestVisibilityTests.UnsupportedProjectionRetainsTheWholeFrustumAndZoomKeepsExistingLodAndShadowDecisions\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionForestVisibilityTests.VersionedPolicyRoundTripsAndOmissionPreservesTheLegacyContract\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0080000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionForestVisibilityTests.WholeNativeCanopyAndWindSupportProtectsTheFogPlaneAndPreparedBounds\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 271,
+          "PassedTests": 8,
+          "FailedTests": 1,
+          "SkippedTests": 0,
+          "Duration": "00:00:02.2105276"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.ActualProductionStadiumPolicyPreservesAllAuthoredContentAndExactLegacyCounts",
+            "Status": "Failed",
+            "Duration": "00:00:02.0400000",
+            "Message": "  Expected: 0\r\n  But was:  7789\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.ProductionForestVisibilityTests+<ActualProductionStadiumPolicyPreservesAllAuthoredContentAndExactLegacyCounts>d__13.MoveNext () [0x006c1] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionForestVisibilityTests.cs:261\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.CameraDepthRatherThanPivotRadiusWorksForWideAndRotatedViewsAndRewindsWithoutAllocation",
+            "Status": "Passed",
+            "Duration": "00:00:00.0020000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.HighRetainsFarAndPartialCanopiesWhileAllOtherTiersKeepExactLegacyLodsAndShadows",
+            "Status": "Passed",
+            "Duration": "00:00:00.0010000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.InvalidHorizonRejectsBeforeForestMutationAndCanRetry",
+            "Status": "Passed",
+            "Duration": "00:00:00.0150000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.InvalidPolicyOrBoundWeatherRejectsTheWholeEnvironmentBeforeChildrenOrWeatherLease",
+            "Status": "Passed",
+            "Duration": "00:00:00.0520000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.ProductionColdPolicyUsesCopiedBoundWeatherAndLeavesSourcesAndPlacementImmutable",
+            "Status": "Passed",
+            "Duration": "00:00:00.0420000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.UnsupportedProjectionRetainsTheWholeFrustumAndZoomKeepsExistingLodAndShadowDecisions",
+            "Status": "Passed",
+            "Duration": "00:00:00.0010000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.VersionedPolicyRoundTripsAndOmissionPreservesTheLegacyContract",
+            "Status": "Passed",
+            "Duration": "00:00:00.0080000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.WholeNativeCanopyAndWindSupportProtectsTheFogPlaneAndPreparedBounds",
+            "Status": "Passed",
+            "Duration": "00:00:00.0010000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

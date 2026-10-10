@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f417b862-6797-4230-9934-d0c607a4d687" name="snkashkin@DESKTOP-G3075GA 2026-10-10 19:45:22" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-10T19:45:22.2922337+03:00" queuing="2026-10-10T19:45:22.2922338+03:00" start="2026-10-10T19:45:15.4989837+03:00" finish="2026-10-10T19:45:27.1344667+03:00" />
+  <TestSettings name="default" id="8eddbc93-8f39-48fa-8762-51de1e841888">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-10_19_45_22" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="d941d528-98a0-40e6-bd57-b8b94a13f5b3" testId="b3f92160-dbe0-c6fb-7907-411f03eb0bfe" testName="ShortenedPlayableFormatsInitializeAndAdvanceTheWholeRoster(&quot;sprint&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:04.6228610" startTime="2026-10-10T19:45:22.2580544+03:00" endTime="2026-10-10T19:45:26.8807151+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d941d528-98a0-40e6-bd57-b8b94a13f5b3" />
+    <UnitTestResult executionId="098e5723-f52f-4029-a8ae-1899e1e15095" testId="c132846f-b010-afe3-9f15-9167c6d27092" testName="ShortenedPlayableFormatsInitializeAndAdvanceTheWholeRoster(&quot;mass_start&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:06.2495240" startTime="2026-10-10T19:45:16.0080080+03:00" endTime="2026-10-10T19:45:22.2572337+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="098e5723-f52f-4029-a8ae-1899e1e15095" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ShortenedPlayableFormatsInitializeAndAdvanceTheWholeRoster(&quot;sprint&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="b3f92160-dbe0-c6fb-7907-411f03eb0bfe">
+      <Execution id="d941d528-98a0-40e6-bd57-b8b94a13f5b3" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerFollowupTests" name="ShortenedPlayableFormatsInitializeAndAdvanceTheWholeRoster(&quot;sprint&quot;)" />
+    </UnitTest>
+    <UnitTest name="ShortenedPlayableFormatsInitializeAndAdvanceTheWholeRoster(&quot;mass_start&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="c132846f-b010-afe3-9f15-9167c6d27092">
+      <Execution id="098e5723-f52f-4029-a8ae-1899e1e15095" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerFollowupTests" name="ShortenedPlayableFormatsInitializeAndAdvanceTheWholeRoster(&quot;mass_start&quot;)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b3f92160-dbe0-c6fb-7907-411f03eb0bfe" executionId="d941d528-98a0-40e6-bd57-b8b94a13f5b3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c132846f-b010-afe3-9f15-9167c6d27092" executionId="098e5723-f52f-4029-a8ae-1899e1e15095" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

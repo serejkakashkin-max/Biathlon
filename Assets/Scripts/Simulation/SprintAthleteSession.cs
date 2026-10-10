@@ -9,6 +9,7 @@ namespace Biathlon.Simulation
         public bool Trigger { get; } public bool HoldBreath { get; }
         public bool CycleBolt {get;} public bool ManualBoltCycle {get;}
         public WindVector Wind { get; } public ShootingPressureContext Pressure { get; }
+        public SprintAthleteInput WithSki(TimeTrialInput ski) => new SprintAthleteInput(ski,Aim,Trigger,HoldBreath,Wind,Pressure,CycleBolt,ManualBoltCycle);
         public SprintAthleteInput(TimeTrialInput ski, WeaponAimCommand aim, bool trigger = false, bool holdBreath = false,
             WindVector wind = default, ShootingPressureContext pressure = default,bool cycleBolt=false,bool manualBoltCycle=false)
         {

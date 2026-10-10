@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="938a2afd-a6a2-462e-af2e-b77c92b80cf3" name="snkashkin@DESKTOP-G3075GA 2026-10-10 19:39:41" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-10T19:39:41.1262866+03:00" queuing="2026-10-10T19:39:41.1262867+03:00" start="2026-10-10T19:39:37.7085552+03:00" finish="2026-10-10T19:39:54.0285707+03:00" />
+  <TestSettings name="default" id="0c9cdf8d-a931-4384-9594-071902f0df69">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-10_19_39_41" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="fcf77318-cda0-4780-a35a-c794e08c9896" testId="34f3a700-17fe-0d2c-285e-335d0d1532d9" testName="EntireComposedBoutSerializesAndReplaysAllFramesEventsAndCsv" computerName="DESKTOP-G3075GA" duration="00:00:00.0408270" startTime="2026-10-10T19:39:53.7119543+03:00" endTime="2026-10-10T19:39:53.7527790+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fcf77318-cda0-4780-a35a-c794e08c9896" />
+    <UnitTestResult executionId="81de8195-2477-492f-a0f4-97b3c041ca91" testId="cbf0c4e3-ee7c-d463-d145-82f641738e9a" testName="FirstMassArrivalPlantsAtTheAssignedMats" computerName="DESKTOP-G3075GA" duration="00:00:13.5655920" startTime="2026-10-10T19:39:40.1437797+03:00" endTime="2026-10-10T19:39:53.7087838+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="81de8195-2477-492f-a0f4-97b3c041ca91">
+      <Output>
+        <StdOut>actor=2 tick=3402 mat_error_m=0,011682741601613757 pose=37,501145109,-0,868373514 goal=37,5,-0,88&#xD;
+actor=17 tick=3469 mat_error_m=0,016055721695675287 pose=-7,498426264,-0,864021591 goal=-7,5,-0,88&#xD;
+actor=29 tick=3479 mat_error_m=1,638091694606723E-05 pose=-43,500001606,-0,880016302 goal=-43,5,-0,88&#xD;
+actor=14 tick=3482 mat_error_m=0,011680846452031149 pose=1,501144923,-0,8683754 goal=1,5,-0,88&#xD;
+actor=20 tick=3489 mat_error_m=0,0038084457112183777 pose=-16,499626707,-0,876209893 goal=-16,5,-0,88&#xD;
+actor=11 tick=3500 mat_error_m=0,010912198269565014 pose=10,501069583,-0,869140347 goal=10,5,-0,88&#xD;
+actor=8 tick=3509 mat_error_m=0,005014396306968202 pose=19,504127048,-0,877151905 goal=19,5,-0,88&#xD;
+actor=26 tick=3514 mat_error_m=0,0008021706244556482 pose=-34,499921374,-0,879201692 goal=-34,5,-0,88&#xD;
+actor=5 tick=3521 mat_error_m=0,009084543562165379 pose=28,500890441,-0,870959201 goal=28,5,-0,88&#xD;
+actor=23 tick=3529 mat_error_m=0,005203497269289752 pose=-25,499489968,-0,874821559 goal=-25,5,-0,88&#xD;
+actor=28 tick=3565 mat_error_m=0,0048530849787793515 pose=-40,499524314,-0,875170284 goal=-40,5,-0,88&#xD;
+actor=25 tick=3622 mat_error_m=0,019933708245916157 pose=-31,498046155,-0,860162278 goal=-31,5,-0,88&#xD;
+actor=27 tick=3624 mat_error_m=0,015115762546077154 pose=-37,498518396,-0,864957024 goal=-37,5,-0,88&#xD;
+actor=22 tick=3664 mat_error_m=0,002694737948262501 pose=-22,499735869,-0,877318238 goal=-22,5,-0,88&#xD;
+actor=0 tick=3701 mat_error_m=0,004604692871769252 pose=43,500451339,-0,87541748 goal=43,5,-0,88&#xD;
+actor=1 tick=3704 mat_error_m=0,0033413585145056763 pose=40,50032751,-0,876674731 goal=40,5,-0,88&#xD;
+actor=4 tick=3711 mat_error_m=0,015430307187520805 pose=31,501512435,-0,864643994 goal=31,5,-0,88&#xD;
+actor=16 tick=3724 mat_error_m=0,4891764468044378 pose=-4,552952339,-1,366302011 goal=-4,5,-0,88&#xD;
+actor=10 tick=3726 mat_error_m=0,009538159831789766 pose=13,500934903,-0,870507769 goal=13,5,-0,88&#xD;
+actor=13 tick=3730 mat_error_m=0,013480210927105878 pose=4,501321292,-0,8665847 goal=4,5,-0,88&#xD;
+actor=19 tick=3733 mat_error_m=0,005357123023510806 pose=-13,49947491,-0,874668673 goal=-13,5,-0,88&#xD;
+actor=18 tick=3735 mat_error_m=0,004626676750156676 pose=-10,499546506,-0,875395602 goal=-10,5,-0,88&#xD;
+actor=21 tick=3738 mat_error_m=0,019655566881907043 pose=-19,498073418,-0,86043908 goal=-19,5,-0,88&#xD;
+actor=7 tick=3739 mat_error_m=0,01986007471462858 pose=22,501946628,-0,860235557 goal=22,5,-0,88&#xD;
+actor=24 tick=3741 mat_error_m=0,0022605149764293357 pose=-28,499778431,-0,87775037 goal=-28,5,-0,88&#xD;
+actor=15 tick=3777 mat_error_m=0,00015088352849133014 pose=-1,499985211,-0,879849843 goal=-1,5,-0,88&#xD;
+actor=3 tick=3851 mat_error_m=0,007342819665409675 pose=34,500719722,-0,872692538 goal=34,5,-0,88&#xD;
+actor=12 tick=3867 mat_error_m=0,00331789560973244 pose=7,500325211,-0,876698081 goal=7,5,-0,88&#xD;
+actor=6 tick=3914 mat_error_m=0,0040017254329326605 pose=25,500392238,-0,876017544 goal=25,5,-0,88&#xD;
+actor=9 tick=4623 mat_error_m=0,01431448815388903 pose=16,501403065,-0,86575444 goal=16,5,-0,88&#xD;
+arrivals=30 worst_mat_error_m=0,4891764468044378</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="dcb6e567-e37b-4652-90e5-0773f00c1adc" testId="b483e46d-ca34-f940-55a2-04d80727b861" testName="EveryAssistedBoutKeepsManualBoltPolicyIncludingThird" computerName="DESKTOP-G3075GA" duration="00:00:01.7187400" startTime="2026-10-10T19:39:38.4245196+03:00" endTime="2026-10-10T19:39:40.1431578+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dcb6e567-e37b-4652-90e5-0773f00c1adc" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="EveryAssistedBoutKeepsManualBoltPolicyIncludingThird" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="b483e46d-ca34-f940-55a2-04d80727b861">
+      <Execution id="dcb6e567-e37b-4652-90e5-0773f00c1adc" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerFollowupTests" name="EveryAssistedBoutKeepsManualBoltPolicyIncludingThird" />
+    </UnitTest>
+    <UnitTest name="EntireComposedBoutSerializesAndReplaysAllFramesEventsAndCsv" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="34f3a700-17fe-0d2c-285e-335d0d1532d9">
+      <Execution id="fcf77318-cda0-4780-a35a-c794e08c9896" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShootingSessionTests" name="EntireComposedBoutSerializesAndReplaysAllFramesEventsAndCsv" />
+    </UnitTest>
+    <UnitTest name="FirstMassArrivalPlantsAtTheAssignedMats" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="cbf0c4e3-ee7c-d463-d145-82f641738e9a">
+      <Execution id="81de8195-2477-492f-a0f4-97b3c041ca91" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerFollowupTests" name="FirstMassArrivalPlantsAtTheAssignedMats" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="34f3a700-17fe-0d2c-285e-335d0d1532d9" executionId="fcf77318-cda0-4780-a35a-c794e08c9896" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cbf0c4e3-ee7c-d463-d145-82f641738e9a" executionId="81de8195-2477-492f-a0f4-97b3c041ca91" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b483e46d-ca34-f940-55a2-04d80727b861" executionId="dcb6e567-e37b-4652-90e5-0773f00c1adc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 3 of 3 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+actor=2 tick=3402 mat_error_m=0,011682741601613757 pose=37,501145109,-0,868373514 goal=37,5,-0,88&#xD;
+actor=17 tick=3469 mat_error_m=0,016055721695675287 pose=-7,498426264,-0,864021591 goal=-7,5,-0,88&#xD;
+actor=29 tick=3479 mat_error_m=1,638091694606723E-05 pose=-43,500001606,-0,880016302 goal=-43,5,-0,88&#xD;
+actor=14 tick=3482 mat_error_m=0,011680846452031149 pose=1,501144923,-0,8683754 goal=1,5,-0,88&#xD;
+actor=20 tick=3489 mat_error_m=0,0038084457112183777 pose=-16,499626707,-0,876209893 goal=-16,5,-0,88&#xD;
+actor=11 tick=3500 mat_error_m=0,010912198269565014 pose=10,501069583,-0,869140347 goal=10,5,-0,88&#xD;
+actor=8 tick=3509 mat_error_m=0,005014396306968202 pose=19,504127048,-0,877151905 goal=19,5,-0,88&#xD;
+actor=26 tick=3514 mat_error_m=0,0008021706244556482 pose=-34,499921374,-0,879201692 goal=-34,5,-0,88&#xD;
+actor=5 tick=3521 mat_error_m=0,009084543562165379 pose=28,500890441,-0,870959201 goal=28,5,-0,88&#xD;
+actor=23 tick=3529 mat_error_m=0,005203497269289752 pose=-25,499489968,-0,874821559 goal=-25,5,-0,88&#xD;
+actor=28 tick=3565 mat_error_m=0,0048530849787793515 pose=-40,499524314,-0,875170284 goal=-40,5,-0,88&#xD;
+actor=25 tick=3622 mat_error_m=0,019933708245916157 pose=-31,498046155,-0,860162278 goal=-31,5,-0,88&#xD;
+actor=27 tick=3624 mat_error_m=0,015115762546077154 pose=-37,498518396,-0,864957024 goal=-37,5,-0,88&#xD;
+actor=22 tick=3664 mat_error_m=0,002694737948262501 pose=-22,499735869,-0,877318238 goal=-22,5,-0,88&#xD;
+actor=0 tick=3701 mat_error_m=0,004604692871769252 pose=43,500451339,-0,87541748 goal=43,5,-0,88&#xD;
+actor=1 tick=3704 mat_error_m=0,0033413585145056763 pose=40,50032751,-0,876674731 goal=40,5,-0,88&#xD;
+actor=4 tick=3711 mat_error_m=0,015430307187520805 pose=31,501512435,-0,864643994 goal=31,5,-0,88&#xD;
+actor=16 tick=3724 mat_error_m=0,4891764468044378 pose=-4,552952339,-1,366302011 goal=-4,5,-0,88&#xD;
+actor=10 tick=3726 mat_error_m=0,009538159831789766 pose=13,500934903,-0,870507769 goal=13,5,-0,88&#xD;
+actor=13 tick=3730 mat_error_m=0,013480210927105878 pose=4,501321292,-0,8665847 goal=4,5,-0,88&#xD;
+actor=19 tick=3733 mat_error_m=0,005357123023510806 pose=-13,49947491,-0,874668673 goal=-13,5,-0,88&#xD;
+actor=18 tick=3735 mat_error_m=0,004626676750156676 pose=-10,499546506,-0,875395602 goal=-10,5,-0,88&#xD;
+actor=21 tick=3738 mat_error_m=0,019655566881907043 pose=-19,498073418,-0,86043908 goal=-19,5,-0,88&#xD;
+actor=7 tick=3739 mat_error_m=0,01986007471462858 pose=22,501946628,-0,860235557 goal=22,5,-0,88&#xD;
+actor=24 tick=3741 mat_error_m=0,0022605149764293357 pose=-28,499778431,-0,87775037 goal=-28,5,-0,88&#xD;
+actor=15 tick=3777 mat_error_m=0,00015088352849133014 pose=-1,499985211,-0,879849843 goal=-1,5,-0,88&#xD;
+actor=3 tick=3851 mat_error_m=0,007342819665409675 pose=34,500719722,-0,872692538 goal=34,5,-0,88&#xD;
+actor=12 tick=3867 mat_error_m=0,00331789560973244 pose=7,500325211,-0,876698081 goal=7,5,-0,88&#xD;
+actor=6 tick=3914 mat_error_m=0,0040017254329326605 pose=25,500392238,-0,876017544 goal=25,5,-0,88&#xD;
+actor=9 tick=4623 mat_error_m=0,01431448815388903 pose=16,501403065,-0,86575444 goal=16,5,-0,88&#xD;
+arrivals=30 worst_mat_error_m=0,4891764468044378&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

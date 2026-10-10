@@ -134,7 +134,7 @@ namespace Biathlon.PlayModeTests
                     var shooting=host.Runner.Field.GetAthlete(0).ActiveShooting;
                     bool trigger=shooting?.Phase==ShootingPhase.Aiming;
                     var tick=host.Runner.Field.Tick.Next();host.Step(new PlayerCommand(tick,id,800,0),
-                        new ShootingDeviceCommand(new WeaponAimCommand(tick,id,1000,1000),trigger,false));
+                        new ShootingDeviceCommand(new WeaponAimCommand(tick,id,1000,1000),trigger,false,shooting?.NeedsBoltCycle==true));
                     var actor=host.Runner.Field.GetAthlete(0);var point=host.Runner.Field.GetPhysicalPoint(0);
                     if(point.LoopId=="mat_1")
                     {

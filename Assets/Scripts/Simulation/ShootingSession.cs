@@ -44,6 +44,7 @@ namespace Biathlon.Simulation
         private readonly ShotResolutionSystem shots;
         private readonly ShootingWindSystem windValidation;
         private readonly PhysiologyDefinition physiologyDefinition;
+        private readonly bool manualBoltCycle;
         public SimulationTick InitialTick { get; }
         public AthleteId AthleteId { get; }
         public int Frequency { get; }
@@ -64,6 +65,7 @@ namespace Biathlon.Simulation
             PhysiologyDefinition physiologyDefinition = null,bool manualBoltCycle=false)
         {
             if (config == null || model == null || athlete == null) throw new ArgumentNullException(nameof(config));
+            this.manualBoltCycle=manualBoltCycle;
             this.model = model; this.athlete = athlete; this.stance = model.Stances.Get(stance); Frequency = config.TickFrequency; AthleteId = new AthleteId(athlete.Id);
             this.physiologyDefinition = physiologyDefinition ?? model.Physiology; InitialTick = initialTick; Tick = initialTick;
             aim = new WeaponAimSystem(model.Aim, AthleteId, Frequency, initialTick: initialTick, stance: this.stance);
@@ -80,7 +82,7 @@ namespace Biathlon.Simulation
             if (initialTick.Value != 0 || physiologyDefinition != null)
                 ContextJson = ShootingModelDefinitions.EncodeContext("biathlon_shooting_session_v2", ContextJson,
                     initialTick.Value.ToString(CultureInfo.InvariantCulture), this.physiologyDefinition.ToJson());
-            if(manualBoltCycle)ContextJson=ShootingModelDefinitions.EncodeContext("biathlon_manual_bolt_session_v1",ContextJson);
+            if(manualBoltCycle)ContextJson=ShootingModelDefinitions.EncodeContext("biathlon_manual_bolt_session_v2_reload_handling",ContextJson);
         }
         public ShootingSessionFrame Step(ShootingSessionInput input)
         {
@@ -100,8 +102,9 @@ namespace Biathlon.Simulation
             var previousHandling = handling.LastFrame;
             var shotAim = new WeaponAimState(Clip(a.YawRadians + sway.HorizontalRadians + previousHandling.HorizontalRadians),
                 Clip(a.PitchRadians + sway.VerticalRadians + previousHandling.VerticalRadians));
+            bool reloadAccepted=input.Action==ShootingAction.CycleBolt&&shots.NeedsBoltCycle;
             var shot = shots.Step(t, input.Action, input.Lane, shotAim.Ray, input.Wind, input.HeadingRadians, input.Exposure);
-            var recoil = handling.Step(t, shot.Lifecycle.ShotAccepted);
+            var recoil = handling.Step(t, manualBoltCycle?reloadAccepted:shot.Lifecycle.ShotAccepted);
             LastFrame = new ShootingSessionFrame(input, a, b, h, m, bc, p, sway, recoil, shotAim, shot); Tick = t; return LastFrame;
         }
         private static double Clip(double angle) => Math.Max(-0.5, Math.Min(0.5, PhysiologyNumbers.Quantize(angle)));

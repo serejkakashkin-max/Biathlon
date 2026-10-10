@@ -67,7 +67,7 @@ namespace Biathlon.AI
                     bends[i]=new ManualAiBendBrakingPlanner(stepper.Field.Track,catalogs[i],stepper.PhysicsDefinition,
                         stepper.CorneringDefinition,physicalSteering,policy,stepper.BodyDefinition);}}
             var context=new string[n+choices+5];
-            context[0]="manual_scoped_ai_shared_clock_movement_v23_ordinary_bearing_recovery";
+            context[0]="manual_scoped_ai_shared_clock_movement_v24_mat_bearing_free_exit_complete_controls";
             context[1]=stepper.ContextJson;context[2]=policy.ToJson();context[3]=physicalSteering.ToJson()+";snow_planner_sha256:"+ManualContextIdentity.Sha256(snowPlanner.ContextJson);
             context[4]="player_signed_input_unchanged;ai_target_not_lateral_teleport;field_attested_scheduled_start_forecast;stationary_obstacle_detection_from_policy_response_or_exact_owned_stationary_mat;full_rotated_body_corridor_and_achieved_velocity_forecast;candidate_line_query_excludes_old_velocity_forecast;moving_range_body_forecast_four_separating_axes_and_relative_achieved_velocity;only_observed_ahead_bodies;ordinary_racing_keeps_physical_contacts;pass_line_owned_by_current_occurrence;hold_pass_line_until_body_clear_or_occurrence_handoff;owned_gate_lookahead_cap;owned_future_width_and_achieved_side_velocity_response_reserve;resource_family_common_to_private_cue_only;all_owned_paths_actual_snow_pursuit;bounded_mat_foot_placement_by_world_owner;shared_course_follows_moving_bodies_and_passes_stationary_ones;assigned_private_mat_center_target;current_private_exit_and_fixed_mass_passing_retained;geometric_chord_sagitta_reserve;physical_pursuit_actual_velocity_and_shared_speed_response_v2_actual_chord;ordered_bend_braking_and_short_chord_before_entry;common_physical_solver;no_legacy_fallback";
             for(int i=0;i<n;i++)context[i+5]=ManualContextIdentity.Sha256(bends[i].ContextJson);
@@ -126,7 +126,7 @@ namespace Biathlon.AI
                     var prior=inputs[i];var ski=prior.Ski;
                     var reduced=new TimeTrialInput(new SimulationInput(ski.Effort.Tick,ski.Effort.AthleteId,0),
                         ski.Form,ski.LineQuality,ski.HeadwindMetersPerSecond,false,false,ski.TechniqueId,ski.MovementEfficiency);
-                    inputs[i]=new SprintAthleteInput(reduced,prior.Aim,prior.Trigger,prior.HoldBreath,prior.Wind,prior.Pressure);
+                    inputs[i]=prior.WithSki(reduced);
                 }
                 double lateralReserve=Math.Abs(actor.Velocity.X*observed.ForwardZ-actor.Velocity.Z*observed.ForwardX)*policy.HeadingResponseSeconds;
                 double chosen=desiredLateral[i],extent=Math.Max(0,width*.5-stepper.BodyCourseRadius-lateralReserve);
@@ -169,7 +169,7 @@ namespace Biathlon.AI
                 if(passing[i])chosen=passingLine[i];
                 if(row.Kind==ManualRacePathKind.RangeApproach&&!privateMat)
                     chosen=Math.Max(chosen,policy.RangeApproachMinimumLateral);
-                if(obstructed&&!passing[i])
+                if(obstructed&&!passing[i]&&row.Kind!=ManualRacePathKind.RangeExit)
                 {
                     var other=world.GetActor(blocker);
                     if(other.Velocity.X!=0||other.Velocity.Z!=0)
@@ -180,9 +180,8 @@ namespace Biathlon.AI
                         {
                             brakes[i]=Math.Max(brakes[i],fraction);
                             var prior=inputs[i];var ski=prior.Ski;
-                            inputs[i]=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(ski.Effort.Tick,ski.Effort.AthleteId,0),
-                                ski.Form,ski.LineQuality,ski.HeadwindMetersPerSecond,false,false,ski.TechniqueId,ski.MovementEfficiency),
-                                prior.Aim,prior.Trigger,prior.HoldBreath,prior.Wind,prior.Pressure);
+                            inputs[i]=prior.WithSki(new TimeTrialInput(new SimulationInput(ski.Effort.Tick,ski.Effort.AthleteId,0),
+                                ski.Form,ski.LineQuality,ski.HeadwindMetersPerSecond,false,false,ski.TechniqueId,ski.MovementEfficiency));
                         }
                     }
                 }
@@ -232,10 +231,9 @@ namespace Biathlon.AI
                 // parallel aisle offset can aim beyond the firing line.
                 steering[i]=(passing[i]&&row.Kind!=ManualRacePathKind.PenaltyLoop)||Math.Abs(targetTurn)<=64*2.2204460492503131e-16?plan.SteeringInput:
                     controllers[i].PhysicalPursuitIntent(plan,actor.Pose,actor.Velocity);
-                // Ordinary course recovery may turn toward a target behind.
-                // The selected private mat curve keeps its forward pursuit:
-                // a bearing pivot there can cut across its folded hairpin.
-                bool ordinaryRecovery=row.Kind==ManualRacePathKind.BaseRoute||row.Kind==ManualRacePathKind.StartApproach||row.Kind==ManualRacePathKind.FinishRunout;
+                // Recover a missed mat or exit target with bounded steering.
+                // The curved penalty circuit retains its forward pursuit.
+                bool ordinaryRecovery=row.Kind!=ManualRacePathKind.PenaltyLoop;
                 double pursuitYaw=controllers[i].PhysicalPursuitYaw(plan,actor.Pose,actor.Velocity,ordinaryRecovery);
                 if(row.Kind!=ManualRacePathKind.FinishRunout)
                 {

@@ -605,7 +605,7 @@ namespace Biathlon.Simulation
             if(routeBoundJunctions)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,new[]{junctions.UsageContextJson,
                 "reachable_physical_ports_v1;preserve_self_crossings;reject_unbound_points;full_source_region_indices"});
             if(this.startContinuation!=null)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,new[]{
-                this.startContinuation.ContextJson,"front_incoming_endpoint_until_accepted_handoff_v1"});
+                this.startContinuation.ContextJson,"front_incoming_endpoint_until_accepted_handoff_v2_parallel_source_bodies"});
             if(this.directedPassages!=null)
             {
                 var coverage=new string[passageSharing.Length+1];
@@ -1348,7 +1348,9 @@ namespace Biathlon.Simulation
             int passage=-1;
             for (int j = 0; j < junctionCount; j++) if (Touches(a, j) && Touches(b, j))
             {
-                if(worldContinuation&&j==startContinuation.JunctionIndex)continue;
+                if(worldContinuation&&(j==startContinuation.JunctionIndex||
+                    a.Start.LoopId==startContinuation.SourceLoopId&&a.End.LoopId==startContinuation.SourceLoopId&&
+                    b.Start.LoopId==startContinuation.SourceLoopId&&b.End.LoopId==startContinuation.SourceLoopId))continue;
                 // A newly measured branch guard on the same start corridor
                 // must not reject parallel grid rows. The existing full start
                 // continuation body proof below still decides actual contact.

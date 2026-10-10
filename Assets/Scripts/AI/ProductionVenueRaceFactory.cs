@@ -65,8 +65,9 @@ namespace Biathlon.AI
                 policy=MassStartRangePolicyDefinition.FromJson(read("mass_start_range_policy_v1.json"));
             }
             string prefix=venue.Manifest.Id+"_"+profile.Format.ToString().ToLowerInvariant();
+            var gameplayRead=ProductionGameplayDefinitions.Bind(read);
             var field=new PackSprintFieldSession(new SimulationConfig(1,prefix+"_simulation_v1",frequency,seed),profile,
-                new SkiModelDefinitions(name=>read(name=="tuck_provisional_v1.json"?"tuck_gameplay_v2.json":name)),new ShootingModelDefinitions(read),track,route,
+                new SkiModelDefinitions(gameplayRead),new ShootingModelDefinitions(gameplayRead),track,route,
                 conditions,ResultTimingDefinition.FromJson(read("result_timing_v1.json")),
                 entrants,new SimulationTick(1),prefix+"_result_v1",venue.Occupancy,DraftDefinition.FromJson(read("draft_provisional_v1.json")),
                 OvertakeDefinition.FromJson(read("overtake_provisional_v1.json")),venue.Junctions,venue.Connections,events,
@@ -76,7 +77,10 @@ namespace Biathlon.AI
                 routeBoundJunctions:venue.Formats!=null,directedPassages:directedPassages,
                 sharedApron:venue.SharedApron,sharedApronVisual:venue.SharedApron==null?null:venue.Visual,
                 sharedApronRange:venue.SharedApron==null?null:venue.Manifest.Range);
-            return new PackAiRaceRunner(field,read,personalities,AiDifficultyDefinition.FromJson(read("ai_difficulty_expert_v1.json")),seed,events,telemetry,
+            // AI chooses tuck from downhill geometry. The shared field still
+            // uses the owner's freely requested posture and identical costs.
+            Func<string,string> aiRead=name=>name=="tuck_provisional_v1.json"?read(name):gameplayRead(name);
+            return new PackAiRaceRunner(field,aiRead,personalities,AiDifficultyDefinition.FromJson(read("ai_difficulty_expert_v1.json")),seed,events,telemetry,
                 raceForms,racePressures,
                 rangeTrafficPolicy:venue.AiRangeTraffic??AiRangeTrafficPolicyDefinition.FromJson(read("ai_range_traffic_provisional_v1.json")),skiPolicy:venue.AiSkiPolicy);
         }
