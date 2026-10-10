@@ -1,0 +1,105 @@
+{
+  "build_directory": "Builds/WoodlandM13Review-20261010",
+  "maximum_production_field": 30,
+  "markers": [
+    "BIATHLON_PRODUCTION_SMOKE_SCENE {\"schema_version\":1,\"id\":\"production_player_content_smoke_v1\",\"entry\":\"mass30\",\"scene\":\"Assets/Scenes/Production/WoodlandBasinMassStart.unity\",\"initial_quality\":\"high\",\"route_id\":\"woodland_basin_mass_start_route_v1\",\"start_tick\":0,\"tick\":400,\"athletes\":30,\"terrain_tiles\":36,\"forest_groups\":33,\"trees\":8284,\"mats\":30,\"banks\":30,\"visible_loops\":35}",
+    "BIATHLON_PRODUCTION_SMOKE_RENDER mass30 high 0 HIDDEN_WINDOW_SUSPENDED draw_calls=0",
+    "BIATHLON_PRODUCTION_SMOKE_RENDER mass30 balanced 0 HIDDEN_WINDOW_SUSPENDED draw_calls=0",
+    "BIATHLON_PRODUCTION_SMOKE_RENDER mass30 low 0 HIDDEN_WINDOW_SUSPENDED draw_calls=0",
+    "BIATHLON_PRODUCTION_SMOKE_FIRST_FRAME_UNAVAILABLE mass30 HIDDEN_WINDOW_SUSPENDED",
+    "BIATHLON_PRODUCTION_SMOKE_TRANSITION mass30 sprint30 PENDING_REJECTED",
+    "BIATHLON_PRODUCTION_SMOKE_SCENE {\"schema_version\":1,\"id\":\"production_player_content_smoke_v1\",\"entry\":\"sprint30\",\"scene\":\"Assets/Scenes/Production/WoodlandBasinSprint.unity\",\"initial_quality\":\"high\",\"route_id\":\"woodland_basin_sprint_route_v2\",\"start_tick\":0,\"tick\":400,\"athletes\":30,\"terrain_tiles\":36,\"forest_groups\":33,\"trees\":8284,\"mats\":30,\"banks\":30,\"visible_loops\":36}",
+    "BIATHLON_PRODUCTION_SMOKE_RENDER sprint30 high 0 HIDDEN_WINDOW_SUSPENDED draw_calls=0",
+    "BIATHLON_PRODUCTION_SMOKE_RENDER sprint30 balanced 0 HIDDEN_WINDOW_SUSPENDED draw_calls=0",
+    "BIATHLON_PRODUCTION_SMOKE_RENDER sprint30 low 0 HIDDEN_WINDOW_SUSPENDED draw_calls=0",
+    "BIATHLON_PRODUCTION_SMOKE_FIRST_FRAME_UNAVAILABLE sprint30 HIDDEN_WINDOW_SUSPENDED",
+    "BIATHLON_PRODUCTION_SMOKE_PASS"
+  ],
+  "nonfatal_build_warnings": "496 shader compiler warnings from Unity AI Inference/Sentis package; no C# compiler warning or build error.",
+  "rendering_frames_available": false,
+  "start_finish_separation_m": 60.361238897826006,
+  "quality_tier_content_checks": 6,
+  "scene_receipts": [
+    {
+      "schema_version": 1,
+      "id": "production_player_content_smoke_v1",
+      "entry": "mass30",
+      "scene": "Assets/Scenes/Production/WoodlandBasinMassStart.unity",
+      "initial_quality": "high",
+      "route_id": "woodland_basin_mass_start_route_v1",
+      "start_tick": 0,
+      "tick": 400,
+      "athletes": 30,
+      "terrain_tiles": 36,
+      "forest_groups": 33,
+      "trees": 8284,
+      "mats": 30,
+      "banks": 30,
+      "visible_loops": 35
+    },
+    {
+      "schema_version": 1,
+      "id": "production_player_content_smoke_v1",
+      "entry": "sprint30",
+      "scene": "Assets/Scenes/Production/WoodlandBasinSprint.unity",
+      "initial_quality": "high",
+      "route_id": "woodland_basin_sprint_route_v2",
+      "start_tick": 0,
+      "tick": 400,
+      "athletes": 30,
+      "terrain_tiles": 36,
+      "forest_groups": 33,
+      "trees": 8284,
+      "mats": 30,
+      "banks": 30,
+      "visible_loops": 36
+    }
+  ],
+  "source_commit": "8cdc1d7",
+  "id": "m13_final_owner_windows_build_receipt_20261010",
+  "status": "PASS",
+  "license_credits_packaged": true,
+  "build": {
+    "schema_version": 1,
+    "id": "woodland_basin_v1_windows_review_build_v1",
+    "result": "Succeeded",
+    "unity": "6000.6.0f1",
+    "startup_scene": "Assets/Scenes/Production/WoodlandBasinMassStart.unity",
+    "review_definition_id": "woodland_review_v1",
+    "initial_quality": "high",
+    "errors": 0,
+    "warnings": 496,
+    "bytes": 356753198,
+    "seconds": 34.559537899999995
+  },
+  "sustained_fps_gpu_qualified": false,
+  "hidden_smoke_exit_code": 0,
+  "readme_ru_packaged": true,
+  "managed_assembly_hashes": [
+    {
+      "sha256": "478e843677906e90fc671a703d5896378bc7738c91aa5d1162c8ba44d5367142",
+      "file": "Biathlon_Data/Managed/Biathlon.AI.dll"
+    },
+    {
+      "sha256": "aa302598e7bb74e4682f788647f36174e62a3f8f5a67dca32368db98294039b8",
+      "file": "Biathlon_Data/Managed/Biathlon.Career.dll"
+    },
+    {
+      "sha256": "13fec8bf9eaa92ecadf27713d5d5106ad72faddd17bc5145a789fb674da4eb10",
+      "file": "Biathlon_Data/Managed/Biathlon.Domain.dll"
+    },
+    {
+      "sha256": "51dfb7b599890272e5cad9bff190ed31e03f5fb8755c68c82df01ad24d33f088",
+      "file": "Biathlon_Data/Managed/Biathlon.Replay.dll"
+    },
+    {
+      "sha256": "a4efee5597b132f35b0c899ec36df29106b87d12feac0827cd1750c69e9d6caa",
+      "file": "Biathlon_Data/Managed/Biathlon.Simulation.dll"
+    },
+    {
+      "sha256": "1bbab968fb4672e542659479be49c16039d531b8693a5b79f9796a59ace75bd3",
+      "file": "Biathlon_Data/Managed/Biathlon.Unity.Presentation.dll"
+    }
+  ],
+  "schema_version": 1
+}

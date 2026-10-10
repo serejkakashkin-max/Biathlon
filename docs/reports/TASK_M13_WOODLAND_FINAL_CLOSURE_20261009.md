@@ -157,3 +157,25 @@ The earlier `native-separated-start-finish.png` shows the1170m fork trial with
 47.29m separation. It is retained as dated development evidence. Final data
 and `geometry.json` use1130m/60.36m, which the owner build will package.
 The final Windows build/hidden smoke receipt follows below after packaging.
+## Final owner build receipt
+
+`Builds/WoodlandM13Review-20261010/START_WOODLAND_REVIEW.cmd` is ready.
+Windows64 Development/Unity6000.6.0f1 build succeeds in34.560s,0errors,
+356,753,198bytes.496nonfatal shader warnings originate in Unity AI Inference/
+Sentis; their complete messages are retained. No C# compiler warning appears.
+Credits, source review definition and Russian launch/control instructions are
+packaged. Implementation commit8cdc1d7 is pushed; receipt hashes all six
+Biathlon managed runtime DLLs to identify this exact compiled candidate.
+
+The actual hidden normal-D3D11 player exits0 with explicit PASS. Mass30 and
+Sprint30 initialize and advance400 paid manual ticks each; scene switching and
+all three quality tiers work. Each scene contains30mats/30banks,36terrain tiles,
+33forest groups and8284trees. Hidden window rendering is suspended:0frames/
+draw counters are unavailable rendering evidence, never a qualified FPS/GPU
+result. The hidden Editor exits cleanly after build completion. The public
+qualification/career/results flow is the next M14 scope.
+
+Final status M13 PASS in the owner's revised scope; one venue/max30.
+WP167–169 and WP175–178 PASS; WP170–174 owner-deferred. All state history remains.
+Owner can now review the final build. Shooting feel/difficulty/balance work
+remains M15; no player hidden RNG or shooting tuning was introduced here.

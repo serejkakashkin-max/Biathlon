@@ -23896,3 +23896,29 @@ docs/reports/TASK_M13_WOODLAND_FINAL_CLOSURE_20261009.md.
 Final Windows owner build is now authorized for Builds/WoodlandM13Review-20261010.
 Its build and hidden-smoke receipts are pending the packaging step and will be
 appended separately. Next milestone M14. No historical state bytes are removed.
+## 2026-10-10 — M13 final owner Windows build delivered
+
+M13 remains PASS; WP167–169/WP175–178 PASS, WP170–174 owner-deferred.
+Maximum field30 in all active production formats; one Woodland venue.
+Source implementation commit8cdc1d7 pushed to origin/codex/wp-078-ai-pack.
+Final owner build: Builds/WoodlandM13Review-20261010/START_WOODLAND_REVIEW.cmd.
+Unity6000.6.0f1 Windows64 Development build SUCCEEDED,0errors,356753198bytes,
+34.560s.496 nonfatal shader warnings belong to Unity AI Inference/Sentis;
+there are no C# compiler warnings in the build receipt. Warning details saved.
+THIRD_PARTY_CREDITS.txt, review-definition.json and READ_ME_RU.txt packaged.
+
+Actual hidden D3D11 player smoke EXIT0/PASS: Mass30 and Sprint30 initialize,
+advance400 paid manual ticks each, switch scenes through review controls,
+and accept High/Balanced/Low.30mats/30banks,36terrain tiles,33forest groups,
+8284trees. Hidden rendering is suspended:0camera frames/draw-call counters;
+this is functional smoke, not sustained FPS/GPU qualification. Every unavailable
+render metric is explicit. Final full Pursuit30 was verified headlessly from
+the actual Sprint qualification; the player-facing qualification flow is M14.
+Owned hidden Editor exited cleanly after packaging to release its test caches.
+No visible game window launched. Owner can now test this single final M13 build.
+
+Receipt: docs/quality/m13/separate-finish-20261009/windows-final-owner-build-
+receipt.json. Build summary and496shader warning messages retained beside it.
+All PROJECT_STATE history preserved; this record is append-only. Next M14:
+complete player UI/UX/TV/replay flow. Easy-shooting owner feedback remains OPEN
+for M15 tuning; no hidden RNG or authoritative shooting retuning in this closure.
