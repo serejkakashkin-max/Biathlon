@@ -418,9 +418,7 @@ namespace Biathlon.Simulation
                     return Reject(ManualScopedWorldStatus.PhaseLimit,actor.Athlete,gate:gate);
                 bool apronClear=rangeApronSnow!=null&&rangeApronSnow.Clears(actor.Trajectory,row.Kind);
                 ribbons[i].SetRangeApron(row.Kind==ManualRacePathKind.RangeApproach||row.Kind==ManualRacePathKind.RangeExit?rangeApronSnow:null);
-                var course=planted||apronClear?new ManualRouteTubePreview(ManualRouteTubeStatus.Clear,seconds,seconds,0,null):courses[i].Preview(actor.Trajectory,row.Index,checked(row.GeometryStartNanometers+window.PreviousArcNanometers),
-                    window.MaximumArcDisplacementMeters,false);
-                if(course.Status!=ManualRouteTubeStatus.Clear||Math.Abs(course.ClearUntilSeconds-seconds)>seconds*1e-12)
+                if(!planted&&!apronClear)
                 {
                     // Independent actual occupied-body proofs. Internal visual
                     // knot caps are not exterior course walls. Neither proof
@@ -435,9 +433,13 @@ namespace Biathlon.Simulation
                     }
                     if(!clear)
                     {
-                        var ribbon=ribbons[i].Preview(actor.Trajectory,sources[i].Observation.GeometryProjection);
-                        if(ribbon.Status!=ManualRouteTubeStatus.Clear||Math.Abs(ribbon.ClearUntilSeconds-seconds)>seconds*1e-12)
-                            return Reject(ManualScopedWorldStatus.Course,actor.Athlete,course:ribbon,courseEdge:failedEdge);
+                        var course=courses[i].Preview(actor.Trajectory,row.Index,checked(row.GeometryStartNanometers+window.PreviousArcNanometers),window.MaximumArcDisplacementMeters,false);
+                        if(course.Status!=ManualRouteTubeStatus.Clear||Math.Abs(course.ClearUntilSeconds-seconds)>seconds*1e-12)
+                        {
+                            var ribbon=ribbons[i].Preview(actor.Trajectory,sources[i].Observation.GeometryProjection);
+                            if(ribbon.Status!=ManualRouteTubeStatus.Clear||Math.Abs(ribbon.ClearUntilSeconds-seconds)>seconds*1e-12)
+                                return Reject(ManualScopedWorldStatus.Course,actor.Athlete,course:ribbon,courseEdge:failedEdge);
+                        }
                     }
                 }
                 var pose=actor.Trajectory.Sample(1);

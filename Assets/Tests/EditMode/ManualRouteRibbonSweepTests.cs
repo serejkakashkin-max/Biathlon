@@ -7,6 +7,32 @@ namespace Biathlon.Tests
 {
     public sealed class ManualRouteRibbonSweepTests
     {
+        [Test] public void HierarchicalCoverMatchesExhaustiveDiskGridAtFoldedAndOutsidePoses()
+        {
+            var f=new ManualRacePathCatalogTests.Fixture(lane:2,historicalCommonWidth:true);
+            var anchor=new ManualSkiHeadingState(38.759850762,-1.659021024,1.180710536);
+            Assert.That(f.Catalog.TryProject(anchor,3,1368532934L,2,out var at),Is.True);
+            var sweep=new ManualRouteRibbonSweep(f.Catalog.ProjectionGeometry,f.Venue.Occupancy,ManualScopedFieldStepperTests.Work());
+            sweep.Preview(Travel(f.Venue.Occupancy,anchor),f.Catalog.GetGeometryObservation(at));
+            const System.Reflection.BindingFlags flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+            var disk=typeof(ManualRouteRibbonSweep).GetMethod("DiskClearance",flags);
+            var grid=typeof(ManualRouteRibbonSweep).GetMethod("RefinedGridMinimum",flags);
+            T Field<T>(string name)=>(T)typeof(ManualRouteRibbonSweep).GetField(name,flags).GetValue(sweep);
+            int columns=Field<int>("disks"),rows=Field<int>("refinedRows");
+            double length=Field<double>("halfLength"),width=Field<double>("halfWidth"),radius=Field<double>("refinedRadius")+Field<double>("edgeClearance");
+            for(int p=0;p<15;p++)
+            {
+                var pose=new ManualSkiHeadingState(anchor.X+(p%3-1)*.4,anchor.Z+(p/3-2)*.45,anchor.HeadingRadians+(p%3-1)*.2);
+                double fx=Math.Sin(pose.HeadingRadians),fz=Math.Cos(pose.HeadingRadians),expected=double.PositiveInfinity;
+                for(int k=0;k<columns;k++)for(int j=0;j<rows;j++)
+                {
+                    double along=length*(2.0*k+1-columns)/columns,side=width*(2.0*j+1-rows)/rows;
+                    expected=Math.Min(expected,(double)disk.Invoke(sweep,new object[]{pose.X+fx*along+fz*side,pose.Z+fz*along-fx*side,radius}));
+                }
+                double actual=(double)grid.Invoke(sweep,new object[]{pose,fx,fz,0,columns-1,0,rows-1,double.PositiveInfinity,double.NegativeInfinity});
+                Assert.That(actual,Is.EqualTo(expected).Within(1e-12),"Exact same leaf minimum at pose "+p);
+            }
+        }
         [Test] public void CapturedPostRangeSnowShoulderUsesABoundedRectangleCertificate()
         {
             var f=new ManualRacePathCatalogTests.Fixture();var c=f.Catalog;

@@ -629,9 +629,16 @@ namespace Biathlon.Simulation
             return result;
             double Clearance(int i)
             {
-                var edge=edges[i];double t=Math.Max(0,Math.Min(1,((x-edge.X)*edge.DX+(z-edge.Z)*edge.DZ)/(edge.PlanarLength*edge.PlanarLength)));
+                var edge=edges[i];double cap=edge.MinimumWidth*.5-(UseRoundSnowCorridor?0:edge.TubeTurnReserve)-radius;
+                double needed=cap-result;
+                if(needed<=0)return double.NegativeInfinity;
+                double bx=Math.Max(0,Math.Max(Math.Min(edge.X,edge.EndX)-x,x-Math.Max(edge.X,edge.EndX)));
+                double bz=Math.Max(0,Math.Max(Math.Min(edge.Z,edge.EndZ)-z,z-Math.Max(edge.Z,edge.EndZ)));
+                double box=bx*bx+bz*bz,limit=needed*needed;
+                if(box>limit+64*2.2204460492503131e-16*(1+box+limit))return double.NegativeInfinity;
+                double t=Math.Max(0,Math.Min(1,((x-edge.X)*edge.DX+(z-edge.Z)*edge.DZ)/(edge.PlanarLength*edge.PlanarLength)));
                 double dx=x-edge.X-t*edge.DX,dz=z-edge.Z-t*edge.DZ;
-                return edge.MinimumWidth*.5-(UseRoundSnowCorridor?0:edge.TubeTurnReserve)-radius-Math.Sqrt(dx*dx+dz*dz);
+                return cap-Math.Sqrt(dx*dx+dz*dz);
             }
         }
         // A capsule is convex. If every rectangle corner fits the same owned
