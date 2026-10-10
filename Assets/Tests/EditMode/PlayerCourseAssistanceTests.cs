@@ -7,6 +7,24 @@ namespace Biathlon.Tests
     public sealed class PlayerCourseAssistanceTests
     {
         private static PlayerCourseAssistanceDefinition Definition()=>PlayerCourseAssistanceDefinition.FromJson(PhysiologyContractTests.DefinitionJson("player_course_assistance_v1.json"));
+        [Test] public void ReleaseStraightensAtTheExistingPositionAndDoesNotFollowLaterBends()
+        {
+            var s=new PlayerCourseReturnSystem(Definition(),20);
+            var at=new ManualSkiHeadingState(2,40,.4);
+            Assert.That(s.Evaluate(0,at,0,true),Is.Zero,"No steering gesture means no automatic course following.");
+            Assert.That(s.Evaluate(800,at,0,true),Is.EqualTo(800));
+            for(int i=0;i<20;i++)Assert.That(s.Evaluate(0,at,i==0?0:1.5,true),Is.LessThanOrEqualTo(0));
+            Assert.That(s.ReleaseHeadingRadians,Is.Zero,"The tangent is captured once at release, rather than following the bend.");
+            // Aligned on the same offset line: future course curvature cannot
+            // steer us or choose a centreline position.
+            var aligned=new ManualSkiHeadingState(2,45,0);
+            for(int i=0;i<20;i++)s.Evaluate(0,aligned,1.5,true);
+            Assert.That(s.Evaluate(0,aligned,1.5,true),Is.Zero);
+            Assert.That(s.Evaluate(-800,aligned,1.5,true),Is.EqualTo(-800));
+            s.Reset();
+            Assert.That(s.ReleaseHeadingRadians,Is.Null);
+            Assert.That(s.Evaluate(0,aligned,1.5,true),Is.Zero,"Range handback cannot resume a stale steering target.");
+        }
         [Test] public void ReleasedSteeringReturnsGentlyAndHeldSteeringOverridesImmediately()
         {
             var d=Definition();var s=new PlayerCourseReturnSystem(d,20);

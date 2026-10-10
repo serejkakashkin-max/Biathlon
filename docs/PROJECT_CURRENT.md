@@ -1,35 +1,29 @@
-# BIATHLON — текущая работа
+# BIATHLON — latest operational state
 
-Обновлено: 2026-10-10. Полная история от Foundation находится в
-[PROJECT_STATE.md](PROJECT_STATE.md); она сохраняется в режиме append-only.
-Последняя датированная запись определяет действующий статус.
+2026-10-10. M13 owner review remains OPEN; M14 has not started.
+G1/G2 remain APPROVED. One production Woodland venue; max30 racers; High default.
 
-**M13: исправления после hands-on теста готовы, ожидается решение владельца
-по новой сборке. M14 ещё не начат. G1/G2 APPROVED.**
+The owner's post-first-range error is corrected at the admitted mat endpoint.
+Pending device/effort clocks are consumed only after a successful race tick;
+fault containment prevents secondary per-frame exception storms.
 
-Одна production трасса Woodland; максимум 30 спортсменов во всех форматах.
-Согласованный объём WP167–169 и WP175–178 сохранён, WP170–174 отложены
-владельцем. Master Plan не переписан. IBU policy выбора рубежа сохранена.
+Released A/D gently aligns toward the heading captured at release, without
+selecting the road centre or following subsequent bends. Automatic range turns
+clear that target. Private approach and departure use actual turn geometry and
+shared physics. The duration witness is 3.05 s approach / 6.90 s exit turn.
 
-Исправлены многократное экранирование больших контекстов гонки и неограниченное
-накопление шагов после медленного кадра. На диагностическом Mass30 runner
-контекст уменьшился с 358 441 282 до 11 923 485 символов. Графическое качество
-High сохранено. Скрытые проверки не подтверждают устойчивый FPS/GPU.
+Final verification: 45 selected .NET cases PASS, including complete signed
+Mass3/Sprint1/Pursuit3 replays. Mass30: first bout 30/30 at tick 6124, then 300
+further ticks to 6424 on equal field/world clocks, runner not faulted. Ten native
+Unity cases PASS. Windows build: 0 errors/0 warnings. Hidden Mass30/Sprint30
+startup/control/scene smoke PASS, EXIT0. Hidden rendering was suspended;
+sustained FPS and perceived lag await the owner's test.
 
-A/D задают физическое руление; после отпускания начинается мягкий возврат
-к траектории, новое ручное нажатие сразу имеет приоритет. Удержание Space
-сохраняет низкую стойку при подруливании. AI подходят по проходу вне соседних
-ковриков. Наезд на голубую стрелку включает автоматическую постановку;
-после стрельбы автоматика выполняет выходной поворот и отдаёт управление.
+New owner build:
+**Builds/WoodlandM13RangeHandoff-20261010/START_WOODLAND_REVIEW.cmd**.
+READ_ME_RU.txt is beside the executable.
+[Report](reports/TASK_M13_RANGE_HANDOFF_AND_FAULT_20261010.md).
 
-Короткая регрессия: 65/65 .NET, три выбранных native Unity проверки PASS,
-30/30 участников прошли первый рубеж. Подписанные записи/воспроизведение
-Mass3, Sprint1 и Pursuit3 проходят. Windows build: 0 ошибок / 0 предупреждений;
-скрытый smoke Mass30/Sprint30 — PASS / EXIT0. Полные production гонки повторно
-не прогонялись в этой коррекции; итоговый игровой тест выполняет владелец.
-
-Новая сборка: **Builds/WoodlandM13RangeFix-20261010/START_WOODLAND_REVIEW.cmd**.
-[Отчёт и ограничения проверки](reports/TASK_M13_RANGE_OWNER_FEEDBACK_20261010.md).
-
-Feedback о слишком лёгкой стрельбе остаётся OPEN для M15 feel/difficulty/balance
-tuning; hidden RNG не добавлен. Переход к M14 — после owner решения по M13.
+The next action is the owner's first-bout/departure/control test and M13 decision.
+IBU lane rules remain unchanged. Easy-shooting feedback stays OPEN for M15;
+no hidden RNG was added. The dated append-only history is in PROJECT_STATE.md.

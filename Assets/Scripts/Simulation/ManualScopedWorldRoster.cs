@@ -261,7 +261,7 @@ namespace Biathlon.Simulation
                 numericalTolerance?.ToJson()??"numerical_tolerance_not_selected",matCapture?.ToJson()??"mat_capture_not_selected",courseContact?.ToJson()??"course_contact_not_selected",
                 "terminal_rest_canonicalization_only_after_complete_body_course_gate_proof_and_actual_owned_firing_plane;unchanged_pose_heading_paid_time_and_travel;no_general_velocity_or_contact_relaxation",
                 "owned_common_contact_and_boundary_prefix;all_roster_sources_before_event_search;stable_boundary_identity_order;zero_clock_owned_endpoint_notification;no_implicit_lifecycle_handoff;"+
-                "explicit_stationary_owned_firing_hold_v1;exact_zero_velocity_acceleration_and_peak_yaw;actual_endpoint_only;whole_contact_course_gate_proof_still_required"});
+                "explicit_stationary_owned_firing_hold_v2_admitted_folded_endpoint_plant;exact_zero_velocity_acceleration_and_peak_yaw;actual_endpoint_only;whole_contact_course_gate_proof_still_required"});
             initial[0]="manual_scoped_initial_world_roster_v1";initial[1]=tickFrequency.ToString(CultureInfo.InvariantCulture);
             initial[2]=initialTick.Value.ToString(CultureInfo.InvariantCulture);initial[3]="actor,occurrence,observed_arc,high_arc,route_credit,x,z,heading_nrad,yaw,vx,vz,odometer,speed";
             for(int i=0;i<count;i++)
@@ -475,12 +475,14 @@ namespace Biathlon.Simulation
         }
         private bool IsWithinMatPlantArea(ManualRacePathCatalog catalog,ManualRacePathOccurrence row,ManualSkiHeadingState pose)
         {
-            if(matCapture==null||matCapture.PositionTolerance==0||!catalog.TrySamplePortal(row.Index,row.LengthNanometers,out var target))return false;
-            double dx=pose.X-target.X,dz=pose.Z-target.Z;
-            // The firing line spans the admitted mat corridor. A side approach
-            // need not arrive at its centre point. The whole occupied body has
-            // already passed the snow proof; this band only plants its feet.
-            return Math.Abs(dx*target.ForwardX+dz*target.ForwardZ)<=matCapture.PositionTolerance;
+            if(matCapture==null||row.End!=ManualRacePathEnd.FiringLine)return false;
+            // Called only after the complete body, snow and phase admission.
+            // A folded ribbon may observe its admitted terminal station outside
+            // the centreline portal's narrow plane band. Plant that reached
+            // endpoint under the existing bounded speed/spin/energy policy;
+            // do not reject the race or move the body onto another plane.
+            return catalog.TryProject(pose,row.Index,row.LengthNanometers,0,out var at)&&
+                at.PhysicalArcNanometers==row.LengthNanometers;
         }
         private bool TryCanonicalizeRest(ref ManualSkiHeadingState pose,ref SkiPlanarVelocity velocity)
         {

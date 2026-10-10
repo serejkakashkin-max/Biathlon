@@ -23989,3 +23989,67 @@ included in the bounded GitHub change. PROJECT_STATE history from Foundation
 is preserved, with this record appended only. PROJECT_CURRENT is updated to
 reflect reopened owner review. Easy-shooting feedback remains OPEN for M15;
 no hidden RNG or authoritative shooting tuning was added.
+
+## 2026-10-10 — M13 owner range fault and heading hand-back correction
+
+Status: M13 remains OPEN / owner test pending. M14 not started. G1/G2 APPROVED,
+one production Woodland venue, max30 athletes and High default are retained.
+This entry supplements the earlier same-day range feedback record and ADR-0041.
+It does not replace historical Foundation/WP entries or owner approvals.
+
+The supplied player log has 5,603 argument exceptions. Its first failure is
+AI26's physically admitted folded firing endpoint with residual speed about
+0.49 m/s. A narrow independent plant plane prevented bounded foot placement,
+so the field tick stayed unpaid and later frames produced consecutive-input
+clock errors. The admitted endpoint now controls the existing bounded plant
+decision after full body/course/gate proof. Exact X/Z and heading are retained,
+dissipation is recorded, and shooting still requires exact stationary motion.
+
+Device commands remain pending until accepted. Effort is previewed before the
+race tick and committed after it. HasSimulationFault exposes failure; the host
+reports the original exception once and stops issuing secondary unpaid-tick
+commands. It does not skip or pretend to recover failed simulation state.
+
+Owner steering clarification is implemented: after A/D release, capture the
+heading there once and straighten gently toward it. No centreline position or
+future bend is followed. All subsequent bends require manual input. Range
+automation resets the old release heading before hand-back. Held manual input
+still overrides immediately; low downhill posture through steering is retained.
+
+Private mat approach/exit braking observes actual turn/straight geometry and
+shared low-speed yaw capacity. Private future turns cancel propulsion only at
+the stopping envelope. Ordinary course braking retains its previous policy;
+a broader trial was rejected. Range guidance effort is data-driven: approach
+650/1000, departure 800/1000, with normal shared physiology/force costs.
+The duration witness improves from 5.35/17.30 seconds to 3.05/6.90 seconds for
+approach/exit turn. The approximately 9 m two-turn exit is checked pragmatically,
+without imposing an arbitrary sub-six-second owner gate.
+
+Final evidence: 40 bounded .NET cases, 3 complete signed command replays
+(Mass3/Sprint1/Pursuit3), and two Mass30 first-range/departure cases: 45 PASS.
+All 30 complete their first bout at tick 6124; a separate run continues to 6424
+with equal field/world clocks and runner not faulted. Native Unity MCP: 7 device
+cases, actual arrow/shot/departure/hand-back, fault containment, and the exact
+AI26 EditMode plant witness: 10 PASS. Editor Console Error query is empty.
+An earlier broad run was stopped while an extended trial remained active;
+its aborted receipt is diagnostic only and is not counted as a passing suite.
+
+Windows review build: Unity 6000.6.0f1, 0 errors/0 warnings. Hidden Mass30/Sprint30
+startup, quality selection, 400 paid ticks each and scene transition: PASS/EXIT0.
+Hidden rendering was suspended. Sustained FPS/GPU and perceived first-range
+smoothness remain for the owner's hands-on test; full production races were
+not repeated in this bounded correction. The supplied log lacks prior force
+intervals, so the AI26 fixture is a minimized post-admission witness rather
+than a claimed replay of the owner's entire race.
+
+New owner build: Builds/WoodlandM13RangeHandoff-20261010/START_WOODLAND_REVIEW.cmd.
+Russian instructions: READ_ME_RU.txt beside the executable.
+Report: docs/reports/TASK_M13_RANGE_HANDOFF_AND_FAULT_20261010.md.
+Decision: docs/adr/ADR-0042-owner-release-heading-and-range-tick-failure.md.
+Evidence: docs/quality/m13/range-handoff-20261010/.
+Next: owner checks first range/departure, chosen-side release and manual bends,
+then decides M13 closure / M14 transition. IBU lane policy is unchanged;
+easy-shooting feedback stays OPEN for M15 and no hidden hit/miss RNG is added.
+PROJECT_STATE history is preserved byte-for-byte as the prefix of this append;
+PROJECT_CURRENT is updated separately. The bounded change is to be committed
+and pushed under the owner's standing repository authorization.

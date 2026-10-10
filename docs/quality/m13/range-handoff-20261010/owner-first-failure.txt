@@ -1,0 +1,36 @@
+ArgumentException: Firing arrival must physically brake before session admission; no hidden velocity reset. athlete=woodland_basin_v1_athlete_26 occurrence=3 pose=(-34,732826265,2,415833664) heading=1,878826605 velocity=(0,434291228050536,-0,236032303891619) spin=0,136254653 arc=2672000000 length=2672000000 lateral=3,25714235937595
+  at Biathlon.Simulation.SprintAthleteSession.PrepareManualScopedCommit (Biathlon.Simulation.SprintStepPreview preview, Biathlon.Simulation.ManualScopedWorldPreview world, System.Int32 actorIndex) [0x001cb] in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\SprintAthleteScopedMotion.cs:173
+  at Biathlon.Simulation.ManualScopedRosterSessionCommit.Resolve (System.ReadOnlySpan`1[T] pending, Biathlon.Simulation.ManualScopedWorldPreview proposal) [0x0003b] in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\SprintAthleteScopedMotion.cs:365
+  at Biathlon.Simulation.ManualScopedRosterSessionCommit.CommitPackField (Biathlon.Simulation.PackSprintFieldSession field, System.ReadOnlySpan`1[T] inputs, System.ReadOnlySpan`1[T] pending, Biathlon.Simulation.ManualScopedWorldPreview proposal, System.ReadOnlySpan`1[T] drafts) [0x00011] in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\SprintAthleteScopedMotion.cs:377
+  at Biathlon.Simulation.ManualScopedFieldStepper.TryStep (System.ReadOnlySpan`1[T] inputs, System.ReadOnlySpan`1[T] steeringInputs, System.ReadOnlySpan`1[T] brakeFractions) [0x00fdb] in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\ManualScopedFieldStepper.cs:311
+  at Biathlon.AI.ManualScopedAiMovement.Step (Biathlon.Simulation.SprintAthleteInput[] inputs, System.Double[] desiredLateral, System.Int32 playerIndex, System.Int32 playerSteering) [0x00f37] in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:251
+  at Biathlon.AI.PackAiRaceRunner.StepCore (System.Int32 playerIndex, Biathlon.Simulation.SprintAthleteInput playerInput, System.Double playerLateral) [0x0221a] in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:478
+  at Biathlon.AI.PackAiRaceRunner.StepPlayer (System.Int32 index, Biathlon.Simulation.SprintAthleteInput input, System.Double desiredLateralMeters) [0x0011f] in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:248
+  at Biathlon.AI.PackAiRaceRunner.StepWithManualPlayer (System.Int32 index, Biathlon.Simulation.SprintAthleteInput input, System.Int32 signedSteering, System.Boolean finalMatAssistance) [0x0005a] in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:237
+  at Biathlon.Unity.Presentation.ProductionVenueHost.Step (Biathlon.Domain.ManualSkiCommand command, Biathlon.Unity.Presentation.ShootingDeviceCommand shooting) [0x00323] in C:\game\Biathlon\Biathlon\Assets\Scripts\Unity\Presentation\ProductionVenueHost.cs:229
+  at Biathlon.Unity.Presentation.ProductionVenueHost.Update () [0x00167] in C:\game\Biathlon\Biathlon\Assets\Scripts\Unity\Presentation\ProductionVenueHost.cs:177
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&) (at C:\build\output\unity\unity\Runtime\Export\Scripting\StackTrace.cs:50)
+
+(Filename: C:/game/Biathlon/Biathlon/Assets/Scripts/Simulation/SprintAthleteScopedMotion.cs Line: 173)
+
+ArgumentException: Commands require consecutive target ticks.
+  at Biathlon.Simulation.DeviceCommandBuilder.BuildCore (Biathlon.Domain.SimulationTick target, System.Nullable`1[T] currentMeters, System.Double extentMeters, System.Double speedMetersPerSecond) [0x001ba] in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\DeviceCommandBuilder.cs:81
+  at Biathlon.Simulation.DeviceCommandBuilder.BuildManual (Biathlon.Domain.SimulationTick target) [0x00000] in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\DeviceCommandBuilder.cs:51
+  at Biathlon.Unity.Presentation.PlayerDeviceInput.BuildManual (Biathlon.Domain.SimulationTick target) [0x00000] in C:\game\Biathlon\Biathlon\Assets\Scripts\Unity\Presentation\PlayerDeviceInput.cs:74
+  at Biathlon.Unity.Presentation.ProductionVenueHost.Update () [0x00167] in C:\game\Biathlon\Biathlon\Assets\Scripts\Unity\Presentation\ProductionVenueHost.cs:177
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&) (at C:\build\output\unity\unity\Runtime\Export\Scripting\StackTrace.cs:50)
+
+(Filename: C:/game/Biathlon/Biathlon/Assets/Scripts/Simulation/DeviceCommandBuilder.cs Line: 81)
+
+ArgumentException: Commands require consecutive target ticks.
+  at Biathlon.Simulation.DeviceCommandBuilder.BuildCore (Biathlon.Domain.SimulationTick target, System.Nullable`1[T] currentMeters, System.Double extentMeters, System.Double speedMetersPerSecond) [0x001ba] in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\DeviceCommandBuilder.cs:81
+  at Biathlon.Simulation.DeviceCommandBuilder.BuildManual (Biathlon.Domain.SimulationTick target) [0x00000] in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\DeviceCommandBuilder.cs:51
+  at Biathlon.Unity.Presentation.PlayerDeviceInput.BuildManual (Biathlon.Domain.SimulationTick target) [0x00000] in C:\game\Biathlon\Biathlon\Assets\Scripts\Unity\Presentation\PlayerDeviceInput.cs:74
+  at Biathlon.Unity.Presentation.ProductionVenueHost.Update () [0x00167] in C:\game\Biathlon\Biathlon\Assets\Scripts\Unity\Presentation\ProductionVenueHost.cs:177
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&) (at C:\build\output\unity\unity\Runtime\Export\Scripting\StackTrace.cs:50)
+
+(Filename: C:/game/Biathlon/Biathlon/Assets/Scripts/Simulation/DeviceCommandBuilder.cs Line: 81)
+
+ArgumentException: Commands require consecutive target ticks.
+  at Biathlon.Simulation.DeviceCommandBuilder.BuildCore (Biathlon.Domain.SimulationTick target, System.Nullable`1[T] currentMeters, System.Double extentMeters, System.Double speedMetersPerSecond) [0x001ba] in C:\game\Biathlon\Biathlon\Assets\Scripts\Simulation\DeviceCommandBuilder.cs:81
+  at Biathlon.Simulation.DeviceCommand

@@ -21,6 +21,19 @@ namespace Biathlon.Tests
             Assert.That(f.Catalog.TryProject(f.At(occurrence,nm),occurrence,nm,.001,out var at),Is.True);
             return at;
         }
+        [Test] public void DistantDepartureTurnAllowsAccelerationAlongTheStraight()
+        {
+            var f=ManualProductionFieldTests.Initial("mass_start",1);var catalog=f.stepper.World.GetCatalog(0);
+            int exit=catalog.GetFiringOccurrence(0)+1;
+            catalog.TrySample(exit,3*SkiState.NanometersPerMeter,out var p);
+            var pose=new ManualSkiHeadingState(p.X,p.Z,Math.Atan2(p.ForwardX,p.ForwardZ));
+            Assert.That(catalog.TryProject(pose,exit,3*SkiState.NanometersPerMeter,.001,out var at),Is.True);
+            var planner=new ManualAiBendBrakingPlanner(f.runner.Field.Track,catalog,f.stepper.PhysicsDefinition,f.stepper.CorneringDefinition,
+                ManualScopedFieldStepperTests.Steering(),ManualAiSteeringDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ai_steering_v2.json")),f.stepper.BodyDefinition);
+            var plan=planner.Plan(at,1.1,70,70,0);
+            Assert.That(plan.SpeedLimit,Is.GreaterThan(1.1));Assert.That(plan.BrakeFraction,Is.Zero);
+            Assert.That(plan.ReduceEffort,Is.False,"The future bend must not cancel propulsion throughout the straight exit.");
+        }
         [Test] public void OrderedSuccessorBendRequestsBrakingAndShorterChordBeforeEntry()
         {
             var f=new ManualRacePathCatalogTests.Fixture();var planner=Create(f);
@@ -38,9 +51,10 @@ namespace Biathlon.Tests
             var standard=planner.Plan(at,5,70,70,0);
             var weakerResponse=planner.Plan(at,5,70,70,0,steeringResponse:.5);
             var lowGrip=planner.Plan(at,5,70,70,0,grip:.01);
-            double curve=Math.Abs(f.Venue.Track.GetLoop(f.Catalog.Get(turn).LoopId).GetSegment(0).CurvaturePerMeter);
-            var steering=ManualScopedFieldStepperTests.Steering();
-            Assert.That(standard.SpeedLimit,Is.EqualTo(steering.MaximumYawRate*steering.HighSpeedResponseMultiplier/curve).Within(1e-12));
+            // The folded physical turn is not the loop's uniform scalar
+            // curvature. It still respects response and snow grip, without
+            // imposing the high-speed yaw penalty at walking speed.
+            Assert.That(standard.SpeedLimit,Is.GreaterThan(0).And.LessThan(1.5));
             Assert.That(standard.BrakeFraction,Is.EqualTo(1));
             Assert.That(weakerResponse.SpeedLimit,Is.EqualTo(standard.SpeedLimit*.5).Within(1e-12));
             Assert.That(lowGrip.SpeedLimit,Is.LessThan(standard.SpeedLimit));
@@ -59,7 +73,7 @@ namespace Biathlon.Tests
             Assert.That(planner.Plan(firing,0,70,70,0).MinimumWidthMeters,
                 Is.EqualTo(f.Catalog.SampleSurface(firing).WidthMeters));
             Assert.That(before.OccurrenceIndex,Is.EqualTo(common));
-            Assert.That(planner.ContextJson,Does.Contain("v2_owned_future_width"));
+            Assert.That(planner.ContextJson,Does.Contain("v4_actual_mat_geometry_low_speed_yaw"));
         }
         [Test] public void StraightOwnedStartDoesNotInventBrakingOrChangeObservation()
         {

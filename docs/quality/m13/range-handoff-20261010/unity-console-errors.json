@@ -1,0 +1,15 @@
+
+Run Tool
+  Tool: console-get-logs
+  URL: http://localhost:29577/api/tools/console-get-logs
+  Auth: from config or machine store
+──────────────────────────────────────────────────
+Calling console-get-logs...
+SUCCESS: console-get-logs completed
+SUCCESS: Response:
+{
+  "status": "success",
+  "structured": {
+    "result": []
+  }
+}

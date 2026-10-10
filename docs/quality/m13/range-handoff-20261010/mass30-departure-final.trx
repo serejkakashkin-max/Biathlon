@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="91882d8c-868e-4ff9-8917-5039caac98c7" name="snkashkin@DESKTOP-G3075GA 2026-10-10 12:24:32" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-10T12:24:32.8054108+03:00" queuing="2026-10-10T12:24:32.8054109+03:00" start="2026-10-10T12:23:38.9842039+03:00" finish="2026-10-10T12:24:32.8082381+03:00" />
+  <TestSettings name="default" id="c63dd91e-7b96-41b6-ac81-94b2e1595935">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-10_12_24_32" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="7d47de75-f811-4d3e-bd04-d2446e7f263a" testId="21fc1716-64c1-df36-9901-992e2534947b" testName="ThirtyAthletesPassTheFirstShootingAndContinueOnOneClock" computerName="DESKTOP-G3075GA" duration="00:00:52.9526690" startTime="2026-10-10T12:23:39.6124089+03:00" endTime="2026-10-10T12:24:32.5650353+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7d47de75-f811-4d3e-bd04-d2446e7f263a">
+      <Output>
+        <StdOut>first_bout_all_30_tick=6124 continued_to=6424</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ThirtyAthletesPassTheFirstShootingAndContinueOnOneClock" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="21fc1716-64c1-df36-9901-992e2534947b">
+      <Execution id="7d47de75-f811-4d3e-bd04-d2446e7f263a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerRangeMatArrivalRegressionTests" name="ThirtyAthletesPassTheFirstShootingAndContinueOnOneClock" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="21fc1716-64c1-df36-9901-992e2534947b" executionId="7d47de75-f811-4d3e-bd04-d2446e7f263a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+first_bout_all_30_tick=6124 continued_to=6424&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-G3075GA" outcome="Warning" timestamp="2026-10-10T12:24:32.7690126+03:00">
+        <Text>Сообщение сборщика данных "Blame": Все тесты завершены, файл последовательности не будет создан..</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

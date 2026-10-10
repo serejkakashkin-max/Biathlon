@@ -73,7 +73,7 @@ namespace Biathlon.AI
             for(int i=0;i<n;i++)context[i+5]=ManualContextIdentity.Sha256(bends[i].ContextJson);
             for(int p=0;p<choices;p++)context[n+p+5]=ManualContextIdentity.Sha256(familyBends[p].ContextJson);
             ContextJson=Encode(context);
-            if(playerAssistance!=null)ContextJson=Encode(new[]{"manual_owner_gentle_release_return_v1",ContextJson,playerAssistance.ToJson()});
+            if(playerAssistance!=null)ContextJson=Encode(new[]{"manual_owner_release_heading_alignment_v2_no_course_following",ContextJson,playerAssistance.ToJson()});
         }
         public int GetSteering(int index)=>index>=0&&index<steering.Length?steering[index]:throw new ArgumentOutOfRangeException(nameof(index));
         public double GetBrakeFraction(int index)=>index>=0&&index<brakes.Length?brakes[index]:throw new ArgumentOutOfRangeException(nameof(index));
@@ -90,6 +90,9 @@ namespace Biathlon.AI
                 playerIndex<-1||playerIndex>=steering.Length||playerSteering<-ManualSkiCommand.SteeringUnits||playerSteering>ManualSkiCommand.SteeringUnits)
                 throw new ArgumentException("Exact roster and signed player intent required.");
             var world=stepper.World;
+            // An automatic range turn replaces the previous manual heading.
+            // Never resume a stale release target when controls are handed back.
+            if(playerIndex<0)playerReturn?.Reset();
             // A paid resource choice changes only the future path. Use its cold
             // controller immediately; never keep intent for the previous mat.
             for(int i=0;i<world.Count;i++)
@@ -104,14 +107,9 @@ namespace Biathlon.AI
                 brakes[i]=0;
                 if(i==playerIndex)
                 {
-                    int returnIntent=0;var body=world.GetActor(i);var at=world.GetCursor(i);var owned=catalogs[i].Get(at.OccurrenceIndex);
-                    if(playerReturn!=null&&playerSteering==0&&world.GetPhysicalMotion(i).SpeedMetersPerSecond>0)
-                    {
-                        var returnPlan=controllers[i].Plan(body.Pose,catalogs[i].GetGeometryObservation(body.Observation),
-                            world.GetPhysicalMotion(i).SpeedMetersPerSecond,owned.End==ManualRacePathEnd.Continue);
-                        if(returnPlan.IsValid)returnIntent=returnPlan.SteeringInput;
-                    }
-                    steering[i]=playerReturn==null?playerSteering:playerReturn.Evaluate(playerSteering,returnIntent,world.GetPhysicalMotion(i).SpeedMetersPerSecond>0);
+                    var body=world.GetActor(i);
+                    steering[i]=playerReturn==null?playerSteering:playerReturn.Evaluate(playerSteering,body.Pose,
+                        Math.Atan2(body.Observation.ForwardX,body.Observation.ForwardZ),world.GetPhysicalMotion(i).SpeedMetersPerSecond>0);
                     continue;
                 }
                 var actor=world.GetActor(i);var motion=world.GetPhysicalMotion(i);var catalog=catalogs[i];

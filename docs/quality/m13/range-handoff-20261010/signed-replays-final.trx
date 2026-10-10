@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="26972c6f-b074-4c68-a847-b70900e88781" name="snkashkin@DESKTOP-G3075GA 2026-10-10 12:24:33" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-10T12:24:33.2533880+03:00" queuing="2026-10-10T12:24:33.2533881+03:00" start="2026-10-10T12:24:07.9013283+03:00" finish="2026-10-10T12:25:03.9718820+03:00" />
+  <TestSettings name="default" id="787258d5-f975-4102-95ea-b0e761178c65">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-10_12_24_33" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9f632d78-fd27-4c24-a97a-9b14a801bef0" testId="564252ea-b3b8-52b9-e30f-eea3fc818ed3" testName="CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(&quot;pursuit&quot;,3)" computerName="DESKTOP-G3075GA" duration="00:00:20.7217700" startTime="2026-10-10T12:24:43.0514246+03:00" endTime="2026-10-10T12:25:03.7731941+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9f632d78-fd27-4c24-a97a-9b14a801bef0">
+      <Output>
+        <StdOut>pursuit signed replay actors=3 ticks=23539 runs=52975 json_chars=25102896</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7f36a1ad-ee0d-45ae-918f-0a6476b5b1f3" testId="ce641d68-be27-da70-dfd6-f79cbb12b4bb" testName="CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(&quot;sprint&quot;,1)" computerName="DESKTOP-G3075GA" duration="00:00:09.8428940" startTime="2026-10-10T12:24:33.2084982+03:00" endTime="2026-10-10T12:24:43.0513916+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7f36a1ad-ee0d-45ae-918f-0a6476b5b1f3">
+      <Output>
+        <StdOut>sprint signed replay actors=1 ticks=17133 runs=12397 json_chars=5874988</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="dd35e83f-8e81-4598-a66b-6cb17864ee1c" testId="24a436b1-b045-c346-21dd-f18c0d091a8d" testName="CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(&quot;mass_start&quot;,3)" computerName="DESKTOP-G3075GA" duration="00:00:24.7992020" startTime="2026-10-10T12:24:08.4084508+03:00" endTime="2026-10-10T12:24:33.2076239+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dd35e83f-8e81-4598-a66b-6cb17864ee1c">
+      <Output>
+        <StdOut>mass_start signed replay actors=3 ticks=27421 runs=54383 json_chars=25791405</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(&quot;pursuit&quot;,3)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="564252ea-b3b8-52b9-e30f-eea3fc818ed3">
+      <Execution id="9f632d78-fd27-4c24-a97a-9b14a801bef0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedRaceCommandTapeTests" name="CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(&quot;pursuit&quot;,3)" />
+    </UnitTest>
+    <UnitTest name="CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(&quot;mass_start&quot;,3)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="24a436b1-b045-c346-21dd-f18c0d091a8d">
+      <Execution id="dd35e83f-8e81-4598-a66b-6cb17864ee1c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedRaceCommandTapeTests" name="CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(&quot;mass_start&quot;,3)" />
+    </UnitTest>
+    <UnitTest name="CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(&quot;sprint&quot;,1)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="ce641d68-be27-da70-dfd6-f79cbb12b4bb">
+      <Execution id="7f36a1ad-ee0d-45ae-918f-0a6476b5b1f3" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedRaceCommandTapeTests" name="CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(&quot;sprint&quot;,1)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="564252ea-b3b8-52b9-e30f-eea3fc818ed3" executionId="9f632d78-fd27-4c24-a97a-9b14a801bef0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ce641d68-be27-da70-dfd6-f79cbb12b4bb" executionId="7f36a1ad-ee0d-45ae-918f-0a6476b5b1f3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="24a436b1-b045-c346-21dd-f18c0d091a8d" executionId="dd35e83f-8e81-4598-a66b-6cb17864ee1c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 3 of 3 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+mass_start signed replay actors=3 ticks=27421 runs=54383 json_chars=25791405&#xD;
+&#xD;
+sprint signed replay actors=1 ticks=17133 runs=12397 json_chars=5874988&#xD;
+&#xD;
+pursuit signed replay actors=3 ticks=23539 runs=52975 json_chars=25102896&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

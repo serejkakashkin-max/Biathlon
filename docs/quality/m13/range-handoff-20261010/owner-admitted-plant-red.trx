@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="7018eff3-58da-4eee-97cb-ea7cab62d900" name="snkashkin@DESKTOP-G3075GA 2026-10-10 11:36:11" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-10T11:36:11.2922289+03:00" queuing="2026-10-10T11:36:11.2922290+03:00" start="2026-10-10T11:36:04.9860211+03:00" finish="2026-10-10T11:36:11.2954116+03:00" />
+  <TestSettings name="default" id="9aea319e-db80-451d-be9a-0215327699bd">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-10_11_36_11" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="a5564ba9-a8ab-4301-bdcd-5478adcc828b" testId="63fa9a8f-c39b-cc3c-75c8-08d0b83dc7fd" testName="ActualOwnerAi26ArrivalPlantsWithoutRejectingTheWholeRaceTick" computerName="DESKTOP-G3075GA" duration="00:00:05.6424950" startTime="2026-10-10T11:36:05.4766344+03:00" endTime="2026-10-10T11:36:11.1190999+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a5564ba9-a8ab-4301-bdcd-5478adcc828b">
+      <Output>
+        <ErrorInfo>
+          <Message>  An admitted folded endpoint cannot require a different centreline plane before planting.&#xD;
+  Expected: True&#xD;
+  But was:  False&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.OwnerRangeMatArrivalRegressionTests.ActualOwnerAi26ArrivalPlantsWithoutRejectingTheWholeRaceTick() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\OwnerRangeMatArrivalRegressionTests.cs:line 31&#xD;
+
+1)    at Biathlon.Tests.OwnerRangeMatArrivalRegressionTests.ActualOwnerAi26ArrivalPlantsWithoutRejectingTheWholeRaceTick() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\OwnerRangeMatArrivalRegressionTests.cs:line 31&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ActualOwnerAi26ArrivalPlantsWithoutRejectingTheWholeRaceTick" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="63fa9a8f-c39b-cc3c-75c8-08d0b83dc7fd">
+      <Execution id="a5564ba9-a8ab-4301-bdcd-5478adcc828b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerRangeMatArrivalRegressionTests" name="ActualOwnerAi26ArrivalPlantsWithoutRejectingTheWholeRaceTick" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="63fa9a8f-c39b-cc3c-75c8-08d0b83dc7fd" executionId="a5564ba9-a8ab-4301-bdcd-5478adcc828b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

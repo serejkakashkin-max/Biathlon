@@ -53,6 +53,7 @@ namespace Biathlon.Unity.Presentation
         private RangeGuidanceTrailDefinition guidanceTrail;
         public double DiscardedWallSeconds=>frameClock?.DiscardedWallSeconds??0;
         public double LastSimulationFrameMilliseconds {get;private set;}
+        public bool HasSimulationFault {get;private set;}
         private bool shootingContext;
         private bool[] shootingLaps;
         public bool IsShootingLap(int lap)=>shootingLaps!=null&&lap>=0&&lap<shootingLaps.Length&&shootingLaps[lap];
@@ -168,17 +169,28 @@ namespace Biathlon.Unity.Presentation
             if(shooting!=shootingContext){ski.ReleaseHeldInput();shot.ReleaseHeldInput();shootingContext=shooting;}
             if(shooting){bool reviewMouse=Review!=null&&Mouse.current!=null&&Review.ContainsScreenPointer(Mouse.current.position.ReadValue());shot.Capture(UseGamepad||reviewMouse?null:Mouse.current,UseGamepad?null:Keyboard.current,UseGamepad?Gamepad.current:null);ski.ReleaseHeldInput();}
             else{ski.Capture(UseGamepad?null:Keyboard.current,UseGamepad?Gamepad.current:null);shot.ReleaseHeldInput();}
-            int steps=frameClock.BeginFrame(Time.deltaTime);frameWork.Restart();batchFrame=true;int completed=0;
+            AdvanceSimulationFrame(Time.deltaTime);
+        }
+        public void AdvanceSimulationFrame(double elapsed)
+        {
+            if(HasSimulationFault)return;
+            int steps=frameClock.BeginFrame(elapsed);frameWork.Restart();batchFrame=true;int completed=0;
             try
             {
                 for(int i=0;i<steps&&!Runner.Field.IsComplete;i++)
                 {
                     var tick=Runner.Field.Tick.Next();
-                    if(ManualStepper!=null)Step(ski.BuildManual(tick),shot.Build(tick));
+                    if(ManualStepper!=null){Step(ski.PeekManual(tick),shot.Build(tick));ski.AcceptManual(tick);}
                     else Step(ski.BuildDirectional(tick,Runner.Field.GetLateral(PlayerIndex),CurrentLateralExtent),shot.Build(tick));
                     frameClock.ConsumeTick();completed++;
                     if(frameWork.Elapsed.TotalMilliseconds>=frameBudget.WorkBudgetMilliseconds)break;
                 }
+            }
+            catch(Exception failure)
+            {
+                // Report the original failure once. An uncommitted race tick
+                // must never generate thousands of secondary input exceptions.
+                HasSimulationFault=true;Debug.LogException(failure,this);
             }
             finally{batchFrame=false;LastSimulationFrameMilliseconds=frameWork.Elapsed.TotalMilliseconds;}
             if(completed>0)PublishPresentation();
@@ -186,7 +198,7 @@ namespace Biathlon.Unity.Presentation
         public void Step(PlayerCommand command,ShootingDeviceCommand shooting)
         {
             if(Runner==null)throw new InvalidOperationException("Initialize the host first.");
-            var applied=effort.Step(command,true);
+            var applied=effort.Preview(command,true);
             var actor=Runner.Field.GetAthlete(PlayerIndex);var point=Runner.Field.GetPhysicalPoint(PlayerIndex);
             double manualLine=CurrentLateralExtent*command.LineIntent/PlayerCommand.LineIntentUnits;
             long stopDistance=long.MaxValue;
@@ -198,12 +210,13 @@ namespace Biathlon.Unity.Presentation
             var input=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(command.Tick,command.AthleteId,assist.RequestedEffort),1,1,0,
                 !assist.Active&&command.TuckHeld,!assist.Active&&applied.FinalSprintRequested),shooting.Aim,shooting.Trigger,shooting.HoldBreath);
             Runner.StepWithPlayer(PlayerIndex,input,assist.RequestedLateral);LastRangeAssistance=assist;
+            effort.Step(command,true);
             if(!batchFrame)PublishPresentation();
         }
         public void Step(ManualSkiCommand command,ShootingDeviceCommand shooting)
         {
             if(ManualStepper==null)throw new InvalidOperationException("Signed heading mode must be selected before manual input.");
-            var applied=effort.Step(command.ToEffortCommand(),true);
+            var applied=effort.Preview(command.ToEffortCommand(),true);
             var actor=Runner.Field.GetAthlete(PlayerIndex);var point=Runner.Field.GetPhysicalPoint(PlayerIndex);
             var cursor=ManualStepper.World.GetCursor(PlayerIndex);var catalog=ManualStepper.World.GetCatalog(PlayerIndex);
             var occurrence=catalog.Get(cursor.OccurrenceIndex);
@@ -227,6 +240,7 @@ namespace Biathlon.Unity.Presentation
             var input=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(command.Tick,command.AthleteId,assist.RequestedEffort),1,1,0,
                 !assist.Active&&command.TuckHeld,!assist.Active&&applied.FinalSprintRequested),shooting.Aim,shooting.Trigger,shooting.HoldBreath);
             Runner.StepWithManualPlayer(PlayerIndex,input,command.SteeringInput,assist.Active);LastRangeAssistance=assist;
+            effort.Step(command.ToEffortCommand(),true);
             if(!batchFrame)PublishPresentation();
         }
         private void PublishPresentation()

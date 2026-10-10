@@ -39,6 +39,19 @@ namespace Biathlon.PlayModeTests
             InputSystem.QueueStateEvent(keyboard, new KeyboardState(Key.E)); InputTestScope.Update(); adapter.Capture(keyboard, null);
             Assert.That(adapter.Build(new SimulationTick(3)).OvertakeRequested, Is.True);
         }
+        [Test] public void PendingManualCommandIsConsumedOnlyAfterItsRaceTickWasAccepted()
+        {
+            InputSystem.QueueStateEvent(keyboard,new KeyboardState(Key.W,Key.D,Key.E));InputTestScope.Update();adapter.Capture(keyboard,null);
+            var first=adapter.PeekManual(new SimulationTick(1));
+            Assert.That(adapter.PeekManual(new SimulationTick(1)),Is.EqualTo(first));
+            Assert.That(first.ToEffortCommand().OvertakeRequested,Is.True);
+            Assert.Throws<System.InvalidOperationException>(()=>adapter.PeekManual(new SimulationTick(2)));
+            adapter.AcceptManual(new SimulationTick(1));
+            var next=adapter.PeekManual(new SimulationTick(2));
+            Assert.That(next.Tick.Value,Is.EqualTo(2));
+            Assert.That(next.ToEffortCommand().OvertakeRequested,Is.False);
+            adapter.AcceptManual(new SimulationTick(2));
+        }
         [Test]
         public void FocusLossCancelsPendingEdgeAndDeviceAbsenceStaysNeutral()
         {
