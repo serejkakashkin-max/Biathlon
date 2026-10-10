@@ -37,7 +37,9 @@ hit geometry and assists have not been retuned in this presentation correction.
 [Decision](adr/ADR-0044-range-apron-snow-and-world-rifle-view.md).
 Evidence: docs/quality/m13/range-world-review-20261010/.
 The entire2924203-byte pre-task PROJECT_STATE history is preserved and hashed;
-only a dated entry is appended. Repository delivery will be recorded after push.
+only dated entries are appended. Implementation/evidence committed as fe2fd13
+and0bc7e9b and successfully pushed to origin/codex/wp-078-ai-pack, including
+the four native Game View captures. Unrelated workspace changes preserved.
 
 Next: owner tests final setup/shooting and30sec after departure, then decides
 M13 closure. No automatic M14 transition or gate approval.

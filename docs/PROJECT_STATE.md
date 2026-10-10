@@ -24216,3 +24216,14 @@ verified unchanged before/after this append. PROJECT_CURRENT updated separately.
 Changes/evidence are committed and pushed under standing owner authorization.
 Next: owner tests final setup/shooting and30sec after departure, then decides
 M13 closure. No automatic M14 transition or owner-gate approval.
+
+
+### 2026-10-10 — Repository delivery for range-apron and rifle-view correction
+
+Core crash fix/regressions committed as fe2fd13; venue rifle view, start grid,
+range flags/signs, forest pruning, report/evidence and state append as0bc7e9b.
+Both successfully pushed to origin/codex/wp-078-ai-pack; four native Game View
+captures uploaded through Git LFS. Remote HEAD matched local0bc7e9b on delivery.
+Owner build: Builds/WoodlandM13RangeWorld-20261010/START_WOODLAND_REVIEW.cmd.
+M13 remains OPEN for the owner's final setup/shooting/departure review;
+M14 has not started. All2924203 historical bytes remain unchanged.
