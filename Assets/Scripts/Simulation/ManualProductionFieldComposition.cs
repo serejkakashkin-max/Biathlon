@@ -21,6 +21,8 @@ namespace Biathlon.Simulation
                 ManualNumericalToleranceDefinition.FromJson(readCore("manual_gameplay_tolerance_v1.json")),
                 ManualMatCaptureDefinition.FromJson(readCore("manual_mat_capture_v1.json")),
                 ManualCourseContactDefinition.FromJson(readCore("manual_course_contact_v1.json")));
+            if(venue.SharedApron!=null&&venue.Manifest.Range.Forward.X==0&&venue.Manifest.Range.Forward.Z==1)
+                world.BindRangeApronSnow(new ManualRangeApronSnowRegion(venue));
             return new ManualScopedFieldStepper(field,world,models,venue.Occupancy,steering,work,
                 ManualMatBrakingDefinition.FromJson(readCore("manual_mat_braking_v1.json")));
         }

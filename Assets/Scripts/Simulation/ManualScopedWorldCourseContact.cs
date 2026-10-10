@@ -9,6 +9,10 @@ namespace Biathlon.Simulation
         private readonly bool[] courseSupports;
         private readonly int[] courseImpactCounts;
         public int CourseEdgeResponses {get;private set;}
+        public double LastCourseNormalX {get;private set;}
+        public double LastCourseNormalZ {get;private set;}
+        public double LastCourseAngularLever {get;private set;}
+        public ManualSkiHeadingState LastCourseThreatenedPose {get;private set;}
         public int GetCourseEdgeResponses(int actor)=>courseImpactCounts[actor];
         /// <summary>Resolve a reached local snow edge as a passive contact.
         /// Position, heading, progress, time and odometer are never corrected.
@@ -40,6 +44,7 @@ namespace Biathlon.Simulation
             }
             if(double.IsNaN(norm)||double.IsInfinity(norm)||norm<PhysiologyNumbers.MinimumPositive||double.IsNaN(gh)||double.IsInfinity(gh))return false;
             gx/=norm;gz/=norm;gh/=norm;
+            LastCourseNormalX=gx;LastCourseNormalZ=gz;LastCourseAngularLever=gh;LastCourseThreatenedPose=threatened;
             courseNormalsX[index]=gx;courseNormalsZ[index]=gz;courseLevers[index]=gh;courseSupports[index]=true;
             double inertia=Inertia(index),responseLever=courseContact.ArrestContactSpin?0:gh;
             double inverse=1/masses[index]+responseLever*responseLever/inertia;

@@ -182,6 +182,16 @@ namespace Biathlon.Simulation
             UpdatePhysicalParticipants(Tick.Next());
         }
         public int Count=>accepted.Length;
+        private ManualRangeApronSnowRegion rangeApronSnow;
+        internal void BindRangeApronSnow(ManualRangeApronSnowRegion region)
+        {
+            if(region==null||rangeApronSnow!=null||Tick.Value!=0||tickActive||ready)throw new ArgumentException("Bind an apron only to the fresh world.");
+            if(region.BodyJson!=BodyContextJson)throw new ArgumentException("Exact apron body required.");
+            for(int i=0;i<Count;i++)if(region.TrackJson!=catalogs[i].TrackSnapshotJson||region.VisualJson!=catalogs[i].VisualSnapshotJson||
+                region.PathsJson!=catalogs[i].SelectedPath.PathsSnapshotJson)throw new ArgumentException("Exact authored apron geometry required.");
+            rangeApronSnow=region;var extra=ShootingModelDefinitions.EncodeContext(new[]{region.ContextJson});
+            ContextJson=ContextJson.Substring(0,ContextJson.Length-1)+","+extra.Substring(1);
+        }
         public int MaximumMotionPieces=>maximumPieces;
         public ManualRouteRibbonDiagnostics GetRibbonDiagnostics(int index)=>ribbons[index].Diagnostics;
         public string WorkContextJson {get;}
@@ -406,7 +416,9 @@ namespace Biathlon.Simulation
                     gates[i].Preview(actor.Trajectory,row.Index,window.PreviousArcNanometers,window.MaximumArcDisplacementMeters,window.MaximumAdmittedArcNanometers);
                 if(gate.Status!=ManualRacePathGateStatus.Clear)
                     return Reject(ManualScopedWorldStatus.PhaseLimit,actor.Athlete,gate:gate);
-                var course=planted?new ManualRouteTubePreview(ManualRouteTubeStatus.Clear,seconds,seconds,0,null):courses[i].Preview(actor.Trajectory,row.Index,checked(row.GeometryStartNanometers+window.PreviousArcNanometers),
+                bool apronClear=rangeApronSnow!=null&&rangeApronSnow.Clears(actor.Trajectory,row.Kind);
+                ribbons[i].SetRangeApron(row.Kind==ManualRacePathKind.RangeApproach||row.Kind==ManualRacePathKind.RangeExit?rangeApronSnow:null);
+                var course=planted||apronClear?new ManualRouteTubePreview(ManualRouteTubeStatus.Clear,seconds,seconds,0,null):courses[i].Preview(actor.Trajectory,row.Index,checked(row.GeometryStartNanometers+window.PreviousArcNanometers),
                     window.MaximumArcDisplacementMeters,false);
                 if(course.Status!=ManualRouteTubeStatus.Clear||Math.Abs(course.ClearUntilSeconds-seconds)>seconds*1e-12)
                 {

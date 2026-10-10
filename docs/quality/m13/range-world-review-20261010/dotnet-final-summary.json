@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "id": "m13_range_world_dotnet_final_v1",
+  "passed": 24,
+  "failed": 0,
+  "results": [
+    {
+      "name": "MatHairpinAdmitsStationaryBodyButRejectsUnbrakedFastArrival(True)",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "FoldedMatEdgeClearanceChangesContinuouslyDuringTheNormalProbe",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "WarmRepeatedCoverQueriesAreDeterministicAndAllocateNothing",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "RefinedCellsDoNotShrinkAnOversizedOccupiedBody",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "WarmRefinedFoldedCoverRemainsAllocationFreeAndRepeatable",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "CapturedMassStartRectangleKeepsItsActualEdgeClearance(-0.002d,UnresolvedStart)",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "PlayerMassArrivalKeepsFinalSetupAndOtherActorsOnTheSharedClock(1000,0)",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(-1.6d)",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "ShortStartSeamWindowIncludesTheWholeDiskCover",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "TightFoldedRibbonCombinesCompleteDiskProofsWithoutAGlobalHull",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "CapturedMassStartRectangleKeepsItsActualEdgeClearance(0.0d,Clear)",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "ActualLateralDepartureIsStillRejected",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "MatHairpinAdmitsStationaryBodyButRejectsUnbrakedFastArrival(False)",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "AnUpcomingNarrowMatDoesNotShrinkTheAlreadyOwnedWiderAisle",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "PlayerMassArrivalKeepsFinalSetupAndOtherActorsOnTheSharedClock(650,500)",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "ExactRectangleProofRejectsAConcaveNotchBetweenItsInsideCorners",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "AuthoredEndpointSurvivesCancellationWhenTheCurveCrossesZeroX",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "CapturedPostRangeSnowShoulderUsesABoundedRectangleCertificate",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "TightMatBendCanUseACompleteBodyCoverInsideExistingConservativeTubes(0.0d)",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "ADisconnectedOrDistantPositionCannotUseTheTubeCoverAsABridge",
+      "outcome": "Passed",
+      "evidence": "core-final.trx"
+    },
+    {
+      "name": "ProductionApronCommandsReplayThroughTheFirstBoutWithoutAi",
+      "outcome": "Passed",
+      "evidence": "apron-replay-final.trx"
+    },
+    {
+      "name": "CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(\"sprint\",1)",
+      "outcome": "Passed",
+      "evidence": "legacy-replay-final.json"
+    },
+    {
+      "name": "CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(\"pursuit\",3)",
+      "outcome": "Passed",
+      "evidence": "legacy-replay-final.json"
+    },
+    {
+      "name": "CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(\"mass_start\",3)",
+      "outcome": "Passed",
+      "evidence": "legacy-replay-final.json"
+    }
+  ]
+}

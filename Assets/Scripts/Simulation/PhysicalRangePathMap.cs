@@ -35,6 +35,7 @@ namespace Biathlon.Simulation
         /// <summary>Cold upper bound for physical terrain receipts across this lane, counting every slice occurrence.</summary>
         internal int TerrainIntervalCount { get; }
         public string ContextJson { get; }
+        internal string PathsSnapshotJson {get;}
         internal bool IsBoundTo(TrackDefinition authoredTrack,RaceRoute authoredRoute)=>ReferenceEquals(track,authoredTrack)&&ReferenceEquals(route,authoredRoute);
         internal bool IsSameFamily(PhysicalRangePathMap other)=>other!=null&&ReferenceEquals(track,other.track)&&ReferenceEquals(route,other.route)&&ReferenceEquals(definition,other.definition);
 
@@ -78,7 +79,8 @@ namespace Biathlon.Simulation
             }
             TerrainIntervalCount=terrainIntervals;
             samplers=new TrackSampler[track.LoopCount];for(int i=0;i<samplers.Length;i++)samplers[i]=new TrackSampler(track.GetLoop(i));
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{definition.ToJson(),definition.TrackSnapshotJson,definition.JunctionSnapshotJson,definition.ConnectionSnapshotJson,route.PlanSnapshotJson,route.RequirementsSnapshotJson,
+            PathsSnapshotJson=definition.ToJson();
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{PathsSnapshotJson,definition.TrackSnapshotJson,definition.JunctionSnapshotJson,definition.ConnectionSnapshotJson,route.PlanSnapshotJson,route.RequirementsSnapshotJson,
                 lane.Id,"range_physical_slices_v1;actual_path_sample;individual_mat_offset;no_admission_grant"});
         }
 

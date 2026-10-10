@@ -32,6 +32,8 @@ namespace Biathlon.Simulation
         private int vertices;
         private bool simpleRibbon;
         private ManualConnectedTubeWindow tubeWindow;
+        private ManualRangeApronSnowRegion rangeApron;
+        internal void SetRangeApron(ManualRangeApronSnowRegion region)=>rangeApron=region;
         public int LastVertexCount=>vertices;
         private int clearanceSamples,diskQueries;
         public double LastStartClearance {get;private set;}
@@ -55,7 +57,7 @@ namespace Biathlon.Simulation
             bodyRadius=Math.Sqrt(halfWidth*halfWidth+halfLength*halfLength);
             edgeClearance=body.EdgeClearance-(tolerance?.CourseClearanceAllowance??0);
             x=new double[map.MaximumRibbonVertices];z=new double[x.Length];
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_local_authored_ribbon_v10_convex_capsule_rectangle","projection_context_sha256:"+ManualContextIdentity.Sha256(map.ContextJson),
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_local_authored_ribbon_v11_continuous_capsule_margin","projection_context_sha256:"+ManualContextIdentity.Sha256(map.ContextJson),
                 body.ToJson(),work.ToJson(),tolerance?.ToJson()??"numerical_tolerance_not_selected",
                 "all_rectangle_corners_in_one_owned_convex_capsule;certificate_threshold_includes_continuous_bound_and_existing_tolerance;actual_knot_normals;minimum_window_width;exact_authored_endpoints;simple_polygon_only;all_rectangle_corners_inside_and_all_edges_disjoint;minimum_segment_separation_minus_selected_edge_clearance;bounded_explicit_soft_snow_shoulder;per_disk_independent_conservative_tube_cover;unchanged_tube_turn_reserve;disk_count_from_maximum_depth;bounded_rectangular_cell_circumdisks;unchanged_full_body;full_cover_envelope_and_source_offset;continuous_whole_body_bound;no_phase_or_centre_credit"});
         }
@@ -98,14 +100,19 @@ namespace Biathlon.Simulation
             var left=Search(trajectory,from,mid,depth+1,reserve,ref checks);
             return left.Status==ManualRouteTubeStatus.Clear?Search(trajectory,mid,to,depth+1,reserve,ref checks):left;
         }
-        internal double CurrentRibbonClearance(ManualSkiHeadingState pose)=>Clearance(pose);
+        // A contact normal must compare the same full clearance field on both
+        // sides of its probe. Certificate early-outs are valid for admission,
+        // but switching certificates at zero introduces a false normal.
+        internal double CurrentRibbonClearance(ManualSkiHeadingState pose)=>Clearance(pose,certificateThreshold:double.PositiveInfinity);
         internal double CurrentCoverClearance(ManualSkiHeadingState pose)=>Clearance(pose,true);
         private double Clearance(ManualSkiHeadingState pose,bool coverOnly=false,double certificateThreshold=0)
         {
             clearanceSamples++;
+            double capsule=rangeApron?.Clearance(pose)??double.NegativeInfinity;
+            if(capsule>certificateThreshold)return capsule;
             if(!coverOnly)
             {
-                double capsule=map.ConnectedTubeRectangleClearance(pose,tubeWindow,halfLength,halfWidth,edgeClearance)+softSnowShoulder;
+                capsule=Math.Max(capsule,map.ConnectedTubeRectangleClearance(pose,tubeWindow,halfLength,halfWidth,edgeClearance)+softSnowShoulder);
                 if(capsule>certificateThreshold)return capsule;
             }
             double result=double.PositiveInfinity,fx=Math.Sin(pose.HeadingRadians),fz=Math.Cos(pose.HeadingRadians);
@@ -115,11 +122,12 @@ namespace Biathlon.Simulation
                 double px=pose.X+fx*offset,pz=pose.Z+fz*offset;
                 result=Math.Min(result,DiskClearance(px,pz,coverRadius+edgeClearance));
             }
-            if(result>0)return result;
+            result=Math.Max(result,capsule);
+            if(result>0&&certificateThreshold!=double.PositiveInfinity)return result;
             if(!coverOnly&&vertices>=4&&simpleRibbon)
             {
                 result=Math.Max(result,RectangleClearance(pose,halfLength,halfWidth,edgeClearance,x,z,vertices));
-                if(result>0)return result;
+                if(result>0&&certificateThreshold!=double.PositiveInfinity)return result;
             }
             // The one-dimensional cover has unnecessarily large end caps.
             // A bounded rectangular cell grid refines that cover, never the
