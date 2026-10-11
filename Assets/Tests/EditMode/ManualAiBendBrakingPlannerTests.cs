@@ -21,6 +21,16 @@ namespace Biathlon.Tests
             Assert.That(f.Catalog.TryProject(f.At(occurrence,nm),occurrence,nm,.001,out var at),Is.True);
             return at;
         }
+        [Test] public void AiRequestsAnExplicitSharedBrakeOnlyForDemandingSteering()
+        {
+            var f=new ManualRacePathCatalogTests.Fixture();var planner=Create(f);
+            var at=At(f,1,10);var surface=f.Catalog.SampleSurface(at).WithTravelGeometry(0,0);
+            Assert.That(planner.SteeringBrake(0,14,0,surface,70,70,0),Is.Zero);
+            double left=planner.SteeringBrake(-1000,14,0,surface,70,70,0);
+            double right=planner.SteeringBrake(1000,14,0,surface,70,70,0);
+            Assert.That(left,Is.GreaterThan(0).And.LessThanOrEqualTo(1));
+            Assert.That(right,Is.EqualTo(left),"AI changes an explicit intent, never the shared athlete speed or power.");
+        }
         [Test] public void DistantDepartureTurnAllowsAccelerationAlongTheStraight()
         {
             var f=ManualProductionFieldTests.Initial("mass_start",1);var catalog=f.stepper.World.GetCatalog(0);

@@ -5,6 +5,43 @@ namespace Biathlon.Simulation
 {
     public sealed partial class PackSprintFieldSession
     {
+        private int scopedOrderedArrivalCount;
+        internal PhysicalRangeArrivalPreview PrepareManualScopedRangeOrder(ReadOnlySpan<SprintStepPreview> prepared,ManualScopedWorldPreview proof)
+        {
+            if(pathArrivalOrder==null)return default;
+            var world=proof.Owner;world.ValidatePrepared(proof);
+            if(world.PathChoiceCount!=RangePathLaneCount||prepared.Length!=Count)
+                throw new NotSupportedException("Ordered Mass Start requires its attested scoped path family.");
+            scopedOrderedArrivalCount=0;
+            for(int i=0;i<Count;i++)
+            {
+                var actor=GetAthlete(i);int bout=actor.ActiveBout;
+                if(bout<0||actor.HasFinished||!prepared[i].MovementActive||bout!=pathArrivalOrder.GetLastAssignedBout(i)+1||
+                    actor.CurrentRangeMotion?.Phase!=RangeTraversalPhase.Approach)continue;
+                if(PhysicalRangeArrival.TryFromScopedMotion(proof,i,bout,pathAdmissionLines[bout],out var crossing))
+                    pathArrivals[scopedOrderedArrivalCount++]=crossing;
+            }
+            var order=pathArrivalOrder.Prepare(proof.Tick,pathArrivals.AsSpan(0,scopedOrderedArrivalCount));
+            for(int r=0;r<scopedOrderedArrivalCount;r++)
+            {
+                var crossing=pathArrivals[r];int i=0;while(!GetAthlete(i).AthleteId.Equals(crossing.AthleteId))i++;
+                int lane=pathArrivalOrder.GetPreparedOrdinal(order,i,crossing.BoutIndex);
+                world.StagePaidPathChoice(proof,i,lane,crossing.BoutIndex);
+                GetAthlete(i).StageManualScopedRangeChoice(prepared[i],lane);
+            }
+            return order;
+        }
+        private void CommitManualScopedRangeOrder(PhysicalRangeArrivalPreview preview)
+        {
+            if(pathArrivalOrder==null)return;
+            pathArrivalOrder.Commit(preview);
+            for(int r=0;r<scopedOrderedArrivalCount;r++)
+            {
+                var crossing=pathArrivals[r];int i=0;while(!GetAthlete(i).AthleteId.Equals(crossing.AthleteId))i++;
+                events.Record(new RaceEvent(preview.Tick,frequency,crossing.AthleteId,RaceEventType.MassStartRangeLaneAssigned,
+                    pathArrivalOrder.GetAssignedOrdinal(i,crossing.BoutIndex)));
+            }
+        }
         internal PhysicalRangeReservationPreview PrepareManualScopedReservations(ReadOnlySpan<SprintStepPreview> prepared,ManualScopedWorldPreview proof)
         {
             if(reservations==null)return default;

@@ -14,6 +14,8 @@ namespace Biathlon.Simulation
             switch(name)
             {
                 case "physiology_provisional_v1.json":return "physiology_gameplay_v2.json";
+                case "cornering_provisional_v1.json":return "cornering_gameplay_v2.json";
+                case "manual_course_contact_v1.json":return "manual_course_contact_gameplay_v2.json";
                 case "tuck_provisional_v1.json":return "tuck_gameplay_v2.json";
                 case "breathing_v1.json":return "breathing_gameplay_v2.json";
                 case "heartbeat_v1.json":return "heartbeat_gameplay_v2.json";

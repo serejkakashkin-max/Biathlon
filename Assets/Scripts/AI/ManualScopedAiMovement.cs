@@ -202,6 +202,10 @@ namespace Biathlon.AI
                 double gateDistance=(row.LengthNanometers-cursor.ObservedArcNanometers)/(double)SkiState.NanometersPerMeter;
                 if(!ordinaryLookahead&&gateDistance==0){steering[i]=0;continue;}
                 double available=gateDistance+(ordinaryLookahead?catalog.Get(row.Index+1).LengthNanometers/(double)SkiState.NanometersPerMeter:0);
+                // A long chord across the private departure's two bends points
+                // behind the skier. Follow the local turn before the shared aisle.
+                if(privateMat&&row.Kind==ManualRacePathKind.RangeExit&&policy.PrivateDepartureLookahead>0)
+                    available=Math.Min(available,policy.PrivateDepartureLookahead);
                 if(bend.ShortLookaheadMeters>0)available=Math.Min(available,bend.ShortLookaheadMeters);
                 var plan=passing[i]?controllers[i].PlanPassing(actor.Pose,observed,motion.SpeedMetersPerSecond,ordinaryLookahead,
                     chosen,extent,Math.Min(available,Math.Max(stepper.BodyLongitudinalSeparation,Ahead(i,passingObstacle[i])-stepper.BodyLongitudinalSeparation))):
@@ -251,6 +255,9 @@ namespace Biathlon.AI
                     steering[i]=snowPlanner.Plan(new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,stepper.PhysicsDefinition.MassKilograms),
                         new SkiContactMotion(actor.Velocity,actor.Pose.YawRateRadiansPerSecond),pursuitYaw,grip);
                 }
+                if(policy.BrakeForSteeringDemand&&(row.Kind==ManualRacePathKind.BaseRoute||row.Kind==ManualRacePathKind.StartApproach||row.Kind==ManualRacePathKind.PenaltyLoop))
+                    brakes[i]=Math.Max(brakes[i],bends[i].SteeringBrake(steering[i],motion.SpeedMetersPerSecond,actor.Pose.YawRateRadiansPerSecond,
+                        surface.WithTravelGeometry(observed.GradeAlong(actor.Pose),0),athlete.CorneringSkill,athlete.DownhillSkill,athlete.PhysiologyState.MuscularFatigue));
 
             }
             if(!stepper.TryStep(inputs,steering,brakes))

@@ -9,6 +9,12 @@ namespace Biathlon.PlayModeTests
 {
     public sealed class PlayerRangeOwnerFeedbackTests
     {
+        [Test] public void ShippedWoodlandDepartureCorridorsHaveAllAuthoredKnotWidths()
+        {
+            var environment=ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/environment"));
+            foreach(var corridor in environment.route_corridors)
+                Assert.That(corridor.widths_m.Length,Is.EqualTo(corridor.knots.Length),corridor.loop_id);
+        }
         [Test] public void CatchUpFrameKeepsAdjacentSnapshotsForSmoothRendering()
         {
             const string prefix="Biathlon/Venues/woodland_basin_v1/";
@@ -77,7 +83,7 @@ namespace Biathlon.PlayModeTests
                 var effort=(EffortControlSystem)typeof(ProductionVenueHost).GetField("effort",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).GetValue(host);
                 // Paid shared AI intent is only a test driver up to the actual
                 // assigned mat fork; no pose/phase teleport or fabricated arrival.
-                bool capture=false,departure=false,returned=false;
+                bool capture=false,departure=false,returned=false;long firstDeparture=0;
                 for(int i=0;i<10000&&!returned;i++)
                 {
                     var actor=field.GetAthlete(0);var tick=field.Tick.Next();
@@ -95,6 +101,7 @@ namespace Biathlon.PlayModeTests
                         host.Step(new ManualSkiCommand(tick,id,650,0),new ShootingDeviceCommand(aim,fire,false,actor.ActiveShooting?.NeedsBoltCycle==true));
                         capture|=host.LastRangeAssistance.Mode==PlayerRangeAssistMode.FinalApproach;
                         departure|=host.LastRangeAssistance.Mode==PlayerRangeAssistMode.InitialDeparture;
+                        if(departure&&firstDeparture==0)firstDeparture=tick.Value;
                         returned=departure&&!host.LastRangeAssistance.Active;
                     }
                     if(i%200==0)yield return null;
@@ -102,6 +109,17 @@ namespace Biathlon.PlayModeTests
                 Assert.That(capture,Is.True,"Physical contact with the final arrow trail must latch approach assistance.");
                 Assert.That(field.GetAthlete(0).Lifecycle.CompletedBouts,Is.EqualTo(1));
                 Assert.That(departure,Is.True);Assert.That(returned,Is.True);
+                double automaticSeconds=(field.Tick.Value-firstDeparture)/(double)host.ManualStepper.World.TickFrequency;
+                TestContext.WriteLine($"automatic_departure_seconds={automaticSeconds:R}");
+                Assert.That(automaticSeconds,Is.LessThan(15),"Bound the owned departure rather than orbiting beyond the mat.");
+                var returnedBody=host.ManualStepper.World.GetActor(0);
+                var returnedRow=host.ManualStepper.World.GetCatalog(0).Get(returnedBody.Observation.OccurrenceIndex);
+                if(returnedRow.LoopId==field.GetAthlete(0).RangePath.MatAnchor.LoopId)
+                {
+                    host.ManualStepper.World.GetCatalog(0).TrySample(returnedRow.Index,returnedRow.LengthNanometers,out var exit);
+                    double cosine=System.Math.Sin(returnedBody.Pose.HeadingRadians)*exit.ForwardX+System.Math.Cos(returnedBody.Pose.HeadingRadians)*exit.ForwardZ;
+                    Assert.That(cosine,Is.GreaterThan(System.Math.Cos(15*System.Math.PI/180)),"Hand back controls toward the exit aisle.");
+                }
                 Assert.That(host.Runner.GetLastInput(0).Ski.Effort.RequestedEffort,Is.EqualTo(effort.AnalogTarget(650)),"Returned controls use the normal effort adapter.");
                 host.Proxies.Render(1);yield return null;
             }

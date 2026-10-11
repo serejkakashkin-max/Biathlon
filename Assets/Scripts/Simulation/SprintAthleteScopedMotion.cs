@@ -376,7 +376,8 @@ namespace Biathlon.Simulation
         {
             ValidateField(field);field.ValidateManualScopedPublication(proposal,drafts);Resolve(pending,proposal);
             var resource=field.PrepareManualScopedReservations(resolved,proposal);
-            field.CommitManualScopedPrepared(inputs,resolved,proposal,drafts,resource);
+            var rangeOrder=field.PrepareManualScopedRangeOrder(resolved,proposal);
+            field.CommitManualScopedPrepared(inputs,resolved,proposal,drafts,resource,rangeOrder);
             for(int i=0;i<athletes.Length;i++)athletes[i].RecordScopedPhysicalActions(world,i);
         }
         private void ValidateField(ISprintFieldView field)

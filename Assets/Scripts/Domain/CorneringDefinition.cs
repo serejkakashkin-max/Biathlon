@@ -18,6 +18,7 @@ namespace Biathlon.Domain
         [DataMember(Name = "full_downhill_grade", IsRequired = true)] public double FullDownhillGrade { get; private set; }
         [DataMember(Name = "maximum_braking_mps2", IsRequired = true)] public double MaximumBraking { get; private set; }
         [DataMember(Name = "braking_response_seconds", IsRequired = true)] public double BrakingResponseSeconds { get; private set; }
+        [DataMember(Name = "controlled_steering_braking", EmitDefaultValue = false)] public bool? ControlledSteeringBraking { get; private set; }
         public static CorneringDefinition FromJson(string json)
         {
             var v = RouteJson.Read<CorneringDefinition>(json);

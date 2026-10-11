@@ -18,6 +18,14 @@ namespace Biathlon.Unity
         public const string ProductionReviewResource="Biathlon/woodland_review_v1";
         public static void BuildWindowsProductionReview()
         {BuildWindowsProductionReview(ProductionReviewResource,"Builds/WoodlandReviewWindows");}
+        /// <summary>Batch-mode counterpart to the MCP build entry, with the same bounded directory validation.</summary>
+        public static void BuildWindowsProductionReviewFromCommandLine()
+        {
+            var args=Environment.GetCommandLineArgs();string directory=null;
+            for(int i=0;i<args.Length-1;i++)if(args[i]=="-biathlonReviewOutput")directory=args[i+1];
+            if(directory==null)throw new ArgumentException("Explicit -biathlonReviewOutput Builds/<directory> required.");
+            BuildWindowsProductionReview(ProductionReviewResource,directory);
+        }
         public static void BuildWindowsProductionReview(string reviewResource,string directory)
         {
             ValidateProductionBuildDirectory(directory);

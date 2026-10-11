@@ -94,6 +94,8 @@ namespace Biathlon.Simulation
         private readonly long[] rangeForks;
         private readonly ShootingLaneAssignment[] orderedShootingLanes;
         public bool UsesReusableRangeMats => reservations!=null;
+        internal bool UsesRangePathChoices=>reservations!=null||pathArrivalOrder!=null;
+        internal int RangePathLaneCount=>rangeLayout?.Count??0;
         public PhysicalRangeReservations RangeReservations => reservations;
         public bool IsWaitingForRangeCapacity(int index) => reservationWaiting!=null&&reservationWaiting[index];
         public int GetAssignedRangeLane(int index) => reservations!=null?reservations.GetOwnedLane(index):rangeLayout != null ? GetAthlete(index).AssignedShootingLane.Ordinal : assignedLane==null?index+1:assignedLane[index]+1;

@@ -74,7 +74,7 @@ namespace Biathlon.Simulation
             var poses=new ManualSkiHeadingState[count];var velocities=new SkiPlanarVelocity[count];
             var motions=new SkiState[count];var masses=new double[count];
             ManualRacePathCatalog[] family=null;
-            if(field.UsesReusableRangeMats)
+            if(field.UsesRangePathChoices)
             {
                 var first=field.GetAthlete(0);family=new ManualRacePathCatalog[first.RangePathChoiceCount];
                 for(int p=0;p<family.Length;p++)family[p]=first.CreateManualPathCatalogChoice(track,visual,p+1,finishRunout);

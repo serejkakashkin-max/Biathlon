@@ -258,6 +258,22 @@ namespace Biathlon.Tests
             Assert.That(right.Drive.Sample(0),Is.EqualTo(b.Pose));
             Assert.That(right.Drive.MotionAt(0),Is.EqualTo(Motion(b)));
         }
+        [TestCase(-1000)][TestCase(1000)]
+        public void ProductionSteeringKeepsLongitudinalDriveWhileExplicitBrakingStillWorks(int steering)
+        {
+            var f=new Fixture();var b=f.Body(forward:14);
+            var turns=CorneringDefinition.FromJson(PhysiologyContractTests.DefinitionJson(
+                ProductionGameplayDefinitions.Resource("cornering_provisional_v1.json")));
+            var system=new ManualSkiControlledDriveSystem(SkiForceTests.Definition(),f.Source.Venue.Occupancy,Steering(),turns,20);
+            var input=new ManualSkiMotionInput(steering,350,100,100);
+            var neutral=system.Preview(b,Motion(b),f.Observation,f.Surface,new ManualSkiMotionInput(0,350,100,100),.05);
+            var turn=system.Preview(b,Motion(b),f.Observation,f.Surface,input,.05);
+            Assert.That(turn.Cornering.BrakingNewtons,Is.Zero);
+            Assert.That(turn.Drive.FirstDrive.Acceleration,Is.EqualTo(neutral.Drive.FirstDrive.Acceleration));
+            var brake=system.Preview(b,Motion(b),f.Observation,f.Surface,input.WithBrakeFraction(1),.05);
+            Assert.That(brake.Drive.FirstDrive.Acceleration,Is.LessThan(turn.Drive.FirstDrive.Acceleration));
+            Assert.That(turn.SteeredSnow.IsValid,Is.True,"Grip and physical steering still use the shared snow solver.");
+        }
         [Test] public void ProductionKeyboardTapTurnsWithoutRequestingEmergencyCornerBraking()
         {
             var f=new Fixture();var body=f.Body(forward:14);

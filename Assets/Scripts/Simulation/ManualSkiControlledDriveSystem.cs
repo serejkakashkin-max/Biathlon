@@ -31,6 +31,7 @@ namespace Biathlon.Simulation
         private readonly CorneringSystem cornering;
         private readonly ManualSkiSteeringSystem commands;
         private readonly double mass,maximumBrakingNewtons;
+        private readonly bool steeringBraking;
         public string ContextJson {get;}
         public ManualSkiControlledDriveSystem(SkiPhysicsDefinition physics,OccupancyDefinition body,
             ManualSkiSteeringDefinition steering,CorneringDefinition turns,int frequency)
@@ -39,8 +40,9 @@ namespace Biathlon.Simulation
             snow=new ManualSkiSteeredSnowSystem(body,steering,frequency);cornering=new CorneringSystem(turns,physics);
             commands=new ManualSkiSteeringSystem(steering,frequency);
             mass=physics.MassKilograms;maximumBrakingNewtons=mass*turns.MaximumBraking;
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_controlled_slip_drive_v5_paid_inverse_stopping",drive.ContextJson,snow.ContextJson,
-                turns.ToJson(),"one_joint_snow_budget;actual_heading_grade;max_actual_or_requested_yaw_braking;explicit_brake_fraction_uses_same_force_cap;max_not_sum;shared_corner_force_limits;inverse_frozen_stopping_intent_with_explicit_infeasibility;outward_64ulp_inverse_force_reserve_within_cap;unchanged_shared_longitudinal_forces;no_admission"});
+            steeringBraking=turns.ControlledSteeringBraking??true;
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{steeringBraking?"manual_controlled_slip_drive_v5_paid_inverse_stopping":"manual_controlled_slip_drive_v6_explicit_gameplay_braking",drive.ContextJson,snow.ContextJson,
+                turns.ToJson(),(steeringBraking?"one_joint_snow_budget;actual_heading_grade;max_actual_or_requested_yaw_braking;":"one_joint_snow_budget;actual_heading_grade;steering_has_no_automatic_brake;")+"explicit_brake_fraction_uses_same_force_cap;max_not_sum;shared_corner_force_limits;inverse_frozen_stopping_intent_with_explicit_infeasibility;outward_64ulp_inverse_force_reserve_within_cap;unchanged_shared_longitudinal_forces;no_admission"});
         }
         /// <summary>Invert only the shared frozen longitudinal force law for a
         /// neutral, unpowered stopping intent. The requested future stop time
@@ -84,14 +86,14 @@ namespace Biathlon.Simulation
             if(!body.IsValid||!observation.IsValid||!input.IsValid)throw new ArgumentException("Exact current physical source and prepared force input required.");
             double grade=observation.GradeAlong(body.Pose);
             var state=new SkiState(0,Math.Sqrt(motion.Velocity.X*motion.Velocity.X+motion.Velocity.Z*motion.Velocity.Z)*Math.Sqrt(1+grade*grade));
-            // Grip limits the achieved turn, but must not erase the requested
-            // high-speed ski deflection's braking cost. Use the same bounded
-            // command and corner force law for every controlled athlete.
+            // Grip/slip stays physical for every athlete. The production preset
+            // leaves braking to an explicit intent; steering itself is not a brake.
             double requested=commands.GetRequest(input.SteeringInput,Math.Sqrt(motion.Velocity.X*motion.Velocity.X+motion.Velocity.Z*motion.Velocity.Z),
                 PhysiologyNumbers.MaximumMagnitude,input.SteeringResponse).RequestedYawRate;
             double demand=Math.Max(Math.Abs(motion.YawRate),Math.Abs(requested));
             var turns=cornering.EvaluateWorldHeading(state,surface.WithTravelGeometry(grade,0),demand,input.CorneringSkill,input.DownhillSkill,
                 input.LineQuality,input.MuscularFatigue,input.GripMultiplier);
+            if(!steeringBraking)turns=new CorneringOutput(turns.LateralAccelerationLimit,turns.SafeSpeedMetersPerSecond,turns.ExcessSpeedMetersPerSecond,0);
             var steered=snow.Preview(body,motion,input.SteeringInput,turns.LateralAccelerationLimit,seconds,input.SteeringResponse);
             var trajectory=drive.PreviewWithSnow(body,motion,observation.GeometryProjection,surface,input.DeliveredPowerWatts,steered.Snow,seconds,
                 input.DragAreaMultiplier,input.SnowResistanceMultiplier,input.WindX,input.WindZ,

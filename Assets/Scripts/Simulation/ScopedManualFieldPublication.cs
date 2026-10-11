@@ -93,10 +93,11 @@ namespace Biathlon.Simulation
             =>a.Athlete.Equals(b.Athlete)&&a.Pose.X==b.Pose.X&&a.Pose.Z==b.Pose.Z&&a.Pose.HeadingNanoradians==b.Pose.HeadingNanoradians&&
                 a.Pose.YawRateRadiansPerSecond==b.Pose.YawRateRadiansPerSecond&&a.Velocity.X==b.Velocity.X&&a.Velocity.Z==b.Velocity.Z;
         internal void CommitManualScopedPrepared(ReadOnlySpan<SprintAthleteInput> inputs,ReadOnlySpan<SprintStepPreview> prepared,
-            ManualScopedWorldPreview proof,ReadOnlySpan<DraftOutput> nextDrafts,PhysicalRangeReservationPreview resource=default)
+            ManualScopedWorldPreview proof,ReadOnlySpan<DraftOutput> nextDrafts,PhysicalRangeReservationPreview resource=default,PhysicalRangeArrivalPreview rangeOrder=default)
         {
             ValidateManualScopedPublication(proof,nextDrafts);field.ValidateCommands(inputs);
             if(reservations!=null)reservations.ValidatePreview(resource);
+            if(pathArrivalOrder!=null)pathArrivalOrder.ValidatePreview(rangeOrder);
             string next=ContextJson;
             if(manualScopedWorld==null)
             {
@@ -112,6 +113,7 @@ namespace Biathlon.Simulation
                 onCourse[i]=StartGrid!=null||field.Tick.Value>=GetAthlete(i).ScheduledStart.Value;
             }
             proof.Owner.Commit(proof);CommitManualScopedReservations(resource);
+            CommitManualScopedRangeOrder(rangeOrder);
             for(int i=0;i<Count;i++)manualScopedFrames[i]=proof.Owner.GetActor(i);
             manualScopedWorld=proof.Owner;ContextJson=next;
         }

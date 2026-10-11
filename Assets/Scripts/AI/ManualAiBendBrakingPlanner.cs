@@ -145,5 +145,15 @@ namespace Biathlon.AI
             }
             return new ManualAiBendBrakingPlan(limit,fraction,shortLookahead,width);
         }
+        /// <summary>AI explicitly manages a demanding ski deflection. The
+        /// player's steering has no implicit brake; every brake still uses
+        /// the same public force cap and is recorded as an ordinary intent.</summary>
+        public double SteeringBrake(int input,double speed,double yaw,TrackSample surface,int corneringSkill,int downhillSkill,double fatigue)
+        {
+            double requested=commands.GetRequest(input,speed,PhysiologyNumbers.MaximumMagnitude).RequestedYawRate;
+            double demand=Math.Max(Math.Abs(yaw),Math.Abs(requested));
+            var turn=cornering.EvaluateWorldHeading(new SkiState(0,speed),surface,demand,corneringSkill,downhillSkill,1,fatigue);
+            return turn.BrakingNewtons/(physics.MassKilograms*corners.MaximumBraking);
+        }
     }
 }

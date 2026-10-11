@@ -18,8 +18,8 @@ namespace Biathlon.Simulation
         public ManualRacePathCatalog GetPathChoice(int index)=>pathFamily==null?throw new InvalidOperationException("No attested reusable path family."):pathFamily[index];
         internal void BindPathFamily(PackSprintFieldSession field,ManualRacePathCatalog[] family,SkiContactSweepDefinition work)
         {
-            if(!IsVerifiedInitialField(field)||!field.UsesReusableRangeMats||pathFamily!=null||family==null||
-                family.Length!=field.RangeReservations.LaneCount||work==null||work.ToJson()!=WorkContextJson)
+            if(!IsVerifiedInitialField(field)||!field.UsesRangePathChoices||pathFamily!=null||family==null||
+                family.Length!=field.RangePathLaneCount||work==null||work.ToJson()!=WorkContextJson)
                 throw new ArgumentException("Initial attested reusable field and exact path/work family required.");
             for(int p=0;p<family.Length;p++)
                 if(family[p]==null||!catalogs[0].IsSamePathFamily(family[p])||family[p].SelectedPath.LaneOrdinal!=p+1||
