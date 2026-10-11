@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ae4f9f87-ea96-47c8-85d1-cfa98382872a" name="snkashkin@DESKTOP-G3075GA 2026-10-11 20:34:57" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T20:34:57.2032473+03:00" queuing="2026-10-11T20:34:57.2032474+03:00" start="2026-10-11T20:33:33.8468484+03:00" finish="2026-10-11T20:34:57.2065067+03:00" />
+  <TestSettings name="default" id="a98cd658-f04c-4ce9-8aa5-906729f0d355">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-11_20_34_57" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9157033b-87e8-4912-b9e1-171fcb0fd8b8" testId="ba91f1e4-2c20-cf8c-21ac-9f2c50810edf" testName="ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(&quot;mass_start&quot;,30)" computerName="DESKTOP-G3075GA" duration="00:01:22.5620880" startTime="2026-10-11T20:33:34.3683921+03:00" endTime="2026-10-11T20:34:56.9304284+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9157033b-87e8-4912-b9e1-171fcb0fd8b8">
+      <Output>
+        <StdOut>mass_start actors=30 accepted_tick=1000&#xD;
+mass_start actors=30 accepted_tick=2000&#xD;
+mass_start actors=30 accepted_tick=3000&#xD;
+mass_start actors=30 accepted_tick=4000&#xD;
+mass_start actors=30 accepted_tick=5000&#xD;
+mass_start actors=30 accepted_tick=6000&#xD;
+mass_start actors=30 accepted_tick=7000&#xD;
+mass_start actors=30 accepted_tick=8000&#xD;
+mass_start actors=30 accepted_tick=9000&#xD;
+mass_start actors=30 accepted_tick=10000&#xD;
+mass_start actors=30 accepted_tick=11000&#xD;
+mass_start actors=30 accepted_tick=12000&#xD;
+mass_start actors=30 accepted_tick=13000&#xD;
+mass_start actors=30 accepted_tick=14000&#xD;
+mass_start actors=30 accepted_tick=15000&#xD;
+mass_start actors=30 accepted_tick=16000&#xD;
+mass_start actors=30 accepted_tick=17000&#xD;
+mass_start actors=30 accepted_tick=18000&#xD;
+mass_start actors=30 accepted_tick=19000&#xD;
+mass_start actors=30 accepted_tick=20000&#xD;
+mass_start actors=30 accepted_tick=21000&#xD;
+mass_start complete actors=30 tick=21220&#xD;
+wall_seconds=76,0650538 realtime_factor=13,948585885789578</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(&quot;mass_start&quot;,30)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="ba91f1e4-2c20-cf8c-21ac-9f2c50810edf">
+      <Execution id="9157033b-87e8-4912-b9e1-171fcb0fd8b8" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualProductionFieldTests" name="ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(&quot;mass_start&quot;,30)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="ba91f1e4-2c20-cf8c-21ac-9f2c50810edf" executionId="9157033b-87e8-4912-b9e1-171fcb0fd8b8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+mass_start actors=30 accepted_tick=1000&#xD;
+mass_start actors=30 accepted_tick=2000&#xD;
+mass_start actors=30 accepted_tick=3000&#xD;
+mass_start actors=30 accepted_tick=4000&#xD;
+mass_start actors=30 accepted_tick=5000&#xD;
+mass_start actors=30 accepted_tick=6000&#xD;
+mass_start actors=30 accepted_tick=7000&#xD;
+mass_start actors=30 accepted_tick=8000&#xD;
+mass_start actors=30 accepted_tick=9000&#xD;
+mass_start actors=30 accepted_tick=10000&#xD;
+mass_start actors=30 accepted_tick=11000&#xD;
+mass_start actors=30 accepted_tick=12000&#xD;
+mass_start actors=30 accepted_tick=13000&#xD;
+mass_start actors=30 accepted_tick=14000&#xD;
+mass_start actors=30 accepted_tick=15000&#xD;
+mass_start actors=30 accepted_tick=16000&#xD;
+mass_start actors=30 accepted_tick=17000&#xD;
+mass_start actors=30 accepted_tick=18000&#xD;
+mass_start actors=30 accepted_tick=19000&#xD;
+mass_start actors=30 accepted_tick=20000&#xD;
+mass_start actors=30 accepted_tick=21000&#xD;
+mass_start complete actors=30 tick=21220&#xD;
+wall_seconds=76,0650538 realtime_factor=13,948585885789578&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -24556,3 +24556,27 @@ Temporary diagnosis hooks removed. Owner asset/settings/package edits preserved.
 History prefix verified unchanged from 2951104 bytes/SHA256 captured before work.
 Decision ADR-0051; report TASK_M13_FINAL_LAPS_20261011. Next: owner build test and
 M13 closure decision before M14.
+
+
+## 2026-10-11 — M13 AI edge recovery owner build
+
+M13 OPEN for owner review; M14 not started. Reproduced a Mass30 penalty stop
+lasting 385 ticks/19.25s. Penalty behind-target recovery alone reached 78 ticks;
+earlier braking alone was insufficient (129). Preserve bounded nominal recovery
+steering below shared minimum steering speed, on AI ordinary/start/penalty paths.
+With the 0.85 AI bend decision margin, final longest penalty stop is 11 ticks/
+0.55s. Actual physical movement/clock owns the recovery; no snaps, rest pivots or
+hidden power/speed changes. Explicit player steering and automatic range transit
+retain their previous behavior. Full Mass30 completion PASS; signed Mass Start/
+Sprint replay PASS. Native EditMode71/PlayMode4 PASS. Exact normal-query cache
+keys also include support-grid dimensions; repeated 5x3 probes add zero queries,
+different 7x3 grids still sample21. No graphics downgrade. CPU wall-time peaks
+overlap Unity compilation and are not FPS evidence.
+Build: Builds/WoodlandM13BotRecovery-20261011/START_WOODLAND_REVIEW.cmd.
+Build0 errors; standalone Mass30/Sprint30 control/content/transition smoke PASS.
+Counts, hashes and warning count: docs/quality/m13/bot-recovery-20261011/delivery-summary.json.
+Six older standalone-controller failures reproduce with pre-change code/policy;
+known Pursuit directed-passage composition failure remains outside shipped build.
+No test disabled. Owner rendering/packages/settings edits retained. Previous
+PROJECT_STATE byte prefix preserved. Decision ADR-0052; report TASK_M13_BOT_RECOVERY_20261011.
+Next: owner reviews course/penalty recovery and decides M13 closure before M14.

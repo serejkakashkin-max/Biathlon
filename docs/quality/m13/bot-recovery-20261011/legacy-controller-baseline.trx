@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="aca98a3c-bedb-4920-9673-9967edcab921" name="snkashkin@DESKTOP-G3075GA 2026-10-11 20:26:46" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T20:26:46.6193551+03:00" queuing="2026-10-11T20:26:46.6193551+03:00" start="2026-10-11T20:26:44.8646521+03:00" finish="2026-10-11T20:26:46.6234393+03:00" />
+  <TestSettings name="default" id="70c236a0-55f2-41f5-ba11-95bc6b9296cd">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-11_20_26_46" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="6e5681c4-ab8d-4911-a1a0-1625f830f3e5" testId="a0266c9c-8fc1-3b94-0038-1c8da2731306" testName="ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(400.0d,False,False)" computerName="DESKTOP-G3075GA" duration="00:00:00.1178890" startTime="2026-10-11T20:26:46.0559828+03:00" endTime="2026-10-11T20:26:46.1738714+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6e5681c4-ab8d-4911-a1a0-1625f830f3e5">
+      <Output>
+        <ErrorInfo>
+          <Message>  Continuous edge proof failed at tick 1642 station_m=717,068009254 edge=0:223:tube clear_s=0,033270549774169926&#xD;
+  Expected: Clear&#xD;
+  But was:  PotentialBoundary&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualAiSteeringControllerTests.ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(Double deliveredPowerWatts, Boolean expectedBoundaryRejection, Boolean adaptiveCornerEffort) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSteeringControllerTests.cs:line 265&#xD;
+   at InvokeStub_ManualAiSteeringControllerTests.ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualAiSteeringControllerTests.ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(Double deliveredPowerWatts, Boolean expectedBoundaryRejection, Boolean adaptiveCornerEffort) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSteeringControllerTests.cs:line 265&#xD;
+   at InvokeStub_ManualAiSteeringControllerTests.ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="eac24d72-5610-4688-a9a1-ae277672982b" testId="c23018da-1008-9eb1-0348-8232601e124a" testName="ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(7.0d)" computerName="DESKTOP-G3075GA" duration="00:00:00.1139810" startTime="2026-10-11T20:26:46.4248591+03:00" endTime="2026-10-11T20:26:46.5388396+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eac24d72-5610-4688-a9a1-ae277672982b">
+      <Output>
+        <ErrorInfo>
+          <Message>  The full body left the authored corridor at tick 621&#xD;
+  Expected: less than 4.0d&#xD;
+  But was:  4.1157570740327838d&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualAiSteeringControllerTests.ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(Double speed) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSteeringControllerTests.cs:line 317&#xD;
+   at InvokeStub_ManualAiSteeringControllerTests.ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualAiSteeringControllerTests.ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(Double speed) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSteeringControllerTests.cs:line 317&#xD;
+   at InvokeStub_ManualAiSteeringControllerTests.ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6f033dca-c9f0-4fbf-8659-3a12bdb0d309" testId="cb7a3ca1-b40b-c6f4-3250-af14e312a08d" testName="ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(300.0d,False,False)" computerName="DESKTOP-G3075GA" duration="00:00:00.1214660" startTime="2026-10-11T20:26:45.9344809+03:00" endTime="2026-10-11T20:26:46.0559469+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6f033dca-c9f0-4fbf-8659-3a12bdb0d309">
+      <Output>
+        <ErrorInfo>
+          <Message>  Continuous edge proof failed at tick 1895 station_m=719,282886951 edge=0:224:tube clear_s=0,02217302322387696&#xD;
+  Expected: Clear&#xD;
+  But was:  PotentialBoundary&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualAiSteeringControllerTests.ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(Double deliveredPowerWatts, Boolean expectedBoundaryRejection, Boolean adaptiveCornerEffort) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSteeringControllerTests.cs:line 265&#xD;
+   at InvokeStub_ManualAiSteeringControllerTests.ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualAiSteeringControllerTests.ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(Double deliveredPowerWatts, Boolean expectedBoundaryRejection, Boolean adaptiveCornerEffort) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSteeringControllerTests.cs:line 265&#xD;
+   at InvokeStub_ManualAiSteeringControllerTests.ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="60e11e8b-40d4-4d02-8c6f-991c47a886b2" testId="a1e512f6-5f09-6b78-2d21-aed31b78f724" testName="ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(200.0d,False,False)" computerName="DESKTOP-G3075GA" duration="00:00:00.3595270" startTime="2026-10-11T20:26:45.5743460+03:00" endTime="2026-10-11T20:26:45.9338440+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="60e11e8b-40d4-4d02-8c6f-991c47a886b2">
+      <Output>
+        <ErrorInfo>
+          <Message>  Continuous edge proof failed at tick 2384 station_m=722,507 edge=0:226:tube clear_s=0,03410453796386719&#xD;
+  Expected: Clear&#xD;
+  But was:  PotentialBoundary&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualAiSteeringControllerTests.ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(Double deliveredPowerWatts, Boolean expectedBoundaryRejection, Boolean adaptiveCornerEffort) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSteeringControllerTests.cs:line 265&#xD;
+
+1)    at Biathlon.Tests.ManualAiSteeringControllerTests.ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(Double deliveredPowerWatts, Boolean expectedBoundaryRejection, Boolean adaptiveCornerEffort) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSteeringControllerTests.cs:line 265&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="65f78b3d-5720-4d1b-9dde-d5ad4c930ca0" testId="d0a618a1-1b92-b329-877c-3875f3be2286" testName="ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(4.0d)" computerName="DESKTOP-G3075GA" duration="00:00:00.1276810" startTime="2026-10-11T20:26:46.2971503+03:00" endTime="2026-10-11T20:26:46.4248307+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="65f78b3d-5720-4d1b-9dde-d5ad4c930ca0">
+      <Output>
+        <ErrorInfo>
+          <Message>  The full body left the authored corridor at tick 4432&#xD;
+  Expected: less than 4.0d&#xD;
+  But was:  4.181982045273843d&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualAiSteeringControllerTests.ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(Double speed) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSteeringControllerTests.cs:line 317&#xD;
+
+1)    at Biathlon.Tests.ManualAiSteeringControllerTests.ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(Double speed) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSteeringControllerTests.cs:line 317&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8e0f3f91-86f3-470f-a0a9-c2499c24bf53" testId="826a70a4-c90f-c50b-f6e0-3ce634200f84" testName="ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(400.0d,False,True)" computerName="DESKTOP-G3075GA" duration="00:00:00.1223830" startTime="2026-10-11T20:26:46.1738961+03:00" endTime="2026-10-11T20:26:46.2962789+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8e0f3f91-86f3-470f-a0a9-c2499c24bf53">
+      <Output>
+        <ErrorInfo>
+          <Message>  Continuous edge proof failed at tick 1811 station_m=719,017050779 edge=0:224:tube clear_s=0,01389017105102539&#xD;
+  Expected: Clear&#xD;
+  But was:  PotentialBoundary&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualAiSteeringControllerTests.ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(Double deliveredPowerWatts, Boolean expectedBoundaryRejection, Boolean adaptiveCornerEffort) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSteeringControllerTests.cs:line 265&#xD;
+   at InvokeStub_ManualAiSteeringControllerTests.ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualAiSteeringControllerTests.ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(Double deliveredPowerWatts, Boolean expectedBoundaryRejection, Boolean adaptiveCornerEffort) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSteeringControllerTests.cs:line 265&#xD;
+   at InvokeStub_ManualAiSteeringControllerTests.ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(7.0d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="c23018da-1008-9eb1-0348-8232601e124a">
+      <Execution id="eac24d72-5610-4688-a9a1-ae277672982b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSteeringControllerTests" name="ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(7.0d)" />
+    </UnitTest>
+    <UnitTest name="ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(300.0d,False,False)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="cb7a3ca1-b40b-c6f4-3250-af14e312a08d">
+      <Execution id="6f033dca-c9f0-4fbf-8659-3a12bdb0d309" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSteeringControllerTests" name="ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(300.0d,False,False)" />
+    </UnitTest>
+    <UnitTest name="ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(4.0d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="d0a618a1-1b92-b329-877c-3875f3be2286">
+      <Execution id="65f78b3d-5720-4d1b-9dde-d5ad4c930ca0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSteeringControllerTests" name="ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(4.0d)" />
+    </UnitTest>
+    <UnitTest name="ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(400.0d,False,False)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="a0266c9c-8fc1-3b94-0038-1c8da2731306">
+      <Execution id="6e5681c4-ab8d-4911-a1a0-1625f830f3e5" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSteeringControllerTests" name="ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(400.0d,False,False)" />
+    </UnitTest>
+    <UnitTest name="ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(400.0d,False,True)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="826a70a4-c90f-c50b-f6e0-3ce634200f84">
+      <Execution id="8e0f3f91-86f3-470f-a0a9-c2499c24bf53" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSteeringControllerTests" name="ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(400.0d,False,True)" />
+    </UnitTest>
+    <UnitTest name="ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(200.0d,False,False)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="a1e512f6-5f09-6b78-2d21-aed31b78f724">
+      <Execution id="60e11e8b-40d4-4d02-8c6f-991c47a886b2" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSteeringControllerTests" name="ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(200.0d,False,False)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="a0266c9c-8fc1-3b94-0038-1c8da2731306" executionId="6e5681c4-ab8d-4911-a1a0-1625f830f3e5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c23018da-1008-9eb1-0348-8232601e124a" executionId="eac24d72-5610-4688-a9a1-ae277672982b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cb7a3ca1-b40b-c6f4-3250-af14e312a08d" executionId="6f033dca-c9f0-4fbf-8659-3a12bdb0d309" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a1e512f6-5f09-6b78-2d21-aed31b78f724" executionId="60e11e8b-40d4-4d02-8c6f-991c47a886b2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d0a618a1-1b92-b329-877c-3875f3be2286" executionId="65f78b3d-5720-4d1b-9dde-d5ad4c930ca0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="826a70a4-c90f-c50b-f6e0-3ce634200f84" executionId="8e0f3f91-86f3-470f-a0a9-c2499c24bf53" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="6" executed="6" passed="0" failed="6" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 6 of 6 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "id": "m13_bot_recovery_delivery_20261011",
+  "m13_status": "owner_review_open",
+  "tests": {
+    "penalty-baseline.trx": {
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "failures": [
+        "ProductionPenaltyBotsKeepMovingAfterEdgeContact"
+      ]
+    },
+    "penalty-behind-target.trx": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "penalty-defensive-speed.trx": {
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "failures": [
+        "ProductionPenaltyBotsKeepMovingAfterEdgeContact"
+      ]
+    },
+    "normal-cache-red.trx": {
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "failures": [
+        "CapturedPenaltyEntryMatchesEveryFineGridLeafAcrossNormalProbes"
+      ]
+    },
+    "penalty-recovery-final.trx": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "mass30-completion-final.trx": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    },
+    "core-signed-replay-final.trx": {
+      "total": 99,
+      "passed": 98,
+      "failed": 1,
+      "failures": [
+        "CompleteSignedRacePersistsAndReplaysEveryWorldAndResourceEventWithoutAi(\"pursuit\",3)"
+      ]
+    },
+    "legacy-controller-baseline.trx": {
+      "total": 6,
+      "passed": 0,
+      "failed": 6,
+      "failures": [
+        "ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(400.0d,False,False)",
+        "ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(7.0d)",
+        "ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(300.0d,False,False)",
+        "ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(200.0d,False,False)",
+        "ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(4.0d)",
+        "ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(400.0d,False,True)"
+      ]
+    },
+    "unity-editmode.xml": {
+      "total": 71,
+      "passed": 71,
+      "failed": 0
+    },
+    "unity-playmode-final.xml": {
+      "total": 4,
+      "passed": 4,
+      "failed": 0
+    }
+  },
+  "build": {
+    "schema_version": 1,
+    "id": "woodland_basin_v1_windows_review_build_v1",
+    "result": "Succeeded",
+    "unity": "6000.6.0f1",
+    "startup_scene": "Assets/Scenes/Production/WoodlandBasinMassStart.unity",
+    "review_definition_id": "woodland_review_v1",
+    "initial_quality": "high",
+    "errors": 0,
+    "warnings": 496,
+    "bytes": 355782705,
+    "seconds": 19.846295299999998
+  },
+  "smoke": {
+    "schema_version": 1,
+    "id": "production_player_content_smoke_v1",
+    "passed": true,
+    "venue_id": "woodland_basin_v1",
+    "scope": "Initialized bound Sprint30/Mass30 content, resource-owned startup quality, paid400-tick controls and real scene transition. Hidden-window rendering may be suspended: zero frames then supplies no visual evidence; draw_calls=-1 is unavailable. Native normal Game View supplies separate visual review. No FPS/GPU or full-race claim.",
+    "window_rendering_suspended": true,
+    "exit_code": 0,
+    "build": {
+      "schema_version": 1,
+      "id": "woodland_basin_v1_windows_review_build_v1",
+      "result": "Succeeded",
+      "unity": "6000.6.0f1",
+      "startup_scene": "Assets/Scenes/Production/WoodlandBasinMassStart.unity",
+      "review_definition_id": "woodland_review_v1",
+      "initial_quality": "high",
+      "errors": 0,
+      "warnings": 496,
+      "bytes": 355782705,
+      "seconds": 19.846295299999998
+    },
+    "review": {
+      "schema_version": 1,
+      "id": "woodland_review_v1",
+      "venue_id": "woodland_basin_v1",
+      "initial_entry_id": "mass30",
+      "initial_quality_tier": "high",
+      "entries": [
+        {
+          "id": "mass30",
+          "label": "Woodland Mass Start · 30",
+          "scene_path": "Assets/Scenes/Production/WoodlandBasinMassStart.unity",
+          "format_id": "mass_start",
+          "field_count": 30
+        },
+        {
+          "id": "sprint30",
+          "label": "Woodland Sprint · 30",
+          "scene_path": "Assets/Scenes/Production/WoodlandBasinSprint.unity",
+          "format_id": "sprint",
+          "field_count": 30
+        }
+      ]
+    },
+    "rows": [
+      {
+        "schema_version": 1,
+        "id": "production_player_content_smoke_v1",
+        "entry": "mass30",
+        "scene": "Assets/Scenes/Production/WoodlandBasinMassStart.unity",
+        "initial_quality": "high",
+        "route_id": "woodland_basin_mass_start_route_v1",
+        "start_tick": 1,
+        "tick": 401,
+        "athletes": 30,
+        "terrain_tiles": 36,
+        "forest_groups": 23,
+        "trees": 2588,
+        "mats": 30,
+        "banks": 30,
+        "visible_loops": 35
+      },
+      {
+        "schema_version": 1,
+        "id": "production_player_content_smoke_v1",
+        "entry": "sprint30",
+        "scene": "Assets/Scenes/Production/WoodlandBasinSprint.unity",
+        "initial_quality": "high",
+        "route_id": "woodland_basin_sprint_route_v2",
+        "start_tick": 0,
+        "tick": 400,
+        "athletes": 30,
+        "terrain_tiles": 36,
+        "forest_groups": 23,
+        "trees": 2588,
+        "mats": 30,
+        "banks": 30,
+        "visible_loops": 36
+      }
+    ],
+    "exe_sha256": "718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00",
+    "log_sha256": "f6c22a66e0ddf1b78484eb10950331f9e27b592b3b0d5b0636fdb939654d1f8e",
+    "build_files_sha256": "6f132cc012fea8d0c0b4454d99f8b276aa209cfd72b2c89f31e0d96a9a9b513c",
+    "log": "C:\\game\\Biathlon\\Biathlon\\artifacts\\production-player-smoke\\20261011-173742-828\\Player.log"
+  },
+  "managed_code_sha256": {
+    "Biathlon.AI.dll": "a27efd314f984b19a4456cfef4f681a5cea60f3c1089bae6a8814f8a22361da2",
+    "Biathlon.Domain.dll": "c547cf964c100eb48bc4d45ee0c2377bb274c8bd498257413626b89d83864e44",
+    "Biathlon.Simulation.dll": "9205977387ec2c62bf7f97c9cf4e27d896899c8538943ebc2aa0621a18e8cdf4"
+  },
+  "history": {
+    "bytes": 2952711,
+    "sha256": "054f30b6b7bb36f78d463b8bf4872467c1d5e90ccaba5cd43f63eb6d8bd07841",
+    "preserved": true
+  },
+  "penalty_stop_ticks_before": 385,
+  "penalty_stop_ticks_after": 11,
+  "known_pursuit_failure_is_separate": true,
+  "unchanged_legacy_controller_failures": 6
+}

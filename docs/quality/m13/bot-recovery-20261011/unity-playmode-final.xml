@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="4" result="Passed" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-11 17:34:21Z" end-time="2026-10-11 17:35:20Z" duration="59,4842706">
+  <test-suite type="TestSuite" id="1385" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="283" result="Passed" start-time="2026-10-11 17:34:21Z" end-time="2026-10-11 17:35:20Z" duration="59.484271" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1379" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="283" result="Passed" start-time="2026-10-11 17:34:21Z" end-time="2026-10-11 17:35:20Z" duration="59.474149" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="27248" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1380" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="283" result="Passed" start-time="2026-10-11 17:34:21Z" end-time="2026-10-11 17:35:20Z" duration="59.468847" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1381" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="283" result="Passed" start-time="2026-10-11 17:34:21Z" end-time="2026-10-11 17:35:20Z" duration="59.464814" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1200" name="PlayerRangeOwnerFeedbackTests" fullname="Biathlon.PlayModeTests.PlayerRangeOwnerFeedbackTests" classname="Biathlon.PlayModeTests.PlayerRangeOwnerFeedbackTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-11 17:34:21Z" end-time="2026-10-11 17:35:20Z" duration="59.453144" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1204" name="ActualArrowCaptureMakesTheShotAndExitTurnThenReturnsPlayerControl" fullname="Biathlon.PlayModeTests.PlayerRangeOwnerFeedbackTests.ActualArrowCaptureMakesTheShotAndExitTurnThenReturnsPlayerControl" methodname="ActualArrowCaptureMakesTheShotAndExitTurnThenReturnsPlayerControl" classname="Biathlon.PlayModeTests.PlayerRangeOwnerFeedbackTests" runstate="Runnable" seed="531796425" result="Passed" start-time="2026-10-11 17:34:21Z" end-time="2026-10-11 17:34:42Z" duration="20.866984" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[automatic_departure_seconds=6
+]]></output>
+            </test-case>
+            <test-case id="1202" name="CatchUpFrameKeepsAdjacentSnapshotsForSmoothRendering" fullname="Biathlon.PlayModeTests.PlayerRangeOwnerFeedbackTests.CatchUpFrameKeepsAdjacentSnapshotsForSmoothRendering" methodname="CatchUpFrameKeepsAdjacentSnapshotsForSmoothRendering" classname="Biathlon.PlayModeTests.PlayerRangeOwnerFeedbackTests" runstate="Runnable" seed="17394944" result="Passed" start-time="2026-10-11 17:34:42Z" end-time="2026-10-11 17:35:01Z" duration="19.349865" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1203" name="RejectedRaceTickReportsOnceAndDoesNotAdvanceDeviceOrEffortClocks" fullname="Biathlon.PlayModeTests.PlayerRangeOwnerFeedbackTests.RejectedRaceTickReportsOnceAndDoesNotAdvanceDeviceOrEffortClocks" methodname="RejectedRaceTickReportsOnceAndDoesNotAdvanceDeviceOrEffortClocks" classname="Biathlon.PlayModeTests.PlayerRangeOwnerFeedbackTests" runstate="Runnable" seed="611745725" result="Passed" start-time="2026-10-11 17:35:01Z" end-time="2026-10-11 17:35:20Z" duration="19.206411" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[InvalidOperationException: Faulted runner must be reconstructed.
+Biathlon.AI.PackAiRaceRunner.StepPlayer (System.Int32 index, Biathlon.Simulation.SprintAthleteInput input, System.Double desiredLateralMeters) (at Assets/Scripts/AI/PackAiRaceRunner.cs:249)
+Biathlon.AI.PackAiRaceRunner.StepWithManualPlayer (System.Int32 index, Biathlon.Simulation.SprintAthleteInput input, System.Int32 signedSteering, System.Boolean finalMatAssistance) (at Assets/Scripts/AI/PackAiRaceRunner.cs:237)
+Biathlon.Unity.Presentation.ProductionVenueHost.Step (Biathlon.Domain.ManualSkiCommand command, Biathlon.Unity.Presentation.ShootingDeviceCommand shooting) (at Assets/Scripts/Unity/Presentation/ProductionVenueHost.cs:249)
+Biathlon.Unity.Presentation.ProductionVenueHost.AdvanceSimulationFrame (System.Double elapsed) (at Assets/Scripts/Unity/Presentation/ProductionVenueHost.cs:187)
+UnityEngine.Debug:LogException(Exception, Object)
+Biathlon.Unity.Presentation.ProductionVenueHost:AdvanceSimulationFrame(Double) (at Assets/Scripts/Unity/Presentation/ProductionVenueHost.cs:199)
+Biathlon.PlayModeTests.<RejectedRaceTickReportsOnceAndDoesNotAdvanceDeviceOrEffortClocks>d__2:MoveNext() (at Assets/Tests/PlayMode/PlayerRangeOwnerFeedbackTests.cs:59)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)
+
+]]></output>
+            </test-case>
+            <test-case id="1201" name="ShippedWoodlandDepartureCorridorsHaveAllAuthoredKnotWidths" fullname="Biathlon.PlayModeTests.PlayerRangeOwnerFeedbackTests.ShippedWoodlandDepartureCorridorsHaveAllAuthoredKnotWidths" methodname="ShippedWoodlandDepartureCorridorsHaveAllAuthoredKnotWidths" classname="Biathlon.PlayModeTests.PlayerRangeOwnerFeedbackTests" runstate="Runnable" seed="1255633576" result="Passed" start-time="2026-10-11 17:35:20Z" end-time="2026-10-11 17:35:20Z" duration="0.020795" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
