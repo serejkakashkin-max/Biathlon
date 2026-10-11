@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f8a5861c-71f8-4895-b34b-1a3b9bfb4305" name="snkashkin@DESKTOP-G3075GA 2026-10-11 17:32:03" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T17:32:03.7906676+03:00" queuing="2026-10-11T17:32:03.7906677+03:00" start="2026-10-11T17:31:22.4007205+03:00" finish="2026-10-11T17:32:03.7938590+03:00" />
+  <TestSettings name="default" id="182b3ff2-62de-49f1-9ffa-c9f30e929cd5">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-11_17_32_03" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="39cabd3a-e5a7-433b-a2ea-5adc98e98046" testId="5a920b42-bdea-5bc6-93fa-9b67ce5e3013" testName="FirstTwoLapsCpuProfile" computerName="DESKTOP-G3075GA" duration="00:00:40.6231420" startTime="2026-10-11T17:31:22.9887660+03:00" endTime="2026-10-11T17:32:03.6118471+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="39cabd3a-e5a7-433b-a2ea-5adc98e98046">
+      <Output>
+        <StdOut>slow tick=1 ms=54.298 pieces=1&#xD;
+window=1-200 mean_ms=3.090 worst_ms=54.298 pieces=200 bytes=43868824 player_lap=0 bouts=0&#xD;
+window=201-400 mean_ms=4.392 worst_ms=10.182 pieces=329 bytes=43931544 player_lap=0 bouts=0&#xD;
+window=401-600 mean_ms=4.602 worst_ms=10.207 pieces=366 bytes=43931544 player_lap=0 bouts=0&#xD;
+window=601-800 mean_ms=2.975 worst_ms=5.123 pieces=205 bytes=43931544 player_lap=0 bouts=0&#xD;
+window=801-1000 mean_ms=2.916 worst_ms=4.515 pieces=200 bytes=43931544 player_lap=0 bouts=0&#xD;
+window=1001-1200 mean_ms=2.931 worst_ms=3.847 pieces=200 bytes=43931544 player_lap=0 bouts=0&#xD;
+window=1201-1400 mean_ms=2.762 worst_ms=3.426 pieces=200 bytes=43931696 player_lap=0 bouts=0&#xD;
+window=1401-1600 mean_ms=3.106 worst_ms=6.476 pieces=216 bytes=43931696 player_lap=0 bouts=0&#xD;
+window=1601-1800 mean_ms=2.813 worst_ms=4.749 pieces=200 bytes=43931696 player_lap=0 bouts=0&#xD;
+window=1801-2000 mean_ms=3.236 worst_ms=9.511 pieces=244 bytes=43931696 player_lap=0 bouts=0&#xD;
+window=2001-2200 mean_ms=4.102 worst_ms=9.981 pieces=299 bytes=43931696 player_lap=0 bouts=0&#xD;
+window=2201-2400 mean_ms=3.436 worst_ms=6.950 pieces=243 bytes=43931696 player_lap=0 bouts=0&#xD;
+window=2401-2600 mean_ms=2.811 worst_ms=5.312 pieces=245 bytes=43931696 player_lap=0 bouts=0&#xD;
+window=2601-2800 mean_ms=1.998 worst_ms=6.204 pieces=244 bytes=45658080 player_lap=0 bouts=0&#xD;
+window=2801-3000 mean_ms=1.169 worst_ms=1.857 pieces=206 bytes=46183696 player_lap=0 bouts=0&#xD;
+window=3001-3200 mean_ms=1.383 worst_ms=2.049 pieces=202 bytes=46183696 player_lap=0 bouts=1&#xD;
+window=3201-3400 mean_ms=1.957 worst_ms=2.547 pieces=216 bytes=46183696 player_lap=0 bouts=1&#xD;
+window=3401-3600 mean_ms=2.682 worst_ms=19.152 pieces=220 bytes=46183696 player_lap=0 bouts=1&#xD;
+slow tick=3621 ms=40.890 pieces=5&#xD;
+slow tick=3625 ms=42.119 pieces=2&#xD;
+slow tick=3635 ms=30.077 pieces=1&#xD;
+slow tick=3798 ms=49.105 pieces=4&#xD;
+window=3601-3800 mean_ms=9.578 worst_ms=49.105 pieces=484 bytes=46183696 player_lap=0 bouts=1&#xD;
+slow tick=3807 ms=47.547 pieces=3&#xD;
+slow tick=3905 ms=30.550 pieces=19&#xD;
+window=3801-4000 mean_ms=8.355 worst_ms=47.547 pieces=483 bytes=46183696 player_lap=0 bouts=1&#xD;
+window=4001-4200 mean_ms=3.517 worst_ms=7.962 pieces=243 bytes=46183696 player_lap=0 bouts=1&#xD;
+window=4201-4400 mean_ms=4.380 worst_ms=10.675 pieces=348 bytes=46183696 player_lap=0 bouts=1&#xD;
+slow tick=4458 ms=75.357 pieces=1&#xD;
+slow_actor=12 loop=penalty_150 pose=67,307153449,-13,92337506,0,289112918 disk_queries=3675 edge_responses=6&#xD;
+slow tick=4459 ms=37.629 pieces=1&#xD;
+slow tick=4480 ms=142.327 pieces=3&#xD;
+slow_actor=1 loop=penalty_150 pose=73,393302351,-8,954089641,0,165307454 disk_queries=238 edge_responses=1&#xD;
+slow_actor=12 loop=penalty_150 pose=72,469613633,-9,487270878,0,307886244 disk_queries=8908 edge_responses=3&#xD;
+slow tick=4481 ms=36.368 pieces=1&#xD;
+slow tick=4483 ms=110.016 pieces=1&#xD;
+slow_actor=1 loop=penalty_150 pose=74,071508846,-8,527094593,0,197718568 disk_queries=238 edge_responses=0&#xD;
+slow_actor=12 loop=penalty_150 pose=73,174547467,-9,040543872,0,283688978 disk_queries=13192 edge_responses=2&#xD;
+slow tick=4495 ms=41.169 pieces=2&#xD;
+slow tick=4506 ms=31.405 pieces=1&#xD;
+slow tick=4509 ms=56.657 pieces=8&#xD;
+slow tick=4510 ms=64.923 pieces=2&#xD;
+slow_actor=1 loop=penalty_150 pose=79,748101872,-5,933373263,0,167196606 disk_queries=1004 edge_responses=1&#xD;
+slow_actor=3 loop=main pose=213,071034381,-7,258788945,1,200432722 disk_queries=2442 edge_responses=1&#xD;
+slow_actor=12 loop=penalty_150 pose=78,927354765,-6,245297275,0,123819359 disk_queries=1023 edge_responses=0&#xD;
+slow_actor=15 loop=main pose=212,043482029,-6,582041253,1,521616072 disk_queries=3990 edge_responses=1&#xD;
+slow tick=4514 ms=43.385 pieces=6&#xD;
+slow tick=4516 ms=31.566 pieces=2&#xD;
+slow tick=4572 ms=30.206 pieces=3&#xD;
+slow tick=4575 ms=36.596 pieces=3&#xD;
+slow tick=4579 ms=50.421 pieces=15&#xD;
+slow tick=4582 ms=32.422 pieces=8&#xD;
+slow tick=4590 ms=34.720 pieces=9&#xD;
+slow tick=4596 ms=34.165 pieces=7&#xD;
+window=4401-4600 mean_ms=14.568 worst_ms=142.327 pieces=429 bytes=46183696 player_lap=0 bouts=1&#xD;
+slow tick=4666 ms=53.645 pieces=9&#xD;
+slow tick=4667 ms=32.934 pieces=3&#xD;
+slow tick=4668 ms=37.793 pieces=4&#xD;
+slow tick=4676 ms=33.963 pieces=3&#xD;
+slow tick=4686 ms=38.671 pieces=2&#xD;
+slow tick=4712 ms=31.188 pieces=4&#xD;
+slow tick=4780 ms=32.402 pieces=4&#xD;
+window=4601-4800 mean_ms=15.131 worst_ms=53.645 pieces=704 bytes=46183696 player_lap=1 bouts=1&#xD;
+slow tick=4816 ms=41.732 pieces=2&#xD;
+slow tick=4819 ms=46.466 pieces=6&#xD;
+slow tick=4820 ms=37.439 pieces=3&#xD;
+slow tick=4824 ms=62.455 pieces=5&#xD;
+slow_actor=10 loop=penalty_150 pose=81,894964605,-59,968838429,4,464128883 disk_queries=3675 edge_responses=2&#xD;
+slow_actor=14 loop=penalty_150 pose=80,677128785,-59,55965913,4,284757454 disk_queries=510 edge_responses=1&#xD;
+slow tick=4827 ms=35.289 pieces=9&#xD;
+slow tick=4828 ms=31.529 pieces=5&#xD;
+slow tick=4836 ms=31.550 pieces=5&#xD;
+slow tick=4839 ms=46.503 pieces=3&#xD;
+slow tick=4840 ms=41.160 pieces=4&#xD;
+slow tick=4841 ms=80.451 pieces=5&#xD;
+slow_actor=10 loop=penalty_150 pose=79,690846425,-59,304943074,4,435555373 disk_queries=4488 edge_responses=2&#xD;
+slow_actor=14 loop=penalty_150 pose=78,580984313,-58,855825505,4,39513939 disk_queries=204 edge_responses=0&#xD;
+slow tick=4842 ms=34.995 pieces=4&#xD;
+slow tick=4868 ms=56.756 pieces=4&#xD;
+slow tick=4888 ms=87.907 pieces=14&#xD;
+slow_actor=10 loop=penalty_150 pose=74,198883524,-56,823964354,4,68082863 disk_queries=700 edge_responses=2&#xD;
+slow_actor=12 loop=penalty_150 pose=85,396870855,-4,67530454,5,396421238 disk_queries=0 edge_responses=1&#xD;
+slow_actor=14 loop=penalty_150 pose=73,101826214,-56,108220582,4,678956104 disk_queries=105 edge_responses=1&#xD;
+slow tick=4928 ms=49.170 pieces=3&#xD;
+slow tick=4975 ms=50.822 pieces=2&#xD;
+window=4801-5000 mean_ms=15.880 worst_ms=87.907 pieces=593 bytes=46183696 player_lap=1 bouts=1&#xD;
+slow tick=5106 ms=38.748 pieces=10&#xD;
+slow tick=5121 ms=66.023 pieces=2&#xD;
+slow_actor=10 loop=penalty_150 pose=60,497441717,-29,407937613,5,899593426 disk_queries=245 edge_responses=2&#xD;
+slow_actor=14 loop=penalty_150 pose=60,742626485,-28,094283253,5,838698945 disk_queries=0 edge_responses=1&#xD;
+slow tick=5139 ms=32.750 pieces=2&#xD;
+slow tick=5170 ms=31.128 pieces=16&#xD;
+slow tick=5179 ms=42.557 pieces=2&#xD;
+slow tick=5186 ms=44.562 pieces=2&#xD;
+window=5001-5200 mean_ms=10.461 worst_ms=66.023 pieces=331 bytes=46183696 player_lap=1 bouts=1&#xD;
+slow tick=5228 ms=51.853 pieces=2&#xD;
+slow tick=5295 ms=37.644 pieces=2&#xD;
+slow tick=5316 ms=30.418 pieces=2&#xD;
+slow tick=5338 ms=66.000 pieces=1&#xD;
+slow_actor=10 loop=penalty_150 pose=77,559303171,-6,626697066,0,649799527 disk_queries=3290 edge_responses=2&#xD;
+slow_actor=14 loop=penalty_150 pose=78,85253139,-6,152107067,0,62335125 disk_queries=420 edge_responses=1&#xD;
+window=5201-5400 mean_ms=9.118 worst_ms=66.000 pieces=278 bytes=46183696 player_lap=1 bouts=1&#xD;
+slow tick=5415 ms=34.619 pieces=1&#xD;
+window=5401-5600 mean_ms=3.730 worst_ms=34.619 pieces=208 bytes=46183696 player_lap=1 bouts=1&#xD;
+window=5601-5800 mean_ms=2.788 worst_ms=4.385 pieces=203 bytes=46183696 player_lap=1 bouts=1&#xD;
+window=5801-6000 mean_ms=2.768 worst_ms=4.206 pieces=201 bytes=46183696 player_lap=1 bouts=1&#xD;
+window=6001-6200 mean_ms=2.644 worst_ms=4.142 pieces=208 bytes=46183696 player_lap=1 bouts=1&#xD;
+window=6201-6400 mean_ms=2.516 worst_ms=3.843 pieces=213 bytes=46333840 player_lap=1 bouts=1&#xD;
+window=6401-6600 mean_ms=2.266 worst_ms=3.473 pieces=208 bytes=46709168 player_lap=1 bouts=1&#xD;
+window=6601-6800 mean_ms=2.194 worst_ms=3.437 pieces=213 bytes=46859296 player_lap=1 bouts=1&#xD;
+window=6801-7000 mean_ms=2.026 worst_ms=2.970 pieces=218 bytes=46934368 player_lap=1 bouts=1&#xD;
+window=7001-7200 mean_ms=1.972 worst_ms=2.941 pieces=217 bytes=47459840 player_lap=1 bouts=1&#xD;
+window=7201-7400 mean_ms=2.165 worst_ms=8.568 pieces=233 bytes=47760096 player_lap=1 bouts=1&#xD;
+ticks=7597 mean_ms=4.526 bytes=54385336</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="FirstTwoLapsCpuProfile" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="5a920b42-bdea-5bc6-93fa-9b67ce5e3013">
+      <Execution id="39cabd3a-e5a7-433b-a2ea-5adc98e98046" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RangeTransientPerformanceTests" name="FirstTwoLapsCpuProfile" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="5a920b42-bdea-5bc6-93fa-9b67ce5e3013" executionId="39cabd3a-e5a7-433b-a2ea-5adc98e98046" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Explicit run&#xD;
+slow tick=1 ms=54.298 pieces=1&#xD;
+window=1-200 mean_ms=3.090 worst_ms=54.298 pieces=200 bytes=43868824 player_lap=0 bouts=0&#xD;
+window=201-400 mean_ms=4.392 worst_ms=10.182 pieces=329 bytes=43931544 player_lap=0 bouts=0&#xD;
+window=401-600 mean_ms=4.602 worst_ms=10.207 pieces=366 bytes=43931544 player_lap=0 bouts=0&#xD;
+window=601-800 mean_ms=2.975 worst_ms=5.123 pieces=205 bytes=43931544 player_lap=0 bouts=0&#xD;
+window=801-1000 mean_ms=2.916 worst_ms=4.515 pieces=200 bytes=43931544 player_lap=0 bouts=0&#xD;
+window=1001-1200 mean_ms=2.931 worst_ms=3.847 pieces=200 bytes=43931544 player_lap=0 bouts=0&#xD;
+window=1201-1400 mean_ms=2.762 worst_ms=3.426 pieces=200 bytes=43931696 player_lap=0 bouts=0&#xD;
+window=1401-1600 mean_ms=3.106 worst_ms=6.476 pieces=216 bytes=43931696 player_lap=0 bouts=0&#xD;
+window=1601-1800 mean_ms=2.813 worst_ms=4.749 pieces=200 bytes=43931696 player_lap=0 bouts=0&#xD;
+window=1801-2000 mean_ms=3.236 worst_ms=9.511 pieces=244 bytes=43931696 player_lap=0 bouts=0&#xD;
+window=2001-2200 mean_ms=4.102 worst_ms=9.981 pieces=299 bytes=43931696 player_lap=0 bouts=0&#xD;
+window=2201-2400 mean_ms=3.436 worst_ms=6.950 pieces=243 bytes=43931696 player_lap=0 bouts=0&#xD;
+window=2401-2600 mean_ms=2.811 worst_ms=5.312 pieces=245 bytes=43931696 player_lap=0 bouts=0&#xD;
+window=2601-2800 mean_ms=1.998 worst_ms=6.204 pieces=244 bytes=45658080 player_lap=0 bouts=0&#xD;
+window=2801-3000 mean_ms=1.169 worst_ms=1.857 pieces=206 bytes=46183696 player_lap=0 bouts=0&#xD;
+window=3001-3200 mean_ms=1.383 worst_ms=2.049 pieces=202 bytes=46183696 player_lap=0 bouts=1&#xD;
+window=3201-3400 mean_ms=1.957 worst_ms=2.547 pieces=216 bytes=46183696 player_lap=0 bouts=1&#xD;
+window=3401-3600 mean_ms=2.682 worst_ms=19.152 pieces=220 bytes=46183696 player_lap=0 bouts=1&#xD;
+slow tick=3621 ms=40.890 pieces=5&#xD;
+slow tick=3625 ms=42.119 pieces=2&#xD;
+slow tick=3635 ms=30.077 pieces=1&#xD;
+slow tick=3798 ms=49.105 pieces=4&#xD;
+window=3601-3800 mean_ms=9.578 worst_ms=49.105 pieces=484 bytes=46183696 player_lap=0 bouts=1&#xD;
+slow tick=3807 ms=47.547 pieces=3&#xD;
+slow tick=3905 ms=30.550 pieces=19&#xD;
+window=3801-4000 mean_ms=8.355 worst_ms=47.547 pieces=483 bytes=46183696 player_lap=0 bouts=1&#xD;
+window=4001-4200 mean_ms=3.517 worst_ms=7.962 pieces=243 bytes=46183696 player_lap=0 bouts=1&#xD;
+window=4201-4400 mean_ms=4.380 worst_ms=10.675 pieces=348 bytes=46183696 player_lap=0 bouts=1&#xD;
+slow tick=4458 ms=75.357 pieces=1&#xD;
+slow_actor=12 loop=penalty_150 pose=67,307153449,-13,92337506,0,289112918 disk_queries=3675 edge_responses=6&#xD;
+slow tick=4459 ms=37.629 pieces=1&#xD;
+slow tick=4480 ms=142.327 pieces=3&#xD;
+slow_actor=1 loop=penalty_150 pose=73,393302351,-8,954089641,0,165307454 disk_queries=238 edge_responses=1&#xD;
+slow_actor=12 loop=penalty_150 pose=72,469613633,-9,487270878,0,307886244 disk_queries=8908 edge_responses=3&#xD;
+slow tick=4481 ms=36.368 pieces=1&#xD;
+slow tick=4483 ms=110.016 pieces=1&#xD;
+slow_actor=1 loop=penalty_150 pose=74,071508846,-8,527094593,0,197718568 disk_queries=238 edge_responses=0&#xD;
+slow_actor=12 loop=penalty_150 pose=73,174547467,-9,040543872,0,283688978 disk_queries=13192 edge_responses=2&#xD;
+slow tick=4495 ms=41.169 pieces=2&#xD;
+slow tick=4506 ms=31.405 pieces=1&#xD;
+slow tick=4509 ms=56.657 pieces=8&#xD;
+slow tick=4510 ms=64.923 pieces=2&#xD;
+slow_actor=1 loop=penalty_150 pose=79,748101872,-5,933373263,0,167196606 disk_queries=1004 edge_responses=1&#xD;
+slow_actor=3 loop=main pose=213,071034381,-7,258788945,1,200432722 disk_queries=2442 edge_responses=1&#xD;
+slow_actor=12 loop=penalty_150 pose=78,927354765,-6,245297275,0,123819359 disk_queries=1023 edge_responses=0&#xD;
+slow_actor=15 loop=main pose=212,043482029,-6,582041253,1,521616072 disk_queries=3990 edge_responses=1&#xD;
+slow tick=4514 ms=43.385 pieces=6&#xD;
+slow tick=4516 ms=31.566 pieces=2&#xD;
+slow tick=4572 ms=30.206 pieces=3&#xD;
+slow tick=4575 ms=36.596 pieces=3&#xD;
+slow tick=4579 ms=50.421 pieces=15&#xD;
+slow tick=4582 ms=32.422 pieces=8&#xD;
+slow tick=4590 ms=34.720 pieces=9&#xD;
+slow tick=4596 ms=34.165 pieces=7&#xD;
+window=4401-4600 mean_ms=14.568 worst_ms=142.327 pieces=429 bytes=46183696 player_lap=0 bouts=1&#xD;
+slow tick=4666 ms=53.645 pieces=9&#xD;
+slow tick=4667 ms=32.934 pieces=3&#xD;
+slow tick=4668 ms=37.793 pieces=4&#xD;
+slow tick=4676 ms=33.963 pieces=3&#xD;
+slow tick=4686 ms=38.671 pieces=2&#xD;
+slow tick=4712 ms=31.188 pieces=4&#xD;
+slow tick=4780 ms=32.402 pieces=4&#xD;
+window=4601-4800 mean_ms=15.131 worst_ms=53.645 pieces=704 bytes=46183696 player_lap=1 bouts=1&#xD;
+slow tick=4816 ms=41.732 pieces=2&#xD;
+slow tick=4819 ms=46.466 pieces=6&#xD;
+slow tick=4820 ms=37.439 pieces=3&#xD;
+slow tick=4824 ms=62.455 pieces=5&#xD;
+slow_actor=10 loop=penalty_150 pose=81,894964605,-59,968838429,4,464128883 disk_queries=3675 edge_responses=2&#xD;
+slow_actor=14 loop=penalty_150 pose=80,677128785,-59,55965913,4,284757454 disk_queries=510 edge_responses=1&#xD;
+slow tick=4827 ms=35.289 pieces=9&#xD;
+slow tick=4828 ms=31.529 pieces=5&#xD;
+slow tick=4836 ms=31.550 pieces=5&#xD;
+slow tick=4839 ms=46.503 pieces=3&#xD;
+slow tick=4840 ms=41.160 pieces=4&#xD;
+slow tick=4841 ms=80.451 pieces=5&#xD;
+slow_actor=10 loop=penalty_150 pose=79,690846425,-59,304943074,4,435555373 disk_queries=4488 edge_responses=2&#xD;
+slow_actor=14 loop=penalty_150 pose=78,580984313,-58,855825505,4,39513939 disk_queries=204 edge_responses=0&#xD;
+slow tick=4842 ms=34.995 pieces=4&#xD;
+slow tick=4868 ms=56.756 pieces=4&#xD;
+slow tick=4888 ms=87.907 pieces=14&#xD;
+slow_actor=10 loop=penalty_150 pose=74,198883524,-56,823964354,4,68082863 disk_queries=700 edge_responses=2&#xD;
+slow_actor=12 loop=penalty_150 pose=85,396870855,-4,67530454,5,396421238 disk_queries=0 edge_responses=1&#xD;
+slow_actor=14 loop=penalty_150 pose=73,101826214,-56,108220582,4,678956104 disk_queries=105 edge_responses=1&#xD;
+slow tick=4928 ms=49.170 pieces=3&#xD;
+slow tick=4975 ms=50.822 pieces=2&#xD;
+window=4801-5000 mean_ms=15.880 worst_ms=87.907 pieces=593 bytes=46183696 player_lap=1 bouts=1&#xD;
+slow tick=5106 ms=38.748 pieces=10&#xD;
+slow tick=5121 ms=66.023 pieces=2&#xD;
+slow_actor=10 loop=penalty_150 pose=60,497441717,-29,407937613,5,899593426 disk_queries=245 edge_responses=2&#xD;
+slow_actor=14 loop=penalty_150 pose=60,742626485,-28,094283253,5,838698945 disk_queries=0 edge_responses=1&#xD;
+slow tick=5139 ms=32.750 pieces=2&#xD;
+slow tick=5170 ms=31.128 pieces=16&#xD;
+slow tick=5179 ms=42.557 pieces=2&#xD;
+slow tick=5186 ms=44.562 pieces=2&#xD;
+window=5001-5200 mean_ms=10.461 worst_ms=66.023 pieces=331 bytes=46183696 player_lap=1 bouts=1&#xD;
+slow tick=5228 ms=51.853 pieces=2&#xD;
+slow tick=5295 ms=37.644 pieces=2&#xD;
+slow tick=5316 ms=30.418 pieces=2&#xD;
+slow tick=5338 ms=66.000 pieces=1&#xD;
+slow_actor=10 loop=penalty_150 pose=77,559303171,-6,626697066,0,649799527 disk_queries=3290 edge_responses=2&#xD;
+slow_actor=14 loop=penalty_150 pose=78,85253139,-6,152107067,0,62335125 disk_queries=420 edge_responses=1&#xD;
+window=5201-5400 mean_ms=9.118 worst_ms=66.000 pieces=278 bytes=46183696 player_lap=1 bouts=1&#xD;
+slow tick=5415 ms=34.619 pieces=1&#xD;
+window=5401-5600 mean_ms=3.730 worst_ms=34.619 pieces=208 bytes=46183696 player_lap=1 bouts=1&#xD;
+window=5601-5800 mean_ms=2.788 worst_ms=4.385 pieces=203 bytes=46183696 player_lap=1 bouts=1&#xD;
+window=5801-6000 mean_ms=2.768 worst_ms=4.206 pieces=201 bytes=46183696 player_lap=1 bouts=1&#xD;
+window=6001-6200 mean_ms=2.644 worst_ms=4.142 pieces=208 bytes=46183696 player_lap=1 bouts=1&#xD;
+window=6201-6400 mean_ms=2.516 worst_ms=3.843 pieces=213 bytes=46333840 player_lap=1 bouts=1&#xD;
+window=6401-6600 mean_ms=2.266 worst_ms=3.473 pieces=208 bytes=46709168 player_lap=1 bouts=1&#xD;
+window=6601-6800 mean_ms=2.194 worst_ms=3.437 pieces=213 bytes=46859296 player_lap=1 bouts=1&#xD;
+window=6801-7000 mean_ms=2.026 worst_ms=2.970 pieces=218 bytes=46934368 player_lap=1 bouts=1&#xD;
+window=7001-7200 mean_ms=1.972 worst_ms=2.941 pieces=217 bytes=47459840 player_lap=1 bouts=1&#xD;
+window=7201-7400 mean_ms=2.165 worst_ms=8.568 pieces=233 bytes=47760096 player_lap=1 bouts=1&#xD;
+ticks=7597 mean_ms=4.526 bytes=54385336&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

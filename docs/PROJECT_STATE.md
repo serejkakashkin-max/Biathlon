@@ -24533,3 +24533,26 @@ Evidence: docs/quality/m13/shadows-balance-20261011/.
 M13 remains OPEN for owner gentle-turn/first-range pace/shadow gameplay review;
 M14 not started. Known separate Pursuit/grandstand issues remain recorded.
 Foundation onward history preserved; this record appends without rewriting it.
+
+## 2026-10-11 — M13 final laps owner build
+
+M13 remains OPEN for owner review; M14 not started. Final owner corrections:
+canonical contact-manifold caching; exact repeated clearance caching; bounded
+15-point contact-direction probes with full body/course admission retained;
+IBU Mass Start first-bout bib/later-bout physical arrival order now connected to
+signed movement; private departure shortened 1.5m/local turn targeting; player
+A/D has no automatic braking, AI can request the same explicit capped brake on
+ordinary/penalty turns. Maximum30/High/default textures/restored shadows retained.
+Native owner departure returns aligned control after 6s. Contact window peak
+61.128→19.269ms in unchanged workload; subsequent penalty entry126.893→49.105ms
+after bounded direction work (CPU only; isolated75ms tick remains recorded).
+Final full Mass30 completion and signed shipping replay PASS; native EditMode/
+PlayMode PASS. Build: Builds/WoodlandM13FinalLaps-20261011/START_WOODLAND_REVIEW.cmd.
+0 build errors; player content/control/transition smoke PASS. Detailed counts,
+build warnings and hashes: docs/quality/m13/final-laps-20261011/delivery-summary.json.
+Known Pursuit composition/broad grandstand-foundation failures remain separate;
+no tests disabled. Captured-coordinate tests preserve their historical venue.
+Temporary diagnosis hooks removed. Owner asset/settings/package edits preserved.
+History prefix verified unchanged from 2951104 bytes/SHA256 captured before work.
+Decision ADR-0051; report TASK_M13_FINAL_LAPS_20261011. Next: owner build test and
+M13 closure decision before M14.
