@@ -27,6 +27,7 @@ namespace Biathlon.Simulation
         private readonly int frequency;
         private DeviceControlSample sample;
         private double keyboardEffort;
+        private double keyboardSteering;
         private long tick;
         private bool overtake, cancel;
         public DeviceCommandBuilder(DeviceControlDefinition definition, AthleteId athlete, int frequency)
@@ -49,8 +50,18 @@ namespace Biathlon.Simulation
         public ManualSkiCommand BuildManual(SimulationTick target)
         {
             var legacy=BuildCore(target,null,0,0);
+            double steering=legacy.LineIntent;
+            if(!sample.Gamepad&&definition.KeyboardSteeringRate>0)
+            {
+                // A tap is a small ski deflection, not an immediate maximum
+                // braking turn. Release/reversal never retains the old sign.
+                double current=sample.Line==0||Math.Sign(sample.Line)!=Math.Sign(keyboardSteering)?0:keyboardSteering;
+                double limit=definition.KeyboardSteeringRate/frequency;
+                steering=sample.Line==0?0:current+Math.Max(-limit,Math.Min(limit,steering-current));
+            }
+            keyboardSteering=sample.Gamepad?0:steering;
             return new ManualSkiCommand(target,athlete,legacy.AnalogEffort,
-                legacy.LineIntent,legacy.Preset,legacy.TuckHeld,
+                (int)Math.Round(steering,MidpointRounding.ToEven),legacy.Preset,legacy.TuckHeld,
                 legacy.OvertakeRequested,legacy.CancelOvertake,legacy.TechniqueId);
         }
         /// <summary>Live steering is directional; recorded commands remain absolute line targets.

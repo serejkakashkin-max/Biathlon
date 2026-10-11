@@ -38,6 +38,28 @@ namespace Biathlon.Tests
         private static DeviceCommandBuilder Create(int frequency = 20) => new DeviceCommandBuilder(
             DeviceControlDefinition.FromJson(PhysiologyContractTests.DefinitionJson("device_control_v1.json")),
             new AthleteId("player"), frequency);
+        [Test] public void ProductionSteeringRampIsTickBoundAndGamepadRemainsAnalog()
+        {
+            var d=DeviceControlDefinition.FromJson(PhysiologyContractTests.DefinitionJson("device_control_gameplay_v3.json"));
+            var a=new DeviceCommandBuilder(d,new AthleteId("player"),20);
+            var b=new DeviceCommandBuilder(d,new AthleteId("player"),20);
+            for(int t=1;t<=80;t++)
+            {
+                var sample=new DeviceControlSample(false,1,t<10?1:t<20?-1:t<30?0:1);
+                a.Sample(sample);for(int frame=0;frame<7;frame++)b.Sample(sample);
+                if(t==10)Assert.Throws<ArgumentException>(()=>a.BuildManual(new SimulationTick(t+1)));
+                Assert.That(a.BuildManual(new SimulationTick(t)).ToJson(),Is.EqualTo(b.BuildManual(new SimulationTick(t)).ToJson()));
+            }
+            var stick=new DeviceCommandBuilder(d,new AthleteId("player"),20);
+            stick.Sample(new DeviceControlSample(true,.8,1));
+            Assert.That(stick.BuildManual(new SimulationTick(1)).SteeringInput,Is.EqualTo(1000));
+            var warm=new DeviceCommandBuilder(d,new AthleteId("player"),20);
+            warm.Sample(new DeviceControlSample(false,1,1));
+            for(int t=1;t<=100;t++)warm.BuildManual(new SimulationTick(t));
+            long before=GC.GetAllocatedBytesForCurrentThread();
+            for(int t=101;t<=10100;t++)warm.BuildManual(new SimulationTick(t));
+            Assert.That(GC.GetAllocatedBytesForCurrentThread()-before,Is.Zero);
+        }
         [TestCase(false)] [TestCase(true)]
         public void ManualDirectionIsSignedYawAndNeutralNeverRequestsRecentering(bool gamepad)
         {

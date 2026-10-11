@@ -258,6 +258,26 @@ namespace Biathlon.Tests
             Assert.That(right.Drive.Sample(0),Is.EqualTo(b.Pose));
             Assert.That(right.Drive.MotionAt(0),Is.EqualTo(Motion(b)));
         }
+        [Test] public void ProductionKeyboardTapTurnsWithoutRequestingEmergencyCornerBraking()
+        {
+            var f=new Fixture();var body=f.Body(forward:14);
+            var device=new DeviceCommandBuilder(DeviceControlDefinition.FromJson(
+                PhysiologyContractTests.DefinitionJson("device_control_gameplay_v3.json")),body.Athlete,20);
+            device.Sample(new DeviceControlSample(false,1,1));
+            var tap=device.BuildManual(new SimulationTick(1));
+            var gentle=f.Preview(body,tap.SteeringInput,power:0);
+            var full=f.Preview(body,1000,power:0);
+            TestContext.WriteLine($"tap_input={tap.SteeringInput} tap_braking_N={gentle.Cornering.BrakingNewtons:R} full_braking_N={full.Cornering.BrakingNewtons:R} tap_speed={gentle.Drive.FirstDrive.Output.State.SpeedMetersPerSecond:R} full_speed={full.Drive.FirstDrive.Output.State.SpeedMetersPerSecond:R}");
+            Assert.That(tap.SteeringInput,Is.InRange(1,200));
+            Assert.That(gentle.Cornering.BrakingNewtons,Is.Zero);
+            Assert.That(gentle.Drive.FirstDrive.Output.State.SpeedMetersPerSecond,Is.GreaterThan(full.Drive.FirstDrive.Output.State.SpeedMetersPerSecond));
+            for(int t=2;t<=10;t++)device.BuildManual(new SimulationTick(t));
+            Assert.That(device.BuildManual(new SimulationTick(11)).SteeringInput,Is.EqualTo(1000));
+            device.Sample(new DeviceControlSample(false,1,0));
+            Assert.That(device.BuildManual(new SimulationTick(12)).SteeringInput,Is.Zero);
+            device.Sample(new DeviceControlSample(false,1,-1));
+            Assert.That(device.BuildManual(new SimulationTick(13)).SteeringInput,Is.EqualTo(-tap.SteeringInput));
+        }
         [Test] public void ExplicitBrakeRequestUsesSharedForceAndDoesNotResetSourceMotion()
         {
             var f=new Fixture();var b=f.Body();var input=new ManualSkiMotionInput(0,0,100,100);

@@ -18,7 +18,7 @@ namespace Biathlon.Unity.Presentation
         public void Initialize(AthleteId athlete, int frequency)
         {
             builder = new DeviceCommandBuilder(DeviceControlDefinition.FromJson(
-                Resources.Load<TextAsset>("Biathlon/device_control_gameplay_v2").text), athlete, frequency);
+                Resources.Load<TextAsset>("Biathlon/device_control_gameplay_v3").text), athlete, frequency);
             steeringSpeed=SteeringDefinition.FromJson(Resources.Load<TextAsset>("Biathlon/steering_provisional_v1").text).LateralSpeed;
             previousOvertake = previousCancel = inactive = false;
             hasPendingManual=false;
