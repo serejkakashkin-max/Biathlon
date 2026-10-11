@@ -9,5 +9,8 @@
   "range_approach_minimum_lateral_m": 0.8,
   "range_transit_soft_contacts": true,
   "private_departure_lookahead_m": 0.9,
-  "brake_for_steering_demand": true
+  "brake_for_steering_demand": true,
+  "recover_behind_penalty_target": true,
+  "recover_low_speed_course_steering": true,
+  "bend_speed_safety_factor": 0.85
 }

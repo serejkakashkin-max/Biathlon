@@ -21,6 +21,24 @@ namespace Biathlon.Tests
             Assert.That(f.Catalog.TryProject(f.At(occurrence,nm),occurrence,nm,.001,out var at),Is.True);
             return at;
         }
+        [Test] public void ProductionDecisionMarginBrakesEarlierWithoutChangingAthleteCapacity()
+        {
+            var f=new ManualRacePathCatalogTests.Fixture();var models=new SkiModelDefinitions(PhysiologyContractTests.DefinitionJson);
+            string json=ManualScopedFieldStepperTests.Read("Biathlon/manual_ai_steering_v2");
+            var cautious=Create(f);
+            var reference=new ManualAiBendBrakingPlanner(f.Venue.Track,f.Catalog,models.Physics,models.Cornering,
+                ManualScopedFieldStepperTests.Steering(),ManualAiSteeringDefinition.FromJson(
+                    PhysiologyContractTests.ReplaceNumber(json,"bend_speed_safety_factor","1")),f.Venue.Occupancy);
+            var at=At(f,f.Catalog.GetPenaltyOccurrence(0,1),30);
+            var before=reference.Plan(at,9,70,70,.1);var after=cautious.Plan(at,9,70,70,.1);
+            Assert.That(after.SpeedLimit,Is.LessThan(before.SpeedLimit));
+            Assert.That(after.BrakeFraction,Is.GreaterThanOrEqualTo(before.BrakeFraction));
+            var start=At(f,f.Catalog.StartApproachIndex,5);
+            Assert.That(cautious.Plan(start,4,70,70,0).BrakeFraction,Is.Zero,"The margin must not brake a straight.");
+            var policy=ManualAiSteeringDefinition.FromJson(json);
+            Assert.That(policy.RecoverBehindPenaltyTarget,Is.True);
+            Assert.That(ManualAiSteeringDefinition.FromJson(policy.ToJson()).BendSpeedSafetyFactor,Is.EqualTo(.85));
+        }
         [Test] public void AiRequestsAnExplicitSharedBrakeOnlyForDemandingSteering()
         {
             var f=new ManualRacePathCatalogTests.Fixture();var planner=Create(f);

@@ -9,6 +9,32 @@ namespace Biathlon.Tests
 {
     public sealed class RangeTransientPerformanceTests
     {
+        [Test, Explicit("Owner penalty-edge stall diagnostic on the actual production field.")]
+        public void ProductionPenaltyBotsKeepMovingAfterEdgeContact()
+        {
+            var f=ManualProductionFieldTests.Initial("mass_start",30);
+            var held=new int[30];int longest=0,who=-1;long atTick=0;var timer=new Stopwatch();double worst=0;
+            for(int t=0;t<14000;t++)
+            {
+                timer.Restart();f.runner.Step();timer.Stop();worst=Math.Max(worst,timer.Elapsed.TotalMilliseconds);
+                int completed=0;
+                for(int a=0;a<30;a++)
+                {
+                    var body=f.stepper.World.GetActor(a);var row=f.stepper.World.GetCatalog(a).Get(body.Observation.OccurrenceIndex);
+                    bool slow=row.Kind==ManualRacePathKind.PenaltyLoop&&f.stepper.World.GetPhysicalMotion(a).SpeedMetersPerSecond<.2;
+                    held[a]=slow?held[a]+1:0;
+                    if(held[a]>longest)
+                    {
+                        longest=held[a];who=a;atTick=f.runner.Field.Tick.Value;
+                        if(longest==100)TestContext.WriteLine($"stall actor={a} tick={atTick} pose={body.Pose.X:R},{body.Pose.Z:R},{body.Pose.HeadingRadians:R} lateral={body.Observation.LateralMeters:R} arc={body.Observation.PhysicalArcNanometers} edge={f.stepper.World.GetCourseEdgeResponses(a)}");
+                    }
+                    if(f.runner.Field.GetAthlete(a).Lifecycle.CompletedBouts>=2)completed++;
+                }
+                if(completed==30)break;
+            }
+            TestContext.WriteLine($"penalty_stall_ticks={longest} actor={who} tick={atTick} worst_cpu_ms={worst:F3}");
+            Assert.That(longest,Is.LessThan(100),"A bot must not remain stopped on the penalty circuit for five seconds.");
+        }
         [Test, Explicit("Bounded two-bout CPU diagnostic, not a portable timing gate.")]
         public void FirstTwoLapsCpuProfile()
         {

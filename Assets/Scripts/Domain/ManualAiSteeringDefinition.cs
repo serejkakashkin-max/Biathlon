@@ -20,6 +20,9 @@ namespace Biathlon.Domain
         [DataMember(Name="range_transit_soft_contacts",EmitDefaultValue=false)] public bool RangeTransitSoftContacts {get;private set;}
         [DataMember(Name="private_departure_lookahead_m",EmitDefaultValue=false)] public double PrivateDepartureLookahead {get;private set;}
         [DataMember(Name="brake_for_steering_demand",EmitDefaultValue=false)] public bool BrakeForSteeringDemand {get;private set;}
+        [DataMember(Name="recover_behind_penalty_target",EmitDefaultValue=false)] public bool RecoverBehindPenaltyTarget {get;private set;}
+        [DataMember(Name="recover_low_speed_course_steering",EmitDefaultValue=false)] public bool RecoverLowSpeedCourseSteering {get;private set;}
+        [DataMember(Name="bend_speed_safety_factor",EmitDefaultValue=false)] public double BendSpeedSafetyFactor {get;private set;}
         public static ManualAiSteeringDefinition FromJson(string json)
         {
             var value=RouteJson.Read<ManualAiSteeringDefinition>(json);
@@ -32,6 +35,8 @@ namespace Biathlon.Domain
             TrackValidation.Finite(value.YawRateFeedback,0,2,nameof(YawRateFeedback));
             TrackValidation.Finite(value.RangeApproachMinimumLateral,0,3,nameof(RangeApproachMinimumLateral));
             TrackValidation.Finite(value.PrivateDepartureLookahead,0,200,nameof(PrivateDepartureLookahead));
+            TrackValidation.Finite(value.BendSpeedSafetyFactor,0,1,nameof(BendSpeedSafetyFactor));
+            if(value.BendSpeedSafetyFactor>0&&value.BendSpeedSafetyFactor<.5)throw new SerializationException("AI bend speed margin must be at least 0.5.");
             return value;
         }
         public string ToJson()=>RouteJson.Write(this);

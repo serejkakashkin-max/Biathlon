@@ -30,6 +30,7 @@ namespace Biathlon.AI
         private readonly ManualAiObstacleCorridor corridor;
         private readonly ManualAiSnowSteeringPlanner snowPlanner;
         private readonly CorneringSystem steeringGrip;
+        private readonly double minimumSteeringSpeed;
         private readonly PlayerCourseReturnSystem playerReturn;
         public string ContextJson {get;}
         public ManualScopedAiMovement(ManualScopedFieldStepper stepper,ManualAiSteeringDefinition policy,
@@ -42,6 +43,7 @@ namespace Biathlon.AI
             corridor=new ManualAiObstacleCorridor(stepper.BodyDefinition);
             snowPlanner=new ManualAiSnowSteeringPlanner(stepper.BodyDefinition,physicalSteering,stepper.World.TickFrequency);
             steeringGrip=new CorneringSystem(stepper.CorneringDefinition,stepper.PhysicsDefinition);
+            minimumSteeringSpeed=physicalSteering.MinimumSpeedForGripLimit;
             if(physicalSteering.ToJson()!=stepper.SteeringDefinitionJson)throw new ArgumentException("AI and movement must use the same physical steering definition.");
             int n=stepper.World.Count;controllers=new ManualAiSteeringController[n];catalogs=new ManualRacePathCatalog[n];steering=new int[n];
             bends=new ManualAiBendBrakingPlanner[n];brakes=new double[n];
@@ -67,7 +69,7 @@ namespace Biathlon.AI
                     bends[i]=new ManualAiBendBrakingPlanner(stepper.Field.Track,catalogs[i],stepper.PhysicsDefinition,
                         stepper.CorneringDefinition,physicalSteering,policy,stepper.BodyDefinition);}}
             var context=new string[n+choices+5];
-            context[0]="manual_scoped_ai_shared_clock_movement_v24_mat_bearing_free_exit_complete_controls";
+            context[0]="manual_scoped_ai_shared_clock_movement_v25_penalty_behind_target_and_low_speed_recovery";
             context[1]=stepper.ContextJson;context[2]=policy.ToJson();context[3]=physicalSteering.ToJson()+";snow_planner_sha256:"+ManualContextIdentity.Sha256(snowPlanner.ContextJson);
             context[4]="player_signed_input_unchanged;ai_target_not_lateral_teleport;field_attested_scheduled_start_forecast;stationary_obstacle_detection_from_policy_response_or_exact_owned_stationary_mat;full_rotated_body_corridor_and_achieved_velocity_forecast;candidate_line_query_excludes_old_velocity_forecast;moving_range_body_forecast_four_separating_axes_and_relative_achieved_velocity;only_observed_ahead_bodies;ordinary_racing_keeps_physical_contacts;pass_line_owned_by_current_occurrence;hold_pass_line_until_body_clear_or_occurrence_handoff;owned_gate_lookahead_cap;owned_future_width_and_achieved_side_velocity_response_reserve;resource_family_common_to_private_cue_only;all_owned_paths_actual_snow_pursuit;bounded_mat_foot_placement_by_world_owner;shared_course_follows_moving_bodies_and_passes_stationary_ones;assigned_private_mat_center_target;current_private_exit_and_fixed_mass_passing_retained;geometric_chord_sagitta_reserve;physical_pursuit_actual_velocity_and_shared_speed_response_v2_actual_chord;ordered_bend_braking_and_short_chord_before_entry;common_physical_solver;no_legacy_fallback";
             for(int i=0;i<n;i++)context[i+5]=ManualContextIdentity.Sha256(bends[i].ContextJson);
@@ -243,8 +245,10 @@ namespace Biathlon.AI
                 steering[i]=(passing[i]&&row.Kind!=ManualRacePathKind.PenaltyLoop)||Math.Abs(targetTurn)<=64*2.2204460492503131e-16?plan.SteeringInput:
                     controllers[i].PhysicalPursuitIntent(plan,actor.Pose,actor.Velocity);
                 // Recover a missed mat or exit target with bounded steering.
-                // The curved penalty circuit retains its forward pursuit.
-                bool ordinaryRecovery=row.Kind!=ManualRacePathKind.PenaltyLoop;
+                // Once a penalty target is behind the skis, sin(pi) pure pursuit
+                // cannot turn a stopped skier back. Retain ordinary pursuit on
+                // forward targets, but recover through the same bounded control.
+                bool ordinaryRecovery=row.Kind!=ManualRacePathKind.PenaltyLoop||policy.RecoverBehindPenaltyTarget;
                 double pursuitYaw=controllers[i].PhysicalPursuitYaw(plan,actor.Pose,actor.Velocity,ordinaryRecovery);
                 if(policy.RangeTransitSoftContacts&&privateMat&&row.Kind==ManualRacePathKind.RangeExit)
                     pursuitYaw=plan.HeadingErrorRadians/policy.HeadingResponseSeconds-policy.YawRateFeedback*actor.Pose.YawRateRadiansPerSecond;
@@ -252,8 +256,14 @@ namespace Biathlon.AI
                 {
                     double grip=steeringGrip.EvaluateWorldHeading(new SkiState(0,motion.SpeedMetersPerSecond),surface,0,
                         athlete.CorneringSkill,athlete.DownhillSkill,inputs[i].Ski.LineQuality,athlete.PhysiologyState.MuscularFatigue).LateralAccelerationLimit;
-                    steering[i]=snowPlanner.Plan(new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,stepper.PhysicsDefinition.MassKilograms),
-                        new SkiContactMotion(actor.Velocity,actor.Pose.YawRateRadiansPerSecond),pursuitYaw,grip);
+                    // At rest all passive preview yaw values are zero. Selecting
+                    // neutral loses the recovery command before the next paid
+                    // propulsion interval can produce steering. Keep its bounded
+                    // deflection; the common snow/drive solver still owns motion.
+                    bool ordinaryCourse=row.Kind==ManualRacePathKind.PenaltyLoop||row.Kind==ManualRacePathKind.BaseRoute||row.Kind==ManualRacePathKind.StartApproach;
+                    if(!(policy.RecoverLowSpeedCourseSteering&&ordinaryCourse&&motion.SpeedMetersPerSecond<minimumSteeringSpeed))
+                        steering[i]=snowPlanner.Plan(new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,stepper.PhysicsDefinition.MassKilograms),
+                            new SkiContactMotion(actor.Velocity,actor.Pose.YawRateRadiansPerSecond),pursuitYaw,grip);
                 }
                 if(policy.BrakeForSteeringDemand&&(row.Kind==ManualRacePathKind.BaseRoute||row.Kind==ManualRacePathKind.StartApproach||row.Kind==ManualRacePathKind.PenaltyLoop))
                     brakes[i]=Math.Max(brakes[i],bends[i].SteeringBrake(steering[i],motion.SpeedMetersPerSecond,actor.Pose.YawRateRadiansPerSecond,

@@ -125,6 +125,10 @@ namespace Biathlon.AI
                         PhysiologyNumbers.MaximumMagnitude,steeringResponse).RequestedYawRate):
                         steering.MaximumYawRate*steering.HighSpeedResponseMultiplier*steeringResponse;
                     safe=Math.Min(safe,yaw/curve);
+                    // Decision margin under the same physical limits. Only the
+                    // AI's recorded brake/effort intent changes, never capacity.
+                    if(policy.BendSpeedSafetyFactor>0&&(row.Kind==ManualRacePathKind.BaseRoute||
+                        row.Kind==ManualRacePathKind.StartApproach||row.Kind==ManualRacePathKind.PenaltyLoop))safe*=policy.BendSpeedSafetyFactor;
                     double distance=offset+from-local;
                     double available=Math.Max(0,distance-bodyReach-speed*policy.HeadingResponseSeconds);
                     double envelope=Math.Sqrt(safe*safe+2*corners.MaximumBraking*available);
