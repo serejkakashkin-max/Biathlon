@@ -388,14 +388,14 @@ namespace Biathlon.Simulation
             else if(sharedApronVisual!=null||sharedApronRange!=null)throw new ArgumentException("Apron visual/mat authority requires its typed definition.");
             if(reusableRangeMats)
             {
-                if(rangeLayout==null||rangePolicy!=null||massGrid!=null||startApproach!=null||startContinuation!=null||config==null)
+                if(rangeLayout==null||rangePolicy!=null||massGrid!=null||startApproach!=null&&!startApproach.HasLaunchPosition||config==null)
                     throw new ArgumentException("Reusable mats require exact Sprint/Pursuit paths without a Mass Start lane/start policy.");
                 var roster=new AthleteId[entrants.Length];
                 for(int i=0;i<roster.Length;i++)roster[i]=entrants[i]?.AthleteId??throw new ArgumentException("Null entrant.");
                 // Reject the complete reservation contract before schedulers emit roster events.
                 reservations=new PhysicalRangeReservations(profile,roster,rangeLayout,body,config.TickFrequency);
             }
-            if(authoredStartApproach&&(rangeLayout==null||massGrid==null||startApproach==null))
+            if(authoredStartApproach&&(rangeLayout==null||startApproach==null||massGrid==null&&!startApproach.HasLaunchPosition))
                 throw new ArgumentException("Authored start mapping requires an explicit physical range layout, grid and approach.",nameof(authoredStartApproach));
             // Prove the optional new seam before constructing a field that may emit roster events.
             var authoredStart=authoredStartApproach?new PhysicalStartApproachMap(rangeLayout.GetPath(0).PhysicalMap,track,route,
@@ -415,9 +415,9 @@ namespace Biathlon.Simulation
             field = new SprintFieldSession(config, profile, skiModel, shootingModel, track, route, conditions, timing, entrants, firstStart, resultId, events, qualification,massGrid,startApproach,rangeLayout,reusableRangeMats);
             frequency = config.TickFrequency; map = passagePhysicalMap??(rangeLayout == null ? new PhysicalTrackMap(track, route) : rangeLayout.GetPath(0).PhysicalMap);
             StartGrid=massGrid;
-            if(massGrid!=null)
+            if(startApproach!=null)
             {
-                if(massGrid.BodyJson!=body.ToJson())throw new ArgumentException("Grid and field bodies must match.");
+                if(massGrid!=null&&massGrid.BodyJson!=body.ToJson())throw new ArgumentException("Grid and field bodies must match.");
                 startOverlay=authoredStart??new PhysicalStartApproachMap(map,track,route,startApproach);
             }
             for (int i = 0; i < route.SectionCount; i++)
@@ -439,7 +439,7 @@ namespace Biathlon.Simulation
                 {
                     rangeMaps[i] = new PhysicalRangeLaneMap(map, route, rangeLanes, i);
                     rangeProjections[i] = new PhysicalMotionProjection(map, 1.0 / frequency, rangeMaps[i],startApproach,
-                        massGrid==null?0:-massGrid.Get(i).LongitudinalNanometers,startOverlay);
+                        checked((startApproach?.LaunchRemainingNanometers??0)+(massGrid==null?0:-massGrid.Get(i).LongitudinalNanometers)),startOverlay);
                     var start = map.MapLoop(rangeLanes.GetLane(i), 0);
                     var end = map.MapLoop(rangeLanes.GetLane(i), (rangeLanes.Exit.Millimeters - rangeLanes.Entry.Millimeters) * SkiState.NanometersPerMillimeter);
                     if (ConnectionIndex(map.MapLoop(rangeLanes.MainLoopId, rangeLanes.Entry.Millimeters * SkiState.NanometersPerMillimeter), start) < 0 ||
@@ -451,7 +451,7 @@ namespace Biathlon.Simulation
             else if(massGrid!=null && rangeLayout == null)
             {
                 rangeProjections=new PhysicalMotionProjection[Count];
-                for(int i=0;i<Count;i++)rangeProjections[i]=new PhysicalMotionProjection(map,1.0/frequency,null,startApproach,-massGrid.Get(i).LongitudinalNanometers,startOverlay);
+                for(int i=0;i<Count;i++)rangeProjections[i]=new PhysicalMotionProjection(map,1.0/frequency,null,startApproach,checked(startApproach.LaunchRemainingNanometers-massGrid.Get(i).LongitudinalNanometers),startOverlay);
             }
             if(rangePolicy!=null && rangeLayout == null)
             {
@@ -464,7 +464,7 @@ namespace Biathlon.Simulation
                 {
                     assignedLane[i]=workingLane[i]=i;orderedLaneProjections[i]=new PhysicalMotionProjection[Count];
                     orderedShootingLanes[i]=new ShootingLaneAssignment(track.Range.Id,"synthetic_lane_"+(i+1).ToString(System.Globalization.CultureInfo.InvariantCulture),i+1);
-                    for(int j=0;j<Count;j++)orderedLaneProjections[i][j]=new PhysicalMotionProjection(map,1.0/frequency,rangeMaps[j],startApproach,-massGrid.Get(i).LongitudinalNanometers,startOverlay);
+                    for(int j=0;j<Count;j++)orderedLaneProjections[i][j]=new PhysicalMotionProjection(map,1.0/frequency,rangeMaps[j],startApproach,checked(startApproach.LaunchRemainingNanometers-massGrid.Get(i).LongitudinalNanometers),startOverlay);
                 }
                 for(int b=0;b<profile.BoutCount;b++)
                 {
@@ -495,7 +495,7 @@ namespace Biathlon.Simulation
                     pathProjections[i] = new PhysicalMotionProjection[rangeLayout.Count];
                     for (int j = 0; j < rangeLayout.Count; j++)
                         pathProjections[i][j] = new PhysicalMotionProjection(map, 1.0 / frequency, approach:startApproach,
-                            startBehindLineNanometers:massGrid == null ? 0 : -massGrid.Get(i).LongitudinalNanometers,
+                            startBehindLineNanometers:checked((startApproach?.LaunchRemainingNanometers??0)+(massGrid == null ? 0 : -massGrid.Get(i).LongitudinalNanometers)),
                             startOverlay:startOverlay, rangePath:rangeLayout.GetPath(j));
                 }
                 long maximumTickTravel = checked((long)Math.Ceiling(skiModel.Physics.MaximumSpeedMetersPerSecond / frequency * SkiState.NanometersPerMeter) + largest);

@@ -1,0 +1,49 @@
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Diagnostics;
+using UnityEngine;
+using UnityEditor;
+using Biathlon.Unity.Presentation;
+using Biathlon.Simulation;
+public static class OwnerCornerLiveProbe
+{
+ static ProductionVenueHost h;static AthleteChaseCamera chase;static RangePresentation range;
+ static BenchmarkFrameCounters counters;static Stopwatch watch=new Stopwatch();static List<string> rows=new List<string>();
+ static int lastFrame=-1,frames,aimFrames,stopTick;static string tag;
+ public static void Run()
+ {
+  foreach(var d in EditorApplication.update.GetInvocationList())if(d.Method.DeclaringType!=null&&d.Method.DeclaringType.Name.StartsWith("OwnerCornerLiveProbe",StringComparison.Ordinal))EditorApplication.update-=(EditorApplication.CallbackFunction)d;
+  h=UnityEngine.Object.FindAnyObjectByType<ProductionVenueHost>();if(h==null)throw new InvalidOperationException("Fresh production Play Mode required."); if(h.Runner==null){var v=new Biathlon.Domain.VenueAuthoringPlan(Biathlon.Domain.VenueManifest.FromJson(ProductionVenueHost.ReadResource(h.VenueResource)),ProductionVenueHost.ReadResource);h.Initialize(v,Biathlon.Domain.CompetitionProfile.FromJson(ProductionVenueHost.ReadResource(h.ProfileResource)),Biathlon.Domain.RaceRoutePlan.FromJson(ProductionVenueHost.ReadResource(h.RouteResource)),Biathlon.Domain.RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource(h.ConditionsResource)),30);h.InitializeEnvironment(ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource(h.EnvironmentResource)));}
+  h.enabled=false;h.Proxies.enabled=false;stopTick=(int)h.Runner.Field.Tick.Value+6000;typeof(Biathlon.AI.PackAiRaceRunner).GetField("boundPlayerIndex",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).SetValue(h.Runner,-1);range=h.GetComponent<RangePresentation>();range.enabled=false;
+  chase=h.ChaseCamera.GetComponent<AthleteChaseCamera>();chase.enabled=false;
+  counters=new BenchmarkFrameCounters();tag="final";
+  rows.Add("tick,loop,arc_m,phase,steps,sim_ms,publish_ms,pose_ms,camera_ms,range_ms,frame_ms,draws,triangles,gc_bytes,gpu_ms,cpu_main_ms");
+  EditorApplication.update+=Update;
+ }
+ static void Update()
+ {
+  if(Time.frameCount==lastFrame)return;lastFrame=Time.frameCount;
+  try
+  {
+   if(!EditorApplication.isPlaying||h==null){End();return;}
+   var a=h.Runner.Field.GetAthlete(0);var b=h.ManualStepper.World.GetActor(0);double arc=b.Observation.PhysicalArcNanometers/1e9;
+   bool near=a.ActiveShooting!=null||b.Observation.LoopId.StartsWith("mat",StringComparison.Ordinal)||b.Observation.LoopId=="main"&&arc>=55&&arc<=140;
+   int steps=near?1:4;var sample=counters.Read(frames,0,Time.unscaledDeltaTime*1000);
+   watch.Restart();for(int i=0;i<steps;i++)h.Runner.Step();double sim=watch.Elapsed.TotalMilliseconds;
+   watch.Restart();h.Feed.Publish(RacePresentationSnapshot.Capture(h.Runner.Field));double publish=watch.Elapsed.TotalMilliseconds;
+   watch.Restart();h.Proxies.Render(1);double pose=watch.Elapsed.TotalMilliseconds;
+   watch.Restart();chase.Render(Time.deltaTime);double cam=watch.Elapsed.TotalMilliseconds;
+   watch.Restart();range.Refresh();double rng=watch.Elapsed.TotalMilliseconds;
+   b=h.ManualStepper.World.GetActor(0);
+   rows.Add(FormattableString.Invariant($"{a.Tick.Value},{b.Observation.LoopId},{b.Observation.PhysicalArcNanometers/1e9:R},{a.ActiveShooting?.Phase.ToString()??"Ski"},{steps},{sim:R},{publish:R},{pose:R},{cam:R},{rng:R},{Time.unscaledDeltaTime*1000:R},{sample.draw_calls},{sample.triangles},{sample.gc_bytes},{sample.gpu_ms},{sample.cpu_main_ms}"));
+   counters.Request();frames++;
+   if(frames%60==0)Save();if(a.ActiveShooting?.Phase==ShootingPhase.Aiming)aimFrames++;
+   if(aimFrames>=100||a.Tick.Value>stopTick)End();
+  }
+  catch(Exception e){File.WriteAllText("docs/quality/m13/corners-setup-start-20261011/live-error.txt",e.ToString());End();}
+ }
+ static void Save(){File.WriteAllLines("docs/quality/m13/corners-setup-start-20261011/live-"+tag+".csv",rows);}
+ static void End(){EditorApplication.update-=Update;Save();counters?.Dispose();File.WriteAllText("docs/quality/m13/corners-setup-start-20261011/live-"+tag+"-done.txt",frames.ToString());}
+}
+

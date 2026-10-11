@@ -14,7 +14,7 @@ namespace Biathlon.AI
         public ManualAiSnowSteeringPlanner(OccupancyDefinition body,ManualSkiSteeringDefinition steering,int frequency)
         {
             snow=new ManualSkiSteeredSnowSystem(body,steering,frequency);seconds=1.0/frequency;
-            ContextJson=ManualScopedAiMovement.Encode(new[]{"manual_ai_snow_yaw_intent_v2_endpoint_correction",snow.ContextJson,
+            ContextJson=ManualScopedAiMovement.Encode(new[]{"manual_ai_snow_yaw_intent_v3_minimum_equal_deflection",snow.ContextJson,
                 "nominal_retained_inside_signed_endpoint_envelope;unreached_spin_uses_bounded_signed_endpoint;diagnostic_two_signed_error_searches_and_exact_neutral;actual_slip_spin;closest_sampled_shared_yaw;bounded_integer_search;not_global_monotonic_inversion;intent_only;shared_force_cost"});
         }
         public int Plan(ManualSkiContactBody body,SkiContactMotion motion,double targetYawRate,double lateralAcceleration,double response=1)
@@ -32,7 +32,8 @@ namespace Biathlon.AI
                 {
                     int left=lo+(hi-lo)/3,right=hi-(hi-lo)/3;
                     double a=At(left),b=At(right);Score(left,a);Score(right,b);
-                    if(Math.Abs(a-targetYawRate)<Math.Abs(b-targetYawRate))hi=right-1;
+                    if(Math.Abs(a-targetYawRate)<Math.Abs(b-targetYawRate)||
+                        Math.Abs(a-targetYawRate)==Math.Abs(b-targetYawRate)&&Math.Abs(left)<Math.Abs(right))hi=right-1;
                     else lo=left+1;
                 }
                 for(int command=lo;command<=hi;command++)Score(command,At(command));
@@ -40,7 +41,7 @@ namespace Biathlon.AI
             void Score(int command,double yaw)
             {
                 double e=Math.Abs(yaw-targetYawRate);
-                if(e<error||e==error&&Math.Abs(command)>Math.Abs(best)){best=command;error=e;}
+                if(e<error||e==error&&Math.Abs(command)<Math.Abs(best)){best=command;error=e;}
             }
             double At(int command)=>snow.Preview(body,motion,command,lateralAcceleration,seconds,response).Snow.Motion.YawRate;
         }

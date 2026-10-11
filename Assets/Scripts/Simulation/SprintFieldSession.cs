@@ -68,7 +68,8 @@ namespace Biathlon.Simulation
             Track = track; Route = route; Profile = profile;
             for (int i = 0; i < entrants.Length; i++) roster[i] = entrants[i]?.AthleteId ?? throw new ArgumentException("Null entrant.");
             this.massGrid=massGrid;
-            if((massGrid==null)!=(startApproach==null) || (massGrid!=null && qualification!=null)) throw new ArgumentException("One explicit start policy required.");
+            if(massGrid!=null&&startApproach==null || massGrid==null&&startApproach!=null&&!startApproach.HasLaunchPosition ||
+                massGrid!=null&&qualification!=null) throw new ArgumentException("One explicit start policy and authored launch position required.");
             this.qualification = qualification; this.events = events; this.firstStart = firstStart; frequency = config.TickFrequency;
             due = new ScheduledStart[entrants.Length];
             if (IsInterval)
@@ -102,7 +103,7 @@ namespace Biathlon.Simulation
                 athletes[i] = new SprintAthleteSession(athleteConfig, profile, skiModel, shootingModel, entrant.SkiAthlete, entrant.ShootingAthlete,
                     track, route, checkpoints, conditions, entrant.SkiId, GetStart(i).Tick,
                     shootingLane, events,
-                    startApproach,massGrid==null?0:-massGrid.Get(i).LongitudinalNanometers,rangePath,rangeChoices);
+                    startApproach,checked((startApproach?.LaunchRemainingNanometers??0)+(massGrid==null?0:-massGrid.Get(i).LongitudinalNanometers)),rangePath,rangeChoices);
             }
             var context = new List<string> { "sprint_independent_paths_dedicated_lanes_v1", config.Id,
                 config.TickFrequency.ToString(CultureInfo.InvariantCulture), config.Seed.ToString(CultureInfo.InvariantCulture),
@@ -114,6 +115,7 @@ namespace Biathlon.Simulation
             { context.Add(entrants[i].SkiAthlete.ToJson()); context.Add(entrants[i].ShootingAthlete.ToJson()); context.Add(entrants[i].SkiId); }
             if (qualification != null) { context[0] = "pursuit_gap_field_v1"; context.Add(qualification.ToJson()); context.Add("exact_global_finish_order_v1"); }
             if(massGrid!=null){context[0]="mass_start_shared_clock_v1";context.Add(massGrid.ContextJson);context.Add(startApproach.ContextJson);context.Add("exact_global_finish_order_v1");}
+            else if(startApproach!=null)context.Add(startApproach.ContextJson);
             if (rangeLayout != null)
             {
                 context.Add(rangeLayout.ContextJson);

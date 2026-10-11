@@ -33,7 +33,7 @@ namespace Biathlon.Tests
             Assert.Throws<ArgumentOutOfRangeException>(()=>planner.CorrectUnreachedYaw(body,motion,1001,0,2.5));
             Assert.Throws<ArgumentOutOfRangeException>(()=>planner.CorrectUnreachedYaw(body,motion,nominal,double.NaN,2.5));
         }
-        [Test] public void ActualSlidingCurveUsesFullBoundedCorrectionWhenRequestedSpinIsUnreachable()
+        [Test] public void UnreachableSpinUsesLessDeflectionForTheSameAchievedTurn()
         {
             var body=Witness();var motion=new SkiContactMotion(body.Velocity,body.Pose.YawRateRadiansPerSecond);
             var snow=new ManualSkiSteeredSnowSystem(Body,ManualScopedFieldStepperTests.Steering(),20);
@@ -41,7 +41,9 @@ namespace Biathlon.Tests
             var minimum=snow.Preview(body,motion,-1000,2.5,.05);
             Assert.That(minimum.Snow.Motion.YawRate,Is.GreaterThan(desired),"A command cannot erase the existing spin in one tick.");
             int command=Planner().Plan(body,motion,desired,2.5);
-            Assert.That(command,Is.EqualTo(-1000));
+            Assert.That(Math.Abs(command),Is.LessThan(1000),"An actuator plateau must not request full ski deflection and incur excess corner braking.");
+            Assert.That(snow.Preview(body,motion,command,2.5,.05).Snow.Motion.YawRate,
+                Is.EqualTo(minimum.Snow.Motion.YawRate).Within(1e-12),"Retain the achieved correction, without inventing grip or yaw.");
             Assert.That(snow.Preview(body,motion,command,2.5,.05).Snow.DissipatedEnergyJoules,Is.GreaterThanOrEqualTo(0));
             Assert.That(body,Is.EqualTo(Witness()),"Preview must preserve accepted pose and velocity.");
         }

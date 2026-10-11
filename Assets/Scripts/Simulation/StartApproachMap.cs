@@ -9,6 +9,8 @@ namespace Biathlon.Simulation
         private readonly TrackLoopDefinition loop;
         private readonly TrackSampler sampler;
         public long LengthNanometers { get; }
+        public long LaunchRemainingNanometers {get;}
+        public bool HasLaunchPosition {get;}
         public string LoopId=>loop.Id;
         public string TrackJson { get; }
         public string RoutePlanJson { get; }
@@ -26,6 +28,13 @@ namespace Biathlon.Simulation
             if(loop.Closed || loop.Kind!=TrackLoopKind.Race)throw new ArgumentException("Start approach must be an open race corridor.");
             for(int i=0;i<route.SectionCount;i++)if(route.GetSection(i).LoopId==loop.Id)throw new ArgumentException("Approach cannot also be a counted lap section.");
             sampler=new TrackSampler(loop);LengthNanometers=checked(loop.Length.Millimeters*SkiState.NanometersPerMillimeter);
+            HasLaunchPosition=definition.LaunchDistanceMeters.HasValue;
+            if(HasLaunchPosition)
+            {
+                long launch=checked((long)Math.Round(definition.LaunchDistanceMeters.Value*SkiState.NanometersPerMeter));
+                if(launch>=LengthNanometers)throw new ArgumentException("Launch line must precede the start corridor's merge.");
+                LaunchRemainingNanometers=LengthNanometers-launch;
+            }
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{definition.ToJson(),TrackJson,RoutePlanJson,RouteRequirementsJson,"approach_travel_not_route_progress_v1"});
         }
         public TrackSample Sample(long remainingNanometers)

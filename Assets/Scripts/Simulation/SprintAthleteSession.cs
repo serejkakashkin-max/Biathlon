@@ -188,7 +188,7 @@ namespace Biathlon.Simulation
                 checkpoints.TrackJson != track.ToJson() || lane.RangeId != track.Range.Id || lane.Ordinal <= 0)
                 throw new ArgumentException("Invalid supported race format, identities, start or lane.");
             if(startBehindLineNanometers<0 || (profile.Format==CompetitionFormat.MassStart && startApproach==null) ||
-                (startApproach!=null && profile.Format!=CompetitionFormat.MassStart) ||
+                (startApproach!=null && profile.Format!=CompetitionFormat.MassStart&&!startApproach.HasLaunchPosition) ||
                 (startBehindLineNanometers>0 && (startApproach==null || startBehindLineNanometers>startApproach.LengthNanometers)))
                 throw new ArgumentException("Explicit Mass Start approach and bounded rear-row position required.");
             this.startApproach=startApproach;InitialStartApproachNanometers=startBehindLineNanometers;

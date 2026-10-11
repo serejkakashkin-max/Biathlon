@@ -74,6 +74,7 @@ namespace Biathlon.PlayModeTests
             Assert.That(AthleteLocomotion.Select(new LocomotionInput(8, 0, 1.2f), settings), Is.EqualTo(SkiLocomotion.Sprint));
             Assert.That(AthleteLocomotion.Select(new LocomotionInput(8, 0, .9f, sprint: true), settings), Is.EqualTo(SkiLocomotion.Sprint));
             Assert.That(AthleteLocomotion.Select(new LocomotionInput(12, -.1f, .7f), settings), Is.EqualTo(SkiLocomotion.TechnicalDescent));
+            Assert.That(AthleteLocomotion.Select(new LocomotionInput(12, -.1f, .9f), settings), Is.EqualTo(SkiLocomotion.Flat), "Powered downhill skating must not use the coasting squat.");
             Assert.That(AthleteLocomotion.Select(new LocomotionInput(12, -.1f, .7f, tuck: true), settings), Is.EqualTo(SkiLocomotion.Tuck));
             Assert.That(AthleteLocomotion.Select(new LocomotionInput(8, 0, 1.2f, travelling: false), settings), Is.EqualTo(SkiLocomotion.Idle));
             Assert.Throws<ArgumentException>(() => new LocomotionInput(float.NaN, 0, 0));

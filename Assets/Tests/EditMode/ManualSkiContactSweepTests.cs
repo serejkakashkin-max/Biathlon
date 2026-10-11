@@ -82,6 +82,16 @@ namespace Biathlon.Tests
         }
 
         [Test]
+        public void CoMovingPackRowsAreExcludedBeforeIntervalSearch()
+        {
+            var a=Frame(0,0,speed:20,duration:.05);
+            var b=Frame(0,3,speed:20,duration:.05);
+            var result=Sweep().Preview(A,a,B,b);
+            Assert.That(result.Status,Is.EqualTo(SkiContactSweepStatus.Clear));
+            Assert.That(result.IntervalChecks,Is.Zero,"Shared forward speed cannot close the gap between rows.");
+        }
+
+        [Test]
         public void StoppedAndDistantTurningBodiesCanBeExcluded()
         {
             var a=Frame(0,0,yaw:-.7,input:1000);var b=Frame(3,2,yaw:.9,input:-1000);

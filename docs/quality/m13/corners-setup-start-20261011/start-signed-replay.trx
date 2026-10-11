@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="55596471-bd21-4b12-895e-4759a1754bd3" name="snkashkin@DESKTOP-G3075GA 2026-10-11 10:47:02" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T10:47:02.9543339+03:00" queuing="2026-10-11T10:47:02.9543340+03:00" start="2026-10-11T10:46:55.9568496+03:00" finish="2026-10-11T10:47:13.0863859+03:00" />
+  <TestSettings name="default" id="c736ad12-9a09-4d2a-be91-10fea624b759">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-11_10_47_02" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="5cc56be6-1022-401b-89e6-4651601e23a0" testId="5872d822-62a9-4fe5-6417-e14488abbae5" testName="SeparateStraightStartMergesDeterministicallyWithoutMovingTheLapLine(&quot;mass_start&quot;,6)" computerName="DESKTOP-G3075GA" duration="00:00:06.4563020" startTime="2026-10-11T10:46:56.4614247+03:00" endTime="2026-10-11T10:47:02.9176880+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5cc56be6-1022-401b-89e6-4651601e23a0" />
+    <UnitTestResult executionId="d2ecd317-7e5f-4120-a9aa-76e354abb9cc" testId="fa7f2139-8fe8-15fb-d555-93e831bb3e74" testName="SeparateStraightStartMergesDeterministicallyWithoutMovingTheLapLine(&quot;sprint&quot;,3)" computerName="DESKTOP-G3075GA" duration="00:00:09.9466470" startTime="2026-10-11T10:47:02.9185652+03:00" endTime="2026-10-11T10:47:12.8652115+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d2ecd317-7e5f-4120-a9aa-76e354abb9cc" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="SeparateStraightStartMergesDeterministicallyWithoutMovingTheLapLine(&quot;mass_start&quot;,6)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="5872d822-62a9-4fe5-6417-e14488abbae5">
+      <Execution id="5cc56be6-1022-401b-89e6-4651601e23a0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerCornerProbeTests" name="SeparateStraightStartMergesDeterministicallyWithoutMovingTheLapLine(&quot;mass_start&quot;,6)" />
+    </UnitTest>
+    <UnitTest name="SeparateStraightStartMergesDeterministicallyWithoutMovingTheLapLine(&quot;sprint&quot;,3)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="fa7f2139-8fe8-15fb-d555-93e831bb3e74">
+      <Execution id="d2ecd317-7e5f-4120-a9aa-76e354abb9cc" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerCornerProbeTests" name="SeparateStraightStartMergesDeterministicallyWithoutMovingTheLapLine(&quot;sprint&quot;,3)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="5872d822-62a9-4fe5-6417-e14488abbae5" executionId="5cc56be6-1022-401b-89e6-4651601e23a0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fa7f2139-8fe8-15fb-d555-93e831bb3e74" executionId="d2ecd317-7e5f-4120-a9aa-76e354abb9cc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

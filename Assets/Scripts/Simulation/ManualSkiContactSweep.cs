@@ -179,13 +179,14 @@ namespace Biathlon.Simulation
         private double Reserve(ManualSkiWorldTrajectory a,ManualSkiWorldTrajectory b)
             =>2*(a.PositionErrorBoundMeters+b.PositionErrorBoundMeters+radius*(a.HeadingErrorBoundRadians+b.HeadingErrorBoundRadians));
 
-        // Circumscribed bodies plus a conservative full-interval translation
-        // bound. Distant pairs cannot meet even under arbitrary bounded yaw.
+        // Relative translation retains cancellation for a fast co-moving pack.
+        // Acceleration still uses both full bounds; circumscribed bodies cover yaw.
         private bool FarApart(ManualSkiWorldTrajectory a,ManualSkiWorldTrajectory b,double reserve)
         {
             var pa=a.Sample(0);var pb=b.Sample(0);double dx=pa.X-pb.X,dz=pa.Z-pb.Z;
             double dt=a.DurationSeconds;var va=a.VelocityAt(0);var vb=b.VelocityAt(0);
-            double reach=2*radius+tolerance+reserve+dt*(Math.Sqrt(va.X*va.X+va.Z*va.Z)+Math.Sqrt(vb.X*vb.X+vb.Z*vb.Z))+
+            double vx=va.X-vb.X,vz=va.Z-vb.Z;
+            double reach=2*radius+tolerance+reserve+dt*Math.Sqrt(vx*vx+vz*vz)+
                 .5*(a.PlanarAccelerationBound+b.PlanarAccelerationBound)*dt*dt;
             return dx*dx+dz*dz>reach*reach;
         }

@@ -54,10 +54,12 @@ namespace Biathlon.AI
                 personalities[i]=AiPersonalityDefinition.FromJson(read("ai_personality_"+(i%2==0?"attacker":"patient")+"_v1.json"));
             }
             MassStartGrid grid=null;StartApproachMap approach=null;MassStartRangePolicyDefinition policy=null;
+            if(venue.StartApproach?.LaunchDistanceMeters.HasValue==true)
+                approach=new StartApproachMap(track,route,venue.StartApproach);
             if(profile.Format==CompetitionFormat.MassStart)
             {
                 if(venue.StartApproach==null)throw new ArgumentException("Mass Start requires an authored open start approach.");
-                approach=new StartApproachMap(track,route,venue.StartApproach);
+                approach=approach??new StartApproachMap(track,route,venue.StartApproach);
                 var corridor=track.GetLoop(approach.LoopId);double width=double.MaxValue;
                 for(int i=0;i<corridor.SegmentCount;i++)width=Math.Min(width,corridor.GetSegment(i).WidthMeters);
                 grid=new MassStartGrid(profile,MassStartGridDefinition.FromJson(read("mass_start_grid_provisional_v1.json")),

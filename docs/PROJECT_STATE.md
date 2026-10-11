@@ -24400,3 +24400,41 @@ and limitations. No hidden power boost; race output changes intentionally.
 Pre-task2939061 bytes preserved byte-for-byte; history never replaced/compacted.
 Next: owner tests prone setup, second-approach congestion, departure and penalty
 travel in this build, then decides whether to close M13.
+
+
+## 2026-10-11 — M13-CORNERS-START-20261011: owner test build
+
+M13 remains OPEN pending owner testing; M14 not started. New candidate:
+Builds/WoodlandM13CornersStart-20261011/START_WOODLAND_REVIEW.cmd. Previous builds retained.
+
+AI selects minimum ski deflection for equally achievable yaw, reducing unnecessary
+cornering loss. Contact exclusion uses relative velocity with conservative acceleration
+bounds; ordinary contacts remain. Instanced original rigid equipment reduces native
+first-bend draw calls from mean 1063 to 517, setup 1966 to 1254. High textures, meshes
+and quality values are not reduced. Technical downhill coast no longer overrides
+active skating; explicit Space tuck retains priority.
+
+Separate 8m start corridor: 50m straight, 40m radius turn, 10m tangent join; length
+122.832m, launch at local 35m. All 30 mass-start racers stage on the straight;
+interval starts use the same portal. Old lap portal retained as TIMING. Main lap
+960.005m, separate finish, penalty 150m/6m retained. 1368 retained tapes moved outside
+road edges, one crossing tape removed, start tape added, one obstructing tree removed.
+Existing snow humps preserved.
+
+Validation: focused .NET 37 PASS, final signed-start replay cases 2 PASS; native
+equipment 1, locomotion 5, course surfaces/ground 8 PASS. Fresh runtime Console
+has no new errors/exceptions. Windows build Succeeded, Unity 6000.6.0f1, zero errors
+and warnings, 355747001 bytes. Hidden Mass30/Sprint30 400-tick controls and transition
+PASS, exit 0; hidden rendering suspended, so this is not visible FPS evidence.
+
+Bounded native final capture: first-bend mean pose 1.40ms, simulation/tick 3.49ms,
+frame p95 about 19ms/max37ms; setup mean frame16.67ms. Pack states/start geometry
+change; no complete-race or universal hitch-free guarantee. Earlier S-shaped start
+experiment rejected for contact cost. No failing test removed or disabled.
+
+Report: docs/reports/TASK_M13_CORNERS_START_20261011.md.
+Decision: docs/adr/ADR-0049-m13-corner-cost-and-separate-start.md.
+Evidence: docs/quality/m13/corners-setup-start-20261011/.
+Player receipt: artifacts/production-player-smoke/20261011-075017-277/verification.json.
+Historical PROJECT_STATE prefix (2941170 bytes) preserved byte-for-byte.
+Next: owner tests first bend, prone setup and the separate start, then decides M13 closure.

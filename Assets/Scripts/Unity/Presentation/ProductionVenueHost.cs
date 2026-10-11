@@ -138,6 +138,7 @@ namespace Biathlon.Unity.Presentation
             Course=gameObject.AddComponent<ProductionCoursePresentation>();Course.Initialize(venue,route:field.Route,sharedApron:venue.SharedApron,
                 finishRunout:ManualStepper?.World.GetCatalog(0).FinishRunoutDefinition);
             gameObject.AddComponent<FinishCorridorPresentation>().Initialize(venue,field.Route);
+            gameObject.AddComponent<StadiumPortalPresentation>().Initialize(venue);
             gameObject.AddComponent<PenaltyFencePresentation>().Initialize(venue.Track,venue.Visual);
             Proxies=gameObject.AddComponent<AthleteProxyPresentation>();Proxies.Initialize(Feed,venue);Proxies.Render(1);
             var cameraObject=new GameObject("Production chase camera");cameraObject.transform.SetParent(transform,false);

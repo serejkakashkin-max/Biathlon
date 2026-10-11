@@ -107,9 +107,10 @@ namespace Biathlon.AI
                         Accumulate(surface.WithTravelGeometry(surface.Grade,bend.Curve),bend.Curve,from,true);
                     }
                 }
-                else for(int k=0;k<loop.SegmentCount;k++)
+                else for(int k=samplers[occurrence].Sample(new TrackDistance((long)Math.Floor(local*1000))).SegmentIndex;k<loop.SegmentCount;k++)
                 {
-                    var segment=loop.GetSegment(k);double from=Math.Max(local,segment.StartDistance.Meters);
+                    var segment=loop.GetSegment(k);if(segment.StartDistance.Meters>=end)break;
+                    double from=Math.Max(local,segment.StartDistance.Meters);
                     double to=Math.Min(end,segment.StartDistance.Meters+segment.Length.Meters);
                     if(to<=from)continue;
                     width=Math.Min(width,segment.WidthMeters);

@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.Serialization;
 namespace Biathlon.Domain
 {
@@ -10,11 +11,13 @@ namespace Biathlon.Domain
         [DataMember(Name="track_id",IsRequired=true)] public string TrackId { get; private set; }
         [DataMember(Name="loop_id",IsRequired=true)] public string LoopId { get; private set; }
         [DataMember(Name="route_entry_loop_id",IsRequired=true)] public string RouteEntryLoopId { get; private set; }
+        [DataMember(Name="launch_distance_m",EmitDefaultValue=false)] public double? LaunchDistanceMeters {get;private set;}
         public static StartApproachDefinition FromJson(string json)
         {
             var d=RouteJson.Read<StartApproachDefinition>(json);
             if(d==null || d.SchemaVersion!=1)throw new SerializationException("Unsupported start approach schema.");
-            TrackValidation.Id(d.Id);TrackValidation.Id(d.TrackId);TrackValidation.Id(d.LoopId);TrackValidation.Id(d.RouteEntryLoopId);return d;
+            TrackValidation.Id(d.Id);TrackValidation.Id(d.TrackId);TrackValidation.Id(d.LoopId);TrackValidation.Id(d.RouteEntryLoopId);
+            if(d.LaunchDistanceMeters.HasValue)TrackValidation.Finite(d.LaunchDistanceMeters.Value,0,1000000,nameof(LaunchDistanceMeters));return d;
         }
         public string ToJson()=>RouteJson.Write(this);
     }

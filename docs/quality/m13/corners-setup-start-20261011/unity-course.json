@@ -1,0 +1,67 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":274,\"PassedTests\":8,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:06.6188928\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.ProductionCoursePresentationTests.InvalidOrBuriedGroundDoesNotPublishPartialJoinsAndCanRetry\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.4810000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionCoursePresentationTests.LateMeshPreparationFailureRollsBackBeforeExposureAndAllowsRetry\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0360000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionCoursePresentationTests.MissingBindingsAndInvalidRootRejectBeforeCreatingObjects\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0050000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionCoursePresentationTests.OwnedResourcesSurviveDisableAndAreReleasedOnShutdownAndDestruction\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0200000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionCoursePresentationTests.ProductionCourseIncludesEveryActualLoopAndClosedSeamAtSourceHeight\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.8890000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionCoursePresentationTests.SnowJoinResourcesFollowCourseLifecycleAndLeaveTerrainOwnedSeparately\",\"Status\":\"Passed\",\"Duration\":\"00:00:02.3210000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionCoursePresentationTests.SnowJoinsFollowWholeTerrainEdgesWithoutChangingAnySourceSurface\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.7820000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionCoursePresentationTests.StableLoopSurfacesKeepActualHeightWidthAndIndependentTopology\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0250000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 274,
+          "PassedTests": 8,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:06.6188928"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.InvalidOrBuriedGroundDoesNotPublishPartialJoinsAndCanRetry",
+            "Status": "Passed",
+            "Duration": "00:00:01.4810000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.LateMeshPreparationFailureRollsBackBeforeExposureAndAllowsRetry",
+            "Status": "Passed",
+            "Duration": "00:00:00.0360000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.MissingBindingsAndInvalidRootRejectBeforeCreatingObjects",
+            "Status": "Passed",
+            "Duration": "00:00:00.0050000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.OwnedResourcesSurviveDisableAndAreReleasedOnShutdownAndDestruction",
+            "Status": "Passed",
+            "Duration": "00:00:00.0200000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.ProductionCourseIncludesEveryActualLoopAndClosedSeamAtSourceHeight",
+            "Status": "Passed",
+            "Duration": "00:00:00.8890000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.SnowJoinResourcesFollowCourseLifecycleAndLeaveTerrainOwnedSeparately",
+            "Status": "Passed",
+            "Duration": "00:00:02.3210000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.SnowJoinsFollowWholeTerrainEdgesWithoutChangingAnySourceSurface",
+            "Status": "Passed",
+            "Duration": "00:00:01.7820000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.StableLoopSurfacesKeepActualHeightWidthAndIndependentTopology",
+            "Status": "Passed",
+            "Duration": "00:00:00.0250000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

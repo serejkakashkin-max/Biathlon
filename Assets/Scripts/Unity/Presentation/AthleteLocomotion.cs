@@ -37,6 +37,7 @@ namespace Biathlon.Unity.Presentation
         public int schema_version;
         public string id;
         public float idle_speed_mps, climb_grade, descent_grade, attack_effort, sprint_effort;
+        public float descent_coast_effort;
         public float transition_s, ski_v_deg, ankle_height_m;
         public float corner_max_lean_deg, corner_response_s, corner_gravity_mps2, corner_sample_half_span_m;
         public float climb_effort_low, climb_effort_high, climb_motion_low, climb_motion_high;
@@ -50,6 +51,8 @@ namespace Biathlon.Unity.Presentation
                 throw new ArgumentException("Invalid athlete locomotion definition.");
             if (d.idle_speed_mps < 0 || d.climb_grade <= 0 || d.descent_grade >= 0 || d.attack_effort <= 0 || d.sprint_effort <= d.attack_effort || d.transition_s <= 0)
                 throw new ArgumentException("Invalid locomotion selection/transition bounds.");
+            if (!float.IsFinite(d.descent_coast_effort) || d.descent_coast_effort < 0 || d.descent_coast_effort > d.attack_effort)
+                throw new ArgumentException("Invalid downhill coasting effort.");
             for (int i = 0; i < d.poses.Length; i++)
             {
                 var p = d.poses[i];
@@ -113,7 +116,7 @@ namespace Biathlon.Unity.Presentation
             if (Mathf.Max(input.Speed,Mathf.Abs(input.LateralSpeed)) <= settings.idle_speed_mps) return SkiLocomotion.Idle;
             if (input.Sprint || input.Effort >= settings.sprint_effort) return SkiLocomotion.Sprint;
             if (input.Grade >= settings.climb_grade) return SkiLocomotion.Climb;
-            if (input.Grade <= settings.descent_grade) return SkiLocomotion.TechnicalDescent;
+            if (input.Grade <= settings.descent_grade && input.Effort <= settings.descent_coast_effort) return SkiLocomotion.TechnicalDescent;
             return input.Effort >= settings.attack_effort ? SkiLocomotion.Acceleration : SkiLocomotion.Flat;
         }
     }

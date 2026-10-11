@@ -120,7 +120,7 @@ namespace Biathlon.Simulation
                 profile.ToRouteRequirements().ToJson()!=route.RequirementsSnapshotJson||visual.TrackId!=track.Id||
                 track.GetLoop(track.Penalty.LoopId).Length.Millimeters!=profile.PenaltyLoopDistance.Millimeters)
                 throw new ArgumentException("Exact physical track, route, competition and assigned path required.");
-            if(startApproach!=null&&(profile.Format!=CompetitionFormat.MassStart||
+            if(startApproach!=null&&(profile.Format!=CompetitionFormat.MassStart&&!startApproach.HasLaunchPosition||
                 startApproach.TrackJson!=route.TrackSnapshotJson||startApproach.RoutePlanJson!=route.PlanSnapshotJson||
                 startApproach.RouteRequirementsJson!=route.RequirementsSnapshotJson))
                 throw new ArgumentException("Start approach must match this exact simultaneous-start race.");

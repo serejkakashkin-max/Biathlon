@@ -275,7 +275,7 @@ namespace Biathlon.AI
                 bool stalledStart=manualCandidate==null&&onStartContinuation&&startTraffic.StationaryBypassAfterSeconds.HasValue&&
                     stationaryObservedTicks[i]>=Math.Ceiling(startTraffic.StationaryBypassAfterSeconds.Value*frequency);
                 bool startManeuver=onSharedStart&&(obstructionPass||stalledStart||tick.Value<startEscapeUntil[i]||startTraffic.StationaryBypassAfterSeconds.HasValue&&lanes[i].Phase!=OvertakePhase.Idle);
-                bool holdStartGrid=onSharedStart&&startTraffic.HoldGridLateral&&!startManeuver;
+                bool holdStartGrid=onSharedStart&&Field.StartGrid!=null&&startTraffic.HoldGridLateral&&!startManeuver;
                 rangeTrafficPlans[i]=manualCandidate!=null||rangeTraffic==null||holdStartGrid||count==0?default:
                     rangeTraffic.Evaluate(actor.RangePath!=null,observation.NextRangeEntryRouteDistanceNanometers,
                         actor.CurrentRangeMotion?.Phase,self,observation.CurrentTrack,roster,

@@ -23,6 +23,7 @@ namespace Biathlon.Unity.Presentation
         private SnowTrackPresentation snowTracks;
         private SnowSprayPresentation snowSpray;
         private BreathVaporPresentation breathVapor;
+        private AthleteEquipmentBatches equipmentBatches;
         private FinishStagingSettings finishStaging;
         private Quaternion? shootingRotation;
         private bool preserveAcceptedShootingLine;
@@ -61,6 +62,7 @@ namespace Biathlon.Unity.Presentation
             snowTracks=GetComponent<SnowTrackPresentation>();if(snowTracks==null)snowTracks=gameObject.AddComponent<SnowTrackPresentation>();snowTracks.Initialize();
             snowSpray=GetComponent<SnowSprayPresentation>();if(snowSpray==null)snowSpray=gameObject.AddComponent<SnowSprayPresentation>();snowSpray.Initialize();
             breathVapor=GetComponent<BreathVaporPresentation>();if(breathVapor==null)breathVapor=gameObject.AddComponent<BreathVaporPresentation>();breathVapor.Initialize();
+            equipmentBatches=GetComponent<AthleteEquipmentBatches>();if(equipmentBatches==null)equipmentBatches=gameObject.AddComponent<AthleteEquipmentBatches>();
         }
         public void Render(double alpha,double completedSeconds=0)
         {
@@ -76,6 +78,7 @@ namespace Biathlon.Unity.Presentation
                     go=new GameObject("Athlete presentation pivot");go.transform.SetParent(transform,false);
                     var rig=rigPrefab!=null?Instantiate(rigPrefab,go.transform,false):AthleteRigFactory.Create(go.transform);
                     var bib=rig.GetComponent<AthleteBibPresentation>();if(bib!=null)bib.SetNumber(i+1);
+                    equipmentBatches.Register(rig);
                     rig.transform.localPosition=Vector3.down;
                     var adapter=go.AddComponent<AthleteAnimationPresentation>();adapter.Initialize(rig);
                     proxies.Add(state.AthleteId,go);animation.Add(state.AthleteId,adapter);
@@ -119,9 +122,8 @@ namespace Biathlon.Unity.Presentation
                 // The entry/exit tangent can be perpendicular to the target bank. Reuse the
                 // observed rifle timing to turn only the visible body, including its return.
                 go.transform.localRotation=shootingRotation.HasValue&&state.ShootingActive?Quaternion.Slerp(heading,shootingRotation.Value,setupWeight):heading;
-                double curvature=VisualRouteCurvature.Sample(visual.Get(position.LoopId),position.LocalMeters,motionSettings.corner_sample_half_span_m);
-                double grade=VisualRouteSurface.Grade(route,sampleDistance,contactSettings.sample_half_span_m);
-                if(physicalPose.IsValid){curvature=state.CourseCurvaturePerMeter;grade=state.CourseGrade;}
+                double curvature=physicalPose.IsValid?state.CourseCurvaturePerMeter:VisualRouteCurvature.Sample(route,position.LocalMeters,motionSettings.corner_sample_half_span_m);
+                double grade=physicalPose.IsValid?state.CourseGrade:VisualRouteSurface.Grade(route,sampleDistance,contactSettings.sample_half_span_m);
                 if(chaseCamera!=null&&chaseCamera.Target==go.transform)chaseCamera.SetTerrainGrade((float)grade);
                 float distance=viewCamera!=null?Vector3.Distance(viewCamera.transform.position,go.transform.position):0;
                 long poseTick=current.Tick;double poseAlpha=alpha;
@@ -152,7 +154,7 @@ namespace Biathlon.Unity.Presentation
             double elapsed=Time.timeAsDouble-publishedAt;
             Render(Math.Min(1,elapsed*feed.Current.TickFrequency),feed.Current.Complete?Math.Min(86400,elapsed):0);
         }
-        private void Clear(){foreach(var go in proxies.Values)if(go!=null)Destroy(go);proxies.Clear();transitOffsets.Clear();animation.Clear();keep.Clear();removed.Clear();observedTick=-1;if(snowTracks!=null)snowTracks.Clear();if(snowSpray!=null)snowSpray.Clear();if(breathVapor!=null)breathVapor.Clear();}
+        private void Clear(){if(equipmentBatches!=null)equipmentBatches.Clear();foreach(var go in proxies.Values)if(go!=null)Destroy(go);proxies.Clear();transitOffsets.Clear();animation.Clear();keep.Clear();removed.Clear();observedTick=-1;if(snowTracks!=null)snowTracks.Clear();if(snowSpray!=null)snowSpray.Clear();if(breathVapor!=null)breathVapor.Clear();}
         private void OnDestroy()=>Clear();
     }
 }
