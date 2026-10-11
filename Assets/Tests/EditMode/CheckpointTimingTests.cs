@@ -87,5 +87,42 @@ namespace Biathlon.Tests
             Assert.That(a.Count, Is.EqualTo(9)); Assert.That(la.Count, Is.EqualTo(lb.Count));
             for (int i = 0; i < a.Count; i++) { Assert.That(a.Get(i), Is.EqualTo(b.Get(i))); Assert.That(la[i], Is.EqualTo(lb[i])); }
         }
+        [TestCase(CheckpointClock.Elapsed)][TestCase(CheckpointClock.Global)]
+        public void ThirtyAthleteLeaderMatchesFullScanAfterEveryArrival(CheckpointClock clock)
+        {
+            var layout=Layout();var ids=new AthleteId[30];var splits=new CheckpointSplit[30];
+            for(int i=0;i<30;i++)ids[i]=new AthleteId("timing_"+i.ToString("D2"));
+            var board=new CheckpointTimingBoard(layout,ids,20,clock);
+            for(int arrival=0;arrival<30;arrival++)
+            {
+                int i=(arrival*17)%30;
+                splits[i]=AtFirstSplit(layout,ids[i].Value,(i%5)*600,1000000000000+(i%3)*200000000000L).Get(1);
+                board.Record(splits[i]);CheckpointSplit best=default;
+                foreach(var candidate in splits)
+                {
+                    if(!candidate.IsValid)continue;
+                    var time=clock==CheckpointClock.Elapsed?candidate.ElapsedTime:candidate.GlobalTime;
+                    var bestTime=clock==CheckpointClock.Elapsed?best.ElapsedTime:best.GlobalTime;
+                    int order=best.IsValid?time.CompareTo(bestTime):-1;
+                    if(order<0||order==0&&string.CompareOrdinal(candidate.Athlete.Value,best.Athlete.Value)<0)best=candidate;
+                }
+                Assert.That(board.Leader(1),Is.EqualTo(best));
+            }
+        }
+        [Test, Explicit("Timing-query CPU diagnostic; no portable timing threshold.")]
+        public void ThirtyAthleteRepeatedTimingQueryCpuProfile()
+        {
+            var layout=Layout();var ids=new AthleteId[30];
+            for(int i=0;i<30;i++)ids[i]=new AthleteId("timing_"+i.ToString("D2"));
+            var board=new CheckpointTimingBoard(layout,ids,20,CheckpointClock.Elapsed);
+            for(int i=0;i<30;i++)board.Record(AtFirstSplit(layout,ids[i].Value,i*600,1000000000000+(i%3)*200000000000L).Get(1));
+            for(int i=0;i<3000;i++)board.GapSeconds(ids[i%30],1);
+            var timer=new System.Diagnostics.Stopwatch();long before=GC.GetAllocatedBytesForCurrentThread();
+            double sum=0;timer.Start();
+            for(int i=0;i<300000;i++)sum+=board.GapSeconds(ids[i%30],1);
+            timer.Stop();long bytes=GC.GetAllocatedBytesForCurrentThread()-before;
+            TestContext.WriteLine($"queries=300000 roster=30 wall_ms={timer.Elapsed.TotalMilliseconds:R} allocated_bytes={bytes} gap_checksum={sum:R}");
+            Assert.That(bytes,Is.Zero);Assert.That(sum,Is.GreaterThan(0));
+        }
     }
 }

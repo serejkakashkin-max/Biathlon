@@ -141,8 +141,8 @@ namespace Biathlon.Simulation
     {
         private readonly CheckpointLayout layout;
         private readonly Dictionary<AthleteId, int> index;
-        private readonly AthleteId[] roster;
         private readonly CheckpointSplit[] values;
+        private readonly CheckpointSplit[] leaders;
         private readonly int frequency;
         private readonly CheckpointClock clock;
         public CheckpointTimingBoard(CheckpointLayout layout, ReadOnlySpan<AthleteId> roster, int frequency, CheckpointClock clock)
@@ -150,7 +150,7 @@ namespace Biathlon.Simulation
             this.layout = layout ?? throw new ArgumentNullException(nameof(layout));
             if (roster.Length == 0 || frequency <= 0 || (clock != CheckpointClock.Elapsed && clock != CheckpointClock.Global))
                 throw new ArgumentException("Invalid timing board configuration.");
-            this.roster = roster.ToArray(); this.frequency = frequency; this.clock = clock;
+            this.frequency = frequency; this.clock = clock;
             index = new Dictionary<AthleteId, int>(roster.Length);
             for (int i = 0; i < roster.Length; i++)
             {
@@ -158,6 +158,7 @@ namespace Biathlon.Simulation
                 index.Add(roster[i], i);
             }
             values = new CheckpointSplit[checked(roster.Length * layout.Count)];
+            leaders = new CheckpointSplit[layout.Count];
         }
         public void Record(CheckpointSplit split)
         {
@@ -166,6 +167,12 @@ namespace Biathlon.Simulation
             int slot = checked(athleteIndex * layout.Count + split.Ordinal);
             if (values[slot].IsValid) throw new InvalidOperationException("Checkpoint already recorded for athlete.");
             values[slot] = split;
+            // Splits are immutable. Update once on arrival rather than scan
+            // the full roster for every AI/HUD query of the same checkpoint.
+            var best=leaders[split.Ordinal];
+            int order=best.IsValid?Time(split).CompareTo(Time(best)):-1;
+            if(order<0||order==0&&StringComparer.Ordinal.Compare(split.Athlete.Value,best.Athlete.Value)<0)
+                leaders[split.Ordinal]=split;
         }
         public CheckpointSplit Get(AthleteId athlete, int ordinal)
         {
@@ -177,14 +184,7 @@ namespace Biathlon.Simulation
         }
         public CheckpointSplit Leader(int ordinal)
         {
-            ValidateOrdinal(ordinal); CheckpointSplit best = default;
-            for (int i = 0; i < roster.Length; i++)
-            {
-                var candidate = values[i * layout.Count + ordinal];
-                if (!candidate.IsValid) continue;
-                int order = best.IsValid ? Time(candidate).CompareTo(Time(best)) : -1;
-                if (order < 0 || (order == 0 && StringComparer.Ordinal.Compare(candidate.Athlete.Value, best.Athlete.Value) < 0)) best = candidate;
-            }
+            ValidateOrdinal(ordinal); var best=leaders[ordinal];
             if (!best.IsValid) throw new InvalidOperationException("No checkpoint leader yet.");
             return best;
         }
