@@ -1,37 +1,38 @@
 # BIATHLON — latest operational state
 
 2026-10-11. M13 owner review OPEN; M14 not started. G1/G2 APPROVED.
-Woodland: maximum 30 racers, High default, main lap 960.005m, penalty 150m/6m.
+Woodland: maximum 30, High default, main 960.005m, penalty 150m/6m.
 
-Latest owner build: **Builds/WoodlandM13CornerAim-20261011/START_WOODLAND_REVIEW.cmd**.
-READ_ME_RU.txt includes Russian controls. Previous builds retained.
+Latest owner build: **Builds/WoodlandM13ShadowsBalance-20261011/START_WOODLAND_REVIEW.cmd**.
+Russian controls in READ_ME_RU.txt. Previous builds retained.
 
-Setup/prone body, equipment transfer and recovery turn use render interpolation.
-Host retains adjacent completed snapshots during catch-up; static forest geometry
-is cached. Active sight/bolt now render each frame; current accepted aim and
-accepted shot ray remain exact. UI/bank state stays once per tick.
+Owner reports practically no hitches in preceding CornerAim build. High shadows
+now restored to 4096/4 cascades/100m; original textures/meshes/render scale retained.
+Native player rig shadow casters and normal Game View silhouette verified.
+Earlier forest/equipment/contact/ribbon caching and render interpolation retained.
 
-Exact contact broad-phase exclusion, fine-grid corner seeding and immutable
-local ribbon caching reduce headless Mass30 mean tick 5.235→3.948ms and worst
-195.005→60.592ms over 3837 ticks. Terminal state and available periodic checkpoints
-match. These are CPU timings, not FPS; remaining rare subdivisions can still hitch.
+Keyboard A/D now progressively increases ski deflection: first tick 100 units,
+holding reaches full 1000 in 0.5s; release/reversal do not retain the old sign.
+Analog gamepad and historical device definitions unchanged. No centring/course
+following: later bends still require manual steering. Shared physics/AI stats and
+W/attack/recovery tuning unchanged. Equal-navigation held-W Mass30 reaches first
+mat place 1 at tick 2707; human manual race balance remains for owner review.
 
-Full main-ribbon snow mounds cover sharp edges outside ski/apron surfaces;
-36 actual stela/billboard footprints are grounded and at least4.3m from paid edge.
-High textures, meshes, shadows and settings preserved. Separate START/FINISH and
-old TIMING portals retained. Maximum30, manual steering and shooting rules retained.
+Timing queries use leaders updated on checkpoint arrival, with exact elapsed/
+global/tie ordering. Local query CPU probe 421.6912→47.5947ms for 300000 queries,
+zero allocation/identical checksum. This is not a whole-player FPS result.
 
-Validation: .NET contact64, ribbon/catalog35, cache2, CPU1 PASS; signed tape12 PASS
-(MassStart/Sprint complete replay). Native EditMode34 PASS; PlayMode aim3,
-terrain13, banks3, signs1 PASS; Python14 PASS. Console error/exception queries empty.
-Build Succeeded, zero errors/warnings, 355755516 bytes.
-Hidden Mass30/Sprint30 startup/400-tick controls/transition PASS, exit0; rendering suspended.
+Validation: .NET targeted 63 PASS, prior owner controls/physics 57 PASS, diagnostics
+PASS; signed replay 12 PASS incl full MassStart/Sprint. Native device 16/timing 7/
+quality 3 PASS. Compile and game Console Error/Exception queries clear.
+Build 0 errors/warnings, 355756440 bytes. Hidden Mass30/Sprint30 content/400 ticks/
+controls/transition PASS, exit 0, rendering suspended; no standalone FPS claim.
 
-[Report](reports/TASK_M13_CORNER_AIM_HITCHES_20261011.md).
-[Decision](adr/ADR-0049-m13-corner-cost-and-separate-start.md).
-Evidence: docs/quality/m13/corner-aim-hitches-20261011/.
+Known separate failures remain recorded: Pursuit directed-passage/startContinuation
+composition, prior grandstand_01 foundation embedding in broad native dressing.
+No failing tests disabled. State history preserved with dated appended progress.
 
-Existing separate failures remain recorded: Pursuit directed-passage/startContinuation
-composition; unchanged grandstand_01 foundation embedding in broad native dressing.
-No failing tests disabled. PROJECT_STATE history prefix preserved, dated entry appended.
-Next: owner first-bend/active-shooting test; M13 closure requires owner decision.
+[Report](reports/TASK_M13_SHADOWS_BALANCE_20261011.md).
+[Decision](adr/ADR-0050-m13-keyboard-deflection-and-shadow-restoration.md).
+Evidence: docs/quality/m13/shadows-balance-20261011/.
+Next: owner first-bend/first-range pace/shadow review; M13 closure is owner decision.

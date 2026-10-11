@@ -24494,3 +24494,42 @@ History prefix2945546bytes/SHA256 BA30DA3AA64665CEC07FD12971C306AC4E8C39B690BE92
 preserved byte-for-byte before this append. Next: owner standalone first-bend and
 active-shooting checks; remaining measured subdivision cost and separate defects
 must be resolved before declaring full M13 completion.
+## 2026-10-11 — M13-SHADOWS-BALANCE-20261011 (owner review OPEN)
+
+Owner confirms practically no remaining hitches in CornerAim build and requests
+restoring normal athlete shadows, a remaining performance audit and Mass Start
+pace review. High restores soft shadows 4096/4 cascades/100m; original textures,
+meshes/render scale and prior optimizations remain. Native normal Game View
+inspected; player rig retains 6 shadow-enabled renderers. Only 3 High YAML fields
+committed; unrelated owner render/package/settings edits preserved unstaged.
+
+Production stats/forms/equipment equal. Actual field/device W/effort diagnostic
+with equal AI navigation reaches first player mat at tick 2707/place 1, reserve
+0.927, fatigue 0.065. This isolates pace, not a human manual-steering replay.
+One keyboard A/D tap previously requested 1000 units and 300N braking at 14m/s.
+New device_control_gameplay_v3 ramps 2000 units/s: first 100 units at 20Hz, full
+1000 in 0.5s. Release zero/reversal fresh; gamepad/history unchanged. Red/green
+real force fixture now tap braking 0N, 13.952625833m/s versus 13.752625833 before
+at 50ms. Shared hard-turn costs, manual later bends, W/attack/recovery, AI stats/
+difficulty and career coefficients retained. No automatic centring added.
+
+Remaining audit found repeated timing-leader scans. Immutable arrivals update
+per-ordinal leaders once, preserving clocks and stable-ID ties. Local 300000-query
+CPU 421.6912→47.5947ms, same checksum, zero allocation; not player FPS evidence.
+Native device 16/timing 7/quality 3 PASS; .NET targeted 63 PASS, prior owner
+controls/physics 57 PASS; W 1 and query diagnostics PASS. Signed tape 12 PASS
+incl full MassStart/Sprint; existing Pursuit factory composition fails before
+movement, retained openly. Compile settled; Console Error/Exception queries empty.
+
+Windows owner build:
+Builds/WoodlandM13ShadowsBalance-20261011/START_WOODLAND_REVIEW.cmd.
+Succeeded, 0 errors/warnings, 355756440 bytes, High default, maximum 30. Russian
+README included. Hidden Mass30/Sprint30 startup/400 paid ticks/controls/transition
+PASS, exit 0, rendering suspended: no standalone FPS claim. Previous builds kept.
+
+Code commits: 37a5789 input, e2dd02c timing, 8b9e473 shadows. Decision: ADR-0050.
+Report: TASK_M13_SHADOWS_BALANCE_20261011.
+Evidence: docs/quality/m13/shadows-balance-20261011/.
+M13 remains OPEN for owner gentle-turn/first-range pace/shadow gameplay review;
+M14 not started. Known separate Pursuit/grandstand issues remain recorded.
+Foundation onward history preserved; this record appends without rewriting it.

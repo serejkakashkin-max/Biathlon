@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "m13_shadows_keyboard_timing_comparison_20261011",
+  "high_shadows": {
+    "resolution_before": 2048, "resolution_after": 4096,
+    "cascades_before": 2, "cascades_after": 4,
+    "distance_m_before": 85, "distance_m_after": 100,
+    "render_scale_unchanged": 1,
+    "native_player_shadow_renderers": 6,
+    "screenshot": "shadow-high.png"
+  },
+  "equal_navigation_held_w_mass_start": {
+    "actors": 30, "first_player_mat_tick": 2707, "place": 1,
+    "reserve_at_arrival": 0.927, "fatigue_at_arrival": 0.065,
+    "scope": "Production field/device/effort with AI navigation for every actor. Isolates pace capability; not a human manual-steering replay or complete balance verdict.",
+    "source": "held-w-before.trx"
+  },
+  "keyboard_tap_shared_force_fixture": {
+    "speed_mps": 14, "duration_s": 0.05,
+    "command_before": 1000, "command_after": 100,
+    "braking_n_before": 300, "braking_n_after": 0,
+    "speed_mps_before": 13.752625833, "speed_mps_after": 13.952625833,
+    "source_red": "keyboard-tap-red.trx", "source_green": "controls-physics-green.trx",
+    "scope": "Same physical body, force law and initial state; only device deflection differs. Continued key holding retains full-cost turns."
+  },
+  "timing_query_cpu": {
+    "queries": 300000, "roster": 30,
+    "wall_ms_before": 421.6912, "wall_ms_after": 47.5947,
+    "allocated_bytes_before": 0, "allocated_bytes_after": 0,
+    "checksum_before": 1619.0476250048598, "checksum_after": 1619.0476250048598,
+    "scope": "Local warmed .NET query microbenchmark, not a player FPS/hitch measurement.",
+    "source_before": "timing-query-before.trx", "source_after": "timing-query-after.trx"
+  },
+  "native_render_quality_tests": { "passed": 3, "failed": 0 },
+  "native_console": { "errors": 0, "exceptions": 0, "scope": "Post-compile/runtime 8-minute queries; third-party AI subscription messages were Log-level." }
+}

@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="b9e8e2f5-be3d-4e60-89a9-dc862b4bc5b0" name="snkashkin@DESKTOP-G3075GA 2026-10-11 15:12:17" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T15:12:17.0497195+03:00" queuing="2026-10-11T15:12:17.0497196+03:00" start="2026-10-11T15:11:58.9640654+03:00" finish="2026-10-11T15:12:17.0526703+03:00" />
+  <TestSettings name="default" id="fe7b9a7f-bdc8-47f3-a9f8-0b778c19c4e3">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-11_15_12_17" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="46cdb562-51c5-48aa-8ffb-e7d393f90a5c" testId="8ca61ef3-3648-759b-bb40-08e57261fefb" testName="HeldWFirstRangePace" computerName="DESKTOP-G3075GA" duration="00:00:17.1716390" startTime="2026-10-11T15:11:59.6039320+03:00" endTime="2026-10-11T15:12:16.7752465+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="46cdb562-51c5-48aa-8ffb-e7d393f90a5c">
+      <Output>
+        <StdOut>tick=400 player_m=38,2 v=8,44 effort=812 reserve=0,978 fatigue=0,009&#xD;
+tick=800 player_m=172,6 v=4,42 effort=812 reserve=0,960 fatigue=0,020&#xD;
+tick=1200 player_m=279,3 v=7,91 effort=812 reserve=0,938 fatigue=0,031&#xD;
+tick=1600 player_m=460,2 v=6,91 effort=812 reserve=0,914 fatigue=0,042&#xD;
+tick=2000 player_m=586,7 v=7,20 effort=812 reserve=0,906 fatigue=0,052&#xD;
+tick=2400 player_m=765,6 v=8,63 effort=812 reserve=0,910 fatigue=0,060&#xD;
+actor=0 first_range_tick=2707 mean_effort=735,0 reserve=0,927 fatigue=0,065 route_m=856,2&#xD;
+actor=1 first_range_tick=0 mean_effort=710,5 reserve=0,791 fatigue=0,051 route_m=847,8&#xD;
+actor=2 first_range_tick=0 mean_effort=797,4 reserve=0,618 fatigue=0,060 route_m=849,7&#xD;
+actor=3 first_range_tick=0 mean_effort=708,5 reserve=0,788 fatigue=0,050 route_m=827,8&#xD;
+actor=4 first_range_tick=0 mean_effort=773,8 reserve=0,647 fatigue=0,058 route_m=840,2&#xD;
+actor=5 first_range_tick=0 mean_effort=704,1 reserve=0,788 fatigue=0,050 route_m=837,6&#xD;
+actor=6 first_range_tick=0 mean_effort=776,6 reserve=0,642 fatigue=0,058 route_m=825,2&#xD;
+actor=7 first_range_tick=0 mean_effort=706,9 reserve=0,787 fatigue=0,050 route_m=825,3&#xD;
+actor=8 first_range_tick=0 mean_effort=772,3 reserve=0,633 fatigue=0,058 route_m=829,5&#xD;
+actor=9 first_range_tick=0 mean_effort=702,5 reserve=0,796 fatigue=0,049 route_m=820,1&#xD;
+actor=10 first_range_tick=0 mean_effort=780,3 reserve=0,631 fatigue=0,058 route_m=819,9&#xD;
+actor=11 first_range_tick=0 mean_effort=698,1 reserve=0,791 fatigue=0,049 route_m=820,5&#xD;
+actor=12 first_range_tick=0 mean_effort=802,7 reserve=0,588 fatigue=0,059 route_m=680,8&#xD;
+actor=13 first_range_tick=0 mean_effort=692,5 reserve=0,803 fatigue=0,047 route_m=720,2&#xD;
+actor=14 first_range_tick=0 mean_effort=785,1 reserve=0,629 fatigue=0,058 route_m=806,8&#xD;
+actor=15 first_range_tick=0 mean_effort=704,2 reserve=0,821 fatigue=0,047 route_m=771,4&#xD;
+actor=16 first_range_tick=0 mean_effort=772,9 reserve=0,633 fatigue=0,057 route_m=792,8&#xD;
+actor=17 first_range_tick=0 mean_effort=703,5 reserve=0,800 fatigue=0,049 route_m=785,2&#xD;
+actor=18 first_range_tick=0 mean_effort=777,0 reserve=0,638 fatigue=0,058 route_m=799,5&#xD;
+actor=19 first_range_tick=0 mean_effort=690,7 reserve=0,801 fatigue=0,048 route_m=796,5&#xD;
+actor=20 first_range_tick=0 mean_effort=766,2 reserve=0,641 fatigue=0,056 route_m=794,2&#xD;
+actor=21 first_range_tick=0 mean_effort=685,8 reserve=0,833 fatigue=0,047 route_m=791,1&#xD;
+actor=22 first_range_tick=0 mean_effort=785,2 reserve=0,594 fatigue=0,059 route_m=675,1&#xD;
+actor=23 first_range_tick=0 mean_effort=671,0 reserve=0,839 fatigue=0,046 route_m=785,1&#xD;
+actor=24 first_range_tick=0 mean_effort=765,9 reserve=0,632 fatigue=0,058 route_m=782,7&#xD;
+actor=25 first_range_tick=0 mean_effort=679,7 reserve=0,842 fatigue=0,046 route_m=779,8&#xD;
+actor=26 first_range_tick=0 mean_effort=771,5 reserve=0,615 fatigue=0,058 route_m=680,1&#xD;
+actor=27 first_range_tick=0 mean_effort=697,5 reserve=0,808 fatigue=0,049 route_m=773,6&#xD;
+actor=28 first_range_tick=0 mean_effort=765,1 reserve=0,636 fatigue=0,057 route_m=770,9&#xD;
+actor=29 first_range_tick=0 mean_effort=706,5 reserve=0,804 fatigue=0,049 route_m=707,4&#xD;
+held_W_first_range_place=1/30 tick=2707</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="HeldWFirstRangePace" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="8ca61ef3-3648-759b-bb40-08e57261fefb">
+      <Execution id="46cdb562-51c5-48aa-8ffb-e7d393f90a5c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ProductionPlayerPaceTests" name="HeldWFirstRangePace" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="8ca61ef3-3648-759b-bb40-08e57261fefb" executionId="46cdb562-51c5-48aa-8ffb-e7d393f90a5c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Explicit run&#xD;
+tick=400 player_m=38,2 v=8,44 effort=812 reserve=0,978 fatigue=0,009&#xD;
+tick=800 player_m=172,6 v=4,42 effort=812 reserve=0,960 fatigue=0,020&#xD;
+tick=1200 player_m=279,3 v=7,91 effort=812 reserve=0,938 fatigue=0,031&#xD;
+tick=1600 player_m=460,2 v=6,91 effort=812 reserve=0,914 fatigue=0,042&#xD;
+tick=2000 player_m=586,7 v=7,20 effort=812 reserve=0,906 fatigue=0,052&#xD;
+tick=2400 player_m=765,6 v=8,63 effort=812 reserve=0,910 fatigue=0,060&#xD;
+actor=0 first_range_tick=2707 mean_effort=735,0 reserve=0,927 fatigue=0,065 route_m=856,2&#xD;
+actor=1 first_range_tick=0 mean_effort=710,5 reserve=0,791 fatigue=0,051 route_m=847,8&#xD;
+actor=2 first_range_tick=0 mean_effort=797,4 reserve=0,618 fatigue=0,060 route_m=849,7&#xD;
+actor=3 first_range_tick=0 mean_effort=708,5 reserve=0,788 fatigue=0,050 route_m=827,8&#xD;
+actor=4 first_range_tick=0 mean_effort=773,8 reserve=0,647 fatigue=0,058 route_m=840,2&#xD;
+actor=5 first_range_tick=0 mean_effort=704,1 reserve=0,788 fatigue=0,050 route_m=837,6&#xD;
+actor=6 first_range_tick=0 mean_effort=776,6 reserve=0,642 fatigue=0,058 route_m=825,2&#xD;
+actor=7 first_range_tick=0 mean_effort=706,9 reserve=0,787 fatigue=0,050 route_m=825,3&#xD;
+actor=8 first_range_tick=0 mean_effort=772,3 reserve=0,633 fatigue=0,058 route_m=829,5&#xD;
+actor=9 first_range_tick=0 mean_effort=702,5 reserve=0,796 fatigue=0,049 route_m=820,1&#xD;
+actor=10 first_range_tick=0 mean_effort=780,3 reserve=0,631 fatigue=0,058 route_m=819,9&#xD;
+actor=11 first_range_tick=0 mean_effort=698,1 reserve=0,791 fatigue=0,049 route_m=820,5&#xD;
+actor=12 first_range_tick=0 mean_effort=802,7 reserve=0,588 fatigue=0,059 route_m=680,8&#xD;
+actor=13 first_range_tick=0 mean_effort=692,5 reserve=0,803 fatigue=0,047 route_m=720,2&#xD;
+actor=14 first_range_tick=0 mean_effort=785,1 reserve=0,629 fatigue=0,058 route_m=806,8&#xD;
+actor=15 first_range_tick=0 mean_effort=704,2 reserve=0,821 fatigue=0,047 route_m=771,4&#xD;
+actor=16 first_range_tick=0 mean_effort=772,9 reserve=0,633 fatigue=0,057 route_m=792,8&#xD;
+actor=17 first_range_tick=0 mean_effort=703,5 reserve=0,800 fatigue=0,049 route_m=785,2&#xD;
+actor=18 first_range_tick=0 mean_effort=777,0 reserve=0,638 fatigue=0,058 route_m=799,5&#xD;
+actor=19 first_range_tick=0 mean_effort=690,7 reserve=0,801 fatigue=0,048 route_m=796,5&#xD;
+actor=20 first_range_tick=0 mean_effort=766,2 reserve=0,641 fatigue=0,056 route_m=794,2&#xD;
+actor=21 first_range_tick=0 mean_effort=685,8 reserve=0,833 fatigue=0,047 route_m=791,1&#xD;
+actor=22 first_range_tick=0 mean_effort=785,2 reserve=0,594 fatigue=0,059 route_m=675,1&#xD;
+actor=23 first_range_tick=0 mean_effort=671,0 reserve=0,839 fatigue=0,046 route_m=785,1&#xD;
+actor=24 first_range_tick=0 mean_effort=765,9 reserve=0,632 fatigue=0,058 route_m=782,7&#xD;
+actor=25 first_range_tick=0 mean_effort=679,7 reserve=0,842 fatigue=0,046 route_m=779,8&#xD;
+actor=26 first_range_tick=0 mean_effort=771,5 reserve=0,615 fatigue=0,058 route_m=680,1&#xD;
+actor=27 first_range_tick=0 mean_effort=697,5 reserve=0,808 fatigue=0,049 route_m=773,6&#xD;
+actor=28 first_range_tick=0 mean_effort=765,1 reserve=0,636 fatigue=0,057 route_m=770,9&#xD;
+actor=29 first_range_tick=0 mean_effort=706,5 reserve=0,804 fatigue=0,049 route_m=707,4&#xD;
+held_W_first_range_place=1/30 tick=2707&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
