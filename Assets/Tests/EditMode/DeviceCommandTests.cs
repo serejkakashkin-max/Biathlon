@@ -38,6 +38,19 @@ namespace Biathlon.Tests
         private static DeviceCommandBuilder Create(int frequency = 20) => new DeviceCommandBuilder(
             DeviceControlDefinition.FromJson(PhysiologyContractTests.DefinitionJson("device_control_v1.json")),
             new AthleteId("player"), frequency);
+        [Test] public void HeldKeyboardCorrectionReachesFullDeflectionWithinQuarterSecond()
+        {
+            var d=DeviceControlDefinition.FromJson(PhysiologyContractTests.DefinitionJson("device_control_gameplay_v3.json"));
+            var builder=new DeviceCommandBuilder(d,new AthleteId("player"),20);
+            builder.Sample(new DeviceControlSample(false,0,1));
+            ManualSkiCommand command=default;
+            for(int t=1;t<=5;t++)command=builder.BuildManual(new SimulationTick(t));
+            Assert.That(command.SteeringInput,Is.EqualTo(1000),"A held finish correction must reach full input within 250ms.");
+            builder.Sample(new DeviceControlSample(false,0,-1));
+            Assert.That(builder.BuildManual(new SimulationTick(6)).SteeringInput,Is.InRange(-250,-150));
+            builder.Sample(new DeviceControlSample(false,0,0));
+            Assert.That(builder.BuildManual(new SimulationTick(7)).SteeringInput,Is.Zero);
+        }
         [Test] public void ProductionSteeringRampIsTickBoundAndGamepadRemainsAnalog()
         {
             var d=DeviceControlDefinition.FromJson(PhysiologyContractTests.DefinitionJson("device_control_gameplay_v3.json"));

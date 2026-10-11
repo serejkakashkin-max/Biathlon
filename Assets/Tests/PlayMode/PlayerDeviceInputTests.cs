@@ -108,13 +108,15 @@ namespace Biathlon.PlayModeTests
             InputSystem.QueueStateEvent(keyboard,new KeyboardState(Key.A,Key.Space));
             InputTestScope.Update();adapter.Capture(keyboard,null);
             var left=adapter.BuildManual(new SimulationTick(1));
-            Assert.That(left.SteeringInput,Is.EqualTo(-ManualSkiCommand.SteeringUnits));
+            Assert.That(left.SteeringInput,Is.EqualTo(-200));
             Assert.That(left.TuckHeld,Is.True);
+            for(int t=2;t<=5;t++)left=adapter.BuildManual(new SimulationTick(t));
+            Assert.That(left.SteeringInput,Is.EqualTo(-ManualSkiCommand.SteeringUnits));
             InputSystem.QueueStateEvent(keyboard,new KeyboardState());
             InputTestScope.Update();adapter.Capture(keyboard,null);
-            Assert.That(adapter.BuildManual(new SimulationTick(2)).SteeringInput,Is.Zero);
+            Assert.That(adapter.BuildManual(new SimulationTick(6)).SteeringInput,Is.Zero);
             adapter.SetInputFocus(false);
-            var lost=adapter.BuildManual(new SimulationTick(3));
+            var lost=adapter.BuildManual(new SimulationTick(7));
             Assert.That(lost.SteeringInput,Is.Zero);
             Assert.That(lost.Preset,Is.EqualTo(EffortPreset.Recovery));
             Assert.That(lost.CancelOvertake,Is.True);

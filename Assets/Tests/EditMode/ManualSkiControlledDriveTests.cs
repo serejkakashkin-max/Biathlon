@@ -20,6 +20,22 @@ namespace Biathlon.Tests
         private static double Energy(SkiContactMotion m)=>.5*(m.Velocity.X*m.Velocity.X+m.Velocity.Z*m.Velocity.Z+Inertia()*m.YawRate*m.YawRate);
         private static ManualSkiSteeredSnowSystem Snow()=>new ManualSkiSteeredSnowSystem(Occupancy(),Steering(),20);
 
+        [TestCase(-1000)][TestCase(1000)]
+        public void HeldKeyboardCorrectionReachesFullPhysicalSteeringByQuarterSecond(int direction)
+        {
+            var body=Actor(forward:8);
+            var device=new DeviceCommandBuilder(DeviceControlDefinition.FromJson(PhysiologyContractTests.DefinitionJson("device_control_gameplay_v3.json")),body.Athlete,20);
+            device.Sample(new DeviceControlSample(false,0,Math.Sign(direction)));
+            ManualSkiCommand command=default;for(int t=1;t<=5;t++)command=device.BuildManual(new SimulationTick(t));
+            var result=Snow().Preview(body,Motion(body),command.SteeringInput,8,.05);
+            var full=Snow().Preview(body,Motion(body),direction,8,.05);
+            Assert.That(result.Request.TargetYawRate,Is.EqualTo(full.Request.TargetYawRate));
+            Assert.That(result.Snow.Motion,Is.EqualTo(full.Snow.Motion),"A held keyboard correction must already deliver the full shared physical turn at 250ms.");
+            Assert.That(Math.Sign(result.Snow.Motion.YawRate),Is.EqualTo(Math.Sign(direction)));
+            Assert.That(Energy(result.Snow.Motion),Is.LessThanOrEqualTo(Energy(Motion(body))));
+            Assert.That(result.Snow.DissipatedEnergyJoules,Is.GreaterThanOrEqualTo(0));
+        }
+
         [Test] public void RequestMatchesExistingHeadingLimitsWithoutRejectingPhysicalSpin()
         {
             var system=new ManualSkiSteeringSystem(Steering(),20);
