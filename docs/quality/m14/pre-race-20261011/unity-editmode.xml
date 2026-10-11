@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="16" result="Passed" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-11 20:01:45Z" end-time="2026-10-11 20:01:48Z" duration="2,9326279">
+  <test-suite type="TestSuite" id="1000" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1821" result="Passed" start-time="2026-10-11 20:01:45Z" end-time="2026-10-11 20:01:48Z" duration="2.932628" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="3231" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="1794" result="Passed" start-time="2026-10-11 20:01:45Z" end-time="2026-10-11 20:01:48Z" duration="2.917581" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="40936" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="3232" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1794" result="Passed" start-time="2026-10-11 20:01:45Z" end-time="2026-10-11 20:01:48Z" duration="2.908628" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="3233" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="1794" result="Passed" start-time="2026-10-11 20:01:45Z" end-time="2026-10-11 20:01:48Z" duration="2.899810" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1138" name="CareerFoundationTests" fullname="Biathlon.Tests.CareerFoundationTests" classname="Biathlon.Tests.CareerFoundationTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-11 20:01:45Z" end-time="2026-10-11 20:01:46Z" duration="0.137078" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1142" name="CalendarHasTrainingRestWindowsAndValidPursuitDependencies" fullname="Biathlon.Tests.CareerFoundationTests.CalendarHasTrainingRestWindowsAndValidPursuitDependencies" methodname="CalendarHasTrainingRestWindowsAndValidPursuitDependencies" classname="Biathlon.Tests.CareerFoundationTests" runstate="Runnable" seed="1208554831" result="Passed" start-time="2026-10-11 20:01:45Z" end-time="2026-10-11 20:01:45Z" duration="0.058728" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1141" name="InvalidIdentityAllocationAndStateAreRejectedBeforeUse" fullname="Biathlon.Tests.CareerFoundationTests.InvalidIdentityAllocationAndStateAreRejectedBeforeUse" methodname="InvalidIdentityAllocationAndStateAreRejectedBeforeUse" classname="Biathlon.Tests.CareerFoundationTests" runstate="Runnable" seed="1614258755" result="Passed" start-time="2026-10-11 20:01:45Z" end-time="2026-10-11 20:01:45Z" duration="0.020419" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1140" name="LegacyConfidenceMigrationIsExplicitAndZeroSurvivesCurrentSaves" fullname="Biathlon.Tests.CareerFoundationTests.LegacyConfidenceMigrationIsExplicitAndZeroSurvivesCurrentSaves" methodname="LegacyConfidenceMigrationIsExplicitAndZeroSurvivesCurrentSaves" classname="Biathlon.Tests.CareerFoundationTests" runstate="Runnable" seed="840268822" result="Passed" start-time="2026-10-11 20:01:45Z" end-time="2026-10-11 20:01:45Z" duration="0.012880" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1139" name="SeededPlayerRosterAndVersionedSaveRoundTripExactly" fullname="Biathlon.Tests.CareerFoundationTests.SeededPlayerRosterAndVersionedSaveRoundTripExactly" methodname="SeededPlayerRosterAndVersionedSaveRoundTripExactly" classname="Biathlon.Tests.CareerFoundationTests" runstate="Runnable" seed="1292898134" result="Passed" start-time="2026-10-11 20:01:45Z" end-time="2026-10-11 20:01:46Z" duration="0.033507" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[career save sha256=a9a4cc348c15a7d5f38f9a592bb7f56709e9020db1373c92825838b9c46d8dc8
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1158" name="CareerSeasonTests" fullname="Biathlon.Tests.CareerSeasonTests" classname="Biathlon.Tests.CareerSeasonTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-11 20:01:46Z" end-time="2026-10-11 20:01:48Z" duration="2.162095" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1159" name="WeeklyAccountingConsumesCampOnceAndRollbackPreservesAllSourceState" fullname="Biathlon.Tests.CareerSeasonTests.WeeklyAccountingConsumesCampOnceAndRollbackPreservesAllSourceState" methodname="WeeklyAccountingConsumesCampOnceAndRollbackPreservesAllSourceState" classname="Biathlon.Tests.CareerSeasonTests" runstate="Runnable" seed="182377458" result="Passed" start-time="2026-10-11 20:01:46Z" end-time="2026-10-11 20:01:48Z" duration="2.161212" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1287" name="FrontEndSessionTests" fullname="Biathlon.Tests.FrontEndSessionTests" classname="Biathlon.Tests.FrontEndSessionTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-11 20:01:48Z" end-time="2026-10-11 20:01:48Z" duration="0.533389" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1292" name="AtomicProfileReplacementRetainsBackupAndRejectsStaleWriter" fullname="Biathlon.Tests.FrontEndSessionTests.AtomicProfileReplacementRetainsBackupAndRejectsStaleWriter" methodname="AtomicProfileReplacementRetainsBackupAndRejectsStaleWriter" classname="Biathlon.Tests.FrontEndSessionTests" runstate="Runnable" seed="2001186768" result="Passed" start-time="2026-10-11 20:01:48Z" end-time="2026-10-11 20:01:48Z" duration="0.065058" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1298" name="BothLocalesHaveRealTextAndUnknownKeysFailClearly" fullname="Biathlon.Tests.FrontEndSessionTests.BothLocalesHaveRealTextAndUnknownKeysFailClearly" methodname="BothLocalesHaveRealTextAndUnknownKeysFailClearly" classname="Biathlon.Tests.FrontEndSessionTests" runstate="Runnable" seed="254448506" result="Passed" start-time="2026-10-11 20:01:48Z" end-time="2026-10-11 20:01:48Z" duration="0.003334" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1289" name="CompletedRaceSaveFailureCanRetryExactlyOnceAndContinueAtNextEvent" fullname="Biathlon.Tests.FrontEndSessionTests.CompletedRaceSaveFailureCanRetryExactlyOnceAndContinueAtNextEvent" methodname="CompletedRaceSaveFailureCanRetryExactlyOnceAndContinueAtNextEvent" classname="Biathlon.Tests.FrontEndSessionTests" runstate="Runnable" seed="1258640400" result="Passed" start-time="2026-10-11 20:01:48Z" end-time="2026-10-11 20:01:48Z" duration="0.110604" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1296" name="ContinueUsesSavedLegacyCalendarWithoutMigratingItToWoodland" fullname="Biathlon.Tests.FrontEndSessionTests.ContinueUsesSavedLegacyCalendarWithoutMigratingItToWoodland" methodname="ContinueUsesSavedLegacyCalendarWithoutMigratingItToWoodland" classname="Biathlon.Tests.FrontEndSessionTests" runstate="Runnable" seed="1732808992" result="Passed" start-time="2026-10-11 20:01:48Z" end-time="2026-10-11 20:01:48Z" duration="0.017206" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1294" name="FailedSaveOrValidationNeverPublishesOrDestroysPriorProfile" fullname="Biathlon.Tests.FrontEndSessionTests.FailedSaveOrValidationNeverPublishesOrDestroysPriorProfile" methodname="FailedSaveOrValidationNeverPublishesOrDestroysPriorProfile" classname="Biathlon.Tests.FrontEndSessionTests" runstate="Runnable" seed="589448212" result="Passed" start-time="2026-10-11 20:01:48Z" end-time="2026-10-11 20:01:48Z" duration="0.020674" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1297" name="FileProfilesAreValidatedIndependentAndNeverOverwritten" fullname="Biathlon.Tests.FrontEndSessionTests.FileProfilesAreValidatedIndependentAndNeverOverwritten" methodname="FileProfilesAreValidatedIndependentAndNeverOverwritten" classname="Biathlon.Tests.FrontEndSessionTests" runstate="Runnable" seed="422459378" result="Passed" start-time="2026-10-11 20:01:48Z" end-time="2026-10-11 20:01:48Z" duration="0.037786" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1293" name="NewCareerIsSavedBeforeDashboardAndUsesProductionCalendar" fullname="Biathlon.Tests.FrontEndSessionTests.NewCareerIsSavedBeforeDashboardAndUsesProductionCalendar" methodname="NewCareerIsSavedBeforeDashboardAndUsesProductionCalendar" classname="Biathlon.Tests.FrontEndSessionTests" runstate="Runnable" seed="1477386058" result="Passed" start-time="2026-10-11 20:01:48Z" end-time="2026-10-11 20:01:48Z" duration="0.016636" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1288" name="PreparingCancelingAndRetryingRaceNeverConsumesAWeekOrRandomness" fullname="Biathlon.Tests.FrontEndSessionTests.PreparingCancelingAndRetryingRaceNeverConsumesAWeekOrRandomness" methodname="PreparingCancelingAndRetryingRaceNeverConsumesAWeekOrRandomness" classname="Biathlon.Tests.FrontEndSessionTests" runstate="Runnable" seed="939086283" result="Passed" start-time="2026-10-11 20:01:48Z" end-time="2026-10-11 20:01:48Z" duration="0.085334" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1291" name="PreRaceFactsComeFromPreparedAthleteAndProductionRules" fullname="Biathlon.Tests.FrontEndSessionTests.PreRaceFactsComeFromPreparedAthleteAndProductionRules" methodname="PreRaceFactsComeFromPreparedAthleteAndProductionRules" classname="Biathlon.Tests.FrontEndSessionTests" runstate="Runnable" seed="935238139" result="Passed" start-time="2026-10-11 20:01:48Z" end-time="2026-10-11 20:01:48Z" duration="0.077892" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1290" name="RestCannotSkipRaceAndInvalidResultPreservesWeek" fullname="Biathlon.Tests.FrontEndSessionTests.RestCannotSkipRaceAndInvalidResultPreservesWeek" methodname="RestCannotSkipRaceAndInvalidResultPreservesWeek" classname="Biathlon.Tests.FrontEndSessionTests" runstate="Runnable" seed="374328407" result="Passed" start-time="2026-10-11 20:01:48Z" end-time="2026-10-11 20:01:48Z" duration="0.084794" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1295" name="SettingsReturnsToItsCallerAndInvalidContinueIsAtomic" fullname="Biathlon.Tests.FrontEndSessionTests.SettingsReturnsToItsCallerAndInvalidContinueIsAtomic" methodname="SettingsReturnsToItsCallerAndInvalidContinueIsAtomic" classname="Biathlon.Tests.FrontEndSessionTests" runstate="Runnable" seed="1263147306" result="Passed" start-time="2026-10-11 20:01:48Z" end-time="2026-10-11 20:01:48Z" duration="0.007087" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

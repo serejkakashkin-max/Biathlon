@@ -115,6 +115,18 @@ namespace Biathlon.Unity.Presentation
             if(Runner!=null)throw new InvalidOperationException("A fresh host is required for another race.");
             if(playerIndex<0||playerIndex>=count)throw new ArgumentOutOfRangeException(nameof(playerIndex));
             var runner=ProductionVenueRaceFactory.Create(venue,profile,route,conditions,ReadCore,new BalanceEventAudit(5),new AiDecisionCounts(),qualification,count);
+            InitializeRunner(venue,runner,playerIndex);
+        }
+        public void InitializeCareer(CareerPreparedRace race)
+        {
+            if(race==null)throw new ArgumentNullException(nameof(race));
+            if(Runner!=null||race.Venue==null||race.PlayerIndex<0||race.Runner.Field.Tick.Value!=0)
+                throw new InvalidOperationException("A fresh playable production career race is required.");
+            InitializeRunner(race.Venue,race.Runner,race.PlayerIndex);
+        }
+        private void InitializeRunner(VenueAuthoringPlan venue,PackAiRaceRunner runner,int playerIndex)
+        {
+            var profile=runner.Field.Profile;
             playerAssistance=PlayerCourseAssistanceDefinition.FromJson(ReadCore("player_course_assistance_v1.json"));
             frameBudget=FixedTickFrameBudgetDefinition.FromJson(ReadCore("fixed_tick_frame_budget_v1.json"));
             frameClock=new FixedTickFrameClock(frameBudget,runner.Field.TickFrequency);

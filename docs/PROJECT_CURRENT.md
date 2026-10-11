@@ -61,18 +61,27 @@ Keyboard deflection is now 4000 units/s: full input in 0.25s rather than 0.5s.
 Shared physical steering, analog control, AI and balance remain unchanged.
 No new build is requested or produced.
 
-M14 first WP-179/WP-180 slice: Unity-free front-end/session model, independent
-validated career profiles and retained Unity UI Toolkit main menu. New career,
-continue, settings, quit, real career overview, RU/EN and 100/115/130% text are
-implemented. New careers use the production calendar; restore retains saved
-legacy calendar/RNG identity. UI does not advance simulation or career weeks.
+M14 WP-179/WP-180 foundation and WP-181/race-routing slice: retained UI Toolkit
+main menu now has original static biathlete artwork, petrol/snow colors and
+visible navigation focus. New career/continue/settings, RU/EN, 100/115/130%
+text, recovery weeks, pre-race facts, live career race, pause/abandon and saved
+result return are implemented. Athlete/rules/equipment come from real career
+definitions; no invented weather forecast. Atomic profile replacement preserves
+a backup and rejects stale writes. Failed/cancelled races retain the saved week.
+New careers use the production calendar; restore retains the saved calendar/RNG.
 Generated scene: Assets/Scenes/FrontEnd.unity. Build settings remain unchanged.
-Core relevant79/native EditMode79/PlayMode13 PASS; compile and history
-integrity evidence: docs/quality/m14/entry-20261011/delivery-summary.json.
+Latest validation: .NET17/native EditMode16/PlayMode14 PASS, plus the updated
+full-environment career-launch smoke PASS. Actual 30-athlete manual-mode Sprint
+completed in 31136 ticks and persisted/restored its result and next event.
+Evidence: docs/quality/m14/pre-race-20261011/delivery-summary.json.
 The separate four-range MovingFiringArrival diagnostic reproduces with exact
 pre-change definitions and remains enabled/recorded. No whole-suite/FPS claim.
 
-[Latest report](reports/TASK_M14_ENTRY_20261011.md).
+[Latest report](reports/TASK_M14_PRE_RACE_20261011.md).
 [Input decision](adr/ADR-0053-keyboard-steering-response.md).
 [UI decision](adr/ADR-0054-m14-front-end-foundation.md).
-Next: WP-181 pre-race and career→race→result→next-event routing. M14 gate OPEN.
+[Race boundary decision](adr/ADR-0055-m14-prepared-career-race.md).
+Next: WP-182/183 production race/shooting HUD; expand WP-185 results and resolve
+the recorded Pursuit composition issue before claiming the complete M14 loop.
+Training/equipment selection, expanded dashboard/history/replay remain pending.
+M14 gate OPEN. No new player build.

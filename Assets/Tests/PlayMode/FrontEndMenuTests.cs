@@ -22,6 +22,7 @@ namespace Biathlon.PlayModeTests
             public bool HasProfile=>Json!=null;
             public string ReadLatest()=>Json??throw new FileNotFoundException();
             public void WriteNew(string id,string json)=>Json=json;
+            public void Replace(string id,string expectedJson,string json){if(Json!=expectedJson)throw new IOException("stale test");Json=json;}
         }
         private GameObject root;
         private FrontEndMenu menu;
@@ -37,6 +38,45 @@ namespace Biathlon.PlayModeTests
         {Object.DestroyImmediate(root);InputSystem.RemoveDevice(keyboard);InputSystem.RemoveDevice(gamepad);inputs.Dispose();}
         private void Submit(string id)
         {var button=menu.Root.Q<Button>(id);button.Focus();using(var e=NavigationSubmitEvent.GetPooled())button.SendEvent(e);}
+        [UnityTest] public IEnumerator CareerLaunchUsesSavedAthleteAndPauseAbandonPreserveTheWeek()
+        {
+            yield return null;Submit("new_career");yield return null;
+            menu.Root.Q<TextField>("athlete_name").value="Алекс";Submit("create");yield return null;
+            for(int i=0;i<5;i++){Submit("rest_week");yield return null;}
+            string before=menu.Session.Career.ToJson();Submit("prepare");yield return null;
+            Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.PreRace));Assert.That(menu.Root.Q<Button>("start_race"),Is.Not.Null);
+            yield return CapturePreparation(1600,900,"ru",0);
+            yield return CapturePreparation(1024,768,"en",2);
+            Submit("start_race");
+            for(int i=0;i<10&&menu.Race.Loading;i++)yield return null;
+            Assert.That(menu.LastMessage,Is.Null);Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.Race));
+            var host=menu.Race.Host;Assert.That(host,Is.Not.Null);Assert.That(host.ManualStepper,Is.Not.Null);
+            Assert.That(host.Environment,Is.Not.Null);
+            Assert.That(host.Runner.Field.GetAthlete(host.PlayerIndex).AthleteId.Value,Is.EqualTo(menu.Session.Career.PlayerId));
+            Assert.That(menu.Root.style.display.value,Is.EqualTo(DisplayStyle.None));
+            menu.Race.Pause();long tick=host.Runner.Field.Tick.Value;yield return null;yield return null;
+            Assert.That(host.Runner.Field.Tick.Value,Is.EqualTo(tick));Assert.That(menu.Root.Q<Button>("resume"),Is.Not.Null);
+            Submit("resume");yield return null;Assert.That(menu.Race.Paused,Is.False);
+            menu.Race.Pause();yield return null;Submit("abandon");yield return null;
+            Assert.That(menu.Race.Host,Is.Null);Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.PreRace));
+            Assert.That(menu.Session.Career.ToJson(),Is.EqualTo(before));Assert.That(root.GetComponentsInChildren<ProductionVenueHost>().Length,Is.Zero);
+        }
+        private IEnumerator CapturePreparation(int width,int height,string locale,int size)
+        {
+            var panel=root.GetComponent<UIDocument>().panelSettings;var previous=RenderTexture.active;
+            var target=new RenderTexture(width,height,0);target.Create();panel.targetTexture=target;Texture2D pixels=null;
+            try
+            {
+                menu.ApplyPreferences(locale,size);yield return null;yield return null;yield return null;
+                var bounds=menu.Root.worldBound;var start=menu.Root.Q<Button>("start_race");
+                Assert.That(start.worldBound.yMax,Is.LessThan(bounds.yMax));Assert.That(start.worldBound.width,Is.GreaterThan(250));
+                RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);
+                pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
+                string folder=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m14/pre-race-20261011"));Directory.CreateDirectory(folder);
+                File.WriteAllBytes(Path.Combine(folder,"pre-race-"+locale+".png"),pixels.EncodeToPNG());
+            }
+            finally{if(pixels!=null)Object.Destroy(pixels);RenderTexture.active=previous;panel.targetTexture=null;Object.Destroy(target);}
+        }
         [UnityTest] public IEnumerator NewProfileContinueAndSettingsUseTheRealMenuWithoutAdvancingAWeek()
         {
             yield return null;yield return null;
@@ -109,7 +149,7 @@ namespace Biathlon.PlayModeTests
         [UnityTest] public IEnumerator MenuRendersReadableRussianAndEnglishAtDifferentAspectRatios()
         {
             var panel=root.GetComponent<UIDocument>().panelSettings;var previous=RenderTexture.active;
-            string folder=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m14/entry-20261011"));Directory.CreateDirectory(folder);
+            string folder=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m14/pre-race-20261011"));Directory.CreateDirectory(folder);
             foreach(var dimensions in new[]{new Vector2Int(1600,900),new Vector2Int(1024,768)})
             {
                 var target=new RenderTexture(dimensions.x,dimensions.y,0);target.Create();panel.targetTexture=target;

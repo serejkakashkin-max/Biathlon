@@ -42,5 +42,26 @@ namespace Biathlon.Presentation
             }
             finally { if(File.Exists(temporary))File.Delete(temporary); }
         }
+        public void Replace(string id,string expectedJson,string json)
+        {
+            if(CareerSave.FromJson(expectedJson).Id!=id||CareerSave.FromJson(json).Id!=id)
+                throw new ArgumentException("Profile/save identity mismatch.");
+            // Validate the same filename alphabet before composing a disk path.
+            if(string.IsNullOrEmpty(id)||id.Length>64||!id.StartsWith("career_",StringComparison.Ordinal))throw new ArgumentException("Profile ID required.");
+            foreach(char c in id)if(!(c>='a'&&c<='z'||c>='0'&&c<='9'||c=='_'))throw new ArgumentException("Invalid profile ID.");
+            string target=Path.Combine(directory,id+".json"),temporary=target+"."+Guid.NewGuid().ToString("N")+".tmp";
+            using(var profileLock=new FileStream(target+".lock",FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None))
+            try
+            {
+                if(CareerSave.FromJson(File.ReadAllText(target,Encoding.UTF8)).ToJson()!=CareerSave.FromJson(expectedJson).ToJson())
+                    throw new IOException("Career changed since this command was prepared.");
+                byte[] bytes=new UTF8Encoding(false).GetBytes(json);
+                using(var file=new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.None))
+                {file.Write(bytes,0,bytes.Length);file.Flush(true);}
+                CareerSave.FromJson(File.ReadAllText(temporary,Encoding.UTF8));
+                File.Replace(temporary,target,target+".bak");
+            }
+            finally {if(File.Exists(temporary))File.Delete(temporary);}
+        }
     }
 }

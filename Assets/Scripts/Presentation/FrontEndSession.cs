@@ -4,12 +4,13 @@ using Biathlon.Domain;
 
 namespace Biathlon.Presentation
 {
-    public enum FrontEndScreen { Home, NewCareer, Career, Settings }
+    public enum FrontEndScreen { Home, NewCareer, Career, Settings, PreRace, Race, Results }
     public interface ICareerProfileStore
     {
         bool HasProfile { get; }
         string ReadLatest();
         void WriteNew(string id, string json);
+        void Replace(string id,string expectedJson,string json);
     }
 
     /// <summary>Menu transitions and career boundary; no Unity, scene references or simulated outcomes.</summary>
@@ -22,6 +23,8 @@ namespace Biathlon.Presentation
         public FrontEndScreen Screen { get; private set; }
         public CareerSave Career { get; private set; }
         public CareerDefinitions Definitions { get; private set; }
+        public CareerWeekPreparation PreparedWeek { get; private set; }
+        public CareerRaceRecord Result { get; private set; }
         public bool CanContinue => profiles.HasProfile;
         public CareerAthlete Player
         {
@@ -37,7 +40,39 @@ namespace Biathlon.Presentation
             settingsReturn=Screen;Screen=FrontEndScreen.Settings;
         }
         public void Back()
-        { Screen=Screen==FrontEndScreen.Settings?settingsReturn:FrontEndScreen.Home; }
+        {
+            if(Screen==FrontEndScreen.Race)throw new InvalidOperationException("Finish or explicitly abandon the active race.");
+            if(Screen==FrontEndScreen.PreRace){PreparedWeek=null;Screen=FrontEndScreen.Career;}
+            else Screen=Screen==FrontEndScreen.Settings?settingsReturn:FrontEndScreen.Home;
+        }
+        public void RestWeek()
+        {
+            Require(FrontEndScreen.Career);
+            if(Definitions.Calendar.AtWeek(Career.Week)!=null)throw new InvalidOperationException("A race week requires its event.");
+            var prepared=CareerSeasonEngine.PrepareWeek(Career,Definitions,Array.Empty<CareerTrainingKind>(),restoreRandom);
+            var candidate=CareerSeasonEngine.CompleteWeek(prepared,Definitions,null,restoreRandom);
+            PublishSaved(candidate,prepared.SourceJson);
+        }
+        public void OpenPreRace()
+        {
+            Require(FrontEndScreen.Career);
+            var e=Definitions.Calendar.AtWeek(Career.Week);
+            if(e==null||!e.Eligible(Player))throw new InvalidOperationException("An eligible current-week event is required.");
+            var prepared=CareerSeasonEngine.PrepareWeek(Career,Definitions,Array.Empty<CareerTrainingKind>(),restoreRandom);
+            PreparedWeek=prepared;Result=null;Screen=FrontEndScreen.PreRace;
+        }
+        public void BeginRace() {Require(FrontEndScreen.PreRace);Screen=FrontEndScreen.Race;}
+        public void AbandonRace() {Require(FrontEndScreen.Race);Screen=FrontEndScreen.PreRace;}
+        public void FinishRace(CareerRaceRecord result)
+        {
+            Require(FrontEndScreen.Race);
+            var candidate=CareerSeasonEngine.CompleteWeek(PreparedWeek,Definitions,result,restoreRandom);
+            PublishSaved(candidate,PreparedWeek.SourceJson);
+            Result=result;PreparedWeek=null;Screen=FrontEndScreen.Results;
+        }
+        public void ReturnFromResults() {Require(FrontEndScreen.Results);Screen=FrontEndScreen.Career;}
+        private void PublishSaved(CareerSave candidate,string expected)
+        {profiles.Replace(candidate.Id,expected,candidate.ToJson());Career=candidate;}
         public void CreateCareer(string id,string name,string nation,ulong seed)
         {
             Require(FrontEndScreen.NewCareer);

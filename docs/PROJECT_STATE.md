@@ -24608,3 +24608,33 @@ PROJECT_STATE prior raw-byte prefix verified unchanged; owner rendering/settings
 package edits retained. Decisions ADR0053/0054; report TASK_M14_ENTRY_20261011.
 Evidence: docs/quality/m14/entry-20261011/delivery-summary.json.
 Next: WP181 pre-race and career to race/result/next-event routing; M14 gate OPEN.
+
+## 2026-10-11 — M14 illustrated menu and prepared live career race
+
+M13 remains owner-accepted CLOSED; M14 IN PROGRESS. No player build requested
+or produced. Sharper A/D and the owner-approved gameplay/render settings remain.
+
+Added the WP-181/race-routing slice: explicit recovery weeks, actual pre-race
+readiness/rules/skis/snow, launch with the real career roster, pause/resume,
+abandon-to-preparation and authoritative result return. Preparation/completion
+are detached career transactions; result save uses expected-state atomic
+replacement plus a backup. Failed writes/cancelled races preserve the saved
+week/RNG; completed results remain available for retry.
+
+Owner requested a modern attractive menu. Original static biathlete artwork,
+petrol/snow design, contrasting focus, RU/EN and large-text layouts are now
+connected to the real Unity menu. Native 16:9/4:3 images inspected. The menu is
+hidden during races; gameplay textures/shadows/physics remain unchanged.
+
+Validation: .NET17, native EditMode16, PlayMode14 PASS; updated full-environment
+career launch smoke PASS. Production manual-mode Sprint30 completed at tick
+31136 and its authoritative result survived career save/restore, pointing to
+the next Pursuit event. SHA256 701cabf4c0e01295abd425d7f1f2afb00611c20f421b6372e8cb7ef2eb21ff15.
+Earlier slow legacy-mode completion probe was stopped, not counted as passing;
+corrected live-composition probe passed. No existing failing tests disabled.
+
+Full M14 gate remains OPEN. Detailed HUD/results/training/equipment/history/
+replay remain. Recorded Pursuit composition issue still needs resolution before
+claiming a complete playable next-event loop. No new FPS or whole-season claim.
+Report: docs/reports/TASK_M14_PRE_RACE_20261011.md. Decision: ADR-0055.
+Evidence: docs/quality/m14/pre-race-20261011/delivery-summary.json.

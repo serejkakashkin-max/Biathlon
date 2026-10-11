@@ -1,0 +1,70 @@
+{
+  "m14": "in_progress_wp181_and_first_race_result_routing",
+  "m13": "owner_accepted_closed",
+  "date": "2026-10-11",
+  "build_created": false,
+  "id": "m14_pre_race_20261011",
+  "limitations": [
+    "M14 gate remains open",
+    "No new player build or FPS claim",
+    "Existing Pursuit composition issue remains",
+    "First results summary; training/equipment/history/replay UI pending",
+    "No mid-race resume or invented weather forecast"
+  ],
+  "history": {
+    "prefix_verified": true,
+    "prefix_sha256": "74578956ca2e248a846079902f84118c835d77e0f83d626e408094c3659c0c6f",
+    "final_bytes": 2958167,
+    "prefix_bytes": 2956323
+  },
+  "compile_log_checks": {
+    "m14-career-environment.log": {
+      "compile_errors": 0,
+      "sha256": "67814d07a4a394ee22fbcd1b6fed0e09adc1ff73fd5dfe70fb60c38d3e85878b",
+      "game_exceptions": 0
+    },
+    "m14-prerace-editmode.log": {
+      "compile_errors": 0,
+      "sha256": "0ff5acd4d77747c469d42ed30ceb4f60359ae05f08e540c1819017304ff95a06",
+      "game_exceptions": 0
+    },
+    "m14-prerace-playmode-final.log": {
+      "compile_errors": 0,
+      "sha256": "cba8989df4fb20c8385c4c6e9c51137d701a306e1abeb264b6058ad3e1b8e0d3",
+      "game_exceptions": 0
+    }
+  },
+  "schema_version": 1,
+  "art": {
+    "provenance": "menu-art.md",
+    "sha256": "95c0d0f131e567a9e779946a9ed4f7455895db3b49fa7d98c55112839ae0abda",
+    "generator": "built-in image_gen",
+    "asset": "Assets/Resources/Biathlon/UI/menu_background.png"
+  },
+  "production_sprint": {
+    "ticks": 31136,
+    "saved_and_restored": true,
+    "human_driven": false,
+    "athletes": 30,
+    "authority_sha256": "701cabf4c0e01295abd425d7f1f2afb00611c20f421b6372e8cb7ef2eb21ff15",
+    "manual_movement_composition": true
+  },
+  "evidence_sha256": {
+    "frontend-manual-final.trx": "e8db97763a4e4f10625d6d05ea81e39d98fcc28502193d06eb3f10082b6486b8",
+    "frontend-ru.png": "03baf5a9cc97ffc8ba4cb6dad0f9863894e3bd0589657a0f0cf5b32e75c170d1",
+    "frontend-en-large-4x3.png": "9ebe4204717d435cbfdf51bf6a826ae373aa6bdc31d3988e8bd8310a36f36263",
+    "pre-race-en.png": "44a2e83f6dcd8f55d96f6d0b6a3a8e298e73e830d5c3d80664c163efe683838f",
+    "unity-playmode-final.xml": "9341ef5f5433d9932238b7c9e741f23d7aa321a10817b84adb5940daded1b461",
+    "unity-career-environment.xml": "7376152edda9659fc4b1d1a611c671815800ba26b33da81d44ae5614a8933800",
+    "pre-race-ru.png": "bc6cd0ea36a36202226ac33003bf103493bd3e945c8cf3514786ca4b5af43a4c",
+    "unity-editmode.xml": "c58b27b39c69e1614d781a1e17485956dc1b354023c6b1a627d9172cdaf180e8"
+  },
+  "tests": {
+    "dotnet_passed": 17,
+    "final_relevant_failed": 0,
+    "legacy_probe": "stopped; replaced by production manual-mode completion test; not counted as passing",
+    "native_playmode_passed": 14,
+    "native_editmode_passed": 16,
+    "updated_full_environment_smoke_passed": 1
+  }
+}

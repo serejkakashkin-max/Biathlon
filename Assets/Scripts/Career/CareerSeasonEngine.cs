@@ -58,13 +58,37 @@ namespace Biathlon.Career
     {
         CareerRaceRecord Run(CareerSave snapshot,CareerCalendarEvent calendarEvent,ulong seed);
     }
+    /// <summary>A detached trained week that can wait for a player-controlled race.</summary>
+    public sealed class CareerWeekPreparation
+    {
+        public string SourceJson { get; }
+        public string RaceSnapshotJson { get; }
+        public CareerCalendarEvent Event { get; }
+        public ulong RaceSeed { get; }
+        public bool RequiresRace { get; }
+        internal ulong CompletionRandomState { get; }
+        private readonly int[] usedSlots;
+        internal int UsedSlots(int index)=>usedSlots[index];
+        internal CareerWeekPreparation(string source,string snapshot,CareerCalendarEvent e,
+            ulong seed,bool requiresRace,ulong randomState,int[] usedSlots)
+        {SourceJson=source;RaceSnapshotJson=snapshot;Event=e;RaceSeed=seed;RequiresRace=requiresRace;CompletionRandomState=randomState;this.usedSlots=usedSlots;}
+    }
     public static class CareerSeasonEngine
     {
         public static CareerSave AdvanceWeek(CareerSave source,CareerDefinitions d,IReadOnlyList<CareerTrainingKind> playerPlan,ICareerRaceProvider races,Func<ulong,IRandomSource> restoreRandom)
         {
             if(source==null||d==null||playerPlan==null||races==null||restoreRandom==null)throw new ArgumentNullException();
+            var prepared=PrepareWeek(source,d,playerPlan,restoreRandom);
+            var result=prepared.RequiresRace?races.Run(CareerSave.FromJson(prepared.RaceSnapshotJson),prepared.Event,prepared.RaceSeed):null;
+            return CompleteWeek(prepared,d,result,restoreRandom);
+        }
+        public static CareerWeekPreparation PrepareWeek(CareerSave source,CareerDefinitions d,IReadOnlyList<CareerTrainingKind> playerPlan,Func<ulong,IRandomSource> restoreRandom)
+        {
+            if(source==null||d==null||playerPlan==null||restoreRandom==null)throw new ArgumentNullException();
+            string sourceJson=source.ToJson();
             var random=restoreRandom(source.RandomState);var save=CareerFactory.Restore(source.ToJson(),d.Roster,d.Calendar,random);
             var plans=new CareerWeekPlan[save.AthleteCount];
+            var used=new int[plans.Length];
             for(int i=0;i<save.AthleteCount;i++)
             {
                 var a=save.Athlete(i);plans[i]=a.Id==save.PlayerId?new CareerWeekPlan(d.Training,d.Calendar,save.Week,playerPlan):CareerAiTraining.Plan(a,d.Training,d.Calendar,d.Policy,save.Week);
@@ -72,14 +96,28 @@ namespace Biathlon.Career
                 bool taper=save.Week<d.Calendar.WeeksPerSeason&&d.Calendar.AtWeek(save.Week+1)!=null&&plans[i].UsedSlots<d.Calendar.TrainingSlots(save.Week);
                 CareerTrainingWeek.Apply(a,plans[i],d.Training,d.Adaptation,d.Fatigue,d.Form,d.Mental,d.Health,quality,taper);
                 if(plans[i].Count>0)a.PendingCampQuality=0;
+                used[i]=plans[i].UsedSlots;
             }
             var e=d.Calendar.AtWeek(save.Week);
-            if(e!=null)
+            bool requiresRace=false;
+            if(e!=null)for(int i=0;i<save.AthleteCount;i++)requiresRace|=e.Eligible(save.Athlete(i));
+            ulong seed=requiresRace?random.NextUInt64():0;
+            return new CareerWeekPreparation(sourceJson,save.ToJson(),e,seed,requiresRace,random.State,used);
+        }
+        public static CareerSave CompleteWeek(CareerWeekPreparation prepared,CareerDefinitions d,CareerRaceRecord record,Func<ulong,IRandomSource> restoreRandom)
+        {
+            if(prepared==null||d==null||restoreRandom==null)throw new ArgumentNullException();
+            var decoded=CareerSave.FromJson(prepared.RaceSnapshotJson);
+            var save=CareerFactory.Restore(decoded.ToJson(),d.Roster,d.Calendar,restoreRandom(decoded.RandomState));
+            var e=d.Calendar.AtWeek(save.Week);
+            if(e?.Id!=prepared.Event?.Id)throw new ArgumentException("Prepared calendar changed.");
+            if(!prepared.RequiresRace&&record!=null)throw new ArgumentException("This week has no race to register.");
+            if(prepared.RequiresRace)
             {
                 var expected=new HashSet<string>(StringComparer.Ordinal);for(int i=0;i<save.AthleteCount;i++)if(e.Eligible(save.Athlete(i)))expected.Add(save.Athlete(i).Id);
                 if(expected.Count>0)
                 {
-                    ulong seed=random.NextUInt64();var record=races.Run(CareerSave.FromJson(save.ToJson()),e,seed);
+                    ulong seed=prepared.RaceSeed;
                     if(record==null||record.CalendarEventId!=e.Id||record.SeasonId!=save.SeasonId||record.Format!=e.Format||record.Seed!=seed||record.Count!=expected.Count)throw new InvalidOperationException("Race boundary returned a mismatched event.");
                     for(int i=0;i<record.Count;i++)if(!expected.Remove(record.Get(i).AthleteId))throw new InvalidOperationException("Race boundary returned a mismatched field.");
                     var standings=CareerStandings.Table(save,d.Scoring);CareerStandings.Register(save,record);
@@ -92,8 +130,8 @@ namespace Biathlon.Career
                     }
                 }
             }
-            for(int i=0;i<save.AthleteCount;i++){CareerFatigue.Rest(save.Athlete(i),d.Fatigue,d.Calendar.TrainingSlots(save.Week)-plans[i].UsedSlots);CareerMental.Rest(save.Athlete(i),d.Mental);}
-            save.RandomState=random.State;
+            for(int i=0;i<save.AthleteCount;i++){CareerFatigue.Rest(save.Athlete(i),d.Fatigue,d.Calendar.TrainingSlots(save.Week)-prepared.UsedSlots(i));CareerMental.Rest(save.Athlete(i),d.Mental);}
+            save.RandomState=prepared.CompletionRandomState;
             if(save.Week==d.Calendar.WeeksPerSeason)
             {
                 save=CareerProgression.ApplySeason(save,d.Calendar,d.Scoring,d.Progression);save=CareerHistory.SealSeason(save,d.Calendar,d.Scoring,d.History);

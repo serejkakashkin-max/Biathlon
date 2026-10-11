@@ -37,6 +37,14 @@ namespace Biathlon.AI
         {var b=new StringBuilder("{\"schema_version\":1,\"id\":\"").Append(athlete.Id).Append('"');for(int i=from;i<to;i++)b.Append(",\"").Append(statNames[i]).Append("\":").Append(Math.Round(athlete.Stat((CareerStat)i)/(decimal)CareerUnits.StatScale,0,MidpointRounding.ToEven).ToString(CultureInfo.InvariantCulture));return b.Append('}').ToString();}
         public CareerRaceRecord Run(CareerSave snapshot,CareerCalendarEvent e,ulong seed)
         {
+            var prepared=Prepare(snapshot,e,seed);var runner=prepared.Runner;
+            while(!runner.Field.IsComplete){if(runner.Field.Tick.Value>=definition.MaximumTicks)throw new InvalidOperationException("Career race exceeded its tick budget.");runner.Step();}
+            var result=prepared.CollectResult();
+            LastTicks=runner.Field.Tick.Value;LastEventHash=prepared.Audit.Hash;LastShots=prepared.Audit.Shots;
+            return result;
+        }
+        public CareerPreparedRace Prepare(CareerSave snapshot,CareerCalendarEvent e,ulong seed)
+        {
             if(snapshot==null||e==null)throw new ArgumentNullException();
             if(e.VenueId!="synthetic_alpine"&&e.VenueId!=Woodland)throw new ArgumentException("No route adapter for this venue.");
             if(e.VenueId==Woodland&&venueResource==null)throw new InvalidOperationException("Woodland career needs its explicit resource reader.");
@@ -63,10 +71,10 @@ namespace Biathlon.AI
                 pressures[i]=new ShootingPressureContext(CareerMental.Pressure(a,career.Mental),1,1,a.Confidence/(double)CareerUnits.Basis);
             }
             var audit=new BalanceEventAudit(5);
-            PackAiRaceRunner runner;
+            PackAiRaceRunner runner;VenueAuthoringPlan venue=null;
             if(e.VenueId==Woodland)
             {
-                var venue=new VenueAuthoringPlan(VenueManifest.FromJson(venueResource(WoodlandRoot+"manifest")),venueResource);
+                venue=new VenueAuthoringPlan(VenueManifest.FromJson(venueResource(WoodlandRoot+"manifest")),venueResource);
                 string format=e.Format==CompetitionFormat.Sprint?"sprint":e.Format==CompetitionFormat.Pursuit?"pursuit":"mass_start";
                 runner=ProductionVenueRaceFactory.Create(venue,
                     CompetitionProfile.FromJson(venueResource(WoodlandRoot+format+"_profile")),
@@ -75,8 +83,29 @@ namespace Biathlon.AI
                     qualification,roster.Count,definition.TickFrequency,seed,entrants,personalities,forms,pressures);
             }
             else runner=ChampionshipRaceFactory.Create(read,fixture,e.Format,audit,new AiDecisionCounts(),qualification,roster.Count,definition.TickFrequency,seed,entrants,personalities,forms,pressures);
-            while(!runner.Field.IsComplete){if(runner.Field.Tick.Value>=definition.MaximumTicks)throw new InvalidOperationException("Career race exceeded its tick budget.");runner.Step();}
-            var field=runner.Field;string payload=e.Format==CompetitionFormat.Sprint?field.Result.ToJson():e.Format==CompetitionFormat.Pursuit?field.PursuitResult.ToJson():field.MassStartResult.ToJson();var finishes=new List<CareerFinish>();
+            return new CareerPreparedRace(snapshot.SeasonId,snapshot.PlayerId,e,seed,runner,audit,venue);
+        }
+    }
+    /// <summary>The same career composition used headlessly and by a live player host.</summary>
+    public sealed class CareerPreparedRace
+    {
+        public PackAiRaceRunner Runner { get; }
+        public VenueAuthoringPlan Venue { get; }
+        public CareerCalendarEvent Event { get; }
+        public ulong Seed { get; }
+        public int PlayerIndex { get; }
+        internal BalanceEventAudit Audit { get; }
+        private readonly string seasonId;
+        internal CareerPreparedRace(string seasonId,string playerId,CareerCalendarEvent e,ulong seed,PackAiRaceRunner runner,BalanceEventAudit audit,VenueAuthoringPlan venue)
+        {
+            this.seasonId=seasonId;Event=e;Seed=seed;Runner=runner;Audit=audit;Venue=venue;PlayerIndex=-1;
+            for(int i=0;i<runner.Field.Count;i++)if(runner.Field.GetAthlete(i).AthleteId.Value==playerId)PlayerIndex=i;
+        }
+        public CareerRaceRecord CollectResult()
+        {
+            var field=Runner.Field;var e=Event;
+            if(!field.IsComplete)throw new InvalidOperationException("A complete authoritative field is required for a career result.");
+            string payload=e.Format==CompetitionFormat.Sprint?field.Result.ToJson():e.Format==CompetitionFormat.Pursuit?field.PursuitResult.ToJson():field.MassStartResult.ToJson();var finishes=new List<CareerFinish>();
             for(int rank=0;rank<field.Count;rank++)
             {
                 string id=e.Format==CompetitionFormat.Sprint?field.Result.Get(rank).AthleteId:e.Format==CompetitionFormat.Pursuit?field.PursuitResult.Get(rank).AthleteId:field.MassStartResult.Get(rank).AthleteId;
@@ -85,8 +114,7 @@ namespace Biathlon.AI
                 long ordering=e.Format==CompetitionFormat.Sprint?(long)Math.Round(field.Result.Get(rank).RegisteredUnits.Value*1000m/ResultTimingDefinition.FromJson(field.Result.TimingDefinitionJson).UnitsPerSecond,MidpointRounding.ToEven):(long)Math.Round(actor.Lifecycle.GlobalFinishTime.Seconds*1000,MidpointRounding.ToEven);
                 finishes.Add(new CareerFinish(id,ordering,elapsed,actor.TotalPenaltyLoops));
             }
-            LastTicks=field.Tick.Value;LastEventHash=audit.Hash;LastShots=audit.Shots;
-            return new CareerRaceRecord(snapshot.SeasonId+"_"+e.Id,snapshot.SeasonId,e.Id,e.Format,seed,BalanceRegression.Hash(payload),finishes,payload);
+            return new CareerRaceRecord(seasonId+"_"+e.Id,seasonId,e.Id,e.Format,Seed,BalanceRegression.Hash(payload),finishes,payload);
         }
     }
 }

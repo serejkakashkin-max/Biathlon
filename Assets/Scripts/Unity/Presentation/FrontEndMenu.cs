@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using Biathlon.Career;
+using Biathlon.Domain;
 using Biathlon.Presentation;
 using Biathlon.Simulation;
 using UnityEngine;
@@ -19,6 +20,9 @@ namespace Biathlon.Unity.Presentation
         public string Locale { get; private set; }
         public int TextSizeIndex { get; private set; }
         public string LastMessage { get; private set; }
+        public CareerRacePresentation Race { get; private set; }
+        private Camera menuCamera;
+        private Texture2D backdrop;
         private UIDocument document;
         private PanelSettings panel;
         private FrontEndTheme theme;
@@ -38,6 +42,7 @@ namespace Biathlon.Unity.Presentation
         {
             if(Session!=null)throw new InvalidOperationException("Initialize front end once.");
             theme=FrontEndTheme.Load();text=UiTextCatalog.FromJson(ProductionVenueHost.ReadResource("Biathlon/UI/front_end_text_v1"));
+            backdrop=Resources.Load<Texture2D>("Biathlon/UI/menu_background");
             Session=new FrontEndSession(ReadCore,profiles,s=>new SeededRandomSource(s));
             Locale=PersistPreferences?PlayerPrefs.GetString("biathlon.ui.locale","ru"):"ru";
             if(Locale!="ru"&&Locale!="en")Locale="ru";
@@ -49,18 +54,32 @@ namespace Biathlon.Unity.Presentation
             if(panel.themeStyleSheet==null)throw new FileNotFoundException("Missing front-end theme style sheet.");
             panel.scaleMode=PanelScaleMode.ScaleWithScreenSize;panel.referenceResolution=new Vector2Int(theme.reference_width,theme.reference_height);
             panel.screenMatchMode=PanelScreenMatchMode.MatchWidthOrHeight;panel.match=1;
-            if(Camera.main==null)
             {
                 var camera=new GameObject("Front end camera",typeof(Camera));camera.tag="MainCamera";camera.transform.SetParent(transform,false);
-                var view=camera.GetComponent<Camera>();view.clearFlags=CameraClearFlags.SolidColor;view.backgroundColor=FrontEndTheme.Color(theme.snow);view.orthographic=true;
+                menuCamera=camera.GetComponent<Camera>();menuCamera.clearFlags=CameraClearFlags.SolidColor;menuCamera.backgroundColor=FrontEndTheme.Color(theme.snow);menuCamera.orthographic=true;menuCamera.cullingMask=0;
             }
+            Race=gameObject.AddComponent<CareerRacePresentation>();
             document=gameObject.AddComponent<UIDocument>();document.panelSettings=panel;document.sortingOrder=100;
             Root.RegisterCallback<NavigationMoveEvent>(Navigate);
             Root.RegisterCallback<FocusInEvent>(RememberFocus);
             Root.RegisterCallback<NavigationCancelEvent>(e=>{if(Session.Screen!=FrontEndScreen.Home)Back();e.StopPropagation();},TrickleDown.TrickleDown);
             Render();
         }
-        public void Back() { Session.Back();LastMessage=null;Render(); }
+        public void Back()
+        {
+            if(Race.Loading)return;
+            if(Session.Screen==FrontEndScreen.Race){if(Race.Paused&&!Race.AwaitingSave)Race.Resume();return;}
+            if(Session.Screen==FrontEndScreen.Results)Session.ReturnFromResults();else Session.Back();
+            LastMessage=null;Render();
+        }
+        public void RefreshFrontEnd()=>Render();
+        public void ShowFrontEndError(string key)=>ShowError(key);
+        public void ShowRaceFailure(){SetRaceVisible(false);ShowError("race_fault");Render();}
+        public void SetRaceVisible(bool visible)
+        {
+            Root.style.display=visible?DisplayStyle.None:DisplayStyle.Flex;menuCamera.enabled=!visible;
+            if(visible){Root.panel?.focusController.focusedElement?.Blur();LastMessage=null;}
+        }
         public void ApplyPreferences(string locale,int textSizeIndex)
         {
             if(locale!="ru"&&locale!="en"||textSizeIndex<0||textSizeIndex>2)throw new ArgumentException("Unsupported UI preference.");
@@ -71,7 +90,7 @@ namespace Biathlon.Unity.Presentation
         private void RememberFocus(FocusInEvent e)
         {
             for(var element=e.target as VisualElement;element!=null&&element!=Root;element=element.parent)
-                if(controls.Contains(element)){rememberedFocus[Session.Screen]=element.name;break;}
+                if(controls.Contains(element)){rememberedFocus[Session.Screen]=element.name;element.GetFirstAncestorOfType<ScrollView>()?.ScrollTo(element);break;}
         }
         private void Navigate(NavigationMoveEvent e)
         {
@@ -89,14 +108,20 @@ namespace Biathlon.Unity.Presentation
         private void Render()
         {
             Root.Clear();controls.Clear();Root.style.flexGrow=1;Root.style.backgroundColor=FrontEndTheme.Color(theme.snow);Root.style.color=ink;
+            bool home=Session.Screen==FrontEndScreen.Home;
+            var background=new Image{image=backdrop,scaleMode=ScaleMode.ScaleAndCrop,pickingMode=PickingMode.Ignore,name="menu_backdrop"};
+            background.style.position=Position.Absolute;background.style.left=0;background.style.right=0;background.style.top=0;background.style.bottom=0;Root.Add(background);
+            var shade=new VisualElement{pickingMode=PickingMode.Ignore};shade.style.position=Position.Absolute;shade.style.left=0;shade.style.top=0;shade.style.bottom=0;
+            shade.style.width=new Length(44,LengthUnit.Percent);shade.style.backgroundColor=FrontEndTheme.Color(home?theme.home_shade:theme.menu_panel);Root.Add(shade);
             Root.style.paddingTop=theme.page_padding;Root.style.paddingBottom=theme.page_padding;
             Root.style.paddingLeft=theme.page_padding;Root.style.paddingRight=theme.page_padding;
             var body=new VisualElement();body.style.flexGrow=1;body.style.flexDirection=FlexDirection.Row;Root.Add(body);
             var left=new VisualElement();left.style.width=new Length(44,LengthUnit.Percent);left.style.paddingRight=theme.page_padding;body.Add(left);
             var brand=AddLabel(left,T("brand"),theme.title_size,true);brand.style.fontSize=theme.title_size;brand.style.whiteSpace=WhiteSpace.NoWrap;
+            brand.style.unityFontStyleAndWeight=FontStyle.BoldAndItalic;brand.style.letterSpacing=2;
             AddLabel(left,T("discipline"),theme.caption_size);
-            var actions=new VisualElement();actions.style.marginTop=theme.spacing*2;left.Add(actions);
-            var card=new VisualElement();card.style.flexGrow=1;card.style.flexBasis=0;card.style.paddingTop=theme.page_padding;
+            var actions=new ScrollView(ScrollViewMode.Vertical);actions.style.marginTop=theme.spacing*2;actions.style.flexShrink=1;actions.style.minHeight=0;left.Add(actions);
+            var card=new ScrollView(ScrollViewMode.Vertical);card.style.flexGrow=1;card.style.flexBasis=0;card.style.paddingTop=theme.page_padding;
             card.style.paddingBottom=theme.page_padding;card.style.paddingLeft=theme.page_padding;card.style.paddingRight=theme.page_padding;
             card.style.backgroundColor=paper;body.Add(card);
             if(Session.Screen==FrontEndScreen.Home)
@@ -105,7 +130,8 @@ namespace Biathlon.Unity.Presentation
                 AddButton(actions,"continue",T("continue"),Continue,enabled:Session.CanContinue);
                 AddButton(actions,"settings",T("settings"),()=>{Session.OpenSettings();Render();});
                 AddButton(actions,"quit",T("quit"),()=>Application.Quit());
-                AddVenueCard(card);AddLabel(card,T("home_note"),theme.body_size);
+                card.style.backgroundColor=Color.clear;card.style.justifyContent=Justify.FlexEnd;card.pickingMode=PickingMode.Ignore;
+                var caption=AddLabel(left,T("home_note"),theme.caption_size);caption.style.marginTop=theme.spacing*2;
             }
             else if(Session.Screen==FrontEndScreen.NewCareer)
             {
@@ -128,6 +154,14 @@ namespace Biathlon.Unity.Presentation
                 AddLabel(actions,T("career"),theme.section_size,true);AddLabel(actions,player.Name,theme.section_size,true);
                 AddLabel(actions,T("nation."+player.Nation),theme.body_size);AddLabel(actions,F("season_week",saved.Season,saved.Week),theme.body_size);
                 AddLabel(actions,F("athlete_state",player.Form/100,player.Fatigue/100),theme.body_size);
+                var current=Session.Definitions.Calendar.AtWeek(saved.Week);
+                if(current==null)AddButton(actions,"rest_week",T("rest_week"),()=>CareerAction(Session.RestWeek),true);
+                else
+                {
+                    bool available=current.VenueId=="woodland_basin_v1"&&current.Eligible(player);
+                    AddButton(actions,"prepare",T("prepare"),()=>CareerAction(Session.OpenPreRace),true,available);
+                    if(!available)AddLabel(actions,T("event_unavailable"),theme.caption_size);
+                }
                 AddButton(actions,"settings",T("settings"),()=>{Session.OpenSettings();Render();});AddButton(actions,"back",T("back"),Back);
                 AddLabel(card,T("next_event"),theme.caption_size);var upcoming=Session.NextEvent();
                 if(upcoming==null)AddLabel(card,T("no_event"),theme.section_size,true);
@@ -135,7 +169,49 @@ namespace Biathlon.Unity.Presentation
                 AddTargets(card);AddLabel(card,F("endurance",player.Stat(CareerStat.Endurance)/CareerUnits.StatScale),theme.body_size);
                 AddLabel(card,F("technique",player.Stat(CareerStat.SkiTechnique)/CareerUnits.StatScale),theme.body_size);
             }
-            else
+            else if(Session.Screen==FrontEndScreen.PreRace)
+            {
+                var e=Session.PreparedWeek.Event;
+                string format=e.Format==CompetitionFormat.Sprint?"sprint":e.Format==CompetitionFormat.Pursuit?"pursuit":"mass_start";
+                var summary=new PreRaceSummary(Session.PreparedWeek,CompetitionProfile.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/"+e.VenueId+"/"+format+"_profile")),
+                    RaceSnowConditions.FromJson(ReadCore("race_snow_neutral_v1.json")),SkiEquipmentCatalog.FromJson(ReadCore("ski_equipment_provisional_v1.json")));
+                AddLabel(actions,T("pre_race"),theme.section_size,true);AddLabel(actions,T("format."+(int)e.Format),theme.section_size,true);
+                AddLabel(actions,summary.Player.Name,theme.body_size);
+                AddLabel(actions,F("athlete_state",summary.Player.Form/100,summary.Player.Fatigue/100),theme.body_size);
+                AddButton(actions,"start_race",T(Race.Loading?"loading":"start_race"),()=>Race.Launch(this),true,!Race.Loading);
+                AddButton(actions,"back",T("back"),Back,enabled:!Race.Loading);
+                AddLabel(card,T("woodland"),theme.section_size,true);
+                AddLabel(card,F("race_distance",summary.Profile.DistanceMeters/1000,summary.Profile.LapCount,summary.EntrantCount),theme.body_size);
+                var stances=new List<string>();for(int i=0;i<summary.Profile.BoutCount;i++)stances.Add(T("stance."+(int)summary.Profile.GetBout(i).Stance));
+                AddLabel(card,string.Join(" → ",stances),theme.body_size);
+                AddLabel(card,F("race_shooting",summary.Profile.ShotsPerBout,summary.Profile.PenaltyLoopMeters),theme.body_size);
+                AddLabel(card,T("start."+(int)summary.Profile.StartType)+(summary.Profile.StartIntervalSeconds>0?F("start_interval",summary.Profile.StartIntervalSeconds):""),theme.body_size);
+                AddLabel(card,T("snow."+summary.SnowProfileId),theme.body_size);
+                AddLabel(card,T("equipment")+": "+T("equipment."+summary.Skis.Id),theme.body_size);
+                AddLabel(card,T("race_controls"),theme.caption_size);
+            }
+            else if(Session.Screen==FrontEndScreen.Race)
+            {
+                AddLabel(actions,T(Race.AwaitingSave?"race_stopped":"paused"),theme.section_size,true);
+                if(Race.AwaitingSave&&Race.Host.Runner.Field.IsComplete)AddButton(actions,"retry_save",T("retry_save"),Race.SaveResult,true);
+                if(!Race.AwaitingSave)AddButton(actions,"resume",T("resume"),Race.Resume,true);
+                AddButton(actions,"abandon",T("abandon"),Race.Abandon);
+                AddVenueCard(card);AddLabel(card,T("abandon_note"),theme.body_size);
+            }
+            else if(Session.Screen==FrontEndScreen.Results)
+            {
+                AddLabel(actions,T("result"),theme.section_size,true);AddLabel(actions,Session.Player.Name,theme.section_size,true);
+                AddButton(actions,"career_return",T("career_return"),()=>{Session.ReturnFromResults();LastMessage=null;Render();},true);
+                var result=Session.Result;
+                for(int i=0;i<result.Count;i++)
+                {
+                    var finish=result.Get(i);if(finish.AthleteId!=Session.Career.PlayerId)continue;
+                    AddLabel(card,F("result_rank",i+1,result.Count),theme.title_size,true);
+                    AddLabel(card,F("result_time",TimeSpan.FromMilliseconds(finish.ElapsedMilliseconds).ToString(@"hh\:mm\:ss\.fff")),theme.body_size);
+                    AddLabel(card,T("result_saved"),theme.body_size);break;
+                }
+            }
+            else if(Session.Screen==FrontEndScreen.Settings)
             {
                 AddLabel(actions,T("settings"),theme.section_size,true);AddLabel(actions,T("language"),theme.caption_size);
                 var languages=new DropdownField(new List<string>{"Русский","English"},Locale=="ru"?0:1){name="language"};StyleControl(languages);actions.Add(languages);controls.Add(languages);
@@ -146,10 +222,12 @@ namespace Biathlon.Unity.Presentation
                 AddVenueCard(card);AddLabel(card,T("settings_note"),theme.body_size);
             }
             message=AddLabel(left,LastMessage??"",theme.caption_size);message.name="message";message.style.color=FrontEndTheme.Color(theme.danger);
-            var footer=AddLabel(Root,T("controls"),theme.caption_size);footer.style.marginTop=theme.spacing*2;footer.style.color=FrontEndTheme.Color(theme.muted);
+            left.Query<Label>().ForEach(label=>{if(label!=message)label.style.color=Color.white;});
+            var footer=AddLabel(Root,T("controls"),theme.caption_size);footer.style.marginTop=theme.spacing*2;footer.style.color=Color.white;
+            footer.style.backgroundColor=FrontEndTheme.Color(theme.menu_panel);footer.style.paddingLeft=theme.spacing;footer.style.paddingTop=8;footer.style.paddingBottom=8;
             Root.schedule.Execute(()=>
             {
-                if(!isActiveAndEnabled)return;
+                if(!isActiveAndEnabled||Root.style.display.value==DisplayStyle.None)return;
                 if(rememberedFocus.TryGetValue(Session.Screen,out string id))foreach(var control in controls)if(control.name==id&&control.enabledInHierarchy){control.Focus();return;}
                 foreach(var control in controls)if(control.enabledInHierarchy){control.Focus();break;}
             });
@@ -184,7 +262,7 @@ namespace Biathlon.Unity.Presentation
             button.style.borderTopLeftRadius=4;button.style.borderTopRightRadius=4;button.style.borderBottomLeftRadius=4;button.style.borderBottomRightRadius=4;
             void Paint(bool selected)
             {
-                button.style.backgroundColor=selected?focus:primary?accent:paper;button.style.color=selected?ink:primary?paper:ink;
+                button.style.backgroundColor=selected?focus:primary?accent:FrontEndTheme.Color(theme.menu_panel);button.style.color=selected?ink:paper;
                 button.style.borderLeftWidth=selected?5:1;button.style.borderRightWidth=1;button.style.borderTopWidth=1;button.style.borderBottomWidth=1;
                 button.style.borderLeftColor=accent;button.style.borderRightColor=accent;button.style.borderTopColor=accent;button.style.borderBottomColor=accent;
             }
@@ -204,7 +282,12 @@ namespace Biathlon.Unity.Presentation
             catch(Exception e) when(e is ArgumentException||e is System.Runtime.Serialization.SerializationException||e is IOException||e is UnauthorizedAccessException)
             {ShowError("load_error");}
         }
-        private void ShowError(string key) {LastMessage=T(key);message.text=LastMessage;}
+        private void CareerAction(Action action)
+        {
+            try{action();LastMessage=null;Render();}
+            catch(Exception e) when(e is IOException||e is UnauthorizedAccessException){ShowError("save_error");}
+        }
+        private void ShowError(string key) {LastMessage=T(key);if(message!=null)message.text=LastMessage;}
         private void OnDestroy() {if(panel!=null)Destroy(panel);}
     }
 }

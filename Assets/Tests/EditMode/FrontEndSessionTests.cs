@@ -16,8 +16,94 @@ namespace Biathlon.Tests
             public bool HasProfile => Json!=null;
             public string ReadLatest() => Json??throw new FileNotFoundException();
             public void WriteNew(string id,string json) { if(Fail)throw new IOException("disk test");Json=json; }
+            public void Replace(string id,string expectedJson,string json){if(Fail||Json!=expectedJson)throw new IOException("disk/stale test");Json=json;}
         }
         private static FrontEndSession Session(ICareerProfileStore store)=>new FrontEndSession(PhysiologyContractTests.DefinitionJson,store,s=>new SeededRandomSource(s));
+        private static FrontEndSession RaceWeek(Store store)
+        {
+            var ui=Session(store);ui.OpenNewCareer();ui.CreateCareer("career_week","Alex","NOR",81000);
+            for(int i=0;i<5;i++)ui.RestWeek();return ui;
+        }
+        // Boundary fixture only: real authority composition/collection is covered separately.
+        private static CareerRaceRecord FixtureResult(FrontEndSession ui)
+        {
+            var week=ui.PreparedWeek;var save=CareerSave.FromJson(week.RaceSnapshotJson);
+            var rows=new CareerFinish[save.AthleteCount];for(int i=0;i<rows.Length;i++)rows[i]=new CareerFinish(save.Athlete(i).Id,300000+i*1000,300000+i*1000);
+            return new CareerRaceRecord(save.SeasonId+"_"+week.Event.Id,save.SeasonId,week.Event.Id,week.Event.Format,week.RaceSeed,new string('a',64),rows);
+        }
+        [Test] public void PreparingCancelingAndRetryingRaceNeverConsumesAWeekOrRandomness()
+        {
+            var store=new Store();var ui=RaceWeek(store);string before=store.Json;ui.OpenPreRace();
+            ulong seed=ui.PreparedWeek.RaceSeed;string snapshot=ui.PreparedWeek.RaceSnapshotJson;
+            ui.BeginRace();Assert.Throws<InvalidOperationException>(()=>ui.Back());ui.AbandonRace();
+            Assert.That(ui.PreparedWeek.RaceSeed,Is.EqualTo(seed));ui.Back();ui.OpenPreRace();
+            Assert.That(ui.PreparedWeek.RaceSnapshotJson,Is.EqualTo(snapshot));Assert.That(ui.PreparedWeek.RaceSeed,Is.EqualTo(seed));
+            Assert.That(store.Json,Is.EqualTo(before));Assert.That(ui.Career.ToJson(),Is.EqualTo(before));
+        }
+        [Test] public void CompletedRaceSaveFailureCanRetryExactlyOnceAndContinueAtNextEvent()
+        {
+            var store=new Store();var ui=RaceWeek(store);string before=store.Json;ui.OpenPreRace();var result=FixtureResult(ui);ui.BeginRace();
+            store.Fail=true;Assert.Throws<IOException>(()=>ui.FinishRace(result));
+            Assert.That(ui.Screen,Is.EqualTo(FrontEndScreen.Race));Assert.That(ui.Career.ToJson(),Is.EqualTo(before));Assert.That(store.Json,Is.EqualTo(before));
+            store.Fail=false;ui.FinishRace(result);Assert.That(ui.Screen,Is.EqualTo(FrontEndScreen.Results));
+            Assert.That(ui.Career.Week,Is.EqualTo(7));Assert.That(ui.Career.RaceCount,Is.EqualTo(1));Assert.That(ui.Player.Races,Is.EqualTo(1));
+            Assert.Throws<InvalidOperationException>(()=>ui.FinishRace(result));ui.ReturnFromResults();
+            Assert.That(ui.NextEvent().Format,Is.EqualTo(Biathlon.Domain.CompetitionFormat.Pursuit));
+            var restored=Session(store);restored.ContinueCareer();Assert.That(restored.Career.ToJson(),Is.EqualTo(ui.Career.ToJson()));
+        }
+        [Test] public void RestCannotSkipRaceAndInvalidResultPreservesWeek()
+        {
+            var store=new Store();var ui=RaceWeek(store);Assert.Throws<InvalidOperationException>(()=>ui.RestWeek());
+            Assert.That(ui.Career.Week,Is.EqualTo(6));ui.OpenPreRace();ui.BeginRace();Assert.Catch(()=>ui.FinishRace(null));
+            Assert.That(ui.Career.RaceCount,Is.Zero);Assert.That(ui.Career.Week,Is.EqualTo(6));
+        }
+        [Test] public void PreRaceFactsComeFromPreparedAthleteAndProductionRules()
+        {
+            var ui=RaceWeek(new Store());ui.OpenPreRace();
+            var facts=new PreRaceSummary(ui.PreparedWeek,
+                Biathlon.Domain.CompetitionProfile.FromJson(PhysiologyContractTests.ProjectFile("Assets/Resources/Biathlon/Venues/woodland_basin_v1/sprint_profile.json")),
+                Biathlon.Domain.RaceSnowConditions.FromJson(PhysiologyContractTests.DefinitionJson("race_snow_neutral_v1.json")),
+                Biathlon.Domain.SkiEquipmentCatalog.FromJson(PhysiologyContractTests.DefinitionJson("ski_equipment_provisional_v1.json")));
+            Assert.That(facts.Player.Id,Is.EqualTo(ui.Career.PlayerId));Assert.That(facts.Skis.Id,Is.EqualTo(ui.Player.SelectedSki));
+            Assert.That(facts.EntrantCount,Is.EqualTo(30));Assert.That(facts.Profile.BoutCount,Is.EqualTo(2));Assert.That(facts.SnowProfileId,Is.EqualTo("packed_neutral"));
+        }
+#if !UNITY_EDITOR
+        [Test,Timeout(900000)] public void ProductionRaceResultReturnsThroughCareerSaveAndRestoresNextEvent()
+        {
+            var store=new Store();var ui=RaceWeek(store);ui.OpenPreRace();var week=ui.PreparedWeek;
+            var provider=new Biathlon.AI.CareerRaceProvider(PhysiologyContractTests.DefinitionJson,ui.Definitions,
+                id=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json"));
+            var race=provider.Prepare(CareerSave.FromJson(week.RaceSnapshotJson),week.Event,week.RaceSeed);
+            Assert.That(race.Runner.Field.Tick.Value,Is.Zero);Assert.That(race.PlayerIndex,Is.GreaterThanOrEqualTo(0));
+            Assert.That(race.Runner.Field.GetAthlete(race.PlayerIndex).AthleteId.Value,Is.EqualTo(ui.Career.PlayerId));
+            var movement=ManualProductionFieldComposition.Create(race.Runner.Field,race.Venue,PhysiologyContractTests.DefinitionJson);
+            race.Runner.BindManualScopedCandidate(movement,
+                Biathlon.Domain.ManualAiSteeringDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ai_steering_v2.json")),
+                Biathlon.Domain.ManualSkiSteeringDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ski_steering_v2.json")),
+                Biathlon.Domain.PlayerCourseAssistanceDefinition.FromJson(PhysiologyContractTests.DefinitionJson("player_course_assistance_v1.json")));
+            Assert.Throws<InvalidOperationException>(()=>race.CollectResult());ui.BeginRace();
+            while(!race.Runner.Field.IsComplete&&race.Runner.Field.Tick.Value<200000)race.Runner.Step();
+            var result=race.CollectResult();Assert.That(result.AuthoritySha256,Is.EqualTo(Biathlon.AI.BalanceRegression.Hash(result.AuthorityResultJson)));
+            ui.FinishRace(result);Assert.That(ui.Career.RaceCount,Is.EqualTo(1));Assert.That(ui.Career.Week,Is.EqualTo(7));
+            var restored=Session(store);restored.ContinueCareer();Assert.That(restored.Career.ToJson(),Is.EqualTo(ui.Career.ToJson()));
+            Assert.That(restored.NextEvent().SourceEventId,Is.EqualTo(result.CalendarEventId));
+            TestContext.WriteLine("career_result_ticks="+race.Runner.Field.Tick.Value+" sha256="+result.AuthoritySha256);
+        }
+#endif
+        [Test] public void AtomicProfileReplacementRetainsBackupAndRejectsStaleWriter()
+        {
+            string folder=Path.Combine(Path.GetTempPath(),"biathlon-replace-"+Guid.NewGuid().ToString("N"));
+            try
+            {
+                var files=new FileCareerProfileStore(folder);var ui=Session(files);ui.OpenNewCareer();ui.CreateCareer("career_disk","Alex","NOR",9);
+                string before=files.ReadLatest();ui.RestWeek();string after=files.ReadLatest();
+                Assert.That(CareerSave.FromJson(after).Week,Is.EqualTo(2));
+                Assert.That(File.ReadAllText(Path.Combine(folder,"career_disk.json.bak")),Is.EqualTo(before));
+                Assert.Throws<IOException>(()=>files.Replace("career_disk",before,before));Assert.That(files.ReadLatest(),Is.EqualTo(after));
+                Assert.That(Directory.GetFiles(folder,"*.tmp"),Is.Empty);
+            }
+            finally{if(Directory.Exists(folder)){foreach(string file in Directory.GetFiles(folder))File.Delete(file);Directory.Delete(folder,false);}}
+        }
         [Test] public void NewCareerIsSavedBeforeDashboardAndUsesProductionCalendar()
         {
             var store=new Store();var ui=Session(store);
