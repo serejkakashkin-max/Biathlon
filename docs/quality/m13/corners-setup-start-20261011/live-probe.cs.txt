@@ -46,4 +46,3 @@ public static class OwnerCornerLiveProbe
  static void Save(){File.WriteAllLines("docs/quality/m13/corners-setup-start-20261011/live-"+tag+".csv",rows);}
  static void End(){EditorApplication.update-=Update;Save();counters?.Dispose();File.WriteAllText("docs/quality/m13/corners-setup-start-20261011/live-"+tag+"-done.txt",frames.ToString());}
 }
-
