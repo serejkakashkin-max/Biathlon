@@ -40,6 +40,12 @@ namespace Biathlon.Tests
                 double contact=(double)clear.Invoke(sweep,new object[]{pose});int queries=sweep.Diagnostics.LastDiskQueries;
                 double repeated=(double)clear.Invoke(sweep,new object[]{new ManualSkiHeadingState(pose.X,pose.Z,pose.HeadingRadians,.5)});
                 Assert.That(repeated,Is.EqualTo(contact));Assert.That(sweep.Diagnostics.LastDiskQueries,Is.EqualTo(queries),"The same pose after an impulse must not repeat its disk cover.");
+                double direction=(double)normal.Invoke(sweep,new object[]{pose,5,3});queries=sweep.Diagnostics.LastDiskQueries;
+                double repeatedDirection=(double)normal.Invoke(sweep,new object[]{new ManualSkiHeadingState(pose.X,pose.Z,pose.HeadingRadians,.5),5,3});
+                Assert.That(repeatedDirection,Is.EqualTo(direction));
+                Assert.That(sweep.Diagnostics.LastDiskQueries,Is.EqualTo(queries),"Repeated edge direction queries must reuse the identical sampled field after a velocity impulse.");
+                normal.Invoke(sweep,new object[]{pose,7,3});
+                Assert.That(sweep.Diagnostics.LastDiskQueries-queries,Is.EqualTo(21),"A different support grid must not reuse another grid's result.");
                 double Probe(double dx,double dz,bool bounded)
                 {
                     var probe=new ManualSkiHeadingState(pose.X+dx,pose.Z+dz,pose.HeadingRadians);
