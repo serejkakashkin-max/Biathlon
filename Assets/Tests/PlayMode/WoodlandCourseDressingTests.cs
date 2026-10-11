@@ -26,6 +26,36 @@ namespace Biathlon.PlayModeTests
             "course_descent_entry_banner", "course_descent_exit_banner", "course_return_landmark_banner"
         };
 
+        [Test]
+        public void MovedRoadsideSignsKeepActualNativeFootprintsGroundedAndOutsideTheFence()
+        {
+            var plan=new VenueAuthoringPlan(VenueManifest.FromJson(ProductionVenueHost.ReadResource(Prefix+"manifest")),ProductionVenueHost.ReadResource);
+            var recipe=ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource(Prefix+"environment"));
+            var root=new GameObject("Focused native roadside sign contact");ProductionCoursePresentation course=null;ProductionVenueEnvironment environment=null;
+            try
+            {
+                var cameraObject=new GameObject("Detached sign camera");cameraObject.transform.SetParent(root.transform,false);var camera=cameraObject.AddComponent<Camera>();camera.enabled=false;
+                var feed=root.AddComponent<RacePresentationFeed>();course=root.AddComponent<ProductionCoursePresentation>();course.Initialize(plan,sharedApron:plan.SharedApron);
+                environment=root.AddComponent<ProductionVenueEnvironment>();environment.Initialize(plan,recipe,ProductionVenueHost.ReadResource,feed,camera,apron:course.Apron);
+                var world=new NativeTerrainWorld(environment);var filters=environment.GetComponentsInChildren<MeshFilter>(true);
+                AssertNativeBannerFootings(recipe,filters,world,out _,out _,out int witnesses,out _);int signs=0;
+                foreach(var placement in recipe.assets)
+                {
+                    if(placement.resource!="Biathlon/Roadside/FlagStela"&&placement.resource!="Biathlon/Roadside/Billboard")continue;
+                    var source=Resources.Load<GameObject>(placement.resource);var frame=NativePrefabFrame(environment,placement,source);
+                    var bounds=LocalBounds(frame,frame.GetComponentsInChildren<MeshFilter>(true));var footprint=Footprint(bounds,frame.localToWorldMatrix);
+                    Extrema(world,footprint,out double low,out double high,out int samples);witnesses+=samples;
+                    double bottom=frame.TransformPoint(bounds.min).y;
+                    Assert.That(high-bottom,Is.LessThanOrEqualTo(DecorativePlacementTolerance),placement.id+": rigid native footprint must not bury its base.");
+                    Assert.That(bottom-low,Is.LessThanOrEqualTo(.25+NativeFloatTolerance),placement.id+": rigid foundation contact retains the existing 25cm allowance.");
+                    PaidClearance(recipe,footprint,placement.id,4.3);signs++;
+                }
+                Assert.That(signs,Is.EqualTo(36));Assert.That(feed.Current,Is.Null);
+                TestContext.WriteLine("{\"native_roadside_signs\":"+signs+",\"native_banners\":6,\"actual_terrain_overlay_vertices\":"+witnesses+",\"race_advanced\":false}");
+            }
+            finally{course?.Shutdown();environment?.Shutdown();Object.DestroyImmediate(root);}
+        }
+
         [UnityTest]
         public IEnumerator ActualDressingKeepsGroundedLandmarksPaidClearanceAndSeatedAndStandingCrowds()
         {
@@ -88,41 +118,23 @@ namespace Biathlon.PlayModeTests
                 // not the right helper for off-course landmark footings.
                 var world = new NativeTerrainWorld(environment);
                 var filters = environment.GetComponentsInChildren<MeshFilter>(true);
-                double maximumEmbedding = 0, minimumClearance = double.PositiveInfinity;
-                int overlayVertices = 0, slopeBanners = 0;
-                foreach (string id in Banners)
-                {
-                    var parts = MeshParts(recipe, id, 2);
-                    Assert.That(parts[0].mesh_resource, Is.EqualTo("Biathlon/Stadium/G2Event/BannerPole"));
-                    Assert.That(parts[1].mesh_resource, Is.EqualTo("Biathlon/Stadium/G2Event/BannerFabric"));
-                    var footprint = NativeMeshFootprint(parts, filters, out double bottom);
-                    Extrema(world, footprint, out double low, out double high, out int witnesses);
-                    overlayVertices += witnesses;
-                    Assert.That(bottom - low, Is.LessThanOrEqualTo(DecorativePlacementTolerance), id + ": baseplate snow contact remains within the practical placement allowance.");
-                    Assert.That(low - bottom, Is.LessThanOrEqualTo(DecorativePlacementTolerance), id + ": lowest terrain contact must be retained rather than burying the entire pole.");
-                    Assert.That(high - bottom, Is.LessThanOrEqualTo(.25 + NativeFloatTolerance), id + ": visible snow embedding remains within the authored 25cm limit.");
-                    maximumEmbedding = Math.Max(maximumEmbedding, high - bottom);
-                    if (high - low > .1) slopeBanners++;
-                    minimumClearance = Math.Min(minimumClearance, PaidClearance(recipe, footprint, id));
-                }
-                Assert.That(slopeBanners, Is.GreaterThan(0), "The real slope witness must reject the former maximum-height placement, which leaves over 10cm of floating footing.");
+                AssertNativeBannerFootings(recipe,filters,world,out double maximumEmbedding,out double minimumClearance,out int overlayVertices,out _);
 
                 // Every pre-existing non-portal mesh is included, especially the
-                // former event screen intersection at the penalty loop. Six finish
-                // parts form the intended overhead portal and are covered by the
-                // existing dedicated portal/aperture acceptance tests.
-                var portalParts = new HashSet<string>(StringComparer.Ordinal) {
-                    "finish_gantry_white", "finish_gantry_snow", "finish_gantry_metal",
-                    "finish_gantry_dark", "finish_gantry_concrete", "finish_gantry_accent"
-                };
+                // former event screen intersection at the penalty loop. A portal
+                // spans the lane overhead, so verify its native lower supports
+                // separately instead of applying a solid-building union box.
+                var portalParts = new HashSet<string>(StringComparer.Ordinal);
+                foreach(string portal in new[]{"finish_gantry","start_gantry","timing_gantry"})
+                    foreach(string part in new[]{"white","snow","metal","dark","concrete","accent"})portalParts.Add(portal+"_"+part);
                 int checkedMeshes = 0, actualPortalParts = 0;
                 foreach (var placement in recipe.mesh_assets)
                 {
                     var footprint = NativeMeshFootprint(new List<ProductionMeshPlacement> { placement }, filters, out _);
-                    if (portalParts.Contains(placement.id)) { actualPortalParts++; continue; }
+                    if (portalParts.Contains(placement.id)) { actualPortalParts++; AssertPortalSupports(recipe,placement,filters,world);continue; }
                     minimumClearance = Math.Min(minimumClearance, PaidClearance(recipe, footprint, placement.id)); checkedMeshes++;
                 }
-                Assert.That(actualPortalParts, Is.EqualTo(portalParts.Count), "Only the six explicitly known finish portal parts have a separate aperture contract.");
+                Assert.That(actualPortalParts, Is.EqualTo(portalParts.Count), "All three explicit six-part portals retain actual support and aperture checks.");
                 Assert.That(recipe.mesh_assets.Any(x=>x.id.StartsWith("course_plateau_support_hut",StringComparison.Ordinal)||x.id.StartsWith("timing_lodge_",StringComparison.Ordinal)),Is.False,
                     "Owner-directed hidden structures must not be instantiated.");
                 foreach (var item in new[] { ("event_screen", 3) })
@@ -211,6 +223,9 @@ namespace Biathlon.PlayModeTests
                         {
                             Assert.That(high - bottom, Is.LessThanOrEqualTo(DecorativePlacementTolerance), placement.id + ": rigid native footprint must not bury its base.");
                             Assert.That(bottom - low, Is.LessThanOrEqualTo(.25 + NativeFloatTolerance), placement.id + ": rigid foundation contact must stay within 25cm variation.");
+                            if (placement.resource == "Biathlon/Roadside/FlagStela" || placement.resource == "Biathlon/Roadside/Billboard")
+                                Assert.That(PaidClearance(recipe, footprint, placement.id),Is.GreaterThanOrEqualTo(4.3-NativeFloatTolerance),
+                                    placement.id+": the entire native sign belongs beside the fence, outside the ski lane.");
                             if (placement.resource == "Biathlon/Roadside/FlagStela") flags++;
                             if (placement.resource == "Biathlon/Roadside/Billboard") billboards++;
                         }
@@ -265,6 +280,25 @@ namespace Biathlon.PlayModeTests
 
         private static string Sources(VenueAuthoringPlan plan) => plan.Manifest.ToJson() + plan.Track.ToJson() + plan.Visual.ToJson() + plan.Paths.ToJson() +
             plan.Formats.ToJson() + plan.StartApproach.ToJson() + plan.StartContinuation.ToJson() + plan.Junctions.ToJson() + plan.Connections.ToJson() + plan.Occupancy.ToJson() + plan.SharedApron.ToJson();
+
+        private static void AssertNativeBannerFootings(ProductionEnvironmentDefinition recipe,MeshFilter[] filters,NativeTerrainWorld world,
+            out double maximumEmbedding,out double minimumClearance,out int overlayVertices,out int slopeBanners)
+        {
+            maximumEmbedding=0;minimumClearance=double.PositiveInfinity;overlayVertices=0;slopeBanners=0;
+            foreach(string id in Banners)
+            {
+                var parts=MeshParts(recipe,id,2);
+                Assert.That(parts[0].mesh_resource,Is.EqualTo("Biathlon/Stadium/G2Event/BannerPole"));
+                Assert.That(parts[1].mesh_resource,Is.EqualTo("Biathlon/Stadium/G2Event/BannerFabric"));
+                var footprint=NativeMeshFootprint(parts,filters,out double bottom);Extrema(world,footprint,out double low,out double high,out int witnesses);overlayVertices+=witnesses;
+                Assert.That(bottom-low,Is.LessThanOrEqualTo(DecorativePlacementTolerance),id+": baseplate snow contact remains within the practical placement allowance.");
+                Assert.That(low-bottom,Is.LessThanOrEqualTo(DecorativePlacementTolerance),id+": lowest terrain contact must be retained rather than burying the entire pole.");
+                Assert.That(high-bottom,Is.LessThanOrEqualTo(.25+NativeFloatTolerance),id+": visible snow embedding remains within the authored 25cm limit.");
+                maximumEmbedding=Math.Max(maximumEmbedding,high-bottom);if(high-low>.1)slopeBanners++;
+                minimumClearance=Math.Min(minimumClearance,PaidClearance(recipe,footprint,id));
+            }
+            Assert.That(slopeBanners,Is.GreaterThan(0),"The real slope witness must reject the former maximum-height placement, which leaves over 10cm of floating footing.");
+        }
 
         private static List<ProductionMeshPlacement> MeshParts(ProductionEnvironmentDefinition recipe, string id, int expected)
         {
@@ -412,7 +446,52 @@ namespace Biathlon.PlayModeTests
             Assert.That(area, Is.GreaterThan(0)); Assert.That(covered, Is.EqualTo(area).Within(1e-5), "Every actual footing face needs complete native terrain coverage.");
             Assert.That(witnesses, Is.GreaterThan(0));
         }
-        private static double PaidClearance(ProductionEnvironmentDefinition recipe, List<Point> polygon, string id)
+        private static void AssertPortalSupports(ProductionEnvironmentDefinition recipe,ProductionMeshPlacement part,MeshFilter[] filters,NativeTerrainWorld world)
+        {
+            var mesh=Resources.Load<Mesh>(part.mesh_resource);MeshFilter actual=null;
+            foreach(var filter in filters)if(filter.sharedMesh==mesh&&(filter.transform.position-part.position).sqrMagnitude<1e-8f)actual=filter;
+            Assert.That(actual,Is.Not.Null,part.id);var points=mesh.vertices;var faces=mesh.triangles;
+            var supports=new[]{new List<Vector3>(),new List<Vector3>()};const float headroom=3;
+            for(int i=0;i<faces.Length;i+=3)
+            {
+                var triangle=new[]{points[faces[i]],points[faces[i+1]],points[faces[i+2]]};var lower=new List<Vector3>();
+                // This imported accent also owns the 3cm launch/finish line on
+                // the snow. It is a ground marking, not an aperture obstruction.
+                if(part.mesh_resource=="Biathlon/Stadium/FinishGantry_accent"&&triangle.All(p=>p.y>=0&&p.y<=.032f+NativeFloatTolerance))
+                {
+                    foreach(var p in triangle)
+                    {
+                        var actualPoint=actual.transform.TransformPoint(p);double gap=actualPoint.y-world.Height(actualPoint);
+                        Assert.That(gap,Is.InRange(-DecorativePlacementTolerance,.1),part.id+": original line marking stays at the snow surface.");
+                    }
+                    continue;
+                }
+                for(int edge=0;edge<3;edge++)
+                {
+                    var a=triangle[edge];var b=triangle[(edge+1)%3];bool first=a.y<=headroom,last=b.y<=headroom;
+                    if(first)lower.Add(a);
+                    if(first!=last)lower.Add(Vector3.Lerp(a,b,(headroom-a.y)/(b.y-a.y)));
+                }
+                if(lower.Count==0)continue;
+                Assert.That(lower.All(p=>p.x<0)||lower.All(p=>p.x>0),Is.True,
+                    part.id+": no actual low portal face may cross the ski aperture.");
+                supports[lower[0].x<0?0:1].AddRange(lower);
+            }
+            foreach(var support in supports)
+            {
+                if(support.Count==0)continue;var bounds=new Bounds(support[0],Vector3.zero);foreach(var p in support)bounds.Encapsulate(p);
+                var footprint=Footprint(bounds,actual.transform.localToWorldMatrix);
+                PaidClearance(recipe,footprint,part.id+" support",0);
+                if(part.id.EndsWith("_concrete",StringComparison.Ordinal))
+                {
+                    Extrema(world,footprint,out double low,out double high,out _);
+                    double bottom=actual.transform.TransformPoint(bounds.min).y;
+                    Assert.That(high-bottom,Is.LessThanOrEqualTo(DecorativePlacementTolerance),part.id+": concrete support remains above actual snow.");
+                    Assert.That(bottom-low,Is.LessThanOrEqualTo(.25+NativeFloatTolerance),part.id+": rigid concrete footing retains the existing foundation contact allowance.");
+                }
+            }
+        }
+        private static double PaidClearance(ProductionEnvironmentDefinition recipe, List<Point> polygon, string id,double? minimumRequired=null)
         {
             double minimum = double.PositiveInfinity;
             foreach (var corridor in recipe.route_corridors) for (int i = 0; i < corridor.knots.Length - 1; i++)
@@ -423,7 +502,7 @@ namespace Biathlon.PlayModeTests
             }
             // Owner asks for practical art acceptance. Thin noncollidable tape
             // has a 1m separation floor; rigid buildings retain their 3m margin.
-            double required=id.StartsWith("tape_",StringComparison.Ordinal)?1:3;
+            double required=minimumRequired??(id.StartsWith("tape_",StringComparison.Ordinal)?1:3);
             Assert.That(minimum, Is.GreaterThanOrEqualTo(required - NativeFloatTolerance), id + ": full native footprint must clear the actual paid corridor edge."); return minimum;
         }
         private static double SegmentPolygon(Point a, Point b, List<Point> polygon)

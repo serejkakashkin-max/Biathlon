@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Biathlon.Unity.Presentation
 {
-    /// <summary>Optional cold presentation bank policy. Width remains in the existing snow blend definition.</summary>
+    /// <summary>Optional cold presentation bank policy; absent dimensions retain the original blend width and flat profile.</summary>
     [Serializable] public sealed class ProductionSnowShoulderDefinition
     {
         [Serializable] public sealed class Window {public double start_m,end_m;}
@@ -13,6 +13,7 @@ namespace Biathlon.Unity.Presentation
         public string id,venue_id,track_id,visual_id,loop_id;
         public Window[] windows;
         public RoadWindow[] additional_windows;
+        public float width_m,mound_height_m,mound_spacing_m;
         [NonSerialized] public string TrackSnapshotJson,VisualSnapshotJson,SharedApronSnapshotJson;
         public static ProductionSnowShoulderDefinition FromJson(string json,VenueAuthoringPlan plan)
         {
@@ -24,6 +25,11 @@ namespace Biathlon.Unity.Presentation
             VenueManifest.ResourceId(value.id);if(value.id.IndexOf('/')>=0)throw new ArgumentException("Single-component stable snow bank identity required.");
             var loop=plan.Track.GetLoop(value.loop_id);plan.Visual.Get(value.loop_id);
             if(loop.Closed)throw new ArgumentException("Actual open paid format branch required.");
+            if(!float.IsFinite(value.width_m)||value.width_m<0||value.width_m>8||
+                !float.IsFinite(value.mound_height_m)||value.mound_height_m<0||value.mound_height_m>1.5f||
+                !float.IsFinite(value.mound_spacing_m)||value.mound_spacing_m<0||
+                value.mound_height_m>0&&(value.mound_spacing_m<4||value.mound_spacing_m>100))
+                throw new ArgumentException("Finite bounded presentation snow mound dimensions required.");
             double previous=-1;
             foreach(var window in value.windows)
             {

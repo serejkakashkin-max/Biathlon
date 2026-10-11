@@ -311,6 +311,7 @@ namespace Biathlon.PlayModeTests
             var edgeFaces=new Dictionary<(int,int),List<Vector3>>();
             var rawEdges=new Dictionary<(int,int),(Vector3,Vector3)>();
             var hiddenCurtainEdges=new List<(Vector3,Vector3)>();
+            int hiddenCurtainFaces=0;
             var shoulderCells=new Dictionary<CellKey,List<Triangle>>();
             for(int i=0;i<faces.Length;i+=3)
             {
@@ -324,6 +325,7 @@ namespace Biathlon.PlayModeTests
                 var actualFace=new Triangle(points[faces[i]],points[faces[i+1]],points[faces[i+2]]);
                 if(HiddenOriginalCurtain(actualFace,ribbon,closed,world,drawnBoundary))
                 {
+                    hiddenCurtainFaces++;
                     hiddenCurtainEdges.Add((actualFace.A,actualFace.B));hiddenCurtainEdges.Add((actualFace.B,actualFace.C));hiddenCurtainEdges.Add((actualFace.C,actualFace.A));continue;
                 }
                 if(remap[faces[i]]==remap[faces[i+1]]||remap[faces[i+1]]==remap[faces[i+2]]||remap[faces[i+2]]==remap[faces[i]])continue;
@@ -356,7 +358,13 @@ namespace Biathlon.PlayModeTests
                 else if(!RetainedHiddenCurtainCovers(a,b)&&!InteriorGroomedCoversVerticalEdge(a,b)&&!HasOppositeFaceCoverage(edge.Key,a,b)&&!HasHigherShoulderCoverage(a,b)){AssertGroundLine(a,b);groundEdges++;}
             }
             foreach(var edge in hiddenCurtainEdges)if(OnGroomedLine(edge.Item1,edge.Item2))topEdges.Add(edge);
-            Assert.That(topEdges.Count,Is.GreaterThan(0));Assert.That(groundEdges,Is.GreaterThan(0));
+            Assert.That(topEdges.Count,Is.GreaterThan(0),loopId+": the actual join requires a retained ribbon boundary.");
+            // An enclosed private mat has no exposed terrain perimeter: its
+            // original curtains are beneath adjoining paid surfaces. Admit that
+            // case only when the independent complete-line coverage proof above
+            // certifies every actual face as an interior original curtain.
+            if(groundEdges==0)Assert.That(hiddenCurtainFaces,Is.EqualTo(faces.Length/3),
+                loopId+": every join face without an exposed ground edge must be hidden by actual paid surfaces.");
             var topCells=new Dictionary<CellKey,List<(Vector3,Vector3)>>();
             foreach(var edge in topEdges)
                 for(int z=Z(Math.Min(edge.Item1.z,edge.Item2.z));z<=Z(Math.Max(edge.Item1.z,edge.Item2.z));z++)for(int x=X(Math.Min(edge.Item1.x,edge.Item2.x));x<=X(Math.Max(edge.Item1.x,edge.Item2.x));x++)
@@ -662,6 +670,30 @@ namespace Biathlon.PlayModeTests
             ((Dictionary<string,int>)type.GetField("indices",hidden).GetValue(course)).Add(ids[0],0);
             AssertJoinedGeometry(environment,course,ids[0],ribbons[0].vertices,closed);return course;
         }
+        [TestCase(false)][TestCase(true)] public void SnowMoundsStayOutsideTheSkiRibbonAndCloseTheirGroundContact(bool closed)
+        {
+            var root=new GameObject("Snow mound whole-face contact regression");ProductionVenueEnvironment environment=null;Mesh ribbon=null,join=null;
+            try
+            {
+                environment=TestEnvironment(root);
+                ribbon=closed?TestRibbon(new Vector3(10,0,10),new Vector3(14,0,14),new Vector3(-10,0,10),new Vector3(-14,0,14),
+                    new Vector3(-10,0,-10),new Vector3(-14,0,-14),new Vector3(10,0,-10),new Vector3(14,0,-14),new Vector3(10,0,10),new Vector3(14,0,14)):
+                    TestRibbon(new Vector3(-2,0,0),new Vector3(2,0,0),new Vector3(-2,0,8),new Vector3(2,0,8),new Vector3(-2,0,16),new Vector3(2,0,16));
+                var original=ribbon.vertices;const BindingFlags hidden=BindingFlags.NonPublic;var owner=typeof(ProductionCoursePresentation);
+                object ground=Activator.CreateInstance(owner.GetNestedType("JoinGroundSurface",hidden),hidden|BindingFlags.Instance,null,
+                    new object[]{environment,environment.TerrainGridSpacing,environment.TerrainGridOrigin},null);
+                object groomed=Activator.CreateInstance(owner.GetNestedType("JoinRibbonSurface",hidden),hidden|BindingFlags.Instance,null,
+                    new object[]{new[]{ribbon},environment.TerrainGridSpacing,environment.TerrainGridOrigin},null);
+                var mask=new bool[original.Length/2-1];for(int i=0;i<mask.Length;i++)mask[i]=true;
+                var arguments=new object[]{ribbon,closed,ground,groomed,4f,0f,0,0,null,mask,.65f,19f};
+                join=(Mesh)owner.GetMethod("BuildBankedSkirt",hidden|BindingFlags.Static).Invoke(null,arguments);
+                Assert.That(join.bounds.max.y,Is.GreaterThan(.3f),"The joined snow has a raised crest instead of the former straight cut edge.");
+                AssertPreparedContact(root,environment,new[]{ribbon},join,closed);
+                CollectionAssert.AreEqual(original,ribbon.vertices,"Cold decorative mounds cannot alter the paid ski corridor.");
+            }
+            finally{environment?.Shutdown();Object.DestroyImmediate(join);Object.DestroyImmediate(ribbon);Object.DestroyImmediate(root);}
+        }
+
         [UnityTest] public IEnumerator StraightShouldersKeepRecipeWidthAndCloseBothOpenEnds()
         {
             var root=new GameObject("Straight shoulder whole-face test");ProductionVenueEnvironment environment=null;Mesh ribbon=null,join=null;

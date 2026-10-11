@@ -12,6 +12,21 @@ namespace Biathlon.PlayModeTests
 {
     public sealed class SprintCurvedSnowBankTests
     {
+        [Test] public void ProductionSnowMoundsCoverTheMainReturnAndRequireFiniteDimensions()
+        {
+            var plan=new VenueAuthoringPlan(VenueManifest.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/manifest")),ProductionVenueHost.ReadResource);
+            string json=ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/sprint_fork_snow_shoulders");
+            var policy=ProductionSnowShoulderDefinition.FromJson(json,plan);
+            double end=plan.Track.GetLoop("main").Length.Meters;
+            Assert.That(policy.ContainsPanel("main",end-1,end),Is.True,"The return must retain snow banks up to its real course end.");
+            Assert.That(policy.width_m,Is.GreaterThan(TerrainBlendDefinition.Load().edge_width_m));
+            Assert.That(policy.mound_height_m,Is.GreaterThan(0));Assert.That(policy.mound_spacing_m,Is.GreaterThan(4));
+            policy.mound_spacing_m=0;
+            Assert.Throws<ArgumentException>(()=>ProductionSnowShoulderDefinition.FromJson(JsonUtility.ToJson(policy),plan));
+            policy.mound_spacing_m=19;policy.width_m=-1;
+            Assert.Throws<ArgumentException>(()=>ProductionSnowShoulderDefinition.FromJson(JsonUtility.ToJson(policy),plan));
+        }
+
         [TestCase(0f)][TestCase(45f)]
         public void OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(float yaw)
         {
@@ -25,9 +40,11 @@ namespace Biathlon.PlayModeTests
             ProductionCoursePresentation course=null;ProductionVenueEnvironment environment=null;GameObject witnessObject=null;var owned=new List<Mesh>();
             try
             {
-                course=root.AddComponent<ProductionCoursePresentation>();course.Initialize(plan,route:route,sharedApron:plan.SharedApron);
+                bool initializeBanks=yaw==0;
+                course=root.AddComponent<ProductionCoursePresentation>();course.Initialize(plan,route:route,sharedApron:plan.SharedApron,snowShoulders:initializeBanks?policy:null);
                 var source=course.NativeLoopMesh(policy.loop_id);var positions=source.vertices;var indices=source.triangles;
-                course.ConfigureSnowBanks(plan,policy);Assert.That(course.SnowBankPolicyId,Is.EqualTo(policy.id));
+                if(!initializeBanks)course.ConfigureSnowBanks(plan,policy);Assert.That(course.SnowBankPolicyId,Is.EqualTo(policy.id));
+                Assert.That(course.Apron.EdgeWidth,Is.EqualTo(TerrainBlendDefinition.Load().edge_width_m),"Wider banks retain the original packed-apron material feather.");
                 Assert.Throws<InvalidOperationException>(()=>course.ConfigureSnowBanks(plan,policy));
                 var cameraObject=new GameObject("Bank trial camera");cameraObject.transform.SetParent(root.transform,false);var camera=cameraObject.AddComponent<Camera>();camera.enabled=false;
                 var feed=root.AddComponent<RacePresentationFeed>();environment=root.AddComponent<ProductionVenueEnvironment>();
@@ -36,6 +53,13 @@ namespace Biathlon.PlayModeTests
                 CollectionAssert.AreEqual(positions,source.vertices);CollectionAssert.AreEqual(indices,source.triangles);
                 Assert.That(course.SkirtRenderer(policy.loop_id).GetComponent<MeshFilter>().sharedMesh,Is.SameAs(course.SkirtMesh(policy.loop_id)));
                 Assert.That(course.SkirtRenderer(policy.loop_id).localToWorldMatrix,Is.EqualTo(course.LoopRenderer(policy.loop_id).localToWorldMatrix));
+                AssertRaisedMainBank(60,105);
+                // The late main straight is the shared firing-line apron, where
+                // raised snow would obstruct paid paths. Its actual clipped draw
+                // mesh must keep those new mounds outside the apron interior.
+                foreach(var p in course.SkirtMesh("main").vertices)
+                    if(p.x>course.Apron.MinX+1e-4&&p.x<course.Apron.MaxX-1e-4&&p.z>course.Apron.MinZ+1e-4&&p.z<course.Apron.MaxZ-1e-4)
+                        Assert.That(p.y,Is.LessThanOrEqualTo(course.Apron.Height+1e-4),"Raised decorative snow cannot enter the live shared range apron.");
                 // The exact paid branch point used by the owner-visible wall capture.
                 // At least the camera-side edge must have a real outward bank, rather than
                 // only the old zero-width vertical curtain or an inactive-route exemption.
@@ -68,6 +92,29 @@ namespace Biathlon.PlayModeTests
                 ProductionTerrainContactTests.AssertJoinedGeometry(environment,witness,policy.loop_id,worldNative[sprint].vertices,false);
                 Assert.That(join.triangles.Length,Is.GreaterThan(0));
                 TestContext.WriteLine("Actual Sprint optional bank native contact PASS; source arrays immutable; yaw="+yaw+"; policy="+policy.id);
+
+                void AssertRaisedMainBank(double start,double end)
+                {
+                    var main=course.NativeLoopMesh("main").vertices;var bank=course.SkirtMesh("main");var p=bank.vertices;var weights=bank.colors;int crests=0;
+                    for(int vertex=0;vertex<p.Length;vertex++)
+                    {
+                        if(Math.Abs(weights[vertex].a-.45f)>1e-5f)continue;
+                        double nearest=double.PositiveInfinity,height=0;
+                        for(int row=0;row<course.NativeRowCount("main")-1;row++)
+                        {
+                            if(course.NativeDistance("main",row+1)<start||course.NativeDistance("main",row)>end)continue;
+                            for(int side=0;side<2;side++)
+                            {
+                                var a=main[row*2+side];var b=main[(row+1)*2+side];double dx=b.x-a.x,dz=b.z-a.z,square=dx*dx+dz*dz;
+                                double t=Math.Max(0,Math.Min(1,((p[vertex].x-a.x)*dx+(p[vertex].z-a.z)*dz)/square));
+                                double x=a.x+t*dx,z=a.z+t*dz,distance=(p[vertex].x-x)*(p[vertex].x-x)+(p[vertex].z-z)*(p[vertex].z-z);
+                                if(distance<nearest){nearest=distance;height=a.y+t*(b.y-a.y);}
+                            }
+                        }
+                        if(nearest<=policy.width_m*policy.width_m*.25&&p[vertex].y>height+.08)crests++;
+                    }
+                    Assert.That(crests,Is.GreaterThan(0),"Actual main "+start+".."+end+"m requires a raised snow mound beside its immutable ski ribbon.");
+                }
 
                 Mesh World(Mesh mesh,Matrix4x4 frame)
                 {

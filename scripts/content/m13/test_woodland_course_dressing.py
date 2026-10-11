@@ -15,6 +15,48 @@ PROJECT = HERE.parents[2]
 
 
 class WoodlandCourseDressingTests(unittest.TestCase):
+    def test_sign_clearance_uses_full_native_bounds_and_all_paid_roads(self):
+        import rebind_woodland_signs as signs
+        environment = {'route_corridors': [{'knots': [{'x': 0., 'z': 0.}, {'x': 0., 'z': 20.}], 'widths_m': [8., 8.]}]}
+        # A sign centre can be beside the tape while its wide footplate remains in
+        # the ski lane. The complete rotated native footprint governs placement.
+        bounds = ((-2., 0., -1.), (2., 4., 1.))
+        self.assertAlmostEqual(signs.clearance(environment, DRESS.footprint(bounds, (8.3, 0., 10.), 0.)), 2.3)
+        self.assertAlmostEqual(signs.clearance(environment, DRESS.footprint(bounds, (10.3, 0., 10.), 0.)), 4.3)
+        environment['route_corridors'].append({'knots': [{'x': 10., 'z': 0.}, {'x': 10., 'z': 20.}], 'widths_m': [6., 6.]})
+        self.assertLess(signs.clearance(environment, DRESS.footprint(bounds, (10.3, 0., 10.), 0.)), 0.)
+
+    def test_saved_native_signs_clear_the_outer_fence_line(self):
+        import rebind_woodland_signs as signs
+        import author_short_course_dressing as author
+        environment = DRESS.read_json(PROJECT / 'Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment.json')
+        policy = DRESS.read_json(HERE / 'woodland_sign_clearance_v1.json')
+        checked = 0
+        for placement in environment['assets']:
+            if not placement['resource'].endswith(('/FlagStela', '/Billboard')):
+                continue
+            bounds = author.prefab_bounds(PROJECT, placement['resource']);p = placement['position']
+            gap = signs.clearance(environment, DRESS.footprint(bounds, (p['x'], 0., p['z']), placement['yaw_deg']))
+            self.assertGreaterEqual(gap + .00001, policy['minimum_course_edge_clearance_m'], placement['id'])
+            checked += 1
+        self.assertEqual(checked, 36)
+
+    def test_saved_banner_full_footprint_retains_snow_contact_even_if_already_roadside(self):
+        environment = DRESS.read_json(PROJECT / 'Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment.json')
+        grid, spacing = DRESS.terrain_grid(PROJECT, environment)
+        groups = {}
+        for p in environment['mesh_assets']:
+            if p['id'].startswith('course_') and '_banner_' in p['id']:
+                groups.setdefault(p['id'].rsplit('_', 1)[0], []).append(p)
+        self.assertEqual(len(groups), 6)
+        for identity, parts in groups.items():
+            bounds = DRESS.merged_bounds([DRESS.mesh_bounds(DRESS.resource_path(PROJECT, p['mesh_resource'], '.asset')) for p in parts])
+            p = parts[0];position = p['position']
+            footprint = DRESS.footprint(bounds, (position['x'], 0., position['z']), p['yaw_deg'])
+            heights = [y for _, y in DRESS.foundation_samples(grid, spacing, footprint)]
+            self.assertAlmostEqual(position['y'] + bounds[0][1], min(heights), places=5, msg=identity)
+            self.assertLessEqual(max(heights) - min(heights), .25, identity)
+
     def test_saved_standing_boot_contacts_reject_steep_terrain_before_placement(self):
         contacts = DRESS.standing_contact_geometry(PROJECT)
         feet, anchors = contacts
