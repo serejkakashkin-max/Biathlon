@@ -1,0 +1,52 @@
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Diagnostics;
+using UnityEngine;
+using UnityEditor;
+using UnityEditorInternal;
+using Biathlon.Unity.Presentation;
+using Biathlon.Simulation;
+public static class CornerAimProbe
+{
+ static ProductionVenueHost host;static AthleteChaseCamera chase;static RangePresentation range;
+ static BenchmarkFrameCounters counters;static Stopwatch watch=new Stopwatch();
+ static List<string> rows;static int lastFrame=-1,count,warm;static bool frozen;static string tag;
+ public static void CornerBefore(){Run(false,false,"corner-before");}
+ public static void AimBefore(){Run(true,false,"aim-before");}
+ public static void AimFrozen(){Run(true,true,"aim-frozen");}
+ public static void Run(bool aim,bool freeze,string label)
+ {
+  host=UnityEngine.Object.FindAnyObjectByType<ProductionVenueHost>();if(host==null)throw new InvalidOperationException("Production scene required.");
+  if(host.Runner==null){var venue=new Biathlon.Domain.VenueAuthoringPlan(Biathlon.Domain.VenueManifest.FromJson(ProductionVenueHost.ReadResource(host.VenueResource)),ProductionVenueHost.ReadResource);host.Initialize(venue,Biathlon.Domain.CompetitionProfile.FromJson(ProductionVenueHost.ReadResource(host.ProfileResource)),Biathlon.Domain.RaceRoutePlan.FromJson(ProductionVenueHost.ReadResource(host.RouteResource)),Biathlon.Domain.RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource(host.ConditionsResource)),30);host.InitializeEnvironment(ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource(host.EnvironmentResource)));}
+  host.enabled=false;host.Proxies.enabled=false;range=host.GetComponent<RangePresentation>();range.enabled=false;chase=host.ChaseCamera.GetComponent<AthleteChaseCamera>();chase.enabled=false;
+  typeof(Biathlon.AI.PackAiRaceRunner).GetField("boundPlayerIndex",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).SetValue(host.Runner,-1);
+  int limit=aim?6000:600;while(host.Runner.Field.Tick.Value<limit){if(aim&&host.Runner.Field.GetAthlete(0).ActiveShooting?.Phase==ShootingPhase.Aiming)break;host.Runner.Step();}
+  host.Feed.ResetRace();host.Feed.Publish(RacePresentationSnapshot.Capture(host.Runner.Field));host.Proxies.Render(1);range.Refresh();chase.Render(.016f);
+  frozen=freeze;tag=label;count=warm=0;lastFrame=-1;rows=new List<string>(181);rows.Add("frame,tick,phase,sim_ms,pose_ms,range_ms,wall_ms,draws,triangles,gc_bytes,cpu_main_ms,gpu_ms,cpu_render_ms");
+  counters=new BenchmarkFrameCounters();ProfilerDriver.deepProfiling=false;ProfilerDriver.profileEditor=false;ProfilerDriver.enabled=true;EditorApplication.update+=Update;
+ }
+ static void Update()
+ {
+  if(Time.frameCount==lastFrame)return;lastFrame=Time.frameCount;
+  if(!EditorApplication.isPlaying||host==null){End();return;}
+  var sample=counters.Read(count,0,Time.unscaledDeltaTime*1000);
+  watch.Restart();if(!frozen)host.Runner.Step();double sim=watch.Elapsed.TotalMilliseconds;
+  if(!frozen)host.Feed.Publish(RacePresentationSnapshot.Capture(host.Runner.Field));
+  watch.Restart();host.Proxies.Render(1);double pose=watch.Elapsed.TotalMilliseconds;chase.Render(Time.deltaTime);
+  watch.Restart();range.Refresh();double rng=watch.Elapsed.TotalMilliseconds;counters.Request();
+  if(warm++<60)return;
+  var a=host.Runner.Field.GetAthlete(0);rows.Add(FormattableString.Invariant($"{ProfilerDriver.lastFrameIndex},{a.Tick.Value},{a.ActiveShooting?.Phase.ToString()??"Ski"},{sim:R},{pose:R},{rng:R},{Time.unscaledDeltaTime*1000:R},{sample.draw_calls},{sample.triangles},{sample.gc_bytes},{sample.cpu_main_ms},{sample.gpu_ms},{sample.cpu_render_ms}"));
+  if(++count>=120)End();
+ }
+ static void End()
+ {
+  EditorApplication.update-=Update;counters?.Dispose();
+  File.WriteAllLines("docs/quality/m13/corner-aim-hitches-20261011/"+tag+".csv",rows);
+  var totals=new Dictionary<string,double[]>();int end=ProfilerDriver.lastFrameIndex;
+  for(int f=Math.Max(ProfilerDriver.firstFrameIndex,end-119);f<=end;f++)using(var v=ProfilerDriver.GetRawFrameDataView(f,0))
+  {if(!v.valid)continue;for(int i=0;i<v.sampleCount;i++){double ms=v.GetSampleTimeMs(i);int stop=i+v.GetSampleChildrenCountRecursive(i)+1;for(int c=i+1;c<stop;c+=v.GetSampleChildrenCountRecursive(c)+1)ms-=v.GetSampleTimeMs(c);string key=v.GetSampleName(i);if(v.GetSampleMetadataCount(i)>0)try{key+=" "+v.GetSampleMetadataAsString(i,0);}catch{} if(!totals.TryGetValue(key,out var t)){t=new double[3];totals[key]=t;}t[0]+=Math.Max(0,ms);t[1]=Math.Max(t[1],ms);t[2]++;}}
+  var lines=new List<string>();lines.Add("marker,self_total_ms,self_max_ms,calls");foreach(var p in totals)lines.Add(FormattableString.Invariant($"\"{p.Key.Replace("\"","'")}\",{p.Value[0]:R},{p.Value[1]:R},{p.Value[2]}"));File.WriteAllLines("docs/quality/m13/corner-aim-hitches-20261011/"+tag+"-markers.csv",lines);
+  ProfilerDriver.enabled=false;File.WriteAllText("docs/quality/m13/corner-aim-hitches-20261011/"+tag+"-done.txt",count.ToString());
+ }
+}

@@ -1,0 +1,42 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":276,\"PassedTests\":3,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:33.2414289\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.PlayerRangeOwnerFeedbackTests.ActualArrowCaptureMakesTheShotAndExitTurnThenReturnsPlayerControl\",\"Status\":\"Passed\",\"Duration\":\"00:00:11.6650000\"},{\"Name\":\"Biathlon.PlayModeTests.PlayerRangeOwnerFeedbackTests.CatchUpFrameKeepsAdjacentSnapshotsForSmoothRendering\",\"Status\":\"Passed\",\"Duration\":\"00:00:10.7560000\"},{\"Name\":\"Biathlon.PlayModeTests.PlayerRangeOwnerFeedbackTests.RejectedRaceTickReportsOnceAndDoesNotAdvanceDeviceOrEffortClocks\",\"Status\":\"Passed\",\"Duration\":\"00:00:10.7690000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 276,
+          "PassedTests": 3,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:33.2414289"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.PlayerRangeOwnerFeedbackTests.ActualArrowCaptureMakesTheShotAndExitTurnThenReturnsPlayerControl",
+            "Status": "Passed",
+            "Duration": "00:00:11.6650000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.PlayerRangeOwnerFeedbackTests.CatchUpFrameKeepsAdjacentSnapshotsForSmoothRendering",
+            "Status": "Passed",
+            "Duration": "00:00:10.7560000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.PlayerRangeOwnerFeedbackTests.RejectedRaceTickReportsOnceAndDoesNotAdvanceDeviceOrEffortClocks",
+            "Status": "Passed",
+            "Duration": "00:00:10.7690000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

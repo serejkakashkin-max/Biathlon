@@ -1,0 +1,72 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":276,\"PassedTests\":9,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:02.3152917\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.ProductionForestVisibilityTests.ActualProductionStadiumPolicyPreservesAllAuthoredContentAndExactLegacyCounts\",\"Status\":\"Passed\",\"Duration\":\"00:00:02.1700000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionForestVisibilityTests.CameraDepthRatherThanPivotRadiusWorksForWideAndRotatedViewsAndRewindsWithoutAllocation\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionForestVisibilityTests.HighRetainsFarAndPartialCanopiesWhileAllOtherTiersKeepExactLegacyLodsAndShadows\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionForestVisibilityTests.InvalidHorizonRejectsBeforeForestMutationAndCanRetry\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0040000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionForestVisibilityTests.InvalidPolicyOrBoundWeatherRejectsTheWholeEnvironmentBeforeChildrenOrWeatherLease\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0370000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionForestVisibilityTests.ProductionColdPolicyUsesCopiedBoundWeatherAndLeavesSourcesAndPlacementImmutable\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0360000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionForestVisibilityTests.UnsupportedProjectionRetainsTheWholeFrustumAndZoomKeepsExistingLodAndShadowDecisions\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionForestVisibilityTests.VersionedPolicyRoundTripsAndOmissionPreservesTheLegacyContract\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0070000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionForestVisibilityTests.WholeNativeCanopyAndWindSupportProtectsTheFogPlaneAndPreparedBounds\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 276,
+          "PassedTests": 9,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:02.3152917"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.ActualProductionStadiumPolicyPreservesAllAuthoredContentAndExactLegacyCounts",
+            "Status": "Passed",
+            "Duration": "00:00:02.1700000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.CameraDepthRatherThanPivotRadiusWorksForWideAndRotatedViewsAndRewindsWithoutAllocation",
+            "Status": "Passed",
+            "Duration": "00:00:00.0020000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.HighRetainsFarAndPartialCanopiesWhileAllOtherTiersKeepExactLegacyLodsAndShadows",
+            "Status": "Passed",
+            "Duration": "00:00:00.0010000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.InvalidHorizonRejectsBeforeForestMutationAndCanRetry",
+            "Status": "Passed",
+            "Duration": "00:00:00.0040000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.InvalidPolicyOrBoundWeatherRejectsTheWholeEnvironmentBeforeChildrenOrWeatherLease",
+            "Status": "Passed",
+            "Duration": "00:00:00.0370000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.ProductionColdPolicyUsesCopiedBoundWeatherAndLeavesSourcesAndPlacementImmutable",
+            "Status": "Passed",
+            "Duration": "00:00:00.0360000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.UnsupportedProjectionRetainsTheWholeFrustumAndZoomKeepsExistingLodAndShadowDecisions",
+            "Status": "Passed",
+            "Duration": "00:00:00.0010000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.VersionedPolicyRoundTripsAndOmissionPreservesTheLegacyContract",
+            "Status": "Passed",
+            "Duration": "00:00:00.0070000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.WholeNativeCanopyAndWindSupportProtectsTheFogPlaneAndPreparedBounds",
+            "Status": "Passed",
+            "Duration": "00:00:00.0010000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

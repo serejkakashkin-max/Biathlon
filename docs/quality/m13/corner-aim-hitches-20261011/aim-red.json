@@ -1,0 +1,30 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":277,\"PassedTests\":0,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:00.2521581\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.RangePresentationTests.RealAimingCameraMovesBetweenAcceptedTicksWithoutAdvancingShooting\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.2040000\",\"Message\":\"  The sight camera currently freezes between 20 Hz observations.\\r\\n  Expected: greater than 9.99999994E-09f\\r\\n  But was:  0.0f\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.RangePresentationTests.RealAimingCameraMovesBetweenAcceptedTicksWithoutAdvancingShooting () [0x00191] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\RangePresentationTests.cs:35\\r\\n\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 277,
+        "PassedTests": 0,
+        "FailedTests": 1,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.2521581"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.PlayModeTests.RangePresentationTests.RealAimingCameraMovesBetweenAcceptedTicksWithoutAdvancingShooting",
+          "Status": "Failed",
+          "Duration": "00:00:00.2040000",
+          "Message": "  The sight camera currently freezes between 20 Hz observations.\r\n  Expected: greater than 9.99999994E-09f\r\n  But was:  0.0f\r\n",
+          "StackTrace": "at Biathlon.PlayModeTests.RangePresentationTests.RealAimingCameraMovesBetweenAcceptedTicksWithoutAdvancingShooting () [0x00191] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\RangePresentationTests.cs:35\r\n"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

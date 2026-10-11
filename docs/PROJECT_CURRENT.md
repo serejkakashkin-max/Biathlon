@@ -3,26 +3,35 @@
 2026-10-11. M13 owner review OPEN; M14 not started. G1/G2 APPROVED.
 Woodland: maximum 30 racers, High default, main lap 960.005m, penalty 150m/6m.
 
-Latest owner build: **Builds/WoodlandM13CornersStart-20261011/START_WOODLAND_REVIEW.cmd**.
+Latest owner build: **Builds/WoodlandM13CornerAim-20261011/START_WOODLAND_REVIEW.cmd**.
 READ_ME_RU.txt includes Russian controls. Previous builds retained.
 
-Separate straight start with START portal; old lap portal retained as TIMING.
-AI avoids excess ski deflection on corners; active skiing no longer uses a
-coasting squat. Fences moved outside the road. Original rigid equipment now
-uses GPU instancing, preserving meshes/textures and High quality values.
+Setup/prone body, equipment transfer and recovery turn use render interpolation.
+Host retains adjacent completed snapshots during catch-up; static forest geometry
+is cached. Active sight/bolt now render each frame; current accepted aim and
+accepted shot ray remain exact. UI/bank state stays once per tick.
 
-Bounded native capture: first-bend mean draw calls 1063→517, setup 1966→1254.
-First-bend frame p95 about 19ms, max37ms; setup mean16.67ms. Changed pack states;
-no complete-race or universal hitch-free claim.
+Exact contact broad-phase exclusion, fine-grid corner seeding and immutable
+local ribbon caching reduce headless Mass30 mean tick 5.235→3.948ms and worst
+195.005→60.592ms over 3837 ticks. Terminal state and available periodic checkpoints
+match. These are CPU timings, not FPS; remaining rare subdivisions can still hitch.
 
-Validation: .NET focused37 PASS, final signed-start replay cases2 PASS;
-native equipment1, locomotion5, course8 PASS. Runtime Console has no new
-errors/exceptions. Build Succeeded, zero errors/warnings, 355747001 bytes.
+Full main-ribbon snow mounds cover sharp edges outside ski/apron surfaces;
+36 actual stela/billboard footprints are grounded and at least4.3m from paid edge.
+High textures, meshes, shadows and settings preserved. Separate START/FINISH and
+old TIMING portals retained. Maximum30, manual steering and shooting rules retained.
+
+Validation: .NET contact64, ribbon/catalog35, cache2, CPU1 PASS; signed tape12 PASS
+(MassStart/Sprint complete replay). Native EditMode34 PASS; PlayMode aim3,
+terrain13, banks3, signs1 PASS; Python14 PASS. Console error/exception queries empty.
+Build Succeeded, zero errors/warnings, 355755516 bytes.
 Hidden Mass30/Sprint30 startup/400-tick controls/transition PASS, exit0; rendering suspended.
 
-[Report](reports/TASK_M13_CORNERS_START_20261011.md).
+[Report](reports/TASK_M13_CORNER_AIM_HITCHES_20261011.md).
 [Decision](adr/ADR-0049-m13-corner-cost-and-separate-start.md).
-Evidence: docs/quality/m13/corners-setup-start-20261011/.
+Evidence: docs/quality/m13/corner-aim-hitches-20261011/.
 
-PROJECT_STATE history preserved byte-for-byte through the pre-task 2941170 bytes;
-only a dated record appended. Next: owner review and decision on M13 closure.
+Existing separate failures remain recorded: Pursuit directed-passage/startContinuation
+composition; unchanged grandstand_01 foundation embedding in broad native dressing.
+No failing tests disabled. PROJECT_STATE history prefix preserved, dated entry appended.
+Next: owner first-bend/active-shooting test; M13 closure requires owner decision.

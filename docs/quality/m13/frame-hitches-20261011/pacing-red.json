@@ -1,0 +1,33 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":276,\"PassedTests\":0,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:11.3658603\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.PlayerRangeOwnerFeedbackTests.CatchUpFrameKeepsAdjacentSnapshotsForSmoothRendering\",\"Status\":\"Failed\",\"Duration\":\"00:00:11.3140000\",\"Message\":\"  Skipped snapshots disable world-pose interpolation after a slow frame.\\r\\n  Expected: 1\\r\\n  But was:  3\\r\\n\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 276,
+          "PassedTests": 0,
+          "FailedTests": 1,
+          "SkippedTests": 0,
+          "Duration": "00:00:11.3658603"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.PlayerRangeOwnerFeedbackTests.CatchUpFrameKeepsAdjacentSnapshotsForSmoothRendering",
+            "Status": "Failed",
+            "Duration": "00:00:11.3140000",
+            "Message": "  Skipped snapshots disable world-pose interpolation after a slow frame.\r\n  Expected: 1\r\n  But was:  3\r\n"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

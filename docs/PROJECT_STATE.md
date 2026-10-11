@@ -24438,3 +24438,59 @@ Evidence: docs/quality/m13/corners-setup-start-20261011/.
 Player receipt: artifacts/production-player-smoke/20261011-075017-277/verification.json.
 Historical PROJECT_STATE prefix (2941170 bytes) preserved byte-for-byte.
 Next: owner tests first bend, prone setup and the separate start, then decides M13 closure.
+
+## 2026-10-11 — M13-FRAME-HITCHES-20261011
+
+Owner directive: investigate remaining hitches, preserve graphics quality, bounded verification. M13 owner review OPEN; M14 not started.
+Confirmed fixes: shooting setup/exiting body/rifle/turn now use fractional render time; multi-tick host frames retain adjacent snapshots and scheduler remainder; static forest world matrices/canopy bounds cache until transform changes. Textures, meshes, tree count, High values and authoritative physics/AI unchanged.
+Evidence: docs/quality/m13/frame-hitches-20261011/. Real prone and host regressions failed before patch and pass after. Native 19 PASS (rifle4, host/range3, vegetation3, forestvisibility9), .NET focused9 PASS. Final Unity compilation succeeded and fresh Error/Exception console queries empty. Native Game View reviewed.
+Forest preparation CPU probe: 768 trees /1500 iterations, 220.2741ms ->138.6849ms (37% isolated saving), zero allocation both; visible768 and triangles1,059,966 unchanged. This is not an overall FPS percentage. Deep capture produced no usable profile; discarded, ordinary runtime trace still includes simulation spikes. No complete-race hitch-free claim.
+Windows owner build: Builds/WoodlandM13FramePacing-20261011/START_WOODLAND_REVIEW.cmd. Succeeded,0 errors,0 warnings,355748956 bytes. Hidden standalone Mass30/Sprint30 startup+400tick controls+scene transition PASS,exit0; rendering suspended, no FPS evidence. READ_ME_RU.txt contains Russian controls.
+Report: docs/reports/TASK_M13_FRAME_HITCHES_20261011.md. Gameplay/determinism/balance unchanged; only rendering and scheduling observations changed.
+Historical prefix preserved byte-for-byte through2943503 bytes with SHA256 5BD490BC418A92457915BAD3401EAB80C1AFCF55745549E2B7963266959323A7.
+Latest owner feedback: setup/prone transition is smooth, first-bend and active shooting hitches remain; cover crisp road edges with snow mounds and move roadside banners toward fences. Continuing that scoped work under corner-aim-hitches-20261011 before the next test build.
+## 2026-10-11 — M13-CORNER-AIM-HITCHES-20261011
+
+Owner feedback: setup/prone transition is smoother; first bend and active aiming
+still hitch. Snow mounds requested at course edges; move banners to the fence.
+M13 remains OPEN for owner testing. M14 not started; High graphics and maximum30 retained.
+
+Confirmed fixes: guaranteed distant owned pairs skip exact SAT conservatively;
+the same refined disk grid is seeded by its corner leaves (captured witness
+64→6 queries, exact same clearance); immutable local ribbon geometry is cached
+by connected first/last edge indices. Complete incoming tube windows still update
+each preview. Active sight and bolt render every frame, with bounded procedural
+prediction only; latest accepted control aim and accepted shot ray stay exact.
+No gameplay/tolerance/balance change intended. Retained prior FramePacing fixes.
+
+Full-main static snow shoulders now carry varying crests outside paid ski/apron
+surfaces. Native36 stela/billboard footprints are grounded and >=4.3m from paid
+road edges. Snow/bank material and renderer count retained. Meshes, textures,
+shadows, High settings and forest quality are not reduced.
+
+Headless fixed-seed Mass30,3837 ticks: mean5.235→3.948ms, worst195.005→60.592ms;
+terminal player state and every available200-tick interval/setup/bout/allocation
+checkpoint match. Allocation45543496 bytes unchanged. Not player FPS. Remaining
+rare CPU peak about61ms; sampled slow period has6 physical subdivisions. No claim
+that all full-race hitches are eliminated. Native aim regression proves sub-tick
+camera movement; prediction may correct on the next observation.
+
+Validation: .NET contacts64, ribbon/catalog35, cache2, CPU1 PASS. Signed command
+suite12 PASS (complete MassStart/Sprint replay),1 pre-existing Pursuit factory
+composition failure before simulation. Native EditMode contacts13/ribbon19/cache2
+PASS; PlayMode aim3/terrain13/banks3/roadside footprints1 PASS. Python14 PASS.
+Console error/exception queries empty. Native first-corner/descent/aim views inspected.
+Unchanged grandstand_01 embedding still fails the broad dressing fixture; no test
+deleted/disabled/loosened to conceal this separate defect. Report records both defects.
+
+New owner build: Builds/WoodlandM13CornerAim-20261011/START_WOODLAND_REVIEW.cmd.
+Build Succeeded,0errors/0warnings,355755516bytes. Hidden standalone Mass30/Sprint30
+startup,400-tick controls and real scene transition PASS,exit0. Rendering suspended:
+startup smoke has no FPS/visual evidence. READ_ME_RU.txt includes controls/checks.
+
+Report: docs/reports/TASK_M13_CORNER_AIM_HITCHES_20261011.md.
+Evidence: docs/quality/m13/corner-aim-hitches-20261011/.
+History prefix2945546bytes/SHA256 BA30DA3AA64665CEC07FD12971C306AC4E8C39B690BE927E908566D7296E3882
+preserved byte-for-byte before this append. Next: owner standalone first-bend and
+active-shooting checks; remaining measured subdivision cost and separate defects
+must be resolved before declaring full M13 completion.

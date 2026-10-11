@@ -1,0 +1,49 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":275,\"PassedTests\":3,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:00.6553956\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.AthleteRifleTests.ProneSetupMovesBetweenSimulationTicksWithoutAdvancingTheRace\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.3320000\",\"Message\":\"  Transfer currently freezes between 20 Hz ticks.\\r\\n  Expected: greater than 0.75f\\r\\n  But was:  0.75f\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.AthleteRifleTests.ProneSetupMovesBetweenSimulationTicksWithoutAdvancingTheRace () [0x00141] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\AthleteRifleTests.cs:33\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.AthleteRifleTests.RealBoutObservationsDriveTransferWithoutChangingTheShootingClock\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.2560000\"},{\"Name\":\"Biathlon.PlayModeTests.AthleteRifleTests.RifleTransferReturnsExactlyAndHandsReachReadyWithoutRootOrPropDrift\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0100000\"},{\"Name\":\"Biathlon.PlayModeTests.AthleteRifleTests.TransferUsesTheActualPhaseDeadlineAtDifferentTickRates\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 275,
+          "PassedTests": 3,
+          "FailedTests": 1,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.6553956"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteRifleTests.ProneSetupMovesBetweenSimulationTicksWithoutAdvancingTheRace",
+            "Status": "Failed",
+            "Duration": "00:00:00.3320000",
+            "Message": "  Transfer currently freezes between 20 Hz ticks.\r\n  Expected: greater than 0.75f\r\n  But was:  0.75f\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.AthleteRifleTests.ProneSetupMovesBetweenSimulationTicksWithoutAdvancingTheRace () [0x00141] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\AthleteRifleTests.cs:33\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteRifleTests.RealBoutObservationsDriveTransferWithoutChangingTheShootingClock",
+            "Status": "Passed",
+            "Duration": "00:00:00.2560000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteRifleTests.RifleTransferReturnsExactlyAndHandsReachReadyWithoutRootOrPropDrift",
+            "Status": "Passed",
+            "Duration": "00:00:00.0100000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteRifleTests.TransferUsesTheActualPhaseDeadlineAtDifferentTickRates",
+            "Status": "Passed",
+            "Duration": "00:00:00.0010000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

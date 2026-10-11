@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="be82f5b6-9474-4fc7-9845-545d6b8f5bb1" name="snkashkin@DESKTOP-G3075GA 2026-10-11 13:48:16" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T13:48:16.7892239+03:00" queuing="2026-10-11T13:48:16.7892240+03:00" start="2026-10-11T13:48:15.7672226+03:00" finish="2026-10-11T13:48:16.7922148+03:00" />
+  <TestSettings name="default" id="65e0997b-f66a-4cd0-b8ad-022f517ac4c1">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-11_13_48_16" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9ebe9fea-2783-4005-9815-c316abdbb11c" testId="1e5960d1-acba-0685-832a-d1665e9137fb" testName="RepeatedOwnedContactWindowReusesGeometryWithoutAllocating" computerName="DESKTOP-G3075GA" duration="00:00:00.1244960" startTime="2026-10-11T13:48:16.5845595+03:00" endTime="2026-10-11T13:48:16.7090553+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9ebe9fea-2783-4005-9815-c316abdbb11c" />
+    <UnitTestResult executionId="7c3d7da3-9c4d-451d-bc7a-9cf4dffbd013" testId="21c54886-3928-bb2b-afe3-a4af83ac0b63" testName="CachedProofMatchesFreshGeometryAcrossTravelRangePenaltyAndReturn" computerName="DESKTOP-G3075GA" duration="00:00:00.3253670" startTime="2026-10-11T13:48:16.2585555+03:00" endTime="2026-10-11T13:48:16.5838963+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7c3d7da3-9c4d-451d-bc7a-9cf4dffbd013" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="RepeatedOwnedContactWindowReusesGeometryWithoutAllocating" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="1e5960d1-acba-0685-832a-d1665e9137fb">
+      <Execution id="9ebe9fea-2783-4005-9815-c316abdbb11c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRibbonWindowCacheTests" name="RepeatedOwnedContactWindowReusesGeometryWithoutAllocating" />
+    </UnitTest>
+    <UnitTest name="CachedProofMatchesFreshGeometryAcrossTravelRangePenaltyAndReturn" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="21c54886-3928-bb2b-afe3-a4af83ac0b63">
+      <Execution id="7c3d7da3-9c4d-451d-bc7a-9cf4dffbd013" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRibbonWindowCacheTests" name="CachedProofMatchesFreshGeometryAcrossTravelRangePenaltyAndReturn" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="1e5960d1-acba-0685-832a-d1665e9137fb" executionId="9ebe9fea-2783-4005-9815-c316abdbb11c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="21c54886-3928-bb2b-afe3-a4af83ac0b63" executionId="7c3d7da3-9c4d-451d-bc7a-9cf4dffbd013" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
