@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="638baccf-7c53-4141-a7b6-2553809150e7" name="snkashkin@DESKTOP-G3075GA 2026-10-11 21:21:34" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T21:21:34.6398069+03:00" queuing="2026-10-11T21:21:34.6398070+03:00" start="2026-10-11T21:21:33.9001984+03:00" finish="2026-10-11T21:21:34.6432528+03:00" />
+  <TestSettings name="default" id="9230b580-7573-4518-9c6c-20db2eb6d5eb">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-11_21_21_34" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="efe10d60-4b36-48de-86f7-f78bca8a6aa8" testId="d4007078-480d-2993-6767-58899567111e" testName="HeldKeyboardCorrectionReachesFullDeflectionWithinQuarterSecond" computerName="DESKTOP-G3075GA" duration="00:00:00.0276700" startTime="2026-10-11T21:21:34.5169489+03:00" endTime="2026-10-11T21:21:34.5445914+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="efe10d60-4b36-48de-86f7-f78bca8a6aa8">
+      <Output>
+        <ErrorInfo>
+          <Message>  A held finish correction must reach full input within 250ms.&#xD;
+  Expected: 1000&#xD;
+  But was:  500&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.DeviceCommandTests.HeldKeyboardCorrectionReachesFullDeflectionWithinQuarterSecond() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\DeviceCommandTests.cs:line 48&#xD;
+
+1)    at Biathlon.Tests.DeviceCommandTests.HeldKeyboardCorrectionReachesFullDeflectionWithinQuarterSecond() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\DeviceCommandTests.cs:line 48&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="bae7064a-4c71-41ff-b101-8eeae0311799" testId="e66ff662-fcb7-6296-5bd9-035cb1df0f9e" testName="FullSteeringBuildsPromptPhysicalYawWithoutAddingEnergy(1000)" computerName="DESKTOP-G3075GA" duration="00:00:00.0006450" startTime="2026-10-11T21:21:34.5561940+03:00" endTime="2026-10-11T21:21:34.5568391+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bae7064a-4c71-41ff-b101-8eeae0311799">
+      <Output>
+        <StdOut>full_input=1000 target_yaw=0,84 first_tick_yaw=0,084</StdOut>
+        <ErrorInfo>
+          <Message>  Expected: greater than or equal to 0.94999999999999996d&#xD;
+  But was:  0.83999999999999997d&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualSkiControlledDriveTests.FullSteeringBuildsPromptPhysicalYawWithoutAddingEnergy(Int32 direction) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualSkiControlledDriveTests.cs:line 29&#xD;
+   at InvokeStub_ManualSkiControlledDriveTests.FullSteeringBuildsPromptPhysicalYawWithoutAddingEnergy(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualSkiControlledDriveTests.FullSteeringBuildsPromptPhysicalYawWithoutAddingEnergy(Int32 direction) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualSkiControlledDriveTests.cs:line 29&#xD;
+   at InvokeStub_ManualSkiControlledDriveTests.FullSteeringBuildsPromptPhysicalYawWithoutAddingEnergy(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2768e243-478a-4963-9bbf-8fd575a50b2b" testId="a60c8fa1-aad2-dbb0-c101-e221c9249941" testName="FullSteeringBuildsPromptPhysicalYawWithoutAddingEnergy(-1000)" computerName="DESKTOP-G3075GA" duration="00:00:00.0101680" startTime="2026-10-11T21:21:34.5460135+03:00" endTime="2026-10-11T21:21:34.5561811+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2768e243-478a-4963-9bbf-8fd575a50b2b">
+      <Output>
+        <StdOut>full_input=-1000 target_yaw=-0,84 first_tick_yaw=-0,084</StdOut>
+        <ErrorInfo>
+          <Message>  Expected: greater than or equal to 0.94999999999999996d&#xD;
+  But was:  0.83999999999999997d&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualSkiControlledDriveTests.FullSteeringBuildsPromptPhysicalYawWithoutAddingEnergy(Int32 direction) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualSkiControlledDriveTests.cs:line 29&#xD;
+
+1)    at Biathlon.Tests.ManualSkiControlledDriveTests.FullSteeringBuildsPromptPhysicalYawWithoutAddingEnergy(Int32 direction) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualSkiControlledDriveTests.cs:line 29&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="FullSteeringBuildsPromptPhysicalYawWithoutAddingEnergy(1000)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="e66ff662-fcb7-6296-5bd9-035cb1df0f9e">
+      <Execution id="bae7064a-4c71-41ff-b101-8eeae0311799" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiControlledDriveTests" name="FullSteeringBuildsPromptPhysicalYawWithoutAddingEnergy(1000)" />
+    </UnitTest>
+    <UnitTest name="FullSteeringBuildsPromptPhysicalYawWithoutAddingEnergy(-1000)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="a60c8fa1-aad2-dbb0-c101-e221c9249941">
+      <Execution id="2768e243-478a-4963-9bbf-8fd575a50b2b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualSkiControlledDriveTests" name="FullSteeringBuildsPromptPhysicalYawWithoutAddingEnergy(-1000)" />
+    </UnitTest>
+    <UnitTest name="HeldKeyboardCorrectionReachesFullDeflectionWithinQuarterSecond" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="d4007078-480d-2993-6767-58899567111e">
+      <Execution id="efe10d60-4b36-48de-86f7-f78bca8a6aa8" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="HeldKeyboardCorrectionReachesFullDeflectionWithinQuarterSecond" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="d4007078-480d-2993-6767-58899567111e" executionId="efe10d60-4b36-48de-86f7-f78bca8a6aa8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e66ff662-fcb7-6296-5bd9-035cb1df0f9e" executionId="bae7064a-4c71-41ff-b101-8eeae0311799" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a60c8fa1-aad2-dbb0-c101-e221c9249941" executionId="2768e243-478a-4963-9bbf-8fd575a50b2b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="0" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 3 of 3 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+full_input=-1000 target_yaw=-0,84 first_tick_yaw=-0,084&#xD;
+&#xD;
+full_input=1000 target_yaw=0,84 first_tick_yaw=0,084&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -1,0 +1,63 @@
+{
+  "scene": {
+    "sha256": "e289d89b5c06428c6052e2fefdc03b891b9f9a22754080a8fcc422fda0dc9df0",
+    "path": "Assets/Scenes/FrontEnd.unity",
+    "preview_validated": true,
+    "authoring_exit": 0
+  },
+  "evidence_sha256": {
+    "steering-red.trx": "7a86e3fe1b0d677d76678ffa14a93c274b988c029495e3a035e8307b2400ebdc",
+    "legacy-four-range-baseline.trx": "c9d4818edc57e45db4aca54a488a66a1425211d9cae701decd89c655d8250466",
+    "frontend-en-large-4x3.png": "b9629402486a1489129a08953ad682d1256f9e766bba07f194f4204cfbd6cb63",
+    "core-relevant-final.trx": "225968ef3f90015b389010b07568e770d16a1b0a567c7ed77004037ec79db22a",
+    "frontend-ru.png": "370312c042ea888f086bc9e00fbd0d182646e0915cb0aaf73a13d54cb29195d9",
+    "unity-playmode-final-green.xml": "23e00654ce3e0d6c26c16a4dd2be724fa40f6a26da28c839469b3073a85483b3",
+    "unity-editmode-final-green.xml": "97732f091786f8da3b4e743eec41c52a5a171b32c7649ba64f38a06b0e63a37b"
+  },
+  "build_created": false,
+  "keyboard_steering": {
+    "old_full_seconds": 0.5,
+    "new_units_per_second": 4000,
+    "shared_physical_tuning_unchanged": true,
+    "new_full_seconds": 0.25,
+    "old_units_per_second": 2000
+  },
+  "m14": "in_progress_wp179_wp180_first_slice",
+  "m13": "owner_accepted_closed",
+  "schema_version": 1,
+  "date": "2026-10-11",
+  "tests": {
+    "four_range_baseline_failure": "MovingFiringArrival; reproduced with pre-change input/steering definitions; remains enabled",
+    "native_editmode_passed": 79,
+    "native_playmode_passed": 13,
+    "dotnet_passed": 79,
+    "final_relevant_failed": 0
+  },
+  "id": "m14_entry_20261011",
+  "compile_log_checks": {
+    "unity-authoring-final-green.log": {
+      "sha256": "af4f29bf1c90c3736c17aa86c423428477200f416202ecc99bd01eadfae2d664",
+      "compile_errors": 0
+    },
+    "unity-playmode-final-green.log": {
+      "sha256": "bb10659c40b7c0e6d4c7a55c318b22684d9b57a4afde7039eb1094eb956e8fa0",
+      "compile_errors": 0
+    },
+    "unity-editmode-final-green.log": {
+      "sha256": "e5721fefe2bd2955a38eab6cde0a42a8aa9be5e91493f4fc5f53fbcd7435a6f1",
+      "compile_errors": 0
+    }
+  },
+  "history": {
+    "final_bytes": 2956323,
+    "prefix_verified": true,
+    "prefix_bytes": 2954362,
+    "prefix_sha256": "70f1961ac5fc8bb4a0e37147ce0cc12970ed399e825e9e1ed61d25a5f41d477c"
+  },
+  "limitations": [
+    "No new player build or FPS claim",
+    "WP179/WP180 first slice; M14 gate remains open",
+    "Continue selects latest profile",
+    "Historical separate failures recorded in task reports"
+  ]
+}

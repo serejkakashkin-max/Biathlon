@@ -24580,3 +24580,31 @@ known Pursuit directed-passage composition failure remains outside shipped build
 No test disabled. Owner rendering/packages/settings edits retained. Previous
 PROJECT_STATE byte prefix preserved. Decision ADR-0052; report TASK_M13_BOT_RECOVERY_20261011.
 Next: owner reviews course/penalty recovery and decides M13 closure before M14.
+
+
+## 2026-10-11 — Owner accepts M13; faster A/D and M14 front end
+
+The owner approves the latest BotRecovery version, requests sharper A/D and
+explicitly asks to start M14 without another build. M13 CLOSED by owner acceptance;
+M14 IN PROGRESS. Historical OPEN/not-started records keep their original dates.
+Keyboard ramp4000 units/s (was2000): full deflection250ms at20Hz, first200 units,
+immediate new-direction reversal and neutral release. Physical steering, grip,
+AI recovery/braking, analog control, athlete balance and accepted graphics retain
+their values. The keyboard command history changes deterministically.
+M14 first WP179/WP180 slice: Unity-free Presentation session/profile/localization,
+retained UI Toolkit main menu, New Career/Continue/Settings/Quit, name/nation,
+real career overview, RU/EN,100/115/130% text and visible keyboard/gamepad focus.
+Production career calendar for new profiles; saved legacy calendar/RNG restored
+without migration. Independent validated files published after flush without
+overwrite; no UI career-week/simulation advancement. Generated FrontEnd.unity
+validated in preview; open scenes/build settings preserved. No new build.
+Relevant .NET79/native EditMode79/PlayMode13 PASS. Actual InputForUI navigation
+and1600x900 RU/1024x768 EN130% rendered layouts checked. Hidden Editor event
+pump is test-only; product input-focus policy unchanged. No compile errors.
+The extra four-range MovingFiringArrival diagnostic fails identically with exact
+pre-change input/physical definitions; the test stays enabled. Other recorded
+Pursuit/controller/grandstand failures remain separate. No whole-suite/FPS claim.
+PROJECT_STATE prior raw-byte prefix verified unchanged; owner rendering/settings/
+package edits retained. Decisions ADR0053/0054; report TASK_M14_ENTRY_20261011.
+Evidence: docs/quality/m14/entry-20261011/delivery-summary.json.
+Next: WP181 pre-race and career to race/result/next-event routing; M14 gate OPEN.

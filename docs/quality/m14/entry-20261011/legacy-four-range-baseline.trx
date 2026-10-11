@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f24ac01f-23d4-435d-84f5-cb5c056d70fa" name="snkashkin@DESKTOP-G3075GA 2026-10-11 21:46:27" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T21:46:27.5671085+03:00" queuing="2026-10-11T21:46:27.5671086+03:00" start="2026-10-11T21:46:20.1503306+03:00" finish="2026-10-11T21:46:27.5705907+03:00" />
+  <TestSettings name="default" id="af98c858-96f3-45cb-8d46-b83d6c391a12">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-11_21_46_27" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="410bab31-e9c0-4c89-a04d-bff24c3faa21" testId="0c52d127-5722-9ca9-333b-5a9ebdef039c" testName="AllFourRangesRepeatActualWorldMotionAndEventsExactly" computerName="DESKTOP-G3075GA" duration="00:00:06.7497070" startTime="2026-10-11T21:46:20.6291041+03:00" endTime="2026-10-11T21:46:27.3787789+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="410bab31-e9c0-4c89-a04d-bff24c3faa21">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Manual field step rejected: MovingFiringArrival / Clear / ; candidate clock not paid.</Message>
+          <StackTrace>   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 274&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 478&#xD;
+   at Biathlon.AI.PackAiRaceRunner.Step() in C:\game\Biathlon\Biathlon\Assets\Scripts\AI\PackAiRaceRunner.cs:line 222&#xD;
+   at Biathlon.Tests.ManualScopedFieldStepperTests.RepeatCompletedRangesExactly(Int32 bouts, Int32 tickLimit) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 306&#xD;
+   at Biathlon.Tests.ManualScopedFieldStepperTests.AllFourRangesRepeatActualWorldMotionAndEventsExactly() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 300&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="AllFourRangesRepeatActualWorldMotionAndEventsExactly" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="0c52d127-5722-9ca9-333b-5a9ebdef039c">
+      <Execution id="410bab31-e9c0-4c89-a04d-bff24c3faa21" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="AllFourRangesRepeatActualWorldMotionAndEventsExactly" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="0c52d127-5722-9ca9-333b-5a9ebdef039c" executionId="410bab31-e9c0-4c89-a04d-bff24c3faa21" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

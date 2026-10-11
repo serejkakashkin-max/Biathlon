@@ -1,6 +1,6 @@
 # BIATHLON — latest operational state
 
-2026-10-11. M13 owner review OPEN; M14 not started. G1/G2 APPROVED.
+2026-10-11. M13 CLOSED by owner acceptance; M14 IN PROGRESS. G1/G2 APPROVED.
 Woodland: maximum 30, High default, main 960.005m, penalty 150m/6m.
 
 Latest owner build: **Builds/WoodlandM13BotRecovery-20261011/START_WOODLAND_REVIEW.cmd**.
@@ -56,4 +56,23 @@ No failing tests disabled. State history preserved with dated appended progress.
 [Report](reports/TASK_M13_BOT_RECOVERY_20261011.md).
 [Decision](adr/ADR-0052-m13-ai-edge-recovery.md).
 Evidence: docs/quality/m13/bot-recovery-20261011/delivery-summary.json.
-Next: owner course/penalty recovery review; M13 closure is owner decision.
+Owner accepts the BotRecovery version and requests faster A/D before M14.
+Keyboard deflection is now 4000 units/s: full input in 0.25s rather than 0.5s.
+Shared physical steering, analog control, AI and balance remain unchanged.
+No new build is requested or produced.
+
+M14 first WP-179/WP-180 slice: Unity-free front-end/session model, independent
+validated career profiles and retained Unity UI Toolkit main menu. New career,
+continue, settings, quit, real career overview, RU/EN and 100/115/130% text are
+implemented. New careers use the production calendar; restore retains saved
+legacy calendar/RNG identity. UI does not advance simulation or career weeks.
+Generated scene: Assets/Scenes/FrontEnd.unity. Build settings remain unchanged.
+Core relevant79/native EditMode79/PlayMode13 PASS; compile and history
+integrity evidence: docs/quality/m14/entry-20261011/delivery-summary.json.
+The separate four-range MovingFiringArrival diagnostic reproduces with exact
+pre-change definitions and remains enabled/recorded. No whole-suite/FPS claim.
+
+[Latest report](reports/TASK_M14_ENTRY_20261011.md).
+[Input decision](adr/ADR-0053-keyboard-steering-response.md).
+[UI decision](adr/ADR-0054-m14-front-end-foundation.md).
+Next: WP-181 pre-race and career→race→result→next-event routing. M14 gate OPEN.
