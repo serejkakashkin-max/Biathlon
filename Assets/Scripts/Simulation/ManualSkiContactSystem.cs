@@ -179,6 +179,10 @@ namespace Biathlon.Simulation
                 return new SkiAngularContactPreview(contact,wa,wb,x,z);
             return AngularAt(a,b,wa,wb,contact,x,z);
         }
+        // The group owns unchanged poses during its velocity iterations. Only
+        // the normal and gap are reused; the impulse uses each current raw motion.
+        internal SkiAngularContactPreview PreviewSupportContact(ManualSkiContactBody a,double wa,ManualSkiContactBody b,double wb,
+            SkiContactPreview geometry,double x,double z)=>AngularAt(a,b,wa,wb,geometry,x,z);
         private SkiAngularContactPreview AngularAt(ManualSkiContactBody a,ManualSkiContactBody b,double wa,double wb,SkiContactPreview initial,double px,double pz)
         {
             double nx=initial.NormalX,nz=initial.NormalZ,tx=-nz,tz=nx;

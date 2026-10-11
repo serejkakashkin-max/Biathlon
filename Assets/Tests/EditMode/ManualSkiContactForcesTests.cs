@@ -48,13 +48,14 @@ namespace Biathlon.Tests
         }
         private sealed class Fixture
         {
-            internal readonly ManualRacePathCatalogTests.Fixture Source=new ManualRacePathCatalogTests.Fixture();
+            internal readonly ManualRacePathCatalogTests.Fixture Source;
             internal readonly ManualSkiHeadingState Origin;
             internal readonly double Fx,Fz,Rx,Rz;
             internal readonly SkiContactDefinition Contact;
             internal readonly ManualSkiContactForces System;
-            internal Fixture(int capacity=3,int passes=128,double restitution=0)
+            internal Fixture(int capacity=3,int passes=128,double restitution=0,bool capturedGeometry=false)
             {
+                Source=new ManualRacePathCatalogTests.Fixture(historicalCapturedGeometry:capturedGeometry);
                 Origin=Source.At(1,10*SkiState.NanometersPerMeter);Fx=Math.Sin(Origin.HeadingRadians);Fz=Math.Cos(Origin.HeadingRadians);Rx=Fz;Rz=-Fx;
                 Contact=SkiContactDefinition.FromJson("{\"schema_version\":1,\"id\":\"force_contacts\",\"restitution\":"+
                     restitution.ToString(global::System.Globalization.CultureInfo.InvariantCulture)+",\"sliding_friction\":0.2,\"contact_tolerance_m\":0.000001}");
@@ -111,7 +112,9 @@ namespace Biathlon.Tests
         }
         [Test] public void SlidingRotatingContactDoesNotSpendItsGapOnEveryFrozenForcePiece()
         {
-            var f=new Fixture();
+            // Keep the exact captured world contact at the venue revision where
+            // it happened. Today's separate start spur changes occurrence IDs.
+            var f=new Fixture(capturedGeometry:true);
             var bodies=new[]{
                 new ManualSkiContactBody(new AthleteId("a"),new ManualSkiHeadingState(138.792819999,-6.661073462,1.556764023,-.298906705),new SkiPlanarVelocity(1.8808856345668028,.1452044149532977),75),
                 new ManualSkiContactBody(new AthleteId("b"),new ManualSkiHeadingState(137.271529425,-7.151588799,1.645348047,-.839529258),new SkiPlanarVelocity(2.1889557426408057,-.938862874436923),75)};

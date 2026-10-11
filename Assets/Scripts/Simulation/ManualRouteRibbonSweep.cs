@@ -40,6 +40,17 @@ namespace Biathlon.Simulation
         internal void SetRangeApron(ManualRangeApronSnowRegion region)=>rangeApron=region;
         public int LastVertexCount=>vertices;
         private int clearanceSamples,diskQueries;
+        private readonly ClearanceCacheEntry[] clearanceCache=new ClearanceCacheEntry[16];
+        private int clearanceCacheCount,clearanceCacheNext;
+        private ManualConnectedTubeWindow clearanceCacheWindow;
+        private ManualRangeApronSnowRegion clearanceCacheApron;
+        private readonly struct ClearanceCacheEntry
+        {
+            internal readonly double X,Z,Heading,Value;internal readonly bool Cover;
+            internal ClearanceCacheEntry(ManualSkiHeadingState pose,bool cover,double value)
+            {X=pose.X;Z=pose.Z;Heading=pose.HeadingRadians;Cover=cover;Value=value;}
+            internal bool Matches(ManualSkiHeadingState pose,bool cover)=>Cover==cover&&X==pose.X&&Z==pose.Z&&Heading==pose.HeadingRadians;
+        }
         public double LastStartClearance {get;private set;}
         public double LastMinimumSampledClearance {get;private set;}
         internal ManualSkiHeadingState LastThreatenedPose {get;private set;}
@@ -123,8 +134,37 @@ namespace Biathlon.Simulation
         // A contact normal must compare the same full clearance field on both
         // sides of its probe. Certificate early-outs are valid for admission,
         // but switching certificates at zero introduces a false normal.
-        internal double CurrentRibbonClearance(ManualSkiHeadingState pose)=>Clearance(pose,certificateThreshold:double.PositiveInfinity);
-        internal double CurrentCoverClearance(ManualSkiHeadingState pose)=>Clearance(pose,true);
+        internal double CurrentRibbonClearance(ManualSkiHeadingState pose)=>CachedContactClearance(pose,false);
+        internal double CurrentCoverClearance(ManualSkiHeadingState pose)=>CachedContactClearance(pose,true);
+        // Directional contact query only. These freshly sampled support points
+        // NEVER certify a body/trajectory or grant route progress. Admission
+        // retains the complete rectangle and unchanged 512-cell fine cover.
+        internal double CurrentNormalSupportClearance(ManualSkiHeadingState pose,int columns,int rows)
+        {
+            double fx=Math.Sin(pose.HeadingRadians),fz=Math.Cos(pose.HeadingRadians),minimum=double.PositiveInfinity;
+            for(int k=0;k<columns;k++)for(int j=0;j<rows;j++)
+            {
+                int column=(int)Math.Round(k*(disks-1.0)/(columns-1)),row=(int)Math.Round(j*(refinedRows-1.0)/(rows-1));
+                double along=halfLength*(2.0*column+1-disks)/disks,side=halfWidth*(2.0*row+1-refinedRows)/refinedRows;
+                minimum=Math.Min(minimum,DiskClearance(pose.X+fx*along+fz*side,pose.Z+fz*along-fx*side,refinedRadius+edgeClearance));
+            }
+            return minimum;
+        }
+        private double CachedContactClearance(ManualSkiHeadingState pose,bool cover)
+        {
+            // A passive response changes velocity/spin, often retrying the
+            // identical threatened pose and six normal probes. Clearance is
+            // independent of velocity, but depends on the COMPLETE owned window.
+            if(clearanceCacheWindow.First!=tubeWindow.First||clearanceCacheWindow.Last!=tubeWindow.Last||
+                clearanceCacheWindow.IncomingFirst!=tubeWindow.IncomingFirst||clearanceCacheWindow.IncomingLast!=tubeWindow.IncomingLast||
+                !ReferenceEquals(clearanceCacheApron,rangeApron))
+            {clearanceCacheCount=clearanceCacheNext=0;clearanceCacheWindow=tubeWindow;clearanceCacheApron=rangeApron;}
+            for(int i=0;i<clearanceCacheCount;i++)if(clearanceCache[i].Matches(pose,cover))return clearanceCache[i].Value;
+            double value=cover?Clearance(pose,true):Clearance(pose,certificateThreshold:double.PositiveInfinity);
+            clearanceCache[clearanceCacheNext]=new ClearanceCacheEntry(pose,cover,value);
+            clearanceCacheNext=(clearanceCacheNext+1)%clearanceCache.Length;
+            clearanceCacheCount=Math.Min(clearanceCache.Length,clearanceCacheCount+1);return value;
+        }
         private double Clearance(ManualSkiHeadingState pose,bool coverOnly=false,double certificateThreshold=0)
         {
             clearanceSamples++;

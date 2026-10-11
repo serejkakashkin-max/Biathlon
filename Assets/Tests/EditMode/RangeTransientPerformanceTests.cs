@@ -9,6 +9,33 @@ namespace Biathlon.Tests
 {
     public sealed class RangeTransientPerformanceTests
     {
+        [Test, Explicit("Bounded two-bout CPU diagnostic, not a portable timing gate.")]
+        public void FirstTwoLapsCpuProfile()
+        {
+            var f=ManualProductionFieldTests.Initial("mass_start",30);
+            var timer=new Stopwatch();double window=0,worst=0,total=0;long bytes=0;int windowPieces=0;
+            for(int t=0;t<10000;t++)
+            {
+                long before=GC.GetAllocatedBytesForCurrentThread();timer.Restart();f.runner.Step();timer.Stop();
+                double ms=timer.Elapsed.TotalMilliseconds;total+=ms;window+=ms;windowPieces+=f.stepper.LastStep.Intervals;
+                bytes+=GC.GetAllocatedBytesForCurrentThread()-before;worst=Math.Max(worst,ms);
+                if(ms>30)TestContext.WriteLine(string.Format(CultureInfo.InvariantCulture,
+                    "slow tick={0} ms={1:F3} pieces={2}",t+1,ms,f.stepper.LastStep.Intervals));
+                if(ms>60)
+                for(int a=0;a<30;a++)
+                {
+                    var d=f.stepper.World.GetRibbonDiagnostics(a);
+                    if(d.LastDiskQueries<200&&f.stepper.World.GetCourseEdgeResponses(a)==0)continue;
+                    var b=f.stepper.World.GetActor(a);
+                    TestContext.WriteLine($"slow_actor={a} loop={b.Observation.LoopId} pose={b.Pose.X:R},{b.Pose.Z:R},{b.Pose.HeadingRadians:R} disk_queries={d.LastDiskQueries} edge_responses={f.stepper.World.GetCourseEdgeResponses(a)}");
+                }
+                if(t%200==199)
+                {TestContext.WriteLine(string.Format(CultureInfo.InvariantCulture,"window={0}-{1} mean_ms={2:F3} worst_ms={3:F3} pieces={4} bytes={5} player_lap={6} bouts={7}",t-198,t+1,window/200,worst,windowPieces,bytes,f.stepper.World.GetCatalog(0).Get(f.stepper.World.GetCursor(0).OccurrenceIndex).LapIndex,f.runner.Field.GetAthlete(0).Lifecycle.CompletedBouts));window=worst=0;windowPieces=0;}
+                if(f.runner.Field.GetAthlete(0).Lifecycle.CompletedBouts>=2)break;
+            }
+            TestContext.WriteLine(string.Format(CultureInfo.InvariantCulture,"ticks={0} mean_ms={1:F3} bytes={2}",f.runner.Field.Tick.Value,total/f.runner.Field.Tick.Value,bytes));
+            Assert.That(f.runner.Field.GetAthlete(0).Lifecycle.CompletedBouts,Is.GreaterThanOrEqualTo(2));
+        }
         [Test, Explicit("Bounded CPU diagnostic; timings are evidence, not portable pass/fail thresholds.")]
         public void FirstBoutAndThirtySecondsOfDepartureCpuProfile()
         {

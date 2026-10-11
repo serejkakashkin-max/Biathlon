@@ -62,7 +62,11 @@ namespace Biathlon.Simulation
             double grade=speed==0?0:actor.Observation.GeometricGrade*(velocity.X*actor.Observation.ForwardX+velocity.Z*actor.Observation.ForwardZ)/speed;
             workingMotion[index]=new SkiState(workingMotion[index].DistanceNanometers,speed*Math.Sqrt(1+grade*grade));
             ownedFreeValid[index]=false;courseImpactCounts[index]++;CourseEdgeResponses++;return true;
-            double At(double x,double z,double yaw)=>ribbon.CurrentRibbonClearance(new ManualSkiHeadingState(threatened.X+x,threatened.Z+z,threatened.HeadingRadians+yaw,threatened.YawRateRadiansPerSecond));
+            double At(double x,double z,double yaw)
+            {
+                var at=new ManualSkiHeadingState(threatened.X+x,threatened.Z+z,threatened.HeadingRadians+yaw,threatened.YawRateRadiansPerSecond);
+                return courseContact.NormalSampleColumns>0?ribbon.CurrentNormalSupportClearance(at,courseContact.NormalSampleColumns,courseContact.NormalSampleRows):ribbon.CurrentRibbonClearance(at);
+            }
             double CoverAt(double x,double z,double yaw)=>ribbon.CurrentCoverClearance(new ManualSkiHeadingState(threatened.X+x,threatened.Z+z,threatened.HeadingRadians+yaw,threatened.YawRateRadiansPerSecond));
         }
         private bool IsGroundedMat(int actor)

@@ -7,6 +7,26 @@ namespace Biathlon.Tests
 {
     public class ManualSkiContactGroupTests
     {
+        [Test] public void FrozenPoseGroupMatchesPreviousSolverWithThirtyActorsAndChangingVelocities()
+        {
+            var occupancy=Body();var contact=SkiContactDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ski_contact_gameplay_v1.json"));
+            var policy=SkiContactGroupDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ski_contact_group_gameplay_v1.json"));
+            var group=new ManualSkiContactGroup(occupancy,contact,policy);var reference=new ReferenceSkiContactGroup(occupancy,contact,policy);
+            var bodies=new ManualSkiContactBody[30];var actual=new SkiContactMotion[30];var expected=new SkiContactMotion[30];
+            var order=new int[30];var referenceOrder=new int[30];
+            for(int sample=0;sample<24;sample++)
+            {
+                for(int i=0;i<30;i++)
+                    bodies[i]=Actor("athlete_"+((i*17)%30),i%3*occupancy.LateralSeparation,i/3*occupancy.LongitudinalSeparation,
+                        sample%4==0?.1*(i%3):0,3+((i*7+sample*3)%11)*.2,yaw:sample%4==0?.01*(i%3-1):0,mass:60+i);
+                var wanted=reference.Preview(bodies,30,expected,referenceOrder);var result=group.Preview(bodies,30,actual,order);
+                Assert.That(result.Status,Is.EqualTo(wanted.Status));Assert.That(result.Passes,Is.EqualTo(wanted.Passes));Assert.That(result.Impulses,Is.EqualTo(wanted.Impulses));Assert.That(result.MaximumClosingSpeed,Is.EqualTo(wanted.MaximumClosingSpeed));
+                Assert.That(actual,Is.EqualTo(expected),"Every raw velocity and spin must remain bit-identical.");
+                Assert.That(group.LastGeometryEvaluations,Is.EqualTo(435));
+            }
+            long before=GC.GetAllocatedBytesForCurrentThread();group.Preview(bodies,30,actual,order);
+            Assert.That(GC.GetAllocatedBytesForCurrentThread()-before,Is.Zero);
+        }
         private const string Json="{\"schema_version\":1,\"id\":\"contact_group_test_v1\",\"maximum_passes\":128,\"closing_speed_tolerance_mps\":0.000001}";
         private static OccupancyDefinition Body()=>OccupancyDefinition.FromJson(PhysiologyContractTests.DefinitionJson("occupancy_provisional_v1.json"));
         private static ManualSkiContactGroup Group(string json=Json)=>new ManualSkiContactGroup(Body(),

@@ -7,6 +7,51 @@ namespace Biathlon.Tests
 {
     public sealed class ManualRouteRibbonSweepTests
     {
+        [Test] public void CapturedPenaltyEntryMatchesEveryFineGridLeafAcrossNormalProbes()
+        {
+            var f=new ManualRacePathCatalogTests.Fixture(lane:22);
+            var tolerance=ManualNumericalToleranceDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_gameplay_tolerance_v1.json"));
+            const System.Reflection.BindingFlags flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+            typeof(ManualRacePathCatalog).GetMethod("BindPortalTolerance",flags).Invoke(f.Catalog,new object[]{
+                tolerance.PortalPositionTolerance,tolerance.UseRoundSnowCorridor,tolerance.ConnectedSnowWindowMultiplier,tolerance.OrdinaryPortalRetreat,tolerance.OrdinaryHandoffWindow});
+            var anchor=new ManualSkiHeadingState(100.548426466,-6.926235674,1.803488287);
+            int occurrence=f.Catalog.GetPenaltyOccurrence(0,1);
+            Assert.That(f.Catalog.TryProject(anchor,occurrence,0,150,out var at),Is.True);
+            var sweep=new ManualRouteRibbonSweep(f.Catalog.ProjectionGeometry,f.Venue.Occupancy,ManualScopedFieldStepperTests.Work(),tolerance);
+            sweep.Preview(Travel(f.Venue.Occupancy,anchor),f.Catalog.GetGeometryObservation(at));
+            T Field<T>(string name)=>(T)typeof(ManualRouteRibbonSweep).GetField(name,flags).GetValue(sweep);
+            int columns=Field<int>("disks"),rows=Field<int>("refinedRows");
+            double length=Field<double>("halfLength"),width=Field<double>("halfWidth"),radius=Field<double>("refinedRadius")+Field<double>("edgeClearance");
+            var disk=typeof(ManualRouteRibbonSweep).GetMethod("DiskClearance",flags);
+            var grid=typeof(ManualRouteRibbonSweep).GetMethod("RefinedGridMinimum",flags);
+            var normal=typeof(ManualRouteRibbonSweep).GetMethod("CurrentNormalSupportClearance",flags);
+            for(int p=0;p<24;p++)
+            {
+                var pose=new ManualSkiHeadingState(anchor.X+(p%3-1)*.002,anchor.Z+(p/3-3)*.002,anchor.HeadingRadians+(p%5-2)*.002);
+                double fx=Math.Sin(pose.HeadingRadians),fz=Math.Cos(pose.HeadingRadians),expected=double.PositiveInfinity;
+                for(int k=0;k<columns;k++)for(int j=0;j<rows;j++)
+                {
+                    double along=length*(2.0*k+1-columns)/columns,side=width*(2.0*j+1-rows)/rows;
+                    expected=Math.Min(expected,(double)disk.Invoke(sweep,new object[]{pose.X+fx*along+fz*side,pose.Z+fz*along-fx*side,radius}));
+                }
+                double actual=(double)grid.Invoke(sweep,new object[]{pose,fx,fz,0,columns-1,0,rows-1,double.PositiveInfinity,double.NegativeInfinity});
+                Assert.That(actual,Is.EqualTo(expected).Within(1e-12),"The hot penalty-entry field must retain its exhaustive leaf minimum.");
+                var clear=typeof(ManualRouteRibbonSweep).GetMethod("CurrentRibbonClearance",flags);
+                double contact=(double)clear.Invoke(sweep,new object[]{pose});int queries=sweep.Diagnostics.LastDiskQueries;
+                double repeated=(double)clear.Invoke(sweep,new object[]{new ManualSkiHeadingState(pose.X,pose.Z,pose.HeadingRadians,.5)});
+                Assert.That(repeated,Is.EqualTo(contact));Assert.That(sweep.Diagnostics.LastDiskQueries,Is.EqualTo(queries),"The same pose after an impulse must not repeat its disk cover.");
+                double Probe(double dx,double dz,bool bounded)
+                {
+                    var probe=new ManualSkiHeadingState(pose.X+dx,pose.Z+dz,pose.HeadingRadians);
+                    return bounded?(double)normal.Invoke(sweep,new object[]{probe,5,3}):
+                        (double)grid.Invoke(sweep,new object[]{probe,fx,fz,0,columns-1,0,rows-1,double.PositiveInfinity,double.NegativeInfinity});
+                }
+                double gx=Probe(.001,0,false)-Probe(-.001,0,false),gz=Probe(0,.001,false)-Probe(0,-.001,false);
+                double nx=Probe(.001,0,true)-Probe(-.001,0,true),nz=Probe(0,.001,true)-Probe(0,-.001,true);
+                double cosine=(gx*nx+gz*nz)/Math.Sqrt((gx*gx+gz*gz)*(nx*nx+nz*nz));
+                Assert.That(cosine,Is.GreaterThan(.95),"Bounded directional probes must oppose the same captured penalty edge. Whole-body admission still uses the exhaustive cover.");
+            }
+        }
         [Test] public void CapturedPenaltyEdgeFindsTheExactFineGridMinimumWithBoundedQueries()
         {
             var f=new ManualRacePathCatalogTests.Fixture(lane:18);

@@ -7,10 +7,11 @@ namespace Biathlon.Tests
 {
     public class ManualRouteProjectionTests
     {
-        private static (RaceRoute route,TrackVisualDefinition geometry,ManualRouteProjectionMap map) Create(string format="mass_start")
+        private static (RaceRoute route,TrackVisualDefinition geometry,ManualRouteProjectionMap map) Create(string format="mass_start",bool capturedGeometry=false)
         {
             const string root="Biathlon/Venues/woodland_basin_v1/";
-            string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
+            string Read(string id)=>PhysiologyContractTests.ProjectFile(capturedGeometry&&id.StartsWith(root,StringComparison.Ordinal)?
+                "dotnet/Biathlon.Tests/Fixtures/woodland_d518195/"+id.Substring(root.Length)+".json":"Assets/Resources/"+id+".json");
             var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(root+"manifest")),Read);
             var profile=CompetitionProfile.FromJson(Read(root+format+"_profile"));
             var route=new RaceRoute(venue.Track,RaceRoutePlan.FromJson(Read(root+format+"_route")),profile.ToRouteRequirements(),venue.Junctions,venue.Connections);
@@ -125,7 +126,8 @@ namespace Biathlon.Tests
         }
         [Test] public void LocalCornerWedgeProjectsToKnotWithoutRemoteRouteSnap()
         {
-            var f=Create();
+            // Frozen world coordinates belong to the venue before shortening.
+            var f=Create(capturedGeometry:true);
             var pose=new ManualSkiHeadingState(225.348460838,-254.140580187,3.350784975);
             long previous=Nano(322.788637835);
             Assert.That(f.map.TryProject(pose,0,previous,2,false,out var observed),Is.True);
