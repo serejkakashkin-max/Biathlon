@@ -10,6 +10,9 @@ namespace Biathlon.Unity.Presentation
         public AthletePresentationState Athlete { get; }
         public double TimeSeconds { get; }
         public long Tick { get; }
+        public double Alpha { get; }
+        public float ShootingProgress => AthleteRiflePresentation.Progress(Athlete.ShootingPhase,
+            Athlete.ShootingPhaseElapsedTicks,Athlete.ShootingPhaseDurationTicks,Alpha);
         public double PresentationCurvature { get; }
         public double PresentationGrade { get; }
         public double LateralMetersPerSecond { get; }
@@ -17,7 +20,7 @@ namespace Biathlon.Unity.Presentation
         {
             if (tick < 0 || frequency <= 0 || double.IsNaN(alpha) || double.IsInfinity(alpha) || alpha < 0 || alpha > 1)
                 throw new ArgumentOutOfRangeException(nameof(alpha));
-            Athlete = athlete; Tick = tick;
+            Athlete = athlete; Tick = tick; Alpha = alpha;
             PresentationCurvature = presentationCurvature ?? athlete.CourseCurvaturePerMeter;
             PresentationGrade = presentationGrade ?? athlete.CourseGrade;
             if(!double.IsFinite(lateralMetersPerSecond))throw new ArgumentOutOfRangeException(nameof(lateralMetersPerSecond));

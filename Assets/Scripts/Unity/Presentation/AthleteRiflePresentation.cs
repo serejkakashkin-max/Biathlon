@@ -40,14 +40,18 @@ namespace Biathlon.Unity.Presentation
         public Vector3 TriggerGripWorld { get; private set; }
         public float ReadyAlignment { get; private set; }
 
-        public static float Progress(ShootingPhase phase, int elapsedTicks, int durationTicks)
+        public static float Progress(ShootingPhase phase, int elapsedTicks, int durationTicks, double alpha=1)
         {
             if (elapsedTicks < 0 || durationTicks < 0 || elapsedTicks > durationTicks) throw new ArgumentOutOfRangeException(nameof(elapsedTicks));
+            if(!double.IsFinite(alpha)||alpha<0||alpha>1)throw new ArgumentOutOfRangeException(nameof(alpha));
+            // Presentation runs one accepted tick behind, like the interpolated ski root.
+            // Keep exact completed-tick endpoints and never advance the shooting clock.
+            float elapsed=(float)Math.Max(0,elapsedTicks-1+alpha);
             switch (phase)
             {
-                case ShootingPhase.Setup: return durationTicks == 0 ? 1 : (float)elapsedTicks / durationTicks;
+                case ShootingPhase.Setup: return durationTicks == 0 ? 1 : elapsed / durationTicks;
                 case ShootingPhase.Aiming: case ShootingPhase.BoltCycle: return 1;
-                case ShootingPhase.Exiting: return durationTicks == 0 ? 0 : 1 - (float)elapsedTicks / durationTicks;
+                case ShootingPhase.Exiting: return durationTicks == 0 ? 0 : 1 - elapsed / durationTicks;
                 default: return 0;
             }
         }
@@ -55,7 +59,7 @@ namespace Biathlon.Unity.Presentation
         public void Render(AthleteRigBinding rig, AthleteAnimationFrame frame)
         {
             var a = frame.Athlete;
-            Sample(rig, Progress(a.ShootingPhase, a.ShootingPhaseElapsedTicks, a.ShootingPhaseDurationTicks),a.Sight,a.Stance);
+            Sample(rig, frame.ShootingProgress,a.Sight,a.Stance);
         }
 
         public void Sample(AthleteRigBinding rig, float progress, WeaponAimState sight = default, ShootingStance? stance = null)

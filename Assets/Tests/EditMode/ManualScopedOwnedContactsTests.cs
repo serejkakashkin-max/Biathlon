@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using Biathlon.Domain;
 using Biathlon.Simulation;
 using NUnit.Framework;
@@ -172,6 +173,69 @@ namespace Biathlon.Tests
             for(int i=0;i<1000;i++)all&=Cycle();long allocated=GC.GetAllocatedBytesForCurrentThread()-before;
             Assert.That(all,Is.True);Assert.That(allocated,Is.Zero);Assert.That(f.World.Tick.Value,Is.Zero);
             Assert.That(f.World.ContextJson,Does.Contain("owned_current_pose_proximity_pairs"));
+        }
+        private static Func<bool> ContactCollection(ManualScopedWorldRoster world)
+            =>(Func<bool>)Delegate.CreateDelegate(typeof(Func<bool>),world,
+                typeof(ManualScopedWorldRoster).GetMethod("CollectOwnedContacts",BindingFlags.Instance|BindingFlags.NonPublic));
+
+        [Test] public void OwnedCollectionMatchesFullSatForRotatedCornersToleranceAndDistantTranslations()
+        {
+            var f=AtContact();var world=f.World;var tick=world.BeginTick();var collect=ContactCollection(world);
+            // Exercise the actual collection kernel independently of course projection:
+            // accepted state/cursors stay untouched while synthetic scratch poses supply
+            // translated/rotated corner cases that an initial route cannot all represent.
+            var scratch=(ManualRacePathActorFrame[])typeof(ManualScopedWorldRoster)
+                .GetField("workingActors",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(world);
+            var first=scratch[0];var second=scratch[1];var body=f.Source.Venue.Occupancy;
+            var contact=SkiContactDefinition.FromJson("{\"schema_version\":1,\"id\":\"reference_owned_contact\",\"restitution\":0,\"sliding_friction\":0.2,\"contact_tolerance_m\":0.000001}");
+            var fullSat=new ManualSkiContactSystem(body,contact);var random=new SeededRandomSource(0x621FE08AUL);
+            int excluded=0,checkedPairs=0;
+            for(int i=0;i<20000;i++)
+            {
+                double x=i%3==0?500000:0,z=i%5==0?-500000:0;
+                Check(new ManualSkiHeadingState(x,z,Unit()*Math.PI*2,Unit()-.5),
+                    new ManualSkiHeadingState(x+(Unit()-.5)*10,z+(Unit()-.5)*10,Unit()*Math.PI*2,Unit()-.5));
+            }
+            foreach(double translation in new[]{0d,500000d})
+            for(int h=0;h<180;h++)
+            foreach(double gap in new[]{-2e-6,-.5e-6,0,.5e-6,1e-6,1.004e-6,1.005e-6,2e-6})
+            {
+                var a=new ManualSkiHeadingState(translation,-translation,h*Math.PI/90);
+                double s=Math.Sin(a.HeadingRadians),c=Math.Cos(a.HeadingRadians);
+                At(body.LateralSeparation+gap,0);At(0,body.LongitudinalSeparation+gap);
+                At(body.LateralSeparation+gap,body.LongitudinalSeparation+gap);
+                void At(double side,double along)=>Check(a,new ManualSkiHeadingState(a.X+c*side+s*along,a.Z-s*side+c*along,a.HeadingRadians));
+            }
+            Assert.That(excluded,Is.GreaterThan(15000),"Distant pairs must avoid full SAT, while all possible proximity remains checked.");
+            Assert.That(checkedPairs,Is.GreaterThan(1000));
+            Assert.That(world.GetActor(0),Is.EqualTo(first));Assert.That(world.GetActor(1),Is.EqualTo(second));
+            scratch[0]=first;scratch[1]=second;world.AbortTick(tick);
+            double Unit()=>(random.NextUInt64()>>11)*(1.0/9007199254740992.0);
+            void Check(ManualSkiHeadingState a,ManualSkiHeadingState b)
+            {
+                scratch[0]=new ManualRacePathActorFrame(first.Athlete,a,default,first.Observation);
+                scratch[1]=new ManualRacePathActorFrame(second.Athlete,b,default,second.Observation);
+                var reference=fullSat.Preview(new ManualSkiContactBody(first.Athlete,a,default,1),new ManualSkiContactBody(second.Athlete,b,default,1));
+                bool valid=reference.Status!=SkiContactPreviewStatus.Penetrating&&reference.GapMeters>=-contact.ContactTolerance;
+                Assert.That(collect(),Is.EqualTo(valid),"Reference SAT validity differs.");
+                Assert.That(world.LastOwnedContacts.Count,Is.EqualTo(valid&&reference.GapMeters<=contact.ContactTolerance+4*PhysiologyNumbers.MinimumPositive?1:0));
+                if(!valid)Assert.That(world.LastOwnedContacts.Geometry,Is.EqualTo(reference),"Preserve the exact failure witness and normal.");
+                excluded+=world.LastOwnedContactExcludedPairs;checkedPairs+=world.LastOwnedContactNarrowphasePairs;
+            }
+        }
+        [Test] public void SparseMassRosterSkipsMostPairGeometryWithoutAllocatingOrChangingTheClock()
+        {
+            var f=ManualProductionFieldTests.Initial("mass_start",30);var world=f.stepper.World;
+            var tick=world.BeginTick();var collect=ContactCollection(world);
+            for(int i=0;i<128;i++)Assert.That(collect(),Is.True);
+            long before=GC.GetAllocatedBytesForCurrentThread();bool valid=true;
+            for(int i=0;i<1000;i++)valid&=collect();
+            long bytes=GC.GetAllocatedBytesForCurrentThread()-before;
+            Assert.That(valid,Is.True);Assert.That(bytes,Is.Zero);
+            Assert.That(world.LastOwnedContactExcludedPairs,Is.GreaterThan(300));
+            Assert.That(world.LastOwnedContactNarrowphasePairs+world.LastOwnedContactExcludedPairs,Is.EqualTo(435));
+            Assert.That(world.LastOwnedContacts.Count,Is.Zero);Assert.That(world.Tick.Value,Is.Zero);
+            Assert.That(world.GetElapsedSeconds(tick),Is.Zero);world.AbortTick(tick);
         }
     }
 }

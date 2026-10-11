@@ -28,10 +28,13 @@ namespace Biathlon.Unity.Presentation
         public TargetBankArt Bank=>bank;
         private long observedTick=-1;
         private int observedBout=-1;
+        private int selectedIndex=-1;
+        private double publishedAt;
         public bool Visible { get; private set; }
         public int ClosedMask { get; private set; }
         public string Status { get; private set; }="";
         public Camera AimCamera=>aimCamera;
+        public WeaponAimState ObservedSight {get;private set;}
         public void Initialize(RacePresentationFeed source,string selectedAthleteId,TargetGeometryDefinition definition,Camera athleteCamera=null)
         {
             if(source==null||definition==null)throw new ArgumentNullException();
@@ -60,14 +63,18 @@ namespace Biathlon.Unity.Presentation
             rifleSight=aimCamera.gameObject.AddComponent<RifleSightPresentation>();rifleSight.Initialize(sightSettings);
             playerRenderers=playerRig.GetComponentsInChildren<Renderer>(true);playerWasEnabled=new bool[playerRenderers.Length];
         }
-        public void Refresh()
+        public void Refresh()=>Render(0);
+        public void Render(double alpha)
         {
+            if(!double.IsFinite(alpha)||alpha<0||alpha>1)throw new ArgumentOutOfRangeException(nameof(alpha));
             var snapshot=feed==null?null:feed.Current;
-            if(snapshot==null){SetVisible(false);observedTick=-1;observedBout=-1;Status="";return;}
-            if(snapshot.Tick==observedTick)return;observedTick=snapshot.Tick;
-            for(int i=0;i<snapshot.Count;i++)
+            if(snapshot==null){SetVisible(false);observedTick=-1;observedBout=-1;selectedIndex=-1;ObservedSight=default;Status="";return;}
+            if(snapshot.Tick!=observedTick)
             {
-                var a=snapshot.Get(i);if(a.AthleteId!=athleteId)continue;
+                observedTick=snapshot.Tick;publishedAt=Time.timeAsDouble;selectedIndex=-1;
+                for(int i=0;i<snapshot.Count;i++)if(snapshot.Get(i).AthleteId==athleteId){selectedIndex=i;break;}
+                if(selectedIndex<0){SetVisible(false);return;}
+                var a=snapshot.Get(selectedIndex);
                 // Keep the full athlete/equipment setup and recovery visible in the
                 // chase view. The dedicated sight camera owns only actual aim/cycling.
                 SetVisible(a.ShootingActive&&a.Phase==CompetitionPhase.Range&&
@@ -76,22 +83,26 @@ namespace Biathlon.Unity.Presentation
                 if(observedBout!=a.CompletedBouts){observedBout=a.CompletedBouts;Status="";}
                 ClosedMask=a.ClosedTargetsMask;
                 if(environment!=null){environment.RefreshBanks();bank=environment.Bank(a.RangeLane-1);}else bank.Apply(geometry,a.Stance,ClosedMask);
-                var ray=a.Sight.Ray;
-                if(venue!=null){aimCamera.fieldOfView=overview?sightSettings.overview_field_of_view_deg:a.FineAim?sightSettings.fine_field_of_view_deg:sightSettings.field_of_view_deg;
-                    rifleSight.SetVisible(!overview);
-                    RifleSightPresentation.Observe(aimCamera,venue,a.RangeLane,geometry,ray,a.Stance,sightSettings,targetHeight,overview);}
-                else aimCamera.transform.localRotation=Quaternion.LookRotation(new Vector3((float)ray.DirectionX,(float)ray.DirectionY,(float)ray.DirectionZ),Vector3.up);
                 if(a.ShotOutcome!=ShotOutcome.NoShot)Status=a.ShotOutcome.ToString();
                 boltText=a.NeedsBoltCycle?"ПКМ — зарядить патрон":a.ShootingPhase==ShootingPhase.BoltCycle?"Перезарядка…":"ЛКМ — выстрел";
                 breathText=a.BreathBlocked?"Выдохните: отпустите Space":a.BreathHolding?(a.BreathSwayMultiplier>1?"Долгая задержка — выдохните":"Дыхание задержано"):(a.BreathDebt>.25?"Восстановление дыхания":"Space — задержать дыхание");
                 breathDebt=(float)a.BreathDebt;hrLoad=Mathf.InverseLerp(90,180,(float)a.Physiology.HeartRateBpm);
                 laneText="РУБЕЖ "+a.RangeLane+"  |  "+(a.Stance==ShootingStance.Prone?"ЛЁЖА":"СТОЯ")+"  |  "+a.ShotsFired+" / 5  |  ПУЛЬС "+a.Physiology.HeartRateBpm.ToString("F0")+"  |  "+boltText;
-                rifleSight?.AnimateCycle(a.ShootingPhase==ShootingPhase.BoltCycle&&a.ShootingPhaseDurationTicks>0?(float)a.ShootingPhaseElapsedTicks/a.ShootingPhaseDurationTicks:0);
-                return;
+                shootingText=laneText+"\n"+breathText+"  |  F — точный прицел  |  Tab — обзор";
             }
-            SetVisible(false);
+            if(!Visible||selectedIndex<0)return;
+            var current=snapshot.Get(selectedIndex);ObservedSight=RifleSightPresentation.SampleSight(feed.Previous,snapshot,selectedIndex,alpha);var ray=ObservedSight.Ray;
+            if(venue!=null)
+            {
+                aimCamera.fieldOfView=overview?sightSettings.overview_field_of_view_deg:current.FineAim?sightSettings.fine_field_of_view_deg:sightSettings.field_of_view_deg;
+                rifleSight.SetVisible(!overview);
+                RifleSightPresentation.Observe(aimCamera,venue,current.RangeLane,geometry,ray,current.Stance,sightSettings,targetHeight,overview);
+            }
+            else aimCamera.transform.localRotation=Quaternion.LookRotation(new Vector3((float)ray.DirectionX,(float)ray.DirectionY,(float)ray.DirectionZ),Vector3.up);
+            rifleSight?.AnimateCycle(current.ShootingPhase==ShootingPhase.BoltCycle&&current.ShootingPhaseDurationTicks>0?
+                (float)Math.Min(1,(current.ShootingPhaseElapsedTicks+alpha)/current.ShootingPhaseDurationTicks):0);
         }
-        private string laneText="";
+        private string laneText="",shootingText="";
         private string breathText="",boltText="";private float hrLoad,breathDebt;
         private void SetVisible(bool value)
         {
@@ -109,7 +120,12 @@ namespace Biathlon.Unity.Presentation
             if(stage!=null&&stage.activeSelf!=value)stage.SetActive(value);
             if(chaseCamera!=null)chaseCamera.enabled=chaseWasEnabled&&!value;
         }
-        private void LateUpdate()=>Refresh();
+        private void LateUpdate()
+        {
+            double alpha=feed?.InterpolationAlpha??(feed?.Current!=null&&feed.Current.Tick==observedTick?
+                Math.Min(1,(Time.timeAsDouble-publishedAt)*feed.Current.TickFrequency):0);
+            Render(alpha);
+        }
         private void Update()
         {
             bool requested=OverviewRequested||(Keyboard.current!=null&&Keyboard.current.tabKey.isPressed);
@@ -118,7 +134,7 @@ namespace Biathlon.Unity.Presentation
         private void OnGUI()
         {
             if(!Visible)return;
-            GUI.Box(new Rect(Screen.width/2f-390,Screen.height-155,780,84),laneText+"\n"+breathText+"  |  F — точный прицел  |  Tab — обзор");
+            GUI.Box(new Rect(Screen.width/2f-390,Screen.height-155,780,84),shootingText);
             var saved=GUI.color;GUI.color=Color.Lerp(new Color(.2f,.85f,.4f),new Color(1,.3f,.15f),hrLoad);
             GUI.DrawTexture(new Rect(Screen.width/2f-350,Screen.height-93,280*hrLoad,5),Texture2D.whiteTexture);
             GUI.color=Color.Lerp(new Color(.2f,.8f,1),Color.red,breathDebt);GUI.DrawTexture(new Rect(Screen.width/2f+70,Screen.height-93,280*breathDebt,5),Texture2D.whiteTexture);GUI.color=saved;
@@ -127,7 +143,7 @@ namespace Biathlon.Unity.Presentation
                 GUI.DrawTexture(new Rect(Screen.width/2f-8,Screen.height/2f,16,1),Texture2D.whiteTexture);
                 GUI.DrawTexture(new Rect(Screen.width/2f,Screen.height/2f-8,1,16),Texture2D.whiteTexture);GUI.color=color;}
         }
-        private void Clear(){SetVisible(false);if(chaseCamera!=null)chaseCamera.enabled=chaseWasEnabled;chaseCamera=null;if(stage!=null)Destroy(stage);bank=null;venue=null;environment=null;playerRenderers=null;rifleSight=null;capturedPlayerVisibility=false;overview=false;OverviewRequested=false;observedTick=-1;observedBout=-1;Visible=false;}
+        private void Clear(){SetVisible(false);if(chaseCamera!=null)chaseCamera.enabled=chaseWasEnabled;chaseCamera=null;if(stage!=null)Destroy(stage);bank=null;venue=null;environment=null;playerRenderers=null;rifleSight=null;capturedPlayerVisibility=false;overview=false;OverviewRequested=false;observedTick=-1;observedBout=-1;selectedIndex=-1;publishedAt=0;ObservedSight=default;Visible=false;}
         private void OnDestroy()=>Clear();
     }
 }

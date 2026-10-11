@@ -37,8 +37,13 @@ namespace Biathlon.PlayModeTests
                 var forest=go.AddComponent<VegetationPresentation>();forest.Initialize(VegetationPreview.Route);
                 forest.Prepare(cam,"high",12);int high=forest.VisibleInstances;long triangles=forest.SubmittedTriangles;Assert.That(high,Is.GreaterThan(100));Assert.That(forest.NearCount,Is.GreaterThan(0));Assert.That(forest.FarCount,Is.GreaterThan(0));
                 forest.Prepare(cam,"low",20);Assert.That(forest.VisibleInstances,Is.LessThan(high));forest.Prepare(cam,"high",12);Assert.That(forest.VisibleInstances,Is.EqualTo(high));Assert.That(forest.SubmittedTriangles,Is.EqualTo(triangles));
+                Assert.That(forest.GeometryBuildCount,Is.EqualTo(1),"Camera/time/quality changes cannot rebuild static tree transforms.");
                 for(int i=0;i<20;i++)forest.Prepare(cam,"balanced",i);
                 long before=GC.GetAllocatedBytesForCurrentThread();for(int i=0;i<100;i++)forest.Prepare(cam,"balanced",i);long bytes=GC.GetAllocatedBytesForCurrentThread()-before;Assert.That(bytes,Is.Zero);
+                go.transform.position+=Vector3.up*.5f;forest.Prepare(cam,"balanced",100);
+                Assert.That(forest.GeometryBuildCount,Is.EqualTo(2),"Moving the grove must invalidate world geometry.");
+                go.transform.position-=Vector3.up*.5f;forest.Prepare(cam,"balanced",101);
+                Assert.That(forest.GeometryBuildCount,Is.EqualTo(3));
                 cam.transform.position=new Vector3(0,0,-1000);forest.Prepare(cam,"high",0);Assert.That(forest.VisibleInstances,Is.Zero);
                 go.transform.localScale=Vector3.one*2;Assert.Throws<ArgumentException>(()=>forest.Prepare(cam,"high",0));
                 var d=VegetationDefinition.Load();Assert.That(d.Lod(d.cull_m),Is.EqualTo(-1));Assert.That(d.Lod(d.near_lod_m),Is.EqualTo(1));Assert.That(d.Lod(d.far_lod_m),Is.EqualTo(2));

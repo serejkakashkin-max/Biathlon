@@ -41,6 +41,10 @@ namespace Biathlon.Simulation
         public int ClosedTargetsMask { get; }
         public int ShotsFired { get; }
         public WeaponAimState Sight { get; }
+        /// <summary>Latest accepted control aim, before procedural sway/handling.</summary>
+        public WeaponAimState ControlledAim {get;}
+        /// <summary>Exact pre-ballistic sight used for the latest accepted shot.</summary>
+        public WeaponAimState ShotSight {get;}
         public WindVector ShootingWind {get;}
         public bool FineAim {get;}
         public bool NeedsBoltCycle {get;} public bool BreathBlocked {get;} public double BreathDebt {get;} public double BreathSwayMultiplier {get;}
@@ -90,7 +94,8 @@ namespace Biathlon.Simulation
             BreathDebt=shooting?.LastFrame.BreathControl.Debt??0;BreathSwayMultiplier=shooting?.LastFrame.BreathControl.BreathingMultiplier??1;
             BreathingPhaseCycles=shooting?.LastFrame.Breathing.PhaseCycles??0;
             ClosedTargetsMask=shooting?.ClosedMask??0;ShotsFired=shooting?.ShotsFired??0;
-            Sight=shooting?.Sight??default;ShootingWind=shooting?.LastFrame.Input.Wind??default;FineAim=shooting?.LastFrame.Input.Aim.FineControl??false;Stance=field.Profile.GetBout(Math.Min(a.Lifecycle.CompletedBouts,field.Profile.BoutCount-1)).Stance;
+            Sight=shooting?.Sight??default;ControlledAim=shooting?.LastFrame.Aim??default;ShotSight=shooting?.LastFrame.ShotAim??default;
+            ShootingWind=shooting?.LastFrame.Input.Wind??default;FineAim=shooting?.LastFrame.Input.Aim.FineControl??false;Stance=field.Profile.GetBout(Math.Min(a.Lifecycle.CompletedBouts,field.Profile.BoutCount-1)).Stance;
             ShotOutcome=shooting?.LastFrame.Shot.Outcome??ShotOutcome.NoShot;ShotImpact=shooting?.LastFrame.Shot.Impact??default;
         }
     }

@@ -41,7 +41,7 @@ namespace Biathlon.Unity.Presentation
         public void Render(AthleteRigBinding rig,AthleteAnimationFrame frame)
         {
             var a=frame.Athlete;
-            Sample(rig,a.Stance,AthleteRiflePresentation.Progress(a.ShootingPhase,a.ShootingPhaseElapsedTicks,a.ShootingPhaseDurationTicks));
+            Sample(rig,a.Stance,frame.ShootingProgress);
         }
         // Called after locomotion/baseline animation, before rifle/hand alignment.
         public void Sample(AthleteRigBinding rig,ShootingStance stance,float progress)

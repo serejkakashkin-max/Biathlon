@@ -9,6 +9,27 @@ namespace Biathlon.PlayModeTests
 {
     public sealed class PlayerRangeOwnerFeedbackTests
     {
+        [Test] public void CatchUpFrameKeepsAdjacentSnapshotsForSmoothRendering()
+        {
+            const string prefix="Biathlon/Venues/woodland_basin_v1/";
+            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(ProductionVenueHost.ReadResource(prefix+"manifest")),ProductionVenueHost.ReadResource);
+            var go=new GameObject("Frame pacing regression");
+            try
+            {
+                var host=go.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;
+                host.Initialize(venue,CompetitionProfile.FromJson(ProductionVenueHost.ReadResource(prefix+"mass_start_profile")),
+                    RaceRoutePlan.FromJson(ProductionVenueHost.ReadResource(prefix+"mass_start_route")),
+                    RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1")),1);
+                for(int i=0;i<20;i++)host.AdvanceSimulationFrame(.05);
+                long before=host.Feed.Current.Tick;host.AdvanceSimulationFrame(.175);
+                Assert.That(host.Feed.Current.Tick-before,Is.GreaterThan(1),"Exercise a real multi-tick frame.");
+                Assert.That(host.Feed.Current.Tick-host.Feed.Previous.Tick,Is.EqualTo(1),"Skipped snapshots disable world-pose interpolation after a slow frame.");
+                Assert.That(host.Feed.InterpolationAlpha,Is.EqualTo(.5).Within(.00001));
+                host.AdvanceSimulationFrame(.01);
+                Assert.That(host.Feed.InterpolationAlpha,Is.EqualTo(.7).Within(.00001),"Keep the scheduler's fractional remainder.");
+            }
+            finally{Object.DestroyImmediate(go);}
+        }
         [UnityTest] public IEnumerator RejectedRaceTickReportsOnceAndDoesNotAdvanceDeviceOrEffortClocks()
         {
             const string root="Biathlon/Venues/woodland_basin_v1/";

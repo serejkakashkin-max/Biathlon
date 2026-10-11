@@ -10,6 +10,35 @@ namespace Biathlon.PlayModeTests
     public class AthleteRifleTests
     {
         [Test]
+        public void ProneSetupMovesBetweenSimulationTicksWithoutAdvancingTheRace()
+        {
+            string Read(string n)=>Resources.Load<TextAsset>("Biathlon/"+System.IO.Path.GetFileNameWithoutExtension(n)).text;
+            string Fixture(string n)=>System.IO.File.ReadAllText(System.IO.Path.Combine(Application.dataPath,"../tests/fixtures/tracks/"+n));
+            var runner=Biathlon.AI.ChampionshipRaceFactory.Create(Read,Fixture,Biathlon.Domain.CompetitionFormat.Sprint,
+                new Biathlon.AI.BalanceEventAudit(5),new Biathlon.AI.AiDecisionCounts(),count:1);
+            var root=new GameObject("sub-tick shooting regression");
+            try
+            {
+                var feed=root.AddComponent<RacePresentationFeed>();var proxies=root.AddComponent<AthleteProxyPresentation>();
+                proxies.Initialize(feed,Biathlon.Domain.TrackVisualDefinition.FromJson(Read("stadium_visual_v1.json"),runner.Field.Track));
+                bool sampled=false;
+                for(int t=0;t<10000;t++)
+                {
+                    runner.Step();var snapshot=RacePresentationSnapshot.Capture(runner.Field);feed.Publish(snapshot);var a=snapshot.Get(0);
+                    if(a.ShootingPhase!=ShootingPhase.Setup||a.ShootingPhaseElapsedTicks<a.ShootingPhaseDurationTicks*.75)continue;
+                    var clock=runner.Field.Tick;
+                    proxies.Render(.25);var rig=proxies.GetRig(a.AthleteId);var rifle=rig.GetComponent<AthleteRiflePresentation>();
+                    var first=rig.Bone(AthleteBone.Hips).position;float progress=rifle.TransferProgress;
+                    proxies.Render(.75);
+                    Assert.That(rifle.TransferProgress,Is.GreaterThan(progress),"Transfer currently freezes between 20 Hz ticks.");
+                    Assert.That(Vector3.Distance(first,rig.Bone(AthleteBone.Hips).position),Is.GreaterThan(.00001f),"Prone lowering must animate on render frames.");
+                    Assert.That(runner.Field.Tick,Is.EqualTo(clock));sampled=true;break;
+                }
+                Assert.That(sampled,Is.True,"Real prone setup must be reached.");
+            }
+            finally{Object.DestroyImmediate(root);}
+        }
+        [Test]
         public void RealBoutObservationsDriveTransferWithoutChangingTheShootingClock()
         {
             string Read(string n) => Resources.Load<TextAsset>("Biathlon/" + System.IO.Path.GetFileNameWithoutExtension(n)).text;

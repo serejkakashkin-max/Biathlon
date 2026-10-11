@@ -32,6 +32,9 @@ namespace Biathlon.Simulation
         private readonly double[] edgeX,edgeZ,edgeSquared,minX,maxX,minZ,maxZ;
         private int vertices;
         private bool simpleRibbon;
+        private bool ribbonCached;
+        private int cachedFirst,cachedLast;
+        public int GeometryBuildCount {get;private set;}
         private ManualConnectedTubeWindow tubeWindow;
         private ManualRangeApronSnowRegion rangeApron;
         internal void SetRangeApron(ManualRangeApronSnowRegion region)=>rangeApron=region;
@@ -77,15 +80,24 @@ namespace Biathlon.Simulation
                 .5*trajectory.PlanarAccelerationBound*seconds*seconds;
             reach*=map.SnowWindowMultiplier;
             LastStartClearance=LastMinimumSampledClearance=double.NaN;
-            vertices=map.BuildLocalRibbon(source,reach,x,z);
-            for(int i=0;i<vertices;i++)
-            {
-                int j=(i+1)%vertices;edgeX[i]=x[j]-x[i];edgeZ[i]=z[j]-z[i];edgeSquared[i]=edgeX[i]*edgeX[i]+edgeZ[i]*edgeZ[i];
-                minX[i]=Math.Min(x[i],x[j]);maxX[i]=Math.Max(x[i],x[j]);minZ[i]=Math.Min(z[i],z[j]);maxZ[i]=Math.Max(z[i],z[j]);
-            }
-            simpleRibbon=Simple();
             if(!map.TryBuildConnectedWindow(source,reach,out tubeWindow))
+            {
+                vertices=0;ribbonCached=false;
                 return new ManualRouteTubePreview(ManualRouteTubeStatus.UnresolvedStart,0,0,0,null);
+            }
+            // Authored knots, normals and widths are immutable. The polygon
+            // depends only on these edge indices; pose, reach and incoming
+            // phase edges still select the complete tube window every preview.
+            if(!ribbonCached||cachedFirst!=tubeWindow.First||cachedLast!=tubeWindow.Last)
+            {
+                vertices=map.BuildLocalRibbon(tubeWindow,x,z);
+                for(int i=0;i<vertices;i++)
+                {
+                    int j=(i+1)%vertices;edgeX[i]=x[j]-x[i];edgeZ[i]=z[j]-z[i];edgeSquared[i]=edgeX[i]*edgeX[i]+edgeZ[i]*edgeZ[i];
+                    minX[i]=Math.Min(x[i],x[j]);maxX[i]=Math.Max(x[i],x[j]);minZ[i]=Math.Min(z[i],z[j]);maxZ[i]=Math.Max(z[i],z[j]);
+                }
+                simpleRibbon=Simple();cachedFirst=tubeWindow.First;cachedLast=tubeWindow.Last;ribbonCached=true;GeometryBuildCount++;
+            }
             double reserve=2*trajectory.PositionErrorBoundMeters+bodyRadius*trajectory.HeadingErrorBoundRadians+
                 128*2.2204460492503131e-16*(1+Math.Abs(trajectory.Sample(0).X)+Math.Abs(trajectory.Sample(0).Z))-sweepTolerance;
             LastThreatenedPose=trajectory.Sample(0);
@@ -160,6 +172,20 @@ namespace Biathlon.Simulation
         private double RefinedGridMinimum(ManualSkiHeadingState pose,double fx,double fz,int k0,int k1,int j0,int j1,double minimum,double floor)
         {
             if(minimum<=floor)return minimum;
+            if(double.IsPositiveInfinity(minimum)&&k0==0&&k1==disks-1&&j0==0&&j1==refinedRows-1)
+            {
+                // Edge contacts usually limit an outer body cell. Seed the SAME
+                // exact grid with its four corner leaves before visiting interior
+                // groups, so their existing lower bounds can reject needless work.
+                // No cell, radius, clearance or admission threshold is changed.
+                for(int k=0;k<2;k++)for(int j=0;j<2;j++)
+                {
+                    double along=halfLength*(2.0*(k==0?k0:k1)+1-disks)/disks;
+                    double side=halfWidth*(2.0*(j==0?j0:j1)+1-refinedRows)/refinedRows;
+                    minimum=Math.Min(minimum,DiskClearance(pose.X+fx*along+fz*side,pose.Z+fz*along-fx*side,refinedRadius+edgeClearance));
+                }
+                if(minimum<=floor)return minimum;
+            }
             if(k0==k1&&j0==j1)
             {
                 double along=halfLength*(2.0*k0+1-disks)/disks,side=halfWidth*(2.0*j0+1-refinedRows)/refinedRows;

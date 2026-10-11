@@ -187,6 +187,8 @@ namespace Biathlon.Unity.Presentation
                     if(ManualStepper!=null){Step(ski.PeekManual(tick),shot.Build(tick));ski.AcceptManual(tick);}
                     else Step(ski.BuildDirectional(tick,Runner.Field.GetLateral(PlayerIndex),CurrentLateralExtent),shot.Build(tick));
                     frameClock.ConsumeTick();completed++;
+                    // Preserve adjacent accepted states even on catch-up frames.
+                    Feed.Publish(RacePresentationSnapshot.Capture(Runner.Field));
                     if(frameWork.Elapsed.TotalMilliseconds>=frameBudget.WorkBudgetMilliseconds)break;
                 }
             }
@@ -197,7 +199,8 @@ namespace Biathlon.Unity.Presentation
                 HasSimulationFault=true;Debug.LogException(failure,this);
             }
             finally{batchFrame=false;LastSimulationFrameMilliseconds=frameWork.Elapsed.TotalMilliseconds;}
-            if(completed>0)PublishPresentation();
+            Feed.SetInterpolationAlpha(Math.Min(1,frameClock.BacklogSeconds*Runner.Field.TickFrequency));
+            if(completed>0)PublishPresentation(false);
         }
         public void Step(PlayerCommand command,ShootingDeviceCommand shooting)
         {
@@ -247,8 +250,8 @@ namespace Biathlon.Unity.Presentation
             effort.Step(command.ToEffortCommand(),true);
             if(!batchFrame)PublishPresentation();
         }
-        private void PublishPresentation()
-        {Feed.Publish(RacePresentationSnapshot.Capture(Runner.Field));range.Refresh();hud.Refresh();debugHud.Refresh();penalty.Refresh();}
+        private void PublishPresentation(bool capture=true)
+        {if(capture)Feed.Publish(RacePresentationSnapshot.Capture(Runner.Field));range.Refresh();hud.Refresh();debugHud.Refresh();penalty.Refresh();}
         private void OnApplicationFocus(bool value){if(ski!=null)ski.SetInputFocus(value);if(shot!=null)shot.SetInputFocus(value);}
         private void OnGUI()
         {

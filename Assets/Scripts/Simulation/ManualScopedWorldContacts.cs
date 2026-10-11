@@ -17,6 +17,8 @@ namespace Biathlon.Simulation
     public sealed partial class ManualScopedWorldRoster
     {
         public ManualScopedContactSetPreview LastOwnedContacts {get;private set;}
+        public int LastOwnedContactNarrowphasePairs {get;private set;}
+        public int LastOwnedContactExcludedPairs {get;private set;}
         public SkiContactForcePreview LastContactForces {get;private set;}
         public SkiContactForceReaction GetLastContactForceReaction(int index)
         {
@@ -138,10 +140,23 @@ namespace Biathlon.Simulation
         private bool CollectOwnedContacts()
         {
             LastOwnedContacts=default;int count=0;Array.Clear(ownedContactParticipants,0,Count);
+            LastOwnedContactNarrowphasePairs=LastOwnedContactExcludedPairs=0;
+            // The accepted proximity band is measured on separating axes. Inflate
+            // BOTH rectangle half axes by half the band before using a containing
+            // circle, so diagonal corner proximity remains a narrow-phase query.
+            double band=ownedContactTolerance+4*PhysiologyNumbers.MinimumPositive;
+            double length=occupiedBody.LongitudinalSeparation*.5+band*.5;
+            double width=occupiedBody.LateralSeparation*.5+band*.5;
+            double reach=2*Math.Sqrt(length*length+width*width);
             for(int i=0;i<Count;i++)for(int j=i+1;j<Count;j++)
             {
                 int ai=ownedContactOrder[i],bi=ownedContactOrder[j];var a=workingActors[ai];var b=workingActors[bi];
                 if(!contactParticipants[ai]||!contactParticipants[bi])continue;
+                double dx=a.Pose.X-b.Pose.X,dz=a.Pose.Z-b.Pose.Z;
+                double reserve=128*2.2204460492503131e-16*(1+reach+Math.Abs(a.Pose.X)+Math.Abs(a.Pose.Z)+Math.Abs(b.Pose.X)+Math.Abs(b.Pose.Z));
+                double bound=reach+reserve;
+                if(dx*dx+dz*dz>bound*bound){LastOwnedContactExcludedPairs++;continue;}
+                LastOwnedContactNarrowphasePairs++;
                 var gap=ownedContactGeometry.Preview(new ManualSkiContactBody(a.Athlete,a.Pose,default,1),
                     new ManualSkiContactBody(b.Athlete,b.Pose,default,1));
                 if(gap.Status==SkiContactPreviewStatus.Penetrating||gap.GapMeters< -ownedContactTolerance)

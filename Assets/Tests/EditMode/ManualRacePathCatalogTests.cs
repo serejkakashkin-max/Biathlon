@@ -19,18 +19,23 @@ namespace Biathlon.Tests
             internal readonly PhysicalRangePathMap Path;
             internal readonly StartApproachMap Start;
             internal readonly ManualRacePathCatalog Catalog;
-            internal Fixture(string format="mass_start",int lane=0,bool historicalCommonWidth=false)
+            internal Fixture(string format="mass_start",int lane=0,bool historicalCommonWidth=false,bool historicalCapturedGeometry=false)
             {
                 // Captured pre-width-change edge regressions retain their exact
                 // historical geometry instead of disappearing after content edits.
                 string ReadFixture(string id)
                 {
+                    // These captures predate both the 20% course shortening and
+                    // the separate start spur. Freeze their authored source, not
+                    // just its width, so later content edits do not erase a bug.
+                    if(historicalCapturedGeometry&&id.StartsWith(Root,StringComparison.Ordinal))
+                        return PhysiologyContractTests.ProjectFile("dotnet/Biathlon.Tests/Fixtures/woodland_d518195/"+id.Substring(Root.Length)+".json");
                     string json=Read(id);
                     return historicalCommonWidth&&id==Root+"track"?json.Replace("\"width_m\": 8","\"width_m\": 6"):json;
                 }
-                Venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(Root+"manifest")),ReadFixture);
-                Profile=CompetitionProfile.FromJson(Read(Root+format+"_profile"));
-                Route=new RaceRoute(Venue.Track,RaceRoutePlan.FromJson(Read(Root+format+"_route")),
+                Venue=new VenueAuthoringPlan(VenueManifest.FromJson(ReadFixture(Root+"manifest")),ReadFixture);
+                Profile=CompetitionProfile.FromJson(ReadFixture(Root+format+"_profile"));
+                Route=new RaceRoute(Venue.Track,RaceRoutePlan.FromJson(ReadFixture(Root+format+"_route")),
                     Profile.ToRouteRequirements(),Venue.Junctions,Venue.Connections);
                 Path=new PhysicalRangePathMap(new PhysicalTrackMap(Venue.Track,Route),Venue.Track,Route,Venue.Paths,lane);
                 Start=format=="mass_start"?new StartApproachMap(Venue.Track,Route,Venue.StartApproach):null;

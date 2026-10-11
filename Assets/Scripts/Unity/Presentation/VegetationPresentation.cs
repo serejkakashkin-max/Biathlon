@@ -10,6 +10,12 @@ namespace Biathlon.Unity.Presentation
         private VegetationDefinition definition;
         private float? productionHighFogEndMeters;
         private VegetationInstance[] instances;
+        private Vector3[] worldPositions;
+        private Bounds[] worldCanopies;
+        private Matrix4x4[] worldMatrices;
+        private Matrix4x4 cachedWorld;
+        private bool geometryCached;
+        public int GeometryBuildCount {get;private set;}
         private readonly Matrix4x4[][] matrices=new Matrix4x4[6][];
         private readonly Mesh[] meshes=new Mesh[6];
         private readonly int[] counts=new int[6];
@@ -99,6 +105,21 @@ namespace Biathlon.Unity.Presentation
                     new Bounds(tree.Position+Vector3.up*4*tree.Scale,new Vector3(6,9,6)*tree.Scale));
             }
             properties=new MaterialPropertyBlock();
+            worldPositions=new Vector3[instances.Length];worldCanopies=new Bounds[instances.Length];worldMatrices=new Matrix4x4[instances.Length];
+        }
+        private void PrepareWorldGeometry(Matrix4x4 world)
+        {
+            if(geometryCached&&cachedWorld.Equals(world))return;
+            for(int index=0;index<instances.Length;index++)
+            {
+                var tree=instances[index];var position=world.MultiplyPoint3x4(tree.Position);int type=species[index];
+                float radius=canopyRadius[type]*tree.Scale+definition.wind_amplitude_m;
+                worldPositions[index]=position;worldMatrices[index]=world*tree.Matrix;
+                worldCanopies[index]=UsesExplicitSpecies?new Bounds(position+Vector3.up*((canopyMinY[type]+canopyMaxY[type])*.5f*tree.Scale),
+                    new Vector3(radius*2,(canopyMaxY[type]-canopyMinY[type])*tree.Scale,radius*2)):
+                    new Bounds(position+Vector3.up*4*tree.Scale,new Vector3(6,9,6)*tree.Scale);
+            }
+            cachedWorld=world;geometryCached=true;GeometryBuildCount++;
         }
         public void Prepare(Camera camera,string tier,float presentationTime,Vector2? observedWind=null)
         {
@@ -115,6 +136,7 @@ namespace Biathlon.Unity.Presentation
             Vector3 forestCentre=world.MultiplyPoint3x4(localForestBounds.center);
             float forestRadius=localForestBounds.extents.magnitude;
             for(int p=0;p<planes.Length;p++)if(planes[p].GetDistanceToPoint(forestCentre)<-forestRadius)return;
+            PrepareWorldGeometry(world);
             bool fogBoundedHigh=productionHighFogEndMeters.HasValue&&tier=="high";
             // The shader's clip-Z fog remap is certified for the standard perspective
             // matrix. Unsupported orthographic/physical/oblique projections retain
@@ -128,21 +150,19 @@ namespace Biathlon.Unity.Presentation
             {
                 var tree=instances[index];
                 if(tree.DensityRank>=density)continue;
-                var position=world.MultiplyPoint3x4(tree.Position);float distance=Vector3.Distance(position,eye);
+                var position=worldPositions[index];float distance=Vector3.Distance(position,eye);
                 if(!fogBoundedHigh&&definition.Lod(distance)<0)continue;
                 float lodDistance=distance*lodScale;
                 int lod=fogBoundedHigh?(lodDistance>=definition.far_lod_m?2:lodDistance>=definition.near_lod_m?1:0):definition.Lod(lodDistance);
                 // Includes canopy, height and maximum wind excursion. Intended sector root is unit scale.
-                int type=species[index];float radius=canopyRadius[type]*tree.Scale+definition.wind_amplitude_m;
-                var bounds=UsesExplicitSpecies?new Bounds(position+Vector3.up*((canopyMinY[type]+canopyMaxY[type])*.5f*tree.Scale),
-                    new Vector3(radius*2,(canopyMaxY[type]-canopyMinY[type])*tree.Scale,radius*2)):new Bounds(position+Vector3.up*4*tree.Scale,new Vector3(6,9,6)*tree.Scale);
+                var bounds=worldCanopies[index];
                 // URP linear fog uses camera depth. Keep any canopy/wind portion in front
                 // of the bound fog plane, including the conservative near-clip margin.
                 if(fogDepthSupported&&Vector3.Dot(bounds.center-eye,forward)-Vector3.Dot(bounds.extents,absoluteForward)>=fogDepth)continue;
                 if(!GeometryUtility.TestPlanesAABB(planes,bounds))continue;
                 if(firstBounds){preparedWorldBounds=bounds;firstBounds=false;}else preparedWorldBounds.Encapsulate(bounds);
                 int group=species[index]*3+lod;
-                matrices[group][counts[group]++]=world*tree.Matrix;SubmittedTriangles+=triangles[group];
+                matrices[group][counts[group]++]=worldMatrices[index];SubmittedTriangles+=triangles[group];
                 if(lod<2)ShadowSourceTriangles+=triangles[SimplifyingCurrentShadows?group+1:group];
             }
             var direction=observedWind.HasValue?observedWind.Value.normalized:new Vector2(1,.35f);

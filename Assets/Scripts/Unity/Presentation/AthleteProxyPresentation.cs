@@ -91,7 +91,7 @@ namespace Biathlon.Unity.Presentation
                 float setupWeight=0;
                 if(state.ShootingActive)
                 {
-                    float setup=AthleteRiflePresentation.Progress(state.ShootingPhase,state.ShootingPhaseElapsedTicks,state.ShootingPhaseDurationTicks);
+                    float setup=AthleteRiflePresentation.Progress(state.ShootingPhase,state.ShootingPhaseElapsedTicks,state.ShootingPhaseDurationTicks,alpha);
                     setupWeight=Mathf.SmoothStep(0,1,setup);if(!preserveAcceptedShootingLine)lateral*=1-setupWeight;
                 }
                 if(finished&&!state.WorldPose.IsValid){var offset=finishStaging.Offset(i);sampleDistance=Math.Min(route.Get(route.Count-1).Distance,sampleDistance+offset.z);lateral+=offset.x;}
@@ -152,7 +152,7 @@ namespace Biathlon.Unity.Presentation
             if(feed==null)return;if(feed.Current==null){Clear();return;}
             if(observedTick!=feed.Current.Tick){observedTick=feed.Current.Tick;publishedAt=Time.timeAsDouble;}
             double elapsed=Time.timeAsDouble-publishedAt;
-            Render(Math.Min(1,elapsed*feed.Current.TickFrequency),feed.Current.Complete?Math.Min(86400,elapsed):0);
+            Render(feed.Current.Complete?1:feed.InterpolationAlpha??Math.Min(1,elapsed*feed.Current.TickFrequency),feed.Current.Complete?Math.Min(86400,elapsed):0);
         }
         private void Clear(){if(equipmentBatches!=null)equipmentBatches.Clear();foreach(var go in proxies.Values)if(go!=null)Destroy(go);proxies.Clear();transitOffsets.Clear();animation.Clear();keep.Clear();removed.Clear();observedTick=-1;if(snowTracks!=null)snowTracks.Clear();if(snowSpray!=null)snowSpray.Clear();if(breathVapor!=null)breathVapor.Clear();}
         private void OnDestroy()=>Clear();

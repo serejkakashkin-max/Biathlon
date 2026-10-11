@@ -7,6 +7,36 @@ namespace Biathlon.Tests
 {
     public sealed class ManualRouteRibbonSweepTests
     {
+        [Test] public void CapturedPenaltyEdgeFindsTheExactFineGridMinimumWithBoundedQueries()
+        {
+            var f=new ManualRacePathCatalogTests.Fixture(lane:18);
+            var tolerance=ManualNumericalToleranceDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_gameplay_tolerance_v1.json"));
+            const System.Reflection.BindingFlags flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+            typeof(ManualRacePathCatalog).GetMethod("BindPortalTolerance",flags).Invoke(f.Catalog,new object[]{
+                tolerance.PortalPositionTolerance,tolerance.UseRoundSnowCorridor,tolerance.ConnectedSnowWindowMultiplier,tolerance.OrdinaryPortalRetreat,tolerance.OrdinaryHandoffWindow});
+            // Actual actor18 at the first penalty exit window in the Mass30 CPU capture.
+            var pose=new ManualSkiHeadingState(116.209611717,-37.739676728,2.803353678);
+            int occurrence=f.Catalog.GetPenaltyOccurrence(0,1);
+            Assert.That(f.Catalog.TryProject(pose,occurrence,0,150,out var observation),Is.True);
+            var sweep=new ManualRouteRibbonSweep(f.Catalog.ProjectionGeometry,f.Venue.Occupancy,ManualScopedFieldStepperTests.Work(),tolerance);
+            sweep.Preview(Travel(f.Venue.Occupancy,pose),f.Catalog.GetGeometryObservation(observation));
+            T Field<T>(string name)=>(T)typeof(ManualRouteRibbonSweep).GetField(name,flags).GetValue(sweep);
+            int columns=Field<int>("disks"),rows=Field<int>("refinedRows");
+            double length=Field<double>("halfLength"),width=Field<double>("halfWidth"),radius=Field<double>("refinedRadius")+Field<double>("edgeClearance");
+            var disk=typeof(ManualRouteRibbonSweep).GetMethod("DiskClearance",flags);
+            double fx=Math.Sin(pose.HeadingRadians),fz=Math.Cos(pose.HeadingRadians),expected=double.PositiveInfinity;
+            for(int k=0;k<columns;k++)for(int j=0;j<rows;j++)
+            {
+                double along=length*(2.0*k+1-columns)/columns,side=width*(2.0*j+1-rows)/rows;
+                expected=Math.Min(expected,(double)disk.Invoke(sweep,new object[]{pose.X+fx*along+fz*side,pose.Z+fz*along-fx*side,radius}));
+            }
+            typeof(ManualRouteRibbonSweep).GetField("diskQueries",flags).SetValue(sweep,0);
+            var grid=typeof(ManualRouteRibbonSweep).GetMethod("RefinedGridMinimum",flags);
+            double actual=(double)grid.Invoke(sweep,new object[]{pose,fx,fz,0,columns-1,0,rows-1,double.PositiveInfinity,double.NegativeInfinity});
+            TestContext.WriteLine($"penalty_grid_queries={sweep.Diagnostics.LastDiskQueries} exact_minimum={actual:R}");
+            Assert.That(actual,Is.EqualTo(expected).Within(1e-12));
+            Assert.That(sweep.Diagnostics.LastDiskQueries,Is.LessThanOrEqualTo(12),"A boundary witness should seed the existing exact search before scanning interior cells.");
+        }
         [Test] public void HierarchicalCoverMatchesExhaustiveDiskGridAtFoldedAndOutsidePoses()
         {
             var f=new ManualRacePathCatalogTests.Fixture(lane:2,historicalCommonWidth:true);
@@ -156,7 +186,7 @@ namespace Biathlon.Tests
         [Test]
         public void ShortStartSeamWindowIncludesTheWholeDiskCover()
         {
-            var f = new ManualRacePathCatalogTests.Fixture(historicalCommonWidth:true);
+            var f = new ManualRacePathCatalogTests.Fixture(historicalCapturedGeometry:true);
             // Actual accepted Mass30 pose before tick47. The old local polygon
             // ended at x=138.5: a sampling cap, not the end of skiable snow.
             var pose = new ManualSkiHeadingState(137.405557435, -10.740960171, 1.636739122);
@@ -186,7 +216,7 @@ namespace Biathlon.Tests
 
         [Test] public void AuthoredEndpointSurvivesCancellationWhenTheCurveCrossesZeroX()
         {
-            var f=new ManualRacePathCatalogTests.Fixture(historicalCommonWidth:true);
+            var f=new ManualRacePathCatalogTests.Fixture(historicalCapturedGeometry:true);
             int index=f.Catalog.GetBaseFlowSuccessor(f.Catalog.StartApproachIndex);
             // Actual accepted first-lap witness before tick1778. Rebuilding
             // b.X as a.X+(b.X-a.X) severed an exactly connected visual edge.

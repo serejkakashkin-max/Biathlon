@@ -9,13 +9,16 @@ namespace Biathlon.Unity.Presentation
     {
         public RacePresentationSnapshot Previous { get; private set; }
         public RacePresentationSnapshot Current { get; private set; }
+        public double? InterpolationAlpha {get;private set;}
+        public void SetInterpolationAlpha(double alpha)
+        {if(!double.IsFinite(alpha)||alpha<0||alpha>1)throw new ArgumentOutOfRangeException(nameof(alpha));InterpolationAlpha=alpha;}
         public void Publish(RacePresentationSnapshot snapshot)
         {
             if(snapshot==null)throw new ArgumentNullException(nameof(snapshot));
             if(Current!=null&&(snapshot.Tick<=Current.Tick||snapshot.TrackId!=Current.TrackId||snapshot.ProfileId!=Current.ProfileId||snapshot.TickFrequency!=Current.TickFrequency))throw new ArgumentException("Reset before publishing another race or a nonincreasing tick.");
             Previous=Current;Current=snapshot;
         }
-        public void ResetRace(){Previous=null;Current=null;}
+        public void ResetRace(){Previous=null;Current=null;InterpolationAlpha=null;}
         public PresentationPosition Position(int index,double alpha)=>RacePresentationSampling.Position(Previous,Current,index,alpha);
     }
 }

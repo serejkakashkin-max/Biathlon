@@ -25,20 +25,44 @@ namespace Biathlon.Unity.Presentation
             return d;
         }
     }
-    /// <summary>Original camera-local rifle and open diopter. The camera observes the authoritative sight ray in the venue.</summary>
+    /// <summary>Original camera-local rifle and open diopter. The camera observes
+    /// detached sight rays with bounded visual prediction between ticks.</summary>
     public sealed class RifleSightPresentation : MonoBehaviour
     {
         public Transform Weapon {get;private set;}
         private RifleSightSettings settings;
         private Mesh ownedMesh;
+        /// <summary>Predict at most one tick of procedural motion after the latest
+        /// observation. Current control aim is never delayed or extrapolated. Phase
+        /// seams and accepted shots use their exact observed ray. This is visual
+        /// prediction only; simulation never reads it when resolving a shot.</summary>
+        public static WeaponAimState SampleSight(RacePresentationSnapshot previous,RacePresentationSnapshot current,int index,double alpha)
+        {
+            if(current==null)throw new ArgumentNullException(nameof(current));
+            if(!double.IsFinite(alpha)||alpha<0||alpha>1)throw new ArgumentOutOfRangeException(nameof(alpha));
+            var b=current.Get(index);
+            if(b.ShotOutcome!=ShotOutcome.NoShot)return b.ShotSight;
+            if(alpha==0||!b.ShootingActive||previous==null||previous.Tick+1!=current.Tick||
+                previous.TickFrequency!=current.TickFrequency||previous.TrackId!=current.TrackId||previous.ProfileId!=current.ProfileId||index>=previous.Count)return b.Sight;
+            var a=previous.Get(index);
+            if(!a.ShootingActive||a.AthleteId!=b.AthleteId||a.CompletedBouts!=b.CompletedBouts||a.RangeLane!=b.RangeLane||
+                a.Stance!=b.Stance||a.ShootingPhase!=b.ShootingPhase||
+                b.ShootingPhase!=ShootingPhase.Aiming&&b.ShootingPhase!=ShootingPhase.BoltCycle)return b.Sight;
+            double yaw=(b.Sight.YawRadians-b.ControlledAim.YawRadians)-(a.Sight.YawRadians-a.ControlledAim.YawRadians);
+            double pitch=(b.Sight.PitchRadians-b.ControlledAim.PitchRadians)-(a.Sight.PitchRadians-a.ControlledAim.PitchRadians);
+            // WeaponAimState's public angle domain bounds visual prediction too.
+            return new WeaponAimState(Math.Max(-.5,Math.Min(.5,b.Sight.YawRadians+yaw*alpha)),
+                Math.Max(-.5,Math.Min(.5,b.Sight.PitchRadians+pitch*alpha)));
+        }
         public static void Observe(Camera camera,VenueAuthoringPlan venue,int lane,TargetGeometryDefinition geometry,ShotRay ray,ShootingStance stance,RifleSightSettings settings,float targetHeight,bool overview=false)
         {
             if(camera==null||venue==null||!ray.IsValid||ray.DirectionZ<=0||lane<1||lane>venue.LaneCount)throw new ArgumentException("Bound venue lane and forward sight ray required.");
             var p=venue.MatPoint(lane-1);var forward=new Vector3((float)venue.Manifest.Range.Forward.X,0,(float)venue.Manifest.Range.Forward.Z);
             var right=new Vector3(forward.z,0,-forward.x);
             var datum=new Vector3((float)p.X,(float)p.Y,(float)p.Z)+forward*(float)venue.FiringDatumDepth+Vector3.up*targetHeight;
-            // The eye may move for stance; its optical axis still intersects the exact
-            // pre-ballistic simulation ray on the target plane. No shot is altered.
+            // The eye may move for stance; its optical axis intersects the supplied
+            // lane-local ray on the target plane. Accepted shots supply their exact
+            // pre-ballistic ray; render prediction never alters a resolved shot.
             double t=(geometry.DistanceMeters-ray.OriginZ)/ray.DirectionZ;
             var target=datum+right*(float)(ray.OriginX+t*ray.DirectionX)+Vector3.up*(float)(ray.OriginY+t*ray.DirectionY)+forward*(float)geometry.DistanceMeters;
             var eye=new Vector3((float)p.X,(float)p.Y,(float)p.Z)+forward*(float)venue.FiringDatumDepth+

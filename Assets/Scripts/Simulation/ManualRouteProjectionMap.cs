@@ -572,6 +572,10 @@ namespace Biathlon.Simulation
         internal int BuildLocalRibbon(ManualRouteProjection source,double reach,double[] x,double[] z)
         {
             if(!TryBuildConnectedWindow(source,reach,out var window))return 0;
+            return BuildLocalRibbon(window,x,z);
+        }
+        internal int BuildLocalRibbon(ManualConnectedTubeWindow window,double[] x,double[] z)
+        {
             int first=window.First,last=window.Last;
             int nodes=last-first+2,n=checked(nodes*2);if(x.Length<n||z.Length<n)throw new ArgumentException("Cold ribbon buffers required.");
             for(int k=0;k<nodes;k++)
