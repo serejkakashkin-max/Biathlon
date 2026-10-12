@@ -14,6 +14,7 @@ namespace Biathlon.Domain
         public AthleteId AthleteId => effort.AthleteId;
         public int AnalogEffort => effort.AnalogEffort;
         public int SteeringInput { get; }
+        public double BrakeFraction { get; }
         public EffortPreset Preset => effort.Preset;
         public bool TuckHeld => effort.TuckHeld;
         public bool OvertakeRequested => effort.OvertakeRequested;
@@ -23,7 +24,7 @@ namespace Biathlon.Domain
 
         public ManualSkiCommand(SimulationTick tick, AthleteId athleteId, int analogEffort, int steeringInput,
             EffortPreset preset = EffortPreset.Analog, bool tuckHeld = false, bool overtakeRequested = false,
-            bool cancelOvertake = false, string techniqueId = null)
+            bool cancelOvertake = false, string techniqueId = null, double brakeFraction = 0)
         {
             if (steeringInput < -SteeringUnits || steeringInput > SteeringUnits)
                 throw new ArgumentOutOfRangeException(nameof(steeringInput));
@@ -31,6 +32,7 @@ namespace Biathlon.Domain
             effort = new PlayerCommand(tick, athleteId, analogEffort, 0, preset, tuckHeld,
                 overtakeRequested, cancelOvertake, techniqueId);
             SteeringInput = steeringInput;
+            BrakeFraction = PhysiologyNumbers.RequireRange(brakeFraction,0,1,nameof(brakeFraction));
         }
 
         /// <summary>For the existing effort evaluator only; its zero line is not a steering command.</summary>
@@ -47,7 +49,7 @@ namespace Biathlon.Domain
                 SchemaVersion = CurrentSchemaVersion, Id = SchemaId, TargetTick = Tick.Value,
                 AthleteId = AthleteId.Value, AnalogEffort = AnalogEffort, SteeringInput = SteeringInput,
                 Preset = (int)Preset, TuckHeld = TuckHeld, OvertakeRequested = OvertakeRequested,
-                CancelOvertake = CancelOvertake, TechniqueId = TechniqueId
+                CancelOvertake = CancelOvertake, TechniqueId = TechniqueId, BrakeFraction=BrakeFraction
             });
         }
 
@@ -58,7 +60,7 @@ namespace Biathlon.Domain
                 throw new SerializationException("Unsupported manual player command schema identity/version.");
             return new ManualSkiCommand(new SimulationTick(value.TargetTick), new AthleteId(value.AthleteId),
                 value.AnalogEffort, value.SteeringInput, (EffortPreset)value.Preset, value.TuckHeld,
-                value.OvertakeRequested, value.CancelOvertake, value.TechniqueId);
+                value.OvertakeRequested, value.CancelOvertake, value.TechniqueId,value.BrakeFraction);
         }
 
         [DataContract]
@@ -75,6 +77,7 @@ namespace Biathlon.Domain
             [DataMember(Name = "overtake_requested", IsRequired = true)] public bool OvertakeRequested;
             [DataMember(Name = "cancel_overtake", IsRequired = true)] public bool CancelOvertake;
             [DataMember(Name = "technique_id", IsRequired = true)] public string TechniqueId;
+            [DataMember(Name = "brake_fraction", EmitDefaultValue=false)] public double BrakeFraction;
         }
     }
 }

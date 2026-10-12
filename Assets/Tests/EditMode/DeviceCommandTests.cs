@@ -47,7 +47,7 @@ namespace Biathlon.Tests
             for(int t=1;t<=5;t++)command=builder.BuildManual(new SimulationTick(t));
             Assert.That(command.SteeringInput,Is.EqualTo(1000),"A held finish correction must reach full input within 250ms.");
             builder.Sample(new DeviceControlSample(false,0,-1));
-            Assert.That(builder.BuildManual(new SimulationTick(6)).SteeringInput,Is.InRange(-250,-150));
+            Assert.That(builder.BuildManual(new SimulationTick(6)).SteeringInput,Is.EqualTo(-500));
             builder.Sample(new DeviceControlSample(false,0,0));
             Assert.That(builder.BuildManual(new SimulationTick(7)).SteeringInput,Is.Zero);
         }

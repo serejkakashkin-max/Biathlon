@@ -16,6 +16,7 @@ namespace Biathlon.Domain
         [DataMember(Name = "high_speed_response_multiplier", IsRequired = true)] public double HighSpeedResponseMultiplier { get; private set; }
         [DataMember(Name = "minimum_speed_for_grip_limit_mps", IsRequired = true)] public double MinimumSpeedForGripLimit { get; private set; }
         [DataMember(Name = "path_integration_substeps", IsRequired = true)] public int PathIntegrationSubsteps { get; private set; }
+        [DataMember(Name="active_pivot_below_mps",EmitDefaultValue=false)] public double ActivePivotBelowSpeed {get;private set;}
 
         public static ManualSkiSteeringDefinition FromJson(string json)
         {
@@ -28,6 +29,7 @@ namespace Biathlon.Domain
             TrackValidation.Finite(value.HighSpeedReference, PhysiologyNumbers.MinimumPositive, PhysiologyNumbers.MaximumMagnitude, nameof(HighSpeedReference));
             TrackValidation.Finite(value.HighSpeedResponseMultiplier, PhysiologyNumbers.MinimumPositive, 1, nameof(HighSpeedResponseMultiplier));
             TrackValidation.Finite(value.MinimumSpeedForGripLimit, PhysiologyNumbers.MinimumPositive, PhysiologyNumbers.MaximumMagnitude, nameof(MinimumSpeedForGripLimit));
+            TrackValidation.Finite(value.ActivePivotBelowSpeed,0,5,nameof(ActivePivotBelowSpeed));
             if (value.PathIntegrationSubsteps < 1 || value.PathIntegrationSubsteps > 1024)
                 throw new ArgumentException("Invalid manual trajectory integration capacity.");
             return value;

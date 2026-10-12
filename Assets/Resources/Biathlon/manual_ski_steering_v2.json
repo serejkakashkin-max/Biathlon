@@ -1,11 +1,12 @@
 {
   "schema_version": 1,
   "id": "manual_ski_steering_v2",
-  "maximum_yaw_rate_radps": 1.2,
-  "yaw_acceleration_radps2": 2.4,
-  "neutral_yaw_deceleration_radps2": 3,
+  "maximum_yaw_rate_radps": 2,
+  "yaw_acceleration_radps2": 6,
+  "neutral_yaw_deceleration_radps2": 10,
   "high_speed_reference_mps": 12,
   "high_speed_response_multiplier": 0.55,
   "minimum_speed_for_grip_limit_mps": 0.5,
-  "path_integration_substeps": 8
+  "path_integration_substeps": 8,
+  "active_pivot_below_mps": 1.5
 }

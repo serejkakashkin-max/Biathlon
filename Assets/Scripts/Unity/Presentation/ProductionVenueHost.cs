@@ -10,7 +10,7 @@ namespace Biathlon.Unity.Presentation
 {
     /// <summary>Fixed-tick input/snapshot adapter for explicitly authored production courses.
     /// Environment dressing is a separate component. No Inspector setup enters simulation.</summary>
-    public sealed class ProductionVenueHost : MonoBehaviour
+    public sealed partial class ProductionVenueHost : MonoBehaviour
     {
         public string VenueResource="Biathlon/Venues/woodland_basin_v1/manifest";
         public string ProfileResource="Biathlon/Venues/woodland_basin_v1/mass_start_profile";
@@ -171,6 +171,7 @@ namespace Biathlon.Unity.Presentation
             gameObject.AddComponent<FinishCorridorPresentation>().Initialize(venue,field.Route);
             gameObject.AddComponent<StadiumPortalPresentation>().Initialize(venue);
             gameObject.AddComponent<PenaltyFencePresentation>().Initialize(venue.Track,venue.Visual);
+            gameObject.AddComponent<CourseTimingPresentation>().Initialize(venue);
             Proxies=gameObject.AddComponent<AthleteProxyPresentation>();Proxies.Initialize(Feed,venue);Proxies.Render(1);
             var cameraObject=new GameObject("Production chase camera");cameraObject.transform.SetParent(transform,false);
             ChaseCamera=cameraObject.AddComponent<Camera>();ChaseCamera.depth=100;
@@ -202,6 +203,7 @@ namespace Biathlon.Unity.Presentation
         private void Update()
         {
             if(Runner==null||Runner.Field.IsComplete)return;
+            if(FastFinish){AdvanceFinishedFieldFrame();return;}
             bool shooting=Runner.Field.GetAthlete(PlayerIndex).ActiveShooting!=null;
             if(shooting!=shootingContext){ski.ReleaseHeldInput();shot.ReleaseHeldInput();shootingContext=shooting;}
             if(shooting){bool reviewMouse=Review!=null&&Mouse.current!=null&&Review.ContainsScreenPointer(Mouse.current.position.ReadValue());shot.Capture(UseGamepad||reviewMouse?null:Mouse.current,UseGamepad?null:Keyboard.current,UseGamepad?Gamepad.current:null);ski.ReleaseHeldInput();}
@@ -217,7 +219,8 @@ namespace Biathlon.Unity.Presentation
                 for(int i=0;i<steps&&!Runner.Field.IsComplete;i++)
                 {
                     var tick=Runner.Field.Tick.Next();
-                    if(ManualStepper!=null){Step(ski.PeekManual(tick),shot.Build(tick));ski.AcceptManual(tick);}
+                    if(Runner.Field.GetAthlete(PlayerIndex).HasFinished)StepFinishedPlayerTick();
+                    else if(ManualStepper!=null){Step(ski.PeekManual(tick),shot.Build(tick));ski.AcceptManual(tick);}
                     else Step(ski.BuildDirectional(tick,Runner.Field.GetLateral(PlayerIndex),CurrentLateralExtent),shot.Build(tick));
                     frameClock.ConsumeTick();completed++;
                     // Preserve adjacent accepted states even on catch-up frames.
@@ -279,16 +282,18 @@ namespace Biathlon.Unity.Presentation
                 applied.AppliedControl,Runner.Field.GetLateral(PlayerIndex),actor.Motion.SpeedMetersPerSecond);
             var input=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(command.Tick,command.AthleteId,assist.RequestedEffort),1,1,0,
                 !assist.Active&&command.TuckHeld,!assist.Active&&applied.FinalSprintRequested),shooting.Aim,shooting.Trigger,shooting.HoldBreath,cycleBolt:shooting.CycleBolt,manualBoltCycle:true);
-            Runner.StepWithManualPlayer(PlayerIndex,input,command.SteeringInput,assist.Active);LastRangeAssistance=assist;
+            if(!assist.Active&&command.BrakeFraction>0)
+                input=input.WithSki(new TimeTrialInput(new SimulationInput(command.Tick,command.AthleteId,0),1,1,0));
+            Runner.StepWithManualPlayer(PlayerIndex,input,command.SteeringInput,assist.Active,assist.Active?0:command.BrakeFraction);LastRangeAssistance=assist;
             effort.Step(command.ToEffortCommand(),true);
             if(!batchFrame)PublishPresentation();
         }
         private void PublishPresentation(bool capture=true)
-        {if(capture)Feed.Publish(RacePresentationSnapshot.Capture(Runner.Field));range.Refresh();if(hud.enabled)hud.Refresh();if(debugHud.enabled)debugHud.Refresh();if(penalty.enabled)penalty.Refresh();}
+        {if(capture)Feed.Publish(RacePresentationSnapshot.Capture(Runner.Field));if(range.enabled)range.Refresh();if(hud.enabled)hud.Refresh();if(debugHud.enabled)debugHud.Refresh();if(penalty.enabled)penalty.Refresh();}
         private void OnApplicationFocus(bool value){if(ski!=null)ski.SetInputFocus(value);if(shot!=null)shot.SetInputFocus(value);}
         private void OnGUI()
         {
-            if(Runner==null||GameplayHud!=null&&GameplayHud.enabled)return;
+              if(Runner==null||Runner.Field.GetAthlete(PlayerIndex).HasFinished||GameplayHud!=null&&GameplayHud.enabled)return;
             GUI.Box(new Rect(12,Screen.height-48,Mathf.Min(1220,Screen.width-24),42),"ЛЫЖИ: W/S темп · Shift атака · Ctrl восстановление · A/D руление · Space низкая стойка\nСТРЕЛЬБА: ПКМ затвор · ЛКМ выстрел · Space дыхание · F точный прицел · Tab обзор");
             if(LastRangeAssistance.Active)GUI.Box(new Rect(Screen.width/2f-170,Screen.height-90,340,28),LastRangeAssistance.Mode==PlayerRangeAssistMode.FinalApproach?"Подготовка к стрельбе":"Управление возвращается");
         }

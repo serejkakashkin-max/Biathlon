@@ -26,6 +26,8 @@ namespace Biathlon.PlayModeTests
             {
                 feed.Publish(RacePresentationSnapshot.Capture(runner.Field));hud.Refresh();
                 yield return Capture(hud,1600,900,"ru",0,"skiing-ru");
+                hud.SetCheckpointTableVisible(true);
+                Assert.That(hud.CheckpointTableVisible,Is.True);
                 for(int i=0;i<20000;i++)
                 {
                     runner.Step();var snapshot=RacePresentationSnapshot.Capture(runner.Field);feed.Publish(snapshot);hud.Refresh();
@@ -35,6 +37,7 @@ namespace Biathlon.PlayModeTests
                     Assert.That(runner.Field.Tick,Is.EqualTo(tick));
                     if(!aiming&&state.ShootingPhase==ShootingPhase.Aiming)
                     {
+                        Assert.That(hud.CheckpointTableVisible,Is.False,"Range overview must replace the split table at shooting.");
                         aiming=true;yield return Capture(hud,1600,900,"ru",0,"shooting-ru");
                         yield return Capture(hud,1024,768,"en",2,"shooting-en-large-4x3");
                     }

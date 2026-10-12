@@ -11,13 +11,15 @@ namespace Biathlon.Simulation
         public double Line { get; }
         public EffortPreset Preset { get; }
         public bool Tuck { get; }
+        public bool Brake { get; }
         public DeviceControlSample(bool gamepad, double effort, double line,
-            EffortPreset preset = EffortPreset.Analog, bool tuck = false)
+            EffortPreset preset = EffortPreset.Analog, bool tuck = false,bool brake=false)
         {
             if (double.IsNaN(effort) || effort < (gamepad ? 0 : -1) || effort > 1 ||
                 double.IsNaN(line) || line < -1 || line > 1) throw new ArgumentOutOfRangeException(nameof(effort));
             if (preset < EffortPreset.Analog || preset > EffortPreset.FinalSprint) throw new ArgumentOutOfRangeException(nameof(preset));
             Gamepad = gamepad; Effort = effort; Line = line; Preset = preset; Tuck = tuck;
+            Brake=brake;
         }
     }
     public sealed class DeviceCommandBuilder
@@ -62,7 +64,7 @@ namespace Biathlon.Simulation
             keyboardSteering=sample.Gamepad?0:steering;
             return new ManualSkiCommand(target,athlete,legacy.AnalogEffort,
                 (int)Math.Round(steering,MidpointRounding.ToEven),legacy.Preset,legacy.TuckHeld,
-                legacy.OvertakeRequested,legacy.CancelOvertake,legacy.TechniqueId);
+                legacy.OvertakeRequested,legacy.CancelOvertake,legacy.TechniqueId,sample.Brake?definition.ManualBrakeFraction:0);
         }
         /// <summary>Live steering is directional; recorded commands remain absolute line targets.
         /// Neutral input holds the achieved line, including after a blocked manoeuvre.</summary>

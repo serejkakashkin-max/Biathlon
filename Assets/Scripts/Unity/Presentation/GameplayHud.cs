@@ -128,6 +128,7 @@ namespace Biathlon.Unity.Presentation
             help=Text(helpPanel,"controls","",settings.caption_size);
             helpPanel.style.display=helpVisible?DisplayStyle.Flex:DisplayStyle.None;
             BuildBroadcast();
+            BuildReviewPanels();
             Root.Query<VisualElement>().ForEach(v=>{v.pickingMode=PickingMode.Ignore;v.focusable=false;});Root.pickingMode=PickingMode.Ignore;
         }
         public void SetAccessibility(bool contrast)
@@ -176,6 +177,7 @@ namespace Biathlon.Unity.Presentation
             if(selectedIndex<0){Root.style.display=DisplayStyle.None;return;}
             Root.style.display=DisplayStyle.Flex;var a=snapshot.Get(selectedIndex);Model=new GameplayHudModel(a,text,Locale);RefreshCount++;
             RefreshBroadcast(snapshot);
+            RefreshReviewPanels(a);
             clock.text=Model.Clock;lap.text=Model.Lap;timing.text=Model.Timing;phase.text=Model.Phase;history.text=Model.ShootingHistory;
             phase.style.display=a.PendingPenaltyLoops>0||a.Phase==CompetitionPhase.Prestart||a.Phase>=CompetitionPhase.Finished||host?.LastRangeAssistance.Active==true?DisplayStyle.Flex:DisplayStyle.None;
             if(host?.LastRangeAssistance.Active==true)phase.text=T(host.LastRangeAssistance.Mode==PlayerRangeAssistMode.FinalApproach?"assist_in":"assist_out");
@@ -196,6 +198,7 @@ namespace Biathlon.Unity.Presentation
         private void LateUpdate()
         {
             if(feed==null)return;
+            if(Keyboard.current?.tabKey.wasPressedThisFrame==true&&!Model.Shooting)SetCheckpointTableVisible(!CheckpointTableVisible);
             if(Keyboard.current?.f2Key.wasPressedThisFrame==true)SetBroadcastVisible(!BroadcastVisible);
             if(Keyboard.current?.f1Key.wasPressedThisFrame==true)SetHelpVisible(!helpVisible);
             if(debug!=null&&Keyboard.current?.f3Key.wasPressedThisFrame==true)

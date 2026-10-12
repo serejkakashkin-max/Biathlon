@@ -2,7 +2,6 @@ using Biathlon.Domain;
 using Biathlon.Presentation;
 using UnityEngine;
 using UnityEngine.UIElements;
-
 namespace Biathlon.Unity.Presentation
 {
     public sealed partial class FrontEndMenu
@@ -10,13 +9,10 @@ namespace Biathlon.Unity.Presentation
         private void RenderCareerDashboard(VisualElement actions,VisualElement card)
         {
             var summary=new CareerDashboardSummary(Session.Career,Session.Definitions);var player=summary.Player;
-            var scroll=card as ScrollView;
-            if(scroll!=null){scroll.horizontalScrollerVisibility=ScrollerVisibility.Hidden;scroll.contentContainer.style.width=new Length(100,LengthUnit.Percent);}
-            card.style.minWidth=0;
-            AddLabel(actions,T("career"),theme.caption_size);AddLabel(actions,player.Name,theme.section_size,true);
-            AddLabel(actions,T("nation."+player.Nation),theme.caption_size);AddLabel(actions,F("season_week",summary.Season,summary.Week),theme.caption_size);
-            AddLabel(actions,F("dashboard.standing",summary.Standing?.ToString()??"—",summary.Points),theme.body_size,true).name="career_standing";
-            AddLabel(actions,F("athlete_state",player.Form/100,player.Fatigue/100),theme.caption_size).name="career_readiness";
+            AddLabel(actions,player.Name,theme.section_size,true);
+            AddLabel(actions,L("Неделя ","Week ")+summary.Week+" · "+T("nation."+player.Nation),theme.caption_size);
+            AddLabel(actions,"#"+(summary.Standing?.ToString()??"—")+" · "+summary.Points+L(" очков"," pts"),theme.body_size,true).name="career_standing";
+            AddLabel(actions,F("athlete_state",player.Form/100,player.Fatigue/100),theme.caption_size).name="career_readiness";actions.Q<Label>("career_readiness").style.display=DisplayStyle.None;
             var current=Session.Definitions.Calendar.AtWeek(summary.Week);
             if(current==null)AddButton(actions,"rest_week",T(Session.TrainingCount==0?"rest_week":"training.advance"),()=>CareerAction(Session.CompleteTrainingWeek),true);
             else
@@ -29,30 +25,31 @@ namespace Biathlon.Unity.Presentation
             {var chosen=page;AddButton(actions,"career_"+page.ToString().ToLowerInvariant(),T("page."+(int)page),()=>{Session.OpenCareerPage(chosen);Render();});}
             AddButton(actions,"settings",T("settings"),()=>{Session.OpenSettings();Render();});AddButton(actions,"back",T("back"),Back);
 
-            AddLabel(card,T("next_event"),theme.caption_size);
-            if(summary.Next==null)AddLabel(card,T("no_event"),theme.section_size,true);
+            var hero=Tile(card,"next_event_hero",true);
+            AddLabel(hero,T("next_event").ToUpperInvariant(),theme.caption_size).style.color=focus;
+            if(summary.Next==null)AddLabel(hero,T("no_event"),theme.section_size,true).style.color=Color.white;
             else
             {
                 var next=summary.Next.Event;
-                AddLabel(card,T("format."+(int)next.Format)+" · "+T(next.VenueId=="woodland_basin_v1"?"woodland":"legacy_venue"),theme.section_size,true).name="career_next_event";
-                AddLabel(card,next.Week==summary.Week?T("dashboard.race_week"):F("dashboard.weeks_until",next.Week-summary.Week),theme.body_size);
+                AddLabel(hero,T("format."+(int)next.Format)+"  /  "+T(next.VenueId=="woodland_basin_v1"?"woodland":"legacy_venue"),theme.section_size,true).name="career_next_event";
+                AddLabel(hero,next.Week==summary.Week?T("dashboard.race_week"):F("dashboard.weeks_until",next.Week-summary.Week),theme.body_size);
             }
-            AddLabel(card,F("dashboard.season_totals",summary.RaceCount,summary.Wins,summary.Podiums),theme.caption_size).name="career_season_totals";
-            var heading=AddLabel(card,T("dashboard.calendar"),theme.body_size,true);heading.style.marginTop=theme.spacing;
-            var calendar=new VisualElement{name="career_calendar"};card.Add(calendar);
+            hero.Query<Label>().ForEach(label=>label.style.color=Color.white);
+            MetricStrip(card,summary.RaceCount.ToString(),L("Гонки","Races"),summary.Wins.ToString(),L("Победы","Wins"),summary.Podiums.ToString(),L("Подиумы","Podiums"));
+            AddLabel(card,F("dashboard.season_totals",summary.RaceCount,summary.Wins,summary.Podiums),theme.caption_size).name="career_season_totals";card.Q<Label>("career_season_totals").style.display=DisplayStyle.None;
+            AddLabel(card,T("dashboard.calendar"),theme.body_size,true);
+            int pageSize=compactLayout?2:4;var calendar=TileGrid(card,"career_calendar");
+            if(calendarPage<0){calendarPage=0;for(int i=0;i<summary.CalendarCount;i++)if(summary.Calendar(i).Current){calendarPage=i/pageSize;break;}}
             for(int i=0;i<summary.CalendarCount;i++)
             {
-                var entry=summary.Calendar(i);var row=new VisualElement{name="career_event_"+entry.Event.Id};
-                row.style.paddingTop=theme.spacing;row.style.paddingBottom=theme.spacing;row.style.paddingLeft=theme.spacing;
-                row.style.borderBottomWidth=1;row.style.borderBottomColor=FrontEndTheme.Color(theme.focus);
-                if(entry.Current){row.style.backgroundColor=FrontEndTheme.Color(theme.focus);row.style.borderLeftWidth=4;row.style.borderLeftColor=accent;}
-                calendar.Add(row);
-                var label=AddLabel(row,F("event_week",entry.Event.Week,T("format."+(int)entry.Event.Format)),theme.body_size,entry.Current);label.style.marginBottom=theme.spacing/2;
+                var entry=summary.Calendar(i);var row=Tile(calendar,"career_event_"+entry.Event.Id);row.style.width=Length.Percent(48.5f);row.style.paddingTop=row.style.paddingBottom=12;
+                if(entry.Current){row.style.borderLeftWidth=4;row.style.borderLeftColor=accent;}
+                AddLabel(row,F("event_week",entry.Event.Week,T("format."+(int)entry.Event.Format)),theme.body_size,entry.Current);
                 string status=entry.Completed?(entry.PlayerRank.HasValue?F("dashboard.event_result",entry.PlayerRank,entry.PlayerPoints):T("dashboard.completed")):
                     entry.Past?T("dashboard.past"):!entry.Eligible?T("dashboard.ineligible"):entry.Current?T("dashboard.current"):T("dashboard.upcoming");
-                var caption=AddLabel(row,T(entry.Event.VenueId=="woodland_basin_v1"?"woodland":"legacy_venue")+" · "+status,theme.caption_size);
-                caption.style.marginBottom=0;caption.style.color=FrontEndTheme.Color(theme.muted);
+                AddLabel(row,T(entry.Event.VenueId=="woodland_basin_v1"?"woodland":"legacy_venue")+" · "+status,theme.caption_size).style.color=FrontEndTheme.Color(theme.muted);
             }
+            PageRows(card,calendar,calendarPage,pageSize,value=>calendarPage=value);
         }
     }
 }

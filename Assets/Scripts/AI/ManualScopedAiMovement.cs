@@ -86,11 +86,12 @@ namespace Biathlon.AI
         }
         internal static string Encode(string[] values)
         {using(var stream=new MemoryStream()){new DataContractJsonSerializer(typeof(string[])).WriteObject(stream,values);return Encoding.UTF8.GetString(stream.ToArray());}}
-        public void Step(SprintAthleteInput[] inputs,double[] desiredLateral,int playerIndex=-1,int playerSteering=0)
+        public void Step(SprintAthleteInput[] inputs,double[] desiredLateral,int playerIndex=-1,int playerSteering=0,double playerBrake=0)
         {
             if(inputs==null||desiredLateral==null||inputs.Length!=steering.Length||desiredLateral.Length!=steering.Length||
                 playerIndex<-1||playerIndex>=steering.Length||playerSteering<-ManualSkiCommand.SteeringUnits||playerSteering>ManualSkiCommand.SteeringUnits)
                 throw new ArgumentException("Exact roster and signed player intent required.");
+            PhysiologyNumbers.RequireRange(playerBrake,0,1,nameof(playerBrake));
             var world=stepper.World;
             for(int i=0;i<world.Count;i++)
             {
@@ -115,6 +116,7 @@ namespace Biathlon.AI
                 brakes[i]=0;
                 if(i==playerIndex)
                 {
+                    brakes[i]=playerBrake;
                     var body=world.GetActor(i);
                     steering[i]=playerReturn==null?playerSteering:playerReturn.Evaluate(playerSteering,body.Pose,
                         Math.Atan2(body.Observation.ForwardX,body.Observation.ForwardZ),world.GetPhysicalMotion(i).SpeedMetersPerSecond>0);

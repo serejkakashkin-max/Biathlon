@@ -64,8 +64,10 @@ namespace Biathlon.Unity.Presentation
                 var row=summary.Row(i);var d=row.Finish.Details;var misses=new List<string>();
                 if(d!=null)for(int b=0;b<d.BoutCount;b++)misses.Add((5-d.Hits(b)).ToString());
                 string shooting=d==null?"—":string.Join(" · ",misses);
-                ResultTableRow(rows,"result_row_"+i,new[]{row.Rank.ToString(),row.Name+"\n"+row.Nation,shooting,ResultClock(row.Finish.ElapsedMilliseconds),row.GapMilliseconds==0?"—":"+"+ResultClock(row.GapMilliseconds),row.Points.ToString()},false,row.IsPlayer);
+                ResultTableRow(rows,"result_row_"+i,new[]{row.Rank.ToString(),row.Name+" · "+row.Nation,shooting,ResultClock(row.Finish.ElapsedMilliseconds),row.GapMilliseconds==0?"—":"+"+ResultClock(row.GapMilliseconds),row.Points.ToString()},false,row.IsPlayer);
             }
+            if(resultPage<0)resultPage=(summary.Player.Rank-1)/10;
+            PageRows(card,rows,resultPage,10,value=>resultPage=value);
         }
         private void RenderResultSplits(VisualElement card,RaceResultsSummary summary)
         {
@@ -84,21 +86,17 @@ namespace Biathlon.Unity.Presentation
         }
         private void ResultTableRow(VisualElement parent,string id,string[] values,bool heading,bool player)
         {
-            var row=new VisualElement{name=id};row.style.paddingTop=theme.spacing;row.style.paddingBottom=theme.spacing;
+            var row=new VisualElement{name=id};row.style.flexDirection=FlexDirection.Row;row.style.alignItems=Align.Center;
+            row.style.paddingTop=row.style.paddingBottom=12;row.style.paddingLeft=row.style.paddingRight=8;
             row.style.borderBottomWidth=1;row.style.borderBottomColor=FrontEndTheme.Color(theme.focus);
-            if(player){row.style.backgroundColor=FrontEndTheme.Color(theme.focus);row.style.borderLeftWidth=4;row.style.borderLeftColor=accent;}
-            parent.Add(row);var upper=new VisualElement();upper.style.flexDirection=FlexDirection.Row;row.Add(upper);
-            for(int i=0;i<3;i++)
+            if(player){row.style.backgroundColor=focus;row.style.borderLeftWidth=4;row.style.borderLeftColor=accent;}
+            parent.Add(row);float[] widths={6,32,16,18,18,10};
+            for(int i=0;i<6;i++)
             {
-                var label=AddLabel(upper,i==0&&heading?"#":values[i],theme.caption_size,heading||player);label.style.marginBottom=0;
-                label.style.paddingRight=theme.spacing;label.style.minWidth=0;
-                if(i==0){label.style.width=theme.section_size*Scale*1.5f;label.style.whiteSpace=WhiteSpace.NoWrap;}
-                else if(i==1){label.style.flexGrow=1;label.style.flexBasis=0;}
-                else {label.style.width=theme.caption_size*Scale*9;label.style.whiteSpace=WhiteSpace.NoWrap;}
+                var label=AddLabel(row,i==0&&heading?"#":values[i],theme.caption_size,heading||player||i==0);label.style.marginBottom=0;
+                label.tooltip=values[i];label.style.width=Length.Percent(widths[i]);label.style.paddingRight=8;label.style.minWidth=0;label.style.flexShrink=1;
+                label.style.whiteSpace=WhiteSpace.NoWrap;label.style.overflow=Overflow.Hidden;label.style.textOverflow=TextOverflow.Ellipsis;
             }
-            if(heading)return;
-            var metrics=AddLabel(row,F("results.row_metrics",values[3],values[4],values[5]),theme.caption_size);
-            metrics.style.marginLeft=theme.section_size*Scale*1.5f;metrics.style.marginTop=theme.spacing/2;metrics.style.marginBottom=0;
         }
     }
 }

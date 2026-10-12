@@ -18,8 +18,9 @@ namespace Biathlon.Simulation
         public SkiDrivenContactTrajectory Drive {get;}
         public ManualSkiSteeredSnowPreview SteeredSnow {get;}
         public CorneringOutput Cornering {get;}
-        internal ManualSkiControlledDriveFrame(SkiDrivenContactTrajectory drive,ManualSkiSteeredSnowPreview snow,CorneringOutput cornering)
-        {Drive=drive;SteeredSnow=snow;Cornering=cornering;}
+        public double ActivePivotWorkJoules {get;}
+        internal ManualSkiControlledDriveFrame(SkiDrivenContactTrajectory drive,ManualSkiSteeredSnowPreview snow,CorneringOutput cornering,double pivotWork=0)
+        {Drive=drive;SteeredSnow=snow;Cornering=cornering;ActivePivotWorkJoules=pivotWork;}
     }
     /// <summary>Signed manual intent with shared ski forces and independent
     /// physical slip/spin. Output still requires common contact, body, course,
@@ -31,6 +32,8 @@ namespace Biathlon.Simulation
         private readonly CorneringSystem cornering;
         private readonly ManualSkiSteeringSystem commands;
         private readonly double mass,maximumBrakingNewtons;
+        private readonly ManualSkiSteeringDefinition pivotDefinition;
+        private readonly double pivotArm,pivotInertia;
         private readonly bool steeringBraking;
         public string ContextJson {get;}
         public ManualSkiControlledDriveSystem(SkiPhysicsDefinition physics,OccupancyDefinition body,
@@ -39,9 +42,11 @@ namespace Biathlon.Simulation
             drive=new ManualSkiContactDriveSystem(physics,body,frequency);
             snow=new ManualSkiSteeredSnowSystem(body,steering,frequency);cornering=new CorneringSystem(turns,physics);
             commands=new ManualSkiSteeringSystem(steering,frequency);
+            pivotDefinition=steering;pivotArm=body.BodyLength*.5;
+            pivotInertia=(body.LongitudinalSeparation*body.LongitudinalSeparation+body.LateralSeparation*body.LateralSeparation)/12;
             mass=physics.MassKilograms;maximumBrakingNewtons=mass*turns.MaximumBraking;
             steeringBraking=turns.ControlledSteeringBraking??true;
-            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{steeringBraking?"manual_controlled_slip_drive_v5_paid_inverse_stopping":"manual_controlled_slip_drive_v6_explicit_gameplay_braking",drive.ContextJson,snow.ContextJson,
+            ContextJson=ShootingModelDefinitions.EncodeContext(new[]{steering.ActivePivotBelowSpeed>0?"manual_controlled_slip_drive_v7_paid_low_speed_pivot":steeringBraking?"manual_controlled_slip_drive_v5_paid_inverse_stopping":"manual_controlled_slip_drive_v6_explicit_gameplay_braking",drive.ContextJson,snow.ContextJson,
                 turns.ToJson(),(steeringBraking?"one_joint_snow_budget;actual_heading_grade;max_actual_or_requested_yaw_braking;":"one_joint_snow_budget;actual_heading_grade;steering_has_no_automatic_brake;")+"explicit_brake_fraction_uses_same_force_cap;max_not_sum;shared_corner_force_limits;inverse_frozen_stopping_intent_with_explicit_infeasibility;outward_64ulp_inverse_force_reserve_within_cap;unchanged_shared_longitudinal_forces;no_admission"});
         }
         /// <summary>Invert only the shared frozen longitudinal force law for a
@@ -95,10 +100,29 @@ namespace Biathlon.Simulation
                 input.LineQuality,input.MuscularFatigue,input.GripMultiplier);
             if(!steeringBraking)turns=new CorneringOutput(turns.LateralAccelerationLimit,turns.SafeSpeedMetersPerSecond,turns.ExcessSpeedMetersPerSecond,0);
             var steered=snow.Preview(body,motion,input.SteeringInput,turns.LateralAccelerationLimit,seconds,input.SteeringResponse);
-            var trajectory=drive.PreviewWithSnow(body,motion,observation.GeometryProjection,surface,input.DeliveredPowerWatts,steered.Snow,seconds,
+            double pivotWork=0;
+            double planarSpeed=Math.Sqrt(motion.Velocity.X*motion.Velocity.X+motion.Velocity.Z*motion.Velocity.Z);
+            if(input.SteeringInput!=0&&input.DeliveredPowerWatts>0&&planarSpeed<pivotDefinition.ActivePivotBelowSpeed)
+            {
+                // Pole-assisted stepping at low speed. Pay rotational work from the already delivered
+                // power, taper at the speed boundary, and reserve the remaining support force budget.
+                var receipt=steered.Snow;double inertia=pivotInertia*body.MassKilograms;
+                double support=.5*turns.LateralAccelerationLimit*seconds*body.MassKilograms;
+                double free=Math.Max(0,Math.Min(support-Math.Abs(receipt.FrontImpulseNewtonSeconds),support-Math.Abs(receipt.RearImpulseNewtonSeconds)));
+                double taper=1-planarSpeed/pivotDefinition.ActivePivotBelowSpeed;
+                double limit=Math.Min(steered.Request.AngularAccelerationLimit*seconds*taper,2*pivotArm*free/inertia);
+                double prior=receipt.Motion.YawRate,delta=Math.Clamp(steered.Request.TargetYawRate-prior,-limit,limit);
+                double next=prior+delta;double budget=input.DeliveredPowerWatts*seconds;
+                if(.5*inertia*(next*next-prior*prior)>budget)next=Math.Sign(next)*Math.Sqrt(prior*prior+2*budget/inertia);
+                pivotWork=Math.Max(0,.5*inertia*(next*next-prior*prior));
+                var active=new SkiSnowContactPreview(new SkiContactMotion(receipt.Motion.Velocity,next),receipt.AvailableLateralAcceleration,
+                    receipt.FrontImpulseNewtonSeconds,receipt.RearImpulseNewtonSeconds,receipt.DissipatedEnergyJoules,false);
+                steered=new ManualSkiSteeredSnowPreview(steered.Request,active,steered.FrontDeflectionRadians,steered.AngularResponseScale);
+            }
+            var trajectory=drive.PreviewWithSnow(body,motion,observation.GeometryProjection,surface,Math.Max(0,input.DeliveredPowerWatts-pivotWork/seconds),steered.Snow,seconds,
                 input.DragAreaMultiplier,input.SnowResistanceMultiplier,input.WindX,input.WindZ,
                 cornering.ControlledBrakingNewtons(turns.BrakingNewtons,input.BrakeFraction));
-            return new ManualSkiControlledDriveFrame(trajectory,steered,turns);
+            return new ManualSkiControlledDriveFrame(trajectory,steered,turns,pivotWork);
         }
     }
 }

@@ -36,6 +36,7 @@ namespace Biathlon.Unity.Presentation
         private string athleteName="",nation;
         private Label message;
         private Color ink,paper,accent,focus;
+        private bool compactLayout;
         private float Scale => TextSizeIndex==0?1:TextSizeIndex==1?1.15f:1.3f;
         private string T(string key)=>text.Text(key,Locale);
         private string F(string key,params object[] values)=>string.Format(CultureInfo.GetCultureInfo(Locale=="ru"?"ru-RU":"en-US"),T(key),values);
@@ -68,6 +69,7 @@ namespace Biathlon.Unity.Presentation
             Race=gameObject.AddComponent<CareerRacePresentation>();
             document=gameObject.AddComponent<UIDocument>();document.panelSettings=panel;document.sortingOrder=100;
             Root.RegisterCallback<NavigationMoveEvent>(Navigate);
+            Root.RegisterCallback<GeometryChangedEvent>(e=>{bool compact=e.newRect.width<1250;if(compactLayout==compact)return;compactLayout=compact;Root.schedule.Execute(Render);});
             Root.RegisterCallback<FocusInEvent>(RememberFocus);
             Root.RegisterCallback<NavigationCancelEvent>(e=>{if(Session.Screen!=FrontEndScreen.Home)Back();e.StopPropagation();},TrickleDown.TrickleDown);
             Render();
@@ -98,6 +100,8 @@ namespace Biathlon.Unity.Presentation
         }
         public void ApplyAccessibility(bool contrast)
         {HighContrast=contrast;if(PersistPreferences){PlayerPrefs.SetInt("biathlon.ui.high_contrast",contrast?1:0);PlayerPrefs.Save();}Render();}
+        private bool IsShown(VisualElement element)
+        {if(!element.enabledInHierarchy)return false;for(var e=element;e!=null&&e!=Root;e=e.parent)if(e.resolvedStyle.display==DisplayStyle.None)return false;return true;}
         private void RememberFocus(FocusInEvent e)
         {
             for(var element=e.target as VisualElement;element!=null&&element!=Root;element=element.parent)
@@ -113,7 +117,7 @@ namespace Biathlon.Unity.Presentation
             for(int i=1;i<=controls.Count;i++)
             {
                 var candidate=controls[(start+step*i+controls.Count*2)%controls.Count];
-                if(candidate.enabledInHierarchy){candidate.Focus();Root.panel.focusController.IgnoreEvent(e);e.StopPropagation();break;}
+                if(IsShown(candidate)){candidate.Focus();Root.panel.focusController.IgnoreEvent(e);e.StopPropagation();break;}
             }
         }
         private void Render()
@@ -124,18 +128,19 @@ namespace Biathlon.Unity.Presentation
             var background=new Image{image=backdrop,scaleMode=ScaleMode.ScaleAndCrop,pickingMode=PickingMode.Ignore,name="menu_backdrop"};
             background.style.position=Position.Absolute;background.style.left=0;background.style.right=0;background.style.top=0;background.style.bottom=0;Root.Add(background);
             var shade=new VisualElement{pickingMode=PickingMode.Ignore};shade.style.position=Position.Absolute;shade.style.left=0;shade.style.top=0;shade.style.bottom=0;
-            shade.style.width=new Length(44,LengthUnit.Percent);shade.style.backgroundColor=FrontEndTheme.Color(home?theme.home_shade:theme.menu_panel);Root.Add(shade);
+            shade.style.width=new Length(home?44:100,LengthUnit.Percent);shade.style.backgroundColor=FrontEndTheme.Color(home?theme.home_shade:theme.menu_panel);Root.Add(shade);
             Root.style.paddingTop=theme.page_padding;Root.style.paddingBottom=theme.page_padding;
             Root.style.paddingLeft=theme.page_padding;Root.style.paddingRight=theme.page_padding;
             var body=new VisualElement();body.style.flexGrow=1;body.style.flexDirection=FlexDirection.Row;Root.Add(body);
-            var left=new VisualElement();left.style.width=new Length(44,LengthUnit.Percent);left.style.paddingRight=theme.page_padding;body.Add(left);
-            var brand=AddLabel(left,T("brand"),theme.title_size,true);brand.style.fontSize=theme.title_size;brand.style.whiteSpace=WhiteSpace.NoWrap;
+            var left=new VisualElement();left.style.width=new Length(home?44:23,LengthUnit.Percent);left.style.paddingRight=theme.page_padding;body.Add(left);
+            var brand=AddLabel(left,T("brand"),theme.title_size,true);brand.style.fontSize=home?theme.title_size:theme.section_size;brand.style.whiteSpace=WhiteSpace.NoWrap;
             brand.style.unityFontStyleAndWeight=FontStyle.BoldAndItalic;brand.style.letterSpacing=2;
-            AddLabel(left,T("discipline"),theme.caption_size);
-            var actions=new ScrollView(ScrollViewMode.Vertical);actions.style.marginTop=theme.spacing*2;actions.style.flexShrink=1;actions.style.minHeight=0;left.Add(actions);
-            var card=new ScrollView(ScrollViewMode.Vertical);card.style.flexGrow=1;card.style.flexBasis=0;card.style.paddingTop=theme.page_padding;
+            AddLabel(left,home?T("discipline"):L("КУБОК МИРА","WORLD CUP"),theme.caption_size);
+            var actions=new ScrollView(ScrollViewMode.Vertical){verticalScrollerVisibility=ScrollerVisibility.Hidden,horizontalScrollerVisibility=ScrollerVisibility.Hidden};actions.style.marginTop=theme.spacing*2;actions.style.flexShrink=1;actions.style.minHeight=0;left.Add(actions);
+            var card=new ScrollView(ScrollViewMode.Vertical){name="page_content",verticalScrollerVisibility=ScrollerVisibility.Hidden,horizontalScrollerVisibility=ScrollerVisibility.Hidden};card.style.flexGrow=1;card.style.flexBasis=0;card.style.paddingTop=theme.page_padding;
             card.style.paddingBottom=theme.page_padding;card.style.paddingLeft=theme.page_padding;card.style.paddingRight=theme.page_padding;
-            card.style.backgroundColor=paper;body.Add(card);
+            card.style.backgroundColor=paper;card.style.minWidth=0;card.contentContainer.style.width=Length.Percent(100);
+            card.style.borderTopLeftRadius=card.style.borderTopRightRadius=card.style.borderBottomLeftRadius=card.style.borderBottomRightRadius=18;body.Add(card);
             if(Session.Screen==FrontEndScreen.Home)
             {
                 AddButton(actions,"new_career",T("new_career"),()=>{Session.OpenNewCareer();LastMessage=null;Render();},true);
@@ -158,11 +163,11 @@ namespace Biathlon.Unity.Presentation
                 var country=new DropdownField(labels,selected){name="athlete_nation"};StyleControl(country);actions.Add(country);controls.Add(country);
                 country.RegisterValueChangedCallback(e=>nation=nations[country.index]);
                 AddButton(actions,"create",T("create"),Create,true);AddButton(actions,"back",T("back"),Back);
-                AddVenueCard(card);AddLabel(card,T("profile_note"),theme.body_size);
+                AddVenueCard(card);AddLabel(card,T("profile_note"),theme.caption_size);
             }
             else if(Session.Screen==FrontEndScreen.Career)
             {
-                left.style.width=new Length(31,LengthUnit.Percent);shade.style.width=new Length(31,LengthUnit.Percent);
+                left.style.width=new Length(23,LengthUnit.Percent);shade.style.width=new Length(100,LengthUnit.Percent);
                 brand.style.fontSize=theme.section_size;RenderCareerDashboard(actions,card);
             }
             else if(Session.Screen==FrontEndScreen.PreRace)
@@ -176,16 +181,17 @@ namespace Biathlon.Unity.Presentation
                 AddLabel(actions,F("athlete_state",summary.Player.Form/100,summary.Player.Fatigue/100),theme.body_size);
                 AddButton(actions,"start_race",T(Race.Loading?"loading":"start_race"),()=>Race.Launch(this),true,!Race.Loading);
                 AddButton(actions,"back",T("back"),Back,enabled:!Race.Loading);
-                AddLabel(card,T("woodland"),theme.section_size,true);
-                AddLabel(card,F("race_distance",summary.Profile.DistanceMeters/1000,summary.Profile.LapCount,summary.EntrantCount),theme.body_size);
+                AddLabel(card,"WOODLAND BASIN",theme.caption_size).style.color=accent;
+                AddLabel(card,T("format."+(int)e.Format)+" · "+T("woodland"),theme.section_size,true);
+                AddCourseMap(card);
+                MetricStrip(card,(summary.Profile.DistanceMeters/1000).ToString("0.00")+" km",L("Дистанция","Distance"),summary.Profile.LapCount.ToString(),L("Круги","Laps"),summary.EntrantCount.ToString(),L("На старте","Entrants"));
+                var facts=Tile(card);
                 var stances=new List<string>();for(int i=0;i<summary.Profile.BoutCount;i++)stances.Add(T("stance."+(int)summary.Profile.GetBout(i).Stance));
-                AddLabel(card,string.Join(" → ",stances),theme.body_size);
-                AddLabel(card,F("race_shooting",summary.Profile.ShotsPerBout,summary.Profile.PenaltyLoopMeters),theme.body_size);
-                AddLabel(card,T("start."+(int)summary.Profile.StartType)+(summary.Profile.StartIntervalSeconds>0?F("start_interval",summary.Profile.StartIntervalSeconds):""),theme.body_size);
-                AddLabel(card,T("snow."+summary.SnowProfileId),theme.body_size);
+                InfoRow(facts,L("Рубежи","Shooting"),string.Join(" → ",stances));
+                InfoRow(facts,L("Старт","Start"),T("start."+(int)summary.Profile.StartType)+(summary.Profile.StartIntervalSeconds>0?F("start_interval",summary.Profile.StartIntervalSeconds):""));
+                InfoRow(facts,T("equipment"),T("equipment."+summary.Skis.Id));
                 var weather=ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/"+e.VenueId+"/environment"));
-                AddLabel(card,T("weather."+weather.lighting.weather_preset),theme.body_size).name="pre_race_weather";
-                AddLabel(card,T("equipment")+": "+T("equipment."+summary.Skis.Id),theme.body_size);
+                AddLabel(facts,T("weather."+weather.lighting.weather_preset)+" · "+T("snow."+summary.SnowProfileId),theme.caption_size).name="pre_race_weather";
                 AddLabel(card,T("race_controls"),theme.caption_size);
             }
             else if(Session.Screen==FrontEndScreen.Race)
@@ -198,12 +204,12 @@ namespace Biathlon.Unity.Presentation
             }
             else if(Session.Screen==FrontEndScreen.Results)
             {
-                left.style.width=new Length(31,LengthUnit.Percent);shade.style.width=new Length(31,LengthUnit.Percent);
+                left.style.width=new Length(23,LengthUnit.Percent);shade.style.width=new Length(100,LengthUnit.Percent);
                 brand.style.fontSize=theme.section_size;RenderResults(actions,card);
             }
             else if(Session.Screen>=FrontEndScreen.Training)
             {
-                left.style.width=new Length(31,LengthUnit.Percent);shade.style.width=new Length(31,LengthUnit.Percent);
+                left.style.width=new Length(23,LengthUnit.Percent);shade.style.width=new Length(100,LengthUnit.Percent);
                 brand.style.fontSize=theme.section_size;RenderCareerPage(actions,card);
             }
             else if(Session.Screen==FrontEndScreen.Settings)
@@ -216,8 +222,12 @@ namespace Biathlon.Unity.Presentation
                 sizes.RegisterValueChangedCallback(e=>ApplyPreferences(Locale,sizes.index));AddButton(actions,"back",T("back"),Back);
                 var contrast=new Toggle(T("accessibility.contrast")){name="high_contrast",value=HighContrast};StyleControl(contrast);actions.Add(contrast);controls.Add(contrast);
                 contrast.RegisterValueChangedCallback(e=>ApplyAccessibility(e.newValue));
-                AddVenueCard(card);AddLabel(card,T("settings_note"),theme.body_size);
-                AddLabel(card,T("accessibility.symbols"),theme.body_size);AddLabel(card,T("accessibility.assists"),theme.body_size).name="accessibility_assists";
+                AddLabel(card,T("settings"),theme.section_size,true);
+                var controlsCard=Tile(card);AddLabel(controlsCard,L("НА ТРАССЕ","ON THE COURSE"),theme.caption_size);
+                InfoRow(controlsCard,"W / S",L("Темп / тормоз","Pace / brake"));InfoRow(controlsCard,"A / D",L("Ручное руление","Manual steering"));InfoRow(controlsCard,"Shift / Ctrl",L("Атака / восстановление","Attack / recover"));InfoRow(controlsCard,"Space",L("Низкая стойка","Tuck"));InfoRow(controlsCard,"Tab",L("Последняя отсечка","Latest split"));
+                var shootingCard=Tile(card);AddLabel(shootingCard,L("НА РУБЕЖЕ","ON THE RANGE"),theme.caption_size);
+                InfoRow(shootingCard,L("ПКМ / ЛКМ","RMB / LMB"),L("Затвор / выстрел","Bolt / fire"));InfoRow(shootingCard,"Space / F",L("Дыхание / точный прицел","Breath / fine aim"));
+                AddLabel(card,T("accessibility.symbols"),theme.caption_size);AddLabel(card,T("accessibility.assists"),theme.caption_size).name="accessibility_assists";
             }
             message=AddLabel(left,LastMessage??"",theme.caption_size);message.name="message";message.style.color=FrontEndTheme.Color(theme.danger);
             left.Query<Label>().ForEach(label=>{if(label!=message)label.style.color=Color.white;});
@@ -226,12 +236,12 @@ namespace Biathlon.Unity.Presentation
             Root.schedule.Execute(()=>
             {
                 if(!isActiveAndEnabled||Root.style.display.value==DisplayStyle.None)return;
-                if(rememberedFocus.TryGetValue(Session.Screen,out string id))foreach(var control in controls)if(control.name==id&&control.enabledInHierarchy){control.Focus();return;}
-                foreach(var control in controls)if(control.enabledInHierarchy){control.Focus();break;}
+                if(rememberedFocus.TryGetValue(Session.Screen,out string id))foreach(var control in controls)if(control.name==id&&IsShown(control)){control.Focus();return;}
+                foreach(var control in controls)if(IsShown(control)){control.Focus();break;}
             });
         }
         private void AddVenueCard(VisualElement card)
-        {AddLabel(card,"WOODLAND BASIN",theme.caption_size);AddLabel(card,T("woodland"),theme.section_size,true);AddLabel(card,T("formats"),theme.body_size);AddTargets(card);}
+        {AddLabel(card,"WOODLAND BASIN",theme.caption_size);AddLabel(card,T("woodland"),theme.section_size,true);AddLabel(card,T("formats"),theme.body_size);AddCourseMap(card);AddTargets(card);}
         private void AddTargets(VisualElement card)
         {
             var row=new VisualElement();row.style.flexDirection=FlexDirection.Row;row.style.marginTop=theme.spacing*3;row.style.marginBottom=theme.spacing*3;card.Add(row);
@@ -249,7 +259,7 @@ namespace Biathlon.Unity.Presentation
         }
         private void StyleControl(VisualElement control)
         {
-            control.style.height=theme.control_height;control.style.fontSize=theme.body_size*Scale;control.style.marginBottom=theme.spacing;control.style.flexShrink=0;
+            control.style.height=theme.control_height;control.style.fontSize=theme.body_size*Scale;control.style.marginBottom=6;control.style.flexShrink=0;
             control.Query<TextElement>().ForEach(element=>element.style.fontSize=theme.body_size*Scale);
         }
         private void AddButton(VisualElement parent,string id,string label,Action action,bool primary=false,bool enabled=true)
@@ -257,11 +267,11 @@ namespace Biathlon.Unity.Presentation
             var button=new Button(action){name=id,text=label,enableRichText=false};StyleControl(button);button.SetEnabled(enabled);
             button.style.opacity=enabled?1:.45f;button.style.transitionDuration=new List<TimeValue>{new TimeValue(0)};
             button.style.unityTextAlign=TextAnchor.MiddleLeft;button.style.paddingLeft=theme.spacing;button.style.paddingRight=theme.spacing;
-            button.style.borderTopLeftRadius=4;button.style.borderTopRightRadius=4;button.style.borderBottomLeftRadius=4;button.style.borderBottomRightRadius=4;
+            button.style.borderTopLeftRadius=8;button.style.borderTopRightRadius=8;button.style.borderBottomLeftRadius=8;button.style.borderBottomRightRadius=8;
             void Paint(bool selected)
             {
                 button.style.backgroundColor=selected?focus:primary?accent:FrontEndTheme.Color(theme.menu_panel);button.style.color=selected?ink:paper;
-                button.style.borderLeftWidth=selected?5:1;button.style.borderRightWidth=1;button.style.borderTopWidth=1;button.style.borderBottomWidth=1;
+                button.style.borderLeftWidth=selected?5:0;button.style.borderRightWidth=0;button.style.borderTopWidth=0;button.style.borderBottomWidth=0;
                 button.style.borderLeftColor=accent;button.style.borderRightColor=accent;button.style.borderTopColor=accent;button.style.borderBottomColor=accent;
             }
             Paint(false);button.RegisterCallback<FocusInEvent>(e=>Paint(true));button.RegisterCallback<FocusOutEvent>(e=>Paint(false));

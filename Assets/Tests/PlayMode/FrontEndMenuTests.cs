@@ -161,7 +161,7 @@ namespace Biathlon.PlayModeTests
             {
                 menu.ApplyPreferences(locale,size);yield return null;yield return null;yield return null;
                 var bounds=menu.Root.worldBound;var start=menu.Root.Q<Button>("start_race");
-                Assert.That(start.worldBound.yMax,Is.LessThan(bounds.yMax));Assert.That(start.worldBound.width,Is.GreaterThan(250));
+                Assert.That(start.worldBound.yMax,Is.LessThan(bounds.yMax));Assert.That(start.worldBound.width,Is.GreaterThan(200));
                 RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);
                 pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
                 string folder=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m14/pre-race-20261011"));Directory.CreateDirectory(folder);
@@ -261,7 +261,7 @@ namespace Biathlon.PlayModeTests
                     menu.ApplyPreferences(dimensions.x==1600?"ru":"en",dimensions.x==1600?0:2);
                     yield return null;yield return null;yield return null;
                     var bounds=menu.Root.worldBound;var button=menu.Root.Q<Button>("new_career");
-                    Assert.That(button.worldBound.width,Is.GreaterThan(250));Assert.That(button.worldBound.xMax,Is.LessThanOrEqualTo(bounds.xMax));
+                    Assert.That(button.worldBound.width,Is.GreaterThan(200));Assert.That(button.worldBound.xMax,Is.LessThanOrEqualTo(bounds.xMax));
                     Assert.That(button.worldBound.yMax,Is.LessThanOrEqualTo(bounds.yMax));
                     RenderTexture.active=target;pixels=new Texture2D(dimensions.x,dimensions.y,TextureFormat.RGBA32,false);pixels.ReadPixels(new Rect(0,0,dimensions.x,dimensions.y),0,0);pixels.Apply();
                     File.WriteAllBytes(Path.Combine(folder,dimensions.x==1600?"frontend-ru.png":"frontend-en-large-4x3.png"),pixels.EncodeToPNG());

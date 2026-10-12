@@ -79,6 +79,7 @@ namespace Biathlon.AI
         private ManualScopedAiMovement manualCandidate;
         private int manualPlayerSteering;
         private bool manualPlayerSteeringAssistance;
+        private double manualPlayerBrake;
         public bool UsesManualScopedCandidate=>manualCandidate!=null;
         public void BindManualScopedCandidate(ManualScopedFieldStepper stepper,ManualAiSteeringDefinition aiPolicy,
             ManualSkiSteeringDefinition physicalSteering,PlayerCourseAssistanceDefinition playerAssistance=null)
@@ -221,19 +222,29 @@ namespace Biathlon.AI
             if(boundPlayerIndex>=0)throw new InvalidOperationException("Player-controlled race requires a player command every tick.");
             try { StepCore(-1,default,0); } catch { IsFaulted=true;throw; }
         }
+        /// <summary>After the bound player's finish, continue all unfinished athletes through normal AI/physics.</summary>
+        public void StepRemainingField(int finishedPlayerIndex)
+        {
+            if(finishedPlayerIndex<0||finishedPlayerIndex>=Field.Count||!Field.GetAthlete(finishedPlayerIndex).HasFinished||
+                boundPlayerIndex>=0&&boundPlayerIndex!=finishedPlayerIndex)throw new InvalidOperationException("Matching finished player required.");
+            if(IsFaulted)throw new InvalidOperationException("Faulted runner must be reconstructed.");
+            manualPlayerSteeringAssistance=false;manualPlayerSteering=0;manualPlayerBrake=0;
+            try{StepCore(-1,default,0);}catch{IsFaulted=true;throw;}
+        }
         /// <summary>Replace one actor's intent before shared physics; other AI observes the same prior tick.</summary>
         public void StepWithPlayer(int index,SprintAthleteInput input,double desiredLateralMeters)
         {
             if(manualCandidate!=null)throw new InvalidOperationException("A lateral-v1 player command cannot drive the manual candidate.");
             StepPlayer(index,input,desiredLateralMeters);
         }
-        public void StepWithManualPlayer(int index,SprintAthleteInput input,int signedSteering,bool finalMatAssistance=false)
+        public void StepWithManualPlayer(int index,SprintAthleteInput input,int signedSteering,bool finalMatAssistance=false,double brakeFraction=0)
         {
             if(manualCandidate==null)throw new InvalidOperationException("Select signed manual movement before using v2 input.");
             if(index<0||index>=Field.Count)throw new ArgumentOutOfRangeException(nameof(index));
             if(signedSteering<-ManualSkiCommand.SteeringUnits||signedSteering>ManualSkiCommand.SteeringUnits)
                 throw new ArgumentOutOfRangeException(nameof(signedSteering));
-            manualPlayerSteering=signedSteering;manualPlayerSteeringAssistance=finalMatAssistance;
+            PhysiologyNumbers.RequireRange(brakeFraction,0,1,nameof(brakeFraction));
+            manualPlayerSteering=signedSteering;manualPlayerSteeringAssistance=finalMatAssistance;manualPlayerBrake=brakeFraction;
             StepPlayer(index,input,Field.GetLateral(index));
         }
         private void StepPlayer(int index,SprintAthleteInput input,double desiredLateralMeters)
@@ -475,7 +486,7 @@ namespace Biathlon.AI
                     tuckRequested:requestTuck,sprintRequested:intents[i].Kind==TacticalIntentKind.FinalSprint),aim,trigger,hold,pressure:racePressures==null?default:racePressures[i]);
             }
             if(manualCandidate==null)Field.Step(inputs,lateral);
-            else manualCandidate.Step(inputs,lateral,manualPlayerSteeringAssistance?-1:playerIndex,manualPlayerSteering);
+            else manualCandidate.Step(inputs,lateral,manualPlayerSteeringAssistance?-1:playerIndex,manualPlayerSteering,manualPlayerBrake);
             journal.Flush(events);
             for(int i=0;i<Field.Count;i++)
             {

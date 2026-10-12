@@ -24,6 +24,7 @@ namespace Biathlon.Unity.Presentation
         private CareerPreparedRace prepared;
         private GameObject raceRoot;
         private CareerReplayCapture replayCapture;
+        public LiveRaceSpectator Spectator {get;private set;}
         private static string ReadCore(string name)=>ProductionVenueHost.ReadResource("Biathlon/"+Path.GetFileNameWithoutExtension(name));
         public void Launch(FrontEndMenu owner)
         {
@@ -85,6 +86,8 @@ namespace Biathlon.Unity.Presentation
             if(Host.HasSimulationFault)
             {Host.enabled=false;raceRoot.SetActive(false);AwaitingSave=true;menu.ShowRaceFailure();return;}
             if(Host.Runner.Field.IsComplete)SaveResult();
+            else if(Spectator==null&&Host.Runner.Field.GetAthlete(Host.PlayerIndex).HasFinished)
+            {Spectator=raceRoot.AddComponent<LiveRaceSpectator>();Spectator.Initialize(Host,menu);}
         }
         public void Pause()
         {
@@ -118,7 +121,7 @@ namespace Biathlon.Unity.Presentation
             AwaitingSave=false;ReleaseRace();menu.SetRaceVisible(false);menu.RefreshFrontEnd();
         }
         private void ReleaseRace()
-        {replayCapture?.Dispose();replayCapture=null;if(raceRoot!=null){raceRoot.SetActive(false);Destroy(raceRoot);}raceRoot=null;Host=null;prepared=null;Paused=false;}
+        {replayCapture?.Dispose();replayCapture=null;if(raceRoot!=null){raceRoot.SetActive(false);Destroy(raceRoot);}raceRoot=null;Host=null;Spectator=null;prepared=null;Paused=false;}
         private void OnDestroy()=>ReleaseRace();
     }
 }

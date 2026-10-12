@@ -108,7 +108,7 @@ namespace Biathlon.PlayModeTests
             InputSystem.QueueStateEvent(keyboard,new KeyboardState(Key.A,Key.Space));
             InputTestScope.Update();adapter.Capture(keyboard,null);
             var left=adapter.BuildManual(new SimulationTick(1));
-            Assert.That(left.SteeringInput,Is.EqualTo(-200));
+            Assert.That(left.SteeringInput,Is.EqualTo(-500));
             Assert.That(left.TuckHeld,Is.True);
             for(int t=2;t<=5;t++)left=adapter.BuildManual(new SimulationTick(t));
             Assert.That(left.SteeringInput,Is.EqualTo(-ManualSkiCommand.SteeringUnits));
@@ -120,6 +120,13 @@ namespace Biathlon.PlayModeTests
             Assert.That(lost.SteeringInput,Is.Zero);
             Assert.That(lost.Preset,Is.EqualTo(EffortPreset.Recovery));
             Assert.That(lost.CancelOvertake,Is.True);
+        }
+        [Test] public void SKeyRequestsPhysicalBrakeAndReleaseClearsIt()
+        {
+            InputSystem.QueueStateEvent(keyboard,new KeyboardState(Key.S,Key.D));InputTestScope.Update();adapter.Capture(keyboard,null);
+            var c=adapter.BuildManual(new SimulationTick(1));Assert.That(c.BrakeFraction,Is.EqualTo(1));Assert.That(c.SteeringInput,Is.EqualTo(500));
+            InputSystem.QueueStateEvent(keyboard,new KeyboardState(Key.D));InputTestScope.Update();adapter.Capture(keyboard,null);
+            Assert.That(adapter.BuildManual(new SimulationTick(2)).BrakeFraction,Is.Zero);
         }
     }
 }

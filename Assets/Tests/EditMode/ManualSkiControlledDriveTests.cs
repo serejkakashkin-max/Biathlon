@@ -115,12 +115,12 @@ namespace Biathlon.Tests
         }
         [Test] public void ExistingSpeedGripPostureAndAngularResponseTuningIsShared()
         {
-            var system=Snow();var a=Actor();var normal=system.Preview(a,Motion(a),1000,4,.05);
-            var tuck=system.Preview(a,Motion(a),1000,4,.05,.65);var weak=system.Preview(a,Motion(a),1000,.1,.05);
+            var system=Snow();var a=Actor();var normal=system.Preview(a,Motion(a),500,4,.05);
+            var tuck=system.Preview(a,Motion(a),500,4,.05,.65);var weak=system.Preview(a,Motion(a),500,.1,.05);
             Assert.That(tuck.Request.TargetYawRate,Is.LessThan(normal.Request.TargetYawRate));
             Assert.That(tuck.Request.AngularAccelerationLimit,Is.LessThan(normal.Request.AngularAccelerationLimit));
             Assert.That(weak.Request.TargetYawRate,Is.LessThan(normal.Request.TargetYawRate));
-            var fast=Actor(25);var high=system.Preview(fast,Motion(fast),1000,4,.05);
+            var fast=Actor(25);var high=system.Preview(fast,Motion(fast),500,4,.05);
             Assert.That(high.Request.YawRateLimit,Is.LessThan(normal.Request.YawRateLimit));
             Assert.That(high.Request.AngularAccelerationLimit,Is.LessThan(normal.Request.AngularAccelerationLimit));
         }
@@ -297,12 +297,14 @@ namespace Biathlon.Tests
                 PhysiologyContractTests.DefinitionJson("device_control_gameplay_v3.json")),body.Athlete,20);
             device.Sample(new DeviceControlSample(false,1,1));
             var tap=device.BuildManual(new SimulationTick(1));
-            var gentle=f.Preview(body,tap.SteeringInput,power:0);
-            var full=f.Preview(body,1000,power:0);
+            var turns=CorneringDefinition.FromJson(PhysiologyContractTests.DefinitionJson(ProductionGameplayDefinitions.Resource("cornering_provisional_v1.json")));
+            var production=new ManualSkiControlledDriveSystem(SkiForceTests.Definition(),f.Source.Venue.Occupancy,Steering(),turns,20);
+            var gentle=production.Preview(body,Motion(body),f.Observation,f.Surface,new ManualSkiMotionInput(tap.SteeringInput,0,100,100),.05);
+            var full=production.Preview(body,Motion(body),f.Observation,f.Surface,new ManualSkiMotionInput(1000,0,100,100),.05);
             TestContext.WriteLine($"tap_input={tap.SteeringInput} tap_braking_N={gentle.Cornering.BrakingNewtons:R} full_braking_N={full.Cornering.BrakingNewtons:R} tap_speed={gentle.Drive.FirstDrive.Output.State.SpeedMetersPerSecond:R} full_speed={full.Drive.FirstDrive.Output.State.SpeedMetersPerSecond:R}");
-            Assert.That(tap.SteeringInput,Is.InRange(1,200));
+            Assert.That(tap.SteeringInput,Is.InRange(1,500));
             Assert.That(gentle.Cornering.BrakingNewtons,Is.Zero);
-            Assert.That(gentle.Drive.FirstDrive.Output.State.SpeedMetersPerSecond,Is.GreaterThan(full.Drive.FirstDrive.Output.State.SpeedMetersPerSecond));
+            Assert.That(gentle.Drive.FirstDrive.Output.State.SpeedMetersPerSecond,Is.EqualTo(full.Drive.FirstDrive.Output.State.SpeedMetersPerSecond));
             for(int t=2;t<=10;t++)device.BuildManual(new SimulationTick(t));
             Assert.That(device.BuildManual(new SimulationTick(11)).SteeringInput,Is.EqualTo(1000));
             device.Sample(new DeviceControlSample(false,1,0));
@@ -491,7 +493,7 @@ namespace Biathlon.Tests
             Assert.Catch(()=>system.Preview(b,Motion(b),0,4,.051));Assert.Catch(()=>system.Preview(b,Motion(b),0,4,.05,1.1));
             var f=new Fixture();Assert.Catch(()=>f.System.Preview(f.Body(),Motion(f.Body()),f.Observation,f.Surface,default,.05));
             Assert.That(system.ContextJson,Does.Contain("manual_steered_snow_constraint_v2_exact_neutral_constraint"));
-            Assert.That(f.System.ContextJson,Does.Contain("manual_controlled_slip_drive_v5_paid_inverse_stopping"));
+            Assert.That(f.System.ContextJson,Does.Contain("manual_controlled_slip_drive_v7_paid_low_speed_pivot"));
             Assert.That(f.System.ContextJson,Does.Contain("explicit_brake_fraction_uses_same_force_cap"));
         }
     }
