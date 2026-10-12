@@ -91,6 +91,7 @@ namespace Biathlon.Unity.Presentation
 
             conditionPanel=Card("condition_panel",false,false,settings.right_width);
             var pulse=Row(conditionPanel);
+            heartbeat=new HeartbeatGraphic(accent);pulse.Add(heartbeat);
             Text(pulse,"pulse_caption",T("pulse_caption"),settings.caption_size).style.color=muted;
             heart=Text(pulse,"heart_rate","",settings.body_size,true);
             reserve=Text(conditionPanel,"reserve","",settings.caption_size);reserveFill=Bar(conditionPanel,"reserve_bar",accent);
@@ -129,6 +130,7 @@ namespace Biathlon.Unity.Presentation
             helpPanel.style.display=helpVisible?DisplayStyle.Flex:DisplayStyle.None;
             BuildBroadcast();
             BuildReviewPanels();
+            BuildPaceStart();
             Root.Query<VisualElement>().ForEach(v=>{v.pickingMode=PickingMode.Ignore;v.focusable=false;});Root.pickingMode=PickingMode.Ignore;
         }
         public void SetAccessibility(bool contrast)
@@ -168,6 +170,7 @@ namespace Biathlon.Unity.Presentation
         {helpVisible=visible;if(helpPanel!=null)helpPanel.style.display=visible?DisplayStyle.Flex:DisplayStyle.None;}
         public void Refresh()
         {
+            RefreshPaceStart();
             var snapshot=feed?.Current;
             if(snapshot==null){rendered=null;selectedIndex=-1;if(Root!=null)Root.style.display=DisplayStyle.None;return;}
             if(ReferenceEquals(rendered,snapshot))return;
@@ -182,6 +185,7 @@ namespace Biathlon.Unity.Presentation
             phase.style.display=a.PendingPenaltyLoops>0||a.Phase==CompetitionPhase.Prestart||a.Phase>=CompetitionPhase.Finished||host?.LastRangeAssistance.Active==true?DisplayStyle.Flex:DisplayStyle.None;
             if(host?.LastRangeAssistance.Active==true)phase.text=T(host.LastRangeAssistance.Mode==PlayerRangeAssistMode.FinalApproach?"assist_in":"assist_out");
             speed.text=Model.Speed;heart.text=Model.HeartRate;reserve.text=Model.Reserve;fatigue.text=Model.Fatigue;
+            heartbeat.Observe(a.Physiology.HeartRateBpm,a.Physiology.HeartRateBpm/readinessPhysiology.MaxHrBpm>.85?FrontEndTheme.Color(settings.warning):accent);
             reserveFill.style.width=Length.Percent(Model.ReservePercent);fatigueFill.style.width=Length.Percent(Model.FatiguePercent);breathFill.style.width=Length.Percent(Model.BreathDebtPercent);
             shootingPanel.style.display=Model.Shooting?DisplayStyle.Flex:DisplayStyle.None;motionPanel.style.display=Model.Shooting?DisplayStyle.None:DisplayStyle.Flex;
             // Review controls remain usable in diagnostic scenes; career races have no review panel.
@@ -198,6 +202,7 @@ namespace Biathlon.Unity.Presentation
         private void LateUpdate()
         {
             if(feed==null)return;
+            RefreshPaceStart();
             if(Keyboard.current?.tabKey.wasPressedThisFrame==true&&!Model.Shooting)SetCheckpointTableVisible(!CheckpointTableVisible);
             if(Keyboard.current?.f2Key.wasPressedThisFrame==true)SetBroadcastVisible(!BroadcastVisible);
             if(Keyboard.current?.f1Key.wasPressedThisFrame==true)SetHelpVisible(!helpVisible);

@@ -81,7 +81,10 @@ namespace Biathlon.AI
                 sharedApronRange:venue.SharedApron==null?null:venue.Manifest.Range);
             // AI chooses tuck from downhill geometry. The shared field still
             // uses the owner's freely requested posture and identical costs.
-            Func<string,string> aiRead=name=>name=="tuck_provisional_v1.json"?read(name):gameplayRead(name);
+            Func<string,string> aiRead=name=>name=="pace_controller_provisional_v1.json"&&venue.AiSkiPolicy?.PaceControllerResource!=null?read(venue.AiSkiPolicy.PaceControllerResource):
+                name=="shooting_strategy_provisional_v1.json"&&venue.AiSkiPolicy?.ShootingStrategyResource!=null?read(venue.AiSkiPolicy.ShootingStrategyResource):
+                name=="pre_range_recovery_provisional_v1.json"&&venue.AiSkiPolicy?.PreRangeRecoveryResource!=null?read(venue.AiSkiPolicy.PreRangeRecoveryResource):
+                name=="tuck_provisional_v1.json"?read(name):gameplayRead(name);
             return new PackAiRaceRunner(field,aiRead,personalities,AiDifficultyDefinition.FromJson(read("ai_difficulty_expert_v1.json")),seed,events,telemetry,
                 raceForms,racePressures,
                 rangeTrafficPolicy:venue.AiRangeTraffic??AiRangeTrafficPolicyDefinition.FromJson(read("ai_range_traffic_provisional_v1.json")),skiPolicy:venue.AiSkiPolicy);

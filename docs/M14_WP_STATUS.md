@@ -25,7 +25,7 @@ Updated 2026-10-12. M13 is closed by owner acceptance. All 19 M14 WPs are implem
 | 197 | COMPLETE | Native keyboard/gamepad menu navigation, career/race pause flows and replay seek/focus regression. |
 
 19 of 19 complete. No remaining M14 implementation WP. Owner acceptance is pending.
-Test build: `Builds/M14Revision20261012/START_M14_TEST.cmd` (build succeeded; standalone startup/render passed).
+Test build: `Builds/M14BalanceReview20261012/START_M14_TEST.cmd` (0 build errors/warnings; standalone startup/render passed).
 
 Latest evidence: [M14 completion report](reports/TASK_M14_COMPLETION_20261012.md),
 [recording/TV decision](adr/ADR-0058-m14-recorded-races-and-tv.md),
@@ -38,3 +38,11 @@ Training drafts remain session-local until the week is committed.
 The next milestone begins only after owner review of M14.
 
 2026-10-12 owner-review corrections: WP-179/181/185-189 redesigned as cards and paged protocols; WP-184 six timing lines + Tab latest-line standings; WP-182 pulse guidance; WP-194/195 live post-finish cameras and accelerated authoritative completion; WP-196/197 responsive accessible navigation retained. Shared steering/braking/paid low-speed recovery improved. All corrections implemented and verified; owner acceptance pending. Evidence: [review report](reports/TASK_M14_OWNER_REVIEW_20261012.md), `docs/quality/m14/review-20261012/`.
+
+Latest correction 2026-10-12: WP-180 junior/senior start and age, circuit progression;
+WP-182 retained W/S pace + initial stop + three-second countdown + animated HR;
+WP-184 three real anchored rectangular timing gates; WP-188 actual equipped ski colors;
+WP-189 World Cup IBU points/countback and yellow/red/combined bibs;
+WP-196/197 native profile/age/large-text acceptance. Shared grip/form/AI tactic fixes
+are qualified with complete Sprint30 replay. All requested corrections delivered;
+M14 remains OPEN / owner acceptance pending. [Build and checks](reports/TASK_M14_BALANCE_REVIEW_20261012.md).

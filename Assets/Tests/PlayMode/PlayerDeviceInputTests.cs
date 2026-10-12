@@ -59,13 +59,13 @@ namespace Biathlon.PlayModeTests
             adapter.Capture(keyboard, null); adapter.SetInputFocus(false);
             var c = adapter.Build(new SimulationTick(1));
             Assert.That(c.CancelOvertake, Is.True); Assert.That(c.OvertakeRequested || c.TuckHeld, Is.False);
-            Assert.That(c.Preset, Is.EqualTo(EffortPreset.Recovery)); Assert.That(c.AnalogEffort, Is.Zero);
+            Assert.That(c.Preset, Is.EqualTo(EffortPreset.Analog)); Assert.That(c.AnalogEffort, Is.Zero);
             adapter.Capture(keyboard, null);
             Assert.That(adapter.Build(new SimulationTick(2)).CancelOvertake, Is.False);
             adapter.SetInputFocus(true); adapter.Capture(keyboard, null);
             Assert.That(adapter.Build(new SimulationTick(3)).OvertakeRequested, Is.True);
             adapter.Capture(null, null);
-            Assert.That(adapter.Build(new SimulationTick(4)).Preset, Is.EqualTo(EffortPreset.Recovery));
+            Assert.That(adapter.Build(new SimulationTick(4)).Preset, Is.EqualTo(EffortPreset.Analog));
         }
         [Test]
         public void PresetsAndRecordedDeviceCommandsRoundTripWithoutFrameTime()
@@ -101,7 +101,7 @@ namespace Biathlon.PlayModeTests
             Assert.That(adapter.BuildDirectional(new SimulationTick(2),-.6,2).LineIntent,Is.EqualTo(-300));
             adapter.SetInputFocus(false);
             var lost=adapter.BuildDirectional(new SimulationTick(3),-.6,2);Assert.That(lost.LineIntent,Is.EqualTo(-300));
-            Assert.That(lost.Preset,Is.EqualTo(EffortPreset.Recovery));Assert.That(lost.CancelOvertake,Is.True);
+            Assert.That(lost.Preset,Is.EqualTo(EffortPreset.Analog));Assert.That(lost.CancelOvertake,Is.True);
         }
         [Test] public void ManualKeyboardAxisBuildsYawAndFocusLossNeutralizesIt()
         {
@@ -118,15 +118,15 @@ namespace Biathlon.PlayModeTests
             adapter.SetInputFocus(false);
             var lost=adapter.BuildManual(new SimulationTick(7));
             Assert.That(lost.SteeringInput,Is.Zero);
-            Assert.That(lost.Preset,Is.EqualTo(EffortPreset.Recovery));
+            Assert.That(lost.Preset,Is.EqualTo(EffortPreset.Analog));
             Assert.That(lost.CancelOvertake,Is.True);
         }
-        [Test] public void SKeyRequestsPhysicalBrakeAndReleaseClearsIt()
+        [Test] public void SKeyRequestsBrakeAndZeroPaceRetainsTheStop()
         {
             InputSystem.QueueStateEvent(keyboard,new KeyboardState(Key.S,Key.D));InputTestScope.Update();adapter.Capture(keyboard,null);
             var c=adapter.BuildManual(new SimulationTick(1));Assert.That(c.BrakeFraction,Is.EqualTo(1));Assert.That(c.SteeringInput,Is.EqualTo(500));
             InputSystem.QueueStateEvent(keyboard,new KeyboardState(Key.D));InputTestScope.Update();adapter.Capture(keyboard,null);
-            Assert.That(adapter.BuildManual(new SimulationTick(2)).BrakeFraction,Is.Zero);
+            Assert.That(adapter.BuildManual(new SimulationTick(2)).BrakeFraction,Is.EqualTo(1));
         }
     }
 }

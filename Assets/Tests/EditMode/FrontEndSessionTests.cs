@@ -128,9 +128,9 @@ namespace Biathlon.Tests
             var store=new Store();var ui=Session(store);
             Assert.That(ui.CanContinue,Is.False);ui.OpenNewCareer();ui.CreateCareer("career_test"," Алекс ","NOR",81000);
             Assert.That(ui.Screen,Is.EqualTo(FrontEndScreen.Career));Assert.That(ui.Player.Name,Is.EqualTo("Алекс"));
-            Assert.That(ui.Career.CalendarId,Is.EqualTo("woodland_career_calendar_v1"));
+            Assert.That(ui.Career.CalendarId,Is.EqualTo("woodland_junior_calendar_v1"));
             Assert.That(ui.Career.AthleteCount,Is.EqualTo(30));Assert.That(ui.Career.RaceCount,Is.Zero);
-            Assert.That(ui.NextEvent().Id,Is.EqualTo("woodland_open_sprint"));Assert.That(ui.NextEvent().Week,Is.EqualTo(6));
+            Assert.That(ui.NextEvent().Id,Is.EqualTo("junior_open_sprint"));Assert.That(ui.NextEvent().Week,Is.EqualTo(6));
             var restored=Session(store);restored.ContinueCareer();Assert.That(restored.Career.ToJson(),Is.EqualTo(ui.Career.ToJson()));
         }
         [Test] public void FailedSaveOrValidationNeverPublishesOrDestroysPriorProfile()

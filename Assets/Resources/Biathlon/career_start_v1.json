@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "id": "career_start_v1",
+  "first_season_year": 2026,
+  "profiles": [
+    { "id": "junior_novice", "calendar_resource": "woodland_junior_calendar_v1.json", "minimum_age": 18, "maximum_age": 20, "default_age": 18, "player_skill_min": 42000, "player_skill_max": 52000, "peer_skill_min": 45000, "peer_skill_max": 67000, "peer_stat_spread": 6000, "peer_age_min": 18, "peer_age_max": 20, "player_tier": 0 },
+    { "id": "senior_debut", "calendar_resource": "woodland_development_calendar_v1.json", "minimum_age": 21, "maximum_age": 30, "default_age": 22, "player_skill_min": 52000, "player_skill_max": 62000, "peer_skill_min": 57000, "peer_skill_max": 80000, "peer_stat_spread": 6000, "peer_age_min": 21, "peer_age_max": 34, "player_tier": 1 }
+  ]
+}

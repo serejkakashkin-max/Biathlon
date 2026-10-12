@@ -1,0 +1,69 @@
+{
+  "head_counters": {
+    "passed": 38,
+    "failed": 11
+  },
+  "working_counters": {
+    "passed": 41,
+    "failed": 8
+  },
+  "unchanged_legacy_failures": [
+    {
+      "test": "ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(300.0d,False,False)",
+      "identical_message": true,
+      "message": "  Continuous edge proof failed at tick 1895 station_m=719,291211877 edge=0:224:tube clear_s=0,02179136276245118\r\n  Expected: Clear\r\n  But was:  PotentialBoundary\r\n"
+    },
+    {
+      "test": "ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(200.0d,False,False)",
+      "identical_message": true,
+      "message": "  Continuous edge proof failed at tick 2384 station_m=722,507 edge=0:226:tube clear_s=0,03428640365600586\r\n  Expected: Clear\r\n  But was:  PotentialBoundary\r\n"
+    },
+    {
+      "test": "ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(400.0d,False,True)",
+      "identical_message": true,
+      "message": "  Continuous edge proof failed at tick 1811 station_m=719,025960646 edge=0:224:tube clear_s=0,014106273651123047\r\n  Expected: Clear\r\n  But was:  PotentialBoundary\r\n"
+    },
+    {
+      "test": "ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(7.0d)",
+      "identical_message": true,
+      "message": "  The full body left the authored corridor at tick 621\r\n  Expected: less than 4.0d\r\n  But was:  4.1168019931917863d\r\n"
+    },
+    {
+      "test": "ReachableYawIsSelectedFromActualSharedSnowResponse(0.35d)",
+      "identical_message": true,
+      "message": "  Expected: 0.0d +/- 9.9999999999999998E-13d\r\n  But was:  0.05451567824723802d\r\n  Off by:   -0.05451567824723802d\r\n"
+    },
+    {
+      "test": "ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(4.0d)",
+      "identical_message": true,
+      "message": "  The full body left the authored corridor at tick 4431\r\n  Expected: less than 4.0d\r\n  But was:  4.0212892291855784d\r\n"
+    },
+    {
+      "test": "BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw",
+      "identical_message": true,
+      "message": "  spin=0,35 attainable command=217 selected=563\r\n  Expected: 0.38414357582509362d +/- 9.9999999999999998E-13d\r\n  But was:  0.43865925407233164d\r\n  Off by:   -0.05451567824723802d\r\n"
+    },
+    {
+      "test": "ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(400.0d,False,False)",
+      "identical_message": true,
+      "message": "  Continuous edge proof failed at tick 1642 station_m=717,081349479 edge=0:223:tube clear_s=0,0327183723449707\r\n  Expected: Clear\r\n  But was:  PotentialBoundary\r\n"
+    }
+  ],
+  "changed_tests": [
+    {
+      "test": "DeliberateManualKeysCanKeepNoviceOnProductionBends(\"finish_spur\",0.5d,28.0d,40,6.5d,5.0d)",
+      "before": "Failed",
+      "after": "Passed"
+    },
+    {
+      "test": "DeliberateManualKeysCanKeepNoviceOnProductionBends(\"main\",62.559d,92.0d,40,10.0d,8.0d)",
+      "before": "Failed",
+      "after": "Passed"
+    },
+    {
+      "test": "HeldManualKeyHasEnoughActualTravelHeadingAuthorityAtRaceSpeed(40,10.0d)",
+      "before": "Failed",
+      "after": "Passed"
+    }
+  ]
+}

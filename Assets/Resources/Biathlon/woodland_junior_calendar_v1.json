@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "id": "woodland_junior_calendar_v1",
+  "weeks_per_season": 52,
+  "training_slots_per_week": 3,
+  "race_week_training_slots": 1,
+  "events": [
+    {
+      "id": "junior_open_sprint",
+      "week": 6,
+      "venue_id": "woodland_basin_v1",
+      "format": 0,
+      "source_event_id": null,
+      "minimum_tier": 0,
+      "maximum_age": 20
+    },
+    {
+      "id": "junior_open_pursuit",
+      "week": 7,
+      "venue_id": "woodland_basin_v1",
+      "format": 1,
+      "source_event_id": "junior_open_sprint",
+      "minimum_tier": 0,
+      "maximum_age": 20
+    },
+    {
+      "id": "junior_first_mass",
+      "week": 10,
+      "venue_id": "woodland_basin_v1",
+      "format": 2,
+      "source_event_id": null,
+      "minimum_tier": 0,
+      "maximum_age": 20
+    },
+    {
+      "id": "junior_winter_sprint",
+      "week": 13,
+      "venue_id": "woodland_basin_v1",
+      "format": 0,
+      "source_event_id": null,
+      "minimum_tier": 0,
+      "maximum_age": 20
+    },
+    {
+      "id": "junior_winter_pursuit",
+      "week": 14,
+      "venue_id": "woodland_basin_v1",
+      "format": 1,
+      "source_event_id": "junior_winter_sprint",
+      "minimum_tier": 0,
+      "maximum_age": 20
+    },
+    {
+      "id": "junior_winter_mass",
+      "week": 17,
+      "venue_id": "woodland_basin_v1",
+      "format": 2,
+      "source_event_id": null,
+      "minimum_tier": 0,
+      "maximum_age": 20
+    },
+    {
+      "id": "junior_mid_sprint",
+      "week": 20,
+      "venue_id": "woodland_basin_v1",
+      "format": 0,
+      "source_event_id": null,
+      "minimum_tier": 0,
+      "maximum_age": 20
+    },
+    {
+      "id": "junior_mid_pursuit",
+      "week": 21,
+      "venue_id": "woodland_basin_v1",
+      "format": 1,
+      "source_event_id": "junior_mid_sprint",
+      "minimum_tier": 0,
+      "maximum_age": 20
+    },
+    {
+      "id": "junior_mid_mass",
+      "week": 24,
+      "venue_id": "woodland_basin_v1",
+      "format": 2,
+      "source_event_id": null,
+      "minimum_tier": 0,
+      "maximum_age": 20
+    },
+    {
+      "id": "junior_late_sprint",
+      "week": 27,
+      "venue_id": "woodland_basin_v1",
+      "format": 0,
+      "source_event_id": null,
+      "minimum_tier": 0,
+      "maximum_age": 20
+    },
+    {
+      "id": "junior_late_pursuit",
+      "week": 28,
+      "venue_id": "woodland_basin_v1",
+      "format": 1,
+      "source_event_id": "junior_late_sprint",
+      "minimum_tier": 0,
+      "maximum_age": 20
+    },
+    {
+      "id": "junior_chase_sprint",
+      "week": 34,
+      "venue_id": "woodland_basin_v1",
+      "format": 0,
+      "source_event_id": null,
+      "minimum_tier": 0,
+      "maximum_age": 20
+    },
+    {
+      "id": "junior_chase_pursuit",
+      "week": 35,
+      "venue_id": "woodland_basin_v1",
+      "format": 1,
+      "source_event_id": "junior_chase_sprint",
+      "minimum_tier": 0,
+      "maximum_age": 20
+    },
+    {
+      "id": "junior_final_mass",
+      "week": 38,
+      "venue_id": "woodland_basin_v1",
+      "format": 2,
+      "source_event_id": null,
+      "minimum_tier": 0,
+      "maximum_age": 20
+    },
+    {
+      "id": "junior_final_sprint",
+      "week": 41,
+      "venue_id": "woodland_basin_v1",
+      "format": 0,
+      "source_event_id": null,
+      "minimum_tier": 0,
+      "maximum_age": 20
+    },
+    {
+      "id": "junior_final_pursuit",
+      "week": 42,
+      "venue_id": "woodland_basin_v1",
+      "format": 1,
+      "source_event_id": "junior_final_sprint",
+      "minimum_tier": 0,
+      "maximum_age": 20
+    }
+  ],
+  "circuit": 1
+}

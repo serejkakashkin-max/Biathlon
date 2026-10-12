@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="e17307af-f319-42ff-8d80-fb13dede5852" name="snkashkin@DESKTOP-G3075GA 2026-10-12 16:37:52" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-12T16:37:52.8306120+03:00" queuing="2026-10-12T16:37:52.8306120+03:00" start="2026-10-12T16:36:54.8108267+03:00" finish="2026-10-12T16:37:52.8356814+03:00" />
+  <TestSettings name="default" id="e250590d-ffb3-45d4-9136-c3db976646dd">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-12_16_37_52" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="5459d84d-0a80-44dc-a28d-bcf75acff6b6" testId="bcd3098d-0fe6-a4f2-1df8-ea9df7a37456" testName="ProductionCareerFieldReportsRealPaceRangeAndBrakingCosts" computerName="DESKTOP-G3075GA" duration="00:00:57.2343700" startTime="2026-10-12T16:36:55.3747670+03:00" endTime="2026-10-12T16:37:52.6090991+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5459d84d-0a80-44dc-a28d-bcf75acff6b6">
+      <Output>
+        <StdOut>BALANCE rank=1 athlete=owner_balance_probe_athlete_9 ms=579074 misses=0 effort=756 brake_pct=3 range_s=49,55 endurance=59658&#xD;
+BALANCE rank=2 athlete=owner_balance_probe_athlete_22 ms=581742 misses=0 effort=781 brake_pct=2 range_s=53,2 endurance=66171&#xD;
+BALANCE rank=3 athlete=owner_balance_probe_athlete_17 ms=600326 misses=0 effort=776 brake_pct=2 range_s=51,3 endurance=57279&#xD;
+BALANCE rank=4 athlete=owner_balance_probe_athlete_8 ms=604919 misses=1 effort=733 brake_pct=4 range_s=55,25 endurance=82255&#xD;
+BALANCE rank=5 athlete=owner_balance_probe_athlete_24 ms=608117 misses=1 effort=786 brake_pct=1 range_s=51,35 endurance=58854&#xD;
+BALANCE rank=6 athlete=owner_balance_probe_athlete_2 ms=609824 misses=1 effort=729 brake_pct=3 range_s=51,8 endurance=66244&#xD;
+BALANCE rank=7 athlete=owner_balance_probe_athlete_21 ms=609864 misses=1 effort=818 brake_pct=1 range_s=47,55 endurance=36221&#xD;
+BALANCE rank=8 athlete=owner_balance_probe_athlete_20 ms=611640 misses=0 effort=809 brake_pct=2 range_s=50,5 endurance=63007&#xD;
+BALANCE rank=9 athlete=owner_balance_probe_athlete_4 ms=613662 misses=1 effort=742 brake_pct=3 range_s=48,35 endurance=55051&#xD;
+BALANCE rank=10 athlete=owner_balance_probe_athlete_5 ms=622602 misses=1 effort=781 brake_pct=4 range_s=48,95 endurance=42010&#xD;
+BALANCE rank=11 athlete=owner_balance_probe_athlete_7 ms=624608 misses=1 effort=741 brake_pct=4 range_s=53,5 endurance=80482&#xD;
+BALANCE rank=12 athlete=owner_balance_probe_athlete_11 ms=625200 misses=1 effort=798 brake_pct=2 range_s=51,15 endurance=80680&#xD;
+BALANCE rank=13 athlete=owner_balance_probe_athlete_13 ms=627200 misses=1 effort=761 brake_pct=3 range_s=52,95 endurance=68133&#xD;
+BALANCE rank=14 athlete=owner_balance_probe_athlete_28 ms=628416 misses=1 effort=793 brake_pct=2 range_s=54,4 endurance=84986&#xD;
+BALANCE rank=15 athlete=owner_balance_probe_athlete_3 ms=635045 misses=1 effort=730 brake_pct=3 range_s=54,95 endurance=81638&#xD;
+BALANCE rank=16 athlete=owner_balance_probe_athlete_12 ms=638800 misses=1 effort=785 brake_pct=3 range_s=51,9 endurance=38258&#xD;
+BALANCE rank=17 athlete=owner_balance_probe_athlete_14 ms=642387 misses=2 effort=795 brake_pct=2 range_s=52,15 endurance=46165&#xD;
+BALANCE rank=18 athlete=owner_balance_probe_athlete_10 ms=648277 misses=1 effort=792 brake_pct=3 range_s=53,75 endurance=39665&#xD;
+BALANCE rank=19 athlete=owner_balance_probe_athlete_27 ms=653338 misses=1 effort=808 brake_pct=1 range_s=48,85 endurance=57304&#xD;
+BALANCE rank=20 athlete=owner_balance_probe_athlete_16 ms=654193 misses=2 effort=751 brake_pct=3 range_s=54,7 endurance=53127&#xD;
+BALANCE rank=21 athlete=owner_balance_probe_athlete_6 ms=654470 misses=1 effort=781 brake_pct=5 range_s=51,05 endurance=41570&#xD;
+BALANCE rank=22 athlete=owner_balance_probe_athlete_23 ms=654775 misses=3 effort=799 brake_pct=2 range_s=49,9 endurance=44753&#xD;
+BALANCE rank=23 athlete=owner_balance_probe_athlete_15 ms=669453 misses=3 effort=794 brake_pct=2 range_s=49,85 endurance=51466&#xD;
+BALANCE rank=24 athlete=owner_balance_probe_athlete_18 ms=673742 misses=2 effort=789 brake_pct=3 range_s=48,7 endurance=81727&#xD;
+BALANCE rank=25 athlete=owner_balance_probe_athlete_26 ms=682177 misses=2 effort=813 brake_pct=1 range_s=51,8 endurance=48749&#xD;
+BALANCE rank=26 athlete=owner_balance_probe_athlete_29 ms=684080 misses=4 effort=792 brake_pct=2 range_s=51,4 endurance=54047&#xD;
+BALANCE rank=27 athlete=owner_balance_probe_athlete_19 ms=687359 misses=4 effort=792 brake_pct=2 range_s=50,6 endurance=41254&#xD;
+BALANCE rank=28 athlete=owner_balance_probe_athlete_1 ms=692831 misses=4 effort=757 brake_pct=4 range_s=50,3 endurance=79860&#xD;
+BALANCE rank=29 athlete=owner_balance_probe_athlete_25 ms=709943 misses=1 effort=776 brake_pct=1 range_s=53,55 endurance=41105&#xD;
+BALANCE rank=30 athlete=owner_balance_probe_athlete_0 ms=722601 misses=3 effort=681 brake_pct=6 range_s=53,95 endurance=44818</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ProductionCareerFieldReportsRealPaceRangeAndBrakingCosts" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="bcd3098d-0fe6-a4f2-1df8-ea9df7a37456">
+      <Execution id="5459d84d-0a80-44dc-a28d-bcf75acff6b6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerOwnerBalanceTests" name="ProductionCareerFieldReportsRealPaceRangeAndBrakingCosts" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="bcd3098d-0fe6-a4f2-1df8-ea9df7a37456" executionId="5459d84d-0a80-44dc-a28d-bcf75acff6b6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+BALANCE rank=1 athlete=owner_balance_probe_athlete_9 ms=579074 misses=0 effort=756 brake_pct=3 range_s=49,55 endurance=59658&#xD;
+BALANCE rank=2 athlete=owner_balance_probe_athlete_22 ms=581742 misses=0 effort=781 brake_pct=2 range_s=53,2 endurance=66171&#xD;
+BALANCE rank=3 athlete=owner_balance_probe_athlete_17 ms=600326 misses=0 effort=776 brake_pct=2 range_s=51,3 endurance=57279&#xD;
+BALANCE rank=4 athlete=owner_balance_probe_athlete_8 ms=604919 misses=1 effort=733 brake_pct=4 range_s=55,25 endurance=82255&#xD;
+BALANCE rank=5 athlete=owner_balance_probe_athlete_24 ms=608117 misses=1 effort=786 brake_pct=1 range_s=51,35 endurance=58854&#xD;
+BALANCE rank=6 athlete=owner_balance_probe_athlete_2 ms=609824 misses=1 effort=729 brake_pct=3 range_s=51,8 endurance=66244&#xD;
+BALANCE rank=7 athlete=owner_balance_probe_athlete_21 ms=609864 misses=1 effort=818 brake_pct=1 range_s=47,55 endurance=36221&#xD;
+BALANCE rank=8 athlete=owner_balance_probe_athlete_20 ms=611640 misses=0 effort=809 brake_pct=2 range_s=50,5 endurance=63007&#xD;
+BALANCE rank=9 athlete=owner_balance_probe_athlete_4 ms=613662 misses=1 effort=742 brake_pct=3 range_s=48,35 endurance=55051&#xD;
+BALANCE rank=10 athlete=owner_balance_probe_athlete_5 ms=622602 misses=1 effort=781 brake_pct=4 range_s=48,95 endurance=42010&#xD;
+BALANCE rank=11 athlete=owner_balance_probe_athlete_7 ms=624608 misses=1 effort=741 brake_pct=4 range_s=53,5 endurance=80482&#xD;
+BALANCE rank=12 athlete=owner_balance_probe_athlete_11 ms=625200 misses=1 effort=798 brake_pct=2 range_s=51,15 endurance=80680&#xD;
+BALANCE rank=13 athlete=owner_balance_probe_athlete_13 ms=627200 misses=1 effort=761 brake_pct=3 range_s=52,95 endurance=68133&#xD;
+BALANCE rank=14 athlete=owner_balance_probe_athlete_28 ms=628416 misses=1 effort=793 brake_pct=2 range_s=54,4 endurance=84986&#xD;
+BALANCE rank=15 athlete=owner_balance_probe_athlete_3 ms=635045 misses=1 effort=730 brake_pct=3 range_s=54,95 endurance=81638&#xD;
+BALANCE rank=16 athlete=owner_balance_probe_athlete_12 ms=638800 misses=1 effort=785 brake_pct=3 range_s=51,9 endurance=38258&#xD;
+BALANCE rank=17 athlete=owner_balance_probe_athlete_14 ms=642387 misses=2 effort=795 brake_pct=2 range_s=52,15 endurance=46165&#xD;
+BALANCE rank=18 athlete=owner_balance_probe_athlete_10 ms=648277 misses=1 effort=792 brake_pct=3 range_s=53,75 endurance=39665&#xD;
+BALANCE rank=19 athlete=owner_balance_probe_athlete_27 ms=653338 misses=1 effort=808 brake_pct=1 range_s=48,85 endurance=57304&#xD;
+BALANCE rank=20 athlete=owner_balance_probe_athlete_16 ms=654193 misses=2 effort=751 brake_pct=3 range_s=54,7 endurance=53127&#xD;
+BALANCE rank=21 athlete=owner_balance_probe_athlete_6 ms=654470 misses=1 effort=781 brake_pct=5 range_s=51,05 endurance=41570&#xD;
+BALANCE rank=22 athlete=owner_balance_probe_athlete_23 ms=654775 misses=3 effort=799 brake_pct=2 range_s=49,9 endurance=44753&#xD;
+BALANCE rank=23 athlete=owner_balance_probe_athlete_15 ms=669453 misses=3 effort=794 brake_pct=2 range_s=49,85 endurance=51466&#xD;
+BALANCE rank=24 athlete=owner_balance_probe_athlete_18 ms=673742 misses=2 effort=789 brake_pct=3 range_s=48,7 endurance=81727&#xD;
+BALANCE rank=25 athlete=owner_balance_probe_athlete_26 ms=682177 misses=2 effort=813 brake_pct=1 range_s=51,8 endurance=48749&#xD;
+BALANCE rank=26 athlete=owner_balance_probe_athlete_29 ms=684080 misses=4 effort=792 brake_pct=2 range_s=51,4 endurance=54047&#xD;
+BALANCE rank=27 athlete=owner_balance_probe_athlete_19 ms=687359 misses=4 effort=792 brake_pct=2 range_s=50,6 endurance=41254&#xD;
+BALANCE rank=28 athlete=owner_balance_probe_athlete_1 ms=692831 misses=4 effort=757 brake_pct=4 range_s=50,3 endurance=79860&#xD;
+BALANCE rank=29 athlete=owner_balance_probe_athlete_25 ms=709943 misses=1 effort=776 brake_pct=1 range_s=53,55 endurance=41105&#xD;
+BALANCE rank=30 athlete=owner_balance_probe_athlete_0 ms=722601 misses=3 effort=681 brake_pct=6 range_s=53,95 endurance=44818&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

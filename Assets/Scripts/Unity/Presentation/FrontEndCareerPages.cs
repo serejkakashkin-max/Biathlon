@@ -54,7 +54,8 @@ namespace Biathlon.Unity.Presentation
             {
                 var item=catalog.Get(i);string id=item.Id;var compare=CareerInventory.Compare(Session.Player,catalog,Session.Definitions.Economy,id,"packed_neutral");
                 var row=Tile(equipmentTiles);row.style.width=Length.Percent(compactLayout?48.5f:32);AddLabel(row,T("equipment."+id),theme.body_size,true);
-                row.Add(new SkiPairGraphic(accent));DeltaMeter(row,L("Скольжение","Glide"),compare.GlideDelta);DeltaMeter(row,L("Сцепление","Grip"),compare.GripDelta);DeltaMeter(row,L("Устойчивость","Stability"),compare.StabilityDelta);
+                var appearance=CareerSkiAppearance.Catalog.Get(id);
+                row.Add(new SkiPairGraphic(FrontEndTheme.Color(appearance.BaseColorHex),FrontEndTheme.Color(appearance.AccentColorHex)));DeltaMeter(row,L("Скольжение","Glide"),compare.GlideDelta);DeltaMeter(row,L("Сцепление","Grip"),compare.GripDelta);DeltaMeter(row,L("Устойчивость","Stability"),compare.StabilityDelta);
                 bool selected=Session.Player.SelectedSki==id;
                 AddButton(row,"equip_"+id,selected?T("equipment.selected"):compare.Owned?T("equipment.select"):F("equipment.buy",compare.PurchasePrice/100.0),()=>CareerAction(()=>Session.Equip(id)),primary:true,enabled:!selected&&Session.Player.Money>=compare.PurchasePrice);
             }

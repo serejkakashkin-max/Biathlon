@@ -14,7 +14,10 @@ namespace Biathlon.Career
         [DataMember(Name="world_id",IsRequired=true)] public string WorldId { get; private set; }
         [DataMember(Name="season_id",IsRequired=true)] public string SeasonId { get; internal set; }
         [DataMember(Name="rules_id",IsRequired=true)] public string RulesId { get; private set; }
-        [DataMember(Name="calendar_id",IsRequired=true)] public string CalendarId { get; private set; }
+        [DataMember(Name="calendar_id",IsRequired=true)] public string CalendarId { get; internal set; }
+        [DataMember(Name="start_profile_id",EmitDefaultValue=false)] public string StartProfileId {get;internal set;}
+        [DataMember(Name="first_season_year",EmitDefaultValue=false)] public int FirstSeasonYear {get;internal set;}
+        public int CurrentSeasonYear=>FirstSeasonYear==0?0:FirstSeasonYear+Season-1;
         [DataMember(Name="season",IsRequired=true)] public int Season { get; internal set; }
         [DataMember(Name="week",IsRequired=true)] public int Week { get; internal set; }
         [DataMember(Name="rng_state",IsRequired=true)] public ulong RandomState { get; internal set; }
@@ -49,6 +52,8 @@ namespace Biathlon.Career
         }
         internal void Validate()
         {
+            if(StartProfileId!=null)CareerUnits.Id(StartProfileId);
+            if(FirstSeasonYear!=0)CareerUnits.Range(FirstSeasonYear,2020,2200,"first season year");
             if(SchemaVersion!=1||SaveVersion!=CurrentVersion)throw new SerializationException("Invalid career save schema/version.");
             foreach(string id in new[]{Id,WorldId,SeasonId,RulesId,CalendarId,PlayerId})CareerUnits.Id(id);
             if(WorldId!=Id+"_world"||SeasonId!=Id+"_season_"+Season.ToString(System.Globalization.CultureInfo.InvariantCulture))throw new SerializationException("World/season identity mismatch.");

@@ -64,7 +64,8 @@ namespace Biathlon.Simulation
             keyboardSteering=sample.Gamepad?0:steering;
             return new ManualSkiCommand(target,athlete,legacy.AnalogEffort,
                 (int)Math.Round(steering,MidpointRounding.ToEven),legacy.Preset,legacy.TuckHeld,
-                legacy.OvertakeRequested,legacy.CancelOvertake,legacy.TechniqueId,sample.Brake?definition.ManualBrakeFraction:0);
+                legacy.OvertakeRequested,legacy.CancelOvertake,legacy.TechniqueId,
+                sample.Brake||definition.StopAtZeroEffort&&legacy.Preset==EffortPreset.Analog&&legacy.AnalogEffort==0?definition.ManualBrakeFraction:0);
         }
         /// <summary>Live steering is directional; recorded commands remain absolute line targets.
         /// Neutral input holds the achieved line, including after a blocked manoeuvre.</summary>

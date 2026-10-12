@@ -25,6 +25,7 @@ namespace Biathlon.Presentation
         public int TrainingCount=>training.Count;
         public CareerTrainingKind Training(int index)=>training[index];
         public SkiEquipmentCatalog EquipmentCatalog=>SkiEquipmentCatalog.FromJson(read("ski_equipment_provisional_v1.json"));
+        public CareerStartDefinition StartProfiles=>CareerStartDefinition.FromJson(read("career_start_v1.json"));
         public FrontEndScreen Screen { get; private set; }
         public CareerSave Career { get; private set; }
         public CareerDefinitions Definitions { get; private set; }
@@ -112,12 +113,12 @@ namespace Biathlon.Presentation
         }
         public void ReturnFromResults() {Require(FrontEndScreen.Results);Screen=FrontEndScreen.Career;}
         private void PublishSaved(CareerSave candidate,string expected)
-        {profiles.Replace(candidate.Id,expected,candidate.ToJson());Career=candidate;}
-        public void CreateCareer(string id,string name,string nation,ulong seed)
+        {profiles.Replace(candidate.Id,expected,candidate.ToJson());Career=candidate;Definitions=CareerDefinitions.ForSave(read,candidate);}
+        public void CreateCareer(string id,string name,string nation,ulong seed,string startProfileId="junior_novice",int? age=null)
         {
             Require(FrontEndScreen.NewCareer);
-            var definitions=CareerDefinitions.ForNewProductionCareer(read);
-            var candidate=CareerFactory.Create(definitions.Roster,definitions.Calendar,id,name?.Trim(),nation,"player_appearance",restoreRandom(seed));
+            var definitions=CareerDefinitions.ForNewProductionCareer(read,startProfileId);
+            var candidate=CareerFactory.Create(definitions.Roster,definitions.Calendar,id,name?.Trim(),nation,"player_appearance",restoreRandom(seed),StartProfiles,startProfileId,age);
             // Publish only after the durable write succeeds. New careers never overwrite another profile.
             string json=candidate.ToJson();CareerSave.FromJson(json);profiles.WriteNew(id,json);
             Career=candidate;Definitions=definitions;training.Clear();Screen=FrontEndScreen.Career;

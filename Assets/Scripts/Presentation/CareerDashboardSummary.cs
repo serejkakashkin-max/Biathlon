@@ -18,7 +18,7 @@ namespace Biathlon.Presentation
             for(int r=0;r<save.RaceCount;r++)
             {
                 var race=save.Race(r);if(race.CalendarEventId!=e.Id)continue;Completed=true;
-                for(int rank=0;rank<race.Count;rank++)if(race.Get(rank).AthleteId==player.Id){PlayerRank=rank+1;PlayerPoints=scoring.Points(rank+1);}
+                for(int rank=0;rank<race.Count;rank++)if(race.Get(rank).AthleteId==player.Id){PlayerRank=CareerStandings.ResultRank(race,rank,scoring);PlayerPoints=scoring.Points(PlayerRank.Value,race.Format);}
                 break;
             }
         }

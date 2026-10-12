@@ -197,8 +197,12 @@ namespace Biathlon.Unity.Presentation
     [Serializable] public sealed class ProductionMeshPlacement
     {
         public string id,mesh_resource,material_resource;public Vector3 position;public float yaw_deg,scale;
+        // Width-only adjustment preserves portal height, footings and ground-paint elevations.
+        // Zero is the legacy JSON omission sentinel and means the existing uniform width.
+        public float lateral_scale;
+        public float EffectiveLateralScale=>lateral_scale==0?1:lateral_scale;
         internal void Validate(HashSet<string> ids)
-        {ProductionEnvironmentDefinition.Unique(id,ids);ProductionEnvironmentDefinition.Resource(mesh_resource);ProductionEnvironmentDefinition.Resource(material_resource);ProductionEnvironmentDefinition.Position(position);ProductionEnvironmentDefinition.Bound(yaw_deg,-360,360);ProductionEnvironmentDefinition.Bound(scale,.01f,100);}
+        {ProductionEnvironmentDefinition.Unique(id,ids);ProductionEnvironmentDefinition.Resource(mesh_resource);ProductionEnvironmentDefinition.Resource(material_resource);ProductionEnvironmentDefinition.Position(position);ProductionEnvironmentDefinition.Bound(yaw_deg,-360,360);ProductionEnvironmentDefinition.Bound(scale,.01f,100);ProductionEnvironmentDefinition.Bound(EffectiveLateralScale,.01f,100);}
     }
     [Serializable] public sealed class ProductionCrowdRecipe {public string mode,resource_root,seat_binding;public bool restricted_resources_allowed;}
     [Serializable] public sealed class ProductionLightingRecipe

@@ -79,7 +79,7 @@ namespace Biathlon.PlayModeTests
             Assert.That(session.NextEvent().Format,Is.EqualTo(CompetitionFormat.Pursuit));
             Assert.That(menu.Root.Q("career_calendar").childCount,Is.EqualTo(16));
             Assert.That(menu.Root.Q<Label>("career_standing").text,Does.Contain("23"));
-            Assert.That(menu.Root.Q("career_event_woodland_open_sprint").Query<Label>().ToList()[1].text,Does.Contain("8"));
+            Assert.That(menu.Root.Q("career_event_junior_open_sprint").Query<Label>().ToList()[1].text,Does.Contain("8"));
             yield return CaptureDashboard(1600,900,"ru",0);yield return CaptureDashboard(1024,768,"en",2);
             Assert.That(session.Career.ToJson(),Is.EqualTo(before));
         }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-12 14:04:52Z" end-time="2026-10-12 14:04:53Z" duration="1,1262106">
+  <test-suite type="TestSuite" id="1420" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="310" result="Passed" start-time="2026-10-12 14:04:52Z" end-time="2026-10-12 14:04:53Z" duration="1.126211" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1414" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="310" result="Passed" start-time="2026-10-12 14:04:52Z" end-time="2026-10-12 14:04:53Z" duration="1.081664" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="16060" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1415" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="310" result="Passed" start-time="2026-10-12 14:04:52Z" end-time="2026-10-12 14:04:53Z" duration="1.074912" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1416" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="310" result="Passed" start-time="2026-10-12 14:04:52Z" end-time="2026-10-12 14:04:53Z" duration="1.071379" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1056" name="BalanceReviewUiTests" fullname="Biathlon.PlayModeTests.BalanceReviewUiTests" classname="Biathlon.PlayModeTests.BalanceReviewUiTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-12 14:04:52Z" end-time="2026-10-12 14:04:53Z" duration="1.062564" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1058" name="EquipmentCardsActuallyPaintEachCatalogSkiColor" fullname="Biathlon.PlayModeTests.BalanceReviewUiTests.EquipmentCardsActuallyPaintEachCatalogSkiColor" methodname="EquipmentCardsActuallyPaintEachCatalogSkiColor" classname="Biathlon.PlayModeTests.BalanceReviewUiTests" runstate="Runnable" seed="2125088710" result="Passed" start-time="2026-10-12 14:04:52Z" end-time="2026-10-12 14:04:53Z" duration="0.469390" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1057" name="NewCareerProfileAndAgeControlsCreateAndRestoreTheChosenLeague" fullname="Biathlon.PlayModeTests.BalanceReviewUiTests.NewCareerProfileAndAgeControlsCreateAndRestoreTheChosenLeague" methodname="NewCareerProfileAndAgeControlsCreateAndRestoreTheChosenLeague" classname="Biathlon.PlayModeTests.BalanceReviewUiTests" runstate="Runnable" seed="2040990145" result="Passed" start-time="2026-10-12 14:04:53Z" end-time="2026-10-12 14:04:53Z" duration="0.574853" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

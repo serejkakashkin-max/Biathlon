@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Biathlon.Domain;
+using Biathlon.Career;
 using Biathlon.Simulation;
 using UnityEngine;
 namespace Biathlon.Unity.Presentation
@@ -29,6 +30,24 @@ namespace Biathlon.Unity.Presentation
         private bool preserveAcceptedShootingLine;
         private RangeTransitYieldSettings transitSettings;
         private readonly Dictionary<string,Vector3> transitOffsets=new Dictionary<string,Vector3>(StringComparer.Ordinal);
+        private readonly Dictionary<string,string> careerSkis=new Dictionary<string,string>(StringComparer.Ordinal);
+        private CareerLeaderBibs careerBibs;
+        public void ConfigureCareerAppearance(CareerSave save,CareerCalendar calendar,CareerScoringDefinition scoring,CareerCalendarEvent race)
+        {
+            var leaders=CareerLeaderBibs.Capture(save,calendar,scoring,race);
+            careerSkis.Clear();
+            for(int i=0;i<save.AthleteCount;i++){var athlete=save.Athlete(i);CareerSkiAppearance.Catalog.Get(athlete.SelectedSki);careerSkis.Add(athlete.Id,athlete.SelectedSki);}
+            careerBibs=leaders;
+            if(animation.Count==0)return;
+            equipmentBatches.Clear();
+            foreach(var entry in animation){ApplyCareerAppearance(entry.Key,entry.Value.Rig);equipmentBatches.Register(entry.Value.Rig);}
+        }
+        private void ApplyCareerAppearance(string athleteId,AthleteRigBinding rig)
+        {
+            if(!careerSkis.TryGetValue(athleteId,out var ski))return;
+            var appearance=rig.GetComponent<CareerSkiAppearance>();if(appearance==null)appearance=rig.gameObject.AddComponent<CareerSkiAppearance>();appearance.Apply(rig,ski);
+            var bib=rig.GetComponent<AthleteBibPresentation>();if(bib!=null)bib.SetLeader(careerBibs.ForAthlete(athleteId));
+        }
         public void SetVisualBreathEnvironment(BreathEnvironment? environment) { if(breathVapor==null)throw new InvalidOperationException("Initialize proxies first.");breathVapor.SetEnvironment(environment); }
         public void SetViewCamera(Camera camera)
         {viewCamera=camera;chaseCamera=camera!=null?camera.GetComponent<AthleteChaseCamera>():null;}
@@ -53,7 +72,7 @@ namespace Biathlon.Unity.Presentation
                     throw new ArgumentException("A finite horizontal unit shooting direction is required.",nameof(shootingDirection));
                 direction=Quaternion.LookRotation(new Vector3(value.x,0,value.z).normalized,Vector3.up);
             }
-            Clear();feed=source;visual=geometry;shootingRotation=direction;preserveAcceptedShootingLine=preserveAcceptedLine;
+            Clear();careerSkis.Clear();careerBibs=null;feed=source;visual=geometry;shootingRotation=direction;preserveAcceptedShootingLine=preserveAcceptedLine;
             rigPrefab=template;
             motionSettings=AthleteLocomotionSettings.Load();
             contactSettings=GroundContactSettings.Load();
@@ -78,6 +97,7 @@ namespace Biathlon.Unity.Presentation
                     go=new GameObject("Athlete presentation pivot");go.transform.SetParent(transform,false);
                     var rig=rigPrefab!=null?Instantiate(rigPrefab,go.transform,false):AthleteRigFactory.Create(go.transform);
                     var bib=rig.GetComponent<AthleteBibPresentation>();if(bib!=null)bib.SetNumber(i+1);
+                    ApplyCareerAppearance(state.AthleteId,rig);
                     equipmentBatches.Register(rig);
                     rig.transform.localPosition=Vector3.down;
                     var adapter=go.AddComponent<AthleteAnimationPresentation>();adapter.Initialize(rig);

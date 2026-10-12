@@ -13,7 +13,8 @@ namespace Biathlon.Career
         [DataMember(Name="format",IsRequired=true)] public CompetitionFormat Format { get; private set; }
         [DataMember(Name="source_event_id")] public string SourceEventId { get; private set; }
         [DataMember(Name="minimum_tier",IsRequired=true)] public CareerTier MinimumTier { get; private set; }
-        public bool Eligible(CareerAthlete athlete)=>athlete!=null&&athlete.Tier>=MinimumTier;
+        [DataMember(Name="maximum_age",EmitDefaultValue=false)] public int MaximumAge {get;private set;}
+        public bool Eligible(CareerAthlete athlete)=>athlete!=null&&athlete.Tier>=MinimumTier&&(MaximumAge==0||athlete.Age<=MaximumAge);
     }
     [DataContract] public sealed class CareerCalendar
     {
@@ -23,6 +24,7 @@ namespace Biathlon.Career
         [DataMember(Name="weeks_per_season",IsRequired=true)] public int WeeksPerSeason { get; private set; }
         [DataMember(Name="training_slots_per_week",IsRequired=true)] public int TrainingSlotsPerWeek { get; private set; }
         [DataMember(Name="race_week_training_slots",IsRequired=true)] public int RaceWeekTrainingSlots { get; private set; }
+        [DataMember(Name="circuit",EmitDefaultValue=false)] public CareerCircuit Circuit {get;private set;}
         [DataMember(Name="events",IsRequired=true)] private CareerCalendarEvent[] events { get; set; }
         public int Count=>events.Length;public CareerCalendarEvent Get(int index)=>events[index];
         public CareerCalendarEvent AtWeek(int week){CareerUnits.Range(week,1,WeeksPerSeason,"week");foreach(var e in events)if(e.Week==week)return e;return null;}
@@ -32,10 +34,12 @@ namespace Biathlon.Career
         {
             var d=CareerJson.Read<CareerCalendar>(json);if(d==null||d.SchemaVersion!=1)throw new SerializationException("Invalid calendar schema.");CareerUnits.Id(d.Id);
             CareerUnits.Range(d.WeeksPerSeason,1,366,"season length");CareerUnits.Range(d.TrainingSlotsPerWeek,1,14,"training slots");CareerUnits.Range(d.RaceWeekTrainingSlots,0,d.TrainingSlotsPerWeek,"race training slots");
+            CareerUnits.Range((int)d.Circuit,0,3,"career circuit");
             if(d.events==null||d.events.Length<1||d.events.Length>d.WeeksPerSeason)throw new SerializationException("Invalid calendar events.");
             for(int i=0;i<d.Count;i++)
             {
                 var e=d.events[i];if(e==null)throw new SerializationException("Null calendar event.");CareerUnits.Id(e.Id);CareerUnits.Id(e.VenueId);CareerUnits.Range(e.Week,1,d.WeeksPerSeason,"event week");CareerUnits.Range((int)e.MinimumTier,0,2,"tier");
+                if(e.MaximumAge!=0)CareerUnits.Range(e.MaximumAge,16,60,"maximum event age");
                 if(e.Format!=CompetitionFormat.Sprint&&e.Format!=CompetitionFormat.Pursuit&&e.Format!=CompetitionFormat.MassStart)throw new SerializationException("Unsupported career race format.");
                 for(int j=0;j<i;j++)if(d.events[j].Id==e.Id||d.events[j].Week>=e.Week)throw new SerializationException("Calendar must be uniquely identified and ordered by week.");
                 if(e.Format==CompetitionFormat.Pursuit)

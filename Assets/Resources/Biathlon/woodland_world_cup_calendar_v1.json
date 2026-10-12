@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "id": "woodland_world_cup_calendar_v1",
+  "weeks_per_season": 52,
+  "training_slots_per_week": 3,
+  "race_week_training_slots": 1,
+  "events": [
+    {
+      "id": "world_cup_open_sprint",
+      "week": 6,
+      "venue_id": "woodland_basin_v1",
+      "format": 0,
+      "source_event_id": null,
+      "minimum_tier": 2
+    },
+    {
+      "id": "world_cup_open_pursuit",
+      "week": 7,
+      "venue_id": "woodland_basin_v1",
+      "format": 1,
+      "source_event_id": "world_cup_open_sprint",
+      "minimum_tier": 2
+    },
+    {
+      "id": "world_cup_first_mass",
+      "week": 10,
+      "venue_id": "woodland_basin_v1",
+      "format": 2,
+      "source_event_id": null,
+      "minimum_tier": 2
+    },
+    {
+      "id": "world_cup_winter_sprint",
+      "week": 13,
+      "venue_id": "woodland_basin_v1",
+      "format": 0,
+      "source_event_id": null,
+      "minimum_tier": 2
+    },
+    {
+      "id": "world_cup_winter_pursuit",
+      "week": 14,
+      "venue_id": "woodland_basin_v1",
+      "format": 1,
+      "source_event_id": "world_cup_winter_sprint",
+      "minimum_tier": 2
+    },
+    {
+      "id": "world_cup_winter_mass",
+      "week": 17,
+      "venue_id": "woodland_basin_v1",
+      "format": 2,
+      "source_event_id": null,
+      "minimum_tier": 2
+    },
+    {
+      "id": "world_cup_mid_sprint",
+      "week": 20,
+      "venue_id": "woodland_basin_v1",
+      "format": 0,
+      "source_event_id": null,
+      "minimum_tier": 2
+    },
+    {
+      "id": "world_cup_mid_pursuit",
+      "week": 21,
+      "venue_id": "woodland_basin_v1",
+      "format": 1,
+      "source_event_id": "world_cup_mid_sprint",
+      "minimum_tier": 2
+    },
+    {
+      "id": "world_cup_mid_mass",
+      "week": 24,
+      "venue_id": "woodland_basin_v1",
+      "format": 2,
+      "source_event_id": null,
+      "minimum_tier": 2
+    },
+    {
+      "id": "world_cup_late_sprint",
+      "week": 27,
+      "venue_id": "woodland_basin_v1",
+      "format": 0,
+      "source_event_id": null,
+      "minimum_tier": 2
+    },
+    {
+      "id": "world_cup_late_pursuit",
+      "week": 28,
+      "venue_id": "woodland_basin_v1",
+      "format": 1,
+      "source_event_id": "world_cup_late_sprint",
+      "minimum_tier": 2
+    },
+    {
+      "id": "world_cup_chase_sprint",
+      "week": 34,
+      "venue_id": "woodland_basin_v1",
+      "format": 0,
+      "source_event_id": null,
+      "minimum_tier": 2
+    },
+    {
+      "id": "world_cup_chase_pursuit",
+      "week": 35,
+      "venue_id": "woodland_basin_v1",
+      "format": 1,
+      "source_event_id": "world_cup_chase_sprint",
+      "minimum_tier": 2
+    },
+    {
+      "id": "world_cup_final_mass",
+      "week": 38,
+      "venue_id": "woodland_basin_v1",
+      "format": 2,
+      "source_event_id": null,
+      "minimum_tier": 2
+    },
+    {
+      "id": "world_cup_final_sprint",
+      "week": 41,
+      "venue_id": "woodland_basin_v1",
+      "format": 0,
+      "source_event_id": null,
+      "minimum_tier": 2
+    },
+    {
+      "id": "world_cup_final_pursuit",
+      "week": 42,
+      "venue_id": "woodland_basin_v1",
+      "format": 1,
+      "source_event_id": "world_cup_final_sprint",
+      "minimum_tier": 2
+    }
+  ],
+  "circuit": 3
+}

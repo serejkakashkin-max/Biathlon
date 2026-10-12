@@ -50,6 +50,7 @@ namespace Biathlon.Unity.Presentation
                 raceRoot=new GameObject("Career race");raceRoot.transform.SetParent(transform,false);
                 Host=raceRoot.AddComponent<ProductionVenueHost>();Host.AutoStart=false;Host.enabled=false;
                 Host.InitializeCareer(prepared);
+                Host.Proxies.ConfigureCareerAppearance(CareerSave.FromJson(week.RaceSnapshotJson),menu.Session.Definitions.Calendar,menu.Session.Definitions.Scoring,week.Event);
                 Host.GameplayHud.SetPreferences(menu.Locale,menu.TextSizeIndex,menu.Session.Player.Name);
                 Host.GameplayHud.SetAccessibility(menu.HighContrast);
                 Host.GameplayHud.SetBroadcastRoster(menu.Session.Career);
@@ -69,7 +70,7 @@ namespace Biathlon.Unity.Presentation
                 {
                     if(LoadEnvironment)Host.InitializeEnvironment(ProductionEnvironmentDefinition.FromJson(
                         ProductionVenueHost.ReadResource("Biathlon/Venues/"+prepared.Event.VenueId+"/environment")));
-                    menu.Session.BeginRace();Host.enabled=true;menu.SetRaceVisible(true);
+                    menu.Session.BeginRace();Host.ArmRaceStartCountdown();Host.enabled=true;menu.SetRaceVisible(true);
                 }
                 catch(Exception e){failure=e;}
             }

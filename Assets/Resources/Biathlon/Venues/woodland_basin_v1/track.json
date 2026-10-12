@@ -23399,49 +23399,28 @@
     }
   ],
   "checkpoints": [
-  {
-    "id": "forest_split",
-    "anchor": {
-      "loop_id": "main",
-      "distance_m": 180
+    {
+      "id": "climb_top",
+      "anchor": {
+        "loop_id": "main",
+        "distance_m": 372.323
+      }
+    },
+    {
+      "id": "range_entry_split",
+      "anchor": {
+        "loop_id": "main",
+        "distance_m": 735
+      }
+    },
+    {
+      "id": "range_exit_split",
+      "anchor": {
+        "loop_id": "main",
+        "distance_m": 935
+      }
     }
-  },
-  {
-    "id": "climb_top",
-    "anchor": {
-      "loop_id": "main",
-      "distance_m": 372.323
-    }
-  },
-  {
-    "id": "descent_split",
-    "anchor": {
-      "loop_id": "main",
-      "distance_m": 510
-    }
-  },
-  {
-    "id": "plateau_exit",
-    "anchor": {
-      "loop_id": "main",
-      "distance_m": 651.581
-    }
-  },
-  {
-    "id": "range_entry_split",
-    "anchor": {
-      "loop_id": "main",
-      "distance_m": 735
-    }
-  },
-  {
-    "id": "range_exit_split",
-    "anchor": {
-      "loop_id": "main",
-      "distance_m": 935
-    }
-  }
-] ,
+  ],
   "range": {
     "id": "woodland_basin_range",
     "entry": {

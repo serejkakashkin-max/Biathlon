@@ -3,6 +3,8 @@ Shader "Biathlon/AthleteBib"
  Properties
  {
   [MainColor] _BaseColor("Fabric",Color)=(.88,.91,.86,1)
+  _SecondaryColor("Combined leader fabric",Color)=(.88,.91,.86,1)
+  _ColorSplit("Combined leader bib",Range(0,1))=0
   _InkColor("Printed ink",Color)=(.015,.045,.07,1)
   _Atlas("Original number atlas",2D)="white"{}
   _BibNumber("Registered entry ordinal",Float)=1
@@ -22,7 +24,7 @@ Shader "Biathlon/AthleteBib"
   TEXTURE2D(_BumpMap);SAMPLER(sampler_BumpMap);
   TEXTURE2D(_RoughnessMap);SAMPLER(sampler_RoughnessMap);
   CBUFFER_START(UnityPerMaterial)
-  half4 _BaseColor,_InkColor;float _BibNumber,_BumpScale,_DetailTiling,_Smoothness;
+  half4 _BaseColor,_SecondaryColor,_InkColor;float _ColorSplit,_BibNumber,_BumpScale,_DetailTiling,_Smoothness;
   CBUFFER_END
   struct A {float4 positionOS:POSITION;float3 normalOS:NORMAL;float4 tangentOS:TANGENT;float2 uv:TEXCOORD0;UNITY_VERTEX_INPUT_INSTANCE_ID};
   struct V {float4 positionCS:SV_POSITION;float3 positionWS:TEXCOORD0;half3 normalWS:TEXCOORD1;float2 uv:TEXCOORD2;half fog:TEXCOORD3;half4 tangentWS:TEXCOORD4;UNITY_VERTEX_INPUT_INSTANCE_ID UNITY_VERTEX_OUTPUT_STEREO};
@@ -54,7 +56,8 @@ Shader "Biathlon/AthleteBib"
    half3 detail=UnpackNormalScale(SAMPLE_TEXTURE2D(_BumpMap,sampler_BumpMap,uv*_DetailTiling),_BumpScale);
    normal=normalize(tangent*detail.x+cross(normal,tangent)*i.tangentWS.w*detail.y+normal*detail.z);
    half roughness=SAMPLE_TEXTURE2D(_RoughnessMap,sampler_RoughnessMap,uv*_DetailTiling).r;
-   SurfaceData s=(SurfaceData)0;s.albedo=lerp(_InkColor.rgb,_BaseColor.rgb,white);s.smoothness=saturate(1-roughness)*(1-_Smoothness)+_Smoothness;s.occlusion=1;s.alpha=1;s.normalTS=half3(0,0,1);
+   half3 fabric=lerp(_BaseColor.rgb,_SecondaryColor.rgb,step(.5,uv.x)*_ColorSplit);
+   SurfaceData s=(SurfaceData)0;s.albedo=lerp(_InkColor.rgb,fabric,white);s.smoothness=saturate(1-roughness)*(1-_Smoothness)+_Smoothness;s.occlusion=1;s.alpha=1;s.normalTS=half3(0,0,1);
    InputData d=(InputData)0;d.positionWS=i.positionWS;d.normalWS=normal;d.viewDirectionWS=GetWorldSpaceNormalizeViewDir(i.positionWS);
    d.shadowCoord=TransformWorldToShadowCoord(i.positionWS);d.bakedGI=SampleSH(d.normalWS);d.shadowMask=1;d.normalizedScreenSpaceUV=GetNormalizedScreenSpaceUV(i.positionCS);
    half4 c=UniversalFragmentPBR(d,s);c.rgb=MixFog(c.rgb,i.fog);return c;

@@ -256,6 +256,15 @@ namespace Biathlon.AI
             if(boundPlayerIndex<0&&Field.Tick.Value!=0)throw new InvalidOperationException("Select the player before the race starts.");
             if(boundPlayerIndex>=0&&boundPlayerIndex!=index)throw new InvalidOperationException("Player identity cannot change during a race.");
             boundPlayerIndex=index;
+            if(raceForms!=null||racePressures!=null)
+            {
+                // Readiness is an entrant property, not an AI controller feature.
+                // Device input must not silently grant the player fresh form or no pressure.
+                var ski=input.Ski;
+                input=new SprintAthleteInput(new TimeTrialInput(ski.Effort,raceForms==null?ski.Form:raceForms[index],ski.LineQuality,
+                    ski.HeadwindMetersPerSecond,ski.TuckRequested,ski.SprintRequested,ski.TechniqueId,ski.MovementEfficiency),input.Aim,input.Trigger,
+                    input.HoldBreath,input.Wind,racePressures==null?input.Pressure:racePressures[index],input.CycleBolt,input.ManualBoltCycle,input.RangeTransit);
+            }
             try { StepCore(index,input,desiredLateralMeters); } catch { IsFaulted=true;throw; }
         }
         private void StepCore(int playerIndex,SprintAthleteInput playerInput,double playerLateral)

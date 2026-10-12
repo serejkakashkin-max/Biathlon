@@ -34,6 +34,8 @@ namespace Biathlon.Unity.Presentation
         private readonly List<VisualElement> controls=new List<VisualElement>();
         private readonly Dictionary<FrontEndScreen,string> rememberedFocus=new Dictionary<FrontEndScreen,string>();
         private string athleteName="",nation;
+        private string startProfileId="junior_novice";
+        private int startingAge=18;
         private Label message;
         private Color ink,paper,accent,focus;
         private bool compactLayout;
@@ -135,7 +137,7 @@ namespace Biathlon.Unity.Presentation
             var left=new VisualElement();left.style.width=new Length(home?44:23,LengthUnit.Percent);left.style.paddingRight=theme.page_padding;body.Add(left);
             var brand=AddLabel(left,T("brand"),theme.title_size,true);brand.style.fontSize=home?theme.title_size:theme.section_size;brand.style.whiteSpace=WhiteSpace.NoWrap;
             brand.style.unityFontStyleAndWeight=FontStyle.BoldAndItalic;brand.style.letterSpacing=2;
-            AddLabel(left,home?T("discipline"):L("КУБОК МИРА","WORLD CUP"),theme.caption_size);
+            AddLabel(left,home?T("discipline"):Session.Career==null?L("КАРЬЕРА","CAREER"):Session.Definitions.Calendar.Circuit==CareerCircuit.Junior?L("ЮНИОРСКАЯ ЛИГА","JUNIOR CIRCUIT"):Session.Definitions.Calendar.Circuit==CareerCircuit.Development?L("ПУТЬ В КУБОК МИРА","ROAD TO WORLD CUP"):L("КУБОК МИРА","WORLD CUP"),theme.caption_size);
             var actions=new ScrollView(ScrollViewMode.Vertical){verticalScrollerVisibility=ScrollerVisibility.Hidden,horizontalScrollerVisibility=ScrollerVisibility.Hidden};actions.style.marginTop=theme.spacing*2;actions.style.flexShrink=1;actions.style.minHeight=0;left.Add(actions);
             var card=new ScrollView(ScrollViewMode.Vertical){name="page_content",verticalScrollerVisibility=ScrollerVisibility.Hidden,horizontalScrollerVisibility=ScrollerVisibility.Hidden};card.style.flexGrow=1;card.style.flexBasis=0;card.style.paddingTop=theme.page_padding;
             card.style.paddingBottom=theme.page_padding;card.style.paddingLeft=theme.page_padding;card.style.paddingRight=theme.page_padding;
@@ -162,8 +164,21 @@ namespace Biathlon.Unity.Presentation
                 int selected=Math.Max(0,nations.IndexOf(nation));nation=nations[selected];
                 var country=new DropdownField(labels,selected){name="athlete_nation"};StyleControl(country);actions.Add(country);controls.Add(country);
                 country.RegisterValueChangedCallback(e=>nation=nations[country.index]);
+                AddLabel(actions,L("Начало карьеры","Career start"),theme.caption_size);
+                var profiles=Session.StartProfiles;
+                var profileLabels=new List<string>();int profileIndex=0;
+                for(int i=0;i<profiles.Count;i++){var p=profiles.Get(i);if(p.Id==startProfileId)profileIndex=i;profileLabels.Add(p.Id=="junior_novice"?L("Юниор","Junior"):L("Взрослый","Senior"));}
+                var profileChoice=new DropdownField(profileLabels,profileIndex){name="career_start_profile"};StyleControl(profileChoice);actions.Add(profileChoice);controls.Add(profileChoice);
+                var selectedProfile=profiles.Get(profileIndex);startingAge=Mathf.Clamp(startingAge,selectedProfile.MinimumAge,selectedProfile.MaximumAge);
+                AddLabel(actions,L("Возраст на 31 декабря","Age on December 31"),theme.caption_size);
+                var age=new SliderInt(selectedProfile.MinimumAge,selectedProfile.MaximumAge){name="career_start_age",value=startingAge,showInputField=true};StyleControl(age);actions.Add(age);controls.Add(age);
+                age.RegisterValueChangedCallback(e=>startingAge=e.newValue);
+                profileChoice.RegisterValueChangedCallback(e=>{var p=profiles.Get(profileChoice.index);startProfileId=p.Id;startingAge=p.DefaultAge;Render();});
                 AddButton(actions,"create",T("create"),Create,true);AddButton(actions,"back",T("back"),Back);
-                AddVenueCard(card);AddLabel(card,T("profile_note"),theme.caption_size);
+                AddVenueCard(card);
+                AddLabel(card,startProfileId=="junior_novice"?L("ТВОЙ ПЕРВЫЙ СЕЗОН","YOUR FIRST SEASON"):L("НОВАЯ ЦЕЛЬ","A NEW CHALLENGE"),theme.caption_size).style.color=accent;
+                AddLabel(card,startProfileId=="junior_novice"?L("Юниорская лига","Junior circuit"):L("Путь в Кубок мира","Road to the World Cup"),theme.section_size,true);
+                AddLabel(card,L("Соперники разного уровня. Общая физика. Тренировки, форма и тактика решают исход гонки.","Varied rivals. Shared physics. Training, readiness and tactics decide the race."),theme.body_size);
             }
             else if(Session.Screen==FrontEndScreen.Career)
             {
@@ -261,6 +276,13 @@ namespace Biathlon.Unity.Presentation
         {
             control.style.height=theme.control_height;control.style.fontSize=theme.body_size*Scale;control.style.marginBottom=6;control.style.flexShrink=0;
             control.Query<TextElement>().ForEach(element=>element.style.fontSize=theme.body_size*Scale);
+            control.Query<VisualElement>(className:"unity-base-field__input").ForEach(element=>
+            {
+                element.style.backgroundColor=paper;element.style.color=FrontEndTheme.Color(theme.ink);
+                element.style.borderTopLeftRadius=element.style.borderTopRightRadius=element.style.borderBottomLeftRadius=element.style.borderBottomRightRadius=8;
+                element.style.borderLeftWidth=element.style.borderRightWidth=element.style.borderTopWidth=element.style.borderBottomWidth=0;
+                element.style.paddingLeft=10;
+            });
         }
         private void AddButton(VisualElement parent,string id,string label,Action action,bool primary=false,bool enabled=true)
         {
@@ -280,7 +302,7 @@ namespace Biathlon.Unity.Presentation
         }
         private void Create()
         {
-            try { Session.CreateCareer("career_"+Guid.NewGuid().ToString("N"),athleteName,nation,unchecked((ulong)DateTime.UtcNow.Ticks));LastMessage=null;Render(); }
+            try { Session.CreateCareer("career_"+Guid.NewGuid().ToString("N"),athleteName,nation,unchecked((ulong)DateTime.UtcNow.Ticks),startProfileId,startingAge);LastMessage=null;Render(); }
             catch(Exception e) when(e is ArgumentException||e is System.Runtime.Serialization.SerializationException||e is IOException||e is UnauthorizedAccessException)
             {ShowError(e is IOException||e is UnauthorizedAccessException?"save_error":"name_error");}
         }

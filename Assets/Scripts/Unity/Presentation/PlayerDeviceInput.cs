@@ -49,7 +49,7 @@ namespace Biathlon.Unity.Presentation
             else
             {
                 sample = new DeviceControlSample(false,
-                    keyboard?.wKey.isPressed == true ? 1 : 0,
+                    (keyboard?.wKey.isPressed == true ? 1 : 0) - (keyboard?.sKey.isPressed == true ? 1 : 0),
                     (keyboard?.dKey.isPressed == true ? 1 : 0) - (keyboard?.aKey.isPressed == true ? 1 : 0),
                     keyboard?.leftCtrlKey.isPressed == true ? EffortPreset.Recovery :
                     keyboard?.digit3Key.isPressed == true ? EffortPreset.FinalSprint :
@@ -67,7 +67,7 @@ namespace Biathlon.Unity.Presentation
         public void ReleaseHeldInput()
         {
             if (builder == null || inactive) return;
-            builder.Sample(new DeviceControlSample(true, 0, 0, EffortPreset.Recovery), cancelPressed: true);
+            builder.Sample(new DeviceControlSample(true, 0, 0, EffortPreset.Analog,brake:true), cancelPressed: true);
             previousOvertake = previousCancel = false; inactive = true;
         }
         private void OnApplicationFocus(bool value) => SetInputFocus(value);

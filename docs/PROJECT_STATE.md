@@ -24787,3 +24787,40 @@ Append-only receipt: disk prefix 2968096bytes SHA256 d5d86b2914d7abe0dee7d06d35b
 ### 2026-10-12 -- M14 owner-review publication receipt
 
 GitHub push succeeded: origin/codex/wp-078-ai-pack advanced c050124 -> 366f971, including implementation5e04835, build source4d522bd, and qualification/history366f971; 9 LFS images uploaded. Revised build remains Builds/M14Revision20261012/START_M14_TEST.cmd, standalone PASS, all19 implementation WPs complete, owner acceptance pending. Append-only disk prefix preserved: 2970798bytes SHA256 46381ead85135a625e423669a93d3042426f0d4a0887cc28adeaeea9608a5163.
+
+
+## 2026-10-12 — M14 owner balance/controls correction; test build ready, acceptance OPEN
+
+Owner requested sharper manual turns, fair novice competition and age/junior starts,
+clear timing gates/wide finish, a three-second preparation countdown, retained W/S
+pace/stop, World Cup bibs, animated pulse and visibly selected skis. Implemented all
+within the existing shared deterministic authority. M14 is not owner-accepted or closed.
+
+Reproduced old corner grip losing the real opening bend; shared gameplay lateral grip
+now 4.5–7 m/s², with unchanged bounded dissipative solver and no player autocentre.
+Manual player now receives the same prepared career form/pressure as AI. Explicit
+AI pace/recovery/aim data improves competition without hidden speed/power multipliers.
+New careers select junior18–20 or senior21–30 and age; shared development and earned
+circuit transitions preserve old saves. World Cup uses IBU2026 points/full countback,
+yellow/red/combined bibs. W raises/S lowers stored pace, S brakes and zero holds stop.
+Three seconds freeze race/input/accumulator clocks; compact dial and actual-HR vector
+heartbeat explain state. Shop/actual skis share cached palettes/instancing. Three
+anchored timing gates clear the corridor; finish width14m preserves height/finish paint.
+
+Final evidence: 81/81 combined core +9/9 production corner checks; 31 PlayMode and2
+EditMode native passes. Sprint30 full replay identical at31135ticks, result SHA256
+8003092257f9b376370eadc7f67f03e4716e169cd1e417df75d1107c022413f2.
+Final fixed-seed precise novice: effort1000 rank1 zero misses +22.940slead; effort900
+rank10 three misses 80.272sbehindbestpeer. Earlier calibration remains historical.
+Eight older experimental planner failures reproduce against isolatedHEAD resources
+with byte-identical messages (HEAD38pass/11fail,current41pass/8fail); no disabledtests.
+
+Build Builds/M14BalanceReview20261012/START_M14_TEST.cmd: Unity6000.6.0f1 Windows64
+DevelopmentDX11, succeeded0errors0warnings,361458430bytes. Standalone startup/render
+passed at1600x900,1437visible samples, exit0. No graphics quality reduction.
+Reports: docs/reports/TASK_M14_BALANCE_REVIEW_20261012.md and ADR-0060.
+Evidence: docs/quality/m14/balance-review-20261012; diagnostic baseline review2-20261012.
+WP180/182/184/188/189/196/197 corrections delivered; all19implementationWPs remain
+implemented, owner acceptance pending. Next is owner testing; no M15 started.
+Use a new career for new start profiles. Existing replay definitions must be compatible.
+Git publication follows in a separate append-only receipt after verified push.

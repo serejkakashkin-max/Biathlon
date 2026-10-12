@@ -69,7 +69,7 @@ namespace Biathlon.Unity.Presentation
     }
     internal sealed class SkiPairGraphic:VisualElement
     {
-        internal SkiPairGraphic(Color color)
+        internal SkiPairGraphic(Color color,Color accentColor)
         {
             style.height=72;pickingMode=PickingMode.Ignore;generateVisualContent+=ctx=>
             {
@@ -77,7 +77,7 @@ namespace Biathlon.Unity.Presentation
                 for(int i=0;i<2;i++)
                 {
                     float y=25+i*19;p.strokeColor=color;p.lineWidth=7;p.BeginPath();p.MoveTo(new Vector2(12,y));p.LineTo(new Vector2(contentRect.width-32,y));p.QuadraticCurveTo(new Vector2(contentRect.width-10,y),new Vector2(contentRect.width-6,y-12));p.Stroke();
-                    p.strokeColor=FrontEndTheme.Color("#183849");p.lineWidth=11;p.BeginPath();p.MoveTo(new Vector2(contentRect.width*.45f,y));p.LineTo(new Vector2(contentRect.width*.55f,y));p.Stroke();
+                    p.strokeColor=accentColor;p.lineWidth=11;p.BeginPath();p.MoveTo(new Vector2(contentRect.width*.45f,y));p.LineTo(new Vector2(contentRect.width*.55f,y));p.Stroke();
                 }
             };
         }

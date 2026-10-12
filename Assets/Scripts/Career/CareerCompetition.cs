@@ -57,18 +57,24 @@ namespace Biathlon.Career
         [DataMember(Name="schema_version",IsRequired=true)] public int SchemaVersion { get; private set; }
         [DataMember(Name="id",IsRequired=true)] public string Id { get; private set; }
         [DataMember(Name="rank_points",IsRequired=true)] private int[] points { get; set; }
+        [DataMember(Name="mass_start_rank_points",EmitDefaultValue=false)] private int[] massPoints {get;set;}
+        [DataMember(Name="countback_by_places",EmitDefaultValue=false)] public bool CountbackByPlacings {get;private set;}
         public int Points(int rank){if(rank<1)throw new ArgumentOutOfRangeException(nameof(rank));return rank>points.Length?0:points[rank-1];}
+        public int Points(int rank,CompetitionFormat format){if(rank<1)throw new ArgumentOutOfRangeException(nameof(rank));if(format!=CompetitionFormat.MassStart||massPoints==null)return Points(rank);return rank>massPoints.Length?0:massPoints[rank-1];}
         public static CareerScoringDefinition FromJson(string json)
         {
             var d=CareerJson.Read<CareerScoringDefinition>(json);if(d==null||d.SchemaVersion!=1||d.points==null||d.points.Length<1||d.points.Length>1000)throw new SerializationException("Invalid scoring schema.");CareerUnits.Id(d.Id);
-            int previous=int.MaxValue;foreach(int value in d.points){CareerUnits.Range(value,0,1000000,"points");if(value>previous)throw new SerializationException("Points must not increase with worse rank.");previous=value;}return d;
+            foreach(var list in new[]{d.points,d.massPoints}){if(list==null)continue;if(list.Length<1||list.Length>1000)throw new SerializationException("Invalid points length.");int previous=int.MaxValue;foreach(int value in list){CareerUnits.Range(value,0,1000000,"points");if(value>previous)throw new SerializationException("Points must not increase with worse rank.");previous=value;}}return d;
         }
     }
     public sealed class CareerStanding
     {
         public string AthleteId { get; } public int Points { get; internal set; } public int Wins { get; internal set; }
         public int Podiums { get; internal set; } public int Races { get; internal set; } public long TotalMilliseconds { get; internal set; }
-        internal CareerStanding(string id){AthleteId=id;}
+        private readonly int[] placingCounts;
+        public int FinishesAt(int place)=>place>=1&&place<=placingCounts.Length?placingCounts[place-1]:0;
+        internal void RecordPlace(int place)=>placingCounts[place-1]++;
+        internal CareerStanding(string id,int maximumPlace){AthleteId=id;placingCounts=new int[maximumPlace];}
     }
     public static class CareerStandings
     {
@@ -84,13 +90,18 @@ namespace Biathlon.Career
         public static CareerStanding[] Table(CareerSave save,CareerScoringDefinition scoring,CompetitionFormat? format=null)
         {
             if(save==null||scoring==null)throw new ArgumentNullException();if(format.HasValue&&(format<CompetitionFormat.Sprint||format>CompetitionFormat.MassStart))throw new ArgumentException("Unknown format.");
-            var rows=new Dictionary<string,CareerStanding>(StringComparer.Ordinal);for(int i=0;i<save.AthleteCount;i++)rows.Add(save.Athlete(i).Id,new CareerStanding(save.Athlete(i).Id));
+            var rows=new Dictionary<string,CareerStanding>(StringComparer.Ordinal);for(int i=0;i<save.AthleteCount;i++)rows.Add(save.Athlete(i).Id,new CareerStanding(save.Athlete(i).Id,save.AthleteCount));
             for(int i=0;i<save.RaceCount;i++)
             {
                 var race=save.Race(i);if(format.HasValue&&race.Format!=format.Value)continue;
-                for(int rank=0;rank<race.Count;rank++){var finish=race.Get(rank);var row=rows[finish.AthleteId];row.Points=checked(row.Points+scoring.Points(rank+1));row.Races++;if(rank==0)row.Wins++;if(rank<3)row.Podiums++;row.TotalMilliseconds=checked(row.TotalMilliseconds+finish.ElapsedMilliseconds);}
+                for(int rank=0;rank<race.Count;rank++){var finish=race.Get(rank);int place=ResultRank(race,rank,scoring);var row=rows[finish.AthleteId];row.Points=checked(row.Points+scoring.Points(place,race.Format));row.RecordPlace(place);row.Races++;if(place==1)row.Wins++;if(place<=3)row.Podiums++;row.TotalMilliseconds=checked(row.TotalMilliseconds+finish.ElapsedMilliseconds);}
             }
-            var result=new List<CareerStanding>(rows.Values);result.Sort((a,b)=>{int c=b.Points.CompareTo(a.Points);if(c==0)c=b.Wins.CompareTo(a.Wins);if(c==0)c=b.Podiums.CompareTo(a.Podiums);if(c==0)c=a.TotalMilliseconds.CompareTo(b.TotalMilliseconds);return c!=0?c:StringComparer.Ordinal.Compare(a.AthleteId,b.AthleteId);});return result.ToArray();
+            var result=new List<CareerStanding>(rows.Values);result.Sort((a,b)=>{int c=b.Points.CompareTo(a.Points);if(scoring.CountbackByPlacings){for(int place=1;c==0&&place<=save.AthleteCount;place++)c=b.FinishesAt(place).CompareTo(a.FinishesAt(place));}else {if(c==0)c=b.Wins.CompareTo(a.Wins);if(c==0)c=b.Podiums.CompareTo(a.Podiums);if(c==0)c=a.TotalMilliseconds.CompareTo(b.TotalMilliseconds);}return c!=0?c:StringComparer.Ordinal.Compare(a.AthleteId,b.AthleteId);});return result.ToArray();
+        }
+        public static int ResultRank(CareerRaceRecord race,int index,CareerScoringDefinition scoring)
+        {
+            if(race==null||scoring==null)throw new ArgumentNullException();if(index<0||index>=race.Count)throw new ArgumentOutOfRangeException(nameof(index));
+            int first=index;if(scoring.CountbackByPlacings)while(first>0&&race.Get(first-1).RankTimeMilliseconds==race.Get(index).RankTimeMilliseconds)first--;return first+1;
         }
     }
 }

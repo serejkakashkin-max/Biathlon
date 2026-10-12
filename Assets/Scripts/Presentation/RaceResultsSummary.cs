@@ -43,7 +43,8 @@ namespace Biathlon.Presentation
             {
                 var finish=record.Get(i);CareerAthlete athlete=null;
                 for(int a=0;a<source.AthleteCount;a++)if(source.Athlete(a).Id==finish.AthleteId){athlete=source.Athlete(a);break;}
-                rows[i]=new RaceResultsRow(finish,athlete,i+1,scoring.Points(i+1),record.Get(0).RankTimeMilliseconds,finish.AthleteId==source.PlayerId);
+                int place=CareerStandings.ResultRank(record,i,scoring);
+                rows[i]=new RaceResultsRow(finish,athlete,place,scoring.Points(place,record.Format),record.Get(0).RankTimeMilliseconds,finish.AthleteId==source.PlayerId);
                 if(rows[i].IsPlayer)Player=rows[i];
             }
             if(Player==null)throw new ArgumentException("Results must contain the career player.");

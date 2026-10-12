@@ -1,0 +1,692 @@
+{
+  "source": "git HEAD",
+  "destination": "C:\\game\\Biathlon\\Biathlon\\.tmp\\steering-baseline",
+  "resource_json_count": 277,
+  "changed_resource_json": [
+    {
+      "path": "Assets/Resources/Biathlon/Tracks/synthetic_mass_stadium_connections_v1.json",
+      "head_sha256": "e05296b6cad1bd542e35ce16ef6fd934a7009671e39ecc2b593abb17e39c0579",
+      "working_sha256": "0fb98392a61152f85e4ff7d78e2b8dd703e65913c49e5207ffa7249380dae5d7"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Tracks/synthetic_mass_stadium_junctions_v1.json",
+      "head_sha256": "5ae40cb60139f082d4dd346b5f83dd7a0b44acd3dab48ab37c05f50d59bcc71d",
+      "working_sha256": "4e608e631a07b9d8b7a4cb09658130d6ae2c656aae2848b918a8b54cd61391e9"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Tracks/synthetic_mass_stadium_lanes_v1.json",
+      "head_sha256": "0f891cc32930d86620d38b36ed3c6a7d6ea31a8dea2fe13d8a1c6d80a74c008d",
+      "working_sha256": "740e27d21e97343258261ff05582fe06722f9c6d2943f9f70767612bb829583c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Tracks/synthetic_mass_stadium_v1.json",
+      "head_sha256": "d2e5fe9c1017adc9aae61920b76602c00eb54e686cd029b165370b98d40d2946",
+      "working_sha256": "3ee742962687ce211b010083f77e2f12d3bef69e458858d14829f29f2f1a5311"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Tracks/synthetic_stadium_connections_v1.json",
+      "head_sha256": "180850033e0718eae8223dd7c0922b3fb3b201b1644ada8867f4d96a093ca01f",
+      "working_sha256": "8df357ea10d803f31600cd6dbcaaaef09f6c31d91331e085c1ee5cbee141c1eb"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Tracks/synthetic_stadium_junctions_v1.json",
+      "head_sha256": "a2d982ec4a849a226bcdf3869fce5a7c4d266649df9d707d3786f34fce297991",
+      "working_sha256": "293ef1ba57c099095b89283a044496e71795b17271d48925b581bd66d83c818b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Tracks/synthetic_stadium_lanes_v1.json",
+      "head_sha256": "afa5fa2043091e8f6e09986bd325dfa49296f6e7036ba29d12c5142d331ac1d0",
+      "working_sha256": "c84d9026e904286cb9537f16d814d82c5bcf687422fd64a7fe1d3541a744c4c0"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Tracks/synthetic_stadium_v1.json",
+      "head_sha256": "9035b184b53c6d7124403aea5ae88a1b93bef17db6b53712f3f4dbe65a2f8d36",
+      "working_sha256": "4e5f7c3f7a212531412710c1980ec33159d6d761440eb828ee614a4cf78c0823"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/UI/front_end_theme_v1.json",
+      "head_sha256": "3cc7de25f969b492017c38fcb99afd94d333f77228d6ff354feffc5bfcd570cb",
+      "working_sha256": "3f93ed6213f1e7804973c727a8b24bfe7ad810d51060496614e60180aff20be1"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/UI/gameplay_hud_v1.json",
+      "head_sha256": "1990e640d219683596c864480e519872eb01eef7a5ae4fd0064423f36aa85eaa",
+      "working_sha256": "5395f3bb0a103b11c30df70081d74dab60098a9d5505782db9a67c4ebb337e28"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/production_venue_validation_v1.json",
+      "head_sha256": "dacc1e18a379051c27852cd202cd7c6f84c50309e4cf1d9b1762e2697117c2a6",
+      "working_sha256": "d6a48f3276e7ab32d11d15d79e304be69a71af6f7666bfe50f687fa1eeb2f00b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/venue_pipeline_fixture_v1.json",
+      "head_sha256": "aeb5610fb94b800180ffa27fdc6034d1ab583155b79b730be5cb1d9c0bf0f8d1",
+      "working_sha256": "9deffc17742c05b8846fb5d8121f6458b2f3474547578b65d50b45ba9538f8f5"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/ai_ski_policy.json",
+      "head_sha256": "18154f190cde19a6136045fa12aa9c50ddb56cfb6f86082c4e54116e154408f3",
+      "working_sha256": "f5323240ea1ca707d1f66fc73a83bcc1e505c68c2e65d49d4086de31c85e034b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/connections.json",
+      "head_sha256": "da6eab6639e3fb99a896e0f40745871c937ef9ce6ce18399de3a8f9a0459ea1a",
+      "working_sha256": "e75c3d837befafb519d170c3b9abc793e03a3d4715e7884fe685d7bcd49f13a3"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment.json",
+      "head_sha256": "9a566a5aa264bfdd76f4f1c2ea285f6e04a1e7b2801090b612e255b26b8d3668",
+      "working_sha256": "aef59cc6a550bf4f1b827cb2c16dfa8bcc43d89eb83dd59f928120f20a2f6ae7"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_00_01.json",
+      "head_sha256": "d48176c920195af99b447a23ec7731b5e51d16a6358334e4faccc1019468f401",
+      "working_sha256": "ab79c54ebf93c78999e22e95b139c589db5b5fa52b865edeac1d8218d7aefbcc"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_00_02.json",
+      "head_sha256": "8f1e1cb5cf9b3e29e606ec74567c96210b120d5284c9258bcfd7f2c4b75e08de",
+      "working_sha256": "6a474fc39bf5811fb326aea6c7e7af50aa8e2ba457037b062004beaf3832a148"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_00_03.json",
+      "head_sha256": "65da0e12a7aa1d4008a6048a63bd5dc45d30dcaf39db86e122756f2ac0e4b1bc",
+      "working_sha256": "8198ee63f801aeab309b60cead0af533a755b3faf5eeb042628e9e8fa60fd09e"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_00_04.json",
+      "head_sha256": "731635a2fb72c3bd03f52cbcd84ad1426dd9386747393a4dcaa740e7f4bd3782",
+      "working_sha256": "5a6e979b2e3ea57b8ea4b7bfa336e07f1b38e969d2a0fe3ffb533b7ba2956b59"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_01_01.json",
+      "head_sha256": "a1752d0a12cbd51dc0ddc882622ea13f15aeb3f149080c386dc6fbfc5f0c3db5",
+      "working_sha256": "d38c7529da4161d78dc71e448d71ad57e5d61c408c85b3c80815e6a1e7c50056"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_01_02.json",
+      "head_sha256": "b1a21e3d8c86f3a1b564a53fed3c1da94c4887af6dec21383ad82e59ac287eed",
+      "working_sha256": "a63b2496541781f3da9c440b8804a65c4ed9042cc18cdc59f02f69bc603dbce0"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_01_03.json",
+      "head_sha256": "4c50621ab0c2ab77c8fc11816b3708dd8aeeda39954630043cf1190648778b5d",
+      "working_sha256": "b852fa202c9815d786a91d8d29df355e6b026c5ec0eff454dfb9fcbc1e141962"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_01_04.json",
+      "head_sha256": "a6f07c95e97321508ab7977b0f5178ba754c0d8506ee290e0ddf0cc5c0b4beb2",
+      "working_sha256": "79fda0401ab7192fc247542bd14e779ff0e988c06d2ad5f42fa5a6343fc0d6c7"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_01_05.json",
+      "head_sha256": "6470984361e719d36585398515b96f66b40c8b3e0b6193bcbaae70c21191e3a8",
+      "working_sha256": "e7eb6e82e8a4951ae5534844e6bccb12abfb010e7eddbe7a732d8f342c4120e3"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_02_01.json",
+      "head_sha256": "54da228fbd4c9605013daea0eee8a9ff330a9578880453018905379d11e73ebc",
+      "working_sha256": "9ca030b1571e9c958351306e53031350761d1e4a97e1411ae46d0e54b3e7295d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_02_02.json",
+      "head_sha256": "01ad7b037862606a34d017743638d412c3608774533d2abb5b28e0613b1361c5",
+      "working_sha256": "2867a4d0865a7f6bb3e144718d934f0ab8d3e368db36230d3756f84ced395350"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_02_03.json",
+      "head_sha256": "17fac02cff05577ad5b1d54a756d64b4314a3e96703b6f0960f176530d3268e4",
+      "working_sha256": "4c589c06587014f076e85bba9c613819af754f5b050ba23a8557fe4ae59a285b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_02_04.json",
+      "head_sha256": "b34cf15c5c5d69060d0ccb648b55850b828eb5a6f231d2e0087f6c90a7094ac0",
+      "working_sha256": "54e32261905cb23016ac72e67da26cfb744ffb66e4358185a6cae945d907d8b2"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_03_01.json",
+      "head_sha256": "cc86c62839065aaa44cf91653592991d08fab97c707f6b4fd3631a9340ff53fa",
+      "working_sha256": "756d0893040da1a60938372946b7b2830d302a8f479271bcf927721c590baf8b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_03_02.json",
+      "head_sha256": "6e424ed7ec66fd42302058f6ba92bccd9f5f5b1da131d2de49c2d384510144d0",
+      "working_sha256": "ad3a961c28e790721c34bc03fb0d8f41da5791bd8d1540de2a174bc69fc23771"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_03_03.json",
+      "head_sha256": "92b29def9bc332f0e3d1ae836818a310cb9edf5e7dacd3be428c025d1d3e12a7",
+      "working_sha256": "5548ce7d20c9b8cde80248e2eea7a39438c8b394db39c79b17c196dcfd8ebaf0"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_03_04.json",
+      "head_sha256": "04569a7788c4e5ed17aba42bb8f5e3979a21085b0f66f12f6aa3d043e0a17988",
+      "working_sha256": "9c1f2f3221d13b15c4bc32a18b16629b36f1cd213c92208d29fabeae124732c5"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_04_01.json",
+      "head_sha256": "01acc3b203fd6a8bda03be913b55349fa9ad304b3a8d7e1c0b108593acc6718c",
+      "working_sha256": "3830e6b41afcbccc59eccb003196da72f63db3e99b19c8f6ea5a96178ee3e4d4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_04_02.json",
+      "head_sha256": "6df369399af4831df9e214617edaeb3164d905b266518f1dc72c910d526a41d3",
+      "working_sha256": "9048e4377466df18b0a9bde369a4b90951a6739f36181450dc31439989fcf996"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_04_03.json",
+      "head_sha256": "57262917695ae4f30e24b34c54a32705dc8e048548e756d3e8198a873540f7d3",
+      "working_sha256": "52d9cd773561b96f6c55a8259eae70c0a81de2d61ba950400845693974f85c7b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_04_04.json",
+      "head_sha256": "0a26ab3d21bb1a170ae9a2aa224e9b9d8a71de7f7b73bb64decb4160d1ebc8ea",
+      "working_sha256": "1048ffff27f97499da323ab2e5d16338a0eaf4a789ba7367f468c5c9edb9fc67"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_05_02.json",
+      "head_sha256": "8230647325d5b23c6f92003c66eeb161640cb956d627bf05edc259d69bf0ab2f",
+      "working_sha256": "fd17aafa007954a3279e7788b55ca4c8e11f49e0d83a7905b816baf920cf25e4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_05_03.json",
+      "head_sha256": "c77bb40ca0d580eca3028c652e32f31d74fcff333d5a57745060233fc014f89c",
+      "working_sha256": "89b75f717704432a36e9ae47ba607b8ce377059ffd8604d9a1ebeee7c0b490a1"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_00_00.json",
+      "head_sha256": "0aeda914ee49383c3699ee7afdde37c5c1fb1da3afaba34542327134660e2e9a",
+      "working_sha256": "4678e4d5d63c41787b6903c70fec500e1c4987c15b320fbab658676bb305ac42"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_00_01.json",
+      "head_sha256": "21c85303261b661944bad093f47b7588fa7cb8d74d92946015d656adb77730fe",
+      "working_sha256": "06bbdef5b1dbe1a14fcc229235b2eb5e3e4c6f878a12f9e6159e8c09f28e1660"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_00_02.json",
+      "head_sha256": "7907b6af03b8e6dadac3260e852741ca7141709c332035b00f255784d186723e",
+      "working_sha256": "aafb78e220a2b9aa3c50d26fad600b454ae2674d6a181675a22e2af63af2dbc3"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_00_03.json",
+      "head_sha256": "b0130674707f9e0acce266ba4a0ff50835d4824046be25eac1a590e73fe2c7d4",
+      "working_sha256": "2331022d5586acd1512200fe06661f358097ade8313c059f0f94e916c83bd93d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_00_04.json",
+      "head_sha256": "9874a9d4c225a07bad0006fdede3548aa625854cf3ed8d8560156e6587ad2b82",
+      "working_sha256": "3c487a47010f32c0785cfb19e14a8a7daf6be28b000a88d5f658f7629f1b11c5"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_00_05.json",
+      "head_sha256": "f8ccd2466ca85a171fb81cda5446a3ee024807b0bb26d70ed1590147829363fe",
+      "working_sha256": "2530dbcfcffe9590b3e18caad7b54991aeec3cfe337c058ac2b8339a5d083dc9"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_01_00.json",
+      "head_sha256": "62c9ab19ea81788eafb5f4ddd9de7cd634a91ee088e960b52068e174b2b70a3e",
+      "working_sha256": "5186f2f58443554983062128b2cf666c0374616f85f139e1d85558af3301ff9b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_01_01.json",
+      "head_sha256": "10121e693a36701eb05a530d7cacb5ad37c5ad3e248e2695e1a00b5bcdec0cda",
+      "working_sha256": "b3526f9f6a5b5f13ca8773e7451fb7026f28e1a2585808126cb30d3384448418"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_01_02.json",
+      "head_sha256": "a77feac712b59e299be8c9ebaae93d6edff79c5ed72ef6e1406636dd71494788",
+      "working_sha256": "fd637a43a0e92cfd442d40b6687807eaa9031e64257cdd14b1ea9e1964429e40"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_01_03.json",
+      "head_sha256": "d478a653b0fb632b96802151177a28f830f5bba789678cdf08b257d50f519c7d",
+      "working_sha256": "1c9463204bc1736ec75a2c35d30d0fed9e4f0d9d722341fac5764de2af5e3b94"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_01_04.json",
+      "head_sha256": "bd9ea1716784b24fac1dc7174f142e6bd177fd59a1751632ed479529db77fa32",
+      "working_sha256": "b9e444616348154172f800f7da944add6e5a4f5d59821f53423bafae0eb34a96"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_01_05.json",
+      "head_sha256": "f0b83c7d481f859833febb4d6bd24e8e7420c83e7b27c367fbf623f92ff659c5",
+      "working_sha256": "8ce9e28f4dbeeaf7b3bb58a1e749ec5154b7e88ec2e74bfc29a679297757146f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_02_00.json",
+      "head_sha256": "30257092ea6c8c348c9407591832595a4c2322448b8f28aafedc40bd4c31d45f",
+      "working_sha256": "ff432e59eea2570b85d0e56832a7fd5aa17eb2119e240bd10c42ba4662b62bd4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_02_01.json",
+      "head_sha256": "567d13e0b6bc3b1d7ddf068f0e438b3e5962230887d90b34efcac5ac7d5a6b27",
+      "working_sha256": "4322b7cef83e005d17432532212f84aeda9e1394823aac5b52ea23dd44adbed5"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_02_02.json",
+      "head_sha256": "801dd3b5b13b70b73381a0dcadf66f5d0bd5daf9b1406c38ef0e8fae35093f40",
+      "working_sha256": "e1cf48a40f7e119bf9b82ebedf7fa31aaa756272a495951eb29feabf226206af"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_02_03.json",
+      "head_sha256": "1d0c90b1af636ef9d31fd24143be5cabc8b4962076ab0f043307e1f9bc511f23",
+      "working_sha256": "2fb736fd65dd9394c13b2c40101fb8b1864625b6a01ded4866e750312997377c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_02_04.json",
+      "head_sha256": "352aaa233661ad07ff9ba008d8528ebbfd939d5fe17dbf67e41cbfa2a7062fa3",
+      "working_sha256": "218adfffcdea12e3140b2c7dc9b4e8e0c52c18f9e12cb02c99f10ddd7ce814fb"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_02_05.json",
+      "head_sha256": "80f8629337f9457c0b14c33a024fdee08b2043e5f15b80afd95fdaf157548022",
+      "working_sha256": "309a2a4403986e95b19322b836428cbcba8c4cc96e62efa64a739bd680bd9983"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_03_00.json",
+      "head_sha256": "ab883dfa1ba1a0ed94bbd546f5bd4384281c2ae27509099dcc4a033e5e7f5a1b",
+      "working_sha256": "4dd4c1ab570ac2afbaa3f9a3c0617a9b53a175a60627b39ec4c4b3210a32849f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_03_01.json",
+      "head_sha256": "a34b0de48d7e0dea65cda98c3fb41d3a5a70f935a620930aab177f7ba858d83a",
+      "working_sha256": "39c724ab9161a400a350d0c9c87591ecc13666593893d1d27da019c339170c55"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_03_02.json",
+      "head_sha256": "0d97230b2f65df57989fd52c2e87461023043fc41cbba10b30cb311e90e61bd9",
+      "working_sha256": "980e03c585af07f91a62b1df628f295228cd864155de585459f41da056460aed"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_03_03.json",
+      "head_sha256": "096228ec474b49064e30664072946813b96ea91a42681e4cc42e2f8b1611bdc4",
+      "working_sha256": "a9acfea2c1ed8b3db47c0e477ec7e656fd3ebb9ddb053ea2f0d1d7244b52d0a4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_03_04.json",
+      "head_sha256": "39a02a9c062fb4d1d74444dbc0782205660d4c935a6f24bb01fb883be5a12240",
+      "working_sha256": "81c880efe6484a23484524a7df77a453475caeaa93e00a401e3c7c3f61e31003"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_03_05.json",
+      "head_sha256": "57dabb6cdd49c557d762911ddb2acf7ce39d466c1187395fa32f1442afd87d95",
+      "working_sha256": "b8c1a31bba73574bd6bd9dbffa3b75461106e6a2c6b3dc0d2a36c2f7f20a7ade"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_04_00.json",
+      "head_sha256": "b77a1ed62421bf355dc2394b2434d1a138696595f88350e65666309795c50799",
+      "working_sha256": "7ad63c64b8e04f22f231d8c57b775a65fe603126b1769453a478b02ff19ef05f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_04_01.json",
+      "head_sha256": "ee7b1b98428a4dc2ce8a8bcae38a8a18bcbf45160c2ba5f818c47535705230d5",
+      "working_sha256": "cf8c9777be37ad583c15056de6d8e23836308728aaa800aa212e8a6b221d6bdc"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_04_02.json",
+      "head_sha256": "fac5d70f7e48b394aba145a9be1696503797477369d183170f09f459cf8a3ef2",
+      "working_sha256": "6051b92925df222950fa0d15c59c18426e5b57937f769b2936c04068243c5f07"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_04_03.json",
+      "head_sha256": "d81ee651c4c4704bde2703cd9b615d4530903c76c5e7d297a6d999233018b8f1",
+      "working_sha256": "48574028b308e952f275f77e29ca3390cf03b0c2a1ed4ae4fa09759f93440ca1"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_04_04.json",
+      "head_sha256": "a6c5b6c4630d706297c57a1e56db94efb8ce84b4aea3e2ab8abf86b3af83326c",
+      "working_sha256": "70d0486c505af627ec4eec25a2d45dce5a20644fc4260004e68aaaf9f1fe937f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_04_05.json",
+      "head_sha256": "f278fd68236e75ebd961380e3588b93b775f9351d57557abbe1d633a0c6bafca",
+      "working_sha256": "191a022ba16b0f7a8029053f0eafbff7388d8b65fb94bddf26e89620ef3d64f8"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_05_00.json",
+      "head_sha256": "bfc63061a6bf7595f4ff02627aa922922cd376d0eb8842df0268e81dfa8ee4c6",
+      "working_sha256": "90460a0e206502a472bd3d6a6900211e9b9fc21b6492f8b70f83324f862c0003"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_05_01.json",
+      "head_sha256": "32378c6af56994b88a453319df55d8f6ed873f3aae6ac7bbd2c150cca6ed4568",
+      "working_sha256": "73115bd94f97ce01c0ab370a8ca8f0a07452f5a120d9f4fd57db8608d2a7b087"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_05_02.json",
+      "head_sha256": "9cb59461bc100f8ef84f5091d8716107236a058238387d73ef62147619e6953a",
+      "working_sha256": "193a77244637e9efecc3f03224bacefd7d47f3942d9eb498cb0d485f5656546d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_05_03.json",
+      "head_sha256": "56b8b402985a586e5499a5adf6558113772383bfa96cf90f536f142036c601bf",
+      "working_sha256": "4533c2d55afd3611cf4b610298bc46e47b7b5938074e416974d1847f4195d370"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_05_04.json",
+      "head_sha256": "bd75a76c906537e82ab643e607beb9bf8c5754ae842db934a678c5c60777ad29",
+      "working_sha256": "3bd319957c0cc03a770cc43efc97625bcd624340f7d37e8120bfd2485cf0c96e"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_05_05.json",
+      "head_sha256": "1cadba590b76b5cf40c2223c5989c0f53ed10af886264b3542c065c596ffd227",
+      "working_sha256": "3d9fabeaa0624cccc0d60a4206c072ba0333dfe8417e5b23d4cbee5e8830849b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/junctions.json",
+      "head_sha256": "0d910f81d2b2a6824c9836da6902f817cb0fb2c3736f2ab1cbe75084e20019dd",
+      "working_sha256": "be34c57478c876549ff01920f244a19086a7dca51d718d1f08b802630154adf0"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/manifest.json",
+      "head_sha256": "4d83ed7552ae910c98b1b33e746b60dd1aff70cb65a0960e33c93988cece7e4e",
+      "working_sha256": "f03b9b2772af5a929e286c6f347fcb7afc52e3606a1ded7f8fbba4210acf2dca"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/mass_start_profile.json",
+      "head_sha256": "c25b6067649cd87e37a4790f362c240c4d2ab91103dc0a34f6c6c434665c7771",
+      "working_sha256": "27ffaaa0fcd9d503f2a60e25b408145a58c8976286193e54c63cb5a62a0a9292"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/mass_start_route.json",
+      "head_sha256": "99aab2bea6c5bfde77d2626321c9292773a6234a37665f43de2bd65a17d0a356",
+      "working_sha256": "b6439b68e039731d363b8474fc937b6dc167ac343a38a9f8a26b591d426fc93d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/paths.json",
+      "head_sha256": "e0211103fba7a22d2dbf39d55030f66d29749a61c8a49c63acf7f533078c69de",
+      "working_sha256": "48aac46833313642ff9a4f19b178ffd3719b05f7c909a851d6c1ac39f0fb213d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/pursuit_directed_passages.json",
+      "head_sha256": "7d540bddfe5fd4766356f07630eb3c0c0b753ed6fd942084c0155bc52078dedb",
+      "working_sha256": "eb1e595a936008e24bf865195d2c4b7cb35e3e1324dca44029f6c94ab549ca8d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/pursuit_profile.json",
+      "head_sha256": "d96aabd6f362ebd5eb548f6b8f802c18dfd18b98e4bd700e8ae19fe662f3ea8d",
+      "working_sha256": "82f0f00fc28142ce026e45ecea3ea2ad0dae8d8defa6b1bbacf854e044803bf4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/pursuit_route.json",
+      "head_sha256": "b470a4666ca0b57d2fca5d372c0feecaf25a95d9c361d11f6a60d4ff9196a0a6",
+      "working_sha256": "1710e760b65e4a9d7dbb762867a6fbec4b02b6e3cc94997b0a8e55b3aa72c21b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/shared_apron.json",
+      "head_sha256": "ae3b4f526c74554ed412b33fc2d40f735dc0f947d3f9e760d7c6ca4ee846a597",
+      "working_sha256": "600c89322c02df920269f3b1b4b8a660e341f503a1bc6b70bdc2349a1d6d5a5d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/sprint_fork_snow_shoulders.json",
+      "head_sha256": "e8c85f6fb223f8d759fb465f583b72c0c24465ea5c771618be44d39f589a0958",
+      "working_sha256": "6c83ec6923773c02f0a3eba8d41d7f3f0de42eaafa66ba192e08921ce8e0aef6"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/sprint_profile.json",
+      "head_sha256": "f297da3c14518019edb30975825896d62cb359bf629c5cecc14460581dac8dad",
+      "working_sha256": "836e0c6080e5ded7516eecd3a2dc35a88b5fde3157c2814af5bf140016730517"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/sprint_route.json",
+      "head_sha256": "b505c047d30924c7bf2c2dd4c38a6c364d9e64608d00d8d4c24095263798f304",
+      "working_sha256": "6a838e4d63832f44fd0ddbf1af27f46a384b615d5aa37946a9f213104a5cc318"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/start_approach.json",
+      "head_sha256": "033e9366cb4ff624d422a55659392ec813ab253145bab0f1effbe4eba2b27228",
+      "working_sha256": "37e2d260921b86f2fa34a2df174fe45b3961b2b1a3a6beb1fe1324e741ecbdfb"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/start_continuation.json",
+      "head_sha256": "6cc3dc4a3695b3afedd6c62b3ec3f03383944b070bc163b75a911a358e592456",
+      "working_sha256": "8370e6f611350da821a45f41c4fd0bdb4880ef0963ac1350d8013e91839e8f6d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/track.json",
+      "head_sha256": "a05826f6438355eb0b7a09915c8cc0674266c98ff4af4f39b31aada5cbfe3b4a",
+      "working_sha256": "5cd6f3c655fd27dc78b9d094e3a940829e4165b942e4b5d463d404a3945b72f1"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/visual.json",
+      "head_sha256": "adde01aa6d4b452892192ec1724bc07defba6ff18145373b3f2d216b7c46c3ac",
+      "working_sha256": "143ed4046bae65ec981e6dda003869a8eecbaa497d74aabaad542b10afa1c515"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/breathing_gameplay_v2.json",
+      "head_sha256": "86535fe287d2d6a6843c9ae7c8bea8c962a4e475c6366acabe45bcb4b47b3562",
+      "working_sha256": "042fdf99c523229bd52bae8b4ac4baba749fa993c620118e3f37ac55b4950191"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_calendar_v1.json",
+      "head_sha256": "72ea309e49bd98840ddd140158778f86ae2fa73bce0a2ef087e6226e0667b630",
+      "working_sha256": "21f04facaca509278030b053f7daf7dae14cdc36eff80f4a48b53058a767b15f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_economy_v1.json",
+      "head_sha256": "7bb45bce56699357377d39150c7bd4f9bb2fb465f5ed2a046e8060d070a413d8",
+      "working_sha256": "d52cf87c0f302758bf0c0aad081628ca5ba8d3154b0032814e1ab872f1597fb9"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_generation_v1.json",
+      "head_sha256": "7020b582df91937bc4a137c44cecca53d1daa6097ef156664d91f47110386213",
+      "working_sha256": "33d2a0ca2cbd4123beb62360c67982df1dbc3b1b0e770428ec09f70b150adbc1"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_history_v1.json",
+      "head_sha256": "8fd2a2d026fbc6bab127f7c4f0dbe2a9d7979ce189abe827925d48eb9917e877",
+      "working_sha256": "8ec234f41f700c1b21a13865a3c458712e9724a13277f746e43e21c81b40db9c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_progression_v1.json",
+      "head_sha256": "22a6c4a6453d9b675d3c5089b725da5e6941ef6318d1e9ad06964c19e8c1741a",
+      "working_sha256": "e6b4ac9f2a119a4b7fefabee771ef703138f1f1508a412c7351280b84f8ea156"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_race_v1.json",
+      "head_sha256": "8b3be88c039515916814096d81f94e60816cd96608eed9a2cd9be2fb7c26dcc9",
+      "working_sha256": "aab9028cb174453b223889931785cd2f69d56bdbd3736c52c55f58fa30da295d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_roster_v1.json",
+      "head_sha256": "62a9ea1d5a06d1e8af13297e357d07031bdf2bf425a68629c764816b4f193d85",
+      "working_sha256": "e4221a5c2e2ab7674bb80720b8f37f7fa8733a9f4472d07984541a44ee62f73f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_training_v1.json",
+      "head_sha256": "613cbf987fdf693af9143c0e248f54a58520ee2c44805a7a82b13b9ae3c8d314",
+      "working_sha256": "3437e0900cd85bd0a84a2f281c5815c06da5dc650cd170aedd1113fc74f9504d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/chase_camera_v1.json",
+      "head_sha256": "7cc4a13509dcf12ec263b9abc654f916046e86cdfaa217bbe40b60faf498065a",
+      "working_sha256": "023f17bc0b381fe050c6bad17c97581969e603103aa63643717009d9ea0905e9"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/cornering_gameplay_v2.json",
+      "head_sha256": "287cf7a1d0ca79b09c99d352fd9764ebcc664f91b519a409a3aade0594b41ef0",
+      "working_sha256": "cb0e99c7a40d6f60d7b854121d4bde5c5bc79d825ae732fa250edce5e0c83770"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/device_control_gameplay_v2.json",
+      "head_sha256": "dc4f1f5e6bb9e38814296a87d644c5aaa838cc746048bf42cb6e72e5f2d93c18",
+      "working_sha256": "3bab3381b5a8f1eea6d2969ada34aa8907885f052bc5b3c03cc00c413e7c5d80"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/device_control_gameplay_v3.json",
+      "head_sha256": "e0ab17350c32056ba1904a4278cf6e19a5396670a0f584f9070197f4d7ee2f40",
+      "working_sha256": "203db7bd1fb9ba7fc74f9d47a37c371daa8e7a34b91101aba2a9973b8df49fcf"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/draft_selection_provisional_v1.json",
+      "head_sha256": "6a89e138d76fddefbd647642e11b7f4a2ac123cdb908ce439059530727b8b833",
+      "working_sha256": "9df0b29e46280234f9af7416dff251abe8ae50f4b9c1c614a0e3e2640defaa99"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/finish_presentation_v1.json",
+      "head_sha256": "c0b98d650cf862e1caccaaf17e7edb31137a27ba62d8882f8590cc74d2211029",
+      "working_sha256": "009e245cad440accb1e10c9b120226584425f912b678f292bd8ff7bcf4b0f0ec"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/g2_lighting_visual_v1.json",
+      "head_sha256": "4602a6df8072516452258d048cbd01db7f0fae82b52dcbc355b133753c95e7bf",
+      "working_sha256": "daba249dff16a516eca0f5e7fe600e38959fd251389f4ad89916814d00bde24f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/heartbeat_gameplay_v2.json",
+      "head_sha256": "39ace81854f2c6aab539708502af629936700363479ceec2153fc67e6c15fe5f",
+      "working_sha256": "7aa7f27a2cceeb2a4b1a60aa3f7c2166e75e47585d45b3a697423925c8a05c91"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_course_contact_gameplay_v2.json",
+      "head_sha256": "3ab21271376b8af8f168f7c112e207c2ab06def9c6f66532304763b467d0379f",
+      "working_sha256": "5873b6f59fe6157e7a5e9dd0a2e684dacc0e6538b3b8a89b30da32a6823882fd"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_course_contact_v1.json",
+      "head_sha256": "2d65aef6bddc5c5124b329b5790316eed8f4a1b35cf39f961cdbbaab1dd3f72a",
+      "working_sha256": "d6f9ac5cc9b51950af7b729e8672086943a250f6d98d7260b122d0d814166412"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_gameplay_tolerance_v1.json",
+      "head_sha256": "726919ddc5207984db3333fcbcb00e549b63b9670279e5bd24dfb76d518bc0dc",
+      "working_sha256": "29f76dd6092260c2b4815a8f28e5474837cacd26aaeca1ea8007a9060e050c74"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_mat_capture_v1.json",
+      "head_sha256": "2ecb9687b572504f52e774cdaa2699b3e30506ec20a579b794220fc470f0d466",
+      "working_sha256": "0f0147af87611455b92e55bd7ee44e5f13fc05f25e25b95baebc915a6a0458bb"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_ski_contact_gameplay_v1.json",
+      "head_sha256": "cf359df415280175c8c1c64b2a16cbb190f6d39d47529a7fabb801c5a5afeff6",
+      "working_sha256": "e4683c75da52a86e96fe81344ae7903b66c2cb5a0767919ea06417160bdd8fb7"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_ski_contact_group_gameplay_v1.json",
+      "head_sha256": "a00238e1ce4ac3b9fc9c50a17c6a70611263c2ebd4e5de00a8bb51c075a5a6d8",
+      "working_sha256": "93ba5a28f91f9b2379637da1af70aadc87094bacc4e62c4d10b1a32cf09eec7b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/mass_stadium_visual_v1.json",
+      "head_sha256": "ec514d78a4e72d1a2c6d916a9872287223fd2c5f27ff2ec0b8c345b65a824cc8",
+      "working_sha256": "1399cace67105479062bb9e18164871676f44090f7eb767b6057a6457cc86a9c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/mass_start_test_v1.json",
+      "head_sha256": "27d161deaf870a152d279f4a287d3cf222a68eabefdce63691126ce6317bb7b3",
+      "working_sha256": "06dd984e3a283731146c9f1e1b3936967c8da830559e285991d70692740b5b03"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/muscular_sway_gameplay_v2.json",
+      "head_sha256": "4eaf5ac217ef4f114fc4b0c220edc39e1470d7e5288b4a0bd0e74a9820190ae8",
+      "working_sha256": "de609c7da7a6206d895d31cd6708c5938710cbc07801d6f87942c45fda5ed95c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/overtake_decision_provisional_v1.json",
+      "head_sha256": "f4f5d4b57091e69e315d80eb5ebcc25eed4c4ff1c7c144ff8e2137006bd05402",
+      "working_sha256": "b7b18430664236b348d2bf6bca49bcd8e3e4aa1777cf6fdfba2d2e0ff20c1cb8"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/pace_controller_provisional_v1.json",
+      "head_sha256": "fa0f3fbf42db4db01d0a093ed01b0791ed46ecf98b869755d716de09b2d6681d",
+      "working_sha256": "6d478038e7580a13d952cd699f59960efdd6f358996b8afbf9c02e0938955248"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/physiology_gameplay_v2.json",
+      "head_sha256": "4a8f6b9bc5344f69c4b238d755942e19564b84652d8b2f33c09b0a191dbabddf",
+      "working_sha256": "de3ebfe333aff05b9717dc598ae1ff9d257d3e9d9e003e17165877c028fdc366"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/range_guidance_v1.json",
+      "head_sha256": "8c1a5d87de144ce31b68fc523b7b8ffc0013744a88704a2a91e9288c85597766",
+      "working_sha256": "d11fbc9d6364f8bfc79c832d3c6138bc3e0f5c9137c2f6984277f93c490ebe36"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/range_venue_presentation_v1.json",
+      "head_sha256": "0417294f70ed8e19f607d91c6eb208ef0818ebd349d87777304814b9603e3edf",
+      "working_sha256": "152cca40fba45855cffa5b6a092cf83702fb3fefda80afaf8dcf6ae30b3a98c3"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/rifle_sight_presentation_v1.json",
+      "head_sha256": "612696df98c83a73ad1bb99997e0d6c2e1215cce8bca02ad6261f31b81950aa1",
+      "working_sha256": "ad3bce177eb26413d85d0cb0c714d48f190aab7118d4b73b082571511b9fcf8e"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_ai_calibration_developing_v1.json",
+      "head_sha256": "df9626fbe8242f59bfc7e38861954beb66e2df25ee3399b6a122096afd0a0be4",
+      "working_sha256": "46dbbcaead89a1a0306ff8b3c3e8dcebeaba37c61967aedcd6202ffb95f9e9e3"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_ai_calibration_mid_v1.json",
+      "head_sha256": "e9a09801c725145ae46f99f5f232cb7be3f2b255c405b1c89385c2eb846c82ec",
+      "working_sha256": "f98a047541d099a6d09abd0d87fffa4b848ca74a1dc53b2cd6d55ee7805939b1"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_ai_calibration_top_v1.json",
+      "head_sha256": "0fe8d9f4424cb4dc4548dbe3a45b631e8dc2ce49eb154f46f5fa965dab3770f7",
+      "working_sha256": "1c259aaad1bb60810590247dd670ec0095169a5a27723b1676b6865f8c023ab8"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_developing_v1.json",
+      "head_sha256": "b8ee0467532ee0d36dd62918b33661f8ad33dd7b95ac453580ec874c43ecaad5",
+      "working_sha256": "c0ef7782f625e2e54eab89aac86548db44e0fc18d92dd6690b22bfec90a47bbc"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_device_v1.json",
+      "head_sha256": "ceb1ea03119e12e889d8f911bd260c7a253630270911ef4a82030c2b2e059ac6",
+      "working_sha256": "f555e4d93b4601e40bd0f5b6d4e76843688c6e5633cf296687486219cbac546e"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_mid_v1.json",
+      "head_sha256": "71558e5aac3b756fba0b3b51ebdb1110dee60ee8d5161358a618330b8c583186",
+      "working_sha256": "2ba4f02508025f6caa5a7d90cccda0f8b83e358b8184d67871b1f65831237e84"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_stances_v1.json",
+      "head_sha256": "3bda6b82269ef06016be47c6289d0fe6870e35dd666d71d6350abf35ad6a0c19",
+      "working_sha256": "7ebaeef3aacd627c9636dc5345fefaa42a4353b9b4ceda5917c56818d6344dd2"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_top_v1.json",
+      "head_sha256": "062487f95ea944ed8e766883ae88b643dc9ef18c4ed56d74b46b9be0eacb492b",
+      "working_sha256": "253d96f944ea8b39ad568880917033b5e8bf8a28927c57bf2bc1c89eda0513e8"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ski_technique_visual_v1.json",
+      "head_sha256": "6a8da5394b236a837d2caf59df4ab9b61abf7f1ff3d3f3fecc2c301b07738050",
+      "working_sha256": "bf370c36d2a55201db24e8554b898d1e38e0e9d41704e8062b3b3d24053d4483"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/stadium_visual_v1.json",
+      "head_sha256": "146a3445c21990684e108ce92b394decbdf3181f60eda16a4b70f18897e06df1",
+      "working_sha256": "01c875482e6cd8a436a5b278086e3f48aefa76a2e289bbe85f3730d40f1a36a6"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/start_approach_test_v1.json",
+      "head_sha256": "b2355d5718b77c85a64625f9adbf8e4e73b32d5bbc5a13ca4c3a073b616c1cad",
+      "working_sha256": "45bb01bd96f19a12aa75a28f810009a3bd5d2181260ab920640fc65cb44f78cc"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/tactical_cadence_provisional_v1.json",
+      "head_sha256": "49775e7ed6893d25d195b22dc59ff568609bc7d4cc3c64c759b81d52fe0bf2ac",
+      "working_sha256": "0b3cf3a45ccb6dfd21228937193a0de900181152f79a7044f5e492b3885ac2f1"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/tactical_utility_provisional_v1.json",
+      "head_sha256": "13c15c7b5057888b080419f81212b8ca7cb88ddf87e263ed39e7ab727f3940cd",
+      "working_sha256": "d47a4cfc0a9e7f8a48498ea4b96e20be109bd19e77b7fede7ceaaa12f3ba488e"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/terrain_planning_provisional_v1.json",
+      "head_sha256": "9a12457215b3d2b8c4d66f49ffe68738bcc7616af09f2ea350d19e4f1b74136d",
+      "working_sha256": "ceb0fb23ebad426de48515af926af0d2b408b7beae94564fab1bf2dd61af57c9"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/tuck_gameplay_v2.json",
+      "head_sha256": "c7cf5f2dba0a7aa8d5158ac2190199e207c0cd759c32c79aee931b44537cef7c",
+      "working_sha256": "90309909363ba1c08a600192b4647fe10d60d0f62aabdd0046811717dc99f865"
+    }
+  ]
+}

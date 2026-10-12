@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="24826685-d070-46d8-a4fb-1aab953426a9" name="snkashkin@DESKTOP-G3075GA 2026-10-12 16:40:08" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-12T16:40:08.0315712+03:00" queuing="2026-10-12T16:40:08.0315713+03:00" start="2026-10-12T16:40:07.3488981+03:00" finish="2026-10-12T16:40:08.0344479+03:00" />
+  <TestSettings name="default" id="66310c7c-9f45-43e6-865b-c0aab6c8c491">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-12_16_40_08" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="a016bd45-46c8-4fda-9185-847a521b7fbb" testId="a0bc965b-eda9-5c47-db39-0cef9061743d" testName="CountdownShowsThreeTwoOneAndDoesNotSkipOnLargeFrame" computerName="DESKTOP-G3075GA" duration="00:00:00.0165750" startTime="2026-10-12T16:40:07.9229303+03:00" endTime="2026-10-12T16:40:07.9394811+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a016bd45-46c8-4fda-9185-847a521b7fbb" />
+    <UnitTestResult executionId="30e0de3a-c689-4ce2-bd3a-6324dc62b4f4" testId="7694aeeb-5370-8034-8562-7155e03ae6ab" testName="PaceDialStartsStoppedRisesHoldsFallsAndStaysStopped" computerName="DESKTOP-G3075GA" duration="00:00:00.0091370" startTime="2026-10-12T16:40:07.9400351+03:00" endTime="2026-10-12T16:40:07.9491721+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="30e0de3a-c689-4ce2-bd3a-6324dc62b4f4" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="PaceDialStartsStoppedRisesHoldsFallsAndStaysStopped" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="7694aeeb-5370-8034-8562-7155e03ae6ab">
+      <Execution id="30e0de3a-c689-4ce2-bd3a-6324dc62b4f4" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RacePaceCountdownTests" name="PaceDialStartsStoppedRisesHoldsFallsAndStaysStopped" />
+    </UnitTest>
+    <UnitTest name="CountdownShowsThreeTwoOneAndDoesNotSkipOnLargeFrame" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="a0bc965b-eda9-5c47-db39-0cef9061743d">
+      <Execution id="a016bd45-46c8-4fda-9185-847a521b7fbb" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RacePaceCountdownTests" name="CountdownShowsThreeTwoOneAndDoesNotSkipOnLargeFrame" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="a0bc965b-eda9-5c47-db39-0cef9061743d" executionId="a016bd45-46c8-4fda-9185-847a521b7fbb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7694aeeb-5370-8034-8562-7155e03ae6ab" executionId="30e0de3a-c689-4ce2-bd3a-6324dc62b4f4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

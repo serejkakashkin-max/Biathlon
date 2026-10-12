@@ -55,6 +55,15 @@ namespace Biathlon.Unity.Presentation
         public double DiscardedWallSeconds=>frameClock?.DiscardedWallSeconds??0;
         public double LastSimulationFrameMilliseconds {get;private set;}
         public bool HasSimulationFault {get;private set;}
+        private Biathlon.Presentation.RaceStartCountdown startCountdown;
+        public double CountdownRemaining=>startCountdown?.Remaining??0;
+        public int CountdownNumber=>startCountdown?.Number??0;
+        public int SelectedPace {get;private set;}
+        public void ArmRaceStartCountdown()
+        {
+            if(Runner==null||Runner.Field.Tick.Value!=0)throw new InvalidOperationException("Countdown requires a fresh race.");
+            startCountdown=new Biathlon.Presentation.RaceStartCountdown(RaceStartDefinition.FromJson(ReadCore("race_start_v1.json")).CountdownSeconds);
+        }
         public void UseReplayView(Camera view)
         {
             if(Runner==null||view==null)throw new ArgumentException("Initialized host and replay camera required.");
@@ -96,6 +105,7 @@ namespace Biathlon.Unity.Presentation
                 RaceSnowConditions.FromJson(ReadResource(ConditionsResource)),FieldCount);
             if(review!=null)InitializeReview(review,entry.id);
             if(!string.IsNullOrEmpty(EnvironmentResource))InitializeEnvironment(ProductionEnvironmentDefinition.FromJson(ReadResource(EnvironmentResource)));
+            ArmRaceStartCountdown();
         }
         public static ProductionReviewDefinition ReadOptionalReview(string resource)
         {
@@ -124,6 +134,7 @@ namespace Biathlon.Unity.Presentation
             {
                 environment.Initialize(Venue,definition,ReadResource,Feed,ChaseCamera,range.AimCamera,apron:Course.Apron);
                 Course.JoinGround(environment,definition.terrain.grid_spacing_m,environment.TerrainGridOrigin);
+                GetComponent<CourseTimingPresentation>()?.GroundSupports(environment);
                 Environment=environment;range.BindVenue(Venue,environment,Proxies.GetRig(Runner.Field.GetAthlete(PlayerIndex).AthleteId.Value));
             }
             catch{Destroy(environment);throw;}
@@ -203,6 +214,7 @@ namespace Biathlon.Unity.Presentation
         private void Update()
         {
             if(Runner==null||Runner.Field.IsComplete)return;
+            if(CountdownRemaining>0){AdvanceSimulationFrame(Time.unscaledDeltaTime);return;}
             if(FastFinish){AdvanceFinishedFieldFrame();return;}
             bool shooting=Runner.Field.GetAthlete(PlayerIndex).ActiveShooting!=null;
             if(shooting!=shootingContext){ski.ReleaseHeldInput();shot.ReleaseHeldInput();shootingContext=shooting;}
@@ -213,6 +225,7 @@ namespace Biathlon.Unity.Presentation
         public void AdvanceSimulationFrame(double elapsed)
         {
             if(HasSimulationFault)return;
+            if(CountdownRemaining>0){startCountdown.Advance(elapsed);return;}
             int steps=frameClock.BeginFrame(elapsed);frameWork.Restart();batchFrame=true;int completed=0;
             try
             {
@@ -254,6 +267,7 @@ namespace Biathlon.Unity.Presentation
                 !assist.Active&&command.TuckHeld,!assist.Active&&applied.FinalSprintRequested),shooting.Aim,shooting.Trigger,shooting.HoldBreath,cycleBolt:shooting.CycleBolt,manualBoltCycle:true);
             Runner.StepWithPlayer(PlayerIndex,input,assist.RequestedLateral);LastRangeAssistance=assist;
             effort.Step(command,true);
+            SelectedPace=command.AnalogEffort;
             if(!batchFrame)PublishPresentation();
         }
         public void Step(ManualSkiCommand command,ShootingDeviceCommand shooting)
@@ -286,6 +300,7 @@ namespace Biathlon.Unity.Presentation
                 input=input.WithSki(new TimeTrialInput(new SimulationInput(command.Tick,command.AthleteId,0),1,1,0));
             Runner.StepWithManualPlayer(PlayerIndex,input,command.SteeringInput,assist.Active,assist.Active?0:command.BrakeFraction);LastRangeAssistance=assist;
             effort.Step(command.ToEffortCommand(),true);
+            SelectedPace=command.AnalogEffort;
             if(!batchFrame)PublishPresentation();
         }
         private void PublishPresentation(bool capture=true)

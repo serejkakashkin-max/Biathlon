@@ -134,7 +134,7 @@ namespace Biathlon.Unity.Presentation
                 crowds=crowdList.ToArray();
                 for(int i=0;i<data.mesh_assets.Length;i++)
                 {
-                    var asset=data.mesh_assets[i];var go=Child(asset.id,asset.position,Quaternion.Euler(0,asset.yaw_deg,0));go.transform.localScale=Vector3.one*asset.scale;
+                    var asset=data.mesh_assets[i];var go=Child(asset.id,asset.position,Quaternion.Euler(0,asset.yaw_deg,0));go.transform.localScale=new Vector3(asset.scale*asset.EffectiveLateralScale,asset.scale,asset.scale);
                     go.AddComponent<MeshFilter>().sharedMesh=prepared.Meshes[i];go.AddComponent<MeshRenderer>().sharedMaterial=prepared.Materials[i];
                     staticRenderers.Add(go.GetComponent<MeshRenderer>());
                 }

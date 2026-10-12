@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="81179746-749a-4c5b-a435-d068e5d4f711" name="snkashkin@DESKTOP-G3075GA 2026-10-12 16:57:38" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-12T16:57:38.4982875+03:00" queuing="2026-10-12T16:57:38.4982877+03:00" start="2026-10-12T16:57:36.8541174+03:00" finish="2026-10-12T16:57:41.4237835+03:00" />
+  <TestSettings name="default" id="98fcb628-8645-488c-aa14-e3d095d5d226">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-12_16_57_38" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="d92e9f6a-1367-48ea-a754-257af7a7c1eb" testId="f15bc088-b99d-f781-1b2f-444e684f89b2" testName="WeeklyAiDevelopmentIsRealAndLegacyFactoryKeepsItsOriginalSave" computerName="DESKTOP-G3075GA" duration="00:00:00.0200190" startTime="2026-10-12T16:57:41.2761980+03:00" endTime="2026-10-12T16:57:41.2962168+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d92e9f6a-1367-48ea-a754-257af7a7c1eb" />
+    <UnitTestResult executionId="ad1962a4-b351-486f-823d-a8e488f73690" testId="5a1ff402-ff25-10a9-6d74-003195b3811d" testName="SeededPlayerRosterAndVersionedSaveRoundTripExactly" computerName="DESKTOP-G3075GA" duration="00:00:00.0107160" startTime="2026-10-12T16:57:37.5782523+03:00" endTime="2026-10-12T16:57:37.5889683+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad1962a4-b351-486f-823d-a8e488f73690">
+      <Output>
+        <StdOut>career save sha256=a9a4cc348c15a7d5f38f9a592bb7f56709e9020db1373c92825838b9c46d8dc8</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d9ea6fe0-889d-403a-87a0-65cd8e429cfd" testId="2816d322-c5ff-bbd6-ab18-5dbec2dbc582" testName="JuniorAgeEligibilityAndAgeOutPersistWithoutLosingPlayerProgress" computerName="DESKTOP-G3075GA" duration="00:00:00.3798930" startTime="2026-10-12T16:57:38.0744099+03:00" endTime="2026-10-12T16:57:38.4543026+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d9ea6fe0-889d-403a-87a0-65cd8e429cfd" />
+    <UnitTestResult executionId="02b38981-af8e-4c75-8836-d0e1392e3d1a" testId="f2541085-adad-e206-68c8-da0361fa7899" testName="WorldCupStandingsCountEveryFinishingPlaceAndShareTiedRacePoints" computerName="DESKTOP-G3075GA" duration="00:00:00.0011740" startTime="2026-10-12T16:57:41.2962340+03:00" endTime="2026-10-12T16:57:41.2974082+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="02b38981-af8e-4c75-8836-d0e1392e3d1a" />
+    <UnitTestResult executionId="91e80b7e-b113-44d3-a1b0-58a86c693231" testId="2aadf9b1-3b84-7434-dead-3ca38d319121" testName="ManualCareerPlayerUsesSameProjectedFormAndPressureAsAi" computerName="DESKTOP-G3075GA" duration="00:00:02.8218390" startTime="2026-10-12T16:57:38.4543309+03:00" endTime="2026-10-12T16:57:41.2761694+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="91e80b7e-b113-44d3-a1b0-58a86c693231" />
+    <UnitTestResult executionId="528c5f7a-a770-403d-acde-95d3400f9a1d" testId="4a6ee6be-a43e-f592-57d8-f86ba0440493" testName="CalendarHasTrainingRestWindowsAndValidPursuitDependencies" computerName="DESKTOP-G3075GA" duration="00:00:00.0263670" startTime="2026-10-12T16:57:37.5184879+03:00" endTime="2026-10-12T16:57:37.5448248+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="528c5f7a-a770-403d-acde-95d3400f9a1d" />
+    <UnitTestResult executionId="1de23d23-5376-4e17-9315-3fe32f9a8f0c" testId="53575b10-2a5d-db80-3d1d-f11ac3e31851" testName="InvalidAndRepeatedResultsLeaveTheSaveUnchanged" computerName="DESKTOP-G3075GA" duration="00:00:00.0072470" startTime="2026-10-12T16:57:37.5899570+03:00" endTime="2026-10-12T16:57:37.5972031+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1de23d23-5376-4e17-9315-3fe32f9a8f0c" />
+    <UnitTestResult executionId="a0253dbc-0fc7-4208-a7ef-7604f613af7d" testId="f59b3312-7ae1-8bde-927e-e0420fe8a2d0" testName="EarnedPromotionLoadsActualWorldCupCohortAndScoring" computerName="DESKTOP-G3075GA" duration="00:00:00.4574220" startTime="2026-10-12T16:57:37.6067089+03:00" endTime="2026-10-12T16:57:38.0641299+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a0253dbc-0fc7-4208-a7ef-7604f613af7d" />
+    <UnitTestResult executionId="c8c8396c-c967-4a8e-bf52-08e0a3336230" testId="3f7ba532-99d5-87a9-8c7b-84fd3b9ebcc8" testName="LegacyConfidenceMigrationIsExplicitAndZeroSurvivesCurrentSaves" computerName="DESKTOP-G3075GA" duration="00:00:00.0042610" startTime="2026-10-12T16:57:37.5739744+03:00" endTime="2026-10-12T16:57:37.5782346+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c8c8396c-c967-4a8e-bf52-08e0a3336230" />
+    <UnitTestResult executionId="b6b9b8be-2b06-47db-a386-25cdd9454898" testId="44906b5b-25dc-7f9d-d2c3-4394f5aaf887" testName="InvalidIdentityAllocationAndStateAreRejectedBeforeUse" computerName="DESKTOP-G3075GA" duration="00:00:00.0285070" startTime="2026-10-12T16:57:37.5454361+03:00" endTime="2026-10-12T16:57:37.5739427+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b6b9b8be-2b06-47db-a386-25cdd9454898" />
+    <UnitTestResult executionId="7f5d8d34-0628-4845-8f62-fd15c809303b" testId="422b07e9-642b-2828-1187-f92669034b2f" testName="ExplicitStartsKeepNewcomerWeakAndPeersHeterogeneousAndSeeded" computerName="DESKTOP-G3075GA" duration="00:00:00.0102220" startTime="2026-10-12T16:57:38.0641693+03:00" endTime="2026-10-12T16:57:38.0743908+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7f5d8d34-0628-4845-8f62-fd15c809303b" />
+    <UnitTestResult executionId="a7df9308-8084-49b7-ae7c-e7adc386ae0a" testId="cf536077-bf69-911a-49ff-fbb24775177f" testName="SupportedFormatsAccumulateDeterministicStandingsAndSaveHistory" computerName="DESKTOP-G3075GA" duration="00:00:00.0093240" startTime="2026-10-12T16:57:37.5972231+03:00" endTime="2026-10-12T16:57:37.6065464+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a7df9308-8084-49b7-ae7c-e7adc386ae0a" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="InvalidAndRepeatedResultsLeaveTheSaveUnchanged" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="53575b10-2a5d-db80-3d1d-f11ac3e31851">
+      <Execution id="1de23d23-5376-4e17-9315-3fe32f9a8f0c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerStandingsTests" name="InvalidAndRepeatedResultsLeaveTheSaveUnchanged" />
+    </UnitTest>
+    <UnitTest name="ExplicitStartsKeepNewcomerWeakAndPeersHeterogeneousAndSeeded" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="422b07e9-642b-2828-1187-f92669034b2f">
+      <Execution id="7f5d8d34-0628-4845-8f62-fd15c809303b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerStartProfileTests" name="ExplicitStartsKeepNewcomerWeakAndPeersHeterogeneousAndSeeded" />
+    </UnitTest>
+    <UnitTest name="ManualCareerPlayerUsesSameProjectedFormAndPressureAsAi" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="2aadf9b1-3b84-7434-dead-3ca38d319121">
+      <Execution id="91e80b7e-b113-44d3-a1b0-58a86c693231" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerStartProfileTests" name="ManualCareerPlayerUsesSameProjectedFormAndPressureAsAi" />
+    </UnitTest>
+    <UnitTest name="InvalidIdentityAllocationAndStateAreRejectedBeforeUse" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="44906b5b-25dc-7f9d-d2c3-4394f5aaf887">
+      <Execution id="b6b9b8be-2b06-47db-a386-25cdd9454898" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerFoundationTests" name="InvalidIdentityAllocationAndStateAreRejectedBeforeUse" />
+    </UnitTest>
+    <UnitTest name="JuniorAgeEligibilityAndAgeOutPersistWithoutLosingPlayerProgress" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="2816d322-c5ff-bbd6-ab18-5dbec2dbc582">
+      <Execution id="d9ea6fe0-889d-403a-87a0-65cd8e429cfd" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerStartProfileTests" name="JuniorAgeEligibilityAndAgeOutPersistWithoutLosingPlayerProgress" />
+    </UnitTest>
+    <UnitTest name="EarnedPromotionLoadsActualWorldCupCohortAndScoring" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="f59b3312-7ae1-8bde-927e-e0420fe8a2d0">
+      <Execution id="a0253dbc-0fc7-4208-a7ef-7604f613af7d" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerStartProfileTests" name="EarnedPromotionLoadsActualWorldCupCohortAndScoring" />
+    </UnitTest>
+    <UnitTest name="SupportedFormatsAccumulateDeterministicStandingsAndSaveHistory" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="cf536077-bf69-911a-49ff-fbb24775177f">
+      <Execution id="a7df9308-8084-49b7-ae7c-e7adc386ae0a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerStandingsTests" name="SupportedFormatsAccumulateDeterministicStandingsAndSaveHistory" />
+    </UnitTest>
+    <UnitTest name="CalendarHasTrainingRestWindowsAndValidPursuitDependencies" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="4a6ee6be-a43e-f592-57d8-f86ba0440493">
+      <Execution id="528c5f7a-a770-403d-acde-95d3400f9a1d" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerFoundationTests" name="CalendarHasTrainingRestWindowsAndValidPursuitDependencies" />
+    </UnitTest>
+    <UnitTest name="SeededPlayerRosterAndVersionedSaveRoundTripExactly" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="5a1ff402-ff25-10a9-6d74-003195b3811d">
+      <Execution id="ad1962a4-b351-486f-823d-a8e488f73690" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerFoundationTests" name="SeededPlayerRosterAndVersionedSaveRoundTripExactly" />
+    </UnitTest>
+    <UnitTest name="LegacyConfidenceMigrationIsExplicitAndZeroSurvivesCurrentSaves" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="3f7ba532-99d5-87a9-8c7b-84fd3b9ebcc8">
+      <Execution id="c8c8396c-c967-4a8e-bf52-08e0a3336230" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerFoundationTests" name="LegacyConfidenceMigrationIsExplicitAndZeroSurvivesCurrentSaves" />
+    </UnitTest>
+    <UnitTest name="WeeklyAiDevelopmentIsRealAndLegacyFactoryKeepsItsOriginalSave" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="f15bc088-b99d-f781-1b2f-444e684f89b2">
+      <Execution id="d92e9f6a-1367-48ea-a754-257af7a7c1eb" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerStartProfileTests" name="WeeklyAiDevelopmentIsRealAndLegacyFactoryKeepsItsOriginalSave" />
+    </UnitTest>
+    <UnitTest name="WorldCupStandingsCountEveryFinishingPlaceAndShareTiedRacePoints" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="f2541085-adad-e206-68c8-da0361fa7899">
+      <Execution id="02b38981-af8e-4c75-8836-d0e1392e3d1a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerStartProfileTests" name="WorldCupStandingsCountEveryFinishingPlaceAndShareTiedRacePoints" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="f15bc088-b99d-f781-1b2f-444e684f89b2" executionId="d92e9f6a-1367-48ea-a754-257af7a7c1eb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5a1ff402-ff25-10a9-6d74-003195b3811d" executionId="ad1962a4-b351-486f-823d-a8e488f73690" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2816d322-c5ff-bbd6-ab18-5dbec2dbc582" executionId="d9ea6fe0-889d-403a-87a0-65cd8e429cfd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f2541085-adad-e206-68c8-da0361fa7899" executionId="02b38981-af8e-4c75-8836-d0e1392e3d1a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2aadf9b1-3b84-7434-dead-3ca38d319121" executionId="91e80b7e-b113-44d3-a1b0-58a86c693231" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4a6ee6be-a43e-f592-57d8-f86ba0440493" executionId="528c5f7a-a770-403d-acde-95d3400f9a1d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="53575b10-2a5d-db80-3d1d-f11ac3e31851" executionId="1de23d23-5376-4e17-9315-3fe32f9a8f0c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f59b3312-7ae1-8bde-927e-e0420fe8a2d0" executionId="a0253dbc-0fc7-4208-a7ef-7604f613af7d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3f7ba532-99d5-87a9-8c7b-84fd3b9ebcc8" executionId="c8c8396c-c967-4a8e-bf52-08e0a3336230" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="44906b5b-25dc-7f9d-d2c3-4394f5aaf887" executionId="b6b9b8be-2b06-47db-a386-25cdd9454898" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="422b07e9-642b-2828-1187-f92669034b2f" executionId="7f5d8d34-0628-4845-8f62-fd15c809303b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cf536077-bf69-911a-49ff-fbb24775177f" executionId="a7df9308-8084-49b7-ae7c-e7adc386ae0a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="12" executed="12" passed="12" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 12 of 12 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+career save sha256=a9a4cc348c15a7d5f38f9a592bb7f56709e9020db1373c92825838b9c46d8dc8&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

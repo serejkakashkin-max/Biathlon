@@ -3,7 +3,7 @@
 2026-10-12. G1/G2 approved. M13 closed by owner acceptance.
 M14: **19/19 WPs implemented and verified; awaiting owner test/acceptance**.
 
-Current player build: `Builds/M14Revision20261012/START_M14_TEST.cmd` (build succeeded; standalone startup/render passed).
+Current player build: `Builds/M14BalanceReview20261012/START_M14_TEST.cmd` (0 build errors/warnings; standalone startup/render passed).
 Previous accepted M13 build remains `Builds/WoodlandM13BotRecovery-20261011/START_WOODLAND_REVIEW.cmd`.
 
 Woodland keeps maximum 30 athletes, High default, separate start/finish, manual steering,
@@ -16,7 +16,7 @@ compressed deterministic replays, event highlights, broadcast cameras and option
 Accessibility: RU/EN, text scaling, contrast, non-color target feedback and assist explanations.
 Keyboard/gamepad navigation and career/race/replay flows have native coverage.
 
-A complete Sprint30 replay produces the identical authority protocol/hash at 31602 ticks.
+A complete final Sprint30 replay produces the identical authority protocol/hash at 31135 ticks.
 The full saved Sprint-to-Pursuit career transition completes with 30 athletes.
 Headless production career races now bind the same manual movement as the playable host;
 shared steering/braking changed explicitly; graphics quality is unchanged.
@@ -32,3 +32,12 @@ M14 is not declared owner-accepted; next work is owner testing, then M15 or requ
 GitHub publication complete on `codex/wp-078-ai-pack`: owner-review code `4d522bd`, qualification `366f971`; append-only publication receipt is recorded in PROJECT_STATE.
 
 Owner review revision 2026-10-12: snow/ink/teal card UI and paged protocols; six timing lines and Tab latest-split standings; sharper A/D, S physical brake and paid low-speed pivot; true HR guidance before shooting; live post-finish athlete/overhead/side cameras and bounded full-field completion. See [review report](reports/TASK_M14_OWNER_REVIEW_20261012.md). M14 remains pending owner acceptance.
+
+Latest owner correction: actual corner grip fixed; retained W/S pace dial and initial stop;
+3-second start preparation; junior/senior age selection and career circuit progression;
+shared player/AI form, competitive rival tactics; three rectangular timing gates and
+14m finish; World Cup leader bibs/countback; visible selected ski colors and animated HR.
+90 focused core checks, 31 native PlayMode and 2 native EditMode checks passed.
+Eight older experimental planner failures were baseline-reproduced, not concealed.
+See [latest report](reports/TASK_M14_BALANCE_REVIEW_20261012.md). Test new starts with
+a new career. M14 remains open for owner acceptance.

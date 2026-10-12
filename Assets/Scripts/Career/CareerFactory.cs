@@ -24,6 +24,22 @@ namespace Biathlon.Career
             for(int i=0;i<roster.Length;i++)roster[i]=Generate(rules,careerId,i,random,i==0,playerName,nation,i==0?appearance:"appearance_default");
             return CareerSave.Create(careerId,rules.Id,calendar.Id,roster,roster[0].Id,random.State,roster.Length);
         }
+        public static CareerSave Create(CareerRosterDefinition rules,CareerCalendar calendar,string careerId,string playerName,string nation,string appearance,IRandomSource random,CareerStartDefinition starts,string profileId,int? age=null)
+        {
+            if(starts==null)throw new ArgumentNullException(nameof(starts));var profile=starts.Get(profileId);int selectedAge=age??profile.DefaultAge;
+            CareerUnits.Range(selectedAge,profile.MinimumAge,profile.MaximumAge,"selected starting age");
+            if(calendar==null||calendar.Id!=profile.CalendarResource.Substring(0,profile.CalendarResource.Length-5))throw new ArgumentException("Start profile and calendar must match.");
+            var save=Create(rules,calendar,careerId,playerName,nation,appearance,random);
+            // Each peer owns a coherent ability level plus bounded specialization.
+            // These become ordinary permanent stats; no controller-only power boost.
+            for(int i=0;i<save.AthleteCount;i++)
+            {
+                var a=save.Athlete(i);a.Age=i==0?selectedAge:Draw(random,profile.PeerAgeMin,profile.PeerAgeMax);a.Tier=profile.PlayerTier;
+                int level=Draw(random,i==0?profile.PlayerSkillMin:profile.PeerSkillMin,i==0?profile.PlayerSkillMax:profile.PeerSkillMax);
+                for(int stat=0;stat<CareerUnits.StatCount;stat++)a.SetStat((CareerStat)stat,Math.Min(a.Potential,Math.Max(0,level+Draw(random,-profile.PeerStatSpread,profile.PeerStatSpread))));
+            }
+            save.StartProfileId=profile.Id;save.FirstSeasonYear=starts.FirstSeasonYear;save.RandomState=random.State;save.Validate();return save;
+        }
         public static CareerSave Restore(string json,CareerRosterDefinition rules,CareerCalendar calendar,IRandomSource random)
         {
             if(rules==null||calendar==null||random==null)throw new ArgumentNullException();var save=CareerSave.FromJson(json);

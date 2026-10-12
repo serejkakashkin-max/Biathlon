@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="59e50e04-116c-46be-9311-7b645ee1a3c4" name="snkashkin@DESKTOP-G3075GA 2026-10-12 17:12:37" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-12T17:12:37.8501260+03:00" queuing="2026-10-12T17:12:37.8501261+03:00" start="2026-10-12T17:12:36.0225488+03:00" finish="2026-10-12T17:12:37.8785889+03:00" />
+  <TestSettings name="default" id="94472852-dd9e-4b6f-a987-b4797698fa52">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-12_17_12_37" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="674ec4ba-f87d-47c4-816a-35244057727e" testId="b55c969f-d3c0-58fd-7382-da448f4f72d9" testName="SharedGameplayGripRemainsPassiveBoundedAndSensitiveToAthleteSkill" computerName="DESKTOP-G3075GA" duration="00:00:00.1130810" startTime="2026-10-12T17:12:37.7262853+03:00" endTime="2026-10-12T17:12:37.8393663+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="674ec4ba-f87d-47c4-816a-35244057727e" />
+    <UnitTestResult executionId="6124b537-59b1-4afa-8f27-95ccd7fc9104" testId="ac32ae51-e30e-847d-2830-3e067226fd58" testName="DeliberateManualKeysCanKeepNoviceOnProductionBends(&quot;finish_spur&quot;,0.5d,28.0d,40,6.5d,5.0d)" computerName="DESKTOP-G3075GA" duration="00:00:00.1099170" startTime="2026-10-12T17:12:37.0165005+03:00" endTime="2026-10-12T17:12:37.1264171+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6124b537-59b1-4afa-8f27-95ccd7fc9104">
+      <Output>
+        <StdOut>manual_keys loop=finish_spur; novice=40; start_speed=6,5; grip=5,350; max_lateral=0,884; footprint_margin=2,689; local=28,294; ticks=83</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4c2be46e-5288-4201-b34d-139287ba721b" testId="1a8eccd1-1b0f-31ce-41e8-764a4a5ec76c" testName="HeldManualKeyHasEnoughActualTravelHeadingAuthorityAtRaceSpeed(40,8.5d)" computerName="DESKTOP-G3075GA" duration="00:00:00.1104400" startTime="2026-10-12T17:12:37.2479624+03:00" endTime="2026-10-12T17:12:37.3584020+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4c2be46e-5288-4201-b34d-139287ba721b">
+      <Output>
+        <StdOut>skill=40; start_mps=8,5; grip=5,024; velocity_turn_rad=1,874; max_lateral_m=9,452; actual_travel_m=23,722</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1b1ad843-7607-4914-9207-421f244c8a5c" testId="3df4e9e2-b338-8320-eb92-632190859436" testName="DeliberateManualKeysCanKeepNoviceOnProductionBends(&quot;main&quot;,62.559d,92.0d,40,10.0d,8.0d)" computerName="DESKTOP-G3075GA" duration="00:00:00.1110000" startTime="2026-10-12T17:12:36.9054654+03:00" endTime="2026-10-12T17:12:37.0164647+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1b1ad843-7607-4914-9207-421f244c8a5c">
+      <Output>
+        <StdOut>manual_keys loop=main; novice=40; start_speed=10; grip=5,024; max_lateral=0,975; footprint_margin=2,097; local=92,028; ticks=65</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="08ec399a-8ad8-4caf-8efe-9d58d7356fd2" testId="e3cd8c9c-c9cc-fdb8-b155-c2b354801ab8" testName="HeldManualKeyHasEnoughActualTravelHeadingAuthorityAtRaceSpeed(70,9.0d)" computerName="DESKTOP-G3075GA" duration="00:00:00.1211910" startTime="2026-10-12T17:12:37.3584318+03:00" endTime="2026-10-12T17:12:37.4796222+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="08ec399a-8ad8-4caf-8efe-9d58d7356fd2">
+      <Output>
+        <StdOut>skill=70; start_mps=9; grip=5,709; velocity_turn_rad=2,021; max_lateral_m=10,625; actual_travel_m=24,913</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="da6b1588-5da4-40c3-9153-b24dc8cd3cb8" testId="e6ba80d9-68b7-cbd1-700f-81b9cf64673b" testName="ExtraGripCannotTurnNeutralInputOrChangeItsLongitudinalForceLaw" computerName="DESKTOP-G3075GA" duration="00:00:00.1208520" startTime="2026-10-12T17:12:37.1270611+03:00" endTime="2026-10-12T17:12:37.2479125+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="da6b1588-5da4-40c3-9153-b24dc8cd3cb8" />
+    <UnitTestResult executionId="c25bee61-0689-43b6-8710-39b90cb4f5cc" testId="712d347d-24ee-7b23-b263-a5f3c38370de" testName="HeldManualKeyHasEnoughActualTravelHeadingAuthorityAtRaceSpeed(40,10.0d)" computerName="DESKTOP-G3075GA" duration="00:00:00.1192470" startTime="2026-10-12T17:12:37.4796493+03:00" endTime="2026-10-12T17:12:37.5988959+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c25bee61-0689-43b6-8710-39b90cb4f5cc">
+      <Output>
+        <StdOut>skill=40; start_mps=10; grip=5,024; velocity_turn_rad=1,626; max_lateral_m=5,953; actual_travel_m=27,410</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="dc73b686-4f48-40ac-93eb-899a6aed70f0" testId="7eaedfde-c2bb-0057-8e95-f4f874fb92f3" testName="HeldManualKeyHasEnoughActualTravelHeadingAuthorityAtRaceSpeed(70,10.5d)" computerName="DESKTOP-G3075GA" duration="00:00:00.1272820" startTime="2026-10-12T17:12:37.5989260+03:00" endTime="2026-10-12T17:12:37.7262074+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dc73b686-4f48-40ac-93eb-899a6aed70f0">
+      <Output>
+        <StdOut>skill=70; start_mps=10,5; grip=5,709; velocity_turn_rad=1,766; max_lateral_m=7,059; actual_travel_m=28,577</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2ae580bb-35f5-451d-aa6f-f477b52c71f0" testId="030440db-5dff-ea90-c63e-e18a0ab567f8" testName="DeliberateManualKeysCanKeepNoviceOnProductionBends(&quot;main&quot;,62.559d,92.0d,40,8.5d,8.0d)" computerName="DESKTOP-G3075GA" duration="00:00:00.3216390" startTime="2026-10-12T17:12:36.5832625+03:00" endTime="2026-10-12T17:12:36.9048757+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2ae580bb-35f5-451d-aa6f-f477b52c71f0">
+      <Output>
+        <StdOut>manual_keys loop=main; novice=40; start_speed=8,5; grip=5,024; max_lateral=1,035; footprint_margin=2,037; local=92,009; ticks=77</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="HeldManualKeyHasEnoughActualTravelHeadingAuthorityAtRaceSpeed(40,8.5d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="1a8eccd1-1b0f-31ce-41e8-764a4a5ec76c">
+      <Execution id="4c2be46e-5288-4201-b34d-139287ba721b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ProductionManualCorneringTests" name="HeldManualKeyHasEnoughActualTravelHeadingAuthorityAtRaceSpeed(40,8.5d)" />
+    </UnitTest>
+    <UnitTest name="HeldManualKeyHasEnoughActualTravelHeadingAuthorityAtRaceSpeed(70,10.5d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="7eaedfde-c2bb-0057-8e95-f4f874fb92f3">
+      <Execution id="dc73b686-4f48-40ac-93eb-899a6aed70f0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ProductionManualCorneringTests" name="HeldManualKeyHasEnoughActualTravelHeadingAuthorityAtRaceSpeed(70,10.5d)" />
+    </UnitTest>
+    <UnitTest name="DeliberateManualKeysCanKeepNoviceOnProductionBends(&quot;main&quot;,62.559d,92.0d,40,10.0d,8.0d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="3df4e9e2-b338-8320-eb92-632190859436">
+      <Execution id="1b1ad843-7607-4914-9207-421f244c8a5c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ProductionManualCorneringTests" name="DeliberateManualKeysCanKeepNoviceOnProductionBends(&quot;main&quot;,62.559d,92.0d,40,10.0d,8.0d)" />
+    </UnitTest>
+    <UnitTest name="DeliberateManualKeysCanKeepNoviceOnProductionBends(&quot;main&quot;,62.559d,92.0d,40,8.5d,8.0d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="030440db-5dff-ea90-c63e-e18a0ab567f8">
+      <Execution id="2ae580bb-35f5-451d-aa6f-f477b52c71f0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ProductionManualCorneringTests" name="DeliberateManualKeysCanKeepNoviceOnProductionBends(&quot;main&quot;,62.559d,92.0d,40,8.5d,8.0d)" />
+    </UnitTest>
+    <UnitTest name="HeldManualKeyHasEnoughActualTravelHeadingAuthorityAtRaceSpeed(40,10.0d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="712d347d-24ee-7b23-b263-a5f3c38370de">
+      <Execution id="c25bee61-0689-43b6-8710-39b90cb4f5cc" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ProductionManualCorneringTests" name="HeldManualKeyHasEnoughActualTravelHeadingAuthorityAtRaceSpeed(40,10.0d)" />
+    </UnitTest>
+    <UnitTest name="ExtraGripCannotTurnNeutralInputOrChangeItsLongitudinalForceLaw" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="e6ba80d9-68b7-cbd1-700f-81b9cf64673b">
+      <Execution id="da6b1588-5da4-40c3-9153-b24dc8cd3cb8" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ProductionManualCorneringTests" name="ExtraGripCannotTurnNeutralInputOrChangeItsLongitudinalForceLaw" />
+    </UnitTest>
+    <UnitTest name="DeliberateManualKeysCanKeepNoviceOnProductionBends(&quot;finish_spur&quot;,0.5d,28.0d,40,6.5d,5.0d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="ac32ae51-e30e-847d-2830-3e067226fd58">
+      <Execution id="6124b537-59b1-4afa-8f27-95ccd7fc9104" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ProductionManualCorneringTests" name="DeliberateManualKeysCanKeepNoviceOnProductionBends(&quot;finish_spur&quot;,0.5d,28.0d,40,6.5d,5.0d)" />
+    </UnitTest>
+    <UnitTest name="SharedGameplayGripRemainsPassiveBoundedAndSensitiveToAthleteSkill" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="b55c969f-d3c0-58fd-7382-da448f4f72d9">
+      <Execution id="674ec4ba-f87d-47c4-816a-35244057727e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ProductionManualCorneringTests" name="SharedGameplayGripRemainsPassiveBoundedAndSensitiveToAthleteSkill" />
+    </UnitTest>
+    <UnitTest name="HeldManualKeyHasEnoughActualTravelHeadingAuthorityAtRaceSpeed(70,9.0d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="e3cd8c9c-c9cc-fdb8-b155-c2b354801ab8">
+      <Execution id="08ec399a-8ad8-4caf-8efe-9d58d7356fd2" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ProductionManualCorneringTests" name="HeldManualKeyHasEnoughActualTravelHeadingAuthorityAtRaceSpeed(70,9.0d)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b55c969f-d3c0-58fd-7382-da448f4f72d9" executionId="674ec4ba-f87d-47c4-816a-35244057727e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ac32ae51-e30e-847d-2830-3e067226fd58" executionId="6124b537-59b1-4afa-8f27-95ccd7fc9104" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1a8eccd1-1b0f-31ce-41e8-764a4a5ec76c" executionId="4c2be46e-5288-4201-b34d-139287ba721b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3df4e9e2-b338-8320-eb92-632190859436" executionId="1b1ad843-7607-4914-9207-421f244c8a5c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e3cd8c9c-c9cc-fdb8-b155-c2b354801ab8" executionId="08ec399a-8ad8-4caf-8efe-9d58d7356fd2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e6ba80d9-68b7-cbd1-700f-81b9cf64673b" executionId="da6b1588-5da4-40c3-9153-b24dc8cd3cb8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="712d347d-24ee-7b23-b263-a5f3c38370de" executionId="c25bee61-0689-43b6-8710-39b90cb4f5cc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7eaedfde-c2bb-0057-8e95-f4f874fb92f3" executionId="dc73b686-4f48-40ac-93eb-899a6aed70f0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="030440db-5dff-ea90-c63e-e18a0ab567f8" executionId="2ae580bb-35f5-451d-aa6f-f477b52c71f0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="9" executed="9" passed="9" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 9 of 9 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+manual_keys loop=main; novice=40; start_speed=8,5; grip=5,024; max_lateral=1,035; footprint_margin=2,037; local=92,009; ticks=77&#xD;
+&#xD;
+manual_keys loop=main; novice=40; start_speed=10; grip=5,024; max_lateral=0,975; footprint_margin=2,097; local=92,028; ticks=65&#xD;
+&#xD;
+manual_keys loop=finish_spur; novice=40; start_speed=6,5; grip=5,350; max_lateral=0,884; footprint_margin=2,689; local=28,294; ticks=83&#xD;
+&#xD;
+skill=40; start_mps=8,5; grip=5,024; velocity_turn_rad=1,874; max_lateral_m=9,452; actual_travel_m=23,722&#xD;
+&#xD;
+skill=70; start_mps=9; grip=5,709; velocity_turn_rad=2,021; max_lateral_m=10,625; actual_travel_m=24,913&#xD;
+&#xD;
+skill=40; start_mps=10; grip=5,024; velocity_turn_rad=1,626; max_lateral_m=5,953; actual_travel_m=27,410&#xD;
+&#xD;
+skill=70; start_mps=10,5; grip=5,709; velocity_turn_rad=1,766; max_lateral_m=7,059; actual_travel_m=28,577&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

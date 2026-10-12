@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="4" result="Passed" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-12 13:53:55Z" end-time="2026-10-12 13:53:57Z" duration="1,6732406">
+  <test-suite type="TestSuite" id="1417" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="308" result="Passed" start-time="2026-10-12 13:53:55Z" end-time="2026-10-12 13:53:57Z" duration="1.673241" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1411" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="308" result="Passed" start-time="2026-10-12 13:53:55Z" end-time="2026-10-12 13:53:57Z" duration="1.635228" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="16060" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1412" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="308" result="Passed" start-time="2026-10-12 13:53:55Z" end-time="2026-10-12 13:53:57Z" duration="1.627557" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1413" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="308" result="Passed" start-time="2026-10-12 13:53:55Z" end-time="2026-10-12 13:53:57Z" duration="1.624344" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1080" name="CourseTimingPresentationTests" fullname="Biathlon.PlayModeTests.CourseTimingPresentationTests" classname="Biathlon.PlayModeTests.CourseTimingPresentationTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-12 13:53:55Z" end-time="2026-10-12 13:53:57Z" duration="1.616826" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1081" name="LegacyMeshPlacementsKeepUniformWidthAndExplicitFinishWidthSurvivesRoundTrip" fullname="Biathlon.PlayModeTests.CourseTimingPresentationTests.LegacyMeshPlacementsKeepUniformWidthAndExplicitFinishWidthSurvivesRoundTrip" methodname="LegacyMeshPlacementsKeepUniformWidthAndExplicitFinishWidthSurvivesRoundTrip" classname="Biathlon.PlayModeTests.CourseTimingPresentationTests" runstate="Runnable" seed="153614042" result="Passed" start-time="2026-10-12 13:53:55Z" end-time="2026-10-12 13:53:56Z" duration="0.088267" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1082" name="ThreeUsefulStationsPaintExactAuthorityAnchorsAndLeaveTheSkiCorridorClear" fullname="Biathlon.PlayModeTests.CourseTimingPresentationTests.ThreeUsefulStationsPaintExactAuthorityAnchorsAndLeaveTheSkiCorridorClear" methodname="ThreeUsefulStationsPaintExactAuthorityAnchorsAndLeaveTheSkiCorridorClear" classname="Biathlon.PlayModeTests.CourseTimingPresentationTests" runstate="Runnable" seed="1573758883" result="Passed" start-time="2026-10-12 13:53:56Z" end-time="2026-10-12 13:53:56Z" duration="0.718648" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1083" name="TimingFeetFollowActualSlopedSnowWithoutMovingTheAuthorityStripe" fullname="Biathlon.PlayModeTests.CourseTimingPresentationTests.TimingFeetFollowActualSlopedSnowWithoutMovingTheAuthorityStripe" methodname="TimingFeetFollowActualSlopedSnowWithoutMovingTheAuthorityStripe" classname="Biathlon.PlayModeTests.CourseTimingPresentationTests" runstate="Runnable" seed="1444753278" result="Passed" start-time="2026-10-12 13:53:56Z" end-time="2026-10-12 13:53:56Z" duration="0.068704" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1084" name="WidenedFinishGantryKeepsEveryActualLowSupportBeyondTheFinishShoulders" fullname="Biathlon.PlayModeTests.CourseTimingPresentationTests.WidenedFinishGantryKeepsEveryActualLowSupportBeyondTheFinishShoulders" methodname="WidenedFinishGantryKeepsEveryActualLowSupportBeyondTheFinishShoulders" classname="Biathlon.PlayModeTests.CourseTimingPresentationTests" runstate="Runnable" seed="2018149879" result="Passed" start-time="2026-10-12 13:53:56Z" end-time="2026-10-12 13:53:57Z" duration="0.731500" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

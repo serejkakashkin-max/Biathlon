@@ -15,6 +15,7 @@ namespace Biathlon.Domain
         // Absent in historical device definitions: retain their immediate axis.
         [DataMember(Name="keyboard_steering_units_per_s",EmitDefaultValue=false)] public double KeyboardSteeringRate {get;private set;}
         [DataMember(Name="manual_brake_fraction",EmitDefaultValue=false)] public double ManualBrakeFraction {get;private set;}
+        [DataMember(Name="stop_at_zero_effort",EmitDefaultValue=false)] public bool StopAtZeroEffort {get;private set;}
         public static DeviceControlDefinition FromJson(string json)
         {
             var v = RouteJson.Read<DeviceControlDefinition>(json);

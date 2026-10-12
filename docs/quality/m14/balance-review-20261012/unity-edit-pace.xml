@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-12 14:15:27Z" end-time="2026-10-12 14:15:28Z" duration="0,5472562">
+  <test-suite type="TestSuite" id="3802" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1891" result="Passed" start-time="2026-10-12 14:15:27Z" end-time="2026-10-12 14:15:28Z" duration="0.547256" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="3744" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="1863" result="Passed" start-time="2026-10-12 14:15:27Z" end-time="2026-10-12 14:15:28Z" duration="0.441378" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="16060" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="3745" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1863" result="Passed" start-time="2026-10-12 14:15:27Z" end-time="2026-10-12 14:15:28Z" duration="0.329553" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="3746" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="1863" result="Passed" start-time="2026-10-12 14:15:27Z" end-time="2026-10-12 14:15:28Z" duration="0.224578" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="3283" name="RacePaceCountdownTests" fullname="Biathlon.Tests.RacePaceCountdownTests" classname="Biathlon.Tests.RacePaceCountdownTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-12 14:15:27Z" end-time="2026-10-12 14:15:28Z" duration="0.121979" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="3285" name="CountdownShowsThreeTwoOneAndDoesNotSkipOnLargeFrame" fullname="Biathlon.Tests.RacePaceCountdownTests.CountdownShowsThreeTwoOneAndDoesNotSkipOnLargeFrame" methodname="CountdownShowsThreeTwoOneAndDoesNotSkipOnLargeFrame" classname="Biathlon.Tests.RacePaceCountdownTests" runstate="Runnable" seed="1928960800" result="Passed" start-time="2026-10-12 14:15:28Z" end-time="2026-10-12 14:15:28Z" duration="0.006202" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="3284" name="PaceDialStartsStoppedRisesHoldsFallsAndStaysStopped" fullname="Biathlon.Tests.RacePaceCountdownTests.PaceDialStartsStoppedRisesHoldsFallsAndStaysStopped" methodname="PaceDialStartsStoppedRisesHoldsFallsAndStaysStopped" classname="Biathlon.Tests.RacePaceCountdownTests" runstate="Runnable" seed="1179939192" result="Passed" start-time="2026-10-12 14:15:28Z" end-time="2026-10-12 14:15:28Z" duration="0.004959" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
