@@ -4,6 +4,8 @@ using System.IO;
 using Biathlon.AI;
 using Biathlon.Career;
 using Biathlon.Presentation;
+using Biathlon.Domain;
+using Biathlon.Replay;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,6 +23,7 @@ namespace Biathlon.Unity.Presentation
         private FrontEndMenu menu;
         private CareerPreparedRace prepared;
         private GameObject raceRoot;
+        private CareerReplayCapture replayCapture;
         private static string ReadCore(string name)=>ProductionVenueHost.ReadResource("Biathlon/"+Path.GetFileNameWithoutExtension(name));
         public void Launch(FrontEndMenu owner)
         {
@@ -36,12 +39,26 @@ namespace Biathlon.Unity.Presentation
             try
             {
                 var week=menu.Session.PreparedWeek;
+                var replayPolicy=ReplayPresentationSettings.Load();
+                string format=week.Event.Format==CompetitionFormat.Sprint?"sprint":week.Event.Format==CompetitionFormat.Pursuit?"pursuit":"mass_start";
+                var profile=CompetitionProfile.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/"+week.Event.VenueId+"/"+format+"_profile"));
+                int frequency=CareerRaceDefinition.FromJson(ReadCore("career_race_v1.json")).TickFrequency;
+                var highlights=new RaceHighlightDetector(profile.BoutCount,frequency,replayPolicy.close_finish_seconds,replayPolicy.highlight_cooldown_seconds,week.Event.Format==CompetitionFormat.Sprint);
                 prepared=new CareerRaceProvider(ReadCore,menu.Session.Definitions,ProductionVenueHost.ReadResource)
-                    .Prepare(CareerSave.FromJson(week.RaceSnapshotJson),week.Event,week.RaceSeed);
+                    .Prepare(CareerSave.FromJson(week.RaceSnapshotJson),week.Event,week.RaceSeed,highlights);
                 raceRoot=new GameObject("Career race");raceRoot.transform.SetParent(transform,false);
                 Host=raceRoot.AddComponent<ProductionVenueHost>();Host.AutoStart=false;Host.enabled=false;
                 Host.InitializeCareer(prepared);
                 Host.GameplayHud.SetPreferences(menu.Locale,menu.TextSizeIndex,menu.Session.Player.Name);
+                Host.GameplayHud.SetAccessibility(menu.HighContrast);
+                Host.GameplayHud.SetBroadcastRoster(menu.Session.Career);
+                try
+                {
+                    var info=new RaceReplayInfo{Id="race_"+Guid.NewGuid().ToString("N"),RecordedUtc=DateTime.UtcNow.ToString("O"),CareerSnapshotJson=week.RaceSnapshotJson,
+                        EventId=week.Event.Id,VenueId=week.Event.VenueId,Format=(int)week.Event.Format,Seed=week.RaceSeed,PlayerId=menu.Session.Career.PlayerId,PlayerName=menu.Session.Player.Name,TickFrequency=Host.Runner.Field.TickFrequency};
+                    replayCapture=new CareerReplayCapture(menu.ReplayLibrary,Host.ManualStepper,info,highlights,replayPolicy);
+                }
+                catch(Exception e)when(e is IOException||e is UnauthorizedAccessException){Debug.LogWarning("Replay capture unavailable: "+e.Message);}
             }
             catch(Exception e){failure=e;}
             if(failure==null)
@@ -85,7 +102,8 @@ namespace Biathlon.Unity.Presentation
             Host.enabled=false;
             try
             {
-                menu.Session.FinishRace(prepared.CollectResult());
+                var result=prepared.CollectResult();menu.Session.FinishRace(result);
+                try{replayCapture?.Publish(result);}catch(Exception e){menu.ShowFrontEndError("replay_save_error");Debug.LogWarning("Career saved, replay unavailable: "+e.Message);}
             }
             catch(Exception e) when(e is IOException||e is UnauthorizedAccessException)
             {AwaitingSave=true;raceRoot.SetActive(false);menu.SetRaceVisible(false);menu.ShowFrontEndError("result_save_error");menu.RefreshFrontEnd();return;}
@@ -100,6 +118,7 @@ namespace Biathlon.Unity.Presentation
             AwaitingSave=false;ReleaseRace();menu.SetRaceVisible(false);menu.RefreshFrontEnd();
         }
         private void ReleaseRace()
-        {if(raceRoot!=null){raceRoot.SetActive(false);Destroy(raceRoot);}raceRoot=null;Host=null;prepared=null;Paused=false;}
+        {replayCapture?.Dispose();replayCapture=null;if(raceRoot!=null){raceRoot.SetActive(false);Destroy(raceRoot);}raceRoot=null;Host=null;prepared=null;Paused=false;}
+        private void OnDestroy()=>ReleaseRace();
     }
 }

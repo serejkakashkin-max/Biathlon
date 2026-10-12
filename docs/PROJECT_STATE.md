@@ -24748,3 +24748,11 @@ COMPLETE: training UI, equipment UI, standings/history UI, rivalry presentation.
 Pursuit constructor regression reproduced (2 FAIL), obsolete exclusion removed; production factory/directed-passage 9 PASS. Full manual career Pursuit remains final integration work. Owner requests completion of all M14 WPs then test build; owner testing decides milestone closure. Report: docs/reports/TASK_M14_CAREER_PAGES_20261012.md.
 
 Append-only receipt: preserved 2964008 bytes SHA256 a823491fbf5dc57e438560ca7e923c04fcf37f7b839ac06202aabea7acc09837.
+
+## 2026-10-12 — M14 WP-181 and WP-191–197 implementation ready; Windows test build started
+
+WP-179–197: all 19 implemented/verified. Modern menu/career/race/result/next-event loop includes real weather, training/equipment/history/rivalries, compressed accepted-command replay, compatible context/result hashes, AI-free playback/seek, actual event highlights, readable broadcast cuts, optional live F2 TV and accessibility/navigation. Full Sprint30 recorded/replayed to identical protocol at 31136 ticks, SHA256 701cabf4c0e01295abd425d7f1f2afb00611c20f421b6372e8cb7ef2eb21ff15. Saved Sprint-to-Pursuit completes with 30 entrants; obsolete separate-start exclusion repaired; headless production binds live manual movement.
+
+Evidence: .NET9 full replay/stream checks, 1 full career transition, 9 Pursuit composition, 2 compressed-storage, 2 broadcast policy PASS; native EditMode10 and PlayMode15 PASS. Unity Console has no current code errors. Graphics quality/live gameplay tuning retained. Training draft is session-local until week commit; new completed races create replays and incompatible recordings show an error. Build target Builds/M14Review20261012, FrontEnd startup. Build packaging/startup check is in progress; owner testing decides M14 closure. Report docs/reports/TASK_M14_COMPLETION_20261012.md; tracker docs/M14_WP_STATUS.md.
+
+Append-only receipt: preserved 2964887 bytes SHA256 cee0a73a158352ca52b7615846eb662b5c4af0a62dcb8fdd517170e2b6bd2110.

@@ -133,7 +133,9 @@ namespace Biathlon.PlayModeTests
             Assert.That(host.Environment,Is.Not.Null);
             Assert.That(host.Runner.Field.GetAthlete(host.PlayerIndex).AthleteId.Value,Is.EqualTo(menu.Session.Career.PlayerId));
             Assert.That(menu.Root.style.display.value,Is.EqualTo(DisplayStyle.None));
-            host.GameplayHud.Refresh();yield return null;
+            host.GameplayHud.SetBroadcastVisible(true);yield return null;
+            Assert.That(host.GameplayHud.Root.Q<Label>("live_tv_row_0").text,Does.Contain(menu.Session.Player.Name));
+            host.GameplayHud.SetBroadcastVisible(false);host.GameplayHud.Refresh();yield return null;
             Assert.That(host.GameplayHud.Root.panel,Is.Not.Null);
             Assert.That(host.GameplayHud.Locale,Is.EqualTo("en"));Assert.That(host.GameplayHud.TextSizeIndex,Is.EqualTo(2));
             Assert.That(host.GameplayHud.Root.Q<Label>("athlete_name").text,Is.EqualTo(menu.Session.Player.Name));
@@ -180,6 +182,16 @@ namespace Biathlon.PlayModeTests
             Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.Career));Submit("back");yield return null;
             Submit("continue");yield return null;Assert.That(menu.Session.Career.ToJson(),Is.EqualTo(saved));
             Assert.That(menu.LastMessage,Is.Null);
+        }
+        [UnityTest] public IEnumerator AccessibilitySettingsExplainAssistsAndPreserveCareerAndPreferences()
+        {
+            menu.Session.OpenNewCareer();menu.Session.CreateCareer("accessibility_ui","Алекс","NOR",11);string before=menu.Session.Career.ToJson();
+            menu.Session.OpenSettings();menu.ApplyPreferences("en",2);menu.ApplyAccessibility(true);yield return null;yield return null;
+            Assert.That(menu.Root.Q<Toggle>("high_contrast"),Is.Not.Null);
+            Assert.That(menu.Root.Q<Label>("accessibility_assists").text,Does.Contain("manual steering").And.Contain("automatic mat approach"));
+            Assert.That(menu.HighContrast,Is.True);Assert.That(menu.TextSizeIndex,Is.EqualTo(2));
+            Assert.That(menu.Session.Career.ToJson(),Is.EqualTo(before));menu.Back();yield return null;
+            Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.Career));Assert.That(menu.HighContrast,Is.True);
         }
         [UnityTest] public IEnumerator NavigationHasVisibleFocusAndSkipsUnavailableContinue()
         {

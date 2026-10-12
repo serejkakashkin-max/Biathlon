@@ -1,43 +1,38 @@
 # M14 — work-package status
 
-Updated 2026-10-12. M13 closed by owner acceptance; M14 gate remains open.
-Statuses refer to implemented and verified product behavior, not merely existing core code.
+Updated 2026-10-12. M13 is closed by owner acceptance. All 19 M14 WPs are implemented and verified; M14 awaits owner build testing and acceptance.
 
-| WP | Status | Delivered / remaining |
+| WP | Status | Delivered |
 |---|---|---|
-| 179 | COMPLETE | UI Toolkit design tokens, aspect ratio scaling, RU/EN, visible keyboard/controller focus. |
-| 180 | COMPLETE | New profile, continue, settings, quit; independent atomic profile saves. |
-| 181 | IN PROGRESS | Prepared athlete, venue, snow, skis and rules delivered; broader weather presentation remains. |
-| 182 | COMPLETE | Compact race HUD; course remains readable, full help on F1. |
-| 183 | COMPLETE | Targets, bolt, breathing, pulse, wind, penalties; target states have non-color symbols. |
-| 184 | COMPLETE | Accepted race clock, checkpoint rank/gap and finish timing connected to HUD. |
-| 185 | COMPLETE | Full race protocol, per-bout shooting, penalties, personal splits and season points/rank change. |
-| 186 | COMPLETE | Actual 16-event calendar, readiness, next race, season rank/points, wins/podiums and saved event outcomes. |
-| 187 | COMPLETE | Actual session/recovery budget, qualitative benefits and readiness forecast; atomic week commit. |
-| 188 | COMPLETE | Actual catalog selection/buying and snow-specific tradeoffs; atomic charge/selection. |
-| 189 | COMPLETE | Actual season table, saved race and completed-season history. |
-| 190 | COMPLETE | Tracked close finishes/shared podiums/standings battles; no fake outcomes. |
-| 191 | PENDING | Player replay persistence/version compatibility. |
-| 192 | PENDING | Replay playback and camera controls. |
-| 193 | PENDING | Event-driven highlights. |
-| 194 | PENDING | Broadcast camera direction. |
-| 195 | PENDING | TV graphics package. |
-| 196 | IN PROGRESS | RU/EN, 100/115/130% text and symbol feedback delivered; full accessibility review remains. |
-| 197 | IN PROGRESS | Essential menu/profile/pre-race/HUD/results navigation covered; expand with remaining pages. |
+| 179 | COMPLETE | UI Toolkit tokens, compact layouts, resolution scaling, RU/EN and visible keyboard/controller focus. |
+| 180 | COMPLETE | New career, continue, settings, quit; independent atomic profiles. |
+| 181 | COMPLETE | Actual venue/weather, prepared athlete, snow, selected skis and event rules. |
+| 182 | COMPLETE | Compact race HUD with clock, lap, pace, pulse/resources; F1 help and F3 diagnostics. |
+| 183 | COMPLETE | Targets, bolt, breath, wind, pulse and penalties; shape and contrast feedback. |
+| 184 | COMPLETE | Accepted fixed-tick timing, actual checkpoint ranks/gaps and finish timing. |
+| 185 | COMPLETE | Full protocol, per-bout shooting, penalties, personal splits and season points/rank impact. |
+| 186 | COMPLETE | Actual calendar, readiness, next event, ranking and saved outcomes. |
+| 187 | COMPLETE | Real weekly training budget, qualitative costs/benefits and readiness forecast; atomic commit. |
+| 188 | COMPLETE | Actual ski catalog, snow tradeoffs, atomic purchasing and selection. |
+| 189 | COMPLETE | Season table, saved race protocols and completed-season history. |
+| 190 | COMPLETE | Tracked shared races/podiums, close finishes and standings battles. |
+| 191 | COMPLETE | Versioned compressed command journals, saved pre-race snapshot, events and compatibility/result hashes. |
+| 192 | COMPLETE | AI-free replay, pause, 1/2/4 speed, bounded seeking, athlete/camera selection. |
+| 193 | COMPLETE | Actual lead changes, overtakes, final range, key misses and close finishes; Sprint uses registered timing. |
+| 194 | COMPLETE | Event-based broadcast shots, readable shot holds and manual camera override. |
+| 195 | COMPLETE | Optional live F2 TV standings; replay timing/shooting boards, gaps, penalties and finish feedback. |
+| 196 | COMPLETE | RU/EN, 100/115/130% text, high contrast, target symbols and assist explanations. |
+| 197 | COMPLETE | Native keyboard/gamepad menu navigation, career/race pause flows and replay seek/focus regression. |
 
-Latest delivery: [WP-186 report](reports/TASK_M14_DASHBOARD_20261012.md),
-[WP-185 report](reports/TASK_M14_RESULTS_20261012.md).
-Earlier delivery: [menu/pre-race](reports/TASK_M14_PRE_RACE_20261011.md),
-[HUD](reports/TASK_M14_GAMEPLAY_HUD_20261012.md),
-[compact HUD](reports/TASK_M14_COMPACT_HUD_20261012.md).
+19 of 19 complete. No remaining M14 implementation WP. Owner acceptance is pending.
+Test build: `Builds/M14Review20261012/START_M14_TEST.cmd` (build succeeded; standalone startup/render passed).
 
-The recorded Pursuit directed-passage/startContinuation composition failure must
-be resolved before claiming the complete production Sprint → Pursuit loop.
-Owner requests one test build after all M14 WPs are ready; closure remains owner-controlled.
+Latest evidence: [M14 completion report](reports/TASK_M14_COMPLETION_20261012.md),
+[recording/TV decision](adr/ADR-0058-m14-recorded-races-and-tv.md),
+`docs/quality/m14/completion-20261012/`.
 
-11 of 19 WPs complete, 3 partly delivered/in progress, 5 pending.
-Next implementation: WP-191–195 replay, highlights and broadcast. Latest changes are published to
-the GitHub branch `codex/wp-078-ai-pack`; this tracker and the append-only state
-are included in the same commits as the delivered code/evidence.
-
-2026-10-12: WP-187–190 delivered; see reports/TASK_M14_CAREER_PAGES_20261012.md. Pursuit constructor exclusion repaired; complete manual career integration remains to verify.
+Full 30-athlete Sprint records/replays to the identical authoritative career protocol.
+Saved Sprint-to-Pursuit career transition completes with 30 athletes; the obsolete separate-start/directed-passage exclusion is repaired.
+Replays are created for newly completed career races and require compatible race definitions.
+Training drafts remain session-local until the week is committed.
+The next milestone begins only after owner review of M14.

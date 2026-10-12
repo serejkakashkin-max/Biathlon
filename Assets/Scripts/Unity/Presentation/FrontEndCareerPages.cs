@@ -21,6 +21,7 @@ namespace Biathlon.Unity.Presentation
             else if(Session.Screen==FrontEndScreen.Standings)RenderStandings(card);
             else if(Session.Screen==FrontEndScreen.History)RenderHistory(card);
             else if(Session.Screen==FrontEndScreen.Rivalries)RenderRivalries(card);
+            else if(Session.Screen==FrontEndScreen.Replays)RenderReplays(card);
         }
         private void RenderTraining(VisualElement actions,VisualElement card)
         {
@@ -97,6 +98,24 @@ namespace Biathlon.Unity.Presentation
         }
         private CareerAthlete FindAthlete(string id)
         {for(int i=0;i<Session.Career.AthleteCount;i++)if(Session.Career.Athlete(i).Id==id)return Session.Career.Athlete(i);throw new ArgumentException("Unknown saved athlete.");}
+        private void RenderReplays(VisualElement card)
+        {
+            AddLabel(card,T("replay.note"),theme.caption_size);int shown=0;
+            foreach(var info in ReplayLibrary.List())
+            {
+                if(info.PlayerId!=Session.Career.PlayerId)continue;shown++;var row=Section(card);
+                AddLabel(row,T("format."+info.Format)+" · "+info.PlayerName,theme.body_size,true);
+                AddLabel(row,DateTimeOffset.Parse(info.RecordedUtc).ToLocalTime().ToString("g")+" · "+ResultClock(info.TickCount*1000/info.TickFrequency),theme.caption_size);
+                AddButton(row,"replay_"+info.Id,T(Replays.Loading?"loading":"replay.watch"),()=>Replays.Launch(this,info),enabled:!Replays.Loading);
+                var moments=new Foldout{text=T("replay.moments"),value=false};row.Add(moments);
+                int count=0;foreach(var moment in info.Highlights)
+                {
+                    count++;var chosen=moment;
+                    AddButton(moments,"highlight_"+info.Id+"_"+count,T("highlight."+(int)moment.Kind)+" · "+ResultClock(moment.Tick*1000/info.TickFrequency),()=>Replays.Launch(this,info,chosen.Tick),enabled:!Replays.Loading);
+                }
+            }
+            if(shown==0)AddLabel(card,T("replay.empty"),theme.body_size);
+        }
         private VisualElement Section(VisualElement parent)
         {var row=new VisualElement();row.style.paddingTop=theme.spacing;row.style.paddingBottom=theme.spacing;row.style.borderBottomWidth=1;row.style.borderBottomColor=focus;parent.Add(row);return row;}
     }

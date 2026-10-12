@@ -55,6 +55,24 @@ namespace Biathlon.Unity.Presentation
         public double DiscardedWallSeconds=>frameClock?.DiscardedWallSeconds??0;
         public double LastSimulationFrameMilliseconds {get;private set;}
         public bool HasSimulationFault {get;private set;}
+        public void UseReplayView(Camera view)
+        {
+            if(Runner==null||view==null)throw new ArgumentException("Initialized host and replay camera required.");
+            enabled=false;range.enabled=false;range.AimCamera.enabled=false;GameplayHud.enabled=false;
+            hud.enabled=false;debugHud.enabled=false;penalty.enabled=false;Guidance.enabled=false;
+            ChaseCamera.enabled=false;ChaseCamera.GetComponent<AthleteChaseCamera>().enabled=false;
+            var source=ChaseCamera.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>();
+            var target=view.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>()??view.gameObject.AddComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>();
+            target.renderPostProcessing=source.renderPostProcessing;target.volumeLayerMask=source.volumeLayerMask;target.antialiasing=source.antialiasing;
+            Proxies.enabled=false; // Replay renders once before its camera follows the observed subject.
+            Proxies.SetViewCamera(view);Environment?.SetViewCamera(view);
+        }
+        public void RebindReplayAuthority(PackAiRaceRunner replay,ManualScopedFieldStepper commands)
+        {
+            if(enabled||ChaseCamera.enabled||replay==null||commands==null||!ReferenceEquals(replay.Field,commands.Field)||replay.Field.Track.Id!=Venue.Track.Id)
+                throw new InvalidOperationException("Idle replay host and matching recorded authority required.");
+            Runner=replay;ManualStepper=commands;
+        }
         private bool shootingContext;
         private bool[] shootingLaps;
         public bool IsShootingLap(int lap)=>shootingLaps!=null&&lap>=0&&lap<shootingLaps.Length&&shootingLaps[lap];

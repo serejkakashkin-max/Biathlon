@@ -6,6 +6,7 @@ using Biathlon.Career;
 using Biathlon.Domain;
 using Biathlon.Presentation;
 using Biathlon.Simulation;
+using Biathlon.Replay;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -19,8 +20,11 @@ namespace Biathlon.Unity.Presentation
         public VisualElement Root => document?.rootVisualElement;
         public string Locale { get; private set; }
         public int TextSizeIndex { get; private set; }
+        public bool HighContrast {get;private set;}
         public string LastMessage { get; private set; }
         public CareerRacePresentation Race { get; private set; }
+        public RaceReplayLibrary ReplayLibrary {get;private set;}
+        public RaceReplayPresentation Replays {get;private set;}
         private Camera menuCamera;
         private Texture2D backdrop;
         private UIDocument document;
@@ -38,17 +42,20 @@ namespace Biathlon.Unity.Presentation
         private static string ReadCore(string file)=>ProductionVenueHost.ReadResource("Biathlon/"+Path.GetFileNameWithoutExtension(file));
         private void Start()
         { if(AutoStart&&Session==null)Initialize(new FileCareerProfileStore(Path.Combine(Application.persistentDataPath,"Profiles"))); }
-        public void Initialize(ICareerProfileStore profiles)
+        public void Initialize(ICareerProfileStore profiles,RaceReplayLibrary replayLibrary=null)
         {
             if(Session!=null)throw new InvalidOperationException("Initialize front end once.");
             theme=FrontEndTheme.Load();text=UiTextCatalog.FromJson(ProductionVenueHost.ReadResource("Biathlon/UI/front_end_text_v1"));
             backdrop=Resources.Load<Texture2D>("Biathlon/UI/menu_background");
             Session=new FrontEndSession(ReadCore,profiles,s=>new SeededRandomSource(s));
+            ReplayLibrary=replayLibrary??new RaceReplayLibrary(Path.Combine(Application.persistentDataPath,"Replays"));
+            Replays=gameObject.AddComponent<RaceReplayPresentation>();
             Locale=PersistPreferences?PlayerPrefs.GetString("biathlon.ui.locale","ru"):"ru";
             if(Locale!="ru"&&Locale!="en")Locale="ru";
             TextSizeIndex=PersistPreferences?Mathf.Clamp(PlayerPrefs.GetInt("biathlon.ui.text_size",0),0,2):0;
+            HighContrast=PersistPreferences&&PlayerPrefs.GetInt("biathlon.ui.high_contrast",0)==1;
             ink=FrontEndTheme.Color(theme.ink);paper=FrontEndTheme.Color(theme.paper);accent=FrontEndTheme.Color(theme.accent);focus=FrontEndTheme.Color(theme.focus);
-            panel=ScriptableObject.CreateInstance<PanelSettings>();panel.name=theme.id;
+            panel=FrontEndPanelSettings.Create();panel.name=theme.id;
             gameObject.AddComponent<PanelInputConfiguration>().panelInputRedirection=PanelInputConfiguration.PanelInputRedirection.Never;
             panel.themeStyleSheet=Resources.Load<ThemeStyleSheet>("Biathlon/UI/front_end");
             if(panel.themeStyleSheet==null)throw new FileNotFoundException("Missing front-end theme style sheet.");
@@ -68,6 +75,8 @@ namespace Biathlon.Unity.Presentation
         public void Back()
         {
             if(Race.Loading)return;
+            if(Replays.Loading)return;
+            if(Replays.Active){Replays.Close();return;}
             if(Session.Screen==FrontEndScreen.Race){if(Race.Paused&&!Race.AwaitingSave)Race.Resume();return;}
             if(Session.Screen==FrontEndScreen.Results)Session.ReturnFromResults();else Session.Back();
             LastMessage=null;Render();
@@ -87,6 +96,8 @@ namespace Biathlon.Unity.Presentation
             if(PersistPreferences){PlayerPrefs.SetString("biathlon.ui.locale",Locale);PlayerPrefs.SetInt("biathlon.ui.text_size",TextSizeIndex);PlayerPrefs.Save();}
             Render();
         }
+        public void ApplyAccessibility(bool contrast)
+        {HighContrast=contrast;if(PersistPreferences){PlayerPrefs.SetInt("biathlon.ui.high_contrast",contrast?1:0);PlayerPrefs.Save();}Render();}
         private void RememberFocus(FocusInEvent e)
         {
             for(var element=e.target as VisualElement;element!=null&&element!=Root;element=element.parent)
@@ -107,7 +118,8 @@ namespace Biathlon.Unity.Presentation
         }
         private void Render()
         {
-            Root.Clear();controls.Clear();Root.style.flexGrow=1;Root.style.backgroundColor=FrontEndTheme.Color(theme.snow);Root.style.color=ink;
+            Root.Clear();controls.Clear();paper=HighContrast?Color.white:FrontEndTheme.Color(theme.paper);ink=HighContrast?Color.black:FrontEndTheme.Color(theme.ink);
+            Root.style.flexGrow=1;Root.style.backgroundColor=FrontEndTheme.Color(theme.snow);Root.style.color=ink;
             bool home=Session.Screen==FrontEndScreen.Home;
             var background=new Image{image=backdrop,scaleMode=ScaleMode.ScaleAndCrop,pickingMode=PickingMode.Ignore,name="menu_backdrop"};
             background.style.position=Position.Absolute;background.style.left=0;background.style.right=0;background.style.top=0;background.style.bottom=0;Root.Add(background);
@@ -171,6 +183,8 @@ namespace Biathlon.Unity.Presentation
                 AddLabel(card,F("race_shooting",summary.Profile.ShotsPerBout,summary.Profile.PenaltyLoopMeters),theme.body_size);
                 AddLabel(card,T("start."+(int)summary.Profile.StartType)+(summary.Profile.StartIntervalSeconds>0?F("start_interval",summary.Profile.StartIntervalSeconds):""),theme.body_size);
                 AddLabel(card,T("snow."+summary.SnowProfileId),theme.body_size);
+                var weather=ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/"+e.VenueId+"/environment"));
+                AddLabel(card,T("weather."+weather.lighting.weather_preset),theme.body_size).name="pre_race_weather";
                 AddLabel(card,T("equipment")+": "+T("equipment."+summary.Skis.Id),theme.body_size);
                 AddLabel(card,T("race_controls"),theme.caption_size);
             }
@@ -200,7 +214,10 @@ namespace Biathlon.Unity.Presentation
                 AddLabel(actions,T("text_size"),theme.caption_size);
                 var sizes=new DropdownField(new List<string>{"100%","115%","130%"},TextSizeIndex){name="text_size"};StyleControl(sizes);actions.Add(sizes);controls.Add(sizes);
                 sizes.RegisterValueChangedCallback(e=>ApplyPreferences(Locale,sizes.index));AddButton(actions,"back",T("back"),Back);
+                var contrast=new Toggle(T("accessibility.contrast")){name="high_contrast",value=HighContrast};StyleControl(contrast);actions.Add(contrast);controls.Add(contrast);
+                contrast.RegisterValueChangedCallback(e=>ApplyAccessibility(e.newValue));
                 AddVenueCard(card);AddLabel(card,T("settings_note"),theme.body_size);
+                AddLabel(card,T("accessibility.symbols"),theme.body_size);AddLabel(card,T("accessibility.assists"),theme.body_size).name="accessibility_assists";
             }
             message=AddLabel(left,LastMessage??"",theme.caption_size);message.name="message";message.style.color=FrontEndTheme.Color(theme.danger);
             left.Query<Label>().ForEach(label=>{if(label!=message)label.style.color=Color.white;});

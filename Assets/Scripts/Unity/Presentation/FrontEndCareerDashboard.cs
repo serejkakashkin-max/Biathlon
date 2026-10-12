@@ -25,7 +25,7 @@ namespace Biathlon.Unity.Presentation
                 AddButton(actions,"prepare",T("prepare"),()=>CareerAction(Session.OpenPreRace),true,available);
                 if(!available)AddLabel(actions,T("event_unavailable"),theme.caption_size);
             }
-            foreach(var page in new[]{FrontEndScreen.Training,FrontEndScreen.Equipment,FrontEndScreen.Standings,FrontEndScreen.History,FrontEndScreen.Rivalries})
+            foreach(var page in new[]{FrontEndScreen.Training,FrontEndScreen.Equipment,FrontEndScreen.Standings,FrontEndScreen.History,FrontEndScreen.Rivalries,FrontEndScreen.Replays})
             {var chosen=page;AddButton(actions,"career_"+page.ToString().ToLowerInvariant(),T("page."+(int)page),()=>{Session.OpenCareerPage(chosen);Render();});}
             AddButton(actions,"settings",T("settings"),()=>{Session.OpenSettings();Render();});AddButton(actions,"back",T("back"),Back);
 

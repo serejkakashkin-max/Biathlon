@@ -25,13 +25,14 @@ namespace Biathlon.Unity.Presentation
         }
     }
     /// <summary>Retained, non-interactive HUD; refreshes accepted observations at a bounded UI cadence.</summary>
-    public sealed class GameplayHud : MonoBehaviour
+    public sealed partial class GameplayHud : MonoBehaviour
     {
         public VisualElement Root=>document?.rootVisualElement;
         public int RefreshCount {get;private set;}
         public GameplayHudModel Model {get;private set;}
         public string Locale {get;private set;}
         public int TextSizeIndex {get;private set;}
+        public bool HighContrast {get;private set;}
         private RacePresentationFeed feed;
         private string athleteId,displayName="";
         private int selectedIndex=-1;
@@ -62,7 +63,7 @@ namespace Biathlon.Unity.Presentation
             theme=FrontEndTheme.Load();settings=GameplayHudSettings.Load();
             text=UiTextCatalog.FromJson(ProductionVenueHost.ReadResource("Biathlon/UI/front_end_text_v1"));
             foreground=FrontEndTheme.Color(theme.paper);muted=FrontEndTheme.Color(settings.muted);accent=FrontEndTheme.Color(settings.accent);
-            panel=ScriptableObject.CreateInstance<PanelSettings>();panel.name=settings.id;
+            panel=FrontEndPanelSettings.Create();panel.name=settings.id;
             panel.themeStyleSheet=Resources.Load<ThemeStyleSheet>("Biathlon/UI/front_end");
             panel.scaleMode=PanelScaleMode.ScaleWithScreenSize;panel.referenceResolution=new Vector2Int(theme.reference_width,theme.reference_height);
             panel.screenMatchMode=PanelScreenMatchMode.MatchWidthOrHeight;panel.match=1;
@@ -126,8 +127,11 @@ namespace Biathlon.Unity.Presentation
             history=Text(helpPanel,"history","",settings.caption_size);
             help=Text(helpPanel,"controls","",settings.caption_size);
             helpPanel.style.display=helpVisible?DisplayStyle.Flex:DisplayStyle.None;
+            BuildBroadcast();
             Root.Query<VisualElement>().ForEach(v=>{v.pickingMode=PickingMode.Ignore;v.focusable=false;});Root.pickingMode=PickingMode.Ignore;
         }
+        public void SetAccessibility(bool contrast)
+        {HighContrast=contrast;muted=contrast?Color.white:FrontEndTheme.Color(settings.muted);Build();rendered=null;Refresh();}
         private VisualElement Row(VisualElement parent)
         {
             var row=new VisualElement();row.style.flexDirection=FlexDirection.Row;
@@ -139,7 +143,7 @@ namespace Biathlon.Unity.Presentation
             card.style.width=width*Scale;card.style.maxWidth=new Length(40,LengthUnit.Percent);
             if(left)card.style.left=settings.edge;else card.style.right=settings.edge;
             if(top)card.style.top=settings.edge;else card.style.bottom=settings.edge;
-            card.style.backgroundColor=FrontEndTheme.Color(settings.background);
+            card.style.backgroundColor=HighContrast?Color.black:FrontEndTheme.Color(settings.background);
             card.style.paddingTop=card.style.paddingBottom=settings.panel_padding;
             card.style.paddingLeft=card.style.paddingRight=settings.panel_padding+2;
             card.style.borderTopLeftRadius=card.style.borderTopRightRadius=card.style.borderBottomLeftRadius=card.style.borderBottomRightRadius=settings.corner_radius;
@@ -171,6 +175,7 @@ namespace Biathlon.Unity.Presentation
             {selectedIndex=-1;for(int i=0;i<snapshot.Count;i++)if(snapshot.Get(i).AthleteId==athleteId){selectedIndex=i;break;}}
             if(selectedIndex<0){Root.style.display=DisplayStyle.None;return;}
             Root.style.display=DisplayStyle.Flex;var a=snapshot.Get(selectedIndex);Model=new GameplayHudModel(a,text,Locale);RefreshCount++;
+            RefreshBroadcast(snapshot);
             clock.text=Model.Clock;lap.text=Model.Lap;timing.text=Model.Timing;phase.text=Model.Phase;history.text=Model.ShootingHistory;
             phase.style.display=a.PendingPenaltyLoops>0||a.Phase==CompetitionPhase.Prestart||a.Phase>=CompetitionPhase.Finished||host?.LastRangeAssistance.Active==true?DisplayStyle.Flex:DisplayStyle.None;
             if(host?.LastRangeAssistance.Active==true)phase.text=T(host.LastRangeAssistance.Mode==PlayerRangeAssistMode.FinalApproach?"assist_in":"assist_out");
@@ -184,13 +189,14 @@ namespace Biathlon.Unity.Presentation
             breath.style.color=a.BreathBlocked||a.BreathHolding&&a.BreathSwayMultiplier>1?FrontEndTheme.Color(settings.warning):muted;
             for(int i=0;i<targets.Length;i++)
             {
-                bool closed=(Model.ClosedMask&(1<<i))!=0;targets[i].text="";
+                bool closed=(Model.ClosedMask&(1<<i))!=0;targets[i].text=HighContrast?(closed?"✓":"•"):"";
                 targets[i].style.backgroundColor=closed?foreground:Color.clear;targets[i].style.color=closed?FrontEndTheme.Color(theme.ink):foreground;
             }
         }
         private void LateUpdate()
         {
             if(feed==null)return;
+            if(Keyboard.current?.f2Key.wasPressedThisFrame==true)SetBroadcastVisible(!BroadcastVisible);
             if(Keyboard.current?.f1Key.wasPressedThisFrame==true)SetHelpVisible(!helpVisible);
             if(debug!=null&&Keyboard.current?.f3Key.wasPressedThisFrame==true)
             {debug.enabled=!debug.enabled;timingPanel.style.visibility=debug.enabled?Visibility.Hidden:Visibility.Visible;}

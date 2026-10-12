@@ -37,6 +37,13 @@ namespace Biathlon.Unity.Presentation
             oldIntensity=key.intensity;oldShadowStrength=key.shadowStrength;oldKeyColor=key.color;oldClear=view.clearFlags;oldBackground=view.backgroundColor;
             oldKeyRotation=key.transform.rotation;
         }
+        public void SetViewCamera(Camera camera)
+        {
+            if(!leased||camera==null)throw new ArgumentException("Active weather lease and view required.");
+            if(view==camera)return;
+            if(view!=null){view.clearFlags=oldClear;view.backgroundColor=oldBackground;}
+            view=camera;oldClear=view.clearFlags;oldBackground=view.backgroundColor;
+        }
         public void Render(string preset,string tier,double time,Vector2 observedWind,float localGroundHeight,LightingVisualPreset lighting=null,float fogDistanceScale=1)
         {
             if(!leased||view==null||key==null||!float.IsFinite(localGroundHeight))throw new InvalidOperationException("Active weather lease required.");

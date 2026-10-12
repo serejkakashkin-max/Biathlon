@@ -54,6 +54,8 @@ namespace Biathlon.Unity.Presentation
         public Mesh TileMesh(int index)=>tileMeshes[index];
         public VegetationPresentation Forest(int index)=>forests[index];
         public TargetBankArt Bank(int index)=>banks[index];
+        public void SetViewCamera(Camera camera)
+        {if(!Initialized||camera==null)throw new ArgumentException("Initialized environment and view required.");chase=camera;shooting=null;weather.SetViewCamera(camera);}
         public SpectatorCrowd Crowd(int index)=>crowds[index];
         public void Initialize(VenueAuthoringPlan plan,ProductionEnvironmentDefinition definition,Func<string,string> read,
             RacePresentationFeed source,Camera chaseCamera,Camera shootingCamera=null,RangeApronDrawPlan apron=null)

@@ -1,114 +1,30 @@
 # BIATHLON — latest operational state
 
-2026-10-12. M13 CLOSED by owner acceptance; M14 IN PROGRESS. G1/G2 APPROVED.
-Woodland: maximum 30, High default, main 960.005m, penalty 150m/6m.
+2026-10-12. G1/G2 approved. M13 closed by owner acceptance.
+M14: **19/19 WPs implemented and verified; awaiting owner test/acceptance**.
 
-Latest owner build: **Builds/WoodlandM13BotRecovery-20261011/START_WOODLAND_REVIEW.cmd**.
-Russian controls in READ_ME_RU.txt. Previous builds retained.
+Current player build: `Builds/M14Review20261012/START_M14_TEST.cmd` (build succeeded; standalone startup/render passed).
+Previous accepted M13 build remains `Builds/WoodlandM13BotRecovery-20261011/START_WOODLAND_REVIEW.cmd`.
 
-Owner reports practically no hitches in preceding CornerAim build. High shadows
-now restored to 4096/4 cascades/100m; original textures/meshes/render scale retained.
-Native player rig shadow casters and normal Game View silhouette verified.
-Earlier forest/equipment/contact/ribbon caching and render interpolation retained.
+Woodland keeps maximum 30 athletes, High default, separate start/finish, manual steering,
+attack/recovery, player-selected tuck, IBU mat allocation and automatic range transit.
+Owner-accepted M13 performance fixes and normal athlete shadows remain.
 
-Final owner corrections: A/D retains progressive manual deflection and now
-requests no implicit braking. AI can request the same explicit capped brake on
-ordinary/penalty turns; automatic range transit remains outside that policy.
-No centring/course following; later bends require manual steering. Shared
-physics/AI stats and W/attack/recovery tuning remain. Mass Start first shooting
-uses bib order; later shootings use physical arrival order from the right, per
-IBU 8.2.1, now connected to signed movement/publication. Private departure is
-1.5m shorter and targets the local turn; native owner test returns aligned
-control after about 6s. The shared exit retains its exact paid path length.
+M14 delivers the modern front end, durable career profiles, pre-race facts, compact HUD,
+full results, calendar/dashboard, training, equipment, standings/history/rivalries,
+compressed deterministic replays, event highlights, broadcast cameras and optional TV graphics.
+Accessibility: RU/EN, text scaling, contrast, non-color target feedback and assist explanations.
+Keyboard/gamepad navigation and career/race/replay flows have native coverage.
 
-Timing queries use leaders updated on checkpoint arrival, with exact elapsed/
-global/tie ordering. Local query CPU probe 421.6912→47.5947ms for 300000 queries,
-zero allocation/identical checksum. This is not a whole-player FPS result.
+A complete Sprint30 replay produces the identical authority protocol/hash at 31136 ticks.
+The full saved Sprint-to-Pursuit career transition completes with 30 athletes.
+Headless production career races now bind the same manual movement as the playable host;
+live race tuning and graphics quality are unchanged.
 
-Contact geometry now caches canonical pairs once per solve with exact legacy
-differential agreement. Repeated identical clearance queries reuse exact values;
-15-point direction probes avoid repeated full-grid work, while full body/course
-admission remains. Unchanged contact workload peak 61.128→19.269ms. Later penalty
-entry window peak 126.893→49.105ms, mean 19.135→9.578ms. Final two-bout profile
-7597 ticks/mean 4.526ms; isolated later 75ms tick remains. CPU measurements only.
+New completed career races create compatible replay files. Old races are not reconstructed.
+Training drafts are session-local until the training week is committed.
 
-Latest AI edge recovery: production Mass30 penalty stops reproduced at 385
-ticks/19.25s; final maximum is 11 ticks/0.55s. Recover targets behind the skis
-on penalty paths, preserve bounded course steering below the shared minimum
-steering speed and brake earlier for bends with a 0.85 AI decision margin.
-Explicit player steering and automatic range transit retain their prior law.
-Exact edge-direction caching includes support-grid dimensions; identical 5x3
-queries add zero disk work, while 7x3 still samples its own 21 points.
-
-Validation: .NET relevant 98 PASS plus the known separate Pursuit setup failure;
-explicit recovery diagnostic PASS; full Mass30 completion PASS. Native EditMode
-71/PlayMode 4 PASS. Signed Mass Start/Sprint world/resource replay PASS.
-Build 0 errors, 496 warnings (mainly package shader variants), 355782705 bytes. Hidden Mass30/
-Sprint30 content/400 ticks/controls/transition PASS, exit 0; rendering suspended,
-no standalone FPS claim. Temporary diagnostic hooks removed. Historical state
-byte prefix preserved; owner rendering/settings/packages edits retained.
-
-Known separate failures remain recorded: Pursuit directed-passage/startContinuation
-composition, prior grandstand_01 foundation embedding in broad native dressing,
-six old standalone-controller cases reproduced with pre-change code/policy.
-No failing tests disabled. State history preserved with dated appended progress.
-
-[Report](reports/TASK_M13_BOT_RECOVERY_20261011.md).
-[Decision](adr/ADR-0052-m13-ai-edge-recovery.md).
-Evidence: docs/quality/m13/bot-recovery-20261011/delivery-summary.json.
-Owner accepts the BotRecovery version and requests faster A/D before M14.
-Keyboard deflection is now 4000 units/s: full input in 0.25s rather than 0.5s.
-Shared physical steering, analog control, AI and balance remain unchanged.
-No new build is requested or produced.
-
-M14 WP-179/WP-180 foundation and WP-181/race-routing slice: retained UI Toolkit
-main menu now has original static biathlete artwork, petrol/snow colors and
-visible navigation focus. New career/continue/settings, RU/EN, 100/115/130%
-text, recovery weeks, pre-race facts, live career race, pause/abandon and saved
-result return are implemented. Athlete/rules/equipment come from real career
-definitions; no invented weather forecast. Atomic profile replacement preserves
-a backup and rejects stale writes. Failed/cancelled races retain the saved week.
-New careers use the production calendar; restore retains the saved calendar/RNG.
-Generated scene: Assets/Scenes/FrontEnd.unity. Build settings remain unchanged.
-Latest validation: .NET17/native EditMode16/PlayMode14 PASS, plus the updated
-full-environment career-launch smoke PASS. Actual 30-athlete manual-mode Sprint
-completed in 31136 ticks and persisted/restored its result and next event.
-Evidence: docs/quality/m14/pre-race-20261011/delivery-summary.json.
-The separate four-range MovingFiringArrival diagnostic reproduces with exact
-pre-change definitions and remains enabled/recorded. No whole-suite/FPS claim.
-
-[Latest report](reports/TASK_M14_PRE_RACE_20261011.md).
-[Input decision](adr/ADR-0053-keyboard-steering-response.md).
-[UI decision](adr/ADR-0054-m14-front-end-foundation.md).
-[Race boundary decision](adr/ADR-0055-m14-prepared-career-race.md).
-WP-182/183 HUD slice implemented: retained RU/EN race/shooting panels, actual
-elapsed time and checkpoint timing, HR/reserve/fatigue, target closures, bolt,
-breath strain, wind and penalties. Menu preferences and pause/resume verified.
-Production debug overlays replaced; F3 telemetry retained. Data refresh at 10 Hz,
-unchanged snapshot skipped; center of aim stays clear. No authority/balance or
-graphics-quality changes. .NET15/native EditMode13/PlayMode7 PASS.
-[HUD report](reports/TASK_M14_GAMEPLAY_HUD_20261012.md).
-[HUD decision](adr/ADR-0056-m14-gameplay-hud.md).
-Evidence: docs/quality/m14/gameplay-hud-20261012/.
-Owner visual revision: compact HUD replaces tall panels; default captured
-skiing/shooting bounds cover 4.3%/6.24% of screen. Long help/history on F1;
-conditional penalties/assistance retained. Native PlayMode8 + .NET13 PASS.
-[Compact HUD report](reports/TASK_M14_COMPACT_HUD_20261012.md).
-WP-185 COMPLETE: saved per-bout masks/stances/checkpoint clocks and modern result
-protocol, penalties, personal splits, points/ranking impact. Optional details
-retain legacy save compatibility. .NET19/native EditMode16/PlayMode1 PASS;
-full production Sprint30 remains 31136 ticks with the identical authority hash.
-[Results report](reports/TASK_M14_RESULTS_20261012.md).
-[M14 WP tracker](M14_WP_STATUS.md).
-WP-186 COMPLETE: actual calendar, next event, saved readiness, season ranking/
-points and completed event outcomes. .NET19/native EditMode3/PlayMode2 PASS.
-[Dashboard report](reports/TASK_M14_DASHBOARD_20261012.md).
-Current WP totals: 7 complete (179/180/182/183/184/185/186), 3 partly delivered
-(181/196/197), 9 pending (187–195). Next: WP-187 training UI. Resolve the
-recorded Pursuit composition issue before claiming the complete M14 loop.
-Owner-authorized GitHub publication includes the earlier local progress and
-WP-185; WP-186 follows on the same codex/wp-078-ai-pack branch.
-Training/equipment selection, expanded dashboard/history/replay remain pending.
-M14 gate OPEN. No new player build.
-
-2026-10-12 latest: WP-187–190 COMPLETE; 11/19 ready, replay/TV/weather/accessibility/navigation remain. M14 gate OPEN; test build after all WPs, owner decides closure. See TASK_M14_CAREER_PAGES_20261012.md.
+See [M14 WP status](M14_WP_STATUS.md), [completion report](reports/TASK_M14_COMPLETION_20261012.md),
+[replay/TV decision](adr/ADR-0058-m14-recorded-races-and-tv.md).
+`docs/PROJECT_STATE.md` retains the full append-only history from Foundation onward.
+M14 is not declared owner-accepted; next work is owner testing, then M15 or requested corrections.

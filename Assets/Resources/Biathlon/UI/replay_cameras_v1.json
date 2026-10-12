@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "id": "replay_cameras_v1",
+  "shots": [
+    {"id":"track","mode":"track","subject_id":"subject","position":{"x":7,"y":3,"z":-8},"look_at":{"x":0,"y":0.4,"z":0},"end_position":{"x":0,"y":0,"z":0},"fov":48,"near_m":0.1,"far_m":600,"duration_s":8},
+    {"id":"wide","mode":"track","subject_id":"subject","position":{"x":22,"y":18,"z":-22},"look_at":{"x":0,"y":0,"z":0},"end_position":{"x":0,"y":0,"z":0},"fov":48,"near_m":0.1,"far_m":600,"duration_s":8},
+    {"id":"range","mode":"track","subject_id":"subject","position":{"x":6,"y":2,"z":5},"look_at":{"x":0,"y":0,"z":0},"end_position":{"x":0,"y":0,"z":0},"fov":45,"near_m":0.1,"far_m":600,"duration_s":8},
+    {"id":"finish","mode":"track","subject_id":"subject","position":{"x":12,"y":4,"z":-8},"look_at":{"x":0,"y":0.5,"z":0},"end_position":{"x":0,"y":0,"z":0},"fov":48,"near_m":0.1,"far_m":600,"duration_s":8}
+  ]
+}

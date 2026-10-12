@@ -11,10 +11,25 @@ namespace Biathlon.Unity
     public static class FrontEndAuthoring
     {
         public const string ScenePath="Assets/Scenes/FrontEnd.unity";
+        public static void EnsurePanelTemplate()
+        {
+            const string path="Assets/Resources/Biathlon/UI/front_end_panel_v1.asset";
+            var panel=AssetDatabase.LoadAssetAtPath<UnityEngine.UIElements.PanelSettings>(path);
+            if(panel==null)
+            {
+                panel=ScriptableObject.CreateInstance<UnityEngine.UIElements.PanelSettings>();panel.name="front_end_panel_v1";
+                panel.themeStyleSheet=Resources.Load<UnityEngine.UIElements.ThemeStyleSheet>("Biathlon/UI/front_end");
+                AssetDatabase.CreateAsset(panel,path);AssetDatabase.SaveAssetIfDirty(panel);
+            }
+            // Persistent panels include Unity's built-in UI shaders and international text data in a player.
+            var serialized=new SerializedObject(panel);
+            if(serialized.FindProperty("m_ICUDataAsset")?.objectReferenceValue==null)throw new InvalidOperationException("UI international text data missing.");
+        }
         [MenuItem("BIATHLON/UI/Generate Front End Scene")]
         public static void Generate()
         {
             if(EditorApplication.isPlaying||EditorApplication.isCompiling)throw new InvalidOperationException("Idle Edit Mode required.");
+            EnsurePanelTemplate();
             FrontEndTheme.Load();
             string guid=AssetDatabase.AssetPathToGUID("Assets/Scripts/Unity/Presentation/FrontEndMenu.cs");
             if(string.IsNullOrEmpty(guid))throw new InvalidOperationException("Imported front-end script required.");
