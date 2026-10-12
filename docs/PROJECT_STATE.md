@@ -25022,3 +25022,5 @@ Limit: fixed prototype field has no extra qualifying-point list; unresolved
 start-number ties use stable table order; no fabricated previous champion.
 No implementation work remains for this request. Next: owner tests new build
 and decides further M14 fixes or acceptance. Git receipt follows verified push.
+
+2026-10-12 M14 Mass Start publication receipt: implementation c5ab8c552baa08a7287f8f048ee4651107b76f66 pushed to origin/codex/wp-078-ai-pack; local and remote HEAD verified identical. Test build Builds/M14MassSeeding20261012/START_M14_TEST.cmd ready. No code changed after successful build; M14 OPEN for owner testing.
