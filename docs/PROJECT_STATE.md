@@ -24964,3 +24964,7 @@ wind effects are outside scope. Shared snow/wind legitimately change results;
 no hidden AI speed multiplier/statistic changes. No implementation work remains
 for this request. Next: owner tests and decides M14 corrections/acceptance.
 Git publication receipt follows verified push.
+
+2026-10-12 M14 weather publication receipt: implementation c92ab7a pushed to origin/codex/wp-078-ai-pack; remote HEAD verified as c92ab7a60dd1c83cf3205fefc12f1a6255829891. Test player Builds/M14Weather20261012/START_M14_TEST.cmd is ready. M14 remains OPEN for owner testing; no code changes after successful build.
+
+2026-10-12 correction to preceding weather publication receipt: the full implementation hash was transcribed incorrectly there. The verified local and remote implementation hash is c92ab7a9c95885de84f6a90eb03e322764dc4ccf. The adjacent publication-receipt.json contains this exact verified hash. Historical entry retained per append-only owner directive. M14 remains OPEN.
