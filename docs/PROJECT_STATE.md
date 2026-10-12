@@ -24868,3 +24868,46 @@ Build:Builds/M14VisualReview20261012/START_M14_TEST.cmd,Unity6000.6.0f1 Win64 De
 ### 2026-10-12 — M14 visual publication receipt
 
 Verified GitHub origin/codex/wp-078-ai-pack equals 906328b0cecde0bdf074845d10694d7ad796b73f (feat(ui): add ski art venue previews and flagged split tables);13 LFS objects uploaded. Test build Builds/M14VisualReview20261012/START_M14_TEST.cmd is ready locally.16 PlayMode +7 EditMode passed; build0errors/0warnings and standalone smoke passed. Historical state remains append-only. M14 OPEN; next action owner test/acceptance.
+
+
+## 2026-10-12 — M14 national kits and IBU yellow/red bib review
+
+Owner requested consistent country suit colors, IBU yellow/red leader bibs,
+and a new test player. M14 remains OPEN; M13 stays owner-accepted/closed.
+
+WP-181/188 COMPLETE: saved Nation binds shared national suit colors (NOR red,
+SWE yellow, FIN light, GER graphite, FRA blue, ITA green). Country kit swatches
+appear before races and in season standings. Numbers and leader overlays do
+not repaint suits. Original textures, mesh LODs and graphics quality remain.
+
+WP-189 COMPLETE: official September 2026 IBU §15.7/§15.8.5 checked; yellow is
+the total World Cup leader, red the current discipline leader, both combine.
+Existing registered-results/countback logic retained. Added first-Mass-Start
+noninheritance test. Junior/local careers do not invent World Cup leaders.
+Compact leader icons use the mesh bib palette; pagination fits the new legend.
+
+WP-192 COMPLETE: replay now applies saved nationality, selected skis and
+pre-start bib classifications; forward/backward seek retains these bindings.
+WP-196/197 COMPLETE: six-country and four-bib preview, World Cup leader table,
+RU/EN pre-race and compact/large-text screenshots inspected.
+
+Validation: 13 native EditMode + 11 native PlayMode distinct checks PASS;
+final table pagination recheck PASS. Production field test covers 30 athletes
+and all six countries; repeated kit/bib binding allocates zero managed bytes.
+Presentation leaves authority tick/save/RNG unchanged. Final Unity compilation,
+Console and player build are clean. No physics, balance, AI or replay command
+format changed; full-race balance regressions not repeated for visual binding.
+
+Build: Builds/M14NationBibs20261012/START_M14_TEST.cmd. Unity 6000.6.0f1,
+Windows x64 Development/DX11; Succeeded, 0 errors, 0 warnings, 370466798 bytes.
+Standalone startup exits 0; 1600x900, 1437 visible samples, success=true.
+Evidence: docs/quality/m14/nation-bibs-20261012/.
+Report: docs/reports/TASK_M14_NATION_BIBS_20261012.md.
+Decision: docs/adr/ADR-0062-m14-national-kits-and-world-cup-bibs.md.
+
+Scope: national colors are the game's owner-requested convention, not colors
+mandated by IBU. Unknown historical country codes use a neutral fallback.
+No fabricated preseason discipline champions; blue U23/WCH bibs outside this
+yellow/red request. No implementation work remains for this request. Next:
+owner tests the new build and decides further corrections or M14 acceptance.
+Git publication receipt will be appended after verified push.

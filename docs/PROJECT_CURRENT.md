@@ -3,7 +3,7 @@
 2026-10-12. G1/G2 approved. M13 closed by owner acceptance.
 M14: **19/19 WPs implemented and verified; awaiting owner test/acceptance**.
 
-Current player build: `Builds/M14VisualReview20261012/START_M14_TEST.cmd` (0 build errors/warnings; standalone startup/render passed).
+Current player build: `Builds/M14NationBibs20261012/START_M14_TEST.cmd` (0 build errors/warnings; standalone startup/render passed).
 Previous accepted M13 build remains `Builds/WoodlandM13BotRecovery-20261011/START_WOODLAND_REVIEW.cmd`.
 
 Woodland keeps maximum 30 athletes, High default, separate start/finish, manual steering,
@@ -58,3 +58,10 @@ trace. WP-181/182/184/185/188/189/196/197 corrections complete. 16 native PlayMo
 and 7 EditMode checks pass; RU/EN normal/large screenshots inspected. Gameplay
 and balance unchanged. [Visual build report](reports/TASK_M14_VISUAL_REVIEW_20261012.md).
 M14 stays OPEN for owner acceptance.
+
+2026-10-12 national-kit/bib correction: WP-181/188 bind the six roster countries
+to consistent shared suit colors; WP-189 verifies IBU 2026 yellow/red/combined
+classifications and displays leader badges; WP-192 restores saved appearance in
+replays and seeking. 13 EditMode + 11 PlayMode focused checks pass; Windows build
+and standalone startup pass. Graphics quality, authority and balance unchanged.
+[Current test build/report](reports/TASK_M14_NATION_BIBS_20261012.md). M14 remains OPEN.

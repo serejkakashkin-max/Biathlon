@@ -1,4 +1,5 @@
 using System;
+using Biathlon.Career;
 using System.Collections.Generic;
 using Biathlon.Presentation;
 using UnityEngine;
@@ -87,7 +88,7 @@ namespace Biathlon.Unity.Presentation
                 AddLabel(row,F("results.split_times",ResultClock(split.ElapsedMilliseconds),ResultClock(split.ElapsedMilliseconds-prior)),theme.caption_size);
             }
         }
-        private void ResultTableRow(VisualElement parent,string id,string[] values,bool heading,bool player,string nation=null)
+        private void ResultTableRow(VisualElement parent,string id,string[] values,bool heading,bool player,string nation=null,CareerLeaderBib leader=CareerLeaderBib.None)
         {
             var row=new VisualElement{name=id};row.style.flexDirection=FlexDirection.Row;row.style.alignItems=Align.Center;
             row.style.paddingTop=row.style.paddingBottom=12;row.style.paddingLeft=row.style.paddingRight=8;
@@ -99,7 +100,9 @@ namespace Biathlon.Unity.Presentation
                 if(i==1&&!heading&&nation!=null)
                 {
                     var identity=new VisualElement();identity.style.width=Length.Percent(widths[i]);identity.style.flexDirection=FlexDirection.Row;identity.style.alignItems=Align.Center;identity.style.minWidth=0;row.Add(identity);
-                    identity.Add(new NationFlagGraphic(nation));var name=AddLabel(identity,values[i],theme.caption_size,player);
+                    identity.Add(new NationFlagGraphic(nation));
+                    if(leader!=CareerLeaderBib.None)identity.Add(new LeaderBibGraphic(leader,LeaderDescription(leader)));
+                    var name=AddLabel(identity,values[i],theme.caption_size,player);
                     name.style.marginBottom=0;name.style.flexGrow=1;name.style.minWidth=0;name.style.whiteSpace=WhiteSpace.NoWrap;name.style.overflow=Overflow.Hidden;name.style.textOverflow=TextOverflow.Ellipsis;name.tooltip=values[i]+" · "+nation;
                     continue;
                 }

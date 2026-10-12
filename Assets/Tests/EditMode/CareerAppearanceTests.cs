@@ -47,6 +47,17 @@ namespace Biathlon.Tests
             Assert.That(leaders.ForAthlete(save.Athlete(0).Id), Is.EqualTo(CareerLeaderBib.Total | CareerLeaderBib.Discipline));
             Assert.That(leaders.ForAthlete(save.Athlete(1).Id), Is.EqualTo(CareerLeaderBib.None));
         }
+        [Test] public void RedBibCannotCarryOverFromSprintIntoTheFirstMassStart()
+        {
+            var calendar=Calendar();var save=Save(calendar);Register(save,calendar,0,0,1,2);
+            var before=save.ToJson();var firstMass=CareerLeaderBibs.Capture(save,calendar,Scoring(),calendar.Get(2));
+            Assert.That(firstMass.ForAthlete(save.Athlete(0).Id),Is.EqualTo(CareerLeaderBib.Total));
+            Assert.That(save.ToJson(),Is.EqualTo(before),"Pre-start bib capture must leave saves and RNG unchanged.");
+            Register(save,calendar,1,1,2,0);
+            var nextSprint=CareerLeaderBibs.Capture(save,calendar,Scoring(),calendar.Get(3));
+            Assert.That(nextSprint.ForAthlete(save.Athlete(0).Id),Is.EqualTo(CareerLeaderBib.Discipline));
+            Assert.That(nextSprint.ForAthlete(save.Athlete(1).Id),Is.EqualTo(CareerLeaderBib.Total));
+        }
         [Test] public void UnresolvedTiesRemainLeadersTogetherAndCurrentEventNeverChangesItsOwnBib()
         {
             var calendar = Calendar(); var save = Save(calendar);

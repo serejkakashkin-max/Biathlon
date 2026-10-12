@@ -65,15 +65,16 @@ namespace Biathlon.Unity.Presentation
         private void RenderStandings(VisualElement card)
         {
             var table=CareerStandings.Table(Session.Career,Session.Definitions.Scoring);
+            AddNationalKitLegend(card);var leaders=NextStartLeaders();
             if(Session.Career.RaceCount==0){AddLabel(card,T("history.no_races"),theme.body_size);return;}
             ResultTableRow(card,"standings_header",new[]{"#",L("Спортсмен","Athlete"),L("Гонки","Races"),L("Победы","Wins"),L("Подиумы","Podiums"),L("Очки","Points")},true,false);
             var rows=new VisualElement{name="standings_rows"};card.Add(rows);
             for(int i=0;i<table.Length;i++)
             {
                 var row=table[i];var player=FindAthlete(row.AthleteId);
-                ResultTableRow(rows,"standing_"+i,new[]{(i+1).ToString(),player.Name,row.Races.ToString(),row.Wins.ToString(),row.Podiums.ToString(),row.Points.ToString()},false,player.Id==Session.Career.PlayerId,player.Nation);
+                ResultTableRow(rows,"standing_"+i,new[]{(i+1).ToString(),player.Name,row.Races.ToString(),row.Wins.ToString(),row.Podiums.ToString(),row.Points.ToString()},false,player.Id==Session.Career.PlayerId,player.Nation,leaders?.ForAthlete(player.Id)??CareerLeaderBib.None);
             }
-            PageRows(card,rows,standingsPage,10,value=>standingsPage=value);
+            PageRows(card,rows,standingsPage,compactLayout?5:9,value=>standingsPage=value);
         }
 
         private void RenderHistory(VisualElement card)

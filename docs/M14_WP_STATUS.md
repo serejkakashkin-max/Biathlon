@@ -61,3 +61,11 @@ WP-182 compact pulse graphic; WP-196/197 accessible RU/EN layout checks.
 16 PlayMode + 7 EditMode checks pass. Windows test build and standalone smoke pass.
 No implementation WP remains in progress for this request; owner testing is pending.
 M14 remains OPEN. [Visual report](reports/TASK_M14_VISUAL_REVIEW_20261012.md).
+
+2026-10-12 national-kit and IBU bib correction complete: WP-181/188 saved nation
+determines shared suit color; WP-189 yellow/red/combined rules and compact leader
+badges; WP-192 replay uses recorded nationality, skis and pre-start bibs;
+WP-196/197 country legend and accessible pagination verified. 13 EditMode and
+11 PlayMode checks pass, plus final pagination recheck. Test build and startup
+pass. No implementation work remains for this request; M14 remains OPEN for
+owner acceptance. [Report/build](reports/TASK_M14_NATION_BIBS_20261012.md).

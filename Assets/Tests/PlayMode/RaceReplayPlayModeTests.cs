@@ -54,6 +54,13 @@ namespace Biathlon.PlayModeTests
             string before=menu.Session.Career.ToJson();menu.Replays.LoadEnvironment=true;menu.Replays.Launch(menu,info);
             for(int i=0;i<20&&menu.Replays.Loading;i++)yield return null;
             var replay=menu.Replays;Assert.That(replay.Active,Is.True,menu.LastMessage);Assert.That(replay.LastFailure,Is.Null);
+            for(int i=0;i<replay.Host.Runner.Field.Count;i++)
+            {
+                string id=replay.Host.Runner.Field.GetAthlete(i).AthleteId.Value;CareerAthlete athlete=null;
+                for(int j=0;j<menu.Session.Career.AthleteCount;j++)if(menu.Session.Career.Athlete(j).Id==id)athlete=menu.Session.Career.Athlete(j);
+                Assert.That(athlete,Is.Not.Null);
+                Assert.That(replay.Host.Proxies.GetRig(id).GetComponent<AthleteAppearancePresentation>().Nation,Is.EqualTo(athlete.Nation));
+            }
             replay.TogglePause();Assert.That(replay.Paused,Is.True);yield return null;
             Assert.That(menu.Root.style.display.value,Is.EqualTo(DisplayStyle.None));Assert.That(replay.Root.panel,Is.Not.Null);
             Assert.That(replay.Root.resolvedStyle.display,Is.EqualTo(DisplayStyle.Flex));Assert.That(replay.Root.worldBound.width,Is.GreaterThan(500));
@@ -64,6 +71,7 @@ namespace Biathlon.PlayModeTests
             Assert.That(replay.Host.Feed.Current.Tick,Is.EqualTo(200));
             replay.Seek(50);for(int i=0;i<180&&replay.Seeking;i++)yield return null;
             Assert.That(replay.Tick,Is.EqualTo(50));replay.Seek(200);for(int i=0;i<180&&replay.Seeking;i++)yield return null;
+            Assert.That(replay.Host.Proxies.GetRig(menu.Session.Career.PlayerId).GetComponent<AthleteAppearancePresentation>().Nation,Is.EqualTo("NOR"));
             Assert.That(replay.Tick,Is.EqualTo(200));Assert.That(replay.LastFailure,Is.Null);
             var playback=(ManualScopedFieldStepper)typeof(RaceReplayPresentation).GetField("stepper",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance).GetValue(replay);
             Assert.That(playback.World.GetActor(0).Pose,Is.EqualTo(pose));

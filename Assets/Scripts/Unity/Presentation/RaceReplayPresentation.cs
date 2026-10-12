@@ -68,6 +68,8 @@ namespace Biathlon.Unity.Presentation
                 if(raceEvent==null||raceEvent.VenueId!=Info.VenueId||(int)raceEvent.Format!=Info.Format||snapshot.PlayerId!=Info.PlayerId)throw new InvalidDataException("Replay event differs.");
                 var prepared=Prepare();authority=prepared.Runner;replayRoot=new GameObject("Recorded race");replayRoot.transform.SetParent(transform,false);
                 Host=replayRoot.AddComponent<ProductionVenueHost>();Host.AutoStart=false;Host.enabled=false;Host.InitializeCareer(prepared);stepper=Host.ManualStepper;
+                Host.Proxies.ConfigureCareerAppearance(snapshot,definitions.Calendar,definitions.Scoring,raceEvent);
+                Host.GameplayHud.SetBroadcastRoster(snapshot);
                 stream=menu.ReplayLibrary.OpenVerified(Info);reader=new ManualRaceJournalReader(stream,stepper,Info.TickCount);
                 var view=new GameObject("Replay broadcast camera",typeof(Camera));view.transform.SetParent(replayRoot.transform,false);camera=view.GetComponent<Camera>();camera.enabled=false;camera.depth=300;
                 subject=new GameObject("Broadcast subject binding").transform;subject.SetParent(replayRoot.transform,false);

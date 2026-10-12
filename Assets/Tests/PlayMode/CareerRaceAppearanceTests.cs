@@ -55,5 +55,47 @@ namespace Biathlon.PlayModeTests
             }
             finally { Object.DestroyImmediate(rig.gameObject); }
         }
+        [Test] public void CountryKitIsSharedAcrossNumbersAndLeaderChangesWithoutAllocatingPerFrame()
+        {
+            var a=AthleteRigFactory.Create(null);var b=AthleteRigFactory.Create(null);
+            try
+            {
+                var aa=a.GetComponent<AthleteAppearancePresentation>();var bb=b.GetComponent<AthleteAppearancePresentation>();
+                a.GetComponent<AthleteBibPresentation>().SetNumber(2);b.GetComponent<AthleteBibPresentation>().SetNumber(30);
+                aa.ApplyNation("NOR");bb.ApplyNation("NOR");
+                var ar=a.GetComponentInChildren<SkinnedMeshRenderer>();var br=b.GetComponentInChildren<SkinnedMeshRenderer>();
+                var suit=ar.sharedMaterials[1];Assert.That(br.sharedMaterials[1],Is.SameAs(suit));
+                var bib=a.GetComponent<AthleteBibPresentation>();
+                foreach(var role in new[]{CareerLeaderBib.Total,CareerLeaderBib.Discipline,CareerLeaderBib.Total|CareerLeaderBib.Discipline,CareerLeaderBib.None})
+                {bib.SetLeader(role);bib.SetNumber(13);Assert.That(ar.sharedMaterials[1],Is.SameAs(suit));}
+                var block=new MaterialPropertyBlock();ar.GetPropertyBlock(block,2);Assert.That(block.GetFloat("_BibNumber"),Is.EqualTo(13));
+                ar.GetPropertyBlock(block,1);Assert.That(block.isEmpty,Is.True,"Keep shared suit materials and SRP batching.");
+                long before=System.GC.GetAllocatedBytesForCurrentThread();for(int i=0;i<100;i++){aa.ApplyNation("NOR");bib.SetLeader(CareerLeaderBib.None);}
+                Assert.That(System.GC.GetAllocatedBytesForCurrentThread()-before,Is.Zero);
+                aa.ApplyNation("FRA");Assert.That(ar.sharedMaterials[1].GetColor("_KitColor"),Is.Not.EqualTo(suit.GetColor("_KitColor")));
+                aa.ApplyNation("NOR");Assert.That(ar.sharedMaterials[1],Is.SameAs(suit));
+            }
+            finally{Object.DestroyImmediate(a.gameObject);Object.DestroyImmediate(b.gameObject);}
+        }
+        [Test] public void CountryPaletteCoversEverySavedRosterNationAndKeepsUnknownCountriesNeutral()
+        {
+            var roster=CareerRosterDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/career_roster_v1"));
+            var colors=new System.Collections.Generic.HashSet<Color>();
+            Assert.That(AthleteAppearancePresentation.NationCount,Is.EqualTo(roster.NationCount));
+            var rig=AthleteRigFactory.Create(null);
+            try
+            {
+                for(int i=0;i<roster.NationCount;i++)
+                {
+                    string nation=roster.Nation(i);Assert.That(colors.Add(AthleteAppearancePresentation.NationColor(nation)),Is.True);
+                    rig.GetComponent<AthleteAppearancePresentation>().ApplyNation(nation);
+                    var color=rig.GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterials[1].GetColor("_KitColor");
+                    Assert.That(Vector4.Distance(color,AthleteAppearancePresentation.NationColor(nation)),Is.LessThan(1e-5));
+                }
+                Assert.That(colors.Contains(AthleteAppearancePresentation.NationColor("UNK")),Is.False);
+                Assert.That(AthleteAppearancePresentation.NationColor("UNK"),Is.EqualTo(AthleteAppearancePresentation.NationColor("XYZ")));
+            }
+            finally{Object.DestroyImmediate(rig.gameObject);}
+        }
     }
 }

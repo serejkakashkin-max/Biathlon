@@ -9,7 +9,7 @@ namespace Biathlon.Unity
 {
     public static partial class PlayerBuildPipeline
     {
-        public const string M14ReviewDirectory="Builds/M14VisualReview20261012";
+        public const string M14ReviewDirectory="Builds/M14NationBibs20261012";
         public static void BuildWindowsM14Review()
         {
             ValidateProductionBuildDirectory(M14ReviewDirectory);
@@ -29,6 +29,7 @@ namespace Biathlon.Unity
             File.WriteAllText(Path.Combine(M14ReviewDirectory,"START_M14_TEST.cmd"),"@echo off\r\ncd /d \"%~dp0\"\r\nstart \"Biathlon M14\" \"%~dp0Biathlon.exe\" -force-d3d11 -screen-fullscreen 0 -screen-width 1920 -screen-height 1080\r\n");
             File.WriteAllText(Path.Combine(M14ReviewDirectory,"READ_ME_RU.txt"),
                 "BIATHLON — M14, тестовая сборка 12.10.2026\r\n\r\nЗапуск: START_M14_TEST.cmd. M14 готов к вашей проверке; окончательное закрытие после вашего решения.\r\n"+
+                "Национальные комбинезоны: NOR красный, SWE жёлтый, FIN светлый, GER графитовый, FRA синий, ITA зелёный. Цвет сохраняется в гонке и повторе. Кубок мира: жёлтая майка — лидер общего зачёта, красная — лидер дисциплины этой гонки, жёлто-красная — обе роли. Майки назначаются перед стартом по очкам и местам, а не по текущему месту на трассе. В новой карьере без результатов и в юниорской лиге этих маек Кубка мира нет.\r\n"+
                 "Меню: новая карьера, продолжить, настройки. Стрелки/геймпад — выбор, Enter/A — открыть, Esc/B — назад. Настройки: RU/EN, размер текста, контраст.\r\n"+
                 "Карьера: календарь, тренировки, экипировка, таблица, история, соперничество, повторы. Первый спринт на 6-й неделе: выберите тренировки/восстановление или пять недель восстановления. Перед гонкой показаны погода, состояние, лыжи и правила.\r\n"+
                 "Новая карьера: юниор 18–20 лет или взрослый дебют. Перед стартом 3 секунды отсчёта; часы гонки ждут. Лыжи: W увеличить сохранённый темп, S уменьшить темп и тормозить, ноль удерживает остановку. Shift короткий рывок (временная шкала запаса и секунд), Ctrl восстановление, A/D ручное руление, Space низкая стойка. На тесных поворотах снизьте темп S. F1 помощь, F2 ТВ-таблица, F3 телеметрия, Esc пауза.\r\n"+

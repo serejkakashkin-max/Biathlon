@@ -31,12 +31,13 @@ namespace Biathlon.Unity.Presentation
         private RangeTransitYieldSettings transitSettings;
         private readonly Dictionary<string,Vector3> transitOffsets=new Dictionary<string,Vector3>(StringComparer.Ordinal);
         private readonly Dictionary<string,string> careerSkis=new Dictionary<string,string>(StringComparer.Ordinal);
+        private readonly Dictionary<string,string> careerNations=new Dictionary<string,string>(StringComparer.Ordinal);
         private CareerLeaderBibs careerBibs;
         public void ConfigureCareerAppearance(CareerSave save,CareerCalendar calendar,CareerScoringDefinition scoring,CareerCalendarEvent race)
         {
             var leaders=CareerLeaderBibs.Capture(save,calendar,scoring,race);
-            careerSkis.Clear();
-            for(int i=0;i<save.AthleteCount;i++){var athlete=save.Athlete(i);CareerSkiAppearance.Catalog.Get(athlete.SelectedSki);careerSkis.Add(athlete.Id,athlete.SelectedSki);}
+            careerSkis.Clear();careerNations.Clear();
+            for(int i=0;i<save.AthleteCount;i++){var athlete=save.Athlete(i);CareerSkiAppearance.Catalog.Get(athlete.SelectedSki);careerSkis.Add(athlete.Id,athlete.SelectedSki);careerNations.Add(athlete.Id,athlete.Nation);}
             careerBibs=leaders;
             if(animation.Count==0)return;
             equipmentBatches.Clear();
@@ -45,6 +46,7 @@ namespace Biathlon.Unity.Presentation
         private void ApplyCareerAppearance(string athleteId,AthleteRigBinding rig)
         {
             if(!careerSkis.TryGetValue(athleteId,out var ski))return;
+            rig.GetComponent<AthleteAppearancePresentation>()?.ApplyNation(careerNations[athleteId]);
             var appearance=rig.GetComponent<CareerSkiAppearance>();if(appearance==null)appearance=rig.gameObject.AddComponent<CareerSkiAppearance>();appearance.Apply(rig,ski);
             var bib=rig.GetComponent<AthleteBibPresentation>();if(bib!=null)bib.SetLeader(careerBibs.ForAthlete(athleteId));
         }
@@ -72,7 +74,7 @@ namespace Biathlon.Unity.Presentation
                     throw new ArgumentException("A finite horizontal unit shooting direction is required.",nameof(shootingDirection));
                 direction=Quaternion.LookRotation(new Vector3(value.x,0,value.z).normalized,Vector3.up);
             }
-            Clear();careerSkis.Clear();careerBibs=null;feed=source;visual=geometry;shootingRotation=direction;preserveAcceptedShootingLine=preserveAcceptedLine;
+            Clear();careerSkis.Clear();careerNations.Clear();careerBibs=null;feed=source;visual=geometry;shootingRotation=direction;preserveAcceptedShootingLine=preserveAcceptedLine;
             rigPrefab=template;
             motionSettings=AthleteLocomotionSettings.Load();
             contactSettings=GroundContactSettings.Load();

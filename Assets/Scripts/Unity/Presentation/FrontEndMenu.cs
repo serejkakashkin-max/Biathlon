@@ -201,6 +201,7 @@ namespace Biathlon.Unity.Presentation
                 AddVenuePreview(card,compactLayout?105:150);
                 MetricStrip(card,(summary.Profile.DistanceMeters/1000).ToString("0.00")+" km",L("Дистанция","Distance"),summary.Profile.LapCount.ToString(),L("Круги","Laps"),summary.EntrantCount.ToString(),L("На старте","Entrants"));
                 var facts=Tile(card);
+                AddPreRaceKit(facts,e,summary.Player);
                 var stances=new List<string>();for(int i=0;i<summary.Profile.BoutCount;i++)stances.Add(T("stance."+(int)summary.Profile.GetBout(i).Stance));
                 InfoRow(facts,L("Рубежи","Shooting"),string.Join(" → ",stances));
                 InfoRow(facts,L("Старт","Start"),T("start."+(int)summary.Profile.StartType)+(summary.Profile.StartIntervalSeconds>0?F("start_interval",summary.Profile.StartIntervalSeconds):""));
