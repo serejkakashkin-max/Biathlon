@@ -28,3 +28,5 @@ See [M14 WP status](M14_WP_STATUS.md), [completion report](reports/TASK_M14_COMP
 [replay/TV decision](adr/ADR-0058-m14-recorded-races-and-tv.md).
 `docs/PROJECT_STATE.md` retains the full append-only history from Foundation onward.
 M14 is not declared owner-accepted; next work is owner testing, then M15 or requested corrections.
+
+GitHub publication complete: `codex/wp-078-ai-pack` (implementation/evidence through `cfe7a27`; build source `46f2e6f`).

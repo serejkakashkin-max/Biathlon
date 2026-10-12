@@ -24764,3 +24764,7 @@ Builds/M14Review20261012/START_M14_TEST.cmd launches FrontEnd. Windows build Suc
 WP179–197 all COMPLETE implementation; no remaining implementation WP. M14 OWNER ACCEPTANCE PENDING. Owner tests this build and decides closure/corrections before the next milestone. Existing M13 builds retained. PROJECT_CURRENT and WP tracker now give one clean current state; full PROJECT_STATE Foundation-onward history remains intact. GitHub publication authorized by owner and prepared on codex/wp-078-ai-pack.
 
 Append-only receipt: preserved 2966362 bytes SHA256 9fb985b6b8c0a9b9de662a47b42e153c64a732fc9d245a7d8862d3add8af29e1.
+
+### 2026-10-12 — M14 publication receipt
+
+GitHub push completed successfully: origin/codex/wp-078-ai-pack advanced dbd5883 → cfe7a27. Published core 1f351f6, player UI/build source 46f2e6f, qualification/state cfe7a27. Ready owner build remains Builds/M14Review20261012/START_M14_TEST.cmd; all19 implementation WPs complete, M14 owner acceptance pending. Append-only receipt: preserved 2967614 bytes SHA256 3421b458847656ee03cd83eee1f1606d1f77ba8799bf8429befd63df3cb51680.
