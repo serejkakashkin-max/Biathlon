@@ -40,6 +40,17 @@ namespace Biathlon.PlayModeTests
         {Object.DestroyImmediate(root);InputSystem.RemoveDevice(keyboard);InputSystem.RemoveDevice(gamepad);inputs.Dispose();}
         private void Submit(string id)
         {var button=menu.Root.Q<Button>(id);button.Focus();using(var e=NavigationSubmitEvent.GetPooled())button.SendEvent(e);}
+        [UnityTest] public IEnumerator CareerPagesUseActualPlanAndReturnWithKeyboardFocus()
+        {
+            menu.Session.OpenNewCareer();menu.Session.CreateCareer("career_pages_ui","Алекс","NOR",11);menu.RefreshFrontEnd();yield return null;
+            string before=menu.Session.Career.ToJson();Submit("career_training");yield return null;
+            Submit("add_training_0");yield return null;Assert.That(menu.Session.TrainingCount,Is.EqualTo(1));
+            Assert.That(menu.Root.Q<Label>("training_budget").text,Does.Contain("1"));Assert.That(menu.Root.Q<Label>("training_budget").text,Does.Contain("3"));Submit("back");yield return null;
+            Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.Career));Assert.That(menu.Session.Career.ToJson(),Is.EqualTo(before));
+            foreach(string page in new[]{"career_equipment","career_standings","career_history","career_rivalries"})
+            {Submit(page);yield return null;Assert.That(menu.Root.Q<Button>("back"),Is.Not.Null);Assert.That(menu.Root.panel.focusController.focusedElement,Is.Not.Null);Submit("back");yield return null;}
+            Submit("rest_week");yield return null;Assert.That(menu.Session.Career.Week,Is.EqualTo(2));Assert.That(menu.Session.TrainingCount,Is.Zero);
+        }
         [UnityTest] public IEnumerator ResultsShowSavedFieldShootingSplitsPointsAndReturnToCareer()
         {
             // Explicit boundary fixture; full completed production race collection is exercised in core tests.

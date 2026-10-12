@@ -18,13 +18,15 @@ namespace Biathlon.Unity.Presentation
             AddLabel(actions,F("dashboard.standing",summary.Standing?.ToString()??"—",summary.Points),theme.body_size,true).name="career_standing";
             AddLabel(actions,F("athlete_state",player.Form/100,player.Fatigue/100),theme.caption_size).name="career_readiness";
             var current=Session.Definitions.Calendar.AtWeek(summary.Week);
-            if(current==null)AddButton(actions,"rest_week",T("rest_week"),()=>CareerAction(Session.RestWeek),true);
+            if(current==null)AddButton(actions,"rest_week",T(Session.TrainingCount==0?"rest_week":"training.advance"),()=>CareerAction(Session.CompleteTrainingWeek),true);
             else
             {
                 bool available=current.VenueId=="woodland_basin_v1"&&current.Eligible(player);
                 AddButton(actions,"prepare",T("prepare"),()=>CareerAction(Session.OpenPreRace),true,available);
                 if(!available)AddLabel(actions,T("event_unavailable"),theme.caption_size);
             }
+            foreach(var page in new[]{FrontEndScreen.Training,FrontEndScreen.Equipment,FrontEndScreen.Standings,FrontEndScreen.History,FrontEndScreen.Rivalries})
+            {var chosen=page;AddButton(actions,"career_"+page.ToString().ToLowerInvariant(),T("page."+(int)page),()=>{Session.OpenCareerPage(chosen);Render();});}
             AddButton(actions,"settings",T("settings"),()=>{Session.OpenSettings();Render();});AddButton(actions,"back",T("back"),Back);
 
             AddLabel(card,T("next_event"),theme.caption_size);

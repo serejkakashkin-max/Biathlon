@@ -24739,3 +24739,12 @@ local progress commits; 27 LFS assets uploaded successfully. WP-186 follows
 as a separate conventional commit/push with this state and updated tracker.
 Historical byte prefix preserved: 2962475 bytes, SHA-256
 f3ef9d3eb716dd262ef580472722c2e643d994dc4e97f30a5ff5096cfe99f751.
+
+
+## 2026-10-12 — M14 WP-187–190 career pages
+
+COMPLETE: training UI, equipment UI, standings/history UI, rivalry presentation. Actual data/weekly preparation, atomic saves and qualitative benefit forecasts. .NET23/native EditMode7/PlayMode1 PASS, no Unity Console errors. Training draft is session-local until committed. Current M14 totals: 11/19 complete; 181/196/197 partly delivered; 191–195 in implementation.
+
+Pursuit constructor regression reproduced (2 FAIL), obsolete exclusion removed; production factory/directed-passage 9 PASS. Full manual career Pursuit remains final integration work. Owner requests completion of all M14 WPs then test build; owner testing decides milestone closure. Report: docs/reports/TASK_M14_CAREER_PAGES_20261012.md.
+
+Append-only receipt: preserved 2964008 bytes SHA256 a823491fbf5dc57e438560ca7e923c04fcf37f7b839ac06202aabea7acc09837.

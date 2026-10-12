@@ -187,6 +187,11 @@ namespace Biathlon.Unity.Presentation
                 left.style.width=new Length(31,LengthUnit.Percent);shade.style.width=new Length(31,LengthUnit.Percent);
                 brand.style.fontSize=theme.section_size;RenderResults(actions,card);
             }
+            else if(Session.Screen>=FrontEndScreen.Training)
+            {
+                left.style.width=new Length(31,LengthUnit.Percent);shade.style.width=new Length(31,LengthUnit.Percent);
+                brand.style.fontSize=theme.section_size;RenderCareerPage(actions,card);
+            }
             else if(Session.Screen==FrontEndScreen.Settings)
             {
                 AddLabel(actions,T("settings"),theme.section_size,true);AddLabel(actions,T("language"),theme.caption_size);

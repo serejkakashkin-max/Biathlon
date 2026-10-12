@@ -58,6 +58,8 @@ namespace Biathlon.Domain
         [DataMember(Name = "maximum_affinity_deviation", IsRequired = true)] public double MaximumAffinityDeviation { get; private set; }
         [DataMember(Name = "skis", IsRequired = true)] private SkiEquipmentDefinition[] Skis { get; set; }
         private Dictionary<string, SkiEquipmentDefinition> byId;
+        public int Count=>Skis.Length;
+        public SkiEquipmentDefinition Get(int index)=>Skis[index];
         public SkiEquipmentDefinition GetSki(string id) => byId.TryGetValue(id, out var value) ? value : throw new ArgumentException("Unknown ski equipment.", nameof(id));
         public static SkiEquipmentCatalog FromJson(string json)
         {

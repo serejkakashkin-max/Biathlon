@@ -13,10 +13,10 @@ Statuses refer to implemented and verified product behavior, not merely existing
 | 184 | COMPLETE | Accepted race clock, checkpoint rank/gap and finish timing connected to HUD. |
 | 185 | COMPLETE | Full race protocol, per-bout shooting, penalties, personal splits and season points/rank change. |
 | 186 | COMPLETE | Actual 16-event calendar, readiness, next race, season rank/points, wins/podiums and saved event outcomes. |
-| 187 | PENDING | Training selection and cost/benefit forecast. |
-| 188 | PENDING | Player equipment selection/tradeoffs. |
-| 189 | PENDING | Full season standings and career history screens. |
-| 190 | PENDING | Actual rivalry presentation. |
+| 187 | COMPLETE | Actual session/recovery budget, qualitative benefits and readiness forecast; atomic week commit. |
+| 188 | COMPLETE | Actual catalog selection/buying and snow-specific tradeoffs; atomic charge/selection. |
+| 189 | COMPLETE | Actual season table, saved race and completed-season history. |
+| 190 | COMPLETE | Tracked close finishes/shared podiums/standings battles; no fake outcomes. |
 | 191 | PENDING | Player replay persistence/version compatibility. |
 | 192 | PENDING | Replay playback and camera controls. |
 | 193 | PENDING | Event-driven highlights. |
@@ -33,9 +33,11 @@ Earlier delivery: [menu/pre-race](reports/TASK_M14_PRE_RACE_20261011.md),
 
 The recorded Pursuit directed-passage/startContinuation composition failure must
 be resolved before claiming the complete production Sprint → Pursuit loop.
-No new player build requested for this M14 slice.
+Owner requests one test build after all M14 WPs are ready; closure remains owner-controlled.
 
-7 of 19 WPs complete, 3 partly delivered/in progress, 9 pending.
-Next implementation: WP-187 training UI. Latest changes are published to
+11 of 19 WPs complete, 3 partly delivered/in progress, 5 pending.
+Next implementation: WP-191–195 replay, highlights and broadcast. Latest changes are published to
 the GitHub branch `codex/wp-078-ai-pack`; this tracker and the append-only state
 are included in the same commits as the delivered code/evidence.
+
+2026-10-12: WP-187–190 delivered; see reports/TASK_M14_CAREER_PAGES_20261012.md. Pursuit constructor exclusion repaired; complete manual career integration remains to verify.

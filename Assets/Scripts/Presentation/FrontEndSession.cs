@@ -1,10 +1,11 @@
 using System;
+using System.Collections.Generic;
 using Biathlon.Career;
 using Biathlon.Domain;
 
 namespace Biathlon.Presentation
 {
-    public enum FrontEndScreen { Home, NewCareer, Career, Settings, PreRace, Race, Results }
+    public enum FrontEndScreen { Home, NewCareer, Career, Settings, PreRace, Race, Results, Training, Equipment, Standings, History, Rivalries, Replays }
     public interface ICareerProfileStore
     {
         bool HasProfile { get; }
@@ -20,6 +21,10 @@ namespace Biathlon.Presentation
         private readonly ICareerProfileStore profiles;
         private readonly Func<ulong,IRandomSource> restoreRandom;
         private FrontEndScreen settingsReturn;
+        private readonly List<CareerTrainingKind> training=new List<CareerTrainingKind>();
+        public int TrainingCount=>training.Count;
+        public CareerTrainingKind Training(int index)=>training[index];
+        public SkiEquipmentCatalog EquipmentCatalog=>SkiEquipmentCatalog.FromJson(read("ski_equipment_provisional_v1.json"));
         public FrontEndScreen Screen { get; private set; }
         public CareerSave Career { get; private set; }
         public CareerDefinitions Definitions { get; private set; }
@@ -44,7 +49,39 @@ namespace Biathlon.Presentation
         {
             if(Screen==FrontEndScreen.Race)throw new InvalidOperationException("Finish or explicitly abandon the active race.");
             if(Screen==FrontEndScreen.PreRace){PreparedWeek=null;Screen=FrontEndScreen.Career;}
+            else if(Screen>=FrontEndScreen.Training)Screen=FrontEndScreen.Career;
             else Screen=Screen==FrontEndScreen.Settings?settingsReturn:FrontEndScreen.Home;
+        }
+        public void OpenCareerPage(FrontEndScreen page)
+        {Require(FrontEndScreen.Career);if(page<FrontEndScreen.Training||page>FrontEndScreen.Replays)throw new ArgumentException("Career page required.");Screen=page;}
+        public CareerWeekPlan TrainingPlan()=>new CareerWeekPlan(Definitions.Training,Definitions.Calendar,Career.Week,training);
+        public void AddTraining(CareerTrainingKind kind)
+        {
+            Require(FrontEndScreen.Training);var candidate=new List<CareerTrainingKind>(training){kind};
+            _=new CareerWeekPlan(Definitions.Training,Definitions.Calendar,Career.Week,candidate);training.Add(kind);
+        }
+        public void RemoveTraining(int index){Require(FrontEndScreen.Training);training.RemoveAt(index);}
+        public void ClearTraining(){Require(FrontEndScreen.Training);training.Clear();}
+        public CareerAthlete TrainingPreview()
+        {
+            Require(FrontEndScreen.Training);var prepared=CareerSeasonEngine.PrepareWeek(Career,Definitions,training,restoreRandom);
+            var projected=CareerSave.FromJson(prepared.RaceSnapshotJson);
+            for(int i=0;i<projected.AthleteCount;i++)if(projected.Athlete(i).Id==projected.PlayerId)return projected.Athlete(i);
+            throw new InvalidOperationException("Missing projected player.");
+        }
+        public void CompleteTrainingWeek()
+        {
+            Require(FrontEndScreen.Career);if(Definitions.Calendar.AtWeek(Career.Week)!=null)throw new InvalidOperationException("A race week requires its event.");
+            var prepared=CareerSeasonEngine.PrepareWeek(Career,Definitions,training,restoreRandom);
+            var candidate=CareerSeasonEngine.CompleteWeek(prepared,Definitions,null,restoreRandom);
+            PublishSaved(candidate,prepared.SourceJson);training.Clear();
+        }
+        public void Equip(string skiId)
+        {
+            Require(FrontEndScreen.Equipment);string expected=Career.ToJson();var candidate=CareerSave.FromJson(expected);CareerAthlete player=null;
+            for(int i=0;i<candidate.AthleteCount;i++)if(candidate.Athlete(i).Id==candidate.PlayerId)player=candidate.Athlete(i);
+            var catalog=EquipmentCatalog;if(!CareerInventory.Owns(player,skiId))CareerEconomy.BuyEquipment(player,Definitions.Economy,catalog,skiId);
+            CareerInventory.Select(player,catalog,skiId);PublishSaved(candidate,expected);
         }
         public void RestWeek()
         {
@@ -53,13 +90,14 @@ namespace Biathlon.Presentation
             var prepared=CareerSeasonEngine.PrepareWeek(Career,Definitions,Array.Empty<CareerTrainingKind>(),restoreRandom);
             var candidate=CareerSeasonEngine.CompleteWeek(prepared,Definitions,null,restoreRandom);
             PublishSaved(candidate,prepared.SourceJson);
+            training.Clear();
         }
         public void OpenPreRace()
         {
             Require(FrontEndScreen.Career);
             var e=Definitions.Calendar.AtWeek(Career.Week);
             if(e==null||!e.Eligible(Player))throw new InvalidOperationException("An eligible current-week event is required.");
-            var prepared=CareerSeasonEngine.PrepareWeek(Career,Definitions,Array.Empty<CareerTrainingKind>(),restoreRandom);
+            var prepared=CareerSeasonEngine.PrepareWeek(Career,Definitions,training,restoreRandom);
             PreparedWeek=prepared;Result=null;ResultsSummary=null;Screen=FrontEndScreen.PreRace;
         }
         public void BeginRace() {Require(FrontEndScreen.PreRace);Screen=FrontEndScreen.Race;}
@@ -70,7 +108,7 @@ namespace Biathlon.Presentation
             var candidate=CareerSeasonEngine.CompleteWeek(PreparedWeek,Definitions,result,restoreRandom);
             var summary=new RaceResultsSummary(CareerSave.FromJson(PreparedWeek.SourceJson),result,Definitions.Scoring);
             PublishSaved(candidate,PreparedWeek.SourceJson);
-            Result=result;ResultsSummary=summary;PreparedWeek=null;Screen=FrontEndScreen.Results;
+            Result=result;ResultsSummary=summary;PreparedWeek=null;training.Clear();Screen=FrontEndScreen.Results;
         }
         public void ReturnFromResults() {Require(FrontEndScreen.Results);Screen=FrontEndScreen.Career;}
         private void PublishSaved(CareerSave candidate,string expected)
@@ -82,7 +120,7 @@ namespace Biathlon.Presentation
             var candidate=CareerFactory.Create(definitions.Roster,definitions.Calendar,id,name?.Trim(),nation,"player_appearance",restoreRandom(seed));
             // Publish only after the durable write succeeds. New careers never overwrite another profile.
             string json=candidate.ToJson();CareerSave.FromJson(json);profiles.WriteNew(id,json);
-            Career=candidate;Definitions=definitions;Screen=FrontEndScreen.Career;
+            Career=candidate;Definitions=definitions;training.Clear();Screen=FrontEndScreen.Career;
         }
         public void ContinueCareer()
         {
@@ -90,7 +128,7 @@ namespace Biathlon.Presentation
             var decoded=CareerSave.FromJson(profiles.ReadLatest());
             var definitions=CareerDefinitions.ForSave(read,decoded);
             var candidate=CareerFactory.Restore(decoded.ToJson(),definitions.Roster,definitions.Calendar,restoreRandom(decoded.RandomState));
-            Career=candidate;Definitions=definitions;Screen=FrontEndScreen.Career;
+            Career=candidate;Definitions=definitions;training.Clear();Screen=FrontEndScreen.Career;
         }
         public CareerCalendarEvent NextEvent()
         {

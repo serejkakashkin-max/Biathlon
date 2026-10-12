@@ -110,3 +110,5 @@ Owner-authorized GitHub publication includes the earlier local progress and
 WP-185; WP-186 follows on the same codex/wp-078-ai-pack branch.
 Training/equipment selection, expanded dashboard/history/replay remain pending.
 M14 gate OPEN. No new player build.
+
+2026-10-12 latest: WP-187–190 COMPLETE; 11/19 ready, replay/TV/weather/accessibility/navigation remain. M14 gate OPEN; test build after all WPs, owner decides closure. See TASK_M14_CAREER_PAGES_20261012.md.
