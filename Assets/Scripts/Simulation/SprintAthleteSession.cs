@@ -132,6 +132,7 @@ namespace Biathlon.Simulation
         public long RouteNanometers { get; private set; }
         public int TotalPenaltyLoops { get; private set; }
         public SprintAthleteFrame LastFrame { get; private set; }
+        public string SnowConditionsId=>path.SnowConditionsId;
         /// <summary>Accepted state from the last committed tick, independent of prepared intent.</summary>
         public bool TuckActive => priorTuck;
         public bool FinalSprintActive => priorSprint;

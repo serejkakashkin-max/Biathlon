@@ -57,7 +57,8 @@ namespace Biathlon.Unity.Presentation
             menu.RefreshFrontEnd();StartCoroutine(Create(moment));
         }
         private CareerPreparedRace Prepare()
-            =>new CareerRaceProvider(ReadCore,definitions,ProductionVenueHost.ReadResource).Prepare(CareerSave.FromJson(Info.CareerSnapshotJson),raceEvent,Info.Seed);
+            =>new CareerRaceProvider(ReadCore,definitions,ProductionVenueHost.ReadResource).Prepare(CareerSave.FromJson(Info.CareerSnapshotJson),raceEvent,Info.Seed,
+                recordedWeather:Info.RaceWeatherJson==null?null:RaceWeatherPreset.FromJson(Info.RaceWeatherJson),legacyNeutralWeather:Info.RaceWeatherJson==null);
         private IEnumerator Create(long moment)
         {
             yield return null;Exception failure=null;
@@ -82,7 +83,8 @@ namespace Biathlon.Unity.Presentation
                 yield return null;
                 try
                 {
-                    if(LoadEnvironment)Host.InitializeEnvironment(ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/"+Info.VenueId+"/environment")));
+                    if(LoadEnvironment)Host.InitializeEnvironment(CareerWeatherPresentation.Bind(ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/"+Info.VenueId+"/environment")),
+                        Info.RaceWeatherJson==null?null:RaceWeatherPreset.FromJson(Info.RaceWeatherJson)));
                     Host.UseReplayView(camera);menu.SetRaceVisible(true);BuildControls();RefreshTv();
                     Loading=false;
                     if(moment>0)Seek(Math.Max(0,moment-(long)(settings.highlight_lead_seconds*Info.TickFrequency)));

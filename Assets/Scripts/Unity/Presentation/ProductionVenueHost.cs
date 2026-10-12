@@ -136,6 +136,10 @@ namespace Biathlon.Unity.Presentation
             {
                 environment.Initialize(Venue,definition,ReadResource,Feed,ChaseCamera,range.AimCamera,apron:Course.Apron);
                 Course.JoinGround(environment,definition.terrain.grid_spacing_m,environment.TerrainGridOrigin);
+                if(!string.IsNullOrEmpty(definition.terrain.snow_material_preset))
+                {
+                    SnowMaterialDefinition.Load().ConfigureBlended(Course.GroomedMaterial,definition.terrain.snow_material_preset,definition.terrain.snow_surface_profile);
+                }
                 GetComponent<CourseTimingPresentation>()?.GroundSupports(environment);
                 Environment=environment;range.BindVenue(Venue,environment,Proxies.GetRig(Runner.Field.GetAthlete(PlayerIndex).AthleteId.Value));
             }

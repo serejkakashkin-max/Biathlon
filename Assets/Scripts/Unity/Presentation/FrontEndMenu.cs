@@ -189,8 +189,11 @@ namespace Biathlon.Unity.Presentation
             {
                 var e=Session.PreparedWeek.Event;
                 string format=e.Format==CompetitionFormat.Sprint?"sprint":e.Format==CompetitionFormat.Pursuit?"pursuit":"mass_start";
+                var forecast=new Biathlon.AI.CareerRaceProvider(ReadCore,Session.Definitions,ProductionVenueHost.ReadResource)
+                    .Forecast(CareerSave.FromJson(Session.PreparedWeek.RaceSnapshotJson),e);
+                var snowConditions=RaceSnowConditions.FromJson(ReadCore("race_snow_neutral_v1.json"));
                 var summary=new PreRaceSummary(Session.PreparedWeek,CompetitionProfile.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/"+e.VenueId+"/"+format+"_profile")),
-                    RaceSnowConditions.FromJson(ReadCore("race_snow_neutral_v1.json")),SkiEquipmentCatalog.FromJson(ReadCore("ski_equipment_provisional_v1.json")));
+                    forecast==null?snowConditions:forecast.SnowConditions(snowConditions),SkiEquipmentCatalog.FromJson(ReadCore("ski_equipment_provisional_v1.json")));
                 AddLabel(actions,T("pre_race"),theme.section_size,true);AddLabel(actions,T("format."+(int)e.Format),theme.section_size,true);
                 AddLabel(actions,summary.Player.Name,theme.body_size);
                 AddLabel(actions,F("athlete_state",summary.Player.Form/100,summary.Player.Fatigue/100),theme.body_size);
@@ -206,8 +209,10 @@ namespace Biathlon.Unity.Presentation
                 InfoRow(facts,L("Рубежи","Shooting"),string.Join(" → ",stances));
                 InfoRow(facts,L("Старт","Start"),T("start."+(int)summary.Profile.StartType)+(summary.Profile.StartIntervalSeconds>0?F("start_interval",summary.Profile.StartIntervalSeconds):""));
                 InfoRow(facts,T("equipment"),T("equipment."+summary.Skis.Id));
-                var weather=ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/"+e.VenueId+"/environment"));
-                AddLabel(facts,T("weather."+weather.lighting.weather_preset)+" · "+T("snow."+summary.SnowProfileId),theme.caption_size).name="pre_race_weather";
+                var weather=CareerWeatherPresentation.Bind(ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/"+e.VenueId+"/environment")),forecast);
+                AddLabel(facts,T("weather."+weather.lighting.weather_preset)+" · "+T("snow."+summary.SnowProfileId)+
+                    " · "+weather.lighting.temperature_c.ToString("0.#",CultureInfo.InvariantCulture)+"°C"+
+                    " · "+L("ветер ","wind ")+weather.lighting.visual_wind.magnitude.ToString("0.#",CultureInfo.InvariantCulture)+L(" м/с"," m/s"),theme.caption_size).name="pre_race_weather";
                 var raceKeys=AddLabel(actions,T("race_controls"),theme.caption_size);raceKeys.name="pre_race_controls";raceKeys.style.marginTop=16;
             }
             else if(Session.Screen==FrontEndScreen.Race)

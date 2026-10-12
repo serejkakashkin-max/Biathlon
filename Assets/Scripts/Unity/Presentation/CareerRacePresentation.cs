@@ -57,7 +57,8 @@ namespace Biathlon.Unity.Presentation
                 try
                 {
                     var info=new RaceReplayInfo{Id="race_"+Guid.NewGuid().ToString("N"),RecordedUtc=DateTime.UtcNow.ToString("O"),CareerSnapshotJson=week.RaceSnapshotJson,
-                        EventId=week.Event.Id,VenueId=week.Event.VenueId,Format=(int)week.Event.Format,Seed=week.RaceSeed,PlayerId=menu.Session.Career.PlayerId,PlayerName=menu.Session.Player.Name,TickFrequency=Host.Runner.Field.TickFrequency};
+                        EventId=week.Event.Id,VenueId=week.Event.VenueId,Format=(int)week.Event.Format,Seed=week.RaceSeed,PlayerId=menu.Session.Career.PlayerId,PlayerName=menu.Session.Player.Name,TickFrequency=Host.Runner.Field.TickFrequency,
+                        RaceWeatherJson=prepared.Weather?.ToJson()};
                     replayCapture=new CareerReplayCapture(menu.ReplayLibrary,Host.ManualStepper,info,highlights,replayPolicy);
                 }
                 catch(Exception e)when(e is IOException||e is UnauthorizedAccessException){Debug.LogWarning("Replay capture unavailable: "+e.Message);}
@@ -68,8 +69,8 @@ namespace Biathlon.Unity.Presentation
                 yield return null;
                 try
                 {
-                    if(LoadEnvironment)Host.InitializeEnvironment(ProductionEnvironmentDefinition.FromJson(
-                        ProductionVenueHost.ReadResource("Biathlon/Venues/"+prepared.Event.VenueId+"/environment")));
+                    if(LoadEnvironment)Host.InitializeEnvironment(CareerWeatherPresentation.Bind(ProductionEnvironmentDefinition.FromJson(
+                        ProductionVenueHost.ReadResource("Biathlon/Venues/"+prepared.Event.VenueId+"/environment")),prepared.Weather));
                     menu.Session.BeginRace();Host.ArmRaceStartCountdown();Host.enabled=true;menu.SetRaceVisible(true);
                 }
                 catch(Exception e){failure=e;}

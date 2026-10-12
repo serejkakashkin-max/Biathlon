@@ -103,6 +103,8 @@ namespace Biathlon.AI
         public long ShootingDecisions { get; private set; }
         public bool IsFaulted { get; private set; }
         public SprintAthleteInput GetLastInput(int index)=>inputs[index];
+        public WindVector RaceWind {get;}
+        private readonly ShootingWindSystem raceWindSystem;
         public TacticalIntentDecision GetLastIntent(int index)=>intents[index];
         public double GetLastLateral(int index)=>lateral[index];
         public AiRangeTrafficPlan GetLastRangeTrafficPlan(int index)=>rangeTrafficPlans[index];
@@ -118,7 +120,7 @@ namespace Biathlon.AI
         public PackAiRaceRunner(PackSprintFieldSession field,Func<string,string> read,
             ReadOnlySpan<AiPersonalityDefinition> profiles,AiDifficultyDefinition difficulty,ulong seed,
             IRaceEventSink events,IAiDecisionSink telemetry,double[] raceForms=null,ShootingPressureContext[] racePressures=null,
-            AiRangeTrafficPolicyDefinition rangeTrafficPolicy=null,AiSkiPolicyDefinition skiPolicy=null)
+            AiRangeTrafficPolicyDefinition rangeTrafficPolicy=null,AiSkiPolicyDefinition skiPolicy=null,WindVector raceWind=default)
         {
             Field=field??throw new ArgumentNullException(nameof(field));
             if(read==null || difficulty==null || events==null || telemetry==null) throw new ArgumentNullException();
@@ -144,6 +146,8 @@ namespace Biathlon.AI
             var terrainDefinition=TerrainPlanningDefinition.FromJson(read("terrain_planning_provisional_v1.json"));
             recoveryDefinition=PreRangeRecoveryDefinition.FromJson(read("pre_range_recovery_provisional_v1.json"));
             var strategyDefinition=ShootingStrategyDefinition.FromJson(read("shooting_strategy_provisional_v1.json"));
+            RaceWind=raceWind;raceWindSystem=new ShootingWindSystem(shootingModel.Wind);
+            raceWindSystem.Evaluate(raceWind,0,1,shootingModel.Targets.DistanceMeters);
             var draftDefinition=DraftDefinition.FromJson(read("draft_provisional_v1.json"));
             var selectionDefinition=DraftSelectionDefinition.FromJson(read("draft_selection_provisional_v1.json"));
             laneDefinition=OvertakeDefinition.FromJson(read("overtake_provisional_v1.json"));
@@ -211,6 +215,8 @@ namespace Biathlon.AI
             }
             if(this.raceForms!=null)foreach(double value in this.raceForms)context.Add("readiness_form:"+value.ToString("R",System.Globalization.CultureInfo.InvariantCulture));
             if(this.racePressures!=null)foreach(var value in this.racePressures)context.Add("readiness_pressure:"+value.RaceImportance.ToString("R",System.Globalization.CultureInfo.InvariantCulture)+","+value.PositionImportance.ToString("R",System.Globalization.CultureInfo.InvariantCulture)+","+value.RivalProximity.ToString("R",System.Globalization.CultureInfo.InvariantCulture)+","+value.Confidence.ToString("R",System.Globalization.CultureInfo.InvariantCulture)+","+value.FinalStanding+","+value.FirstPodium);
+            if(RaceWind.EastMetersPerSecond!=0||RaceWind.NorthMetersPerSecond!=0)
+                context.Add("race_wind_v1:"+RaceWind.EastMetersPerSecond.ToString("R",System.Globalization.CultureInfo.InvariantCulture)+","+RaceWind.NorthMetersPerSecond.ToString("R",System.Globalization.CultureInfo.InvariantCulture));
             using(var stream=new MemoryStream()) { new DataContractJsonSerializer(typeof(string[])).WriteObject(stream,context.ToArray());ContextJson=Encoding.UTF8.GetString(stream.ToArray()); }
         }
         private ulong ActorSeed(AthleteId id,int stream)
@@ -265,6 +271,8 @@ namespace Biathlon.AI
                     ski.HeadwindMetersPerSecond,ski.TuckRequested,ski.SprintRequested,ski.TechniqueId,ski.MovementEfficiency),input.Aim,input.Trigger,
                     input.HoldBreath,input.Wind,racePressures==null?input.Pressure:racePressures[index],input.CycleBolt,input.ManualBoltCycle,input.RangeTransit);
             }
+            if(RaceWind.EastMetersPerSecond!=0||RaceWind.NorthMetersPerSecond!=0)
+                input=new SprintAthleteInput(input.Ski,input.Aim,input.Trigger,input.HoldBreath,RaceWind,input.Pressure,input.CycleBolt,input.ManualBoltCycle,input.RangeTransit);
             try { StepCore(index,input,desiredLateralMeters); } catch { IsFaulted=true;throw; }
         }
         private void StepCore(int playerIndex,SprintAthleteInput playerInput,double playerLateral)
@@ -458,7 +466,8 @@ namespace Biathlon.AI
                     { shooters[i]=new ShootingAiController(aimDefinition,shootingModel.Targets,shootingModel.Aim,shootingModel.Stances.Get(Field.Profile.GetBout(actor.ActiveBout).Stance),id,frequency,new SeededRandomSource(ActorSeed(id,actor.ActiveBout+1)),Field.Tick);previousShooting[i]=shooting; }
                     var sight=shooting.Sight;
                     shootingFrames[i]=shooters[i].Step(tick,new ShootingAiObservation(shooting.Phase,shooting.ClosedMask,shooting.ShotsFired,sight.YawRadians,sight.PitchRadians,
-                        shooting.Tick.Equals(shooting.InitialTick)?1:shooting.LastFrame.Pressure.DecisionDelayMultiplier),strategies[i]);
+                        shooting.Tick.Equals(shooting.InitialTick)?1:shooting.LastFrame.Pressure.DecisionDelayMultiplier,
+                        raceWindSystem.Evaluate(RaceWind,0,observation.CurrentTrack.WindExposure,shootingModel.Targets.DistanceMeters).HorizontalDriftMeters),strategies[i]);
                     aim=shootingFrames[i].Aim;trigger=shootingFrames[i].Trigger;hold=shootingFrames[i].HoldBreath;shootingDue[i]=shootingFrames[i].DecisionMade;
                 }
                 else shootingFrames[i]=default;
@@ -492,7 +501,7 @@ namespace Biathlon.AI
                 bool requestTuck=downhillTuck!=null&&skiing&&!onSharedStart&&!alignRange&&
                     downhillTuck.Evaluate(true,drive.RequestedEffort,actor.DownhillSkill,actor.Motion,observation.CurrentTrack).Active;
                 inputs[i]=new SprintAthleteInput(new TimeTrialInput(drive,raceForms==null?1:raceForms[i],1,0,
-                    tuckRequested:requestTuck,sprintRequested:intents[i].Kind==TacticalIntentKind.FinalSprint),aim,trigger,hold,pressure:racePressures==null?default:racePressures[i]);
+                    tuckRequested:requestTuck,sprintRequested:intents[i].Kind==TacticalIntentKind.FinalSprint),aim,trigger,hold,wind:RaceWind,pressure:racePressures==null?default:racePressures[i]);
             }
             if(manualCandidate==null)Field.Step(inputs,lateral);
             else manualCandidate.Step(inputs,lateral,manualPlayerSteeringAssistance?-1:playerIndex,manualPlayerSteering,manualPlayerBrake);

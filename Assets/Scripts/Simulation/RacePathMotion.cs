@@ -33,6 +33,7 @@ namespace Biathlon.Simulation
         private readonly SkiTechniqueSystem technique;
         private readonly CorneringSystem cornering;
         private readonly SnowConditionSystem snow;
+        public string SnowConditionsId=>snow.ConditionsId;
         private readonly SkiEquipmentSystem equipment;
         private readonly SkiBoundaryStepper stepper;
         private readonly TrackSampler penaltySampler;

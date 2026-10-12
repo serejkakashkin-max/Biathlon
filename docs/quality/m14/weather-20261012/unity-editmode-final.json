@@ -1,0 +1,42 @@
+{
+  "Summary": {
+    "Status": "Passed",
+    "TotalTests": 1922,
+    "PassedTests": 6,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:55.7515269"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.Tests.CareerWeatherTests.CatalogHasDistinctPhysicalSnowAndRoundTripsRecordedConditions",
+      "Status": "Passed",
+      "Duration": "00:00:00.0070000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerWeatherTests.ForecastVariesAcrossExistingCareerEventsAndDoesNotConsumeSavedRandomness",
+      "Status": "Passed",
+      "Duration": "00:00:00.0410000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerWeatherTests.InvalidWeatherAndDuplicateIdsFailBeforeRaceComposition",
+      "Status": "Passed",
+      "Duration": "00:00:00.0070000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerWeatherTests.PreparedCareerUsesForecastSnowAndSameWindForEveryEntrant",
+      "Status": "Passed",
+      "Duration": "00:00:18.5180000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerWeatherTests.RecordedOverrideSurvivesFutureForecastAndLegacyReplayRemainsNeutral",
+      "Status": "Passed",
+      "Duration": "00:00:36.3780000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerWeatherTests.ReplayMetadataAcceptsOldFilesAndValidatesNewWeather",
+      "Status": "Passed",
+      "Duration": "00:00:00.0030000"
+    }
+  ]
+}

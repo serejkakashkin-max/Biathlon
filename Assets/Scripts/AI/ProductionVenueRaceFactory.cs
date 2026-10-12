@@ -14,7 +14,7 @@ namespace Biathlon.AI
             RaceRoutePlan routePlan, RaceSnowConditions conditions, Func<string,string> read, IRaceEventSink events, IAiDecisionSink telemetry,
             PursuitQualificationSnapshot qualification=null, int count=30, int frequency=20, ulong seed=123,
             SprintEntrant[] suppliedEntrants=null, AiPersonalityDefinition[] suppliedPersonalities=null,
-            double[] raceForms=null, ShootingPressureContext[] racePressures=null)
+            double[] raceForms=null, ShootingPressureContext[] racePressures=null,WindVector raceWind=default)
         {
             if(venue==null||profile==null||routePlan==null||conditions==null||read==null||events==null||telemetry==null)
                 throw new ArgumentNullException();
@@ -87,7 +87,7 @@ namespace Biathlon.AI
                 name=="tuck_provisional_v1.json"?read(name):gameplayRead(name);
             return new PackAiRaceRunner(field,aiRead,personalities,AiDifficultyDefinition.FromJson(read("ai_difficulty_expert_v1.json")),seed,events,telemetry,
                 raceForms,racePressures,
-                rangeTrafficPolicy:venue.AiRangeTraffic??AiRangeTrafficPolicyDefinition.FromJson(read("ai_range_traffic_provisional_v1.json")),skiPolicy:venue.AiSkiPolicy);
+                rangeTrafficPolicy:venue.AiRangeTraffic??AiRangeTrafficPolicyDefinition.FromJson(read("ai_range_traffic_provisional_v1.json")),skiPolicy:venue.AiSkiPolicy,raceWind:raceWind);
         }
     }
 }

@@ -35,6 +35,8 @@ namespace Biathlon.Unity.Presentation
         public bool Initialized=>recipe!=null;
         public string RecipeId=>recipe?.id;
         public string VenueId=>recipe?.venue_id;
+        public string WeatherPresetId=>recipe?.lighting.weather_preset;
+        public int SubmittedSnowflakes=>weather?.SubmittedFlakes??0;
         public int TerrainTileCount=>tileMeshes?.Length??0;
         public int ForestGroupCount=>forests?.Length??0;
         public int TreeCount {get;private set;}
@@ -75,6 +77,8 @@ namespace Biathlon.Unity.Presentation
                 generated=new GameObject("Production environment "+data.id);generated.transform.SetParent(transform,false);
                 generated.transform.SetPositionAndRotation(Vector3.zero,Quaternion.identity);
                 var snow=new Material(prepared.Snow);ownedMaterials.Add(snow);prepared.Blend.Configure(snow);
+                if(!string.IsNullOrEmpty(data.terrain.snow_material_preset))
+                    SnowMaterialDefinition.FromJson(Read(read,"Biathlon/snow_material_v1")).ConfigureBlended(snow,data.terrain.snow_material_preset,data.terrain.snow_surface_profile);
                 tileMeshes=new Mesh[data.terrain.tiles.Length];
                 for(int i=0;i<tileMeshes.Length;i++)
                 {
@@ -298,7 +302,8 @@ namespace Biathlon.Unity.Presentation
             RefreshBanks();VisibleTrees=0;SubmittedForestTriangles=0;
             foreach(var forest in forests){forest.Render(camera,tier,time,recipe.lighting.visual_wind);VisibleTrees+=forest.VisibleInstances;SubmittedForestTriangles+=forest.SubmittedTriangles;}
             foreach(var crowd in crowds)crowd.Render(camera,tier,time);
-            weather.Render(recipe.lighting.weather_preset,tier,time,recipe.lighting.visual_wind,SampleGround(chase.transform.position),lighting,recipe.lighting.fog_distance_scale);
+            weather.SetViewCamera(camera);
+            weather.Render(recipe.lighting.weather_preset,tier,time,recipe.lighting.visual_wind,SampleGround(camera.transform.position),lighting,recipe.lighting.fog_distance_scale);
         }
         private void LateUpdate(){if(Initialized)Render(shooting!=null&&shooting.isActiveAndEnabled?shooting:chase,quality!=null?quality.TierId:defaultTier,Time.time);}
         private void OnDisable(){if(generated!=null)generated.SetActive(false);}

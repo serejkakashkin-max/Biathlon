@@ -69,3 +69,5 @@ WP-196/197 country legend and accessible pagination verified. 13 EditMode and
 11 PlayMode checks pass, plus final pagination recheck. Test build and startup
 pass. No implementation work remains for this request; M14 remains OPEN for
 owner acceptance. [Report/build](reports/TASK_M14_NATION_BIBS_20261012.md).
+
+2026-10-12 weather correction: WP-181 forecast and physical snow, WP-182 live atmosphere/materials/shared shooting wind, WP-192 recorded weather and legacy compatibility COMPLETE. Six Unity EditMode + ten PlayMode checks pass; 31 core + 28 career/menu checks pass with 7 overlaps. Full snowfall Sprint determinism and build/startup pass. No implementation WP remains in progress for this request; M14 remains OPEN for owner testing. [Report/build](reports/TASK_M14_WEATHER_20261012.md).

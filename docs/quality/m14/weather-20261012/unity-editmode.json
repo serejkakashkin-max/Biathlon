@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "id": "m14_weather_editmode_20261012",
+  "summary": {
+    "status": "Passed",
+    "executed": 6,
+    "failed": 0
+  },
+  "tests": [
+    "CatalogHasDistinctPhysicalSnowAndRoundTripsRecordedConditions",
+    "ForecastVariesAcrossExistingCareerEventsAndDoesNotConsumeSavedRandomness",
+    "InvalidWeatherAndDuplicateIdsFailBeforeRaceComposition",
+    "PreparedCareerUsesForecastSnowAndSameWindForEveryEntrant",
+    "RecordedOverrideSurvivesFutureForecastAndLegacyReplayRemainsNeutral",
+    "ReplayMetadataAcceptsOldFilesAndValidatesNewWeather"
+  ],
+  "source": "Unity EditMode tools.tests_run, first native run; subsequent final core/TRX also covers these tests."
+}

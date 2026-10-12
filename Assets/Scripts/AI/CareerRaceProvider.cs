@@ -49,7 +49,16 @@ namespace Biathlon.AI
             LastTicks=runner.Field.Tick.Value;LastEventHash=prepared.Audit.Hash;LastShots=prepared.Audit.Shots;
             return result;
         }
-        public CareerPreparedRace Prepare(CareerSave snapshot,CareerCalendarEvent e,ulong seed,IRaceEventSink observedEvents=null)
+        public RaceWeatherPreset Forecast(CareerSave snapshot,CareerCalendarEvent e)
+        {
+            if(snapshot==null||e==null)throw new ArgumentNullException();
+            if(e.VenueId!=Woodland)return null;
+            for(int i=0;i<career.Calendar.Count;i++)if(career.Calendar.Get(i).Id==e.Id)
+                return RaceWeatherCatalog.FromJson(read("career_weather_v1.json")).Select(i,snapshot.Season);
+            throw new ArgumentException("Weather needs an event from this career calendar.");
+        }
+        public CareerPreparedRace Prepare(CareerSave snapshot,CareerCalendarEvent e,ulong seed,IRaceEventSink observedEvents=null,
+            RaceWeatherPreset recordedWeather=null,bool legacyNeutralWeather=false)
         {
             if(snapshot==null||e==null)throw new ArgumentNullException();
             if(e.VenueId!="synthetic_alpine"&&e.VenueId!=Woodland)throw new ArgumentException("No route adapter for this venue.");
@@ -79,6 +88,7 @@ namespace Biathlon.AI
             var audit=new BalanceEventAudit(5);
             IRaceEventSink eventSink=observedEvents==null?audit:new ObservedEvents(audit,observedEvents);
             PackAiRaceRunner runner;VenueAuthoringPlan venue=null;
+            var weather=legacyNeutralWeather?null:recordedWeather??Forecast(snapshot,e);
             if(e.VenueId==Woodland)
             {
                 venue=new VenueAuthoringPlan(VenueManifest.FromJson(venueResource(WoodlandRoot+"manifest")),venueResource);
@@ -86,11 +96,13 @@ namespace Biathlon.AI
                 runner=ProductionVenueRaceFactory.Create(venue,
                     CompetitionProfile.FromJson(venueResource(WoodlandRoot+format+"_profile")),
                     RaceRoutePlan.FromJson(venueResource(WoodlandRoot+format+"_route")),
-                    RaceSnowConditions.FromJson(read("race_snow_neutral_v1.json")),read,eventSink,new AiDecisionCounts(),
-                    qualification,roster.Count,definition.TickFrequency,seed,entrants,personalities,forms,pressures);
+                    weather==null?RaceSnowConditions.FromJson(read("race_snow_neutral_v1.json")):
+                        weather.SnowConditions(RaceSnowConditions.FromJson(read("race_snow_neutral_v1.json"))),read,eventSink,new AiDecisionCounts(),
+                    qualification,roster.Count,definition.TickFrequency,seed,entrants,personalities,forms,pressures,
+                    raceWind:weather==null?default:new WindVector(weather.WindEast,weather.WindNorth));
             }
             else runner=ChampionshipRaceFactory.Create(read,fixture,e.Format,eventSink,new AiDecisionCounts(),qualification,roster.Count,definition.TickFrequency,seed,entrants,personalities,forms,pressures);
-            return new CareerPreparedRace(snapshot.SeasonId,snapshot.PlayerId,e,seed,runner,audit,venue);
+            return new CareerPreparedRace(snapshot.SeasonId,snapshot.PlayerId,e,seed,runner,audit,venue,weather);
         }
         private sealed class ObservedEvents:IRaceEventSink
         {
@@ -106,12 +118,13 @@ namespace Biathlon.AI
         public VenueAuthoringPlan Venue { get; }
         public CareerCalendarEvent Event { get; }
         public ulong Seed { get; }
+        public RaceWeatherPreset Weather {get;}
         public int PlayerIndex { get; }
         internal BalanceEventAudit Audit { get; }
         private readonly string seasonId;
-        internal CareerPreparedRace(string seasonId,string playerId,CareerCalendarEvent e,ulong seed,PackAiRaceRunner runner,BalanceEventAudit audit,VenueAuthoringPlan venue)
+        internal CareerPreparedRace(string seasonId,string playerId,CareerCalendarEvent e,ulong seed,PackAiRaceRunner runner,BalanceEventAudit audit,VenueAuthoringPlan venue,RaceWeatherPreset weather)
         {
-            this.seasonId=seasonId;Event=e;Seed=seed;Runner=runner;Audit=audit;Venue=venue;PlayerIndex=-1;
+            this.seasonId=seasonId;Event=e;Seed=seed;Runner=runner;Audit=audit;Venue=venue;Weather=weather;PlayerIndex=-1;
             for(int i=0;i<runner.Field.Count;i++)if(runner.Field.GetAthlete(i).AthleteId.Value==playerId)PlayerIndex=i;
         }
         public CareerRaceRecord CollectResult()

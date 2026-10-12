@@ -46,5 +46,32 @@ namespace Biathlon.Unity.Presentation
             material.SetFloat("_MacroScale", macro_scale_m); material.SetFloat("_GrainScale", grain_scale_m);
             material.SetFloat("_TerrainBlend",0);
         }
+        /// <summary>Keep authored snow/ice/edge weights and texture detail while changing conditions.</summary>
+        public void ConfigureBlended(Material material,string preset,string surfaceProfile=null)
+        {
+            if(material==null)throw new ArgumentNullException(nameof(material));
+            float blend=material.GetFloat("_TerrainBlend");
+            Color packed=material.GetColor("_PackedColor"),ice=material.GetColor("_IceColor"),edge=material.GetColor("_EdgeColor");
+            Vector4 roughness=material.GetVector("_LayerRoughness");
+            SnowMaterialPreset cold=null,chosen=null;foreach(var p in presets){if(p.id=="cold")cold=p;if(p.id==preset)chosen=p;}
+            Configure(material,preset);
+            if(preset!="cold")
+            {
+                var tint=new Color(cold.albedo.r>0?chosen.albedo.r/cold.albedo.r:1,cold.albedo.g>0?chosen.albedo.g/cold.albedo.g:1,cold.albedo.b>0?chosen.albedo.b/cold.albedo.b:1,1);
+                material.SetColor("_PackedColor",packed*tint);material.SetColor("_IceColor",ice*tint);material.SetColor("_EdgeColor",edge*tint);
+                material.SetVector("_LayerRoughness",roughness*(chosen.roughness/cold.roughness));
+            }
+            // Reuse the authored loose/ice layers on the groomed surface. No new
+            // meshes, textures or per-frame shader work are required.
+            if(surfaceProfile=="fresh_soft"||surfaceProfile=="icy_fast")
+            {
+                Vector4 layers=material.GetVector("_LayerRoughness"),normals=material.GetVector("_LayerNormals");
+                bool fresh=surfaceProfile=="fresh_soft";
+                material.SetColor("_PackedColor",material.GetColor(fresh?"_BaseColor":"_IceColor"));
+                layers.x=fresh?material.GetFloat("_Roughness"):layers.y;normals.x=fresh?material.GetFloat("_NormalStrength"):normals.y;
+                material.SetVector("_LayerRoughness",layers);material.SetVector("_LayerNormals",normals);
+            }
+            material.SetFloat("_TerrainBlend",blend);
+        }
     }
 }

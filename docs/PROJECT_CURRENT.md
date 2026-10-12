@@ -3,7 +3,7 @@
 2026-10-12. G1/G2 approved. M13 closed by owner acceptance.
 M14: **19/19 WPs implemented and verified; awaiting owner test/acceptance**.
 
-Current player build: `Builds/M14NationBibs20261012/START_M14_TEST.cmd` (0 build errors/warnings; standalone startup/render passed).
+Current player build: `Builds/M14Weather20261012/START_M14_TEST.cmd` (0 build errors/warnings; standalone startup/render passed).
 Previous accepted M13 build remains `Builds/WoodlandM13BotRecovery-20261011/START_WOODLAND_REVIEW.cmd`.
 
 Woodland keeps maximum 30 athletes, High default, separate start/finish, manual steering,
@@ -65,3 +65,5 @@ classifications and displays leader badges; WP-192 restores saved appearance in
 replays and seeking. 13 EditMode + 11 PlayMode focused checks pass; Windows build
 and standalone startup pass. Graphics quality, authority and balance unchanged.
 [Current test build/report](reports/TASK_M14_NATION_BIBS_20261012.md). M14 remains OPEN.
+
+2026-10-12 weather correction complete: WP-181/182 bind shared career forecasts, physical snow, shooting wind and visible material variants; WP-192 records conditions and preserves legacy replay weather. 31 core plus 28 career/menu checks pass (7 overlapping), 6 Unity EditMode and 10 PlayMode checks pass. Full snowfall Sprint repeats exactly at 29,546 ticks. Windows build/startup pass; textures and High quality preserved. [Current weather build/report](reports/TASK_M14_WEATHER_20261012.md). M14 remains OPEN.

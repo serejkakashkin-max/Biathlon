@@ -24920,3 +24920,47 @@ is published to origin/codex/wp-078-ai-pack. git ls-remote confirms the exact
 remote SHA. Five LFS preview screenshots uploaded successfully. Test player
 remains local at Builds/M14NationBibs20261012/START_M14_TEST.cmd. Owner testing
 is pending; M14 remains OPEN. Historical PROJECT_STATE bytes preserved.
+
+
+## 2026-10-12 — M14 career weather binding and test player
+
+Owner reported that career races always used clear weather and identical snow.
+Developed variants existed, but the provider hardcoded neutral snow and the
+menu/live/replay adapters loaded the venue's clear recipe. Corrected the shared
+composition; M14 remains OPEN / owner acceptance pending, M13 stays CLOSED.
+
+WP-181 COMPLETE: versioned career_weather_v1 rotates conditions by event ordinal
+and season without consuming career RNG. Forecast includes snow, temperature
+and wind in RU/EN. Existing careers require no migration/new profile.
+WP-182/183 COMPLETE: shared snow physics and shooting wind for player/AI;
+snowfall/fresh snow, clear frost/packed snow, overcast/ice and thaw/wet snow.
+Fresh/ice trail appearance reuses authored snow layers. Wet material preserves
+terrain blending/detail textures. High textures and graphics quality unchanged.
+Snowfall follows the active shooting/chase/replay camera and retains its
+existing bounded particle budget/zero managed allocation after warmup.
+WP-192 COMPLETE: new metadata records the complete weather preset; seeking
+retains it. Old replays lacking the optional field select neutral/clear weather.
+Career save version and replay command format unchanged.
+
+Validation: 31 .NET core/snow/wind/replay checks PASS; 28 career/menu/replay checks
+PASS (7 overlapping weather checks). Unity 6 EditMode and 10 PlayMode checks PASS.
+Actual live career launch/snowfall screenshot and four visual bindings inspected.
+Full 30-athlete snowfall Sprint repeated exactly after saved-career reload:
+29,546 ticks, 300 shots; authority SHA256
+3fbd4af262dcac02ad2b791590e29c8f84ddbbbf94bce88334a16c5b0f4703c7,
+event hash 7692012904331965847. Material initialization order and fixture
+assertions corrected; no failing tests disabled. Final compilation/Console clean.
+
+Build: Builds/M14Weather20261012/START_M14_TEST.cmd. Unity 6000.6.0f1,
+Win64 Development/DX11, Succeeded, 0 errors, 0 warnings, 370479138 bytes.
+Standalone startup exit 0, success=true, 1600x900, 1437 visible samples.
+Evidence: docs/quality/m14/weather-20261012/.
+Report: docs/reports/TASK_M14_WEATHER_20261012.md.
+Decision: docs/adr/ADR-0063-m14-career-weather-binding.md.
+
+Weather is fixed within each race per GDD section 15; prototype season forecast
+is authored rotation. Rain/dynamic fronts/temperature physiology/new aerodynamic
+wind effects are outside scope. Shared snow/wind legitimately change results;
+no hidden AI speed multiplier/statistic changes. No implementation work remains
+for this request. Next: owner tests and decides M14 corrections/acceptance.
+Git publication receipt follows verified push.
