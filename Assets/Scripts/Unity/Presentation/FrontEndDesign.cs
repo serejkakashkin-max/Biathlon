@@ -24,6 +24,7 @@ namespace Biathlon.Unity.Presentation
             for(int i=0;i<pairs.Length;i+=2)
             {
                 var cell=Tile(strip);cell.style.width=Length.Percent(100f/(pairs.Length/2)-1.5f);
+                cell.style.paddingTop=cell.style.paddingBottom=10;
                 AddLabel(cell,pairs[i],theme.section_size,true).style.unityFontStyleAndWeight=FontStyle.BoldAndItalic;
                 var caption=AddLabel(cell,pairs[i+1],theme.caption_size);caption.style.color=FrontEndTheme.Color(theme.muted);caption.style.marginBottom=0;
             }
@@ -66,11 +67,24 @@ namespace Biathlon.Unity.Presentation
             var visual=TrackVisualDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/visual"),track);
             var map=new CourseMapGraphic(visual);map.name="venue_map";map.style.height=190;map.style.flexShrink=0;parent.Add(map);
         }
+        private void AddVenuePreview(VisualElement parent,float height)
+        {
+            var preview=SportArt.Image("woodland_basin_v1",height,"venue_preview");
+            preview.tooltip=L("Woodland Basin · иллюстрация трассы","Woodland Basin · venue illustration");
+            preview.style.marginBottom=12;parent.Add(preview);
+        }
     }
     internal sealed class SkiPairGraphic:VisualElement
     {
-        internal SkiPairGraphic(Color color,Color accentColor)
+        internal SkiPairGraphic(Color color,Color accentColor,string skiId=null)
         {
+            if(skiId!=null)
+            {
+                name="ski_art_"+skiId;style.height=172;style.marginTop=10;style.marginBottom=16;style.flexShrink=0;
+                var product=SportArt.Image(skiId+"_v1",168,"ski_product_image");product.scaleMode=ScaleMode.ScaleToFit;product.style.backgroundColor=FrontEndTheme.Color("#10232E");Add(product);
+                var swatch=new VisualElement();swatch.style.height=4;swatch.style.backgroundColor=color;Add(swatch);
+                pickingMode=PickingMode.Ignore;return;
+            }
             style.height=72;pickingMode=PickingMode.Ignore;generateVisualContent+=ctx=>
             {
                 var p=ctx.painter2D;p.lineCap=LineCap.Round;

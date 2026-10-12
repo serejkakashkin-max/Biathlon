@@ -11,7 +11,7 @@ namespace Biathlon.Unity.Presentation
         public bool CheckpointTableVisible {get;private set;}
         private VisualElement checkpointPanel,readinessPanel,readinessPointer,checkpointNotice;
         private Label checkpointHeading,checkpointStatus,readinessTitle,readinessHint,noticeText;
-        private readonly Label[] checkpointCells=new Label[30];
+        private readonly TimingAthleteRow[] checkpointCells=new TimingAthleteRow[30];
         private RaceReviewSettings reviewSettings;private PhysiologyDefinition readinessPhysiology;private BreathingDefinition readinessBreathing;
         private int noticedCheckpoint=-1;private double noticeUntil;
         private string L(string ru,string en)=>Locale=="ru"?ru:en;
@@ -20,14 +20,22 @@ namespace Biathlon.Unity.Presentation
             reviewSettings=reviewSettings??RaceReviewSettings.Load();
             readinessPhysiology=readinessPhysiology??PhysiologyDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/physiology_gameplay_v2"));
             readinessBreathing=readinessBreathing??BreathingDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/breathing_gameplay_v2"));
-            checkpointPanel=Card("checkpoint_table",true,true,900);checkpointPanel.style.maxWidth=Length.Percent(86);checkpointPanel.style.left=Length.Percent(7);checkpointPanel.style.top=130;
+            checkpointPanel=Card("checkpoint_table",true,true,1320);checkpointPanel.style.width=Length.Percent(86);checkpointPanel.style.maxWidth=Length.Percent(86);checkpointPanel.style.left=Length.Percent(7);checkpointPanel.style.top=108;
+            checkpointPanel.style.backgroundColor=HighContrast?Color.black:FrontEndTheme.Color("#102631F5");
+            checkpointPanel.style.paddingTop=checkpointPanel.style.paddingBottom=16;checkpointPanel.style.paddingLeft=checkpointPanel.style.paddingRight=20;
             checkpointHeading=Text(checkpointPanel,"checkpoint_heading",L("ПРОМЕЖУТОЧНЫЕ РЕЗУЛЬТАТЫ","INTERMEDIATE RESULTS"),settings.body_size,true);
+            checkpointHeading.style.letterSpacing=2;checkpointHeading.style.color=accent;
             checkpointStatus=Text(checkpointPanel,"checkpoint_status","",settings.caption_size);
             var columns=Row(checkpointPanel);
+            columns.style.alignItems=Align.FlexStart;
             for(int c=0;c<2;c++)
             {
                 var column=new VisualElement();column.style.width=Length.Percent(48);columns.Add(column);
-                for(int r=0;r<15;r++){int i=c*15+r;checkpointCells[i]=Text(column,"checkpoint_row_"+i,"",settings.caption_size);checkpointCells[i].style.height=27*Scale;checkpointCells[i].style.whiteSpace=WhiteSpace.NoWrap;checkpointCells[i].style.overflow=Overflow.Hidden;checkpointCells[i].style.textOverflow=TextOverflow.Ellipsis;}
+                var header=Row(column);header.name="checkpoint_columns_"+c;header.style.paddingLeft=9;header.style.paddingRight=8;header.style.marginBottom=10;
+                var who=Text(header,"split_athlete_header_"+c,L("МЕСТО / СПОРТСМЕН","RANK / ATHLETE"),settings.caption_size);who.style.color=muted;who.style.flexGrow=1;
+                var elapsed=Text(header,"split_time_header_"+c,L("ВРЕМЯ","TIME"),settings.caption_size);elapsed.style.width=66*Scale;elapsed.style.color=muted;elapsed.style.unityTextAlign=TextAnchor.MiddleRight;
+                var gap=Text(header,"split_gap_header_"+c,"+",settings.caption_size);gap.style.width=62*Scale;gap.style.color=muted;gap.style.unityTextAlign=TextAnchor.MiddleRight;
+                for(int r=0;r<15;r++){int i=c*15+r;checkpointCells[i]=new TimingAthleteRow(Scale){name="checkpoint_row_"+i};column.Add(checkpointCells[i]);}
             }
             checkpointPanel.style.display=CheckpointTableVisible?DisplayStyle.Flex:DisplayStyle.None;
             checkpointNotice=Card("checkpoint_notice",true,true,380);checkpointNotice.style.left=Length.Percent(38);checkpointNotice.style.top=settings.edge;
@@ -47,6 +55,7 @@ namespace Biathlon.Unity.Presentation
         {
             if(a.ShootingActive&&CheckpointTableVisible)
             {CheckpointTableVisible=false;checkpointPanel.style.display=DisplayStyle.None;}
+            motionPanel.style.visibility=conditionPanel.style.visibility=CheckpointTableVisible?Visibility.Hidden:Visibility.Visible;
             if(a.Hud.CheckpointOrdinal>noticedCheckpoint)
             {noticedCheckpoint=a.Hud.CheckpointOrdinal;noticeUntil=Time.unscaledTimeAsDouble+reviewSettings.checkpoint_notice_seconds;}
             checkpointNotice.style.display=a.Hud.Rank>0&&Time.unscaledTimeAsDouble<noticeUntil&&!CheckpointTableVisible?DisplayStyle.Flex:DisplayStyle.None;
@@ -60,9 +69,8 @@ namespace Biathlon.Unity.Presentation
                 {
                     var label=checkpointCells[i];label.style.display=table!=null&&i<table.Count?DisplayStyle.Flex:DisplayStyle.None;if(table==null||i>=table.Count)continue;
                     var row=table.Get(i);string name=broadcastNames.TryGetValue(row.AthleteId,out var value)?value:row.AthleteId;
-                    label.text=row.Rank.ToString("00")+"   "+name+"    "+GameplayHudModel.FormatClock(row.Seconds)+"   +"+row.GapSeconds.ToString("0.0");
-                    label.tooltip=label.text;
-                    label.style.color=row.AthleteId==athleteId?accent:foreground;
+                    string nation=broadcastNations.TryGetValue(row.AthleteId,out var code)?code:"";
+                    label.Bind(row.AthleteId,row.Rank,name,nation,GameplayHudModel.FormatClock(row.Seconds),row.GapSeconds==0?L("ЛИДЕР","LEADER"):"+"+row.GapSeconds.ToString("0.0"),row.AthleteId==athleteId);
                 }
             }
             bool near=a.ShootingActive;

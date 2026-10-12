@@ -54,3 +54,10 @@ gap checks after bounded pursuit/contact-braking fixes. All three corrections
 are delivered. Full Mass Start and career Sprint replay pass. Owner testing is
 the next step; M14 remains OPEN.
 [Current evidence and limitations](reports/TASK_M14_BURST_PACK_REVIEW_20261012.md).
+
+2026-10-12 visual revision complete: WP-188 generated ski product cards;
+WP-181/185 shared venue previews; WP-184/189 flagged split/results/standings rows;
+WP-182 compact pulse graphic; WP-196/197 accessible RU/EN layout checks.
+16 PlayMode + 7 EditMode checks pass. Windows test build and standalone smoke pass.
+No implementation WP remains in progress for this request; owner testing is pending.
+M14 remains OPEN. [Visual report](reports/TASK_M14_VISUAL_REVIEW_20261012.md).

@@ -9,7 +9,7 @@ namespace Biathlon.Unity
 {
     public static partial class PlayerBuildPipeline
     {
-        public const string M14ReviewDirectory="Builds/M14BurstReview20261012";
+        public const string M14ReviewDirectory="Builds/M14VisualReview20261012";
         public static void BuildWindowsM14Review()
         {
             ValidateProductionBuildDirectory(M14ReviewDirectory);

@@ -65,7 +65,7 @@ namespace Biathlon.Unity.Presentation
                 var row=summary.Row(i);var d=row.Finish.Details;var misses=new List<string>();
                 if(d!=null)for(int b=0;b<d.BoutCount;b++)misses.Add((5-d.Hits(b)).ToString());
                 string shooting=d==null?"—":string.Join(" · ",misses);
-                ResultTableRow(rows,"result_row_"+i,new[]{row.Rank.ToString(),row.Name+" · "+row.Nation,shooting,ResultClock(row.Finish.ElapsedMilliseconds),row.GapMilliseconds==0?"—":"+"+ResultClock(row.GapMilliseconds),row.Points.ToString()},false,row.IsPlayer);
+                ResultTableRow(rows,"result_row_"+i,new[]{row.Rank.ToString(),row.Name,shooting,ResultClock(row.Finish.ElapsedMilliseconds),row.GapMilliseconds==0?"—":"+"+ResultClock(row.GapMilliseconds),row.Points.ToString()},false,row.IsPlayer,row.Nation);
             }
             int pageSize=compactLayout?3:5;
             if(resultPage<0||!ReferenceEquals(pagedResultRecord,summary.Record)||resultPageSize!=pageSize)
@@ -87,7 +87,7 @@ namespace Biathlon.Unity.Presentation
                 AddLabel(row,F("results.split_times",ResultClock(split.ElapsedMilliseconds),ResultClock(split.ElapsedMilliseconds-prior)),theme.caption_size);
             }
         }
-        private void ResultTableRow(VisualElement parent,string id,string[] values,bool heading,bool player)
+        private void ResultTableRow(VisualElement parent,string id,string[] values,bool heading,bool player,string nation=null)
         {
             var row=new VisualElement{name=id};row.style.flexDirection=FlexDirection.Row;row.style.alignItems=Align.Center;
             row.style.paddingTop=row.style.paddingBottom=12;row.style.paddingLeft=row.style.paddingRight=8;
@@ -96,6 +96,13 @@ namespace Biathlon.Unity.Presentation
             parent.Add(row);float[] widths={6,32,16,18,18,10};
             for(int i=0;i<6;i++)
             {
+                if(i==1&&!heading&&nation!=null)
+                {
+                    var identity=new VisualElement();identity.style.width=Length.Percent(widths[i]);identity.style.flexDirection=FlexDirection.Row;identity.style.alignItems=Align.Center;identity.style.minWidth=0;row.Add(identity);
+                    identity.Add(new NationFlagGraphic(nation));var name=AddLabel(identity,values[i],theme.caption_size,player);
+                    name.style.marginBottom=0;name.style.flexGrow=1;name.style.minWidth=0;name.style.whiteSpace=WhiteSpace.NoWrap;name.style.overflow=Overflow.Hidden;name.style.textOverflow=TextOverflow.Ellipsis;name.tooltip=values[i]+" · "+nation;
+                    continue;
+                }
                 var label=AddLabel(row,i==0&&heading?"#":values[i],theme.caption_size,heading||player||i==0);label.style.marginBottom=0;
                 label.tooltip=values[i];label.style.width=Length.Percent(widths[i]);label.style.paddingRight=8;label.style.minWidth=0;label.style.flexShrink=1;
                 label.style.whiteSpace=WhiteSpace.NoWrap;label.style.overflow=Overflow.Hidden;label.style.textOverflow=TextOverflow.Ellipsis;

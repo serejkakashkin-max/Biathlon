@@ -3,7 +3,7 @@
 2026-10-12. G1/G2 approved. M13 closed by owner acceptance.
 M14: **19/19 WPs implemented and verified; awaiting owner test/acceptance**.
 
-Current player build: `Builds/M14BurstReview20261012/START_M14_TEST.cmd` (0 build errors/warnings; standalone startup/render passed).
+Current player build: `Builds/M14VisualReview20261012/START_M14_TEST.cmd` (0 build errors/warnings; standalone startup/render passed).
 Previous accepted M13 build remains `Builds/WoodlandM13BotRecovery-20261011/START_WOODLAND_REVIEW.cmd`.
 
 Woodland keeps maximum 30 athletes, High default, separate start/finish, manual steering,
@@ -51,3 +51,10 @@ deterministic career Sprint30 replay pass; graphics quality is unchanged.
 78 final core passes plus 2 known experimental failures are reported explicitly;
 21 native PlayMode and 10 EditMode passes. See
 [current build/report](reports/TASK_M14_BURST_PACK_REVIEW_20261012.md).
+
+Latest visual revision: generated ski catalog art and shared Woodland venue preview;
+flagged, aligned TAB split rows plus final/season tables; compact animated pulse
+trace. WP-181/182/184/185/188/189/196/197 corrections complete. 16 native PlayMode
+and 7 EditMode checks pass; RU/EN normal/large screenshots inspected. Gameplay
+and balance unchanged. [Visual build report](reports/TASK_M14_VISUAL_REVIEW_20261012.md).
+M14 stays OPEN for owner acceptance.

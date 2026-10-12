@@ -198,7 +198,7 @@ namespace Biathlon.Unity.Presentation
                 AddButton(actions,"back",T("back"),Back,enabled:!Race.Loading);
                 AddLabel(card,"WOODLAND BASIN",theme.caption_size).style.color=accent;
                 AddLabel(card,T("format."+(int)e.Format)+" · "+T("woodland"),theme.section_size,true);
-                AddCourseMap(card);
+                AddVenuePreview(card,compactLayout?105:150);
                 MetricStrip(card,(summary.Profile.DistanceMeters/1000).ToString("0.00")+" km",L("Дистанция","Distance"),summary.Profile.LapCount.ToString(),L("Круги","Laps"),summary.EntrantCount.ToString(),L("На старте","Entrants"));
                 var facts=Tile(card);
                 var stances=new List<string>();for(int i=0;i<summary.Profile.BoutCount;i++)stances.Add(T("stance."+(int)summary.Profile.GetBout(i).Stance));
@@ -207,7 +207,7 @@ namespace Biathlon.Unity.Presentation
                 InfoRow(facts,T("equipment"),T("equipment."+summary.Skis.Id));
                 var weather=ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/"+e.VenueId+"/environment"));
                 AddLabel(facts,T("weather."+weather.lighting.weather_preset)+" · "+T("snow."+summary.SnowProfileId),theme.caption_size).name="pre_race_weather";
-                AddLabel(card,T("race_controls"),theme.caption_size);
+                var raceKeys=AddLabel(actions,T("race_controls"),theme.caption_size);raceKeys.name="pre_race_controls";raceKeys.style.marginTop=16;
             }
             else if(Session.Screen==FrontEndScreen.Race)
             {
@@ -256,7 +256,7 @@ namespace Biathlon.Unity.Presentation
             });
         }
         private void AddVenueCard(VisualElement card)
-        {AddLabel(card,"WOODLAND BASIN",theme.caption_size);AddLabel(card,T("woodland"),theme.section_size,true);AddLabel(card,T("formats"),theme.body_size);AddCourseMap(card);AddTargets(card);}
+        {AddLabel(card,"WOODLAND BASIN",theme.caption_size);AddLabel(card,T("woodland"),theme.section_size,true);AddVenuePreview(card,190);AddLabel(card,T("formats"),theme.body_size);AddCourseMap(card);AddTargets(card);}
         private void AddTargets(VisualElement card)
         {
             var row=new VisualElement();row.style.flexDirection=FlexDirection.Row;row.style.marginTop=theme.spacing*3;row.style.marginBottom=theme.spacing*3;card.Add(row);

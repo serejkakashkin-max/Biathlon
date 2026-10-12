@@ -92,8 +92,10 @@ namespace Biathlon.Unity.Presentation
             conditionPanel=Card("condition_panel",false,false,settings.right_width);
             var pulse=Row(conditionPanel);
             heartbeat=new HeartbeatGraphic(accent);pulse.Add(heartbeat);
-            Text(pulse,"pulse_caption",T("pulse_caption"),settings.caption_size).style.color=muted;
+            pulseTrace=new PulseTraceGraphic(accent);pulse.Add(pulseTrace);
+            Text(pulse,"pulse_caption","BPM",settings.caption_size).style.color=muted;
             heart=Text(pulse,"heart_rate","",settings.body_size,true);
+            heart.style.fontSize=22*Scale;heart.style.unityFontStyleAndWeight=FontStyle.BoldAndItalic;
             reserve=Text(conditionPanel,"reserve","",settings.caption_size);reserveFill=Bar(conditionPanel,"reserve_bar",accent);
             fatigue=Text(conditionPanel,"fatigue","",settings.caption_size);fatigueFill=Bar(conditionPanel,"fatigue_bar",muted);
             wind=Text(conditionPanel,"wind","",settings.caption_size);wind.style.color=muted;
@@ -147,6 +149,7 @@ namespace Biathlon.Unity.Presentation
             if(left)card.style.left=settings.edge;else card.style.right=settings.edge;
             if(top)card.style.top=settings.edge;else card.style.bottom=settings.edge;
             card.style.backgroundColor=HighContrast?Color.black:FrontEndTheme.Color(settings.background);
+            card.style.borderTopWidth=1;card.style.borderTopColor=new Color(.55f,.82f,.87f,.38f);
             card.style.paddingTop=card.style.paddingBottom=settings.panel_padding;
             card.style.paddingLeft=card.style.paddingRight=settings.panel_padding+2;
             card.style.borderTopLeftRadius=card.style.borderTopRightRadius=card.style.borderBottomLeftRadius=card.style.borderBottomRightRadius=settings.corner_radius;
@@ -185,8 +188,9 @@ namespace Biathlon.Unity.Presentation
             clock.text=Model.Clock;lap.text=Model.Lap;timing.text=Model.Timing;phase.text=Model.Phase;history.text=Model.ShootingHistory;
             phase.style.display=a.PendingPenaltyLoops>0||a.Phase==CompetitionPhase.Prestart||a.Phase>=CompetitionPhase.Finished||host?.LastRangeAssistance.Active==true?DisplayStyle.Flex:DisplayStyle.None;
             if(host?.LastRangeAssistance.Active==true)phase.text=T(host.LastRangeAssistance.Mode==PlayerRangeAssistMode.FinalApproach?"assist_in":"assist_out");
-            speed.text=Model.Speed;heart.text=Model.HeartRate;reserve.text=Model.Reserve;fatigue.text=Model.Fatigue;
+            speed.text=Model.Speed;heart.text=Math.Round(a.Physiology.HeartRateBpm).ToString();heart.tooltip=Model.HeartRate;reserve.text=Model.Reserve;fatigue.text=Model.Fatigue;
             heartbeat.Observe(a.Physiology.HeartRateBpm,a.Physiology.HeartRateBpm/readinessPhysiology.MaxHrBpm>.85?FrontEndTheme.Color(settings.warning):accent);
+            pulseTrace.Observe(a.Physiology.HeartRateBpm,a.Physiology.HeartRateBpm/readinessPhysiology.MaxHrBpm>.85?FrontEndTheme.Color(settings.warning):accent);
             reserveFill.style.width=Length.Percent(Model.ReservePercent);fatigueFill.style.width=Length.Percent(Model.FatiguePercent);breathFill.style.width=Length.Percent(Model.BreathDebtPercent);
             shootingPanel.style.display=Model.Shooting?DisplayStyle.Flex:DisplayStyle.None;motionPanel.style.display=Model.Shooting?DisplayStyle.None:DisplayStyle.Flex;
             // Review controls remain usable in diagnostic scenes; career races have no review panel.

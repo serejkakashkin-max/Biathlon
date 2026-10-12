@@ -55,9 +55,10 @@ namespace Biathlon.Unity.Presentation
                 var item=catalog.Get(i);string id=item.Id;var compare=CareerInventory.Compare(Session.Player,catalog,Session.Definitions.Economy,id,"packed_neutral");
                 var row=Tile(equipmentTiles);row.style.width=Length.Percent(compactLayout?48.5f:32);AddLabel(row,T("equipment."+id),theme.body_size,true);
                 var appearance=CareerSkiAppearance.Catalog.Get(id);
-                row.Add(new SkiPairGraphic(FrontEndTheme.Color(appearance.BaseColorHex),FrontEndTheme.Color(appearance.AccentColorHex)));DeltaMeter(row,L("Скольжение","Glide"),compare.GlideDelta);DeltaMeter(row,L("Сцепление","Grip"),compare.GripDelta);DeltaMeter(row,L("Устойчивость","Stability"),compare.StabilityDelta);
+                row.Add(new SkiPairGraphic(FrontEndTheme.Color(appearance.BaseColorHex),FrontEndTheme.Color(appearance.AccentColorHex),id));DeltaMeter(row,L("Скольжение","Glide"),compare.GlideDelta);DeltaMeter(row,L("Сцепление","Grip"),compare.GripDelta);DeltaMeter(row,L("Устойчивость","Stability"),compare.StabilityDelta);
                 bool selected=Session.Player.SelectedSki==id;
                 AddButton(row,"equip_"+id,selected?T("equipment.selected"):compare.Owned?T("equipment.select"):F("equipment.buy",compare.PurchasePrice/100.0),()=>CareerAction(()=>Session.Equip(id)),primary:true,enabled:!selected&&Session.Player.Money>=compare.PurchasePrice);
+                if(selected){var button=row.Q<Button>("equip_"+id);button.style.opacity=1;button.style.backgroundColor=focus;button.style.color=ink;}
             }
             PageRows(card,equipmentTiles,equipmentPage,compactLayout?2:3,value=>equipmentPage=value);
         }
@@ -70,7 +71,7 @@ namespace Biathlon.Unity.Presentation
             for(int i=0;i<table.Length;i++)
             {
                 var row=table[i];var player=FindAthlete(row.AthleteId);
-                ResultTableRow(rows,"standing_"+i,new[]{(i+1).ToString(),player.Name+" · "+player.Nation,row.Races.ToString(),row.Wins.ToString(),row.Podiums.ToString(),row.Points.ToString()},false,player.Id==Session.Career.PlayerId);
+                ResultTableRow(rows,"standing_"+i,new[]{(i+1).ToString(),player.Name,row.Races.ToString(),row.Wins.ToString(),row.Podiums.ToString(),row.Points.ToString()},false,player.Id==Session.Career.PlayerId,player.Nation);
             }
             PageRows(card,rows,standingsPage,10,value=>standingsPage=value);
         }

@@ -7,6 +7,7 @@ namespace Biathlon.Unity.Presentation
         private VisualElement paceFill,countdownPanel;
         private Label paceLabel,countdownLabel,countdownCaption;
         private HeartbeatGraphic heartbeat;
+        private PulseTraceGraphic pulseTrace;
         private int previousCountdown;
         private double goUntil;
         private int paceCeiling;
@@ -47,6 +48,24 @@ namespace Biathlon.Unity.Presentation
                 paceLabel.text=pace==0?L("СТОП","STOP"):L("ТЕМП  ","PACE  ")+Mathf.RoundToInt(percent)+"%";
                 paceFill.style.width=Length.Percent(percent);}
             heartbeat?.Animate(Time.unscaledTimeAsDouble);
+            pulseTrace?.Animate(Time.unscaledTimeAsDouble);
+        }
+    }
+    // Decorative pulse trace, not a medical ECG; phase follows the observed game HR.
+    // Repaints only its tiny vector at 20 Hz, without texture uploads or per-frame objects.
+    internal sealed class PulseTraceGraphic:VisualElement
+    {
+        private Color color;private double bpm=60,nextPaint;private float phase;
+        internal PulseTraceGraphic(Color tint)
+        {color=tint;name="pulse_trace";style.width=54;style.height=24;style.flexShrink=1;pickingMode=PickingMode.Ignore;generateVisualContent+=Draw;}
+        internal void Observe(double hr,Color tint){bpm=hr;color=tint;}
+        internal void Animate(double seconds){if(seconds<nextPaint)return;nextPaint=seconds+.05;phase=(float)(seconds*bpm/60%1);MarkDirtyRepaint();}
+        private void Draw(MeshGenerationContext ctx)
+        {
+            var p=ctx.painter2D;float w=contentRect.width,y=contentRect.height*.55f;p.strokeColor=new Color(color.r,color.g,color.b,.25f);p.lineWidth=1;
+            p.BeginPath();p.MoveTo(new Vector2(0,y));p.LineTo(new Vector2(w,y));p.Stroke();
+            p.strokeColor=color;p.lineWidth=1.6f;p.BeginPath();p.MoveTo(new Vector2(0,y));p.LineTo(new Vector2(w*.24f,y));p.LineTo(new Vector2(w*.33f,y-3));p.LineTo(new Vector2(w*.40f,y+3));p.LineTo(new Vector2(w*.48f,y-10));p.LineTo(new Vector2(w*.55f,y+7));p.LineTo(new Vector2(w*.64f,y));p.LineTo(new Vector2(w,y));p.Stroke();
+            p.fillColor=color;p.BeginPath();p.Arc(new Vector2(w*phase,y),2,Angle.Degrees(0),Angle.Degrees(360));p.Fill();
         }
     }
     // One small retained vector. Beat frequency follows observed HR; no textures,
