@@ -94,7 +94,13 @@ Owner visual revision: compact HUD replaces tall panels; default captured
 skiing/shooting bounds cover 4.3%/6.24% of screen. Long help/history on F1;
 conditional penalties/assistance retained. Native PlayMode8 + .NET13 PASS.
 [Compact HUD report](reports/TASK_M14_COMPACT_HUD_20261012.md).
-Next: expand WP-185 results and resolve
-the recorded Pursuit composition issue before claiming the complete M14 loop.
+WP-185 COMPLETE: saved per-bout masks/stances/checkpoint clocks and modern result
+protocol, penalties, personal splits, points/ranking impact. Optional details
+retain legacy save compatibility. .NET19/native EditMode16/PlayMode1 PASS;
+full production Sprint30 remains 31136 ticks with the identical authority hash.
+[Results report](reports/TASK_M14_RESULTS_20261012.md).
+[M14 WP tracker](M14_WP_STATUS.md).
+Next: WP-186 calendar/ranking dashboard; resolve the recorded Pursuit
+composition issue before claiming the complete M14 loop.
 Training/equipment selection, expanded dashboard/history/replay remain pending.
 M14 gate OPEN. No new player build.

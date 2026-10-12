@@ -24682,3 +24682,33 @@ empty. Actual Game View and both shooting layouts visually reviewed. No build.
 Report: docs/reports/TASK_M14_COMPACT_HUD_20261012.md.
 Evidence: docs/quality/m14/compact-hud-20261012/.
 M14 remains IN PROGRESS; next WP-185 results. Earlier history preserved.
+
+
+## 2026-10-12 — M14 WP-185 completed; explicit WP tracking / GitHub publication
+
+Owner requests continued M14 work, explicit completed/in-progress WP status,
+append-only state updates and GitHub publication. WP-179/180/182/183/184/185
+are complete; WP-181/186/196/197 remain in progress; WP-187–195 pending.
+Canonical detail/status evidence: docs/M14_WP_STATUS.md.
+
+WP-185 delivers full race protocol, per-bout target closures/stances, penalties,
+personal elapsed/sector splits and career points/rank impact. Observations are
+copied once from a complete field, persisted as optional versioned career detail
+and validated. Legacy saves remain compatible. Results publish only after a
+successful atomic save; completion uses unchanged scoring and career authority.
+
+.NET19 / native EditMode16 / native PlayMode1 PASS. Full production Sprint30
+remains 31136 ticks and authority SHA-256
+701cabf4c0e01295abd425d7f1f2afb00611c20f421b6372e8cb7ef2eb21ff15, identical
+to prior M14 evidence. RU/EN captures including 4:3/130% visually inspected.
+Unity compiled; no product Console errors/exceptions. One MCP test-run-busy
+response retried successfully. No new player build, no balance/graphics changes.
+
+Report: docs/reports/TASK_M14_RESULTS_20261012.md.
+Decision: docs/adr/ADR-0057-m14-result-observations.md.
+Evidence: docs/quality/m14/results-20261012/delivery-summary.json.
+Next: WP-186 career calendar/current ranking. Production Pursuit composition
+issue remains recorded; full M14 gate OPEN. GitHub branch publication authorized
+by owner; publication completion will be recorded in a subsequent dated entry.
+Historical byte prefix preserved: 2960741 bytes, SHA-256
+d3790a60d0e1671c5c530f2684851c6432a9e8ca09b8d1631dc0e9da802e772a.

@@ -12,9 +12,16 @@ namespace Biathlon.Career
         [DataMember(Name="elapsed_ms",IsRequired=true)] public long ElapsedMilliseconds { get; private set; }
         [DataMember(Name="penalties",IsRequired=true)] public int Penalties { get; private set; }
         [DataMember(Name="overtakes",IsRequired=true)] public int Overtakes { get; private set; }
-        public CareerFinish(string athleteId,long rankTimeMilliseconds,long elapsedMilliseconds,int penalties=0,int overtakes=0)
-        {AthleteId=athleteId;RankTimeMilliseconds=rankTimeMilliseconds;ElapsedMilliseconds=elapsedMilliseconds;Penalties=penalties;Overtakes=overtakes;Validate();}
-        internal void Validate(){CareerUnits.Id(AthleteId);if(RankTimeMilliseconds<1||ElapsedMilliseconds<1||RankTimeMilliseconds>86400000||ElapsedMilliseconds>86400000||Penalties<0||Penalties>100||Overtakes<0)throw new SerializationException("Invalid career finish.");}
+        [DataMember(Name="details",EmitDefaultValue=false)] public CareerResultDetails Details { get; private set; }
+        public CareerFinish(string athleteId,long rankTimeMilliseconds,long elapsedMilliseconds,int penalties=0,int overtakes=0,CareerResultDetails details=null)
+        {AthleteId=athleteId;RankTimeMilliseconds=rankTimeMilliseconds;ElapsedMilliseconds=elapsedMilliseconds;Penalties=penalties;Overtakes=overtakes;Details=details;Validate();}
+        internal void Validate()
+        {
+            CareerUnits.Id(AthleteId);if(RankTimeMilliseconds<1||ElapsedMilliseconds<1||RankTimeMilliseconds>86400000||ElapsedMilliseconds>86400000||Penalties<0||Penalties>100||Overtakes<0)throw new SerializationException("Invalid career finish.");
+            if(Details==null)return;Details.Validate();
+            if(Details.Id!=AthleteId||Details.BoutCount*5-Details.TotalHits!=Penalties)throw new SerializationException("Shooting observations disagree with athlete/penalties.");
+            for(int i=0;i<Details.SplitCount;i++)if(Details.Split(i).ElapsedMilliseconds>ElapsedMilliseconds)throw new SerializationException("Checkpoint follows the finish.");
+        }
     }
     [DataContract] public sealed class CareerRaceRecord
     {

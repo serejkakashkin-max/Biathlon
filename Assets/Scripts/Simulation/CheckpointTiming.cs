@@ -58,6 +58,8 @@ namespace Biathlon.Simulation
         public AthleteId Athlete { get; }
         public FinishTime GlobalTime { get; }
         public FinishTime ElapsedTime { get; }
+        public string CheckpointId=>IsValid?Layout.Get(Ordinal).CheckpointId:null;
+        public string LapId=>IsValid?Layout.Get(Ordinal).LapId:null;
         public bool IsValid => Layout != null && Athlete.IsValid && GlobalTime.TickFrequency > 0;
         internal CheckpointSplit(CheckpointLayout layout, int ordinal, AthleteId athlete, FinishTime global, SimulationTick start)
         { Layout = layout; Ordinal = ordinal; Athlete = athlete; GlobalTime = global;

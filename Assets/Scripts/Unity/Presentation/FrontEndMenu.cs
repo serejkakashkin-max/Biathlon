@@ -12,7 +12,7 @@ using UnityEngine.UIElements;
 namespace Biathlon.Unity.Presentation
 {
     /// <summary>Retained menu UI. Rendering/navigation never advances career or race authority.</summary>
-    public sealed class FrontEndMenu : MonoBehaviour
+    public sealed partial class FrontEndMenu : MonoBehaviour
     {
         public bool AutoStart=true, PersistPreferences=true;
         public FrontEndSession Session { get; private set; }
@@ -200,16 +200,8 @@ namespace Biathlon.Unity.Presentation
             }
             else if(Session.Screen==FrontEndScreen.Results)
             {
-                AddLabel(actions,T("result"),theme.section_size,true);AddLabel(actions,Session.Player.Name,theme.section_size,true);
-                AddButton(actions,"career_return",T("career_return"),()=>{Session.ReturnFromResults();LastMessage=null;Render();},true);
-                var result=Session.Result;
-                for(int i=0;i<result.Count;i++)
-                {
-                    var finish=result.Get(i);if(finish.AthleteId!=Session.Career.PlayerId)continue;
-                    AddLabel(card,F("result_rank",i+1,result.Count),theme.title_size,true);
-                    AddLabel(card,F("result_time",TimeSpan.FromMilliseconds(finish.ElapsedMilliseconds).ToString(@"hh\:mm\:ss\.fff")),theme.body_size);
-                    AddLabel(card,T("result_saved"),theme.body_size);break;
-                }
+                left.style.width=new Length(31,LengthUnit.Percent);shade.style.width=new Length(31,LengthUnit.Percent);
+                brand.style.fontSize=theme.section_size;RenderResults(actions,card);
             }
             else if(Session.Screen==FrontEndScreen.Settings)
             {

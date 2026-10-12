@@ -25,6 +25,7 @@ namespace Biathlon.Presentation
         public CareerDefinitions Definitions { get; private set; }
         public CareerWeekPreparation PreparedWeek { get; private set; }
         public CareerRaceRecord Result { get; private set; }
+        public RaceResultsSummary ResultsSummary { get; private set; }
         public bool CanContinue => profiles.HasProfile;
         public CareerAthlete Player
         {
@@ -59,7 +60,7 @@ namespace Biathlon.Presentation
             var e=Definitions.Calendar.AtWeek(Career.Week);
             if(e==null||!e.Eligible(Player))throw new InvalidOperationException("An eligible current-week event is required.");
             var prepared=CareerSeasonEngine.PrepareWeek(Career,Definitions,Array.Empty<CareerTrainingKind>(),restoreRandom);
-            PreparedWeek=prepared;Result=null;Screen=FrontEndScreen.PreRace;
+            PreparedWeek=prepared;Result=null;ResultsSummary=null;Screen=FrontEndScreen.PreRace;
         }
         public void BeginRace() {Require(FrontEndScreen.PreRace);Screen=FrontEndScreen.Race;}
         public void AbandonRace() {Require(FrontEndScreen.Race);Screen=FrontEndScreen.PreRace;}
@@ -67,8 +68,9 @@ namespace Biathlon.Presentation
         {
             Require(FrontEndScreen.Race);
             var candidate=CareerSeasonEngine.CompleteWeek(PreparedWeek,Definitions,result,restoreRandom);
+            var summary=new RaceResultsSummary(CareerSave.FromJson(PreparedWeek.SourceJson),result,Definitions.Scoring);
             PublishSaved(candidate,PreparedWeek.SourceJson);
-            Result=result;PreparedWeek=null;Screen=FrontEndScreen.Results;
+            Result=result;ResultsSummary=summary;PreparedWeek=null;Screen=FrontEndScreen.Results;
         }
         public void ReturnFromResults() {Require(FrontEndScreen.Results);Screen=FrontEndScreen.Career;}
         private void PublishSaved(CareerSave candidate,string expected)

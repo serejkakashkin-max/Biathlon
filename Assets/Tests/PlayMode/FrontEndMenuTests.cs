@@ -2,6 +2,8 @@ using System.Collections;
 using System;
 using System.IO;
 using System.Reflection;
+using Biathlon.Career;
+using Biathlon.Domain;
 using Biathlon.Presentation;
 using Biathlon.Unity.Presentation;
 using NUnit.Framework;
@@ -38,6 +40,50 @@ namespace Biathlon.PlayModeTests
         {Object.DestroyImmediate(root);InputSystem.RemoveDevice(keyboard);InputSystem.RemoveDevice(gamepad);inputs.Dispose();}
         private void Submit(string id)
         {var button=menu.Root.Q<Button>(id);button.Focus();using(var e=NavigationSubmitEvent.GetPooled())button.SendEvent(e);}
+        [UnityTest] public IEnumerator ResultsShowSavedFieldShootingSplitsPointsAndReturnToCareer()
+        {
+            // Explicit boundary fixture; full completed production race collection is exercised in core tests.
+            var session=menu.Session;session.OpenNewCareer();session.CreateCareer("career_results_ui","Алекс","NOR",81000);
+            for(int i=0;i<5;i++)session.RestWeek();session.OpenPreRace();var prepared=session.PreparedWeek;
+            var saved=CareerSave.FromJson(prepared.RaceSnapshotJson);var rows=new CareerFinish[saved.AthleteCount];
+            for(int i=0;i<rows.Length;i++)
+            {
+                var athlete=saved.Athlete((i+23)%rows.Length);
+                var details=new CareerResultDetails(athlete.Id,new[]{31,27},new[]{ShootingStance.Prone,ShootingStance.Standing},new[]{
+                    new CareerResultSplit("split_1","lap_1",75000,75000),new CareerResultSplit("split_2","lap_2",210000,210000)});
+                rows[i]=new CareerFinish(athlete.Id,300000+i*1523,300000+i*1523,1,details:details);
+            }
+            var record=new CareerRaceRecord(saved.SeasonId+"_"+prepared.Event.Id,saved.SeasonId,prepared.Event.Id,prepared.Event.Format,prepared.RaceSeed,new string('a',64),rows);
+            session.BeginRace();session.FinishRace(record);menu.RefreshFrontEnd();yield return null;yield return null;
+            Assert.That(session.ResultsSummary.Player.Rank,Is.EqualTo(8));Assert.That(menu.Root.Q("result_protocol").childCount,Is.EqualTo(30));
+            Assert.That(menu.Root.Q<Label>("result_penalties").text,Does.Contain("1"));Assert.That(menu.Root.Q("result_shooting").childCount,Is.EqualTo(2));
+            yield return CaptureResults(1600,900,"ru",0);
+            yield return CaptureResults(1024,768,"en",2);
+            Submit("results_splits");yield return null;yield return null;
+            Assert.That(menu.Root.Q("result_splits").childCount,Is.EqualTo(2));
+            Assert.That(menu.Root.Q("result_split_1").Q<Label>().text,Is.EqualTo("Split 2"));
+            Assert.That(menu.Root.Q("result_split_1").Query<Label>().ToList()[1].text,Does.Contain("2:15.000"));
+            string before=session.Career.ToJson();Submit("career_return");yield return null;
+            Assert.That(session.Screen,Is.EqualTo(FrontEndScreen.Career));Assert.That(session.Career.ToJson(),Is.EqualTo(before));
+            Assert.That(session.NextEvent().Format,Is.EqualTo(CompetitionFormat.Pursuit));
+        }
+        private IEnumerator CaptureResults(int width,int height,string locale,int size)
+        {
+            var settings=root.GetComponent<UIDocument>().panelSettings;var previous=RenderTexture.active;
+            var target=new RenderTexture(width,height,0);target.Create();settings.targetTexture=target;Texture2D pixels=null;
+            try
+            {
+                menu.ApplyPreferences(locale,size);yield return null;yield return null;yield return null;
+                var bounds=menu.Root.worldBound;var button=menu.Root.Q<Button>("career_return");
+                Assert.That(button.worldBound.yMax,Is.LessThan(bounds.yMax));Assert.That(button.worldBound.xMax,Is.LessThan(bounds.xMax));
+                var header=menu.Root.Q("result_table_header");Assert.That(header.worldBound.xMax,Is.LessThanOrEqualTo(bounds.xMax));
+                RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);
+                pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
+                string folder=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m14/results-20261012"));Directory.CreateDirectory(folder);
+                File.WriteAllBytes(Path.Combine(folder,"results-"+locale+".png"),pixels.EncodeToPNG());
+            }
+            finally{if(pixels!=null)Object.Destroy(pixels);RenderTexture.active=previous;settings.targetTexture=null;Object.Destroy(target);}
+        }
         [UnityTest] public IEnumerator CareerLaunchUsesSavedAthleteAndPauseAbandonPreserveTheWeek()
         {
             yield return null;Submit("new_career");yield return null;

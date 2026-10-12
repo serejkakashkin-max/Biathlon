@@ -112,7 +112,18 @@ namespace Biathlon.AI
                 SprintAthleteSession actor=null;for(int i=0;i<field.Count;i++)if(field.GetAthlete(i).AthleteId.Value==id)actor=field.GetAthlete(i);
                 long elapsed=(long)Math.Round(actor.Lifecycle.ElapsedFinishTime.Seconds*1000,MidpointRounding.ToEven);
                 long ordering=e.Format==CompetitionFormat.Sprint?(long)Math.Round(field.Result.Get(rank).RegisteredUnits.Value*1000m/ResultTimingDefinition.FromJson(field.Result.TimingDefinitionJson).UnitsPerSecond,MidpointRounding.ToEven):(long)Math.Round(actor.Lifecycle.GlobalFinishTime.Seconds*1000,MidpointRounding.ToEven);
-                finishes.Add(new CareerFinish(id,ordering,elapsed,actor.TotalPenaltyLoops));
+                var masks=new int[field.Profile.BoutCount];var stances=new ShootingStance[masks.Length];
+                for(int b=0;b<masks.Length;b++){masks[b]=actor.GetBoutClosedMask(b);stances[b]=field.Profile.GetBout(b).Stance;}
+                var splits=new CareerResultSplit[actor.Checkpoints.Count];
+                for(int s=0;s<splits.Length;s++)
+                {
+                    var split=actor.Checkpoints.Get(s);
+                    splits[s]=new CareerResultSplit(split.CheckpointId,split.LapId,
+                        (long)Math.Round(split.ElapsedTime.Seconds*1000,MidpointRounding.ToEven),
+                        (long)Math.Round(split.GlobalTime.Seconds*1000,MidpointRounding.ToEven));
+                }
+                var details=new CareerResultDetails(id,masks,stances,splits);
+                finishes.Add(new CareerFinish(id,ordering,elapsed,actor.TotalPenaltyLoops,details:details));
             }
             return new CareerRaceRecord(seasonId+"_"+e.Id,seasonId,e.Id,e.Format,Seed,BalanceRegression.Hash(payload),finishes,payload);
         }

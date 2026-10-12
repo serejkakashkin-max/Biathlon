@@ -45,8 +45,11 @@ namespace Biathlon.Tests
             var store=new Store();var ui=RaceWeek(store);string before=store.Json;ui.OpenPreRace();var result=FixtureResult(ui);ui.BeginRace();
             store.Fail=true;Assert.Throws<IOException>(()=>ui.FinishRace(result));
             Assert.That(ui.Screen,Is.EqualTo(FrontEndScreen.Race));Assert.That(ui.Career.ToJson(),Is.EqualTo(before));Assert.That(store.Json,Is.EqualTo(before));
+            Assert.That(ui.ResultsSummary,Is.Null);
             store.Fail=false;ui.FinishRace(result);Assert.That(ui.Screen,Is.EqualTo(FrontEndScreen.Results));
             Assert.That(ui.Career.Week,Is.EqualTo(7));Assert.That(ui.Career.RaceCount,Is.EqualTo(1));Assert.That(ui.Player.Races,Is.EqualTo(1));
+            Assert.That(ui.ResultsSummary.Player.Finish.AthleteId,Is.EqualTo(ui.Career.PlayerId));
+            Assert.That(ui.ResultsSummary.PointsAfter,Is.EqualTo(ui.Definitions.Scoring.Points(1)));
             Assert.Throws<InvalidOperationException>(()=>ui.FinishRace(result));ui.ReturnFromResults();
             Assert.That(ui.NextEvent().Format,Is.EqualTo(Biathlon.Domain.CompetitionFormat.Pursuit));
             var restored=Session(store);restored.ContinueCareer();Assert.That(restored.Career.ToJson(),Is.EqualTo(ui.Career.ToJson()));
@@ -84,6 +87,12 @@ namespace Biathlon.Tests
             Assert.Throws<InvalidOperationException>(()=>race.CollectResult());ui.BeginRace();
             while(!race.Runner.Field.IsComplete&&race.Runner.Field.Tick.Value<200000)race.Runner.Step();
             var result=race.CollectResult();Assert.That(result.AuthoritySha256,Is.EqualTo(Biathlon.AI.BalanceRegression.Hash(result.AuthorityResultJson)));
+            Assert.That(race.CollectResult().ToJson(),Is.EqualTo(result.ToJson()),"Collection must be read-only and repeatable.");
+            var actor=race.Runner.Field.GetAthlete(race.PlayerIndex);CareerFinish playerFinish=null;
+            for(int i=0;i<result.Count;i++)if(result.Get(i).AthleteId==actor.AthleteId.Value)playerFinish=result.Get(i);
+            Assert.That(playerFinish.Details.SplitCount,Is.EqualTo(actor.Checkpoints.Count));
+            Assert.That(playerFinish.Details.BoutCount,Is.EqualTo(race.Runner.Field.Profile.BoutCount));
+            for(int b=0;b<playerFinish.Details.BoutCount;b++)Assert.That(playerFinish.Details.ClosedMask(b),Is.EqualTo(actor.GetBoutClosedMask(b)));
             ui.FinishRace(result);Assert.That(ui.Career.RaceCount,Is.EqualTo(1));Assert.That(ui.Career.Week,Is.EqualTo(7));
             var restored=Session(store);restored.ContinueCareer();Assert.That(restored.Career.ToJson(),Is.EqualTo(ui.Career.ToJson()));
             Assert.That(restored.NextEvent().SourceEventId,Is.EqualTo(result.CalendarEventId));
