@@ -14,13 +14,21 @@ namespace Biathlon.AI
             =>this.body=body??throw new ArgumentNullException(nameof(body));
 
         /// <summary>Braking intent for an already forecast moving obstruction.
-        /// Match its achieved forward velocity over the existing response time;
+        /// Match its achieved forward velocity within the actual closing envelope;
         /// the shared force solver still owns the actual acceleration and cost.</summary>
         public double ClosingBrakeFraction(SkiPlanarVelocity velocity,SkiPlanarVelocity otherVelocity,
-            double forwardX,double forwardZ,CorneringDefinition corners,ManualAiSteeringDefinition policy)
+            double forwardX,double forwardZ,CorneringDefinition corners,ManualAiSteeringDefinition policy,
+            double secondsUntilContact=0)
         {
             if(corners==null||policy==null)throw new ArgumentNullException();
+            PhysiologyNumbers.RequireRange(secondsUntilContact,0,PhysiologyNumbers.MaximumMagnitude,nameof(secondsUntilContact));
             double closing=(velocity.X-otherVelocity.X)*forwardX+(velocity.Z-otherVelocity.Z)*forwardZ;
+            // A long observation horizon is useful for passing, but does not
+            // imply that propulsion must stop now. Brake when the closing
+            // distance enters the shared deceleration + response envelope.
+            // Otherwise a small distant speed difference makes every uphill
+            // follower coast and compounds into a nearly stationary tail.
+            if(secondsUntilContact>policy.HeadingResponseSeconds+Math.Max(0,closing)/(2*corners.MaximumBraking))return 0;
             return Math.Max(0,Math.Min(1,closing/(corners.MaximumBraking*policy.HeadingResponseSeconds)));
         }
 

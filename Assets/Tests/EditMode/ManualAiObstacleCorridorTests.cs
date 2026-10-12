@@ -25,6 +25,17 @@ namespace Biathlon.Tests
             Assert.That(query.ClosingBrakeFraction(new SkiPlanarVelocity(7,own),new SkiPlanarVelocity(-5,other),0,1,model.Cornering,policy),Is.EqualTo(expected));
         }
 
+        [Test] public void ALongPassingForecastDoesNotSwitchOffUphillPropulsionBeforeTheBrakingEnvelope()
+        {
+            var model=new SkiModelDefinitions(PhysiologyContractTests.DefinitionJson);
+            var policy=ManualAiSteeringDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ai_steering_v2.json"));
+            var query=Create();var own=new SkiPlanarVelocity(5,0);var other=new SkiPlanarVelocity(4,0);
+            Assert.That(query.ClosingBrakeFraction(own,other,1,0,model.Cornering,policy,3),Is.Zero,
+                "A body reached only in three seconds is a planning cue, not an immediate uphill coast order.");
+            Assert.That(query.ClosingBrakeFraction(own,other,1,0,model.Cornering,policy,.2),Is.GreaterThan(0),
+                "Actual imminent closing still produces ordinary paid braking intent.");
+        }
+
         [Test] public void TwoMovingMatNeighboursAreForecastFromTheirRelativeAchievedMotion()
         {
             var query=Create();
