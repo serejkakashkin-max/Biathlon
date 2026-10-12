@@ -24768,3 +24768,18 @@ Append-only receipt: preserved 2966362 bytes SHA256 9fb985b6b8c0a9b9de662a47b42e
 ### 2026-10-12 — M14 publication receipt
 
 GitHub push completed successfully: origin/codex/wp-078-ai-pack advanced dbd5883 → cfe7a27. Published core 1f351f6, player UI/build source 46f2e6f, qualification/state cfe7a27. Ready owner build remains Builds/M14Review20261012/START_M14_TEST.cmd; all19 implementation WPs complete, M14 owner acceptance pending. Append-only receipt: preserved 2967614 bytes SHA256 3421b458847656ee03cd83eee1f1606d1f77ba8799bf8429befd63df3cb51680.
+
+
+## 2026-10-12 -- M14 owner-review corrections and revised test build READY
+
+COMPLETE: original menu biathlete preserved; career/pre-race/training/equipment/results redesigned as cards, graphic forecasts/ski comparisons/course map, paged calendar/protocols and responsive keyboard/controller navigation. Woodland has six timing lines and Tab latest-line provisional standings (Sprint elapsed time). IBU September2026 section9.2.7 checked: post-shooting timing follows the penalty loop; extra forest/descent lines are an authored choice. A/D reaches full input in100ms; shared yaw is faster, S physically brakes, and low-speed powered stepping pays rotational work. Released heading remains manual. Pulse bands explain actual continuous breathing/HR sway.
+
+After personal finish: [ / ] unfinished athlete, C follow/overhead/side camera, Enter/Complete race accelerates normal AI/physics with all authority ticks/events/replay commands retained (8ms/256-step frame budget). Saves real full-field results. No reduction to graphics quality, textures, athlete shadows or resolution. Pre-existing local project/rendering/package changes preserved and unstaged.
+
+Verification: .NET focused76 PASS; full Sprint30 exact AI-free replay and durable career transition PASS (31602ticks, resultSHA256 509e232de65dbbfbb174da7ad2835d5eef12d700adf33bbef0ee1ac8ad512c24). Native menu10/input8/HUD1/review-core6/review-presentation2 PASS; final focused cards and results viewport checks PASS. RU1600x900 and EN1024x768/130% screenshots inspected. Unity Console has no current errors. Physics/checkpoint context changes race output explicitly for both player and AI; careers remain supported, incompatible old replays rejected.
+
+Builds/M14Revision20261012/START_M14_TEST.cmd READY. Code source4d522bdccbeb2188ca1ab6195148b70e82dfa895 (implementation5e04835). Unity6000.6.0f1 Windows64 Development: Succeeded,361435166bytes,0errors/0warnings. Standalone exited0, startup/render PASS at1600x900 with1437 visible samples; Player log no errors/exceptions. Prior build retained. Report docs/reports/TASK_M14_OWNER_REVIEW_20261012.md; ADR0059; evidence docs/quality/m14/review-20261012.
+
+WP179--197 all19 implementation WPs COMPLETE; owner-review corrections COMPLETE. M14 OWNER ACCEPTANCE PENDING. Next: owner tests revised build and decides closure/corrections; no M15 started. GitHub source/evidence/state publication authorized on codex/wp-078-ai-pack.
+
+Append-only receipt: disk prefix 2968096bytes SHA256 d5d86b2914d7abe0dee7d06d35bce914576c36d31c2b5aa51bc193e4e4447d35 preserved unchanged; normalized Git history prefix 2967905bytes SHA256 73bde3601f95d2783b86c091c7fa073d1ca37517e09d1690cfade59bff2d1ddd also verified.

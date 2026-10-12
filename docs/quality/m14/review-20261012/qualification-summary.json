@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "m14_owner_review_20261012",
+  "source_commit": "4d522bdccbeb2188ca1ab6195148b70e82dfa895",
+  "build": {
+    "schema_version": 1,
+    "id": "m14_windows_review_20261012",
+    "result": "Succeeded",
+    "unity": "6000.6.0f1",
+    "startup_scene": "Assets/Scenes/FrontEnd.unity",
+    "errors": 0,
+    "warnings": 0,
+    "bytes": 361435166,
+    "seconds": 3.3520323999999997
+  },
+  "startup": {
+    "schema_version": 1,
+    "id": "m14_standalone_startup",
+    "unity": "6000.6.0f1",
+    "profile_directory": "C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\\Profiles",
+    "replay_directory": "C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\\Replays",
+    "width": 1600.0,
+    "height": 900.0,
+    "visible_samples": 1437,
+    "success": true
+  },
+  "standalone_exit_code": 0,
+  "standalone_error_lines": [],
+  "binary_sha256": "718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00",
+  "tests": {
+    "focused_dotnet_passed": 76,
+    "full_sprint30_exact_replay_passed": 1,
+    "native_menu_passed": 10,
+    "native_device_passed": 8,
+    "native_hud_passed": 1,
+    "native_review_core_passed": 6,
+    "native_review_presentation_passed": 2,
+    "final_cards_passed": 1,
+    "final_results_passed": 1
+  },
+  "sprint30_ticks": 31602,
+  "sprint30_result_sha256": "509e232de65dbbfbb174da7ad2835d5eef12d700adf33bbef0ee1ac8ad512c24",
+  "owner_acceptance": "pending",
+  "quality_reduced": false,
+  "pre_existing_local_configuration_preserved": true
+}
