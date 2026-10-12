@@ -31,3 +31,20 @@ the menu, long names truncate visually, and large text is checked at 4:3.
 No changes to movement, shot geometry, physiology, AI, replay authority, graphic
 quality, event seeding or save schema. Full results, dashboards, training,
 equipment and replay remain separate M14 work. No player build in this slice.
+
+## Owner visual revision, 2026-10-12
+
+The owner rejected the first HUD as too large and visually dated. Replace its
+stacked text panels with compact corner instruments: italic race clock paired
+with lap, one checkpoint line, isolated speed, and a small pulse/energy panel
+at the lower right. Shooting uses five small closure rings and a two-line
+weapon/breath prompt. Cool cyan highlights, muted labels, thin bars and rounded
+translucent slate surfaces replace full-height boxes. No blur or extra render
+passes. HUD tokens are independently tunable from the menu's large typography.
+
+Name, history and full control help move to F1. Penalties, assisted transit and
+finish/prestart status remain conditional, immediately visible messages. F3
+keeps telemetry. Default measured panel bounds occupy 4.3% for the skiing
+capture and 6.24% for shooting; 130% text at 4:3 occupies 12.887%. Measurements
+exclude explicitly opened help/debug panels. Update cadence and authority
+boundaries remain unchanged; this is a visual correction, not an FPS claim.

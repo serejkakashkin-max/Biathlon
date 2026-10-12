@@ -24664,3 +24664,21 @@ Evidence: docs/quality/m14/gameplay-hud-20261012/.
 Next: WP-185 results/standings feedback, then further M14 screens. Known Pursuit
 composition issue remains required before claiming the full career event loop.
 M14 OPEN; M13 stays owner-accepted CLOSED. No player build requested or made.
+
+
+## 2026-10-12 — Owner revision: compact modern HUD
+
+Owner rejects previous stacked UI as too large. Replaced it with small corner
+instruments, italic time/speed, cyan accents, translucent rounded slate surfaces
+and thin energy bars. Race time/lap share a row; pulse moves to lower right;
+shooting uses five small rings with compact bolt/breath prompts. Long help,
+athlete name and history move to F1. Conditional penalties/assistance and F3
+telemetry retained. Same 10 Hz observation cadence, no authority/balance change.
+
+Measured captured panel bounds: skiing 4.300%, shooting 6.240% at 1600x900;
+shooting 12.887% at 1024x768/130% text. Explicit help/debug excluded. Native
+PlayMode8 + .NET model13 PASS; Unity compiles, recent Console errors/exceptions
+empty. Actual Game View and both shooting layouts visually reviewed. No build.
+Report: docs/reports/TASK_M14_COMPACT_HUD_20261012.md.
+Evidence: docs/quality/m14/compact-hud-20261012/.
+M14 remains IN PROGRESS; next WP-185 results. Earlier history preserved.

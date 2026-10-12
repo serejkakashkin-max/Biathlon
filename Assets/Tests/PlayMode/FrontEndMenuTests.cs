@@ -59,7 +59,9 @@ namespace Biathlon.PlayModeTests
             Assert.That(host.GameplayHud.Locale,Is.EqualTo("en"));Assert.That(host.GameplayHud.TextSizeIndex,Is.EqualTo(2));
             Assert.That(host.GameplayHud.Root.Q<Label>("athlete_name").text,Is.EqualTo(menu.Session.Player.Name));
             Assert.That(host.GetComponent<RaceHud>().enabled,Is.False);Assert.That(host.GetComponent<RangePresentation>().DrawLegacyHud,Is.False);
-            string hudFolder=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m14/gameplay-hud-20261012"));Directory.CreateDirectory(hudFolder);
+            string hudFolder=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m14/compact-hud-20261012"));Directory.CreateDirectory(hudFolder);
+            host.GameplayHud.SetPreferences("ru",0,menu.Session.Player.Name);
+            yield return null;yield return null;
             ScreenCapture.CaptureScreenshot(Path.Combine(hudFolder,"career-game-view.png"));
             yield return null;yield return null;yield return null;
             menu.Race.Pause();long tick=host.Runner.Field.Tick.Value;yield return null;yield return null;

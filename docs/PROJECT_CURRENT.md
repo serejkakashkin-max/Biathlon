@@ -90,6 +90,10 @@ graphics-quality changes. .NET15/native EditMode13/PlayMode7 PASS.
 [HUD report](reports/TASK_M14_GAMEPLAY_HUD_20261012.md).
 [HUD decision](adr/ADR-0056-m14-gameplay-hud.md).
 Evidence: docs/quality/m14/gameplay-hud-20261012/.
+Owner visual revision: compact HUD replaces tall panels; default captured
+skiing/shooting bounds cover 4.3%/6.24% of screen. Long help/history on F1;
+conditional penalties/assistance retained. Native PlayMode8 + .NET13 PASS.
+[Compact HUD report](reports/TASK_M14_COMPACT_HUD_20261012.md).
 Next: expand WP-185 results and resolve
 the recorded Pursuit composition issue before claiming the complete M14 loop.
 Training/equipment selection, expanded dashboard/history/replay remain pending.
