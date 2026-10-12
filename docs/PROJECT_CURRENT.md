@@ -29,7 +29,7 @@ See [M14 WP status](M14_WP_STATUS.md), [completion report](reports/TASK_M14_COMP
 `docs/PROJECT_STATE.md` retains the full append-only history from Foundation onward.
 M14 is not declared owner-accepted; next work is owner testing, then M15 or requested corrections.
 
-GitHub publication complete on `codex/wp-078-ai-pack`: owner-review code `4d522bd`, qualification `366f971`; append-only publication receipt is recorded in PROJECT_STATE.
+GitHub publication complete on `codex/wp-078-ai-pack`: latest owner correction code/tests/state `a848b63`; append-only publication receipt is recorded in PROJECT_STATE.
 
 Owner review revision 2026-10-12: snow/ink/teal card UI and paged protocols; six timing lines and Tab latest-split standings; sharper A/D, S physical brake and paid low-speed pivot; true HR guidance before shooting; live post-finish athlete/overhead/side cameras and bounded full-field completion. See [review report](reports/TASK_M14_OWNER_REVIEW_20261012.md). M14 remains pending owner acceptance.
 

@@ -24824,3 +24824,14 @@ WP180/182/184/188/189/196/197 corrections delivered; all19implementationWPs rema
 implemented, owner acceptance pending. Next is owner testing; no M15 started.
 Use a new career for new start profiles. Existing replay definitions must be compatible.
 Git publication follows in a separate append-only receipt after verified push.
+
+
+## 2026-10-12 — M14 correction publication receipt; acceptance still OPEN
+
+Implementation/test/state commit a848b6374a6432a0669b5923491d6294ff9acb4a was pushed to origin codex/wp-078-ai-pack.
+git ls-remote verified the exact remote branch SHA after push; three new LFS screenshots uploaded.
+Test build remains Builds/M14BalanceReview20261012/START_M14_TEST.cmd; standalone startup passed.
+90 focused core checks and33 native Unity checks passed. Experimental baseline failures remain
+explicitly recorded in the correction report. PROJECT_STATE prior disk prefix preserved byte for
+byte; staged Git history prefix also verified. Owner-local rendering/package/editor changes
+were excluded from commits. M14 remains open for owner testing; no next milestone started.
