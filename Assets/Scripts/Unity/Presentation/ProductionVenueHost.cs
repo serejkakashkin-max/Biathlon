@@ -40,6 +40,7 @@ namespace Biathlon.Unity.Presentation
         private PlayerRangeAssistanceSystem rangeAssistance;
         private RangePresentation range;
         private RaceHud hud;
+        public GameplayHud GameplayHud { get; private set; }
         private SkiDebugHud debugHud;
         private PenaltyLoopPresentation penalty;
         private TrackSampler[] samplers;
@@ -162,6 +163,8 @@ namespace Biathlon.Unity.Presentation
             hud=gameObject.AddComponent<RaceHud>();hud.Initialize(Feed,id.Value);
             debugHud=gameObject.AddComponent<SkiDebugHud>();debugHud.Initialize(Feed,id.Value);
             penalty=gameObject.AddComponent<PenaltyLoopPresentation>();penalty.Initialize(Feed,id.Value,venue.Track,venue.Visual);
+            hud.enabled=false;debugHud.enabled=false;penalty.enabled=false;range.DrawLegacyHud=false;
+            GameplayHud=gameObject.AddComponent<GameplayHud>();GameplayHud.Initialize(Feed,id.Value,this);
             var guidance=RangeGuidanceDefinition.FromJson(ReadCore("range_guidance_v1.json"));
             guidanceDefinition=guidance;guidanceTrail=RangeGuidanceTrailDefinition.FromJson(ReadCore("range_guidance_visual_v1.json"));
             rangeAssistance=new PlayerRangeAssistanceSystem(guidance);
@@ -263,11 +266,11 @@ namespace Biathlon.Unity.Presentation
             if(!batchFrame)PublishPresentation();
         }
         private void PublishPresentation(bool capture=true)
-        {if(capture)Feed.Publish(RacePresentationSnapshot.Capture(Runner.Field));range.Refresh();hud.Refresh();debugHud.Refresh();penalty.Refresh();}
+        {if(capture)Feed.Publish(RacePresentationSnapshot.Capture(Runner.Field));range.Refresh();if(hud.enabled)hud.Refresh();if(debugHud.enabled)debugHud.Refresh();if(penalty.enabled)penalty.Refresh();}
         private void OnApplicationFocus(bool value){if(ski!=null)ski.SetInputFocus(value);if(shot!=null)shot.SetInputFocus(value);}
         private void OnGUI()
         {
-            if(Runner==null)return;
+            if(Runner==null||GameplayHud!=null&&GameplayHud.enabled)return;
             GUI.Box(new Rect(12,Screen.height-48,Mathf.Min(1220,Screen.width-24),42),"ЛЫЖИ: W/S темп · Shift атака · Ctrl восстановление · A/D руление · Space низкая стойка\nСТРЕЛЬБА: ПКМ затвор · ЛКМ выстрел · Space дыхание · F точный прицел · Tab обзор");
             if(LastRangeAssistance.Active)GUI.Box(new Rect(Screen.width/2f-170,Screen.height-90,340,28),LastRangeAssistance.Mode==PlayerRangeAssistMode.FinalApproach?"Подготовка к стрельбе":"Управление возвращается");
         }

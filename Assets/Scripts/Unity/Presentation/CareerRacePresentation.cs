@@ -41,6 +41,7 @@ namespace Biathlon.Unity.Presentation
                 raceRoot=new GameObject("Career race");raceRoot.transform.SetParent(transform,false);
                 Host=raceRoot.AddComponent<ProductionVenueHost>();Host.AutoStart=false;Host.enabled=false;
                 Host.InitializeCareer(prepared);
+                Host.GameplayHud.SetPreferences(menu.Locale,menu.TextSizeIndex,menu.Session.Player.Name);
             }
             catch(Exception e){failure=e;}
             if(failure==null)

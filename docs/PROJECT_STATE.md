@@ -24638,3 +24638,29 @@ replay remain. Recorded Pursuit composition issue still needs resolution before
 claiming a complete playable next-event loop. No new FPS or whole-season claim.
 Report: docs/reports/TASK_M14_PRE_RACE_20261011.md. Decision: ADR-0055.
 Evidence: docs/quality/m14/pre-race-20261011/delivery-summary.json.
+
+
+## 2026-10-12 — M14 WP-182/183 gameplay/shooting HUD
+
+Production race now uses retained UI Toolkit panels in the menu palette. HUD
+reads actual individual elapsed time, lap, checkpoint rank/gap, history, speed,
+HR, reserve, fatigue and penalties. Shooting exposes target closures, bolt
+prompts, breathing strain/recovery and labelled wind. RU/EN and menu text size
+follow the career player; independent UIDocument hides/rebuilds on pause/resume.
+Legacy production overlays are suppressed; F3 ski telemetry remains available.
+10 Hz observation refresh skips unchanged snapshots; no new per-tick snapshots
+or authority writes. Graphics quality, movement, shooting and balance unchanged.
+
+Validation: .NET 15 PASS (including deterministic snapshot/control comparison),
+native EditMode 13 PASS, native PlayMode 7 PASS. Real career launch with full
+environment/pause/abandon passes. Captured real Game View and 4:3 large-text HUD;
+center and panel overlap checks pass. Console inspected: no gameplay exceptions
+or compile errors. Initial document lifecycle issue corrected; MCP combined
+filter/busy responses resolved by separate class runs. No failing test disabled.
+
+Report: docs/reports/TASK_M14_GAMEPLAY_HUD_20261012.md.
+ADR: docs/adr/ADR-0056-m14-gameplay-hud.md.
+Evidence: docs/quality/m14/gameplay-hud-20261012/.
+Next: WP-185 results/standings feedback, then further M14 screens. Known Pursuit
+composition issue remains required before claiming the full career event loop.
+M14 OPEN; M13 stays owner-accepted CLOSED. No player build requested or made.

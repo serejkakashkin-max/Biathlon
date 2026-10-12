@@ -1,6 +1,6 @@
 # BIATHLON — latest operational state
 
-2026-10-11. M13 CLOSED by owner acceptance; M14 IN PROGRESS. G1/G2 APPROVED.
+2026-10-12. M13 CLOSED by owner acceptance; M14 IN PROGRESS. G1/G2 APPROVED.
 Woodland: maximum 30, High default, main 960.005m, penalty 150m/6m.
 
 Latest owner build: **Builds/WoodlandM13BotRecovery-20261011/START_WOODLAND_REVIEW.cmd**.
@@ -81,7 +81,16 @@ pre-change definitions and remains enabled/recorded. No whole-suite/FPS claim.
 [Input decision](adr/ADR-0053-keyboard-steering-response.md).
 [UI decision](adr/ADR-0054-m14-front-end-foundation.md).
 [Race boundary decision](adr/ADR-0055-m14-prepared-career-race.md).
-Next: WP-182/183 production race/shooting HUD; expand WP-185 results and resolve
+WP-182/183 HUD slice implemented: retained RU/EN race/shooting panels, actual
+elapsed time and checkpoint timing, HR/reserve/fatigue, target closures, bolt,
+breath strain, wind and penalties. Menu preferences and pause/resume verified.
+Production debug overlays replaced; F3 telemetry retained. Data refresh at 10 Hz,
+unchanged snapshot skipped; center of aim stays clear. No authority/balance or
+graphics-quality changes. .NET15/native EditMode13/PlayMode7 PASS.
+[HUD report](reports/TASK_M14_GAMEPLAY_HUD_20261012.md).
+[HUD decision](adr/ADR-0056-m14-gameplay-hud.md).
+Evidence: docs/quality/m14/gameplay-hud-20261012/.
+Next: expand WP-185 results and resolve
 the recorded Pursuit composition issue before claiming the complete M14 loop.
 Training/equipment selection, expanded dashboard/history/replay remain pending.
 M14 gate OPEN. No new player build.

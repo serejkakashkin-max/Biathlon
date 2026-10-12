@@ -33,6 +33,7 @@ namespace Biathlon.Unity.Presentation
         public bool Visible { get; private set; }
         public int ClosedMask { get; private set; }
         public string Status { get; private set; }="";
+        public bool DrawLegacyHud {get;set;}=true;
         public Camera AimCamera=>aimCamera;
         public WeaponAimState ObservedSight {get;private set;}
         public void Initialize(RacePresentationFeed source,string selectedAthleteId,TargetGeometryDefinition definition,Camera athleteCamera=null)
@@ -84,11 +85,14 @@ namespace Biathlon.Unity.Presentation
                 ClosedMask=a.ClosedTargetsMask;
                 if(environment!=null){environment.RefreshBanks();bank=environment.Bank(a.RangeLane-1);}else bank.Apply(geometry,a.Stance,ClosedMask);
                 if(a.ShotOutcome!=ShotOutcome.NoShot)Status=a.ShotOutcome.ToString();
-                boltText=a.NeedsBoltCycle?"ПКМ — зарядить патрон":a.ShootingPhase==ShootingPhase.BoltCycle?"Перезарядка…":"ЛКМ — выстрел";
-                breathText=a.BreathBlocked?"Выдохните: отпустите Space":a.BreathHolding?(a.BreathSwayMultiplier>1?"Долгая задержка — выдохните":"Дыхание задержано"):(a.BreathDebt>.25?"Восстановление дыхания":"Space — задержать дыхание");
-                breathDebt=(float)a.BreathDebt;hrLoad=Mathf.InverseLerp(90,180,(float)a.Physiology.HeartRateBpm);
-                laneText="РУБЕЖ "+a.RangeLane+"  |  "+(a.Stance==ShootingStance.Prone?"ЛЁЖА":"СТОЯ")+"  |  "+a.ShotsFired+" / 5  |  ПУЛЬС "+a.Physiology.HeartRateBpm.ToString("F0")+"  |  "+boltText;
-                shootingText=laneText+"\n"+breathText+"  |  F — точный прицел  |  Tab — обзор";
+                if(DrawLegacyHud)
+                {
+                    boltText=a.NeedsBoltCycle?"ПКМ — зарядить патрон":a.ShootingPhase==ShootingPhase.BoltCycle?"Перезарядка…":"ЛКМ — выстрел";
+                    breathText=a.BreathBlocked?"Выдохните: отпустите Space":a.BreathHolding?(a.BreathSwayMultiplier>1?"Долгая задержка — выдохните":"Дыхание задержано"):(a.BreathDebt>.25?"Восстановление дыхания":"Space — задержать дыхание");
+                    breathDebt=(float)a.BreathDebt;hrLoad=Mathf.InverseLerp(90,180,(float)a.Physiology.HeartRateBpm);
+                    laneText="РУБЕЖ "+a.RangeLane+"  |  "+(a.Stance==ShootingStance.Prone?"ЛЁЖА":"СТОЯ")+"  |  "+a.ShotsFired+" / 5  |  ПУЛЬС "+a.Physiology.HeartRateBpm.ToString("F0")+"  |  "+boltText;
+                    shootingText=laneText+"\n"+breathText+"  |  F — точный прицел  |  Tab — обзор";
+                }
             }
             if(!Visible||selectedIndex<0)return;
             var current=snapshot.Get(selectedIndex);ObservedSight=RifleSightPresentation.SampleSight(feed.Previous,snapshot,selectedIndex,alpha);var ray=ObservedSight.Ray;
@@ -133,6 +137,7 @@ namespace Biathlon.Unity.Presentation
         }
         private void OnGUI()
         {
+            if(!DrawLegacyHud)return;
             if(!Visible)return;
             GUI.Box(new Rect(Screen.width/2f-390,Screen.height-155,780,84),shootingText);
             var saved=GUI.color;GUI.color=Color.Lerp(new Color(.2f,.85f,.4f),new Color(1,.3f,.15f),hrLoad);
