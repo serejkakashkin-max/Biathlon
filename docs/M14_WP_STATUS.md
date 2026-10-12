@@ -25,7 +25,7 @@ Updated 2026-10-12. M13 is closed by owner acceptance. All 19 M14 WPs are implem
 | 197 | COMPLETE | Native keyboard/gamepad menu navigation, career/race pause flows and replay seek/focus regression. |
 
 19 of 19 complete. No remaining M14 implementation WP. Owner acceptance is pending.
-Test build: `Builds/M14BalanceReview20261012/START_M14_TEST.cmd` (0 build errors/warnings; standalone startup/render passed).
+Test build: `Builds/M14BurstReview20261012/START_M14_TEST.cmd` (0 build errors/warnings; standalone startup/render passed).
 
 Latest evidence: [M14 completion report](reports/TASK_M14_COMPLETION_20261012.md),
 [recording/TV decision](adr/ADR-0058-m14-recorded-races-and-tv.md),
@@ -46,3 +46,11 @@ WP-189 World Cup IBU points/countback and yellow/red/combined bibs;
 WP-196/197 native profile/age/large-text acceptance. Shared grip/form/AI tactic fixes
 are qualified with complete Sprint30 replay. All requested corrections delivered;
 M14 remains OPEN / owner acceptance pending. [Build and checks](reports/TASK_M14_BALANCE_REVIEW_20261012.md).
+
+Latest owner corrections: WP-184 uses the retained TIMING gantry and authoritative
+loop-end split; WP-182 adds shared short-burst power/cost and a temporary compact
+reserve/time readout. Fresh thirty-athlete Mass Start passes the actual first-split
+gap checks after bounded pursuit/contact-braking fixes. All three corrections
+are delivered. Full Mass Start and career Sprint replay pass. Owner testing is
+the next step; M14 remains OPEN.
+[Current evidence and limitations](reports/TASK_M14_BURST_PACK_REVIEW_20261012.md).

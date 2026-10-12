@@ -32,6 +32,7 @@ namespace Biathlon.PlayModeTests
             {
                 var view=root.AddComponent<CourseTimingPresentation>();view.Initialize(plan);
                 Assert.That(view.TimingLines,Is.EqualTo(3));
+                Assert.That(Enumerable.Range(0,view.TimingLines).Count(i=>view.UsesExistingStadiumPortal(i)),Is.EqualTo(1));
                 CollectionAssert.AreEqual(new[]{"climb_top","range_entry_split","range_exit_split"},Enumerable.Range(0,view.TimingLines).Select(view.CheckpointId).ToArray());
                 Assert.That(plan.Track.GetCheckpoint(2).Anchor.Distance.Meters,Is.GreaterThan(plan.Track.Penalty.Rejoin.Distance.Meters),"IBU §9.2.7 timing follows the penalty loop.");
                 Assert.That(root.GetComponentsInChildren<Collider>(true),Is.Empty,"Timing art never adds a physical stopper, even in its creation frame.");
@@ -49,6 +50,31 @@ namespace Biathlon.PlayModeTests
                     Assert.That(mesh.vertexCount,Is.LessThan(200));
                 }
                 Assert.That(typeof(CourseTimingPresentation).GetMethod("Update",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic),Is.Null);
+            }
+            finally{Object.DestroyImmediate(root);}
+        }
+
+        [Test] public void StadiumSplitReusesActualNativeGantryWithoutAnotherPortalOrDistanceSign()
+        {
+            var plan=Production();var root=new GameObject("Retained stadium timing gate check");
+            try
+            {
+                var view=root.AddComponent<CourseTimingPresentation>();view.Initialize(plan);
+                int station=Enumerable.Range(0,view.TimingLines).Single(view.UsesExistingStadiumPortal);
+                Assert.That(view.CheckpointId(station),Is.EqualTo("range_exit_split"));
+                var mesh=view.GateMesh(station);
+                Assert.That(mesh.vertexCount,Is.EqualTo(4),"Only snow paint is added beneath the already existing portal.");
+                Assert.That(mesh.GetTriangles(0),Is.Empty);Assert.That(mesh.GetTriangles(1),Is.Empty);
+                Assert.That(view.GateTransform(station).GetComponentsInChildren<TextMesh>(),Is.Empty,"Retain the existing TIMING header.");
+                var recipe=ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/environment"));
+                var native=recipe.mesh_assets.Where(part=>part.id.StartsWith("timing_gantry_",StringComparison.Ordinal)).ToArray();
+                Assert.That(native.Length,Is.EqualTo(6));
+                foreach(var part in native)
+                    Assert.That(Vector3.Distance(part.position,view.GateTransform(station).position),Is.LessThan(.001f),
+                        "The authority stripe coincides with every original gantry mesh placement.");
+                var paint=mesh.GetTriangles(2).Distinct().Select(v=>view.GateTransform(station).TransformPoint(mesh.vertices[v])).ToArray();
+                var center=(paint[0]+paint[1]+paint[2]+paint[3])*.25f;
+                Assert.That(Vector2.Distance(new Vector2(center.x,center.z),new Vector2(native[0].position.x,native[0].position.z)),Is.LessThan(.001f));
             }
             finally{Object.DestroyImmediate(root);}
         }

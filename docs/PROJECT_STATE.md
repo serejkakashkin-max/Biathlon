@@ -24835,3 +24835,18 @@ Test build remains Builds/M14BalanceReview20261012/START_M14_TEST.cmd; standalon
 explicitly recorded in the correction report. PROJECT_STATE prior disk prefix preserved byte for
 byte; staged Git history prefix also verified. Owner-local rendering/package/editor changes
 were excluded from commits. M14 remains open for owner testing; no next milestone started.
+
+### 2026-10-12 — M14 owner timing / fresh field / short-burst correction
+
+Owner's three corrections delivered; M14 remains OPEN pending owner testing and acceptance. WP-182 short-burst HUD/control and WP-184 timing portal corrections are complete. Shared AI opening movement correction is complete; no M15 started.
+
+- Reuse existing TIMING gantry: stable range_exit_split moves 935 -> 960.005 m after penalty rejoin, with one authoritative stripe and no duplicate frame/time-zero split.
+- Correct moving-body early braking through actual closing stopping/reaction envelope. Ordinary physical pursuit retains bounded deflection instead of passive one-tick yaw optimization which shed speed despite ~400 W. Shared force/grip/contact rules remain unchanged; no speed/power cheat or graphics reduction.
+- Actual first split of three rested thirty-athlete cohorts: final p90/max gaps review 4.151/7.956 s, junior 6.960/7.708 s, senior 4.268/4.669 s. Red reproduction review 34.438/49.024 and junior 40.405/59.442 s retained as evidence.
+- Shared versioned burst curve normal through control950 retains prior request meaning; Attack1000 reaches1.6 relative effort and pays individual reserve/fatigue/HR. Typical full-power duration12-18 s, fades below20% reserve; recovery remains slow. ReleaseShift restores stored pace. Compact overlay shows accepted reserve/seconds; tuck/brake suppress false burst. Gamepad normal trigger ceiling800, explicit shoulderAttack1000; legacy definitions retain old behavior.
+- Final expanded core:78 pass,2 previously baseline-reproduced passive-inverse diagnostics fail with unchanged messages. All new/cross-system/shipping-race cases pass. Additional physiology61/61; native21 PlayMode +10 EditMode pass. No tests disabled or loosened. Broader nine old lateral-v1/nonshipping traffic/arrival failures were separately reproduced from exact HEAD source/data; evidence retained.
+- Full Mass Start30 completes all athletes at18638ticks, headless43.839s (~21.26x realtime). Full career Sprint30 records/replays identical authority at28941ticks, SHA256 c0e0bb0b82de70cb726e9d98b10776b8360e71279d93e1f9e94d0a8424f54647.
+- Fixed-seed precise-route/aim novice effort1000:rank4,zero misses,28.360s behind best peer; effort900:rank16,two misses,62.217s behind. Fixed cohort diagnostics, not guaranteed human standings.
+- Build Builds/M14BurstReview20261012/START_M14_TEST.cmd:Unity6000.6.0f1 Win64 DX11 Development,0errors/0warnings,361467558bytes. Standalone startup exit0/render1437samples at1600x900. Console clean; analytics DNS restrictions recorded separately from gameplay exceptions.
+
+Evidence: docs/quality/m14/burst-pack-20261012/; decisions docs/adr/ADR-0061-m14-short-burst-and-fresh-pack.md; report docs/reports/TASK_M14_BURST_PACK_REVIEW_20261012.md. Current operational docs updated. Existing athletes retain generated stats; recordings require compatible definitions. Next action is owner testing of this build, then owner M14 decision. Publication receipt follows after verified GitHub push. This entry is raw append-only; historical bytes preserved.

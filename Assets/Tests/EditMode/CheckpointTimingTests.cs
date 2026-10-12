@@ -8,6 +8,44 @@ namespace Biathlon.Tests
 {
     public class CheckpointTimingTests
     {
+        [Test] public void ProductionStadiumSplitUsesRetainedGantryAfterPenaltyWithoutATimeZeroSplit()
+        {
+            string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
+            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read("Biathlon/Venues/woodland_basin_v1/manifest")),Read);
+            TrackCheckpointDefinition stadium=null;
+            for(int i=0;i<venue.Track.CheckpointCount;i++)
+                if(venue.Track.GetCheckpoint(i).Id=="range_exit_split")stadium=venue.Track.GetCheckpoint(i);
+            Assert.That(stadium,Is.Not.Null);
+            var loop=venue.Track.GetLoop(venue.StartApproach.RouteEntryLoopId);
+            Assert.That(stadium.Anchor.Distance,Is.EqualTo(loop.Length),"Use the existing lap gantry rather than another portal 25 m before it.");
+            Assert.That(stadium.Anchor.Distance.Meters,Is.GreaterThan(venue.Track.Penalty.Rejoin.Distance.Meters));
+            var gate=venue.Visual.Get(loop.Id).Sample(0);var split=venue.At(stadium.Anchor);
+            Assert.That(split.X,Is.EqualTo(gate.X).Within(.001));Assert.That(split.Y,Is.EqualTo(gate.Y).Within(.001));
+            Assert.That(split.Z,Is.EqualTo(gate.Z).Within(.001));
+            for(int format=0;format<venue.Formats.Count;format++)
+            {
+                var binding=venue.Formats.Get(format);
+                var route=new RaceRoute(venue.Track,binding.Route,binding.Profile.ToRouteRequirements(),venue.Junctions,venue.Connections);
+                var layout=new CheckpointLayout(venue.Track,route);int stadiumOccurrences=0,firstGantryOrdinal=-1;long firstGantryRoute=-1;
+                for(int i=0;i<layout.Count;i++)
+                {
+                    if(layout.Get(i).CheckpointId!=stadium.Id)continue;
+                    var occurrence=layout.Get(i);var section=route.GetSection(occurrence.SectionIndex);
+                    Assert.That(section.LoopEnd,Is.EqualTo(stadium.Anchor.Distance));
+                    Assert.That(occurrence.RouteNanometers,Is.GreaterThan(0),"Loop-end timing must not record an arrival at the race start.");
+                    if(firstGantryRoute<0){firstGantryRoute=occurrence.RouteNanometers;firstGantryOrdinal=i;}
+                    stadiumOccurrences++;
+                }
+                Assert.That(stadiumOccurrences,Is.GreaterThan(0),binding.Id);
+                var tracker=new CheckpointTracker(layout,new AthleteId("gantry_test"),20,default,new RaceEventLog());
+                long oldPortal=firstGantryRoute-(stadium.Anchor.Distance.Millimeters-935000)*SkiState.NanometersPerMillimeter;
+                tracker.Observe(new SimulationTick(1),0,oldPortal);
+                Assert.That(tracker.Count,Is.EqualTo(firstGantryOrdinal),binding.Id+": the removed portal must no longer trigger timing.");
+                tracker.Observe(new SimulationTick(2),oldPortal,firstGantryRoute);
+                Assert.That(tracker.Count,Is.EqualTo(firstGantryOrdinal+1));Assert.That(tracker.Get(firstGantryOrdinal).CheckpointId,Is.EqualTo(stadium.Id));
+                Assert.That(tracker.Get(firstGantryOrdinal).ElapsedTime.Seconds,Is.EqualTo(.1));
+            }
+        }
         public static CheckpointLayout Layout()
         {
             var p = CompetitionProfileTests.TestProfile(); var track = SyntheticTrackTests.Generated("synthetic_flat_v1");

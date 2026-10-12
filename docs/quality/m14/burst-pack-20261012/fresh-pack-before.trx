@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="0ed8d0b2-57d3-4daa-bcb3-e4a363e1d407" name="snkashkin@DESKTOP-G3075GA 2026-10-12 17:59:35" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-12T17:59:35.1365933+03:00" queuing="2026-10-12T17:59:35.1365935+03:00" start="2026-10-12T17:59:21.3098746+03:00" finish="2026-10-12T18:00:02.0862408+03:00" />
+  <TestSettings name="default" id="0fb2b9c7-d0be-4192-bca6-7c38c1483f19">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-12_17_59_35" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1b935aee-31fe-4594-ba16-98af9dcb2c9a" testId="68cca2be-094a-5605-41ad-74d0be2f17e6" testName="FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(&quot;senior_debut&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:12.8056790" startTime="2026-10-12T17:59:48.8638296+03:00" endTime="2026-10-12T18:00:01.6695083+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1b935aee-31fe-4594-ba16-98af9dcb2c9a">
+      <Output>
+        <StdOut>FRESH_PACK profile=senior_debut actor=0 crest_s=41,8 crest_mps=3,95147025 min_mps=4,019497837 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=332 average_effort=925 reserve=0,746608041 fatigue=0,025549928&#xD;
+FRESH_PACK profile=senior_debut actor=1 crest_s=39,6 crest_mps=4,238688119 min_mps=4,305117518 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=311 average_effort=920 reserve=0,687007369 fatigue=0,023828704&#xD;
+FRESH_PACK profile=senior_debut actor=2 crest_s=38 crest_mps=4,871728598 min_mps=4,88098339 slow_ticks=0 brake_ticks=3 zero_effort_ticks=4 hill_ticks=291 average_effort=918 reserve=0,788969125 fatigue=0,017805788&#xD;
+FRESH_PACK profile=senior_debut actor=3 crest_s=42,25 crest_mps=3,763645347 min_mps=3,849394698 slow_ticks=0 brake_ticks=14 zero_effort_ticks=23 hill_ticks=337 average_effort=860 reserve=0,895986857 fatigue=0,016212835&#xD;
+FRESH_PACK profile=senior_debut actor=4 crest_s=40,1 crest_mps=4,167238196 min_mps=4,167188343 slow_ticks=0 brake_ticks=6 zero_effort_ticks=6 hill_ticks=304 average_effort=869 reserve=0,850985504 fatigue=0,018452444&#xD;
+FRESH_PACK profile=senior_debut actor=5 crest_s=38,35 crest_mps=4,791898125 min_mps=4,799087221 slow_ticks=0 brake_ticks=11 zero_effort_ticks=19 hill_ticks=294 average_effort=868 reserve=0,772847944 fatigue=0,018137937&#xD;
+FRESH_PACK profile=senior_debut actor=6 crest_s=42,7 crest_mps=3,590645642 min_mps=3,577739856 slow_ticks=0 brake_ticks=27 zero_effort_ticks=42 hill_ticks=341 average_effort=806 reserve=0,786754049 fatigue=0,017660228&#xD;
+FRESH_PACK profile=senior_debut actor=7 crest_s=40,75 crest_mps=4,261369783 min_mps=4,250709779 slow_ticks=0 brake_ticks=7 zero_effort_ticks=7 hill_ticks=308 average_effort=912 reserve=0,899268153 fatigue=0,01436629&#xD;
+FRESH_PACK profile=senior_debut actor=8 crest_s=39,15 crest_mps=4,966412135 min_mps=4,976143495 slow_ticks=0 brake_ticks=1 zero_effort_ticks=1 hill_ticks=290 average_effort=926 reserve=0,805599268 fatigue=0,019611511&#xD;
+FRESH_PACK profile=senior_debut actor=9 crest_s=43,2 crest_mps=3,2829432 min_mps=3,344322019 slow_ticks=0 brake_ticks=29 zero_effort_ticks=29 hill_ticks=346 average_effort=839 reserve=0,897638192 fatigue=0,017933762&#xD;
+FRESH_PACK profile=senior_debut actor=10 crest_s=42,1 crest_mps=4,291421478 min_mps=4,300834112 slow_ticks=0 brake_ticks=0 zero_effort_ticks=4 hill_ticks=330 average_effort=915 reserve=0,71011823 fatigue=0,02464291&#xD;
+FRESH_PACK profile=senior_debut actor=11 crest_s=40,5 crest_mps=4,477701144 min_mps=4,48838678 slow_ticks=0 brake_ticks=2 zero_effort_ticks=3 hill_ticks=307 average_effort=915 reserve=0,700071895 fatigue=0,022723945&#xD;
+FRESH_PACK profile=senior_debut actor=12 crest_s=43,9 crest_mps=3,267412911 min_mps=3,337806354 slow_ticks=0 brake_ticks=26 zero_effort_ticks=27 hill_ticks=356 average_effort=852 reserve=0,72030178 fatigue=0,022053678&#xD;
+FRESH_PACK profile=senior_debut actor=13 crest_s=42,5 crest_mps=4,073612101 min_mps=4,147025573 slow_ticks=0 brake_ticks=16 zero_effort_ticks=27 hill_ticks=334 average_effort=828 reserve=0,929120348 fatigue=0,014064166&#xD;
+FRESH_PACK profile=senior_debut actor=14 crest_s=41 crest_mps=4,375350433 min_mps=4,383421061 slow_ticks=0 brake_ticks=2 zero_effort_ticks=4 hill_ticks=311 average_effort=910 reserve=0,70426485 fatigue=0,020676762&#xD;
+FRESH_PACK profile=senior_debut actor=15 crest_s=44,4 crest_mps=3,04215816 min_mps=3,013605049 slow_ticks=0 brake_ticks=24 zero_effort_ticks=30 hill_ticks=361 average_effort=843 reserve=0,70895787 fatigue=0,02544746&#xD;
+FRESH_PACK profile=senior_debut actor=16 crest_s=42,95 crest_mps=3,755634561 min_mps=3,830759875 slow_ticks=0 brake_ticks=34 zero_effort_ticks=35 hill_ticks=339 average_effort=807 reserve=0,94193402 fatigue=0,013602067&#xD;
+FRESH_PACK profile=senior_debut actor=17 crest_s=58,2 crest_mps=4,137845586 min_mps=3,752481092 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=408 average_effort=909 reserve=0,745654447 fatigue=0,031130654&#xD;
+FRESH_PACK profile=senior_debut actor=18 crest_s=45 crest_mps=2,736895853 min_mps=2,882458007 slow_ticks=0 brake_ticks=40 zero_effort_ticks=54 hill_ticks=369 average_effort=785 reserve=0,782930865 fatigue=0,017436567&#xD;
+FRESH_PACK profile=senior_debut actor=19 crest_s=43,5 crest_mps=3,628031594 min_mps=3,696194874 slow_ticks=0 brake_ticks=14 zero_effort_ticks=14 hill_ticks=345 average_effort=884 reserve=0,720299214 fatigue=0,021761765&#xD;
+FRESH_PACK profile=senior_debut actor=20 crest_s=47,75 crest_mps=4,792509804 min_mps=4,797910125 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=343 average_effort=920 reserve=0,727741565 fatigue=0,020958102&#xD;
+FRESH_PACK profile=senior_debut actor=21 crest_s=45,85 crest_mps=2,985005409 min_mps=2,865882507 slow_ticks=0 brake_ticks=38 zero_effort_ticks=38 hill_ticks=381 average_effort=830 reserve=0,757144502 fatigue=0,018565217&#xD;
+FRESH_PACK profile=senior_debut actor=22 crest_s=44 crest_mps=3,502882434 min_mps=3,570927243 slow_ticks=0 brake_ticks=18 zero_effort_ticks=18 hill_ticks=341 average_effort=841 reserve=0,901574116 fatigue=0,016384818&#xD;
+FRESH_PACK profile=senior_debut actor=23 crest_s=43 crest_mps=4,260175036 min_mps=4,265815498 slow_ticks=0 brake_ticks=10 zero_effort_ticks=9 hill_ticks=327 average_effort=901 reserve=0,726531883 fatigue=0,020415651&#xD;
+FRESH_PACK profile=senior_debut actor=24 crest_s=46,4 crest_mps=2,787884375 min_mps=2,828892465 slow_ticks=0 brake_ticks=53 zero_effort_ticks=53 hill_ticks=386 average_effort=790 reserve=0,894149657 fatigue=0,017149278&#xD;
+FRESH_PACK profile=senior_debut actor=25 crest_s=44,55 crest_mps=3,398789861 min_mps=3,378610249 slow_ticks=0 brake_ticks=30 zero_effort_ticks=29 hill_ticks=347 average_effort=849 reserve=0,901533153 fatigue=0,016052068&#xD;
+FRESH_PACK profile=senior_debut actor=26 crest_s=43,6 crest_mps=4,288674004 min_mps=4,294621825 slow_ticks=0 brake_ticks=2 zero_effort_ticks=2 hill_ticks=334 average_effort=920 reserve=0,722305445 fatigue=0,022783361&#xD;
+FRESH_PACK profile=senior_debut actor=27 crest_s=47,15 crest_mps=2,702003556 min_mps=2,665919175 slow_ticks=0 brake_ticks=48 zero_effort_ticks=53 hill_ticks=396 average_effort=796 reserve=0,76331972 fatigue=0,019308188&#xD;
+FRESH_PACK profile=senior_debut actor=28 crest_s=45,45 crest_mps=3,433351493 min_mps=3,420199918 slow_ticks=0 brake_ticks=13 zero_effort_ticks=13 hill_ticks=360 average_effort=887 reserve=0,728157395 fatigue=0,020456443&#xD;
+FRESH_PACK profile=senior_debut actor=29 crest_s=43,95 crest_mps=3,898979068 min_mps=3,97602335 slow_ticks=0 brake_ticks=27 zero_effort_ticks=33 hill_ticks=336 average_effort=831 reserve=0,77035905 fatigue=0,019584884&#xD;
+FRESH_PACK_SUMMARY profile=senior_debut completed=30 p50_gap_s=5,2 p90_gap_s=8,4 max_gap_s=20,2 p10_speed=2,787884375 p50_speed=3,95147025 max_speed=4,966412135</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3270e654-a019-4085-8e09-ea43ad5b5c35" testId="5ffcab0d-f418-50e2-12f9-1d9b0a6ac88d" testName="FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(&quot;junior_novice&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:13.7646700" startTime="2026-10-12T17:59:35.0990835+03:00" endTime="2026-10-12T17:59:48.8637536+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3270e654-a019-4085-8e09-ea43ad5b5c35">
+      <Output>
+        <StdOut>FRESH_PACK profile=junior_novice actor=0 crest_s=45,45 crest_mps=2,881202047 min_mps=2,958544382 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=373 average_effort=919 reserve=0,712158335 fatigue=0,030434319&#xD;
+FRESH_PACK profile=junior_novice actor=1 crest_s=38,75 crest_mps=4,583366009 min_mps=4,635149635 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=303 average_effort=925 reserve=0,704764681 fatigue=0,021755081&#xD;
+FRESH_PACK profile=junior_novice actor=2 crest_s=41,35 crest_mps=3,963976977 min_mps=4,03206356 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=320 average_effort=930 reserve=0,747855394 fatigue=0,024092718&#xD;
+FRESH_PACK profile=junior_novice actor=3 crest_s=46,05 crest_mps=2,67754 min_mps=2,586558621 slow_ticks=0 brake_ticks=28 zero_effort_ticks=29 hill_ticks=381 average_effort=850 reserve=0,85841973 fatigue=0,021688984&#xD;
+FRESH_PACK profile=junior_novice actor=4 crest_s=43,15 crest_mps=3,645766651 min_mps=3,716955208 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=336 average_effort=927 reserve=0,762588858 fatigue=0,02553633&#xD;
+FRESH_PACK profile=junior_novice actor=5 crest_s=41,85 crest_mps=3,626904311 min_mps=3,628295653 slow_ticks=0 brake_ticks=6 zero_effort_ticks=5 hill_ticks=326 average_effort=910 reserve=0,690621846 fatigue=0,026223987&#xD;
+FRESH_PACK profile=junior_novice actor=6 crest_s=46,75 crest_mps=2,366236648 min_mps=2,302801877 slow_ticks=0 brake_ticks=34 zero_effort_ticks=35 hill_ticks=390 average_effort=837 reserve=0,70300099 fatigue=0,025288147&#xD;
+FRESH_PACK profile=junior_novice actor=7 crest_s=43,6 crest_mps=3,288683258 min_mps=3,444047454 slow_ticks=0 brake_ticks=24 zero_effort_ticks=31 hill_ticks=341 average_effort=816 reserve=0,926209447 fatigue=0,016558696&#xD;
+FRESH_PACK profile=junior_novice actor=8 crest_s=42,35 crest_mps=3,316915328 min_mps=3,311138546 slow_ticks=0 brake_ticks=11 zero_effort_ticks=11 hill_ticks=322 average_effort=850 reserve=0,828689406 fatigue=0,023670549&#xD;
+FRESH_PACK profile=junior_novice actor=9 crest_s=47,6 crest_mps=2,225215679 min_mps=2,130545911 slow_ticks=0 brake_ticks=29 zero_effort_ticks=29 hill_ticks=400 average_effort=860 reserve=0,812494468 fatigue=0,025649813&#xD;
+FRESH_PACK profile=junior_novice actor=10 crest_s=46,35 crest_mps=2,906850082 min_mps=2,986372711 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=388 average_effort=923 reserve=0,648507205 fatigue=0,031262814&#xD;
+FRESH_PACK profile=junior_novice actor=11 crest_s=42,9 crest_mps=3,252668469 min_mps=3,242448843 slow_ticks=0 brake_ticks=15 zero_effort_ticks=15 hill_ticks=328 average_effort=881 reserve=0,736718294 fatigue=0,021017426&#xD;
+FRESH_PACK profile=junior_novice actor=12 crest_s=48,35 crest_mps=1,960804342 min_mps=1,904953852 slow_ticks=0 brake_ticks=46 zero_effort_ticks=72 hill_ticks=411 average_effort=760 reserve=0,749189203 fatigue=0,021905117&#xD;
+FRESH_PACK profile=junior_novice actor=13 crest_s=46,95 crest_mps=2,674746625 min_mps=2,733917362 slow_ticks=0 brake_ticks=24 zero_effort_ticks=25 hill_ticks=382 average_effort=867 reserve=0,791084896 fatigue=0,024065867&#xD;
+FRESH_PACK profile=junior_novice actor=14 crest_s=43,5 crest_mps=2,916930595 min_mps=2,900846828 slow_ticks=0 brake_ticks=24 zero_effort_ticks=24 hill_ticks=335 average_effort=857 reserve=0,697961504 fatigue=0,022145649&#xD;
+FRESH_PACK profile=junior_novice actor=15 crest_s=49,4 crest_mps=1,571550105 min_mps=1,489131927 slow_ticks=0 brake_ticks=25 zero_effort_ticks=29 hill_ticks=427 average_effort=859 reserve=0,661686062 fatigue=0,030724884&#xD;
+FRESH_PACK profile=junior_novice actor=16 crest_s=48,25 crest_mps=2,811768862 min_mps=2,885456553 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=386 average_effort=926 reserve=0,782401023 fatigue=0,027473164&#xD;
+FRESH_PACK profile=junior_novice actor=17 crest_s=44,05 crest_mps=2,752981108 min_mps=2,78723983 slow_ticks=0 brake_ticks=34 zero_effort_ticks=42 hill_ticks=342 average_effort=805 reserve=0,911898261 fatigue=0,018034942&#xD;
+FRESH_PACK profile=junior_novice actor=18 crest_s=50,65 crest_mps=1,16723638 min_mps=1,055322843 slow_ticks=0 brake_ticks=45 zero_effort_ticks=57 hill_ticks=448 average_effort=802 reserve=0,653447751 fatigue=0,029542093&#xD;
+FRESH_PACK profile=junior_novice actor=19 crest_s=48,9 crest_mps=2,577883667 min_mps=2,641998262 slow_ticks=0 brake_ticks=14 zero_effort_ticks=14 hill_ticks=394 average_effort=889 reserve=0,654707729 fatigue=0,028757877&#xD;
+FRESH_PACK profile=junior_novice actor=20 crest_s=45,75 crest_mps=3,277785481 min_mps=3,27582972 slow_ticks=0 brake_ticks=7 zero_effort_ticks=10 hill_ticks=371 average_effort=899 reserve=0,643502059 fatigue=0,029250477&#xD;
+FRESH_PACK profile=junior_novice actor=21 crest_s=51,95 crest_mps=1,016590205 min_mps=0,987906026 slow_ticks=3 brake_ticks=52 zero_effort_ticks=57 hill_ticks=469 average_effort=809 reserve=0,697956931 fatigue=0,025247732&#xD;
+FRESH_PACK profile=junior_novice actor=22 crest_s=49,55 crest_mps=2,598858981 min_mps=2,499210983 slow_ticks=0 brake_ticks=50 zero_effort_ticks=54 hill_ticks=402 average_effort=801 reserve=0,881566919 fatigue=0,018765942&#xD;
+FRESH_PACK profile=junior_novice actor=23 crest_s=46,55 crest_mps=3,044651043 min_mps=3,042272481 slow_ticks=0 brake_ticks=3 zero_effort_ticks=3 hill_ticks=382 average_effort=914 reserve=0,642636415 fatigue=0,02901745&#xD;
+FRESH_PACK profile=junior_novice actor=24 crest_s=53,65 crest_mps=0,603164654 min_mps=0,477689938 slow_ticks=18 brake_ticks=76 zero_effort_ticks=86 hill_ticks=497 average_effort=764 reserve=0,865900128 fatigue=0,02021495&#xD;
+FRESH_PACK profile=junior_novice actor=25 crest_s=50,2 crest_mps=2,268610748 min_mps=2,216437663 slow_ticks=0 brake_ticks=58 zero_effort_ticks=60 hill_ticks=410 average_effort=786 reserve=0,887330995 fatigue=0,018094183&#xD;
+FRESH_PACK profile=junior_novice actor=26 crest_s=47,15 crest_mps=2,783103787 min_mps=2,853221753 slow_ticks=0 brake_ticks=19 zero_effort_ticks=19 hill_ticks=389 average_effort=876 reserve=0,686430034 fatigue=0,02764806&#xD;
+FRESH_PACK profile=junior_novice actor=27 crest_s=55,65 crest_mps=0,955496109 min_mps=0,41253715 slow_ticks=49 brake_ticks=78 zero_effort_ticks=82 hill_ticks=532 average_effort=779 reserve=0,691636473 fatigue=0,026199997&#xD;
+FRESH_PACK profile=junior_novice actor=28 crest_s=51,35 crest_mps=2,366356729 min_mps=2,41566075 slow_ticks=0 brake_ticks=20 zero_effort_ticks=20 hill_ticks=428 average_effort=875 reserve=0,668046928 fatigue=0,027284428&#xD;
+FRESH_PACK profile=junior_novice actor=29 crest_s=47,9 crest_mps=2,60885944 min_mps=2,584281716 slow_ticks=0 brake_ticks=28 zero_effort_ticks=35 hill_ticks=399 average_effort=839 reserve=0,68101611 fatigue=0,02821781&#xD;
+FRESH_PACK_SUMMARY profile=junior_novice completed=30 p50_gap_s=8,2 p90_gap_s=12,6 max_gap_s=16,9 p10_speed=1,016590205 p50_speed=2,752981108 max_speed=4,583366009</StdOut>
+        <ErrorInfo>
+          <Message>  Most rested entrants must climb rather than creep below walking speed.&#xD;
+  Expected: greater than 2&#xD;
+  But was:  1.016590205d&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.FreshMassStartPackTests.FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(String profile) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\FreshMassStartPackTests.cs:line 48&#xD;
+   at InvokeStub_FreshMassStartPackTests.FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.FreshMassStartPackTests.FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(String profile) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\FreshMassStartPackTests.cs:line 48&#xD;
+   at InvokeStub_FreshMassStartPackTests.FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="31ef6d14-37fb-4536-be84-cf80c46ee0bf" testId="d8994e0b-2456-9a21-d709-423715a88d02" testName="FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(&quot;review&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:13.0790150" startTime="2026-10-12T17:59:22.0192217+03:00" endTime="2026-10-12T17:59:35.0982001+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="31ef6d14-37fb-4536-be84-cf80c46ee0bf">
+      <Output>
+        <StdOut>FRESH_PACK profile=review actor=0 crest_s=40,3 crest_mps=4,34579143 min_mps=4,354734044 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=326 average_effort=922 reserve=0,669540815 fatigue=0,026174378&#xD;
+FRESH_PACK profile=review actor=1 crest_s=40,55 crest_mps=4,364075144 min_mps=4,372476118 slow_ticks=0 brake_ticks=6 zero_effort_ticks=6 hill_ticks=324 average_effort=911 reserve=0,753005646 fatigue=0,024620097&#xD;
+FRESH_PACK profile=review actor=2 crest_s=40,05 crest_mps=4,332044537 min_mps=4,342450572 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=318 average_effort=923 reserve=0,669445231 fatigue=0,02582139&#xD;
+FRESH_PACK profile=review actor=3 crest_s=41,2 crest_mps=4,414735583 min_mps=4,424065602 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=321 average_effort=926 reserve=0,771591071 fatigue=0,0244434&#xD;
+FRESH_PACK profile=review actor=4 crest_s=40,95 crest_mps=3,958844324 min_mps=4,030670734 slow_ticks=0 brake_ticks=9 zero_effort_ticks=15 hill_ticks=328 average_effort=881 reserve=0,694136085 fatigue=0,024906741&#xD;
+FRESH_PACK profile=review actor=5 crest_s=40,95 crest_mps=4,420363947 min_mps=4,428739012 slow_ticks=0 brake_ticks=2 zero_effort_ticks=2 hill_ticks=313 average_effort=924 reserve=0,771428705 fatigue=0,024235231&#xD;
+FRESH_PACK profile=review actor=6 crest_s=41,6 crest_mps=4,358652641 min_mps=4,367397607 slow_ticks=0 brake_ticks=2 zero_effort_ticks=2 hill_ticks=325 average_effort=915 reserve=0,691052272 fatigue=0,025381612&#xD;
+FRESH_PACK profile=review actor=7 crest_s=41,65 crest_mps=4,107532993 min_mps=4,145258652 slow_ticks=0 brake_ticks=7 zero_effort_ticks=7 hill_ticks=320 average_effort=906 reserve=0,770528723 fatigue=0,024483859&#xD;
+FRESH_PACK profile=review actor=8 crest_s=41,3 crest_mps=4,299096755 min_mps=4,326944204 slow_ticks=0 brake_ticks=4 zero_effort_ticks=4 hill_ticks=316 average_effort=914 reserve=0,682758944 fatigue=0,025293617&#xD;
+FRESH_PACK profile=review actor=9 crest_s=42,25 crest_mps=4,24173089 min_mps=4,372195676 slow_ticks=0 brake_ticks=1 zero_effort_ticks=1 hill_ticks=318 average_effort=912 reserve=0,816568839 fatigue=0,024017693&#xD;
+FRESH_PACK profile=review actor=10 crest_s=42,1 crest_mps=3,850716339 min_mps=3,852824211 slow_ticks=0 brake_ticks=11 zero_effort_ticks=13 hill_ticks=325 average_effort=885 reserve=0,687313575 fatigue=0,025391255&#xD;
+FRESH_PACK profile=review actor=11 crest_s=42,4 crest_mps=4,465869545 min_mps=4,474221125 slow_ticks=0 brake_ticks=2 zero_effort_ticks=2 hill_ticks=317 average_effort=926 reserve=0,816792983 fatigue=0,023568207&#xD;
+FRESH_PACK profile=review actor=12 crest_s=42,65 crest_mps=4,000157215 min_mps=4,005775439 slow_ticks=0 brake_ticks=10 zero_effort_ticks=11 hill_ticks=322 average_effort=888 reserve=0,698206148 fatigue=0,025046781&#xD;
+FRESH_PACK profile=review actor=13 crest_s=42,65 crest_mps=3,788280256 min_mps=3,90254136 slow_ticks=0 brake_ticks=6 zero_effort_ticks=8 hill_ticks=323 average_effort=877 reserve=0,896745425 fatigue=0,021883989&#xD;
+FRESH_PACK profile=review actor=14 crest_s=42,8 crest_mps=4,337196034 min_mps=4,344912239 slow_ticks=0 brake_ticks=5 zero_effort_ticks=5 hill_ticks=321 average_effort=909 reserve=0,690647455 fatigue=0,025258695&#xD;
+FRESH_PACK profile=review actor=15 crest_s=43,1 crest_mps=3,700179378 min_mps=3,694660835 slow_ticks=0 brake_ticks=11 zero_effort_ticks=11 hill_ticks=327 average_effort=868 reserve=0,906433265 fatigue=0,021430123&#xD;
+FRESH_PACK profile=review actor=16 crest_s=43,1 crest_mps=3,438759303 min_mps=3,591194612 slow_ticks=0 brake_ticks=15 zero_effort_ticks=17 hill_ticks=328 average_effort=874 reserve=0,691311899 fatigue=0,025420403&#xD;
+FRESH_PACK profile=review actor=17 crest_s=43,3 crest_mps=4,190990082 min_mps=4,196613594 slow_ticks=0 brake_ticks=7 zero_effort_ticks=8 hill_ticks=327 average_effort=880 reserve=0,895839739 fatigue=0,022018939&#xD;
+FRESH_PACK profile=review actor=18 crest_s=43,65 crest_mps=3,461187811 min_mps=3,538529413 slow_ticks=0 brake_ticks=11 zero_effort_ticks=12 hill_ticks=334 average_effort=886 reserve=0,685494634 fatigue=0,025984991&#xD;
+FRESH_PACK profile=review actor=19 crest_s=43,7 crest_mps=3,206859973 min_mps=3,194495803 slow_ticks=0 brake_ticks=16 zero_effort_ticks=17 hill_ticks=331 average_effort=878 reserve=0,876553129 fatigue=0,022109887&#xD;
+FRESH_PACK profile=review actor=20 crest_s=43,75 crest_mps=3,94551681 min_mps=3,948290537 slow_ticks=0 brake_ticks=12 zero_effort_ticks=12 hill_ticks=331 average_effort=893 reserve=0,682683019 fatigue=0,025697246&#xD;
+FRESH_PACK profile=review actor=21 crest_s=44,2 crest_mps=3,218774405 min_mps=3,205890521 slow_ticks=0 brake_ticks=17 zero_effort_ticks=18 hill_ticks=340 average_effort=852 reserve=0,905537063 fatigue=0,021970886&#xD;
+FRESH_PACK profile=review actor=22 crest_s=44,3 crest_mps=3,047267043 min_mps=3,114599512 slow_ticks=0 brake_ticks=15 zero_effort_ticks=16 hill_ticks=339 average_effort=877 reserve=0,683586949 fatigue=0,025844359&#xD;
+FRESH_PACK profile=review actor=23 crest_s=44,25 crest_mps=3,848269518 min_mps=3,848955196 slow_ticks=0 brake_ticks=7 zero_effort_ticks=16 hill_ticks=333 average_effort=892 reserve=0,86100116 fatigue=0,022632832&#xD;
+FRESH_PACK profile=review actor=24 crest_s=44,75 crest_mps=2,975553093 min_mps=3,040799204 slow_ticks=0 brake_ticks=16 zero_effort_ticks=17 hill_ticks=347 average_effort=873 reserve=0,683105568 fatigue=0,026274123&#xD;
+FRESH_PACK profile=review actor=25 crest_s=45,05 crest_mps=3,066914984 min_mps=3,048171896 slow_ticks=0 brake_ticks=25 zero_effort_ticks=25 hill_ticks=346 average_effort=866 reserve=0,863216507 fatigue=0,023296157&#xD;
+FRESH_PACK profile=review actor=26 crest_s=44,9 crest_mps=3,694015101 min_mps=3,695634105 slow_ticks=0 brake_ticks=8 zero_effort_ticks=7 hill_ticks=342 average_effort=902 reserve=0,669907644 fatigue=0,026855787&#xD;
+FRESH_PACK profile=review actor=27 crest_s=45,35 crest_mps=2,700502313 min_mps=2,748507241 slow_ticks=0 brake_ticks=26 zero_effort_ticks=27 hill_ticks=341 average_effort=824 reserve=0,893513784 fatigue=0,023166789&#xD;
+FRESH_PACK profile=review actor=28 crest_s=45,75 crest_mps=2,815637398 min_mps=2,876644798 slow_ticks=0 brake_ticks=20 zero_effort_ticks=23 hill_ticks=355 average_effort=861 reserve=0,682170578 fatigue=0,026413853&#xD;
+FRESH_PACK profile=review actor=29 crest_s=45,4 crest_mps=3,456078189 min_mps=3,436137319 slow_ticks=0 brake_ticks=20 zero_effort_ticks=20 hill_ticks=337 average_effort=850 reserve=0,886273804 fatigue=0,023330759&#xD;
+FRESH_PACK_SUMMARY profile=review completed=30 p50_gap_s=3,05 p90_gap_s=5 max_gap_s=5,7 p10_speed=2,975553093 p50_speed=3,94551681 max_speed=4,465869545</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(&quot;senior_debut&quot;)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-pack\bin\biathlon.tests\debug\biathlon.tests.dll" id="68cca2be-094a-5605-41ad-74d0be2f17e6">
+      <Execution id="1b935aee-31fe-4594-ba16-98af9dcb2c9a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-pack\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.FreshMassStartPackTests" name="FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(&quot;senior_debut&quot;)" />
+    </UnitTest>
+    <UnitTest name="FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(&quot;junior_novice&quot;)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-pack\bin\biathlon.tests\debug\biathlon.tests.dll" id="5ffcab0d-f418-50e2-12f9-1d9b0a6ac88d">
+      <Execution id="3270e654-a019-4085-8e09-ea43ad5b5c35" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-pack\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.FreshMassStartPackTests" name="FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(&quot;junior_novice&quot;)" />
+    </UnitTest>
+    <UnitTest name="FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(&quot;review&quot;)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-pack\bin\biathlon.tests\debug\biathlon.tests.dll" id="d8994e0b-2456-9a21-d709-423715a88d02">
+      <Execution id="31ef6d14-37fb-4536-be84-cf80c46ee0bf" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-pack\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.FreshMassStartPackTests" name="FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(&quot;review&quot;)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="68cca2be-094a-5605-41ad-74d0be2f17e6" executionId="1b935aee-31fe-4594-ba16-98af9dcb2c9a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5ffcab0d-f418-50e2-12f9-1d9b0a6ac88d" executionId="3270e654-a019-4085-8e09-ea43ad5b5c35" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d8994e0b-2456-9a21-d709-423715a88d02" executionId="31ef6d14-37fb-4536-be84-cf80c46ee0bf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="2" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-pack\bin\Biathlon.Tests\debug\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 3 of 3 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+FRESH_PACK profile=review actor=0 crest_s=40,3 crest_mps=4,34579143 min_mps=4,354734044 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=326 average_effort=922 reserve=0,669540815 fatigue=0,026174378&#xD;
+FRESH_PACK profile=review actor=1 crest_s=40,55 crest_mps=4,364075144 min_mps=4,372476118 slow_ticks=0 brake_ticks=6 zero_effort_ticks=6 hill_ticks=324 average_effort=911 reserve=0,753005646 fatigue=0,024620097&#xD;
+FRESH_PACK profile=review actor=2 crest_s=40,05 crest_mps=4,332044537 min_mps=4,342450572 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=318 average_effort=923 reserve=0,669445231 fatigue=0,02582139&#xD;
+FRESH_PACK profile=review actor=3 crest_s=41,2 crest_mps=4,414735583 min_mps=4,424065602 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=321 average_effort=926 reserve=0,771591071 fatigue=0,0244434&#xD;
+FRESH_PACK profile=review actor=4 crest_s=40,95 crest_mps=3,958844324 min_mps=4,030670734 slow_ticks=0 brake_ticks=9 zero_effort_ticks=15 hill_ticks=328 average_effort=881 reserve=0,694136085 fatigue=0,024906741&#xD;
+FRESH_PACK profile=review actor=5 crest_s=40,95 crest_mps=4,420363947 min_mps=4,428739012 slow_ticks=0 brake_ticks=2 zero_effort_ticks=2 hill_ticks=313 average_effort=924 reserve=0,771428705 fatigue=0,024235231&#xD;
+FRESH_PACK profile=review actor=6 crest_s=41,6 crest_mps=4,358652641 min_mps=4,367397607 slow_ticks=0 brake_ticks=2 zero_effort_ticks=2 hill_ticks=325 average_effort=915 reserve=0,691052272 fatigue=0,025381612&#xD;
+FRESH_PACK profile=review actor=7 crest_s=41,65 crest_mps=4,107532993 min_mps=4,145258652 slow_ticks=0 brake_ticks=7 zero_effort_ticks=7 hill_ticks=320 average_effort=906 reserve=0,770528723 fatigue=0,024483859&#xD;
+FRESH_PACK profile=review actor=8 crest_s=41,3 crest_mps=4,299096755 min_mps=4,326944204 slow_ticks=0 brake_ticks=4 zero_effort_ticks=4 hill_ticks=316 average_effort=914 reserve=0,682758944 fatigue=0,025293617&#xD;
+FRESH_PACK profile=review actor=9 crest_s=42,25 crest_mps=4,24173089 min_mps=4,372195676 slow_ticks=0 brake_ticks=1 zero_effort_ticks=1 hill_ticks=318 average_effort=912 reserve=0,816568839 fatigue=0,024017693&#xD;
+FRESH_PACK profile=review actor=10 crest_s=42,1 crest_mps=3,850716339 min_mps=3,852824211 slow_ticks=0 brake_ticks=11 zero_effort_ticks=13 hill_ticks=325 average_effort=885 reserve=0,687313575 fatigue=0,025391255&#xD;
+FRESH_PACK profile=review actor=11 crest_s=42,4 crest_mps=4,465869545 min_mps=4,474221125 slow_ticks=0 brake_ticks=2 zero_effort_ticks=2 hill_ticks=317 average_effort=926 reserve=0,816792983 fatigue=0,023568207&#xD;
+FRESH_PACK profile=review actor=12 crest_s=42,65 crest_mps=4,000157215 min_mps=4,005775439 slow_ticks=0 brake_ticks=10 zero_effort_ticks=11 hill_ticks=322 average_effort=888 reserve=0,698206148 fatigue=0,025046781&#xD;
+FRESH_PACK profile=review actor=13 crest_s=42,65 crest_mps=3,788280256 min_mps=3,90254136 slow_ticks=0 brake_ticks=6 zero_effort_ticks=8 hill_ticks=323 average_effort=877 reserve=0,896745425 fatigue=0,021883989&#xD;
+FRESH_PACK profile=review actor=14 crest_s=42,8 crest_mps=4,337196034 min_mps=4,344912239 slow_ticks=0 brake_ticks=5 zero_effort_ticks=5 hill_ticks=321 average_effort=909 reserve=0,690647455 fatigue=0,025258695&#xD;
+FRESH_PACK profile=review actor=15 crest_s=43,1 crest_mps=3,700179378 min_mps=3,694660835 slow_ticks=0 brake_ticks=11 zero_effort_ticks=11 hill_ticks=327 average_effort=868 reserve=0,906433265 fatigue=0,021430123&#xD;
+FRESH_PACK profile=review actor=16 crest_s=43,1 crest_mps=3,438759303 min_mps=3,591194612 slow_ticks=0 brake_ticks=15 zero_effort_ticks=17 hill_ticks=328 average_effort=874 reserve=0,691311899 fatigue=0,025420403&#xD;
+FRESH_PACK profile=review actor=17 crest_s=43,3 crest_mps=4,190990082 min_mps=4,196613594 slow_ticks=0 brake_ticks=7 zero_effort_ticks=8 hill_ticks=327 average_effort=880 reserve=0,895839739 fatigue=0,022018939&#xD;
+FRESH_PACK profile=review actor=18 crest_s=43,65 crest_mps=3,461187811 min_mps=3,538529413 slow_ticks=0 brake_ticks=11 zero_effort_ticks=12 hill_ticks=334 average_effort=886 reserve=0,685494634 fatigue=0,025984991&#xD;
+FRESH_PACK profile=review actor=19 crest_s=43,7 crest_mps=3,206859973 min_mps=3,194495803 slow_ticks=0 brake_ticks=16 zero_effort_ticks=17 hill_ticks=331 average_effort=878 reserve=0,876553129 fatigue=0,022109887&#xD;
+FRESH_PACK profile=review actor=20 crest_s=43,75 crest_mps=3,94551681 min_mps=3,948290537 slow_ticks=0 brake_ticks=12 zero_effort_ticks=12 hill_ticks=331 average_effort=893 reserve=0,682683019 fatigue=0,025697246&#xD;
+FRESH_PACK profile=review actor=21 crest_s=44,2 crest_mps=3,218774405 min_mps=3,205890521 slow_ticks=0 brake_ticks=17 zero_effort_ticks=18 hill_ticks=340 average_effort=852 reserve=0,905537063 fatigue=0,021970886&#xD;
+FRESH_PACK profile=review actor=22 crest_s=44,3 crest_mps=3,047267043 min_mps=3,114599512 slow_ticks=0 brake_ticks=15 zero_effort_ticks=16 hill_ticks=339 average_effort=877 reserve=0,683586949 fatigue=0,025844359&#xD;
+FRESH_PACK profile=review actor=23 crest_s=44,25 crest_mps=3,848269518 min_mps=3,848955196 slow_ticks=0 brake_ticks=7 zero_effort_ticks=16 hill_ticks=333 average_effort=892 reserve=0,86100116 fatigue=0,022632832&#xD;
+FRESH_PACK profile=review actor=24 crest_s=44,75 crest_mps=2,975553093 min_mps=3,040799204 slow_ticks=0 brake_ticks=16 zero_effort_ticks=17 hill_ticks=347 average_effort=873 reserve=0,683105568 fatigue=0,026274123&#xD;
+FRESH_PACK profile=review actor=25 crest_s=45,05 crest_mps=3,066914984 min_mps=3,048171896 slow_ticks=0 brake_ticks=25 zero_effort_ticks=25 hill_ticks=346 average_effort=866 reserve=0,863216507 fatigue=0,023296157&#xD;
+FRESH_PACK profile=review actor=26 crest_s=44,9 crest_mps=3,694015101 min_mps=3,695634105 slow_ticks=0 brake_ticks=8 zero_effort_ticks=7 hill_ticks=342 average_effort=902 reserve=0,669907644 fatigue=0,026855787&#xD;
+FRESH_PACK profile=review actor=27 crest_s=45,35 crest_mps=2,700502313 min_mps=2,748507241 slow_ticks=0 brake_ticks=26 zero_effort_ticks=27 hill_ticks=341 average_effort=824 reserve=0,893513784 fatigue=0,023166789&#xD;
+FRESH_PACK profile=review actor=28 crest_s=45,75 crest_mps=2,815637398 min_mps=2,876644798 slow_ticks=0 brake_ticks=20 zero_effort_ticks=23 hill_ticks=355 average_effort=861 reserve=0,682170578 fatigue=0,026413853&#xD;
+FRESH_PACK profile=review actor=29 crest_s=45,4 crest_mps=3,456078189 min_mps=3,436137319 slow_ticks=0 brake_ticks=20 zero_effort_ticks=20 hill_ticks=337 average_effort=850 reserve=0,886273804 fatigue=0,023330759&#xD;
+FRESH_PACK_SUMMARY profile=review completed=30 p50_gap_s=3,05 p90_gap_s=5 max_gap_s=5,7 p10_speed=2,975553093 p50_speed=3,94551681 max_speed=4,465869545&#xD;
+&#xD;
+FRESH_PACK profile=junior_novice actor=0 crest_s=45,45 crest_mps=2,881202047 min_mps=2,958544382 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=373 average_effort=919 reserve=0,712158335 fatigue=0,030434319&#xD;
+FRESH_PACK profile=junior_novice actor=1 crest_s=38,75 crest_mps=4,583366009 min_mps=4,635149635 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=303 average_effort=925 reserve=0,704764681 fatigue=0,021755081&#xD;
+FRESH_PACK profile=junior_novice actor=2 crest_s=41,35 crest_mps=3,963976977 min_mps=4,03206356 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=320 average_effort=930 reserve=0,747855394 fatigue=0,024092718&#xD;
+FRESH_PACK profile=junior_novice actor=3 crest_s=46,05 crest_mps=2,67754 min_mps=2,586558621 slow_ticks=0 brake_ticks=28 zero_effort_ticks=29 hill_ticks=381 average_effort=850 reserve=0,85841973 fatigue=0,021688984&#xD;
+FRESH_PACK profile=junior_novice actor=4 crest_s=43,15 crest_mps=3,645766651 min_mps=3,716955208 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=336 average_effort=927 reserve=0,762588858 fatigue=0,02553633&#xD;
+FRESH_PACK profile=junior_novice actor=5 crest_s=41,85 crest_mps=3,626904311 min_mps=3,628295653 slow_ticks=0 brake_ticks=6 zero_effort_ticks=5 hill_ticks=326 average_effort=910 reserve=0,690621846 fatigue=0,026223987&#xD;
+FRESH_PACK profile=junior_novice actor=6 crest_s=46,75 crest_mps=2,366236648 min_mps=2,302801877 slow_ticks=0 brake_ticks=34 zero_effort_ticks=35 hill_ticks=390 average_effort=837 reserve=0,70300099 fatigue=0,025288147&#xD;
+FRESH_PACK profile=junior_novice actor=7 crest_s=43,6 crest_mps=3,288683258 min_mps=3,444047454 slow_ticks=0 brake_ticks=24 zero_effort_ticks=31 hill_ticks=341 average_effort=816 reserve=0,926209447 fatigue=0,016558696&#xD;
+FRESH_PACK profile=junior_novice actor=8 crest_s=42,35 crest_mps=3,316915328 min_mps=3,311138546 slow_ticks=0 brake_ticks=11 zero_effort_ticks=11 hill_ticks=322 average_effort=850 reserve=0,828689406 fatigue=0,023670549&#xD;
+FRESH_PACK profile=junior_novice actor=9 crest_s=47,6 crest_mps=2,225215679 min_mps=2,130545911 slow_ticks=0 brake_ticks=29 zero_effort_ticks=29 hill_ticks=400 average_effort=860 reserve=0,812494468 fatigue=0,025649813&#xD;
+FRESH_PACK profile=junior_novice actor=10 crest_s=46,35 crest_mps=2,906850082 min_mps=2,986372711 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=388 average_effort=923 reserve=0,648507205 fatigue=0,031262814&#xD;
+FRESH_PACK profile=junior_novice actor=11 crest_s=42,9 crest_mps=3,252668469 min_mps=3,242448843 slow_ticks=0 brake_ticks=15 zero_effort_ticks=15 hill_ticks=328 average_effort=881 reserve=0,736718294 fatigue=0,021017426&#xD;
+FRESH_PACK profile=junior_novice actor=12 crest_s=48,35 crest_mps=1,960804342 min_mps=1,904953852 slow_ticks=0 brake_ticks=46 zero_effort_ticks=72 hill_ticks=411 average_effort=760 reserve=0,749189203 fatigue=0,021905117&#xD;
+FRESH_PACK profile=junior_novice actor=13 crest_s=46,95 crest_mps=2,674746625 min_mps=2,733917362 slow_ticks=0 brake_ticks=24 zero_effort_ticks=25 hill_ticks=382 average_effort=867 reserve=0,791084896 fatigue=0,024065867&#xD;
+FRESH_PACK profile=junior_novice actor=14 crest_s=43,5 crest_mps=2,916930595 min_mps=2,900846828 slow_ticks=0 brake_ticks=24 zero_effort_ticks=24 hill_ticks=335 average_effort=857 reserve=0,697961504 fatigue=0,022145649&#xD;
+FRESH_PACK profile=junior_novice actor=15 crest_s=49,4 crest_mps=1,571550105 min_mps=1,489131927 slow_ticks=0 brake_ticks=25 zero_effort_ticks=29 hill_ticks=427 average_effort=859 reserve=0,661686062 fatigue=0,030724884&#xD;
+FRESH_PACK profile=junior_novice actor=16 crest_s=48,25 crest_mps=2,811768862 min_mps=2,885456553 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=386 average_effort=926 reserve=0,782401023 fatigue=0,027473164&#xD;
+FRESH_PACK profile=junior_novice actor=17 crest_s=44,05 crest_mps=2,752981108 min_mps=2,78723983 slow_ticks=0 brake_ticks=34 zero_effort_ticks=42 hill_ticks=342 average_effort=805 reserve=0,911898261 fatigue=0,018034942&#xD;
+FRESH_PACK profile=junior_novice actor=18 crest_s=50,65 crest_mps=1,16723638 min_mps=1,055322843 slow_ticks=0 brake_ticks=45 zero_effort_ticks=57 hill_ticks=448 average_effort=802 reserve=0,653447751 fatigue=0,029542093&#xD;
+FRESH_PACK profile=junior_novice actor=19 crest_s=48,9 crest_mps=2,577883667 min_mps=2,641998262 slow_ticks=0 brake_ticks=14 zero_effort_ticks=14 hill_ticks=394 average_effort=889 reserve=0,654707729 fatigue=0,028757877&#xD;
+FRESH_PACK profile=junior_novice actor=20 crest_s=45,75 crest_mps=3,277785481 min_mps=3,27582972 slow_ticks=0 brake_ticks=7 zero_effort_ticks=10 hill_ticks=371 average_effort=899 reserve=0,643502059 fatigue=0,029250477&#xD;
+FRESH_PACK profile=junior_novice actor=21 crest_s=51,95 crest_mps=1,016590205 min_mps=0,987906026 slow_ticks=3 brake_ticks=52 zero_effort_ticks=57 hill_ticks=469 average_effort=809 reserve=0,697956931 fatigue=0,025247732&#xD;
+FRESH_PACK profile=junior_novice actor=22 crest_s=49,55 crest_mps=2,598858981 min_mps=2,499210983 slow_ticks=0 brake_ticks=50 zero_effort_ticks=54 hill_ticks=402 average_effort=801 reserve=0,881566919 fatigue=0,018765942&#xD;
+FRESH_PACK profile=junior_novice actor=23 crest_s=46,55 crest_mps=3,044651043 min_mps=3,042272481 slow_ticks=0 brake_ticks=3 zero_effort_ticks=3 hill_ticks=382 average_effort=914 reserve=0,642636415 fatigue=0,02901745&#xD;
+FRESH_PACK profile=junior_novice actor=24 crest_s=53,65 crest_mps=0,603164654 min_mps=0,477689938 slow_ticks=18 brake_ticks=76 zero_effort_ticks=86 hill_ticks=497 average_effort=764 reserve=0,865900128 fatigue=0,02021495&#xD;
+FRESH_PACK profile=junior_novice actor=25 crest_s=50,2 crest_mps=2,268610748 min_mps=2,216437663 slow_ticks=0 brake_ticks=58 zero_effort_ticks=60 hill_ticks=410 average_effort=786 reserve=0,887330995 fatigue=0,018094183&#xD;
+FRESH_PACK profile=junior_novice actor=26 crest_s=47,15 crest_mps=2,783103787 min_mps=2,853221753 slow_ticks=0 brake_ticks=19 zero_effort_ticks=19 hill_ticks=389 average_effort=876 reserve=0,686430034 fatigue=0,02764806&#xD;
+FRESH_PACK profile=junior_novice actor=27 crest_s=55,65 crest_mps=0,955496109 min_mps=0,41253715 slow_ticks=49 brake_ticks=78 zero_effort_ticks=82 hill_ticks=532 average_effort=779 reserve=0,691636473 fatigue=0,026199997&#xD;
+FRESH_PACK profile=junior_novice actor=28 crest_s=51,35 crest_mps=2,366356729 min_mps=2,41566075 slow_ticks=0 brake_ticks=20 zero_effort_ticks=20 hill_ticks=428 average_effort=875 reserve=0,668046928 fatigue=0,027284428&#xD;
+FRESH_PACK profile=junior_novice actor=29 crest_s=47,9 crest_mps=2,60885944 min_mps=2,584281716 slow_ticks=0 brake_ticks=28 zero_effort_ticks=35 hill_ticks=399 average_effort=839 reserve=0,68101611 fatigue=0,02821781&#xD;
+FRESH_PACK_SUMMARY profile=junior_novice completed=30 p50_gap_s=8,2 p90_gap_s=12,6 max_gap_s=16,9 p10_speed=1,016590205 p50_speed=2,752981108 max_speed=4,583366009&#xD;
+&#xD;
+FRESH_PACK profile=senior_debut actor=0 crest_s=41,8 crest_mps=3,95147025 min_mps=4,019497837 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=332 average_effort=925 reserve=0,746608041 fatigue=0,025549928&#xD;
+FRESH_PACK profile=senior_debut actor=1 crest_s=39,6 crest_mps=4,238688119 min_mps=4,305117518 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=311 average_effort=920 reserve=0,687007369 fatigue=0,023828704&#xD;
+FRESH_PACK profile=senior_debut actor=2 crest_s=38 crest_mps=4,871728598 min_mps=4,88098339 slow_ticks=0 brake_ticks=3 zero_effort_ticks=4 hill_ticks=291 average_effort=918 reserve=0,788969125 fatigue=0,017805788&#xD;
+FRESH_PACK profile=senior_debut actor=3 crest_s=42,25 crest_mps=3,763645347 min_mps=3,849394698 slow_ticks=0 brake_ticks=14 zero_effort_ticks=23 hill_ticks=337 average_effort=860 reserve=0,895986857 fatigue=0,016212835&#xD;
+FRESH_PACK profile=senior_debut actor=4 crest_s=40,1 crest_mps=4,167238196 min_mps=4,167188343 slow_ticks=0 brake_ticks=6 zero_effort_ticks=6 hill_ticks=304 average_effort=869 reserve=0,850985504 fatigue=0,018452444&#xD;
+FRESH_PACK profile=senior_debut actor=5 crest_s=38,35 crest_mps=4,791898125 min_mps=4,799087221 slow_ticks=0 brake_ticks=11 zero_effort_ticks=19 hill_ticks=294 average_effort=868 reserve=0,772847944 fatigue=0,018137937&#xD;
+FRESH_PACK profile=senior_debut actor=6 crest_s=42,7 crest_mps=3,590645642 min_mps=3,577739856 slow_ticks=0 brake_ticks=27 zero_effort_ticks=42 hill_ticks=341 average_effort=806 reserve=0,786754049 fatigue=0,017660228&#xD;
+FRESH_PACK profile=senior_debut actor=7 crest_s=40,75 crest_mps=4,261369783 min_mps=4,250709779 slow_ticks=0 brake_ticks=7 zero_effort_ticks=7 hill_ticks=308 average_effort=912 reserve=0,899268153 fatigue=0,01436629&#xD;
+FRESH_PACK profile=senior_debut actor=8 crest_s=39,15 crest_mps=4,966412135 min_mps=4,976143495 slow_ticks=0 brake_ticks=1 zero_effort_ticks=1 hill_ticks=290 average_effort=926 reserve=0,805599268 fatigue=0,019611511&#xD;
+FRESH_PACK profile=senior_debut actor=9 crest_s=43,2 crest_mps=3,2829432 min_mps=3,344322019 slow_ticks=0 brake_ticks=29 zero_effort_ticks=29 hill_ticks=346 average_effort=839 reserve=0,897638192 fatigue=0,017933762&#xD;
+FRESH_PACK profile=senior_debut actor=10 crest_s=42,1 crest_mps=4,291421478 min_mps=4,300834112 slow_ticks=0 brake_ticks=0 zero_effort_ticks=4 hill_ticks=330 average_effort=915 reserve=0,71011823 fatigue=0,02464291&#xD;
+FRESH_PACK profile=senior_debut actor=11 crest_s=40,5 crest_mps=4,477701144 min_mps=4,48838678 slow_ticks=0 brake_ticks=2 zero_effort_ticks=3 hill_ticks=307 average_effort=915 reserve=0,700071895 fatigue=0,022723945&#xD;
+FRESH_PACK profile=senior_debut actor=12 crest_s=43,9 crest_mps=3,267412911 min_mps=3,337806354 slow_ticks=0 brake_ticks=26 zero_effort_ticks=27 hill_ticks=356 average_effort=852 reserve=0,72030178 fatigue=0,022053678&#xD;
+FRESH_PACK profile=senior_debut actor=13 crest_s=42,5 crest_mps=4,073612101 min_mps=4,147025573 slow_ticks=0 brake_ticks=16 zero_effort_ticks=27 hill_ticks=334 average_effort=828 reserve=0,929120348 fatigue=0,014064166&#xD;
+FRESH_PACK profile=senior_debut actor=14 crest_s=41 crest_mps=4,375350433 min_mps=4,383421061 slow_ticks=0 brake_ticks=2 zero_effort_ticks=4 hill_ticks=311 average_effort=910 reserve=0,70426485 fatigue=0,020676762&#xD;
+FRESH_PACK profile=senior_debut actor=15 crest_s=44,4 crest_mps=3,04215816 min_mps=3,013605049 slow_ticks=0 brake_ticks=24 zero_effort_ticks=30 hill_ticks=361 average_effort=843 reserve=0,70895787 fatigue=0,02544746&#xD;
+FRESH_PACK profile=senior_debut actor=16 crest_s=42,95 crest_mps=3,755634561 min_mps=3,830759875 slow_ticks=0 brake_ticks=34 zero_effort_ticks=35 hill_ticks=339 average_effort=807 reserve=0,94193402 fatigue=0,013602067&#xD;
+FRESH_PACK profile=senior_debut actor=17 crest_s=58,2 crest_mps=4,137845586 min_mps=3,752481092 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=408 average_effort=909 reserve=0,745654447 fatigue=0,031130654&#xD;
+FRESH_PACK profile=senior_debut actor=18 crest_s=45 crest_mps=2,736895853 min_mps=2,882458007 slow_ticks=0 brake_ticks=40 zero_effort_ticks=54 hill_ticks=369 average_effort=785 reserve=0,782930865 fatigue=0,017436567&#xD;
+FRESH_PACK profile=senior_debut actor=19 crest_s=43,5 crest_mps=3,628031594 min_mps=3,696194874 slow_ticks=0 brake_ticks=14 zero_effort_ticks=14 hill_ticks=345 average_effort=884 reserve=0,720299214 fatigue=0,021761765&#xD;
+FRESH_PACK profile=senior_debut actor=20 crest_s=47,75 crest_mps=4,792509804 min_mps=4,797910125 slow_ticks=0 brake_ticks=0 zero_effort_ticks=0 hill_ticks=343 average_effort=920 reserve=0,727741565 fatigue=0,020958102&#xD;
+FRESH_PACK profile=senior_debut actor=21 crest_s=45,85 crest_mps=2,985005409 min_mps=2,865882507 slow_ticks=0 brake_ticks=38 zero_effort_ticks=38 hill_ticks=381 average_effort=830 reserve=0,757144502 fatigue=0,018565217&#xD;
+FRESH_PACK profile=senior_debut actor=22 crest_s=44 crest_mps=3,502882434 min_mps=3,570927243 slow_ticks=0 brake_ticks=18 zero_effort_ticks=18 hill_ticks=341 average_effort=841 reserve=0,901574116 fatigue=0,016384818&#xD;
+FRESH_PACK profile=senior_debut actor=23 crest_s=43 crest_mps=4,260175036 min_mps=4,265815498 slow_ticks=0 brake_ticks=10 zero_effort_ticks=9 hill_ticks=327 average_effort=901 reserve=0,726531883 fatigue=0,020415651&#xD;
+FRESH_PACK profile=senior_debut actor=24 crest_s=46,4 crest_mps=2,787884375 min_mps=2,828892465 slow_ticks=0 brake_ticks=53 zero_effort_ticks=53 hill_ticks=386 average_effort=790 reserve=0,894149657 fatigue=0,017149278&#xD;
+FRESH_PACK profile=senior_debut actor=25 crest_s=44,55 crest_mps=3,398789861 min_mps=3,378610249 slow_ticks=0 brake_ticks=30 zero_effort_ticks=29 hill_ticks=347 average_effort=849 reserve=0,901533153 fatigue=0,016052068&#xD;
+FRESH_PACK profile=senior_debut actor=26 crest_s=43,6 crest_mps=4,288674004 min_mps=4,294621825 slow_ticks=0 brake_ticks=2 zero_effort_ticks=2 hill_ticks=334 average_effort=920 reserve=0,722305445 fatigue=0,022783361&#xD;
+FRESH_PACK profile=senior_debut actor=27 crest_s=47,15 crest_mps=2,702003556 min_mps=2,665919175 slow_ticks=0 brake_ticks=48 zero_effort_ticks=53 hill_ticks=396 average_effort=796 reserve=0,76331972 fatigue=0,019308188&#xD;
+FRESH_PACK profile=senior_debut actor=28 crest_s=45,45 crest_mps=3,433351493 min_mps=3,420199918 slow_ticks=0 brake_ticks=13 zero_effort_ticks=13 hill_ticks=360 average_effort=887 reserve=0,728157395 fatigue=0,020456443&#xD;
+FRESH_PACK profile=senior_debut actor=29 crest_s=43,95 crest_mps=3,898979068 min_mps=3,97602335 slow_ticks=0 brake_ticks=27 zero_effort_ticks=33 hill_ticks=336 average_effort=831 reserve=0,77035905 fatigue=0,019584884&#xD;
+FRESH_PACK_SUMMARY profile=senior_debut completed=30 p50_gap_s=5,2 p90_gap_s=8,4 max_gap_s=20,2 p10_speed=2,787884375 p50_speed=3,95147025 max_speed=4,966412135&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

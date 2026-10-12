@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="2542b505-b8ee-41e0-80bf-4cc5ff65ab53" name="snkashkin@DESKTOP-G3075GA 2026-10-12 18:27:30" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-12T18:27:30.2130975+03:00" queuing="2026-10-12T18:27:30.2130975+03:00" start="2026-10-12T18:27:26.6556151+03:00" finish="2026-10-12T18:28:34.5742564+03:00" />
+  <TestSettings name="default" id="940129f3-7458-48de-bbfe-2052086c5c9b">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-12_18_27_30" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="af4a1f2e-e95b-4380-b3d0-ec12eb296367" testId="a2c591d8-51f4-2dbf-24f6-fa1e77502d0f" testName="ZeroRemainingFrontRowHoldsTheIncomingEndpointUntilPhysicalHandoff" computerName="DESKTOP-G3075GA" duration="00:00:00.7956069" startTime="2026-10-12T18:28:27.0323940+03:00" endTime="2026-10-12T18:28:27.8280035+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="af4a1f2e-e95b-4380-b3d0-ec12eb296367">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: 0&#xD;
+  But was:  87832000000&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.AiStartTrafficTests.ZeroRemainingFrontRowHoldsTheIncomingEndpointUntilPhysicalHandoff() in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Tests\EditMode\AiStartTrafficTests.cs:line 72&#xD;
+
+1)    at Biathlon.Tests.AiStartTrafficTests.ZeroRemainingFrontRowHoldsTheIncomingEndpointUntilPhysicalHandoff() in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Tests\EditMode\AiStartTrafficTests.cs:line 72&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="448493e4-68f6-485d-850c-c50e8223d2a0" testId="c173cd2f-2022-f893-c632-f4ebc59f71dd" testName="TerminalMatArrivalRepeatsWorldPhysiologyAndEventsExactly" computerName="DESKTOP-G3075GA" duration="00:00:06.5913080" startTime="2026-10-12T18:28:27.8286964+03:00" endTime="2026-10-12T18:28:34.4200248+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="448493e4-68f6-485d-850c-c50e8223d2a0">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Manual field step rejected: WorldRejected / Course / woodland_basin_v1_athlete_2; candidate clock not paid.</Message>
+          <StackTrace>   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering, Double playerBrake) in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Scripts\AI\ManualScopedAiMovement.cs:line 276&#xD;
+   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Scripts\AI\PackAiRaceRunner.cs:line 498&#xD;
+   at Biathlon.AI.PackAiRaceRunner.Step() in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Scripts\AI\PackAiRaceRunner.cs:line 223&#xD;
+   at Biathlon.Tests.ManualScopedFieldStepperTests.TerminalMatArrivalRepeatsWorldPhysiologyAndEventsExactly() in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Tests\EditMode\ManualScopedFieldStepperTests.cs:line 224&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9cb40d75-0943-4b23-a18b-142bd8b591a7" testId="95a69b03-5976-70cb-586d-c589c9f5bee1" testName="OptedInPerceptionSeesTheStationaryBodyAcrossThePaidSeamWithoutAllocations" computerName="DESKTOP-G3075GA" duration="00:00:01.7739550" startTime="2026-10-12T18:27:27.5461025+03:00" endTime="2026-10-12T18:27:29.3200186+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9cb40d75-0943-4b23-a18b-142bd8b591a7">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: not equal to "start_approach"&#xD;
+  But was:  "start_approach"&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.AiStartTrafficTests.OptedInPerceptionSeesTheStationaryBodyAcrossThePaidSeamWithoutAllocations() in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Tests\EditMode\AiStartTrafficTests.cs:line 206&#xD;
+
+1)    at Biathlon.Tests.AiStartTrafficTests.OptedInPerceptionSeesTheStationaryBodyAcrossThePaidSeamWithoutAllocations() in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Tests\EditMode\AiStartTrafficTests.cs:line 206&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cd81b323-1f22-4d43-a620-c05dbd38ac03" testId="e7e6dbc2-cf19-bd9f-cb6b-01e2d5f23146" testName="RearStartRowsPassStationaryPlayerThroughPaidClearSpace(1,6)" computerName="DESKTOP-G3075GA" duration="00:00:07.0513430" startTime="2026-10-12T18:27:36.1830284+03:00" endTime="2026-10-12T18:27:43.2343930+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cd81b323-1f22-4d43-a620-c05dbd38ac03">
+      <Output>
+        <ErrorInfo>
+          <Message>  Clear side space must let the rear athlete leave the grid.&#xD;
+  Expected: 0&#xD;
+  But was:  830560&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.AiStartTrafficTests.RearStartRowsPassStationaryPlayerThroughPaidClearSpace(Int32 player, Int32 fieldSize) in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Tests\EditMode\AiStartTrafficTests.cs:line 133&#xD;
+   at InvokeStub_AiStartTrafficTests.RearStartRowsPassStationaryPlayerThroughPaidClearSpace(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.AiStartTrafficTests.RearStartRowsPassStationaryPlayerThroughPaidClearSpace(Int32 player, Int32 fieldSize) in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Tests\EditMode\AiStartTrafficTests.cs:line 133&#xD;
+   at InvokeStub_AiStartTrafficTests.RearStartRowsPassStationaryPlayerThroughPaidClearSpace(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2dcbc7ec-2e6b-4236-a2d4-bf1b43bc9f79" testId="45596022-82c5-1549-ac2f-ffd59ec902a8" testName="RearStartRowsPassStationaryPlayerThroughPaidClearSpace(2,6)" computerName="DESKTOP-G3075GA" duration="00:00:06.8109170" startTime="2026-10-12T18:27:43.2344209+03:00" endTime="2026-10-12T18:27:50.0453588+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2dcbc7ec-2e6b-4236-a2d4-bf1b43bc9f79">
+      <Output>
+        <ErrorInfo>
+          <Message>  Clear side space must let the rear athlete leave the grid.&#xD;
+  Expected: 0&#xD;
+  But was:  99651&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.AiStartTrafficTests.RearStartRowsPassStationaryPlayerThroughPaidClearSpace(Int32 player, Int32 fieldSize) in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Tests\EditMode\AiStartTrafficTests.cs:line 133&#xD;
+   at InvokeStub_AiStartTrafficTests.RearStartRowsPassStationaryPlayerThroughPaidClearSpace(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.AiStartTrafficTests.RearStartRowsPassStationaryPlayerThroughPaidClearSpace(Int32 player, Int32 fieldSize) in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Tests\EditMode\AiStartTrafficTests.cs:line 133&#xD;
+   at InvokeStub_AiStartTrafficTests.RearStartRowsPassStationaryPlayerThroughPaidClearSpace(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="91df348b-bccb-456a-a06e-0339c031f899" testId="87a2388a-538d-79bf-908f-8c3157e9fdc4" testName="RearStartRowsPassStationaryPlayerThroughPaidClearSpace(0,30)" computerName="DESKTOP-G3075GA" duration="00:00:36.9859950" startTime="2026-10-12T18:27:50.0453876+03:00" endTime="2026-10-12T18:28:27.0315006+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="91df348b-bccb-456a-a06e-0339c031f899">
+      <Output>
+        <ErrorInfo>
+          <Message>  Clear side space must let the rear athlete leave the grid.&#xD;
+  Expected: 0&#xD;
+  But was:  829581&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.AiStartTrafficTests.RearStartRowsPassStationaryPlayerThroughPaidClearSpace(Int32 player, Int32 fieldSize) in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Tests\EditMode\AiStartTrafficTests.cs:line 133&#xD;
+   at InvokeStub_AiStartTrafficTests.RearStartRowsPassStationaryPlayerThroughPaidClearSpace(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.AiStartTrafficTests.RearStartRowsPassStationaryPlayerThroughPaidClearSpace(Int32 player, Int32 fieldSize) in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Tests\EditMode\AiStartTrafficTests.cs:line 133&#xD;
+   at InvokeStub_AiStartTrafficTests.RearStartRowsPassStationaryPlayerThroughPaidClearSpace(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e030582d-bbde-4e53-8337-e36c02e25dc7" testId="426ee102-979a-fa95-1795-f16202de8d88" testName="RearStartRowsPassStationaryPlayerThroughPaidClearSpace(0,6)" computerName="DESKTOP-G3075GA" duration="00:00:06.8621910" startTime="2026-10-12T18:27:29.3207813+03:00" endTime="2026-10-12T18:27:36.1829938+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e030582d-bbde-4e53-8337-e36c02e25dc7">
+      <Output>
+        <ErrorInfo>
+          <Message>  Clear side space must let the rear athlete leave the grid.&#xD;
+  Expected: 0&#xD;
+  But was:  829581&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.AiStartTrafficTests.RearStartRowsPassStationaryPlayerThroughPaidClearSpace(Int32 player, Int32 fieldSize) in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Tests\EditMode\AiStartTrafficTests.cs:line 133&#xD;
+
+1)    at Biathlon.Tests.AiStartTrafficTests.RearStartRowsPassStationaryPlayerThroughPaidClearSpace(Int32 player, Int32 fieldSize) in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Tests\EditMode\AiStartTrafficTests.cs:line 133&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="RearStartRowsPassStationaryPlayerThroughPaidClearSpace(2,6)" storage="c:\game\biathlon\biathlon\.tmp\m14-burst-head-baseline\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="45596022-82c5-1549-ac2f-ffd59ec902a8">
+      <Execution id="2dcbc7ec-2e6b-4236-a2d4-bf1b43bc9f79" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.AiStartTrafficTests" name="RearStartRowsPassStationaryPlayerThroughPaidClearSpace(2,6)" />
+    </UnitTest>
+    <UnitTest name="RearStartRowsPassStationaryPlayerThroughPaidClearSpace(1,6)" storage="c:\game\biathlon\biathlon\.tmp\m14-burst-head-baseline\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="e7e6dbc2-cf19-bd9f-cb6b-01e2d5f23146">
+      <Execution id="cd81b323-1f22-4d43-a620-c05dbd38ac03" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.AiStartTrafficTests" name="RearStartRowsPassStationaryPlayerThroughPaidClearSpace(1,6)" />
+    </UnitTest>
+    <UnitTest name="OptedInPerceptionSeesTheStationaryBodyAcrossThePaidSeamWithoutAllocations" storage="c:\game\biathlon\biathlon\.tmp\m14-burst-head-baseline\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="95a69b03-5976-70cb-586d-c589c9f5bee1">
+      <Execution id="9cb40d75-0943-4b23-a18b-142bd8b591a7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.AiStartTrafficTests" name="OptedInPerceptionSeesTheStationaryBodyAcrossThePaidSeamWithoutAllocations" />
+    </UnitTest>
+    <UnitTest name="RearStartRowsPassStationaryPlayerThroughPaidClearSpace(0,30)" storage="c:\game\biathlon\biathlon\.tmp\m14-burst-head-baseline\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="87a2388a-538d-79bf-908f-8c3157e9fdc4">
+      <Execution id="91df348b-bccb-456a-a06e-0339c031f899" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.AiStartTrafficTests" name="RearStartRowsPassStationaryPlayerThroughPaidClearSpace(0,30)" />
+    </UnitTest>
+    <UnitTest name="TerminalMatArrivalRepeatsWorldPhysiologyAndEventsExactly" storage="c:\game\biathlon\biathlon\.tmp\m14-burst-head-baseline\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="c173cd2f-2022-f893-c632-f4ebc59f71dd">
+      <Execution id="448493e4-68f6-485d-850c-c50e8223d2a0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="TerminalMatArrivalRepeatsWorldPhysiologyAndEventsExactly" />
+    </UnitTest>
+    <UnitTest name="RearStartRowsPassStationaryPlayerThroughPaidClearSpace(0,6)" storage="c:\game\biathlon\biathlon\.tmp\m14-burst-head-baseline\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="426ee102-979a-fa95-1795-f16202de8d88">
+      <Execution id="e030582d-bbde-4e53-8337-e36c02e25dc7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.AiStartTrafficTests" name="RearStartRowsPassStationaryPlayerThroughPaidClearSpace(0,6)" />
+    </UnitTest>
+    <UnitTest name="ZeroRemainingFrontRowHoldsTheIncomingEndpointUntilPhysicalHandoff" storage="c:\game\biathlon\biathlon\.tmp\m14-burst-head-baseline\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="a2c591d8-51f4-2dbf-24f6-fa1e77502d0f">
+      <Execution id="af4a1f2e-e95b-4380-b3d0-ec12eb296367" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.AiStartTrafficTests" name="ZeroRemainingFrontRowHoldsTheIncomingEndpointUntilPhysicalHandoff" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="a2c591d8-51f4-2dbf-24f6-fa1e77502d0f" executionId="af4a1f2e-e95b-4380-b3d0-ec12eb296367" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c173cd2f-2022-f893-c632-f4ebc59f71dd" executionId="448493e4-68f6-485d-850c-c50e8223d2a0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="95a69b03-5976-70cb-586d-c589c9f5bee1" executionId="9cb40d75-0943-4b23-a18b-142bd8b591a7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e7e6dbc2-cf19-bd9f-cb6b-01e2d5f23146" executionId="cd81b323-1f22-4d43-a620-c05dbd38ac03" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="45596022-82c5-1549-ac2f-ffd59ec902a8" executionId="2dcbc7ec-2e6b-4236-a2d4-bf1b43bc9f79" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="87a2388a-538d-79bf-908f-8c3157e9fdc4" executionId="91df348b-bccb-456a-a06e-0339c031f899" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="426ee102-979a-fa95-1795-f16202de8d88" executionId="e030582d-bbde-4e53-8337-e36c02e25dc7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="7" executed="7" passed="0" failed="7" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 7 of 7 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

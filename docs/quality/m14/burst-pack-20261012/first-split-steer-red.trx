@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="81bd20f7-6a10-4b3a-8ed4-97ca9150eeff" name="snkashkin@DESKTOP-G3075GA 2026-10-12 18:57:02" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-12T18:57:02.8525354+03:00" queuing="2026-10-12T18:57:02.8525355+03:00" start="2026-10-12T18:56:42.0330298+03:00" finish="2026-10-12T18:57:02.8569549+03:00" />
+  <TestSettings name="default" id="11a2ee85-b6fd-4dad-a18b-a647ee9cfeac">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-12_18_57_02" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="444de166-db18-4ce4-a7b5-f9f0cd017456" testId="7894afcf-3dac-a429-0c32-5b860e5b6758" testName="FirstRegisteredSplitRetainsACompetitiveFreshField(&quot;junior_novice&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:20.0763390" startTime="2026-10-12T18:56:42.5372940+03:00" endTime="2026-10-12T18:57:02.6136351+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="444de166-db18-4ce4-a7b5-f9f0cd017456">
+      <Output>
+        <StdOut>TAIL_FORCE tick=1000 main=193.69 speed=0.592 requested=878 power=407.95 relative=1.141 reserve=0.296 fatigue=0.035 tuck=False grade=0.034 heading=2.803 velocity_x=0.247 velocity_z=-0.537 side=-0.127 yaw=-0.080 steer=-1000 contacts=2&#xD;
+TAIL_FORCE tick=1020 main=194.22 speed=0.564 requested=906 power=420.87 relative=1.178 reserve=0.290 fatigue=0.036 tuck=False grade=0.039 heading=2.765 velocity_x=0.240 velocity_z=-0.510 side=-0.160 yaw=-0.053 steer=-27 contacts=1&#xD;
+TAIL_FORCE tick=1040 main=194.77 speed=0.576 requested=912 power=423.57 relative=1.186 reserve=0.283 fatigue=0.037 tuck=False grade=0.039 heading=2.735 velocity_x=0.266 velocity_z=-0.510 side=-0.206 yaw=-0.061 steer=-1000 contacts=4&#xD;
+TAIL_FORCE tick=1060 main=195.32 speed=0.800 requested=637 power=295.79 relative=0.828 reserve=0.279 fatigue=0.037 tuck=False grade=0.026 heading=2.712 velocity_x=0.334 velocity_z=-0.726 side=-0.282 yaw=-0.002 steer=-1 contacts=3&#xD;
+TAIL_FORCE tick=1180 main=204.49 speed=0.562 requested=825 power=382.78 relative=1.073 reserve=0.272 fatigue=0.040 tuck=False grade=0.039 heading=3.140 velocity_x=-0.049 velocity_z=-0.559 side=-1.818 yaw=0.073 steer=816 contacts=3&#xD;
+TAIL_FORCE tick=1200 main=205.03 speed=0.538 requested=829 power=384.57 relative=1.078 reserve=0.270 fatigue=0.041 tuck=False grade=0.040 heading=3.177 velocity_x=-0.066 velocity_z=-0.534 side=-1.889 yaw=0.068 steer=844 contacts=3&#xD;
+TAIL_FORCE tick=1220 main=205.42 speed=0.544 requested=844 power=391.46 relative=1.097 reserve=0.267 fatigue=0.041 tuck=False grade=0.052 heading=3.213 velocity_x=-0.067 velocity_z=-0.539 side=-1.958 yaw=0.043 steer=22 contacts=1&#xD;
+TAIL_FORCE tick=1240 main=205.94 speed=0.604 requested=850 power=394.17 relative=1.105 reserve=0.264 fatigue=0.042 tuck=False grade=0.052 heading=3.246 velocity_x=-0.064 velocity_z=-0.599 side=-2.025 yaw=0.002 steer=1 contacts=3&#xD;
+TAIL_FORCE tick=1260 main=206.44 speed=0.521 requested=833 power=386.21 relative=1.083 reserve=0.262 fatigue=0.042 tuck=False grade=0.053 heading=3.278 velocity_x=-0.111 velocity_z=-0.508 side=-2.075 yaw=0.059 steer=983 contacts=1&#xD;
+TAIL_FORCE tick=1280 main=206.89 speed=0.437 requested=874 power=405.14 relative=1.136 reserve=0.257 fatigue=0.043 tuck=False grade=0.062 heading=3.309 velocity_x=-0.077 velocity_z=-0.429 side=-2.132 yaw=0.008 steer=-1000 contacts=0&#xD;
+TAIL_FORCE tick=1300 main=207.41 speed=0.609 requested=873 power=404.60 relative=1.135 reserve=0.251 fatigue=0.044 tuck=False grade=0.062 heading=3.339 velocity_x=-0.120 velocity_z=-0.596 side=-2.175 yaw=0.002 steer=1 contacts=1&#xD;
+TAIL_FORCE tick=1320 main=207.88 speed=0.533 requested=577 power=267.37 relative=0.750 reserve=0.249 fatigue=0.044 tuck=False grade=0.066 heading=3.368 velocity_x=-0.120 velocity_z=-0.518 side=-2.205 yaw=0.002 steer=1 contacts=3&#xD;
+TAIL_FORCE tick=1340 main=208.36 speed=0.542 requested=830 power=384.57 relative=1.079 reserve=0.250 fatigue=0.045 tuck=False grade=0.066 heading=3.399 velocity_x=-0.159 velocity_z=-0.517 side=-2.224 yaw=0.033 steer=17 contacts=0&#xD;
+TAIL_FORCE tick=1360 main=208.85 speed=0.461 requested=549 power=254.34 relative=0.714 reserve=0.249 fatigue=0.045 tuck=False grade=0.066 heading=3.426 velocity_x=-0.144 velocity_z=-0.438 side=-2.232 yaw=0.026 steer=13 contacts=0&#xD;
+TAIL_FORCE tick=1380 main=209.33 speed=0.567 requested=814 power=377.07 relative=1.058 reserve=0.250 fatigue=0.045 tuck=False grade=0.066 heading=3.449 velocity_x=-0.172 velocity_z=-0.539 side=-2.230 yaw=0.002 steer=1 contacts=1&#xD;
+TAIL_FORCE tick=1580 main=230.11 speed=0.461 requested=394 power=182.38 relative=0.512 reserve=0.263 fatigue=0.048 tuck=False grade=0.000 heading=3.832 velocity_x=-0.321 velocity_z=-0.331 side=-1.407 yaw=0.054 steer=1000 contacts=6&#xD;
+TAIL_FORCE tick=1600 main=230.63 speed=0.536 requested=410 power=189.78 relative=0.533 reserve=0.266 fatigue=0.048 tuck=False grade=0.000 heading=3.863 velocity_x=-0.370 velocity_z=-0.387 side=-1.466 yaw=0.033 steer=17 contacts=8&#xD;
+TAIL_FORCE tick=1620 main=231.00 speed=0.474 requested=393 power=181.90 relative=0.511 reserve=0.269 fatigue=0.048 tuck=False grade=0.000 heading=3.893 velocity_x=-0.350 velocity_z=-0.319 side=-1.538 yaw=0.055 steer=1000 contacts=6&#xD;
+TAIL_FORCE tick=1640 main=231.51 speed=0.559 requested=408 power=188.84 relative=0.530 reserve=0.271 fatigue=0.048 tuck=False grade=0.000 heading=3.924 velocity_x=-0.394 velocity_z=-0.396 side=-1.616 yaw=0.002 steer=1 contacts=7&#xD;
+TAIL_FORCE tick=1660 main=232.02 speed=0.502 requested=391 power=180.97 relative=0.508 reserve=0.274 fatigue=0.048 tuck=False grade=0.000 heading=3.955 velocity_x=-0.380 velocity_z=-0.328 side=-1.676 yaw=0.037 steer=19 contacts=8&#xD;
+TAIL_FORCE tick=1680 main=232.55 speed=0.574 requested=400 power=185.13 relative=0.520 reserve=0.277 fatigue=0.048 tuck=False grade=0.000 heading=3.986 velocity_x=-0.429 velocity_z=-0.380 side=-1.723 yaw=0.002 steer=1 contacts=4&#xD;
+TAIL_FORCE tick=1700 main=232.90 speed=0.516 requested=396 power=183.28 relative=0.515 reserve=0.280 fatigue=0.048 tuck=False grade=0.000 heading=4.018 velocity_x=-0.411 velocity_z=-0.311 side=-1.793 yaw=0.037 steer=19 contacts=7&#xD;
+TAIL_FORCE tick=1720 main=233.41 speed=0.452 requested=391 power=180.96 relative=0.508 reserve=0.282 fatigue=0.048 tuck=False grade=0.000 heading=4.049 velocity_x=-0.377 velocity_z=-0.249 side=-1.854 yaw=0.053 steer=1000 contacts=9&#xD;
+TAIL_FORCE tick=1740 main=233.94 speed=0.532 requested=410 power=189.75 relative=0.533 reserve=0.285 fatigue=0.048 tuck=False grade=0.000 heading=4.081 velocity_x=-0.442 velocity_z=-0.297 side=-1.900 yaw=0.033 steer=17 contacts=7&#xD;
+TAIL_FORCE tick=1760 main=234.41 speed=0.468 requested=393 power=181.88 relative=0.511 reserve=0.288 fatigue=0.048 tuck=False grade=0.000 heading=4.111 velocity_x=-0.406 velocity_z=-0.233 side=-1.932 yaw=0.055 steer=1000 contacts=7&#xD;
+TAIL_FORCE tick=1780 main=234.83 speed=0.551 requested=405 power=187.42 relative=0.527 reserve=0.291 fatigue=0.049 tuck=False grade=0.000 heading=4.141 velocity_x=-0.464 velocity_z=-0.298 side=-1.981 yaw=0.002 steer=1 contacts=8&#xD;
+TAIL_FORCE tick=1800 main=235.35 speed=0.485 requested=393 power=181.87 relative=0.511 reserve=0.293 fatigue=0.049 tuck=False grade=0.000 heading=4.171 velocity_x=-0.434 velocity_z=-0.216 side=-2.019 yaw=0.056 steer=1000 contacts=4&#xD;
+TAIL_FORCE tick=1820 main=235.87 speed=0.562 requested=407 power=188.34 relative=0.529 reserve=0.296 fatigue=0.049 tuck=False grade=0.000 heading=4.200 velocity_x=-0.490 velocity_z=-0.275 side=-2.041 yaw=0.002 steer=1 contacts=5&#xD;
+TAIL_FORCE tick=1840 main=236.38 speed=0.499 requested=396 power=183.25 relative=0.515 reserve=0.299 fatigue=0.049 tuck=False grade=0.000 heading=4.228 velocity_x=-0.449 velocity_z=-0.217 side=-2.049 yaw=0.028 steer=14 contacts=6&#xD;
+TAIL_FORCE tick=1860 main=236.76 speed=0.579 requested=401 power=185.56 relative=0.521 reserve=0.302 fatigue=0.049 tuck=False grade=0.000 heading=4.256 velocity_x=-0.520 velocity_z=-0.254 side=-2.078 yaw=0.002 steer=1 contacts=2&#xD;
+TAIL_FORCE tick=1880 main=237.28 speed=0.509 requested=398 power=184.16 relative=0.517 reserve=0.304 fatigue=0.049 tuck=False grade=0.000 heading=4.284 velocity_x=-0.469 velocity_z=-0.198 side=-2.097 yaw=0.024 steer=12 contacts=7&#xD;
+TAIL_FORCE tick=1900 main=237.81 speed=0.581 requested=402 power=186.01 relative=0.523 reserve=0.307 fatigue=0.049 tuck=False grade=0.000 heading=4.309 velocity_x=-0.535 velocity_z=-0.227 side=-2.104 yaw=0.002 steer=1 contacts=4&#xD;
+TAIL_FORCE tick=1920 main=238.34 speed=0.521 requested=397 power=183.69 relative=0.516 reserve=0.310 fatigue=0.049 tuck=False grade=0.000 heading=4.335 velocity_x=-0.488 velocity_z=-0.183 side=-2.097 yaw=0.016 steer=8 contacts=3&#xD;
+TAIL_FORCE tick=1940 main=238.72 speed=0.470 requested=405 power=187.39 relative=0.527 reserve=0.313 fatigue=0.049 tuck=False grade=0.000 heading=4.359 velocity_x=-0.452 velocity_z=-0.127 side=-2.100 yaw=0.055 steer=1000 contacts=4&#xD;
+TAIL_FORCE tick=1960 main=239.26 speed=0.537 requested=406 power=187.85 relative=0.528 reserve=0.315 fatigue=0.049 tuck=False grade=0.000 heading=4.379 velocity_x=-0.512 velocity_z=-0.162 side=-2.106 yaw=0.022 steer=11 contacts=5&#xD;
+TAIL_FORCE tick=1980 main=239.91 speed=0.750 requested=390 power=180.44 relative=0.507 reserve=0.318 fatigue=0.049 tuck=False grade=0.000 heading=4.391 velocity_x=-0.727 velocity_z=-0.184 side=-2.111 yaw=0.080 steer=1000 contacts=4&#xD;
+TAIL_FORCE tick=2000 main=240.52 speed=0.692 requested=395 power=182.75 relative=0.514 reserve=0.321 fatigue=0.049 tuck=False grade=0.000 heading=4.406 velocity_x=-0.660 velocity_z=-0.207 side=-2.106 yaw=0.002 steer=1 contacts=5&#xD;
+TAIL_FORCE tick=2020 main=240.96 speed=0.628 requested=407 power=188.30 relative=0.529 reserve=0.324 fatigue=0.049 tuck=False grade=0.000 heading=4.423 velocity_x=-0.602 velocity_z=-0.178 side=-2.114 yaw=0.002 steer=1 contacts=3&#xD;
+TAIL_FORCE tick=2040 main=241.55 speed=0.702 requested=410 power=189.68 relative=0.533 reserve=0.326 fatigue=0.050 tuck=False grade=0.000 heading=4.436 velocity_x=-0.676 velocity_z=-0.190 side=-2.124 yaw=0.002 steer=1 contacts=3&#xD;
+TAIL_FORCE tick=2060 main=242.13 speed=0.642 requested=395 power=182.74 relative=0.514 reserve=0.329 fatigue=0.050 tuck=False grade=0.000 heading=4.452 velocity_x=-0.621 velocity_z=-0.164 side=-2.125 yaw=0.002 steer=1 contacts=4&#xD;
+TAIL_FORCE tick=2080 main=242.79 speed=0.847 requested=401 power=185.51 relative=0.521 reserve=0.332 fatigue=0.050 tuck=False grade=0.000 heading=4.464 velocity_x=-0.821 velocity_z=-0.207 side=-2.120 yaw=0.002 steer=1 contacts=3&#xD;
+TAIL_FORCE tick=2100 main=243.31 speed=0.816 requested=662 power=306.24 relative=0.861 reserve=0.334 fatigue=0.050 tuck=False grade=0.000 heading=4.482 velocity_x=-0.805 velocity_z=-0.131 side=-2.131 yaw=0.083 steer=1000 contacts=2&#xD;
+FIRST_SPLIT_TAIL actor=0 gap=20.24 bin=180 seconds=10.90 brakes=0 zero=0 off=0 min_mps=3.201&#xD;
+FIRST_SPLIT_TAIL actor=0 gap=20.24 bin=220 seconds=13.75 brakes=4 zero=0 off=0 min_mps=2.364&#xD;
+FIRST_SPLIT_TAIL actor=0 gap=20.24 bin=260 seconds=7.40 brakes=0 zero=0 off=0 min_mps=4.651&#xD;
+FIRST_SPLIT_TAIL actor=0 gap=20.24 bin=300 seconds=7.55 brakes=17 zero=17 off=0 min_mps=2.300&#xD;
+FIRST_SPLIT_TAIL actor=0 gap=20.24 bin=340 seconds=11.00 brakes=0 zero=0 off=0 min_mps=3.088&#xD;
+FIRST_SPLIT_TAIL actor=6 gap=59.44 bin=180 seconds=29.85 brakes=4 zero=5 off=0 min_mps=0.406&#xD;
+FIRST_SPLIT_TAIL actor=6 gap=59.44 bin=220 seconds=36.80 brakes=0 zero=0 off=0 min_mps=0.414&#xD;
+FIRST_SPLIT_TAIL actor=6 gap=59.44 bin=260 seconds=7.40 brakes=0 zero=0 off=0 min_mps=4.922&#xD;
+FIRST_SPLIT_TAIL actor=6 gap=59.44 bin=300 seconds=6.10 brakes=0 zero=0 off=0 min_mps=5.981&#xD;
+FIRST_SPLIT_TAIL actor=6 gap=59.44 bin=340 seconds=4.50 brakes=0 zero=0 off=0 min_mps=7.045&#xD;
+FIRST_SPLIT_TAIL actor=9 gap=40.41 bin=180 seconds=12.25 brakes=0 zero=0 off=0 min_mps=2.575&#xD;
+FIRST_SPLIT_TAIL actor=9 gap=40.41 bin=220 seconds=34.10 brakes=16 zero=16 off=0 min_mps=0.408&#xD;
+FIRST_SPLIT_TAIL actor=9 gap=40.41 bin=260 seconds=7.45 brakes=0 zero=0 off=0 min_mps=4.685&#xD;
+FIRST_SPLIT_TAIL actor=9 gap=40.41 bin=300 seconds=6.20 brakes=0 zero=0 off=0 min_mps=5.917&#xD;
+FIRST_SPLIT_TAIL actor=9 gap=40.41 bin=340 seconds=5.50 brakes=0 zero=0 off=0 min_mps=7.002&#xD;
+FIRST_SPLIT_TAIL actor=12 gap=20.31 bin=180 seconds=10.80 brakes=8 zero=8 off=0 min_mps=3.005&#xD;
+FIRST_SPLIT_TAIL actor=12 gap=20.31 bin=220 seconds=13.45 brakes=9 zero=7 off=0 min_mps=2.248&#xD;
+FIRST_SPLIT_TAIL actor=12 gap=20.31 bin=260 seconds=7.30 brakes=0 zero=0 off=0 min_mps=4.998&#xD;
+FIRST_SPLIT_TAIL actor=12 gap=20.31 bin=300 seconds=7.05 brakes=25 zero=25 off=0 min_mps=2.524&#xD;
+FIRST_SPLIT_TAIL actor=12 gap=20.31 bin=340 seconds=11.05 brakes=4 zero=6 off=0 min_mps=3.065&#xD;
+FIRST_SPLIT_TAIL actor=15 gap=20.70 bin=180 seconds=10.90 brakes=6 zero=6 off=0 min_mps=2.772&#xD;
+FIRST_SPLIT_TAIL actor=15 gap=20.70 bin=220 seconds=13.50 brakes=13 zero=11 off=0 min_mps=1.796&#xD;
+FIRST_SPLIT_TAIL actor=15 gap=20.70 bin=260 seconds=6.90 brakes=0 zero=0 off=0 min_mps=5.363&#xD;
+FIRST_SPLIT_TAIL actor=15 gap=20.70 bin=300 seconds=7.20 brakes=17 zero=17 off=0 min_mps=2.484&#xD;
+FIRST_SPLIT_TAIL actor=15 gap=20.70 bin=340 seconds=10.95 brakes=4 zero=4 off=0 min_mps=3.054&#xD;
+FIRST_SPLIT_TAIL actor=18 gap=21.09 bin=180 seconds=11.15 brakes=12 zero=12 off=0 min_mps=2.452&#xD;
+FIRST_SPLIT_TAIL actor=18 gap=21.09 bin=220 seconds=13.65 brakes=10 zero=10 off=0 min_mps=1.588&#xD;
+FIRST_SPLIT_TAIL actor=18 gap=21.09 bin=260 seconds=7.35 brakes=0 zero=0 off=0 min_mps=5.049&#xD;
+FIRST_SPLIT_TAIL actor=18 gap=21.09 bin=300 seconds=6.45 brakes=15 zero=15 off=0 min_mps=4.076&#xD;
+FIRST_SPLIT_TAIL actor=18 gap=21.09 bin=340 seconds=10.70 brakes=12 zero=12 off=0 min_mps=3.278&#xD;
+FIRST_SPLIT_TAIL actor=21 gap=49.50 bin=180 seconds=23.90 brakes=0 zero=0 off=0 min_mps=0.423&#xD;
+FIRST_SPLIT_TAIL actor=21 gap=49.50 bin=220 seconds=32.85 brakes=1 zero=1 off=0 min_mps=0.407&#xD;
+FIRST_SPLIT_TAIL actor=21 gap=49.50 bin=260 seconds=7.20 brakes=0 zero=0 off=0 min_mps=5.016&#xD;
+FIRST_SPLIT_TAIL actor=21 gap=49.50 bin=300 seconds=6.00 brakes=0 zero=0 off=0 min_mps=6.122&#xD;
+FIRST_SPLIT_TAIL actor=21 gap=49.50 bin=340 seconds=5.40 brakes=0 zero=0 off=0 min_mps=7.178&#xD;
+FIRST_SPLIT_TAIL actor=24 gap=31.59 bin=180 seconds=10.35 brakes=14 zero=14 off=0 min_mps=2.448&#xD;
+FIRST_SPLIT_TAIL actor=24 gap=31.59 bin=220 seconds=29.30 brakes=0 zero=0 off=0 min_mps=0.407&#xD;
+FIRST_SPLIT_TAIL actor=24 gap=31.59 bin=260 seconds=6.90 brakes=0 zero=0 off=0 min_mps=5.312&#xD;
+FIRST_SPLIT_TAIL actor=24 gap=31.59 bin=300 seconds=5.80 brakes=0 zero=0 off=0 min_mps=6.335&#xD;
+FIRST_SPLIT_TAIL actor=24 gap=31.59 bin=340 seconds=5.30 brakes=0 zero=0 off=0 min_mps=7.332&#xD;
+FIRST_SPLIT_TAIL actor=25 gap=30.75 bin=180 seconds=12.55 brakes=14 zero=15 off=0 min_mps=2.355&#xD;
+FIRST_SPLIT_TAIL actor=25 gap=30.75 bin=220 seconds=9.15 brakes=7 zero=7 off=0 min_mps=3.724&#xD;
+FIRST_SPLIT_TAIL actor=25 gap=30.75 bin=260 seconds=6.65 brakes=0 zero=0 off=0 min_mps=5.595&#xD;
+FIRST_SPLIT_TAIL actor=25 gap=30.75 bin=300 seconds=9.75 brakes=15 zero=0 off=0 min_mps=0.133&#xD;
+FIRST_SPLIT_TAIL actor=25 gap=30.75 bin=340 seconds=19.05 brakes=0 zero=0 off=0 min_mps=0.476&#xD;
+FIRST_SPLIT_TAIL actor=27 gap=40.62 bin=180 seconds=12.30 brakes=8 zero=8 off=0 min_mps=2.482&#xD;
+FIRST_SPLIT_TAIL actor=27 gap=40.62 bin=220 seconds=33.90 brakes=61 zero=61 off=0 min_mps=0.322&#xD;
+FIRST_SPLIT_TAIL actor=27 gap=40.62 bin=260 seconds=7.45 brakes=0 zero=0 off=0 min_mps=4.842&#xD;
+FIRST_SPLIT_TAIL actor=27 gap=40.62 bin=300 seconds=6.10 brakes=0 zero=0 off=0 min_mps=5.972&#xD;
+FIRST_SPLIT_TAIL actor=27 gap=40.62 bin=340 seconds=5.55 brakes=0 zero=0 off=0 min_mps=7.027&#xD;
+FIRST_SPLIT_TAIL actor=28 gap=39.49 bin=180 seconds=17.95 brakes=16 zero=16 off=0 min_mps=0.523&#xD;
+FIRST_SPLIT_TAIL actor=28 gap=39.49 bin=220 seconds=28.00 brakes=0 zero=0 off=0 min_mps=0.407&#xD;
+FIRST_SPLIT_TAIL actor=28 gap=39.49 bin=260 seconds=7.15 brakes=0 zero=0 off=0 min_mps=5.040&#xD;
+FIRST_SPLIT_TAIL actor=28 gap=39.49 bin=300 seconds=6.05 brakes=0 zero=0 off=0 min_mps=6.094&#xD;
+FIRST_SPLIT_TAIL actor=28 gap=39.49 bin=340 seconds=5.45 brakes=0 zero=0 off=0 min_mps=7.132&#xD;
+FIRST_REGISTERED_SPLIT profile=junior_novice completed=30 p50_gap_s=11.985 p90_gap_s=40.405 max_gap_s=59.442</StdOut>
+        <ErrorInfo>
+          <Message>  The first actual timing station must not split most fresh entrants by dozens of seconds.&#xD;
+  Expected: less than 20&#xD;
+  But was:  40.405309031849995d&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.FreshMassStartPackTests.FirstRegisteredSplitRetainsACompetitiveFreshField(String profile) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\FreshMassStartPackTests.cs:line 106&#xD;
+
+1)    at Biathlon.Tests.FreshMassStartPackTests.FirstRegisteredSplitRetainsACompetitiveFreshField(String profile) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\FreshMassStartPackTests.cs:line 106&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="FirstRegisteredSplitRetainsACompetitiveFreshField(&quot;junior_novice&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="7894afcf-3dac-a429-0c32-5b860e5b6758">
+      <Execution id="444de166-db18-4ce4-a7b5-f9f0cd017456" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.FreshMassStartPackTests" name="FirstRegisteredSplitRetainsACompetitiveFreshField(&quot;junior_novice&quot;)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="7894afcf-3dac-a429-0c32-5b860e5b6758" executionId="444de166-db18-4ce4-a7b5-f9f0cd017456" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+TAIL_FORCE tick=1000 main=193.69 speed=0.592 requested=878 power=407.95 relative=1.141 reserve=0.296 fatigue=0.035 tuck=False grade=0.034 heading=2.803 velocity_x=0.247 velocity_z=-0.537 side=-0.127 yaw=-0.080 steer=-1000 contacts=2&#xD;
+TAIL_FORCE tick=1020 main=194.22 speed=0.564 requested=906 power=420.87 relative=1.178 reserve=0.290 fatigue=0.036 tuck=False grade=0.039 heading=2.765 velocity_x=0.240 velocity_z=-0.510 side=-0.160 yaw=-0.053 steer=-27 contacts=1&#xD;
+TAIL_FORCE tick=1040 main=194.77 speed=0.576 requested=912 power=423.57 relative=1.186 reserve=0.283 fatigue=0.037 tuck=False grade=0.039 heading=2.735 velocity_x=0.266 velocity_z=-0.510 side=-0.206 yaw=-0.061 steer=-1000 contacts=4&#xD;
+TAIL_FORCE tick=1060 main=195.32 speed=0.800 requested=637 power=295.79 relative=0.828 reserve=0.279 fatigue=0.037 tuck=False grade=0.026 heading=2.712 velocity_x=0.334 velocity_z=-0.726 side=-0.282 yaw=-0.002 steer=-1 contacts=3&#xD;
+TAIL_FORCE tick=1180 main=204.49 speed=0.562 requested=825 power=382.78 relative=1.073 reserve=0.272 fatigue=0.040 tuck=False grade=0.039 heading=3.140 velocity_x=-0.049 velocity_z=-0.559 side=-1.818 yaw=0.073 steer=816 contacts=3&#xD;
+TAIL_FORCE tick=1200 main=205.03 speed=0.538 requested=829 power=384.57 relative=1.078 reserve=0.270 fatigue=0.041 tuck=False grade=0.040 heading=3.177 velocity_x=-0.066 velocity_z=-0.534 side=-1.889 yaw=0.068 steer=844 contacts=3&#xD;
+TAIL_FORCE tick=1220 main=205.42 speed=0.544 requested=844 power=391.46 relative=1.097 reserve=0.267 fatigue=0.041 tuck=False grade=0.052 heading=3.213 velocity_x=-0.067 velocity_z=-0.539 side=-1.958 yaw=0.043 steer=22 contacts=1&#xD;
+TAIL_FORCE tick=1240 main=205.94 speed=0.604 requested=850 power=394.17 relative=1.105 reserve=0.264 fatigue=0.042 tuck=False grade=0.052 heading=3.246 velocity_x=-0.064 velocity_z=-0.599 side=-2.025 yaw=0.002 steer=1 contacts=3&#xD;
+TAIL_FORCE tick=1260 main=206.44 speed=0.521 requested=833 power=386.21 relative=1.083 reserve=0.262 fatigue=0.042 tuck=False grade=0.053 heading=3.278 velocity_x=-0.111 velocity_z=-0.508 side=-2.075 yaw=0.059 steer=983 contacts=1&#xD;
+TAIL_FORCE tick=1280 main=206.89 speed=0.437 requested=874 power=405.14 relative=1.136 reserve=0.257 fatigue=0.043 tuck=False grade=0.062 heading=3.309 velocity_x=-0.077 velocity_z=-0.429 side=-2.132 yaw=0.008 steer=-1000 contacts=0&#xD;
+TAIL_FORCE tick=1300 main=207.41 speed=0.609 requested=873 power=404.60 relative=1.135 reserve=0.251 fatigue=0.044 tuck=False grade=0.062 heading=3.339 velocity_x=-0.120 velocity_z=-0.596 side=-2.175 yaw=0.002 steer=1 contacts=1&#xD;
+TAIL_FORCE tick=1320 main=207.88 speed=0.533 requested=577 power=267.37 relative=0.750 reserve=0.249 fatigue=0.044 tuck=False grade=0.066 heading=3.368 velocity_x=-0.120 velocity_z=-0.518 side=-2.205 yaw=0.002 steer=1 contacts=3&#xD;
+TAIL_FORCE tick=1340 main=208.36 speed=0.542 requested=830 power=384.57 relative=1.079 reserve=0.250 fatigue=0.045 tuck=False grade=0.066 heading=3.399 velocity_x=-0.159 velocity_z=-0.517 side=-2.224 yaw=0.033 steer=17 contacts=0&#xD;
+TAIL_FORCE tick=1360 main=208.85 speed=0.461 requested=549 power=254.34 relative=0.714 reserve=0.249 fatigue=0.045 tuck=False grade=0.066 heading=3.426 velocity_x=-0.144 velocity_z=-0.438 side=-2.232 yaw=0.026 steer=13 contacts=0&#xD;
+TAIL_FORCE tick=1380 main=209.33 speed=0.567 requested=814 power=377.07 relative=1.058 reserve=0.250 fatigue=0.045 tuck=False grade=0.066 heading=3.449 velocity_x=-0.172 velocity_z=-0.539 side=-2.230 yaw=0.002 steer=1 contacts=1&#xD;
+TAIL_FORCE tick=1580 main=230.11 speed=0.461 requested=394 power=182.38 relative=0.512 reserve=0.263 fatigue=0.048 tuck=False grade=0.000 heading=3.832 velocity_x=-0.321 velocity_z=-0.331 side=-1.407 yaw=0.054 steer=1000 contacts=6&#xD;
+TAIL_FORCE tick=1600 main=230.63 speed=0.536 requested=410 power=189.78 relative=0.533 reserve=0.266 fatigue=0.048 tuck=False grade=0.000 heading=3.863 velocity_x=-0.370 velocity_z=-0.387 side=-1.466 yaw=0.033 steer=17 contacts=8&#xD;
+TAIL_FORCE tick=1620 main=231.00 speed=0.474 requested=393 power=181.90 relative=0.511 reserve=0.269 fatigue=0.048 tuck=False grade=0.000 heading=3.893 velocity_x=-0.350 velocity_z=-0.319 side=-1.538 yaw=0.055 steer=1000 contacts=6&#xD;
+TAIL_FORCE tick=1640 main=231.51 speed=0.559 requested=408 power=188.84 relative=0.530 reserve=0.271 fatigue=0.048 tuck=False grade=0.000 heading=3.924 velocity_x=-0.394 velocity_z=-0.396 side=-1.616 yaw=0.002 steer=1 contacts=7&#xD;
+TAIL_FORCE tick=1660 main=232.02 speed=0.502 requested=391 power=180.97 relative=0.508 reserve=0.274 fatigue=0.048 tuck=False grade=0.000 heading=3.955 velocity_x=-0.380 velocity_z=-0.328 side=-1.676 yaw=0.037 steer=19 contacts=8&#xD;
+TAIL_FORCE tick=1680 main=232.55 speed=0.574 requested=400 power=185.13 relative=0.520 reserve=0.277 fatigue=0.048 tuck=False grade=0.000 heading=3.986 velocity_x=-0.429 velocity_z=-0.380 side=-1.723 yaw=0.002 steer=1 contacts=4&#xD;
+TAIL_FORCE tick=1700 main=232.90 speed=0.516 requested=396 power=183.28 relative=0.515 reserve=0.280 fatigue=0.048 tuck=False grade=0.000 heading=4.018 velocity_x=-0.411 velocity_z=-0.311 side=-1.793 yaw=0.037 steer=19 contacts=7&#xD;
+TAIL_FORCE tick=1720 main=233.41 speed=0.452 requested=391 power=180.96 relative=0.508 reserve=0.282 fatigue=0.048 tuck=False grade=0.000 heading=4.049 velocity_x=-0.377 velocity_z=-0.249 side=-1.854 yaw=0.053 steer=1000 contacts=9&#xD;
+TAIL_FORCE tick=1740 main=233.94 speed=0.532 requested=410 power=189.75 relative=0.533 reserve=0.285 fatigue=0.048 tuck=False grade=0.000 heading=4.081 velocity_x=-0.442 velocity_z=-0.297 side=-1.900 yaw=0.033 steer=17 contacts=7&#xD;
+TAIL_FORCE tick=1760 main=234.41 speed=0.468 requested=393 power=181.88 relative=0.511 reserve=0.288 fatigue=0.048 tuck=False grade=0.000 heading=4.111 velocity_x=-0.406 velocity_z=-0.233 side=-1.932 yaw=0.055 steer=1000 contacts=7&#xD;
+TAIL_FORCE tick=1780 main=234.83 speed=0.551 requested=405 power=187.42 relative=0.527 reserve=0.291 fatigue=0.049 tuck=False grade=0.000 heading=4.141 velocity_x=-0.464 velocity_z=-0.298 side=-1.981 yaw=0.002 steer=1 contacts=8&#xD;
+TAIL_FORCE tick=1800 main=235.35 speed=0.485 requested=393 power=181.87 relative=0.511 reserve=0.293 fatigue=0.049 tuck=False grade=0.000 heading=4.171 velocity_x=-0.434 velocity_z=-0.216 side=-2.019 yaw=0.056 steer=1000 contacts=4&#xD;
+TAIL_FORCE tick=1820 main=235.87 speed=0.562 requested=407 power=188.34 relative=0.529 reserve=0.296 fatigue=0.049 tuck=False grade=0.000 heading=4.200 velocity_x=-0.490 velocity_z=-0.275 side=-2.041 yaw=0.002 steer=1 contacts=5&#xD;
+TAIL_FORCE tick=1840 main=236.38 speed=0.499 requested=396 power=183.25 relative=0.515 reserve=0.299 fatigue=0.049 tuck=False grade=0.000 heading=4.228 velocity_x=-0.449 velocity_z=-0.217 side=-2.049 yaw=0.028 steer=14 contacts=6&#xD;
+TAIL_FORCE tick=1860 main=236.76 speed=0.579 requested=401 power=185.56 relative=0.521 reserve=0.302 fatigue=0.049 tuck=False grade=0.000 heading=4.256 velocity_x=-0.520 velocity_z=-0.254 side=-2.078 yaw=0.002 steer=1 contacts=2&#xD;
+TAIL_FORCE tick=1880 main=237.28 speed=0.509 requested=398 power=184.16 relative=0.517 reserve=0.304 fatigue=0.049 tuck=False grade=0.000 heading=4.284 velocity_x=-0.469 velocity_z=-0.198 side=-2.097 yaw=0.024 steer=12 contacts=7&#xD;
+TAIL_FORCE tick=1900 main=237.81 speed=0.581 requested=402 power=186.01 relative=0.523 reserve=0.307 fatigue=0.049 tuck=False grade=0.000 heading=4.309 velocity_x=-0.535 velocity_z=-0.227 side=-2.104 yaw=0.002 steer=1 contacts=4&#xD;
+TAIL_FORCE tick=1920 main=238.34 speed=0.521 requested=397 power=183.69 relative=0.516 reserve=0.310 fatigue=0.049 tuck=False grade=0.000 heading=4.335 velocity_x=-0.488 velocity_z=-0.183 side=-2.097 yaw=0.016 steer=8 contacts=3&#xD;
+TAIL_FORCE tick=1940 main=238.72 speed=0.470 requested=405 power=187.39 relative=0.527 reserve=0.313 fatigue=0.049 tuck=False grade=0.000 heading=4.359 velocity_x=-0.452 velocity_z=-0.127 side=-2.100 yaw=0.055 steer=1000 contacts=4&#xD;
+TAIL_FORCE tick=1960 main=239.26 speed=0.537 requested=406 power=187.85 relative=0.528 reserve=0.315 fatigue=0.049 tuck=False grade=0.000 heading=4.379 velocity_x=-0.512 velocity_z=-0.162 side=-2.106 yaw=0.022 steer=11 contacts=5&#xD;
+TAIL_FORCE tick=1980 main=239.91 speed=0.750 requested=390 power=180.44 relative=0.507 reserve=0.318 fatigue=0.049 tuck=False grade=0.000 heading=4.391 velocity_x=-0.727 velocity_z=-0.184 side=-2.111 yaw=0.080 steer=1000 contacts=4&#xD;
+TAIL_FORCE tick=2000 main=240.52 speed=0.692 requested=395 power=182.75 relative=0.514 reserve=0.321 fatigue=0.049 tuck=False grade=0.000 heading=4.406 velocity_x=-0.660 velocity_z=-0.207 side=-2.106 yaw=0.002 steer=1 contacts=5&#xD;
+TAIL_FORCE tick=2020 main=240.96 speed=0.628 requested=407 power=188.30 relative=0.529 reserve=0.324 fatigue=0.049 tuck=False grade=0.000 heading=4.423 velocity_x=-0.602 velocity_z=-0.178 side=-2.114 yaw=0.002 steer=1 contacts=3&#xD;
+TAIL_FORCE tick=2040 main=241.55 speed=0.702 requested=410 power=189.68 relative=0.533 reserve=0.326 fatigue=0.050 tuck=False grade=0.000 heading=4.436 velocity_x=-0.676 velocity_z=-0.190 side=-2.124 yaw=0.002 steer=1 contacts=3&#xD;
+TAIL_FORCE tick=2060 main=242.13 speed=0.642 requested=395 power=182.74 relative=0.514 reserve=0.329 fatigue=0.050 tuck=False grade=0.000 heading=4.452 velocity_x=-0.621 velocity_z=-0.164 side=-2.125 yaw=0.002 steer=1 contacts=4&#xD;
+TAIL_FORCE tick=2080 main=242.79 speed=0.847 requested=401 power=185.51 relative=0.521 reserve=0.332 fatigue=0.050 tuck=False grade=0.000 heading=4.464 velocity_x=-0.821 velocity_z=-0.207 side=-2.120 yaw=0.002 steer=1 contacts=3&#xD;
+TAIL_FORCE tick=2100 main=243.31 speed=0.816 requested=662 power=306.24 relative=0.861 reserve=0.334 fatigue=0.050 tuck=False grade=0.000 heading=4.482 velocity_x=-0.805 velocity_z=-0.131 side=-2.131 yaw=0.083 steer=1000 contacts=2&#xD;
+FIRST_SPLIT_TAIL actor=0 gap=20.24 bin=180 seconds=10.90 brakes=0 zero=0 off=0 min_mps=3.201&#xD;
+FIRST_SPLIT_TAIL actor=0 gap=20.24 bin=220 seconds=13.75 brakes=4 zero=0 off=0 min_mps=2.364&#xD;
+FIRST_SPLIT_TAIL actor=0 gap=20.24 bin=260 seconds=7.40 brakes=0 zero=0 off=0 min_mps=4.651&#xD;
+FIRST_SPLIT_TAIL actor=0 gap=20.24 bin=300 seconds=7.55 brakes=17 zero=17 off=0 min_mps=2.300&#xD;
+FIRST_SPLIT_TAIL actor=0 gap=20.24 bin=340 seconds=11.00 brakes=0 zero=0 off=0 min_mps=3.088&#xD;
+FIRST_SPLIT_TAIL actor=6 gap=59.44 bin=180 seconds=29.85 brakes=4 zero=5 off=0 min_mps=0.406&#xD;
+FIRST_SPLIT_TAIL actor=6 gap=59.44 bin=220 seconds=36.80 brakes=0 zero=0 off=0 min_mps=0.414&#xD;
+FIRST_SPLIT_TAIL actor=6 gap=59.44 bin=260 seconds=7.40 brakes=0 zero=0 off=0 min_mps=4.922&#xD;
+FIRST_SPLIT_TAIL actor=6 gap=59.44 bin=300 seconds=6.10 brakes=0 zero=0 off=0 min_mps=5.981&#xD;
+FIRST_SPLIT_TAIL actor=6 gap=59.44 bin=340 seconds=4.50 brakes=0 zero=0 off=0 min_mps=7.045&#xD;
+FIRST_SPLIT_TAIL actor=9 gap=40.41 bin=180 seconds=12.25 brakes=0 zero=0 off=0 min_mps=2.575&#xD;
+FIRST_SPLIT_TAIL actor=9 gap=40.41 bin=220 seconds=34.10 brakes=16 zero=16 off=0 min_mps=0.408&#xD;
+FIRST_SPLIT_TAIL actor=9 gap=40.41 bin=260 seconds=7.45 brakes=0 zero=0 off=0 min_mps=4.685&#xD;
+FIRST_SPLIT_TAIL actor=9 gap=40.41 bin=300 seconds=6.20 brakes=0 zero=0 off=0 min_mps=5.917&#xD;
+FIRST_SPLIT_TAIL actor=9 gap=40.41 bin=340 seconds=5.50 brakes=0 zero=0 off=0 min_mps=7.002&#xD;
+FIRST_SPLIT_TAIL actor=12 gap=20.31 bin=180 seconds=10.80 brakes=8 zero=8 off=0 min_mps=3.005&#xD;
+FIRST_SPLIT_TAIL actor=12 gap=20.31 bin=220 seconds=13.45 brakes=9 zero=7 off=0 min_mps=2.248&#xD;
+FIRST_SPLIT_TAIL actor=12 gap=20.31 bin=260 seconds=7.30 brakes=0 zero=0 off=0 min_mps=4.998&#xD;
+FIRST_SPLIT_TAIL actor=12 gap=20.31 bin=300 seconds=7.05 brakes=25 zero=25 off=0 min_mps=2.524&#xD;
+FIRST_SPLIT_TAIL actor=12 gap=20.31 bin=340 seconds=11.05 brakes=4 zero=6 off=0 min_mps=3.065&#xD;
+FIRST_SPLIT_TAIL actor=15 gap=20.70 bin=180 seconds=10.90 brakes=6 zero=6 off=0 min_mps=2.772&#xD;
+FIRST_SPLIT_TAIL actor=15 gap=20.70 bin=220 seconds=13.50 brakes=13 zero=11 off=0 min_mps=1.796&#xD;
+FIRST_SPLIT_TAIL actor=15 gap=20.70 bin=260 seconds=6.90 brakes=0 zero=0 off=0 min_mps=5.363&#xD;
+FIRST_SPLIT_TAIL actor=15 gap=20.70 bin=300 seconds=7.20 brakes=17 zero=17 off=0 min_mps=2.484&#xD;
+FIRST_SPLIT_TAIL actor=15 gap=20.70 bin=340 seconds=10.95 brakes=4 zero=4 off=0 min_mps=3.054&#xD;
+FIRST_SPLIT_TAIL actor=18 gap=21.09 bin=180 seconds=11.15 brakes=12 zero=12 off=0 min_mps=2.452&#xD;
+FIRST_SPLIT_TAIL actor=18 gap=21.09 bin=220 seconds=13.65 brakes=10 zero=10 off=0 min_mps=1.588&#xD;
+FIRST_SPLIT_TAIL actor=18 gap=21.09 bin=260 seconds=7.35 brakes=0 zero=0 off=0 min_mps=5.049&#xD;
+FIRST_SPLIT_TAIL actor=18 gap=21.09 bin=300 seconds=6.45 brakes=15 zero=15 off=0 min_mps=4.076&#xD;
+FIRST_SPLIT_TAIL actor=18 gap=21.09 bin=340 seconds=10.70 brakes=12 zero=12 off=0 min_mps=3.278&#xD;
+FIRST_SPLIT_TAIL actor=21 gap=49.50 bin=180 seconds=23.90 brakes=0 zero=0 off=0 min_mps=0.423&#xD;
+FIRST_SPLIT_TAIL actor=21 gap=49.50 bin=220 seconds=32.85 brakes=1 zero=1 off=0 min_mps=0.407&#xD;
+FIRST_SPLIT_TAIL actor=21 gap=49.50 bin=260 seconds=7.20 brakes=0 zero=0 off=0 min_mps=5.016&#xD;
+FIRST_SPLIT_TAIL actor=21 gap=49.50 bin=300 seconds=6.00 brakes=0 zero=0 off=0 min_mps=6.122&#xD;
+FIRST_SPLIT_TAIL actor=21 gap=49.50 bin=340 seconds=5.40 brakes=0 zero=0 off=0 min_mps=7.178&#xD;
+FIRST_SPLIT_TAIL actor=24 gap=31.59 bin=180 seconds=10.35 brakes=14 zero=14 off=0 min_mps=2.448&#xD;
+FIRST_SPLIT_TAIL actor=24 gap=31.59 bin=220 seconds=29.30 brakes=0 zero=0 off=0 min_mps=0.407&#xD;
+FIRST_SPLIT_TAIL actor=24 gap=31.59 bin=260 seconds=6.90 brakes=0 zero=0 off=0 min_mps=5.312&#xD;
+FIRST_SPLIT_TAIL actor=24 gap=31.59 bin=300 seconds=5.80 brakes=0 zero=0 off=0 min_mps=6.335&#xD;
+FIRST_SPLIT_TAIL actor=24 gap=31.59 bin=340 seconds=5.30 brakes=0 zero=0 off=0 min_mps=7.332&#xD;
+FIRST_SPLIT_TAIL actor=25 gap=30.75 bin=180 seconds=12.55 brakes=14 zero=15 off=0 min_mps=2.355&#xD;
+FIRST_SPLIT_TAIL actor=25 gap=30.75 bin=220 seconds=9.15 brakes=7 zero=7 off=0 min_mps=3.724&#xD;
+FIRST_SPLIT_TAIL actor=25 gap=30.75 bin=260 seconds=6.65 brakes=0 zero=0 off=0 min_mps=5.595&#xD;
+FIRST_SPLIT_TAIL actor=25 gap=30.75 bin=300 seconds=9.75 brakes=15 zero=0 off=0 min_mps=0.133&#xD;
+FIRST_SPLIT_TAIL actor=25 gap=30.75 bin=340 seconds=19.05 brakes=0 zero=0 off=0 min_mps=0.476&#xD;
+FIRST_SPLIT_TAIL actor=27 gap=40.62 bin=180 seconds=12.30 brakes=8 zero=8 off=0 min_mps=2.482&#xD;
+FIRST_SPLIT_TAIL actor=27 gap=40.62 bin=220 seconds=33.90 brakes=61 zero=61 off=0 min_mps=0.322&#xD;
+FIRST_SPLIT_TAIL actor=27 gap=40.62 bin=260 seconds=7.45 brakes=0 zero=0 off=0 min_mps=4.842&#xD;
+FIRST_SPLIT_TAIL actor=27 gap=40.62 bin=300 seconds=6.10 brakes=0 zero=0 off=0 min_mps=5.972&#xD;
+FIRST_SPLIT_TAIL actor=27 gap=40.62 bin=340 seconds=5.55 brakes=0 zero=0 off=0 min_mps=7.027&#xD;
+FIRST_SPLIT_TAIL actor=28 gap=39.49 bin=180 seconds=17.95 brakes=16 zero=16 off=0 min_mps=0.523&#xD;
+FIRST_SPLIT_TAIL actor=28 gap=39.49 bin=220 seconds=28.00 brakes=0 zero=0 off=0 min_mps=0.407&#xD;
+FIRST_SPLIT_TAIL actor=28 gap=39.49 bin=260 seconds=7.15 brakes=0 zero=0 off=0 min_mps=5.040&#xD;
+FIRST_SPLIT_TAIL actor=28 gap=39.49 bin=300 seconds=6.05 brakes=0 zero=0 off=0 min_mps=6.094&#xD;
+FIRST_SPLIT_TAIL actor=28 gap=39.49 bin=340 seconds=5.45 brakes=0 zero=0 off=0 min_mps=7.132&#xD;
+FIRST_REGISTERED_SPLIT profile=junior_novice completed=30 p50_gap_s=11.985 p90_gap_s=40.405 max_gap_s=59.442&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

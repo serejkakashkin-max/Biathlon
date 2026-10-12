@@ -3,7 +3,7 @@
 2026-10-12. G1/G2 approved. M13 closed by owner acceptance.
 M14: **19/19 WPs implemented and verified; awaiting owner test/acceptance**.
 
-Current player build: `Builds/M14BalanceReview20261012/START_M14_TEST.cmd` (0 build errors/warnings; standalone startup/render passed).
+Current player build: `Builds/M14BurstReview20261012/START_M14_TEST.cmd` (0 build errors/warnings; standalone startup/render passed).
 Previous accepted M13 build remains `Builds/WoodlandM13BotRecovery-20261011/START_WOODLAND_REVIEW.cmd`.
 
 Woodland keeps maximum 30 athletes, High default, separate start/finish, manual steering,
@@ -16,7 +16,7 @@ compressed deterministic replays, event highlights, broadcast cameras and option
 Accessibility: RU/EN, text scaling, contrast, non-color target feedback and assist explanations.
 Keyboard/gamepad navigation and career/race/replay flows have native coverage.
 
-A complete final Sprint30 replay produces the identical authority protocol/hash at 31135 ticks.
+A complete final Sprint30 replay produces the identical authority protocol/hash at 28941 ticks.
 The full saved Sprint-to-Pursuit career transition completes with 30 athletes.
 Headless production career races now bind the same manual movement as the playable host;
 shared steering/braking changed explicitly; graphics quality is unchanged.
@@ -29,7 +29,7 @@ See [M14 WP status](M14_WP_STATUS.md), [completion report](reports/TASK_M14_COMP
 `docs/PROJECT_STATE.md` retains the full append-only history from Foundation onward.
 M14 is not declared owner-accepted; next work is owner testing, then M15 or requested corrections.
 
-GitHub publication complete on `codex/wp-078-ai-pack`: latest owner correction code/tests/state `a848b63`; append-only publication receipt is recorded in PROJECT_STATE.
+GitHub publication receipts on `codex/wp-078-ai-pack` are recorded append-only in PROJECT_STATE.
 
 Owner review revision 2026-10-12: snow/ink/teal card UI and paged protocols; six timing lines and Tab latest-split standings; sharper A/D, S physical brake and paid low-speed pivot; true HR guidance before shooting; live post-finish athlete/overhead/side cameras and bounded full-field completion. See [review report](reports/TASK_M14_OWNER_REVIEW_20261012.md). M14 remains pending owner acceptance.
 
@@ -41,3 +41,13 @@ shared player/AI form, competitive rival tactics; three rectangular timing gates
 Eight older experimental planner failures were baseline-reproduced, not concealed.
 See [latest report](reports/TASK_M14_BALANCE_REVIEW_20261012.md). Test new starts with
 a new career. M14 remains open for owner acceptance.
+
+Latest correction: WP-184 reuses TIMING at the actual loop-end split; WP-182 adds
+a shared short paid burst, compact reserve/time overlay and retained pace on
+release. Fresh AI no longer brakes for distant moving bodies or sheds speed
+through excessive passive-inverse deflection. Actual first-split maximum gaps
+are 4.669–7.956 s across three thirty-athlete cohorts. Full Mass Start30 and
+deterministic career Sprint30 replay pass; graphics quality is unchanged.
+78 final core passes plus 2 known experimental failures are reported explicitly;
+21 native PlayMode and 10 EditMode passes. See
+[current build/report](reports/TASK_M14_BURST_PACK_REVIEW_20261012.md).

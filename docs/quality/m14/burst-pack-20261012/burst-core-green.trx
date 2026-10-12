@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="de5a7bd9-12af-425e-8bb9-e912a564a16f" name="snkashkin@DESKTOP-G3075GA 2026-10-12 18:10:08" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-12T18:10:08.6514867+03:00" queuing="2026-10-12T18:10:08.6514868+03:00" start="2026-10-12T18:10:08.0138253+03:00" finish="2026-10-12T18:10:09.6644537+03:00" />
+  <TestSettings name="default" id="ddb1d5b3-06b4-41e1-99f2-95f2baa9492b">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-12_18_10_08" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="8041d18a-8d56-4168-a32d-83567ca6b0c6" testId="7d04bd55-df5f-83a5-b367-6c9a1cf9a1f3" testName="InconsistentDefinitionsAreRejected(&quot;minimum_power_efficiency&quot;,&quot;1.01&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0001910" startTime="2026-10-12T18:10:08.6281907+03:00" endTime="2026-10-12T18:10:08.6283816+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8041d18a-8d56-4168-a32d-83567ca6b0c6" />
+    <UnitTestResult executionId="f02c8bb2-542c-41d8-9fd8-e38ae82f2a70" testId="b0edb5d2-7c78-7640-fc72-4bbb7156a4c1" testName="FullControlSweepIsMonotoneAndEffortEqualsRequestedOverSustainable(0.5d,0.0d)" computerName="DESKTOP-G3075GA" duration="00:00:00.0018670" startTime="2026-10-12T18:10:08.6161189+03:00" endTime="2026-10-12T18:10:08.6179854+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f02c8bb2-542c-41d8-9fd8-e38ae82f2a70" />
+    <UnitTestResult executionId="df002871-ba2d-4e3f-a56a-60ccc92646f5" testId="118c4756-8df0-0868-f4e0-9591877ad21f" testName="AssistedResponsePreservesFractionalProgressAcrossTickRates(144)" computerName="DESKTOP-G3075GA" duration="00:00:00.0001770" startTime="2026-10-12T18:10:08.6038956+03:00" endTime="2026-10-12T18:10:08.6040722+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="df002871-ba2d-4e3f-a56a-60ccc92646f5" />
+    <UnitTestResult executionId="a5ef7118-79b3-4d1d-acf7-60ed5df46c8e" testId="d5e5027b-0dd7-2520-6a9e-ca0d63a71e96" testName="AssistedResponsePreservesFractionalProgressAcrossTickRates(30)" computerName="DESKTOP-G3075GA" duration="00:00:00.0003120" startTime="2026-10-12T18:10:08.6035773+03:00" endTime="2026-10-12T18:10:08.6038892+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a5ef7118-79b3-4d1d-acf7-60ed5df46c8e" />
+    <UnitTestResult executionId="dac637bf-8b0f-4a0f-872b-781365ed67fc" testId="b38c6435-7403-9a53-f5b1-e636b3ad1e41" testName="SharedPowerCausesActualAccelerationAndDissipatesWhenReleased" computerName="DESKTOP-G3075GA" duration="00:00:00.0218970" startTime="2026-10-12T18:10:09.5947201+03:00" endTime="2026-10-12T18:10:09.6166173+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dac637bf-8b0f-4a0f-872b-781365ed67fc">
+      <Output>
+        <StdOut>normal_speed8s=8.961;burst_speed8s=10.309;reserve8s=0.5761</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="90b4d27f-a879-4484-a110-5ea6c44f209b" testId="cbd1f4c3-eb80-17c5-b119-0c86cdb530fd" testName="InvalidSuiteAndWorkloadsAreRejected" computerName="DESKTOP-G3075GA" duration="00:00:00.0009720" startTime="2026-10-12T18:10:09.5685810+03:00" endTime="2026-10-12T18:10:09.5695524+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="90b4d27f-a879-4484-a110-5ea6c44f209b" />
+    <UnitTestResult executionId="399f1bee-c495-43d2-905a-5fa7671a3b36" testId="6f731547-2433-6136-56da-6dbee4e339a5" testName="InconsistentDefinitionsAreRejected(&quot;resting_hr_bpm&quot;,&quot;191&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0001970" startTime="2026-10-12T18:10:08.6275704+03:00" endTime="2026-10-12T18:10:08.6277676+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="399f1bee-c495-43d2-905a-5fa7671a3b36" />
+    <UnitTestResult executionId="1bb371e9-67ac-4fad-bcc9-535ff9addcf0" testId="bbfef115-6d3e-c18d-7818-86eb3b1641a1" testName="EvaluateIsRepeatableAndAllocationFree" computerName="DESKTOP-G3075GA" duration="00:00:00.0011140" startTime="2026-10-12T18:10:08.6099509+03:00" endTime="2026-10-12T18:10:08.6110653+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1bb371e9-67ac-4fad-bcc9-535ff9addcf0" />
+    <UnitTestResult executionId="c4bcb63c-3e25-4d16-b9b9-09fc93084758" testId="3cd8dcf0-6d3d-42fe-ac38-56883cb4d9d9" testName="InconsistentDefinitionsAreRejected(&quot;aerobic_threshold&quot;,&quot;1.4&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0002040" startTime="2026-10-12T18:10:08.6279824+03:00" endTime="2026-10-12T18:10:08.6281866+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c4bcb63c-3e25-4d16-b9b9-09fc93084758" />
+    <UnitTestResult executionId="9ee395a1-1ded-4a72-838d-f5c6112662c1" testId="836dda3d-d89a-bf6e-38da-5223b34cb4ea" testName="RecoveryAndCapacity40Versus80HaveExpectedPhysicalEffects" computerName="DESKTOP-G3075GA" duration="00:00:00.0007200" startTime="2026-10-12T18:10:09.5790637+03:00" endTime="2026-10-12T18:10:09.5797835+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9ee395a1-1ded-4a72-838d-f5c6112662c1" />
+    <UnitTestResult executionId="490d8832-4e83-4dde-9017-c72eab3e4f7c" testId="25bf5415-c8ab-e646-3fd1-46093920b541" testName="ReplayingFullInputsReproducesStateAndOrderedEventsRegardlessOfSeed" computerName="DESKTOP-G3075GA" duration="00:00:00.0466710" startTime="2026-10-12T18:10:08.6487043+03:00" endTime="2026-10-12T18:10:08.6953745+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="490d8832-4e83-4dde-9017-c72eab3e4f7c" />
+    <UnitTestResult executionId="bb61447b-addf-4f6c-b969-6324a6f6e235" testId="dbf4a431-de47-77a7-ea36-7413c91693a3" testName="IntegratedHotLoopAllocatesZeroAfterWarmup" computerName="DESKTOP-G3075GA" duration="00:00:00.0071520" startTime="2026-10-12T18:10:08.6398527+03:00" endTime="2026-10-12T18:10:08.6470046+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bb61447b-addf-4f6c-b969-6324a6f6e235" />
+    <UnitTestResult executionId="75bde043-70eb-4ad4-a519-ccc6fc45f9ff" testId="c815eadd-a820-4c5d-1baa-4d7bf6f89f9a" testName="LongExtremeInitialStatesRemainValidAndRecoveryWorks" computerName="DESKTOP-G3075GA" duration="00:00:00.6235650" startTime="2026-10-12T18:10:08.8835265+03:00" endTime="2026-10-12T18:10:09.5070913+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="75bde043-70eb-4ad4-a519-ccc6fc45f9ff">
+      <Output>
+        <StdOut>{"ticks":100000,"simulated_seconds":5000,"elapsed_ms":65.6751,"allocated_bytes":0}</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2ef3db0b-fa62-4645-8ab3-0f004b0f3524" testId="8ff5c2ab-c3c0-15dc-a20d-ec2076a57ce6" testName="ShiftReleaseRestoresTheChosenDialWithoutResettingEnergy" computerName="DESKTOP-G3075GA" duration="00:00:00.0038530" startTime="2026-10-12T18:10:09.6166341+03:00" endTime="2026-10-12T18:10:09.6204873+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2ef3db0b-fa62-4645-8ab3-0f004b0f3524" />
+    <UnitTestResult executionId="8aed4293-130c-4089-a106-5aa1225966ee" testId="b30f5b3f-9fec-9a9a-cb68-906fe8ec7627" testName="FingerprintDetectsPhysiologyAndConfigurationChanges" computerName="DESKTOP-G3075GA" duration="00:00:00.0019780" startTime="2026-10-12T18:10:09.5665890+03:00" endTime="2026-10-12T18:10:09.5685666+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8aed4293-130c-4089-a106-5aa1225966ee" />
+    <UnitTestResult executionId="23e11697-8608-41db-ab9c-f66c86caf0b1" testId="be6c393e-eef0-55c4-bc37-fbef19bbaa0c" testName="InvalidStatsAndMalformedCurvesAreRejected" computerName="DESKTOP-G3075GA" duration="00:00:00.0009210" startTime="2026-10-12T18:10:09.5769015+03:00" endTime="2026-10-12T18:10:09.5778222+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="23e11697-8608-41db-ab9c-f66c86caf0b1" />
+    <UnitTestResult executionId="0046ab3a-504b-4af7-a8ea-8f292393a621" testId="c3e25ea7-ceda-89d4-8b43-063ecec6773d" testName="BurstDurationUsesIndividualCapacityAndPredictsFullPowerBoundary(80)" computerName="DESKTOP-G3075GA" duration="00:00:00.0005950" startTime="2026-10-12T18:10:09.5855889+03:00" endTime="2026-10-12T18:10:09.5861844+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0046ab3a-504b-4af7-a8ea-8f292393a621" />
+    <UnitTestResult executionId="e426cafa-0a8a-4b91-8aba-bd3c49e09100" testId="7027fe00-5ef5-e9b4-f745-16ef73392319" testName="InconsistentDefinitionsAreRejected(&quot;drift_saturation_s&quot;,&quot;0.0000000011&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0003650" startTime="2026-10-12T18:10:08.6265678+03:00" endTime="2026-10-12T18:10:08.6269327+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e426cafa-0a8a-4b91-8aba-bd3c49e09100" />
+    <UnitTestResult executionId="9bf7e58e-ca46-462f-b7a3-c4241243a6c8" testId="aec2308a-1b21-62c0-4f11-2d93be499372" testName="InvalidCommandIsAtomicAndResponseLoopDoesNotAllocate" computerName="DESKTOP-G3075GA" duration="00:00:00.0033710" startTime="2026-10-12T18:10:08.6040915+03:00" endTime="2026-10-12T18:10:08.6074619+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9bf7e58e-ca46-462f-b7a3-c4241243a6c8" />
+    <UnitTestResult executionId="90669aca-72e4-4306-b2e6-7a80882da39d" testId="7c64e42d-6a3c-99e9-1a0f-1d0167b97353" testName="FullShiftGivesDistinctPowerAndSpendsUsefulReserveWithinTwentySeconds" computerName="DESKTOP-G3075GA" duration="00:00:00.0013010" startTime="2026-10-12T18:10:09.5861981+03:00" endTime="2026-10-12T18:10:09.5874987+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="90669aca-72e4-4306-b2e6-7a80882da39d">
+      <Output>
+        <StdOut>normal_watts=364.00;burst_watts=560.00;reserve_after20s=0.0761;effort_after20s=1.230</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5c938da3-ee0f-4176-9568-47d9b997b43e" testId="0d1cea6b-9c48-53b2-85ce-22623c4b3b7f" testName="NumericEncodingRoundsToNineDecimalsAndSaturatesOnlyExplicitly" computerName="DESKTOP-G3075GA" duration="00:00:00.0002540" startTime="2026-10-12T18:10:08.6308354+03:00" endTime="2026-10-12T18:10:08.6310888+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5c938da3-ee0f-4176-9568-47d9b997b43e" />
+    <UnitTestResult executionId="0e812bf6-fb80-4922-8a6d-dcb2d655272e" testId="bafde71c-0ca2-0717-3d4d-9cec89cffc6f" testName="InconsistentDefinitionsAreRejected(&quot;hr_safety_ceiling_bpm&quot;,&quot;180&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0002070" startTime="2026-10-12T18:10:08.6277715+03:00" endTime="2026-10-12T18:10:08.6279782+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0e812bf6-fb80-4922-8a6d-dcb2d655272e" />
+    <UnitTestResult executionId="8747e3bb-345f-4432-bc49-f498ea403ed2" testId="99965b8e-e134-2dd2-0089-6aa3699027b4" testName="InvalidIdsNullAndMalformedDocumentsAreRejected" computerName="DESKTOP-G3075GA" duration="00:00:00.0013270" startTime="2026-10-12T18:10:08.6285791+03:00" endTime="2026-10-12T18:10:08.6299054+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8747e3bb-345f-4432-bc49-f498ea403ed2" />
+    <UnitTestResult executionId="771731cd-a473-433c-aafa-483f54c848d7" testId="7ace84a0-7597-d60a-b772-29be4ff67423" testName="CapacityControlsDrainAndRefillTimeWithoutHiddenPowerBoost" computerName="DESKTOP-G3075GA" duration="00:00:00.0253610" startTime="2026-10-12T18:10:08.5659719+03:00" endTime="2026-10-12T18:10:08.5913083+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="771731cd-a473-433c-aafa-483f54c848d7" />
+    <UnitTestResult executionId="0aff1eb4-994d-41a8-8627-9f8b60f5af2c" testId="89aaf88e-4360-245c-82ac-3c9ee6b96810" testName="AnalogDeadzoneSaturationAndIntermediateMappingAreMonotone" computerName="DESKTOP-G3075GA" duration="00:00:00.0035810" startTime="2026-10-12T18:10:08.5990607+03:00" endTime="2026-10-12T18:10:08.6026415+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0aff1eb4-994d-41a8-8627-9f8b60f5af2c" />
+    <UnitTestResult executionId="739f6709-34e9-415f-8d56-696a2b81d769" testId="62de057d-3fc4-db3f-6d2f-eefc0daac3d7" testName="FullControlSweepIsMonotoneAndEffortEqualsRequestedOverSustainable(1.0d,1.0d)" computerName="DESKTOP-G3075GA" duration="00:00:00.0021460" startTime="2026-10-12T18:10:08.6139651+03:00" endTime="2026-10-12T18:10:08.6161105+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="739f6709-34e9-415f-8d56-696a2b81d769" />
+    <UnitTestResult executionId="6d670467-8835-4c1e-8585-422a8422afe8" testId="202797b9-73ea-459f-6c01-829be3dd0273" testName="OrdinaryRaceAndFreshClimbControlsRetainTheirMeaning" computerName="DESKTOP-G3075GA" duration="00:00:00.0006350" startTime="2026-10-12T18:10:09.5875120+03:00" endTime="2026-10-12T18:10:09.5881473+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6d670467-8835-4c1e-8585-422a8422afe8" />
+    <UnitTestResult executionId="5d6f1eb6-3081-4283-aac4-5b05b3eb5c14" testId="83be55ab-7223-8a06-54e5-0f3fafd80b29" testName="IntegratedAttackCostsReserveAndRecoveryRestoresCapability" computerName="DESKTOP-G3075GA" duration="00:00:00.0007470" startTime="2026-10-12T18:10:08.5932541+03:00" endTime="2026-10-12T18:10:08.5940007+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5d6f1eb6-3081-4283-aac4-5b05b3eb5c14" />
+    <UnitTestResult executionId="5731eaea-e2e4-469e-b54a-7f6fd1c5777d" testId="ddb4f09b-1586-150d-b18f-9fb25bb91d45" testName="ResourceBoundaryEventsAreOrderedAfterEffortAndNotRepeated" computerName="DESKTOP-G3075GA" duration="00:00:00.0013209" startTime="2026-10-12T18:10:08.6954011+03:00" endTime="2026-10-12T18:10:08.6967220+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5731eaea-e2e4-469e-b54a-7f6fd1c5777d" />
+    <UnitTestResult executionId="d92e66a0-5430-4b6d-aadf-f3b8a7e2c3f2" testId="bb00a61d-86a9-b8d2-de10-ceac8bcd380b" testName="AllCannedScenariosReplayIdenticalFingerprints" computerName="DESKTOP-G3075GA" duration="00:00:00.0573670" startTime="2026-10-12T18:10:09.5079326+03:00" endTime="2026-10-12T18:10:09.5652992+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d92e66a0-5430-4b6d-aadf-f3b8a7e2c3f2">
+      <Output>
+        <StdOut>low_5min=fd0f65d228dea78e259a957a26d289f557482a44318dba5b9ad3e0f161814b5e&#xD;
+race_3min_recovery_60s=7023acc5b62d15f1023e4886df882788a2b9bd41ec0bd2fd6f6d2681f7f087f1&#xD;
+attack_intervals=ddc4a62807c13d1705e53807e9db4ab9dd68eaeeb9850a4eec5deaa613efd523&#xD;
+fatigued_race=6b7eb3da888097848908c9225e553ed603872fb6ffafd97aa71014ad2d298400&#xD;
+recovery_40=8876986dfaee69b8c647b37cb23578f839335a67ac328c4dd5bcc305f46880ef&#xD;
+recovery_80=09fe92870a1916a30f51f898e3d04f7f801de9d9d0eee2a9b3f753000a71caae&#xD;
+capacity_40=eec88c7d64a9c742bb30bb90773d61099ff7f930f52e776327fd69af9be8291a&#xD;
+capacity_80=6ea875bd7d39b2a7cb71c5783ea551083f5e8cc83ac286410f94afa67fb4aaf3</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6d83bece-3d80-4e62-ac5f-f5c80527f194" testId="0d06daee-4758-c01f-d3a1-2c4056cf4182" testName="WorkloadBoundariesAndDurationsAreExact" computerName="DESKTOP-G3075GA" duration="00:00:00.0045210" startTime="2026-10-12T18:10:09.5695654+03:00" endTime="2026-10-12T18:10:09.5740858+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6d83bece-3d80-4e62-ac5f-f5c80527f194" />
+    <UnitTestResult executionId="57605f13-ddd7-4c3f-8d33-88af48644cd1" testId="f036a2b6-cf44-59b3-fccc-61361b284bef" testName="ProductionBurstReplayRepeatsAndOptionalLegacyDefinitionRoundTrips" computerName="DESKTOP-G3075GA" duration="00:00:00.0065189" startTime="2026-10-12T18:10:09.5881883+03:00" endTime="2026-10-12T18:10:09.5947073+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="57605f13-ddd7-4c3f-8d33-88af48644cd1" />
+    <UnitTestResult executionId="60d8aeaa-a12f-4b38-9ec4-e7465714da0f" testId="ef2b4888-a143-19c7-09f4-41bf03d6bb7f" testName="RepeatedIntervalsAllocateNothingAndInvalidInputFails" computerName="DESKTOP-G3075GA" duration="00:00:00.0032200" startTime="2026-10-12T18:10:08.5940082+03:00" endTime="2026-10-12T18:10:08.5972283+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="60d8aeaa-a12f-4b38-9ec4-e7465714da0f" />
+    <UnitTestResult executionId="0695e755-721d-408a-8e75-6db5ef178cd1" testId="bb85c08a-29ce-f418-9997-38265230d276" testName="InconsistentDefinitionsAreRejected(&quot;hr_rise_tau_s&quot;,&quot;0&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0002150" startTime="2026-10-12T18:10:08.6269396+03:00" endTime="2026-10-12T18:10:08.6271545+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0695e755-721d-408a-8e75-6db5ef178cd1" />
+    <UnitTestResult executionId="f979d07a-c014-44a9-9742-4d7c89f0f6d7" testId="6527bb6f-d4ff-7c0a-9fca-8cef1ae2b53f" testName="InconsistentDefinitionsAreRejected(&quot;anaerobic_capacity_joules&quot;,&quot;0&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0001990" startTime="2026-10-12T18:10:08.6273673+03:00" endTime="2026-10-12T18:10:08.6275663+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f979d07a-c014-44a9-9742-4d7c89f0f6d7" />
+    <UnitTestResult executionId="813026d3-9cdf-45fb-8c24-202453e2a422" testId="2d7ded7d-e3d9-5365-b17b-2cfc3ef9aa56" testName="FullControlSweepIsMonotoneAndEffortEqualsRequestedOverSustainable(0.0d,1.0d)" computerName="DESKTOP-G3075GA" duration="00:00:00.0021170" startTime="2026-10-12T18:10:08.6118388+03:00" endTime="2026-10-12T18:10:08.6139558+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="813026d3-9cdf-45fb-8c24-202453e2a422" />
+    <UnitTestResult executionId="28df08f4-2f2e-47c4-bc7d-4a5f1170a20f" testId="1d808ce6-bd91-e3fb-0870-0887818361b7" testName="AttackHasPersistentFatigueAndSlowRecoveryRatherThanAFreeRepeatedBoost" computerName="DESKTOP-G3075GA" duration="00:00:00.0039690" startTime="2026-10-12T18:10:09.5798631+03:00" endTime="2026-10-12T18:10:09.5838322+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="28df08f4-2f2e-47c4-bc7d-4a5f1170a20f" />
+    <UnitTestResult executionId="e30cfbbb-4a56-4ce2-8d66-eeab8d220acb" testId="e747cc6f-8082-36d4-bbca-dc00fa595f75" testName="UnrepresentableParameterCombinationsFailBeforeTicks" computerName="DESKTOP-G3075GA" duration="00:00:00.0007330" startTime="2026-10-12T18:10:09.5071228+03:00" endTime="2026-10-12T18:10:09.5078552+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e30cfbbb-4a56-4ce2-8d66-eeab8d220acb" />
+    <UnitTestResult executionId="d261a92b-cdc5-4e79-9923-8cd5a8124549" testId="d23bb6d4-ec2e-8f6b-9d23-df2fa3e54486" testName="CsvHasCompleteInputsAndTelemetryInInvariantCulture" computerName="DESKTOP-G3075GA" duration="00:00:00.0012550" startTime="2026-10-12T18:10:09.5653196+03:00" endTime="2026-10-12T18:10:09.5665741+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d261a92b-cdc5-4e79-9923-8cd5a8124549" />
+    <UnitTestResult executionId="1dfd6ced-8155-4091-9d71-331e402542e3" testId="eabec238-5876-94b3-6d01-4dff84f883ed" testName="PresetsAreExplicitAndFinalSprintUsesZoneAwareRequest" computerName="DESKTOP-G3075GA" duration="00:00:00.0024270" startTime="2026-10-12T18:10:08.6074701+03:00" endTime="2026-10-12T18:10:08.6098972+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1dfd6ced-8155-4091-9d71-331e402542e3" />
+    <UnitTestResult executionId="4b68d322-eecd-434b-a576-617766a03a20" testId="2bcf6041-9cb1-b3b9-4666-4594e12d5389" testName="BurstDurationUsesIndividualCapacityAndPredictsFullPowerBoundary(30)" computerName="DESKTOP-G3075GA" duration="00:00:00.0010290" startTime="2026-10-12T18:10:09.5838563+03:00" endTime="2026-10-12T18:10:09.5848846+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4b68d322-eecd-434b-a576-617766a03a20" />
+    <UnitTestResult executionId="ba81cc0f-f793-4c23-866b-9b4936946af0" testId="2df0d6e2-f38b-935a-3d21-b835fb63980b" testName="AttackHasCostAndRecoveryRestoresAllResources" computerName="DESKTOP-G3075GA" duration="00:00:00.0080290" startTime="2026-10-12T18:10:08.6318097+03:00" endTime="2026-10-12T18:10:08.6398385+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ba81cc0f-f793-4c23-866b-9b4936946af0" />
+    <UnitTestResult executionId="34a82b7f-c51c-4a88-9b8c-052f30567176" testId="90d0d9f8-afa2-1b33-8b1f-37576cb06989" testName="EndpointsInterpolationAndAllStatsAreMonotone" computerName="DESKTOP-G3075GA" duration="00:00:00.0027250" startTime="2026-10-12T18:10:09.5741629+03:00" endTime="2026-10-12T18:10:09.5768875+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="34a82b7f-c51c-4a88-9b8c-052f30567176" />
+    <UnitTestResult executionId="0cf47dc5-a6b3-42ef-ab0e-31bbe901f4f3" testId="de291414-06b4-6785-06a5-2276402f83fd" testName="ThresholdIsNeutralAndRecoveryIsBoundedAndFatigueSensitive" computerName="DESKTOP-G3075GA" duration="00:00:00.0009330" startTime="2026-10-12T18:10:08.5972372+03:00" endTime="2026-10-12T18:10:08.5981697+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0cf47dc5-a6b3-42ef-ab0e-31bbe901f4f3" />
+    <UnitTestResult executionId="a0dced3e-8d33-4982-b4db-ab98fb879d76" testId="5f614b84-4ea2-7e84-9808-f2002b4439c0" testName="InconsistentDefinitionsAreRejected(&quot;fatigue_recovery_penalty&quot;,&quot;1.01&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0001840" startTime="2026-10-12T18:10:08.6283851+03:00" endTime="2026-10-12T18:10:08.6285693+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a0dced3e-8d33-4982-b4db-ab98fb879d76" />
+    <UnitTestResult executionId="a8cd5f03-2509-4a7d-ab91-66353ab89808" testId="2429da9f-59a5-5bf3-901c-11ed286f1223" testName="InvalidWorkloadIsAtomicAcrossKernelStateTelemetryAndEvents" computerName="DESKTOP-G3075GA" duration="00:00:00.0016760" startTime="2026-10-12T18:10:08.6470147+03:00" endTime="2026-10-12T18:10:08.6486911+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a8cd5f03-2509-4a7d-ab91-66353ab89808" />
+    <UnitTestResult executionId="0b724653-f4d2-46b9-bfbc-7bb0dbb7c934" testId="af20bd66-64e5-4b22-9c63-f446ff2551d1" testName="AssistedResponsePreservesFractionalProgressAcrossTickRates(20)" computerName="DESKTOP-G3075GA" duration="00:00:00.0009070" startTime="2026-10-12T18:10:08.6026624+03:00" endTime="2026-10-12T18:10:08.6035694+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0b724653-f4d2-46b9-bfbc-7bb0dbb7c934" />
+    <UnitTestResult executionId="55c61a1d-3214-4083-8995-8f034bbbbbfd" testId="b7f2aff6-4282-7626-5db3-902943d60170" testName="InvalidInputsCannotLeakNonfinitePower" computerName="DESKTOP-G3075GA" duration="00:00:00.0005050" startTime="2026-10-12T18:10:08.6179973+03:00" endTime="2026-10-12T18:10:08.6185026+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="55c61a1d-3214-4083-8995-8f034bbbbbfd" />
+    <UnitTestResult executionId="3454bede-0272-4b5b-9113-12fd651b4646" testId="7eb0b6fe-85f9-45e6-16f7-c4292825c1ae" testName="InconsistentDefinitionsAreRejected(&quot;schema_version&quot;,&quot;2&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0003640" startTime="2026-10-12T18:10:08.6261971+03:00" endTime="2026-10-12T18:10:08.6265607+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3454bede-0272-4b5b-9113-12fd651b4646" />
+    <UnitTestResult executionId="01624dd5-bfc9-4d87-8a41-e5375b27cfc6" testId="45967c17-a47b-8557-ff66-e6cfa0c6fb30" testName="FatigueAndFormAffectPhysicalWattsWithoutChangingInputMeaning" computerName="DESKTOP-G3075GA" duration="00:00:00.0003810" startTime="2026-10-12T18:10:08.6114405+03:00" endTime="2026-10-12T18:10:08.6118210+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="01624dd5-bfc9-4d87-8a41-e5375b27cfc6" />
+    <UnitTestResult executionId="c4d8ff5e-214d-4efb-8d84-b3a8c9228f99" testId="019d29cf-feb4-0575-ab1a-91cd506f6d7d" testName="JsonRoundTripIsCultureIndependentAndPreservesEveryField" computerName="DESKTOP-G3075GA" duration="00:00:00.0009110" startTime="2026-10-12T18:10:08.6299170+03:00" endTime="2026-10-12T18:10:08.6308281+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c4d8ff5e-214d-4efb-8d84-b3a8c9228f99" />
+    <UnitTestResult executionId="bbfd2fd9-1dd7-4498-809b-3eb2528ab344" testId="e13c8b28-133d-e118-8b55-a134969accd4" testName="ExhaustionCapsAttackButRetainsSubthresholdControl" computerName="DESKTOP-G3075GA" duration="00:00:00.0003620" startTime="2026-10-12T18:10:08.6110722+03:00" endTime="2026-10-12T18:10:08.6114342+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bbfd2fd9-1dd7-4498-809b-3eb2528ab344" />
+    <UnitTestResult executionId="96347daf-3192-4733-b17f-4ce8a255021d" testId="519f6393-5966-d973-7a6e-7ac9ef09a8ab" testName="BurstDurationUsesIndividualCapacityAndPredictsFullPowerBoundary(50)" computerName="DESKTOP-G3075GA" duration="00:00:00.0006810" startTime="2026-10-12T18:10:09.5848967+03:00" endTime="2026-10-12T18:10:09.5855774+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="96347daf-3192-4733-b17f-4ce8a255021d" />
+    <UnitTestResult executionId="1117f096-393e-4902-869c-4c3302d034a5" testId="bf219356-c5fb-4d84-fe57-d1c13b4479ca" testName="AllRequiredNumericFieldsRejectMissingNonfiniteAndOutsideEncodingDomain" computerName="DESKTOP-G3075GA" duration="00:00:00.0076280" startTime="2026-10-12T18:10:08.6185535+03:00" endTime="2026-10-12T18:10:08.6261813+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1117f096-393e-4902-869c-4c3302d034a5" />
+    <UnitTestResult executionId="8b1720c8-adf5-44bc-b711-a8b0550ed907" testId="4398eb71-730b-6721-1689-4a650145d309" testName="InconsistentDefinitionsAreRejected(&quot;hr_recovery_tau_s&quot;,&quot;0&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0001979" startTime="2026-10-12T18:10:08.6271651+03:00" endTime="2026-10-12T18:10:08.6273632+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8b1720c8-adf5-44bc-b711-a8b0550ed907" />
+    <UnitTestResult executionId="ea18b67a-ebe1-4d33-840f-a6a8b1601bda" testId="9ff680e4-a43c-09f3-6829-2ccff28dec98" testName="CanonicalStateAndFullTraceSnapshotsMatchQualifiedBaseline" computerName="DESKTOP-G3075GA" duration="00:00:00.0926580" startTime="2026-10-12T18:10:08.6968067+03:00" endTime="2026-10-12T18:10:08.7894645+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ea18b67a-ebe1-4d33-840f-a6a8b1601bda" />
+    <UnitTestResult executionId="38cd61cf-478e-496e-a156-32caf4bdf84f" testId="2c01db67-f9c2-0375-4a3a-cca2f5fde522" testName="MappingPreservesTemplateAndProducesStableVersionedIdentity" computerName="DESKTOP-G3075GA" duration="00:00:00.0012190" startTime="2026-10-12T18:10:09.5778337+03:00" endTime="2026-10-12T18:10:09.5790522+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="38cd61cf-478e-496e-a156-32caf4bdf84f" />
+    <UnitTestResult executionId="381cb515-f46f-402d-9bb8-3d7359ff2af2" testId="57b921a4-170c-8142-db29-24426dd75599" testName="StateValidatesRangesAndRejectsDefaultBeforeUse" computerName="DESKTOP-G3075GA" duration="00:00:00.0006630" startTime="2026-10-12T18:10:08.6310936+03:00" endTime="2026-10-12T18:10:08.6317562+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="381cb515-f46f-402d-9bb8-3d7359ff2af2" />
+    <UnitTestResult executionId="d56648bc-7cbc-48c0-a7f0-efe2671ae313" testId="7b62080f-1a26-6c05-964b-8a02fa1a6a53" testName="TelemetryIsFiniteAllocationFreeAndDoesNotInventLegacyCapability" computerName="DESKTOP-G3075GA" duration="00:00:00.0016160" startTime="2026-10-12T18:10:09.6205019+03:00" endTime="2026-10-12T18:10:09.6221178+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d56648bc-7cbc-48c0-a7f0-efe2671ae313" />
+    <UnitTestResult executionId="d0e6ba99-4fe0-46d6-80a9-3a88244377bf" testId="51fdadfd-b449-eb15-e563-a8c468eb63e3" testName="FullTraceCanBeRepeatedAndSamplesCannotBeReordered" computerName="DESKTOP-G3075GA" duration="00:00:00.0940240" startTime="2026-10-12T18:10:08.7894837+03:00" endTime="2026-10-12T18:10:08.8835077+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d0e6ba99-4fe0-46d6-80a9-3a88244377bf" />
+    <UnitTestResult executionId="00a7bb3f-9206-48af-8675-e1da66d1f0db" testId="532fa554-d6b2-c45d-4eb6-fdb22892d23a" testName="ConstantDrainMatchesJoulesAndExhaustionSaturates" computerName="DESKTOP-G3075GA" duration="00:00:00.0013610" startTime="2026-10-12T18:10:08.5918824+03:00" endTime="2026-10-12T18:10:08.5932429+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="00a7bb3f-9206-48af-8675-e1da66d1f0db" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="InconsistentDefinitionsAreRejected(&quot;hr_safety_ceiling_bpm&quot;,&quot;180&quot;)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="bafde71c-0ca2-0717-3d4d-9cec89cffc6f">
+      <Execution id="0e812bf6-fb80-4922-8a6d-dcb2d655272e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyContractTests" name="InconsistentDefinitionsAreRejected(&quot;hr_safety_ceiling_bpm&quot;,&quot;180&quot;)" />
+    </UnitTest>
+    <UnitTest name="FullControlSweepIsMonotoneAndEffortEqualsRequestedOverSustainable(0.0d,1.0d)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="2d7ded7d-e3d9-5365-b17b-2cfc3ef9aa56">
+      <Execution id="813026d3-9cdf-45fb-8c24-202453e2a422" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.EffortSystemTests" name="FullControlSweepIsMonotoneAndEffortEqualsRequestedOverSustainable(0.0d,1.0d)" />
+    </UnitTest>
+    <UnitTest name="AnalogDeadzoneSaturationAndIntermediateMappingAreMonotone" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="89aaf88e-4360-245c-82ac-3c9ee6b96810">
+      <Execution id="0aff1eb4-994d-41a8-8627-9f8b60f5af2c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.EffortControlTests" name="AnalogDeadzoneSaturationAndIntermediateMappingAreMonotone" />
+    </UnitTest>
+    <UnitTest name="InconsistentDefinitionsAreRejected(&quot;aerobic_threshold&quot;,&quot;1.4&quot;)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="3cd8dcf0-6d3d-42fe-ac38-56883cb4d9d9">
+      <Execution id="c4bcb63c-3e25-4d16-b9b9-09fc93084758" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyContractTests" name="InconsistentDefinitionsAreRejected(&quot;aerobic_threshold&quot;,&quot;1.4&quot;)" />
+    </UnitTest>
+    <UnitTest name="ThresholdIsNeutralAndRecoveryIsBoundedAndFatigueSensitive" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="de291414-06b4-6785-06a5-2276402f83fd">
+      <Execution id="0cf47dc5-a6b3-42ef-ab0e-31bbe901f4f3" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.AnaerobicTests" name="ThresholdIsNeutralAndRecoveryIsBoundedAndFatigueSensitive" />
+    </UnitTest>
+    <UnitTest name="BurstDurationUsesIndividualCapacityAndPredictsFullPowerBoundary(80)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="c3e25ea7-ceda-89d4-8b43-063ecec6773d">
+      <Execution id="0046ab3a-504b-4af7-a8ea-8f292393a621" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="BurstDurationUsesIndividualCapacityAndPredictsFullPowerBoundary(80)" />
+    </UnitTest>
+    <UnitTest name="ProductionBurstReplayRepeatsAndOptionalLegacyDefinitionRoundTrips" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="f036a2b6-cf44-59b3-fccc-61361b284bef">
+      <Execution id="57605f13-ddd7-4c3f-8d33-88af48644cd1" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="ProductionBurstReplayRepeatsAndOptionalLegacyDefinitionRoundTrips" />
+    </UnitTest>
+    <UnitTest name="FingerprintDetectsPhysiologyAndConfigurationChanges" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="b30f5b3f-9fec-9a9a-cb68-906fe8ec7627">
+      <Execution id="8aed4293-130c-4089-a106-5aa1225966ee" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyScenarioTests" name="FingerprintDetectsPhysiologyAndConfigurationChanges" />
+    </UnitTest>
+    <UnitTest name="InconsistentDefinitionsAreRejected(&quot;minimum_power_efficiency&quot;,&quot;1.01&quot;)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="7d04bd55-df5f-83a5-b367-6c9a1cf9a1f3">
+      <Execution id="8041d18a-8d56-4168-a32d-83567ca6b0c6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyContractTests" name="InconsistentDefinitionsAreRejected(&quot;minimum_power_efficiency&quot;,&quot;1.01&quot;)" />
+    </UnitTest>
+    <UnitTest name="TelemetryIsFiniteAllocationFreeAndDoesNotInventLegacyCapability" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="7b62080f-1a26-6c05-964b-8a02fa1a6a53">
+      <Execution id="d56648bc-7cbc-48c0-a7f0-efe2671ae313" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="TelemetryIsFiniteAllocationFreeAndDoesNotInventLegacyCapability" />
+    </UnitTest>
+    <UnitTest name="FatigueAndFormAffectPhysicalWattsWithoutChangingInputMeaning" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="45967c17-a47b-8557-ff66-e6cfa0c6fb30">
+      <Execution id="01624dd5-bfc9-4d87-8a41-e5375b27cfc6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.EffortSystemTests" name="FatigueAndFormAffectPhysicalWattsWithoutChangingInputMeaning" />
+    </UnitTest>
+    <UnitTest name="AttackHasPersistentFatigueAndSlowRecoveryRatherThanAFreeRepeatedBoost" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="1d808ce6-bd91-e3fb-0870-0887818361b7">
+      <Execution id="28df08f4-2f2e-47c4-bc7d-4a5f1170a20f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="AttackHasPersistentFatigueAndSlowRecoveryRatherThanAFreeRepeatedBoost" />
+    </UnitTest>
+    <UnitTest name="InvalidWorkloadIsAtomicAcrossKernelStateTelemetryAndEvents" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="2429da9f-59a5-5bf3-901c-11ed286f1223">
+      <Execution id="a8cd5f03-2509-4a7d-ab91-66353ab89808" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyIntegrationTests" name="InvalidWorkloadIsAtomicAcrossKernelStateTelemetryAndEvents" />
+    </UnitTest>
+    <UnitTest name="RepeatedIntervalsAllocateNothingAndInvalidInputFails" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="ef2b4888-a143-19c7-09f4-41bf03d6bb7f">
+      <Execution id="60d8aeaa-a12f-4b38-9ec4-e7465714da0f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.AnaerobicTests" name="RepeatedIntervalsAllocateNothingAndInvalidInputFails" />
+    </UnitTest>
+    <UnitTest name="MappingPreservesTemplateAndProducesStableVersionedIdentity" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="2c01db67-f9c2-0375-4a3a-cca2f5fde522">
+      <Execution id="38cd61cf-478e-496e-a156-32caf4bdf84f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyStatTests" name="MappingPreservesTemplateAndProducesStableVersionedIdentity" />
+    </UnitTest>
+    <UnitTest name="InconsistentDefinitionsAreRejected(&quot;hr_rise_tau_s&quot;,&quot;0&quot;)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="bb85c08a-29ce-f418-9997-38265230d276">
+      <Execution id="0695e755-721d-408a-8e75-6db5ef178cd1" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyContractTests" name="InconsistentDefinitionsAreRejected(&quot;hr_rise_tau_s&quot;,&quot;0&quot;)" />
+    </UnitTest>
+    <UnitTest name="ReplayingFullInputsReproducesStateAndOrderedEventsRegardlessOfSeed" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="25bf5415-c8ab-e646-3fd1-46093920b541">
+      <Execution id="490d8832-4e83-4dde-9017-c72eab3e4f7c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyIntegrationTests" name="ReplayingFullInputsReproducesStateAndOrderedEventsRegardlessOfSeed" />
+    </UnitTest>
+    <UnitTest name="InconsistentDefinitionsAreRejected(&quot;fatigue_recovery_penalty&quot;,&quot;1.01&quot;)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="5f614b84-4ea2-7e84-9808-f2002b4439c0">
+      <Execution id="a0dced3e-8d33-4982-b4db-ab98fb879d76" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyContractTests" name="InconsistentDefinitionsAreRejected(&quot;fatigue_recovery_penalty&quot;,&quot;1.01&quot;)" />
+    </UnitTest>
+    <UnitTest name="SharedPowerCausesActualAccelerationAndDissipatesWhenReleased" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="b38c6435-7403-9a53-f5b1-e636b3ad1e41">
+      <Execution id="dac637bf-8b0f-4a0f-872b-781365ed67fc" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="SharedPowerCausesActualAccelerationAndDissipatesWhenReleased" />
+    </UnitTest>
+    <UnitTest name="ExhaustionCapsAttackButRetainsSubthresholdControl" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="e13c8b28-133d-e118-8b55-a134969accd4">
+      <Execution id="bbfd2fd9-1dd7-4498-809b-3eb2528ab344" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.EffortSystemTests" name="ExhaustionCapsAttackButRetainsSubthresholdControl" />
+    </UnitTest>
+    <UnitTest name="AttackHasCostAndRecoveryRestoresAllResources" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="2df0d6e2-f38b-935a-3d21-b835fb63980b">
+      <Execution id="ba81cc0f-f793-4c23-866b-9b4936946af0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyIntegrationTests" name="AttackHasCostAndRecoveryRestoresAllResources" />
+    </UnitTest>
+    <UnitTest name="AssistedResponsePreservesFractionalProgressAcrossTickRates(30)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="d5e5027b-0dd7-2520-6a9e-ca0d63a71e96">
+      <Execution id="a5ef7118-79b3-4d1d-acf7-60ed5df46c8e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.EffortControlTests" name="AssistedResponsePreservesFractionalProgressAcrossTickRates(30)" />
+    </UnitTest>
+    <UnitTest name="AllCannedScenariosReplayIdenticalFingerprints" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="bb00a61d-86a9-b8d2-de10-ceac8bcd380b">
+      <Execution id="d92e66a0-5430-4b6d-aadf-f3b8a7e2c3f2" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyScenarioTests" name="AllCannedScenariosReplayIdenticalFingerprints" />
+    </UnitTest>
+    <UnitTest name="StateValidatesRangesAndRejectsDefaultBeforeUse" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="57b921a4-170c-8142-db29-24426dd75599">
+      <Execution id="381cb515-f46f-402d-9bb8-3d7359ff2af2" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyContractTests" name="StateValidatesRangesAndRejectsDefaultBeforeUse" />
+    </UnitTest>
+    <UnitTest name="EvaluateIsRepeatableAndAllocationFree" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="bbfef115-6d3e-c18d-7818-86eb3b1641a1">
+      <Execution id="1bb371e9-67ac-4fad-bcc9-535ff9addcf0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.EffortSystemTests" name="EvaluateIsRepeatableAndAllocationFree" />
+    </UnitTest>
+    <UnitTest name="BurstDurationUsesIndividualCapacityAndPredictsFullPowerBoundary(30)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="2bcf6041-9cb1-b3b9-4666-4594e12d5389">
+      <Execution id="4b68d322-eecd-434b-a576-617766a03a20" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="BurstDurationUsesIndividualCapacityAndPredictsFullPowerBoundary(30)" />
+    </UnitTest>
+    <UnitTest name="InconsistentDefinitionsAreRejected(&quot;schema_version&quot;,&quot;2&quot;)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="7eb0b6fe-85f9-45e6-16f7-c4292825c1ae">
+      <Execution id="3454bede-0272-4b5b-9113-12fd651b4646" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyContractTests" name="InconsistentDefinitionsAreRejected(&quot;schema_version&quot;,&quot;2&quot;)" />
+    </UnitTest>
+    <UnitTest name="JsonRoundTripIsCultureIndependentAndPreservesEveryField" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="019d29cf-feb4-0575-ab1a-91cd506f6d7d">
+      <Execution id="c4d8ff5e-214d-4efb-8d84-b3a8c9228f99" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyContractTests" name="JsonRoundTripIsCultureIndependentAndPreservesEveryField" />
+    </UnitTest>
+    <UnitTest name="InvalidInputsCannotLeakNonfinitePower" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="b7f2aff6-4282-7626-5db3-902943d60170">
+      <Execution id="55c61a1d-3214-4083-8995-8f034bbbbbfd" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.EffortSystemTests" name="InvalidInputsCannotLeakNonfinitePower" />
+    </UnitTest>
+    <UnitTest name="InconsistentDefinitionsAreRejected(&quot;hr_recovery_tau_s&quot;,&quot;0&quot;)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="4398eb71-730b-6721-1689-4a650145d309">
+      <Execution id="8b1720c8-adf5-44bc-b711-a8b0550ed907" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyContractTests" name="InconsistentDefinitionsAreRejected(&quot;hr_recovery_tau_s&quot;,&quot;0&quot;)" />
+    </UnitTest>
+    <UnitTest name="CanonicalStateAndFullTraceSnapshotsMatchQualifiedBaseline" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="9ff680e4-a43c-09f3-6829-2ccff28dec98">
+      <Execution id="ea18b67a-ebe1-4d33-840f-a6a8b1601bda" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyRegressionTests" name="CanonicalStateAndFullTraceSnapshotsMatchQualifiedBaseline" />
+    </UnitTest>
+    <UnitTest name="ConstantDrainMatchesJoulesAndExhaustionSaturates" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="532fa554-d6b2-c45d-4eb6-fdb22892d23a">
+      <Execution id="00a7bb3f-9206-48af-8675-e1da66d1f0db" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.AnaerobicTests" name="ConstantDrainMatchesJoulesAndExhaustionSaturates" />
+    </UnitTest>
+    <UnitTest name="ResourceBoundaryEventsAreOrderedAfterEffortAndNotRepeated" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="ddb4f09b-1586-150d-b18f-9fb25bb91d45">
+      <Execution id="5731eaea-e2e4-469e-b54a-7f6fd1c5777d" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyIntegrationTests" name="ResourceBoundaryEventsAreOrderedAfterEffortAndNotRepeated" />
+    </UnitTest>
+    <UnitTest name="OrdinaryRaceAndFreshClimbControlsRetainTheirMeaning" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="202797b9-73ea-459f-6c01-829be3dd0273">
+      <Execution id="6d670467-8835-4c1e-8585-422a8422afe8" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="OrdinaryRaceAndFreshClimbControlsRetainTheirMeaning" />
+    </UnitTest>
+    <UnitTest name="RecoveryAndCapacity40Versus80HaveExpectedPhysicalEffects" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="836dda3d-d89a-bf6e-38da-5223b34cb4ea">
+      <Execution id="9ee395a1-1ded-4a72-838d-f5c6112662c1" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyStatTests" name="RecoveryAndCapacity40Versus80HaveExpectedPhysicalEffects" />
+    </UnitTest>
+    <UnitTest name="ShiftReleaseRestoresTheChosenDialWithoutResettingEnergy" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="8ff5c2ab-c3c0-15dc-a20d-ec2076a57ce6">
+      <Execution id="2ef3db0b-fa62-4645-8ab3-0f004b0f3524" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="ShiftReleaseRestoresTheChosenDialWithoutResettingEnergy" />
+    </UnitTest>
+    <UnitTest name="BurstDurationUsesIndividualCapacityAndPredictsFullPowerBoundary(50)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="519f6393-5966-d973-7a6e-7ac9ef09a8ab">
+      <Execution id="96347daf-3192-4733-b17f-4ce8a255021d" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="BurstDurationUsesIndividualCapacityAndPredictsFullPowerBoundary(50)" />
+    </UnitTest>
+    <UnitTest name="FullControlSweepIsMonotoneAndEffortEqualsRequestedOverSustainable(0.5d,0.0d)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="b0edb5d2-7c78-7640-fc72-4bbb7156a4c1">
+      <Execution id="f02c8bb2-542c-41d8-9fd8-e38ae82f2a70" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.EffortSystemTests" name="FullControlSweepIsMonotoneAndEffortEqualsRequestedOverSustainable(0.5d,0.0d)" />
+    </UnitTest>
+    <UnitTest name="AllRequiredNumericFieldsRejectMissingNonfiniteAndOutsideEncodingDomain" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="bf219356-c5fb-4d84-fe57-d1c13b4479ca">
+      <Execution id="1117f096-393e-4902-869c-4c3302d034a5" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyContractTests" name="AllRequiredNumericFieldsRejectMissingNonfiniteAndOutsideEncodingDomain" />
+    </UnitTest>
+    <UnitTest name="PresetsAreExplicitAndFinalSprintUsesZoneAwareRequest" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="eabec238-5876-94b3-6d01-4dff84f883ed">
+      <Execution id="1dfd6ced-8155-4091-9d71-331e402542e3" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.EffortControlTests" name="PresetsAreExplicitAndFinalSprintUsesZoneAwareRequest" />
+    </UnitTest>
+    <UnitTest name="CapacityControlsDrainAndRefillTimeWithoutHiddenPowerBoost" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="7ace84a0-7597-d60a-b772-29be4ff67423">
+      <Execution id="771731cd-a473-433c-aafa-483f54c848d7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.AnaerobicTests" name="CapacityControlsDrainAndRefillTimeWithoutHiddenPowerBoost" />
+    </UnitTest>
+    <UnitTest name="InvalidSuiteAndWorkloadsAreRejected" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="cbd1f4c3-eb80-17c5-b119-0c86cdb530fd">
+      <Execution id="90b4d27f-a879-4484-a110-5ea6c44f209b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyScenarioTests" name="InvalidSuiteAndWorkloadsAreRejected" />
+    </UnitTest>
+    <UnitTest name="AssistedResponsePreservesFractionalProgressAcrossTickRates(144)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="118c4756-8df0-0868-f4e0-9591877ad21f">
+      <Execution id="df002871-ba2d-4e3f-a56a-60ccc92646f5" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.EffortControlTests" name="AssistedResponsePreservesFractionalProgressAcrossTickRates(144)" />
+    </UnitTest>
+    <UnitTest name="WorkloadBoundariesAndDurationsAreExact" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="0d06daee-4758-c01f-d3a1-2c4056cf4182">
+      <Execution id="6d83bece-3d80-4e62-ac5f-f5c80527f194" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyScenarioTests" name="WorkloadBoundariesAndDurationsAreExact" />
+    </UnitTest>
+    <UnitTest name="CsvHasCompleteInputsAndTelemetryInInvariantCulture" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="d23bb6d4-ec2e-8f6b-9d23-df2fa3e54486">
+      <Execution id="d261a92b-cdc5-4e79-9923-8cd5a8124549" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyScenarioTests" name="CsvHasCompleteInputsAndTelemetryInInvariantCulture" />
+    </UnitTest>
+    <UnitTest name="UnrepresentableParameterCombinationsFailBeforeTicks" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="e747cc6f-8082-36d4-bbca-dc00fa595f75">
+      <Execution id="e30cfbbb-4a56-4ce2-8d66-eeab8d220acb" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyRegressionTests" name="UnrepresentableParameterCombinationsFailBeforeTicks" />
+    </UnitTest>
+    <UnitTest name="InvalidIdsNullAndMalformedDocumentsAreRejected" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="99965b8e-e134-2dd2-0089-6aa3699027b4">
+      <Execution id="8747e3bb-345f-4432-bc49-f498ea403ed2" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyContractTests" name="InvalidIdsNullAndMalformedDocumentsAreRejected" />
+    </UnitTest>
+    <UnitTest name="FullControlSweepIsMonotoneAndEffortEqualsRequestedOverSustainable(1.0d,1.0d)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="62de057d-3fc4-db3f-6d2f-eefc0daac3d7">
+      <Execution id="739f6709-34e9-415f-8d56-696a2b81d769" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.EffortSystemTests" name="FullControlSweepIsMonotoneAndEffortEqualsRequestedOverSustainable(1.0d,1.0d)" />
+    </UnitTest>
+    <UnitTest name="FullTraceCanBeRepeatedAndSamplesCannotBeReordered" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="51fdadfd-b449-eb15-e563-a8c468eb63e3">
+      <Execution id="d0e6ba99-4fe0-46d6-80a9-3a88244377bf" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyRegressionTests" name="FullTraceCanBeRepeatedAndSamplesCannotBeReordered" />
+    </UnitTest>
+    <UnitTest name="InconsistentDefinitionsAreRejected(&quot;drift_saturation_s&quot;,&quot;0.0000000011&quot;)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="7027fe00-5ef5-e9b4-f745-16ef73392319">
+      <Execution id="e426cafa-0a8a-4b91-8aba-bd3c49e09100" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyContractTests" name="InconsistentDefinitionsAreRejected(&quot;drift_saturation_s&quot;,&quot;0.0000000011&quot;)" />
+    </UnitTest>
+    <UnitTest name="InvalidCommandIsAtomicAndResponseLoopDoesNotAllocate" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="aec2308a-1b21-62c0-4f11-2d93be499372">
+      <Execution id="9bf7e58e-ca46-462f-b7a3-c4241243a6c8" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.EffortControlTests" name="InvalidCommandIsAtomicAndResponseLoopDoesNotAllocate" />
+    </UnitTest>
+    <UnitTest name="IntegratedAttackCostsReserveAndRecoveryRestoresCapability" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="83be55ab-7223-8a06-54e5-0f3fafd80b29">
+      <Execution id="5d6f1eb6-3081-4283-aac4-5b05b3eb5c14" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.AnaerobicTests" name="IntegratedAttackCostsReserveAndRecoveryRestoresCapability" />
+    </UnitTest>
+    <UnitTest name="NumericEncodingRoundsToNineDecimalsAndSaturatesOnlyExplicitly" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="0d1cea6b-9c48-53b2-85ce-22623c4b3b7f">
+      <Execution id="5c938da3-ee0f-4176-9568-47d9b997b43e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyContractTests" name="NumericEncodingRoundsToNineDecimalsAndSaturatesOnlyExplicitly" />
+    </UnitTest>
+    <UnitTest name="EndpointsInterpolationAndAllStatsAreMonotone" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="90d0d9f8-afa2-1b33-8b1f-37576cb06989">
+      <Execution id="34a82b7f-c51c-4a88-9b8c-052f30567176" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyStatTests" name="EndpointsInterpolationAndAllStatsAreMonotone" />
+    </UnitTest>
+    <UnitTest name="LongExtremeInitialStatesRemainValidAndRecoveryWorks" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="c815eadd-a820-4c5d-1baa-4d7bf6f89f9a">
+      <Execution id="75bde043-70eb-4ad4-a519-ccc6fc45f9ff" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyRegressionTests" name="LongExtremeInitialStatesRemainValidAndRecoveryWorks" />
+    </UnitTest>
+    <UnitTest name="InvalidStatsAndMalformedCurvesAreRejected" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="be6c393e-eef0-55c4-bc37-fbef19bbaa0c">
+      <Execution id="23e11697-8608-41db-ab9c-f66c86caf0b1" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyStatTests" name="InvalidStatsAndMalformedCurvesAreRejected" />
+    </UnitTest>
+    <UnitTest name="InconsistentDefinitionsAreRejected(&quot;anaerobic_capacity_joules&quot;,&quot;0&quot;)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="6527bb6f-d4ff-7c0a-9fca-8cef1ae2b53f">
+      <Execution id="f979d07a-c014-44a9-9742-4d7c89f0f6d7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyContractTests" name="InconsistentDefinitionsAreRejected(&quot;anaerobic_capacity_joules&quot;,&quot;0&quot;)" />
+    </UnitTest>
+    <UnitTest name="IntegratedHotLoopAllocatesZeroAfterWarmup" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="dbf4a431-de47-77a7-ea36-7413c91693a3">
+      <Execution id="bb61447b-addf-4f6c-b969-6324a6f6e235" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyIntegrationTests" name="IntegratedHotLoopAllocatesZeroAfterWarmup" />
+    </UnitTest>
+    <UnitTest name="AssistedResponsePreservesFractionalProgressAcrossTickRates(20)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="af20bd66-64e5-4b22-9c63-f446ff2551d1">
+      <Execution id="0b724653-f4d2-46b9-bfbc-7bb0dbb7c934" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.EffortControlTests" name="AssistedResponsePreservesFractionalProgressAcrossTickRates(20)" />
+    </UnitTest>
+    <UnitTest name="FullShiftGivesDistinctPowerAndSpendsUsefulReserveWithinTwentySeconds" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="7c64e42d-6a3c-99e9-1a0f-1d0167b97353">
+      <Execution id="90669aca-72e4-4306-b2e6-7a80882da39d" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="FullShiftGivesDistinctPowerAndSpendsUsefulReserveWithinTwentySeconds" />
+    </UnitTest>
+    <UnitTest name="InconsistentDefinitionsAreRejected(&quot;resting_hr_bpm&quot;,&quot;191&quot;)" storage="c:\game\biathlon\biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\biathlon.tests\debug\biathlon.tests.dll" id="6f731547-2433-6136-56da-6dbee4e339a5">
+      <Execution id="399f1bee-c495-43d2-905a-5fa7671a3b36" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PhysiologyContractTests" name="InconsistentDefinitionsAreRejected(&quot;resting_hr_bpm&quot;,&quot;191&quot;)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="7d04bd55-df5f-83a5-b367-6c9a1cf9a1f3" executionId="8041d18a-8d56-4168-a32d-83567ca6b0c6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b0edb5d2-7c78-7640-fc72-4bbb7156a4c1" executionId="f02c8bb2-542c-41d8-9fd8-e38ae82f2a70" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="118c4756-8df0-0868-f4e0-9591877ad21f" executionId="df002871-ba2d-4e3f-a56a-60ccc92646f5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d5e5027b-0dd7-2520-6a9e-ca0d63a71e96" executionId="a5ef7118-79b3-4d1d-acf7-60ed5df46c8e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b38c6435-7403-9a53-f5b1-e636b3ad1e41" executionId="dac637bf-8b0f-4a0f-872b-781365ed67fc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cbd1f4c3-eb80-17c5-b119-0c86cdb530fd" executionId="90b4d27f-a879-4484-a110-5ea6c44f209b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6f731547-2433-6136-56da-6dbee4e339a5" executionId="399f1bee-c495-43d2-905a-5fa7671a3b36" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bbfef115-6d3e-c18d-7818-86eb3b1641a1" executionId="1bb371e9-67ac-4fad-bcc9-535ff9addcf0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3cd8dcf0-6d3d-42fe-ac38-56883cb4d9d9" executionId="c4bcb63c-3e25-4d16-b9b9-09fc93084758" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="836dda3d-d89a-bf6e-38da-5223b34cb4ea" executionId="9ee395a1-1ded-4a72-838d-f5c6112662c1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="25bf5415-c8ab-e646-3fd1-46093920b541" executionId="490d8832-4e83-4dde-9017-c72eab3e4f7c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dbf4a431-de47-77a7-ea36-7413c91693a3" executionId="bb61447b-addf-4f6c-b969-6324a6f6e235" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c815eadd-a820-4c5d-1baa-4d7bf6f89f9a" executionId="75bde043-70eb-4ad4-a519-ccc6fc45f9ff" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8ff5c2ab-c3c0-15dc-a20d-ec2076a57ce6" executionId="2ef3db0b-fa62-4645-8ab3-0f004b0f3524" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b30f5b3f-9fec-9a9a-cb68-906fe8ec7627" executionId="8aed4293-130c-4089-a106-5aa1225966ee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="be6c393e-eef0-55c4-bc37-fbef19bbaa0c" executionId="23e11697-8608-41db-ab9c-f66c86caf0b1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c3e25ea7-ceda-89d4-8b43-063ecec6773d" executionId="0046ab3a-504b-4af7-a8ea-8f292393a621" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7027fe00-5ef5-e9b4-f745-16ef73392319" executionId="e426cafa-0a8a-4b91-8aba-bd3c49e09100" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="aec2308a-1b21-62c0-4f11-2d93be499372" executionId="9bf7e58e-ca46-462f-b7a3-c4241243a6c8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7c64e42d-6a3c-99e9-1a0f-1d0167b97353" executionId="90669aca-72e4-4306-b2e6-7a80882da39d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0d1cea6b-9c48-53b2-85ce-22623c4b3b7f" executionId="5c938da3-ee0f-4176-9568-47d9b997b43e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bafde71c-0ca2-0717-3d4d-9cec89cffc6f" executionId="0e812bf6-fb80-4922-8a6d-dcb2d655272e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="99965b8e-e134-2dd2-0089-6aa3699027b4" executionId="8747e3bb-345f-4432-bc49-f498ea403ed2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7ace84a0-7597-d60a-b772-29be4ff67423" executionId="771731cd-a473-433c-aafa-483f54c848d7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="89aaf88e-4360-245c-82ac-3c9ee6b96810" executionId="0aff1eb4-994d-41a8-8627-9f8b60f5af2c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="62de057d-3fc4-db3f-6d2f-eefc0daac3d7" executionId="739f6709-34e9-415f-8d56-696a2b81d769" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="202797b9-73ea-459f-6c01-829be3dd0273" executionId="6d670467-8835-4c1e-8585-422a8422afe8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="83be55ab-7223-8a06-54e5-0f3fafd80b29" executionId="5d6f1eb6-3081-4283-aac4-5b05b3eb5c14" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ddb4f09b-1586-150d-b18f-9fb25bb91d45" executionId="5731eaea-e2e4-469e-b54a-7f6fd1c5777d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bb00a61d-86a9-b8d2-de10-ceac8bcd380b" executionId="d92e66a0-5430-4b6d-aadf-f3b8a7e2c3f2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0d06daee-4758-c01f-d3a1-2c4056cf4182" executionId="6d83bece-3d80-4e62-ac5f-f5c80527f194" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f036a2b6-cf44-59b3-fccc-61361b284bef" executionId="57605f13-ddd7-4c3f-8d33-88af48644cd1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ef2b4888-a143-19c7-09f4-41bf03d6bb7f" executionId="60d8aeaa-a12f-4b38-9ec4-e7465714da0f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bb85c08a-29ce-f418-9997-38265230d276" executionId="0695e755-721d-408a-8e75-6db5ef178cd1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6527bb6f-d4ff-7c0a-9fca-8cef1ae2b53f" executionId="f979d07a-c014-44a9-9742-4d7c89f0f6d7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2d7ded7d-e3d9-5365-b17b-2cfc3ef9aa56" executionId="813026d3-9cdf-45fb-8c24-202453e2a422" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1d808ce6-bd91-e3fb-0870-0887818361b7" executionId="28df08f4-2f2e-47c4-bc7d-4a5f1170a20f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e747cc6f-8082-36d4-bbca-dc00fa595f75" executionId="e30cfbbb-4a56-4ce2-8d66-eeab8d220acb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d23bb6d4-ec2e-8f6b-9d23-df2fa3e54486" executionId="d261a92b-cdc5-4e79-9923-8cd5a8124549" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eabec238-5876-94b3-6d01-4dff84f883ed" executionId="1dfd6ced-8155-4091-9d71-331e402542e3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2bcf6041-9cb1-b3b9-4666-4594e12d5389" executionId="4b68d322-eecd-434b-a576-617766a03a20" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2df0d6e2-f38b-935a-3d21-b835fb63980b" executionId="ba81cc0f-f793-4c23-866b-9b4936946af0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="90d0d9f8-afa2-1b33-8b1f-37576cb06989" executionId="34a82b7f-c51c-4a88-9b8c-052f30567176" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="de291414-06b4-6785-06a5-2276402f83fd" executionId="0cf47dc5-a6b3-42ef-ab0e-31bbe901f4f3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5f614b84-4ea2-7e84-9808-f2002b4439c0" executionId="a0dced3e-8d33-4982-b4db-ab98fb879d76" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2429da9f-59a5-5bf3-901c-11ed286f1223" executionId="a8cd5f03-2509-4a7d-ab91-66353ab89808" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="af20bd66-64e5-4b22-9c63-f446ff2551d1" executionId="0b724653-f4d2-46b9-bfbc-7bb0dbb7c934" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b7f2aff6-4282-7626-5db3-902943d60170" executionId="55c61a1d-3214-4083-8995-8f034bbbbbfd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7eb0b6fe-85f9-45e6-16f7-c4292825c1ae" executionId="3454bede-0272-4b5b-9113-12fd651b4646" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="45967c17-a47b-8557-ff66-e6cfa0c6fb30" executionId="01624dd5-bfc9-4d87-8a41-e5375b27cfc6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="019d29cf-feb4-0575-ab1a-91cd506f6d7d" executionId="c4d8ff5e-214d-4efb-8d84-b3a8c9228f99" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e13c8b28-133d-e118-8b55-a134969accd4" executionId="bbfd2fd9-1dd7-4498-809b-3eb2528ab344" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="519f6393-5966-d973-7a6e-7ac9ef09a8ab" executionId="96347daf-3192-4733-b17f-4ce8a255021d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bf219356-c5fb-4d84-fe57-d1c13b4479ca" executionId="1117f096-393e-4902-869c-4c3302d034a5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4398eb71-730b-6721-1689-4a650145d309" executionId="8b1720c8-adf5-44bc-b711-a8b0550ed907" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9ff680e4-a43c-09f3-6829-2ccff28dec98" executionId="ea18b67a-ebe1-4d33-840f-a6a8b1601bda" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2c01db67-f9c2-0375-4a3a-cca2f5fde522" executionId="38cd61cf-478e-496e-a156-32caf4bdf84f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="57b921a4-170c-8142-db29-24426dd75599" executionId="381cb515-f46f-402d-9bb8-3d7359ff2af2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7b62080f-1a26-6c05-964b-8a02fa1a6a53" executionId="d56648bc-7cbc-48c0-a7f0-efe2671ae313" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="51fdadfd-b449-eb15-e563-a8c468eb63e3" executionId="d0e6ba99-4fe0-46d6-80a9-3a88244377bf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="532fa554-d6b2-c45d-4eb6-fdb22892d23a" executionId="00a7bb3f-9206-48af-8675-e1da66d1f0db" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="61" executed="61" passed="61" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\docs\quality\m14\burst-pack-20261012\dotnet-burst\bin\Biathlon.Tests\debug\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 61 of 61 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+{"ticks":100000,"simulated_seconds":5000,"elapsed_ms":65.6751,"allocated_bytes":0}&#xD;
+&#xD;
+low_5min=fd0f65d228dea78e259a957a26d289f557482a44318dba5b9ad3e0f161814b5e&#xD;
+race_3min_recovery_60s=7023acc5b62d15f1023e4886df882788a2b9bd41ec0bd2fd6f6d2681f7f087f1&#xD;
+attack_intervals=ddc4a62807c13d1705e53807e9db4ab9dd68eaeeb9850a4eec5deaa613efd523&#xD;
+fatigued_race=6b7eb3da888097848908c9225e553ed603872fb6ffafd97aa71014ad2d298400&#xD;
+recovery_40=8876986dfaee69b8c647b37cb23578f839335a67ac328c4dd5bcc305f46880ef&#xD;
+recovery_80=09fe92870a1916a30f51f898e3d04f7f801de9d9d0eee2a9b3f753000a71caae&#xD;
+capacity_40=eec88c7d64a9c742bb30bb90773d61099ff7f930f52e776327fd69af9be8291a&#xD;
+capacity_80=6ea875bd7d39b2a7cb71c5783ea551083f5e8cc83ac286410f94afa67fb4aaf3&#xD;
+&#xD;
+&#xD;
+normal_watts=364.00;burst_watts=560.00;reserve_after20s=0.0761;effort_after20s=1.230&#xD;
+&#xD;
+normal_speed8s=8.961;burst_speed8s=10.309;reserve8s=0.5761&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

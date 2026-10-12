@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="5f325216-3351-4fac-a715-3023329dda9f" name="snkashkin@DESKTOP-G3075GA 2026-10-12 18:35:39" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-12T18:35:39.2374926+03:00" queuing="2026-10-12T18:35:39.2374927+03:00" start="2026-10-12T18:32:40.6661270+03:00" finish="2026-10-12T18:36:09.6324702+03:00" />
+  <TestSettings name="default" id="e966f2a3-3fd3-4574-b7d6-3c2de3777d68">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-12_18_35_39" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="c7a0c11a-9722-4b9b-a695-80dfd3f6f293" testId="f72b80e4-4c97-7ff2-d4c8-b63bacfce77c" testName="ThirtyBodiesKeepTheirAuthoredColumnsAndAllClearTheActualCurvedApproach" computerName="DESKTOP-G3075GA" duration="00:00:30.3175880" startTime="2026-10-12T18:35:39.2063415+03:00" endTime="2026-10-12T18:36:09.5240266+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c7a0c11a-9722-4b9b-a695-80dfd3f6f293">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: greater than 10000000000&#xD;
+  But was:  9739435172&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.AiStartTrafficTests.ThirtyBodiesKeepTheirAuthoredColumnsAndAllClearTheActualCurvedApproach() in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Tests\EditMode\AiStartTrafficTests.cs:line 63&#xD;
+
+1)    at Biathlon.Tests.AiStartTrafficTests.ThirtyBodiesKeepTheirAuthoredColumnsAndAllClearTheActualCurvedApproach() in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Tests\EditMode\AiStartTrafficTests.cs:line 63&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="70a737ec-6527-4992-85c1-805cd54901e2" testId="58276d14-632c-af87-795a-4331dafd99a0" testName="EntireThirtyAthleteFieldPassesStationaryPlayerAtTheActualCurvedStart" computerName="DESKTOP-G3075GA" duration="00:02:58.0111010" startTime="2026-10-12T18:32:41.1937197+03:00" endTime="2026-10-12T18:35:39.2053552+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="70a737ec-6527-4992-85c1-805cd54901e2">
+      <Output>
+        <StdOut>start_blocked athlete=1 point=122831844408 line=-0,8 requested=-0,8 clear_left=False clear_right=False&#xD;
+start_blocked athlete=2 point=122831644135 line=1,2 requested=1,2 clear_left=True clear_right=True&#xD;
+start_blocked athlete=3 point=122831170419 line=-2,8 requested=-2,8 clear_left=True clear_right=True&#xD;
+start_blocked athlete=4 point=122831380501 line=-0,05 requested=-0,05 clear_left=False clear_right=True&#xD;
+start_blocked athlete=5 point=122831224276 line=2,8 requested=2,8 clear_left=True clear_right=False&#xD;
+start_blocked athlete=6 point=122831830673 line=-3,6 requested=-3,6 clear_left=False clear_right=True&#xD;
+start_blocked athlete=7 point=122831703433 line=-1,55 requested=-1,5 clear_left=True clear_right=False&#xD;
+start_blocked athlete=8 point=122831903578 line=3,6 requested=3,6 clear_left=True clear_right=False&#xD;
+start_blocked athlete=9 point=121310515188 line=-3,1 requested=-3,1 clear_left=True clear_right=False&#xD;
+start_blocked athlete=10 point=121311243804 line=0 requested=0 clear_left=False clear_right=False&#xD;
+start_blocked athlete=11 point=121311772626 line=3,55 requested=3,5 clear_left=False clear_right=True&#xD;
+start_blocked athlete=12 point=121310300899 line=-2,35 requested=-2,35 clear_left=False clear_right=False&#xD;
+start_blocked athlete=13 point=119790574759 line=0 requested=0 clear_left=False clear_right=False&#xD;
+start_blocked athlete=14 point=122831911312 line=2 requested=2 clear_left=True clear_right=True&#xD;
+start_blocked athlete=15 point=121311127784 line=-1,6 requested=-1,65 clear_left=False clear_right=True&#xD;
+start_blocked athlete=16 point=118270256282 line=0 requested=0 clear_left=False clear_right=True&#xD;
+start_blocked athlete=17 point=121311878727 line=2 requested=2 clear_left=True clear_right=False&#xD;
+start_blocked athlete=18 point=121311478279 line=0,75 requested=0,7 clear_left=False clear_right=True&#xD;
+start_blocked athlete=19 point=121310463792 line=-0,75 requested=-0,7 clear_left=True clear_right=False&#xD;
+start_blocked athlete=20 point=119791753320 line=2 requested=2 clear_left=True clear_right=False&#xD;
+start_blocked athlete=21 point=119789933078 line=-2,3 requested=-2,25 clear_left=True clear_right=False&#xD;
+start_blocked athlete=22 point=119790249405 line=-0,75 requested=-0,7 clear_left=True clear_right=False&#xD;
+start_blocked athlete=23 point=118271162289 line=2 requested=2 clear_left=True clear_right=True&#xD;
+start_blocked athlete=24 point=118269276776 line=-2 requested=-2 clear_left=True clear_right=True&#xD;
+start_blocked athlete=25 point=116749725531 line=0 requested=0 clear_left=True clear_right=True&#xD;
+start_blocked athlete=26 point=121310759569 line=2,75 requested=2,7 clear_left=False clear_right=True&#xD;
+start_blocked athlete=27 point=119791066880 line=-1,55 requested=-1,55 clear_left=False clear_right=True&#xD;
+start_blocked athlete=28 point=119790713915 line=0,75 requested=0,7 clear_left=False clear_right=True&#xD;
+start_blocked athlete=29 point=116750319208 line=2 requested=2 clear_left=True clear_right=True</StdOut>
+        <ErrorInfo>
+          <Message>  Rear athlete 1 must clear the complete curved start.&#xD;
+  Expected: 0&#xD;
+  But was:  155592&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.AiStartTrafficTests.EntireThirtyAthleteFieldPassesStationaryPlayerAtTheActualCurvedStart() in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Tests\EditMode\AiStartTrafficTests.cs:line 176&#xD;
+
+1)    at Biathlon.Tests.AiStartTrafficTests.EntireThirtyAthleteFieldPassesStationaryPlayerAtTheActualCurvedStart() in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\Assets\Tests\EditMode\AiStartTrafficTests.cs:line 176&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ThirtyBodiesKeepTheirAuthoredColumnsAndAllClearTheActualCurvedApproach" storage="c:\game\biathlon\biathlon\.tmp\m14-burst-head-baseline\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="f72b80e4-4c97-7ff2-d4c8-b63bacfce77c">
+      <Execution id="c7a0c11a-9722-4b9b-a695-80dfd3f6f293" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.AiStartTrafficTests" name="ThirtyBodiesKeepTheirAuthoredColumnsAndAllClearTheActualCurvedApproach" />
+    </UnitTest>
+    <UnitTest name="EntireThirtyAthleteFieldPassesStationaryPlayerAtTheActualCurvedStart" storage="c:\game\biathlon\biathlon\.tmp\m14-burst-head-baseline\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="58276d14-632c-af87-795a-4331dafd99a0">
+      <Execution id="70a737ec-6527-4992-85c1-805cd54901e2" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.AiStartTrafficTests" name="EntireThirtyAthleteFieldPassesStationaryPlayerAtTheActualCurvedStart" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="f72b80e4-4c97-7ff2-d4c8-b63bacfce77c" executionId="c7a0c11a-9722-4b9b-a695-80dfd3f6f293" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="58276d14-632c-af87-795a-4331dafd99a0" executionId="70a737ec-6527-4992-85c1-805cd54901e2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\.tmp\m14-burst-head-baseline\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+start_blocked athlete=1 point=122831844408 line=-0,8 requested=-0,8 clear_left=False clear_right=False&#xD;
+start_blocked athlete=2 point=122831644135 line=1,2 requested=1,2 clear_left=True clear_right=True&#xD;
+start_blocked athlete=3 point=122831170419 line=-2,8 requested=-2,8 clear_left=True clear_right=True&#xD;
+start_blocked athlete=4 point=122831380501 line=-0,05 requested=-0,05 clear_left=False clear_right=True&#xD;
+start_blocked athlete=5 point=122831224276 line=2,8 requested=2,8 clear_left=True clear_right=False&#xD;
+start_blocked athlete=6 point=122831830673 line=-3,6 requested=-3,6 clear_left=False clear_right=True&#xD;
+start_blocked athlete=7 point=122831703433 line=-1,55 requested=-1,5 clear_left=True clear_right=False&#xD;
+start_blocked athlete=8 point=122831903578 line=3,6 requested=3,6 clear_left=True clear_right=False&#xD;
+start_blocked athlete=9 point=121310515188 line=-3,1 requested=-3,1 clear_left=True clear_right=False&#xD;
+start_blocked athlete=10 point=121311243804 line=0 requested=0 clear_left=False clear_right=False&#xD;
+start_blocked athlete=11 point=121311772626 line=3,55 requested=3,5 clear_left=False clear_right=True&#xD;
+start_blocked athlete=12 point=121310300899 line=-2,35 requested=-2,35 clear_left=False clear_right=False&#xD;
+start_blocked athlete=13 point=119790574759 line=0 requested=0 clear_left=False clear_right=False&#xD;
+start_blocked athlete=14 point=122831911312 line=2 requested=2 clear_left=True clear_right=True&#xD;
+start_blocked athlete=15 point=121311127784 line=-1,6 requested=-1,65 clear_left=False clear_right=True&#xD;
+start_blocked athlete=16 point=118270256282 line=0 requested=0 clear_left=False clear_right=True&#xD;
+start_blocked athlete=17 point=121311878727 line=2 requested=2 clear_left=True clear_right=False&#xD;
+start_blocked athlete=18 point=121311478279 line=0,75 requested=0,7 clear_left=False clear_right=True&#xD;
+start_blocked athlete=19 point=121310463792 line=-0,75 requested=-0,7 clear_left=True clear_right=False&#xD;
+start_blocked athlete=20 point=119791753320 line=2 requested=2 clear_left=True clear_right=False&#xD;
+start_blocked athlete=21 point=119789933078 line=-2,3 requested=-2,25 clear_left=True clear_right=False&#xD;
+start_blocked athlete=22 point=119790249405 line=-0,75 requested=-0,7 clear_left=True clear_right=False&#xD;
+start_blocked athlete=23 point=118271162289 line=2 requested=2 clear_left=True clear_right=True&#xD;
+start_blocked athlete=24 point=118269276776 line=-2 requested=-2 clear_left=True clear_right=True&#xD;
+start_blocked athlete=25 point=116749725531 line=0 requested=0 clear_left=True clear_right=True&#xD;
+start_blocked athlete=26 point=121310759569 line=2,75 requested=2,7 clear_left=False clear_right=True&#xD;
+start_blocked athlete=27 point=119791066880 line=-1,55 requested=-1,55 clear_left=False clear_right=True&#xD;
+start_blocked athlete=28 point=119790713915 line=0,75 requested=0,7 clear_left=False clear_right=True&#xD;
+start_blocked athlete=29 point=116750319208 line=2 requested=2 clear_left=True clear_right=True&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

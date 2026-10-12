@@ -14,6 +14,7 @@ namespace Biathlon.Unity.Presentation
         {
             public int schema_version;
             public string id;
+            public string reused_stadium_checkpoint_id;
             public float height_m,support_clearance_m,post_width_m,post_depth_m;
             public float foot_width_m,foot_depth_m,foot_height_m,foot_embedding_m;
             public float header_height_m,header_depth_m,snow_cap_m,stripe_width_m,surface_offset_m,label_character_size_m;
@@ -37,6 +38,7 @@ namespace Biathlon.Unity.Presentation
             public Transform Frame;
             public float HalfWidth,LeftGround,RightGround;
             public string Id;
+            public bool UsesExistingPortal;
         }
         private Settings settings;
         private Station[] stations;
@@ -46,6 +48,7 @@ namespace Biathlon.Unity.Presentation
         public Transform GateTransform(int index)=>stations[index].Frame;
         public string CheckpointId(int index)=>stations[index].Id;
         public float CorridorHalfWidth(int index)=>stations[index].HalfWidth;
+        public bool UsesExistingStadiumPortal(int index)=>stations[index].UsesExistingPortal;
 
         public void Initialize(VenueAuthoringPlan venue)
         {
@@ -64,9 +67,20 @@ namespace Biathlon.Unity.Presentation
                 root.transform.SetPositionAndRotation(new Vector3((float)point.X,(float)point.Y,(float)point.Z),
                     Quaternion.LookRotation(new Vector3((float)point.ForwardX,0,(float)point.ForwardZ),Vector3.up));
                 var station=new Station{Frame=root.transform,Id=marker.Id,Mesh=new Mesh{name="Timing portal and snow stripe "+marker.Id},
+                    UsesExistingPortal=marker.Id==settings.reused_stadium_checkpoint_id,
                     HalfWidth=(float)new TrackSampler(venue.Track.GetLoop(marker.Anchor.LoopId)).Sample(marker.Anchor.Distance).WidthMeters*.5f};
+                if(station.UsesExistingPortal)
+                {
+                    if(venue.StartApproach==null||marker.Anchor.LoopId!=venue.StartApproach.RouteEntryLoopId||
+                        marker.Anchor.Distance.Millimeters!=venue.Track.GetLoop(marker.Anchor.LoopId).Length.Millimeters)
+                        throw new ArgumentException("The retained stadium timing portal must bind its main loop-end checkpoint.");
+                    var gate=venue.Visual.Get(marker.Anchor.LoopId).Sample(0);
+                    if(Math.Abs(point.X-gate.X)>.001||Math.Abs(point.Y-gate.Y)>.001||Math.Abs(point.Z-gate.Z)>.001)
+                        throw new ArgumentException("The loop-end checkpoint must coincide with the retained stadium timing portal.");
+                }
                 stations[i]=station;Build(station);
                 root.AddComponent<MeshFilter>().sharedMesh=station.Mesh;root.AddComponent<MeshRenderer>().sharedMaterials=materials;
+                if(station.UsesExistingPortal)continue; // The native stadium gantry already supplies its frame and TIMING label.
                 var label=new GameObject("Intermediate distance",typeof(TextMesh));label.transform.SetParent(root.transform,false);
                 label.transform.localPosition=new Vector3(0,settings.height_m,-settings.header_depth_m*.5f-.012f);
                 var text=label.GetComponent<TextMesh>();text.font=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");text.text=(marker.Anchor.Distance.Meters/1000d).ToString("0.00",System.Globalization.CultureInfo.InvariantCulture)+" KM";
@@ -81,6 +95,7 @@ namespace Biathlon.Unity.Presentation
             if(stations==null||environment==null||!environment.Initialized)throw new ArgumentException("Initialized portals and native snow required.");
             foreach(var station in stations)
             {
+                if(station.UsesExistingPortal)continue;
                 float half=station.HalfWidth+settings.support_clearance_m;
                 station.LeftGround=environment.SampleGround(station.Frame.TransformPoint(new Vector3(-half,0,0)))-station.Frame.position.y;
                 station.RightGround=environment.SampleGround(station.Frame.TransformPoint(new Vector3(half,0,0)))-station.Frame.position.y;
@@ -91,17 +106,20 @@ namespace Biathlon.Unity.Presentation
         {
             var points=new List<Vector3>(172);var faces=new[]{new List<int>(108),new List<int>(108),new List<int>(6)};
             float half=station.HalfWidth+settings.support_clearance_m;
-            for(int side=-1;side<=1;side+=2)
+            if(!station.UsesExistingPortal)
             {
-                float ground=(side<0?station.LeftGround:station.RightGround)-settings.foot_embedding_m;
-                Box(new Vector3(side*half,ground+settings.foot_height_m*.5f,0),new Vector3(settings.foot_width_m,settings.foot_height_m,settings.foot_depth_m),1);
-                float bottom=ground+settings.foot_height_m,top=settings.height_m;
-                if(top<=bottom)throw new ArgumentException("Timing support snow exceeds the header clearance.");
-                Box(new Vector3(side*half,(top+bottom)*.5f,0),new Vector3(settings.post_width_m,top-bottom,settings.post_depth_m),0);
+                for(int side=-1;side<=1;side+=2)
+                {
+                    float ground=(side<0?station.LeftGround:station.RightGround)-settings.foot_embedding_m;
+                    Box(new Vector3(side*half,ground+settings.foot_height_m*.5f,0),new Vector3(settings.foot_width_m,settings.foot_height_m,settings.foot_depth_m),1);
+                    float bottom=ground+settings.foot_height_m,top=settings.height_m;
+                    if(top<=bottom)throw new ArgumentException("Timing support snow exceeds the header clearance.");
+                    Box(new Vector3(side*half,(top+bottom)*.5f,0),new Vector3(settings.post_width_m,top-bottom,settings.post_depth_m),0);
+                }
+                Box(new Vector3(0,settings.height_m,0),new Vector3(half*2+settings.post_width_m,settings.header_height_m,settings.header_depth_m),0);
+                Box(new Vector3(0,settings.height_m+settings.header_height_m*.5f+settings.snow_cap_m*.5f,0),
+                    new Vector3(half*2+settings.post_width_m,settings.snow_cap_m,settings.header_depth_m+.08f),1);
             }
-            Box(new Vector3(0,settings.height_m,0),new Vector3(half*2+settings.post_width_m,settings.header_height_m,settings.header_depth_m),0);
-            Box(new Vector3(0,settings.height_m+settings.header_height_m*.5f+settings.snow_cap_m*.5f,0),
-                new Vector3(half*2+settings.post_width_m,settings.snow_cap_m,settings.header_depth_m+.08f),1);
             Quad(new Vector3(0,settings.surface_offset_m,0),Vector3.right*station.HalfWidth,Vector3.back*settings.stripe_width_m*.5f,2);
             station.Mesh.Clear();station.Mesh.SetVertices(points);station.Mesh.subMeshCount=faces.Length;
             for(int submesh=0;submesh<faces.Length;submesh++)station.Mesh.SetTriangles(faces[submesh],submesh);

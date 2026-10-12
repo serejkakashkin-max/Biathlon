@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "m14_burst_pack_final_qualification",
+  "passed": 78,
+  "failed": 2,
+  "known_failure_messages": [
+    {
+      "test": "BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw",
+      "known_baseline": true,
+      "identical_message": true
+    },
+    {
+      "test": "ReachableYawIsSelectedFromActualSharedSnowResponse(0.35d)",
+      "known_baseline": true,
+      "identical_message": true
+    }
+  ],
+  "complete_mass_start_ticks": 18638,
+  "complete_career_replay_ticks": 28941,
+  "career_authority_sha256": "c0e0bb0b82de70cb726e9d98b10776b8360e71279d93e1f9e94d0a8424f54647"
+}

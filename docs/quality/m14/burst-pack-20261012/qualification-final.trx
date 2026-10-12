@@ -1,0 +1,843 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="94fc08f1-ae70-414d-acb1-edbff26ecb7d" name="snkashkin@DESKTOP-G3075GA 2026-10-12 19:14:44" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-12T19:14:44.0645305+03:00" queuing="2026-10-12T19:14:44.0645309+03:00" start="2026-10-12T19:13:54.1714805+03:00" finish="2026-10-12T19:19:31.7107023+03:00" />
+  <TestSettings name="default" id="95c40da9-092f-4727-bc21-0f8630801ef9">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-12_19_14_44" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="59f81c41-ae09-4ad3-ada3-aa1a8100581b" testId="314c1a30-eb9c-74f9-4c34-de2f4335938e" testName="InvalidDeviceTuningAndSamplesAreRejected" computerName="DESKTOP-G3075GA" duration="00:00:00.0186589" startTime="2026-10-12T19:15:30.1438380+03:00" endTime="2026-10-12T19:15:30.1624967+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="59f81c41-ae09-4ad3-ada3-aa1a8100581b" />
+    <UnitTestResult executionId="48bb0eab-3cc2-4576-bc9c-5fa9b1bae06e" testId="c2687c73-ab3e-9593-3172-aaef0aea3df9" testName="DirectionalInputHoldsAchievedLineOnReleaseAndReversesWithoutSpringToCenter(False)" computerName="DESKTOP-G3075GA" duration="00:00:00.0003990" startTime="2026-10-12T19:15:30.1388724+03:00" endTime="2026-10-12T19:15:30.1392712+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="48bb0eab-3cc2-4576-bc9c-5fa9b1bae06e" />
+    <UnitTestResult executionId="329ef927-8f9e-4ed8-bed3-3f2982a24d73" testId="f38bf6e0-0189-7eed-b9cd-c79221524767" testName="AchievedMotionAwayFromMatDoesNotInventAnObstruction" computerName="DESKTOP-G3075GA" duration="00:00:00.0002630" startTime="2026-10-12T19:18:41.1251850+03:00" endTime="2026-10-12T19:18:41.1254484+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="329ef927-8f9e-4ed8-bed3-3f2982a24d73" />
+    <UnitTestResult executionId="6afc3b6b-ce31-4327-9839-7e0793352b40" testId="1ae8846c-d188-069e-f9cd-67a5a31e0f81" testName="HistoricalGamepadDefinitionsRetainTheFullAnalogRange(0.5d,500)" computerName="DESKTOP-G3075GA" duration="00:00:00.0003740" startTime="2026-10-12T19:15:30.1432621+03:00" endTime="2026-10-12T19:15:30.1436360+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6afc3b6b-ce31-4327-9839-7e0793352b40" />
+    <UnitTestResult executionId="a0f9c9b8-9b9e-446d-9f3a-ac7a6804f741" testId="280fd8ce-e757-b8ec-437f-a10787f75183" testName="HistoricalGamepadDefinitionsRetainTheFullAnalogRange(0,0)" computerName="DESKTOP-G3075GA" duration="00:00:00.0004560" startTime="2026-10-12T19:15:30.1427855+03:00" endTime="2026-10-12T19:15:30.1432416+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a0f9c9b8-9b9e-446d-9f3a-ac7a6804f741" />
+    <UnitTestResult executionId="fd8b1751-e6c8-4fe1-8bac-35fd7d15b9bf" testId="2fa907d6-b6b5-117f-a1a4-811c4be752a0" testName="TwoMovingMatNeighboursAreForecastFromTheirRelativeAchievedMotion" computerName="DESKTOP-G3075GA" duration="00:00:00.0002570" startTime="2026-10-12T19:18:41.1318091+03:00" endTime="2026-10-12T19:18:41.1320660+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fd8b1751-e6c8-4fe1-8bac-35fd7d15b9bf" />
+    <UnitTestResult executionId="7c0347bf-5191-4252-a271-1bd45da2762b" testId="8ff5c2ab-c3c0-15dc-a20d-ec2076a57ce6" testName="ShiftReleaseRestoresTheChosenDialWithoutResettingEnergy" computerName="DESKTOP-G3075GA" duration="00:00:00.0011450" startTime="2026-10-12T19:19:31.2914166+03:00" endTime="2026-10-12T19:19:31.2925609+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7c0347bf-5191-4252-a271-1bd45da2762b" />
+    <UnitTestResult executionId="fd62547e-e762-406f-8437-d4f88dc0424d" testId="c28fc9e5-4633-7f71-800b-d3041d37bed1" testName="ManualGamepadDeadzoneAndActionEdgesMatchTheFixedTickContract" computerName="DESKTOP-G3075GA" duration="00:00:00.0005040" startTime="2026-10-12T19:15:30.1650218+03:00" endTime="2026-10-12T19:15:30.1655259+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fd62547e-e762-406f-8437-d4f88dc0424d" />
+    <UnitTestResult executionId="80adf5d8-94d6-4641-88a8-6427cda89249" testId="9dd2a15b-34ba-8b2d-5e6e-e78b105e2ee2" testName="RepeatedFreshOpeningKeepsExactCommandsPosesAndResources" computerName="DESKTOP-G3075GA" duration="00:00:25.7506320" startTime="2026-10-12T19:16:44.9615969+03:00" endTime="2026-10-12T19:17:10.7122594+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="80adf5d8-94d6-4641-88a8-6427cda89249" />
+    <UnitTestResult executionId="b314bf4c-b5be-4e21-9f47-45f0de74b70a" testId="7c930461-e0a2-446e-2f29-90e7c42e0b6a" testName="BatchingAndRepeatedSamplesPreserveCommandsAndConsumePulseOnce" computerName="DESKTOP-G3075GA" duration="00:00:00.0035770" startTime="2026-10-12T19:15:30.0331516+03:00" endTime="2026-10-12T19:15:30.0367282+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b314bf4c-b5be-4e21-9f47-45f0de74b70a" />
+    <UnitTestResult executionId="5947545f-b948-4b36-bbf3-b5aeb02ca7ab" testId="7c64e42d-6a3c-99e9-1a0f-1d0167b97353" testName="FullShiftGivesDistinctPowerAndSpendsUsefulReserveWithinTwentySeconds" computerName="DESKTOP-G3075GA" duration="00:00:00.0007470" startTime="2026-10-12T19:19:31.2795274+03:00" endTime="2026-10-12T19:19:31.2802740+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5947545f-b948-4b36-bbf3-b5aeb02ca7ab">
+      <Output>
+        <StdOut>normal_watts=364.00;burst_watts=560.00;reserve_after20s=0.0761;effort_after20s=1.230</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3ddb4c4b-5846-4924-b823-9a4ce2ed6a22" testId="2bcf6041-9cb1-b3b9-4666-4594e12d5389" testName="BurstDurationUsesIndividualCapacityAndPredictsFullPowerBoundary(30)" computerName="DESKTOP-G3075GA" duration="00:00:00.0016860" startTime="2026-10-12T19:19:31.2764406+03:00" endTime="2026-10-12T19:19:31.2781266+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3ddb4c4b-5846-4924-b823-9a4ce2ed6a22" />
+    <UnitTestResult executionId="46b11c12-0d0e-4afd-9aee-95fe52b3364b" testId="aa8bb948-f56e-9b41-4c7d-91dad062766e" testName="LaterFasterStarterUpdatesElapsedLeaderWhileGlobalLeaderAndTiesStayStable" computerName="DESKTOP-G3075GA" duration="00:00:00.0041510" startTime="2026-10-12T19:15:29.7769649+03:00" endTime="2026-10-12T19:15:29.7811160+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="46b11c12-0d0e-4afd-9aee-95fe52b3364b" />
+    <UnitTestResult executionId="c35b1e6f-4537-4192-92d6-b93cd160ad49" testId="81f66cb0-3dc3-e93e-e6cb-365a5dc995af" testName="MovingBodyOnASeparatedLineOrMovingAwayIsNotAClosingObstacle" computerName="DESKTOP-G3075GA" duration="00:00:00.0001920" startTime="2026-10-12T19:18:41.1271811+03:00" endTime="2026-10-12T19:18:41.1273734+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c35b1e6f-4537-4192-92d6-b93cd160ad49" />
+    <UnitTestResult executionId="f1bd0a73-21df-4228-9a90-3c63058ba744" testId="ab86e107-0fb0-55fa-1825-1697de500e54" testName="DistantDepartureTurnAllowsAccelerationAlongTheStraight" computerName="DESKTOP-G3075GA" duration="00:00:03.7104950" startTime="2026-10-12T19:18:36.1701869+03:00" endTime="2026-10-12T19:18:39.8806862+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f1bd0a73-21df-4228-9a90-3c63058ba744" />
+    <UnitTestResult executionId="abe67a5f-c605-4172-95bb-f4b7cefa374d" testId="4390356b-b82f-60fe-af9c-3e0cebac0193" testName="ActiveCommandGenerationDoesNotAllocate" computerName="DESKTOP-G3075GA" duration="00:00:00.0079539" startTime="2026-10-12T19:15:30.0251809+03:00" endTime="2026-10-12T19:15:30.0331345+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="abe67a5f-c605-4172-95bb-f4b7cefa374d" />
+    <UnitTestResult executionId="a32aa512-dcbc-4fef-96a5-b0647049cb6f" testId="9135a14a-028a-d639-a09e-ba045e801d30" testName="AiRequestsAnExplicitSharedBrakeOnlyForDemandingSteering" computerName="DESKTOP-G3075GA" duration="00:00:00.1247460" startTime="2026-10-12T19:18:36.0454126+03:00" endTime="2026-10-12T19:18:36.1701587+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a32aa512-dcbc-4fef-96a5-b0647049cb6f" />
+    <UnitTestResult executionId="80e23eb1-b078-4814-bfa9-55a8ad38864c" testId="ecd686b8-8c9d-c298-e0a3-895bbb35ed34" testName="NoviceControlledAtFullEffortCannotWinByAnUncontestedMinute(1000)" computerName="DESKTOP-G3075GA" duration="00:00:45.7288030" startTime="2026-10-12T19:14:44.0337289+03:00" endTime="2026-10-12T19:15:29.7625860+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="80e23eb1-b078-4814-bfa9-55a8ad38864c">
+      <Output>
+        <StdOut>NOVICE_FULL_EFFORT effort=1000 rank=4 player_ms=565173 best_rival_ms=536813 lead_ms=-28360 penalties=0 result_sha=b8b041a79c0e1b3daf270b906df3f60c380b17c7c809ed927aba3abcf71021cd</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b22f0652-a7b1-4444-a54c-10bfc28d179e" testId="41d7091f-fad6-9bdd-5ba2-8a241632a3aa" testName="AchievedMotionTowardRotatedMatIsDetectedBeforeCurrentLinesOverlap" computerName="DESKTOP-G3075GA" duration="00:00:00.0002190" startTime="2026-10-12T19:18:41.1254610+03:00" endTime="2026-10-12T19:18:41.1256797+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b22f0652-a7b1-4444-a54c-10bfc28d179e" />
+    <UnitTestResult executionId="59455f3c-66c0-4918-a3d6-bc11f5a07554" testId="a6266f64-5d3a-5f1c-b720-f77844168690" testName="StraightOwnedStartDoesNotInventBrakingOrChangeObservation" computerName="DESKTOP-G3075GA" duration="00:00:00.1169990" startTime="2026-10-12T19:18:40.8925073+03:00" endTime="2026-10-12T19:18:41.0095057+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="59455f3c-66c0-4918-a3d6-bc11f5a07554" />
+    <UnitTestResult executionId="a5d6ced4-a669-4611-8fe6-db3c23ef025a" testId="d8994e0b-2456-9a21-d709-423715a88d02" testName="FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(&quot;review&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:09.0982360" startTime="2026-10-12T19:16:15.9707640+03:00" endTime="2026-10-12T19:16:25.0690103+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a5d6ced4-a669-4611-8fe6-db3c23ef025a">
+      <Output>
+        <StdOut>FRESH_PACK profile=review actor=0 crest_s=37,45 crest_mps=5,134300478 min_mps=5,150511338 slow_ticks=0 brake_ticks=1 zero_effort_ticks=1 hill_ticks=291 average_effort=908 reserve=0,471238858 fatigue=0,027371953&#xD;
+FRESH_PACK profile=review actor=1 crest_s=37,5 crest_mps=5,258115225 min_mps=5,269836427 slow_ticks=0 brake_ticks=2 zero_effort_ticks=4 hill_ticks=285 average_effort=910 reserve=0,606155652 fatigue=0,02503038&#xD;
+FRESH_PACK profile=review actor=2 crest_s=37,6 crest_mps=5,012796241 min_mps=5,02931573 slow_ticks=0 brake_ticks=2 zero_effort_ticks=2 hill_ticks=288 average_effort=907 reserve=0,471341144 fatigue=0,027442809&#xD;
+FRESH_PACK profile=review actor=3 crest_s=38,25 crest_mps=5,023259787 min_mps=5,035744249 slow_ticks=0 brake_ticks=2 zero_effort_ticks=2 hill_ticks=291 average_effort=888 reserve=0,689290337 fatigue=0,023775974&#xD;
+FRESH_PACK profile=review actor=4 crest_s=37,8 crest_mps=5,140986868 min_mps=5,157237742 slow_ticks=0 brake_ticks=4 zero_effort_ticks=4 hill_ticks=287 average_effort=898 reserve=0,495649739 fatigue=0,026955112&#xD;
+FRESH_PACK profile=review actor=5 crest_s=38,3 crest_mps=4,970051476 min_mps=4,976555063 slow_ticks=0 brake_ticks=5 zero_effort_ticks=7 hill_ticks=285 average_effort=867 reserve=0,721520196 fatigue=0,023008631&#xD;
+FRESH_PACK profile=review actor=6 crest_s=38,55 crest_mps=4,853970947 min_mps=4,866886126 slow_ticks=0 brake_ticks=10 zero_effort_ticks=10 hill_ticks=293 average_effort=878 reserve=0,494421698 fatigue=0,027170466&#xD;
+FRESH_PACK profile=review actor=7 crest_s=38,6 crest_mps=4,973374085 min_mps=4,985837849 slow_ticks=0 brake_ticks=2 zero_effort_ticks=2 hill_ticks=287 average_effort=889 reserve=0,724108391 fatigue=0,023114774&#xD;
+FRESH_PACK profile=review actor=8 crest_s=38,65 crest_mps=4,794313152 min_mps=4,806183614 slow_ticks=0 brake_ticks=8 zero_effort_ticks=8 hill_ticks=288 average_effort=887 reserve=0,473560609 fatigue=0,02751664&#xD;
+FRESH_PACK profile=review actor=9 crest_s=39,05 crest_mps=5,097392909 min_mps=5,105894792 slow_ticks=0 brake_ticks=2 zero_effort_ticks=3 hill_ticks=290 average_effort=877 reserve=0,84631555 fatigue=0,021143876&#xD;
+FRESH_PACK profile=review actor=10 crest_s=38,9 crest_mps=4,902194261 min_mps=4,91528434 slow_ticks=0 brake_ticks=9 zero_effort_ticks=9 hill_ticks=289 average_effort=883 reserve=0,483208764 fatigue=0,027401181&#xD;
+FRESH_PACK profile=review actor=11 crest_s=39,15 crest_mps=4,96299506 min_mps=4,970459642 slow_ticks=0 brake_ticks=5 zero_effort_ticks=8 hill_ticks=286 average_effort=864 reserve=0,830328866 fatigue=0,021148005&#xD;
+FRESH_PACK profile=review actor=12 crest_s=39,4 crest_mps=4,845805581 min_mps=4,859023104 slow_ticks=0 brake_ticks=7 zero_effort_ticks=7 hill_ticks=293 average_effort=888 reserve=0,473530655 fatigue=0,027762636&#xD;
+FRESH_PACK profile=review actor=13 crest_s=39,4 crest_mps=5,014305985 min_mps=5,01713442 slow_ticks=0 brake_ticks=2 zero_effort_ticks=6 hill_ticks=289 average_effort=861 reserve=0,867238449 fatigue=0,020801916&#xD;
+FRESH_PACK profile=review actor=14 crest_s=39,45 crest_mps=4,792368462 min_mps=4,804631149 slow_ticks=0 brake_ticks=9 zero_effort_ticks=9 hill_ticks=288 average_effort=885 reserve=0,468433558 fatigue=0,027890278&#xD;
+FRESH_PACK profile=review actor=15 crest_s=39,75 crest_mps=4,984316752 min_mps=4,988242146 slow_ticks=0 brake_ticks=3 zero_effort_ticks=3 hill_ticks=294 average_effort=866 reserve=0,888721295 fatigue=0,020599762&#xD;
+FRESH_PACK profile=review actor=16 crest_s=39,7 crest_mps=4,887404119 min_mps=4,901358908 slow_ticks=0 brake_ticks=10 zero_effort_ticks=10 hill_ticks=291 average_effort=883 reserve=0,457061527 fatigue=0,028228491&#xD;
+FRESH_PACK profile=review actor=17 crest_s=39,85 crest_mps=4,94371467 min_mps=4,946365559 slow_ticks=0 brake_ticks=5 zero_effort_ticks=9 hill_ticks=289 average_effort=852 reserve=0,89104392 fatigue=0,020404726&#xD;
+FRESH_PACK profile=review actor=18 crest_s=40,05 crest_mps=4,85926939 min_mps=4,870532644 slow_ticks=0 brake_ticks=10 zero_effort_ticks=10 hill_ticks=296 average_effort=879 reserve=0,464343354 fatigue=0,028331584&#xD;
+FRESH_PACK profile=review actor=19 crest_s=40,05 crest_mps=4,797453179 min_mps=4,797189448 slow_ticks=0 brake_ticks=6 zero_effort_ticks=11 hill_ticks=290 average_effort=844 reserve=0,895449502 fatigue=0,020514948&#xD;
+FRESH_PACK profile=review actor=20 crest_s=40,2 crest_mps=4,739501921 min_mps=4,749338812 slow_ticks=0 brake_ticks=10 zero_effort_ticks=10 hill_ticks=292 average_effort=881 reserve=0,45913141 fatigue=0,028305777&#xD;
+FRESH_PACK profile=review actor=21 crest_s=40,4 crest_mps=4,76786592 min_mps=4,769783627 slow_ticks=0 brake_ticks=4 zero_effort_ticks=6 hill_ticks=293 average_effort=854 reserve=0,904012498 fatigue=0,02068828&#xD;
+FRESH_PACK profile=review actor=22 crest_s=40,4 crest_mps=4,658738596 min_mps=4,666459714 slow_ticks=0 brake_ticks=11 zero_effort_ticks=11 hill_ticks=293 average_effort=878 reserve=0,452017028 fatigue=0,028503738&#xD;
+FRESH_PACK profile=review actor=23 crest_s=40,5 crest_mps=4,736843928 min_mps=4,727920062 slow_ticks=0 brake_ticks=7 zero_effort_ticks=9 hill_ticks=289 average_effort=850 reserve=0,891421977 fatigue=0,020786779&#xD;
+FRESH_PACK profile=review actor=24 crest_s=40,75 crest_mps=4,66444808 min_mps=4,67525234 slow_ticks=0 brake_ticks=9 zero_effort_ticks=10 hill_ticks=297 average_effort=879 reserve=0,443739417 fatigue=0,028867689&#xD;
+FRESH_PACK profile=review actor=25 crest_s=40,7 crest_mps=4,668352941 min_mps=4,643955292 slow_ticks=0 brake_ticks=10 zero_effort_ticks=11 hill_ticks=291 average_effort=845 reserve=0,884260614 fatigue=0,020953505&#xD;
+FRESH_PACK profile=review actor=26 crest_s=40,85 crest_mps=4,627231193 min_mps=4,63088325 slow_ticks=0 brake_ticks=10 zero_effort_ticks=11 hill_ticks=293 average_effort=876 reserve=0,441860049 fatigue=0,028862034&#xD;
+FRESH_PACK profile=review actor=27 crest_s=41,7 crest_mps=5,301974471 min_mps=5,320879599 slow_ticks=0 brake_ticks=0 zero_effort_ticks=2 hill_ticks=289 average_effort=914 reserve=0,617170604 fatigue=0,026665789&#xD;
+FRESH_PACK profile=review actor=28 crest_s=41,05 crest_mps=4,519033259 min_mps=4,523816163 slow_ticks=0 brake_ticks=10 zero_effort_ticks=10 hill_ticks=294 average_effort=881 reserve=0,438759049 fatigue=0,029005512&#xD;
+FRESH_PACK profile=review actor=29 crest_s=41,85 crest_mps=5,21483485 min_mps=5,227752901 slow_ticks=0 brake_ticks=1 zero_effort_ticks=2 hill_ticks=284 average_effort=919 reserve=0,621265999 fatigue=0,026628496&#xD;
+FRESH_PACK_SUMMARY profile=review completed=30 p50_gap_s=2,25 p90_gap_s=3,4 max_gap_s=4,4 p10_speed=4,658738596 p50_speed=4,902194261 max_speed=5,301974471</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="174327da-fef0-493f-a1a9-a1a39911f212" testId="7894afcf-3dac-a429-0c32-5b860e5b6758" testName="FirstRegisteredSplitRetainsACompetitiveFreshField(&quot;junior_novice&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:12.5628740" startTime="2026-10-12T19:15:40.5112876+03:00" endTime="2026-10-12T19:15:53.0741767+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="174327da-fef0-493f-a1a9-a1a39911f212">
+      <Output>
+        <StdOut>FIRST_REGISTERED_SPLIT profile=junior_novice completed=30 p50_gap_s=5.954 p90_gap_s=6.960 max_gap_s=7.708</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="987cb457-b4b6-4d4b-93ad-50262975bd8b" testId="45a7eccc-41bd-fdc2-aae8-1391e7558402" testName="WarmManualDeviceCommandGenerationDoesNotAllocate" computerName="DESKTOP-G3075GA" duration="00:00:00.0014950" startTime="2026-10-12T19:15:30.1689805+03:00" endTime="2026-10-12T19:15:30.1704752+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="987cb457-b4b6-4d4b-93ad-50262975bd8b" />
+    <UnitTestResult executionId="b735680d-f416-4161-aa41-4adc1d21035a" testId="9e124439-d446-88b5-c434-b26941232a7e" testName="UnreachableSpinUsesLessDeflectionForTheSameAchievedTurn" computerName="DESKTOP-G3075GA" duration="00:00:00.0007530" startTime="2026-10-12T19:18:41.1991633+03:00" endTime="2026-10-12T19:18:41.1999161+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b735680d-f416-4161-aa41-4adc1d21035a" />
+    <UnitTestResult executionId="9772e3f4-c3ac-496e-95c2-dab642e07c17" testId="f8b07f14-e1db-be61-7044-f11c59165f5c" testName="MovingRangeClosingBrakeUsesTheSharedPhysicalCapAndResponse(5,3,0.5d)" computerName="DESKTOP-G3075GA" duration="00:00:00.0010990" startTime="2026-10-12T19:18:41.1273888+03:00" endTime="2026-10-12T19:18:41.1284879+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9772e3f4-c3ac-496e-95c2-dab642e07c17" />
+    <UnitTestResult executionId="1528c29b-298c-491b-921e-61516db1311e" testId="041ec269-0a83-af79-70c2-0616705e7fea" testName="DeviceCommandsReplayCompleteCourseAndEvents" computerName="DESKTOP-G3075GA" duration="00:00:00.1003150" startTime="2026-10-12T19:15:30.0367445+03:00" endTime="2026-10-12T19:15:30.1370595+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1528c29b-298c-491b-921e-61516db1311e" />
+    <UnitTestResult executionId="ece631f7-7a0f-4d5e-8290-dc975e3b87cf" testId="b1abbfbf-1087-542f-17d3-8ea54f405206" testName="ProductionDecisionMarginBrakesEarlierWithoutChangingAthleteCapacity" computerName="DESKTOP-G3075GA" duration="00:00:00.1250410" startTime="2026-10-12T19:18:40.6274453+03:00" endTime="2026-10-12T19:18:40.7524866+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ece631f7-7a0f-4d5e-8290-dc975e3b87cf" />
+    <UnitTestResult executionId="4370bb39-5c15-4d3c-91a3-727dc56df2d1" testId="6a68cb7b-3a7c-d4f1-03f1-48b01a3a100d" testName="FirstRegisteredSplitRetainsACompetitiveFreshField(&quot;review&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:10.3406640" startTime="2026-10-12T19:15:30.1705807+03:00" endTime="2026-10-12T19:15:40.5112563+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4370bb39-5c15-4d3c-91a3-727dc56df2d1">
+      <Output>
+        <StdOut>FIRST_REGISTERED_SPLIT profile=review completed=30 p50_gap_s=2.946 p90_gap_s=4.151 max_gap_s=7.956</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5a38849e-3898-479a-93f2-b4582b7331fb" testId="792cb7c6-a2c2-709e-be36-9886885643ed" testName="KeyboardEffortUsesTicksAndSaturates(144)" computerName="DESKTOP-G3075GA" duration="00:00:00.0001840" startTime="2026-10-12T19:15:30.1638850+03:00" endTime="2026-10-12T19:15:30.1640689+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5a38849e-3898-479a-93f2-b4582b7331fb" />
+    <UnitTestResult executionId="50399896-89cc-45fe-9e88-5effce1533bf" testId="ffde5abd-d5b0-7acd-6c11-59ce0d47d0f8" testName="TightBendUsesTheSharedYawAndGripLimits" computerName="DESKTOP-G3075GA" duration="00:00:00.1154540" startTime="2026-10-12T19:18:41.0095336+03:00" endTime="2026-10-12T19:18:41.1249872+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="50399896-89cc-45fe-9e88-5effce1533bf" />
+    <UnitTestResult executionId="7d7a995f-ca7f-49e1-ac07-1f00ab982801" testId="b895e48a-04b2-10e9-5e60-b9cf03e2cfab" testName="FirstRegisteredSplitRetainsACompetitiveFreshField(&quot;senior_debut&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:11.8140970" startTime="2026-10-12T19:15:53.0742071+03:00" endTime="2026-10-12T19:16:04.8883179+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7d7a995f-ca7f-49e1-ac07-1f00ab982801">
+      <Output>
+        <StdOut>FIRST_REGISTERED_SPLIT profile=senior_debut completed=30 p50_gap_s=3.098 p90_gap_s=4.268 max_gap_s=4.669</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="956caf03-a060-4924-84eb-2962d0c24388" testId="56551faf-b00b-f4e9-053c-a235c7edfd70" testName="ReachableYawIsSelectedFromActualSharedSnowResponse(-0.35d)" computerName="DESKTOP-G3075GA" duration="00:00:00.0014400" startTime="2026-10-12T19:18:41.1954662+03:00" endTime="2026-10-12T19:18:41.1969056+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="956caf03-a060-4924-84eb-2962d0c24388">
+      <Output>
+        <StdOut>spin=-0,35 target=-0,08382491685133897 selected=35 error=0 best=0 ends=-0,3285114543984486:-0,1599767981438515:-0,08382491685133903</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a5af9b2e-9d9d-4e58-a3aa-f42cac282a06" testId="fee7aaa9-99bd-1d56-8f6e-365f7ec6370f" testName="ThirtyAthleteLeaderMatchesFullScanAfterEveryArrival(Global)" computerName="DESKTOP-G3075GA" duration="00:00:00.0007460" startTime="2026-10-12T19:15:30.0243324+03:00" endTime="2026-10-12T19:15:30.0250783+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a5af9b2e-9d9d-4e58-a3aa-f42cac282a06" />
+    <UnitTestResult executionId="dcfbb64d-97d1-4668-b982-37d5ebd3ce2f" testId="413738ac-27d3-415d-0dc6-cb0df39c9964" testName="ReachableYawIsSelectedFromActualSharedSnowResponse(0.0d)" computerName="DESKTOP-G3075GA" duration="00:00:00.0011340" startTime="2026-10-12T19:18:41.1969196+03:00" endTime="2026-10-12T19:18:41.1980538+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dcfbb64d-97d1-4668-b982-37d5ebd3ce2f">
+      <Output>
+        <StdOut>spin=0 target=0,26617508314866095 selected=151 error=0 best=0 ends=0,021488545601551372:0:0,266175083148661</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ce63a019-4ebf-4096-9df6-8232b39c8ff6" testId="519f6393-5966-d973-7a6e-7ac9ef09a8ab" testName="BurstDurationUsesIndividualCapacityAndPredictsFullPowerBoundary(50)" computerName="DESKTOP-G3075GA" duration="00:00:00.0007060" startTime="2026-10-12T19:19:31.2781428+03:00" endTime="2026-10-12T19:19:31.2788490+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ce63a019-4ebf-4096-9df6-8232b39c8ff6" />
+    <UnitTestResult executionId="73fedcb0-c669-4470-b28a-4131232bc3f7" testId="29a18b08-dac0-4683-347e-a56415894330" testName="AuthoredOccurrencesKeepColocatedLapMarkersAndExactCrossingTimes" computerName="DESKTOP-G3075GA" duration="00:00:00.0091460" startTime="2026-10-12T19:15:29.7642009+03:00" endTime="2026-10-12T19:15:29.7733474+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="73fedcb0-c669-4470-b28a-4131232bc3f7" />
+    <UnitTestResult executionId="b140e698-f4d7-486a-b7f6-6c63a39146b4" testId="df3891e8-1301-9bc5-13be-41aed4cc1a61" testName="NeutralRestDoesNotInventAControlCorrectionAndWarmQueriesAllocateNothing" computerName="DESKTOP-G3075GA" duration="00:00:00.0187830" startTime="2026-10-12T19:18:41.1766548+03:00" endTime="2026-10-12T19:18:41.1954371+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b140e698-f4d7-486a-b7f6-6c63a39146b4" />
+    <UnitTestResult executionId="7b4f92c4-9219-45d9-bfcb-c8b8deb69228" testId="68cca2be-094a-5605-41ad-74d0be2f17e6" testName="FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(&quot;senior_debut&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:09.8568620" startTime="2026-10-12T19:16:35.1046732+03:00" endTime="2026-10-12T19:16:44.9615461+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7b4f92c4-9219-45d9-bfcb-c8b8deb69228">
+      <Output>
+        <StdOut>FRESH_PACK profile=senior_debut actor=0 crest_s=37,1 crest_mps=5,34226754 min_mps=5,36447314 slow_ticks=0 brake_ticks=20 zero_effort_ticks=20 hill_ticks=278 average_effort=862 reserve=0,607532273 fatigue=0,024384802&#xD;
+FRESH_PACK profile=senior_debut actor=1 crest_s=37,4 crest_mps=5,053392102 min_mps=5,06959921 slow_ticks=0 brake_ticks=2 zero_effort_ticks=2 hill_ticks=289 average_effort=907 reserve=0,50099055 fatigue=0,025216057&#xD;
+FRESH_PACK profile=senior_debut actor=2 crest_s=35,85 crest_mps=5,803523353 min_mps=5,819887116 slow_ticks=0 brake_ticks=13 zero_effort_ticks=17 hill_ticks=270 average_effort=872 reserve=0,677629109 fatigue=0,01801416&#xD;
+FRESH_PACK profile=senior_debut actor=3 crest_s=37,4 crest_mps=5,233448857 min_mps=5,247172264 slow_ticks=0 brake_ticks=11 zero_effort_ticks=14 hill_ticks=280 average_effort=829 reserve=0,932470103 fatigue=0,014257273&#xD;
+FRESH_PACK profile=senior_debut actor=4 crest_s=37,75 crest_mps=5,152969984 min_mps=5,16979061 slow_ticks=0 brake_ticks=10 zero_effort_ticks=15 hill_ticks=281 average_effort=824 reserve=0,82548097 fatigue=0,017450429&#xD;
+FRESH_PACK profile=senior_debut actor=5 crest_s=36,15 crest_mps=5,69701262 min_mps=5,712186695 slow_ticks=0 brake_ticks=6 zero_effort_ticks=7 hill_ticks=273 average_effort=894 reserve=0,597512488 fatigue=0,020666979&#xD;
+FRESH_PACK profile=senior_debut actor=6 crest_s=37,7 crest_mps=5,167006396 min_mps=5,179299334 slow_ticks=0 brake_ticks=10 zero_effort_ticks=12 hill_ticks=283 average_effort=876 reserve=0,575817591 fatigue=0,020482935&#xD;
+FRESH_PACK profile=senior_debut actor=7 crest_s=38,05 crest_mps=5,051742863 min_mps=5,063915117 slow_ticks=0 brake_ticks=4 zero_effort_ticks=5 hill_ticks=283 average_effort=856 reserve=0,937180257 fatigue=0,013294841&#xD;
+FRESH_PACK profile=senior_debut actor=8 crest_s=36,9 crest_mps=5,871814715 min_mps=5,889682707 slow_ticks=0 brake_ticks=11 zero_effort_ticks=13 hill_ticks=267 average_effort=887 reserve=0,688869735 fatigue=0,020012667&#xD;
+FRESH_PACK profile=senior_debut actor=9 crest_s=38,1 crest_mps=5,365653857 min_mps=5,374978057 slow_ticks=0 brake_ticks=5 zero_effort_ticks=7 hill_ticks=287 average_effort=857 reserve=0,902443218 fatigue=0,016370479&#xD;
+FRESH_PACK profile=senior_debut actor=10 crest_s=38,35 crest_mps=4,883722423 min_mps=4,932091234 slow_ticks=0 brake_ticks=11 zero_effort_ticks=11 hill_ticks=286 average_effort=879 reserve=0,526316516 fatigue=0,026673124&#xD;
+FRESH_PACK profile=senior_debut actor=11 crest_s=37,3 crest_mps=5,549470876 min_mps=5,568559873 slow_ticks=0 brake_ticks=15 zero_effort_ticks=20 hill_ticks=271 average_effort=851 reserve=0,551678899 fatigue=0,022991837&#xD;
+FRESH_PACK profile=senior_debut actor=12 crest_s=38,4 crest_mps=5,187317065 min_mps=5,199745586 slow_ticks=0 brake_ticks=10 zero_effort_ticks=11 hill_ticks=289 average_effort=876 reserve=0,543972322 fatigue=0,02345876&#xD;
+FRESH_PACK profile=senior_debut actor=13 crest_s=38,7 crest_mps=4,874769096 min_mps=4,87873166 slow_ticks=0 brake_ticks=22 zero_effort_ticks=26 hill_ticks=285 average_effort=800 reserve=0,920265264 fatigue=0,01344445&#xD;
+FRESH_PACK profile=senior_debut actor=14 crest_s=37,6 crest_mps=5,434156471 min_mps=5,452968605 slow_ticks=0 brake_ticks=10 zero_effort_ticks=10 hill_ticks=274 average_effort=882 reserve=0,515845304 fatigue=0,022271699&#xD;
+FRESH_PACK profile=senior_debut actor=15 crest_s=38,7 crest_mps=5,129395579 min_mps=5,143474565 slow_ticks=0 brake_ticks=17 zero_effort_ticks=23 hill_ticks=292 average_effort=840 reserve=0,523433967 fatigue=0,026090619&#xD;
+FRESH_PACK profile=senior_debut actor=16 crest_s=39 crest_mps=4,863090273 min_mps=4,857570091 slow_ticks=0 brake_ticks=9 zero_effort_ticks=10 hill_ticks=288 average_effort=847 reserve=0,929192459 fatigue=0,013344061&#xD;
+FRESH_PACK profile=senior_debut actor=17 crest_s=38,1 crest_mps=5,447597688 min_mps=5,45833522 slow_ticks=0 brake_ticks=25 zero_effort_ticks=26 hill_ticks=277 average_effort=803 reserve=0,899670112 fatigue=0,017017794&#xD;
+FRESH_PACK profile=senior_debut actor=18 crest_s=39 crest_mps=5,051552779 min_mps=5,0599977 slow_ticks=0 brake_ticks=5 zero_effort_ticks=5 hill_ticks=294 average_effort=896 reserve=0,563215868 fatigue=0,020861181&#xD;
+FRESH_PACK profile=senior_debut actor=19 crest_s=39,3 crest_mps=4,889222606 min_mps=4,785148188 slow_ticks=0 brake_ticks=17 zero_effort_ticks=17 hill_ticks=290 average_effort=862 reserve=0,543147231 fatigue=0,023043716&#xD;
+FRESH_PACK profile=senior_debut actor=20 crest_s=38,35 crest_mps=5,382410638 min_mps=5,397841493 slow_ticks=0 brake_ticks=10 zero_effort_ticks=11 hill_ticks=279 average_effort=882 reserve=0,584154875 fatigue=0,020272015&#xD;
+FRESH_PACK profile=senior_debut actor=21 crest_s=39,3 crest_mps=5,044051063 min_mps=5,046647321 slow_ticks=0 brake_ticks=9 zero_effort_ticks=9 hill_ticks=296 average_effort=885 reserve=0,555357913 fatigue=0,020525549&#xD;
+FRESH_PACK profile=senior_debut actor=22 crest_s=39,65 crest_mps=4,829019291 min_mps=4,860095803 slow_ticks=0 brake_ticks=26 zero_effort_ticks=28 hill_ticks=284 average_effort=791 reserve=0,916747978 fatigue=0,014856223&#xD;
+FRESH_PACK profile=senior_debut actor=23 crest_s=38,65 crest_mps=5,303862695 min_mps=5,315672408 slow_ticks=0 brake_ticks=5 zero_effort_ticks=5 hill_ticks=282 average_effort=899 reserve=0,565583307 fatigue=0,021753346&#xD;
+FRESH_PACK profile=senior_debut actor=24 crest_s=39,6 crest_mps=5,00421702 min_mps=5,010350158 slow_ticks=0 brake_ticks=24 zero_effort_ticks=27 hill_ticks=290 average_effort=785 reserve=0,894155155 fatigue=0,015572416&#xD;
+FRESH_PACK profile=senior_debut actor=25 crest_s=40 crest_mps=4,847015162 min_mps=4,796888633 slow_ticks=0 brake_ticks=10 zero_effort_ticks=14 hill_ticks=287 average_effort=834 reserve=0,919198195 fatigue=0,014933678&#xD;
+FRESH_PACK profile=senior_debut actor=26 crest_s=39 crest_mps=5,154897358 min_mps=5,167128405 slow_ticks=0 brake_ticks=15 zero_effort_ticks=15 hill_ticks=285 average_effort=868 reserve=0,558594036 fatigue=0,023680378&#xD;
+FRESH_PACK profile=senior_debut actor=27 crest_s=39,95 crest_mps=4,959530477 min_mps=4,96756116 slow_ticks=0 brake_ticks=10 zero_effort_ticks=11 hill_ticks=294 average_effort=880 reserve=0,550837745 fatigue=0,021502846&#xD;
+FRESH_PACK profile=senior_debut actor=28 crest_s=40,3 crest_mps=4,733916602 min_mps=4,719080632 slow_ticks=0 brake_ticks=10 zero_effort_ticks=10 hill_ticks=290 average_effort=885 reserve=0,51866581 fatigue=0,022425152&#xD;
+FRESH_PACK profile=senior_debut actor=29 crest_s=39,3 crest_mps=5,109290046 min_mps=5,117774306 slow_ticks=0 brake_ticks=6 zero_effort_ticks=6 hill_ticks=288 average_effort=897 reserve=0,559645497 fatigue=0,023068093&#xD;
+FRESH_PACK_SUMMARY profile=senior_debut completed=30 p50_gap_s=2,55 p90_gap_s=3,8 max_gap_s=4,45 p10_speed=4,847015162 p50_speed=5,152969984 max_speed=5,871814715</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ae085fbd-5f99-4dd4-950a-c1a3b6ad8ebf" testId="fd6af6f3-9624-7bb8-f26c-671a7c704781" testName="NoviceControlledAtFullEffortCannotWinByAnUncontestedMinute(900)" computerName="DESKTOP-G3075GA" duration="00:00:49.3461780" startTime="2026-10-12T19:13:54.6865967+03:00" endTime="2026-10-12T19:14:44.0327845+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ae085fbd-5f99-4dd4-950a-c1a3b6ad8ebf">
+      <Output>
+        <StdOut>NOVICE_FULL_EFFORT effort=900 rank=16 player_ms=604091 best_rival_ms=541874 lead_ms=-62217 penalties=2 result_sha=49c75d27f19577306e031883aab56e0c4667357984d44904bca95ee3ec4fc5cd</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="26cd2feb-0c1a-4a5f-a6bf-1a9b0a44c18a" testId="a20bef96-b9d8-7445-807b-5529de2c29f4" testName="BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw" computerName="DESKTOP-G3075GA" duration="00:00:00.0401530" startTime="2026-10-12T19:18:41.1325690+03:00" endTime="2026-10-12T19:18:41.1727214+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="26cd2feb-0c1a-4a5f-a6bf-1a9b0a44c18a">
+      <Output>
+        <ErrorInfo>
+          <Message>  spin=0,35 attainable command=217 selected=563&#xD;
+  Expected: 0.38414357582509362d +/- 9.9999999999999998E-13d&#xD;
+  But was:  0.43865925407233164d&#xD;
+  Off by:   -0.05451567824723802d&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualAiSnowSteeringPlannerTests.BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSnowSteeringPlannerTests.cs:line 96&#xD;
+
+1)    at Biathlon.Tests.ManualAiSnowSteeringPlannerTests.BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSnowSteeringPlannerTests.cs:line 96&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e0de3f98-84e1-4ac9-b799-5523ea429d00" testId="e78003af-b358-3142-1f1e-2cb5652f9d1e" testName="WarmMovingBodyForecastDoesNotAllocate" computerName="DESKTOP-G3075GA" duration="00:00:00.0003940" startTime="2026-10-12T19:18:41.1320767+03:00" endTime="2026-10-12T19:18:41.1324705+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e0de3f98-84e1-4ac9-b799-5523ea429d00" />
+    <UnitTestResult executionId="0f029f14-6c89-4629-af04-a4b25be633d9" testId="2967d912-bb55-04fe-309c-b2b851093034" testName="ProductionSteeringRampIsTickBoundAndGamepadRemainsAnalog" computerName="DESKTOP-G3075GA" duration="00:00:00.0027350" startTime="2026-10-12T19:15:30.1662311+03:00" endTime="2026-10-12T19:15:30.1689665+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0f029f14-6c89-4629-af04-a4b25be633d9" />
+    <UnitTestResult executionId="d08bb7a2-bbdb-4675-be9f-16508f65c9df" testId="3aeecadf-bc8c-adc6-7976-827298b7665b" testName="ProductionGamepadNormalTriggerUsesThePaceCeilingAndAttackRemainsExplicit" computerName="DESKTOP-G3075GA" duration="00:00:00.0006770" startTime="2026-10-12T19:15:30.1655392+03:00" endTime="2026-10-12T19:15:30.1662163+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d08bb7a2-bbdb-4675-be9f-16508f65c9df" />
+    <UnitTestResult executionId="7faa1f10-b75b-498d-841a-bc4f25e32dc2" testId="7b62080f-1a26-6c05-964b-8a02fa1a6a53" testName="TelemetryIsFiniteAllocationFreeAndDoesNotInventLegacyCapability" computerName="DESKTOP-G3075GA" duration="00:00:00.0014520" startTime="2026-10-12T19:19:31.2925753+03:00" endTime="2026-10-12T19:19:31.2940275+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7faa1f10-b75b-498d-841a-bc4f25e32dc2" />
+    <UnitTestResult executionId="ba7d98c6-66c5-4027-b939-002b49bb9b1b" testId="bed907da-f063-28a3-cc6c-58d373b46666" testName="SameOrderedQueryIsDeterministicAndAllocationFree" computerName="DESKTOP-G3075GA" duration="00:00:00.1399660" startTime="2026-10-12T19:18:40.7525128+03:00" endTime="2026-10-12T19:18:40.8924789+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ba7d98c6-66c5-4027-b939-002b49bb9b1b" />
+    <UnitTestResult executionId="bce61082-d1c2-4881-8dde-0a047882916c" testId="ba91f1e4-2c20-cf8c-21ac-9f2c50810edf" testName="ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(&quot;mass_start&quot;,30)" computerName="DESKTOP-G3075GA" duration="00:00:50.0594990" startTime="2026-10-12T19:18:41.1999971+03:00" endTime="2026-10-12T19:19:31.2595528+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bce61082-d1c2-4881-8dde-0a047882916c">
+      <Output>
+        <StdOut>mass_start actors=30 accepted_tick=1000&#xD;
+mass_start actors=30 accepted_tick=2000&#xD;
+mass_start actors=30 accepted_tick=3000&#xD;
+mass_start actors=30 accepted_tick=4000&#xD;
+mass_start actors=30 accepted_tick=5000&#xD;
+mass_start actors=30 accepted_tick=6000&#xD;
+mass_start actors=30 accepted_tick=7000&#xD;
+mass_start actors=30 accepted_tick=8000&#xD;
+mass_start actors=30 accepted_tick=9000&#xD;
+mass_start actors=30 accepted_tick=10000&#xD;
+mass_start actors=30 accepted_tick=11000&#xD;
+mass_start actors=30 accepted_tick=12000&#xD;
+mass_start actors=30 accepted_tick=13000&#xD;
+mass_start actors=30 accepted_tick=14000&#xD;
+mass_start actors=30 accepted_tick=15000&#xD;
+mass_start actors=30 accepted_tick=16000&#xD;
+mass_start actors=30 accepted_tick=17000&#xD;
+mass_start actors=30 accepted_tick=18000&#xD;
+mass_start complete actors=30 tick=18638&#xD;
+wall_seconds=43,8393177 realtime_factor=21,25716895399758</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="19c31d55-df8d-44f7-92c4-bf40216442ca" testId="e5200e72-260f-a0f9-fa45-55db0a2bc720" testName="HistoricalGamepadDefinitionsRetainTheFullAnalogRange(1,1000)" computerName="DESKTOP-G3075GA" duration="00:00:00.0001689" startTime="2026-10-12T19:15:30.1436489+03:00" endTime="2026-10-12T19:15:30.1438181+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="19c31d55-df8d-44f7-92c4-bf40216442ca" />
+    <UnitTestResult executionId="55eb7b34-7280-4eee-8166-32d3957abde7" testId="e661b140-4bf2-4ca8-c5f3-9ce436db42c0" testName="InvalidTickDoesNotConsumeCancelAndGamepadCurveIsSymmetric" computerName="DESKTOP-G3075GA" duration="00:00:00.0008090" startTime="2026-10-12T19:15:30.1625123+03:00" endTime="2026-10-12T19:15:30.1633216+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="55eb7b34-7280-4eee-8166-32d3957abde7" />
+    <UnitTestResult executionId="3648c4cf-96c8-492f-af2b-2cb1101b9ec6" testId="1f48fc38-742c-c1ee-4821-2f968a8d41f8" testName="CompleteSplitEventsReplayAndTimingHotPathDoesNotAllocate" computerName="DESKTOP-G3075GA" duration="00:00:00.0035760" startTime="2026-10-12T19:15:29.7733699+03:00" endTime="2026-10-12T19:15:29.7769454+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3648c4cf-96c8-492f-af2b-2cb1101b9ec6" />
+    <UnitTestResult executionId="7bf606af-0d62-4460-986d-f26b5204910d" testId="c3e25ea7-ceda-89d4-8b43-063ecec6773d" testName="BurstDurationUsesIndividualCapacityAndPredictsFullPowerBoundary(80)" computerName="DESKTOP-G3075GA" duration="00:00:00.0006400" startTime="2026-10-12T19:19:31.2788652+03:00" endTime="2026-10-12T19:19:31.2795051+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7bf606af-0d62-4460-986d-f26b5204910d" />
+    <UnitTestResult executionId="5c709354-dd55-4a03-86b2-0c35315af849" testId="d4007078-480d-2993-6767-58899567111e" testName="HeldKeyboardCorrectionReachesFullDeflectionWithinQuarterSecond" computerName="DESKTOP-G3075GA" duration="00:00:00.0031449" startTime="2026-10-12T19:15:30.1396008+03:00" endTime="2026-10-12T19:15:30.1427452+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5c709354-dd55-4a03-86b2-0c35315af849" />
+    <UnitTestResult executionId="9bebd962-6830-4bfe-9c45-6fb227868609" testId="1b75d645-42c6-65c0-9fd4-1064c7f8695e" testName="MovingRangeClosingBrakeUsesTheSharedPhysicalCapAndResponse(20,1,1)" computerName="DESKTOP-G3075GA" duration="00:00:00.0009490" startTime="2026-10-12T19:18:41.1305004+03:00" endTime="2026-10-12T19:18:41.1314496+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9bebd962-6830-4bfe-9c45-6fb227868609" />
+    <UnitTestResult executionId="67350f3c-88aa-4e11-a046-11c731f588c6" testId="f2abece8-9623-2178-1211-c27b5826c086" testName="MovingRangeClosingBrakeUsesTheSharedPhysicalCapAndResponse(3,3,0)" computerName="DESKTOP-G3075GA" duration="00:00:00.0008660" startTime="2026-10-12T19:18:41.1296247+03:00" endTime="2026-10-12T19:18:41.1304907+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="67350f3c-88aa-4e11-a046-11c731f588c6" />
+    <UnitTestResult executionId="6fc38531-ceec-4f17-aa08-0b161336142c" testId="31b596e4-45eb-b79c-54c5-2bf1af22a0c7" testName="ProductionStadiumSplitUsesRetainedGantryAfterPenaltyWithoutATimeZeroSplit" computerName="DESKTOP-G3075GA" duration="00:00:00.2409370" startTime="2026-10-12T19:15:29.7821899+03:00" endTime="2026-10-12T19:15:30.0231263+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6fc38531-ceec-4f17-aa08-0b161336142c" />
+    <UnitTestResult executionId="2bf2bc62-ed7f-49fe-b3c0-9c248867ec7b" testId="a0bc965b-eda9-5c47-db39-0cef9061743d" testName="CountdownShowsThreeTwoOneAndDoesNotSkipOnLargeFrame" computerName="DESKTOP-G3075GA" duration="00:00:00.0057180" startTime="2026-10-12T19:19:31.2598318+03:00" endTime="2026-10-12T19:19:31.2655497+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2bf2bc62-ed7f-49fe-b3c0-9c248867ec7b" />
+    <UnitTestResult executionId="935125df-2a6a-468b-ae31-82968ce91742" testId="202797b9-73ea-459f-6c01-829be3dd0273" testName="OrdinaryRaceAndFreshClimbControlsRetainTheirMeaning" computerName="DESKTOP-G3075GA" duration="00:00:00.0007680" startTime="2026-10-12T19:19:31.2802886+03:00" endTime="2026-10-12T19:19:31.2810560+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="935125df-2a6a-468b-ae31-82968ce91742" />
+    <UnitTestResult executionId="fe5617b9-88a9-44e5-ad93-bf944e962cf5" testId="e0a01afb-9089-89de-e469-90578648b36b" testName="InvalidSourceAndNumbersCannotBecomeIntent" computerName="DESKTOP-G3075GA" duration="00:00:00.3866930" startTime="2026-10-12T19:18:40.0965396+03:00" endTime="2026-10-12T19:18:40.4832323+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fe5617b9-88a9-44e5-ad93-bf944e962cf5" />
+    <UnitTestResult executionId="2c9814ad-46ba-4d38-9d71-d7bc69f75937" testId="117489ea-7637-c251-3d41-545ce335a81a" testName="ReachableYawIsSelectedFromActualSharedSnowResponse(0.35d)" computerName="DESKTOP-G3075GA" duration="00:00:00.0010740" startTime="2026-10-12T19:18:41.1980671+03:00" endTime="2026-10-12T19:18:41.1991408+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2c9814ad-46ba-4d38-9d71-d7bc69f75937">
+      <Output>
+        <StdOut>spin=0,35 target=0,3841435758250936 selected=563 error=0,05451567824723802 best=0 ends=0,17363772968636904:0,1599767981438515:0,43865925407233164</StdOut>
+        <ErrorInfo>
+          <Message>  Expected: 0.0d +/- 9.9999999999999998E-13d&#xD;
+  But was:  0.05451567824723802d&#xD;
+  Off by:   -0.05451567824723802d&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(Double spin) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSnowSteeringPlannerTests.cs:line 71&#xD;
+   at InvokeStub_ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(Double spin) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualAiSnowSteeringPlannerTests.cs:line 71&#xD;
+   at InvokeStub_ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a69177ca-7b4a-4f93-9008-91017aa4a03e" testId="03bce771-c539-23cf-dc6d-ac843fe22302" testName="PenaltyAndShootingStopsDoNotRepeatMainRouteSplitsAndInvalidProgressIsAtomic" computerName="DESKTOP-G3075GA" duration="00:00:00.0010440" startTime="2026-10-12T19:15:29.7811323+03:00" endTime="2026-10-12T19:15:29.7821760+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a69177ca-7b4a-4f93-9008-91017aa4a03e" />
+    <UnitTestResult executionId="a28b95ac-be39-4631-af3d-1d06ebf88eab" testId="b2d5317a-bb5d-f3e7-78b2-706eb09e2a5b" testName="OrderedSuccessorBendRequestsBrakingAndShorterChordBeforeEntry" computerName="DESKTOP-G3075GA" duration="00:00:00.1441540" startTime="2026-10-12T19:18:40.4832607+03:00" endTime="2026-10-12T19:18:40.6274149+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a28b95ac-be39-4631-af3d-1d06ebf88eab" />
+    <UnitTestResult executionId="31b796a9-e4d7-4b4b-a2ef-9c8aad27bfb5" testId="da56f0a9-a47a-a3ad-ba7d-da13af919ea5" testName="ManualDirectionIsSignedYawAndNeutralNeverRequestsRecentering(False)" computerName="DESKTOP-G3075GA" duration="00:00:00.0005730" startTime="2026-10-12T19:15:30.1640953+03:00" endTime="2026-10-12T19:15:30.1646678+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="31b796a9-e4d7-4b4b-a2ef-9c8aad27bfb5" />
+    <UnitTestResult executionId="caf61d96-4058-4f00-a227-9564648e3e3f" testId="6a3c7286-f11e-ad5a-da89-d4e953169207" testName="KeyboardEffortUsesTicksAndSaturates(20)" computerName="DESKTOP-G3075GA" duration="00:00:00.0002630" startTime="2026-10-12T19:15:30.1633456+03:00" endTime="2026-10-12T19:15:30.1636086+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="caf61d96-4058-4f00-a227-9564648e3e3f" />
+    <UnitTestResult executionId="58111669-e99a-45d4-8197-9e68c4641508" testId="1d808ce6-bd91-e3fb-0870-0887818361b7" testName="AttackHasPersistentFatigueAndSlowRecoveryRatherThanAFreeRepeatedBoost" computerName="DESKTOP-G3075GA" duration="00:00:00.0043530" startTime="2026-10-12T19:19:31.2720517+03:00" endTime="2026-10-12T19:19:31.2764047+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="58111669-e99a-45d4-8197-9e68c4641508" />
+    <UnitTestResult executionId="7d11eba3-9094-4268-a64d-46f04b45d6ad" testId="7178c781-5d67-8a46-39aa-361135fbbab4" testName="ProductionRaceResultReturnsThroughCareerSaveAndRestoresNextEvent" computerName="DESKTOP-G3075GA" duration="00:01:25.3323190" startTime="2026-10-12T19:17:10.7127278+03:00" endTime="2026-10-12T19:18:36.0451495+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7d11eba3-9094-4268-a64d-46f04b45d6ad">
+      <Output>
+        <StdOut>career_result_ticks=28941 sha256=c0e0bb0b82de70cb726e9d98b10776b8360e71279d93e1f9e94d0a8424f54647</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7f52821e-e493-444b-b7d9-ee39e9665820" testId="7694aeeb-5370-8034-8562-7155e03ae6ab" testName="PaceDialStartsStoppedRisesHoldsFallsAndStaysStopped" computerName="DESKTOP-G3075GA" duration="00:00:00.0061900" startTime="2026-10-12T19:19:31.2655670+03:00" endTime="2026-10-12T19:19:31.2717568+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7f52821e-e493-444b-b7d9-ee39e9665820" />
+    <UnitTestResult executionId="e4dec6a2-228d-4848-8541-3c25eaf2da19" testId="87ffbcfb-674a-a165-1a7c-06f6ba2b5313" testName="MovingRangeClosingBrakeUsesTheSharedPhysicalCapAndResponse(3,5,0)" computerName="DESKTOP-G3075GA" duration="00:00:00.0011100" startTime="2026-10-12T19:18:41.1285010+03:00" endTime="2026-10-12T19:18:41.1296112+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e4dec6a2-228d-4848-8541-3c25eaf2da19" />
+    <UnitTestResult executionId="416806ac-68e1-469b-bbf8-782ba081f98b" testId="970ec364-6645-6f9f-b556-8a027d73580a" testName="ALongPassingForecastDoesNotSwitchOffUphillPropulsionBeforeTheBrakingEnvelope" computerName="DESKTOP-G3075GA" duration="00:00:00.0014770" startTime="2026-10-12T19:18:41.1256910+03:00" endTime="2026-10-12T19:18:41.1271677+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="416806ac-68e1-469b-bbf8-782ba081f98b" />
+    <UnitTestResult executionId="cceca57c-c8f1-4632-b188-44cd74af4b29" testId="f036a2b6-cf44-59b3-fccc-61361b284bef" testName="ProductionBurstReplayRepeatsAndOptionalLegacyDefinitionRoundTrips" computerName="DESKTOP-G3075GA" duration="00:00:00.0084000" startTime="2026-10-12T19:19:31.2810706+03:00" endTime="2026-10-12T19:19:31.2894706+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cceca57c-c8f1-4632-b188-44cd74af4b29" />
+    <UnitTestResult executionId="3dea1d56-cf5c-4189-b4f7-1c55a4964be7" testId="d47ac840-dc7e-4a1d-7b2c-1d851a4079d9" testName="DirectionalCommandsAreIndependentOfRenderSamplingAndReplayAsAbsoluteTargets" computerName="DESKTOP-G3075GA" duration="00:00:00.0017670" startTime="2026-10-12T19:15:30.1370773+03:00" endTime="2026-10-12T19:15:30.1388443+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3dea1d56-cf5c-4189-b4f7-1c55a4964be7" />
+    <UnitTestResult executionId="12ada867-0d4d-4ce8-a6c7-b68c5ab0b0c9" testId="aa96d88b-0fd8-65eb-7592-dc7fe1bb47e7" testName="ManualDirectionIsSignedYawAndNeutralNeverRequestsRecentering(True)" computerName="DESKTOP-G3075GA" duration="00:00:00.0003220" startTime="2026-10-12T19:15:30.1646816+03:00" endTime="2026-10-12T19:15:30.1650035+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="12ada867-0d4d-4ce8-a6c7-b68c5ab0b0c9" />
+    <UnitTestResult executionId="61d6a258-1569-449e-b74b-2641b01fb5d3" testId="b68b6b9e-2b95-053b-82f6-5def98eb852d" testName="InvalidPredictionCannotProduceIntent" computerName="DESKTOP-G3075GA" duration="00:00:00.0007360" startTime="2026-10-12T19:18:41.1759061+03:00" endTime="2026-10-12T19:18:41.1766418+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="61d6a258-1569-449e-b74b-2641b01fb5d3" />
+    <UnitTestResult executionId="ac75a858-4b88-42e6-89e0-ebfd35a8061b" testId="d4888c09-ce2c-f191-b826-25dde7f49341" testName="DirectionalInputHoldsAchievedLineOnReleaseAndReversesWithoutSpringToCenter(True)" computerName="DESKTOP-G3075GA" duration="00:00:00.0002930" startTime="2026-10-12T19:15:30.1392855+03:00" endTime="2026-10-12T19:15:30.1395780+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ac75a858-4b88-42e6-89e0-ebfd35a8061b" />
+    <UnitTestResult executionId="0a44ad97-1503-4cfe-97ea-ce3ee8e9917a" testId="bd3e76ef-0251-5f1c-cef7-60f458d19227" testName="ThirtyAthleteLeaderMatchesFullScanAfterEveryArrival(Elapsed)" computerName="DESKTOP-G3075GA" duration="00:00:00.0011440" startTime="2026-10-12T19:15:30.0231744+03:00" endTime="2026-10-12T19:15:30.0243185+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0a44ad97-1503-4cfe-97ea-ce3ee8e9917a" />
+    <UnitTestResult executionId="f187244d-a09b-408a-a651-445d4a155ace" testId="5ffcab0d-f418-50e2-12f9-1d9b0a6ac88d" testName="FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(&quot;junior_novice&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:10.0355730" startTime="2026-10-12T19:16:25.0690370+03:00" endTime="2026-10-12T19:16:35.1046207+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f187244d-a09b-408a-a651-445d4a155ace">
+      <Output>
+        <StdOut>FRESH_PACK profile=junior_novice actor=0 crest_s=38,8 crest_mps=4,708446694 min_mps=4,723855982 slow_ticks=0 brake_ticks=19 zero_effort_ticks=19 hill_ticks=292 average_effort=865 reserve=0,575943176 fatigue=0,02786419&#xD;
+FRESH_PACK profile=junior_novice actor=1 crest_s=36,75 crest_mps=5,275587784 min_mps=5,292984624 slow_ticks=0 brake_ticks=3 zero_effort_ticks=4 hill_ticks=283 average_effort=900 reserve=0,537034636 fatigue=0,022952498&#xD;
+FRESH_PACK profile=junior_novice actor=2 crest_s=38 crest_mps=4,997053173 min_mps=5,013857779 slow_ticks=0 brake_ticks=5 zero_effort_ticks=7 hill_ticks=284 average_effort=903 reserve=0,598751481 fatigue=0,024200008&#xD;
+FRESH_PACK profile=junior_novice actor=3 crest_s=39,15 crest_mps=4,86938604 min_mps=4,652614608 slow_ticks=0 brake_ticks=6 zero_effort_ticks=11 hill_ticks=296 average_effort=839 reserve=0,898928684 fatigue=0,018545167&#xD;
+FRESH_PACK profile=junior_novice actor=4 crest_s=39,15 crest_mps=4,874248489 min_mps=4,890246159 slow_ticks=0 brake_ticks=7 zero_effort_ticks=12 hill_ticks=292 average_effort=886 reserve=0,628355792 fatigue=0,025030161&#xD;
+FRESH_PACK profile=junior_novice actor=5 crest_s=38,35 crest_mps=4,986671719 min_mps=5,004748782 slow_ticks=0 brake_ticks=6 zero_effort_ticks=6 hill_ticks=288 average_effort=896 reserve=0,493012591 fatigue=0,027909561&#xD;
+FRESH_PACK profile=junior_novice actor=6 crest_s=39,45 crest_mps=4,784168189 min_mps=4,637376038 slow_ticks=0 brake_ticks=8 zero_effort_ticks=12 hill_ticks=298 average_effort=876 reserve=0,482538187 fatigue=0,026567554&#xD;
+FRESH_PACK profile=junior_novice actor=7 crest_s=39,6 crest_mps=4,848657012 min_mps=4,834642162 slow_ticks=0 brake_ticks=4 zero_effort_ticks=4 hill_ticks=297 average_effort=868 reserve=0,904532636 fatigue=0,016269431&#xD;
+FRESH_PACK profile=junior_novice actor=8 crest_s=38,75 crest_mps=5,045654361 min_mps=5,053398508 slow_ticks=0 brake_ticks=12 zero_effort_ticks=15 hill_ticks=289 average_effort=834 reserve=0,892156407 fatigue=0,020145858&#xD;
+FRESH_PACK profile=junior_novice actor=9 crest_s=39,8 crest_mps=4,701690238 min_mps=4,708258107 slow_ticks=0 brake_ticks=11 zero_effort_ticks=16 hill_ticks=301 average_effort=830 reserve=0,885531883 fatigue=0,020330879&#xD;
+FRESH_PACK profile=junior_novice actor=10 crest_s=40 crest_mps=4,608027801 min_mps=4,625678128 slow_ticks=0 brake_ticks=1 zero_effort_ticks=1 hill_ticks=301 average_effort=907 reserve=0,450964969 fatigue=0,031334336&#xD;
+FRESH_PACK profile=junior_novice actor=11 crest_s=39,05 crest_mps=4,904946738 min_mps=4,916413647 slow_ticks=0 brake_ticks=9 zero_effort_ticks=10 hill_ticks=292 average_effort=882 reserve=0,519181972 fatigue=0,024350702&#xD;
+FRESH_PACK profile=junior_novice actor=12 crest_s=40,1 crest_mps=4,657591422 min_mps=4,666208194 slow_ticks=0 brake_ticks=6 zero_effort_ticks=6 hill_ticks=303 average_effort=893 reserve=0,502714403 fatigue=0,024995844&#xD;
+FRESH_PACK profile=junior_novice actor=13 crest_s=40,55 crest_mps=4,593802258 min_mps=4,391481613 slow_ticks=0 brake_ticks=14 zero_effort_ticks=16 hill_ticks=296 average_effort=824 reserve=0,788678407 fatigue=0,021141514&#xD;
+FRESH_PACK profile=junior_novice actor=14 crest_s=39,4 crest_mps=4,741142299 min_mps=4,752927498 slow_ticks=0 brake_ticks=13 zero_effort_ticks=13 hill_ticks=295 average_effort=874 reserve=0,480230929 fatigue=0,024736251&#xD;
+FRESH_PACK profile=junior_novice actor=15 crest_s=40,5 crest_mps=4,495736345 min_mps=4,505733383 slow_ticks=0 brake_ticks=12 zero_effort_ticks=12 hill_ticks=307 average_effort=875 reserve=0,451502884 fatigue=0,03045096&#xD;
+FRESH_PACK profile=junior_novice actor=16 crest_s=40,9 crest_mps=4,482743174 min_mps=4,486644267 slow_ticks=0 brake_ticks=21 zero_effort_ticks=26 hill_ticks=300 average_effort=803 reserve=0,882620159 fatigue=0,020959259&#xD;
+FRESH_PACK profile=junior_novice actor=17 crest_s=39,75 crest_mps=4,828597296 min_mps=4,778527727 slow_ticks=0 brake_ticks=23 zero_effort_ticks=25 hill_ticks=292 average_effort=810 reserve=0,887875084 fatigue=0,017635949&#xD;
+FRESH_PACK profile=junior_novice actor=18 crest_s=40,85 crest_mps=4,417842275 min_mps=4,420597638 slow_ticks=0 brake_ticks=16 zero_effort_ticks=17 hill_ticks=310 average_effort=858 reserve=0,460643806 fatigue=0,028772769&#xD;
+FRESH_PACK profile=junior_novice actor=19 crest_s=41,25 crest_mps=4,416294089 min_mps=4,419929862 slow_ticks=0 brake_ticks=11 zero_effort_ticks=13 hill_ticks=303 average_effort=873 reserve=0,42361691 fatigue=0,029991933&#xD;
+FRESH_PACK profile=junior_novice actor=20 crest_s=40,1 crest_mps=4,607763299 min_mps=4,56102186 slow_ticks=0 brake_ticks=26 zero_effort_ticks=30 hill_ticks=296 average_effort=828 reserve=0,443524609 fatigue=0,029273257&#xD;
+FRESH_PACK profile=junior_novice actor=21 crest_s=41,2 crest_mps=4,384325848 min_mps=4,389945236 slow_ticks=0 brake_ticks=5 zero_effort_ticks=5 hill_ticks=313 average_effort=895 reserve=0,483629718 fatigue=0,025904703&#xD;
+FRESH_PACK profile=junior_novice actor=22 crest_s=41,6 crest_mps=4,428010815 min_mps=4,406721043 slow_ticks=0 brake_ticks=6 zero_effort_ticks=6 hill_ticks=306 average_effort=865 reserve=0,884489665 fatigue=0,017584301&#xD;
+FRESH_PACK profile=junior_novice actor=23 crest_s=40,45 crest_mps=4,481465534 min_mps=4,493911082 slow_ticks=0 brake_ticks=19 zero_effort_ticks=21 hill_ticks=299 average_effort=851 reserve=0,46490739 fatigue=0,028024138&#xD;
+FRESH_PACK profile=junior_novice actor=24 crest_s=41,55 crest_mps=4,340579708 min_mps=4,344815363 slow_ticks=0 brake_ticks=12 zero_effort_ticks=12 hill_ticks=315 average_effort=847 reserve=0,869845354 fatigue=0,017482695&#xD;
+FRESH_PACK profile=junior_novice actor=25 crest_s=42 crest_mps=4,388405652 min_mps=4,391654768 slow_ticks=0 brake_ticks=8 zero_effort_ticks=8 hill_ticks=310 average_effort=859 reserve=0,884436231 fatigue=0,016803786&#xD;
+FRESH_PACK profile=junior_novice actor=26 crest_s=40,8 crest_mps=4,403887726 min_mps=4,413917041 slow_ticks=0 brake_ticks=5 zero_effort_ticks=5 hill_ticks=302 average_effort=898 reserve=0,478228727 fatigue=0,028821548&#xD;
+FRESH_PACK profile=junior_novice actor=27 crest_s=41,9 crest_mps=4,342499577 min_mps=4,318460447 slow_ticks=0 brake_ticks=16 zero_effort_ticks=16 hill_ticks=318 average_effort=865 reserve=0,48520435 fatigue=0,025306072&#xD;
+FRESH_PACK profile=junior_novice actor=28 crest_s=42,4 crest_mps=4,193873114 min_mps=4,191169181 slow_ticks=0 brake_ticks=14 zero_effort_ticks=14 hill_ticks=314 average_effort=871 reserve=0,427740621 fatigue=0,027932936&#xD;
+FRESH_PACK profile=junior_novice actor=29 crest_s=41,15 crest_mps=4,347853188 min_mps=4,358233369 slow_ticks=0 brake_ticks=5 zero_effort_ticks=5 hill_ticks=306 average_effort=898 reserve=0,464860207 fatigue=0,029638236&#xD;
+FRESH_PACK_SUMMARY profile=junior_novice completed=30 p50_gap_s=3,35 p90_gap_s=4,85 max_gap_s=5,65 p10_speed=4,342499577 p50_speed=4,608027801 max_speed=5,275587784</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a5184152-e56b-4af9-b863-a3102d2d629e" testId="f0d8b51d-18ee-6672-76d9-7fc3895fd1ae" testName="EndpointCorrectionRetainsNominalInsideEnvelopeAndPaysSharedSnowOutsideIt" computerName="DESKTOP-G3075GA" duration="00:00:00.0031050" startTime="2026-10-12T19:18:41.1727917+03:00" endTime="2026-10-12T19:18:41.1758965+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a5184152-e56b-4af9-b863-a3102d2d629e" />
+    <UnitTestResult executionId="39392fb3-6540-4a63-bde9-c44ee27ef047" testId="5dbd02c3-6ccc-5aff-5949-c93a096a9025" testName="KeyboardEffortUsesTicksAndSaturates(30)" computerName="DESKTOP-G3075GA" duration="00:00:00.0002509" startTime="2026-10-12T19:15:30.1636206+03:00" endTime="2026-10-12T19:15:30.1638718+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="39392fb3-6540-4a63-bde9-c44ee27ef047" />
+    <UnitTestResult executionId="08d0f6a5-ce0c-4227-a231-21c80e982c55" testId="630bb00f-f846-bf61-c2b9-c97fdefb08ef" testName="RotatedBodyEnvelopeAndAllocationFreeQueryArePreserved" computerName="DESKTOP-G3075GA" duration="00:00:00.0003280" startTime="2026-10-12T19:18:41.1314717+03:00" endTime="2026-10-12T19:18:41.1318001+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="08d0f6a5-ce0c-4227-a231-21c80e982c55" />
+    <UnitTestResult executionId="b6ea49ac-182d-4895-9271-9d39109a7dd1" testId="a20197e4-353c-353b-8b1a-68e8033ed4f0" testName="FreshAiDoesNotChooseLowPowerTuckWhileClimbing" computerName="DESKTOP-G3075GA" duration="00:00:11.0822860" startTime="2026-10-12T19:16:04.8883816+03:00" endTime="2026-10-12T19:16:15.9706806+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b6ea49ac-182d-4895-9271-9d39109a7dd1" />
+    <UnitTestResult executionId="7e5d6a90-8c7f-4a6e-afdd-6ff9c921b9e4" testId="c4e4e17d-2810-02d3-0d0d-1a21c777ebac" testName="FuturePrivateWidthIsObservedBeforeForkButClosedFiringGateStopsTheQuery" computerName="DESKTOP-G3075GA" duration="00:00:00.2157900" startTime="2026-10-12T19:18:39.8807194+03:00" endTime="2026-10-12T19:18:40.0965093+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7e5d6a90-8c7f-4a6e-afdd-6ff9c921b9e4" />
+    <UnitTestResult executionId="5c5db8dc-3a95-4ad9-bf01-3d20a9bc1dde" testId="b38c6435-7403-9a53-f5b1-e636b3ad1e41" testName="SharedPowerCausesActualAccelerationAndDissipatesWhenReleased" computerName="DESKTOP-G3075GA" duration="00:00:00.0019190" startTime="2026-10-12T19:19:31.2894840+03:00" endTime="2026-10-12T19:19:31.2914023+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5c5db8dc-3a95-4ad9-bf01-3d20a9bc1dde">
+      <Output>
+        <StdOut>normal_speed8s=8.961;burst_speed8s=10.309;reserve8s=0.5761</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="FirstRegisteredSplitRetainsACompetitiveFreshField(&quot;junior_novice&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="7894afcf-3dac-a429-0c32-5b860e5b6758">
+      <Execution id="174327da-fef0-493f-a1a9-a1a39911f212" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.FreshMassStartPackTests" name="FirstRegisteredSplitRetainsACompetitiveFreshField(&quot;junior_novice&quot;)" />
+    </UnitTest>
+    <UnitTest name="ProductionRaceResultReturnsThroughCareerSaveAndRestoresNextEvent" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="7178c781-5d67-8a46-39aa-361135fbbab4">
+      <Execution id="7d11eba3-9094-4268-a64d-46f04b45d6ad" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.FrontEndSessionTests" name="ProductionRaceResultReturnsThroughCareerSaveAndRestoresNextEvent" />
+    </UnitTest>
+    <UnitTest name="FirstRegisteredSplitRetainsACompetitiveFreshField(&quot;review&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="6a68cb7b-3a7c-d4f1-03f1-48b01a3a100d">
+      <Execution id="4370bb39-5c15-4d3c-91a3-727dc56df2d1" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.FreshMassStartPackTests" name="FirstRegisteredSplitRetainsACompetitiveFreshField(&quot;review&quot;)" />
+    </UnitTest>
+    <UnitTest name="RotatedBodyEnvelopeAndAllocationFreeQueryArePreserved" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="630bb00f-f846-bf61-c2b9-c97fdefb08ef">
+      <Execution id="08d0f6a5-ce0c-4227-a231-21c80e982c55" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiObstacleCorridorTests" name="RotatedBodyEnvelopeAndAllocationFreeQueryArePreserved" />
+    </UnitTest>
+    <UnitTest name="FirstRegisteredSplitRetainsACompetitiveFreshField(&quot;senior_debut&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="b895e48a-04b2-10e9-5e60-b9cf03e2cfab">
+      <Execution id="7d7a995f-ca7f-49e1-ac07-1f00ab982801" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.FreshMassStartPackTests" name="FirstRegisteredSplitRetainsACompetitiveFreshField(&quot;senior_debut&quot;)" />
+    </UnitTest>
+    <UnitTest name="HistoricalGamepadDefinitionsRetainTheFullAnalogRange(0,0)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="280fd8ce-e757-b8ec-437f-a10787f75183">
+      <Execution id="a0f9c9b8-9b9e-446d-9f3a-ac7a6804f741" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="HistoricalGamepadDefinitionsRetainTheFullAnalogRange(0,0)" />
+    </UnitTest>
+    <UnitTest name="ThirtyAthleteLeaderMatchesFullScanAfterEveryArrival(Global)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="fee7aaa9-99bd-1d56-8f6e-365f7ec6370f">
+      <Execution id="a5af9b2e-9d9d-4e58-a3aa-f42cac282a06" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CheckpointTimingTests" name="ThirtyAthleteLeaderMatchesFullScanAfterEveryArrival(Global)" />
+    </UnitTest>
+    <UnitTest name="WarmManualDeviceCommandGenerationDoesNotAllocate" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="45a7eccc-41bd-fdc2-aae8-1391e7558402">
+      <Execution id="987cb457-b4b6-4d4b-93ad-50262975bd8b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="WarmManualDeviceCommandGenerationDoesNotAllocate" />
+    </UnitTest>
+    <UnitTest name="AuthoredOccurrencesKeepColocatedLapMarkersAndExactCrossingTimes" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="29a18b08-dac0-4683-347e-a56415894330">
+      <Execution id="73fedcb0-c669-4470-b28a-4131232bc3f7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CheckpointTimingTests" name="AuthoredOccurrencesKeepColocatedLapMarkersAndExactCrossingTimes" />
+    </UnitTest>
+    <UnitTest name="DirectionalCommandsAreIndependentOfRenderSamplingAndReplayAsAbsoluteTargets" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="d47ac840-dc7e-4a1d-7b2c-1d851a4079d9">
+      <Execution id="3dea1d56-cf5c-4189-b4f7-1c55a4964be7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="DirectionalCommandsAreIndependentOfRenderSamplingAndReplayAsAbsoluteTargets" />
+    </UnitTest>
+    <UnitTest name="LaterFasterStarterUpdatesElapsedLeaderWhileGlobalLeaderAndTiesStayStable" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="aa8bb948-f56e-9b41-4c7d-91dad062766e">
+      <Execution id="46b11c12-0d0e-4afd-9aee-95fe52b3364b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CheckpointTimingTests" name="LaterFasterStarterUpdatesElapsedLeaderWhileGlobalLeaderAndTiesStayStable" />
+    </UnitTest>
+    <UnitTest name="BurstDurationUsesIndividualCapacityAndPredictsFullPowerBoundary(80)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="c3e25ea7-ceda-89d4-8b43-063ecec6773d">
+      <Execution id="7bf606af-0d62-4460-986d-f26b5204910d" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="BurstDurationUsesIndividualCapacityAndPredictsFullPowerBoundary(80)" />
+    </UnitTest>
+    <UnitTest name="BurstDurationUsesIndividualCapacityAndPredictsFullPowerBoundary(30)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="2bcf6041-9cb1-b3b9-4666-4594e12d5389">
+      <Execution id="3ddb4c4b-5846-4924-b823-9a4ce2ed6a22" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="BurstDurationUsesIndividualCapacityAndPredictsFullPowerBoundary(30)" />
+    </UnitTest>
+    <UnitTest name="ReachableYawIsSelectedFromActualSharedSnowResponse(0.0d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="413738ac-27d3-415d-0dc6-cb0df39c9964">
+      <Execution id="dcfbb64d-97d1-4668-b982-37d5ebd3ce2f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="ReachableYawIsSelectedFromActualSharedSnowResponse(0.0d)" />
+    </UnitTest>
+    <UnitTest name="ManualDirectionIsSignedYawAndNeutralNeverRequestsRecentering(False)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="da56f0a9-a47a-a3ad-ba7d-da13af919ea5">
+      <Execution id="31b796a9-e4d7-4b4b-a2ef-9c8aad27bfb5" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="ManualDirectionIsSignedYawAndNeutralNeverRequestsRecentering(False)" />
+    </UnitTest>
+    <UnitTest name="ManualGamepadDeadzoneAndActionEdgesMatchTheFixedTickContract" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="c28fc9e5-4633-7f71-800b-d3041d37bed1">
+      <Execution id="fd62547e-e762-406f-8437-d4f88dc0424d" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="ManualGamepadDeadzoneAndActionEdgesMatchTheFixedTickContract" />
+    </UnitTest>
+    <UnitTest name="BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="a20bef96-b9d8-7445-807b-5529de2c29f4">
+      <Execution id="26cd2feb-0c1a-4a5f-a6bf-1a9b0a44c18a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw" />
+    </UnitTest>
+    <UnitTest name="CountdownShowsThreeTwoOneAndDoesNotSkipOnLargeFrame" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="a0bc965b-eda9-5c47-db39-0cef9061743d">
+      <Execution id="2bf2bc62-ed7f-49fe-b3c0-9c248867ec7b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RacePaceCountdownTests" name="CountdownShowsThreeTwoOneAndDoesNotSkipOnLargeFrame" />
+    </UnitTest>
+    <UnitTest name="WarmMovingBodyForecastDoesNotAllocate" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="e78003af-b358-3142-1f1e-2cb5652f9d1e">
+      <Execution id="e0de3f98-84e1-4ac9-b799-5523ea429d00" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiObstacleCorridorTests" name="WarmMovingBodyForecastDoesNotAllocate" />
+    </UnitTest>
+    <UnitTest name="AiRequestsAnExplicitSharedBrakeOnlyForDemandingSteering" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="9135a14a-028a-d639-a09e-ba045e801d30">
+      <Execution id="a32aa512-dcbc-4fef-96a5-b0647049cb6f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiBendBrakingPlannerTests" name="AiRequestsAnExplicitSharedBrakeOnlyForDemandingSteering" />
+    </UnitTest>
+    <UnitTest name="StraightOwnedStartDoesNotInventBrakingOrChangeObservation" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="a6266f64-5d3a-5f1c-b720-f77844168690">
+      <Execution id="59455f3c-66c0-4918-a3d6-bc11f5a07554" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiBendBrakingPlannerTests" name="StraightOwnedStartDoesNotInventBrakingOrChangeObservation" />
+    </UnitTest>
+    <UnitTest name="MovingRangeClosingBrakeUsesTheSharedPhysicalCapAndResponse(5,3,0.5d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="f8b07f14-e1db-be61-7044-f11c59165f5c">
+      <Execution id="9772e3f4-c3ac-496e-95c2-dab642e07c17" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiObstacleCorridorTests" name="MovingRangeClosingBrakeUsesTheSharedPhysicalCapAndResponse(5,3,0.5d)" />
+    </UnitTest>
+    <UnitTest name="DeviceCommandsReplayCompleteCourseAndEvents" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="041ec269-0a83-af79-70c2-0616705e7fea">
+      <Execution id="1528c29b-298c-491b-921e-61516db1311e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="DeviceCommandsReplayCompleteCourseAndEvents" />
+    </UnitTest>
+    <UnitTest name="TelemetryIsFiniteAllocationFreeAndDoesNotInventLegacyCapability" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="7b62080f-1a26-6c05-964b-8a02fa1a6a53">
+      <Execution id="7faa1f10-b75b-498d-841a-bc4f25e32dc2" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="TelemetryIsFiniteAllocationFreeAndDoesNotInventLegacyCapability" />
+    </UnitTest>
+    <UnitTest name="ManualDirectionIsSignedYawAndNeutralNeverRequestsRecentering(True)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="aa96d88b-0fd8-65eb-7592-dc7fe1bb47e7">
+      <Execution id="12ada867-0d4d-4ce8-a6c7-b68c5ab0b0c9" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="ManualDirectionIsSignedYawAndNeutralNeverRequestsRecentering(True)" />
+    </UnitTest>
+    <UnitTest name="NeutralRestDoesNotInventAControlCorrectionAndWarmQueriesAllocateNothing" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="df3891e8-1301-9bc5-13be-41aed4cc1a61">
+      <Execution id="b140e698-f4d7-486a-b7f6-6c63a39146b4" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="NeutralRestDoesNotInventAControlCorrectionAndWarmQueriesAllocateNothing" />
+    </UnitTest>
+    <UnitTest name="ProductionStadiumSplitUsesRetainedGantryAfterPenaltyWithoutATimeZeroSplit" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="31b596e4-45eb-b79c-54c5-2bf1af22a0c7">
+      <Execution id="6fc38531-ceec-4f17-aa08-0b161336142c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CheckpointTimingTests" name="ProductionStadiumSplitUsesRetainedGantryAfterPenaltyWithoutATimeZeroSplit" />
+    </UnitTest>
+    <UnitTest name="ProductionSteeringRampIsTickBoundAndGamepadRemainsAnalog" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="2967d912-bb55-04fe-309c-b2b851093034">
+      <Execution id="0f029f14-6c89-4629-af04-a4b25be633d9" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="ProductionSteeringRampIsTickBoundAndGamepadRemainsAnalog" />
+    </UnitTest>
+    <UnitTest name="AttackHasPersistentFatigueAndSlowRecoveryRatherThanAFreeRepeatedBoost" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="1d808ce6-bd91-e3fb-0870-0887818361b7">
+      <Execution id="58111669-e99a-45d4-8197-9e68c4641508" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="AttackHasPersistentFatigueAndSlowRecoveryRatherThanAFreeRepeatedBoost" />
+    </UnitTest>
+    <UnitTest name="TightBendUsesTheSharedYawAndGripLimits" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="ffde5abd-d5b0-7acd-6c11-59ce0d47d0f8">
+      <Execution id="50399896-89cc-45fe-9e88-5effce1533bf" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiBendBrakingPlannerTests" name="TightBendUsesTheSharedYawAndGripLimits" />
+    </UnitTest>
+    <UnitTest name="InvalidTickDoesNotConsumeCancelAndGamepadCurveIsSymmetric" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="e661b140-4bf2-4ca8-c5f3-9ce436db42c0">
+      <Execution id="55eb7b34-7280-4eee-8166-32d3957abde7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="InvalidTickDoesNotConsumeCancelAndGamepadCurveIsSymmetric" />
+    </UnitTest>
+    <UnitTest name="MovingRangeClosingBrakeUsesTheSharedPhysicalCapAndResponse(3,3,0)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="f2abece8-9623-2178-1211-c27b5826c086">
+      <Execution id="67350f3c-88aa-4e11-a046-11c731f588c6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiObstacleCorridorTests" name="MovingRangeClosingBrakeUsesTheSharedPhysicalCapAndResponse(3,3,0)" />
+    </UnitTest>
+    <UnitTest name="DistantDepartureTurnAllowsAccelerationAlongTheStraight" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="ab86e107-0fb0-55fa-1825-1697de500e54">
+      <Execution id="f1bd0a73-21df-4228-9a90-3c63058ba744" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiBendBrakingPlannerTests" name="DistantDepartureTurnAllowsAccelerationAlongTheStraight" />
+    </UnitTest>
+    <UnitTest name="KeyboardEffortUsesTicksAndSaturates(144)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="792cb7c6-a2c2-709e-be36-9886885643ed">
+      <Execution id="5a38849e-3898-479a-93f2-b4582b7331fb" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="KeyboardEffortUsesTicksAndSaturates(144)" />
+    </UnitTest>
+    <UnitTest name="InvalidSourceAndNumbersCannotBecomeIntent" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="e0a01afb-9089-89de-e469-90578648b36b">
+      <Execution id="fe5617b9-88a9-44e5-ad93-bf944e962cf5" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiBendBrakingPlannerTests" name="InvalidSourceAndNumbersCannotBecomeIntent" />
+    </UnitTest>
+    <UnitTest name="MovingRangeClosingBrakeUsesTheSharedPhysicalCapAndResponse(3,5,0)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="87ffbcfb-674a-a165-1a7c-06f6ba2b5313">
+      <Execution id="e4dec6a2-228d-4848-8541-3c25eaf2da19" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiObstacleCorridorTests" name="MovingRangeClosingBrakeUsesTheSharedPhysicalCapAndResponse(3,5,0)" />
+    </UnitTest>
+    <UnitTest name="AchievedMotionTowardRotatedMatIsDetectedBeforeCurrentLinesOverlap" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="41d7091f-fad6-9bdd-5ba2-8a241632a3aa">
+      <Execution id="b22f0652-a7b1-4444-a54c-10bfc28d179e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiObstacleCorridorTests" name="AchievedMotionTowardRotatedMatIsDetectedBeforeCurrentLinesOverlap" />
+    </UnitTest>
+    <UnitTest name="MovingRangeClosingBrakeUsesTheSharedPhysicalCapAndResponse(20,1,1)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="1b75d645-42c6-65c0-9fd4-1064c7f8695e">
+      <Execution id="9bebd962-6830-4bfe-9c45-6fb227868609" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiObstacleCorridorTests" name="MovingRangeClosingBrakeUsesTheSharedPhysicalCapAndResponse(20,1,1)" />
+    </UnitTest>
+    <UnitTest name="TwoMovingMatNeighboursAreForecastFromTheirRelativeAchievedMotion" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="2fa907d6-b6b5-117f-a1a4-811c4be752a0">
+      <Execution id="fd8b1751-e6c8-4fe1-8bac-35fd7d15b9bf" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiObstacleCorridorTests" name="TwoMovingMatNeighboursAreForecastFromTheirRelativeAchievedMotion" />
+    </UnitTest>
+    <UnitTest name="UnreachableSpinUsesLessDeflectionForTheSameAchievedTurn" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="9e124439-d446-88b5-c434-b26941232a7e">
+      <Execution id="b735680d-f416-4161-aa41-4adc1d21035a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="UnreachableSpinUsesLessDeflectionForTheSameAchievedTurn" />
+    </UnitTest>
+    <UnitTest name="SharedPowerCausesActualAccelerationAndDissipatesWhenReleased" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="b38c6435-7403-9a53-f5b1-e636b3ad1e41">
+      <Execution id="5c5db8dc-3a95-4ad9-bf01-3d20a9bc1dde" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="SharedPowerCausesActualAccelerationAndDissipatesWhenReleased" />
+    </UnitTest>
+    <UnitTest name="OrderedSuccessorBendRequestsBrakingAndShorterChordBeforeEntry" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="b2d5317a-bb5d-f3e7-78b2-706eb09e2a5b">
+      <Execution id="a28b95ac-be39-4631-af3d-1d06ebf88eab" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiBendBrakingPlannerTests" name="OrderedSuccessorBendRequestsBrakingAndShorterChordBeforeEntry" />
+    </UnitTest>
+    <UnitTest name="ALongPassingForecastDoesNotSwitchOffUphillPropulsionBeforeTheBrakingEnvelope" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="970ec364-6645-6f9f-b556-8a027d73580a">
+      <Execution id="416806ac-68e1-469b-bbf8-782ba081f98b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiObstacleCorridorTests" name="ALongPassingForecastDoesNotSwitchOffUphillPropulsionBeforeTheBrakingEnvelope" />
+    </UnitTest>
+    <UnitTest name="PenaltyAndShootingStopsDoNotRepeatMainRouteSplitsAndInvalidProgressIsAtomic" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="03bce771-c539-23cf-dc6d-ac843fe22302">
+      <Execution id="a69177ca-7b4a-4f93-9008-91017aa4a03e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CheckpointTimingTests" name="PenaltyAndShootingStopsDoNotRepeatMainRouteSplitsAndInvalidProgressIsAtomic" />
+    </UnitTest>
+    <UnitTest name="HistoricalGamepadDefinitionsRetainTheFullAnalogRange(1,1000)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="e5200e72-260f-a0f9-fa45-55db0a2bc720">
+      <Execution id="19c31d55-df8d-44f7-92c4-bf40216442ca" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="HistoricalGamepadDefinitionsRetainTheFullAnalogRange(1,1000)" />
+    </UnitTest>
+    <UnitTest name="KeyboardEffortUsesTicksAndSaturates(30)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="5dbd02c3-6ccc-5aff-5949-c93a096a9025">
+      <Execution id="39392fb3-6540-4a63-bde9-c44ee27ef047" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="KeyboardEffortUsesTicksAndSaturates(30)" />
+    </UnitTest>
+    <UnitTest name="ShiftReleaseRestoresTheChosenDialWithoutResettingEnergy" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="8ff5c2ab-c3c0-15dc-a20d-ec2076a57ce6">
+      <Execution id="7c0347bf-5191-4252-a271-1bd45da2762b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="ShiftReleaseRestoresTheChosenDialWithoutResettingEnergy" />
+    </UnitTest>
+    <UnitTest name="ProductionDecisionMarginBrakesEarlierWithoutChangingAthleteCapacity" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="b1abbfbf-1087-542f-17d3-8ea54f405206">
+      <Execution id="ece631f7-7a0f-4d5e-8290-dc975e3b87cf" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiBendBrakingPlannerTests" name="ProductionDecisionMarginBrakesEarlierWithoutChangingAthleteCapacity" />
+    </UnitTest>
+    <UnitTest name="BurstDurationUsesIndividualCapacityAndPredictsFullPowerBoundary(50)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="519f6393-5966-d973-7a6e-7ac9ef09a8ab">
+      <Execution id="ce63a019-4ebf-4096-9df6-8232b39c8ff6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="BurstDurationUsesIndividualCapacityAndPredictsFullPowerBoundary(50)" />
+    </UnitTest>
+    <UnitTest name="SameOrderedQueryIsDeterministicAndAllocationFree" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="bed907da-f063-28a3-cc6c-58d373b46666">
+      <Execution id="ba7d98c6-66c5-4027-b939-002b49bb9b1b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiBendBrakingPlannerTests" name="SameOrderedQueryIsDeterministicAndAllocationFree" />
+    </UnitTest>
+    <UnitTest name="ReachableYawIsSelectedFromActualSharedSnowResponse(-0.35d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="56551faf-b00b-f4e9-053c-a235c7edfd70">
+      <Execution id="956caf03-a060-4924-84eb-2962d0c24388" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="ReachableYawIsSelectedFromActualSharedSnowResponse(-0.35d)" />
+    </UnitTest>
+    <UnitTest name="ReachableYawIsSelectedFromActualSharedSnowResponse(0.35d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="117489ea-7637-c251-3d41-545ce335a81a">
+      <Execution id="2c9814ad-46ba-4d38-9d71-d7bc69f75937" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="ReachableYawIsSelectedFromActualSharedSnowResponse(0.35d)" />
+    </UnitTest>
+    <UnitTest name="PaceDialStartsStoppedRisesHoldsFallsAndStaysStopped" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="7694aeeb-5370-8034-8562-7155e03ae6ab">
+      <Execution id="7f52821e-e493-444b-b7d9-ee39e9665820" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RacePaceCountdownTests" name="PaceDialStartsStoppedRisesHoldsFallsAndStaysStopped" />
+    </UnitTest>
+    <UnitTest name="FreshAiDoesNotChooseLowPowerTuckWhileClimbing" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="a20197e4-353c-353b-8b1a-68e8033ed4f0">
+      <Execution id="b6ea49ac-182d-4895-9271-9d39109a7dd1" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.FreshMassStartPackTests" name="FreshAiDoesNotChooseLowPowerTuckWhileClimbing" />
+    </UnitTest>
+    <UnitTest name="NoviceControlledAtFullEffortCannotWinByAnUncontestedMinute(900)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="fd6af6f3-9624-7bb8-f26c-671a7c704781">
+      <Execution id="ae085fbd-5f99-4dd4-950a-c1a3b6ad8ebf" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerOwnerBalanceTests" name="NoviceControlledAtFullEffortCannotWinByAnUncontestedMinute(900)" />
+    </UnitTest>
+    <UnitTest name="ProductionBurstReplayRepeatsAndOptionalLegacyDefinitionRoundTrips" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="f036a2b6-cf44-59b3-fccc-61361b284bef">
+      <Execution id="cceca57c-c8f1-4632-b188-44cd74af4b29" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="ProductionBurstReplayRepeatsAndOptionalLegacyDefinitionRoundTrips" />
+    </UnitTest>
+    <UnitTest name="ActiveCommandGenerationDoesNotAllocate" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="4390356b-b82f-60fe-af9c-3e0cebac0193">
+      <Execution id="abe67a5f-c605-4172-95bb-f4b7cefa374d" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="ActiveCommandGenerationDoesNotAllocate" />
+    </UnitTest>
+    <UnitTest name="AchievedMotionAwayFromMatDoesNotInventAnObstruction" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="f38bf6e0-0189-7eed-b9cd-c79221524767">
+      <Execution id="329ef927-8f9e-4ed8-bed3-3f2982a24d73" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiObstacleCorridorTests" name="AchievedMotionAwayFromMatDoesNotInventAnObstruction" />
+    </UnitTest>
+    <UnitTest name="HeldKeyboardCorrectionReachesFullDeflectionWithinQuarterSecond" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="d4007078-480d-2993-6767-58899567111e">
+      <Execution id="5c709354-dd55-4a03-86b2-0c35315af849" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="HeldKeyboardCorrectionReachesFullDeflectionWithinQuarterSecond" />
+    </UnitTest>
+    <UnitTest name="DirectionalInputHoldsAchievedLineOnReleaseAndReversesWithoutSpringToCenter(True)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="d4888c09-ce2c-f191-b826-25dde7f49341">
+      <Execution id="ac75a858-4b88-42e6-89e0-ebfd35a8061b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="DirectionalInputHoldsAchievedLineOnReleaseAndReversesWithoutSpringToCenter(True)" />
+    </UnitTest>
+    <UnitTest name="MovingBodyOnASeparatedLineOrMovingAwayIsNotAClosingObstacle" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="81f66cb0-3dc3-e93e-e6cb-365a5dc995af">
+      <Execution id="c35b1e6f-4537-4192-92d6-b93cd160ad49" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiObstacleCorridorTests" name="MovingBodyOnASeparatedLineOrMovingAwayIsNotAClosingObstacle" />
+    </UnitTest>
+    <UnitTest name="BatchingAndRepeatedSamplesPreserveCommandsAndConsumePulseOnce" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="7c930461-e0a2-446e-2f29-90e7c42e0b6a">
+      <Execution id="b314bf4c-b5be-4e21-9f47-45f0de74b70a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="BatchingAndRepeatedSamplesPreserveCommandsAndConsumePulseOnce" />
+    </UnitTest>
+    <UnitTest name="DirectionalInputHoldsAchievedLineOnReleaseAndReversesWithoutSpringToCenter(False)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="c2687c73-ab3e-9593-3172-aaef0aea3df9">
+      <Execution id="48bb0eab-3cc2-4576-bc9c-5fa9b1bae06e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="DirectionalInputHoldsAchievedLineOnReleaseAndReversesWithoutSpringToCenter(False)" />
+    </UnitTest>
+    <UnitTest name="RepeatedFreshOpeningKeepsExactCommandsPosesAndResources" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="9dd2a15b-34ba-8b2d-5e6e-e78b105e2ee2">
+      <Execution id="80adf5d8-94d6-4641-88a8-6427cda89249" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.FreshMassStartPackTests" name="RepeatedFreshOpeningKeepsExactCommandsPosesAndResources" />
+    </UnitTest>
+    <UnitTest name="EndpointCorrectionRetainsNominalInsideEnvelopeAndPaysSharedSnowOutsideIt" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="f0d8b51d-18ee-6672-76d9-7fc3895fd1ae">
+      <Execution id="a5184152-e56b-4af9-b863-a3102d2d629e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="EndpointCorrectionRetainsNominalInsideEnvelopeAndPaysSharedSnowOutsideIt" />
+    </UnitTest>
+    <UnitTest name="FullShiftGivesDistinctPowerAndSpendsUsefulReserveWithinTwentySeconds" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="7c64e42d-6a3c-99e9-1a0f-1d0167b97353">
+      <Execution id="5947545f-b948-4b36-bbf3-b5aeb02ca7ab" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="FullShiftGivesDistinctPowerAndSpendsUsefulReserveWithinTwentySeconds" />
+    </UnitTest>
+    <UnitTest name="FuturePrivateWidthIsObservedBeforeForkButClosedFiringGateStopsTheQuery" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="c4e4e17d-2810-02d3-0d0d-1a21c777ebac">
+      <Execution id="7e5d6a90-8c7f-4a6e-afdd-6ff9c921b9e4" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiBendBrakingPlannerTests" name="FuturePrivateWidthIsObservedBeforeForkButClosedFiringGateStopsTheQuery" />
+    </UnitTest>
+    <UnitTest name="OrdinaryRaceAndFreshClimbControlsRetainTheirMeaning" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="202797b9-73ea-459f-6c01-829be3dd0273">
+      <Execution id="935125df-2a6a-468b-ae31-82968ce91742" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ShortBurstTests" name="OrdinaryRaceAndFreshClimbControlsRetainTheirMeaning" />
+    </UnitTest>
+    <UnitTest name="NoviceControlledAtFullEffortCannotWinByAnUncontestedMinute(1000)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="ecd686b8-8c9d-c298-e0a3-895bbb35ed34">
+      <Execution id="80e23eb1-b078-4814-bfa9-55a8ad38864c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerOwnerBalanceTests" name="NoviceControlledAtFullEffortCannotWinByAnUncontestedMinute(1000)" />
+    </UnitTest>
+    <UnitTest name="FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(&quot;junior_novice&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="5ffcab0d-f418-50e2-12f9-1d9b0a6ac88d">
+      <Execution id="f187244d-a09b-408a-a651-445d4a155ace" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.FreshMassStartPackTests" name="FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(&quot;junior_novice&quot;)" />
+    </UnitTest>
+    <UnitTest name="FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(&quot;senior_debut&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="68cca2be-094a-5605-41ad-74d0be2f17e6">
+      <Execution id="7b4f92c4-9219-45d9-bfcb-c8b8deb69228" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.FreshMassStartPackTests" name="FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(&quot;senior_debut&quot;)" />
+    </UnitTest>
+    <UnitTest name="ThirtyAthleteLeaderMatchesFullScanAfterEveryArrival(Elapsed)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="bd3e76ef-0251-5f1c-cef7-60f458d19227">
+      <Execution id="0a44ad97-1503-4cfe-97ea-ce3ee8e9917a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CheckpointTimingTests" name="ThirtyAthleteLeaderMatchesFullScanAfterEveryArrival(Elapsed)" />
+    </UnitTest>
+    <UnitTest name="InvalidPredictionCannotProduceIntent" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="b68b6b9e-2b95-053b-82f6-5def98eb852d">
+      <Execution id="61d6a258-1569-449e-b74b-2641b01fb5d3" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="InvalidPredictionCannotProduceIntent" />
+    </UnitTest>
+    <UnitTest name="KeyboardEffortUsesTicksAndSaturates(20)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="6a3c7286-f11e-ad5a-da89-d4e953169207">
+      <Execution id="caf61d96-4058-4f00-a227-9564648e3e3f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="KeyboardEffortUsesTicksAndSaturates(20)" />
+    </UnitTest>
+    <UnitTest name="InvalidDeviceTuningAndSamplesAreRejected" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="314c1a30-eb9c-74f9-4c34-de2f4335938e">
+      <Execution id="59f81c41-ae09-4ad3-ada3-aa1a8100581b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="InvalidDeviceTuningAndSamplesAreRejected" />
+    </UnitTest>
+    <UnitTest name="CompleteSplitEventsReplayAndTimingHotPathDoesNotAllocate" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="1f48fc38-742c-c1ee-4821-2f968a8d41f8">
+      <Execution id="3648c4cf-96c8-492f-af2b-2cb1101b9ec6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CheckpointTimingTests" name="CompleteSplitEventsReplayAndTimingHotPathDoesNotAllocate" />
+    </UnitTest>
+    <UnitTest name="FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(&quot;review&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="d8994e0b-2456-9a21-d709-423715a88d02">
+      <Execution id="a5d6ced4-a669-4611-8fe6-db3c23ef025a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.FreshMassStartPackTests" name="FreshThirtyFieldClimbsWithoutStationaryOrCoastingTail(&quot;review&quot;)" />
+    </UnitTest>
+    <UnitTest name="ProductionGamepadNormalTriggerUsesThePaceCeilingAndAttackRemainsExplicit" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="3aeecadf-bc8c-adc6-7976-827298b7665b">
+      <Execution id="d08bb7a2-bbdb-4675-be9f-16508f65c9df" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="ProductionGamepadNormalTriggerUsesThePaceCeilingAndAttackRemainsExplicit" />
+    </UnitTest>
+    <UnitTest name="ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(&quot;mass_start&quot;,30)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="ba91f1e4-2c20-cf8c-21ac-9f2c50810edf">
+      <Execution id="bce61082-d1c2-4881-8dde-0a047882916c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualProductionFieldTests" name="ProductionSizedSignedFieldFinishesEveryAthleteWithoutLegacyFallback(&quot;mass_start&quot;,30)" />
+    </UnitTest>
+    <UnitTest name="HistoricalGamepadDefinitionsRetainTheFullAnalogRange(0.5d,500)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="1ae8846c-d188-069e-f9cd-67a5a31e0f81">
+      <Execution id="6afc3b6b-ce31-4327-9839-7e0793352b40" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.DeviceCommandTests" name="HistoricalGamepadDefinitionsRetainTheFullAnalogRange(0.5d,500)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="314c1a30-eb9c-74f9-4c34-de2f4335938e" executionId="59f81c41-ae09-4ad3-ada3-aa1a8100581b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c2687c73-ab3e-9593-3172-aaef0aea3df9" executionId="48bb0eab-3cc2-4576-bc9c-5fa9b1bae06e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f38bf6e0-0189-7eed-b9cd-c79221524767" executionId="329ef927-8f9e-4ed8-bed3-3f2982a24d73" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1ae8846c-d188-069e-f9cd-67a5a31e0f81" executionId="6afc3b6b-ce31-4327-9839-7e0793352b40" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="280fd8ce-e757-b8ec-437f-a10787f75183" executionId="a0f9c9b8-9b9e-446d-9f3a-ac7a6804f741" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2fa907d6-b6b5-117f-a1a4-811c4be752a0" executionId="fd8b1751-e6c8-4fe1-8bac-35fd7d15b9bf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8ff5c2ab-c3c0-15dc-a20d-ec2076a57ce6" executionId="7c0347bf-5191-4252-a271-1bd45da2762b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c28fc9e5-4633-7f71-800b-d3041d37bed1" executionId="fd62547e-e762-406f-8437-d4f88dc0424d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9dd2a15b-34ba-8b2d-5e6e-e78b105e2ee2" executionId="80adf5d8-94d6-4641-88a8-6427cda89249" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7c930461-e0a2-446e-2f29-90e7c42e0b6a" executionId="b314bf4c-b5be-4e21-9f47-45f0de74b70a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7c64e42d-6a3c-99e9-1a0f-1d0167b97353" executionId="5947545f-b948-4b36-bbf3-b5aeb02ca7ab" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2bcf6041-9cb1-b3b9-4666-4594e12d5389" executionId="3ddb4c4b-5846-4924-b823-9a4ce2ed6a22" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="aa8bb948-f56e-9b41-4c7d-91dad062766e" executionId="46b11c12-0d0e-4afd-9aee-95fe52b3364b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="81f66cb0-3dc3-e93e-e6cb-365a5dc995af" executionId="c35b1e6f-4537-4192-92d6-b93cd160ad49" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ab86e107-0fb0-55fa-1825-1697de500e54" executionId="f1bd0a73-21df-4228-9a90-3c63058ba744" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4390356b-b82f-60fe-af9c-3e0cebac0193" executionId="abe67a5f-c605-4172-95bb-f4b7cefa374d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9135a14a-028a-d639-a09e-ba045e801d30" executionId="a32aa512-dcbc-4fef-96a5-b0647049cb6f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ecd686b8-8c9d-c298-e0a3-895bbb35ed34" executionId="80e23eb1-b078-4814-bfa9-55a8ad38864c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="41d7091f-fad6-9bdd-5ba2-8a241632a3aa" executionId="b22f0652-a7b1-4444-a54c-10bfc28d179e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a6266f64-5d3a-5f1c-b720-f77844168690" executionId="59455f3c-66c0-4918-a3d6-bc11f5a07554" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d8994e0b-2456-9a21-d709-423715a88d02" executionId="a5d6ced4-a669-4611-8fe6-db3c23ef025a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7894afcf-3dac-a429-0c32-5b860e5b6758" executionId="174327da-fef0-493f-a1a9-a1a39911f212" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="45a7eccc-41bd-fdc2-aae8-1391e7558402" executionId="987cb457-b4b6-4d4b-93ad-50262975bd8b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9e124439-d446-88b5-c434-b26941232a7e" executionId="b735680d-f416-4161-aa41-4adc1d21035a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f8b07f14-e1db-be61-7044-f11c59165f5c" executionId="9772e3f4-c3ac-496e-95c2-dab642e07c17" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="041ec269-0a83-af79-70c2-0616705e7fea" executionId="1528c29b-298c-491b-921e-61516db1311e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b1abbfbf-1087-542f-17d3-8ea54f405206" executionId="ece631f7-7a0f-4d5e-8290-dc975e3b87cf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6a68cb7b-3a7c-d4f1-03f1-48b01a3a100d" executionId="4370bb39-5c15-4d3c-91a3-727dc56df2d1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="792cb7c6-a2c2-709e-be36-9886885643ed" executionId="5a38849e-3898-479a-93f2-b4582b7331fb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ffde5abd-d5b0-7acd-6c11-59ce0d47d0f8" executionId="50399896-89cc-45fe-9e88-5effce1533bf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b895e48a-04b2-10e9-5e60-b9cf03e2cfab" executionId="7d7a995f-ca7f-49e1-ac07-1f00ab982801" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="56551faf-b00b-f4e9-053c-a235c7edfd70" executionId="956caf03-a060-4924-84eb-2962d0c24388" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fee7aaa9-99bd-1d56-8f6e-365f7ec6370f" executionId="a5af9b2e-9d9d-4e58-a3aa-f42cac282a06" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="413738ac-27d3-415d-0dc6-cb0df39c9964" executionId="dcfbb64d-97d1-4668-b982-37d5ebd3ce2f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="519f6393-5966-d973-7a6e-7ac9ef09a8ab" executionId="ce63a019-4ebf-4096-9df6-8232b39c8ff6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="29a18b08-dac0-4683-347e-a56415894330" executionId="73fedcb0-c669-4470-b28a-4131232bc3f7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="df3891e8-1301-9bc5-13be-41aed4cc1a61" executionId="b140e698-f4d7-486a-b7f6-6c63a39146b4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="68cca2be-094a-5605-41ad-74d0be2f17e6" executionId="7b4f92c4-9219-45d9-bfcb-c8b8deb69228" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fd6af6f3-9624-7bb8-f26c-671a7c704781" executionId="ae085fbd-5f99-4dd4-950a-c1a3b6ad8ebf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a20bef96-b9d8-7445-807b-5529de2c29f4" executionId="26cd2feb-0c1a-4a5f-a6bf-1a9b0a44c18a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e78003af-b358-3142-1f1e-2cb5652f9d1e" executionId="e0de3f98-84e1-4ac9-b799-5523ea429d00" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2967d912-bb55-04fe-309c-b2b851093034" executionId="0f029f14-6c89-4629-af04-a4b25be633d9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3aeecadf-bc8c-adc6-7976-827298b7665b" executionId="d08bb7a2-bbdb-4675-be9f-16508f65c9df" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7b62080f-1a26-6c05-964b-8a02fa1a6a53" executionId="7faa1f10-b75b-498d-841a-bc4f25e32dc2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bed907da-f063-28a3-cc6c-58d373b46666" executionId="ba7d98c6-66c5-4027-b939-002b49bb9b1b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ba91f1e4-2c20-cf8c-21ac-9f2c50810edf" executionId="bce61082-d1c2-4881-8dde-0a047882916c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e5200e72-260f-a0f9-fa45-55db0a2bc720" executionId="19c31d55-df8d-44f7-92c4-bf40216442ca" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e661b140-4bf2-4ca8-c5f3-9ce436db42c0" executionId="55eb7b34-7280-4eee-8166-32d3957abde7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1f48fc38-742c-c1ee-4821-2f968a8d41f8" executionId="3648c4cf-96c8-492f-af2b-2cb1101b9ec6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c3e25ea7-ceda-89d4-8b43-063ecec6773d" executionId="7bf606af-0d62-4460-986d-f26b5204910d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d4007078-480d-2993-6767-58899567111e" executionId="5c709354-dd55-4a03-86b2-0c35315af849" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1b75d645-42c6-65c0-9fd4-1064c7f8695e" executionId="9bebd962-6830-4bfe-9c45-6fb227868609" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f2abece8-9623-2178-1211-c27b5826c086" executionId="67350f3c-88aa-4e11-a046-11c731f588c6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="31b596e4-45eb-b79c-54c5-2bf1af22a0c7" executionId="6fc38531-ceec-4f17-aa08-0b161336142c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a0bc965b-eda9-5c47-db39-0cef9061743d" executionId="2bf2bc62-ed7f-49fe-b3c0-9c248867ec7b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="202797b9-73ea-459f-6c01-829be3dd0273" executionId="935125df-2a6a-468b-ae31-82968ce91742" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e0a01afb-9089-89de-e469-90578648b36b" executionId="fe5617b9-88a9-44e5-ad93-bf944e962cf5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="117489ea-7637-c251-3d41-545ce335a81a" executionId="2c9814ad-46ba-4d38-9d71-d7bc69f75937" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="03bce771-c539-23cf-dc6d-ac843fe22302" executionId="a69177ca-7b4a-4f93-9008-91017aa4a03e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b2d5317a-bb5d-f3e7-78b2-706eb09e2a5b" executionId="a28b95ac-be39-4631-af3d-1d06ebf88eab" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="da56f0a9-a47a-a3ad-ba7d-da13af919ea5" executionId="31b796a9-e4d7-4b4b-a2ef-9c8aad27bfb5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6a3c7286-f11e-ad5a-da89-d4e953169207" executionId="caf61d96-4058-4f00-a227-9564648e3e3f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1d808ce6-bd91-e3fb-0870-0887818361b7" executionId="58111669-e99a-45d4-8197-9e68c4641508" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7178c781-5d67-8a46-39aa-361135fbbab4" executionId="7d11eba3-9094-4268-a64d-46f04b45d6ad" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7694aeeb-5370-8034-8562-7155e03ae6ab" executionId="7f52821e-e493-444b-b7d9-ee39e9665820" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="87ffbcfb-674a-a165-1a7c-06f6ba2b5313" executionId="e4dec6a2-228d-4848-8541-3c25eaf2da19" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="970ec364-6645-6f9f-b556-8a027d73580a" executionId="416806ac-68e1-469b-bbf8-782ba081f98b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f036a2b6-cf44-59b3-fccc-61361b284bef" executionId="cceca57c-c8f1-4632-b188-44cd74af4b29" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d47ac840-dc7e-4a1d-7b2c-1d851a4079d9" executionId="3dea1d56-cf5c-4189-b4f7-1c55a4964be7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="aa96d88b-0fd8-65eb-7592-dc7fe1bb47e7" executionId="12ada867-0d4d-4ce8-a6c7-b68c5ab0b0c9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b68b6b9e-2b95-053b-82f6-5def98eb852d" executionId="61d6a258-1569-449e-b74b-2641b01fb5d3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d4888c09-ce2c-f191-b826-25dde7f49341" executionId="ac75a858-4b88-42e6-89e0-ebfd35a8061b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bd3e76ef-0251-5f1c-cef7-60f458d19227" executionId="0a44ad97-1503-4cfe-97ea-ce3ee8e9917a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5ffcab0d-f418-50e2-12f9-1d9b0a6ac88d" executionId="f187244d-a09b-408a-a651-445d4a155ace" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f0d8b51d-18ee-6672-76d9-7fc3895fd1ae" executionId="a5184152-e56b-4af9-b863-a3102d2d629e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5dbd02c3-6ccc-5aff-5949-c93a096a9025" executionId="39392fb3-6540-4a63-bde9-c44ee27ef047" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="630bb00f-f846-bf61-c2b9-c97fdefb08ef" executionId="08d0f6a5-ce0c-4227-a231-21c80e982c55" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a20197e4-353c-353b-8b1a-68e8033ed4f0" executionId="b6ea49ac-182d-4895-9271-9d39109a7dd1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c4e4e17d-2810-02d3-0d0d-1a21c777ebac" executionId="7e5d6a90-8c7f-4a6e-afdd-6ff9c921b9e4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b38c6435-7403-9a53-f5b1-e636b3ad1e41" executionId="5c5db8dc-3a95-4ad9-bf01-3d20a9bc1dde" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="80" executed="80" passed="78" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 80 of 81 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NOVICE_FULL_EFFORT effort=900 rank=16 player_ms=604091 best_rival_ms=541874 lead_ms=-62217 penalties=2 result_sha=49c75d27f19577306e031883aab56e0c4667357984d44904bca95ee3ec4fc5cd&#xD;
+&#xD;
+NOVICE_FULL_EFFORT effort=1000 rank=4 player_ms=565173 best_rival_ms=536813 lead_ms=-28360 penalties=0 result_sha=b8b041a79c0e1b3daf270b906df3f60c380b17c7c809ed927aba3abcf71021cd&#xD;
+&#xD;
+FIRST_REGISTERED_SPLIT profile=review completed=30 p50_gap_s=2.946 p90_gap_s=4.151 max_gap_s=7.956&#xD;
+&#xD;
+FIRST_REGISTERED_SPLIT profile=junior_novice completed=30 p50_gap_s=5.954 p90_gap_s=6.960 max_gap_s=7.708&#xD;
+&#xD;
+FIRST_REGISTERED_SPLIT profile=senior_debut completed=30 p50_gap_s=3.098 p90_gap_s=4.268 max_gap_s=4.669&#xD;
+&#xD;
+FRESH_PACK profile=review actor=0 crest_s=37,45 crest_mps=5,134300478 min_mps=5,150511338 slow_ticks=0 brake_ticks=1 zero_effort_ticks=1 hill_ticks=291 average_effort=908 reserve=0,471238858 fatigue=0,027371953&#xD;
+FRESH_PACK profile=review actor=1 crest_s=37,5 crest_mps=5,258115225 min_mps=5,269836427 slow_ticks=0 brake_ticks=2 zero_effort_ticks=4 hill_ticks=285 average_effort=910 reserve=0,606155652 fatigue=0,02503038&#xD;
+FRESH_PACK profile=review actor=2 crest_s=37,6 crest_mps=5,012796241 min_mps=5,02931573 slow_ticks=0 brake_ticks=2 zero_effort_ticks=2 hill_ticks=288 average_effort=907 reserve=0,471341144 fatigue=0,027442809&#xD;
+FRESH_PACK profile=review actor=3 crest_s=38,25 crest_mps=5,023259787 min_mps=5,035744249 slow_ticks=0 brake_ticks=2 zero_effort_ticks=2 hill_ticks=291 average_effort=888 reserve=0,689290337 fatigue=0,023775974&#xD;
+FRESH_PACK profile=review actor=4 crest_s=37,8 crest_mps=5,140986868 min_mps=5,157237742 slow_ticks=0 brake_ticks=4 zero_effort_ticks=4 hill_ticks=287 average_effort=898 reserve=0,495649739 fatigue=0,026955112&#xD;
+FRESH_PACK profile=review actor=5 crest_s=38,3 crest_mps=4,970051476 min_mps=4,976555063 slow_ticks=0 brake_ticks=5 zero_effort_ticks=7 hill_ticks=285 average_effort=867 reserve=0,721520196 fatigue=0,023008631&#xD;
+FRESH_PACK profile=review actor=6 crest_s=38,55 crest_mps=4,853970947 min_mps=4,866886126 slow_ticks=0 brake_ticks=10 zero_effort_ticks=10 hill_ticks=293 average_effort=878 reserve=0,494421698 fatigue=0,027170466&#xD;
+FRESH_PACK profile=review actor=7 crest_s=38,6 crest_mps=4,973374085 min_mps=4,985837849 slow_ticks=0 brake_ticks=2 zero_effort_ticks=2 hill_ticks=287 average_effort=889 reserve=0,724108391 fatigue=0,023114774&#xD;
+FRESH_PACK profile=review actor=8 crest_s=38,65 crest_mps=4,794313152 min_mps=4,806183614 slow_ticks=0 brake_ticks=8 zero_effort_ticks=8 hill_ticks=288 average_effort=887 reserve=0,473560609 fatigue=0,02751664&#xD;
+FRESH_PACK profile=review actor=9 crest_s=39,05 crest_mps=5,097392909 min_mps=5,105894792 slow_ticks=0 brake_ticks=2 zero_effort_ticks=3 hill_ticks=290 average_effort=877 reserve=0,84631555 fatigue=0,021143876&#xD;
+FRESH_PACK profile=review actor=10 crest_s=38,9 crest_mps=4,902194261 min_mps=4,91528434 slow_ticks=0 brake_ticks=9 zero_effort_ticks=9 hill_ticks=289 average_effort=883 reserve=0,483208764 fatigue=0,027401181&#xD;
+FRESH_PACK profile=review actor=11 crest_s=39,15 crest_mps=4,96299506 min_mps=4,970459642 slow_ticks=0 brake_ticks=5 zero_effort_ticks=8 hill_ticks=286 average_effort=864 reserve=0,830328866 fatigue=0,021148005&#xD;
+FRESH_PACK profile=review actor=12 crest_s=39,4 crest_mps=4,845805581 min_mps=4,859023104 slow_ticks=0 brake_ticks=7 zero_effort_ticks=7 hill_ticks=293 average_effort=888 reserve=0,473530655 fatigue=0,027762636&#xD;
+FRESH_PACK profile=review actor=13 crest_s=39,4 crest_mps=5,014305985 min_mps=5,01713442 slow_ticks=0 brake_ticks=2 zero_effort_ticks=6 hill_ticks=289 average_effort=861 reserve=0,867238449 fatigue=0,020801916&#xD;
+FRESH_PACK profile=review actor=14 crest_s=39,45 crest_mps=4,792368462 min_mps=4,804631149 slow_ticks=0 brake_ticks=9 zero_effort_ticks=9 hill_ticks=288 average_effort=885 reserve=0,468433558 fatigue=0,027890278&#xD;
+FRESH_PACK profile=review actor=15 crest_s=39,75 crest_mps=4,984316752 min_mps=4,988242146 slow_ticks=0 brake_ticks=3 zero_effort_ticks=3 hill_ticks=294 average_effort=866 reserve=0,888721295 fatigue=0,020599762&#xD;
+FRESH_PACK profile=review actor=16 crest_s=39,7 crest_mps=4,887404119 min_mps=4,901358908 slow_ticks=0 brake_ticks=10 zero_effort_ticks=10 hill_ticks=291 average_effort=883 reserve=0,457061527 fatigue=0,028228491&#xD;
+FRESH_PACK profile=review actor=17 crest_s=39,85 crest_mps=4,94371467 min_mps=4,946365559 slow_ticks=0 brake_ticks=5 zero_effort_ticks=9 hill_ticks=289 average_effort=852 reserve=0,89104392 fatigue=0,020404726&#xD;
+FRESH_PACK profile=review actor=18 crest_s=40,05 crest_mps=4,85926939 min_mps=4,870532644 slow_ticks=0 brake_ticks=10 zero_effort_ticks=10 hill_ticks=296 average_effort=879 reserve=0,464343354 fatigue=0,028331584&#xD;
+FRESH_PACK profile=review actor=19 crest_s=40,05 crest_mps=4,797453179 min_mps=4,797189448 slow_ticks=0 brake_ticks=6 zero_effort_ticks=11 hill_ticks=290 average_effort=844 reserve=0,895449502 fatigue=0,020514948&#xD;
+FRESH_PACK profile=review actor=20 crest_s=40,2 crest_mps=4,739501921 min_mps=4,749338812 slow_ticks=0 brake_ticks=10 zero_effort_ticks=10 hill_ticks=292 average_effort=881 reserve=0,45913141 fatigue=0,028305777&#xD;
+FRESH_PACK profile=review actor=21 crest_s=40,4 crest_mps=4,76786592 min_mps=4,769783627 slow_ticks=0 brake_ticks=4 zero_effort_ticks=6 hill_ticks=293 average_effort=854 reserve=0,904012498 fatigue=0,02068828&#xD;
+FRESH_PACK profile=review actor=22 crest_s=40,4 crest_mps=4,658738596 min_mps=4,666459714 slow_ticks=0 brake_ticks=11 zero_effort_ticks=11 hill_ticks=293 average_effort=878 reserve=0,452017028 fatigue=0,028503738&#xD;
+FRESH_PACK profile=review actor=23 crest_s=40,5 crest_mps=4,736843928 min_mps=4,727920062 slow_ticks=0 brake_ticks=7 zero_effort_ticks=9 hill_ticks=289 average_effort=850 reserve=0,891421977 fatigue=0,020786779&#xD;
+FRESH_PACK profile=review actor=24 crest_s=40,75 crest_mps=4,66444808 min_mps=4,67525234 slow_ticks=0 brake_ticks=9 zero_effort_ticks=10 hill_ticks=297 average_effort=879 reserve=0,443739417 fatigue=0,028867689&#xD;
+FRESH_PACK profile=review actor=25 crest_s=40,7 crest_mps=4,668352941 min_mps=4,643955292 slow_ticks=0 brake_ticks=10 zero_effort_ticks=11 hill_ticks=291 average_effort=845 reserve=0,884260614 fatigue=0,020953505&#xD;
+FRESH_PACK profile=review actor=26 crest_s=40,85 crest_mps=4,627231193 min_mps=4,63088325 slow_ticks=0 brake_ticks=10 zero_effort_ticks=11 hill_ticks=293 average_effort=876 reserve=0,441860049 fatigue=0,028862034&#xD;
+FRESH_PACK profile=review actor=27 crest_s=41,7 crest_mps=5,301974471 min_mps=5,320879599 slow_ticks=0 brake_ticks=0 zero_effort_ticks=2 hill_ticks=289 average_effort=914 reserve=0,617170604 fatigue=0,026665789&#xD;
+FRESH_PACK profile=review actor=28 crest_s=41,05 crest_mps=4,519033259 min_mps=4,523816163 slow_ticks=0 brake_ticks=10 zero_effort_ticks=10 hill_ticks=294 average_effort=881 reserve=0,438759049 fatigue=0,029005512&#xD;
+FRESH_PACK profile=review actor=29 crest_s=41,85 crest_mps=5,21483485 min_mps=5,227752901 slow_ticks=0 brake_ticks=1 zero_effort_ticks=2 hill_ticks=284 average_effort=919 reserve=0,621265999 fatigue=0,026628496&#xD;
+FRESH_PACK_SUMMARY profile=review completed=30 p50_gap_s=2,25 p90_gap_s=3,4 max_gap_s=4,4 p10_speed=4,658738596 p50_speed=4,902194261 max_speed=5,301974471&#xD;
+&#xD;
+FRESH_PACK profile=junior_novice actor=0 crest_s=38,8 crest_mps=4,708446694 min_mps=4,723855982 slow_ticks=0 brake_ticks=19 zero_effort_ticks=19 hill_ticks=292 average_effort=865 reserve=0,575943176 fatigue=0,02786419&#xD;
+FRESH_PACK profile=junior_novice actor=1 crest_s=36,75 crest_mps=5,275587784 min_mps=5,292984624 slow_ticks=0 brake_ticks=3 zero_effort_ticks=4 hill_ticks=283 average_effort=900 reserve=0,537034636 fatigue=0,022952498&#xD;
+FRESH_PACK profile=junior_novice actor=2 crest_s=38 crest_mps=4,997053173 min_mps=5,013857779 slow_ticks=0 brake_ticks=5 zero_effort_ticks=7 hill_ticks=284 average_effort=903 reserve=0,598751481 fatigue=0,024200008&#xD;
+FRESH_PACK profile=junior_novice actor=3 crest_s=39,15 crest_mps=4,86938604 min_mps=4,652614608 slow_ticks=0 brake_ticks=6 zero_effort_ticks=11 hill_ticks=296 average_effort=839 reserve=0,898928684 fatigue=0,018545167&#xD;
+FRESH_PACK profile=junior_novice actor=4 crest_s=39,15 crest_mps=4,874248489 min_mps=4,890246159 slow_ticks=0 brake_ticks=7 zero_effort_ticks=12 hill_ticks=292 average_effort=886 reserve=0,628355792 fatigue=0,025030161&#xD;
+FRESH_PACK profile=junior_novice actor=5 crest_s=38,35 crest_mps=4,986671719 min_mps=5,004748782 slow_ticks=0 brake_ticks=6 zero_effort_ticks=6 hill_ticks=288 average_effort=896 reserve=0,493012591 fatigue=0,027909561&#xD;
+FRESH_PACK profile=junior_novice actor=6 crest_s=39,45 crest_mps=4,784168189 min_mps=4,637376038 slow_ticks=0 brake_ticks=8 zero_effort_ticks=12 hill_ticks=298 average_effort=876 reserve=0,482538187 fatigue=0,026567554&#xD;
+FRESH_PACK profile=junior_novice actor=7 crest_s=39,6 crest_mps=4,848657012 min_mps=4,834642162 slow_ticks=0 brake_ticks=4 zero_effort_ticks=4 hill_ticks=297 average_effort=868 reserve=0,904532636 fatigue=0,016269431&#xD;
+FRESH_PACK profile=junior_novice actor=8 crest_s=38,75 crest_mps=5,045654361 min_mps=5,053398508 slow_ticks=0 brake_ticks=12 zero_effort_ticks=15 hill_ticks=289 average_effort=834 reserve=0,892156407 fatigue=0,020145858&#xD;
+FRESH_PACK profile=junior_novice actor=9 crest_s=39,8 crest_mps=4,701690238 min_mps=4,708258107 slow_ticks=0 brake_ticks=11 zero_effort_ticks=16 hill_ticks=301 average_effort=830 reserve=0,885531883 fatigue=0,020330879&#xD;
+FRESH_PACK profile=junior_novice actor=10 crest_s=40 crest_mps=4,608027801 min_mps=4,625678128 slow_ticks=0 brake_ticks=1 zero_effort_ticks=1 hill_ticks=301 average_effort=907 reserve=0,450964969 fatigue=0,031334336&#xD;
+FRESH_PACK profile=junior_novice actor=11 crest_s=39,05 crest_mps=4,904946738 min_mps=4,916413647 slow_ticks=0 brake_ticks=9 zero_effort_ticks=10 hill_ticks=292 average_effort=882 reserve=0,519181972 fatigue=0,024350702&#xD;
+FRESH_PACK profile=junior_novice actor=12 crest_s=40,1 crest_mps=4,657591422 min_mps=4,666208194 slow_ticks=0 brake_ticks=6 zero_effort_ticks=6 hill_ticks=303 average_effort=893 reserve=0,502714403 fatigue=0,024995844&#xD;
+FRESH_PACK profile=junior_novice actor=13 crest_s=40,55 crest_mps=4,593802258 min_mps=4,391481613 slow_ticks=0 brake_ticks=14 zero_effort_ticks=16 hill_ticks=296 average_effort=824 reserve=0,788678407 fatigue=0,021141514&#xD;
+FRESH_PACK profile=junior_novice actor=14 crest_s=39,4 crest_mps=4,741142299 min_mps=4,752927498 slow_ticks=0 brake_ticks=13 zero_effort_ticks=13 hill_ticks=295 average_effort=874 reserve=0,480230929 fatigue=0,024736251&#xD;
+FRESH_PACK profile=junior_novice actor=15 crest_s=40,5 crest_mps=4,495736345 min_mps=4,505733383 slow_ticks=0 brake_ticks=12 zero_effort_ticks=12 hill_ticks=307 average_effort=875 reserve=0,451502884 fatigue=0,03045096&#xD;
+FRESH_PACK profile=junior_novice actor=16 crest_s=40,9 crest_mps=4,482743174 min_mps=4,486644267 slow_ticks=0 brake_ticks=21 zero_effort_ticks=26 hill_ticks=300 average_effort=803 reserve=0,882620159 fatigue=0,020959259&#xD;
+FRESH_PACK profile=junior_novice actor=17 crest_s=39,75 crest_mps=4,828597296 min_mps=4,778527727 slow_ticks=0 brake_ticks=23 zero_effort_ticks=25 hill_ticks=292 average_effort=810 reserve=0,887875084 fatigue=0,017635949&#xD;
+FRESH_PACK profile=junior_novice actor=18 crest_s=40,85 crest_mps=4,417842275 min_mps=4,420597638 slow_ticks=0 brake_ticks=16 zero_effort_ticks=17 hill_ticks=310 average_effort=858 reserve=0,460643806 fatigue=0,028772769&#xD;
+FRESH_PACK profile=junior_novice actor=19 crest_s=41,25 crest_mps=4,416294089 min_mps=4,419929862 slow_ticks=0 brake_ticks=11 zero_effort_ticks=13 hill_ticks=303 average_effort=873 reserve=0,42361691 fatigue=0,029991933&#xD;
+FRESH_PACK profile=junior_novice actor=20 crest_s=40,1 crest_mps=4,607763299 min_mps=4,56102186 slow_ticks=0 brake_ticks=26 zero_effort_ticks=30 hill_ticks=296 average_effort=828 reserve=0,443524609 fatigue=0,029273257&#xD;
+FRESH_PACK profile=junior_novice actor=21 crest_s=41,2 crest_mps=4,384325848 min_mps=4,389945236 slow_ticks=0 brake_ticks=5 zero_effort_ticks=5 hill_ticks=313 average_effort=895 reserve=0,483629718 fatigue=0,025904703&#xD;
+FRESH_PACK profile=junior_novice actor=22 crest_s=41,6 crest_mps=4,428010815 min_mps=4,406721043 slow_ticks=0 brake_ticks=6 zero_effort_ticks=6 hill_ticks=306 average_effort=865 reserve=0,884489665 fatigue=0,017584301&#xD;
+FRESH_PACK profile=junior_novice actor=23 crest_s=40,45 crest_mps=4,481465534 min_mps=4,493911082 slow_ticks=0 brake_ticks=19 zero_effort_ticks=21 hill_ticks=299 average_effort=851 reserve=0,46490739 fatigue=0,028024138&#xD;
+FRESH_PACK profile=junior_novice actor=24 crest_s=41,55 crest_mps=4,340579708 min_mps=4,344815363 slow_ticks=0 brake_ticks=12 zero_effort_ticks=12 hill_ticks=315 average_effort=847 reserve=0,869845354 fatigue=0,017482695&#xD;
+FRESH_PACK profile=junior_novice actor=25 crest_s=42 crest_mps=4,388405652 min_mps=4,391654768 slow_ticks=0 brake_ticks=8 zero_effort_ticks=8 hill_ticks=310 average_effort=859 reserve=0,884436231 fatigue=0,016803786&#xD;
+FRESH_PACK profile=junior_novice actor=26 crest_s=40,8 crest_mps=4,403887726 min_mps=4,413917041 slow_ticks=0 brake_ticks=5 zero_effort_ticks=5 hill_ticks=302 average_effort=898 reserve=0,478228727 fatigue=0,028821548&#xD;
+FRESH_PACK profile=junior_novice actor=27 crest_s=41,9 crest_mps=4,342499577 min_mps=4,318460447 slow_ticks=0 brake_ticks=16 zero_effort_ticks=16 hill_ticks=318 average_effort=865 reserve=0,48520435 fatigue=0,025306072&#xD;
+FRESH_PACK profile=junior_novice actor=28 crest_s=42,4 crest_mps=4,193873114 min_mps=4,191169181 slow_ticks=0 brake_ticks=14 zero_effort_ticks=14 hill_ticks=314 average_effort=871 reserve=0,427740621 fatigue=0,027932936&#xD;
+FRESH_PACK profile=junior_novice actor=29 crest_s=41,15 crest_mps=4,347853188 min_mps=4,358233369 slow_ticks=0 brake_ticks=5 zero_effort_ticks=5 hill_ticks=306 average_effort=898 reserve=0,464860207 fatigue=0,029638236&#xD;
+FRESH_PACK_SUMMARY profile=junior_novice completed=30 p50_gap_s=3,35 p90_gap_s=4,85 max_gap_s=5,65 p10_speed=4,342499577 p50_speed=4,608027801 max_speed=5,275587784&#xD;
+&#xD;
+FRESH_PACK profile=senior_debut actor=0 crest_s=37,1 crest_mps=5,34226754 min_mps=5,36447314 slow_ticks=0 brake_ticks=20 zero_effort_ticks=20 hill_ticks=278 average_effort=862 reserve=0,607532273 fatigue=0,024384802&#xD;
+FRESH_PACK profile=senior_debut actor=1 crest_s=37,4 crest_mps=5,053392102 min_mps=5,06959921 slow_ticks=0 brake_ticks=2 zero_effort_ticks=2 hill_ticks=289 average_effort=907 reserve=0,50099055 fatigue=0,025216057&#xD;
+FRESH_PACK profile=senior_debut actor=2 crest_s=35,85 crest_mps=5,803523353 min_mps=5,819887116 slow_ticks=0 brake_ticks=13 zero_effort_ticks=17 hill_ticks=270 average_effort=872 reserve=0,677629109 fatigue=0,01801416&#xD;
+FRESH_PACK profile=senior_debut actor=3 crest_s=37,4 crest_mps=5,233448857 min_mps=5,247172264 slow_ticks=0 brake_ticks=11 zero_effort_ticks=14 hill_ticks=280 average_effort=829 reserve=0,932470103 fatigue=0,014257273&#xD;
+FRESH_PACK profile=senior_debut actor=4 crest_s=37,75 crest_mps=5,152969984 min_mps=5,16979061 slow_ticks=0 brake_ticks=10 zero_effort_ticks=15 hill_ticks=281 average_effort=824 reserve=0,82548097 fatigue=0,017450429&#xD;
+FRESH_PACK profile=senior_debut actor=5 crest_s=36,15 crest_mps=5,69701262 min_mps=5,712186695 slow_ticks=0 brake_ticks=6 zero_effort_ticks=7 hill_ticks=273 average_effort=894 reserve=0,597512488 fatigue=0,020666979&#xD;
+FRESH_PACK profile=senior_debut actor=6 crest_s=37,7 crest_mps=5,167006396 min_mps=5,179299334 slow_ticks=0 brake_ticks=10 zero_effort_ticks=12 hill_ticks=283 average_effort=876 reserve=0,575817591 fatigue=0,020482935&#xD;
+FRESH_PACK profile=senior_debut actor=7 crest_s=38,05 crest_mps=5,051742863 min_mps=5,063915117 slow_ticks=0 brake_ticks=4 zero_effort_ticks=5 hill_ticks=283 average_effort=856 reserve=0,937180257 fatigue=0,013294841&#xD;
+FRESH_PACK profile=senior_debut actor=8 crest_s=36,9 crest_mps=5,871814715 min_mps=5,889682707 slow_ticks=0 brake_ticks=11 zero_effort_ticks=13 hill_ticks=267 average_effort=887 reserve=0,688869735 fatigue=0,020012667&#xD;
+FRESH_PACK profile=senior_debut actor=9 crest_s=38,1 crest_mps=5,365653857 min_mps=5,374978057 slow_ticks=0 brake_ticks=5 zero_effort_ticks=7 hill_ticks=287 average_effort=857 reserve=0,902443218 fatigue=0,016370479&#xD;
+FRESH_PACK profile=senior_debut actor=10 crest_s=38,35 crest_mps=4,883722423 min_mps=4,932091234 slow_ticks=0 brake_ticks=11 zero_effort_ticks=11 hill_ticks=286 average_effort=879 reserve=0,526316516 fatigue=0,026673124&#xD;
+FRESH_PACK profile=senior_debut actor=11 crest_s=37,3 crest_mps=5,549470876 min_mps=5,568559873 slow_ticks=0 brake_ticks=15 zero_effort_ticks=20 hill_ticks=271 average_effort=851 reserve=0,551678899 fatigue=0,022991837&#xD;
+FRESH_PACK profile=senior_debut actor=12 crest_s=38,4 crest_mps=5,187317065 min_mps=5,199745586 slow_ticks=0 brake_ticks=10 zero_effort_ticks=11 hill_ticks=289 average_effort=876 reserve=0,543972322 fatigue=0,02345876&#xD;
+FRESH_PACK profile=senior_debut actor=13 crest_s=38,7 crest_mps=4,874769096 min_mps=4,87873166 slow_ticks=0 brake_ticks=22 zero_effort_ticks=26 hill_ticks=285 average_effort=800 reserve=0,920265264 fatigue=0,01344445&#xD;
+FRESH_PACK profile=senior_debut actor=14 crest_s=37,6 crest_mps=5,434156471 min_mps=5,452968605 slow_ticks=0 brake_ticks=10 zero_effort_ticks=10 hill_ticks=274 average_effort=882 reserve=0,515845304 fatigue=0,022271699&#xD;
+FRESH_PACK profile=senior_debut actor=15 crest_s=38,7 crest_mps=5,129395579 min_mps=5,143474565 slow_ticks=0 brake_ticks=17 zero_effort_ticks=23 hill_ticks=292 average_effort=840 reserve=0,523433967 fatigue=0,026090619&#xD;
+FRESH_PACK profile=senior_debut actor=16 crest_s=39 crest_mps=4,863090273 min_mps=4,857570091 slow_ticks=0 brake_ticks=9 zero_effort_ticks=10 hill_ticks=288 average_effort=847 reserve=0,929192459 fatigue=0,013344061&#xD;
+FRESH_PACK profile=senior_debut actor=17 crest_s=38,1 crest_mps=5,447597688 min_mps=5,45833522 slow_ticks=0 brake_ticks=25 zero_effort_ticks=26 hill_ticks=277 average_effort=803 reserve=0,899670112 fatigue=0,017017794&#xD;
+FRESH_PACK profile=senior_debut actor=18 crest_s=39 crest_mps=5,051552779 min_mps=5,0599977 slow_ticks=0 brake_ticks=5 zero_effort_ticks=5 hill_ticks=294 average_effort=896 reserve=0,563215868 fatigue=0,020861181&#xD;
+FRESH_PACK profile=senior_debut actor=19 crest_s=39,3 crest_mps=4,889222606 min_mps=4,785148188 slow_ticks=0 brake_ticks=17 zero_effort_ticks=17 hill_ticks=290 average_effort=862 reserve=0,543147231 fatigue=0,023043716&#xD;
+FRESH_PACK profile=senior_debut actor=20 crest_s=38,35 crest_mps=5,382410638 min_mps=5,397841493 slow_ticks=0 brake_ticks=10 zero_effort_ticks=11 hill_ticks=279 average_effort=882 reserve=0,584154875 fatigue=0,020272015&#xD;
+FRESH_PACK profile=senior_debut actor=21 crest_s=39,3 crest_mps=5,044051063 min_mps=5,046647321 slow_ticks=0 brake_ticks=9 zero_effort_ticks=9 hill_ticks=296 average_effort=885 reserve=0,555357913 fatigue=0,020525549&#xD;
+FRESH_PACK profile=senior_debut actor=22 crest_s=39,65 crest_mps=4,829019291 min_mps=4,860095803 slow_ticks=0 brake_ticks=26 zero_effort_ticks=28 hill_ticks=284 average_effort=791 reserve=0,916747978 fatigue=0,014856223&#xD;
+FRESH_PACK profile=senior_debut actor=23 crest_s=38,65 crest_mps=5,303862695 min_mps=5,315672408 slow_ticks=0 brake_ticks=5 zero_effort_ticks=5 hill_ticks=282 average_effort=899 reserve=0,565583307 fatigue=0,021753346&#xD;
+FRESH_PACK profile=senior_debut actor=24 crest_s=39,6 crest_mps=5,00421702 min_mps=5,010350158 slow_ticks=0 brake_ticks=24 zero_effort_ticks=27 hill_ticks=290 average_effort=785 reserve=0,894155155 fatigue=0,015572416&#xD;
+FRESH_PACK profile=senior_debut actor=25 crest_s=40 crest_mps=4,847015162 min_mps=4,796888633 slow_ticks=0 brake_ticks=10 zero_effort_ticks=14 hill_ticks=287 average_effort=834 reserve=0,919198195 fatigue=0,014933678&#xD;
+FRESH_PACK profile=senior_debut actor=26 crest_s=39 crest_mps=5,154897358 min_mps=5,167128405 slow_ticks=0 brake_ticks=15 zero_effort_ticks=15 hill_ticks=285 average_effort=868 reserve=0,558594036 fatigue=0,023680378&#xD;
+FRESH_PACK profile=senior_debut actor=27 crest_s=39,95 crest_mps=4,959530477 min_mps=4,96756116 slow_ticks=0 brake_ticks=10 zero_effort_ticks=11 hill_ticks=294 average_effort=880 reserve=0,550837745 fatigue=0,021502846&#xD;
+FRESH_PACK profile=senior_debut actor=28 crest_s=40,3 crest_mps=4,733916602 min_mps=4,719080632 slow_ticks=0 brake_ticks=10 zero_effort_ticks=10 hill_ticks=290 average_effort=885 reserve=0,51866581 fatigue=0,022425152&#xD;
+FRESH_PACK profile=senior_debut actor=29 crest_s=39,3 crest_mps=5,109290046 min_mps=5,117774306 slow_ticks=0 brake_ticks=6 zero_effort_ticks=6 hill_ticks=288 average_effort=897 reserve=0,559645497 fatigue=0,023068093&#xD;
+FRESH_PACK_SUMMARY profile=senior_debut completed=30 p50_gap_s=2,55 p90_gap_s=3,8 max_gap_s=4,45 p10_speed=4,847015162 p50_speed=5,152969984 max_speed=5,871814715&#xD;
+&#xD;
+career_result_ticks=28941 sha256=c0e0bb0b82de70cb726e9d98b10776b8360e71279d93e1f9e94d0a8424f54647&#xD;
+&#xD;
+spin=-0,35 target=-0,08382491685133897 selected=35 error=0 best=0 ends=-0,3285114543984486:-0,1599767981438515:-0,08382491685133903&#xD;
+&#xD;
+spin=0 target=0,26617508314866095 selected=151 error=0 best=0 ends=0,021488545601551372:0:0,266175083148661&#xD;
+&#xD;
+spin=0,35 target=0,3841435758250936 selected=563 error=0,05451567824723802 best=0 ends=0,17363772968636904:0,1599767981438515:0,43865925407233164&#xD;
+&#xD;
+mass_start actors=30 accepted_tick=1000&#xD;
+mass_start actors=30 accepted_tick=2000&#xD;
+mass_start actors=30 accepted_tick=3000&#xD;
+mass_start actors=30 accepted_tick=4000&#xD;
+mass_start actors=30 accepted_tick=5000&#xD;
+mass_start actors=30 accepted_tick=6000&#xD;
+mass_start actors=30 accepted_tick=7000&#xD;
+mass_start actors=30 accepted_tick=8000&#xD;
+mass_start actors=30 accepted_tick=9000&#xD;
+mass_start actors=30 accepted_tick=10000&#xD;
+mass_start actors=30 accepted_tick=11000&#xD;
+mass_start actors=30 accepted_tick=12000&#xD;
+mass_start actors=30 accepted_tick=13000&#xD;
+mass_start actors=30 accepted_tick=14000&#xD;
+mass_start actors=30 accepted_tick=15000&#xD;
+mass_start actors=30 accepted_tick=16000&#xD;
+mass_start actors=30 accepted_tick=17000&#xD;
+mass_start actors=30 accepted_tick=18000&#xD;
+mass_start complete actors=30 tick=18638&#xD;
+wall_seconds=43,8393177 realtime_factor=21,25716895399758&#xD;
+&#xD;
+normal_watts=364.00;burst_watts=560.00;reserve_after20s=0.0761;effort_after20s=1.230&#xD;
+&#xD;
+normal_speed8s=8.961;burst_speed8s=10.309;reserve8s=0.5761&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

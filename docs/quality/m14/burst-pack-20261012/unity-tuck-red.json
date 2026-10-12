@@ -1,0 +1,30 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":314,\"PassedTests\":0,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:22.0872861\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.ShortBurstPresentationTests.TuckDoesNotAdvertiseBurstWhileTheSharedPostureCapsPower\",\"Status\":\"Failed\",\"Duration\":\"00:00:21.9840000\",\"Message\":\"  Expected: False\\r\\n  But was:  True\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ShortBurstPresentationTests.TuckDoesNotAdvertiseBurstWhileTheSharedPostureCapsPower () [0x000de] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ShortBurstPresentationTests.cs:83\\r\\n\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 314,
+        "PassedTests": 0,
+        "FailedTests": 1,
+        "SkippedTests": 0,
+        "Duration": "00:00:22.0872861"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.PlayModeTests.ShortBurstPresentationTests.TuckDoesNotAdvertiseBurstWhileTheSharedPostureCapsPower",
+          "Status": "Failed",
+          "Duration": "00:00:21.9840000",
+          "Message": "  Expected: False\r\n  But was:  True\r\n",
+          "StackTrace": "at Biathlon.PlayModeTests.ShortBurstPresentationTests.TuckDoesNotAdvertiseBurstWhileTheSharedPostureCapsPower () [0x000de] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ShortBurstPresentationTests.cs:83\r\n"
+        }
+      ]
+    }
+  },
+  "isError": false
+}
