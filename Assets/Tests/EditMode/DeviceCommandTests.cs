@@ -38,6 +38,30 @@ namespace Biathlon.Tests
         private static DeviceCommandBuilder Create(int frequency = 20) => new DeviceCommandBuilder(
             DeviceControlDefinition.FromJson(PhysiologyContractTests.DefinitionJson("device_control_v1.json")),
             new AthleteId("player"), frequency);
+        [Test] public void ProductionGamepadNormalTriggerUsesThePaceCeilingAndAttackRemainsExplicit()
+        {
+            var definition=DeviceControlDefinition.FromJson(PhysiologyContractTests.DefinitionJson("device_control_gameplay_v3.json"));
+            var id=new AthleteId("player");var builder=new DeviceCommandBuilder(definition,id,20);
+            var effort=new EffortControlSystem(EffortControlTests.Definition(),id,20);
+            builder.Sample(new DeviceControlSample(true,1,0));
+            var normal=builder.BuildManual(new SimulationTick(1));
+            Assert.That(normal.AnalogEffort,Is.EqualTo(800),"Full normal trigger should match the W pace dial, not enter the paid burst range.");
+            Assert.That(effort.Step(normal.ToEffortCommand(),false).AppliedControl,Is.LessThan(950));
+            builder.Sample(new DeviceControlSample(true,1,0,EffortPreset.Attack));
+            var attack=builder.BuildManual(new SimulationTick(2));
+            Assert.That(attack.AnalogEffort,Is.EqualTo(normal.AnalogEffort),"Attack must not replace the normal analog pace.");
+            Assert.That(effort.Step(attack.ToEffortCommand(),false).AppliedControl,Is.EqualTo(1000));
+            builder.Sample(new DeviceControlSample(true,1,0));
+            var released=builder.BuildManual(new SimulationTick(3));
+            Assert.That(released.AnalogEffort,Is.EqualTo(normal.AnalogEffort));
+            Assert.That(effort.Step(released.ToEffortCommand(),false).AppliedControl,Is.LessThan(950));
+        }
+        [TestCase(0,0)] [TestCase(.5,500)] [TestCase(1,1000)]
+        public void HistoricalGamepadDefinitionsRetainTheFullAnalogRange(double trigger,int expected)
+        {
+            var builder=Create();builder.Sample(new DeviceControlSample(true,trigger,0));
+            Assert.That(builder.BuildManual(new SimulationTick(1)).AnalogEffort,Is.EqualTo(expected));
+        }
         [Test] public void HeldKeyboardCorrectionReachesFullDeflectionWithinQuarterSecond()
         {
             var d=DeviceControlDefinition.FromJson(PhysiologyContractTests.DefinitionJson("device_control_gameplay_v3.json"));
@@ -184,6 +208,9 @@ namespace Biathlon.Tests
             string json = PhysiologyContractTests.DefinitionJson("device_control_v1.json");
             Assert.Catch(() => DeviceControlDefinition.FromJson(PhysiologyContractTests.ReplaceNumber(json, "stick_deadzone", "1")));
             Assert.Catch(() => DeviceControlDefinition.FromJson(PhysiologyContractTests.ReplaceNumber(json, "schema_version", "2")));
+            string production=PhysiologyContractTests.DefinitionJson("device_control_gameplay_v3.json");
+            Assert.Catch(() => DeviceControlDefinition.FromJson(PhysiologyContractTests.ReplaceNumber(production,"gamepad_effort_ceiling","1001")));
+            Assert.Catch(() => DeviceControlDefinition.FromJson(PhysiologyContractTests.ReplaceNumber(production,"gamepad_effort_ceiling","-1")));
             Assert.Throws<ArgumentOutOfRangeException>(() => new DeviceControlSample(true, double.NaN, 0));
             Assert.Throws<ArgumentOutOfRangeException>(() => new DeviceControlSample(false, 0, double.PositiveInfinity));
         }

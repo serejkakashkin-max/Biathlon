@@ -59,6 +59,8 @@ namespace Biathlon.Unity.Presentation
         public double CountdownRemaining=>startCountdown?.Remaining??0;
         public int CountdownNumber=>startCountdown?.Number??0;
         public int SelectedPace {get;private set;}
+        /// <summary>Accepted device intent only; reserve and delivered power stay in the shared simulation.</summary>
+        public bool BurstRequested {get;private set;}
         public void ArmRaceStartCountdown()
         {
             if(Runner==null||Runner.Field.Tick.Value!=0)throw new InvalidOperationException("Countdown requires a fresh race.");
@@ -268,6 +270,7 @@ namespace Biathlon.Unity.Presentation
             Runner.StepWithPlayer(PlayerIndex,input,assist.RequestedLateral);LastRangeAssistance=assist;
             effort.Step(command,true);
             SelectedPace=command.AnalogEffort;
+            BurstRequested=command.Preset==EffortPreset.Attack&&!assist.Active&&!actor.TuckActive&&!actor.HasFinished&&actor.ActiveShooting==null;
             if(!batchFrame)PublishPresentation();
         }
         public void Step(ManualSkiCommand command,ShootingDeviceCommand shooting)
@@ -301,6 +304,7 @@ namespace Biathlon.Unity.Presentation
             Runner.StepWithManualPlayer(PlayerIndex,input,command.SteeringInput,assist.Active,assist.Active?0:command.BrakeFraction);LastRangeAssistance=assist;
             effort.Step(command.ToEffortCommand(),true);
             SelectedPace=command.AnalogEffort;
+            BurstRequested=command.Preset==EffortPreset.Attack&&!assist.Active&&!actor.TuckActive&&command.BrakeFraction==0&&!actor.HasFinished&&actor.ActiveShooting==null;
             if(!batchFrame)PublishPresentation();
         }
         private void PublishPresentation(bool capture=true)

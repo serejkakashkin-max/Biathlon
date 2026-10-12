@@ -66,6 +66,8 @@ namespace Biathlon.Domain
         public double FatigueRecoveryPenalty { get; private set; }
         [DataMember(Name = "maximum_terrain_muscle_factor", IsRequired = true, Order = 27)]
         public double MaximumTerrainMuscleFactor { get; private set; }
+        [DataMember(Name = "burst_profile", EmitDefaultValue = false, Order = 28)]
+        public ShortBurstDefinition BurstProfile { get; private set; }
         private PhysiologyDefinition() { }
         internal PhysiologyDefinition WithStatModifiers(string id, double power, double capacity, double recovery, double fatigue)
         {
@@ -131,6 +133,7 @@ namespace Biathlon.Domain
                 throw new ArgumentException("Require resting HR < max HR <= safety ceiling.");
             if (AerobicThreshold >= MaximumRelativeEffort || DriftThreshold > MaximumRelativeEffort || HrMaximumLoad < 1)
                 throw new ArgumentException("Effort thresholds must fit the configured effort domain; HR load must allow 1.");
+            BurstProfile?.Validate(AerobicThreshold, MaximumRelativeEffort);
             PhysiologyNumbers.RequireRange(MinimumPowerEfficiency, PhysiologyNumbers.MinimumPositive, 1, nameof(MinimumPowerEfficiency));
             PhysiologyNumbers.RequireRange(FatigueRecoveryPenalty, 0, 1, nameof(FatigueRecoveryPenalty));
             // Runtime HR is quantized: bounds must be representable without rounding outside them.

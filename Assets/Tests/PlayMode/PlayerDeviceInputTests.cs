@@ -89,7 +89,7 @@ namespace Biathlon.PlayModeTests
                 .WithButton(GamepadButton.South).WithButton(GamepadButton.West)); InputTestScope.Update();
             adapter.Capture(null, gamepad);
             var c = adapter.Build(new SimulationTick(1));
-            Assert.That(c.AnalogEffort, Is.EqualTo(800)); Assert.That(c.LineIntent, Is.Zero);
+            Assert.That(c.AnalogEffort, Is.EqualTo(640)); Assert.That(c.LineIntent, Is.Zero);
             Assert.That(c.TuckHeld && c.OvertakeRequested, Is.True);
             Assert.That(adapter.Build(new SimulationTick(2)).OvertakeRequested, Is.False);
         }

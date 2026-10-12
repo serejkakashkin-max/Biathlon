@@ -179,6 +179,7 @@ namespace Biathlon.Unity.Presentation
             {selectedIndex=-1;for(int i=0;i<snapshot.Count;i++)if(snapshot.Get(i).AthleteId==athleteId){selectedIndex=i;break;}}
             if(selectedIndex<0){Root.style.display=DisplayStyle.None;return;}
             Root.style.display=DisplayStyle.Flex;var a=snapshot.Get(selectedIndex);Model=new GameplayHudModel(a,text,Locale);RefreshCount++;
+            RefreshShortBurst(a);
             RefreshBroadcast(snapshot);
             RefreshReviewPanels(a);
             clock.text=Model.Clock;lap.text=Model.Lap;timing.text=Model.Timing;phase.text=Model.Phase;history.text=Model.ShootingHistory;

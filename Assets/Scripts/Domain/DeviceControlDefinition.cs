@@ -12,6 +12,8 @@ namespace Biathlon.Domain
         [DataMember(Name = "stick_exponent", IsRequired = true)] public double StickExponent { get; private set; }
         [DataMember(Name = "keyboard_effort_units_per_s", IsRequired = true)] public double KeyboardEffortRate { get; private set; }
         [DataMember(Name="keyboard_effort_ceiling",EmitDefaultValue=false)] public int KeyboardEffortCeiling {get;private set;}=1000;
+        // Normal trigger pace. Historical definitions retain the full analog range.
+        [DataMember(Name="gamepad_effort_ceiling",EmitDefaultValue=false)] public int GamepadEffortCeiling {get;private set;}=1000;
         // Absent in historical device definitions: retain their immediate axis.
         [DataMember(Name="keyboard_steering_units_per_s",EmitDefaultValue=false)] public double KeyboardSteeringRate {get;private set;}
         [DataMember(Name="manual_brake_fraction",EmitDefaultValue=false)] public double ManualBrakeFraction {get;private set;}
@@ -28,6 +30,8 @@ namespace Biathlon.Domain
             TrackValidation.Finite(v.ManualBrakeFraction,0,1,nameof(ManualBrakeFraction));
             if(v.KeyboardEffortCeiling==0)v.KeyboardEffortCeiling=1000;
             AthleteState.ValidateEffort(v.KeyboardEffortCeiling);
+            if(v.GamepadEffortCeiling==0)v.GamepadEffortCeiling=1000;
+            AthleteState.ValidateEffort(v.GamepadEffortCeiling);
             return v;
         }
     }

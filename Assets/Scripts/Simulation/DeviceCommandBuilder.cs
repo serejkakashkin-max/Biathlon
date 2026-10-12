@@ -88,7 +88,7 @@ namespace Biathlon.Simulation
             if(currentMeters.HasValue)
                 line=Math.Max(-1,Math.Min(1,(currentMeters.Value+line*speedMetersPerSecond/frequency)/extentMeters));
             var command = new PlayerCommand(target, athlete,
-                (int)Math.Round(sample.Gamepad ? sample.Effort * 1000 : nextEffort, MidpointRounding.ToEven),
+                (int)Math.Round(sample.Gamepad ? sample.Effort * definition.GamepadEffortCeiling : nextEffort, MidpointRounding.ToEven),
                 (int)Math.Round(line * PlayerCommand.LineIntentUnits, MidpointRounding.ToEven), sample.Preset,
                 sample.Tuck, overtake, cancel);
             keyboardEffort = nextEffort; tick = target.Value; overtake = cancel = false;
