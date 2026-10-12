@@ -3,6 +3,11 @@ using Biathlon.Domain;
 
 namespace Biathlon.Simulation
 {
+    /// <summary>Optional observation after a committed tick. Implementations must not throw or re-enter authority.</summary>
+    public interface IManualRaceCommandObserver
+    {
+        void RecordAccepted(SimulationTick tick,ReadOnlySpan<SprintAthleteInput> inputs,ReadOnlySpan<int> steering,ReadOnlySpan<double> brakes);
+    }
     public enum ManualFieldStepStatus
     {
         NotStarted, Complete, WorldRejected, PhaseRequired, MovingFiringArrival, FinishedRosterUnsupported, MotionPieceLimit
@@ -57,6 +62,7 @@ namespace Biathlon.Simulation
         public ManualRacePathActorFrame LastRejectedWorkingActor {get;private set;}
         public ManualScopedWorldRoster World=>world;
         public PackSprintFieldSession Field=>field;
+        public IManualRaceCommandObserver CommandObserver {get;set;}
 
         /// <summary>Bind an unchanged initial field, including every outer grid
         /// row. No paid legacy setup tick, inward shift or body shrink is used.
@@ -317,6 +323,7 @@ namespace Biathlon.Simulation
                 LastRejectedWorkingActor=default;
                 LastStep=new ManualFieldStepResult(ManualFieldStepStatus.Complete,field.Tick,default,world.LastAttempt,
                     1.0/field.TickFrequency,pieces);
+                CommandObserver?.RecordAccepted(field.Tick,inputs,steeringInputs,brakeFractions);
                 return true;
             }
             finally {if(!published){if(proof.IsValid)world.DiscardPrepared(proof);else world.AbortTick(tick);}}

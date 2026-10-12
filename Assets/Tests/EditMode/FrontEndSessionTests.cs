@@ -85,8 +85,18 @@ namespace Biathlon.Tests
                 Biathlon.Domain.ManualSkiSteeringDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ski_steering_v2.json")),
                 Biathlon.Domain.PlayerCourseAssistanceDefinition.FromJson(PhysiologyContractTests.DefinitionJson("player_course_assistance_v1.json")));
             Assert.Throws<InvalidOperationException>(()=>race.CollectResult());ui.BeginRace();
+            using var journal=new MemoryStream();
+            using var writer=new Biathlon.Replay.ManualRaceJournalWriter(journal,movement,Biathlon.Domain.SkiTechniqueDefinition.FromJson(PhysiologyContractTests.DefinitionJson("ski_technique_provisional_v1.json")));
+            movement.CommandObserver=writer;
             while(!race.Runner.Field.IsComplete&&race.Runner.Field.Tick.Value<200000)race.Runner.Step();
-            var result=race.CollectResult();Assert.That(result.AuthoritySha256,Is.EqualTo(Biathlon.AI.BalanceRegression.Hash(result.AuthorityResultJson)));
+            writer.Complete();Assert.That(writer.Failure,Is.Null);
+            var replay=provider.Prepare(CareerSave.FromJson(week.RaceSnapshotJson),week.Event,week.RaceSeed);
+            var replayMovement=ManualProductionFieldComposition.Create(replay.Runner.Field,replay.Venue,PhysiologyContractTests.DefinitionJson);
+            journal.Position=0;
+            using(var reader=new Biathlon.Replay.ManualRaceJournalReader(journal,replayMovement,writer.TickCount))while(reader.HasNext)reader.Step();
+            var result=race.CollectResult();
+            Assert.That(replay.CollectResult().ToJson(),Is.EqualTo(result.ToJson()),"Complete 30-athlete race must replay without any AI calls.");
+            Assert.That(result.AuthoritySha256,Is.EqualTo(Biathlon.AI.BalanceRegression.Hash(result.AuthorityResultJson)));
             Assert.That(race.CollectResult().ToJson(),Is.EqualTo(result.ToJson()),"Collection must be read-only and repeatable.");
             var actor=race.Runner.Field.GetAthlete(race.PlayerIndex);CareerFinish playerFinish=null;
             for(int i=0;i<result.Count;i++)if(result.Get(i).AthleteId==actor.AthleteId.Value)playerFinish=result.Get(i);

@@ -38,12 +38,18 @@ namespace Biathlon.AI
         public CareerRaceRecord Run(CareerSave snapshot,CareerCalendarEvent e,ulong seed)
         {
             var prepared=Prepare(snapshot,e,seed);var runner=prepared.Runner;
+            if(prepared.Venue!=null)
+            {
+                var movement=ManualProductionFieldComposition.Create(runner.Field,prepared.Venue,read);
+                runner.BindManualScopedCandidate(movement,ManualAiSteeringDefinition.FromJson(read("manual_ai_steering_v2.json")),
+                    ManualSkiSteeringDefinition.FromJson(read("manual_ski_steering_v2.json")),PlayerCourseAssistanceDefinition.FromJson(read("player_course_assistance_v1.json")));
+            }
             while(!runner.Field.IsComplete){if(runner.Field.Tick.Value>=definition.MaximumTicks)throw new InvalidOperationException("Career race exceeded its tick budget.");runner.Step();}
             var result=prepared.CollectResult();
             LastTicks=runner.Field.Tick.Value;LastEventHash=prepared.Audit.Hash;LastShots=prepared.Audit.Shots;
             return result;
         }
-        public CareerPreparedRace Prepare(CareerSave snapshot,CareerCalendarEvent e,ulong seed)
+        public CareerPreparedRace Prepare(CareerSave snapshot,CareerCalendarEvent e,ulong seed,IRaceEventSink observedEvents=null)
         {
             if(snapshot==null||e==null)throw new ArgumentNullException();
             if(e.VenueId!="synthetic_alpine"&&e.VenueId!=Woodland)throw new ArgumentException("No route adapter for this venue.");
@@ -71,6 +77,7 @@ namespace Biathlon.AI
                 pressures[i]=new ShootingPressureContext(CareerMental.Pressure(a,career.Mental),1,1,a.Confidence/(double)CareerUnits.Basis);
             }
             var audit=new BalanceEventAudit(5);
+            IRaceEventSink eventSink=observedEvents==null?audit:new ObservedEvents(audit,observedEvents);
             PackAiRaceRunner runner;VenueAuthoringPlan venue=null;
             if(e.VenueId==Woodland)
             {
@@ -79,11 +86,17 @@ namespace Biathlon.AI
                 runner=ProductionVenueRaceFactory.Create(venue,
                     CompetitionProfile.FromJson(venueResource(WoodlandRoot+format+"_profile")),
                     RaceRoutePlan.FromJson(venueResource(WoodlandRoot+format+"_route")),
-                    RaceSnowConditions.FromJson(read("race_snow_neutral_v1.json")),read,audit,new AiDecisionCounts(),
+                    RaceSnowConditions.FromJson(read("race_snow_neutral_v1.json")),read,eventSink,new AiDecisionCounts(),
                     qualification,roster.Count,definition.TickFrequency,seed,entrants,personalities,forms,pressures);
             }
-            else runner=ChampionshipRaceFactory.Create(read,fixture,e.Format,audit,new AiDecisionCounts(),qualification,roster.Count,definition.TickFrequency,seed,entrants,personalities,forms,pressures);
+            else runner=ChampionshipRaceFactory.Create(read,fixture,e.Format,eventSink,new AiDecisionCounts(),qualification,roster.Count,definition.TickFrequency,seed,entrants,personalities,forms,pressures);
             return new CareerPreparedRace(snapshot.SeasonId,snapshot.PlayerId,e,seed,runner,audit,venue);
+        }
+        private sealed class ObservedEvents:IRaceEventSink
+        {
+            private readonly IRaceEventSink authority,observer;
+            internal ObservedEvents(IRaceEventSink authority,IRaceEventSink observer){this.authority=authority;this.observer=observer;}
+            public void Record(RaceEvent value){authority.Record(value);observer.Record(value);}
         }
     }
     /// <summary>The same career composition used headlessly and by a live player host.</summary>

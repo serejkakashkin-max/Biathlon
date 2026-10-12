@@ -367,7 +367,7 @@ namespace Biathlon.Simulation
             if(routeBoundJunctions&&rangeLayout==null)
                 throw new ArgumentException("Route-bound junctions require an exact authored physical range layout.",nameof(rangeLayout));
             if(directedPassages!=null&&(profile==null||profile.Format!=CompetitionFormat.Pursuit||rangeLayout==null||
-                !routeBoundJunctions||!reusableRangeMats||massGrid!=null||startContinuation!=null))
+                !routeBoundJunctions||!reusableRangeMats||massGrid!=null))
                 throw new ArgumentException("Directed format passages require an exact route-bound Pursuit field with reusable mats.",nameof(directedPassages));
             if(sharedApron!=null)
             {
