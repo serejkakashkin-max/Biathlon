@@ -150,24 +150,8 @@ namespace Biathlon.Unity.Presentation
             }
             else if(Session.Screen==FrontEndScreen.Career)
             {
-                var saved=Session.Career;var player=Session.Player;
-                AddLabel(actions,T("career"),theme.section_size,true);AddLabel(actions,player.Name,theme.section_size,true);
-                AddLabel(actions,T("nation."+player.Nation),theme.body_size);AddLabel(actions,F("season_week",saved.Season,saved.Week),theme.body_size);
-                AddLabel(actions,F("athlete_state",player.Form/100,player.Fatigue/100),theme.body_size);
-                var current=Session.Definitions.Calendar.AtWeek(saved.Week);
-                if(current==null)AddButton(actions,"rest_week",T("rest_week"),()=>CareerAction(Session.RestWeek),true);
-                else
-                {
-                    bool available=current.VenueId=="woodland_basin_v1"&&current.Eligible(player);
-                    AddButton(actions,"prepare",T("prepare"),()=>CareerAction(Session.OpenPreRace),true,available);
-                    if(!available)AddLabel(actions,T("event_unavailable"),theme.caption_size);
-                }
-                AddButton(actions,"settings",T("settings"),()=>{Session.OpenSettings();Render();});AddButton(actions,"back",T("back"),Back);
-                AddLabel(card,T("next_event"),theme.caption_size);var upcoming=Session.NextEvent();
-                if(upcoming==null)AddLabel(card,T("no_event"),theme.section_size,true);
-                else {AddLabel(card,T(upcoming.VenueId=="woodland_basin_v1"?"woodland":"legacy_venue"),theme.section_size,true);AddLabel(card,F("event_week",upcoming.Week,T("format."+(int)upcoming.Format)),theme.body_size);}
-                AddTargets(card);AddLabel(card,F("endurance",player.Stat(CareerStat.Endurance)/CareerUnits.StatScale),theme.body_size);
-                AddLabel(card,F("technique",player.Stat(CareerStat.SkiTechnique)/CareerUnits.StatScale),theme.body_size);
+                left.style.width=new Length(31,LengthUnit.Percent);shade.style.width=new Length(31,LengthUnit.Percent);
+                brand.style.fontSize=theme.section_size;RenderCareerDashboard(actions,card);
             }
             else if(Session.Screen==FrontEndScreen.PreRace)
             {

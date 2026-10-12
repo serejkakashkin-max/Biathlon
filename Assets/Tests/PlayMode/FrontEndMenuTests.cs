@@ -66,6 +66,28 @@ namespace Biathlon.PlayModeTests
             string before=session.Career.ToJson();Submit("career_return");yield return null;
             Assert.That(session.Screen,Is.EqualTo(FrontEndScreen.Career));Assert.That(session.Career.ToJson(),Is.EqualTo(before));
             Assert.That(session.NextEvent().Format,Is.EqualTo(CompetitionFormat.Pursuit));
+            Assert.That(menu.Root.Q("career_calendar").childCount,Is.EqualTo(16));
+            Assert.That(menu.Root.Q<Label>("career_standing").text,Does.Contain("23"));
+            Assert.That(menu.Root.Q("career_event_woodland_open_sprint").Query<Label>().ToList()[1].text,Does.Contain("8"));
+            yield return CaptureDashboard(1600,900,"ru",0);yield return CaptureDashboard(1024,768,"en",2);
+            Assert.That(session.Career.ToJson(),Is.EqualTo(before));
+        }
+        private IEnumerator CaptureDashboard(int width,int height,string locale,int size)
+        {
+            var settings=root.GetComponent<UIDocument>().panelSettings;var previous=RenderTexture.active;
+            var target=new RenderTexture(width,height,0);target.Create();settings.targetTexture=target;Texture2D pixels=null;
+            try
+            {
+                menu.ApplyPreferences(locale,size);yield return null;yield return null;yield return null;
+                var bounds=menu.Root.worldBound;var button=menu.Root.Q<Button>("prepare");
+                Assert.That(button.worldBound.yMax,Is.LessThan(bounds.yMax));Assert.That(button.worldBound.xMax,Is.LessThan(bounds.xMax));
+                Assert.That(menu.Root.Q("career_calendar").childCount,Is.EqualTo(16));
+                RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);
+                pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
+                string folder=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m14/dashboard-20261012"));Directory.CreateDirectory(folder);
+                File.WriteAllBytes(Path.Combine(folder,"dashboard-"+locale+".png"),pixels.EncodeToPNG());
+            }
+            finally{if(pixels!=null)Object.Destroy(pixels);RenderTexture.active=previous;settings.targetTexture=null;Object.Destroy(target);}
         }
         private IEnumerator CaptureResults(int width,int height,string locale,int size)
         {

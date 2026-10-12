@@ -100,7 +100,13 @@ retain legacy save compatibility. .NET19/native EditMode16/PlayMode1 PASS;
 full production Sprint30 remains 31136 ticks with the identical authority hash.
 [Results report](reports/TASK_M14_RESULTS_20261012.md).
 [M14 WP tracker](M14_WP_STATUS.md).
-Next: WP-186 calendar/ranking dashboard; resolve the recorded Pursuit
-composition issue before claiming the complete M14 loop.
+WP-186 COMPLETE: actual calendar, next event, saved readiness, season ranking/
+points and completed event outcomes. .NET19/native EditMode3/PlayMode2 PASS.
+[Dashboard report](reports/TASK_M14_DASHBOARD_20261012.md).
+Current WP totals: 7 complete (179/180/182/183/184/185/186), 3 partly delivered
+(181/196/197), 9 pending (187–195). Next: WP-187 training UI. Resolve the
+recorded Pursuit composition issue before claiming the complete M14 loop.
+Owner-authorized GitHub publication includes the earlier local progress and
+WP-185; WP-186 follows on the same codex/wp-078-ai-pack branch.
 Training/equipment selection, expanded dashboard/history/replay remain pending.
 M14 gate OPEN. No new player build.

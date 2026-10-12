@@ -24712,3 +24712,30 @@ issue remains recorded; full M14 gate OPEN. GitHub branch publication authorized
 by owner; publication completion will be recorded in a subsequent dated entry.
 Historical byte prefix preserved: 2960741 bytes, SHA-256
 d3790a60d0e1671c5c530f2684851c6432a9e8ca09b8d1631dc0e9da802e772a.
+
+
+## 2026-10-12 — M14 WP-186 complete; GitHub delivery maintained
+
+WP-186 delivers the actual 16-event calendar, nearest start, current player
+readiness, season rank/points/wins/podiums and saved event result rows. Reads
+Career authority by stable IDs; no rendering-driven week/RNG/profile mutation.
+Legacy calendar retained; initial zero-race standings show no invented rank.
+
+Validation: .NET19 / native EditMode3 / native PlayMode2 PASS; RU/EN dashboard
+captures including 4:3/130% inspected. Final Unity compile settled, no new
+Console errors after repaired test import, no exceptions. No gameplay/balance
+or graphics-quality changes. No player build requested or produced.
+
+Current M14 status: WP-179/180/182/183/184/185/186 COMPLETE (7);
+WP-181/196/197 IN PROGRESS (3); WP-187–195 PENDING (9). Next: WP-187 training UI.
+Full tracker: docs/M14_WP_STATUS.md. Full M14 gate remains OPEN; previously
+recorded production Pursuit directed-passage/startContinuation issue remains.
+Report: docs/reports/TASK_M14_DASHBOARD_20261012.md.
+Evidence: docs/quality/m14/dashboard-20261012/delivery-summary.json.
+
+GitHub publication confirmed: origin branch codex/wp-078-ai-pack reached
+b9672818e19e602f72e945b35003b049e342e1d4 (WP-185), including the 22 preceding
+local progress commits; 27 LFS assets uploaded successfully. WP-186 follows
+as a separate conventional commit/push with this state and updated tracker.
+Historical byte prefix preserved: 2962475 bytes, SHA-256
+f3ef9d3eb716dd262ef580472722c2e643d994dc4e97f30a5ff5096cfe99f751.

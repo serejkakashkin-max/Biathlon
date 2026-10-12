@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-12",
+  "wp": "WP-186",
+  "status": "complete",
+  "dotnet": {
+    "passed": 19,
+    "failed": 0,
+    "trx": "m14-dashboard-core.trx"
+  },
+  "unity_edit": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 1842,
+      "PassedTests": 3,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:00.9714773"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.CareerDashboardSummaryTests.CompletedCalendarAndRankingComeFromSavedRaceAndDoNotSkipUpcomingEvent",
+        "Status": "Passed",
+        "Duration": "00:00:00.0730000"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerDashboardSummaryTests.LegacyCalendarIsPreservedAndMismatchedDefinitionsAreRejected",
+        "Status": "Passed",
+        "Duration": "00:00:00.0070000"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerDashboardSummaryTests.NewCareerCalendarUsesProductionDataAndHasNoInventedRanking",
+        "Status": "Passed",
+        "Duration": "00:00:00.0060000"
+      }
+    ]
+  },
+  "unity_play": [
+    {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 292,
+        "PassedTests": 1,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.6493711"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.PlayModeTests.FrontEndMenuTests.ResultsShowSavedFieldShootingSplitsPointsAndReturnToCareer",
+          "Status": "Passed",
+          "Duration": "00:00:00.5950000"
+        }
+      ]
+    },
+    {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 292,
+        "PassedTests": 1,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.3997151"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.PlayModeTests.FrontEndMenuTests.NewProfileContinueAndSettingsUseTheRealMenuWithoutAdvancingAWeek",
+          "Status": "Passed",
+          "Duration": "00:00:00.3400000"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    "dashboard-ru.png",
+    "dashboard-en.png"
+  ],
+  "state_prefix": {
+    "bytes": 2962475,
+    "sha256": "f3ef9d3eb716dd262ef580472722c2e643d994dc4e97f30a5ff5096cfe99f751"
+  },
+  "previous_publication_sha": "b9672818e19e602f72e945b35003b049e342e1d4",
+  "branch": "codex/wp-078-ai-pack",
+  "player_build": false
+}
