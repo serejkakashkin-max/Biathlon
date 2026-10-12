@@ -24850,3 +24850,7 @@ Owner's three corrections delivered; M14 remains OPEN pending owner testing and 
 - Build Builds/M14BurstReview20261012/START_M14_TEST.cmd:Unity6000.6.0f1 Win64 DX11 Development,0errors/0warnings,361467558bytes. Standalone startup exit0/render1437samples at1600x900. Console clean; analytics DNS restrictions recorded separately from gameplay exceptions.
 
 Evidence: docs/quality/m14/burst-pack-20261012/; decisions docs/adr/ADR-0061-m14-short-burst-and-fresh-pack.md; report docs/reports/TASK_M14_BURST_PACK_REVIEW_20261012.md. Current operational docs updated. Existing athletes retain generated stats; recordings require compatible definitions. Next action is owner testing of this build, then owner M14 decision. Publication receipt follows after verified GitHub push. This entry is raw append-only; historical bytes preserved.
+
+### 2026-10-12 — M14 burst/pack review GitHub publication receipt
+
+Verified origin branch codex/wp-078-ai-pack at 9e90e6548ded74ada2cdfa20f62b558b92f8d28d after push. Coherent commits: 28d93d7 fresh-field pursuit/contact braking; 247a561 shared paid burst and compact readout; 9e90e65 retained timing gantry, qualification and append-only state. Four evidence images uploaded through LFS. Latest test build remains Builds/M14BurstReview20261012/START_M14_TEST.cmd; owner testing next, M14 OPEN. Unrelated owner renderer/project/package changes were excluded from commits. Historical state prefix preservation verified before and after staging.
