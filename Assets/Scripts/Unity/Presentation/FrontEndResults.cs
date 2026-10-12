@@ -9,6 +9,7 @@ namespace Biathlon.Unity.Presentation
     public sealed partial class FrontEndMenu
     {
         private bool showResultSplits;
+        private object pagedResultRecord;private int resultPageSize;
         private static string ResultClock(long milliseconds)
         {
             var time=TimeSpan.FromMilliseconds(milliseconds);
@@ -66,8 +67,10 @@ namespace Biathlon.Unity.Presentation
                 string shooting=d==null?"—":string.Join(" · ",misses);
                 ResultTableRow(rows,"result_row_"+i,new[]{row.Rank.ToString(),row.Name+" · "+row.Nation,shooting,ResultClock(row.Finish.ElapsedMilliseconds),row.GapMilliseconds==0?"—":"+"+ResultClock(row.GapMilliseconds),row.Points.ToString()},false,row.IsPlayer);
             }
-            if(resultPage<0)resultPage=(summary.Player.Rank-1)/10;
-            PageRows(card,rows,resultPage,10,value=>resultPage=value);
+            int pageSize=compactLayout?3:5;
+            if(resultPage<0||!ReferenceEquals(pagedResultRecord,summary.Record)||resultPageSize!=pageSize)
+            {resultPage=(summary.Player.Rank-1)/pageSize;pagedResultRecord=summary.Record;resultPageSize=pageSize;}
+            PageRows(card,rows,resultPage,pageSize,value=>resultPage=value);
         }
         private void RenderResultSplits(VisualElement card,RaceResultsSummary summary)
         {

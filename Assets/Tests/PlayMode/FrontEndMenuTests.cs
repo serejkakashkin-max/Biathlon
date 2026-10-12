@@ -110,6 +110,9 @@ namespace Biathlon.PlayModeTests
                 var bounds=menu.Root.worldBound;var button=menu.Root.Q<Button>("career_return");
                 Assert.That(button.worldBound.yMax,Is.LessThan(bounds.yMax));Assert.That(button.worldBound.xMax,Is.LessThan(bounds.xMax));
                 var header=menu.Root.Q("result_table_header");Assert.That(header.worldBound.xMax,Is.LessThanOrEqualTo(bounds.xMax));
+                var pager=menu.Root.Q<Button>("result_protocol_next");
+                Assert.That(pager.worldBound.yMax,Is.LessThan(pager.GetFirstAncestorOfType<ScrollView>().worldBound.yMax-8));
+                var playerRow=menu.Root.Q("result_row_7");Assert.That(playerRow.resolvedStyle.display,Is.EqualTo(DisplayStyle.Flex));
                 RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);
                 pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
                 string folder=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m14/results-20261012"));Directory.CreateDirectory(folder);
