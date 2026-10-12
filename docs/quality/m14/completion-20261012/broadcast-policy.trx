@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="5c1d8dc7-06c8-45e0-8a15-f642f4ba2db2" name="snkashkin@DESKTOP-G3075GA 2026-10-12 11:57:45" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-12T11:57:45.5328857+03:00" queuing="2026-10-12T11:57:45.5328858+03:00" start="2026-10-12T11:57:44.9218634+03:00" finish="2026-10-12T11:57:45.5359083+03:00" />
+  <TestSettings name="default" id="8146a6c9-c096-4f6c-8158-ff4f859b9b14">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-12_11_57_45" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="f08641fc-1296-43f2-8a05-0b2b09d06640" testId="f4195e04-a4ca-d9fb-25a4-55759be02705" testName="DenseOvertakesHoldTheShotButFinishCanInterrupt" computerName="DESKTOP-G3075GA" duration="00:00:00.0005760" startTime="2026-10-12T11:57:45.4406168+03:00" endTime="2026-10-12T11:57:45.4411930+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f08641fc-1296-43f2-8a05-0b2b09d06640" />
+    <UnitTestResult executionId="00ec4b03-250e-48fa-a851-01d696e79ec6" testId="fc909e5a-391c-9f2e-8358-eca19a757d9c" testName="BackwardSeekResetsTheCameraHold" computerName="DESKTOP-G3075GA" duration="00:00:00.0039470" startTime="2026-10-12T11:57:45.4359017+03:00" endTime="2026-10-12T11:57:45.4398188+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="00ec4b03-250e-48fa-a851-01d696e79ec6" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="BackwardSeekResetsTheCameraHold" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="fc909e5a-391c-9f2e-8358-eca19a757d9c">
+      <Execution id="00ec4b03-250e-48fa-a851-01d696e79ec6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceBroadcastCutPolicyTests" name="BackwardSeekResetsTheCameraHold" />
+    </UnitTest>
+    <UnitTest name="DenseOvertakesHoldTheShotButFinishCanInterrupt" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="f4195e04-a4ca-d9fb-25a4-55759be02705">
+      <Execution id="f08641fc-1296-43f2-8a05-0b2b09d06640" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceBroadcastCutPolicyTests" name="DenseOvertakesHoldTheShotButFinishCanInterrupt" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="f4195e04-a4ca-d9fb-25a4-55759be02705" executionId="f08641fc-1296-43f2-8a05-0b2b09d06640" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fc909e5a-391c-9f2e-8358-eca19a757d9c" executionId="00ec4b03-250e-48fa-a851-01d696e79ec6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
