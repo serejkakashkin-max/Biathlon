@@ -4,7 +4,7 @@
   "presets": [
     {"schema_version":1,"id":"snowfall_fresh_v1","visual_preset":"snowfall","lighting_preset":"overcast","snow_profile":"fresh_soft","snow_material":"cold","air_temperature_c":-6,"snow_temperature_c":-7,"wind_east_mps":1.8,"wind_north_mps":0.8},
     {"schema_version":1,"id":"clear_frost_v1","visual_preset":"clear","lighting_preset":"clear_cold","snow_profile":"packed_neutral","snow_material":"cold","air_temperature_c":-12,"snow_temperature_c":-14,"wind_east_mps":0.3,"wind_north_mps":-0.4},
-    {"schema_version":1,"id":"overcast_ice_v1","visual_preset":"overcast","lighting_preset":"overcast","snow_profile":"icy_fast","snow_material":"cold","air_temperature_c":-4,"snow_temperature_c":-5,"wind_east_mps":-2.4,"wind_north_mps":1.2},
+    {"schema_version":1,"id":"overcast_ice_v1","visual_preset":"overcast","lighting_preset":"overcast","snow_profile":"icy_fast","snow_material":"cold","air_temperature_c":-4,"snow_temperature_c":-5,"wind_east_mps":-2.4,"wind_north_mps":1.2,"course_contact_resource":"manual_course_contact_ice_v1.json"},
     {"schema_version":1,"id":"thaw_wet_v1","visual_preset":"overcast","lighting_preset":"overcast","snow_profile":"wet_slow","snow_material":"wet","air_temperature_c":2,"snow_temperature_c":0,"wind_east_mps":1.1,"wind_north_mps":-0.7}
   ]
 }

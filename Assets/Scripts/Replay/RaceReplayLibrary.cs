@@ -27,6 +27,7 @@ namespace Biathlon.Replay
         [DataMember(Name="recorded_utc",IsRequired=true)]public string RecordedUtc;
         [DataMember(Name="career_snapshot_json",IsRequired=true)]public string CareerSnapshotJson;
         [DataMember(Name="race_weather_json",EmitDefaultValue=false)]public string RaceWeatherJson;
+        [DataMember(Name="start_order_version",EmitDefaultValue=false)]public int StartOrderVersion;
         [DataMember(Name="event_id",IsRequired=true)]public string EventId;
         [DataMember(Name="venue_id",IsRequired=true)]public string VenueId;
         [DataMember(Name="format",IsRequired=true)]public int Format;
@@ -44,7 +45,7 @@ namespace Biathlon.Replay
             RaceReplayLibrary.ValidId(Id);
             if(SchemaVersion!=1||CommandVersion!=1||Compression!="gzip"||!DateTimeOffset.TryParse(RecordedUtc,out _)||string.IsNullOrWhiteSpace(CareerSnapshotJson)||
                 string.IsNullOrWhiteSpace(EventId)||string.IsNullOrWhiteSpace(VenueId)||string.IsNullOrWhiteSpace(PlayerId)||string.IsNullOrWhiteSpace(PlayerName)||
-                Format<0||Format>2||TickFrequency<1||TickFrequency>120||TickCount<1||TickCount>1000000||Events==null||Highlights==null)
+                Format<0||Format>2||StartOrderVersion<0||StartOrderVersion>1||TickFrequency<1||TickFrequency>120||TickCount<1||TickCount>1000000||Events==null||Highlights==null)
                 throw new SerializationException("Unsupported or incomplete replay metadata.");
             Hash(CommandSha256);Hash(ResultSha256);
             if(RaceWeatherJson!=null)RaceWeatherPreset.FromJson(RaceWeatherJson);

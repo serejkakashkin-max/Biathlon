@@ -19,6 +19,7 @@ namespace Biathlon.Domain
         [DataMember(Name="snow_temperature_c",IsRequired=true)] public double SnowTemperatureC {get;private set;}
         [DataMember(Name="wind_east_mps",IsRequired=true)] public double WindEast {get;private set;}
         [DataMember(Name="wind_north_mps",IsRequired=true)] public double WindNorth {get;private set;}
+        [DataMember(Name="course_contact_resource",EmitDefaultValue=false)] public string CourseContactResource {get;private set;}
         public double WindSpeed=>Math.Sqrt(WindEast*WindEast+WindNorth*WindNorth);
         public void Validate()
         {
@@ -28,7 +29,8 @@ namespace Biathlon.Domain
                 (SnowMaterial!="cold"&&SnowMaterial!="wet")||string.IsNullOrWhiteSpace(SnowProfile)||
                 !Finite(AirTemperatureC)||AirTemperatureC<-30||AirTemperatureC>10||
                 !Finite(SnowTemperatureC)||SnowTemperatureC<-30||SnowTemperatureC>0||
-                !Finite(WindEast)||!Finite(WindNorth)||WindSpeed>15)
+                !Finite(WindEast)||!Finite(WindNorth)||WindSpeed>15||
+                CourseContactResource!=null&&CourseContactResource!="manual_course_contact_ice_v1.json")
                 throw new SerializationException("Invalid race weather.");
         }
         private static bool Finite(double x)=>!double.IsNaN(x)&&!double.IsInfinity(x);

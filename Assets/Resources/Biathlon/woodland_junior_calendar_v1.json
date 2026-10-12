@@ -1,12 +1,16 @@
 {
   "schema_version": 1,
   "id": "woodland_junior_calendar_v1",
+  "leader_bib_roles": 0,
+  "mass_start_total_priority": 0,
+  "mass_start_number_from_right": true,
   "weeks_per_season": 52,
   "training_slots_per_week": 3,
   "race_week_training_slots": 1,
   "events": [
     {
       "id": "junior_open_sprint",
+      "meeting_id": "open",
       "week": 6,
       "venue_id": "woodland_basin_v1",
       "format": 0,
@@ -16,6 +20,7 @@
     },
     {
       "id": "junior_open_pursuit",
+      "meeting_id": "open",
       "week": 7,
       "venue_id": "woodland_basin_v1",
       "format": 1,
@@ -25,6 +30,7 @@
     },
     {
       "id": "junior_first_mass",
+      "meeting_id": "open",
       "week": 10,
       "venue_id": "woodland_basin_v1",
       "format": 2,
@@ -34,6 +40,7 @@
     },
     {
       "id": "junior_winter_sprint",
+      "meeting_id": "winter",
       "week": 13,
       "venue_id": "woodland_basin_v1",
       "format": 0,
@@ -43,6 +50,7 @@
     },
     {
       "id": "junior_winter_pursuit",
+      "meeting_id": "winter",
       "week": 14,
       "venue_id": "woodland_basin_v1",
       "format": 1,
@@ -52,6 +60,7 @@
     },
     {
       "id": "junior_winter_mass",
+      "meeting_id": "winter",
       "week": 17,
       "venue_id": "woodland_basin_v1",
       "format": 2,
@@ -61,6 +70,7 @@
     },
     {
       "id": "junior_mid_sprint",
+      "meeting_id": "mid",
       "week": 20,
       "venue_id": "woodland_basin_v1",
       "format": 0,
@@ -70,6 +80,7 @@
     },
     {
       "id": "junior_mid_pursuit",
+      "meeting_id": "mid",
       "week": 21,
       "venue_id": "woodland_basin_v1",
       "format": 1,
@@ -79,6 +90,7 @@
     },
     {
       "id": "junior_mid_mass",
+      "meeting_id": "mid",
       "week": 24,
       "venue_id": "woodland_basin_v1",
       "format": 2,
@@ -88,6 +100,7 @@
     },
     {
       "id": "junior_late_sprint",
+      "meeting_id": "late",
       "week": 27,
       "venue_id": "woodland_basin_v1",
       "format": 0,
@@ -97,6 +110,7 @@
     },
     {
       "id": "junior_late_pursuit",
+      "meeting_id": "late",
       "week": 28,
       "venue_id": "woodland_basin_v1",
       "format": 1,
@@ -106,6 +120,7 @@
     },
     {
       "id": "junior_chase_sprint",
+      "meeting_id": "chase",
       "week": 34,
       "venue_id": "woodland_basin_v1",
       "format": 0,
@@ -115,6 +130,7 @@
     },
     {
       "id": "junior_chase_pursuit",
+      "meeting_id": "chase",
       "week": 35,
       "venue_id": "woodland_basin_v1",
       "format": 1,
@@ -124,6 +140,7 @@
     },
     {
       "id": "junior_final_mass",
+      "meeting_id": "chase",
       "week": 38,
       "venue_id": "woodland_basin_v1",
       "format": 2,
@@ -133,6 +150,7 @@
     },
     {
       "id": "junior_final_sprint",
+      "meeting_id": "final",
       "week": 41,
       "venue_id": "woodland_basin_v1",
       "format": 0,
@@ -142,6 +160,7 @@
     },
     {
       "id": "junior_final_pursuit",
+      "meeting_id": "final",
       "week": 42,
       "venue_id": "woodland_basin_v1",
       "format": 1,

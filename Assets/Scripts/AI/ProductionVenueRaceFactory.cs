@@ -14,7 +14,7 @@ namespace Biathlon.AI
             RaceRoutePlan routePlan, RaceSnowConditions conditions, Func<string,string> read, IRaceEventSink events, IAiDecisionSink telemetry,
             PursuitQualificationSnapshot qualification=null, int count=30, int frequency=20, ulong seed=123,
             SprintEntrant[] suppliedEntrants=null, AiPersonalityDefinition[] suppliedPersonalities=null,
-            double[] raceForms=null, ShootingPressureContext[] racePressures=null,WindVector raceWind=default)
+            double[] raceForms=null, ShootingPressureContext[] racePressures=null,WindVector raceWind=default,bool massStartNumberFromRight=false)
         {
             if(venue==null||profile==null||routePlan==null||conditions==null||read==null||events==null||telemetry==null)
                 throw new ArgumentNullException();
@@ -63,7 +63,7 @@ namespace Biathlon.AI
                 var corridor=track.GetLoop(approach.LoopId);double width=double.MaxValue;
                 for(int i=0;i<corridor.SegmentCount;i++)width=Math.Min(width,corridor.GetSegment(i).WidthMeters);
                 grid=new MassStartGrid(profile,MassStartGridDefinition.FromJson(read("mass_start_grid_provisional_v1.json")),
-                    venue.Occupancy,ids,width,corridor.Length.Meters);
+                    venue.Occupancy,ids,width,corridor.Length.Meters,numberFromRight:massStartNumberFromRight);
                 policy=MassStartRangePolicyDefinition.FromJson(read("mass_start_range_policy_v1.json"));
             }
             string prefix=venue.Manifest.Id+"_"+profile.Format.ToString().ToLowerInvariant();

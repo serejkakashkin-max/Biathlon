@@ -30,8 +30,9 @@ namespace Biathlon.Career
             for (int i = 0; i < calendar.Count; i++) if (calendar.Get(i).Id == nextEvent.Id && calendar.Get(i).Week == nextEvent.Week && calendar.Get(i).Format == nextEvent.Format) { nextEvent = calendar.Get(i); found = true; break; }
             if (!found) throw new ArgumentException("Leader event must belong to the saved calendar.");
             var result = new CareerLeaderBibs();
-            // Regional/junior races must not inherit a World Cup classification. No invented preseason defending champion.
-            if (calendar.Circuit != CareerCircuit.WorldCup) return result;
+            // Each circuit owns its classification. Development uses its overall
+            // leader, not a World Cup or invented discipline champion.
+            if (calendar.LeaderBibRoles == CareerLeaderBib.None) return result;
             var total = new Dictionary<string, Score>(StringComparer.Ordinal);
             var discipline = new Dictionary<string, Score>(StringComparer.Ordinal);
             for (int i = 0; i < save.RaceCount; i++)
@@ -42,8 +43,16 @@ namespace Biathlon.Career
                 Add(total, race, scoring, save.AthleteCount);
                 if (race.Format == nextEvent.Format) Add(discipline, race, scoring, save.AthleteCount);
             }
-            result.MarkLeaders(total, CareerLeaderBib.Total);
-            result.MarkLeaders(discipline, CareerLeaderBib.Discipline);
+            if((calendar.LeaderBibRoles&CareerLeaderBib.Total)!=0)
+            {
+                if(calendar.Circuit==CareerCircuit.WorldCup)result.MarkLeaders(total,CareerLeaderBib.Total);
+                else
+                {
+                    var table=CareerStandings.BeforeStart(save,scoring,calendar,nextEvent);
+                    if(table.Length>0&&table[0].Points>0)result.bibs[table[0].AthleteId]=CareerLeaderBib.Total;
+                }
+            }
+            if((calendar.LeaderBibRoles&CareerLeaderBib.Discipline)!=0)result.MarkLeaders(discipline, CareerLeaderBib.Discipline);
             return result;
         }
         private static void Add(Dictionary<string, Score> scores, CareerRaceRecord race, CareerScoringDefinition scoring, int count)

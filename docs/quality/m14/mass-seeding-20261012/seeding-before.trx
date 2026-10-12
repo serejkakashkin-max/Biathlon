@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="954deadd-a6bc-4edf-8e2f-1231588b91ec" name="snkashkin@DESKTOP-G3075GA 2026-10-12 22:45:07" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-12T22:45:07.8611534+03:00" queuing="2026-10-12T22:45:07.8611535+03:00" start="2026-10-12T22:45:03.9244889+03:00" finish="2026-10-12T22:45:08.0466626+03:00" />
+  <TestSettings name="default" id="a53f193b-69c0-44ae-9d02-a8cf91e87638">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-12_22_45_07" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="f9953d10-1b74-4857-adcf-706884a71b36" testId="0f4f1861-92c8-06fa-0eaf-493cb2aeb882" testName="DevelopmentFirstMassHasOverallLeaderBibButNoInventedDisciplineLeader" computerName="DESKTOP-G3075GA" duration="00:00:00.0077000" startTime="2026-10-12T22:45:07.8203279+03:00" endTime="2026-10-12T22:45:07.8280277+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f9953d10-1b74-4857-adcf-706884a71b36">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: Total&#xD;
+  But was:  None&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.CareerMassStartSeedingTests.DevelopmentFirstMassHasOverallLeaderBibButNoInventedDisciplineLeader() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\CareerMassStartSeedingTests.cs:line 26&#xD;
+
+1)    at Biathlon.Tests.CareerMassStartSeedingTests.DevelopmentFirstMassHasOverallLeaderBibButNoInventedDisciplineLeader() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\CareerMassStartSeedingTests.cs:line 26&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="85c2b282-08ed-41e5-be87-e0eceeed600b" testId="b9521b13-3799-8628-2f0a-bdd0e12df71d" testName="ContinuedCareerMassUsesRankedStartAndMatchingBibInsteadOfPlayerFirst" computerName="DESKTOP-G3075GA" duration="00:00:03.2875880" startTime="2026-10-12T22:45:04.5320274+03:00" endTime="2026-10-12T22:45:07.8195014+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="85c2b282-08ed-41e5-be87-e0eceeed600b">
+      <Output>
+        <ErrorInfo>
+          <Message>  String lengths are both 24. Strings differ at index 23.&#xD;
+  Expected: "mass_seed_test_athlete_1"&#xD;
+  But was:  "mass_seed_test_athlete_0"&#xD;
+  ----------------------------------^&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.CareerMassStartSeedingTests.ContinuedCareerMassUsesRankedStartAndMatchingBibInsteadOfPlayerFirst() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\CareerMassStartSeedingTests.cs:line 34&#xD;
+
+1)    at Biathlon.Tests.CareerMassStartSeedingTests.ContinuedCareerMassUsesRankedStartAndMatchingBibInsteadOfPlayerFirst() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\CareerMassStartSeedingTests.cs:line 34&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ContinuedCareerMassUsesRankedStartAndMatchingBibInsteadOfPlayerFirst" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="b9521b13-3799-8628-2f0a-bdd0e12df71d">
+      <Execution id="85c2b282-08ed-41e5-be87-e0eceeed600b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerMassStartSeedingTests" name="ContinuedCareerMassUsesRankedStartAndMatchingBibInsteadOfPlayerFirst" />
+    </UnitTest>
+    <UnitTest name="DevelopmentFirstMassHasOverallLeaderBibButNoInventedDisciplineLeader" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="0f4f1861-92c8-06fa-0eaf-493cb2aeb882">
+      <Execution id="f9953d10-1b74-4857-adcf-706884a71b36" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerMassStartSeedingTests" name="DevelopmentFirstMassHasOverallLeaderBibButNoInventedDisciplineLeader" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="0f4f1861-92c8-06fa-0eaf-493cb2aeb882" executionId="f9953d10-1b74-4857-adcf-706884a71b36" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b9521b13-3799-8628-2f0a-bdd0e12df71d" executionId="85c2b282-08ed-41e5-be87-e0eceeed600b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

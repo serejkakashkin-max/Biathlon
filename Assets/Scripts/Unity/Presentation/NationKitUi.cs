@@ -51,6 +51,12 @@ namespace Biathlon.Unity.Presentation
         {
             var row=new VisualElement{name="pre_race_kit"};row.style.flexDirection=FlexDirection.Row;row.style.alignItems=Align.Center;parent.Add(row);
             AddNationalKit(row,player.Nation);
+            if(race.Format==Biathlon.Domain.CompetitionFormat.MassStart)
+            {
+                var starts=CareerMassStartSeeding.Capture(Session.Career,Session.Definitions.Calendar,Session.Definitions.Scoring,race);
+                int index=System.Array.IndexOf(starts,player.Id);
+                if(index>=0){var position=AddLabel(row,L("Старт № ","Start bib ")+(index+1),theme.caption_size,true);position.name="pre_race_start_position";position.style.marginLeft=12;position.style.marginBottom=0;}
+            }
             var role=CareerLeaderBibs.Capture(Session.Career,Session.Definitions.Calendar,Session.Definitions.Scoring,race).ForAthlete(player.Id);
             if(role==CareerLeaderBib.None)return;
             row.Add(new LeaderBibGraphic(role,LeaderDescription(role)));

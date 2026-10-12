@@ -88,12 +88,26 @@ namespace Biathlon.Career
             save.AppendRace(record);
         }
         public static CareerStanding[] Table(CareerSave save,CareerScoringDefinition scoring,CompetitionFormat? format=null)
+            =>BuildTable(save,scoring,format,null,null,false);
+        public static CareerStanding[] BeforeStart(CareerSave save,CareerScoringDefinition scoring,CareerCalendar calendar,CareerCalendarEvent next,
+            CompetitionFormat? format=null,bool meetingOnly=false)
+        {
+            if(calendar==null||next==null||save==null||save.CalendarId!=calendar.Id)throw new ArgumentException("Matching saved start calendar required.");
+            return BuildTable(save,scoring,format,calendar,next,meetingOnly);
+        }
+        private static CareerStanding[] BuildTable(CareerSave save,CareerScoringDefinition scoring,CompetitionFormat? format,
+            CareerCalendar calendar,CareerCalendarEvent next,bool meetingOnly)
         {
             if(save==null||scoring==null)throw new ArgumentNullException();if(format.HasValue&&(format<CompetitionFormat.Sprint||format>CompetitionFormat.MassStart))throw new ArgumentException("Unknown format.");
             var rows=new Dictionary<string,CareerStanding>(StringComparer.Ordinal);for(int i=0;i<save.AthleteCount;i++)rows.Add(save.Athlete(i).Id,new CareerStanding(save.Athlete(i).Id,save.AthleteCount));
             for(int i=0;i<save.RaceCount;i++)
             {
                 var race=save.Race(i);if(format.HasValue&&race.Format!=format.Value)continue;
+                if(next!=null)
+                {
+                    CareerCalendarEvent e=null;for(int j=0;j<calendar.Count;j++)if(calendar.Get(j).Id==race.CalendarEventId){e=calendar.Get(j);break;}
+                    if(e==null||e.Week>=next.Week||meetingOnly&&(next.MeetingId==null||e.MeetingId!=next.MeetingId))continue;
+                }
                 for(int rank=0;rank<race.Count;rank++){var finish=race.Get(rank);int place=ResultRank(race,rank,scoring);var row=rows[finish.AthleteId];row.Points=checked(row.Points+scoring.Points(place,race.Format));row.RecordPlace(place);row.Races++;if(place==1)row.Wins++;if(place<=3)row.Podiums++;row.TotalMilliseconds=checked(row.TotalMilliseconds+finish.ElapsedMilliseconds);}
             }
             var result=new List<CareerStanding>(rows.Values);result.Sort((a,b)=>{int c=b.Points.CompareTo(a.Points);if(scoring.CountbackByPlacings){for(int place=1;c==0&&place<=save.AthleteCount;place++)c=b.FinishesAt(place).CompareTo(a.FinishesAt(place));}else {if(c==0)c=b.Wins.CompareTo(a.Wins);if(c==0)c=b.Podiums.CompareTo(a.Podiums);if(c==0)c=a.TotalMilliseconds.CompareTo(b.TotalMilliseconds);}return c!=0?c:StringComparer.Ordinal.Compare(a.AthleteId,b.AthleteId);});return result.ToArray();

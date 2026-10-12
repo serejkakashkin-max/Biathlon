@@ -24968,3 +24968,57 @@ Git publication receipt follows verified push.
 2026-10-12 M14 weather publication receipt: implementation c92ab7a pushed to origin/codex/wp-078-ai-pack; remote HEAD verified as c92ab7a60dd1c83cf3205fefc12f1a6255829891. Test player Builds/M14Weather20261012/START_M14_TEST.cmd is ready. M14 remains OPEN for owner testing; no code changes after successful build.
 
 2026-10-12 correction to preceding weather publication receipt: the full implementation hash was transcribed incorrectly there. The verified local and remote implementation hash is c92ab7a9c95885de84f6a90eb03e322764dc4ccf. The adjacent publication-receipt.json contains this exact verified hash. Historical entry retained per append-only owner directive. M14 remains OPEN.
+
+
+## 2026-10-12 — M14 continued-career Mass Start seed and leader bib correction
+
+Owner's development career had season results but no colored leader, and the
+player always started in roster slot one. Reproduced both failures in two
+pre-fix tests; no owner save mutated or migrated. M14 remains OPEN, M13 CLOSED.
+
+WP-181 COMPLETE: earlier-result start list supplies physical grid, bib number
+and first shooting mat. Player is bound by stable ID after sorting; later mats
+remain actual-arrival assignments. Pre-race UI shows the start number. IBU
+numbering runs right to left facing the start. Calendar meeting IDs and data
+policies use WC top 20 / development top 15 overall, remaining slots by current
+meeting points/best result/total order. Current owner development save verified
+read-only: overall rank 7 -> bib 7, yellow leaders 1, red leaders 0. Old open
+save: rank 1 -> bib 1, yellow leaders 1, first-Mass red leaders 0.
+
+WP-189 COMPLETE: development overall leader now yellow; no invented red
+discipline leader. WC yellow/red/combined classification retained. Explicit
+legacy Woodland series policy provides its game leader colors. Junior prototype
+retains custom season ranking and no WC colors. IBU 2026 sections 1.7.7,
+15.6.5.1, 15.7.2, 16.4.3, 16.8.1, 18.3.2/18.4 checked; real Junior Cup MS60 and
+qualifying-point entry expansion outside this bounded correction.
+
+WP-191/192 COMPLETE: optional StartOrderVersion=1 records new composition;
+old metadata retains its roster/grid. Recorded weather selects identical
+ManualRead solver definitions for live/headless/replay initialization and seek.
+New sorted ice Mass30 exposed a penalty-edge contact failure at tick 3242.
+Differential neutral/legacy/exact-normal probes isolated a bounded normal
+direction problem exhausting 32 responses. Icy preset now uses existing exact
+normals from first contact; other snow retains bounded probes. No force tuning,
+body size, course admission/geometry or graphics-quality changes.
+
+Checks: 56 .NET core/career/grid/ribbon/journal/replay tests PASS; 8 Unity
+EditMode and 3 PlayMode distinct checks PASS. Native continued-career start,
+rendered yellow bib, current/historical journal reconstruction, replay and icy
+backward seek verified. Complete ice Mass30 repeats exactly after save reload:
+28,344 ticks, 600 shots, authority SHA256
+a264c7465cb01209d59cd825a4368e44f67fd0d02e84bd7a8eb96d7eeb35c89e,
+event hash 16558113876112233285. Initial failures retained as regression; no
+tests disabled. Start placement/ice contact can change race output; athlete
+abilities, hidden bonuses, season scoring and texture quality unchanged.
+
+Build: Builds/M14MassSeeding20261012/START_M14_TEST.cmd. Unity 6000.6.0f1,
+Win64 Development/DX11, Succeeded, 0 errors, 0 warnings, 370488662 bytes.
+Standalone startup exit 0, success=true, 1600x900, 1437 visible samples.
+Final compilation/Console clean. Evidence: docs/quality/m14/mass-seeding-20261012/.
+Report: docs/reports/TASK_M14_MASS_SEEDING_20261012.md.
+ADR: docs/adr/ADR-0064-m14-mass-start-seeding-and-circuit-leaders.md.
+
+Limit: fixed prototype field has no extra qualifying-point list; unresolved
+start-number ties use stable table order; no fabricated previous champion.
+No implementation work remains for this request. Next: owner tests new build
+and decides further M14 fixes or acceptance. Git receipt follows verified push.

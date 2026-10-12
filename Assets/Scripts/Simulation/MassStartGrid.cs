@@ -39,7 +39,7 @@ namespace Biathlon.Simulation
             return result;
         }
         public MassStartGrid(CompetitionProfile profile,MassStartGridDefinition definition,
-            OccupancyDefinition body,ReadOnlySpan<AthleteId> roster,double widthMeters,double depthMeters)
+            OccupancyDefinition body,ReadOnlySpan<AthleteId> roster,double widthMeters,double depthMeters,bool numberFromRight=false)
         {
             if(profile==null || definition==null || body==null) throw new ArgumentNullException();
             if(profile.Format!=CompetitionFormat.MassStart || profile.StartType!=CompetitionStartType.Simultaneous ||
@@ -58,7 +58,7 @@ namespace Biathlon.Simulation
             FrontReferenceNanometers=checked((rows-1)*definition.RowSpacing.Millimeters*SkiState.NanometersPerMillimeter+
                 (long)Math.Ceiling(body.BodyLength/2*SkiState.NanometersPerMeter));
             var context=new string[7+roster.Length];
-            context[0]="mass_start_grid_front_reference_v1";context[1]=profile.ToJson();context[2]=definition.ToJson();context[3]=body.ToJson();
+            context[0]=numberFromRight?"mass_start_grid_right_to_left_v1":"mass_start_grid_front_reference_v1";context[1]=profile.ToJson();context[2]=definition.ToJson();context[3]=body.ToJson();
             context[4]=widthMeters.ToString("R",CultureInfo.InvariantCulture);context[5]=depthMeters.ToString("R",CultureInfo.InvariantCulture);
             context[6]="row_major_roster;front_row_center_zero;negative_rear_coordinates;no_route_credit";
             for(int i=0;i<roster.Length;i++)
@@ -68,6 +68,7 @@ namespace Biathlon.Simulation
                 int row=i/definition.Columns,column=i%definition.Columns;
                 long longitudinal=checked(-row*definition.RowSpacing.Millimeters*SkiState.NanometersPerMillimeter);
                 long lateral=checked((2L*column-(definition.Columns-1))*definition.ColumnSpacing.Millimeters*SkiState.NanometersPerMillimeter/2);
+                if(numberFromRight)lateral=-lateral;
                 slots[i]=new MassStartGridSlot(roster[i],i+1,row,column,longitudinal,lateral);context[7+i]=roster[i].Value;
             }
             ContextJson=ShootingModelDefinitions.EncodeContext(context);
