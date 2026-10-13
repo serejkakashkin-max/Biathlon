@@ -1,7 +1,9 @@
 .frostline { color: #E8F5F8; }
 .fl-screen { transition-property: opacity; transition-duration: 180ms; transition-timing-function: ease-out; }
 .fl-button { transition-property: background-color, color, border-left-color; transition-duration: 140ms; transition-timing-function: ease-out; }
-.reduced-motion .fl-screen, .reduced-motion .fl-button { transition-duration: 0ms; }
+.fl-meter { transition-property: width, background-color; transition-duration: 120ms; transition-timing-function: ease-out; }
+.fl-target { transition-property: background-color, color; transition-duration: 140ms; transition-timing-function: ease-out; }
+.reduced-motion .fl-screen, .reduced-motion .fl-button, .reduced-motion .fl-meter, .reduced-motion .fl-target { transition-duration: 0ms; }
 .frostline .unity-base-field__input { background-color: #132A3B; color: #E8F5F8; border-radius: 2px; border-width: 1px; border-color: #365364; }
 .frostline .unity-base-field__input:focus { border-color: #85D5DF; }
 .frostline .unity-base-popup-field__text { color: #E8F5F8; }

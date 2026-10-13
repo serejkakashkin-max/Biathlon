@@ -73,7 +73,16 @@ namespace Biathlon.Unity.Presentation
             Finish();
         }
         private void Update()
-        {if(evidence!=null&&!finished&&Time.realtimeSinceStartupAsDouble-began>300){errors.Add("Review exceeded the 300 second deadline.");StopAllCoroutines();Finish();}}
+        {
+            if(evidence!=null&&!finished&&Time.realtimeSinceStartupAsDouble-began>300){errors.Add("Review exceeded the 300 second deadline.");StopAllCoroutines();Finish();}
+            if(!finished&&captureTarget!=null&&menu?.Race.Host!=null)
+            {
+                var host=menu.Race.Host;var range=host.GetComponent<RangePresentation>();
+                var camera=range!=null&&range.Visible?range.AimCamera:host.ChaseCamera;
+                if(camera!=null&&camera.isActiveAndEnabled)
+                    UnityEngine.Rendering.RenderPipeline.SubmitRenderRequest(camera,new UnityEngine.Rendering.Universal.UniversalRenderPipeline.SingleCameraRequest{destination=captureTarget});
+            }
+        }
         private void OnLog(string condition,string trace,LogType type)
         {if(type==LogType.Error||type==LogType.Exception||type==LogType.Assert)errors.Add(condition+"\n"+trace);}
         private IEnumerator Review()
@@ -124,7 +133,12 @@ namespace Biathlon.Unity.Presentation
             bool aiming=false;
             for(int step=0;step<30000;step++)
             {
-                host.Runner.Step();
+                var tick=host.Runner.Field.Tick.Next();var actor=host.Runner.Field.GetAthlete(host.PlayerIndex);
+                var input=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(tick,actor.AthleteId,750),1,1,0),
+                    new WeaponAimCommand(tick,actor.AthleteId,0,0),false);
+                // Paid shared route assistance drives this isolated visual probe; never bypass the
+                // bound player's command requirement or mutate/teleport authoritative state.
+                host.Runner.StepWithManualPlayer(host.PlayerIndex,input,0,true);
                 if(step%20==0)
                 {
                     var observation=RacePresentationSnapshot.Capture(host.Runner.Field);

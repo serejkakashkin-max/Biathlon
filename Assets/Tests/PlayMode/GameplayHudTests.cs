@@ -42,6 +42,7 @@ namespace Biathlon.PlayModeTests
                     if(!aiming&&state.ShootingPhase==ShootingPhase.Aiming)
                     {
                         Assert.That(hud.CheckpointTableVisible,Is.False,"Range overview must replace the split table at shooting.");
+                        Assert.That(hud.Root.Q<Label>("readiness_hint").text,Does.Not.Contain("Ctrl"),"On the mat show breathing guidance, not skiing recovery controls.");
                         aiming=true;yield return Capture(hud,1600,900,"ru",0,"shooting-ru");
                         yield return Capture(hud,1024,768,"en",2,"shooting-en-large-4x3");
                     }

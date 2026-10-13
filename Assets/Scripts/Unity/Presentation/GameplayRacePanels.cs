@@ -14,6 +14,8 @@ namespace Biathlon.Unity.Presentation
         private readonly TimingAthleteRow[] checkpointCells=new TimingAthleteRow[30];
         private RaceReviewSettings reviewSettings;private PhysiologyDefinition readinessPhysiology;private BreathingDefinition readinessBreathing;
         private int noticedCheckpoint=-1;private double noticeUntil;
+        private static readonly string[] ReadinessRu={"СПОКОЙНЫЙ ПУЛЬС","ПОВЫШЕННЫЙ ПУЛЬС","ВЫСОКИЙ ПУЛЬС"},
+            ReadinessEn={"CALM HEART RATE","ELEVATED HEART RATE","HIGH HEART RATE"};
         private string L(string ru,string en)=>Locale=="ru"?ru:en;
         private void BuildReviewPanels()
         {
@@ -84,10 +86,10 @@ namespace Biathlon.Unity.Presentation
             if(near)
             {
                 var ready=new ShootingReadiness(a.Physiology.HeartRateBpm,a.Physiology.MuscularFatigue,readinessPhysiology,readinessBreathing,reviewSettings.calm_hr_load,reviewSettings.high_hr_load);
-                string[] ru={"СПОКОЙНЫЙ ПУЛЬС","ПОВЫШЕННЫЙ ПУЛЬС","ВЫСОКИЙ ПУЛЬС"},en={"CALM HEART RATE","ELEVATED HEART RATE","HIGH HEART RATE"};
-                readinessTitle.text=L(ru[ready.Zone],en[ready.Zone])+" · "+Math.Round(a.Physiology.HeartRateBpm);
+                readinessTitle.text=L(ReadinessRu[ready.Zone],ReadinessEn[ready.Zone])+" · "+Math.Round(a.Physiology.HeartRateBpm);
                 readinessTitle.style.color=FrontEndTheme.Color(ready.Zone==0?"#66D3AD":ready.Zone==1?"#F4CE76":"#F59889");readinessPointer.style.left=Length.Percent((float)ready.Load*100);
-                readinessHint.text=L(ready.Zone==0?"Прицел спокойнее · Space — дыхание":ready.Zone==1?"Снизьте темп перед рубежом · Ctrl": "Сильнее колебания прицела · Ctrl — восстановление",
+                readinessHint.text=a.ShootingActive?L(ready.Zone==0?"Прицел спокойнее · Space — дыхание":"Прицел колеблется · Space — дыхание",
+                    ready.Zone==0?"Calmer aim · Space to hold breath":"Aim sway · Space to hold breath"):L(ready.Zone==0?"Прицел спокойнее · Space — дыхание":ready.Zone==1?"Снизьте темп перед рубежом · Ctrl": "Сильнее колебания прицела · Ctrl — восстановление",
                     ready.Zone==0?"Calmer aim · Space to hold breath":ready.Zone==1?"Ease your pace before the range · Ctrl":"Stronger aim sway · Ctrl to recover");
             }
         }

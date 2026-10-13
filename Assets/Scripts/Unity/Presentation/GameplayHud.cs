@@ -115,6 +115,7 @@ namespace Biathlon.Unity.Presentation
             for(int i=0;i<targets.Length;i++)
             {
                 var target=Text(row,"target_"+i,"",settings.caption_size,true);targets[i]=target;
+                target.AddToClassList("fl-target");
                 target.style.width=settings.target_size;target.style.height=settings.target_size;target.style.marginRight=10;
                 target.style.unityTextAlign=TextAnchor.MiddleCenter;
                 target.style.borderTopLeftRadius=target.style.borderTopRightRadius=target.style.borderBottomLeftRadius=target.style.borderBottomRightRadius=settings.target_size/2;
@@ -176,6 +177,7 @@ namespace Biathlon.Unity.Presentation
             var track=new VisualElement();track.style.height=3;track.style.backgroundColor=new Color(1,1,1,.12f);
             track.style.marginBottom=settings.spacing+2;parent.Add(track);
             var fill=new VisualElement{name=name};fill.style.height=3;fill.style.backgroundColor=color;track.Add(fill);
+            fill.AddToClassList("fl-meter");
             // Retained dividers make energy/pace readable in segments without extra per-frame work.
             for(int i=1;i<10;i++){var divider=new VisualElement();divider.style.position=Position.Absolute;divider.style.left=Length.Percent(i*10);divider.style.top=0;divider.style.bottom=0;divider.style.width=2;divider.style.backgroundColor=FrostlineStyle.Deep;divider.pickingMode=PickingMode.Ignore;track.Add(divider);}
             return fill;

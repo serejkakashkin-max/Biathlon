@@ -45,6 +45,7 @@ namespace Biathlon.Unity.Presentation
             AddLabel(row,label,theme.caption_size);AddLabel(row,percent+"%",theme.caption_size,true);
             var track=new VisualElement();track.style.height=6;track.style.backgroundColor=focus;track.style.marginBottom=16;parent.Add(track);
             var fill=new VisualElement();fill.style.height=6;fill.style.width=Length.Percent(Mathf.Clamp(percent,0,100));fill.style.backgroundColor=color;track.Add(fill);
+            fill.AddToClassList("fl-meter");
         }
         private void InfoRow(VisualElement parent,string label,string value)
         {
