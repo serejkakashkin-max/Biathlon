@@ -107,6 +107,7 @@ namespace Biathlon.Unity.Presentation
                     go=new GameObject("Athlete presentation pivot");go.transform.SetParent(transform,false);
                     var rig=rigPrefab!=null?Instantiate(rigPrefab,go.transform,false):AthleteRigFactory.Create(go.transform);
                     var bib=rig.GetComponent<AthleteBibPresentation>();if(bib!=null)bib.SetNumber(i+1);
+                    rig.GetComponent<AthleteAppearancePresentation>()?.ApplyIdentity(state.AthleteId);
                     ApplyCareerAppearance(state.AthleteId,rig);
                     equipmentBatches.Register(rig);
                     rig.transform.localPosition=Vector3.down;

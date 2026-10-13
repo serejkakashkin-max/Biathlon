@@ -25172,3 +25172,5 @@ or shooting authority changes. VU-G remains in progress: full regression, matche
 native evidence, profiling and final test build are required. No M16 start/merge.
 Branch codex/m15-5-visual-upgrade; detailed audit/decisions in M15_5_ASSET_AND_MOTION_AUDIT
 and ADR-0068. PROJECT_STATE history remains append-only.
+
+2026-10-13 correction: the M15.5 read-only visual decision is ADR-0069. ADR-0068 was already assigned to contextual range broadcast; that earlier decision is preserved.

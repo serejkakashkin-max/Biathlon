@@ -11,6 +11,16 @@ namespace Biathlon.Unity.Presentation
         private static Material[][] variants;
         private SkinnedMeshRenderer skin;private int current=-1;
         public string Nation {get;private set;}
+        public int CosmeticVariant {get;private set;}
+        public void ApplyIdentity(string stableId)
+        {
+            if(string.IsNullOrWhiteSpace(stableId))throw new ArgumentException("Stable cosmetic identity required.");
+            uint hash=2166136261;unchecked{foreach(char c in stableId)hash=(hash^c)*16777619;}
+            CosmeticVariant=(int)(hash%3);
+            if(skin==null)skin=GetComponentInChildren<SkinnedMeshRenderer>();
+            for(int i=0;i<3;i++)
+            {int index=skin.sharedMesh.GetBlendShapeIndex("OriginalBuild"+i);if(index>=0)skin.SetBlendShapeWeight(index,i==CosmeticVariant?100:0);}
+        }
         public static int NationCount {get{LoadPalette();return nations.Length;}}
         public static string NationAt(int index){LoadPalette();return nations[index];}
         public static Color NationColor(string nation){LoadPalette();return kits[NationIndex(nation)];}

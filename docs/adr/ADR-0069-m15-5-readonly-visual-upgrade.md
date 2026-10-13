@@ -1,4 +1,4 @@
-# ADR-0068 — M15.5 read-only visual upgrade
+# ADR-0069 — M15.5 read-only visual upgrade
 
 2026-10-13. Implemented for owner review between M15 and M16.
 

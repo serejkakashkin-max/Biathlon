@@ -125,6 +125,7 @@ namespace Biathlon.Unity
                 AssetDatabase.SaveAssets();
             }
             finally { Object.DestroyImmediate(rig.gameObject); }
+            VisualUpgradeHeroAuthoring.Generate();
         }
 
         private static Mesh Import(MeshData data, Matrix4x4[] bind)

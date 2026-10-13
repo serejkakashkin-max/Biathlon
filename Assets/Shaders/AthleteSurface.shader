@@ -6,7 +6,7 @@ Shader "Biathlon/AthleteSurface"
   _KitColor("Fictional kit",Color)=(.08,.3,.45,1)
   _TrimColor("Seam trim",Color)=(.7,.8,.9,1)
   _KitWeight("Kit influence",Range(0,1))=0
-  _SurfaceKind("Cloth 0 / skin 1 / lens 2 / composite 3",Float)=0
+  _SurfaceKind("Cloth 0 / skin 1 / lens 2 / rubber 3 / boot 4",Float)=0
   _Smoothness("Smoothness",Range(0,1))=.3
   _BumpMap("Audited micro normal",2D)="bump"{}
   _BumpScale("Normal strength",Float)=.2
@@ -47,17 +47,23 @@ Shader "Biathlon/AthleteSurface"
     float path=lerp(.105,.212,smoothstep(1.0,1.2,p.y));
     float stripe=(1-smoothstep(.0015,.003+fwidth(p.x),abs(abs(p.x)-path)))*smoothstep(.015,.035,p.z);
     float cuff=1-smoothstep(.003,.008+fwidth(p.y),abs(p.y-.24));
-    base=lerp(base,_TrimColor.rgb,.25*max(stripe,cuff));
+    float seams=max(stripe,cuff);
+    float stitches=.5+.5*sin(p.y*1900);stitches=lerp(stitches,.5,saturate(fwidth(p.y)*1900));
+    base=lerp(base,_TrimColor.rgb,seams*(.25+.18*stitches));
+    // Broad compression-knit panels, anchored in the mesh bind coordinates.
+    float knee=exp(-pow((p.y-.49)/.085,4))*smoothstep(.09,.13,abs(p.x));
+    float underarm=smoothstep(.20,.26,abs(p.x))*smoothstep(1.0,1.15,p.y)*(1-smoothstep(1.3,1.4,p.y));
+    base*=1-.08*max(knee,underarm);
     half3 detail=UnpackNormalScale(SAMPLE_TEXTURE2D(_BumpMap,sampler_BumpMap,i.uv*_DetailTiling),_BumpScale);
     n=normalize(t*detail.x+b*detail.y+n*detail.z);
-    smoothness=saturate(1-SAMPLE_TEXTURE2D(_RoughnessMap,sampler_RoughnessMap,i.uv*_DetailTiling).r)*(1-_Smoothness)+_Smoothness;
+    smoothness=_Smoothness*lerp(.65,1,saturate(1-SAMPLE_TEXTURE2D(_RoughnessMap,sampler_RoughnessMap,i.uv*_DetailTiling).r));
    }
    else if(_SurfaceKind<1.5)
    {
     base*=lerp(half3(.83,.77,.72),half3(1.10,1.05,1.02),_SkinVariation);
     float cheeks=exp(-pow((abs(p.x)-.056)/.031,2)-pow((p.y-1.673)/.029,2))*smoothstep(.045,.09,p.z);
     float lips=exp(-pow(p.x/.028,4)-pow((p.y-1.632)/.009,2))*smoothstep(.075,.105,p.z);
-    base=lerp(base,base*half3(1.07,.77,.73),cheeks*.45);base=lerp(base,base*half3(.83,.51,.49),lips*.65);
+    base=lerp(base,base*half3(1.12,.76,.72),cheeks*.55);base=lerp(base,base*half3(.83,.51,.49),lips*.65);
     half3 detail=UnpackNormalScale(SAMPLE_TEXTURE2D(_BumpMap,sampler_BumpMap,i.uv*_DetailTiling),_BumpScale);
     n=normalize(t*detail.x+b*detail.y+n*detail.z);smoothness+=.09*cheeks;
    }
@@ -65,7 +71,17 @@ Shader "Biathlon/AthleteSurface"
    {
     float facing=saturate(dot(n,GetWorldSpaceNormalizeViewDir(i.positionWS)));
     // Coated-lens angular tint; lighting still comes from the scene's PBR lighting.
-    base=lerp(half3(.12,.08,.22),half3(.08,.38,.48),facing);metal=.55;
+    base=lerp(half3(.18,.12,.32),half3(.12,.42,.52),facing);metal=.35;
+    half3 reflected=SampleSH(reflect(-GetWorldSpaceNormalizeViewDir(i.positionWS),n));
+    base=lerp(base,max(reflected,half3(.08,.1,.13)),.18+.38*pow(1-facing,3));
+   }
+   else
+   {
+    // Closed glove leather and boot polymer retain distinct, restrained highlights.
+    float rib=(.5+.5*sin(p.y*720))*smoothstep(.08,.13,p.y)*(1-smoothstep(.25,.29,p.y));
+    rib=lerp(rib,.5,saturate(fwidth(p.y)*720));
+    base*=lerp(1,.91,rib);smoothness=_Smoothness;
+    if(_SurfaceKind>3.5){smoothness*=.8;metal=.06;}
    }
    SurfaceData s=(SurfaceData)0;s.albedo=base;s.metallic=metal;s.smoothness=smoothness;s.occlusion=1;s.alpha=1;s.normalTS=half3(0,0,1);
    InputData d=(InputData)0;d.positionWS=i.positionWS;d.normalWS=n;d.viewDirectionWS=GetWorldSpaceNormalizeViewDir(i.positionWS);d.shadowCoord=TransformWorldToShadowCoord(i.positionWS);d.bakedGI=SampleSH(n);d.shadowMask=1;d.normalizedScreenSpaceUV=GetNormalizedScreenSpaceUV(i.positionCS);

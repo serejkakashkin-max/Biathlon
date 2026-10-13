@@ -25,11 +25,18 @@ namespace Biathlon.Unity.Presentation
     {
         private SkinnedMeshRenderer skin;
         private JointVolumeSettings settings;
+        private Mesh validatedMesh;
+        private static readonly string[] shapeNames={"LeftLowerArmVolume","RightLowerArmVolume","LeftLowerLegVolume","RightLowerLegVolume"};
         private static readonly AthleteBone[] joints={AthleteBone.LeftLowerArm,AthleteBone.RightLowerArm,AthleteBone.LeftLowerLeg,AthleteBone.RightLowerLeg};
         public void Render(AthleteRigBinding rig)
         {
             if(skin==null){skin=GetComponentInChildren<SkinnedMeshRenderer>();settings=JointVolumeSettings.Load();}
-            if(skin.sharedMesh.blendShapeCount!=4)throw new InvalidOperationException("Hero joint shapes missing.");
+            if(validatedMesh!=skin.sharedMesh)
+            {
+                if(skin.sharedMesh.blendShapeCount<4)throw new InvalidOperationException("Hero joint shapes missing.");
+                for(int i=0;i<4;i++)if(skin.sharedMesh.GetBlendShapeName(i)!=shapeNames[i])throw new InvalidOperationException("Hero joint shape ordering differs from the binding.");
+                validatedMesh=skin.sharedMesh;
+            }
             for(int i=0;i<4;i++)
             {
                 var lower=rig.Bone(joints[i]);var upper=rig.Bone((AthleteBone)((int)joints[i]-1));var end=rig.Bone((AthleteBone)((int)joints[i]+1));
