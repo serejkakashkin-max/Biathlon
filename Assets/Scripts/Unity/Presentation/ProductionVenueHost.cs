@@ -55,16 +55,25 @@ namespace Biathlon.Unity.Presentation
         public double DiscardedWallSeconds=>frameClock?.DiscardedWallSeconds??0;
         public double LastSimulationFrameMilliseconds {get;private set;}
         public bool HasSimulationFault {get;private set;}
-        private Biathlon.Presentation.RaceStartCountdown startCountdown;
-        public double CountdownRemaining=>startCountdown?.Remaining??0;
-        public int CountdownNumber=>startCountdown?.Number??0;
+        private Biathlon.Presentation.PlayerStartPreparation startPreparation;
+        private RaceStartDefinition startDefinition;
+        public double CountdownRemaining=>startPreparation?.CountdownRemaining(Runner.Field.Tick.Value)??0;
+        public int CountdownNumber=>(int)Math.Ceiling(CountdownRemaining);
+        public double PlayerStartWaitSeconds=>startPreparation?.Remaining(Runner.Field.Tick.Value)??0;
+        public bool WaitingForPlayerStart=>startPreparation!=null&&(startPreparation.HoldsRace||Runner.Field.Tick.Value<startPreparation.StartTick);
+        public bool CanSkipStartWait=>!StartWaitFastForwarding&&!HasSimulationFault&&startPreparation?.CanSkip(Runner.Field.Tick.Value)==true;
+        public bool StartWaitFastForwarding {get;private set;}
         public int SelectedPace {get;private set;}
         /// <summary>Accepted device intent only; reserve and delivered power stay in the shared simulation.</summary>
         public bool BurstRequested {get;private set;}
         public void ArmRaceStartCountdown()
         {
-            if(Runner==null||Runner.Field.Tick.Value!=0)throw new InvalidOperationException("Countdown requires a fresh race.");
-            startCountdown=new Biathlon.Presentation.RaceStartCountdown(RaceStartDefinition.FromJson(ReadCore("race_start_v1.json")).CountdownSeconds);
+            if(Runner==null||Runner.Field.Tick.Value!=0||startPreparation!=null)throw new InvalidOperationException("Countdown requires a fresh race.");
+            startDefinition=RaceStartDefinition.FromJson(ReadCore("race_start_v2.json"));
+            startPreparation=new Biathlon.Presentation.PlayerStartPreparation(startDefinition,Runner.Field.TickFrequency,Runner.Field.GetAthlete(PlayerIndex).ScheduledStart.Value);
+            ski.ReleaseHeldInput();shot.ReleaseHeldInput();
+            Proxies.ShowPrestartAthlete(Runner.Field.GetAthlete(PlayerIndex).AthleteId.Value);
+            ChaseCamera.GetComponent<AthleteChaseCamera>().SnapToTarget();
         }
         public void UseReplayView(Camera view)
         {
@@ -220,7 +229,12 @@ namespace Biathlon.Unity.Presentation
         private void Update()
         {
             if(Runner==null||Runner.Field.IsComplete)return;
-            if(CountdownRemaining>0){AdvanceSimulationFrame(Time.unscaledDeltaTime);return;}
+            if(WaitingForPlayerStart)
+            {
+                ski.ReleaseHeldInput();shot.ReleaseHeldInput();
+                if(Keyboard.current?.enterKey.wasPressedThisFrame==true||UseGamepad&&Gamepad.current?.buttonSouth.wasPressedThisFrame==true)RequestSkipStartWait();
+                AdvanceSimulationFrame(Time.unscaledDeltaTime);return;
+            }
             if(FastFinish){AdvanceFinishedFieldFrame();return;}
             bool shooting=Runner.Field.GetAthlete(PlayerIndex).ActiveShooting!=null;
             if(shooting!=shootingContext){ski.ReleaseHeldInput();shot.ReleaseHeldInput();shootingContext=shooting;}
@@ -231,16 +245,15 @@ namespace Biathlon.Unity.Presentation
         public void AdvanceSimulationFrame(double elapsed)
         {
             if(HasSimulationFault)return;
-            if(CountdownRemaining>0){startCountdown.Advance(elapsed);return;}
+            if(startPreparation?.HoldsRace==true){startPreparation.AdvanceHold(elapsed);return;}
+            if(StartWaitFastForwarding){AdvanceStartWaitFrame();return;}
+            if(WaitingForPlayerStart){ski.ReleaseHeldInput();shot.ReleaseHeldInput();}
             int steps=frameClock.BeginFrame(elapsed);frameWork.Restart();batchFrame=true;int completed=0;
             try
             {
                 for(int i=0;i<steps&&!Runner.Field.IsComplete;i++)
                 {
-                    var tick=Runner.Field.Tick.Next();
-                    if(Runner.Field.GetAthlete(PlayerIndex).HasFinished)StepFinishedPlayerTick();
-                    else if(ManualStepper!=null){Step(ski.PeekManual(tick),shot.Build(tick));ski.AcceptManual(tick);}
-                    else Step(ski.BuildDirectional(tick,Runner.Field.GetLateral(PlayerIndex),CurrentLateralExtent),shot.Build(tick));
+                    StepDeviceTick();
                     frameClock.ConsumeTick();completed++;
                     // Preserve adjacent accepted states even on catch-up frames.
                     Feed.Publish(RacePresentationSnapshot.Capture(Runner.Field));
@@ -256,6 +269,13 @@ namespace Biathlon.Unity.Presentation
             finally{batchFrame=false;LastSimulationFrameMilliseconds=frameWork.Elapsed.TotalMilliseconds;}
             Feed.SetInterpolationAlpha(Math.Min(1,frameClock.BacklogSeconds*Runner.Field.TickFrequency));
             if(completed>0)PublishPresentation(false);
+        }
+        private void StepDeviceTick()
+        {
+            var tick=Runner.Field.Tick.Next();
+            if(Runner.Field.GetAthlete(PlayerIndex).HasFinished)StepFinishedPlayerTick();
+            else if(ManualStepper!=null){Step(ski.PeekManual(tick),shot.Build(tick));ski.AcceptManual(tick);}
+            else Step(ski.BuildDirectional(tick,Runner.Field.GetLateral(PlayerIndex),CurrentLateralExtent),shot.Build(tick));
         }
         public void Step(PlayerCommand command,ShootingDeviceCommand shooting)
         {

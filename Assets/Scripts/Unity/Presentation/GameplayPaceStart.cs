@@ -4,8 +4,9 @@ namespace Biathlon.Unity.Presentation
 {
     public sealed partial class GameplayHud
     {
-        private VisualElement paceFill,countdownPanel;
-        private Label paceLabel,countdownLabel,countdownCaption;
+        private VisualElement paceFill,countdownPanel,startWaitPanel;
+        private Label paceLabel,countdownLabel,countdownCaption,startWaitTime,startWaitCaption;
+        private Button startWaitSkip;
         private HeartbeatGraphic heartbeat;
         private PulseTraceGraphic pulseTrace;
         private int previousCountdown;
@@ -13,9 +14,12 @@ namespace Biathlon.Unity.Presentation
         private int paceCeiling;
         private int paintedCountdown=-1,paintedPace=-1;
         private bool paintedCountdownVisible;
+        private int paintedWaitSeconds=-1;
+        private bool paintedWaitVisible,paintedFastForward;
         private void BuildPaceStart()
         {
             paintedCountdown=paintedPace=-1;paintedCountdownVisible=false;
+            previousCountdown=0;goUntil=0;paintedWaitSeconds=-1;paintedWaitVisible=paintedFastForward=false;
             paceCeiling=Biathlon.Domain.DeviceControlDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/device_control_gameplay_v3")).KeyboardEffortCeiling;
             var readout=new VisualElement{name="pace_readout"};readout.style.height=76*Scale;motionPanel.Add(readout);
             var paceLayer=new VisualElement{name="pace_layer"};readout.Add(paceLayer);
@@ -27,11 +31,24 @@ namespace Biathlon.Unity.Presentation
             countdownPanel.style.left=Length.Percent(42);countdownPanel.style.top=Length.Percent(24);countdownPanel.style.width=Length.Percent(16);
             countdownPanel.style.alignItems=Align.Center;countdownPanel.style.backgroundColor=FrontEndTheme.Color(settings.background);
             countdownPanel.style.borderTopLeftRadius=countdownPanel.style.borderTopRightRadius=countdownPanel.style.borderBottomLeftRadius=countdownPanel.style.borderBottomRightRadius=20;
-            countdownCaption=Text(countdownPanel,"countdown_caption",L("НА СТАРТ","READY"),settings.caption_size,true);
+            countdownCaption=Text(countdownPanel,"countdown_caption",L("ВАШ СТАРТ","YOUR START"),settings.caption_size,true);
             countdownCaption.style.marginTop=18;
             countdownLabel=Text(countdownPanel,"countdown_number","3",80,true);countdownLabel.style.color=accent;
             countdownLabel.style.unityFontStyleAndWeight=FontStyle.BoldAndItalic;
             Root.Add(countdownPanel);countdownPanel.style.display=DisplayStyle.None;
+            startWaitPanel=new VisualElement{name="player_start_wait"};startWaitPanel.style.position=Position.Absolute;
+            startWaitPanel.style.left=Length.Percent(30);startWaitPanel.style.width=Length.Percent(40);startWaitPanel.style.bottom=Length.Percent(16);
+            startWaitPanel.style.alignItems=Align.Center;startWaitPanel.style.paddingTop=startWaitPanel.style.paddingBottom=16;
+            startWaitPanel.style.backgroundColor=FrontEndTheme.Color(settings.background);
+            startWaitPanel.style.borderTopLeftRadius=startWaitPanel.style.borderTopRightRadius=startWaitPanel.style.borderBottomLeftRadius=startWaitPanel.style.borderBottomRightRadius=20;
+            startWaitCaption=Text(startWaitPanel,"player_start_wait_caption",L("СОПЕРНИКИ НА ТРАССЕ · ВАШ СТАРТ ЧЕРЕЗ","RIVALS ARE RACING · YOUR START IN"),settings.caption_size,true);
+            startWaitTime=Text(startWaitPanel,"player_start_wait_time","",36,true);startWaitTime.style.color=accent;startWaitTime.style.unityFontStyleAndWeight=FontStyle.BoldAndItalic;
+            startWaitSkip=new Button(()=>{host?.RequestSkipStartWait();RefreshPaceStart();}){name="skip_start_wait",text=L("К СТАРТУ  ·  ENTER / A","SKIP TO START  ·  ENTER / A")};
+            startWaitSkip.style.height=40*Scale;startWaitSkip.style.marginTop=8;startWaitSkip.style.paddingLeft=startWaitSkip.style.paddingRight=20;
+            startWaitSkip.style.backgroundColor=accent;startWaitSkip.style.color=FrontEndTheme.Color(theme.ink);startWaitSkip.style.fontSize=settings.caption_size*Scale;
+            startWaitSkip.style.unityFontStyleAndWeight=FontStyle.Bold;
+            startWaitSkip.style.borderTopLeftRadius=startWaitSkip.style.borderTopRightRadius=startWaitSkip.style.borderBottomLeftRadius=startWaitSkip.style.borderBottomRightRadius=10;
+            startWaitPanel.Add(startWaitSkip);Root.Add(startWaitPanel);startWaitPanel.style.display=DisplayStyle.None;
         }
         private void RefreshPaceStart()
         {
@@ -41,7 +58,20 @@ namespace Biathlon.Unity.Presentation
             previousCountdown=n;
             bool visible=n>0||Time.unscaledTimeAsDouble<goUntil;
             if(visible!=paintedCountdownVisible){countdownPanel.style.display=visible?DisplayStyle.Flex:DisplayStyle.None;paintedCountdownVisible=visible;}
-            if(visible&&paintedCountdown!=n){paintedCountdown=n;countdownLabel.text=n>0?n.ToString():L("СТАРТ","GO");countdownLabel.style.fontSize=n>0?80:40;countdownCaption.text=n>0?L("НА СТАРТ","READY"):L("УДАЧНОЙ ГОНКИ","RACE ON");}
+            if(visible&&paintedCountdown!=n){paintedCountdown=n;countdownLabel.text=n>0?n.ToString():L("СТАРТ","GO");countdownLabel.style.fontSize=n>0?80:40;countdownCaption.text=n>0?L("ВАШ СТАРТ","YOUR START"):L("УДАЧНОЙ ГОНКИ","RACE ON");}
+            bool waitVisible=host.CanSkipStartWait||host.StartWaitFastForwarding;
+            if(waitVisible!=paintedWaitVisible){startWaitPanel.style.display=waitVisible?DisplayStyle.Flex:DisplayStyle.None;paintedWaitVisible=waitVisible;}
+            if(waitVisible)
+            {
+                int seconds=(int)System.Math.Ceiling(host.PlayerStartWaitSeconds);
+                if(seconds!=paintedWaitSeconds){paintedWaitSeconds=seconds;startWaitTime.text=(seconds/60).ToString("00")+":"+(seconds%60).ToString("00");}
+                bool fast=host.StartWaitFastForwarding;
+                if(fast!=paintedFastForward)
+                {
+                    paintedFastForward=fast;startWaitSkip.SetEnabled(!fast);
+                    startWaitCaption.text=fast?L("ПРОПУСК ОЖИДАНИЯ","SKIPPING THE WAIT"):L("СОПЕРНИКИ НА ТРАССЕ · ВАШ СТАРТ ЧЕРЕЗ","RIVALS ARE RACING · YOUR START IN");
+                }
+            }
             int pace=host.SelectedPace;
             if(pace!=paintedPace)
             {paintedPace=pace;float percent=Mathf.Min(100,100f*pace/paceCeiling);

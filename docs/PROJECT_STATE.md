@@ -25024,3 +25024,48 @@ No implementation work remains for this request. Next: owner tests new build
 and decides further M14 fixes or acceptance. Git receipt follows verified push.
 
 2026-10-12 M14 Mass Start publication receipt: implementation c5ab8c552baa08a7287f8f048ee4651107b76f66 pushed to origin/codex/wp-078-ai-pack; local and remote HEAD verified identical. Test build Builds/M14MassSeeding20261012/START_M14_TEST.cmd ready. No code changed after successful build; M14 OPEN for owner testing.
+
+
+## 2026-10-13 — M14 personal player start and Pursuit waiting skip
+
+Owner request: show three seconds before the player's own departure, including a
+late Pursuit start, and allow skipping the race opening to those final seconds.
+WP-182/191/192/194/196/197 correction COMPLETE. All 19 M14 WPs remain implemented;
+M14 remains OPEN / owner testing and acceptance pending. No M15 work started.
+
+Unity-free PlayerStartPreparation observes the unchanged registered personal
+start tick. Immediate starts retain the original three-second frozen preparation;
+short gaps receive only the missing local preparation before the first gun.
+Delayed starts run the field normally. A retained waiting card offers button,
+Enter and A on the selected gamepad. Skip runs every existing authority tick with
+neutral player input in data-defined batches (maximum 256 ticks / 8ms work budget),
+stops exactly three seconds before departure, and resumes real-time countdown.
+Pause suspends waiting/skip; controls cannot prime pace/burst before the gun.
+Presentation interpolation resets at landing to prevent a visual rewind.
+The player alone is visible during Prestart at its accepted launch pose; camera
+snaps behind it. Authoritative body admission, gaps, clocks and collisions remain
+unchanged. No race physics/balance, graphics quality, weather or save schema changes.
+
+Verification: .NET Release 19/19 PASS (including complete repeated Pursuit matrix
+and manual journal replay), native Unity EditMode 9/9 PASS, native PlayMode 7/7
+PASS (personal wait 3 + original countdown/device 4). Final continuity regression
+also PASS. Native button/Enter with held W+Shift, pause, selected athlete visibility,
+launch pose and RU/EN large-text screenshots inspected. No skipped tests. The
+two-athlete production Pursuit ordinary/skip differential starts player at601,
+lands at541, records601 consecutive ticks /139714 bytes; commands, poses/frames
+are identical. Journal SHA256 ba50ef26eb4db671f76b11a29faa675b1dceb023a0631f3965bfa8513313049c.
+Core allocation observations are zero in Mono and CoreCLR with assertions outside
+the non-inlined measured method. Initial compiler/test-harness diagnostics fixed;
+no failing test removed, disabled or weakened. Final Unity Error/Exception empty.
+
+Test build: Builds/M14PlayerStart20261013/START_M14_TEST.cmd, Win64 Development,
+Unity6000.6.0f1. Build Succeeded, errors0/warnings0, bytes370497489. DX11 standalone
+1600x900 startup/render PASS, visible_samples1437, exit0. User profiles untouched.
+Evidence: docs/quality/m14/player-start-20261013/; ADR-0065 and
+docs/reports/TASK_M14_PLAYER_START_20261013.md. PROJECT_CURRENT/M14_WP_STATUS updated.
+
+Limit: skip computes real ticks in bounded batches and may briefly calculate long
+gaps; visual fixtures omit environment dressing. Delivered venue/quality assets
+are unchanged. Next owner test: continued-career Pursuit with a nonzero gap,
+ordinary waiting versus Enter/button skip, personal3–2–1 and rivals' head start.
+Remote publication is recorded separately after push verification.

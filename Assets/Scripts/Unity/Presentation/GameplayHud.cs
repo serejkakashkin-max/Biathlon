@@ -24,7 +24,7 @@ namespace Biathlon.Unity.Presentation
             return s;
         }
     }
-    /// <summary>Retained, non-interactive HUD; refreshes accepted observations at a bounded UI cadence.</summary>
+    /// <summary>Retained HUD; refreshes accepted observations at a bounded UI cadence.</summary>
     public sealed partial class GameplayHud : MonoBehaviour
     {
         public VisualElement Root=>document?.rootVisualElement;
@@ -134,6 +134,7 @@ namespace Biathlon.Unity.Presentation
             BuildReviewPanels();
             BuildPaceStart();
             Root.Query<VisualElement>().ForEach(v=>{v.pickingMode=PickingMode.Ignore;v.focusable=false;});Root.pickingMode=PickingMode.Ignore;
+            startWaitSkip.pickingMode=PickingMode.Position;startWaitSkip.focusable=true;
         }
         public void SetAccessibility(bool contrast)
         {HighContrast=contrast;muted=contrast?Color.white:FrontEndTheme.Color(settings.muted);Build();rendered=null;Refresh();}
@@ -186,6 +187,7 @@ namespace Biathlon.Unity.Presentation
             RefreshBroadcast(snapshot);
             RefreshReviewPanels(a);
             clock.text=Model.Clock;lap.text=Model.Lap;timing.text=Model.Timing;phase.text=Model.Phase;history.text=Model.ShootingHistory;
+            if(host?.WaitingForPlayerStart==true)clock.text=L("До старта ","Start in ")+Math.Ceiling(host.PlayerStartWaitSeconds)+L(" с"," s");
             phase.style.display=a.PendingPenaltyLoops>0||a.Phase==CompetitionPhase.Prestart||a.Phase>=CompetitionPhase.Finished||host?.LastRangeAssistance.Active==true?DisplayStyle.Flex:DisplayStyle.None;
             if(host?.LastRangeAssistance.Active==true)phase.text=T(host.LastRangeAssistance.Mode==PlayerRangeAssistMode.FinalApproach?"assist_in":"assist_out");
             speed.text=Model.Speed;heart.text=Math.Round(a.Physiology.HeartRateBpm).ToString();heart.tooltip=Model.HeartRate;reserve.text=Model.Reserve;fatigue.text=Model.Fatigue;

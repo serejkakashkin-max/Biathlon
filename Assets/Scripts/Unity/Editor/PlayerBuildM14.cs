@@ -9,7 +9,7 @@ namespace Biathlon.Unity
 {
     public static partial class PlayerBuildPipeline
     {
-        public const string M14ReviewDirectory="Builds/M14MassSeeding20261012";
+        public const string M14ReviewDirectory="Builds/M14PlayerStart20261013";
         public static void BuildWindowsM14Review()
         {
             ValidateProductionBuildDirectory(M14ReviewDirectory);
@@ -28,7 +28,8 @@ namespace Biathlon.Unity
             File.Copy("Assets/Resources/Biathlon/G2ThirdPartyCredits.txt",Path.Combine(M14ReviewDirectory,"THIRD_PARTY_CREDITS.txt"),true);
             File.WriteAllText(Path.Combine(M14ReviewDirectory,"START_M14_TEST.cmd"),"@echo off\r\ncd /d \"%~dp0\"\r\nstart \"Biathlon M14\" \"%~dp0Biathlon.exe\" -force-d3d11 -screen-fullscreen 0 -screen-width 1920 -screen-height 1080\r\n");
             File.WriteAllText(Path.Combine(M14ReviewDirectory,"READ_ME_RU.txt"),
-                "BIATHLON — M14, тестовая сборка 12.10.2026\r\n\r\nЗапуск: START_M14_TEST.cmd. M14 готов к вашей проверке; окончательное закрытие после вашего решения.\r\n"+
+                "BIATHLON — M14, тестовая сборка 13.10.2026\r\n\r\nЗапуск: START_M14_TEST.cmd. M14 готов к вашей проверке; окончательное закрытие после вашего решения.\r\n"+
+                "Старт: отсчёт 3–2–1 до личного старта игрока. В преследовании и позднем спринте кнопка К старту / Enter / A на выбранном геймпаде пропускает ожидание до последних трёх секунд. Соперники продолжают обычную гонку; пауза Esc останавливает ожидание и перемотку.\r\n"+
                 "Масстарт: номер и физическое стартовое место назначаются по предгоночному рейтингу своей лиги. Игрок больше не получает №1 из-за порядка в сохранении. Номера идут справа налево по направлению старта. В Кубке мира первые 20 мест по общему зачёту, остальные по результатам текущего этапа; в лиге развития приоритет 15. Лига развития показывает жёлтую майку своего общего лидера; красная дисциплинарная и совмещённая майки применяются в Кубке мира. Старые повторы сохраняют прежний стартовый порядок.\r\n"+
                 "Погода: этапы теперь чередуют снегопад со свежим снегом, ясный мороз, облачность с обледенелым снегом и оттепель с влажным снегом. Прогноз показан перед стартом. Снег влияет на скольжение и сцепление, ветер — на выстрелы и флажки. Условия фиксированы на гонку и сохраняются в повторе. Уже существующая карьера получает погоду на следующем старте; новый профиль не нужен. Старые повторы используют прежние нейтральные условия.\r\n"+
                 "Национальные комбинезоны: NOR красный, SWE жёлтый, FIN светлый, GER графитовый, FRA синий, ITA зелёный. Цвет сохраняется в гонке и повторе. Кубок мира: жёлтая майка — лидер общего зачёта, красная — лидер дисциплины этой гонки, жёлто-красная — обе роли. Майки назначаются перед стартом по очкам и местам, а не по текущему месту на трассе. В новой карьере без результатов и в юниорской лиге этих маек Кубка мира нет.\r\n"+
@@ -41,7 +42,7 @@ namespace Biathlon.Unity
                 "Профили и повторы: %USERPROFILE%\\AppData\\LocalLow\\DefaultCompany\\Biathlon (точный путь указан в startup-smoke.json). Записи старых билдов не создаются задним числом.\r\n");
         }
         [Serializable]private sealed class M14BuildEvidence
-        {public int schema_version=1;public string id="m14_windows_review_20261012",result,unity,startup_scene=FrontEndAuthoring.ScenePath;public int errors,warnings;public ulong bytes;public double seconds;}
+        {public int schema_version=1;public string id="m14_windows_review_20261013",result,unity,startup_scene=FrontEndAuthoring.ScenePath;public int errors,warnings;public ulong bytes;public double seconds;}
     }
 }
 #endif

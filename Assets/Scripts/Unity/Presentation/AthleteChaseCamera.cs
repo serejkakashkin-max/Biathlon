@@ -24,6 +24,7 @@ namespace Biathlon.Unity.Presentation
         private bool initialized;
         private float requestedGrade,blendedGrade;
         public Transform Target=>target;
+        public void SnapToTarget(){initialized=false;Render(0);}
         public void SetTerrainGrade(float grade)
         {
             if(!float.IsFinite(grade)||Mathf.Abs(grade)>.5f)throw new ArgumentOutOfRangeException(nameof(grade));

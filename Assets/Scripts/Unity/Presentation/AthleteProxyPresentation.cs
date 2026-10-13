@@ -33,6 +33,14 @@ namespace Biathlon.Unity.Presentation
         private readonly Dictionary<string,string> careerSkis=new Dictionary<string,string>(StringComparer.Ordinal);
         private readonly Dictionary<string,string> careerNations=new Dictionary<string,string>(StringComparer.Ordinal);
         private CareerLeaderBibs careerBibs;
+        private string prestartAthleteId;
+        /// <summary>Show the selected skier waiting at the accepted launch pose.
+        /// Visibility never admits a body to the authoritative course early.</summary>
+        public void ShowPrestartAthlete(string athleteId)
+        {
+            if(string.IsNullOrWhiteSpace(athleteId)||!proxies.ContainsKey(athleteId))throw new ArgumentException("A presented stable athlete ID is required.");
+            prestartAthleteId=athleteId;Render(1);
+        }
         public void ConfigureCareerAppearance(CareerSave save,CareerCalendar calendar,CareerScoringDefinition scoring,CareerCalendarEvent race)
         {
             var leaders=CareerLeaderBibs.Capture(save,calendar,scoring,race);
@@ -74,7 +82,7 @@ namespace Biathlon.Unity.Presentation
                     throw new ArgumentException("A finite horizontal unit shooting direction is required.",nameof(shootingDirection));
                 direction=Quaternion.LookRotation(new Vector3(value.x,0,value.z).normalized,Vector3.up);
             }
-            Clear();careerSkis.Clear();careerNations.Clear();careerBibs=null;feed=source;visual=geometry;shootingRotation=direction;preserveAcceptedShootingLine=preserveAcceptedLine;
+            Clear();careerSkis.Clear();careerNations.Clear();careerBibs=null;prestartAthleteId=null;feed=source;visual=geometry;shootingRotation=direction;preserveAcceptedShootingLine=preserveAcceptedLine;
             rigPrefab=template;
             motionSettings=AthleteLocomotionSettings.Load();
             contactSettings=GroundContactSettings.Load();
@@ -106,7 +114,8 @@ namespace Biathlon.Unity.Presentation
                     proxies.Add(state.AthleteId,go);animation.Add(state.AthleteId,adapter);
                 }
                 bool finished=state.Phase==CompetitionPhase.Finished;
-                go.SetActive(state.OnCourse||finished);if(!state.OnCourse&&!finished)continue;var position=feed.Position(i,alpha);var route=visual.Get(position.LoopId);
+                bool waiting=state.Phase==CompetitionPhase.Prestart&&state.AthleteId==prestartAthleteId;
+                go.SetActive(state.OnCourse||finished||waiting);if(!state.OnCourse&&!finished&&!waiting)continue;var position=feed.Position(i,alpha);var route=visual.Get(position.LoopId);
                 double sampleDistance=position.LocalMeters,lateral=position.LateralMeters;
                 // Explicit physical mats preserve the accepted body center throughout setup,
                 // shooting and recovery. Legacy schematic adapters keep their previous pose.

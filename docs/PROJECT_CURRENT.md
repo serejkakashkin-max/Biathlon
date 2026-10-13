@@ -1,9 +1,9 @@
 # BIATHLON — latest operational state
 
-2026-10-12. G1/G2 approved. M13 closed by owner acceptance.
+2026-10-13. G1/G2 approved. M13 closed by owner acceptance.
 M14: **19/19 WPs implemented and verified; awaiting owner test/acceptance**.
 
-Current player build: `Builds/M14MassSeeding20261012/START_M14_TEST.cmd` (0 build errors/warnings; standalone startup/render passed).
+Current player build: `Builds/M14PlayerStart20261013/START_M14_TEST.cmd` (0 build errors/warnings; standalone startup/render passed).
 Previous accepted M13 build remains `Builds/WoodlandM13BotRecovery-20261011/START_WOODLAND_REVIEW.cmd`.
 
 Woodland keeps maximum 30 athletes, High default, separate start/finish, manual steering,
@@ -69,3 +69,5 @@ and standalone startup pass. Graphics quality, authority and balance unchanged.
 2026-10-12 weather correction complete: WP-181/182 bind shared career forecasts, physical snow, shooting wind and visible material variants; WP-192 records conditions and preserves legacy replay weather. 31 core plus 28 career/menu checks pass (7 overlapping), 6 Unity EditMode and 10 PlayMode checks pass. Full snowfall Sprint repeats exactly at 29,546 ticks. Windows build/startup pass; textures and High quality preserved. [Current weather build/report](reports/TASK_M14_WEATHER_20261012.md). M14 remains OPEN.
 
 2026-10-12 continued-career Mass Start correction: WP-181 ranked grid/bibs/first mats and pre-race start number; WP-189 circuit-specific leaders; WP-192 versioned start order and icy-weather solver during replay/seek COMPLETE. Read-only current development save: rank 7 -> start number 7, one yellow leader, no first-Mass red. 56 headless, 8 Unity EditMode and 3 PlayMode checks pass. Complete icy Mass30 repeats at 28,344 ticks. Build/startup pass with 0 errors/warnings. [Current seeding report/build](reports/TASK_M14_MASS_SEEDING_20261012.md). M14 remains OPEN.
+
+2026-10-13 personal-start correction COMPLETE: WP-182/191/192/194/196/197 now provide a personal 3–2–1, visible waiting player, bounded button/Enter skip to the final three seconds, full command recording and pause/input checks. .NET19 + Unity Edit9 / Play7 PASS. New Win64 test build has0 errors/warnings; standalone startup/render PASS. [Report](reports/TASK_M14_PLAYER_START_20261013.md). M14 remains OPEN pending owner testing.

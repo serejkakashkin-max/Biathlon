@@ -1,6 +1,6 @@
 # M14 — work-package status
 
-Updated 2026-10-12. M13 is closed by owner acceptance. All 19 M14 WPs are implemented and verified; M14 awaits owner build testing and acceptance.
+Updated 2026-10-13. M13 is closed by owner acceptance. All 19 M14 WPs are implemented and verified; M14 awaits owner build testing and acceptance.
 
 | WP | Status | Delivered |
 |---|---|---|
@@ -25,7 +25,7 @@ Updated 2026-10-12. M13 is closed by owner acceptance. All 19 M14 WPs are implem
 | 197 | COMPLETE | Native keyboard/gamepad menu navigation, career/race pause flows and replay seek/focus regression. |
 
 19 of 19 complete. No remaining M14 implementation WP. Owner acceptance is pending.
-Test build: `Builds/M14BurstReview20261012/START_M14_TEST.cmd` (0 build errors/warnings; standalone startup/render passed).
+Test build: `Builds/M14PlayerStart20261013/START_M14_TEST.cmd` (0 build errors/warnings; standalone startup/render passed).
 
 Latest evidence: [M14 completion report](reports/TASK_M14_COMPLETION_20261012.md),
 [recording/TV decision](adr/ADR-0058-m14-recorded-races-and-tv.md),
@@ -73,3 +73,5 @@ owner acceptance. [Report/build](reports/TASK_M14_NATION_BIBS_20261012.md).
 2026-10-12 weather correction: WP-181 forecast and physical snow, WP-182 live atmosphere/materials/shared shooting wind, WP-192 recorded weather and legacy compatibility COMPLETE. Six Unity EditMode + ten PlayMode checks pass; 31 core + 28 career/menu checks pass with 7 overlaps. Full snowfall Sprint determinism and build/startup pass. No implementation WP remains in progress for this request; M14 remains OPEN for owner testing. [Report/build](reports/TASK_M14_WEATHER_20261012.md).
 
 2026-10-12 Mass Start/leader correction COMPLETE: WP-181 seeded physical grid, bib/first mat and pre-race number; WP-189 development overall leader and World Cup discipline roles; WP-191/192 recorded start-order compatibility and icy-weather replay seek. Current save rank 7 maps to bib 7. 56 headless, 8 native EditMode and 3 PlayMode checks PASS; repeated icy Mass30, Windows build and startup PASS. No implementation WP remains in progress for this request; owner testing pending. M14 OPEN. [Report/build](reports/TASK_M14_MASS_SEEDING_20261012.md).
+
+2026-10-13 personal-start correction COMPLETE: WP-182/191/192/194/196/197 now provide a personal 3–2–1, visible waiting player, bounded button/Enter skip to the final three seconds, full command recording and pause/input checks. .NET19 + Unity Edit9 / Play7 PASS. New Win64 test build has0 errors/warnings; standalone startup/render PASS. [Report](reports/TASK_M14_PLAYER_START_20261013.md). M14 remains OPEN pending owner testing.
