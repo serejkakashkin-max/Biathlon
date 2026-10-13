@@ -150,6 +150,7 @@ namespace Biathlon.Unity.Presentation
                     SnowMaterialDefinition.Load().ConfigureBlended(Course.GroomedMaterial,definition.terrain.snow_material_preset,definition.terrain.snow_surface_profile);
                 }
                 GetComponent<CourseTimingPresentation>()?.GroundSupports(environment);
+                Proxies.GetComponent<SnowSprayPresentation>()?.ConfigureSurface(definition.terrain.snow_surface_profile);
                 Environment=environment;range.BindVenue(Venue,environment,Proxies.GetRig(Runner.Field.GetAthlete(PlayerIndex).AthleteId.Value));
             }
             catch{Destroy(environment);throw;}

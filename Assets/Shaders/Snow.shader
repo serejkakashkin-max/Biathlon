@@ -81,12 +81,17 @@ Shader "Biathlon/Snow"
             if(_DetailWeight>0)
             {
                 float2 detailUv=i.positionWS.xz/max(.1,_DetailMeters);
+                // Continuous macro crossfade between two rotated scan projections breaks tiling.
+                float2 alternateUv=float2(-detailUv.y,detailUv.x)*1.173+float2(.37,.61);
+                float mixDetail=smoothstep(.2,.8,macro)*.5;
                 float weight=_DetailWeight*dot(w,float4(1,.3,.08,.8));
-                half3 detailColor=SAMPLE_TEXTURE2D(_DetailAlbedo,sampler_DetailAlbedo,detailUv).rgb;
+                half3 detailColor=lerp(SAMPLE_TEXTURE2D(_DetailAlbedo,sampler_DetailAlbedo,detailUv).rgb,SAMPLE_TEXTURE2D(_DetailAlbedo,sampler_DetailAlbedo,alternateUv).rgb,mixDetail);
                 // Preserve the layer palette and avoid enlarging scanned ground debris into
                 // dark repeated route markings. Metre mapping is independent of the mesh UVs.
                 albedo*=lerp(1,.78+.35*detailColor,weight);
                 half3 detail=UnpackNormal(SAMPLE_TEXTURE2D(_DetailNormal,sampler_DetailNormal,detailUv));
+                half3 alternate=UnpackNormal(SAMPLE_TEXTURE2D(_DetailNormal,sampler_DetailNormal,alternateUv));
+                alternate.xy=float2(alternate.y,-alternate.x);detail=normalize(lerp(detail,alternate,mixDetail));
                 // Vertical snow edges can have an exact +/-X normal. Keep the existing
                 // X reference elsewhere, but use Z when its projected tangent degenerates.
                 float3 tangentProjection=float3(1,0,0)-n*n.x;

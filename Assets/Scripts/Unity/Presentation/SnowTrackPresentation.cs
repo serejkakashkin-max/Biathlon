@@ -12,6 +12,8 @@ namespace Biathlon.Unity.Presentation
         private GameObject drawing;
         private MeshRenderer rendererComponent;
         private Vector3[] vertices;
+        private Vector3[] normals;
+        private Vector4[] tangents;
         private Vector2[] uvs;
         private Color[] colors;
         private int[] indices;
@@ -23,6 +25,7 @@ namespace Biathlon.Unity.Presentation
             if(buffer!=null){Clear();return;}
             settings=SnowTrackSettings.Load();buffer=new SnowTrackBuffer(settings);
             vertices=new Vector3[settings.max_marks*4];uvs=new Vector2[vertices.Length];colors=new Color[vertices.Length];indices=new int[settings.max_marks*6];
+            normals=new Vector3[vertices.Length];tangents=new Vector4[vertices.Length];
             for(int i=0;i<settings.max_marks;i++)
             {
                 int v=i*4,t=i*6;uvs[v]=new Vector2(0,0);uvs[v+1]=new Vector2(1,0);uvs[v+2]=new Vector2(0,1);uvs[v+3]=new Vector2(1,1);
@@ -64,11 +67,15 @@ namespace Biathlon.Unity.Presentation
                 var side=Vector3.Cross(mark.Normal,mark.B-mark.A).normalized*(mark.Width*.5f);int v=visible*4;
                 vertices[v]=drawing.transform.InverseTransformPoint(mark.A-side);vertices[v+1]=drawing.transform.InverseTransformPoint(mark.A+side);
                 vertices[v+2]=drawing.transform.InverseTransformPoint(mark.B-side);vertices[v+3]=drawing.transform.InverseTransformPoint(mark.B+side);
-                var color=settings.color;color.a*=fade;for(int k=0;k<4;k++)colors[v+k]=color;visible++;
+                var color=settings.color;color.a*=fade;
+                var n=drawing.transform.InverseTransformDirection(mark.Normal);
+                var tangent=drawing.transform.InverseTransformDirection(side.normalized);
+                for(int k=0;k<4;k++){colors[v+k]=color;normals[v+k]=n;tangents[v+k]=new Vector4(tangent.x,tangent.y,tangent.z,1);}visible++;
             }
             VisibleMarks=visible;rendererComponent.enabled=visible>0;
             mesh.Clear(false);if(visible==0)return;
             mesh.SetVertices(vertices,0,visible*4);mesh.SetUVs(0,uvs,0,visible*4);mesh.SetColors(colors,0,visible*4);
+            mesh.SetNormals(normals,0,visible*4);mesh.SetTangents(tangents,0,visible*4);
             mesh.SetIndices(indices,0,visible*6,MeshTopology.Triangles,0);mesh.RecalculateBounds();
         }
         public void Clear(){buffer?.Clear();VisibleMarks=0;if(mesh!=null)mesh.Clear(false);if(rendererComponent!=null)rendererComponent.enabled=false;}

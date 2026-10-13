@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SnowDrift
+  m_Shader: {fileID: 4800000, guid: 9704845251a59bd4da0588040265d8b9, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _DetailAlbedo:
+        m_Texture: {fileID: 2800000, guid: 9ad2b2d973b07684bb466dbb3b82a214, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormal:
+        m_Texture: {fileID: 2800000, guid: 50971d63bb93da146af99ed69c3b45fa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailRoughness:
+        m_Texture: {fileID: 2800000, guid: f3fb50d1753b11243a8afc53bdfdfde5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlbedoVariation: 0.055
+    - _DetailMeters: 4
+    - _DetailNormalStrength: 0.45
+    - _DetailWeight: 0.8
+    - _GrainScale: 0.025
+    - _GroomSpacing: 0.04
+    - _MacroScale: 1.7
+    - _NormalStrength: 0.1
+    - _Roughness: 0.8
+    - _RoughnessVariation: 0.12
+    - _SlopeDarkening: 0.13
+    - _TerrainBlend: 0
+    m_Colors:
+    - _BaseColor: {r: 0.88, g: 0.9, b: 0.93, a: 1}
+    - _EdgeColor: {r: 0.74, g: 0.79, b: 0.82, a: 1}
+    - _IceColor: {r: 0.44, g: 0.59, b: 0.67, a: 1}
+    - _LayerNormals: {r: 0.12, g: 0.025, b: 0.28, a: 0}
+    - _LayerRoughness: {r: 0.58, g: 0.12, b: 0.9, a: 0}
+    - _PackedColor: {r: 0.68, g: 0.75, b: 0.8, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

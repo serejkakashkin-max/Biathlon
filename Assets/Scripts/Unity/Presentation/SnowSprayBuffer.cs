@@ -9,6 +9,8 @@ namespace Biathlon.Unity.Presentation
         public int schema_version,max_particles,max_emitters,ski_count,pole_count;
         public string id;
         public float interval_s,lifetime_s,near_distance_m,draw_distance_m,size_m,lift_mps,spread_mps,gravity_mps2,opacity;
+        public float push_min,edge_gain,attack_gain,fresh_gain,ice_gain;
+        public int performance_draw_budget,high_draw_budget,ultra_draw_budget;
         public static SnowSpraySettings Load()=>FromJson(Resources.Load<TextAsset>("Biathlon/snow_spray_v1").text);
         public static SnowSpraySettings FromJson(string json)
         {
@@ -18,6 +20,7 @@ namespace Biathlon.Unity.Presentation
             foreach(float v in new[]{d.interval_s,d.lifetime_s,d.near_distance_m,d.draw_distance_m,d.size_m,d.lift_mps,d.spread_mps,d.gravity_mps2,d.opacity})
                 if(!float.IsFinite(v)||v<=0)throw new ArgumentException("Invalid snow spray setting.");
             if(d.near_distance_m>=d.draw_distance_m||d.opacity>1||d.size_m>.1f||d.lifetime_s>2||d.interval_s<.02f)throw new ArgumentException("Excessive snow spray.");
+            if(d.push_min<=0||d.edge_gain<0||d.attack_gain<0||d.fresh_gain<1||d.fresh_gain>2||d.ice_gain<=0||d.ice_gain>1||d.performance_draw_budget<8||d.high_draw_budget<d.performance_draw_budget||d.ultra_draw_budget<d.high_draw_budget||d.ultra_draw_budget>d.max_particles)throw new ArgumentException("Invalid snow push/quality budgets.");
             return d;
         }
     }
@@ -54,10 +57,11 @@ namespace Biathlon.Unity.Presentation
             if(time<clock)Clear();if(time==clock)return;clock=time;ActiveCount=0;
             for(int i=0;i<particles.Length;i++){if(particles[i].Alive(time,settings.gravity_mps2))ActiveCount++;else particles[i]=default;}
         }
-        public void Sample(string id,int channel,Vector3 position,Vector3 normal,Vector3 forward,double time,bool contact,float speed,float distance,bool tuck=false)
+        public void Sample(string id,int channel,Vector3 position,Vector3 normal,Vector3 forward,double time,bool contact,float speed,float distance,bool tuck=false,float intensity=1)
         {
             if(string.IsNullOrWhiteSpace(id)||channel<0||channel>3||!Finite(position)||!Finite(normal)||!Finite(forward)||normal.sqrMagnitude<.1f||!float.IsFinite(speed)||!float.IsFinite(distance)||distance<0)
                 throw new ArgumentException("Invalid snow spray observation.");
+            if(!float.IsFinite(intensity)||intensity<0||intensity>2)throw new ArgumentException("Invalid snow push intensity.");
             Advance(time);var key=(id,channel);bool exists=emitters.TryGetValue(key,out var e);
             if(!exists){if(emitters.Count>=settings.max_emitters)return;e.Seed=HashId(id)^(uint)channel;}
             bool enabled=contact&&speed>.5f&&distance<settings.draw_distance_m;
@@ -68,7 +72,7 @@ namespace Biathlon.Unity.Presentation
             var side=Vector3.Cross(normal,forward).normalized;
             int count=distance<settings.near_distance_m?(pole?settings.pole_count:settings.ski_count):1;
             if(tuck&&!pole)count=1;
-            float strength=pole?1:Mathf.Lerp(.45f,1,Mathf.Clamp01(speed/10));if(tuck&&!pole)strength*=.4f;
+            float strength=(pole?1:Mathf.Lerp(.45f,1,Mathf.Clamp01(speed/10)))*intensity;if(tuck&&!pole)strength*=.4f;
             for(int i=0;i<count;i++)
             {
                 uint seed=e.Seed+e.Sequence++;float x=Unit(seed),y=Unit(seed+1031),z=Unit(seed+31337);

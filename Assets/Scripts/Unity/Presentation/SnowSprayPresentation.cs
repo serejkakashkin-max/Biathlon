@@ -15,12 +15,17 @@ namespace Biathlon.Unity.Presentation
         private Vector2[] uvs;
         private Color[] colors;
         private int[] indices;
+        private float surfaceGain=1;
+        private RenderQualityPresentation quality;
+        public void ConfigureSurface(string profile)
+        {if(settings==null)Initialize();surfaceGain=profile=="fresh_soft"?settings.fresh_gain:profile=="icy_fast"?settings.ice_gain:1;}
         public SnowSprayBuffer Buffer=>buffer;
         public int VisibleParticles {get;private set;}
         public void Initialize()
         {
             if(buffer!=null){Clear();return;}
             settings=SnowSpraySettings.Load();trackSettings=SnowTrackSettings.Load();buffer=new SnowSprayBuffer(settings);
+            quality=GetComponentInParent<RenderQualityPresentation>();
             vertices=new Vector3[settings.max_particles*4];uvs=new Vector2[vertices.Length];colors=new Color[vertices.Length];indices=new int[settings.max_particles*6];
             for(int i=0;i<settings.max_particles;i++)
             {
@@ -46,15 +51,20 @@ namespace Biathlon.Unity.Presentation
             {
                 float clearance=Vector3.Dot(point-root.position,normal);
                 var surface=point-normal*clearance+normal*trackSettings.surface_offset_m;
-                buffer.Sample(id,channel,surface,normal,root.forward,frame.TimeSeconds,active&&clearance>=-.02f&&clearance<=height,(float)state.SpeedMetersPerSecond,distance,state.TuckActive);
+                var hybrid=rig.GetComponent<AthleteHybridLocomotionDriver>();
+                float edge=hybrid!=null&&hybrid.Active?Mathf.Abs(channel==0?hybrid.LeftEdgeDegrees:hybrid.RightEdgeDegrees):0;
+                float push=channel>=2?1:settings.push_min+edge*settings.edge_gain+Mathf.Max(0,(float)state.Effort.DeliveredRelativeEffort-1)*settings.attack_gain;
+                var forward=channel==0?rig.Bone(AthleteBone.LeftFoot).forward:channel==1?rig.Bone(AthleteBone.RightFoot).forward:root.forward;
+                buffer.Sample(id,channel,surface,normal,forward,frame.TimeSeconds,active&&clearance>=-.02f&&clearance<=height,(float)state.SpeedMetersPerSecond,distance,state.TuckActive,Mathf.Clamp(push*surfaceGain,0,2));
             }
         }
         public void Render(double time,Camera camera)
         {
             buffer.Advance(time);int visible=0;
+            int budget=quality==null||quality.TierId=="high"?settings.ultra_draw_budget:quality.TierId=="balanced"?settings.high_draw_budget:settings.performance_draw_budget;
             var right=camera!=null?camera.transform.right:Vector3.right;var up=camera!=null?camera.transform.up:Vector3.up;
             var observer=camera!=null?camera.transform.position:transform.position;
-            for(int i=0;i<buffer.Capacity;i++)
+            for(int i=0;i<buffer.Capacity&&visible<budget;i++)
             {
                 var particle=buffer.Get(i);if(particle.Life<=0)continue;
                 var p=particle.Position(time,settings.gravity_mps2);float distance=Vector3.Distance(p,observer);if(distance>=settings.draw_distance_m)continue;

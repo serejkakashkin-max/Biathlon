@@ -6,6 +6,7 @@ namespace Biathlon.Unity.Presentation
     {
         public int schema_version,species_seed;
         public string id;
+        public string dressing_resource;
         public float pine_fraction;
         public static G2ForestComposition Load()
         {
