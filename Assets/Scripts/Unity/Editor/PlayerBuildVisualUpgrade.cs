@@ -1,0 +1,40 @@
+#if UNITY_EDITOR
+using System;
+using System.IO;
+using UnityEditor;
+using UnityEditor.Build.Reporting;
+using UnityEngine;
+namespace Biathlon.Unity
+{
+    public static partial class PlayerBuildPipeline
+    {
+        public static void BuildVisualUpgradeBaseline()=>BuildVisualUpgrade("Builds/M15_5_Baseline_Review");
+        public static void BuildVisualUpgradeFinal()=>BuildVisualUpgrade("Builds/M15_5_Visual_Review");
+        private static void BuildVisualUpgrade(string folder)
+        {
+            ValidateProductionBuildDirectory(folder);if(EditorApplication.isPlaying||EditorApplication.isCompiling)throw new InvalidOperationException("Idle editor required.");
+            FrontEndAuthoring.EnsurePanelTemplate();M15AudioAuthoring.EnsureSoundBank();Directory.CreateDirectory(folder);
+            WithProductionBuildProfiles(()=>
+            {
+                var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=new[]{FrontEndAuthoring.ScenePath,"Assets/Scenes/SkiMotionComparison.unity"},locationPathName=Path.Combine(folder,"Biathlon.exe"),target=BuildTarget.StandaloneWindows64,options=BuildOptions.Development});
+                var s=report.summary;File.WriteAllText(Path.Combine(folder,"build-summary.json"),JsonUtility.ToJson(new VisualBuildReceipt{result=s.result.ToString(),errors=s.totalErrors,warnings=s.totalWarnings,bytes=s.totalSize,seconds=s.totalTime.TotalSeconds,unity=Application.unityVersion},true));
+                if(s.result!=BuildResult.Succeeded)throw new InvalidOperationException("Visual build failed.");
+            });
+            File.Copy("Assets/Resources/Biathlon/G2ThirdPartyCredits.txt",Path.Combine(folder,"THIRD_PARTY_CREDITS.txt"),true);
+            foreach(string f in Directory.GetFiles("Assets/Resources/Biathlon/UI/Fonts","*OFL*.txt"))File.Copy(f,Path.Combine(folder,Path.GetFileName(f)),true);
+            File.WriteAllText(Path.Combine(folder,"START_TEST.cmd"),"@echo off\r\ncd /d \"%~dp0\"\r\nstart \"Biathlon visual review\" \"%~dp0Biathlon.exe\" -force-d3d11 -screen-fullscreen 0 -screen-width 1920 -screen-height 1080\r\n");
+            File.WriteAllText(Path.Combine(folder,"COMPARE_MOTION.cmd"),"@echo off\r\ncd /d \"%~dp0\"\r\nstart \"Biathlon motion comparison\" \"%~dp0Biathlon.exe\" -biathlonMotionLab -force-d3d11 -screen-fullscreen 0 -screen-width 1920 -screen-height 1080\r\n");
+            File.WriteAllText(Path.Combine(folder,"READ_ME.txt"),
+                "BIATHLON M15.5 — визуал и анимация, тестовая сборка\r\n\r\n"+
+                "START_TEST.cmd — обычная игра и существующая карьера.\r\n"+
+                "COMPARE_MOTION.cmd — сравнение движений: слева прежние, справа новые; 12 состояний.\r\n"+
+                "В настройках графики доступны Performance / High / Ultra. Текстуры и модель спортсмена общие.\r\n\r\n"+
+                "Проверьте коньковый ход, подъём, ускорение, лыжи/палки, стрельбу лёжа и стоя, снег и погоду.\r\n"+
+                "Существующие механики, баланс, управление, сохранения и звук в этом этапе не перенастраивались.\r\n"+
+                "Новые движения авторские и процедурные, не motion capture. Переход к M16 после вашей проверки.\r\n");
+        }
+        [Serializable]private sealed class VisualBuildReceipt
+        {public int schema_version=1;public string id="m15_5_visual_review",result,unity;public int errors,warnings;public ulong bytes;public double seconds;}
+    }
+}
+#endif

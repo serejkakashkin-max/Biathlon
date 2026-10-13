@@ -43,6 +43,8 @@ FBX → retain footage permission and export receipt → clean/retarget in local
 Blender to the 17-bone mapping. Disable root translation; verify cadence, ski
 contact and pole grips in the comparison scene before enabling it. This is an
 optional later source, not a prerequisite for this original motion upgrade.
+Exact optional file locations and the per-state provenance table are in
+`docs/M15_5_MOTION_PROVENANCE.md`.
 
 ## Baseline evidence
 
@@ -57,3 +59,26 @@ thread 3.491 ms, p95 5.203 ms; mean 682 draws, 115 setpass calls, 6.250M submitt
 triangles, 22,398 bytes GC/frame; loaded texture memory 235,226,738 bytes.
 GPU timers are unavailable (-1), not zero. This is not a 60 FPS gameplay claim.
 The earlier hidden-window measurement lacked rendering counters and is excluded.
+
+## Final verification corrections
+
+The initial full native run executed365 tests:355 passed and10 failed. Existing
+UI capture fixtures could sample before an elapsed-time entrance paint; route
+fixtures retained old start headings, departure effort, bolt commands and portal
+scale. These were corrected without dropping assertions. Static cold/wet snow
+materials were regenerated from the new authoritative visual definition.
+
+The complete dressing check then exposed pre-existing foundations/crowd/tape
+placements that no longer matched the actual current terrain. The first stand
+was moved12m into its flat pocket; other stand footings were sampled from the
+actual native footprint. All27 roadside crowd pockets were checked for course
+clearance and both boot contacts. Decorative tape footings were corrected within
+bounded nearby pockets; one identical fence was removed. Models, textures,
+terrain buffers and all authoritative paths are preserved. Reproduction script:
+`scripts/visual_upgrade_stadium_grounding.py`; native evidence is in
+`docs/quality/m15-5/verified-WoodlandCourseDressingTests.json`.
+
+Local `imageio-ffmpeg0.6.0` is used only to encode review recordings. Its binary
+and Python wrapper under `artifacts/tools/ffmpeg-runtime` are not shipped or
+committed as game assets. No new runtime art download, paid subscription or
+restricted-source import was required.
