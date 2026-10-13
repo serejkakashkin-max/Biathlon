@@ -60,7 +60,7 @@ namespace Biathlon.Unity.Presentation
         {
             if(feed!=null)throw new InvalidOperationException("Initialize HUD once.");
             if(source==null||string.IsNullOrWhiteSpace(selected))throw new ArgumentException("Feed and stable athlete ID required.");
-            feed=source;athleteId=selected;host=owner;debug=owner?.GetComponent<SkiDebugHud>();
+            feed=source;athleteId=selected;host=owner;debug=owner?.GetComponent<SkiDebugHud>();InitializeRangeBroadcast();
             theme=FrontEndTheme.Load();settings=GameplayHudSettings.Load();
             text=UiTextCatalog.FromJson(ProductionVenueHost.ReadResource("Biathlon/UI/front_end_text_v1"));
             foreground=FrostlineStyle.Ink;muted=FrostlineStyle.Muted;accent=FrostlineStyle.Accent;
@@ -137,6 +137,7 @@ namespace Biathlon.Unity.Presentation
             help=Text(helpPanel,"controls","",settings.caption_size);
             helpPanel.style.display=helpVisible?DisplayStyle.Flex:DisplayStyle.None;
             BuildBroadcast();
+            BuildRangeBroadcast();
             BuildReviewPanels();
             BuildPaceStart();
             Root.Query<VisualElement>().ForEach(v=>{v.pickingMode=PickingMode.Ignore;v.focusable=false;});Root.pickingMode=PickingMode.Ignore;
@@ -197,6 +198,7 @@ namespace Biathlon.Unity.Presentation
             Root.style.display=DisplayStyle.Flex;var a=snapshot.Get(selectedIndex);Model=new GameplayHudModel(a,text,Locale);RefreshCount++;
             RefreshShortBurst(a);
             RefreshBroadcast(snapshot);
+            RefreshRangeBroadcast(snapshot,selectedIndex);
             RefreshReviewPanels(a);
             clock.text=Model.Clock;lap.text=Model.Lap;timing.text=Model.Timing;phase.text=Model.Phase;history.text=Model.ShootingHistory;
             if(host?.WaitingForPlayerStart==true)clock.text=L("До старта ","Start in ")+Math.Ceiling(host.PlayerStartWaitSeconds)+L(" с"," s");
@@ -237,6 +239,6 @@ namespace Biathlon.Unity.Presentation
         }
         private void OnDisable(){if(documentObject!=null)documentObject.SetActive(false);}
         private void OnDestroy()
-        {if(documentObject!=null){documentObject.SetActive(false);Destroy(documentObject);}if(panel!=null)Destroy(panel);}
+        {if(feed!=null)feed.Published-=ObserveRangeBroadcast;if(documentObject!=null){documentObject.SetActive(false);Destroy(documentObject);}if(panel!=null)Destroy(panel);}
     }
 }

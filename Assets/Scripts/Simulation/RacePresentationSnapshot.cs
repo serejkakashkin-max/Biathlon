@@ -12,6 +12,8 @@ namespace Biathlon.Simulation
         public double LateralMeters { get; }
         public double SpeedMetersPerSecond { get; }
         public double ElapsedSeconds { get; }
+        public double RouteMeters { get; }
+        public int LastCompletedBoutClosedMask { get; }
         public double StartCountdownSeconds { get; }
         public ManualSkiHeadingState WorldPose {get;}
         public SkiPlanarVelocity WorldVelocity {get;}
@@ -61,7 +63,8 @@ namespace Biathlon.Simulation
             var a=field.GetAthlete(index);var point=field.GetPhysicalPoint(index);var shooting=a.ActiveShooting;
             AthleteId=a.AthleteId.Value;LoopId=point.LoopId;LocalNanometers=point.LocalNanometers;LateralMeters=field.GetLateral(index);
             SpeedMetersPerSecond=a.Motion.SpeedMetersPerSecond;Physiology=a.PhysiologyState;Phase=a.Lifecycle.Phase;
-            ElapsedSeconds=a.Lifecycle.LastFrame.ElapsedSeconds;
+            ElapsedSeconds=a.Lifecycle.LastFrame.ElapsedSeconds;RouteMeters=a.RouteNanometers/(double)SkiState.NanometersPerMeter;
+            LastCompletedBoutClosedMask=a.Lifecycle.CompletedBouts>0?a.GetBoutClosedMask(a.Lifecycle.CompletedBouts-1):0;
             StartCountdownSeconds=Math.Max(0,(a.ScheduledStart.Value-field.Tick.Value)/(double)field.TickFrequency);
             var world=field.HasManualWorldState&&!field.HasManualScopedWorldState?field.GetManualWorldActor(index):default;
             var scoped=field.HasManualScopedWorldState?field.GetManualScopedWorldActor(index):default;

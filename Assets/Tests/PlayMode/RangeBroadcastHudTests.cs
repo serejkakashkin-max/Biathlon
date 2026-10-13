@@ -1,0 +1,93 @@
+using System;
+using System.Collections;
+using System.IO;
+using System.Reflection;
+using Biathlon.AI;
+using Biathlon.Career;
+using Biathlon.Domain;
+using Biathlon.Presentation;
+using Biathlon.Simulation;
+using Biathlon.Unity.Presentation;
+using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.TestTools;
+using UnityEngine.UIElements;
+using Object=UnityEngine.Object;
+
+namespace Biathlon.PlayModeTests
+{
+    public sealed class RangeBroadcastHudTests
+    {
+        private sealed class Store:ICareerProfileStore
+        {private string json;public bool HasProfile=>json!=null;public string ReadLatest()=>json;public void WriteNew(string id,string value)=>json=value;public void Replace(string id,string expected,string value){Assert.That(json,Is.EqualTo(expected));json=value;}}
+        private GameObject root,race;
+        [TearDown]public void Cleanup(){if(race!=null)Object.DestroyImmediate(race);if(root!=null)Object.DestroyImmediate(root);if(BiathlonAudio.Instance!=null)Object.DestroyImmediate(BiathlonAudio.Instance.gameObject);}
+        private static string Read(string file)=>ProductionVenueHost.ReadResource("Biathlon/"+Path.GetFileNameWithoutExtension(file));
+        [UnityTest,Timeout(240000)]public IEnumerator ActualCareerMassStartShowsFlagsMissFlashAndPersistentSeriesInCompactPanels()
+        {
+            root=new GameObject("Range board isolated career");var menu=root.AddComponent<FrontEndMenu>();menu.AutoStart=false;menu.PersistPreferences=false;menu.Initialize(new Store());
+            menu.Session.OpenNewCareer();menu.Session.CreateCareer("range_board_test","Алекс Северин","NOR",11);
+            for(int i=0;i<5;i++)menu.Session.RestWeek();menu.Session.OpenPreRace();var week=menu.Session.PreparedWeek;
+            CareerCalendarEvent mass=null;for(int w=1;w<=52;w++){var e=menu.Session.Definitions.Calendar.AtWeek(w);if(e?.Format==CompetitionFormat.MassStart){mass=e;break;}}
+            var prepared=new CareerRaceProvider(Read,menu.Session.Definitions,ProductionVenueHost.ReadResource).Prepare(CareerSave.FromJson(week.RaceSnapshotJson),mass,week.RaceSeed);
+            race=new GameObject("Range board production field");var host=race.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;host.InitializeCareer(prepared);
+            var hud=host.GameplayHud;hud.SetBroadcastRoster(menu.Session.Career);host.Proxies.ConfigureCareerAppearance(menu.Session.Career,menu.Session.Definitions.Calendar,menu.Session.Definitions.Scoring,mass);
+            menu.gameObject.SetActive(false);bool opened=false,flashed=false,completed=false,closed=false;int ticks=0;
+            while(ticks++<16000&&!closed)
+            {
+                host.Runner.Step();var s=RacePresentationSnapshot.Capture(host.Runner.Field);host.Feed.Publish(s);hud.Refresh();
+                var player=s.Get(host.PlayerIndex);var row=hud.RangeBroadcast.Get(host.PlayerIndex);
+                if(!opened&&hud.RangeBroadcastVisible){opened=true;Assert.That(player.RouteMeters,Is.GreaterThanOrEqualTo(505.553));}
+                if(hud.RangeBroadcastVisible&&hud.RangeBroadcastRows>0&&!flashed)
+                {
+                    for(int i=0;i<hud.RangeBroadcastRows;i++)
+                    {
+                        var r=hud.RangeBroadcast.Get(hud.RangeBroadcast.Displayed(i));
+                        if(!r.Flashing(s.Tick,s.TickFrequency,1))continue;
+                        flashed=true;var strip=hud.Root.Q<RangeTargetStrip>("range_rival_targets_"+i);
+                        Assert.That(strip.Misses,Is.GreaterThan(0));Assert.That(hud.Root.Q("range_rival_"+i).style.backgroundColor.value.r,Is.GreaterThan(.3));
+                        var flag=hud.Root.Q("range_rival_"+i).Q<NationFlagGraphic>();Assert.That(flag.Nation,Is.Not.Empty);
+                        yield return Capture(hud,1920,1080,"ru",0,"range-board-ru");
+                        yield return Capture(hud,1024,768,"en",2,"range-board-en-large");
+                        var seen=new System.Collections.Generic.HashSet<int>();int total=hud.RangeBroadcast.Select(0,host.PlayerIndex);
+                        for(int page=0;page<host.Runner.Field.Count;page++)
+                        {
+                            int count=hud.RangeBroadcast.SelectVisible(total,host.PlayerIndex,s.Tick+(long)(s.TickFrequency*5*page),s.TickFrequency,8);
+                            for(int slot=0;slot<count;slot++)seen.Add(hud.RangeBroadcast.Displayed(slot));
+                        }
+                        Assert.That(seen.Count,Is.EqualTo(total),"Every rival is reachable through automatic pages.");break;
+                    }
+                }
+                if(player.CompletedBouts==1&&!player.ShootingActive&&!completed)
+                {
+                    completed=true;Assert.That(row.Shots,Is.EqualTo(5));Assert.That(row.ClosedMask,Is.EqualTo(player.LastCompletedBoutClosedMask));
+                    Assert.That(hud.RangeBroadcastVisible,Is.True,"Completed series stays visible after leaving the mat, including penalty transit.");
+                }
+                if(opened&&completed&&player.RouteMeters>1160.005){closed=true;Assert.That(hud.RangeBroadcastVisible,Is.False);}
+                if(ticks%100==0)yield return null;
+            }
+            Assert.That(opened&&flashed&&completed&&closed,Is.True,$"opened={opened},flash={flashed},completed={completed},closed={closed},tick={ticks}");
+            long before=host.Runner.Field.Tick.Value;for(int i=0;i<100;i++)hud.Refresh();Assert.That(host.Runner.Field.Tick.Value,Is.EqualTo(before));
+            string folder=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/range-broadcast"));Directory.CreateDirectory(folder);
+            File.WriteAllText(Path.Combine(folder,"actual-field.json"),"{\"schema_version\":1,\"id\":\"range_broadcast_mass30\",\"athletes\":"+host.Runner.Field.Count+",\"tick\":"+before+",\"automatic_window\":true,\"miss_flash\":true,\"completed_series_preserved\":true,\"authority_read_only\":true}");
+        }
+        private static IEnumerator Capture(GameplayHud hud,int width,int height,string locale,int size,string name)
+        {
+            var panel=(PanelSettings)typeof(GameplayHud).GetField("panel",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(hud);
+            var target=new RenderTexture(width,height,24);target.Create();panel.targetTexture=target;Texture2D pixels=null;var prior=RenderTexture.active;
+            try
+            {
+                hud.SetPreferences(locale,size);yield return null;yield return null;yield return null;
+                var board=hud.Root.Q("range_broadcast");var bounds=board.worldBound;var screen=hud.Root.worldBound;
+                Assert.That(bounds.xMin,Is.GreaterThan(screen.center.x+30));Assert.That(bounds.xMax,Is.LessThanOrEqualTo(screen.xMax));
+                Assert.That(bounds.yMax,Is.LessThan(hud.Root.Q("condition_panel").worldBound.yMin-12));
+                Assert.That(bounds.yMin,Is.GreaterThan(hud.Root.Q("help_hint").worldBound.yMax));
+                board.Query<VisualElement>().ForEach(v=>Assert.That(v.pickingMode,Is.EqualTo(PickingMode.Ignore)));
+                foreach(var strip in board.Query<RangeTargetStrip>().ToList())Assert.That(strip.worldBound.xMax,Is.LessThanOrEqualTo(bounds.xMax));
+                RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
+                string folder=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/range-broadcast"));Directory.CreateDirectory(folder);File.WriteAllBytes(Path.Combine(folder,name+".png"),pixels.EncodeToPNG());
+            }
+            finally{panel.targetTexture=null;RenderTexture.active=prior;if(pixels!=null)Object.DestroyImmediate(pixels);target.Release();Object.DestroyImmediate(target);}
+        }
+    }
+}
