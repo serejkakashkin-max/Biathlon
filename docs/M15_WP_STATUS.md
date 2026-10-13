@@ -21,3 +21,5 @@ this completion does not assert owner approval of the artistic mix.
 Evidence: [M15 delivery report](reports/TASK_M15_AUDIO_20261013.md).
 
 2026-10-13 owner follow-up: WP-199/204/205 refinements COMPLETE; menu music, softened pole Foley and WP-182 Mass Start countdown correction. Latest build: Builds/M15_Audio_Refinement_Review/START_M15_TEST.cmd. See reports/TASK_M15_AUDIO_REFINEMENT_20261013.md. Owner listening test is next.
+
+2026-10-13 next owner UI task COMPLETE: contextual rival shooting board, M14 WP-182/183 follow-up. Latest build Builds/Range_Broadcast_Review/START_TEST.cmd; report reports/TASK_RANGE_BROADCAST_20261013.md. M15 audio retained, M16 not started.
