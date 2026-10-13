@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "id": "m15_5_render_comparison",
+  "method": "matched1920x1080 URP SingleCameraRequest,30athletes,2588trees,Ultra,noHUDorSwapchain",
+  "results": {
+    "before-verified": {
+      "wall_ms": {
+        "mean": 3.7994608331549293,
+        "p95": 5.569699686020613,
+        "max": 6.472399458289146,
+        "valid": 240
+      },
+      "cpu_main_ms": {
+        "mean": 3.77337,
+        "p95": 5.5565,
+        "max": 6.4597,
+        "valid": 240
+      },
+      "cpu_render_ms": null,
+      "gpu_ms": null,
+      "draw_calls": {
+        "mean": 673.2791666666667,
+        "p95": 714,
+        "max": 717,
+        "valid": 240
+      },
+      "setpass_calls": {
+        "mean": 113.61666666666666,
+        "p95": 117,
+        "max": 118,
+        "valid": 240
+      },
+      "triangles": {
+        "mean": 6220863.4875,
+        "p95": 6307439,
+        "max": 6457581,
+        "valid": 240
+      },
+      "gc_bytes": {
+        "mean": 7585.575,
+        "p95": 22266,
+        "max": 54970,
+        "valid": 240
+      },
+      "used_memory_bytes": {
+        "mean": 4950400087.429167,
+        "p95": 4951710039,
+        "max": 4951818351,
+        "valid": 240
+      },
+      "animation_ms": {
+        "mean": 0.40110083333333335,
+        "max": 0.654
+      },
+      "texture_bytes": 235226738
+    },
+    "after-final": {
+      "wall_ms": {
+        "mean": 3.864296259901797,
+        "p95": 5.826899316161871,
+        "max": 6.806894671171904,
+        "valid": 240
+      },
+      "cpu_main_ms": {
+        "mean": 3.8368045833333335,
+        "p95": 5.8129,
+        "max": 6.7912,
+        "valid": 240
+      },
+      "cpu_render_ms": null,
+      "gpu_ms": null,
+      "draw_calls": {
+        "mean": 677.7666666666667,
+        "p95": 720,
+        "max": 731,
+        "valid": 240
+      },
+      "setpass_calls": {
+        "mean": 118.63333333333334,
+        "p95": 122,
+        "max": 123,
+        "valid": 240
+      },
+      "triangles": {
+        "mean": 6219296.6875,
+        "p95": 6316892,
+        "max": 6491413,
+        "valid": 240
+      },
+      "gc_bytes": {
+        "mean": 7584.6625,
+        "p95": 22266,
+        "max": 54970,
+        "valid": 240
+      },
+      "used_memory_bytes": {
+        "mean": 4958457305.4625,
+        "p95": 4959804886,
+        "max": 4959929374,
+        "valid": 240
+      },
+      "animation_ms": {
+        "mean": 0.43734083333333335,
+        "max": 0.5411
+      },
+      "texture_bytes": 242219578
+    }
+  }
+}

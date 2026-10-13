@@ -81,6 +81,7 @@ namespace Biathlon.Unity.Presentation
             host.ChaseCamera.GetComponent<AthleteChaseCamera>().enabled=false;
             long textureBytes=0;foreach(var texture in Resources.FindObjectsOfTypeAll<Texture>())textureBytes+=UnityEngine.Profiling.Profiler.GetRuntimeMemorySizeLong(texture);receipt.texture_bytes=(int)Math.Min(int.MaxValue,textureBytes);
             var rig=host.Proxies.GetRig(host.Runner.Field.GetAthlete(0).AthleteId.Value);var camera=host.ChaseCamera;
+            var atmospherePosition=camera.transform.position;var atmosphereRotation=camera.transform.rotation;float atmosphereFov=camera.fieldOfView;
             yield return Capture("09-forest-course");
             var world=rig.ModelRoot.position;camera.fieldOfView=52;camera.transform.position=world+new Vector3(65,48,-70);camera.transform.LookAt(world+Vector3.up*2);yield return Capture("10-race-environment");
             // Matched pose/gallery cases; same phase, rig, FOV and lighting in both builds.
@@ -109,6 +110,7 @@ namespace Biathlon.Unity.Presentation
                 yield return Capture(new[]{"01-hero-front","02-hero-side","03-hero-back","04-flat-skate","05-uphill-skate","06-fast-corner","07-finish-sprint","08-skis-and-tracks"}[shot]);
             }
             // Five atmospheric looks on the same production camera; gameplay weather is unchanged.
+            camera.transform.SetPositionAndRotation(atmospherePosition,atmosphereRotation);camera.fieldOfView=atmosphereFov;
             foreach(string atmosphere in receipt.phase.StartsWith("before",StringComparison.Ordinal)?new[]{"clear","overcast","snowfall"}:new[]{"clear","overcast","light_snow","snowfall","winter_haze"})
             {host.Environment.SetAtmosphereForReview(atmosphere);yield return Capture("atmosphere-"+atmosphere);}
             host.Environment.SetAtmosphereForReview(null);
