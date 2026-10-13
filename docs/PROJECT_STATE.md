@@ -25069,3 +25069,10 @@ gaps; visual fixtures omit environment dressing. Delivered venue/quality assets
 are unchanged. Next owner test: continued-career Pursuit with a nonzero gap,
 ordinary waiting versus Enter/button skip, personal3–2–1 and rivals' head start.
 Remote publication is recorded separately after push verification.
+
+## 2026-10-13 — M14 personal-start publication receipt
+
+Implementation, tests, ADR0065, current/WP state and build/startup evidence pushed to
+origin/codex/wp-078-ai-pack at verified source commit 7ee460c625c87dc6661ae76ad2ceb0da840ca8b9.
+Remote head equals local source commit. Test build remains Builds/M14PlayerStart20261013/START_M14_TEST.cmd.
+M14 remains OPEN; next step is owner Pursuit testing/acceptance.
