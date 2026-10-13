@@ -4,6 +4,7 @@ using System.Globalization;
 using Biathlon.Career;
 using Biathlon.Presentation;
 using Biathlon.Simulation;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Biathlon.Unity.Presentation
@@ -14,6 +15,9 @@ namespace Biathlon.Unity.Presentation
         private VisualElement broadcastPanel;
         private Label broadcastTitle;
         private Label[] broadcastRows;
+        private Label[] broadcastRanks,broadcastGaps,broadcastShots;
+        private VisualElement[] broadcastCards;
+        private NationFlagGraphic[] broadcastFlags;
         private int[] broadcastOrder;
         private readonly Dictionary<string,string> broadcastNames=new Dictionary<string,string>(StringComparer.Ordinal);
         private readonly Dictionary<string,string> broadcastNations=new Dictionary<string,string>(StringComparer.Ordinal);
@@ -24,9 +28,21 @@ namespace Biathlon.Unity.Presentation
         private void BuildBroadcast()
         {
             var policy=ReplayPresentationSettings.Load();broadcastRows=new Label[policy.tv_rows];
+            broadcastRanks=new Label[policy.tv_rows];broadcastGaps=new Label[policy.tv_rows];broadcastShots=new Label[policy.tv_rows];
+            broadcastCards=new VisualElement[policy.tv_rows];broadcastFlags=new NationFlagGraphic[policy.tv_rows];
             broadcastPanel=Card("live_tv",true,true,settings.left_width);broadcastPanel.style.top=settings.edge+120*Scale;
             broadcastTitle=Text(broadcastPanel,"live_tv_title","",settings.caption_size,true);
-            for(int i=0;i<broadcastRows.Length;i++)broadcastRows[i]=Text(broadcastPanel,"live_tv_row_"+i,"",settings.caption_size);
+            broadcastTitle.style.color=accent;
+            for(int i=0;i<broadcastRows.Length;i++)
+            {
+                var card=new VisualElement{name="live_tv_card_"+i};card.style.paddingTop=4;card.style.paddingBottom=3;card.style.borderBottomWidth=1;card.style.borderBottomColor=new Color(1,1,1,.09f);broadcastPanel.Add(card);broadcastCards[i]=card;
+                var line=Row(card);
+                broadcastRanks[i]=Text(line,"live_tv_rank_"+i,"",settings.body_size,true);broadcastRanks[i].style.width=25*Scale;broadcastRanks[i].style.flexShrink=0;
+                var flag=new NationFlagGraphic("");flag.style.width=23*Scale;flag.style.height=15*Scale;flag.style.marginRight=6;line.Add(flag);broadcastFlags[i]=flag;
+                broadcastRows[i]=Text(line,"live_tv_row_"+i,"",settings.caption_size);broadcastRows[i].style.flexGrow=1;broadcastRows[i].style.flexBasis=0;broadcastRows[i].style.minWidth=0;broadcastRows[i].style.whiteSpace=WhiteSpace.NoWrap;broadcastRows[i].style.overflow=Overflow.Hidden;broadcastRows[i].style.textOverflow=TextOverflow.Ellipsis;
+                broadcastGaps[i]=Text(line,"live_tv_gap_"+i,"",settings.body_size,true);broadcastGaps[i].style.width=57*Scale;broadcastGaps[i].style.flexShrink=0;broadcastGaps[i].style.unityTextAlign=TextAnchor.MiddleRight;broadcastGaps[i].style.color=FrostlineStyle.Gold;
+                broadcastShots[i]=Text(card,"live_tv_shots_"+i,"",settings.caption_size);broadcastShots[i].style.marginLeft=31*Scale;broadcastShots[i].style.color=muted;
+            }
             broadcastPanel.style.display=BroadcastVisible?DisplayStyle.Flex:DisplayStyle.None;
         }
         private void RefreshBroadcast(RacePresentationSnapshot s)
@@ -43,14 +59,17 @@ namespace Biathlon.Unity.Presentation
             broadcastTitle.text=text.Text(s.Complete?"tv.results":"tv.checkpoint",Locale);
             for(int i=0;i<broadcastRows.Length;i++)
             {
-                broadcastRows[i].style.display=i<s.Count?DisplayStyle.Flex:DisplayStyle.None;if(i>=s.Count)continue;
+                broadcastCards[i].style.display=i<s.Count?DisplayStyle.Flex:DisplayStyle.None;if(i>=s.Count)continue;
                 var a=s.Get(broadcastOrder[i]);string name=broadcastNames.TryGetValue(a.AthleteId,out var n)?n:a.AthleteId;
                 string rank=a.Hud.Rank>0?a.Hud.Rank.ToString(CultureInfo.InvariantCulture):"—";
                 string gap=a.Hud.GapSeconds.HasValue?"+"+a.Hud.GapSeconds.Value.ToString("0.0",CultureInfo.InvariantCulture):"—";
                 string shots=a.Hud.ShootingResults;
                 if(a.ShootingActive){shots="";for(int j=0;j<5;j++)shots+=(a.ClosedTargetsMask&(1<<j))!=0?"●":"○";}
                 string penalty=a.PendingPenaltyLoops>0?" · "+string.Format(text.Text("tv.penalties",Locale),a.PendingPenaltyLoops):"";
-                broadcastRows[i].text=rank+"  "+name+"  "+gap+"\n"+shots+penalty;
+                broadcastRows[i].text=name;broadcastRows[i].tooltip=name;broadcastRanks[i].text=rank;broadcastGaps[i].text=gap;broadcastShots[i].text=shots+penalty;
+                broadcastFlags[i].SetNation(broadcastNations.TryGetValue(a.AthleteId,out var nation)?nation:"");
+                bool player=a.AthleteId==athleteId;broadcastCards[i].style.backgroundColor=player?new Color(accent.r,accent.g,accent.b,.12f):Color.clear;
+                broadcastRanks[i].style.color=player?accent:foreground;
             }
         }
     }

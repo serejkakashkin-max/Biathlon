@@ -13,9 +13,9 @@ namespace Biathlon.Unity.Presentation
         {var grid=new VisualElement{name=id};grid.style.flexDirection=FlexDirection.Row;grid.style.flexWrap=Wrap.Wrap;grid.style.justifyContent=Justify.SpaceBetween;parent.Add(grid);return grid;}
         private VisualElement Tile(VisualElement parent,string id="",bool dark=false)
         {
-            var tile=new VisualElement{name=id};tile.style.backgroundColor=dark?FrontEndTheme.Color(theme.ink):Color.white;
+            var tile=new VisualElement{name=id};FrostlineStyle.SurfaceCard(tile,dark);
             tile.style.paddingTop=tile.style.paddingBottom=18;tile.style.paddingLeft=tile.style.paddingRight=20;
-            tile.style.marginBottom=14;tile.style.borderTopLeftRadius=tile.style.borderTopRightRadius=tile.style.borderBottomLeftRadius=tile.style.borderBottomRightRadius=12;
+            tile.style.marginBottom=14;
             parent.Add(tile);return tile;
         }
         private void MetricStrip(VisualElement parent,params string[] pairs)

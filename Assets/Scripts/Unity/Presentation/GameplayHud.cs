@@ -52,6 +52,7 @@ namespace Biathlon.Unity.Presentation
         private readonly Label[] targets=new Label[5];
         private double nextRefresh;
         private Color foreground,muted,accent;
+        private bool reducedMotion;
         private float Scale=>TextSizeIndex==0?1:TextSizeIndex==1?1.15f:1.3f;
         private string T(string key)=>text.Text("hud."+key,Locale);
 
@@ -62,7 +63,7 @@ namespace Biathlon.Unity.Presentation
             feed=source;athleteId=selected;host=owner;debug=owner?.GetComponent<SkiDebugHud>();
             theme=FrontEndTheme.Load();settings=GameplayHudSettings.Load();
             text=UiTextCatalog.FromJson(ProductionVenueHost.ReadResource("Biathlon/UI/front_end_text_v1"));
-            foreground=FrontEndTheme.Color(theme.paper);muted=FrontEndTheme.Color(settings.muted);accent=FrontEndTheme.Color(settings.accent);
+            foreground=FrostlineStyle.Ink;muted=FrostlineStyle.Muted;accent=FrostlineStyle.Accent;
             panel=FrontEndPanelSettings.Create();panel.name=settings.id;
             panel.themeStyleSheet=Resources.Load<ThemeStyleSheet>("Biathlon/UI/front_end");
             panel.scaleMode=PanelScaleMode.ScaleWithScreenSize;panel.referenceResolution=new Vector2Int(theme.reference_width,theme.reference_height);
@@ -81,12 +82,13 @@ namespace Biathlon.Unity.Presentation
         private void Build()
         {
             Root.Clear();Root.style.flexGrow=1;
+            reducedMotion=PlayerPrefs.GetInt("biathlon.ui.reduced_motion",0)!=0;FrostlineStyle.Apply(Root,reducedMotion);
             timingPanel=Card("timing_panel",true,true,settings.left_width);
             var line=Row(timingPanel);
             clock=Text(line,"race_clock","",settings.number_size,true);
-            clock.style.unityFontStyleAndWeight=FontStyle.BoldAndItalic;
+            FrostlineStyle.Text(clock,true);
             lap=Text(line,"lap","",settings.caption_size,true);lap.style.color=accent;
-            timing=Text(timingPanel,"timing","",settings.caption_size);
+            timing=Text(timingPanel,"timing","",settings.caption_size);timing.style.color=muted;
             phase=Text(timingPanel,"phase","",settings.caption_size);phase.style.color=FrontEndTheme.Color(settings.warning);
 
             conditionPanel=Card("condition_panel",false,false,settings.right_width);
@@ -95,13 +97,15 @@ namespace Biathlon.Unity.Presentation
             pulseTrace=new PulseTraceGraphic(accent);pulse.Add(pulseTrace);
             Text(pulse,"pulse_caption","BPM",settings.caption_size).style.color=muted;
             heart=Text(pulse,"heart_rate","",settings.body_size,true);
-            heart.style.fontSize=22*Scale;heart.style.unityFontStyleAndWeight=FontStyle.BoldAndItalic;
+            heart.style.fontSize=26*Scale;FrostlineStyle.Text(heart,true);
             reserve=Text(conditionPanel,"reserve","",settings.caption_size);reserveFill=Bar(conditionPanel,"reserve_bar",accent);
             fatigue=Text(conditionPanel,"fatigue","",settings.caption_size);fatigueFill=Bar(conditionPanel,"fatigue_bar",muted);
             wind=Text(conditionPanel,"wind","",settings.caption_size);wind.style.color=muted;
 
             motionPanel=Card("motion_panel",true,false,settings.speed_width);
-            speed=Text(motionPanel,"speed","",settings.number_size,true);speed.style.unityFontStyleAndWeight=FontStyle.BoldAndItalic;
+            var speedLine=Row(motionPanel);speedLine.style.alignItems=Align.FlexEnd;
+            speed=Text(speedLine,"speed","",settings.number_size+7,true);FrostlineStyle.Text(speed,true);
+            var speedUnit=Text(speedLine,"speed_unit",L("км/ч","km/h"),settings.caption_size);speedUnit.style.color=muted;
 
             shootingPanel=Card("shooting_panel",true,false,settings.left_width);
             var heading=Row(shootingPanel);
@@ -118,6 +122,7 @@ namespace Biathlon.Unity.Presentation
                 target.style.borderLeftColor=target.style.borderRightColor=target.style.borderTopColor=target.style.borderBottomColor=foreground;
             }
             weapon=Text(shootingPanel,"weapon","",settings.body_size,true);
+            weapon.style.color=accent;
             breath=Text(shootingPanel,"breath","",settings.caption_size);breath.style.color=muted;
             breathFill=Bar(shootingPanel,"breath_bar",accent);
 
@@ -134,10 +139,10 @@ namespace Biathlon.Unity.Presentation
             BuildReviewPanels();
             BuildPaceStart();
             Root.Query<VisualElement>().ForEach(v=>{v.pickingMode=PickingMode.Ignore;v.focusable=false;});Root.pickingMode=PickingMode.Ignore;
-            startWaitSkip.pickingMode=PickingMode.Position;startWaitSkip.focusable=true;
+            startWaitSkip.pickingMode=PickingMode.Ignore;startWaitSkip.focusable=false;
         }
         public void SetAccessibility(bool contrast)
-        {HighContrast=contrast;muted=contrast?Color.white:FrontEndTheme.Color(settings.muted);Build();rendered=null;Refresh();}
+        {HighContrast=contrast;muted=contrast?Color.white:FrostlineStyle.Muted;Build();rendered=null;Refresh();}
         private VisualElement Row(VisualElement parent)
         {
             var row=new VisualElement();row.style.flexDirection=FlexDirection.Row;
@@ -149,26 +154,31 @@ namespace Biathlon.Unity.Presentation
             card.style.width=width*Scale;card.style.maxWidth=new Length(40,LengthUnit.Percent);
             if(left)card.style.left=settings.edge;else card.style.right=settings.edge;
             if(top)card.style.top=settings.edge;else card.style.bottom=settings.edge;
-            card.style.backgroundColor=HighContrast?Color.black:FrontEndTheme.Color(settings.background);
-            card.style.borderTopWidth=1;card.style.borderTopColor=new Color(.55f,.82f,.87f,.38f);
+            card.style.backgroundColor=HighContrast?Color.black:new Color(FrostlineStyle.Deep.r,FrostlineStyle.Deep.g,FrostlineStyle.Deep.b,.92f);
+            card.style.borderLeftWidth=2;card.style.borderLeftColor=accent;
+            card.style.borderTopWidth=1;card.style.borderTopColor=new Color(.55f,.82f,.87f,.18f);
             card.style.paddingTop=card.style.paddingBottom=settings.panel_padding;
             card.style.paddingLeft=card.style.paddingRight=settings.panel_padding+2;
-            card.style.borderTopLeftRadius=card.style.borderTopRightRadius=card.style.borderBottomLeftRadius=card.style.borderBottomRightRadius=settings.corner_radius;
+            card.style.borderTopLeftRadius=card.style.borderTopRightRadius=card.style.borderBottomLeftRadius=card.style.borderBottomRightRadius=2;
             Root.Add(card);return card;
         }
         private Label Text(VisualElement parent,string name,string value,int size,bool bold=false)
         {
             var label=new Label(value){name=name,enableRichText=false};label.style.color=foreground;label.style.fontSize=size*Scale;
+            FrostlineStyle.Text(label,bold);
             label.style.whiteSpace=WhiteSpace.Normal;label.style.marginTop=0;label.style.marginBottom=settings.spacing;
             label.style.marginLeft=label.style.marginRight=0;label.style.paddingTop=label.style.paddingBottom=0;
             label.style.paddingLeft=label.style.paddingRight=0;label.style.flexShrink=1;
-            if(bold)label.style.unityFontStyleAndWeight=FontStyle.Bold;parent.Add(label);return label;
+            parent.Add(label);return label;
         }
         private VisualElement Bar(VisualElement parent,string name,Color color)
         {
             var track=new VisualElement();track.style.height=3;track.style.backgroundColor=new Color(1,1,1,.12f);
             track.style.marginBottom=settings.spacing+2;parent.Add(track);
-            var fill=new VisualElement{name=name};fill.style.height=3;fill.style.backgroundColor=color;track.Add(fill);return fill;
+            var fill=new VisualElement{name=name};fill.style.height=3;fill.style.backgroundColor=color;track.Add(fill);
+            // Retained dividers make energy/pace readable in segments without extra per-frame work.
+            for(int i=1;i<10;i++){var divider=new VisualElement();divider.style.position=Position.Absolute;divider.style.left=Length.Percent(i*10);divider.style.top=0;divider.style.bottom=0;divider.style.width=2;divider.style.backgroundColor=FrostlineStyle.Deep;divider.pickingMode=PickingMode.Ignore;track.Add(divider);}
+            return fill;
         }
         public void SetHelpVisible(bool visible)
         {helpVisible=visible;if(helpPanel!=null)helpPanel.style.display=visible?DisplayStyle.Flex:DisplayStyle.None;}
@@ -190,7 +200,7 @@ namespace Biathlon.Unity.Presentation
             if(host?.WaitingForPlayerStart==true)clock.text=L("До старта ","Start in ")+Math.Ceiling(host.PlayerStartWaitSeconds)+L(" с"," s");
             phase.style.display=a.PendingPenaltyLoops>0||a.Phase==CompetitionPhase.Prestart||a.Phase>=CompetitionPhase.Finished||host?.LastRangeAssistance.Active==true?DisplayStyle.Flex:DisplayStyle.None;
             if(host?.LastRangeAssistance.Active==true)phase.text=T(host.LastRangeAssistance.Mode==PlayerRangeAssistMode.FinalApproach?"assist_in":"assist_out");
-            speed.text=Model.Speed;heart.text=Math.Round(a.Physiology.HeartRateBpm).ToString();heart.tooltip=Model.HeartRate;reserve.text=Model.Reserve;fatigue.text=Model.Fatigue;
+            speed.text=(a.SpeedMetersPerSecond*3.6).ToString("0.0",System.Globalization.CultureInfo.InvariantCulture);speed.tooltip=Model.Speed;heart.text=Math.Round(a.Physiology.HeartRateBpm).ToString();heart.tooltip=Model.HeartRate;reserve.text=Model.Reserve;fatigue.text=Model.Fatigue;
             heartbeat.Observe(a.Physiology.HeartRateBpm,a.Physiology.HeartRateBpm/readinessPhysiology.MaxHrBpm>.85?FrontEndTheme.Color(settings.warning):accent);
             pulseTrace.Observe(a.Physiology.HeartRateBpm,a.Physiology.HeartRateBpm/readinessPhysiology.MaxHrBpm>.85?FrontEndTheme.Color(settings.warning):accent);
             reserveFill.style.width=Length.Percent(Model.ReservePercent);fatigueFill.style.width=Length.Percent(Model.FatiguePercent);breathFill.style.width=Length.Percent(Model.BreathDebtPercent);
@@ -203,7 +213,7 @@ namespace Biathlon.Unity.Presentation
             for(int i=0;i<targets.Length;i++)
             {
                 bool closed=(Model.ClosedMask&(1<<i))!=0;targets[i].text=HighContrast?(closed?"✓":"•"):"";
-                targets[i].style.backgroundColor=closed?foreground:Color.clear;targets[i].style.color=closed?FrontEndTheme.Color(theme.ink):foreground;
+                targets[i].style.backgroundColor=closed?foreground:FrostlineStyle.Deep;targets[i].style.color=closed?FrostlineStyle.Deep:foreground;
             }
         }
         private void LateUpdate()

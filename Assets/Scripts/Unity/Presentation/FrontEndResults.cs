@@ -25,7 +25,7 @@ namespace Biathlon.Unity.Presentation
             AddLabel(actions,T("result"),theme.caption_size);
             AddLabel(actions,player.Name,theme.body_size,true);
             var position=AddLabel(actions,F("result_rank",player.Rank,summary.Count),theme.title_size,true);position.name="result_position";
-            position.style.unityFontStyleAndWeight=FontStyle.BoldAndItalic;
+            position.style.color=player.Rank<=3?FrostlineStyle.Gold:FrostlineStyle.Accent;
             AddLabel(actions,ResultClock(player.Finish.ElapsedMilliseconds),theme.section_size,true).name="result_elapsed";
             AddLabel(actions,F("results.points_gain",player.Points,summary.PointsAfter),theme.body_size,true).name="result_points";
             AddLabel(actions,F("results.standing",summary.StandingBefore?.ToString()??"—",summary.StandingAfter,summary.Season),theme.caption_size).name="result_standing";
@@ -34,22 +34,29 @@ namespace Biathlon.Unity.Presentation
             AddButton(actions,"results_splits",T("results.splits"),()=>{showResultSplits=true;Render();},enabled:details!=null&&details.SplitCount>0);
             AddLabel(actions,T("result_saved"),theme.caption_size);
 
-            var header=AddLabel(card,T("format."+(int)summary.Record.Format)+" · "+T("woodland"),theme.section_size,true);header.name="results_title";
+            var finishHero=Tile(card,"result_finish_hero",true);finishHero.style.flexDirection=FlexDirection.Row;finishHero.style.alignItems=Align.Center;
+            finishHero.style.paddingTop=finishHero.style.paddingBottom=12;
+            var badge=AddLabel(finishHero,player.Rank.ToString("00"),theme.title_size,true);badge.name="result_rank_numeral";badge.style.color=player.Rank<=3?FrostlineStyle.Gold:FrostlineStyle.Accent;badge.style.marginRight=20;badge.style.marginBottom=0;
+            var finishIdentity=new VisualElement();finishIdentity.style.flexGrow=1;finishIdentity.style.minWidth=0;finishHero.Add(finishIdentity);
+            var header=AddLabel(finishIdentity,T("format."+(int)summary.Record.Format)+" · "+T("woodland"),theme.body_size,true);header.name="results_title";
+            var identity=new VisualElement();identity.style.flexDirection=FlexDirection.Row;identity.style.alignItems=Align.Center;finishIdentity.Add(identity);
+            identity.Add(new NationFlagGraphic(player.Nation));AddLabel(identity,player.Name,theme.caption_size).style.marginBottom=0;
+            var elapsed=AddLabel(finishHero,ResultClock(player.Finish.ElapsedMilliseconds),theme.section_size,true);elapsed.style.marginBottom=0;elapsed.style.marginLeft=12;
             if(details!=null)
             {
                 var stages=new VisualElement{name="result_shooting"};stages.style.flexDirection=FlexDirection.Row;stages.style.flexWrap=Wrap.Wrap;card.Add(stages);
                 for(int b=0;b<details.BoutCount;b++)
                 {
-                    var stage=new VisualElement();stage.style.marginRight=theme.spacing*2;stage.style.marginBottom=theme.spacing;stages.Add(stage);
+                    var stage=new VisualElement();stage.style.flexGrow=1;stage.style.paddingLeft=12;stage.style.borderLeftWidth=2;stage.style.borderLeftColor=FrostlineStyle.Surface;stage.style.marginRight=theme.spacing*2;stage.style.marginBottom=theme.spacing;stages.Add(stage);
                     AddLabel(stage,(b+1)+" · "+T("stance."+(int)details.Stance(b)),theme.caption_size);
                     var targets=new VisualElement();targets.style.flexDirection=FlexDirection.Row;stage.Add(targets);
                     for(int t=0;t<5;t++)
                     {
                         bool hit=(details.ClosedMask(b)&(1<<t))!=0;
                         var target=new Label(hit?"●":"×"){enableRichText=false,pickingMode=PickingMode.Ignore};target.style.fontSize=theme.section_size*Scale;
-                        target.style.color=hit?accent:ink;target.style.marginRight=theme.spacing/2;targets.Add(target);
+                        target.style.color=hit?FrostlineStyle.Accent:FrostlineStyle.Danger;target.style.marginRight=theme.spacing/2;FrostlineStyle.Text(target);targets.Add(target);
                     }
-                    AddLabel(stage,F("results.stage_hits",details.Hits(b),5-details.Hits(b)),theme.caption_size);
+                    AddLabel(stage,F("results.stage_hits",details.Hits(b),5-details.Hits(b)),theme.caption_size).style.color=FrostlineStyle.Muted;
                 }
             }
             AddLabel(card,F("results.penalties",player.Finish.Penalties),theme.caption_size).name="result_penalties";
@@ -91,9 +98,10 @@ namespace Biathlon.Unity.Presentation
         private void ResultTableRow(VisualElement parent,string id,string[] values,bool heading,bool player,string nation=null,CareerLeaderBib leader=CareerLeaderBib.None)
         {
             var row=new VisualElement{name=id};row.style.flexDirection=FlexDirection.Row;row.style.alignItems=Align.Center;
-            row.style.paddingTop=row.style.paddingBottom=12;row.style.paddingLeft=row.style.paddingRight=8;
-            row.style.borderBottomWidth=1;row.style.borderBottomColor=FrontEndTheme.Color(theme.focus);
-            if(player){row.style.backgroundColor=focus;row.style.borderLeftWidth=4;row.style.borderLeftColor=accent;}
+            row.style.paddingTop=row.style.paddingBottom=heading?8:10;row.style.paddingLeft=row.style.paddingRight=8;
+            row.style.borderBottomWidth=1;row.style.borderBottomColor=FrostlineStyle.Surface;
+            row.style.backgroundColor=heading?FrostlineStyle.Deep:parent.childCount%2==0?new Color(1,1,1,.025f):Color.clear;
+            if(player){row.style.backgroundColor=FrostlineStyle.Surface;row.style.borderLeftWidth=4;row.style.borderLeftColor=FrostlineStyle.Accent;}
             parent.Add(row);float[] widths={6,32,16,18,18,10};
             for(int i=0;i<6;i++)
             {
@@ -107,6 +115,9 @@ namespace Biathlon.Unity.Presentation
                     continue;
                 }
                 var label=AddLabel(row,i==0&&heading?"#":values[i],theme.caption_size,heading||player||i==0);label.style.marginBottom=0;
+                if(i!=1)FrostlineStyle.Text(label,!heading);if(heading)label.style.color=FrostlineStyle.Muted;
+                if(i==0&&!heading){label.style.color=player?FrostlineStyle.Accent:FrostlineStyle.Gold;label.style.fontSize=theme.body_size*Scale;}
+                if(i>1)label.style.unityTextAlign=TextAnchor.MiddleRight;
                 label.tooltip=values[i];label.style.width=Length.Percent(widths[i]);label.style.paddingRight=8;label.style.minWidth=0;label.style.flexShrink=1;
                 label.style.whiteSpace=WhiteSpace.NoWrap;label.style.overflow=Overflow.Hidden;label.style.textOverflow=TextOverflow.Ellipsis;
             }

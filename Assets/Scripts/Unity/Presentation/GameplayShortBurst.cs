@@ -15,9 +15,10 @@ namespace Biathlon.Unity.Presentation
             burstPanel=new VisualElement{name="burst_overlay"};
             burstPanel.style.position=Position.Absolute;burstPanel.style.left=burstPanel.style.right=0;
             burstPanel.style.top=burstPanel.style.bottom=0;
-            var warm=FrontEndTheme.Color(settings.warning);
+            var warm=FrostlineStyle.Gold;
             Text(burstPanel,"burst_title",L("РЫВОК","BURST"),settings.caption_size,true).style.color=warm;
             burstTime=Text(burstPanel,"burst_time","",settings.body_size,true);
+            burstTime.style.color=warm;
             burstFill=Bar(burstPanel,"burst_fill",warm);burstFill.parent.style.height=burstFill.style.height=5;
             burstHint=Text(burstPanel,"burst_hint","",settings.caption_size);burstHint.style.color=muted;
             readout.Add(burstPanel);burstPanel.style.display=DisplayStyle.None;
