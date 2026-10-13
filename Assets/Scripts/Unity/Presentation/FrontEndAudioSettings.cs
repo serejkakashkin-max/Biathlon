@@ -16,7 +16,7 @@ namespace Biathlon.Unity.Presentation
             AddAudioSlider(card,"body",L("Дыхание и пульс","Breath & heartbeat"),p.body,v=>p.body=v);
             AddAudioSlider(card,"ambience",L("Погода и трибуны","Weather & crowd"),p.ambience,v=>p.ambience=v);
             AddAudioSlider(card,"ui",L("Интерфейс","Interface"),p.ui,v=>p.ui=v);
-            AddAudioSlider(card,"music",L("Атмосфера меню","Menu atmosphere"),p.music,v=>p.music=v);
+            AddAudioSlider(card,"music",L("Музыка меню","Menu music"),p.music,v=>p.music=v);
             var quiet=new Toggle(L("Мягкий микс — тише резкие звуки","Soft mix — gentler loud effects")){name="audio_quiet",value=p.quiet};StyleControl(quiet);card.Add(quiet);controls.Add(quiet);
             quiet.RegisterValueChangedCallback(e=>{p.quiet=e.newValue;audio.SetPreferences(p,PersistPreferences);});
             var background=new Toggle(L("Без звука в фоне","Mute when unfocused")){name="audio_background",value=p.mute_unfocused};StyleControl(background);card.Add(background);controls.Add(background);

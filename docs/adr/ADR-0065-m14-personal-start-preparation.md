@@ -62,3 +62,15 @@ long gaps/large fields. It remains interruptible through the existing pause.
 Native visual fixtures omit environmental dressing to isolate the new UI;
 the delivered game still loads the unchanged venue/weather/quality assets.
 M14 closure remains the owner's decision after testing.
+
+## 2026-10-13 — visible-time hold correction
+
+A reproducible Mass Start case passed an eight-second loading frame to the host and
+consumed the entire 3–2–1 before it could be displayed (expected 3, observed 0).
+The local hold now ignores elapsed frames above the existing authored frame-clock
+MaximumBacklog (0.2 seconds). Ordinary frames still consume exactly three seconds;
+loading/render stalls cannot skip a number or inject preparation into race time.
+This policy applies only to the pre-race local hold. Scheduled delayed starts and
+bounded skip commands remain unchanged. Frame-based tests retain the original
+zero-authority-tick and exact first-tick assertions; large elapsed values no longer
+stand in for multiple rendered preparation frames.

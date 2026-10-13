@@ -8,7 +8,7 @@ namespace Biathlon.Unity
 {
     public static partial class PlayerBuildPipeline
     {
-        public const string M15ReviewDirectory="Builds/M15_Audio_Review";
+        public const string M15ReviewDirectory="Builds/M15_Audio_Refinement_Review";
         public static void BuildWindowsM15Review()
         {
             ValidateProductionBuildDirectory(M15ReviewDirectory);
@@ -28,15 +28,16 @@ namespace Biathlon.Unity
             File.Copy("Assets/Resources/Biathlon/Audio/sources.json",Path.Combine(M15ReviewDirectory,"AUDIO_SOURCES.json"),true);
             File.WriteAllText(Path.Combine(M15ReviewDirectory,"START_M15_TEST.cmd"),"@echo off\r\ncd /d \"%~dp0\"\r\nstart \"Biathlon M15\" \"%~dp0Biathlon.exe\" -force-d3d11 -screen-fullscreen 0 -screen-width 1920 -screen-height 1080\r\n");
             File.WriteAllText(Path.Combine(M15ReviewDirectory,"READ_ME_RU.txt"),
-                "BIATHLON — M15 AUDIO, тестовая сборка 13.10.2026\r\n\r\nЗапуск: START_M15_TEST.cmd\r\n"+
+                "BIATHLON — M15 AUDIO REFINEMENT, тестовая сборка 13.10.2026\r\n\r\nЗапуск: START_M15_TEST.cmd\r\n"+
+                "Исправления: инструментальная музыка Snowlight в меню, мягкий шорох палок вместо резкого щелчка, отсчёт 3–2–1 не пропускается после долгой загрузки масстарта.\r\n"+
                 "Добавлены звуки лыж и палок по скорости/снегу, дыхание, пульс, выстрелы с отражением, затвор, мишени, ветер, снегопад, трибуны и меню.\r\n"+
-                "Настройки → Звук: общая громкость, эффекты, дыхание/пульс, окружение, интерфейс, атмосфера меню. Мягкий микс смягчает резкие звуки. По умолчанию игра замолкает при переключении в другое окно.\r\n"+
+                "Настройки → Звук: общая громкость, эффекты, дыхание/пульс, окружение, интерфейс, музыка меню. Мягкий микс смягчает резкие звуки. По умолчанию игра замолкает при переключении в другое окно.\r\n"+
                 "На рубеже пульс связан с ритмом симуляции. Space задерживает дыхание; пульс продолжается. ПКМ затвор, ЛКМ выстрел. Соседние выстрелы пространственные.\r\n"+
                 "Пауза, перемотка и ускоренное завершение не проигрывают пропущенные звуки. Повтор на обычной скорости озвучен.\r\n"+
                 "Управление, баланс и качество графики сохранены. Профили совместимы. Проверьте в наушниках масстарт, рубеж и повтор; сообщите о громкости/утомляемости микса.\r\n");
         }
         [Serializable]private sealed class M15Receipt
-        {public int schema_version=1;public string id="m15_audio_review_20261013",result,unity;public int errors,warnings;public ulong bytes;public double seconds;}
+        {public int schema_version=1;public string id="m15_audio_refinement_20261013",result,unity;public int errors,warnings;public ulong bytes;public double seconds;}
     }
 }
 #endif

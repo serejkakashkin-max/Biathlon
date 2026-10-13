@@ -3,7 +3,20 @@
   "id": "m15_original_soundbank",
   "generator": "tools/audio/generate_m15_audio.py",
   "seed": 198205,
-  "license": "Original project-authored procedural sound design; no third-party samples.",
+  "license": "Original project-authored procedural sound design and composition; no third-party samples.",
+  "music": {
+    "id": "snowlight",
+    "title": "Snowlight",
+    "composer": "Original Biathlon project composition",
+    "bpm": 60,
+    "bars": 8,
+    "key": "D major",
+    "instruments": [
+      "soft keys",
+      "warm pad",
+      "bass"
+    ]
+  },
   "clips": [
     {
       "id": "ski_packed",
@@ -32,26 +45,26 @@
     {
       "id": "pole_0",
       "seconds": 0.3,
-      "peak": 0.6,
-      "rms": 0.0643557437303192,
+      "peak": 0.32,
+      "rms": 0.06996507883983727,
       "loop": false,
-      "sha256": "691b1da7dcd92f9f1e699100b0dd1ab1418b63c3cdd8608962790d7f374308c7"
+      "sha256": "95931a87e691836fd1b9e7b1ad3a3f9e866c6a850f7d8026f93e879e1db4c56e"
     },
     {
       "id": "pole_1",
       "seconds": 0.3,
-      "peak": 0.6,
-      "rms": 0.06355479302546878,
+      "peak": 0.32,
+      "rms": 0.06289115971508699,
       "loop": false,
-      "sha256": "6078b80ffa42a80dd00c9eff82d23216b697773fa8158bf5470e22cf800a2738"
+      "sha256": "13c7f73e6969a95142fce0cf61c02f967e96cd679fa14d5d6578ffa46bfe1e7b"
     },
     {
       "id": "pole_2",
       "seconds": 0.3,
-      "peak": 0.6,
-      "rms": 0.051276717296115326,
+      "peak": 0.32,
+      "rms": 0.057021197544696395,
       "loop": false,
-      "sha256": "4698b598a9f854fc537b75e3555ea677fcc24b59039f410eedfec7feaea67c7d"
+      "sha256": "fd5bbe59e04ea407dc1b763ba18883e7547e3639cd1e03833b593fdc3daf30e9"
     },
     {
       "id": "rifle_0",
@@ -191,11 +204,11 @@
     },
     {
       "id": "menu_air",
-      "seconds": 15.5,
-      "peak": 0.28,
-      "rms": 0.10067782704035338,
+      "seconds": 32.0,
+      "peak": 0.55,
+      "rms": 0.13194758390924075,
       "loop": true,
-      "sha256": "83dd5f0008e46923bccde7caea50a92983ba0c1fa6e3f633d3666768f64a57fd"
+      "sha256": "6d0266d34435330b135db5d72e059c3bec03e349728152d1d064d499f5f366cd"
     }
   ]
 }

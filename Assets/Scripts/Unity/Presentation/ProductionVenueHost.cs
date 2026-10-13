@@ -246,7 +246,15 @@ namespace Biathlon.Unity.Presentation
         public void AdvanceSimulationFrame(double elapsed)
         {
             if(HasSimulationFault)return;
-            if(startPreparation?.HoldsRace==true){startPreparation.AdvanceHold(elapsed);return;}
+            if(startPreparation?.HoldsRace==true)
+            {
+                // The first rendered frame can include seconds of synchronous venue/shader loading.
+                // Preparation is visible time, not catch-up: discard hitches using the existing
+                // authored frame budget, while leaving authority/input clocks at zero.
+                if(!double.IsFinite(elapsed)||elapsed<0)throw new ArgumentOutOfRangeException(nameof(elapsed));
+                if(elapsed<=frameBudget.MaximumBacklog)startPreparation.AdvanceHold(elapsed);
+                return;
+            }
             if(StartWaitFastForwarding){AdvanceStartWaitFrame();return;}
             if(WaitingForPlayerStart){ski.ReleaseHeldInput();shot.ReleaseHeldInput();}
             int steps=frameClock.BeginFrame(elapsed);frameWork.Restart();batchFrame=true;int completed=0;

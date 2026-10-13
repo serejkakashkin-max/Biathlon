@@ -118,6 +118,27 @@ namespace Biathlon.PlayModeTests
             string dir=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m15"));Directory.CreateDirectory(dir);
             File.WriteAllText(Path.Combine(dir,"accepted-events.json"),"{\"shots\":"+director.AcceptedShots+",\"bolt_cycles\":"+director.BoltCycles+",\"false_target_closures\":"+director.TargetClosures+",\"voice_limit\":"+audio.SourceCount+",\"pause_seek_silent\":true}");
         }
+        [UnityTest]public IEnumerator SkiOnlyAcceptedTicksNeverEmitRifleBoltOrTargets()
+        {
+            var audio=Audio();var venue=PathPresentationFixture.Plan();
+            var profile=CompetitionProfile.FromJson(ProductionVenueHost.ReadResource("Biathlon/sprint_test_v1").Replace("\"distance_m\":3000","\"distance_m\":900"));
+            var route=RaceRoutePlan.TimeTrial("audio_ski_only",venue.Track.Id,"main",profile.ToRouteRequirements());
+            var conditions=RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1").Replace("snow_test_packed","packed"));
+            var host=root.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;host.UseManualHeading=false;host.Initialize(venue,profile,route,conditions,count:2);
+            var director=host.GetComponent<RaceAudioPresentation>();director.ReplayContext(host.ChaseCamera,0,false);
+            int skiTicks=0;
+            for(int tick=0;tick<400;tick++)
+            {
+                host.Runner.Step();var snapshot=RacePresentationSnapshot.Capture(host.Runner.Field);
+                if(snapshot.Get(0).ShootingActive||snapshot.Get(1).ShootingActive)break;
+                host.Feed.Publish(snapshot);skiTicks++;
+                if(tick%20==0){director.RenderAudio();yield return new WaitForSecondsRealtime(.11f);}
+            }
+            Assert.That(skiTicks,Is.GreaterThan(10));
+            Assert.That(audio.PlayedCue(AudioCue.Pole),Is.GreaterThan(0));
+            foreach(var cue in new[]{AudioCue.Rifle,AudioCue.Bolt,AudioCue.TargetHit,AudioCue.TargetMiss})
+                Assert.That(audio.PlayedCue(cue),Is.Zero,"Unexpected cue on ski-only course: "+cue);
+        }
         [UnityTest]public IEnumerator WarmPoolUpdateBudgetIsBounded()
         {
             var a=Audio();a.Loop(0,AudioCue.SkiPacked,1);yield return null;

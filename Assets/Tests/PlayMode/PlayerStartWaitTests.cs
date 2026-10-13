@@ -95,6 +95,24 @@ namespace Biathlon.PlayModeTests
                 }
             }
         }
+        [Test]public void MassStartLoadingHitchCannotConsumeTheVisiblePreparation()
+        {
+            var host=Host("mass_start",player:0);
+            Assert.That(host.CountdownNumber,Is.EqualTo(3));
+            host.AdvanceSimulationFrame(8); // First frame includes synchronous venue/shader loading.
+            Assert.That(host.CountdownNumber,Is.EqualTo(3),"Loading time must not swallow 3–2–1.");
+            Assert.That(host.Runner.Field.Tick.Value,Is.Zero);
+            Assert.That(host.WaitingForPlayerStart,Is.True);
+            Assert.That(host.CountdownRemaining,Is.EqualTo(3));
+            for(int expected=2;expected>=0;expected--)
+            {
+                for(int frame=0;frame<8;frame++)host.AdvanceSimulationFrame(.125);
+                Assert.That(host.CountdownNumber,Is.EqualTo(expected));
+                Assert.That(host.Runner.Field.Tick.Value,Is.Zero);
+                if(expected>0)host.AdvanceSimulationFrame(8); // A later rendering stall cannot skip 2 or 1 either.
+            }
+            host.AdvanceSimulationFrame(.05);Assert.That(host.Runner.Field.Tick.Value,Is.EqualTo(1));
+        }
         [Test]public void DelayedSprintUsesItsPersonalStartAndPursuitLeaderKeepsTheNormalThreeSecondHold()
         {
             var sprint=Host("sprint");Assert.That(sprint.PlayerStartWaitSeconds,Is.EqualTo(30));Assert.That(sprint.CanSkipStartWait,Is.True);
@@ -110,7 +128,10 @@ namespace Biathlon.PlayModeTests
                 finally{InputSystem.RemoveDevice(keyboard);}
             }
             var leader=Host(player:0);Assert.That(leader.CountdownNumber,Is.EqualTo(3));Assert.That(leader.CanSkipStartWait,Is.False);
-            leader.AdvanceSimulationFrame(10);Assert.That(leader.Runner.Field.Tick.Value,Is.Zero);leader.AdvanceSimulationFrame(.05);
+            leader.AdvanceSimulationFrame(10);Assert.That(leader.Runner.Field.Tick.Value,Is.Zero);
+            Assert.That(leader.CountdownNumber,Is.EqualTo(3),"Loading cannot consume local preparation.");
+            for(int frame=0;frame<24;frame++)leader.AdvanceSimulationFrame(.125);
+            leader.AdvanceSimulationFrame(.05);
             Assert.That(leader.Runner.Field.Tick.Value,Is.EqualTo(1));Assert.That(leader.WaitingForPlayerStart,Is.False);
             Assert.That(leader.HasSimulationFault,Is.False);
         }

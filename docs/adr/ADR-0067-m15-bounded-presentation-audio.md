@@ -43,3 +43,14 @@ affects authoritative result/hash, input mapping, or visual quality.
 
 Unity references: [AudioSource](https://docs.unity3d.com/6000.6/Documentation/ScriptReference/AudioSource.html),
 [preloading](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/AudioClip.LoadAudioData.html).
+
+## 2026-10-13 — owner listening refinement
+
+The sustained menu bed was replaced with the original 32-second instrumental
+composition Snowlight (soft keys, pad, bass, 60 BPM). The stable resource ID remains
+menu_air for compatibility. Pole sources now use a broad snow-compression envelope
+rather than an exponential crack, with lower source/mix gain. Other effect samples
+are byte-identical. A ski-only accepted-state probe confirms that no rifle, bolt or
+target cue is emitted without shooting. Subjective comfort still needs listening.
+PCM usage is now 20,093,760 bytes, below the existing 20 MiB test budget; source count
+remains 22. No runtime synthesis or additional per-athlete audio work was added.

@@ -28,7 +28,8 @@ namespace Biathlon.Unity.Presentation
             Application.runInBackground=true;Application.logMessageReceived+=Log;yield return null;
             var a=BiathlonAudio.Ensure(false);var old=a.Preferences;
             a.SetPreferences(new BiathlonAudioPreferences{mute_unfocused=false},false);a.SetMenu(false);
-            var capture=a.gameObject.AddComponent<M15AudioCapture>();capture.Begin(24);
+            var capture=a.gameObject.AddComponent<M15AudioCapture>();capture.Begin(32);
+            a.SetMenu(true);yield return new WaitForSecondsRealtime(8);a.SetMenu(false);
             a.Loop(1,AudioCue.Wind,.5f);a.Loop(3,AudioCue.Crowd,.5f);a.Loop(0,AudioCue.SkiPacked,.9f);
             a.Play(AudioCue.Pole);yield return new WaitForSecondsRealtime(1);
             a.Play(AudioCue.Pole);yield return new WaitForSecondsRealtime(1);

@@ -47,8 +47,11 @@ for name, low, high in [('ski_packed',700,4200),('ski_soft',180,1700),('ski_ice'
     save(name,y,.5,True)
 for variant in range(3):
     t=np.arange(int(RATE*.3))/RATE
-    y=band(len(t),600,4800)*np.exp(-t*35)+.35*band(len(t),100,850)*np.exp(-t*17)
-    save('pole_'+str(variant),y,.6)
+    # Soft snow compression + short brushed withdrawal. No hard attack/crack.
+    # Keep the same two noise draws so unrelated source waveforms remain identical.
+    envelope=np.sin(np.pi*np.clip(t/.3,0,1))**1.6*np.exp(-t*5)
+    y=(band(len(t),140,1500)+.35*band(len(t),100,650))*envelope
+    save('pole_'+str(variant),y,.32)
 for variant in range(3):
     t=np.arange(int(RATE*1.7))/RATE
     y=band(len(t),900,8500)*np.exp(-t*110)+.65*band(len(t),120,2200)*np.exp(-t*32)
@@ -90,10 +93,35 @@ for name,cheer in [('crowd',False),('cheer',True)]:
 for name,freq,duration in [('ui_focus',600,.045),('ui_confirm',750,.12),('ui_back',440,.1),('countdown',720,.14),('start',1080,.28)]:
     t=np.arange(int(RATE*duration))/RATE
     save(name,(np.sin(2*np.pi*freq*t)+.22*np.sin(2*np.pi*freq*2*t))*np.sin(np.pi*t/duration)**2,.38)
-# Sparse harmonic menu air, seamless sustained D/A/E voicing.
-t=np.arange(RATE*16)/RATE
-y=sum(np.sin(2*np.pi*f*t+p)*(.65+.15*np.sin(2*np.pi*t/8+p))*g for f,p,g in [(146.875,0,.3),(220,1,.2),(293.75,2,.14),(330,3,.07)])
-save('menu_air',y,.28,True)
+# Original instrumental miniature "Snowlight": 8 bars, 60 BPM, D major.
+# Warm soft keys, a slowly moving pad and a restrained melody; no percussion.
+duration=32.5  # save() folds the final half-second into a seamless 32s period.
+t=np.arange(int(RATE*duration))/RATE; y=np.zeros_like(t)
+def note(at, midi, gain, sustain=2.6):
+    freq=440*2**((midi-69)/12)
+    x=t-at; active=x>=0; age=np.maximum(0,x)
+    attack=(1-np.exp(-age/0.045))**2
+    decay=np.exp(-age/sustain)
+    tone=(np.sin(2*np.pi*freq*age)+.22*np.sin(2*np.pi*freq*2*age)
+          +.07*np.sin(2*np.pi*freq*3*age)+.018*np.sin(2*np.pi*freq*4*age))
+    y[:]+=gain*tone*attack*decay*active
+chords=[(50,54,57,61,64),(47,54,57,62,66),(43,50,54,59,62),(45,52,57,59,62)]
+for bar,chord in enumerate(chords):
+    at=bar*8
+    note(at,chord[0]-12,.14,3.7);note(at+4,chord[0]-12,.1,3.3)
+    for offset in range(8):note(at+offset,chord[1+offset%4],.115 if offset%2==0 else .075,2.2)
+    for midi in chord[1:]:
+        freq=440*2**((midi-69)/12);phase=(t-at)/9
+        env=np.where((phase>=0)&(phase<=1),np.sin(np.pi*np.clip(phase,0,1))**2,0)
+        y+=.04*np.sin(2*np.pi*freq*t)*env
+for at,midi in [(1,78),(3,76),(5,73),(6,74),(9,78),(11,81),(13,78),(14,76),
+                (17,78),(19,76),(21,74),(22,73),(25,76),(27,74),(29,73),(30,69)]:
+    note(at,midi,.13,1.9)
+dry=y.copy()
+for delay,gain in [(.19,.16),(.37,.12),(.61,.075)]:
+    shift=int(RATE*delay);y[shift:]+=dry[:-shift]*gain
+save('menu_air',y,.55,True)
 (OUT/'sources.json').write_text(json.dumps(dict(schema_version=1,id='m15_original_soundbank',
-    generator='tools/audio/generate_m15_audio.py',seed=198205,license='Original project-authored procedural sound design; no third-party samples.',clips=receipts),indent=2)+'\n')
+    generator='tools/audio/generate_m15_audio.py',seed=198205,license='Original project-authored procedural sound design and composition; no third-party samples.',
+    music=dict(id='snowlight',title='Snowlight',composer='Original Biathlon project composition',bpm=60,bars=8,key='D major',instruments=['soft keys','warm pad','bass']),clips=receipts),indent=2)+'\n')
 print(f'Generated {len(receipts)} original clips; {sum(x["seconds"] for x in receipts):.1f}s mono PCM.')

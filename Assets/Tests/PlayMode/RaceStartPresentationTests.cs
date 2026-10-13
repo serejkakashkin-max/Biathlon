@@ -34,7 +34,7 @@ namespace Biathlon.PlayModeTests
             Assert.That(host.CountdownRemaining,Is.EqualTo(3));Assert.That(host.CountdownNumber,Is.EqualTo(3));
             for(int expected=2;expected>=0;expected--)
             {
-                host.AdvanceSimulationFrame(1);
+                for(int frame=0;frame<8;frame++)host.AdvanceSimulationFrame(.125);
                 Assert.That(host.CountdownRemaining,Is.EqualTo(expected));Assert.That(host.CountdownNumber,Is.EqualTo(expected));
                 Assert.That(host.Runner.Field.Tick.Value,Is.Zero,"Countdown time must never enter the race accumulator.");
                 Assert.That(host.Feed.Current.Tick,Is.Zero,"The presentation observes the same frozen authority.");
@@ -60,9 +60,10 @@ namespace Biathlon.PlayModeTests
             var overlay=host.GameplayHud.Root.Q("start_countdown");Assert.That(overlay,Is.Not.Null);
             Assert.That(overlay.style.display.value,Is.EqualTo(DisplayStyle.Flex));
             Assert.That(host.Runner.Field.Tick.Value,Is.Zero);
-            host.AdvanceSimulationFrame(1);host.GameplayHud.Refresh();yield return null;
+            for(int frame=0;frame<8;frame++)host.AdvanceSimulationFrame(.125);host.GameplayHud.Refresh();yield return null;
             Assert.That(host.CountdownNumber,Is.EqualTo(2));Assert.That(overlay.style.display.value,Is.EqualTo(DisplayStyle.Flex));
-            host.AdvanceSimulationFrame(1);host.AdvanceSimulationFrame(1);host.AdvanceSimulationFrame(.05);host.GameplayHud.Refresh();yield return null;
+            for(int frame=0;frame<16;frame++)host.AdvanceSimulationFrame(.125);
+            host.AdvanceSimulationFrame(.05);host.GameplayHud.Refresh();yield return null;
             yield return new WaitForSecondsRealtime(.65f);host.GameplayHud.Refresh();
             Assert.That(overlay.style.display.value,Is.EqualTo(DisplayStyle.None));Assert.That(host.Runner.Field.Tick.Value,Is.EqualTo(1));
             Assert.That(host.HasSimulationFault,Is.False);
