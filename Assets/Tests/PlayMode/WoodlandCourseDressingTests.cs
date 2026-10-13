@@ -370,7 +370,11 @@ namespace Biathlon.PlayModeTests
                 Assert.That(mesh, Is.Not.Null); Assert.That(material, Is.Not.Null);
                 foreach (var filter in filters) if (filter.sharedMesh == mesh && (filter.transform.position - part.position).sqrMagnitude < 1e-8f) found = filter;
                 Assert.That(found, Is.Not.Null, part.id + ": native renderer must use the imported mesh at its actual placement.");
-                RequireUnitHierarchy(found.transform);
+                var expectedScale=new Vector3(part.scale*part.EffectiveLateralScale,part.scale,part.scale);
+                Assert.That(found.transform.localScale,Is.EqualTo(expectedScale),part.id+": exact authored portal aperture scale.");
+                for(var parent=found.transform.parent;parent!=null;parent=parent.parent)
+                    Assert.That(parent.localScale,Is.EqualTo(Vector3.one));
+                Assert.That((found.transform.lossyScale-expectedScale).sqrMagnitude,Is.LessThanOrEqualTo(1e-12f));
                 Assert.That(Quaternion.Angle(found.transform.rotation, Quaternion.Euler(0, part.yaw_deg, 0)), Is.LessThan(.001f));
                 Assert.That(found.GetComponent<MeshRenderer>().sharedMaterial, Is.SameAs(material));
                 if (frame == null) frame = found.transform;

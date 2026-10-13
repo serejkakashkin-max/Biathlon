@@ -22,7 +22,7 @@ namespace Biathlon.PlayModeTests
         }
         [Test] public void RepeatAndRewindProduceSameVisualScatterWithoutGrowingMemory()
         {
-            var s=SnowSpraySettings.Load();s.max_particles=16;var a=new SnowSprayBuffer(s);var b=new SnowSprayBuffer(s);
+            var s=SnowSpraySettings.Load();s.max_particles=16;s.performance_draw_budget=8;s.high_draw_budget=12;s.ultra_draw_budget=16;var a=new SnowSprayBuffer(s);var b=new SnowSprayBuffer(s);
             for(int i=0;i<30;i++){a.Sample("racer",i%4,Vector3.zero,Vector3.up,Vector3.forward,i*.01,true,10,0);b.Sample("racer",i%4,Vector3.zero,Vector3.up,Vector3.forward,i*.01,true,10,0);}
             Assert.That(a.ActiveCount,Is.LessThanOrEqualTo(16));Assert.That(a.Overwritten,Is.GreaterThan(0));
             for(int i=0;i<a.Capacity;i++){Assert.That(a.Get(i).Velocity,Is.EqualTo(b.Get(i).Velocity));Assert.That(a.Get(i).Origin,Is.EqualTo(b.Get(i).Origin));}

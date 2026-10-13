@@ -201,7 +201,7 @@ namespace Biathlon.PlayModeTests
                     if(failure==0)fixture.Recipe.forest.high_visibility.schema_version=2;
                     if(failure==1)fixture.Recipe.forest.high_visibility.mode="radius";
                     if(failure==2)fixture.Recipe.lighting.fog_distance_scale=float.NaN;
-                    if(failure==3)fixture.Texts["Biathlon/weather_visual_v1"]=Resources.Load<TextAsset>("Biathlon/weather_visual_v1").text.Replace("\"fog_end_m\":220","\"fog_end_m\":0");
+                    if(failure==3){var weather=WeatherVisualDefinition.Load();weather.Get("clear").fog_end_m=0;fixture.Texts["Biathlon/weather_visual_v1"]=JsonUtility.ToJson(weather);}
                     Assert.Throws<ArgumentException>(()=>environment.Initialize(fixture.Plan,fixture.Recipe,fixture.Read,feed,camera));
                     Assert.That(environment.Initialized,Is.False);Assert.That(root.transform.childCount,Is.EqualTo(children));Assert.That(RenderSettings.skybox,Is.SameAs(oldSky));Assert.That(RenderSettings.fog,Is.EqualTo(oldFog));
                     fixture.Recipe.forest.high_visibility=Policy();fixture.Recipe.lighting.fog_distance_scale=1;fixture.Texts.Remove("Biathlon/weather_visual_v1");

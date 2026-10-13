@@ -77,7 +77,7 @@ namespace Biathlon.PlayModeTests
                 renderer.gameObject.name="Arbitrary presentation name";Assert.That(view.LoopRenderer("mat_1"),Is.SameAs(renderer),"Stable mapping does not depend on object names.");
                 Assert.That(view.GroomedMaterial,Is.Not.SameAs(template));Assert.That(view.GroomedMaterial.shader.name,Is.EqualTo("Biathlon/Snow"));
                 var blend=TerrainBlendDefinition.Load();Assert.That(view.GroomedMaterial.GetFloat("_TerrainBlend"),Is.EqualTo(1));
-                Assert.That(view.GroomedMaterial.GetFloat("_GroomSpacing"),Is.EqualTo(blend.groom_spacing_m));Assert.That(view.GroomedMaterial.GetColor("_PackedColor"),Is.EqualTo(blend.packed_color));
+                Assert.That(view.GroomedMaterial.GetFloat("_GroomSpacing"),Is.EqualTo(blend.groom_spacing_m));Assert.That(Vector4.Distance(view.GroomedMaterial.GetColor("_PackedColor"),blend.packed_color),Is.LessThan(1e-6f));
                 Assert.That(template.GetFloat("_TerrainBlend"),Is.EqualTo(templateBlend));Assert.That(template.GetColor("_PackedColor"),Is.EqualTo(templateColor));
                 Assert.That(plan.Track.ToJson(),Is.EqualTo(track));Assert.That(plan.Visual.ToJson(),Is.EqualTo(visual));Assert.That(plan.Paths.ToJson(),Is.EqualTo(paths));
                 Assert.Throws<ArgumentException>(()=>view.LoopMesh("foreign_loop"));Assert.Throws<InvalidOperationException>(()=>view.Initialize(plan));

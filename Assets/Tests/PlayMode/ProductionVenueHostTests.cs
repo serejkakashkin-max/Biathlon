@@ -36,7 +36,9 @@ namespace Biathlon.PlayModeTests
                 {
                     var body=host.ManualStepper.World.GetActor(i);
                     Assert.That(dressing.StartSlot(i).x,Is.EqualTo((float)body.Pose.X));Assert.That(dressing.StartSlot(i).z,Is.EqualTo((float)body.Pose.Z));
-                    Assert.That(body.Pose.HeadingRadians,Is.EqualTo(Math.PI*.5).Within(.000001),"Every starting skier faces the straight.");
+                    var point=host.Runner.Field.GetPhysicalPoint(i);
+                    var start=venue.Visual.Get(point.LoopId).Sample(point.LocalNanometers/(double)SkiState.NanometersPerMeter);
+                    Assert.That(body.Pose.HeadingRadians,Is.EqualTo(Math.Atan2(start.ForwardX,start.ForwardZ)).Within(.000001),"Every starting skier faces its actual separate start straight.");
                 }
                 Assert.That(host.Environment.TreeCount,Is.LessThan(3500),"The owner requested removing non-gameplay forest, not reducing the High tier.");
                 var view=root.GetComponent<RangePresentation>();var sight=RifleSightSettings.Load();

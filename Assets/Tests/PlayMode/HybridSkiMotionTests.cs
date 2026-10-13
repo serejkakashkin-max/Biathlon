@@ -27,6 +27,10 @@ namespace Biathlon.PlayModeTests
                     {
                         double t=i/120.0;d.Sample(rig,Inputs[state],t,state==10?new ExertionInput(.7f,.2f,185):new ExertionInput(0,1,140));
                         rifle.Sample(rig,0);c.SampleMoving(rig,Inputs[state].Grade,d.PoleCycle,d.ContactState,0,t);d.ApplySkiEdges(rig);grip.Render(rig);
+                        Assert.That(c.MaxFootResidualMeters,Is.LessThan(.001f),"Both legs must reach their local snow plane without stretching.");
+                        float left=Vector3.Dot(rig.Bone(AthleteBone.LeftFoot).position-rig.ModelRoot.position,c.SurfaceNormal);
+                        float right=Vector3.Dot(rig.Bone(AthleteBone.RightFoot).position-rig.ModelRoot.position,c.SurfaceNormal);
+                        Assert.That(Mathf.Min(left,right),Is.LessThan(.121f),"At least one support ski stays grounded through recovery.");
                         Assert.That(Vector3.Distance(rig.Bone(AthleteBone.LeftUpperLeg).position,rig.Bone(AthleteBone.LeftLowerLeg).position),Is.EqualTo(leftLength).Within(.0001f));
                         for(int b=0;b<(int)AthleteBone.Count;b++){var p=rig.Bone((AthleteBone)b).position;Assert.That(float.IsFinite(p.x)&&float.IsFinite(p.y)&&float.IsFinite(p.z),Is.True);}
                         Assert.That(rig.transform.position,Is.EqualTo(Vector3.zero));Assert.That(rig.ModelRoot.localPosition,Is.EqualTo(Vector3.zero));

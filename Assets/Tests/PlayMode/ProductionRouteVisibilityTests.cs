@@ -156,7 +156,9 @@ namespace Biathlon.PlayModeTests
         {
             var plan=Production();var binding=plan.Formats.Get(0);var requirements=binding.Profile.ToRouteRequirements();
             var changedTrack=TrackDefinition.FromJson(Regex.Replace(plan.Track.ToJson(),"\\\"width_m\\\"\\s*:\\s*6(?=[,}])","\"width_m\":5"));
-            var wrongTrack=new RaceRoute(changedTrack,binding.Route,requirements,plan.Junctions,plan.Connections);
+            var changedJunctions=PhysicalJunctionDefinition.FromJson(plan.Junctions.ToJson(),changedTrack);
+            var changedConnections=PhysicalConnectionDefinition.FromJson(plan.Connections.ToJson(),changedJunctions);
+            var wrongTrack=new RaceRoute(changedTrack,binding.Route,requirements,changedJunctions,changedConnections);
             var changedPlan=RaceRoutePlan.FromJson(Regex.Replace(binding.Route.ToJson(),"\\\"id\\\"\\s*:\\s*\\\"lap_1\\\"","\"id\":\"changed_lap\""));
             var wrongPlan=new RaceRoute(plan.Track,changedPlan,requirements,plan.Junctions,plan.Connections);
             var changedRequirements=CompetitionRouteRequirements.FromJson(Regex.Replace(requirements.ToJson(),"\\\"range_required_on_laps\\\"\\s*:\\s*\\[[^\\]]*\\]","\"range_required_on_laps\":[]"));

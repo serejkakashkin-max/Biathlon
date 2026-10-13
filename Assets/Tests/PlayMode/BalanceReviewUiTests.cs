@@ -54,6 +54,12 @@ namespace Biathlon.PlayModeTests
             {
                 document.panelSettings.targetTexture=target;menu.ApplyPreferences(locale,textSize);
                 yield return null;yield return null;yield return null;yield return null;
+                // Retained UI entrance transitions use elapsed time, not frame count.
+                // Uncapped editor frames can finish before the scheduled first paint.
+                float deadline=Time.realtimeSinceStartup+2;
+                while(menu.Root.Q(className:"fl-screen").resolvedStyle.opacity<.999f&&Time.realtimeSinceStartup<deadline)yield return null;
+                Assert.That(menu.Root.Q(className:"fl-screen").resolvedStyle.opacity,Is.GreaterThanOrEqualTo(.999f));
+                yield return null;
                 if(creation){FitsViewport(menu.Root.Q<Button>("create"));FitsViewport(menu.Root.Q<SliderInt>("career_start_age"));}
                 RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
                 inspect?.Invoke(pixels);

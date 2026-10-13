@@ -19,13 +19,28 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties:
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - _DetailAlbedo:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailRoughness:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlbedoVariation: 0.08
+    - _AlbedoVariation: 0.055
+    - _DetailMeters: 4
+    - _DetailNormalStrength: 0.45
+    - _DetailWeight: 0
     - _GrainScale: 0.025
     - _GroomSpacing: 0.04
     - _MacroScale: 1.7
@@ -35,7 +50,7 @@ Material:
     - _SlopeDarkening: 0.13
     - _TerrainBlend: 0
     m_Colors:
-    - _BaseColor: {r: 0.83, g: 0.88, b: 0.93, a: 1}
+    - _BaseColor: {r: 0.88, g: 0.9, b: 0.93, a: 1}
     - _EdgeColor: {r: 0.74, g: 0.78999996, b: 0.82, a: 1}
     - _IceColor: {r: 0.43999997, g: 0.59, b: 0.67, a: 1}
     - _LayerNormals: {r: 0.12, g: 0.025, b: 0.28, a: 0}

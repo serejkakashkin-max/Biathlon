@@ -19,11 +19,12 @@ namespace Biathlon.PlayModeTests
             var root=new GameObject("Early Woodland assigned-mat navigation test");
             try
             {
-                var host=root.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;host.Initialize(venue,profile,route,conditions,count:1);
+                var host=root.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;host.UseManualHeading=false;host.Initialize(venue,profile,route,conditions,count:1);
                 var field=host.Runner.Field;var id=field.GetAthlete(0).AthleteId;bool found=false,pulse=false,curved=false;
                 for(int t=0;t<8000;t++)
                 {
                     var actor=field.GetAthlete(0);var tick=field.Tick.Next();
+                    // This observation fixture follows the paid route; it is not a steering test.
                     host.Step(new PlayerCommand(tick,id,900,0),new ShootingDeviceCommand(new WeaponAimCommand(tick,id,0,0),false,false));
                     host.Guidance.Refresh(.125f);
                     if(actor.ActiveShooting!=null)break;
@@ -51,7 +52,7 @@ namespace Biathlon.PlayModeTests
                         }
                     if(!found)Assert.That(nearest,Is.LessThan(6),"The separated trail still starts ahead of the skier, not at the distant mat.");
                     Assert.That(host.Guidance.ForkArrowCount,Is.Zero,"Do not overlay the old close-to-mat branch trail.");
-                    Assert.That(host.Guidance.GetComponentsInChildren<TextMesh>(true),Is.Empty);
+                    AssertUnlabelledChevrons(host.Guidance);
                     pulse|=host.Guidance.MatPulseActive;found=true;
                 }
                 Assert.That(found,Is.True);Assert.That(pulse,Is.True);Assert.That(curved,Is.True);yield return null;
@@ -74,21 +75,21 @@ namespace Biathlon.PlayModeTests
                 {
                     var actor=field.GetAthlete(0);bool afterShot=actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.RangeExit;
                     var tick=field.Tick.Next();host.Step(new PlayerCommand(tick,id,afterShot&&!returned?0:800,0),
-                        new ShootingDeviceCommand(new WeaponAimCommand(tick,id,1000,1000),actor.ActiveShooting?.Phase==ShootingPhase.Aiming,false));
+                        new ShootingDeviceCommand(new WeaponAimCommand(tick,id,1000,1000),actor.ActiveShooting?.Phase==ShootingPhase.Aiming,false,actor.ActiveShooting?.NeedsBoltCycle==true));
                     host.Guidance.Refresh(.125f);
                     if(host.Guidance.GuidedLaneOrdinal>0)
                     {
                         arrows=true;Assert.That(host.Guidance.GuidedLaneOrdinal,Is.EqualTo(actor.AssignedShootingLane.Ordinal));
                         Assert.That(host.Guidance.MatArrowCount,Is.GreaterThan(0));
-                        Assert.That(host.Guidance.GetComponentsInChildren<TextMesh>(true),Is.Empty,"Owner removed the mat label.");
+                        AssertUnlabelledChevrons(host.Guidance);
                     }
                     if(host.LastRangeAssistance.Mode==PlayerRangeAssistMode.FinalApproach)
                     {approach=true;Assert.That(host.Runner.GetLastLateral(0),Is.Zero);}
                     if(host.LastRangeAssistance.Mode==PlayerRangeAssistMode.InitialDeparture)
-                    {departure=true;Assert.That(host.Runner.GetLastInput(0).Ski.Effort.RequestedEffort,Is.EqualTo(650));}
+                    {departure=true;Assert.That(host.Runner.GetLastInput(0).Ski.Effort.RequestedEffort,Is.EqualTo(RangeGuidanceDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/range_guidance_v1")).DepartureEffort));}
                     if(!returned&&departure&&!host.LastRangeAssistance.Active)
                     {
-                        returned=true;Assert.That(host.Runner.GetLastInput(0).Ski.Effort.RequestedEffort,Is.LessThan(650));
+                        returned=true;Assert.That(host.Runner.GetLastInput(0).Ski.Effort.RequestedEffort,Is.LessThan(RangeGuidanceDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/range_guidance_v1")).DepartureEffort));
                     }
                     if(actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.PenaltyLoop&&host.Guidance.ForkArrowCount>0)
                     {
@@ -100,11 +101,18 @@ namespace Biathlon.PlayModeTests
                     Assert.That(actor.Motion.DistanceNanometers,Is.GreaterThanOrEqualTo(lastDistance));lastDistance=actor.Motion.DistanceNanometers;
                 }
                 Assert.That(arrows,Is.True);
-                Assert.That(approach,Is.True);Assert.That(departure,Is.True);Assert.That(returned,Is.True);
+                Assert.That(approach,Is.True,"Final approach assistance was observed.");Assert.That(departure,Is.True,"Post-shot departure assistance was observed.");Assert.That(returned,Is.True,"Departure assistance returned manual intent.");
                 Assert.That(continuePenalty,Is.True);Assert.That(leavePenalty,Is.True);
                 yield return null;
             }
             finally{Object.Destroy(root);}
+        }
+        private static void AssertUnlabelledChevrons(PlayerRouteGuidancePresentation guidance)
+        {
+            // Numbered mat flags share the host root and are intentional venue dressing.
+            foreach(var arrow in guidance.GetComponentsInChildren<MeshFilter>(true))
+                if(arrow.gameObject.name=="Assigned mat chevron")
+                    Assert.That(arrow.GetComponentsInChildren<TextMesh>(true),Is.Empty,"Guidance arrows must not overlay mat labels.");
         }
     }
 }
