@@ -3,7 +3,7 @@
 2026-10-13. G1/G2 approved. M13 closed by owner acceptance.
 M14: **19/19 WPs implemented and verified; awaiting owner test/acceptance**.
 
-Current player build: `Builds/M14PlayerStart20261013/START_M14_TEST.cmd` (0 build errors/warnings; standalone startup/render passed).
+Current player build: `Builds/M14_UI_WOW_Review/START_M14_TEST.cmd` (FROSTLINE; 0 build errors/warnings; ordinary startup and isolated Windows menu/race/shooting review passed).
 Previous accepted M13 build remains `Builds/WoodlandM13BotRecovery-20261011/START_WOODLAND_REVIEW.cmd`.
 
 Woodland keeps maximum 30 athletes, High default, separate start/finish, manual steering,
@@ -71,3 +71,36 @@ and standalone startup pass. Graphics quality, authority and balance unchanged.
 2026-10-12 continued-career Mass Start correction: WP-181 ranked grid/bibs/first mats and pre-race start number; WP-189 circuit-specific leaders; WP-192 versioned start order and icy-weather solver during replay/seek COMPLETE. Read-only current development save: rank 7 -> start number 7, one yellow leader, no first-Mass red. 56 headless, 8 Unity EditMode and 3 PlayMode checks pass. Complete icy Mass30 repeats at 28,344 ticks. Build/startup pass with 0 errors/warnings. [Current seeding report/build](reports/TASK_M14_MASS_SEEDING_20261012.md). M14 remains OPEN.
 
 2026-10-13 personal-start correction COMPLETE: WP-182/191/192/194/196/197 now provide a personal 3–2–1, visible waiting player, bounded button/Enter skip to the final three seconds, full command recording and pause/input checks. .NET19 + Unity Edit9 / Play7 PASS. New Win64 test build has0 errors/warnings; standalone startup/render PASS. [Report](reports/TASK_M14_PLAYER_START_20261013.md). M14 remains OPEN pending owner testing.
+
+## 2026-10-13 — M14 FROSTLINE visual revision delivered for owner review
+
+The owner brief is implemented in `codex/m14-ui-wow`; M14 remains OPEN for owner
+artistic/gameplay acceptance. Build code: `88e433d2`. Launch:
+`Builds/M14_UI_WOW_Review/START_M14_TEST.cmd`.
+
+WP-179/180/181/182/183/184/185/186/187/188/189/190/192/195/196/197 visual revision
+COMPLETE. WP-191/193/194 authority/highlights/cameras remain delivered and preserved.
+No implementation WP for this request remains in progress. Next step: owner tests the
+new build and accepts M14 or requests further corrections; no automatic main merge.
+
+Three native visual concepts, shared Frostline design/fonts, career/shop/training/
+result/broadcast/replay presentation, bounded transitions and Reduce motion are
+integrated. 44 focused core tests,28 distinct selected PlayMode checks and1 native
+EditMode panel-template check PASS. 624 frontend plus192 HUD matrix cases have zero
+recorded layout findings. Existing HUD coverage budgets remain mandatory and pass.
+
+Final Win64 build:0 errors /0 build warnings. Ordinary startup PASS. Isolated Windows
+review PASS:12 native captures, actual venue, personal start and actual shooting;
+14 navigation actions, zero collected errors, unchanged owner-profile hashes.
+108 frames exported to the native7.2-second MP4. Report:
+`docs/reports/TASK_M14_FROSTLINE_REVIEW_20261013.md`; evidence/design under
+`docs/quality/m14-wow/` and `docs/ui/m14-wow/`.
+
+The UI CPU comparison is narrow, not a full-race FPS assertion. Mono allocation
+counter is unsupported (positive control failed), so zero-GC is not claimed.
+Offscreen capture retains known URP DOF/Panini stripping warnings; no graphics
+quality workaround was applied. Secondary pages share components; hidden scrolling
+remains an overflow/focus fallback. Historical before-field captures retain the
+identified stencil-capture artifact. Gameplay/balance/save/replay authority source
+was unchanged by the visual branch. Unrelated pre-existing local edits are preserved
+and excluded from commits. Owner visual quality approval remains outstanding.

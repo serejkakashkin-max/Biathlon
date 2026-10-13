@@ -25,7 +25,7 @@ Updated 2026-10-13. M13 is closed by owner acceptance. All 19 M14 WPs are implem
 | 197 | COMPLETE | Native keyboard/gamepad menu navigation, career/race pause flows and replay seek/focus regression. |
 
 19 of 19 complete. No remaining M14 implementation WP. Owner acceptance is pending.
-Test build: `Builds/M14PlayerStart20261013/START_M14_TEST.cmd` (0 build errors/warnings; standalone startup/render passed).
+Test build: `Builds/M14_UI_WOW_Review/START_M14_TEST.cmd` (FROSTLINE; 0 build errors/warnings; ordinary startup and isolated Windows menu/race/shooting review passed).
 
 Latest evidence: [M14 completion report](reports/TASK_M14_COMPLETION_20261012.md),
 [recording/TV decision](adr/ADR-0058-m14-recorded-races-and-tv.md),
@@ -95,3 +95,36 @@ one native replay lifecycle test passed; 44 focused headless core/replay checks 
 A remaining white inner-input painting defect was found by visual inspection and
 is being diagnosed; no build is declared ready yet. No physics, race tuning, save
 schema or rendering-quality reduction belongs to this visual change.
+
+## 2026-10-13 — M14 FROSTLINE visual revision delivered for owner review
+
+The owner brief is implemented in `codex/m14-ui-wow`; M14 remains OPEN for owner
+artistic/gameplay acceptance. Build code: `88e433d2`. Launch:
+`Builds/M14_UI_WOW_Review/START_M14_TEST.cmd`.
+
+WP-179/180/181/182/183/184/185/186/187/188/189/190/192/195/196/197 visual revision
+COMPLETE. WP-191/193/194 authority/highlights/cameras remain delivered and preserved.
+No implementation WP for this request remains in progress. Next step: owner tests the
+new build and accepts M14 or requests further corrections; no automatic main merge.
+
+Three native visual concepts, shared Frostline design/fonts, career/shop/training/
+result/broadcast/replay presentation, bounded transitions and Reduce motion are
+integrated. 44 focused core tests,28 distinct selected PlayMode checks and1 native
+EditMode panel-template check PASS. 624 frontend plus192 HUD matrix cases have zero
+recorded layout findings. Existing HUD coverage budgets remain mandatory and pass.
+
+Final Win64 build:0 errors /0 build warnings. Ordinary startup PASS. Isolated Windows
+review PASS:12 native captures, actual venue, personal start and actual shooting;
+14 navigation actions, zero collected errors, unchanged owner-profile hashes.
+108 frames exported to the native7.2-second MP4. Report:
+`docs/reports/TASK_M14_FROSTLINE_REVIEW_20261013.md`; evidence/design under
+`docs/quality/m14-wow/` and `docs/ui/m14-wow/`.
+
+The UI CPU comparison is narrow, not a full-race FPS assertion. Mono allocation
+counter is unsupported (positive control failed), so zero-GC is not claimed.
+Offscreen capture retains known URP DOF/Panini stripping warnings; no graphics
+quality workaround was applied. Secondary pages share components; hidden scrolling
+remains an overflow/focus fallback. Historical before-field captures retain the
+identified stencil-capture artifact. Gameplay/balance/save/replay authority source
+was unchanged by the visual branch. Unrelated pre-existing local edits are preserved
+and excluded from commits. Owner visual quality approval remains outstanding.

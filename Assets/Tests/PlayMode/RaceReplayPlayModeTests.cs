@@ -86,14 +86,14 @@ namespace Biathlon.PlayModeTests
         {
             var doc=replay.Root;var ui=Object.FindObjectsByType<UIDocument>(FindObjectsSortMode.None);
             PanelSettings panel=null;foreach(var candidate in ui)if(candidate.rootVisualElement==doc)panel=candidate.panelSettings;
-            Assert.That(panel,Is.Not.Null);var target=new RenderTexture(width,height,0);target.Create();panel.targetTexture=target;
+            Assert.That(panel,Is.Not.Null);var target=new RenderTexture(width,height,24);target.Create();panel.targetTexture=target;
             var previous=RenderTexture.active;Texture2D pixels=null;
             try
             {
                 yield return null;yield return null;yield return null;
                 var toolbar=doc.Q("replay_controls");Assert.That(toolbar.worldBound.xMax,Is.LessThanOrEqualTo(doc.worldBound.xMax));Assert.That(toolbar.worldBound.yMax,Is.LessThanOrEqualTo(doc.worldBound.yMax));
                 RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
-                string evidence=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m14/completion-20261012"));Directory.CreateDirectory(evidence);File.WriteAllBytes(Path.Combine(evidence,"replay-ui-"+width+".png"),pixels.EncodeToPNG());
+                string evidence=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m14-wow/after"));Directory.CreateDirectory(evidence);File.WriteAllBytes(Path.Combine(evidence,"replay-ui-"+width+".png"),pixels.EncodeToPNG());
             }
             finally{panel.targetTexture=null;RenderTexture.active=previous;if(pixels!=null)Object.Destroy(pixels);Object.Destroy(target);}
         }

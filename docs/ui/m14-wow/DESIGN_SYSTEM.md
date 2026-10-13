@@ -97,8 +97,9 @@ are assertions in tests, not a substitute for inspecting each final capture.
 
 ## Motion and performance policy
 
-`frostline.uss` defines a 180 ms page opacity transition and 140 ms button colour
-transition. Home art has a small scheduled 33 ms drift; rebuilding the page
+`frostline.uss` defines a 180 ms page opacity transition, 140 ms button/target colour
+transition and 120 ms width/colour transitions on retained meters. Targets follow
+accepted hit state; meter endpoints remain the actual observed values. Home art has a small scheduled 33 ms drift; rebuilding the page
 pauses the previous schedule. The Reduce motion setting removes those
 transitions/drift. HUD reads the same `biathlon.ui.reduced_motion` preference
 when built and stops heartbeat/trace animation; static vector shapes and status
