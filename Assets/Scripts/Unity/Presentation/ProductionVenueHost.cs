@@ -214,6 +214,7 @@ namespace Biathlon.Unity.Presentation
             guidanceDefinition=guidance;guidanceTrail=RangeGuidanceTrailDefinition.FromJson(ReadCore("range_guidance_visual_v1.json"));
             rangeAssistance=new PlayerRangeAssistanceSystem(guidance);
             Guidance=gameObject.AddComponent<PlayerRouteGuidancePresentation>();Guidance.Initialize(this,guidance);
+            gameObject.AddComponent<RaceAudioPresentation>().Initialize(this);
         }
         public double CurrentLateralExtent
         {

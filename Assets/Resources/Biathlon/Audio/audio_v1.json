@@ -1,0 +1,27 @@
+{
+ "schema_version":1,"id":"frostline_audio_v1","transient_voices":16,"loop_voices":6,"max_events_per_frame":12,
+ "fade_seconds":0.4,"focus_duck":0.32,"speed_reference":11,"pole_distance":4.2,"breath_min_seconds":1.7,"breath_max_seconds":4.5,
+ "heart_threshold":145,"heart_ceiling":195,"event_gap_seconds":0.5,"ui_cooldown_seconds":0.075,"silent_threshold":0.0005,"mix_headroom":0.55,
+ "cues":[
+  {"id":"SkiPacked","bus":"Effects","clips":["ski_packed"],"gain":0.32,"priority":80,"loop":true},
+  {"id":"SkiSoft","bus":"Effects","clips":["ski_soft"],"gain":0.36,"priority":80,"loop":true},
+  {"id":"SkiIce","bus":"Effects","clips":["ski_ice"],"gain":0.27,"priority":80,"loop":true},
+  {"id":"Pole","bus":"Effects","clips":["pole_0","pole_1","pole_2"],"gain":0.32,"priority":120},
+  {"id":"Breath","bus":"Body","clips":["breath"],"gain":0.3,"priority":30},
+  {"id":"Heart","bus":"Body","clips":["heart"],"gain":0.19,"priority":40},
+  {"id":"Rifle","bus":"Effects","clips":["rifle_0","rifle_1","rifle_2"],"gain":0.7,"priority":10,"min_distance":4,"max_distance":150},
+  {"id":"Bolt","bus":"Effects","clips":["bolt"],"gain":0.48,"priority":20},
+  {"id":"TargetHit","bus":"Effects","clips":["target_hit"],"gain":0.46,"priority":15,"min_distance":18,"max_distance":90},
+  {"id":"TargetMiss","bus":"Effects","clips":["target_miss"],"gain":0.2,"priority":20,"min_distance":18,"max_distance":90},
+  {"id":"Wind","bus":"Ambience","clips":["wind"],"gain":0.2,"priority":150,"loop":true},
+  {"id":"Snowfall","bus":"Ambience","clips":["snowfall"],"gain":0.12,"priority":150,"loop":true},
+  {"id":"Crowd","bus":"Ambience","clips":["crowd"],"gain":0.22,"priority":150,"loop":true},
+  {"id":"Cheer","bus":"Ambience","clips":["cheer"],"gain":0.42,"priority":90},
+  {"id":"Focus","bus":"Interface","clips":["ui_focus"],"gain":0.16,"priority":60},
+  {"id":"Confirm","bus":"Interface","clips":["ui_confirm"],"gain":0.3,"priority":25},
+  {"id":"Back","bus":"Interface","clips":["ui_back"],"gain":0.26,"priority":25},
+  {"id":"Countdown","bus":"Interface","clips":["countdown"],"gain":0.38,"priority":5},
+  {"id":"Start","bus":"Interface","clips":["start"],"gain":0.45,"priority":5},
+  {"id":"Menu","bus":"Music","clips":["menu_air"],"gain":0.22,"priority":180,"loop":true}
+ ]
+}

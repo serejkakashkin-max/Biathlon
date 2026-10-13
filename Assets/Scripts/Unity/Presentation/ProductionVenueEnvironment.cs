@@ -36,6 +36,8 @@ namespace Biathlon.Unity.Presentation
         public string RecipeId=>recipe?.id;
         public string VenueId=>recipe?.venue_id;
         public string WeatherPresetId=>recipe?.lighting.weather_preset;
+        public string AudioSnowProfile=>recipe?.terrain.snow_surface_profile;
+        public Vector2 AudioWind=>recipe?.lighting.visual_wind??Vector2.zero;
         public int SubmittedSnowflakes=>weather?.SubmittedFlakes??0;
         public int TerrainTileCount=>tileMeshes?.Length??0;
         public int ForestGroupCount=>forests?.Length??0;

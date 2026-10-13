@@ -50,6 +50,7 @@ namespace Biathlon.Unity.Presentation
             if(Keyboard.current?.enterKey.wasPressedThisFrame==true)host.RequestFastFinish();
             if(Keyboard.current?.cKey.wasPressedThisFrame==true){mode=(mode+1)%3;Root.Q<DropdownField>("spectator_camera").SetValueWithoutNotify(Root.Q<DropdownField>("spectator_camera").choices[mode]);snap=true;}
             if(host.Runner.Field.GetAthlete(selected).HasFinished)SelectNext(1);
+            host.GetComponent<RaceAudioPresentation>()?.SpectatorContext(view,selected);
             string id=host.Runner.Field.GetAthlete(selected).AthleteId.Value;var subject=host.Proxies.GetProxy(id);
             var forward=subject.forward;forward.y=0;forward.Normalize();var right=new Vector3(forward.z,0,-forward.x);
             var desired=mode==1?subject.position+Vector3.up*settings.overhead_height_m-forward*3:

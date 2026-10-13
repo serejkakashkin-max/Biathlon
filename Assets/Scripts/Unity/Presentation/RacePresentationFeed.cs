@@ -7,6 +7,7 @@ namespace Biathlon.Unity.Presentation
     /// render consumers cannot obtain or advance the authoritative field through this component.</summary>
     public sealed class RacePresentationFeed : MonoBehaviour
     {
+        public event Action<RacePresentationSnapshot> Published;
         public RacePresentationSnapshot Previous { get; private set; }
         public RacePresentationSnapshot Current { get; private set; }
         public double? InterpolationAlpha {get;private set;}
@@ -17,6 +18,7 @@ namespace Biathlon.Unity.Presentation
             if(snapshot==null)throw new ArgumentNullException(nameof(snapshot));
             if(Current!=null&&(snapshot.Tick<=Current.Tick||snapshot.TrackId!=Current.TrackId||snapshot.ProfileId!=Current.ProfileId||snapshot.TickFrequency!=Current.TickFrequency))throw new ArgumentException("Reset before publishing another race or a nonincreasing tick.");
             Previous=Current;Current=snapshot;
+            Published?.Invoke(snapshot);
         }
         public void ResetRace(){Previous=null;Current=null;InterpolationAlpha=null;}
         public PresentationPosition Position(int index,double alpha)=>RacePresentationSampling.Position(Previous,Current,index,alpha);

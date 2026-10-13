@@ -126,6 +126,7 @@ namespace Biathlon.Unity.Presentation
             if(Keyboard.current?.leftArrowKey.wasPressedThisFrame==true)Seek(Tick-(long)(settings.seek_seconds*Info.TickFrequency));
             if(Keyboard.current?.rightArrowKey.wasPressedThisFrame==true)Seek(Tick+(long)(settings.seek_seconds*Info.TickFrequency));
             if(Keyboard.current?.cKey.wasPressedThisFrame==true)SetCamera(CameraMode=="auto"?"track":CameraMode=="track"?"wide":"auto");
+            Host.GetComponent<RaceAudioPresentation>()?.ReplayContext(camera,SelectedIndex,Paused||Seeking||Speed!=1);
             if(!Paused&&!Seeking)backlog=Math.Min(1,backlog+Time.unscaledDeltaTime*Speed);
             int count=Seeking?settings.seek_step_limit:Math.Min(settings.seek_step_limit,(int)(backlog*Info.TickFrequency));work.Restart();
             try

@@ -50,6 +50,7 @@ namespace Biathlon.Unity.Presentation
         public void Initialize(ICareerProfileStore profiles,RaceReplayLibrary replayLibrary=null)
         {
             if(Session!=null)throw new InvalidOperationException("Initialize front end once.");
+            BiathlonAudio.Ensure(PersistPreferences).SetMenu(true);
             theme=FrontEndTheme.Load();text=UiTextCatalog.FromJson(ProductionVenueHost.ReadResource("Biathlon/UI/front_end_text_v1"));
             backdrop=Resources.Load<Texture2D>("Biathlon/UI/menu_background");
             Session=new FrontEndSession(ReadCore,profiles,s=>new SeededRandomSource(s));
@@ -81,6 +82,7 @@ namespace Biathlon.Unity.Presentation
         }
         public void Back()
         {
+            BiathlonAudio.Instance?.Ui(AudioCue.Back);
             if(Race.Loading)return;
             if(Replays.Loading)return;
             if(Replays.Active){Replays.Close();return;}
@@ -93,6 +95,7 @@ namespace Biathlon.Unity.Presentation
         public void ShowRaceFailure(){SetRaceVisible(false);ShowError("race_fault");Render();}
         public void SetRaceVisible(bool visible)
         {
+            BiathlonAudio.Instance?.SetMenu(!visible);
             Root.style.display=visible?DisplayStyle.None:DisplayStyle.Flex;menuCamera.enabled=!visible;
             if(visible){Root.panel?.focusController.focusedElement?.Blur();LastMessage=null;}
         }
@@ -261,12 +264,13 @@ namespace Biathlon.Unity.Presentation
                 contrast.RegisterValueChangedCallback(e=>ApplyAccessibility(e.newValue));
                 var motion=new Toggle(L("Уменьшить анимацию","Reduce motion")){name="reduced_motion",value=ReducedMotion};StyleControl(motion);actions.Add(motion);controls.Add(motion);
                 motion.RegisterValueChangedCallback(e=>{ReducedMotion=e.newValue;if(PersistPreferences){PlayerPrefs.SetInt("biathlon.ui.reduced_motion",ReducedMotion?1:0);PlayerPrefs.Save();}Render();});
-                AddLabel(card,T("settings"),theme.section_size,true);
-                var controlsCard=Tile(card);AddLabel(controlsCard,L("НА ТРАССЕ","ON THE COURSE"),theme.caption_size);
+                AddAudioSettings(card);
+                var reference=new Foldout{text=L("Управление и доступность","Controls & accessibility"),value=false};reference.name="controls_reference";card.Add(reference);
+                var controlsCard=Tile(reference);AddLabel(controlsCard,L("НА ТРАССЕ","ON THE COURSE"),theme.caption_size);
                 InfoRow(controlsCard,"W / S",L("Темп / тормоз","Pace / brake"));InfoRow(controlsCard,"A / D",L("Ручное руление","Manual steering"));InfoRow(controlsCard,"Shift / Ctrl",L("Атака / восстановление","Attack / recover"));InfoRow(controlsCard,"Space",L("Низкая стойка","Tuck"));InfoRow(controlsCard,"Tab",L("Последняя отсечка","Latest split"));
-                var shootingCard=Tile(card);AddLabel(shootingCard,L("НА РУБЕЖЕ","ON THE RANGE"),theme.caption_size);
+                var shootingCard=Tile(reference);AddLabel(shootingCard,L("НА РУБЕЖЕ","ON THE RANGE"),theme.caption_size);
                 InfoRow(shootingCard,L("ПКМ / ЛКМ","RMB / LMB"),L("Затвор / выстрел","Bolt / fire"));InfoRow(shootingCard,"Space / F",L("Дыхание / точный прицел","Breath / fine aim"));
-                AddLabel(card,T("accessibility.symbols"),theme.caption_size);AddLabel(card,T("accessibility.assists"),theme.caption_size).name="accessibility_assists";
+                AddLabel(reference,T("accessibility.symbols"),theme.caption_size);AddLabel(reference,T("accessibility.assists"),theme.caption_size).name="accessibility_assists";
             }
             message=AddLabel(left,LastMessage??"",theme.caption_size);message.name="message";message.style.color=FrontEndTheme.Color(theme.danger);
             left.Query<Label>().ForEach(label=>{if(label!=message)label.style.color=Color.white;});
@@ -348,7 +352,7 @@ namespace Biathlon.Unity.Presentation
         }
         private void AddButton(VisualElement parent,string id,string label,Action action,bool primary=false,bool enabled=true)
         {
-            var button=new Button(action){name=id,text=label,enableRichText=false};StyleControl(button);button.SetEnabled(enabled);
+            var button=new Button(()=>{BiathlonAudio.Instance?.Ui(AudioCue.Confirm);action();}){name=id,text=label,enableRichText=false};StyleControl(button);button.SetEnabled(enabled);
             button.style.opacity=enabled?1:.45f;button.AddToClassList("fl-button");
             button.style.unityTextAlign=TextAnchor.MiddleLeft;button.style.paddingLeft=theme.spacing;button.style.paddingRight=theme.spacing;
             button.style.borderTopLeftRadius=2;button.style.borderTopRightRadius=2;button.style.borderBottomLeftRadius=2;button.style.borderBottomRightRadius=2;
@@ -359,7 +363,7 @@ namespace Biathlon.Unity.Presentation
                 button.style.borderLeftColor=accent;button.style.borderRightColor=accent;button.style.borderTopColor=accent;button.style.borderBottomColor=accent;
                 if(!selected)button.style.borderLeftColor=Color.clear;
             }
-            Paint(false);button.RegisterCallback<FocusInEvent>(e=>Paint(true));button.RegisterCallback<FocusOutEvent>(e=>Paint(false));
+            Paint(false);button.RegisterCallback<FocusInEvent>(e=>{Paint(true);BiathlonAudio.Instance?.Ui(AudioCue.Focus);});button.RegisterCallback<FocusOutEvent>(e=>Paint(false));
             button.RegisterCallback<MouseEnterEvent>(e=>Paint(true));button.RegisterCallback<MouseLeaveEvent>(e=>Paint(button==Root.panel?.focusController.focusedElement));
             parent.Add(button);controls.Add(button);
         }

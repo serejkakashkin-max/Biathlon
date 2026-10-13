@@ -40,6 +40,8 @@ namespace Biathlon.Simulation
         public ShootingSwayFrame ShootingSway { get; }
         public bool BreathHolding { get; }
         public double BreathingPhaseCycles { get; }
+        /// <summary>Read-only audio/HUD rhythm from the same heartbeat that drives shooting sway.</summary>
+        public long CompletedHeartbeats {get;}
         public int ClosedTargetsMask { get; }
         public int ShotsFired { get; }
         public WeaponAimState Sight { get; }
@@ -97,6 +99,7 @@ namespace Biathlon.Simulation
             NeedsBoltCycle=shooting?.NeedsBoltCycle??false;BreathBlocked=shooting?.LastFrame.BreathControl.Blocked??false;
             BreathDebt=shooting?.LastFrame.BreathControl.Debt??0;BreathSwayMultiplier=shooting?.LastFrame.BreathControl.BreathingMultiplier??1;
             BreathingPhaseCycles=shooting?.LastFrame.Breathing.PhaseCycles??0;
+            CompletedHeartbeats=shooting?.LastFrame.Heartbeat.CompletedBeats??0;
             ClosedTargetsMask=shooting?.ClosedMask??0;ShotsFired=shooting?.ShotsFired??0;
             Sight=shooting?.Sight??default;ControlledAim=shooting?.LastFrame.Aim??default;ShotSight=shooting?.LastFrame.ShotAim??default;
             ShootingWind=shooting?.LastFrame.Input.Wind??default;FineAim=shooting?.LastFrame.Input.Aim.FineControl??false;Stance=field.Profile.GetBout(Math.Min(a.Lifecycle.CompletedBouts,field.Profile.BoutCount-1)).Stance;
