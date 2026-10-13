@@ -1,0 +1,33 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 355,
+    "PassedTests": 3,
+    "FailedTests": 1,
+    "SkippedTests": 0,
+    "Duration": "00:01:00.4001032"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.RaceStartPresentationTests.ActualKeyboardRaisesHoldsAndLowersPaceAndCannotGoBelowZero",
+      "Status": "Passed",
+      "Duration": "00:00:00.0680000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.RaceStartPresentationTests.CountdownIsVisibleInRetainedHudWhileAuthorityRemainsFrozen",
+      "Status": "Failed",
+      "Duration": "00:00:21.9160000",
+      "Message": "  Expected: None\r\n  But was:  Flex\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.RaceStartPresentationTests.ThreeSecondPreparationFreezesRaceAndInputClocksIncludingTheGoBoundary",
+      "Status": "Passed",
+      "Duration": "00:00:19.2350000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.RaceStartPresentationTests.UntouchedPaceStartsAtZeroAndAcceptsTheSharedStopBrake",
+      "Status": "Passed",
+      "Duration": "00:00:19.0370000"
+    }
+  ]
+}

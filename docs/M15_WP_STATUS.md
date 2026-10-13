@@ -19,3 +19,5 @@ Authority, balance, graphics and save compatibility remain unchanged. See ADR-00
 No implementation WP remains in progress. Owner listening/playtesting is next;
 this completion does not assert owner approval of the artistic mix.
 Evidence: [M15 delivery report](reports/TASK_M15_AUDIO_20261013.md).
+
+2026-10-13 owner follow-up: WP-199/204/205 refinements COMPLETE; menu music, softened pole Foley and WP-182 Mass Start countdown correction. Latest build: Builds/M15_Audio_Refinement_Review/START_M15_TEST.cmd. See reports/TASK_M15_AUDIO_REFINEMENT_20261013.md. Owner listening test is next.

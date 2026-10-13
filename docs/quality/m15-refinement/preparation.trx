@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="59242c90-d3db-425d-9ed1-6d3a8cffc69f" name="snkashkin@DESKTOP-G3075GA 2026-10-13 17:36:37" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-13T17:36:37.6591055+03:00" queuing="2026-10-13T17:36:37.6591057+03:00" start="2026-10-13T17:36:36.8486256+03:00" finish="2026-10-13T17:36:37.6681088+03:00" />
+  <TestSettings name="default" id="718f983a-20a9-4be6-bb0e-6bcff3a2d383">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-13_17_36_37" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="118c4788-dd43-4850-aea3-9578c7e92287" testId="4c6488f5-59cc-41f5-9dbe-c1ce23d4f5b4" testName="EarlyPursuitDepartureStillAllowsFullThreeSecondsWithoutChangingItsRegisteredGap(2)" computerName="DESKTOP-G3075GA" duration="00:00:00.0010060" startTime="2026-10-13T17:36:37.5579092+03:00" endTime="2026-10-13T17:36:37.5589147+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="118c4788-dd43-4850-aea3-9578c7e92287" />
+    <UnitTestResult executionId="222af277-0abf-41cb-9aac-c15ebf49f349" testId="4073eebf-4fbb-ecb3-6e21-de49398bf8a6" testName="DefinitionAndClockRejectInvalidBudgetsAndNonRepresentableCountdowns" computerName="DESKTOP-G3075GA" duration="00:00:00.0386540" startTime="2026-10-13T17:36:37.5130266+03:00" endTime="2026-10-13T17:36:37.5516511+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="222af277-0abf-41cb-9aac-c15ebf49f349" />
+    <UnitTestResult executionId="a469484c-0feb-4efc-8d74-d0a7acdd5e6c" testId="a79b735d-8e8e-f931-e2f3-369a054e798d" testName="ImmediateStartHasThreeSecondsOfLocalPreparationAndNoRaceClockAdvance" computerName="DESKTOP-G3075GA" duration="00:00:00.0007660" startTime="2026-10-13T17:36:37.5593398+03:00" endTime="2026-10-13T17:36:37.5601058+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a469484c-0feb-4efc-8d74-d0a7acdd5e6c" />
+    <UnitTestResult executionId="c67603cd-98eb-4b01-b63d-614113ff339d" testId="7be73ae4-181d-1585-7cce-d17426065771" testName="EarlyPursuitDepartureStillAllowsFullThreeSecondsWithoutChangingItsRegisteredGap(60)" computerName="DESKTOP-G3075GA" duration="00:00:00.0001210" startTime="2026-10-13T17:36:37.5591990+03:00" endTime="2026-10-13T17:36:37.5593202+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c67603cd-98eb-4b01-b63d-614113ff339d" />
+    <UnitTestResult executionId="173ee632-8a0f-4869-ae47-92782cae378b" testId="8d27f93c-ea81-4c75-c506-cca7d49aafa5" testName="RepeatedObservationsAllocateNoManagedObjects" computerName="DESKTOP-G3075GA" duration="00:00:00.0014679" startTime="2026-10-13T17:36:37.5601133+03:00" endTime="2026-10-13T17:36:37.5615811+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="173ee632-8a0f-4869-ae47-92782cae378b" />
+    <UnitTestResult executionId="3cf1fd01-19a9-4a0e-a846-54eae8add73c" testId="94f52df1-e158-32d1-e014-58778a7af673" testName="DelayedPersonalCountdownUsesScheduledTickAndSkipStopsExactlyThreeSecondsBeforeIt(601,541)" computerName="DESKTOP-G3075GA" duration="00:00:00.0043229" startTime="2026-10-13T17:36:37.5522861+03:00" endTime="2026-10-13T17:36:37.5566080+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3cf1fd01-19a9-4a0e-a846-54eae8add73c" />
+    <UnitTestResult executionId="28c0d3fe-e226-4834-83e2-ea52bb0ad3b9" testId="11bbdb4b-998d-d963-d100-0ebb9893414d" testName="DelayedPersonalCountdownUsesScheduledTickAndSkipStopsExactlyThreeSecondsBeforeIt(66001,65941)" computerName="DESKTOP-G3075GA" duration="00:00:00.0001499" startTime="2026-10-13T17:36:37.5571671+03:00" endTime="2026-10-13T17:36:37.5573167+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="28c0d3fe-e226-4834-83e2-ea52bb0ad3b9" />
+    <UnitTestResult executionId="30befafe-b278-4d41-a9a6-10bd3106557b" testId="0bef6978-7a2b-18ef-7f8f-4b09bebc8c03" testName="DelayedPersonalCountdownUsesScheduledTickAndSkipStopsExactlyThreeSecondsBeforeIt(6001,5941)" computerName="DESKTOP-G3075GA" duration="00:00:00.0005100" startTime="2026-10-13T17:36:37.5566417+03:00" endTime="2026-10-13T17:36:37.5571517+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="30befafe-b278-4d41-a9a6-10bd3106557b" />
+    <UnitTestResult executionId="abdac63b-8b1b-4c69-8c03-45734c547b0f" testId="544d1d95-27d5-9942-cc06-a71f884621c4" testName="EarlyPursuitDepartureStillAllowsFullThreeSecondsWithoutChangingItsRegisteredGap(21)" computerName="DESKTOP-G3075GA" duration="00:00:00.0002690" startTime="2026-10-13T17:36:37.5589235+03:00" endTime="2026-10-13T17:36:37.5591923+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="abdac63b-8b1b-4c69-8c03-45734c547b0f" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="DelayedPersonalCountdownUsesScheduledTickAndSkipStopsExactlyThreeSecondsBeforeIt(66001,65941)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="11bbdb4b-998d-d963-d100-0ebb9893414d">
+      <Execution id="28c0d3fe-e226-4834-83e2-ea52bb0ad3b9" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PlayerStartPreparationTests" name="DelayedPersonalCountdownUsesScheduledTickAndSkipStopsExactlyThreeSecondsBeforeIt(66001,65941)" />
+    </UnitTest>
+    <UnitTest name="DefinitionAndClockRejectInvalidBudgetsAndNonRepresentableCountdowns" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="4073eebf-4fbb-ecb3-6e21-de49398bf8a6">
+      <Execution id="222af277-0abf-41cb-9aac-c15ebf49f349" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PlayerStartPreparationTests" name="DefinitionAndClockRejectInvalidBudgetsAndNonRepresentableCountdowns" />
+    </UnitTest>
+    <UnitTest name="EarlyPursuitDepartureStillAllowsFullThreeSecondsWithoutChangingItsRegisteredGap(21)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="544d1d95-27d5-9942-cc06-a71f884621c4">
+      <Execution id="abdac63b-8b1b-4c69-8c03-45734c547b0f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PlayerStartPreparationTests" name="EarlyPursuitDepartureStillAllowsFullThreeSecondsWithoutChangingItsRegisteredGap(21)" />
+    </UnitTest>
+    <UnitTest name="DelayedPersonalCountdownUsesScheduledTickAndSkipStopsExactlyThreeSecondsBeforeIt(601,541)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="94f52df1-e158-32d1-e014-58778a7af673">
+      <Execution id="3cf1fd01-19a9-4a0e-a846-54eae8add73c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PlayerStartPreparationTests" name="DelayedPersonalCountdownUsesScheduledTickAndSkipStopsExactlyThreeSecondsBeforeIt(601,541)" />
+    </UnitTest>
+    <UnitTest name="DelayedPersonalCountdownUsesScheduledTickAndSkipStopsExactlyThreeSecondsBeforeIt(6001,5941)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="0bef6978-7a2b-18ef-7f8f-4b09bebc8c03">
+      <Execution id="30befafe-b278-4d41-a9a6-10bd3106557b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PlayerStartPreparationTests" name="DelayedPersonalCountdownUsesScheduledTickAndSkipStopsExactlyThreeSecondsBeforeIt(6001,5941)" />
+    </UnitTest>
+    <UnitTest name="ImmediateStartHasThreeSecondsOfLocalPreparationAndNoRaceClockAdvance" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="a79b735d-8e8e-f931-e2f3-369a054e798d">
+      <Execution id="a469484c-0feb-4efc-8d74-d0a7acdd5e6c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PlayerStartPreparationTests" name="ImmediateStartHasThreeSecondsOfLocalPreparationAndNoRaceClockAdvance" />
+    </UnitTest>
+    <UnitTest name="RepeatedObservationsAllocateNoManagedObjects" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="8d27f93c-ea81-4c75-c506-cca7d49aafa5">
+      <Execution id="173ee632-8a0f-4869-ae47-92782cae378b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PlayerStartPreparationTests" name="RepeatedObservationsAllocateNoManagedObjects" />
+    </UnitTest>
+    <UnitTest name="EarlyPursuitDepartureStillAllowsFullThreeSecondsWithoutChangingItsRegisteredGap(2)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="4c6488f5-59cc-41f5-9dbe-c1ce23d4f5b4">
+      <Execution id="118c4788-dd43-4850-aea3-9578c7e92287" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PlayerStartPreparationTests" name="EarlyPursuitDepartureStillAllowsFullThreeSecondsWithoutChangingItsRegisteredGap(2)" />
+    </UnitTest>
+    <UnitTest name="EarlyPursuitDepartureStillAllowsFullThreeSecondsWithoutChangingItsRegisteredGap(60)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="7be73ae4-181d-1585-7cce-d17426065771">
+      <Execution id="c67603cd-98eb-4b01-b63d-614113ff339d" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PlayerStartPreparationTests" name="EarlyPursuitDepartureStillAllowsFullThreeSecondsWithoutChangingItsRegisteredGap(60)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="4c6488f5-59cc-41f5-9dbe-c1ce23d4f5b4" executionId="118c4788-dd43-4850-aea3-9578c7e92287" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4073eebf-4fbb-ecb3-6e21-de49398bf8a6" executionId="222af277-0abf-41cb-9aac-c15ebf49f349" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a79b735d-8e8e-f931-e2f3-369a054e798d" executionId="a469484c-0feb-4efc-8d74-d0a7acdd5e6c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7be73ae4-181d-1585-7cce-d17426065771" executionId="c67603cd-98eb-4b01-b63d-614113ff339d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8d27f93c-ea81-4c75-c506-cca7d49aafa5" executionId="173ee632-8a0f-4869-ae47-92782cae378b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="94f52df1-e158-32d1-e014-58778a7af673" executionId="3cf1fd01-19a9-4a0e-a846-54eae8add73c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="11bbdb4b-998d-d963-d100-0ebb9893414d" executionId="28c0d3fe-e226-4834-83e2-ea52bb0ad3b9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0bef6978-7a2b-18ef-7f8f-4b09bebc8c03" executionId="30befafe-b278-4d41-a9a6-10bd3106557b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="544d1d95-27d5-9942-cc06-a71f884621c4" executionId="abdac63b-8b1b-4c69-8c03-45734c547b0f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="9" executed="9" passed="9" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 9 of 9 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
