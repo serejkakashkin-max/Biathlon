@@ -25,6 +25,10 @@ namespace Biathlon.PlayModeTests
             try
             {
                 feed.Publish(RacePresentationSnapshot.Capture(runner.Field));hud.Refresh();
+                Assert.That(hud.Root.Q<Label>("speed").style.unityFont.value,Is.EqualTo(FrostlineStyle.DisplayFont));
+                Assert.That(hud.Root.Q<Label>("speed").style.color.value,Is.EqualTo(FrostlineStyle.Ink),"HUD foreground must stay light when menu ink/paper tokens change.");
+                Assert.That(hud.Root.Q<Label>("speed_unit"),Is.Not.Null);
+                Assert.That(hud.Root.Q<Button>("skip_start_wait").pickingMode,Is.EqualTo(PickingMode.Ignore),"A hidden skip button cannot steal race input.");
                 yield return Capture(hud,1600,900,"ru",0,"skiing-ru");
                 hud.SetCheckpointTableVisible(true);
                 Assert.That(hud.CheckpointTableVisible,Is.True);

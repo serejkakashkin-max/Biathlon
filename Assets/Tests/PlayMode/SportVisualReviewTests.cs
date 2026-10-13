@@ -26,10 +26,11 @@ namespace Biathlon.PlayModeTests
         private static string Folder=>Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m14/visual-review-20261012"));
         private IEnumerator Capture(PanelSettings panel,Action prepare,string file,int width=1600,int height=900,Action inspect=null)
         {
-            var rt=new RenderTexture(width,height,0);rt.Create();var old=panel.targetTexture;var active=RenderTexture.active;Texture2D pixels=null;
+            var rt=new RenderTexture(width,height,24);rt.Create();var old=panel.targetTexture;var active=RenderTexture.active;Texture2D pixels=null;
             try
             {
                 panel.targetTexture=rt;prepare();for(int i=0;i<6;i++)yield return null;
+                yield return new WaitForSecondsRealtime(.3f); // Include the retained screen's entrance transition.
                 RenderTexture.active=rt;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
                 Directory.CreateDirectory(Folder);File.WriteAllBytes(Path.Combine(Folder,file+".png"),pixels.EncodeToPNG());
                 if(!file.StartsWith("timing")&&!file.StartsWith("race-panels"))AssertArtworkPaints(pixels);

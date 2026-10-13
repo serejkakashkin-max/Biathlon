@@ -337,6 +337,14 @@ namespace Biathlon.Unity.Presentation
                 element.style.borderLeftColor=element.style.borderRightColor=element.style.borderTopColor=element.style.borderBottomColor=FrostlineStyle.Accent;
                 element.style.paddingLeft=10;
             });
+            if(control is Toggle)
+            {
+                control.style.height=StyleKeyword.Auto;control.style.minHeight=theme.control_height;
+                var label=control.Q<Label>(className:"unity-base-field__label");
+                if(label!=null){label.style.minWidth=0;label.style.flexBasis=0;label.style.flexGrow=1;label.style.flexShrink=1;label.style.whiteSpace=WhiteSpace.Normal;}
+                var input=control.Q(className:"unity-base-field__input");
+                if(input!=null){input.style.flexGrow=0;input.style.flexShrink=0;input.style.width=28;input.style.minWidth=28;input.style.paddingLeft=0;}
+            }
         }
         private void AddButton(VisualElement parent,string id,string label,Action action,bool primary=false,bool enabled=true)
         {
