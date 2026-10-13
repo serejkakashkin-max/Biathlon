@@ -7,13 +7,13 @@ Budget for new assets/subscriptions: $0. No automatic main merge.
 
 | WP | Scope | Status |
 |---|---|---|
-|VU-A|Asset/license/code audit, baseline tests/captures/performance|IN PROGRESS|
-|VU-B|Hybrid ski motion, phases, contacts, fallback, comparison scene|PENDING|
-|VU-C|G2 hero, equipment, materials, variation and LOD audit/upgrade|PENDING|
-|VU-D|Snow materials, individual ski/pole tracks and bounded spray|PENDING|
-|VU-E|Forest composition and licensed winter roadside details|PENDING|
-|VU-F|Five winter atmospheres and Performance/High/Ultra visual profiles|PENDING|
-|VU-G|Integrated validation, matched before/after, profiling, test build|PENDING|
+|VU-A|Asset/license/code audit, baseline tests/captures/performance|COMPLETE|
+|VU-B|Hybrid ski motion, phases, contacts, fallback, comparison scene|IN PROGRESS|
+|VU-C|G2 hero, equipment, materials, variation and LOD audit/upgrade|IN PROGRESS|
+|VU-D|Snow materials, individual ski/pole tracks and bounded spray|IN PROGRESS|
+|VU-E|Forest composition and licensed winter roadside details|IN PROGRESS|
+|VU-F|Five winter atmospheres and Performance/High/Ultra visual profiles|IN PROGRESS|
+|VU-G|Integrated validation, matched before/after, profiling, test build|IN PROGRESS|
 
 The existing G2 hero, snow_02, fir/pine, winter shrub, boulder and Passendorf sky
 are integrated. Reuse them instead of downloading duplicates. NSD is research

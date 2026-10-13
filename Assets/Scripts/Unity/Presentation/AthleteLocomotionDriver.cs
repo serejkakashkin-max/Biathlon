@@ -41,7 +41,9 @@ namespace Biathlon.Unity.Presentation
                 (float)frame.PresentationCurvature,(float)frame.LateralMetersPerSecond), frame.TimeSeconds, ExertionInput.From(a));
         }
 
-        public void Sample(AthleteRigBinding rig, LocomotionInput input, double time, ExertionInput? observedExertion = null)
+        public void CopyVisualPose(LocomotionPose destination) => LocomotionPose.Blend(motion, motion, 1, destination);
+
+        public void Sample(AthleteRigBinding rig, LocomotionInput input, double time, ExertionInput? observedExertion = null, bool renderPose = true)
         {
             if (double.IsNaN(time) || double.IsInfinity(time) || time < 0) throw new ArgumentOutOfRangeException(nameof(time));
             if (settings == null) {settings = AthleteLocomotionSettings.Load();technique=SkiTechniqueVisualSettings.Load();}
@@ -103,7 +105,7 @@ namespace Biathlon.Unity.Presentation
             poleCycle=(poleCycle+dt*motion.cadence_hz*polingRatio)%1;
             previousTime = time;
             CornerLeanDegrees = Mathf.Lerp(CornerLeanDegrees, requestedLean, 1 - Mathf.Exp(-(float)dt / settings.corner_response_s));
-            Pose(rig, motion, (float)(cycle * Math.PI * 2));
+            if (renderPose) Pose(rig, motion, (float)(cycle * Math.PI * 2));
         }
 
         private void Pose(AthleteRigBinding rig, LocomotionPose pose, float phase)

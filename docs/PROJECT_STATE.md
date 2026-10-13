@@ -25157,3 +25157,18 @@ Validation:21 core +2 native PlayMode selected tests PASS. Actual production-rou
 ## 2026-10-13 — M15.5 Visual & Animation Upgrade authorized
 
 Owner inserts a dedicated intermediate stage between M15 and M16 and requests the test build after completing the attached AAA Visual & Animation Upgrade brief. Created codex/m15-5-visual-upgrade from latest d95ef065; unrelated local modifications preserved. VU-A audit/baseline IN PROGRESS; VU-B motion,VU-C hero,VU-D snow,VU-E forest,VU-F winter lighting/quality,VU-G integrated acceptance PENDING. Existing G2 assets/credits and procedural rig are being audited. No gameplay/balance/AI/save/UI/audio authority changes authorized by this brief. Budget$0; no purchases or automatic main merge. NSD research license does not authorize commercial motion derivatives. See docs/M15_5_VISUAL_WP_STATUS.md.
+
+### 2026-10-13 — M15.5 visual upgrade implementation checkpoint
+Owner-authorized intermediate milestone between M15 and M16. VU-A audit complete:
+41 native baseline checks passed; source art/native field captures retained.
+VU-B implemented original authored curve/IK skiing, 12 observed states, retained
+fallback and comparison scene; four new checks plus six continuity checks pass.
+VU-C implemented bounded cosmetic builds while retaining four joint correctives,
+material finishing and country/bib/ski separation; hero6 and joint2 checks pass.
+VU-D/E/F implementations are in validation: snow groove/ridge detail and push spray,
+small grounded off-course winter clusters, five atmospheric looks and compatible
+Performance/High/Ultra labels. New integrated checks5 pass. No simulation/AI/career
+or shooting authority changes. VU-G remains in progress: full regression, matched
+native evidence, profiling and final test build are required. No M16 start/merge.
+Branch codex/m15-5-visual-upgrade; detailed audit/decisions in M15_5_ASSET_AND_MOTION_AUDIT
+and ADR-0068. PROJECT_STATE history remains append-only.

@@ -1,6 +1,7 @@
 using System;
 using Biathlon.Simulation;
 using UnityEngine;
+using Unity.Profiling;
 
 namespace Biathlon.Unity.Presentation
 {
@@ -39,6 +40,7 @@ namespace Biathlon.Unity.Presentation
 
     public sealed class AthleteAnimationPresentation : MonoBehaviour
     {
+        private static readonly ProfilerMarker PoseMarker=new ProfilerMarker("Biathlon.Presentation.AthletePose");
         private AthleteRigBinding rig;
         private AthletePoseDriver driver;
         private AthleteRiflePresentation rifle;
@@ -54,7 +56,8 @@ namespace Biathlon.Unity.Presentation
         {
             if (binding == null) throw new ArgumentNullException(nameof(binding));
             binding.Validate(); rig = binding;
-            driver = binding.GetComponent<AthletePoseDriver>();
+            driver = binding.GetComponent<AthleteHybridLocomotionDriver>();
+            if (driver == null) driver = binding.GetComponent<AthletePoseDriver>();
             rifle = binding.GetComponent<AthleteRiflePresentation>();
             shootingPose = binding.GetComponent<AthleteShootingPose>();
             contact = binding.GetComponent<AthleteGroundContact>();
@@ -64,6 +67,7 @@ namespace Biathlon.Unity.Presentation
 
         public void Render(AthleteAnimationFrame frame, float cameraDistance = 0)
         {
+            using var marker=PoseMarker.Auto();
             if (rig == null) throw new InvalidOperationException("Initialize athlete rig first.");
             LastFrame = frame;
             if (rig.Animator != null) rig.Animator.applyRootMotion = false;

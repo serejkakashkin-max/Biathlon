@@ -32,6 +32,7 @@ namespace Biathlon.Unity.Presentation
         private AthleteLocomotionSettings motion;
         private AthleteEquipmentBinding equipment;
         private AthleteLocomotionDriver driver;
+        private AthleteHybridLocomotionDriver hybrid;
         private AthleteRiflePresentation rifle;
         private SkiTechniqueVisualSettings technique;
         private Vector3 leftAnchor,rightAnchor,previousRoot;
@@ -47,9 +48,12 @@ namespace Biathlon.Unity.Presentation
         public void Render(AthleteRigBinding rig, AthleteAnimationFrame frame)
         {
             if (driver == null) driver = GetComponent<AthleteLocomotionDriver>();
+            if (hybrid == null) hybrid = GetComponent<AthleteHybridLocomotionDriver>();
             if (rifle == null) rifle = GetComponent<AthleteRiflePresentation>();
-            SampleMoving(rig,(float)frame.PresentationGrade,driver!=null?driver.PoleCycle:0,
-                driver!=null?driver.State:SkiLocomotion.Idle,rifle!=null?rifle.HandWeight:0,frame.TimeSeconds);
+            bool authored=hybrid!=null&&hybrid.Active;
+            SampleMoving(rig,(float)frame.PresentationGrade,authored?hybrid.PoleCycle:driver!=null?driver.PoleCycle:0,
+                authored?hybrid.ContactState:driver!=null?driver.State:SkiLocomotion.Idle,rifle!=null?rifle.HandWeight:0,frame.TimeSeconds);
+            if(authored&&!frame.Athlete.ShootingActive)hybrid.ApplySkiEdges(rig);
         }
 
         /// <summary>Short world-space plant lease. Release instead of dragging an unreachable arm;

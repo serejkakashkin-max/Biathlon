@@ -8,7 +8,9 @@ namespace Biathlon.Unity.Presentation
         public static AthleteRigBinding Create(Transform parent)
         {
             var hero = Resources.Load<AthleteRigBinding>(HeroResourcePath);
-            return hero != null ? Object.Instantiate(hero, parent, false) : OriginalAthleteRigBuilder.Create(parent);
+            var rig = hero != null ? Object.Instantiate(hero, parent, false) : OriginalAthleteRigBuilder.Create(parent);
+            if (rig.GetComponent<AthleteHybridLocomotionDriver>() == null) rig.gameObject.AddComponent<AthleteHybridLocomotionDriver>();
+            return rig;
         }
     }
 }
