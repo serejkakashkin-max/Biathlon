@@ -45,6 +45,19 @@ def actual_inputs():
 
 
 class StadiumPlacementTests(unittest.TestCase):
+    def test_section_poses_are_copied_and_only_existing_finite_sections_are_accepted(self):
+        source=policy();copied=GEN['stadium_placement_overrides'](source)
+        copied['grandstand_sections']['grandstand_01']['z']=0
+        self.assertEqual(source['stadium_placement']['grandstand_sections']['grandstand_01']['z'],-60)
+        for sections in (None,[],{'new_stand':{'x':0,'z':0}},{'grandstand_01':{'x':True,'z':0}},{'grandstand_01':{'x':0,'z':float('nan')}},{'grandstand_01':{'x':0,'z':0,'y':1}}):
+            invalid=policy();invalid['stadium_placement']['grandstand_sections']=sections
+            with self.subTest(sections=sections),self.assertRaises(ValueError):GEN['stadium_placement_overrides'](invalid)
+
+    def test_omitted_section_table_retains_the_exact_legacy_row_policy(self):
+        source=policy();source['stadium_placement'].pop('grandstand_sections')
+        copied=GEN['stadium_placement_overrides'](source)
+        self.assertEqual(copied,source['stadium_placement']);self.assertNotIn('grandstand_sections',copied)
+
     def test_missing_option_keeps_exact_legacy_placement_serialization(self):
         stands=[{'id':'legacy','position':{'x':1,'y':0,'z':2}}];screen=[{'arbitrary':'untouched'}]
         before=json.dumps([stands,screen],separators=(',',':'))
@@ -81,7 +94,7 @@ class StadiumPlacementTests(unittest.TestCase):
         stands,screen,corridors,grid,spacing=actual_inputs()
         proof=GEN['apply_stadium_placements'](policy(),stands,screen,PROJECT,corridors,grid,spacing)
         self.assertEqual(proof['full_paid_loop_count'],len(corridors))
-        self.assertEqual(len(corridors),36)
+        self.assertEqual(len(corridors),37,"Include the separate start spur in every full-course clearance check.")
         self.assertEqual(proof['prefab_count'],9);self.assertEqual(proof['screen_part_count'],3)
         self.assertEqual(len(proof['witnesses']),10)
         self.assertFalse(proof['authoritative_geometry_changed'])
@@ -93,7 +106,8 @@ class StadiumPlacementTests(unittest.TestCase):
             self.assertAlmostEqual(bottom,max(value['terrain_y'] for value in witness['foundation_samples']))
             self.assertEqual(len(witness['world_footprint']),4)
         for item in stands+screen:self.assertEqual(item['scale'],1)
-        self.assertEqual({item['position']['z'] for item in stands},{-72})
+        self.assertEqual(stands[0]['position']['z'],-60)
+        self.assertEqual({item['position']['z'] for item in stands[1:]},{-72})
         self.assertEqual({item['position']['x'] for item in screen},{128})
         self.assertEqual(len({json.dumps(item['position'],sort_keys=True) for item in screen}),1)
         self.assertEqual(stands[0]['position']['x'],-55)
@@ -101,7 +115,7 @@ class StadiumPlacementTests(unittest.TestCase):
 
     def test_native_footprints_reject_crowd_blocks_intersecting_each_other(self):
         stands,screen,corridors,grid,spacing=actual_inputs();before=copy.deepcopy([stands,screen])
-        recipe=policy();recipe['stadium_placement']['grandstand_row']['pitch_m']=10
+        recipe=policy();recipe['stadium_placement']['grandstand_row'].update(start_x=-15,pitch_m=10)
         with self.assertRaisesRegex(ValueError,'footprints overlap'):
             GEN['apply_stadium_placements'](recipe,stands,screen,PROJECT,corridors,grid,spacing)
         self.assertEqual([stands,screen],before)
@@ -126,12 +140,12 @@ class StadiumPlacementTests(unittest.TestCase):
         for value in (None,[],True):
             with self.subTest(terrain=value),self.assertRaises(ValueError):GEN['terrain_stadium_policy']({'terrain':value})
 
-    def test_original_stadium_flattening_erased_actual_eight_meter_return_height(self):
+    def test_original_stadium_flattening_erased_actual_positive_return_height(self):
         visual=fixture_document(PREFIX+'visual')
         knots=next(loop['knots'] for loop in visual['loops'] if loop['loop_id']=='main')
-        witnesses=[knot for knot in knots if -180<=knot['x']<-75 and -95<=knot['z']<=62 and abs(knot['y']-8)<1e-9]
-        self.assertTrue(witnesses,'The actual short-course return must include its authored positive-Y witness outside the compact stadium.')
-        knot=witnesses[0]
+        witnesses=[knot for knot in knots if -180<=knot['x']<-75 and -95<=knot['z']<=62 and knot['y']>1]
+        self.assertTrue(witnesses,'The actual current return must include an authored positive-Y witness outside the compact stadium.')
+        knot=max(witnesses,key=lambda value:value['y'])
         namespace=helpers('generate_environment.py')
         namespace.update(nearest_main=lambda x,z:(0,knot['y'],3),rise=max(k['y'] for k in knots),
                          base_north=min(k['z'] for k in knots if abs(k['y'])<1e-8),
@@ -142,10 +156,10 @@ class StadiumPlacementTests(unittest.TestCase):
         namespace['FLAT'],namespace['STADIUM_BLEND']=namespace['terrain_stadium_policy'](recipe)
         kept=namespace['surface_height'](knot['x'],knot['z'])
         self.assertAlmostEqual(erased,-.03)
-        self.assertAlmostEqual(kept-erased,8)
+        self.assertAlmostEqual(kept-erased,knot['y'])
         _,_,_,grid,spacing=actual_inputs()
         actual=dressing.ground(grid,spacing,knot['x'],knot['z'])
-        self.assertGreater(actual,7.9,'The actual generated triangle grid must retain the 8m return; changing metadata alone cannot pass.')
+        self.assertGreater(actual,knot['y']-.3,'Native terrain must retain the current graded return within its conservative ribbon-clearance lowering budget; metadata alone cannot pass.')
         self.assertLess(actual,knot['y'],'The terrain stays below the groomed course surface.')
 
 

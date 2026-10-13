@@ -10,7 +10,10 @@ def prepare(environment,grid,spacing,bounds):
     if len(stands)!=9: raise ValueError('Expected the nine existing grandstands.')
     # The leftmost section was placed over the rising return shoulder. Its own
     # unobstructed flat snow pocket is 12m forward; preserve all section widths.
-    stands[0]['position']['z']=-60
+    recipe=json.loads((root/'scripts/content/m13/recipes/woodland_basin_short_environment_recipe_v1.json').read_text())
+    for stand in stands:
+        override=recipe['stadium_placement'].get('grandstand_sections',{}).get(stand['id'])
+        if override:stand['position'].update(override)
     proof=[]
     for stand in stands:
         p=stand['position'];poly=dressing.footprint(bounds,(p['x'],0,p['z']),stand['yaw_deg'])

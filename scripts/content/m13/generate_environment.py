@@ -122,7 +122,7 @@ def stadium_placement_overrides(recipe):
         if 'stadium_placement' in recipe:raise ValueError('Stadium placement must be an object.')
         return None
     fields={'schema_version','id','grandstand_row','event_screen','minimum_paid_clearance_m','maximum_foundation_variation_m'}
-    if not isinstance(policy,dict) or set(policy)!=fields or type(policy['schema_version']) is not int or policy['schema_version']!=1:
+    if not isinstance(policy,dict) or not fields.issubset(policy) or set(policy)-fields-{'grandstand_sections'} or type(policy['schema_version']) is not int or policy['schema_version']!=1:
         raise ValueError('Versioned explicit stadium placement policy required.')
     identity=policy['id']
     if not isinstance(identity,str) or not re.fullmatch(r'[A-Za-z0-9_-]{1,256}',identity):
@@ -137,7 +137,14 @@ def stadium_placement_overrides(recipe):
             raise ValueError('Finite bounded stadium pose required.')
     if not bounded(row['pitch_m'],5,100) or not bounded(policy['minimum_paid_clearance_m'],3,20) or not bounded(policy['maximum_foundation_variation_m'],0,.25):
         raise ValueError('Bounded pitch, full-course clearance and foundation variation required.')
-    return dict(policy,grandstand_row=dict(row),event_screen=dict(screen))
+    sections=policy.get('grandstand_sections',{})
+    if not isinstance(sections,dict):raise ValueError('Explicit grandstand section poses required.')
+    for identity,pose in sections.items():
+        if not isinstance(identity,str) or not re.fullmatch(r'grandstand_0[1-9]',identity) or not isinstance(pose,dict) or set(pose)!={'x','z'} or any(not bounded(pose[a],-5000,5000) for a in ('x','z')):
+            raise ValueError('Stable existing section ID and bounded x/z required.')
+    copied=dict(policy,grandstand_row=dict(row),event_screen=dict(screen))
+    if 'grandstand_sections' in policy:copied['grandstand_sections']={k:dict(v) for k,v in sections.items()}
+    return copied
 
 def terrain_stadium_policy(recipe):
     """Resolve optional stadium flattening without changing the legacy defaults."""
@@ -178,7 +185,8 @@ def apply_stadium_placements(recipe,stands,screen_parts,project,corridors,grid,s
     screen_native=[dressing.resource_path(project,item['mesh_resource'],'.asset') for item in screen_parts]
     screen_bounds=dressing.merged_bounds([dressing.mesh_bounds(path) for path in screen_native])
     row=policy['grandstand_row'];screen=policy['event_screen'];witnesses=[];pending=[]
-    groups=[(item,stand_bounds,row['start_x']+index*row['pitch_m'],row['z'],row['yaw_deg']) for index,item in enumerate(stands)]
+    sections=policy.get('grandstand_sections',{})
+    groups=[(item,stand_bounds,sections.get(item['id'],{}).get('x',row['start_x']+index*row['pitch_m']),sections.get(item['id'],{}).get('z',row['z']),row['yaw_deg']) for index,item in enumerate(stands)]
     groups.append((screen_parts[0],screen_bounds,screen['x'],screen['z'],screen['yaw_deg']))
     for item,bounds,x,z,yaw in groups:
         polygon=dressing.footprint(bounds,(x,0,z),yaw)
