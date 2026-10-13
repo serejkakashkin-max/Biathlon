@@ -104,3 +104,10 @@ remains an overflow/focus fallback. Historical before-field captures retain the
 identified stencil-capture artifact. Gameplay/balance/save/replay authority source
 was unchanged by the visual branch. Unrelated pre-existing local edits are preserved
 and excluded from commits. Owner visual quality approval remains outstanding.
+## 2026-10-13 — M15 audio implementation complete; Windows build ready
+
+Owner-authorized M15 WP-198–205 COMPLETE (8/8). No implementation WP remains in progress. Source commit 61159bf5, branch codex/m15-audio. Test launcher: Builds/M15_Audio_Review/START_M15_TEST.cmd. Original 24-clip soundbank, accepted event mapping, actual shooting heartbeat, ski/pole/body/rifle/weather/crowd/UI layers, spatial opponents, bounded 22-source mixer, replay/skip suppression and RU/EN audio settings delivered. Gameplay authority, balance, graphics quality and career save schema preserved; only a read-only heartbeat observation was added to the simulation presentation snapshot.
+
+Validation: 23 selected native PlayMode + 3 EditMode + 12 core tests PASS (38 total). Full 30-athlete deterministic replay: 20,109 ticks; field event hash 9212986234871512072. Unity Console clean. Win64 build 0 errors / 0 warnings. Standalone startup and native audio audition exit 0; mixer recording peak 0.139598, RMS 0.008409, PCM memory 16,925,760 bytes. Native actual venue/personal-start/range review passes with 12 captures, 14 navigation actions, no errors and owner career hashes preserved. Known offscreen URP warnings remain baseline. Performance checks are bounded-pool/narrow CPU checks, not a full-game FPS or zero-allocation claim.
+
+Report: docs/reports/TASK_M15_AUDIO_20261013.md. Evidence: docs/quality/m15/. WP tracker: docs/M15_WP_STATUS.md. The soundbank is stylized original sound design; listening quality requires owner playtest. Next action: owner tests the M15 build. No owner aesthetic approval is inferred. M16 is next in plan but not started. Unrelated pre-existing local edits preserved and excluded from these commits.
