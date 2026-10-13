@@ -57,7 +57,7 @@ namespace Biathlon.Unity.Presentation
                 GUILayout.BeginHorizontal();foreach(var entry in definition.entries)
                     if(GUILayout.Button("New "+entry.label))RequestEntry(entry.id);
                 GUILayout.EndHorizontal();GUILayout.BeginHorizontal();
-                foreach(var tier in new[]{"high","balanced","low"})if(GUILayout.Button(char.ToUpperInvariant(tier[0])+tier.Substring(1)))ApplyQuality(tier);
+                foreach(var tier in new[]{"high","balanced","low"})if(GUILayout.Button(RenderQualityDefinition.DisplayName(tier)))ApplyQuality(tier);
                 GUILayout.EndHorizontal();GUILayout.EndArea();
             }
             finally{GUI.enabled=previous;}

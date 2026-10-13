@@ -17,6 +17,8 @@ namespace Biathlon.Unity.Presentation
         private Quaternion oldKeyRotation;
         public int SubmittedFlakes {get;private set;}
         public string PresetId {get;private set;}
+        public string VisualAtmosphereId {get;private set;}
+        private readonly WeatherVisualPreset atmosphericBlend=new WeatherVisualPreset();
         public void Initialize(Camera camera,Light directional,Material skyOverride=null)
         {
             if(definition!=null||camera==null||directional==null||directional.type!=LightType.Directional||!isActiveAndEnabled)throw new ArgumentException("Enabled weather component, explicit camera and directional light required.");
@@ -44,12 +46,24 @@ namespace Biathlon.Unity.Presentation
             if(view!=null){view.clearFlags=oldClear;view.backgroundColor=oldBackground;}
             view=camera;oldClear=view.clearFlags;oldBackground=view.backgroundColor;
         }
-        public void Render(string preset,string tier,double time,Vector2 observedWind,float localGroundHeight,LightingVisualPreset lighting=null,float fogDistanceScale=1)
+        public void Render(string preset,string tier,double time,Vector2 observedWind,float localGroundHeight,LightingVisualPreset lighting=null,float fogDistanceScale=1,float lightSnowBlend=0)
         {
             if(!leased||view==null||key==null||!float.IsFinite(localGroundHeight))throw new InvalidOperationException("Active weather lease required.");
             if(!float.IsFinite(fogDistanceScale)||fogDistanceScale<1||fogDistanceScale>3)throw new ArgumentException("Fog distance scale must be finite and within 1–3.",nameof(fogDistanceScale));
             // Validate observation before mutating any scene state, including for zero-snow presets.
-            definition.Sample(0,time,view.transform.position,observedWind);var p=definition.Get(preset);int count=definition.Count(tier,p.snowfall);
+            definition.Sample(0,time,view.transform.position,observedWind);var p=definition.Get(preset);
+            if(!float.IsFinite(lightSnowBlend)||lightSnowBlend<0||lightSnowBlend>1)throw new ArgumentException("Invalid atmospheric blend.");
+            VisualAtmosphereId=preset;
+            if(preset=="snowfall"&&lightSnowBlend>0)
+            {
+                var b=definition.Get("light_snow");var d=atmosphericBlend;float t=lightSnowBlend;
+                d.fog_start_m=Mathf.Lerp(p.fog_start_m,b.fog_start_m,t);d.fog_end_m=Mathf.Lerp(p.fog_end_m,b.fog_end_m,t);
+                d.light_intensity=Mathf.Lerp(p.light_intensity,b.light_intensity,t);d.ambient_intensity=Mathf.Lerp(p.ambient_intensity,b.ambient_intensity,t);
+                d.cloud_cover=Mathf.Lerp(p.cloud_cover,b.cloud_cover,t);d.snowfall=Mathf.Lerp(p.snowfall,b.snowfall,t);d.shadow_strength=Mathf.Lerp(p.shadow_strength,b.shadow_strength,t);
+                d.fog_color=Color.Lerp(p.fog_color,b.fog_color,t);d.sky_color=Color.Lerp(p.sky_color,b.sky_color,t);d.light_color=Color.Lerp(p.light_color,b.light_color,t);
+                p=d;if(t>.5f)VisualAtmosphereId="light_snow";
+            }
+            int count=definition.Count(tier,p.snowfall);
             lighting?.Validate();var fogColor=p.fog_color*(lighting?.horizon_tint??Color.white);var ambient=p.fog_color*p.ambient_intensity*(lighting?.ambient_tint??Color.white)*(lighting?.ambient_gain??1);
             PresetId=preset;RenderSettings.fog=true;RenderSettings.fogMode=FogMode.Linear;RenderSettings.fogStartDistance=p.fog_start_m*fogDistanceScale;RenderSettings.fogEndDistance=p.fog_end_m*fogDistanceScale;RenderSettings.fogColor=fogColor;
             RenderSettings.ambientMode=AmbientMode.Trilight;RenderSettings.ambientSkyColor=ambient;RenderSettings.ambientEquatorColor=ambient*(lighting?.ambient_equator_fraction??.65f);RenderSettings.ambientGroundColor=ambient*(lighting?.ambient_ground_fraction??.35f);

@@ -27,6 +27,10 @@ namespace Biathlon.Unity.Presentation
         private RacePresentationFeed feed;
         private Camera chase,shooting;
         private WeatherPresentation weather;
+        private WeatherVisualDefinition atmosphericDefinition;
+        public string VisualAtmosphereId=>weather?.VisualAtmosphereId;
+        private ProductionForestDressing dressing;
+        public ProductionForestDressing Dressing=>dressing;
         private LightingVisualPreset lighting;
         private TargetGeometryDefinition geometry;
         private RenderQualityPresentation quality;
@@ -36,6 +40,9 @@ namespace Biathlon.Unity.Presentation
         public string RecipeId=>recipe?.id;
         public string VenueId=>recipe?.venue_id;
         public string WeatherPresetId=>recipe?.lighting.weather_preset;
+        public string AtmosphereOverride {get;private set;}
+        public void SetAtmosphereForReview(string id)
+        {if(id!=null)WeatherVisualDefinition.Load().Get(id);AtmosphereOverride=id;}
         public string AudioSnowProfile=>recipe?.terrain.snow_surface_profile;
         public Vector2 AudioWind=>recipe?.lighting.visual_wind??Vector2.zero;
         public int SubmittedSnowflakes=>weather?.SubmittedFlakes??0;
@@ -73,6 +80,7 @@ namespace Biathlon.Unity.Presentation
             var data=ProductionEnvironmentDefinition.FromJson(definition.ToJson());
             var prepared=Prepare(plan,data,read);
             Apron=apron;recipe=data;heights=prepared.Heights;feed=source;chase=chaseCamera;shooting=shootingCamera;lighting=prepared.Lighting;geometry=prepared.Geometry;VenueTrackId=plan.Track.Id;
+            atmosphericDefinition=WeatherVisualDefinition.FromJson(Read(read,data.lighting.weather_resource));
             quality=GetComponent<RenderQualityPresentation>();defaultTier=prepared.DefaultTier;
             try
             {
@@ -158,6 +166,9 @@ namespace Biathlon.Unity.Presentation
                     art.Apply(geometry,ShootingStance.Standing,0);banks[i]=art;bankStances[i]=ShootingStance.Standing;
                 }
                 generated.AddComponent<StaticSceneryBatches>().Initialize(staticRenderers);
+                var composition=G2ForestComposition.Load();
+                if(data.venue_id=="woodland_basin_v1"&&!string.IsNullOrEmpty(composition.dressing_resource))
+                {dressing=generated.AddComponent<ProductionForestDressing>();dressing.Initialize(WinterDressingDefinition.Load(composition.dressing_resource),data.route_corridors,SampleGround);}
                 var keyObject=Child("Production directional light",Vector3.zero,Quaternion.identity);var key=keyObject.AddComponent<Light>();key.type=LightType.Directional;key.shadows=LightShadows.Soft;
                 weather=generated.AddComponent<WeatherPresentation>();weather.Initialize(chase,key,prepared.Sky);
                 RefreshBanks();
@@ -219,8 +230,13 @@ namespace Biathlon.Unity.Presentation
                     Vector3.Angle(Quaternion.Euler(0,bank.yaw_deg,0)*Vector3.forward,forward)>.01f)throw new ArgumentException("Target bank does not bind its actual personal mat.");
             }
             p.Lighting=LightingVisualDefinition.FromJson(Read(read,data.lighting.resource)).Get(data.lighting.preset_id);
-            var weatherPreset=WeatherVisualDefinition.FromJson(Read(read,data.lighting.weather_resource)).Get(data.lighting.weather_preset);
-            if(data.forest.high_visibility!=null)p.HighForestFogEndMeters=weatherPreset.fog_end_m*data.lighting.fog_distance_scale;
+            var weatherDefinition=WeatherVisualDefinition.FromJson(Read(read,data.lighting.weather_resource));var weatherPreset=weatherDefinition.Get(data.lighting.weather_preset);
+            if(data.forest.high_visibility!=null)
+            {
+                float horizon=weatherPreset.fog_end_m;
+                if(weatherPreset.id=="snowfall"&&weatherDefinition.snowfall_cycle_s>0)horizon=Mathf.Max(horizon,weatherDefinition.Get("light_snow").fog_end_m);
+                p.HighForestFogEndMeters=horizon*data.lighting.fog_distance_scale;
+            }
             p.Snow=Require<Material>(data.terrain.material_resource);p.Sky=Require<Material>(data.lighting.sky_material_resource);p.Bank=Require<TargetBankArt>(data.range.bank_resource);
             for(int i=0;i<5;i++)if(p.Bank.Aperture(i)==null)throw new ArgumentException("Native target bank has an unbound face.");
             Require<Material>("Biathlon/Stadium/ProneTargetFace");Require<Material>("Biathlon/Snow/Spray");SnowMaterialDefinition.FromJson(Read(read,"Biathlon/snow_material_v1"));
@@ -304,8 +320,13 @@ namespace Biathlon.Unity.Presentation
             RefreshBanks();VisibleTrees=0;SubmittedForestTriangles=0;
             foreach(var forest in forests){forest.Render(camera,tier,time,recipe.lighting.visual_wind);VisibleTrees+=forest.VisibleInstances;SubmittedForestTriangles+=forest.SubmittedTriangles;}
             foreach(var crowd in crowds)crowd.Render(camera,tier,time);
+            dressing?.Render(camera,tier);
             weather.SetViewCamera(camera);
-            weather.Render(recipe.lighting.weather_preset,tier,time,recipe.lighting.visual_wind,SampleGround(camera.transform.position),lighting,recipe.lighting.fog_distance_scale);
+            string atmosphere=recipe.lighting.weather_preset;
+            if(atmosphere=="overcast"&&recipe.terrain.snow_material_preset=="wet"&&recipe.lighting.temperature_c>=atmosphericDefinition.wet_haze_temperature_c)
+                atmosphere="winter_haze";
+            weather.Render(AtmosphereOverride??atmosphere,tier,time,recipe.lighting.visual_wind,SampleGround(camera.transform.position),lighting,recipe.lighting.fog_distance_scale,
+                AtmosphereOverride==null&&atmosphere=="snowfall"?atmosphericDefinition.LightSnowBlend(time):0);
         }
         private void LateUpdate(){if(Initialized)Render(shooting!=null&&shooting.isActiveAndEnabled?shooting:chase,quality!=null?quality.TierId:defaultTier,Time.time);}
         private void OnDisable(){if(generated!=null)generated.SetActive(false);}

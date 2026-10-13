@@ -28,9 +28,11 @@ Shader "Biathlon/BenchmarkSky"
    half4 Frag(V i):SV_Target
    {
     float3 d=normalize(i.direction);float2 uv=float2(atan2(d.z,d.x)/6.2831853+.5,asin(clamp(d.y,-1,1))/3.14159265+.5);
-    float3 photo=SAMPLE_TEXTURE2D(_Panorama,sampler_Panorama,uv).rgb*_PanoramaExposure;
+    // Map the low view direction into the photograph's upper sky, never its trees/ground.
+    float2 skyUv=float2(uv.x,lerp(.66,1,saturate(d.y)));
+    float3 photo=SAMPLE_TEXTURE2D(_Panorama,sampler_Panorama,skyUv).rgb*_PanoramaExposure;
     // The photographed horizon/ground never appears in the playable venue.
-    float3 clearSky=lerp(_HorizonColor.rgb,photo*_SkyColor.rgb/float3(.19,.36,.56),smoothstep(.25,.45,d.y));
+    float3 clearSky=lerp(_HorizonColor.rgb,photo*_SkyColor.rgb/float3(.19,.36,.56),smoothstep(.04,.32,d.y));
     float2 p=d.xz/max(.18,d.y)*2-_Drift.xy*_Drift.z*.0005;
     float n=(Noise(p)+.5*Noise(p*2.03)+.25*Noise(p*4.07))/1.75;
     float clouds=smoothstep(1-_CloudCover,1-_CloudCover+.2,n)*smoothstep(0,.18,d.y);

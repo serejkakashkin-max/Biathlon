@@ -11,13 +11,28 @@ namespace Biathlon.Unity.Presentation
     {
         public int schema_version,max_particles;public string id;public float low_fraction,balanced_fraction,volume_width_m,volume_height_m,fall_speed_mps,flake_size_m,flake_opacity;
         public WeatherVisualPreset[] presets;
+        public float wet_haze_temperature_c,snowfall_cycle_s,snowfall_light_begin_s,snowfall_light_end_s,snowfall_transition_s;
+        public float LightSnowBlend(double time)
+        {
+            if(snowfall_cycle_s<=0)return 0;
+            float phase=(float)(time%snowfall_cycle_s);
+            return Mathf.SmoothStep(0,1,Mathf.InverseLerp(snowfall_light_begin_s,snowfall_light_begin_s+snowfall_transition_s,phase))*
+                (1-Mathf.SmoothStep(0,1,Mathf.InverseLerp(snowfall_light_end_s-snowfall_transition_s,snowfall_light_end_s,phase)));
+        }
         public static WeatherVisualDefinition Load()=>FromJson(Resources.Load<TextAsset>("Biathlon/weather_visual_v1").text);
         public static WeatherVisualDefinition FromJson(string json)
         {
             var d=JsonUtility.FromJson<WeatherVisualDefinition>(json);
-            if(d==null||d.schema_version!=1||string.IsNullOrWhiteSpace(d.id)||d.max_particles<1||d.max_particles>8192||d.presets==null||d.presets.Length!=3)throw new ArgumentException("Invalid weather presentation schema.");
+            if(d==null||d.schema_version!=1||string.IsNullOrWhiteSpace(d.id)||d.max_particles<1||d.max_particles>8192||d.presets==null||d.presets.Length<3||d.presets.Length>5)throw new ArgumentException("Invalid weather presentation schema.");
             Bound(d.low_fraction,.05f,1);Bound(d.balanced_fraction,d.low_fraction,1);Bound(d.volume_width_m,8,80);Bound(d.volume_height_m,4,40);Bound(d.fall_speed_mps,.1f,5);Bound(d.flake_size_m,.005f,.06f);Bound(d.flake_opacity,0,.7f);
-            for(int i=0;i<d.presets.Length;i++) {var p=d.presets[i];if(p==null||(p.id!="clear"&&p.id!="overcast"&&p.id!="snowfall"))throw new ArgumentException("Invalid weather preset.");for(int j=0;j<i;j++)if(d.presets[j].id==p.id)throw new ArgumentException("Duplicate weather preset.");Bound(p.fog_start_m,0,200);Bound(p.fog_end_m,p.fog_start_m+20,500);Bound(p.light_intensity,0,4);Bound(p.ambient_intensity,.1f,2);Bound(p.cloud_cover,0,1);Bound(p.shadow_strength,0,1);Bound(p.snowfall,0,1);foreach(var c in new[]{p.fog_color,p.sky_color,p.light_color}){for(int k=0;k<3;k++)Bound(c[k],0,1);if(c.a!=1)throw new ArgumentException("Opaque weather colors required.");}}
+            if(d.presets.Length==5)
+            {
+                Bound(d.wet_haze_temperature_c,-5,5);Bound(d.snowfall_cycle_s,30,600);
+                Bound(d.snowfall_light_begin_s,0,d.snowfall_cycle_s-10);Bound(d.snowfall_light_end_s,d.snowfall_light_begin_s+10,d.snowfall_cycle_s);
+                Bound(d.snowfall_transition_s,.1f,(d.snowfall_light_end_s-d.snowfall_light_begin_s)*.5f);
+            }
+            for(int i=0;i<d.presets.Length;i++) {var p=d.presets[i];if(p==null||(p.id!="clear"&&p.id!="overcast"&&p.id!="snowfall"&&p.id!="light_snow"&&p.id!="winter_haze"))throw new ArgumentException("Invalid weather preset.");for(int j=0;j<i;j++)if(d.presets[j].id==p.id)throw new ArgumentException("Duplicate weather preset.");Bound(p.fog_start_m,0,200);Bound(p.fog_end_m,p.fog_start_m+20,500);Bound(p.light_intensity,0,4);Bound(p.ambient_intensity,.1f,2);Bound(p.cloud_cover,0,1);Bound(p.shadow_strength,0,1);Bound(p.snowfall,0,1);foreach(var c in new[]{p.fog_color,p.sky_color,p.light_color}){for(int k=0;k<3;k++)Bound(c[k],0,1);if(c.a!=1)throw new ArgumentException("Opaque weather colors required.");}}
+            d.Get("clear");d.Get("overcast");d.Get("snowfall");
             return d;
         }
         private static void Bound(float v,float min,float max){if(!float.IsFinite(v)||v<min||v>max)throw new ArgumentException("Weather value out of bounds.");}

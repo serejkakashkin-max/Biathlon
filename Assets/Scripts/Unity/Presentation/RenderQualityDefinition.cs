@@ -6,6 +6,7 @@ namespace Biathlon.Unity.Presentation
     [Serializable] public sealed class RenderQualityTier
     {
         public string id;
+        public string display_name;
         public float render_scale, shadow_distance_m;
         public int shadow_resolution, shadow_cascades;
         public bool soft_shadows, post_processing;
@@ -39,5 +40,6 @@ namespace Biathlon.Unity.Presentation
             foreach (var t in tiers) if (t.id == tier) return t;
             throw new ArgumentException("Unknown render tier: " + tier);
         }
+        public static string DisplayName(string id)=>id=="low"?"Performance":id=="balanced"?"High":id=="high"?"Ultra":throw new ArgumentException("Unknown tier.");
     }
 }

@@ -265,6 +265,12 @@ namespace Biathlon.Unity.Presentation
                 var motion=new Toggle(L("Уменьшить анимацию","Reduce motion")){name="reduced_motion",value=ReducedMotion};StyleControl(motion);actions.Add(motion);controls.Add(motion);
                 motion.RegisterValueChangedCallback(e=>{ReducedMotion=e.newValue;if(PersistPreferences){PlayerPrefs.SetInt("biathlon.ui.reduced_motion",ReducedMotion?1:0);PlayerPrefs.Save();}Render();});
                 AddAudioSettings(card);
+                var graphics=Tile(card);AddLabel(graphics,L("ГРАФИКА","GRAPHICS"),theme.caption_size);
+                var graphicsTiers=new[]{"low","balanced","high"};
+                string selectedQuality=RenderQualityPreferences.Read(RenderQualityDefinition.Load().default_tier);
+                var graphicsChoice=new DropdownField(new List<string>{"Performance","High","Ultra"},Array.IndexOf(graphicsTiers,selectedQuality)){name="graphics_quality"};
+                StyleControl(graphicsChoice);graphics.Add(graphicsChoice);controls.Add(graphicsChoice);
+                graphicsChoice.RegisterValueChangedCallback(e=>{if(PersistPreferences)RenderQualityPreferences.Save(graphicsTiers[graphicsChoice.index]);});
                 var reference=new Foldout{text=L("Управление и доступность","Controls & accessibility"),value=false};reference.name="controls_reference";card.Add(reference);
                 var controlsCard=Tile(reference);AddLabel(controlsCard,L("НА ТРАССЕ","ON THE COURSE"),theme.caption_size);
                 InfoRow(controlsCard,"W / S",L("Темп / тормоз","Pace / brake"));InfoRow(controlsCard,"A / D",L("Ручное руление","Manual steering"));InfoRow(controlsCard,"Shift / Ctrl",L("Атака / восстановление","Attack / recover"));InfoRow(controlsCard,"Space",L("Низкая стойка","Tuck"));InfoRow(controlsCard,"Tab",L("Последняя отсечка","Latest split"));

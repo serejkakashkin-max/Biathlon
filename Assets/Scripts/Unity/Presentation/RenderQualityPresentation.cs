@@ -38,7 +38,7 @@ namespace Biathlon.Unity.Presentation
                 cameras[i] = new CameraState { Data = data, Post = data.renderPostProcessing,
                     VolumeMask = data.volumeLayerMask, AA = data.antialiasing };
             }
-            Apply(definition.default_tier);
+            Apply(Application.isPlaying?RenderQualityPreferences.Read(definition.default_tier):definition.default_tier);
         }
         public void Apply(string id)
         {

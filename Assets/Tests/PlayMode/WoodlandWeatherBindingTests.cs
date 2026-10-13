@@ -51,6 +51,7 @@ namespace Biathlon.PlayModeTests
             definition.lighting.preset_id = lightingId;
             float fogScale = definition.lighting.fog_distance_scale;
             float expectedHorizon = weatherPreset.fog_end_m * fogScale;
+            float expectedForestHorizon = presetId=="snowfall"?Mathf.Max(weatherPreset.fog_end_m,weatherDefinition.Get("light_snow").fog_end_m)*fogScale:expectedHorizon;
             string track = plan.Track.ToJson(), visual = plan.Visual.ToJson(), paths = plan.Paths.ToJson();
             var saved = new SceneWeatherState();
             var root = new GameObject("Detached Woodland weather row " + tier + " " + presetId);
@@ -101,7 +102,7 @@ namespace Biathlon.PlayModeTests
                     Assert.That(source.instances.Length, Is.EqualTo(group.count));
                     Assert.That(environment.Forest(i).TotalInstances, Is.EqualTo(source.instances.Length));
                     declaredTrees += group.count;
-                    Assert.That(environment.Forest(i).ProductionHighFogEndMeters, Is.EqualTo(expectedHorizon));
+                    Assert.That(environment.Forest(i).ProductionHighFogEndMeters, Is.EqualTo(expectedForestHorizon));
                 }
                 Assert.That(environment.TreeCount, Is.EqualTo(declaredTrees));
                 var firstTree = environment.Forest(0).InstanceWorldPosition(0);
@@ -136,7 +137,7 @@ namespace Biathlon.PlayModeTests
                 Assert.That(key.shadowStrength, Is.EqualTo(weatherPreset.shadow_strength));
                 Assert.That(Vector3.Distance(key.transform.forward, Quaternion.Euler(lighting.sun_elevation, lighting.sun_azimuth, 0) * Vector3.forward), Is.LessThan(1e-5f));
                 for (int i = 0; i < environment.ForestGroupCount; i++)
-                    Assert.That(environment.Forest(i).ProductionHighFogEndMeters, Is.EqualTo(expectedHorizon));
+                    Assert.That(environment.Forest(i).ProductionHighFogEndMeters, Is.EqualTo(expectedForestHorizon));
                 Assert.That(environment.Forest(0).InstanceWorldPosition(0), Is.EqualTo(firstTree));
                 Assert.That(camera.transform.position, Is.EqualTo(cameraPosition));
                 Assert.That(camera.transform.rotation, Is.EqualTo(cameraRotation));
