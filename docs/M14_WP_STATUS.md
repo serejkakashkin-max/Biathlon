@@ -75,3 +75,23 @@ owner acceptance. [Report/build](reports/TASK_M14_NATION_BIBS_20261012.md).
 2026-10-12 Mass Start/leader correction COMPLETE: WP-181 seeded physical grid, bib/first mat and pre-race number; WP-189 development overall leader and World Cup discipline roles; WP-191/192 recorded start-order compatibility and icy-weather replay seek. Current save rank 7 maps to bib 7. 56 headless, 8 native EditMode and 3 PlayMode checks PASS; repeated icy Mass30, Windows build and startup PASS. No implementation WP remains in progress for this request; owner testing pending. M14 OPEN. [Report/build](reports/TASK_M14_MASS_SEEDING_20261012.md).
 
 2026-10-13 personal-start correction COMPLETE: WP-182/191/192/194/196/197 now provide a personal 3–2–1, visible waiting player, bounded button/Enter skip to the final three seconds, full command recording and pause/input checks. .NET19 + Unity Edit9 / Play7 PASS. New Win64 test build has0 errors/warnings; standalone startup/render PASS. [Report](reports/TASK_M14_PLAYER_START_20261013.md). M14 remains OPEN pending owner testing.
+
+## 2026-10-13 — M14 FROSTLINE owner-requested UI overhaul (in progress)
+
+Branch `codex/m14-ui-wow`, baseline `262f340`. Owner brief preserved verbatim in
+`docs/ui/m14-wow/OWNER_BRIEF_RU.md`. M14 remains OPEN; earlier implementation-complete
+records do not imply acceptance of this new visual brief.
+
+WP-179/181/182/183/184/185/186/187/188/189/190/192/195: shared FROSTLINE presentation
+implemented and under final visual review (menu, career cards, training forecast,
+shop, results, race/shooting/broadcast/replay typography and instruments).
+WP-196/197 IN PROGRESS: four-resolution RU/EN accessibility matrix, keyboard/controller,
+field contrast correction, standalone evidence and Windows build.
+
+Three actual Unity design studies captured; concept A selected for implementation.
+384 front-end and 192 HUD layout cases captured. HUD matrix passes its unchanged
+10%/17% area budgets after reducing panel padding. Ten menu regression tests and
+one native replay lifecycle test passed; 44 focused headless core/replay checks passed.
+A remaining white inner-input painting defect was found by visual inspection and
+is being diagnosed; no build is declared ready yet. No physics, race tuning, save
+schema or rendering-quality reduction belongs to this visual change.

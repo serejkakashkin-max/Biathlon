@@ -25076,3 +25076,23 @@ Implementation, tests, ADR0065, current/WP state and build/startup evidence push
 origin/codex/wp-078-ai-pack at verified source commit 7ee460c625c87dc6661ae76ad2ceb0da840ca8b9.
 Remote head equals local source commit. Test build remains Builds/M14PlayerStart20261013/START_M14_TEST.cmd.
 M14 remains OPEN; next step is owner Pursuit testing/acceptance.
+
+## 2026-10-13 — M14 FROSTLINE owner-requested UI overhaul (in progress)
+
+Branch `codex/m14-ui-wow`, baseline `262f340`. Owner brief preserved verbatim in
+`docs/ui/m14-wow/OWNER_BRIEF_RU.md`. M14 remains OPEN; earlier implementation-complete
+records do not imply acceptance of this new visual brief.
+
+WP-179/181/182/183/184/185/186/187/188/189/190/192/195: shared FROSTLINE presentation
+implemented and under final visual review (menu, career cards, training forecast,
+shop, results, race/shooting/broadcast/replay typography and instruments).
+WP-196/197 IN PROGRESS: four-resolution RU/EN accessibility matrix, keyboard/controller,
+field contrast correction, standalone evidence and Windows build.
+
+Three actual Unity design studies captured; concept A selected for implementation.
+384 front-end and 192 HUD layout cases captured. HUD matrix passes its unchanged
+10%/17% area budgets after reducing panel padding. Ten menu regression tests and
+one native replay lifecycle test passed; 44 focused headless core/replay checks passed.
+A remaining white inner-input painting defect was found by visual inspection and
+is being diagnosed; no build is declared ready yet. No physics, race tuning, save
+schema or rendering-quality reduction belongs to this visual change.
