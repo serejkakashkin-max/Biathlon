@@ -58,10 +58,10 @@ namespace Biathlon.Unity.Presentation
                 default:return new LocomotionInput(6,0,.9f);
             }
         }
-        public void Sample(SkiMotionState state,double time)
+        public void Sample(SkiMotionState state,double time,LocomotionInput? customInput=null)
         {
             Initialize();State=state;
-            var input=Input(state);var effort=state==SkiMotionState.Fatigued?new ExertionInput(.7f,.2f,185):new ExertionInput(0,1,140);
+            var input=customInput??Input(state);var effort=state==SkiMotionState.Fatigued?new ExertionInput(.7f,.2f,185):new ExertionInput(0,1,140);
             Pose(Original);Pose(Candidate);weather.Render("clear","high",time,Vector2.zero,0);previous=time;
             void Pose(AthleteRigBinding rig)
             {
@@ -85,11 +85,18 @@ namespace Biathlon.Unity.Presentation
             ReviewCamera.enabled=false;
             using(var target=new BenchmarkRenderTarget(1280,720))
             {
-                foreach(var state in new[]{SkiMotionState.Flat,SkiMotionState.Uphill,SkiMotionState.MaxSprint})
+                foreach(var state in new[]{SkiMotionState.Flat,SkiMotionState.Uphill,SkiMotionState.MaxSprint,SkiMotionState.CornerLeft,SkiMotionState.SlowStop})
                 {
                     string folder=Path.Combine(directory,state.ToString());Directory.CreateDirectory(folder);
                     for(int i=0;i<90;i++)
                     {Sample(state,i/30.0);target.Render(ReviewCamera);yield return null;target.SavePng(Path.Combine(folder,i.ToString("D4")+".png"));}
+                }
+                foreach(bool climb in new[]{true,false})
+                {
+                    string folder=Path.Combine(directory,climb?"CurvedClimb":"LaneChange");Directory.CreateDirectory(folder);
+                    var input=climb?new LocomotionInput(4,.08f,.95f,curvature:.03f):new LocomotionInput(6,0,.95f,lateralSpeed:2);
+                    for(int i=0;i<90;i++)
+                    {Sample(climb?SkiMotionState.Uphill:SkiMotionState.Flat,i/30.0,input);target.Render(ReviewCamera);yield return null;target.SavePng(Path.Combine(folder,i.ToString("D4")+".png"));}
                 }
             }
             File.WriteAllText(Path.Combine(directory,"capture.json"),"{\"schema_version\":1,\"id\":\"m15_5_motion_comparison\",\"fps\":30,\"frames_per_state\":90,\"width\":1280,\"height\":720,\"left\":\"original\",\"right\":\"authored_hybrid\"}");Application.Quit(0);
@@ -100,6 +107,6 @@ namespace Biathlon.Unity.Presentation
             if(GUI.Button(new Rect(20,115,150,32),AutoCycle?"Pause state cycling":"Cycle 12 states"))AutoCycle=!AutoCycle;
             if(GUI.Button(new Rect(180,115,100,32),"Next state")){AutoCycle=false;State=(SkiMotionState)(((int)State+1)%12);}
         }
-        private void OnDestroy(){weather?.Shutdown();if(generated!=null)Destroy(generated);}
+        private void OnDestroy(){weather?.Shutdown();if(generated!=null){if(Application.isPlaying)Destroy(generated);else DestroyImmediate(generated);}}
     }
 }

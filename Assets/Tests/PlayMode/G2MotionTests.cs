@@ -12,8 +12,9 @@ namespace Biathlon.PlayModeTests
 {
     public class G2MotionTests
     {
-        [Test]
-        public void HeroStanceTransfersAreContinuousAndReturnToCarry()
+        [TestCase(false)]
+        [TestCase(true)]
+        public void HeroStanceTransfersAreContinuousAndReturnToCarry(bool authoredMotion)
         {
             var rig=AthleteRigFactory.Create(null);
             try
@@ -37,7 +38,8 @@ namespace Biathlon.PlayModeTests
                     Assert.That(Quaternion.Angle(props.Rifle.rotation,initialRotation),Is.LessThan(.001f));
                     void Sample(float progress)
                     {
-                        driver.Sample(rig,new LocomotionInput(0,0,0,travelling:false),0);
+                        if(authoredMotion)rig.GetComponent<AthleteHybridLocomotionDriver>().Sample(rig,new LocomotionInput(0,0,0,travelling:false),0);
+                        else driver.Sample(rig,new LocomotionInput(0,0,0,travelling:false),0);
                         body.Sample(rig,stance,progress);rifle.Sample(rig,progress,stance:stance);
                         contact.Sample(rig,0,0,SkiLocomotion.Idle,rifle.HandWeight);grip.Render(rig);
                     }

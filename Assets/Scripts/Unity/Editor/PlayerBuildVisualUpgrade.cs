@@ -10,6 +10,19 @@ namespace Biathlon.Unity
     {
         public static void BuildVisualUpgradeBaseline()=>BuildVisualUpgrade("Builds/M15_5_Baseline_Review");
         public static void BuildVisualUpgradeFinal()=>BuildVisualUpgrade("Builds/M15_5_Visual_Review");
+        public static void BuildAnimationRefinement()
+        {
+            const string folder="Builds/M15_5_Animation_Review";
+            BuildVisualUpgrade(folder);
+            File.WriteAllText(Path.Combine(folder,"READ_ME.txt"),
+                "BIATHLON M15.5 — повторная проверка анимации\r\n\r\n"+
+                "START_TEST.cmd — обычная игра; можно продолжить существующую карьеру.\r\n"+
+                "Проверьте руки и палки в ожидании старта масстарта, при разгоне, на поворотах, перестроениях и подъёмах.\r\n"+
+                "Палки теперь работают в поворотах и на подъёмах; руки проходят постановку, толчок и возврат.\r\n"+
+                "COMPARE_MOTION.cmd — лаборатория: слева прежний процедурный fallback, справа доработанная анимация.\r\n"+
+                "Одобренные модель, материалы, снег, погода, интерфейс, звук и баланс сохранены.\r\n"+
+                "Анимация авторская и процедурная, без motion capture. M16 начнётся после вашей проверки анимации.\r\n");
+        }
         private static void BuildVisualUpgrade(string folder)
         {
             ValidateProductionBuildDirectory(folder);if(EditorApplication.isPlaying||EditorApplication.isCompiling)throw new InvalidOperationException("Idle editor required.");

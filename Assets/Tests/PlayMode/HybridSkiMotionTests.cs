@@ -8,6 +8,95 @@ namespace Biathlon.PlayModeTests
 {
     public class HybridSkiMotionTests
     {
+        [Test] public void FinishedAthleteKeepsExhaustionHandsInsteadOfReturningToStartReadyPose()
+        {
+            var rig=AthleteRigFactory.Create(null);
+            try
+            {
+                var d=rig.GetComponent<AthleteHybridLocomotionDriver>();
+                d.Sample(rig,new LocomotionInput(0,0,0,travelling:false),3,new ExertionInput(1,0,185,finished:true));
+                rig.GetComponent<AthleteRiflePresentation>().Sample(rig,0);
+                rig.GetComponent<AthleteGroundContact>().SampleMoving(rig,0,d.PoleCycle,d.ContactState,0,3);
+                rig.GetComponent<AthleteGripPresentation>().Render(rig);
+                Assert.That(rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.LeftHand).position).y,Is.LessThan(1.1f),
+                    "The new waiting pose must not override the existing exhausted-finish envelope.");
+            }
+            finally{Object.DestroyImmediate(rig.gameObject);}
+        }
+        [TestCase(-.035f)]
+        [TestCase(.035f)]
+        [TestCase(-.15f)]
+        [TestCase(.15f)]
+        public void CornerPolingKeepsBothGlovesOnTheirOwnSideOfTheChest(float curvature)
+        {
+            var rig=AthleteRigFactory.Create(null);
+            try
+            {
+                var d=rig.GetComponent<AthleteHybridLocomotionDriver>();var c=rig.GetComponent<AthleteGroundContact>();
+                var rifle=rig.GetComponent<AthleteRiflePresentation>();var grip=rig.GetComponent<AthleteGripPresentation>();
+                for(int i=0;i<360;i++)
+                {
+                    double t=i/120.0;rig.transform.position=new Vector3(0,0,(float)t*8);
+                    d.Sample(rig,new LocomotionInput(8,0,.95f,curvature:curvature),t);
+                    rifle.Sample(rig,0);c.SampleMoving(rig,0,d.PoleCycle,d.ContactState,0,t);grip.Render(rig);
+                    float chest=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.Chest).position).x;
+                    float left=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.LeftHand).position).x;
+                    float right=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.RightHand).position).x;
+                    Assert.That(chest-left,Is.GreaterThan(.15f),"Inside glove must not cross the torso while the body leans into the turn.");
+                    Assert.That(right-chest,Is.GreaterThan(.15f),"Inside glove must not cross the torso while the body leans into the turn.");
+                    Assert.That(grip.MaximumResidualMeters,Is.LessThan(.03f));
+                }
+            }
+            finally{Object.DestroyImmediate(rig.gameObject);}
+        }
+        [TestCase(0f)]
+        [TestCase(1f)]
+        public void WaitingMassStartKeepsPolesBracedBesideBootsInsteadOfHorizontalTuckShafts(float effort)
+        {
+            var rig=AthleteRigFactory.Create(null);
+            try
+            {
+                var d=rig.GetComponent<AthleteHybridLocomotionDriver>();
+                var c=rig.GetComponent<AthleteGroundContact>();var eq=rig.GetComponent<AthleteEquipmentBinding>();
+                d.Sample(rig,new LocomotionInput(0,0,effort),0);
+                rig.GetComponent<AthleteRiflePresentation>().Sample(rig,0);
+                c.SampleMoving(rig,0,d.PoleCycle,d.ContactState,0,0);
+                rig.GetComponent<AthleteGripPresentation>().Render(rig);
+                Assert.That(d.ContactState,Is.EqualTo(SkiLocomotion.Idle),"A waiting starter is not in downhill tuck.");
+                foreach(var p in new[]{eq.LeftPole,eq.RightPole})
+                    Assert.That(Vector3.Dot(-p.up,Vector3.down),Is.GreaterThan(.7f),"Ready poles point into the snow, not sideways.");
+                Assert.That(c.LeftPoleTip.y,Is.EqualTo(0).Within(.001f));
+            }
+            finally{Object.DestroyImmediate(rig.gameObject);}
+        }
+
+        [TestCase(6f,0f,.03f,0f)]
+        [TestCase(4f,.08f,.03f,0f)]
+        [TestCase(3f,.15f,-.03f,0f)]
+        [TestCase(6f,0f,0f,2f)]
+        public void PropulsiveCornersClimbsAndLaneChangesKeepACompletePoleDriveAndRaisedRecovery(float speed,float grade,float curve,float lateral)
+        {
+            var rig=AthleteRigFactory.Create(null);
+            try
+            {
+                var d=rig.GetComponent<AthleteHybridLocomotionDriver>();var c=rig.GetComponent<AthleteGroundContact>();
+                var grip=rig.GetComponent<AthleteGripPresentation>();var rifle=rig.GetComponent<AthleteRiflePresentation>();
+                float low=10,high=-10,front=-10,rear=10;int plants=0;
+                for(int i=0;i<480;i++)
+                {
+                    double t=i/120.0;
+                    d.Sample(rig,new LocomotionInput(speed,grade,.95f,curvature:curve,lateralSpeed:lateral),t);
+                    rifle.Sample(rig,0);c.SampleMoving(rig,grade,d.PoleCycle,d.ContactState,0,t);grip.Render(rig);
+                    var hand=rig.ModelRoot.InverseTransformPoint(rig.Bone(AthleteBone.LeftHand).position);
+                    low=Mathf.Min(low,hand.y);high=Mathf.Max(high,hand.y);front=Mathf.Max(front,hand.z);rear=Mathf.Min(rear,hand.z);
+                    if(c.LeftPlanted&&c.RightPlanted)plants++;
+                }
+                Assert.That(plants,Is.GreaterThan(0),"Powered travel must have a paired snow contact, including on a curved climb.");
+                Assert.That(high-low,Is.GreaterThan(.15f),"Recovery lifts the hands; horizontal fore/aft rowing is not a pole stroke.");
+                Assert.That(front-rear,Is.GreaterThan(.22f),"Both arms complete the push and return while changing lane.");
+            }
+            finally{Object.DestroyImmediate(rig.gameObject);}
+        }
         private static readonly LocomotionInput[] Inputs={new LocomotionInput(6,0,.9f),new LocomotionInput(4,.08f,.9f),new LocomotionInput(3,.15f,1),
             new LocomotionInput(8,0,1),new LocomotionInput(9,0,1.25f,sprint:true),new LocomotionInput(8,0,.1f),new LocomotionInput(9,-.07f,.9f),
             new LocomotionInput(12,-.1f,.7f,tuck:true),new LocomotionInput(8,0,.9f,curvature:-.03f),new LocomotionInput(8,0,.9f,curvature:.03f),

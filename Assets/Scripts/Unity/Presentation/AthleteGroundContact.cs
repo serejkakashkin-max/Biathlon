@@ -62,9 +62,12 @@ namespace Biathlon.Unity.Presentation
         {
             if(!double.IsFinite(time)||time<0)throw new ArgumentOutOfRangeException(nameof(time));
             if(technique==null)technique=SkiTechniqueVisualSettings.Load();
+            if(hybrid==null)hybrid=GetComponent<AthleteHybridLocomotionDriver>();
+            bool authored=hybrid!=null&&hybrid.Active;
             bool reset=previousTime<0||time<previousTime||time-previousTime>technique.contact_reset_gap_s||Vector3.Distance(previousRoot,rig.ModelRoot.position)>technique.contact_reset_distance_m;
-            Sample(rig,grade,cycle,state,stowWeight,true);
-            bool plant=stowWeight==0&&(state==SkiLocomotion.Flat||state==SkiLocomotion.Climb||state==SkiLocomotion.Acceleration||state==SkiLocomotion.Sprint)&&Math.Cos(cycle*Math.PI*2)<=0;
+            Sample(rig,grade,cycle,state,stowWeight,true,authored);
+            bool plant=stowWeight==0&&(state==SkiLocomotion.Flat||state==SkiLocomotion.Climb||state==SkiLocomotion.Acceleration||state==SkiLocomotion.Sprint)&&
+                (authored?hybrid.PoleDriveActive:Math.Cos(cycle*Math.PI*2)<=0);
             if(reset){leftPlanted=rightPlanted=leftReleased=rightReleased=false;}
             LeftPoleTip=Fit(equipment.LeftPole,LeftPoleTip,ref leftAnchor,ref leftPlanted,ref leftReleased);
             RightPoleTip=Fit(equipment.RightPole,RightPoleTip,ref rightAnchor,ref rightPlanted,ref rightReleased);
@@ -80,7 +83,7 @@ namespace Biathlon.Unity.Presentation
             }
         }
 
-        public void Sample(AthleteRigBinding rig, float grade, double cycle, SkiLocomotion state, float stowWeight,bool paired=false)
+        public void Sample(AthleteRigBinding rig, float grade, double cycle, SkiLocomotion state, float stowWeight,bool paired=false,bool authored=false)
         {
             if (!float.IsFinite(grade) || !double.IsFinite(cycle) || !float.IsFinite(stowWeight) || stowWeight < 0 || stowWeight > 1) throw new ArgumentOutOfRangeException();
             if (settings == null) { settings = GroundContactSettings.Load(); motion = AthleteLocomotionSettings.Load(); equipment = GetComponent<AthleteEquipmentBinding>(); equipment.Validate(); }
@@ -116,7 +119,7 @@ namespace Biathlon.Unity.Presentation
                 grip = Vector3.Lerp(grip, onPlane + normal * settings.pole_length_m, stowWeight);
                 float wave = Mathf.Max(0, Mathf.Cos((float)((cycle + offset) * Math.PI * 2)));
                 float lift = state == SkiLocomotion.Tuck || state == SkiLocomotion.TechnicalDescent ? settings.pole_tuck_clearance_m :
-                    state == SkiLocomotion.Idle ? 0 : settings.pole_recovery_m * wave * wave;
+                    state == SkiLocomotion.Idle ? 0 : settings.pole_recovery_m * (authored?hybrid.PoleRecoveryClearance:wave * wave);
                 lift *= 1 - stowWeight;
                 float height = Mathf.Clamp(Vector3.Dot(grip, normal) - lift, 0, settings.pole_length_m);
                 var rear = Vector3.ProjectOnPlane(Vector3.back, normal).normalized;

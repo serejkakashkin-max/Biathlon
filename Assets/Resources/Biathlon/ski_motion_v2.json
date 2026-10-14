@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "id": "ski_motion_v2",
   "provenance": "Original manual normalized keys and analytic IK, Biathlon project, 2026-10-13. Research-informed timing; no dataset-derived or mocap assets.",
   "transition_s": 0.42,
@@ -14,7 +14,7 @@
   "no_pole_effort": 0.25,
   "corner_curvature": 0.012,
   "fatigue_threshold": 0.35,
-  "slow_speed_mps": 1.2,
+  "slow_speed_mps": 0.15,
   "glide_fraction": 0.66,
   "yaw_deg": 14,
   "recovery_yaw_fraction": 0.3,
@@ -34,7 +34,8 @@
       "torso_twist_deg": 1.8,
       "compression_deg": 1.5,
       "hip_transfer_m": 0.009,
-      "ski_edge_deg": 5
+      "ski_edge_deg": 5,
+      "ready_weight": 0
     },
     {
       "state": "Uphill",
@@ -48,7 +49,8 @@
       "torso_twist_deg": 1.8,
       "compression_deg": 2.5,
       "hip_transfer_m": 0.009,
-      "ski_edge_deg": 5
+      "ski_edge_deg": 5,
+      "ready_weight": 0
     },
     {
       "state": "SteepUphill",
@@ -62,7 +64,8 @@
       "torso_twist_deg": 1.8,
       "compression_deg": 1.5,
       "hip_transfer_m": 0.009,
-      "ski_edge_deg": 5
+      "ski_edge_deg": 5,
+      "ready_weight": 0
     },
     {
       "state": "FastSkate",
@@ -76,7 +79,8 @@
       "torso_twist_deg": 1.8,
       "compression_deg": 1.5,
       "hip_transfer_m": 0.009,
-      "ski_edge_deg": 7
+      "ski_edge_deg": 7,
+      "ready_weight": 0
     },
     {
       "state": "MaxSprint",
@@ -90,7 +94,8 @@
       "torso_twist_deg": 1.8,
       "compression_deg": 2.5,
       "hip_transfer_m": 0.009,
-      "ski_edge_deg": 9
+      "ski_edge_deg": 9,
+      "ready_weight": 0
     },
     {
       "state": "NoPole",
@@ -104,7 +109,8 @@
       "torso_twist_deg": 1.8,
       "compression_deg": 0,
       "hip_transfer_m": 0.009,
-      "ski_edge_deg": 5
+      "ski_edge_deg": 5,
+      "ready_weight": 0
     },
     {
       "state": "DoublePole",
@@ -118,7 +124,8 @@
       "torso_twist_deg": 1.8,
       "compression_deg": 3,
       "hip_transfer_m": 0,
-      "ski_edge_deg": 0
+      "ski_edge_deg": 0,
+      "ready_weight": 0
     },
     {
       "state": "Tuck",
@@ -132,35 +139,38 @@
       "torso_twist_deg": 0,
       "compression_deg": 0,
       "hip_transfer_m": 0,
-      "ski_edge_deg": 0
+      "ski_edge_deg": 0,
+      "ready_weight": 0
     },
     {
       "state": "CornerLeft",
-      "poles_per_cycle": 0,
+      "poles_per_cycle": 1,
       "cadence_scale": 1,
-      "stride_scale": 0.6,
+      "stride_scale": 1,
       "width_scale": 1,
       "lift_scale": 1.15,
-      "arm_scale": 0.15,
+      "arm_scale": 1.15,
       "hand_stagger_m": 0,
       "torso_twist_deg": 1.8,
-      "compression_deg": 0,
+      "compression_deg": 1.5,
       "hip_transfer_m": 0.009,
-      "ski_edge_deg": 10
+      "ski_edge_deg": 10,
+      "ready_weight": 0
     },
     {
       "state": "CornerRight",
-      "poles_per_cycle": 0,
+      "poles_per_cycle": 1,
       "cadence_scale": 1,
-      "stride_scale": 0.6,
+      "stride_scale": 1,
       "width_scale": 1,
       "lift_scale": 1.15,
-      "arm_scale": 0.15,
+      "arm_scale": 1.15,
       "hand_stagger_m": 0,
       "torso_twist_deg": 1.8,
-      "compression_deg": 0,
+      "compression_deg": 1.5,
       "hip_transfer_m": 0.009,
-      "ski_edge_deg": 10
+      "ski_edge_deg": 10,
+      "ready_weight": 0
     },
     {
       "state": "Fatigued",
@@ -174,7 +184,8 @@
       "torso_twist_deg": 1.8,
       "compression_deg": 1.5,
       "hip_transfer_m": 0.006,
-      "ski_edge_deg": 5
+      "ski_edge_deg": 5,
+      "ready_weight": 0
     },
     {
       "state": "SlowStop",
@@ -188,7 +199,8 @@
       "torso_twist_deg": 1.8,
       "compression_deg": 0,
       "hip_transfer_m": 0.004,
-      "ski_edge_deg": 0
+      "ski_edge_deg": 0,
+      "ready_weight": 1
     }
   ],
   "curves": [
@@ -212,41 +224,98 @@
     {
       "time": [
         0,
-        0.2,
-        0.43,
-        0.7,
-        0.88,
+        0.18,
+        0.42,
+        0.5,
+        0.73,
         1
       ],
       "value": [
-        0.65,
+        0.85,
         1,
-        0.25,
         -1,
-        -0.1,
-        0.65
+        -1,
+        -0.25,
+        0.85
       ],
       "id": "paired_pole_stroke"
     },
     {
       "time": [
         0,
-        0.2,
-        0.43,
-        0.65,
-        0.88,
+        0.18,
+        0.35,
+        0.42,
+        0.5,
+        0.75,
         1
       ],
       "value": [
         0,
-        0.05,
-        0.65,
+        0,
+        0.75,
         1,
-        0.12,
+        0.65,
+        0,
         0
       ],
       "id": "pole_compression"
+    },
+    {
+      "id": "paired_pole_height",
+      "time": [
+        0,
+        0.18,
+        0.42,
+        0.5,
+        0.73,
+        1
+      ],
+      "value": [
+        0.8,
+        1,
+        -0.85,
+        -1,
+        0.5,
+        0.8
+      ]
+    },
+    {
+      "id": "pole_recovery_clearance",
+      "time": [
+        0,
+        0.18,
+        0.42,
+        0.55,
+        0.76,
+        1
+      ],
+      "value": [
+        0.6,
+        0,
+        0,
+        0.8,
+        1,
+        0.6
+      ]
     }
   ],
-  "arm_reach_margin_m": 0.09
+  "arm_reach_margin_m": 0.09,
+  "pole_height_scale": 0.95,
+  "pole_drive_start": 0.18,
+  "pole_drive_end": 0.42,
+  "max_pole_cadence_hz": 2.25,
+  "ready_hand_height_m": 1.24,
+  "ready_hand_forward_m": 0.16,
+  "ready_hand_width_m": 0.21,
+  "elbow_plant_hint": {
+    "x": 0.12,
+    "y": -0.05,
+    "z": 1
+  },
+  "elbow_release_hint": {
+    "x": 0.12,
+    "y": -0.15,
+    "z": -0.45
+  }
 }

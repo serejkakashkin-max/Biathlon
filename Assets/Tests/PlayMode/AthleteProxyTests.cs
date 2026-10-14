@@ -11,6 +11,40 @@ namespace Biathlon.PlayModeTests
 {
     public class AthleteProxyTests
     {
+        [UnityTest] public IEnumerator ActualMassStartWaitUsesBracedPolesAndIndividualMotionPhasesWithoutAdvancingAuthority()
+        {
+            string Read(string id)=>Resources.Load<TextAsset>(id).text;
+            string Core(string name)=>Read("Biathlon/"+Path.GetFileNameWithoutExtension(name));
+            const string v="Biathlon/Venues/woodland_basin_v1/";
+            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(v+"manifest")),Read);
+            var runner=ProductionVenueRaceFactory.Create(venue,CompetitionProfile.FromJson(Read(v+"mass_start_profile")),
+                RaceRoutePlan.FromJson(Read(v+"mass_start_route")),RaceSnowConditions.FromJson(Read("Biathlon/race_snow_neutral_v1")),
+                Core,new BalanceEventAudit(5),new AiDecisionCounts(),count:30);
+            var root=new GameObject("mass_start_pole_contract");
+            try
+            {
+                var feed=root.AddComponent<RacePresentationFeed>();var view=root.AddComponent<AthleteProxyPresentation>();view.Initialize(feed,venue);
+                feed.Publish(RacePresentationSnapshot.Capture(runner.Field));view.Render(1);
+                double minimum=1,maximum=0;
+                for(int i=0;i<30;i++)
+                {
+                    var id=runner.Field.GetAthlete(i).AthleteId.Value;var rig=view.GetRig(id);
+                    var driver=rig.GetComponent<AthleteHybridLocomotionDriver>();var equipment=rig.GetComponent<AthleteEquipmentBinding>();
+                    Assert.That(driver.ContactState,Is.EqualTo(SkiLocomotion.Idle),"Real prestart observations can already contain requested effort.");
+                    Assert.That(Vector3.Dot(-equipment.LeftPole.up,Vector3.down),Is.GreaterThan(.7f));
+                    minimum=System.Math.Min(minimum,driver.PoleCycle);maximum=System.Math.Max(maximum,driver.PoleCycle);
+                }
+                Assert.That(maximum-minimum,Is.GreaterThan(.25),"The field must not share one synchronized arm cycle.");
+                for(int i=0;i<120;i++){runner.Step();feed.Publish(RacePresentationSnapshot.Capture(runner.Field));view.Render(1);}
+                long tick=runner.Field.Tick.Value,distance=runner.Field.GetAthlete(0).Motion.DistanceNanometers;
+                var shown=view.GetRig(runner.Field.GetAthlete(0).AthleteId.Value);
+                var hand=shown.Bone(AthleteBone.LeftHand).position;view.Render(1);
+                Assert.That(Vector3.Distance(hand,shown.Bone(AthleteBone.LeftHand).position),Is.LessThan(.0001f));
+                Assert.That(runner.Field.Tick.Value,Is.EqualTo(tick));Assert.That(runner.Field.GetAthlete(0).Motion.DistanceNanometers,Is.EqualTo(distance));
+            }
+            finally{Object.Destroy(root);}
+            yield return null;
+        }
         [UnityTest] public IEnumerator ProductionBypassFeedsAcceptedLateralSpeedToSkisWithoutMovingRace()
         {
             string Read(string id)=>Resources.Load<TextAsset>(id).text;

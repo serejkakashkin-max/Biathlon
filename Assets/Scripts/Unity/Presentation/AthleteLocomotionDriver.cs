@@ -43,7 +43,7 @@ namespace Biathlon.Unity.Presentation
 
         public void CopyVisualPose(LocomotionPose destination) => LocomotionPose.Blend(motion, motion, 1, destination);
 
-        public void Sample(AthleteRigBinding rig, LocomotionInput input, double time, ExertionInput? observedExertion = null, bool renderPose = true)
+        public void Sample(AthleteRigBinding rig, LocomotionInput input, double time, ExertionInput? observedExertion = null, bool renderPose = true, bool preserveForwardPoling = false)
         {
             if (double.IsNaN(time) || double.IsInfinity(time) || time < 0) throw new ArgumentOutOfRangeException(nameof(time));
             if (settings == null) {settings = AthleteLocomotionSettings.Load();technique=SkiTechniqueVisualSettings.Load();}
@@ -93,7 +93,9 @@ namespace Biathlon.Unity.Presentation
                 float cadence=Mathf.Min(settings.sidestep_max_cadence_hz,sideSpeed/(2*settings.sidestep_span_m));
                 motion.cadence_hz=Mathf.Lerp(motion.cadence_hz,cadence,sidestepWeight);
                 motion.foot_lift_m=Mathf.Lerp(motion.foot_lift_m,settings.sidestep_lift_m,sidestepWeight);
-                motion.arm_swing_m*=1-sidestepWeight;
+                // A moving lane change still uses the poles. The legacy comparison path
+                // retains its original lateral-step envelope; pure sideways steps brace.
+                if(!preserveForwardPoling||input.Speed<=settings.idle_speed_mps)motion.arm_swing_m*=1-sidestepWeight;
                 motion.stride_m*=1-sidestepWeight;
             }
             motion.cadence_hz *= climbIntensity;
