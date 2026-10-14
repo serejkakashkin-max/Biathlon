@@ -55,3 +55,14 @@ the rights and mapping review. Set clip looping only after checking the seam;
 do not enable animation root motion. Validate contact, transition/rewind,
 equipment and zero authority changes in the comparison scene and existing tests
 before switching the production driver.
+
+
+## 2026-10-14 — Elbow correction provenance
+
+Schema3 replaces pole-arm bend hints with an analytic hinge and original
+shoulder-relative hand paths. Manual curve timing expands the drive interval;
+no motion capture or external animation asset is imported. Paired front/side
+captures compare rejected24d27dd8 motion with the corrected build using the
+same G2 assets, observation inputs, time, camera and grade-matched lab plane.
+Frames1–89 are paired without retouching; complete90-frame source sequences
+remain in artifacts and their hashes are recorded in the gallery manifest.

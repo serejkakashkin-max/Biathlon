@@ -13,7 +13,7 @@ Budget for new assets/subscriptions: $0. No automatic main merge.
 |VU-D|Snow materials, individual ski/pole tracks and bounded spray|APPROVED by owner 2026-10-13|
 |VU-E|Forest composition and licensed winter roadside details|APPROVED by owner 2026-10-13|
 |VU-F|Five winter atmospheres and Performance/High/Ultra visual profiles|APPROVED by owner 2026-10-13|
-|VU-G|Integrated validation, matched before/after, profiling, test build|Animation follow-up verified; new test build delivered 2026-10-14|
+|VU-G|Integrated validation, matched before/after, profiling, test build|Elbow follow-up verified81/81; separate test build delivered 2026-10-14|
 
 The existing G2 hero, snow_02, fir/pine, winter shrub, boulder and Passendorf sky
 are integrated. Reuse them instead of downloading duplicates. NSD is research
@@ -43,3 +43,14 @@ Matched Ultra profiling CPU main3.6458в†’3.6687ms; GC bytes/frame unchanged
 Test build: `Builds/M15_5_Animation_Review/START_TEST.cmd`.
 Evidence: `docs/quality/m15-5/animation-refinement/review.html`.
 Other visual WPs remain approved. Animation acceptance and M16 remain pending.
+
+
+2026-10-14 elbow follow-up: owner rejected unnatural elbow angles. VU-B now
+uses a one-axis anatomical hinge in both motion and late pole grip; shoulder-relative
+hand paths and bounded contact correction prevent raised/flared elbows and
+release snaps. Native focused81/81 PASS across18 classes (inventory386 is not
+a full rerun);8 paired close videos and3 real Mass30 clips inspected. Win64
+build0 errors/0 warnings, startup/native reviews pass. CPU/GC matched budget
+is retained. Launcher `Builds/M15_5_Elbow_Review/START_TEST.cmd`; evidence
+`docs/quality/m15-5/elbow-refinement/review.html`. Source b15c8c08. VU-B awaits
+owner acceptance; other visual WPs remain approved, M16 remains pending.

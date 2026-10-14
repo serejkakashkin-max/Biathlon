@@ -49,3 +49,15 @@ stale meshes during repeated offscreen rendering; it is not enabled on every
 gameplay athlete. CPU/render counters are measured separately from screenshots.
 Unavailable GPU/VRAM timings remain unavailable, not zero. Full evidence and
 owner acceptance are tracked in `docs/M15_5_VISUAL_WP_STATUS.md`.
+
+
+## 2026-10-14 — Anatomical pole-arm hinge follow-up
+
+Owner rejected the forearm twist/raised elbow in the refined animation. Use a
+single negative-local-X elbow hinge for the -Y arm bind axes, with a stable
+shoulder frame. The late hybrid grip fit must use the same solve. Shoulder-relative
+hand paths, flex/reach bounds, longer pole drive and smaller authored anchor
+correction are defined once in schema3 `ski_motion_v2`. Generic leg/legacy/rifle
+solves and all authoritative systems remain unchanged. Native close captures
+and numerical tests supplement, but do not replace, owner visual acceptance.
+See TASK_M15_5_ELBOW_REFINEMENT_20261014 and the elbow-refinement gallery.

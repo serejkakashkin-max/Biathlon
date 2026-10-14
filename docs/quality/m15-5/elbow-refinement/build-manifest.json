@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "id": "m15_5_elbow_build_manifest",
+  "source_commit": "b15c8c08b73d204ed29fa27ff7bb22c45b5ded22",
+  "baseline_motion_commit": "24d27dd843543582610424b9d91fd50167dd7b8b",
+  "source": [
+    {
+      "path": "Assets/Resources/Biathlon/ski_motion_v2.json",
+      "sha256": "53548258e665f2afe6218f6505f52e5884185908d4b7e2f0f6dc6289a5f5de2d"
+    },
+    {
+      "path": "Assets/Scripts/Unity/Presentation/AthleteHybridLocomotionDriver.cs",
+      "sha256": "d912ac907073599a436c842045250d5d253d4decf601e1afe4b388cfab5d4b92"
+    },
+    {
+      "path": "Assets/Scripts/Unity/Presentation/AthleteLocomotionDriver.cs",
+      "sha256": "03f5faad02757bb5b979c9f6795cee0508c36bf914e9e672e8e479c46d4611c7"
+    },
+    {
+      "path": "Assets/Scripts/Unity/Presentation/AthleteGripPresentation.cs",
+      "sha256": "0714332936fbe3f2212a9b491fba9a60395b228f9b4e614b62854a1174e78c1d"
+    },
+    {
+      "path": "Assets/Scripts/Unity/Presentation/AthleteGroundContact.cs",
+      "sha256": "379458cd2d87e13a193a817781a253538a935c5cba9ce464aebe70ccde5363b4"
+    },
+    {
+      "path": "Assets/Scripts/Unity/Presentation/SkiMotionComparison.cs",
+      "sha256": "8b87dee4ac4b31667a318160136caab5354c473561c7ef03bd898abfab56cbf7"
+    },
+    {
+      "path": "Assets/Scripts/Unity/Editor/PlayerBuildVisualUpgrade.cs",
+      "sha256": "6ee01680806254f71b139f43755b7e1b6e8d38c2251a8a8dea5c40ef0f656a05"
+    },
+    {
+      "path": "Assets/Tests/PlayMode/HybridSkiMotionTests.cs",
+      "sha256": "4c80a12a9a4b20fb878068c3cda22ed72ed3338a2bcbe4a06f2af214aecd4b28"
+    }
+  ],
+  "binaries": [
+    {
+      "path": "Builds/M15_5_Elbow_Review/Biathlon.exe",
+      "sha256": "718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00"
+    },
+    {
+      "path": "Builds/M15_5_Elbow_Review/Biathlon_Data/Managed/Biathlon.Unity.Presentation.dll",
+      "sha256": "29c6b7356d4c1771bc0712fcce253237f8af16c530afd716e36fc4fc22ce2adf"
+    },
+    {
+      "path": "Builds/M15_5_Elbow_Review/Biathlon_Data/Managed/Biathlon.Simulation.dll",
+      "sha256": "6b6c0812cdabe471547a5abb14c361da9cc58f443f46fa2387a96afa9ab8e09e"
+    },
+    {
+      "path": "Builds/M15_5_Elbow_Baseline/Biathlon_Data/Managed/Biathlon.Unity.Presentation.dll",
+      "sha256": "669dad1c74d135a6adb1af598bf536fd8e09b2c6e44d7485a84f26a28f5c49f4"
+    }
+  ]
+}
