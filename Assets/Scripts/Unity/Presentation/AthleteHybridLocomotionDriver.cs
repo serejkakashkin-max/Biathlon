@@ -41,6 +41,30 @@ namespace Biathlon.Unity.Presentation
             return value[value.Length-1];
         }
         public static float Ease(float t) {t=Mathf.Clamp01(t);return t*t*t*(t*(t*6-15)+10);}
+        // Cyclic monotone Hermite interpolation carries velocity through recovery
+        // keys. The old ease-to-rest at every key caused a stop/burst hand rhythm.
+        public float AtContinuous(float phase)
+        {
+            phase=Mathf.Repeat(phase,1);
+            for(int i=1;i<time.Length;i++)if(phase<=time[i])
+            {
+                float h=time[i]-time[i-1],t=(phase-time[i-1])/h,t2=t*t,t3=t2*t;
+                return (2*t3-3*t2+1)*value[i-1]+(t3-2*t2+t)*h*Slope(i-1)
+                    +(-2*t3+3*t2)*value[i]+(t3-t2)*h*Slope(i);
+            }
+            return value[value.Length-1];
+        }
+        private float Slope(int i)
+        {
+            int last=time.Length-1;if(i==last)i=0;
+            int previous=i==0?last-1:i-1,next=i+1;
+            float before=i==0?time[previous]-1:time[previous];
+            float left=time[i]-before,right=time[next]-time[i];
+            float a=(value[i]-value[previous])/left,b=(value[next]-value[i])/right;
+            if(a*b<=0)return 0;
+            float w1=2*right+left,w2=right+2*left;
+            return (w1+w2)/(w1/a+w2/b);
+        }
     }
 
     [Serializable] public sealed class SkiMotionSettings
@@ -54,16 +78,18 @@ namespace Biathlon.Unity.Presentation
         public float pole_anchor_correction_m;
         public float arm_min_flex_deg, arm_max_flex_deg, arm_reference_swing_m;
         public float hand_plant_forward_m, hand_release_forward_m, hand_plant_drop_m, hand_release_drop_m;
+        public float poling_hand_outset_m, elbow_plane_splay_deg;
         public SkiMotionProfile[] profiles; public SkiMotionCurve[] curves;
         private static SkiMotionSettings cached;
         public static SkiMotionSettings Load()=>cached??(cached=FromJson(Resources.Load<TextAsset>("Biathlon/ski_motion_v2").text));
         public static SkiMotionSettings FromJson(string json)
         {
             var d=JsonUtility.FromJson<SkiMotionSettings>(json);
-            if(d==null||d.schema_version!=3||string.IsNullOrWhiteSpace(d.id)||d.profiles==null||d.profiles.Length!=12||d.curves==null||d.curves.Length!=5)
+            if(d==null||d.schema_version!=4||string.IsNullOrWhiteSpace(d.id)||d.profiles==null||d.profiles.Length!=12||d.curves==null||d.curves.Length!=5)
                 throw new ArgumentException("Invalid hybrid ski motion definition.");
             if(!(d.transition_s>0&&d.phase_response_s>0&&d.speed_reference_mps>0&&d.min_cadence_hz>0&&d.max_cadence_hz>=d.min_cadence_hz&&d.max_cadence_hz<=3&&
                 d.glide_fraction>.5f&&d.glide_fraction<.9f&&d.ankle_height_m>0&&d.max_hip_transfer_m>0&&d.max_hip_transfer_m<=.025f&&
+                d.poling_hand_outset_m>=.04f&&d.poling_hand_outset_m<=.1f&&d.elbow_plane_splay_deg>=8&&d.elbow_plane_splay_deg<=30&&
                 d.pole_anchor_correction_m>=.01f&&d.pole_anchor_correction_m<=.05f&&d.arm_min_flex_deg>=5&&d.arm_min_flex_deg<=30&&d.arm_max_flex_deg>=90&&d.arm_max_flex_deg<=145&&
                 d.arm_reference_swing_m>.1f&&d.arm_reference_swing_m<.4f&&d.hand_plant_forward_m>.2f&&d.hand_plant_forward_m<.5f&&
                 d.hand_release_forward_m>-.4f&&d.hand_release_forward_m<0&&d.hand_plant_drop_m>.05f&&d.hand_plant_drop_m<.3f&&
@@ -213,9 +239,9 @@ namespace Biathlon.Unity.Presentation
                 var rest=new Vector3(chestX+side*pose.hand_width_m,pose.hand_height_m,pose.hand_forward_m);
                 // Author hands relative to the shoulder, so torso compression cannot
                 // lift elbows above it. Plant at chest height, extend behind on release.
-                float forward=Mathf.Lerp(settings.hand_release_forward_m,settings.hand_plant_forward_m,(settings.curves[1].At(pole)+1)*.5f);
-                float drop=Mathf.Lerp(settings.hand_release_drop_m,settings.hand_plant_drop_m,(settings.curves[3].At(pole)+1)*.5f);
-                var stroke=new Vector3(rest.x,shoulder.y-drop+side*blended.hand_stagger_m,shoulder.z+forward-side*blended.hand_stagger_m);
+                float forward=Mathf.Lerp(settings.hand_release_forward_m,settings.hand_plant_forward_m,(settings.curves[1].AtContinuous(pole)+1)*.5f);
+                float drop=Mathf.Lerp(settings.hand_release_drop_m,settings.hand_plant_drop_m,(settings.curves[3].AtContinuous(pole)+1)*.5f);
+                var stroke=new Vector3(rest.x+side*settings.poling_hand_outset_m,shoulder.y-drop+side*blended.hand_stagger_m,shoulder.z+forward-side*blended.hand_stagger_m);
                 float strength=Mathf.Clamp01(pose.arm_swing_m*blended.arm_scale/settings.arm_reference_swing_m);
                 Vector3 target=Vector3.Lerp(rest,stroke,strength);
                 target=Vector3.Lerp(target,new Vector3(chestX+side*settings.ready_hand_width_m,settings.ready_hand_height_m,settings.ready_hand_forward_m),ready);
@@ -225,7 +251,10 @@ namespace Biathlon.Unity.Presentation
         }
         public void FitArm(AthleteRigBinding rig,Transform upper,Transform lower,Transform hand,Vector3 target)
         {
-            AthleteLocomotionDriver.SolveHingedArm(upper,lower,hand,target,rig.ModelRoot.rotation,settings.arm_min_flex_deg,settings.arm_max_flex_deg);
+            float side=upper==rig.Bone(AthleteBone.RightUpperArm)?1:-1;
+            float weight=Mathf.Clamp01(pose.arm_swing_m*blended.arm_scale/settings.arm_reference_swing_m);
+            AthleteLocomotionDriver.SolveHingedArm(upper,lower,hand,target,rig.ModelRoot.rotation,settings.arm_min_flex_deg,settings.arm_max_flex_deg,
+                side*settings.elbow_plane_splay_deg*weight);
         }
         public void ApplySkiEdges(AthleteRigBinding rig)
         {

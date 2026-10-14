@@ -11,6 +11,20 @@ namespace Biathlon.Unity
         public static void BuildVisualUpgradeBaseline()=>BuildVisualUpgrade("Builds/M15_5_Baseline_Review");
         public static void BuildVisualUpgradeFinal()=>BuildVisualUpgrade("Builds/M15_5_Visual_Review");
         public static void BuildElbowBaseline()=>BuildVisualUpgrade("Builds/M15_5_Elbow_Baseline");
+        public static void BuildArmReview()
+        {
+            const string folder="Builds/M15_5_Arm_Review";
+            BuildVisualUpgrade(folder);
+            File.WriteAllText(Path.Combine(folder,"READ_ME.txt"),
+                "BIATHLON M15.5 — плавность рук и зазор от корпуса\r\n\r\n"+
+                "START_TEST.cmd — обычная игра, полный экран; можно продолжить существующую карьеру.\r\n"+
+                "Руки отведены от корпуса, толчок и возврат палок сглажены, особенно при ускорении.\r\n"+
+                "Одобренные движения ног и туловища сохранены точно. Баланс и управление не изменены.\r\n"+
+                "Проверьте руки на обычном ходу, при Shift, на подъёмах и поворотах.\r\n"+
+                "Крупные планы до/после: docs/quality/m15-5/arm-refinement/review.html в проекте.\r\n"+
+                "COMPARE_MOTION.cmd показывает старый procedural fallback; это не предыдущий тестовый билд.\r\n"+
+                "VU-B ожидает вашей визуальной проверки. M16 не начат.\r\n");
+        }
         public static void BuildElbowReview()
         {
             const string folder="Builds/M15_5_Elbow_Review";

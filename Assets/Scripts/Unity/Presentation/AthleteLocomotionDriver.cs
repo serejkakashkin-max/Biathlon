@@ -184,7 +184,7 @@ namespace Biathlon.Unity.Presentation
         /// Keep the forearm on that hinge: independent shortest-arc bone rotations
         /// hit the wrist target but introduce visible yaw/roll twist in the skin.</summary>
         public static void SolveHingedArm(Transform upper, Transform lower, Transform hand, Vector3 target,
-            Quaternion modelRotation, float minimumFlexDegrees, float maximumFlexDegrees)
+            Quaternion modelRotation, float minimumFlexDegrees, float maximumFlexDegrees, float planeSplayDegrees=0)
         {
             Vector3 origin=upper.position;
             float a=Vector3.Distance(origin,lower.position), b=Vector3.Distance(lower.position,hand.position);
@@ -195,6 +195,9 @@ namespace Biathlon.Unity.Presentation
             direction=direction.sqrMagnitude>.000001f?direction.normalized:modelRotation*Vector3.down;
             Vector3 axis=Vector3.ProjectOnPlane(modelRotation*Vector3.right,direction).normalized;
             if(axis.sqrMagnitude<.0001f)axis=Vector3.Cross(direction,modelRotation*Vector3.forward).normalized;
+            // Turn the entire hinge plane slightly outward around the wrist ray.
+            // The lower arm still has one local-X hinge, with no forearm twist.
+            axis=Quaternion.AngleAxis(planeSplayDegrees,direction)*axis;
             // Negative X flex brings a bind-pose forearm forward from neutral down.
             Vector3 bend=Vector3.Cross(axis,direction).normalized;
             float along=(a*a-b*b+length*length)/(2*length);

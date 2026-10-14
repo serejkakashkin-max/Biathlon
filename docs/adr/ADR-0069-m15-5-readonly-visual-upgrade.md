@@ -61,3 +61,27 @@ correction are defined once in schema3 `ski_motion_v2`. Generic leg/legacy/rifle
 solves and all authoritative systems remain unchanged. Native close captures
 and numerical tests supplement, but do not replace, owner visual acceptance.
 See TASK_M15_5_ELBOW_REFINEMENT_20261014 and the elbow-refinement gallery.
+
+
+## 2026-10-14 — Arm clearance and velocity follow-up
+
+The owner approves legs/torso but observes close-fitting arms and a hammer-like
+stroke. Schema4 adds a 0.065 m powered hand outset and a signed 20-degree
+shoulder-to-wrist hinge-plane splay. Splay fades with existing arm strength;
+the forearm remains on the same negative-local-X hinge, with no added local
+yaw/roll. Generic leg/rifle/legacy solves retain their previous defaults.
+
+Only hand curves use cyclic monotone cubic interpolation. Extend drive from
+.18–.55 to .12–.58, shorten forward/drop travel and spread upward recovery
+across the return. The existing pole-cycle frequency, compression curve,
+leg paths, body transforms and locomotion choices are retained. Thus the
+change softens rapid portions of the arm cycle rather than slowing the
+whole athlete animation. All tuning stays in the one motion resource.
+
+Native paired close captures, actual Mass30 footage, anatomical/contact/
+continuity tests and matched CPU profiling govern technical acceptance.
+The review probe compares SHA256 of body/leg transforms over six matched
+input streams; this is a scoped sampled preservation check. The 950 deg/s
+regression ceiling is a project smoothing bound, not an IBU or anatomy rule.
+See TASK_M15_5_ARM_REFINEMENT_20261014 and the arm-refinement gallery.
+Owner arm acceptance remains pending; approved visual areas and M16 stay unchanged.
