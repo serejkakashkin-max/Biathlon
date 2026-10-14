@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="15" result="Passed" total="15" passed="15" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0,2721147">
+  <test-suite type="TestSuite" id="1507" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="378" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.272115" total="15" passed="15" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1501" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="378" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.249799" total="15" passed="15" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="3380" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1502" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="378" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.242588" total="15" passed="15" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1503" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="378" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.238305" total="15" passed="15" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1221" name="HybridSkiMotionTests" fullname="Biathlon.PlayModeTests.HybridSkiMotionTests" classname="Biathlon.PlayModeTests.HybridSkiMotionTests" runstate="Runnable" testcasecount="15" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.224004" total="15" passed="15" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="1227" name="CornerPolingKeepsBothGlovesOnTheirOwnSideOfTheChest" fullname="Biathlon.PlayModeTests.HybridSkiMotionTests.CornerPolingKeepsBothGlovesOnTheirOwnSideOfTheChest" classname="Biathlon.PlayModeTests.HybridSkiMotionTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.072927" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1223" name="CornerPolingKeepsBothGlovesOnTheirOwnSideOfTheChest(-0.035f)" fullname="Biathlon.PlayModeTests.HybridSkiMotionTests.CornerPolingKeepsBothGlovesOnTheirOwnSideOfTheChest(-0.035f)" methodname="CornerPolingKeepsBothGlovesOnTheirOwnSideOfTheChest" classname="Biathlon.PlayModeTests.HybridSkiMotionTests" runstate="Runnable" seed="1689646229" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.049066" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1224" name="CornerPolingKeepsBothGlovesOnTheirOwnSideOfTheChest(0.035f)" fullname="Biathlon.PlayModeTests.HybridSkiMotionTests.CornerPolingKeepsBothGlovesOnTheirOwnSideOfTheChest(0.035f)" methodname="CornerPolingKeepsBothGlovesOnTheirOwnSideOfTheChest" classname="Biathlon.PlayModeTests.HybridSkiMotionTests" runstate="Runnable" seed="1966164689" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.005989" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1225" name="CornerPolingKeepsBothGlovesOnTheirOwnSideOfTheChest(-0.15f)" fullname="Biathlon.PlayModeTests.HybridSkiMotionTests.CornerPolingKeepsBothGlovesOnTheirOwnSideOfTheChest(-0.15f)" methodname="CornerPolingKeepsBothGlovesOnTheirOwnSideOfTheChest" classname="Biathlon.PlayModeTests.HybridSkiMotionTests" runstate="Runnable" seed="1405254105" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.005824" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1226" name="CornerPolingKeepsBothGlovesOnTheirOwnSideOfTheChest(0.15f)" fullname="Biathlon.PlayModeTests.HybridSkiMotionTests.CornerPolingKeepsBothGlovesOnTheirOwnSideOfTheChest(0.15f)" methodname="CornerPolingKeepsBothGlovesOnTheirOwnSideOfTheChest" classname="Biathlon.PlayModeTests.HybridSkiMotionTests" runstate="Runnable" seed="1680494171" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.005792" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1239" name="FallbackIsTheOriginalPoseWithoutMovingTheRaceRoot" fullname="Biathlon.PlayModeTests.HybridSkiMotionTests.FallbackIsTheOriginalPoseWithoutMovingTheRaceRoot" methodname="FallbackIsTheOriginalPoseWithoutMovingTheRaceRoot" classname="Biathlon.PlayModeTests.HybridSkiMotionTests" runstate="Runnable" seed="1658804315" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.003171" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1222" name="FinishedAthleteKeepsExhaustionHandsInsteadOfReturningToStartReadyPose" fullname="Biathlon.PlayModeTests.HybridSkiMotionTests.FinishedAthleteKeepsExhaustionHandsInsteadOfReturningToStartReadyPose" methodname="FinishedAthleteKeepsExhaustionHandsInsteadOfReturningToStartReadyPose" classname="Biathlon.PlayModeTests.HybridSkiMotionTests" runstate="Runnable" seed="1893854539" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.000706" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1237" name="InterruptedStateSwitchesDoNotJumpAtTheSameTimeAndRewindIsRepeatable" fullname="Biathlon.PlayModeTests.HybridSkiMotionTests.InterruptedStateSwitchesDoNotJumpAtTheSameTimeAndRewindIsRepeatable" methodname="InterruptedStateSwitchesDoNotJumpAtTheSameTimeAndRewindIsRepeatable" classname="Biathlon.PlayModeTests.HybridSkiMotionTests" runstate="Runnable" seed="1681168426" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.002002" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1235" name="PropulsiveCornersClimbsAndLaneChangesKeepACompletePoleDriveAndRaisedRecovery" fullname="Biathlon.PlayModeTests.HybridSkiMotionTests.PropulsiveCornersClimbsAndLaneChangesKeepACompletePoleDriveAndRaisedRecovery" classname="Biathlon.PlayModeTests.HybridSkiMotionTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.028212" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1231" name="PropulsiveCornersClimbsAndLaneChangesKeepACompletePoleDriveAndRaisedRecovery(6.0f,0.0f,0.03f,0.0f)" fullname="Biathlon.PlayModeTests.HybridSkiMotionTests.PropulsiveCornersClimbsAndLaneChangesKeepACompletePoleDriveAndRaisedRecovery(6.0f,0.0f,0.03f,0.0f)" methodname="PropulsiveCornersClimbsAndLaneChangesKeepACompletePoleDriveAndRaisedRecovery" classname="Biathlon.PlayModeTests.HybridSkiMotionTests" runstate="Runnable" seed="354684060" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.007065" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1232" name="PropulsiveCornersClimbsAndLaneChangesKeepACompletePoleDriveAndRaisedRecovery(4.0f,0.08f,0.03f,0.0f)" fullname="Biathlon.PlayModeTests.HybridSkiMotionTests.PropulsiveCornersClimbsAndLaneChangesKeepACompletePoleDriveAndRaisedRecovery(4.0f,0.08f,0.03f,0.0f)" methodname="PropulsiveCornersClimbsAndLaneChangesKeepACompletePoleDriveAndRaisedRecovery" classname="Biathlon.PlayModeTests.HybridSkiMotionTests" runstate="Runnable" seed="1294760460" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.006185" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1233" name="PropulsiveCornersClimbsAndLaneChangesKeepACompletePoleDriveAndRaisedRecovery(3.0f,0.15f,-0.03f,0.0f)" fullname="Biathlon.PlayModeTests.HybridSkiMotionTests.PropulsiveCornersClimbsAndLaneChangesKeepACompletePoleDriveAndRaisedRecovery(3.0f,0.15f,-0.03f,0.0f)" methodname="PropulsiveCornersClimbsAndLaneChangesKeepACompletePoleDriveAndRaisedRecovery" classname="Biathlon.PlayModeTests.HybridSkiMotionTests" runstate="Runnable" seed="823747837" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.006173" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1234" name="PropulsiveCornersClimbsAndLaneChangesKeepACompletePoleDriveAndRaisedRecovery(6.0f,0.0f,0.0f,2.0f)" fullname="Biathlon.PlayModeTests.HybridSkiMotionTests.PropulsiveCornersClimbsAndLaneChangesKeepACompletePoleDriveAndRaisedRecovery(6.0f,0.0f,0.0f,2.0f)" methodname="PropulsiveCornersClimbsAndLaneChangesKeepACompletePoleDriveAndRaisedRecovery" classname="Biathlon.PlayModeTests.HybridSkiMotionTests" runstate="Runnable" seed="2078963463" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.006171" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1238" name="TerrainPolingPatternsAndSpeedCadenceAreDistinctAndWarmLoopAllocatesNothing" fullname="Biathlon.PlayModeTests.HybridSkiMotionTests.TerrainPolingPatternsAndSpeedCadenceAreDistinctAndWarmLoopAllocatesNothing" methodname="TerrainPolingPatternsAndSpeedCadenceAreDistinctAndWarmLoopAllocatesNothing" classname="Biathlon.PlayModeTests.HybridSkiMotionTests" runstate="Runnable" seed="476469961" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.006910" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1236" name="TwelveStatesKeepRootLengthsSupportAndFiniteEquipment" fullname="Biathlon.PlayModeTests.HybridSkiMotionTests.TwelveStatesKeepRootLengthsSupportAndFiniteEquipment" methodname="TwelveStatesKeepRootLengthsSupportAndFiniteEquipment" classname="Biathlon.PlayModeTests.HybridSkiMotionTests" runstate="Runnable" seed="215325100" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.085670" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1230" name="WaitingMassStartKeepsPolesBracedBesideBootsInsteadOfHorizontalTuckShafts" fullname="Biathlon.PlayModeTests.HybridSkiMotionTests.WaitingMassStartKeepsPolesBracedBesideBootsInsteadOfHorizontalTuckShafts" classname="Biathlon.PlayModeTests.HybridSkiMotionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.008095" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <output><![CDATA[Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+]]></output>
+              <test-case id="1228" name="WaitingMassStartKeepsPolesBracedBesideBootsInsteadOfHorizontalTuckShafts(0.0f)" fullname="Biathlon.PlayModeTests.HybridSkiMotionTests.WaitingMassStartKeepsPolesBracedBesideBootsInsteadOfHorizontalTuckShafts(0.0f)" methodname="WaitingMassStartKeepsPolesBracedBesideBootsInsteadOfHorizontalTuckShafts" classname="Biathlon.PlayModeTests.HybridSkiMotionTests" runstate="Runnable" seed="1475057176" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.001215" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1229" name="WaitingMassStartKeepsPolesBracedBesideBootsInsteadOfHorizontalTuckShafts(1.0f)" fullname="Biathlon.PlayModeTests.HybridSkiMotionTests.WaitingMassStartKeepsPolesBracedBesideBootsInsteadOfHorizontalTuckShafts(1.0f)" methodname="WaitingMassStartKeepsPolesBracedBesideBootsInsteadOfHorizontalTuckShafts" classname="Biathlon.PlayModeTests.HybridSkiMotionTests" runstate="Runnable" seed="2067527474" result="Passed" start-time="2026-10-14 07:50:28Z" end-time="2026-10-14 07:50:28Z" duration="0.000507" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

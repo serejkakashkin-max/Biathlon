@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "m15_5_animation_refinement_performance",
+  "method": "Sequential matched 1920x1080 URP offscreen captures, Ultra, 30 athletes, 2588 trees; 120 warmup + 240 measured frames, no HUD/swapchain. GPU timing unavailable.",
+  "baseline": "Frozen M15_5_Visual_Review build, rejected animation with approved art, 2ecb1440",
+  "results": {
+    "rejected-perf": {
+      "cpu_main_ms": {
+        "mean": 3.645814166666667,
+        "p95": 5.36,
+        "valid": 240
+      },
+      "cpu_render_ms": null,
+      "gpu_ms": null,
+      "gc_bytes": {
+        "mean": 7585.433333333333,
+        "p95": 22266,
+        "valid": 240
+      },
+      "draw_calls": {
+        "mean": 669.2416666666667,
+        "p95": 702,
+        "valid": 240
+      },
+      "triangles": {
+        "mean": 5787701.941666666,
+        "p95": 5913761,
+        "valid": 240
+      },
+      "animation_ms": {
+        "mean": 0.4255725,
+        "max": 0.5618
+      }
+    },
+    "refined-perf": {
+      "cpu_main_ms": {
+        "mean": 3.668728333333333,
+        "p95": 5.3347,
+        "valid": 240
+      },
+      "cpu_render_ms": null,
+      "gpu_ms": null,
+      "gc_bytes": {
+        "mean": 7585.433333333333,
+        "p95": 22266,
+        "valid": 240
+      },
+      "draw_calls": {
+        "mean": 668.1125,
+        "p95": 704,
+        "valid": 240
+      },
+      "triangles": {
+        "mean": 5785012.333333333,
+        "p95": 5912779,
+        "valid": 240
+      },
+      "animation_ms": {
+        "mean": 0.44304041666666666,
+        "max": 0.6876
+      }
+    }
+  }
+}

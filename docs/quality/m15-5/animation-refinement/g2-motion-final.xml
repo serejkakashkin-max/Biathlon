@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="4" result="Passed" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-14 07:36:40Z" end-time="2026-10-14 07:36:41Z" duration="1,4228078">
+  <test-suite type="TestSuite" id="1506" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="377" result="Passed" start-time="2026-10-14 07:36:40Z" end-time="2026-10-14 07:36:41Z" duration="1.422808" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1500" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="377" result="Passed" start-time="2026-10-14 07:36:40Z" end-time="2026-10-14 07:36:41Z" duration="1.399671" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="3380" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1501" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="377" result="Passed" start-time="2026-10-14 07:36:40Z" end-time="2026-10-14 07:36:41Z" duration="1.393270" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1502" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="377" result="Passed" start-time="2026-10-14 07:36:40Z" end-time="2026-10-14 07:36:41Z" duration="1.388986" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1178" name="G2MotionTests" fullname="Biathlon.PlayModeTests.G2MotionTests" classname="Biathlon.PlayModeTests.G2MotionTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-14 07:36:40Z" end-time="2026-10-14 07:36:41Z" duration="1.380999" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1183" name="HeroPreviewMatrixHasFiniteSkinAndRepeatableTransitions" fullname="Biathlon.PlayModeTests.G2MotionTests.HeroPreviewMatrixHasFiniteSkinAndRepeatableTransitions" methodname="HeroPreviewMatrixHasFiniteSkinAndRepeatableTransitions" classname="Biathlon.PlayModeTests.G2MotionTests" runstate="Runnable" seed="27005798" result="Passed" start-time="2026-10-14 07:36:40Z" end-time="2026-10-14 07:36:41Z" duration="1.331715" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+]]></output>
+            </test-case>
+            <test-case id="1182" name="HeroRifleContactsPreserveSightAndStowedPolesInBothStances" fullname="Biathlon.PlayModeTests.G2MotionTests.HeroRifleContactsPreserveSightAndStowedPolesInBothStances" methodname="HeroRifleContactsPreserveSightAndStowedPolesInBothStances" classname="Biathlon.PlayModeTests.G2MotionTests" runstate="Runnable" seed="645652963" result="Passed" start-time="2026-10-14 07:36:41Z" end-time="2026-10-14 07:36:41Z" duration="0.008310" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1181" name="HeroStanceTransfersAreContinuousAndReturnToCarry" fullname="Biathlon.PlayModeTests.G2MotionTests.HeroStanceTransfersAreContinuousAndReturnToCarry" classname="Biathlon.PlayModeTests.G2MotionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-14 07:36:41Z" end-time="2026-10-14 07:36:41Z" duration="0.031428" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1179" name="HeroStanceTransfersAreContinuousAndReturnToCarry(False)" fullname="Biathlon.PlayModeTests.G2MotionTests.HeroStanceTransfersAreContinuousAndReturnToCarry(False)" methodname="HeroStanceTransfersAreContinuousAndReturnToCarry" classname="Biathlon.PlayModeTests.G2MotionTests" runstate="Runnable" seed="1190068268" result="Passed" start-time="2026-10-14 07:36:41Z" end-time="2026-10-14 07:36:41Z" duration="0.012835" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1180" name="HeroStanceTransfersAreContinuousAndReturnToCarry(True)" fullname="Biathlon.PlayModeTests.G2MotionTests.HeroStanceTransfersAreContinuousAndReturnToCarry(True)" methodname="HeroStanceTransfersAreContinuousAndReturnToCarry" classname="Biathlon.PlayModeTests.G2MotionTests" runstate="Runnable" seed="108257527" result="Passed" start-time="2026-10-14 07:36:41Z" end-time="2026-10-14 07:36:41Z" duration="0.015563" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

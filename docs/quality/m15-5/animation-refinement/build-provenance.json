@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "m15_5_animation_build_provenance",
+  "baseline_commit": "2ecb1440",
+  "runtime_sources": [
+    {
+      "path": "Assets/Resources/Biathlon/ski_motion_v2.json",
+      "sha256": "c3bb8c488aaecef6f0197eb153801557f665703ecd03c0b152405ce91d54c9eb"
+    },
+    {
+      "path": "Assets/Scripts/Unity/Presentation/AthleteHybridLocomotionDriver.cs",
+      "sha256": "68272413f630228de074d64e1ed9b0659e94150ce42bc8d62cce4581385ceb39"
+    },
+    {
+      "path": "Assets/Scripts/Unity/Presentation/AthleteLocomotionDriver.cs",
+      "sha256": "60c40a8452c8d10ea7907dd7c75aea09189ca3ff47e2b05fbd4ef9d98efb2d43"
+    },
+    {
+      "path": "Assets/Scripts/Unity/Presentation/AthleteGroundContact.cs",
+      "sha256": "722ca727df382e719eafba051670ab4c67390af0c1ddd3a0cd657ce2329d02aa"
+    },
+    {
+      "path": "Assets/Scripts/Unity/Presentation/PoleMotionReview.cs",
+      "sha256": "4e04eedd6fa10435f67b4c00f179dad61127096afe74d7baacaa52e488a99157"
+    },
+    {
+      "path": "Assets/Scripts/Unity/Presentation/SkiMotionComparison.cs",
+      "sha256": "4d420271c269ce0f1efede45f82756ceed0928595162c664b40f2f86becffefa"
+    }
+  ],
+  "production_state_history_preserved": true,
+  "test_launcher": "Builds/M15_5_Animation_Review/START_TEST.cmd",
+  "binary_sha256": "718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00",
+  "runtime_source_commit": "07d3325c9c99b636fa75adb45ec1b695b9b926c8"
+}
