@@ -14,6 +14,7 @@ namespace Biathlon.Unity
         {
             public string id,body_sha256;
             public float elbow_outward_min_m=float.MaxValue,elbow_outward_max_m,forearm_rate_max_deg_s,forearm_peak_pole_phase,grip_residual_max_m;
+            public float leg_cadence_hz,pole_cadence_hz,rifle_broad_back_dot,rifle_muzzle_up_dot;
         }
         [Serializable] private sealed class Receipt
         {
@@ -48,6 +49,9 @@ namespace Biathlon.Unity
                         {
                             double time=frame/120.0;rig.transform.position=new Vector3(0,input.Grade*input.Speed*(float)time,input.Speed*(float)time);
                             d.Sample(rig,input,time);rifle.Sample(rig,0);c.SampleMoving(rig,input.Grade,d.PoleCycle,d.ContactState,0,time);d.ApplySkiEdges(rig);grip.Render(rig);
+                            result.leg_cadence_hz=d.CadenceHz;result.pole_cadence_hz=d.PoleCadenceHz;
+                            var weapon=rig.GetComponent<AthleteEquipmentBinding>().Rifle;var chest=rig.Bone(AthleteBone.Chest);
+                            result.rifle_broad_back_dot=Mathf.Abs(Vector3.Dot(weapon.right,chest.forward));result.rifle_muzzle_up_dot=Vector3.Dot(weapon.forward,chest.up);
                             foreach(var bone in bones)
                             {
                                 var t=rig.Bone(bone);var p=t.localPosition;var q=t.localRotation;

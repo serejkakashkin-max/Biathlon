@@ -93,9 +93,9 @@ namespace Biathlon.Unity.Presentation
             Sample(SkiMotionState.Flat,0);target.Render(ReviewCamera);yield return null;
             target.Render(ReviewCamera);yield return null;
             foreach(var state in new[]{SkiMotionState.Flat,SkiMotionState.Uphill,SkiMotionState.MaxSprint,SkiMotionState.Tuck})
-            foreach(bool side in new[]{false,true})
+            foreach(string angle in Array.IndexOf(Environment.GetCommandLineArgs(),"-biathlonCarryBackView")>=0?new[]{"front","side","back"}:new[]{"front","side"})
             {
-                string folder=Path.Combine(directory,state+"-"+(side?"side":"front"));Directory.CreateDirectory(folder);
+                string folder=Path.Combine(directory,state+"-"+angle);Directory.CreateDirectory(folder);
                 var input=Input(state);
                 // The moving root follows y=grade*z. Match that local plane so a
                 // downhill close-up cannot disappear through the flat lab floor.
@@ -108,13 +108,14 @@ namespace Biathlon.Unity.Presentation
                     Sample(state,time);
                     var focus=Candidate.ModelRoot.position+Vector3.up*1.18f;
                     ReviewCamera.fieldOfView=36;
-                    ReviewCamera.transform.position=focus+(side?new Vector3(2.3f,.04f,0):new Vector3(0,.04f,2.3f));
+                    ReviewCamera.transform.position=focus+(angle=="side"?new Vector3(2.3f,.04f,0):new Vector3(0,.04f,angle=="back"?-2.3f:2.3f));
                     ReviewCamera.transform.LookAt(focus);target.Render(ReviewCamera);yield return null;
                     target.SavePng(Path.Combine(folder,frame.ToString("D4")+".png"));
                 }
             }
             }
-            File.WriteAllText(Path.Combine(directory,"capture.json"),"{\"schema_version\":1,\"id\":\"elbow_close_review\",\"fps\":30,\"frames_per_case\":90,\"states\":4,\"angles\":2,\"source\":\"Native G2 hero full pose/contact/grip chain, moving root; original PNGs\"}");
+            int angles=Array.IndexOf(Environment.GetCommandLineArgs(),"-biathlonCarryBackView")>=0?3:2;
+            File.WriteAllText(Path.Combine(directory,"capture.json"),"{\"schema_version\":1,\"id\":\"elbow_close_review\",\"fps\":30,\"frames_per_case\":90,\"states\":4,\"angles\":"+angles+",\"source\":\"Native G2 hero full pose/contact/grip chain, moving root; original PNGs\"}");
             Application.Quit(0);
         }
         private void Update(){if(capturing)return;if(AutoCycle)State=(SkiMotionState)((int)(Time.time/8)%12);Sample(State,Time.timeAsDouble);}

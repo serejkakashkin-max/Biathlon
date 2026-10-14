@@ -1,5 +1,5 @@
 {
-  "schema_version": 4,
+  "schema_version": 5,
   "id": "ski_motion_v2",
   "provenance": "Original manual normalized keys and analytic IK, Biathlon project, 2026-10-13. Research-informed timing; no dataset-derived or mocap assets.",
   "transition_s": 0.42,
@@ -35,7 +35,8 @@
       "compression_deg": 1.5,
       "hip_transfer_m": 0.009,
       "ski_edge_deg": 5,
-      "ready_weight": 0
+      "ready_weight": 0,
+      "pole_cadence_scale": 1
     },
     {
       "state": "Uphill",
@@ -50,7 +51,8 @@
       "compression_deg": 2.5,
       "hip_transfer_m": 0.009,
       "ski_edge_deg": 5,
-      "ready_weight": 0
+      "ready_weight": 0,
+      "pole_cadence_scale": 1
     },
     {
       "state": "SteepUphill",
@@ -65,7 +67,8 @@
       "compression_deg": 1.5,
       "hip_transfer_m": 0.009,
       "ski_edge_deg": 5,
-      "ready_weight": 0
+      "ready_weight": 0,
+      "pole_cadence_scale": 1
     },
     {
       "state": "FastSkate",
@@ -80,7 +83,8 @@
       "compression_deg": 1.5,
       "hip_transfer_m": 0.009,
       "ski_edge_deg": 7,
-      "ready_weight": 0
+      "ready_weight": 0,
+      "pole_cadence_scale": 0.68
     },
     {
       "state": "MaxSprint",
@@ -95,7 +99,8 @@
       "compression_deg": 2.5,
       "hip_transfer_m": 0.009,
       "ski_edge_deg": 9,
-      "ready_weight": 0
+      "ready_weight": 0,
+      "pole_cadence_scale": 0.72
     },
     {
       "state": "NoPole",
@@ -110,7 +115,8 @@
       "compression_deg": 0,
       "hip_transfer_m": 0.009,
       "ski_edge_deg": 5,
-      "ready_weight": 0
+      "ready_weight": 0,
+      "pole_cadence_scale": 1
     },
     {
       "state": "DoublePole",
@@ -125,7 +131,8 @@
       "compression_deg": 3,
       "hip_transfer_m": 0,
       "ski_edge_deg": 0,
-      "ready_weight": 0
+      "ready_weight": 0,
+      "pole_cadence_scale": 1
     },
     {
       "state": "Tuck",
@@ -140,7 +147,8 @@
       "compression_deg": 0,
       "hip_transfer_m": 0,
       "ski_edge_deg": 0,
-      "ready_weight": 0
+      "ready_weight": 0,
+      "pole_cadence_scale": 1
     },
     {
       "state": "CornerLeft",
@@ -155,7 +163,8 @@
       "compression_deg": 1.5,
       "hip_transfer_m": 0.009,
       "ski_edge_deg": 10,
-      "ready_weight": 0
+      "ready_weight": 0,
+      "pole_cadence_scale": 1
     },
     {
       "state": "CornerRight",
@@ -170,7 +179,8 @@
       "compression_deg": 1.5,
       "hip_transfer_m": 0.009,
       "ski_edge_deg": 10,
-      "ready_weight": 0
+      "ready_weight": 0,
+      "pole_cadence_scale": 1
     },
     {
       "state": "Fatigued",
@@ -185,7 +195,8 @@
       "compression_deg": 1.5,
       "hip_transfer_m": 0.006,
       "ski_edge_deg": 5,
-      "ready_weight": 0
+      "ready_weight": 0,
+      "pole_cadence_scale": 1
     },
     {
       "state": "SlowStop",
@@ -200,7 +211,8 @@
       "compression_deg": 0,
       "hip_transfer_m": 0.004,
       "ski_edge_deg": 0,
-      "ready_weight": 1
+      "ready_weight": 1,
+      "pole_cadence_scale": 1
     }
   ],
   "curves": [

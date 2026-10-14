@@ -10,12 +10,13 @@ namespace Biathlon.Unity.Presentation
     [Serializable] public sealed class SkiMotionProfile
     {
         public string state;
-        public float poles_per_cycle, cadence_scale, stride_scale, width_scale, lift_scale, arm_scale;
+        public float poles_per_cycle, cadence_scale, pole_cadence_scale, stride_scale, width_scale, lift_scale, arm_scale;
         public float hand_stagger_m, torso_twist_deg, compression_deg, hip_transfer_m, ski_edge_deg, ready_weight;
         public static void Blend(SkiMotionProfile a, SkiMotionProfile b, float t, SkiMotionProfile d)
         {
             d.poles_per_cycle=Mathf.Lerp(a.poles_per_cycle,b.poles_per_cycle,t);
             d.cadence_scale=Mathf.Lerp(a.cadence_scale,b.cadence_scale,t);
+            d.pole_cadence_scale=Mathf.Lerp(a.pole_cadence_scale,b.pole_cadence_scale,t);
             d.stride_scale=Mathf.Lerp(a.stride_scale,b.stride_scale,t);
             d.width_scale=Mathf.Lerp(a.width_scale,b.width_scale,t);
             d.lift_scale=Mathf.Lerp(a.lift_scale,b.lift_scale,t);
@@ -85,7 +86,7 @@ namespace Biathlon.Unity.Presentation
         public static SkiMotionSettings FromJson(string json)
         {
             var d=JsonUtility.FromJson<SkiMotionSettings>(json);
-            if(d==null||d.schema_version!=4||string.IsNullOrWhiteSpace(d.id)||d.profiles==null||d.profiles.Length!=12||d.curves==null||d.curves.Length!=5)
+            if(d==null||d.schema_version!=5||string.IsNullOrWhiteSpace(d.id)||d.profiles==null||d.profiles.Length!=12||d.curves==null||d.curves.Length!=5)
                 throw new ArgumentException("Invalid hybrid ski motion definition.");
             if(!(d.transition_s>0&&d.phase_response_s>0&&d.speed_reference_mps>0&&d.min_cadence_hz>0&&d.max_cadence_hz>=d.min_cadence_hz&&d.max_cadence_hz<=3&&
                 d.glide_fraction>.5f&&d.glide_fraction<.9f&&d.ankle_height_m>0&&d.max_hip_transfer_m>0&&d.max_hip_transfer_m<=.025f&&
@@ -101,9 +102,9 @@ namespace Biathlon.Unity.Presentation
             {
                 var p=d.profiles[i];if(p.state!=((SkiMotionState)i).ToString()||p.poles_per_cycle<0||p.poles_per_cycle>2||
                     p.hip_transfer_m<0||p.hip_transfer_m>d.max_hip_transfer_m||p.ski_edge_deg<0||p.ski_edge_deg>15||
-                    p.cadence_scale<0||p.cadence_scale>2||p.stride_scale<0||p.stride_scale>2||p.width_scale<0||p.width_scale>2||p.lift_scale<0||p.lift_scale>2||p.ready_weight<0||p.ready_weight>1)
+                    p.cadence_scale<0||p.cadence_scale>2||p.pole_cadence_scale<.4f||p.pole_cadence_scale>1||p.stride_scale<0||p.stride_scale>2||p.width_scale<0||p.width_scale>2||p.lift_scale<0||p.lift_scale>2||p.ready_weight<0||p.ready_weight>1)
                     throw new ArgumentException("Invalid hybrid motion profile.");
-                foreach(float v in new[]{p.poles_per_cycle,p.cadence_scale,p.stride_scale,p.width_scale,p.lift_scale,p.arm_scale,p.hand_stagger_m,p.torso_twist_deg,p.compression_deg,p.hip_transfer_m,p.ski_edge_deg,p.ready_weight})
+                foreach(float v in new[]{p.poles_per_cycle,p.cadence_scale,p.pole_cadence_scale,p.stride_scale,p.width_scale,p.lift_scale,p.arm_scale,p.hand_stagger_m,p.torso_twist_deg,p.compression_deg,p.hip_transfer_m,p.ski_edge_deg,p.ready_weight})
                     if(!float.IsFinite(v))throw new ArgumentException("Non-finite hybrid motion profile.");
             }
             string[] ids={"support_transfer","paired_pole_stroke","pole_compression","paired_pole_height","pole_recovery_clearance"};
@@ -143,6 +144,7 @@ namespace Biathlon.Unity.Presentation
         public double Cycle {get;private set;}
         public double PoleCycle {get;private set;}
         public float CadenceHz {get;private set;}
+        public float PoleCadenceHz=>CadenceHz*blended.poles_per_cycle*blended.pole_cadence_scale;
         public float LeftEdgeDegrees {get;private set;}
         public float RightEdgeDegrees {get;private set;}
         public bool PoleDriveActive=>Active&&blended.poles_per_cycle>.05f&&(float)PoleCycle>=settings.pole_drive_start&&(float)PoleCycle<=settings.pole_drive_end;
@@ -181,13 +183,15 @@ namespace Biathlon.Unity.Presentation
                 MotionState=selected;transitionAt=time-settings.transition_s;
                 SkiMotionProfile.Blend(settings.profiles[(int)selected],settings.profiles[(int)selected],1,blended);
                 SkiMotionProfile.Blend(blended,blended,1,start);
-                CadenceHz=BoundCadence();Cycle=(time*CadenceHz+athletePhase)%1;PoleCycle=(time*CadenceHz*blended.poles_per_cycle+athletePhase)%1;dt=0;
+                CadenceHz=BoundCadence();Cycle=(time*CadenceHz+athletePhase)%1;PoleCycle=(time*PoleCadenceHz+athletePhase)%1;dt=0;
             }
             else if(selected!=MotionState){SkiMotionProfile.Blend(blended,blended,1,start);MotionState=selected;transitionAt=time;}
             float blend=SkiMotionCurve.Ease((float)((time-transitionAt)/settings.transition_s));
             SkiMotionProfile.Blend(start,settings.profiles[(int)MotionState],blend,blended);
             CadenceHz=Mathf.Lerp(CadenceHz,BoundCadence(),1-Mathf.Exp(-(float)dt/settings.phase_response_s));
-            Cycle=(Cycle+dt*CadenceHz)%1;PoleCycle=(PoleCycle+dt*CadenceHz*blended.poles_per_cycle)%1;previousTime=time;
+            // Preserve leg cadence; the shared arm/contact/compression phase uses
+            // a separate visual rate so sprint cannot turn into rapid hammering.
+            Cycle=(Cycle+dt*CadenceHz)%1;PoleCycle=(PoleCycle+dt*PoleCadenceHz)%1;previousTime=time;
             ContactState=blended.ready_weight>.95f?SkiLocomotion.Idle:
                 blended.poles_per_cycle<.05f&&MotionState==SkiMotionState.NoPole?SkiLocomotion.TechnicalDescent:fallback.State;
             Pose(rig);

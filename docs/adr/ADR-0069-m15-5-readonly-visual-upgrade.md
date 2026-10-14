@@ -85,3 +85,31 @@ input streams; this is a scoped sampled preservation check. The 950 deg/s
 regression ceiling is a project smoothing bound, not an IBU or anatomy rule.
 See TASK_M15_5_ARM_REFINEMENT_20261014 and the arm-refinement gallery.
 Owner arm acceptance remains pending; approved visual areas and M16 stay unchanged.
+
+
+## 2026-10-14 — Sprint frequency and flat rifle carry follow-up
+
+Owner still sees rapid hammering during attack and an edge-on carried rifle.
+Smoothing the individual hand paths did not reduce the complete stroke count:
+9/12/15 m/s sprint observations remained2.25 Hz. Schema5 adds a separate
+per-profile visual pole-rate scale, .72 for MaxSprint and .68 for FastSkate,
+1 elsewhere. Leg phase/cadence calculation and every pose amplitude remain
+unchanged. Arm, contact, recovery and small torso compression share the slower
+pole phase, preserving their coordination. Expose PoleCadenceHz for review.
+This changes compression timing in the two fast profiles; it does not retain
+the previous follow-up's exact body-transform hashes for those profiles.
+
+Rifle presentation schema2 rolls only the carried frame90 degrees around the
+local muzzle axis and offsets it20 mm rearward in the mounting parent frame.
+The mesh is thin on local X, broad in Y/Z, muzzle along +Z. The broad face
+therefore lies along the back, while the barrel stays upward. The shooting
+socket, sight orientation, hand grips and authoritative shooting are unchanged;
+existing transfer interpolation connects the corrected carry frame to ready.
+Stable resource IDs are retained; these definitions are not career save schemas.
+
+The broad-side placement follows the actual Larsen harness product photograph.
+IBU September2026 ECR7.1.2 confirms muzzle-up harness carry; it does not specify
+our model's numeric roll/offset or the chosen animation frequency. Reference
+links and native before/after evidence are in the sprint/carry follow-up report.
+No simulation/AI/physics/energy/balance/art-quality/UI/audio change; M16 remains
+pending owner acceptance.
