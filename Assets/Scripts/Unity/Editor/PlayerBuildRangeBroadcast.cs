@@ -24,7 +24,7 @@ namespace Biathlon.Unity
             File.Copy("Assets/Resources/Biathlon/G2ThirdPartyCredits.txt",Path.Combine(RangeBroadcastReviewDirectory,"THIRD_PARTY_CREDITS.txt"),true);
             foreach(string f in Directory.GetFiles("Assets/Resources/Biathlon/UI/Fonts","*OFL*.txt"))File.Copy(f,Path.Combine(RangeBroadcastReviewDirectory,Path.GetFileName(f)),true);
             File.Copy("Assets/Resources/Biathlon/Audio/sources.json",Path.Combine(RangeBroadcastReviewDirectory,"AUDIO_SOURCES.json"),true);
-            File.WriteAllText(Path.Combine(RangeBroadcastReviewDirectory,"START_TEST.cmd"),"@echo off\r\ncd /d \"%~dp0\"\r\nstart \"Biathlon Range Broadcast\" \"%~dp0Biathlon.exe\" -force-d3d11 -screen-fullscreen 0 -screen-width 1920 -screen-height 1080\r\n");
+            File.WriteAllText(Path.Combine(RangeBroadcastReviewDirectory,"START_TEST.cmd"),"@echo off\r\ncd /d \"%~dp0\"\r\nstart \"Biathlon Range Broadcast\" \"%~dp0Biathlon.exe\" -force-d3d11 -screen-fullscreen 1 -window-mode borderless\r\n");
             File.WriteAllText(Path.Combine(RangeBroadcastReviewDirectory,"READ_ME_RU.txt"),"BIATHLON — СТРЕЛЬБА СОПЕРНИКОВ, 13.10.2026\r\nЗапуск: START_TEST.cmd\r\n\r\n"+
                 "Панель справа открывается за 250 метров до входа на рубеж и остаётся до 250 метров после выхода. На штрафном круге она видна. Флаги, имена и номер коврика берутся из гонки.\r\n"+
                 "Белая мишень — закрыта. Точки слева от пяти мишеней — промахи. После промаха строка коротко мерцает красным. При уменьшенной анимации подсветка спокойная.\r\n"+

@@ -26,7 +26,7 @@ namespace Biathlon.Unity
             File.Copy("Assets/Resources/Biathlon/G2ThirdPartyCredits.txt",Path.Combine(M15ReviewDirectory,"THIRD_PARTY_CREDITS.txt"),true);
             foreach(string notice in Directory.GetFiles("Assets/Resources/Biathlon/UI/Fonts","*OFL*.txt"))File.Copy(notice,Path.Combine(M15ReviewDirectory,Path.GetFileName(notice)),true);
             File.Copy("Assets/Resources/Biathlon/Audio/sources.json",Path.Combine(M15ReviewDirectory,"AUDIO_SOURCES.json"),true);
-            File.WriteAllText(Path.Combine(M15ReviewDirectory,"START_M15_TEST.cmd"),"@echo off\r\ncd /d \"%~dp0\"\r\nstart \"Biathlon M15\" \"%~dp0Biathlon.exe\" -force-d3d11 -screen-fullscreen 0 -screen-width 1920 -screen-height 1080\r\n");
+            File.WriteAllText(Path.Combine(M15ReviewDirectory,"START_M15_TEST.cmd"),"@echo off\r\ncd /d \"%~dp0\"\r\nstart \"Biathlon M15\" \"%~dp0Biathlon.exe\" -force-d3d11 -screen-fullscreen 1 -window-mode borderless\r\n");
             File.WriteAllText(Path.Combine(M15ReviewDirectory,"READ_ME_RU.txt"),
                 "BIATHLON — M15 AUDIO REFINEMENT, тестовая сборка 13.10.2026\r\n\r\nЗапуск: START_M15_TEST.cmd\r\n"+
                 "Исправления: инструментальная музыка Snowlight в меню, мягкий шорох палок вместо резкого щелчка, отсчёт 3–2–1 не пропускается после долгой загрузки масстарта.\r\n"+

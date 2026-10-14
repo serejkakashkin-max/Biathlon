@@ -50,8 +50,8 @@ namespace Biathlon.Unity
             });
             File.Copy("Assets/Resources/Biathlon/G2ThirdPartyCredits.txt",Path.Combine(folder,"THIRD_PARTY_CREDITS.txt"),true);
             foreach(string f in Directory.GetFiles("Assets/Resources/Biathlon/UI/Fonts","*OFL*.txt"))File.Copy(f,Path.Combine(folder,Path.GetFileName(f)),true);
-            File.WriteAllText(Path.Combine(folder,"START_TEST.cmd"),"@echo off\r\ncd /d \"%~dp0\"\r\nstart \"Biathlon visual review\" \"%~dp0Biathlon.exe\" -force-d3d11 -screen-fullscreen 0 -screen-width 1920 -screen-height 1080\r\n");
-            File.WriteAllText(Path.Combine(folder,"COMPARE_MOTION.cmd"),"@echo off\r\ncd /d \"%~dp0\"\r\nstart \"Biathlon motion comparison\" \"%~dp0Biathlon.exe\" -biathlonMotionLab -force-d3d11 -screen-fullscreen 0 -screen-width 1920 -screen-height 1080\r\n");
+            File.WriteAllText(Path.Combine(folder,"START_TEST.cmd"),"@echo off\r\ncd /d \"%~dp0\"\r\nstart \"Biathlon visual review\" \"%~dp0Biathlon.exe\" -force-d3d11 -screen-fullscreen 1 -window-mode borderless\r\n");
+            File.WriteAllText(Path.Combine(folder,"COMPARE_MOTION.cmd"),"@echo off\r\ncd /d \"%~dp0\"\r\nstart \"Biathlon motion comparison\" \"%~dp0Biathlon.exe\" -biathlonMotionLab -force-d3d11 -screen-fullscreen 1 -window-mode borderless\r\n");
             File.WriteAllText(Path.Combine(folder,"READ_ME.txt"),
                 "BIATHLON M15.5 — визуал и анимация, тестовая сборка\r\n\r\n"+
                 "START_TEST.cmd — обычная игра и существующая карьера.\r\n"+

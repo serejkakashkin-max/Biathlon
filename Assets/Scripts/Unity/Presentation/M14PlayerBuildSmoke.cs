@@ -24,6 +24,9 @@ namespace Biathlon.Unity.Presentation
                 evidence.width=menu.Root.worldBound.width;evidence.height=menu.Root.worldBound.height;
                 evidence.success=menu.Root.panel!=null&&evidence.width>500&&menu.Root.Q<Button>("new_career")!=null&&menu.Root.Q<Button>("settings")!=null&&menu.Replays!=null;
             }
+            evidence.screen_width=Screen.width;evidence.screen_height=Screen.height;
+            evidence.display_width=Display.main.systemWidth;evidence.display_height=Display.main.systemHeight;
+            evidence.fullscreen=Screen.fullScreen;evidence.fullscreen_mode=Screen.fullScreenMode.ToString();
             string directory=Path.GetFullPath(Path.Combine(Application.dataPath,".."));
             if(evidence.success)
             {
@@ -39,6 +42,6 @@ namespace Biathlon.Unity.Presentation
             Application.Quit(evidence.success?0:1);
         }
         [Serializable]private sealed class Evidence
-        {public int schema_version=1;public string id="m14_standalone_startup",unity,profile_directory,replay_directory;public float width,height;public int visible_samples;public bool success;}
+        {public int schema_version=2;public string id="m14_standalone_startup",unity,profile_directory,replay_directory,fullscreen_mode;public float width,height;public int visible_samples,screen_width,screen_height,display_width,display_height;public bool success,fullscreen;}
     }
 }

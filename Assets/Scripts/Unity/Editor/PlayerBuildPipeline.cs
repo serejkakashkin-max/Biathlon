@@ -46,7 +46,7 @@ namespace Biathlon.Unity
             if(visualReview)
             {
                 File.Copy("docs/quality/g2/VISUAL_REVIEW_BUILD_README_RU.txt",Path.Combine(directory,"READ_ME_RU.txt"),true);
-                File.WriteAllText(Path.Combine(directory,"START_VISUAL_REVIEW.cmd"),"@echo off\r\ncd /d \"%~dp0\"\r\nstart \"Biathlon Visual Review\" \"%~dp0Biathlon.exe\" -force-d3d11 -screen-fullscreen 0 -screen-width 1920 -screen-height 1080\r\n");
+                File.WriteAllText(Path.Combine(directory,"START_VISUAL_REVIEW.cmd"),"@echo off\r\ncd /d \"%~dp0\"\r\nstart \"Biathlon Visual Review\" \"%~dp0Biathlon.exe\" -force-d3d11 -screen-fullscreen 1 -window-mode borderless\r\n");
             }
         }
         [Serializable] private sealed class Evidence

@@ -28,7 +28,7 @@ namespace Biathlon.Unity
             File.Copy("Assets/Resources/Biathlon/G2ThirdPartyCredits.txt",Path.Combine(M14ReviewDirectory,"THIRD_PARTY_CREDITS.txt"),true);
             foreach(string notice in Directory.GetFiles("Assets/Resources/Biathlon/UI/Fonts","*OFL*.txt"))
                 File.Copy(notice,Path.Combine(M14ReviewDirectory,Path.GetFileName(notice)),true);
-            File.WriteAllText(Path.Combine(M14ReviewDirectory,"START_M14_TEST.cmd"),"@echo off\r\ncd /d \"%~dp0\"\r\nstart \"Biathlon M14\" \"%~dp0Biathlon.exe\" -force-d3d11 -screen-fullscreen 0 -screen-width 1920 -screen-height 1080\r\n");
+            File.WriteAllText(Path.Combine(M14ReviewDirectory,"START_M14_TEST.cmd"),"@echo off\r\ncd /d \"%~dp0\"\r\nstart \"Biathlon M14\" \"%~dp0Biathlon.exe\" -force-d3d11 -screen-fullscreen 1 -window-mode borderless\r\n");
             File.WriteAllText(Path.Combine(M14ReviewDirectory,"READ_ME_RU.txt"),
                 "BIATHLON — M14 FROSTLINE, тестовая сборка 13.10.2026\r\n\r\nЗапуск: START_M14_TEST.cmd. M14 остаётся открытым до вашего решения.\r\n"+
                 "FROSTLINE: новое оформление меню, карьеры, магазина, тренировок, результатов и HUD. В настройках: RU/EN, 100/115/130%, высокий контраст и уменьшение анимации. Баланс, сохранения и качество 3D-графики не менялись в этой визуальной доработке.\r\n"+

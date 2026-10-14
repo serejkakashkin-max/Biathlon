@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="6" result="Passed" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-14 17:27:08Z" end-time="2026-10-14 17:27:09Z" duration="0,057141">
+  <test-suite type="TestSuite" id="1524" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="392" result="Passed" start-time="2026-10-14 17:27:08Z" end-time="2026-10-14 17:27:09Z" duration="0.057141" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1518" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="392" result="Passed" start-time="2026-10-14 17:27:08Z" end-time="2026-10-14 17:27:09Z" duration="0.046039" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="11568" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1519" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="392" result="Passed" start-time="2026-10-14 17:27:08Z" end-time="2026-10-14 17:27:09Z" duration="0.039346" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1520" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="392" result="Passed" start-time="2026-10-14 17:27:08Z" end-time="2026-10-14 17:27:09Z" duration="0.033617" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1467" name="StandaloneDisplayStartupTests" fullname="Biathlon.PlayModeTests.StandaloneDisplayStartupTests" classname="Biathlon.PlayModeTests.StandaloneDisplayStartupTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-14 17:27:08Z" end-time="2026-10-14 17:27:09Z" duration="0.018826" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1468" name="DirectExecutableLaunchDefaultsToDesktopFullscreen" fullname="Biathlon.PlayModeTests.StandaloneDisplayStartupTests.DirectExecutableLaunchDefaultsToDesktopFullscreen" methodname="DirectExecutableLaunchDefaultsToDesktopFullscreen" classname="Biathlon.PlayModeTests.StandaloneDisplayStartupTests" runstate="Runnable" seed="657031606" result="Passed" start-time="2026-10-14 17:27:08Z" end-time="2026-10-14 17:27:09Z" duration="0.005723" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1474" name="ExplicitExclusiveModeIsLeftToThePlayer" fullname="Biathlon.PlayModeTests.StandaloneDisplayStartupTests.ExplicitExclusiveModeIsLeftToThePlayer" methodname="ExplicitExclusiveModeIsLeftToThePlayer" classname="Biathlon.PlayModeTests.StandaloneDisplayStartupTests" runstate="Runnable" seed="1680219844" result="Passed" start-time="2026-10-14 17:27:09Z" end-time="2026-10-14 17:27:09Z" duration="0.000244" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1470" name="ExplicitWindowedQaResolutionIsPreserved" fullname="Biathlon.PlayModeTests.StandaloneDisplayStartupTests.ExplicitWindowedQaResolutionIsPreserved" methodname="ExplicitWindowedQaResolutionIsPreserved" classname="Biathlon.PlayModeTests.StandaloneDisplayStartupTests" runstate="Runnable" seed="2092923010" result="Passed" start-time="2026-10-14 17:27:09Z" end-time="2026-10-14 17:27:09Z" duration="0.000099" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1473" name="HeadlessLaunchDoesNotChangeDisplay" fullname="Biathlon.PlayModeTests.StandaloneDisplayStartupTests.HeadlessLaunchDoesNotChangeDisplay" classname="Biathlon.PlayModeTests.StandaloneDisplayStartupTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-14 17:27:09Z" end-time="2026-10-14 17:27:09Z" duration="0.001668" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1471" name="HeadlessLaunchDoesNotChangeDisplay(&quot;-batchmode&quot;)" fullname="Biathlon.PlayModeTests.StandaloneDisplayStartupTests.HeadlessLaunchDoesNotChangeDisplay(&quot;-batchmode&quot;)" methodname="HeadlessLaunchDoesNotChangeDisplay" classname="Biathlon.PlayModeTests.StandaloneDisplayStartupTests" runstate="Runnable" seed="81419864" result="Passed" start-time="2026-10-14 17:27:09Z" end-time="2026-10-14 17:27:09Z" duration="0.000170" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1472" name="HeadlessLaunchDoesNotChangeDisplay(&quot;-nographics&quot;)" fullname="Biathlon.PlayModeTests.StandaloneDisplayStartupTests.HeadlessLaunchDoesNotChangeDisplay(&quot;-nographics&quot;)" methodname="HeadlessLaunchDoesNotChangeDisplay" classname="Biathlon.PlayModeTests.StandaloneDisplayStartupTests" runstate="Runnable" seed="1913694710" result="Passed" start-time="2026-10-14 17:27:09Z" end-time="2026-10-14 17:27:09Z" duration="0.000027" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1469" name="ReviewLauncherRequestsDesktopFullscreen" fullname="Biathlon.PlayModeTests.StandaloneDisplayStartupTests.ReviewLauncherRequestsDesktopFullscreen" methodname="ReviewLauncherRequestsDesktopFullscreen" classname="Biathlon.PlayModeTests.StandaloneDisplayStartupTests" runstate="Runnable" seed="1030097332" result="Passed" start-time="2026-10-14 17:27:09Z" end-time="2026-10-14 17:27:09Z" duration="0.000092" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

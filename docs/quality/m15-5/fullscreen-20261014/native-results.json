@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "id": "windows_fullscreen_native",
+  "cases": [
+    {
+      "case": "default",
+      "fullscreen": true,
+      "mode": "FullScreenWindow",
+      "width": 2560,
+      "height": 1440,
+      "display_width": 2560,
+      "display_height": 1440
+    },
+    {
+      "case": "windowed",
+      "fullscreen": false,
+      "mode": "Windowed",
+      "width": 1280,
+      "height": 720,
+      "display_width": 2560,
+      "display_height": 1440
+    },
+    {
+      "case": "launcher",
+      "fullscreen": true,
+      "mode": "FullScreenWindow",
+      "width": 2560,
+      "height": 1440,
+      "display_width": 2560,
+      "display_height": 1440
+    },
+    {
+      "case": "final-windowed",
+      "fullscreen": false,
+      "mode": "Windowed",
+      "width": 1280,
+      "height": 720,
+      "display_width": 2560,
+      "display_height": 1440
+    },
+    {
+      "case": "final-default",
+      "fullscreen": true,
+      "mode": "FullScreenWindow",
+      "width": 2560,
+      "height": 1440,
+      "display_width": 2560,
+      "display_height": 1440
+    }
+  ],
+  "tests": {
+    "passed": 6,
+    "failed": 0
+  },
+  "build": {
+    "schema_version": 1,
+    "id": "m15_5_visual_review",
+    "result": "Succeeded",
+    "unity": "6000.6.0f1",
+    "errors": 0,
+    "warnings": 496,
+    "bytes": 382471985,
+    "seconds": 10.0309177
+  }
+}
