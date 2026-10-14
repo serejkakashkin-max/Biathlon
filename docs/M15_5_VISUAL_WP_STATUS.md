@@ -13,7 +13,7 @@ Budget for new assets/subscriptions: $0. No automatic main merge.
 |VU-D|Snow materials, individual ski/pole tracks and bounded spray|APPROVED by owner 2026-10-13|
 |VU-E|Forest composition and licensed winter roadside details|APPROVED by owner 2026-10-13|
 |VU-F|Five winter atmospheres and Performance/High/Ultra visual profiles|APPROVED by owner 2026-10-13|
-|VU-G|Integrated validation, matched before/after, profiling, test build|Elbow follow-up verified81/81; separate test build delivered 2026-10-14|
+|VU-G|Integrated validation, matched before/after, profiling, test build|Arm follow-up verified89/89; fullscreen test build delivered 2026-10-14|
 
 The existing G2 hero, snow_02, fir/pine, winter shrub, boulder and Passendorf sky
 are integrated. Reuse them instead of downloading duplicates. NSD is research
@@ -54,3 +54,17 @@ build0 errors/0 warnings, startup/native reviews pass. CPU/GC matched budget
 is retained. Launcher `Builds/M15_5_Elbow_Review/START_TEST.cmd`; evidence
 `docs/quality/m15-5/elbow-refinement/review.html`. Source b15c8c08. VU-B awaits
 owner acceptance; other visual WPs remain approved, M16 remains pending.
+
+
+2026-10-14 arm follow-up: owner approves legs/torso and requests freer, smoother
+arms. Schema4 adds powered elbow space and continuous hand paths, spreads
+drive/recovery and reduces sprint peak forearm rate1538.9→912.9 deg/s. Six
+matched body/leg transform stream hashes are identical; cadence/compression
+remain unchanged. Selected native89/89 PASS across19 classes (inventory400
+is not a full-suite rerun). Eight paired close clips and three actual Mass30
+clips pass; main CPU mean3.8079→3.8211 ms, GC mean unchanged. Build0 errors/
+0 warnings; standalone full-monitor2560×1440 startup passes. Launcher
+`Builds/M15_5_Arm_Review/START_TEST.cmd`; source7d4ad434; gallery
+`docs/quality/m15-5/arm-refinement/review.html`. VU-G technical follow-up
+complete. VU-B arms await owner acceptance; other visual WPs remain approved.
+M16 has not started.

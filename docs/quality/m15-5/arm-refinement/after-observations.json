@@ -1,0 +1,63 @@
+{
+    "schema_version": 1,
+    "id": "arm_motion_review",
+    "unity": "6000.6.0f1",
+    "frames": 360,
+    "sampling_hz": 120,
+    "cases": [
+        {
+            "id": "flat",
+            "body_sha256": "70D17BB772AF90AC7C5951CC6167D0E141F662F424233F503B07D336A11E7C96",
+            "elbow_outward_min_m": 0.10597041249275208,
+            "elbow_outward_max_m": 0.13657376170158386,
+            "forearm_rate_max_deg_s": 354.1559143066406,
+            "forearm_peak_pole_phase": 0.38708341121673584,
+            "grip_residual_max_m": 0.000003866614406433655
+        },
+        {
+            "id": "uphill",
+            "body_sha256": "E9D9901A056063846D5E341BE5CDFC7AD495F95467B9B8AF8696E9E572BB40AE",
+            "elbow_outward_min_m": 0.09992897510528564,
+            "elbow_outward_max_m": 0.13145427405834198,
+            "forearm_rate_max_deg_s": 434.3799133300781,
+            "forearm_peak_pole_phase": 0.370047926902771,
+            "grip_residual_max_m": 0.0000022730009732185863
+        },
+        {
+            "id": "sprint",
+            "body_sha256": "2086755F23A6B86BF5D0B46C52E6D023D35B67584D8044CBAFE1F5FA29AB87D0",
+            "elbow_outward_min_m": 0.11376915872097015,
+            "elbow_outward_max_m": 0.14489609003067017,
+            "forearm_rate_max_deg_s": 912.8870849609375,
+            "forearm_peak_pole_phase": 0.39375001192092896,
+            "grip_residual_max_m": 0.0000027059459171141498
+        },
+        {
+            "id": "steep",
+            "body_sha256": "AA4DFB6B6CC407D907F13600163AF9508C7AB7E029436B209CEF582753543A03",
+            "elbow_outward_min_m": 0.09628242254257202,
+            "elbow_outward_max_m": 0.13371272385120392,
+            "forearm_rate_max_deg_s": 473.75396728515625,
+            "forearm_peak_pole_phase": 0.3650696575641632,
+            "grip_residual_max_m": 0.0000011387451195332687
+        },
+        {
+            "id": "corner",
+            "body_sha256": "C994D66CF8511DEF880413EBA3CDD380CB535C83FEDF6FEC0A9081E3F04DCB15",
+            "elbow_outward_min_m": 0.09865224361419678,
+            "elbow_outward_max_m": 0.14390812814235687,
+            "forearm_rate_max_deg_s": 429.2896728515625,
+            "forearm_peak_pole_phase": 0.13458333909511566,
+            "grip_residual_max_m": 0.000003916256446245825
+        },
+        {
+            "id": "fast",
+            "body_sha256": "91C8378DCF2EAC1C6B3A730F93082A4CE9F59C87DBB5DEAF718BA1736DD6E2B1",
+            "elbow_outward_min_m": 0.10590118169784546,
+            "elbow_outward_max_m": 0.1369803100824356,
+            "forearm_rate_max_deg_s": 816.7489013671875,
+            "forearm_peak_pole_phase": 0.3904518783092499,
+            "grip_residual_max_m": 0.000004086723038199125
+        }
+    ]
+}

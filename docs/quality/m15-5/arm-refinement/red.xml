@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="6" result="Failed(Child)" total="6" passed="2" failed="4" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-14 18:13:09Z" end-time="2026-10-14 18:13:09Z" duration="0,1428427">
+  <test-suite type="TestSuite" id="1533" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="398" result="Failed" site="Child" start-time="2026-10-14 18:13:09Z" end-time="2026-10-14 18:13:09Z" duration="0.142843" total="6" passed="2" failed="4" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1527" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="398" result="Failed" site="Child" start-time="2026-10-14 18:13:09Z" end-time="2026-10-14 18:13:09Z" duration="0.132168" total="6" passed="2" failed="4" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="55852" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1528" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="398" result="Failed" site="Child" start-time="2026-10-14 18:13:09Z" end-time="2026-10-14 18:13:09Z" duration="0.129581" total="6" passed="2" failed="4" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1529" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="398" result="Failed" site="Child" start-time="2026-10-14 18:13:09Z" end-time="2026-10-14 18:13:09Z" duration="0.127530" total="6" passed="2" failed="4" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="ArmMotionRefinementTests" fullname="Biathlon.PlayModeTests.ArmMotionRefinementTests" classname="Biathlon.PlayModeTests.ArmMotionRefinementTests" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2026-10-14 18:13:09Z" end-time="2026-10-14 18:13:09Z" duration="0.112727" total="6" passed="2" failed="4" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="ParameterizedMethod" id="1009" name="PoleStrokeAvoidsTheFastHammeringPartOfTheCycle" fullname="Biathlon.PlayModeTests.ArmMotionRefinementTests.PoleStrokeAvoidsTheFastHammeringPartOfTheCycle" classname="Biathlon.PlayModeTests.ArmMotionRefinementTests" runstate="Runnable" testcasecount="3" result="Failed" site="Child" start-time="2026-10-14 18:13:09Z" end-time="2026-10-14 18:13:09Z" duration="0.090707" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1006" name="PoleStrokeAvoidsTheFastHammeringPartOfTheCycle(6.0f,0.0f)" fullname="Biathlon.PlayModeTests.ArmMotionRefinementTests.PoleStrokeAvoidsTheFastHammeringPartOfTheCycle(6.0f,0.0f)" methodname="PoleStrokeAvoidsTheFastHammeringPartOfTheCycle" classname="Biathlon.PlayModeTests.ArmMotionRefinementTests" runstate="Runnable" seed="2109965143" result="Passed" start-time="2026-10-14 18:13:09Z" end-time="2026-10-14 18:13:09Z" duration="0.069773" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1007" name="PoleStrokeAvoidsTheFastHammeringPartOfTheCycle(4.0f,0.08f)" fullname="Biathlon.PlayModeTests.ArmMotionRefinementTests.PoleStrokeAvoidsTheFastHammeringPartOfTheCycle(4.0f,0.08f)" methodname="PoleStrokeAvoidsTheFastHammeringPartOfTheCycle" classname="Biathlon.PlayModeTests.ArmMotionRefinementTests" runstate="Runnable" seed="784530705" result="Passed" start-time="2026-10-14 18:13:09Z" end-time="2026-10-14 18:13:09Z" duration="0.005166" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1008" name="PoleStrokeAvoidsTheFastHammeringPartOfTheCycle(9.0f,0.0f)" fullname="Biathlon.PlayModeTests.ArmMotionRefinementTests.PoleStrokeAvoidsTheFastHammeringPartOfTheCycle(9.0f,0.0f)" methodname="PoleStrokeAvoidsTheFastHammeringPartOfTheCycle" classname="Biathlon.PlayModeTests.ArmMotionRefinementTests" runstate="Runnable" seed="825226876" result="Failed" start-time="2026-10-14 18:13:09Z" end-time="2026-10-14 18:13:09Z" duration="0.006047" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  The visible forearm must not accelerate into the previous hammer-like mid-stroke burst.
+  Expected: less than 950.0f
+  But was:  1538.90198f
+]]></message>
+                  <stack-trace><![CDATA[at Biathlon.PlayModeTests.ArmMotionRefinementTests.PoleStrokeAvoidsTheFastHammeringPartOfTheCycle (System.Single speed, System.Single grade) [0x0000b] in C:\game\Biathlon\Biathlon\Assets\Tests\PlayMode\ArmMotionRefinementTests.cs:23
+]]></stack-trace>
+                </failure>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1005" name="PoweredPoleStrokeLeavesSpaceBetweenTheElbowAndTheTorso" fullname="Biathlon.PlayModeTests.ArmMotionRefinementTests.PoweredPoleStrokeLeavesSpaceBetweenTheElbowAndTheTorso" classname="Biathlon.PlayModeTests.ArmMotionRefinementTests" runstate="Runnable" testcasecount="3" result="Failed" site="Child" start-time="2026-10-14 18:13:09Z" end-time="2026-10-14 18:13:09Z" duration="0.016303" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1002" name="PoweredPoleStrokeLeavesSpaceBetweenTheElbowAndTheTorso(6.0f,0.0f)" fullname="Biathlon.PlayModeTests.ArmMotionRefinementTests.PoweredPoleStrokeLeavesSpaceBetweenTheElbowAndTheTorso(6.0f,0.0f)" methodname="PoweredPoleStrokeLeavesSpaceBetweenTheElbowAndTheTorso" classname="Biathlon.PlayModeTests.ArmMotionRefinementTests" runstate="Runnable" seed="895910624" result="Failed" start-time="2026-10-14 18:13:09Z" end-time="2026-10-14 18:13:09Z" duration="0.005274" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Elbow centre must move outward from the shoulder, leaving room for the sleeve instead of rubbing the torso.
+  Expected: greater than 0.0450000018f
+  But was:  0.0181536227f
+]]></message>
+                  <stack-trace><![CDATA[at Biathlon.PlayModeTests.ArmMotionRefinementTests.PoweredPoleStrokeLeavesSpaceBetweenTheElbowAndTheTorso (System.Single speed, System.Single grade) [0x0000b] in C:\game\Biathlon\Biathlon\Assets\Tests\PlayMode\ArmMotionRefinementTests.cs:15
+]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case id="1003" name="PoweredPoleStrokeLeavesSpaceBetweenTheElbowAndTheTorso(4.0f,0.08f)" fullname="Biathlon.PlayModeTests.ArmMotionRefinementTests.PoweredPoleStrokeLeavesSpaceBetweenTheElbowAndTheTorso(4.0f,0.08f)" methodname="PoweredPoleStrokeLeavesSpaceBetweenTheElbowAndTheTorso" classname="Biathlon.PlayModeTests.ArmMotionRefinementTests" runstate="Runnable" seed="2020018105" result="Failed" start-time="2026-10-14 18:13:09Z" end-time="2026-10-14 18:13:09Z" duration="0.005083" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Elbow centre must move outward from the shoulder, leaving room for the sleeve instead of rubbing the torso.
+  Expected: greater than 0.0450000018f
+  But was:  0.023311764f
+]]></message>
+                  <stack-trace><![CDATA[at Biathlon.PlayModeTests.ArmMotionRefinementTests.PoweredPoleStrokeLeavesSpaceBetweenTheElbowAndTheTorso (System.Single speed, System.Single grade) [0x0000b] in C:\game\Biathlon\Biathlon\Assets\Tests\PlayMode\ArmMotionRefinementTests.cs:15
+]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case id="1004" name="PoweredPoleStrokeLeavesSpaceBetweenTheElbowAndTheTorso(9.0f,0.0f)" fullname="Biathlon.PlayModeTests.ArmMotionRefinementTests.PoweredPoleStrokeLeavesSpaceBetweenTheElbowAndTheTorso(9.0f,0.0f)" methodname="PoweredPoleStrokeLeavesSpaceBetweenTheElbowAndTheTorso" classname="Biathlon.PlayModeTests.ArmMotionRefinementTests" runstate="Runnable" seed="965067669" result="Failed" start-time="2026-10-14 18:13:09Z" end-time="2026-10-14 18:13:09Z" duration="0.005006" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Elbow centre must move outward from the shoulder, leaving room for the sleeve instead of rubbing the torso.
+  Expected: greater than 0.0450000018f
+  But was:  0.0281056613f
+]]></message>
+                  <stack-trace><![CDATA[at Biathlon.PlayModeTests.ArmMotionRefinementTests.PoweredPoleStrokeLeavesSpaceBetweenTheElbowAndTheTorso (System.Single speed, System.Single grade) [0x0000b] in C:\game\Biathlon\Biathlon\Assets\Tests\PlayMode\ArmMotionRefinementTests.cs:15
+]]></stack-trace>
+                </failure>
+                <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

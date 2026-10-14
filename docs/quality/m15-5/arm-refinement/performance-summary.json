@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "id": "arm_refinement_cpu",
+  "results": {
+    "baseline-perf": {
+      "cpu_main_ms": {
+        "mean": 3.8079008333333335,
+        "p95": 5.4522,
+        "valid": 240
+      },
+      "cpu_render_ms": null,
+      "gpu_ms": null,
+      "gc_bytes": {
+        "mean": 7585.575,
+        "p95": 22283,
+        "valid": 240
+      },
+      "draw_calls": {
+        "mean": 674.925,
+        "p95": 721,
+        "valid": 240
+      },
+      "triangles": {
+        "mean": 6210341.229166667,
+        "p95": 6311827,
+        "valid": 240
+      },
+      "animation_ms": {
+        "mean": 0.44578541666666666,
+        "maximum": 0.5363
+      }
+    },
+    "final-perf": {
+      "cpu_main_ms": {
+        "mean": 3.8211470833333334,
+        "p95": 5.5985,
+        "valid": 240
+      },
+      "cpu_render_ms": null,
+      "gpu_ms": null,
+      "gc_bytes": {
+        "mean": 7585.575,
+        "p95": 22266,
+        "valid": 240
+      },
+      "draw_calls": {
+        "mean": 674.875,
+        "p95": 721,
+        "valid": 240
+      },
+      "triangles": {
+        "mean": 6210544.6,
+        "p95": 6311883,
+        "valid": 240
+      },
+      "animation_ms": {
+        "mean": 0.45379416666666667,
+        "maximum": 0.5806
+      }
+    }
+  },
+  "method": "Sequential matched Ultra native 1920x1080 URP captures, 30 athletes/2588 trees, 120 warmup + 240 measured frames; excludes HUD/swapchain. GPU timing unavailable."
+}
