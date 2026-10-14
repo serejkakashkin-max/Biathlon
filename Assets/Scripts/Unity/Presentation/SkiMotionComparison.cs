@@ -22,6 +22,7 @@ namespace Biathlon.Unity.Presentation
         private WeatherPresentation weather;
         private double previous=-1;
         private GameObject generated;
+        private Transform reviewSurface;
         private bool capturing;
         public void Initialize()
         {
@@ -33,6 +34,7 @@ namespace Biathlon.Unity.Presentation
             Original.GetComponent<AthleteHybridLocomotionDriver>().UseOriginalMotion=true;
             foreach(var rig in new[]{Original,Candidate}){rig.GetComponent<AthleteSkinDetailBinding>().Prepare(0,true,true);rig.GetComponent<AthleteAppearancePresentation>().ApplyNation("NOR");}
             var surface=GameObject.CreatePrimitive(PrimitiveType.Plane);surface.transform.SetParent(generated.transform,false);surface.transform.localScale=new Vector3(3,1,3);
+            reviewSurface=surface.transform;
             var material=Resources.Load<Material>("Biathlon/Snow/cold");
             if(material!=null)surface.GetComponent<MeshRenderer>().sharedMaterial=material;
             var cam=new GameObject("Matched review camera");cam.transform.SetParent(generated.transform,false);ReviewCamera=cam.AddComponent<Camera>();
@@ -74,7 +76,46 @@ namespace Biathlon.Unity.Presentation
         private void Start()
         {
             Initialize();var args=Environment.GetCommandLineArgs();int index=Array.IndexOf(args,"-biathlonMotionCaptureOutput");
+            int elbow=Array.IndexOf(args,"-biathlonElbowCaptureOutput");
+            if(!Application.isEditor&&Debug.isDebugBuild&&elbow>=0&&elbow+1<args.Length){capturing=true;StartCoroutine(CaptureElbows(args[elbow+1]));return;}
             if(!Application.isEditor&&Debug.isDebugBuild&&index>=0&&index+1<args.Length){capturing=true;StartCoroutine(Capture(args[index+1]));}
+        }
+        private IEnumerator CaptureElbows(string directory)
+        {
+            directory=Path.GetFullPath(directory);Directory.CreateDirectory(directory);Application.runInBackground=true;
+            Original.gameObject.SetActive(false);ReviewCamera.enabled=false;
+            foreach(var skin in Candidate.GetComponentsInChildren<SkinnedMeshRenderer>())
+            {skin.updateWhenOffscreen=true;skin.forceMatrixRecalculationPerRender=true;}
+            using(var target=new BenchmarkRenderTarget(960,720))
+            {
+            // Warm the native URP target before retaining frame zero. A freshly
+            // allocated target can otherwise yield a black first PNG.
+            Sample(SkiMotionState.Flat,0);target.Render(ReviewCamera);yield return null;
+            target.Render(ReviewCamera);yield return null;
+            foreach(var state in new[]{SkiMotionState.Flat,SkiMotionState.Uphill,SkiMotionState.MaxSprint,SkiMotionState.Tuck})
+            foreach(bool side in new[]{false,true})
+            {
+                string folder=Path.Combine(directory,state+"-"+(side?"side":"front"));Directory.CreateDirectory(folder);
+                var input=Input(state);
+                // The moving root follows y=grade*z. Match that local plane so a
+                // downhill close-up cannot disappear through the flat lab floor.
+                reviewSurface.localScale=new Vector3(10,1,10);
+                reviewSurface.rotation=Quaternion.FromToRotation(Vector3.up,new Vector3(0,1,-input.Grade).normalized);
+                for(int frame=0;frame<90;frame++)
+                {
+                    double time=frame/30.0;
+                    Candidate.transform.position=new Vector3(-1.3f,input.Grade*input.Speed*(float)time,input.Speed*(float)time);
+                    Sample(state,time);
+                    var focus=Candidate.ModelRoot.position+Vector3.up*1.18f;
+                    ReviewCamera.fieldOfView=36;
+                    ReviewCamera.transform.position=focus+(side?new Vector3(2.3f,.04f,0):new Vector3(0,.04f,2.3f));
+                    ReviewCamera.transform.LookAt(focus);target.Render(ReviewCamera);yield return null;
+                    target.SavePng(Path.Combine(folder,frame.ToString("D4")+".png"));
+                }
+            }
+            }
+            File.WriteAllText(Path.Combine(directory,"capture.json"),"{\"schema_version\":1,\"id\":\"elbow_close_review\",\"fps\":30,\"frames_per_case\":90,\"states\":4,\"angles\":2,\"source\":\"Native G2 hero full pose/contact/grip chain, moving root; original PNGs\"}");
+            Application.Quit(0);
         }
         private void Update(){if(capturing)return;if(AutoCycle)State=(SkiMotionState)((int)(Time.time/8)%12);Sample(State,Time.timeAsDouble);}
         private IEnumerator Capture(string directory)

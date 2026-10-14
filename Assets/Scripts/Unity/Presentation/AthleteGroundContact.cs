@@ -78,7 +78,7 @@ namespace Biathlon.Unity.Presentation
                 if(released)return tip;
                 if(!planted){anchor=tip;planted=true;}
                 var direction=(pole.position-anchor).normalized;var grip=anchor+direction*settings.pole_length_m;
-                if(Vector3.Distance(grip,pole.position)>technique.contact_max_grip_correction_m){planted=false;released=true;return tip;}
+                if(Vector3.Distance(grip,pole.position)>(authored?hybrid.PoleAnchorCorrectionMeters:technique.contact_max_grip_correction_m)){planted=false;released=true;return tip;}
                 pole.SetPositionAndRotation(grip,Quaternion.FromToRotation(Vector3.down,-direction));return anchor;
             }
         }

@@ -8,6 +8,67 @@ namespace Biathlon.PlayModeTests
 {
     public class HybridSkiMotionTests
     {
+        [TestCase(6f,0f,0f)]
+        [TestCase(4f,.08f,.03f)]
+        [TestCase(9f,0f,0f)]
+        [TestCase(6f,0f,.15f)]
+        [TestCase(6f,0f,-.15f)]
+        [TestCase(3f,.15f,.03f)]
+        [TestCase(8f,-.08f,0f)]
+        public void PoleStrokeUsesAnAnatomicalElbowHingeWithoutShoulderHeightSpikesOrWideFlares(float speed,float grade,float curve)
+        {
+            var rig=AthleteRigFactory.Create(null);
+            try
+            {
+                var d=rig.GetComponent<AthleteHybridLocomotionDriver>();var c=rig.GetComponent<AthleteGroundContact>();
+                var rifle=rig.GetComponent<AthleteRiflePresentation>();var grip=rig.GetComponent<AthleteGripPresentation>();
+                var previousLeft=Quaternion.identity;var previousRight=Quaternion.identity;
+                for(int i=0;i<360;i++)
+                {
+                    double t=i/120.0;rig.transform.position=new Vector3(0,grade*(float)t*speed,(float)t*speed);
+                    d.Sample(rig,new LocomotionInput(speed,grade,speed>8?1.25f:.95f,sprint:speed>8,curvature:curve),t);
+                    rifle.Sample(rig,0);c.SampleMoving(rig,grade,d.PoleCycle,d.ContactState,0,t);grip.Render(rig);
+                    foreach(bool right in new[]{false,true})
+                    {
+                        var s=rig.Bone(right?AthleteBone.RightUpperArm:AthleteBone.LeftUpperArm);
+                        var e=rig.Bone(right?AthleteBone.RightLowerArm:AthleteBone.LeftLowerArm);
+                        var w=rig.Bone(right?AthleteBone.RightHand:AthleteBone.LeftHand);
+                        var bendAxis=Vector3.Cross((e.position-s.position).normalized,(w.position-e.position).normalized).normalized;
+                        Assert.That(Vector3.Dot(bendAxis,rig.ModelRoot.right),Is.LessThan(-.7f),"Elbow flexion keeps one anatomical hinge; it must not reverse or twist sideways during the push.");
+                        Assert.That(e.position.y-s.position.y,Is.LessThan(.04f),"Poling elbows must not pop above the shoulders.");
+                        Assert.That(Mathf.Abs(rig.ModelRoot.InverseTransformDirection(e.position-s.position).x),Is.LessThan(.18f),"Elbows must not flare a quarter-metre away from the upper arm.");
+                        var hingeOnly=Quaternion.AngleAxis(-Vector3.Angle(e.position-s.position,w.position-e.position),Vector3.right);
+                        Assert.That(Quaternion.Angle(e.localRotation,hingeOnly),Is.LessThan(1f),"The lower-arm bone must flex about its anatomical hinge rather than acquire large yaw/roll twist.");
+                        if(i>0)Assert.That(Quaternion.Angle(e.rotation,right?previousRight:previousLeft),Is.LessThan(15f),"The hinge must stay continuous through plant, push and recovery.");
+                        if(right)previousRight=e.rotation;else previousLeft=e.rotation;
+                    }
+                }
+            }
+            finally{Object.DestroyImmediate(rig.gameObject);}
+        }
+        [Test] public void HingedArmClampsFlexionWithoutStretchingBonesOrMovingTheRaceRoot()
+        {
+            var rig=AthleteRigFactory.Create(null);
+            try
+            {
+                rig.transform.SetPositionAndRotation(new Vector3(12,4,-8),Quaternion.Euler(0,73,0));
+                var root=rig.transform.position;var rotation=rig.transform.rotation;
+                var upper=rig.Bone(AthleteBone.LeftUpperArm);var lower=rig.Bone(AthleteBone.LeftLowerArm);var hand=rig.Bone(AthleteBone.LeftHand);
+                float a=Vector3.Distance(upper.position,lower.position),b=Vector3.Distance(lower.position,hand.position);
+                foreach(float reach in new[]{.001f,.3f,2f})
+                {
+                    var target=upper.position+rig.ModelRoot.TransformDirection(new Vector3(0,-.7f,.7f).normalized)*reach;
+                    AthleteLocomotionDriver.SolveHingedArm(upper,lower,hand,target,rig.ModelRoot.rotation,8,140);
+                    float flex=Vector3.Angle(lower.position-upper.position,hand.position-lower.position);
+                    Assert.That(flex,Is.InRange(7.99f,140.01f));
+                    Assert.That(Vector3.Distance(upper.position,lower.position),Is.EqualTo(a).Within(.00001f));
+                    Assert.That(Vector3.Distance(lower.position,hand.position),Is.EqualTo(b).Within(.00001f));
+                    Assert.That(Quaternion.Angle(lower.localRotation,Quaternion.AngleAxis(-flex,Vector3.right)),Is.LessThan(.1f));
+                    Assert.That(rig.transform.position,Is.EqualTo(root));Assert.That(rig.transform.rotation,Is.EqualTo(rotation));
+                }
+            }
+            finally{Object.DestroyImmediate(rig.gameObject);}
+        }
         [Test] public void FinishedAthleteKeepsExhaustionHandsInsteadOfReturningToStartReadyPose()
         {
             var rig=AthleteRigFactory.Create(null);

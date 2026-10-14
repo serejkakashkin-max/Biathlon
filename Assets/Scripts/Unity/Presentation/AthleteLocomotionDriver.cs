@@ -180,6 +180,31 @@ namespace Biathlon.Unity.Presentation
             }
         }
 
+        /// <summary>Arm bind axes are -Y along the limb, +X across the elbow.
+        /// Keep the forearm on that hinge: independent shortest-arc bone rotations
+        /// hit the wrist target but introduce visible yaw/roll twist in the skin.</summary>
+        public static void SolveHingedArm(Transform upper, Transform lower, Transform hand, Vector3 target,
+            Quaternion modelRotation, float minimumFlexDegrees, float maximumFlexDegrees)
+        {
+            Vector3 origin=upper.position;
+            float a=Vector3.Distance(origin,lower.position), b=Vector3.Distance(lower.position,hand.position);
+            Vector3 direction=target-origin;
+            float minimumReach=Mathf.Sqrt(a*a+b*b+2*a*b*Mathf.Cos(maximumFlexDegrees*Mathf.Deg2Rad));
+            float maximumReach=Mathf.Sqrt(a*a+b*b+2*a*b*Mathf.Cos(minimumFlexDegrees*Mathf.Deg2Rad));
+            float length=Mathf.Clamp(direction.magnitude,minimumReach,maximumReach);
+            direction=direction.sqrMagnitude>.000001f?direction.normalized:modelRotation*Vector3.down;
+            Vector3 axis=Vector3.ProjectOnPlane(modelRotation*Vector3.right,direction).normalized;
+            if(axis.sqrMagnitude<.0001f)axis=Vector3.Cross(direction,modelRotation*Vector3.forward).normalized;
+            // Negative X flex brings a bind-pose forearm forward from neutral down.
+            Vector3 bend=Vector3.Cross(axis,direction).normalized;
+            float along=(a*a-b*b+length*length)/(2*length);
+            Vector3 joint=origin+direction*along+bend*Mathf.Sqrt(Mathf.Max(0,a*a-along*along));
+            Vector3 up=(origin-joint).normalized;
+            upper.rotation=Quaternion.LookRotation(Vector3.Cross(axis,up),up);
+            float flex=Mathf.Acos(Mathf.Clamp((length*length-a*a-b*b)/(2*a*b),-1,1))*Mathf.Rad2Deg;
+            lower.rotation=upper.rotation*Quaternion.AngleAxis(-flex,Vector3.right);
+        }
+
         /// <summary>Presentation-only analytic limb solve. Preserves both bone lengths and clamps reach.</summary>
         public static void SolveTwoBone(Transform upper, Transform lower, Transform end, Vector3 target, Vector3 bendHint, Quaternion modelRotation)
         {

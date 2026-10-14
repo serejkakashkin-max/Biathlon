@@ -8,12 +8,13 @@ namespace Biathlon.Unity.Presentation
         private AthleteEquipmentBinding equipment;
         private AthleteRiflePresentation rifle;
         private AthleteJointVolume joints;
+        private AthleteHybridLocomotionDriver hybrid;
         [SerializeField] private Vector3 supportRifleEuler = new Vector3(-90, 0, 0);
         [SerializeField] private Vector3 triggerRifleEuler = Vector3.zero;
         public float MaximumResidualMeters { get; private set; }
         public void Render(AthleteRigBinding rig)
         {
-            if (equipment == null) { equipment=GetComponent<AthleteEquipmentBinding>(); rifle=GetComponent<AthleteRiflePresentation>(); joints=GetComponent<AthleteJointVolume>(); }
+            if (equipment == null) { equipment=GetComponent<AthleteEquipmentBinding>(); rifle=GetComponent<AthleteRiflePresentation>(); joints=GetComponent<AthleteJointVolume>(); hybrid=GetComponent<AthleteHybridLocomotionDriver>(); }
             MaximumResidualMeters=0;
             if (rifle != null && rifle.HandWeight>0)
             {
@@ -40,7 +41,8 @@ namespace Biathlon.Unity.Presentation
                 var handRotation=rotation*Quaternion.Inverse(socket.localRotation);
                 var target=position-handRotation*socket.localPosition;
                 var bend=lower.position-(upper.position+hand.position)*.5f;
-                AthleteLocomotionDriver.SolveTwoBone(upper,lower,hand,target,bend,rig.ModelRoot.rotation);
+                if(hybrid!=null&&hybrid.Active)hybrid.FitArm(rig,upper,lower,hand,target);
+                else AthleteLocomotionDriver.SolveTwoBone(upper,lower,hand,target,bend,rig.ModelRoot.rotation);
                 hand.rotation=handRotation;
                 // Equipment remains parented at its socket; preserve the solved world contact.
                 pole.SetPositionAndRotation(position,rotation);

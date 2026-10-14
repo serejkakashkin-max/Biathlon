@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "id": "ski_motion_v2",
   "provenance": "Original manual normalized keys and analytic IK, Biathlon project, 2026-10-13. Research-informed timing; no dataset-derived or mocap assets.",
   "transition_s": 0.42,
@@ -225,9 +225,9 @@
       "time": [
         0,
         0.18,
-        0.42,
-        0.5,
-        0.73,
+        0.55,
+        0.6,
+        0.83,
         1
       ],
       "value": [
@@ -244,10 +244,10 @@
       "time": [
         0,
         0.18,
-        0.35,
-        0.42,
-        0.5,
-        0.75,
+        0.43,
+        0.55,
+        0.6,
+        0.83,
         1
       ],
       "value": [
@@ -266,9 +266,9 @@
       "time": [
         0,
         0.18,
-        0.42,
-        0.5,
-        0.73,
+        0.55,
+        0.6,
+        0.83,
         1
       ],
       "value": [
@@ -285,9 +285,9 @@
       "time": [
         0,
         0.18,
-        0.42,
         0.55,
-        0.76,
+        0.65,
+        0.86,
         1
       ],
       "value": [
@@ -300,22 +300,18 @@
       ]
     }
   ],
-  "arm_reach_margin_m": 0.09,
-  "pole_height_scale": 0.95,
   "pole_drive_start": 0.18,
-  "pole_drive_end": 0.42,
+  "pole_drive_end": 0.55,
   "max_pole_cadence_hz": 2.25,
   "ready_hand_height_m": 1.24,
   "ready_hand_forward_m": 0.16,
   "ready_hand_width_m": 0.21,
-  "elbow_plant_hint": {
-    "x": 0.12,
-    "y": -0.05,
-    "z": 1
-  },
-  "elbow_release_hint": {
-    "x": 0.12,
-    "y": -0.15,
-    "z": -0.45
-  }
+  "arm_min_flex_deg": 20,
+  "arm_max_flex_deg": 140,
+  "arm_reference_swing_m": 0.23,
+  "hand_plant_forward_m": 0.35,
+  "hand_release_forward_m": -0.22,
+  "hand_plant_drop_m": 0.12,
+  "hand_release_drop_m": 0.46,
+  "pole_anchor_correction_m": 0.025
 }

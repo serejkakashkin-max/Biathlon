@@ -10,6 +10,21 @@ namespace Biathlon.Unity
     {
         public static void BuildVisualUpgradeBaseline()=>BuildVisualUpgrade("Builds/M15_5_Baseline_Review");
         public static void BuildVisualUpgradeFinal()=>BuildVisualUpgrade("Builds/M15_5_Visual_Review");
+        public static void BuildElbowBaseline()=>BuildVisualUpgrade("Builds/M15_5_Elbow_Baseline");
+        public static void BuildElbowReview()
+        {
+            const string folder="Builds/M15_5_Elbow_Review";
+            BuildVisualUpgrade(folder);
+            File.WriteAllText(Path.Combine(folder,"READ_ME.txt"),
+                "BIATHLON M15.5 — исправление локтей\r\n\r\n"+
+                "START_TEST.cmd — обычная игра и существующая карьера.\r\n"+
+                "Проверьте локти при разгоне, толчке и возврате палок, ускорении, на поворотах и подъёмах.\r\n"+
+                "Предплечье сгибается вокруг одной оси; кисти идут относительно плеч, без выворачивания локтей.\r\n"+
+                "COMPARE_MOTION.cmd — лаборатория: слева старый procedural fallback, справа новое движение.\r\n"+
+                "Крупные планы до/после: docs/quality/m15-5/elbow-refinement/review.html в проекте.\r\n"+
+                "Одобренные материалы, модель, графика, интерфейс, звук и баланс сохранены.\r\n"+
+                "M16 не начат; визуальное подтверждение анимации ожидается от владельца.\r\n");
+        }
         public static void BuildAnimationRefinement()
         {
             const string folder="Builds/M15_5_Animation_Review";
