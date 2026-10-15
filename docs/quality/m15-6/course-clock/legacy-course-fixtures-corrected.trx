@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="191f6359-2988-4145-a0a8-43c94dc34819" name="snkashkin@DESKTOP-G3075GA 2026-10-15 14:22:45" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-15T14:22:45.3777829+03:00" queuing="2026-10-15T14:22:45.3777831+03:00" start="2026-10-15T14:22:43.5712135+03:00" finish="2026-10-15T14:22:50.0668074+03:00" />
+  <TestSettings name="default" id="303aa5b4-a832-4a5b-ae37-742b3c925fc9">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-15_14_22_45" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="3e8bd36c-64be-4329-8073-a2170b43e49b" testId="3c0ff563-1eef-33e8-ea02-9a50db990d31" testName="MatFootPlacementIsExplicitBoundedAndRetainsTheReachedPoseAndPaidTravel(True,0.5d,0.4d,True,0)" computerName="DESKTOP-G3075GA" duration="00:00:00.1261360" startTime="2026-10-15T14:22:44.4591339+03:00" endTime="2026-10-15T14:22:44.5852667+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3e8bd36c-64be-4329-8073-a2170b43e49b" />
+    <UnitTestResult executionId="c2cc6749-38d4-43b4-99dd-f2b2501cb3c7" testId="748a9608-5c2b-719c-8b50-f8bcbe7e7f8d" testName="PaidOrdinaryEntryMotionDoesNotStickAtZeroThenJumpOutsideItsPortalBand" computerName="DESKTOP-G3075GA" duration="00:00:02.4308860" startTime="2026-10-15T14:22:47.5131949+03:00" endTime="2026-10-15T14:22:49.9440265+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c2cc6749-38d4-43b4-99dd-f2b2501cb3c7" />
+    <UnitTestResult executionId="15474a55-47ad-4d65-b9d8-95efcd1371f6" testId="22ba4485-612f-90e5-e924-50db8f8735e1" testName="MatFootPlacementIsExplicitBoundedAndRetainsTheReachedPoseAndPaidTravel(False,0.5d,0.4d,False,0)" computerName="DESKTOP-G3075GA" duration="00:00:00.3953910" startTime="2026-10-15T14:22:44.0631085+03:00" endTime="2026-10-15T14:22:44.4584614+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="15474a55-47ad-4d65-b9d8-95efcd1371f6" />
+    <UnitTestResult executionId="c73bd6b5-d615-44d9-be3a-f7056bddc801" testId="28b81dc6-a972-4b46-a34c-3936873393ae" testName="MatFootPlacementIsExplicitBoundedAndRetainsTheReachedPoseAndPaidTravel(True,2.3d,0,False,0)" computerName="DESKTOP-G3075GA" duration="00:00:00.1197850" startTime="2026-10-15T14:22:44.5853004+03:00" endTime="2026-10-15T14:22:44.7050820+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c73bd6b5-d615-44d9-be3a-f7056bddc801" />
+    <UnitTestResult executionId="b7bdbcc1-eb31-47bf-9c96-8bc00a2d6942" testId="bf0e33d4-2505-bc26-d390-4b52d6f467de" testName="MatFootPlacementIsExplicitBoundedAndRetainsTheReachedPoseAndPaidTravel(True,0.5d,0.4d,True,0.7d)" computerName="DESKTOP-G3075GA" duration="00:00:02.8073190" startTime="2026-10-15T14:22:44.7051091+03:00" endTime="2026-10-15T14:22:47.5123656+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b7bdbcc1-eb31-47bf-9c96-8bc00a2d6942" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="MatFootPlacementIsExplicitBoundedAndRetainsTheReachedPoseAndPaidTravel(True,0.5d,0.4d,True,0)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="3c0ff563-1eef-33e8-ea02-9a50db990d31">
+      <Execution id="3e8bd36c-64be-4329-8073-a2170b43e49b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualPracticalRuntimeTests" name="MatFootPlacementIsExplicitBoundedAndRetainsTheReachedPoseAndPaidTravel(True,0.5d,0.4d,True,0)" />
+    </UnitTest>
+    <UnitTest name="MatFootPlacementIsExplicitBoundedAndRetainsTheReachedPoseAndPaidTravel(True,0.5d,0.4d,True,0.7d)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="bf0e33d4-2505-bc26-d390-4b52d6f467de">
+      <Execution id="b7bdbcc1-eb31-47bf-9c96-8bc00a2d6942" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualPracticalRuntimeTests" name="MatFootPlacementIsExplicitBoundedAndRetainsTheReachedPoseAndPaidTravel(True,0.5d,0.4d,True,0.7d)" />
+    </UnitTest>
+    <UnitTest name="PaidOrdinaryEntryMotionDoesNotStickAtZeroThenJumpOutsideItsPortalBand" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="748a9608-5c2b-719c-8b50-f8bcbe7e7f8d">
+      <Execution id="c2cc6749-38d4-43b4-99dd-f2b2501cb3c7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualPracticalRuntimeTests" name="PaidOrdinaryEntryMotionDoesNotStickAtZeroThenJumpOutsideItsPortalBand" />
+    </UnitTest>
+    <UnitTest name="MatFootPlacementIsExplicitBoundedAndRetainsTheReachedPoseAndPaidTravel(False,0.5d,0.4d,False,0)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="22ba4485-612f-90e5-e924-50db8f8735e1">
+      <Execution id="15474a55-47ad-4d65-b9d8-95efcd1371f6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualPracticalRuntimeTests" name="MatFootPlacementIsExplicitBoundedAndRetainsTheReachedPoseAndPaidTravel(False,0.5d,0.4d,False,0)" />
+    </UnitTest>
+    <UnitTest name="MatFootPlacementIsExplicitBoundedAndRetainsTheReachedPoseAndPaidTravel(True,2.3d,0,False,0)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="28b81dc6-a972-4b46-a34c-3936873393ae">
+      <Execution id="c73bd6b5-d615-44d9-be3a-f7056bddc801" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualPracticalRuntimeTests" name="MatFootPlacementIsExplicitBoundedAndRetainsTheReachedPoseAndPaidTravel(True,2.3d,0,False,0)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="3c0ff563-1eef-33e8-ea02-9a50db990d31" executionId="3e8bd36c-64be-4329-8073-a2170b43e49b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="748a9608-5c2b-719c-8b50-f8bcbe7e7f8d" executionId="c2cc6749-38d4-43b4-99dd-f2b2501cb3c7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="22ba4485-612f-90e5-e924-50db8f8735e1" executionId="15474a55-47ad-4d65-b9d8-95efcd1371f6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="28b81dc6-a972-4b46-a34c-3936873393ae" executionId="c73bd6b5-d615-44d9-be3a-f7056bddc801" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bf0e33d4-2505-bc26-d390-4b52d6f467de" executionId="b7bdbcc1-eb31-47bf-9c96-8bc00a2d6942" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="5" executed="5" passed="5" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 5 of 5 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

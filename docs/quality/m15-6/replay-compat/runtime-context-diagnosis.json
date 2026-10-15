@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "id": "legacy_context_runtime_format_diagnosis",
+  "cause": "historical DataContractJsonSerializer floating point rendering differs between CoreCLR and Unity Mono",
+  "apron_parts": [
+    {
+      "apron_context_part": 1,
+      "parsed_json_values_equal": true,
+      "original_characters": 477984,
+      "native_characters": 478535
+    },
+    {
+      "apron_context_part": 3,
+      "parsed_json_values_equal": true,
+      "original_characters": 118491,
+      "native_characters": 119824
+    },
+    {
+      "apron_context_part": 5,
+      "parsed_json_values_equal": true,
+      "original_characters": 93041,
+      "native_characters": 93941
+    }
+  ],
+  "examples": [
+    {
+      "coreclr": "0.007081673302963822",
+      "mono": "0.0070816733029638217",
+      "equal_ieee754_bits": true,
+      "ieee754_hex": "7583cb33ac017d3f"
+    },
+    {
+      "coreclr": "81.30821636135782",
+      "mono": "81.308216361357822",
+      "equal_ieee754_bits": true,
+      "ieee754_hex": "ef071ed1b9535440"
+    }
+  ],
+  "production_hash_checks_modified": false,
+  "fix": "independent original-source fixture per runtime"
+}

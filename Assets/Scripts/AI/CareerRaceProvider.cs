@@ -40,7 +40,7 @@ namespace Biathlon.AI
             var prepared=Prepare(snapshot,e,seed);var runner=prepared.Runner;
             if(prepared.Venue!=null)
             {
-                var movement=ManualProductionFieldComposition.Create(runner.Field,prepared.Venue,prepared.ManualRead);
+                var movement=ManualProductionFieldComposition.Create(runner.Field,prepared.Venue,prepared.ManualRead,prepared.CourseReactionPolicy);
                 runner.BindManualScopedCandidate(movement,ManualAiSteeringDefinition.FromJson(read("manual_ai_steering_v2.json")),
                     ManualSkiSteeringDefinition.FromJson(read("manual_ski_steering_v2.json")),PlayerCourseAssistanceDefinition.FromJson(read("player_course_assistance_v1.json")));
             }
@@ -58,9 +58,12 @@ namespace Biathlon.AI
             throw new ArgumentException("Weather needs an event from this career calendar.");
         }
         public CareerPreparedRace Prepare(CareerSave snapshot,CareerCalendarEvent e,ulong seed,IRaceEventSink observedEvents=null,
-            RaceWeatherPreset recordedWeather=null,bool legacyNeutralWeather=false,bool legacyMassStartOrder=false)
+            RaceWeatherPreset recordedWeather=null,bool legacyNeutralWeather=false,bool legacyMassStartOrder=false,
+            ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.PassiveCurvedV26)
         {
             if(snapshot==null||e==null)throw new ArgumentNullException();
+            if(courseReactionPolicy!=ManualCourseReactionPolicy.LegacyV25&&courseReactionPolicy!=ManualCourseReactionPolicy.PassiveCurvedV26)
+                throw new ArgumentOutOfRangeException(nameof(courseReactionPolicy));
             if(e.VenueId!="synthetic_alpine"&&e.VenueId!=Woodland)throw new ArgumentException("No route adapter for this venue.");
             if(e.VenueId==Woodland&&venueResource==null)throw new InvalidOperationException("Woodland career needs its explicit resource reader.");
             if(e.VenueId=="synthetic_alpine"&&fixture==null)throw new InvalidOperationException("Synthetic career needs its explicit fixture reader.");
@@ -110,7 +113,7 @@ namespace Biathlon.AI
             else runner=ChampionshipRaceFactory.Create(read,fixture,e.Format,eventSink,new AiDecisionCounts(),qualification,roster.Count,definition.TickFrequency,seed,entrants,personalities,forms,pressures);
             Func<string,string> manualRead=!legacyMassStartOrder&&weather?.CourseContactResource!=null?
                 n=>read(n=="manual_course_contact_gameplay_v2.json"?weather.CourseContactResource:n):read;
-            return new CareerPreparedRace(snapshot.SeasonId,snapshot.PlayerId,e,seed,runner,audit,venue,weather,manualRead);
+            return new CareerPreparedRace(snapshot.SeasonId,snapshot.PlayerId,e,seed,runner,audit,venue,weather,manualRead,courseReactionPolicy);
         }
         private sealed class ObservedEvents:IRaceEventSink
         {
@@ -128,12 +131,13 @@ namespace Biathlon.AI
         public ulong Seed { get; }
         public RaceWeatherPreset Weather {get;}
         public Func<string,string> ManualRead {get;}
+        public ManualCourseReactionPolicy CourseReactionPolicy {get;}
         public int PlayerIndex { get; }
         internal BalanceEventAudit Audit { get; }
         private readonly string seasonId;
-        internal CareerPreparedRace(string seasonId,string playerId,CareerCalendarEvent e,ulong seed,PackAiRaceRunner runner,BalanceEventAudit audit,VenueAuthoringPlan venue,RaceWeatherPreset weather,Func<string,string> manualRead)
+        internal CareerPreparedRace(string seasonId,string playerId,CareerCalendarEvent e,ulong seed,PackAiRaceRunner runner,BalanceEventAudit audit,VenueAuthoringPlan venue,RaceWeatherPreset weather,Func<string,string> manualRead,ManualCourseReactionPolicy courseReactionPolicy)
         {
-            this.seasonId=seasonId;Event=e;Seed=seed;Runner=runner;Audit=audit;Venue=venue;Weather=weather;ManualRead=manualRead;PlayerIndex=-1;
+            this.seasonId=seasonId;Event=e;Seed=seed;Runner=runner;Audit=audit;Venue=venue;Weather=weather;ManualRead=manualRead;CourseReactionPolicy=courseReactionPolicy;PlayerIndex=-1;
             for(int i=0;i<runner.Field.Count;i++)if(runner.Field.GetAthlete(i).AthleteId.Value==playerId)PlayerIndex=i;
         }
         public CareerRaceRecord CollectResult()

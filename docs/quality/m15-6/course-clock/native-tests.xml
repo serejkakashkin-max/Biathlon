@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="12" result="Passed" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-15 12:26:10Z" end-time="2026-10-15 12:31:50Z" duration="339,775536">
+  <test-suite type="TestSuite" id="3546" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="2026" result="Passed" start-time="2026-10-15 12:26:10Z" end-time="2026-10-15 12:31:50Z" duration="339.775536" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="3479" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="1992" result="Passed" start-time="2026-10-15 12:26:10Z" end-time="2026-10-15 12:31:50Z" duration="339.660204" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="29748" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="3480" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1992" result="Passed" start-time="2026-10-15 12:26:10Z" end-time="2026-10-15 12:31:50Z" duration="339.565140" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="3481" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="1992" result="Passed" start-time="2026-10-15 12:26:10Z" end-time="2026-10-15 12:31:50Z" duration="339.454893" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="2338" name="OwnerCourseClockRejectionTests" fullname="Biathlon.Tests.OwnerCourseClockRejectionTests" classname="Biathlon.Tests.OwnerCourseClockRejectionTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-15 12:26:10Z" end-time="2026-10-15 12:31:50Z" duration="339.355239" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="2342" name="PaidSnowSupportAtAuthoredBendsDoesNotExhaustItsResponses" fullname="Biathlon.Tests.OwnerCourseClockRejectionTests.PaidSnowSupportAtAuthoredBendsDoesNotExhaustItsResponses" methodname="PaidSnowSupportAtAuthoredBendsDoesNotExhaustItsResponses" classname="Biathlon.Tests.OwnerCourseClockRejectionTests" runstate="Runnable" seed="2133142073" result="Passed" start-time="2026-10-15 12:26:10Z" end-time="2026-10-15 12:27:44Z" duration="93.774891" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[course_edge_reaction_sha256=4def9eea4a9342bfa86a9641cca89d2089960f86a589d3708d1584b18b90882e responses=398
+]]></output>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="2341" name="RoundedBendKeepsAnAdmittedSkinWithoutExhaustingTheTick" fullname="Biathlon.Tests.OwnerCourseClockRejectionTests.RoundedBendKeepsAnAdmittedSkinWithoutExhaustingTheTick" classname="Biathlon.Tests.OwnerCourseClockRejectionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-15 12:27:44Z" end-time="2026-10-15 12:28:30Z" duration="45.993172" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="2339" name="RoundedBendKeepsAnAdmittedSkinWithoutExhaustingTheTick(5,3)" fullname="Biathlon.Tests.OwnerCourseClockRejectionTests.RoundedBendKeepsAnAdmittedSkinWithoutExhaustingTheTick(5,3)" methodname="RoundedBendKeepsAnAdmittedSkinWithoutExhaustingTheTick" classname="Biathlon.Tests.OwnerCourseClockRejectionTests" runstate="Runnable" seed="2082415925" result="Passed" start-time="2026-10-15 12:27:44Z" end-time="2026-10-15 12:28:08Z" duration="23.493649" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[response=0 before_v=4.1585598297816064,-8.7255587868128419 before_spin=0.579 source_gap=-0.039932314509995681 threatened_gap=-0.068833828409639253 normal=0,0 lever=0
+maximum_reaction_energy_j=0
+]]></output>
+              </test-case>
+              <test-case id="2340" name="RoundedBendKeepsAnAdmittedSkinWithoutExhaustingTheTick(0,0)" fullname="Biathlon.Tests.OwnerCourseClockRejectionTests.RoundedBendKeepsAnAdmittedSkinWithoutExhaustingTheTick(0,0)" methodname="RoundedBendKeepsAnAdmittedSkinWithoutExhaustingTheTick" classname="Biathlon.Tests.OwnerCourseClockRejectionTests" runstate="Runnable" seed="1825229348" result="Passed" start-time="2026-10-15 12:28:08Z" end-time="2026-10-15 12:28:30Z" duration="22.494001" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[response=0 before_v=4.1585598297816064,-8.7255587868128419 before_spin=0.579 source_gap=-0.039932314509995681 threatened_gap=-0.068833828409639253 normal=0,0 lever=0
+maximum_reaction_energy_j=0
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="2352" name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock" fullname="Biathlon.Tests.OwnerCourseClockRejectionTests.SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock" classname="Biathlon.Tests.OwnerCourseClockRejectionTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-15 12:28:30Z" end-time="2026-10-15 12:31:50Z" duration="199.462195" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="2343" name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-1000,80)" fullname="Biathlon.Tests.OwnerCourseClockRejectionTests.SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-1000,80)" methodname="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock" classname="Biathlon.Tests.OwnerCourseClockRejectionTests" runstate="Runnable" seed="101531764" result="Passed" start-time="2026-10-15 12:28:30Z" end-time="2026-10-15 12:28:54Z" duration="23.787107" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[final_pose=136,260065907,-4,878659912,3,455376079 lateral=-3,81312372664218
+]]></output>
+              </test-case>
+              <test-case id="2344" name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(1000,80)" fullname="Biathlon.Tests.OwnerCourseClockRejectionTests.SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(1000,80)" methodname="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock" classname="Biathlon.Tests.OwnerCourseClockRejectionTests" runstate="Runnable" seed="1517319992" result="Passed" start-time="2026-10-15 12:28:54Z" end-time="2026-10-15 12:29:15Z" duration="21.351178" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[final_pose=92,453195128,5,771489774,6,058300141 lateral=4,1965160194184
+]]></output>
+              </test-case>
+              <test-case id="2345" name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-500,160)" fullname="Biathlon.Tests.OwnerCourseClockRejectionTests.SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-500,160)" methodname="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock" classname="Biathlon.Tests.OwnerCourseClockRejectionTests" runstate="Runnable" seed="228003832" result="Passed" start-time="2026-10-15 12:29:15Z" end-time="2026-10-15 12:29:37Z" duration="21.576614" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[final_pose=153,415483855,-3,843815822,4,330383447 lateral=-4,84796781664218
+]]></output>
+              </test-case>
+              <test-case id="2346" name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(500,160)" fullname="Biathlon.Tests.OwnerCourseClockRejectionTests.SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(500,160)" methodname="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock" classname="Biathlon.Tests.OwnerCourseClockRejectionTests" runstate="Runnable" seed="1752140142" result="Passed" start-time="2026-10-15 12:29:37Z" end-time="2026-10-15 12:30:00Z" duration="22.894506" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[final_pose=157,307953421,-13,141634221,4,827051709 lateral=4,44985058235782
+]]></output>
+              </test-case>
+              <test-case id="2347" name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(0,0)" fullname="Biathlon.Tests.OwnerCourseClockRejectionTests.SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(0,0)" methodname="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock" classname="Biathlon.Tests.OwnerCourseClockRejectionTests" runstate="Runnable" seed="340848598" result="Passed" start-time="2026-10-15 12:30:00Z" end-time="2026-10-15 12:30:22Z" duration="22.413959" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[final_pose=101,176019173,-4,653638335,3,141592654 lateral=5,16850028401618
+]]></output>
+              </test-case>
+              <test-case id="2348" name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-1000,700)" fullname="Biathlon.Tests.OwnerCourseClockRejectionTests.SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-1000,700)" methodname="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock" classname="Biathlon.Tests.OwnerCourseClockRejectionTests" runstate="Runnable" seed="265837792" result="Passed" start-time="2026-10-15 12:30:22Z" end-time="2026-10-15 12:30:44Z" duration="22.144164" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[final_pose=94,270577238,3,74746977,0,60635972 lateral=3,96547065263727
+]]></output>
+              </test-case>
+              <test-case id="2349" name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(1000,700)" fullname="Biathlon.Tests.OwnerCourseClockRejectionTests.SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(1000,700)" methodname="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock" classname="Biathlon.Tests.OwnerCourseClockRejectionTests" runstate="Runnable" seed="1350728138" result="Passed" start-time="2026-10-15 12:30:44Z" end-time="2026-10-15 12:31:07Z" duration="22.421797" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[final_pose=98,580757708,-2,147471761,4,697064893 lateral=4,89208500200639
+]]></output>
+              </test-case>
+              <test-case id="2350" name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-500,700)" fullname="Biathlon.Tests.OwnerCourseClockRejectionTests.SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-500,700)" methodname="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock" classname="Biathlon.Tests.OwnerCourseClockRejectionTests" runstate="Runnable" seed="1300256925" result="Passed" start-time="2026-10-15 12:31:07Z" end-time="2026-10-15 12:31:28Z" duration="21.062499" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[final_pose=87,780130879,37,347851935,1,644358327 lateral=0,719869121000002
+]]></output>
+              </test-case>
+              <test-case id="2351" name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(500,700)" fullname="Biathlon.Tests.OwnerCourseClockRejectionTests.SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(500,700)" methodname="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock" classname="Biathlon.Tests.OwnerCourseClockRejectionTests" runstate="Runnable" seed="817381472" result="Passed" start-time="2026-10-15 12:31:28Z" end-time="2026-10-15 12:31:50Z" duration="21.800052" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[final_pose=100,196648381,-3,849110222,3,713180863 lateral=5,15385364858445
+Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

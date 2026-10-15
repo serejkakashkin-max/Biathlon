@@ -168,9 +168,10 @@ namespace Biathlon.Unity.Presentation
             if(race==null)throw new ArgumentNullException(nameof(race));
             if(Runner!=null||race.Venue==null||race.PlayerIndex<0||race.Runner.Field.Tick.Value!=0)
                 throw new InvalidOperationException("A fresh playable production career race is required.");
-            InitializeRunner(race.Venue,race.Runner,race.PlayerIndex,race.ManualRead);
+            InitializeRunner(race.Venue,race.Runner,race.PlayerIndex,race.ManualRead,race.CourseReactionPolicy);
         }
-        private void InitializeRunner(VenueAuthoringPlan venue,PackAiRaceRunner runner,int playerIndex,Func<string,string> manualRead=null)
+        private void InitializeRunner(VenueAuthoringPlan venue,PackAiRaceRunner runner,int playerIndex,Func<string,string> manualRead=null,
+            ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.PassiveCurvedV26)
         {
             var profile=runner.Field.Profile;
             playerAssistance=PlayerCourseAssistanceDefinition.FromJson(ReadCore("player_course_assistance_v1.json"));
@@ -178,7 +179,7 @@ namespace Biathlon.Unity.Presentation
             frameClock=new FixedTickFrameClock(frameBudget,runner.Field.TickFrequency);
             if(UseManualHeading&&venue.Formats!=null)
             {
-                ManualStepper=ManualProductionFieldComposition.Create(runner.Field,venue,manualRead??ReadCore);
+                ManualStepper=ManualProductionFieldComposition.Create(runner.Field,venue,manualRead??ReadCore,courseReactionPolicy);
                 runner.BindManualScopedCandidate(ManualStepper,ManualAiSteeringDefinition.FromJson(ReadCore("manual_ai_steering_v2.json")),
                     ManualSkiSteeringDefinition.FromJson(ReadCore("manual_ski_steering_v2.json")),playerAssistance);
             }

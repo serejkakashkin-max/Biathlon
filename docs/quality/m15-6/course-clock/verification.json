@@ -1,0 +1,46 @@
+{
+  "source_files": [
+    {
+      "path": "Assets/Scripts/AI/ManualScopedAiMovement.cs",
+      "sha256": "c104fc6d7714c142f5c2752b86c19df8f9a859e9463852f049f952ce0f3b0e45"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualScopedWorldCourseContact.cs",
+      "sha256": "897470cf65a7e4b63130140e72e666a38cfac19f0c35d39dfa57e9bb7cad5d85"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualScopedWorldRoster.cs",
+      "sha256": "bee8c41d36e805ab8e66c889a2ac8ae94173a6d9cee7d6f945b843c48b15d61a"
+    },
+    {
+      "path": "Assets/Tests/EditMode/OwnerCourseClockRejectionTests.cs",
+      "sha256": "7d0ef893bd9cf2b9d02448878be273332f4ed8e3bc66c56d65e3e71590c74bdc"
+    },
+    {
+      "path": "Assets/Tests/EditMode/ManualPracticalRuntimeTests.cs",
+      "sha256": "e8e7adac2ec949a0337e90a3ab5266c911f68ac6fd861acaedd31457fa0a43f4"
+    }
+  ],
+  "focused": {
+    "executed": 67,
+    "skipped": 0,
+    "failed": 0,
+    "passed": 67
+  },
+  "native_verification": {"mode":"EditMode","executed":12,"passed":12,"failed":0,"skipped":0,"duration_seconds":339.775536,"evidence":"native-tests.xml","note":"MCP transport timed out at300s; actual completed Unity NUnit XML inspected, not rerun"},
+  "source_base": "0423341c4f4ae42192408bed071354111940453c",
+  "id": "m15_5_owner_course_clock_diagnosis_20261015",
+  "edge": {
+    "seed": 5156,
+    "states": 400,
+    "trace_sha256": "fee767c3ef0a3e889b2338b18e6281951449b28a194016a66d2c323798107196"
+  },
+  "actual_mass30": {
+    "tick": 19604,
+    "shots_per_run": 600,
+    "result_sha256": "393a67c37633b758c4560bb0349beb37d508a4538bf97d1026668e32cf767a84",
+    "event_hash": "5320497708773509095",
+    "runs": 2
+  },
+  "schema_version": 1
+}

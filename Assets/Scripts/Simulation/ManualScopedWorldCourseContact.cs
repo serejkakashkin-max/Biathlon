@@ -9,6 +9,7 @@ namespace Biathlon.Simulation
         private readonly bool[] courseSupports;
         private readonly int[] courseImpactCounts;
         public int CourseEdgeResponses {get;private set;}
+        public int CurvedCourseContinuations {get;private set;}
         public double LastCourseNormalX {get;private set;}
         public double LastCourseNormalZ {get;private set;}
         public double LastCourseAngularLever {get;private set;}
@@ -84,23 +85,81 @@ namespace Biathlon.Simulation
             if(courseContact.ArrestContactSpin)
             {
                 double normalReaction=-Math.Min(0,gx*a.X+gz*a.Z)*masses[index];
-                return new SkiForceCoupledTrajectory(free.InitialPose,free.InitialMotion,
+                var supported=new SkiForceCoupledTrajectory(free.InitialPose,free.InitialMotion,
                     new SkiContactAcceleration(a.X+gx*normalReaction/masses[index],a.Z+gz*normalReaction/masses[index],
                         gh*a.Yaw<0?0:a.Yaw),free.DurationSeconds);
+                if(CourseReactionPolicy==ManualCourseReactionPolicy.LegacyV25)return supported;
+                // Preserve the historical force law exactly whenever it already
+                // certifies the complete course interval. Curved continuation
+                // is needed only for the formerly rejected boundary case.
+                var trajectory=new ManualSkiWorldTrajectory(supported);
+                bool clear=catalogs[index].ProjectionGeometry.TryGetCollinearCorridor(workingActors[index].Observation.GeometryProjection,out var cell);
+                for(int k=0;clear&&k<4;k++)
+                {
+                    var plane=k==0?cell.Left:k==1?cell.Right:k==2?cell.Entry:cell.Exit;
+                    if(courseCells.Preview(trajectory,plane).Status!=SkiEdgeSweepStatus.Clear)clear=false;
+                }
+                if(clear)return supported;
+                var admission=ribbons[index].Preview(trajectory,workingActors[index].Observation.GeometryProjection);
+                if(admission.Status==ManualRouteTubeStatus.Clear&&
+                    Math.Abs(admission.ClearUntilSeconds-free.DurationSeconds)<=free.DurationSeconds*1e-12)return supported;
+                CurvedCourseContinuations++;
+                a=new SkiContactAcceleration(a.X,a.Z,gh*a.Yaw<0?0:a.Yaw);
             }
-            double outward=gx*a.X+gz*a.Z+gh*a.Yaw;
-            double reaction=-Math.Min(0,outward)/(1/masses[index]+gh*gh/inertia);
+            double responseLever=courseContact.ArrestContactSpin?0:gh;
+            double outward=gx*a.X+gz*a.Z+responseLever*a.Yaw;
+            double reaction=-Math.Min(0,outward)/(1/masses[index]+responseLever*responseLever/inertia);
             double initialClearance=ribbons[index].CurrentRibbonClearance(free.InitialPose);
             // Preserve the already admitted skin. Trying to eliminate its
-            // submillimetric overlap in a vanishing interval creates an
+            // existing clearance overlap in a vanishing interval creates an
             // unbounded, energy-producing positional spring.
             double target=Math.Min(0,initialClearance);
+            double bodyRadius=.5*Math.Sqrt(occupiedBody.LongitudinalSeparation*occupiedBody.LongitudinalSeparation+
+                occupiedBody.LateralSeparation*occupiedBody.LateralSeparation);
+            double encodingReserve=2*free.PositionErrorBoundMeters+bodyRadius*free.HeadingErrorBoundRadians+
+                128*2.2204460492503131e-16*(1+Math.Abs(free.InitialPose.X)+Math.Abs(free.InitialPose.Z));
+            double admissionReserve=encodingReserve-(numericalTolerance?.CourseSweepTolerance??0);
             SkiForceCoupledTrajectory result=free;
             for(int attempt=0;attempt<courseContact.MaximumResponses;attempt++)
             {
+                double ax=a.X+gx*reaction/masses[index],az=a.Z+gz*reaction/masses[index];
+                if(courseContact.ArrestContactSpin)
+                {
+                    // Support redirects the paid motion; it is not propulsion.
+                    // A finite constant-curvature piece otherwise gains kinetic
+                    // energy from its normal acceleration, especially on an
+                    // already admitted conservative skin near a knot.
+                    var initial=free.InitialMotion.Velocity;
+                    double initialSquared=initial.X*initial.X+initial.Z*initial.Z;
+                    double work=(ax-a.X)*initial.X+(az-a.Z)*initial.Z;
+                    if(work>0&&initialSquared>0)
+                    {ax-=initial.X*work/initialSquared;az-=initial.Z*work/initialSquared;}
+                    double seconds=free.DurationSeconds;
+                    double vx=initial.X+ax*seconds,vz=initial.Z+az*seconds;
+                    double paidX=initial.X+a.X*seconds,paidZ=initial.Z+a.Z*seconds;
+                    double paidSquared=paidX*paidX+paidZ*paidZ,resultSquared=vx*vx+vz*vz;
+                    // Factor the velocity-energy difference by duration before
+                    // radial projection. Subtracting two nearly equal endpoint
+                    // velocities and dividing by a tiny contact prefix turns
+                    // ordinary rounding into an unbounded acceleration.
+                    double energyRate=2*(initial.X*(ax-a.X)+initial.Z*(az-a.Z))+
+                        seconds*((ax-a.X)*(ax+a.X)+(az-a.Z)*(az+a.Z));
+                    if(energyRate>0&&resultSquared>0)
+                    {
+                        double rate=-energyRate/(resultSquared+Math.Sqrt(paidSquared*resultSquared));
+                        ax+=vx*rate;az+=vz*rate;
+                    }
+                }
                 result=new SkiForceCoupledTrajectory(free.InitialPose,free.InitialMotion,
-                    new SkiContactAcceleration(a.X+gx*reaction/masses[index],a.Z+gz*reaction/masses[index],a.Yaw+gh*reaction/inertia),free.DurationSeconds);
+                    new SkiContactAcceleration(ax,az,a.Yaw+responseLever*reaction/inertia),free.DurationSeconds);
                 double correction=0;
+                var velocity=free.InitialMotion.Velocity;double duration=free.DurationSeconds;
+                double displacement=duration*Math.Sqrt(velocity.X*velocity.X+velocity.Z*velocity.Z)+
+                    .5*duration*duration*result.PlanarAccelerationBound+bodyRadius*result.PeakYawRate*duration;
+                // A small unrelated contact interval can already be certified
+                // from the source clearance and the complete displacement bound.
+                // Do not invent an exact-source-gap spring under that safe piece.
+                if(courseContact.ArrestContactSpin&&initialClearance>admissionReserve+displacement)break;
                 for(int k=1;k<=4;k++)
                 {
                     double t=free.DurationSeconds*k/4;
@@ -108,7 +167,7 @@ namespace Biathlon.Simulation
                     if(gap<target)correction=Math.Max(correction,-2*(gap-target)/(t*t));
                 }
                 if(correction==0)break;
-                reaction+=correction/(1/masses[index]+gh*gh/inertia);
+                reaction+=correction/(1/masses[index]+responseLever*responseLever/inertia);
             }
             return result;
         }

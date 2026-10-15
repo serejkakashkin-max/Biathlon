@@ -21,6 +21,7 @@ namespace Biathlon.Unity.Presentation
         internal CareerReplayCapture(RaceReplayLibrary library,ManualScopedFieldStepper stepper,RaceReplayInfo info,RaceHighlightDetector highlights,ReplayPresentationSettings settings)
         {
             this.library=library;this.stepper=stepper;this.info=info;this.highlights=highlights;
+            info.CourseReactionVersion=(int)stepper.World.CourseReactionPolicy;
             observationTicks=Math.Max(1,(int)Math.Round(settings.tv_refresh_seconds*stepper.Field.TickFrequency));
             stream=library.CreatePending(info.Id);
             try{writer=new ManualRaceJournalWriter(stream,stepper,SkiTechniqueDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/ski_technique_provisional_v1")));}

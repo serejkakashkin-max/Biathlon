@@ -1,0 +1,49 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":2031,\"PassedTests\":4,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:03:22.9843166\"},\"Results\":[{\"Name\":\"Biathlon.Tests.ManualReplayPolicyCompatibilityTests.HistoricalArrestedSpinReactionRetainsTheOriginalGitBlobForceResults\",\"Status\":\"Passed\",\"Duration\":\"00:00:21.9320000\"},{\"Name\":\"Biathlon.Tests.ManualReplayPolicyCompatibilityTests.LegacyMetadataRemainsByteIdenticalAndNewPolicyIsExplicitValidatedAndPrepared\",\"Status\":\"Passed\",\"Duration\":\"00:00:37.6130000\"},{\"Name\":\"Biathlon.Tests.ManualReplayPolicyCompatibilityTests.NewV26JournalReplaysExactlyAndCannotBeReadWithTheHistoricalForceLaw\",\"Status\":\"Passed\",\"Duration\":\"00:01:20.4390000\"},{\"Name\":\"Biathlon.Tests.ManualReplayPolicyCompatibilityTests.OriginalV25GitBlobJournalOpensAndReplaysWithoutChangingItsHeaderOrCommands\",\"Status\":\"Failed\",\"Duration\":\"00:00:20.9450000\",\"Message\":\"  String lengths are both 64. Strings differ at index 0.\\r\\n  Expected: \\u0022d94998795c30ec3727cb7e683c9055bb22044c8dabca7a97b8f098650ccfe2fc\\u0022\\r\\n  But was:  \\u00227829585b764d412eb95427db94146aefbf43593836459218ed4d9124c23bf7c8\\u0022\\r\\n  -----------^\\r\\n\"},{\"Name\":\"Biathlon.Tests.ManualReplayPolicyCompatibilityTests.StrictJournalIdentityRejectsCrossPolicyAndTamperedHeadersBeforeAnyTick\",\"Status\":\"Passed\",\"Duration\":\"00:00:40.9330000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 2031,
+        "PassedTests": 4,
+        "FailedTests": 1,
+        "SkippedTests": 0,
+        "Duration": "00:03:22.9843166"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.HistoricalArrestedSpinReactionRetainsTheOriginalGitBlobForceResults",
+          "Status": "Passed",
+          "Duration": "00:00:21.9320000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.LegacyMetadataRemainsByteIdenticalAndNewPolicyIsExplicitValidatedAndPrepared",
+          "Status": "Passed",
+          "Duration": "00:00:37.6130000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.NewV26JournalReplaysExactlyAndCannotBeReadWithTheHistoricalForceLaw",
+          "Status": "Passed",
+          "Duration": "00:01:20.4390000"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.OriginalV25GitBlobJournalOpensAndReplaysWithoutChangingItsHeaderOrCommands",
+          "Status": "Failed",
+          "Duration": "00:00:20.9450000",
+          "Message": "  String lengths are both 64. Strings differ at index 0.\r\n  Expected: \"d94998795c30ec3727cb7e683c9055bb22044c8dabca7a97b8f098650ccfe2fc\"\r\n  But was:  \"7829585b764d412eb95427db94146aefbf43593836459218ed4d9124c23bf7c8\"\r\n  -----------^\r\n"
+        },
+        {
+          "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.StrictJournalIdentityRejectsCrossPolicyAndTamperedHeadersBeforeAnyTick",
+          "Status": "Passed",
+          "Duration": "00:00:40.9330000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

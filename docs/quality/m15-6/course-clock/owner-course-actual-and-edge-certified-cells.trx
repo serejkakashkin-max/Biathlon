@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="fcd1655b-aca1-497c-9c23-e2d110f7d78f" name="snkashkin@DESKTOP-G3075GA 2026-10-15 15:17:46" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-15T15:17:46.7043039+03:00" queuing="2026-10-15T15:17:46.7043040+03:00" start="2026-10-15T15:17:11.2064573+03:00" finish="2026-10-15T15:18:38.9534967+03:00" />
+  <TestSettings name="default" id="5dc1c058-0db0-4622-a234-f52f28507343">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-15_15_17_46" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="0479fabf-ae39-476f-8393-1f5d6c5741dd" testId="596b796b-07af-6ab3-46b8-c617c656224e" testName="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(0,0)" computerName="DESKTOP-G3075GA" duration="00:00:02.5122170" startTime="2026-10-15T15:18:26.2809495+03:00" endTime="2026-10-15T15:18:28.7931453+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0479fabf-ae39-476f-8393-1f5d6c5741dd">
+      <Output>
+        <StdOut>final_pose=101,176019173,-4,653638335,3,141592654 lateral=5,16850028401618</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4b863996-3841-419c-bc40-584e40a7d87f" testId="c3f6f880-d466-7038-f163-0171bc8ba9cb" testName="RoundedBendKeepsAnAdmittedSkinWithoutExhaustingTheTick(0,0)" computerName="DESKTOP-G3075GA" duration="00:00:02.6556570" startTime="2026-10-15T15:18:13.2739707+03:00" endTime="2026-10-15T15:18:15.9296055+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4b863996-3841-419c-bc40-584e40a7d87f">
+      <Output>
+        <StdOut>response=0 before_v=4.158559829781606,-8.725558786812842 before_spin=0.579 source_gap=-0.03993231450999568 threatened_gap=-0.06883382840963925 normal=0,0 lever=0&#xD;
+maximum_reaction_energy_j=0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8f134689-91af-47fe-a5b1-b56b5a049c5c" testId="d91327fb-cc41-757c-16ff-2b7bda009bc3" testName="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-1000,700)" computerName="DESKTOP-G3075GA" duration="00:00:02.5475439" startTime="2026-10-15T15:18:28.7931769+03:00" endTime="2026-10-15T15:18:31.3406993+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8f134689-91af-47fe-a5b1-b56b5a049c5c">
+      <Output>
+        <StdOut>final_pose=94,270577238,3,74746977,0,60635972 lateral=3,9654706526372676</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8352bb20-6aee-41f2-bbce-0fa03a9525fb" testId="4c316f30-c4a8-5d42-fcbc-90fad0bf8abb" testName="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(1000,80)" computerName="DESKTOP-G3075GA" duration="00:00:02.5089300" startTime="2026-10-15T15:18:18.6436822+03:00" endTime="2026-10-15T15:18:21.1525911+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8352bb20-6aee-41f2-bbce-0fa03a9525fb">
+      <Output>
+        <StdOut>final_pose=92,453195128,5,771489774,6,058300141 lateral=4,1965160194184</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="70b01085-9e6d-45f5-ac53-2e0e43b7acca" testId="290fe011-315a-2c64-5174-14aa82de2a9f" testName="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-500,160)" computerName="DESKTOP-G3075GA" duration="00:00:02.4952020" startTime="2026-10-15T15:18:21.1526225+03:00" endTime="2026-10-15T15:18:23.6478038+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="70b01085-9e6d-45f5-ac53-2e0e43b7acca">
+      <Output>
+        <StdOut>final_pose=153,415483855,-3,843815822,4,330383447 lateral=-4,84796781664218</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2c6c5cf3-8ea2-4733-b969-046bd6799c1a" testId="ecf7bdd3-5b17-37b2-0cce-672e3ce9207c" testName="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-500,700)" computerName="DESKTOP-G3075GA" duration="00:00:02.4794960" startTime="2026-10-15T15:18:33.8216640+03:00" endTime="2026-10-15T15:18:36.3011397+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2c6c5cf3-8ea2-4733-b969-046bd6799c1a">
+      <Output>
+        <StdOut>final_pose=87,780130879,37,347851935,1,644358327 lateral=0,7198691210000021</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="13573a1c-0e04-40e6-aa58-88fc181f2347" testId="0f1050c1-7e1b-9487-9a73-7184aaaa566d" testName="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(500,700)" computerName="DESKTOP-G3075GA" duration="00:00:02.5043180" startTime="2026-10-15T15:18:36.3011700+03:00" endTime="2026-10-15T15:18:38.8054675+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="13573a1c-0e04-40e6-aa58-88fc181f2347">
+      <Output>
+        <StdOut>final_pose=100,196648381,-3,849110222,3,713180863 lateral=5,153853648584448</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="49ee4e30-5d51-46b1-bc2c-99dc54249c4c" testId="52fa9e46-24ad-64db-3584-5e19d6cb3a9b" testName="SeededMassStartCompletesDeterministicallyAfterSavedCareerReload" computerName="DESKTOP-G3075GA" duration="00:00:34.9038830" startTime="2026-10-15T15:17:11.7584433+03:00" endTime="2026-10-15T15:17:46.6620151+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="49ee4e30-5d51-46b1-bc2c-99dc54249c4c">
+      <Output>
+        <StdOut>mass_start_seed_regression hash=393a67c37633b758c4560bb0349beb37d508a4538bf97d1026668e32cf767a84 ticks=19604 event_hash=5320497708773509095 shots=600</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a5db1eff-fa79-4501-b437-6a76961e653a" testId="d480cf32-a198-f509-9733-4caa5f1eaca8" testName="RoundedBendKeepsAnAdmittedSkinWithoutExhaustingTheTick(5,3)" computerName="DESKTOP-G3075GA" duration="00:00:02.4952280" startTime="2026-10-15T15:18:10.7787344+03:00" endTime="2026-10-15T15:18:13.2739415+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a5db1eff-fa79-4501-b437-6a76961e653a">
+      <Output>
+        <StdOut>response=0 before_v=4.158559829781606,-8.725558786812842 before_spin=0.579 source_gap=-0.03993231450999568 threatened_gap=-0.06883382840963925 normal=0,0 lever=0&#xD;
+maximum_reaction_energy_j=0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e4daed7a-c508-4c63-a56f-51e6b22b8fc8" testId="b71981b8-ab61-1aa0-784f-71b8c1b15243" testName="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(500,160)" computerName="DESKTOP-G3075GA" duration="00:00:02.6331060" startTime="2026-10-15T15:18:23.6478352+03:00" endTime="2026-10-15T15:18:26.2809196+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e4daed7a-c508-4c63-a56f-51e6b22b8fc8">
+      <Output>
+        <StdOut>final_pose=157,307953421,-13,141634221,4,827051709 lateral=4,44985058235782</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="79716ee9-c29a-410d-a3bf-6a14ed292c91" testId="4e58f334-2154-5cc3-8ef2-85898842cd14" testName="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-1000,80)" computerName="DESKTOP-G3075GA" duration="00:00:02.7139509" startTime="2026-10-15T15:18:15.9297261+03:00" endTime="2026-10-15T15:18:18.6436543+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="79716ee9-c29a-410d-a3bf-6a14ed292c91">
+      <Output>
+        <StdOut>final_pose=136,260065907,-4,878659912,3,455376079 lateral=-3,8131237266421802</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="002cb2fd-6804-44a2-bc9a-a492de20cdfa" testId="3b67ebf5-775f-1732-2b83-366d12264a1a" testName="PaidSnowSupportAtAuthoredBendsDoesNotExhaustItsResponses" computerName="DESKTOP-G3075GA" duration="00:00:24.1146420" startTime="2026-10-15T15:17:46.6642192+03:00" endTime="2026-10-15T15:18:10.7786653+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="002cb2fd-6804-44a2-bc9a-a492de20cdfa">
+      <Output>
+        <StdOut>course_edge_reaction_sha256=fee767c3ef0a3e889b2338b18e6281951449b28a194016a66d2c323798107196 responses=398</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="92fc5204-4942-4884-8e3c-fd91cac4b954" testId="728ff392-5068-1a43-e9a2-69205f384dd3" testName="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(1000,700)" computerName="DESKTOP-G3075GA" duration="00:00:02.4809260" startTime="2026-10-15T15:18:31.3407281+03:00" endTime="2026-10-15T15:18:33.8216331+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="92fc5204-4942-4884-8e3c-fd91cac4b954">
+      <Output>
+        <StdOut>final_pose=98,580757708,-2,147471761,4,697064893 lateral=4,892085002006395</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(500,160)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="b71981b8-ab61-1aa0-784f-71b8c1b15243">
+      <Execution id="e4daed7a-c508-4c63-a56f-51e6b22b8fc8" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerCourseClockRejectionTests" name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(500,160)" />
+    </UnitTest>
+    <UnitTest name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-1000,700)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="d91327fb-cc41-757c-16ff-2b7bda009bc3">
+      <Execution id="8f134689-91af-47fe-a5b1-b56b5a049c5c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerCourseClockRejectionTests" name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-1000,700)" />
+    </UnitTest>
+    <UnitTest name="RoundedBendKeepsAnAdmittedSkinWithoutExhaustingTheTick(5,3)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="d480cf32-a198-f509-9733-4caa5f1eaca8">
+      <Execution id="a5db1eff-fa79-4501-b437-6a76961e653a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerCourseClockRejectionTests" name="RoundedBendKeepsAnAdmittedSkinWithoutExhaustingTheTick(5,3)" />
+    </UnitTest>
+    <UnitTest name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(0,0)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="596b796b-07af-6ab3-46b8-c617c656224e">
+      <Execution id="0479fabf-ae39-476f-8393-1f5d6c5741dd" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerCourseClockRejectionTests" name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(0,0)" />
+    </UnitTest>
+    <UnitTest name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(1000,80)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="4c316f30-c4a8-5d42-fcbc-90fad0bf8abb">
+      <Execution id="8352bb20-6aee-41f2-bbce-0fa03a9525fb" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerCourseClockRejectionTests" name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(1000,80)" />
+    </UnitTest>
+    <UnitTest name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-500,700)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="ecf7bdd3-5b17-37b2-0cce-672e3ce9207c">
+      <Execution id="2c6c5cf3-8ea2-4733-b969-046bd6799c1a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerCourseClockRejectionTests" name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-500,700)" />
+    </UnitTest>
+    <UnitTest name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(1000,700)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="728ff392-5068-1a43-e9a2-69205f384dd3">
+      <Execution id="92fc5204-4942-4884-8e3c-fd91cac4b954" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerCourseClockRejectionTests" name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(1000,700)" />
+    </UnitTest>
+    <UnitTest name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-500,160)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="290fe011-315a-2c64-5174-14aa82de2a9f">
+      <Execution id="70b01085-9e6d-45f5-ac53-2e0e43b7acca" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerCourseClockRejectionTests" name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-500,160)" />
+    </UnitTest>
+    <UnitTest name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-1000,80)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="4e58f334-2154-5cc3-8ef2-85898842cd14">
+      <Execution id="79716ee9-c29a-410d-a3bf-6a14ed292c91" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerCourseClockRejectionTests" name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-1000,80)" />
+    </UnitTest>
+    <UnitTest name="SeededMassStartCompletesDeterministicallyAfterSavedCareerReload" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="52fa9e46-24ad-64db-3584-5e19d6cb3a9b">
+      <Execution id="49ee4e30-5d51-46b1-bc2c-99dc54249c4c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerMassStartSeedingTests" name="SeededMassStartCompletesDeterministicallyAfterSavedCareerReload" />
+    </UnitTest>
+    <UnitTest name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(500,700)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="0f1050c1-7e1b-9487-9a73-7184aaaa566d">
+      <Execution id="13573a1c-0e04-40e6-aa58-88fc181f2347" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerCourseClockRejectionTests" name="SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(500,700)" />
+    </UnitTest>
+    <UnitTest name="PaidSnowSupportAtAuthoredBendsDoesNotExhaustItsResponses" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="3b67ebf5-775f-1732-2b83-366d12264a1a">
+      <Execution id="002cb2fd-6804-44a2-bc9a-a492de20cdfa" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerCourseClockRejectionTests" name="PaidSnowSupportAtAuthoredBendsDoesNotExhaustItsResponses" />
+    </UnitTest>
+    <UnitTest name="RoundedBendKeepsAnAdmittedSkinWithoutExhaustingTheTick(0,0)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="c3f6f880-d466-7038-f163-0171bc8ba9cb">
+      <Execution id="4b863996-3841-419c-bc40-584e40a7d87f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerCourseClockRejectionTests" name="RoundedBendKeepsAnAdmittedSkinWithoutExhaustingTheTick(0,0)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="596b796b-07af-6ab3-46b8-c617c656224e" executionId="0479fabf-ae39-476f-8393-1f5d6c5741dd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c3f6f880-d466-7038-f163-0171bc8ba9cb" executionId="4b863996-3841-419c-bc40-584e40a7d87f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d91327fb-cc41-757c-16ff-2b7bda009bc3" executionId="8f134689-91af-47fe-a5b1-b56b5a049c5c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4c316f30-c4a8-5d42-fcbc-90fad0bf8abb" executionId="8352bb20-6aee-41f2-bbce-0fa03a9525fb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="290fe011-315a-2c64-5174-14aa82de2a9f" executionId="70b01085-9e6d-45f5-ac53-2e0e43b7acca" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ecf7bdd3-5b17-37b2-0cce-672e3ce9207c" executionId="2c6c5cf3-8ea2-4733-b969-046bd6799c1a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0f1050c1-7e1b-9487-9a73-7184aaaa566d" executionId="13573a1c-0e04-40e6-aa58-88fc181f2347" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="52fa9e46-24ad-64db-3584-5e19d6cb3a9b" executionId="49ee4e30-5d51-46b1-bc2c-99dc54249c4c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d480cf32-a198-f509-9733-4caa5f1eaca8" executionId="a5db1eff-fa79-4501-b437-6a76961e653a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b71981b8-ab61-1aa0-784f-71b8c1b15243" executionId="e4daed7a-c508-4c63-a56f-51e6b22b8fc8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4e58f334-2154-5cc3-8ef2-85898842cd14" executionId="79716ee9-c29a-410d-a3bf-6a14ed292c91" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3b67ebf5-775f-1732-2b83-366d12264a1a" executionId="002cb2fd-6804-44a2-bc9a-a492de20cdfa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="728ff392-5068-1a43-e9a2-69205f384dd3" executionId="92fc5204-4942-4884-8e3c-fd91cac4b954" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="13" executed="13" passed="13" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 13 of 13 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+mass_start_seed_regression hash=393a67c37633b758c4560bb0349beb37d508a4538bf97d1026668e32cf767a84 ticks=19604 event_hash=5320497708773509095 shots=600&#xD;
+&#xD;
+course_edge_reaction_sha256=fee767c3ef0a3e889b2338b18e6281951449b28a194016a66d2c323798107196 responses=398&#xD;
+&#xD;
+response=0 before_v=4.158559829781606,-8.725558786812842 before_spin=0.579 source_gap=-0.03993231450999568 threatened_gap=-0.06883382840963925 normal=0,0 lever=0&#xD;
+maximum_reaction_energy_j=0&#xD;
+&#xD;
+response=0 before_v=4.158559829781606,-8.725558786812842 before_spin=0.579 source_gap=-0.03993231450999568 threatened_gap=-0.06883382840963925 normal=0,0 lever=0&#xD;
+maximum_reaction_energy_j=0&#xD;
+&#xD;
+final_pose=136,260065907,-4,878659912,3,455376079 lateral=-3,8131237266421802&#xD;
+&#xD;
+final_pose=92,453195128,5,771489774,6,058300141 lateral=4,1965160194184&#xD;
+&#xD;
+final_pose=153,415483855,-3,843815822,4,330383447 lateral=-4,84796781664218&#xD;
+&#xD;
+final_pose=157,307953421,-13,141634221,4,827051709 lateral=4,44985058235782&#xD;
+&#xD;
+final_pose=101,176019173,-4,653638335,3,141592654 lateral=5,16850028401618&#xD;
+&#xD;
+final_pose=94,270577238,3,74746977,0,60635972 lateral=3,9654706526372676&#xD;
+&#xD;
+final_pose=98,580757708,-2,147471761,4,697064893 lateral=4,892085002006395&#xD;
+&#xD;
+final_pose=87,780130879,37,347851935,1,644358327 lateral=0,7198691210000021&#xD;
+&#xD;
+final_pose=100,196648381,-3,849110222,3,713180863 lateral=5,153853648584448&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-15 14:01:53Z" end-time="2026-10-15 14:02:16Z" duration="22,5176511">
+  <test-suite type="TestSuite" id="3552" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="2031" result="Passed" start-time="2026-10-15 14:01:53Z" end-time="2026-10-15 14:02:16Z" duration="22.517651" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="3485" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="1997" result="Passed" start-time="2026-10-15 14:01:54Z" end-time="2026-10-15 14:02:16Z" duration="22.396391" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="29748" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="3486" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="1997" result="Passed" start-time="2026-10-15 14:01:54Z" end-time="2026-10-15 14:02:16Z" duration="22.291145" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="3487" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="1997" result="Passed" start-time="2026-10-15 14:01:54Z" end-time="2026-10-15 14:02:16Z" duration="22.170925" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1729" name="ManualReplayPolicyCompatibilityTests" fullname="Biathlon.Tests.ManualReplayPolicyCompatibilityTests" classname="Biathlon.Tests.ManualReplayPolicyCompatibilityTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-15 14:01:54Z" end-time="2026-10-15 14:02:16Z" duration="22.092947" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1730" name="OriginalV25GitBlobJournalOpensAndReplaysWithoutChangingItsHeaderOrCommands" fullname="Biathlon.Tests.ManualReplayPolicyCompatibilityTests.OriginalV25GitBlobJournalOpensAndReplaysWithoutChangingItsHeaderOrCommands" methodname="OriginalV25GitBlobJournalOpensAndReplaysWithoutChangingItsHeaderOrCommands" classname="Biathlon.Tests.ManualReplayPolicyCompatibilityTests" runstate="Runnable" seed="801743670" result="Passed" start-time="2026-10-15 14:01:54Z" end-time="2026-10-15 14:02:16Z" duration="21.978414" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

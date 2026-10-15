@@ -70,7 +70,8 @@ namespace Biathlon.Simulation
         public static ManualScopedWorldRoster CreateInitialWorld(PackSprintFieldSession field,
             TrackDefinition track,TrackVisualDefinition visual,OccupancyDefinition body,
             SkiContactDefinition contact,SkiContactSweepDefinition work,SkiContactGroupDefinition group,
-            SkiPhysicsDefinition physics,ManualFinishRunoutDefinition finishRunout=null,ManualNumericalToleranceDefinition numericalTolerance=null,ManualMatCaptureDefinition matCapture=null,ManualCourseContactDefinition courseContact=null)
+            SkiPhysicsDefinition physics,ManualFinishRunoutDefinition finishRunout=null,ManualNumericalToleranceDefinition numericalTolerance=null,ManualMatCaptureDefinition matCapture=null,ManualCourseContactDefinition courseContact=null,
+            ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.PassiveCurvedV26)
         {
             if(field==null||track==null||visual==null||body==null||contact==null||work==null||group==null||physics==null||
                 field.Tick.Value!=0)
@@ -107,7 +108,7 @@ namespace Biathlon.Simulation
                 else foreach(var catalog in catalogs)catalog.BindPortalTolerance(numericalTolerance.PortalPositionTolerance,numericalTolerance.UseRoundSnowCorridor,numericalTolerance.ConnectedSnowWindowMultiplier,numericalTolerance.OrdinaryPortalRetreat,numericalTolerance.OrdinaryHandoffWindow);
             }
             var result=new ManualScopedWorldRoster(catalogs,body,contact,work,cursors,poses,velocities,motions,
-                field.TickFrequency,field.Tick,group,masses,numericalTolerance,matCapture,courseContact);
+                field.TickFrequency,field.Tick,group,masses,numericalTolerance,matCapture,courseContact,courseReactionPolicy);
             result.BindInitialField(field);if(family!=null)result.BindPathFamily(field,family,work);return result;
         }
 

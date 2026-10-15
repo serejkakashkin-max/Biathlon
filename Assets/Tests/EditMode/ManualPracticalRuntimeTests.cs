@@ -87,10 +87,20 @@ namespace Biathlon.Tests
             var f=ManualProductionFieldTests.Initial("sprint",1);var c=f.stepper.World.GetCatalog(0);
             // Reproduce the long main-to-common-range entry reported by the
             // full Sprint40 field, rather than unrelated private mat curves.
-            for(int previous=0;previous<1;previous++)
+            int previous=-1;
+            for(int i=0;i<c.BaseFlowCount;i++)
             {
-                var row=c.Get(previous);if(row.End!=ManualRacePathEnd.Continue)continue;
+                int successor=c.GetBaseFlowSuccessor(i);
+                if(c.Get(i).Kind==ManualRacePathKind.BaseRoute&&c.Get(i).End==ManualRacePathEnd.Continue&&
+                    successor>=0&&c.Get(successor).Kind==ManualRacePathKind.RangeApproach)
+                {previous=i;break;}
+            }
+            Assert.That(previous,Is.GreaterThanOrEqualTo(0),"The regression must exercise the actual main-to-common-range seam, not the separate start spur.");
+            {
+                var row=c.Get(previous);
                 int next=c.GetBaseFlowSuccessor(previous);
+                Assert.That(row.Kind,Is.EqualTo(ManualRacePathKind.BaseRoute));
+                Assert.That(c.Get(next).Kind,Is.EqualTo(ManualRacePathKind.RangeApproach));
                 Assert.That(c.TrySamplePortal(next,0,out var entry),Is.True);
                 var pose=new ManualSkiHeadingState(entry.X+.185*entry.ForwardX,entry.Z+.185*entry.ForwardZ,Math.Atan2(entry.ForwardX,entry.ForwardZ));
                 Assert.That(c.TryProject(pose,next,0,0,out var atEntry),Is.True,row.Id);
@@ -251,8 +261,12 @@ namespace Biathlon.Tests
         [TestCase(false,.5,.4,false,0)][TestCase(true,.5,.4,true,0)][TestCase(true,2.3,0,false,0)][TestCase(true,.5,.4,true,.7)]
         public void MatFootPlacementIsExplicitBoundedAndRetainsTheReachedPoseAndPaidTravel(bool selected,double speed,double yaw,bool captured,double lateral)
         {
-            var f=new ManualRacePathCatalogTests.Fixture("sprint");var c=f.Catalog;int occurrence=c.GetFiringOccurrence(0);var row=c.Get(occurrence);
+            var f=new ManualRacePathCatalogTests.Fixture("sprint");var c=f.Catalog;
             if(lateral!=0)c=ManualProductionFieldTests.Initial("sprint",1).stepper.World.GetCatalog(0);
+            // Production includes the shared approach and separate start spur;
+            // resolve the actual selected catalog after replacing the fixture.
+            int occurrence=c.GetFiringOccurrence(0);var row=c.Get(occurrence);
+            Assert.That(row.End,Is.EqualTo(ManualRacePathEnd.FiringLine));
             Assert.That(c.TrySamplePortal(occurrence,row.LengthNanometers,out var end),Is.True);
             var velocity=new SkiPlanarVelocity(speed*end.ForwardX,speed*end.ForwardZ);
             var pose=new ManualSkiHeadingState(end.X-velocity.X*.05+end.ForwardZ*lateral,end.Z-velocity.Z*.05-end.ForwardX*lateral,Math.Atan2(end.ForwardX,end.ForwardZ)-yaw*.05,yaw);

@@ -274,7 +274,7 @@ namespace Biathlon.AI
             }
             if(!stepper.TryStep(inputs,steering,brakes))
                 throw new InvalidOperationException("Manual field step rejected: "+stepper.LastStep.Status+" / "+
-                    stepper.LastStep.WorldAttempt.Status+" / "+stepper.LastStep.WorldAttempt.Athlete+"; candidate clock not paid.");
+                    stepper.LastStep.WorldAttempt.Status+" / "+stepper.LastStep.WorldAttempt.Athlete+"; candidate clock not paid. "+FailureDetails());
             bool Blocked(int self,double lateral,double horizon)
                 =>FindBlocker(self,lateral,horizon,false,out _)>=0;
             double Ahead(int self,int other)
@@ -324,6 +324,15 @@ namespace Biathlon.AI
                 }
                 return closest;
             }
+        }
+        private string FailureDetails()
+        {
+            int index=-1;for(int i=0;i<stepper.World.Count;i++)
+                if(stepper.World.GetActor(i).Athlete.Equals(stepper.LastStep.WorldAttempt.Athlete)){index=i;break;}
+            if(index<0)return "actor_not_found";
+            var a=stepper.LastRejectedWorkingActor;var source=stepper.World.GetActor(index);var c=stepper.World.GetCursor(index);
+            var d=stepper.World.GetRibbonDiagnostics(index);
+            return FormattableString.Invariant($"tick={stepper.LastStep.Tick.Value};actor={index};occurrence={c.OccurrenceIndex};loop={source.Observation.LoopId};arc={c.ObservedArcNanometers};local={source.Observation.LocalMeters:R};seconds={stepper.LastStep.ProvisionalSeconds:R};pieces={stepper.LastStep.Intervals};course={stepper.LastStep.WorldAttempt.Course.Status};responses={stepper.World.CourseEdgeResponses};actor_responses={stepper.World.GetCourseEdgeResponses(index)};source_gap={d.LastStartClearance:R};minimum_gap={d.LastMinimumSampledClearance:R};source_pose={source.Pose.X:R},{source.Pose.Z:R},{source.Pose.HeadingRadians:R};working_pose={a.Pose.X:R},{a.Pose.Z:R},{a.Pose.HeadingRadians:R};velocity={a.Velocity.X:R},{a.Velocity.Z:R};spin={a.Pose.YawRateRadiansPerSecond:R};normal={stepper.World.LastCourseNormalX:R},{stepper.World.LastCourseNormalZ:R};lever={stepper.World.LastCourseAngularLever:R}");
         }
         private int FindPathChoice(ManualRacePathCatalog catalog)
         {

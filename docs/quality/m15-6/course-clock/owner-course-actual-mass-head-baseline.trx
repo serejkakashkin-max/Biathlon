@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="7c0ded12-c03a-4f3a-a523-7e0885a2bed8" name="snkashkin@DESKTOP-G3075GA 2026-10-15 15:12:19" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-15T15:12:19.1115265+03:00" queuing="2026-10-15T15:12:19.1115266+03:00" start="2026-10-15T15:11:32.2938998+03:00" finish="2026-10-15T15:12:19.1145491+03:00" />
+  <TestSettings name="default" id="3aab3a26-58be-498f-abfc-ef84d04e5438">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-15_15_12_19" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="cc92eb02-56e0-4e81-a568-de2a0b48a486" testId="52fa9e46-24ad-64db-3584-5e19d6cb3a9b" testName="SeededMassStartCompletesDeterministicallyAfterSavedCareerReload" computerName="DESKTOP-G3075GA" duration="00:00:46.0272560" startTime="2026-10-15T15:11:32.8665230+03:00" endTime="2026-10-15T15:12:18.8933690+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cc92eb02-56e0-4e81-a568-de2a0b48a486">
+      <Output>
+        <StdOut>mass_start_seed_regression hash=a264c7465cb01209d59cd825a4368e44f67fd0d02e84bd7a8eb96d7eeb35c89e ticks=28344 event_hash=16558113876112233285 shots=600</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="SeededMassStartCompletesDeterministicallyAfterSavedCareerReload" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="52fa9e46-24ad-64db-3584-5e19d6cb3a9b">
+      <Execution id="cc92eb02-56e0-4e81-a568-de2a0b48a486" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerMassStartSeedingTests" name="SeededMassStartCompletesDeterministicallyAfterSavedCareerReload" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="52fa9e46-24ad-64db-3584-5e19d6cb3a9b" executionId="cc92eb02-56e0-4e81-a568-de2a0b48a486" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+mass_start_seed_regression hash=a264c7465cb01209d59cd825a4368e44f67fd0d02e84bd7a8eb96d7eeb35c89e ticks=28344 event_hash=16558113876112233285 shots=600&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

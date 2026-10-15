@@ -1,0 +1,38 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "PassedTests": 5,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Scope": "Four passing cases from first run plus corrected runtime-native fixture case; same production source. Not one rerun of the whole fixture."
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.HistoricalArrestedSpinReactionRetainsTheOriginalGitBlobForceResults",
+        "Status": "Passed",
+        "Duration": "00:00:21.9320000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.LegacyMetadataRemainsByteIdenticalAndNewPolicyIsExplicitValidatedAndPrepared",
+        "Status": "Passed",
+        "Duration": "00:00:37.6130000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.NewV26JournalReplaysExactlyAndCannotBeReadWithTheHistoricalForceLaw",
+        "Status": "Passed",
+        "Duration": "00:01:20.4390000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.StrictJournalIdentityRejectsCrossPolicyAndTamperedHeadersBeforeAnyTick",
+        "Status": "Passed",
+        "Duration": "00:00:40.9330000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.OriginalV25GitBlobJournalOpensAndReplaysWithoutChangingItsHeaderOrCommands",
+        "Status": "Passed",
+        "Duration": "00:00:21.9780000"
+      }
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="2ffd2280-f624-473f-b4f0-109505b90352" name="snkashkin@DESKTOP-G3075GA 2026-10-15 13:52:47" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-15T13:52:47.2541452+03:00" queuing="2026-10-15T13:52:47.2541453+03:00" start="2026-10-15T13:52:37.4249902+03:00" finish="2026-10-15T13:52:47.2573208+03:00" />
+  <TestSettings name="default" id="d5dfd0d8-e573-44c3-939a-9cdbdf0ad37b">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-15_13_52_47" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="45115e58-6124-4329-a6f0-5f56ab48b801" testId="3b67ebf5-775f-1732-2b83-366d12264a1a" testName="PaidSnowSupportAtAuthoredBendsDoesNotExhaustItsResponses" computerName="DESKTOP-G3075GA" duration="00:00:09.2065819" startTime="2026-10-15T13:52:37.9165573+03:00" endTime="2026-10-15T13:52:47.1227128+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="45115e58-6124-4329-a6f0-5f56ab48b801">
+      <Output>
+        <ErrorInfo>
+          <Message>sample=118 local=85.706 side=5.562509765625 heading_offset=0.092 speed=9.614 spin=0.579 status=Course responses=32 start_clearance=-0.03993231450999568 minimum=-0.0540620928208142 source=215.131683788,-23.674832777,2.685201267</Message>
+          <StackTrace>   at Biathlon.Tests.OwnerCourseClockRejectionTests.PaidSnowSupportAtAuthoredBendsDoesNotExhaustItsResponses() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\OwnerCourseClockRejectionTests.cs:line 77&#xD;
+
+1)    at Biathlon.Tests.OwnerCourseClockRejectionTests.PaidSnowSupportAtAuthoredBendsDoesNotExhaustItsResponses() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\OwnerCourseClockRejectionTests.cs:line 77&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="PaidSnowSupportAtAuthoredBendsDoesNotExhaustItsResponses" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="3b67ebf5-775f-1732-2b83-366d12264a1a">
+      <Execution id="45115e58-6124-4329-a6f0-5f56ab48b801" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.OwnerCourseClockRejectionTests" name="PaidSnowSupportAtAuthoredBendsDoesNotExhaustItsResponses" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="3b67ebf5-775f-1732-2b83-366d12264a1a" executionId="45115e58-6124-4329-a6f0-5f56ab48b801" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
