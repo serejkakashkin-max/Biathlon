@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 namespace Biathlon.Career
 {
-    [DataContract] public sealed class CareerSave
+    [DataContract] public sealed partial class CareerSave
     {
         public const int CurrentVersion=3;
         private CareerSave() { }
@@ -95,6 +95,7 @@ namespace Biathlon.Career
                     throw new SerializationException("Athlete ordinal is inconsistent with the allocation counter.");
             }
             if(!player)throw new SerializationException("Player is absent from roster.");
+            ValidateWorldPool(ids);
             if(HistoryCount>100)throw new SerializationException("History budget exceeded.");int previousSeason=0;for(int i=0;i<HistoryCount;i++){var h=pastSeasons[i];if(h==null)throw new SerializationException("Null history.");h.Validate();if(h.Season<=previousSeason||h.Season>=Season||h.Id!=Id+"_season_"+h.Season.ToString(System.Globalization.CultureInfo.InvariantCulture)+"_history")throw new SerializationException("Invalid history identity/order.");previousSeason=h.Season;}
             var events=new HashSet<string>(StringComparer.Ordinal);var records=new HashSet<string>(StringComparer.Ordinal);
             if(RaceCount>366)throw new SerializationException("Too many season results.");

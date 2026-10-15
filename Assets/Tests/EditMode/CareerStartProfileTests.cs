@@ -46,7 +46,8 @@ namespace Biathlon.Tests
                 var d=CareerDefinitions.ForSave(Read,save);save=CareerSeasonEngine.AdvanceWeek(save,d,Array.Empty<CareerTrainingKind>(),new OrderedBoundary(),s=>new SeededRandomSource(s));
             }
             Assert.That(save.CalendarId,Is.EqualTo("woodland_development_calendar_v1"));Assert.That(save.Athlete(0).Id,Is.EqualTo(playerId));Assert.That(save.Athlete(0).Age,Is.EqualTo(21));Assert.That(save.Athlete(0).Stat(CareerStat.Endurance),Is.GreaterThanOrEqualTo(before));Assert.That(save.HistoryCount,Is.EqualTo(1));
-            Assert.That(save.Athlete(1).TrainingSessions,Is.Zero,"New circuit has a new permanent opponent cohort.");Assert.That(save.NextAthleteOrdinal,Is.EqualTo(59));
+            Assert.That(save.Athlete(1).TrainingSessions,Is.GreaterThan(0),"Next circuit retains already developing athletes from the persistent world.");
+            Assert.That(save.PoolCount,Is.GreaterThanOrEqualTo(60));Assert.That(save.NextAthleteOrdinal,Is.GreaterThanOrEqualTo(98));
             var restored=CareerSave.FromJson(save.ToJson());Assert.That(CareerDefinitions.ForSave(Read,restored).Calendar.Circuit,Is.EqualTo(CareerCircuit.Development));
             var junior=CareerDefinitions.ForNewProductionCareer(Read,"junior_novice").Calendar;
             Assert.That(junior.Get(0).Eligible(save.Athlete(0)),Is.False);

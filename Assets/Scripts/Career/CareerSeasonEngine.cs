@@ -25,6 +25,7 @@ namespace Biathlon.Career
         public CareerProgressionDefinition Progression { get; }
         public CareerGrowthDefinition Growth {get;}
         public BiathlonRatingDefinition Ratings {get;}
+        public CareerWorldDefinition World {get;}
         public CareerDefinitions(Func<string,string> read) : this(read,LegacyCalendarResource) { }
         /// <summary>New production careers use the approved one-venue season.
         /// Existing saves are selected from their persisted calendar ID instead.</summary>
@@ -64,6 +65,7 @@ namespace Biathlon.Career
             Generation=CareerGenerationDefinition.FromJson(read("career_generation_v1.json"));Economy=CareerEconomyDefinition.FromJson(read("career_economy_v1.json"));Scoring=CareerScoringDefinition.FromJson(read(Calendar.Circuit==CareerCircuit.WorldCup?"career_scoring_ibu_2026_v1.json":"career_scoring_v1.json"));History=CareerHistoryDefinition.FromJson(read("career_history_v1.json"));Progression=CareerProgressionDefinition.FromJson(read("career_progression_v1.json"));
             ReadDefinition=read;
             Growth=CareerGrowthDefinition.FromJson(read("career_growth_v1.json"));Ratings=BiathlonRatingDefinition.FromJson(read("career_ratings_v1.json"));
+            World=CareerWorldDefinition.FromJson(read("career_world_v1.json"));
         }
         internal Func<string,string> ReadDefinition {get;}
     }
@@ -100,6 +102,7 @@ namespace Biathlon.Career
             if(source==null||d==null||playerPlan==null||restoreRandom==null)throw new ArgumentNullException();
             string sourceJson=source.ToJson();
             var random=restoreRandom(source.RandomState);var save=CareerFactory.Restore(source.ToJson(),d.Roster,d.Calendar,random);
+            save=CareerWorld.Initialize(save,d,restoreRandom);
             int? ownBaseline=save.Creation?.Mode==CareerCreationMode.CreateOwn?
                 CareerCreationDefinition.FromJson(d.ReadDefinition("career_creation_v1.json")).Tier(save.StartProfileId).BaselineStat:(int?)null;
             CareerDevelopment.InitializeWorld(save,d.Growth,d.Ratings,restoreRandom,ownBaseline);
@@ -116,6 +119,7 @@ namespace Biathlon.Career
                 used[i]=plans[i].UsedSlots;
             }
             var e=d.Calendar.AtWeek(save.Week);
+            CareerWorld.TrainBackgroundWeek(save,d);
             bool requiresRace=false;
             if(e!=null)for(int i=0;i<save.AthleteCount;i++)requiresRace|=e.Eligible(save.Athlete(i));
             ulong seed=requiresRace?random.NextUInt64():0;
@@ -153,9 +157,13 @@ namespace Biathlon.Career
             {
                 CareerDevelopment.SealSeason(save,d.Growth,d.Ratings);
                 save=CareerProgression.ApplySeason(save,d.Calendar,d.Scoring,d.Progression);save=CareerHistory.SealSeason(save,d.Calendar,d.Scoring,d.History);
-                for(int i=0;i<save.AthleteCount;i++)CareerAgeing.AdvanceYear(save.Athlete(i),d.Adaptation,d.Growth);
-                save=CareerGeneration.ReplaceRetirees(save,d.Roster,d.Generation,restoreRandom).Save;
-                if(save.StartProfileId!=null)save=CareerCircuitTransition.Advance(save,d,restoreRandom);
+                for(int i=0;i<save.WorldAthleteCount;i++)CareerAgeing.AdvanceYear(save.WorldAthlete(i),d.Adaptation,d.Growth);
+                if(save.WorldPolicyId!=null)save=CareerWorld.AdvanceSeason(save,d,restoreRandom);
+                else
+                {
+                    save=CareerGeneration.ReplaceRetirees(save,d.Roster,d.Generation,restoreRandom).Save;
+                    if(save.StartProfileId!=null)save=CareerCircuitTransition.Advance(save,d,restoreRandom);
+                }
             }
             else save.Week++;
             save.Validate();return save;

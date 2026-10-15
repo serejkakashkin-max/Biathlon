@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "career_world_v1",
+  "minimum_population": 90,
+  "maximum_population": 180,
+  "retired_history_limit": 300,
+  "annual_prospects": 8,
+  "junior_maximum_age": 20,
+  "world_cup_admission_ovr": 78,
+  "world_cup_retention_ovr": 73,
+  "incumbent_selection_bonus": 2,
+  "aggregate_race_minutes": 35,
+  "substream_salt": 6289648678215428097,
+  "substream_stride": 15111065706836454659,
+  "circuits": [
+    {"circuit":1,"start_profile_id":"junior_novice","calendar_resource":"woodland_junior_calendar_v1.json"},
+    {"circuit":2,"start_profile_id":"senior_debut","calendar_resource":"woodland_development_calendar_v1.json"},
+    {"circuit":3,"start_profile_id":"world_cup_debut","calendar_resource":"woodland_world_cup_calendar_v1.json"}
+  ]
+}

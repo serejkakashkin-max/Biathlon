@@ -97,6 +97,7 @@ namespace Biathlon.Career
         }
         private void ValidateDevelopment()
         {
+            if(BackgroundWeeks<0)throw new SerializationException("Negative background weeks.");
             Growth?.Validate();if(DevelopmentCount>100)throw new SerializationException("Development history budget exceeded.");
             if((Growth==null)!=(DevelopmentCount==0))throw new SerializationException("Growth and baseline must be initialized together.");
             int season=0,week=0;CareerDevelopmentObservation kind=CareerDevelopmentObservation.Baseline;
@@ -118,10 +119,10 @@ namespace Biathlon.Career
         {
             if(save==null||d==null||ratings==null||restoreRandom==null)throw new ArgumentNullException();save.Validate();
             if(ownBaseline.HasValue)CareerUnits.Range(ownBaseline.Value,0,100000,"immutable creation baseline");
-            var profiles=new CareerGrowthProfile[save.AthleteCount];var observations=new CareerDevelopmentRecord[save.AthleteCount];int initialized=0;
-            for(int i=0;i<save.AthleteCount;i++)
+            var profiles=new CareerGrowthProfile[save.WorldAthleteCount];var observations=new CareerDevelopmentRecord[save.WorldAthleteCount];int initialized=0;
+            for(int i=0;i<save.WorldAthleteCount;i++)
             {
-                var a=save.Athlete(i);if(a.Growth!=null){d.RequireProfile(a);continue;}
+                var a=save.WorldAthlete(i);if(a.Growth!=null){d.RequireProfile(a);continue;}
                 int baseline=0;for(int stat=0;stat<13;stat++)baseline+=a.Stat((CareerStat)stat);baseline/=13;
                 if(a.Id==save.PlayerId&&ownBaseline.HasValue)baseline=ownBaseline.Value;
                 string prefix=save.Id+"_athlete_";long ordinal=long.Parse(a.Id.Substring(prefix.Length),CultureInfo.InvariantCulture);
@@ -131,19 +132,19 @@ namespace Biathlon.Career
                 observations[i]=CareerDevelopmentRecord.Capture(a,save.Season,save.Week,CareerDevelopmentObservation.Baseline,ratings);initialized++;
             }
             for(int i=0;i<profiles.Length;i++)if(profiles[i]!=null)
-            {save.Athlete(i).Growth=profiles[i];save.Athlete(i).AppendDevelopment(observations[i],d.HistoryLimit,ratings);}
+            {save.WorldAthlete(i).Growth=profiles[i];save.WorldAthlete(i).AppendDevelopment(observations[i],d.HistoryLimit,ratings);}
             save.Validate();return initialized;
         }
         public static void SealSeason(CareerSave save,CareerGrowthDefinition d,BiathlonRatingDefinition ratings)
         {
             if(save==null||d==null||ratings==null)throw new ArgumentNullException();save.Validate();
-            for(int i=0;i<save.AthleteCount;i++)
+            for(int i=0;i<save.WorldAthleteCount;i++)
             {
-                var a=save.Athlete(i);d.RequireProfile(a);
+                var a=save.WorldAthlete(i);d.RequireProfile(a);
                 if(a.Development(a.DevelopmentCount-1).Kind==CareerDevelopmentObservation.SeasonEnd&&a.Development(a.DevelopmentCount-1).Season==save.Season)throw new InvalidOperationException("Season development already observed.");
             }
-            for(int i=0;i<save.AthleteCount;i++)
-            {var a=save.Athlete(i);a.AppendDevelopment(CareerDevelopmentRecord.Capture(a,save.Season,save.Week,CareerDevelopmentObservation.SeasonEnd,ratings),d.HistoryLimit,ratings);}
+            for(int i=0;i<save.WorldAthleteCount;i++)
+            {var a=save.WorldAthlete(i);a.AppendDevelopment(CareerDevelopmentRecord.Capture(a,save.Season,save.Week,CareerDevelopmentObservation.SeasonEnd,ratings),d.HistoryLimit,ratings);}
         }
     }
 }
