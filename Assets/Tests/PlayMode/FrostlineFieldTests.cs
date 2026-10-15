@@ -40,7 +40,7 @@ namespace Biathlon.PlayModeTests
         [UnityTest] public IEnumerator EditableValuesRenderAsLightGlyphsOnDarkFieldsInBothLocales()
         {
             var root=new GameObject("Frostline field contrast regression");var menu=root.AddComponent<FrontEndMenu>();
-            menu.AutoStart=false;menu.PersistPreferences=false;menu.Initialize(new Store());menu.Session.OpenNewCareer();
+            menu.AutoStart=false;menu.PersistPreferences=false;menu.Initialize(new Store());menu.Session.OpenNewCareer();menu.ChooseCreationMode(Biathlon.Career.CareerCreationMode.CreateOwn);
             RenderTexture target=null;Texture2D pixels=null;var previous=RenderTexture.active;
             try
             {

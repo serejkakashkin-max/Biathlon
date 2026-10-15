@@ -75,7 +75,7 @@ namespace Biathlon.PlayModeTests
         }
         [UnityTest] public IEnumerator NewCareerProfileAndAgeControlsCreateAndRestoreTheChosenLeague()
         {
-            yield return null;Submit("new_career");yield return null;
+            yield return null;Submit("new_career");yield return null;Submit("creator_mode_own");yield return null;
             var profile=menu.Root.Q<DropdownField>("career_start_profile");var age=menu.Root.Q<SliderInt>("career_start_age");
             Assert.That(profile.index,Is.Zero);Assert.That(age.value,Is.EqualTo(18));Assert.That(age.lowValue,Is.EqualTo(18));Assert.That(age.highValue,Is.EqualTo(20));
             yield return Capture("new-career-ru","ru",0,1440,900,true);

@@ -87,7 +87,9 @@ namespace Biathlon.Unity.Presentation
             if(Replays.Loading)return;
             if(Replays.Active){Replays.Close();return;}
             if(Session.Screen==FrontEndScreen.Race){if(Race.Paused&&!Race.AwaitingSave)Race.Resume();return;}
-            if(Session.Screen==FrontEndScreen.NewCareer&&creatorStep>0){creatorStep=0;LastMessage=null;Render();return;}
+            if(Session.Screen==FrontEndScreen.NewCareer&&creatorMode==CareerCreationMode.ExistingAthlete&&catalogReview){catalogReview=false;LastMessage=null;Render();return;}
+            if(Session.Screen==FrontEndScreen.NewCareer&&creatorMode==CareerCreationMode.CreateOwn&&creatorStep>0){creatorStep=0;LastMessage=null;Render();return;}
+            if(Session.Screen==FrontEndScreen.NewCareer&&creatorMode.HasValue){creatorMode=null;catalogReview=false;LastMessage=null;Render();return;}
             if(Session.Screen==FrontEndScreen.Results)Session.ReturnFromResults();else Session.Back();
             LastMessage=null;Render();
         }
@@ -175,7 +177,7 @@ namespace Biathlon.Unity.Presentation
             }
             else if(Session.Screen==FrontEndScreen.NewCareer)
             {
-                RenderAthleteCreator(body,left,actions,card);
+                RenderCareerCreation(body,left,actions,card);
             }
             else if(Session.Screen==FrontEndScreen.Career)
             {

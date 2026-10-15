@@ -32,6 +32,7 @@ namespace Biathlon.PlayModeTests
         [UnityTest,Timeout(240000)] public IEnumerator OwnAthleteCanBeEditedReviewedSavedRestoredAndRenderedInARealRace()
         {
             yield return null;Submit("new_career");yield return null;
+            yield return Capture("creator-mode-ru",1600,900,"ru",0,false);Submit("creator_mode_own");yield return null;
             menu.Root.Q<TextField>("athlete_name").value="Алекс Северин";
             var tier=menu.Root.Q<DropdownField>("career_start_profile");tier.value=tier.choices[2];yield return null;
             Assert.That(menu.CreationDraft.Age,Is.EqualTo(25));Assert.That(menu.CreationDraft.StartProfileId,Is.EqualTo("world_cup_debut"));
@@ -69,16 +70,51 @@ namespace Biathlon.PlayModeTests
             finally{camera.targetTexture=null;target.Release();Object.Destroy(target);}
             menu.Race.Abandon();yield return null;
         }
-        private IEnumerator Capture(string name,int width,int height,string locale,int size)
+        [UnityTest,Timeout(240000)] public IEnumerator ExistingAthleteCatalogFiltersWithoutRerollsAndConfirmsTheOriginalIdentity()
+        {
+            yield return null;Submit("new_career");yield return null;
+            Assert.That(menu.Root.Q<Button>("creator_mode_own"),Is.Not.Null);Assert.That(menu.Root.Q<Button>("creator_mode_existing"),Is.Not.Null);
+            Submit("creator_mode_existing");yield return null;var catalog=menu.AthleteCatalog;Assert.That(catalog.Count,Is.EqualTo(90));
+            var league=menu.Root.Q<DropdownField>("catalog_circuit");league.value=league.choices[3];yield return null;
+            var selected=catalog.Get(menu.SelectedCatalogAthlete);var rig=menu.CreatorStudio.Rig;
+            Assert.That(selected.Circuit,Is.EqualTo(CareerCircuit.WorldCup));
+            yield return Capture("creator-catalog-ru",1600,900,"ru",0);
+            Submit("catalog_details");yield return null;yield return Capture("creator-catalog-en-large",1024,768,"en",2);
+            for(int stat=0;stat<7;stat++)Assert.That(menu.Root.Q("catalog_stat_"+stat),Is.Not.Null);
+            Submit("catalog_details_next");yield return null;for(int stat=7;stat<13;stat++)Assert.That(menu.Root.Q("catalog_stat_"+stat),Is.Not.Null);
+            yield return Capture("creator-catalog-abilities-2-en",1024,768,"en",2);
+            menu.Root.Q<TextField>("catalog_search").value=selected.Name;yield return null;
+            Submit("catalog_advanced");yield return null;
+            menu.Root.Q<IntegerField>("catalog_age_min").value=selected.Age;yield return null;menu.Root.Q<IntegerField>("catalog_age_max").value=selected.Age;yield return null;
+            menu.Root.Q<IntegerField>("catalog_rating_min").value=selected.Ratings.Overall;yield return null;menu.Root.Q<IntegerField>("catalog_rating_max").value=selected.Ratings.Overall;yield return null;
+            Assert.That(menu.SelectedCatalogAthlete,Is.EqualTo(selected.Id));Assert.That(menu.CreatorStudio.Rig,Is.SameAs(rig));
+            menu.Root.Q<TextField>("catalog_search").value="no matching athlete";yield return null;Assert.That(rig.gameObject.activeSelf,Is.False);Assert.That(menu.Root.Q<Button>("catalog_review").enabledSelf,Is.False);
+            menu.Root.Q<TextField>("catalog_search").value=selected.Name;yield return null;Assert.That(rig.gameObject.activeSelf,Is.True);Assert.That(menu.CreatorStudio.Rig,Is.SameAs(rig));
+            Submit("catalog_review");yield return null;Assert.That(store.HasProfile,Is.False);Assert.That(menu.Session.Career,Is.Null);
+            Assert.That(menu.Root.Q<SliderInt>("career_start_age"),Is.Null,"Authentic athlete abilities and age are not editable.");
+            yield return Capture("creator-catalog-confirm-ru",1600,900,"ru",0);
+            Submit("catalog_confirm");yield return null;Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.Career));
+            Assert.That(menu.Session.Player.Id,Is.EqualTo(selected.Id));Assert.That(menu.Session.Player.Name,Is.EqualTo(selected.Name));Assert.That(menu.Session.Player.Nation,Is.EqualTo(selected.Nation));Assert.That(menu.Session.Player.Age,Is.EqualTo(selected.Age));
+            Assert.That(menu.Session.Career.Creation.Mode,Is.EqualTo(CareerCreationMode.ExistingAthlete));int copies=0;
+            for(int i=0;i<menu.Session.Career.AthleteCount;i++)if(menu.Session.Career.Athlete(i).Id==selected.Id)copies++;
+            Assert.That(copies,Is.EqualTo(1));Assert.That(menu.Session.Career.AthleteCount,Is.EqualTo(30));
+            for(int stat=0;stat<13;stat++)Assert.That(menu.Session.Player.Stat((CareerStat)stat),Is.EqualTo(selected.Stat((CareerStat)stat)));
+            Assert.That(menu.CreatorStudio,Is.Null);Assert.That(menu.Session.Player.Appearance.ToJson(),Is.EqualTo(selected.Appearance.ToJson()));
+        }
+        private IEnumerator Capture(string name,int width,int height,string locale,int size,bool modelRequired=true)
         {
             var settings=root.GetComponent<UIDocument>().panelSettings;var previous=settings.targetTexture;var target=new RenderTexture(width,height,24);target.Create();
             try
             {
                 settings.targetTexture=target;menu.ApplyPreferences(locale,size);for(int i=0;i<5;i++)yield return null;yield return new WaitForSecondsRealtime(.25f);
                 var bounds=menu.Root.worldBound;var model=menu.Root.Q<Image>("creator_model");var score=menu.Root.Q<Label>("creator_ovr");
-                Assert.That(model.image,Is.SameAs(menu.CreatorStudio.Texture));Assert.That(model.worldBound.width,Is.GreaterThan(bounds.width*.2f));
-                Assert.That(model.worldBound.height,Is.GreaterThan(bounds.height*.4f));Assert.That(score.worldBound.xMin,Is.GreaterThanOrEqualTo(model.worldBound.xMax));
-                Assert.That(score.worldBound.xMax,Is.LessThanOrEqualTo(bounds.xMax));Save(target,name);
+                if(modelRequired)
+                {
+                    Assert.That(model.image,Is.SameAs(menu.CreatorStudio.Texture));Assert.That(model.worldBound.width,Is.GreaterThan(bounds.width*.2f));
+                    Assert.That(model.worldBound.height,Is.GreaterThan(bounds.height*.4f));
+                    if(score!=null){Assert.That(score.worldBound.xMin,Is.GreaterThanOrEqualTo(model.worldBound.xMax));Assert.That(score.worldBound.xMax,Is.LessThanOrEqualTo(bounds.xMax));}
+                }
+                Save(target,name);
             }
             finally{settings.targetTexture=previous;target.Release();Object.Destroy(target);}
         }

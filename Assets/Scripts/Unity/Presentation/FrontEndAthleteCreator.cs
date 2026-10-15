@@ -73,9 +73,15 @@ namespace Biathlon.Unity.Presentation
             else AddButton(actions,"create",L("Проверить выбор","Review athlete"),ReviewCreatedAthlete,true);
             AddButton(actions,"back",T("back"),Back);
 
+            RenderCreatorStage(body,draft.Appearance,draft.Nation);
+            RenderCreationRatings(card);
+        }
+        private void RenderCreatorStage(VisualElement body,AppearanceProfile profile,string country)
+        {
             if(creatorStudio==null){creatorStudio=gameObject.AddComponent<AthleteCreatorStudio>();creatorStudio.Initialize();}
+            creatorStudio.Rig.gameObject.SetActive(true);creatorStudio.PreviewCamera.enabled=true;
             creatorStudio.ReducedMotion=ReducedMotion;
-            var appearance=creatorStudio.Rig.GetComponent<AthleteAppearancePresentation>();appearance.ApplyNation(draft.Nation);appearance.ApplyProfile(draft.Appearance);
+            var appearance=creatorStudio.Rig.GetComponent<AthleteAppearancePresentation>();appearance.ApplyNation(country);appearance.ApplyProfile(profile);
             var stage=new VisualElement{name="creator_stage"};stage.style.flexGrow=1;stage.style.flexBasis=0;stage.style.minWidth=0;stage.style.marginRight=16;stage.style.backgroundColor=new Color(.063f,.137f,.188f);
             body.Insert(1,stage);
             var header=AddLabel(stage,L("ТВОЙ БИАТЛОНИСТ","YOUR BIATHLETE"),theme.caption_size,true);header.style.paddingLeft=16;header.style.paddingTop=12;header.style.letterSpacing=1.8f;
@@ -92,8 +98,8 @@ namespace Biathlon.Unity.Presentation
             {AddButton(views,"creator_view_"+id,label,()=>creatorStudio.SetView(yaw,zoom));var b=views.Q<Button>("creator_view_"+id);b.style.flexGrow=1;b.style.minWidth=0;b.style.fontSize=13*Scale;b.style.height=30;b.style.paddingLeft=5;b.style.paddingRight=5;}
             var poses=new List<string>{L("Спокойная стойка","Idle"),L("Спортивная стойка","Sport stance"),L("Лыжный ход","Ski skating"),L("Винтовка на спине","Rifle carry")};
             var pose=CreatorChoice(stage,"creator_pose",poses,(int)creatorStudio.Pose,index=>creatorStudio.SetPose((AthletePreviewPose)index));pose.style.marginLeft=10;pose.style.marginRight=10;pose.style.height=32;
+            pose.style.height=36*Scale;pose.Query<TextElement>().ForEach(t=>t.style.fontSize=14*Scale);
             var hint=AddLabel(stage,L("Перетащи для поворота · колесо для приближения","Drag to rotate · scroll to zoom"),12);hint.style.unityTextAlign=TextAnchor.MiddleCenter;hint.style.color=FrostlineStyle.Muted;
-            RenderCreationRatings(card);
         }
         private DropdownField CreatorChoice(VisualElement parent,string id,List<string> labels,int index,Action<int> changed)
         {
@@ -183,7 +189,7 @@ namespace Biathlon.Unity.Presentation
         }
         private void ConfirmCreatedAthlete()
         {
-            try{Session.CreateCareer("career_"+Guid.NewGuid().ToString("N"),creationDraft);creationDraft=null;LastMessage=null;Render();}
+            try{Session.CreateCareer("career_"+Guid.NewGuid().ToString("N"),creationDraft);creationDraft=null;creatorMode=null;athleteCatalog=null;selectedCatalogAthlete=null;LastMessage=null;Render();}
             catch(Exception e)when(e is ArgumentException||e is System.Runtime.Serialization.SerializationException||e is System.IO.IOException||e is UnauthorizedAccessException)
             {ShowError(e is System.IO.IOException||e is UnauthorizedAccessException?"save_error":"name_error");}
         }

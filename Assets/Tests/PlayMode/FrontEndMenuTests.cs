@@ -122,7 +122,7 @@ namespace Biathlon.PlayModeTests
         }
         [UnityTest] public IEnumerator CareerLaunchUsesSavedAthleteAndPauseAbandonPreserveTheWeek()
         {
-            yield return null;Submit("new_career");yield return null;
+            yield return null;Submit("new_career");yield return null;Submit("creator_mode_own");yield return null;
             menu.Root.Q<TextField>("athlete_name").value="Алекс";Submit("create");yield return null;Submit("confirm_create");yield return null;
             for(int i=0;i<5;i++){Submit("rest_week");yield return null;}
             string before=menu.Session.Career.ToJson();Submit("prepare");yield return null;
@@ -176,7 +176,7 @@ namespace Biathlon.PlayModeTests
         {
             yield return null;yield return null;
             Assert.That(menu.Root.Q<Button>("continue").enabledSelf,Is.False);
-            Submit("new_career");yield return null;
+            Submit("new_career");yield return null;Submit("creator_mode_own");yield return null;
             menu.Root.Q<TextField>("athlete_name").value="Алекс";Submit("create");yield return null;Submit("confirm_create");yield return null;
             Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.Career));Assert.That(menu.Session.Player.Name,Is.EqualTo("Алекс"));
             string saved=menu.Session.Career.ToJson();Assert.That(menu.Session.Career.Week,Is.EqualTo(1));
@@ -221,7 +221,7 @@ namespace Biathlon.PlayModeTests
         }
         [UnityTest] public IEnumerator InvalidNameStaysEditableWithReadableErrorAndDoesNotCreateProfile()
         {
-            yield return null;Submit("new_career");yield return null;Submit("create");yield return null;
+            yield return null;Submit("new_career");yield return null;Submit("creator_mode_own");yield return null;Submit("create");yield return null;
             Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.NewCareer));Assert.That(menu.Session.CanContinue,Is.False);
             Assert.That(menu.LastMessage,Does.Contain("имя"));Assert.That(menu.Root.Q<TextField>("athlete_name"),Is.Not.Null);
             Assert.That(menu.Root.Q<Label>("message").text,Is.EqualTo(menu.LastMessage));

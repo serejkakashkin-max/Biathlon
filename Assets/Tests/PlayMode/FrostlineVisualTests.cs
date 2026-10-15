@@ -97,7 +97,8 @@ namespace Biathlon.PlayModeTests
             else
             {
             yield return Page("home", "new_career", matrix);
-            menu.Session.OpenNewCareer(); yield return Page("new-career", "create", matrix);
+            menu.Session.OpenNewCareer(); yield return Page("career-mode", "creator_mode_own", matrix);
+            menu.ChooseCreationMode(Biathlon.Career.CareerCreationMode.CreateOwn);yield return Page("new-career", "create", matrix);
             menu.Session.CreateCareer("frostline_visual_fixture", "Александр Северин", "NOR", 81000);
             yield return Page("dashboard", "career_training", matrix);
             menu.Session.OpenCareerPage(FrontEndScreen.Training); yield return Page("training", "back", matrix);
