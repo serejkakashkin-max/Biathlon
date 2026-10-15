@@ -20,7 +20,7 @@ namespace Biathlon.PlayModeTests
                 foreach(float distance in new[]{0,20,70})
                 {
                     rig.GetComponent<AthleteSkinDetailBinding>().Prepare(distance,false,true);appearance.ApplyIdentity("stable-athlete");
-                    Assert.That(skin.sharedMesh.blendShapeCount,Is.EqualTo(7+AthleteFaceCatalog.Load().profiles.Length));
+                    Assert.That(skin.sharedMesh.blendShapeCount,Is.EqualTo(12+AthleteFaceCatalog.Load().profiles.Length));
                     for(int i=0;i<4;i++)Assert.That(skin.GetBlendShapeWeight(i),Is.Zero,"Cosmetic assignment must not activate a joint correction.");
                     int index=skin.sharedMesh.GetBlendShapeIndex("OriginalBuild"+variant);Assert.That(skin.GetBlendShapeWeight(index),Is.EqualTo(100));
                 }

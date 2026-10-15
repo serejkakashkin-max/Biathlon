@@ -13,6 +13,14 @@ Shader "Biathlon/AthleteSurface"
   _RoughnessMap("Audited cloth roughness",2D)="white"{}
   _DetailTiling("Material repeats in UV",Float)=16
   _SkinVariation("Skin variation",Range(0,1))=.5
+  _EyeColor("Iris",Color)=(.41,.25,.16,1)
+  _HairColor("Hair",Color)=(.19,.125,.10,1)
+  _ScalpColor("Scalp",Color)=(.58,.34,.23,1)
+  _HeadwearMode("Cap 0 / band 1 / hair 2",Float)=0
+  _GloveColor("Glove cosmetic",Color)=(.025,.032,.040,1)
+  _BootColor("Boot cosmetic",Color)=(.075,.095,.115,1)
+  _LensColor("Coated lens",Color)=(.12,.42,.52,1)
+  _CosmeticOverride("Authored accessory palette",Float)=0
   [Enum(UnityEngine.Rendering.CullMode)] _Cull("Cull",Float)=2
  }
  SubShader
@@ -25,19 +33,24 @@ Shader "Biathlon/AthleteSurface"
   TEXTURE2D(_BumpMap);SAMPLER(sampler_BumpMap);
   TEXTURE2D(_RoughnessMap);SAMPLER(sampler_RoughnessMap);
   CBUFFER_START(UnityPerMaterial)
-  half4 _BaseColor,_KitColor,_TrimColor;float _KitWeight,_SurfaceKind,_Smoothness,_BumpScale,_SkinVariation,_DetailTiling;
+  half4 _BaseColor,_KitColor,_TrimColor,_EyeColor,_HairColor,_ScalpColor,_GloveColor,_BootColor,_LensColor;float _KitWeight,_SurfaceKind,_Smoothness,_BumpScale,_SkinVariation,_DetailTiling,_HeadwearMode,_CosmeticOverride;
   CBUFFER_END
-  struct A {float4 positionOS:POSITION;float3 normalOS:NORMAL;float4 tangentOS:TANGENT;float2 uv:TEXCOORD0;float3 rest:TEXCOORD1;UNITY_VERTEX_INPUT_INSTANCE_ID};
-  struct V {float4 positionCS:SV_POSITION;float3 positionWS:TEXCOORD0;half3 normalWS:TEXCOORD1;half4 tangentWS:TEXCOORD2;float2 uv:TEXCOORD3;float3 rest:TEXCOORD4;half fog:TEXCOORD5;UNITY_VERTEX_INPUT_INSTANCE_ID UNITY_VERTEX_OUTPUT_STEREO};
+  struct A {float4 positionOS:POSITION;float3 normalOS:NORMAL;float4 tangentOS:TANGENT;float2 uv:TEXCOORD0;float3 rest:TEXCOORD1;float2 cosmetic:TEXCOORD2;UNITY_VERTEX_INPUT_INSTANCE_ID};
+  struct V {float4 positionCS:SV_POSITION;float3 positionWS:TEXCOORD0;half3 normalWS:TEXCOORD1;half4 tangentWS:TEXCOORD2;float2 uv:TEXCOORD3;float3 rest:TEXCOORD4;half fog:TEXCOORD5;float2 cosmetic:TEXCOORD6;UNITY_VERTEX_INPUT_INSTANCE_ID UNITY_VERTEX_OUTPUT_STEREO};
   V Vert(A a)
   {
    V o=(V)0;UNITY_SETUP_INSTANCE_ID(a);UNITY_TRANSFER_INSTANCE_ID(a,o);UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
    o.positionWS=TransformObjectToWorld(a.positionOS.xyz);o.positionCS=TransformWorldToHClip(o.positionWS);o.normalWS=TransformObjectToWorldNormal(a.normalOS);
-   o.tangentWS=half4(TransformObjectToWorldDir(a.tangentOS.xyz),a.tangentOS.w*GetOddNegativeScale());o.uv=a.uv;o.rest=a.rest;o.fog=ComputeFogFactor(o.positionCS.z);return o;
+   o.tangentWS=half4(TransformObjectToWorldDir(a.tangentOS.xyz),a.tangentOS.w*GetOddNegativeScale());o.uv=a.uv;o.rest=a.rest;o.cosmetic=a.cosmetic;o.fog=ComputeFogFactor(o.positionCS.z);return o;
+  }
+  void ClipAccessory(V i)
+  {
+   if(i.cosmetic.x>5.5)clip((_HeadwearMode>.5&&_HeadwearMode<1.5&&i.rest.y<1.784)?1:-1);
   }
   half4 Frag(V i):SV_Target
   {
    UNITY_SETUP_INSTANCE_ID(i);UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
+   ClipAccessory(i);
    float3 p=i.rest;half3 base=lerp(_BaseColor.rgb,_KitColor.rgb,_KitWeight);
    half3 n=normalize(i.normalWS),t=normalize(i.tangentWS.xyz),b=cross(n,t)*i.tangentWS.w;
    half smoothness=_Smoothness,metal=0;
@@ -57,21 +70,41 @@ Shader "Biathlon/AthleteSurface"
     half3 detail=UnpackNormalScale(SAMPLE_TEXTURE2D(_BumpMap,sampler_BumpMap,i.uv*_DetailTiling),_BumpScale);
     n=normalize(t*detail.x+b*detail.y+n*detail.z);
     smoothness=_Smoothness*lerp(.65,1,saturate(1-SAMPLE_TEXTURE2D(_RoughnessMap,sampler_RoughnessMap,i.uv*_DetailTiling).r));
+    if(i.cosmetic.x>1.5&&i.cosmetic.x<2.5&&_HeadwearMode>.5)
+    {
+     float strand=.5+.5*sin(p.y*1050+sin(p.x*55)*3+p.x*640);
+     strand=lerp(strand,.5,saturate((fwidth(p.y)+fwidth(p.x))*450));
+     float fade=smoothstep(.01,.22,i.cosmetic.y+.025*sin(p.x*1700));
+     base=lerp(_ScalpColor.rgb*half3(.965,.91,.87),_HairColor.rgb*(.69+.35*strand),fade);smoothness=.24;
+     n=normalize(n+t*(strand-.5)*.11);
+    }
    }
    else if(_SurfaceKind<1.5)
    {
+    if(i.cosmetic.x>.5&&i.cosmetic.x<1.5)
+    {
+     float2 eye=(i.uv-.5)*2;float radius=length(eye);float angle=atan2(eye.y,eye.x);
+     float iris=(1-smoothstep(.41,.46,radius))*step(0,i.cosmetic.y);
+     float fibres=.5+.5*sin(angle*57+radius*23);float pupil=1-smoothstep(.15,.19,radius);
+     base=lerp(half3(.77,.79,.75),_EyeColor.rgb*(.63+.48*fibres),iris);base=lerp(base,half3(.008,.011,.013),pupil*iris);smoothness=.86;
+    }
+    else if(i.cosmetic.x>4.5&&i.cosmetic.x<5.5)
+    {base=_HairColor.rgb*.85;smoothness=.16;}
+    else
+    {
     base*=lerp(half3(.83,.77,.72),half3(1.10,1.05,1.02),_SkinVariation);
     float cheeks=exp(-pow((abs(p.x)-.056)/.031,2)-pow((p.y-1.673)/.029,2))*smoothstep(.045,.09,p.z);
     float lips=exp(-pow(p.x/.028,4)-pow((p.y-1.632)/.009,2))*smoothstep(.075,.105,p.z);
     base=lerp(base,base*half3(1.12,.76,.72),cheeks*.55);base=lerp(base,base*half3(.83,.51,.49),lips*.65);
     half3 detail=UnpackNormalScale(SAMPLE_TEXTURE2D(_BumpMap,sampler_BumpMap,i.uv*_DetailTiling),_BumpScale);
     n=normalize(t*detail.x+b*detail.y+n*detail.z);smoothness+=.09*cheeks;
+    }
    }
    else if(_SurfaceKind<2.5)
    {
     float facing=saturate(dot(n,GetWorldSpaceNormalizeViewDir(i.positionWS)));
     // Coated-lens angular tint; lighting still comes from the scene's PBR lighting.
-    base=lerp(half3(.18,.12,.32),half3(.12,.42,.52),facing);metal=.35;
+    base=lerp(lerp(half3(.18,.12,.32),half3(.12,.42,.52),facing),lerp(_LensColor.rgb*half3(.82,.54,1.05),_LensColor.rgb,facing),_CosmeticOverride);metal=.35;
     half3 reflected=SampleSH(reflect(-GetWorldSpaceNormalizeViewDir(i.positionWS),n));
     base=lerp(base,max(reflected,half3(.08,.1,.13)),.18+.38*pow(1-facing,3));
    }
@@ -81,6 +114,8 @@ Shader "Biathlon/AthleteSurface"
     float rib=(.5+.5*sin(p.y*720))*smoothstep(.08,.13,p.y)*(1-smoothstep(.25,.29,p.y));
     rib=lerp(rib,.5,saturate(fwidth(p.y)*720));
     base*=lerp(1,.91,rib);smoothness=_Smoothness;
+    if(i.cosmetic.x>2.5&&i.cosmetic.x<3.5)base=lerp(base,_GloveColor.rgb*lerp(1,.94,rib),_CosmeticOverride);
+    if(i.cosmetic.x>3.5&&i.cosmetic.x<4.5)base=lerp(base,_BootColor.rgb*lerp(1,.91,rib),_CosmeticOverride);
     if(_SurfaceKind>3.5){smoothness*=.8;metal=.06;}
    }
    SurfaceData s=(SurfaceData)0;s.albedo=base;s.metallic=metal;s.smoothness=smoothness;s.occlusion=1;s.alpha=1;s.normalTS=half3(0,0,1);
@@ -95,7 +130,7 @@ Shader "Biathlon/AthleteSurface"
    o.positionCS.z=max(o.positionCS.z,UNITY_NEAR_CLIP_VALUE*o.positionCS.w);
    #endif
    return o;}
-  half Depth(V i):SV_Target{return 0;}
+  half Depth(V i):SV_Target{ClipAccessory(i);return 0;}
   ENDHLSL
   Pass
   {

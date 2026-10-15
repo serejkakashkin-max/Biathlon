@@ -25,14 +25,14 @@ namespace Biathlon.Unity
         }
         public static void Apply(Mesh mesh,AthleteFaceCatalog recipe)
         {
-            var vertices=mesh.vertices;var keep=new List<Frame>();
+            var vertices=mesh.vertices;var keep=new List<Frame>();var extra=new List<Frame>();
             for(int shape=0;shape<mesh.blendShapeCount;shape++)
             {
                 string name=mesh.GetBlendShapeName(shape);if(name.StartsWith("FaceIdentity_",StringComparison.Ordinal))continue;
                 for(int frame=0;frame<mesh.GetBlendShapeFrameCount(shape);frame++)
                 {
                     var f=new Frame{name=name,weight=mesh.GetBlendShapeFrameWeight(shape,frame),delta=new Vector3[vertices.Length],normals=new Vector3[vertices.Length],tangents=new Vector3[vertices.Length]};
-                    mesh.GetBlendShapeFrameVertices(shape,frame,f.delta,f.normals,f.tangents);keep.Add(f);
+                    mesh.GetBlendShapeFrameVertices(shape,frame,f.delta,f.normals,f.tangents);if(name.StartsWith("Creator",StringComparison.Ordinal))extra.Add(f);else keep.Add(f);
                 }
             }
             var allowed=new bool[vertices.Length];foreach(int index in mesh.GetTriangles(3))allowed[index]=true;
@@ -68,6 +68,7 @@ namespace Biathlon.Unity
                 finally{Object.DestroyImmediate(temporary);}
                 mesh.AddBlendShapeFrame(profile.ShapeName,100,delta,normalDelta,null);
             }
+            foreach(var f in extra)mesh.AddBlendShapeFrame(f.name,f.weight,f.delta,f.normals,f.tangents);
         }
         private static float Bell(float value,float centre,float radius)=>Mathf.Exp(-Mathf.Pow((value-centre)/radius,2));
         // Continuous through the mirrored centre seam: Sign(x) opens/overlaps

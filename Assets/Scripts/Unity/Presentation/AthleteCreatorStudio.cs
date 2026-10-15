@@ -47,6 +47,7 @@ namespace Biathlon.Unity.Presentation
         private AthleteGripPresentation grip;
         private double started;
         private bool released;
+        private float framedScale=1;
         public void Initialize()
         {
             if(released)throw new ObjectDisposedException(nameof(AthleteCreatorStudio));
@@ -96,8 +97,9 @@ namespace Biathlon.Unity.Presentation
         private void UpdateView()
         {
             if(Rig==null)return;Rig.transform.localRotation=Quaternion.Euler(0,Yaw,0);
-            var focus=new Vector3(0,Mathf.Lerp(definition.full_focus_y,definition.face_focus_y,Zoom),0);
-            PreviewCamera.transform.localPosition=focus+Vector3.forward*Mathf.Lerp(definition.full_distance,definition.face_distance,Zoom);
+            framedScale=Rig.transform.localScale.x;
+            var focus=new Vector3(0,Mathf.Lerp(definition.full_focus_y,definition.face_focus_y,Zoom)*framedScale,0);
+            PreviewCamera.transform.localPosition=focus+Vector3.forward*Mathf.Lerp(definition.full_distance*framedScale,definition.face_distance,Zoom);
             PreviewCamera.transform.LookAt(stage.transform.TransformPoint(focus));
         }
         public void SamplePose(double seconds)
@@ -109,7 +111,7 @@ namespace Biathlon.Unity.Presentation
             motion.Sample(Rig,input,time);rifle.Sample(Rig,0);
             contact.SampleMoving(Rig,0,motion.PoleCycle,motion.ContactState,0,time);motion.ApplySkiEdges(Rig);grip.Render(Rig);
         }
-        private void LateUpdate(){if(Rig!=null)SamplePose(Math.Max(0,Time.unscaledTimeAsDouble-started));}
+        private void LateUpdate(){if(Rig!=null){if(framedScale!=Rig.transform.localScale.x)UpdateView();SamplePose(Math.Max(0,Time.unscaledTimeAsDouble-started));}}
         private void OnDestroy()=>Release();
         public void Release()
         {

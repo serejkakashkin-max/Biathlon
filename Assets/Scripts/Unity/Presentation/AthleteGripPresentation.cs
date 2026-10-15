@@ -39,7 +39,7 @@ namespace Biathlon.Unity.Presentation
                 var upper=rig.Bone(right?AthleteBone.RightUpperArm:AthleteBone.LeftUpperArm);
                 var lower=rig.Bone(right?AthleteBone.RightLowerArm:AthleteBone.LeftLowerArm);
                 var handRotation=rotation*Quaternion.Inverse(socket.localRotation);
-                var target=position-handRotation*socket.localPosition;
+                var target=position-handRotation*(socket.localPosition*rig.ModelRoot.lossyScale.x);
                 var bend=lower.position-(upper.position+hand.position)*.5f;
                 if(hybrid!=null&&hybrid.Active)hybrid.FitArm(rig,upper,lower,hand,target);
                 else AthleteLocomotionDriver.SolveTwoBone(upper,lower,hand,target,bend,rig.ModelRoot.rotation);
@@ -59,7 +59,7 @@ namespace Biathlon.Unity.Presentation
             var lower=rig.Bone(right?AthleteBone.RightLowerArm:AthleteBone.LeftLowerArm);
             var socket=rig.Socket(right?AthleteSocket.RightHandGrip:AthleteSocket.LeftHandGrip);
             var rotation=Quaternion.Slerp(hand.rotation,equipment.Rifle.rotation*Quaternion.Euler(euler),blend);
-            var wrist=Vector3.Lerp(hand.position,centre-rotation*socket.localPosition,blend);
+            var wrist=Vector3.Lerp(hand.position,centre-rotation*(socket.localPosition*rig.ModelRoot.lossyScale.x),blend);
             var bend=lower.position-(upper.position+hand.position)*.5f;
             AthleteLocomotionDriver.SolveTwoBone(upper,lower,hand,wrist,bend,rig.ModelRoot.rotation);
             hand.rotation=rotation;

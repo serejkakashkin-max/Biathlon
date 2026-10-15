@@ -28,7 +28,7 @@ namespace Biathlon.VenueEditorTests
                 var vertices=copy.vertices;var bones=copy.boneWeights;var bind=copy.bindposes;var indices=copy.triangles;
                 var prior=new Vector3[7][];for(int i=0;i<prior.Length;i++){prior[i]=new Vector3[copy.vertexCount];copy.GetBlendShapeFrameVertices(i,0,prior[i],null,null);}
                 var recipe=AthleteFaceCatalog.Load();AthleteFaceAuthoring.Apply(copy,recipe);AthleteFaceAuthoring.Apply(copy,recipe);
-                Assert.That(copy.blendShapeCount,Is.EqualTo(7+recipe.profiles.Length));Assert.That(copy.vertices,Is.EqualTo(vertices));
+                Assert.That(copy.blendShapeCount,Is.EqualTo(12+recipe.profiles.Length));Assert.That(copy.vertices,Is.EqualTo(vertices));
                 Assert.That(copy.boneWeights,Is.EqualTo(bones));Assert.That(copy.bindposes,Is.EqualTo(bind));Assert.That(copy.triangles,Is.EqualTo(indices));
                 for(int i=0;i<prior.Length;i++){var after=new Vector3[copy.vertexCount];copy.GetBlendShapeFrameVertices(i,0,after,null,null);Assert.That(after,Is.EqualTo(prior[i]));}
             }

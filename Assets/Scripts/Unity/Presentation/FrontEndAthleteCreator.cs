@@ -82,6 +82,7 @@ namespace Biathlon.Unity.Presentation
             creatorStudio.Rig.gameObject.SetActive(true);creatorStudio.PreviewCamera.enabled=true;
             creatorStudio.ReducedMotion=ReducedMotion;
             var appearance=creatorStudio.Rig.GetComponent<AthleteAppearancePresentation>();appearance.ApplyNation(country);appearance.ApplyProfile(profile);
+            appearance.ShowTrainingKit(creatorMode==CareerCreationMode.CreateOwn&&creatorStep==1&&creatorLookTab==3&&creatorTrainingKit);
             var stage=new VisualElement{name="creator_stage"};stage.style.flexGrow=1;stage.style.flexBasis=0;stage.style.minWidth=0;stage.style.marginRight=16;stage.style.backgroundColor=new Color(.063f,.137f,.188f);
             body.Insert(1,stage);
             var header=AddLabel(stage,L("ТВОЙ БИАТЛОНИСТ","YOUR BIATHLETE"),theme.caption_size,true);header.style.paddingLeft=16;header.style.paddingTop=12;header.style.letterSpacing=1.8f;
@@ -121,18 +122,82 @@ namespace Biathlon.Unity.Presentation
             var age=new SliderInt(p.MinimumAge,p.MaximumAge){name="career_start_age",value=d.Age,showInputField=true};StyleControl(age);actions.Add(age);controls.Add(age);
             age.RegisterValueChangedCallback(e=>{d.SetAge(e.newValue);startingAge=d.Age;});
         }
+        private int creatorLookTab;
+        private bool creatorTrainingKit;
         private void RenderCreatorAppearance(VisualElement actions)
         {
             var recipe=AthleteFaceCatalog.Load();var p=creationDraft.Appearance;
+            var look=AthleteLookCatalog.Load();
+            var tabs=new VisualElement();tabs.style.flexDirection=FlexDirection.Row;tabs.style.marginBottom=8;actions.Add(tabs);
+            string[] categories={L("Лицо","Face"),L("Тело","Body"),L("Волосы","Hair"),L("Форма","Gear")};
+            for(int tab=0;tab<categories.Length;tab++)
+            {int t=tab;AddButton(tabs,"creator_look_"+tab,categories[tab],()=>{creatorLookTab=t;Render();},tab==creatorLookTab);var b=tabs.Q<Button>("creator_look_"+tab);b.style.flexGrow=1;b.style.minWidth=0;b.style.paddingLeft=3;b.style.paddingRight=3;b.style.fontSize=12*Scale;b.style.height=30;}
             int face=0;for(int i=0;i<recipe.profiles.Length;i++)if(recipe.profiles[i].id==p.FaceId)face=i;
             int skin=recipe.SkinIndex(p.SkinId),body=recipe.BodyIndex(p.BodyId);
+            if(creatorLookTab==0)
+            {
             var faceLabels=new List<string>{L("Овальное","Oval"),L("Угловатое","Angular"),L("Округлое","Round"),L("Узкое","Narrow"),L("Широкое","Broad"),L("Выраженный подбородок","Defined chin")};
             AddLabel(actions,L("Форма лица","Face"),theme.caption_size);CreatorChoice(actions,"creator_face",faceLabels,face,i=>Change(recipe.profiles[i].id,p.SkinId,p.BodyId));
             var tones=new List<string>{L("Светлый нейтральный","Light neutral"),L("Светлый тёплый","Light warm"),L("Загорелый","Warm tan"),L("Оливковый","Olive"),L("Тёплый коричневый","Warm brown"),L("Глубокий коричневый","Deep brown"),L("Тёмный нейтральный","Dark neutral"),L("Глубокий тёмный","Deep dark")};
             AddLabel(actions,L("Оттенок кожи","Skin tone"),theme.caption_size);CreatorChoice(actions,"creator_skin",tones,skin,i=>Change(p.FaceId,recipe.skin_ids[i],p.BodyId));
             AddLabel(actions,L("Телосложение","Build"),theme.caption_size);CreatorChoice(actions,"creator_body",new List<string>{L("Сухое","Lean"),L("Среднее","Natural"),L("Атлетичное","Athletic")},body,i=>Change(p.FaceId,p.SkinId,recipe.body_ids[i]));
-            AddLabel(actions,L("Форма сборной и стартовый номер сохраняют свою роль в гонке.","National kit and race bib keep their role in competition."),theme.caption_size).style.color=FrostlineStyle.Muted;
-            void Change(string faceId,string toneId,string bodyId){creationDraft.SetAppearance(AppearanceProfile.Create(faceId,toneId,bodyId));Render();}
+            Choice("eye_color","creator_eyes",L("Цвет глаз","Eye color"),p.EyeColorId,selected=>{Edit(eye:selected,goggles:"raised");creatorStudio.SetView(0,1);});
+            }
+            else if(creatorLookTab==1)
+            {
+                AddLabel(actions,L("Рост, см","Height, cm"),theme.caption_size);
+                var height=new SliderInt(look.MinimumHeightMillimeters/10,look.MaximumHeightMillimeters/10){name="creator_height",value=(p.HasDetails?p.HeightMillimeters:look.BaseHeightMillimeters)/10,showInputField=true};StyleControl(height);actions.Add(height);controls.Add(height);
+                height.RegisterValueChangedCallback(e=>LiveDimensions(e.newValue*10,null));
+                AddLabel(actions,L("Ширина плеч","Shoulder width"),theme.caption_size);
+                var shoulder=new SliderInt(0,100){name="creator_shoulders",value=(p.HasDetails?p.ShoulderWidthBasis:look.DefaultShoulderWidthBasis)/100,showInputField=true};StyleControl(shoulder);actions.Add(shoulder);controls.Add(shoulder);
+                shoulder.RegisterValueChangedCallback(e=>LiveDimensions(null,e.newValue*100));
+                AddLabel(actions,L("Размеры меняют силуэт. Способности определяются навыками и тренировками.","Body dimensions shape your silhouette. Ability comes from skills and training."),theme.caption_size).style.color=FrostlineStyle.Muted;
+            }
+            else if(creatorLookTab==2)
+            {
+                Choice("headwear","creator_headwear",L("Головной убор","Headwear"),p.HeadwearId,selected=>Edit(headwear:selected));
+                Choice("hair_style","creator_hair",L("Причёска","Hair style"),p.HairStyleId,selected=>Edit(hair:selected,headwear:p.HeadwearId==null||p.HeadwearId=="cap"?"headband":null));
+                Choice("hair_color","creator_hair_color",L("Цвет волос","Hair color"),p.HairColorId,selected=>Edit(hairColor:selected,headwear:p.HeadwearId==null||p.HeadwearId=="cap"?"headband":null));
+                Choice("goggles","creator_goggles",L("Спортивные очки","Sport goggles"),p.GogglesId,selected=>Edit(goggles:selected));
+                AddLabel(actions,L("Причёска видна под повязкой или без шапки.","Hair is visible with a headband or without a cap."),theme.caption_size).style.color=FrostlineStyle.Muted;
+            }
+            else
+            {
+                Choice("gloves","creator_gloves",L("Перчатки","Gloves"),p.GlovesId,selected=>Edit(gloves:selected));
+                Choice("boots","creator_boots",L("Ботинки","Boots"),p.BootsId,selected=>Edit(boots:selected));
+                Choice("lens","creator_lens",L("Покрытие линзы","Lens coating"),p.LensId,selected=>Edit(lens:selected));
+                Choice("training_accent","creator_training_accent",L("Тренировочная форма","Training accent"),p.TrainingAccentId,selected=>{creatorTrainingKit=true;Edit(training:selected);});
+                AddButton(actions,"creator_kit_preview",creatorTrainingKit?L("Показать форму сборной","Show national kit"):L("Показать тренировочную форму","Show training kit"),()=>{creatorTrainingKit=!creatorTrainingKit;Render();});
+            }
+            if(!compactLayout)AddLabel(actions,L("Форма сборной и стартовый номер сохраняют свою роль в гонке.","National kit and race bib keep their role in competition."),theme.caption_size).style.color=FrostlineStyle.Muted;
+            if(compactLayout)
+            {
+                // Keep all four choices and both final actions visible at4:3/130%.
+                // Reduce empty spacing; selected values still respect text scaling.
+                foreach(var child in actions.Children())
+                {
+                    if(child is Label caption){caption.style.marginBottom=4;}
+                    else if(child is DropdownField choice)
+                    {choice.style.height=36;choice.style.marginBottom=4;choice.Query<TextElement>().ForEach(t=>t.style.fontSize=15*Scale);}
+                }
+                var preview=actions.Q<Button>("creator_kit_preview");if(preview!=null){preview.style.height=34;preview.style.fontSize=15*Scale;}
+            }
+            void Change(string faceId,string toneId,string bodyId){creationDraft.SetAppearance(look.Edit(creationDraft.Appearance,faceId:faceId,skinId:toneId,bodyId:bodyId));Render();}
+            void Edit(int? heightMm=null,int? shoulders=null,string hair=null,string hairColor=null,string eye=null,string headwear=null,string goggles=null,string lens=null,string gloves=null,string boots=null,string training=null)
+            {creationDraft.SetAppearance(look.Edit(creationDraft.Appearance,heightMillimeters:heightMm,shoulderWidthBasis:shoulders,hairStyleId:hair,hairColorId:hairColor,eyeColorId:eye,headwearId:headwear,gogglesId:goggles,lensId:lens,glovesId:gloves,bootsId:boots,trainingAccentId:training));Render();}
+            void LiveDimensions(int? heightMm,int? shoulders)
+            {creationDraft.SetAppearance(look.Edit(creationDraft.Appearance,heightMillimeters:heightMm,shoulderWidthBasis:shoulders));creatorStudio?.Rig.GetComponent<AthleteAppearancePresentation>().ApplyProfile(creationDraft.Appearance);}
+            void Choice(string group,string id,string label,string selected,Action<string> action)
+            {var labels=new List<string>();for(int i=0;i<look.OptionCount(group);i++)labels.Add(LookOptionLabel(look.Option(group,i).Id));AddLabel(actions,label,theme.caption_size);CreatorChoice(actions,id,labels,selected==null?0:look.Index(group,selected),i=>action(look.Option(group,i).Id));}
+        }
+        private string LookOptionLabel(string id)
+        {
+            switch(id)
+            {
+                case "crew":return L("Короткая стрижка","Crew cut");case "short_swept":return L("Короткая набок","Short swept");case "dark_brown":return L("Тёмно-коричневый","Dark brown");case "black":return L("Чёрный","Black");case "chestnut":return L("Каштановый","Chestnut");case "blond":return L("Светлый","Blond");case "auburn":return L("Рыжий","Auburn");case "silver":return L("Седой","Silver");
+                case "brown":return L("Карие","Brown");case "blue":return L("Голубые","Blue");case "green":return L("Зелёные","Green");case "grey":return L("Серые","Grey");case "cap":return L("Гоночная шапка","Race cap");case "headband":return L("Повязка","Headband");case "none":return L("Без головного убора","No headwear");case "worn":return L("На глазах","Worn");case "raised":return L("Подняты","Raised");
+                case "ice":return L("Ледяная","Ice");case "amber":return L("Янтарная","Amber");case "rose":return L("Розовая","Rose");case "carbon":return L("Карбон","Carbon");case "ivory":return L("Светлые","Ivory");case "crimson":return L("Малиновые","Crimson");case "graphite":return L("Графит","Graphite");case "ice_white":return L("Белые","Ice white");case "red":return L("Красные","Red");case "national":return L("Цвет сборной","National colors");case "glacier":return L("Ледник","Glacier");case "sunrise":return L("Рассвет","Sunrise");case "berry":return L("Ягодный","Berry");default:return id;
+            }
         }
         private void RenderCreatorAllocation(VisualElement actions)
         {

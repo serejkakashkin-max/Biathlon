@@ -17,7 +17,7 @@ namespace Biathlon.PlayModeTests
                 foreach(float distance in new[]{0,20,70})
                 {
                     lod.Prepare(distance,false,true);var mesh=skin.sharedMesh;
-                    Assert.That(mesh.blendShapeCount,Is.EqualTo(7+AthleteFaceCatalog.Load().profiles.Length),"Four joint correctives, three original builds and independent face profiles.");
+                    Assert.That(mesh.blendShapeCount,Is.EqualTo(12+AthleteFaceCatalog.Load().profiles.Length),"Four joint correctives, three original builds, six face profiles and five independent cosmetic channels.");
                     foreach(string name in new[]{"LeftLowerArmVolume","RightLowerArmVolume","LeftLowerLegVolume","RightLowerLegVolume"})Assert.That(mesh.GetBlendShapeIndex(name),Is.InRange(0,3));
                     var delta=new Vector3[mesh.vertexCount];
                     for(int shape=0;shape<4;shape++)

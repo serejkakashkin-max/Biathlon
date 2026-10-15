@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Biathlon.Career;
 using UnityEngine;
 namespace Biathlon.Unity.Presentation
@@ -19,15 +20,29 @@ namespace Biathlon.Unity.Presentation
         public int FaceVariant {get;private set;}
         public int SkinVariant {get;private set;}
         private AppearanceProfile profile;
+        private AppearanceProfile details,currentDetails;
+        private bool trainingKit,currentTraining;
+        private static readonly Dictionary<string,Material> cosmeticMaterials=new Dictionary<string,Material>(StringComparer.Ordinal);
+        public float VisualScale {get;private set;}=1;
+        public AppearanceProfile AppliedProfile=>profile;
+        public void ShowTrainingKit(bool show)
+        {if(trainingKit==show)return;trainingKit=show;if(kits!=null)ApplyVariant(current<0?0:current);}
         public void ApplyProfile(AppearanceProfile appearance)
         {
             if(appearance==null)throw new ArgumentNullException(nameof(appearance));
             if(ReferenceEquals(profile,appearance))return;
             appearance.Validate();
+            if(appearance.HasDetails)AthleteLookCatalog.Load().ValidateProfile(appearance);
             if(appearance.IsLegacy)ApplyIdentity(appearance.LegacyIdentity);
             else
             {
                 var recipe=AthleteFaceCatalog.Load();ApplyCosmeticSelection(appearance.FaceId,recipe.SkinIndex(appearance.SkinId),recipe.BodyIndex(appearance.BodyId));
+                if(appearance.HasDetails)
+                {
+                    details=appearance;VisualScale=appearance.HeightMillimeters/(float)AthleteLookCatalog.Load().BaseHeightMillimeters;
+                    GetComponent<AthleteRigBinding>().ModelRoot.localScale=Vector3.one*VisualScale;
+                    ApplyDetailMorphs();ApplyVariant(current<0?0:current);
+                }
             }
             profile=appearance;
         }
@@ -37,7 +52,7 @@ namespace Biathlon.Unity.Presentation
             if(identity==stableId)return;
             var faces=AthleteFaceCatalog.Load();faces.Resolve(stableId,out int face,out int tone);
             FaceVariant=face;SkinVariant=tone;identity=stableId;
-            profile=null;
+            profile=null;ResetDetails();
             CosmeticVariant=(int)(hash%3);
             ApplyMorphs(faces);
             LoadPalette();ApplyVariant(current<0?0:current);
@@ -49,7 +64,7 @@ namespace Biathlon.Unity.Presentation
             if(selected<0||skinPaletteIndex<0||skinPaletteIndex>=faces.skin_colors.Length||buildIndex<0||buildIndex>2)
                 throw new ArgumentException("Unsupported cosmetic selection.");
             FaceVariant=selected;SkinVariant=skinPaletteIndex;CosmeticVariant=buildIndex;identity=null;
-            profile=null;
+            profile=null;ResetDetails();
             ApplyMorphs(faces);LoadPalette();ApplyVariant(current<0?0:current);
         }
         private void ApplyMorphs(AthleteFaceCatalog faces)
@@ -59,6 +74,20 @@ namespace Biathlon.Unity.Presentation
             {int index=skin.sharedMesh.GetBlendShapeIndex("OriginalBuild"+i);if(index>=0)skin.SetBlendShapeWeight(index,i==CosmeticVariant?100:0);}
             for(int i=0;i<faces.profiles.Length;i++)
             {int index=skin.sharedMesh.GetBlendShapeIndex(faces.profiles[i].ShapeName);if(index>=0)skin.SetBlendShapeWeight(index,i==FaceVariant?100:0);}
+            ApplyDetailMorphs();
+        }
+        private void ResetDetails()
+        {details=null;VisualScale=1;var rig=GetComponent<AthleteRigBinding>();if(rig!=null)rig.ModelRoot.localScale=Vector3.one;}
+        private void ApplyDetailMorphs()
+        {
+            if(skin==null)skin=GetComponentInChildren<SkinnedMeshRenderer>();
+            float centre=AthleteLookCatalog.Load().DefaultShoulderWidthBasis;
+            float shoulder=details==null?0:(details.ShoulderWidthBasis-centre)/(details.ShoulderWidthBasis<centre?centre:10000-centre);
+            Shape("CreatorShouldersNarrow",Mathf.Max(0,-shoulder)*100);Shape("CreatorShouldersWide",Mathf.Max(0,shoulder)*100);
+            Shape("CreatorHairCrew",details!=null&&details.HeadwearId!="cap"?100:0);
+            Shape("CreatorHairShort",details!=null&&details.HeadwearId!="cap"&&details.HairStyleId=="short_swept"?100:0);
+            Shape("CreatorGogglesRaised",details!=null&&details.GogglesId=="raised"?100:0);
+            void Shape(string name,float weight){int i=skin.sharedMesh.GetBlendShapeIndex(name);if(i>=0)skin.SetBlendShapeWeight(i,weight);}
         }
         public static int NationCount {get{LoadPalette();return nations.Length;}}
         public static string NationAt(int index){LoadPalette();return nations[index];}
@@ -93,7 +122,7 @@ namespace Biathlon.Unity.Presentation
         }
         private void ApplyVariant(int variant)
         {
-            if(current==variant&&currentSkin==SkinVariant)return;
+            if(current==variant&&currentSkin==SkinVariant&&ReferenceEquals(currentDetails,details)&&currentTraining==trainingKit)return;
             if(skin==null)skin=GetComponentInChildren<SkinnedMeshRenderer>();
             // Shared, bounded palette keeps SRP batching; per-renderer surface blocks disable it.
             // The independent bib slot and its number block remain untouched.
@@ -123,8 +152,24 @@ namespace Biathlon.Unity.Presentation
             }
             if(palette==null)palette=new Material[variants[variant].Length];
             Array.Copy(variants[variant],palette,palette.Length);palette[3]=skinVariants[SkinVariant];
+            if(details!=null)
+            {
+                var d=details;
+                palette[3]=Cosmetic("skin_"+SkinVariant+"_"+d.EyeColorId+"_"+d.HairColorId,palette[3],m=>{m.SetColor("_EyeColor",AthleteLookCatalog.Color("eye_color",d.EyeColorId));m.SetColor("_HairColor",AthleteLookCatalog.Color("hair_color",d.HairColorId));});
+                palette[4]=Cosmetic("hands_"+d.GlovesId+"_"+d.BootsId,palette[4],m=>{m.SetColor("_GloveColor",AthleteLookCatalog.Color("gloves",d.GlovesId));m.SetColor("_BootColor",AthleteLookCatalog.Color("boots",d.BootsId));m.SetFloat("_CosmeticOverride",1);});
+                palette[5]=Cosmetic("boots_"+d.BootsId,palette[5],m=>{m.SetColor("_BootColor",AthleteLookCatalog.Color("boots",d.BootsId));m.SetFloat("_CosmeticOverride",1);});
+                palette[6]=Cosmetic("cap_"+variant+"_"+SkinVariant+"_"+d.HeadwearId+"_"+d.HairColorId+"_"+d.HairStyleId,palette[6],m=>{m.SetColor("_HairColor",AthleteLookCatalog.Color("hair_color",d.HairColorId));m.SetColor("_ScalpColor",AthleteFaceCatalog.Load().SkinColor(SkinVariant));m.SetFloat("_HeadwearMode",d.HeadwearId=="headband"?1:d.HeadwearId=="none"?2:0);});
+                palette[7]=Cosmetic("lens_"+d.LensId,palette[7],m=>{m.SetColor("_LensColor",AthleteLookCatalog.Color("lens",d.LensId));m.SetFloat("_CosmeticOverride",1);});
+                if(trainingKit&&d.TrainingAccentId!="national")for(int slot=0;slot<2;slot++)
+                {int s=slot;palette[s]=Cosmetic("training_"+variant+"_"+s+"_"+d.TrainingAccentId,palette[s],m=>{m.SetColor("_TrimColor",AthleteLookCatalog.Color("training_accent",d.TrainingAccentId));if(s==1)m.SetColor("_KitColor",AthleteLookCatalog.Color("training_accent",d.TrainingAccentId));});}
+            }
             skin.sharedMaterials=palette;
-            current=variant;currentSkin=SkinVariant;
+            current=variant;currentSkin=SkinVariant;currentDetails=details;currentTraining=trainingKit;
+        }
+        private static Material Cosmetic(string key,Material source,Action<Material> configure)
+        {
+            if(cosmeticMaterials.TryGetValue(key,out var material)&&material!=null)return material;
+            material=new Material(source){name=source.name+" "+key,hideFlags=HideFlags.DontSave};configure(material);cosmeticMaterials[key]=material;return material;
         }
     }
 }

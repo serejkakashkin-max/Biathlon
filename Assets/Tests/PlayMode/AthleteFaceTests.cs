@@ -67,7 +67,7 @@ namespace Biathlon.PlayModeTests
         {
             var mesh=Resources.Load<Mesh>("Biathlon/Athletes/G2Hero/Meshes/HeroLOD"+lod);var vertices=mesh.vertices;
             var allowed=new bool[mesh.vertexCount];foreach(int index in mesh.GetTriangles(3))allowed[index]=true;
-            var recipe=AthleteFaceCatalog.Load();Assert.That(mesh.blendShapeCount,Is.EqualTo(7+recipe.profiles.Length));
+            var recipe=AthleteFaceCatalog.Load();Assert.That(mesh.blendShapeCount,Is.EqualTo(12+recipe.profiles.Length));
             var delta=new Vector3[mesh.vertexCount];var normals=new Vector3[mesh.vertexCount];var tangents=new Vector3[mesh.vertexCount];
             foreach(var profile in recipe.profiles)
             {

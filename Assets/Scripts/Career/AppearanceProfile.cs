@@ -12,6 +12,18 @@ namespace Biathlon.Career
         [DataMember(Name="face_id",EmitDefaultValue=false)] public string FaceId {get;private set;}
         [DataMember(Name="skin_id",EmitDefaultValue=false)] public string SkinId {get;private set;}
         [DataMember(Name="body_id",EmitDefaultValue=false)] public string BodyId {get;private set;}
+        [DataMember(Name="height_mm",EmitDefaultValue=false)] public int HeightMillimeters {get;private set;}
+        [DataMember(Name="shoulder_width_bp",EmitDefaultValue=false)] public int ShoulderWidthBasis {get;private set;}
+        [DataMember(Name="hair_style_id",EmitDefaultValue=false)] public string HairStyleId {get;private set;}
+        [DataMember(Name="hair_color_id",EmitDefaultValue=false)] public string HairColorId {get;private set;}
+        [DataMember(Name="eye_color_id",EmitDefaultValue=false)] public string EyeColorId {get;private set;}
+        [DataMember(Name="headwear_id",EmitDefaultValue=false)] public string HeadwearId {get;private set;}
+        [DataMember(Name="goggles_id",EmitDefaultValue=false)] public string GogglesId {get;private set;}
+        [DataMember(Name="lens_id",EmitDefaultValue=false)] public string LensId {get;private set;}
+        [DataMember(Name="gloves_id",EmitDefaultValue=false)] public string GlovesId {get;private set;}
+        [DataMember(Name="boots_id",EmitDefaultValue=false)] public string BootsId {get;private set;}
+        [DataMember(Name="training_accent_id",EmitDefaultValue=false)] public string TrainingAccentId {get;private set;}
+        public bool HasDetails=>SchemaVersion==2;
         public bool IsLegacy=>LegacyIdentity!=null;
         private AppearanceProfile(){}
         public static AppearanceProfile Legacy(string stableIdentity)
@@ -22,18 +34,32 @@ namespace Biathlon.Career
         {
             var p=new AppearanceProfile{SchemaVersion=1,Id="g2_personal_v1",FaceId=faceId,SkinId=skinId,BodyId=bodyId};p.Validate();return p;
         }
+        public static AppearanceProfile CreateDetailed(string faceId,string skinId,string bodyId,int heightMillimeters,int shoulderWidthBasis,
+            string hairStyleId,string hairColorId,string eyeColorId,string headwearId,string gogglesId,string lensId,string glovesId,string bootsId,string trainingAccentId)
+        {
+            var p=new AppearanceProfile{SchemaVersion=2,Id="g2_personal_v2",FaceId=faceId,SkinId=skinId,BodyId=bodyId,HeightMillimeters=heightMillimeters,
+                ShoulderWidthBasis=shoulderWidthBasis,HairStyleId=hairStyleId,HairColorId=hairColorId,EyeColorId=eyeColorId,HeadwearId=headwearId,
+                GogglesId=gogglesId,LensId=lensId,GlovesId=glovesId,BootsId=bootsId,TrainingAccentId=trainingAccentId};p.Validate();return p;
+        }
         public void Validate()
         {
-            if(SchemaVersion!=1)throw new SerializationException("Unsupported appearance schema.");CareerUnits.Id(Id);
+            if(SchemaVersion!=1&&SchemaVersion!=2)throw new SerializationException("Unsupported appearance schema.");CareerUnits.Id(Id);
+            bool anyDetails=HeightMillimeters!=0||ShoulderWidthBasis!=0||HairStyleId!=null||HairColorId!=null||EyeColorId!=null||HeadwearId!=null||GogglesId!=null||LensId!=null||GlovesId!=null||BootsId!=null||TrainingAccentId!=null;
+            if(SchemaVersion==1&&anyDetails)throw new SerializationException("Appearance v1 cannot contain v2 controls.");
             if(IsLegacy)
             {
-                if(Id!="g2_identity_v1"||FaceId!=null||SkinId!=null||BodyId!=null)throw new SerializationException("Mixed legacy and explicit appearance.");
+                if(SchemaVersion!=1||Id!="g2_identity_v1"||FaceId!=null||SkinId!=null||BodyId!=null)throw new SerializationException("Mixed legacy and explicit appearance.");
                 CareerUnits.Id(LegacyIdentity);
             }
             else
             {
-                if(Id!="g2_personal_v1")throw new SerializationException("Unsupported appearance resource.");
+                if(Id!=(SchemaVersion==1?"g2_personal_v1":"g2_personal_v2"))throw new SerializationException("Unsupported appearance resource.");
                 CareerUnits.Id(FaceId);CareerUnits.Id(SkinId);CareerUnits.Id(BodyId);
+                if(SchemaVersion==2)
+                {
+                    CareerUnits.Range(HeightMillimeters,1000,2500,"cosmetic height");CareerUnits.Range(ShoulderWidthBasis,0,10000,"cosmetic shoulder width");
+                    foreach(var value in new[]{HairStyleId,HairColorId,EyeColorId,HeadwearId,GogglesId,LensId,GlovesId,BootsId,TrainingAccentId})CareerUnits.Id(value);
+                }
             }
         }
         public string ToJson(){Validate();return CareerJson.Write(this);}

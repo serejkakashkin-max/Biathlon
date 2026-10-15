@@ -41,13 +41,31 @@ namespace Biathlon.PlayModeTests
             var face=menu.Root.Q<DropdownField>("creator_face");face.value=face.choices[4];yield return null;
             var skin=menu.Root.Q<DropdownField>("creator_skin");skin.value=skin.choices[7];yield return null;
             var build=menu.Root.Q<DropdownField>("creator_body");build.value=build.choices[2];yield return null;
+            var eyes=menu.Root.Q<DropdownField>("creator_eyes");eyes.value=eyes.choices[2];yield return null;
+            Submit("creator_look_1");yield return null;
+            menu.Root.Q<SliderInt>("creator_height").value=198;menu.Root.Q<SliderInt>("creator_shoulders").value=100;yield return null;
+            Assert.That(menu.CreatorStudio.Rig.transform.localScale.x,Is.EqualTo(1980/1850f).Within(.00001));
+            Submit("creator_look_2");yield return null;
+            var headwear=menu.Root.Q<DropdownField>("creator_headwear");headwear.value=headwear.choices[1];yield return null;
+            var hair=menu.Root.Q<DropdownField>("creator_hair");hair.value=hair.choices[1];yield return null;
+            var hairColor=menu.Root.Q<DropdownField>("creator_hair_color");hairColor.value=hairColor.choices[3];yield return null;
+            Assert.That(menu.CreationDraft.Appearance.GogglesId,Is.EqualTo("raised"));
+            yield return Capture("creator-expanded-hair-ru",1600,900,"ru",0);
+            Submit("creator_look_3");yield return null;
+            var gloves=menu.Root.Q<DropdownField>("creator_gloves");gloves.value=gloves.choices[1];yield return null;
+            var boots=menu.Root.Q<DropdownField>("creator_boots");boots.value=boots.choices[2];yield return null;
+            var lens=menu.Root.Q<DropdownField>("creator_lens");lens.value=lens.choices[1];yield return null;
+            var training=menu.Root.Q<DropdownField>("creator_training_accent");training.value=training.choices[2];yield return null;
+            yield return Capture("creator-expanded-gear-en-large",1024,768,"en",2);
+            Submit("creator_look_0");yield return null;
             Assert.That(menu.CreatorStudio.Rig,Is.SameAs(rig));Submit("creator_view_face");yield return null;
             yield return Capture("creator-face-ru",1600,900,"ru",0);
             yield return Capture("creator-face-en-large",1024,768,"en",2);
             var appearance=menu.CreationDraft.Appearance;Assert.That(appearance.FaceId,Is.EqualTo("broad"));Assert.That(appearance.SkinId,Is.EqualTo("dark_deep"));Assert.That(appearance.BodyId,Is.EqualTo("athletic"));
+            Assert.That(appearance.HeightMillimeters,Is.EqualTo(1980));Assert.That(appearance.ShoulderWidthBasis,Is.EqualTo(10000));Assert.That(appearance.HairStyleId,Is.EqualTo("short_swept"));Assert.That(appearance.HairColorId,Is.EqualTo("blond"));Assert.That(appearance.EyeColorId,Is.EqualTo("green"));Assert.That(appearance.GlovesId,Is.EqualTo("ivory"));Assert.That(appearance.BootsId,Is.EqualTo("red"));Assert.That(appearance.TrainingAccentId,Is.EqualTo("sunrise"));
             Submit("creator_step_0");yield return null;Assert.That(menu.Root.Q<TextField>("athlete_name").value,Is.EqualTo("Алекс Северин"));
             Submit("creator_step_2");yield return null;var preset=menu.Root.Q<DropdownField>("creator_specialization");preset.value=preset.choices[2];yield return null;
-            Submit("creator_plus_0");yield return null;Assert.That(menu.CreationDraft.BudgetRemaining,Is.GreaterThanOrEqualTo(0));
+            Submit("creator_minus_0");yield return null;Submit("creator_plus_0");yield return null;Assert.That(menu.CreationDraft.BudgetRemaining,Is.GreaterThanOrEqualTo(0));
             Submit("creator_view_front");yield return Capture("creator-skills-ru",1600,900,"ru",0);
             Submit("create");yield return null;Assert.That(store.HasProfile,Is.False);Assert.That(menu.Session.Career,Is.Null);
             yield return Capture("creator-confirm-ru",1600,900,"ru",0);
@@ -62,6 +80,9 @@ namespace Biathlon.PlayModeTests
             var raceRig=host.Proxies.GetRig(menu.Session.Player.Id);var applied=raceRig.GetComponent<AthleteAppearancePresentation>();var recipe=AthleteFaceCatalog.Load();
             Assert.That(applied.FaceVariant,Is.EqualTo(4));Assert.That(applied.SkinVariant,Is.EqualTo(recipe.SkinIndex(appearance.SkinId)));Assert.That(applied.CosmeticVariant,Is.EqualTo(recipe.BodyIndex(appearance.BodyId)));
             Assert.That(applied.Nation,Is.EqualTo(menu.Session.Player.Nation));Assert.That(host.Runner.Field.Tick.Value,Is.Zero,"Preview and loading must not bypass the countdown.");
+            Assert.That(applied.AppliedProfile.ToJson(),Is.EqualTo(appearance.ToJson()));Assert.That(raceRig.transform.localScale.x,Is.EqualTo(1980/1850f).Within(.00001));
+            var actualKit=raceRig.GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterials[1].GetColor("_KitColor");var expectedKit=AthleteAppearancePresentation.NationColor(menu.Session.Player.Nation);
+            Assert.That(Vector4.Distance(actualKit,expectedKit),Is.LessThan(.00001f),"Training customization must not override the official national race kit; tolerate only native material float precision.");
             var cameraObject=new GameObject("Created athlete race evidence",typeof(Camera));cameraObject.transform.SetParent(root.transform,false);var camera=cameraObject.GetComponent<Camera>();
             camera.transform.position=raceRig.transform.position+raceRig.transform.forward*3.6f+Vector3.up*1.15f;camera.transform.LookAt(raceRig.transform.position+Vector3.up*.95f);camera.fieldOfView=34;
             host.Environment.SetViewCamera(camera);host.Environment.Render(camera,"high",0);
@@ -113,6 +134,20 @@ namespace Biathlon.PlayModeTests
                     Assert.That(model.image,Is.SameAs(menu.CreatorStudio.Texture));Assert.That(model.worldBound.width,Is.GreaterThan(bounds.width*.2f));
                     Assert.That(model.worldBound.height,Is.GreaterThan(bounds.height*.4f));
                     if(score!=null){Assert.That(score.worldBound.xMin,Is.GreaterThanOrEqualTo(model.worldBound.xMax));Assert.That(score.worldBound.xMax,Is.LessThanOrEqualTo(bounds.xMax));}
+                }
+                foreach(string id in new[]{"create","confirm_create","back"})
+                {
+                    var action=menu.Root.Q<Button>(id);if(action==null)continue;
+                    Assert.That(action.worldBound.height,Is.GreaterThan(25),id+" must remain a complete actionable button.");
+                    for(VisualElement ancestor=action.parent;ancestor!=null;ancestor=ancestor.parent)
+                    {
+                        if(ancestor!=menu.Root&&ancestor.style.overflow.value!=Overflow.Hidden)continue;
+                        var visible=ancestor.worldBound;
+                        Assert.That(action.worldBound.yMin,Is.GreaterThanOrEqualTo(visible.yMin-.5f),name+" "+id+" top inside "+ancestor.name);
+                        Assert.That(action.worldBound.yMax,Is.LessThanOrEqualTo(visible.yMax+.5f),name+" "+id+" bottom inside "+ancestor.name);
+                        Assert.That(action.worldBound.xMin,Is.GreaterThanOrEqualTo(visible.xMin-.5f),name+" "+id+" left inside "+ancestor.name);
+                        Assert.That(action.worldBound.xMax,Is.LessThanOrEqualTo(visible.xMax+.5f),name+" "+id+" right inside "+ancestor.name);
+                    }
                 }
                 Save(target,name);
             }

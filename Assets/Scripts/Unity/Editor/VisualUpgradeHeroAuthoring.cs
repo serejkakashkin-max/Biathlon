@@ -40,6 +40,7 @@ namespace Biathlon.Unity
             }
             AssetDatabase.SaveAssets();
             AthleteFaceAuthoring.Generate();
+            AthleteCreatorAppearanceAuthoring.Generate();
         }
     }
 }

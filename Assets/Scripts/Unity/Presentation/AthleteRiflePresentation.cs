@@ -104,7 +104,8 @@ namespace Biathlon.Unity.Presentation
             // Their authored bone weights avoid runtime mesh baking/raycasting.
             var lower=settings.back_lower.Position(rig);var upper=settings.back_upper.Position(rig);
             var backRotation=Quaternion.LookRotation((upper-lower).normalized,-rig.Bone(AthleteBone.Chest).forward)*Quaternion.AngleAxis(settings.back_roll_deg,Vector3.forward);
-            var backPosition=lower-backRotation*settings.back_stock_contact;
+            float visualScale=rig.ModelRoot.lossyScale.x;
+            var backPosition=lower-backRotation*(settings.back_stock_contact*visualScale);
             float transfer = Mathf.SmoothStep(0, 1, Mathf.InverseLerp(settings.reach_fraction, settings.release_end_fraction, progress));
             // Swing around the athlete's right side instead of passing the stock through the thorax.
             var clearance = rig.ModelRoot.TransformVector(new Vector3(settings.clearance_side_m, settings.clearance_up_m, 0)) * Mathf.Sin(transfer * Mathf.PI);
@@ -119,7 +120,7 @@ namespace Biathlon.Unity.Presentation
             {
                 var head=rig.Bone(AthleteBone.Head);
                 var desired=equipment.Rifle.TransformPoint(settings.cheek_rest+settings.head_from_cheek);
-                head.position+=Vector3.ClampMagnitude(desired-head.position,settings.max_head_correction_m)*alignment;
+                head.position+=Vector3.ClampMagnitude(desired-head.position,settings.max_head_correction_m*visualScale)*alignment;
                 head.rotation=Quaternion.Slerp(head.rotation,sightRotation*Quaternion.Euler(settings.head_sight_euler),alignment);
             }
             HandWeight = Mathf.SmoothStep(0, 1, progress / settings.reach_fraction);
@@ -140,7 +141,7 @@ namespace Biathlon.Unity.Presentation
                 var lower = rig.Bone(right ? AthleteBone.RightLowerArm : AthleteBone.LeftLowerArm);
                 var hand = rig.Bone(right ? AthleteBone.RightHand : AthleteBone.LeftHand);
                 // Grip offsets address the middle of the original glove, 56 mm below its wrist.
-                var target = equipment.Rifle.TransformPoint(grip) + rig.ModelRoot.up * .056f;
+                var target = equipment.Rifle.TransformPoint(grip) + rig.ModelRoot.up * (.056f*visualScale);
                 var before = hand.position;
                 float weight = right ? HandWeight : Mathf.SmoothStep(0, 1, Mathf.InverseLerp(.5f, settings.release_end_fraction, progress));
                 Vector3 bend=new Vector3(right?1:-1,-.3f,-.5f);
