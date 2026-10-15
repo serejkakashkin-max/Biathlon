@@ -54,15 +54,32 @@ namespace Biathlon.PlayModeTests
         }
         [UnityTest,Timeout(240000)] public IEnumerator SavedSeasonGraphAndKnownRivalCardsSurviveNavigationLocaleAndFilters()
         {
-            // Real training/season-boundary functions create the observed data; no fictional past points are injected.
-            var save=menu.Session.Career;var d=menu.Session.Definitions;
-            for(int i=0;i<400;i++)CareerAdaptation.Apply(save.FindWorldAthlete(save.PlayerId),d.Training.Get(CareerTrainingKind.Endurance),d.Adaptation,10000,d.Growth);
-            string json=save.ToJson();int at=json.LastIndexOf("\"week\":",StringComparison.Ordinal);
-            save=CareerSave.FromJson(json.Substring(0,at)+Regex.Replace(json.Substring(at),"^(\"week\":)[0-9]+","${1}"+d.Calendar.WeeksPerSeason));
-            var prepared=CareerSeasonEngine.PrepareWeek(save,d,Array.Empty<CareerTrainingKind>(),s=>new SeededRandomSource(s));Assert.That(prepared.RequiresRace,Is.False);
-            var next=CareerSeasonEngine.CompleteWeek(prepared,d,null,s=>new SeededRandomSource(s));store.Json=next.ToJson();menu.Session.Back();menu.Session.ContinueCareer();menu.RefreshFrontEnd();yield return null;
+            // Accelerated observation fixture: real adaptation and annual boundaries, no invented races or history rows.
+            int initialSeason=menu.Session.Career.Season,initialAge=menu.Session.Player.Age;
+            var sessions=new[]{CareerTrainingKind.Endurance,CareerTrainingKind.Technique,CareerTrainingKind.Standing};
+            for(int season=0;season<sessions.Length;season++)
+            {
+                // Continue reloads the actual circuit definitions after any promotion or age-out.
+                var save=menu.Session.Career;var d=menu.Session.Definitions;
+                for(int i=0;i<400;i++)CareerAdaptation.Apply(save.FindWorldAthlete(save.PlayerId),d.Training.Get(sessions[season]),d.Adaptation,10000,d.Growth);
+                string json=save.ToJson();int at=json.LastIndexOf("\"week\":",StringComparison.Ordinal);
+                save=CareerSave.FromJson(json.Substring(0,at)+Regex.Replace(json.Substring(at),"^(\"week\":)[0-9]+","${1}"+d.Calendar.WeeksPerSeason));
+                var prepared=CareerSeasonEngine.PrepareWeek(save,d,Array.Empty<CareerTrainingKind>(),s=>new SeededRandomSource(s));Assert.That(prepared.RequiresRace,Is.False);
+                var next=CareerSeasonEngine.CompleteWeek(prepared,d,null,s=>new SeededRandomSource(s));
+                Assert.That(next.Season,Is.EqualTo(initialSeason+season+1));
+                store.Json=next.ToJson();menu.Session.Back();menu.Session.ContinueCareer();menu.RefreshFrontEnd();
+                Assert.That(menu.Session.Player.DevelopmentCount,Is.EqualTo(season+2));
+                var observation=menu.Session.Player.Development(season+1);
+                Assert.That(observation.Kind,Is.EqualTo(CareerDevelopmentObservation.SeasonEnd));
+                Assert.That(observation.Season,Is.EqualTo(initialSeason+season));
+                Assert.That(observation.Age,Is.EqualTo(initialAge+season));
+                Assert.That(menu.Session.Career.ToJson(),Is.EqualTo(store.Json));
+            }
+            yield return null;
             string before=menu.Session.Career.ToJson();Submit("career_history");yield return null;Submit("career_development");yield return null;yield return null;
-            Assert.That(menu.Root.Q("athlete_development_graph"),Is.Not.Null);Assert.That(menu.Session.Player.DevelopmentCount,Is.EqualTo(2));Assert.That(menu.Root.Q("athlete_career_peak"),Is.Not.Null);
+            Assert.That(menu.Root.Q("athlete_development_graph"),Is.Not.Null);Assert.That(menu.Session.Player.DevelopmentCount,Is.EqualTo(4));Assert.That(menu.Root.Q("athlete_career_peak"),Is.Not.Null);
+            Assert.That(menu.Session.Player.Development(0).Kind,Is.EqualTo(CareerDevelopmentObservation.Baseline));
+            for(int season=1;season<4;season++)Assert.That(menu.Session.Player.Development(season).Season,Is.EqualTo(initialSeason+season-1));
             yield return Capture("athlete-development-ru",1600,900,"ru",0,"athlete_lifetime_results");Submit("back");yield return null;Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.History));Submit("back");yield return null;
             Submit("career_rivalries");yield return null;Assert.That(menu.Root.Q("rivalry_rows").childCount,Is.EqualTo(30));
             menu.Root.Q<DropdownField>("career_roster_scope").index=1;yield return null;Assert.That(menu.Root.Q("rivalry_rows").childCount,Is.EqualTo(menu.Session.Career.WorldAthleteCount));

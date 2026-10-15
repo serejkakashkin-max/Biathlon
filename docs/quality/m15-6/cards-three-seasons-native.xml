@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-15 12:57:20Z" end-time="2026-10-15 12:57:25Z" duration="4,8722354">
+  <test-suite type="TestSuite" id="1590" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="440" result="Passed" start-time="2026-10-15 12:57:20Z" end-time="2026-10-15 12:57:25Z" duration="4.872235" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1584" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="440" result="Passed" start-time="2026-10-15 12:57:20Z" end-time="2026-10-15 12:57:25Z" duration="4.820606" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="29748" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1585" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="440" result="Passed" start-time="2026-10-15 12:57:20Z" end-time="2026-10-15 12:57:25Z" duration="4.780271" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1586" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="440" result="Passed" start-time="2026-10-15 12:57:20Z" end-time="2026-10-15 12:57:25Z" duration="4.774303" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1119" name="CareerAthleteCardUiTests" fullname="Biathlon.PlayModeTests.CareerAthleteCardUiTests" classname="Biathlon.PlayModeTests.CareerAthleteCardUiTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-15 12:57:20Z" end-time="2026-10-15 12:57:25Z" duration="4.763850" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1120" name="LiveCardBindsSavedAppearanceThirteenAbilitiesAndReadinessWithoutMutation" fullname="Biathlon.PlayModeTests.CareerAthleteCardUiTests.LiveCardBindsSavedAppearanceThirteenAbilitiesAndReadinessWithoutMutation" methodname="LiveCardBindsSavedAppearanceThirteenAbilitiesAndReadinessWithoutMutation" classname="Biathlon.PlayModeTests.CareerAthleteCardUiTests" runstate="Runnable" seed="816700075" result="Passed" start-time="2026-10-15 12:57:20Z" end-time="2026-10-15 12:57:22Z" duration="1.934944" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="240000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+]]></output>
+            </test-case>
+            <test-case id="1121" name="SavedSeasonGraphAndKnownRivalCardsSurviveNavigationLocaleAndFilters" fullname="Biathlon.PlayModeTests.CareerAthleteCardUiTests.SavedSeasonGraphAndKnownRivalCardsSurviveNavigationLocaleAndFilters" methodname="SavedSeasonGraphAndKnownRivalCardsSurviveNavigationLocaleAndFilters" classname="Biathlon.PlayModeTests.CareerAthleteCardUiTests" runstate="Runnable" seed="1398361265" result="Passed" start-time="2026-10-15 12:57:22Z" end-time="2026-10-15 12:57:25Z" duration="2.806911" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="240000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

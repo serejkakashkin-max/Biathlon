@@ -1,0 +1,1018 @@
+{
+  "schema_version": 1,
+  "id": "m15_6_prebuild_evidence_audit_20261015",
+  "audited_at_utc": "2026-10-15T12:57:56.088593+00:00",
+  "scope": "Cumulative selected saved checkpoints, not a fresh final-source full suite. Three-season native UI fixture passed; new creator visual source and full build still require root validation.",
+  "baseline_unique_cases": 94,
+  "native_unique_selected": 158,
+  "native_counts": {
+    "EditMode": {
+      "Passed": 107,
+      "Failed": 0,
+      "Skipped": 0
+    },
+    "PlayMode": {
+      "Passed": 47,
+      "Failed": 4,
+      "Skipped": 0
+    }
+  },
+  "checkpoints": [
+    {
+      "file": "growth-final.json",
+      "executed_results": 11,
+      "counts": {
+        "Passed": 11,
+        "Failed": 0,
+        "Skipped": 0
+      },
+      "inventory_excluded": 2023
+    },
+    {
+      "file": "world-native-tests.json",
+      "executed_results": 5,
+      "counts": {
+        "Passed": 5,
+        "Failed": 0,
+        "Skipped": 0
+      },
+      "inventory_excluded": 2013
+    },
+    {
+      "file": "generation-final.json",
+      "executed_results": 3,
+      "counts": {
+        "Passed": 3,
+        "Failed": 0,
+        "Skipped": 0
+      },
+      "inventory_excluded": 2024
+    },
+    {
+      "file": "presets-final.json",
+      "executed_results": 9,
+      "counts": {
+        "Passed": 9,
+        "Failed": 0,
+        "Skipped": 0
+      },
+      "inventory_excluded": 2026
+    },
+    {
+      "file": "summary-final.json",
+      "executed_results": 6,
+      "counts": {
+        "Passed": 6,
+        "Failed": 0,
+        "Skipped": 0
+      },
+      "inventory_excluded": 2023
+    },
+    {
+      "file": "appearance-core-final.json",
+      "executed_results": 5,
+      "counts": {
+        "Passed": 5,
+        "Failed": 0,
+        "Skipped": 0
+      },
+      "inventory_excluded": 2026
+    },
+    {
+      "file": "cards-final.json",
+      "executed_results": 2,
+      "counts": {
+        "Passed": 2,
+        "Failed": 0,
+        "Skipped": 0
+      },
+      "inventory_excluded": 439
+    },
+    {
+      "file": "studio-final.json",
+      "executed_results": 4,
+      "counts": {
+        "Passed": 4,
+        "Failed": 0,
+        "Skipped": 0
+      },
+      "inventory_excluded": 439
+    },
+    {
+      "file": "start-final.json",
+      "executed_results": 6,
+      "counts": {
+        "Passed": 6,
+        "Failed": 0,
+        "Skipped": 0
+      },
+      "inventory_excluded": 2023
+    },
+    {
+      "file": "creator-ui-final.json",
+      "executed_results": 2,
+      "counts": {
+        "Passed": 2,
+        "Failed": 0,
+        "Skipped": 0
+      },
+      "inventory_excluded": 439
+    },
+    {
+      "file": "appearance-second.json",
+      "executed_results": 5,
+      "counts": {
+        "Passed": 5,
+        "Failed": 0,
+        "Skipped": 0
+      },
+      "inventory_excluded": 439
+    },
+    {
+      "file": "rifle-height-first-red.json",
+      "executed_results": 7,
+      "counts": {
+        "Passed": 3,
+        "Failed": 4,
+        "Skipped": 0
+      },
+      "inventory_excluded": 439
+    },
+    {
+      "file": "legacy-growth-adaptation-tests.json",
+      "executed_results": 2,
+      "counts": {
+        "Passed": 2,
+        "Failed": 0,
+        "Skipped": 0
+      },
+      "inventory_excluded": 1993
+    },
+    {
+      "file": "legacy-growth-ageing-tests.json",
+      "executed_results": 1,
+      "counts": {
+        "Passed": 1,
+        "Failed": 0,
+        "Skipped": 0
+      },
+      "inventory_excluded": 1993
+    },
+    {
+      "file": "legacy-growth-ai-training-tests.json",
+      "executed_results": 2,
+      "counts": {
+        "Passed": 2,
+        "Failed": 0,
+        "Skipped": 0
+      },
+      "inventory_excluded": 1993
+    },
+    {
+      "file": "legacy-growth-season-tests.json",
+      "executed_results": 1,
+      "counts": {
+        "Passed": 1,
+        "Failed": 0,
+        "Skipped": 0
+      },
+      "inventory_excluded": 1993
+    },
+    {
+      "file": "course-clock/native-tests.xml",
+      "executed_results": 12,
+      "counts": {
+        "Passed": 12,
+        "Failed": 0,
+        "Skipped": 0
+      },
+      "duration_seconds": 339.775536
+    },
+    {
+      "file": "cards-three-seasons-native.xml",
+      "executed_results": 2,
+      "counts": {
+        "Passed": 2,
+        "Failed": 0,
+        "Skipped": 0
+      },
+      "duration_seconds": 4.8722354
+    }
+  ],
+  "cases": [
+    {
+      "name": "Biathlon.PlayModeTests.AthleteCreatorAppearanceTests.DetailsUseOneApprovedSkinEightSlotsAndActualCosmeticMorphsAtEveryLod",
+      "status": "Passed",
+      "evidence": "appearance-second.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteCreatorAppearanceTests.DimensionsRetainPoleGripFootGroundAndShootingSightContracts(1700,0)",
+      "status": "Passed",
+      "evidence": "appearance-second.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteCreatorAppearanceTests.DimensionsRetainPoleGripFootGroundAndShootingSightContracts(1980,10000)",
+      "status": "Passed",
+      "evidence": "appearance-second.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteCreatorAppearanceTests.NativeStudioCapturesGenuineEyesHairHeadwearAndDimensionChoices",
+      "status": "Passed",
+      "evidence": "appearance-second.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteCreatorAppearanceTests.TrainingAccentCannotRepaintOfficialNationalKitOrAnotherAthlete",
+      "status": "Passed",
+      "evidence": "appearance-second.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteCreatorStudioTests.ExplicitFacesAndSkinShareTheApprovedModelWithoutRepaintingOtherAthletes",
+      "status": "Passed",
+      "evidence": "studio-final.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteCreatorStudioTests.NativePreviewReusesOneRigAndReleasesItsOwnedResources",
+      "status": "Passed",
+      "evidence": "studio-final.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteCreatorStudioTests.SavedProfileProducesIdenticalPreviewAndRaceRigAppearanceAcrossAllLods",
+      "status": "Passed",
+      "evidence": "studio-final.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteCreatorStudioTests.ViewPresetsBoundZoomAndReducedMotionKeepsTheFaceStill",
+      "status": "Passed",
+      "evidence": "studio-final.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteCreatorUiTests.ExistingAthleteCatalogFiltersWithoutRerollsAndConfirmsTheOriginalIdentity",
+      "status": "Passed",
+      "evidence": "creator-ui-final.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteCreatorUiTests.OwnAthleteCanBeEditedReviewedSavedRestoredAndRenderedInARealRace",
+      "status": "Passed",
+      "evidence": "creator-ui-final.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteFaceTests.FaceAndToneSurviveLodNationBibAndLeaderChanges",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteFaceTests.FaceMorphsRetainEveryJointBuildAndOnlyMoveSkinAboveTheNeck(0)",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteFaceTests.FaceMorphsRetainEveryJointBuildAndOnlyMoveSkinAboveTheNeck(1)",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteFaceTests.FaceMorphsRetainEveryJointBuildAndOnlyMoveSkinAboveTheNeck(2)",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteFaceTests.FaceMorphsStayContinuousAtTheMirroredMidline(0)",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteFaceTests.FaceMorphsStayContinuousAtTheMirroredMidline(1)",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteFaceTests.FaceMorphsStayContinuousAtTheMirroredMidline(2)",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteFaceTests.InvalidOrDuplicateFaceDefinitionsAreRejected",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteFaceTests.OneCountryCanContainAllSkinTonesAndMaterialCountIsBounded",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteFaceTests.StableIdentitiesCoverIndependentSkinAndFaceChoices",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.AthleteRatingAllocationTests.WarmRatingProjectionAllocatesNoManagedMemoryWithNativePositiveControl",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.BalanceReviewUiTests.EquipmentCardsActuallyPaintEachCatalogSkiColor",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.BalanceReviewUiTests.NewCareerProfileAndAgeControlsCreateAndRestoreTheChosenLeague",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.CareerAthleteCardUiTests.LiveCardBindsSavedAppearanceThirteenAbilitiesAndReadinessWithoutMutation",
+      "status": "Passed",
+      "evidence": "cards-three-seasons-native.xml"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.CareerAthleteCardUiTests.SavedSeasonGraphAndKnownRivalCardsSurviveNavigationLocaleAndFilters",
+      "status": "Passed",
+      "evidence": "cards-three-seasons-native.xml"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.CareerMassStartReplayTests.LegacyV2CareerReplayKeepsRecordedSolverPosesAndOriginalSnapshotBytes",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.CareerMassStartReplayTests.RankedIceMassReplayAndBackwardSeekKeepRecordedSolverAndStartList",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.CareerRaceAppearanceTests.CombinedLeaderBibPreservesNumberAndDoesNotTintTheSuit",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.CareerRaceAppearanceTests.CountryKitIsSharedAcrossNumbersAndLeaderChangesWithoutAllocatingPerFrame",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.CareerRaceAppearanceTests.CountryPaletteCoversEverySavedRosterNationAndKeepsUnknownCountriesNeutral",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.CareerRaceAppearanceTests.SelectedRedSkisUseTheShopPaletteAndSharedInstancedMaterialsWithoutTouchingBindings",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.FrontEndMenuTests.AccessibilitySettingsExplainAssistsAndPreserveCareerAndPreferences",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.FrontEndMenuTests.CareerLaunchUsesSavedAthleteAndPauseAbandonPreserveTheWeek",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.FrontEndMenuTests.CareerPagesUseActualPlanAndReturnWithKeyboardFocus",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.FrontEndMenuTests.InvalidNameStaysEditableWithReadableErrorAndDoesNotCreateProfile",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.FrontEndMenuTests.KeyboardAndGamepadCancelReturnToTheCallingPage",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.FrontEndMenuTests.MenuRendersReadableRussianAndEnglishAtDifferentAspectRatios",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.FrontEndMenuTests.NavigationHasVisibleFocusAndSkipsUnavailableContinue",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.FrontEndMenuTests.NewProfileContinueAndSettingsUseTheRealMenuWithoutAdvancingAWeek",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.FrontEndMenuTests.RealGamepadMovesFocusAndSubmitsTheMenu",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.FrontEndMenuTests.ResultsShowSavedFieldShootingSplitsPointsAndReturnToCareer",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.FrostlineFieldTests.EditableValuesRenderAsLightGlyphsOnDarkFieldsInBothLocales",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.FrostlineFieldTests.ReducedMotionPersistsAcrossNavigationWithoutWritingPreferences",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.RifleBackContactTests.StockStaysCloseToTheActualSkinnedBackSurface(12.0f,True,1700)",
+      "status": "Failed",
+      "evidence": "rifle-height-first-red.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.RifleBackContactTests.StockStaysCloseToTheActualSkinnedBackSurface(12.0f,True,1850)",
+      "status": "Passed",
+      "evidence": "rifle-height-first-red.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.RifleBackContactTests.StockStaysCloseToTheActualSkinnedBackSurface(12.0f,True,1980)",
+      "status": "Failed",
+      "evidence": "rifle-height-first-red.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.RifleBackContactTests.StockStaysCloseToTheActualSkinnedBackSurface(6.0f,False,1850)",
+      "status": "Passed",
+      "evidence": "rifle-height-first-red.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.RifleBackContactTests.StockStaysCloseToTheActualSkinnedBackSurface(9.0f,False,1700)",
+      "status": "Failed",
+      "evidence": "rifle-height-first-red.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.RifleBackContactTests.StockStaysCloseToTheActualSkinnedBackSurface(9.0f,False,1850)",
+      "status": "Passed",
+      "evidence": "rifle-height-first-red.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.RifleBackContactTests.StockStaysCloseToTheActualSkinnedBackSurface(9.0f,False,1980)",
+      "status": "Failed",
+      "evidence": "rifle-height-first-red.json"
+    },
+    {
+      "name": "Biathlon.Tests.AppearanceDefinitionTests.DetailedAppearanceRoundTripsAllStableIdsAndRemainsDetachedFromItsSource",
+      "status": "Passed",
+      "evidence": "appearance-core-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.AppearanceDefinitionTests.DetailedCosmeticSaveNeverChangesStatsInventoryMoneyOrSimulationRandomState",
+      "status": "Passed",
+      "evidence": "appearance-core-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.AppearanceDefinitionTests.EveryAuthoredCosmeticIsSelectableAndInvalidEditsAreAtomic",
+      "status": "Passed",
+      "evidence": "appearance-core-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.AppearanceDefinitionTests.InvalidPolicyVersionsDuplicateIdsAndNonColorsFailBeforeCreatingAProfile",
+      "status": "Passed",
+      "evidence": "appearance-core-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.AppearanceDefinitionTests.LegacyAndV1ProfilesDoNotAcquireUnrequestedNewFields",
+      "status": "Passed",
+      "evidence": "appearance-core-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.AthleteCareerSummaryTests.CardsReadActualAbilityAndSeparateTemporaryReadinessWithoutChangingWorld",
+      "status": "Passed",
+      "evidence": "summary-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.AthleteCareerSummaryTests.LegacyCardDoesNotInventPastHistoryOrInitializeUnpersistedMetadata",
+      "status": "Passed",
+      "evidence": "summary-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.AthleteCareerSummaryTests.MilestoneCatalogRejectsUnknownMetricsDuplicateIdsAndInvalidThresholds",
+      "status": "Passed",
+      "evidence": "summary-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.AthleteCareerSummaryTests.MilestonesUseSavedCountersAndObservedPeakWithoutInventedRewardsOrResults",
+      "status": "Passed",
+      "evidence": "summary-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.AthleteCareerSummaryTests.SeasonalChangesAndPeakAreDerivedFromObservedStatsRatherThanPotential",
+      "status": "Passed",
+      "evidence": "summary-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.AthleteCareerSummaryTests.WorldFiltersPreserveStableIdentitiesAndSortAbilitySeparatelyFromPoints",
+      "status": "Passed",
+      "evidence": "summary-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.BalanceRegressionTests.CanonicalSeedSuiteMatchesContextMetricsAndWindowsAndReportsMutation",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.BalanceRegressionTests.CurrentWorldTuckContextIsDistinctButSoloPacingMetricsRemainExact",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.BalanceRegressionTests.InvalidSnapshotsRejectAndWrongSuiteCannotPass",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.BalanceTuningLockTests.FirstPlayableTuningMatchesEveryLockedDefinitionAndExperiment",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.BalanceTuningLockTests.LockDetectsChangesMissingInputsAndUnsafePaths",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.BiathlonRatingEngineTests.EveryPermanentStatContributesWithAuthoredNormalizedWeights",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.BiathlonRatingEngineTests.InvalidWeightsAndGroupsAreRejected",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.BiathlonRatingEngineTests.NormalizedGroupsShareBoundsAndHalfEvenRounding(0,1)",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.BiathlonRatingEngineTests.NormalizedGroupsShareBoundsAndHalfEvenRounding(100000,99)",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.BiathlonRatingEngineTests.NormalizedGroupsShareBoundsAndHalfEvenRounding(25000,26)",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.BiathlonRatingEngineTests.NormalizedGroupsShareBoundsAndHalfEvenRounding(50000,50)",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.BiathlonRatingEngineTests.NormalizedGroupsShareBoundsAndHalfEvenRounding(75000,74)",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.BiathlonRatingEngineTests.RatingsDoNotMutateReadinessIdentityHistoryOrRandomCheckpoint",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.BiathlonRatingEngineTests.SpecialtyGroupsRespondOnlyToTheirSourceAttributes",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.CareerAdaptationTests.DiminishingReturnsCapStatsAndInvalidQualityIsAtomic",
+      "status": "Passed",
+      "evidence": "legacy-growth-adaptation-tests.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerAdaptationTests.QualityRecoveryAgeAndPotentialHaveMeasuredAdaptationEffects",
+      "status": "Passed",
+      "evidence": "legacy-growth-adaptation-tests.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerAgeingTests.ProspectsGrowThroughTrainingAndVeteransDeclineOnTheSameAuthoredCurve",
+      "status": "Passed",
+      "evidence": "legacy-growth-ageing-tests.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerAiTrainingTests.AiPlansProgressThroughTheSameFunctionsAsCopiedPlayerPlans",
+      "status": "Passed",
+      "evidence": "legacy-growth-ai-training-tests.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerAiTrainingTests.HighFatigueSelectsRecoveryWithinCalendarBudget",
+      "status": "Passed",
+      "evidence": "legacy-growth-ai-training-tests.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerAppearanceProfileTests.ExplicitCosmeticsAndCreationProvenanceSurviveSaveLoadWithoutChangingAbilities",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.CareerAppearanceProfileTests.MigrationLeavesExistingRacePayloadAndFingerprintByteForByteIntact",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.CareerAppearanceProfileTests.ProfileVersionsMixedModesAndUnsafeResourceIdsAreRejected",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.CareerAppearanceProfileTests.V2MigrationIsIdempotentAndPreservesEveryExistingCareerFieldAndRng",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.CareerAthleteCatalogTests.AuthenticSelectionPreservesEveryAbilityIdentityAndContextWithoutDuplicatingTheAthlete",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.CareerAthleteCatalogTests.BrowsePreviewAndRepeatedSelectionDoNotRerollOrMutateTheWorld",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.CareerAthleteCatalogTests.CatalogFiltersAreActualStableSelectionsAndSortedByOvr",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.CareerAthleteCatalogTests.CatalogSelectionUsesExistingAtomicProfilePublicationAndCanContinue",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.CareerAthleteCatalogTests.ChosenAthleteMapsExactlyOnceIntoTheActualProductionRaceField",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.CareerAthleteCatalogTests.GeneratedCatalogContainsUniqueStableAthletesAcrossAllThreeCircuits",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.CareerCreationDraftTests.ConfirmationValidatesIdentityAndIsDeterministicAndDetached",
+      "status": "Passed",
+      "evidence": "presets-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerCreationDraftTests.CreationDefinitionRejectsDuplicateUnboundedAndMissingChoices",
+      "status": "Passed",
+      "evidence": "presets-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerCreationDraftTests.EveryTierAndPresetProducesAValidBoundedCandidate",
+      "status": "Passed",
+      "evidence": "presets-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerCreationDraftTests.InvalidAllocationIsAtomicAndRepeatedRefundsCannotCreateBudget",
+      "status": "Passed",
+      "evidence": "presets-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerCreationDraftTests.OriginUsesSameBudgetAndRespectsAgeWithoutPromisingPotential",
+      "status": "Passed",
+      "evidence": "presets-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerCreationDraftTests.PresetAndTierSwitchingNeverAccumulatesPointsOrConsumesDraftSeed",
+      "status": "Passed",
+      "evidence": "presets-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerCreationDraftTests.PresetHandlingCanChangeCadenceButCannotRejectAGeometricallyValidPlayerRay",
+      "status": "Passed",
+      "evidence": "presets-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerCreationDraftTests.ResetKeepsAZeroManualAllocationWhileEveryRepeatedPresetRestoresItsCompleteBudget",
+      "status": "Passed",
+      "evidence": "presets-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerCreationDraftTests.StartingAllocationAndAppearanceCannotIncreaseHiddenPotential",
+      "status": "Passed",
+      "evidence": "presets-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerDevelopmentTests.AgeingUsesDifferentPhysicalRecoveryTechnicalShootingAndMentalCurves",
+      "status": "Passed",
+      "evidence": "growth-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerDevelopmentTests.BoundedSeasonalObservationsKeepLifetimePeakAfterOldRowsAreTrimmed",
+      "status": "Passed",
+      "evidence": "growth-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerDevelopmentTests.CreationPresetsCosmeticsNationAgeAndRetryIdsCannotRerollHiddenDevelopment",
+      "status": "Passed",
+      "evidence": "growth-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerDevelopmentTests.FailedSubstreamInitializationIsAtomicAndDoesNotPartiallyMigrate",
+      "status": "Passed",
+      "evidence": "growth-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerDevelopmentTests.GrowthDefinitionAndSavedMetadataRejectInconsistentOrUnboundedInputs",
+      "status": "Passed",
+      "evidence": "growth-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerDevelopmentTests.GrowthStylesHaveIndividualResponsesStagnationAndRareExceptionalCeilings",
+      "status": "Passed",
+      "evidence": "growth-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerDevelopmentTests.IndependentProfilesPreserveLegacyAbilitiesIdentityEconomyAndMainCheckpoint",
+      "status": "Passed",
+      "evidence": "growth-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerDevelopmentTests.IndividualTrainingSharesRecoveryCostDiminishingReturnsAndGroupedCeilings",
+      "status": "Passed",
+      "evidence": "growth-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerDevelopmentTests.LateBloomersImproveTheirLearningResponseWhileEarlyProdigiesSlowDown",
+      "status": "Passed",
+      "evidence": "growth-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerDevelopmentTests.LegacyWeekPreparationMigratesOnlyTheDetachedCandidateAtItsActualCurrentWeek",
+      "status": "Passed",
+      "evidence": "growth-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerDevelopmentTests.PlayerAndAiUseIdenticalSharedTrainingAndHistorySurvivesSeasonBoundary",
+      "status": "Passed",
+      "evidence": "growth-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerFoundationTests.CalendarHasTrainingRestWindowsAndValidPursuitDependencies",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.CareerFoundationTests.InvalidIdentityAllocationAndStateAreRejectedBeforeUse",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.CareerFoundationTests.LegacyConfidenceMigrationIsExplicitAndZeroSurvivesCurrentSaves",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.CareerFoundationTests.SeededPlayerRosterAndVersionedSaveRoundTripExactly",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.CareerGenerationTests.FiftyYearsPreservePopulationAndNeverReuseRetiredIdentities",
+      "status": "Passed",
+      "evidence": "generation-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerGenerationTests.LegacyCalendarCanUseIndividualRetirementWithoutChangingItsActivePopulation",
+      "status": "Passed",
+      "evidence": "generation-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerGenerationTests.UnarchivedResultsAndWrongRandomCheckpointAreRejectedWithoutMutation",
+      "status": "Passed",
+      "evidence": "generation-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerSeasonTests.WeeklyAccountingConsumesCampOnceAndRollbackPreservesAllSourceState",
+      "status": "Passed",
+      "evidence": "legacy-growth-season-tests.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerStartProfileTests.EarnedPromotionLoadsActualWorldCupCohortAndScoring",
+      "status": "Passed",
+      "evidence": "start-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerStartProfileTests.ExplicitStartsKeepNewcomerWeakAndPeersHeterogeneousAndSeeded",
+      "status": "Passed",
+      "evidence": "start-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerStartProfileTests.JuniorAgeEligibilityAndAgeOutPersistWithoutLosingPlayerProgress",
+      "status": "Passed",
+      "evidence": "start-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerStartProfileTests.ManualCareerPlayerUsesSameProjectedFormAndPressureAsAi",
+      "status": "Passed",
+      "evidence": "start-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerStartProfileTests.WeeklyAiDevelopmentIsRealAndLegacyFactoryKeepsItsOriginalSave",
+      "status": "Passed",
+      "evidence": "start-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerStartProfileTests.WorldCupStandingsCountEveryFinishingPlaceAndShareTiedRacePoints",
+      "status": "Passed",
+      "evidence": "start-final.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerTuningLockTests.CareerBaselineIncludesAllCareerDefinitionsAndPreservesTheM8Lock",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.CareerWorldTests.AnnualTransitionsKeepFamiliarIdentitiesTheirProgressAndBoundedFields",
+      "status": "Passed",
+      "evidence": "world-native-tests.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerWorldTests.BackgroundAthletesUseTheSameWeeklyTrainingRecoveryAndAgeingWithoutInventingResults",
+      "status": "Passed",
+      "evidence": "world-native-tests.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerWorldTests.CatalogSelectionRetainsEveryKnownAthleteAndExactHiddenDevelopmentAcrossCircuits",
+      "status": "Passed",
+      "evidence": "world-native-tests.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerWorldTests.InvalidWorldMetadataDuplicateIdsAndRepeatedSeasonPublicationAreRejected",
+      "status": "Passed",
+      "evidence": "world-native-tests.json"
+    },
+    {
+      "name": "Biathlon.Tests.CareerWorldTests.WorldInitializationIsDetachedDeterministicAndDoesNotConsumeRaceCheckpoint",
+      "status": "Passed",
+      "evidence": "world-native-tests.json"
+    },
+    {
+      "name": "Biathlon.Tests.FrontEndSessionTests.AtomicProfileReplacementRetainsBackupAndRejectsStaleWriter",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.FrontEndSessionTests.BothLocalesHaveRealTextAndUnknownKeysFailClearly",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.FrontEndSessionTests.CompletedRaceSaveFailureCanRetryExactlyOnceAndContinueAtNextEvent",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.FrontEndSessionTests.ContinueUsesSavedLegacyCalendarWithoutMigratingItToWoodland",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.FrontEndSessionTests.DraftEditsAndFailedConfirmationNeverPublishAnUnconfirmedCareer",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.FrontEndSessionTests.FailedSaveOrValidationNeverPublishesOrDestroysPriorProfile",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.FrontEndSessionTests.FileProfilesAreValidatedIndependentAndNeverOverwritten",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.FrontEndSessionTests.NewCareerIsSavedBeforeDashboardAndUsesProductionCalendar",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.FrontEndSessionTests.PreRaceFactsComeFromPreparedAthleteAndProductionRules",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.FrontEndSessionTests.PreparingCancelingAndRetryingRaceNeverConsumesAWeekOrRandomness",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.FrontEndSessionTests.RestCannotSkipRaceAndInvalidResultPreservesWeek",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.FrontEndSessionTests.SettingsReturnsToItsCallerAndInvalidContinueIsAtomic",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.OwnerCourseClockRejectionTests.PaidSnowSupportAtAuthoredBendsDoesNotExhaustItsResponses",
+      "status": "Passed",
+      "evidence": "course-clock/native-tests.xml"
+    },
+    {
+      "name": "Biathlon.Tests.OwnerCourseClockRejectionTests.RoundedBendKeepsAnAdmittedSkinWithoutExhaustingTheTick(0,0)",
+      "status": "Passed",
+      "evidence": "course-clock/native-tests.xml"
+    },
+    {
+      "name": "Biathlon.Tests.OwnerCourseClockRejectionTests.RoundedBendKeepsAnAdmittedSkinWithoutExhaustingTheTick(5,3)",
+      "status": "Passed",
+      "evidence": "course-clock/native-tests.xml"
+    },
+    {
+      "name": "Biathlon.Tests.OwnerCourseClockRejectionTests.SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-1000,700)",
+      "status": "Passed",
+      "evidence": "course-clock/native-tests.xml"
+    },
+    {
+      "name": "Biathlon.Tests.OwnerCourseClockRejectionTests.SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-1000,80)",
+      "status": "Passed",
+      "evidence": "course-clock/native-tests.xml"
+    },
+    {
+      "name": "Biathlon.Tests.OwnerCourseClockRejectionTests.SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-500,160)",
+      "status": "Passed",
+      "evidence": "course-clock/native-tests.xml"
+    },
+    {
+      "name": "Biathlon.Tests.OwnerCourseClockRejectionTests.SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(-500,700)",
+      "status": "Passed",
+      "evidence": "course-clock/native-tests.xml"
+    },
+    {
+      "name": "Biathlon.Tests.OwnerCourseClockRejectionTests.SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(0,0)",
+      "status": "Passed",
+      "evidence": "course-clock/native-tests.xml"
+    },
+    {
+      "name": "Biathlon.Tests.OwnerCourseClockRejectionTests.SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(1000,700)",
+      "status": "Passed",
+      "evidence": "course-clock/native-tests.xml"
+    },
+    {
+      "name": "Biathlon.Tests.OwnerCourseClockRejectionTests.SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(1000,80)",
+      "status": "Passed",
+      "evidence": "course-clock/native-tests.xml"
+    },
+    {
+      "name": "Biathlon.Tests.OwnerCourseClockRejectionTests.SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(500,160)",
+      "status": "Passed",
+      "evidence": "course-clock/native-tests.xml"
+    },
+    {
+      "name": "Biathlon.Tests.OwnerCourseClockRejectionTests.SustainedPlayerSteeringAtTheCourseEdgeKeepsTheSharedClock(500,700)",
+      "status": "Passed",
+      "evidence": "course-clock/native-tests.xml"
+    },
+    {
+      "name": "Biathlon.Tests.RealAthleteRosterPackTests.HeaderAndEveryAthleteRequireIndependentRecordedApproval",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.RealAthleteRosterPackTests.MissingSourcesBadStatsAndAdultJuniorRecastingAreRejected",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    },
+    {
+      "name": "Biathlon.Tests.RealAthleteRosterPackTests.PackStoresSeasonSourcesAndActualAbilitiesAndNeverInventsApproval",
+      "status": "Passed",
+      "evidence": "verification.json foundation checkpoint cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40"
+    }
+  ],
+  "excluded_obsolete_counter_case": "Biathlon.Tests.BiathlonRatingEngineTests.WarmRatingProjectionAllocatesNoManagedMemory",
+  "open_failures": [
+    {
+      "name": "Biathlon.PlayModeTests.RifleBackContactTests.StockStaysCloseToTheActualSkinnedBackSurface(9.0f,False,1700)",
+      "status": "Failed",
+      "evidence": "rifle-height-first-red.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.RifleBackContactTests.StockStaysCloseToTheActualSkinnedBackSurface(9.0f,False,1980)",
+      "status": "Failed",
+      "evidence": "rifle-height-first-red.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.RifleBackContactTests.StockStaysCloseToTheActualSkinnedBackSurface(12.0f,True,1700)",
+      "status": "Failed",
+      "evidence": "rifle-height-first-red.json"
+    },
+    {
+      "name": "Biathlon.PlayModeTests.RifleBackContactTests.StockStaysCloseToTheActualSkinnedBackSurface(12.0f,True,1980)",
+      "status": "Failed",
+      "evidence": "rifle-height-first-red.json"
+    }
+  ],
+  "build_produced_at_audit": false
+}
