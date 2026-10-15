@@ -170,3 +170,14 @@ build, identical lighting and actual player rendering. No generated photographs
 or additional restricted assets are imported. Validation includes mesh/normal/
 LOD invariants, actual Mass30, standing/prone sight and the approved motion
 transform stream. These are cosmetic changes only; M16 is not started.
+
+Native portrait inspection subsequently exposed an actual centre-line split/
+overlap in the narrow face. Both the new jaw/cheek morph and the older3-build
+face-width term used Sign(x), discontinuous at mirrored near-coincident vertices.
+Use one smooth sinusoidal side factor tending to zero at the midline. Apply it
+to face width in both authoring paths; keep shoulder/build amplitudes outside the
+face and all joint channels unchanged. A real-mesh centre-line regression goes
+3 FAIL→3 PASS across all LODs, including the legacy face channels. Existing
+source vertices/topology/bones remain intact. This supersedes the earlier blanket
+claim that every pre-existing face delta remains exact: only face portions are
+deliberately corrected; the approved body/leg motion streams stay identical.

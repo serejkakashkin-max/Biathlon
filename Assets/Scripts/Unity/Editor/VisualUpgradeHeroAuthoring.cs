@@ -21,7 +21,7 @@ namespace Biathlon.Unity
                     {
                         var p=v[i];float jaw=Mathf.Exp(-Mathf.Pow((p.y-1.625f)/.045f,2));
                         if(p.y>1.54f&&p.y<1.71f&&Mathf.Abs(p.x)<.10f&&p.z>.015f)
-                            delta[i]=new Vector3(Mathf.Sign(p.x)*factor*.004f*jaw,-factor*.002f*jaw,factor*.002f*jaw);
+                            delta[i]=new Vector3(AthleteFaceAuthoring.FaceSide(p.x)*factor*.004f*jaw,-factor*.002f*jaw,factor*.002f*jaw);
                         // Subtle build variation, confined to the shoulder shell and below the head.
                         else if(p.y>1.20f&&p.y<1.43f&&Mathf.Abs(p.x)>.12f&&Mathf.Abs(p.x)<.22f)
                             delta[i]=new Vector3(Mathf.Sign(p.x)*factor*.003f*Mathf.Sin((p.y-1.2f)/.23f*Mathf.PI),0,0);

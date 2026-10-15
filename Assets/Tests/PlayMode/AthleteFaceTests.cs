@@ -90,5 +90,22 @@ namespace Biathlon.PlayModeTests
             value=JsonUtility.FromJson<AthleteFaceCatalog>(json);value.profiles[1].id=value.profiles[0].id;Assert.Throws<ArgumentException>(()=>value.Validate());
             value=JsonUtility.FromJson<AthleteFaceCatalog>(json);value.skin_colors[1]=value.skin_colors[0];Assert.Throws<ArgumentException>(()=>value.Validate());
         }
+        [TestCase(0)] [TestCase(1)] [TestCase(2)]
+        public void FaceMorphsStayContinuousAtTheMirroredMidline(int lod)
+        {
+            var mesh=Resources.Load<Mesh>("Biathlon/Athletes/G2Hero/Meshes/HeroLOD"+lod);var vertices=mesh.vertices;
+            var allowed=new bool[vertices.Length];foreach(int i in mesh.GetTriangles(3))allowed[i]=true;
+            var delta=new Vector3[vertices.Length];int checkedVertices=0;
+            for(int shape=4;shape<mesh.blendShapeCount;shape++)
+            {
+                mesh.GetBlendShapeFrameVertices(shape,0,delta,null,null);
+                for(int i=0;i<vertices.Length;i++)
+                {
+                    var p=vertices[i];if(!allowed[i]||Mathf.Abs(p.x)>.003f||p.y<1.59f||p.y>1.68f||p.z<.05f)continue;
+                    checkedVertices++;Assert.That(Mathf.Abs(delta[i].x),Is.LessThan(.0003f+.25f*Mathf.Abs(p.x)),mesh.GetBlendShapeName(shape)+" must neither split nor overlap the face centre.");
+                }
+            }
+            Assert.That(checkedVertices,Is.GreaterThan(10));
+        }
     }
 }

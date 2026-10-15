@@ -55,7 +55,7 @@ namespace Biathlon.Unity
                     float jaw=Bell(p.y,1.626f,.032f);float cheek=Bell(p.y,1.662f,.022f);
                     float chin=Bell(p.y,1.606f,.025f)*Bell(p.x,0,.040f);
                     float nose=Bell(p.y,1.673f,.021f)*Bell(p.x,0,.023f)*Mathf.SmoothStep(0,1,Mathf.InverseLerp(.085f,.115f,p.z));
-                    delta[i]=new Vector3(Mathf.Sign(p.x)*(profile.jaw_width_m*jaw+profile.cheek_width_m*cheek)+profile.nose_width_m*(p.x/.023f)*nose,
+                    delta[i]=new Vector3(FaceSide(p.x)*(profile.jaw_width_m*jaw+profile.cheek_width_m*cheek)+profile.nose_width_m*(p.x/.023f)*nose,
                         -profile.chin_length_m*chin,profile.chin_depth_m*chin+profile.nose_depth_m*nose)*region;
                     posed[i]+=delta[i];
                 }
@@ -70,6 +70,9 @@ namespace Biathlon.Unity
             }
         }
         private static float Bell(float value,float centre,float radius)=>Mathf.Exp(-Mathf.Pow((value-centre)/radius,2));
+        // Continuous through the mirrored centre seam: Sign(x) opens/overlaps
+        // adjacent vertices that lie only micrometres apart on opposite sides.
+        public static float FaceSide(float x)=>Mathf.Sin(Mathf.Clamp(x/.09f,-1,1)*Mathf.PI*.5f);
     }
 }
 #endif
