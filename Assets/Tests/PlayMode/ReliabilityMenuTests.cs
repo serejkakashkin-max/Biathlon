@@ -51,6 +51,16 @@ namespace Biathlon.PlayModeTests
             menu.Session.OpenSettings();menu.RefreshFrontEnd();Submit("settings_page_4");yield return null;
             Assert.That(menu.Root.Q<Label>("save_health_status").text,Is.EqualTo("Основное сохранение проверено."));
         }
+        [UnityTest]public IEnumerator UnavailableSavedCalendarKeepsValidFilesAndOffersReadableHomeRecovery()
+        {
+            string path=CreateProfile();string before=File.ReadAllText(path);var save=CareerSave.FromJson(before);
+            string unavailable=before.Replace("\"calendar_id\":\""+save.CalendarId+"\"","\"calendar_id\":\"missing_calendar_v1\"");
+            Assert.That(CareerSave.FromJson(unavailable).CalendarId,Is.EqualTo("missing_calendar_v1"));
+            File.WriteAllText(path,unavailable);string backup=File.ReadAllText(path+".bak");Open(new FileCareerProfileStore(directory));yield return null;Submit("continue");yield return null;
+            Assert.That(menu.Session.Career,Is.Null);Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.Home));Assert.That(menu.LastMessage,Does.Contain("данные"));
+            Assert.That(menu.Root.Q<Label>("message").text,Is.EqualTo(menu.LastMessage));Assert.That(File.ReadAllText(path),Is.EqualTo(unavailable));Assert.That(File.ReadAllText(path+".bak"),Is.EqualTo(backup));
+            Submit("settings");yield return null;Submit("settings_page_4");Submit("export_diagnostic");Assert.That(File.Exists(menu.LastDiagnosticExport),Is.True);
+        }
         private IEnumerator Capture(string file,int width,int height,string locale,int size)
         {
             var panel=root.GetComponent<UIDocument>().panelSettings;var previous=panel.targetTexture;var target=new RenderTexture(width,height,24);target.Create();

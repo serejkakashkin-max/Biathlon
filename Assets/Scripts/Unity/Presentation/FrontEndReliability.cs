@@ -48,6 +48,7 @@ namespace Biathlon.Unity.Presentation
             }
             catch(CareerProfileException e){RecordIssue(e.Failure==CareerProfileFailure.UnsupportedVersion?DiagnosticIssue.UnsupportedSaveVersion:DiagnosticIssue.SaveReadFailed);LastMessage=R(e.Failure==CareerProfileFailure.UnsupportedVersion?"future_version":e.Failure==CareerProfileFailure.AccessDenied?"access_denied":"load_failed");Render();}
             catch(Exception e)when(e is ArgumentException||e is System.Runtime.Serialization.SerializationException||e is IOException||e is UnauthorizedAccessException){RecordIssue(e is FileNotFoundException||e is ArgumentException?DiagnosticIssue.MissingContent:DiagnosticIssue.SaveReadFailed);LastMessage=R("load_failed");Render();}
+            catch(InvalidOperationException){RecordIssue(DiagnosticIssue.InvalidConfiguration);LastMessage=R("load_failed");Render();}
         }
     }
 }

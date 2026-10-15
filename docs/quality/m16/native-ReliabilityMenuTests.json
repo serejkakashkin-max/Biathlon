@@ -1,27 +1,32 @@
 {
   "Summary": {
     "Status": "Passed",
-    "TotalTests": 451,
-    "PassedTests": 3,
+    "TotalTests": 452,
+    "PassedTests": 4,
     "FailedTests": 0,
     "SkippedTests": 0,
-    "Duration": "00:00:04.4560593"
+    "Duration": "00:00:04.2322134"
   },
   "Results": [
     {
       "Name": "Biathlon.PlayModeTests.ReliabilityMenuTests.CorruptPrimaryRecoversSameCareerWithVisibleNoticeAndAnonymousReport",
       "Status": "Passed",
-      "Duration": "00:00:02.4880000"
+      "Duration": "00:00:02.3670000"
     },
     {
       "Name": "Biathlon.PlayModeTests.ReliabilityMenuTests.NewlyCreatedCareerReportsPublishedPrimaryWithoutNeedingContinue",
       "Status": "Passed",
-      "Duration": "00:00:00.1500000"
+      "Duration": "00:00:00.1570000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.ReliabilityMenuTests.UnavailableSavedCalendarKeepsValidFilesAndOffersReadableHomeRecovery",
+      "Status": "Passed",
+      "Duration": "00:00:00.5050000"
     },
     {
       "Name": "Biathlon.PlayModeTests.ReliabilityMenuTests.UnsupportedSaveShowsFriendlyMessageAndNeverDowngradesItsFiles",
       "Status": "Passed",
-      "Duration": "00:00:00.8480000"
+      "Duration": "00:00:00.8490000"
     }
   ]
 }
