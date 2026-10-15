@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using System.Runtime.CompilerServices;
 using Biathlon.Career;
 using NUnit.Framework;
 
@@ -54,15 +55,27 @@ namespace Biathlon.Tests
             stats[12]=100000;r=BiathlonRatingEngine.Calculate(WithStats(stats),d);
             Assert.That(r.Mental,Is.EqualTo(99));Assert.That(r.Shooting,Is.EqualTo(1));
         }
+#if !UNITY_EDITOR
+        // The engine-free CoreCLR test remains here; Unity's native GC.Alloc guard
+        // lives in AthleteRatingAllocationTests in the engine-capable test assembly.
         [Test] public void WarmRatingProjectionAllocatesNoManagedMemory()
         {
             var a=CareerFoundationTests.Create().Athlete(0);var d=Definition();
-            for(int i=0;i<10;i++)BiathlonRatingEngine.Calculate(a,d);
-            long before=GC.GetAllocatedBytesForCurrentThread();int sum=0;
-            for(int i=0;i<1000;i++)sum+=BiathlonRatingEngine.Calculate(a,d).Overall;
-            long allocated=GC.GetAllocatedBytesForCurrentThread()-before;
+            MeasureAllocations(a,d,10,false,out _);MeasureAllocations(a,d,10,true,out _);
+            long allocated=MeasureAllocations(a,d,1000,false,out int sum);
             Assert.That(sum,Is.GreaterThan(0));Assert.That(allocated,Is.Zero);
+            Assert.That(MeasureAllocations(a,d,1000,true,out _),Is.GreaterThanOrEqualTo(16000),"Positive control must detect real CoreCLR allocation.");
         }
+        private static object allocationSink;
+        // Keep assertion argument boxing outside the measured call on optimizing runtimes.
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private static long MeasureAllocations(CareerAthlete athlete,BiathlonRatingDefinition definition,int count,bool positiveControl,out int sum)
+        {
+            sum=0;long before=GC.GetAllocatedBytesForCurrentThread();
+            for(int i=0;i<count;i++){sum+=BiathlonRatingEngine.Calculate(athlete,definition).Overall;if(positiveControl)allocationSink=new byte[16];}
+            long delta=GC.GetAllocatedBytesForCurrentThread()-before;GC.KeepAlive(allocationSink);allocationSink=null;return delta;
+        }
+#endif
         [Test] public void InvalidWeightsAndGroupsAreRejected()
         {
             string json=Definition().ToJson();
