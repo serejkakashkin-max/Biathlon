@@ -120,3 +120,6 @@ Two earlier Editor MCP dispatch exceptions are archived as tooling records;
 settled Console and all native review error arrays are empty. Latest source74baab00,
 launcher Builds/M15_5_Faces_Review/START_TEST.cmd. VU-B remains APPROVED; VU-G
 technical follow-up complete. New faces await owner review; M16 not started.
+
+
+2026-10-15 OWNER CLOSURE: user explicitly closes M15.5. All VU-A–G CLOSED / OWNER APPROVED, including the added face diversity. Integrated baseline9867b24b; latest test launcher Builds/M15_5_Faces_Review/START_TEST.cmd. Follow-on work moves to M15.6 (docs/M15_6_WP_STATUS.md); M16 has not started.

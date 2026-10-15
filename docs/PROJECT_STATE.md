@@ -25347,3 +25347,17 @@ m15-5/faces/review.html; report TASK_M15_5_FACE_DIVERSITY_20261015. VU-B movemen
 remains APPROVED by owner. VU-G face follow-up technically complete; added faces
 await owner visual review. M16 not started. Append-only history preserved;
 next action: owner tests light/dark and differing faces in the fullscreen build.
+
+## 2026-10-15 — Owner closes M15.5; M15.6 starts
+
+Owner explicitly closes 15.5 after approving movement and the face follow-up.
+M15.5 VU-A–G are CLOSED / OWNER APPROVED; this supersedes earlier pending-face
+entries without deleting their history. Retained integrated source9867b24b and
+Builds/M15_5_Faces_Review/START_TEST.cmd are the approved baseline.
+
+New owner Master Plan V2 is archived verbatim at docs/owner/
+OWNER_M15_6_MASTER_PLAN_V2_RU.md. M15.6 starts on separate branch
+codex/m15-6-career-creator from9867b24b, not main; pre-existing working-tree changes
+are preserved. WP-A audit/architecture complete; ADR-0070 records core/UI/rig/save
+integration, known single-ceiling potential and destructive league cohort turnover.
+WP-B in progress; C–I queued. M15.6 OPEN; M16 unstarted. No new build claimed.
