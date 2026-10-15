@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "face_diversity_performance",
+  "texture_bytes": 209963578,
+  "results": {
+    "baseline-perf": {
+      "cpu_main_ms": {
+        "mean": 3.7733304166666666,
+        "p95": 5.5706,
+        "samples": 240
+      },
+      "cpu_render_ms": null,
+      "gpu_ms": null,
+      "gc_bytes": {
+        "mean": 7585.575,
+        "p95": 22283,
+        "samples": 240
+      },
+      "draw_calls": {
+        "mean": 677.0833333333334,
+        "p95": 721,
+        "samples": 240
+      },
+      "triangles": {
+        "mean": 6217012.725,
+        "p95": 6311907,
+        "samples": 240
+      },
+      "animation_ms": {
+        "mean": 0.4602720833333333,
+        "maximum": 0.7565
+      }
+    },
+    "final-perf": {
+      "cpu_main_ms": {
+        "mean": 3.8330654166666664,
+        "p95": 5.5786,
+        "samples": 240
+      },
+      "cpu_render_ms": null,
+      "gpu_ms": null,
+      "gc_bytes": {
+        "mean": 7585.575,
+        "p95": 22266,
+        "samples": 240
+      },
+      "draw_calls": {
+        "mean": 671.9708333333333,
+        "p95": 721,
+        "samples": 240
+      },
+      "triangles": {
+        "mean": 6200301.6625,
+        "p95": 6311881,
+        "samples": 240
+      },
+      "animation_ms": {
+        "mean": 0.47379125,
+        "maximum": 0.5446
+      }
+    }
+  },
+  "method": "Sequential matched Ultra1920x1080,30 athletes/2588 trees;120 warmup+240 sampled frames. No HUD/swapchain cost; GPU/render-thread timing unavailable. One scoped pair, not a general speedup/60FPS claim."
+}

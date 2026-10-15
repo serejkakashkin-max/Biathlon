@@ -1,0 +1,38 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":417,\"PassedTests\":1,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:00.1160200\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.G2JointVolumeTests.AllLodsHaveBoundedLocalJointDeltasAndRestIsUnchanged\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0480000\",\"Message\":\"  Four joint correctives plus three independent original cosmetic builds.\\r\\n  Expected: 7\\r\\n  But was:  13\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.G2JointVolumeTests.BentJointsExpandWithoutMovingSocketsAndHaveNoWarmAllocations\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0110000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 417,
+          "PassedTests": 1,
+          "FailedTests": 1,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.1160200"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.G2JointVolumeTests.AllLodsHaveBoundedLocalJointDeltasAndRestIsUnchanged",
+            "Status": "Failed",
+            "Duration": "00:00:00.0480000",
+            "Message": "  Four joint correctives plus three independent original cosmetic builds.\r\n  Expected: 7\r\n  But was:  13\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.G2JointVolumeTests.BentJointsExpandWithoutMovingSocketsAndHaveNoWarmAllocations",
+            "Status": "Passed",
+            "Duration": "00:00:00.0110000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

@@ -8,12 +8,12 @@ Budget for new assets/subscriptions: $0. No automatic main merge.
 | WP | Scope | Status |
 |---|---|---|
 |VU-A|Asset/license/code audit, baseline tests/captures/performance|COMPLETE|
-|VU-B|Hybrid ski motion, phases, contacts, fallback, comparison scene|REFINED 2026-10-15 — slower attack arms and fitted carry; owner review pending|
-|VU-C|G2 hero, equipment, materials, variation and LOD audit/upgrade|APPROVED by owner 2026-10-13|
+|VU-B|Hybrid ski motion, phases, contacts, fallback, comparison scene|APPROVED by owner 2026-10-15 — movement accepted|
+|VU-C|G2 hero, equipment, materials, variation and LOD audit/upgrade|APPROVED baseline; additional face diversity ready for owner review 2026-10-15|
 |VU-D|Snow materials, individual ski/pole tracks and bounded spray|APPROVED by owner 2026-10-13|
 |VU-E|Forest composition and licensed winter roadside details|APPROVED by owner 2026-10-13|
 |VU-F|Five winter atmospheres and Performance/High/Ultra visual profiles|APPROVED by owner 2026-10-13|
-|VU-G|Integrated validation, matched before/after, profiling, test build|COMPLETE 2026-10-15 — full PlayMode410/410, fullscreen contact-review build ready|
+|VU-G|Integrated validation, matched before/after, profiling, test build|COMPLETE 2026-10-15 — faces71/71 selected checks; fullscreen Faces Review build ready|
 
 The existing G2 hero, snow_02, fir/pine, winter shrub, boulder and Passendorf sky
 are integrated. Reuse them instead of downloading duplicates. NSD is research
@@ -88,3 +88,35 @@ sprint-carry-refinement/review.html; report TASK_M15_5_SPRINT_CARRY_20261015.
 VU-G technical follow-up complete; VU-B artistic acceptance pending. Other
 approved WPs, race authority, balance, assets/quality, UI/audio and save schemas
 remain preserved. M16 not started.
+
+
+2026-10-15 owner approval and face follow-up: owner explicitly approves movement
+("движение теперь шикарное… апрув"). VU-B is APPROVED, not waiting for more arm
+review. On the retained audited CC0 hero, add8 shared skin colors and6 face-only
+profiles selected independently from stable athlete ID. Existing body/build,
+joint, rig and approved motion remain; all6 matched transform streams agree
+exactly. Three LODs retain appearance; national kit, bib/leader and ski colors
+stay independent. No simulation RNG, new save schema or restricted head import.
+68/68 selected final checks PASS (66 PlayMode+2 EditMode,14 fixtures),0 skips;
+initial outdated7-channel fixture failure retained and corrected without
+removing joint assertions.14 native portraits, real Mass30 through tick1000,
+clean final Console and default2560x1440 fullscreen pass. Build0 errors/0 warnings.
+Scoped CPU3.9820→3.7752ms; texture memory identical, GC effectively unchanged;
+GPU timing unavailable, no general FPS claim. Sourcee5c65d68. Launcher
+Builds/M15_5_Faces_Review/START_TEST.cmd; gallery docs/quality/m15-5/faces/review.html;
+report TASK_M15_5_FACE_DIVERSITY_20261015. VU-G technical work complete. Existing
+visual approvals retained; new face diversity awaits owner review. M16 unstarted.
+
+
+2026-10-15 final face correction: full-gallery inspection caught a narrow-face
+midline split after the initial68-case verification. Source74baab00 replaces
+Sign(x) in both new and legacy face-width morphs with a continuous side field;
+body/shoulder parts and joint channels remain. Red3/3 actual-mesh seam cases
+become green; final71/71 selected cases PASS (69 PlayMode+2 EditMode,14 fixtures;
+420 inventory is not a full rerun).14 regenerated native portraits and fresh
+Mass30 are clean; all6 approved motion hashes still agree. Final matched CPU
+3.7733→3.8331ms,GC/texture bytes identical; no zero-cost or general FPS claim.
+Two earlier Editor MCP dispatch exceptions are archived as tooling records;
+settled Console and all native review error arrays are empty. Latest source74baab00,
+launcher Builds/M15_5_Faces_Review/START_TEST.cmd. VU-B remains APPROVED; VU-G
+technical follow-up complete. New faces await owner review; M16 not started.

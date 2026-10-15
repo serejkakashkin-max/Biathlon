@@ -25255,3 +25255,95 @@ owner visual acceptance of attack rhythm and carried rifle. Approved other
 visual WPs retained. M16 not started. Prior binaries/evidence, append-only
 history and unrelated local work preserved. Next action: owner fullscreen
 playtest and acceptance or further animation feedback.
+
+
+### 2026-10-15 — Owner APPROVES VU-B movement; stable athlete faces ready for review
+
+Owner explicitly: "движение теперь шикарное… апрув". VU-B artistic acceptance
+is now APPROVED; this supersedes earlier pending-arm entries without deleting
+history. Owner next requests different faces/light/dark skin using available
+tools. Verified portable Blender and current G2 authoring assets; retain audited
+CC0 body and earlier approved motion. Retired restricted015 head stays archived.
+Sourcee5c65d68 adds versioned athlete_faces_v1:8 skin colors and6 original bounded
+face morph profiles, independently hashed from stable athlete ID. Old3-build
+selection is unchanged. Faces/skin persist across same-ID race recreation,
+career load, LOD, renumbering, nationality and leader-bib changes. No simulation
+RNG or save schema change. Face stability is within this fixed visual recipe;
+future palette reorder/version changes require an explicit decision.
+
+Authoring appends6 face channels after existing4 joint+3 build channels in each
+of3 meshes; base geometry/weights/bindposes and prior channels remain. Normal
+morph deltas retain artist smoothing; generation is idempotent. Runtime selects
+one face morph, uses8 shared skin materials plus existing national cloth caches,
+and does no per-frame mesh editing. Repeated unchanged identity/nation calls
+allocate0 managed bytes. New native development-only portrait review uses14
+actual player captures with identical light and neutral existing build; originals
+are unretouched. Real Mass30 review reaches tick1000 without errors.
+
+Final selected68/68 checks PASS,0 failures/skips (66 PlayMode+2 EditMode across14
+fixtures;417 inventory is not a full-suite claim). Initial G2JointVolume fixed
+7-channel count failed after adding6 faces; expected count updated with all
+original joint bounds/locality/rest assertions retained. Failure receipt kept;
+no test removed/disabled. An outer shell stale-LASTEXITCODE guard produced a
+false post-run failure; direct structured aggregation verifies all68 actual
+passes. Final Console Error/Exception/Assert queries empty. All6 moving-root
+body/leg transform stream hashes match the approved source exactly (360 frames
+at120Hz each); standing/prone sight, rifle contact and sprint rhythm checks pass.
+
+Win64 incremental development build0 errors/0 warnings. Default EXE launch after
+windowed QA reports2560x1440 FullScreenWindow. Matched sequential Ultra1920x1080,
+30 athletes/2588 trees,120warmup+240 measured frames:CPUmean3.9820→3.7752ms,
+p955.8440→5.5498ms,pose0.4874→0.4616ms,GC7585.72→7585.58B/frame(effectively
+unchanged); identical209963578 texture bytes. No measured scoped CPU regression,
+no general speedup/60FPS/GPU claim; GPU/render-thread timing unavailable and
+HUD/swapchain excluded. No new textures or graphics-quality reduction. Additional
+one active face morph per athlete has a bounded, not zero, cost.
+
+Launcher Builds/M15_5_Faces_Review/START_TEST.cmd. Gallery docs/quality/m15-5/faces/
+review.html; report TASK_M15_5_FACE_DIVERSITY_20261015; derivation record in
+licensing/g2_visual/face-identity-derivation.json. VU-G face follow-up technically
+complete. Existing visual approvals retained; new faces ready for owner review.
+M16 unstarted. Race/AI/physics/balance/steering/shot/replay/save/UI/audio authority
+unchanged; full deterministic race replay not rerun for this cosmetic addition.
+Append-only state history and unrelated source work retained. Next: owner tests
+face diversity in fullscreen build, then chooses further visual work or M16.
+
+
+### 2026-10-15 10:13 MSK — Final face midline correction;71 checks PASS, new build ready
+
+Correction to the preceding initial face-progress entry: full-gallery native
+inspection caught a split/overlap at the narrow face's centre after the initial
+68-case pass. Source74baab00 (on top ofe5c65d68) replaces discontinuous Sign(x)
+with a shared smooth side field in the6 new profiles and face-width portions
+of3 existing build shapes. Source geometry/topology/weights/bindposes, first4
+joint correctives and non-face/body/shoulder portions remain. The preceding
+claim of retaining all prior face deltas exactly is superseded by this explicit
+face-only correction. The approved animation/body/leg streams remain exact.
+
+Actual-mesh centre regression red3FAIL across all3 LODs becomes green. Final
+selected71/71 PASS,0 failures/skips (69 PlayMode+2 EditMode,14 fixtures;420 full
+inventory is not claimed as rerun). Earlier fixed7-channel and seam failures
+are archived; no test removed/disabled.14 final native portraits and fresh
+actual Mass30 through tick1000 have no runtime errors; narrow front/oblique
+views inspected clean. Six matched360-frame120Hz body/leg transform hashes
+still agree with the approved source. Fullscreen startup2560x1440 after windowed
+QA passes; latest Win64 build0 errors/0 warnings,383024579bytes.
+
+Final scoped matched Ultra1920x1080/30athletes/2588trees,120warmup+240samples:
+CPUmean3.7733→3.8331ms(+0.060ms),p955.5706→5.5786ms,pose0.4603→0.4738ms;
+GC7585.575B/frame and209963578texture bytes identical. Small bounded addition,
+not zero cost/general speedup/60FPS. GPU/render-thread data unavailable;
+HUD/swapchain excluded. Textures and graphics quality retained.
+
+Two Editor-only MCP UnityMainThread.Dispatch/TaskCompletionSource.SetException
+records occurred during automation; stack traces identify the package tooling,
+not project/player frames, and are retained in the evidence. Settled last3minute
+Console Error/Exception/Assert queries empty; all native review error arrays
+empty. No out-of-scope package patch. Previous source/race authority, balance,
+controls, shooting, saves, replay, UI/audio remain unchanged.
+
+Latest launcher Builds/M15_5_Faces_Review/START_TEST.cmd; gallery docs/quality/
+m15-5/faces/review.html; report TASK_M15_5_FACE_DIVERSITY_20261015. VU-B movement
+remains APPROVED by owner. VU-G face follow-up technically complete; added faces
+await owner visual review. M16 not started. Append-only history preserved;
+next action: owner tests light/dark and differing faces in the fullscreen build.

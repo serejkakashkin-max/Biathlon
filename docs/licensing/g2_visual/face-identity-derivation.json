@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "m15_5_original_face_identity_derivation",
+  "base_manifest": "docs/licensing/g2_visual/hero-derivation.json",
+  "base_license": "CC0 audited G2 hero body",
+  "tools": {
+    "available": "Existing portable Blender4.5.9",
+    "authoring": "Original Unity6 editor morph authoring on retained G2 mesh; no body re-export needed"
+  },
+  "changes": [
+    "Six original face-only morph profiles per LOD",
+    "Morph-induced normal differences retain base smoothing",
+    "Eight original skin colors on shared existing skin materials",
+    "Continuous face-width field fixes mirrored midline in new6 face profiles and face portions of old3 builds; body/shoulder motion unchanged"
+  ],
+  "restricted_sources_used": false,
+  "generated_images_used": false,
+  "additional_downloads": false,
+  "source_sha256": {
+    "Assets/Resources/Biathlon/athlete_faces_v1.json": "638fc17edf6ee9bb58d5a26d4c88591dab20b07f3891ce0e4a7b24bab7656c16",
+    "Assets/Scripts/Unity/Editor/AthleteFaceAuthoring.cs": "3c9c224617158d6022fa68c1f5a0f33251cd0b87a31a734b8234d5f8ef78f46d",
+    "Assets/Resources/Biathlon/Athletes/G2Hero/Meshes/HeroLOD0.asset": "62f045b818ca3125ab27b4886dc9882de484f027b46547d0cef50547facc2226",
+    "Assets/Resources/Biathlon/Athletes/G2Hero/Meshes/HeroLOD1.asset": "96e240934b0444b97a525a1534c7494cb962d1ea980d67311e2354d2e200f49f",
+    "Assets/Resources/Biathlon/Athletes/G2Hero/Meshes/HeroLOD2.asset": "de01783367cc5d6b79eb4b15a86417e0edd9d9432d617b20b62c0596f3af1fd3"
+  }
+}

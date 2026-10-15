@@ -1,0 +1,80 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":420,\"PassedTests\":7,\"FailedTests\":3,\"SkippedTests\":0,\"Duration\":\"00:00:00.3231406\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.AthleteFaceTests.FaceAndToneSurviveLodNationBibAndLeaderChanges\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0750000\"},{\"Name\":\"Biathlon.PlayModeTests.AthleteFaceTests.FaceMorphsRetainEveryJointBuildAndOnlyMoveSkinAboveTheNeck(0)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0990000\"},{\"Name\":\"Biathlon.PlayModeTests.AthleteFaceTests.FaceMorphsRetainEveryJointBuildAndOnlyMoveSkinAboveTheNeck(1)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0270000\"},{\"Name\":\"Biathlon.PlayModeTests.AthleteFaceTests.FaceMorphsRetainEveryJointBuildAndOnlyMoveSkinAboveTheNeck(2)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0200000\"},{\"Name\":\"Biathlon.PlayModeTests.AthleteFaceTests.FaceMorphsStayContinuousAtTheMirroredMidline(0)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0030000\",\"Message\":\"  OriginalBuild0 must neither split nor overlap the face centre.\\r\\n  Expected: less than 0.000300449028f\\r\\n  But was:  0.00399901811f\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.AthleteFaceTests.FaceMorphsStayContinuousAtTheMirroredMidline(1)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00\",\"Message\":\"  OriginalBuild0 must neither split nor overlap the face centre.\\r\\n  Expected: less than 0.000424725062f\\r\\n  But was:  0.00135002227f\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.AthleteFaceTests.FaceMorphsStayContinuousAtTheMirroredMidline(2)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00\",\"Message\":\"  OriginalBuild0 must neither split nor overlap the face centre.\\r\\n  Expected: less than 0.000911184063f\\r\\n  But was:  0.00138514326f\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.AthleteFaceTests.InvalidOrDuplicateFaceDefinitionsAreRejected\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.PlayModeTests.AthleteFaceTests.OneCountryCanContainAllSkinTonesAndMaterialCountIsBounded\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0030000\"},{\"Name\":\"Biathlon.PlayModeTests.AthleteFaceTests.StableIdentitiesCoverIndependentSkinAndFaceChoices\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 420,
+          "PassedTests": 7,
+          "FailedTests": 3,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.3231406"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteFaceTests.FaceAndToneSurviveLodNationBibAndLeaderChanges",
+            "Status": "Passed",
+            "Duration": "00:00:00.0750000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteFaceTests.FaceMorphsRetainEveryJointBuildAndOnlyMoveSkinAboveTheNeck(0)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0990000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteFaceTests.FaceMorphsRetainEveryJointBuildAndOnlyMoveSkinAboveTheNeck(1)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0270000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteFaceTests.FaceMorphsRetainEveryJointBuildAndOnlyMoveSkinAboveTheNeck(2)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0200000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteFaceTests.FaceMorphsStayContinuousAtTheMirroredMidline(0)",
+            "Status": "Failed",
+            "Duration": "00:00:00.0030000",
+            "Message": "  OriginalBuild0 must neither split nor overlap the face centre.\r\n  Expected: less than 0.000300449028f\r\n  But was:  0.00399901811f\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteFaceTests.FaceMorphsStayContinuousAtTheMirroredMidline(1)",
+            "Status": "Failed",
+            "Duration": "00:00:00",
+            "Message": "  OriginalBuild0 must neither split nor overlap the face centre.\r\n  Expected: less than 0.000424725062f\r\n  But was:  0.00135002227f\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteFaceTests.FaceMorphsStayContinuousAtTheMirroredMidline(2)",
+            "Status": "Failed",
+            "Duration": "00:00:00",
+            "Message": "  OriginalBuild0 must neither split nor overlap the face centre.\r\n  Expected: less than 0.000911184063f\r\n  But was:  0.00138514326f\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteFaceTests.InvalidOrDuplicateFaceDefinitionsAreRejected",
+            "Status": "Passed",
+            "Duration": "00:00:00.0010000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteFaceTests.OneCountryCanContainAllSkinTonesAndMaterialCountIsBounded",
+            "Status": "Passed",
+            "Duration": "00:00:00.0030000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteFaceTests.StableIdentitiesCoverIndependentSkinAndFaceChoices",
+            "Status": "Passed",
+            "Duration": "00:00:00.0010000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

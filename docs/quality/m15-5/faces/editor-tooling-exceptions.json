@@ -1,0 +1,31 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":[{\"LogType\":\"Exception\",\"Message\":\"InvalidOperationException\",\"Timestamp\":\"2026-10-15T10:02:32.4218660\\u002B03:00\",\"StackTrace\":\"System.Threading.Tasks.TaskCompletionSource\\u00601[TResult].SetException (System.Exception exception) (at \\u003Cc5ae8a4eeb824526b5df2932bc2395e0\\u003E:0)\\ncom.IvanMurzak.Unity.MCP.Runtime.Utils.UnityMainThread\\u002B\\u003C\\u003Ec__DisplayClass6_0\\u00601[T].\\u003CDispatch\\u003Eg__Execute|0 () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7efb9c3caadf/Runtime/Utils/MainThread.Editor.cs:54)\\nUnityEditor.EditorApplication.Internal_CallUpdateFunctions () (at \\u003C2194b77af8ea43e69caba13ba778a69a\\u003E:0)\\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String\\u0026, String\\u0026)\\n\",\"sequence\":69674},{\"LogType\":\"Exception\",\"Message\":\"InvalidOperationException\",\"Timestamp\":\"2026-10-15T10:03:25.8489770\\u002B03:00\",\"StackTrace\":\"System.Threading.Tasks.TaskCompletionSource\\u00601[TResult].SetException (System.Exception exception) (at \\u003Cc5ae8a4eeb824526b5df2932bc2395e0\\u003E:0)\\ncom.IvanMurzak.Unity.MCP.Runtime.Utils.UnityMainThread\\u002B\\u003C\\u003Ec__DisplayClass6_0\\u00601[T].\\u003CDispatch\\u003Eg__Execute|0 () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7efb9c3caadf/Runtime/Utils/MainThread.Editor.cs:54)\\nUnityEditor.EditorApplication.Internal_CallUpdateFunctions () (at \\u003C2194b77af8ea43e69caba13ba778a69a\\u003E:0)\\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String\\u0026, String\\u0026)\\n\",\"sequence\":69711}]}"
+      }
+    ],
+    "structuredContent": {
+      "result": [
+        {
+          "LogType": "Exception",
+          "Message": "InvalidOperationException",
+          "Timestamp": "2026-10-15T10:02:32.421866+03:00",
+          "StackTrace": "System.Threading.Tasks.TaskCompletionSource`1[TResult].SetException (System.Exception exception) (at <c5ae8a4eeb824526b5df2932bc2395e0>:0)\ncom.IvanMurzak.Unity.MCP.Runtime.Utils.UnityMainThread+<>c__DisplayClass6_0`1[T].<Dispatch>g__Execute|0 () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7efb9c3caadf/Runtime/Utils/MainThread.Editor.cs:54)\nUnityEditor.EditorApplication.Internal_CallUpdateFunctions () (at <2194b77af8ea43e69caba13ba778a69a>:0)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "sequence": 69674
+        },
+        {
+          "LogType": "Exception",
+          "Message": "InvalidOperationException",
+          "Timestamp": "2026-10-15T10:03:25.848977+03:00",
+          "StackTrace": "System.Threading.Tasks.TaskCompletionSource`1[TResult].SetException (System.Exception exception) (at <c5ae8a4eeb824526b5df2932bc2395e0>:0)\ncom.IvanMurzak.Unity.MCP.Runtime.Utils.UnityMainThread+<>c__DisplayClass6_0`1[T].<Dispatch>g__Execute|0 () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7efb9c3caadf/Runtime/Utils/MainThread.Editor.cs:54)\nUnityEditor.EditorApplication.Internal_CallUpdateFunctions () (at <2194b77af8ea43e69caba13ba778a69a>:0)\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\n",
+          "sequence": 69711
+        }
+      ]
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}
