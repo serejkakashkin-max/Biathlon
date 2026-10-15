@@ -25,12 +25,21 @@ namespace Biathlon.PlayModeTests
             public void Replace(string id,string expected,string value)=>throw new InvalidOperationException();
         }
         [TearDown]public void Cleanup(){if(root!=null)Object.DestroyImmediate(root);if(folder!=null&&Directory.Exists(folder)){foreach(var f in Directory.GetFiles(folder))File.Delete(f);Directory.Delete(folder,false);}}
-        [UnityTest,Timeout(300000)]public IEnumerator RankedIceMassReplayAndBackwardSeekKeepRecordedSolverAndStartList()
+        [UnityTest,Timeout(300000)]public IEnumerator RankedIceMassReplayAndBackwardSeekKeepRecordedSolverAndStartList()=>Run(false);
+        [UnityTest,Timeout(300000)]public IEnumerator LegacyV2CareerReplayKeepsRecordedSolverPosesAndOriginalSnapshotBytes()=>Run(true);
+        private IEnumerator Run(bool legacyV2)
         {
             var d=new CareerDefinitions(Read,"woodland_development_calendar_v1.json");var s=CareerFactory.Create(d.Roster,d.Calendar,"mass_seek","Alex","NOR","default",new SeededRandomSource(71000));
             for(int e=0;e<2;e++)CareerStandings.Register(s,new CareerRaceRecord("seek_result_"+e,s.SeasonId,d.Calendar.Get(e).Id,d.Calendar.Get(e).Format,123,new string('a',64),
                 new[]{new CareerFinish(s.Athlete(1).Id,300000,300000),new CareerFinish(s.Athlete(2).Id,301000,301000),new CareerFinish(s.PlayerId,302000,302000)}));
-            string snapshot=s.ToJson();var race=d.Calendar.Get(2);var p=new CareerRaceProvider(Read,d,ProductionVenueHost.ReadResource).Prepare(s,race,123);
+            string snapshot=s.ToJson();
+            if(legacyV2)
+            {
+                snapshot=System.Text.RegularExpressions.Regex.Replace(snapshot,"\"appearance_profile\":\\{[^{}]*\\},","");
+                snapshot=System.Text.RegularExpressions.Regex.Replace(snapshot,"(\"save_version\"\\s*:\\s*)[0-9]+","${1}2");
+                Assert.That(snapshot,Does.Not.Contain("appearance_profile"));
+            }
+            var race=d.Calendar.Get(2);var p=new CareerRaceProvider(Read,d,ProductionVenueHost.ReadResource).Prepare(s,race,123);
             var source=ManualProductionFieldComposition.Create(p.Runner.Field,p.Venue,p.ManualRead);
             p.Runner.BindManualScopedCandidate(source,ManualAiSteeringDefinition.FromJson(Read("manual_ai_steering_v2.json")),ManualSkiSteeringDefinition.FromJson(Read("manual_ski_steering_v2.json")),PlayerCourseAssistanceDefinition.FromJson(Read("player_course_assistance_v1.json")));
             folder=Path.Combine(Path.GetTempPath(),"biathlon-ranked-mass-replay-"+Guid.NewGuid().ToString("N"));var library=new RaceReplayLibrary(folder);var store=new Store{Json=snapshot};
