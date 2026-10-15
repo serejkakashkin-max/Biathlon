@@ -74,8 +74,11 @@ namespace Biathlon.Unity.Presentation
         private void Submit(string id){var b=menu.Root.Q<Button>(id);Require(b!=null&&b.enabledInHierarchy,"Missing or disabled action: "+id);b.Focus();using(var e=NavigationSubmitEvent.GetPooled())b.SendEvent(e);}
         private IEnumerator Capture(string name)
         {
-            for(int i=0;i<8;i++)yield return null;yield return new WaitForEndOfFrame();var before=RenderTexture.active;var pixels=new Texture2D(target.width,target.height,TextureFormat.RGB24,false);
-            try{RenderTexture.active=target;pixels.ReadPixels(new Rect(0,0,target.width,target.height),0,0);pixels.Apply();File.WriteAllBytes(Path.Combine(folder,name+".png"),pixels.EncodeToPNG());captures.Add(name+".png");}
+            // A disconnected/minimized desktop may never present an end-of-frame
+            // backbuffer. Native panels render to the explicit target; sample the
+            // following update, without depending on swapchain presentation.
+            for(int i=0;i<10;i++)yield return null;var before=RenderTexture.active;var pixels=new Texture2D(target.width,target.height,TextureFormat.RGB24,false);
+            try{RenderTexture.active=target;pixels.ReadPixels(new Rect(0,0,target.width,target.height),0,0);pixels.Apply();float low=1,high=0;for(int y=0;y<pixels.height;y+=32)for(int x=0;x<pixels.width;x+=32){float l=pixels.GetPixel(x,y).grayscale;low=Mathf.Min(low,l);high=Mathf.Max(high,l);}Require(high-low>.05f,"Native capture must contain visible UI/scene: "+name);File.WriteAllBytes(Path.Combine(folder,name+".png"),pixels.EncodeToPNG());captures.Add(name+".png");}
             finally{RenderTexture.active=before;Destroy(pixels);}
         }
         private static string Fingerprint()
