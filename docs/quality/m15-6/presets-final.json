@@ -1,0 +1,68 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":2026,\"PassedTests\":9,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:01.1890728\"},\"Results\":[{\"Name\":\"Biathlon.Tests.CareerCreationDraftTests.ConfirmationValidatesIdentityAndIsDeterministicAndDetached\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.1800000\"},{\"Name\":\"Biathlon.Tests.CareerCreationDraftTests.CreationDefinitionRejectsDuplicateUnboundedAndMissingChoices\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0110000\"},{\"Name\":\"Biathlon.Tests.CareerCreationDraftTests.EveryTierAndPresetProducesAValidBoundedCandidate\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.1450000\"},{\"Name\":\"Biathlon.Tests.CareerCreationDraftTests.InvalidAllocationIsAtomicAndRepeatedRefundsCannotCreateBudget\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.CareerCreationDraftTests.OriginUsesSameBudgetAndRespectsAgeWithoutPromisingPotential\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.CareerCreationDraftTests.PresetAndTierSwitchingNeverAccumulatesPointsOrConsumesDraftSeed\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.CareerCreationDraftTests.PresetHandlingCanChangeCadenceButCannotRejectAGeometricallyValidPlayerRay\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0290000\"},{\"Name\":\"Biathlon.Tests.CareerCreationDraftTests.ResetKeepsAZeroManualAllocationWhileEveryRepeatedPresetRestoresItsCompleteBudget\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0040000\"},{\"Name\":\"Biathlon.Tests.CareerCreationDraftTests.StartingAllocationAndAppearanceCannotIncreaseHiddenPotential\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0070000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 2026,
+        "PassedTests": 9,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:01.1890728"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.CareerCreationDraftTests.ConfirmationValidatesIdentityAndIsDeterministicAndDetached",
+          "Status": "Passed",
+          "Duration": "00:00:00.1800000"
+        },
+        {
+          "Name": "Biathlon.Tests.CareerCreationDraftTests.CreationDefinitionRejectsDuplicateUnboundedAndMissingChoices",
+          "Status": "Passed",
+          "Duration": "00:00:00.0110000"
+        },
+        {
+          "Name": "Biathlon.Tests.CareerCreationDraftTests.EveryTierAndPresetProducesAValidBoundedCandidate",
+          "Status": "Passed",
+          "Duration": "00:00:00.1450000"
+        },
+        {
+          "Name": "Biathlon.Tests.CareerCreationDraftTests.InvalidAllocationIsAtomicAndRepeatedRefundsCannotCreateBudget",
+          "Status": "Passed",
+          "Duration": "00:00:00.0020000"
+        },
+        {
+          "Name": "Biathlon.Tests.CareerCreationDraftTests.OriginUsesSameBudgetAndRespectsAgeWithoutPromisingPotential",
+          "Status": "Passed",
+          "Duration": "00:00:00.0020000"
+        },
+        {
+          "Name": "Biathlon.Tests.CareerCreationDraftTests.PresetAndTierSwitchingNeverAccumulatesPointsOrConsumesDraftSeed",
+          "Status": "Passed",
+          "Duration": "00:00:00.0020000"
+        },
+        {
+          "Name": "Biathlon.Tests.CareerCreationDraftTests.PresetHandlingCanChangeCadenceButCannotRejectAGeometricallyValidPlayerRay",
+          "Status": "Passed",
+          "Duration": "00:00:00.0290000"
+        },
+        {
+          "Name": "Biathlon.Tests.CareerCreationDraftTests.ResetKeepsAZeroManualAllocationWhileEveryRepeatedPresetRestoresItsCompleteBudget",
+          "Status": "Passed",
+          "Duration": "00:00:00.0040000"
+        },
+        {
+          "Name": "Biathlon.Tests.CareerCreationDraftTests.StartingAllocationAndAppearanceCannotIncreaseHiddenPotential",
+          "Status": "Passed",
+          "Duration": "00:00:00.0070000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

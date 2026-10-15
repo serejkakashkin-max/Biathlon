@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "id": "m15_6_authoritative_race_study_validation_v1",
+  "status": "FAIL",
+  "errors": [
+    "junior_novice_fresh_mass_start: AI chose tucked coasting during the first climb.",
+    "senior_debut_fresh_mass_start: AI chose tucked coasting during the first climb.",
+    "world_cup_debut_fresh_mass_start: AI chose tucked coasting during the first climb."
+  ],
+  "actual_cases": 22,
+  "full_races": 19,
+  "geometric_shots": 5700,
+  "actual_ticks": 548954,
+  "maximum_stationary_seconds": 4.45,
+  "matched_wc_winners": [
+    {
+      "race_seed": 123,
+      "fastest_case": "world_cup_debut_skier",
+      "times_ms": {
+        "world_cup_debut_balanced": 524910,
+        "world_cup_debut_skier": 522629,
+        "world_cup_debut_shooter": 531333
+      }
+    },
+    {
+      "race_seed": 124,
+      "fastest_case": "world_cup_debut_balanced_seed_124",
+      "times_ms": {
+        "world_cup_debut_balanced_seed_124": 526495,
+        "world_cup_debut_skier_seed_124": 540671,
+        "world_cup_debut_shooter_seed_124": 561957
+      }
+    },
+    {
+      "race_seed": 125,
+      "fastest_case": "world_cup_debut_skier_seed_125",
+      "times_ms": {
+        "world_cup_debut_balanced_seed_125": 541711,
+        "world_cup_debut_skier_seed_125": 521962,
+        "world_cup_debut_shooter_seed_125": 529748
+      }
+    }
+  ],
+  "limitations": "Three fixed race seeds, not a universal preset win-rate or format suitability claim. MassStart samples stop after the first actual timing station; full MassStart determinism belongs to the separate course-clock fixture."
+}

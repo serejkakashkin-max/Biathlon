@@ -1,0 +1,3675 @@
+{
+  "schema_version": 1,
+  "id": "m15_6_authoritative_career_race_study_v1",
+  "status": "PASS",
+  "selection": "counterfactuals",
+  "venue": "woodland_basin_v1",
+  "fixed_career_seed": 71000,
+  "race_seeds": [
+    124,
+    125
+  ],
+  "full_races": 6,
+  "opening_only": 0,
+  "completed": 6,
+  "failed": 0,
+  "geometric_shots": 1800,
+  "actual_ticks": 168969,
+  "stat_projection_checks": 2340,
+  "deterministic_repeat": null,
+  "wall_seconds": 80.1256723,
+  "definition_sha256": {
+    "career_roster_v1.json": "e4221a5c2e2ab7674bb80720b8f37f7fa8733a9f4472d07984541a44ee62f73f",
+    "career_calendar_v1.json": "21f04facaca509278030b053f7daf7dae14cdc36eff80f4a48b53058a767b15f",
+    "career_training_v1.json": "3437e0900cd85bd0a84a2f281c5815c06da5dc650cd170aedd1113fc74f9504d",
+    "career_training_policy_v1.json": "8480c2d589e164fe30dbba9bde4f0b49a286587bd2390d41ead928e8acdf626c",
+    "career_adaptation_v1.json": "2cc993f604fd55afcef4ede5bc361fd3dc52beade599fa8eab320610a9bee340",
+    "career_fatigue_v1.json": "d45d1d763d01111af4c7b19bb5c10ab214c0a39a71b781f196fcab6b68ee6ad7",
+    "career_form_v1.json": "38a54a61ce437b6b967a741d2c15b4dcb3cdbfc15c67bbeef5946b4aeca54d10",
+    "career_mental_v1.json": "7b20adb346f8b1b0cae1c239624ce08d6cb8684a8f28bc12b9656ca2d0644057",
+    "career_health_v1.json": "bfda7eee060fe35b0385b8660c1f216b12015a33f03139b1152f6b8b7d49a657",
+    "career_generation_v1.json": "33d2a0ca2cbd4123beb62360c67982df1dbc3b1b0e770428ec09f70b150adbc1",
+    "career_economy_v1.json": "d52cf87c0f302758bf0c0aad081628ca5ba8d3154b0032814e1ab872f1597fb9",
+    "career_scoring_v1.json": "1462032795a5e38284b8ed30993545a2933c38e45a7cc4b176cb7b7962144cd4",
+    "career_history_v1.json": "8ec234f41f700c1b21a13865a3c458712e9724a13277f746e43e21c81b40db9c",
+    "career_progression_v1.json": "e6b4ac9f2a119a4b7fefabee771ef703138f1f1508a412c7351280b84f8ea156",
+    "career_growth_v1.json": "f888f0f98846f03399f05906eb8c7cb1aa786a642db0452027588c9bf4256238",
+    "career_ratings_v1.json": "fa76fcf2a8e104f65fa7e2977a1c3e724f364ce427cbe1e20e5d75a77da16412",
+    "career_world_v1.json": "f1519221d004cf48e6925b0d3940dcc8fcb6a47d86b39fd10d915158e8893c2c",
+    "career_creation_v1.json": "73af786b5d6c5ff66126f2e1ff44a1fb69f3f65fb496a1ff696b8fe84340fa68",
+    "career_start_v1.json": "1b88e1326073a750bb833b9c236ea47f8db6046b471d58aaf71ca7e4d6fc0050",
+    "woodland_junior_calendar_v1.json": "f5e1e690036af51389b8f25459214bd3ab7681eedf4501bf0257ec06cbf1cdff",
+    "woodland_development_calendar_v1.json": "3fbb03ba2916db61517862cdf60f011133f2a0bc53d4de9de1559033486fdcd8",
+    "woodland_world_cup_calendar_v1.json": "66bc5add4b480e72ad202de7767a692174790b4951c74365308d8d1512698a20",
+    "career_scoring_ibu_2026_v1.json": "757697a0bd26c2a967382546b868d0c9c94b3c317f58abcaa3e6658bab015550",
+    "career_race_v1.json": "aab9028cb174453b223889931785cd2f69d56bdbd3736c52c55f58fa30da295d",
+    "ai_personality_patient_v1.json": "f6d232e6764f483909d486db5cc7637cdd58929a4d75fba2a90cb3539ae072ce",
+    "ai_personality_attacker_v1.json": "a23d3802ef9712def83cc2baf544d7ef95a35dcda8b765017ad49c6f7e7563ac",
+    "career_weather_v1.json": "f3564ebf86730a78c8cb57f2de45b5d72433655db0bcc6f6bd839c41af3d3af6",
+    "race_snow_neutral_v1.json": "16106bfee89b08149ab82b1c68dd8951cf14069c5d26fe56f7c88210f708f421",
+    "time_trial_athlete_v1.json": "08332afdcf5d0bee707f92204070728d047e61ef9371a7045e3939725fdfa868",
+    "shooting_athlete_v1.json": "e96a3019765a9d31f8df93f3a96308578ba9c4226ff784c92b9dc087f720462f",
+    "physiology_gameplay_v2.json": "9dc2072cba71a0d2cf534b29eb78838645a284b24a6494e944508aa509d5699e",
+    "physiology_stat_curves_v1.json": "9bf7e66954f09c0830df5a535f23cb6908f1f1dec4cfb1ae512e33c85b983410",
+    "ski_physics_provisional_v1.json": "6aa6317be1e8afdf4ba07aaab5d306fb03fde97ce35fb863af8e2f0baa591e27",
+    "ski_technique_provisional_v1.json": "d0da479a0074521074ff1535943157f9d21c41faec71404eee6c31ca87cc62ac",
+    "tuck_gameplay_v2.json": "90309909363ba1c08a600192b4647fe10d60d0f62aabdd0046811717dc99f865",
+    "cornering_gameplay_v2.json": "cb0e99c7a40d6f60d7b854121d4bde5c5bc79d825ae732fa250edce5e0c83770",
+    "snow_catalog_provisional_v1.json": "97eb422d47e4b311a1482c2a0cf27a5a47c00c7725a21ea2c993f8197dd5fc8d",
+    "ski_equipment_provisional_v1.json": "dfd51b9a91403cdd85caedb18e29036cebb6dae579ccc13b81f060c90675bf23",
+    "final_sprint_provisional_v1.json": "9bc27c2145caa8d514ae7e0194c49406d6cc5341688fc448213be631df13650b",
+    "shooting_lifecycle_v1.json": "7044c6558c7d7f1be4de312ff47d81b091e4e5bcaf08701369f1de5afd9630e7",
+    "target_geometry_v1.json": "73f2197be800d84f24e2387eded5babb6e971027f73ccd215ca00b84a331dd4d",
+    "weapon_aim_v1.json": "5e19e31acedd256ac740b13c178849a291334da315b2be09ad56bca049bd5bd3",
+    "breathing_gameplay_v2.json": "042fdf99c523229bd52bae8b4ac4baba749fa993c620118e3f37ac55b4950191",
+    "heartbeat_gameplay_v2.json": "7aa7f27a2cceeb2a4b1a60aa3f7c2166e75e47585d45b3a697423925c8a05c91",
+    "muscular_sway_gameplay_v2.json": "de609c7da7a6206d895d31cd6708c5938710cbc07801d6f87942c45fda5ed95c",
+    "shooting_stances_v1.json": "7ebaeef3aacd627c9636dc5345fefaa42a4353b9b4ceda5917c56818d6344dd2",
+    "breath_control_v1.json": "bb101f3c1a0b2fcf3897e2e2c88955f311afbf0daa36207b868b4b17797129e4",
+    "shooting_wind_v1.json": "1fcab3932b47e73986a45548227817fbc7370c853a332c4f04eb224a7c8fc99c",
+    "shooting_handling_v1.json": "232064c12055e75f9a69171fe46a5fb69a559b171b9593fcc5a6a727b9fd8fb8",
+    "rifle_neutral_v1.json": "875fd73514278994529d7cde6f563ecf1385bef623e5d44e84a7b0830881a58b",
+    "shooting_pressure_v1.json": "d521e42a15d6397a4582a69fc911fe5400c5e01d7776a3ad10a74e7725ca64ce",
+    "result_timing_v1.json": "36692f731f0950a0941c3026275dbf7672f3bd50ab1f89aba84980c85b5fab17",
+    "draft_provisional_v1.json": "a4668e436c412a0996703ca121a866208ada632da40fdf4f8c13f016e2e9be6c",
+    "overtake_provisional_v1.json": "2de9debf3ccfd6e3fe56da7e2fe664c1ea2fa556521bae4a82f3d2cf7b972910",
+    "ai_difficulty_expert_v1.json": "0be3c88fec44f7bf8d4da419c48155bc95d28f4179581a537a18be4808252c5b",
+    "ai_race_policy_provisional_v1.json": "d1431a864189fa456ae72296293c47bc908dc73edd75eafe0e30a0be3ebe0df4",
+    "tuck_provisional_v1.json": "ca179b2f8701876456d7ec333890da1d87f0511f6bd846df0085b96122277be4",
+    "ai_start_traffic_provisional_v1.json": "3a91de9edc3830d2bbe617cf7feeadcb4ad2c6ae59fefd79804feadc891e9e70",
+    "pace_controller_gameplay_v2.json": "0dd7284b830a0da61351c2d09f15f3961ff90a891d971ddac9370ee676f7ade2",
+    "shooting_ai_v1.json": "1ec346895726b9ed9d732dc0cdcdda665007723976242192b27d7bc322674e6a",
+    "tactical_utility_provisional_v1.json": "d47a4cfc0a9e7f8a48498ea4b96e20be109bd19e77b7fede7ceaaa12f3ba488e",
+    "terrain_planning_provisional_v1.json": "ceb0fb23ebad426de48515af926af0d2b408b7beae94564fab1bf2dd61af57c9",
+    "pre_range_recovery_gameplay_v2.json": "d8eba6b57837ab65319f5afcc38978ae3175959b41824a0e0ce05aa9789468ad",
+    "shooting_strategy_gameplay_v2.json": "05bbf464053293aa198fa26d55240d61a80fd2bc4f5cbe0f6b0e684c3f7028a5",
+    "draft_selection_provisional_v1.json": "9df0b29e46280234f9af7416dff251abe8ae50f4b9c1c614a0e3e2640defaa99",
+    "overtake_decision_provisional_v1.json": "b7b18430664236b348d2bf6bca49bcd8e3e4aa1777cf6fdfba2d2e0ff20c1cb8",
+    "occupancy_provisional_v1.json": "e6ccb9b7e2a79bf53f42be040101064377cbb43f0f035cfcf4cd8acc90294fef",
+    "manual_ski_contact_gameplay_v1.json": "e4683c75da52a86e96fe81344ae7903b66c2cb5a0767919ea06417160bdd8fb7",
+    "manual_ski_contact_sweep_v1.json": "cef51f9bfe09a756d5d3e14f28f45e72207f7123ad91bca62e043caa2fb0a2a6",
+    "manual_ski_contact_group_gameplay_v1.json": "93ba5a28f91f9b2379637da1af70aadc87094bacc4e62c4d10b1a32cf09eec7b",
+    "manual_ski_steering_v2.json": "f11f6bb9931f5cea10adcd18e4f9aba96d6417503eff1a39440fe43941e0b245",
+    "manual_finish_runout_gameplay_v1.json": "2718e26b8f04e8b92d86a38a71f0340f17c2f1df4f399940168c4df3a862caf2",
+    "manual_gameplay_tolerance_v1.json": "29f76dd6092260c2b4815a8f28e5474837cacd26aaeca1ea8007a9060e050c74",
+    "manual_mat_capture_v1.json": "0f0147af87611455b92e55bd7ee44e5f13fc05f25e25b95baebc915a6a0458bb",
+    "manual_course_contact_gameplay_v2.json": "5873b6f59fe6157e7a5e9dd0a2e684dacc0e6538b3b8a89b30da32a6823882fd",
+    "manual_mat_braking_v1.json": "6901a1910ea5280b115e32c1876eb3af090e650772ed625362447289fde10ce6",
+    "manual_ai_steering_v2.json": "85c2bbed88027a7fbd4434120b425b5c495915c6de8a388867728bcfb802ffd5",
+    "player_course_assistance_v1.json": "16efac0932c58b32b9ddb0ee05d138fdfe2dab1df1435045d421ea06c8ef9d34"
+  },
+  "scope": "Representative fresh actual production30 Sprint races; separate actual MassStart first-split openings; one explicitly controlled full-effort/precise-aim route-automated junior. Not hundreds of full career races or human skill proof.",
+  "results": [
+    {
+      "Id": "world_cup_debut_balanced_seed_124",
+      "PlayerId": "race_study_world_cup_debut_athlete_0",
+      "PlayerAge": 25,
+      "PlayerOverall": 78,
+      "Controlled": false,
+      "OpeningOnly": false,
+      "RaceSeed": 124,
+      "Ticks": 28397,
+      "AuthoritySha256": "0512e12510bef77412970ffc3dcf7b8a5212dd5ec4e7ab3781dd4b6061ba6a7e",
+      "EventFnv64": "2008925fc0cc4077",
+      "Shots": 300,
+      "Hits": 263,
+      "StatProjectionChecks": 390,
+      "ManualBoltCommands": 0,
+      "PlayerRank": 16,
+      "PlayerLeadSeconds": -47.086,
+      "FirstSplitP90GapSeconds": 7.142924015150015,
+      "MaximumStationarySeconds": 1.75,
+      "WallSeconds": 14.470035,
+      "Results": [
+        {
+          "Rank": 1,
+          "AthleteId": "race_study_world_cup_debut_athlete_9",
+          "Overall": 89,
+          "ElapsedMilliseconds": 497236,
+          "Penalties": 0,
+          "RangeSeconds": 44.25,
+          "AverageEffort": 731.4718543046357,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 2,
+          "AthleteId": "race_study_world_cup_debut_athlete_7",
+          "Overall": 88,
+          "ElapsedMilliseconds": 505555,
+          "Penalties": 0,
+          "RangeSeconds": 46.2,
+          "AverageEffort": 716.5653025685677,
+          "MaximumStationarySeconds": 1.75
+        },
+        {
+          "Rank": 3,
+          "AthleteId": "race_study_world_cup_debut_athlete_1",
+          "Overall": 85,
+          "ElapsedMilliseconds": 507912,
+          "Penalties": 0,
+          "RangeSeconds": 44.5,
+          "AverageEffort": 741.8928687021254,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 4,
+          "AthleteId": "race_study_world_cup_debut_athlete_16",
+          "Overall": 82,
+          "ElapsedMilliseconds": 511905,
+          "Penalties": 0,
+          "RangeSeconds": 45.9,
+          "AverageEffort": 712.8835961806673,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 5,
+          "AthleteId": "race_study_world_cup_debut_athlete_3",
+          "Overall": 79,
+          "ElapsedMilliseconds": 525163,
+          "Penalties": 0,
+          "RangeSeconds": 46.85,
+          "AverageEffort": 716.8016097000104,
+          "MaximumStationarySeconds": 1.25
+        },
+        {
+          "Rank": 6,
+          "AthleteId": "race_study_world_cup_debut_athlete_4",
+          "Overall": 87,
+          "ElapsedMilliseconds": 525139,
+          "Penalties": 1,
+          "RangeSeconds": 45.4,
+          "AverageEffort": 711.492131318395,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 7,
+          "AthleteId": "race_study_world_cup_debut_athlete_8",
+          "Overall": 84,
+          "ElapsedMilliseconds": 527040,
+          "Penalties": 1,
+          "RangeSeconds": 47.55,
+          "AverageEffort": 705.9311783107404,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 8,
+          "AthleteId": "race_study_world_cup_debut_athlete_19",
+          "Overall": 88,
+          "ElapsedMilliseconds": 528118,
+          "Penalties": 1,
+          "RangeSeconds": 44.8,
+          "AverageEffort": 751.9780697217337,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 9,
+          "AthleteId": "race_study_world_cup_debut_athlete_14",
+          "Overall": 91,
+          "ElapsedMilliseconds": 529582,
+          "Penalties": 2,
+          "RangeSeconds": 42.95,
+          "AverageEffort": 758.7848556457413,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 10,
+          "AthleteId": "race_study_world_cup_debut_athlete_15",
+          "Overall": 82,
+          "ElapsedMilliseconds": 532268,
+          "Penalties": 1,
+          "RangeSeconds": 45,
+          "AverageEffort": 736.9308434229428,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 11,
+          "AthleteId": "race_study_world_cup_debut_athlete_28",
+          "Overall": 86,
+          "ElapsedMilliseconds": 535837,
+          "Penalties": 1,
+          "RangeSeconds": 45.45,
+          "AverageEffort": 746.3331973898858,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 12,
+          "AthleteId": "race_study_world_cup_debut_athlete_2",
+          "Overall": 81,
+          "ElapsedMilliseconds": 538489,
+          "Penalties": 1,
+          "RangeSeconds": 48.1,
+          "AverageEffort": 712.6298939641109,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 13,
+          "AthleteId": "race_study_world_cup_debut_athlete_10",
+          "Overall": 77,
+          "ElapsedMilliseconds": 541928,
+          "Penalties": 1,
+          "RangeSeconds": 46.15,
+          "AverageEffort": 729.111738604276,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 14,
+          "AthleteId": "race_study_world_cup_debut_athlete_5",
+          "Overall": 83,
+          "ElapsedMilliseconds": 541911,
+          "Penalties": 2,
+          "RangeSeconds": 44.65,
+          "AverageEffort": 736.608284737583,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 15,
+          "AthleteId": "race_study_world_cup_debut_athlete_12",
+          "Overall": 79,
+          "ElapsedMilliseconds": 542207,
+          "Penalties": 1,
+          "RangeSeconds": 45.95,
+          "AverageEffort": 732.6680435220633,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 16,
+          "AthleteId": "race_study_world_cup_debut_athlete_0",
+          "Overall": 78,
+          "ElapsedMilliseconds": 544322,
+          "Penalties": 1,
+          "RangeSeconds": 46.9,
+          "AverageEffort": 706.4952256508192,
+          "MaximumStationarySeconds": 0.6
+        },
+        {
+          "Rank": 17,
+          "AthleteId": "race_study_world_cup_debut_athlete_23",
+          "Overall": 78,
+          "ElapsedMilliseconds": 544381,
+          "Penalties": 1,
+          "RangeSeconds": 46.4,
+          "AverageEffort": 730.7428714859437,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 18,
+          "AthleteId": "race_study_world_cup_debut_athlete_22",
+          "Overall": 77,
+          "ElapsedMilliseconds": 544991,
+          "Penalties": 1,
+          "RangeSeconds": 47.05,
+          "AverageEffort": 709.0558288984838,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 19,
+          "AthleteId": "race_study_world_cup_debut_athlete_11",
+          "Overall": 80,
+          "ElapsedMilliseconds": 546147,
+          "Penalties": 2,
+          "RangeSeconds": 44.3,
+          "AverageEffort": 735.5209724021122,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 20,
+          "AthleteId": "race_study_world_cup_debut_athlete_29",
+          "Overall": 84,
+          "ElapsedMilliseconds": 549795,
+          "Penalties": 2,
+          "RangeSeconds": 45.85,
+          "AverageEffort": 741.8733009227105,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 21,
+          "AthleteId": "race_study_world_cup_debut_athlete_6",
+          "Overall": 82,
+          "ElapsedMilliseconds": 550320,
+          "Penalties": 2,
+          "RangeSeconds": 45.05,
+          "AverageEffort": 738.6486245794578,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 22,
+          "AthleteId": "race_study_world_cup_debut_athlete_13",
+          "Overall": 76,
+          "ElapsedMilliseconds": 550708,
+          "Penalties": 1,
+          "RangeSeconds": 51.2,
+          "AverageEffort": 711.5073566209588,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 23,
+          "AthleteId": "race_study_world_cup_debut_athlete_24",
+          "Overall": 77,
+          "ElapsedMilliseconds": 553414,
+          "Penalties": 1,
+          "RangeSeconds": 48.15,
+          "AverageEffort": 707.974569562636,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 24,
+          "AthleteId": "race_study_world_cup_debut_athlete_25",
+          "Overall": 75,
+          "ElapsedMilliseconds": 554562,
+          "Penalties": 1,
+          "RangeSeconds": 45.95,
+          "AverageEffort": 711.6071955175464,
+          "MaximumStationarySeconds": 0.95
+        },
+        {
+          "Rank": 25,
+          "AthleteId": "race_study_world_cup_debut_athlete_18",
+          "Overall": 79,
+          "ElapsedMilliseconds": 557934,
+          "Penalties": 2,
+          "RangeSeconds": 44.95,
+          "AverageEffort": 740.2559454191033,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 26,
+          "AthleteId": "race_study_world_cup_debut_athlete_17",
+          "Overall": 75,
+          "ElapsedMilliseconds": 558921,
+          "Penalties": 1,
+          "RangeSeconds": 47.3,
+          "AverageEffort": 706.934721000684,
+          "MaximumStationarySeconds": 1.35
+        },
+        {
+          "Rank": 27,
+          "AthleteId": "race_study_world_cup_debut_athlete_21",
+          "Overall": 81,
+          "ElapsedMilliseconds": 561291,
+          "Penalties": 3,
+          "RangeSeconds": 44.85,
+          "AverageEffort": 742.1494820408558,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 28,
+          "AthleteId": "race_study_world_cup_debut_athlete_27",
+          "Overall": 75,
+          "ElapsedMilliseconds": 565519,
+          "Penalties": 2,
+          "RangeSeconds": 47,
+          "AverageEffort": 731.2040304695786,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 29,
+          "AthleteId": "race_study_world_cup_debut_athlete_26",
+          "Overall": 75,
+          "ElapsedMilliseconds": 566837,
+          "Penalties": 2,
+          "RangeSeconds": 47.1,
+          "AverageEffort": 731.5537277537278,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 30,
+          "AthleteId": "race_study_world_cup_debut_athlete_20",
+          "Overall": 75,
+          "ElapsedMilliseconds": 584334,
+          "Penalties": 3,
+          "RangeSeconds": 46.75,
+          "AverageEffort": 725.8383556547619,
+          "MaximumStationarySeconds": 0.25
+        }
+      ],
+      "FirstClimb": [
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_0",
+          "CrestElapsedSeconds": 67.3,
+          "MinimumSpeedMetersPerSecond": 5.954269307,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 807.7018633540373,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_1",
+          "CrestElapsedSeconds": 63.7,
+          "MinimumSpeedMetersPerSecond": 6.035442763,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 791.5923566878981,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_2",
+          "CrestElapsedSeconds": 66.15,
+          "MinimumSpeedMetersPerSecond": 5.993232953,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 805.00625,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_3",
+          "CrestElapsedSeconds": 66.35,
+          "MinimumSpeedMetersPerSecond": 5.934232491,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 811.0683229813665,
+          "TuckTicks": 32
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_4",
+          "CrestElapsedSeconds": 64.85,
+          "MinimumSpeedMetersPerSecond": 6.068023455,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 800.8980891719746,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_5",
+          "CrestElapsedSeconds": 63.9,
+          "MinimumSpeedMetersPerSecond": 6.0550893,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 790.38125,
+          "TuckTicks": 32
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_6",
+          "CrestElapsedSeconds": 63.9,
+          "MinimumSpeedMetersPerSecond": 6.039423588,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 792.5379746835443,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_7",
+          "CrestElapsedSeconds": 64.5,
+          "MinimumSpeedMetersPerSecond": 6.066847292,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 800.1835443037975,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_8",
+          "CrestElapsedSeconds": 65.3,
+          "MinimumSpeedMetersPerSecond": 6.033788826,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 809.6898734177215,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_9",
+          "CrestElapsedSeconds": 64,
+          "MinimumSpeedMetersPerSecond": 6.148544848,
+          "SlowTicks": 0,
+          "ObservedTicks": 156,
+          "AverageEffort": 800.724358974359,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_10",
+          "CrestElapsedSeconds": 65.35,
+          "MinimumSpeedMetersPerSecond": 5.922816113,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 790.888198757764,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_11",
+          "CrestElapsedSeconds": 64.5,
+          "MinimumSpeedMetersPerSecond": 5.921882625,
+          "SlowTicks": 0,
+          "ObservedTicks": 159,
+          "AverageEffort": 792.9496855345911,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_12",
+          "CrestElapsedSeconds": 64.85,
+          "MinimumSpeedMetersPerSecond": 6.022215256,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 778.71875,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_13",
+          "CrestElapsedSeconds": 67.1,
+          "MinimumSpeedMetersPerSecond": 5.91790593,
+          "SlowTicks": 0,
+          "ObservedTicks": 162,
+          "AverageEffort": 801.9135802469136,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_14",
+          "CrestElapsedSeconds": 62.6,
+          "MinimumSpeedMetersPerSecond": 6.114290033,
+          "SlowTicks": 0,
+          "ObservedTicks": 155,
+          "AverageEffort": 788.5225806451613,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_15",
+          "CrestElapsedSeconds": 63.9,
+          "MinimumSpeedMetersPerSecond": 6.044962816,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 798.993670886076,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_16",
+          "CrestElapsedSeconds": 65.8,
+          "MinimumSpeedMetersPerSecond": 5.954692925,
+          "SlowTicks": 0,
+          "ObservedTicks": 159,
+          "AverageEffort": 804.6855345911949,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_17",
+          "CrestElapsedSeconds": 67.75,
+          "MinimumSpeedMetersPerSecond": 5.978543465,
+          "SlowTicks": 0,
+          "ObservedTicks": 164,
+          "AverageEffort": 809.4024390243902,
+          "TuckTicks": 28
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_18",
+          "CrestElapsedSeconds": 65.3,
+          "MinimumSpeedMetersPerSecond": 5.944572581,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 783.379746835443,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_19",
+          "CrestElapsedSeconds": 63.35,
+          "MinimumSpeedMetersPerSecond": 5.93271809,
+          "SlowTicks": 0,
+          "ObservedTicks": 155,
+          "AverageEffort": 788.4193548387096,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_20",
+          "CrestElapsedSeconds": 65.65,
+          "MinimumSpeedMetersPerSecond": 5.937611874,
+          "SlowTicks": 0,
+          "ObservedTicks": 162,
+          "AverageEffort": 791.5370370370371,
+          "TuckTicks": 27
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_21",
+          "CrestElapsedSeconds": 64.05,
+          "MinimumSpeedMetersPerSecond": 5.990503251,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 796.7721518987341,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_22",
+          "CrestElapsedSeconds": 66.95,
+          "MinimumSpeedMetersPerSecond": 5.956475592,
+          "SlowTicks": 0,
+          "ObservedTicks": 164,
+          "AverageEffort": 804.6585365853658,
+          "TuckTicks": 33
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_23",
+          "CrestElapsedSeconds": 64.95,
+          "MinimumSpeedMetersPerSecond": 6.051946121,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 781.24375,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_24",
+          "CrestElapsedSeconds": 68.4,
+          "MinimumSpeedMetersPerSecond": 5.875805032,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 800.416149068323,
+          "TuckTicks": 27
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_25",
+          "CrestElapsedSeconds": 67.5,
+          "MinimumSpeedMetersPerSecond": 5.902711514,
+          "SlowTicks": 0,
+          "ObservedTicks": 163,
+          "AverageEffort": 813.5092024539878,
+          "TuckTicks": 28
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_26",
+          "CrestElapsedSeconds": 65.6,
+          "MinimumSpeedMetersPerSecond": 5.93612716,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 796.1180124223603,
+          "TuckTicks": 27
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_27",
+          "CrestElapsedSeconds": 65.8,
+          "MinimumSpeedMetersPerSecond": 5.951436204,
+          "SlowTicks": 0,
+          "ObservedTicks": 164,
+          "AverageEffort": 794.9512195121952,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_28",
+          "CrestElapsedSeconds": 66.1,
+          "MinimumSpeedMetersPerSecond": 5.866431096,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 773.2111801242236,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_29",
+          "CrestElapsedSeconds": 63.65,
+          "MinimumSpeedMetersPerSecond": 6.076287474,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 793.6496815286624,
+          "TuckTicks": 30
+        }
+      ]
+    },
+    {
+      "Id": "world_cup_debut_skier_seed_124",
+      "PlayerId": "race_study_world_cup_debut_athlete_0",
+      "PlayerAge": 25,
+      "PlayerOverall": 79,
+      "Controlled": false,
+      "OpeningOnly": false,
+      "RaceSeed": 124,
+      "Ticks": 28386,
+      "AuthoritySha256": "4a8d71d78c08f68df3e15a98b265f5c75bafb4aa124e40dd3729e22deee4c2be",
+      "EventFnv64": "2763ef66ed951a9e",
+      "Shots": 300,
+      "Hits": 262,
+      "StatProjectionChecks": 390,
+      "ManualBoltCommands": 0,
+      "PlayerRank": 15,
+      "PlayerLeadSeconds": -28.958,
+      "FirstSplitP90GapSeconds": 6.0759601458000105,
+      "MaximumStationarySeconds": 2.15,
+      "WallSeconds": 13.4223485,
+      "Results": [
+        {
+          "Rank": 1,
+          "AthleteId": "race_study_world_cup_debut_athlete_4",
+          "Overall": 87,
+          "ElapsedMilliseconds": 510323,
+          "Penalties": 0,
+          "RangeSeconds": 46,
+          "AverageEffort": 723.5041455798428,
+          "MaximumStationarySeconds": 2.15
+        },
+        {
+          "Rank": 2,
+          "AthleteId": "race_study_world_cup_debut_athlete_7",
+          "Overall": 88,
+          "ElapsedMilliseconds": 521565,
+          "Penalties": 1,
+          "RangeSeconds": 45.25,
+          "AverageEffort": 720.9760680172143,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 3,
+          "AthleteId": "race_study_world_cup_debut_athlete_28",
+          "Overall": 86,
+          "ElapsedMilliseconds": 522842,
+          "Penalties": 1,
+          "RangeSeconds": 43.4,
+          "AverageEffort": 743.551360934404,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 4,
+          "AthleteId": "race_study_world_cup_debut_athlete_2",
+          "Overall": 81,
+          "ElapsedMilliseconds": 523710,
+          "Penalties": 0,
+          "RangeSeconds": 47.1,
+          "AverageEffort": 718.9805937270534,
+          "MaximumStationarySeconds": 1.65
+        },
+        {
+          "Rank": 5,
+          "AthleteId": "race_study_world_cup_debut_athlete_6",
+          "Overall": 82,
+          "ElapsedMilliseconds": 528250,
+          "Penalties": 1,
+          "RangeSeconds": 45.5,
+          "AverageEffort": 736.7984464008285,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 6,
+          "AthleteId": "race_study_world_cup_debut_athlete_15",
+          "Overall": 82,
+          "ElapsedMilliseconds": 528424,
+          "Penalties": 1,
+          "RangeSeconds": 44.05,
+          "AverageEffort": 737.8235962014863,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 7,
+          "AthleteId": "race_study_world_cup_debut_athlete_24",
+          "Overall": 77,
+          "ElapsedMilliseconds": 529271,
+          "Penalties": 0,
+          "RangeSeconds": 47.55,
+          "AverageEffort": 713.6756616502336,
+          "MaximumStationarySeconds": 1.85
+        },
+        {
+          "Rank": 8,
+          "AthleteId": "race_study_world_cup_debut_athlete_21",
+          "Overall": 81,
+          "ElapsedMilliseconds": 533360,
+          "Penalties": 1,
+          "RangeSeconds": 45.1,
+          "AverageEffort": 737.1280974810568,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 9,
+          "AthleteId": "race_study_world_cup_debut_athlete_11",
+          "Overall": 80,
+          "ElapsedMilliseconds": 534227,
+          "Penalties": 1,
+          "RangeSeconds": 43.4,
+          "AverageEffort": 736.3909544667414,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 10,
+          "AthleteId": "race_study_world_cup_debut_athlete_8",
+          "Overall": 84,
+          "ElapsedMilliseconds": 534647,
+          "Penalties": 1,
+          "RangeSeconds": 50.3,
+          "AverageEffort": 713.796841127284,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 11,
+          "AthleteId": "race_study_world_cup_debut_athlete_9",
+          "Overall": 89,
+          "ElapsedMilliseconds": 534637,
+          "Penalties": 2,
+          "RangeSeconds": 45.3,
+          "AverageEffort": 712.6822315316235,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 12,
+          "AthleteId": "race_study_world_cup_debut_athlete_19",
+          "Overall": 88,
+          "ElapsedMilliseconds": 534950,
+          "Penalties": 2,
+          "RangeSeconds": 45.35,
+          "AverageEffort": 748.0891544117648,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 13,
+          "AthleteId": "race_study_world_cup_debut_athlete_16",
+          "Overall": 82,
+          "ElapsedMilliseconds": 535818,
+          "Penalties": 1,
+          "RangeSeconds": 48.1,
+          "AverageEffort": 712.1151204510508,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 14,
+          "AthleteId": "race_study_world_cup_debut_athlete_1",
+          "Overall": 85,
+          "ElapsedMilliseconds": 536658,
+          "Penalties": 2,
+          "RangeSeconds": 44.6,
+          "AverageEffort": 738.4908555171713,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 15,
+          "AthleteId": "race_study_world_cup_debut_athlete_0",
+          "Overall": 79,
+          "ElapsedMilliseconds": 539281,
+          "Penalties": 1,
+          "RangeSeconds": 48.15,
+          "AverageEffort": 708.6228239845261,
+          "MaximumStationarySeconds": 0.6
+        },
+        {
+          "Rank": 16,
+          "AthleteId": "race_study_world_cup_debut_athlete_25",
+          "Overall": 75,
+          "ElapsedMilliseconds": 539808,
+          "Penalties": 0,
+          "RangeSeconds": 49.65,
+          "AverageEffort": 713.6861485108119,
+          "MaximumStationarySeconds": 1.3
+        },
+        {
+          "Rank": 17,
+          "AthleteId": "race_study_world_cup_debut_athlete_3",
+          "Overall": 79,
+          "ElapsedMilliseconds": 540108,
+          "Penalties": 1,
+          "RangeSeconds": 49.25,
+          "AverageEffort": 713.6053167651253,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 18,
+          "AthleteId": "race_study_world_cup_debut_athlete_10",
+          "Overall": 77,
+          "ElapsedMilliseconds": 542541,
+          "Penalties": 1,
+          "RangeSeconds": 46.05,
+          "AverageEffort": 727.2579053373615,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 19,
+          "AthleteId": "race_study_world_cup_debut_athlete_17",
+          "Overall": 75,
+          "ElapsedMilliseconds": 543746,
+          "Penalties": 0,
+          "RangeSeconds": 49,
+          "AverageEffort": 713.8211217786761,
+          "MaximumStationarySeconds": 1.85
+        },
+        {
+          "Rank": 20,
+          "AthleteId": "race_study_world_cup_debut_athlete_13",
+          "Overall": 76,
+          "ElapsedMilliseconds": 544160,
+          "Penalties": 1,
+          "RangeSeconds": 47.3,
+          "AverageEffort": 710.2213725095593,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 21,
+          "AthleteId": "race_study_world_cup_debut_athlete_23",
+          "Overall": 78,
+          "ElapsedMilliseconds": 544305,
+          "Penalties": 1,
+          "RangeSeconds": 44.55,
+          "AverageEffort": 733.1496598639455,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 22,
+          "AthleteId": "race_study_world_cup_debut_athlete_20",
+          "Overall": 75,
+          "ElapsedMilliseconds": 549086,
+          "Penalties": 1,
+          "RangeSeconds": 46.35,
+          "AverageEffort": 732.2006961710591,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 23,
+          "AthleteId": "race_study_world_cup_debut_athlete_29",
+          "Overall": 84,
+          "ElapsedMilliseconds": 549247,
+          "Penalties": 2,
+          "RangeSeconds": 46.65,
+          "AverageEffort": 740.4516514126542,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 24,
+          "AthleteId": "race_study_world_cup_debut_athlete_18",
+          "Overall": 79,
+          "ElapsedMilliseconds": 553457,
+          "Penalties": 2,
+          "RangeSeconds": 44.65,
+          "AverageEffort": 735.3720153286823,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 25,
+          "AthleteId": "race_study_world_cup_debut_athlete_14",
+          "Overall": 91,
+          "ElapsedMilliseconds": 554244,
+          "Penalties": 3,
+          "RangeSeconds": 43.6,
+          "AverageEffort": 749.2618231665524,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 26,
+          "AthleteId": "race_study_world_cup_debut_athlete_12",
+          "Overall": 79,
+          "ElapsedMilliseconds": 561019,
+          "Penalties": 2,
+          "RangeSeconds": 46.75,
+          "AverageEffort": 730.0055415127357,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 27,
+          "AthleteId": "race_study_world_cup_debut_athlete_5",
+          "Overall": 83,
+          "ElapsedMilliseconds": 562233,
+          "Penalties": 3,
+          "RangeSeconds": 44.5,
+          "AverageEffort": 733.8318686624818,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 28,
+          "AthleteId": "race_study_world_cup_debut_athlete_22",
+          "Overall": 77,
+          "ElapsedMilliseconds": 565925,
+          "Penalties": 2,
+          "RangeSeconds": 48.25,
+          "AverageEffort": 705.5053119567317,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 29,
+          "AthleteId": "race_study_world_cup_debut_athlete_27",
+          "Overall": 75,
+          "ElapsedMilliseconds": 570713,
+          "Penalties": 2,
+          "RangeSeconds": 47.55,
+          "AverageEffort": 735.332759938838,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 30,
+          "AthleteId": "race_study_world_cup_debut_athlete_26",
+          "Overall": 75,
+          "ElapsedMilliseconds": 572696,
+          "Penalties": 2,
+          "RangeSeconds": 48,
+          "AverageEffort": 737.9978082713932,
+          "MaximumStationarySeconds": 0.25
+        }
+      ],
+      "FirstClimb": [
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_0",
+          "CrestElapsedSeconds": 66.65,
+          "MinimumSpeedMetersPerSecond": 5.971170809,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 806.21875,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_1",
+          "CrestElapsedSeconds": 63.7,
+          "MinimumSpeedMetersPerSecond": 6.033941738,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 791.5923566878981,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_2",
+          "CrestElapsedSeconds": 66.15,
+          "MinimumSpeedMetersPerSecond": 5.993224066,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 805.00625,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_3",
+          "CrestElapsedSeconds": 66.35,
+          "MinimumSpeedMetersPerSecond": 5.934232467,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 811.0683229813665,
+          "TuckTicks": 32
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_4",
+          "CrestElapsedSeconds": 64.8,
+          "MinimumSpeedMetersPerSecond": 6.073983601,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 800.8980891719746,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_5",
+          "CrestElapsedSeconds": 63.9,
+          "MinimumSpeedMetersPerSecond": 6.055236036,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 790.38125,
+          "TuckTicks": 32
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_6",
+          "CrestElapsedSeconds": 63.9,
+          "MinimumSpeedMetersPerSecond": 6.039558104,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 792.5379746835443,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_7",
+          "CrestElapsedSeconds": 64.5,
+          "MinimumSpeedMetersPerSecond": 6.066826287,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 800.1835443037975,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_8",
+          "CrestElapsedSeconds": 65.3,
+          "MinimumSpeedMetersPerSecond": 6.033956424,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 809.6898734177215,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_9",
+          "CrestElapsedSeconds": 64,
+          "MinimumSpeedMetersPerSecond": 6.148375433,
+          "SlowTicks": 0,
+          "ObservedTicks": 156,
+          "AverageEffort": 800.724358974359,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_10",
+          "CrestElapsedSeconds": 65.35,
+          "MinimumSpeedMetersPerSecond": 5.923485114,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 790.9068322981367,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_11",
+          "CrestElapsedSeconds": 64.55,
+          "MinimumSpeedMetersPerSecond": 5.91684855,
+          "SlowTicks": 0,
+          "ObservedTicks": 159,
+          "AverageEffort": 792.9496855345911,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_12",
+          "CrestElapsedSeconds": 64.9,
+          "MinimumSpeedMetersPerSecond": 5.942925667,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 789.45625,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_13",
+          "CrestElapsedSeconds": 66.75,
+          "MinimumSpeedMetersPerSecond": 5.917864405,
+          "SlowTicks": 0,
+          "ObservedTicks": 162,
+          "AverageEffort": 801.9135802469136,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_14",
+          "CrestElapsedSeconds": 63.8,
+          "MinimumSpeedMetersPerSecond": 6.114127746,
+          "SlowTicks": 0,
+          "ObservedTicks": 155,
+          "AverageEffort": 788.5225806451613,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_15",
+          "CrestElapsedSeconds": 63.9,
+          "MinimumSpeedMetersPerSecond": 6.044911194,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 798.993670886076,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_16",
+          "CrestElapsedSeconds": 65.75,
+          "MinimumSpeedMetersPerSecond": 5.954781866,
+          "SlowTicks": 0,
+          "ObservedTicks": 159,
+          "AverageEffort": 804.6855345911949,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_17",
+          "CrestElapsedSeconds": 67.75,
+          "MinimumSpeedMetersPerSecond": 6.005387364,
+          "SlowTicks": 0,
+          "ObservedTicks": 164,
+          "AverageEffort": 809.5,
+          "TuckTicks": 28
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_18",
+          "CrestElapsedSeconds": 64.5,
+          "MinimumSpeedMetersPerSecond": 5.946271265,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 783.379746835443,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_19",
+          "CrestElapsedSeconds": 62.75,
+          "MinimumSpeedMetersPerSecond": 5.93874124,
+          "SlowTicks": 0,
+          "ObservedTicks": 155,
+          "AverageEffort": 788.341935483871,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_20",
+          "CrestElapsedSeconds": 65.65,
+          "MinimumSpeedMetersPerSecond": 5.926579963,
+          "SlowTicks": 0,
+          "ObservedTicks": 162,
+          "AverageEffort": 791.5370370370371,
+          "TuckTicks": 27
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_21",
+          "CrestElapsedSeconds": 64,
+          "MinimumSpeedMetersPerSecond": 5.978208495,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 797.0949367088608,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_22",
+          "CrestElapsedSeconds": 66.95,
+          "MinimumSpeedMetersPerSecond": 5.958452385,
+          "SlowTicks": 0,
+          "ObservedTicks": 164,
+          "AverageEffort": 799.3719512195122,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_23",
+          "CrestElapsedSeconds": 64.95,
+          "MinimumSpeedMetersPerSecond": 6.051952906,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 781.24375,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_24",
+          "CrestElapsedSeconds": 66.6,
+          "MinimumSpeedMetersPerSecond": 5.993919048,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 811.3726708074535,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_25",
+          "CrestElapsedSeconds": 67.5,
+          "MinimumSpeedMetersPerSecond": 5.885336026,
+          "SlowTicks": 0,
+          "ObservedTicks": 163,
+          "AverageEffort": 813.4110429447853,
+          "TuckTicks": 28
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_26",
+          "CrestElapsedSeconds": 67.1,
+          "MinimumSpeedMetersPerSecond": 5.820082368,
+          "SlowTicks": 0,
+          "ObservedTicks": 165,
+          "AverageEffort": 795.4666666666667,
+          "TuckTicks": 27
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_27",
+          "CrestElapsedSeconds": 65.85,
+          "MinimumSpeedMetersPerSecond": 5.94778459,
+          "SlowTicks": 0,
+          "ObservedTicks": 164,
+          "AverageEffort": 794.9756097560976,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_28",
+          "CrestElapsedSeconds": 63.5,
+          "MinimumSpeedMetersPerSecond": 6.05340778,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 790.4585987261147,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_29",
+          "CrestElapsedSeconds": 63.65,
+          "MinimumSpeedMetersPerSecond": 6.080532564,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 793.6496815286624,
+          "TuckTicks": 30
+        }
+      ]
+    },
+    {
+      "Id": "world_cup_debut_shooter_seed_124",
+      "PlayerId": "race_study_world_cup_debut_athlete_0",
+      "PlayerAge": 25,
+      "PlayerOverall": 79,
+      "Controlled": false,
+      "OpeningOnly": false,
+      "RaceSeed": 124,
+      "Ticks": 28024,
+      "AuthoritySha256": "e0c1bba20f925df29bfc871a99c3d29bc7750a327548f41a3d46138cbaaebb3c",
+      "EventFnv64": "da513c0c2e134768",
+      "Shots": 300,
+      "Hits": 261,
+      "StatProjectionChecks": 390,
+      "ManualBoltCommands": 0,
+      "PlayerRank": 26,
+      "PlayerLeadSeconds": -66.194,
+      "FirstSplitP90GapSeconds": 6.02221579335,
+      "MaximumStationarySeconds": 2.45,
+      "WallSeconds": 13.0929534,
+      "Results": [
+        {
+          "Rank": 1,
+          "AthleteId": "race_study_world_cup_debut_athlete_9",
+          "Overall": 89,
+          "ElapsedMilliseconds": 500724,
+          "Penalties": 0,
+          "RangeSeconds": 47.2,
+          "AverageEffort": 721.1455186859222,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 2,
+          "AthleteId": "race_study_world_cup_debut_athlete_7",
+          "Overall": 88,
+          "ElapsedMilliseconds": 504012,
+          "Penalties": 0,
+          "RangeSeconds": 44,
+          "AverageEffort": 720.1976959026193,
+          "MaximumStationarySeconds": 2.45
+        },
+        {
+          "Rank": 3,
+          "AthleteId": "race_study_world_cup_debut_athlete_19",
+          "Overall": 88,
+          "ElapsedMilliseconds": 521576,
+          "Penalties": 1,
+          "RangeSeconds": 44.6,
+          "AverageEffort": 756.8084905660378,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 4,
+          "AthleteId": "race_study_world_cup_debut_athlete_14",
+          "Overall": 91,
+          "ElapsedMilliseconds": 523827,
+          "Penalties": 1,
+          "RangeSeconds": 44.45,
+          "AverageEffort": 750.5160617438464,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 5,
+          "AthleteId": "race_study_world_cup_debut_athlete_4",
+          "Overall": 87,
+          "ElapsedMilliseconds": 527215,
+          "Penalties": 1,
+          "RangeSeconds": 45.15,
+          "AverageEffort": 723.7365691765194,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 6,
+          "AthleteId": "race_study_world_cup_debut_athlete_29",
+          "Overall": 84,
+          "ElapsedMilliseconds": 531103,
+          "Penalties": 1,
+          "RangeSeconds": 45.85,
+          "AverageEffort": 739.3848135174119,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 7,
+          "AthleteId": "race_study_world_cup_debut_athlete_24",
+          "Overall": 77,
+          "ElapsedMilliseconds": 531590,
+          "Penalties": 0,
+          "RangeSeconds": 49.35,
+          "AverageEffort": 714.0033177812338,
+          "MaximumStationarySeconds": 1.2
+        },
+        {
+          "Rank": 8,
+          "AthleteId": "race_study_world_cup_debut_athlete_21",
+          "Overall": 81,
+          "ElapsedMilliseconds": 532291,
+          "Penalties": 1,
+          "RangeSeconds": 45.65,
+          "AverageEffort": 735.3728552347683,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 9,
+          "AthleteId": "race_study_world_cup_debut_athlete_15",
+          "Overall": 82,
+          "ElapsedMilliseconds": 532602,
+          "Penalties": 1,
+          "RangeSeconds": 46,
+          "AverageEffort": 738.1294564882359,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 10,
+          "AthleteId": "race_study_world_cup_debut_athlete_22",
+          "Overall": 77,
+          "ElapsedMilliseconds": 533034,
+          "Penalties": 0,
+          "RangeSeconds": 49.95,
+          "AverageEffort": 713.112295590975,
+          "MaximumStationarySeconds": 1.45
+        },
+        {
+          "Rank": 11,
+          "AthleteId": "race_study_world_cup_debut_athlete_10",
+          "Overall": 77,
+          "ElapsedMilliseconds": 535211,
+          "Penalties": 1,
+          "RangeSeconds": 45.5,
+          "AverageEffort": 727.9069933639612,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 12,
+          "AthleteId": "race_study_world_cup_debut_athlete_8",
+          "Overall": 84,
+          "ElapsedMilliseconds": 535858,
+          "Penalties": 1,
+          "RangeSeconds": 50.65,
+          "AverageEffort": 713.4282328696548,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 13,
+          "AthleteId": "race_study_world_cup_debut_athlete_12",
+          "Overall": 79,
+          "ElapsedMilliseconds": 536752,
+          "Penalties": 1,
+          "RangeSeconds": 44.55,
+          "AverageEffort": 733.1040121889284,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 14,
+          "AthleteId": "race_study_world_cup_debut_athlete_1",
+          "Overall": 85,
+          "ElapsedMilliseconds": 537611,
+          "Penalties": 2,
+          "RangeSeconds": 44.25,
+          "AverageEffort": 743.999898662343,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 15,
+          "AthleteId": "race_study_world_cup_debut_athlete_16",
+          "Overall": 82,
+          "ElapsedMilliseconds": 538059,
+          "Penalties": 1,
+          "RangeSeconds": 49.6,
+          "AverageEffort": 714.2681678607984,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 16,
+          "AthleteId": "race_study_world_cup_debut_athlete_2",
+          "Overall": 81,
+          "ElapsedMilliseconds": 538029,
+          "Penalties": 1,
+          "RangeSeconds": 48.15,
+          "AverageEffort": 712.4903041437028,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 17,
+          "AthleteId": "race_study_world_cup_debut_athlete_17",
+          "Overall": 75,
+          "ElapsedMilliseconds": 539499,
+          "Penalties": 0,
+          "RangeSeconds": 47.3,
+          "AverageEffort": 712.7782405526209,
+          "MaximumStationarySeconds": 1.7
+        },
+        {
+          "Rank": 18,
+          "AthleteId": "race_study_world_cup_debut_athlete_3",
+          "Overall": 79,
+          "ElapsedMilliseconds": 540015,
+          "Penalties": 1,
+          "RangeSeconds": 46.35,
+          "AverageEffort": 709.7956248734049,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 19,
+          "AthleteId": "race_study_world_cup_debut_athlete_28",
+          "Overall": 86,
+          "ElapsedMilliseconds": 540476,
+          "Penalties": 2,
+          "RangeSeconds": 43.5,
+          "AverageEffort": 747.3028169014085,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 20,
+          "AthleteId": "race_study_world_cup_debut_athlete_5",
+          "Overall": 83,
+          "ElapsedMilliseconds": 544255,
+          "Penalties": 2,
+          "RangeSeconds": 44.6,
+          "AverageEffort": 741.9839903942366,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 21,
+          "AthleteId": "race_study_world_cup_debut_athlete_25",
+          "Overall": 75,
+          "ElapsedMilliseconds": 548188,
+          "Penalties": 1,
+          "RangeSeconds": 46.05,
+          "AverageEffort": 711.2041222742208,
+          "MaximumStationarySeconds": 0.85
+        },
+        {
+          "Rank": 22,
+          "AthleteId": "race_study_world_cup_debut_athlete_20",
+          "Overall": 75,
+          "ElapsedMilliseconds": 549383,
+          "Penalties": 1,
+          "RangeSeconds": 46.75,
+          "AverageEffort": 730.6008156769124,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 23,
+          "AthleteId": "race_study_world_cup_debut_athlete_23",
+          "Overall": 78,
+          "ElapsedMilliseconds": 559193,
+          "Penalties": 2,
+          "RangeSeconds": 45.2,
+          "AverageEffort": 731.7027237354085,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 24,
+          "AthleteId": "race_study_world_cup_debut_athlete_6",
+          "Overall": 82,
+          "ElapsedMilliseconds": 562120,
+          "Penalties": 3,
+          "RangeSeconds": 45,
+          "AverageEffort": 742.7639949724452,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 25,
+          "AthleteId": "race_study_world_cup_debut_athlete_13",
+          "Overall": 76,
+          "ElapsedMilliseconds": 563961,
+          "Penalties": 2,
+          "RangeSeconds": 48.3,
+          "AverageEffort": 707.4742098119061,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 26,
+          "AthleteId": "race_study_world_cup_debut_athlete_0",
+          "Overall": 79,
+          "ElapsedMilliseconds": 566918,
+          "Penalties": 2,
+          "RangeSeconds": 47.95,
+          "AverageEffort": 703.4744701348748,
+          "MaximumStationarySeconds": 0.6
+        },
+        {
+          "Rank": 27,
+          "AthleteId": "race_study_world_cup_debut_athlete_26",
+          "Overall": 75,
+          "ElapsedMilliseconds": 567289,
+          "Penalties": 2,
+          "RangeSeconds": 46.75,
+          "AverageEffort": 730.5742003649985,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 28,
+          "AthleteId": "race_study_world_cup_debut_athlete_11",
+          "Overall": 80,
+          "ElapsedMilliseconds": 567362,
+          "Penalties": 3,
+          "RangeSeconds": 44.65,
+          "AverageEffort": 745.260162601626,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 29,
+          "AthleteId": "race_study_world_cup_debut_athlete_27",
+          "Overall": 75,
+          "ElapsedMilliseconds": 567581,
+          "Penalties": 2,
+          "RangeSeconds": 47.4,
+          "AverageEffort": 735.0932333717801,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 30,
+          "AthleteId": "race_study_world_cup_debut_athlete_18",
+          "Overall": 79,
+          "ElapsedMilliseconds": 578013,
+          "Penalties": 3,
+          "RangeSeconds": 46.9,
+          "AverageEffort": 740.2462581191754,
+          "MaximumStationarySeconds": 0.2
+        }
+      ],
+      "FirstClimb": [
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_0",
+          "CrestElapsedSeconds": 67.6,
+          "MinimumSpeedMetersPerSecond": 6.002741805,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 807.6459627329192,
+          "TuckTicks": 32
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_1",
+          "CrestElapsedSeconds": 63.7,
+          "MinimumSpeedMetersPerSecond": 6.035442737,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 791.5923566878981,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_2",
+          "CrestElapsedSeconds": 66.15,
+          "MinimumSpeedMetersPerSecond": 5.993272217,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 805.00625,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_3",
+          "CrestElapsedSeconds": 66.35,
+          "MinimumSpeedMetersPerSecond": 5.934232497,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 811.0683229813665,
+          "TuckTicks": 32
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_4",
+          "CrestElapsedSeconds": 64.85,
+          "MinimumSpeedMetersPerSecond": 6.073991673,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 800.8980891719746,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_5",
+          "CrestElapsedSeconds": 63.9,
+          "MinimumSpeedMetersPerSecond": 6.055267081,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 790.38125,
+          "TuckTicks": 32
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_6",
+          "CrestElapsedSeconds": 63.9,
+          "MinimumSpeedMetersPerSecond": 6.039665575,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 792.5379746835443,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_7",
+          "CrestElapsedSeconds": 64.5,
+          "MinimumSpeedMetersPerSecond": 6.066817285,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 800.1835443037975,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_8",
+          "CrestElapsedSeconds": 65.25,
+          "MinimumSpeedMetersPerSecond": 6.033820069,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 809.6898734177215,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_9",
+          "CrestElapsedSeconds": 64,
+          "MinimumSpeedMetersPerSecond": 6.143208226,
+          "SlowTicks": 0,
+          "ObservedTicks": 156,
+          "AverageEffort": 800.724358974359,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_10",
+          "CrestElapsedSeconds": 65.35,
+          "MinimumSpeedMetersPerSecond": 5.922985425,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 790.9068322981367,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_11",
+          "CrestElapsedSeconds": 64.5,
+          "MinimumSpeedMetersPerSecond": 5.921603694,
+          "SlowTicks": 0,
+          "ObservedTicks": 159,
+          "AverageEffort": 792.9496855345911,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_12",
+          "CrestElapsedSeconds": 64.95,
+          "MinimumSpeedMetersPerSecond": 5.932703106,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 789.45625,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_13",
+          "CrestElapsedSeconds": 66.75,
+          "MinimumSpeedMetersPerSecond": 5.917790129,
+          "SlowTicks": 0,
+          "ObservedTicks": 162,
+          "AverageEffort": 801.9135802469136,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_14",
+          "CrestElapsedSeconds": 63.75,
+          "MinimumSpeedMetersPerSecond": 6.10894669,
+          "SlowTicks": 0,
+          "ObservedTicks": 155,
+          "AverageEffort": 788.5225806451613,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_15",
+          "CrestElapsedSeconds": 63.85,
+          "MinimumSpeedMetersPerSecond": 6.044958232,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 798.993670886076,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_16",
+          "CrestElapsedSeconds": 65.75,
+          "MinimumSpeedMetersPerSecond": 5.954767315,
+          "SlowTicks": 0,
+          "ObservedTicks": 159,
+          "AverageEffort": 804.6855345911949,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_17",
+          "CrestElapsedSeconds": 67.75,
+          "MinimumSpeedMetersPerSecond": 5.981814356,
+          "SlowTicks": 0,
+          "ObservedTicks": 164,
+          "AverageEffort": 809.5,
+          "TuckTicks": 28
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_18",
+          "CrestElapsedSeconds": 66.85,
+          "MinimumSpeedMetersPerSecond": 5.964785928,
+          "SlowTicks": 0,
+          "ObservedTicks": 163,
+          "AverageEffort": 765.079754601227,
+          "TuckTicks": 35
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_19",
+          "CrestElapsedSeconds": 62.75,
+          "MinimumSpeedMetersPerSecond": 5.932236159,
+          "SlowTicks": 0,
+          "ObservedTicks": 155,
+          "AverageEffort": 788.4193548387096,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_20",
+          "CrestElapsedSeconds": 65.65,
+          "MinimumSpeedMetersPerSecond": 5.925125594,
+          "SlowTicks": 0,
+          "ObservedTicks": 162,
+          "AverageEffort": 791.5370370370371,
+          "TuckTicks": 27
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_21",
+          "CrestElapsedSeconds": 64.05,
+          "MinimumSpeedMetersPerSecond": 5.981632919,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 797.1772151898734,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_22",
+          "CrestElapsedSeconds": 66.95,
+          "MinimumSpeedMetersPerSecond": 5.95295726,
+          "SlowTicks": 0,
+          "ObservedTicks": 164,
+          "AverageEffort": 799.3719512195122,
+          "TuckTicks": 32
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_23",
+          "CrestElapsedSeconds": 65,
+          "MinimumSpeedMetersPerSecond": 6.040196739,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 781.24375,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_24",
+          "CrestElapsedSeconds": 66.65,
+          "MinimumSpeedMetersPerSecond": 5.997817828,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 811.3726708074535,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_25",
+          "CrestElapsedSeconds": 67.5,
+          "MinimumSpeedMetersPerSecond": 5.902566365,
+          "SlowTicks": 0,
+          "ObservedTicks": 163,
+          "AverageEffort": 813.5092024539878,
+          "TuckTicks": 28
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_26",
+          "CrestElapsedSeconds": 65.65,
+          "MinimumSpeedMetersPerSecond": 5.922215172,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 796.0993788819876,
+          "TuckTicks": 27
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_27",
+          "CrestElapsedSeconds": 65.8,
+          "MinimumSpeedMetersPerSecond": 5.951160268,
+          "SlowTicks": 0,
+          "ObservedTicks": 164,
+          "AverageEffort": 794.9512195121952,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_28",
+          "CrestElapsedSeconds": 63.5,
+          "MinimumSpeedMetersPerSecond": 6.053889534,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 790.4585987261147,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_29",
+          "CrestElapsedSeconds": 63.65,
+          "MinimumSpeedMetersPerSecond": 6.079909913,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 793.6496815286624,
+          "TuckTicks": 30
+        }
+      ]
+    },
+    {
+      "Id": "world_cup_debut_balanced_seed_125",
+      "PlayerId": "race_study_world_cup_debut_athlete_0",
+      "PlayerAge": 25,
+      "PlayerOverall": 78,
+      "Controlled": false,
+      "OpeningOnly": false,
+      "RaceSeed": 125,
+      "Ticks": 27872,
+      "AuthoritySha256": "f98ba01195facaf13a90f17b67f0a0a98f9a89355f0fd887e3e08de311f0c42a",
+      "EventFnv64": "09353d2a7a57f68a",
+      "Shots": 300,
+      "Hits": 266,
+      "StatProjectionChecks": 390,
+      "ManualBoltCommands": 0,
+      "PlayerRank": 8,
+      "PlayerLeadSeconds": -19.637,
+      "FirstSplitP90GapSeconds": 6.991854826400001,
+      "MaximumStationarySeconds": 2.65,
+      "WallSeconds": 12.8369522,
+      "Results": [
+        {
+          "Rank": 1,
+          "AthleteId": "race_study_world_cup_debut_athlete_9",
+          "Overall": 89,
+          "ElapsedMilliseconds": 508397,
+          "Penalties": 0,
+          "RangeSeconds": 47.45,
+          "AverageEffort": 716.1450265755504,
+          "MaximumStationarySeconds": 2.1
+        },
+        {
+          "Rank": 2,
+          "AthleteId": "race_study_world_cup_debut_athlete_3",
+          "Overall": 79,
+          "ElapsedMilliseconds": 509730,
+          "Penalties": 0,
+          "RangeSeconds": 46.2,
+          "AverageEffort": 712.1284651062452,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 3,
+          "AthleteId": "race_study_world_cup_debut_athlete_4",
+          "Overall": 87,
+          "ElapsedMilliseconds": 511210,
+          "Penalties": 0,
+          "RangeSeconds": 48.45,
+          "AverageEffort": 716.6685393258427,
+          "MaximumStationarySeconds": 2.65
+        },
+        {
+          "Rank": 4,
+          "AthleteId": "race_study_world_cup_debut_athlete_12",
+          "Overall": 79,
+          "ElapsedMilliseconds": 516847,
+          "Penalties": 0,
+          "RangeSeconds": 45,
+          "AverageEffort": 728.8161491999576,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 5,
+          "AthleteId": "race_study_world_cup_debut_athlete_14",
+          "Overall": 91,
+          "ElapsedMilliseconds": 521887,
+          "Penalties": 1,
+          "RangeSeconds": 44.5,
+          "AverageEffort": 741.9425010473398,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 6,
+          "AthleteId": "race_study_world_cup_debut_athlete_29",
+          "Overall": 84,
+          "ElapsedMilliseconds": 523543,
+          "Penalties": 1,
+          "RangeSeconds": 43.95,
+          "AverageEffort": 737.7662635529608,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 7,
+          "AthleteId": "race_study_world_cup_debut_athlete_16",
+          "Overall": 82,
+          "ElapsedMilliseconds": 523695,
+          "Penalties": 0,
+          "RangeSeconds": 47,
+          "AverageEffort": 716.9190266414936,
+          "MaximumStationarySeconds": 0.85
+        },
+        {
+          "Rank": 8,
+          "AthleteId": "race_study_world_cup_debut_athlete_0",
+          "Overall": 78,
+          "ElapsedMilliseconds": 528034,
+          "Penalties": 0,
+          "RangeSeconds": 48.15,
+          "AverageEffort": 713.9622838091269,
+          "MaximumStationarySeconds": 1.6
+        },
+        {
+          "Rank": 9,
+          "AthleteId": "race_study_world_cup_debut_athlete_13",
+          "Overall": 76,
+          "ElapsedMilliseconds": 529051,
+          "Penalties": 0,
+          "RangeSeconds": 49.5,
+          "AverageEffort": 715.7183069224353,
+          "MaximumStationarySeconds": 1.6
+        },
+        {
+          "Rank": 10,
+          "AthleteId": "race_study_world_cup_debut_athlete_19",
+          "Overall": 88,
+          "ElapsedMilliseconds": 531534,
+          "Penalties": 2,
+          "RangeSeconds": 44.7,
+          "AverageEffort": 750.5134024853651,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 11,
+          "AthleteId": "race_study_world_cup_debut_athlete_28",
+          "Overall": 86,
+          "ElapsedMilliseconds": 531694,
+          "Penalties": 1,
+          "RangeSeconds": 44.3,
+          "AverageEffort": 744.2357406647517,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 12,
+          "AthleteId": "race_study_world_cup_debut_athlete_8",
+          "Overall": 84,
+          "ElapsedMilliseconds": 531797,
+          "Penalties": 1,
+          "RangeSeconds": 47.55,
+          "AverageEffort": 711.5317501290656,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 13,
+          "AthleteId": "race_study_world_cup_debut_athlete_11",
+          "Overall": 80,
+          "ElapsedMilliseconds": 533700,
+          "Penalties": 1,
+          "RangeSeconds": 44.85,
+          "AverageEffort": 736.1541372609184,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 14,
+          "AthleteId": "race_study_world_cup_debut_athlete_24",
+          "Overall": 77,
+          "ElapsedMilliseconds": 534570,
+          "Penalties": 0,
+          "RangeSeconds": 48.4,
+          "AverageEffort": 710.0875154257507,
+          "MaximumStationarySeconds": 1.6
+        },
+        {
+          "Rank": 15,
+          "AthleteId": "race_study_world_cup_debut_athlete_15",
+          "Overall": 82,
+          "ElapsedMilliseconds": 534902,
+          "Penalties": 1,
+          "RangeSeconds": 45.9,
+          "AverageEffort": 732.9841529495961,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 16,
+          "AthleteId": "race_study_world_cup_debut_athlete_21",
+          "Overall": 81,
+          "ElapsedMilliseconds": 535275,
+          "Penalties": 1,
+          "RangeSeconds": 46.05,
+          "AverageEffort": 737.3091466530403,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 17,
+          "AthleteId": "race_study_world_cup_debut_athlete_7",
+          "Overall": 88,
+          "ElapsedMilliseconds": 537028,
+          "Penalties": 2,
+          "RangeSeconds": 45.85,
+          "AverageEffort": 716.5662662866449,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 18,
+          "AthleteId": "race_study_world_cup_debut_athlete_1",
+          "Overall": 85,
+          "ElapsedMilliseconds": 537407,
+          "Penalties": 2,
+          "RangeSeconds": 44.8,
+          "AverageEffort": 740.6527961027099,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 19,
+          "AthleteId": "race_study_world_cup_debut_athlete_2",
+          "Overall": 81,
+          "ElapsedMilliseconds": 539430,
+          "Penalties": 1,
+          "RangeSeconds": 47.5,
+          "AverageEffort": 710.782498221364,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 20,
+          "AthleteId": "race_study_world_cup_debut_athlete_5",
+          "Overall": 83,
+          "ElapsedMilliseconds": 542617,
+          "Penalties": 2,
+          "RangeSeconds": 44.75,
+          "AverageEffort": 738.8921470174733,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 21,
+          "AthleteId": "race_study_world_cup_debut_athlete_26",
+          "Overall": 75,
+          "ElapsedMilliseconds": 548987,
+          "Penalties": 1,
+          "RangeSeconds": 47.15,
+          "AverageEffort": 731.8331174653781,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 22,
+          "AthleteId": "race_study_world_cup_debut_athlete_25",
+          "Overall": 75,
+          "ElapsedMilliseconds": 554124,
+          "Penalties": 1,
+          "RangeSeconds": 47.25,
+          "AverageEffort": 708.2066482540935,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 23,
+          "AthleteId": "race_study_world_cup_debut_athlete_17",
+          "Overall": 75,
+          "ElapsedMilliseconds": 559505,
+          "Penalties": 1,
+          "RangeSeconds": 47.6,
+          "AverageEffort": 712.2952436761402,
+          "MaximumStationarySeconds": 1.55
+        },
+        {
+          "Rank": 24,
+          "AthleteId": "race_study_world_cup_debut_athlete_20",
+          "Overall": 75,
+          "ElapsedMilliseconds": 560086,
+          "Penalties": 2,
+          "RangeSeconds": 46.75,
+          "AverageEffort": 728.0277588389987,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 25,
+          "AthleteId": "race_study_world_cup_debut_athlete_18",
+          "Overall": 79,
+          "ElapsedMilliseconds": 560860,
+          "Penalties": 2,
+          "RangeSeconds": 45.2,
+          "AverageEffort": 734.7087453946093,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 26,
+          "AthleteId": "race_study_world_cup_debut_athlete_27",
+          "Overall": 75,
+          "ElapsedMilliseconds": 561507,
+          "Penalties": 1,
+          "RangeSeconds": 47.55,
+          "AverageEffort": 731.5924124513618,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 27,
+          "AthleteId": "race_study_world_cup_debut_athlete_6",
+          "Overall": 82,
+          "ElapsedMilliseconds": 564121,
+          "Penalties": 3,
+          "RangeSeconds": 45.2,
+          "AverageEffort": 734.315251951055,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 28,
+          "AthleteId": "race_study_world_cup_debut_athlete_22",
+          "Overall": 77,
+          "ElapsedMilliseconds": 565573,
+          "Penalties": 2,
+          "RangeSeconds": 47.7,
+          "AverageEffort": 706.2677157752462,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 29,
+          "AthleteId": "race_study_world_cup_debut_athlete_10",
+          "Overall": 77,
+          "ElapsedMilliseconds": 567208,
+          "Penalties": 2,
+          "RangeSeconds": 46,
+          "AverageEffort": 733.2327098321343,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 30,
+          "AthleteId": "race_study_world_cup_debut_athlete_23",
+          "Overall": 78,
+          "ElapsedMilliseconds": 578817,
+          "Penalties": 3,
+          "RangeSeconds": 45.3,
+          "AverageEffort": 726.3089682316559,
+          "MaximumStationarySeconds": 0.25
+        }
+      ],
+      "FirstClimb": [
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_0",
+          "CrestElapsedSeconds": 67.2,
+          "MinimumSpeedMetersPerSecond": 5.944940311,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 809.2670807453416,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_1",
+          "CrestElapsedSeconds": 63.65,
+          "MinimumSpeedMetersPerSecond": 6.043910875,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 791.3057324840764,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_2",
+          "CrestElapsedSeconds": 66.25,
+          "MinimumSpeedMetersPerSecond": 5.93177983,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 795.39375,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_3",
+          "CrestElapsedSeconds": 66.25,
+          "MinimumSpeedMetersPerSecond": 5.93470995,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 800.05,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_4",
+          "CrestElapsedSeconds": 64.8,
+          "MinimumSpeedMetersPerSecond": 6.098650393,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 803.2292993630573,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_5",
+          "CrestElapsedSeconds": 63.85,
+          "MinimumSpeedMetersPerSecond": 6.006544613,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 792.1708860759494,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_6",
+          "CrestElapsedSeconds": 63.85,
+          "MinimumSpeedMetersPerSecond": 6.05092517,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 800.71974522293,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_7",
+          "CrestElapsedSeconds": 64.4,
+          "MinimumSpeedMetersPerSecond": 6.139332012,
+          "SlowTicks": 0,
+          "ObservedTicks": 156,
+          "AverageEffort": 797.8461538461538,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_8",
+          "CrestElapsedSeconds": 65.25,
+          "MinimumSpeedMetersPerSecond": 6.052660789,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 811.3227848101266,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_9",
+          "CrestElapsedSeconds": 65.45,
+          "MinimumSpeedMetersPerSecond": 6.144898978,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 834.0822784810126,
+          "TuckTicks": 33
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_10",
+          "CrestElapsedSeconds": 65.35,
+          "MinimumSpeedMetersPerSecond": 5.910328303,
+          "SlowTicks": 0,
+          "ObservedTicks": 162,
+          "AverageEffort": 799.7654320987655,
+          "TuckTicks": 27
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_11",
+          "CrestElapsedSeconds": 64.5,
+          "MinimumSpeedMetersPerSecond": 5.915852812,
+          "SlowTicks": 0,
+          "ObservedTicks": 159,
+          "AverageEffort": 792.4025157232704,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_12",
+          "CrestElapsedSeconds": 64.95,
+          "MinimumSpeedMetersPerSecond": 5.996989717,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 792.944099378882,
+          "TuckTicks": 32
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_13",
+          "CrestElapsedSeconds": 66.65,
+          "MinimumSpeedMetersPerSecond": 5.865109442,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 794.1614906832298,
+          "TuckTicks": 32
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_14",
+          "CrestElapsedSeconds": 63.15,
+          "MinimumSpeedMetersPerSecond": 5.951639232,
+          "SlowTicks": 0,
+          "ObservedTicks": 155,
+          "AverageEffort": 784.7096774193549,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_15",
+          "CrestElapsedSeconds": 65.5,
+          "MinimumSpeedMetersPerSecond": 6.015192103,
+          "SlowTicks": 0,
+          "ObservedTicks": 159,
+          "AverageEffort": 786.2327044025158,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_16",
+          "CrestElapsedSeconds": 66.05,
+          "MinimumSpeedMetersPerSecond": 5.982676515,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 812,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_17",
+          "CrestElapsedSeconds": 69.2,
+          "MinimumSpeedMetersPerSecond": 5.963943487,
+          "SlowTicks": 0,
+          "ObservedTicks": 169,
+          "AverageEffort": 821.3136094674556,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_18",
+          "CrestElapsedSeconds": 66.15,
+          "MinimumSpeedMetersPerSecond": 5.977934781,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 794.5126582278481,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_19",
+          "CrestElapsedSeconds": 62.75,
+          "MinimumSpeedMetersPerSecond": 5.963084719,
+          "SlowTicks": 0,
+          "ObservedTicks": 155,
+          "AverageEffort": 788.825806451613,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_20",
+          "CrestElapsedSeconds": 65.8,
+          "MinimumSpeedMetersPerSecond": 5.855610693,
+          "SlowTicks": 0,
+          "ObservedTicks": 164,
+          "AverageEffort": 802,
+          "TuckTicks": 28
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_21",
+          "CrestElapsedSeconds": 65,
+          "MinimumSpeedMetersPerSecond": 6.030769831,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 780.1518987341772,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_22",
+          "CrestElapsedSeconds": 67,
+          "MinimumSpeedMetersPerSecond": 5.902882521,
+          "SlowTicks": 0,
+          "ObservedTicks": 162,
+          "AverageEffort": 806.9012345679013,
+          "TuckTicks": 32
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_23",
+          "CrestElapsedSeconds": 65.05,
+          "MinimumSpeedMetersPerSecond": 5.875182026,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 791.2981366459627,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_24",
+          "CrestElapsedSeconds": 68.75,
+          "MinimumSpeedMetersPerSecond": 5.898387717,
+          "SlowTicks": 0,
+          "ObservedTicks": 163,
+          "AverageEffort": 819.6871165644171,
+          "TuckTicks": 27
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_25",
+          "CrestElapsedSeconds": 67.6,
+          "MinimumSpeedMetersPerSecond": 5.889087309,
+          "SlowTicks": 0,
+          "ObservedTicks": 164,
+          "AverageEffort": 814.4024390243902,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_26",
+          "CrestElapsedSeconds": 65.65,
+          "MinimumSpeedMetersPerSecond": 5.908496453,
+          "SlowTicks": 0,
+          "ObservedTicks": 162,
+          "AverageEffort": 795.7962962962963,
+          "TuckTicks": 28
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_27",
+          "CrestElapsedSeconds": 69.4,
+          "MinimumSpeedMetersPerSecond": 5.610222118,
+          "SlowTicks": 0,
+          "ObservedTicks": 174,
+          "AverageEffort": 813.2011494252873,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_28",
+          "CrestElapsedSeconds": 63.45,
+          "MinimumSpeedMetersPerSecond": 6.077716261,
+          "SlowTicks": 0,
+          "ObservedTicks": 156,
+          "AverageEffort": 794.1346153846154,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_29",
+          "CrestElapsedSeconds": 63.55,
+          "MinimumSpeedMetersPerSecond": 6.061824995,
+          "SlowTicks": 0,
+          "ObservedTicks": 156,
+          "AverageEffort": 791.5,
+          "TuckTicks": 31
+        }
+      ]
+    },
+    {
+      "Id": "world_cup_debut_skier_seed_125",
+      "PlayerId": "race_study_world_cup_debut_athlete_0",
+      "PlayerAge": 25,
+      "PlayerOverall": 79,
+      "Controlled": false,
+      "OpeningOnly": false,
+      "RaceSeed": 125,
+      "Ticks": 28361,
+      "AuthoritySha256": "8a9d1362d4610de611cc433a8906c1a7dadd198fb9f6aae8201478bc6e736291",
+      "EventFnv64": "91912494c752fa69",
+      "Shots": 300,
+      "Hits": 265,
+      "StatProjectionChecks": 390,
+      "ManualBoltCommands": 0,
+      "PlayerRank": 5,
+      "PlayerLeadSeconds": -17.24,
+      "FirstSplitP90GapSeconds": 5.715797819300008,
+      "MaximumStationarySeconds": 1.95,
+      "WallSeconds": 13.1221325,
+      "Results": [
+        {
+          "Rank": 1,
+          "AthleteId": "race_study_world_cup_debut_athlete_7",
+          "Overall": 88,
+          "ElapsedMilliseconds": 506930,
+          "Penalties": 0,
+          "RangeSeconds": 44.8,
+          "AverageEffort": 728.4256193876447,
+          "MaximumStationarySeconds": 1.75
+        },
+        {
+          "Rank": 2,
+          "AthleteId": "race_study_world_cup_debut_athlete_3",
+          "Overall": 79,
+          "ElapsedMilliseconds": 509802,
+          "Penalties": 0,
+          "RangeSeconds": 46.85,
+          "AverageEffort": 711.8804535637149,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 3,
+          "AthleteId": "race_study_world_cup_debut_athlete_9",
+          "Overall": 89,
+          "ElapsedMilliseconds": 520886,
+          "Penalties": 1,
+          "RangeSeconds": 45.45,
+          "AverageEffort": 713.6157324639815,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 4,
+          "AthleteId": "race_study_world_cup_debut_athlete_14",
+          "Overall": 91,
+          "ElapsedMilliseconds": 521437,
+          "Penalties": 1,
+          "RangeSeconds": 44.45,
+          "AverageEffort": 743.9117400419287,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 5,
+          "AthleteId": "race_study_world_cup_debut_athlete_0",
+          "Overall": 79,
+          "ElapsedMilliseconds": 524170,
+          "Penalties": 0,
+          "RangeSeconds": 49.8,
+          "AverageEffort": 714.4502529510961,
+          "MaximumStationarySeconds": 1.5
+        },
+        {
+          "Rank": 6,
+          "AthleteId": "race_study_world_cup_debut_athlete_19",
+          "Overall": 88,
+          "ElapsedMilliseconds": 525451,
+          "Penalties": 1,
+          "RangeSeconds": 45.7,
+          "AverageEffort": 752.352959566486,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 7,
+          "AthleteId": "race_study_world_cup_debut_athlete_2",
+          "Overall": 81,
+          "ElapsedMilliseconds": 526107,
+          "Penalties": 0,
+          "RangeSeconds": 50.15,
+          "AverageEffort": 719.5274159663866,
+          "MaximumStationarySeconds": 1.6
+        },
+        {
+          "Rank": 8,
+          "AthleteId": "race_study_world_cup_debut_athlete_4",
+          "Overall": 87,
+          "ElapsedMilliseconds": 528229,
+          "Penalties": 1,
+          "RangeSeconds": 48.7,
+          "AverageEffort": 712.7072255239286,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 9,
+          "AthleteId": "race_study_world_cup_debut_athlete_8",
+          "Overall": 84,
+          "ElapsedMilliseconds": 531634,
+          "Penalties": 1,
+          "RangeSeconds": 47.4,
+          "AverageEffort": 711.3069695405266,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 10,
+          "AthleteId": "race_study_world_cup_debut_athlete_24",
+          "Overall": 77,
+          "ElapsedMilliseconds": 531923,
+          "Penalties": 0,
+          "RangeSeconds": 47.4,
+          "AverageEffort": 714.4959240532453,
+          "MaximumStationarySeconds": 0.95
+        },
+        {
+          "Rank": 11,
+          "AthleteId": "race_study_world_cup_debut_athlete_15",
+          "Overall": 82,
+          "ElapsedMilliseconds": 534143,
+          "Penalties": 1,
+          "RangeSeconds": 44.75,
+          "AverageEffort": 738.4976501838986,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 12,
+          "AthleteId": "race_study_world_cup_debut_athlete_11",
+          "Overall": 80,
+          "ElapsedMilliseconds": 534901,
+          "Penalties": 1,
+          "RangeSeconds": 44.75,
+          "AverageEffort": 735.1824765401876,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 13,
+          "AthleteId": "race_study_world_cup_debut_athlete_1",
+          "Overall": 85,
+          "ElapsedMilliseconds": 536613,
+          "Penalties": 2,
+          "RangeSeconds": 44.55,
+          "AverageEffort": 739.8341800447064,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 14,
+          "AthleteId": "race_study_world_cup_debut_athlete_6",
+          "Overall": 82,
+          "ElapsedMilliseconds": 536753,
+          "Penalties": 2,
+          "RangeSeconds": 44.85,
+          "AverageEffort": 731.9046651082427,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 15,
+          "AthleteId": "race_study_world_cup_debut_athlete_25",
+          "Overall": 75,
+          "ElapsedMilliseconds": 537493,
+          "Penalties": 0,
+          "RangeSeconds": 46.2,
+          "AverageEffort": 708.1985548544677,
+          "MaximumStationarySeconds": 1.95
+        },
+        {
+          "Rank": 16,
+          "AthleteId": "race_study_world_cup_debut_athlete_16",
+          "Overall": 82,
+          "ElapsedMilliseconds": 537774,
+          "Penalties": 1,
+          "RangeSeconds": 49,
+          "AverageEffort": 712.3959697217676,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 17,
+          "AthleteId": "race_study_world_cup_debut_athlete_5",
+          "Overall": 83,
+          "ElapsedMilliseconds": 540623,
+          "Penalties": 2,
+          "RangeSeconds": 44.75,
+          "AverageEffort": 739.1409558378706,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 18,
+          "AthleteId": "race_study_world_cup_debut_athlete_23",
+          "Overall": 78,
+          "ElapsedMilliseconds": 541371,
+          "Penalties": 1,
+          "RangeSeconds": 45.15,
+          "AverageEffort": 732.9241309823677,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 19,
+          "AthleteId": "race_study_world_cup_debut_athlete_12",
+          "Overall": 79,
+          "ElapsedMilliseconds": 541771,
+          "Penalties": 1,
+          "RangeSeconds": 45.5,
+          "AverageEffort": 733.0444287729196,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 20,
+          "AthleteId": "race_study_world_cup_debut_athlete_13",
+          "Overall": 76,
+          "ElapsedMilliseconds": 542232,
+          "Penalties": 1,
+          "RangeSeconds": 48.1,
+          "AverageEffort": 709.2236163108367,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 21,
+          "AthleteId": "race_study_world_cup_debut_athlete_21",
+          "Overall": 81,
+          "ElapsedMilliseconds": 543508,
+          "Penalties": 2,
+          "RangeSeconds": 45.35,
+          "AverageEffort": 736.6656965074268,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 22,
+          "AthleteId": "race_study_world_cup_debut_athlete_22",
+          "Overall": 77,
+          "ElapsedMilliseconds": 546222,
+          "Penalties": 1,
+          "RangeSeconds": 49.6,
+          "AverageEffort": 704.931843350448,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 23,
+          "AthleteId": "race_study_world_cup_debut_athlete_29",
+          "Overall": 84,
+          "ElapsedMilliseconds": 547977,
+          "Penalties": 2,
+          "RangeSeconds": 45.1,
+          "AverageEffort": 734.9968184529728,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 24,
+          "AthleteId": "race_study_world_cup_debut_athlete_28",
+          "Overall": 86,
+          "ElapsedMilliseconds": 551513,
+          "Penalties": 2,
+          "RangeSeconds": 45.55,
+          "AverageEffort": 744.2272727272727,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 25,
+          "AthleteId": "race_study_world_cup_debut_athlete_20",
+          "Overall": 75,
+          "ElapsedMilliseconds": 559366,
+          "Penalties": 2,
+          "RangeSeconds": 45.8,
+          "AverageEffort": 725.9929906542056,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 26,
+          "AthleteId": "race_study_world_cup_debut_athlete_10",
+          "Overall": 77,
+          "ElapsedMilliseconds": 560191,
+          "Penalties": 2,
+          "RangeSeconds": 45.2,
+          "AverageEffort": 729.2582524271845,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 27,
+          "AthleteId": "race_study_world_cup_debut_athlete_18",
+          "Overall": 79,
+          "ElapsedMilliseconds": 560460,
+          "Penalties": 2,
+          "RangeSeconds": 46.15,
+          "AverageEffort": 734.0757266452805,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 28,
+          "AthleteId": "race_study_world_cup_debut_athlete_17",
+          "Overall": 75,
+          "ElapsedMilliseconds": 562146,
+          "Penalties": 1,
+          "RangeSeconds": 49.45,
+          "AverageEffort": 702.4246147844743,
+          "MaximumStationarySeconds": 1.95
+        },
+        {
+          "Rank": 29,
+          "AthleteId": "race_study_world_cup_debut_athlete_26",
+          "Overall": 75,
+          "ElapsedMilliseconds": 572135,
+          "Penalties": 2,
+          "RangeSeconds": 48.35,
+          "AverageEffort": 737.1540664375716,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 30,
+          "AthleteId": "race_study_world_cup_debut_athlete_27",
+          "Overall": 75,
+          "ElapsedMilliseconds": 576148,
+          "Penalties": 2,
+          "RangeSeconds": 46.8,
+          "AverageEffort": 727.267120052895,
+          "MaximumStationarySeconds": 0.25
+        }
+      ],
+      "FirstClimb": [
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_0",
+          "CrestElapsedSeconds": 66.65,
+          "MinimumSpeedMetersPerSecond": 5.951898216,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 805.695652173913,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_1",
+          "CrestElapsedSeconds": 63.65,
+          "MinimumSpeedMetersPerSecond": 6.043897004,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 791.3057324840764,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_2",
+          "CrestElapsedSeconds": 66.25,
+          "MinimumSpeedMetersPerSecond": 5.931780872,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 795.39375,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_3",
+          "CrestElapsedSeconds": 66.25,
+          "MinimumSpeedMetersPerSecond": 5.934710035,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 800.05,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_4",
+          "CrestElapsedSeconds": 64.8,
+          "MinimumSpeedMetersPerSecond": 6.098635836,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 803.2292993630573,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_5",
+          "CrestElapsedSeconds": 63.85,
+          "MinimumSpeedMetersPerSecond": 6.006512405,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 792.1708860759494,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_6",
+          "CrestElapsedSeconds": 63.85,
+          "MinimumSpeedMetersPerSecond": 6.050900044,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 800.71974522293,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_7",
+          "CrestElapsedSeconds": 64.4,
+          "MinimumSpeedMetersPerSecond": 6.139372488,
+          "SlowTicks": 0,
+          "ObservedTicks": 156,
+          "AverageEffort": 797.8461538461538,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_8",
+          "CrestElapsedSeconds": 65.3,
+          "MinimumSpeedMetersPerSecond": 6.003446843,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 806.006329113924,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_9",
+          "CrestElapsedSeconds": 65.45,
+          "MinimumSpeedMetersPerSecond": 6.01342548,
+          "SlowTicks": 0,
+          "ObservedTicks": 163,
+          "AverageEffort": 791.8282208588957,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_10",
+          "CrestElapsedSeconds": 65.35,
+          "MinimumSpeedMetersPerSecond": 5.91022716,
+          "SlowTicks": 0,
+          "ObservedTicks": 162,
+          "AverageEffort": 799.7654320987655,
+          "TuckTicks": 27
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_11",
+          "CrestElapsedSeconds": 64.55,
+          "MinimumSpeedMetersPerSecond": 5.917687538,
+          "SlowTicks": 0,
+          "ObservedTicks": 159,
+          "AverageEffort": 792.4025157232704,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_12",
+          "CrestElapsedSeconds": 65.05,
+          "MinimumSpeedMetersPerSecond": 5.870486584,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 798.3975155279503,
+          "TuckTicks": 32
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_13",
+          "CrestElapsedSeconds": 66.65,
+          "MinimumSpeedMetersPerSecond": 5.864939515,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 794.1614906832298,
+          "TuckTicks": 32
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_14",
+          "CrestElapsedSeconds": 63.45,
+          "MinimumSpeedMetersPerSecond": 5.952988621,
+          "SlowTicks": 0,
+          "ObservedTicks": 155,
+          "AverageEffort": 784.7096774193549,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_15",
+          "CrestElapsedSeconds": 65.2,
+          "MinimumSpeedMetersPerSecond": 6.020009838,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 797.0949367088608,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_16",
+          "CrestElapsedSeconds": 65.9,
+          "MinimumSpeedMetersPerSecond": 5.982620364,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 812,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_17",
+          "CrestElapsedSeconds": 70.05,
+          "MinimumSpeedMetersPerSecond": 5.806651651,
+          "SlowTicks": 0,
+          "ObservedTicks": 165,
+          "AverageEffort": 799.1878787878788,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_18",
+          "CrestElapsedSeconds": 64.75,
+          "MinimumSpeedMetersPerSecond": 5.97835446,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 794.5379746835443,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_19",
+          "CrestElapsedSeconds": 63.85,
+          "MinimumSpeedMetersPerSecond": 5.963356609,
+          "SlowTicks": 0,
+          "ObservedTicks": 155,
+          "AverageEffort": 788.825806451613,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_20",
+          "CrestElapsedSeconds": 65.75,
+          "MinimumSpeedMetersPerSecond": 5.951119283,
+          "SlowTicks": 0,
+          "ObservedTicks": 164,
+          "AverageEffort": 791.390243902439,
+          "TuckTicks": 28
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_21",
+          "CrestElapsedSeconds": 64.05,
+          "MinimumSpeedMetersPerSecond": 5.991659388,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 799.3607594936709,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_22",
+          "CrestElapsedSeconds": 67,
+          "MinimumSpeedMetersPerSecond": 5.902461279,
+          "SlowTicks": 0,
+          "ObservedTicks": 162,
+          "AverageEffort": 806.9012345679013,
+          "TuckTicks": 32
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_23",
+          "CrestElapsedSeconds": 65,
+          "MinimumSpeedMetersPerSecond": 6.021018256,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 785.8819875776397,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_24",
+          "CrestElapsedSeconds": 67.35,
+          "MinimumSpeedMetersPerSecond": 6.009702533,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 811.08125,
+          "TuckTicks": 27
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_25",
+          "CrestElapsedSeconds": 67.6,
+          "MinimumSpeedMetersPerSecond": 5.891003527,
+          "SlowTicks": 0,
+          "ObservedTicks": 164,
+          "AverageEffort": 814.3780487804878,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_26",
+          "CrestElapsedSeconds": 65.65,
+          "MinimumSpeedMetersPerSecond": 5.908552246,
+          "SlowTicks": 0,
+          "ObservedTicks": 162,
+          "AverageEffort": 795.7716049382716,
+          "TuckTicks": 28
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_27",
+          "CrestElapsedSeconds": 69.5,
+          "MinimumSpeedMetersPerSecond": 5.614951687,
+          "SlowTicks": 0,
+          "ObservedTicks": 169,
+          "AverageEffort": 788.9112426035502,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_28",
+          "CrestElapsedSeconds": 64.55,
+          "MinimumSpeedMetersPerSecond": 6.078544934,
+          "SlowTicks": 0,
+          "ObservedTicks": 156,
+          "AverageEffort": 794.1346153846154,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_29",
+          "CrestElapsedSeconds": 63.65,
+          "MinimumSpeedMetersPerSecond": 6.031807426,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 789.4203821656051,
+          "TuckTicks": 31
+        }
+      ]
+    },
+    {
+      "Id": "world_cup_debut_shooter_seed_125",
+      "PlayerId": "race_study_world_cup_debut_athlete_0",
+      "PlayerAge": 25,
+      "PlayerOverall": 79,
+      "Controlled": false,
+      "OpeningOnly": false,
+      "RaceSeed": 125,
+      "Ticks": 27929,
+      "AuthoritySha256": "444953fd1ad539f0b62b20a5b9482a87dbe25287e2f825794d4f66bb2e3dceac",
+      "EventFnv64": "76ef53718ade7ebc",
+      "Shots": 300,
+      "Hits": 260,
+      "StatProjectionChecks": 390,
+      "ManualBoltCommands": 0,
+      "PlayerRank": 28,
+      "PlayerLeadSeconds": -68.937,
+      "FirstSplitP90GapSeconds": 5.865940855000005,
+      "MaximumStationarySeconds": 1.9,
+      "WallSeconds": 12.9542275,
+      "Results": [
+        {
+          "Rank": 1,
+          "AthleteId": "race_study_world_cup_debut_athlete_9",
+          "Overall": 89,
+          "ElapsedMilliseconds": 498826,
+          "Penalties": 0,
+          "RangeSeconds": 45.15,
+          "AverageEffort": 720.7121445889354,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 2,
+          "AthleteId": "race_study_world_cup_debut_athlete_7",
+          "Overall": 88,
+          "ElapsedMilliseconds": 519212,
+          "Penalties": 1,
+          "RangeSeconds": 43.75,
+          "AverageEffort": 714.0574132492113,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 3,
+          "AthleteId": "race_study_world_cup_debut_athlete_16",
+          "Overall": 82,
+          "ElapsedMilliseconds": 521290,
+          "Penalties": 0,
+          "RangeSeconds": 46.8,
+          "AverageEffort": 719.640990516333,
+          "MaximumStationarySeconds": 1.75
+        },
+        {
+          "Rank": 4,
+          "AthleteId": "race_study_world_cup_debut_athlete_19",
+          "Overall": 88,
+          "ElapsedMilliseconds": 525564,
+          "Penalties": 1,
+          "RangeSeconds": 45.95,
+          "AverageEffort": 749.318774106119,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 5,
+          "AthleteId": "race_study_world_cup_debut_athlete_29",
+          "Overall": 84,
+          "ElapsedMilliseconds": 526393,
+          "Penalties": 1,
+          "RangeSeconds": 43.95,
+          "AverageEffort": 738.4783915431651,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 6,
+          "AthleteId": "race_study_world_cup_debut_athlete_28",
+          "Overall": 86,
+          "ElapsedMilliseconds": 527688,
+          "Penalties": 1,
+          "RangeSeconds": 45.7,
+          "AverageEffort": 753.7504149377594,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 7,
+          "AthleteId": "race_study_world_cup_debut_athlete_4",
+          "Overall": 87,
+          "ElapsedMilliseconds": 529299,
+          "Penalties": 1,
+          "RangeSeconds": 48.25,
+          "AverageEffort": 724.5744725080554,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 8,
+          "AthleteId": "race_study_world_cup_debut_athlete_24",
+          "Overall": 77,
+          "ElapsedMilliseconds": 533473,
+          "Penalties": 0,
+          "RangeSeconds": 50.05,
+          "AverageEffort": 717.6541524459614,
+          "MaximumStationarySeconds": 1.45
+        },
+        {
+          "Rank": 9,
+          "AthleteId": "race_study_world_cup_debut_athlete_15",
+          "Overall": 82,
+          "ElapsedMilliseconds": 534282,
+          "Penalties": 1,
+          "RangeSeconds": 44.25,
+          "AverageEffort": 735.047138047138,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 10,
+          "AthleteId": "race_study_world_cup_debut_athlete_11",
+          "Overall": 80,
+          "ElapsedMilliseconds": 534689,
+          "Penalties": 1,
+          "RangeSeconds": 44.45,
+          "AverageEffort": 734.5501274859765,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 11,
+          "AthleteId": "race_study_world_cup_debut_athlete_6",
+          "Overall": 82,
+          "ElapsedMilliseconds": 537851,
+          "Penalties": 2,
+          "RangeSeconds": 44.9,
+          "AverageEffort": 733.8745436105477,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 12,
+          "AthleteId": "race_study_world_cup_debut_athlete_1",
+          "Overall": 85,
+          "ElapsedMilliseconds": 538486,
+          "Penalties": 2,
+          "RangeSeconds": 43.25,
+          "AverageEffort": 742.0644119131751,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 13,
+          "AthleteId": "race_study_world_cup_debut_athlete_8",
+          "Overall": 84,
+          "ElapsedMilliseconds": 539423,
+          "Penalties": 2,
+          "RangeSeconds": 45.9,
+          "AverageEffort": 704.9694053287408,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 14,
+          "AthleteId": "race_study_world_cup_debut_athlete_10",
+          "Overall": 77,
+          "ElapsedMilliseconds": 539656,
+          "Penalties": 1,
+          "RangeSeconds": 46,
+          "AverageEffort": 728.7941057322261,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 15,
+          "AthleteId": "race_study_world_cup_debut_athlete_25",
+          "Overall": 75,
+          "ElapsedMilliseconds": 539827,
+          "Penalties": 0,
+          "RangeSeconds": 48.3,
+          "AverageEffort": 712.6144847930017,
+          "MaximumStationarySeconds": 1.9
+        },
+        {
+          "Rank": 16,
+          "AthleteId": "race_study_world_cup_debut_athlete_5",
+          "Overall": 83,
+          "ElapsedMilliseconds": 540624,
+          "Penalties": 2,
+          "RangeSeconds": 44.9,
+          "AverageEffort": 740.1968734241049,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 17,
+          "AthleteId": "race_study_world_cup_debut_athlete_12",
+          "Overall": 79,
+          "ElapsedMilliseconds": 540835,
+          "Penalties": 1,
+          "RangeSeconds": 46.1,
+          "AverageEffort": 735.3425972713492,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 18,
+          "AthleteId": "race_study_world_cup_debut_athlete_18",
+          "Overall": 79,
+          "ElapsedMilliseconds": 541561,
+          "Penalties": 1,
+          "RangeSeconds": 45.1,
+          "AverageEffort": 734.7208459214502,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 19,
+          "AthleteId": "race_study_world_cup_debut_athlete_13",
+          "Overall": 76,
+          "ElapsedMilliseconds": 543217,
+          "Penalties": 1,
+          "RangeSeconds": 49.05,
+          "AverageEffort": 710.3707001214084,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 20,
+          "AthleteId": "race_study_world_cup_debut_athlete_23",
+          "Overall": 78,
+          "ElapsedMilliseconds": 543984,
+          "Penalties": 1,
+          "RangeSeconds": 46,
+          "AverageEffort": 732.3564257028113,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 21,
+          "AthleteId": "race_study_world_cup_debut_athlete_21",
+          "Overall": 81,
+          "ElapsedMilliseconds": 553521,
+          "Penalties": 2,
+          "RangeSeconds": 45.15,
+          "AverageEffort": 735.5767112509835,
+          "MaximumStationarySeconds": 0.2
+        },
+        {
+          "Rank": 22,
+          "AthleteId": "race_study_world_cup_debut_athlete_26",
+          "Overall": 75,
+          "ElapsedMilliseconds": 554191,
+          "Penalties": 1,
+          "RangeSeconds": 48.45,
+          "AverageEffort": 733.1880375679683,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 23,
+          "AthleteId": "race_study_world_cup_debut_athlete_3",
+          "Overall": 79,
+          "ElapsedMilliseconds": 557068,
+          "Penalties": 2,
+          "RangeSeconds": 46.35,
+          "AverageEffort": 708.452471855115,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 24,
+          "AthleteId": "race_study_world_cup_debut_athlete_2",
+          "Overall": 81,
+          "ElapsedMilliseconds": 557818,
+          "Penalties": 2,
+          "RangeSeconds": 47.15,
+          "AverageEffort": 710.5210495398472,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 25,
+          "AthleteId": "race_study_world_cup_debut_athlete_17",
+          "Overall": 75,
+          "ElapsedMilliseconds": 560919,
+          "Penalties": 1,
+          "RangeSeconds": 50.3,
+          "AverageEffort": 710.0330950749045,
+          "MaximumStationarySeconds": 1.55
+        },
+        {
+          "Rank": 26,
+          "AthleteId": "race_study_world_cup_debut_athlete_20",
+          "Overall": 75,
+          "ElapsedMilliseconds": 561086,
+          "Penalties": 2,
+          "RangeSeconds": 47.35,
+          "AverageEffort": 725.5139659367396,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 27,
+          "AthleteId": "race_study_world_cup_debut_athlete_22",
+          "Overall": 77,
+          "ElapsedMilliseconds": 563074,
+          "Penalties": 2,
+          "RangeSeconds": 47.35,
+          "AverageEffort": 707.5863305865245,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 28,
+          "AthleteId": "race_study_world_cup_debut_athlete_0",
+          "Overall": 79,
+          "ElapsedMilliseconds": 567763,
+          "Penalties": 2,
+          "RangeSeconds": 47.2,
+          "AverageEffort": 702.0932577794852,
+          "MaximumStationarySeconds": 1.15
+        },
+        {
+          "Rank": 29,
+          "AthleteId": "race_study_world_cup_debut_athlete_27",
+          "Overall": 75,
+          "ElapsedMilliseconds": 569935,
+          "Penalties": 2,
+          "RangeSeconds": 45.9,
+          "AverageEffort": 723.5587253124702,
+          "MaximumStationarySeconds": 0.25
+        },
+        {
+          "Rank": 30,
+          "AthleteId": "race_study_world_cup_debut_athlete_14",
+          "Overall": 91,
+          "ElapsedMilliseconds": 579864,
+          "Penalties": 4,
+          "RangeSeconds": 43.85,
+          "AverageEffort": 744.3621863632123,
+          "MaximumStationarySeconds": 0.2
+        }
+      ],
+      "FirstClimb": [
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_0",
+          "CrestElapsedSeconds": 67.75,
+          "MinimumSpeedMetersPerSecond": 5.860613154,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 814.0372670807453,
+          "TuckTicks": 32
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_1",
+          "CrestElapsedSeconds": 63.65,
+          "MinimumSpeedMetersPerSecond": 6.039103085,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 791.3057324840764,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_2",
+          "CrestElapsedSeconds": 66.25,
+          "MinimumSpeedMetersPerSecond": 5.931780462,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 795.39375,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_3",
+          "CrestElapsedSeconds": 66.25,
+          "MinimumSpeedMetersPerSecond": 5.9347101,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 800.05,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_4",
+          "CrestElapsedSeconds": 64.8,
+          "MinimumSpeedMetersPerSecond": 6.098661994,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 803.2292993630573,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_5",
+          "CrestElapsedSeconds": 63.85,
+          "MinimumSpeedMetersPerSecond": 6.007169822,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 792.1708860759494,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_6",
+          "CrestElapsedSeconds": 63.85,
+          "MinimumSpeedMetersPerSecond": 6.050931619,
+          "SlowTicks": 0,
+          "ObservedTicks": 157,
+          "AverageEffort": 800.71974522293,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_7",
+          "CrestElapsedSeconds": 64.4,
+          "MinimumSpeedMetersPerSecond": 6.139339023,
+          "SlowTicks": 0,
+          "ObservedTicks": 156,
+          "AverageEffort": 797.8461538461538,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_8",
+          "CrestElapsedSeconds": 65.3,
+          "MinimumSpeedMetersPerSecond": 6.052797719,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 811.3227848101266,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_9",
+          "CrestElapsedSeconds": 64,
+          "MinimumSpeedMetersPerSecond": 6.153561508,
+          "SlowTicks": 0,
+          "ObservedTicks": 156,
+          "AverageEffort": 801.6025641025641,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_10",
+          "CrestElapsedSeconds": 65.35,
+          "MinimumSpeedMetersPerSecond": 5.910261972,
+          "SlowTicks": 0,
+          "ObservedTicks": 162,
+          "AverageEffort": 799.7654320987655,
+          "TuckTicks": 27
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_11",
+          "CrestElapsedSeconds": 64.55,
+          "MinimumSpeedMetersPerSecond": 5.917696809,
+          "SlowTicks": 0,
+          "ObservedTicks": 159,
+          "AverageEffort": 792.4025157232704,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_12",
+          "CrestElapsedSeconds": 65.05,
+          "MinimumSpeedMetersPerSecond": 5.860604004,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 798.4037267080745,
+          "TuckTicks": 32
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_13",
+          "CrestElapsedSeconds": 66.6,
+          "MinimumSpeedMetersPerSecond": 5.898975121,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 799.4596273291926,
+          "TuckTicks": 32
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_14",
+          "CrestElapsedSeconds": 63.35,
+          "MinimumSpeedMetersPerSecond": 5.952465552,
+          "SlowTicks": 0,
+          "ObservedTicks": 155,
+          "AverageEffort": 784.7096774193549,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_15",
+          "CrestElapsedSeconds": 66.85,
+          "MinimumSpeedMetersPerSecond": 5.957410632,
+          "SlowTicks": 0,
+          "ObservedTicks": 165,
+          "AverageEffort": 776.3454545454546,
+          "TuckTicks": 33
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_16",
+          "CrestElapsedSeconds": 65.75,
+          "MinimumSpeedMetersPerSecond": 5.991025383,
+          "SlowTicks": 0,
+          "ObservedTicks": 160,
+          "AverageEffort": 812.5125,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_17",
+          "CrestElapsedSeconds": 67.9,
+          "MinimumSpeedMetersPerSecond": 5.863735591,
+          "SlowTicks": 0,
+          "ObservedTicks": 164,
+          "AverageEffort": 814.4512195121952,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_18",
+          "CrestElapsedSeconds": 64.7,
+          "MinimumSpeedMetersPerSecond": 5.976737517,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 794.4873417721519,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_19",
+          "CrestElapsedSeconds": 64.65,
+          "MinimumSpeedMetersPerSecond": 5.962413387,
+          "SlowTicks": 0,
+          "ObservedTicks": 155,
+          "AverageEffort": 788.825806451613,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_20",
+          "CrestElapsedSeconds": 65.75,
+          "MinimumSpeedMetersPerSecond": 5.951868193,
+          "SlowTicks": 0,
+          "ObservedTicks": 164,
+          "AverageEffort": 791.390243902439,
+          "TuckTicks": 28
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_21",
+          "CrestElapsedSeconds": 65.1,
+          "MinimumSpeedMetersPerSecond": 5.990248553,
+          "SlowTicks": 0,
+          "ObservedTicks": 158,
+          "AverageEffort": 799.3607594936709,
+          "TuckTicks": 31
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_22",
+          "CrestElapsedSeconds": 67,
+          "MinimumSpeedMetersPerSecond": 5.902399007,
+          "SlowTicks": 0,
+          "ObservedTicks": 162,
+          "AverageEffort": 806.9012345679013,
+          "TuckTicks": 32
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_23",
+          "CrestElapsedSeconds": 65.05,
+          "MinimumSpeedMetersPerSecond": 6.021273249,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 785.8819875776397,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_24",
+          "CrestElapsedSeconds": 66.6,
+          "MinimumSpeedMetersPerSecond": 6.033721976,
+          "SlowTicks": 0,
+          "ObservedTicks": 161,
+          "AverageEffort": 811.8447204968944,
+          "TuckTicks": 27
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_25",
+          "CrestElapsedSeconds": 67.6,
+          "MinimumSpeedMetersPerSecond": 5.889148418,
+          "SlowTicks": 0,
+          "ObservedTicks": 164,
+          "AverageEffort": 814.4024390243902,
+          "TuckTicks": 29
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_26",
+          "CrestElapsedSeconds": 66.05,
+          "MinimumSpeedMetersPerSecond": 5.909862364,
+          "SlowTicks": 0,
+          "ObservedTicks": 162,
+          "AverageEffort": 795.6234567901234,
+          "TuckTicks": 28
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_27",
+          "CrestElapsedSeconds": 69.5,
+          "MinimumSpeedMetersPerSecond": 5.603606629,
+          "SlowTicks": 0,
+          "ObservedTicks": 170,
+          "AverageEffort": 788.9588235294118,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_28",
+          "CrestElapsedSeconds": 63.35,
+          "MinimumSpeedMetersPerSecond": 6.099490907,
+          "SlowTicks": 0,
+          "ObservedTicks": 156,
+          "AverageEffort": 797.1153846153846,
+          "TuckTicks": 30
+        },
+        {
+          "AthleteId": "race_study_world_cup_debut_athlete_29",
+          "CrestElapsedSeconds": 63.6,
+          "MinimumSpeedMetersPerSecond": 6.059481091,
+          "SlowTicks": 0,
+          "ObservedTicks": 156,
+          "AverageEffort": 791.5,
+          "TuckTicks": 31
+        }
+      ]
+    }
+  ],
+  "failures": []
+}
