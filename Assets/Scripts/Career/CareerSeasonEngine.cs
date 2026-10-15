@@ -161,7 +161,7 @@ namespace Biathlon.Career
                 if(save.WorldPolicyId!=null)save=CareerWorld.AdvanceSeason(save,d,restoreRandom);
                 else
                 {
-                    save=CareerGeneration.ReplaceRetirees(save,d.Roster,d.Generation,restoreRandom).Save;
+                    save=CareerGeneration.ReplaceRetirees(save,d.Roster,d.Generation,restoreRandom,d.Growth,d.Ratings).Save;
                     if(save.StartProfileId!=null)save=CareerCircuitTransition.Advance(save,d,restoreRandom);
                 }
             }

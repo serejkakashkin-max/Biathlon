@@ -36,24 +36,28 @@ namespace Biathlon.Career
     {
         // Run after current-season results have been archived. Returns a new save;
         // a failed transition cannot change the caller's roster or RNG checkpoint.
-        public static CareerGenerationResult ReplaceRetirees(CareerSave source,CareerRosterDefinition roster,CareerGenerationDefinition definition,Func<ulong,IRandomSource> restoreRandom)
+        public static CareerGenerationResult ReplaceRetirees(CareerSave source,CareerRosterDefinition roster,CareerGenerationDefinition definition,Func<ulong,IRandomSource> restoreRandom,CareerGrowthDefinition growth=null,BiathlonRatingDefinition ratings=null)
         {
             if(source==null||roster==null||definition==null||restoreRandom==null)throw new ArgumentNullException();
             source.Validate();
+            if(growth!=null&&ratings==null)throw new ArgumentNullException(nameof(ratings));
+            int Retirement(CareerAthlete a)=>growth==null?definition.RetirementAge:a.Growth?.RetirementAge??throw new InvalidOperationException("Individual generation requires saved growth profiles.");
             if(source.RulesId!=roster.Id||source.AthleteCount!=roster.Population||source.RaceCount!=0)throw new ArgumentException("Generation requires a matching roster and archived season results.");
-            int count=0;for(int i=0;i<source.AthleteCount;i++)if(source.Athlete(i).Id!=source.PlayerId&&source.Athlete(i).Age>=definition.RetirementAge)count++;
+            int count=0;for(int i=0;i<source.AthleteCount;i++)if(source.Athlete(i).Id!=source.PlayerId&&source.Athlete(i).Age>=Retirement(source.Athlete(i)))count++;
             checked{long next=source.NextAthleteOrdinal+count;}
             var save=CareerSave.FromJson(source.ToJson());var random=restoreRandom(save.RandomState);
             if(random==null||random.State!=save.RandomState)throw new ArgumentException("Random checkpoint mismatch.");
             var retired=new List<string>();
             for(int i=0;i<save.AthleteCount;i++)
             {
-                var old=save.Athlete(i);if(old.Id==save.PlayerId||old.Age<definition.RetirementAge)continue;
+                var old=save.Athlete(i);if(old.Id==save.PlayerId||old.Age<Retirement(old))continue;
                 var replacement=CareerFactory.Generate(roster,save.Id,save.NextAthleteOrdinal++,random,age:CareerFactory.Draw(random,definition.ProspectAgeMin,definition.ProspectAgeMax));
                 for(int stat=0;stat<CareerUnits.StatCount;stat++)replacement.SetStat((CareerStat)stat,Math.Min(replacement.Potential,CareerFactory.Draw(random,definition.ProspectSkillMin,definition.ProspectSkillMax)));
                 retired.Add(old.Id);save.Athletes[i]=replacement;
             }
-            save.RandomState=random.State;save.Validate();return new CareerGenerationResult(save,retired);
+            save.RandomState=random.State;
+            if(growth!=null)CareerDevelopment.InitializeWorld(save,growth,ratings,restoreRandom);
+            save.Validate();return new CareerGenerationResult(save,retired);
         }
     }
 }
