@@ -39,6 +39,7 @@ namespace Biathlon.Unity
                 EditorUtility.SetDirty(mat);
             }
             AssetDatabase.SaveAssets();
+            AthleteFaceAuthoring.Generate();
         }
     }
 }

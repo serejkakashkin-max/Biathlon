@@ -136,3 +136,37 @@ tests and owner review remain necessary. The slower schema5 pole frequency is
 retained. Shooting socket, sight, authoritative timing, art/quality and all race
 systems remain unchanged. The earlier schema2 paragraph records the rejected
 intermediate state, not final acceptance. M16 remains pending.
+
+## 2026-10-15 — Stable face and skin diversity after motion approval
+
+The owner approved the refined movement and requests different athlete faces,
+including light and dark skin. Retain the approved G2 CC0 base, skeleton,
+equipment fit, animation, body/joint shapes and national kit. The local Blender
+and existing authoring pipeline are available; the retired restricted015 head
+source remains archived. Do not replace the approved hero with that old head.
+
+One versioned face recipe defines8 skin colors and6 original bounded face
+profiles. Resolve independent face/tone channels from the stable athlete ID
+using fixed FNV-1a/avalanche hashes, without simulation RNG or nationality/bib
+inputs. Retain the old3-build hash choice exactly. Same-ID reloads and race
+recreation give the same face within this recipe version; saves need no new
+schema or Unity references. A future recipe reassignment must be an explicit
+visual version change, not an accidental palette reorder.
+
+Append6 face-only morphs to each of the3 existing LOD meshes. Keep the first4
+joint corrective and next3 cosmetic build channels in their original order.
+Authoring touches only skin vertices in the face envelope, preserves base
+vertices/indices/weights/bindposes and all existing morph frames, and stores
+normal differences against identically recalculated reference normals so the
+original artist smoothing is retained. Regeneration is idempotent. Normal
+gameplay selects one face morph once; no procedural mesh editing or head-bone
+updates run per frame. Same ordered channels retain identity through LOD swaps.
+
+Separate8 shared skin materials from the national cloth palette. One reused
+material-slot array per renderer combines those bounded caches; bib property
+blocks/leader colors stay independent. Repeated identity/nation application
+performs no managed allocations. Native portraits use the neutral pre-existing
+build, identical lighting and actual player rendering. No generated photographs
+or additional restricted assets are imported. Validation includes mesh/normal/
+LOD invariants, actual Mass30, standing/prone sight and the approved motion
+transform stream. These are cosmetic changes only; M16 is not started.

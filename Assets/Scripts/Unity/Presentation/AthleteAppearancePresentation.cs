@@ -9,17 +9,27 @@ namespace Biathlon.Unity.Presentation
         private static Color[] kits,trims;
         private static string[] nations;
         private static Material[][] variants;
-        private SkinnedMeshRenderer skin;private int current=-1;
+        private static Material[] skinVariants;
+        private SkinnedMeshRenderer skin;private int current=-1,currentSkin=-1;
+        private Material[] palette;
+        private string identity;
         public string Nation {get;private set;}
         public int CosmeticVariant {get;private set;}
+        public int FaceVariant {get;private set;}
+        public int SkinVariant {get;private set;}
         public void ApplyIdentity(string stableId)
         {
-            if(string.IsNullOrWhiteSpace(stableId))throw new ArgumentException("Stable cosmetic identity required.");
-            uint hash=2166136261;unchecked{foreach(char c in stableId)hash=(hash^c)*16777619;}
+            uint hash=AthleteFaceCatalog.Hash(stableId);
+            if(identity==stableId)return;
+            var faces=AthleteFaceCatalog.Load();faces.Resolve(stableId,out int face,out int tone);
+            FaceVariant=face;SkinVariant=tone;identity=stableId;
             CosmeticVariant=(int)(hash%3);
             if(skin==null)skin=GetComponentInChildren<SkinnedMeshRenderer>();
             for(int i=0;i<3;i++)
             {int index=skin.sharedMesh.GetBlendShapeIndex("OriginalBuild"+i);if(index>=0)skin.SetBlendShapeWeight(index,i==CosmeticVariant?100:0);}
+            for(int i=0;i<faces.profiles.Length;i++)
+            {int index=skin.sharedMesh.GetBlendShapeIndex(faces.profiles[i].ShapeName);if(index>=0)skin.SetBlendShapeWeight(index,i==FaceVariant?100:0);}
+            LoadPalette();ApplyVariant(current<0?0:current);
         }
         public static int NationCount {get{LoadPalette();return nations.Length;}}
         public static string NationAt(int index){LoadPalette();return nations[index];}
@@ -54,7 +64,7 @@ namespace Biathlon.Unity.Presentation
         }
         private void ApplyVariant(int variant)
         {
-            if(current==variant)return;
+            if(current==variant&&currentSkin==SkinVariant)return;
             if(skin==null)skin=GetComponentInChildren<SkinnedMeshRenderer>();
             // Shared, bounded palette keeps SRP batching; per-renderer surface blocks disable it.
             // The independent bib slot and its number block remain untouched.
@@ -66,14 +76,26 @@ namespace Biathlon.Unity.Presentation
                     variants[v]=(Material[])source.Clone();
                     for(int slot=0;slot<source.Length;slot++)
                     {
-                        if(slot==2||slot==4||slot==5||slot==7)continue;
+                        if(slot==2||slot==3||slot==4||slot==5||slot==7)continue;
                         var mat=new Material(source[slot]){name=source[slot].name+" kit "+v,hideFlags=HideFlags.DontSave};
-                        mat.SetColor("_KitColor",kits[v]);mat.SetColor("_TrimColor",trims[v]);mat.SetFloat("_SkinVariation",.25f+.5f*v/(kits.Length-1));variants[v][slot]=mat;
+                        mat.SetColor("_KitColor",kits[v]);mat.SetColor("_TrimColor",trims[v]);variants[v][slot]=mat;
                     }
                 }
             }
-            skin.sharedMaterials=variants[variant];
-            current=variant;
+            if(skinVariants==null||skinVariants[0]==null)
+            {
+                var faces=AthleteFaceCatalog.Load();skinVariants=new Material[faces.skin_colors.Length];
+                var source=variants[0][3];
+                for(int i=0;i<skinVariants.Length;i++)
+                {
+                    var mat=new Material(source){name=source.name+" tone "+i,hideFlags=HideFlags.DontSave};
+                    mat.SetColor("_BaseColor",faces.SkinColor(i));mat.SetFloat("_SkinVariation",.5f);skinVariants[i]=mat;
+                }
+            }
+            if(palette==null)palette=new Material[variants[variant].Length];
+            Array.Copy(variants[variant],palette,palette.Length);palette[3]=skinVariants[SkinVariant];
+            skin.sharedMaterials=palette;
+            current=variant;currentSkin=SkinVariant;
         }
     }
 }
