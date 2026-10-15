@@ -5,7 +5,7 @@
   "build_produced": false,
   "native": {
     "EditMode": {
-      "passed_unique": 48,
+      "passed_unique": 57,
       "fixtures": [
         {
           "file": "ratings-tests.json",
@@ -51,6 +51,16 @@
           "file": "balance-lock-corrected-tests.json",
           "passed": 2,
           "inventory_not_executed": 1969
+        },
+        {
+          "file": "catalog-domain-tests.json",
+          "passed": 6,
+          "inventory_not_executed": 1983
+        },
+        {
+          "file": "roster-pack-tests.json",
+          "passed": 3,
+          "inventory_not_executed": 1982
         }
       ],
       "cases": [
@@ -72,6 +82,12 @@
         "Biathlon.Tests.CareerAppearanceProfileTests.MigrationLeavesExistingRacePayloadAndFingerprintByteForByteIntact",
         "Biathlon.Tests.CareerAppearanceProfileTests.ProfileVersionsMixedModesAndUnsafeResourceIdsAreRejected",
         "Biathlon.Tests.CareerAppearanceProfileTests.V2MigrationIsIdempotentAndPreservesEveryExistingCareerFieldAndRng",
+        "Biathlon.Tests.CareerAthleteCatalogTests.AuthenticSelectionPreservesEveryAbilityIdentityAndContextWithoutDuplicatingTheAthlete",
+        "Biathlon.Tests.CareerAthleteCatalogTests.BrowsePreviewAndRepeatedSelectionDoNotRerollOrMutateTheWorld",
+        "Biathlon.Tests.CareerAthleteCatalogTests.CatalogFiltersAreActualStableSelectionsAndSortedByOvr",
+        "Biathlon.Tests.CareerAthleteCatalogTests.CatalogSelectionUsesExistingAtomicProfilePublicationAndCanContinue",
+        "Biathlon.Tests.CareerAthleteCatalogTests.ChosenAthleteMapsExactlyOnceIntoTheActualProductionRaceField",
+        "Biathlon.Tests.CareerAthleteCatalogTests.GeneratedCatalogContainsUniqueStableAthletesAcrossAllThreeCircuits",
         "Biathlon.Tests.CareerCreationDraftTests.ConfirmationValidatesIdentityAndIsDeterministicAndDetached",
         "Biathlon.Tests.CareerCreationDraftTests.CreationDefinitionRejectsDuplicateUnboundedAndMissingChoices",
         "Biathlon.Tests.CareerCreationDraftTests.EveryTierAndPresetProducesAValidBoundedCandidate",
@@ -101,11 +117,14 @@
         "Biathlon.Tests.FrontEndSessionTests.PreRaceFactsComeFromPreparedAthleteAndProductionRules",
         "Biathlon.Tests.FrontEndSessionTests.PreparingCancelingAndRetryingRaceNeverConsumesAWeekOrRandomness",
         "Biathlon.Tests.FrontEndSessionTests.RestCannotSkipRaceAndInvalidResultPreservesWeek",
-        "Biathlon.Tests.FrontEndSessionTests.SettingsReturnsToItsCallerAndInvalidContinueIsAtomic"
+        "Biathlon.Tests.FrontEndSessionTests.SettingsReturnsToItsCallerAndInvalidContinueIsAtomic",
+        "Biathlon.Tests.RealAthleteRosterPackTests.HeaderAndEveryAthleteRequireIndependentRecordedApproval",
+        "Biathlon.Tests.RealAthleteRosterPackTests.MissingSourcesBadStatsAndAdultJuniorRecastingAreRejected",
+        "Biathlon.Tests.RealAthleteRosterPackTests.PackStoresSeasonSourcesAndActualAbilitiesAndNeverInventsApproval"
       ]
     },
     "PlayMode": {
-      "passed_unique": 36,
+      "passed_unique": 37,
       "fixtures": [
         {
           "file": "studio-tests.json",
@@ -156,6 +175,16 @@
           "file": "legacy-v2-replay-tests.json",
           "passed": 1,
           "inventory_not_executed": 427
+        },
+        {
+          "file": "creator-ui-with-catalog-tests.json",
+          "passed": 2,
+          "inventory_not_executed": 428
+        },
+        {
+          "file": "catalog-ui-final.json",
+          "passed": 1,
+          "inventory_not_executed": 428
         }
       ],
       "cases": [
@@ -163,6 +192,7 @@
         "Biathlon.PlayModeTests.AthleteCreatorStudioTests.NativePreviewReusesOneRigAndReleasesItsOwnedResources",
         "Biathlon.PlayModeTests.AthleteCreatorStudioTests.SavedProfileProducesIdenticalPreviewAndRaceRigAppearanceAcrossAllLods",
         "Biathlon.PlayModeTests.AthleteCreatorStudioTests.ViewPresetsBoundZoomAndReducedMotionKeepsTheFaceStill",
+        "Biathlon.PlayModeTests.AthleteCreatorUiTests.ExistingAthleteCatalogFiltersWithoutRerollsAndConfirmsTheOriginalIdentity",
         "Biathlon.PlayModeTests.AthleteCreatorUiTests.OwnAthleteCanBeEditedReviewedSavedRestoredAndRenderedInARealRace",
         "Biathlon.PlayModeTests.AthleteFaceTests.FaceAndToneSurviveLodNationBibAndLeaderChanges",
         "Biathlon.PlayModeTests.AthleteFaceTests.FaceMorphsRetainEveryJointBuildAndOnlyMoveSkinAboveTheNeck(0)",
@@ -200,42 +230,48 @@
   },
   "dotnet": {
     "configuration": "Release",
-    "passed": 44,
+    "passed": 53,
     "failed": 0,
-    "file": "dotnet/final-44.trx"
+    "file": "dotnet/final-44.trx",
+    "additional_file": "dotnet/catalog-and-pack.trx"
   },
   "production_history_prefix_preserved": true,
   "owner_brief_sha256": "519cdb044c86436ac33a257a666cef84de6fbf56519b4ed7034bf47b55f0b033",
   "screenshots": [
     "created-athlete-in-race.png",
+    "creator-catalog-abilities-2-en.png",
+    "creator-catalog-confirm-ru.png",
+    "creator-catalog-en-large.png",
+    "creator-catalog-ru.png",
     "creator-confirm-ru.png",
     "creator-face-en-large.png",
     "creator-face-ru.png",
     "creator-identity-ru.png",
+    "creator-mode-ru.png",
     "creator-skills-ru.png",
     "studio-face.png",
     "studio-full-body.png"
   ],
-  "source_checkpoint": "19e6a044696e2f228eda3030264ddc5bd35a41f0",
-  "console_checkpoint_sequence": 70502,
+  "source_checkpoint": "cbd77cb8c67e3e4b29da543206e9fb6cf93c9e40",
+  "console_checkpoint_sequence": 70734,
   "source_sha256_normalized_lf": {
     "Assets/Resources/Biathlon/athlete_creator_studio_v1.json": "8abed524dc43870995029c7a8b367c58f04d3f33fbf961ca236ba2f6d6542648",
     "Assets/Resources/Biathlon/athlete_faces_v1.json": "12743eaac815b14705988d57c1a31b083b2193197a62cdc098aa0bec6f702eab",
     "Assets/Resources/Biathlon/career_creation_v1.json": "73af786b5d6c5ff66126f2e1ff44a1fb69f3f65fb496a1ff696b8fe84340fa68",
     "Assets/Resources/Biathlon/career_ratings_v1.json": "fa76fcf2a8e104f65fa7e2977a1c3e724f364ce427cbe1e20e5d75a77da16412",
     "Assets/Resources/Biathlon/career_start_v1.json": "1b88e1326073a750bb833b9c236ea47f8db6046b471d58aaf71ca7e4d6fc0050",
-    "Assets/Scripts/Career/AppearanceProfile.cs": "b351155b10a0c438f361ef489a85561cabc7118657186a3a757a2c373a87d22d",
+    "Assets/Scripts/Career/AppearanceProfile.cs": "f6ad575e18e77d85e16671286a3d362cb943b474315eb71adb1ace0404d5712c",
     "Assets/Scripts/Career/BiathlonRatingEngine.cs": "efa03fd40b38c077cb77e01f8b00519edcc6abd17ad3232b8e9aac7c168cbebe",
     "Assets/Scripts/Career/CareerContracts.cs": "b1a5f8fddd215583c8e8f6873292f56408f8811519bf9ec9aa24f497b1ecbc8b",
     "Assets/Scripts/Career/CareerCreationDraft.cs": "32d15516a71969ed55cd07d4a345c80e921c01e0ac4a827c57526ecf593b1114",
-    "Assets/Scripts/Career/CareerSave.cs": "853ea68e9efb566066aae170267c3dabe34484d8f5bab7b6e960a6d0bed88012",
-    "Assets/Scripts/Presentation/FrontEndSession.cs": "158062112d8a7a51f9c31a598780a0be0f6f1868e36598e045f60fc682df3f5e",
+    "Assets/Scripts/Career/CareerSave.cs": "d9a8b11fa7d56602a8947deabad5a0e4160136ddd2a216f41e76928b490aa96c",
+    "Assets/Scripts/Presentation/FrontEndSession.cs": "fd27ea2d2713ef1279e7432d64c47f6f4f84e0bc92ce83b7217282fc09580c9d",
     "Assets/Scripts/Unity/Presentation/AthleteAppearancePresentation.cs": "a9530c8a2330ec7f7c9ebe8c981cd7f5fa24aade3747437d9854ef6f8babc1d3",
     "Assets/Scripts/Unity/Presentation/AthleteCreatorStudio.cs": "5c26313924f693c1acb90beeea4210033b4de30c295c9b0c46f5e537cace1780",
     "Assets/Scripts/Unity/Presentation/AthleteFaceCatalog.cs": "c0a22f8ce94a086fb1f4f316c01d80ff86c383a420b08cf9d49a7d22a94b5e49",
     "Assets/Scripts/Unity/Presentation/AthleteProxyPresentation.cs": "6738df83078870443aa152af817c271556bc387d3a51cd1d3362d695a6ffd2ed",
-    "Assets/Scripts/Unity/Presentation/FrontEndAthleteCreator.cs": "f4bfe424bd17801654e317e817c457008091a1bede7708605140edfdbcc5533c",
-    "Assets/Scripts/Unity/Presentation/FrontEndMenu.cs": "845503208e48f0ca4910c23909e7574b9c93757bad737f7fc00c3b3c211be6da",
+    "Assets/Scripts/Unity/Presentation/FrontEndAthleteCreator.cs": "8d373334a8da2061d30b4cd2d4be63c1522c57812b3ff3acc9e30150baa74e2a",
+    "Assets/Scripts/Unity/Presentation/FrontEndMenu.cs": "829b7144b35218f66cb357058fa99333b34f220fbd9ed121be630ed1dfe463f6",
     "Assets/Tests/EditMode/BalanceRegressionTests.cs": "f141de5f99b8a6de91cdf1796ee2bcd88895f1b6ff23573251646c42fc1f4286",
     "Assets/Tests/EditMode/BiathlonRatingEngineTests.cs": "5b792d009be82d704ed3998e2e423f50a2298c089d77245cb8522d9b62bc975a",
     "Assets/Tests/EditMode/CareerAppearanceProfileTests.cs": "7fc45769b5ef6acafe34367e46adf5e6601e27c3c70b3128eaaef8e628aa0428",
@@ -243,10 +279,10 @@
     "Assets/Tests/EditMode/CareerFoundationTests.cs": "ec2b5763ff3e3fb1319cd032b8fe776e1a8595eb085581073724baab7af963fa",
     "Assets/Tests/EditMode/FrontEndSessionTests.cs": "3cb721c0b1fa96b288c6c4fb3a3ce90fe284b0de4a803bd218b9c3e1d2cb586d",
     "Assets/Tests/PlayMode/AthleteCreatorStudioTests.cs": "eacb054115292901e6ae4e2406e10d0eb7f7cafafdbe23c987a40f717040142c",
-    "Assets/Tests/PlayMode/AthleteCreatorUiTests.cs": "f95cf8e381a587ed8f6a2aac0f2b1a79cc641882c7c98dbb45a2a6fad98611bc",
+    "Assets/Tests/PlayMode/AthleteCreatorUiTests.cs": "ade5e3e22bd24608c4cbbfc655a0224a37813d0b6601ec673b2d39e78b049ecd",
     "Assets/Tests/PlayMode/AthleteRatingAllocationTests.cs": "3c1b6e0c61e08eaccbda73490cc60ad2675833bf825aaddb5a60d59db5d80b9b",
-    "Assets/Tests/PlayMode/BalanceReviewUiTests.cs": "683ba7738f72cac4a8bd594905802947ff9885502d9d726100b4259bd755c18f",
+    "Assets/Tests/PlayMode/BalanceReviewUiTests.cs": "b0cc2f1ef34e71529ec4817022d496cc1c178900c6572f97968cb87e163466d2",
     "Assets/Tests/PlayMode/CareerMassStartReplayTests.cs": "5c72f60ac48cfa5688f19096cd33f35b80221f4478113b172b2c9fcb7bd8ec5a",
-    "Assets/Tests/PlayMode/FrontEndMenuTests.cs": "27040a5249a38afc3f4dc23101c23f44109771d75202b8cb3b9bf71442e68ccf"
+    "Assets/Tests/PlayMode/FrontEndMenuTests.cs": "ff314a8c473a0f6a4fdc9d917cff156bb4eb0a2683640bc6a94ceaca0493169b"
   }
 }

@@ -132,3 +132,10 @@ Cup qualification/licensed-athlete completeness, preset win balance, full native
 suite, all12 requested final screens, Windows M15.6 build or milestone closure is
 claimed at this checkpoint. No new third-party media/model imports or graphics
 quality reductions were introduced. M16 has not started.
+
+
+## Catalog checkpoint — 2026-10-15
+
+WP-E implemented in f7de4ece/cbd77cb8.90 stable fictional athletes in3 circuits; authentic selection retains exact ID/age/stats/appearance and original30-person field. Search and preview cannot reroll the world. Atomic save failure/continue and actual production field mapping verified. Real-roster rights/version contract only; no licensed real people/media pack supplied.
+
+Native9 new EditMode cases and1 new PlayMode case pass; own creator also rerun. Existing menu10, legacy UI2 and field2 cases pass.94 unique selected native cases and53 CoreCLR Release cases recorded across checkpoints. Final compact EN130% layout uses paged13-stat details. Console sequence70734 contains test-run and Unity AI subscription notices, no new game error. M15.6 OPEN; no milestone build yet. ADR-0071 records next growth/world implementation.

@@ -25411,3 +25411,8 @@ remains available. Unrelated existing working-tree changes preserved; history is
 append-only. Next work: complete appearance controls and ready-athlete flow,
 then shared career development/pool and final balance/native/build acceptance.
 M16 has not started.
+
+
+### 2026-10-15 — M15.6 existing-athlete catalog checkpoint
+
+WP-E COMPLETE (f7de4ece/cbd77cb8): stable90-athlete fictional catalog, native selection/filter/review UI and exact authentic career save; no duplicate in authoritative30-person race. Reviewed roster-pack schema added without unlicensed identities/media.94 unique selected native checks and53 Release CoreCLR checks pass across checkpoints; docs/quality/m15-6/verification.json records scope. WP-A/B/C/E COMPLETE; WP-D/H IN PROGRESS; WP-F now IN PROGRESS under ADR-0071; WP-G/I pending. M15.6 OPEN, M16 not started, no M15.6 test build yet. Approved M15.5 rig/motion preserved.

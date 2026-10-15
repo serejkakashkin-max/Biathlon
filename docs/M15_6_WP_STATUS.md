@@ -9,8 +9,8 @@ Branch: codex/m15-6-career-creator. Brief: owner/OWNER_M15_6_MASTER_PLAN_V2_RU.m
 | B | OVR and group ratings | COMPLETE | Read-only13-stat engine;9 native calculation cases, native GC.Alloc/positive control,10 CoreCLR cases |
 | C | Creation domain / three tiers | COMPLETE | Detached draft,6 presets/6 origins, weighted limits, World Cup start, independent potential, durable confirmation and provenance |
 | D | Live 3D creator | IN PROGRESS | Reused native G2 studio, orbit/face/full views, poses,6 faces/8 skin tones/3 builds, v3 save migration and actual race parity; height/hair/eyes/accessory expansion remains |
-| E | Existing athlete selection | QUEUED | Stable world catalog, authentic selection, licensed-pack contract |
-| F | Individual potential / growth | QUEUED | Extend shared training/ageing; deterministic save migration |
+| E | Existing athlete selection | COMPLETE | Stable90-person fictional catalog; league/nation/age/OVR/specialization filters, exact saved identity and30-person race parity; reviewed real-roster pack contract (no licensed pack shipped) |
+| F | Individual potential / growth | IN PROGRESS | ADR-0071; grouped potential, age curves, shared training/ageing and seasonal observations |
 | G | AI / persistent world | QUEUED | Bounded pool, off-field growth, varied generations |
 | H | FROSTLINE career UI | IN PROGRESS | Three-pane own-athlete wizard/confirmation/OVR/13-stat allocation works in RU/EN; dashboard, rival cards and seasonal trends remain |
 | I | Balance / validation / build | QUEUED | Multi-season simulations, native screenshots, regressions, Win64 |
