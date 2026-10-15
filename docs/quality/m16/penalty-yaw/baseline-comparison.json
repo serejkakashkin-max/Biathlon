@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "m16_penalty_yaw_baseline_comparison_v1",
+  "baseline_code_commit": "bbd01e62",
+  "baseline_total": 37,
+  "baseline_failed": [
+    "BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw",
+    "ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(200.0d,False,False)",
+    "ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(300.0d,False,False)",
+    "ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(400.0d,False,False)",
+    "ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(400.0d,False,True)",
+    "ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(4.0d)",
+    "ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(7.0d)",
+    "ReachableYawIsSelectedFromActualSharedSnowResponse(0.35d)"
+  ],
+  "current_total": 40,
+  "current_failed": [
+    "BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw",
+    "ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(200.0d,False,False)",
+    "ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(300.0d,False,False)",
+    "ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(400.0d,False,False)",
+    "ProductionCandidateOnlyAcceptsContinuouslyClearWoodlandMotion(400.0d,False,True)",
+    "ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(4.0d)",
+    "ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(7.0d)",
+    "ReachableYawIsSelectedFromActualSharedSnowResponse(0.35d)"
+  ],
+  "failure_names_identical": true,
+  "scope": "Baseline code copied into isolated artifacts tree; current unchanged course resources; new M16 penalty recovery class excluded from baseline."
+}

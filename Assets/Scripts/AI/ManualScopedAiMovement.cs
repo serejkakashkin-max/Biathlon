@@ -32,6 +32,7 @@ namespace Biathlon.AI
         private readonly CorneringSystem steeringGrip;
         private readonly PlayerCourseReturnSystem playerReturn;
         private readonly AiClimbRestartController[] climbRestart;
+        private readonly double lowSpeedReference;
         public string ContextJson {get;}
         public ManualScopedAiMovement(ManualScopedFieldStepper stepper,ManualAiSteeringDefinition policy,
             ManualSkiSteeringDefinition physicalSteering,PlayerCourseAssistanceDefinition playerAssistance=null)
@@ -39,6 +40,7 @@ namespace Biathlon.AI
             this.stepper=stepper??throw new ArgumentNullException(nameof(stepper));
             if(policy==null||physicalSteering==null)throw new ArgumentNullException();
             this.policy=policy;
+            lowSpeedReference=physicalSteering.MinimumSpeedForGripLimit;
             if(playerAssistance!=null)playerReturn=new PlayerCourseReturnSystem(playerAssistance,stepper.World.TickFrequency);
             corridor=new ManualAiObstacleCorridor(stepper.BodyDefinition);
             snowPlanner=new ManualAiSnowSteeringPlanner(stepper.BodyDefinition,physicalSteering,stepper.World.TickFrequency);
@@ -71,6 +73,7 @@ namespace Biathlon.AI
             var context=new string[n+choices+5];
             context[0]="manual_scoped_ai_shared_clock_movement_v27_bounded_course_pursuit";
             if(climbRestart!=null)context[0]="manual_scoped_ai_shared_clock_movement_v28_paid_climb_restart";
+            if(policy.PenaltyYawTrackingError>0)context[0]="manual_scoped_ai_shared_clock_movement_v29_observed_penalty_yaw_tracking";
             context[1]=stepper.ContextJson;context[2]=policy.ToJson();context[3]=physicalSteering.ToJson()+";snow_planner_sha256:"+ManualContextIdentity.Sha256(snowPlanner.ContextJson);
             context[4]="player_signed_input_unchanged;ai_target_not_lateral_teleport;field_attested_scheduled_start_forecast;stationary_obstacle_detection_from_policy_response_or_exact_owned_stationary_mat;full_rotated_body_corridor_and_achieved_velocity_forecast;candidate_line_query_excludes_old_velocity_forecast;moving_range_body_forecast_four_separating_axes_and_relative_achieved_velocity;only_observed_ahead_bodies;ordinary_racing_keeps_physical_contacts;pass_line_owned_by_current_occurrence;hold_pass_line_until_body_clear_or_occurrence_handoff;owned_gate_lookahead_cap;owned_future_width_and_achieved_side_velocity_response_reserve;resource_family_common_to_private_cue_only;all_owned_paths_actual_snow_pursuit;bounded_mat_foot_placement_by_world_owner;shared_course_follows_moving_bodies_and_passes_stationary_ones;assigned_private_mat_center_target;current_private_exit_and_fixed_mass_passing_retained;geometric_chord_sagitta_reserve;physical_pursuit_actual_velocity_and_shared_speed_response_v2_actual_chord;ordered_bend_braking_and_short_chord_before_entry;common_physical_solver;no_legacy_fallback";
             for(int i=0;i<n;i++)context[i+5]=ManualContextIdentity.Sha256(bends[i].ContextJson);
@@ -278,6 +281,9 @@ namespace Biathlon.AI
                     // its achieved turn and cost. Private mat precision retains the inverse.
                     bool ordinaryCourse=row.Kind==ManualRacePathKind.PenaltyLoop||row.Kind==ManualRacePathKind.BaseRoute||row.Kind==ManualRacePathKind.StartApproach;
                     if(!(policy.RecoverLowSpeedCourseSteering&&ordinaryCourse))
+                        steering[i]=snowPlanner.Plan(new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,stepper.PhysicsDefinition.MassKilograms),
+                            new SkiContactMotion(actor.Velocity,actor.Pose.YawRateRadiansPerSecond),pursuitYaw,grip);
+                    else if(row.Kind==ManualRacePathKind.PenaltyLoop&&policy.PenaltyYawTrackingError>0&&motion.SpeedMetersPerSecond>=lowSpeedReference&&Math.Abs(actor.Pose.YawRateRadiansPerSecond-pursuitYaw)>policy.PenaltyYawTrackingError)
                         steering[i]=snowPlanner.Plan(new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,stepper.PhysicsDefinition.MassKilograms),
                             new SkiContactMotion(actor.Velocity,actor.Pose.YawRateRadiansPerSecond),pursuitYaw,grip);
                 }

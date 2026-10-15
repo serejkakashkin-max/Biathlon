@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="082e6eef-4748-4e57-a1f6-819de7478265" name="snkashkin@DESKTOP-G3075GA 2026-10-15 22:48:05" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-15T22:48:05.0418801+03:00" queuing="2026-10-15T22:48:05.0418802+03:00" start="2026-10-15T22:47:37.0804348+03:00" finish="2026-10-15T22:49:22.8787616+03:00" />
+  <TestSettings name="default" id="be99ad96-788f-41e6-a201-db5239bcbf25">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-15_22_48_05" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="4051467d-e6a7-4845-a2b3-bf8c71b1f892" testId="5a8aa3ee-d6e8-9d68-4143-147da3e3dd84" testName="PenaltyYawTrackingIsOptionalValidatedDataAndRetainsHistoricalPolicyEncoding" computerName="DESKTOP-G3075GA" duration="00:00:00.0036860" startTime="2026-10-15T22:49:22.6653762+03:00" endTime="2026-10-15T22:49:22.6690623+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4051467d-e6a7-4845-a2b3-bf8c71b1f892" />
+    <UnitTestResult executionId="a0f4d8f7-877a-4117-af56-0e9f93ed6b51" testId="320ef86d-67ba-43f8-b3f5-4002d0f14736" testName="CapturedFirstSeasonMassStartRetainsItsOrdinaryRangeArrival" computerName="DESKTOP-G3075GA" duration="00:00:27.3193960" startTime="2026-10-15T22:47:37.6805593+03:00" endTime="2026-10-15T22:48:04.9997234+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a0f4d8f7-877a-4117-af56-0e9f93ed6b51">
+      <Output>
+        <StdOut>captured_first_mass_ticks=19440 authority_sha256=56774d8ffa1ff5ddd0e2ce1d974e95c498d99d325c7b7616551278e836cfeef4</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="94442c83-4baa-46f1-ba51-b8b84020a398" testId="80494964-5311-5a54-8557-7f59309eb04d" testName="CapturedSecondSeasonPursuitClearsPenaltyAndFinishesTwiceWithIdenticalAuthority" computerName="DESKTOP-G3075GA" duration="00:00:49.0552990" startTime="2026-10-15T22:48:05.0006301+03:00" endTime="2026-10-15T22:48:54.0555806+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="94442c83-4baa-46f1-ba51-b8b84020a398">
+      <Output>
+        <StdOut>captured_pursuit_ticks=21411 authority_sha256=14f635e15385712d9b13bd086e714afcd96ec6bc13e6de6b8824938b9632a010 event_hash=12010429436503977100</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cc5b56b5-34f2-4e41-85a2-5bb149cd3d9d" testId="787ce5dd-00ad-fd57-c1a1-089607ee7b4b" testName="HistoricalYawPolicyStillRejectsItsCapturedOutsideSourceWithoutPayingClock" computerName="DESKTOP-G3075GA" duration="00:00:28.6099180" startTime="2026-10-15T22:48:54.0556286+03:00" endTime="2026-10-15T22:49:22.6653428+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cc5b56b5-34f2-4e41-85a2-5bb149cd3d9d" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="PenaltyYawTrackingIsOptionalValidatedDataAndRetainsHistoricalPolicyEncoding" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="5a8aa3ee-d6e8-9d68-4143-147da3e3dd84">
+      <Execution id="4051467d-e6a7-4845-a2b3-bf8c71b1f892" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.M16PenaltyRecoveryTests" name="PenaltyYawTrackingIsOptionalValidatedDataAndRetainsHistoricalPolicyEncoding" />
+    </UnitTest>
+    <UnitTest name="HistoricalYawPolicyStillRejectsItsCapturedOutsideSourceWithoutPayingClock" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="787ce5dd-00ad-fd57-c1a1-089607ee7b4b">
+      <Execution id="cc5b56b5-34f2-4e41-85a2-5bb149cd3d9d" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.M16PenaltyRecoveryTests" name="HistoricalYawPolicyStillRejectsItsCapturedOutsideSourceWithoutPayingClock" />
+    </UnitTest>
+    <UnitTest name="CapturedFirstSeasonMassStartRetainsItsOrdinaryRangeArrival" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="320ef86d-67ba-43f8-b3f5-4002d0f14736">
+      <Execution id="a0f4d8f7-877a-4117-af56-0e9f93ed6b51" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.M16PenaltyRecoveryTests" name="CapturedFirstSeasonMassStartRetainsItsOrdinaryRangeArrival" />
+    </UnitTest>
+    <UnitTest name="CapturedSecondSeasonPursuitClearsPenaltyAndFinishesTwiceWithIdenticalAuthority" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="80494964-5311-5a54-8557-7f59309eb04d">
+      <Execution id="94442c83-4baa-46f1-ba51-b8b84020a398" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.M16PenaltyRecoveryTests" name="CapturedSecondSeasonPursuitClearsPenaltyAndFinishesTwiceWithIdenticalAuthority" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="5a8aa3ee-d6e8-9d68-4143-147da3e3dd84" executionId="4051467d-e6a7-4845-a2b3-bf8c71b1f892" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="320ef86d-67ba-43f8-b3f5-4002d0f14736" executionId="a0f4d8f7-877a-4117-af56-0e9f93ed6b51" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="80494964-5311-5a54-8557-7f59309eb04d" executionId="94442c83-4baa-46f1-ba51-b8b84020a398" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="787ce5dd-00ad-fd57-c1a1-089607ee7b4b" executionId="cc5b56b5-34f2-4e41-85a2-5bb149cd3d9d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 4 of 4 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+captured_first_mass_ticks=19440 authority_sha256=56774d8ffa1ff5ddd0e2ce1d974e95c498d99d325c7b7616551278e836cfeef4&#xD;
+&#xD;
+captured_pursuit_ticks=21411 authority_sha256=14f635e15385712d9b13bd086e714afcd96ec6bc13e6de6b8824938b9632a010 event_hash=12010429436503977100&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

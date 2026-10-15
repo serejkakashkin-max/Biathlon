@@ -1,0 +1,19 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 2106,
+    "PassedTests": 0,
+    "FailedTests": 1,
+    "SkippedTests": 0,
+    "Duration": "00:01:19.3844483"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.Tests.M16PenaltyRecoveryTests.HistoricalYawPolicyStillRejectsItsCapturedOutsideSourceWithoutPayingClock",
+      "Status": "Failed",
+      "Duration": "00:01:18.5130000",
+      "Message": "  Expected: <System.InvalidOperationException>\r\n  But was:  null\r\n",
+      "StackTrace": "at Biathlon.Tests.M16PenaltyRecoveryTests.HistoricalYawPolicyStillRejectsItsCapturedOutsideSourceWithoutPayingClock () [0x000ce] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\EditMode\\M16PenaltyRecoveryTests.cs:78\r\n"
+    }
+  ]
+}

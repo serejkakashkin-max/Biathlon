@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="3b9a7789-2216-4dc2-a410-6274ea75973a" name="snkashkin@DESKTOP-G3075GA 2026-10-15 23:04:39" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-15T23:04:39.2277921+03:00" queuing="2026-10-15T23:04:39.2277922+03:00" start="2026-10-15T23:04:38.1402521+03:00" finish="2026-10-15T23:04:39.2330284+03:00" />
+  <TestSettings name="default" id="fd5ba43c-cf41-4829-9acc-ac582be73551">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-15_23_04_39" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="8368232e-3918-4a2e-b0c6-52c43fb1a3b6" testId="5a8aa3ee-d6e8-9d68-4143-147da3e3dd84" testName="PenaltyYawTrackingIsOptionalValidatedDataAndRetainsHistoricalPolicyEncoding" computerName="DESKTOP-G3075GA" duration="00:00:00.0162380" startTime="2026-10-15T23:04:39.1206967+03:00" endTime="2026-10-15T23:04:39.1369339+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8368232e-3918-4a2e-b0c6-52c43fb1a3b6" />
+    <UnitTestResult executionId="269fd4f1-eb0a-4aab-8d15-30ae641693c7" testId="88d1dd44-3b19-7e10-a501-a706c4576d8b" testName="CapturedOutsidePenaltySourceRejectsCompleteBodyAndNeverPaysClock" computerName="DESKTOP-G3075GA" duration="00:00:00.4295700" startTime="2026-10-15T23:04:38.6905794+03:00" endTime="2026-10-15T23:04:39.1201205+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="269fd4f1-eb0a-4aab-8d15-30ae641693c7" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="PenaltyYawTrackingIsOptionalValidatedDataAndRetainsHistoricalPolicyEncoding" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="5a8aa3ee-d6e8-9d68-4143-147da3e3dd84">
+      <Execution id="8368232e-3918-4a2e-b0c6-52c43fb1a3b6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.M16PenaltyRecoveryTests" name="PenaltyYawTrackingIsOptionalValidatedDataAndRetainsHistoricalPolicyEncoding" />
+    </UnitTest>
+    <UnitTest name="CapturedOutsidePenaltySourceRejectsCompleteBodyAndNeverPaysClock" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="88d1dd44-3b19-7e10-a501-a706c4576d8b">
+      <Execution id="269fd4f1-eb0a-4aab-8d15-30ae641693c7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.M16PenaltyRecoveryTests" name="CapturedOutsidePenaltySourceRejectsCompleteBodyAndNeverPaysClock" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="5a8aa3ee-d6e8-9d68-4143-147da3e3dd84" executionId="8368232e-3918-4a2e-b0c6-52c43fb1a3b6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="88d1dd44-3b19-7e10-a501-a706c4576d8b" executionId="269fd4f1-eb0a-4aab-8d15-30ae641693c7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

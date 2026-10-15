@@ -24,6 +24,7 @@ namespace Biathlon.Domain
         [DataMember(Name="recover_low_speed_course_steering",EmitDefaultValue=false)] public bool RecoverLowSpeedCourseSteering {get;private set;}
         [DataMember(Name="bend_speed_safety_factor",EmitDefaultValue=false)] public double BendSpeedSafetyFactor {get;private set;}
         [DataMember(Name="climb_restart",EmitDefaultValue=false)] public AiClimbRestartDefinition ClimbRestart {get;private set;}
+        [DataMember(Name="penalty_yaw_tracking_error_radps",EmitDefaultValue=false)] public double PenaltyYawTrackingError {get;private set;}
         public static ManualAiSteeringDefinition FromJson(string json)
         {
             var value=RouteJson.Read<ManualAiSteeringDefinition>(json);
@@ -39,6 +40,7 @@ namespace Biathlon.Domain
             TrackValidation.Finite(value.BendSpeedSafetyFactor,0,1,nameof(BendSpeedSafetyFactor));
             if(value.BendSpeedSafetyFactor>0&&value.BendSpeedSafetyFactor<.5)throw new SerializationException("AI bend speed margin must be at least 0.5.");
             value.ClimbRestart?.Validate();
+            TrackValidation.Finite(value.PenaltyYawTrackingError,0,10,nameof(PenaltyYawTrackingError));
             return value;
         }
         public string ToJson()=>RouteJson.Write(this);

@@ -1,0 +1,31 @@
+{
+  "Summary": {
+    "Status": "Passed",
+    "PassedTests": 4,
+    "FailedTests": 0,
+    "SkippedTests": 0
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.Tests.M16PenaltyRecoveryTests.PenaltyYawTrackingIsOptionalValidatedDataAndRetainsHistoricalPolicyEncoding",
+      "Status": "Passed",
+      "Duration": "00:00:00.0220000"
+    },
+    {
+      "Name": "Biathlon.Tests.M16PenaltyRecoveryTests.CapturedSecondSeasonPursuitClearsPenaltyAndFinishesTwiceWithIdenticalAuthority",
+      "Status": "Passed",
+      "Duration": "00:02:41.8470000"
+    },
+    {
+      "Name": "Biathlon.Tests.M16PenaltyRecoveryTests.CapturedOutsidePenaltySourceRejectsCompleteBodyAndNeverPaysClock",
+      "Status": "Passed",
+      "Duration": "00:00:01.5070000"
+    },
+    {
+      "Name": "Biathlon.Tests.M16PenaltyRecoveryTests.CapturedFirstSeasonMassStartRetainsItsOrdinaryRangeArrival",
+      "Status": "Passed",
+      "Duration": "00:02:27.0770000"
+    }
+  ],
+  "Scope": "Four unique native methods qualified across applicable checkpoints; no summed inventory, no claim of a single fixture run."
+}

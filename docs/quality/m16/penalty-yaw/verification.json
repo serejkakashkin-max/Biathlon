@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "id": "m16_penalty_yaw_reliability_verification_v1",
+  "utc": "2026-10-15T19:51:39.7845895Z",
+  "status": "PASS_FOCUSED_PENDING_NATIVE_AND_FULL_SOAK",
+  "tests": {
+    "focused_failed": 0,
+    "broader_failed": 8,
+    "focused_passed": 4,
+    "broader_passed": 32,
+    "baseline_failure_names_identical": true,
+    "baseline_passed": 29,
+    "baseline_failed": 8
+  },
+  "captured_pursuit": {
+    "independent_repeats": 2,
+    "ticks": 21411,
+    "event_hash": "12010429436503977100",
+    "authority_sha256": "14f635e15385712d9b13bd086e714afcd96ec6bc13e6de6b8824938b9632a010"
+  },
+  "captured_first_mass": {
+    "ticks": 19440,
+    "authority_sha256": "56774d8ffa1ff5ddd0e2ce1d974e95c498d99d325c7b7616551278e836cfeef4"
+  },
+  "historical_control": {
+    "candidate_clock_paid": false,
+    "accepted_tick": 15576,
+    "rejected_tick": 15577,
+    "failure": "WorldRejected/Course/UnresolvedStart"
+  },
+  "authority_changes": "Optional penalty-only AI command selection; no solver/body/geometry/tolerance/clock/stats/visual edits",
+  "source": [
+    {
+      "path": "Assets/Scripts/AI/ManualScopedAiMovement.cs",
+      "sha256_lf": "426b8b8bd39883219511899eb0d574272b0f3c96cd143958b62e70c820266a6a"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ManualAiSteeringDefinition.cs",
+      "sha256_lf": "6d0a04896d4a90583aa9c84431ac8e7b0aaba4703e99e087437930cd02fe0392"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_ai_steering_v2.json",
+      "sha256_lf": "e0f0125b912622a3b8f3289b619185091e4958b3d7feb7f24942c4b009ba243c"
+    },
+    {
+      "path": "Assets/Tests/EditMode/M16PenaltyRecoveryTests.cs",
+      "sha256_lf": "dac3691a45906f3e159dc390e17336d356d845c30f31a2c1a42b63c9e81e7c1a"
+    },
+    {
+      "path": "dotnet/Biathlon.Tests/Fixtures/m16_penalty_yaw/prepared-save.json",
+      "sha256_lf": "d939aa9555dc3ec68093ac081abc39b0e6a85624b389fddee45b73d4f89c51e6"
+    },
+    {
+      "path": "dotnet/Biathlon.Tests/Fixtures/m16_penalty_yaw/first-mass-prepared-save.json",
+      "sha256_lf": "d87f1a71a4a76a7c4c85fab10a1fc3ae44f6e04e40cc27ab4bbf1b61abbfb3fc"
+    },
+    {
+      "path": "dotnet/Biathlon.Tests/Fixtures/m16_penalty_yaw/fixture.json",
+      "sha256_lf": "9b8c6b07fb9e190eec147623bdd15a3982d777097fde12c0d4bcd9e0328fcccb"
+    },
+    {
+      "path": "docs/adr/ADR-0073-m16-observed-penalty-yaw-tracking.md",
+      "sha256_lf": "12e8d55f50a543d5b88b9571fbe11ebc28e56d6d8bc725acc02088de1455bb1c"
+    }
+  ]
+}
