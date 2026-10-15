@@ -113,3 +113,26 @@ our model's numeric roll/offset or the chosen animation frequency. Reference
 links and native before/after evidence are in the sprint/carry follow-up report.
 No simulation/AI/physics/energy/balance/art-quality/UI/audio change; M16 remains
 pending owner acceptance.
+
+## 2026-10-15 — Correct contact with the deforming back
+
+The owner rejected the schema2 carry placement: the broad side was correctly
+oriented, but the stock visibly hovered in tuck. A test against the actual baked
+G2 skin reproduced 45–72 mm gaps at two stock contact points, across ordinary
+skiing, attack and tuck. Orientation checks alone were insufficient.
+
+Schema3 replaces the parent-space offset with two authored attachment points,
+each a weighted combination of typed skeleton bone transforms. Their local
+positions/weights follow the existing hero back skin near the lower and upper
+stock contact. Build the carried orientation from these two points and retain
+the 90-degree muzzle-axis roll; place the stock's broad-face contact on the lower
+anchor. No per-frame mesh baking, raycasts, allocations or new gameplay state.
+The same existing skeleton contract supports the legacy presentation fallback.
+
+Actual skin baking/triangle intersection is test-only. All eight sampled contact
+gaps per motion case must stay below18 mm; this is a project regression bound,
+not an IBU rule. Native side/back footage, the existing transfer/aim/contact
+tests and owner review remain necessary. The slower schema5 pole frequency is
+retained. Shooting socket, sight, authoritative timing, art/quality and all race
+systems remain unchanged. The earlier schema2 paragraph records the rejected
+intermediate state, not final acceptance. M16 remains pending.

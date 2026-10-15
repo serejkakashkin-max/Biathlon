@@ -5,6 +5,29 @@ using UnityEngine;
 
 namespace Biathlon.Unity.Presentation
 {
+    [Serializable] public sealed class RifleBackAnchor
+    {
+        public AthleteBone[] bones;
+        public Vector3[] local_positions;
+        public float[] weights;
+        public Vector3 Position(AthleteRigBinding rig)
+        {
+            Vector3 point=Vector3.zero;
+            for(int i=0;i<bones.Length;i++)point+=rig.Bone(bones[i]).TransformPoint(local_positions[i])*weights[i];
+            return point;
+        }
+        public void Validate()
+        {
+            if(bones==null||local_positions==null||weights==null||bones.Length<1||bones.Length>4||bones.Length!=local_positions.Length||bones.Length!=weights.Length)throw new ArgumentException("Invalid back anchor binding.");
+            float sum=0;
+            for(int i=0;i<bones.Length;i++)
+            {
+                if(bones[i]<0||bones[i]>=AthleteBone.Count||!float.IsFinite(local_positions[i].sqrMagnitude)||local_positions[i].magnitude>2||!float.IsFinite(weights[i])||weights[i]<0||weights[i]>1)throw new ArgumentException("Invalid back anchor channel.");
+                sum+=weights[i];
+            }
+            if(Mathf.Abs(sum-1)>.0001f)throw new ArgumentException("Back anchor weights must sum to one.");
+        }
+    }
     [Serializable]
     public sealed class RiflePresentationSettings
     {
@@ -12,7 +35,8 @@ namespace Biathlon.Unity.Presentation
         public string id;
         public float reach_fraction, release_end_fraction, clearance_side_m, clearance_up_m;
         public float back_roll_deg;
-        public Vector3 back_offset;
+        public RifleBackAnchor back_lower,back_upper;
+        public Vector3 back_stock_contact;
         public Vector3 trigger_grip, support_grip, prone_support_grip, pole_stow_left, pole_stow_right;
         public Vector3 standing_support_bend, standing_trigger_bend, prone_support_bend, prone_trigger_bend;
         public Vector3 cheek_rest, head_from_cheek, head_sight_euler;
@@ -20,11 +44,12 @@ namespace Biathlon.Unity.Presentation
         public static RiflePresentationSettings Load()
         {
             var d = JsonUtility.FromJson<RiflePresentationSettings>(Resources.Load<TextAsset>("Biathlon/athlete_rifle_v1").text);
-            if (d == null || d.schema_version != 2 || string.IsNullOrWhiteSpace(d.id) || !(d.reach_fraction > 0 && d.reach_fraction < d.release_end_fraction && d.release_end_fraction < 1) ||
+            if (d == null || d.schema_version != 3 || string.IsNullOrWhiteSpace(d.id) || !(d.reach_fraction > 0 && d.reach_fraction < d.release_end_fraction && d.release_end_fraction < 1) ||
                 !(d.clearance_side_m > 0 && d.clearance_side_m < 1) || !(d.clearance_up_m > 0 && d.clearance_up_m < 1))
                 throw new ArgumentException("Invalid rifle presentation definition.");
-            if(!float.IsFinite(d.back_roll_deg)||d.back_roll_deg<70||d.back_roll_deg>110||!float.IsFinite(d.back_offset.sqrMagnitude)||d.back_offset.magnitude>.08f)
+            if(!float.IsFinite(d.back_roll_deg)||d.back_roll_deg<70||d.back_roll_deg>110||d.back_lower==null||d.back_upper==null||!float.IsFinite(d.back_stock_contact.sqrMagnitude)||d.back_stock_contact.magnitude>1)
                 throw new ArgumentException("Invalid carried rifle frame.");
+            d.back_lower.Validate();d.back_upper.Validate();
             if(!float.IsFinite(d.head_sight_euler.sqrMagnitude)||d.head_sight_euler.magnitude>30)throw new ArgumentException("Invalid visual head cant.");
             if(!(d.max_head_correction_m>0&&d.max_head_correction_m<=.15f))throw new ArgumentException("Invalid head correction envelope.");
             foreach (var v in new[] {d.trigger_grip, d.support_grip, d.prone_support_grip, d.pole_stow_left, d.pole_stow_right,d.standing_support_bend,d.standing_trigger_bend,d.prone_support_bend,d.prone_trigger_bend,d.cheek_rest,d.head_from_cheek})
@@ -72,11 +97,14 @@ namespace Biathlon.Unity.Presentation
             if (equipment == null) { equipment = GetComponent<AthleteEquipmentBinding>(); equipment.Validate(); }
             if (settings == null) settings = RiflePresentationSettings.Load();
             TransferProgress = progress;
-            var back = rig.Socket(AthleteSocket.RifleBack); var ready = rig.Socket(AthleteSocket.RifleAim);
+            var ready = rig.Socket(AthleteSocket.RifleAim);
             // The mesh's broad stock face is Y/Z. Roll around its muzzle axis
             // so that face lies along the back; leave the ready/sight frame intact.
-            var backRotation=back.rotation*Quaternion.AngleAxis(settings.back_roll_deg,Vector3.forward);
-            var backPosition=back.position+back.parent.TransformVector(settings.back_offset);
+            // Two lightweight skinned attachment points follow the back's bend.
+            // Their authored bone weights avoid runtime mesh baking/raycasting.
+            var lower=settings.back_lower.Position(rig);var upper=settings.back_upper.Position(rig);
+            var backRotation=Quaternion.LookRotation((upper-lower).normalized,-rig.Bone(AthleteBone.Chest).forward)*Quaternion.AngleAxis(settings.back_roll_deg,Vector3.forward);
+            var backPosition=lower-backRotation*settings.back_stock_contact;
             float transfer = Mathf.SmoothStep(0, 1, Mathf.InverseLerp(settings.reach_fraction, settings.release_end_fraction, progress));
             // Swing around the athlete's right side instead of passing the stock through the thorax.
             var clearance = rig.ModelRoot.TransformVector(new Vector3(settings.clearance_side_m, settings.clearance_up_m, 0)) * Mathf.Sin(transfer * Mathf.PI);

@@ -11,15 +11,16 @@ namespace Biathlon.Unity
         public static void BuildVisualUpgradeBaseline()=>BuildVisualUpgrade("Builds/M15_5_Baseline_Review");
         public static void BuildVisualUpgradeFinal()=>BuildVisualUpgrade("Builds/M15_5_Visual_Review");
         public static void BuildElbowBaseline()=>BuildVisualUpgrade("Builds/M15_5_Elbow_Baseline");
-        public static void BuildSprintCarryReview()
+        public static void BuildSprintCarryReview()=>BuildSprintCarryReview("Builds/M15_5_Sprint_Rifle_Review");
+        public static void BuildRifleContactReview()=>BuildSprintCarryReview("Builds/M15_5_Rifle_Contact_Review");
+        private static void BuildSprintCarryReview(string folder)
         {
-            const string folder="Builds/M15_5_Sprint_Rifle_Review";
             BuildVisualUpgrade(folder);
             File.WriteAllText(Path.Combine(folder,"READ_ME.txt"),
                 "BIATHLON M15.5 — темп рук при ускорении и винтовка на спине\r\n\r\n"+
                 "START_TEST.cmd — обычная игра, полный экран; существующая карьера совместима.\r\n"+
                 "Частота толчков при Shift снижена на 28%; ритм шагов и скорость гонки сохранены.\r\n"+
-                "Винтовка лежит широкой стороной ложи вдоль спины, ствол направлен вверх.\r\n"+
+                "Винтовка лежит широкой стороной ложи вдоль спины; крепление следует наклону тела, ствол направлен вверх.\r\n"+
                 "Проверьте разгон, включение/отпускание Shift и перенос винтовки к стрельбе/назад.\r\n"+
                 "Видео до/после: docs/quality/m15-5/sprint-carry-refinement/review.html в проекте.\r\n"+
                 "COMPARE_MOTION.cmd использует старый procedural fallback, а не предыдущий тестовый билд.\r\n"+
