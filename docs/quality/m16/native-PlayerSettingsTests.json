@@ -1,0 +1,57 @@
+{
+  "Summary": {
+    "Status": "Passed",
+    "TotalTests": 2102,
+    "PassedTests": 9,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:00.7666850"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.Tests.PlayerSettingsTests.CatalogRejectsDuplicateActionAndUnsafeControlExpressions",
+      "Status": "Passed",
+      "Duration": "00:00:00.0330000"
+    },
+    {
+      "Name": "Biathlon.Tests.PlayerSettingsTests.ConflictsReservedControlsAndWrongTypesAreRejectedWithoutMutation",
+      "Status": "Passed",
+      "Duration": "00:00:00.0040000"
+    },
+    {
+      "Name": "Biathlon.Tests.PlayerSettingsTests.CorruptPrimaryRecoversVerifiedBackupAndNeverCopiesCorruptionOverIt",
+      "Status": "Passed",
+      "Duration": "00:00:00.0210000"
+    },
+    {
+      "Name": "Biathlon.Tests.PlayerSettingsTests.DefaultCatalogRetainsApprovedSkiAndShootingControlsAndRoundTrips",
+      "Status": "Passed",
+      "Duration": "00:00:00.0030000"
+    },
+    {
+      "Name": "Biathlon.Tests.PlayerSettingsTests.IncompleteTempAndFutureSchemaNeverBecomePreferencesOrDisappearDuringRead",
+      "Status": "Passed",
+      "Duration": "00:00:00.0050000"
+    },
+    {
+      "Name": "Biathlon.Tests.PlayerSettingsTests.InvalidValuesAndDuplicateOverridesCannotReplaceGoodSettings",
+      "Status": "Passed",
+      "Duration": "00:00:00.0050000"
+    },
+    {
+      "Name": "Biathlon.Tests.PlayerSettingsTests.LockedPublishLeavesGoodBytesAndNoPartialSettings",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.Tests.PlayerSettingsTests.RebindingPersistsBothDevicesWithoutChangingOtherPreferencesOrDefaults",
+      "Status": "Passed",
+      "Duration": "00:00:00.0070000"
+    },
+    {
+      "Name": "Biathlon.Tests.PlayerSettingsTests.TruncatedTrailingDuplicateAndEscapedDuplicateJsonAreRejectedBeforeDeserialization",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    }
+  ]
+}

@@ -8,7 +8,12 @@ namespace Biathlon.Unity.Presentation
     public sealed partial class FrontEndMenu
     {
         private int calendarPage=-1,resultPage=-1,standingsPage,trainingPage,equipmentPage;
-        private string L(string ru,string en)=>Locale=="ru"?ru:en;
+        private static Biathlon.Presentation.UiTextCatalog migratedLabels;
+        private string L(string ru,string en)
+        {
+            if(migratedLabels==null)migratedLabels=Biathlon.Presentation.UiTextCatalog.FromJson(ProductionVenueHost.ReadResource("Biathlon/UI/front_end_pairs_v2"));
+            return migratedLabels.TextPair(ru,en,Locale);
+        }
         private VisualElement TileGrid(VisualElement parent,string id="")
         {var grid=new VisualElement{name=id};grid.style.flexDirection=FlexDirection.Row;grid.style.flexWrap=Wrap.Wrap;grid.style.justifyContent=Justify.SpaceBetween;parent.Add(grid);return grid;}
         private VisualElement Tile(VisualElement parent,string id="",bool dark=false)

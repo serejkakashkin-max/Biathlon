@@ -1,0 +1,52 @@
+{
+  "Summary": {
+    "Status": "Passed",
+    "TotalTests": 449,
+    "PassedTests": 8,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:00.4279638"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.PlayerDeviceInputTests.FocusLossCancelsPendingEdgeAndDeviceAbsenceStaysNeutral",
+      "Status": "Passed",
+      "Duration": "00:00:00.1460000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.PlayerDeviceInputTests.GamepadUsesRawAxisOnceAndSharesCommandContract",
+      "Status": "Passed",
+      "Duration": "00:00:00.0040000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.PlayerDeviceInputTests.KeyboardHeldAndEdgesSurviveFramesWithoutTicks",
+      "Status": "Passed",
+      "Duration": "00:00:00.0030000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.PlayerDeviceInputTests.LiveKeyboardReleaseAndFocusLossKeepTheAchievedPassingLine",
+      "Status": "Passed",
+      "Duration": "00:00:00.0040000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.PlayerDeviceInputTests.ManualKeyboardAxisBuildsYawAndFocusLossNeutralizesIt",
+      "Status": "Passed",
+      "Duration": "00:00:00.0030000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.PlayerDeviceInputTests.PendingManualCommandIsConsumedOnlyAfterItsRaceTickWasAccepted",
+      "Status": "Passed",
+      "Duration": "00:00:00.0230000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.PlayerDeviceInputTests.PresetsAndRecordedDeviceCommandsRoundTripWithoutFrameTime",
+      "Status": "Passed",
+      "Duration": "00:00:00.0120000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.PlayerDeviceInputTests.SKeyRequestsBrakeAndZeroPaceRetainsTheStop",
+      "Status": "Passed",
+      "Duration": "00:00:00.0030000"
+    }
+  ]
+}

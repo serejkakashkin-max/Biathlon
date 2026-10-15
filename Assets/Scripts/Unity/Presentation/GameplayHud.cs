@@ -48,6 +48,9 @@ namespace Biathlon.Unity.Presentation
         private Label clock,lap,timing,phase,history,speed,heart,reserve,fatigue,range,weapon,breath,wind,shots,help;
         private VisualElement reserveFill,fatigueFill,breathFill,shootingPanel,motionPanel,timingPanel,conditionPanel,helpPanel;
         private bool helpVisible;
+        private string skiControlHelp,shootingControlHelp,breathControl;
+        private BoundDeviceControls shortcutControls;
+        private bool gamepadShortcuts;
         public bool HelpVisible=>helpVisible;
         private readonly Label[] targets=new Label[5];
         private double nextRefresh;
@@ -128,7 +131,12 @@ namespace Biathlon.Unity.Presentation
             breathFill=Bar(shootingPanel,"breath_bar",accent);
 
             var hint=Card("help_hint",false,true,settings.speed_width);
-            Text(hint,"help_key",T("help_key"),settings.caption_size).style.color=muted;
+            var inputPreferences=host?.InputPreferences??PlayerSettingsPreferences.Current;
+            shortcutControls=new BoundDeviceControls(inputPreferences,PlayerSettingsPreferences.Catalog);gamepadShortcuts=inputPreferences.Device=="gamepad";
+            skiControlHelp=PlayerControlHints.Gameplay(inputPreferences,Locale,false,T("ski_help"));
+            shootingControlHelp=PlayerControlHints.Gameplay(inputPreferences,Locale,true,T("shooting_help"));breathControl=PlayerControlHints.Label(inputPreferences,"breath");
+            Text(hint,"help_key",inputPreferences.Device=="keyboard"&&inputPreferences.BindingOverrideCount==0?T("help_key"):
+                PlayerControlHints.Description(inputPreferences,Locale,new[]{"help","splits"}),settings.caption_size).style.color=muted;
             helpPanel=Card("help_panel",false,true,settings.left_width);
             helpPanel.style.top=settings.edge+48;
             var name=Text(helpPanel,"athlete_name",displayName,settings.body_size,true);
@@ -211,8 +219,8 @@ namespace Biathlon.Unity.Presentation
             shootingPanel.style.display=Model.Shooting?DisplayStyle.Flex:DisplayStyle.None;motionPanel.style.display=Model.Shooting?DisplayStyle.None:DisplayStyle.Flex;
             // Review controls remain usable in diagnostic scenes; career races have no review panel.
             float bottom=host?.Review!=null?settings.edge+140:settings.edge;shootingPanel.style.bottom=motionPanel.style.bottom=bottom;
-            range.text=Model.Range;weapon.text=Model.Weapon;breath.text=Model.Breath;wind.text=Model.Wind;wind.style.display=Model.Shooting?DisplayStyle.Flex:DisplayStyle.None;shots.text=a.ShotsFired+" / 5";
-            help.text=T(Model.Shooting?"shooting_help":"ski_help");
+            range.text=Model.Range;weapon.text=Model.Weapon;breath.text=Model.Breath.Replace("Space",breathControl);wind.text=Model.Wind;wind.style.display=Model.Shooting?DisplayStyle.Flex:DisplayStyle.None;shots.text=a.ShotsFired+" / 5";
+            help.text=Model.Shooting?shootingControlHelp:skiControlHelp;
             breath.style.color=a.BreathBlocked||a.BreathHolding&&a.BreathSwayMultiplier>1?FrontEndTheme.Color(settings.warning):muted;
             for(int i=0;i<targets.Length;i++)
             {
@@ -224,14 +232,16 @@ namespace Biathlon.Unity.Presentation
         {
             if(feed==null)return;
             RefreshPaceStart();
-            if(Keyboard.current?.tabKey.wasPressedThisFrame==true&&!Model.Shooting)SetCheckpointTableVisible(!CheckpointTableVisible);
-            if(Keyboard.current?.f2Key.wasPressedThisFrame==true)SetBroadcastVisible(!BroadcastVisible);
-            if(Keyboard.current?.f1Key.wasPressedThisFrame==true)SetHelpVisible(!helpVisible);
-            if(debug!=null&&Keyboard.current?.f3Key.wasPressedThisFrame==true)
+            shortcutControls.Resolve(Keyboard.current,Mouse.current,Gamepad.current);
+            if(ShortcutDown("splits")&&!Model.Shooting)SetCheckpointTableVisible(!CheckpointTableVisible);
+            if(ShortcutDown("broadcast"))SetBroadcastVisible(!BroadcastVisible);
+            if(ShortcutDown("help"))SetHelpVisible(!helpVisible);
+            if(debug!=null&&ShortcutDown("telemetry"))
             {debug.enabled=!debug.enabled;timingPanel.style.visibility=debug.enabled?Visibility.Hidden:Visibility.Visible;}
             if(Time.unscaledTimeAsDouble<nextRefresh)return;
             nextRefresh=Time.unscaledTimeAsDouble+settings.refresh_seconds;Refresh();
         }
+        private bool ShortcutDown(string action)=>shortcutControls.Down(action,false)||gamepadShortcuts&&shortcutControls.Down(action,true);
         private void OnEnable()
         {
             if(documentObject==null)return;

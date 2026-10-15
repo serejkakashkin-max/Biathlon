@@ -132,9 +132,14 @@ namespace Biathlon.Unity.Presentation
         }
         private void Update()
         {
-            bool requested=OverviewRequested||(Keyboard.current!=null&&Keyboard.current.tabKey.isPressed);
+            if(overviewControls==null)
+            {var p=GetComponent<ProductionVenueHost>()?.InputPreferences??PlayerSettingsPreferences.Current;overviewControls=new BoundDeviceControls(p,PlayerSettingsPreferences.Catalog);overviewGamepad=p.Device=="gamepad";}
+            overviewControls.Resolve(Keyboard.current,Mouse.current,Gamepad.current);
+            bool requested=OverviewRequested||overviewControls.Pressed("range_overview",false)||overviewGamepad&&overviewControls.Pressed("range_overview",true);
             if(requested!=overview){overview=requested;observedTick=-1;Refresh();}
         }
+        private BoundDeviceControls overviewControls;
+        private bool overviewGamepad;
         private void OnGUI()
         {
             if(!DrawLegacyHud)return;

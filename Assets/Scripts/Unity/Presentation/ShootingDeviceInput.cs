@@ -1,5 +1,6 @@
 using System;
 using Biathlon.Domain;
+using Biathlon.Presentation;
 using UnityEngine;
 using UnityEngine.InputSystem;
 namespace Biathlon.Unity.Presentation
@@ -37,13 +38,17 @@ namespace Biathlon.Unity.Presentation
         private long tick;
         private double mouseUnitsPerPixel,pendingX,pendingY,stickX,stickY;
         private bool pad,focused=true,previousTrigger,trigger,breath,fine,previousCycle,cycle;
-        public void Initialize(AthleteId id,int frequency,SimulationTick initialTick=default)
+        private BoundDeviceControls controls;
+        private double sensitivity=1,verticalSign=1;
+        public void Initialize(AthleteId id,int frequency,SimulationTick initialTick=default,PlayerSettings preferences=null)
         {
             if(!id.IsValid||frequency<=0)throw new ArgumentException("Invalid input clock/athlete.");
             settings=ShootingDeviceSettings.FromJson(Resources.Load<TextAsset>("Biathlon/shooting_device_v1").text);
             var aim=WeaponAimDefinition.FromJson(Resources.Load<TextAsset>("Biathlon/weapon_aim_v1").text);
             mouseUnitsPerPixel=settings.mouse_radians_per_pixel*frequency*1000/aim.RateRadiansPerSecond;
             athlete=id;tick=initialTick.Value;ReleaseHeldInput();
+            var p=preferences??new PlayerSettings();p.Validate(PlayerSettingsPreferences.Catalog);
+            controls=new BoundDeviceControls(p,PlayerSettingsPreferences.Catalog);sensitivity=p.AimSensitivity/1000d;verticalSign=p.InvertAim?-1:1;
         }
         private void Update(){if(settings!=null)Capture(UseGamepad?null:Mouse.current,UseGamepad?null:Keyboard.current,UseGamepad?Gamepad.current:null);}
         // Call once per Input System frame: mouse.delta is already accumulated by Input System.
@@ -52,18 +57,19 @@ namespace Biathlon.Unity.Presentation
             if(settings==null)throw new InvalidOperationException("Initialize input first.");
             if(!focused||(mouse==null&&gamepad==null)){ReleaseHeldInput();return;}
             bool nextPad=gamepad!=null;if(nextPad!=pad)ReleaseHeldInput();pad=nextPad;
+            controls.Resolve(keyboard,mouse,gamepad);
             bool down,cycleDown;
             if(pad)
             {
-                var stick=gamepad.rightStick.ReadUnprocessedValue();double length=Math.Sqrt(stick.x*stick.x+stick.y*stick.y);
+                double x=controls.Value("aim_horizontal",true),y=controls.Value("aim_vertical",true),length=Math.Sqrt(x*x+y*y);
                 double strength=length<=settings.stick_deadzone?0:Math.Pow((Math.Min(1,length)-settings.stick_deadzone)/(1-settings.stick_deadzone),settings.stick_exponent);
-                stickX=length>0?stick.x/length*strength:0;stickY=length>0?stick.y/length*strength:0;
-                down=gamepad.rightTrigger.isPressed;breath=gamepad.leftShoulder.isPressed;fine=gamepad.leftTrigger.isPressed;cycleDown=gamepad.buttonWest.isPressed;
+                stickX=length>0?x/length*strength*sensitivity:0;stickY=length>0?y/length*strength*sensitivity*verticalSign:0;
+                down=controls.Pressed("shoot",true);breath=controls.Pressed("breath",true);fine=controls.Pressed("fine_aim",true);cycleDown=controls.Pressed("bolt",true);
             }
             else
             {
-                var delta=mouse.delta.ReadValue();pendingX+=delta.x*mouseUnitsPerPixel;pendingY+=delta.y*mouseUnitsPerPixel;
-                down=mouse.leftButton.isPressed;breath=keyboard?.spaceKey.isPressed==true;fine=keyboard?.fKey.isPressed==true;cycleDown=mouse.rightButton.isPressed;
+                pendingX+=controls.Value("aim_horizontal",false)*mouseUnitsPerPixel*sensitivity;pendingY+=controls.Value("aim_vertical",false)*mouseUnitsPerPixel*sensitivity*verticalSign;
+                down=controls.Pressed("shoot",false);breath=controls.Pressed("breath",false);fine=controls.Pressed("fine_aim",false);cycleDown=controls.Pressed("bolt",false);
             }
             cycle|=cycleDown&&!previousCycle;previousCycle=cycleDown;
             trigger|=down&&!previousTrigger;previousTrigger=down;

@@ -1,5 +1,6 @@
 using Biathlon.Domain;
 using Biathlon.Simulation;
+using Biathlon.Presentation;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,13 +16,15 @@ namespace Biathlon.Unity.Presentation
         private double steeringSpeed;
         private bool previousOvertake, previousCancel, inactive;
         private bool focused = true;
-        public void Initialize(AthleteId athlete, int frequency)
+        private BoundDeviceControls controls;
+        public void Initialize(AthleteId athlete, int frequency,PlayerSettings preferences=null)
         {
             builder = new DeviceCommandBuilder(DeviceControlDefinition.FromJson(
                 Resources.Load<TextAsset>("Biathlon/device_control_gameplay_v3").text), athlete, frequency);
             steeringSpeed=SteeringDefinition.FromJson(Resources.Load<TextAsset>("Biathlon/steering_provisional_v1").text).LateralSpeed;
             previousOvertake = previousCancel = inactive = false;
             hasPendingManual=false;
+            controls=new BoundDeviceControls(preferences??new PlayerSettings(),PlayerSettingsPreferences.Catalog);
         }
         private void Update()
         {
@@ -32,31 +35,32 @@ namespace Biathlon.Unity.Presentation
             if (builder == null) throw new System.InvalidOperationException("Initialize input before capture.");
             if (!focused || (keyboard == null && gamepad == null)) { ReleaseHeldInput(); return; }
             inactive = false;
+            controls.Resolve(keyboard,Mouse.current,gamepad);
             bool overtake, cancel;
             DeviceControlSample sample;
             // The host chooses the device; merely connecting a pad never disables keyboard input.
             if (gamepad != null)
             {
-                sample = new DeviceControlSample(true, gamepad.rightTrigger.ReadUnprocessedValue(),
-                    gamepad.leftStick.x.ReadUnprocessedValue(),
-                    gamepad.leftTrigger.isPressed ? EffortPreset.Recovery :
-                    gamepad.buttonNorth.isPressed ? EffortPreset.FinalSprint :
-                    gamepad.rightShoulder.isPressed ? EffortPreset.Attack :
-                    gamepad.leftShoulder.isPressed ? EffortPreset.Race : EffortPreset.Analog,
-                    gamepad.buttonSouth.isPressed,gamepad.leftStick.y.ReadUnprocessedValue()<-.5f);
-                overtake = gamepad.buttonWest.isPressed; cancel = gamepad.buttonEast.isPressed;
+                sample = new DeviceControlSample(true, controls.Value("pace_up",true),
+                    controls.Value("steer_right",true)-controls.Value("steer_left",true),
+                    controls.Pressed("recovery",true) ? EffortPreset.Recovery :
+                    controls.Pressed("final_sprint",true) ? EffortPreset.FinalSprint :
+                    controls.Pressed("attack",true) ? EffortPreset.Attack :
+                    controls.Pressed("race_pace",true) ? EffortPreset.Race : EffortPreset.Analog,
+                    controls.Pressed("tuck",true),controls.Pressed("pace_down",true));
+                overtake = controls.Pressed("overtake",true); cancel = controls.Pressed("cancel_overtake",true);
             }
             else
             {
                 sample = new DeviceControlSample(false,
-                    (keyboard?.wKey.isPressed == true ? 1 : 0) - (keyboard?.sKey.isPressed == true ? 1 : 0),
-                    (keyboard?.dKey.isPressed == true ? 1 : 0) - (keyboard?.aKey.isPressed == true ? 1 : 0),
-                    keyboard?.leftCtrlKey.isPressed == true ? EffortPreset.Recovery :
-                    keyboard?.digit3Key.isPressed == true ? EffortPreset.FinalSprint :
-                    keyboard?.leftShiftKey.isPressed == true ? EffortPreset.Attack :
-                    keyboard?.digit1Key.isPressed == true ? EffortPreset.Race : EffortPreset.Analog,
-                    keyboard?.spaceKey.isPressed == true,keyboard?.sKey.isPressed==true);
-                overtake = keyboard?.eKey.isPressed == true; cancel = keyboard?.qKey.isPressed == true;
+                    (controls.Pressed("pace_up",false)?1:0)-(controls.Pressed("pace_down",false)?1:0),
+                    (controls.Pressed("steer_right",false)?1:0)-(controls.Pressed("steer_left",false)?1:0),
+                    controls.Pressed("recovery",false) ? EffortPreset.Recovery :
+                    controls.Pressed("final_sprint",false) ? EffortPreset.FinalSprint :
+                    controls.Pressed("attack",false) ? EffortPreset.Attack :
+                    controls.Pressed("race_pace",false) ? EffortPreset.Race : EffortPreset.Analog,
+                    controls.Pressed("tuck",false),controls.Pressed("pace_down",false));
+                overtake = controls.Pressed("overtake",false); cancel = controls.Pressed("cancel_overtake",false);
             }
             builder.Sample(sample, overtake && !previousOvertake, cancel && !previousCancel);
             previousOvertake = overtake; previousCancel = cancel;

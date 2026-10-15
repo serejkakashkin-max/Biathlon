@@ -1,0 +1,836 @@
+{
+  "schema_version": 1,
+  "id": "biathlon_input_bindings_v1",
+  "actions": [
+    {
+      "id": "pace_up",
+      "context": "ski",
+      "kind": "button",
+      "ru": "Темп +",
+      "en": "Pace +",
+      "keyboard": "<Keyboard>/w",
+      "gamepad": "<Gamepad>/rightTrigger"
+    },
+    {
+      "id": "pace_down",
+      "context": "ski",
+      "kind": "button",
+      "ru": "Темп − / тормоз",
+      "en": "Pace − / brake",
+      "keyboard": "<Keyboard>/s",
+      "gamepad": "<Gamepad>/leftStick/down"
+    },
+    {
+      "id": "steer_left",
+      "context": "ski",
+      "kind": "button",
+      "ru": "Руление влево",
+      "en": "Steer left",
+      "keyboard": "<Keyboard>/a",
+      "gamepad": "<Gamepad>/leftStick/left"
+    },
+    {
+      "id": "steer_right",
+      "context": "ski",
+      "kind": "button",
+      "ru": "Руление вправо",
+      "en": "Steer right",
+      "keyboard": "<Keyboard>/d",
+      "gamepad": "<Gamepad>/leftStick/right"
+    },
+    {
+      "id": "attack",
+      "context": "ski",
+      "kind": "button",
+      "ru": "Рывок",
+      "en": "Attack",
+      "keyboard": "<Keyboard>/leftShift",
+      "gamepad": "<Gamepad>/rightShoulder"
+    },
+    {
+      "id": "recovery",
+      "context": "ski",
+      "kind": "button",
+      "ru": "Восстановление",
+      "en": "Recover",
+      "keyboard": "<Keyboard>/leftCtrl",
+      "gamepad": "<Gamepad>/leftTrigger"
+    },
+    {
+      "id": "final_sprint",
+      "context": "ski",
+      "kind": "button",
+      "ru": "Финишный рывок",
+      "en": "Final sprint",
+      "keyboard": "<Keyboard>/3",
+      "gamepad": "<Gamepad>/buttonNorth"
+    },
+    {
+      "id": "race_pace",
+      "context": "ski",
+      "kind": "button",
+      "ru": "Гоночный темп",
+      "en": "Race pace",
+      "keyboard": "<Keyboard>/1",
+      "gamepad": "<Gamepad>/leftShoulder"
+    },
+    {
+      "id": "tuck",
+      "context": "ski",
+      "kind": "button",
+      "ru": "Низкая стойка",
+      "en": "Tuck",
+      "keyboard": "<Keyboard>/space",
+      "gamepad": "<Gamepad>/buttonSouth"
+    },
+    {
+      "id": "overtake",
+      "context": "ski",
+      "kind": "button",
+      "ru": "Обгон",
+      "en": "Overtake",
+      "keyboard": "<Keyboard>/e",
+      "gamepad": "<Gamepad>/buttonWest"
+    },
+    {
+      "id": "cancel_overtake",
+      "context": "ski",
+      "kind": "button",
+      "ru": "Отменить обгон",
+      "en": "Cancel overtake",
+      "keyboard": "<Keyboard>/q",
+      "gamepad": "<Gamepad>/buttonEast"
+    },
+    {
+      "id": "shoot",
+      "context": "shooting",
+      "kind": "button",
+      "ru": "Выстрел",
+      "en": "Fire",
+      "keyboard": "<Mouse>/leftButton",
+      "gamepad": "<Gamepad>/rightTrigger"
+    },
+    {
+      "id": "bolt",
+      "context": "shooting",
+      "kind": "button",
+      "ru": "Затвор",
+      "en": "Cycle bolt",
+      "keyboard": "<Mouse>/rightButton",
+      "gamepad": "<Gamepad>/buttonWest"
+    },
+    {
+      "id": "breath",
+      "context": "shooting",
+      "kind": "button",
+      "ru": "Задержать дыхание",
+      "en": "Hold breath",
+      "keyboard": "<Keyboard>/space",
+      "gamepad": "<Gamepad>/leftShoulder"
+    },
+    {
+      "id": "fine_aim",
+      "context": "shooting",
+      "kind": "button",
+      "ru": "Точный прицел",
+      "en": "Fine aim",
+      "keyboard": "<Keyboard>/f",
+      "gamepad": "<Gamepad>/leftTrigger"
+    },
+    {
+      "id": "aim_horizontal",
+      "context": "shooting",
+      "kind": "axis",
+      "ru": "Прицел по горизонтали",
+      "en": "Aim horizontal",
+      "keyboard": "<Mouse>/delta/x",
+      "gamepad": "<Gamepad>/rightStick/x"
+    },
+    {
+      "id": "aim_vertical",
+      "context": "shooting",
+      "kind": "axis",
+      "ru": "Прицел по вертикали",
+      "en": "Aim vertical",
+      "keyboard": "<Mouse>/delta/y",
+      "gamepad": "<Gamepad>/rightStick/y"
+    },
+    {
+      "id": "splits",
+      "context": "ski",
+      "kind": "button",
+      "ru": "Таблица отсечки",
+      "en": "Latest split",
+      "keyboard": "<Keyboard>/tab",
+      "gamepad": "<Gamepad>/select"
+    },
+    {
+      "id": "range_overview",
+      "context": "shooting",
+      "kind": "button",
+      "ru": "Обзор рубежа",
+      "en": "Range overview",
+      "keyboard": "<Keyboard>/tab",
+      "gamepad": "<Gamepad>/dpad/up"
+    },
+    {
+      "id": "broadcast",
+      "context": "global",
+      "kind": "button",
+      "ru": "Трансляция",
+      "en": "Broadcast",
+      "keyboard": "<Keyboard>/f2",
+      "gamepad": "<Gamepad>/dpad/down"
+    },
+    {
+      "id": "help",
+      "context": "global",
+      "kind": "button",
+      "ru": "Подсказки",
+      "en": "Help",
+      "keyboard": "<Keyboard>/f1",
+      "gamepad": "<Gamepad>/dpad/left"
+    },
+    {
+      "id": "telemetry",
+      "context": "global",
+      "kind": "button",
+      "ru": "Телеметрия",
+      "en": "Telemetry",
+      "keyboard": "<Keyboard>/f3",
+      "gamepad": "<Gamepad>/dpad/right"
+    }
+  ],
+  "paths": [
+    {
+      "path": "<Keyboard>/a",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "A"
+    },
+    {
+      "path": "<Keyboard>/b",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "B"
+    },
+    {
+      "path": "<Keyboard>/c",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "C"
+    },
+    {
+      "path": "<Keyboard>/d",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "D"
+    },
+    {
+      "path": "<Keyboard>/e",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "E"
+    },
+    {
+      "path": "<Keyboard>/f",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "F"
+    },
+    {
+      "path": "<Keyboard>/g",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "G"
+    },
+    {
+      "path": "<Keyboard>/h",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "H"
+    },
+    {
+      "path": "<Keyboard>/i",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "I"
+    },
+    {
+      "path": "<Keyboard>/j",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "J"
+    },
+    {
+      "path": "<Keyboard>/k",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "K"
+    },
+    {
+      "path": "<Keyboard>/l",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "L"
+    },
+    {
+      "path": "<Keyboard>/m",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "M"
+    },
+    {
+      "path": "<Keyboard>/n",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "N"
+    },
+    {
+      "path": "<Keyboard>/o",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "O"
+    },
+    {
+      "path": "<Keyboard>/p",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "P"
+    },
+    {
+      "path": "<Keyboard>/q",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "Q"
+    },
+    {
+      "path": "<Keyboard>/r",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "R"
+    },
+    {
+      "path": "<Keyboard>/s",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "S"
+    },
+    {
+      "path": "<Keyboard>/t",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "T"
+    },
+    {
+      "path": "<Keyboard>/u",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "U"
+    },
+    {
+      "path": "<Keyboard>/v",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "V"
+    },
+    {
+      "path": "<Keyboard>/w",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "W"
+    },
+    {
+      "path": "<Keyboard>/x",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "X"
+    },
+    {
+      "path": "<Keyboard>/y",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "Y"
+    },
+    {
+      "path": "<Keyboard>/z",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "Z"
+    },
+    {
+      "path": "<Keyboard>/0",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "0"
+    },
+    {
+      "path": "<Keyboard>/1",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "1"
+    },
+    {
+      "path": "<Keyboard>/2",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "2"
+    },
+    {
+      "path": "<Keyboard>/3",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "3"
+    },
+    {
+      "path": "<Keyboard>/4",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "4"
+    },
+    {
+      "path": "<Keyboard>/5",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "5"
+    },
+    {
+      "path": "<Keyboard>/6",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "6"
+    },
+    {
+      "path": "<Keyboard>/7",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "7"
+    },
+    {
+      "path": "<Keyboard>/8",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "8"
+    },
+    {
+      "path": "<Keyboard>/9",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "9"
+    },
+    {
+      "path": "<Keyboard>/leftShift",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "Shift"
+    },
+    {
+      "path": "<Keyboard>/rightShift",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "R Shift"
+    },
+    {
+      "path": "<Keyboard>/leftCtrl",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "Ctrl"
+    },
+    {
+      "path": "<Keyboard>/rightCtrl",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "R Ctrl"
+    },
+    {
+      "path": "<Keyboard>/leftAlt",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "Alt"
+    },
+    {
+      "path": "<Keyboard>/rightAlt",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "R Alt"
+    },
+    {
+      "path": "<Keyboard>/space",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "Space"
+    },
+    {
+      "path": "<Keyboard>/tab",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "Tab"
+    },
+    {
+      "path": "<Keyboard>/enter",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "Enter"
+    },
+    {
+      "path": "<Keyboard>/backspace",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "Backspace"
+    },
+    {
+      "path": "<Keyboard>/leftArrow",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "←"
+    },
+    {
+      "path": "<Keyboard>/rightArrow",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "→"
+    },
+    {
+      "path": "<Keyboard>/upArrow",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "↑"
+    },
+    {
+      "path": "<Keyboard>/downArrow",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "↓"
+    },
+    {
+      "path": "<Keyboard>/comma",
+      "device": "keyboard",
+      "kind": "button",
+      "label": ","
+    },
+    {
+      "path": "<Keyboard>/period",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "."
+    },
+    {
+      "path": "<Keyboard>/slash",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "/"
+    },
+    {
+      "path": "<Keyboard>/semicolon",
+      "device": "keyboard",
+      "kind": "button",
+      "label": ";"
+    },
+    {
+      "path": "<Keyboard>/quote",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "'"
+    },
+    {
+      "path": "<Keyboard>/leftBracket",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "["
+    },
+    {
+      "path": "<Keyboard>/rightBracket",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "]"
+    },
+    {
+      "path": "<Keyboard>/minus",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "−"
+    },
+    {
+      "path": "<Keyboard>/equals",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "="
+    },
+    {
+      "path": "<Keyboard>/f1",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "F1"
+    },
+    {
+      "path": "<Keyboard>/f2",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "F2"
+    },
+    {
+      "path": "<Keyboard>/f3",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "F3"
+    },
+    {
+      "path": "<Keyboard>/f4",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "F4"
+    },
+    {
+      "path": "<Keyboard>/f5",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "F5"
+    },
+    {
+      "path": "<Keyboard>/f6",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "F6"
+    },
+    {
+      "path": "<Keyboard>/f7",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "F7"
+    },
+    {
+      "path": "<Keyboard>/f8",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "F8"
+    },
+    {
+      "path": "<Keyboard>/f9",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "F9"
+    },
+    {
+      "path": "<Keyboard>/f10",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "F10"
+    },
+    {
+      "path": "<Keyboard>/f11",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "F11"
+    },
+    {
+      "path": "<Keyboard>/f12",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "F12"
+    },
+    {
+      "path": "<Mouse>/leftButton",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "LMB"
+    },
+    {
+      "path": "<Mouse>/rightButton",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "RMB"
+    },
+    {
+      "path": "<Mouse>/middleButton",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "MMB"
+    },
+    {
+      "path": "<Mouse>/forwardButton",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "forwardButton"
+    },
+    {
+      "path": "<Mouse>/backButton",
+      "device": "keyboard",
+      "kind": "button",
+      "label": "backButton"
+    },
+    {
+      "path": "<Mouse>/delta/x",
+      "device": "keyboard",
+      "kind": "axis",
+      "label": "Mouse X"
+    },
+    {
+      "path": "<Mouse>/delta/y",
+      "device": "keyboard",
+      "kind": "axis",
+      "label": "Mouse Y"
+    },
+    {
+      "path": "<Gamepad>/rightTrigger",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "RT"
+    },
+    {
+      "path": "<Gamepad>/leftTrigger",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "LT"
+    },
+    {
+      "path": "<Gamepad>/rightShoulder",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "RB"
+    },
+    {
+      "path": "<Gamepad>/leftShoulder",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "LB"
+    },
+    {
+      "path": "<Gamepad>/buttonNorth",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "Y / Triangle"
+    },
+    {
+      "path": "<Gamepad>/buttonSouth",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "A / Cross"
+    },
+    {
+      "path": "<Gamepad>/buttonEast",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "B / Circle"
+    },
+    {
+      "path": "<Gamepad>/buttonWest",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "X / Square"
+    },
+    {
+      "path": "<Gamepad>/leftStickPress",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "L3"
+    },
+    {
+      "path": "<Gamepad>/rightStickPress",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "R3"
+    },
+    {
+      "path": "<Gamepad>/select",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "View"
+    },
+    {
+      "path": "<Gamepad>/dpad/up",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "D-pad ↑"
+    },
+    {
+      "path": "<Gamepad>/dpad/down",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "D-pad ↓"
+    },
+    {
+      "path": "<Gamepad>/dpad/left",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "D-pad ←"
+    },
+    {
+      "path": "<Gamepad>/dpad/right",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "D-pad →"
+    },
+    {
+      "path": "<Gamepad>/leftStick/up",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "L ↑"
+    },
+    {
+      "path": "<Gamepad>/leftStick/down",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "L ↓"
+    },
+    {
+      "path": "<Gamepad>/leftStick/left",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "L ←"
+    },
+    {
+      "path": "<Gamepad>/leftStick/right",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "L →"
+    },
+    {
+      "path": "<Gamepad>/rightStick/up",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "R ↑"
+    },
+    {
+      "path": "<Gamepad>/rightStick/down",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "R ↓"
+    },
+    {
+      "path": "<Gamepad>/rightStick/left",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "R ←"
+    },
+    {
+      "path": "<Gamepad>/rightStick/right",
+      "device": "gamepad",
+      "kind": "button",
+      "label": "R →"
+    },
+    {
+      "path": "<Gamepad>/leftStick/x",
+      "device": "gamepad",
+      "kind": "axis",
+      "label": "L X"
+    },
+    {
+      "path": "<Gamepad>/leftStick/y",
+      "device": "gamepad",
+      "kind": "axis",
+      "label": "L Y"
+    },
+    {
+      "path": "<Gamepad>/rightStick/x",
+      "device": "gamepad",
+      "kind": "axis",
+      "label": "R X"
+    },
+    {
+      "path": "<Gamepad>/rightStick/y",
+      "device": "gamepad",
+      "kind": "axis",
+      "label": "R Y"
+    }
+  ]
+}

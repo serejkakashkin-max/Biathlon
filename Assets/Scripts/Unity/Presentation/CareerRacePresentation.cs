@@ -49,6 +49,7 @@ namespace Biathlon.Unity.Presentation
                     .Prepare(CareerSave.FromJson(week.RaceSnapshotJson),week.Event,week.RaceSeed,highlights);
                 raceRoot=new GameObject("Career race");raceRoot.transform.SetParent(transform,false);
                 Host=raceRoot.AddComponent<ProductionVenueHost>();Host.AutoStart=false;Host.enabled=false;
+                Host.InputPreferences=menu.Settings.Clone(PlayerSettingsPreferences.Catalog);Host.UseGamepad=menu.Settings.Device=="gamepad";
                 Host.InitializeCareer(prepared);
                 Host.Proxies.ConfigureCareerAppearance(CareerSave.FromJson(week.RaceSnapshotJson),menu.Session.Definitions.Calendar,menu.Session.Definitions.Scoring,week.Event);
                 Host.GameplayHud.SetPreferences(menu.Locale,menu.TextSizeIndex,menu.Session.Player.Name);

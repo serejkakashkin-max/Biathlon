@@ -1,0 +1,19 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 450,
+    "PassedTests": 0,
+    "FailedTests": 1,
+    "SkippedTests": 0,
+    "Duration": "00:00:00.5609172"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.PlayerSettingsInputTests.FailedSettingsPublicationRestoresEveryControlAndRuntimeUntilAnUnlockedRetrySucceeds",
+      "Status": "Failed",
+      "Duration": "00:00:00.2740000",
+      "Message": "  Expected: 0\r\n  But was:  1\r\n",
+      "StackTrace": "at Biathlon.PlayModeTests.PlayerSettingsInputTests.AssertPreserved (Biathlon.Unity.Presentation.FrontEndMenu menu, System.String before, System.String path, System.String disk, System.String audio) [0x00089] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\PlayerSettingsInputTests.cs:136\r\nat Biathlon.PlayModeTests.PlayerSettingsInputTests.FailedSettingsPublicationRestoresEveryControlAndRuntimeUntilAnUnlockedRetrySucceeds () [0x000fc] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\PlayerSettingsInputTests.cs:112\r\n"
+    }
+  ]
+}

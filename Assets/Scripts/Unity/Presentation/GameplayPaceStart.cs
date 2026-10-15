@@ -25,7 +25,8 @@ namespace Biathlon.Unity.Presentation
             var paceLayer=new VisualElement{name="pace_layer"};readout.Add(paceLayer);
             paceLabel=Text(paceLayer,"pace_label","",settings.caption_size);
             paceFill=Bar(paceLayer,"pace_fill",accent);
-            Text(paceLayer,"pace_keys",L("W +  ·  S − / тормоз\nShift — рывок","W +  ·  S − / brake\nShift — burst"),settings.caption_size).style.color=muted;
+            var inputPreferences=host?.InputPreferences??PlayerSettingsPreferences.Current;
+            Text(paceLayer,"pace_keys",PlayerControlHints.Label(inputPreferences,"pace_up")+" +  ·  "+PlayerControlHints.Label(inputPreferences,"pace_down")+L(" − / тормоз\n"," − / brake\n")+PlayerControlHints.Label(inputPreferences,"attack")+L(" — рывок"," — burst"),settings.caption_size).style.color=muted;
             BuildShortBurst(readout,paceLayer);
             countdownPanel=new VisualElement{name="start_countdown"};countdownPanel.style.position=Position.Absolute;
             countdownPanel.style.left=Length.Percent(42);countdownPanel.style.top=Length.Percent(24);countdownPanel.style.width=Length.Percent(16);

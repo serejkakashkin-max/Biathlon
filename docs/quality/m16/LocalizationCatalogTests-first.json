@@ -1,0 +1,48 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":2091,\"PassedTests\":5,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:00.8579185\"},\"Results\":[{\"Name\":\"Biathlon.Tests.LocalizationCatalogTests.ApprovedLabelsAreTranslatorEditableAndRetainBothLocales\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0190000\"},{\"Name\":\"Biathlon.Tests.LocalizationCatalogTests.DataCatalogCanAddAnotherLocaleWithoutChangingItsConsumer\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.LocalizationCatalogTests.MissingOrMismatchedPlaceholdersFailBeforeDisplay(\\u0022{0}\\u0022,\\u0022{1}\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.LocalizationCatalogTests.MissingOrMismatchedPlaceholdersFailBeforeDisplay(\\u0022{0}\\u0022,\\u0022bad {\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.LocalizationCatalogTests.MissingOrMismatchedPlaceholdersFailBeforeDisplay(\\u0022hello\\u0022,\\u0022\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 2091,
+        "PassedTests": 5,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.8579185"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.LocalizationCatalogTests.ApprovedLabelsAreTranslatorEditableAndRetainBothLocales",
+          "Status": "Passed",
+          "Duration": "00:00:00.0190000"
+        },
+        {
+          "Name": "Biathlon.Tests.LocalizationCatalogTests.DataCatalogCanAddAnotherLocaleWithoutChangingItsConsumer",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.LocalizationCatalogTests.MissingOrMismatchedPlaceholdersFailBeforeDisplay(\"{0}\",\"{1}\")",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.LocalizationCatalogTests.MissingOrMismatchedPlaceholdersFailBeforeDisplay(\"{0}\",\"bad {\")",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.LocalizationCatalogTests.MissingOrMismatchedPlaceholdersFailBeforeDisplay(\"hello\",\"\")",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

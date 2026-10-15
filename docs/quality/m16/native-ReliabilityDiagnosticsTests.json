@@ -1,0 +1,27 @@
+{
+  "Summary": {
+    "Status": "Passed",
+    "TotalTests": 2102,
+    "PassedTests": 3,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:01.0742085"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.Tests.ReliabilityDiagnosticsTests.ExportContainsUsefulStructureButNoIdentityPathsRawLogsOrRandomCheckpoint",
+      "Status": "Passed",
+      "Duration": "00:00:00.2350000"
+    },
+    {
+      "Name": "Biathlon.Tests.ReliabilityDiagnosticsTests.PublicMetadataRejectsArbitraryPathOrLogInjection",
+      "Status": "Passed",
+      "Duration": "00:00:00.0020000"
+    },
+    {
+      "Name": "Biathlon.Tests.ReliabilityDiagnosticsTests.RingRetainsOnlyBoundedOrderedIssueCodesAndRejectsInvalidEvents",
+      "Status": "Passed",
+      "Duration": "00:00:00.0020000"
+    }
+  ]
+}

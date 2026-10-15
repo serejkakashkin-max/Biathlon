@@ -47,15 +47,13 @@ namespace Biathlon.Unity.Presentation
         public string id="player_audio_v1";
         public float master=.8f, effects=.85f, body=.65f, ambience=.7f, ui=.65f, music=.45f;
         public bool quiet, mute_unfocused=true;
-        private const string Key="biathlon.audio.v1";
         public float Gain(AudioBus bus)=>bus==AudioBus.Effects?effects:bus==AudioBus.Body?body:bus==AudioBus.Ambience?ambience:bus==AudioBus.Interface?ui:music;
         public bool Valid()=>schema_version==1&&id=="player_audio_v1"&&Unit(master)&&Unit(effects)&&Unit(body)&&Unit(ambience)&&Unit(ui)&&Unit(music);
         private static bool Unit(float v)=>float.IsFinite(v)&&v>=0&&v<=1;
         public static BiathlonAudioPreferences Load()
         {
-            try { var p=JsonUtility.FromJson<BiathlonAudioPreferences>(PlayerPrefs.GetString(Key,""));return p!=null&&p.Valid()?p:new BiathlonAudioPreferences(); }
-            catch(ArgumentException){return new BiathlonAudioPreferences();}
+            return PlayerSettingsPreferences.Audio(PlayerSettingsPreferences.Current);
         }
-        public void Save(){if(!Valid())throw new ArgumentException("Invalid audio preferences.");PlayerPrefs.SetString(Key,JsonUtility.ToJson(this));PlayerPrefs.Save();}
+        public void Save(){if(!Valid())throw new ArgumentException("Invalid audio preferences.");PlayerSettingsPreferences.SaveAudio(this);}
     }
 }

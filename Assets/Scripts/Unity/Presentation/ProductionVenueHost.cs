@@ -20,6 +20,7 @@ namespace Biathlon.Unity.Presentation
         public string ReviewDefinitionResource;
         public ProductionReviewPresentation Review {get;private set;}
         public bool AutoStart=true,UseGamepad;
+        public Biathlon.Presentation.PlayerSettings InputPreferences {get;set;}
         public bool UseManualHeading=true;
         public ManualScopedFieldStepper ManualStepper {get;private set;}
         public int FieldCount=30;
@@ -189,8 +190,8 @@ namespace Biathlon.Unity.Presentation
             samplers=new TrackSampler[venue.Track.LoopCount];for(int i=0;i<samplers.Length;i++)samplers[i]=new TrackSampler(venue.Track.GetLoop(i));
             var field=Runner.Field;var id=field.GetAthlete(PlayerIndex).AthleteId;
             Feed=gameObject.AddComponent<RacePresentationFeed>();Feed.Publish(RacePresentationSnapshot.Capture(field));
-            ski=gameObject.AddComponent<PlayerDeviceInput>();ski.enabled=false;ski.Initialize(id,field.TickFrequency);
-            shot=gameObject.AddComponent<ShootingDeviceInput>();shot.enabled=false;shot.Initialize(id,field.TickFrequency);
+            ski=gameObject.AddComponent<PlayerDeviceInput>();ski.enabled=false;ski.Initialize(id,field.TickFrequency,InputPreferences);
+            shot=gameObject.AddComponent<ShootingDeviceInput>();shot.enabled=false;shot.Initialize(id,field.TickFrequency,preferences:InputPreferences);
             effort=new EffortControlSystem(EffortControlDefinition.FromJson(ReadCore("effort_control_provisional_v1.json")),id,field.TickFrequency);
             Mats=gameObject.AddComponent<RangeMatPresentation>();Mats.Initialize(venue);
             gameObject.AddComponent<RangeVenueDressingPresentation>().Initialize(venue,field,ManualStepper?.World,Feed);

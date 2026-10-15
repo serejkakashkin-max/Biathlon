@@ -1,0 +1,20 @@
+{
+ "schema_version":2,"id":"reliability_text_v1","locales":["ru","en"],"entries":[
+ {"key":"title","values":["Сохранения и поддержка","Saves & support"]},
+ {"key":"safe_title","values":["Твоя карьера под защитой","Your career, protected"]},
+ {"key":"not_loaded","values":["Карьера ещё не загружена.","No career has been loaded yet."]},
+ {"key":"primary_ok","values":["Основное сохранение проверено.","Primary save verified."]},
+ {"key":"backup_recovered","values":["Карьера восстановлена из резервной копии. Проверь последнюю неделю; исходные файлы сохранены.","Career recovered from its backup. Check the latest week; original files are preserved."]},
+ {"key":"checkpoint_recovered","values":["Восстановлена точка перед гонкой. Незавершённый заезд можно пройти заново.","Pre-race checkpoint recovered. You can restart the unfinished event."]},
+ {"key":"autosave","values":["Сохранение — после недели и результата. Перед стартом создаётся точка восстановления. Прерванная гонка не меняет сезон.","Saved after each week and result. A recovery checkpoint is made before the start. An interrupted race does not advance the season."]},
+ {"key":"report_title","values":["Отчёт о проблеме","Problem report"]},
+ {"key":"privacy","values":["Локальный ZIP: версия игры, параметры и обезличенные коды ошибок. Имена, пути, токены, полные логи и сохранения не включаются. Ничего не отправляется автоматически.","Local ZIP: game version, preferences and anonymous error codes. Names, paths, tokens, full logs and saves are excluded. Nothing is sent automatically."]},
+ {"key":"export","values":["Создать диагностический отчёт","Create diagnostic report"]},
+ {"key":"export_done","values":["Отчёт создан в папке Diagnostics рядом с сохранениями.","Report created in the Diagnostics folder beside your saves."]},
+ {"key":"export_failed","values":["Не удалось записать отчёт. Проверь свободное место и доступ к папке.","Could not write the report. Check free space and folder permissions."]},
+ {"key":"future_version","values":["Эта карьера сохранена другой версией игры. Файлы оставлены без изменений; открой её совместимой версией.","This career was saved by another game version. Its files are unchanged; open it with a compatible version."]},
+ {"key":"access_denied","values":["Нет доступа к сохранению. Закрой другое окно игры и проверь доступ к папке. Файлы не изменены.","The save is inaccessible. Close other game windows and check folder permissions. Files are unchanged."]},
+ {"key":"load_failed","values":["Не удалось загрузить карьеру или её данные. Исходные файлы сохранены. В настройках можно создать диагностический отчёт.","Could not load the career or its content. Original files are preserved. You can create a diagnostic report in Settings."]},
+ {"key":"migrated","values":["Старая карьера загружена в совместимом формате. Характеристики и история сохранены.","Older career loaded in the supported format. Abilities and history are preserved."]}
+ ]
+}
