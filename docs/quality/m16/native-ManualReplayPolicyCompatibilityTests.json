@@ -1,0 +1,37 @@
+{
+  "Summary": {
+    "Status": "Passed",
+    "TotalTests": 2102,
+    "PassedTests": 5,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:03:25.8851365"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.HistoricalArrestedSpinReactionRetainsTheOriginalGitBlobForceResults",
+      "Status": "Passed",
+      "Duration": "00:00:22.4100000"
+    },
+    {
+      "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.LegacyMetadataRemainsByteIdenticalAndNewPolicyIsExplicitValidatedAndPrepared",
+      "Status": "Passed",
+      "Duration": "00:00:39.3360000"
+    },
+    {
+      "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.NewV26JournalReplaysExactlyAndCannotBeReadWithTheHistoricalForceLaw",
+      "Status": "Passed",
+      "Duration": "00:01:22.0060000"
+    },
+    {
+      "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.OriginalV25GitBlobJournalOpensAndReplaysWithoutChangingItsHeaderOrCommands",
+      "Status": "Passed",
+      "Duration": "00:00:20.5480000"
+    },
+    {
+      "Name": "Biathlon.Tests.ManualReplayPolicyCompatibilityTests.StrictJournalIdentityRejectsCrossPolicyAndTamperedHeadersBeforeAnyTick",
+      "Status": "Passed",
+      "Duration": "00:00:41.0350000"
+    }
+  ]
+}

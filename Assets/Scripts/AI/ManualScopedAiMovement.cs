@@ -31,6 +31,7 @@ namespace Biathlon.AI
         private readonly ManualAiSnowSteeringPlanner snowPlanner;
         private readonly CorneringSystem steeringGrip;
         private readonly PlayerCourseReturnSystem playerReturn;
+        private readonly AiClimbRestartController[] climbRestart;
         public string ContextJson {get;}
         public ManualScopedAiMovement(ManualScopedFieldStepper stepper,ManualAiSteeringDefinition policy,
             ManualSkiSteeringDefinition physicalSteering,PlayerCourseAssistanceDefinition playerAssistance=null)
@@ -44,6 +45,7 @@ namespace Biathlon.AI
             steeringGrip=new CorneringSystem(stepper.CorneringDefinition,stepper.PhysicsDefinition);
             if(physicalSteering.ToJson()!=stepper.SteeringDefinitionJson)throw new ArgumentException("AI and movement must use the same physical steering definition.");
             int n=stepper.World.Count;controllers=new ManualAiSteeringController[n];catalogs=new ManualRacePathCatalog[n];steering=new int[n];
+            if(policy.ClimbRestart!=null){climbRestart=new AiClimbRestartController[n];for(int i=0;i<n;i++)climbRestart[i]=new AiClimbRestartController(policy.ClimbRestart,stepper.World.TickFrequency);}
             bends=new ManualAiBendBrakingPlanner[n];brakes=new double[n];
             passingLine=new double[n];passing=new bool[n];
             passingObstacle=new int[n];
@@ -68,6 +70,7 @@ namespace Biathlon.AI
                         stepper.CorneringDefinition,physicalSteering,policy,stepper.BodyDefinition);}}
             var context=new string[n+choices+5];
             context[0]="manual_scoped_ai_shared_clock_movement_v27_bounded_course_pursuit";
+            if(climbRestart!=null)context[0]="manual_scoped_ai_shared_clock_movement_v28_paid_climb_restart";
             context[1]=stepper.ContextJson;context[2]=policy.ToJson();context[3]=physicalSteering.ToJson()+";snow_planner_sha256:"+ManualContextIdentity.Sha256(snowPlanner.ContextJson);
             context[4]="player_signed_input_unchanged;ai_target_not_lateral_teleport;field_attested_scheduled_start_forecast;stationary_obstacle_detection_from_policy_response_or_exact_owned_stationary_mat;full_rotated_body_corridor_and_achieved_velocity_forecast;candidate_line_query_excludes_old_velocity_forecast;moving_range_body_forecast_four_separating_axes_and_relative_achieved_velocity;only_observed_ahead_bodies;ordinary_racing_keeps_physical_contacts;pass_line_owned_by_current_occurrence;hold_pass_line_until_body_clear_or_occurrence_handoff;owned_gate_lookahead_cap;owned_future_width_and_achieved_side_velocity_response_reserve;resource_family_common_to_private_cue_only;all_owned_paths_actual_snow_pursuit;bounded_mat_foot_placement_by_world_owner;shared_course_follows_moving_bodies_and_passes_stationary_ones;assigned_private_mat_center_target;current_private_exit_and_fixed_mass_passing_retained;geometric_chord_sagitta_reserve;physical_pursuit_actual_velocity_and_shared_speed_response_v2_actual_chord;ordered_bend_braking_and_short_chord_before_entry;common_physical_solver;no_legacy_fallback";
             for(int i=0;i<n;i++)context[i+5]=ManualContextIdentity.Sha256(bends[i].ContextJson);
@@ -77,6 +80,7 @@ namespace Biathlon.AI
         }
         public int GetSteering(int index)=>index>=0&&index<steering.Length?steering[index]:throw new ArgumentOutOfRangeException(nameof(index));
         public double GetBrakeFraction(int index)=>index>=0&&index<brakes.Length?brakes[index]:throw new ArgumentOutOfRangeException(nameof(index));
+        public AiClimbRestartPhase GetClimbRestartPhase(int index)=>index>=0&&index<steering.Length?(climbRestart==null?AiClimbRestartPhase.Ordinary:climbRestart[index].Phase):throw new ArgumentOutOfRangeException(nameof(index));
         public double PreferredLine(int index)
         {
             var cursor=stepper.World.GetCursor(index);var kind=stepper.World.GetCatalog(index).Get(cursor.OccurrenceIndex).Kind;
@@ -114,6 +118,7 @@ namespace Biathlon.AI
                 brakes[i]=0;
                 if(i==playerIndex)
                 {
+                    climbRestart?[i].Step(false,0,0,0,inputs[i].Ski.Effort.RequestedEffort);
                     brakes[i]=playerBrake;
                     var body=world.GetActor(i);
                     steering[i]=playerReturn==null?playerSteering:playerReturn.Evaluate(playerSteering,body.Pose,
@@ -125,6 +130,15 @@ namespace Biathlon.AI
                 var surface=catalog.SampleSurface(actor.Observation);double width=surface.WidthMeters;
                 var cursor=world.GetCursor(i);var row=catalog.Get(cursor.OccurrenceIndex);
                 var athlete=stepper.Field.GetAthlete(i);
+                if(climbRestart!=null)
+                {
+                    var prior=inputs[i];var ski=prior.Ski;
+                    int effort=climbRestart[i].Step(row.Kind==ManualRacePathKind.BaseRoute&&!athlete.HasFinished&&athlete.ActiveShooting==null,
+                        actor.Observation.GradeAlong(actor.Pose),motion.SpeedMetersPerSecond,athlete.PhysiologyState.AnaerobicReserve,ski.Effort.RequestedEffort);
+                    if(effort!=ski.Effort.RequestedEffort)
+                        inputs[i]=prior.WithSki(new TimeTrialInput(new SimulationInput(ski.Effort.Tick,ski.Effort.AthleteId,effort),
+                            ski.Form,ski.LineQuality,ski.HeadwindMetersPerSecond,false,false,ski.TechniqueId,ski.MovementEfficiency));
+                }
                 var bend=bends[i].Plan(actor.Observation,Math.Sqrt(actor.Velocity.X*actor.Velocity.X+actor.Velocity.Z*actor.Velocity.Z),
                     athlete.CorneringSkill,athlete.DownhillSkill,athlete.PhysiologyState.MuscularFatigue);
                 width=Math.Min(width,bend.MinimumWidthMeters);

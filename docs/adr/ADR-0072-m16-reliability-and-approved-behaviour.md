@@ -49,3 +49,35 @@ production event through save/load, distinguishing full authoritative races
 from limited native transition fixtures. Preserve existing deterministic guards.
 Final evidence includes WP state, tests, limitations, real native captures and
 a Windows build. Owner testing decides final closure. PROJECT_STATE is append-only.
+
+## 2026-10-15 — Soak-discovered paid uphill restart correction
+
+WP-215 reproduced a real no-finish, after one complete production season and two
+events of season2: the first second-season Mass Start exceeded the unchanged
+200000-tick race budget. A newly generated weak rival had stopped on a10% climb
+after its fourth bout. It repeatedly requested effort613; ordinary physiology
+and technique delivered insufficient propulsive force to restart. At tick40000
+the remaining athlete had zero physical velocity for13671ticks;29 opponents had
+finished. Course rejection responses, brake input and steering input were all0.
+The exact saved career, seed and force observations are retained.
+
+The milestone's original no-race-tuning intent yields to the already approved
+behaviour that AI athletes recover and continue through the same physical
+solver. Add an optional, authored uphill restart decision policy to manual AI:
+observe a sustained low-speed positive-grade stall, request ordinary effort1000
+until moving again, and recover ordinary reserve before another attempt if
+needed. Hysteresis prevents rapid toggling. The player command is never replaced;
+private range movement and intentional braking retain their own safety logic.
+
+This changes no ability statistics, force solver, minimum speed, shooting
+geometry or physiology resource rules. No hidden power, free movement, body
+teleport or widened timeout is permitted. Existing definitions without the new
+block retain their previous behaviour/context; the enabled policy records a new
+AI context revision and its authored parameters. Effective commands continue
+through the existing manual replay journal.
+
+The exact failed Mass Start now completes twice with identical24471ticks and
+authority SHA256 `8200d2429322ad9a696a643413b4de35a682e30a068f217f16e2ad24eefd92f5`.
+Race results can change where weak rivals use the new paid restart decision;
+this is a material AI correction, not a claim of old result-hash parity. Final
+acceptance requires the complete three-season production soak and native tests.
