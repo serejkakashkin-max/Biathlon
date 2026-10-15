@@ -25416,3 +25416,10 @@ M16 has not started.
 ### 2026-10-15 — M15.6 existing-athlete catalog checkpoint
 
 WP-E COMPLETE (f7de4ece/cbd77cb8): stable90-athlete fictional catalog, native selection/filter/review UI and exact authentic career save; no duplicate in authoritative30-person race. Reviewed roster-pack schema added without unlicensed identities/media.94 unique selected native checks and53 Release CoreCLR checks pass across checkpoints; docs/quality/m15-6/verification.json records scope. WP-A/B/C/E COMPLETE; WP-D/H IN PROGRESS; WP-F now IN PROGRESS under ADR-0071; WP-G/I pending. M15.6 OPEN, M16 not started, no M15.6 test build yet. Approved M15.5 rig/motion preserved.
+
+
+### 2026-10-15 — M15.6 shared development, persistent rivals and dossier checkpoint
+
+Source2f1d9c10/80a2b50e/cb0f0b55. WP-F/G/H implementation COMPLETE: five hidden growth groups, seven varied profiles, eight age curves, same real training/adaptation for player/AI, bounded seasonal observations/peak; initial90-athlete world/max180, off-field shared training, persistent circuit selection and individual retirement; native live dossiers,13 skills, seasonal graph, achievements, filters and compact archive. Native growth11/11, world5/5, final dossier UI2/2. Development lab:1800 scenario trajectories across junior/national/WC/cataloglow/cataloghigh,15 seasons each, plus360 controls. Rare95+ is not guaranteed. Actual race validation is separate (13 Sprint completed so far).
+
+WP-A/B/C/E/F/G/H COMPLETE, WP-D/I IN PROGRESS. M15.6 OPEN, no build yet. Expanded uncovered hair/eyes need visual correction despite structural test passes. Added owner M15.5 fault reproduced as rejected curved course support; first fix is not qualified because an actual MassStart found tiny-prefix acceleration overflow. Required regressions remain pending; do not claim complete or start M16.

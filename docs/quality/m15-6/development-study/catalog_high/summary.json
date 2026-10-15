@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "id": "m15_6_shared_development_study_v1",
+  "scope": "development trajectories with aggregate load; zero authoritative race simulations",
+  "scenario": "catalog_high",
+  "samples": 12,
+  "athletes": 360,
+  "seasons_per_athlete": 15,
+  "shared_training_weeks": 164216,
+  "training_sessions": 391592,
+  "authoritative_races": 0,
+  "elapsed_seconds": 8.670966,
+  "peak_mean": 82.475,
+  "peak_min": 74,
+  "peak_max": 95,
+  "peak_95_or_more": 1,
+  "peak_age_min": 21,
+  "peak_age_max": 39,
+  "late_peaks": 208,
+  "stagnant_seasons": 4211,
+  "declining_seasons": 804,
+  "mean_end_delta": -1.3138888888888889,
+  "styles": {
+    "shooting_specialist": 45,
+    "early_prodigy": 49,
+    "steady_developer": 83,
+    "limited_prospect": 41,
+    "late_bloomer": 43,
+    "ski_specialist": 41,
+    "balanced_competitor": 58
+  },
+  "strategy_peak_means": {
+    "adaptive_ai": 82.45833333333333,
+    "intensity_only": 81.41666666666667,
+    "rotating_balanced": 83.55
+  },
+  "growth_policy_sha256": "cf32982902f54234a3471e4ec2058d5f7820ec8a54cdf0c0b3727923ac20afda"
+}

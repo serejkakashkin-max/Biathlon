@@ -10,12 +10,15 @@ Branch: codex/m15-6-career-creator. Brief: owner/OWNER_M15_6_MASTER_PLAN_V2_RU.m
 | C | Creation domain / three tiers | COMPLETE | Detached draft,6 presets/6 origins, weighted limits, World Cup start, independent potential, durable confirmation and provenance |
 | D | Live 3D creator | IN PROGRESS | Reused native G2 studio, orbit/face/full views, poses,6 faces/8 skin tones/3 builds, v3 save migration and actual race parity; height/hair/eyes/accessory expansion remains |
 | E | Existing athlete selection | COMPLETE | Stable90-person fictional catalog; league/nation/age/OVR/specialization filters, exact saved identity and30-person race parity; reviewed real-roster pack contract (no licensed pack shipped) |
-| F | Individual potential / growth | IN PROGRESS | ADR-0071; grouped potential, age curves, shared training/ageing and seasonal observations |
-| G | AI / persistent world | QUEUED | Bounded pool, off-field growth, varied generations |
-| H | FROSTLINE career UI | IN PROGRESS | Three-pane own-athlete wizard/confirmation/OVR/13-stat allocation works in RU/EN; dashboard, rival cards and seasonal trends remain |
-| I | Balance / validation / build | QUEUED | Multi-season simulations, native screenshots, regressions, Win64 |
+| F | Individual potential / growth | COMPLETE | ADR-0071; grouped potential, separate age curves, shared training/ageing, stagnation and bounded observations;11 native cases |
+| G | AI / persistent world | COMPLETE |90 initial /180 maximum detailed athletes, shared off-field weeks, persistent league moves, individual retirements/compact archive;5 native cases including15 annual transitions |
+| H | FROSTLINE career UI | COMPLETE | Own wizard/catalog, live athlete/rival dossiers,5 groups/13 stats/deltas, OVR history/peak, achievements, filters and separate archive; final native UI2/2 |
+| I | Balance / validation / build | IN PROGRESS |1800 scenario trajectories ×15 years plus360 controls;13 actual Sprint runs completed, remaining MassStart/regression/Win64 pending |
 
 M15.6 remains OPEN. There is no M15.6 test build yet; the M15.5 build remains the
 approved visual baseline. Native UI/race captures and selected verification are in
 quality/m15-6; foundation report records limitations and initial red evidence.
-WP-D/E/F/G/H/I must be completed before the milestone test build/owner acceptance.
+WP-D/I must be completed before the milestone test build/owner acceptance.
+The owner's additional M15.5 Course/clock fault is reproduced and being qualified
+separately; a first proposed reaction failed an actual MassStart numerical guard
+and is not release-approved.
