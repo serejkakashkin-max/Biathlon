@@ -1,0 +1,8 @@
+{
+  "status": "FAIL",
+  "input_sha256": "7e96e2f329a7b5621f2574c7eb393ec682172eefc9a75736bdc79a3e7defa447",
+  "completed_weeks": 58,
+  "season": 2,
+  "week": 7,
+  "error": "System.InvalidOperationException: Manual field step rejected: WorldRejected / Course / career_m16_soak_athlete_100; candidate clock not paid. tick=15577;actor=25;occurrence=37;loop=penalty_150;arc=0;local=0;seconds=0;pieces=0;course=UnresolvedStart;responses=32;actor_responses=32;source_gap=-0.257330386255322;minimum_gap=-0.257330386255322;source_pose=64.173374212,-18.420337801,3.624016864;working_pose=64.173374212,-18.420337801,3.624016864;velocity=0.1230200386044452,0.08845879747062953;spin=-0.462021469;normal=0.09722202088244639,0.995262718409332;lever=-0.04267010735018942\r\n   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering, Double playerBrake) in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\AI\\ManualScopedAiMovement.cs:line 289\r\n   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\AI\\PackAiRaceRunner.cs:line 507\r\n   at Biathlon.AI.PackAiRaceRunner.Step() in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\AI\\PackAiRaceRunner.cs:line 229\r\n   at Biathlon.AI.CareerRaceProvider.Run(CareerSave snapshot, CareerCalendarEvent e, UInt64 seed) in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\AI\\CareerRaceProvider.cs:line 47\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\game\\Biathlon\\Biathlon\\dotnet\\Biathlon.ReliabilityLab\\Program.cs:line 136"
+}

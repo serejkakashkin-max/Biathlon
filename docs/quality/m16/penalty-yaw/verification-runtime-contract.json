@@ -1,15 +1,18 @@
 {
   "schema_version": 1,
   "id": "m16_penalty_runtime_contract_qualification_v1",
-  "status": "CORECLR_PASS_NATIVE_FINAL_TWO_CASES_PENDING",
+  "status": "CORECLR_AND_NATIVE_PASS",
   "coreclr_passed": 5,
   "coreclr_failed": 0,
-  "native_case_count": 4,
+  "native_case_count": 5,
   "historical_coreclr_control": "Explicit CoreCLR-only captured full-race trajectory: rejected15577, accepted15576; it does not assert Mono visits that same world pose",
   "all_runtime_guard": "Exact invalidsource primitive requires Course/UnresolvedStart, invalid proof and no accepted clock/body/cursor/travel mutation",
   "mass_contract": "Fullrace repeated twice with exact current-runtime ticks, complete authorityJSON/hash, events, shots and source immutability; no cross-runtime golden count",
   "production_source_unchanged_since_soak": true,
   "test_source": "Assets/Tests/EditMode/M16PenaltyRecoveryTests.cs",
-  "test_sha256_lf": "4eafbc28d22a62996649cec60bc1cb6bec9a7a6ab244073884768ff1242a5f7b",
-  "evidence": "penalty-runtime-qualified.trx"
+  "test_sha256_lf": "4cc2758d5751509fbc7950c6d8bd4209cbfdab37658badddaf24ca26df5e235d",
+  "evidence": "penalty-runtime-final-five.trx; native-historical-final.xml; native-M16PenaltyRecoveryTests.json",
+  "native_passed": 5,
+  "native_failed": 0,
+  "historical_runtime_control": "Always-present test executes the full historical policy on both runtimes; strict independent Mono completion22876/hash615446a0 and CoreCLR rejected15577/accepted15576 oracles. No test exclusion."
 }

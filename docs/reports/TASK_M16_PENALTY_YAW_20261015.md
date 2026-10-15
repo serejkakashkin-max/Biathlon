@@ -92,3 +92,7 @@ still match the root's complete three-season soak input manifest exactly. Final
 receipts: `penalty-runtime-qualified.trx` and
 `verification-runtime-contract.json` in the quality directory. Native repeat
 and guard receipts are root-owned final qualification work.
+
+## Final root runtime qualification
+
+All five native cases PASS, including the always-present HistoricalYawPolicyRetainsItsRecordedRuntimeOutcome. An independent Mono observation completes the full old-policy race at22876ticks/hash615446a0df90459ddf637aca89909ba79fe538de91449e6a359be1b274096a89; the subsequent native test reproduces that exact outcome. CoreCLR retains the captured rejected15577/accepted15576 outcome. There is no platform test exclusion and no accepts-any-outcome branch. The all-runtime invalid-source primitive still rejects full-body admission and pays no clock/travel. Final CoreCLR5/5 and all five unique native cases PASS. Native historical original XML remains retained after host-turn interruption; completed execution was verified directly instead of inferred. Production source did not change during these test-oracle corrections. The final fresh156week/48race soak and independent validator PASS; source hashes match.

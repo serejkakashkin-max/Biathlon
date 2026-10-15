@@ -1,0 +1,8 @@
+{
+  "status": "FAIL",
+  "input_sha256": "39683842e5bab83fabc48f9a7f388f82f7ea7cd26756d149e3bdff9fa71fed56",
+  "completed_weeks": 9,
+  "season": 1,
+  "week": 10,
+  "error": "System.InvalidOperationException: Manual field step rejected: MovingFiringArrival / Clear / ; candidate clock not paid. actor_not_found\r\n   at Biathlon.AI.ManualScopedAiMovement.Step(SprintAthleteInput[] inputs, Double[] desiredLateral, Int32 playerIndex, Int32 playerSteering, Double playerBrake) in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\AI\\ManualScopedAiMovement.cs:line 296\r\n   at Biathlon.AI.PackAiRaceRunner.StepCore(Int32 playerIndex, SprintAthleteInput playerInput, Double playerLateral) in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\AI\\PackAiRaceRunner.cs:line 507\r\n   at Biathlon.AI.PackAiRaceRunner.Step() in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\AI\\PackAiRaceRunner.cs:line 229\r\n   at Biathlon.AI.CareerRaceProvider.Run(CareerSave snapshot, CareerCalendarEvent e, UInt64 seed) in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\AI\\CareerRaceProvider.cs:line 47\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\game\\Biathlon\\Biathlon\\dotnet\\Biathlon.ReliabilityLab\\Program.cs:line 137"
+}

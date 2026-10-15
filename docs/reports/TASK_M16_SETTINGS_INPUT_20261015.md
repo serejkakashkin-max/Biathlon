@@ -40,3 +40,7 @@ The shared Unity-free `JsonDocumentSyntax.Validate` guard rejects truncated root
 ## Boundaries
 
 Race/career save bytes, RNG, ratings, training, AI decisions and shooting geometry are not settings. Rebinding changes the user's command source, not recorded commands or historical replay authority. Existing replay/spectator transport and standard menu navigation remain their accepted controls. Display quality changes apply to the next race; this work does not lower Ultra textures or shadows. The preferences record supports the current RU/EN product locales and existing text sizes.
+
+## Final root qualification
+
+Final native settings7/7 PASS, including the actual locked-file publication regression (RED before correction, GREEN after it); audio10/10, skiing8/8 and shooting4/4 PASS. Final nine pure settings cases also PASS natively. Recovery/support UI4/4 and existing front-end interaction10/10 PASS, including actual career race launch and pause/abandon. Compact/large-text PNGs were inspected; pagination/reset/cancel fit. Fullscreen Windows candidate acceptance also retained the binding through the real settings file and applied its detached snapshot to the production host. No owner career was changed by this isolated probe.

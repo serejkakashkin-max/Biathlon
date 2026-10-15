@@ -1,0 +1,29 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 451,
+    "PassedTests": 2,
+    "FailedTests": 1,
+    "SkippedTests": 0,
+    "Duration": "00:00:03.4325486"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.ReliabilityMenuTests.CorruptPrimaryRecoversSameCareerWithVisibleNoticeAndAnonymousReport",
+      "Status": "Passed",
+      "Duration": "00:00:02.2440000"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.ReliabilityMenuTests.NewlyCreatedCareerReportsPublishedPrimaryWithoutNeedingContinue",
+      "Status": "Failed",
+      "Duration": "00:00:00.1810000",
+      "Message": "  Expected: String containing \"Основной\"\r\n  But was:  \"Основное сохранение проверено.\"\r\n",
+      "StackTrace": "at Biathlon.PlayModeTests.ReliabilityMenuTests+<NewlyCreatedCareerReportsPublishedPrimaryWithoutNeedingContinue>d__11.MoveNext () [0x000b2] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ReliabilityMenuTests.cs:52\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.ReliabilityMenuTests.UnsupportedSaveShowsFriendlyMessageAndNeverDowngradesItsFiles",
+      "Status": "Passed",
+      "Duration": "00:00:00.8290000"
+    }
+  ]
+}

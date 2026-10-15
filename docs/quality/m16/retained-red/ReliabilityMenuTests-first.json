@@ -1,0 +1,34 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":446,\"PassedTests\":1,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:02.1057174\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.ReliabilityMenuTests.CorruptPrimaryRecoversSameCareerWithVisibleNoticeAndAnonymousReport\",\"Status\":\"Failed\",\"Duration\":\"00:00:01.3160000\",\"Message\":\"System.Runtime.Serialization.InvalidDataContractException : No set method for property \\u0027GraphicsTier\\u0027 in type \\u0027Biathlon.Presentation.DiagnosticConfiguration\\u0027.\"},{\"Name\":\"Biathlon.PlayModeTests.ReliabilityMenuTests.UnsupportedSaveShowsFriendlyMessageAndNeverDowngradesItsFiles\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.5410000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 446,
+        "PassedTests": 1,
+        "FailedTests": 1,
+        "SkippedTests": 0,
+        "Duration": "00:00:02.1057174"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.PlayModeTests.ReliabilityMenuTests.CorruptPrimaryRecoversSameCareerWithVisibleNoticeAndAnonymousReport",
+          "Status": "Failed",
+          "Duration": "00:00:01.3160000",
+          "Message": "System.Runtime.Serialization.InvalidDataContractException : No set method for property 'GraphicsTier' in type 'Biathlon.Presentation.DiagnosticConfiguration'."
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.ReliabilityMenuTests.UnsupportedSaveShowsFriendlyMessageAndNeverDowngradesItsFiles",
+          "Status": "Passed",
+          "Duration": "00:00:00.5410000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

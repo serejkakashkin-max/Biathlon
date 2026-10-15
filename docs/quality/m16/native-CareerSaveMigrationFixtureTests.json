@@ -1,0 +1,87 @@
+{
+  "Summary": {
+    "Status": "Passed",
+    "TotalTests": 2091,
+    "PassedTests": 15,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:01.0955307"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.AmbiguousMalformedOrIncompleteSchemaCannotMigrate(\"{\\\"schema_version\\\":1,\\\"save_version\\\":3}\")",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.AmbiguousMalformedOrIncompleteSchemaCannotMigrate(\"[]\")",
+      "Status": "Passed",
+      "Duration": "00:00:00"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.AmbiguousMalformedOrIncompleteSchemaCannotMigrate(\"null\")",
+      "Status": "Passed",
+      "Duration": "00:00:00"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.AmbiguousMalformedOrIncompleteSchemaCannotMigrate(\"{\\\"schema_version\\\":1,\\\"save_version\\\":3,}\")",
+      "Status": "Passed",
+      "Duration": "00:00:00"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.AmbiguousMalformedOrIncompleteSchemaCannotMigrate(\"{\\\"schema_version\\\":1,\\\"save_version\\\":3,\\\"save_version\\\":1}\")",
+      "Status": "Passed",
+      "Duration": "00:00:00"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.AmbiguousMalformedOrIncompleteSchemaCannotMigrate(\"{\\\"schema_version\\\":1,\\\"save_version\\\":03}\")",
+      "Status": "Passed",
+      "Duration": "00:00:00"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.AmbiguousMalformedOrIncompleteSchemaCannotMigrate(\"{\\\"schema_version\\\":1,\\\"save_version\\\":3e}\")",
+      "Status": "Passed",
+      "Duration": "00:00:00"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.AmbiguousMalformedOrIncompleteSchemaCannotMigrate(\"{\\\"schema_version\\\":1,\\\"save_version\\\":3,\\\"text\\\":\\\"bad\\\\q\\\"}\")",
+      "Status": "Passed",
+      "Duration": "00:00:00"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.EscapedDuplicateMemberNameIsAlsoRejected",
+      "Status": "Passed",
+      "Duration": "00:00:00.0010000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.LegacyFileIsReadWithoutRewriteAndNextCasSaveRetainsOriginalBackup(1)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0640000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.LegacyFileIsReadWithoutRewriteAndNextCasSaveRetainsOriginalBackup(2)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0320000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.ReleasedFixtureMigrationsPreserveAuthoritativeStateAndRecordedPayload(1)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0150000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.ReleasedFixtureMigrationsPreserveAuthoritativeStateAndRecordedPayload(2)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0130000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.ReleasedFixtureMigrationsPreserveAuthoritativeStateAndRecordedPayload(3)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0130000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.TrailingWhitespaceAndSingleUtf8BomRemainCompatible",
+      "Status": "Passed",
+      "Duration": "00:00:00.0050000"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "status": "FAIL",
+  "input_sha256": "39db5424bb81bf9250f14db13ce07acf4f88149be137aaf6b2da5e2224fa3018",
+  "completed_weeks": 61,
+  "season": 2,
+  "week": 10,
+  "error": "System.InvalidOperationException: Career race exceeded its tick budget.\r\n   at Biathlon.AI.CareerRaceProvider.Run(CareerSave snapshot, CareerCalendarEvent e, UInt64 seed) in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\AI\\CareerRaceProvider.cs:line 47\r\n   at Program.\u003CMain\u003E$(String[] args) in C:\\game\\Biathlon\\Biathlon\\dotnet\\Biathlon.ReliabilityLab\\Program.cs:line 106"
+}

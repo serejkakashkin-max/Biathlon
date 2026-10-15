@@ -1,0 +1,39 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":2091,\"PassedTests\":2,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:00.7517623\"},\"Results\":[{\"Name\":\"Biathlon.Tests.ReliabilityDiagnosticsTests.ExportContainsUsefulStructureButNoIdentityPathsRawLogsOrRandomCheckpoint\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0310000\",\"Message\":\"System.Runtime.Serialization.InvalidDataContractException : No set method for property \\u0027GraphicsTier\\u0027 in type \\u0027Biathlon.Presentation.DiagnosticConfiguration\\u0027.\"},{\"Name\":\"Biathlon.Tests.ReliabilityDiagnosticsTests.PublicMetadataRejectsArbitraryPathOrLogInjection\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.ReliabilityDiagnosticsTests.RingRetainsOnlyBoundedOrderedIssueCodesAndRejectsInvalidEvents\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 2091,
+        "PassedTests": 2,
+        "FailedTests": 1,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.7517623"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.ReliabilityDiagnosticsTests.ExportContainsUsefulStructureButNoIdentityPathsRawLogsOrRandomCheckpoint",
+          "Status": "Failed",
+          "Duration": "00:00:00.0310000",
+          "Message": "System.Runtime.Serialization.InvalidDataContractException : No set method for property 'GraphicsTier' in type 'Biathlon.Presentation.DiagnosticConfiguration'."
+        },
+        {
+          "Name": "Biathlon.Tests.ReliabilityDiagnosticsTests.PublicMetadataRejectsArbitraryPathOrLogInjection",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.ReliabilityDiagnosticsTests.RingRetainsOnlyBoundedOrderedIssueCodesAndRejectsInvalidEvents",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

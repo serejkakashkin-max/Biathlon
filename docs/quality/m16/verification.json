@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "m16_final_delivery_v1",
+  "status": "implementation_complete_owner_review",
+  "source_commit": "dadbc6df2261d88861ce2ca632e0d34becdb15f8",
+  "branch": "codex/m16-reliability",
+  "work_packages": {
+    "first": 206,
+    "last": 215,
+    "implementation": "complete"
+  },
+  "build": {
+    "schema_version": 1,
+    "id": "m16_reliability_review",
+    "result": "Succeeded",
+    "unity": "6000.6.0f1",
+    "errors": 0,
+    "warnings": 0,
+    "bytes": 384736623,
+    "seconds": 2.7908149
+  },
+  "exe_sha256": "718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00",
+  "native_unique_passed": 124,
+  "native_editmode": 81,
+  "native_playmode": 43,
+  "native_skipped": 0,
+  "native_scope": "latest applicable selected checkpoints; not a monolithic full historical assembly",
+  "soak": {
+    "schema_version": 1,
+    "id": "m16_soak_independent_verification_v1",
+    "status": "PASS",
+    "weeks": 156,
+    "authentic_race_payloads": 48,
+    "formats": {
+      "Sprint": 18,
+      "Pursuit": 18,
+      "MassStart": 12
+    },
+    "authority_ticks": 1199866,
+    "geometric_shots": 23400,
+    "final_save_sha256": "5a3e677b930427538c730cd1d20aaf6d29557307eddba7b84029d316477f4da9",
+    "summary_verified": true
+  },
+  "compiled_player": {
+    "schema_version": 1,
+    "id": "m16_standalone_reliability",
+    "unity": "6000.6.0f1",
+    "fullscreen_mode": "FullScreenWindow",
+    "display_check": "ordinary_fullscreen",
+    "success": true,
+    "owner_profiles_unchanged": true,
+    "fullscreen": true,
+    "created": true,
+    "appearance_restored": true,
+    "race_loaded": true,
+    "countdown_started": true,
+    "backup_recovered": true,
+    "diagnostic_exported": true,
+    "bindings_applied": true,
+    "settings_reloaded": true,
+    "checkpoint_verified": true,
+    "width": 2560,
+    "height": 1440,
+    "display_width": 2560,
+    "display_height": 1440,
+    "race_tick": 6,
+    "errors": [],
+    "captures": [
+      "01-home.png",
+      "02-career-path.png",
+      "03-creator.png",
+      "04-live-look.png",
+      "05-ratings.png",
+      "06-confirm.png",
+      "07-career.png",
+      "07a-recovered.png",
+      "07b-controls.png",
+      "07c-support.png",
+      "08-countdown.png",
+      "09-race.png"
+    ]
+  },
+  "known_baseline_failures": 8,
+  "limitations": [
+    "Eight pre-existing standalone AI failures independently reproduced atbbd01e62; no full-assembly green claim",
+    "CoreCLR and Mono use strict separate historical runtime oracles",
+    "No mid-race resume; interrupted race restores confirmed pre-race career",
+    "No FPS benchmark or48native-rendered race claim",
+    "Optional stripped URP post-processing shader warnings retained; build and player have no errors"
+  ],
+  "m17_started": false
+}

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "m16_three_season_soak_v1",
+  "status": "PASS",
+  "input_sha256": "c9ea0048ede0340c38f30ee720cbff722339bd7b9981a4d902eba4dffb5d2ce7",
+  "scope": "156 actual weekly FrontEndSession prepare/train/race/result/save/reload transitions. All 48 records come from production Woodland authority with shared player/AI physics and geometric shooting. Automated AI controls all entrants; no human steering or 48 native-rendered races is claimed.",
+  "authority_mode": "48 races executed across this checkpointed study; this invocation may continue a retained exact weekly checkpoint",
+  "seasons": 3,
+  "weeks": 156,
+  "authoritative_races": 48,
+  "newly_executed_authority_races": 48,
+  "formats": {
+    "Sprint": 18,
+    "Pursuit": 18,
+    "MassStart": 12
+  },
+  "authority_ticks": 1199866,
+  "geometric_shots": 23400,
+  "durable_reloads": 156,
+  "injected_failed_writes": 4,
+  "abandon_retry": 3,
+  "corrupt_primary_recovery": "PASS; same-profile backup read disclosed; read-only Continue; repair preserved corrupt evidence and reproduced exact final transition",
+  "final_save_sha256": "5a3e677b930427538c730cd1d20aaf6d29557307eddba7b84029d316477f4da9",
+  "max_save_bytes": 956080,
+  "final_world": 127,
+  "final_history": 3,
+  "authority_assembly_sha256": {
+    "Biathlon.Presentation": "077b3cbdac9d593bedac11cdea97d48922e2e18ff7259b558e1a38c894bbb1ed",
+    "Biathlon.Career": "9d905f69e4b2f3c4c769ba19626fd8b6c6b7a3188ce24d9ea604957eaa4b512b",
+    "Biathlon.AI": "16aed7434b1d85fb4940642f469ccb72c2bcdb92a152accb2ee0d4e04112f529",
+    "Biathlon.Simulation": "4f86b79e7bb5b20ee1d2bcaa7a07d7177de64283e3b88b17af9a5911fa904b64",
+    "Biathlon.Domain": "3855062e81e667a1df13a53f0882b857381005cee0fd3f8cc7698ddec1d172a0"
+  },
+  "elapsed_seconds_this_invocation": 1024.3267312
+}

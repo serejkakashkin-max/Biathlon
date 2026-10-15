@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "id": "m16_evidence_integrity_v1",
+  "status": "PASS",
+  "soak": {
+    "schema_version": 1,
+    "id": "m16_soak_independent_verification_v1",
+    "status": "PASS",
+    "weeks": 156,
+    "authentic_race_payloads": 48,
+    "formats": {
+      "Sprint": 18,
+      "Pursuit": 18,
+      "MassStart": 12
+    },
+    "authority_ticks": 1199866,
+    "geometric_shots": 23400,
+    "final_save_sha256": "5a3e677b930427538c730cd1d20aaf6d29557307eddba7b84029d316477f4da9",
+    "summary_verified": true
+  },
+  "native_unique_cases": 124,
+  "native_receipts": [
+    "native-AiClimbRestartTests.json",
+    "native-CareerProfileReliabilityTests.json",
+    "native-CareerSaveMigrationFixtureTests.json",
+    "native-CareerSoakClimbRegressionTests.json",
+    "native-FrontEndMenuTests.json",
+    "native-LocalizationCatalogTests.json",
+    "native-M15AudioTests.json",
+    "native-M16PenaltyRecoveryTests.json",
+    "native-ManualReplayPolicyCompatibilityTests.json",
+    "native-penalty-historical.json",
+    "native-penalty-mass-repeat.json",
+    "native-penalty-outside-guard.json",
+    "native-PlayerDeviceInputTests.json",
+    "native-PlayerSettingsInputTests.json",
+    "native-PlayerSettingsTests.json",
+    "native-ReliabilityDiagnosticsTests.json",
+    "native-ReliabilityMenuTests.json",
+    "native-ShootingDeviceInputTests.json"
+  ],
+  "source_manifest_matches": true,
+  "project_state_history_preserved": true,
+  "scope": "Latest applicable selected checkpoints, not a full monolithic assembly run. Retained red/oracle diagnosis evidence is excluded from passing-case receipts."
+}

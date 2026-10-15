@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "m16_persistence_20261015",
-  "status": "core_pass_native_pending",
+  "status": "core_and_native_pass",
   "save_schema_version": 1,
   "save_version": 3,
   "core_tests": {
@@ -135,5 +135,11 @@
       "sha256_lf_utf8": "e8aead2a7a90fd9e0ab32d7a444aea0dfc6b178da1f2d7a777f16afcb5f6f0b1",
       "path": "Assets/Tests/Fixtures/CareerMigration.meta"
     }
-  ]
+  ],
+  "native_tests": {
+    "CareerProfileReliabilityTests": 33,
+    "CareerSaveMigrationFixtureTests": 15,
+    "failed": 0,
+    "skipped": 0
+  }
 }
