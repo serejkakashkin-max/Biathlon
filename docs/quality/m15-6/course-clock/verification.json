@@ -27,7 +27,16 @@
     "failed": 0,
     "passed": 67
   },
-  "native_verification": {"mode":"EditMode","executed":12,"passed":12,"failed":0,"skipped":0,"duration_seconds":339.775536,"evidence":"native-tests.xml","note":"MCP transport timed out at300s; actual completed Unity NUnit XML inspected, not rerun"},
+  "native_verification": {
+    "mode": "EditMode",
+    "executed": 12,
+    "passed": 12,
+    "failed": 0,
+    "skipped": 0,
+    "duration_seconds": 339.775536,
+    "evidence": "native-tests.xml",
+    "note": "MCP transport timed out at300s; actual completed Unity NUnit XML inspected, not rerun"
+  },
   "source_base": "0423341c4f4ae42192408bed071354111940453c",
   "id": "m15_5_owner_course_clock_diagnosis_20261015",
   "edge": {
@@ -42,5 +51,30 @@
     "event_hash": "5320497708773509095",
     "runs": 2
   },
-  "schema_version": 1
+  "schema_version": 1,
+  "source_files_scope": "Original verified correction checkpoint before additive recorded-policy selection; source hashes retained as historical evidence.",
+  "final_integrated_source_files": [
+    {
+      "path": "Assets/Scripts/AI/ManualScopedAiMovement.cs",
+      "sha256": "c104fc6d7714c142f5c2752b86c19df8f9a859e9463852f049f952ce0f3b0e45"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualScopedWorldCourseContact.cs",
+      "sha256": "2e0259711d7e817722d428c99f634907c91b3d442d5c8f05353d2a43b15141cd"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualScopedWorldRoster.cs",
+      "sha256": "f38259d5370510adf83c27f6bfe1c3d1179e446ec60d9c87dd2166d19f02c144"
+    },
+    {
+      "path": "Assets/Tests/EditMode/OwnerCourseClockRejectionTests.cs",
+      "sha256": "7d0ef893bd9cf2b9d02448878be273332f4ed8e3bc66c56d65e3e71590c74bdc"
+    },
+    {
+      "path": "Assets/Tests/EditMode/ManualPracticalRuntimeTests.cs",
+      "sha256": "e8e7adac2ec949a0337e90a3ab5266c911f68ac6fd861acaedd31457fa0a43f4"
+    }
+  ],
+  "final_policy_integration": "34ceb941",
+  "final_integration_checks": "replay-compat/replay-policy-regression.trx:33PASS including all12coursefaultcases"
 }

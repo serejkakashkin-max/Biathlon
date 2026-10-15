@@ -1,0 +1,29 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":441,\"PassedTests\":0,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:01.9177928\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.CareerCreatorDemoCaptureTests.NativeWizardAndRotatingAthleteProduceVisibleDemoFrames\",\"Status\":\"Failed\",\"Duration\":\"00:00:01.6950000\",\"Message\":\"System.NullReferenceException : Object reference not set to an instance of an object\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 441,
+        "PassedTests": 0,
+        "FailedTests": 1,
+        "SkippedTests": 0,
+        "Duration": "00:00:01.9177928"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.PlayModeTests.CareerCreatorDemoCaptureTests.NativeWizardAndRotatingAthleteProduceVisibleDemoFrames",
+          "Status": "Failed",
+          "Duration": "00:00:01.6950000",
+          "Message": "System.NullReferenceException : Object reference not set to an instance of an object"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

@@ -1,6 +1,7 @@
 """Assemble selected actual test verdicts; Unity inventory is never an executed count."""
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
@@ -53,6 +54,7 @@ verification={'schema_version':1,'id':'m15_6_delivery_verification',
  'authoritative_races':json.loads((OUT/'authoritative-races/final-validation.json').read_text(encoding='utf-8-sig')),
  'development_scenarios':{s:json.loads((OUT/f'development-study/{s}/summary.json').read_text(encoding='utf-8-sig')) for s in ['control','junior','national','world_cup','catalog_low','catalog_high']},
  'build':receipt,'standalone':smoke,'demo_video':'creator-demo.mp4' if (OUT/'creator-demo.mp4').exists() else None,
+ 'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
  'limitations':['Real athlete identities/media are not bundled; authentic fictional catalog and reviewed pack contract are shipped.',
  'Development lab uses real shared training and aggregate race load, not thousands of authoritative races; controlled entrants freeze after individual retirement.',
  'Three fixed race seeds are regression samples, not universal preset win rates. Old recorded v25 races intentionally retain old physics.',

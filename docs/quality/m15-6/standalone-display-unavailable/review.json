@@ -1,0 +1,22 @@
+{
+    "schema_version": 1,
+    "id": "m15_6_standalone_review",
+    "unity": "6000.6.0f1",
+    "fullscreen_mode": "Windowed",
+    "success": false,
+    "owner_profiles_unchanged": true,
+    "fullscreen": false,
+    "created": false,
+    "appearance_restored": false,
+    "race_loaded": false,
+    "countdown_started": false,
+    "width": 640,
+    "height": 480,
+    "display_width": 0,
+    "display_height": 0,
+    "race_tick": 0,
+    "errors": [
+        "System.InvalidOperationException: Ordinary launch must use the full desktop display.\r\n  at Biathlon.Unity.Presentation.M15_6PlayerReview+<Review>d__15.MoveNext () [0x006e6] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\M15_6PlayerReview.cs:71 \r\n  at Biathlon.Unity.Presentation.M15_6PlayerReview+<Start>d__12.MoveNext () [0x000d9] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\M15_6PlayerReview.cs:40 "
+    ],
+    "captures": []
+}

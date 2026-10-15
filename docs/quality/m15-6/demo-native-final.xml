@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-15 14:24:09Z" end-time="2026-10-15 14:24:12Z" duration="3,3267987">
+  <test-suite type="TestSuite" id="1591" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="441" result="Passed" start-time="2026-10-15 14:24:09Z" end-time="2026-10-15 14:24:12Z" duration="3.326799" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1585" name="Biathlon.PlayModeTests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.PlayModeTests.dll" runstate="Runnable" testcasecount="441" result="Passed" start-time="2026-10-15 14:24:09Z" end-time="2026-10-15 14:24:12Z" duration="3.239126" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="29748" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1586" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="441" result="Passed" start-time="2026-10-15 14:24:09Z" end-time="2026-10-15 14:24:12Z" duration="3.233459" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1587" name="PlayModeTests" fullname="Biathlon.PlayModeTests" runstate="Runnable" testcasecount="441" result="Passed" start-time="2026-10-15 14:24:09Z" end-time="2026-10-15 14:24:12Z" duration="3.229920" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1122" name="CareerCreatorDemoCaptureTests" fullname="Biathlon.PlayModeTests.CareerCreatorDemoCaptureTests" classname="Biathlon.PlayModeTests.CareerCreatorDemoCaptureTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-15 14:24:09Z" end-time="2026-10-15 14:24:12Z" duration="3.221267" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1123" name="NativeWizardAndRotatingAthleteProduceVisibleDemoFrames" fullname="Biathlon.PlayModeTests.CareerCreatorDemoCaptureTests.NativeWizardAndRotatingAthleteProduceVisibleDemoFrames" methodname="NativeWizardAndRotatingAthleteProduceVisibleDemoFrames" classname="Biathlon.PlayModeTests.CareerCreatorDemoCaptureTests" runstate="Runnable" seed="1063003154" result="Passed" start-time="2026-10-15 14:24:09Z" end-time="2026-10-15 14:24:12Z" duration="3.212265" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="180000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

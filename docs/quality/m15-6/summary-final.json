@@ -1,0 +1,55 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":2023,\"PassedTests\":6,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:01.3851434\"},\"Results\":[{\"Name\":\"Biathlon.Tests.AthleteCareerSummaryTests.CardsReadActualAbilityAndSeparateTemporaryReadinessWithoutChangingWorld\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.2600000\"},{\"Name\":\"Biathlon.Tests.AthleteCareerSummaryTests.LegacyCardDoesNotInventPastHistoryOrInitializeUnpersistedMetadata\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0210000\"},{\"Name\":\"Biathlon.Tests.AthleteCareerSummaryTests.MilestoneCatalogRejectsUnknownMetricsDuplicateIdsAndInvalidThresholds\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.AthleteCareerSummaryTests.MilestonesUseSavedCountersAndObservedPeakWithoutInventedRewardsOrResults\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.1110000\"},{\"Name\":\"Biathlon.Tests.AthleteCareerSummaryTests.SeasonalChangesAndPeakAreDerivedFromObservedStatsRatherThanPotential\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0850000\"},{\"Name\":\"Biathlon.Tests.AthleteCareerSummaryTests.WorldFiltersPreserveStableIdentitiesAndSortAbilitySeparatelyFromPoints\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0960000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 2023,
+          "PassedTests": 6,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:01.3851434"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.Tests.AthleteCareerSummaryTests.CardsReadActualAbilityAndSeparateTemporaryReadinessWithoutChangingWorld",
+            "Status": "Passed",
+            "Duration": "00:00:00.2600000"
+          },
+          {
+            "Name": "Biathlon.Tests.AthleteCareerSummaryTests.LegacyCardDoesNotInventPastHistoryOrInitializeUnpersistedMetadata",
+            "Status": "Passed",
+            "Duration": "00:00:00.0210000"
+          },
+          {
+            "Name": "Biathlon.Tests.AthleteCareerSummaryTests.MilestoneCatalogRejectsUnknownMetricsDuplicateIdsAndInvalidThresholds",
+            "Status": "Passed",
+            "Duration": "00:00:00.0020000"
+          },
+          {
+            "Name": "Biathlon.Tests.AthleteCareerSummaryTests.MilestonesUseSavedCountersAndObservedPeakWithoutInventedRewardsOrResults",
+            "Status": "Passed",
+            "Duration": "00:00:00.1110000"
+          },
+          {
+            "Name": "Biathlon.Tests.AthleteCareerSummaryTests.SeasonalChangesAndPeakAreDerivedFromObservedStatsRatherThanPotential",
+            "Status": "Passed",
+            "Duration": "00:00:00.0850000"
+          },
+          {
+            "Name": "Biathlon.Tests.AthleteCareerSummaryTests.WorldFiltersPreserveStableIdentitiesAndSortAbilitySeparatelyFromPoints",
+            "Status": "Passed",
+            "Duration": "00:00:00.0960000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  }
+}
