@@ -1,0 +1,77 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1969,\"PassedTests\":10,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:01.1120152\"},\"Results\":[{\"Name\":\"Biathlon.Tests.BiathlonRatingEngineTests.EveryPermanentStatContributesWithAuthoredNormalizedWeights\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.1280000\"},{\"Name\":\"Biathlon.Tests.BiathlonRatingEngineTests.InvalidWeightsAndGroupsAreRejected\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0100000\"},{\"Name\":\"Biathlon.Tests.BiathlonRatingEngineTests.NormalizedGroupsShareBoundsAndHalfEvenRounding(0,1)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0050000\"},{\"Name\":\"Biathlon.Tests.BiathlonRatingEngineTests.NormalizedGroupsShareBoundsAndHalfEvenRounding(100000,99)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0040000\"},{\"Name\":\"Biathlon.Tests.BiathlonRatingEngineTests.NormalizedGroupsShareBoundsAndHalfEvenRounding(50000,50)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0040000\"},{\"Name\":\"Biathlon.Tests.BiathlonRatingEngineTests.NormalizedGroupsShareBoundsAndHalfEvenRounding(25000,26)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0040000\"},{\"Name\":\"Biathlon.Tests.BiathlonRatingEngineTests.NormalizedGroupsShareBoundsAndHalfEvenRounding(75000,74)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0040000\"},{\"Name\":\"Biathlon.Tests.BiathlonRatingEngineTests.RatingsDoNotMutateReadinessIdentityHistoryOrRandomCheckpoint\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0100000\"},{\"Name\":\"Biathlon.Tests.BiathlonRatingEngineTests.SpecialtyGroupsRespondOnlyToTheirSourceAttributes\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0130000\"},{\"Name\":\"Biathlon.Tests.BiathlonRatingEngineTests.WarmRatingProjectionAllocatesNoManagedMemory\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0050000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 1969,
+          "PassedTests": 10,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:01.1120152"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.Tests.BiathlonRatingEngineTests.EveryPermanentStatContributesWithAuthoredNormalizedWeights",
+            "Status": "Passed",
+            "Duration": "00:00:00.1280000"
+          },
+          {
+            "Name": "Biathlon.Tests.BiathlonRatingEngineTests.InvalidWeightsAndGroupsAreRejected",
+            "Status": "Passed",
+            "Duration": "00:00:00.0100000"
+          },
+          {
+            "Name": "Biathlon.Tests.BiathlonRatingEngineTests.NormalizedGroupsShareBoundsAndHalfEvenRounding(0,1)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0050000"
+          },
+          {
+            "Name": "Biathlon.Tests.BiathlonRatingEngineTests.NormalizedGroupsShareBoundsAndHalfEvenRounding(100000,99)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0040000"
+          },
+          {
+            "Name": "Biathlon.Tests.BiathlonRatingEngineTests.NormalizedGroupsShareBoundsAndHalfEvenRounding(50000,50)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0040000"
+          },
+          {
+            "Name": "Biathlon.Tests.BiathlonRatingEngineTests.NormalizedGroupsShareBoundsAndHalfEvenRounding(25000,26)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0040000"
+          },
+          {
+            "Name": "Biathlon.Tests.BiathlonRatingEngineTests.NormalizedGroupsShareBoundsAndHalfEvenRounding(75000,74)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0040000"
+          },
+          {
+            "Name": "Biathlon.Tests.BiathlonRatingEngineTests.RatingsDoNotMutateReadinessIdentityHistoryOrRandomCheckpoint",
+            "Status": "Passed",
+            "Duration": "00:00:00.0100000"
+          },
+          {
+            "Name": "Biathlon.Tests.BiathlonRatingEngineTests.SpecialtyGroupsRespondOnlyToTheirSourceAttributes",
+            "Status": "Passed",
+            "Duration": "00:00:00.0130000"
+          },
+          {
+            "Name": "Biathlon.Tests.BiathlonRatingEngineTests.WarmRatingProjectionAllocatesNoManagedMemory",
+            "Status": "Passed",
+            "Duration": "00:00:00.0050000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}
