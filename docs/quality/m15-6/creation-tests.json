@@ -1,0 +1,57 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1969,\"PassedTests\":6,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:00.9883058\"},\"Results\":[{\"Name\":\"Biathlon.Tests.CareerCreationDraftTests.ConfirmationValidatesIdentityAndIsDeterministicAndDetached\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0270000\"},{\"Name\":\"Biathlon.Tests.CareerCreationDraftTests.CreationDefinitionRejectsDuplicateUnboundedAndMissingChoices\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0050000\"},{\"Name\":\"Biathlon.Tests.CareerCreationDraftTests.EveryTierAndPresetProducesAValidBoundedCandidate\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0910000\"},{\"Name\":\"Biathlon.Tests.CareerCreationDraftTests.InvalidAllocationIsAtomicAndRepeatedRefundsCannotCreateBudget\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.CareerCreationDraftTests.OriginUsesSameBudgetAndRespectsAgeWithoutPromisingPotential\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.CareerCreationDraftTests.PresetAndTierSwitchingNeverAccumulatesPointsOrConsumesDraftSeed\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0030000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 1969,
+          "PassedTests": 6,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.9883058"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.Tests.CareerCreationDraftTests.ConfirmationValidatesIdentityAndIsDeterministicAndDetached",
+            "Status": "Passed",
+            "Duration": "00:00:00.0270000"
+          },
+          {
+            "Name": "Biathlon.Tests.CareerCreationDraftTests.CreationDefinitionRejectsDuplicateUnboundedAndMissingChoices",
+            "Status": "Passed",
+            "Duration": "00:00:00.0050000"
+          },
+          {
+            "Name": "Biathlon.Tests.CareerCreationDraftTests.EveryTierAndPresetProducesAValidBoundedCandidate",
+            "Status": "Passed",
+            "Duration": "00:00:00.0910000"
+          },
+          {
+            "Name": "Biathlon.Tests.CareerCreationDraftTests.InvalidAllocationIsAtomicAndRepeatedRefundsCannotCreateBudget",
+            "Status": "Passed",
+            "Duration": "00:00:00.0020000"
+          },
+          {
+            "Name": "Biathlon.Tests.CareerCreationDraftTests.OriginUsesSameBudgetAndRespectsAgeWithoutPromisingPotential",
+            "Status": "Passed",
+            "Duration": "00:00:00.0020000"
+          },
+          {
+            "Name": "Biathlon.Tests.CareerCreationDraftTests.PresetAndTierSwitchingNeverAccumulatesPointsOrConsumesDraftSeed",
+            "Status": "Passed",
+            "Duration": "00:00:00.0030000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

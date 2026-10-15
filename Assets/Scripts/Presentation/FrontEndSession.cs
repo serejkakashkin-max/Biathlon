@@ -123,6 +123,14 @@ namespace Biathlon.Presentation
             string json=candidate.ToJson();CareerSave.FromJson(json);profiles.WriteNew(id,json);
             Career=candidate;Definitions=definitions;training.Clear();Screen=FrontEndScreen.Career;
         }
+        public void CreateCareer(string id,CareerCreationDraft draft)
+        {
+            Require(FrontEndScreen.NewCareer);if(draft==null)throw new ArgumentNullException(nameof(draft));
+            var definitions=CareerDefinitions.ForNewProductionCareer(read,draft.StartProfileId);
+            var candidate=draft.Confirm(id,definitions.Calendar,restoreRandom);
+            string json=candidate.ToJson();CareerSave.FromJson(json);profiles.WriteNew(id,json);
+            Career=candidate;Definitions=definitions;training.Clear();Screen=FrontEndScreen.Career;
+        }
         public void ContinueCareer()
         {
             Require(FrontEndScreen.Home);

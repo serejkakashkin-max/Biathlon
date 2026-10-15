@@ -31,6 +31,20 @@ namespace Biathlon.Tests
             var rows=new CareerFinish[save.AthleteCount];for(int i=0;i<rows.Length;i++)rows[i]=new CareerFinish(save.Athlete(i).Id,300000+i*1000,300000+i*1000);
             return new CareerRaceRecord(save.SeasonId+"_"+week.Event.Id,save.SeasonId,week.Event.Id,week.Event.Format,week.RaceSeed,new string('a',64),rows);
         }
+        [Test] public void DraftEditsAndFailedConfirmationNeverPublishAnUnconfirmedCareer()
+        {
+            var store=new Store();var ui=Session(store);ui.OpenNewCareer();var draft=CareerCreationDraftTests.Draft();
+            draft.SelectTier("world_cup_debut");draft.SelectPreset("shooter");
+            Assert.That(store.HasProfile,Is.False);Assert.That(ui.Career,Is.Null);
+            store.Fail=true;Assert.Throws<IOException>(()=>ui.CreateCareer("career_draft",draft));
+            Assert.That(ui.Career,Is.Null);Assert.That(ui.Screen,Is.EqualTo(FrontEndScreen.NewCareer));Assert.That(store.HasProfile,Is.False);
+            store.Fail=false;ui.CreateCareer("career_draft",draft);
+            Assert.That(ui.Screen,Is.EqualTo(FrontEndScreen.Career));Assert.That(ui.Career.CalendarId,Is.EqualTo("woodland_world_cup_calendar_v1"));
+            Assert.That(ui.Player.Age,Is.EqualTo(draft.Age));
+            for(int stat=0;stat<13;stat++)Assert.That(ui.Player.Stat((CareerStat)stat),Is.EqualTo(draft.Stat((CareerStat)stat)));
+            Assert.Throws<InvalidOperationException>(()=>ui.CreateCareer("career_draft_again",draft));
+            var restored=Session(store);restored.ContinueCareer();Assert.That(restored.Career.ToJson(),Is.EqualTo(ui.Career.ToJson()));
+        }
         [Test] public void PreparingCancelingAndRetryingRaceNeverConsumesAWeekOrRandomness()
         {
             var store=new Store();var ui=RaceWeek(store);string before=store.Json;ui.OpenPreRace();
