@@ -55,6 +55,15 @@ and may not change collision/physical capability. No fake controls or PNG previe
 
 ## Delivery and validation
 
+Initial implementation checkpoint: v3 currently persists appearance and creation
+provenance. Further v3 growth fields are not implemented yet; v3 is an unreleased
+M15.6 development schema. Legacy identity profiles retain the frozen v1 hash
+selection, while explicit profiles store face/skin/build resource IDs. Other
+appearance controls remain work in progress and are not represented by fake UI.
+Initial allocation must never raise the separately generated Potential: the
+current scalar may be below an athlete's starting ability, and training simply
+has no positive room there until the grouped growth model is implemented.
+
 Track A–I in M15_6_WP_STATUS. Unit/integration coverage includes allocation bypass,
 selection identity, migration/RNG/history preservation, ratings, shared development,
 pool transitions and replay compatibility. Native PlayMode checks cover real preview

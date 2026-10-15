@@ -25361,3 +25361,53 @@ codex/m15-6-career-creator from9867b24b, not main; pre-existing working-tree cha
 are preserved. WP-A audit/architecture complete; ADR-0070 records core/UI/rig/save
 integration, known single-ceiling potential and destructive league cohort turnover.
 WP-B in progress; C–I queued. M15.6 OPEN; M16 unstarted. No new build claimed.
+
+## 2026-10-15 12:12 MSK — M15.6 first working creator package
+
+M15.5 remains CLOSED / OWNER APPROVED. M15.6 OPEN on
+codex/m15-6-career-creator, based on9867b24b; current source checkpoint19e6a044.
+WP-A/B/C COMPLETE: audit, normalized read-only OVR/group ratings,3 starts including
+World Cup,6 bounded presets/6 origins, atomic allocation, independent potential,
+creation provenance and durable separate confirmation. No OVR/league/cosmetic
+power multiplier is added. Core remains Unity-free; no main merge.
+
+WP-D/H IN PROGRESS: actual reusable G2 studio, orbit/front/side/back/face views,
+4 pose modes,6 faces/8 skin tones/3 existing builds; FROSTLINE identity/look/skills
+wizard and OVR/ability rails. SaveVersion3 stores stable cosmetic IDs/legacy
+recipe and initial creation record. v1 confidence and v2 appearance migration are
+explicit and deterministic. Original foundation hash checked through original v2
+fields; original race payload/hash, IDs, stats and RNG retained. Saved cosmetic
+choices persist after Continue and appear on the actual production race athlete.
+
+Selected final verification84 native PASS (48 EditMode+36 PlayMode) and44 CoreCLR
+Release PASS;0 failures/skips. Not full inventories1974/427 or a full-suite rerun.
+Includes current and actual legacy-v2 Mass Start replay/backward seek without
+changing stored snapshot bytes, pinned Sprint traces, historical12-row balance
+and matched current/historical metrics.8 native screenshots; RU/EN,130% text,
+4:3, keyboard/gamepad/focus, safe confirmation and resource cleanup covered.
+Compile checkpoint clean; fresh Error/Exception/Assert after sequence70502 empty.
+
+Verification found this Editor's Mono GetAllocatedBytesForCurrentThread returns0
+for retained allocations. A separate native GC.Alloc probe detects24800B/1000
+samples. The OVR allocation guard now lives in the engine-capable PlayMode
+assembly, uses native GC.Alloc and a real positive control; CoreCLR keeps its
+no-inline measured guard with positive control. Both confirm warmed OVR0B; new
+cached appearance guard also uses native sampling. Earlier zero Mono-counter
+assertions alone are not treated as proof. No runtime GC/graphics workaround.
+Initial red fixtures/tooling compile mistakes/capture issues remain recorded.
+
+Historical locks were corrected only for the previously approved M13 tuck option
+from4514c774. Historical balance hashes were NOT regenerated: the exact fixture
+reads its original context; a new12-run matched current-option test retains exact
+sporting metrics/events while observing changed context. No production retuning.
+
+Evidence docs/quality/m15-6/review.html and verification.json; report
+TASK_M15_6_FOUNDATION_20261015; ADR-0070; ledger M15_6_WP_STATUS. WP-D/E/F/G/H/I
+still require expanded hair/eyes/height/accessories and fitting, authentic ready
+athlete catalog/licensed-pack contract, grouped potential/individual growth,
+persistent world, OVR history, multi-season calibration and final test build.
+No M15.6 Windows build or completed milestone is claimed. Approved M15.5 build
+remains available. Unrelated existing working-tree changes preserved; history is
+append-only. Next work: complete appearance controls and ready-athlete flow,
+then shared career development/pool and final balance/native/build acceptance.
+M16 has not started.
