@@ -101,7 +101,14 @@ namespace Biathlon.Presentation
             var prepared=CareerSeasonEngine.PrepareWeek(Career,Definitions,training,restoreRandom);
             PreparedWeek=prepared;Result=null;ResultsSummary=null;Screen=FrontEndScreen.PreRace;
         }
-        public void BeginRace() {Require(FrontEndScreen.PreRace);Screen=FrontEndScreen.Race;}
+        public void BeginRace()
+        {
+            Require(FrontEndScreen.PreRace);
+            // This stores the already committed source, never the speculative
+            // trained race snapshot. A failed checkpoint cannot start the race.
+            if(profiles is ICareerProfileCheckpointStore checkpoint)checkpoint.SaveBeforeRaceCheckpoint(Career.Id,PreparedWeek.SourceJson);
+            Screen=FrontEndScreen.Race;
+        }
         public void AbandonRace() {Require(FrontEndScreen.Race);Screen=FrontEndScreen.PreRace;}
         public void FinishRace(CareerRaceRecord result)
         {

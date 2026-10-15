@@ -132,7 +132,7 @@ namespace Biathlon.Tests
                 string before=files.ReadLatest();ui.RestWeek();string after=files.ReadLatest();
                 Assert.That(CareerSave.FromJson(after).Week,Is.EqualTo(2));
                 Assert.That(File.ReadAllText(Path.Combine(folder,"career_disk.json.bak")),Is.EqualTo(before));
-                Assert.Throws<IOException>(()=>files.Replace("career_disk",before,before));Assert.That(files.ReadLatest(),Is.EqualTo(after));
+                Assert.That(Assert.Throws<CareerProfileException>(()=>files.Replace("career_disk",before,before)).Failure,Is.EqualTo(CareerProfileFailure.Changed));Assert.That(files.ReadLatest(),Is.EqualTo(after));
                 Assert.That(Directory.GetFiles(folder,"*.tmp"),Is.Empty);
             }
             finally{if(Directory.Exists(folder)){foreach(string file in Directory.GetFiles(folder))File.Delete(file);Directory.Delete(folder,false);}}

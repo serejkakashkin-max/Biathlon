@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "id": "m16_persistence_20261015",
+  "status": "core_pass_native_pending",
+  "save_schema_version": 1,
+  "save_version": 3,
+  "core_tests": {
+    "receipt": "core-checkpoint-final.trx",
+    "passed": 68,
+    "failed": 0,
+    "skipped": 0
+  },
+  "coverage": {
+    "CareerSaveMigrationFixtureTests": 15,
+    "CareerProfileReliabilityTests": 33,
+    "CareerAppearanceProfileTests": 4,
+    "FrontEndSessionTests": 12,
+    "CareerFoundationTests": 4
+  },
+  "race_determinism_impact": "none; save-only changes, actual full race/soak qualified separately",
+  "source": [
+    {
+      "sha256_lf_utf8": "f30cd695c847ce3bea518101c8b6575bfb99161a1821be25c3a88ba11f0380bb",
+      "path": "Assets/Scripts/Career/CareerSave.cs"
+    },
+    {
+      "sha256_lf_utf8": "a6f4165ea83f1bf7180e533e397566d5919a5581557e0014a6d478ea9bae6162",
+      "path": "Assets/Scripts/Career/CareerSaveMigrations.cs"
+    },
+    {
+      "sha256_lf_utf8": "e6e5804a6d12d60759b4e54e7c88fe353ee7d327831a72636d89608cdd59d0e6",
+      "path": "Assets/Scripts/Career/CareerSaveMigrations.cs.meta"
+    },
+    {
+      "sha256_lf_utf8": "b03bf3e75210b95b7e9e87521cb7823b6576437ac41cb990b1ea4d4361248035",
+      "path": "Assets/Scripts/Career/CareerSaveJsonSyntax.cs"
+    },
+    {
+      "sha256_lf_utf8": "9a9b3c32ab3d0f1505db8aaeeb20c618209e0106ba54608770872d408c8ccaf9",
+      "path": "Assets/Scripts/Career/CareerSaveJsonSyntax.cs.meta"
+    },
+    {
+      "sha256_lf_utf8": "7e6377901ce4aea1fc2c4d955d082b76a7f0301d40a6a45f28f64245e25d9460",
+      "path": "Assets/Scripts/Presentation/FileCareerProfileStore.cs"
+    },
+    {
+      "sha256_lf_utf8": "13a7d683b1791c2c97b07dadcc28449adc88a8ab0121675a326aaeb742534f3b",
+      "path": "Assets/Scripts/Presentation/CareerProfileReliability.cs"
+    },
+    {
+      "sha256_lf_utf8": "724dc61b588075f7d742204e2a40f5bb23e3b288ff80bb36f826ee0e30c9d4d4",
+      "path": "Assets/Scripts/Presentation/CareerProfileReliability.cs.meta"
+    },
+    {
+      "sha256_lf_utf8": "c981feac278160f2c5989718fcabca707b2bbe8d0c19cd2f89f95e34b70fb8d2",
+      "path": "Assets/Scripts/Presentation/FrontEndSession.cs"
+    },
+    {
+      "sha256_lf_utf8": "90a9343906c39c6932f3492479fbd58c9a47884dfc3e01a8277ca07f0f670a05",
+      "path": "Assets/Tests/EditMode/FrontEndSessionTests.cs"
+    },
+    {
+      "sha256_lf_utf8": "9c445b5462ede268c26bd2c78a495debc4af2a29265bd48ffd9cfefe63a880dc",
+      "path": "Assets/Tests/EditMode/CareerProfileReliabilityTests.cs"
+    },
+    {
+      "sha256_lf_utf8": "74dfb5f8644ce4375d508b7608186b6d4dac5eaa60dd5ebef57aed53204fadf9",
+      "path": "Assets/Tests/EditMode/CareerProfileReliabilityTests.cs.meta"
+    },
+    {
+      "sha256_lf_utf8": "f32359ba0158e1fa797c64a59c2415404528627f12dbe735a53b42023b476152",
+      "path": "Assets/Tests/EditMode/CareerSaveMigrationFixtureTests.cs"
+    },
+    {
+      "sha256_lf_utf8": "fcf626e7f972bc1511c7574adf71929f3e5789cfea0feb3b4481bb007e3a5a51",
+      "path": "Assets/Tests/EditMode/CareerSaveMigrationFixtureTests.cs.meta"
+    },
+    {
+      "sha256_lf_utf8": "e24f6331656f614abd2b16fe595d996bb38cf5fc16c3382a4cf58fb441b29c21",
+      "path": "Assets/Tests/Fixtures/CareerMigration/target-v3.sha256.txt"
+    },
+    {
+      "sha256_lf_utf8": "f2ac815055bfed021f212e0c8271587ebbcf3cb1d895ba014e87e0a74643aa20",
+      "path": "Assets/Tests/Fixtures/CareerMigration/target-v3.sha256.txt.meta"
+    },
+    {
+      "sha256_lf_utf8": "4a02a8905c304480bef170d45e3f81088ce5a9e8b497a0e44fcaca4579a5c07c",
+      "path": "Assets/Tests/Fixtures/CareerMigration/v1.json"
+    },
+    {
+      "sha256_lf_utf8": "037a3a013a526fed0b6e476f0d29c39d7f7265e929d19c9984192f37c0763b0f",
+      "path": "Assets/Tests/Fixtures/CareerMigration/v1.json.meta"
+    },
+    {
+      "sha256_lf_utf8": "57028c1bb803301779e60de211d6a16e3d7e2575bf15de4c19a0d2c9b574c922",
+      "path": "Assets/Tests/Fixtures/CareerMigration/v1.sha256.txt"
+    },
+    {
+      "sha256_lf_utf8": "535583da9a000f6e53342ce435835001b668f1142c07984cc780bffae7d44683",
+      "path": "Assets/Tests/Fixtures/CareerMigration/v1.sha256.txt.meta"
+    },
+    {
+      "sha256_lf_utf8": "e8f2fc05b317ce37cb71d8ea872c9c7d5a5d42b962189fc2c481c47d99a9e7f4",
+      "path": "Assets/Tests/Fixtures/CareerMigration/v2.json"
+    },
+    {
+      "sha256_lf_utf8": "f187997b7f99fd907accf57d5a3088aef7d240eaab557d2c969fa209b4b6354f",
+      "path": "Assets/Tests/Fixtures/CareerMigration/v2.json.meta"
+    },
+    {
+      "sha256_lf_utf8": "fef12e6fbb5167efaa0dd57072b9abb5a1c53cab7078971af8854ff96df70c0c",
+      "path": "Assets/Tests/Fixtures/CareerMigration/v2.sha256.txt"
+    },
+    {
+      "sha256_lf_utf8": "65f12a6eb560e453cf6d2898ebe9d4e891ba2fecb2e1d01ec2f01cc7ed671274",
+      "path": "Assets/Tests/Fixtures/CareerMigration/v2.sha256.txt.meta"
+    },
+    {
+      "sha256_lf_utf8": "d91c22d3028fb7dcc8d4f4d3617786720312232d0a1897ed180930e50098631a",
+      "path": "Assets/Tests/Fixtures/CareerMigration/v3.json"
+    },
+    {
+      "sha256_lf_utf8": "f2eb804785601709157e91842228544663c811113c8d0943692ff521cb6a5c67",
+      "path": "Assets/Tests/Fixtures/CareerMigration/v3.json.meta"
+    },
+    {
+      "sha256_lf_utf8": "e24f6331656f614abd2b16fe595d996bb38cf5fc16c3382a4cf58fb441b29c21",
+      "path": "Assets/Tests/Fixtures/CareerMigration/v3.sha256.txt"
+    },
+    {
+      "sha256_lf_utf8": "9552cf27963b9a3438f35f873a59ed14eb1d360c4c98696fbf1b775f8d78c4c2",
+      "path": "Assets/Tests/Fixtures/CareerMigration/v3.sha256.txt.meta"
+    },
+    {
+      "sha256_lf_utf8": "e8aead2a7a90fd9e0ab32d7a444aea0dfc6b178da1f2d7a777f16afcb5f6f0b1",
+      "path": "Assets/Tests/Fixtures/CareerMigration.meta"
+    }
+  ]
+}

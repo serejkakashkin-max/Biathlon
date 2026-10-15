@@ -56,10 +56,18 @@ namespace Biathlon.Career
                 Season=1,Week=1,RandomState=rngState,NextAthleteOrdinal=nextOrdinal,PlayerId=playerId,athletes=roster};s.Validate();return s;
         }
         public string ToJson(){Validate();return CareerJson.Write(this);}
-        public static CareerSave FromJson(string json)
+        public static CareerSave FromJson(string json)=>CareerSaveMigrations.Load(json).Save;
+        internal static CareerSaveMigrationResult ReadMigrated(string json)
         {
+            CareerSaveJsonSyntax.Validate(json);
+            // Read the version header first: a newer save must never be mistaken
+            // for corruption and silently rolled back to an older backup.
+            var header=CareerJson.Read<CareerSaveVersionHeader>(json);
+            if(header==null||header.SchemaVersion!=1||header.SaveVersion<1||header.SaveVersion>CurrentVersion)
+                throw new UnsupportedCareerSaveVersionException(header?.SchemaVersion??0,header?.SaveVersion??0);
             var s=CareerJson.Read<CareerSave>(json);
-            if(s==null||s.SchemaVersion!=1||s.SaveVersion<1||s.SaveVersion>CurrentVersion)throw new SerializationException("Unsupported career save version.");
+            if(s==null)throw new SerializationException("Missing career save.");
+            int sourceVersion=s.SaveVersion;
             if(s.SaveVersion==1)
             {
                 // v1 did not persist confidence separately; migrate from its existing morale state.
@@ -72,7 +80,7 @@ namespace Biathlon.Career
                 if(s.athletes!=null)foreach(var a in s.athletes)if(a!=null)a.Appearance=AppearanceProfile.Legacy(a.Id);
                 s.SaveVersion=3;
             }
-            s.Validate();return s;
+            s.Validate();return new CareerSaveMigrationResult(s,sourceVersion);
         }
         internal void Validate()
         {

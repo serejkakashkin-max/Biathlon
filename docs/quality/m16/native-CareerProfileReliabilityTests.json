@@ -1,0 +1,177 @@
+{
+  "Summary": {
+    "Status": "Passed",
+    "TotalTests": 2102,
+    "PassedTests": 33,
+    "FailedTests": 0,
+    "SkippedTests": 0,
+    "Duration": "00:00:07.3324206"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.AbandonedTemporaryIsNeverPromotedAndNeverDeletedByReading",
+      "Status": "Passed",
+      "Duration": "00:00:00.1500000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.AccessFailuresDoNotSilentlyRollBackToBackup(\"read-denied\",AccessDenied)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.AccessFailuresDoNotSilentlyRollBackToBackup(\"read-io\",IoFailure)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0040000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.BeforeRaceCheckpointIsExactCommittedSourceAndCanRecoverWhenBothOtherCopiesFail",
+      "Status": "Passed",
+      "Duration": "00:00:01.8880000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.ChangedSourceStillRequiresANewVerifiedCheckpoint",
+      "Status": "Passed",
+      "Duration": "00:00:00.0780000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.ConcurrentExclusiveLockPreventsAnyReplacement",
+      "Status": "Passed",
+      "Duration": "00:00:00.0280000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.CorruptNewestCareerDoesNotSilentlyOpenAnUnrelatedOlderCareer",
+      "Status": "Passed",
+      "Duration": "00:00:00.0080000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.CorruptPrimaryRecoversSameCareerBackupWithoutMutatingAnyBytes",
+      "Status": "Passed",
+      "Duration": "00:00:00.0580000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.FailedBeforeRaceCheckpointLeavesPreparedRaceAndDiskUnchanged",
+      "Status": "Passed",
+      "Duration": "00:00:01.7620000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.FailedNewCareerIsNotDiscoverable(\"write\")",
+      "Status": "Passed",
+      "Duration": "00:00:00.0220000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.FailedNewCareerIsNotDiscoverable(\"verify\")",
+      "Status": "Passed",
+      "Duration": "00:00:00.0090000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.FailedNewCareerIsNotDiscoverable(\"move\")",
+      "Status": "Passed",
+      "Duration": "00:00:00.0130000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.FailedReadClearsOldRecoveryReceiptInsteadOfReportingStaleSuccess",
+      "Status": "Passed",
+      "Duration": "00:00:00.0180000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.FuturePrimaryIsNotDowngradedToSupportedBackup(\"schema_version\",\"2\")",
+      "Status": "Passed",
+      "Duration": "00:00:00.0150000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.FuturePrimaryIsNotDowngradedToSupportedBackup(\"save_version\",\"4\")",
+      "Status": "Passed",
+      "Duration": "00:00:00.0150000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.InaccessibleProfileDirectoryDoesNotBreakHomeOrPretendItIsEmpty(\"list-denied\",AccessDenied)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0030000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.InaccessibleProfileDirectoryDoesNotBreakHomeOrPretendItIsEmpty(\"list-io\",IoFailure)",
+      "Status": "Passed",
+      "Duration": "00:00:00.0030000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.InterruptedWriteVerificationOrReplacementRetainsOnlyCommittedState(\"write\")",
+      "Status": "Passed",
+      "Duration": "00:00:00.0770000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.InterruptedWriteVerificationOrReplacementRetainsOnlyCommittedState(\"verify\")",
+      "Status": "Passed",
+      "Duration": "00:00:00.0520000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.InterruptedWriteVerificationOrReplacementRetainsOnlyCommittedState(\"replace\")",
+      "Status": "Passed",
+      "Duration": "00:00:00.0550000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.InterruptedWriteVerificationOrReplacementRetainsOnlyCommittedState(\"write-cleanup\")",
+      "Status": "Passed",
+      "Duration": "00:00:00.0780000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.InvalidCompleteJsonNeverBecomesDiscoverable(\"trailing\")",
+      "Status": "Passed",
+      "Duration": "00:00:00.0050000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.InvalidCompleteJsonNeverBecomesDiscoverable(\"second-object\")",
+      "Status": "Passed",
+      "Duration": "00:00:00.0030000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.InvalidCompleteJsonNeverBecomesDiscoverable(\"truncated\")",
+      "Status": "Passed",
+      "Duration": "00:00:00.0030000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.InvalidUtf8IsCorruptionAndFallsBackWithoutReplacingSourceBytes",
+      "Status": "Passed",
+      "Duration": "00:00:00.0090000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.MatchingOldCheckpointNeverBypassesPrimaryCompareAndSwap",
+      "Status": "Passed",
+      "Duration": "00:00:00.0550000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.MismatchedBackupIdentityDoesNotPublishAnotherAthlete",
+      "Status": "Passed",
+      "Duration": "00:00:00.0070000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.MissingPrimaryBackupIsDiscoverableAndRepairDoesNotDestroyIt",
+      "Status": "Passed",
+      "Duration": "00:00:00.0570000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.RecoveredWriterRetainsGoodBackupAndQuarantinesCorruptPrimary",
+      "Status": "Passed",
+      "Duration": "00:00:00.0590000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.RetryingTheSamePreparedRaceReusesVerifiedCheckpointWithoutWritingAgain",
+      "Status": "Passed",
+      "Duration": "00:00:01.7680000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.StaleWriterCannotUndoRecoveredOrCommittedCareer",
+      "Status": "Passed",
+      "Duration": "00:00:00.0790000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.SuccessfulPublicationsUpdateCurrentHealthWithoutErasingRecoveryHistory",
+      "Status": "Passed",
+      "Duration": "00:00:00.0670000"
+    },
+    {
+      "Name": "Biathlon.Tests.CareerProfileReliabilityTests.UnsupportedBackupIsPreservedRatherThanOverwrittenByOlderCheckpoint",
+      "Status": "Passed",
+      "Duration": "00:00:00.0060000"
+    }
+  ]
+}
