@@ -102,8 +102,8 @@ namespace Biathlon.Unity.Presentation
             row.style.borderBottomWidth=1;row.style.borderBottomColor=FrostlineStyle.Surface;
             row.style.backgroundColor=heading?FrostlineStyle.Deep:parent.childCount%2==0?new Color(1,1,1,.025f):Color.clear;
             if(player){row.style.backgroundColor=FrostlineStyle.Surface;row.style.borderLeftWidth=4;row.style.borderLeftColor=FrostlineStyle.Accent;}
-            parent.Add(row);float[] widths={6,32,16,18,18,10};
-            for(int i=0;i<6;i++)
+            parent.Add(row);float[] widths=values.Length==7?new float[]{6,34,10,11,11,14,14}:new float[]{6,32,16,18,18,10};
+            for(int i=0;i<values.Length;i++)
             {
                 if(i==1&&!heading&&nation!=null)
                 {

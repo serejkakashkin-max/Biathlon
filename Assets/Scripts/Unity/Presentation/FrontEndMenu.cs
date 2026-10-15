@@ -87,6 +87,8 @@ namespace Biathlon.Unity.Presentation
             if(Replays.Loading)return;
             if(Replays.Active){Replays.Close();return;}
             if(Session.Screen==FrontEndScreen.Race){if(Race.Paused&&!Race.AwaitingSave)Race.Resume();return;}
+            if(careerCardAthlete!=null){careerCardAthlete=null;LastMessage=null;Render();return;}
+            if(Session.Screen==FrontEndScreen.Rivalries&&careerRosterArchive){careerRosterArchive=false;Render();return;}
             if(Session.Screen==FrontEndScreen.NewCareer&&creatorMode==CareerCreationMode.ExistingAthlete&&catalogReview){catalogReview=false;LastMessage=null;Render();return;}
             if(Session.Screen==FrontEndScreen.NewCareer&&creatorMode==CareerCreationMode.CreateOwn&&creatorStep>0){creatorStep=0;LastMessage=null;Render();return;}
             if(Session.Screen==FrontEndScreen.NewCareer&&creatorMode.HasValue){creatorMode=null;catalogReview=false;LastMessage=null;Render();return;}
@@ -133,7 +135,8 @@ namespace Biathlon.Unity.Presentation
         }
         private void Render()
         {
-            if(Session.Screen!=FrontEndScreen.NewCareer)ReleaseCreatorStudio();
+            if(careerCardAthlete!=null&&Session.Screen!=FrontEndScreen.Career&&Session.Screen<FrontEndScreen.Training)careerCardAthlete=null;
+            if(Session.Screen!=FrontEndScreen.NewCareer&&careerCardAthlete==null)ReleaseCreatorStudio();
             backdropMotion?.Pause();backdropMotion=null;
             Root.Clear();controls.Clear();paper=HighContrast?Color.black:FrontEndTheme.Color(theme.paper);ink=HighContrast?Color.white:FrontEndTheme.Color(theme.ink);
             FrostlineStyle.Apply(Root,ReducedMotion);Root.EnableInClassList("high-contrast",HighContrast);
@@ -178,6 +181,10 @@ namespace Biathlon.Unity.Presentation
             else if(Session.Screen==FrontEndScreen.NewCareer)
             {
                 RenderCareerCreation(body,left,actions,card);
+            }
+            else if(careerCardAthlete!=null)
+            {
+                RenderCareerAthleteCard(body,left,actions,card);
             }
             else if(Session.Screen==FrontEndScreen.Career)
             {

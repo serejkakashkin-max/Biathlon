@@ -29,6 +29,7 @@ namespace Biathlon.Unity.Presentation
             identity.Add(new NationFlagGraphic(player.Nation));
             var country=AddLabel(identity,T("nation."+player.Nation)+"  /  "+player.Age+L(" лет"," years"),theme.body_size,true);country.style.marginBottom=0;
             var season=AddLabel(identity,L("СЕЗОН ","SEASON ")+summary.Season,theme.caption_size,true);season.style.flexGrow=1;season.style.unityTextAlign=TextAnchor.MiddleRight;season.style.color=FrostlineStyle.Gold;season.style.marginBottom=0;
+            RenderCareerRatingStrip(card);
             var heroCard=Tile(card,"next_event_hero",true);heroCard.style.flexDirection=FlexDirection.Row;heroCard.style.alignItems=Align.Center;
             heroCard.style.paddingLeft=heroCard.style.paddingTop=heroCard.style.paddingBottom=0;heroCard.style.paddingRight=18;
             AddVenuePreview(heroCard,compactLayout?126:166);var preview=heroCard.Q<Image>("venue_preview");preview.style.width=Length.Percent(46);preview.style.marginRight=20;preview.style.marginBottom=0;
