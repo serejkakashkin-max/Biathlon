@@ -1,0 +1,33 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":1962,\"PassedTests\":0,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:01.0947553\"},\"Results\":[{\"Name\":\"Biathlon.Tests.CareerTuningLockTests.CareerBaselineIncludesAllCareerDefinitionsAndPreservesTheM8Lock\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.2350000\",\"Message\":\"  Expected: \\u003Cempty\\u003E\\r\\n  But was:  \\u003C \\u0022Changed: Assets/Resources/Biathlon/tuck_provisional_v1.json\\u0022 \\u003E\\r\\n\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 1962,
+          "PassedTests": 0,
+          "FailedTests": 1,
+          "SkippedTests": 0,
+          "Duration": "00:00:01.0947553"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.Tests.CareerTuningLockTests.CareerBaselineIncludesAllCareerDefinitionsAndPreservesTheM8Lock",
+            "Status": "Failed",
+            "Duration": "00:00:00.2350000",
+            "Message": "  Expected: <empty>\r\n  But was:  < \"Changed: Assets/Resources/Biathlon/tuck_provisional_v1.json\" >\r\n"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}
