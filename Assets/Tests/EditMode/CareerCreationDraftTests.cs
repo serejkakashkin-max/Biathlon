@@ -51,7 +51,7 @@ namespace Biathlon.Tests
             draft.SelectTier("senior_debut");draft.SetAge(27);Assert.That(draft.OriginStoryId,Is.EqualTo("newcomer"));draft.SelectOrigin("late_debut");
             Assert.Catch(()=>draft.SelectOrigin("young_shooter"));Assert.That(draft.OriginStoryId,Is.EqualTo("late_debut"));
             draft.SetAge(21);Assert.That(draft.OriginStoryId,Is.EqualTo("newcomer"));Assert.Catch(()=>draft.SetAge(20));
-            draft.SelectTier("junior_novice");Assert.That(draft.Age,Is.EqualTo(20));
+            draft.SelectTier("junior_novice");Assert.That(draft.Age,Is.EqualTo(18),"An incompatible age resets to the selected tier's authored default.");
         }
         [Test] public void ConfirmationValidatesIdentityAndIsDeterministicAndDetached()
         {
@@ -63,6 +63,19 @@ namespace Biathlon.Tests
             Assert.That(calls,Is.EqualTo(2));Assert.That(a.ToJson(),Is.EqualTo(b.ToJson()));Assert.That(a.Athlete(0).Name,Is.EqualTo("Alex North"));Assert.That(a.Athlete(0).Nation,Is.EqualTo("FRA"));
             int ability=a.Athlete(0).Stat(CareerStat.Endurance);draft.SetAllocation(CareerStat.Endurance,1);Assert.That(a.Athlete(0).Stat(CareerStat.Endurance),Is.EqualTo(ability));
             Assert.Catch(()=>draft.Confirm("career_created",CareerFoundationTests.Calendar(),Restore));
+        }
+        [Test] public void StartingAllocationAndAppearanceCannotIncreaseHiddenPotential()
+        {
+            var draft=Draft(71000);draft.SelectTier("world_cup_debut");var calendar=Calendar(draft);
+            var baseline=draft.Confirm("career_potential",calendar,s=>new SeededRandomSource(s));int potential=baseline.Athlete(0).Potential;
+            Assert.That(potential,Is.LessThan(draft.Stat(CareerStat.Endurance)),"This fixed seed reproduces a starting ability above the independent legacy ceiling.");
+            var policy=Definition();
+            for(int i=0;i<policy.PresetCount;i++)
+            {
+                draft.SelectPreset(policy.Preset(i).Id);draft.SetAppearance(AppearanceProfile.Create("round","brown_warm","athletic"));
+                var candidate=draft.Confirm("career_potential",calendar,s=>new SeededRandomSource(s));
+                Assert.That(candidate.Athlete(0).Potential,Is.EqualTo(potential));Assert.That(candidate.RandomState,Is.EqualTo(baseline.RandomState));
+            }
         }
         [Test] public void CreationDefinitionRejectsDuplicateUnboundedAndMissingChoices()
         {

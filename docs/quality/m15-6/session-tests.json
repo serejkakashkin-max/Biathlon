@@ -3,79 +3,79 @@
     "content": [
       {
         "type": "text",
-        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1969,\"PassedTests\":12,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:01.5650609\"},\"Results\":[{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.AtomicProfileReplacementRetainsBackupAndRejectsStaleWriter\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0730000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.BothLocalesHaveRealTextAndUnknownKeysFailClearly\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0090000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.CompletedRaceSaveFailureCanRetryExactlyOnceAndContinueAtNextEvent\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.1580000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.ContinueUsesSavedLegacyCalendarWithoutMigratingItToWoodland\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0130000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.DraftEditsAndFailedConfirmationNeverPublishAnUnconfirmedCareer\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0230000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.FailedSaveOrValidationNeverPublishesOrDestroysPriorProfile\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0150000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.FileProfilesAreValidatedIndependentAndNeverOverwritten\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0350000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.NewCareerIsSavedBeforeDashboardAndUsesProductionCalendar\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0420000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.PreparingCancelingAndRetryingRaceNeverConsumesAWeekOrRandomness\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0910000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.PreRaceFactsComeFromPreparedAthleteAndProductionRules\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.1220000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.RestCannotSkipRaceAndInvalidResultPreservesWeek\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.1150000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.SettingsReturnsToItsCallerAndInvalidContinueIsAtomic\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0070000\"}]}}"
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1972,\"PassedTests\":12,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:01.6711609\"},\"Results\":[{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.AtomicProfileReplacementRetainsBackupAndRejectsStaleWriter\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0720000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.BothLocalesHaveRealTextAndUnknownKeysFailClearly\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0080000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.CompletedRaceSaveFailureCanRetryExactlyOnceAndContinueAtNextEvent\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.1720000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.ContinueUsesSavedLegacyCalendarWithoutMigratingItToWoodland\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0300000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.DraftEditsAndFailedConfirmationNeverPublishAnUnconfirmedCareer\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0470000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.FailedSaveOrValidationNeverPublishesOrDestroysPriorProfile\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0190000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.FileProfilesAreValidatedIndependentAndNeverOverwritten\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0430000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.NewCareerIsSavedBeforeDashboardAndUsesProductionCalendar\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0200000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.PreparingCancelingAndRetryingRaceNeverConsumesAWeekOrRandomness\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.1410000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.PreRaceFactsComeFromPreparedAthleteAndProductionRules\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.1160000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.RestCannotSkipRaceAndInvalidResultPreservesWeek\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.1380000\"},{\"Name\":\"Biathlon.Tests.FrontEndSessionTests.SettingsReturnsToItsCallerAndInvalidContinueIsAtomic\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0080000\"}]}}"
       }
     ],
     "structuredContent": {
       "result": {
         "Summary": {
           "Status": "Passed",
-          "TotalTests": 1969,
+          "TotalTests": 1972,
           "PassedTests": 12,
           "FailedTests": 0,
           "SkippedTests": 0,
-          "Duration": "00:00:01.5650609"
+          "Duration": "00:00:01.6711609"
         },
         "Results": [
           {
             "Name": "Biathlon.Tests.FrontEndSessionTests.AtomicProfileReplacementRetainsBackupAndRejectsStaleWriter",
             "Status": "Passed",
-            "Duration": "00:00:00.0730000"
+            "Duration": "00:00:00.0720000"
           },
           {
             "Name": "Biathlon.Tests.FrontEndSessionTests.BothLocalesHaveRealTextAndUnknownKeysFailClearly",
             "Status": "Passed",
-            "Duration": "00:00:00.0090000"
+            "Duration": "00:00:00.0080000"
           },
           {
             "Name": "Biathlon.Tests.FrontEndSessionTests.CompletedRaceSaveFailureCanRetryExactlyOnceAndContinueAtNextEvent",
             "Status": "Passed",
-            "Duration": "00:00:00.1580000"
+            "Duration": "00:00:00.1720000"
           },
           {
             "Name": "Biathlon.Tests.FrontEndSessionTests.ContinueUsesSavedLegacyCalendarWithoutMigratingItToWoodland",
             "Status": "Passed",
-            "Duration": "00:00:00.0130000"
+            "Duration": "00:00:00.0300000"
           },
           {
             "Name": "Biathlon.Tests.FrontEndSessionTests.DraftEditsAndFailedConfirmationNeverPublishAnUnconfirmedCareer",
             "Status": "Passed",
-            "Duration": "00:00:00.0230000"
+            "Duration": "00:00:00.0470000"
           },
           {
             "Name": "Biathlon.Tests.FrontEndSessionTests.FailedSaveOrValidationNeverPublishesOrDestroysPriorProfile",
             "Status": "Passed",
-            "Duration": "00:00:00.0150000"
+            "Duration": "00:00:00.0190000"
           },
           {
             "Name": "Biathlon.Tests.FrontEndSessionTests.FileProfilesAreValidatedIndependentAndNeverOverwritten",
             "Status": "Passed",
-            "Duration": "00:00:00.0350000"
+            "Duration": "00:00:00.0430000"
           },
           {
             "Name": "Biathlon.Tests.FrontEndSessionTests.NewCareerIsSavedBeforeDashboardAndUsesProductionCalendar",
             "Status": "Passed",
-            "Duration": "00:00:00.0420000"
+            "Duration": "00:00:00.0200000"
           },
           {
             "Name": "Biathlon.Tests.FrontEndSessionTests.PreparingCancelingAndRetryingRaceNeverConsumesAWeekOrRandomness",
             "Status": "Passed",
-            "Duration": "00:00:00.0910000"
+            "Duration": "00:00:00.1410000"
           },
           {
             "Name": "Biathlon.Tests.FrontEndSessionTests.PreRaceFactsComeFromPreparedAthleteAndProductionRules",
             "Status": "Passed",
-            "Duration": "00:00:00.1220000"
+            "Duration": "00:00:00.1160000"
           },
           {
             "Name": "Biathlon.Tests.FrontEndSessionTests.RestCannotSkipRaceAndInvalidResultPreservesWeek",
             "Status": "Passed",
-            "Duration": "00:00:00.1150000"
+            "Duration": "00:00:00.1380000"
           },
           {
             "Name": "Biathlon.Tests.FrontEndSessionTests.SettingsReturnsToItsCallerAndInvalidContinueIsAtomic",
             "Status": "Passed",
-            "Duration": "00:00:00.0070000"
+            "Duration": "00:00:00.0080000"
           }
         ]
       }

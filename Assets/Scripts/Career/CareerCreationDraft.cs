@@ -104,6 +104,7 @@ namespace Biathlon.Career
         public string Nation {get;set;}
         public int Age {get;private set;}
         public ulong DraftSeed {get;}
+        public AppearanceProfile Appearance {get;private set;}=AppearanceProfile.Create("oval","light_warm","natural");
         public string PolicyId=>policy.Id;
         public CareerCreationTier Tier=>policy.Tier(StartProfileId);
         public int BudgetSpent {get{int sum=0;for(int i=0;i<13;i++)sum+=policy.Cost((CareerStat)i,allocation[i]);return sum;}}
@@ -120,7 +121,7 @@ namespace Biathlon.Career
         public void SelectTier(string id)
         {
             var tier=policy.Tier(id);var profile=starts.Get(id);var next=policy.Preset(SpecializationId).Copy();ValidateAllocation(tier,next);
-            StartProfileId=id;Age=Math.Max(profile.MinimumAge,Math.Min(profile.MaximumAge,Age==0?profile.DefaultAge:Age));allocation=next;
+            StartProfileId=id;Age=Age>=profile.MinimumAge&&Age<=profile.MaximumAge?Age:profile.DefaultAge;allocation=next;
             if(!policy.Origin(OriginStoryId).Allows(Age))OriginStoryId="newcomer";
         }
         public void SetAge(int age)
@@ -141,12 +142,15 @@ namespace Biathlon.Career
             ValidateAllocation(Tier,next);allocation=next;
         }
         public void ResetAllocation(){var next=new int[13];ValidateAllocation(Tier,next);allocation=next;SpecializationId="balanced";}
+        public void SetAppearance(AppearanceProfile appearance)
+        {if(appearance==null)throw new ArgumentNullException(nameof(appearance));appearance.Validate();Appearance=appearance;}
         public void Validate()
         {
             CareerUnits.Text(Name?.Trim(),100,"player name");if(!roster.HasNation(Nation))throw new ArgumentException("Unsupported nationality.");
             var p=starts.Get(StartProfileId);CareerUnits.Range(Age,p.MinimumAge,p.MaximumAge,"creation age");
             if(!policy.Origin(OriginStoryId).Allows(Age))throw new ArgumentException("Incompatible origin.");
             ValidateAllocation(Tier,allocation);
+            Appearance.Validate();
         }
         private int[] Stats(){var stats=new int[13];for(int i=0;i<13;i++)stats[i]=Stat((CareerStat)i);return stats;}
         private void ValidateAllocation(CareerCreationTier tier,int[] points)
@@ -168,9 +172,9 @@ namespace Biathlon.Career
             var save=CareerFactory.Create(roster,calendar,careerId,Name.Trim(),Nation,"player_appearance",random,starts,StartProfileId,Age);
             var player=save.Athlete(0);
             for(int i=0;i<13;i++)player.SetStat((CareerStat)i,Stat((CareerStat)i));
-            // Starting ability is distinct from future potential; a ceiling cannot erase earned ability.
-            int maximum=0;for(int i=0;i<13;i++)maximum=Math.Max(maximum,player.Stat((CareerStat)i));
-            player.Potential=Math.Max(player.Potential,maximum);save.Validate();return save;
+            // Allocation changes current ability, never the independently generated potential.
+            player.Appearance=Appearance;
+            save.Creation=CareerCreationRecord.FromDraft(this);save.Validate();return save;
         }
     }
 }

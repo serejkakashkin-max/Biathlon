@@ -6,7 +6,7 @@ namespace Biathlon.Career
 {
     [DataContract] public sealed class CareerSave
     {
-        public const int CurrentVersion=2;
+        public const int CurrentVersion=3;
         private CareerSave() { }
         [DataMember(Name="schema_version",IsRequired=true)] public int SchemaVersion { get; private set; }
         [DataMember(Name="save_version",IsRequired=true)] public int SaveVersion { get; private set; }
@@ -23,6 +23,7 @@ namespace Biathlon.Career
         [DataMember(Name="rng_state",IsRequired=true)] public ulong RandomState { get; internal set; }
         [DataMember(Name="next_athlete_ordinal",IsRequired=true)] public long NextAthleteOrdinal { get; internal set; }
         [DataMember(Name="player_id",IsRequired=true)] public string PlayerId { get; private set; }
+        [DataMember(Name="creation",EmitDefaultValue=false)] public CareerCreationRecord Creation {get;internal set;}
         [DataMember(Name="athletes",IsRequired=true)] private CareerAthlete[] athletes { get; set; }
         [DataMember(Name="season_results",EmitDefaultValue=false)] private CareerRaceRecord[] seasonResults { get; set; }
         [DataMember(Name="past_seasons",EmitDefaultValue=false)] private CareerSeasonHistory[] pastSeasons { get; set; }
@@ -46,13 +47,20 @@ namespace Biathlon.Career
             {
                 // v1 did not persist confidence separately; migrate from its existing morale state.
                 if(s.athletes!=null)foreach(var a in s.athletes)if(a!=null&&a.Confidence<0)a.Confidence=a.Morale;
-                s.SaveVersion=CurrentVersion;
+                s.SaveVersion=2;
+            }
+            if(s.SaveVersion==2)
+            {
+                // Stable legacy visual identity is preserved without drawing career RNG.
+                if(s.athletes!=null)foreach(var a in s.athletes)if(a!=null)a.Appearance=AppearanceProfile.Legacy(a.Id);
+                s.SaveVersion=3;
             }
             s.Validate();return s;
         }
         internal void Validate()
         {
             if(StartProfileId!=null)CareerUnits.Id(StartProfileId);
+            Creation?.Validate();if(Creation!=null&&Creation.StartProfileId!=StartProfileId)throw new SerializationException("Creation/start identity mismatch.");
             if(FirstSeasonYear!=0)CareerUnits.Range(FirstSeasonYear,2020,2200,"first season year");
             if(SchemaVersion!=1||SaveVersion!=CurrentVersion)throw new SerializationException("Invalid career save schema/version.");
             foreach(string id in new[]{Id,WorldId,SeasonId,RulesId,CalendarId,PlayerId})CareerUnits.Id(id);

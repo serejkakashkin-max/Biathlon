@@ -27,12 +27,16 @@ namespace Biathlon.Tests
             }
             Assert.Catch(()=>CareerFactory.Restore(a.ToJson(),Rules(),Calendar(),new SeededRandomSource(1)));
             TestContext.Out.WriteLine("career save sha256="+BalanceRegression.Hash(a.ToJson()));
-            Assert.That(BalanceRegression.Hash(a.ToJson()),Is.EqualTo(PhysiologyContractTests.ProjectFile("tests/fixtures/career-foundation-v1.sha256").Trim()));
+            // Keep the original v2 ability/RNG fixture; additive appearance metadata
+            // and the explicit version bump do not silently rebaseline race state.
+            string legacyShape=Regex.Replace(a.ToJson(),"\"appearance_profile\":\\{[^{}]*\\},","");
+            legacyShape=PhysiologyContractTests.ReplaceNumber(legacyShape,"save_version","2");
+            Assert.That(BalanceRegression.Hash(legacyShape),Is.EqualTo(PhysiologyContractTests.ProjectFile("tests/fixtures/career-foundation-v1.sha256").Trim()));
         }
         [Test] public void LegacyConfidenceMigrationIsExplicitAndZeroSurvivesCurrentSaves()
         {
             string json=Create().ToJson();string legacy=PhysiologyContractTests.ReplaceNumber(json,"save_version","1");legacy=Regex.Replace(legacy,"\"confidence\":-?[0-9]+,","");
-            var migrated=CareerSave.FromJson(legacy);Assert.That(migrated.SaveVersion,Is.EqualTo(2));
+            var migrated=CareerSave.FromJson(legacy);Assert.That(migrated.SaveVersion,Is.EqualTo(CareerSave.CurrentVersion));
             for(int i=0;i<migrated.AthleteCount;i++)Assert.That(migrated.Athlete(i).Confidence,Is.EqualTo(migrated.Athlete(i).Morale));
             var zero=CareerSave.FromJson(PhysiologyContractTests.ReplaceNumber(json,"confidence","0"));Assert.That(CareerSave.FromJson(zero.ToJson()).Athlete(0).Confidence,Is.Zero);
             Assert.Catch(()=>CareerSave.FromJson(Regex.Replace(json,"\"confidence\":-?[0-9]+,","")));
