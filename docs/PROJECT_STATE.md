@@ -25215,3 +25215,43 @@ Owner requested full-monitor launch after a604×900 cached portrait window. Adde
 ### 2026-10-14 22:03 MSK — VU-B arm clearance/smoothness ready for owner retest
 
 Owner approves legs/torso, but requests freer arms and smoother poling. Source7d4ad434 on codex/m15-5-visual-upgrade adds schema4 powered hand outset/signed hinge-plane splay and continuous cyclic hand interpolation, longer drive and gentler recovery. Forearm retains its anatomical local-X hinge. Exact cadence/body compression/leg paths are retained; all6 matched360-frame120Hz body/leg stream hashes are identical. Original red6-case run2 PASS/4 FAIL retained; final selected89/89 native PlayMode cases PASS across19 classes, no skips (inventory400 is not a full-suite claim). SDK class discovery errors were bypassed with supported exact-qualified leaf selection; stale resource-cache experiment results are excluded from final evidence. Native8 paired close videos and3 actual Mass30 clips complete; fieldtick1000, no errors. Sequential matched Ultra mainCPUmean3.8079→3.8211ms,p955.4522→5.5985ms,pose0.4458→0.4538ms; meanGC7585.575B/frame unchanged. GPU timing unavailable; no generalFPS claim. Win64 incremental build0 errors/0 warnings; historical Sentis warnings not claimed resolved. Native direct startup after windowedQA reports2560×1440 FullScreenWindow. Test launcher Builds/M15_5_Arm_Review/START_TEST.cmd; gallery docs/quality/m15-5/arm-refinement/review.html; report TASK_M15_5_ARM_REFINEMENT_20261014. VU-G technical follow-up complete, VU-B arms await owner visual acceptance; approved legs/torso and VU-C/D/E/F retained. Race/AI/balance/physics/shooting/save/replay authority, art/quality, UI/audio unchanged; no full deterministic replay rerun. M16 not started. Historical state, previous builds/evidence and unrelated local work preserved.
+
+
+### 2026-10-15 — VU-B slower attack arms and corrected rifle/back contact ready for owner retest
+
+Source221c4ccd on codex/m15-5-visual-upgrade includes cadence refinement e5b2db84.
+Owner reported attack hammering and edge-on rifle, then caught hovering after
+the first carry rotation fix. That intermediate build is preserved as rejected
+contact baseline. Schema5 motion adds per-profile pole scale(.72 attack/.68 fast,
+1 elsewhere):attack2.25→1.62 Hz, peak forearm912.9→658.3deg/s; steps unchanged.
+Small torso compression timing follows the slower pole phase in the two fast
+profiles; exact former fast body hashes are not claimed. Four other body streams
+remain identical. Schema3 rifle frame follows two authored weighted skin/bone
+anchors with broad stock side along back, muzzle up. Actual G2 skin-distance
+regressions reproduce the old gap and pass all3 motion cases after correction;
+18mm ceiling retained, no runtime mesh baking/raycasting/added tick allocations.
+Original frequency/orientation red1PASS/5FAIL and cadence-only4PASS/2FAIL receipts
+are retained. Full final native PlayMode410/410 PASS,0 failed/skipped,25m45s,
+including both stance/transfer/sight geometry, arm/contact/continuity/fallback
+and allocation checks. MCP request timed out; independent TestRunner callback
+preserved the final410-case NUnit XML. No failed test deleted, disabled or
+weakened. Console Error/Exception/Assert queries empty after validation.
+
+Win64 development build0 errors/0 warnings incrementally; historical Sentis
+warnings not claimed fixed. Native12 close sequences,11 paired comparisons,
+4 back views and3 actual Mass30 clips pass through tick1000 without errors.
+Full-monitor default startup after windowed QA reports2560x1440 FullScreenWindow.
+Scoped sequential Ultra1920x1080,30 athletes/2588 trees,120 warmup+240 measured
+frames:CPUmean4.1776→3.8539ms,p956.0813→5.6939ms,posemean0.4871→0.4749ms,
+GC7584.95→7584.59B/frame(effectively unchanged). No general speedup/60FPS claim;
+GPU/render-thread timing unavailable, HUD/swapchain excluded. No art/texture/
+quality, authoritative race/AI/physics/balance/control/hit/replay/save/UI/audio
+changes. Full deterministic replay not rerun for presentation-only work.
+
+Launcher Builds/M15_5_Rifle_Contact_Review/START_TEST.cmd; source221c4ccd;
+gallery docs/quality/m15-5/sprint-carry-refinement/review.html; report
+TASK_M15_5_SPRINT_CARRY_20261015. VU-G technical follow-up complete. VU-B awaits
+owner visual acceptance of attack rhythm and carried rifle. Approved other
+visual WPs retained. M16 not started. Prior binaries/evidence, append-only
+history and unrelated local work preserved. Next action: owner fullscreen
+playtest and acceptance or further animation feedback.

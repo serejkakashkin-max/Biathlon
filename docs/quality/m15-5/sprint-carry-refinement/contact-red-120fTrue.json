@@ -1,0 +1,33 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":410,\"PassedTests\":0,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:00.1453651\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.RifleBackContactTests.StockStaysCloseToTheActualSkinnedBackSurface(12.0f,True)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0490000\",\"Message\":\"  Stock must rest against harness/back, not float: tuck=True, time=0, stock z=0,15.\\r\\n  Expected: less than 0.0179999992f\\r\\n  But was:  0.0589864478f\\r\\n\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 410,
+          "PassedTests": 0,
+          "FailedTests": 1,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.1453651"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.RifleBackContactTests.StockStaysCloseToTheActualSkinnedBackSurface(12.0f,True)",
+            "Status": "Failed",
+            "Duration": "00:00:00.0490000",
+            "Message": "  Stock must rest against harness/back, not float: tuck=True, time=0, stock z=0,15.\r\n  Expected: less than 0.0179999992f\r\n  But was:  0.0589864478f\r\n"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

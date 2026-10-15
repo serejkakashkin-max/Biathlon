@@ -1,0 +1,62 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":406,\"PassedTests\":1,\"FailedTests\":5,\"SkippedTests\":0,\"Duration\":\"00:00:00.1720253\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.SprintCarryRefinementTests.CarriedRifleBroadSideFollowsTheBackWithTheMuzzleUpward(False)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0210000\",\"Message\":\"  The broad stock face must lie parallel to the back, not stand on its edge.\\r\\n  Expected: greater than 0.949999988f\\r\\n  But was:  0.207911804f\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCarryRefinementTests.CarriedRifleBroadSideFollowsTheBackWithTheMuzzleUpward(True)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0360000\",\"Message\":\"  The broad stock face must lie parallel to the back, not stand on its edge.\\r\\n  Expected: greater than 0.949999988f\\r\\n  But was:  0.207911804f\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCarryRefinementTests.SprintPoleCyclesStayBelowTheHammeringFrequency(9.0f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0080000\",\"Message\":\"  Smooth hand paths alone leave too many full pole pushes per second during attack.\\r\\n  Expected: less than or equal to 1.8d\\r\\n  But was:  2.2500001139938832d\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCarryRefinementTests.SprintPoleCyclesStayBelowTheHammeringFrequency(12.0f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0070000\",\"Message\":\"  Smooth hand paths alone leave too many full pole pushes per second during attack.\\r\\n  Expected: less than or equal to 1.8d\\r\\n  But was:  2.2500001139938832d\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCarryRefinementTests.SprintPoleCyclesStayBelowTheHammeringFrequency(15.0f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0070000\",\"Message\":\"  Smooth hand paths alone leave too many full pole pushes per second during attack.\\r\\n  Expected: less than or equal to 1.8d\\r\\n  But was:  2.2500001139938832d\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCarryRefinementTests.SwitchingAttackAtTheSameObservationTimeDoesNotJumpTheHands\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0050000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 406,
+          "PassedTests": 1,
+          "FailedTests": 5,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.1720253"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCarryRefinementTests.CarriedRifleBroadSideFollowsTheBackWithTheMuzzleUpward(False)",
+            "Status": "Failed",
+            "Duration": "00:00:00.0210000",
+            "Message": "  The broad stock face must lie parallel to the back, not stand on its edge.\r\n  Expected: greater than 0.949999988f\r\n  But was:  0.207911804f\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCarryRefinementTests.CarriedRifleBroadSideFollowsTheBackWithTheMuzzleUpward(True)",
+            "Status": "Failed",
+            "Duration": "00:00:00.0360000",
+            "Message": "  The broad stock face must lie parallel to the back, not stand on its edge.\r\n  Expected: greater than 0.949999988f\r\n  But was:  0.207911804f\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCarryRefinementTests.SprintPoleCyclesStayBelowTheHammeringFrequency(9.0f)",
+            "Status": "Failed",
+            "Duration": "00:00:00.0080000",
+            "Message": "  Smooth hand paths alone leave too many full pole pushes per second during attack.\r\n  Expected: less than or equal to 1.8d\r\n  But was:  2.2500001139938832d\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCarryRefinementTests.SprintPoleCyclesStayBelowTheHammeringFrequency(12.0f)",
+            "Status": "Failed",
+            "Duration": "00:00:00.0070000",
+            "Message": "  Smooth hand paths alone leave too many full pole pushes per second during attack.\r\n  Expected: less than or equal to 1.8d\r\n  But was:  2.2500001139938832d\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCarryRefinementTests.SprintPoleCyclesStayBelowTheHammeringFrequency(15.0f)",
+            "Status": "Failed",
+            "Duration": "00:00:00.0070000",
+            "Message": "  Smooth hand paths alone leave too many full pole pushes per second during attack.\r\n  Expected: less than or equal to 1.8d\r\n  But was:  2.2500001139938832d\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCarryRefinementTests.SwitchingAttackAtTheSameObservationTimeDoesNotJumpTheHands",
+            "Status": "Passed",
+            "Duration": "00:00:00.0050000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

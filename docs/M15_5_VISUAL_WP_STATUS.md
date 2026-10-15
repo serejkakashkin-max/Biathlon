@@ -8,12 +8,12 @@ Budget for new assets/subscriptions: $0. No automatic main merge.
 | WP | Scope | Status |
 |---|---|---|
 |VU-A|Asset/license/code audit, baseline tests/captures/performance|COMPLETE|
-|VU-B|Hybrid ski motion, phases, contacts, fallback, comparison scene|REFINED 2026-10-14 вЂ” ready for owner animation review|
+|VU-B|Hybrid ski motion, phases, contacts, fallback, comparison scene|REFINED 2026-10-15 — slower attack arms and fitted carry; owner review pending|
 |VU-C|G2 hero, equipment, materials, variation and LOD audit/upgrade|APPROVED by owner 2026-10-13|
 |VU-D|Snow materials, individual ski/pole tracks and bounded spray|APPROVED by owner 2026-10-13|
 |VU-E|Forest composition and licensed winter roadside details|APPROVED by owner 2026-10-13|
 |VU-F|Five winter atmospheres and Performance/High/Ultra visual profiles|APPROVED by owner 2026-10-13|
-|VU-G|Integrated validation, matched before/after, profiling, test build|Arm follow-up verified89/89; fullscreen test build delivered 2026-10-14|
+|VU-G|Integrated validation, matched before/after, profiling, test build|COMPLETE 2026-10-15 — full PlayMode410/410, fullscreen contact-review build ready|
 
 The existing G2 hero, snow_02, fir/pine, winter shrub, boulder and Passendorf sky
 are integrated. Reuse them instead of downloading duplicates. NSD is research
@@ -68,3 +68,23 @@ clips pass; main CPU mean3.8079→3.8211 ms, GC mean unchanged. Build0 errors/
 `docs/quality/m15-5/arm-refinement/review.html`. VU-G technical follow-up
 complete. VU-B arms await owner acceptance; other visual WPs remain approved.
 M16 has not started.
+
+
+2026-10-15 sprint/carry follow-up: owner still observed rapid arm strokes during
+attack, then rejected the first broad-side rifle correction because it hovered
+above the back. Schema5 pole scales reduce attack2.25→1.62 Hz (−28%); fast skate
+is also coordinated with attack. Leg cadence/pose amplitudes remain; small
+compression timing in the two fast profiles follows the slower pole phase.
+Schema3 rifle carry follows two weighted back-skin anchors rather than one
+constant offset. Actual skin-contact regressions went3 FAIL→3 PASS, with the
+same18 mm bound; no per-frame mesh baking/raycasting. Full native PlayMode410/410
+PASS,0 skips,25m45s; transfer, prone/standing aim and ordinary motion covered.
+Native12 close sequences,11 paired comparison clips,4 back-view clips and3 real
+Mass30 clips inspected. Build0 errors/0 warnings; default fullscreen2560x1440
+passes after windowed QA. Scoped matched CPU mean4.1776→3.8539ms, GC effectively
+unchanged; no general FPS or GPU claim. Latest launcher:
+Builds/M15_5_Rifle_Contact_Review/START_TEST.cmd. Source221c4ccd; evidence
+sprint-carry-refinement/review.html; report TASK_M15_5_SPRINT_CARRY_20261015.
+VU-G technical follow-up complete; VU-B artistic acceptance pending. Other
+approved WPs, race authority, balance, assets/quality, UI/audio and save schemas
+remain preserved. M16 not started.

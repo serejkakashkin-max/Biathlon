@@ -1,0 +1,87 @@
+{
+    "schema_version": 1,
+    "id": "arm_motion_review",
+    "unity": "6000.6.0f1",
+    "frames": 360,
+    "sampling_hz": 120,
+    "cases": [
+        {
+            "id": "flat",
+            "body_sha256": "70D17BB772AF90AC7C5951CC6167D0E141F662F424233F503B07D336A11E7C96",
+            "elbow_outward_min_m": 0.10597041249275208,
+            "elbow_outward_max_m": 0.13657376170158386,
+            "forearm_rate_max_deg_s": 354.1559143066406,
+            "forearm_peak_pole_phase": 0.38708341121673584,
+            "grip_residual_max_m": 0.000003866614406433655,
+            "leg_cadence_hz": 0.8500000238418579,
+            "pole_cadence_hz": 0.8500000238418579,
+            "rifle_broad_back_dot": 0.9998905658721924,
+            "rifle_muzzle_up_dot": 0.9996789693832397
+        },
+        {
+            "id": "uphill",
+            "body_sha256": "E9D9901A056063846D5E341BE5CDFC7AD495F95467B9B8AF8696E9E572BB40AE",
+            "elbow_outward_min_m": 0.09992897510528564,
+            "elbow_outward_max_m": 0.13145427405834198,
+            "forearm_rate_max_deg_s": 434.3799133300781,
+            "forearm_peak_pole_phase": 0.370047926902771,
+            "grip_residual_max_m": 0.0000022730009732185863,
+            "leg_cadence_hz": 0.9448032379150391,
+            "pole_cadence_hz": 0.9448032379150391,
+            "rifle_broad_back_dot": 0.9999960064888,
+            "rifle_muzzle_up_dot": 0.9996375441551208
+        },
+        {
+            "id": "sprint",
+            "body_sha256": "4319C6EE3FA6EEB09CA1D285D09A687B90B12153ACDEDBF9CDD3EBD0ED4D3142",
+            "elbow_outward_min_m": 0.1134706437587738,
+            "elbow_outward_max_m": 0.14480625092983246,
+            "forearm_rate_max_deg_s": 658.2916870117188,
+            "forearm_peak_pole_phase": 0.3915000259876251,
+            "grip_residual_max_m": 0.000003815162926912308,
+            "leg_cadence_hz": 1.125,
+            "pole_cadence_hz": 1.6200001239776611,
+            "rifle_broad_back_dot": 0.9996012449264526,
+            "rifle_muzzle_up_dot": 0.9992830753326416
+        },
+        {
+            "id": "steep",
+            "body_sha256": "AA4DFB6B6CC407D907F13600163AF9508C7AB7E029436B209CEF582753543A03",
+            "elbow_outward_min_m": 0.09628242254257202,
+            "elbow_outward_max_m": 0.13371272385120392,
+            "forearm_rate_max_deg_s": 473.75396728515625,
+            "forearm_peak_pole_phase": 0.3650696575641632,
+            "grip_residual_max_m": 0.0000011387451195332687,
+            "leg_cadence_hz": 0.9000459313392639,
+            "pole_cadence_hz": 0.9000459313392639,
+            "rifle_broad_back_dot": 0.9999203681945801,
+            "rifle_muzzle_up_dot": 0.9995948672294617
+        },
+        {
+            "id": "corner",
+            "body_sha256": "C994D66CF8511DEF880413EBA3CDD380CB535C83FEDF6FEC0A9081E3F04DCB15",
+            "elbow_outward_min_m": 0.09865224361419678,
+            "elbow_outward_max_m": 0.14390812814235687,
+            "forearm_rate_max_deg_s": 429.2896728515625,
+            "forearm_peak_pole_phase": 0.13458333909511566,
+            "grip_residual_max_m": 0.000003916256446245825,
+            "leg_cadence_hz": 0.8500000238418579,
+            "pole_cadence_hz": 0.8500000238418579,
+            "rifle_broad_back_dot": 0.9998572468757629,
+            "rifle_muzzle_up_dot": 0.9996015429496765
+        },
+        {
+            "id": "fast",
+            "body_sha256": "FBCBB6147CCEE470DD3AF05A5C92C31F628A60B1F316997C5D426B34702DF77E",
+            "elbow_outward_min_m": 0.10573047399520874,
+            "elbow_outward_max_m": 0.1369434893131256,
+            "forearm_rate_max_deg_s": 555.8707885742188,
+            "forearm_peak_pole_phase": 0.3893265426158905,
+            "grip_residual_max_m": 0.0000026682650968723465,
+            "leg_cadence_hz": 0.9814954400062561,
+            "pole_cadence_hz": 1.3348338603973389,
+            "rifle_broad_back_dot": 0.9994493126869202,
+            "rifle_muzzle_up_dot": 0.9991570711135864
+        }
+    ]
+}

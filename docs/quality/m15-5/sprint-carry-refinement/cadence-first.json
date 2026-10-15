@@ -1,0 +1,59 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":406,\"PassedTests\":4,\"FailedTests\":2,\"SkippedTests\":0,\"Duration\":\"00:00:00.1662695\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.SprintCarryRefinementTests.CarriedRifleBroadSideFollowsTheBackWithTheMuzzleUpward(False)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0190000\",\"Message\":\"  The broad stock face must lie parallel to the back, not stand on its edge.\\r\\n  Expected: greater than 0.949999988f\\r\\n  But was:  0.207911804f\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCarryRefinementTests.CarriedRifleBroadSideFollowsTheBackWithTheMuzzleUpward(True)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0270000\",\"Message\":\"  The broad stock face must lie parallel to the back, not stand on its edge.\\r\\n  Expected: greater than 0.949999988f\\r\\n  But was:  0.207911804f\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCarryRefinementTests.SprintPoleCyclesStayBelowTheHammeringFrequency(9.0f)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0090000\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCarryRefinementTests.SprintPoleCyclesStayBelowTheHammeringFrequency(12.0f)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0070000\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCarryRefinementTests.SprintPoleCyclesStayBelowTheHammeringFrequency(15.0f)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0070000\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCarryRefinementTests.SwitchingAttackAtTheSameObservationTimeDoesNotJumpTheHands\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0040000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 406,
+          "PassedTests": 4,
+          "FailedTests": 2,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.1662695"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCarryRefinementTests.CarriedRifleBroadSideFollowsTheBackWithTheMuzzleUpward(False)",
+            "Status": "Failed",
+            "Duration": "00:00:00.0190000",
+            "Message": "  The broad stock face must lie parallel to the back, not stand on its edge.\r\n  Expected: greater than 0.949999988f\r\n  But was:  0.207911804f\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCarryRefinementTests.CarriedRifleBroadSideFollowsTheBackWithTheMuzzleUpward(True)",
+            "Status": "Failed",
+            "Duration": "00:00:00.0270000",
+            "Message": "  The broad stock face must lie parallel to the back, not stand on its edge.\r\n  Expected: greater than 0.949999988f\r\n  But was:  0.207911804f\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCarryRefinementTests.SprintPoleCyclesStayBelowTheHammeringFrequency(9.0f)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0090000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCarryRefinementTests.SprintPoleCyclesStayBelowTheHammeringFrequency(12.0f)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0070000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCarryRefinementTests.SprintPoleCyclesStayBelowTheHammeringFrequency(15.0f)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0070000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCarryRefinementTests.SwitchingAttackAtTheSameObservationTimeDoesNotJumpTheHands",
+            "Status": "Passed",
+            "Duration": "00:00:00.0040000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}
