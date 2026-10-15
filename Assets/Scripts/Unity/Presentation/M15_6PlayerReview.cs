@@ -43,7 +43,18 @@ namespace Biathlon.Unity.Presentation
             }
             while(stack.Count>0)(stack.Pop() as IDisposable)?.Dispose();Finish();
         }
-        private void Update(){if(!finished&&receipt!=null&&Time.realtimeSinceStartupAsDouble-began>180){errors.Add("Acceptance exceeded180s.");StopAllCoroutines();Finish();}}
+        private void Update()
+        {
+            if(finished||receipt==null)return;
+            if(Time.realtimeSinceStartupAsDouble-began>180){errors.Add("Acceptance exceeded180s.");StopAllCoroutines();Finish();return;}
+            // Hidden Windows sessions can suspend automatic camera presentation.
+            // Request the same native production cameras into explicit surfaces.
+            var studio=menu?.CreatorStudio;
+            if(studio!=null&&studio.PreviewCamera!=null)Render(studio.PreviewCamera,studio.Texture);
+            if(menu?.Race.Host!=null&&target!=null)Render(menu.Race.Host.ChaseCamera,target);
+        }
+        private static void Render(Camera camera,RenderTexture destination)
+        {if(camera!=null&&camera.isActiveAndEnabled)UnityEngine.Rendering.RenderPipeline.SubmitRenderRequest(camera,new UnityEngine.Rendering.Universal.UniversalRenderPipeline.SingleCameraRequest{destination=destination});}
         private void Log(string text,string stack,LogType kind){if(kind==LogType.Error||kind==LogType.Exception||kind==LogType.Assert)errors.Add(text+"\n"+stack);}
         private IEnumerator Review()
         {
@@ -56,6 +67,7 @@ namespace Biathlon.Unity.Presentation
             var obj=new GameObject("Isolated M15.6 acceptance menu");menu=obj.AddComponent<FrontEndMenu>();menu.AutoStart=false;menu.PersistPreferences=false;menu.Initialize(new Store());menu.ApplyPreferences("ru",0);
             target=new RenderTexture(Screen.width,Screen.height,24);target.Create();obj.GetComponent<UIDocument>().panelSettings.targetTexture=target;
             yield return Capture("01-home");Submit("new_career");yield return Capture("02-career-path");Submit("creator_mode_own");yield return Capture("03-creator");
+            Require(menu.CreatorStudio!=null&&menu.CreatorStudio.Texture.IsCreated(),"Actual preview surface missing.");
             menu.Root.Q<TextField>("athlete_name").value="M15.6 native review";Submit("creator_step_1");yield return Capture("04-live-look");
             Submit("creator_step_2");yield return Capture("05-ratings");string appearance=menu.CreationDraft.Appearance.ToJson();Submit("create");yield return Capture("06-confirm");Submit("confirm_create");
             receipt.created=menu.Session.Screen==FrontEndScreen.Career;Require(receipt.created,"Actual wizard did not publish a career.");
