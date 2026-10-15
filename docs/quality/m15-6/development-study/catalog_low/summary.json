@@ -1,15 +1,16 @@
 {
   "schema_version": 1,
   "id": "m15_6_shared_development_study_v1",
-  "scope": "development trajectories with aggregate load; zero authoritative race simulations",
+  "scope": "fixed entrant cohorts developed with aggregate load until individual retirement, then frozen; zero authoritative race simulations; stagnant/declining counts include active seasons only",
   "scenario": "catalog_low",
   "samples": 12,
   "athletes": 360,
   "seasons_per_athlete": 15,
+  "active_season_observations": 5391,
   "shared_training_weeks": 280332,
   "training_sessions": 668484,
   "authoritative_races": 0,
-  "elapsed_seconds": 12.7412517,
+  "elapsed_seconds": 13.6575176,
   "peak_mean": 68.3861111111111,
   "peak_min": 49,
   "peak_max": 95,
@@ -17,8 +18,8 @@
   "peak_age_min": 18,
   "peak_age_max": 34,
   "late_peaks": 91,
-  "stagnant_seasons": 2966,
-  "declining_seasons": 112,
+  "stagnant_seasons": 2960,
+  "declining_seasons": 109,
   "mean_end_delta": 12.119444444444444,
   "styles": {
     "limited_prospect": 42,
@@ -34,5 +35,6 @@
     "intensity_only": 60.1,
     "rotating_balanced": 71.725
   },
-  "growth_policy_sha256": "cf32982902f54234a3471e4ec2058d5f7820ec8a54cdf0c0b3727923ac20afda"
+  "growth_policy_sha256": "cf32982902f54234a3471e4ec2058d5f7820ec8a54cdf0c0b3727923ac20afda",
+  "creation_policy_sha256": "7cca0378bfe2f194bbff08b5f5b9e119a101353653725ae32068412440540310"
 }

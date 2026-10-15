@@ -1,25 +1,26 @@
 {
   "schema_version": 1,
   "id": "m15_6_shared_development_study_v1",
-  "scope": "development trajectories with aggregate load; zero authoritative race simulations",
+  "scope": "fixed entrant cohorts developed with aggregate load until individual retirement, then frozen; zero authoritative race simulations; stagnant/declining counts include active seasons only",
   "scenario": "junior",
   "samples": 12,
   "athletes": 360,
   "seasons_per_athlete": 15,
+  "active_season_observations": 5400,
   "shared_training_weeks": 280800,
   "training_sessions": 669600,
   "authoritative_races": 0,
-  "elapsed_seconds": 10.3863576,
-  "peak_mean": 66.49722222222222,
-  "peak_min": 50,
+  "elapsed_seconds": 10.6900996,
+  "peak_mean": 66.65833333333333,
+  "peak_min": 51,
   "peak_max": 91,
   "peak_95_or_more": 0,
   "peak_age_min": 19,
   "peak_age_max": 32,
-  "late_peaks": 109,
-  "stagnant_seasons": 2487,
-  "declining_seasons": 51,
-  "mean_end_delta": 17.072222222222223,
+  "late_peaks": 92,
+  "stagnant_seasons": 2553,
+  "declining_seasons": 40,
+  "mean_end_delta": 16.57777777777778,
   "styles": {
     "balanced_competitor": 58,
     "ski_specialist": 56,
@@ -30,9 +31,10 @@
     "limited_prospect": 38
   },
   "strategy_peak_means": {
-    "adaptive_ai": 72.95,
-    "intensity_only": 54.325,
-    "rotating_balanced": 72.21666666666667
+    "adaptive_ai": 72.96666666666667,
+    "intensity_only": 54.74166666666667,
+    "rotating_balanced": 72.26666666666667
   },
-  "growth_policy_sha256": "cf32982902f54234a3471e4ec2058d5f7820ec8a54cdf0c0b3727923ac20afda"
+  "growth_policy_sha256": "cf32982902f54234a3471e4ec2058d5f7820ec8a54cdf0c0b3727923ac20afda",
+  "creation_policy_sha256": "7cca0378bfe2f194bbff08b5f5b9e119a101353653725ae32068412440540310"
 }
