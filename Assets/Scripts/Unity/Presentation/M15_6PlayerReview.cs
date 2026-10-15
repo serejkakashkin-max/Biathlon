@@ -20,7 +20,7 @@ namespace Biathlon.Unity.Presentation
             public void Replace(string id,string expected,string value){if(json!=expected)throw new IOException();json=value;}
         }
         [Serializable]private sealed class Receipt
-        {public int schema_version=1;public string id="m15_6_standalone_review",unity,fullscreen_mode;public bool success,owner_profiles_unchanged,fullscreen,created,appearance_restored,race_loaded,countdown_started;public int width,height,display_width,display_height;public long race_tick;public string[] errors,captures;}
+        {public int schema_version=1;public string id="m15_6_standalone_review",unity,fullscreen_mode,display_check;public bool success,owner_profiles_unchanged,fullscreen,created,appearance_restored,race_loaded,countdown_started;public int width,height,display_width,display_height;public long race_tick;public string[] errors,captures;}
         private readonly List<string> errors=new List<string>(),captures=new List<string>();
         private Receipt receipt;private string folder,profiles;private FrontEndMenu menu;private RenderTexture target;private double began;private bool finished;
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]private static void Boot()
@@ -49,7 +49,9 @@ namespace Biathlon.Unity.Presentation
         {
             for(int i=0;i<8;i++)yield return null;
             receipt.width=Screen.width;receipt.height=Screen.height;receipt.display_width=Display.main.systemWidth;receipt.display_height=Display.main.systemHeight;receipt.fullscreen=Screen.fullScreen;receipt.fullscreen_mode=Screen.fullScreenMode.ToString();
-            Require(receipt.fullscreen&&receipt.width==receipt.display_width&&receipt.height==receipt.display_height,"Ordinary launch must use the full desktop display.");
+            bool ordinaryDisplay=StandaloneDisplayStartup.UseDesktopFullscreen(Environment.GetCommandLineArgs());
+            receipt.display_check=ordinaryDisplay?"ordinary_fullscreen":"explicit_windowed_QA";
+            if(ordinaryDisplay)Require(receipt.fullscreen&&receipt.width==receipt.display_width&&receipt.height==receipt.display_height,"Ordinary launch must use the full desktop display.");
             foreach(var old in FindObjectsByType<FrontEndMenu>(FindObjectsSortMode.None))old.gameObject.SetActive(false);
             var obj=new GameObject("Isolated M15.6 acceptance menu");menu=obj.AddComponent<FrontEndMenu>();menu.AutoStart=false;menu.PersistPreferences=false;menu.Initialize(new Store());menu.ApplyPreferences("ru",0);
             target=new RenderTexture(Screen.width,Screen.height,24);target.Create();obj.GetComponent<UIDocument>().panelSettings.targetTexture=target;
