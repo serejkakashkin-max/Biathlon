@@ -123,7 +123,7 @@ namespace Biathlon.PlayModeTests
         [UnityTest] public IEnumerator CareerLaunchUsesSavedAthleteAndPauseAbandonPreserveTheWeek()
         {
             yield return null;Submit("new_career");yield return null;
-            menu.Root.Q<TextField>("athlete_name").value="Алекс";Submit("create");yield return null;
+            menu.Root.Q<TextField>("athlete_name").value="Алекс";Submit("create");yield return null;Submit("confirm_create");yield return null;
             for(int i=0;i<5;i++){Submit("rest_week");yield return null;}
             string before=menu.Session.Career.ToJson();Submit("prepare");yield return null;
             Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.PreRace));Assert.That(menu.Root.Q<Button>("start_race"),Is.Not.Null);
@@ -177,7 +177,7 @@ namespace Biathlon.PlayModeTests
             yield return null;yield return null;
             Assert.That(menu.Root.Q<Button>("continue").enabledSelf,Is.False);
             Submit("new_career");yield return null;
-            menu.Root.Q<TextField>("athlete_name").value="Алекс";Submit("create");yield return null;
+            menu.Root.Q<TextField>("athlete_name").value="Алекс";Submit("create");yield return null;Submit("confirm_create");yield return null;
             Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.Career));Assert.That(menu.Session.Player.Name,Is.EqualTo("Алекс"));
             string saved=menu.Session.Career.ToJson();Assert.That(menu.Session.Career.Week,Is.EqualTo(1));
             Submit("settings");yield return null;menu.ApplyPreferences("en",2);yield return null;

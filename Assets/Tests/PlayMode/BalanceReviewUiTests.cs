@@ -48,7 +48,8 @@ namespace Biathlon.PlayModeTests
         }
         private IEnumerator Capture(string filename,string locale,int textSize,int width,int height,bool creation,Action<Texture2D> inspect=null)
         {
-            var document=root.GetComponent<UIDocument>();var target=new RenderTexture(width,height,0);target.Create();
+            // UI Toolkit inputs use stencil clipping; a depthless target paints white rectangles.
+            var document=root.GetComponent<UIDocument>();var target=new RenderTexture(width,height,24);target.Create();
             var priorTarget=document.panelSettings.targetTexture;var priorActive=RenderTexture.active;Texture2D pixels=null;
             try
             {
@@ -85,7 +86,7 @@ namespace Biathlon.PlayModeTests
             age.value=26;menu.Root.Q<TextField>("athlete_name").value="Алекс";
             yield return Capture("new-career-en","en",2,1024,768,true);
             Assert.That(menu.Root.Q<SliderInt>("career_start_age").value,Is.EqualTo(26),"Locale and accessible text size preserve form state.");
-            Submit("create");yield return null;
+            Submit("create");yield return null;Assert.That(store.HasProfile,Is.False,"Review is not confirmation.");Submit("confirm_create");yield return null;
             Assert.That(menu.LastMessage,Is.Null);Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.Career));
             Assert.That(menu.Session.Player.Age,Is.EqualTo(26));Assert.That(menu.Session.Definitions.Calendar.Circuit,Is.EqualTo(CareerCircuit.Development));
             Assert.That(store.HasProfile,Is.True);var saved=menu.Session.Career.ToJson();

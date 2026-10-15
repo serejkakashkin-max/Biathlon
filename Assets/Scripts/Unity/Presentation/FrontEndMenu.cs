@@ -87,6 +87,7 @@ namespace Biathlon.Unity.Presentation
             if(Replays.Loading)return;
             if(Replays.Active){Replays.Close();return;}
             if(Session.Screen==FrontEndScreen.Race){if(Race.Paused&&!Race.AwaitingSave)Race.Resume();return;}
+            if(Session.Screen==FrontEndScreen.NewCareer&&creatorStep>0){creatorStep=0;LastMessage=null;Render();return;}
             if(Session.Screen==FrontEndScreen.Results)Session.ReturnFromResults();else Session.Back();
             LastMessage=null;Render();
         }
@@ -130,6 +131,7 @@ namespace Biathlon.Unity.Presentation
         }
         private void Render()
         {
+            if(Session.Screen!=FrontEndScreen.NewCareer)ReleaseCreatorStudio();
             backdropMotion?.Pause();backdropMotion=null;
             Root.Clear();controls.Clear();paper=HighContrast?Color.black:FrontEndTheme.Color(theme.paper);ink=HighContrast?Color.white:FrontEndTheme.Color(theme.ink);
             FrostlineStyle.Apply(Root,ReducedMotion);Root.EnableInClassList("high-contrast",HighContrast);
@@ -173,31 +175,7 @@ namespace Biathlon.Unity.Presentation
             }
             else if(Session.Screen==FrontEndScreen.NewCareer)
             {
-                AddLabel(actions,T("new_career"),theme.section_size,true);AddLabel(actions,T("name"),theme.caption_size);
-                var name=new TextField{name="athlete_name",value=athleteName};name.maxLength=100;StyleControl(name);actions.Add(name);controls.Add(name);
-                name.RegisterValueChangedCallback(e=>athleteName=e.newValue);
-                AddLabel(actions,T("nation"),theme.caption_size);
-                var roster=CareerDefinitions.ForNewProductionCareer(ReadCore).Roster;
-                var nations=new List<string>();var labels=new List<string>();
-                for(int i=0;i<roster.NationCount;i++){nations.Add(roster.Nation(i));labels.Add(T("nation."+roster.Nation(i)));}
-                int selected=Math.Max(0,nations.IndexOf(nation));nation=nations[selected];
-                var country=new DropdownField(labels,selected){name="athlete_nation"};StyleControl(country);actions.Add(country);controls.Add(country);
-                country.RegisterValueChangedCallback(e=>nation=nations[country.index]);
-                AddLabel(actions,L("Начало карьеры","Career start"),theme.caption_size);
-                var profiles=Session.StartProfiles;
-                var profileLabels=new List<string>();int profileIndex=0;
-                for(int i=0;i<profiles.Count;i++){var p=profiles.Get(i);if(p.Id==startProfileId)profileIndex=i;profileLabels.Add(p.Id=="junior_novice"?L("Юниор","Junior"):L("Взрослый","Senior"));}
-                var profileChoice=new DropdownField(profileLabels,profileIndex){name="career_start_profile"};StyleControl(profileChoice);actions.Add(profileChoice);controls.Add(profileChoice);
-                var selectedProfile=profiles.Get(profileIndex);startingAge=Mathf.Clamp(startingAge,selectedProfile.MinimumAge,selectedProfile.MaximumAge);
-                AddLabel(actions,L("Возраст на 31 декабря","Age on December 31"),theme.caption_size);
-                var age=new SliderInt(selectedProfile.MinimumAge,selectedProfile.MaximumAge){name="career_start_age",value=startingAge,showInputField=true};StyleControl(age);actions.Add(age);controls.Add(age);
-                age.RegisterValueChangedCallback(e=>startingAge=e.newValue);
-                profileChoice.RegisterValueChangedCallback(e=>{var p=profiles.Get(profileChoice.index);startProfileId=p.Id;startingAge=p.DefaultAge;Render();});
-                AddButton(actions,"create",T("create"),Create,true);AddButton(actions,"back",T("back"),Back);
-                AddVenueCard(card);
-                AddLabel(card,startProfileId=="junior_novice"?L("ТВОЙ ПЕРВЫЙ СЕЗОН","YOUR FIRST SEASON"):L("НОВАЯ ЦЕЛЬ","A NEW CHALLENGE"),theme.caption_size).style.color=accent;
-                AddLabel(card,startProfileId=="junior_novice"?L("Юниорская лига","Junior circuit"):L("Путь в Кубок мира","Road to the World Cup"),theme.section_size,true);
-                AddLabel(card,L("Соперники разного уровня. Общая физика. Тренировки, форма и тактика решают исход гонки.","Varied rivals. Shared physics. Training, readiness and tactics decide the race."),theme.body_size);
+                RenderAthleteCreator(body,left,actions,card);
             }
             else if(Session.Screen==FrontEndScreen.Career)
             {
@@ -391,6 +369,6 @@ namespace Biathlon.Unity.Presentation
             catch(Exception e) when(e is IOException||e is UnauthorizedAccessException){ShowError("save_error");}
         }
         private void ShowError(string key) {LastMessage=T(key);if(message!=null)message.text=LastMessage;}
-        private void OnDestroy() {if(panel!=null)Destroy(panel);}
+        private void OnDestroy() {ReleaseCreatorStudio();if(panel!=null)Destroy(panel);}
     }
 }
