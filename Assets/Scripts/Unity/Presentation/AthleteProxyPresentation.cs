@@ -30,6 +30,7 @@ namespace Biathlon.Unity.Presentation
         private bool preserveAcceptedShootingLine;
         private RangeTransitYieldSettings transitSettings;
         private readonly Dictionary<string,Vector3> transitOffsets=new Dictionary<string,Vector3>(StringComparer.Ordinal);
+        private readonly Dictionary<string,AppearanceProfile> careerAppearance=new Dictionary<string,AppearanceProfile>(StringComparer.Ordinal);
         private readonly Dictionary<string,string> careerSkis=new Dictionary<string,string>(StringComparer.Ordinal);
         private readonly Dictionary<string,string> careerNations=new Dictionary<string,string>(StringComparer.Ordinal);
         private CareerLeaderBibs careerBibs;
@@ -44,8 +45,8 @@ namespace Biathlon.Unity.Presentation
         public void ConfigureCareerAppearance(CareerSave save,CareerCalendar calendar,CareerScoringDefinition scoring,CareerCalendarEvent race)
         {
             var leaders=CareerLeaderBibs.Capture(save,calendar,scoring,race);
-            careerSkis.Clear();careerNations.Clear();
-            for(int i=0;i<save.AthleteCount;i++){var athlete=save.Athlete(i);CareerSkiAppearance.Catalog.Get(athlete.SelectedSki);careerSkis.Add(athlete.Id,athlete.SelectedSki);careerNations.Add(athlete.Id,athlete.Nation);}
+            careerSkis.Clear();careerNations.Clear();careerAppearance.Clear();
+            for(int i=0;i<save.AthleteCount;i++){var athlete=save.Athlete(i);CareerSkiAppearance.Catalog.Get(athlete.SelectedSki);careerSkis.Add(athlete.Id,athlete.SelectedSki);careerNations.Add(athlete.Id,athlete.Nation);careerAppearance.Add(athlete.Id,athlete.Appearance);}
             careerBibs=leaders;
             if(animation.Count==0)return;
             equipmentBatches.Clear();
@@ -55,6 +56,7 @@ namespace Biathlon.Unity.Presentation
         {
             if(!careerSkis.TryGetValue(athleteId,out var ski))return;
             rig.GetComponent<AthleteAppearancePresentation>()?.ApplyNation(careerNations[athleteId]);
+            rig.GetComponent<AthleteAppearancePresentation>()?.ApplyProfile(careerAppearance[athleteId]);
             var appearance=rig.GetComponent<CareerSkiAppearance>();if(appearance==null)appearance=rig.gameObject.AddComponent<CareerSkiAppearance>();appearance.Apply(rig,ski);
             var bib=rig.GetComponent<AthleteBibPresentation>();if(bib!=null)bib.SetLeader(careerBibs.ForAthlete(athleteId));
         }

@@ -18,6 +18,7 @@ namespace Biathlon.Unity.Presentation
         public int schema_version;
         public string id;
         public string[] skin_colors;
+        public string[] skin_ids,body_ids;
         public AthleteFaceProfile[] profiles;
         [NonSerialized] private Color[] colors;
         private static AthleteFaceCatalog cached;
@@ -34,6 +35,7 @@ namespace Biathlon.Unity.Presentation
             if(schema_version!=1||string.IsNullOrWhiteSpace(id)||skin_colors==null||skin_colors.Length<4||skin_colors.Length>16||profiles==null||profiles.Length<3||profiles.Length>12)
                 throw new ArgumentException("Invalid face recipe.");
             colors=new Color[skin_colors.Length];
+            ValidateIds(skin_ids,skin_colors.Length);ValidateIds(body_ids,3);
             for(int i=0;i<colors.Length;i++)
             {
                 if(!ColorUtility.TryParseHtmlString(skin_colors[i],out colors[i])||colors[i].a!=1)throw new ArgumentException("Invalid skin color.");
@@ -49,6 +51,15 @@ namespace Biathlon.Unity.Presentation
             }
         }
         public Color SkinColor(int index)=>colors[index];
+        public int SkinIndex(string id)=>Index(skin_ids,id);
+        public int BodyIndex(string id)=>Index(body_ids,id);
+        private static int Index(string[] list,string id)
+        {for(int i=0;i<list.Length;i++)if(list[i]==id)return i;throw new ArgumentException("Unknown appearance ID: "+id);}
+        private static void ValidateIds(string[] list,int count)
+        {
+            if(list==null||list.Length!=count)throw new ArgumentException("Missing stable appearance IDs.");
+            for(int i=0;i<list.Length;i++){if(string.IsNullOrWhiteSpace(list[i]))throw new ArgumentException("Missing appearance ID.");for(int j=0;j<i;j++)if(list[j]==list[i])throw new ArgumentException("Duplicate appearance ID.");}
+        }
         public void Resolve(string stableId,out int face,out int skin)
         {
             uint hash=Hash(stableId);

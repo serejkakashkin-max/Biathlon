@@ -1,4 +1,5 @@
 using System;
+using Biathlon.Career;
 using UnityEngine;
 namespace Biathlon.Unity.Presentation
 {
@@ -17,19 +18,47 @@ namespace Biathlon.Unity.Presentation
         public int CosmeticVariant {get;private set;}
         public int FaceVariant {get;private set;}
         public int SkinVariant {get;private set;}
+        private AppearanceProfile profile;
+        public void ApplyProfile(AppearanceProfile appearance)
+        {
+            if(appearance==null)throw new ArgumentNullException(nameof(appearance));
+            if(ReferenceEquals(profile,appearance))return;
+            appearance.Validate();
+            if(appearance.IsLegacy)ApplyIdentity(appearance.LegacyIdentity);
+            else
+            {
+                var recipe=AthleteFaceCatalog.Load();ApplyCosmeticSelection(appearance.FaceId,recipe.SkinIndex(appearance.SkinId),recipe.BodyIndex(appearance.BodyId));
+            }
+            profile=appearance;
+        }
         public void ApplyIdentity(string stableId)
         {
             uint hash=AthleteFaceCatalog.Hash(stableId);
             if(identity==stableId)return;
             var faces=AthleteFaceCatalog.Load();faces.Resolve(stableId,out int face,out int tone);
             FaceVariant=face;SkinVariant=tone;identity=stableId;
+            profile=null;
             CosmeticVariant=(int)(hash%3);
+            ApplyMorphs(faces);
+            LoadPalette();ApplyVariant(current<0?0:current);
+        }
+        public void ApplyCosmeticSelection(string faceProfileId,int skinPaletteIndex,int buildIndex)
+        {
+            var faces=AthleteFaceCatalog.Load();int selected=-1;
+            for(int i=0;i<faces.profiles.Length;i++)if(faces.profiles[i].id==faceProfileId)selected=i;
+            if(selected<0||skinPaletteIndex<0||skinPaletteIndex>=faces.skin_colors.Length||buildIndex<0||buildIndex>2)
+                throw new ArgumentException("Unsupported cosmetic selection.");
+            FaceVariant=selected;SkinVariant=skinPaletteIndex;CosmeticVariant=buildIndex;identity=null;
+            profile=null;
+            ApplyMorphs(faces);LoadPalette();ApplyVariant(current<0?0:current);
+        }
+        private void ApplyMorphs(AthleteFaceCatalog faces)
+        {
             if(skin==null)skin=GetComponentInChildren<SkinnedMeshRenderer>();
             for(int i=0;i<3;i++)
             {int index=skin.sharedMesh.GetBlendShapeIndex("OriginalBuild"+i);if(index>=0)skin.SetBlendShapeWeight(index,i==CosmeticVariant?100:0);}
             for(int i=0;i<faces.profiles.Length;i++)
             {int index=skin.sharedMesh.GetBlendShapeIndex(faces.profiles[i].ShapeName);if(index>=0)skin.SetBlendShapeWeight(index,i==FaceVariant?100:0);}
-            LoadPalette();ApplyVariant(current<0?0:current);
         }
         public static int NationCount {get{LoadPalette();return nations.Length;}}
         public static string NationAt(int index){LoadPalette();return nations[index];}

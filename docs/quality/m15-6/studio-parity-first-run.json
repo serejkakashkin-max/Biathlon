@@ -1,0 +1,48 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":424,\"PassedTests\":3,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:00.4615712\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.AthleteCreatorStudioTests.ExplicitFacesAndSkinShareTheApprovedModelWithoutRepaintingOtherAthletes\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0880000\"},{\"Name\":\"Biathlon.PlayModeTests.AthleteCreatorStudioTests.NativePreviewReusesOneRigAndReleasesItsOwnedResources\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.2380000\"},{\"Name\":\"Biathlon.PlayModeTests.AthleteCreatorStudioTests.SavedProfileProducesIdenticalPreviewAndRaceRigAppearanceAcrossAllLods\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0780000\",\"Message\":\"  Expected: 0.0f\\r\\n  But was:  96.1744461f\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.AthleteCreatorStudioTests.ViewPresetsBoundZoomAndReducedMotionKeepsTheFaceStill\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 424,
+          "PassedTests": 3,
+          "FailedTests": 1,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.4615712"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteCreatorStudioTests.ExplicitFacesAndSkinShareTheApprovedModelWithoutRepaintingOtherAthletes",
+            "Status": "Passed",
+            "Duration": "00:00:00.0880000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteCreatorStudioTests.NativePreviewReusesOneRigAndReleasesItsOwnedResources",
+            "Status": "Passed",
+            "Duration": "00:00:00.2380000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteCreatorStudioTests.SavedProfileProducesIdenticalPreviewAndRaceRigAppearanceAcrossAllLods",
+            "Status": "Failed",
+            "Duration": "00:00:00.0780000",
+            "Message": "  Expected: 0.0f\r\n  But was:  96.1744461f\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.AthleteCreatorStudioTests.ViewPresetsBoundZoomAndReducedMotionKeepsTheFaceStill",
+            "Status": "Passed",
+            "Duration": "00:00:00.0020000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}
