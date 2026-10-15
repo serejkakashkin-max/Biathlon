@@ -33,6 +33,23 @@ namespace Biathlon.Career
         internal void AppendRace(CareerRaceRecord record){var rows=new CareerRaceRecord[RaceCount+1];if(seasonResults!=null)Array.Copy(seasonResults,rows,RaceCount);rows[rows.Length-1]=record;seasonResults=rows;}
         public int AthleteCount=>athletes.Length;public CareerAthlete Athlete(int index)=>athletes[index];
         internal CareerAthlete[] Athletes { get=>athletes;set=>athletes=value; }
+        internal void RebaseUnstartedRoster(long firstOrdinal,long nextOrdinal)
+        {
+            if(Season!=1||Week!=1||RaceCount!=0||HistoryCount!=0||firstOrdinal<0||nextOrdinal<firstOrdinal+AthleteCount)throw new InvalidOperationException("Only an unstarted catalog world can be rebased.");
+            string originalPlayer=PlayerId;
+            for(int i=0;i<AthleteCount;i++)
+            {
+                var a=athletes[i];string id=Id+"_athlete_"+(firstOrdinal+i).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                bool player=a.Id==originalPlayer;a.Id=id;a.Appearance=AppearanceProfile.Legacy(id);if(player)PlayerId=id;
+            }
+            NextAthleteOrdinal=nextOrdinal;Validate();
+        }
+        internal void AdoptPlayer(string athleteId,CareerCreationRecord creation)
+        {
+            if(Season!=1||Week!=1||RaceCount!=0||HistoryCount!=0)throw new InvalidOperationException("An authentic career starts from a detached, unstarted world.");
+            bool found=false;foreach(var a in athletes)found|=a.Id==athleteId;if(!found)throw new ArgumentException("Selected athlete is absent from world.");
+            PlayerId=athleteId;Creation=creation;Validate();
+        }
         internal static CareerSave Create(string id,string rules,string calendar,CareerAthlete[] roster,string playerId,ulong rngState,long nextOrdinal)
         {
             var s=new CareerSave{SchemaVersion=1,SaveVersion=CurrentVersion,Id=id,WorldId=id+"_world",SeasonId=id+"_season_1",RulesId=rules,CalendarId=calendar,

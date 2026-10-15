@@ -1,0 +1,57 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1983,\"PassedTests\":6,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:37.9692664\"},\"Results\":[{\"Name\":\"Biathlon.Tests.CareerAthleteCatalogTests.AuthenticSelectionPreservesEveryAbilityIdentityAndContextWithoutDuplicatingTheAthlete\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.1130000\"},{\"Name\":\"Biathlon.Tests.CareerAthleteCatalogTests.BrowsePreviewAndRepeatedSelectionDoNotRerollOrMutateTheWorld\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0790000\"},{\"Name\":\"Biathlon.Tests.CareerAthleteCatalogTests.CatalogFiltersAreActualStableSelectionsAndSortedByOvr\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0140000\"},{\"Name\":\"Biathlon.Tests.CareerAthleteCatalogTests.CatalogSelectionUsesExistingAtomicProfilePublicationAndCanContinue\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0380000\"},{\"Name\":\"Biathlon.Tests.CareerAthleteCatalogTests.ChosenAthleteMapsExactlyOnceIntoTheActualProductionRaceField\",\"Status\":\"Passed\",\"Duration\":\"00:00:36.8390000\"},{\"Name\":\"Biathlon.Tests.CareerAthleteCatalogTests.GeneratedCatalogContainsUniqueStableAthletesAcrossAllThreeCircuits\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0250000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 1983,
+          "PassedTests": 6,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:37.9692664"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.Tests.CareerAthleteCatalogTests.AuthenticSelectionPreservesEveryAbilityIdentityAndContextWithoutDuplicatingTheAthlete",
+            "Status": "Passed",
+            "Duration": "00:00:00.1130000"
+          },
+          {
+            "Name": "Biathlon.Tests.CareerAthleteCatalogTests.BrowsePreviewAndRepeatedSelectionDoNotRerollOrMutateTheWorld",
+            "Status": "Passed",
+            "Duration": "00:00:00.0790000"
+          },
+          {
+            "Name": "Biathlon.Tests.CareerAthleteCatalogTests.CatalogFiltersAreActualStableSelectionsAndSortedByOvr",
+            "Status": "Passed",
+            "Duration": "00:00:00.0140000"
+          },
+          {
+            "Name": "Biathlon.Tests.CareerAthleteCatalogTests.CatalogSelectionUsesExistingAtomicProfilePublicationAndCanContinue",
+            "Status": "Passed",
+            "Duration": "00:00:00.0380000"
+          },
+          {
+            "Name": "Biathlon.Tests.CareerAthleteCatalogTests.ChosenAthleteMapsExactlyOnceIntoTheActualProductionRaceField",
+            "Status": "Passed",
+            "Duration": "00:00:36.8390000"
+          },
+          {
+            "Name": "Biathlon.Tests.CareerAthleteCatalogTests.GeneratedCatalogContainsUniqueStableAthletesAcrossAllThreeCircuits",
+            "Status": "Passed",
+            "Duration": "00:00:00.0250000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

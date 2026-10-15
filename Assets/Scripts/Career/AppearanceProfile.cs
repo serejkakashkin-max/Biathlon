@@ -55,6 +55,11 @@ namespace Biathlon.Career
             var stats=new int[13];for(int i=0;i<13;i++)stats[i]=d.Stat((CareerStat)i);
             return new CareerCreationRecord{SchemaVersion=1,Id="career_creation_record_v1",Mode=d.Mode,PolicyId=d.PolicyId,StartProfileId=d.StartProfileId,SpecializationId=d.SpecializationId,OriginStoryId=d.OriginStoryId,initialStats=stats};
         }
+        internal static CareerCreationRecord FromExisting(CareerAthlete a,string startProfileId,string rosterVersion,string specialization)
+        {
+            var stats=new int[13];for(int i=0;i<13;i++)stats[i]=a.Stat((CareerStat)i);
+            return new CareerCreationRecord{SchemaVersion=1,Id="career_creation_record_v1",Mode=CareerCreationMode.ExistingAthlete,PolicyId=rosterVersion,StartProfileId=startProfileId,SpecializationId=specialization,OriginStoryId="existing_athlete",initialStats=stats};
+        }
         internal void Validate()
         {
             if(SchemaVersion!=1||Id!="career_creation_record_v1")throw new SerializationException("Invalid creation provenance.");

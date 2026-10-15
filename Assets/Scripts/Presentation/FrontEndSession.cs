@@ -131,6 +131,14 @@ namespace Biathlon.Presentation
             string json=candidate.ToJson();CareerSave.FromJson(json);profiles.WriteNew(id,json);
             Career=candidate;Definitions=definitions;training.Clear();Screen=FrontEndScreen.Career;
         }
+        public void CreateCareer(CareerAthleteCatalog catalog,string athleteId)
+        {
+            Require(FrontEndScreen.NewCareer);if(catalog==null)throw new ArgumentNullException(nameof(catalog));
+            var candidate=catalog.Confirm(athleteId);var definitions=CareerDefinitions.ForSave(read,candidate);
+            candidate=CareerFactory.Restore(candidate.ToJson(),definitions.Roster,definitions.Calendar,restoreRandom(candidate.RandomState));
+            string json=candidate.ToJson();profiles.WriteNew(candidate.Id,json);
+            Career=candidate;Definitions=definitions;training.Clear();Screen=FrontEndScreen.Career;
+        }
         public void ContinueCareer()
         {
             Require(FrontEndScreen.Home);
