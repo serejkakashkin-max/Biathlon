@@ -31,3 +31,7 @@ Delivery: `docs/reports/TASK_M15_6_DELIVERY_20261015.md`.
 Genuine visual gallery/video and exact cumulative checkpoint scope:
 `docs/quality/m15-6/review.html`, `verification.json`. Initial red evidence and
 historical PROJECT_STATE entries are preserved.
+
+2026-10-15 OWNER APPROVAL: user explicitly approves this delivery and starts M16.
+M15.6 CLOSED / OWNER APPROVED. M16 reliability work is tracked in
+`docs/M16_WP_STATUS.md`; already agreed behaviour takes priority over old plan conflicts.
