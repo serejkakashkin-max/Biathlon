@@ -88,6 +88,8 @@ namespace Biathlon.Career
             foreach(var a in athletes)
             {
                 if(a==null)throw new SerializationException("Null athlete.");a.Validate();if(a.LastProgressionSeason>Season)throw new SerializationException("Future progression season.");if(!ids.Add(a.Id))throw new SerializationException("Duplicate athlete ID.");player|=a.Id==PlayerId;
+                if(a.PeakSeason>Season)throw new SerializationException("Future peak season.");
+                for(int j=0;j<a.DevelopmentCount;j++)if(a.Development(j).Season>Season||(a.Development(j).Season==Season&&a.Development(j).Week>Week))throw new SerializationException("Future development observation.");
                 string prefix=Id+"_athlete_";
                 if(!a.Id.StartsWith(prefix,StringComparison.Ordinal)||!long.TryParse(a.Id.Substring(prefix.Length),System.Globalization.NumberStyles.None,System.Globalization.CultureInfo.InvariantCulture,out long ordinal)||ordinal>=NextAthleteOrdinal)
                     throw new SerializationException("Athlete ordinal is inconsistent with the allocation counter.");

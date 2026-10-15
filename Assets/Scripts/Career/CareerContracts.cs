@@ -24,7 +24,7 @@ namespace Biathlon.Career
         internal static T Read<T>(string text){if(text==null)throw new ArgumentNullException(nameof(text));using(var stream=new MemoryStream(Encoding.UTF8.GetBytes(text.TrimStart('\uFEFF'))))return (T)new DataContractJsonSerializer(typeof(T)).ReadObject(stream);}
         internal static string Write<T>(T value){using(var stream=new MemoryStream()){new DataContractJsonSerializer(typeof(T)).WriteObject(stream,value);return Encoding.UTF8.GetString(stream.ToArray());}}
     }
-    [DataContract] public sealed class CareerAthlete
+    [DataContract] public sealed partial class CareerAthlete
     {
         private CareerAthlete() { }
         [DataMember(Name="id",IsRequired=true)] public string Id { get; internal set; }
@@ -74,6 +74,7 @@ namespace Biathlon.Career
             if(inventory==null||inventory.Length<1||inventory.Length>100)throw new SerializationException("Invalid inventory.");
             var ids=new System.Collections.Generic.HashSet<string>(StringComparer.Ordinal);foreach(string item in inventory){CareerUnits.Id(item);if(!ids.Add(item))throw new SerializationException("Duplicate equipment.");}
             if(!ids.Contains(SelectedSki))throw new SerializationException("Selected skis are not owned.");
+            ValidateDevelopment();
         }
         public string ToJson()=>CareerJson.Write(this);
     }

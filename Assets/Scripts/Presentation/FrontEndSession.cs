@@ -119,6 +119,7 @@ namespace Biathlon.Presentation
             Require(FrontEndScreen.NewCareer);
             var definitions=CareerDefinitions.ForNewProductionCareer(read,startProfileId);
             var candidate=CareerFactory.Create(definitions.Roster,definitions.Calendar,id,name?.Trim(),nation,"player_appearance",restoreRandom(seed),StartProfiles,startProfileId,age);
+            CareerDevelopment.InitializeWorld(candidate,definitions.Growth,definitions.Ratings,restoreRandom);
             // Publish only after the durable write succeeds. New careers never overwrite another profile.
             string json=candidate.ToJson();CareerSave.FromJson(json);profiles.WriteNew(id,json);
             Career=candidate;Definitions=definitions;training.Clear();Screen=FrontEndScreen.Career;
@@ -128,6 +129,7 @@ namespace Biathlon.Presentation
             Require(FrontEndScreen.NewCareer);if(draft==null)throw new ArgumentNullException(nameof(draft));
             var definitions=CareerDefinitions.ForNewProductionCareer(read,draft.StartProfileId);
             var candidate=draft.Confirm(id,definitions.Calendar,restoreRandom);
+            CareerDevelopment.InitializeWorld(candidate,definitions.Growth,definitions.Ratings,restoreRandom,draft.Tier.BaselineStat);
             string json=candidate.ToJson();CareerSave.FromJson(json);profiles.WriteNew(id,json);
             Career=candidate;Definitions=definitions;training.Clear();Screen=FrontEndScreen.Career;
         }

@@ -42,9 +42,9 @@ namespace Biathlon.Tests
         [Test] public void BrowsePreviewAndRepeatedSelectionDoNotRerollOrMutateTheWorld()
         {
             int calls=0;var catalog=new CareerAthleteCatalog(Read,"career_catalog",71000,s=>{calls++;return new SeededRandomSource(s);});var selected=catalog.Get(42);
-            var before=catalog.Confirm(selected.Id);string json=before.ToJson();
+            var before=catalog.Confirm(selected.Id);string json=before.ToJson();int generatedCalls=calls;
             for(int i=0;i<30;i++){catalog.Search(new CareerAthleteFilter{MinimumRating=40+i});catalog.Get(selected.Id);catalog.Confirm(selected.Id);}
-            Assert.That(calls,Is.EqualTo(1));Assert.That(catalog.Confirm(selected.Id).ToJson(),Is.EqualTo(json));
+            Assert.That(generatedCalls,Is.EqualTo(91));Assert.That(calls,Is.EqualTo(generatedCalls));Assert.That(catalog.Confirm(selected.Id).ToJson(),Is.EqualTo(json));
             CareerAdaptation.Apply(before.Athlete(1),CareerTrainingTests.Definition().Get(CareerTrainingKind.Endurance),CareerAdaptationTests.Definition(),10000);
             Assert.That(catalog.Confirm(selected.Id).ToJson(),Is.EqualTo(json));Assert.Catch(()=>catalog.Confirm("unknown"));
         }

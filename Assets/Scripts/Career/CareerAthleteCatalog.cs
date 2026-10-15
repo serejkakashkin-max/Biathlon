@@ -84,6 +84,7 @@ namespace Biathlon.Career
             for(int i=0;i<worlds.Length;i++)
             {
                 var world=worlds[i];world.RebaseUnstartedRoster((long)i*roster.Population,entries.Length);world.RandomState=random.State;
+                CareerDevelopment.InitializeWorld(world,CareerGrowthDefinition.FromJson(read("career_growth_v1.json")),ratings,restoreRandom);
                 string snapshot=world.ToJson();var circuit=CareerCalendar.FromJson(read(starts.Get(i).CalendarResource)).Circuit;
                 for(int j=0;j<world.AthleteCount;j++)
                 {

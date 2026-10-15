@@ -1,0 +1,668 @@
+{
+  "schema_version": 1,
+  "id": "career_growth_v1",
+  "substream_salt": 5139257361277911041,
+  "substream_stride": 11400714819323198485,
+  "ability_margin": 3000,
+  "ceiling_variation": 4000,
+  "response_variation": 1000,
+  "decline_response_min": 8500,
+  "decline_response_max": 11500,
+  "learning_factor": 17500,
+  "history_limit": 40,
+  "repeated_session_factors": [
+    10000,
+    8500,
+    7000,
+    5500,
+    4500,
+    4000,
+    3500,
+    3000
+  ],
+  "curves": [
+    {
+      "id": "aerobic",
+      "knots": [
+        {
+          "age": 16,
+          "training_factor": 14500,
+          "annual_decline": 0
+        },
+        {
+          "age": 22,
+          "training_factor": 12500,
+          "annual_decline": 0
+        },
+        {
+          "age": 28,
+          "training_factor": 9000,
+          "annual_decline": 0
+        },
+        {
+          "age": 32,
+          "training_factor": 6500,
+          "annual_decline": 250
+        },
+        {
+          "age": 36,
+          "training_factor": 3500,
+          "annual_decline": 950
+        },
+        {
+          "age": 42,
+          "training_factor": 1000,
+          "annual_decline": 2400
+        },
+        {
+          "age": 60,
+          "training_factor": 0,
+          "annual_decline": 4000
+        }
+      ]
+    },
+    {
+      "id": "power",
+      "knots": [
+        {
+          "age": 16,
+          "training_factor": 14000,
+          "annual_decline": 0
+        },
+        {
+          "age": 22,
+          "training_factor": 12000,
+          "annual_decline": 0
+        },
+        {
+          "age": 27,
+          "training_factor": 9000,
+          "annual_decline": 0
+        },
+        {
+          "age": 31,
+          "training_factor": 6000,
+          "annual_decline": 450
+        },
+        {
+          "age": 35,
+          "training_factor": 3000,
+          "annual_decline": 1300
+        },
+        {
+          "age": 42,
+          "training_factor": 800,
+          "annual_decline": 3000
+        },
+        {
+          "age": 60,
+          "training_factor": 0,
+          "annual_decline": 5000
+        }
+      ]
+    },
+    {
+      "id": "recovery",
+      "knots": [
+        {
+          "age": 16,
+          "training_factor": 13000,
+          "annual_decline": 0
+        },
+        {
+          "age": 22,
+          "training_factor": 11500,
+          "annual_decline": 0
+        },
+        {
+          "age": 27,
+          "training_factor": 9500,
+          "annual_decline": 0
+        },
+        {
+          "age": 31,
+          "training_factor": 6500,
+          "annual_decline": 500
+        },
+        {
+          "age": 36,
+          "training_factor": 3500,
+          "annual_decline": 1400
+        },
+        {
+          "age": 42,
+          "training_factor": 1000,
+          "annual_decline": 3000
+        },
+        {
+          "age": 60,
+          "training_factor": 0,
+          "annual_decline": 4500
+        }
+      ]
+    },
+    {
+      "id": "strength",
+      "knots": [
+        {
+          "age": 16,
+          "training_factor": 14000,
+          "annual_decline": 0
+        },
+        {
+          "age": 23,
+          "training_factor": 12000,
+          "annual_decline": 0
+        },
+        {
+          "age": 29,
+          "training_factor": 9000,
+          "annual_decline": 0
+        },
+        {
+          "age": 33,
+          "training_factor": 6500,
+          "annual_decline": 350
+        },
+        {
+          "age": 37,
+          "training_factor": 3000,
+          "annual_decline": 1100
+        },
+        {
+          "age": 43,
+          "training_factor": 1000,
+          "annual_decline": 2600
+        },
+        {
+          "age": 60,
+          "training_factor": 0,
+          "annual_decline": 4500
+        }
+      ]
+    },
+    {
+      "id": "technical",
+      "knots": [
+        {
+          "age": 16,
+          "training_factor": 13500,
+          "annual_decline": 0
+        },
+        {
+          "age": 23,
+          "training_factor": 12000,
+          "annual_decline": 0
+        },
+        {
+          "age": 29,
+          "training_factor": 10000,
+          "annual_decline": 0
+        },
+        {
+          "age": 34,
+          "training_factor": 8000,
+          "annual_decline": 100
+        },
+        {
+          "age": 38,
+          "training_factor": 5000,
+          "annual_decline": 500
+        },
+        {
+          "age": 45,
+          "training_factor": 2000,
+          "annual_decline": 1500
+        },
+        {
+          "age": 60,
+          "training_factor": 0,
+          "annual_decline": 3000
+        }
+      ]
+    },
+    {
+      "id": "shooting",
+      "knots": [
+        {
+          "age": 16,
+          "training_factor": 14000,
+          "annual_decline": 0
+        },
+        {
+          "age": 23,
+          "training_factor": 12500,
+          "annual_decline": 0
+        },
+        {
+          "age": 29,
+          "training_factor": 10500,
+          "annual_decline": 0
+        },
+        {
+          "age": 34,
+          "training_factor": 9000,
+          "annual_decline": 50
+        },
+        {
+          "age": 39,
+          "training_factor": 6500,
+          "annual_decline": 400
+        },
+        {
+          "age": 46,
+          "training_factor": 2500,
+          "annual_decline": 1200
+        },
+        {
+          "age": 60,
+          "training_factor": 0,
+          "annual_decline": 2500
+        }
+      ]
+    },
+    {
+      "id": "speed",
+      "knots": [
+        {
+          "age": 16,
+          "training_factor": 14000,
+          "annual_decline": 0
+        },
+        {
+          "age": 22,
+          "training_factor": 12000,
+          "annual_decline": 0
+        },
+        {
+          "age": 28,
+          "training_factor": 9500,
+          "annual_decline": 0
+        },
+        {
+          "age": 32,
+          "training_factor": 7500,
+          "annual_decline": 250
+        },
+        {
+          "age": 37,
+          "training_factor": 4500,
+          "annual_decline": 900
+        },
+        {
+          "age": 43,
+          "training_factor": 1500,
+          "annual_decline": 2100
+        },
+        {
+          "age": 60,
+          "training_factor": 0,
+          "annual_decline": 3500
+        }
+      ]
+    },
+    {
+      "id": "mental",
+      "knots": [
+        {
+          "age": 16,
+          "training_factor": 14000,
+          "annual_decline": 0
+        },
+        {
+          "age": 24,
+          "training_factor": 12500,
+          "annual_decline": 0
+        },
+        {
+          "age": 30,
+          "training_factor": 11000,
+          "annual_decline": 0
+        },
+        {
+          "age": 36,
+          "training_factor": 9000,
+          "annual_decline": 0
+        },
+        {
+          "age": 42,
+          "training_factor": 6000,
+          "annual_decline": 150
+        },
+        {
+          "age": 48,
+          "training_factor": 2500,
+          "annual_decline": 700
+        },
+        {
+          "age": 60,
+          "training_factor": 0,
+          "annual_decline": 1800
+        }
+      ]
+    }
+  ],
+  "stats": [
+    {
+      "stat": 0,
+      "group": 0,
+      "curve": "aerobic",
+      "learning_factor": 10000,
+      "decline_factor": 10000
+    },
+    {
+      "stat": 1,
+      "group": 1,
+      "curve": "power",
+      "learning_factor": 10000,
+      "decline_factor": 10000
+    },
+    {
+      "stat": 2,
+      "group": 0,
+      "curve": "recovery",
+      "learning_factor": 22000,
+      "decline_factor": 10000
+    },
+    {
+      "stat": 3,
+      "group": 1,
+      "curve": "strength",
+      "learning_factor": 12500,
+      "decline_factor": 10000
+    },
+    {
+      "stat": 4,
+      "group": 2,
+      "curve": "technical",
+      "learning_factor": 10000,
+      "decline_factor": 8500
+    },
+    {
+      "stat": 5,
+      "group": 0,
+      "curve": "aerobic",
+      "learning_factor": 14000,
+      "decline_factor": 10500
+    },
+    {
+      "stat": 6,
+      "group": 2,
+      "curve": "technical",
+      "learning_factor": 12000,
+      "decline_factor": 6000
+    },
+    {
+      "stat": 7,
+      "group": 2,
+      "curve": "technical",
+      "learning_factor": 14000,
+      "decline_factor": 8000
+    },
+    {
+      "stat": 8,
+      "group": 3,
+      "curve": "shooting",
+      "learning_factor": 15000,
+      "decline_factor": 8000
+    },
+    {
+      "stat": 9,
+      "group": 3,
+      "curve": "shooting",
+      "learning_factor": 10000,
+      "decline_factor": 7500
+    },
+    {
+      "stat": 10,
+      "group": 3,
+      "curve": "shooting",
+      "learning_factor": 10500,
+      "decline_factor": 11000
+    },
+    {
+      "stat": 11,
+      "group": 3,
+      "curve": "speed",
+      "learning_factor": 18000,
+      "decline_factor": 10000
+    },
+    {
+      "stat": 12,
+      "group": 4,
+      "curve": "mental",
+      "learning_factor": 40000,
+      "decline_factor": 10000
+    }
+  ],
+  "talent_bands": [
+    {
+      "id": "ordinary",
+      "weight": 4500,
+      "minimum": 60000,
+      "maximum": 74000
+    },
+    {
+      "id": "national",
+      "weight": 3500,
+      "minimum": 72000,
+      "maximum": 84000
+    },
+    {
+      "id": "international",
+      "weight": 1600,
+      "minimum": 82000,
+      "maximum": 91000
+    },
+    {
+      "id": "elite",
+      "weight": 350,
+      "minimum": 90000,
+      "maximum": 96000
+    },
+    {
+      "id": "exceptional",
+      "weight": 50,
+      "minimum": 97000,
+      "maximum": 100000
+    }
+  ],
+  "styles": [
+    {
+      "id": "early_prodigy",
+      "weight": 1100,
+      "group_responses": [
+        11000,
+        11000,
+        10000,
+        10000,
+        9500
+      ],
+      "ceiling_offsets": [
+        1000,
+        2000,
+        0,
+        0,
+        -1000
+      ],
+      "age_shift_min": 1,
+      "age_shift_max": 3,
+      "early_response": 15000,
+      "late_response": 8000,
+      "response_pivot_age": 21,
+      "response_transition_years": 5,
+      "retirement_min": 34,
+      "retirement_max": 39,
+      "stagnation_probability": 1800,
+      "stagnation_factor": 2000
+    },
+    {
+      "id": "steady_developer",
+      "weight": 2300,
+      "group_responses": [
+        10500,
+        10000,
+        10500,
+        10500,
+        10500
+      ],
+      "ceiling_offsets": [
+        0,
+        0,
+        1000,
+        1000,
+        0
+      ],
+      "age_shift_min": -1,
+      "age_shift_max": 1,
+      "early_response": 11000,
+      "late_response": 10000,
+      "response_pivot_age": 29,
+      "response_transition_years": 5,
+      "retirement_min": 36,
+      "retirement_max": 42,
+      "stagnation_probability": 900,
+      "stagnation_factor": 3000
+    },
+    {
+      "id": "late_bloomer",
+      "weight": 1200,
+      "group_responses": [
+        10500,
+        10000,
+        10500,
+        11000,
+        11000
+      ],
+      "ceiling_offsets": [
+        0,
+        -1000,
+        1000,
+        2000,
+        1000
+      ],
+      "age_shift_min": -3,
+      "age_shift_max": -1,
+      "early_response": 6500,
+      "late_response": 13500,
+      "response_pivot_age": 24,
+      "response_transition_years": 7,
+      "retirement_min": 39,
+      "retirement_max": 44,
+      "stagnation_probability": 1400,
+      "stagnation_factor": 2500
+    },
+    {
+      "id": "ski_specialist",
+      "weight": 1300,
+      "group_responses": [
+        12000,
+        11500,
+        12000,
+        8500,
+        9500
+      ],
+      "ceiling_offsets": [
+        5000,
+        4000,
+        5000,
+        -4000,
+        -1000
+      ],
+      "age_shift_min": -1,
+      "age_shift_max": 2,
+      "early_response": 11500,
+      "late_response": 9500,
+      "response_pivot_age": 29,
+      "response_transition_years": 5,
+      "retirement_min": 35,
+      "retirement_max": 41,
+      "stagnation_probability": 1000,
+      "stagnation_factor": 2500
+    },
+    {
+      "id": "shooting_specialist",
+      "weight": 1300,
+      "group_responses": [
+        9000,
+        8500,
+        9500,
+        12500,
+        11500
+      ],
+      "ceiling_offsets": [
+        -3000,
+        -4000,
+        0,
+        6000,
+        3000
+      ],
+      "age_shift_min": -2,
+      "age_shift_max": 1,
+      "early_response": 11000,
+      "late_response": 11000,
+      "response_pivot_age": 30,
+      "response_transition_years": 5,
+      "retirement_min": 37,
+      "retirement_max": 44,
+      "stagnation_probability": 1000,
+      "stagnation_factor": 2500
+    },
+    {
+      "id": "balanced_competitor",
+      "weight": 1800,
+      "group_responses": [
+        10000,
+        10000,
+        10000,
+        10000,
+        10000
+      ],
+      "ceiling_offsets": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "age_shift_min": -2,
+      "age_shift_max": 2,
+      "early_response": 11000,
+      "late_response": 10000,
+      "response_pivot_age": 29,
+      "response_transition_years": 5,
+      "retirement_min": 35,
+      "retirement_max": 43,
+      "stagnation_probability": 1000,
+      "stagnation_factor": 2500
+    },
+    {
+      "id": "limited_prospect",
+      "weight": 1000,
+      "group_responses": [
+        8000,
+        8000,
+        8500,
+        8500,
+        8500
+      ],
+      "ceiling_offsets": [
+        -5000,
+        -5000,
+        -4000,
+        -4000,
+        -3000
+      ],
+      "age_shift_min": -1,
+      "age_shift_max": 2,
+      "early_response": 11000,
+      "late_response": 7500,
+      "response_pivot_age": 24,
+      "response_transition_years": 6,
+      "retirement_min": 33,
+      "retirement_max": 39,
+      "stagnation_probability": 2200,
+      "stagnation_factor": 1500
+    }
+  ]
+}

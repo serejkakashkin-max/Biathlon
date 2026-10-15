@@ -40,16 +40,26 @@ namespace Biathlon.Career
     public readonly struct CareerAdaptationFrame
     {
         public int TotalGain { get; } public int Quality { get; } public int AgeFactor { get; } public int RecoveryFactor { get; }
-        internal CareerAdaptationFrame(int gain,int quality,int age,int recovery){TotalGain=gain;Quality=quality;AgeFactor=age;RecoveryFactor=recovery;}
+        public bool IndividualGrowth {get;} public int RepetitionFactor {get;}
+        internal CareerAdaptationFrame(int gain,int quality,int age,int recovery,bool individual=false,int repetition=10000)
+        {TotalGain=gain;Quality=quality;AgeFactor=age;RecoveryFactor=recovery;IndividualGrowth=individual;RepetitionFactor=repetition;}
     }
     public static class CareerAdaptation
     {
-        public static CareerAdaptationFrame Apply(CareerAthlete athlete,CareerTrainingSession session,CareerAdaptationDefinition definition,int quality)
+        public static CareerAdaptationFrame Apply(CareerAthlete athlete,CareerTrainingSession session,CareerAdaptationDefinition definition,int quality,CareerGrowthDefinition growth=null,int priorSessions=0)
         {
             if(athlete==null||session==null||definition==null)throw new ArgumentNullException();athlete.Validate();CareerUnits.Range(quality,0,definition.MaximumQuality,"training quality");
             int age=definition.TrainingFactor(athlete.Age);
             int recovery=Math.Max(definition.MinimumRecoveryFactor,CareerUnits.Basis-athlete.Fatigue);
             var gains=new int[CareerUnits.StatCount];int total=0;
+            if(growth!=null)
+            {
+                growth.RequireProfile(athlete);int ageTotal=0;
+                for(int i=0;i<gains.Length;i++)
+                {gains[i]=IndividualGain(athlete,session,definition,quality,growth,priorSessions,(CareerStat)i,athlete.Fatigue);total=checked(total+gains[i]);ageTotal+=growth.AgeResponse(athlete,(CareerStat)i);}
+                for(int i=0;i<gains.Length;i++)athlete.SetStat((CareerStat)i,athlete.Stat((CareerStat)i)+gains[i]);
+                return new CareerAdaptationFrame(total,quality,ageTotal/CareerUnits.StatCount,recovery,true,growth.RepetitionFactor(priorSessions));
+            }
             for(int i=0;i<gains.Length;i++)
             {
                 int current=athlete.Stat((CareerStat)i);int room=Math.Max(0,athlete.Potential-current);
@@ -61,6 +71,15 @@ namespace Biathlon.Career
             // Compute/validate the entire update before mutating any attribute.
             for(int i=0;i<gains.Length;i++)athlete.SetStat((CareerStat)i,athlete.Stat((CareerStat)i)+gains[i]);
             return new CareerAdaptationFrame(total,quality,age,recovery);
+        }
+        internal static int IndividualGain(CareerAthlete athlete,CareerTrainingSession session,CareerAdaptationDefinition adaptation,int quality,
+            CareerGrowthDefinition growth,int priorSessions,CareerStat stat,int fatigue)
+        {
+            var rule=growth.Rule(stat);int ceiling=athlete.Growth.Ceiling(rule.Group),room=Math.Max(0,ceiling-athlete.Stat(stat));
+            decimal gain=(decimal)session.Gain(stat)*quality/10000*growth.AgeResponse(athlete,stat)/10000
+                *Math.Max(adaptation.MinimumRecoveryFactor,10000-fatigue)/10000*athlete.Growth.Response(rule.Group)/10000
+                *growth.LearningFactor/10000*rule.LearningFactor/10000*growth.RepetitionFactor(priorSessions)/10000*room/ceiling;
+            return Math.Min(room,CareerUnits.Round(gain));
         }
     }
 }
