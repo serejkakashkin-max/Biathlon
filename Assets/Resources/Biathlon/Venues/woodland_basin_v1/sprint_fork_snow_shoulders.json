@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "id": "woodland_basin_sprint_fork_snow_shoulders_v1",
   "venue_id": "woodland_basin_v1",
   "track_id": "woodland_basin_track_v1",
@@ -28,6 +28,16 @@
     }
   ],
   "width_m": 4.0,
-  "mound_height_m": 0.65,
-  "mound_spacing_m": 19
+  "mound_height_m": 0.34,
+  "mound_spacing_m": 31,
+  "natural": {
+    "all_routes": true,
+    "cross_sections": 8,
+    "minimum_width_m": 0.15,
+    "end_fade_m": 8,
+    "width_variation": 0.12,
+    "rim_direction_window_m": 2.5,
+    "rim_maximum_displacement_m": 0.75,
+    "rim_minimum_clearance_m": 0.0255
+  }
 }

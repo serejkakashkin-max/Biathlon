@@ -43,6 +43,7 @@ namespace Biathlon.PlayModeTests
                 bool initializeBanks=yaw==0;
                 course=root.AddComponent<ProductionCoursePresentation>();course.Initialize(plan,route:route,sharedApron:plan.SharedApron,snowShoulders:initializeBanks?policy:null);
                 var source=course.NativeLoopMesh(policy.loop_id);var positions=source.vertices;var indices=source.triangles;
+                var originals=new Dictionary<string,Vector3[]>();for(int loop=0;loop<course.LoopCount;loop++)originals.Add(course.LoopId(loop),course.NativeLoopMesh(course.LoopId(loop)).vertices);
                 if(!initializeBanks)course.ConfigureSnowBanks(plan,policy);Assert.That(course.SnowBankPolicyId,Is.EqualTo(policy.id));
                 Assert.That(course.Apron.EdgeWidth,Is.EqualTo(TerrainBlendDefinition.Load().edge_width_m),"Wider banks retain the original packed-apron material feather.");
                 Assert.Throws<InvalidOperationException>(()=>course.ConfigureSnowBanks(plan,policy));
@@ -51,6 +52,19 @@ namespace Biathlon.PlayModeTests
                 environment.Initialize(plan,recipe,ProductionVenueHost.ReadResource,feed,camera,apron:course.Apron);
                 course.JoinGround(environment,environment.TerrainGridSpacing,environment.TerrainGridOrigin);
                 CollectionAssert.AreEqual(positions,source.vertices);CollectionAssert.AreEqual(indices,source.triangles);
+                for(int loop=0;loop<course.LoopCount;loop++)
+                {
+                    string id=course.LoopId(loop);var original=originals[id];CollectionAssert.AreEqual(original,course.NativeLoopMesh(id).vertices);
+                    var drawn=course.LoopMesh(id).vertices;Assert.That(drawn.Length,Is.EqualTo(original.Length));
+                    for(int row=0;row<drawn.Length;row+=2)
+                    {
+                        Assert.That(Vector3.Distance((drawn[row]+drawn[row+1])*.5f,(original[row]+original[row+1])*.5f),Is.LessThan(.0001f),"Render rim preserves every center.");
+                        Assert.That(Vector3.Distance(drawn[row],drawn[row+1]),Is.EqualTo(Vector3.Distance(original[row],original[row+1])).Within(.0001f),"Render rim preserves full width.");
+                        Assert.That(drawn[row].y,Is.EqualTo(original[row].y));Assert.That(drawn[row+1].y,Is.EqualTo(original[row+1].y));
+                        float limit=policy.natural==null?0:policy.natural.rim_maximum_displacement_m;
+                        Assert.That(Vector3.Distance(drawn[row],original[row]),Is.LessThanOrEqualTo(limit+.0001f));
+                    }
+                }
                 Assert.That(course.SkirtRenderer(policy.loop_id).GetComponent<MeshFilter>().sharedMesh,Is.SameAs(course.SkirtMesh(policy.loop_id)));
                 Assert.That(course.SkirtRenderer(policy.loop_id).localToWorldMatrix,Is.EqualTo(course.LoopRenderer(policy.loop_id).localToWorldMatrix));
                 AssertRaisedMainBank(60,105);
@@ -70,15 +84,18 @@ namespace Biathlon.PlayModeTests
                 var bankWitness=course.SkirtRenderer(policy.loop_id).localToWorldMatrix.MultiplyPoint3x4(right+outward.normalized*.2f);
                 Assert.That(Covered(bankWitness,course.SkirtMesh(policy.loop_id),course.SkirtRenderer(policy.loop_id).localToWorldMatrix),Is.True,"Paid Sprint source18.952m camera-side edge has a certified nonvertical bank.");
 
-                // Independent explicit-world contact fixture extracted from the actual native
-                // buffers and actual Renderer matrices. The historical generic contact checker
+                // Independent explicit-world contact fixture extracted from the actual rendered
+                // full-row buffers and actual Renderer matrices. The immutable authoring mesh
+                // is checked above; its old edge is not the edge of this presentation copy.
+                // The historical generic contact checker
                 // retains every clearance, topology, whole-line and original-boundary assertion.
                 // It receives no assumed identity frame or synthetic/sampled terrain heights.
                 var worldRibbons=new Mesh[course.LoopCount+1];var worldNative=new Mesh[worldRibbons.Length];var ids=new string[worldRibbons.Length];
                 for(int loop=0;loop<course.LoopCount;loop++)
                 {
                     ids[loop]=course.LoopId(loop);worldRibbons[loop]=World(course.DrawLoopMesh(ids[loop]),course.LoopRenderer(ids[loop]).localToWorldMatrix);
-                    worldNative[loop]=World(course.NativeLoopMesh(ids[loop]),course.LoopRenderer(ids[loop]).localToWorldMatrix);
+                    worldNative[loop]=World(course.LoopMesh(ids[loop]),course.LoopRenderer(ids[loop]).localToWorldMatrix);
+                    worldNative[loop].triangles=course.NativeLoopMesh(ids[loop]).triangles;
                 }
                 ids[ids.Length-1]="actual_continuous_apron";worldRibbons[ids.Length-1]=World(course.Apron.Top,course.ApronRenderer.localToWorldMatrix);worldNative[ids.Length-1]=worldRibbons[ids.Length-1];
                 int sprint=Array.IndexOf(ids,policy.loop_id);worldRibbons[sprint]=World(course.LoopMesh(policy.loop_id),course.LoopRenderer(policy.loop_id).localToWorldMatrix);
@@ -91,14 +108,30 @@ namespace Biathlon.PlayModeTests
                 // Use the existing actual environment; its helper evaluates real renderer frames.
                 ProductionTerrainContactTests.AssertJoinedGeometry(environment,witness,policy.loop_id,worldNative[sprint].vertices,false);
                 Assert.That(join.triangles.Length,Is.GreaterThan(0));
+                // Certify the whole rendered composite. Adjacent route joins and the
+                // apron replace each other's boundary pieces; all remain in this proof.
+                Set(witness,"<PresentationRouteId>k__BackingField",course.PresentationRouteId);
+                var allJoins=new List<CombineInstance>();
+                for(int loop=0;loop<course.LoopCount;loop++)
+                {
+                    string id=ids[loop];
+                    worldRibbons[loop]=World(course.LoopMesh(id),course.LoopRenderer(id).localToWorldMatrix);
+                    if(course.SkirtMesh(id).triangles.Length>0)allJoins.Add(new CombineInstance{mesh=World(course.SkirtMesh(id),course.SkirtRenderer(id).localToWorldMatrix)});
+                }
+                allJoins.Add(new CombineInstance{mesh=World(course.ApronSkirt,course.ApronSkirtRenderer.localToWorldMatrix)});
+                var composite=new Mesh{indexFormat=UnityEngine.Rendering.IndexFormat.UInt32};owned.Add(composite);composite.CombineMeshes(allJoins.ToArray(),true,false);skirts[sprint]=composite;
+                var allWorld=new ProductionTerrainContactTests.JoinedWorld(environment,witness);
+                ProductionTerrainContactTests.AssertDrawnRibbonGroundClearance(environment,witness,allWorld);
+                ProductionTerrainContactTests.AssertJoinedGeometry(environment,witness,policy.loop_id,worldNative[sprint].vertices,false,allWorld,entireVenue:true);
                 TestContext.WriteLine("Actual Sprint optional bank native contact PASS; source arrays immutable; yaw="+yaw+"; policy="+policy.id);
 
                 void AssertRaisedMainBank(double start,double end)
                 {
-                    var main=course.NativeLoopMesh("main").vertices;var bank=course.SkirtMesh("main");var p=bank.vertices;var weights=bank.colors;int crests=0;
+                    var main=course.NativeLoopMesh("main").vertices;var bank=course.SkirtMesh("main");var p=bank.vertices;int crests=0;
                     for(int vertex=0;vertex<p.Length;vertex++)
                     {
-                        if(Math.Abs(weights[vertex].a-.45f)>1e-5f)continue;
+                        // Detect the actual raised geometry. Alpha is a snow-material
+                        // weight, not a crest marker: natural banks match terrain weights.
                         double nearest=double.PositiveInfinity,height=0;
                         for(int row=0;row<course.NativeRowCount("main")-1;row++)
                         {
@@ -121,7 +154,7 @@ namespace Biathlon.PlayModeTests
                     var p=mesh.vertices;for(int i=0;i<p.Length;i++)p[i]=frame.MultiplyPoint3x4(p[i]);
                     // Unity clears the index buffer when its format changes. Set it before
                     // copying indices so this explicit world witness retains actual faces.
-                    var result=new Mesh{indexFormat=mesh.indexFormat,vertices=p,triangles=mesh.triangles,normals=mesh.normals,uv=mesh.uv,colors=mesh.colors};result.RecalculateBounds();owned.Add(result);return result;
+                    var result=new Mesh{name=mesh.name,indexFormat=mesh.indexFormat,vertices=p,triangles=mesh.triangles,normals=mesh.normals,uv=mesh.uv,colors=mesh.colors};result.RecalculateBounds();owned.Add(result);return result;
                 }
             }
             finally

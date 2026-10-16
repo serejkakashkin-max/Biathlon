@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace Biathlon.Unity.Presentation
 {
-    /// <summary>Draft optional cold presentation, not physical admission authority.
+    /// <summary>Cold presentation, not physical admission authority.
     /// Emits a packed continuous top and clips duplicate coplanar draw triangles only.
     /// The caller owns all returned meshes and must join the resulting external boundary.
-    /// This file is outside Assets until the compact-range bundle integrates it.</summary>
+    /// Exact channel sharing after clipping reduces vertices without changing faces.</summary>
     public sealed class RangeApronDrawPlan
     {
         public const int SchemaVersion = 1;
@@ -129,6 +129,7 @@ namespace Biathlon.Unity.Presentation
             if (normals.Length != points.Length || uv.Length != points.Length || colors.Length != points.Length)
                 throw new ArgumentException("Complete original draw channels required.");
             var outPoints = new List<Vector3>(); var outNormals = new List<Vector3>();
+            var sharedVertices = new Dictionary<(Vector3,Vector3,Vector2,Color),int>();
             var outUv = new List<Vector2>(); var outColors = new List<Color>(); var outIndices = new List<int>();
             var indices = source.triangles;
             if (indices.Length % 3 != 0) throw new ArgumentException("Complete triangle list required.");
@@ -174,9 +175,15 @@ namespace Biathlon.Unity.Presentation
                     // Exact zero coverage can be omitted; a finite but tiny retained face is rejected.
                     if (cross.sqrMagnitude == 0) continue;
                     if (!Finite(cross) || cross.sqrMagnitude < 1e-16f) throw new ArgumentException("Projected clipping must not silently lose a tiny paid face.");
-                    int first = outPoints.Count;
-                    foreach (var q in new[] { a, b, c }) { outPoints.Add(q.Point); outNormals.Add(q.Normal); outUv.Add(q.Uv); outColors.Add(q.Color); }
-                    outIndices.Add(first); outIndices.Add(first + 1); outIndices.Add(first + 2);
+                    // Interpolated clipping normals are directions; restore unit length
+                    // once after all polygon cuts, before the renderer consumes them.
+                    foreach (var q in new[] { a, b, c })
+                    {
+                        var normal=q.Normal.normalized;var key=(q.Point,normal,q.Uv,q.Color);
+                        if(!sharedVertices.TryGetValue(key,out int index))
+                        {index=outPoints.Count;sharedVertices.Add(key,index);outPoints.Add(q.Point);outNormals.Add(normal);outUv.Add(q.Uv);outColors.Add(q.Color);}
+                        outIndices.Add(index);
+                    }
                 }
             }
         }

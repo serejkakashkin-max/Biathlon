@@ -12,8 +12,9 @@ namespace Biathlon.PlayModeTests
     // Draft focused tests for the imported compact content. No execution claim outside Unity.
     public sealed class RangeApronPresentationTests
     {
-        [TestCase(0,45f)][TestCase(1,0f)][TestCase(2,31f)]
-        public void ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(int format,float yaw)
+        [TestCase(0,45f,false)][TestCase(1,0f,false)][TestCase(2,31f,false)]
+        [TestCase(0,45f,true)][TestCase(1,0f,true)][TestCase(2,31f,true)]
+        public void ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(int format,float yaw,bool natural)
         {
             var plan=new VenueAuthoringPlan(VenueManifest.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/manifest")),ProductionVenueHost.ReadResource);
             Assert.That(plan.SharedApron,Is.Not.Null,"Run this focused acceptance only after the compact bundle is imported.");
@@ -23,7 +24,8 @@ namespace Biathlon.PlayModeTests
             string snapshots=plan.Track.ToJson()+plan.Visual.ToJson()+plan.Paths.ToJson()+plan.SharedApron.ToJson()+plan.Manifest.ToJson();
             try
             {
-                course=root.AddComponent<ProductionCoursePresentation>();course.Initialize(plan,route:route,sharedApron:plan.SharedApron);
+                var policy=natural?ProductionSnowShoulderDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/sprint_fork_snow_shoulders"),plan):null;
+                course=root.AddComponent<ProductionCoursePresentation>();course.Initialize(plan,route:route,sharedApron:plan.SharedApron,snowShoulders:policy);
                 var apron=course.Apron;Assert.That(apron,Is.Not.Null);Assert.That(apron.SharedApronSnapshotJson,Is.EqualTo(plan.SharedApron.ToJson()));
                 var cameraObject=new GameObject("Apron contact camera");cameraObject.transform.SetParent(root.transform,false);var camera=cameraObject.AddComponent<Camera>();camera.enabled=false;
                 var feed=root.AddComponent<RacePresentationFeed>();terrain=root.AddComponent<ProductionVenueEnvironment>();

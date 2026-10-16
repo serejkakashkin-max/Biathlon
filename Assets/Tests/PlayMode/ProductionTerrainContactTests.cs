@@ -143,6 +143,20 @@ namespace Biathlon.PlayModeTests
             }
                 Cells=cells;RibbonCells=ribbonCells;RibbonTriangles=ribbonTriangles;
             }
+            internal JoinedWorld(JoinedWorld source,Vector3[] roofPoints,int[] roofFaces)
+            {
+                Spacing=source.Spacing;Origin=source.Origin;Cells=source.Cells;
+                RibbonTriangles=new List<Triangle>(source.RibbonTriangles);RibbonCells=new Dictionary<CellKey,List<int>>();
+                foreach(var pair in source.RibbonCells)RibbonCells.Add(pair.Key,new List<int>(pair.Value));
+                for(int i=0;i<roofFaces.Length;i+=3)
+                {
+                    var face=new Triangle(roofPoints[roofFaces[i]],roofPoints[roofFaces[i+1]],roofPoints[roofFaces[i+2]]);
+                    if(face.Area>=-1e-12)continue;int index=RibbonTriangles.Count;RibbonTriangles.Add(face);
+                    for(int z=Z(Math.Min(face.A.z,Math.Min(face.B.z,face.C.z)));z<=Z(Math.Max(face.A.z,Math.Max(face.B.z,face.C.z)));z++)
+                    for(int x=X(Math.Min(face.A.x,Math.Min(face.B.x,face.C.x)));x<=X(Math.Max(face.A.x,Math.Max(face.B.x,face.C.x)));x++)
+                    {var key=new CellKey(x,z);if(!RibbonCells.TryGetValue(key,out var list)){list=new List<int>();RibbonCells.Add(key,list);}list.Add(index);}
+                }
+            }
             internal IEnumerable<Triangle> Over(Vector3 a,Vector3 b,Vector3 c)
             {
                 for(int z=Z(Math.Min(a.z,Math.Min(b.z,c.z)))-1;z<=Z(Math.Max(a.z,Math.Max(b.z,c.z)))+1;z++)
@@ -229,7 +243,7 @@ namespace Biathlon.PlayModeTests
         }
 
         internal static void AssertJoinedGeometry(ProductionVenueEnvironment environment,ProductionCoursePresentation course,
-            string loopId,Vector3[] ribbon,bool closed,JoinedWorld world=null)
+            string loopId,Vector3[] ribbon,bool closed,JoinedWorld world=null,bool entireVenue=false)
         {
             world=world??new JoinedWorld(environment,course);
             // Independently derive a live draw boundary from actual source triangle indices.
@@ -244,10 +258,28 @@ namespace Biathlon.PlayModeTests
                 if(drawnBoundary!=null)for(int i=0;i<drawnBoundary.Count;i++)
                     drawnBoundary[i]=(frame.MultiplyPoint3x4(drawnBoundary[i].Item1),frame.MultiplyPoint3x4(drawnBoundary[i].Item2));
             }
+            var compositeBoundaries=new List<(string id,Vector3[] points,bool closed,List<(Vector3,Vector3)> lines)>();
+            if(entireVenue)for(int loop=0;loop<course.LoopCount;loop++)
+            {
+                string id=course.LoopId(loop);var native=course.NativeLoopMesh(id);var boundaryPoints=native.vertices;
+                bool isClosed=boundaryPoints[0].Equals(boundaryPoints[boundaryPoints.Length-2])&&boundaryPoints[1].Equals(boundaryPoints[boundaryPoints.Length-1]);
+                var lines=DrawnSourceBoundary(native,course.LoopMesh(id),isClosed);
+                if(course.Initialized)
+                {
+                    var frame=course.LoopRenderer(id).localToWorldMatrix;
+                    for(int i=0;i<boundaryPoints.Length;i++)boundaryPoints[i]=frame.MultiplyPoint3x4(boundaryPoints[i]);
+                    for(int i=0;i<lines.Count;i++)lines[i]=(frame.MultiplyPoint3x4(lines[i].Item1),frame.MultiplyPoint3x4(lines[i].Item2));
+                }
+                compositeBoundaries.Add((id,boundaryPoints,isClosed,lines));
+            }
             var ribbonCells=world.RibbonCells;var ribbonTriangles=world.RibbonTriangles;
             int X(double p)=>world.X(p);int Z(double p)=>world.Z(p);
             IEnumerable<Triangle> Over(Vector3 a,Vector3 b,Vector3 c)=>world.Over(a,b,c);
             var join=course.SkirtMesh(loopId);var points=course.Initialized?RenderedVertices(join,course.SkirtRenderer(loopId)):join.vertices;var faces=join.triangles;var bounds=join.bounds;bounds.Expand(2e-4f);
+            // In a composite an original curtain can be inside the union of packed
+            // road and a neighboring bank. Admit it only through the existing exact
+            // whole-face, both-half-plane and height proof, with actual upward roofs.
+            var occlusionWorld=entireVenue?new JoinedWorld(world,points,faces):world;
             Assert.That(faces.Length,Is.GreaterThan(0));Assert.That(faces.Length%3,Is.Zero);
             double minimum=double.PositiveInfinity;long overlayVertices=0;
             // The clearance difference is affine on each overlap polygon. Its extrema
@@ -291,7 +323,7 @@ namespace Biathlon.PlayModeTests
                         }
             }
             foreach(var point in points)Assert.That(float.IsFinite(point.x)&&float.IsFinite(point.y)&&float.IsFinite(point.z)&&bounds.Contains(point),Is.True);
-            foreach(var normal in join.normals)Assert.That(float.IsFinite(normal.x)&&float.IsFinite(normal.y)&&float.IsFinite(normal.z)&&normal.y>=-1e-5f&&normal.sqrMagnitude>.99f,Is.True);
+            foreach(var normal in join.normals)Assert.That(float.IsFinite(normal.x)&&float.IsFinite(normal.y)&&float.IsFinite(normal.z)&&normal.y>=-1e-5f&&normal.sqrMagnitude>.99f,Is.True,"Upward finite unit join normal required: "+loopId+" / "+normal.ToString("R"));
             Assert.That(overlayVertices,Is.GreaterThan(0));
 
             // Canonicalize position seams independently of the production mesh's UV/index
@@ -323,7 +355,10 @@ namespace Biathlon.PlayModeTests
             for(int i=0;i<faces.Length;i+=3)
             {
                 var actualFace=new Triangle(points[faces[i]],points[faces[i+1]],points[faces[i+2]]);
-                if(HiddenOriginalCurtain(actualFace,ribbon,closed,world,drawnBoundary))
+                bool hiddenOriginal=HiddenOriginalCurtain(actualFace,ribbon,closed,occlusionWorld,drawnBoundary);
+                if(!hiddenOriginal&&entireVenue)foreach(var source in compositeBoundaries)
+                    if(HiddenOriginalCurtain(actualFace,source.points,source.closed,occlusionWorld,source.lines)){hiddenOriginal=true;break;}
+                if(hiddenOriginal)
                 {
                     hiddenCurtainFaces++;
                     hiddenCurtainEdges.Add((actualFace.A,actualFace.B));hiddenCurtainEdges.Add((actualFace.B,actualFace.C));hiddenCurtainEdges.Add((actualFace.C,actualFace.A));continue;
@@ -351,11 +386,14 @@ namespace Biathlon.PlayModeTests
             var topEdges=new List<(Vector3,Vector3)>();int groundEdges=0;
             foreach(var edge in edges)
             {
-                Assert.That(edge.Value,Is.LessThanOrEqualTo(2),"A snow join must not publish duplicate/non-manifold faces: "+loopId+" "+canonical[edge.Key.Item1]+" / "+canonical[edge.Key.Item2]);if(edge.Value!=1)continue;
+                Assert.That(edge.Value,Is.LessThanOrEqualTo(2),"A snow join must not publish duplicate/non-manifold faces: "+loopId+" "+canonical[edge.Key.Item1].ToString("R")+" / "+canonical[edge.Key.Item2].ToString("R")+" thirds="+string.Join(" | ",edgeFaces[edge.Key].ConvertAll(p=>p.ToString("R"))));if(edge.Value!=1)continue;
                 var a=rawEdges[edge.Key].Item1;var b=rawEdges[edge.Key].Item2;
                 if(OnGroomedLine(a,b))
                     topEdges.Add((a,b));
-                else if(!RetainedHiddenCurtainCovers(a,b)&&!InteriorGroomedCoversVerticalEdge(a,b)&&!HasOppositeFaceCoverage(edge.Key,a,b)&&!HasHigherShoulderCoverage(a,b)){AssertGroundLine(a,b);groundEdges++;}
+                else if(!RetainedHiddenCurtainCovers(a,b)&&!InteriorGroomedCoversVerticalEdge(a,b)&&!HasOppositeFaceCoverage(edge.Key,a,b)&&!HasInteriorFaceCoverage(a,b)&&!HasHigherShoulderCoverage(a,b))
+                {
+                    AssertGroundLine(a,b);groundEdges++;
+                }
             }
             foreach(var edge in hiddenCurtainEdges)if(OnGroomedLine(edge.Item1,edge.Item2))topEdges.Add(edge);
             Assert.That(topEdges.Count,Is.GreaterThan(0),loopId+": the actual join requires a retained ribbon boundary.");
@@ -369,7 +407,9 @@ namespace Biathlon.PlayModeTests
             foreach(var edge in topEdges)
                 for(int z=Z(Math.Min(edge.Item1.z,edge.Item2.z));z<=Z(Math.Max(edge.Item1.z,edge.Item2.z));z++)for(int x=X(Math.Min(edge.Item1.x,edge.Item2.x));x<=X(Math.Max(edge.Item1.x,edge.Item2.x));x++)
                 {var key=new CellKey(x,z);if(!topCells.TryGetValue(key,out var list)){list=new List<(Vector3,Vector3)>();topCells.Add(key,list);}list.Add(edge);}
-            if(drawnBoundary==null)
+            if(entireVenue)
+            {foreach(var source in compositeBoundaries)foreach(var line in source.lines)AssertRibbonLine(line.Item1,line.Item2);}
+            else if(drawnBoundary==null)
             {for(int side=0;side<2;side++)for(int row=side+2;row<ribbon.Length;row+=2)AssertRibbonLine(ribbon[row-2],ribbon[row]);
                 if(!closed){AssertRibbonLine(ribbon[0],ribbon[1]);AssertRibbonLine(ribbon[ribbon.Length-2],ribbon[ribbon.Length-1]);}}
             else foreach(var line in drawnBoundary)AssertRibbonLine(line.Item1,line.Item2);
@@ -418,6 +458,38 @@ namespace Biathlon.PlayModeTests
                 foreach(var interval in intervals){if(interval.Item1>covered+fractionTolerance)return false;covered=Math.Max(covered,interval.Item2);}return covered>=1-fractionTolerance;
             }
 
+            bool HasInteriorFaceCoverage(Vector3 a,Vector3 b)
+            {
+                // A T-junction can terminate inside an actual neighboring triangle,
+                // rather than on one of its edges. The incident planes may differ
+                // (e.g. a road cap terminates in the apron's perpendicular wall).
+                // Require actual face area on BOTH sides, over the whole 3D line.
+                var delta=b-a;var intervals=new List<(double,double)>();
+                for(int z=Z(Math.Min(a.z,b.z))-1;z<=Z(Math.Max(a.z,b.z))+1;z++)for(int x=X(Math.Min(a.x,b.x))-1;x<=X(Math.Max(a.x,b.x))+1;x++)
+                if(shoulderCells.TryGetValue(new CellKey(x,z),out var candidates))foreach(var face in candidates)
+                {
+                    var normal=Vector3.Cross(face.B-face.A,face.C-face.A).normalized;if(normal.sqrMagnitude<.5f)continue;
+                    if(Math.Abs(Vector3.Dot(normal,a-face.A))>1e-5||Math.Abs(Vector3.Dot(normal,b-face.A))>1e-5)continue;
+                    int axis=Mathf.Abs(normal.x)>Mathf.Abs(normal.y)?(Mathf.Abs(normal.x)>Mathf.Abs(normal.z)?0:2):(Mathf.Abs(normal.y)>Mathf.Abs(normal.z)?1:2);
+                    Point Project(Vector3 p)=>axis==0?new Point(p.y,p.z):axis==1?new Point(p.x,p.z):new Point(p.x,p.y);
+                    var first=Project(a);var last=Project(b);
+                    var corners=new[]{Project(face.A),Project(face.B),Project(face.C)};
+                    double sa=Cross(first,last,corners[0]),sb=Cross(first,last,corners[1]),sc=Cross(first,last,corners[2]);
+                    if(Math.Min(sa,Math.Min(sb,sc))>=-1e-12||Math.Max(sa,Math.Max(sb,sc))<=1e-12)continue;
+                    double area=Cross(corners[0],corners[1],corners[2]);if(Math.Abs(area)<1e-12)continue;double sign=area>0?1:-1,low=0,high=1;bool valid=true;
+                    for(int side=0;side<3;side++)
+                    {
+                        double start=sign*Cross(corners[side],corners[(side+1)%3],first),end=sign*Cross(corners[side],corners[(side+1)%3],last);
+                        if(start< -1e-10&&end< -1e-10){valid=false;break;}
+                        if(start<0&&start>=-1e-10)start=0;if(end<0&&end>=-1e-10)end=0;
+                        if((start<0)!=(end<0)){double t=start/(start-end);if(start<0)low=Math.Max(low,t);else high=Math.Min(high,t);}
+                    }
+                    if(valid&&high>=low)intervals.Add((low,high));
+                }
+                intervals.Sort((u,v)=>u.Item1.CompareTo(v.Item1));double covered=0;double tolerance=2e-4/Math.Max(2e-4,delta.magnitude);
+                foreach(var interval in intervals){if(interval.Item1>covered+tolerance)return false;covered=Math.Max(covered,interval.Item2);}return covered>=1-tolerance;
+            }
+
             void AssertRibbonLine(Vector3 a,Vector3 b)
             {
                 var delta=b-a;double length=delta.sqrMagnitude;if(length<1e-12)return;var intervals=new List<(double,double)>();
@@ -435,12 +507,18 @@ namespace Biathlon.PlayModeTests
                 foreach(var triangle in NearbyRibbon(a,b))
                 {
                     if(!LineInterval(a,b,triangle,out double low,out double high)||!MatchesRibbonHeight(a,b,triangle,low,high))continue;
-                    double sign=Cross(new Point(a),new Point(b),new Point((triangle.A+triangle.B+triangle.C)/3));
-                    if(sign>1e-7)left.Add((low,high));else if(sign< -1e-7)right.Add((low,high));
+                    // A large apron triangle can straddle this line with its centroid
+                    // on only one side. Its three vertices prove which half-planes
+                    // contain actual area throughout the clipped line interval.
+                    double sa=Cross(new Point(a),new Point(b),new Point(triangle.A));
+                    double sb=Cross(new Point(a),new Point(b),new Point(triangle.B));
+                    double sc=Cross(new Point(a),new Point(b),new Point(triangle.C));
+                    if(Math.Max(sa,Math.Max(sb,sc))>1e-7)left.Add((low,high));
+                    if(Math.Min(sa,Math.Min(sb,sc))< -1e-7)right.Add((low,high));
                 }
                 foreach(var first in left)foreach(var last in right)
                 {double low=Math.Max(first.Item1,last.Item1),high=Math.Min(first.Item2,last.Item2);if(high>=low)intervals.Add((low,high));}
-                AssertCovered(intervals,"Every exact ribbon boundary segment must have a continuous join: "+loopId,2e-4/Math.Sqrt(length));
+                AssertCovered(intervals,"Every exact ribbon boundary segment must have a continuous join: "+loopId+" / "+a.ToString("R")+" -> "+b.ToString("R"),2e-4/Math.Sqrt(length));
             }
             IEnumerable<Triangle> NearbyRibbon(Vector3 a,Vector3 b)
             {
@@ -567,7 +645,7 @@ namespace Biathlon.PlayModeTests
                     foreach(double t in new[]{low,high})
                     {
                         var at=new Point(p.X+(q.X-p.X)*t,p.Z+(q.Z-p.Z)*t);double height=a.y+((double)b.y-a.y)*t;
-                        Assert.That(height,Is.EqualTo(terrain.Height(at)).Within(1e-4),"Every exposed snow foot must meet the entire actual terrain segment, including diagonal breaks: "+loopId+" "+a+" / "+b);
+                        Assert.That(height,Is.EqualTo(terrain.Height(at)).Within(1e-4),"Every exposed snow foot must meet the entire actual terrain segment, including diagonal breaks: "+loopId+" "+a.ToString("R")+" / "+b.ToString("R"));
                     }
                     intervals.Add((low,high));
                 }
