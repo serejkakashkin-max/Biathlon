@@ -18,6 +18,8 @@ if(args.Length>3&&args[2]=="--diagnose")
 bool resume=args.Length>2&&(args[2]=="--resume"||args[2]=="--resume-persistence");
 bool resumePersistence=args.Length>2&&args[2]=="--resume-persistence";
 string? retainedAuthority=args.Length>3&&args[2]=="--requalify"?Path.GetFullPath(args[3]):null;
+string? visualReference=args.Length>3&&args[2]=="--visual-regression"?Path.GetFullPath(args[3]):null;
+var visualWeeks=visualReference==null?null:JsonSerializer.Deserialize<List<WeekRecord>>(File.ReadAllText(Path.Combine(visualReference,"weeks.json")))!;
 Directory.CreateDirectory(output);
 var options=new JsonSerializerOptions{WriteIndented=true};
 var definitions=new Dictionary<string,string>(StringComparer.Ordinal);
@@ -95,7 +97,7 @@ int authorityRacesAtStart=weeks.Count(x=>x.event_id!=null);
 var timer=Stopwatch.StartNew();
 try
 {
-    while(session.Career.Season<=3)
+    while(session.Career.Season<=3&&(visualReference==null||session.Career.Season==1&&session.Career.Week<=14))
     {
         var save=session.Career;int season=save.Season,week=save.Week;string before=files.ReadLatest();
         Require(save.ToJson()==CareerSave.FromJson(before).ToJson(),"Session and durable profile disagree before command.");
@@ -146,6 +148,13 @@ try
                 ticks=retained.authority_ticks;shots=retained.shots;eventHash=retained.event_hash;
             }
             Require(race.AuthorityResultJson!=null&&BalanceRegression.Hash(race.AuthorityResultJson)==race.AuthoritySha256,"Invalid authoritative result payload/hash.");
+            if(visualWeeks!=null)
+            {
+                var expected=visualWeeks.Single(x=>x.season==season&&x.week==week);
+                Require(expected.authority_sha256==race.AuthoritySha256&&expected.authority_ticks==ticks&&expected.shots==shots&&expected.event_hash==eventHash,"Presentation update changed the full production race: "+e.Id);
+                string prior=File.ReadAllText(Path.Combine(visualReference!,"race-"+season+"-"+week+".json"));
+                Require(prior==race.ToJson(),"Presentation update changed full result/bout/split payload: "+e.Id);
+            }
             Require(race.Count==30&&shots==30*(e.Format==CompetitionFormat.Sprint?2:4)*5&&ticks>0,"Incomplete authority field/shot accounting.");
             File.WriteAllText(Path.Combine(output,"race-"+season+"-"+week+".json"),race.ToJson());
             if(fault)
@@ -175,9 +184,16 @@ try
         var row=new WeekRecord(season,week,definition.Calendar.Id,e?.Id,e?.Format.ToString(),race?.AuthoritySha256,ticks,shots,eventHash,Hash(before),Hash(after),sourceBytes,next.WorldAthleteCount,next.HistoryCount,fault,wasAbandoned);
         weeks.Add(row);Save("weeks.json",weeks);
         if(retainedWeeks!=null)Require(retainedWeeks[weeks.Count-1].after_sha256==row.after_sha256,"Final implementation changed career output relative to retained authentic race chain.");
+        if(visualWeeks!=null)Require(visualWeeks[weeks.Count-1].after_sha256==row.after_sha256,"Presentation update changed a complete weekly save boundary.");
         Console.WriteLine("SAVED "+weeks.Count+"/156 season="+next.Season+" week="+next.Week+" bytes="+sourceBytes);
     }
     var completed=session.Career;
+    if(visualReference!=null)
+    {
+        Require(weeks.Count==14&&weeks.Where(x=>x.event_id!=null).Select(x=>x.format).Distinct().Count()==3,"All three complete production formats must be re-executed.");
+        Save("summary.json",new{schema_version=1,id="m16_1_visual_authority_regression_v1",status="PASS",input_sha256=inputSha,scope="14 new weekly transitions and five fully re-executed 30-athlete races; exact baseline result payload, event hash, tick count, shots and complete saved-career boundary comparison",reference=Path.GetRelativePath(root,visualReference).Replace('\\','/'),weeks=weeks.Count,races=weeks.Count(x=>x.event_id!=null),formats=weeks.Where(x=>x.event_id!=null).GroupBy(x=>x.format).ToDictionary(g=>g.Key!,g=>g.Count()),ticks=weeks.Sum(x=>x.authority_ticks),shots=weeks.Sum(x=>x.shots),final_save_sha256=Hash(completed.ToJson()),elapsed_seconds=timer.Elapsed.TotalSeconds});
+        return;
+    }
     Require(weeks.Count==156&&completed.Season==4&&completed.Week==1&&completed.HistoryCount==3,"Did not complete all three actual seasons.");
     Require(weeks.Count(x=>x.event_id!=null)==48&&session.Player.Races==48,"Expected all 48 authored real race results.");
     Require(completed.History(0).RaceCount==16&&completed.History(1).RaceCount==16&&completed.History(2).RaceCount==16,"Archived event totals differ.");
