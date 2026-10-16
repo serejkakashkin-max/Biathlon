@@ -30,6 +30,10 @@ namespace Biathlon.Unity.Presentation
         private WeatherVisualDefinition atmosphericDefinition;
         public string VisualAtmosphereId=>weather?.VisualAtmosphereId;
         private ProductionForestDressing dressing;
+        public RangeFlagPresentation RangeFlags {get;private set;}
+        public int FlagClearanceExcludedTrees {get;private set;}
+        /// <summary>Explicit capture hosts may submit one controlled frame themselves.</summary>
+        public bool AutomaticRendering {get;set;}=true;
         public ProductionForestDressing Dressing=>dressing;
         private LightingVisualPreset lighting;
         private TargetGeometryDefinition geometry;
@@ -109,15 +113,34 @@ namespace Biathlon.Unity.Presentation
                     go.transform.localPosition=Vector3.zero;go.transform.localRotation=Quaternion.identity;
                     go.AddComponent<MeshFilter>().sharedMesh=mesh;go.AddComponent<MeshRenderer>().sharedMaterial=snow;
                 }
-                forests=new VegetationPresentation[data.forest.groups.Length];
-                for(int i=0;i<forests.Length;i++)
+                RangeFlagDefinition flagDefinition=null;Vector3[] flagAnchors=null;
+                if(!string.IsNullOrEmpty(data.range.flags_resource))
+                {
+                    flagDefinition=RangeFlagDefinition.FromJson(Read(read,data.range.flags_resource));
+                    flagAnchors=flagDefinition.Positions(data.range,SampleGround);
+                    RangeFlags=generated.AddComponent<RangeFlagPresentation>();RangeFlags.Initialize(flagDefinition,data,SampleGround);
+                }
+                var flagClearance=flagDefinition==null?null:new RangeFlagClearance(flagDefinition,flagAnchors);
+                var forestList=new List<VegetationPresentation>(data.forest.groups.Length);
+                for(int i=0;i<data.forest.groups.Length;i++)
                 {
                     var group=data.forest.groups[i];var trees=prepared.Trees[i].instances;
+                    if(flagAnchors!=null)
+                    {
+                        var retained=new List<ProductionTree>();
+                        foreach(var tree in trees)
+                        {
+                            if(flagClearance.Clears(tree))retained.Add(tree);else FlagClearanceExcludedTrees++;
+                        }
+                        trees=retained.ToArray();
+                    }
+                    if(trees.Length==0)continue;
                     var placement=new VegetationInstance[trees.Length];var species=new byte[trees.Length];
                     for(int t=0;t<trees.Length;t++){var tree=trees[t];placement[t]=new VegetationInstance(tree.position-group.center,tree.scale,tree.yaw_deg,tree.density_rank);species[t]=(byte)(tree.species=="pine"?1:0);}
                     var go=Child(group.id,group.center,Quaternion.identity);var forest=go.AddComponent<VegetationPresentation>();
-                    forest.Initialize(null,true,null,true,true,placement,species,prepared.HighForestFogEndMeters);forests[i]=forest;TreeCount+=trees.Length;
+                    forest.Initialize(null,true,null,true,true,placement,species,prepared.HighForestFogEndMeters);forestList.Add(forest);TreeCount+=trees.Length;
                 }
+                forests=forestList.ToArray();
                 var crowdList=new List<SpectatorCrowd>();
                 var staticRenderers=new List<MeshRenderer>();
                 for(int i=0;i<data.assets.Length;i++)
@@ -317,6 +340,7 @@ namespace Biathlon.Unity.Presentation
         public void Render(Camera camera,string tier,float time)
         {
             if(!Initialized||!isActiveAndEnabled||camera==null||!float.IsFinite(time)||Mathf.Abs(time)>1000000||(tier!="high"&&tier!="balanced"&&tier!="low"))throw new ArgumentException("Initialized environment, explicit camera and render tier/time required.");
+            RangeFlags?.Render(time,recipe.lighting.visual_wind);
             RefreshBanks();VisibleTrees=0;SubmittedForestTriangles=0;
             foreach(var forest in forests){forest.Render(camera,tier,time,recipe.lighting.visual_wind);VisibleTrees+=forest.VisibleInstances;SubmittedForestTriangles+=forest.SubmittedTriangles;}
             foreach(var crowd in crowds)crowd.Render(camera,tier,time);
@@ -328,11 +352,12 @@ namespace Biathlon.Unity.Presentation
             weather.Render(AtmosphereOverride??atmosphere,tier,time,recipe.lighting.visual_wind,SampleGround(camera.transform.position),lighting,recipe.lighting.fog_distance_scale,
                 AtmosphereOverride==null&&atmosphere=="snowfall"?atmosphericDefinition.LightSnowBlend(time):0);
         }
-        private void LateUpdate(){if(Initialized)Render(shooting!=null&&shooting.isActiveAndEnabled?shooting:chase,quality!=null?quality.TierId:defaultTier,Time.time);}
+        private void LateUpdate(){if(Initialized&&AutomaticRendering)Render(shooting!=null&&shooting.isActiveAndEnabled?shooting:chase,quality!=null?quality.TierId:defaultTier,Time.time);}
         private void OnDisable(){if(generated!=null)generated.SetActive(false);}
         private void OnEnable(){if(generated!=null)generated.SetActive(true);}
         public void Shutdown()
         {
+            RangeFlags?.Shutdown();RangeFlags=null;FlagClearanceExcludedTrees=0;
             if(weather!=null)weather.Shutdown();
             if(generated!=null){generated.SetActive(false);generated.transform.SetParent(null);DestroyOwned(generated);generated=null;}
             foreach(var mesh in ownedMeshes)DestroyOwned(mesh);foreach(var material in ownedMaterials)DestroyOwned(material);ownedMeshes.Clear();ownedMaterials.Clear();
@@ -342,3 +367,4 @@ namespace Biathlon.Unity.Presentation
         private void OnDestroy()=>Shutdown();
     }
 }
+

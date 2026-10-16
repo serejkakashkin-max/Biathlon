@@ -169,10 +169,11 @@ namespace Biathlon.Unity.Presentation
     }
     [Serializable] public sealed class ProductionRangeRecipe
     {
-        public string geometry_resource,stadium_art_resource,bank_resource;public Vector3 forward,origin;public float target_distance_m,target_height_m;
+        public string geometry_resource,stadium_art_resource,bank_resource,flags_resource;public Vector3 forward,origin;public float target_distance_m,target_height_m;
         public ProductionTargetBank[] banks;public ProductionBackstop backstop;
         internal void Validate(HashSet<string> ids)
         {
+            if(!string.IsNullOrEmpty(flags_resource))ProductionEnvironmentDefinition.Resource(flags_resource);
             ProductionEnvironmentDefinition.Resource(geometry_resource);ProductionEnvironmentDefinition.Resource(stadium_art_resource);ProductionEnvironmentDefinition.Resource(bank_resource);
             ProductionEnvironmentDefinition.Position(origin);ProductionEnvironmentDefinition.Position(forward);
             if(Mathf.Abs(forward.y)>1e-6f||Mathf.Abs(forward.sqrMagnitude-1)>1e-5f)throw new ArgumentException("Horizontal unit range direction required.");
