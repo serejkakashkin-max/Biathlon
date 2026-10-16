@@ -1,0 +1,151 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":474,\"PassedTests\":22,\"FailedTests\":2,\"SkippedTests\":0,\"Duration\":\"00:01:20.9465145\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.ExcludesCanopiesAcrossAllLodsRatherThanOnlyTreeTrunks\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0510000\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.PlacementFollowsTranslatedAndRotatedActualBackstop\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0170000\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022NOR\\u0022,0.1f,0.1f,\\u0022#BA0C2F\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0040000\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022NOR\\u0022,0.36f,0.1f,\\u0022#00205B\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022NOR\\u0022,0.29f,0.1f,\\u0022#FFFFFF\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022SWE\\u0022,0.1f,0.1f,\\u0022#006AA7\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022SWE\\u0022,0.36f,0.1f,\\u0022#FECC00\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022FIN\\u0022,0.1f,0.1f,\\u0022#FFFFFF\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022FIN\\u0022,0.36f,0.1f,\\u0022#002F6C\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022GER\\u0022,0.5f,0.85f,\\u0022#000000\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022GER\\u0022,0.5f,0.5f,\\u0022#DD0000\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022GER\\u0022,0.5f,0.15f,\\u0022#FFCE00\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022FRA\\u0022,0.15f,0.5f,\\u0022#000091\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022FRA\\u0022,0.5f,0.5f,\\u0022#FFFFFF\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022FRA\\u0022,0.85f,0.5f,\\u0022#E1000F\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022ITA\\u0022,0.15f,0.5f,\\u0022#009246\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022ITA\\u0022,0.5f,0.5f,\\u0022#FFFFFF\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022ITA\\u0022,0.85f,0.5f,\\u0022#CE2B37\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RejectsUnboundedMeshesAndAmbiguousDefinitions\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.WindKeepsAllTargetsClearAndReusesOwnedResources\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0520000\"},{\"Name\":\"Biathlon.PlayModeTests.SnowRibbonRimTests.DirectionDiscontinuityIsReducedWithoutMovingCentersOrChangingWidths\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0040000\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(0.0f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:40.1120000\",\"Message\":\"  Every exact ribbon boundary segment must have a continuous join: sprint_extension\\r\\n  Expected: greater than or equal to 0.99727960433646812d\\r\\n  But was:  0.0d\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionTerrainContactTests.\\u003CAssertJoinedGeometry\\u003Eg__AssertCovered|11_15 (System.Collections.Generic.List\\u00601[T] intervals, System.String reason, System.Double tolerance) [0x00092] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:580\\r\\nat Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002B\\u003C\\u003Ec__DisplayClass11_0.\\u003CAssertJoinedGeometry\\u003Eg__AssertRibbonLine|6 (UnityEngine.Vector3 a, UnityEngine.Vector3 b) [0x00351] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:443\\r\\nat Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002BJoinedWorld world) [0x01264] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:373\\r\\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00860] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\SprintCurvedSnowBankTests.cs:92\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(45.0f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:39.8670000\",\"Message\":\"  Every exact ribbon boundary segment must have a continuous join: sprint_extension\\r\\n  Expected: greater than or equal to 0.99727960433646812d\\r\\n  But was:  0.0d\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionTerrainContactTests.\\u003CAssertJoinedGeometry\\u003Eg__AssertCovered|11_15 (System.Collections.Generic.List\\u00601[T] intervals, System.String reason, System.Double tolerance) [0x00092] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:580\\r\\nat Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002B\\u003C\\u003Ec__DisplayClass11_0.\\u003CAssertJoinedGeometry\\u003Eg__AssertRibbonLine|6 (UnityEngine.Vector3 a, UnityEngine.Vector3 b) [0x00351] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:443\\r\\nat Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002BJoinedWorld world) [0x01264] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:373\\r\\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00860] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\SprintCurvedSnowBankTests.cs:92\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.ProductionSnowMoundsCoverTheMainReturnAndRequireFiniteDimensions\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.6720000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 474,
+          "PassedTests": 22,
+          "FailedTests": 2,
+          "SkippedTests": 0,
+          "Duration": "00:01:20.9465145"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.ExcludesCanopiesAcrossAllLodsRatherThanOnlyTreeTrunks",
+            "Status": "Passed",
+            "Duration": "00:00:00.0510000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.PlacementFollowsTranslatedAndRotatedActualBackstop",
+            "Status": "Passed",
+            "Duration": "00:00:00.0170000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"NOR\",0.1f,0.1f,\"#BA0C2F\")",
+            "Status": "Passed",
+            "Duration": "00:00:00.0040000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"NOR\",0.36f,0.1f,\"#00205B\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"NOR\",0.29f,0.1f,\"#FFFFFF\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"SWE\",0.1f,0.1f,\"#006AA7\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"SWE\",0.36f,0.1f,\"#FECC00\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"FIN\",0.1f,0.1f,\"#FFFFFF\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"FIN\",0.36f,0.1f,\"#002F6C\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"GER\",0.5f,0.85f,\"#000000\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"GER\",0.5f,0.5f,\"#DD0000\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"GER\",0.5f,0.15f,\"#FFCE00\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"FRA\",0.15f,0.5f,\"#000091\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"FRA\",0.5f,0.5f,\"#FFFFFF\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"FRA\",0.85f,0.5f,\"#E1000F\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"ITA\",0.15f,0.5f,\"#009246\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"ITA\",0.5f,0.5f,\"#FFFFFF\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"ITA\",0.85f,0.5f,\"#CE2B37\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RejectsUnboundedMeshesAndAmbiguousDefinitions",
+            "Status": "Passed",
+            "Duration": "00:00:00.0010000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.WindKeepsAllTargetsClearAndReusesOwnedResources",
+            "Status": "Passed",
+            "Duration": "00:00:00.0520000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SnowRibbonRimTests.DirectionDiscontinuityIsReducedWithoutMovingCentersOrChangingWidths",
+            "Status": "Passed",
+            "Duration": "00:00:00.0040000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(0.0f)",
+            "Status": "Failed",
+            "Duration": "00:00:40.1120000",
+            "Message": "  Every exact ribbon boundary segment must have a continuous join: sprint_extension\r\n  Expected: greater than or equal to 0.99727960433646812d\r\n  But was:  0.0d\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.ProductionTerrainContactTests.<AssertJoinedGeometry>g__AssertCovered|11_15 (System.Collections.Generic.List`1[T] intervals, System.String reason, System.Double tolerance) [0x00092] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:580\r\nat Biathlon.PlayModeTests.ProductionTerrainContactTests+<>c__DisplayClass11_0.<AssertJoinedGeometry>g__AssertRibbonLine|6 (UnityEngine.Vector3 a, UnityEngine.Vector3 b) [0x00351] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:443\r\nat Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests+JoinedWorld world) [0x01264] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:373\r\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00860] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SprintCurvedSnowBankTests.cs:92\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(45.0f)",
+            "Status": "Failed",
+            "Duration": "00:00:39.8670000",
+            "Message": "  Every exact ribbon boundary segment must have a continuous join: sprint_extension\r\n  Expected: greater than or equal to 0.99727960433646812d\r\n  But was:  0.0d\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.ProductionTerrainContactTests.<AssertJoinedGeometry>g__AssertCovered|11_15 (System.Collections.Generic.List`1[T] intervals, System.String reason, System.Double tolerance) [0x00092] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:580\r\nat Biathlon.PlayModeTests.ProductionTerrainContactTests+<>c__DisplayClass11_0.<AssertJoinedGeometry>g__AssertRibbonLine|6 (UnityEngine.Vector3 a, UnityEngine.Vector3 b) [0x00351] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:443\r\nat Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests+JoinedWorld world) [0x01264] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:373\r\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00860] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SprintCurvedSnowBankTests.cs:92\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.ProductionSnowMoundsCoverTheMainReturnAndRequireFiniteDimensions",
+            "Status": "Passed",
+            "Duration": "00:00:00.6720000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

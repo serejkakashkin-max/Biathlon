@@ -1,0 +1,46 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":475,\"PassedTests\":1,\"FailedTests\":2,\"SkippedTests\":0,\"Duration\":\"00:01:30.8964952\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(0.0f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:45.7130000\",\"Message\":\"  Every exact ribbon boundary segment must have a continuous join: main\\r\\n  Expected: greater than or equal to 0.99989979224010661d\\r\\n  But was:  0.89460267469169941d\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionTerrainContactTests.\\u003CAssertJoinedGeometry\\u003Eg__AssertCovered|11_15 (System.Collections.Generic.List\\u00601[T] intervals, System.String reason, System.Double tolerance) [0x00092] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:580\\r\\nat Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002B\\u003C\\u003Ec__DisplayClass11_0.\\u003CAssertJoinedGeometry\\u003Eg__AssertRibbonLine|6 (UnityEngine.Vector3 a, UnityEngine.Vector3 b) [0x00351] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:443\\r\\nat Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002BJoinedWorld world) [0x01309] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:375\\r\\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c3e] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\SprintCurvedSnowBankTests.cs:125\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(45.0f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:44.4350000\",\"Message\":\"  Every exact ribbon boundary segment must have a continuous join: main\\r\\n  Expected: greater than or equal to 0.99989979224010661d\\r\\n  But was:  0.89460267469169941d\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionTerrainContactTests.\\u003CAssertJoinedGeometry\\u003Eg__AssertCovered|11_15 (System.Collections.Generic.List\\u00601[T] intervals, System.String reason, System.Double tolerance) [0x00092] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:580\\r\\nat Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002B\\u003C\\u003Ec__DisplayClass11_0.\\u003CAssertJoinedGeometry\\u003Eg__AssertRibbonLine|6 (UnityEngine.Vector3 a, UnityEngine.Vector3 b) [0x00351] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:443\\r\\nat Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002BJoinedWorld world) [0x01309] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:375\\r\\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c3e] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\SprintCurvedSnowBankTests.cs:125\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.ProductionSnowMoundsCoverTheMainReturnAndRequireFiniteDimensions\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.6510000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 475,
+          "PassedTests": 1,
+          "FailedTests": 2,
+          "SkippedTests": 0,
+          "Duration": "00:01:30.8964952"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(0.0f)",
+            "Status": "Failed",
+            "Duration": "00:00:45.7130000",
+            "Message": "  Every exact ribbon boundary segment must have a continuous join: main\r\n  Expected: greater than or equal to 0.99989979224010661d\r\n  But was:  0.89460267469169941d\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.ProductionTerrainContactTests.<AssertJoinedGeometry>g__AssertCovered|11_15 (System.Collections.Generic.List`1[T] intervals, System.String reason, System.Double tolerance) [0x00092] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:580\r\nat Biathlon.PlayModeTests.ProductionTerrainContactTests+<>c__DisplayClass11_0.<AssertJoinedGeometry>g__AssertRibbonLine|6 (UnityEngine.Vector3 a, UnityEngine.Vector3 b) [0x00351] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:443\r\nat Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests+JoinedWorld world) [0x01309] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:375\r\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c3e] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SprintCurvedSnowBankTests.cs:125\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(45.0f)",
+            "Status": "Failed",
+            "Duration": "00:00:44.4350000",
+            "Message": "  Every exact ribbon boundary segment must have a continuous join: main\r\n  Expected: greater than or equal to 0.99989979224010661d\r\n  But was:  0.89460267469169941d\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.ProductionTerrainContactTests.<AssertJoinedGeometry>g__AssertCovered|11_15 (System.Collections.Generic.List`1[T] intervals, System.String reason, System.Double tolerance) [0x00092] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:580\r\nat Biathlon.PlayModeTests.ProductionTerrainContactTests+<>c__DisplayClass11_0.<AssertJoinedGeometry>g__AssertRibbonLine|6 (UnityEngine.Vector3 a, UnityEngine.Vector3 b) [0x00351] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:443\r\nat Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests+JoinedWorld world) [0x01309] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:375\r\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c3e] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SprintCurvedSnowBankTests.cs:125\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.ProductionSnowMoundsCoverTheMainReturnAndRequireFiniteDimensions",
+            "Status": "Passed",
+            "Duration": "00:00:00.6510000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

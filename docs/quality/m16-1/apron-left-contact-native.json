@@ -1,0 +1,41 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":479,\"PassedTests\":1,\"FailedTests\":2,\"SkippedTests\":0,\"Duration\":\"00:01:12.8722073\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(0.0f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:37.1980000\",\"Message\":\"  Every exposed snow foot must meet the entire actual terrain segment, including diagonal breaks: sprint_extension (-45.85189, 0, -11.1917839) / (-45.85189, -0.01893176, -11.1917839)\\r\\n  Expected: -0.029999999329447746d \\u002B/- 0.0001d\\r\\n  But was:  0.0d\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002B\\u003C\\u003Ec__DisplayClass11_0.\\u003CAssertJoinedGeometry\\u003Eg__AssertGroundLine|15 (UnityEngine.Vector3 a, UnityEngine.Vector3 b) [0x001f1] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:652\\r\\nat Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002BJoinedWorld world, System.Boolean entireVenue) [0x015ea] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:401\\r\\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00fdf] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\SprintCurvedSnowBankTests.cs:134\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(45.0f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:34.9020000\",\"Message\":\"  Every exposed snow foot must meet the entire actual terrain segment, including diagonal breaks: sprint_extension (-45.85189, 0, -11.1917686) / (-45.85189, -0.01893176, -11.1917686)\\r\\n  Expected: -0.029999999329447746d \\u002B/- 0.0001d\\r\\n  But was:  0.0d\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002B\\u003C\\u003Ec__DisplayClass11_0.\\u003CAssertJoinedGeometry\\u003Eg__AssertGroundLine|15 (UnityEngine.Vector3 a, UnityEngine.Vector3 b) [0x001f1] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:652\\r\\nat Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002BJoinedWorld world, System.Boolean entireVenue) [0x015ea] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:401\\r\\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00fdf] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\SprintCurvedSnowBankTests.cs:134\\r\\n\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 479,
+          "PassedTests": 1,
+          "FailedTests": 2,
+          "SkippedTests": 0,
+          "Duration": "00:01:12.8722073"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(0.0f)",
+            "Status": "Failed",
+            "Duration": "00:00:37.1980000",
+            "Message": "  Every exposed snow foot must meet the entire actual terrain segment, including diagonal breaks: sprint_extension (-45.85189, 0, -11.1917839) / (-45.85189, -0.01893176, -11.1917839)\r\n  Expected: -0.029999999329447746d +/- 0.0001d\r\n  But was:  0.0d\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.ProductionTerrainContactTests+<>c__DisplayClass11_0.<AssertJoinedGeometry>g__AssertGroundLine|15 (UnityEngine.Vector3 a, UnityEngine.Vector3 b) [0x001f1] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:652\r\nat Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests+JoinedWorld world, System.Boolean entireVenue) [0x015ea] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:401\r\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00fdf] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SprintCurvedSnowBankTests.cs:134\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(45.0f)",
+            "Status": "Failed",
+            "Duration": "00:00:34.9020000",
+            "Message": "  Every exposed snow foot must meet the entire actual terrain segment, including diagonal breaks: sprint_extension (-45.85189, 0, -11.1917686) / (-45.85189, -0.01893176, -11.1917686)\r\n  Expected: -0.029999999329447746d +/- 0.0001d\r\n  But was:  0.0d\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.ProductionTerrainContactTests+<>c__DisplayClass11_0.<AssertJoinedGeometry>g__AssertGroundLine|15 (UnityEngine.Vector3 a, UnityEngine.Vector3 b) [0x001f1] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:652\r\nat Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests+JoinedWorld world, System.Boolean entireVenue) [0x015ea] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:401\r\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00fdf] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SprintCurvedSnowBankTests.cs:134\r\n"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

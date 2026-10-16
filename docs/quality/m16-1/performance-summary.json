@@ -1,0 +1,843 @@
+{
+  "schema_version": 1,
+  "id": "m16_1_native_player_performance",
+  "status": "MEASURED",
+  "method": "Sequential same-binary 1920x1080 URP offscreen production camera; 30 real athletes; frozen identical authority ticks. Legacy shoulders without national flags versus natural shoulders with flags. Common apron clipping optimization in both runs. 90 warmup + 240 measured frames per camera/tier. No HUD/swapchain, not ordinary race FPS.",
+  "quality_labels": {
+    "high": "Ultra",
+    "balanced": "High",
+    "low": "Performance"
+  },
+  "unavailable": "null means unsupported/stale counter, never zero GPU cost",
+  "device": {
+    "unity": "6000.6.0f1",
+    "cpu": "AMD Ryzen 9 9950X3D 16-Core Processor ",
+    "gpu": "NVIDIA GeForce RTX 5080",
+    "api": "Direct3D11",
+    "trees": 2588
+  },
+  "cases": [
+    {
+      "id": "a-stadium-bend",
+      "tier": "high",
+      "tick": 608,
+      "before": {
+        "wall_ms": {
+          "valid": 240,
+          "mean": 1.4388737457920797,
+          "median": 1.4149518101476133,
+          "p95": 1.6040957998484373,
+          "maximum": 2.5585955008864403
+        },
+        "cpu_frame_ms": {
+          "valid": 240,
+          "mean": 1.43792875,
+          "median": 1.41405,
+          "p95": 1.6047,
+          "maximum": 2.5603
+        },
+        "cpu_main_ms": {
+          "valid": 240,
+          "mean": 1.4266795833333332,
+          "median": 1.4033,
+          "p95": 1.5931,
+          "maximum": 2.5494
+        },
+        "cpu_render_ms": null,
+        "cpu_wait_ms": {
+          "valid": 240,
+          "mean": 0.0,
+          "median": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": {
+          "valid": 240,
+          "mean": 402.06666666666666,
+          "median": 402.0,
+          "p95": 403,
+          "maximum": 403
+        },
+        "triangles": {
+          "valid": 240,
+          "mean": 4614038.133333334,
+          "median": 4614038.0,
+          "p95": 4614040,
+          "maximum": 4614040
+        },
+        "gc_bytes": {
+          "valid": 240,
+          "mean": 164.27083333333334,
+          "median": 34.0,
+          "p95": 51,
+          "maximum": 30866
+        },
+        "used_memory_bytes": {
+          "valid": 240,
+          "mean": 4978336806.904166,
+          "median": 4978566277.0,
+          "p95": 4978574565,
+          "maximum": 4978574644
+        },
+        "throughput_fps": 694.9880091456628
+      },
+      "after": {
+        "wall_ms": {
+          "valid": 240,
+          "mean": 1.4032833452802151,
+          "median": 1.3830498792231083,
+          "p95": 1.5571995172649622,
+          "maximum": 2.3167941253632307
+        },
+        "cpu_frame_ms": {
+          "valid": 240,
+          "mean": 1.4025854166666667,
+          "median": 1.3825500000000002,
+          "p95": 1.5611,
+          "maximum": 2.3182
+        },
+        "cpu_main_ms": {
+          "valid": 240,
+          "mean": 1.3913220833333333,
+          "median": 1.3714499999999998,
+          "p95": 1.547,
+          "maximum": 2.3065
+        },
+        "cpu_render_ms": null,
+        "cpu_wait_ms": {
+          "valid": 240,
+          "mean": 0.0,
+          "median": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": {
+          "valid": 240,
+          "mean": 402.06666666666666,
+          "median": 402.0,
+          "p95": 403,
+          "maximum": 403
+        },
+        "triangles": {
+          "valid": 240,
+          "mean": 4929323.133333334,
+          "median": 4929323.0,
+          "p95": 4929325,
+          "maximum": 4929325
+        },
+        "gc_bytes": {
+          "valid": 240,
+          "mean": 164.27083333333334,
+          "median": 34.0,
+          "p95": 51,
+          "maximum": 30866
+        },
+        "used_memory_bytes": {
+          "valid": 240,
+          "mean": 4696853621.891666,
+          "median": 4697083005.0,
+          "p95": 4697083453,
+          "maximum": 4697083572
+        },
+        "throughput_fps": 712.6144576313735
+      },
+      "change_percent": {
+        "wall_ms": -2.473490159643754,
+        "cpu_main_ms": -2.4783070013092656,
+        "gpu_ms": null,
+        "draw_calls": 0.0,
+        "triangles": 6.833168493391439,
+        "used_memory_bytes": -5.654161137151814
+      }
+    },
+    {
+      "id": "a-stadium-bend",
+      "tier": "balanced",
+      "tick": 608,
+      "before": {
+        "wall_ms": {
+          "valid": 240,
+          "mean": 1.3009937484942686,
+          "median": 1.2960530002601445,
+          "p95": 1.4134991215541959,
+          "maximum": 1.589101506397128
+        },
+        "cpu_frame_ms": {
+          "valid": 240,
+          "mean": 1.30071625,
+          "median": 1.2963,
+          "p95": 1.4125,
+          "maximum": 1.5904
+        },
+        "cpu_main_ms": {
+          "valid": 240,
+          "mean": 1.289755,
+          "median": 1.28525,
+          "p95": 1.402,
+          "maximum": 1.5777
+        },
+        "cpu_render_ms": null,
+        "cpu_wait_ms": {
+          "valid": 240,
+          "mean": 0.0,
+          "median": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": {
+          "valid": 240,
+          "mean": 373.06666666666666,
+          "median": 373.0,
+          "p95": 374,
+          "maximum": 374
+        },
+        "triangles": {
+          "valid": 240,
+          "mean": 3760931.1333333333,
+          "median": 3760931.0,
+          "p95": 3760933,
+          "maximum": 3760933
+        },
+        "gc_bytes": {
+          "valid": 240,
+          "mean": 163.6,
+          "median": 34.0,
+          "p95": 51,
+          "maximum": 30866
+        },
+        "used_memory_bytes": {
+          "valid": 240,
+          "mean": 4956929741.966666,
+          "median": 4956931511.0,
+          "p95": 4956935855,
+          "maximum": 4956935974
+        },
+        "throughput_fps": 768.6432015198922
+      },
+      "after": {
+        "wall_ms": {
+          "valid": 240,
+          "mean": 1.2993349931396854,
+          "median": 1.2948979856446385,
+          "p95": 1.397505635395646,
+          "maximum": 1.719203544780612
+        },
+        "cpu_frame_ms": {
+          "valid": 240,
+          "mean": 1.2980729166666667,
+          "median": 1.2948,
+          "p95": 1.3997,
+          "maximum": 1.7198
+        },
+        "cpu_main_ms": {
+          "valid": 240,
+          "mean": 1.2870908333333333,
+          "median": 1.28355,
+          "p95": 1.3872,
+          "maximum": 1.7085
+        },
+        "cpu_render_ms": null,
+        "cpu_wait_ms": {
+          "valid": 240,
+          "mean": 0.0,
+          "median": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": {
+          "valid": 240,
+          "mean": 373.06666666666666,
+          "median": 373.0,
+          "p95": 374,
+          "maximum": 374
+        },
+        "triangles": {
+          "valid": 240,
+          "mean": 4076216.1333333333,
+          "median": 4076216.0,
+          "p95": 4076218,
+          "maximum": 4076218
+        },
+        "gc_bytes": {
+          "valid": 240,
+          "mean": 163.52916666666667,
+          "median": 34.0,
+          "p95": 51,
+          "maximum": 30866
+        },
+        "used_memory_bytes": {
+          "valid": 240,
+          "mean": 4675382924.466666,
+          "median": 4675382991.0,
+          "p95": 4675383062,
+          "maximum": 4675383110
+        },
+        "throughput_fps": 769.6244658074061
+      },
+      "change_percent": {
+        "wall_ms": -0.12749910262851438,
+        "cpu_main_ms": -0.2065637789089192,
+        "gpu_ms": null,
+        "draw_calls": 0.0,
+        "triangles": 8.383163339674372,
+        "used_memory_bytes": -5.6798629828530895
+      }
+    },
+    {
+      "id": "a-stadium-bend",
+      "tier": "low",
+      "tick": 608,
+      "before": {
+        "wall_ms": {
+          "valid": 240,
+          "mean": 1.172059182135854,
+          "median": 1.1700502946041524,
+          "p95": 1.2534013949334621,
+          "maximum": 1.3327947817742825
+        },
+        "cpu_frame_ms": {
+          "valid": 240,
+          "mean": 1.17210125,
+          "median": 1.1694499999999999,
+          "p95": 1.2541,
+          "maximum": 1.3316
+        },
+        "cpu_main_ms": {
+          "valid": 240,
+          "mean": 1.1615666666666666,
+          "median": 1.1590500000000001,
+          "p95": 1.2426,
+          "maximum": 1.3216
+        },
+        "cpu_render_ms": null,
+        "cpu_wait_ms": {
+          "valid": 240,
+          "mean": 0.0,
+          "median": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": {
+          "valid": 240,
+          "mean": 287.06666666666666,
+          "median": 287.0,
+          "p95": 288,
+          "maximum": 288
+        },
+        "triangles": {
+          "valid": 240,
+          "mean": 2260709.1333333333,
+          "median": 2260709.0,
+          "p95": 2260711,
+          "maximum": 2260711
+        },
+        "gc_bytes": {
+          "valid": 240,
+          "mean": 163.52916666666667,
+          "median": 34.0,
+          "p95": 51,
+          "maximum": 30883
+        },
+        "used_memory_bytes": {
+          "valid": 240,
+          "mean": 4886071655.308333,
+          "median": 4886073108.0,
+          "p95": 4886077396,
+          "maximum": 4886081492
+        },
+        "throughput_fps": 853.1992370706837
+      },
+      "after": {
+        "wall_ms": {
+          "valid": 240,
+          "mean": 1.1599970787453155,
+          "median": 1.1537521495483816,
+          "p95": 1.2541949981823564,
+          "maximum": 1.2938067084178329
+        },
+        "cpu_frame_ms": {
+          "valid": 240,
+          "mean": 1.1599545833333333,
+          "median": 1.15515,
+          "p95": 1.2452,
+          "maximum": 1.2901
+        },
+        "cpu_main_ms": {
+          "valid": 240,
+          "mean": 1.1491625,
+          "median": 1.1435,
+          "p95": 1.2342,
+          "maximum": 1.279
+        },
+        "cpu_render_ms": null,
+        "cpu_wait_ms": {
+          "valid": 240,
+          "mean": 0.0,
+          "median": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": {
+          "valid": 240,
+          "mean": 287.06666666666666,
+          "median": 287.0,
+          "p95": 288,
+          "maximum": 288
+        },
+        "triangles": {
+          "valid": 240,
+          "mean": 2449880.1333333333,
+          "median": 2449880.0,
+          "p95": 2449882,
+          "maximum": 2449882
+        },
+        "gc_bytes": {
+          "valid": 240,
+          "mean": 163.45833333333334,
+          "median": 34.0,
+          "p95": 51,
+          "maximum": 30866
+        },
+        "used_memory_bytes": {
+          "valid": 240,
+          "mean": 4604352491.741667,
+          "median": 4604352484.0,
+          "p95": 4604352603,
+          "maximum": 4604352603
+        },
+        "throughput_fps": 862.0711364908153
+      },
+      "change_percent": {
+        "wall_ms": -1.0291377410275082,
+        "cpu_main_ms": -1.0678824576003554,
+        "gpu_ms": null,
+        "draw_calls": 0.0,
+        "triangles": 8.367772625444925,
+        "used_memory_bytes": -5.7657599691687045
+      }
+    },
+    {
+      "id": "e-range",
+      "tier": "high",
+      "tick": 2691,
+      "before": {
+        "wall_ms": {
+          "valid": 240,
+          "mean": 2.1952933117669695,
+          "median": 2.163446042686701,
+          "p95": 2.453096676617861,
+          "maximum": 2.5410004891455173
+        },
+        "cpu_frame_ms": {
+          "valid": 240,
+          "mean": 2.1963529166666667,
+          "median": 2.1653000000000002,
+          "p95": 2.4535,
+          "maximum": 2.5415
+        },
+        "cpu_main_ms": {
+          "valid": 240,
+          "mean": 2.1830091666666664,
+          "median": 2.1515500000000003,
+          "p95": 2.4406,
+          "maximum": 2.5285
+        },
+        "cpu_render_ms": null,
+        "cpu_wait_ms": {
+          "valid": 240,
+          "mean": 0.0,
+          "median": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": {
+          "valid": 240,
+          "mean": 1606.0666666666666,
+          "median": 1606.0,
+          "p95": 1607,
+          "maximum": 1607
+        },
+        "triangles": {
+          "valid": 240,
+          "mean": 2708697.1333333333,
+          "median": 2708697.0,
+          "p95": 2708699,
+          "maximum": 2708699
+        },
+        "gc_bytes": {
+          "valid": 240,
+          "mean": 164.30833333333334,
+          "median": 34.0,
+          "p95": 51,
+          "maximum": 30866
+        },
+        "used_memory_bytes": {
+          "valid": 240,
+          "mean": 5068201327.9375,
+          "median": 5068200163.0,
+          "p95": 5068208371,
+          "maximum": 5068241259
+        },
+        "throughput_fps": 455.51999572900354
+      },
+      "after": {
+        "wall_ms": {
+          "valid": 240,
+          "mean": 2.245266679286336,
+          "median": 2.214200794696808,
+          "p95": 2.474000910297036,
+          "maximum": 2.5765022728592157
+        },
+        "cpu_frame_ms": {
+          "valid": 240,
+          "mean": 2.246975,
+          "median": 2.2164,
+          "p95": 2.4744,
+          "maximum": 2.5756
+        },
+        "cpu_main_ms": {
+          "valid": 240,
+          "mean": 2.2331908333333335,
+          "median": 2.2025,
+          "p95": 2.4611,
+          "maximum": 2.5627
+        },
+        "cpu_render_ms": null,
+        "cpu_wait_ms": {
+          "valid": 240,
+          "mean": 0.0,
+          "median": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": {
+          "valid": 240,
+          "mean": 1643.0666666666666,
+          "median": 1643.0,
+          "p95": 1644,
+          "maximum": 1644
+        },
+        "triangles": {
+          "valid": 240,
+          "mean": 3128337.1333333333,
+          "median": 3128337.0,
+          "p95": 3128339,
+          "maximum": 3128339
+        },
+        "gc_bytes": {
+          "valid": 240,
+          "mean": 164.37916666666666,
+          "median": 34.0,
+          "p95": 51,
+          "maximum": 30866
+        },
+        "used_memory_bytes": {
+          "valid": 240,
+          "mean": 4786199002.966666,
+          "median": 4786198919.0,
+          "p95": 4786199631,
+          "maximum": 4786199975
+        },
+        "throughput_fps": 445.38139243123345
+      },
+      "change_percent": {
+        "wall_ms": 2.276386815898568,
+        "cpu_main_ms": 2.2987382477780205,
+        "gpu_ms": null,
+        "draw_calls": 2.3037648914532305,
+        "triangles": 15.49231897637775,
+        "used_memory_bytes": -5.564150015437419
+      }
+    },
+    {
+      "id": "e-range",
+      "tier": "balanced",
+      "tick": 2691,
+      "before": {
+        "wall_ms": {
+          "valid": 240,
+          "mean": 2.120586259601017,
+          "median": 2.079046214930713,
+          "p95": 2.3825962562114,
+          "maximum": 2.585700014606118
+        },
+        "cpu_frame_ms": {
+          "valid": 240,
+          "mean": 2.11809125,
+          "median": 2.0811,
+          "p95": 2.3781,
+          "maximum": 2.584
+        },
+        "cpu_main_ms": {
+          "valid": 240,
+          "mean": 2.105002916666667,
+          "median": 2.0672499999999996,
+          "p95": 2.3655,
+          "maximum": 2.5643
+        },
+        "cpu_render_ms": null,
+        "cpu_wait_ms": {
+          "valid": 240,
+          "mean": 0.0,
+          "median": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": {
+          "valid": 240,
+          "mean": 1421.0666666666666,
+          "median": 1421.0,
+          "p95": 1422,
+          "maximum": 1422
+        },
+        "triangles": {
+          "valid": 240,
+          "mean": 2185885.1333333333,
+          "median": 2185885.0,
+          "p95": 2185887,
+          "maximum": 2185887
+        },
+        "gc_bytes": {
+          "valid": 240,
+          "mean": 164.2375,
+          "median": 34.0,
+          "p95": 51,
+          "maximum": 30866
+        },
+        "used_memory_bytes": {
+          "valid": 240,
+          "mean": 5045123294.804167,
+          "median": 5045124211.0,
+          "p95": 5045132419,
+          "maximum": 5045132538
+        },
+        "throughput_fps": 471.5677070302943
+      },
+      "after": {
+        "wall_ms": {
+          "valid": 240,
+          "mean": 2.1205525166199855,
+          "median": 2.0968466997146606,
+          "p95": 2.3521045222878456,
+          "maximum": 2.576197497546673
+        },
+        "cpu_frame_ms": {
+          "valid": 240,
+          "mean": 2.1192179166666665,
+          "median": 2.0965999999999996,
+          "p95": 2.3509,
+          "maximum": 2.5763
+        },
+        "cpu_main_ms": {
+          "valid": 240,
+          "mean": 2.1059383333333335,
+          "median": 2.0833,
+          "p95": 2.3379,
+          "maximum": 2.5625
+        },
+        "cpu_render_ms": null,
+        "cpu_wait_ms": {
+          "valid": 240,
+          "mean": 0.0,
+          "median": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": {
+          "valid": 240,
+          "mean": 1433.0666666666666,
+          "median": 1433.0,
+          "p95": 1434,
+          "maximum": 1434
+        },
+        "triangles": {
+          "valid": 240,
+          "mean": 2578756.1333333333,
+          "median": 2578756.0,
+          "p95": 2578758,
+          "maximum": 2578758
+        },
+        "gc_bytes": {
+          "valid": 240,
+          "mean": 164.2375,
+          "median": 34.0,
+          "p95": 51,
+          "maximum": 30866
+        },
+        "used_memory_bytes": {
+          "valid": 240,
+          "mean": 4762924329.2375,
+          "median": 4762924387.0,
+          "p95": 4762925015,
+          "maximum": 4762925134
+        },
+        "throughput_fps": 471.575210782297
+      },
+      "change_percent": {
+        "wall_ms": -0.0015912100193360423,
+        "cpu_main_ms": 0.04443778482492444,
+        "gpu_ms": null,
+        "draw_calls": 0.8444361043347781,
+        "triangles": 17.973085319487826,
+        "used_memory_bytes": -5.593499882496344
+      }
+    },
+    {
+      "id": "e-range",
+      "tier": "low",
+      "tick": 2691,
+      "before": {
+        "wall_ms": {
+          "valid": 240,
+          "mean": 1.9003116700332612,
+          "median": 1.8700503278523684,
+          "p95": 2.1141015458852053,
+          "maximum": 2.5931973941624165
+        },
+        "cpu_frame_ms": {
+          "valid": 240,
+          "mean": 1.90038875,
+          "median": 1.8695,
+          "p95": 2.1134,
+          "maximum": 2.594
+        },
+        "cpu_main_ms": {
+          "valid": 240,
+          "mean": 1.8874479166666667,
+          "median": 1.85735,
+          "p95": 2.098,
+          "maximum": 2.5749
+        },
+        "cpu_render_ms": null,
+        "cpu_wait_ms": {
+          "valid": 240,
+          "mean": 0.0,
+          "median": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": {
+          "valid": 240,
+          "mean": 846.0666666666667,
+          "median": 846.0,
+          "p95": 847,
+          "maximum": 847
+        },
+        "triangles": {
+          "valid": 240,
+          "mean": 1356079.1333333333,
+          "median": 1356079.0,
+          "p95": 1356081,
+          "maximum": 1356081
+        },
+        "gc_bytes": {
+          "valid": 240,
+          "mean": 164.09583333333333,
+          "median": 34.0,
+          "p95": 51,
+          "maximum": 30866
+        },
+        "used_memory_bytes": {
+          "valid": 240,
+          "mean": 4973147073.008333,
+          "median": 4973147266.0,
+          "p95": 4973156178,
+          "maximum": 4973156386
+        },
+        "throughput_fps": 526.2294684442458
+      },
+      "after": {
+        "wall_ms": {
+          "valid": 240,
+          "mean": 1.940200005386335,
+          "median": 1.9368515932001173,
+          "p95": 2.128401305526495,
+          "maximum": 2.427798928692937
+        },
+        "cpu_frame_ms": {
+          "valid": 240,
+          "mean": 1.9388191666666668,
+          "median": 1.93715,
+          "p95": 2.1284,
+          "maximum": 2.4233
+        },
+        "cpu_main_ms": {
+          "valid": 240,
+          "mean": 1.9259095833333333,
+          "median": 1.92435,
+          "p95": 2.1151,
+          "maximum": 2.4063
+        },
+        "cpu_render_ms": null,
+        "cpu_wait_ms": {
+          "valid": 240,
+          "mean": 0.0,
+          "median": 0.0,
+          "p95": 0.0,
+          "maximum": 0.0
+        },
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": {
+          "valid": 240,
+          "mean": 858.0666666666667,
+          "median": 858.0,
+          "p95": 859,
+          "maximum": 859
+        },
+        "triangles": {
+          "valid": 240,
+          "mean": 1591635.1333333333,
+          "median": 1591635.0,
+          "p95": 1591637,
+          "maximum": 1591637
+        },
+        "gc_bytes": {
+          "valid": 240,
+          "mean": 164.09583333333333,
+          "median": 34.0,
+          "p95": 51,
+          "maximum": 30866
+        },
+        "used_memory_bytes": {
+          "valid": 240,
+          "mean": 4690835854.508333,
+          "median": 4690835868.0,
+          "p95": 4690836388,
+          "maximum": 4690836507
+        },
+        "throughput_fps": 515.410780962697
+      },
+      "change_percent": {
+        "wall_ms": 2.099041750997399,
+        "cpu_main_ms": 2.0377604238527525,
+        "gpu_ms": null,
+        "draw_calls": 1.41832794894019,
+        "triangles": 17.370372731935447,
+        "used_memory_bytes": -5.676711634615417
+      }
+    }
+  ]
+}

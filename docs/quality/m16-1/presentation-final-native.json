@@ -1,0 +1,277 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":479,\"PassedTests\":50,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:26.2785324\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.ProductionCoursePresentationTests.InvalidOrBuriedGroundDoesNotPublishPartialJoinsAndCanRetry\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.6770000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionCoursePresentationTests.LateMeshPreparationFailureRollsBackBeforeExposureAndAllowsRetry\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0230000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionCoursePresentationTests.MissingBindingsAndInvalidRootRejectBeforeCreatingObjects\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0040000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionCoursePresentationTests.OwnedResourcesSurviveDisableAndAreReleasedOnShutdownAndDestruction\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0190000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionCoursePresentationTests.ProductionCourseIncludesEveryActualLoopAndClosedSeamAtSourceHeight\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.8940000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionCoursePresentationTests.SnowJoinResourcesFollowCourseLifecycleAndLeaveTerrainOwnedSeparately\",\"Status\":\"Passed\",\"Duration\":\"00:00:02.8860000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionCoursePresentationTests.SnowJoinsFollowWholeTerrainEdgesWithoutChangingAnySourceSurface\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.9780000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionCoursePresentationTests.StableLoopSurfacesKeepActualHeightWidthAndIndependentTopology\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0320000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.ActualRenderedTerrainRemainsBeneathEveryProductionRibbonTriangle\",\"Status\":\"Passed\",\"Duration\":\"00:00:06.9940000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.ConvexTerrainRejectsABuriedTransitionCapWhileOriginalRibbonRemainsClear\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0430000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.ExactOverlayNeverExtrapolatesAnAlmostOutsideClippedEdge\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.ExactRetracedOriginalBoundaryPublishesOneWholeOutwardCurtain\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0220000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.OtherGroomedLoopRejectsAnIntrudingShoulderWithoutChangingEitherRibbon\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0220000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.PartlyExposedAndHighCurtainsStillRejectRawTopologyAcrossCanonicalWelds\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0570000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.RetainedOriginalSelfOverlapKeepsCompleteCertifiedCurtainContact\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0260000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.SnowMoundsStayOutsideTheSkiRibbonAndCloseTheirGroundContact(False)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0180000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.SnowMoundsStayOutsideTheSkiRibbonAndCloseTheirGroundContact(True)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0770000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.StraightShouldersKeepRecipeWidthAndCloseBothOpenEnds\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0230000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.StraightToBendTransitionsKeepFullTerrainContactWithoutHoles\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0220000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.TerrainBoundaryRejectsAnUncoveredShoulderAndKeepsCompleteOriginalJoin\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0370000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.TinyTangentChangesRejectUnequalOuterSeamsAndRetainWholeJoins\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0230000\"},{\"Name\":\"Biathlon.PlayModeTests.RangeApronPresentationTests.ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(0,45.0f)\",\"Status\":\"Passed\",\"Duration\":\"00:00:03.2520000\"},{\"Name\":\"Biathlon.PlayModeTests.RangeApronPresentationTests.ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(1,0.0f)\",\"Status\":\"Passed\",\"Duration\":\"00:00:03.4130000\"},{\"Name\":\"Biathlon.PlayModeTests.RangeApronPresentationTests.ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(2,31.0f)\",\"Status\":\"Passed\",\"Duration\":\"00:00:03.3650000\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.ExcludesCanopiesAcrossAllLodsRatherThanOnlyTreeTrunks\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0150000\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.PlacementFollowsTranslatedAndRotatedActualBackstop\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0150000\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022NOR\\u0022,0.1f,0.1f,\\u0022#BA0C2F\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022NOR\\u0022,0.36f,0.1f,\\u0022#00205B\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022NOR\\u0022,0.29f,0.1f,\\u0022#FFFFFF\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022SWE\\u0022,0.1f,0.1f,\\u0022#006AA7\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022SWE\\u0022,0.36f,0.1f,\\u0022#FECC00\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022FIN\\u0022,0.1f,0.1f,\\u0022#FFFFFF\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022FIN\\u0022,0.36f,0.1f,\\u0022#002F6C\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022GER\\u0022,0.5f,0.85f,\\u0022#000000\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022GER\\u0022,0.5f,0.5f,\\u0022#DD0000\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022GER\\u0022,0.5f,0.15f,\\u0022#FFCE00\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022FRA\\u0022,0.15f,0.5f,\\u0022#000091\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022FRA\\u0022,0.5f,0.5f,\\u0022#FFFFFF\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022FRA\\u0022,0.85f,0.5f,\\u0022#E1000F\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022ITA\\u0022,0.15f,0.5f,\\u0022#009246\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022ITA\\u0022,0.5f,0.5f,\\u0022#FFFFFF\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\\u0022ITA\\u0022,0.85f,0.5f,\\u0022#CE2B37\\u0022)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.RejectsUnboundedMeshesAndAmbiguousDefinitions\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.RangeFlagTests.WindKeepsAllTargetsClearAndReusesOwnedResources\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0820000\"},{\"Name\":\"Biathlon.PlayModeTests.SnowJoinCoverageTests.OnlyWholeSamePlaneSameFacingCoverageCanRemoveAConnectedCut(0,False,2)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0040000\"},{\"Name\":\"Biathlon.PlayModeTests.SnowJoinCoverageTests.OnlyWholeSamePlaneSameFacingCoverageCanRemoveAConnectedCut(1E-05.0f,False,0)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.SnowJoinCoverageTests.OnlyWholeSamePlaneSameFacingCoverageCanRemoveAConnectedCut(0,True,0)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.SnowJoinCoverageTests.PartialCoverageRetainsTheUncoveredOriginalCurtain\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.PlayModeTests.SnowRibbonRimTests.DirectionDiscontinuityIsReducedWithoutMovingCentersOrChangingWidths\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.PlayModeTests.SnowRibbonRimTests.LegacyPolicyRetainsItsExplicitBaselineAndRejectsNaturalDimensionsWithoutVersion\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.7820000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 479,
+          "PassedTests": 50,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:26.2785324"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.InvalidOrBuriedGroundDoesNotPublishPartialJoinsAndCanRetry",
+            "Status": "Passed",
+            "Duration": "00:00:01.6770000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.LateMeshPreparationFailureRollsBackBeforeExposureAndAllowsRetry",
+            "Status": "Passed",
+            "Duration": "00:00:00.0230000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.MissingBindingsAndInvalidRootRejectBeforeCreatingObjects",
+            "Status": "Passed",
+            "Duration": "00:00:00.0040000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.OwnedResourcesSurviveDisableAndAreReleasedOnShutdownAndDestruction",
+            "Status": "Passed",
+            "Duration": "00:00:00.0190000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.ProductionCourseIncludesEveryActualLoopAndClosedSeamAtSourceHeight",
+            "Status": "Passed",
+            "Duration": "00:00:00.8940000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.SnowJoinResourcesFollowCourseLifecycleAndLeaveTerrainOwnedSeparately",
+            "Status": "Passed",
+            "Duration": "00:00:02.8860000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.SnowJoinsFollowWholeTerrainEdgesWithoutChangingAnySourceSurface",
+            "Status": "Passed",
+            "Duration": "00:00:01.9780000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionCoursePresentationTests.StableLoopSurfacesKeepActualHeightWidthAndIndependentTopology",
+            "Status": "Passed",
+            "Duration": "00:00:00.0320000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.ActualRenderedTerrainRemainsBeneathEveryProductionRibbonTriangle",
+            "Status": "Passed",
+            "Duration": "00:00:06.9940000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.ConvexTerrainRejectsABuriedTransitionCapWhileOriginalRibbonRemainsClear",
+            "Status": "Passed",
+            "Duration": "00:00:00.0430000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.ExactOverlayNeverExtrapolatesAnAlmostOutsideClippedEdge",
+            "Status": "Passed",
+            "Duration": "00:00:00.0010000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.ExactRetracedOriginalBoundaryPublishesOneWholeOutwardCurtain",
+            "Status": "Passed",
+            "Duration": "00:00:00.0220000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.OtherGroomedLoopRejectsAnIntrudingShoulderWithoutChangingEitherRibbon",
+            "Status": "Passed",
+            "Duration": "00:00:00.0220000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.PartlyExposedAndHighCurtainsStillRejectRawTopologyAcrossCanonicalWelds",
+            "Status": "Passed",
+            "Duration": "00:00:00.0570000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.RetainedOriginalSelfOverlapKeepsCompleteCertifiedCurtainContact",
+            "Status": "Passed",
+            "Duration": "00:00:00.0260000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.SnowMoundsStayOutsideTheSkiRibbonAndCloseTheirGroundContact(False)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0180000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.SnowMoundsStayOutsideTheSkiRibbonAndCloseTheirGroundContact(True)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0770000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.StraightShouldersKeepRecipeWidthAndCloseBothOpenEnds",
+            "Status": "Passed",
+            "Duration": "00:00:00.0230000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.StraightToBendTransitionsKeepFullTerrainContactWithoutHoles",
+            "Status": "Passed",
+            "Duration": "00:00:00.0220000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.TerrainBoundaryRejectsAnUncoveredShoulderAndKeepsCompleteOriginalJoin",
+            "Status": "Passed",
+            "Duration": "00:00:00.0370000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.TinyTangentChangesRejectUnequalOuterSeamsAndRetainWholeJoins",
+            "Status": "Passed",
+            "Duration": "00:00:00.0230000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeApronPresentationTests.ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(0,45.0f)",
+            "Status": "Passed",
+            "Duration": "00:00:03.2520000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeApronPresentationTests.ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(1,0.0f)",
+            "Status": "Passed",
+            "Duration": "00:00:03.4130000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeApronPresentationTests.ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(2,31.0f)",
+            "Status": "Passed",
+            "Duration": "00:00:03.3650000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.ExcludesCanopiesAcrossAllLodsRatherThanOnlyTreeTrunks",
+            "Status": "Passed",
+            "Duration": "00:00:00.0150000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.PlacementFollowsTranslatedAndRotatedActualBackstop",
+            "Status": "Passed",
+            "Duration": "00:00:00.0150000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"NOR\",0.1f,0.1f,\"#BA0C2F\")",
+            "Status": "Passed",
+            "Duration": "00:00:00.0010000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"NOR\",0.36f,0.1f,\"#00205B\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"NOR\",0.29f,0.1f,\"#FFFFFF\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"SWE\",0.1f,0.1f,\"#006AA7\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"SWE\",0.36f,0.1f,\"#FECC00\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"FIN\",0.1f,0.1f,\"#FFFFFF\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"FIN\",0.36f,0.1f,\"#002F6C\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"GER\",0.5f,0.85f,\"#000000\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"GER\",0.5f,0.5f,\"#DD0000\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"GER\",0.5f,0.15f,\"#FFCE00\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"FRA\",0.15f,0.5f,\"#000091\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"FRA\",0.5f,0.5f,\"#FFFFFF\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"FRA\",0.85f,0.5f,\"#E1000F\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"ITA\",0.15f,0.5f,\"#009246\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"ITA\",0.5f,0.5f,\"#FFFFFF\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RecognizableNationalPatterns(\"ITA\",0.85f,0.5f,\"#CE2B37\")",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.RejectsUnboundedMeshesAndAmbiguousDefinitions",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeFlagTests.WindKeepsAllTargetsClearAndReusesOwnedResources",
+            "Status": "Passed",
+            "Duration": "00:00:00.0820000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SnowJoinCoverageTests.OnlyWholeSamePlaneSameFacingCoverageCanRemoveAConnectedCut(0,False,2)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0040000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SnowJoinCoverageTests.OnlyWholeSamePlaneSameFacingCoverageCanRemoveAConnectedCut(1E-05.0f,False,0)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SnowJoinCoverageTests.OnlyWholeSamePlaneSameFacingCoverageCanRemoveAConnectedCut(0,True,0)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SnowJoinCoverageTests.PartialCoverageRetainsTheUncoveredOriginalCurtain",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SnowRibbonRimTests.DirectionDiscontinuityIsReducedWithoutMovingCentersOrChangingWidths",
+            "Status": "Passed",
+            "Duration": "00:00:00.0020000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SnowRibbonRimTests.LegacyPolicyRetainsItsExplicitBaselineAndRejectsNaturalDimensionsWithoutVersion",
+            "Status": "Passed",
+            "Duration": "00:00:00.7820000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

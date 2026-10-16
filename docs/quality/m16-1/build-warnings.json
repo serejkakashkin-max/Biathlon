@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "total": 518,
+  "errors": 0,
+  "groups": [
+    {
+      "Name": "ConvGeneric",
+      "Count": 460
+    },
+    {
+      "Name": "CS0618 API deprecations",
+      "Count": 22
+    },
+    {
+      "Name": "Hidden/Sentis/ConvTranspose",
+      "Count": 6
+    },
+    {
+      "Name": "Hidden/Sentis/GridSample",
+      "Count": 3
+    },
+    {
+      "Name": "Hidden/Sentis/Pad",
+      "Count": 1
+    },
+    {
+      "Name": "Hidden/Sentis/ScatterElements",
+      "Count": 2
+    },
+    {
+      "Name": "Hidden/Sentis/ScatterND",
+      "Count": 18
+    },
+    {
+      "Name": "Hidden/Sentis/SliceSet",
+      "Count": 6
+    }
+  ],
+  "note": "496 Sentis compute/shader variant warnings; 22 existing-review and new-review FindObjectsByType API deprecation warnings. No Biathlon/RangeFlag or Biathlon/Snow shader error or warning in this report. Not zero warnings.",
+  "id": "m16_1_build_warnings"
+}

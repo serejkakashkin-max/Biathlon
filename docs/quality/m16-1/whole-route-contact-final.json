@@ -1,0 +1,46 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":475,\"PassedTests\":1,\"FailedTests\":2,\"SkippedTests\":0,\"Duration\":\"00:01:07.5173157\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(0.0f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:33.0710000\",\"Message\":\"  A snow join must not publish duplicate/non-manifold faces: sprint_extension (138.50, 0.00, -4.69) / (138.50, -0.03, -4.69)\\r\\n  Expected: less than or equal to 2\\r\\n  But was:  3\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002BJoinedWorld world, System.Boolean entireVenue) [0x01114] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:389\\r\\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c5c] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\SprintCurvedSnowBankTests.cs:125\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(45.0f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:33.6310000\",\"Message\":\"  A snow join must not publish duplicate/non-manifold faces: sprint_extension (138.50, 0.00, -4.69) / (138.50, -0.03, -4.69)\\r\\n  Expected: less than or equal to 2\\r\\n  But was:  3\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002BJoinedWorld world, System.Boolean entireVenue) [0x01114] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:389\\r\\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c5c] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\SprintCurvedSnowBankTests.cs:125\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.ProductionSnowMoundsCoverTheMainReturnAndRequireFiniteDimensions\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.7120000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 475,
+          "PassedTests": 1,
+          "FailedTests": 2,
+          "SkippedTests": 0,
+          "Duration": "00:01:07.5173157"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(0.0f)",
+            "Status": "Failed",
+            "Duration": "00:00:33.0710000",
+            "Message": "  A snow join must not publish duplicate/non-manifold faces: sprint_extension (138.50, 0.00, -4.69) / (138.50, -0.03, -4.69)\r\n  Expected: less than or equal to 2\r\n  But was:  3\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests+JoinedWorld world, System.Boolean entireVenue) [0x01114] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:389\r\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c5c] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SprintCurvedSnowBankTests.cs:125\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(45.0f)",
+            "Status": "Failed",
+            "Duration": "00:00:33.6310000",
+            "Message": "  A snow join must not publish duplicate/non-manifold faces: sprint_extension (138.50, 0.00, -4.69) / (138.50, -0.03, -4.69)\r\n  Expected: less than or equal to 2\r\n  But was:  3\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests+JoinedWorld world, System.Boolean entireVenue) [0x01114] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:389\r\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c5c] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SprintCurvedSnowBankTests.cs:125\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.ProductionSnowMoundsCoverTheMainReturnAndRequireFiniteDimensions",
+            "Status": "Passed",
+            "Duration": "00:00:00.7120000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

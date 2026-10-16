@@ -1,0 +1,46 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":475,\"PassedTests\":1,\"FailedTests\":2,\"SkippedTests\":0,\"Duration\":\"00:01:24.1826292\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(0.0f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:41.9110000\",\"Message\":\"  Expected: True\\r\\n  But was:  False\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002BJoinedWorld world) [0x00815] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:294\\r\\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c3e] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\SprintCurvedSnowBankTests.cs:125\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(45.0f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:41.4880000\",\"Message\":\"  Expected: True\\r\\n  But was:  False\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002BJoinedWorld world) [0x00815] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:294\\r\\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c3e] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\SprintCurvedSnowBankTests.cs:125\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.ProductionSnowMoundsCoverTheMainReturnAndRequireFiniteDimensions\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.6900000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 475,
+          "PassedTests": 1,
+          "FailedTests": 2,
+          "SkippedTests": 0,
+          "Duration": "00:01:24.1826292"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(0.0f)",
+            "Status": "Failed",
+            "Duration": "00:00:41.9110000",
+            "Message": "  Expected: True\r\n  But was:  False\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests+JoinedWorld world) [0x00815] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:294\r\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c3e] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SprintCurvedSnowBankTests.cs:125\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(45.0f)",
+            "Status": "Failed",
+            "Duration": "00:00:41.4880000",
+            "Message": "  Expected: True\r\n  But was:  False\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests+JoinedWorld world) [0x00815] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:294\r\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c3e] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SprintCurvedSnowBankTests.cs:125\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.ProductionSnowMoundsCoverTheMainReturnAndRequireFiniteDimensions",
+            "Status": "Passed",
+            "Duration": "00:00:00.6900000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

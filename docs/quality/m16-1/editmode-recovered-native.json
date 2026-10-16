@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "m16_1_editmode_recovered_native",
+  "date": "2026-10-16",
+  "explanation": "The tests-run MCP request timed out while the Unity run continued. Read the actual retained testResults after the editor returned idle. All 19 selected cases finished Passed; no inferred result or rerun. Native RQL output follows.",
+  "query": "testResults | select name status durationMs message",
+  "native_result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "19 results\nname|status|durationMs|message\nBiathlon.Tests.ManualReplayPolicyCompatibilityTests.HistoricalArrestedSpinReactionRetainsTheOriginalGitBlobForceResults|Passed|21654|null\nBiathlon.Tests.ManualReplayPolicyCompatibilityTests.LegacyMetadataRemainsByteIdenticalAndNewPolicyIsExplicitValidatedAndPrepared|Passed|37176|null\nBiathlon.Tests.ManualReplayPolicyCompatibilityTests.NewV26JournalReplaysExactlyAndCannotBeReadWithTheHistoricalForceLaw|Passed|79123|null\nBiathlon.Tests.ManualReplayPolicyCompatibilityTests.OriginalV25GitBlobJournalOpensAndReplaysWithoutChangingItsHeaderOrCommands|Passed|20120|null\nBiathlon.Tests.ManualReplayPolicyCompatibilityTests.StrictJournalIdentityRejectsCrossPolicyAndTamperedHeadersBeforeAnyTick|Passed|40278|null\nBiathlon.Tests.ProductionVenueRaceFactoryTests.CurrentCatalogAndBothAuthoritativeRecipesBindThirtyMaximumWithThirtyMassLanes|Passed|599|null\nBiathlon.Tests.ProductionVenueRaceFactoryTests.ExplicitPathAiRaceCompletesAndItsPersistedCommandsReplayWithoutAi|Passed|297|null\nBiathlon.Tests.ProductionVenueRaceFactoryTests.ImportedCatalogRejectsAChangedProfileOrRouteBeforeConstructingTheRace|Passed|580|null\nBiathlon.Tests.ProductionVenueRaceFactoryTests.LegacyVenueUncoveredRosterAndForeignRouteRejectBeforeRaceCreation|Passed|19|null\nBiathlon.Tests.ProductionVenueRaceFactoryTests.OpenPrivateCorridorHasNoPeriodicRadiusAmbiguityButClosedCourseStillRejectsIt|Passed|32|null\nBiathlon.Tests.ProductionVenueRaceFactoryTests.OversizedProductionRosterRejectsBeforeAnyCoreReadEventOrTelemetry(\"sprint\",31)|Passed|594|null\nBiathlon.Tests.ProductionVenueRaceFactoryTests.OversizedProductionRosterRejectsBeforeAnyCoreReadEventOrTelemetry(\"pursuit\",31)|Passed|629|null\nBiathlon.Tests.ProductionVenueRaceFactoryTests.OversizedProductionRosterRejectsBeforeAnyCoreReadEventOrTelemetry(\"mass_start\",31)|Passed|642|null\nBiathlon.Tests.ProductionVenueRaceFactoryTests.ProductionThirtyAndDetachedHistoricalSixtyUseThirtyReusableMats(30,False)|Passed|35364|null\nBiathlon.Tests.ProductionVenueRaceFactoryTests.ProductionThirtyAndDetachedHistoricalSixtyUseThirtyReusableMats(60,True)|Passed|49441|null\nBiathlon.Tests.ProductionVenueRaceFactoryTests.VenueTrafficIsExplicitBoundAndWidensOnlyItsObservedNeighborhood|Passed|10617|null\nBiathlon.Tests.TerrainPlanningTests.InvalidPreviewAndSchemaFailAndWarmedPlanningDoesNotAllocate|Passed|13|null\nBiathlon.Tests.TerrainPlanningTests.UpcomingClimbSpendsReserveAndTurnReducesEffortBeforeArrival|Passed|19|null\nBiathlon.Tests.TrackVisualTests.VisualGeometryBindsAuthoritativeDistancesAndRejectsBrokenSeams|Passed|18|null"
+      }
+    ],
+    "isError": false
+  }
+}

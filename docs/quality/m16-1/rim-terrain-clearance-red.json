@@ -1,0 +1,126 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":475,\"PassedTests\":17,\"FailedTests\":2,\"SkippedTests\":0,\"Duration\":\"00:01:10.9916122\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.ActualRenderedTerrainRemainsBeneathEveryProductionRibbonTriangle\",\"Status\":\"Passed\",\"Duration\":\"00:00:07.3280000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.ConvexTerrainRejectsABuriedTransitionCapWhileOriginalRibbonRemainsClear\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0370000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.ExactOverlayNeverExtrapolatesAnAlmostOutsideClippedEdge\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.ExactRetracedOriginalBoundaryPublishesOneWholeOutwardCurtain\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0410000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.OtherGroomedLoopRejectsAnIntrudingShoulderWithoutChangingEitherRibbon\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0310000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.PartlyExposedAndHighCurtainsStillRejectRawTopologyAcrossCanonicalWelds\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0380000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.RetainedOriginalSelfOverlapKeepsCompleteCertifiedCurtainContact\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0460000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.SnowMoundsStayOutsideTheSkiRibbonAndCloseTheirGroundContact(False)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0180000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.SnowMoundsStayOutsideTheSkiRibbonAndCloseTheirGroundContact(True)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0770000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.StraightShouldersKeepRecipeWidthAndCloseBothOpenEnds\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0250000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.StraightToBendTransitionsKeepFullTerrainContactWithoutHoles\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0200000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.TerrainBoundaryRejectsAnUncoveredShoulderAndKeepsCompleteOriginalJoin\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0190000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.TinyTangentChangesRejectUnequalOuterSeamsAndRetainWholeJoins\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0370000\"},{\"Name\":\"Biathlon.PlayModeTests.RangeApronPresentationTests.ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(0,45.0f)\",\"Status\":\"Passed\",\"Duration\":\"00:00:03.2640000\"},{\"Name\":\"Biathlon.PlayModeTests.RangeApronPresentationTests.ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(1,0.0f)\",\"Status\":\"Passed\",\"Duration\":\"00:00:03.3820000\"},{\"Name\":\"Biathlon.PlayModeTests.RangeApronPresentationTests.ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(2,31.0f)\",\"Status\":\"Passed\",\"Duration\":\"00:00:03.2600000\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(0.0f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:26.0650000\",\"Message\":\"  Every actual drawn ribbon face retains the full terrain clearance: sprint_extension triangle 168\\r\\n  Expected: True\\r\\n  But was:  False\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertDrawnRibbonGroundClearance (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002BJoinedWorld world) [0x00184] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:625\\r\\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c51] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\SprintCurvedSnowBankTests.cs:124\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(45.0f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:26.3570000\",\"Message\":\"  Every actual drawn ribbon face retains the full terrain clearance: sprint_extension triangle 168\\r\\n  Expected: True\\r\\n  But was:  False\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertDrawnRibbonGroundClearance (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002BJoinedWorld world) [0x00184] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:625\\r\\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c51] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\SprintCurvedSnowBankTests.cs:124\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.ProductionSnowMoundsCoverTheMainReturnAndRequireFiniteDimensions\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.6560000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 475,
+          "PassedTests": 17,
+          "FailedTests": 2,
+          "SkippedTests": 0,
+          "Duration": "00:01:10.9916122"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.ActualRenderedTerrainRemainsBeneathEveryProductionRibbonTriangle",
+            "Status": "Passed",
+            "Duration": "00:00:07.3280000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.ConvexTerrainRejectsABuriedTransitionCapWhileOriginalRibbonRemainsClear",
+            "Status": "Passed",
+            "Duration": "00:00:00.0370000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.ExactOverlayNeverExtrapolatesAnAlmostOutsideClippedEdge",
+            "Status": "Passed",
+            "Duration": "00:00:00.0020000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.ExactRetracedOriginalBoundaryPublishesOneWholeOutwardCurtain",
+            "Status": "Passed",
+            "Duration": "00:00:00.0410000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.OtherGroomedLoopRejectsAnIntrudingShoulderWithoutChangingEitherRibbon",
+            "Status": "Passed",
+            "Duration": "00:00:00.0310000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.PartlyExposedAndHighCurtainsStillRejectRawTopologyAcrossCanonicalWelds",
+            "Status": "Passed",
+            "Duration": "00:00:00.0380000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.RetainedOriginalSelfOverlapKeepsCompleteCertifiedCurtainContact",
+            "Status": "Passed",
+            "Duration": "00:00:00.0460000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.SnowMoundsStayOutsideTheSkiRibbonAndCloseTheirGroundContact(False)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0180000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.SnowMoundsStayOutsideTheSkiRibbonAndCloseTheirGroundContact(True)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0770000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.StraightShouldersKeepRecipeWidthAndCloseBothOpenEnds",
+            "Status": "Passed",
+            "Duration": "00:00:00.0250000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.StraightToBendTransitionsKeepFullTerrainContactWithoutHoles",
+            "Status": "Passed",
+            "Duration": "00:00:00.0200000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.TerrainBoundaryRejectsAnUncoveredShoulderAndKeepsCompleteOriginalJoin",
+            "Status": "Passed",
+            "Duration": "00:00:00.0190000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.TinyTangentChangesRejectUnequalOuterSeamsAndRetainWholeJoins",
+            "Status": "Passed",
+            "Duration": "00:00:00.0370000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeApronPresentationTests.ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(0,45.0f)",
+            "Status": "Passed",
+            "Duration": "00:00:03.2640000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeApronPresentationTests.ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(1,0.0f)",
+            "Status": "Passed",
+            "Duration": "00:00:03.3820000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeApronPresentationTests.ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(2,31.0f)",
+            "Status": "Passed",
+            "Duration": "00:00:03.2600000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(0.0f)",
+            "Status": "Failed",
+            "Duration": "00:00:26.0650000",
+            "Message": "  Every actual drawn ribbon face retains the full terrain clearance: sprint_extension triangle 168\r\n  Expected: True\r\n  But was:  False\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertDrawnRibbonGroundClearance (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, Biathlon.PlayModeTests.ProductionTerrainContactTests+JoinedWorld world) [0x00184] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:625\r\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c51] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SprintCurvedSnowBankTests.cs:124\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(45.0f)",
+            "Status": "Failed",
+            "Duration": "00:00:26.3570000",
+            "Message": "  Every actual drawn ribbon face retains the full terrain clearance: sprint_extension triangle 168\r\n  Expected: True\r\n  But was:  False\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertDrawnRibbonGroundClearance (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, Biathlon.PlayModeTests.ProductionTerrainContactTests+JoinedWorld world) [0x00184] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:625\r\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c51] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SprintCurvedSnowBankTests.cs:124\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.ProductionSnowMoundsCoverTheMainReturnAndRequireFiniteDimensions",
+            "Status": "Passed",
+            "Duration": "00:00:00.6560000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

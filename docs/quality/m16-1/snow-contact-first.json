@@ -1,0 +1,31 @@
+{
+  "Summary": {
+    "Status": "Failed",
+    "TotalTests": 472,
+    "PassedTests": 1,
+    "FailedTests": 2,
+    "SkippedTests": 0,
+    "Duration": "00:00:49.6950849"
+  },
+  "Results": [
+    {
+      "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(0.0f)",
+      "Status": "Failed",
+      "Duration": "00:00:24.7230000",
+      "Message": "  Actual main 60..105m requires a raised snow mound beside its immutable ski ribbon.\r\n  Expected: greater than 0\r\n  But was:  0\r\n",
+      "StackTrace": "at Biathlon.PlayModeTests.SprintCurvedSnowBankTests+<>c__DisplayClass1_0.<OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact>g__AssertRaisedMainBank|1 (System.Double start, System.Double end) [0x00270] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SprintCurvedSnowBankTests.cs:116\r\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x0035f] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SprintCurvedSnowBankTests.cs:56\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(45.0f)",
+      "Status": "Failed",
+      "Duration": "00:00:23.9380000",
+      "Message": "  Actual main 60..105m requires a raised snow mound beside its immutable ski ribbon.\r\n  Expected: greater than 0\r\n  But was:  0\r\n",
+      "StackTrace": "at Biathlon.PlayModeTests.SprintCurvedSnowBankTests+<>c__DisplayClass1_0.<OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact>g__AssertRaisedMainBank|1 (System.Double start, System.Double end) [0x00270] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SprintCurvedSnowBankTests.cs:116\r\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x0035f] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SprintCurvedSnowBankTests.cs:56\r\n"
+    },
+    {
+      "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.ProductionSnowMoundsCoverTheMainReturnAndRequireFiniteDimensions",
+      "Status": "Passed",
+      "Duration": "00:00:00.7720000"
+    }
+  ]
+}

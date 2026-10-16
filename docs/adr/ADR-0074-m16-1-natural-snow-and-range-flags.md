@@ -87,7 +87,11 @@ its three earlier legacy cases. All 19 selected EditMode cases finished Passed;
 the MCP wait timed out, and retained native testResults were recovered after idle.
 Matched native review passes in both phases, 19 camera/tier captures per phase.
 Actual five-race/14-week authority regression is byte-exact against approved M16
-(121817 ticks, 2400 shots). Windows/player performance qualification follows.
+(121817 ticks, 2400 shots). Final Windows delivery and player measurements are in
+`docs/quality/m16-1/README.md`: 0 build errors, categorized 518 warnings, ordinary
+fullscreen acceptance and both 30-athlete comparison probes pass. Observed frame
+time -2.47%..+2.28% across the two cameras/three tiers; GPU timing unavailable.
+No ordinary-game/minimum-spec FPS or zero-GPU-cost claim. Owner art review remains.
 
 Official pattern/reference sources consulted:
 - https://www.norden.org/en/information/nordic-flags

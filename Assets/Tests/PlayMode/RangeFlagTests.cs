@@ -113,6 +113,10 @@ namespace Biathlon.PlayModeTests
                     }
                 }
                 Assert.That(JsonUtility.ToJson(recipe),Is.EqualTo(unchanged),"Flags only observe the environment.");
+                for(int i=0;i<20;i++)view.Render(i,new Vector2(3,2));
+                long allocated=GC.GetAllocatedBytesForCurrentThread();
+                for(int i=0;i<300;i++)view.Render(i*.05f,new Vector2(3,2));
+                Assert.That(GC.GetAllocatedBytesForCurrentThread()-allocated,Is.Zero,"Steady cloth observation must not allocate managed memory.");
                 view.enabled=false;Assert.That(view.Fabric(0).gameObject.activeInHierarchy,Is.False);
                 view.enabled=true;Assert.That(view.Fabric(0).gameObject.activeInHierarchy,Is.True);
                 view.Shutdown();yield return null;yield return null;

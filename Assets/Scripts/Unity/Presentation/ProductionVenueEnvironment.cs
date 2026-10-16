@@ -36,6 +36,9 @@ namespace Biathlon.Unity.Presentation
         public bool AutomaticRendering {get;set;}=true;
         public ProductionForestDressing Dressing=>dressing;
         private LightingVisualPreset lighting;
+        private LightingVisualPreset reviewLighting;
+        public void SetLightingForReview(string id)
+        {reviewLighting=id==null?null:LightingVisualDefinition.Load().Get(id);}
         private TargetGeometryDefinition geometry;
         private RenderQualityPresentation quality;
         private string defaultTier;
@@ -349,7 +352,7 @@ namespace Biathlon.Unity.Presentation
             string atmosphere=recipe.lighting.weather_preset;
             if(atmosphere=="overcast"&&recipe.terrain.snow_material_preset=="wet"&&recipe.lighting.temperature_c>=atmosphericDefinition.wet_haze_temperature_c)
                 atmosphere="winter_haze";
-            weather.Render(AtmosphereOverride??atmosphere,tier,time,recipe.lighting.visual_wind,SampleGround(camera.transform.position),lighting,recipe.lighting.fog_distance_scale,
+            weather.Render(AtmosphereOverride??atmosphere,tier,time,recipe.lighting.visual_wind,SampleGround(camera.transform.position),reviewLighting??lighting,recipe.lighting.fog_distance_scale,
                 AtmosphereOverride==null&&atmosphere=="snowfall"?atmosphericDefinition.LightSnowBlend(time):0);
         }
         private void LateUpdate(){if(Initialized&&AutomaticRendering)Render(shooting!=null&&shooting.isActiveAndEnabled?shooting:chase,quality!=null?quality.TierId:defaultTier,Time.time);}
@@ -357,7 +360,7 @@ namespace Biathlon.Unity.Presentation
         private void OnEnable(){if(generated!=null)generated.SetActive(true);}
         public void Shutdown()
         {
-            RangeFlags?.Shutdown();RangeFlags=null;FlagClearanceExcludedTrees=0;
+            RangeFlags?.Shutdown();RangeFlags=null;FlagClearanceExcludedTrees=0;reviewLighting=null;
             if(weather!=null)weather.Shutdown();
             if(generated!=null){generated.SetActive(false);generated.transform.SetParent(null);DestroyOwned(generated);generated=null;}
             foreach(var mesh in ownedMeshes)DestroyOwned(mesh);foreach(var material in ownedMaterials)DestroyOwned(material);ownedMeshes.Clear();ownedMaterials.Clear();

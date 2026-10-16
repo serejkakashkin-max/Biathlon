@@ -1,0 +1,126 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":475,\"PassedTests\":17,\"FailedTests\":2,\"SkippedTests\":0,\"Duration\":\"00:01:22.1912291\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.ActualRenderedTerrainRemainsBeneathEveryProductionRibbonTriangle\",\"Status\":\"Passed\",\"Duration\":\"00:00:07.5020000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.ConvexTerrainRejectsABuriedTransitionCapWhileOriginalRibbonRemainsClear\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0540000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.ExactOverlayNeverExtrapolatesAnAlmostOutsideClippedEdge\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.ExactRetracedOriginalBoundaryPublishesOneWholeOutwardCurtain\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0250000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.OtherGroomedLoopRejectsAnIntrudingShoulderWithoutChangingEitherRibbon\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0310000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.PartlyExposedAndHighCurtainsStillRejectRawTopologyAcrossCanonicalWelds\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0550000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.RetainedOriginalSelfOverlapKeepsCompleteCertifiedCurtainContact\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0260000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.SnowMoundsStayOutsideTheSkiRibbonAndCloseTheirGroundContact(False)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0170000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.SnowMoundsStayOutsideTheSkiRibbonAndCloseTheirGroundContact(True)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0760000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.StraightShouldersKeepRecipeWidthAndCloseBothOpenEnds\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0250000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.StraightToBendTransitionsKeepFullTerrainContactWithoutHoles\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0210000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.TerrainBoundaryRejectsAnUncoveredShoulderAndKeepsCompleteOriginalJoin\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0380000\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.TinyTangentChangesRejectUnequalOuterSeamsAndRetainWholeJoins\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0490000\"},{\"Name\":\"Biathlon.PlayModeTests.RangeApronPresentationTests.ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(0,45.0f)\",\"Status\":\"Passed\",\"Duration\":\"00:00:03.2940000\"},{\"Name\":\"Biathlon.PlayModeTests.RangeApronPresentationTests.ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(1,0.0f)\",\"Status\":\"Passed\",\"Duration\":\"00:00:03.2920000\"},{\"Name\":\"Biathlon.PlayModeTests.RangeApronPresentationTests.ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(2,31.0f)\",\"Status\":\"Passed\",\"Duration\":\"00:00:03.2400000\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(0.0f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:32.1170000\",\"Message\":\"  A snow join must not publish duplicate/non-manifold faces: sprint_extension (138.50, 0.00, -4.69) / (138.50, -0.03, -4.69)\\r\\n  Expected: less than or equal to 2\\r\\n  But was:  3\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002BJoinedWorld world, System.Boolean entireVenue) [0x010ff] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:371\\r\\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c5c] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\SprintCurvedSnowBankTests.cs:125\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(45.0f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:31.3430000\",\"Message\":\"  A snow join must not publish duplicate/non-manifold faces: sprint_extension (138.50, 0.00, -4.69) / (138.50, -0.03, -4.69)\\r\\n  Expected: less than or equal to 2\\r\\n  But was:  3\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests\\u002BJoinedWorld world, System.Boolean entireVenue) [0x010ff] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:371\\r\\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c5c] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\SprintCurvedSnowBankTests.cs:125\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.SprintCurvedSnowBankTests.ProductionSnowMoundsCoverTheMainReturnAndRequireFiniteDimensions\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.6960000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 475,
+          "PassedTests": 17,
+          "FailedTests": 2,
+          "SkippedTests": 0,
+          "Duration": "00:01:22.1912291"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.ActualRenderedTerrainRemainsBeneathEveryProductionRibbonTriangle",
+            "Status": "Passed",
+            "Duration": "00:00:07.5020000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.ConvexTerrainRejectsABuriedTransitionCapWhileOriginalRibbonRemainsClear",
+            "Status": "Passed",
+            "Duration": "00:00:00.0540000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.ExactOverlayNeverExtrapolatesAnAlmostOutsideClippedEdge",
+            "Status": "Passed",
+            "Duration": "00:00:00.0020000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.ExactRetracedOriginalBoundaryPublishesOneWholeOutwardCurtain",
+            "Status": "Passed",
+            "Duration": "00:00:00.0250000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.OtherGroomedLoopRejectsAnIntrudingShoulderWithoutChangingEitherRibbon",
+            "Status": "Passed",
+            "Duration": "00:00:00.0310000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.PartlyExposedAndHighCurtainsStillRejectRawTopologyAcrossCanonicalWelds",
+            "Status": "Passed",
+            "Duration": "00:00:00.0550000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.RetainedOriginalSelfOverlapKeepsCompleteCertifiedCurtainContact",
+            "Status": "Passed",
+            "Duration": "00:00:00.0260000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.SnowMoundsStayOutsideTheSkiRibbonAndCloseTheirGroundContact(False)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0170000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.SnowMoundsStayOutsideTheSkiRibbonAndCloseTheirGroundContact(True)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0760000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.StraightShouldersKeepRecipeWidthAndCloseBothOpenEnds",
+            "Status": "Passed",
+            "Duration": "00:00:00.0250000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.StraightToBendTransitionsKeepFullTerrainContactWithoutHoles",
+            "Status": "Passed",
+            "Duration": "00:00:00.0210000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.TerrainBoundaryRejectsAnUncoveredShoulderAndKeepsCompleteOriginalJoin",
+            "Status": "Passed",
+            "Duration": "00:00:00.0380000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.TinyTangentChangesRejectUnequalOuterSeamsAndRetainWholeJoins",
+            "Status": "Passed",
+            "Duration": "00:00:00.0490000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeApronPresentationTests.ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(0,45.0f)",
+            "Status": "Passed",
+            "Duration": "00:00:03.2940000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeApronPresentationTests.ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(1,0.0f)",
+            "Status": "Passed",
+            "Duration": "00:00:03.2920000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.RangeApronPresentationTests.ActualCompactFormatKeepsPaidGeometryAndOwnsOnePackedApronWithContinuousContact(2,31.0f)",
+            "Status": "Passed",
+            "Duration": "00:00:03.2400000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(0.0f)",
+            "Status": "Failed",
+            "Duration": "00:00:32.1170000",
+            "Message": "  A snow join must not publish duplicate/non-manifold faces: sprint_extension (138.50, 0.00, -4.69) / (138.50, -0.03, -4.69)\r\n  Expected: less than or equal to 2\r\n  But was:  3\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests+JoinedWorld world, System.Boolean entireVenue) [0x010ff] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:371\r\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c5c] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SprintCurvedSnowBankTests.cs:125\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact(45.0f)",
+            "Status": "Failed",
+            "Duration": "00:00:31.3430000",
+            "Message": "  A snow join must not publish duplicate/non-manifold faces: sprint_extension (138.50, 0.00, -4.69) / (138.50, -0.03, -4.69)\r\n  Expected: less than or equal to 2\r\n  But was:  3\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.ProductionTerrainContactTests.AssertJoinedGeometry (Biathlon.Unity.Presentation.ProductionVenueEnvironment environment, Biathlon.Unity.Presentation.ProductionCoursePresentation course, System.String loopId, UnityEngine.Vector3[] ribbon, System.Boolean closed, Biathlon.PlayModeTests.ProductionTerrainContactTests+JoinedWorld world, System.Boolean entireVenue) [0x010ff] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:371\r\nat Biathlon.PlayModeTests.SprintCurvedSnowBankTests.OptionalActualSprintBanksKeepSourceAndFullNativeProjectedContact (System.Single yaw) [0x00c5c] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SprintCurvedSnowBankTests.cs:125\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.SprintCurvedSnowBankTests.ProductionSnowMoundsCoverTheMainReturnAndRequireFiniteDimensions",
+            "Status": "Passed",
+            "Duration": "00:00:00.6960000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}
