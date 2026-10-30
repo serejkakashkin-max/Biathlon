@@ -26,5 +26,10 @@ namespace Biathlon.Tests
             Assert.That(library.List(),Is.Empty);Assert.Throws<ArgumentException>(()=>library.PendingPath("../escape"));
             Assert.Throws<ArgumentException>(()=>library.CommandsPath("C:\\escape"));
         }
+        [TestCase(-1)][TestCase(3)]public void UnsupportedStartOrderVersionCannotBePublished(int version)
+        {
+            var info=Info();info.CommandSha256=new string('b',64);info.StartOrderVersion=version;
+            Assert.Throws<System.Runtime.Serialization.SerializationException>(()=>info.ToJson());
+        }
     }
 }

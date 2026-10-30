@@ -50,3 +50,33 @@ new per-tick graphics work is introduced. Gameplay graphics remain untouched.
 
 M14 remains in progress; this decision does not close its full gate or require
 a new player build.
+
+## 2026-10-30 — M16.2 owner correction: Sprint start draw
+
+Sprint previously reused save-roster order, where the player is stored first.
+New career Sprints now draw every eligible entrant, including the player, using
+Fisher–Yates with unbiased bounded sampling. CareerSprintStartDraw accepts the
+project IRandomSource; CareerRaceProvider supplies a separate SeededRandomSource
+from the already-prepared race seed and fixed stream identity SPRINTDR. Drawing
+does not consume or mutate the saved career RNG, shooting RNG or AI RNG. Opening,
+abandoning, reloading or replaying the same prepared race cannot redraw its start.
+New race seeds yield new draws, with every ordinal possible, including first.
+
+Drawn order supplies the existing interval scheduler, bib bindings and stable-ID
+player lookup. Start interval/profile, athlete capability, weather and elapsed
+result timing stay unchanged. Mass Start keeps ranking seeding and Pursuit keeps
+its exact qualifying Sprint order/gaps. Existing completed career results are not
+rewritten; old careers need no save migration.
+
+Replay start_order_version2 records the new draw contract. Version0/1 Sprint
+journals explicitly restore the old roster order; their existing weather,
+course-force and Mass Start compatibility paths remain independent. Unknown
+future versions are rejected. New captures use CareerRaceProvider's current
+version. Personal waiting/skip/3–2–1 already follows the selected player's actual
+scheduled tick, including delayed interval starts; every skipped tick still runs.
+
+This is an owner-authorized race-composition change within M16.2, beyond the
+original board-only scope. New Sprint race/event hashes can change intentionally
+because start order changes. Determinism is verified by complete repeated races,
+save reload, journal playback and unchanged Pursuit qualification, rather than
+silently relabeling an older fixed-order golden result as current.

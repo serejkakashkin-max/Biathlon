@@ -42,9 +42,9 @@ namespace Biathlon.PlayModeTests
             menu.Session.OpenNewCareer();menu.Session.CreateCareer("viewer_test","Алекс","NOR",11);
             for(int i=0;i<5;i++)menu.Session.RestWeek();menu.Session.OpenPreRace();var week=menu.Session.PreparedWeek;
             var prepared=new CareerRaceProvider(Read,menu.Session.Definitions,ProductionVenueHost.ReadResource).Prepare(CareerSave.FromJson(week.RaceSnapshotJson),week.Event,week.RaceSeed);
-            var source=ManualProductionFieldComposition.Create(prepared.Runner.Field,prepared.Venue,Read);
+            var source=ManualProductionFieldComposition.Create(prepared.Runner.Field,prepared.Venue,prepared.ManualRead,prepared.CourseReactionPolicy);
             prepared.Runner.BindManualScopedCandidate(source,ManualAiSteeringDefinition.FromJson(Read("manual_ai_steering_v2.json")),ManualSkiSteeringDefinition.FromJson(Read("manual_ski_steering_v2.json")),PlayerCourseAssistanceDefinition.FromJson(Read("player_course_assistance_v1.json")));
-            var info=new RaceReplayInfo{Id="navigation_fixture",RecordedUtc=DateTime.UtcNow.ToString("O"),CareerSnapshotJson=week.RaceSnapshotJson,RaceWeatherJson=prepared.Weather.ToJson(),StartOrderVersion=1,EventId=week.Event.Id,VenueId=week.Event.VenueId,Format=(int)week.Event.Format,Seed=week.RaceSeed,PlayerId=menu.Session.Career.PlayerId,PlayerName="Алекс",TickFrequency=prepared.Runner.Field.TickFrequency,TickCount=1000,ResultSha256=new string('a',64),Events=Array.Empty<RecordedRaceEvent>(),Highlights=new[]{new RaceHighlight(200,menu.Session.Career.PlayerId,RaceHighlightKind.Overtake)}};
+            var info=new RaceReplayInfo{Id="navigation_fixture",RecordedUtc=DateTime.UtcNow.ToString("O"),CareerSnapshotJson=week.RaceSnapshotJson,RaceWeatherJson=prepared.Weather.ToJson(),StartOrderVersion=CareerRaceProvider.CurrentStartOrderVersion,CourseReactionVersion=(int)prepared.CourseReactionPolicy,EventId=week.Event.Id,VenueId=week.Event.VenueId,Format=(int)week.Event.Format,Seed=week.RaceSeed,PlayerId=menu.Session.Career.PlayerId,PlayerName="Алекс",TickFrequency=prepared.Runner.Field.TickFrequency,TickCount=1000,ResultSha256=new string('a',64),Events=Array.Empty<RecordedRaceEvent>(),Highlights=new[]{new RaceHighlight(200,menu.Session.Career.PlayerId,RaceHighlightKind.Overtake)}};
             object pose=null;
             using(var file=library.CreatePending(info.Id))using(var writer=new ManualRaceJournalWriter(file,source,SkiTechniqueDefinition.FromJson(Read("ski_technique_provisional_v1.json"))))
             {
@@ -67,7 +67,7 @@ namespace Biathlon.PlayModeTests
             Assert.That(replay.Host.Proxies.enabled,Is.False);Assert.That(replay.Host.GameplayHud.enabled,Is.False);Assert.That(replay.Host.enabled,Is.False);
             replay.SetSpeed(4);replay.SetCamera("wide");replay.SelectAthlete(1);replay.SetCamera("wide");
             replay.Seek(200);for(int i=0;i<180&&replay.Seeking;i++)yield return null;
-            Assert.That(replay.Tick,Is.EqualTo(200));Assert.That(replay.LastFailure,Is.Null);
+            Assert.That(replay.Tick,Is.EqualTo(200),replay.LastFailure);Assert.That(replay.LastFailure,Is.Null);
             Assert.That(replay.Host.Feed.Current.Tick,Is.EqualTo(200));
             replay.Seek(50);for(int i=0;i<180&&replay.Seeking;i++)yield return null;
             Assert.That(replay.Tick,Is.EqualTo(50));replay.Seek(200);for(int i=0;i<180&&replay.Seeking;i++)yield return null;

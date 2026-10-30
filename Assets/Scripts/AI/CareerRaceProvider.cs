@@ -26,6 +26,9 @@ namespace Biathlon.AI
         private readonly Func<string,string> read,fixture,venueResource;private readonly CareerDefinitions career;private readonly CareerRaceDefinition definition;
         private const string Woodland="woodland_basin_v1";
         private const string WoodlandRoot="Biathlon/Venues/woodland_basin_v1/";
+        public const int CurrentStartOrderVersion=2;
+        // Fixed stream identity (ASCII SPRINTDR), not a gameplay tuning value.
+        private const ulong SprintStartDrawStream=0x535052494E544452UL;
         public long LastTicks { get; private set; } public ulong LastEventHash { get; private set; } public int LastShots { get; private set; }
         public CareerRaceProvider(Func<string,string> read,Func<string,string> fixture,CareerDefinitions career,
             Func<string,string> venueResource=null)
@@ -59,7 +62,7 @@ namespace Biathlon.AI
         }
         public CareerPreparedRace Prepare(CareerSave snapshot,CareerCalendarEvent e,ulong seed,IRaceEventSink observedEvents=null,
             RaceWeatherPreset recordedWeather=null,bool legacyNeutralWeather=false,bool legacyMassStartOrder=false,
-            ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.PassiveCurvedV26)
+            ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.PassiveCurvedV26,bool legacySprintStartOrder=false)
         {
             if(snapshot==null||e==null)throw new ArgumentNullException();
             if(courseReactionPolicy!=ManualCourseReactionPolicy.LegacyV25&&courseReactionPolicy!=ManualCourseReactionPolicy.PassiveCurvedV26)
@@ -84,6 +87,11 @@ namespace Biathlon.AI
             {
                 var seeded=CareerMassStartSeeding.Capture(snapshot,career.Calendar,career.Scoring,e);roster.Clear();
                 foreach(string id in seeded)roster.Add(athletes[id]);
+            }
+            if(e.Format==CompetitionFormat.Sprint&&!legacySprintStartOrder)
+            {
+                var drawn=CareerSprintStartDraw.Capture(snapshot,e,new SeededRandomSource(seed^SprintStartDrawStream));roster.Clear();
+                foreach(string id in drawn)roster.Add(athletes[id]);
             }
             var entrants=new SprintEntrant[roster.Count];var personalities=new AiPersonalityDefinition[roster.Count];var forms=new double[roster.Count];var pressures=new ShootingPressureContext[roster.Count];
             for(int i=0;i<roster.Count;i++)
