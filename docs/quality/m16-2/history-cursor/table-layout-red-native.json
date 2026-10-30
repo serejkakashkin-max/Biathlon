@@ -1,0 +1,34 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":1,\"PassedTests\":0,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:40.3695487\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.SportVisualReviewTests.ActualCheckpointTableBindsCareerFlagsAndPreservesRaceClock\",\"Status\":\"Failed\",\"Duration\":\"00:00:40.2760000\",\"Message\":\"  Expected: less than 900.0f\\r\\n  But was:  933.984375f\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.SportVisualReviewTests\\u002B\\u003C\\u003Ec__DisplayClass14_0.\\u003CActualCheckpointTableBindsCareerFlagsAndPreservesRaceClock\\u003Eb__4 () [0x00000] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\SportVisualReviewTests.cs:129\\r\\nat Biathlon.PlayModeTests.SportVisualReviewTests\\u002B\\u003CCapture\\u003Ed__9.MoveNext () [0x001bf] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\SportVisualReviewTests.cs:38\\r\\nat UnityEngine.TestTools.TestEnumerator\\u002B\\u003CExecute\\u003Ed__8.MoveNext () [0x0003a] in .\\\\Library\\\\PackageCache\\\\com.unity.test-framework@7a3849e09bd0\\\\UnityEngine.TestRunner\\\\NUnitExtensions\\\\Attributes\\\\TestEnumerator.cs:52\\r\\n\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 1,
+          "PassedTests": 0,
+          "FailedTests": 1,
+          "SkippedTests": 0,
+          "Duration": "00:00:40.3695487"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.SportVisualReviewTests.ActualCheckpointTableBindsCareerFlagsAndPreservesRaceClock",
+            "Status": "Failed",
+            "Duration": "00:00:40.2760000",
+            "Message": "  Expected: less than 900.0f\r\n  But was:  933.984375f\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.SportVisualReviewTests+<>c__DisplayClass14_0.<ActualCheckpointTableBindsCareerFlagsAndPreservesRaceClock>b__4 () [0x00000] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SportVisualReviewTests.cs:129\r\nat Biathlon.PlayModeTests.SportVisualReviewTests+<Capture>d__9.MoveNext () [0x001bf] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\SportVisualReviewTests.cs:38\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

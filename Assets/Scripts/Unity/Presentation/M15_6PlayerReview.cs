@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 namespace Biathlon.Unity.Presentation
 {
     /// <summary>Opt-in development-player acceptance; never instantiated during normal gameplay.</summary>
-    public sealed class M15_6PlayerReview:MonoBehaviour
+    public sealed partial class M15_6PlayerReview:MonoBehaviour
     {
         private sealed class Store:ICareerProfileStore
         {
@@ -20,7 +20,7 @@ namespace Biathlon.Unity.Presentation
             public void Replace(string id,string expected,string value){if(json!=expected)throw new IOException();json=value;}
         }
         [Serializable]private sealed class Receipt
-        {public int schema_version=1;public string id="m15_6_standalone_review",unity,fullscreen_mode,display_check;public bool success,owner_profiles_unchanged,fullscreen,created,appearance_restored,race_loaded,countdown_started,backup_recovered,diagnostic_exported,bindings_applied,settings_reloaded,checkpoint_verified,start_wait_skipped;public int width,height,display_width,display_height,player_start_ordinal,player_bib;public long race_tick,player_start_tick;public int[] countdown_numbers;public string[] errors,captures;}
+        {public int schema_version=1;public string id="m15_6_standalone_review",unity,fullscreen_mode,display_check;public bool success,owner_profiles_unchanged,fullscreen,created,appearance_restored,race_loaded,countdown_started,backup_recovered,diagnostic_exported,bindings_applied,settings_reloaded,checkpoint_verified,start_wait_skipped;public int width,height,display_width,display_height,player_start_ordinal,player_bib;public long race_tick,player_start_tick;public int[] countdown_numbers;public string[] errors,captures;public NavigationReceipt navigation;}
         private readonly List<string> errors=new List<string>(),captures=new List<string>();
         private Receipt receipt;private string folder,profiles;private FrontEndMenu menu;private RenderTexture target,raceOverlay,raceCombined;private Material raceComposite;private double began;private bool finished,m16;
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]private static void Boot()
@@ -100,6 +100,8 @@ namespace Biathlon.Unity.Presentation
             raceCombined=new RenderTexture(target.width,target.height,0,RenderTextureFormat.ARGB32);raceCombined.Create();
             raceComposite=new Material(Resources.Load<Shader>("Biathlon/UI/LiveShootingReviewComposite"));raceComposite.SetTexture("_Overlay",raceOverlay);
             host.ChaseCamera.targetTexture=target;foreach(var doc in FindObjectsByType<UIDocument>(FindObjectsSortMode.None))if(doc.panelSettings!=null)LiveShootingPlayerReview.ConfigureCapturePanel(doc.panelSettings,raceOverlay);
+            bool historyReview=Array.IndexOf(Environment.GetCommandLineArgs(),"-biathlonM162HistoryReview")>=0;
+            if(historyReview){receipt.navigation=new NavigationReceipt();yield return VerifyCursorMenus(host);}
             var player=host.Runner.Field.GetAthlete(host.PlayerIndex);receipt.player_start_ordinal=host.PlayerIndex+1;receipt.player_start_tick=player.ScheduledStart.Value;
             receipt.player_bib=host.Proxies.GetRig(player.AthleteId.Value).GetComponent<AthleteBibPresentation>().Number;
             Require(player.AthleteId.Value==menu.Session.Career.PlayerId&&receipt.player_bib==receipt.player_start_ordinal,"Drawn player's identity/bib binding differs.");
@@ -118,7 +120,9 @@ namespace Biathlon.Unity.Presentation
             if(numbers[numbers.Count-1]!=host.CountdownNumber)numbers.Add(host.CountdownNumber);receipt.countdown_numbers=numbers.ToArray();
             Require(!host.HasSimulationFault&&!host.WaitingForPlayerStart,"Race did not leave countdown cleanly.");
             Require(numbers.Count==4&&numbers[0]==3&&numbers[1]==2&&numbers[2]==1&&numbers[3]==0,"Personal countdown skipped a displayed number.");
-            for(int i=0;i<12;i++)yield return null;receipt.race_tick=host.Runner.Field.Tick.Value;Require(receipt.race_tick>0,"Shared race clock did not advance.");yield return Capture("09-race");menu.Race.Abandon();
+            for(int i=0;i<12;i++)yield return null;receipt.race_tick=host.Runner.Field.Tick.Value;Require(receipt.race_tick>0,"Shared race clock did not advance.");yield return Capture("09-race");
+            if(historyReview)yield return VerifyCheckpointHistory(host);
+            menu.Race.Abandon();if(historyReview)Require(UnityEngine.Cursor.visible&&UnityEngine.Cursor.lockState==CursorLockMode.None,"Returning to the menu must release the cursor.");
         }
         private void Submit(string id){var b=menu.Root.Q<Button>(id);Require(b!=null&&b.enabledInHierarchy,"Missing or disabled action: "+id);b.Focus();using(var e=NavigationSubmitEvent.GetPooled())b.SendEvent(e);}
         private IEnumerator Capture(string name)

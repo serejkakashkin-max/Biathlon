@@ -1,0 +1,57 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":6,\"PassedTests\":6,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:00.9855003\"},\"Results\":[{\"Name\":\"Biathlon.Tests.CheckpointHistorySelectionTests.BrowsingKeepsTheSelectedOccurrenceWhileNewSplitsArrive\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0030000\"},{\"Name\":\"Biathlon.Tests.CheckpointHistorySelectionTests.InvalidObservationsAndDirectionsAreRejected\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.CheckpointHistorySelectionTests.NavigationClampsAtTheFirstAndReachingLatestResumesFollowing\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.CheckpointHistorySelectionTests.NoArrivalsHasNoSelectionAndNavigationCannotInventData\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.CheckpointHistorySelectionTests.RewindOrNewRaceRebasesSelectionWithoutFutureResults(5,2)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.CheckpointHistorySelectionTests.RewindOrNewRaceRebasesSelectionWithoutFutureResults(11,0)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 6,
+          "PassedTests": 6,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.9855003"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.Tests.CheckpointHistorySelectionTests.BrowsingKeepsTheSelectedOccurrenceWhileNewSplitsArrive",
+            "Status": "Passed",
+            "Duration": "00:00:00.0030000"
+          },
+          {
+            "Name": "Biathlon.Tests.CheckpointHistorySelectionTests.InvalidObservationsAndDirectionsAreRejected",
+            "Status": "Passed",
+            "Duration": "00:00:00.0010000"
+          },
+          {
+            "Name": "Biathlon.Tests.CheckpointHistorySelectionTests.NavigationClampsAtTheFirstAndReachingLatestResumesFollowing",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.CheckpointHistorySelectionTests.NoArrivalsHasNoSelectionAndNavigationCannotInventData",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.CheckpointHistorySelectionTests.RewindOrNewRaceRebasesSelectionWithoutFutureResults(5,2)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0010000"
+          },
+          {
+            "Name": "Biathlon.Tests.CheckpointHistorySelectionTests.RewindOrNewRaceRebasesSelectionWithoutFutureResults(11,0)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}
