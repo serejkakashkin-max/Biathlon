@@ -198,7 +198,7 @@ namespace Biathlon.Unity.Presentation
             if(!isActiveAndEnabled||Root==null)return;
             RefreshPaceStart();
             var snapshot=feed?.Current;
-            if(snapshot==null){rendered=null;selectedIndex=-1;if(Root!=null)Root.style.display=DisplayStyle.None;return;}
+            if(snapshot==null){rendered=null;selectedIndex=-1;checkpointHistory.Reset();if(Root!=null)Root.style.display=DisplayStyle.None;return;}
             if(ReferenceEquals(rendered,snapshot))return;
             rendered=snapshot;
             if(selectedIndex<0||selectedIndex>=snapshot.Count||snapshot.Get(selectedIndex).AthleteId!=athleteId)
@@ -236,6 +236,7 @@ namespace Biathlon.Unity.Presentation
             RefreshPaceStart();
             shortcutControls.Resolve(Keyboard.current,Mouse.current,Gamepad.current);
             if(ShortcutDown("splits")&&!Model.Shooting)SetCheckpointTableVisible(!CheckpointTableVisible);
+            CaptureCheckpointHistoryInput(Keyboard.current,gamepadShortcuts?Gamepad.current:null);
             if(ShortcutDown("broadcast"))SetBroadcastVisible(!BroadcastVisible);
             if(ShortcutDown("help"))SetHelpVisible(!helpVisible);
             if(debug!=null&&ShortcutDown("telemetry"))

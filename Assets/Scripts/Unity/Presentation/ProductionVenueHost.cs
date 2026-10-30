@@ -213,6 +213,7 @@ namespace Biathlon.Unity.Presentation
             penalty=gameObject.AddComponent<PenaltyLoopPresentation>();penalty.Initialize(Feed,id.Value,venue.Track,venue.Visual);
             hud.enabled=false;debugHud.enabled=false;penalty.enabled=false;range.DrawLegacyHud=false;
             GameplayHud=gameObject.AddComponent<GameplayHud>();GameplayHud.Initialize(Feed,id.Value,this);
+            RefreshGameplayCursor(Application.isFocused);
             var guidance=RangeGuidanceDefinition.FromJson(ReadCore("range_guidance_v1.json"));
             guidanceDefinition=guidance;guidanceTrail=RangeGuidanceTrailDefinition.FromJson(ReadCore("range_guidance_visual_v1.json"));
             rangeAssistance=new PlayerRangeAssistanceSystem(guidance);
@@ -232,6 +233,7 @@ namespace Biathlon.Unity.Presentation
         }
         private void Update()
         {
+            if(ownsGameplayCursor&&Runner!=null&&Runner.Field.GetAthlete(PlayerIndex).HasFinished)ReleaseGameplayCursor();
             if(Runner==null||Runner.Field.IsComplete)return;
             if(WaitingForPlayerStart)
             {
@@ -345,7 +347,7 @@ namespace Biathlon.Unity.Presentation
         }
         private void PublishPresentation(bool capture=true)
         {if(capture)Feed.Publish(RacePresentationSnapshot.Capture(Runner.Field));if(range.enabled)range.Refresh();if(hud.enabled)hud.Refresh();if(debugHud.enabled)debugHud.Refresh();if(penalty.enabled)penalty.Refresh();}
-        private void OnApplicationFocus(bool value){if(ski!=null)ski.SetInputFocus(value);if(shot!=null)shot.SetInputFocus(value);}
+        private void OnApplicationFocus(bool value)=>SetInputFocus(value);
         private void OnGUI()
         {
               if(Runner==null||Runner.Field.GetAthlete(PlayerIndex).HasFinished||GameplayHud!=null&&GameplayHud.enabled)return;

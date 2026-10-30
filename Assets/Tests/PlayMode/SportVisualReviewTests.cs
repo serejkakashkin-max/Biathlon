@@ -23,7 +23,8 @@ namespace Biathlon.PlayModeTests
         private GameObject root,race;private FrontEndMenu menu;
         [SetUp] public void Setup(){root=new GameObject("Sport visual acceptance");menu=root.AddComponent<FrontEndMenu>();menu.AutoStart=false;menu.PersistPreferences=false;menu.Initialize(new Store());menu.Session.OpenNewCareer();menu.Session.CreateCareer("visual_review","Алекс","NOR",11);}
         [TearDown] public void Cleanup(){if(race!=null)Object.DestroyImmediate(race);Object.DestroyImmediate(root);}
-        private static string Folder=>Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m14/visual-review-20261012"));
+        private readonly string evidenceFolder=Path.GetFullPath(Path.Combine(Application.dataPath,"../artifacts/quality/sport-visual",System.DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff")));
+        private string Folder=>evidenceFolder;
         private IEnumerator Capture(PanelSettings panel,Action prepare,string file,int width=1600,int height=900,Action inspect=null)
         {
             var rt=new RenderTexture(width,height,24);rt.Create();var old=panel.targetTexture;var active=RenderTexture.active;Texture2D pixels=null;

@@ -3,14 +3,19 @@ using Biathlon.Domain;
 using Biathlon.Presentation;
 using Biathlon.Simulation;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 namespace Biathlon.Unity.Presentation
 {
     public sealed partial class GameplayHud
     {
         public bool CheckpointTableVisible {get;private set;}
+        private readonly CheckpointHistorySelection checkpointHistory=new CheckpointHistorySelection();
+        public int SelectedCheckpointOrdinal=>checkpointHistory.Selected;
+        public bool FollowingLatestCheckpoint=>checkpointHistory.FollowsLatest;
+        private CheckpointLayout checkpointHistoryLayout;
         private VisualElement checkpointPanel,readinessPanel,readinessPointer,checkpointNotice;
-        private Label checkpointHeading,checkpointStatus,readinessTitle,readinessHint,noticeText;
+        private Label checkpointHeading,checkpointStatus,checkpointPrevious,checkpointNext,checkpointMode,checkpointKeys,readinessTitle,readinessHint,noticeText;
         private readonly TimingAthleteRow[] checkpointCells=new TimingAthleteRow[30];
         private RaceReviewSettings reviewSettings;private PhysiologyDefinition readinessPhysiology;private BreathingDefinition readinessBreathing;
         private int noticedCheckpoint=-1;private double noticeUntil;
@@ -22,23 +27,31 @@ namespace Biathlon.Unity.Presentation
             reviewSettings=reviewSettings??RaceReviewSettings.Load();
             readinessPhysiology=readinessPhysiology??PhysiologyDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/physiology_gameplay_v2"));
             readinessBreathing=readinessBreathing??BreathingDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/breathing_gameplay_v2"));
+            // Prepare occurrence labels with the HUD during loading, not on the first TAB press.
+            if(checkpointHistoryLayout==null&&host?.Runner!=null)checkpointHistoryLayout=new CheckpointLayout(host.Runner.Field.Track,host.Runner.Field.Route);
             checkpointPanel=Card("checkpoint_table",true,true,1320);checkpointPanel.style.width=Length.Percent(86);checkpointPanel.style.maxWidth=Length.Percent(86);checkpointPanel.style.left=Length.Percent(7);checkpointPanel.style.top=108;
             checkpointPanel.style.backgroundColor=HighContrast?Color.black:FrostlineStyle.Deep;
-            checkpointPanel.style.paddingTop=checkpointPanel.style.paddingBottom=16;checkpointPanel.style.paddingLeft=checkpointPanel.style.paddingRight=20;
-            checkpointHeading=Text(checkpointPanel,"checkpoint_heading",L("ПРОМЕЖУТОЧНЫЕ РЕЗУЛЬТАТЫ","INTERMEDIATE RESULTS"),settings.body_size,true);
+            checkpointPanel.style.paddingTop=checkpointPanel.style.paddingBottom=10;checkpointPanel.style.paddingLeft=checkpointPanel.style.paddingRight=20;
+            var navigation=Row(checkpointPanel);navigation.name="checkpoint_navigation";
+            checkpointPrevious=Text(navigation,"checkpoint_previous","‹  PgUp",settings.caption_size,true);checkpointPrevious.style.flexShrink=0;
+            checkpointHeading=Text(navigation,"checkpoint_heading","",settings.body_size,true);
             checkpointHeading.style.letterSpacing=1;checkpointHeading.style.color=accent;
+            checkpointHeading.style.unityTextAlign=TextAnchor.MiddleCenter;checkpointHeading.style.flexGrow=1;
+            checkpointNext=Text(navigation,"checkpoint_next","PgDn  ›",settings.caption_size,true);checkpointNext.style.flexShrink=0;
+            checkpointMode=Text(checkpointPanel,"checkpoint_mode","",settings.caption_size,true);checkpointMode.style.color=accent;
             checkpointStatus=Text(checkpointPanel,"checkpoint_status","",settings.caption_size);
             var columns=Row(checkpointPanel);
             columns.style.alignItems=Align.FlexStart;
             for(int c=0;c<2;c++)
             {
                 var column=new VisualElement();column.style.width=Length.Percent(48);columns.Add(column);
-                var header=Row(column);header.name="checkpoint_columns_"+c;header.style.paddingLeft=9;header.style.paddingRight=8;header.style.marginBottom=10;
+                var header=Row(column);header.name="checkpoint_columns_"+c;header.style.paddingLeft=9;header.style.paddingRight=8;header.style.marginBottom=6;
                 var who=Text(header,"split_athlete_header_"+c,L("МЕСТО / СПОРТСМЕН","RANK / ATHLETE"),settings.caption_size);who.style.color=muted;who.style.flexGrow=1;
                 var elapsed=Text(header,"split_time_header_"+c,L("ВРЕМЯ","TIME"),settings.caption_size);elapsed.style.width=66*Scale;elapsed.style.color=muted;elapsed.style.unityTextAlign=TextAnchor.MiddleRight;
                 var gap=Text(header,"split_gap_header_"+c,"+",settings.caption_size);gap.style.width=62*Scale;gap.style.color=muted;gap.style.unityTextAlign=TextAnchor.MiddleRight;
-                for(int r=0;r<15;r++){int i=c*15+r;checkpointCells[i]=new TimingAthleteRow(Scale){name="checkpoint_row_"+i};FrostlineStyle.Text(checkpointCells[i]);column.Add(checkpointCells[i]);}
+                for(int r=0;r<15;r++){int i=c*15+r;checkpointCells[i]=new TimingAthleteRow(Scale){name="checkpoint_row_"+i};checkpointCells[i].style.height=29*Scale;checkpointCells[i].style.marginBottom=1;FrostlineStyle.Text(checkpointCells[i]);column.Add(checkpointCells[i]);}
             }
+            checkpointKeys=Text(checkpointPanel,"checkpoint_keys","",settings.caption_size);checkpointKeys.style.color=muted;checkpointKeys.style.marginTop=6;
             checkpointPanel.style.display=CheckpointTableVisible?DisplayStyle.Flex:DisplayStyle.None;
             checkpointNotice=Card("checkpoint_notice",true,true,380);checkpointNotice.style.left=Length.Percent(38);checkpointNotice.style.top=settings.edge;
             noticeText=Text(checkpointNotice,"checkpoint_notice_text","",settings.body_size,true);checkpointNotice.style.display=DisplayStyle.None;
@@ -52,9 +65,21 @@ namespace Biathlon.Unity.Presentation
             readinessHint=Text(readinessPanel,"readiness_hint","",settings.caption_size);readinessPanel.style.display=DisplayStyle.None;
         }
         public void SetCheckpointTableVisible(bool visible)
-        {CheckpointTableVisible=visible;if(checkpointPanel!=null)checkpointPanel.style.display=visible?DisplayStyle.Flex:DisplayStyle.None;rendered=null;Refresh();}
+        {if(visible&&!CheckpointTableVisible)checkpointHistory.FollowLatest();CheckpointTableVisible=visible;if(checkpointPanel!=null)checkpointPanel.style.display=visible?DisplayStyle.Flex:DisplayStyle.None;rendered=null;Refresh();}
+        public void MoveCheckpointHistory(int direction)
+        {if(!CheckpointTableVisible)return;if(checkpointHistory.Move(direction)){rendered=null;Refresh();}}
+        public void FollowLatestCheckpoint()
+        {if(!CheckpointTableVisible)return;checkpointHistory.FollowLatest();rendered=null;Refresh();}
+        public void CaptureCheckpointHistoryInput(Keyboard keyboard,Gamepad gamepad)
+        {
+            if(!isActiveAndEnabled||!CheckpointTableVisible||Model.Shooting)return;
+            if(keyboard?.pageUpKey.wasPressedThisFrame==true||gamepad?.rightStick.left.wasPressedThisFrame==true)MoveCheckpointHistory(-1);
+            else if(keyboard?.pageDownKey.wasPressedThisFrame==true||gamepad?.rightStick.right.wasPressedThisFrame==true)MoveCheckpointHistory(1);
+            else if(keyboard?.endKey.wasPressedThisFrame==true||gamepad?.rightStickButton.wasPressedThisFrame==true)FollowLatestCheckpoint();
+        }
         private void RefreshReviewPanels(AthletePresentationState a)
         {
+            checkpointHistory.Observe(feed.Current.Tick,a.Hud.CheckpointOrdinal);
             if(a.ShootingActive&&CheckpointTableVisible)
             {CheckpointTableVisible=false;checkpointPanel.style.display=DisplayStyle.None;}
             motionPanel.style.visibility=conditionPanel.style.visibility=CheckpointTableVisible?Visibility.Hidden:Visibility.Visible;
@@ -64,9 +89,20 @@ namespace Biathlon.Unity.Presentation
             noticeText.text=L("ОТСЕЧКА  ","SPLIT  ")+a.Hud.Rank+" / "+a.Hud.ComparedAthletes+"    +"+(a.Hud.GapSeconds??0).ToString("0.0")+L(" с"," s");
             if(CheckpointTableVisible)
             {
-                var table=host==null?null:CheckpointStandings.Capture(host.Runner.Field,a.Hud.CheckpointOrdinal);
-                checkpointStatus.text=table==null||table.Count==0?L("Ожидаем первую отсечку · Tab закрыть","Waiting for the first split · Tab close"):
-                    L("Отсечка ","Split ")+(table.Ordinal+1)+" · "+table.Count+" / "+host.Runner.Field.Count+L(" прошли · результаты обновляются · Tab закрыть"," through · provisional · Tab close");
+                var table=host==null?null:CheckpointStandings.Capture(host.Runner.Field,checkpointHistory.Selected);
+                checkpointHeading.text=checkpointHistory.Selected<0?L("ОТСЕЧКИ","SPLITS"):L("ОТСЕЧКА ","SPLIT ")+(checkpointHistory.Selected+1)+" / "+(checkpointHistory.Latest+1);
+                checkpointPrevious.style.opacity=checkpointHistory.Selected>0?1:.3f;checkpointNext.style.opacity=checkpointHistory.Selected<checkpointHistory.Latest?1:.3f;
+                checkpointPrevious.text=gamepadShortcuts?"‹  R ←":"‹  PgUp";checkpointNext.text=gamepadShortcuts?"R →  ›":"PgDn  ›";
+                checkpointKeys.text=(gamepadShortcuts?L("Правый стик ← / → — история · R3 — последняя","Right stick ← / → history · R3 latest"):L("PgUp / PgDn — история · End — последняя","PgUp / PgDn history · End latest"))+" · "+PlayerControlHints.Label(host?.InputPreferences??PlayerSettingsPreferences.Current,"splits")+L(" — закрыть"," close");
+                checkpointMode.text=checkpointHistory.FollowsLatest?L("ПОСЛЕДНЯЯ ОТСЕЧКА","LATEST SPLIT"):L("ИСТОРИЯ ОТСЕЧЕК","SPLIT HISTORY");checkpointMode.style.color=checkpointHistory.FollowsLatest?accent:FrostlineStyle.Gold;
+                string location="";
+                if(host!=null&&checkpointHistory.Selected>=0)
+                {
+                    var occurrence=checkpointHistoryLayout.Get(checkpointHistory.Selected);int lap=host.Runner.Field.Route.GetSection(occurrence.SectionIndex).LapIndex+1;
+                    location=L("КРУГ ","LAP ")+lap+" · "+(occurrence.RouteNanometers/(double)SkiState.NanometersPerMeter/1000).ToString("0.00",System.Globalization.CultureInfo.GetCultureInfo(Locale=="ru"?"ru-RU":"en-US"))+L(" КМ · "," KM · ");
+                }
+                checkpointStatus.text=table==null||table.Count==0?L("Ожидаем первую отсечку","Waiting for the first split"):
+                    location+table.Count+" / "+host.Runner.Field.Count+L(" прошли · результаты обновляются"," through · provisional");
                 for(int i=0;i<checkpointCells.Length;i++)
                 {
                     var label=checkpointCells[i];label.style.display=table!=null&&i<table.Count?DisplayStyle.Flex:DisplayStyle.None;if(table==null||i>=table.Count)continue;
