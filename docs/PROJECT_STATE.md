@@ -25488,3 +25488,140 @@ Five newly executed complete30-athlete races (2Sprint/2Pursuit/1MassStart),12181
 Windows64 Development build Builds/M16_1_Winter_Venue_Review/START_TEST.cmd, Unity6000.6.0f1,384799261bytes,0errors/518categorized warnings (496Sentis variants,22review API deprecations; no snow/flag shader warning/error). Exe SHA256718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00. Ordinary fullscreen2560x1440 acceptance PASS: actual creator/save/Continue, backup recovery, settings/bindings, local diagnostic, exact checkpoint, personal countdown,tick6,abandon; owner profiles unchanged. Native player before/after probes both PASS with zero runtime errors.
 
 Measured Ryzen9950X3D/RTX5080/D3D11,1920x1080 offscreen,30real athletes/2588trees, same authority ticks/cameras/weather,90warmup+240samples per camera/tier. Bend frame time -2.47/-0.13/-1.03% with unchanged draw counts; range +2.28/~0/+2.10%, +37/+12/+12draws at Ultra/High/Performance. GPU and camera timings unavailable; no zero-GPU-cost, ordinary-game or minimum-spec FPS claim. Both phases share the apron clipping optimization, so this isolates shoulder/flag cost rather than comparing every change to a frozen old executable. Whole-frame profiler GC approximately164bytes/frame in both runs; observed used-memory difference depends on collection/heap state, not a causal savings claim. Known single URP active-render-texture warning at probe shutdown in both phases. Optional demo video not included. Report/gallery docs/quality/m16-1/README.md and review.html. Historical PROJECT_STATE prefix preserved; unrelated owner work retained. Next: owner tests this fullscreen build and decides M16.1 acceptance.
+
+
+### 2026-10-16 — TASK01 documentary YouTube studio preparation
+
+Independent local studio prepared at ../YouTube_Biathlon_Studio; no gameplay source,
+tuning, current package manifest or current scene assets changed. Existing dirty
+work retained. Current game HEAD ab54425c; M16.1 remains OPEN / OWNER REVIEW,
+M16 CLOSED / OWNER APPROVED; M17 not started. This video task closes no game gate.
+
+33 documentary events researched across463 local Git commits/all refs, with29
+historical file blobs;50 original player builds,5 named archives and19018 media
+files catalogued, including54 probed MP4. Original archive/EXE/Biathlon DLL hashes
+preserved. Sequential copied-player audit:29 scope-specific startup/render PASS,
+2 production-prefix-only observations,19 inconclusive timeouts; no claim all
+historical builds fully pass or all commits are exactly known. Owner profiles
+unchanged. Full evidence and restrictions in studio/verification.json and DELIVERY.md.
+
+Detached3466bf6e M10 worktree compiled; original capsule logic and primitive art
+recorded240frames/4s1080p60, permanently labelled reconstruction. Added only capture
+adapters/URP reference plus test-only input isolation; automatic editor imports
+documented. Historical core source unchanged. First native PlayMode22PASS/3FAIL
+retained; focus/buffer-isolated harness25/25PASS,0skip, assertions preserved.
+
+Current Unity read-only cinematic follow:360frames/6s1080p60,30 genuine AI athletes;
+per-frame tick/physical-position observation guard unchanged.4 selected native
+camera tests PASS; current Editor restored Edit Mode/clean initial scene,
+compilation_failed=false,Console0errors/4warnings. No full current game suite,
+full-race determinism or realtime60FPS claim.6 studio unit checks and TypeScript
+PASS; FFmpeg decode/audio signal-path, OBS8s native record, browser video/filter
+QA and2s1440p60 export pass. Failed capture/filter evidence retained privately.
+
+Editable Remotion motion package,22s style sample,thumbnail,10-episode bible,
+8-minute episode01 board,rights register,render/audio/SRT tools and13 camera scout
+recipes delivered. Real accessible user chat fragments retained; earliest dream/
+master-plan messages missing. No author synthetic voice, paid subscriptions or
+YouTube publication. Next: owner evaluates style; produce pilot01 under the next
+assignment with personal details and the author's own recorded narration.
+
+
+## 2026-10-16 — YouTube TASK02: SNEG I KOD episode01 rough cut ready for owner review
+
+Reused completed TASK01 studio at `C:/game/Biathlon/YouTube_Biathlon_Studio`.
+Imported owner starter pack unchanged; applied SNЕG I KOD banner/avatar, exact
+navy/teal/snow palette and Cyrillic titles. BIATHLON: PULSE remains marketing-only
+working title; Unity project/product, repository, saves, exe and gameplay IDs not
+renamed. FROSTLINE remains game UI style. Banner explicitly labelled AI artwork.
+
+Delivered full 08:45 1920x1080/60 rough cut, 1139-word first-person Russian script,
+51-shot editable Remotion timeline, storyboard, factcheck, recording guide,
+106 review subtitle cues, 3x1280x720 thumbnails, original score and separate Foley
+stems. No synthetic or cloned narration. Personal detail confirmed by owner:
+loved biathlon and watched many races; no invented childhood dates/family/photos.
+Proposed personal phrasing awaits owner review. All deliverables and provenance
+in studio `DELIVERY_EPISODE_01.md` and `episodes/01/`.
+
+New capture:18x15s=16200 genuine current Unity native frames; 30 ordinary AI
+athletes, fixed-tick runner and presentation-only cameras. Per-frame observed
+state guard passed; not full canonical race regression or realtime FPS claim.
+No game system/source/package changes. Existing uncommitted game work preserved;
+HEAD remains ab54425c628273a71ab0e3711f6781ee03c587eb. Editor restored Edit Mode,
+compilation_failed=false, Console0errors/5warnings (4 previous; 1 MCP logging
+buffer disposal notice). TASK01 camera-test baseline reused; no new game suite.
+
+12 studio checks and TypeScript PASS. Corrected rough MP4 passes50 delivery checks
+including full video/audio decode, frame count, durations, source hashes and no
+black intervals. Duplicate reconstruction label found in final visual QA, fixed
+for330–334s and full corrected file reverified; source burned-in label retained.
+Browser desktop/mobile review, 8 chapter navigation, video playback/end seeking
+and HTTP range support PASS; final Console0errors/0warnings. Proofs and exact
+corrected MP4 SHA256 in studio `episodes/01/verification.json`, `browser_qa.json`.
+
+Current operational boundary: episode01 FULL ROUGH CUT / OWNER REVIEW PENDING.
+Author voice and approval still required before clean final mix. No publication,
+PROMPT03 execution or episode02 production. Game M16.1 visual owner review remains
+open; this production receipt grants no game or video visual approval.
+Next: owner evaluates pilot/script/thumbnail, records own voice, then refine ep01.
+
+
+## 2026-10-16 — YouTube episode01 v1 rejected; conversational v2 delivered
+
+Owner explicitly did NOT approve v1: soundtrack too sad, text confusing, and the
+presentation implied an already-realized game. This corrects the operational
+video direction without removing or changing earlier history. No approval inferred.
+
+Reframed episode01 as the beginning of a simple development diary: wants to build
+a biathlon game with AI and will show attempts and project stages. Current real
+Unity material is labelled a WORKING PROTOTYPE, not a finished game. Removed
+triumphant old/new retrospective and dense M0-M19 report from the current edit.
+Brand identity retained; lighter titles, shorter cuts, original upbeat D-major
+110-BPM bed. V1 source/reference material remains archived (Git89a1b81, prior MP4,
+WAV and episodes/01/revisions/v1) and is not approved for use/publication.
+
+V2 delivered:06:00 provisional1080p60 rough cut,801-word plain Russian narration,
+clean voice TXT,8 recording blocks,48 shots,72 review cues,3 revised thumbnails,
+separate audio stems and editable Remotion composition. File:
+studio/renders/episode-01-v2-rough-review-1080p60.mp4; recording text:
+studio/episodes/01/ТЕКСТ_ДЛЯ_ОЗВУЧКИ_V2.txt. No artificial/cloned narration.
+12 studio tests,TypeScript,SRT and50 final media checks PASS,including full corrected
+video/audio decode. Browser playback/chapter seek/voice download/music preview,
+desktop/mobile layout and3 thumbnails PASS; browser Console0errors/0warnings.
+Existing Unity capture reused; no new game source,package,balance,ID,save or exe
+changes. This task did not reopen or claim a new Unity game regression.
+
+Latest operational video state:V2 ROUGH READY / AUTHOR VOICE AND REVIEW PENDING.
+Owner will record own narration. Next authorized action after receiving recording:
+edit/align voice,retime plans and pauses,duck/mix audio,remove rough-only markers,
+verify and deliver one MP4 for OWNER upload to YouTube. Actual final timing follows
+real speech. No publication and no episode02 production. Game M16.1 visual owner
+review remains open; video checks grant no game or visual approval.
+
+
+### 2026-10-16 — СНЕГ И КОД: выпуск 01 с авторской озвучкой, готовый MP4
+
+Owner approved the v2 conversational rough and supplied Record (online-voice-recorder.com).mp3. Completed the requested local upload-ready episode: 04:08.583, 1920x1080/60, H.264 Rec.709 + AAC stereo 48 kHz. File: C:\game\Biathlon\YouTube_Biathlon_Studio\renders\SNEG_I_KOD_EP01_FINAL_1080p60.mp4. SHA256: fd541895b0b9e55f0ed3c057fbbcaf18641f225bfa70964aa6c5d0fe1c2cd8b9.
+
+Real owner voice only: gentle denoise/EQ/de-ess/compression, two repeated/false-start takes removed, one paragraph pause shortened, source preserved by SHA256. No voice cloning, synthesized replacement words, pitch shift or time stretch. Approved upbeat v2 music conformed and ducked. Original mono 16 kHz recording remains the quality limit. Delivered AAC measured -16.01 LUFS / -1.87 dBTP.
+
+Rebuilt 52 shots around recorded speech. Removed 10_rail, 12_low, 16_depart, 17_winter and 18_home; shooting snippets stop before departure. No prolonged range exit or obstructed gate view. Removed rough-only label, provisional script captions and progress strip; retained brand identity, prototype context and honest AI-art label.
+
+Validation: TypeScript passed; 16 tests passed; 26 final bitstream/source/audio checks passed, full decode, no black gaps, 14915 frames, audio/master zero-lag correlation at six points. All delivered shot samples inspected; browser playback/seek/download/mobile checks passed without console errors. Evidence: YouTube_Biathlon_Studio/episodes/01/final_verification.json, final_browser_qa.json, final_audio.json, final_voice_edit.json. Upload package: YouTube_Biathlon_Studio/delivery/Episode_01/. Final watch page on loopback port 8769.
+
+This step changes production artifacts and appends this record only in the game repository. No gameplay, Unity configuration, deterministic simulation, balance, save IDs, product/executable names or repository names changed. BIATHLON: PULSE remains a marketing working title; FROSTLINE remains the UI style. No upload/publishing and no episode 02 production performed. Next: owner uploads the provided movie/thumbnail/description. Prior history and game acceptance statuses remain intact.
+
+
+### 2026-10-16 — СНЕГ И КОД: замена дефектной озвучки на 24 M4A
+
+Owner confirmed that the original MP3 voice source itself was defective after about 00:28. Prior technical bitstream checks did not establish subjective source speech quality. Owner then supplied 24 replacement 48 kHz stereo M4A recordings and requested a complete rebuilt episode; approved picture/branding retained.
+
+Current delivery: YouTube_Biathlon_Studio/renders/SNEG_I_KOD_EP01_NEW_VOICE_1080p60.mp4, 05:36.750, 20205 frames, 1080p60 H.264 Rec.709 + AAC 48 kHz stereo, 8 chapters. SHA256 ef244e4745ae42443e4e719af896c0bb78119810fe5f66555ed36a972d96b99c. Upload package: YouTube_Biathlon_Studio/delivery/Episode_01_New_Voice/. All 24 new originals preserved by SHA256 and used in sequence. Old defective MP3 fully excluded. No generated words, voice cloning, pitch shift or time stretch. Gentle 65 Hz highpass/2:1 compression/static per-take gain; no FFT denoise/deesser. Music ducked under voice. Final AAC: -16.08 LUFS / -1.37 dBTP.
+
+Picture conformed to replacement speech: 59 native-speed shots within previously inspected safe intervals. Bad turns, long range departures and excluded sources remain absent. Prototype and AI-art labels retained. TypeScript and 17 tests passed; 28 final checks passed, including all 24 source hashes, edited paragraph samples, AAC/master correlation at 25 positions (including 00:28), full decode, no black gaps and exact timing. Browser playback/seek/download/mobile checks passed. Evidence: episodes/01/final_verification.json, final_browser_qa.json, final_audio.json, voice_rerecord_sources.json, final_voice_edit.json. Audio checked via local recognition and signal tests; subjective human listening is not claimed.
+
+Only production artifacts and this appended history record changed. No Unity/gameplay/save/naming/balance/determinism change. BIATHLON: PULSE remains working marketing title; FROSTLINE remains UI style. No publishing, no episode 02 work. Next: owner uploads replacement-voice MP4 with thumbnail/description. Earlier game acceptance statuses and all historical bytes are preserved.
+
+### 2026-10-30 — M16.1 owner-approved; M16.2 live shooting starts
+
+Owner closes M16.1. M16.1 CLOSED / OWNER APPROVED. M16.2 OPEN / IN PROGRESS on codex/m16-2-live-shooting from ab54425c. Task docs/M16_2_OWNER_TASK.md; WP-A existing feed/target semantics/design audit COMPLETE, WP-B live queue IN PROGRESS, C/D/E pending. Replace existing RangeBroadcastModel/GameplayRangeBroadcast, no parallel system. Stable arrival/lane order, no player pin or timed pages; target20rows, bounded30-athlete overflow, completed hold/fade on accepted ticks, exact observed per-shot symbols, native RU/EN responsive footage then Windows build. Existing simulation, target results, AI, mats, gameplay timers, career/saves/replay authority unchanged. Prior history and unrelated local/production work retained. M17 not started; no main merge.
