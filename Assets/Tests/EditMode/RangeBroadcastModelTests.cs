@@ -94,6 +94,22 @@ namespace Biathlon.Tests
             Assert.That(m.Get(0).LastMissTick,Is.EqualTo(-1));Assert.That(m.Get(1).Eligible,Is.False);Assert.That(m.VisibleCount,Is.EqualTo(1));
             a[0]=A("a",1,5,31);m.ObserveAccepted(50,20,p,a);Assert.That(m.Get(0).CompletionObserved,Is.False);Assert.That(m.Get(0).LastHitTick,Is.EqualTo(-1));
         }
+        [TestCase(15,RangeShotMark.Miss)][TestCase(31,RangeShotMark.Hit)]
+        public void FinalAcceptedShotAndSessionReleaseShareOneCompletionAndKeepTheExactFinalMark(int finalMask,RangeShotMark expected)
+        {
+            var r=Runner();var m=Model(r,2);string p=r.Field.Profile.Id;var a=new[]{A("a",5,4,15),A("b",2)};
+            m.ObserveAccepted(0,20,p,a);m.Compose(0,20);a[0]=A("a",0,active:false,bouts:1,last:finalMask);m.ObserveAccepted(1,20,p,a);
+            Assert.That(m.Get(0).Lane,Is.EqualTo(5));Assert.That(m.Get(0).Shot(4),Is.EqualTo(expected));Assert.That(m.Get(0).CompletedTick,Is.EqualTo(1));
+            m.ObserveAccepted(1,20,p,a);m.ObserveAccepted(2,20,p,a);Assert.That(m.Get(0).CompletedTick,Is.EqualTo(1));
+            Assert.That(m.Get(0).LastMissTick,Is.EqualTo(expected==RangeShotMark.Miss?1:-1));
+        }
+        [Test]public void FiveAcceptedMissesRemainFiveCrossesAndAZeroScore()
+        {
+            var r=Runner();var m=Model(r,2);string p=r.Field.Profile.Id;var a=new[]{A("a",1),A("b",2)};m.ObserveAccepted(0,20,p,a);
+            for(int t=1;t<=5;t++){a[0]=A("a",1,t);m.ObserveAccepted(t,20,p,a);}
+            for(int shot=0;shot<5;shot++)Assert.That(m.Get(0).Shot(shot),Is.EqualTo(RangeShotMark.Miss));
+            Assert.That(m.Get(0).Misses,Is.EqualTo(5));Assert.That(RangeBroadcastRow.Hits(m.Get(0).ClosedMask),Is.Zero);
+        }
         [Test]public void VisitsAreIndependentAndSteadyQueueObservationDoesNotAllocate()
         {
             var r=Runner();var m=Model(r,2);string p=r.Field.Profile.Id;var a=new[]{A("a",1,4,15),A("b",2)};m.ObserveAccepted(0,20,p,a);m.Compose(0,20);

@@ -125,7 +125,13 @@ namespace Biathlon.Unity.Presentation
             // of the view unobscured; body text already follows accessibility Scale.
             float panelWidth=Mathf.Min(rangeBroadcastPolicy.PanelWidth*Scale,width*.35f);
             rangeBoard.style.width=panelWidth;
-            for(int i=0;i<rangeBoardCards.Length;i++)rangeBoardCards[i].style.height=rowHeight;
+            float legibility=Mathf.Max(1,theme.reference_height/Mathf.Max(480,pixels));
+            rangeBoardTitle.style.fontSize=18*Scale*legibility;rangeBoardVisit.style.fontSize=11*Scale*legibility;rangeBoardMore.style.fontSize=11*Scale*legibility;
+            for(int i=0;i<rangeBoardCards.Length;i++)
+            {
+                rangeBoardCards[i].style.height=rowHeight;rangeBoardNames[i].style.fontSize=13*Scale*legibility;
+                rangeBoardBibs[i].style.fontSize=rangeBoardLanes[i].style.fontSize=rangeBoardScores[i].style.fontSize=rangeBoardStates[i].style.fontSize=12*Scale*legibility;
+            }
         }
         private void RefreshRangeBroadcast(RacePresentationSnapshot snapshot,int player)
         {
