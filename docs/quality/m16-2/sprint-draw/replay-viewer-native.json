@@ -1,0 +1,40 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":1,\"PassedTests\":1,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:01:47.8462749\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.RaceReplayPlayModeTests.ReplaySeeksBothWaysWithIndependentVisibleUiAndNeverWritesCareer\",\"Status\":\"Passed\",\"Duration\":\"00:01:47.7320000\"}],\"Logs\":[{\"Condition\":\"Multiple Input Configuration components active. Only one will be considered, the rest will be disabled.\\nEnabled: Replay navigation test (UnityEngine.UIElements.PanelInputConfiguration). Disabled: Replay interface (UnityEngine.UIElements.PanelInputConfiguration).\",\"Type\":\"Warning\",\"Timestamp\":\"2026-10-30T15:41:09.8951143\\u002B03:00\",\"LogLevel\":2}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 1,
+          "PassedTests": 1,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:01:47.8462749"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.RaceReplayPlayModeTests.ReplaySeeksBothWaysWithIndependentVisibleUiAndNeverWritesCareer",
+            "Status": "Passed",
+            "Duration": "00:01:47.7320000"
+          }
+        ],
+        "Logs": [
+          {
+            "Condition": "Multiple Input Configuration components active. Only one will be considered, the rest will be disabled.\nEnabled: Replay navigation test (UnityEngine.UIElements.PanelInputConfiguration). Disabled: Replay interface (UnityEngine.UIElements.PanelInputConfiguration).",
+            "Type": "Warning",
+            "Timestamp": "2026-10-30T15:41:09.8951143+03:00",
+            "LogLevel": 2
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

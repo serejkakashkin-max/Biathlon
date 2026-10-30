@@ -1,9 +1,17 @@
 # M16.2 — Live shooting broadcast · owner review
 
+2026-10-30 Sprint follow-up: the current build draws the start order of all Sprint
+entrants, including the player. Reload retains the draw; first remains possible.
+Personal wait/skip/3–2–1, old replay compatibility and a hidden-HUD lifecycle fix
+are verified. [Sprint report and evidence](sprint-draw/README.md),
+[current build receipt](sprint-draw/build-summary.json),
+[current binary hashes](sprint-draw/build-fingerprint.json).
+The audio receipts in the following addendum describe the preceding candidate.
+
 2026-10-30 audio follow-up: current build also includes player-only cheering and
 disappointed crowd reactions. [Audio behavior, sources, tests and native auditions](audio/README.md).
-Use the [updated build receipt](audio/build-summary.json) and
-[updated binary hashes](audio/build-fingerprint.json) for the current executable.
+The [audio build receipt](audio/build-summary.json) and
+[audio binary hashes](audio/build-fingerprint.json) identify that audio candidate.
 The board-only receipts/footage below describe the earlier `a0fd8c9d` candidate;
 its silent videos are UI evidence, not demonstrations of the new audio.
 

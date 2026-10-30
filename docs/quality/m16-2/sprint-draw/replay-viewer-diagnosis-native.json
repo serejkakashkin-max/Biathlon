@@ -1,0 +1,48 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":1,\"PassedTests\":0,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:01:17.9936823\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.RaceReplayPlayModeTests.ReplaySeeksBothWaysWithIndependentVisibleUiAndNeverWritesCareer\",\"Status\":\"Failed\",\"Duration\":\"00:01:17.8840000\",\"Message\":\"  Object reference not set to an instance of an object\\r\\n  Expected: 200\\r\\n  But was:  1\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.RaceReplayPlayModeTests\\u002B\\u003CReplaySeeksBothWaysWithIndependentVisibleUiAndNeverWritesCareer\\u003Ed__6.MoveNext () [0x0080b] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\RaceReplayPlayModeTests.cs:70\\r\\nat UnityEngine.TestTools.TestEnumerator\\u002B\\u003CExecute\\u003Ed__8.MoveNext () [0x0003a] in .\\\\Library\\\\PackageCache\\\\com.unity.test-framework@7a3849e09bd0\\\\UnityEngine.TestRunner\\\\NUnitExtensions\\\\Attributes\\\\TestEnumerator.cs:52\\r\\n\"}],\"Logs\":[{\"Condition\":\"Multiple Input Configuration components active. Only one will be considered, the rest will be disabled.\\nEnabled: Replay navigation test (UnityEngine.UIElements.PanelInputConfiguration). Disabled: Replay interface (UnityEngine.UIElements.PanelInputConfiguration).\",\"Type\":\"Warning\",\"Timestamp\":\"2026-10-30T15:31:39.4208031\\u002B03:00\",\"LogLevel\":2},{\"Condition\":\"Replay stopped: System.NullReferenceException: Object reference not set to an instance of an object\\r\\n  at Biathlon.Unity.Presentation.GameplayHud.LayoutRangeBroadcast () [0x00000] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Scripts\\\\Unity\\\\Presentation\\\\GameplayRangeBroadcast.cs:111 \\r\\n  at Biathlon.Unity.Presentation.GameplayHud.RefreshRangeBroadcast (Biathlon.Simulation.RacePresentationSnapshot snapshot, System.Int32 player) [0x00000] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Scripts\\\\Unity\\\\Presentation\\\\GameplayRangeBroadcast.cs:138 \\r\\n  at Biathlon.Unity.Presentation.GameplayHud.ObserveRangeBroadcast (Biathlon.Simulation.RacePresentationSnapshot s) [0x00031] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Scripts\\\\Unity\\\\Presentation\\\\GameplayRangeBroadcast.cs:66 \\r\\n  at (wrapper delegate-invoke) System.Action\\u00601[Biathlon.Simulation.RacePresentationSnapshot].invoke_void_T(Biathlon.Simulation.RacePresentationSnapshot)\\r\\n  at Biathlon.Unity.Presentation.RacePresentationFeed.Publish (Biathlon.Simulation.RacePresentationSnapshot snapshot) [0x0008a] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Scripts\\\\Unity\\\\Presentation\\\\RacePresentationFeed.cs:21 \\r\\n  at Biathlon.Unity.Presentation.RaceReplayPresentation.Update () [0x00214] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Scripts\\\\Unity\\\\Presentation\\\\RaceReplayPresentation.cs:137 \",\"Type\":\"Warning\",\"Timestamp\":\"2026-10-30T15:31:39.5228525\\u002B03:00\",\"LogLevel\":2}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 1,
+          "PassedTests": 0,
+          "FailedTests": 1,
+          "SkippedTests": 0,
+          "Duration": "00:01:17.9936823"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.RaceReplayPlayModeTests.ReplaySeeksBothWaysWithIndependentVisibleUiAndNeverWritesCareer",
+            "Status": "Failed",
+            "Duration": "00:01:17.8840000",
+            "Message": "  Object reference not set to an instance of an object\r\n  Expected: 200\r\n  But was:  1\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.RaceReplayPlayModeTests+<ReplaySeeksBothWaysWithIndependentVisibleUiAndNeverWritesCareer>d__6.MoveNext () [0x0080b] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\RaceReplayPlayModeTests.cs:70\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+          }
+        ],
+        "Logs": [
+          {
+            "Condition": "Multiple Input Configuration components active. Only one will be considered, the rest will be disabled.\nEnabled: Replay navigation test (UnityEngine.UIElements.PanelInputConfiguration). Disabled: Replay interface (UnityEngine.UIElements.PanelInputConfiguration).",
+            "Type": "Warning",
+            "Timestamp": "2026-10-30T15:31:39.4208031+03:00",
+            "LogLevel": 2
+          },
+          {
+            "Condition": "Replay stopped: System.NullReferenceException: Object reference not set to an instance of an object\r\n  at Biathlon.Unity.Presentation.GameplayHud.LayoutRangeBroadcast () [0x00000] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\GameplayRangeBroadcast.cs:111 \r\n  at Biathlon.Unity.Presentation.GameplayHud.RefreshRangeBroadcast (Biathlon.Simulation.RacePresentationSnapshot snapshot, System.Int32 player) [0x00000] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\GameplayRangeBroadcast.cs:138 \r\n  at Biathlon.Unity.Presentation.GameplayHud.ObserveRangeBroadcast (Biathlon.Simulation.RacePresentationSnapshot s) [0x00031] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\GameplayRangeBroadcast.cs:66 \r\n  at (wrapper delegate-invoke) System.Action`1[Biathlon.Simulation.RacePresentationSnapshot].invoke_void_T(Biathlon.Simulation.RacePresentationSnapshot)\r\n  at Biathlon.Unity.Presentation.RacePresentationFeed.Publish (Biathlon.Simulation.RacePresentationSnapshot snapshot) [0x0008a] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\RacePresentationFeed.cs:21 \r\n  at Biathlon.Unity.Presentation.RaceReplayPresentation.Update () [0x00214] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\RaceReplayPresentation.cs:137 ",
+            "Type": "Warning",
+            "Timestamp": "2026-10-30T15:31:39.5228525+03:00",
+            "LogLevel": 2
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

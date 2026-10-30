@@ -1,0 +1,62 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":7,\"PassedTests\":7,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:03:08.5657017\"},\"Results\":[{\"Name\":\"Biathlon.Tests.CareerSprintStartDrawTests.DrawIsRepeatableAfterReloadWithoutMutatingSavedCareer\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.1140000\"},{\"Name\":\"Biathlon.Tests.CareerSprintStartDrawTests.FixedSixThousandSeedsCoverEveryPlayerSlotWithoutMissingOrDuplicatingEntrants\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0500000\"},{\"Name\":\"Biathlon.Tests.CareerSprintStartDrawTests.NonSprintAndMissingDependenciesAreRejected\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0100000\"},{\"Name\":\"Biathlon.Tests.CareerSprintStartDrawTests.OldAndDrawnSprintJournalsRetainTheirOwnRosterAndExactPlayback(0)\",\"Status\":\"Passed\",\"Duration\":\"00:00:51.4770000\"},{\"Name\":\"Biathlon.Tests.CareerSprintStartDrawTests.OldAndDrawnSprintJournalsRetainTheirOwnRosterAndExactPlayback(1)\",\"Status\":\"Passed\",\"Duration\":\"00:00:41.6350000\"},{\"Name\":\"Biathlon.Tests.CareerSprintStartDrawTests.OldAndDrawnSprintJournalsRetainTheirOwnRosterAndExactPlayback(2)\",\"Status\":\"Passed\",\"Duration\":\"00:00:40.9110000\"},{\"Name\":\"Biathlon.Tests.CareerSprintStartDrawTests.PreparedFieldUsesDrawnIdentitiesAndUnchangedIntervalInsteadOfPlayerFirst\",\"Status\":\"Passed\",\"Duration\":\"00:00:53.5600000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 7,
+          "PassedTests": 7,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:03:08.5657017"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.Tests.CareerSprintStartDrawTests.DrawIsRepeatableAfterReloadWithoutMutatingSavedCareer",
+            "Status": "Passed",
+            "Duration": "00:00:00.1140000"
+          },
+          {
+            "Name": "Biathlon.Tests.CareerSprintStartDrawTests.FixedSixThousandSeedsCoverEveryPlayerSlotWithoutMissingOrDuplicatingEntrants",
+            "Status": "Passed",
+            "Duration": "00:00:00.0500000"
+          },
+          {
+            "Name": "Biathlon.Tests.CareerSprintStartDrawTests.NonSprintAndMissingDependenciesAreRejected",
+            "Status": "Passed",
+            "Duration": "00:00:00.0100000"
+          },
+          {
+            "Name": "Biathlon.Tests.CareerSprintStartDrawTests.OldAndDrawnSprintJournalsRetainTheirOwnRosterAndExactPlayback(0)",
+            "Status": "Passed",
+            "Duration": "00:00:51.4770000"
+          },
+          {
+            "Name": "Biathlon.Tests.CareerSprintStartDrawTests.OldAndDrawnSprintJournalsRetainTheirOwnRosterAndExactPlayback(1)",
+            "Status": "Passed",
+            "Duration": "00:00:41.6350000"
+          },
+          {
+            "Name": "Biathlon.Tests.CareerSprintStartDrawTests.OldAndDrawnSprintJournalsRetainTheirOwnRosterAndExactPlayback(2)",
+            "Status": "Passed",
+            "Duration": "00:00:40.9110000"
+          },
+          {
+            "Name": "Biathlon.Tests.CareerSprintStartDrawTests.PreparedFieldUsesDrawnIdentitiesAndUnchangedIntervalInsteadOfPlayerFirst",
+            "Status": "Passed",
+            "Duration": "00:00:53.5600000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

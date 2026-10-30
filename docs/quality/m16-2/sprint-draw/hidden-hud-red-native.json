@@ -1,0 +1,34 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":1,\"PassedTests\":0,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:00.6583641\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.RangeBroadcastHudTests.DisabledBroadcastHudIgnoresFeedUntilItsDocumentIsReenabled\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.5910000\",\"Message\":\"  Hidden HUD must not render into its released UIDocument during replay.\\r\\n  Expected: No Exception to be thrown\\r\\n  But was:  \\u003CSystem.NullReferenceException: Object reference not set to an instance of an object\\r\\n  at Biathlon.Unity.Presentation.GameplayHud.LayoutRangeBroadcast () [0x00000] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Scripts\\\\Unity\\\\Presentation\\\\GameplayRangeBroadcast.cs:111 \\r\\n  at Biathlon.Unity.Presentation.GameplayHud.RefreshRangeBroadcast (Biathlon.Simulation.RacePresentationSnapshot snapshot, System.Int32 player) [0x00000] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Scripts\\\\Unity\\\\Presentation\\\\GameplayRangeBroadcast.cs:138 \\r\\n  at Biathlon.Unity.Presentation.GameplayHud.ObserveRangeBroadcast (Biathlon.Simulation.RacePresentationSnapshot s) [0x00031] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Scripts\\\\Unity\\\\Presentation\\\\GameplayRangeBroadcast.cs:66 \\r\\n  at (wrapper delegate-invoke) System.Action\\u00601[Biathlon.Simulation.RacePresentationSnapshot].invoke_void_T(Biathlon.Simulation.RacePresentationSnapshot)\\r\\n  at Biathlon.Unity.Presentation.RacePresentationFeed.Publish (Biathlon.Simulation.RacePresentationSnapshot snapshot) [0x0008a] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Scripts\\\\Unity\\\\Presentation\\\\RacePresentationFeed.cs:21 \\r\\n  at Biathlon.PlayModeTests.RangeBroadcastHudTests\\u002B\\u003C\\u003Ec__DisplayClass5_0.\\u003CDisabledBroadcastHudIgnoresFeedUntilItsDocumentIsReenabled\\u003Eb__2 () [0x00000] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\RangeBroadcastHudTests.cs:34 \\r\\n  at NUnit.Framework.Constraints.ThrowsConstraint\\u002BVoidInvocationDescriptor.Invoke () [0x00001] in \\u003C8b63e8ac0a4746599ed207982825ae6c\\u003E:0 \\r\\n  at NUnit.Framework.Constraints.ThrowsConstraint\\u002BExceptionInterceptor.Intercept (System.Object invocation) [0x00050] in \\u003C8b63e8ac0a4746599ed207982825ae6c\\u003E:0 \\u003E\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.RangeBroadcastHudTests\\u002B\\u003CDisabledBroadcastHudIgnoresFeedUntilItsDocumentIsReenabled\\u003Ed__5.MoveNext () [0x00196] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\RangeBroadcastHudTests.cs:34\\r\\nat UnityEngine.TestTools.TestEnumerator\\u002B\\u003CExecute\\u003Ed__8.MoveNext () [0x0003a] in .\\\\Library\\\\PackageCache\\\\com.unity.test-framework@7a3849e09bd0\\\\UnityEngine.TestRunner\\\\NUnitExtensions\\\\Attributes\\\\TestEnumerator.cs:52\\r\\n\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 1,
+          "PassedTests": 0,
+          "FailedTests": 1,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.6583641"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.RangeBroadcastHudTests.DisabledBroadcastHudIgnoresFeedUntilItsDocumentIsReenabled",
+            "Status": "Failed",
+            "Duration": "00:00:00.5910000",
+            "Message": "  Hidden HUD must not render into its released UIDocument during replay.\r\n  Expected: No Exception to be thrown\r\n  But was:  <System.NullReferenceException: Object reference not set to an instance of an object\r\n  at Biathlon.Unity.Presentation.GameplayHud.LayoutRangeBroadcast () [0x00000] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\GameplayRangeBroadcast.cs:111 \r\n  at Biathlon.Unity.Presentation.GameplayHud.RefreshRangeBroadcast (Biathlon.Simulation.RacePresentationSnapshot snapshot, System.Int32 player) [0x00000] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\GameplayRangeBroadcast.cs:138 \r\n  at Biathlon.Unity.Presentation.GameplayHud.ObserveRangeBroadcast (Biathlon.Simulation.RacePresentationSnapshot s) [0x00031] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\GameplayRangeBroadcast.cs:66 \r\n  at (wrapper delegate-invoke) System.Action`1[Biathlon.Simulation.RacePresentationSnapshot].invoke_void_T(Biathlon.Simulation.RacePresentationSnapshot)\r\n  at Biathlon.Unity.Presentation.RacePresentationFeed.Publish (Biathlon.Simulation.RacePresentationSnapshot snapshot) [0x0008a] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\RacePresentationFeed.cs:21 \r\n  at Biathlon.PlayModeTests.RangeBroadcastHudTests+<>c__DisplayClass5_0.<DisabledBroadcastHudIgnoresFeedUntilItsDocumentIsReenabled>b__2 () [0x00000] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\RangeBroadcastHudTests.cs:34 \r\n  at NUnit.Framework.Constraints.ThrowsConstraint+VoidInvocationDescriptor.Invoke () [0x00001] in <8b63e8ac0a4746599ed207982825ae6c>:0 \r\n  at NUnit.Framework.Constraints.ThrowsConstraint+ExceptionInterceptor.Intercept (System.Object invocation) [0x00050] in <8b63e8ac0a4746599ed207982825ae6c>:0 >\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.RangeBroadcastHudTests+<DisabledBroadcastHudIgnoresFeedUntilItsDocumentIsReenabled>d__5.MoveNext () [0x00196] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\RangeBroadcastHudTests.cs:34\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

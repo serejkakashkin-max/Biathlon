@@ -20,9 +20,9 @@ namespace Biathlon.Unity.Presentation
             public void Replace(string id,string expected,string value){if(json!=expected)throw new IOException();json=value;}
         }
         [Serializable]private sealed class Receipt
-        {public int schema_version=1;public string id="m15_6_standalone_review",unity,fullscreen_mode,display_check;public bool success,owner_profiles_unchanged,fullscreen,created,appearance_restored,race_loaded,countdown_started,backup_recovered,diagnostic_exported,bindings_applied,settings_reloaded,checkpoint_verified;public int width,height,display_width,display_height;public long race_tick;public string[] errors,captures;}
+        {public int schema_version=1;public string id="m15_6_standalone_review",unity,fullscreen_mode,display_check;public bool success,owner_profiles_unchanged,fullscreen,created,appearance_restored,race_loaded,countdown_started,backup_recovered,diagnostic_exported,bindings_applied,settings_reloaded,checkpoint_verified,start_wait_skipped;public int width,height,display_width,display_height,player_start_ordinal,player_bib;public long race_tick,player_start_tick;public int[] countdown_numbers;public string[] errors,captures;}
         private readonly List<string> errors=new List<string>(),captures=new List<string>();
-        private Receipt receipt;private string folder,profiles;private FrontEndMenu menu;private RenderTexture target;private double began;private bool finished,m16;
+        private Receipt receipt;private string folder,profiles;private FrontEndMenu menu;private RenderTexture target,raceOverlay,raceCombined;private Material raceComposite;private double began;private bool finished,m16;
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]private static void Boot()
         {
             var args=Environment.GetCommandLineArgs();if(Application.isEditor||!Debug.isDebugBuild||Array.IndexOf(args,"-biathlonM156Review")<0&&Array.IndexOf(args,"-biathlonM16Review")<0)return;
@@ -94,11 +94,30 @@ namespace Biathlon.Unity.Presentation
                 receipt.bindings_applied=host.InputPreferences.Binding(PlayerSettingsPreferences.Catalog,"attack","keyboard")=="<Keyboard>/r";Require(receipt.bindings_applied,"Host did not bind the accepted input snapshot.");
                 string checkpoint=Path.Combine(folder,"ProfileReview",menu.Session.Career.Id+".json.checkpoint");receipt.checkpoint_verified=File.Exists(checkpoint)&&Biathlon.Career.CareerSave.FromJson(File.ReadAllText(checkpoint)).ToJson()==menu.Session.Career.ToJson();Require(receipt.checkpoint_verified,"Exact pre-race checkpoint missing.");
             }
-            receipt.countdown_started=host.WaitingForPlayerStart;Require(receipt.countdown_started,"Personal preparation countdown missing.");
-            host.ChaseCamera.targetTexture=target;foreach(var doc in FindObjectsByType<UIDocument>(FindObjectsSortMode.None))if(doc.panelSettings!=null)doc.panelSettings.targetTexture=target;
+            // Explicit QA only: camera and retained UI need separate buffers. A manual
+            // camera render otherwise clears the UI just before a screenshot is read.
+            raceOverlay=new RenderTexture(target.width,target.height,24,RenderTextureFormat.ARGB32);raceOverlay.Create();
+            raceCombined=new RenderTexture(target.width,target.height,0,RenderTextureFormat.ARGB32);raceCombined.Create();
+            raceComposite=new Material(Resources.Load<Shader>("Biathlon/UI/LiveShootingReviewComposite"));raceComposite.SetTexture("_Overlay",raceOverlay);
+            host.ChaseCamera.targetTexture=target;foreach(var doc in FindObjectsByType<UIDocument>(FindObjectsSortMode.None))if(doc.panelSettings!=null)LiveShootingPlayerReview.ConfigureCapturePanel(doc.panelSettings,raceOverlay);
+            var player=host.Runner.Field.GetAthlete(host.PlayerIndex);receipt.player_start_ordinal=host.PlayerIndex+1;receipt.player_start_tick=player.ScheduledStart.Value;
+            receipt.player_bib=host.Proxies.GetRig(player.AthleteId.Value).GetComponent<AthleteBibPresentation>().Number;
+            Require(player.AthleteId.Value==menu.Session.Career.PlayerId&&receipt.player_bib==receipt.player_start_ordinal,"Drawn player's identity/bib binding differs.");
+            if(host.CanSkipStartWait)
+            {
+                yield return Capture("08a-drawn-start-wait");Require(host.RequestSkipStartWait(),"Delayed Sprint could not skip its wait.");
+                deadline=Time.realtimeSinceStartupAsDouble+90;
+                while(host.StartWaitFastForwarding&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
+                Require(!host.StartWaitFastForwarding&&!host.HasSimulationFault,"Bounded start skip failed.");receipt.start_wait_skipped=true;
+            }
+            receipt.countdown_started=host.WaitingForPlayerStart&&host.CountdownNumber==3;Require(receipt.countdown_started,"Personal three-second preparation countdown missing.");
+            host.GameplayHud.Refresh();Require(host.GameplayHud.Root.Q("start_countdown").style.display.value==DisplayStyle.Flex&&host.GameplayHud.Root.Q<Label>("countdown_number").text=="3","Native HUD did not display the personal countdown.");
+            var numbers=new List<int>{host.CountdownNumber};
             yield return Capture("08-countdown");deadline=Time.realtimeSinceStartupAsDouble+15;
-            while(host.WaitingForPlayerStart&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
+            while(host.WaitingForPlayerStart&&Time.realtimeSinceStartupAsDouble<deadline){if(numbers[numbers.Count-1]!=host.CountdownNumber)numbers.Add(host.CountdownNumber);yield return null;}
+            if(numbers[numbers.Count-1]!=host.CountdownNumber)numbers.Add(host.CountdownNumber);receipt.countdown_numbers=numbers.ToArray();
             Require(!host.HasSimulationFault&&!host.WaitingForPlayerStart,"Race did not leave countdown cleanly.");
+            Require(numbers.Count==4&&numbers[0]==3&&numbers[1]==2&&numbers[2]==1&&numbers[3]==0,"Personal countdown skipped a displayed number.");
             for(int i=0;i<12;i++)yield return null;receipt.race_tick=host.Runner.Field.Tick.Value;Require(receipt.race_tick>0,"Shared race clock did not advance.");yield return Capture("09-race");menu.Race.Abandon();
         }
         private void Submit(string id){var b=menu.Root.Q<Button>(id);Require(b!=null&&b.enabledInHierarchy,"Missing or disabled action: "+id);b.Focus();using(var e=NavigationSubmitEvent.GetPooled())b.SendEvent(e);}
@@ -108,7 +127,7 @@ namespace Biathlon.Unity.Presentation
             // backbuffer. Native panels render to the explicit target; sample the
             // following update, without depending on swapchain presentation.
             yield return new WaitForSecondsRealtime(.35f);for(int i=0;i<10;i++)yield return null;var before=RenderTexture.active;var pixels=new Texture2D(target.width,target.height,TextureFormat.RGB24,false);
-            try{RenderTexture.active=target;pixels.ReadPixels(new Rect(0,0,target.width,target.height),0,0);pixels.Apply();float low=1,high=0;for(int y=0;y<pixels.height;y+=32)for(int x=0;x<pixels.width;x+=32){float l=pixels.GetPixel(x,y).grayscale;low=Mathf.Min(low,l);high=Mathf.Max(high,l);}Require(high-low>.05f,"Native capture must contain visible UI/scene: "+name);File.WriteAllBytes(Path.Combine(folder,name+".png"),pixels.EncodeToPNG());captures.Add(name+".png");}
+            try{if(raceCombined!=null)Graphics.Blit(target,raceCombined,raceComposite);RenderTexture.active=raceCombined!=null?raceCombined:target;pixels.ReadPixels(new Rect(0,0,target.width,target.height),0,0);pixels.Apply();float low=1,high=0;for(int y=0;y<pixels.height;y+=32)for(int x=0;x<pixels.width;x+=32){float l=pixels.GetPixel(x,y).grayscale;low=Mathf.Min(low,l);high=Mathf.Max(high,l);}Require(high-low>.05f,"Native capture must contain visible UI/scene: "+name);File.WriteAllBytes(Path.Combine(folder,name+".png"),pixels.EncodeToPNG());captures.Add(name+".png");}
             finally{RenderTexture.active=before;Destroy(pixels);}
         }
         private static string Fingerprint()

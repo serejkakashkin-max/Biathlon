@@ -1,0 +1,47 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":4,\"PassedTests\":4,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:00.9689535\"},\"Results\":[{\"Name\":\"Biathlon.Tests.RaceReplayLibraryTests.InvalidMetadataAndUnpairedFilesAreIgnoredAndIdsCannotEscapeLibrary\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0050000\"},{\"Name\":\"Biathlon.Tests.RaceReplayLibraryTests.PublishesCompletePairsAndRejectsCorruptedCommandsAndDuplicatePublication\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0040000\"},{\"Name\":\"Biathlon.Tests.RaceReplayLibraryTests.UnsupportedStartOrderVersionCannotBePublished(-1)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.RaceReplayLibraryTests.UnsupportedStartOrderVersionCannotBePublished(3)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 4,
+          "PassedTests": 4,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.9689535"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.Tests.RaceReplayLibraryTests.InvalidMetadataAndUnpairedFilesAreIgnoredAndIdsCannotEscapeLibrary",
+            "Status": "Passed",
+            "Duration": "00:00:00.0050000"
+          },
+          {
+            "Name": "Biathlon.Tests.RaceReplayLibraryTests.PublishesCompletePairsAndRejectsCorruptedCommandsAndDuplicatePublication",
+            "Status": "Passed",
+            "Duration": "00:00:00.0040000"
+          },
+          {
+            "Name": "Biathlon.Tests.RaceReplayLibraryTests.UnsupportedStartOrderVersionCannotBePublished(-1)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0010000"
+          },
+          {
+            "Name": "Biathlon.Tests.RaceReplayLibraryTests.UnsupportedStartOrderVersionCannotBePublished(3)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}
