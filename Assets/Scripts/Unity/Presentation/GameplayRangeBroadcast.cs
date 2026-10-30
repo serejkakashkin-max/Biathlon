@@ -6,102 +6,187 @@ using UnityEngine.UIElements;
 
 namespace Biathlon.Unity.Presentation
 {
-    /// <summary>Five physical targets plus separate miss markers; no hidden shot resolution.</summary>
+    /// <summary>Chronological accepted-shot capsules. A cross encodes miss without color alone.</summary>
     public sealed class RangeTargetStrip:VisualElement
     {
-        public int ClosedMask {get;private set;} public int Misses {get;private set;}
+        public int ClosedMask {get;private set;} public int Misses {get;private set;} public int Marks {get;private set;}
+        private int pulse=-1;private float strength;
         public RangeTargetStrip(){pickingMode=PickingMode.Ignore;generateVisualContent+=Draw;}
-        public void Observe(int mask,int misses)
-        {if(mask==ClosedMask&&misses==Misses)return;ClosedMask=mask;Misses=misses;MarkDirtyRepaint();}
+        public void Observe(RangeBroadcastRow row,int recentShot,float intensity)
+        {if(row.ShotMarks==Marks&&row.ClosedMask==ClosedMask&&row.Misses==Misses&&recentShot==pulse&&Mathf.Abs(strength-intensity)<.02f)return;Marks=row.ShotMarks;ClosedMask=row.ClosedMask;Misses=row.Misses;pulse=recentShot;strength=intensity;MarkDirtyRepaint();}
         private void Draw(MeshGenerationContext c)
         {
             var p=c.painter2D;float w=contentRect.width,h=contentRect.height;
-            void Circle(float x,float radius,Color fill,Color stroke)
-            {p.fillColor=fill;p.strokeColor=stroke;p.lineWidth=1.2f;p.BeginPath();p.Arc(new Vector2(x,h*.5f),radius,0,360);p.ClosePath();p.Fill();p.Stroke();}
-            for(int i=0;i<Misses;i++)Circle(w*(.025f+i*.04f),h*.075f,FrostlineStyle.Danger,FrostlineStyle.Danger);
             for(int i=0;i<5;i++)
-            {bool hit=(ClosedMask&(1<<i))!=0;Circle(w*(.30f+i*.15f),Mathf.Min(h*.28f,w*.06f),hit?FrostlineStyle.Ink:FrostlineStyle.Deep,hit?FrostlineStyle.Ink:FrostlineStyle.Muted);}
+            {
+                var mark=(RangeShotMark)((Marks>>(i*2))&3);float x=w*(.1f+i*.2f),y=h*.5f;
+                float radius=Mathf.Min(h*.31f,w*.075f)*(1+(i==pulse?.15f*strength:0));
+                Color color=mark==RangeShotMark.Miss?FrostlineStyle.Danger:mark==RangeShotMark.Hit?FrostlineStyle.Ink:FrostlineStyle.Muted;
+                p.fillColor=mark==RangeShotMark.Hit?color:mark==RangeShotMark.Miss?new Color(color.r,color.g,color.b,.19f):FrostlineStyle.Deep;
+                p.strokeColor=color;p.lineWidth=mark==RangeShotMark.Pending?1:1.5f;p.BeginPath();p.Arc(new Vector2(x,y),radius,0,360);p.ClosePath();p.Fill();p.Stroke();
+                if(mark==RangeShotMark.Miss)
+                {float d=radius*.42f;p.BeginPath();p.MoveTo(new Vector2(x-d,y-d));p.LineTo(new Vector2(x+d,y+d));p.MoveTo(new Vector2(x-d,y+d));p.LineTo(new Vector2(x+d,y-d));p.Stroke();}
+                if(mark==RangeShotMark.Unobserved)
+                {p.BeginPath();p.MoveTo(new Vector2(x-radius*.45f,y));p.LineTo(new Vector2(x+radius*.45f,y));p.Stroke();}
+            }
         }
     }
     public sealed partial class GameplayHud
     {
         public bool RangeBroadcastVisible {get;private set;}
         public int RangeBroadcastRows {get;private set;}
+        public int RangeBroadcastCapacity {get;private set;}
         public RangeBroadcastModel RangeBroadcast {get;private set;}
         private RangeBroadcastDefinition rangeBroadcastPolicy;
         private VisualElement rangeBoard;
-        private Label rangeBoardTitle,rangeBoardEmpty,rangeBoardMore;
+        private Label rangeBoardTitle,rangeBoardEmpty,rangeBoardMore,rangeBoardVisit;
         private VisualElement[] rangeBoardCards;
-        private Label[] rangeBoardNames,rangeBoardLanes;
+        private Label[] rangeBoardNames,rangeBoardLanes,rangeBoardBibs,rangeBoardScores,rangeBoardStates;
         private NationFlagGraphic[] rangeBoardFlags;
         private RangeTargetStrip[] rangeBoardTargets;
-        private int paintedRangeWindow=-1;
+        private RangeBroadcastRow[] paintedRangeRows;
+        private readonly string[] rangeNumbers=new string[61];
+        private int paintedRangeWindow=-1,rangeOverflow=-1,rangeActive=-1;
+        private float rangeLayoutWidth,rangeLayoutHeight;
+        private static readonly string[] ShotScores={"0/5","1/5","2/5","3/5","4/5","5/5"};
         private void InitializeRangeBroadcast()
         {
             rangeBroadcastPolicy=RangeBroadcastDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/UI/range_broadcast_v1"));
+            for(int i=0;i<rangeNumbers.Length;i++)rangeNumbers[i]=i==0?"—":i.ToString(System.Globalization.CultureInfo.InvariantCulture);
             if(host?.Runner==null)return;
             RangeBroadcast=new RangeBroadcastModel(rangeBroadcastPolicy,host.Runner.Field.Track,host.Runner.Field.Route,host.Runner.Field.Profile,host.Runner.Field.Count);
             feed.Published+=ObserveRangeBroadcast;
             if(feed.Current!=null)RangeBroadcast.Observe(feed.Current);
         }
-        private void ObserveRangeBroadcast(RacePresentationSnapshot s)=>RangeBroadcast?.Observe(s);
+        private void ObserveRangeBroadcast(RacePresentationSnapshot s)
+        {
+            RangeBroadcast?.Observe(s);
+            // Text and composition update on accepted publication, without waiting for
+            // the slower general telemetry HUD cadence. No extra snapshots are created.
+            if(rangeBoard!=null&&selectedIndex>=0&&selectedIndex<s.Count)RefreshRangeBroadcast(s,selectedIndex);
+        }
         private void BuildRangeBroadcast()
         {
-            paintedRangeWindow=-1;RangeBroadcastVisible=false;
+            paintedRangeWindow=-1;rangeOverflow=rangeActive=-1;rangeLayoutWidth=rangeLayoutHeight=0;RangeBroadcastVisible=false;
             rangeBoard=Card("range_broadcast",false,true,rangeBroadcastPolicy.PanelWidth);
-            rangeBoard.style.maxWidth=Length.Percent(32);rangeBoard.style.top=settings.edge+64*Scale;
-            rangeBoard.style.borderLeftColor=accent;
-            rangeBoardTitle=Text(rangeBoard,"range_broadcast_title","",settings.body_size,true);rangeBoardTitle.style.color=accent;
-            rangeBoardEmpty=Text(rangeBoard,"range_broadcast_empty",L("Соперники подходят к рубежу","Rivals are approaching the range"),settings.caption_size);
-            rangeBoardEmpty.style.color=muted;
-            int capacity=rangeBroadcastPolicy.MaximumRows;
-            rangeBoardCards=new VisualElement[capacity];rangeBoardNames=new Label[capacity];rangeBoardLanes=new Label[capacity];
-            rangeBoardFlags=new NationFlagGraphic[capacity];rangeBoardTargets=new RangeTargetStrip[capacity];
-            for(int i=0;i<capacity;i++)
+            rangeBoard.style.maxWidth=Length.Percent(35);rangeBoard.style.top=settings.edge+54*Scale;
+            rangeBoard.style.paddingTop=8;rangeBoard.style.paddingBottom=7;rangeBoard.style.paddingLeft=rangeBoard.style.paddingRight=9;
+            rangeBoard.style.backgroundColor=HighContrast?Color.black:new Color(.043f,.098f,.157f,.87f);
+            rangeBoard.style.borderLeftWidth=0;rangeBoard.style.borderTopWidth=2;rangeBoard.style.borderTopColor=accent;
+            var heading=Row(rangeBoard);heading.style.height=23*Scale;
+            rangeBoardTitle=Text(heading,"range_broadcast_title",L("СТРЕЛЬБИЩЕ","LIVE SHOOTING"),18,true);rangeBoardTitle.style.color=accent;rangeBoardTitle.style.marginBottom=0;
+            var live=Text(heading,"range_broadcast_live","● LIVE",10,true);live.style.color=accent;live.style.marginBottom=0;live.style.flexShrink=0;
+            rangeBoardVisit=Text(rangeBoard,"range_broadcast_visit","",11);rangeBoardVisit.style.color=muted;rangeBoardVisit.style.marginBottom=6;
+            var columns=Row(rangeBoard);columns.style.height=18*Scale;columns.style.marginBottom=3;
+            var captions=Text(columns,"range_broadcast_columns",L("№     КОВР.     СПОРТСМЕН","BIB   MAT        ATHLETE"),9);captions.style.color=muted;captions.style.marginBottom=0;
+            var captionShots=Text(columns,"range_broadcast_shots_label",L("ВЫСТРЕЛЫ        ИТОГ","SHOTS           SCORE"),9);captionShots.style.color=muted;captionShots.style.marginBottom=0;
+            rangeBoardEmpty=Text(rangeBoard,"range_broadcast_empty",L("Ожидаем прибытия спортсменов","Awaiting athletes"),settings.caption_size);rangeBoardEmpty.style.color=muted;
+            int count=rangeBroadcastPolicy.MaximumRows;
+            rangeBoardCards=new VisualElement[count];rangeBoardNames=new Label[count];rangeBoardLanes=new Label[count];rangeBoardBibs=new Label[count];rangeBoardScores=new Label[count];rangeBoardStates=new Label[count];
+            rangeBoardFlags=new NationFlagGraphic[count];rangeBoardTargets=new RangeTargetStrip[count];paintedRangeRows=new RangeBroadcastRow[count];
+            for(int i=0;i<count;i++)
             {
                 var card=Row(rangeBoard);card.name="range_rival_"+i;card.style.height=rangeBroadcastPolicy.RowHeight*Scale;
-                card.style.marginBottom=3;card.style.paddingLeft=card.style.paddingRight=4;
-                card.style.borderTopLeftRadius=card.style.borderTopRightRadius=card.style.borderBottomLeftRadius=card.style.borderBottomRightRadius=3;
-                rangeBoardCards[i]=card;
-                var lane=Text(card,"range_rival_lane_"+i,"",settings.caption_size,true);lane.style.width=19*Scale;lane.style.flexShrink=0;lane.style.marginBottom=0;lane.style.color=muted;rangeBoardLanes[i]=lane;
-                var flag=new NationFlagGraphic("");flag.style.width=20*Scale;flag.style.height=13*Scale;flag.style.marginRight=6;flag.style.flexShrink=0;card.Add(flag);rangeBoardFlags[i]=flag;
-                var name=Text(card,"range_rival_name_"+i,"",settings.caption_size,true);name.style.flexGrow=1;name.style.flexBasis=0;name.style.minWidth=0;
+                card.style.marginBottom=1;card.style.paddingLeft=4;card.style.paddingRight=3;card.style.flexShrink=0;
+                card.style.borderLeftWidth=2;card.style.borderLeftColor=Color.clear;
+                card.style.borderBottomWidth=1;card.style.borderBottomColor=new Color(1,1,1,.045f);rangeBoardCards[i]=card;
+                Label Fixed(string id,float width,Color color)
+                {var l=Text(card,id,"",12,true);l.style.width=width*Scale;l.style.flexShrink=0;l.style.marginBottom=0;l.style.color=color;l.style.unityTextAlign=TextAnchor.MiddleCenter;return l;}
+                rangeBoardBibs[i]=Fixed("range_rival_bib_"+i,23,foreground);
+                rangeBoardLanes[i]=Fixed("range_rival_lane_"+i,23,muted);
+                var flag=new NationFlagGraphic("");flag.style.width=21*Scale;flag.style.height=13*Scale;flag.style.marginLeft=3;flag.style.marginRight=7;flag.style.flexShrink=0;card.Add(flag);rangeBoardFlags[i]=flag;
+                var name=Text(card,"range_rival_name_"+i,"",13,true);name.style.flexGrow=1;name.style.flexBasis=0;name.style.minWidth=0;
                 name.style.whiteSpace=WhiteSpace.NoWrap;name.style.overflow=Overflow.Hidden;name.style.textOverflow=TextOverflow.Ellipsis;name.style.marginBottom=0;rangeBoardNames[i]=name;
-                var targets=new RangeTargetStrip{name="range_rival_targets_"+i};targets.style.width=115*Scale;targets.style.height=25*Scale;targets.style.flexShrink=0;card.Add(targets);rangeBoardTargets[i]=targets;
+                var targets=new RangeTargetStrip{name="range_rival_targets_"+i};targets.tooltip=L("По порядку выстрелов: круг — попадание, крест — промах. Черта — порядок неизвестен после перемотки.","Shot order: filled circle = hit, cross = miss. Dash = order unavailable after seek.");targets.style.width=100*Scale;targets.style.height=24*Scale;targets.style.flexShrink=0;card.Add(targets);rangeBoardTargets[i]=targets;
+                rangeBoardScores[i]=Fixed("range_rival_score_"+i,29,foreground);
+                rangeBoardStates[i]=Fixed("range_rival_state_"+i,15,muted);
+                card.style.display=DisplayStyle.None;
             }
-            rangeBoardMore=Text(rangeBoard,"range_broadcast_more","",settings.caption_size);rangeBoardMore.style.color=muted;
-            var legend=Text(rangeBoard,"range_broadcast_legend",L("Точки слева — промахи","Dots on the left — misses"),settings.caption_size);legend.style.color=muted;legend.style.marginBottom=0;
+            rangeBoardMore=Text(rangeBoard,"range_broadcast_more","",11);rangeBoardMore.style.color=muted;rangeBoardMore.style.marginTop=5;rangeBoardMore.style.marginBottom=0;
             rangeBoard.style.display=DisplayStyle.None;
+            rangeBoard.RegisterCallback<GeometryChangedEvent>(_=>{if(feed?.Current!=null&&selectedIndex>=0)RefreshRangeBroadcast(feed.Current,selectedIndex);});
+        }
+        private void LayoutRangeBroadcast()
+        {
+            float height=Root.resolvedStyle.height,width=Root.resolvedStyle.width;
+            if(!float.IsFinite(height)||height<100){height=theme.reference_height;width=theme.reference_width;}
+            // UI Toolkit reference scaling alone would keep20tiny rows at720p. Use
+            // the actual target/display pixel budget for minimum readable row height.
+            float pixels=panel.targetTexture!=null?panel.targetTexture.height:Screen.height;
+            float factor=Mathf.Min(1,pixels/1080f);
+            float top=settings.edge+54*Scale,bottom=height-170*Scale-settings.edge;
+            if(conditionPanel!=null&&conditionPanel.worldBound.height>0)bottom=conditionPanel.worldBound.yMin-Root.worldBound.yMin-12;
+            float rowHeight=Mathf.Max(rangeBroadcastPolicy.RowHeight*Scale,rangeBroadcastPolicy.RowHeight*Scale/Mathf.Max(.5f,factor));
+            RangeBroadcastCapacity=Mathf.Clamp(Mathf.FloorToInt((bottom-top-103*Scale)/(rowHeight+1)),1,rangeBroadcastPolicy.MaximumRows);
+            if(Mathf.Abs(rangeLayoutWidth-width)<.1f&&Mathf.Abs(rangeLayoutHeight-rowHeight)<.1f)return;
+            rangeLayoutWidth=width;rangeLayoutHeight=rowHeight;
+            rangeBoard.style.top=top;
+            // Small HUD dimensions preserve a legible name and still leave >=65%
+            // of the view unobscured; body text already follows accessibility Scale.
+            float panelWidth=Mathf.Min(rangeBroadcastPolicy.PanelWidth*Scale,width*.35f);
+            rangeBoard.style.width=panelWidth;
+            for(int i=0;i<rangeBoardCards.Length;i++)rangeBoardCards[i].style.height=rowHeight;
         }
         private void RefreshRangeBroadcast(RacePresentationSnapshot snapshot,int player)
         {
+            LayoutRangeBroadcast();
             int window=RangeBroadcast==null?-1:RangeBroadcast.Window(snapshot.Get(player).RouteMeters,snapshot.Get(player).OnCourse,snapshot.Get(player).Phase);
             bool visible=window>=0&&!CheckpointTableVisible;
+            // During live range coverage, place the existing readiness card beside
+            // the bottom pulse card. The board then has its own uninterrupted rail.
+            if(readinessPanel!=null){readinessPanel.style.right=visible?settings.edge+rangeBroadcastPolicy.PanelWidth*Scale+12:settings.edge;readinessPanel.style.bottom=visible?settings.edge:settings.edge+168*Scale;}
             if(visible!=RangeBroadcastVisible){RangeBroadcastVisible=visible;rangeBoard.style.display=visible?DisplayStyle.Flex:DisplayStyle.None;}
             if(!visible){RangeBroadcastRows=0;return;}
             if(window!=paintedRangeWindow)
             {
                 paintedRangeWindow=window;var stance=host.Runner.Field.Profile.GetBout(window).Stance;
-                rangeBoardTitle.text=L("РУБЕЖ ","RANGE ")+(window+1)+"  ·  "+L(stance==Biathlon.Domain.ShootingStance.Prone?"ЛЁЖА":"СТОЯ",stance==Biathlon.Domain.ShootingStance.Prone?"PRONE":"STANDING");
+                rangeBoardVisit.text=L("РУБЕЖ ","RANGE ")+(window+1)+"  /  "+L(stance==Biathlon.Domain.ShootingStance.Prone?"ЛЁЖА":"СТОЯ",stance==Biathlon.Domain.ShootingStance.Prone?"PRONE":"STANDING");
             }
-            int total=RangeBroadcast.Select(window,player);RangeBroadcastRows=RangeBroadcast.SelectVisible(total,player,snapshot.Tick,snapshot.TickFrequency,rangeBoardCards.Length);
-            rangeBoardEmpty.style.display=total==0?DisplayStyle.Flex:DisplayStyle.None;
-            rangeBoardMore.text=total>rangeBoardCards.Length?L("НА РУБЕЖЕ: ","AT RANGE: ")+total+"  ·  "+(RangeBroadcast.Page+1)+" / "+RangeBroadcast.Pages:"";
-            rangeBoardMore.style.display=total>rangeBoardCards.Length?DisplayStyle.Flex:DisplayStyle.None;
+            RangeBroadcastRows=RangeBroadcast.Compose(window,RangeBroadcastCapacity);
+            rangeBoardEmpty.style.display=RangeBroadcastRows==0?DisplayStyle.Flex:DisplayStyle.None;
+            if(rangeOverflow!=RangeBroadcast.OverflowCount||rangeActive!=RangeBroadcast.ActiveCount)
+            {rangeOverflow=RangeBroadcast.OverflowCount;rangeActive=RangeBroadcast.ActiveCount;rangeBoardMore.text=L("СТРЕЛЯЮТ ","SHOOTING ")+rangeActive+(rangeOverflow>0?L("  ·  ЕЩЁ В ОЧЕРЕДИ ","  ·  QUEUED ")+rangeOverflow:"");}
             for(int row=0;row<rangeBoardCards.Length;row++)
             {
                 rangeBoardCards[row].style.display=row<RangeBroadcastRows?DisplayStyle.Flex:DisplayStyle.None;if(row>=RangeBroadcastRows)continue;
-                var r=RangeBroadcast.Get(RangeBroadcast.Displayed(row));bool own=r.AthleteId==athleteId;
-                string name=broadcastNames.TryGetValue(r.AthleteId,out var n)?n:r.AthleteId;
-                rangeBoardNames[row].text=name;rangeBoardNames[row].tooltip=name;rangeBoardNames[row].style.color=own?accent:foreground;
-                rangeBoardLanes[row].text=r.Active&&r.Lane>0?r.Lane.ToString():r.Shots==5?"✓":"—";
-                rangeBoardFlags[row].SetNation(broadcastNations.TryGetValue(r.AthleteId,out var nation)?nation:"");
-                rangeBoardTargets[row].Observe(r.ClosedMask,r.Misses);
-                rangeBoardTargets[row].tooltip=L("Выстрелы: ","Shots: ")+r.Shots+" / 5 · "+L("Промахи: ","Misses: ")+r.Misses;
-                bool flashing=r.Flashing(snapshot.Tick,snapshot.TickFrequency,rangeBroadcastPolicy.MissFlashSeconds);
-                float pulse=reducedMotion?1:(snapshot.Tick-r.LastMissTick)/(double)snapshot.TickFrequency% .5<.25?1:.25f;
-                rangeBoardCards[row].style.backgroundColor=flashing?new Color(FrostlineStyle.Danger.r*.65f,FrostlineStyle.Danger.g*.2f,FrostlineStyle.Danger.b*.2f,.55f*pulse):
-                    own?new Color(accent.r,accent.g,accent.b,.12f):new Color(1,1,1,.035f);
+                var r=RangeBroadcast.Get(RangeBroadcast.Displayed(row),window);var old=paintedRangeRows[row];bool identity=r.AthleteId!=old.AthleteId||r.Bout!=old.Bout;
+                bool own=r.AthleteId==athleteId;
+                if(identity)
+                {
+                    string name=broadcastNames.TryGetValue(r.AthleteId,out var n)?n:r.AthleteId;
+                    rangeBoardNames[row].text=name;rangeBoardNames[row].tooltip=name;
+                    rangeBoardFlags[row].SetNation(broadcastNations.TryGetValue(r.AthleteId,out var nation)?nation:"");
+                    var rig=host.Proxies.GetRig(r.AthleteId);int bib=rig!=null?rig.GetComponent<AthleteBibPresentation>()?.Number??0:0;
+                    rangeBoardBibs[row].text=rangeNumbers[Mathf.Clamp(bib,0,60)];
+                    rangeBoardCards[row].style.borderLeftColor=own&&rangeBroadcastPolicy.PlayerMarkerEnabled?accent:Color.clear;
+                }
+                if(identity||r.Lane!=old.Lane)rangeBoardLanes[row].text=rangeNumbers[Mathf.Clamp(r.Lane,0,60)];
+                if(identity||r.Shots!=old.Shots||r.ClosedMask!=old.ClosedMask)rangeBoardScores[row].text=ShotScores[RangeBroadcastRow.Hits(r.ClosedMask)];
+                if(identity||r.Active!=old.Active)
+                {rangeBoardStates[row].text=r.Active?"•":"✓";rangeBoardStates[row].style.color=r.Active?accent:foreground;}
+                paintedRangeRows[row]=r;
+            }
+            AnimateRangeBroadcast(snapshot.Tick);
+        }
+        private void AnimateRangeBroadcast(double tick)
+        {
+            if(!RangeBroadcastVisible||RangeBroadcast==null||paintedRangeWindow<0)return;
+            int frequency=RangeBroadcast.Frequency;
+            for(int i=0;i<RangeBroadcastRows;i++)
+            {
+                var r=paintedRangeRows[i];bool own=r.AthleteId==athleteId;
+                float opacity=(float)r.Opacity(tick,frequency,rangeBroadcastPolicy);
+                if(reducedMotion)opacity=r.Phase((long)tick,frequency,rangeBroadcastPolicy)==RangeRowPhase.Departed?0:1;
+                rangeBoardCards[i].style.opacity=opacity;
+                rangeBoardCards[i].style.translate=new Translate(reducedMotion?0:(1-opacity)*8,0);
+                double missAge=(tick-r.LastMissTick)/frequency,hitAge=(tick-r.LastHitTick)/frequency,completionAge=(tick-r.ResultStartTick)/frequency;
+                bool miss=r.LastMissTick>=0&&missAge>=0&&missAge<rangeBroadcastPolicy.MissFlashSeconds;
+                bool completed=r.CompletionObserved&&r.CompletedTick>=0&&r.AdmissionTick>=0&&completionAge>=0&&completionAge<rangeBroadcastPolicy.CompletionFlashSeconds;
+                var color=miss?FrostlineStyle.Danger:completed?accent:own&&rangeBroadcastPolicy.PlayerMarkerEnabled?accent:Color.white;
+                float alpha=miss?.27f*(float)(1-missAge/rangeBroadcastPolicy.MissFlashSeconds):completed?.20f*(float)(1-completionAge/rangeBroadcastPolicy.CompletionFlashSeconds):own&&rangeBroadcastPolicy.PlayerMarkerEnabled?.055f:.025f;
+                rangeBoardCards[i].style.backgroundColor=new Color(color.r,color.g,color.b,alpha);
+                bool hit=r.LastHitTick>=0&&hitAge>=0&&hitAge<rangeBroadcastPolicy.HitFlashSeconds;
+                rangeBoardTargets[i].Observe(r,miss||hit?r.LastShot:-1,reducedMotion?0:miss?(float)(1-missAge/rangeBroadcastPolicy.MissFlashSeconds):hit?(float)(1-hitAge/rangeBroadcastPolicy.HitFlashSeconds):0);
             }
         }
     }

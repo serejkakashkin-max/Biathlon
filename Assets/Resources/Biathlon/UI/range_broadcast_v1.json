@@ -1,11 +1,18 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "id": "range_broadcast_v1",
   "before_m": 250,
   "after_m": 250,
-  "miss_flash_seconds": 1.0,
-  "page_seconds": 5,
-  "maximum_rows": 8,
-  "panel_width": 290,
-  "row_height": 28
+  "miss_flash_seconds": 0.65,
+  "hit_flash_seconds": 0.3,
+  "completed_hold_seconds": 3.0,
+  "completion_flash_seconds": 0.8,
+  "fade_seconds": 0.4,
+  "enter_seconds": 0.25,
+  "maximum_rows": 20,
+  "maximum_athletes": 30,
+  "panel_width": 376,
+  "row_height": 26,
+  "active_row_style": "frostline_rail",
+  "player_marker_enabled": true
 }

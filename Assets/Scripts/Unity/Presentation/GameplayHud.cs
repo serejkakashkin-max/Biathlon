@@ -231,6 +231,7 @@ namespace Biathlon.Unity.Presentation
         private void LateUpdate()
         {
             if(feed==null)return;
+            if(feed.Current!=null)AnimateRangeBroadcast(feed.Current.Tick+(feed.InterpolationAlpha??0));
             RefreshPaceStart();
             shortcutControls.Resolve(Keyboard.current,Mouse.current,Gamepad.current);
             if(ShortcutDown("splits")&&!Model.Shooting)SetCheckpointTableVisible(!CheckpointTableVisible);
