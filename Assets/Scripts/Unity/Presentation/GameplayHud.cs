@@ -195,6 +195,7 @@ namespace Biathlon.Unity.Presentation
         {helpVisible=visible;if(helpPanel!=null)helpPanel.style.display=visible?DisplayStyle.Flex:DisplayStyle.None;}
         public void Refresh()
         {
+            if(!isActiveAndEnabled||Root==null)return;
             RefreshPaceStart();
             var snapshot=feed?.Current;
             if(snapshot==null){rendered=null;selectedIndex=-1;if(Root!=null)Root.style.display=DisplayStyle.None;return;}
@@ -246,9 +247,11 @@ namespace Biathlon.Unity.Presentation
         private void OnEnable()
         {
             if(documentObject==null)return;
-            documentObject.SetActive(true);Build();rendered=null;Refresh();
+            documentObject.SetActive(true);
+            if(feed!=null){feed.Published-=ObserveRangeBroadcast;feed.Published+=ObserveRangeBroadcast;if(feed.Current!=null)RangeBroadcast?.Observe(feed.Current);}
+            Build();rendered=null;Refresh();
         }
-        private void OnDisable(){if(documentObject!=null)documentObject.SetActive(false);}
+        private void OnDisable(){if(feed!=null)feed.Published-=ObserveRangeBroadcast;RangeBroadcastVisible=false;RangeBroadcastRows=0;if(documentObject!=null)documentObject.SetActive(false);}
         private void OnDestroy()
         {if(feed!=null)feed.Published-=ObserveRangeBroadcast;if(documentObject!=null){documentObject.SetActive(false);Destroy(documentObject);}if(panel!=null)Destroy(panel);}
     }

@@ -14,6 +14,9 @@ namespace Biathlon.PlayModeTests
 {
     public sealed class GameplayHudTests
     {
+        // A fresh directory preserves review history and avoids truncating artifacts opened by an indexer/viewer.
+        private readonly string evidenceFolder=Path.GetFullPath(Path.Combine(Application.dataPath,
+            "../artifacts/quality/gameplay-hud",System.DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff")));
         [UnityTest] public IEnumerator AcceptedBoutUpdatesRetainedHudWithoutBlockingAimOrAdvancingRace()
         {
             string Read(string n)=>Resources.Load<TextAsset>("Biathlon/"+Path.GetFileNameWithoutExtension(n)).text;
@@ -64,7 +67,7 @@ namespace Biathlon.PlayModeTests
             yield return null;
         }
 
-        private static IEnumerator Capture(GameplayHud hud,int width,int height,string locale,int textSize,string filename)
+        private IEnumerator Capture(GameplayHud hud,int width,int height,string locale,int textSize,string filename)
         {
             var panel=(PanelSettings)typeof(GameplayHud).GetField("panel",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(hud);
             var previous=RenderTexture.active;var target=new RenderTexture(width,height,0);target.Create();panel.targetTexture=target;
@@ -85,7 +88,7 @@ namespace Biathlon.PlayModeTests
                 TestContext.WriteLine(filename+" coverage="+coverage.ToString("P2"));
                 RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);
                 pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
-                string folder=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m14/compact-hud-20261012"));Directory.CreateDirectory(folder);
+                string folder=evidenceFolder;Directory.CreateDirectory(folder);
                 File.WriteAllBytes(Path.Combine(folder,filename+".png"),pixels.EncodeToPNG());
                 File.WriteAllText(Path.Combine(folder,filename+"-coverage.json"),"{\"panel_area_percent\":"+(coverage*100).ToString("F3",System.Globalization.CultureInfo.InvariantCulture)+"}");
             }

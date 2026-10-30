@@ -23,6 +23,21 @@ namespace Biathlon.PlayModeTests
         private GameObject root,race;
         [TearDown]public void Cleanup(){if(race!=null)Object.DestroyImmediate(race);if(root!=null)Object.DestroyImmediate(root);if(BiathlonAudio.Instance!=null)Object.DestroyImmediate(BiathlonAudio.Instance.gameObject);}
         private static string Read(string file)=>ProductionVenueHost.ReadResource("Biathlon/"+Path.GetFileNameWithoutExtension(file));
+        [UnityTest]public IEnumerator DisabledBroadcastHudIgnoresFeedUntilItsDocumentIsReenabled()
+        {
+            var venue=PathPresentationFixture.Plan();var profile=CompetitionProfile.FromJson(Read("sprint_test_v1.json").Replace("\"distance_m\":3000","\"distance_m\":900"));
+            var route=RaceRoutePlan.TimeTrial("broadcast_lifecycle",venue.Track.Id,"main",profile.ToRouteRequirements());
+            var snow=RaceSnowConditions.FromJson(Read("race_snow_neutral_v1.json").Replace("snow_test_packed","packed"));
+            race=new GameObject("Disabled broadcast lifecycle");var host=race.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;host.UseManualHeading=false;host.Initialize(venue,profile,route,snow,count:1);
+            var hud=host.GameplayHud;hud.Refresh();int refreshes=hud.RefreshCount;
+            hud.enabled=false;yield return null;Assert.That(hud.Root,Is.Null);
+            for(int i=0;i<3;i++){host.Runner.Step();Assert.DoesNotThrow(()=>host.Feed.Publish(RacePresentationSnapshot.Capture(host.Runner.Field)),"Hidden HUD must not render into its released UIDocument during replay.");Assert.DoesNotThrow(()=>hud.Refresh());}
+            Assert.That(hud.RefreshCount,Is.EqualTo(refreshes));
+            hud.enabled=true;yield return null;Assert.That(hud.Root,Is.Not.Null);Assert.That(hud.RefreshCount,Is.GreaterThan(refreshes));
+            host.Runner.Step();Assert.DoesNotThrow(()=>host.Feed.Publish(RacePresentationSnapshot.Capture(host.Runner.Field)));
+            hud.enabled=false;hud.enabled=true;yield return null;
+            host.Runner.Step();Assert.DoesNotThrow(()=>host.Feed.Publish(RacePresentationSnapshot.Capture(host.Runner.Field)));
+        }
         [UnityTest,Timeout(240000)]public IEnumerator ActualCareerMassStartShowsLiveQueueFlagsMissFlashAndRetainedSeriesWithoutPaging()
         {
             root=new GameObject("Range board isolated career");var menu=root.AddComponent<FrontEndMenu>();menu.AutoStart=false;menu.PersistPreferences=false;menu.Initialize(new Store());

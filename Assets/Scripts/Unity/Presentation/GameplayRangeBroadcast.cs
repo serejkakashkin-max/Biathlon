@@ -55,11 +55,12 @@ namespace Biathlon.Unity.Presentation
             for(int i=0;i<rangeNumbers.Length;i++)rangeNumbers[i]=i==0?"—":i.ToString(System.Globalization.CultureInfo.InvariantCulture);
             if(host?.Runner==null)return;
             RangeBroadcast=new RangeBroadcastModel(rangeBroadcastPolicy,host.Runner.Field.Track,host.Runner.Field.Route,host.Runner.Field.Profile,host.Runner.Field.Count);
-            feed.Published+=ObserveRangeBroadcast;
+            if(isActiveAndEnabled)feed.Published+=ObserveRangeBroadcast;
             if(feed.Current!=null)RangeBroadcast.Observe(feed.Current);
         }
         private void ObserveRangeBroadcast(RacePresentationSnapshot s)
         {
+            if(!isActiveAndEnabled)return;
             RangeBroadcast?.Observe(s);
             // Text and composition update on accepted publication, without waiting for
             // the slower general telemetry HUD cadence. No extra snapshots are created.
@@ -135,6 +136,7 @@ namespace Biathlon.Unity.Presentation
         }
         private void RefreshRangeBroadcast(RacePresentationSnapshot snapshot,int player)
         {
+            if(!isActiveAndEnabled||Root==null||panel==null)return;
             LayoutRangeBroadcast();
             int window=RangeBroadcast==null?-1:RangeBroadcast.Window(snapshot.Get(player).RouteMeters,snapshot.Get(player).OnCourse,snapshot.Get(player).Phase);
             bool visible=window>=0&&!CheckpointTableVisible;
