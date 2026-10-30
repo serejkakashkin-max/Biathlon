@@ -1,0 +1,142 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":23,\"PassedTests\":23,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:02.1123794\"},\"Results\":[{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.AcceptedSeriesPersistsAsDataAfterExitAndSeekNeverInventsFlashes\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.3550000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.AllCurrentlySupportedFormatsBindTheSameObserver(Sprint)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0480000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.AllCurrentlySupportedFormatsBindTheSameObserver(Pursuit)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.3630000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.AllCurrentlySupportedFormatsBindTheSameObserver(MassStart)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0470000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(0)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0590000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(1)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0320000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(2)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0320000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(3)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0580000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(4)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0330000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.FinalAcceptedShotAndSessionReleaseShareOneCompletionAndKeepTheExactFinalMark(15,Miss)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0330000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.FinalAcceptedShotAndSessionReleaseShareOneCompletionAndKeepTheExactFinalMark(31,Hit)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0450000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.FiveAcceptedMissesRemainFiveCrossesAndAZeroScore\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0330000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.FlashIsBoundedAndCannotReappearBeforeTheMissOnReplay\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.InvalidPresentationPoliciesAndImpossibleRowsAreRejected\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.MissCountIsShotsMinusActualClosedTargets(0,0,0)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.MissCountIsShotsMinusActualClosedTargets(3,1,2)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.MissCountIsShotsMinusActualClosedTargets(5,31,0)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.MissCountIsShotsMinusActualClosedTargets(5,0,5)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.RouteWindowOpensBeforeEntryAndStaysAcrossLapSeamAfterExit\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0320000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.SeekRebasesMixedUnknownShotOrderAndNeverResurrectsHistoricalCompletion\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0350000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.SequentialArrivalsKeepOrderAndCompletedQueuedResultGetsItsOwnHold\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0520000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.ThirtyAthletesKeepStableSlotsAndOverflowWithoutPagesOrPlayerPriority\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0400000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.VisitsAreIndependentAndSteadyQueueObservationDoesNotAllocate\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0330000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 23,
+          "PassedTests": 23,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:02.1123794"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.AcceptedSeriesPersistsAsDataAfterExitAndSeekNeverInventsFlashes",
+            "Status": "Passed",
+            "Duration": "00:00:00.3550000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.AllCurrentlySupportedFormatsBindTheSameObserver(Sprint)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0480000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.AllCurrentlySupportedFormatsBindTheSameObserver(Pursuit)",
+            "Status": "Passed",
+            "Duration": "00:00:00.3630000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.AllCurrentlySupportedFormatsBindTheSameObserver(MassStart)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0470000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(0)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0590000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(1)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0320000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(2)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0320000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(3)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0580000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(4)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0330000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.FinalAcceptedShotAndSessionReleaseShareOneCompletionAndKeepTheExactFinalMark(15,Miss)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0330000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.FinalAcceptedShotAndSessionReleaseShareOneCompletionAndKeepTheExactFinalMark(31,Hit)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0450000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.FiveAcceptedMissesRemainFiveCrossesAndAZeroScore",
+            "Status": "Passed",
+            "Duration": "00:00:00.0330000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.FlashIsBoundedAndCannotReappearBeforeTheMissOnReplay",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.InvalidPresentationPoliciesAndImpossibleRowsAreRejected",
+            "Status": "Passed",
+            "Duration": "00:00:00.0020000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.MissCountIsShotsMinusActualClosedTargets(0,0,0)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.MissCountIsShotsMinusActualClosedTargets(3,1,2)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.MissCountIsShotsMinusActualClosedTargets(5,31,0)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.MissCountIsShotsMinusActualClosedTargets(5,0,5)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.RouteWindowOpensBeforeEntryAndStaysAcrossLapSeamAfterExit",
+            "Status": "Passed",
+            "Duration": "00:00:00.0320000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.SeekRebasesMixedUnknownShotOrderAndNeverResurrectsHistoricalCompletion",
+            "Status": "Passed",
+            "Duration": "00:00:00.0350000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.SequentialArrivalsKeepOrderAndCompletedQueuedResultGetsItsOwnHold",
+            "Status": "Passed",
+            "Duration": "00:00:00.0520000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.ThirtyAthletesKeepStableSlotsAndOverflowWithoutPagesOrPlayerPriority",
+            "Status": "Passed",
+            "Duration": "00:00:00.0400000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.VisitsAreIndependentAndSteadyQueueObservationDoesNotAllocate",
+            "Status": "Passed",
+            "Duration": "00:00:00.0330000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

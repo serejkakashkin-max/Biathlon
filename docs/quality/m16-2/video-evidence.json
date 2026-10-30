@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "m16_2_native_video_evidence",
+  "method": "Unretouched native PNG frames, one accepted20Hz tick per frame, encoded20fps H264. World and native UI targets composited in the player. These are QA scenarios, not human performance or FPS measurements.",
+  "videos": [
+    {
+      "case": "main",
+      "file": "live-shooting-main.mp4",
+      "fps": 20,
+      "frames": 620,
+      "seconds": 31.0,
+      "width": 1920,
+      "height": 1080,
+      "audio": false,
+      "sha256": "494e83ac76e81064eea28bd1e8dcc8d9ef31dca090918b091264fbc5b21a3bdb",
+      "decode": "PASS"
+    },
+    {
+      "case": "miss",
+      "file": "live-shooting-miss.mp4",
+      "fps": 20,
+      "frames": 300,
+      "seconds": 15.0,
+      "width": 1920,
+      "height": 1080,
+      "audio": false,
+      "sha256": "69baced95502e2955cbf13a535c839b9cdb874a1298a95f1484a81c7b61379ef",
+      "decode": "PASS"
+    }
+  ]
+}

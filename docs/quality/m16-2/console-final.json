@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "m16_2_final_native_console",
+  "status": "PASS",
+  "native_check": {
+    "content": [
+      {
+        "type": "text",
+        "text": "System.String: \"Native Editor Console errors=0,warnings=0,logs=0;compiling=False;playing=False\""
+      }
+    ],
+    "isError": false
+  },
+  "note": "The actual Unity Editor Console was cleared after qualification; zero native Error/Warning/Log, idle and compilation settled. RQL retains a separate historical MCP cache with an already-resolved earlier missing-using compiler error and unsupported legacy console-clear-logs tool error; these are not current compiler diagnostics. Final build succeeded with24 documented CS0618 warnings."
+}

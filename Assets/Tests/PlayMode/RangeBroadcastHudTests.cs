@@ -69,7 +69,7 @@ namespace Biathlon.PlayModeTests
         private static IEnumerator Capture(GameplayHud hud,int width,int height,string locale,int size,string name)
         {
             var panel=(PanelSettings)typeof(GameplayHud).GetField("panel",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(hud);
-            var target=new RenderTexture(width,height,24);target.Create();panel.targetTexture=target;Texture2D pixels=null;var prior=RenderTexture.active;
+            var target=new RenderTexture(width,height,24);target.Create();LiveShootingPlayerReview.ConfigureCapturePanel(panel,target);Texture2D pixels=null;var prior=RenderTexture.active;
             try
             {
                 hud.SetPreferences(locale,size);yield return null;yield return null;yield return null;

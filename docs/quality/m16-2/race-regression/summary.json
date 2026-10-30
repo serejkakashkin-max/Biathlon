@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": "m16_1_visual_authority_regression_v1",
+  "status": "PASS",
+  "input_sha256": "e13dbe2ca3ab63d577fc6fb49581b082d71271eab90433d8fb5a683650f9f3e3",
+  "scope": "14 new weekly transitions and five fully re-executed 30-athlete races; exact baseline result payload, event hash, tick count, shots and complete saved-career boundary comparison",
+  "reference": "docs/quality/m16/soak",
+  "weeks": 14,
+  "races": 5,
+  "formats": {
+    "Sprint": 2,
+    "Pursuit": 2,
+    "MassStart": 1
+  },
+  "ticks": 121817,
+  "shots": 2400,
+  "final_save_sha256": "5b9c15db8923236a520ab5888bba925bcf63e68671501716243dfcb466bcfad7",
+  "elapsed_seconds": 97.4463052
+}

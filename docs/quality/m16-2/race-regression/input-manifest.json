@@ -1,0 +1,2682 @@
+{
+  "schema_version": 1,
+  "id": "m16_soak_inputs_v1",
+  "sha256": "e13dbe2ca3ab63d577fc6fb49581b082d71271eab90433d8fb5a683650f9f3e3",
+  "files": [
+    {
+      "path": "Assets/Resources/Biathlon/Audio/audio_v1.json",
+      "sha256": "cd650c0134a32b29e836c87c4146688ffc8249aee18f29b61c12fdba8ad65f51"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Audio/sources.json",
+      "sha256": "7183a6502c5e9f024d714a8b6982dc5673bcb5dc2b12c724352a182c328cdbe9"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Tracks/synthetic_mass_stadium_connections_v1.json",
+      "sha256": "0fb98392a61152f85e4ff7d78e2b8dd703e65913c49e5207ffa7249380dae5d7"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Tracks/synthetic_mass_stadium_junctions_v1.json",
+      "sha256": "4e608e631a07b9d8b7a4cb09658130d6ae2c656aae2848b918a8b54cd61391e9"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Tracks/synthetic_mass_stadium_lanes_v1.json",
+      "sha256": "740e27d21e97343258261ff05582fe06722f9c6d2943f9f70767612bb829583c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Tracks/synthetic_mass_stadium_v1.json",
+      "sha256": "3ee742962687ce211b010083f77e2f12d3bef69e458858d14829f29f2f1a5311"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Tracks/synthetic_stadium_connections_v1.json",
+      "sha256": "8df357ea10d803f31600cd6dbcaaaef09f6c31d91331e085c1ee5cbee141c1eb"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Tracks/synthetic_stadium_junctions_v1.json",
+      "sha256": "293ef1ba57c099095b89283a044496e71795b17271d48925b581bd66d83c818b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Tracks/synthetic_stadium_lanes_v1.json",
+      "sha256": "c84d9026e904286cb9537f16d814d82c5bcf687422fd64a7fe1d3541a744c4c0"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Tracks/synthetic_stadium_v1.json",
+      "sha256": "4e5f7c3f7a212531412710c1980ec33159d6d761440eb828ee614a4cf78c0823"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/UI/course_timing_v1.json",
+      "sha256": "f33b1084d153cfd54b53fa419546724ca6383fa648a845ad4629b7cc0ab6e2da"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/UI/front_end_pairs_v2.json",
+      "sha256": "a3b7b42c61a1aba342c6e4cbcad5fb8e425d69113ee01fac3fd354b58d0309bf"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/UI/front_end_text_v1.json",
+      "sha256": "f1545067d714d4b9eec7c54dcc2b19757a1bdd99c422d2e9762a311a4c459475"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/UI/front_end_theme_v1.json",
+      "sha256": "d3c68d27710ac2b0b9b36149494a91629a9b4420aa62b851a456e46f57a1f454"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/UI/gameplay_hud_v1.json",
+      "sha256": "2507a5fb0eba16faf59fba32c6a86f807a8c9ed981b40f9c1c5446ec6bd2a0b1"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/UI/leader_bib_appearance_v1.json",
+      "sha256": "a48d56152cf3ffaf9cdb1621c2a4ac24d9f3da4ffdc18a04ca647cbfeb301e48"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/UI/race_review_v1.json",
+      "sha256": "b239a6d2e3ecdf2fb2e17f896f9ff60c02950cc4330c41607aef8bce0db8d13d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/UI/range_broadcast_v1.json",
+      "sha256": "13e5d738437512fef94a9b44421f0ac8450419d476b8f817f2d94744a9750a19"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/UI/reliability_text_v1.json",
+      "sha256": "a18585ab2a8ab6672f2a6656916f79a0c9c7784e14b33ba834f75675f3562183"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/UI/replay_cameras_v1.json",
+      "sha256": "aedd754e6007b2a9ad908b501ed685fe9ca197cf1eb06b61719eede5acced2a5"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/UI/replay_presentation_v1.json",
+      "sha256": "c29fd814d0cdcda84f932a72c1df6ab26d64308223c7ed99327797dd4e4e72fa"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/UI/ski_appearance_v1.json",
+      "sha256": "74c32893be39fa13bb3ed2603a2e726e4778d373abd64a0143eec2f0ca2bda55"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/production_venue_validation_v1.json",
+      "sha256": "d6a48f3276e7ab32d11d15d79e304be69a71af6f7666bfe50f687fa1eeb2f00b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/venue_pipeline_fixture_v1.json",
+      "sha256": "9deffc17742c05b8846fb5d8121f6458b2f3474547578b65d50b45ba9538f8f5"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/ai_range_traffic.json",
+      "sha256": "c0556a689d18b18f2bec8a197b20f760b6c2d7fc7c0d68fc35fabab992c091de"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/ai_ski_policy.json",
+      "sha256": "f5323240ea1ca707d1f66fc73a83bcc1e505c68c2e65d49d4086de31c85e034b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/connections.json",
+      "sha256": "e75c3d837befafb519d170c3b9abc793e03a3d4715e7884fe685d7bcd49f13a3"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment.json",
+      "sha256": "586fac4ebc1228409bb40da24568ed80492ba2c89a06474315c4fb27e5d76dd7"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_00_00.json",
+      "sha256": "428facea79e2a507c177f2da162f3c28a766cc8037f8d3eeffccbb88e5785988"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_00_01.json",
+      "sha256": "ab79c54ebf93c78999e22e95b139c589db5b5fa52b865edeac1d8218d7aefbcc"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_00_02.json",
+      "sha256": "6a474fc39bf5811fb326aea6c7e7af50aa8e2ba457037b062004beaf3832a148"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_00_03.json",
+      "sha256": "8198ee63f801aeab309b60cead0af533a755b3faf5eeb042628e9e8fa60fd09e"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_00_04.json",
+      "sha256": "5a6e979b2e3ea57b8ea4b7bfa336e07f1b38e969d2a0fe3ffb533b7ba2956b59"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_00_05.json",
+      "sha256": "2c44fa8997b1eaef475fdbe180017456ef1bfd3dcbf9176d8e57cbac78ae7f70"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_01_00.json",
+      "sha256": "f30f5aa2f70f1ba0a10c3b021f0485f8e7d78f526beec7e8e25c4d94977dc02e"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_01_01.json",
+      "sha256": "d38c7529da4161d78dc71e448d71ad57e5d61c408c85b3c80815e6a1e7c50056"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_01_02.json",
+      "sha256": "a63b2496541781f3da9c440b8804a65c4ed9042cc18cdc59f02f69bc603dbce0"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_01_03.json",
+      "sha256": "b852fa202c9815d786a91d8d29df355e6b026c5ec0eff454dfb9fcbc1e141962"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_01_04.json",
+      "sha256": "79fda0401ab7192fc247542bd14e779ff0e988c06d2ad5f42fa5a6343fc0d6c7"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_01_05.json",
+      "sha256": "e7eb6e82e8a4951ae5534844e6bccb12abfb010e7eddbe7a732d8f342c4120e3"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_02_00.json",
+      "sha256": "488590b038ada4488fdab85f28119471a8b7993b4464ab4ed46724885db39b1f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_02_01.json",
+      "sha256": "9ca030b1571e9c958351306e53031350761d1e4a97e1411ae46d0e54b3e7295d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_02_02.json",
+      "sha256": "2867a4d0865a7f6bb3e144718d934f0ab8d3e368db36230d3756f84ced395350"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_02_03.json",
+      "sha256": "4c589c06587014f076e85bba9c613819af754f5b050ba23a8557fe4ae59a285b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_02_04.json",
+      "sha256": "54e32261905cb23016ac72e67da26cfb744ffb66e4358185a6cae945d907d8b2"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_02_05.json",
+      "sha256": "8730f053aa30f530d7999cd0f423c88515abefa73a34ced9d994269c7091ea4b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_03_00.json",
+      "sha256": "b242050ecee57d73eeb04b0845ea09de1ddc4ffd2491abe1e6e93ea0b75340cd"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_03_01.json",
+      "sha256": "756d0893040da1a60938372946b7b2830d302a8f479271bcf927721c590baf8b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_03_02.json",
+      "sha256": "ad3a961c28e790721c34bc03fb0d8f41da5791bd8d1540de2a174bc69fc23771"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_03_03.json",
+      "sha256": "5548ce7d20c9b8cde80248e2eea7a39438c8b394db39c79b17c196dcfd8ebaf0"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_03_04.json",
+      "sha256": "9c1f2f3221d13b15c4bc32a18b16629b36f1cd213c92208d29fabeae124732c5"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_03_05.json",
+      "sha256": "0ac2fa61ad4d2698ea231db62a21d540f1db2a4d44f01eb8e1e4b9676b3c8d53"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_04_00.json",
+      "sha256": "58c7166e2b936683605509f4205f42c6e792efabc47f2702c6df14d83e034d35"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_04_01.json",
+      "sha256": "3830e6b41afcbccc59eccb003196da72f63db3e99b19c8f6ea5a96178ee3e4d4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_04_02.json",
+      "sha256": "9048e4377466df18b0a9bde369a4b90951a6739f36181450dc31439989fcf996"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_04_03.json",
+      "sha256": "52d9cd773561b96f6c55a8259eae70c0a81de2d61ba950400845693974f85c7b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_04_04.json",
+      "sha256": "1048ffff27f97499da323ab2e5d16338a0eaf4a789ba7367f468c5c9edb9fc67"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_05_01.json",
+      "sha256": "5f245b66900c7f8de3e3bc9618e304f24b1f4225b939e6c87e9113efb26406a0"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_05_02.json",
+      "sha256": "fd17aafa007954a3279e7788b55ca4c8e11f49e0d83a7905b816baf920cf25e4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_05_03.json",
+      "sha256": "89b75f717704432a36e9ae47ba607b8ce377059ffd8604d9a1ebeee7c0b490a1"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/forest/forest_05_04.json",
+      "sha256": "19d4f84a3dac683e795102b07094f848fc2787bcd12013279ea56640157090d0"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_00_00.json",
+      "sha256": "4678e4d5d63c41787b6903c70fec500e1c4987c15b320fbab658676bb305ac42"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_00_01.json",
+      "sha256": "06bbdef5b1dbe1a14fcc229235b2eb5e3e4c6f878a12f9e6159e8c09f28e1660"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_00_02.json",
+      "sha256": "aafb78e220a2b9aa3c50d26fad600b454ae2674d6a181675a22e2af63af2dbc3"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_00_03.json",
+      "sha256": "2331022d5586acd1512200fe06661f358097ade8313c059f0f94e916c83bd93d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_00_04.json",
+      "sha256": "3c487a47010f32c0785cfb19e14a8a7daf6be28b000a88d5f658f7629f1b11c5"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_00_05.json",
+      "sha256": "2530dbcfcffe9590b3e18caad7b54991aeec3cfe337c058ac2b8339a5d083dc9"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_01_00.json",
+      "sha256": "5186f2f58443554983062128b2cf666c0374616f85f139e1d85558af3301ff9b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_01_01.json",
+      "sha256": "b3526f9f6a5b5f13ca8773e7451fb7026f28e1a2585808126cb30d3384448418"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_01_02.json",
+      "sha256": "fd637a43a0e92cfd442d40b6687807eaa9031e64257cdd14b1ea9e1964429e40"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_01_03.json",
+      "sha256": "1c9463204bc1736ec75a2c35d30d0fed9e4f0d9d722341fac5764de2af5e3b94"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_01_04.json",
+      "sha256": "b9e444616348154172f800f7da944add6e5a4f5d59821f53423bafae0eb34a96"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_01_05.json",
+      "sha256": "8ce9e28f4dbeeaf7b3bb58a1e749ec5154b7e88ec2e74bfc29a679297757146f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_02_00.json",
+      "sha256": "ff432e59eea2570b85d0e56832a7fd5aa17eb2119e240bd10c42ba4662b62bd4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_02_01.json",
+      "sha256": "4322b7cef83e005d17432532212f84aeda9e1394823aac5b52ea23dd44adbed5"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_02_02.json",
+      "sha256": "e1cf48a40f7e119bf9b82ebedf7fa31aaa756272a495951eb29feabf226206af"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_02_03.json",
+      "sha256": "2fb736fd65dd9394c13b2c40101fb8b1864625b6a01ded4866e750312997377c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_02_04.json",
+      "sha256": "218adfffcdea12e3140b2c7dc9b4e8e0c52c18f9e12cb02c99f10ddd7ce814fb"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_02_05.json",
+      "sha256": "309a2a4403986e95b19322b836428cbcba8c4cc96e62efa64a739bd680bd9983"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_03_00.json",
+      "sha256": "4dd4c1ab570ac2afbaa3f9a3c0617a9b53a175a60627b39ec4c4b3210a32849f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_03_01.json",
+      "sha256": "39c724ab9161a400a350d0c9c87591ecc13666593893d1d27da019c339170c55"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_03_02.json",
+      "sha256": "980e03c585af07f91a62b1df628f295228cd864155de585459f41da056460aed"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_03_03.json",
+      "sha256": "a9acfea2c1ed8b3db47c0e477ec7e656fd3ebb9ddb053ea2f0d1d7244b52d0a4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_03_04.json",
+      "sha256": "81c880efe6484a23484524a7df77a453475caeaa93e00a401e3c7c3f61e31003"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_03_05.json",
+      "sha256": "b8c1a31bba73574bd6bd9dbffa3b75461106e6a2c6b3dc0d2a36c2f7f20a7ade"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_04_00.json",
+      "sha256": "7ad63c64b8e04f22f231d8c57b775a65fe603126b1769453a478b02ff19ef05f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_04_01.json",
+      "sha256": "cf8c9777be37ad583c15056de6d8e23836308728aaa800aa212e8a6b221d6bdc"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_04_02.json",
+      "sha256": "6051b92925df222950fa0d15c59c18426e5b57937f769b2936c04068243c5f07"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_04_03.json",
+      "sha256": "48574028b308e952f275f77e29ca3390cf03b0c2a1ed4ae4fa09759f93440ca1"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_04_04.json",
+      "sha256": "70d0486c505af627ec4eec25a2d45dce5a20644fc4260004e68aaaf9f1fe937f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_04_05.json",
+      "sha256": "191a022ba16b0f7a8029053f0eafbff7388d8b65fb94bddf26e89620ef3d64f8"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_05_00.json",
+      "sha256": "90460a0e206502a472bd3d6a6900211e9b9fc21b6492f8b70f83324f862c0003"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_05_01.json",
+      "sha256": "73115bd94f97ce01c0ab370a8ca8f0a07452f5a120d9f4fd57db8608d2a7b087"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_05_02.json",
+      "sha256": "193a77244637e9efecc3f03224bacefd7d47f3942d9eb498cb0d485f5656546d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_05_03.json",
+      "sha256": "4533c2d55afd3611cf4b610298bc46e47b7b5938074e416974d1847f4195d370"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_05_04.json",
+      "sha256": "3bd319957c0cc03a770cc43efc97625bcd624340f7d37e8120bfd2485cf0c96e"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/environment/terrain/tile_05_05.json",
+      "sha256": "3d9fabeaa0624cccc0d60a4206c072ba0333dfe8417e5b23d4cbee5e8830849b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/format_bindings.json",
+      "sha256": "73e364221a869f597603d6bc43c5dbeeece67b3d3c87c322e58352335931974a"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/junctions.json",
+      "sha256": "be34c57478c876549ff01920f244a19086a7dca51d718d1f08b802630154adf0"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/manifest.json",
+      "sha256": "f03b9b2772af5a929e286c6f347fcb7afc52e3606a1ded7f8fbba4210acf2dca"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/mass_start_profile.json",
+      "sha256": "27ffaaa0fcd9d503f2a60e25b408145a58c8976286193e54c63cb5a62a0a9292"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/mass_start_route.json",
+      "sha256": "b6439b68e039731d363b8474fc937b6dc167ac343a38a9f8a26b591d426fc93d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/paths.json",
+      "sha256": "48aac46833313642ff9a4f19b178ffd3719b05f7c909a851d6c1ac39f0fb213d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/pursuit_directed_passages.json",
+      "sha256": "eb1e595a936008e24bf865195d2c4b7cb35e3e1324dca44029f6c94ab549ca8d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/pursuit_profile.json",
+      "sha256": "82f0f00fc28142ce026e45ecea3ea2ad0dae8d8defa6b1bbacf854e044803bf4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/pursuit_route.json",
+      "sha256": "1710e760b65e4a9d7dbb762867a6fbec4b02b6e3cc94997b0a8e55b3aa72c21b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/range_flags_v1.json",
+      "sha256": "8a1f5a3be42143c79b0e5f9422b3737b636e5459513cd4d399858e7761647c32"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/shared_apron.json",
+      "sha256": "600c89322c02df920269f3b1b4b8a660e341f503a1bc6b70bdc2349a1d6d5a5d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/snow_shoulders_before_m16_1.json",
+      "sha256": "0be73ece03751e7e1d47f50fd94efd874fd88fec074372571c7da1779dadb637"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/sprint_fork_snow_shoulders.json",
+      "sha256": "7ace6a6b9f70cfc7ea90e528a6417d02c9a9859f906791b6714bd43b3a61bcdd"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/sprint_profile.json",
+      "sha256": "836e0c6080e5ded7516eecd3a2dc35a88b5fde3157c2814af5bf140016730517"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/sprint_route.json",
+      "sha256": "6a838e4d63832f44fd0ddbf1af27f46a384b615d5aa37946a9f213104a5cc318"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/start_approach.json",
+      "sha256": "37e2d260921b86f2fa34a2df174fe45b3961b2b1a3a6beb1fe1324e741ecbdfb"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/start_continuation.json",
+      "sha256": "8370e6f611350da821a45f41c4fd0bdb4880ef0963ac1350d8013e91839e8f6d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/track.json",
+      "sha256": "ef92d598233ee5d767ad7968825c351cda009586625a971e8e2d246ebc799c84"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/Venues/woodland_basin_v1/visual.json",
+      "sha256": "143ed4046bae65ec981e6dda003869a8eecbaa497d74aabaad542b10afa1c515"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ai_difficulty_developing_v1.json",
+      "sha256": "e6db80b4a77c7dadee2ee76307cb4f86a4e0f82e4d7431f026ac2cd12549c36d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ai_difficulty_expert_v1.json",
+      "sha256": "0be3c88fec44f7bf8d4da419c48155bc95d28f4179581a537a18be4808252c5b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ai_personality_attacker_v1.json",
+      "sha256": "a23d3802ef9712def83cc2baf544d7ef95a35dcda8b765017ad49c6f7e7563ac"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ai_personality_neutral_v1.json",
+      "sha256": "11a66ae8e73cb53ae35e14df206cc4167f70fecb6b06f8b61698d9eb010e12df"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ai_personality_patient_v1.json",
+      "sha256": "f6d232e6764f483909d486db5cc7637cdd58929a4d75fba2a90cb3539ae072ce"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ai_race_policy_provisional_v1.json",
+      "sha256": "d1431a864189fa456ae72296293c47bc908dc73edd75eafe0e30a0be3ebe0df4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ai_range_traffic_provisional_v1.json",
+      "sha256": "47b83b65f2a96355f63499dc189a2e4991ae3f3f59ed1c3b3ef9718455beb509"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ai_start_traffic_provisional_v1.json",
+      "sha256": "3a91de9edc3830d2bbe617cf7feeadcb4ad2c6ae59fefd79804feadc891e9e70"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/athlete_appearance_v1.json",
+      "sha256": "dc085679fb815a18bf0981c46a1a4eca521fea934fa1e3c072ac53fdf9043039"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/athlete_creator_appearance_v1.json",
+      "sha256": "4bb9e4660e9679ad66f46a5265e9269368cd33cc1142787836d24d6cc2317044"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/athlete_creator_studio_v1.json",
+      "sha256": "8abed524dc43870995029c7a8b367c58f04d3f33fbf961ca236ba2f6d6542648"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/athlete_detail_v1.json",
+      "sha256": "061a88933481da7c322f9cc74deb5dd77c5ebb1689e8833f9497d0e3be6d4814"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/athlete_exertion_v1.json",
+      "sha256": "dc178c77e13bd260469831096ec1c6ed29c5d1cb9c517ecdb4d8fae02434ff8f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/athlete_faces_v1.json",
+      "sha256": "12743eaac815b14705988d57c1a31b083b2193197a62cdc098aa0bec6f702eab"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/athlete_ground_contact_v1.json",
+      "sha256": "10f75ce2af16bbcb34329cd1eea89e0e21e2810c776c8490724560a8b8bcc116"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/athlete_locomotion_v1.json",
+      "sha256": "8527dbf5a406d32bf10a642d28700deb6eafff1b44724c385eef436c0f7b76dc"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/athlete_rifle_v1.json",
+      "sha256": "76d7f375464c1e079e7e74da32bbeb3b6c2dec9534d645fe1c91b899edccd103"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/athlete_shooting_pose_v1.json",
+      "sha256": "29cdd67d2b3c7469d676c92e2e7ec0a5c355e091b80506a2e1cff0a9101d6438"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/balance_pacing_smoke_v1.json",
+      "sha256": "7556aa18de854a1f9190747e919cae121d2e23c3499955f1a8c8959d84464bf7"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/benchmark_profile_v1.json",
+      "sha256": "ab36b8ee68b4b87784043acd7e01644987a3d8e9f030843373debe0aa628afc7"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/breath_control_v1.json",
+      "sha256": "bb101f3c1a0b2fcf3897e2e2c88955f311afbf0daa36207b868b4b17797129e4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/breath_vapor_v1.json",
+      "sha256": "31c21298b90c43d2383d78c5e908a41bba095fe1e90e57f492eb4c02cd850867"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/breathing_gameplay_v2.json",
+      "sha256": "042fdf99c523229bd52bae8b4ac4baba749fa993c620118e3f37ac55b4950191"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/breathing_v1.json",
+      "sha256": "c240d303382ec5c48352aaf53e54140404e4dc67a97ddfb041ed258c68781ab9"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/broadcast_shots_v1.json",
+      "sha256": "1957f5536f1bb146681fbffdacd34d0e548e69a9ffbc68b63c7ba6c17756a381"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_achievements_v1.json",
+      "sha256": "7510064b804029f69b3aa545b27998555a523219ae7666b94b23847d232bf353"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_adaptation_v1.json",
+      "sha256": "2cc993f604fd55afcef4ede5bc361fd3dc52beade599fa8eab320610a9bee340"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_calendar_v1.json",
+      "sha256": "21f04facaca509278030b053f7daf7dae14cdc36eff80f4a48b53058a767b15f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_circuit_cohorts_v1.json",
+      "sha256": "2c8815133a6e865d1ec83464fd33311c7cf6114429229778ad3849ed3a67a94b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_creation_v1.json",
+      "sha256": "7cca0378bfe2f194bbff08b5f5b9e119a101353653725ae32068412440540310"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_economy_v1.json",
+      "sha256": "d52cf87c0f302758bf0c0aad081628ca5ba8d3154b0032814e1ab872f1597fb9"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_fatigue_v1.json",
+      "sha256": "d45d1d763d01111af4c7b19bb5c10ab214c0a39a71b781f196fcab6b68ee6ad7"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_form_v1.json",
+      "sha256": "38a54a61ce437b6b967a741d2c15b4dcb3cdbfc15c67bbeef5946b4aeca54d10"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_generation_v1.json",
+      "sha256": "33d2a0ca2cbd4123beb62360c67982df1dbc3b1b0e770428ec09f70b150adbc1"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_growth_v1.json",
+      "sha256": "f888f0f98846f03399f05906eb8c7cb1aa786a642db0452027588c9bf4256238"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_health_v1.json",
+      "sha256": "bfda7eee060fe35b0385b8660c1f216b12015a33f03139b1152f6b8b7d49a657"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_history_v1.json",
+      "sha256": "8ec234f41f700c1b21a13865a3c458712e9724a13277f746e43e21c81b40db9c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_mental_v1.json",
+      "sha256": "7b20adb346f8b1b0cae1c239624ce08d6cb8684a8f28bc12b9656ca2d0644057"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_progression_v1.json",
+      "sha256": "e6b4ac9f2a119a4b7fefabee771ef703138f1f1508a412c7351280b84f8ea156"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_race_v1.json",
+      "sha256": "aab9028cb174453b223889931785cd2f69d56bdbd3736c52c55f58fa30da295d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_ratings_v1.json",
+      "sha256": "fa76fcf2a8e104f65fa7e2977a1c3e724f364ce427cbe1e20e5d75a77da16412"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_roster_v1.json",
+      "sha256": "e4221a5c2e2ab7674bb80720b8f37f7fa8733a9f4472d07984541a44ee62f73f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_scoring_ibu_2026_v1.json",
+      "sha256": "757697a0bd26c2a967382546b868d0c9c94b3c317f58abcaa3e6658bab015550"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_scoring_v1.json",
+      "sha256": "1462032795a5e38284b8ed30993545a2933c38e45a7cc4b176cb7b7962144cd4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_start_v1.json",
+      "sha256": "1b88e1326073a750bb833b9c236ea47f8db6046b471d58aaf71ca7e4d6fc0050"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_training_policy_v1.json",
+      "sha256": "8480c2d589e164fe30dbba9bde4f0b49a286587bd2390d41ead928e8acdf626c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_training_v1.json",
+      "sha256": "3437e0900cd85bd0a84a2f281c5815c06da5dc650cd170aedd1113fc74f9504d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_weather_v1.json",
+      "sha256": "f3564ebf86730a78c8cb57f2de45b5d72433655db0bcc6f6bd839c41af3d3af6"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/career_world_v1.json",
+      "sha256": "f1519221d004cf48e6925b0d3940dcc8fcb6a47d86b39fd10d915158e8893c2c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/chase_camera_v1.json",
+      "sha256": "023f17bc0b381fe050c6bad17c97581969e603103aa63643717009d9ea0905e9"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/cornering_gameplay_v2.json",
+      "sha256": "cb0e99c7a40d6f60d7b854121d4bde5c5bc79d825ae732fa250edce5e0c83770"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/cornering_provisional_v1.json",
+      "sha256": "4bf9289385b9cf189261bc084aeb55b864dd454b583ff148a3a0e298013b44dc"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/device_control_gameplay_v2.json",
+      "sha256": "3bab3381b5a8f1eea6d2969ada34aa8907885f052bc5b3c03cc00c413e7c5d80"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/device_control_gameplay_v3.json",
+      "sha256": "eba55bb8b8521b5e6ec4dc2b524b8e4c6ee96de956f102ae1d7703967b35f3bf"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/device_control_v1.json",
+      "sha256": "3bddecfaa5a97ef50dd8db4f8efd895d3dd661e7082999f5202a3f60a739e908"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/draft_provisional_v1.json",
+      "sha256": "a4668e436c412a0996703ca121a866208ada632da40fdf4f8c13f016e2e9be6c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/draft_selection_provisional_v1.json",
+      "sha256": "9df0b29e46280234f9af7416dff251abe8ae50f4b9c1c614a0e3e2640defaa99"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/effort_control_provisional_v1.json",
+      "sha256": "5252952c7fb74f574aea325ad9e2a3656f5b6fab95647a092f394da728e1f026"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/final_sprint_provisional_v1.json",
+      "sha256": "9bc27c2145caa8d514ae7e0194c49406d6cc5341688fc448213be631df13650b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/finish_presentation_v1.json",
+      "sha256": "009e245cad440accb1e10c9b120226584425f912b678f292bd8ff7bcf4b0f0ec"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/finish_staging_v1.json",
+      "sha256": "bba4f49faa1a62c930f6c5ed1fa3b9f4c97b87857c2114b75c80ac6df601e7fe"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/fixed_tick_frame_budget_v1.json",
+      "sha256": "49b4f9274065925d37fd06aa9d90987d73f8636d2cf2fb2b5f4fb1fd6348178c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/g2_backdrop_v1.json",
+      "sha256": "7017b6cdbb46685ce283692de0be52786a7807c15616546bd1515cf7cf7fae07"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/g2_benchmark_surface_v1.json",
+      "sha256": "66517ea9bb0ed7576c4b4922c6d3da2c3df92eacb2537295701da2b1442d4e73"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/g2_event_v1.json",
+      "sha256": "72c75f45126b409317c3624d705588e99aa6ac398302b6ec544bad87c2cdd3c7"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/g2_forest_composition_v1.json",
+      "sha256": "867f7f330f381ffc7677f540bb7ab7c4725e3e43185d233cab29ca30a4781d2f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/g2_forest_edge_v1.json",
+      "sha256": "6e6dcc105f2a70dc413cb3b35fea4db15fcdbf77945c4836f904479fec11b591"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/g2_ground_dressing_v1.json",
+      "sha256": "8d3dbc696fe5fc192f82568d63ac8345e701c797b3ba2cf8c50c1684190cee6c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/g2_lighting_visual_v1.json",
+      "sha256": "daba249dff16a516eca0f5e7fe600e38959fd251389f4ad89916814d00bde24f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/g2_understory_v1.json",
+      "sha256": "b9114ac69ff283b5cdad4dc9067303663eb0744c3c623f2ad728b67c5cafa396"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/heartbeat_gameplay_v2.json",
+      "sha256": "7aa7f27a2cceeb2a4b1a60aa3f7c2166e75e47585d45b3a697423925c8a05c91"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/heartbeat_v1.json",
+      "sha256": "2f74c395fd4ece1da2af184134c525e70b7768c485fd27545f83b8185d707e5e"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/input_bindings_v1.json",
+      "sha256": "1b076668dfb8ab86c754d5eb49a3c99044c2307cdaa287baa907e23158551243"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/joint_volume_visual_v1.json",
+      "sha256": "d8cd6b6b870fd192b68b47715fa5c61f08400c452fbd3eac5841a40f7fd8ccc8"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/lighting_visual_v1.json",
+      "sha256": "3ada48bc6d6b7122f342443f847aacca6c089e6970c5730d77cc19cd8fdeb228"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_ai_corner_effort_v1.json",
+      "sha256": "fe449f3f7ef4d7a4eb837d073399b90112d8939a44b09dc8178715f02cf1bbfc"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_ai_steering_v2.json",
+      "sha256": "e0f0125b912622a3b8f3289b619185091e4958b3d7feb7f24942c4b009ba243c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_ai_world_traffic_v1.json",
+      "sha256": "0d886d8334e5d92be4a5fe4c540aa134c78d9057dd526f44f88b67e799af0e12"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_course_contact_gameplay_v2.json",
+      "sha256": "5873b6f59fe6157e7a5e9dd0a2e684dacc0e6538b3b8a89b30da32a6823882fd"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_course_contact_ice_v1.json",
+      "sha256": "d6b6323e47729538760c0be5a81e35e676ec2379547a40f646ec7681b441d778"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_course_contact_v1.json",
+      "sha256": "d6f9ac5cc9b51950af7b729e8672086943a250f6d98d7260b122d0d814166412"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_finish_runout_gameplay_v1.json",
+      "sha256": "2718e26b8f04e8b92d86a38a71f0340f17c2f1df4f399940168c4df3a862caf2"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_finish_runout_v1.json",
+      "sha256": "f9b36fa533a8771b12cafe98c7e492849cc83b856d160af85aaa2538985ce494"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_gameplay_tolerance_v1.json",
+      "sha256": "29f76dd6092260c2b4815a8f28e5474837cacd26aaeca1ea8007a9060e050c74"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_mat_braking_v1.json",
+      "sha256": "6901a1910ea5280b115e32c1876eb3af090e650772ed625362447289fde10ce6"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_mat_capture_v1.json",
+      "sha256": "0f0147af87611455b92e55bd7ee44e5f13fc05f25e25b95baebc915a6a0458bb"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_numerical_tolerance_v1.json",
+      "sha256": "0f6ce8ec041b5bcec9d00b497bf142b145b7d1b3e4cbb6cf232068cf92e05f55"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_ski_contact_gameplay_v1.json",
+      "sha256": "e4683c75da52a86e96fe81344ae7903b66c2cb5a0767919ea06417160bdd8fb7"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_ski_contact_group_gameplay_v1.json",
+      "sha256": "93ba5a28f91f9b2379637da1af70aadc87094bacc4e62c4d10b1a32cf09eec7b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_ski_contact_group_v1.json",
+      "sha256": "86aff9d6d19bb0ba898dc5aa99704b4a9a71eed1150ca85eca08a9008c5afde7"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_ski_contact_sweep_v1.json",
+      "sha256": "cef51f9bfe09a756d5d3e14f28f45e72207f7123ad91bca62e043caa2fb0a2a6"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_ski_contact_v1.json",
+      "sha256": "eb57039debf7101da7820905e7d10c99dfea4ba4adb8f11c91cf5e7a690dfaee"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/manual_ski_steering_v2.json",
+      "sha256": "f11f6bb9931f5cea10adcd18e4f9aba96d6417503eff1a39440fe43941e0b245"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/mass_stadium_visual_v1.json",
+      "sha256": "1399cace67105479062bb9e18164871676f44090f7eb767b6057a6457cc86a9c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/mass_start_grid_provisional_v1.json",
+      "sha256": "9a9f66c94002277fdec5fe9c398b0e4eb2500b97e502cb907fe9987eeb79cb24"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/mass_start_range_policy_v1.json",
+      "sha256": "3040c2ebb28ec40a17d03f3224a196f64de283111ca0d6832956620d2f8df39f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/mass_start_standard_men_v1.json",
+      "sha256": "61823269028e7393c530639e5532c5e060f89149164cb6b4a3c4023e4801ed71"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/mass_start_standard_women_v1.json",
+      "sha256": "a2219ee3556313a7a5463837924347cec5570c82cace9ac697e99f2303506d3c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/mass_start_test_v1.json",
+      "sha256": "06dd984e3a283731146c9f1e1b3936967c8da830559e285991d70692740b5b03"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/muscular_sway_gameplay_v2.json",
+      "sha256": "de609c7da7a6206d895d31cd6708c5938710cbc07801d6f87942c45fda5ed95c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/muscular_sway_v1.json",
+      "sha256": "9cc1900220100eb1059f615fd7e4f323d0f8d87783476d3af8a32620d19344c5"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/occupancy_provisional_v1.json",
+      "sha256": "e6ccb9b7e2a79bf53f42be040101064377cbb43f0f035cfcf4cd8acc90294fef"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/overtake_decision_provisional_v1.json",
+      "sha256": "b7b18430664236b348d2bf6bca49bcd8e3e4aa1777cf6fdfba2d2e0ff20c1cb8"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/overtake_provisional_v1.json",
+      "sha256": "2de9debf3ccfd6e3fe56da7e2fe664c1ea2fa556521bae4a82f3d2cf7b972910"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/pace_controller_gameplay_v2.json",
+      "sha256": "0dd7284b830a0da61351c2d09f15f3961ff90a891d971ddac9370ee676f7ade2"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/pace_controller_provisional_v1.json",
+      "sha256": "6d478038e7580a13d952cd699f59960efdd6f358996b8afbf9c02e0938955248"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/penalty_fence_presentation_v1.json",
+      "sha256": "3c99cb1c490ed2a396238c614b9cfcf61cb87c958e56e653fc7037669e4b373f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/physiology_gameplay_v2.json",
+      "sha256": "9dc2072cba71a0d2cf534b29eb78838645a284b24a6494e944508aa509d5699e"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/physiology_provisional_v1.json",
+      "sha256": "c45a0c131649bb714f8ca86fd88df83ea55e2ffb20f5149cdce802e5094a067b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/physiology_scenarios_v1.json",
+      "sha256": "a4e9c5c293af05db372ab1fe6a3906f867c6cb6dfd725def5a6aebfb009cf1a3"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/physiology_stat_curves_v1.json",
+      "sha256": "9bf7e66954f09c0830df5a535f23cb6908f1f1dec4cfb1ae512e33c85b983410"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/player_control_settings_v1.json",
+      "sha256": "a1f9bfd278ccbd4e1aa0a43dddec3f1c464452a32f16014aebffb15926714a3d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/player_course_assistance_v1.json",
+      "sha256": "16efac0932c58b32b9ddb0ee05d138fdfe2dab1df1435045d421ea06c8ef9d34"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/pre_range_recovery_gameplay_v2.json",
+      "sha256": "d8eba6b57837ab65319f5afcc38978ae3175959b41824a0e0ce05aa9789468ad"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/pre_range_recovery_provisional_v1.json",
+      "sha256": "8f923eec00af71c07886b4718522ec5b164993a54fd51ecd73b282fdfe981eaf"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/pursuit_standard_men_v1.json",
+      "sha256": "c6811034cf1ec3a23511fe241ff8c3208416885052960fa3fa902e018a6a533f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/pursuit_standard_women_v1.json",
+      "sha256": "3807e418d97144d1a99e7edb8a559263357590ac19d4b99cf0d6d867ea128094"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/pursuit_tactics_provisional_v1.json",
+      "sha256": "01e61bce4c1c13f785956f0d1e71363089e8145e0237747c3f4118a145a8f812"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/pursuit_test_v1.json",
+      "sha256": "7f7768074a4388457d0441d84963ac864d3ca158b3168398c7fe235a804ffebb"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/race_snow_neutral_v1.json",
+      "sha256": "16106bfee89b08149ab82b1c68dd8951cf14069c5d26fe56f7c88210f708f421"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/race_start_v1.json",
+      "sha256": "70d593a65204f392ff578179b4dd20e4cf8f0564bd8a370d9ad2c3c39753ce0e"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/race_start_v2.json",
+      "sha256": "8a0c1627e3a49e482a30aa382c232ddfd9ce5b02183de08238be20b853cb1a34"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/range_guidance_v1.json",
+      "sha256": "d11fbc9d6364f8bfc79c832d3c6138bc3e0f5c9137c2f6984277f93c490ebe36"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/range_guidance_visual_v1.json",
+      "sha256": "d72987d8119d134c95da66ba423eba2e5913115d5b46c96b8a39fbc0b38c0c99"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/range_transit_yield_v1.json",
+      "sha256": "085513f55ed8508b4f38f6864f0e16e43bf70063a115627c2625b372049004f8"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/range_venue_presentation_v1.json",
+      "sha256": "152cca40fba45855cffa5b6a092cf83702fb3fefda80afaf8dcf6ae30b3a98c3"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/reliability_policy_v1.json",
+      "sha256": "4374f553da9cd6809ac448143de080edc8c817428d83f377c9d3f7130bc215df"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/render_quality_v1.json",
+      "sha256": "76a6be6e134947307423370d34ff2a28f0eb953561b963cc2844ac6e1630ad37"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/result_timing_v1.json",
+      "sha256": "36692f731f0950a0941c3026275dbf7672f3bd50ab1f89aba84980c85b5fab17"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/rifle_neutral_v1.json",
+      "sha256": "875fd73514278994529d7cde6f563ecf1385bef623e5d44e84a7b0830881a58b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/rifle_sight_presentation_v1.json",
+      "sha256": "ad3bce177eb26413d85d0cb0c714d48f190aab7118d4b73b082571511b9fcf8e"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_ai_calibration_developing_v1.json",
+      "sha256": "46dbbcaead89a1a0306ff8b3c3e8dcebeaba37c61967aedcd6202ffb95f9e9e3"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_ai_calibration_mid_v1.json",
+      "sha256": "f98a047541d099a6d09abd0d87fffa4b848ca74a1dc53b2cd6d55ee7805939b1"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_ai_calibration_top_v1.json",
+      "sha256": "1c259aaad1bb60810590247dd670ec0095169a5a27723b1676b6865f8c023ab8"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_ai_easy_v1.json",
+      "sha256": "01500732f7656fc65b12442ac612282a252c05c3d847d2e041e9a2b0389dfce0"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_ai_hard_v1.json",
+      "sha256": "b3b0d03e6b8be8c8c762c10366561d2c6746a4e4ffe1e97e2de1a40919b7d062"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_ai_v1.json",
+      "sha256": "1ec346895726b9ed9d732dc0cdcdda665007723976242192b27d7bc322674e6a"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_athlete_v1.json",
+      "sha256": "e96a3019765a9d31f8df93f3a96308578ba9c4226ff784c92b9dc087f720462f"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_balance_v1.json",
+      "sha256": "f853eaaa54fd2c4b6278703a0c8d4c3875de04ad56ffb2cffbfa6a14f70fec0c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_developing_v1.json",
+      "sha256": "c0ef7782f625e2e54eab89aac86548db44e0fc18d92dd6690b22bfec90a47bbc"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_device_v1.json",
+      "sha256": "f555e4d93b4601e40bd0f5b6d4e76843688c6e5633cf296687486219cbac546e"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_handling_v1.json",
+      "sha256": "232064c12055e75f9a69171fe46a5fb69a559b171b9593fcc5a6a727b9fd8fb8"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_lifecycle_v1.json",
+      "sha256": "7044c6558c7d7f1be4de312ff47d81b091e4e5bcaf08701369f1de5afd9630e7"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_mid_v1.json",
+      "sha256": "2ba4f02508025f6caa5a7d90cccda0f8b83e358b8184d67871b1f65831237e84"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_pressure_v1.json",
+      "sha256": "d521e42a15d6397a4582a69fc911fe5400c5e01d7776a3ad10a74e7725ca64ce"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_regression_controller_v1.json",
+      "sha256": "0fda7c0ee814b2be855e2f7296351974b27f05d34ae7646fbd646f99c66aa2eb"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_stances_v1.json",
+      "sha256": "7ebaeef3aacd627c9636dc5345fefaa42a4353b9b4ceda5917c56818d6344dd2"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_strategy_gameplay_v2.json",
+      "sha256": "05bbf464053293aa198fa26d55240d61a80fd2bc4f5cbe0f6b0e684c3f7028a5"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_strategy_provisional_v1.json",
+      "sha256": "451f2e0c3971a5d1445fc7f9c911a84d99115ed70dd3ca1cee41a90338b78b78"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_top_v1.json",
+      "sha256": "253d96f944ea8b39ad568880917033b5e8bf8a28927c57bf2bc1c89eda0513e8"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_training_v1.json",
+      "sha256": "974846e9f03525c7d8ca3b203d48c52e5d0cfa68df06c6d141a2554f6b45b9cf"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/shooting_wind_v1.json",
+      "sha256": "1fcab3932b47e73986a45548227817fbc7370c853a332c4f04eb224a7c8fc99c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/simulation_foundation.json",
+      "sha256": "156f0433d08508e79ecffbe6081e923ef60236953fba67a1a56c35b9e314e9f4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ski_equipment_provisional_v1.json",
+      "sha256": "dfd51b9a91403cdd85caedb18e29036cebb6dae579ccc13b81f060c90675bf23"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ski_motion_v2.json",
+      "sha256": "53eba74198cd92b7af3a1c3e8adc1449deab28f306fa6ad7788d6b59b4d5df7a"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ski_physics_provisional_v1.json",
+      "sha256": "6aa6317be1e8afdf4ba07aaab5d306fb03fde97ce35fb863af8e2f0baa591e27"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ski_technique_provisional_v1.json",
+      "sha256": "d0da479a0074521074ff1535943157f9d21c41faec71404eee6c31ca87cc62ac"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/ski_technique_visual_v1.json",
+      "sha256": "bf370c36d2a55201db24e8554b898d1e38e0e9d41704e8062b3b3d24053d4483"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/snow_catalog_provisional_v1.json",
+      "sha256": "97eb422d47e4b311a1482c2a0cf27a5a47c00c7725a21ea2c993f8197dd5fc8d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/snow_material_v1.json",
+      "sha256": "912a6b685be717d0535c07b7e8c19162d5f98e2871ed703e471d1a7a801754ea"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/snow_spray_v1.json",
+      "sha256": "54c86e6c16326d6cc34cd1b649ca8469b844ed897ae3c57633458148cca43983"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/snow_tracks_v1.json",
+      "sha256": "5eeff32e167c11721615246b3b6cfcdc844abf1e3cc071f83c106df6391edb9b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/spectator_crowd_v1.json",
+      "sha256": "3dee9dfd24c3d23ff5802b0fd36f44b99dc653ba9f173d4f0b7faef9a24b6b8b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/sprint_balance_long_v1.json",
+      "sha256": "d30cec78d597318e1ffa3760006967b88710d5e9eb475aa56777460a02110cda"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/sprint_regression_v1.json",
+      "sha256": "c84f9269a3e1d58c8c01b3b1ac82c2ee7d960921f567d6c8a42f761abbab61b4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/sprint_standard_men_v1.json",
+      "sha256": "21a0054890811af8edc90fc572280da3c670da91c32e014a1b52ba038e25be08"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/sprint_standard_women_v1.json",
+      "sha256": "7c8f8c2a8dfafcf76ef5b15300d94541b2da6cc9bca1d90080e223c0f6a48cd3"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/sprint_test_v1.json",
+      "sha256": "0949b6212c85d773eb9266d83a6c399814720a4c0e3c537ff9a44ed342e65d06"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/stadium_art_v1.json",
+      "sha256": "2af299bca891a344a19ea0ef1b0faad66cb8516856eeec89bf4e7a2c4f0091de"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/stadium_portal_labels_v1.json",
+      "sha256": "30acf6242872778d5f50e337ff89804671bc1073dbecbe70c6c5c334bd21fdfe"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/stadium_visual_v1.json",
+      "sha256": "01c875482e6cd8a436a5b278086e3f48aefa76a2e289bbe85f3730d40f1a36a6"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/start_approach_test_v1.json",
+      "sha256": "45bb01bd96f19a12aa75a28f810009a3bd5d2181260ab920640fc65cb44f78cc"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/static_scenery_batching_v1.json",
+      "sha256": "8fe33a6b153bb7b98fc1cfc215c0aea93c90c540b819747c4220b396eca06f54"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/steering_provisional_v1.json",
+      "sha256": "a927468e260917ffa8129044a56dfb8ae5062c0d2fb95085ef7080a874ec7eea"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/synthetic_route_plan_v1.json",
+      "sha256": "d344b26282561335d8698c55e1831c13fdbc45af7381b7b3bb350036898fb895"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/synthetic_route_requirements_v1.json",
+      "sha256": "657c03ee6e0082183a9dc1e70ce903ada1f5d1040d5d7fc74825a6e7c94d9e35"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/synthetic_track_recipes_v1.json",
+      "sha256": "05e352bec960e7d60c389aff5d39931f9a4643c10bed31b39fd311084de8f38d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/tactical_cadence_provisional_v1.json",
+      "sha256": "0b3cf3a45ccb6dfd21228937193a0de900181152f79a7044f5e492b3885ac2f1"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/tactical_utility_provisional_v1.json",
+      "sha256": "d47a4cfc0a9e7f8a48498ea4b96e20be109bd19e77b7fede7ceaaa12f3ba488e"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/target_geometry_v1.json",
+      "sha256": "73f2197be800d84f24e2387eded5babb6e971027f73ccd215ca00b84a331dd4d"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/terrain_blend_v1.json",
+      "sha256": "e0b4ef2059880f0505ccc2903a8a5441153069e622a5db4ac08017cb38b6286c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/terrain_planning_provisional_v1.json",
+      "sha256": "ceb0fb23ebad426de48515af926af0d2b408b7beae94564fab1bf2dd61af57c9"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/time_trial_athlete_v1.json",
+      "sha256": "08332afdcf5d0bee707f92204070728d047e61ef9371a7045e3939725fdfa868"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/time_trial_scenarios_v1.json",
+      "sha256": "e59bd41ee69d17771e54ccdc3df53d47261e8e9136c45dfc8e126e8848d19168"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/track_contract_fixture_v1.json",
+      "sha256": "734eeca658621651e42d6dd0e55d9acbe1306f51fc057a781a559b95990f0a10"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/tuck_gameplay_v2.json",
+      "sha256": "90309909363ba1c08a600192b4647fe10d60d0f62aabdd0046811717dc99f865"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/tuck_provisional_v1.json",
+      "sha256": "ca179b2f8701876456d7ec333890da1d87f0511f6bd846df0085b96122277be4"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/vegetation_v1.json",
+      "sha256": "504edf68f4f9555b0c63e1d947d4bae90cf50d8ffa5bae14bfea8b7f96761ea0"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/weapon_aim_v1.json",
+      "sha256": "5e19e31acedd256ac740b13c178849a291334da315b2be09ad56bca049bd5bd3"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/weather_visual_v1.json",
+      "sha256": "c4298568538500a4acbefd7cfca43901d8c29f1fa65c59aed80efa0591d62d3b"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/winter_dressing_v1.json",
+      "sha256": "1e50c653ea0787296f4498bd9f4b2006e5aa07d8bef5f13fa3505912d0d9687a"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/woodland_career_calendar_v1.json",
+      "sha256": "837c379a1ef0d19f56bdf128743ee3c4bdffc2904102ddd19a983cb5f8f005b3"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/woodland_development_calendar_v1.json",
+      "sha256": "3fbb03ba2916db61517862cdf60f011133f2a0bc53d4de9de1559033486fdcd8"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/woodland_junior_calendar_v1.json",
+      "sha256": "f5e1e690036af51389b8f25459214bd3ab7681eedf4501bf0257ec06cbf1cdff"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/woodland_review_v1.json",
+      "sha256": "beca9d286aab03d88bf38e351edb6792c5ff70b7b73c3376741ad1e323b0ed8c"
+    },
+    {
+      "path": "Assets/Resources/Biathlon/woodland_world_cup_calendar_v1.json",
+      "sha256": "66bc5add4b480e72ad202de7767a692174790b4951c74365308d8d1512698a20"
+    },
+    {
+      "path": "Assets/Scripts/AI/AiClimbRestartController.cs",
+      "sha256": "4feac70a6cbdb30bd3c32a92c6ab30d6eda75834ed653ae6ffabc6b608ec239e"
+    },
+    {
+      "path": "Assets/Scripts/AI/AiDecisionCounts.cs",
+      "sha256": "1894f4f5ea6db8c84a8d0f2ed99ae2eb4a9b45d2c94c8b92d25646f27beda027"
+    },
+    {
+      "path": "Assets/Scripts/AI/AiDecisionTelemetry.cs",
+      "sha256": "5e54208243925a284307ea0254efbbf7f214b4bce9b1796ae72c2c9c224eb227"
+    },
+    {
+      "path": "Assets/Scripts/AI/AiPersonalityPolicy.cs",
+      "sha256": "6e9f615ab3ae42b1b4b1d8aaba6f6e823a0777cff118e71617bf1bd5c908c156"
+    },
+    {
+      "path": "Assets/Scripts/AI/AiRangeBypassSide.cs",
+      "sha256": "3191e9939fb76ed0708ea0f97fedde87ba7fe1556f3a0b005de86992ecac9640"
+    },
+    {
+      "path": "Assets/Scripts/AI/AiRangeTrafficPlanner.cs",
+      "sha256": "742b5ad726dab5716937e86f58e03467f21888c22734e41e55436157c968df67"
+    },
+    {
+      "path": "Assets/Scripts/AI/AssemblyMarker.cs",
+      "sha256": "b1eff8ea5d84d8bf21bba3d57ee448633f7f3f7b902fdfd1d6462a030f458ee6"
+    },
+    {
+      "path": "Assets/Scripts/AI/BalanceDistribution.cs",
+      "sha256": "746fe4139f601644fdede1e61ee5c9498c90ef66453f51a01fcbeaac72864b4f"
+    },
+    {
+      "path": "Assets/Scripts/AI/BalanceMetrics.cs",
+      "sha256": "27ad0a0f041da1313cb6bf569dfc738a700afa9b112ba0df34b8cafbdde24f9e"
+    },
+    {
+      "path": "Assets/Scripts/AI/BalancePairedComparison.cs",
+      "sha256": "216d12cf338cf806ac2b7f961147cfddf70e05064dd09965bf45f2981786b7a0"
+    },
+    {
+      "path": "Assets/Scripts/AI/BalanceRaceRunner.cs",
+      "sha256": "cb2481cce3d294202579c9105db0937d73e0b493dc385a85913a5fb6765ca6b2"
+    },
+    {
+      "path": "Assets/Scripts/AI/BalanceRegression.cs",
+      "sha256": "dd8caa3d751f026053791da69aaee615fe4c2f484f0cba95f8bd06e0297713dd"
+    },
+    {
+      "path": "Assets/Scripts/AI/BoundedTuner.cs",
+      "sha256": "d5fcddeaa7e269fcb3e91c5f93948330e18bb0dafd79638d48f261850f44a9bb"
+    },
+    {
+      "path": "Assets/Scripts/AI/CareerRaceProvider.cs",
+      "sha256": "700ed40e6789e2e12471ee3385db2ee4cde31d092fa1b0497f4f9d7c77b9c257"
+    },
+    {
+      "path": "Assets/Scripts/AI/ChampionshipRaceFactory.cs",
+      "sha256": "191e675b50c2182e032b0ed11ae7644d7550af5afead7fb6e5af4df884378395"
+    },
+    {
+      "path": "Assets/Scripts/AI/DraftCalibrationRunner.cs",
+      "sha256": "351dd3dcae423ad296cb31f7c52c1fe8251d479d0ec5d07097bad7f57831b0eb"
+    },
+    {
+      "path": "Assets/Scripts/AI/DraftTargetSelector.cs",
+      "sha256": "d8d9e3331e338dd2953eb76f3b633cd83b061f4a1ed9aa5042897fb61bc541b0"
+    },
+    {
+      "path": "Assets/Scripts/AI/ManualAiBendBrakingPlanner.cs",
+      "sha256": "053ea8ab00e6390627eb83656ba9402f4209645b9e515182b9caeaa4771866e1"
+    },
+    {
+      "path": "Assets/Scripts/AI/ManualAiCornerEffortPlanner.cs",
+      "sha256": "2e94f4a65090d491b403e3f428fcaf7ff2fd2a9031793021afb0d73c619905ad"
+    },
+    {
+      "path": "Assets/Scripts/AI/ManualAiObstacleCorridor.cs",
+      "sha256": "bca45282c29f4d2ab56a8f6519d1bb9d602362779330b4db1324aa46b99f4bca"
+    },
+    {
+      "path": "Assets/Scripts/AI/ManualAiSnowSteeringPlanner.cs",
+      "sha256": "a9916c52d81d522084f03f48e95b25f8de9cc03df1fc1e124fa33fffcf451c6b"
+    },
+    {
+      "path": "Assets/Scripts/AI/ManualAiSteeringController.cs",
+      "sha256": "2aa24314f8d355ac6575171ac72edf6798e31a22e9ebb28108ac9c0da14b7322"
+    },
+    {
+      "path": "Assets/Scripts/AI/ManualAiWorldTrafficPlanner.cs",
+      "sha256": "d7a0e904b4f8d1e3ac08a1f1ae6eeaacd39c39cd1cbdcdfc3d0f063e5b4065d6"
+    },
+    {
+      "path": "Assets/Scripts/AI/ManualScopedAiMovement.cs",
+      "sha256": "a285254379962626986b015662dfaf0d6857b4b23e9f8600d87c29ceba15aabd"
+    },
+    {
+      "path": "Assets/Scripts/AI/OvertakeDecisionEvaluator.cs",
+      "sha256": "23dba72b30b86d14b3b0b957076a1691bf98719f2908fad9ff7c76c11f30a75b"
+    },
+    {
+      "path": "Assets/Scripts/AI/PaceController.cs",
+      "sha256": "688a0c985b217d909c4f4b9196227ad804a489047e82a4c46672308f2c7b4e15"
+    },
+    {
+      "path": "Assets/Scripts/AI/PackAiRaceRunner.cs",
+      "sha256": "e62174fdb7418bca8a277ced22b9c9e63d057f88131910c6ee4e989955045da2"
+    },
+    {
+      "path": "Assets/Scripts/AI/PackPerceptionSource.cs",
+      "sha256": "a88f1eaa592fcdc5a3d3e52a8f7cf3c30f122c6d15d87eaf4750cf971a2c17e7"
+    },
+    {
+      "path": "Assets/Scripts/AI/PhysicalPerceptionSource.cs",
+      "sha256": "7ccd5c3adb0b1642b121cc3a0374333f0d87115944e9c4f12388e792a59d92e3"
+    },
+    {
+      "path": "Assets/Scripts/AI/PreRangeRecoveryPlanner.cs",
+      "sha256": "8bee222b7eb8551ffe931e5fc7f1cdf565f656d85ad43efe70d00485c76b8617"
+    },
+    {
+      "path": "Assets/Scripts/AI/ProductionVenueRaceFactory.cs",
+      "sha256": "10e47e1063b08cd995da1d7f8f2427d2ae955c79f92d231f1acd495bdfd05ad7"
+    },
+    {
+      "path": "Assets/Scripts/AI/PursuitTacticalPlanner.cs",
+      "sha256": "9a910eb011d29e8a1cb37298e833c20dc2d1e91e3743f600d62aca05ec633a9d"
+    },
+    {
+      "path": "Assets/Scripts/AI/ShootingAiController.cs",
+      "sha256": "82976b7235f8304b605c0cb03e4c7db95b1643fb6cedde4a0e272687898f257c"
+    },
+    {
+      "path": "Assets/Scripts/AI/ShootingBalanceRunner.cs",
+      "sha256": "25ab59f54cde359c9a4b40b9c60ad653769defa2461e68161662a1c6d641ff4a"
+    },
+    {
+      "path": "Assets/Scripts/AI/ShootingStrategyPlanner.cs",
+      "sha256": "882ddaca557ae2684d8c4ed52db282015bffbc012b1bad0bb47a567b772a32d1"
+    },
+    {
+      "path": "Assets/Scripts/AI/ShootingTuningEvaluator.cs",
+      "sha256": "15b36a8868fe9f55e03ce8255fc59bd0bb7757586317549be5f6bf020050f672"
+    },
+    {
+      "path": "Assets/Scripts/AI/SprintPerceptionSource.cs",
+      "sha256": "325272361073150036999989702247a8d92a37a57086c22947eed0463edce131"
+    },
+    {
+      "path": "Assets/Scripts/AI/SprintRegressionRunner.cs",
+      "sha256": "3cfeb679f2ed1decd44ae717f8dad0e5ae170a092e4e34af26a7a3dcc4cdecc0"
+    },
+    {
+      "path": "Assets/Scripts/AI/TacticalDecisionClock.cs",
+      "sha256": "7cc094d361904ab99c3be5d19c23c03722830378e1cef0ad715921be5afdb497"
+    },
+    {
+      "path": "Assets/Scripts/AI/TacticalUtilityEvaluator.cs",
+      "sha256": "a11e805ea9c2c5df745a09ddf5234aa333cb513ead7acc60a0c27df8b0d5fa48"
+    },
+    {
+      "path": "Assets/Scripts/AI/TerrainPacePlanner.cs",
+      "sha256": "dfba932c33dd08965d311a9e78786e0d150343f8a657dbf9279a64b6a2565980"
+    },
+    {
+      "path": "Assets/Scripts/AI/TuningLockVerification.cs",
+      "sha256": "039557639f8ee6339f2c55964410c0d5bc829e2f9db6e74e48ff61636bd0c3d9"
+    },
+    {
+      "path": "Assets/Scripts/Career/AppearanceDefinition.cs",
+      "sha256": "b765a792846e326ea67d86f62ab5ac8e4b67a8648d4f600201372ebf14e442ce"
+    },
+    {
+      "path": "Assets/Scripts/Career/AppearanceProfile.cs",
+      "sha256": "e67288683cd98a222bff1386439c5f9963e86fdad117cb889f5c0452831b5220"
+    },
+    {
+      "path": "Assets/Scripts/Career/AssemblyMarker.cs",
+      "sha256": "28fc285643aeb13e95b38a5938cafcfe43e19cc823d49b037632848f0cea3950"
+    },
+    {
+      "path": "Assets/Scripts/Career/BiathlonRatingEngine.cs",
+      "sha256": "efa03fd40b38c077cb77e01f8b00519edcc6abd17ad3232b8e9aac7c168cbebe"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerAdaptation.cs",
+      "sha256": "bf29c9fb0f1db333a32c16e0edc57d0326285bf477927915c617bc230eddbd0c"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerAgeing.cs",
+      "sha256": "57d555b8e848d57df7d69bc52723f3e2cc0ca13af04ac855df7b69bee5b2f3b2"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerAiTraining.cs",
+      "sha256": "1724fe86f5b6aa1b9f1a96005aa729f97023817c80d81a6375c9692311c07f40"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerAthleteCatalog.cs",
+      "sha256": "e3860d82f1d633394f50c2343f6375baaf8a26f1b62a73ce897d0f80c37cbd4c"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerCalendar.cs",
+      "sha256": "3506e4ed1ab30c77f30c14fce25d900ea00ba7a2fcf114856232ef01bc148837"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerCircuitTransition.cs",
+      "sha256": "4b4480a3ec0c75df0144cf48a1be87c81cf7faac9088bffa8ff44427a83e315b"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerCompetition.cs",
+      "sha256": "6dc1accea81d2513d95a20d292c2909eb8a034009439190c298ca8d8667b1377"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerContracts.cs",
+      "sha256": "2ed701a67bf3f66f70103b518b840a142496146dd8c37ca6e475d489ddc5e6f6"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerCreationDraft.cs",
+      "sha256": "32d15516a71969ed55cd07d4a345c80e921c01e0ac4a827c57526ecf593b1114"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerDevelopment.cs",
+      "sha256": "e4f384fe086826cc1cf41e7770899c595d45e05473c73f7fdb8f54041c8827ca"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerEconomy.cs",
+      "sha256": "38f888767b7ea0e0e12e8db6b491261aed59b89f6dcf0ddb0f0e9ca1c2dbac42"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerFactory.cs",
+      "sha256": "fe943be80bd247dd9051f5e6ba5df12d04a3a4fcb02754e8ce2ced4be1e00cb5"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerFatigue.cs",
+      "sha256": "51d574537e09b6dadf3e31a2a1939f04bf14060d18bfbbf74571253c5b281550"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerForm.cs",
+      "sha256": "d7ece7c808685f30ea389c02c58a449618591c5911b38256776efbe28991fc29"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerGeneration.cs",
+      "sha256": "8a22b8948931cd0bb22169e8b9c03bf0c54cafe9e579f439e34e1389657d9a41"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerGrowthDefinition.cs",
+      "sha256": "cdd6455e2e190577e35ab14f90fcda33a0ab3645fce154a7ad88b8e51e4e02aa"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerHealth.cs",
+      "sha256": "73ba1422fa785d0ff039e7ae61a2cf2d33c48d82c8b10a29fa714f844a15f5e0"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerHistory.cs",
+      "sha256": "1800c9c41b4820ed3cfe91064d53a135a6376bda0d4e40bf92bc7b435b5ef9cf"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerInventory.cs",
+      "sha256": "89914976f9c4c24b6a970a5b8d13f730d72d7482680a9939bba60a9a3c030ac5"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerLeaderBibs.cs",
+      "sha256": "5e801d5d279f839bfc569546d681a9e4244deb3e1f5d74710a68effa2dfd8f66"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerMassStartSeeding.cs",
+      "sha256": "662271eb823d18f3080be0b6094db6d3648f2ff4707ecce9ed958c88de37af75"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerMental.cs",
+      "sha256": "6dfff078e210e35316716a410bb38e686917f0b4e3a90704b9c8e0b738acb45d"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerProgression.cs",
+      "sha256": "5e3fbe0d2418da524666c97512b5ea348c6612f301daaa840daec2234f0bc0a7"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerResultDetails.cs",
+      "sha256": "6848616c53eee5ad343fcc54b74794e0a14134d6d07866ffda0cd08fcffcc804"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerRosterDefinition.cs",
+      "sha256": "e8e4eec29a667c06ccd613ff013c73a7a8555c95149fc76a626dfe0863a418f1"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerSave.cs",
+      "sha256": "f30cd695c847ce3bea518101c8b6575bfb99161a1821be25c3a88ba11f0380bb"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerSaveJsonSyntax.cs",
+      "sha256": "b03bf3e75210b95b7e9e87521cb7823b6576437ac41cb990b1ea4d4361248035"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerSaveMigrations.cs",
+      "sha256": "a6f4165ea83f1bf7180e533e397566d5919a5581557e0014a6d478ea9bae6162"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerSeasonEngine.cs",
+      "sha256": "70e5942ec7fb7e36f7da1027824e6e021c75f19ad27a2e4a892bf6d4fd5e2f01"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerStartDefinition.cs",
+      "sha256": "77f9bc3c444d3f3966cdcde00047cf6b794b66bae74560a4624661d4ee4e7c62"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerTraining.cs",
+      "sha256": "dde2668c343ad19cdb30d1711b1ace3156dfb951d59e159f8e0156bea0c3e001"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerWorld.cs",
+      "sha256": "73646be871a16b2f10cd66cd6e95523dc132041280be18b3f980bc55f35c8fce"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerWorldDefinition.cs",
+      "sha256": "65039cd7428076d329b971b7e6ad2ffc8064a74f4b1061665c114dd74e64e12c"
+    },
+    {
+      "path": "Assets/Scripts/Career/CareerWorldState.cs",
+      "sha256": "eebf25666ec348b3e382a37286326647e836a5100ea13bde7baf0c4cbe6f1a12"
+    },
+    {
+      "path": "Assets/Scripts/Career/RealAthleteRosterPack.cs",
+      "sha256": "b9bc4a2cd324ab957aba835c7d2442f9e7902897a676f52752e670c4419a515e"
+    },
+    {
+      "path": "Assets/Scripts/Career/SkiAppearanceCatalog.cs",
+      "sha256": "0f6623c72ef46370ac6545ab35bbc3f5f9ce75ce7610756010c7e4420eba16d1"
+    },
+    {
+      "path": "Assets/Scripts/Domain/AiClimbRestartDefinition.cs",
+      "sha256": "7f46d7d9b1a2efa0cfd321c0323885d03a5607c6d3d5deb234dce382ddb51b6a"
+    },
+    {
+      "path": "Assets/Scripts/Domain/AiDifficultyDefinition.cs",
+      "sha256": "f8576a95a8d3a0db1e471004272d8f46482ddc53f0ad0ae18a1f629f16a4e163"
+    },
+    {
+      "path": "Assets/Scripts/Domain/AiPersonalityDefinition.cs",
+      "sha256": "64471e33090cc652788370fe77fca83d10bce3b7deebed51789dc1abba252c36"
+    },
+    {
+      "path": "Assets/Scripts/Domain/AiRacePolicyDefinition.cs",
+      "sha256": "c8fd2100bf00ab78904fff3257c8433596f7791e7a1074757ec72e54cee9c668"
+    },
+    {
+      "path": "Assets/Scripts/Domain/AiRangeTrafficPolicyDefinition.cs",
+      "sha256": "7e1d295374dd0b35a2d08a3f47de1cf815dd3710bb3e30d17babc621a86b6e9c"
+    },
+    {
+      "path": "Assets/Scripts/Domain/AiSkiPolicyDefinition.cs",
+      "sha256": "038339737a6f9f6556fb30c985f8a8030e35d05bcfdf3545b6ee2c46baab5dd9"
+    },
+    {
+      "path": "Assets/Scripts/Domain/AiStartTrafficPolicyDefinition.cs",
+      "sha256": "6ae7a3ad366d8962bbdbf658e48c1e35de5e4213d02ea95b30546ff8601a762b"
+    },
+    {
+      "path": "Assets/Scripts/Domain/AthleteId.cs",
+      "sha256": "eb8de2b90da667423ee179fe7ef909f6c9a687d52499f514b24c0b25ecc6a34a"
+    },
+    {
+      "path": "Assets/Scripts/Domain/AthletePhysiologyStats.cs",
+      "sha256": "0cc34910b59c55e1e32717ddef6ba207b36265296bdd63143dd75f8e5e42bd12"
+    },
+    {
+      "path": "Assets/Scripts/Domain/AthleteState.cs",
+      "sha256": "188da0fd3949faf9c0cbae18749d63d59936e085bf3fe38a1c13bdfc06afabcd"
+    },
+    {
+      "path": "Assets/Scripts/Domain/BalanceBatchDefinition.cs",
+      "sha256": "500cfa42a21f9216674cd9be168f27fcb26df5a14e6dc9d6eab8d7922e50e4fc"
+    },
+    {
+      "path": "Assets/Scripts/Domain/BalanceRegressionSnapshot.cs",
+      "sha256": "4bcfe6b474b9074d51d94f92e2b52da1d9dd08ed53f5c92ab639e96c00d261eb"
+    },
+    {
+      "path": "Assets/Scripts/Domain/BalanceTuningLock.cs",
+      "sha256": "3cc45c1f44809f8fb9b35746ed2f08dd643e14539b5a75de81cc3e06f820d664"
+    },
+    {
+      "path": "Assets/Scripts/Domain/BoundedTuningDefinition.cs",
+      "sha256": "ce9b6b994e1e2d72571690730ac73e1f986f204949d1769f361130a62f2e69f8"
+    },
+    {
+      "path": "Assets/Scripts/Domain/BreathControlDefinition.cs",
+      "sha256": "bd68fa0e097027cfcbe51e008416f40f927454e4ae0a24d0b0a24eb4a5a8253f"
+    },
+    {
+      "path": "Assets/Scripts/Domain/BreathingDefinition.cs",
+      "sha256": "6cdc53fc5761788bfff1af7a68572d14bd3a00678df4db85e6296256e02e4deb"
+    },
+    {
+      "path": "Assets/Scripts/Domain/CompetitionProfile.cs",
+      "sha256": "c76920d629b80142380df438b65e459e8f5b975b05be941de56100735932f8e3"
+    },
+    {
+      "path": "Assets/Scripts/Domain/CorneringDefinition.cs",
+      "sha256": "ab75414d88f74c1a020f03b3827b57eed28126fd067b88f13728c8d7c2bc24f3"
+    },
+    {
+      "path": "Assets/Scripts/Domain/DeviceControlDefinition.cs",
+      "sha256": "b65c0f0afebddfd30732194bb2d2f914de3a0b37d63af1986c1d71a35aa9cb75"
+    },
+    {
+      "path": "Assets/Scripts/Domain/DraftDefinition.cs",
+      "sha256": "c88d8d5a54ebff8f81527196f0b9db34a2ce97ab9beb72bb517715db5e03514b"
+    },
+    {
+      "path": "Assets/Scripts/Domain/DraftSelectionDefinition.cs",
+      "sha256": "dcf6e8604baec98c285793551f2d60b40e435312311c143c1d1c0869af300555"
+    },
+    {
+      "path": "Assets/Scripts/Domain/EffortControlDefinition.cs",
+      "sha256": "841d5e7ca9539d39ed8d4431284541634ac35c9a4f584b37e72e3e6db4677b2c"
+    },
+    {
+      "path": "Assets/Scripts/Domain/EffortOutput.cs",
+      "sha256": "c9d789d6b10eacdf1622df0c39db07346e35fa0c319fdf9ae16a9b2aabdd69a3"
+    },
+    {
+      "path": "Assets/Scripts/Domain/FinalSprintDefinition.cs",
+      "sha256": "cade7724dda0a1fd641d539fad5723fc51fb942db4996690485eba1ff293d397"
+    },
+    {
+      "path": "Assets/Scripts/Domain/FixedTickFrameBudgetDefinition.cs",
+      "sha256": "50539b72c472b68d8dbf6885c912bba0e389cf3234fa054bc9a0f12c437a1cf5"
+    },
+    {
+      "path": "Assets/Scripts/Domain/HeartRateOutput.cs",
+      "sha256": "06677281c0e3a6918cc475bd7c0140f7a28dbd83eb1cb9fd817c248d6156c574"
+    },
+    {
+      "path": "Assets/Scripts/Domain/HeartbeatDefinition.cs",
+      "sha256": "a14e5f91fee56bdb7528d3992bacf53e4f2adf7f2f42257129aeed3da2438548"
+    },
+    {
+      "path": "Assets/Scripts/Domain/IRandomSource.cs",
+      "sha256": "7483fbfc28b23f6ef77e59e89e41c82145fabda44339558a013b252dac3b768a"
+    },
+    {
+      "path": "Assets/Scripts/Domain/JsonDocumentSyntax.cs",
+      "sha256": "62fdecc2c0050530572cf99f519635e29dd1b831198d2c75bee38358c52da490"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ManualAiCornerEffortDefinition.cs",
+      "sha256": "d836ef3dae3c15429fbb47ba55d0d04d40a81dec3df7c95971687391bbc854f2"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ManualAiSteeringDefinition.cs",
+      "sha256": "80cff1cc06fbb8fa037b733ba05cb8ba69bcd55dc89e8f74ae17123e692edac6"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ManualAiTrafficDefinition.cs",
+      "sha256": "f3663a28a73dfba08d07e6d81ed56b64360b1e00039ac25957371005b44d1768"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ManualCourseContactDefinition.cs",
+      "sha256": "d09f4b4533ba4b41a1c017935a8b674573c4c77e84c7199d21cb8882ddc4bc47"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ManualFinishRunoutDefinition.cs",
+      "sha256": "7c6d231a1eda228c13541ed75199b114f8533d840abc030fc69d70d382ab27d4"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ManualMatBrakingDefinition.cs",
+      "sha256": "5455d5ff7f48368f0b1708fd0b2bbb176074df3cd85aa8e7eee8649929074c9d"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ManualMatCaptureDefinition.cs",
+      "sha256": "47f67922f47794fa1e01337062349bf74a7b1d9c41935c76b13f69d759d69575"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ManualNumericalToleranceDefinition.cs",
+      "sha256": "41306c79872b7681f5bcda3f2d2e70f495ac75ed739ac993740cb2a43b236c37"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ManualSkiCommand.cs",
+      "sha256": "60a039deb7880bfb21dd69b3681042f3f57eedcd3a5f2ed194a691cce0e45557"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ManualSkiHeadingState.cs",
+      "sha256": "a229166d10ff98f510cb2dbbaf3ce78cf35ba6aed8fff15ad9ab8e952ac2d4a9"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ManualSkiSteeringDefinition.cs",
+      "sha256": "21478bf8103ddd9a2834ddbcf22968597389b5883f7c1ec328acd3617be07b78"
+    },
+    {
+      "path": "Assets/Scripts/Domain/MassStartGridDefinition.cs",
+      "sha256": "4cc51cc9fcacb481b3d526384aefdcb2fe12587a999f091ca2a3c67215414aa2"
+    },
+    {
+      "path": "Assets/Scripts/Domain/MassStartRangePolicyDefinition.cs",
+      "sha256": "492089e81694b1868a41fd63a690f1f83a61b84df1a431438b4fba44e80ad23a"
+    },
+    {
+      "path": "Assets/Scripts/Domain/MuscularSwayDefinition.cs",
+      "sha256": "4736d996b9ebbeb89cf5b4eb76d1bb100dd4093c42cbd0abb70dcc1629fc8efe"
+    },
+    {
+      "path": "Assets/Scripts/Domain/OccupancyDefinition.cs",
+      "sha256": "5295a7bb8ebe79ee178e1e399d6688fb44deea4ff54b9d1dd3af689920c1a98e"
+    },
+    {
+      "path": "Assets/Scripts/Domain/OvertakeDecisionDefinition.cs",
+      "sha256": "a445704138c1f4d2df87454bf955720121bd8f582fd75f3d342de769f33fb7bd"
+    },
+    {
+      "path": "Assets/Scripts/Domain/OvertakeDefinition.cs",
+      "sha256": "68fb3cb2fc5cb6f8f6a67afa825a2980fda18d87a8aba63bc6942690a8452683"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PaceControllerDefinition.cs",
+      "sha256": "21acba0020727056cdb9b7e90405823c669584c4daae75c5889270e12e8ffdba"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PhysicalConnectionDefinition.cs",
+      "sha256": "b3e42d1f4d880497257e76eacab984c94dd080d60a26b6b1461b79e4cfc70aba"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PhysicalDirectedPassageDefinition.cs",
+      "sha256": "6fc6a86ea6f56a71e0556683626f8e1ff4d057ab3ec4575957b19aaa4e0f6f3d"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PhysicalJunctionDefinition.cs",
+      "sha256": "b2fd3c0ea537c32ff13f004ed77c999e743e516f1f71a0077038b742539408b3"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PhysicalRangeLaneDefinition.cs",
+      "sha256": "775b8ccc1072b2098cb76d9ee99031fc283bcfbadbf8084b5a4f0f4e111dafd5"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PhysicalRangePathDefinition.cs",
+      "sha256": "fa1fc36d34de355f21e2f4ed29aabd550a4e96859a21822209d9883dd7831188"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PhysicalRoutePlanValidation.cs",
+      "sha256": "a4c26903b677d445ec7c30acfd1bf2b53002a8f3c9019c4704828054ea4975ba"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PhysicalSharedApronDefinition.cs",
+      "sha256": "7c6b12e5717defea622480fa948f6d4ff9089488df0880b273f8ea58be1beeb2"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PhysicalStartContinuationDefinition.cs",
+      "sha256": "ac0333b7d30268d02c13848bf2b777c50a4c786ddea9d6d3f252e1c01761a48e"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PhysiologyDefinition.cs",
+      "sha256": "7b34cb45179feed3434db4788975291e2977ce652b2af5ba9bffe9722c69661d"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PhysiologyFrame.cs",
+      "sha256": "61d025f4ba087cd67f656be5f6c9293f9acc914d961b03e6bdd60ba4896b531e"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PhysiologyInput.cs",
+      "sha256": "75edbffe5ec228017bac0bf7be3836c14a4c43a102a23eaeda26eca7b0340874"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PhysiologyNumbers.cs",
+      "sha256": "111fc0358b3def8db731399406c1c705c6773fa2e444e95f40fd50da3d711d9f"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PhysiologyScenarioSuite.cs",
+      "sha256": "14ccb4410867f0254ea10fb7c8c86a4d967acaebd45049f668fe983fda03c97d"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PhysiologyStatCurves.cs",
+      "sha256": "9e68e1dbed4f32b0404524ca8c6f2a1d7aeb8b10919f4b18d21ad06b9c312a5e"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PhysiologyState.cs",
+      "sha256": "b6ddd077c9fba38916fb8db198ecf6407fc2a0fe03097971ebe0feb0d9dae7f5"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PlayerCommand.cs",
+      "sha256": "326eb25ea93418f9f6bc4a589151a0eacd9e35a526ed6b0449cf00a78fed444a"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PlayerControlSettings.cs",
+      "sha256": "f0a9089c4f22661579e034e57fd49af8db3b31e4697a11701feea116a78a427c"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PlayerCourseAssistanceDefinition.cs",
+      "sha256": "70498f13827333d795492c45b505d6bfcacdde85afd00a91b89769a04da11ac9"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PreRangeRecoveryDefinition.cs",
+      "sha256": "dbd028a0c1ccf7617a9f356745bb2a678b0dbdacb675f28cd49f85ba03e5d000"
+    },
+    {
+      "path": "Assets/Scripts/Domain/PursuitTacticsDefinition.cs",
+      "sha256": "217a4b1ccb4ff9b8d77f770b31d0591b8a45878fd22a5225838e75bc787ecdb4"
+    },
+    {
+      "path": "Assets/Scripts/Domain/RaceEvent.cs",
+      "sha256": "87bd5c8074c5a8f9b537bfa50a90623fc55c6550093206be73d82762b5feb081"
+    },
+    {
+      "path": "Assets/Scripts/Domain/RaceRoutePlan.cs",
+      "sha256": "5a3f45591b07f10044cea1715a03a96e9858fa6b5d3aaf56311e80f60e788e85"
+    },
+    {
+      "path": "Assets/Scripts/Domain/RaceStartDefinition.cs",
+      "sha256": "847534f0c27d649c8d14e76fb367a85818501b7af5b8b34e23849b12e0c80a3b"
+    },
+    {
+      "path": "Assets/Scripts/Domain/RaceWeatherCatalog.cs",
+      "sha256": "afda0227fbdb3edd845042ada09ce500e7413354278ee6fa86375f12afb33dc3"
+    },
+    {
+      "path": "Assets/Scripts/Domain/RangeGuidanceDefinition.cs",
+      "sha256": "c82a97e986a17dda7ba8d5cf590b03b39a2514afa693e91ac452da174430c307"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ResourceOutput.cs",
+      "sha256": "fd2df3d7e1eedb0c823ff80d7659db7e413a6007c6ab038babcc031203186b18"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ResultTimingDefinition.cs",
+      "sha256": "966d4fa01a74502e94489cbf68e13ae805924a7146b1686222e5541319a54603"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ShootingAiDefinition.cs",
+      "sha256": "8b9eb2f210b95e7601bcde3131d76df1adb74a705d991492e9bba802bac224e6"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ShootingAthleteDefinition.cs",
+      "sha256": "a8aa041533baed069a7757f52cf06342173b3755ad53450973dbbb542ea50874"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ShootingBalanceSuite.cs",
+      "sha256": "0630906bd1eba2fb55b2db639653cb8e9f432f686b4ed2514841131b27ea90be"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ShootingDefinition.cs",
+      "sha256": "867a95d42e313ee6124abf074ae4edc565ced0f988fdaf23de5b2654e6c25f3e"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ShootingHandlingDefinition.cs",
+      "sha256": "d58c848daaa5e1465c02cb0f821e472cfc0b182e8d1161cd05919106257c4e5b"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ShootingPressureDefinition.cs",
+      "sha256": "36e32a02d58877d4d304142f5f6f2408e6b611a9ba190894f0879f8b121ea6ee"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ShootingStanceDefinition.cs",
+      "sha256": "b48d0629a0caad59da8cb1344650bfeaaee145418f35019c87d8c5df01a4be4d"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ShootingStrategyDefinition.cs",
+      "sha256": "5c49fe9e4afd95be8adeda6365ad6d5573dab64dfcd581b911816bcff47103f1"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ShootingTrainingScenario.cs",
+      "sha256": "1532a37aee44c38bba91ee7ed1a579704f338aba484fe9a960d222bee10f8747"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ShootingWindDefinition.cs",
+      "sha256": "c39bd8f3e742f0d8b9360f4d121a8cff02de90f2a97d9f06ed419d6792bc51d0"
+    },
+    {
+      "path": "Assets/Scripts/Domain/ShortBurstDefinition.cs",
+      "sha256": "a5bd55182005f9a33294f6708d554cf3d5612a80b8fa3f18beff24a1dbe5edfe"
+    },
+    {
+      "path": "Assets/Scripts/Domain/SimulationInput.cs",
+      "sha256": "e03d5741c4a3c2d8687e5836550d06d3f16ff5f4aa4fa7c21f388c6a5b17c184"
+    },
+    {
+      "path": "Assets/Scripts/Domain/SimulationTick.cs",
+      "sha256": "f02d172ec25832ae3b20042f1d3224dae3307aeddb9c912f101526f167f8c0c0"
+    },
+    {
+      "path": "Assets/Scripts/Domain/SkiContactDefinition.cs",
+      "sha256": "f86c3ac4d7a864baedbf86f1a175abd191d960b609caf320b66b15245185c9a3"
+    },
+    {
+      "path": "Assets/Scripts/Domain/SkiContactGroupDefinition.cs",
+      "sha256": "72f125782d168562d1401a33be439380cc926c5b19d2e44e36fd9892d5ac924a"
+    },
+    {
+      "path": "Assets/Scripts/Domain/SkiContactSweepDefinition.cs",
+      "sha256": "eac5aac1f7e6f31c41e9288f1422b994a14fac40c359c408fd5c57622ac56632"
+    },
+    {
+      "path": "Assets/Scripts/Domain/SkiEquipmentCatalog.cs",
+      "sha256": "8b9d345cb919d5cf5d8d931d26dee1bc76fc3b7a97b39f9522e2b944afbcba19"
+    },
+    {
+      "path": "Assets/Scripts/Domain/SkiPhysicsDefinition.cs",
+      "sha256": "eb5d78da7276397045a2784358c7c4b8f5ed59781ebf9780326715038cd89e6c"
+    },
+    {
+      "path": "Assets/Scripts/Domain/SkiPlacement.cs",
+      "sha256": "00aad31b4c22de3addb574f9bd40730e6db2632e6dfddc7b0e7845a0b1111727"
+    },
+    {
+      "path": "Assets/Scripts/Domain/SkiState.cs",
+      "sha256": "b5d70244ea06e174a60c189357a7a67736d650f109c66933981ce66e4842010a"
+    },
+    {
+      "path": "Assets/Scripts/Domain/SkiTechniqueDefinition.cs",
+      "sha256": "fc0cf4a668b3a42e03bc3bf3c1628afc4953cee3b80a0acce22de5847c5a48e8"
+    },
+    {
+      "path": "Assets/Scripts/Domain/SnowDefinitions.cs",
+      "sha256": "5bd0caa829ac7ab8538367d2be9236e81aebecea0db1f8586fb3be8f504a5505"
+    },
+    {
+      "path": "Assets/Scripts/Domain/SprintRegressionSuite.cs",
+      "sha256": "f3e9fc7b2e1e4fb9573a009c4f16d4c223a4dc9a048fbe1643bf589e94503990"
+    },
+    {
+      "path": "Assets/Scripts/Domain/StartApproachDefinition.cs",
+      "sha256": "0754e71ce5fd26e5b37bb8fdf222386c44eb00f9d4ca7c5b8180ca4c72eb1077"
+    },
+    {
+      "path": "Assets/Scripts/Domain/SteeringDefinition.cs",
+      "sha256": "a6dc4a7430c05432a700ccfe74776acc61a64a305dfa26bae40b27e9909cd776"
+    },
+    {
+      "path": "Assets/Scripts/Domain/TacticalCadenceDefinition.cs",
+      "sha256": "2126e500d7be48f41f326a45ebe090fcbffbe463543c4e92978805ec0ee1f74b"
+    },
+    {
+      "path": "Assets/Scripts/Domain/TacticalIntentDecision.cs",
+      "sha256": "534b3e93bf004df304729d3f9493736d234f09425b85cb39dc9280f09e573ee4"
+    },
+    {
+      "path": "Assets/Scripts/Domain/TacticalUtilityDefinition.cs",
+      "sha256": "747ede5b7b033f3215d2cc4de3a3adccd645bfabd26982b967e7c2d96e4a4248"
+    },
+    {
+      "path": "Assets/Scripts/Domain/TargetGeometryDefinition.cs",
+      "sha256": "28b4e30d2272d243f3738a4847e32840c43a9fb55197ec1f3462c21c9ed1c4b4"
+    },
+    {
+      "path": "Assets/Scripts/Domain/TerrainPlanningDefinition.cs",
+      "sha256": "87ac30275bdb84989a61ef0f60967123866a2219705b953dbe73293b2ebec128"
+    },
+    {
+      "path": "Assets/Scripts/Domain/TimeTrialAthlete.cs",
+      "sha256": "4624c1ece3bf787a7f133b335318461093d0a2cab9ae61db235e69dffc19c7ae"
+    },
+    {
+      "path": "Assets/Scripts/Domain/TrackDefinition.cs",
+      "sha256": "2026dc8e20a1b25b829c121ce620d44285fc575e4d9d460aa060bdfa738dcbc7"
+    },
+    {
+      "path": "Assets/Scripts/Domain/TrackDistance.cs",
+      "sha256": "9e80f565823fe569073744ac0e1e5b6ca658e4b9dab580e5b9aef9254fa661c1"
+    },
+    {
+      "path": "Assets/Scripts/Domain/TrackVisualDefinition.cs",
+      "sha256": "ff99a742b72058e403175064037d9ee89867fc67292dbfced8e858341f03fc5c"
+    },
+    {
+      "path": "Assets/Scripts/Domain/TuckDefinition.cs",
+      "sha256": "90f736c3a31c646e122808116fdc17bcddecb94920a2489e58abb96d666afbb2"
+    },
+    {
+      "path": "Assets/Scripts/Domain/VenueFormatBindings.cs",
+      "sha256": "59da80a463a5227eff5b60fa2d9c3262b6ed7c8b1482039983d5347250f63230"
+    },
+    {
+      "path": "Assets/Scripts/Domain/VenueManifest.cs",
+      "sha256": "d707155560a0ccb922ce79bd119574b644c37d1032f4b944a7b163408f3aa3fc"
+    },
+    {
+      "path": "Assets/Scripts/Domain/VenuePathIntersections.cs",
+      "sha256": "ca23a1049932e39b1c62296d12453fcdce8bf3f6e93b689710d4f3e5ac4a55b7"
+    },
+    {
+      "path": "Assets/Scripts/Domain/VenueRangeMatDefinition.cs",
+      "sha256": "4a9e7b3b67e0a3cfe9e0cbfd915c73dcbb615220b193814bb040b415bb4aa1c7"
+    },
+    {
+      "path": "Assets/Scripts/Domain/VenueRangePathWorldValidation.cs",
+      "sha256": "3608d0b8c671cf757b9c6ea7c92759d8f2ec71aa87677985eb655d6a84ac9775"
+    },
+    {
+      "path": "Assets/Scripts/Domain/VenueValidator.cs",
+      "sha256": "28aa0e9b5ab3117015ea34df53171997382564dfb9caffc3c8fb348e5f050296"
+    },
+    {
+      "path": "Assets/Scripts/Domain/WeaponAimDefinition.cs",
+      "sha256": "a25a15374df20b049ac99b9611892362b4649c97778f954939c30e7e9a4617ec"
+    },
+    {
+      "path": "Assets/Scripts/Presentation/AthleteCareerSummary.cs",
+      "sha256": "fa617c0c607f8ec9fd925ab429f958ea351922feec3bc0273ea9e5fea87fc138"
+    },
+    {
+      "path": "Assets/Scripts/Presentation/CareerAchievementCatalog.cs",
+      "sha256": "112e95ff28855521555b1dd9e3023ff290839741a9dc07e5103618bedcda212e"
+    },
+    {
+      "path": "Assets/Scripts/Presentation/CareerDashboardSummary.cs",
+      "sha256": "86464d634b0cf12da1adcd01a95c49235592bbb69fba382ad9e50ffd4fc5c06f"
+    },
+    {
+      "path": "Assets/Scripts/Presentation/CareerProfileReliability.cs",
+      "sha256": "13a7d683b1791c2c97b07dadcc28449adc88a8ab0121675a326aaeb742534f3b"
+    },
+    {
+      "path": "Assets/Scripts/Presentation/CheckpointStandings.cs",
+      "sha256": "c4c4dbd410440b96cd13e92bbf7ca335505c4457b848cfa47342e123b349dce5"
+    },
+    {
+      "path": "Assets/Scripts/Presentation/FileCareerProfileStore.cs",
+      "sha256": "4dcdafa5afeb11d6afa147d994a830171c904bd3f3954853e6b81013f06c41cd"
+    },
+    {
+      "path": "Assets/Scripts/Presentation/FilePlayerSettingsStore.cs",
+      "sha256": "ff7b2e724778a228da695ba89bc789ca215e371130480a1a50b7e0d8acd8fee5"
+    },
+    {
+      "path": "Assets/Scripts/Presentation/FrontEndSession.cs",
+      "sha256": "c981feac278160f2c5989718fcabca707b2bbe8d0c19cd2f89f95e34b70fb8d2"
+    },
+    {
+      "path": "Assets/Scripts/Presentation/GameplayHudModel.cs",
+      "sha256": "d81f2ba684e0529fc95eeab85a726a026c96c2c7e8f7374e70adef81bc47a295"
+    },
+    {
+      "path": "Assets/Scripts/Presentation/PlayerSettings.cs",
+      "sha256": "24cf81fc623afb99ad3c9c6b157a75838ca076c3beedb5c3f8ff204e2cdc0159"
+    },
+    {
+      "path": "Assets/Scripts/Presentation/PlayerStartPreparation.cs",
+      "sha256": "40e9c738aa6fe5563292735cc6824a873add6941ac7f6010b61e5ca0da153a44"
+    },
+    {
+      "path": "Assets/Scripts/Presentation/PreRaceSummary.cs",
+      "sha256": "b6119f98eb0099ad3d5227fc7bce07e45354ac5d14a0c37a397f0929b5665497"
+    },
+    {
+      "path": "Assets/Scripts/Presentation/RaceResultsSummary.cs",
+      "sha256": "574aa2804aac3c2ab3af5e9a5e3768252cc8018595a79a51559ba766bd2f562b"
+    },
+    {
+      "path": "Assets/Scripts/Presentation/RaceStartCountdown.cs",
+      "sha256": "31ea2bfce5c2ef4d03c5412ab87380b82fc123cd42716a6926ad38964a1e6728"
+    },
+    {
+      "path": "Assets/Scripts/Presentation/RangeBroadcastModel.cs",
+      "sha256": "9b41b7e33b29cb2eaab153db49249c80a3fcf48c12cead8e3e4f5128bd8000b1"
+    },
+    {
+      "path": "Assets/Scripts/Presentation/ReliabilityDiagnostics.cs",
+      "sha256": "bdf75026b88cc76ec3a7fc1f2567f69628bbee3cf5b77932f025d1caf9caab7b"
+    },
+    {
+      "path": "Assets/Scripts/Presentation/ShootingReadiness.cs",
+      "sha256": "44150f0331d29a5c43f3f985ad31f623f8ac278e613c598f13fe4842fd300e07"
+    },
+    {
+      "path": "Assets/Scripts/Presentation/UiTextCatalog.cs",
+      "sha256": "9ae210073618fd416d21218871aa2a023b78c465118a3de14a87bd07a746c78e"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/AnaerobicSystem.cs",
+      "sha256": "319aaec2aa209b0e90aa340434e69949fdda9901fae58fb13fcda72795f07532"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/BreathControlSystem.cs",
+      "sha256": "c1b35f7e3f3c94e629a53a89060fad70135553f023ae1125c7ebea4d22cf4947"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/BreathingSystem.cs",
+      "sha256": "59f756c8d386ddb398b9fca7b909b57879a6764dbcce1ec0e3f1640b6ff5b974"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/CardiacDriftSystem.cs",
+      "sha256": "006f1cfb79de38bee08837ec5144f42aec40a67e569961cbbd7434c673483918"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/CheckpointTiming.cs",
+      "sha256": "68b8484ff6c012a4882feed40debea889e5c619ec5d3987b5699a430a11c0318"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/CompetitionLifecycle.cs",
+      "sha256": "cac618d579e075f79bb0830e610a2940cd2a0bb278fecaa715533100310f4b96"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/CorneringSystem.cs",
+      "sha256": "b1e12bb4fd5879567dedc004658310951c093284efb3aa5d515289998360a8ab"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/DeviceCommandBuilder.cs",
+      "sha256": "86c45f9f0b691341b3e3bf5619fdfb1b802239d10af2c52b28825cc173e966d4"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/DraftFeedback.cs",
+      "sha256": "2b13368a209e8336523a3c1ddce48675aa3e89fc3311a0b43f3d21a4cb3865de"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/DraftingSystem.cs",
+      "sha256": "ce8a26c5897c65e571059b88e63d411cb0bf3b656a32602f489ffe3e484c51bf"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/EffortControlSystem.cs",
+      "sha256": "80c3e97ac53ede34d54c3fbc513e20346a095afb26f171cda892858d26597eb2"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/EffortSystem.cs",
+      "sha256": "be6243d91b1bd8bd37de48ae8925b6ceedd9f0bab6bca8088c50400ff8ad9639"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/FatigueSystem.cs",
+      "sha256": "0feb741cf0383e828017825de7a502f16b2e679e2988f84badbc8324baa91bcb"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/FinalSprintSystem.cs",
+      "sha256": "e2d8269445d9cb97ee6dc673dddb6f67ba383461496152160eefb5610359361a"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/FinishTracker.cs",
+      "sha256": "0f213d4835060716b48d2d12675debcce29358227aa7d21320735293e4238eb9"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/FixedTickFrameClock.cs",
+      "sha256": "35bd7ae50cd4f49f39d5426c506b88a93a23cf1680468ff97cfb4139f90dcfa9"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/FractionalMotionTimeline.cs",
+      "sha256": "c547aa1ca24d1ac277e664a33a61db98f7b97d6eadfa9fcdea060e8dce3f2f8e"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/HeartRateSystem.cs",
+      "sha256": "6bd95d78afcbe4b7556674122a8558fbac9de922f00b344b4e1d249dbd1ff3ba"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/HeartbeatSystem.cs",
+      "sha256": "7f48f18c0009de4a35e779a323722aad175db4dce0d948ae50b2352c891a48a5"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ISprintFieldView.cs",
+      "sha256": "1db6d36acf0bd0d4001317ead4f3ba04c4a42e6b5bf97f48c6206c43eed9a4b1"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/IntervalStartScheduler.cs",
+      "sha256": "7e66e74bd5a2cdf2aa146c2d13f457250ccb50836feb47b3cf70f949b2ef7771"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/JunctionAdmissionSession.cs",
+      "sha256": "61836cce60b16110faea380f161d075e214352d14060bd3438f2b01f1051d4d0"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/JunctionAdmissionTickPlan.cs",
+      "sha256": "b231de9ca9a97770328cb75ee355e812ee8908f0e227b66ea001a383575abdbb"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualContextIdentity.cs",
+      "sha256": "463a522f6009461468c5f5fdbd2c672fed3e526a82b07ffedfd8c4f82dba560a"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualProductionFieldComposition.cs",
+      "sha256": "91f9d85be7364c62d58c2c0f34a2d97ed375a81d5d55e9246a56a1c95a6e60fd"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualRacePathBoundaryScheduler.cs",
+      "sha256": "378b55700eafda6b368777daf5468fd84180bcb32f4f933c44b28f6bd5de737e"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualRacePathCatalog.cs",
+      "sha256": "0a2acef48e80f8ee291b5522ceb12a826b12437aad0c5253495f233e595f65ac"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualRacePathGateSweep.cs",
+      "sha256": "5bba797852ddea801984b02a0f1c45e54b1705078d0cfe1e065aaed7400288f7"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualRacePathProgression.cs",
+      "sha256": "fbc0b642c016974c8ece28278851285f6df1d2a1e02e9c0cbe4c391720c072a6"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualRangeApronSnowRegion.cs",
+      "sha256": "6f40d873283a9a333c1dcbc4c4026664981fb49d94234b79f8dcfc19a69099b1"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualRouteJointSweep.cs",
+      "sha256": "066763034d01cbfb1cf3502e84e7f4643a8e9fdc3764afb85ecaadccbe50653d"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualRouteProgression.cs",
+      "sha256": "211e16f309c03cb811b7cb6c8f940b0f1acceaab4c8a06a3c0a754a492c054f0"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualRouteProjectionMap.cs",
+      "sha256": "400b82afa139295218221732c6c1d9ebbf84c14ebb6f04b861e3ce47b8d29685"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualRouteRibbonSweep.cs",
+      "sha256": "390a244ff4bf064bff2853045c1df9fa07426f0b2cf6eaccfc154adc08348efc"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualRouteTubeSweep.cs",
+      "sha256": "3dcd3e76ae6159cde41cda9a4798afd714e7c5122108d2c74757c1b9691914e2"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualScopedFieldStepper.cs",
+      "sha256": "f4adab87eb7fb315b22855aca9b5fb300d512abc20cb89e7cc57045939b0f40a"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualScopedRangeResources.cs",
+      "sha256": "020744d0a079cc8fd08fc77ca6a7d8c4884ec2ec1957655a0ce2e6f694c9e384"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualScopedWorldContacts.cs",
+      "sha256": "b4b7e4cb355cfdf91c23e4a8d7d47556179805883c308321d9610859ac0cd625"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualScopedWorldCourseContact.cs",
+      "sha256": "2e0259711d7e817722d428c99f634907c91b3d442d5c8f05353d2a43b15141cd"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualScopedWorldEvents.cs",
+      "sha256": "4966644e37cc15b886dd44cf4c124a4d9ac410d86212416261d7a10e631f2aa6"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualScopedWorldPathChoices.cs",
+      "sha256": "8fe5b8e45778d9e2ca8f60553e22f21da39f19a89b189950dded2b6947a917e2"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualScopedWorldRoster.cs",
+      "sha256": "f38259d5370510adf83c27f6bfe1c3d1179e446ec60d9c87dd2166d19f02c144"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualSkiContactDriveSystem.cs",
+      "sha256": "e4c5eb39f5d124689d9cdc7e19a75cac793586acddc6537cf548c1c6be1517b2"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualSkiContactForces.cs",
+      "sha256": "d0bb0da1afef5ef8a3322f33de36ad9117004052ca4df83c97e028ccd1fdf0d3"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualSkiContactGroup.cs",
+      "sha256": "4fd5d0c62e3b327f8621852b86c74fb13b43ddd37278103956a87f452b909c8d"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualSkiContactScheduler.cs",
+      "sha256": "e8bffd57347764a2ab763b6972563ced2fea6340274d4c6ce9779a0acf6125f5"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualSkiContactSweep.cs",
+      "sha256": "fa8843cf508e6890dfea346a82e6cab315db87e0dbf03feb6abe02274a0b4b69"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualSkiContactSystem.cs",
+      "sha256": "db4de113f4f6d5fd89200b5f4cfb6fa44766c26b3fb61b59662967c2395e863c"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualSkiControlledDriveSystem.cs",
+      "sha256": "1763a781650a5b9df331813f078059dafc7868d09013ba1a9acc6601dc24a511"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualSkiEdgeSweep.cs",
+      "sha256": "f98b2e828e617493ec6f16369c0d89afaab59f9a8d85db07725a16b10c9e5ccb"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualSkiJointSweep.cs",
+      "sha256": "fa2c584faed6960657cf9ab886767fafbf5b33195db4981c41e96327c5a6d304"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualSkiMotionSystem.cs",
+      "sha256": "e1a9bfe2cd96622e31f2c3a8425e5553e6b6f7a326de9ab310089640b78a7ebe"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualSkiSnowContactSystem.cs",
+      "sha256": "7542e61009c9ac087d94f826978ff3a2dc464dc9efcc3c3751fb8ad29468d43b"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualSkiSteeredSnowSystem.cs",
+      "sha256": "622bcd395a35293c354af6162ddfc853a2be2bb89c9f1e825a39794eb1424fee"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualSkiSteeringSystem.cs",
+      "sha256": "8d94b842c0a1c1fc90f6d1359c5b0d7aa3f60eada59b81ffda42e7dc840bbe12"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ManualWorldRosterLedger.cs",
+      "sha256": "65b9767dad02e049e067da4d4a29cd27b146a0f604af6229b9c3c1d3329a80e8"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/MassStartGrid.cs",
+      "sha256": "54593d8d5159de756ee1255b0817f84f783e77d52b5dcdae49690e962b90ab83"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/MassStartResults.cs",
+      "sha256": "cb985583ca5097958c65f8778b56fd8527e676b099a3649ab504a483a36e867e"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/MuscularSwaySystem.cs",
+      "sha256": "82aec3b116e42fbf2ab5d688ada7d33518402f002ab8722a3694e5d29e597ad7"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/OccupancySystem.cs",
+      "sha256": "5a30c107ee0cc1e9c3451e153e99e073845a5842937a10cacb87b8fd81965042"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/OvertakeController.cs",
+      "sha256": "cf0764f60fac77975741aee1c517ebc0990f694a78e5cf42d63e8578f832c4b2"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/OvertakeOpportunityQuery.cs",
+      "sha256": "140924b878e65530fef80848b60658e86d1281627a8905531f26020e86b6026c"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PackForceSession.cs",
+      "sha256": "1e90eaf2b22a04c224f662fdb2f65722fa6934eff078d80fa27b8872dbe3cfd3"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PackSprintFieldSession.cs",
+      "sha256": "f571bb8561d761c142145353a203b134dd6f2e6f5d2ccb24b03ec06b5b499c0e"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalApronBodySupportDraft.cs",
+      "sha256": "f32011b5bfa8e1c103619f453686948421280a96434952cef2b47b444a4eb971"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalApronSeamProjectionDraft.cs",
+      "sha256": "69ef78e328036825d3dc8b64a44d3c9bf95f848d9dd9298e0fb27d593a7709ed"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalConnectionMap.cs",
+      "sha256": "61c0d7e4f169fa3c453788fa43b11a7fee9c84526183f65ea9a776b8dde45106"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalDirectedPassageMap.cs",
+      "sha256": "66ac30ba8008510f0301d38cbefd8c9712e94c94d2491354d98450a3aae7595c"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalJunctionMap.cs",
+      "sha256": "29013fd4b181b7e9c34a993cc3e5a1b386d1a126f603217bf0c624e95a2579e3"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalMotionProjection.cs",
+      "sha256": "42e2a6ffad7b915373ed8a04f6b71ebfae5c05a61fc60e765580eb668aa34734"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalOccupancySystem.cs",
+      "sha256": "1058e0fecf745866e170aa15a9d77b99e8a52b06bf5c61d7cb90e382c97330cb"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalPassageWorldProjection.cs",
+      "sha256": "3490686d293b66076e1634c1ea9c103098b542569502fe2e255ecc080f2ea594"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalRangeArrival.cs",
+      "sha256": "944945c060c13a66742157cf84c09ca4a07a37c9355a7c40d77d8430d003c3b5"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalRangeArrivalOrder.cs",
+      "sha256": "befba9e68cb739fe585e47a8c40fe534e5b046794bb9423c5ba81c6268c2b937"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalRangeFieldLayout.cs",
+      "sha256": "7197e8e448003343703ab260edeb6f66a70472b744b384a76eed1b05a387eb25"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalRangeLaneMap.cs",
+      "sha256": "33488e837690a411cd401079d4f0ed700c04421ab065631ec518fff6c0d52415"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalRangeMatAdmissionMap.cs",
+      "sha256": "cf648c310065a2012818df4f606ced34947f4eec8a43685d198f84e66e8e16cd"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalRangePathMap.cs",
+      "sha256": "d46003c9fd1d5d12c7ca1d9ddecf2163aca3b288df387dfcc8ea49bdf64c65df"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalRangeReservations.cs",
+      "sha256": "ef706ffc466137e64a904f325b40feba0244ef07ed56b3b6ffc521a4dbc0ec1a"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalRangeWorldTrafficMap.cs",
+      "sha256": "755e0c60aea76cb572e2720c5158522d58110b5e071444c2c456c808cbbef104"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalSharedApronMapV2.cs",
+      "sha256": "429848be34bcc3ed7ea70c352f6c6015f9c0ac4ed41ff087c5831186a8b8383b"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalStartApproachMap.cs",
+      "sha256": "7dc89bf55ec6051ad9bfb623e276cdf233a02c96bc0c82745cfb86d1f7a0629f"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalStartContinuationMap.cs",
+      "sha256": "2fdea1f7130fd927a426c441a87a640d01b61899ab7bb4e8ca93c58fa5e947b8"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalTrackMap.cs",
+      "sha256": "ddb388117a63910f44a147c2a18234d2561ff07203415dcc555e587efa753b3e"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysicalTransitionFootprints.cs",
+      "sha256": "e9a880d25a4b6ef4b7846e520c81bf7ba613889576ae2e7dfc31747a0e029554"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysiologyScenarioRunner.cs",
+      "sha256": "c4ccc149dd3c5f5dd0798bb8b8684dd9ae103564be1264c9f0f10792b5889963"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PhysiologySession.cs",
+      "sha256": "04f1c86a212f8bfafaf4a3598778ac2bb8fc1ececa1ff57630c474c4d0125a22"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PlayerCourseReturnSystem.cs",
+      "sha256": "39b69c062cf04c50ed31dc45f970e5e3a0b5d1a4f7f06d5b652dd400f5fb6ab6"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PlayerRangeAssistanceSystem.cs",
+      "sha256": "67a9c11c5e45aa1c72c97e0408c2da4d716637b406e65bd689657a98eb48c16d"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PlayerTimeTrialSession.cs",
+      "sha256": "44bc225889a801617f0f4f90477dbcf567059b9cd80d029ac6f5d0d9ce1cde03"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ProductionGameplayDefinitions.cs",
+      "sha256": "4ef0c1fdda01e82a9d654444ce01eba4f11dedd2a0f95d00b43c1b3858335597"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PursuitQualificationSnapshot.cs",
+      "sha256": "958daea4fe62f1cb3930b3b42cd4699eb1deed770166f06430fd4c905633f2c5"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PursuitResults.cs",
+      "sha256": "ad7dc647df7e270335f5fc5c8576d6643a4b41675d54732cdcde80475bff84f2"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/PursuitStartScheduler.cs",
+      "sha256": "dd2191de5c2fad726972e415fdcf38a819db2c5c93c5168b87b1df43ed1618df"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/RaceHudState.cs",
+      "sha256": "bee9845883101d55245253951cb6eff0319be72dfcd364463881e8d523b91453"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/RaceMotionTimeline.cs",
+      "sha256": "f831303fef67b1dc13da06bbba2c076742355927926e1e3a60f8f7801bffa858"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/RacePathMotion.cs",
+      "sha256": "e1c10ce78b0a951edfbc996fcf5fe4de3b72c66045dacbc634c9b79a89337d5f"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/RacePresentationSnapshot.cs",
+      "sha256": "8accd57a81c5a5a30a4b12bd1a90c130e50c7fa9d901e4f5ada053dfe572ac8d"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/RaceRoute.cs",
+      "sha256": "360ad01d8a7b320eec9b4d7e1cfa6c30751b364dea07376962e373d0d79eb0be"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/RangeMatGuidanceGeometry.cs",
+      "sha256": "e422dc2682792a204e54d4ad337954a8ff18d2354003c2326d5b1e98bb013047"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/RangePenaltyTraversal.cs",
+      "sha256": "f140f7eaf659dce0d2061d6cce892db94b83da23ba86fbaa6e4dbbca7f60e0d4"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ScopedManualFieldPublication.cs",
+      "sha256": "1b7bf9d94357df92df7f5fec0ae78efd6fa5b119bdbdd5eb94a497086b593d9a"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SeededRandomSource.cs",
+      "sha256": "7439511ffea3886d9fedd02385d9dc24bd26c51b66fed16f10d03bf55442a3e4"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SeparationResolver.cs",
+      "sha256": "302c0db6eefdd8392080bf4aaeafc19b7992f7ddd3f992fc481cbe4901322c16"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ShootingHandlingSystem.cs",
+      "sha256": "55c4c31c07a32978a1bb09b6955b6c1469c2cccaaaf29945101c4548dbcd3ba5"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ShootingModelDefinitions.cs",
+      "sha256": "1c6f346c1d26e755f0142e2239f9203c3eebc48dea61bbd86b8c50394f2303d0"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ShootingPressureSystem.cs",
+      "sha256": "1da58583577a3a42d91f5cb4289ce53d68444f31cfc84bd13ee2082acc71c0c2"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ShootingScenarioRunner.cs",
+      "sha256": "48a63276a0b473fc9e1a9aad39485fede3d3d1a1107018b1a4ea1debc714c481"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ShootingSession.cs",
+      "sha256": "b7c0a2b3e68663104ab05f9606f785e6d6d7af7dd42b21b5c96e175f69ed478f"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ShootingStateMachine.cs",
+      "sha256": "79b94c8beee74cc9dd93c2eb97b9f9b25c49974294138c6853b278d5dc3392c1"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ShootingSwaySystem.cs",
+      "sha256": "8c95b0485a9d7b4061a38b1975072a3ae54cf06be1193eba72b38e8e9436e1be"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ShootingWindSystem.cs",
+      "sha256": "120050462cb6fc33f741c24923e3744a1323bc847ad3e9b35f8141938ce7dd7a"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ShortBurstTelemetry.cs",
+      "sha256": "c55118f44ffbaf57b3a0ee87b6b020a0ab0911e5438e7386f9ffdb993bc83bba"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/ShotResolutionSystem.cs",
+      "sha256": "98328f9fc9b39b0c5b1765495c88a9a86be9a10a2bbe95445f4f3c6f7a9110c1"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SimulationClock.cs",
+      "sha256": "feadcb6e20875fa9b05d11858ce78d8653726d97f0cc77b96fa24d8071877663"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SimulationConfig.cs",
+      "sha256": "7ca6397c470082b7190016edf0d50d30eb088d15299a5a8f9a57e3673c91055d"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SimulationWorld.cs",
+      "sha256": "0cbaebcbfd80fccc9924e34aa0224367117ed99845ef154ce80ba0d900641025"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SimultaneousStartScheduler.cs",
+      "sha256": "153b4631eeee51ad7176aec25c8c972681903e012aa669e338cf19341c320cd2"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SkiBoundaryStepper.cs",
+      "sha256": "fa46cd1a4934285c64ef64514e6bde2193e9d88bfe40362c2261f2465ae2910b"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SkiContactTrajectory.cs",
+      "sha256": "bcaacea906f779e51362196b75fd628c13cbd0ebd275e8fbe21ea95fa9ef8b2d"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SkiEquipmentSystem.cs",
+      "sha256": "d1199ec0008345cc5829bdcb5e3563ec2e433d3daa0280064ac7a82be391520c"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SkiForceCoupledTrajectory.cs",
+      "sha256": "1c5cb3adb80edf6aa7e3dcf1a247d367b599afbe98c1693d82f09e0458c2cfc3"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SkiForceSystem.cs",
+      "sha256": "93c2b9226fa9212877db9974e24b72e8092d51e4a57082ce89b1f89276d09fe1"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SkiForceTrajectory.cs",
+      "sha256": "3c57a40c808bde7c83ad2ee98a25349a0bb55319779128cd66cb11f5b09cbe54"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SkiModelDefinitions.cs",
+      "sha256": "7fc52684576a0d546409f11d7a9d246549f778fc46ab41570f3fd000bf38b2b6"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SkiTechniqueSystem.cs",
+      "sha256": "21ae34e513db70d1938bcf0945c04c733c6260d12b1a9592bb0ef83aa06ea978"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SnowConditionSystem.cs",
+      "sha256": "0c6f8c4fe9fa3dfafac95d15f0946b954cc9ed6f41e106e55ecfb10443fd84eb"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SprintAthleteScopedMotion.cs",
+      "sha256": "a37ad963d5be353ec1b60669b2f76fdd48a03505182ec300ae767c50a991aca6"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SprintAthleteSession.cs",
+      "sha256": "2e2252185cf1fa18a55046df18d5629c80d6b1c3d371a081c08cfc1317e7979b"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SprintFieldSession.cs",
+      "sha256": "fa5c7ceff4c708931562f69b9e99cccf210ce7c9d943ee1973e061f6e9ecc7d2"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SprintResults.cs",
+      "sha256": "02014b262275a8c1646346e2709e24bb3f95ea8e086c5fb1ebd5c82fa1e13828"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/StartApproachMap.cs",
+      "sha256": "b9925c8d189fb10f6104f74a1c989e32673cb18cbd3109f456d6f01dd2e96c36"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/SteeringSystem.cs",
+      "sha256": "147daa048ae1e5cf08f6a35d705fd004bec7e89653f8ebef78eab8ad575f3a69"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/TargetGeometrySystem.cs",
+      "sha256": "efc2e1f88d97976849a0dfd24cf963d3ad0a65d2b0dae3c6c1063296b6b2dc62"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/TechniqueAssistSystem.cs",
+      "sha256": "5a0e85fc71e9fbd5952acdcbb2a0859d4a9e8edda218d1be6d1e8888a242de71"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/TimeTrialSession.cs",
+      "sha256": "c6569cb08790cb182bf6be9c254f3498c3a063e55e13495db57425a6df47cf0e"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/TrackSampler.cs",
+      "sha256": "71c65f9d04c3f1834644a190e6982b1b7b70541ae460e2b7474beedd9671ba40"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/TuckSystem.cs",
+      "sha256": "808d1ca3b7cbedddb13bc0b5ddcc6aab9e64b1a7fbff5da1154e604fb78bc952"
+    },
+    {
+      "path": "Assets/Scripts/Simulation/WeaponAimSystem.cs",
+      "sha256": "1ba7f5f982390831560f1a26b9319f8db44e58a07f8732595bf1d216e9654571"
+    }
+  ],
+  "assembly_sha256": {
+    "Biathlon.Presentation": "8d10f986db11f08f4c049c7f973e913dc47562ce7e929732d92375bd6ddea953",
+    "Biathlon.Career": "5a08cc74552a0e05e750e53ce90acb319984fa45218d878afe900062968ee396",
+    "Biathlon.AI": "fc3b135c2c5e16ded5b8539404ba51f16104b9e55011cd5c053ba63a3a029784",
+    "Biathlon.Simulation": "76f39cbd2314a825df88792863756a72b3fc6b772f9535c1f5a98153e8e88d99",
+    "Biathlon.Domain": "f8531d217477767140fe17ec368c58b63c9ff470f16d369d90957cb2a60b11ad"
+  }
+}

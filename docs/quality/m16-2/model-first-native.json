@@ -1,0 +1,129 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":20,\"PassedTests\":19,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:01.6830049\"},\"Results\":[{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.AcceptedSeriesPersistsAsDataAfterExitAndSeekNeverInventsFlashes\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.3680000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.AllCurrentlySupportedFormatsBindTheSameObserver(Sprint)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0410000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.AllCurrentlySupportedFormatsBindTheSameObserver(Pursuit)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0020000\",\"Message\":\"System.ArgumentException : Supported format, clock, roster and dependency required.\",\"StackTrace\":\"  at Biathlon.AI.ChampionshipRaceFactory.Create (System.Func\\u00602[T,TResult] Read, System.Func\\u00602[T,TResult] Fixture, Biathlon.Domain.CompetitionFormat format, Biathlon.Domain.IRaceEventSink events, Biathlon.AI.IAiDecisionSink sink, Biathlon.Simulation.PursuitQualificationSnapshot qualification, System.Int32 count, System.Int32 frequency, System.UInt64 seed, Biathlon.Simulation.SprintEntrant[] suppliedEntrants, Biathlon.Domain.AiPersonalityDefinition[] suppliedPersonalities, System.Double[] raceForms, Biathlon.Domain.ShootingPressureContext[] racePressures) [0x003fc] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Scripts\\\\AI\\\\ChampionshipRaceFactory.cs:46 \\r\\n  at Biathlon.Tests.RangeBroadcastModelTests.Runner (Biathlon.Domain.CompetitionFormat format, System.Int32 count) [0x00000] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\EditMode\\\\RangeBroadcastModelTests.cs:16 \\r\\n  at Biathlon.Tests.RangeBroadcastModelTests.AllCurrentlySupportedFormatsBindTheSameObserver (Biathlon.Domain.CompetitionFormat format) [0x00000] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\EditMode\\\\RangeBroadcastModelTests.cs:101 \\r\\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception\\u0026)\\r\\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in \\u003Cc5ae8a4eeb824526b5df2932bc2395e0\\u003E:0 \"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.AllCurrentlySupportedFormatsBindTheSameObserver(MassStart)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0660000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(0)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0670000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(1)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0330000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(2)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0320000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(3)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0540000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(4)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0330000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.FlashIsBoundedAndCannotReappearBeforeTheMissOnReplay\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.InvalidPresentationPoliciesAndImpossibleRowsAreRejected\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0030000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.MissCountIsShotsMinusActualClosedTargets(0,0,0)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.MissCountIsShotsMinusActualClosedTargets(3,1,2)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.MissCountIsShotsMinusActualClosedTargets(5,31,0)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.MissCountIsShotsMinusActualClosedTargets(5,0,5)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.RouteWindowOpensBeforeEntryAndStaysAcrossLapSeamAfterExit\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0340000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.SeekRebasesMixedUnknownShotOrderAndNeverResurrectsHistoricalCompletion\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0510000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.SequentialArrivalsKeepOrderAndCompletedQueuedResultGetsItsOwnHold\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0340000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.ThirtyAthletesKeepStableSlotsAndOverflowWithoutPagesOrPlayerPriority\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0410000\"},{\"Name\":\"Biathlon.Tests.RangeBroadcastModelTests.VisitsAreIndependentAndSteadyQueueObservationDoesNotAllocate\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0500000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 20,
+          "PassedTests": 19,
+          "FailedTests": 1,
+          "SkippedTests": 0,
+          "Duration": "00:00:01.6830049"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.AcceptedSeriesPersistsAsDataAfterExitAndSeekNeverInventsFlashes",
+            "Status": "Passed",
+            "Duration": "00:00:00.3680000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.AllCurrentlySupportedFormatsBindTheSameObserver(Sprint)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0410000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.AllCurrentlySupportedFormatsBindTheSameObserver(Pursuit)",
+            "Status": "Failed",
+            "Duration": "00:00:00.0020000",
+            "Message": "System.ArgumentException : Supported format, clock, roster and dependency required.",
+            "StackTrace": "  at Biathlon.AI.ChampionshipRaceFactory.Create (System.Func`2[T,TResult] Read, System.Func`2[T,TResult] Fixture, Biathlon.Domain.CompetitionFormat format, Biathlon.Domain.IRaceEventSink events, Biathlon.AI.IAiDecisionSink sink, Biathlon.Simulation.PursuitQualificationSnapshot qualification, System.Int32 count, System.Int32 frequency, System.UInt64 seed, Biathlon.Simulation.SprintEntrant[] suppliedEntrants, Biathlon.Domain.AiPersonalityDefinition[] suppliedPersonalities, System.Double[] raceForms, Biathlon.Domain.ShootingPressureContext[] racePressures) [0x003fc] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\AI\\ChampionshipRaceFactory.cs:46 \r\n  at Biathlon.Tests.RangeBroadcastModelTests.Runner (Biathlon.Domain.CompetitionFormat format, System.Int32 count) [0x00000] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\EditMode\\RangeBroadcastModelTests.cs:16 \r\n  at Biathlon.Tests.RangeBroadcastModelTests.AllCurrentlySupportedFormatsBindTheSameObserver (Biathlon.Domain.CompetitionFormat format) [0x00000] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\EditMode\\RangeBroadcastModelTests.cs:101 \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <c5ae8a4eeb824526b5df2932bc2395e0>:0 "
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.AllCurrentlySupportedFormatsBindTheSameObserver(MassStart)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0660000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(0)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0670000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(1)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0330000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(2)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0320000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(3)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0540000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.EveryChronologicalPositionCanMissEvenWhenTargetsCloseInReverseOrder(4)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0330000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.FlashIsBoundedAndCannotReappearBeforeTheMissOnReplay",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.InvalidPresentationPoliciesAndImpossibleRowsAreRejected",
+            "Status": "Passed",
+            "Duration": "00:00:00.0030000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.MissCountIsShotsMinusActualClosedTargets(0,0,0)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.MissCountIsShotsMinusActualClosedTargets(3,1,2)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.MissCountIsShotsMinusActualClosedTargets(5,31,0)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.MissCountIsShotsMinusActualClosedTargets(5,0,5)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.RouteWindowOpensBeforeEntryAndStaysAcrossLapSeamAfterExit",
+            "Status": "Passed",
+            "Duration": "00:00:00.0340000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.SeekRebasesMixedUnknownShotOrderAndNeverResurrectsHistoricalCompletion",
+            "Status": "Passed",
+            "Duration": "00:00:00.0510000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.SequentialArrivalsKeepOrderAndCompletedQueuedResultGetsItsOwnHold",
+            "Status": "Passed",
+            "Duration": "00:00:00.0340000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.ThirtyAthletesKeepStableSlotsAndOverflowWithoutPagesOrPlayerPriority",
+            "Status": "Passed",
+            "Duration": "00:00:00.0410000"
+          },
+          {
+            "Name": "Biathlon.Tests.RangeBroadcastModelTests.VisitsAreIndependentAndSteadyQueueObservationDoesNotAllocate",
+            "Status": "Passed",
+            "Duration": "00:00:00.0500000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

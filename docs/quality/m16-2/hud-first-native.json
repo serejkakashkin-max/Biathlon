@@ -1,0 +1,34 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":1,\"PassedTests\":0,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:39.6257732\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.RangeBroadcastHudTests.ActualCareerMassStartShowsLiveQueueFlagsMissFlashAndRetainedSeriesWithoutPaging\",\"Status\":\"Failed\",\"Duration\":\"00:00:39.5310000\",\"Message\":\"  Expected: less than 725.666626f\\r\\n  But was:  730.0f\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.RangeBroadcastHudTests\\u002B\\u003CCapture\\u003Ed__6.MoveNext () [0x0018d] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\RangeBroadcastHudTests.cs:78\\r\\nat UnityEngine.TestTools.TestEnumerator\\u002B\\u003CExecute\\u003Ed__8.MoveNext () [0x0003a] in .\\\\Library\\\\PackageCache\\\\com.unity.test-framework@7a3849e09bd0\\\\UnityEngine.TestRunner\\\\NUnitExtensions\\\\Attributes\\\\TestEnumerator.cs:52\\r\\n\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 1,
+          "PassedTests": 0,
+          "FailedTests": 1,
+          "SkippedTests": 0,
+          "Duration": "00:00:39.6257732"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.RangeBroadcastHudTests.ActualCareerMassStartShowsLiveQueueFlagsMissFlashAndRetainedSeriesWithoutPaging",
+            "Status": "Failed",
+            "Duration": "00:00:39.5310000",
+            "Message": "  Expected: less than 725.666626f\r\n  But was:  730.0f\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.RangeBroadcastHudTests+<Capture>d__6.MoveNext () [0x0018d] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\RangeBroadcastHudTests.cs:78\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}
