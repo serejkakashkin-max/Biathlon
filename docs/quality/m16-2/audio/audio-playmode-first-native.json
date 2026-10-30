@@ -1,0 +1,89 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":12,\"PassedTests\":11,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:16.5020858\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.M15AudioTests.ActualAcceptedShotsBoltAndReplaySuppressionDoNotAdvanceAuthority\",\"Status\":\"Passed\",\"Duration\":\"00:00:04.9380000\"},{\"Name\":\"Biathlon.PlayModeTests.M15AudioTests.AiHitsUseAcceptedMasksAndBreathHoldDoesNotSilenceHeartbeat\",\"Status\":\"Passed\",\"Duration\":\"00:00:04.1200000\"},{\"Name\":\"Biathlon.PlayModeTests.M15AudioTests.AudioSettingsFitNativePanelsInBothLocales\",\"Status\":\"Passed\",\"Duration\":\"00:00:01.4720000\"},{\"Name\":\"Biathlon.PlayModeTests.M15AudioTests.BankHasEveryCuePreloadedAndValidFiniteHeadroom\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.1010000\"},{\"Name\":\"Biathlon.PlayModeTests.M15AudioTests.DefinitionsRejectInvalidBudgetsGainsAndPreferences\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0030000\"},{\"Name\":\"Biathlon.PlayModeTests.M15AudioTests.DenseFieldReactionCountsBelongToPlayerWhileCameraFollowsAnotherAthlete\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0120000\",\"Message\":\"System.ArgumentException : Explicit paths, covered roster, clock and format dependency required.\",\"StackTrace\":\"  at Biathlon.AI.ProductionVenueRaceFactory.Create (Biathlon.Domain.VenueAuthoringPlan venue, Biathlon.Domain.CompetitionProfile profile, Biathlon.Domain.RaceRoutePlan routePlan, Biathlon.Domain.RaceSnowConditions conditions, System.Func\\u00602[T,TResult] read, Biathlon.Domain.IRaceEventSink events, Biathlon.AI.IAiDecisionSink telemetry, Biathlon.Simulation.PursuitQualificationSnapshot qualification, System.Int32 count, System.Int32 frequency, System.UInt64 seed, Biathlon.Simulation.SprintEntrant[] suppliedEntrants, Biathlon.Domain.AiPersonalityDefinition[] suppliedPersonalities, System.Double[] raceForms, Biathlon.Domain.ShootingPressureContext[] racePressures, Biathlon.Domain.WindVector raceWind, System.Boolean massStartNumberFromRight) [0x005ba] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Scripts\\\\AI\\\\ProductionVenueRaceFactory.cs:88 \\r\\n  at Biathlon.Unity.Presentation.ProductionVenueHost.Initialize (Biathlon.Domain.VenueAuthoringPlan venue, Biathlon.Domain.CompetitionProfile profile, Biathlon.Domain.RaceRoutePlan route, Biathlon.Domain.RaceSnowConditions conditions, System.Int32 count, System.Int32 playerIndex, Biathlon.Simulation.PursuitQualificationSnapshot qualification) [0x00029] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Scripts\\\\Unity\\\\Presentation\\\\ProductionVenueHost.cs:164 \\r\\n  at Biathlon.PlayModeTests.M15AudioTests\\u002B\\u003CDenseFieldReactionCountsBelongToPlayerWhileCameraFollowsAnotherAthlete\\u003Ed__16.MoveNext () [0x000d2] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\M15AudioTests.cs:237 \\r\\n  at UnityEngine.TestTools.TestEnumerator\\u002B\\u003CExecute\\u003Ed__8.MoveNext () [0x0003a] in .\\\\Library\\\\PackageCache\\\\com.unity.test-framework@7a3849e09bd0\\\\UnityEngine.TestRunner\\\\NUnitExtensions\\\\Attributes\\\\TestEnumerator.cs:52 \"},{\"Name\":\"Biathlon.PlayModeTests.M15AudioTests.SettingsAreAccessibleAndIsolatedPreferencesDoNotWriteOwnerProfile\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0270000\"},{\"Name\":\"Biathlon.PlayModeTests.M15AudioTests.SkiOnlyAcceptedTicksNeverEmitRifleBoltOrTargets\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.9760000\"},{\"Name\":\"Biathlon.PlayModeTests.M15AudioTests.SpatialReportStaysAtWorldPositionWhenListenerMoves\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0140000\"},{\"Name\":\"Biathlon.PlayModeTests.M15AudioTests.SpectatedBotAndItsAcceptedShotsCannotTriggerCrowdReactions\",\"Status\":\"Passed\",\"Duration\":\"00:00:04.7200000\"},{\"Name\":\"Biathlon.PlayModeTests.M15AudioTests.VoiceBudgetPrioritizesPlayerAndMuteStopsAllAudibleGain\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0130000\"},{\"Name\":\"Biathlon.PlayModeTests.M15AudioTests.WarmPoolUpdateBudgetIsBounded\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0060000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 12,
+          "PassedTests": 11,
+          "FailedTests": 1,
+          "SkippedTests": 0,
+          "Duration": "00:00:16.5020858"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.M15AudioTests.ActualAcceptedShotsBoltAndReplaySuppressionDoNotAdvanceAuthority",
+            "Status": "Passed",
+            "Duration": "00:00:04.9380000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.M15AudioTests.AiHitsUseAcceptedMasksAndBreathHoldDoesNotSilenceHeartbeat",
+            "Status": "Passed",
+            "Duration": "00:00:04.1200000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.M15AudioTests.AudioSettingsFitNativePanelsInBothLocales",
+            "Status": "Passed",
+            "Duration": "00:00:01.4720000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.M15AudioTests.BankHasEveryCuePreloadedAndValidFiniteHeadroom",
+            "Status": "Passed",
+            "Duration": "00:00:00.1010000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.M15AudioTests.DefinitionsRejectInvalidBudgetsGainsAndPreferences",
+            "Status": "Passed",
+            "Duration": "00:00:00.0030000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.M15AudioTests.DenseFieldReactionCountsBelongToPlayerWhileCameraFollowsAnotherAthlete",
+            "Status": "Failed",
+            "Duration": "00:00:00.0120000",
+            "Message": "System.ArgumentException : Explicit paths, covered roster, clock and format dependency required.",
+            "StackTrace": "  at Biathlon.AI.ProductionVenueRaceFactory.Create (Biathlon.Domain.VenueAuthoringPlan venue, Biathlon.Domain.CompetitionProfile profile, Biathlon.Domain.RaceRoutePlan routePlan, Biathlon.Domain.RaceSnowConditions conditions, System.Func`2[T,TResult] read, Biathlon.Domain.IRaceEventSink events, Biathlon.AI.IAiDecisionSink telemetry, Biathlon.Simulation.PursuitQualificationSnapshot qualification, System.Int32 count, System.Int32 frequency, System.UInt64 seed, Biathlon.Simulation.SprintEntrant[] suppliedEntrants, Biathlon.Domain.AiPersonalityDefinition[] suppliedPersonalities, System.Double[] raceForms, Biathlon.Domain.ShootingPressureContext[] racePressures, Biathlon.Domain.WindVector raceWind, System.Boolean massStartNumberFromRight) [0x005ba] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\AI\\ProductionVenueRaceFactory.cs:88 \r\n  at Biathlon.Unity.Presentation.ProductionVenueHost.Initialize (Biathlon.Domain.VenueAuthoringPlan venue, Biathlon.Domain.CompetitionProfile profile, Biathlon.Domain.RaceRoutePlan route, Biathlon.Domain.RaceSnowConditions conditions, System.Int32 count, System.Int32 playerIndex, Biathlon.Simulation.PursuitQualificationSnapshot qualification) [0x00029] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\ProductionVenueHost.cs:164 \r\n  at Biathlon.PlayModeTests.M15AudioTests+<DenseFieldReactionCountsBelongToPlayerWhileCameraFollowsAnotherAthlete>d__16.MoveNext () [0x000d2] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\M15AudioTests.cs:237 \r\n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52 "
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.M15AudioTests.SettingsAreAccessibleAndIsolatedPreferencesDoNotWriteOwnerProfile",
+            "Status": "Passed",
+            "Duration": "00:00:00.0270000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.M15AudioTests.SkiOnlyAcceptedTicksNeverEmitRifleBoltOrTargets",
+            "Status": "Passed",
+            "Duration": "00:00:00.9760000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.M15AudioTests.SpatialReportStaysAtWorldPositionWhenListenerMoves",
+            "Status": "Passed",
+            "Duration": "00:00:00.0140000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.M15AudioTests.SpectatedBotAndItsAcceptedShotsCannotTriggerCrowdReactions",
+            "Status": "Passed",
+            "Duration": "00:00:04.7200000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.M15AudioTests.VoiceBudgetPrioritizesPlayerAndMuteStopsAllAudibleGain",
+            "Status": "Passed",
+            "Duration": "00:00:00.0130000"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.M15AudioTests.WarmPoolUpdateBudgetIsBounded",
+            "Status": "Passed",
+            "Duration": "00:00:00.0060000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

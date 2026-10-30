@@ -1,4 +1,5 @@
 using System;
+using Biathlon.Presentation;
 using Biathlon.Simulation;
 using UnityEngine;
 
@@ -12,12 +13,13 @@ namespace Biathlon.Unity.Presentation
         public bool ShootingFocus {get;private set;}
         public int AcceptedShots {get;private set;} public int TargetClosures {get;private set;} public int BoltCycles {get;private set;}
         public int SuppressedObservations {get;private set;}
+        public int PlayerHitReactions {get;private set;} public int PlayerMissReactions {get;private set;}
         private BiathlonAudio audio;private RangePresentation range;
         private RacePresentationSnapshot previous;
         private Camera viewOverride;
         private int selected,frame=-1,events,countdown=-1;
         private bool replay,replaySuppressed,wasSuspended=true;
-        private double nextBreath,nextHeart,nextPole,nextCheer;
+        private double nextBreath,nextHeart,nextPole;
         private Vector3 crowdPoint;private float crowdRadius;
         public bool Suspended=>Host==null||Host.HasSimulationFault||Host.FastFinish||Host.StartWaitFastForwarding||
             (replay?replaySuppressed:!Host.enabled);
@@ -40,10 +42,24 @@ namespace Biathlon.Unity.Presentation
         {
             if(current==null)return;
             var prior=previous;previous=current;
-            if(Suspended||prior==null||current.Tick<=prior.Tick||current.Count!=prior.Count||current.ProfileId!=prior.ProfileId||
+            if(Suspended||prior==null||current.Tick<=prior.Tick||current.Count!=prior.Count||current.ProfileId!=prior.ProfileId||current.TrackId!=prior.TrackId||current.TickFrequency!=prior.TickFrequency||
                 current.Tick-prior.Tick>current.TickFrequency*audio.Definition.event_gap_seconds)
             {SuppressedObservations++;return;}
             if(frame!=Time.frameCount){frame=Time.frameCount;events=0;}
+            // The actual player owns crowd feedback even when spectating/replaying a bot.
+            // Only adjacent accepted ticks identify one fresh shot; seeks never replay a reaction.
+            if(current.Tick==prior.Tick+1&&Host.PlayerIndex>=0&&Host.PlayerIndex<current.Count)
+            {
+                var a=prior.Get(Host.PlayerIndex);var b=current.Get(Host.PlayerIndex);
+                var oldShot=new RangeBroadcastObservation(a.AthleteId,a.CompletedBouts,a.RangeLane,a.ShotsFired,a.ClosedTargetsMask,a.LastCompletedBoutClosedMask,a.ShootingActive);
+                var newShot=new RangeBroadcastObservation(b.AthleteId,b.CompletedBouts,b.RangeLane,b.ShotsFired,b.ClosedTargetsMask,b.LastCompletedBoutClosedMask,b.ShootingActive);
+                var result=AcceptedShotTransition.Result(oldShot,newShot);
+                if(result==RangeShotMark.Hit||result==RangeShotMark.Miss)
+                {
+                    if(result==RangeShotMark.Hit)PlayerHitReactions++;else PlayerMissReactions++;
+                    Emit(result==RangeShotMark.Hit?AudioCue.CrowdHit:AudioCue.CrowdMiss,crowdPoint,false,1,true,audio.Definition.crowd_reaction_delay_seconds);
+                }
+            }
             // Player/observed athlete first, then nearby reports. Dense fields cannot starve player feedback.
             Handle(current,prior,selected);
             for(int i=0;i<current.Count&&events<audio.Definition.max_events_per_frame;i++)if(i!=selected)Handle(current,prior,i);
@@ -68,12 +84,10 @@ namespace Biathlon.Unity.Presentation
                 var forward=Host.Venue.Manifest.Range.Forward;
                 var target=position+new Vector3((float)forward.X,0,(float)forward.Z)*50;
                 Emit(hit?AudioCue.TargetHit:AudioCue.TargetMiss,target,true,1,local,.14);
-                if(local&&b.ShotsFired==5&&b.ClosedTargetsMask==31&&Time.unscaledTimeAsDouble>=nextCheer)
-                {Emit(AudioCue.Cheer,crowdPoint,true,1,false,.3);nextCheer=Time.unscaledTimeAsDouble+4;}
             }
             if(b.ShootingPhase==ShootingPhase.BoltCycle&&a.ShootingPhase!=ShootingPhase.BoltCycle)
             {BoltCycles++;Emit(AudioCue.Bolt,position,!local,local?1:.35f,local);}
-            if(local&&b.Phase==CompetitionPhase.Finished&&a.Phase!=CompetitionPhase.Finished)
+            if(i==Host.PlayerIndex&&b.Phase==CompetitionPhase.Finished&&a.Phase!=CompetitionPhase.Finished)
                 Emit(AudioCue.Cheer,crowdPoint,true,1,true);
         }
         private void Emit(AudioCue cue,Vector3 position,bool spatial,float gain,bool local,double delay=0)

@@ -126,9 +126,10 @@ namespace Biathlon.Unity.Presentation
         private float Gain(Voice voice,bool duck)
         {
             var c=Definition.cues[(int)voice.cue];int b=(int)buses[(int)voice.cue];
-            float quiet=Preferences.quiet&&(voice.cue==AudioCue.Rifle||voice.cue==AudioCue.Cheer)? .55f:1;
+            bool reaction=voice.cue==AudioCue.CrowdHit||voice.cue==AudioCue.CrowdMiss;
+            float quiet=Preferences.quiet&&(voice.cue==AudioCue.Rifle||voice.cue==AudioCue.Cheer||reaction)? .55f:1;
             return voice.gain*c.gain*Preferences.master*Preferences.Gain((AudioBus)b)*Definition.mix_headroom*quiet*
-                (duck&&b==(int)AudioBus.Ambience?Definition.focus_duck:1)*(!focused&&Preferences.mute_unfocused?0:1);
+                (duck&&b==(int)AudioBus.Ambience&&!reaction?Definition.focus_duck:1)*(!focused&&Preferences.mute_unfocused?0:1);
         }
         private void LateUpdate()
         {

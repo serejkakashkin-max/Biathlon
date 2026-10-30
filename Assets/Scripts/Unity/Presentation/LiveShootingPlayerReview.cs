@@ -24,6 +24,8 @@ namespace Biathlon.Unity.Presentation
             public int schema_version=1;public string id="m16_2_native_live_board",unity;
             public string method="Actual production career MassStart,30athletes. Accepted snapshots; no edited outcomes. Main probe uses AI controls; optional miss probe uses normal player effort/aim/trigger/bolt commands with existing AI steering for reproducible off-target input. Native world plus native UI composited in GPU;20fps video advances one accepted20Hz tick per frame.";
             public bool manual_player_control;
+            public bool audio_review;public int audio_hits,audio_misses,audio_played,audio_other_shots,audio_sources,audio_peak_voices,audio_samples,audio_channels,audio_rate;
+            public long audio_pcm_bytes;public float audio_peak,audio_rms;
             public bool success,player_natural_order,player_miss,clean_series,queue_replacement,tab_preserved;
             public int maximum_active,maximum_overflow,distinct_displayed,frames;public long tick;
             public string[] errors;public List<Event> events=new List<Event>();public List<string> captures=new List<string>();
@@ -42,7 +44,7 @@ namespace Biathlon.Unity.Presentation
         {
             var args=Environment.GetCommandLineArgs();int at=Array.IndexOf(args,"-biathlonLiveShootingOutput");if(at<0||at+1>=args.Length){Application.Quit(1);yield break;}
             output=Path.GetFullPath(args[at+1]);Directory.CreateDirectory(output);Application.runInBackground=true;
-            receipt=new Evidence{unity=Application.unityVersion,manual_player_control=Array.IndexOf(args,"-biathlonLiveShootingMissReview")>=0};Application.logMessageReceived+=Log;
+            receipt=new Evidence{unity=Application.unityVersion,manual_player_control=Array.IndexOf(args,"-biathlonLiveShootingMissReview")>=0,audio_review=Array.IndexOf(args,"-biathlonLiveShootingAudioReview")>=0};Application.logMessageReceived+=Log;
             var stack=new Stack<IEnumerator>();stack.Push(Run());
             while(stack.Count>0)
             {
@@ -53,7 +55,10 @@ namespace Biathlon.Unity.Presentation
             }
             while(stack.Count>0)(stack.Pop() as IDisposable)?.Dispose();ReleaseTargets();if(composite!=null)Destroy(composite);
             receipt.errors=errors.ToArray();receipt.tick=host?.Runner.Field.Tick.Value??0;receipt.distinct_displayed=seen.Count;
-            receipt.success=errors.Count==0&&receipt.frames>100&&receipt.tab_preserved&&(receipt.manual_player_control?receipt.player_miss:receipt.maximum_active>=25&&receipt.maximum_overflow>0&&receipt.player_natural_order&&receipt.clean_series&&receipt.queue_replacement);
+            receipt.success=errors.Count==0&&(receipt.audio_review?
+                receipt.audio_hits+receipt.audio_misses==5&&receipt.audio_played==5&&receipt.audio_other_shots>20&&receipt.audio_sources==22&&receipt.audio_peak_voices<=22&&receipt.audio_samples>10000&&receipt.audio_peak>.01f&&receipt.audio_peak<.98f&&receipt.audio_rms>.001f&&
+                (receipt.manual_player_control?receipt.audio_misses==5:receipt.audio_hits==5):
+                receipt.frames>100&&receipt.tab_preserved&&(receipt.manual_player_control?receipt.player_miss:receipt.maximum_active>=25&&receipt.maximum_overflow>0&&receipt.player_natural_order&&receipt.clean_series&&receipt.queue_replacement));
             File.WriteAllText(Path.Combine(output,"review.json"),JsonUtility.ToJson(receipt,true));Application.logMessageReceived-=Log;Application.Quit(receipt.success?0:1);
         }
         private static string Read(string name)=>ProductionVenueHost.ReadResource("Biathlon/"+Path.GetFileNameWithoutExtension(name));
@@ -75,19 +80,12 @@ namespace Biathlon.Unity.Presentation
             host.Environment.SetViewCamera(camera);host.GetComponent<RenderQualityPresentation>().Apply("high");Application.targetFrameRate=-1;QualitySettings.vSyncCount=0;
             panel=(PanelSettings)typeof(GameplayHud).GetField("panel",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).GetValue(host.GameplayHud);
             composite=new Material(Resources.Load<Shader>("Biathlon/UI/LiveShootingReviewComposite"));
+            if(receipt.audio_review){yield return RunAudio();yield break;}
             for(int i=0;i<previous.Length;i++)previous[i]=-1;
             bool started=false,screens=false;int recording=0,missRecording=0,aimingFrames=0,frameLimit=receipt.manual_player_control?300:620;
             for(int step=0;step<16000;step++)
             {
-                if(receipt.manual_player_control)
-                {
-                    var actor=host.Runner.Field.GetAthlete(host.PlayerIndex);var next=host.Runner.Field.Tick.Next();var shooting=actor.ActiveShooting;
-                    aimingFrames=shooting?.Phase==ShootingPhase.Aiming?aimingFrames+1:0;
-                    var input=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(next,actor.AthleteId,1000),1,1,0),
-                        new WeaponAimCommand(next,actor.AthleteId,0,1000),aimingFrames>=40,false,host.Runner.RaceWind,cycleBolt:shooting?.NeedsBoltCycle==true,manualBoltCycle:true);
-                    host.Runner.StepWithManualPlayer(host.PlayerIndex,input,0,true);
-                }
-                else host.Runner.Step();
+                Advance(ref aimingFrames);
                 var snapshot=RacePresentationSnapshot.Capture(host.Runner.Field);host.Feed.Publish(snapshot);host.Feed.SetInterpolationAlpha(1);host.GameplayHud.Refresh();
                 var hud=host.GameplayHud;var board=hud.RangeBroadcast;
                 if(!receipt.tab_preserved&&hud.RangeBroadcastVisible&&!snapshot.Get(host.PlayerIndex).ShootingActive)
@@ -133,6 +131,44 @@ namespace Biathlon.Unity.Presentation
                 else if(step%200==0)yield return null;
             }
             Require(started,"Actual30-athlete range not reached.");
+        }
+        private void Advance(ref int aimingFrames)
+        {
+            if(!receipt.manual_player_control){host.Runner.Step();return;}
+            var actor=host.Runner.Field.GetAthlete(host.PlayerIndex);var next=host.Runner.Field.Tick.Next();var shooting=actor.ActiveShooting;
+            aimingFrames=shooting?.Phase==ShootingPhase.Aiming?aimingFrames+1:0;
+            var input=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(next,actor.AthleteId,1000),1,1,0),
+                new WeaponAimCommand(next,actor.AthleteId,0,1000),aimingFrames>=40,false,host.Runner.RaceWind,cycleBolt:shooting?.NeedsBoltCycle==true,manualBoltCycle:true);
+            host.Runner.StepWithManualPlayer(host.PlayerIndex,input,0,true);
+        }
+        private IEnumerator RunAudio()
+        {
+            receipt.id="m16_2_native_player_crowd_audio";
+            receipt.method="Actual30-athlete production career MassStart. Native AudioListener mixer capture at ordinary accepted20Hz steps. Camera audio selection deliberately follows bot1; crowd reactions remain tied to Host.PlayerIndex. Optional miss uses ordinary off-target aim/trigger/bolt input. No edited outcomes or synthesized audio.";
+            var audio=BiathlonAudio.Instance;audio.SetPreferences(new BiathlonAudioPreferences{mute_unfocused=false},false);audio.SetMenu(false);audio.StopRaceVoices();
+            var director=host.GetComponent<RaceAudioPresentation>();director.ReplayContext(camera,1,true);
+            var capture=audio.gameObject.AddComponent<M15AudioCapture>();Resize(960,540);
+            int aiming=0;bool recording=false;
+            for(int step=0;step<16000;step++)
+            {
+                Advance(ref aiming);var snapshot=RacePresentationSnapshot.Capture(host.Runner.Field);
+                if(!recording&&snapshot.Get(host.PlayerIndex).ShootingActive)
+                {capture.Begin(35);recording=true;director.ReplayContext(camera,1,false);director.RenderAudio();}
+                host.Feed.Publish(snapshot);host.Feed.SetInterpolationAlpha(1);host.GameplayHud.Refresh();
+                if(recording)
+                {
+                    Draw();yield return new WaitForSecondsRealtime(1f/snapshot.TickFrequency);
+                    if(director.PlayerHitReactions+director.PlayerMissReactions==5){Save("audio-final-shot.png");break;}
+                }
+                else if(step%200==0)yield return null;
+            }
+            Require(recording,"Actual player's shooting not reached for native audio.");
+            yield return new WaitForSecondsRealtime(3);capture.End();yield return null;
+            receipt.audio_hits=director.PlayerHitReactions;receipt.audio_misses=director.PlayerMissReactions;
+            receipt.audio_played=audio.PlayedCue(AudioCue.CrowdHit)+audio.PlayedCue(AudioCue.CrowdMiss);
+            receipt.audio_other_shots=director.AcceptedShots-5;receipt.audio_sources=audio.SourceCount;receipt.audio_peak_voices=audio.PeakVoices;receipt.audio_pcm_bytes=audio.PcmBytes;
+            receipt.audio_samples=capture.Count;receipt.audio_channels=capture.Channels;receipt.audio_rate=AudioSettings.outputSampleRate;receipt.audio_peak=capture.Peak();receipt.audio_rms=capture.Rms();
+            capture.Save(Path.Combine(output,"native-player-reactions.wav"));
         }
         private bool WasDisplayed(int athlete){foreach(int prior in previous)if(prior==athlete)return true;return false;}
         private static void Require(bool value,string message){if(!value)throw new InvalidOperationException(message);}

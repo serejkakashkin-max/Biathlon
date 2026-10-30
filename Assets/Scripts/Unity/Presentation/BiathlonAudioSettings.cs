@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Biathlon.Unity.Presentation
 {
     public enum AudioBus { Effects, Body, Ambience, Interface, Music }
-    public enum AudioCue { SkiPacked, SkiSoft, SkiIce, Pole, Breath, Heart, Rifle, Bolt, TargetHit, TargetMiss, Wind, Snowfall, Crowd, Cheer, Focus, Confirm, Back, Countdown, Start, Menu }
+    public enum AudioCue { SkiPacked, SkiSoft, SkiIce, Pole, Breath, Heart, Rifle, Bolt, TargetHit, TargetMiss, Wind, Snowfall, Crowd, Cheer, Focus, Confirm, Back, Countdown, Start, Menu, CrowdHit, CrowdMiss }
     [Serializable] public sealed class AudioCueDefinition
     {
         public string id, bus;
@@ -18,7 +18,7 @@ namespace Biathlon.Unity.Presentation
         public int schema_version, transient_voices, loop_voices, max_events_per_frame;
         public string id;
         public float fade_seconds, focus_duck, speed_reference, pole_distance, breath_min_seconds, breath_max_seconds,
-            heart_threshold, heart_ceiling, event_gap_seconds, ui_cooldown_seconds, silent_threshold, mix_headroom;
+            heart_threshold, heart_ceiling, event_gap_seconds, ui_cooldown_seconds, silent_threshold, mix_headroom,crowd_reaction_delay_seconds;
         public AudioCueDefinition[] cues;
         public static BiathlonAudioDefinition Load()
         {
@@ -31,6 +31,7 @@ namespace Biathlon.Unity.Presentation
                 !(fade_seconds>0&&fade_seconds<10)||!(focus_duck>=0&&focus_duck<=1)||!(speed_reference>0)||!(pole_distance>0)||
                 !(breath_min_seconds>0&&breath_max_seconds>=breath_min_seconds)||!(heart_ceiling>heart_threshold&&heart_threshold>0)||
                 !(event_gap_seconds>0&&event_gap_seconds<=2)||!(ui_cooldown_seconds>0)||!(silent_threshold>0&&silent_threshold<.01f)||!(mix_headroom>0&&mix_headroom<=1)||
+                !(crowd_reaction_delay_seconds>=.1f&&crowd_reaction_delay_seconds<=.6f)||
                 cues==null||cues.Length!=Enum.GetValues(typeof(AudioCue)).Length)throw new ArgumentException("Invalid audio definition.");
             for(int i=0;i<cues.Length;i++)
             {

@@ -12,6 +12,7 @@ namespace Biathlon.Tests
     {
         [Serializable]private sealed class Source {public string id,sha256;}
         [Serializable]private sealed class Sources {public Source[] clips;}
+        [Serializable]private sealed class CrowdSources {public int schema_version;public string id,license;public Source[] clips;}
         [Test]public void NativeMixerHasEveryBusAndVoiceBudgetFitsEngine()
         {
             var mixer=Resources.Load<AudioMixer>("Biathlon/Audio/Biathlon");Assert.That(mixer,Is.Not.Null);
@@ -37,6 +38,13 @@ namespace Biathlon.Tests
                 string path="Assets/Resources/Biathlon/Audio/"+clip.id+".wav";
                 Assert.That(BitConverter.ToString(hash.ComputeHash(File.ReadAllBytes(path))).Replace("-","").ToLowerInvariant(),Is.EqualTo(clip.sha256));
             }
+        }
+        [Test]public void ImportedHumanCrowdReactionsHaveCc0ProvenanceAndMatchingPreparedHashes()
+        {
+            var sources=JsonUtility.FromJson<CrowdSources>(Resources.Load<TextAsset>("Biathlon/Audio/crowd_reactions_sources").text);
+            Assert.That(sources.schema_version,Is.EqualTo(1));Assert.That(sources.id,Is.EqualTo("m16_2_player_crowd_sources"));Assert.That(sources.license,Is.EqualTo("CC0-1.0"));
+            Assert.That(sources.clips.Length,Is.EqualTo(4));using(var hash=SHA256.Create())foreach(var clip in sources.clips)
+                Assert.That(BitConverter.ToString(hash.ComputeHash(File.ReadAllBytes("Assets/Resources/Biathlon/Audio/"+clip.id+".wav"))).Replace("-","").ToLowerInvariant(),Is.EqualTo(clip.sha256));
         }
     }
 }

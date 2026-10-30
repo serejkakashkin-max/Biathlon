@@ -1,7 +1,7 @@
 {
  "schema_version":1,"id":"frostline_audio_v1","transient_voices":16,"loop_voices":6,"max_events_per_frame":12,
  "fade_seconds":0.4,"focus_duck":0.32,"speed_reference":11,"pole_distance":4.2,"breath_min_seconds":1.7,"breath_max_seconds":4.5,
- "heart_threshold":145,"heart_ceiling":195,"event_gap_seconds":0.5,"ui_cooldown_seconds":0.075,"silent_threshold":0.0005,"mix_headroom":0.55,
+ "heart_threshold":145,"heart_ceiling":195,"event_gap_seconds":0.5,"ui_cooldown_seconds":0.075,"silent_threshold":0.0005,"mix_headroom":0.55,"crowd_reaction_delay_seconds":0.24,
  "cues":[
   {"id":"SkiPacked","bus":"Effects","clips":["ski_packed"],"gain":0.32,"priority":80,"loop":true},
   {"id":"SkiSoft","bus":"Effects","clips":["ski_soft"],"gain":0.36,"priority":80,"loop":true},
@@ -22,6 +22,8 @@
   {"id":"Back","bus":"Interface","clips":["ui_back"],"gain":0.26,"priority":25},
   {"id":"Countdown","bus":"Interface","clips":["countdown"],"gain":0.38,"priority":5},
   {"id":"Start","bus":"Interface","clips":["start"],"gain":0.45,"priority":5},
-  {"id":"Menu","bus":"Music","clips":["menu_air"],"gain":0.55,"priority":180,"loop":true}
+  {"id":"Menu","bus":"Music","clips":["menu_air"],"gain":0.55,"priority":180,"loop":true},
+  {"id":"CrowdHit","bus":"Ambience","clips":["crowd_hit_0","crowd_hit_1"],"gain":0.58,"priority":22},
+  {"id":"CrowdMiss","bus":"Ambience","clips":["crowd_miss_0","crowd_miss_1"],"gain":0.52,"priority":22}
  ]
 }

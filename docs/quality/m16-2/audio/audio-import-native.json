@@ -1,0 +1,47 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":4,\"PassedTests\":4,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:00.8563860\"},\"Results\":[{\"Name\":\"Biathlon.Tests.M15AudioImportTests.AllShortAndLoopClipsPreloadPcmWithoutRuntimeDecoding\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0130000\"},{\"Name\":\"Biathlon.Tests.M15AudioImportTests.ImportedHumanCrowdReactionsHaveCc0ProvenanceAndMatchingPreparedHashes\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0040000\"},{\"Name\":\"Biathlon.Tests.M15AudioImportTests.NativeMixerHasEveryBusAndVoiceBudgetFitsEngine\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0060000\"},{\"Name\":\"Biathlon.Tests.M15AudioImportTests.OriginalSoundSourcesMatchProvenanceHashes\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0950000\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 4,
+          "PassedTests": 4,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.8563860"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.Tests.M15AudioImportTests.AllShortAndLoopClipsPreloadPcmWithoutRuntimeDecoding",
+            "Status": "Passed",
+            "Duration": "00:00:00.0130000"
+          },
+          {
+            "Name": "Biathlon.Tests.M15AudioImportTests.ImportedHumanCrowdReactionsHaveCc0ProvenanceAndMatchingPreparedHashes",
+            "Status": "Passed",
+            "Duration": "00:00:00.0040000"
+          },
+          {
+            "Name": "Biathlon.Tests.M15AudioImportTests.NativeMixerHasEveryBusAndVoiceBudgetFitsEngine",
+            "Status": "Passed",
+            "Duration": "00:00:00.0060000"
+          },
+          {
+            "Name": "Biathlon.Tests.M15AudioImportTests.OriginalSoundSourcesMatchProvenanceHashes",
+            "Status": "Passed",
+            "Duration": "00:00:00.0950000"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

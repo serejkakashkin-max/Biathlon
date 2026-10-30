@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Linq;
+using Biathlon.AI;
 using Biathlon.Career;
 using Biathlon.Domain;
 using Biathlon.Presentation;
@@ -36,13 +37,14 @@ namespace Biathlon.PlayModeTests
                 if(cue.loop)Assert.That(Math.Abs(data[0]-data[data.Length-1]),Is.LessThan(.0001),"Seam: "+id);
                 clips++;
             }
-            Assert.That(clips,Is.EqualTo(24));Assert.That(audio.SourceCount,Is.EqualTo(22));Assert.That(audio.PcmBytes,Is.LessThan(20*1024*1024));
+            Assert.That(clips,Is.EqualTo(28));Assert.That(audio.SourceCount,Is.EqualTo(22));Assert.That(audio.PcmBytes,Is.LessThan(20*1024*1024));
         }
         [Test]public void DefinitionsRejectInvalidBudgetsGainsAndPreferences()
         {
             var d=BiathlonAudioDefinition.Load();d.transient_voices=10000;Assert.Throws<ArgumentException>(d.Validate);
             d=BiathlonAudioDefinition.Load();d.cues[0].gain=float.NaN;Assert.Throws<ArgumentException>(d.Validate);
             d=BiathlonAudioDefinition.Load();d.cues[0].clips[0]="../outside";Assert.Throws<ArgumentException>(d.Validate);
+            d=BiathlonAudioDefinition.Load();d.crowd_reaction_delay_seconds=float.NaN;Assert.Throws<ArgumentException>(d.Validate);
             var a=Audio();var p=new BiathlonAudioPreferences{master=float.PositiveInfinity};Assert.Throws<ArgumentException>(()=>a.SetPreferences(p,false));
             p.master=-1;Assert.That(p.Valid(),Is.False);
         }
@@ -70,6 +72,12 @@ namespace Biathlon.PlayModeTests
             public bool HasProfile=>false;public string ReadLatest()=>throw new FileNotFoundException();
             public void WriteNew(string id,string json)=>throw new InvalidOperationException();
             public void Replace(string id,string expected,string json)=>throw new InvalidOperationException();
+        }
+        private sealed class MemoryStore:ICareerProfileStore
+        {
+            private string json;public bool HasProfile=>json!=null;public string ReadLatest()=>json;
+            public void WriteNew(string id,string value)=>json=value;
+            public void Replace(string id,string expected,string value){Assert.That(json,Is.EqualTo(expected));json=value;}
         }
         [UnityTest]public IEnumerator SettingsAreAccessibleAndIsolatedPreferencesDoNotWriteOwnerProfile()
         {
@@ -112,6 +120,8 @@ namespace Biathlon.PlayModeTests
             Assert.That(director.BoltCycles,Is.EqualTo(bolts));Assert.That(bolts,Is.EqualTo(5));
             Assert.That(director.TargetClosures,Is.Zero,"Deliberate off-board shots must not sound a closed target.");
             Assert.That(audio.PlayedCue(AudioCue.Rifle),Is.EqualTo(5));Assert.That(audio.PlayedCue(AudioCue.TargetMiss),Is.EqualTo(5));
+            Assert.That(director.PlayerHitReactions,Is.Zero);Assert.That(director.PlayerMissReactions,Is.EqualTo(5));
+            Assert.That(audio.PlayedCue(AudioCue.CrowdMiss),Is.GreaterThan(0));Assert.That(audio.PlayedCue(AudioCue.CrowdHit),Is.Zero);
             director.ReplayContext(host.ChaseCamera,0,true);director.RenderAudio();yield return null;
             foreach(var s in audio.GetComponentsInChildren<AudioSource>())Assert.That(s.isPlaying,Is.False,"Pause/seek must stop race audio.");
             Assert.That(audio.SourceCount,Is.EqualTo(22));
@@ -194,11 +204,72 @@ namespace Biathlon.PlayModeTests
             int hits=0;for(int i=0;i<5;i++)if((closed&(1<<i))!=0)hits++;
             Assert.That(hits,Is.GreaterThan(0));Assert.That(director.TargetClosures,Is.EqualTo(hits));
             Assert.That(audio.PlayedCue(AudioCue.TargetHit),Is.EqualTo(hits));Assert.That(director.AcceptedShots,Is.EqualTo(5));
+            Assert.That(director.PlayerHitReactions,Is.EqualTo(hits));Assert.That(director.PlayerMissReactions,Is.EqualTo(5-hits));
+            Assert.That(audio.PlayedCue(AudioCue.Cheer),Is.Zero,"The fifth hit must not stack the old extra series cheer.");
             Assert.That(beats,Is.GreaterThan(0));Assert.That(audio.PlayedCue(AudioCue.Heart),Is.GreaterThan(0));
             // Explicit breath suppression leaves the separately mixed heart channel alive.
             audio.StopRaceVoices();audio.Play(AudioCue.Breath);audio.Play(AudioCue.Heart);audio.StopBreath();
             Assert.That(audio.GetComponentsInChildren<AudioSource>().Any(s=>s.clip?.name=="heart"&&s.isPlaying),Is.True);
             TestContext.WriteLine("AI accepted hits="+hits+", breath-hold observed="+held+", simulation beats="+beats);
+        }
+        [UnityTest]public IEnumerator SpectatedBotAndItsAcceptedShotsCannotTriggerCrowdReactions()
+        {
+            var audio=Audio();var venue=PathPresentationFixture.Plan();
+            var profile=CompetitionProfile.FromJson(ProductionVenueHost.ReadResource("Biathlon/sprint_test_v1").Replace("\"distance_m\":3000","\"distance_m\":900"));
+            var route=RaceRoutePlan.TimeTrial("audio_player_only",venue.Track.Id,"main",profile.ToRouteRequirements());
+            var snow=RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1").Replace("snow_test_packed","packed"));
+            var host=root.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;host.UseManualHeading=false;host.Initialize(venue,profile,route,snow,count:2);
+            var director=host.GetComponent<RaceAudioPresentation>();director.ReplayContext(host.ChaseCamera,1,false);
+            var id=host.Runner.Field.GetAthlete(host.PlayerIndex).AthleteId;
+            RacePresentationSnapshot earlier=null;int bots=0;
+            while(host.Runner.Field.GetAthlete(1).Lifecycle.CompletedBouts==0&&host.Runner.Field.Tick.Value<15000)
+            {
+                var prior=host.Feed.Current;var tick=host.Runner.Field.Tick.Next();
+                host.Step(new PlayerCommand(tick,id,800,0),new ShootingDeviceCommand(new WeaponAimCommand(tick,id,0,0),false,false,false));
+                var now=host.Feed.Current;if(earlier==null&&now.Get(host.PlayerIndex).ShootingActive)earlier=now;
+                if(now.Get(1).ShotsFired>prior.Get(1).ShotsFired)bots++;
+                if(now.Get(1).ShootingActive||tick.Value%200==0)yield return null;
+            }
+            Assert.That(bots,Is.EqualTo(5));Assert.That(host.Feed.Current.Get(host.PlayerIndex).ShotsFired,Is.Zero);
+            Assert.That(director.PlayerHitReactions+director.PlayerMissReactions,Is.Zero);
+            Assert.That(audio.PlayedCue(AudioCue.CrowdHit)+audio.PlayedCue(AudioCue.CrowdMiss)+audio.PlayedCue(AudioCue.Cheer),Is.Zero);
+            if(earlier!=null){director.Observe(earlier);director.Observe(host.Feed.Current);Assert.That(director.PlayerHitReactions+director.PlayerMissReactions,Is.Zero);}
+        }
+        [UnityTest]public IEnumerator DenseFieldReactionCountsBelongToPlayerWhileCameraFollowsAnotherAthlete()
+        {
+            var audio=Audio();var menu=root.AddComponent<FrontEndMenu>();menu.AutoStart=false;menu.PersistPreferences=false;menu.Initialize(new MemoryStore());
+            menu.Session.OpenNewCareer();menu.Session.CreateCareer("crowd_audio_test","Алекс Северин","NOR",11);
+            for(int i=0;i<5;i++)menu.Session.RestWeek();menu.Session.OpenPreRace();var week=menu.Session.PreparedWeek;
+            CareerCalendarEvent mass=null;for(int w=1;w<=52;w++){var e=menu.Session.Definitions.Calendar.AtWeek(w);if(e?.Format==CompetitionFormat.MassStart){mass=e;break;}}
+            string Read(string file)=>ProductionVenueHost.ReadResource("Biathlon/"+Path.GetFileNameWithoutExtension(file));
+            var prepared=new CareerRaceProvider(Read,menu.Session.Definitions,ProductionVenueHost.ReadResource).Prepare(CareerSave.FromJson(week.RaceSnapshotJson),mass,week.RaceSeed);
+            var race=new GameObject("Actual30-athlete crowd audio field");race.transform.SetParent(root.transform);
+            var host=race.AddComponent<ProductionVenueHost>();host.AutoStart=false;host.enabled=false;host.InitializeCareer(prepared);menu.enabled=false;menu.Root.style.display=DisplayStyle.None;
+            var director=host.GetComponent<RaceAudioPresentation>();director.ReplayContext(host.ChaseCamera,1,false);
+            int hits=0,misses=0,botShots=0;RacePresentationSnapshot earlier=null;
+            while(host.Runner.Field.Tick.Value<20000)
+            {
+                var prior=host.Feed.Current;host.Runner.Step();var now=RacePresentationSnapshot.Capture(host.Runner.Field);
+                for(int i=0;i<now.Count;i++)
+                {
+                    var a=prior.Get(i);var b=now.Get(i);
+                    if(a.ShootingActive&&b.ShootingActive&&b.CompletedBouts==a.CompletedBouts&&b.ShotsFired==a.ShotsFired+1)
+                    {if(i!=host.PlayerIndex)botShots++;else if((b.ClosedTargetsMask&~a.ClosedTargetsMask)!=0)hits++;else misses++;}
+                }
+                host.Feed.Publish(now);
+                int count=director.PlayerHitReactions+director.PlayerMissReactions;long tick=host.Runner.Field.Tick.Value;
+                director.Observe(now);Assert.That(director.PlayerHitReactions+director.PlayerMissReactions,Is.EqualTo(count));Assert.That(host.Runner.Field.Tick.Value,Is.EqualTo(tick));
+                if(earlier==null&&now.Get(host.PlayerIndex).ShotsFired==1)earlier=now;
+                bool done=true;for(int i=0;i<now.Count;i++)done&=now.Get(i).CompletedBouts>0;
+                if(done)break;if(tick%50==0)yield return null;
+            }
+            Assert.That(hits+misses,Is.EqualTo(5));Assert.That(botShots,Is.EqualTo(145));
+            Assert.That(director.PlayerHitReactions,Is.EqualTo(hits));Assert.That(director.PlayerMissReactions,Is.EqualTo(misses));
+            int before=director.PlayerHitReactions+director.PlayerMissReactions;
+            director.Observe(earlier);director.Observe(host.Feed.Current);Assert.That(director.PlayerHitReactions+director.PlayerMissReactions,Is.EqualTo(before),"Rewind/gap must not burst past reactions.");
+            director.ReplayContext(host.ChaseCamera,1,true);director.RenderAudio();yield return null;
+            foreach(var source in audio.GetComponentsInChildren<AudioSource>())Assert.That(source.isPlaying,Is.False);
+            Assert.That(audio.SourceCount,Is.EqualTo(22));Assert.That(audio.PeakVoices,Is.LessThanOrEqualTo(22));
         }
     }
 }

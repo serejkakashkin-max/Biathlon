@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "m16_2_audio_authority_guard",
+  "status": "PASS",
+  "protected_baseline_files": 655,
+  "changed": [
+    "Assets/Resources/Biathlon/Audio/audio_v1.json"
+  ],
+  "permitted_presentation_change": "Audio cue bank configuration only. Domain/Simulation/AI/Career/Replay and all other protected non-UI JSON remain exact; original24WAVs validated separately. No race output change can originate in this observer.",
+  "state_prefix_commit": "a0fd8c9d",
+  "state_history_preserved": true
+}

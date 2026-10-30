@@ -11,6 +11,7 @@ Preserve unrelated owner changes, accepted authority, motion, quality and saves.
 | C — Frostline broadcast graphics | COMPLETE | 20rows at1080p; responsive720/900p, distinct bib/mat, chronological hit/miss shapes, RU/EN, reduced motion; native layout checks PASS |
 | D — Native verification and footage | COMPLETE | 26unique native tests PASS; two actual30-athlete player scenarios PASS;31s/15s1080p videos, all30displayed, own geometric miss, clean5/5, hold/fade and replacement; offscreen stale-pixel regression fixed and footage recaptured |
 | E — Windows delivery and publication | COMPLETE / OWNER TEST PENDING | Windows build0errors; fresh5-race/14-week exact authority regression PASS; fullscreen player PASS; state/history, source guards and delivery report retained on feature branch |
+| F — Player shooting crowd audio | COMPLETE / OWNER TEST PENDING | Per-player accepted hit/miss reactions; CC0 human recordings;31native cases PASS; two actual30-athlete compiled-player mixer captures PASS; unchanged22-voice/20MiB budgets; updated fullscreen Windows build |
 
 Design: existing Deep #0B1928 / Surface #132A3B / Ink #E8F5F8 / Muted #B0C4D0 /
 Accent #85D5DF / Danger #F3988D. Oswald for names and compact broadcast numerals;

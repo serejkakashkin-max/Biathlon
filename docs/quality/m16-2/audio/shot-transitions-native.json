@@ -1,0 +1,102 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":15,\"PassedTests\":15,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:01.2729726\"},\"Results\":[{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.AcceptedResultObservationAllocatesNoManagedMemory\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0090000\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.DuplicateBootstrapNewBoutOrForeignAthleteNeverInventsAReaction\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(0)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(1)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(2)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(3)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(4)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(0)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(1)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(2)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(3)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(4)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.FifthShotAndMatReleaseInOneAcceptedStateRetainsItsResult(30,31,Hit)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.FifthShotAndMatReleaseInOneAcceptedStateRetainsItsResult(15,15,Miss)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.GapsRegressionsAndImpossibleMasksDoNotGuessOneResult\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Passed",
+          "TotalTests": 15,
+          "PassedTests": 15,
+          "FailedTests": 0,
+          "SkippedTests": 0,
+          "Duration": "00:00:01.2729726"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.Tests.AcceptedShotTransitionTests.AcceptedResultObservationAllocatesNoManagedMemory",
+            "Status": "Passed",
+            "Duration": "00:00:00.0090000"
+          },
+          {
+            "Name": "Biathlon.Tests.AcceptedShotTransitionTests.DuplicateBootstrapNewBoutOrForeignAthleteNeverInventsAReaction",
+            "Status": "Passed",
+            "Duration": "00:00:00.0010000"
+          },
+          {
+            "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(0)",
+            "Status": "Passed",
+            "Duration": "00:00:00.0010000"
+          },
+          {
+            "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(1)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(2)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(3)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(4)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(0)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(1)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(2)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(3)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(4)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.AcceptedShotTransitionTests.FifthShotAndMatReleaseInOneAcceptedStateRetainsItsResult(30,31,Hit)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.AcceptedShotTransitionTests.FifthShotAndMatReleaseInOneAcceptedStateRetainsItsResult(15,15,Miss)",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          },
+          {
+            "Name": "Biathlon.Tests.AcceptedShotTransitionTests.GapsRegressionsAndImpossibleMasksDoNotGuessOneResult",
+            "Status": "Passed",
+            "Duration": "00:00:00"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

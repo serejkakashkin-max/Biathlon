@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "id": "m16_2_player_crowd_sources",
+  "license": "CC0-1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "method": "Public high-quality previews of CC0 human recordings. Offline mono44.1kHz PCM16 excerpts,110Hz highpass/7.8kHz lowpass,40ms attack/250ms release, bounded peak. No broadcast audio, voice synthesis or runtime conversion.",
+  "preparation": "tools/audio/prepare_m162_crowd.py",
+  "sources": [
+    {
+      "id": 678546,
+      "author": "mglennsound",
+      "title": "AF Crowd Cheer Nat End .wav",
+      "page": "https://freesound.org/people/mglennsound/sounds/678546/",
+      "download": "https://cdn.freesound.org/previews/678/678546_14787385-hq.mp3",
+      "sha256": "c52d750c4a990c75fa6cf0935a24389e1a6c0e1815d9322f40f6a21d62af9a6b"
+    },
+    {
+      "id": 764035,
+      "author": "ShangusBurger",
+      "title": "CRWDAngr_Crowd Groans At Bad Joke 01_ShaneVincent_GSC24_FUMA-AmbeoVR.wav",
+      "page": "https://freesound.org/people/ShangusBurger/sounds/764035/",
+      "download": "https://cdn.freesound.org/previews/764/764035_11744683-hq.mp3",
+      "sha256": "e278c40673525c3d208329ede09fc5668e9368a4d5f7ff66bbf3d385871f8fa0"
+    }
+  ],
+  "clips": [
+    {
+      "id": "crowd_hit_0",
+      "source_id": 678546,
+      "start_seconds": 1.45,
+      "seconds": 1.15,
+      "sample_rate": 44100,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.13276508433856626,
+      "sha256": "8ba79cf39cc84c238cf745c94bb4ebcd33dd58082fe0d304fc576142f69a5b5b"
+    },
+    {
+      "id": "crowd_hit_1",
+      "source_id": 678546,
+      "start_seconds": 6.25,
+      "seconds": 1.15,
+      "sample_rate": 44100,
+      "channels": 1,
+      "peak": 0.62,
+      "rms": 0.12971473382245666,
+      "sha256": "2dd30d7e5eec6d85babfb6f3d79eb19474a8319df6ad6f2b78415107921820b6"
+    },
+    {
+      "id": "crowd_miss_0",
+      "source_id": 764035,
+      "start_seconds": 0.3,
+      "seconds": 1.15,
+      "sample_rate": 44100,
+      "channels": 1,
+      "peak": 0.58,
+      "rms": 0.09979994772651728,
+      "sha256": "52e7fd5b19ae137ba9c8aa0f5add2b2fedb306ea6dc7eb9e704fe044cef8052d"
+    },
+    {
+      "id": "crowd_miss_1",
+      "source_id": 764035,
+      "start_seconds": 0.55,
+      "seconds": 1.15,
+      "sample_rate": 44100,
+      "channels": 1,
+      "peak": 0.58,
+      "rms": 0.10239430248078181,
+      "sha256": "d51cadd4c0b013c6c489ada63c2b5de349d9d70ef89a16aadf99bb226e921f41"
+    }
+  ]
+}

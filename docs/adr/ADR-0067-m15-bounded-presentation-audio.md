@@ -54,3 +54,39 @@ are byte-identical. A ski-only accepted-state probe confirms that no rifle, bolt
 target cue is emitted without shooting. Subjective comfort still needs listening.
 PCM usage is now 20,093,760 bytes, below the existing 20 MiB test budget; source count
 remains 22. No runtime synthesis or additional per-athlete audio work was added.
+
+## 2026-10-30 — M16.2 player shooting crowd reactions
+
+Owner requests a short approving crowd reaction for each accepted player hit and
+a disappointed reaction for each accepted miss. Use actual `Host.PlayerIndex`,
+independent of the selected spectator/replay athlete. Existing nearby bot rifles
+and mechanical target sounds remain; bot hits/misses never request these crowd
+reactions. Replace the old fifth-clean-shot-only cheer with per-shot reactions,
+so a clean fifth shot does not stack two cheering clips.
+
+The observer admits one result only across adjacent accepted ticks with matching
+track/profile/clock/roster. `AcceptedShotTransition` reads shot-count/closed-mask
+deltas, including the last-completed mask when shot5 and mat release coincide.
+No geometry, RNG, shot outcome, simulation event or authoritative state is changed.
+Duplicates, rewind, skipped ticks, suspended playback and accelerated race paths
+rebase without playing historical reactions. Existing replay suppression applies.
+
+Add CrowdHit/CrowdMiss to the end of the cue enum; existing indices are stable.
+Each uses two short human-recording excerpts, predecompressed with the existing
+bank. Schedule after the accepted shot with a configurable0.24s DSP delay. These
+transients have player priority within the existing16-transient/six-loop pool.
+They obey Master/Ambience/quiet/unfocused settings. The background ambience still
+ducks during shooting; these short feedback reactions are exempt from that duck
+so they remain intelligible. No extra ordinary-game AudioSource or MonoBehaviour.
+
+Four1.15s mono44.1kHz PCM clips add811440float-PCM bytes; total20905200bytes remains
+below20MiB. Existing24original clips are byte-identical. New recordings are CC0
+Freesound public high-quality previews by mglennsound (678546) and ShangusBurger
+(764035), trimmed/equalized/faded offline. Source URLs, authors, licenses, original
+and prepared hashes are retained in crowd_reactions_sources.json and project
+credits. No copyrighted broadcast audio is extracted. The original24-clip
+provenance above remains historical and correct for that bank.
+
+Reference for the real spectator pattern:
+[IBU fan atmosphere](https://www.biathlonworld.com/discover-biathlon/why-we-love-it/fan-tv-favourite).
+Source/verification and native mixer audition: docs/quality/m16-2/audio/README.md.

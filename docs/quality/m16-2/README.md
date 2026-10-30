@@ -1,5 +1,12 @@
 # M16.2 — Live shooting broadcast · owner review
 
+2026-10-30 audio follow-up: current build also includes player-only cheering and
+disappointed crowd reactions. [Audio behavior, sources, tests and native auditions](audio/README.md).
+Use the [updated build receipt](audio/build-summary.json) and
+[updated binary hashes](audio/build-fingerprint.json) for the current executable.
+The board-only receipts/footage below describe the earlier `a0fd8c9d` candidate;
+its silent videos are UI evidence, not demonstrations of the new audio.
+
 2026-10-30. M16.1 CLOSED / OWNER APPROVED. M16.2 implementation is ready for owner
 review; closure remains the owner's decision. M17 not started. Feature branch
 `codex/m16-2-live-shooting` from `ab54425c`. Queue feature `eaa1ad21`, final release
@@ -144,7 +151,7 @@ qualification were corrected; no assertion was removed or failing test disabled.
   Selected final fullscreen screenshots: [personal countdown](fullscreen-acceptance/08-countdown.png),
   [ordinary race](fullscreen-acceptance/09-race.png). Other listed raw startup
   captures remain locally in `artifacts/m16-2/fullscreen-final`.
-* Build0errors;24API deprecation warnings in existing/new review adapters:
+* Initial board-only build0errors;24API deprecation warnings in existing/new review adapters:
   [build messages](build-messages-final.txt). Native Editor Console is clean after
   qualification: [final check](console-final.json). Native
   probes retain the existing URP active-render-texture warning at shutdown, not a
