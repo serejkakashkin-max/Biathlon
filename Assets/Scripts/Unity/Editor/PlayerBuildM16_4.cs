@@ -17,6 +17,8 @@ namespace Biathlon.Unity
             =>BuildShootingContactReview("Builds/M16_4_Visibility_Review");
         public static void BuildForestHudReview()
             =>BuildShootingContactReview("Builds/M16_4_Forest_Hud_Review");
+        public static void BuildLeaderHudReview()
+            =>BuildShootingContactReview("Builds/M16_4_Leader_Hud_Review");
         private static void BuildShootingContactReview(string folder)
         {
             BuildVisualUpgrade(folder);
@@ -28,6 +30,7 @@ namespace Biathlon.Unity
             File.AppendAllText(Path.Combine(folder,"READ_ME.txt"),"\r\nСлева под таймером — мини-карта фактического маршрута выбранного формата. Голубая стрелка — вы и ваше направление; светлые точки — соперники; золотом отмечены штрафной круг/стрельбище и стреляющие соперники, клетчатым значком — финиш. Во время стрельбы и просмотра TAB/F2 карта скрывается. Это векторный интерфейс без второй камеры мира; действуют прежние управление и баланс.\r\n");
             File.AppendAllText(Path.Combine(folder,"READ_ME.txt"),"\r\nЗрители, лес и зимний декор больше не исчезают на видимых дистанциях 110–120 м. На всех уровнях качества сохраняется заполнение трибун и лесной силуэт; дальние модели, инстансинг и отсечение за камерой/полным туманом ограничивают нагрузку. Качество ближних текстур и геометрии не снижено.\r\n");
             File.AppendAllText(Path.Combine(folder,"READ_ME.txt"),"\r\nДетализация деревьев теперь меняется плавно, с сохранением ближних моделей и текстур. Постоянные подсказки клавиш и очевидные подписи убраны с карты, темпа и стрельбы. Управление — в настройках и по F1; история отсечек — PgUp/PgDn, End к последней.\r\n");
+            File.AppendAllText(Path.Combine(folder,"READ_ME.txt"),"\r\nВ таблице отсечек TAB жёлтая майка обозначает лидера общего зачёта, красная — лидера дисциплины, жёлто-красная — оба зачёта. Значки соответствуют майкам спортсменов перед стартом. Цветные маркеры комбинезонов рядом с флагами убраны.\r\n");
         }
     }
 }

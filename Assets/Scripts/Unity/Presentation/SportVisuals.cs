@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using Biathlon.Career;
 
 namespace Biathlon.Unity.Presentation
 {
@@ -46,12 +47,14 @@ namespace Biathlon.Unity.Presentation
     public sealed class TimingAthleteRow:VisualElement
     {
         private readonly Label rank,athlete,time,gap;private readonly NationFlagGraphic flag;
+        private readonly LeaderBibGraphic leader;
         public string AthleteId {get;private set;}
         public TimingAthleteRow(float scale)
         {
             style.flexDirection=FlexDirection.Row;style.alignItems=Align.Center;style.height=31*scale;style.marginBottom=2;
             style.paddingLeft=6;style.paddingRight=8;style.borderBottomWidth=1;style.borderBottomColor=new Color(1,1,1,.07f);
             rank=Cell(30*scale,true);flag=new NationFlagGraphic("");Add(flag);athlete=Cell(0,true);athlete.style.flexGrow=1;athlete.style.flexBasis=0;
+            leader=new LeaderBibGraphic(CareerLeaderBib.None,"");leader.style.width=18*scale;leader.style.height=22*scale;leader.style.marginLeft=4*scale;leader.style.marginRight=5*scale;Add(leader);
             time=Cell(66*scale,false);gap=Cell(62*scale,true);
             time.style.unityTextAlign=gap.style.unityTextAlign=TextAnchor.MiddleRight;time.style.color=new Color(.69f,.79f,.84f);
             Label Cell(float width,bool bold)
@@ -63,9 +66,10 @@ namespace Biathlon.Unity.Presentation
                 if(bold)label.style.unityFontStyleAndWeight=FontStyle.Bold;Add(label);return label;
             }
         }
-        public void Bind(string id,int place,string name,string nation,string elapsed,string interval,bool player)
+        public void Bind(string id,int place,string name,string nation,string elapsed,string interval,bool player,CareerLeaderBib leaderRole=CareerLeaderBib.None,string leaderDescription="")
         {
             AthleteId=id;rank.text=place.ToString("00");athlete.text=name;time.text=elapsed;gap.text=interval;flag.SetNation(nation);
+            leader.SetRole(leaderRole,leaderDescription);
             tooltip=place+" · "+name+" · "+nation+" · "+elapsed+" · "+interval;
             style.backgroundColor=player?new Color(.12f,.48f,.51f,.55f):place%2==0?new Color(1,1,1,.025f):Color.clear;
             style.borderLeftWidth=3;style.borderLeftColor=player?new Color(.41f,.84f,.85f):Color.clear;

@@ -34,6 +34,8 @@ namespace Biathlon.Unity.Presentation
         private readonly Dictionary<string,string> careerSkis=new Dictionary<string,string>(StringComparer.Ordinal);
         private readonly Dictionary<string,string> careerNations=new Dictionary<string,string>(StringComparer.Ordinal);
         private CareerLeaderBibs careerBibs;
+        /// <summary>The immutable classification captured for this start, shared by the rig and race UI.</summary>
+        public CareerLeaderBib LeaderRole(string athleteId)=>careerBibs?.ForAthlete(athleteId)??CareerLeaderBib.None;
         private string prestartAthleteId;
         /// <summary>Show the selected skier waiting at the accepted launch pose.
         /// Visibility never admits a body to the authoritative course early.</summary>

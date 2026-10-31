@@ -105,7 +105,10 @@ namespace Biathlon.Unity.Presentation
                     var label=checkpointCells[i];label.style.display=table!=null&&i<table.Count?DisplayStyle.Flex:DisplayStyle.None;if(table==null||i>=table.Count)continue;
                     var row=table.Get(i);string name=broadcastNames.TryGetValue(row.AthleteId,out var value)?value:row.AthleteId;
                     string nation=broadcastNations.TryGetValue(row.AthleteId,out var code)?code:"";
-                    label.Bind(row.AthleteId,row.Rank,name,nation,GameplayHudModel.FormatClock(row.Seconds),row.GapSeconds==0?L("ЛИДЕР","LEADER"):"+"+row.GapSeconds.ToString("0.0"),row.AthleteId==athleteId);
+                    var role=host.Proxies?.LeaderRole(row.AthleteId)??Biathlon.Career.CareerLeaderBib.None;
+                    string description=role==(Biathlon.Career.CareerLeaderBib.Total|Biathlon.Career.CareerLeaderBib.Discipline)?L("Лидер общего зачёта и дисциплины","Overall and discipline leader"):
+                        role==Biathlon.Career.CareerLeaderBib.Total?L("Лидер общего зачёта","Overall leader"):role==Biathlon.Career.CareerLeaderBib.Discipline?L("Лидер дисциплины","Discipline leader"):"";
+                    label.Bind(row.AthleteId,row.Rank,name,nation,GameplayHudModel.FormatClock(row.Seconds),row.GapSeconds==0?L("ЛИДЕР","LEADER"):"+"+row.GapSeconds.ToString("0.0"),row.AthleteId==athleteId,role,description);
                 }
             }
             bool near=a.ShootingActive;

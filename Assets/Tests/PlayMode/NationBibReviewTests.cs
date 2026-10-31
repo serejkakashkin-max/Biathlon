@@ -126,9 +126,10 @@ namespace Biathlon.PlayModeTests
             try
             {
                 menu.Session.OpenCareerPage(FrontEndScreen.Standings);menu.ApplyPreferences("en",2);for(int i=0;i<6;i++)yield return null;
-                Assert.That(menu.Root.Q("national_kit_legend").childCount,Is.EqualTo(6));Capture("kit-legend-en-large");
+                Assert.That(menu.Root.Q("national_kit_legend").childCount,Is.EqualTo(6));Assert.That(menu.Root.Q("kit_swatch"),Is.Null);Capture("kit-legend-en-large");
                 menu.Session.Back();for(int i=0;i<5;i++)menu.Session.RestWeek();menu.Session.OpenPreRace();menu.ApplyPreferences("en",2);for(int i=0;i<6;i++)yield return null;
                 Assert.That(menu.Root.Q("pre_race_kit").Q("national_kit_FRA"),Is.Not.Null);
+                Assert.That(menu.Root.Q("kit_swatch"),Is.Null,"Country identity uses the flag/code, without a suit-colour marker.");
                 Assert.That(menu.Root.Q<LeaderBibGraphic>(),Is.Null,"Junior standings must not invent World Cup leaders.");
                 var weather=menu.Root.Q("pre_race_weather");var viewport=weather.GetFirstAncestorOfType<ScrollView>().contentViewport;
                 Assert.That(weather.worldBound.yMax,Is.LessThanOrEqualTo(viewport.worldBound.yMax+1));Capture("pre-race-kit-en-large");

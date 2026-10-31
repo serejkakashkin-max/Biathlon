@@ -7,26 +7,36 @@ namespace Biathlon.Unity.Presentation
     /// <summary>The same bib fabric palette as the actual athlete; no simulated state.</summary>
     public sealed class LeaderBibGraphic:VisualElement
     {
-        public CareerLeaderBib Role {get;}
+        public CareerLeaderBib Role {get;private set;}
         public LeaderBibGraphic(CareerLeaderBib role,string description)
         {
-            Role=role;name="leader_bib";tooltip=description;pickingMode=PickingMode.Ignore;
+            name="leader_bib";pickingMode=PickingMode.Ignore;
             style.width=20;style.height=24;style.flexShrink=0;style.marginRight=6;
-            generateVisualContent+=Draw;
+            generateVisualContent+=Draw;SetRole(role,description);
+        }
+        public void SetRole(CareerLeaderBib role,string description)
+        {
+            if(role<CareerLeaderBib.None||role>(CareerLeaderBib.Total|CareerLeaderBib.Discipline))throw new System.ArgumentOutOfRangeException(nameof(role));
+            style.display=role==CareerLeaderBib.None?DisplayStyle.None:DisplayStyle.Flex;
+            if(tooltip!=description)tooltip=description;
+            if(Role==role)return;Role=role;MarkDirtyRepaint();
         }
         private void Draw(MeshGenerationContext context)
         {
             var p=context.painter2D;float w=contentRect.width,h=contentRect.height;
-            void Half(float left,float right,Color color)
+            void Outline(bool rightOnly)
             {
-                p.fillColor=color;p.BeginPath();p.MoveTo(new Vector2(left*w,0));p.LineTo(new Vector2(right*w,0));
-                p.LineTo(new Vector2(right*w,h));p.LineTo(new Vector2(left*w,h));p.ClosePath();p.Fill();
+                p.BeginPath();p.MoveTo(new Vector2((rightOnly?.5f:.34f)*w,(rightOnly?.23f:.04f)*h));
+                if(!rightOnly){p.LineTo(new Vector2(.34f*w,.18f*h));p.LineTo(new Vector2(.5f*w,.23f*h));}
+                p.LineTo(new Vector2(.66f*w,.18f*h));p.LineTo(new Vector2(.66f*w,.04f*h));p.LineTo(new Vector2(.84f*w,.04f*h));
+                p.LineTo(new Vector2(.8f*w,.27f*h));p.LineTo(new Vector2(.96f*w,.42f*h));p.LineTo(new Vector2(.9f*w,.96f*h));
+                p.LineTo(new Vector2((rightOnly?.5f:.1f)*w,.96f*h));
+                if(!rightOnly){p.LineTo(new Vector2(.04f*w,.42f*h));p.LineTo(new Vector2(.2f*w,.27f*h));p.LineTo(new Vector2(.16f*w,.04f*h));}
+                p.ClosePath();
             }
-            Half(.1f,.9f,AthleteBibPresentation.FabricColor(Role));
-            if(Role==(CareerLeaderBib.Total|CareerLeaderBib.Discipline))Half(.5f,.9f,AthleteBibPresentation.FabricColor(CareerLeaderBib.Discipline));
-            p.fillColor=new Color(.04f,.1f,.14f);p.BeginPath();p.MoveTo(new Vector2(.36f*w,0));p.LineTo(new Vector2(.64f*w,0));
-            p.LineTo(new Vector2(.59f*w,.18f*h));p.LineTo(new Vector2(.41f*w,.18f*h));p.ClosePath();p.Fill();
-            p.strokeColor=new Color(.04f,.1f,.14f);p.lineWidth=2;p.BeginPath();p.MoveTo(new Vector2(.5f*w,.4f*h));p.LineTo(new Vector2(.5f*w,.78f*h));p.Stroke();
+            p.fillColor=AthleteBibPresentation.FabricColor(Role);Outline(false);p.Fill();
+            if(Role==(CareerLeaderBib.Total|CareerLeaderBib.Discipline)){p.fillColor=AthleteBibPresentation.FabricColor(CareerLeaderBib.Discipline);Outline(true);p.Fill();}
+            p.strokeColor=new Color(1,1,1,.7f);p.lineWidth=.75f;Outline(false);p.Stroke();
         }
     }
 
@@ -40,12 +50,8 @@ namespace Biathlon.Unity.Presentation
             var chip=new VisualElement{name="national_kit_"+nation};chip.style.flexDirection=FlexDirection.Row;chip.style.alignItems=Align.Center;
             chip.style.marginRight=14;chip.style.height=30;chip.style.flexShrink=0;parent.Add(chip);
             chip.Add(new NationFlagGraphic(nation));
-            var swatch=new VisualElement{name="kit_swatch"};swatch.style.width=10;swatch.style.height=18;
-            swatch.style.backgroundColor=AthleteAppearancePresentation.NationColor(nation);swatch.style.marginRight=6;
-            swatch.style.borderLeftWidth=swatch.style.borderRightWidth=swatch.style.borderTopWidth=swatch.style.borderBottomWidth=1;
-            swatch.style.borderLeftColor=swatch.style.borderRightColor=swatch.style.borderTopColor=swatch.style.borderBottomColor=ink;
-            chip.Add(swatch);AddLabel(chip,nation,theme.caption_size,true).style.marginBottom=0;
-            chip.tooltip=L("Цвет национального комбинезона","National suit colour")+" · "+nation;
+            AddLabel(chip,nation,theme.caption_size,true).style.marginBottom=0;
+            chip.tooltip=nation;
         }
         private void AddPreRaceKit(VisualElement parent,CareerCalendarEvent race,CareerAthlete player)
         {
