@@ -14,6 +14,7 @@ Preserve unrelated owner changes, accepted authority, motion, quality and saves.
 | F — Player shooting crowd audio | COMPLETE / OWNER TEST PENDING | Per-player accepted hit/miss reactions; CC0 human recordings;31native cases PASS; two actual30-athlete compiled-player mixer captures PASS; unchanged22-voice/20MiB budgets; updated fullscreen Windows build |
 | G — Fair Sprint start draw | COMPLETE / OWNER TEST PENDING | Full-field uniform draw; 6000 fixed-seed draws, 15 native / 27 CoreCLR cases PASS; old/new replay compatibility; two exact complete Sprints; final fullscreen player drew bib20, skipped wait, displayed3–2–1; hidden HUD feed lifecycle regression fixed |
 | H — Gameplay cursor and split history | COMPLETE / OWNER TEST PENDING | Hidden/locked gameplay cursor including TAB, released for menus/pause/focus loss; PgUp/PgDn/End and gamepad browse accepted passed splits with lap/km and retained selection;18native/7CoreCLR PASS; actual30-athlete compiled-player cursor/history/fullscreen proof PASS; core/data byte guard unchanged |
+| I — Sprint/Pursuit snow junctions and scoring audit | IN PROGRESS | 2026-10-31: interim native42/42; remaining photographed return edge now has an independent outside-road witness. Shared directions and pinched free-space caps under qualification; original physics/quality and modern IBU90-point score retained. New build not yet qualified |
 
 Design: existing Deep #0B1928 / Surface #132A3B / Ink #E8F5F8 / Muted #B0C4D0 /
 Accent #85D5DF / Danger #F3988D. Oswald for names and compact broadcast numerals;
