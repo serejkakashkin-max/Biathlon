@@ -240,7 +240,22 @@ namespace Biathlon.Unity.Presentation
                 {var a=route.GetSection(i);var b=rebuilt.GetSection(i);if(a.LapIndex!=b.LapIndex||a.LapId!=b.LapId||a.LoopId!=b.LoopId||!a.Start.Equals(b.Start)||!a.LoopStart.Equals(b.LoopStart)||!a.LoopEnd.Equals(b.LoopEnd)||a.EnterConnectionId!=b.EnterConnectionId||a.HasRange!=b.HasRange)throw new ArgumentException("Live route occurrences differ.",nameof(route));}
             }
             var usage=new Dictionary<string,List<(long,long)>>(StringComparer.Ordinal);var baseLoops=new HashSet<string>(StringComparer.Ordinal);
-            for(int i=0;i<route.SectionCount;i++){var section=route.GetSection(i);baseLoops.Add(section.LoopId);Add(section.LoopId,section.LoopStart.Millimeters,section.LoopEnd.Millimeters);}
+            var requirements=CompetitionRouteRequirements.FromJson(route.RequirementsSnapshotJson);
+            for(int i=0;i<route.SectionCount;i++)
+            {
+                var section=route.GetSection(i);baseLoops.Add(section.LoopId);
+                // A required physical range visit replaces this logical clock interval.
+                // Add the actual lane slices below, rather than also drawing the unused
+                // main-loop bypass (whose tight hairpin can intersect its own ribbon).
+                if(plan.Paths!=null&&section.HasRange&&requirements.RequiresRange(section.LapIndex)&&section.LoopId==plan.Paths.MainLoopId)
+                {
+                    if(section.LoopStart.Millimeters>plan.Paths.Entry.Millimeters||section.LoopEnd.Millimeters<plan.Paths.Exit.Millimeters)
+                        throw new ArgumentException("Physical range overlay must be wholly contained by its route slice.",nameof(route));
+                    if(section.LoopStart.Millimeters<plan.Paths.Entry.Millimeters)Add(section.LoopId,section.LoopStart.Millimeters,plan.Paths.Entry.Millimeters);
+                    if(plan.Paths.Exit.Millimeters<section.LoopEnd.Millimeters)Add(section.LoopId,plan.Paths.Exit.Millimeters,section.LoopEnd.Millimeters);
+                }
+                else Add(section.LoopId,section.LoopStart.Millimeters,section.LoopEnd.Millimeters);
+            }
             if(plan.Paths!=null)
                 for(int lane=0;lane<plan.Paths.Count;lane++)for(int s=0;s<plan.Paths.GetLane(lane).SliceCount;s++)
                 {var slice=plan.Paths.GetLane(lane).GetSlice(s);if(baseLoops.Contains(slice.LoopId))Add(slice.LoopId,slice.Start.Millimeters,slice.End.Millimeters);else Whole(slice.LoopId);}

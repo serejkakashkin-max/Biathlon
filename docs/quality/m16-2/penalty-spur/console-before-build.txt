@@ -1,0 +1,96 @@
+mode=266240 Assets\Scripts\Unity\Editor\PlaytestDiagnostics.cs(15,16): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+
+mode=266240 Assets\Scripts\Unity\Editor\PlaytestDiagnostics.cs(20,22): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+
+mode=266240 Assets\Scripts\Unity\Editor\PlaytestDiagnostics.cs(34,22): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'
+
+mode=266240 Assets\Scripts\Unity\Editor\FoundationDiagnostics.cs(9,64): warning UAC0005: AppDomain.GetAssemblies() in Unity may return already unloaded assemblies and result in errors or leaks. Use Unity APIs instead, such as 'CurrentAssemblies.GetLoadedAssemblies()' or 'TypeCache.GetTypesDerivedFrom()'.
+
+mode=266240 Assets\Scripts\Unity\Editor\M15AudioAuthoring.cs(35,22): warning UAC0005: AppDomain.GetAssemblies() in Unity may return already unloaded assemblies and result in errors or leaks. Use Unity APIs instead, such as 'CurrentAssemblies.GetLoadedAssemblies()' or 'TypeCache.GetTypesDerivedFrom()'.
+
+mode=266240 Assets\Scripts\Unity\Editor\FoundationDiagnostics.cs(11,47): warning UAC0007: Assembly.Location returns "" in Unity as assemblies are loaded from stream. Use extension method 'Assembly.GetLoadedAssemblyPath()' instead.
+
+mode=8406016 Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+UnityEngine.Debug:Log (object)
+Unity.AI.ModelSelector.Services.Stores.Actions.ModelSelectorSuperProxyActions/<>c/<<-cctor>b__8_0>d:MoveNext () (at ./Library/PackageCache/com.unity.ai.assistant@8d1e3e89e3a7/Modules/Unity.AI.ModelSelector/Services/Stores/Actions/ModelSelectorSuperProxyActions.cs:495)
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>>:SetResult (AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>)
+AiEditorToolsSdk.Components.GenerativeModels.GenerativeModelsComponentV2/<GetModelsAsync>d__5:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>>:SetResult (AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>)
+AiEditorToolsSdk.Application.InternalServices.SdkOperation.SdkOperationService/<ExecuteRequest>d__4`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>>:SetResult (AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>)
+AiEditorToolsSdk.Application.Gateways.GenerativeModels.V2.GenerativeModelsGatewayV2/<GetModelsAsync>d__4:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>>:SetResult (AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>)
+AiEditorToolsSdk.Application.InternalServices.ApiClientProcessor.ApiClientProcessorService/<ProcessApiRequest>d__5`1<SuperProxyClientV1Namespace.ModelListFullResponse>:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>>:SetResult (AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>)
+AiEditorToolsSdk.Application.InternalServices.ApiClientProcessor.ApiClientProcessorService/<ProcessApiRequestImpl>d__6`1<SuperProxyClientV1Namespace.ModelListFullResponse>:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<SuperProxyClientV1Namespace.ModelListFullResponse>:SetException (System.Exception)
+AiEditorToolsSdk.Application.Gateways.GenerativeModels.V2.GenerativeModelsGatewayV2/<>c__DisplayClass4_0/<<GetModelsAsync>b__0>d:MoveNext ()
+UnityEngine.UnitySynchronizationContext:ExecuteTasks ()
+
+mode=8406016 Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+UnityEngine.Debug:Log (object)
+Unity.AI.ModelSelector.Services.Stores.Actions.ModelSelectorSuperProxyActions/<>c/<<-cctor>b__8_0>d:MoveNext () (at ./Library/PackageCache/com.unity.ai.assistant@8d1e3e89e3a7/Modules/Unity.AI.ModelSelector/Services/Stores/Actions/ModelSelectorSuperProxyActions.cs:495)
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>>:SetResult (AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>)
+AiEditorToolsSdk.Components.GenerativeModels.GenerativeModelsComponentV2/<GetModelsAsync>d__5:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>>:SetResult (AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>)
+AiEditorToolsSdk.Application.InternalServices.SdkOperation.SdkOperationService/<ExecuteRequest>d__4`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>>:SetResult (AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>)
+AiEditorToolsSdk.Application.Gateways.GenerativeModels.V2.GenerativeModelsGatewayV2/<GetModelsAsync>d__4:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>>:SetResult (AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>)
+AiEditorToolsSdk.Application.InternalServices.ApiClientProcessor.ApiClientProcessorService/<ProcessApiRequest>d__5`1<SuperProxyClientV1Namespace.ModelListFullResponse>:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>>:SetResult (AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>)
+AiEditorToolsSdk.Application.InternalServices.ApiClientProcessor.ApiClientProcessorService/<ProcessApiRequestImpl>d__6`1<SuperProxyClientV1Namespace.ModelListFullResponse>:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<SuperProxyClientV1Namespace.ModelListFullResponse>:SetException (System.Exception)
+AiEditorToolsSdk.Application.Gateways.GenerativeModels.V2.GenerativeModelsGatewayV2/<>c__DisplayClass4_0/<<GetModelsAsync>b__0>d:MoveNext ()
+UnityEngine.UnitySynchronizationContext:ExecuteTasks ()
+
+mode=8406016 Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+UnityEngine.Debug:Log (object)
+Unity.AI.ModelSelector.Services.Stores.Actions.ModelSelectorSuperProxyActions/<>c/<<-cctor>b__8_0>d:MoveNext () (at ./Library/PackageCache/com.unity.ai.assistant@8d1e3e89e3a7/Modules/Unity.AI.ModelSelector/Services/Stores/Actions/ModelSelectorSuperProxyActions.cs:495)
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>>:SetResult (AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>)
+AiEditorToolsSdk.Components.GenerativeModels.GenerativeModelsComponentV2/<GetModelsAsync>d__5:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>>:SetResult (AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>)
+AiEditorToolsSdk.Application.InternalServices.SdkOperation.SdkOperationService/<ExecuteRequest>d__4`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>>:SetResult (AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>)
+AiEditorToolsSdk.Application.Gateways.GenerativeModels.V2.GenerativeModelsGatewayV2/<GetModelsAsync>d__4:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>>:SetResult (AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>)
+AiEditorToolsSdk.Application.InternalServices.ApiClientProcessor.ApiClientProcessorService/<ProcessApiRequest>d__5`1<SuperProxyClientV1Namespace.ModelListFullResponse>:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>>:SetResult (AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>)
+AiEditorToolsSdk.Application.InternalServices.ApiClientProcessor.ApiClientProcessorService/<ProcessApiRequestImpl>d__6`1<SuperProxyClientV1Namespace.ModelListFullResponse>:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<SuperProxyClientV1Namespace.ModelListFullResponse>:SetException (System.Exception)
+AiEditorToolsSdk.Application.Gateways.GenerativeModels.V2.GenerativeModelsGatewayV2/<>c__DisplayClass4_0/<<GetModelsAsync>b__0>d:MoveNext ()
+UnityEngine.UnitySynchronizationContext:ExecuteTasks ()
+
+mode=8406016 Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+UnityEngine.Debug:Log (object)
+Unity.AI.ModelSelector.Services.Stores.Actions.ModelSelectorSuperProxyActions/<>c/<<-cctor>b__8_0>d:MoveNext () (at ./Library/PackageCache/com.unity.ai.assistant@8d1e3e89e3a7/Modules/Unity.AI.ModelSelector/Services/Stores/Actions/ModelSelectorSuperProxyActions.cs:495)
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>>:SetResult (AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>)
+AiEditorToolsSdk.Components.GenerativeModels.GenerativeModelsComponentV2/<GetModelsAsync>d__5:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>>:SetResult (AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>)
+AiEditorToolsSdk.Application.InternalServices.SdkOperation.SdkOperationService/<ExecuteRequest>d__4`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>>:SetResult (AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>)
+AiEditorToolsSdk.Application.Gateways.GenerativeModels.V2.GenerativeModelsGatewayV2/<GetModelsAsync>d__4:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>>:SetResult (AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>)
+AiEditorToolsSdk.Application.InternalServices.ApiClientProcessor.ApiClientProcessorService/<ProcessApiRequest>d__5`1<SuperProxyClientV1Namespace.ModelListFullResponse>:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>>:SetResult (AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>)
+AiEditorToolsSdk.Application.InternalServices.ApiClientProcessor.ApiClientProcessorService/<ProcessApiRequestImpl>d__6`1<SuperProxyClientV1Namespace.ModelListFullResponse>:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<SuperProxyClientV1Namespace.ModelListFullResponse>:SetException (System.Exception)
+AiEditorToolsSdk.Application.Gateways.GenerativeModels.V2.GenerativeModelsGatewayV2/<>c__DisplayClass4_0/<<GetModelsAsync>b__0>d:MoveNext ()
+UnityEngine.UnitySynchronizationContext:ExecuteTasks ()
+
+mode=8406016 Error reason is 'NoSubscription' and no additional error information was provided (https://generators.ai.unity.com).
+UnityEngine.Debug:Log (object)
+Unity.AI.ModelSelector.Services.Stores.Actions.ModelSelectorSuperProxyActions/<>c/<<-cctor>b__8_0>d:MoveNext () (at ./Library/PackageCache/com.unity.ai.assistant@8d1e3e89e3a7/Modules/Unity.AI.ModelSelector/Services/Stores/Actions/ModelSelectorSuperProxyActions.cs:495)
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>>:SetResult (AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>)
+AiEditorToolsSdk.Components.GenerativeModels.GenerativeModelsComponentV2/<GetModelsAsync>d__5:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>>:SetResult (AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>)
+AiEditorToolsSdk.Application.InternalServices.SdkOperation.SdkOperationService/<ExecuteRequest>d__4`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>>:SetResult (AiEditorToolsSdk.Components.Common.Responses.Wrappers.OperationResult`1<AiEditorToolsSdk.Components.GenerativeModels.Responses.ModelListV2.ModelListFullResult>)
+AiEditorToolsSdk.Application.Gateways.GenerativeModels.V2.GenerativeModelsGatewayV2/<GetModelsAsync>d__4:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>>:SetResult (AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>)
+AiEditorToolsSdk.Application.InternalServices.ApiClientProcessor.ApiClientProcessorService/<ProcessApiRequest>d__5`1<SuperProxyClientV1Namespace.ModelListFullResponse>:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>>:SetResult (AiEditorToolsSdk.Domain.Core.Results.Result`2<SuperProxyClientV1Namespace.ModelListFullResponse, AiEditorToolsSdk.Domain.Core.Errors.ApiError>)
+AiEditorToolsSdk.Application.InternalServices.ApiClientProcessor.ApiClientProcessorService/<ProcessApiRequestImpl>d__6`1<SuperProxyClientV1Namespace.ModelListFullResponse>:MoveNext ()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<SuperProxyClientV1Namespace.ModelListFullResponse>:SetException (System.Exception)
+AiEditorToolsSdk.Application.Gateways.GenerativeModels.V2.GenerativeModelsGatewayV2/<>c__DisplayClass4_0/<<GetModelsAsync>b__0>d:MoveNext ()
+UnityEngine.UnitySynchronizationContext:ExecuteTasks ()

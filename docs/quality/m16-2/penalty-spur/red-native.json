@@ -1,0 +1,44 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":3,\"PassedTests\":0,\"FailedTests\":3,\"SkippedTests\":0,\"Duration\":\"00:00:03.5298192\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.ProductionRouteVisibilityTests.ReplacedRangeBypassDoesNotDrawTheUnusedPenaltySideHairpin(\\u0022sprint\\u0022)\",\"Status\":\"Failed\",\"Duration\":\"00:00:01.2640000\",\"Message\":\"  The logical range clock interval is replaced by real lane paths, not an extra visible hairpin.\\r\\n  Expected: False\\r\\n  But was:  True\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionRouteVisibilityTests.ReplacedRangeBypassDoesNotDrawTheUnusedPenaltySideHairpin (System.String format) [0x0016a] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionRouteVisibilityTests.cs:38\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionRouteVisibilityTests.ReplacedRangeBypassDoesNotDrawTheUnusedPenaltySideHairpin(\\u0022pursuit\\u0022)\",\"Status\":\"Failed\",\"Duration\":\"00:00:01.0820000\",\"Message\":\"  The logical range clock interval is replaced by real lane paths, not an extra visible hairpin.\\r\\n  Expected: False\\r\\n  But was:  True\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionRouteVisibilityTests.ReplacedRangeBypassDoesNotDrawTheUnusedPenaltySideHairpin (System.String format) [0x0016a] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionRouteVisibilityTests.cs:38\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionRouteVisibilityTests.ReplacedRangeBypassDoesNotDrawTheUnusedPenaltySideHairpin(\\u0022mass_start\\u0022)\",\"Status\":\"Failed\",\"Duration\":\"00:00:01.0770000\",\"Message\":\"  The logical range clock interval is replaced by real lane paths, not an extra visible hairpin.\\r\\n  Expected: False\\r\\n  But was:  True\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionRouteVisibilityTests.ReplacedRangeBypassDoesNotDrawTheUnusedPenaltySideHairpin (System.String format) [0x0016a] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionRouteVisibilityTests.cs:38\\r\\n\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 3,
+        "PassedTests": 0,
+        "FailedTests": 3,
+        "SkippedTests": 0,
+        "Duration": "00:00:03.5298192"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.PlayModeTests.ProductionRouteVisibilityTests.ReplacedRangeBypassDoesNotDrawTheUnusedPenaltySideHairpin(\"sprint\")",
+          "Status": "Failed",
+          "Duration": "00:00:01.2640000",
+          "Message": "  The logical range clock interval is replaced by real lane paths, not an extra visible hairpin.\r\n  Expected: False\r\n  But was:  True\r\n",
+          "StackTrace": "at Biathlon.PlayModeTests.ProductionRouteVisibilityTests.ReplacedRangeBypassDoesNotDrawTheUnusedPenaltySideHairpin (System.String format) [0x0016a] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionRouteVisibilityTests.cs:38\r\n"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.ProductionRouteVisibilityTests.ReplacedRangeBypassDoesNotDrawTheUnusedPenaltySideHairpin(\"pursuit\")",
+          "Status": "Failed",
+          "Duration": "00:00:01.0820000",
+          "Message": "  The logical range clock interval is replaced by real lane paths, not an extra visible hairpin.\r\n  Expected: False\r\n  But was:  True\r\n",
+          "StackTrace": "at Biathlon.PlayModeTests.ProductionRouteVisibilityTests.ReplacedRangeBypassDoesNotDrawTheUnusedPenaltySideHairpin (System.String format) [0x0016a] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionRouteVisibilityTests.cs:38\r\n"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.ProductionRouteVisibilityTests.ReplacedRangeBypassDoesNotDrawTheUnusedPenaltySideHairpin(\"mass_start\")",
+          "Status": "Failed",
+          "Duration": "00:00:01.0770000",
+          "Message": "  The logical range clock interval is replaced by real lane paths, not an extra visible hairpin.\r\n  Expected: False\r\n  But was:  True\r\n",
+          "StackTrace": "at Biathlon.PlayModeTests.ProductionRouteVisibilityTests.ReplacedRangeBypassDoesNotDrawTheUnusedPenaltySideHairpin (System.String format) [0x0016a] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionRouteVisibilityTests.cs:38\r\n"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

@@ -53,8 +53,8 @@ namespace Biathlon.PlayModeTests
                         File.WriteAllText(Path.Combine(output,"packed_"+id+".json"),JsonUtility.ToJson(new MeshDump{points=p,faces=mesh.triangles}));
                     }
                 }
-                Assert.That(course.RoundedSnowCutCount,format=="mass_start"?Is.EqualTo(0):Is.GreaterThan(0),
-                    "Only actual selected transverse format cuts receive rounded snow caps.");
+                Assert.That(course.RoundedSnowCutCount,Is.GreaterThan(0),
+                    "Actual selected format and replaced-range cuts receive rounded snow caps, including MassStart's unused bypass.");
                 if(format=="sprint")
                 {
                     var outside=new Vector3(226.96336f,0,-111.8641f);var inside=new Vector3(226.96336f,0,-112.4641f);

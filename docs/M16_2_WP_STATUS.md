@@ -15,6 +15,7 @@ Preserve unrelated owner changes, accepted authority, motion, quality and saves.
 | G — Fair Sprint start draw | COMPLETE / OWNER TEST PENDING | Full-field uniform draw; 6000 fixed-seed draws, 15 native / 27 CoreCLR cases PASS; old/new replay compatibility; two exact complete Sprints; final fullscreen player drew bib20, skipped wait, displayed3–2–1; hidden HUD feed lifecycle regression fixed |
 | H — Gameplay cursor and split history | COMPLETE / OWNER TEST PENDING | Hidden/locked gameplay cursor including TAB, released for menus/pause/focus loss; PgUp/PgDn/End and gamepad browse accepted passed splits with lap/km and retained selection;18native/7CoreCLR PASS; actual30-athlete compiled-player cursor/history/fullscreen proof PASS; core/data byte guard unchanged |
 | I — Sprint/Pursuit snow junctions and scoring audit | COMPLETE / OWNER TEST PENDING | 2026-10-31: rounded pinched snow joins;42native/1CoreCLR PASS; actual high-tier views and fullscreen2560x1440 player PASS;0build errors, owner profiles and669core/data files unchanged; modern IBU90-point victory retained |
+| J — Remove unused penalty-side bypass | COMPLETE / OWNER TEST PENDING | 2026-10-31: actual physical lane union omits unused Main hairpin;23native PASS, including non-shooting bypass control and strict contact/topology; matched High views and fullscreen2560x1440 player PASS;0build errors;669core/data files unchanged |
 
 Design: existing Deep #0B1928 / Surface #132A3B / Ink #E8F5F8 / Muted #B0C4D0 /
 Accent #85D5DF / Danger #F3988D. Oswald for names and compact broadcast numerals;

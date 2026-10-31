@@ -16,6 +16,56 @@ namespace Biathlon.PlayModeTests
     {
         private static VenueAuthoringPlan Production()=>new VenueAuthoringPlan(VenueManifest.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/manifest")),ProductionVenueHost.ReadResource);
         private static RaceRoute Route(VenueAuthoringPlan plan,int format)=>new RaceRoute(plan.Track,plan.Formats.Get(format).Route,plan.Formats.Get(format).Profile.ToRouteRequirements(),plan.Junctions,plan.Connections);
+        [TestCase("sprint")]
+        [TestCase("pursuit")]
+        [TestCase("mass_start")]
+        public void ReplacedRangeBypassDoesNotDrawTheUnusedPenaltySideHairpin(string format)
+        {
+            const string prefix="Biathlon/Venues/woodland_basin_v1/";
+            var plan=Production();string before=Snapshots(plan);
+            var profile=CompetitionProfile.FromJson(ProductionVenueHost.ReadResource(prefix+format+"_profile"));
+            var route=new RaceRoute(plan.Track,RaceRoutePlan.FromJson(ProductionVenueHost.ReadResource(prefix+format+"_route")),profile.ToRouteRequirements(),plan.Junctions,plan.Connections);
+            var root=new GameObject("Unused range bypass regression");
+            try
+            {
+                var course=root.AddComponent<ProductionCoursePresentation>();course.Initialize(plan,route:route,sharedApron:plan.SharedApron);
+                double lastApproach=0;
+                for(int lane=0;lane<plan.Paths.Count;lane++)for(int slice=0;slice<plan.Paths.GetLane(lane).SliceCount;slice++)
+                {var path=plan.Paths.GetLane(lane).GetSlice(slice);if(path.LoopId==plan.Paths.MainLoopId)lastApproach=Math.Max(lastApproach,path.End.Meters);}
+                int omitted=0;
+                for(int panel=0;panel<course.NativeRowCount(plan.Paths.MainLoopId)-1;panel++)
+                    if(course.NativeDistance(plan.Paths.MainLoopId,panel)>=lastApproach&&course.NativeDistance(plan.Paths.MainLoopId,panel+1)<=plan.Paths.Exit.Meters)
+                    {Assert.That(course.PanelVisible(plan.Paths.MainLoopId,panel),Is.False,"The logical range clock interval is replaced by real lane paths, not an extra visible hairpin.");omitted++;}
+                Assert.That(omitted,Is.GreaterThan(10));
+                Assert.That(course.LoopMesh(plan.Track.Penalty.LoopId).triangles,Is.EqualTo(course.NativeLoopMesh(plan.Track.Penalty.LoopId).triangles));
+                Assert.That(course.LoopMesh(plan.StartApproach.LoopId).triangles,Is.EqualTo(course.NativeLoopMesh(plan.StartApproach.LoopId).triangles));
+                Assert.That(Snapshots(plan),Is.EqualTo(before));
+            }
+            finally{Object.DestroyImmediate(root);}
+        }
+        [Test]
+        public void ARealNonShootingLapRetainsItsMainBypassDespiteOtherLapsVisitingTheRange()
+        {
+            const string prefix="Biathlon/Venues/woodland_basin_v1/";
+            var manifest=VenueManifest.FromJson(ProductionVenueHost.ReadResource(prefix+"manifest"));
+            var unboundManifest=Regex.Replace(manifest.ToJson(),",\\\"format_bindings_resource\\\":\\\"[^\\\"]*\\\"","");
+            var plan=new VenueAuthoringPlan(VenueManifest.FromJson(unboundManifest),ProductionVenueHost.ReadResource);
+            Assert.That(plan.Formats,Is.Null,"The control uses an explicitly different route family, not a changed bound live route.");
+            var profile=CompetitionProfile.FromJson(Regex.Replace(ProductionVenueHost.ReadResource(prefix+"mass_start_profile"),"\\\"distance_m\\\"\\s*:\\s*[0-9.]+","\"distance_m\":4800.025"));
+            var laps=new List<string>();
+            for(int i=1;i<=5;i++)laps.Add("{\"id\":\"lap_"+i+"\",\"slices\":[{\"loop_id\":\"main\",\"start_m\":0,\"end_m\":960.005}]}");
+            var definition=RaceRoutePlan.FromJson("{\"schema_version\":2,\"id\":\"range_bypass_control_v1\",\"track_id\":\""+plan.Track.Id+"\",\"competition_profile_id\":\""+profile.Id+"\",\"laps\":["+string.Join(",",laps)+"]}");
+            var route=new RaceRoute(plan.Track,definition,profile.ToRouteRequirements(),plan.Junctions,plan.Connections);
+            Assert.That(route.GetSection(4).HasRange,Is.True);Assert.That(profile.ToRouteRequirements().RequiresRange(4),Is.False);
+            var root=new GameObject("Non-shooting bypass negative control");
+            try
+            {
+                var course=root.AddComponent<ProductionCoursePresentation>();course.Initialize(plan,route:route);
+                SameArrays(course.NativeLoopMesh(plan.Paths.MainLoopId),course.LoopMesh(plan.Paths.MainLoopId));
+                PaidCoverage(course,plan,route);
+            }
+            finally{Object.DestroyImmediate(root);}
+        }
         private static string Snapshots(VenueAuthoringPlan plan)=>plan.Track.ToJson()+plan.Visual.ToJson()+plan.Paths.ToJson()+plan.Formats.ToJson()+plan.StartApproach.ToJson()+plan.StartContinuation.ToJson()+plan.Occupancy.ToJson();
         private static void SameArrays(Mesh a,Mesh b)
         {CollectionAssert.AreEqual(a.vertices,b.vertices);CollectionAssert.AreEqual(a.uv,b.uv);CollectionAssert.AreEqual(a.colors,b.colors);CollectionAssert.AreEqual(a.normals,b.normals);CollectionAssert.AreEqual(a.triangles,b.triangles);}
@@ -53,6 +103,7 @@ namespace Biathlon.PlayModeTests
         }
         private static void PaidCoverage(ProductionCoursePresentation course,VenueAuthoringPlan plan,RaceRoute route)
         {
+            var requirements=CompetitionRouteRequirements.FromJson(route.RequirementsSnapshotJson);
             var masks=new Dictionary<string,bool[]>(StringComparer.Ordinal);
             var paidLoops=new HashSet<string>(StringComparer.Ordinal){plan.StartApproach.LoopId,plan.Track.Penalty.LoopId};
             var routeLoops=new HashSet<string>(StringComparer.Ordinal);
@@ -72,7 +123,15 @@ namespace Biathlon.PlayModeTests
                 Assert.That(course.LoopRenderer(id).enabled,Is.EqualTo(draw.triangles.Length>0));
             }
             for(int section=0;section<route.SectionCount;section++)
-            {var occurrence=route.GetSection(section);Cover(occurrence.LoopId,occurrence.LoopStart.Meters,occurrence.LoopEnd.Meters);}
+            {
+                var occurrence=route.GetSection(section);
+                if(PhysicalVisit(occurrence))
+                {
+                    if(occurrence.LoopStart.Meters<plan.Paths.Entry.Meters)Cover(occurrence.LoopId,occurrence.LoopStart.Meters,plan.Paths.Entry.Meters);
+                    if(plan.Paths.Exit.Meters<occurrence.LoopEnd.Meters)Cover(occurrence.LoopId,plan.Paths.Exit.Meters,occurrence.LoopEnd.Meters);
+                }
+                else Cover(occurrence.LoopId,occurrence.LoopStart.Meters,occurrence.LoopEnd.Meters);
+            }
             for(int lane=0;lane<plan.Paths.Count;lane++)for(int slice=0;slice<plan.Paths.GetLane(lane).SliceCount;slice++)
             {var occurrence=plan.Paths.GetLane(lane).GetSlice(slice);Cover(occurrence.LoopId,occurrence.Start.Meters,occurrence.End.Meters);}
             // Every configured private path is available, including lanes not presently occupied.
@@ -85,11 +144,16 @@ namespace Biathlon.PlayModeTests
             {
                 if(id==plan.StartApproach.LoopId||id==plan.Track.Penalty.LoopId)return true;
                 for(int section=0;section<route.SectionCount;section++)
-                {var occurrence=route.GetSection(section);if(occurrence.LoopId==id&&last>occurrence.LoopStart.Meters&&first<occurrence.LoopEnd.Meters)return true;}
+                {
+                    var occurrence=route.GetSection(section);
+                    if(occurrence.LoopId==id&&last>occurrence.LoopStart.Meters&&first<occurrence.LoopEnd.Meters&&
+                        (!PhysicalVisit(occurrence)||first<plan.Paths.Entry.Meters||last>plan.Paths.Exit.Meters))return true;
+                }
                 for(int lane=0;lane<plan.Paths.Count;lane++)for(int slice=0;slice<plan.Paths.GetLane(lane).SliceCount;slice++)
                 {var occurrence=plan.Paths.GetLane(lane).GetSlice(slice);if(occurrence.LoopId==id&&(!routeLoops.Contains(id)||last>occurrence.Start.Meters&&first<occurrence.End.Meters))return true;}
                 return false;
             }
+            bool PhysicalVisit(RouteSection section)=>section.HasRange&&requirements.RequiresRange(section.LapIndex)&&section.LoopId==plan.Paths.MainLoopId;
             void Cover(string id,double start,double end)
             {
                 int covered=0;var selected=masks[id];

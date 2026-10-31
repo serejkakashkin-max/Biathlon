@@ -168,3 +168,28 @@ Sprint/Pursuit, both career finish-runout variants and uncut MassStart. Their
 original-source and whole-rendered-composite certificate remains unchanged; no
 clearance/topology tolerance is relaxed. Native views and compiled fullscreen
 ordinary-player qualification remain delivery requirements.
+
+
+### 2026-10-31 — omit a replaced logical range bypass
+
+The owner identifies an extra lobe with dark shards beside the penalty loop.
+Matched native captures isolate it to Main, not the penalty loop or start approach.
+Main includes a logical range clock interval whose sub-metre hairpin self-intersects
+when rendered as an 8m ribbon. Required shooting occurrences physically replace
+that interval with typed lane slices; the old draw union retained both alternatives.
+
+For a route-bound presentation, subtract the complete physical range overlay only
+from occurrences which actually require shooting, then include all typed lane
+slices as before. Their common Main approach remains visible; the unused tail
+between the last lane fork and range exit no longer draws packed faces or banks.
+Any real non-shooting occurrence retains its original Main interval in the union.
+Null-route authoring/debug views retain all native surfaces. This refines the
+previous triangle-selection invariant to the actual physical occurrence union;
+it does not edit an authored buffer, source definition or authoritative path.
+
+No hard-coded venue coordinate, deleted physical loop, shader workaround, extra
+renderer or per-frame filter. Existing natural snow joins close the new selected
+ends. The original source buffers, main row centers/heights/full widths, all mat,
+exit-aisle, start and penalty surfaces remain protected by native tests. The three
+actual formats must omit the bypass; a non-shooting final-lap negative control
+must keep it. Full contact/topology and rendered-apron certificates remain strict.
