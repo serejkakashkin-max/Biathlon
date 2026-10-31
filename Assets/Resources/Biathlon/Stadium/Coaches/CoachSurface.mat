@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Coaches original athlete textiles
+  m_Shader: {fileID: 4800000, guid: 64fee1ff6a5a5274fa4469b5bec48101, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: c1edbaea26b95474895c9391f1748aaa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RoughnessMap:
+        m_Texture: {fileID: 2800000, guid: eca04bb8737c3d0489319617d71ab612, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SkinBumpMap:
+        m_Texture: {fileID: 2800000, guid: 63361f48e6f2ee94182e68280ce54d1f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BumpScale: 0.16
+    - _CosmeticOverride: 0
+    - _Cull: 2
+    - _DetailTiling: 16
+    - _HeadwearMode: 0
+    - _KitWeight: 0
+    - _SkinVariation: 0.5
+    - _Smoothness: 0.26
+    - _SurfaceKind: 0
+    m_Colors:
+    - _BaseColor: {r: 0.079999976, g: 0.11999995, b: 0.17999998, a: 1}
+    - _BootColor: {r: 0.07499998, g: 0.09499996, b: 0.11499997, a: 1}
+    - _EyeColor: {r: 0.40999997, g: 0.24999997, b: 0.15999997, a: 1}
+    - _GloveColor: {r: 0.025, g: 0.032, b: 0.04, a: 1}
+    - _HairColor: {r: 0.18999997, g: 0.12499998, b: 0.09999997, a: 1}
+    - _KitColor: {r: 0.079999976, g: 0.29999998, b: 0.45, a: 1}
+    - _LensColor: {r: 0.11999995, g: 0.41999996, b: 0.52, a: 1}
+    - _ScalpColor: {r: 0.58, g: 0.33999997, b: 0.22999996, a: 1}
+    - _TrimColor: {r: 0.7, g: 0.8, b: 0.9, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

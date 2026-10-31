@@ -40,7 +40,7 @@ namespace Biathlon.Unity.Presentation
             }
             return true;
         }
-        public void Initialize(WinterDressingDefinition d,ProductionRouteCorridor[] routes,Func<Vector3,float> height)
+        public void Initialize(WinterDressingDefinition d,ProductionRouteCorridor[] routes,Func<Vector3,float> height,Func<Vector3,float,bool> keep=null)
         {
             if(definition!=null||d==null||routes==null||height==null)throw new ArgumentException("Fresh dressing and explicit terrain required.");
             definition=WinterDressingDefinition.FromJson(JsonUtility.ToJson(d));
@@ -64,6 +64,7 @@ namespace Biathlon.Unity.Presentation
                     float radius=type==2?1.4f:type==3?1.8f:type==5?2.4f:.9f;
                     var point=center+forward*(type%3-1)*2.6f+side*(type/3)*2.1f;
                     if(!ClearOfCourses(point,radius,routes,d.protected_margin_m))continue;
+                    if(keep!=null&&!keep(point,radius))continue;
                     point.y=height(point)-d.burial_m;
                     float scale=type==2?.35f:type==1?.65f:type==0?.8f:1;
                     float yaw=(VegetationDefinition.Mix((uint)(matrixList.Count+71))%360);

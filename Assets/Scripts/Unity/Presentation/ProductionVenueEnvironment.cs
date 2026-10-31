@@ -32,6 +32,8 @@ namespace Biathlon.Unity.Presentation
         public string VisualAtmosphereId=>weather?.VisualAtmosphereId;
         private ProductionForestDressing dressing;
         public RangeFlagPresentation RangeFlags {get;private set;}
+        public RangeCoachesPresentation Coaches {get;private set;}
+        public int CoachClearanceExcludedTrees {get;private set;}
         public int FlagClearanceExcludedTrees {get;private set;}
         /// <summary>Explicit capture hosts may submit one controlled frame themselves.</summary>
         public bool AutomaticRendering {get;set;}=true;
@@ -125,16 +127,23 @@ namespace Biathlon.Unity.Presentation
                     RangeFlags=generated.AddComponent<RangeFlagPresentation>();RangeFlags.Initialize(flagDefinition,data,SampleGround);
                 }
                 var flagClearance=flagDefinition==null?null:new RangeFlagClearance(flagDefinition,flagAnchors);
+                if(!string.IsNullOrEmpty(data.range.coaches_resource))
+                {
+                    var coaches=RangeCoachesDefinition.FromJson(Read(read,data.range.coaches_resource));
+                    Coaches=generated.AddComponent<RangeCoachesPresentation>();Coaches.Initialize(coaches,data,SampleGround);
+                }
                 var forestList=new List<VegetationPresentation>(data.forest.groups.Length);
                 for(int i=0;i<data.forest.groups.Length;i++)
                 {
                     var group=data.forest.groups[i];var trees=prepared.Trees[i].instances;
-                    if(flagAnchors!=null)
+                    if(flagAnchors!=null||Coaches!=null)
                     {
                         var retained=new List<ProductionTree>();
                         foreach(var tree in trees)
                         {
-                            if(flagClearance.Clears(tree))retained.Add(tree);else FlagClearanceExcludedTrees++;
+                            if(flagClearance!=null&&!flagClearance.Clears(tree)){FlagClearanceExcludedTrees++;continue;}
+                            if(Coaches!=null&&!Coaches.ClearsTree(tree)){CoachClearanceExcludedTrees++;continue;}
+                            retained.Add(tree);
                         }
                         trees=retained.ToArray();
                     }
@@ -195,7 +204,7 @@ namespace Biathlon.Unity.Presentation
                 generated.AddComponent<StaticSceneryBatches>().Initialize(staticRenderers);
                 var composition=G2ForestComposition.Load();
                 if(data.venue_id=="woodland_basin_v1"&&!string.IsNullOrEmpty(composition.dressing_resource))
-                {dressing=generated.AddComponent<ProductionForestDressing>();dressing.Initialize(WinterDressingDefinition.Load(composition.dressing_resource),data.route_corridors,SampleGround);}
+                {dressing=generated.AddComponent<ProductionForestDressing>();dressing.Initialize(WinterDressingDefinition.Load(composition.dressing_resource),data.route_corridors,SampleGround,(point,radius)=>Coaches==null||Coaches.Layout.DistanceToFootprint(point)>radius+3);}
                 var keyObject=Child("Production directional light",Vector3.zero,Quaternion.identity);var key=keyObject.AddComponent<Light>();key.type=LightType.Directional;key.shadows=LightShadows.Soft;
                 weather=generated.AddComponent<WeatherPresentation>();weather.Initialize(chase,key,prepared.Sky);
                 Impacts=gameObject.AddComponent<ShotImpactPresentation>();Impacts.Initialize(feed,geometry,banks);
@@ -364,6 +373,7 @@ namespace Biathlon.Unity.Presentation
         {
             if(Impacts!=null){Impacts.Shutdown();DestroyOwned(Impacts);Impacts=null;}
             RangeFlags?.Shutdown();RangeFlags=null;FlagClearanceExcludedTrees=0;reviewLighting=null;
+            Coaches?.Shutdown();Coaches=null;CoachClearanceExcludedTrees=0;
             if(weather!=null)weather.Shutdown();
             if(generated!=null){generated.SetActive(false);generated.transform.SetParent(null);DestroyOwned(generated);generated=null;}
             foreach(var mesh in ownedMeshes)DestroyOwned(mesh);foreach(var material in ownedMaterials)DestroyOwned(material);ownedMeshes.Clear();ownedMaterials.Clear();
