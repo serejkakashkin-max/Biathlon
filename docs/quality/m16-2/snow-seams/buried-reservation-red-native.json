@@ -1,0 +1,48 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":3,\"PassedTests\":0,\"FailedTests\":3,\"SkippedTests\":0,\"Duration\":\"00:00:00.3523489\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.BuriedForkEdgeCannotReserveAnImpossibleShoulderAndExposeTheNeighborWall(0.01f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.2040000\",\"Message\":\"  The buried neighboring rim cannot claim space for a bank which intersects the packed road; the exposed outer rim needs its real rounded snow shoulder.\\r\\n  Expected: greater than 6\\r\\n  But was:  3.0f\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionTerrainContactTests.BuriedForkEdgeCannotReserveAnImpossibleShoulderAndExposeTheNeighborWall (System.Single inset) [0x00302] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:767\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.BuriedForkEdgeCannotReserveAnImpossibleShoulderAndExposeTheNeighborWall(0.05f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0160000\",\"Message\":\"  The buried neighboring rim cannot claim space for a bank which intersects the packed road; the exposed outer rim needs its real rounded snow shoulder.\\r\\n  Expected: greater than 6\\r\\n  But was:  3.0f\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionTerrainContactTests.BuriedForkEdgeCannotReserveAnImpossibleShoulderAndExposeTheNeighborWall (System.Single inset) [0x00302] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:767\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.ProductionTerrainContactTests.BuriedForkEdgeCannotReserveAnImpossibleShoulderAndExposeTheNeighborWall(0.14f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0380000\",\"Message\":\"  The buried neighboring rim cannot claim space for a bank which intersects the packed road; the exposed outer rim needs its real rounded snow shoulder.\\r\\n  Expected: greater than 6\\r\\n  But was:  3.0f\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ProductionTerrainContactTests.BuriedForkEdgeCannotReserveAnImpossibleShoulderAndExposeTheNeighborWall (System.Single inset) [0x00302] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ProductionTerrainContactTests.cs:767\\r\\n\"}]}}"
+      }
+    ],
+    "structuredContent": {
+      "result": {
+        "Summary": {
+          "Status": "Failed",
+          "TotalTests": 3,
+          "PassedTests": 0,
+          "FailedTests": 3,
+          "SkippedTests": 0,
+          "Duration": "00:00:00.3523489"
+        },
+        "Results": [
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.BuriedForkEdgeCannotReserveAnImpossibleShoulderAndExposeTheNeighborWall(0.01f)",
+            "Status": "Failed",
+            "Duration": "00:00:00.2040000",
+            "Message": "  The buried neighboring rim cannot claim space for a bank which intersects the packed road; the exposed outer rim needs its real rounded snow shoulder.\r\n  Expected: greater than 6\r\n  But was:  3.0f\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.ProductionTerrainContactTests.BuriedForkEdgeCannotReserveAnImpossibleShoulderAndExposeTheNeighborWall (System.Single inset) [0x00302] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:767\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.BuriedForkEdgeCannotReserveAnImpossibleShoulderAndExposeTheNeighborWall(0.05f)",
+            "Status": "Failed",
+            "Duration": "00:00:00.0160000",
+            "Message": "  The buried neighboring rim cannot claim space for a bank which intersects the packed road; the exposed outer rim needs its real rounded snow shoulder.\r\n  Expected: greater than 6\r\n  But was:  3.0f\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.ProductionTerrainContactTests.BuriedForkEdgeCannotReserveAnImpossibleShoulderAndExposeTheNeighborWall (System.Single inset) [0x00302] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:767\r\n"
+          },
+          {
+            "Name": "Biathlon.PlayModeTests.ProductionTerrainContactTests.BuriedForkEdgeCannotReserveAnImpossibleShoulderAndExposeTheNeighborWall(0.14f)",
+            "Status": "Failed",
+            "Duration": "00:00:00.0380000",
+            "Message": "  The buried neighboring rim cannot claim space for a bank which intersects the packed road; the exposed outer rim needs its real rounded snow shoulder.\r\n  Expected: greater than 6\r\n  But was:  3.0f\r\n",
+            "StackTrace": "at Biathlon.PlayModeTests.ProductionTerrainContactTests.BuriedForkEdgeCannotReserveAnImpossibleShoulderAndExposeTheNeighborWall (System.Single inset) [0x00302] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ProductionTerrainContactTests.cs:767\r\n"
+          }
+        ]
+      }
+    },
+    "isError": false
+  },
+  "id": 2,
+  "jsonrpc": "2.0"
+}

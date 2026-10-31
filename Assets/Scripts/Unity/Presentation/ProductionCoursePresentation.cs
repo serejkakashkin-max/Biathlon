@@ -18,6 +18,7 @@ namespace Biathlon.Unity.Presentation
         private readonly Dictionary<string,int> indices=new Dictionary<string,int>(StringComparer.Ordinal);
         private string[] loopIds;
         private bool[] closedLoops;
+        private bool[] roundBranchEnds;
         private Mesh[] meshes;
         private Mesh[] nativeMeshes;
         private bool[][] bankPanels;
@@ -55,6 +56,7 @@ namespace Biathlon.Unity.Presentation
         public float SnowShoulderWidthMeters {get;private set;}
         public int TaperedSnowPanelCount {get;private set;}
         public int VerticalSnowPanelCount {get;private set;}
+        public int RoundedSnowCutCount {get;private set;}
         public string LoopId(int index)=>loopIds[index];
         public Mesh LoopMesh(int index)=>meshes[index];
         public Mesh LoopMesh(string loopId)=>meshes[Index(loopId)];
@@ -95,7 +97,7 @@ namespace Biathlon.Unity.Presentation
             try
             {
                 // Build every mesh before exposing any generated objects. Each stable loop owns one mesh.
-                loopIds=new string[plan.Visual.Count];closedLoops=new bool[loopIds.Length];meshes=new Mesh[loopIds.Length];renderers=new MeshRenderer[loopIds.Length];
+                loopIds=new string[plan.Visual.Count];closedLoops=new bool[loopIds.Length];roundBranchEnds=new bool[loopIds.Length];meshes=new Mesh[loopIds.Length];renderers=new MeshRenderer[loopIds.Length];
                 bankPanels=snowShoulders==null?null:new bool[loopIds.Length][];
                 SnowBankPolicyId=snowShoulders?.id;nativeMeshes=new Mesh[loopIds.Length];nativeDistances=new double[loopIds.Length][];visiblePanels=new bool[loopIds.Length][];
                 for(int i=0;i<loopIds.Length;i++)
@@ -103,6 +105,7 @@ namespace Biathlon.Unity.Presentation
                     string id=plan.Visual.Get(i).LoopId;var loop=plan.Track.GetLoop(id);
                     var mesh=TrackRibbonBuilder.Build(plan.Track,plan.Visual,id,out var distances);ownedMeshes.Add(mesh);
                     Groom(mesh,loop.Closed);loopIds[i]=id;closedLoops[i]=loop.Closed;nativeMeshes[i]=mesh;nativeDistances[i]=distances;indices.Add(id,i);
+                    roundBranchEnds[i]=!loop.Closed&&IsClosedRaceBranch(plan,id);
                     var selected=new bool[distances.Length-1];int count=0;
                     for(int panel=0;panel<selected.Length;panel++)
                     {
@@ -189,6 +192,27 @@ namespace Biathlon.Unity.Presentation
         }
         private static bool IsMatPath(VenueAuthoringPlan plan,string loopId)
         {if(plan.Paths!=null)for(int lane=0;lane<plan.Paths.Count;lane++)if(plan.Paths.GetLane(lane).MatAnchor.LoopId==loopId)return true;return false;}
+        private static bool IsClosedRaceBranch(VenueAuthoringPlan plan,string loopId)
+        {
+            if(plan.Junctions==null||plan.Connections==null||IsMatPath(plan,loopId))return false;
+            bool enters=false,leaves=false;var loop=plan.Track.GetLoop(loopId);
+            for(int i=0;i<plan.Connections.Count;i++)
+            {
+                var connection=plan.Connections.Get(i);PhysicalJunctionPort from=null,to=null;
+                for(int j=0;j<plan.Junctions.Count;j++)
+                {
+                    var junction=plan.Junctions.Get(j);if(junction.Id!=connection.JunctionId)continue;
+                    for(int p=0;p<junction.PortCount;p++)
+                    {var port=junction.GetPort(p);if(port.Id==connection.FromPortId)from=port;if(port.Id==connection.ToPortId)to=port;}
+                    break;
+                }
+                if(from==null||to==null)continue;
+                if(to.Anchor.LoopId==loopId&&to.Anchor.Distance.Millimeters==0&&ClosedRace(from.Anchor.LoopId))enters=true;
+                if(from.Anchor.LoopId==loopId&&from.Anchor.Distance.Millimeters==loop.Length.Millimeters&&ClosedRace(to.Anchor.LoopId))leaves=true;
+            }
+            return enters&&leaves;
+            bool ClosedRace(string id){var other=plan.Track.GetLoop(id);return other.Closed&&other.Kind==TrackLoopKind.Race;}
+        }
         private bool HasVisiblePanel(int index){foreach(bool active in visiblePanels[index])if(active)return true;return false;}
         private static Mesh SelectDrawMesh(Mesh source,bool[] selected)
         {
@@ -293,7 +317,7 @@ namespace Biathlon.Unity.Presentation
                 {
                     prepared[i]=BuildBankedSkirtCore(meshes[i],closedLoops[i],ground,groomed,SnowShoulderWidthMeters,out float gap,out int slopeCount,out int wallCount,selection==null?null:visiblePanels[i],bankPanels==null?null:bankPanels[i],moundHeight,moundSpacing,(side,panel,reason,taperedPanel,wall)=>edgeDiagnostics.Add(new SnowEdgeDiagnostic {
                         loop_id=loopIds[i],side=side,panel=panel,start_m=nativeDistances[i][panel],end_m=nativeDistances[i][panel+1],
-                        width_m=SnowShoulderWidthMeters,reason=reason,tapered=taperedPanel,vertical_emitted=wall}),natural);
+                        width_m=SnowShoulderWidthMeters,reason=reason,tapered=taperedPanel,vertical_emitted=wall}),natural,roundBranchEnds[i]);
                     if(Apron!=null)
                     {
                         var original=prepared[i];prepared[i]=Apron.OutsideJoinMesh(loopIds[i],original);DestroyOwned(original);
@@ -310,12 +334,20 @@ namespace Biathlon.Unity.Presentation
                 if(natural!=null)
                 {
                     var coverage=new SnowJoinCoverage();int covered=0;
+                    bool rounded=false;foreach(var edge in edgeDiagnostics)rounded|=edge.side==2&&edge.tapered;
+                    if(rounded)
+                    {
+                        var roofs=new List<Mesh>(prepared);if(preparedApron!=null)roofs.Add(preparedApron);coverage.CaptureRoofs(roofs);
+                        for(int i=0;i<prepared.Length;i++)
+                        {var prior=prepared[i];prepared[i]=coverage.RetainExteriorCurtains(prior,out int removed);covered+=removed;if(prepared[i]!=prior)DestroyOwned(prior);}
+                    }
                     for(int i=0;i<prepared.Length;i++)
                     {var prior=prepared[i];prepared[i]=coverage.RetainUncovered(prior,out int removed);covered+=removed;if(prepared[i]!=prior)DestroyOwned(prior);}
                     if(preparedApron!=null)
                     {var prior=preparedApron;preparedApron=coverage.RetainUncovered(prior,out int removed);covered+=removed;if(preparedApron!=prior)DestroyOwned(prior);}
                     CoveredCurtainFaces=covered;
                 }
+                RoundedSnowCutCount=0;foreach(var edge in edgeDiagnostics)if(edge.side==2&&edge.tapered)RoundedSnowCutCount++;
                 // A failed preparation does not alter the existing groomed surfaces or publish partial joins.
                 var nextRenderers=new MeshRenderer[meshes.Length];
                 for(int i=0;i<meshes.Length;i++)
@@ -342,7 +374,7 @@ namespace Biathlon.Unity.Presentation
                 meshes=priorMeshes;drawMeshes=priorDrawMeshes;
                 for(int i=0;i<renderers.Length;i++)renderers[i].GetComponent<MeshFilter>().sharedMesh=drawMeshes[i];
                 for(int i=ownedMeshes.Count-1;i>=priorOwned;i--){if(Array.IndexOf(prepared,ownedMeshes[i])<0&&ownedMeshes[i]!=preparedApron)DestroyOwned(ownedMeshes[i]);ownedMeshes.RemoveAt(i);}
-                skirts=null;skirtRenderers=null;apronSkirt=null;RimClearanceAdjustments=priorRimAdjustments;CoveredCurtainFaces=0;edgeDiagnostics.Clear();
+                skirts=null;skirtRenderers=null;apronSkirt=null;RimClearanceAdjustments=priorRimAdjustments;CoveredCurtainFaces=RoundedSnowCutCount=0;edgeDiagnostics.Clear();
                 throw;
             }
         }
@@ -412,6 +444,7 @@ namespace Biathlon.Unity.Presentation
             private JoinVertex(double x,double y,double z,double blend,double travel)
             {X=x;Y=y;Z=z;Blend=blend;Travel=travel;}
             internal JoinVertex WithExactHeight(double height)=>new JoinVertex(X,height,Z,Blend,Travel);
+            internal JoinVertex Offset(Vector3 delta)=>new JoinVertex(X+delta.x,Y+delta.y,Z+delta.z,Blend,Travel);
             internal static JoinVertex Lerp(JoinVertex a,JoinVertex b,double t)
                 =>new JoinVertex(a.X+(b.X-a.X)*t,a.Y+(b.Y-a.Y)*t,a.Z+(b.Z-a.Z)*t,
                     a.Blend+(b.Blend-a.Blend)*t,a.Travel+(b.Travel-a.Travel)*t);
@@ -625,6 +658,9 @@ namespace Biathlon.Unity.Presentation
                             outerA=a+first.normalized*(adaptive?naturalWidths[(ribbon,side)][segment]:width);
                             outerB=b+last.normalized*(adaptive?naturalWidths[(ribbon,side)][segment+1]:width);
                         }
+                        // Buried fork rims cannot reserve an impossible shoulder and block an exposed neighbor.
+                        if(adaptive&&(!Clear(new JoinVertex(a),new JoinVertex(b),new JoinVertex(outerA))||
+                            !Clear(new JoinVertex(b),new JoinVertex(outerB),new JoinVertex(outerA))))continue;
                         Capture(new JoinGroundTriangle(a,b,outerA));Capture(new JoinGroundTriangle(b,outerB,outerA));
                         void Capture(JoinGroundTriangle face)
                         {
@@ -684,7 +720,7 @@ namespace Biathlon.Unity.Presentation
         }
         private static Mesh BuildBankedSkirtCore(Mesh ribbon,bool closed,JoinGroundSurface ground,JoinRibbonSurface groomed,float width,
             out float maximumGap,out int taperedCount,out int verticalCount,bool[] selected,bool[] curved,float moundHeight,float moundSpacing,
-            Action<int,int,string,bool,bool> diagnostic,ProductionSnowShoulderDefinition.NaturalProfile natural=null)
+            Action<int,int,string,bool,bool> diagnostic,ProductionSnowShoulderDefinition.NaturalProfile natural=null,bool roundOpenEnds=false)
         {
             var source=ribbon.vertices;var vertices=new List<Vector3>();var uv=new List<Vector2>();var colors=new List<Color>();var triangles=new List<int>();
             var sourceNormals=natural==null?null:ribbon.normals;var seamNormals=new List<Vector3>();
@@ -693,9 +729,23 @@ namespace Biathlon.Unity.Presentation
             if(selected!=null&&selected.Length!=nativeCount)throw new ArgumentException("Native panel selection must match the original rows.");
             if(curved!=null&&curved.Length!=nativeCount)throw new ArgumentException("Snow bank mask must preserve every original native row.");
             bool Active(int panel)=>selected==null||selected[panel];
+            var clipCapRows=new bool[nativeCount+1];
+            if(natural!=null&&selected!=null&&(closed||roundOpenEnds))
+            {
+                var distance=new double[nativeCount+1];
+                for(int row=1;row<=nativeCount;row++)distance[row]=distance[row-1]+Vector3.Distance((source[(row-1)*2]+source[(row-1)*2+1])*.5f,(source[row*2]+source[row*2+1])*.5f);
+                for(int cut=0;cut<=nativeCount;cut++)
+                {
+                    bool before=cut>0?Active(cut-1):closed&&Active(nativeCount-1),after=cut<nativeCount?Active(cut):closed&&Active(0);
+                    if(before==after)continue;
+                    for(int row=0;row<=nativeCount;row++)
+                    {double gap=Math.Abs(distance[row]-distance[cut]);if(closed)gap=Math.Min(gap,distance[nativeCount]-gap);if(gap<=natural.end_fade_m)clipCapRows[row]=true;}
+                }
+            }
             groomed.PreparePotentialShoulders(width,natural);
             var vertexIndices=new Dictionary<(Vector3,Vector2),int>();float maximum=0;int slopes=0,walls=0;
             var originalCurtains=new Dictionary<(Vector3,Vector3,bool),Vector3[]>();
+            var roundedClosures=new HashSet<(Vector3,Vector3,bool)>();
             for(int side=0;side<2;side++)
             {
                 var path=new List<Vector3>();var outward=new List<Vector3>();
@@ -859,13 +909,26 @@ namespace Biathlon.Unity.Presentation
                 bool ClearProfile(int row,Vector3 a,Vector3 b)
                 {
                     if(natural==null)return ClearCurtain(a,b);
+                    // These roofs are already clipped and certified against every
+                    // actual terrain face. Close their exposed positive portions,
+                    // rather than rejecting a whole bank because its end chord
+                    // passes below a convex ground ridge near a format junction.
+                    if(clipCapRows[row])return true;
                     for(int k=0;k<natural.cross_sections;k++)if(!ClearCurtain(Point(profiles[row][k]),Point(profiles[row][k+1])))return false;
                     return true;
                 }
                 void EmitProfileCap(int row,Vector3 edge,Vector3 outer,Vector3 crest,bool crested,bool reverse,double distance)
                 {
                     if(natural==null){Cap(edge,outer,crest,crested,reverse,distance);return;}
-                    for(int k=0;k<natural.cross_sections;k++)Curtain(Point(profiles[row][k]),Point(profiles[row][k+1]),reverse,distance,distance);
+                    bool formatCut=(closed||roundOpenEnds)&&selected!=null&&
+                        (row>0?Active(row-1):closed&&Active(count-1))!=(row<count?Active(row):closed&&Active(0));
+                    var across=source[row*2+1]-source[row*2];across.y=0;
+                    bool paidBefore=row>0?Active(row-1):closed&&Active(count-1);
+                    var cutOutward=new Vector3(-across.z,0,across.x).normalized*(paidBefore?1:-1);
+                    for(int k=0;k<natural.cross_sections;k++)
+                        if(formatCut)RoundCut(Point(profiles[row][k]),Point(profiles[row][k+1]),reverse,cutOutward);
+                        else if(clipCapRows[row])ClippedCurtain(Point(profiles[row][k]),Point(profiles[row][k+1]),reverse,distance,distance);
+                        else Curtain(Point(profiles[row][k]),Point(profiles[row][k+1]),reverse,distance,distance);
                 }
                 double travel=0;
                 for(int i=0;i<count;i++)
@@ -900,8 +963,13 @@ namespace Biathlon.Unity.Presentation
                 bool following=row<nativeCount?Active(row):closed&&Active(0);
                 if(previous==following||closed&&row==0&&previous||closed&&row==nativeCount&&following)continue;
                 var first=source[row*2];var last=source[row*2+1];
-                if(Curtain(first,last,!previous,0,Vector3.Distance(first,last),true))walls++;
+                if(natural!=null&&(closed||roundOpenEnds)&&selected!=null)
+                {
+                    if(RoundCut(first,last,!previous))diagnostic?.Invoke(2,Math.Min(row,nativeCount-1),"rounded_format_cut",true,false);
+                }
+                else if(Curtain(first,last,!previous,0,Vector3.Distance(first,last),true))walls++;
             }
+            foreach(var edge in roundedClosures)ClippedCurtain(edge.Item1,edge.Item2,edge.Item3,0,0);
             // Clipped zero-clearance pieces can leave unused points. Keep the published mesh
             // compact so every vertex has a finite, meaningful normal.
             var used=new bool[vertices.Count];foreach(int index in triangles)used[index]=true;
@@ -919,7 +987,7 @@ namespace Biathlon.Unity.Presentation
                 var normals=new Vector3[vertices.Count];for(int i=0;i<normals.Length;i++)
                 {
                     var normal=summed[vertices[i]];double square=(double)normal.x*normal.x+(double)normal.y*normal.y+(double)normal.z*normal.z;
-                    if(!double.IsFinite(square)||square<=0)throw new ArgumentException("Snow joins require finite nonzero face normals.");
+                    if(!double.IsFinite(square)||square<=0)throw new ArgumentException("Snow joins require finite nonzero face normals: "+ribbon.name+" at "+vertices[i].ToString("R"));
                     // Vector3.normalized rounds very small, valid accumulated face areas to zero.
                     normals[i]=normal/(float)Math.Sqrt(square);
                 }
@@ -934,6 +1002,130 @@ namespace Biathlon.Unity.Presentation
                 void Sum(Vector3 point,Vector3 normal){summed.TryGetValue(point,out var prior);summed[point]=prior+normal;}
             }
             catch{DestroyOwned(mesh);throw;}
+
+            bool RoundCut(Vector3 a,Vector3 b,bool reverse,Vector3? sharedOutward=null)
+            {
+                // A format selects native main-loop panels, exposing a transverse end
+                // which the longitudinal banks cannot cover. Round only the free snow
+                // beside that exact end; the packed buffers and all race geometry stay
+                // unchanged. Retain a curtain only where no rounded profile fits.
+                var delta=b-a;delta.y=0;
+                // All pieces of the same native cut must use its original full
+                // cross-row direction. Renormalizing short bank chords separately
+                // changes the shared foot by float bits and leaves opposite walls.
+                var outward=sharedOutward??new Vector3(-delta.z,0,delta.x).normalized*(reverse?-1:1);
+                var first=new JoinVertex(a);var last=new JoinVertex(b);
+                var cuts=new SortedSet<double>{0,1};
+                int divisions=Math.Max(1,(int)Math.Ceiling(delta.magnitude/(width/natural.cross_sections)));
+                for(int i=1;i<divisions;i++)cuts.Add((double)i/divisions);
+                foreach(var face in groomed.Over(first,last,last))
+                    foreach(var edge in new[]{(face.A,face.B),(face.B,face.C),(face.C,face.A)})
+                    {
+                        double start=Cross(edge.Item1,edge.Item2,first),end=Cross(edge.Item1,edge.Item2,last);
+                        if((start<0)!=(end<0))
+                        {
+                            double t=start/(start-end);var point=JoinVertex.Lerp(first,last,t);
+                            double dx=edge.Item2.X-edge.Item1.X,dz=edge.Item2.Z-edge.Item1.Z;
+                            double dot=(point.X-edge.Item1.X)*dx+(point.Z-edge.Item1.Z)*dz;
+                            if(t>0&&t<1&&dot>=0&&dot<=dx*dx+dz*dz)cuts.Add(t);
+                        }
+                    }
+                // Keep exact intersection coordinates for footprint admission. Rounding
+                // a cut to Vector3 first can move its base a float bit inside its own
+                // packed ribbon and falsely reject every available snow-bank width.
+                var rows=new List<JoinVertex>();foreach(double t in cuts)rows.Add(JoinVertex.Lerp(first,last,t));
+                // A neighboring road can touch just one end of a strip. Let that
+                // endpoint pinch to zero, keeping a certified free-space fan at
+                // the other end instead of rejecting the whole rectangular bank.
+                var widths=new float[rows.Count];for(int row=0;row<widths.Length;row++)widths[row]=width;
+                // Constrain both incident fans independently before changing shared
+                // row widths. A greedy choice of one fan can erase the free end of
+                // the next strip and leave an avoidable rectangular notch.
+                for(int row=0;row+1<rows.Count;row++)if(!Free(row,width,width))
+                {widths[row]=Mathf.Min(widths[row],Fan(row,width,true));widths[row+1]=Mathf.Min(widths[row+1],Fan(row,width,false));}
+                for(int pass=0;pass<natural.cross_sections;pass++)
+                {
+                    bool changed=false;
+                    for(int row=0;row+1<rows.Count;row++)
+                    {
+                        if(Free(row,widths[row],widths[row+1]))continue;
+                        float firstWidth=Shrink(widths[row]),lastWidth=Shrink(widths[row+1]);
+                        changed|=firstWidth!=widths[row]||lastWidth!=widths[row+1];widths[row]=firstWidth;widths[row+1]=lastWidth;
+                    }
+                    if(!changed)break;
+                }
+                var profiles=new JoinVertex[rows.Count][];var panels=new List<JoinVertex[]>[rows.Count-1];
+                for(int attempt=0;attempt<=natural.cross_sections;attempt++)
+                {
+                    for(int row=0;row<rows.Count;row++)profiles[row]=Profile(Point(rows[row]),widths[row]);
+                    bool changed=false;
+                    for(int row=0;row+1<rows.Count;row++)
+                    {
+                        var pa=profiles[row];var pb=profiles[row+1];var pending=new List<JoinVertex[]>();bool accepted=true;
+                        for(int k=0;k<natural.cross_sections&&accepted;k++)
+                            accepted=PrepareTaper(pa[k],pb[k],pa[k+1],pending,!sharedOutward.HasValue)&&PrepareTaper(pb[k],pb[k+1],pa[k+1],pending,!sharedOutward.HasValue);
+                        panels[row]=accepted?pending:null;
+                        if(!accepted&&attempt<natural.cross_sections)
+                        {
+                            float firstWidth=Shrink(widths[row]),lastWidth=Shrink(widths[row+1]);
+                            changed|=firstWidth!=widths[row]||lastWidth!=widths[row+1];widths[row]=firstWidth;widths[row+1]=lastWidth;
+                        }
+                    }
+                    if(!changed)break;
+                }
+                bool emitted=false;
+                for(int row=0;row+1<rows.Count;row++)
+                {
+                    var p=Point(rows[row]);var q=Point(rows[row+1]);if((q-p).sqrMagnitude<1e-10f)continue;
+                    var pending=panels[row];var pa=profiles[row];var pb=profiles[row+1];
+                    if(pending==null||pending.Count==0)
+                    {if(sharedOutward.HasValue)ClippedCurtain(p,q,reverse,0,0);else Curtain(p,q,reverse,0,0,true);continue;}
+                    foreach(var face in pending)
+                    {triangles.Add(Index(face[0],Point(face[0])));triangles.Add(Index(face[1],Point(face[1])));triangles.Add(Index(face[2],Point(face[2])));}
+                    // Equal adjacent profiles are interior faces. Cancel them before
+                    // publication instead of adding opposite coplanar curtains, whose
+                    // normals would cancel at the shared terrain foot.
+                    for(int k=0;k<natural.cross_sections;k++)
+                    {Close(pa[k],pa[k+1],!reverse);Close(pb[k],pb[k+1],reverse);}
+                    if(widths[row]==0||widths[row+1]==0)Close(pa[natural.cross_sections],pb[natural.cross_sections],reverse);
+                    emitted=true;
+                }
+                return emitted;
+                bool Free(int row,float firstWidth,float lastWidth)
+                {
+                    var p=rows[row];var q=rows[row+1];var op=p.Offset(outward*firstWidth);var oq=q.Offset(outward*lastWidth);
+                    return ClearFootprint(p,q,op)&&ClearFootprint(q,oq,op);
+                }
+                float Fan(int row,float available,bool firstEnd)
+                {
+                    if(Free(row,firstEnd?available:0,firstEnd?0:available))return available;
+                    float low=0,high=available;
+                    for(int pass=0;pass<natural.cross_sections;pass++)
+                    {float trial=(low+high)*.5f;if(Free(row,firstEnd?trial:0,firstEnd?0:trial))low=trial;else high=trial;}
+                    return low>=natural.minimum_width_m?low:0;
+                }
+                float Shrink(float available)=>available*.5f>=natural.minimum_width_m?available*.5f:0;
+                void Close(JoinVertex firstPoint,JoinVertex lastPoint,bool reversed)
+                {
+                    var p=Point(firstPoint);var q=Point(lastPoint);
+                    if(p.Equals(q))return;
+                    if(!roundedClosures.Remove((p,q,!reversed)))roundedClosures.Add((p,q,reversed));
+                }
+                JoinVertex[] Profile(Vector3 edge,float available)
+                {
+                    var result=new JoinVertex[natural.cross_sections+1];
+                    if(available==0){for(int k=0;k<result.Length;k++)result[k]=new JoinVertex(edge);return result;}
+                    var outer=Foot(edge+outward*available);
+                    for(int k=0;k<=natural.cross_sections;k++)
+                    {
+                        float t=(float)k/natural.cross_sections,smooth=t*t*(3-2*t);var point=Vector3.Lerp(edge,outer,t);
+                        point.y=Mathf.Max(ground.Height(point),Mathf.Lerp(edge.y,outer.y,smooth));
+                        if(k==0)point=edge;if(k==natural.cross_sections)point=outer;
+                        result[k]=new JoinVertex(point,smooth,0);
+                    }
+                    return result;
+                }
+            }
 
             void Cap(Vector3 edge,Vector3 outer,Vector3 crest,bool crested,bool reverse,double travel)
             {if(crested){Curtain(edge,crest,reverse,travel,travel);Curtain(crest,outer,reverse,travel,travel);}else Curtain(edge,outer,reverse,travel,travel);}
@@ -996,8 +1188,12 @@ namespace Biathlon.Unity.Presentation
                 }
                 return true;
             }
-            bool PrepareTaper(JoinVertex a,JoinVertex b,JoinVertex c,List<JoinVertex[]> pending)
+            bool PrepareTaper(JoinVertex a,JoinVertex b,JoinVertex c,List<JoinVertex[]> pending,bool requireRibbonEdge=true)
             {
+                // Authored packed edges keep their original clearance guard. Only
+                // a decorative cap starting on an already terrain-clipped snow
+                // profile may begin below ground; its surviving faces are clipped
+                // and certified against the same actual terrain below.
                 double expected=Math.Abs(Cross(a,b,c)),covered=0;
                 foreach(var terrain in ground.Over(a,b,c))
                 {
@@ -1006,7 +1202,7 @@ namespace Biathlon.Unity.Presentation
                     covered+=Area(polygon);
                     for(int i=0;i<polygon.Count;i++)
                     {
-                        var point=polygon[i];if(point.Blend<1e-9)CheckGap(point.Y-terrain.Height(point));
+                        var point=polygon[i];if(requireRibbonEdge&&point.Blend<1e-9)CheckGap(point.Y-terrain.Height(point));
                         if(point.Blend>1-1e-9)
                             // Keep the terrain plane in double precision until final mesh emission.
                             // An intermediate float can move a foot above that plane and clipping
@@ -1147,6 +1343,27 @@ namespace Biathlon.Unity.Presentation
                 }
                 return true;
             }
+            void ClippedCurtain(Vector3 a,Vector3 b,bool reverse,double travelA,double travelB)
+            {
+                var rows=CurtainRows(a,b);bool clear=true;foreach(var row in rows)clear&=row.Item1.y>=row.Item2.y;
+                if(clear){Curtain(a,b,reverse,travelA,travelB);return;}
+                for(int i=1;i<rows.Count;i++)
+                {
+                    var first=rows[i-1];var last=rows[i];double ga=(double)first.Item1.y-first.Item2.y,gb=(double)last.Item1.y-last.Item2.y;
+                    CheckGap(Math.Max(0,ga));CheckGap(Math.Max(0,gb));
+                    if(ga<=0&&gb<=0)continue;
+                    if((ga<0)!=(gb<0))
+                    {
+                        double t=ga/(ga-gb);var p=JoinVertex.Lerp(new JoinVertex(first.Item1),new JoinVertex(last.Item1),t);var point=Foot(Point(p));
+                        var crossing=(point,point,first.Item3+(last.Item3-first.Item3)*t);
+                        if(ga<0)first=crossing;else last=crossing;
+                    }
+                    double ta=travelA+(travelB-travelA)*first.Item3,tb=travelA+(travelB-travelA)*last.Item3;
+                    int at=Index(new JoinVertex(first.Item1,0,ta),first.Item1),af=Index(new JoinVertex(first.Item2,1,ta),first.Item2),
+                        bt=Index(new JoinVertex(last.Item1,0,tb),last.Item1),bf=Index(new JoinVertex(last.Item2,1,tb),last.Item2);
+                    if(reverse){Face(at,bt,af);Face(bt,bf,af);}else{Face(at,af,bt);Face(bt,af,bf);}
+                }
+            }
             void Face(int a,int b,int c)
             {if(Vector3.Cross(vertices[b]-vertices[a],vertices[c]-vertices[a]).sqrMagnitude<1e-16f)return;triangles.Add(a);triangles.Add(b);triangles.Add(c);}
             void CheckGap(double gap){if(!double.IsFinite(gap)||gap< -1e-4)throw new ArgumentException("Actual ground must remain beneath the groomed course edge.");maximum=Mathf.Max(maximum,(float)Math.Max(0,gap));}
@@ -1203,7 +1420,7 @@ namespace Biathlon.Unity.Presentation
             if(generated!=null){generated.SetActive(false);generated.transform.SetParent(null);DestroyOwned(generated);generated=null;}
             foreach(var mesh in ownedMeshes)DestroyOwned(mesh);ownedMeshes.Clear();DestroyOwned(material);material=null;
             edgeDiagnostics.Clear();indices.Clear();loopIds=null;closedLoops=null;meshes=null;nativeMeshes=null;nativeDistances=null;visiblePanels=null;renderers=null;skirts=null;skirtRenderers=null;MaximumEdgeGapMeters=SnowShoulderWidthMeters=0;TaperedSnowPanelCount=VerticalSnowPanelCount=VisibleLoopCount=0;VenueId=null;TrackSnapshotJson=null;VisualSnapshotJson=null;PresentationRouteId=PresentationRouteSnapshotJson=PresentationRequirementsSnapshotJson=null;
-            authoredRenderFrame=default;bankPanels=null;natural=null;RimClearanceAdjustments=CoveredCurtainFaces=0;moundHeight=moundSpacing=0;SnowBankPolicyId=null;drawMeshes=null;Apron=null;apronRenderer=apronSkirtRenderer=null;apronSkirt=null;
+            authoredRenderFrame=default;bankPanels=null;roundBranchEnds=null;natural=null;RimClearanceAdjustments=CoveredCurtainFaces=RoundedSnowCutCount=0;moundHeight=moundSpacing=0;SnowBankPolicyId=null;drawMeshes=null;Apron=null;apronRenderer=apronSkirtRenderer=null;apronSkirt=null;
         }
         private static void DestroyOwned(Object value){if(value==null)return;if(Application.isPlaying)Destroy(value);else DestroyImmediate(value);}
         private void OnDestroy()=>Shutdown();

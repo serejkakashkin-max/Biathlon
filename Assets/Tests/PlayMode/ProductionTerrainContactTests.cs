@@ -298,7 +298,7 @@ namespace Biathlon.PlayModeTests
                     AssertClearLine(shoulder.A,shoulder.B);AssertClearLine(shoulder.B,shoulder.C);AssertClearLine(shoulder.C,shoulder.A);
                     continue;
                 }
-                Assert.That(faceNormal.y,Is.GreaterThan(0),"A nonvertical shoulder face must face up.");
+                Assert.That(faceNormal.y,Is.GreaterThan(0),"A nonvertical shoulder face must face up: "+loopId+" / "+(i/3)+" "+shoulder.A.ToString("R")+" / "+shoulder.B.ToString("R")+" / "+shoulder.C.ToString("R"));
                 double coverage=0;
                 foreach(var terrain in Over(shoulder.A,shoulder.B,shoulder.C))
                 {
@@ -748,6 +748,29 @@ namespace Biathlon.PlayModeTests
             ((Dictionary<string,int>)type.GetField("indices",hidden).GetValue(course)).Add(ids[0],0);
             AssertJoinedGeometry(environment,course,ids[0],ribbons[0].vertices,closed);return course;
         }
+        [TestCase(.01f)][TestCase(.05f)][TestCase(.14f)]
+        public void BuriedForkEdgeCannotReserveAnImpossibleShoulderAndExposeTheNeighborWall(float inset)
+        {
+            var root=new GameObject("Buried fork shoulder reservation regression");ProductionVenueEnvironment environment=null;Mesh road=null,overlap=null,join=null;
+            try
+            {
+                environment=TestEnvironment(root);
+                road=TestRibbon(new Vector3(-3,0,0),new Vector3(3,0,0),new Vector3(-3,0,8),new Vector3(3,0,8),new Vector3(-3,0,16),new Vector3(3,0,16));
+                overlap=TestRibbon(new Vector3(-3-inset,0,0),new Vector3(3-inset,0,0),new Vector3(-3-inset,0,8),new Vector3(3-inset,0,8),new Vector3(-3-inset,0,16),new Vector3(3-inset,0,16));
+                road.RecalculateNormals();overlap.RecalculateNormals();var original=road.vertices;
+                const BindingFlags hidden=BindingFlags.NonPublic;var owner=typeof(ProductionCoursePresentation);
+                object ground=Activator.CreateInstance(owner.GetNestedType("JoinGroundSurface",hidden),hidden|BindingFlags.Instance,null,new object[]{environment,environment.TerrainGridSpacing,environment.TerrainGridOrigin},null);
+                object groomed=Activator.CreateInstance(owner.GetNestedType("JoinRibbonSurface",hidden),hidden|BindingFlags.Instance,null,new object[]{new[]{road,overlap},environment.TerrainGridSpacing,environment.TerrainGridOrigin},null);
+                var natural=new ProductionSnowShoulderDefinition.NaturalProfile{cross_sections=8,all_routes=true,minimum_width_m=.15f,end_fade_m=8,width_variation=.12f};
+                var args=new object[]{road,false,ground,groomed,4f,0f,0,0,null,new[]{true,true},.34f,31f,null,natural,false};
+                join=(Mesh)owner.GetMethod("BuildBankedSkirtCore",hidden|BindingFlags.Static).Invoke(null,args);
+                Assert.That(join.bounds.max.x,Is.GreaterThan(6),"The buried neighboring rim cannot claim space for a bank which intersects the packed road; the exposed outer rim needs its real rounded snow shoulder.");
+                CollectionAssert.AreEqual(original,road.vertices);
+                AssertPreparedContact(root,environment,new[]{road,overlap},join,false);
+            }
+            finally{environment?.Shutdown();Object.DestroyImmediate(join);Object.DestroyImmediate(road);Object.DestroyImmediate(overlap);Object.DestroyImmediate(root);}
+        }
+
         [TestCase(false)][TestCase(true)] public void SnowMoundsStayOutsideTheSkiRibbonAndCloseTheirGroundContact(bool closed)
         {
             var root=new GameObject("Snow mound whole-face contact regression");ProductionVenueEnvironment environment=null;Mesh ribbon=null,join=null;

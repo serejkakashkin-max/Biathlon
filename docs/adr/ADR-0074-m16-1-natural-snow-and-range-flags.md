@@ -97,3 +97,74 @@ Official pattern/reference sources consulted:
 - https://www.norden.org/en/information/nordic-flags
 - https://www.biathlonworld.com/ru/discover-biathlon/why-we-love-it/fan-tv-favourite
 - https://www.biathlon-oberhof.de/aktuelles/alles-im-lot/
+
+### 2026-10-30 — M16.2 format-cut snow continuity
+
+Owner reports remaining sharp snow ends in Sprint/Pursuit. A buried candidate rim
+cannot reserve an impossible shoulder footprint: apply the existing complete
+packed-footprint predicate before indexing that candidate. All original terrain,
+neighbor, float and private-mat guards remain.
+
+Main's actual selected panels have two transverse cuts where narrower format
+branches join. Longitudinal side banks do not cover the complete width of these
+ends. Extend the existing cold bank builder locally at selected cuts of a closed
+loop. Split the original cut at actual packed-boundary crossings; subdivide using
+the existing policy's width/cross-section count. Reduce candidate widths against
+the complete selected packed/apron footprint. Generate rounded profiles from the
+original edge toward actual terrain using the existing terrain-clip, coverage,
+world-float and closure guards. Cancel equal opposing internal profile curtains
+before publication; close exposed profiles and retain original curtains only
+where rounded profiles cannot fit. Include the ends of the longitudinal banks
+at these format cuts, so their raised outer contour cannot retain an abrupt wall.
+Keep original packed buffers, triangle selections, row
+centers/heights/full widths, private mats and authoritative physical sampling.
+
+This adds geometry to the existing owned skirt mesh/material at initialization.
+No extra renderer, collider, texture, data binding, resource cache, external runtime
+dependency or per-tick geometry. Uncut MassStart has no transverse-cap work.
+
+Also round the actual open format-branch ends. Qualify a branch using explicit
+directed connection ports at both endpoints to closed race loops, excluding typed
+private mat paths; start approach and range paths do not qualify. A single cold
+index of all generated roofs removes an interior curtain only with complete
+projected edge matches on both sides and sufficient endpoint heights. Match
+endpoints at one native float step of the generated horizontal extent, and admit
+one downward representable height step. Partial, visible-offset, lower and
+single-sided roofs cannot remove a wall. This avoids retaining
+a non-manifold internal wall where two accepted snow profiles already meet. Roof
+geometry and source coordinates remain exact; no position welding. Nine new
+unit cases and actual whole-format contact tests certify this filter. All pieces
+of each cut reuse its original complete cross-row direction; independent short
+chord normalization had moved otherwise shared feet by float bits. A targeted
+producer trace confirmed that cause and was removed after the direction fix.
+
+### 2026-10-31 — free-space fans and convex cap closure
+
+Keep packed-boundary intersections in double precision for admission. First
+compute both incident free-space fans independently, then constrain shared row
+widths; do not greedily erase one endpoint and thereby erase the next free strip.
+The existing width/minimum/cross-section policy bounds this process. A zero-width
+profile collapses to its original top contact, and exposed outer fan edges close
+against actual terrain. No snow may enter the complete paid/apron footprint.
+
+Within the existing end-fade distance of actual format cuts, a prepared natural
+bank can survive a convex terrain crossing at its end. Clip the closing curtain
+to its above-ground portions, matching the already terrain-clipped roof; do not
+reject the whole bank and restore a large vertical wall. The original packed
+edge clearance guard remains mandatory. A decorative bank-profile chord can
+begin below ground and is clipped there; it is not an authored packed edge.
+All actual terrain-coverage, float-face and full contact/topology checks remain.
+
+The photographed Sprint return now has an additional independent outward-roof
+witness outside every paid ribbon and apron, plus an inside-road negative
+control. The original trial point was proved to be inside the paid Main ribbon
+and corrected from actual mesh data. The corrected witness is red for the
+constant/greedy-width candidates and green for shared independent fan bounds.
+
+Experimental whole-patch clipping and offline constrained authoring were rejected
+by the unchanged contact/topology checks and visual review. They are not shipped.
+The seven actual-format full-contact fixtures remain enabled, including rotated
+Sprint/Pursuit, both career finish-runout variants and uncut MassStart. Their
+original-source and whole-rendered-composite certificate remains unchanged; no
+clearance/topology tolerance is relaxed. Native views and compiled fullscreen
+ordinary-player qualification remain delivery requirements.
