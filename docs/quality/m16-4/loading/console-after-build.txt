@@ -1,0 +1,414 @@
+mode=8406016 3 URP assets included in build
+- high - Assets/Resources/Biathlon/Rendering/high.asset
+	 - GameplayRenderer - Assets/Resources/Biathlon/Rendering/GameplayRenderer.asset - UnityEngine.Rendering.Universal.UniversalRendererData
+- balanced - Assets/Resources/Biathlon/Rendering/balanced.asset
+	 - GameplayRenderer - Assets/Resources/Biathlon/Rendering/GameplayRenderer.asset - UnityEngine.Rendering.Universal.UniversalRendererData
+- low - Assets/Resources/Biathlon/Rendering/low.asset
+	 - GameplayRenderer - Assets/Resources/Biathlon/Rendering/GameplayRenderer.asset - UnityEngine.Rendering.Universal.UniversalRendererData
+
+UnityEditor.BuildPipeline:BuildPlayer (UnityEditor.BuildPlayerOptions)
+Biathlon.Unity.PlayerBuildPipeline/<>c__DisplayClass42_0:<BuildVisualUpgrade>b__0 () (at Assets/Scripts/Unity/Editor/PlayerBuildVisualUpgrade.cs:89)
+Biathlon.Unity.RenderQualityAuthoring:WithBoundBuildProfiles (System.Action) (at Assets/Scripts/Unity/Editor/RenderQualityAuthoring.cs:58)
+Biathlon.Unity.RenderQualityAuthoring:WithBuildProfiles (System.Action) (at Assets/Scripts/Unity/Editor/RenderQualityAuthoring.cs:33)
+Biathlon.Unity.PlayerBuildPipeline:WithProductionBuildProfiles (System.Action) (at Assets/Scripts/Unity/Editor/PlayerBuildProductionReview.cs:76)
+Biathlon.Unity.PlayerBuildPipeline:BuildVisualUpgrade (string) (at Assets/Scripts/Unity/Editor/PlayerBuildVisualUpgrade.cs:87)
+Biathlon.Unity.PlayerBuildPipeline:BuildShootingContactReview (string) (at Assets/Scripts/Unity/Editor/PlayerBuildM16_4.cs:14)
+Biathlon.Unity.PlayerBuildPipeline:BuildRaceLoadingReview () (at Assets/Scripts/Unity/Editor/PlayerBuildM16_4.cs:11)
+__CodeExecSnippet:__Run () (at snippet.cs:1)
+System.Reflection.MethodBase:Invoke (object,object[])
+com.IvanMurzak.CodeExec.CodeRunner:Start (com.IvanMurzak.CodeExec.PreparedSnippet) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/CodeExec/Core/CodeRunner.cs:374)
+com.IvanMurzak.CodeExec.CodeRunner/<RunAsync>d__25:MoveNext () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/CodeExec/Core/CodeRunner.cs:324)
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<com.IvanMurzak.CodeExec.ExecuteResult>:Start<com.IvanMurzak.CodeExec.CodeRunner/<RunAsync>d__25> (com.IvanMurzak.CodeExec.CodeRunner/<RunAsync>d__25&)
+com.IvanMurzak.CodeExec.CodeRunner:RunAsync (com.IvanMurzak.CodeExec.PreparedSnippet,System.Threading.CancellationToken)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunHoldingReload>d__12:MoveNext () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/API/Tool/Script.Execute.Reload.cs:87)
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<System.ValueTuple`2<com.IvanMurzak.CodeExec.ExecuteResult, bool>>:Start<com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunHoldingReload>d__12> (com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunHoldingReload>d__12&)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script:RunHoldingReload (com.IvanMurzak.CodeExec.PreparedSnippet)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunOnMainThread>d__26:MoveNext () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/API/Tool/Script.Execute.cs:194)
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<com.IvanMurzak.ReflectorNet.Model.SerializedMember>:Start<com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunOnMainThread>d__26> (com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunOnMainThread>d__26&)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script:RunOnMainThread (com.IvanMurzak.CodeExec.PreparedSnippet,com.IvanMurzak.ReflectorNet.Model.SerializedMemberList)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<>c__DisplayClass25_0:<Execute>b__1 () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/API/Tool/Script.Execute.cs:182)
+com.IvanMurzak.Unity.MCP.Runtime.Utils.UnityMainThread/<>c__DisplayClass9_0`1<System.Threading.Tasks.Task`1<com.IvanMurzak.ReflectorNet.Model.SerializedMember>>:<Dispatch>b__0 () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Runtime/Utils/MainThread.Editor.cs:90)
+com.IvanMurzak.Unity.MCP.Runtime.Utils.UnityMainThread:Pump () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Runtime/Utils/MainThread.Editor.cs:82)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+mode=8406016 [LinkExtractor] Merged 1 link.xml files (27 unique elements) to C:/game/Biathlon/Biathlon/Assets\packages-merged-link\link.xml
+UnityEngine.Debug:Log (object)
+com.IvanMurzak.Unity.MCP.Editor.Utils.LinkExtractor:MergeAndSaveLinkFiles (System.Collections.Generic.List`1<string>) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/Utils/LinkExtractor.cs:148)
+com.IvanMurzak.Unity.MCP.Editor.Utils.LinkExtractor:CreateMergedLinkFromPackages () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/Utils/LinkExtractor.cs:62)
+com.IvanMurzak.Unity.MCP.Editor.Utils.LinkExtractor:OnPreprocessBuild (UnityEditor.Build.Reporting.BuildReport) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/Utils/LinkExtractor.cs:38)
+UnityEditor.BuildPipeline:BuildPlayer (UnityEditor.BuildPlayerOptions)
+Biathlon.Unity.PlayerBuildPipeline/<>c__DisplayClass42_0:<BuildVisualUpgrade>b__0 () (at Assets/Scripts/Unity/Editor/PlayerBuildVisualUpgrade.cs:89)
+Biathlon.Unity.RenderQualityAuthoring:WithBoundBuildProfiles (System.Action) (at Assets/Scripts/Unity/Editor/RenderQualityAuthoring.cs:58)
+Biathlon.Unity.RenderQualityAuthoring:WithBuildProfiles (System.Action) (at Assets/Scripts/Unity/Editor/RenderQualityAuthoring.cs:33)
+Biathlon.Unity.PlayerBuildPipeline:WithProductionBuildProfiles (System.Action) (at Assets/Scripts/Unity/Editor/PlayerBuildProductionReview.cs:76)
+Biathlon.Unity.PlayerBuildPipeline:BuildVisualUpgrade (string) (at Assets/Scripts/Unity/Editor/PlayerBuildVisualUpgrade.cs:87)
+Biathlon.Unity.PlayerBuildPipeline:BuildShootingContactReview (string) (at Assets/Scripts/Unity/Editor/PlayerBuildM16_4.cs:14)
+Biathlon.Unity.PlayerBuildPipeline:BuildRaceLoadingReview () (at Assets/Scripts/Unity/Editor/PlayerBuildM16_4.cs:11)
+__CodeExecSnippet:__Run () (at snippet.cs:1)
+System.Reflection.MethodBase:Invoke (object,object[])
+com.IvanMurzak.CodeExec.CodeRunner:Start (com.IvanMurzak.CodeExec.PreparedSnippet) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/CodeExec/Core/CodeRunner.cs:374)
+com.IvanMurzak.CodeExec.CodeRunner/<RunAsync>d__25:MoveNext () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/CodeExec/Core/CodeRunner.cs:324)
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<com.IvanMurzak.CodeExec.ExecuteResult>:Start<com.IvanMurzak.CodeExec.CodeRunner/<RunAsync>d__25> (com.IvanMurzak.CodeExec.CodeRunner/<RunAsync>d__25&)
+com.IvanMurzak.CodeExec.CodeRunner:RunAsync (com.IvanMurzak.CodeExec.PreparedSnippet,System.Threading.CancellationToken)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunHoldingReload>d__12:MoveNext () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/API/Tool/Script.Execute.Reload.cs:87)
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<System.ValueTuple`2<com.IvanMurzak.CodeExec.ExecuteResult, bool>>:Start<com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunHoldingReload>d__12> (com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunHoldingReload>d__12&)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script:RunHoldingReload (com.IvanMurzak.CodeExec.PreparedSnippet)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunOnMainThread>d__26:MoveNext () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/API/Tool/Script.Execute.cs:194)
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<com.IvanMurzak.ReflectorNet.Model.SerializedMember>:Start<com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunOnMainThread>d__26> (com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunOnMainThread>d__26&)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script:RunOnMainThread (com.IvanMurzak.CodeExec.PreparedSnippet,com.IvanMurzak.ReflectorNet.Model.SerializedMemberList)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<>c__DisplayClass25_0:<Execute>b__1 () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/API/Tool/Script.Execute.cs:182)
+com.IvanMurzak.Unity.MCP.Runtime.Utils.UnityMainThread/<>c__DisplayClass9_0`1<System.Threading.Tasks.Task`1<com.IvanMurzak.ReflectorNet.Model.SerializedMember>>:<Dispatch>b__0 () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Runtime/Utils/MainThread.Editor.cs:90)
+com.IvanMurzak.Unity.MCP.Runtime.Utils.UnityMainThread:Pump () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Runtime/Utils/MainThread.Editor.cs:82)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+mode=8406016 [TestRunBuilder] Creating new file 'Assets/Resources/PerformanceTestRunInfo.json' (2467 bytes)
+UnityEngine.Debug:Log (object)
+Unity.PerformanceTesting.Editor.TestRunBuilder:SaveToStorage (object,string) (at ./Library/PackageCache/com.unity.test-framework.performance@0a60b857a52e/Editor/TestRunBuilder.cs:242)
+Unity.PerformanceTesting.Editor.TestRunBuilder:OnPreprocessBuild (UnityEditor.Build.Reporting.BuildReport) (at ./Library/PackageCache/com.unity.test-framework.performance@0a60b857a52e/Editor/TestRunBuilder.cs:35)
+UnityEditor.BuildPipeline:BuildPlayer (UnityEditor.BuildPlayerOptions)
+Biathlon.Unity.PlayerBuildPipeline/<>c__DisplayClass42_0:<BuildVisualUpgrade>b__0 () (at Assets/Scripts/Unity/Editor/PlayerBuildVisualUpgrade.cs:89)
+Biathlon.Unity.RenderQualityAuthoring:WithBoundBuildProfiles (System.Action) (at Assets/Scripts/Unity/Editor/RenderQualityAuthoring.cs:58)
+Biathlon.Unity.RenderQualityAuthoring:WithBuildProfiles (System.Action) (at Assets/Scripts/Unity/Editor/RenderQualityAuthoring.cs:33)
+Biathlon.Unity.PlayerBuildPipeline:WithProductionBuildProfiles (System.Action) (at Assets/Scripts/Unity/Editor/PlayerBuildProductionReview.cs:76)
+Biathlon.Unity.PlayerBuildPipeline:BuildVisualUpgrade (string) (at Assets/Scripts/Unity/Editor/PlayerBuildVisualUpgrade.cs:87)
+Biathlon.Unity.PlayerBuildPipeline:BuildShootingContactReview (string) (at Assets/Scripts/Unity/Editor/PlayerBuildM16_4.cs:14)
+Biathlon.Unity.PlayerBuildPipeline:BuildRaceLoadingReview () (at Assets/Scripts/Unity/Editor/PlayerBuildM16_4.cs:11)
+__CodeExecSnippet:__Run () (at snippet.cs:1)
+System.Reflection.MethodBase:Invoke (object,object[])
+com.IvanMurzak.CodeExec.CodeRunner:Start (com.IvanMurzak.CodeExec.PreparedSnippet) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/CodeExec/Core/CodeRunner.cs:374)
+com.IvanMurzak.CodeExec.CodeRunner/<RunAsync>d__25:MoveNext () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/CodeExec/Core/CodeRunner.cs:324)
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<com.IvanMurzak.CodeExec.ExecuteResult>:Start<com.IvanMurzak.CodeExec.CodeRunner/<RunAsync>d__25> (com.IvanMurzak.CodeExec.CodeRunner/<RunAsync>d__25&)
+com.IvanMurzak.CodeExec.CodeRunner:RunAsync (com.IvanMurzak.CodeExec.PreparedSnippet,System.Threading.CancellationToken)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunHoldingReload>d__12:MoveNext () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/API/Tool/Script.Execute.Reload.cs:87)
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<System.ValueTuple`2<com.IvanMurzak.CodeExec.ExecuteResult, bool>>:Start<com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunHoldingReload>d__12> (com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunHoldingReload>d__12&)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script:RunHoldingReload (com.IvanMurzak.CodeExec.PreparedSnippet)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunOnMainThread>d__26:MoveNext () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/API/Tool/Script.Execute.cs:194)
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<com.IvanMurzak.ReflectorNet.Model.SerializedMember>:Start<com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunOnMainThread>d__26> (com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunOnMainThread>d__26&)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script:RunOnMainThread (com.IvanMurzak.CodeExec.PreparedSnippet,com.IvanMurzak.ReflectorNet.Model.SerializedMemberList)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<>c__DisplayClass25_0:<Execute>b__1 () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/API/Tool/Script.Execute.cs:182)
+com.IvanMurzak.Unity.MCP.Runtime.Utils.UnityMainThread/<>c__DisplayClass9_0`1<System.Threading.Tasks.Task`1<com.IvanMurzak.ReflectorNet.Model.SerializedMember>>:<Dispatch>b__0 () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Runtime/Utils/MainThread.Editor.cs:90)
+com.IvanMurzak.Unity.MCP.Runtime.Utils.UnityMainThread:Pump () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Runtime/Utils/MainThread.Editor.cs:82)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+mode=8406016 [TestRunBuilder] Creating new file 'Assets/Resources/PerformanceTestRunSettings.json' (23 bytes)
+UnityEngine.Debug:Log (object)
+Unity.PerformanceTesting.Editor.TestRunBuilder:SaveToStorage (object,string) (at ./Library/PackageCache/com.unity.test-framework.performance@0a60b857a52e/Editor/TestRunBuilder.cs:242)
+Unity.PerformanceTesting.Editor.TestRunBuilder:OnPreprocessBuild (UnityEditor.Build.Reporting.BuildReport) (at ./Library/PackageCache/com.unity.test-framework.performance@0a60b857a52e/Editor/TestRunBuilder.cs:38)
+UnityEditor.BuildPipeline:BuildPlayer (UnityEditor.BuildPlayerOptions)
+Biathlon.Unity.PlayerBuildPipeline/<>c__DisplayClass42_0:<BuildVisualUpgrade>b__0 () (at Assets/Scripts/Unity/Editor/PlayerBuildVisualUpgrade.cs:89)
+Biathlon.Unity.RenderQualityAuthoring:WithBoundBuildProfiles (System.Action) (at Assets/Scripts/Unity/Editor/RenderQualityAuthoring.cs:58)
+Biathlon.Unity.RenderQualityAuthoring:WithBuildProfiles (System.Action) (at Assets/Scripts/Unity/Editor/RenderQualityAuthoring.cs:33)
+Biathlon.Unity.PlayerBuildPipeline:WithProductionBuildProfiles (System.Action) (at Assets/Scripts/Unity/Editor/PlayerBuildProductionReview.cs:76)
+Biathlon.Unity.PlayerBuildPipeline:BuildVisualUpgrade (string) (at Assets/Scripts/Unity/Editor/PlayerBuildVisualUpgrade.cs:87)
+Biathlon.Unity.PlayerBuildPipeline:BuildShootingContactReview (string) (at Assets/Scripts/Unity/Editor/PlayerBuildM16_4.cs:14)
+Biathlon.Unity.PlayerBuildPipeline:BuildRaceLoadingReview () (at Assets/Scripts/Unity/Editor/PlayerBuildM16_4.cs:11)
+__CodeExecSnippet:__Run () (at snippet.cs:1)
+System.Reflection.MethodBase:Invoke (object,object[])
+com.IvanMurzak.CodeExec.CodeRunner:Start (com.IvanMurzak.CodeExec.PreparedSnippet) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/CodeExec/Core/CodeRunner.cs:374)
+com.IvanMurzak.CodeExec.CodeRunner/<RunAsync>d__25:MoveNext () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/CodeExec/Core/CodeRunner.cs:324)
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<com.IvanMurzak.CodeExec.ExecuteResult>:Start<com.IvanMurzak.CodeExec.CodeRunner/<RunAsync>d__25> (com.IvanMurzak.CodeExec.CodeRunner/<RunAsync>d__25&)
+com.IvanMurzak.CodeExec.CodeRunner:RunAsync (com.IvanMurzak.CodeExec.PreparedSnippet,System.Threading.CancellationToken)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunHoldingReload>d__12:MoveNext () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/API/Tool/Script.Execute.Reload.cs:87)
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<System.ValueTuple`2<com.IvanMurzak.CodeExec.ExecuteResult, bool>>:Start<com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunHoldingReload>d__12> (com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunHoldingReload>d__12&)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script:RunHoldingReload (com.IvanMurzak.CodeExec.PreparedSnippet)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunOnMainThread>d__26:MoveNext () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/API/Tool/Script.Execute.cs:194)
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<com.IvanMurzak.ReflectorNet.Model.SerializedMember>:Start<com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunOnMainThread>d__26> (com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<RunOnMainThread>d__26&)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script:RunOnMainThread (com.IvanMurzak.CodeExec.PreparedSnippet,com.IvanMurzak.ReflectorNet.Model.SerializedMemberList)
+com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script/<>c__DisplayClass25_0:<Execute>b__1 () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/API/Tool/Script.Execute.cs:182)
+com.IvanMurzak.Unity.MCP.Runtime.Utils.UnityMainThread/<>c__DisplayClass9_0`1<System.Threading.Tasks.Task`1<com.IvanMurzak.ReflectorNet.Model.SerializedMember>>:<Dispatch>b__0 () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Runtime/Utils/MainThread.Editor.cs:90)
+com.IvanMurzak.Unity.MCP.Runtime.Utils.UnityMainThread:Pump () (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Runtime/Utils/MainThread.Editor.cs:82)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+mode=266240 Assets\Scripts\Unity\Presentation\AthleteFaceReview.cs(49,65): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\AthleteFaceReview.cs(49,33): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\AthleteFaceReview.cs(50,59): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\AthleteFaceReview.cs(50,34): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\M15_6PlayerReview.cs(32,64): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\M15_6PlayerReview.cs(32,32): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\WinterVenuePlayerReview.cs(62,83): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\WinterVenuePlayerReview.cs(62,51): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\PoleMotionReview.cs(63,83): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\PoleMotionReview.cs(63,51): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\FrostlineStandaloneReview.cs(92,69): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\FrostlineStandaloneReview.cs(92,37): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\LiveShootingPlayerReview.cs(67,82): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\LiveShootingPlayerReview.cs(67,50): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\FrostlineStandaloneReview.cs(220,61): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\FrostlineStandaloneReview.cs(220,35): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\FrostlineStandaloneReview.cs(225,67): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\FrostlineStandaloneReview.cs(225,37): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\M15_6PlayerReview.cs(70,64): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\M15_6PlayerReview.cs(70,32): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\M15_6PlayerReview.cs(134,100): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\M15_6PlayerReview.cs(134,70): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\VisualUpgradeReview.cs(56,83): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'
+
+mode=266240 Assets\Scripts\Unity\Presentation\VisualUpgradeReview.cs(56,51): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'
+
+mode=262276 Shader warning in 'Hidden/Sentis/Pad': integer modulus may be much slower, try using uints if possible. at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/Pad.shader(55) (on dx11)
+
+Compiling Subshader: 0, Pass: , Fragment program with WRAP
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: CONSTANT EDGE INT REFLECT SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 SYMMETRIC UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ConvTranspose': integer modulus may be much slower, try using uints if possible. at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ConvTranspose.shader(215) (on dx11)
+
+Compiling Subshader: 0, Pass: , Fragment program with CONVTRANSPOSE1D DILATIONX_GT_STRIDE DILATIONZ_GT_STRIDE NONE
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: CONVTRANSPOSE2D CONVTRANSPOSE3D DILATIONX_GT_ONE_LTE_STRIDE DILATIONY_GT_ONE_LTE_STRIDE DILATIONY_GT_STRIDE DILATIONZ_GT_ONE_LTE_STRIDE GROUPS_ENABLED RELU SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING USEBIAS
+
+mode=262276 Shader warning in 'Hidden/Sentis/ConvTranspose': integer modulus may be much slower, try using uints if possible. at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ConvTranspose.shader(218) (on dx11)
+
+Compiling Subshader: 0, Pass: , Fragment program with CONVTRANSPOSE1D DILATIONX_GT_STRIDE DILATIONZ_GT_STRIDE NONE
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: CONVTRANSPOSE2D CONVTRANSPOSE3D DILATIONX_GT_ONE_LTE_STRIDE DILATIONY_GT_ONE_LTE_STRIDE DILATIONY_GT_STRIDE DILATIONZ_GT_ONE_LTE_STRIDE GROUPS_ENABLED RELU SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING USEBIAS
+
+mode=262276 Shader warning in 'Hidden/Sentis/ConvTranspose': integer modulus may be much slower, try using uints if possible. at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ConvTranspose.shader(256) (on dx11)
+
+Compiling Subshader: 0, Pass: , Fragment program with CONVTRANSPOSE2D DILATIONX_GT_ONE_LTE_STRIDE DILATIONY_GT_STRIDE NONE USEBIAS
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: CONVTRANSPOSE1D CONVTRANSPOSE3D DILATIONX_GT_STRIDE DILATIONY_GT_ONE_LTE_STRIDE DILATIONZ_GT_ONE_LTE_STRIDE DILATIONZ_GT_STRIDE GROUPS_ENABLED RELU SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ConvTranspose': integer modulus may be much slower, try using uints if possible. at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ConvTranspose.shader(259) (on dx11)
+
+Compiling Subshader: 0, Pass: , Fragment program with CONVTRANSPOSE2D DILATIONX_GT_ONE_LTE_STRIDE DILATIONY_GT_STRIDE NONE USEBIAS
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: CONVTRANSPOSE1D CONVTRANSPOSE3D DILATIONX_GT_STRIDE DILATIONY_GT_ONE_LTE_STRIDE DILATIONZ_GT_ONE_LTE_STRIDE DILATIONZ_GT_STRIDE GROUPS_ENABLED RELU SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ConvTranspose': integer modulus may be much slower, try using uints if possible. at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ConvTranspose.shader(296) (on dx11)
+
+Compiling Subshader: 0, Pass: , Fragment program with CONVTRANSPOSE3D DILATIONX_GT_ONE_LTE_STRIDE DILATIONY_GT_STRIDE DILATIONZ_GT_STRIDE NONE USEBIAS
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: CONVTRANSPOSE1D CONVTRANSPOSE2D DILATIONX_GT_STRIDE DILATIONY_GT_ONE_LTE_STRIDE DILATIONZ_GT_ONE_LTE_STRIDE GROUPS_ENABLED RELU SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ConvTranspose': integer modulus may be much slower, try using uints if possible. at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ConvTranspose.shader(299) (on dx11)
+
+Compiling Subshader: 0, Pass: , Fragment program with CONVTRANSPOSE3D DILATIONX_GT_ONE_LTE_STRIDE DILATIONY_GT_STRIDE DILATIONZ_GT_STRIDE NONE USEBIAS
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: CONVTRANSPOSE1D CONVTRANSPOSE2D DILATIONX_GT_STRIDE DILATIONY_GT_ONE_LTE_STRIDE DILATIONZ_GT_ONE_LTE_STRIDE GROUPS_ENABLED RELU SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterND': 'j': loop control variable conflicts with a previous declaration in the outer scope; most recent declaration will be used at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterND.shader(72) (on dx11)
+
+Compiling Subshader: 0, Pass: <Unnamed Pass 0>, Fragment program with ReduceNone
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: K_LARGE ReduceAdd ReduceMax ReduceMin ReduceMul SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 ScatterInt UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterND': 'j': loop control variable conflicts with a previous declaration in the outer scope; most recent declaration will be used at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterND.shader(72) (on dx12)
+
+Compiling Subshader: 0, Pass: , Vertex program with K_LARGE ReduceNone ScatterInt
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: ReduceAdd ReduceMax ReduceMin ReduceMul SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterND': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterND.shader(75) (on dx11)
+
+Compiling Subshader: 0, Pass: <Unnamed Pass 0>, Fragment program with ReduceNone
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: K_LARGE ReduceAdd ReduceMax ReduceMin ReduceMul SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 ScatterInt UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterND': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterND.shader(75) (on dx12)
+
+Compiling Subshader: 0, Pass: , Vertex program with K_LARGE ReduceNone ScatterInt
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: ReduceAdd ReduceMax ReduceMin ReduceMul SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterND': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterND.shader(77) (on dx11)
+
+Compiling Subshader: 0, Pass: <Unnamed Pass 0>, Fragment program with ReduceNone
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: K_LARGE ReduceAdd ReduceMax ReduceMin ReduceMul SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 ScatterInt UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterND': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterND.shader(77) (on dx12)
+
+Compiling Subshader: 0, Pass: , Vertex program with K_LARGE ReduceNone ScatterInt
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: ReduceAdd ReduceMax ReduceMin ReduceMul SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterND': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterND.shader(79) (on dx11)
+
+Compiling Subshader: 0, Pass: <Unnamed Pass 0>, Fragment program with ReduceNone
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: K_LARGE ReduceAdd ReduceMax ReduceMin ReduceMul SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 ScatterInt UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterND': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterND.shader(79) (on dx12)
+
+Compiling Subshader: 0, Pass: , Vertex program with K_LARGE ReduceNone ScatterInt
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: ReduceAdd ReduceMax ReduceMin ReduceMul SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterND': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterND.shader(81) (on dx11)
+
+Compiling Subshader: 0, Pass: <Unnamed Pass 0>, Fragment program with ReduceNone
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: K_LARGE ReduceAdd ReduceMax ReduceMin ReduceMul SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 ScatterInt UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterND': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterND.shader(81) (on dx12)
+
+Compiling Subshader: 0, Pass: , Vertex program with K_LARGE ReduceNone ScatterInt
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: ReduceAdd ReduceMax ReduceMin ReduceMul SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterND': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterND.shader(86) (on dx11)
+
+Compiling Subshader: 0, Pass: , Vertex program with K_LARGE ReduceMax ScatterInt
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: ReduceAdd ReduceMin ReduceMul ReduceNone SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterND': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterND.shader(86) (on dx12)
+
+Compiling Subshader: 0, Pass: , Vertex program with K_LARGE ReduceNone ScatterInt
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: ReduceAdd ReduceMax ReduceMin ReduceMul SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterND': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterND.shader(88) (on dx11)
+
+Compiling Subshader: 0, Pass: , Vertex program with K_LARGE ReduceMax ScatterInt
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: ReduceAdd ReduceMin ReduceMul ReduceNone SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterND': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterND.shader(88) (on dx12)
+
+Compiling Subshader: 0, Pass: , Vertex program with K_LARGE ReduceNone ScatterInt
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: ReduceAdd ReduceMax ReduceMin ReduceMul SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterND': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterND.shader(90) (on dx11)
+
+Compiling Subshader: 0, Pass: , Vertex program with K_LARGE ReduceMax ScatterInt
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: ReduceAdd ReduceMin ReduceMul ReduceNone SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterND': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterND.shader(90) (on dx12)
+
+Compiling Subshader: 0, Pass: , Vertex program with K_LARGE ReduceNone ScatterInt
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: ReduceAdd ReduceMax ReduceMin ReduceMul SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterND': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterND.shader(92) (on dx11)
+
+Compiling Subshader: 0, Pass: , Vertex program with K_LARGE ReduceMax ScatterInt
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: ReduceAdd ReduceMin ReduceMul ReduceNone SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterND': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterND.shader(92) (on dx12)
+
+Compiling Subshader: 0, Pass: , Vertex program with K_LARGE ReduceNone ScatterInt
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: ReduceAdd ReduceMax ReduceMin ReduceMul SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/GridSample': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/GridSample.shader(44) (on dx11)
+
+Compiling Subshader: 0, Pass: <Unnamed Pass 0>, Fragment program with GRIDSAMPLE1D LINEAR ZEROS
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: ALIGN_CORNERS BORDER GRIDSAMPLE2D GRIDSAMPLE3D NEAREST REFLECTION SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/GridSample': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/GridSample.shader(47) (on dx11)
+
+Compiling Subshader: 0, Pass: , Vertex program with GRIDSAMPLE2D LINEAR ZEROS
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: ALIGN_CORNERS BORDER GRIDSAMPLE1D GRIDSAMPLE3D NEAREST REFLECTION SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/GridSample': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/GridSample.shader(50) (on dx11)
+
+Compiling Subshader: 0, Pass: , Vertex program with ALIGN_CORNERS GRIDSAMPLE3D LINEAR ZEROS
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: BORDER GRIDSAMPLE1D GRIDSAMPLE2D NEAREST REFLECTION SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterElements': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterElements.shader(147) (on dx11)
+
+Compiling Subshader: 0, Pass: , Vertex program with NoFastPath ReduceNone
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: ReduceAdd ReduceMax ReduceMin ReduceMul SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 ScatterInt UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING UseDiv4Mask
+
+mode=262276 Shader warning in 'Hidden/Sentis/ScatterElements': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/ScatterElements.shader(202) (on dx11)
+
+Compiling Subshader: 0, Pass: , Vertex program with NoFastPath ReduceNone
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: ReduceAdd ReduceMax ReduceMin ReduceMul SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 ScatterInt UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING UseDiv4Mask
+
+mode=262276 Shader warning in 'Hidden/Sentis/SliceSet': integer divides may be much slower, try using uints if possible. at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/SliceSet.shader(55) (on dx12)
+
+Compiling Subshader: 0, Pass: , Fragment program with BLOCKWISE INT
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/SliceSet': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/SliceSet.shader(57) (on dx11)
+
+Compiling Subshader: 0, Pass: , Vertex program with BLOCKWISE INT
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/SliceSet': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/SliceSet.shader(57) (on dx12)
+
+Compiling Subshader: 0, Pass: , Fragment program with BLOCKWISE INT
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/SliceSet': integer divides may be much slower, try using uints if possible. at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/SliceSet.shader(69) (on dx11)
+
+Compiling Subshader: 0, Pass: <Unnamed Pass 0>, Fragment program with <no keywords>
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: BLOCKWISE INT SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/SliceSet': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/SliceSet.shader(71) (on dx11)
+
+Compiling Subshader: 0, Pass: <Unnamed Pass 0>, Vertex program with <no keywords>
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: BLOCKWISE INT SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'Hidden/Sentis/SliceSet': signed/unsigned mismatch, unsigned assumed at Packages/com.unity.ai.inference/Runtime/Core/Resources/Sentis/PixelShaders/SliceSet.shader(71) (on dx12)
+
+Compiling Subshader: 0, Pass: , Vertex program with INT
+Platform defines: SHADER_API_DESKTOP UNITY_ENABLE_DETAIL_NORMALMAP UNITY_ENABLE_REFLECTION_BUFFERS UNITY_LIGHTMAP_FULL_HDR UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_PBS_USE_BRDF1 UNITY_PLATFORM_SUPPORTS_DEPTH_FETCH UNITY_SPECCUBE_BLENDING UNITY_SPECCUBE_BOX_PROJECTION UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS
+Disabled keywords: BLOCKWISE SHADER_API_GLES30 SHADER_API_GLES31 SHADER_API_GLES32 UNITY_ASTC_NORMALMAP_ENCODING UNITY_COLORSPACE_GAMMA UNITY_FRAMEBUFFER_FETCH_AVAILABLE UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_DXT5nm UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_UNIFIED_SHADER_PRECISION_MODEL UNITY_VIRTUAL_TEXTURING
+
+mode=262276 Shader warning in 'ConvGeneric': "TRANSPOSE_OUTPUT variants not supported with NON_UNIFORM_CONVGROUP_PER_OC, make sure this variant is not used" at kernel Conv1DComplex_OutTransposed_4eoc_4esp at ConvGeneric.compute(548)
+
+mode=262276 Shader warning in 'ConvGeneric': "TRANSPOSE_OUTPUT variants not supported with NON_UNIFORM_CONVGROUP_PER_OC, make sure this variant is not used" at kernel Conv1D_OutTransposedDouble_4eoc_4esp at ConvGeneric.compute(548)
+
+mode=262276 Shader warning in 'ConvGeneric': "TRANSPOSE_OUTPUT variants not supported with NON_UNIFORM_CONVGROUP_PER_OC, make sure this variant is not used" at kernel Conv1D_OutTransposed_4eoc_4esp at ConvGeneric.compute(548)
+
+mode=262276 Shader warning in 'ConvGeneric': "TRANSPOSE_OUTPUT variants not supported with NON_UNIFORM_CONVGROUP_PER_OC, make sure this variant is not used" at kernel Conv1D_Scaled_Complex_OutTransposed_4eoc_4esp at ConvGeneric.compute(548)
+
+mode=262276 Shader warning in 'ConvGeneric': "TRANSPOSE_OUTPUT variants not supported with NON_UNIFORM_CONVGROUP_PER_OC, make sure this variant is not used" at kernel Conv1D_Scaled_OutTransposed_4eoc_4esp at ConvGeneric.compute(548)
+
+mode=262276 Shader warning in 'ConvGeneric': "TRANSPOSE_OUTPUT variants not supported with NON_UNIFORM_CONVGROUP_PER_OC, make sure this variant is not used" at kernel Conv1DComplex_OutTransposed_4eoc_4esp at ConvGeneric.compute(549)
+
+mode=262276 Shader warning in 'ConvGeneric': "TRANSPOSE_OUTPUT variants not supported with NON_UNIFORM_CONVGROUP_PER_OC, make sure this variant is not used" at kernel Conv1D_OutTransposedDouble_4eoc_4esp at ConvGeneric.compute(549)
+
+mode=262276 Shader warning in 'ConvGeneric': "TRANSPOSE_OUTPUT variants not supported with NON_UNIFORM_CONVGROUP_PER_OC, make sure this variant is not used" at kernel Conv1D_OutTransposed_4eoc_4esp at ConvGeneric.compute(549)
+
+mode=262276 Shader warning in 'ConvGeneric': "TRANSPOSE_OUTPUT variants not supported with NON_UNIFORM_CONVGROUP_PER_OC, make sure this variant is not used" at kernel Conv1D_Scaled_Complex_OutTransposed_4eoc_4esp at ConvGeneric.compute(549)
+
+mode=262276 Shader warning in 'ConvGeneric': "TRANSPOSE_OUTPUT variants not supported with NON_UNIFORM_CONVGROUP_PER_OC, make sure this variant is not used" at kernel Conv1D_Scaled_OutTransposed_4eoc_4esp at ConvGeneric.compute(549)
+
+mode=262276 Shader warning in 'ConvGeneric': "TRANSPOSE_OUTPUT variants not supported with NON_UNIFORM_CONVGROUP_PER_OC, make sure this variant is not used" at kernel Conv1DComplex_OutTransposed_4eoc_4esp at ConvGeneric.compute(550)
+
+mode=262276 Shader warning in 'ConvGeneric': "TRANSPOSE_OUTPUT variants not supported with NON_UNIFORM_CONVGROUP_PER_OC, make sure this variant is not used" at kernel Conv1D_OutTransposedDouble_4eoc_4esp at ConvGeneric.compute(550)
+
+mode=262276 Shader warning in 'ConvGeneric': "TRANSPOSE_OUTPUT variants not supported with NON_UNIFORM_CONVGROUP_PER_OC, make sure this variant is not used" at kernel Conv1D_OutTransposed_4eoc_4esp at ConvGeneric.compute(550)
+
+mode=262276 Shader warning in 'ConvGeneric': "TRANSPOSE_OUTPUT variants not supported with NON_UNIFORM_CONVGROUP_PER_OC, make sure this variant is not used" at kernel Conv1D_Scaled_Complex_OutTransposed_4eoc_4esp at ConvGeneric.compute(550)
+
+mode=262276 Shader warning in 'ConvGeneric': "TRANSPOSE_OUTPUT variants not supported with NON_UNIFORM_CONVGROUP_PER_OC, make sure this variant is not used" at kernel Conv1D_Scaled_OutTransposed_4eoc_4esp at ConvGeneric.compute(550)

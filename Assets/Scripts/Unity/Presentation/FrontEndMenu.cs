@@ -141,6 +141,7 @@ namespace Biathlon.Unity.Presentation
             Root.Clear();controls.Clear();paper=HighContrast?Color.black:FrontEndTheme.Color(theme.paper);ink=HighContrast?Color.white:FrontEndTheme.Color(theme.ink);
             FrostlineStyle.Apply(Root,ReducedMotion);Root.EnableInClassList("high-contrast",HighContrast);
             Root.style.flexGrow=1;Root.style.backgroundColor=FrontEndTheme.Color(theme.snow);Root.style.color=ink;
+            if(Race.Loading){RenderRaceLoading();return;}
             bool home=Session.Screen==FrontEndScreen.Home;
             var background=new Image{image=backdrop,scaleMode=ScaleMode.ScaleAndCrop,pickingMode=PickingMode.Ignore,name="menu_backdrop"};
             background.style.position=Position.Absolute;background.style.left=0;background.style.right=0;background.style.top=0;background.style.bottom=0;Root.Add(background);

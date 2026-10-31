@@ -1,0 +1,8 @@
+{
+  "id": "m16_4_loading_interim_capture_audit",
+  "player_receipt_success": true,
+  "painted_stage_mask": 15,
+  "visual_acceptance": false,
+  "reason": "QA Update rendered the world directly into the menu panel texture after Host creation. Native stage flags passed but stages2/3 PNGs were overwritten world frames. Final QA gates title pixels and skips manual world rendering while loading.",
+  "retained_output": "artifacts/m16-4/loading/player-final"
+}

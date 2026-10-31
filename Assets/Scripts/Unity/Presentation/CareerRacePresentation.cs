@@ -11,12 +11,14 @@ using UnityEngine.InputSystem;
 
 namespace Biathlon.Unity.Presentation
 {
+    public enum CareerRaceLoadingStage { Preparation=0, Athletes=1, Venue=2, Ready=3 }
     /// <summary>Owns one live career race and returns its authority result to the menu.</summary>
     public sealed class CareerRacePresentation : MonoBehaviour
     {
         public ProductionVenueHost Host { get; private set; }
         public bool LoadEnvironment=true;
         public bool Loading { get; private set; }
+        public CareerRaceLoadingStage LoadingStage {get;private set;}
         public bool AwaitingSave { get; private set; }
         public bool Paused { get; private set; }
         private int pauseFrame=-1;
@@ -30,48 +32,68 @@ namespace Biathlon.Unity.Presentation
         {
             if(Loading||Host!=null)throw new InvalidOperationException("A race is already active.");
             if(owner==null||owner.Session.Screen!=FrontEndScreen.PreRace)throw new InvalidOperationException("Prepare a career event first.");
-            menu=owner;Loading=true;menu.RefreshFrontEnd();StartCoroutine(CreateRace());
+            menu=owner;Loading=true;LoadingStage=CareerRaceLoadingStage.Preparation;menu.RefreshFrontEnd();StartCoroutine(CreateRace());
         }
         private IEnumerator CreateRace()
         {
-            // Let the loading label paint before one-off composition work.
-            yield return null;
+            // UI layout and rendering must both run before each synchronous Unity
+            // initialization phase. The race clock/countdown is not armed yet.
+            yield return null;yield return null;
             Exception failure=null;
+            var week=menu.Session.PreparedWeek;
+            ReplayPresentationSettings replayPolicy=null;RaceHighlightDetector highlights=null;
             try
             {
-                var week=menu.Session.PreparedWeek;
-                var replayPolicy=ReplayPresentationSettings.Load();
+                replayPolicy=ReplayPresentationSettings.Load();
                 string format=week.Event.Format==CompetitionFormat.Sprint?"sprint":week.Event.Format==CompetitionFormat.Pursuit?"pursuit":"mass_start";
                 var profile=CompetitionProfile.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/"+week.Event.VenueId+"/"+format+"_profile"));
                 int frequency=CareerRaceDefinition.FromJson(ReadCore("career_race_v1.json")).TickFrequency;
-                var highlights=new RaceHighlightDetector(profile.BoutCount,frequency,replayPolicy.close_finish_seconds,replayPolicy.highlight_cooldown_seconds,week.Event.Format==CompetitionFormat.Sprint);
+                highlights=new RaceHighlightDetector(profile.BoutCount,frequency,replayPolicy.close_finish_seconds,replayPolicy.highlight_cooldown_seconds,week.Event.Format==CompetitionFormat.Sprint);
                 prepared=new CareerRaceProvider(ReadCore,menu.Session.Definitions,ProductionVenueHost.ReadResource)
                     .Prepare(CareerSave.FromJson(week.RaceSnapshotJson),week.Event,week.RaceSeed,highlights);
-                raceRoot=new GameObject("Career race");raceRoot.transform.SetParent(transform,false);
-                Host=raceRoot.AddComponent<ProductionVenueHost>();Host.AutoStart=false;Host.enabled=false;
-                Host.InputPreferences=menu.Settings.Clone(PlayerSettingsPreferences.Catalog);Host.UseGamepad=menu.Settings.Device=="gamepad";
-                Host.InitializeCareer(prepared);
-                Host.Proxies.ConfigureCareerAppearance(CareerSave.FromJson(week.RaceSnapshotJson),menu.Session.Definitions.Calendar,menu.Session.Definitions.Scoring,week.Event);
-                Host.GameplayHud.SetPreferences(menu.Locale,menu.TextSizeIndex,menu.Session.Player.Name);
-                Host.GameplayHud.SetAccessibility(menu.HighContrast);
-                Host.GameplayHud.SetBroadcastRoster(menu.Session.Career);
-                try
-                {
-                    var info=new RaceReplayInfo{Id="race_"+Guid.NewGuid().ToString("N"),RecordedUtc=DateTime.UtcNow.ToString("O"),CareerSnapshotJson=week.RaceSnapshotJson,
-                        EventId=week.Event.Id,VenueId=week.Event.VenueId,Format=(int)week.Event.Format,Seed=week.RaceSeed,PlayerId=menu.Session.Career.PlayerId,PlayerName=menu.Session.Player.Name,TickFrequency=Host.Runner.Field.TickFrequency,
-                        RaceWeatherJson=prepared.Weather?.ToJson(),StartOrderVersion=CareerRaceProvider.CurrentStartOrderVersion};
-                    replayCapture=new CareerReplayCapture(menu.ReplayLibrary,Host.ManualStepper,info,highlights,replayPolicy);
-                }
-                catch(Exception e)when(e is IOException||e is UnauthorizedAccessException){Debug.LogWarning("Replay capture unavailable: "+e.Message);}
             }
             catch(Exception e){failure=e;}
             if(failure==null)
             {
-                yield return null;
+                SetLoadingStage(CareerRaceLoadingStage.Athletes);yield return null;yield return null;
+                try
+                {
+                    raceRoot=new GameObject("Career race");raceRoot.transform.SetParent(transform,false);
+                    Host=raceRoot.AddComponent<ProductionVenueHost>();Host.AutoStart=false;Host.enabled=false;
+                    Host.InputPreferences=menu.Settings.Clone(PlayerSettingsPreferences.Catalog);Host.UseGamepad=menu.Settings.Device=="gamepad";
+                    Host.InitializeCareer(prepared);
+                    Host.Proxies.ConfigureCareerAppearance(CareerSave.FromJson(week.RaceSnapshotJson),menu.Session.Definitions.Calendar,menu.Session.Definitions.Scoring,week.Event);
+                    Host.GameplayHud.SetPreferences(menu.Locale,menu.TextSizeIndex,menu.Session.Player.Name);
+                    Host.GameplayHud.SetAccessibility(menu.HighContrast);
+                    Host.GameplayHud.SetBroadcastRoster(menu.Session.Career);
+                    try
+                    {
+                        var info=new RaceReplayInfo{Id="race_"+Guid.NewGuid().ToString("N"),RecordedUtc=DateTime.UtcNow.ToString("O"),CareerSnapshotJson=week.RaceSnapshotJson,
+                            EventId=week.Event.Id,VenueId=week.Event.VenueId,Format=(int)week.Event.Format,Seed=week.RaceSeed,PlayerId=menu.Session.Career.PlayerId,PlayerName=menu.Session.Player.Name,TickFrequency=Host.Runner.Field.TickFrequency,
+                            RaceWeatherJson=prepared.Weather?.ToJson(),StartOrderVersion=CareerRaceProvider.CurrentStartOrderVersion};
+                        replayCapture=new CareerReplayCapture(menu.ReplayLibrary,Host.ManualStepper,info,highlights,replayPolicy);
+                    }
+                    catch(Exception e)when(e is IOException||e is UnauthorizedAccessException){Debug.LogWarning("Replay capture unavailable: "+e.Message);}
+                }
+                catch(Exception e){failure=e;}
+            }
+            if(failure==null)
+            {
+                SetLoadingStage(CareerRaceLoadingStage.Venue);yield return null;yield return null;
                 try
                 {
                     if(LoadEnvironment)Host.InitializeEnvironment(CareerWeatherPresentation.Bind(ProductionEnvironmentDefinition.FromJson(
                         ProductionVenueHost.ReadResource("Biathlon/Venues/"+prepared.Event.VenueId+"/environment")),prepared.Weather));
+                }
+                catch(Exception e){failure=e;}
+            }
+            if(failure==null)
+            {
+                // Let the completed world and its UI render behind the loader;
+                // only then hand off to the unchanged personal 3-2-1 sequence.
+                SetLoadingStage(CareerRaceLoadingStage.Ready);yield return null;yield return null;
+                try
+                {
                     menu.Session.BeginRace();Host.ArmRaceStartCountdown();Host.enabled=true;menu.SetRaceVisible(true);
                 }
                 catch(Exception e){failure=e;}
@@ -80,6 +102,7 @@ namespace Biathlon.Unity.Presentation
             if(failure!=null){ReleaseRace();menu.ShowFrontEndError("race_load_error");Debug.LogWarning("Career race load failed: "+failure);}
             menu.RefreshFrontEnd();
         }
+        private void SetLoadingStage(CareerRaceLoadingStage stage){LoadingStage=stage;menu.RefreshFrontEnd();}
         private void Update()
         {
             if(Loading||Host==null||AwaitingSave)return;

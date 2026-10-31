@@ -53,3 +53,29 @@ Primary references consulted 2026-10-31:
 - [IBU September2026 ECR,8.3.2.1](https://assets.ctfassets.net/cz0vl36hcq0x/7mkQn1kQTB7VzlUZHAcuec/c8897efcf14ccded0f82af3513c6e5ef/ECR_Rules_2026_cap03.pdf)
 - [IBU AnnexA,3.1.7.1 and3.2.1.13](https://assets.ctfassets.net/cz0vl36hcq0x/2iDuPyE16smAkjo3DoobKs/fba5ec5c25b846c07b6e5e39b4295761/ECR_Annexes_2026_cap04.pdf)
 - [US Biathlon coach education, winter range procedure](https://minnesotabiathlon.com/wordpress/wp-content/uploads/2020/11/CoachesEducation.pdf)
+
+## 2026-10-31 — owner follow-up: visible race loading
+
+The previous launch only relabeled its button before synchronous composition.
+Use the existing menu's top-order UIDocument for a dedicated Frostline screen:
+the existing Woodland venue illustration, Deep/Ink/Accent palette, Oswald/Roboto,
+the actual format/venue and a five-target indeterminate activity signature.
+No fake percentage or technical resource descriptions. Reduced-motion uses a
+static indicator. No new bitmap, scene, world camera or racing-tick work.
+
+Expose four presentation stages: prepare the race, create athletes/presentation,
+initialize the venue, then ready. Let two ordinary frames run before each
+synchronous phase so layout and a render submission can complete. Unity world
+construction still runs synchronously; scheduled animation cannot run while that
+main-thread work blocks. The truthful status/illustration remain visible then.
+This is a loading-feedback change, not an async-loading/performance claim.
+
+Keep the host disabled, field tick0 and personal countdown unarmed throughout
+loading. After the prepared world has rendered behind the loader, perform the
+existing BeginRace/ArmRaceStartCountdown handoff. Delayed Sprint/Pursuit starts
+retain their waiting and skip behavior. No race duration, seed, checkpoint/save,
+physical preparation or personal countdown length changes. Loading blocks repeat
+launch/back input. Failure cleans up the partial race and restores the menu/error.
+Native tests cover launch/stages, readonly clock, failure and unchanged saves;
+layout fixtures freeze the real screen before composition. Opt-in development
+player QA can capture all four actual painted stages, separate from frozen views.

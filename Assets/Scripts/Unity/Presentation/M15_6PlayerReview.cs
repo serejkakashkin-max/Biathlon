@@ -21,6 +21,9 @@ namespace Biathlon.Unity.Presentation
         }
         [Serializable]private sealed class Receipt
         {public int schema_version=1;public string id="m15_6_standalone_review",unity,fullscreen_mode,display_check;public bool success,owner_profiles_unchanged,fullscreen,created,appearance_restored,race_loaded,countdown_started,backup_recovered,diagnostic_exported,bindings_applied,settings_reloaded,checkpoint_verified,start_wait_skipped;public int width,height,display_width,display_height,player_start_ordinal,player_bib;public long race_tick,player_start_tick;public int[] countdown_numbers;public string[] errors,captures;public NavigationReceipt navigation;}
+        [Serializable]private sealed class LoadingReceipt
+        {public bool enabled,immediate,clock_held=true,countdown_unarmed=true;public int painted_stages;public List<string> captures=new List<string>();}
+        private LoadingReceipt loadingReceipt;
         private readonly List<string> errors=new List<string>(),captures=new List<string>();
         private Receipt receipt;private string folder,profiles;private FrontEndMenu menu;private RenderTexture target,raceOverlay,raceCombined;private Material raceComposite;private double began;private bool finished,m16;
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]private static void Boot()
@@ -52,7 +55,7 @@ namespace Biathlon.Unity.Presentation
             // Request the same native production cameras into explicit surfaces.
             var studio=menu?.CreatorStudio;
             if(studio!=null&&studio.PreviewCamera!=null)Render(studio.PreviewCamera,studio.Texture);
-            if(menu?.Race.Host!=null&&target!=null)Render(menu.Race.Host.ChaseCamera,target);
+            if(menu?.Race.Host!=null&&!menu.Race.Loading&&target!=null)Render(menu.Race.Host.ChaseCamera,target);
         }
         private static void Render(Camera camera,RenderTexture destination)
         {if(camera!=null&&camera.isActiveAndEnabled)UnityEngine.Rendering.RenderPipeline.SubmitRenderRequest(camera,new UnityEngine.Rendering.Universal.UniversalRenderPipeline.SingleCameraRequest{destination=destination});}
@@ -87,7 +90,36 @@ namespace Biathlon.Unity.Presentation
             }
             while(menu.Session.Definitions.Calendar.AtWeek(menu.Session.Career.Week)==null)menu.Session.RestWeek();
             menu.Session.OpenPreRace();menu.RefreshFrontEnd();menu.Race.Launch(menu);double deadline=Time.realtimeSinceStartupAsDouble+80;
-            while(menu.Race.Loading&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
+            bool loadingReview=Array.IndexOf(Environment.GetCommandLineArgs(),"-biathlonLoadingReview")>=0;
+            if(loadingReview)loadingReceipt=new LoadingReceipt{enabled=true,immediate=menu.Root.Q("race_loading_screen")!=null&&menu.Race.Host==null};
+            int loadingStage=-1,loadingFrame=-1;
+            while(menu.Race.Loading&&Time.realtimeSinceStartupAsDouble<deadline)
+            {
+                if(loadingReview)
+                {
+                    int current=(int)menu.Race.LoadingStage;
+                    if(menu.Race.Host!=null){loadingReceipt.clock_held&=menu.Race.Host.Runner.Field.Tick.Value==0&&!menu.Race.Host.enabled;loadingReceipt.countdown_unarmed&=!menu.Race.Host.WaitingForPlayerStart;}
+                    if(current!=loadingStage){loadingStage=current;loadingFrame=Time.frameCount;}
+                    else if(Time.frameCount>loadingFrame&&(loadingReceipt.painted_stages&(1<<current))==0)
+                    {
+                        string name="07d-loading-"+current+".png";var prior=RenderTexture.active;var pixels=new Texture2D(target.width,target.height,TextureFormat.RGB24,false);
+                        try
+                        {
+                            RenderTexture.active=target;pixels.ReadPixels(new Rect(0,0,target.width,target.height),0,0);pixels.Apply();File.WriteAllBytes(Path.Combine(folder,name),pixels.EncodeToPNG());
+                            var bounds=menu.Root.Q<Label>("race_loading_title").worldBound;var rootBounds=menu.Root.worldBound;
+                            int ink=0;float scaleX=target.width/rootBounds.width,scaleY=target.height/rootBounds.height;
+                            for(int y=Math.Max(0,(int)(bounds.yMin*scaleY));y<Math.Min(target.height,bounds.yMax*scaleY);y+=3)
+                            for(int x=Math.Max(0,(int)(bounds.xMin*scaleX));x<Math.Min(target.width,bounds.xMax*scaleX);x+=3)
+                            {var color=pixels.GetPixel(x,target.height-1-y);if(color.r>.8f&&color.g>.85f&&color.b>.85f)ink++;}
+                            Require(ink>20,"Compiled loading capture must contain its rendered title, not an overwritten world camera: "+current);
+                        }
+                        finally{RenderTexture.active=prior;Destroy(pixels);}
+                        loadingReceipt.painted_stages|=1<<current;loadingReceipt.captures.Add(name);
+                    }
+                }
+                yield return null;
+            }
+            if(loadingReview){File.WriteAllText(Path.Combine(folder,"loading-review.json"),JsonUtility.ToJson(loadingReceipt,true));Require(loadingReceipt.immediate&&loadingReceipt.clock_held&&loadingReceipt.countdown_unarmed&&loadingReceipt.painted_stages==15,"Actual loader did not paint all preparation stages before the race clock.");}
             var host=menu.Race.Host;Require(host!=null&&!menu.Race.Loading,"Actual production race load failed: "+menu.LastMessage);receipt.race_loaded=true;
             if(m16)
             {
