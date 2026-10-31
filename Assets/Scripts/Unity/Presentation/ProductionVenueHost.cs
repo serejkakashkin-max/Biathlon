@@ -135,7 +135,7 @@ namespace Biathlon.Unity.Presentation
             var adapter=gameObject.AddComponent<ProductionReviewPresentation>();
             try{adapter.Initialize(this,detached,entryId);Review=adapter;}catch{Destroy(adapter);throw;}
         }
-        public void InitializeEnvironment(ProductionEnvironmentDefinition definition)
+        public void InitializeEnvironment(ProductionEnvironmentDefinition definition,Func<string,string> presentationRead=null)
         {
             if(Runner==null)throw new InvalidOperationException("Initialize the authored race before its environment.");
             if(Environment!=null)throw new InvalidOperationException("This host already owns an environment.");
@@ -144,7 +144,7 @@ namespace Biathlon.Unity.Presentation
             var environment=gameObject.AddComponent<ProductionVenueEnvironment>();
             try
             {
-                environment.Initialize(Venue,definition,ReadResource,Feed,ChaseCamera,range.AimCamera,apron:Course.Apron);
+                environment.Initialize(Venue,definition,presentationRead??ReadResource,Feed,ChaseCamera,range.AimCamera,apron:Course.Apron);
                 Course.JoinGround(environment,definition.terrain.grid_spacing_m,environment.TerrainGridOrigin);
                 if(!string.IsNullOrEmpty(definition.terrain.snow_material_preset))
                 {

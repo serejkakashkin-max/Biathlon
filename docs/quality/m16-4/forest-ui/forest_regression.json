@@ -1,0 +1,154 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 28,
+      "PassedTests": 28,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:11.0305137"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.ForestLodContinuityTests.AdjacentSubmissionsKeepUniqueCountsRewindAndAllocateNothing(\"high\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0500000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ForestLodContinuityTests.AdjacentSubmissionsKeepUniqueCountsRewindAndAllocateNothing(\"balanced\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ForestLodContinuityTests.AdjacentSubmissionsKeepUniqueCountsRewindAndAllocateNothing(\"low\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ForestLodContinuityTests.NativeFoliageDoesNotChangeAbruptlyAcrossLodBoundaries",
+        "Status": "Passed",
+        "Duration": "00:00:02.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ForestLodContinuityTests.TransitionDefinitionRejectsInvalidAndOneSidedRanges",
+        "Status": "Passed",
+        "Duration": "00:00:00.0150000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.ActualProductionStadiumPolicyPreservesAllAuthoredContentAndExactLegacyCounts",
+        "Status": "Passed",
+        "Duration": "00:00:02.5500000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.CameraDepthRatherThanPivotRadiusWorksForWideAndRotatedViewsAndRewindsWithoutAllocation",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.HighRetainsFarAndPartialCanopiesWhileAllOtherTiersKeepExactLegacyLodsAndShadows",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.InvalidHorizonRejectsBeforeForestMutationAndCanRetry",
+        "Status": "Passed",
+        "Duration": "00:00:00.0040000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.InvalidPolicyOrBoundWeatherRejectsTheWholeEnvironmentBeforeChildrenOrWeatherLease",
+        "Status": "Passed",
+        "Duration": "00:00:00.0390000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.ProductionColdPolicyUsesCopiedBoundWeatherAndLeavesSourcesAndPlacementImmutable",
+        "Status": "Passed",
+        "Duration": "00:00:00.0530000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.UnsupportedProjectionRetainsTheWholeFrustumAndZoomKeepsExistingLodAndShadowDecisions",
+        "Status": "Passed",
+        "Duration": "00:00:00.0070000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.VersionedPolicyRoundTripsAndOmissionPreservesTheLegacyContract",
+        "Status": "Passed",
+        "Duration": "00:00:00.0180000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ProductionForestVisibilityTests.WholeNativeCanopyAndWindSupportProtectsTheFogPlaneAndPreparedBounds",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.VegetationTests.CullingBudgetsRewindAndWarmedPreparationHaveNoManagedAllocation",
+        "Status": "Passed",
+        "Duration": "00:00:00.0070000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.VegetationTests.GeneratedLodsReduceGeometryAndKeepSnowWindAndInstancingSupport",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.VegetationTests.PlacementRepeatsKeepsCanopiesOutsideRouteAndDensityIsNested",
+        "Status": "Passed",
+        "Duration": "00:00:00.0040000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.VenueDistantContinuityTests.ActualProductionForestKeepsVisibleFarSilhouettes(\"low\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.VenueDistantContinuityTests.ActualProductionForestKeepsVisibleFarSilhouettes(\"balanced\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.VenueDistantContinuityTests.ActualProductionForestKeepsVisibleFarSilhouettes(\"high\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.VenueDistantContinuityTests.ActualProductionGrandstandKeepsItsAudienceAcrossTheOldDistanceCut(\"low\")",
+        "Status": "Passed",
+        "Duration": "00:00:01.9020000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.VenueDistantContinuityTests.ActualProductionGrandstandKeepsItsAudienceAcrossTheOldDistanceCut(\"balanced\")",
+        "Status": "Passed",
+        "Duration": "00:00:01.9320000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.VenueDistantContinuityTests.ActualProductionGrandstandKeepsItsAudienceAcrossTheOldDistanceCut(\"high\")",
+        "Status": "Passed",
+        "Duration": "00:00:01.9520000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.VenueDistantContinuityTests.CompleteCrowdKeepsDensityRanksWithBudgetedDetailAndCachedTransforms",
+        "Status": "Passed",
+        "Duration": "00:00:00.0070000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.VenueDistantContinuityTests.CompleteVisibilityPolicyIsVersionedBoundedAndDetached",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.VenueDistantContinuityTests.DistantOriginalModelsKeepBodyColourHeightAndPoseWithOneSixthOfTheFarTriangles(\"SpectatorLOD\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0030000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.VenueDistantContinuityTests.DistantOriginalModelsKeepBodyColourHeightAndPoseWithOneSixthOfTheFarTriangles(\"StandingSpectatorLOD\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.VenueDistantContinuityTests.WholeAudienceSupportAndCameraFarPlaneBoundTheFogWork",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      }
+    ]
+  }
+}

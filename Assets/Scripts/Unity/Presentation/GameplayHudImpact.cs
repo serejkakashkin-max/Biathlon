@@ -39,7 +39,7 @@ namespace Biathlon.Unity.Presentation
                 evidence.NearEdge?L("Промах у кромки","Edge miss"):L("Промах","Miss");
             var color=evidence.ClosedTarget?FrostlineStyle.Accent:FrostlineStyle.Danger;impactStatus.style.color=color;impactDot.style.backgroundColor=color;
             impactFigure.style.display=evidence.Impact.ReachesPlane?DisplayStyle.Flex:DisplayStyle.None;
-            if(!evidence.Impact.ReachesPlane){impactDistance.text=L("Вне плоскости мишени","Outside target plane");return;}
+            if(!evidence.Impact.ReachesPlane){impactDistance.text=L("Вне мишени","Off target");return;}
             var geometry=source.Geometry;
             double radius=geometry.Radius(evidence.Stance),dx=evidence.Impact.X-geometry.CenterX(evidence.NearestTarget),dy=evidence.Impact.Y;
             double bullet=source.Definition.bullet_diameter_m,extent=Math.Max(radius+bullet*1.5,Math.Max(Math.Abs(dx),Math.Abs(dy))+bullet);

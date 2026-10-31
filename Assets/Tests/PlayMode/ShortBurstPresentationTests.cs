@@ -128,7 +128,8 @@ namespace Biathlon.PlayModeTests
                 Assert.That(motion.yMin,Is.GreaterThan(timing.yMax+12));Assert.That(motion.xMax,Is.LessThan(hud.Root.worldBound.center.x));
                 Assert.That(motion.yMax,Is.LessThanOrEqualTo(hud.Root.worldBound.yMax));
                 var readout=hud.Root.Q("pace_readout").worldBound;
-                foreach(string name in new[]{hostBurstVisible(hud)?"burst_hint":"pace_keys"})
+                Assert.That(hud.Root.Q("pace_keys"),Is.Null);Assert.That(hud.Root.Q("burst_hint"),Is.Null);
+                foreach(string name in new[]{hostBurstVisible(hud)?"burst_fill":"pace_fill"})
                     Assert.That(hud.Root.Q(name).worldBound.yMax,Is.LessThanOrEqualTo(readout.yMax+1),"Readout text must fit in its existing card.");
                 RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
                 string folder=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m14/burst-pack-20261012"));Directory.CreateDirectory(folder);

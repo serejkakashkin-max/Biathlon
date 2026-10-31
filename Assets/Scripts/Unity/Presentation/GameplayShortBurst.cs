@@ -8,14 +8,10 @@ namespace Biathlon.Unity.Presentation
     public sealed partial class GameplayHud
     {
         private VisualElement burstPanel,burstFill,normalPacePanel;
-        private Label burstTime,burstHint;
-        private string burstReleaseHint,burstRecoverHint;
+        private Label burstTime;
         private void BuildShortBurst(VisualElement readout,VisualElement paceLayer)
         {
             normalPacePanel=paceLayer;
-            var inputPreferences=host?.InputPreferences??PlayerSettingsPreferences.Current;
-            burstReleaseHint=L("Отпустить ","Release ")+PlayerControlHints.Label(inputPreferences,"attack")+L(" → темп"," → pace");
-            burstRecoverHint=PlayerControlHints.Label(inputPreferences,"recovery")+L(" — восстановление"," — recover");
             burstPanel=new VisualElement{name="burst_overlay"};
             burstPanel.style.position=Position.Absolute;burstPanel.style.left=burstPanel.style.right=0;
             burstPanel.style.top=burstPanel.style.bottom=0;
@@ -24,7 +20,6 @@ namespace Biathlon.Unity.Presentation
             burstTime=Text(burstPanel,"burst_time","",settings.body_size,true);
             burstTime.style.color=warm;
             burstFill=Bar(burstPanel,"burst_fill",warm);burstFill.parent.style.height=burstFill.style.height=5;
-            burstHint=Text(burstPanel,"burst_hint","",settings.caption_size);burstHint.style.color=muted;
             readout.Add(burstPanel);burstPanel.style.display=DisplayStyle.None;
         }
         private void RefreshShortBurst(AthletePresentationState athlete)
@@ -41,8 +36,6 @@ namespace Biathlon.Unity.Presentation
             burstFill.style.width=Length.Percent((float)(100*burst.ReserveFraction));
             burstTime.text=burst.FullPowerSecondsRemaining>0?
                 "≈ "+burst.FullPowerSecondsRemaining.ToString("0")+L(" с"," s"):L("НА ИСХОДЕ","FADING");
-            burstHint.text=burst.FullPowerSecondsRemaining>0?
-                burstReleaseHint:burstRecoverHint;
         }
     }
 }

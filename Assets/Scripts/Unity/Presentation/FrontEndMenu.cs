@@ -220,7 +220,6 @@ namespace Biathlon.Unity.Presentation
                 AddLabel(facts,T("weather."+weather.lighting.weather_preset)+" · "+T("snow."+summary.SnowProfileId)+
                     " · "+weather.lighting.temperature_c.ToString("0.#",CultureInfo.InvariantCulture)+"°C"+
                     " · "+L("ветер ","wind ")+weather.lighting.visual_wind.magnitude.ToString("0.#",CultureInfo.InvariantCulture)+L(" м/с"," m/s"),theme.caption_size).name="pre_race_weather";
-                var raceKeys=AddLabel(actions,PlayerControlHints.PreRace(Settings,Locale,T("race_controls")),theme.caption_size);raceKeys.name="pre_race_controls";raceKeys.style.marginTop=16;
             }
             else if(Session.Screen==FrontEndScreen.Race)
             {
@@ -253,8 +252,6 @@ namespace Biathlon.Unity.Presentation
                 Root.Query<VisualElement>().ForEach(v=>{if(v.ClassListContains("fl-surface")||v.ClassListContains("fl-hero"))v.style.backgroundColor=Color.black;});
                 Root.Query<Label>().ForEach(v=>{if(v!=message)v.style.color=Color.white;});
             }
-            var footer=AddLabel(Root,T("controls"),theme.caption_size);footer.style.marginTop=theme.spacing*2;footer.style.color=Color.white;
-            footer.style.backgroundColor=FrontEndTheme.Color(theme.menu_panel);footer.style.paddingLeft=theme.spacing;footer.style.paddingTop=8;footer.style.paddingBottom=8;
             body.AddToClassList("fl-screen");
             if(!ReducedMotion){body.style.opacity=0;body.schedule.Execute(()=>body.style.opacity=1).StartingIn(16);}
             Root.schedule.Execute(()=>

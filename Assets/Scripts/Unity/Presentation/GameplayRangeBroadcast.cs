@@ -70,7 +70,7 @@ namespace Biathlon.Unity.Presentation
         {
             paintedRangeWindow=-1;rangeOverflow=rangeActive=-1;rangeLayoutWidth=rangeLayoutHeight=0;RangeBroadcastVisible=false;
             rangeBoard=Card("range_broadcast",false,true,rangeBroadcastPolicy.PanelWidth);
-            rangeBoard.style.maxWidth=Length.Percent(35);rangeBoard.style.top=settings.edge+54*Scale;
+            rangeBoard.style.maxWidth=Length.Percent(35);rangeBoard.style.top=settings.edge;
             rangeBoard.style.paddingTop=8;rangeBoard.style.paddingBottom=7;rangeBoard.style.paddingLeft=rangeBoard.style.paddingRight=9;
             rangeBoard.style.backgroundColor=HighContrast?Color.black:new Color(.043f,.098f,.157f,.87f);
             rangeBoard.style.borderLeftWidth=0;rangeBoard.style.borderTopWidth=2;rangeBoard.style.borderTopColor=accent;
@@ -115,7 +115,7 @@ namespace Biathlon.Unity.Presentation
             // the actual target/display pixel budget for minimum readable row height.
             float pixels=panel.targetTexture!=null?panel.targetTexture.height:Screen.height;
             float factor=Mathf.Min(1,pixels/1080f);
-            float top=settings.edge+54*Scale,bottom=height-170*Scale-settings.edge;
+            float top=settings.edge,bottom=height-170*Scale-settings.edge;
             if(conditionPanel!=null&&conditionPanel.worldBound.height>0)bottom=conditionPanel.worldBound.yMin-Root.worldBound.yMin-12;
             float rowHeight=Mathf.Max(rangeBroadcastPolicy.RowHeight*Scale,rangeBroadcastPolicy.RowHeight*Scale/Mathf.Max(.5f,factor));
             RangeBroadcastCapacity=Mathf.Clamp(Mathf.FloorToInt((bottom-top-103*Scale)/(rowHeight+1)),1,rangeBroadcastPolicy.MaximumRows);

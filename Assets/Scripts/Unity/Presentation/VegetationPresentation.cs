@@ -20,6 +20,12 @@ namespace Biathlon.Unity.Presentation
         private readonly Matrix4x4[][] matrices=new Matrix4x4[6][];
         private readonly Mesh[] meshes=new Mesh[6];
         private readonly int[] counts=new int[6];
+        private readonly int[] primaryCounts=new int[6];
+        private readonly Matrix4x4[][] pinnedMatrices=new Matrix4x4[2][];
+        private readonly int[] pinnedCounts=new int[2];
+        public int TransitionInstances{get;private set;}
+        public int RenderedInstances{get;private set;}
+        public bool BlendsForest=>visibility?.BlendsForest==true;
         private byte[] species;
         private readonly float[] canopyRadius=new float[2],canopyMinY=new float[2],canopyMaxY=new float[2];
         private Bounds preparedWorldBounds;
@@ -28,11 +34,12 @@ namespace Biathlon.Unity.Presentation
         private readonly Plane[] planes=new Plane[6];
         private readonly Material[] materials=new Material[2];
         private MaterialPropertyBlock properties;
-        private static readonly int Wind=Shader.PropertyToID("_Wind"), WindDirection=Shader.PropertyToID("_WindDirection"), Snow=Shader.PropertyToID("_SnowCoverage");
+        private static readonly int Wind=Shader.PropertyToID("_Wind"), WindDirection=Shader.PropertyToID("_WindDirection"), Snow=Shader.PropertyToID("_SnowCoverage"),
+            LodRanges=Shader.PropertyToID("_ForestLodRanges"),LodCamera=Shader.PropertyToID("_ForestLodCamera"),LodLevel=Shader.PropertyToID("_ForestLodLevel"),LodEnabled=Shader.PropertyToID("_ForestLodEnabled");
         public int TotalInstances => instances?.Length??0;
         public int VisibleInstances => NearCount+MidCount+FarCount;
-        public int NearCount => counts[0]+counts[3]; public int MidCount => counts[1]+counts[4]; public int FarCount => counts[2]+counts[5];
-        public int VisiblePines=>counts[3]+counts[4]+counts[5];
+        public int NearCount => primaryCounts[0]+primaryCounts[3]; public int MidCount => primaryCounts[1]+primaryCounts[4]; public int FarCount => primaryCounts[2]+primaryCounts[5];
+        public int VisiblePines=>primaryCounts[3]+primaryCounts[4]+primaryCounts[5];
         public long SubmittedTriangles { get; private set; }
         public long ShadowSourceTriangles {get;private set;}
         private readonly int[] triangles=new int[6];
@@ -58,7 +65,10 @@ namespace Biathlon.Unity.Presentation
                 if(authoredInstances==null||authoredSpecies.Length!=authoredInstances.Length||!useAuditedFir||!useAuditedPine)throw new ArgumentException("Explicit species require matching authored audited fir/pine instances.");
                 foreach(byte type in authoredSpecies)if(type>1)throw new ArgumentException("Unknown authored forest species.");
             }
-            definition=VegetationDefinition.Load();
+            var loaded=VegetationDefinition.Load();
+            if(completeVisibility?.BlendsForest==true&&loaded.near_lod_m+completeVisibility.ForestNearBlendMeters>=loaded.far_lod_m)
+                throw new ArgumentException("Forest transitions must not overlap.");
+            definition=loaded;
             if(authoredInstances!=null)
             {
                 if(authoredInstances.Length<1||authoredInstances.Length>definition.max_instances)throw new ArgumentException("Authored forest exceeds capacity.");
@@ -82,6 +92,7 @@ namespace Biathlon.Unity.Presentation
                 }
             for(int type=0;type<groups/3;type++)
             {
+                if(completeVisibility?.BlendsForest==true)pinnedMatrices[type]=new Matrix4x4[definition.max_instances];
                 string root=type==1?"Biathlon/Vegetation/G2Pine/":useAuditedFir?"Biathlon/Vegetation/G2Fir/":"Biathlon/Vegetation/";
                 string name=type==1?"Pine":useAuditedFir?"Fir":"Conifer";
                 materials[type]=Resources.Load<Material>(root+name);
@@ -131,7 +142,8 @@ namespace Biathlon.Unity.Presentation
             if((transform.lossyScale-Vector3.one).sqrMagnitude>.000001f||Vector3.Dot(transform.up,Vector3.up)<.99999f)throw new ArgumentException("Forest root supports translation/yaw only; placement owns tree scale.");
             if(observedWind.HasValue&&(!float.IsFinite(observedWind.Value.x)||!float.IsFinite(observedWind.Value.y)))throw new ArgumentException("Finite visual wind required.");
             SimplifyingCurrentShadows=UsesSimplifiedShadows&&tier!="high";
-            float density=definition.Density(tier);for(int i=0;i<counts.Length;i++)counts[i]=0;SubmittedTriangles=0;ShadowSourceTriangles=0;
+            float density=definition.Density(tier);for(int i=0;i<counts.Length;i++){counts[i]=0;primaryCounts[i]=0;}
+            pinnedCounts[0]=pinnedCounts[1]=0;TransitionInstances=RenderedInstances=0;SubmittedTriangles=0;ShadowSourceTriangles=0;
             preparedWorldBounds=new Bounds(transform.position,Vector3.zero);
             GeometryUtility.CalculateFrustumPlanes(camera,planes);
             var world=transform.localToWorldMatrix;var eye=camera.transform.position;float lodScale=ProjectionAwareLod.Scale(camera);bool firstBounds=true;
@@ -164,21 +176,50 @@ namespace Biathlon.Unity.Presentation
                 if(fogBounded&&fogFrame.Hidden(bounds))continue;
                 if(!GeometryUtility.TestPlanesAABB(planes,bounds))continue;
                 if(firstBounds){preparedWorldBounds=bounds;firstBounds=false;}else preparedWorldBounds.Encapsulate(bounds);
-                int group=species[index]*3+lod;
-                matrices[group][counts[group]++]=worldMatrices[index];SubmittedTriangles+=triangles[group];
-                if(lod<2)ShadowSourceTriangles+=triangles[SimplifyingCurrentShadows?group+1:group];
+                int type=species[index],group=type*3+lod;
+                bool pinned=visibility!=null&&tree.DensityRank>=density;
+                if(BlendsForest&&!pinned)
+                {
+                    float near=Mathf.SmoothStep(0,1,Mathf.InverseLerp(definition.near_lod_m,definition.near_lod_m+visibility.ForestNearBlendMeters,lodDistance));
+                    float far=Mathf.SmoothStep(0,1,Mathf.InverseLerp(definition.far_lod_m,definition.far_lod_m+visibility.ForestFarBlendMeters,lodDistance));
+                    // Exactly two adjacent meshes at most. The shader assigns complementary
+                    // screen samples, so overlapping branches cannot double their opacity.
+                    int primary=near<.5f?0:far<.5f?1:2;primaryCounts[type*3+primary]++;
+                    int submissions=0;
+                    if(near<1){Add(type*3,worldMatrices[index]);submissions++;}
+                    if(near>0&&far<1){Add(type*3+1,worldMatrices[index]);submissions++;}
+                    if(far>0){Add(type*3+2,worldMatrices[index]);submissions++;}
+                    if(submissions>1)TransitionInstances++;
+                }
+                else
+                {
+                    primaryCounts[group]++;
+                    if(BlendsForest&&pinned){pinnedMatrices[type][pinnedCounts[type]++]=worldMatrices[index];SubmittedTriangles+=triangles[group];RenderedInstances++;}
+                    else Add(group,worldMatrices[index]);
+                }
             }
             var direction=observedWind.HasValue?observedWind.Value.normalized:new Vector2(1,.35f);
             float strength=observedWind.HasValue?Mathf.Clamp01(observedWind.Value.magnitude/5):1;
             properties.SetVector(Wind,new Vector4(presentationTime,definition.wind_amplitude_m*strength,definition.wind_frequency,0));
             properties.SetVector(WindDirection,new Vector4(direction.x,direction.y,0,0));
             properties.SetFloat(Snow,definition.snow_coverage);
+            if(BlendsForest)
+            {
+                properties.SetVector(LodRanges,new Vector4(definition.near_lod_m,visibility.ForestNearBlendMeters,definition.far_lod_m,visibility.ForestFarBlendMeters));
+                properties.SetVector(LodCamera,new Vector4(eye.x,eye.y,eye.z,lodScale));
+            }
+        }
+        private void Add(int group,Matrix4x4 matrix)
+        {
+            matrices[group][counts[group]++]=matrix;SubmittedTriangles+=triangles[group];RenderedInstances++;
+            if(group%3<2)ShadowSourceTriangles+=triangles[SimplifyingCurrentShadows?group+1:group];
         }
         public void Render(Camera camera,string tier,float presentationTime,Vector2? observedWind=null)
         {
             Prepare(camera,tier,presentationTime,observedWind);
             for(int i=0;i<groups;i++)if(counts[i]>0)
             {
+                properties.SetFloat(LodEnabled,BlendsForest?1:0);properties.SetFloat(LodLevel,i%3);
                 var p=new RenderParams(materials[i/3]){camera=camera,matProps=properties,shadowCastingMode=!SimplifyingCurrentShadows&&i%3<2?ShadowCastingMode.On:ShadowCastingMode.Off,receiveShadows=true,
                     worldBounds=UsesExplicitSpecies?preparedWorldBounds:new Bounds(transform.position,new Vector3(500,50,500)),layer=gameObject.layer};
                 // Default instancing includes inverse matrices; stay below the 511-instance limit
@@ -191,6 +232,13 @@ namespace Biathlon.Unity.Presentation
                     for(int offset=0;offset<counts[i];offset+=500)
                         Graphics.RenderMeshInstanced(p,meshes[i+1],0,matrices[i],Math.Min(500,counts[i]-offset),offset);
                 }
+            }
+            if(BlendsForest)for(int type=0;type<groups/3;type++)if(pinnedCounts[type]>0)
+            {
+                properties.SetFloat(LodEnabled,0);
+                var p=new RenderParams(materials[type]){camera=camera,matProps=properties,shadowCastingMode=ShadowCastingMode.Off,receiveShadows=true,worldBounds=preparedWorldBounds,layer=gameObject.layer};
+                for(int offset=0;offset<pinnedCounts[type];offset+=500)
+                    Graphics.RenderMeshInstanced(p,meshes[type*3+2],0,pinnedMatrices[type],Math.Min(500,pinnedCounts[type]-offset),offset);
             }
         }
     }

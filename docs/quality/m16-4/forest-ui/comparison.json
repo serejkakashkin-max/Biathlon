@@ -1,0 +1,855 @@
+{
+  "schema_version": 1,
+  "id": "m16_4_forest_lod_matched_measurement",
+  "scope": "1920x1080 offscreen native venue and 30 real athletes; same binary/cameras/tick/weather and complete visibility, hard or blended forest LOD; no menu/HUD/swapchain cost",
+  "gpu": "NVIDIA GeForce RTX 5080",
+  "cpu": "AMD Ryzen 9 9950X3D 16-Core Processor ",
+  "cases": [
+    {
+      "id": "visibility-penalty-stands",
+      "tier": "high",
+      "samples_per_phase": 240,
+      "visible_trees": {
+        "before": 1058,
+        "after": 1058
+      },
+      "near_trees": {
+        "before": 0,
+        "after": 0
+      },
+      "mid_trees": {
+        "before": 0,
+        "after": 0
+      },
+      "far_trees": {
+        "before": 1058,
+        "after": 1058
+      },
+      "transition_trees": {
+        "before": 0,
+        "after": 1
+      },
+      "tree_submissions": {
+        "before": 1058,
+        "after": 1059
+      },
+      "visible_crowd": {
+        "before": 1548,
+        "after": 1548
+      },
+      "visible_dressing": {
+        "before": 18,
+        "after": 18
+      },
+      "forest_triangles": {
+        "before": 770371,
+        "after": 773639
+      },
+      "forest_shadow_triangles": {
+        "before": 0,
+        "after": 3268
+      },
+      "wall_ms": {
+        "before": {
+          "median": 1.8686011899262667,
+          "p95": 2.386401640251279,
+          "max": 3.0870039481669664
+        },
+        "after": {
+          "median": 1.8419501138851047,
+          "p95": 2.011798555031419,
+          "max": 2.8162982780486345
+        }
+      },
+      "cpu_frame_ms": {
+        "before": {
+          "median": 1.8701500000000002,
+          "p95": 2.3919,
+          "max": 3.0853
+        },
+        "after": {
+          "median": 1.84185,
+          "p95": 2.0091,
+          "max": 2.8185
+        }
+      },
+      "cpu_main_ms": {
+        "before": {
+          "median": 1.858,
+          "p95": 2.3746,
+          "max": 3.0666
+        },
+        "after": {
+          "median": 1.8306,
+          "p95": 1.998,
+          "max": 2.8064
+        }
+      },
+      "cpu_render_ms": {
+        "before": null,
+        "after": null
+      },
+      "gpu_ms": {
+        "before": null,
+        "after": null
+      },
+      "gpu_camera_ms": {
+        "before": null,
+        "after": null
+      },
+      "triangles": {
+        "before": {
+          "median": 4917929.0,
+          "p95": 4917931,
+          "max": 4917931
+        },
+        "after": {
+          "median": 4927733.0,
+          "p95": 4927735,
+          "max": 4927735
+        }
+      },
+      "draw_calls": {
+        "before": {
+          "median": 542.0,
+          "p95": 543,
+          "max": 543
+        },
+        "after": {
+          "median": 545.0,
+          "p95": 546,
+          "max": 546
+        }
+      },
+      "gc_bytes": {
+        "before": {
+          "median": 34.0,
+          "p95": 51,
+          "max": 30954
+        },
+        "after": {
+          "median": 34.0,
+          "p95": 51,
+          "max": 30954
+        }
+      },
+      "used_memory_bytes": {
+        "before": {
+          "median": 5057944798.0,
+          "p95": 5057946038,
+          "max": 5057946157
+        },
+        "after": {
+          "median": 4957069223.0,
+          "p95": 4957070972,
+          "max": 4957071308
+        }
+      }
+    },
+    {
+      "id": "visibility-penalty-stands",
+      "tier": "balanced",
+      "samples_per_phase": 240,
+      "visible_trees": {
+        "before": 1058,
+        "after": 1058
+      },
+      "near_trees": {
+        "before": 0,
+        "after": 0
+      },
+      "mid_trees": {
+        "before": 0,
+        "after": 0
+      },
+      "far_trees": {
+        "before": 1058,
+        "after": 1058
+      },
+      "transition_trees": {
+        "before": 0,
+        "after": 1
+      },
+      "tree_submissions": {
+        "before": 1058,
+        "after": 1059
+      },
+      "visible_crowd": {
+        "before": 1548,
+        "after": 1548
+      },
+      "visible_dressing": {
+        "before": 18,
+        "after": 18
+      },
+      "forest_triangles": {
+        "before": 770371,
+        "after": 773639
+      },
+      "forest_shadow_triangles": {
+        "before": 0,
+        "after": 588
+      },
+      "wall_ms": {
+        "before": {
+          "median": 1.8372024060226977,
+          "p95": 2.0347009412944317,
+          "max": 2.295401180163026
+        },
+        "after": {
+          "median": 1.9617985235527158,
+          "p95": 2.110204193741083,
+          "max": 2.4562994949519634
+        }
+      },
+      "cpu_frame_ms": {
+        "before": {
+          "median": 1.8402,
+          "p95": 2.043,
+          "max": 2.4074
+        },
+        "after": {
+          "median": 1.95995,
+          "p95": 2.1095,
+          "max": 2.4479
+        }
+      },
+      "cpu_main_ms": {
+        "before": {
+          "median": 1.8282500000000002,
+          "p95": 2.03,
+          "max": 2.3937
+        },
+        "after": {
+          "median": 1.9487,
+          "p95": 2.0977,
+          "max": 2.4363
+        }
+      },
+      "cpu_render_ms": {
+        "before": null,
+        "after": null
+      },
+      "gpu_ms": {
+        "before": null,
+        "after": null
+      },
+      "gpu_camera_ms": {
+        "before": null,
+        "after": null
+      },
+      "triangles": {
+        "before": {
+          "median": 4495513.0,
+          "p95": 4495515,
+          "max": 4495515
+        },
+        "after": {
+          "median": 4499957.0,
+          "p95": 4499959,
+          "max": 4499959
+        }
+      },
+      "draw_calls": {
+        "before": {
+          "median": 445.0,
+          "p95": 446,
+          "max": 446
+        },
+        "after": {
+          "median": 467.0,
+          "p95": 468,
+          "max": 468
+        }
+      },
+      "gc_bytes": {
+        "before": {
+          "median": 34.0,
+          "p95": 51,
+          "max": 30954
+        },
+        "after": {
+          "median": 34.0,
+          "p95": 51,
+          "max": 30954
+        }
+      },
+      "used_memory_bytes": {
+        "before": {
+          "median": 5035216796.0,
+          "p95": 5035217044,
+          "max": 5035217348
+        },
+        "after": {
+          "median": 4934517050.0,
+          "p95": 4934569458,
+          "max": 4934569521
+        }
+      }
+    },
+    {
+      "id": "visibility-penalty-stands",
+      "tier": "low",
+      "samples_per_phase": 240,
+      "visible_trees": {
+        "before": 1058,
+        "after": 1058
+      },
+      "near_trees": {
+        "before": 0,
+        "after": 0
+      },
+      "mid_trees": {
+        "before": 0,
+        "after": 0
+      },
+      "far_trees": {
+        "before": 1058,
+        "after": 1058
+      },
+      "transition_trees": {
+        "before": 0,
+        "after": 1
+      },
+      "tree_submissions": {
+        "before": 1058,
+        "after": 1059
+      },
+      "visible_crowd": {
+        "before": 1548,
+        "after": 1548
+      },
+      "visible_dressing": {
+        "before": 18,
+        "after": 18
+      },
+      "forest_triangles": {
+        "before": 770371,
+        "after": 773639
+      },
+      "forest_shadow_triangles": {
+        "before": 0,
+        "after": 588
+      },
+      "wall_ms": {
+        "before": {
+          "median": 1.6732532531023026,
+          "p95": 1.832305802963674,
+          "max": 1.9982000812888145
+        },
+        "after": {
+          "median": 1.8026502220891416,
+          "p95": 1.9797973800450563,
+          "max": 2.2584963589906693
+        }
+      },
+      "cpu_frame_ms": {
+        "before": {
+          "median": 1.6748,
+          "p95": 1.8356,
+          "max": 1.9993
+        },
+        "after": {
+          "median": 1.8035,
+          "p95": 1.9847,
+          "max": 2.2615
+        }
+      },
+      "cpu_main_ms": {
+        "before": {
+          "median": 1.66315,
+          "p95": 1.821,
+          "max": 1.987
+        },
+        "after": {
+          "median": 1.79195,
+          "p95": 1.9729,
+          "max": 2.2473
+        }
+      },
+      "cpu_render_ms": {
+        "before": null,
+        "after": null
+      },
+      "gpu_ms": {
+        "before": null,
+        "after": null
+      },
+      "gpu_camera_ms": {
+        "before": null,
+        "after": null
+      },
+      "triangles": {
+        "before": {
+          "median": 3893654.0,
+          "p95": 3893656,
+          "max": 3893656
+        },
+        "after": {
+          "median": 3896922.0,
+          "p95": 3896924,
+          "max": 3896924
+        }
+      },
+      "draw_calls": {
+        "before": {
+          "median": 350.0,
+          "p95": 351,
+          "max": 351
+        },
+        "after": {
+          "median": 371.0,
+          "p95": 372,
+          "max": 372
+        }
+      },
+      "gc_bytes": {
+        "before": {
+          "median": 34.0,
+          "p95": 51,
+          "max": 30954
+        },
+        "after": {
+          "median": 34.0,
+          "p95": 51,
+          "max": 30954
+        }
+      },
+      "used_memory_bytes": {
+        "before": {
+          "median": 4963416383.0,
+          "p95": 4963417847,
+          "max": 4963418111
+        },
+        "after": {
+          "median": 4862760813.0,
+          "p95": 4862762060,
+          "max": 4862762237
+        }
+      }
+    },
+    {
+      "id": "visibility-forest-bend",
+      "tier": "high",
+      "samples_per_phase": 240,
+      "visible_trees": {
+        "before": 444,
+        "after": 444
+      },
+      "near_trees": {
+        "before": 2,
+        "after": 7
+      },
+      "mid_trees": {
+        "before": 40,
+        "after": 56
+      },
+      "far_trees": {
+        "before": 402,
+        "after": 381
+      },
+      "transition_trees": {
+        "before": 0,
+        "after": 58
+      },
+      "tree_submissions": {
+        "before": 444,
+        "after": 502
+      },
+      "visible_crowd": {
+        "before": 35,
+        "after": 35
+      },
+      "visible_dressing": {
+        "before": 6,
+        "after": 6
+      },
+      "forest_triangles": {
+        "before": 415869,
+        "after": 606536
+      },
+      "forest_shadow_triangles": {
+        "before": 117543,
+        "after": 308210
+      },
+      "wall_ms": {
+        "before": {
+          "median": 1.7711982363834977,
+          "p95": 2.1587018854916096,
+          "max": 2.991900546476245
+        },
+        "after": {
+          "median": 1.5252019511535764,
+          "p95": 1.6747944755479693,
+          "max": 1.9114016322419047
+        }
+      },
+      "cpu_frame_ms": {
+        "before": {
+          "median": 1.7680500000000001,
+          "p95": 2.1693,
+          "max": 2.985
+        },
+        "after": {
+          "median": 1.52305,
+          "p95": 1.6764,
+          "max": 1.9038
+        }
+      },
+      "cpu_main_ms": {
+        "before": {
+          "median": 1.7536,
+          "p95": 2.1465,
+          "max": 2.964
+        },
+        "after": {
+          "median": 1.51205,
+          "p95": 1.6648,
+          "max": 1.8909
+        }
+      },
+      "cpu_render_ms": {
+        "before": null,
+        "after": null
+      },
+      "gpu_ms": {
+        "before": null,
+        "after": null
+      },
+      "gpu_camera_ms": {
+        "before": null,
+        "after": null
+      },
+      "triangles": {
+        "before": {
+          "median": 4918138.0,
+          "p95": 4918140,
+          "max": 4918140
+        },
+        "after": {
+          "median": 5870220.0,
+          "p95": 5870222,
+          "max": 5870222
+        }
+      },
+      "draw_calls": {
+        "before": {
+          "median": 402.0,
+          "p95": 403,
+          "max": 403
+        },
+        "after": {
+          "median": 416.0,
+          "p95": 417,
+          "max": 417
+        }
+      },
+      "gc_bytes": {
+        "before": {
+          "median": 34.0,
+          "p95": 51,
+          "max": 30954
+        },
+        "after": {
+          "median": 34.0,
+          "p95": 51,
+          "max": 30954
+        }
+      },
+      "used_memory_bytes": {
+        "before": {
+          "median": 5103533026.0,
+          "p95": 5103533730,
+          "max": 5103533825
+        },
+        "after": {
+          "median": 5002835928.0,
+          "p95": 5002836352,
+          "max": 5002836471
+        }
+      }
+    },
+    {
+      "id": "visibility-forest-bend",
+      "tier": "balanced",
+      "samples_per_phase": 240,
+      "visible_trees": {
+        "before": 444,
+        "after": 444
+      },
+      "near_trees": {
+        "before": 1,
+        "after": 5
+      },
+      "mid_trees": {
+        "before": 26,
+        "after": 36
+      },
+      "far_trees": {
+        "before": 417,
+        "after": 403
+      },
+      "transition_trees": {
+        "before": 0,
+        "after": 40
+      },
+      "tree_submissions": {
+        "before": 444,
+        "after": 484
+      },
+      "visible_crowd": {
+        "before": 35,
+        "after": 35
+      },
+      "visible_dressing": {
+        "before": 6,
+        "after": 6
+      },
+      "forest_triangles": {
+        "before": 379588,
+        "after": 506031
+      },
+      "forest_shadow_triangles": {
+        "before": 19845,
+        "after": 69741
+      },
+      "wall_ms": {
+        "before": {
+          "median": 1.7830003052949905,
+          "p95": 2.309998497366905,
+          "max": 3.2326956279575825
+        },
+        "after": {
+          "median": 1.5790497418493032,
+          "p95": 1.7551020719110966,
+          "max": 1.981894951313734
+        }
+      },
+      "cpu_frame_ms": {
+        "before": {
+          "median": 1.784,
+          "p95": 2.3037,
+          "max": 3.2217
+        },
+        "after": {
+          "median": 1.5783,
+          "p95": 1.756,
+          "max": 1.9758
+        }
+      },
+      "cpu_main_ms": {
+        "before": {
+          "median": 1.7677999999999998,
+          "p95": 2.287,
+          "max": 3.1988
+        },
+        "after": {
+          "median": 1.5663,
+          "p95": 1.7439,
+          "max": 1.9623
+        }
+      },
+      "cpu_render_ms": {
+        "before": null,
+        "after": null
+      },
+      "gpu_ms": {
+        "before": null,
+        "after": null
+      },
+      "gpu_camera_ms": {
+        "before": null,
+        "after": null
+      },
+      "triangles": {
+        "before": {
+          "median": 4306666.0,
+          "p95": 4306668,
+          "max": 4306668
+        },
+        "after": {
+          "median": 4607658.0,
+          "p95": 4607660,
+          "max": 4607660
+        }
+      },
+      "draw_calls": {
+        "before": {
+          "median": 379.0,
+          "p95": 380,
+          "max": 380
+        },
+        "after": {
+          "median": 403.0,
+          "p95": 404,
+          "max": 404
+        }
+      },
+      "gc_bytes": {
+        "before": {
+          "median": 34.0,
+          "p95": 51,
+          "max": 30954
+        },
+        "after": {
+          "median": 34.0,
+          "p95": 51,
+          "max": 30954
+        }
+      },
+      "used_memory_bytes": {
+        "before": {
+          "median": 5081561762.0,
+          "p95": 5081561962,
+          "max": 5081562065
+        },
+        "after": {
+          "median": 4980871724.0,
+          "p95": 4980872416,
+          "max": 4980872535
+        }
+      }
+    },
+    {
+      "id": "visibility-forest-bend",
+      "tier": "low",
+      "samples_per_phase": 240,
+      "visible_trees": {
+        "before": 444,
+        "after": 444
+      },
+      "near_trees": {
+        "before": 0,
+        "after": 4
+      },
+      "mid_trees": {
+        "before": 13,
+        "after": 15
+      },
+      "far_trees": {
+        "before": 431,
+        "after": 425
+      },
+      "transition_trees": {
+        "before": 0,
+        "after": 23
+      },
+      "tree_submissions": {
+        "before": 444,
+        "after": 467
+      },
+      "visible_crowd": {
+        "before": 35,
+        "after": 35
+      },
+      "visible_dressing": {
+        "before": 6,
+        "after": 6
+      },
+      "forest_triangles": {
+        "before": 355534,
+        "after": 435622
+      },
+      "forest_shadow_triangles": {
+        "before": 8883,
+        "after": 39202
+      },
+      "wall_ms": {
+        "before": {
+          "median": 1.609601720701903,
+          "p95": 2.026899019256234,
+          "max": 2.6767998933792114
+        },
+        "after": {
+          "median": 1.4603989548049867,
+          "p95": 1.6250000335276127,
+          "max": 1.7196002881973982
+        }
+      },
+      "cpu_frame_ms": {
+        "before": {
+          "median": 1.60795,
+          "p95": 2.0231,
+          "max": 2.6774
+        },
+        "after": {
+          "median": 1.46035,
+          "p95": 1.6257,
+          "max": 1.72
+        }
+      },
+      "cpu_main_ms": {
+        "before": {
+          "median": 1.5924,
+          "p95": 2.0062,
+          "max": 2.6521
+        },
+        "after": {
+          "median": 1.4485,
+          "p95": 1.6138,
+          "max": 1.7079
+        }
+      },
+      "cpu_render_ms": {
+        "before": null,
+        "after": null
+      },
+      "gpu_ms": {
+        "before": null,
+        "after": null
+      },
+      "gpu_camera_ms": {
+        "before": null,
+        "after": null
+      },
+      "triangles": {
+        "before": {
+          "median": 2734040.0,
+          "p95": 2734042,
+          "max": 2734042
+        },
+        "after": {
+          "median": 2872764.0,
+          "p95": 2872766,
+          "max": 2872766
+        }
+      },
+      "draw_calls": {
+        "before": {
+          "median": 293.0,
+          "p95": 294,
+          "max": 294
+        },
+        "after": {
+          "median": 314.0,
+          "p95": 315,
+          "max": 315
+        }
+      },
+      "gc_bytes": {
+        "before": {
+          "median": 34.0,
+          "p95": 51,
+          "max": 30954
+        },
+        "after": {
+          "median": 34.0,
+          "p95": 51,
+          "max": 30954
+        }
+      },
+      "used_memory_bytes": {
+        "before": {
+          "median": 5010767733.0,
+          "p95": 5010817701,
+          "max": 5010817820
+        },
+        "after": {
+          "median": 4910110651.0,
+          "p95": 4910110770,
+          "max": 4910110866
+        }
+      }
+    }
+  ]
+}

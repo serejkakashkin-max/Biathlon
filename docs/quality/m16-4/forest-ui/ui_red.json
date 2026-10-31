@@ -1,0 +1,21 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Failed",
+      "TotalTests": 1,
+      "PassedTests": 0,
+      "FailedTests": 1,
+      "SkippedTests": 0,
+      "Duration": "00:00:34.9613189"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.CleanRaceHudTests.NormalRaceKeepsOnlyRaceInformationInBothLocales",
+        "Status": "Failed",
+        "Duration": "00:00:34.8310000",
+        "Message": "  Remove explanatory chrome entirely, including its reserved space: minimap_title\r\n  Expected: null\r\n  But was:  <Label minimap_title (x:0.00, y:0.00, width:65.63, height:19.38) world rect: (x:31.88, y:117.50, width:65.63, height:19.38)>\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.CleanRaceHudTests+<NormalRaceKeepsOnlyRaceInformationInBothLocales>d__0.MoveNext () [0x001d7] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\CleanRaceHudTests.cs:26\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+      }
+    ]
+  }
+}

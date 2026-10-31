@@ -117,7 +117,8 @@ namespace Biathlon.PlayModeTests
                     hud.SetPreferences(locale,size);hud.SetAccessibility(contrast);for(int i=0;i<6;i++)yield return null;
                     Assert.That(hud.MiniMapVisible,Is.True);var screen=hud.Root.worldBound;var map=hud.Root.Q("minimap_panel").worldBound;var top=hud.Root.Q("timing_panel").worldBound;var motion=hud.Root.Q("motion_panel").worldBound;
                     Assert.That(map.yMin,Is.GreaterThanOrEqualTo(top.yMax+10));Assert.That(map.yMax,Is.LessThan(motion.yMin-10));Assert.That(map.xMax,Is.LessThan(screen.center.x));
-                    float area=map.width*map.height;foreach(string key in new[]{"timing_panel","motion_panel","condition_panel","help_hint"}){var b=hud.Root.Q(key).worldBound;area+=b.width*b.height;}
+                    Assert.That(hud.Root.Q("minimap_title"),Is.Null);Assert.That(hud.Root.Q("minimap_legend"),Is.Null);
+                    float area=map.width*map.height;foreach(string key in new[]{"timing_panel","motion_panel","condition_panel"}){var b=hud.Root.Q(key).worldBound;area+=b.width*b.height;}
                     Assert.That(area/(screen.width*screen.height),Is.LessThan(size==0?.10f:.17f),"Include the new map in the approved total HUD area budget.");
                     hud.Root.Q("minimap_panel").Query<VisualElement>().ForEach(v=>Assert.That(v.pickingMode,Is.EqualTo(PickingMode.Ignore)));
                     Assert.That(hud.MiniMapState.Rivals,Is.EqualTo(29));

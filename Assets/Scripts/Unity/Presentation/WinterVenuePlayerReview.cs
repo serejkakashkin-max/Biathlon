@@ -23,14 +23,14 @@ namespace Biathlon.Unity.Presentation
         {
             public string id,tier,weather="clear";public Vector3 camera,target;
             public long tick;public BenchmarkFrameSample[] samples;
-            public int visible_trees,near_trees,mid_trees,far_trees,visible_crowd,near_crowd,far_crowd,silhouette_crowd,visible_dressing;
+            public int visible_trees,near_trees,mid_trees,far_trees,transition_trees,tree_submissions,visible_crowd,near_crowd,far_crowd,silhouette_crowd,visible_dressing;
             public long forest_triangles,crowd_triangles,dressing_triangles,forest_shadow_triangles,crowd_shadow_triangles;
         }
         private readonly List<string> errors=new List<string>();
         private Receipt receipt;private string output;private ProductionVenueHost host;
         private BenchmarkRenderTarget target;private BenchmarkFrameCounters counters;
         private Camera camera;private string tier;private float visualTime;
-        private bool visibilityReview;
+        private bool visibilityReview,forestLodReview;
         private const string Prefix="Biathlon/Venues/woodland_basin_v1/";
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)] private static void Boot()
         {
@@ -42,10 +42,12 @@ namespace Biathlon.Unity.Presentation
         {
             var args=Environment.GetCommandLineArgs();int at=Array.IndexOf(args,"-biathlonWinterVenueOutput"),phase=Array.IndexOf(args,"-biathlonWinterVenuePhase");
             visibilityReview=Array.IndexOf(args,"-biathlonVisibilityReview")>=0;
+            forestLodReview=Array.IndexOf(args,"-biathlonForestLodReview")>=0;if(forestLodReview)visibilityReview=true;
             if(at<0||at+1>=args.Length){Application.Quit(1);yield break;}
             output=Path.GetFullPath(args[at+1]);Directory.CreateDirectory(output);
             receipt=new Receipt{phase=phase>=0&&phase+1<args.Length?args[phase+1]:"after",unity=Application.unityVersion,gpu=SystemInfo.graphicsDeviceName,cpu=SystemInfo.processorType,api=SystemInfo.graphicsDeviceType.ToString()};
             if(visibilityReview){receipt.id="m16_4_visibility_review";receipt.scope="1920x1080 offscreen native venue and 30 real athletes; same binary/cameras/tick/weather, legacy visibility or complete silhouettes; no menu/HUD/swapchain cost";}
+            if(forestLodReview){receipt.id="m16_4_forest_lod_review";receipt.scope="1920x1080 offscreen native venue and 30 real athletes; same binary/cameras/tick/weather and complete visibility, hard or blended forest LOD; no menu/HUD/swapchain cost";}
             if(receipt.phase!="before"&&receipt.phase!="after"){Application.Quit(1);yield break;}
             Application.runInBackground=true;Application.logMessageReceived+=Log;
             var stack=new Stack<IEnumerator>();stack.Push(Run());
@@ -69,8 +71,17 @@ namespace Biathlon.Unity.Presentation
             var venue=new VenueAuthoringPlan(VenueManifest.FromJson(ProductionVenueHost.ReadResource(Prefix+"manifest")),ProductionVenueHost.ReadResource);
             host.Initialize(venue,CompetitionProfile.FromJson(ProductionVenueHost.ReadResource(Prefix+"mass_start_profile")),RaceRoutePlan.FromJson(ProductionVenueHost.ReadResource(Prefix+"mass_start_route")),RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1")),30);
             var recipe=ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource(Prefix+"environment"));
-            if(receipt.phase=="before")
+            if(receipt.phase=="before"&&!forestLodReview)
             {if(visibilityReview)recipe.visibility_resource=null;else{recipe.range.flags_resource=null;recipe.terrain.snow_shoulders_resource=Prefix+"snow_shoulders_before_m16_1";}}
+            if(forestLodReview)
+            {
+                var definition=ProductionVisibilityDefinition.FromJson(ProductionVenueHost.ReadResource(recipe.visibility_resource));
+                if(receipt.phase=="before")definition.forest_near_blend_m=definition.forest_far_blend_m=0;
+                // Substitute only the bound presentation definition; all authored scenery stays identical.
+                string visibilityJson=JsonUtility.ToJson(definition),visibilityResource=recipe.visibility_resource;
+                host.InitializeEnvironment(recipe,path=>path==visibilityResource?visibilityJson:ProductionVenueHost.ReadResource(path));
+            }
+            else
             host.InitializeEnvironment(recipe);host.Environment.AutomaticRendering=false;
             host.Environment.SetAtmosphereForReview("clear");host.GameplayHud.enabled=false;host.Proxies.enabled=false;
             host.GetComponent<RangePresentation>().enabled=false;
@@ -140,6 +151,7 @@ namespace Biathlon.Unity.Presentation
                 for(int i=0;i<host.Environment.ForestGroupCount;i++)
                 {
                     var forest=host.Environment.Forest(i);result.visible_trees+=forest.VisibleInstances;result.near_trees+=forest.NearCount;result.mid_trees+=forest.MidCount;result.far_trees+=forest.FarCount;
+                    result.transition_trees+=forest.TransitionInstances;result.tree_submissions+=forest.RenderedInstances;
                     result.forest_triangles+=forest.SubmittedTriangles;result.forest_shadow_triangles+=forest.ShadowSourceTriangles;
                 }
                 for(int i=0;i<host.Environment.CrowdCount;i++)

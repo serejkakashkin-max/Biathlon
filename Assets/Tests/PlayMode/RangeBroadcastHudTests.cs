@@ -91,7 +91,7 @@ namespace Biathlon.PlayModeTests
                 var board=hud.Root.Q("range_broadcast");var bounds=board.worldBound;var screen=hud.Root.worldBound;
                 Assert.That(bounds.xMin,Is.GreaterThan(screen.center.x+30));Assert.That(bounds.xMax,Is.LessThanOrEqualTo(screen.xMax));
                 Assert.That(bounds.yMax,Is.LessThan(hud.Root.Q("condition_panel").worldBound.yMin-6));
-                Assert.That(bounds.yMin,Is.GreaterThan(hud.Root.Q("help_hint").worldBound.yMax));
+                Assert.That(hud.Root.Q("help_hint"),Is.Null);Assert.That(bounds.yMin,Is.GreaterThanOrEqualTo(screen.yMin));
                 board.Query<VisualElement>().ForEach(v=>Assert.That(v.pickingMode,Is.EqualTo(PickingMode.Ignore)));
                 foreach(var strip in board.Query<RangeTargetStrip>().ToList())Assert.That(strip.worldBound.xMax,Is.LessThanOrEqualTo(bounds.xMax));
                 RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();

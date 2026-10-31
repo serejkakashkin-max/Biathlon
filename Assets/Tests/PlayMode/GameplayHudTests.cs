@@ -80,8 +80,9 @@ namespace Biathlon.PlayModeTests
                 Assert.That(bottom.yMin,Is.GreaterThan(top.yMax+12),"HUD panels must not overlap, even with large type.");
                 Assert.That(bottom.xMax,Is.LessThan(hud.Root.worldBound.center.x),"The optical center must stay clear.");
                 Assert.That(bottom.yMax,Is.LessThan(hud.Root.worldBound.yMax));
-                var condition=hud.Root.Q("condition_panel").worldBound;var hint=hud.Root.Q("help_hint").worldBound;
-                float area=top.width*top.height+bottom.width*bottom.height+condition.width*condition.height+hint.width*hint.height;
+                var condition=hud.Root.Q("condition_panel").worldBound;
+                Assert.That(hud.Root.Q("help_hint"),Is.Null,"Ordinary gameplay has no permanent controls caption.");
+                float area=top.width*top.height+bottom.width*bottom.height+condition.width*condition.height;
                 float coverage=area/(hud.Root.worldBound.width*hud.Root.worldBound.height);
                 Assert.That(coverage,Is.LessThan(textSize==0?.10f:.17f),"Normal HUD must leave at least 90% of the screen unobstructed; large 4:3 at least 83%.");
                 Assert.That(bottom.xMax,Is.LessThan(condition.xMin));

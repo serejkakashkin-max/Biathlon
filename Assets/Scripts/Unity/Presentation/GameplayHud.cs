@@ -48,7 +48,7 @@ namespace Biathlon.Unity.Presentation
         private Label clock,lap,timing,phase,history,speed,heart,reserve,fatigue,range,weapon,breath,wind,shots,help;
         private VisualElement reserveFill,fatigueFill,breathFill,shootingPanel,motionPanel,timingPanel,conditionPanel,helpPanel;
         private bool helpVisible;
-        private string skiControlHelp,shootingControlHelp,breathControl;
+        private string skiControlHelp,shootingControlHelp;
         private BoundDeviceControls shortcutControls;
         private bool gamepadShortcuts;
         public bool HelpVisible=>helpVisible;
@@ -131,13 +131,10 @@ namespace Biathlon.Unity.Presentation
             breathFill=Bar(shootingPanel,"breath_bar",accent);
             CreateImpactFeedback();
 
-            var hint=Card("help_hint",false,true,settings.speed_width);
             var inputPreferences=host?.InputPreferences??PlayerSettingsPreferences.Current;
             shortcutControls=new BoundDeviceControls(inputPreferences,PlayerSettingsPreferences.Catalog);gamepadShortcuts=inputPreferences.Device=="gamepad";
             skiControlHelp=PlayerControlHints.Gameplay(inputPreferences,Locale,false,T("ski_help"));
-            shootingControlHelp=PlayerControlHints.Gameplay(inputPreferences,Locale,true,T("shooting_help"));breathControl=PlayerControlHints.Label(inputPreferences,"breath");
-            Text(hint,"help_key",inputPreferences.Device=="keyboard"&&inputPreferences.BindingOverrideCount==0?T("help_key"):
-                PlayerControlHints.Description(inputPreferences,Locale,new[]{"help","splits"}),settings.caption_size).style.color=muted;
+            shootingControlHelp=PlayerControlHints.Gameplay(inputPreferences,Locale,true,T("shooting_help"));
             helpPanel=Card("help_panel",false,true,settings.left_width);
             helpPanel.style.top=settings.edge+48;
             var name=Text(helpPanel,"athlete_name",displayName,settings.body_size,true);
@@ -223,7 +220,7 @@ namespace Biathlon.Unity.Presentation
             shootingPanel.style.display=Model.Shooting?DisplayStyle.Flex:DisplayStyle.None;motionPanel.style.display=Model.Shooting?DisplayStyle.None:DisplayStyle.Flex;
             // Review controls remain usable in diagnostic scenes; career races have no review panel.
             float bottom=host?.Review!=null?settings.edge+140:settings.edge;shootingPanel.style.bottom=motionPanel.style.bottom=bottom;
-            range.text=Model.Range;weapon.text=Model.Weapon;breath.text=Model.Breath.Replace("Space",breathControl);wind.text=Model.Wind;wind.style.display=Model.Shooting?DisplayStyle.Flex:DisplayStyle.None;shots.text=a.ShotsFired+" / 5";
+            range.text=Model.Range;weapon.text=Model.Weapon;breath.text=Model.Breath;wind.text=Model.Wind;wind.style.display=Model.Shooting?DisplayStyle.Flex:DisplayStyle.None;shots.text=a.ShotsFired+" / 5";
             help.text=Model.Shooting?shootingControlHelp:skiControlHelp;
             RefreshImpactFeedback(a);
             breath.style.color=a.BreathBlocked||a.BreathHolding&&a.BreathSwayMultiplier>1?FrontEndTheme.Color(settings.warning):muted;

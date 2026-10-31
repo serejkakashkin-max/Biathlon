@@ -21,12 +21,10 @@ namespace Biathlon.Unity.Presentation
             paintedCountdown=paintedPace=-1;paintedCountdownVisible=false;
             previousCountdown=0;goUntil=0;paintedWaitSeconds=-1;paintedWaitVisible=paintedFastForward=false;
             paceCeiling=Biathlon.Domain.DeviceControlDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/device_control_gameplay_v3")).KeyboardEffortCeiling;
-            var readout=new VisualElement{name="pace_readout"};readout.style.height=76*Scale;motionPanel.Add(readout);
+            var readout=new VisualElement{name="pace_readout"};readout.style.height=58*Scale;motionPanel.Add(readout);
             var paceLayer=new VisualElement{name="pace_layer"};readout.Add(paceLayer);
             paceLabel=Text(paceLayer,"pace_label","",settings.caption_size);
             paceFill=Bar(paceLayer,"pace_fill",accent);
-            var inputPreferences=host?.InputPreferences??PlayerSettingsPreferences.Current;
-            Text(paceLayer,"pace_keys",PlayerControlHints.Label(inputPreferences,"pace_up")+" +  ·  "+PlayerControlHints.Label(inputPreferences,"pace_down")+L(" − / тормоз\n"," − / brake\n")+PlayerControlHints.Label(inputPreferences,"attack")+L(" — рывок"," — burst"),settings.caption_size).style.color=muted;
             BuildShortBurst(readout,paceLayer);
             countdownPanel=new VisualElement{name="start_countdown"};countdownPanel.style.position=Position.Absolute;
             countdownPanel.style.left=Length.Percent(42);countdownPanel.style.top=Length.Percent(24);countdownPanel.style.width=Length.Percent(16);
@@ -44,7 +42,7 @@ namespace Biathlon.Unity.Presentation
             FrostlineStyle.SurfaceCard(startWaitPanel,true);startWaitPanel.style.borderLeftWidth=3;startWaitPanel.style.borderLeftColor=accent;
             startWaitCaption=Text(startWaitPanel,"player_start_wait_caption",L("СОПЕРНИКИ НА ТРАССЕ · ВАШ СТАРТ ЧЕРЕЗ","RIVALS ARE RACING · YOUR START IN"),settings.caption_size,true);
             startWaitTime=Text(startWaitPanel,"player_start_wait_time","",36,true);startWaitTime.style.color=accent;
-            startWaitSkip=new Button(()=>{host?.RequestSkipStartWait();RefreshPaceStart();}){name="skip_start_wait",text=L("К СТАРТУ  ·  ENTER / A","SKIP TO START  ·  ENTER / A")};
+            startWaitSkip=new Button(()=>{host?.RequestSkipStartWait();RefreshPaceStart();}){name="skip_start_wait",text=L("К СТАРТУ","SKIP TO START")};
             startWaitSkip.style.height=40*Scale;startWaitSkip.style.marginTop=8;startWaitSkip.style.paddingLeft=startWaitSkip.style.paddingRight=20;
             startWaitSkip.style.backgroundColor=accent;startWaitSkip.style.color=FrostlineStyle.Deep;startWaitSkip.style.fontSize=settings.caption_size*Scale;
             FrostlineStyle.Text(startWaitSkip,true);

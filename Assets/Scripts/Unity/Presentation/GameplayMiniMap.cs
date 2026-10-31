@@ -12,8 +12,6 @@ namespace Biathlon.Unity.Presentation
         public RaceMiniMapGraphic MiniMapGraphic{get;private set;}
         public bool MiniMapVisible{get;private set;}
         private VisualElement miniMapPanel;
-        private Label miniMapRivals;
-        private int miniMapPaintedRivals=-1;
         private void BuildMiniMap()
         {
             MiniMapVisible=false;miniMapPanel=null;MiniMapGraphic=null;
@@ -24,12 +22,7 @@ namespace Biathlon.Unity.Presentation
             miniMapPanel=Card("minimap_panel",true,true,miniMapSettings.width);
             // Text scales; the spatial diagram keeps its compact, legible footprint.
             miniMapPanel.style.width=miniMapSettings.width;miniMapPanel.style.paddingTop=miniMapPanel.style.paddingBottom=6;
-            var header=Row(miniMapPanel);var title=Text(header,"minimap_title",L("МИНИ-КАРТА","TRACK MAP"),settings.caption_size,true);
-            title.style.color=accent;title.style.letterSpacing=.6f;
-            miniMapRivals=Text(header,"minimap_rival_count","",settings.caption_size);miniMapRivals.style.color=muted;miniMapRivals.style.flexShrink=0;miniMapPaintedRivals=-1;
             MiniMapGraphic=new RaceMiniMapGraphic(MiniMapGeometry,miniMapSettings,MiniMapState,HighContrast);MiniMapGraphic.style.height=miniMapSettings.map_height;miniMapPanel.Add(MiniMapGraphic);
-            var legend=Text(miniMapPanel,"minimap_legend",L("▲ ВЫ   ·   ● СОПЕРНИКИ","▲ YOU   ·   ● RIVALS"),settings.caption_size);
-            legend.style.color=muted;legend.style.whiteSpace=WhiteSpace.NoWrap;legend.style.marginTop=4;legend.style.marginBottom=0;
             miniMapPanel.style.display=DisplayStyle.None;
             Root.UnregisterCallback<GeometryChangedEvent>(PlaceMiniMap);Root.RegisterCallback<GeometryChangedEvent>(PlaceMiniMap);
             timingPanel.RegisterCallback<GeometryChangedEvent>(PlaceMiniMap);
@@ -43,7 +36,6 @@ namespace Biathlon.Unity.Presentation
             miniMapPanel.style.display=MiniMapVisible?DisplayStyle.Flex:DisplayStyle.None;
             if(!MiniMapVisible)return;
             if(MiniMapState.Observe(snapshot,MiniMapGeometry,player))MiniMapGraphic.Observe();
-            if(miniMapPaintedRivals!=MiniMapState.Rivals){miniMapPaintedRivals=MiniMapState.Rivals;miniMapRivals.text="● "+miniMapPaintedRivals;}
             PlaceMiniMap(null);
         }
         private void PlaceMiniMap(GeometryChangedEvent _)

@@ -1,0 +1,21 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Failed",
+      "TotalTests": 1,
+      "PassedTests": 0,
+      "FailedTests": 1,
+      "SkippedTests": 0,
+      "Duration": "00:00:00.9567853"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.ForestLodContinuityTests.NativeFoliageDoesNotChangeAbruptlyAcrossLodBoundaries",
+        "Status": "Failed",
+        "Duration": "00:00:00.8130000",
+        "Message": "  Moving 2 mm must not replace the native canopy/branches. Captures: C:\\game\\Biathlon\\Biathlon\\artifacts\\m16-4\\forest-ui\\epsilon-20261031-140342\r\n  Expected: less than 0.02d\r\n  But was:  0.37559300431919562d\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.ForestLodContinuityTests+<NativeFoliageDoesNotChangeAbruptlyAcrossLodBoundaries>d__0.MoveNext () [0x005d2] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ForestLodContinuityTests.cs:54\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+      }
+    ]
+  }
+}

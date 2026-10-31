@@ -82,7 +82,6 @@ namespace Biathlon.Unity.Presentation
             AddButton(pager,"athlete_abilities_previous","‹",()=>{careerAbilityPage=0;Render();},enabled:careerAbilityPage>0);
             AddLabel(pager,(careerAbilityPage+1)+" / 2",13,true).style.marginBottom=0;
             AddButton(pager,"athlete_abilities_next","›",()=>{careerAbilityPage=1;Render();},enabled:careerAbilityPage==0);
-            AddLabel(card,L("Никакого дополнительного бонуса от OVR: результат определяют эти способности и действия в гонке.","OVR grants no extra bonus. These abilities and race decisions determine the result."),11).style.color=FrostlineStyle.Muted;
         }
         private void RenderAthleteDevelopment(VisualElement card,AthleteCareerSummary summary)
         {
@@ -138,7 +137,6 @@ namespace Biathlon.Unity.Presentation
                 var fill=new VisualElement();fill.style.height=4;fill.style.width=Length.Percent(Math.Min(100,value*100f/a.Target));fill.style.backgroundColor=earned?FrostlineStyle.Gold:FrostlineStyle.Accent;rail.Add(fill);
             }
             PageRows(card,rows,careerAchievementPage,3,p=>careerAchievementPage=p);
-            AddLabel(card,L("По сохранённым финишам, победам и личному пику. Достижения не дают бонусов к способностям.","Based on saved finishes, wins and career peak. Milestones grant no ability bonuses."),11).style.color=FrostlineStyle.Muted;
         }
     }
 }

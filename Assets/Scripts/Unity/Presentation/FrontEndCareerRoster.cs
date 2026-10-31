@@ -71,7 +71,6 @@ namespace Biathlon.Unity.Presentation
             }
             if(count==0)AddLabel(card,careerRosterEncounters?T("rivalry.empty"):L("Совпадений нет. Измени страну или поиск.","No matches. Adjust nation or search."),theme.body_size);
             else PageRows(card,rows,rivalryPage,compactLayout?2:4,value=>rivalryPage=value);
-            AddLabel(card,L("OVR — способности. Очки — результаты текущего сезона. Фоновое развитие не создаёт вымышленные результаты гонок.","OVR measures ability. Points are current-season race results. Background development creates no fictional race results."),11).style.color=FrostlineStyle.Muted;
             if(Session.Career.RetiredCount>0)
             {
                 AddButton(card,"career_roster_archive",L("Архив спортсменов · ","Athlete archive · ")+Session.Career.RetiredCount,()=>{careerRosterArchive=!careerRosterArchive;Render();});

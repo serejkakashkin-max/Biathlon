@@ -15,7 +15,7 @@ namespace Biathlon.Unity.Presentation
         public bool FollowingLatestCheckpoint=>checkpointHistory.FollowsLatest;
         private CheckpointLayout checkpointHistoryLayout;
         private VisualElement checkpointPanel,readinessPanel,readinessPointer,checkpointNotice;
-        private Label checkpointHeading,checkpointStatus,checkpointPrevious,checkpointNext,checkpointMode,checkpointKeys,readinessTitle,readinessHint,noticeText;
+        private Label checkpointHeading,checkpointStatus,checkpointPrevious,checkpointNext,checkpointMode,readinessTitle,readinessHint,noticeText;
         private readonly TimingAthleteRow[] checkpointCells=new TimingAthleteRow[30];
         private RaceReviewSettings reviewSettings;private PhysiologyDefinition readinessPhysiology;private BreathingDefinition readinessBreathing;
         private int noticedCheckpoint=-1;private double noticeUntil;
@@ -33,11 +33,11 @@ namespace Biathlon.Unity.Presentation
             checkpointPanel.style.backgroundColor=HighContrast?Color.black:FrostlineStyle.Deep;
             checkpointPanel.style.paddingTop=checkpointPanel.style.paddingBottom=10;checkpointPanel.style.paddingLeft=checkpointPanel.style.paddingRight=20;
             var navigation=Row(checkpointPanel);navigation.name="checkpoint_navigation";
-            checkpointPrevious=Text(navigation,"checkpoint_previous","‹  PgUp",settings.caption_size,true);checkpointPrevious.style.flexShrink=0;
+            checkpointPrevious=Text(navigation,"checkpoint_previous","‹",settings.body_size,true);checkpointPrevious.style.flexShrink=0;
             checkpointHeading=Text(navigation,"checkpoint_heading","",settings.body_size,true);
             checkpointHeading.style.letterSpacing=1;checkpointHeading.style.color=accent;
             checkpointHeading.style.unityTextAlign=TextAnchor.MiddleCenter;checkpointHeading.style.flexGrow=1;
-            checkpointNext=Text(navigation,"checkpoint_next","PgDn  ›",settings.caption_size,true);checkpointNext.style.flexShrink=0;
+            checkpointNext=Text(navigation,"checkpoint_next","›",settings.body_size,true);checkpointNext.style.flexShrink=0;
             checkpointMode=Text(checkpointPanel,"checkpoint_mode","",settings.caption_size,true);checkpointMode.style.color=accent;
             checkpointStatus=Text(checkpointPanel,"checkpoint_status","",settings.caption_size);
             var columns=Row(checkpointPanel);
@@ -51,7 +51,6 @@ namespace Biathlon.Unity.Presentation
                 var gap=Text(header,"split_gap_header_"+c,"+",settings.caption_size);gap.style.width=62*Scale;gap.style.color=muted;gap.style.unityTextAlign=TextAnchor.MiddleRight;
                 for(int r=0;r<15;r++){int i=c*15+r;checkpointCells[i]=new TimingAthleteRow(Scale){name="checkpoint_row_"+i};checkpointCells[i].style.height=29*Scale;checkpointCells[i].style.marginBottom=1;FrostlineStyle.Text(checkpointCells[i]);column.Add(checkpointCells[i]);}
             }
-            checkpointKeys=Text(checkpointPanel,"checkpoint_keys","",settings.caption_size);checkpointKeys.style.color=muted;checkpointKeys.style.marginTop=6;
             checkpointPanel.style.display=CheckpointTableVisible?DisplayStyle.Flex:DisplayStyle.None;
             checkpointNotice=Card("checkpoint_notice",true,true,380);checkpointNotice.style.left=Length.Percent(38);checkpointNotice.style.top=settings.edge;
             noticeText=Text(checkpointNotice,"checkpoint_notice_text","",settings.body_size,true);checkpointNotice.style.display=DisplayStyle.None;
@@ -92,8 +91,6 @@ namespace Biathlon.Unity.Presentation
                 var table=host==null?null:CheckpointStandings.Capture(host.Runner.Field,checkpointHistory.Selected);
                 checkpointHeading.text=checkpointHistory.Selected<0?L("ОТСЕЧКИ","SPLITS"):L("ОТСЕЧКА ","SPLIT ")+(checkpointHistory.Selected+1)+" / "+(checkpointHistory.Latest+1);
                 checkpointPrevious.style.opacity=checkpointHistory.Selected>0?1:.3f;checkpointNext.style.opacity=checkpointHistory.Selected<checkpointHistory.Latest?1:.3f;
-                checkpointPrevious.text=gamepadShortcuts?"‹  R ←":"‹  PgUp";checkpointNext.text=gamepadShortcuts?"R →  ›":"PgDn  ›";
-                checkpointKeys.text=(gamepadShortcuts?L("Правый стик ← / → — история · R3 — последняя","Right stick ← / → history · R3 latest"):L("PgUp / PgDn — история · End — последняя","PgUp / PgDn history · End latest"))+" · "+PlayerControlHints.Label(host?.InputPreferences??PlayerSettingsPreferences.Current,"splits")+L(" — закрыть"," close");
                 checkpointMode.text=checkpointHistory.FollowsLatest?L("ПОСЛЕДНЯЯ ОТСЕЧКА","LATEST SPLIT"):L("ИСТОРИЯ ОТСЕЧЕК","SPLIT HISTORY");checkpointMode.style.color=checkpointHistory.FollowsLatest?accent:FrostlineStyle.Gold;
                 string location="";
                 if(host!=null&&checkpointHistory.Selected>=0)
@@ -124,9 +121,8 @@ namespace Biathlon.Unity.Presentation
                 var ready=new ShootingReadiness(a.Physiology.HeartRateBpm,a.Physiology.MuscularFatigue,readinessPhysiology,readinessBreathing,reviewSettings.calm_hr_load,reviewSettings.high_hr_load);
                 readinessTitle.text=L(ReadinessRu[ready.Zone],ReadinessEn[ready.Zone])+" · "+Math.Round(a.Physiology.HeartRateBpm);
                 readinessTitle.style.color=FrontEndTheme.Color(ready.Zone==0?"#66D3AD":ready.Zone==1?"#F4CE76":"#F59889");readinessPointer.style.left=Length.Percent((float)ready.Load*100);
-                readinessHint.text=a.ShootingActive?L(ready.Zone==0?"Прицел спокойнее · Space — дыхание":"Прицел колеблется · Space — дыхание",
-                    ready.Zone==0?"Calmer aim · Space to hold breath":"Aim sway · Space to hold breath"):L(ready.Zone==0?"Прицел спокойнее · Space — дыхание":ready.Zone==1?"Снизьте темп перед рубежом · Ctrl": "Сильнее колебания прицела · Ctrl — восстановление",
-                    ready.Zone==0?"Calmer aim · Space to hold breath":ready.Zone==1?"Ease your pace before the range · Ctrl":"Stronger aim sway · Ctrl to recover");
+                readinessHint.text=L(ready.Zone==0?"Прицел устойчив":ready.Zone==1?"Умеренная тряска":"Сильная тряска",
+                    ready.Zone==0?"Steady aim":ready.Zone==1?"Moderate sway":"Strong sway");
             }
         }
     }
