@@ -7,7 +7,7 @@ namespace Biathlon.Unity.Presentation
         private bool ownsGameplayCursor;
         public bool GameplayCursorCaptured {get;private set;}
         private void OnEnable(){RefreshGameplayCursor(Application.isFocused);}
-        private void OnDisable(){ReleaseGameplayCursor();}
+        private void OnDisable(){CancelCameraOrbit();ReleaseGameplayCursor();}
         private void RefreshGameplayCursor(bool focused)
         {
             bool gameplay=isActiveAndEnabled&&Runner!=null&&!Runner.Field.GetAthlete(PlayerIndex).HasFinished;
@@ -25,6 +25,6 @@ namespace Biathlon.Unity.Presentation
         {if(!ownsGameplayCursor)return;ownsGameplayCursor=false;ApplyGameplayCursor(false);}
         /// <summary>Shared focus boundary for cursor and held device intent.</summary>
         public void SetInputFocus(bool focused)
-        {ski?.SetInputFocus(focused);shot?.SetInputFocus(focused);RefreshGameplayCursor(focused);}
+        {ski?.SetInputFocus(focused);shot?.SetInputFocus(focused);if(!focused)CancelCameraOrbit();RefreshGameplayCursor(focused);}
     }
 }

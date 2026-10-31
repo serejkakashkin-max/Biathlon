@@ -1,0 +1,28 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Failed",
+      "TotalTests": 2,
+      "PassedTests": 0,
+      "FailedTests": 2,
+      "SkippedTests": 0,
+      "Duration": "00:00:57.0755435"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.PlayerStartWaitTests.PersonalWaitButtonAndCountdownFocusOnThePlayerAndRemainReadable",
+        "Status": "Failed",
+        "Duration": "00:00:23.9680000",
+        "Message": "  The personal waiting skier appears only in the final three seconds before departure.\r\n  Expected: False\r\n  But was:  True\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.PlayerStartWaitTests+<PersonalWaitButtonAndCountdownFocusOnThePlayerAndRemainReadable>d__7.MoveNext () [0x0018b] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\PlayerStartWaitTests.cs:146\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.RaceLoadingPresentationTests.RealLaunchPaintsAllStagesBeforeWorkAndThenArmsTheOriginalCountdown",
+        "Status": "Failed",
+        "Duration": "00:00:32.8350000",
+        "Message": "  No independently sorted race HUD may appear over the loader.\r\n  Expected: False\r\n  But was:  True\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.RaceLoadingPresentationTests+<RealLaunchPaintsAllStagesBeforeWorkAndThenArmsTheOriginalCountdown>d__2.MoveNext () [0x0030c] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\RaceLoadingPresentationTests.cs:41\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+      }
+    ]
+  }
+}

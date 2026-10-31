@@ -1,0 +1,21 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Failed",
+      "TotalTests": 1,
+      "PassedTests": 0,
+      "FailedTests": 1,
+      "SkippedTests": 0,
+      "Duration": "00:00:42.9064210"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.CameraOrbitTests.ActualMouseIsSkiOnlyRespectsFocusTablesAndRendersRearSideFrontViews",
+        "Status": "Failed",
+        "Duration": "00:00:42.7530000",
+        "Message": "  The normal automatic forest submission must follow the final orbit pose in the same frame.\r\n  Expected: 1210\r\n  But was:  1244\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.CameraOrbitTests+<ActualMouseIsSkiOnlyRespectsFocusTablesAndRendersRearSideFrontViews>d__2.MoveNext () [0x00620] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\CameraOrbitTests.cs:88\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+      }
+    ]
+  }
+}

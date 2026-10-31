@@ -113,6 +113,18 @@ namespace Biathlon.PlayModeTests
             }
             host.AdvanceSimulationFrame(.05);Assert.That(host.Runner.Field.Tick.Value,Is.EqualTo(1));
         }
+        [TestCase("pursuit")][TestCase("sprint")]
+        public void DelayedPlayerIsHiddenUntilExactThreeSecondBoundaryWhileEarlierStarterMoves(string format)
+        {
+            var host=Host(format);var player=host.Proxies.GetProxy(host.Runner.Field.GetAthlete(host.PlayerIndex).AthleteId.Value);
+            Assert.That(player.gameObject.activeInHierarchy,Is.False);
+            long boundary=host.Runner.Field.GetAthlete(host.PlayerIndex).ScheduledStart.Value-(long)(RaceStartDefinition.FromJson(Read("race_start_v2.json")).CountdownSeconds*host.Runner.Field.TickFrequency);
+            while(host.Runner.Field.Tick.Value<boundary-1)host.AdvanceSimulationFrame(.05);
+            host.Proxies.Render(1);Assert.That(player.gameObject.activeInHierarchy,Is.False,"One tick before3s the start position is visually unoccupied.");
+            Assert.That(host.Runner.Field.GetAthlete(0).Motion.DistanceNanometers,Is.GreaterThan(0));
+            host.AdvanceSimulationFrame(.05);host.Proxies.Render(1);
+            Assert.That(host.Runner.Field.Tick.Value,Is.EqualTo(boundary));Assert.That(host.CountdownNumber,Is.EqualTo(3));Assert.That(player.gameObject.activeInHierarchy,Is.True);
+        }
         [Test]public void DelayedSprintUsesItsPersonalStartAndPursuitLeaderKeepsTheNormalThreeSecondHold()
         {
             var sprint=Host("sprint");Assert.That(sprint.PlayerStartWaitSeconds,Is.EqualTo(30));Assert.That(sprint.CanSkipStartWait,Is.True);
@@ -143,7 +155,7 @@ namespace Biathlon.PlayModeTests
             Assert.That(button.pickingMode,Is.EqualTo(PickingMode.Position));Assert.That(button.enabledInHierarchy,Is.True);
             Assert.That(hud.Root.Q("start_countdown").style.display.value,Is.EqualTo(DisplayStyle.None));
             Assert.That(host.ChaseCamera.GetComponent<AthleteChaseCamera>().Target,Is.EqualTo(host.Proxies.GetProxy("start_player")));
-            Assert.That(host.Proxies.GetProxy("start_player").gameObject.activeInHierarchy,Is.True,"The personal waiting skier must be visible before departure.");
+            Assert.That(host.Proxies.GetProxy("start_player").gameObject.activeInHierarchy,Is.False,"The personal waiting skier appears only in the final three seconds before departure.");
             Assert.That(host.Proxies.GetProxy("start_leader").gameObject.activeInHierarchy,Is.False,"Unstarted rivals retain their normal visibility policy.");
             var accepted=host.ManualStepper.World.GetActor(host.PlayerIndex).Pose;
             Assert.That(host.Proxies.GetProxy("start_player").position.x,Is.EqualTo((float)accepted.X).Within(.001));

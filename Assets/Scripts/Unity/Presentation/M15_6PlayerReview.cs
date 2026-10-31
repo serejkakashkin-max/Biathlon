@@ -22,7 +22,7 @@ namespace Biathlon.Unity.Presentation
         [Serializable]private sealed class Receipt
         {public int schema_version=1;public string id="m15_6_standalone_review",unity,fullscreen_mode,display_check;public bool success,owner_profiles_unchanged,fullscreen,created,appearance_restored,race_loaded,countdown_started,backup_recovered,diagnostic_exported,bindings_applied,settings_reloaded,checkpoint_verified,start_wait_skipped;public int width,height,display_width,display_height,player_start_ordinal,player_bib;public long race_tick,player_start_tick;public int[] countdown_numbers;public string[] errors,captures;public NavigationReceipt navigation;}
         [Serializable]private sealed class LoadingReceipt
-        {public bool enabled,immediate,clock_held=true,countdown_unarmed=true;public int painted_stages;public List<string> captures=new List<string>();}
+        {public bool enabled,immediate,clock_held=true,countdown_unarmed=true,hud_hidden=true;public int painted_stages;public List<string> captures=new List<string>();}
         private LoadingReceipt loadingReceipt;
         private readonly List<string> errors=new List<string>(),captures=new List<string>();
         private Receipt receipt;private string folder,profiles;private FrontEndMenu menu;private RenderTexture target,raceOverlay,raceCombined;private Material raceComposite;private double began;private bool finished,m16;
@@ -98,7 +98,7 @@ namespace Biathlon.Unity.Presentation
                 if(loadingReview)
                 {
                     int current=(int)menu.Race.LoadingStage;
-                    if(menu.Race.Host!=null){loadingReceipt.clock_held&=menu.Race.Host.Runner.Field.Tick.Value==0&&!menu.Race.Host.enabled;loadingReceipt.countdown_unarmed&=!menu.Race.Host.WaitingForPlayerStart;}
+                    if(menu.Race.Host!=null){loadingReceipt.clock_held&=menu.Race.Host.Runner.Field.Tick.Value==0&&!menu.Race.Host.enabled;loadingReceipt.countdown_unarmed&=!menu.Race.Host.WaitingForPlayerStart;loadingReceipt.hud_hidden&=!menu.Race.Host.GameplayHud.enabled&&menu.Race.Host.GameplayHud.Root?.panel==null;}
                     if(current!=loadingStage){loadingStage=current;loadingFrame=Time.frameCount;}
                     else if(Time.frameCount>loadingFrame&&(loadingReceipt.painted_stages&(1<<current))==0)
                     {
@@ -119,7 +119,7 @@ namespace Biathlon.Unity.Presentation
                 }
                 yield return null;
             }
-            if(loadingReview){File.WriteAllText(Path.Combine(folder,"loading-review.json"),JsonUtility.ToJson(loadingReceipt,true));Require(loadingReceipt.immediate&&loadingReceipt.clock_held&&loadingReceipt.countdown_unarmed&&loadingReceipt.painted_stages==15,"Actual loader did not paint all preparation stages before the race clock.");}
+            if(loadingReview){File.WriteAllText(Path.Combine(folder,"loading-review.json"),JsonUtility.ToJson(loadingReceipt,true));Require(loadingReceipt.immediate&&loadingReceipt.clock_held&&loadingReceipt.countdown_unarmed&&loadingReceipt.hud_hidden&&loadingReceipt.painted_stages==15,"Actual loader must paint all stages before the race clock and without the race HUD.");}
             var host=menu.Race.Host;Require(host!=null&&!menu.Race.Loading,"Actual production race load failed: "+menu.LastMessage);receipt.race_loaded=true;
             if(m16)
             {

@@ -1,0 +1,79 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 13,
+      "PassedTests": 13,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:01:45.3227819"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.CameraOrbitTests.ActualMouseIsSkiOnlyRespectsFocusTablesAndRendersRearSideFrontViews",
+        "Status": "Passed",
+        "Duration": "00:00:43.6850000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CameraOrbitTests.HeldLookButtonCannotBecomeAShotWhenTheActualRangeTakesOver",
+        "Status": "Passed",
+        "Duration": "00:00:00.1880000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CameraOrbitTests.MouseOrbitWrapsClampsReturnsWithoutMovingTargetOrAllocating",
+        "Status": "Passed",
+        "Duration": "00:00:00.0040000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ChaseCameraTests.CameraFollowsWithoutMovingTargetAndAvoidsVisualObstacles",
+        "Status": "Passed",
+        "Duration": "00:00:00.0650000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ChaseCameraTests.CameraUsesObservedDescentPlaneWithoutTiltingOrMovingAthlete",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.RaceStartPresentationTests.ActualKeyboardRaisesHoldsAndLowersPaceAndCannotGoBelowZero",
+        "Status": "Passed",
+        "Duration": "00:00:00.0040000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.RaceStartPresentationTests.CountdownIsVisibleInRetainedHudWhileAuthorityRemainsFrozen",
+        "Status": "Passed",
+        "Duration": "00:00:21.5510000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.RaceStartPresentationTests.ThreeSecondPreparationFreezesRaceAndInputClocksIncludingTheGoBoundary",
+        "Status": "Passed",
+        "Duration": "00:00:19.8910000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.RaceStartPresentationTests.UntouchedPaceStartsAtZeroAndAcceptsTheSharedStopBrake",
+        "Status": "Passed",
+        "Duration": "00:00:19.5230000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ShootingDeviceInputTests.MouseDeltaAndTriggerAreConsumedOnceAndInvalidTickIsAtomic",
+        "Status": "Passed",
+        "Duration": "00:00:00.0220000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ShootingDeviceInputTests.MousePacketsAccumulateAndLargeMovementRespectsTickRate",
+        "Status": "Passed",
+        "Duration": "00:00:00.0030000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ShootingDeviceInputTests.RightMouseReloadIsOneEdgeAndSpaceAndFRemainIndependent",
+        "Status": "Passed",
+        "Duration": "00:00:00.0030000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.ShootingDeviceInputTests.StickFineControlAndBreathFeedTheSameDeterministicAim",
+        "Status": "Passed",
+        "Duration": "00:00:00.0040000"
+      }
+    ]
+  }
+}

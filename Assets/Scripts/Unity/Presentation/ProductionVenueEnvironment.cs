@@ -10,6 +10,8 @@ using Object=UnityEngine.Object;
 namespace Biathlon.Unity.Presentation
 {
     /// <summary>Recipe-owned world art. All gameplay is observed through detached snapshots only.</summary>
+    // Explicit-camera culling must observe the final follow/orbit/replay pose.
+    [DefaultExecutionOrder(200)]
     public sealed class ProductionVenueEnvironment : MonoBehaviour
     {
         private ProductionEnvironmentDefinition recipe;

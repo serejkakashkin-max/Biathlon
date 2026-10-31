@@ -1,0 +1,74 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 12,
+      "PassedTests": 12,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:03:19.5098897"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.CheckpointHistoryHudTests.EarlierOccurrenceRemainsSelectedAcrossNewSplitsPreferencesAndPause",
+        "Status": "Passed",
+        "Duration": "00:00:01.7670000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CheckpointHistoryHudTests.KeyboardAndPadHistoryEdgesDoNotConsumeSkiCommandsOrAdvanceRace",
+        "Status": "Passed",
+        "Duration": "00:00:00.2090000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CheckpointHistoryHudTests.LiveHostHidesCursorAcrossTabAndRestoresItForPauseFocusLossAndDisposal",
+        "Status": "Passed",
+        "Duration": "00:00:00.0520000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.PlayerStartWaitTests.DelayedPlayerIsHiddenUntilExactThreeSecondBoundaryWhileEarlierStarterMoves(\"pursuit\")",
+        "Status": "Passed",
+        "Duration": "00:00:22.3230000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.PlayerStartWaitTests.DelayedPlayerIsHiddenUntilExactThreeSecondBoundaryWhileEarlierStarterMoves(\"sprint\")",
+        "Status": "Passed",
+        "Duration": "00:00:20.3300000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.PlayerStartWaitTests.DelayedSprintUsesItsPersonalStartAndPursuitLeaderKeepsTheNormalThreeSecondHold",
+        "Status": "Passed",
+        "Duration": "00:00:40.0050000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.PlayerStartWaitTests.MassStartLoadingHitchCannotConsumeTheVisiblePreparation",
+        "Status": "Passed",
+        "Duration": "00:00:19.9910000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.PlayerStartWaitTests.PersonalWaitButtonAndCountdownFocusOnThePlayerAndRemainReadable",
+        "Status": "Passed",
+        "Duration": "00:00:20.6480000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.PlayerStartWaitTests.PursuitSkipKeepsEveryCommandAndOpponentStateIdenticalToOrdinaryWaiting",
+        "Status": "Passed",
+        "Duration": "00:00:40.3760000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.RaceLoadingPresentationTests.APreparationFailureRemovesLoadingAndReturnsAnActionableMenuWithoutSaving",
+        "Status": "Passed",
+        "Duration": "00:00:00.9140000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.RaceLoadingPresentationTests.FrozenRealLoadingScreenFitsLocalesSizesAndReducedMotion",
+        "Status": "Passed",
+        "Duration": "00:00:01.1030000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.RaceLoadingPresentationTests.RealLaunchPaintsAllStagesBeforeWorkAndThenArmsTheOriginalCountdown",
+        "Status": "Passed",
+        "Duration": "00:00:31.4560000"
+      }
+    ]
+  }
+}

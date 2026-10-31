@@ -37,12 +37,14 @@ namespace Biathlon.Unity.Presentation
         /// <summary>The immutable classification captured for this start, shared by the rig and race UI.</summary>
         public CareerLeaderBib LeaderRole(string athleteId)=>careerBibs?.ForAthlete(athleteId)??CareerLeaderBib.None;
         private string prestartAthleteId;
+        private double prestartRevealSeconds;
         /// <summary>Show the selected skier waiting at the accepted launch pose.
         /// Visibility never admits a body to the authoritative course early.</summary>
-        public void ShowPrestartAthlete(string athleteId)
+        public void ShowPrestartAthlete(string athleteId,double countdownSeconds)
         {
             if(string.IsNullOrWhiteSpace(athleteId)||!proxies.ContainsKey(athleteId))throw new ArgumentException("A presented stable athlete ID is required.");
-            prestartAthleteId=athleteId;Render(1);
+            if(!double.IsFinite(countdownSeconds)||countdownSeconds<=0)throw new ArgumentOutOfRangeException(nameof(countdownSeconds));
+            prestartAthleteId=athleteId;prestartRevealSeconds=countdownSeconds;Render(1);
         }
         public void ConfigureCareerAppearance(CareerSave save,CareerCalendar calendar,CareerScoringDefinition scoring,CareerCalendarEvent race)
         {
@@ -120,7 +122,11 @@ namespace Biathlon.Unity.Presentation
                 }
                 bool finished=state.Phase==CompetitionPhase.Finished;
                 bool waiting=state.Phase==CompetitionPhase.Prestart&&state.AthleteId==prestartAthleteId;
-                go.SetActive(state.OnCourse||finished||waiting);if(!state.OnCourse&&!finished&&!waiting)continue;var position=feed.Position(i,alpha);var route=visual.Get(position.LoopId);
+                // Personal preparation treats initial tick0 as the first start instant,
+                // matching PlayerStartPreparation.Remaining without advancing authority.
+                double initialMargin=current.Tick==0?1d/current.TickFrequency:0;
+                bool visible=state.OnCourse||finished||waiting&&state.StartCountdownSeconds<=prestartRevealSeconds+initialMargin;
+                go.SetActive(visible);if(!state.OnCourse&&!finished&&!waiting)continue;var position=feed.Position(i,alpha);var route=visual.Get(position.LoopId);
                 double sampleDistance=position.LocalMeters,lateral=position.LateralMeters;
                 // Explicit physical mats preserve the accepted body center throughout setup,
                 // shooting and recovery. Legacy schematic adapters keep their previous pose.
@@ -161,6 +167,9 @@ namespace Biathlon.Unity.Presentation
                 double curvature=physicalPose.IsValid?state.CourseCurvaturePerMeter:VisualRouteCurvature.Sample(route,position.LocalMeters,motionSettings.corner_sample_half_span_m);
                 double grade=physicalPose.IsValid?state.CourseGrade:VisualRouteSurface.Grade(route,sampleDistance,contactSettings.sample_half_span_m);
                 if(chaseCamera!=null&&chaseCamera.Target==go.transform)chaseCamera.SetTerrainGrade((float)grade);
+                // Track the accepted waiting pivot without drawing the athlete/equipment
+                // or updating its pose/VFX before the personal countdown.
+                if(!visible)continue;
                 float distance=viewCamera!=null?Vector3.Distance(viewCamera.transform.position,go.transform.position):0;
                 long poseTick=current.Tick;double poseAlpha=alpha;
                 if(finished&&current.Complete){double ticks=completedSeconds*current.TickFrequency;poseTick+=(long)Math.Floor(ticks);poseAlpha=ticks-Math.Floor(ticks);}

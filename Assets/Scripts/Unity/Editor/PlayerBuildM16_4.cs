@@ -19,6 +19,8 @@ namespace Biathlon.Unity
             =>BuildShootingContactReview("Builds/M16_4_Forest_Hud_Review");
         public static void BuildLeaderHudReview()
             =>BuildShootingContactReview("Builds/M16_4_Leader_Hud_Review");
+        public static void BuildStartCameraReview()
+            =>BuildShootingContactReview("Builds/M16_4_Start_Camera_Review");
         private static void BuildShootingContactReview(string folder)
         {
             BuildVisualUpgrade(folder);
@@ -31,6 +33,7 @@ namespace Biathlon.Unity
             File.AppendAllText(Path.Combine(folder,"READ_ME.txt"),"\r\nЗрители, лес и зимний декор больше не исчезают на видимых дистанциях 110–120 м. На всех уровнях качества сохраняется заполнение трибун и лесной силуэт; дальние модели, инстансинг и отсечение за камерой/полным туманом ограничивают нагрузку. Качество ближних текстур и геометрии не снижено.\r\n");
             File.AppendAllText(Path.Combine(folder,"READ_ME.txt"),"\r\nДетализация деревьев теперь меняется плавно, с сохранением ближних моделей и текстур. Постоянные подсказки клавиш и очевидные подписи убраны с карты, темпа и стрельбы. Управление — в настройках и по F1; история отсечек — PgUp/PgDn, End к последней.\r\n");
             File.AppendAllText(Path.Combine(folder,"READ_ME.txt"),"\r\nВ таблице отсечек TAB жёлтая майка обозначает лидера общего зачёта, красная — лидера дисциплины, жёлто-красная — оба зачёта. Значки соответствуют майкам спортсменов перед стартом. Цветные маркеры комбинезонов рядом с флагами убраны.\r\n");
+            File.AppendAllText(Path.Combine(folder,"READ_ME.txt"),"\r\nОжидающий спортсмен появляется за 3 секунды до своего старта. HUD не показывается поверх загрузки. Во время езды удерживайте ЛКМ и двигайте мышью для осмотра спортсмена и соперников; после отпускания камера плавно возвращается. На стрельбище ЛКМ остаётся выстрелом; зажатая при осмотре кнопка требует отпускания перед первым выстрелом.\r\n");
         }
     }
 }

@@ -37,11 +37,13 @@ namespace Biathlon.PlayModeTests
                 {
                     stages.Add(menu.Race.LoadingStage);frames.Add(Time.frameCount);
                     Assert.That(menu.Root.Q<Label>("race_loading_status").text,Is.Not.Empty);Assert.That(store.Json,Is.EqualTo(before));
-                    if(menu.Race.Host!=null){seenHost=true;Assert.That(menu.Race.Host.enabled,Is.False);Assert.That(menu.Race.Host.Runner.Field.Tick.Value,Is.Zero);Assert.That(menu.Race.Host.WaitingForPlayerStart,Is.False);}
+                    if(menu.Race.Host!=null){seenHost=true;Assert.That(menu.Race.Host.enabled,Is.False);Assert.That(menu.Race.Host.Runner.Field.Tick.Value,Is.Zero);Assert.That(menu.Race.Host.WaitingForPlayerStart,Is.False);
+                        Assert.That(menu.Race.Host.GameplayHud.enabled,Is.False,"No independently sorted race HUD may appear over the loader.");Assert.That(menu.Race.Host.GameplayHud.Root?.panel,Is.Null,"HUD document must not paint while loading.");}
                     yield return null;
                 }
                 Assert.That(stages.Count,Is.EqualTo(4));Assert.That(seenHost,Is.True);Assert.That(menu.Race.Loading,Is.False);
                 Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.Race));Assert.That(menu.Race.Host.enabled,Is.True);
+                Assert.That(menu.Race.Host.GameplayHud.enabled,Is.True,"The HUD appears at the handoff to the race.");
                 Assert.That(menu.Race.Host.WaitingForPlayerStart,Is.True);Assert.That(menu.Race.Host.Runner.Field.Tick.Value,Is.Zero);
                 Assert.That(menu.Root.style.display.value,Is.EqualTo(DisplayStyle.None));Assert.That(store.Json,Is.EqualTo(before));
                 menu.Race.Pause();yield return null;menu.Race.Abandon();Assert.That(menu.Root.Q("race_loading_screen"),Is.Null);Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.PreRace));Assert.That(store.Json,Is.EqualTo(before));

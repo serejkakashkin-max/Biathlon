@@ -1,0 +1,34 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 4,
+      "PassedTests": 4,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:00.2682395"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.BroadcastCameraTests.DedicatedCameraLeaseRejectsGameplayOwnershipAndRestoresState",
+        "Status": "Passed",
+        "Duration": "00:00:00.0620000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.BroadcastCameraTests.ShotSchemaRejectsUnknownDuplicateAndDegeneratePaths",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.BroadcastCameraTests.TrackingAndRailCutsRewindWithoutMutatingSubjectsOrAllocating",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.BroadcastCameraTests.ZoomPromotesVisualDetailButKeepsPhysicalCullingAndDefaultCameras",
+        "Status": "Passed",
+        "Duration": "00:00:00.0090000"
+      }
+    ]
+  }
+}

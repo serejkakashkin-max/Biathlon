@@ -73,7 +73,7 @@ namespace Biathlon.Unity.Presentation
             startDefinition=RaceStartDefinition.FromJson(ReadCore("race_start_v2.json"));
             startPreparation=new Biathlon.Presentation.PlayerStartPreparation(startDefinition,Runner.Field.TickFrequency,Runner.Field.GetAthlete(PlayerIndex).ScheduledStart.Value);
             ski.ReleaseHeldInput();shot.ReleaseHeldInput();
-            Proxies.ShowPrestartAthlete(Runner.Field.GetAthlete(PlayerIndex).AthleteId.Value);
+            Proxies.ShowPrestartAthlete(Runner.Field.GetAthlete(PlayerIndex).AthleteId.Value,startDefinition.CountdownSeconds);
             ChaseCamera.GetComponent<AthleteChaseCamera>().SnapToTarget();
         }
         public void UseReplayView(Camera view)
@@ -204,7 +204,7 @@ namespace Biathlon.Unity.Presentation
             Proxies=gameObject.AddComponent<AthleteProxyPresentation>();Proxies.Initialize(Feed,venue);Proxies.Render(1);
             var cameraObject=new GameObject("Production chase camera");cameraObject.transform.SetParent(transform,false);
             ChaseCamera=cameraObject.AddComponent<Camera>();ChaseCamera.depth=100;
-            cameraObject.AddComponent<AthleteChaseCamera>().Follow(Proxies.GetProxy(id.Value),ChaseCameraSettings.FromJson(ReadCore("chase_camera_v1.json")));
+            orbitCamera=cameraObject.AddComponent<AthleteChaseCamera>();orbitCamera.Follow(Proxies.GetProxy(id.Value),ChaseCameraSettings.FromJson(ReadCore("chase_camera_v1.json")));
             Proxies.SetViewCamera(ChaseCamera);
             range=gameObject.AddComponent<RangePresentation>();range.Initialize(Feed,id.Value,TargetGeometryDefinition.FromJson(ReadCore("target_geometry_v1.json")),ChaseCamera);
             gameObject.AddComponent<RenderQualityPresentation>().Initialize(ChaseCamera,range.AimCamera);
@@ -233,6 +233,7 @@ namespace Biathlon.Unity.Presentation
         }
         private void Update()
         {
+            bool wasLooking=orbitCamera?.OrbitHeld==true;CaptureCameraOrbit(Mouse.current);
             if(ownsGameplayCursor&&Runner!=null&&Runner.Field.GetAthlete(PlayerIndex).HasFinished)ReleaseGameplayCursor();
             if(Runner==null||Runner.Field.IsComplete)return;
             if(WaitingForPlayerStart)
@@ -243,7 +244,7 @@ namespace Biathlon.Unity.Presentation
             }
             if(FastFinish){AdvanceFinishedFieldFrame();return;}
             bool shooting=Runner.Field.GetAthlete(PlayerIndex).ActiveShooting!=null;
-            if(shooting!=shootingContext){ski.ReleaseHeldInput();shot.ReleaseHeldInput();shootingContext=shooting;}
+            if(shooting!=shootingContext){ski.ReleaseHeldInput();shot.ReleaseHeldInput();if(shooting&&wasLooking&&!UseGamepad)shot.RequireTriggerRelease();shootingContext=shooting;}
             if(shooting){bool reviewMouse=Review!=null&&Mouse.current!=null&&Review.ContainsScreenPointer(Mouse.current.position.ReadValue());shot.Capture(UseGamepad||reviewMouse?null:Mouse.current,UseGamepad?null:Keyboard.current,UseGamepad?Gamepad.current:null);ski.ReleaseHeldInput();}
             else{ski.Capture(UseGamepad?null:Keyboard.current,UseGamepad?Gamepad.current:null);shot.ReleaseHeldInput();}
             AdvanceSimulationFrame(Time.deltaTime);

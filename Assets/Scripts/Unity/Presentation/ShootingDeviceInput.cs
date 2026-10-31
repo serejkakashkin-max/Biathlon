@@ -38,6 +38,7 @@ namespace Biathlon.Unity.Presentation
         private long tick;
         private double mouseUnitsPerPixel,pendingX,pendingY,stickX,stickY;
         private bool pad,focused=true,previousTrigger,trigger,breath,fine,previousCycle,cycle;
+        private bool requireTriggerRelease;
         private BoundDeviceControls controls;
         private double sensitivity=1,verticalSign=1;
         public void Initialize(AthleteId id,int frequency,SimulationTick initialTick=default,PlayerSettings preferences=null)
@@ -72,7 +73,9 @@ namespace Biathlon.Unity.Presentation
                 down=controls.Pressed("shoot",false);breath=controls.Pressed("breath",false);fine=controls.Pressed("fine_aim",false);cycleDown=controls.Pressed("bolt",false);
             }
             cycle|=cycleDown&&!previousCycle;previousCycle=cycleDown;
-            trigger|=down&&!previousTrigger;previousTrigger=down;
+            if(requireTriggerRelease){trigger=false;if(!down)requireTriggerRelease=false;}
+            else trigger|=down&&!previousTrigger;
+            previousTrigger=down;
         }
         public ShootingDeviceCommand Build(SimulationTick target)
         {
@@ -85,7 +88,8 @@ namespace Biathlon.Unity.Presentation
             if(!pad){pendingX-=horizontal;pendingY-=vertical;}tick=target.Value;trigger=cycle=false;return result;
         }
         public void SetInputFocus(bool value){focused=value;if(!value)ReleaseHeldInput();}
-        public void ReleaseHeldInput(){pendingX=pendingY=stickX=stickY=0;trigger=previousTrigger=breath=fine=previousCycle=cycle=false;}
+        public void RequireTriggerRelease(){requireTriggerRelease=true;trigger=false;}
+        public void ReleaseHeldInput(){pendingX=pendingY=stickX=stickY=0;trigger=previousTrigger=breath=fine=previousCycle=cycle=requireTriggerRelease=false;}
         private void OnApplicationFocus(bool value)=>SetInputFocus(value);
         private void OnDisable()=>ReleaseHeldInput();
     }

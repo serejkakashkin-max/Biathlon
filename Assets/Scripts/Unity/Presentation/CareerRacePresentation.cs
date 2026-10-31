@@ -66,6 +66,9 @@ namespace Biathlon.Unity.Presentation
                     Host.GameplayHud.SetPreferences(menu.Locale,menu.TextSizeIndex,menu.Session.Player.Name);
                     Host.GameplayHud.SetAccessibility(menu.HighContrast);
                     Host.GameplayHud.SetBroadcastRoster(menu.Session.Career);
+                    // This independent UIDocument sorts above the menu. Detach it until
+                    // the loader hands over, including the Venue and Ready frames.
+                    Host.GameplayHud.enabled=false;
                     try
                     {
                         var info=new RaceReplayInfo{Id="race_"+Guid.NewGuid().ToString("N"),RecordedUtc=DateTime.UtcNow.ToString("O"),CareerSnapshotJson=week.RaceSnapshotJson,
@@ -94,7 +97,7 @@ namespace Biathlon.Unity.Presentation
                 SetLoadingStage(CareerRaceLoadingStage.Ready);yield return null;yield return null;
                 try
                 {
-                    menu.Session.BeginRace();Host.ArmRaceStartCountdown();Host.enabled=true;menu.SetRaceVisible(true);
+                    menu.Session.BeginRace();Host.ArmRaceStartCountdown();menu.SetRaceVisible(true);Host.GameplayHud.enabled=true;Host.enabled=true;
                 }
                 catch(Exception e){failure=e;}
             }

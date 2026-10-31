@@ -22,8 +22,9 @@ namespace Biathlon.Unity.Presentation
         }
         public static string Gameplay(PlayerSettings p,string locale,bool shooting,string original)
         {
-            if(p.Device=="keyboard"&&p.BindingOverrideCount==0)return original;
-            return Description(p,locale,shooting?new[]{"fine_aim","range_overview","breath","bolt","shoot"}:new[]{"pace_up","pace_down","attack","recovery","steer_left","steer_right","tuck","splits"});
+            string help=p.Device=="keyboard"&&p.BindingOverrideCount==0?original:
+                Description(p,locale,shooting?new[]{"fine_aim","range_overview","breath","bolt","shoot"}:new[]{"pace_up","pace_down","attack","recovery","steer_left","steer_right","tuck","splits"});
+            return shooting?help:help+"\n"+(locale=="ru"?"ЛКМ + мышь — осмотр":"Hold LMB + move mouse — look around");
         }
     }
 }
