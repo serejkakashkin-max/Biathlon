@@ -22,6 +22,7 @@ namespace Biathlon.Unity.Presentation
         private VegetationPresentation[] forests;
         private SpectatorCrowd[] crowds;
         private TargetBankArt[] banks;
+        public ShotImpactPresentation Impacts {get;private set;}
         private ShootingStance[] bankStances;
         private int[] bankMasks;
         private RacePresentationFeed feed;
@@ -197,6 +198,7 @@ namespace Biathlon.Unity.Presentation
                 {dressing=generated.AddComponent<ProductionForestDressing>();dressing.Initialize(WinterDressingDefinition.Load(composition.dressing_resource),data.route_corridors,SampleGround);}
                 var keyObject=Child("Production directional light",Vector3.zero,Quaternion.identity);var key=keyObject.AddComponent<Light>();key.type=LightType.Directional;key.shadows=LightShadows.Soft;
                 weather=generated.AddComponent<WeatherPresentation>();weather.Initialize(chase,key,prepared.Sky);
+                Impacts=gameObject.AddComponent<ShotImpactPresentation>();Impacts.Initialize(feed,geometry,banks);
                 RefreshBanks();
             }
             catch{Shutdown();throw;}
@@ -360,6 +362,7 @@ namespace Biathlon.Unity.Presentation
         private void OnEnable(){if(generated!=null)generated.SetActive(true);}
         public void Shutdown()
         {
+            if(Impacts!=null){Impacts.Shutdown();DestroyOwned(Impacts);Impacts=null;}
             RangeFlags?.Shutdown();RangeFlags=null;FlagClearanceExcludedTrees=0;reviewLighting=null;
             if(weather!=null)weather.Shutdown();
             if(generated!=null){generated.SetActive(false);generated.transform.SetParent(null);DestroyOwned(generated);generated=null;}

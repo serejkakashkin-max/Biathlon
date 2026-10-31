@@ -1,0 +1,18 @@
+#if UNITY_EDITOR
+using System.IO;
+using UnityEngine;
+namespace Biathlon.Unity
+{
+    public static partial class PlayerBuildPipeline
+    {
+        public static void BuildShootingContactReview()
+        {
+            const string folder="Builds/M16_4_Shooting_Contact_Review";
+            BuildVisualUpgrade(folder);
+            File.WriteAllText(Path.Combine(folder,"START_TEST.cmd"),"@echo off\r\ncd /d \"%~dp0\"\r\nstart \"Biathlon M16.4\" \"%~dp0Biathlon.exe\" -force-d3d11 -screen-fullscreen 1 -window-mode borderless\r\n");
+            File.WriteAllText(Path.Combine(folder,"milestone.json"),"{\"schema_version\":1,\"id\":\"m16_4_shooting_contact_review\",\"status\":\"owner_review\",\"unity\":\""+Application.unityVersion+"\"}");
+            File.WriteAllText(Path.Combine(folder,"READ_ME.txt"),"BIATHLON — M16.4 / Изготовка и следы выстрелов\r\n\r\nSTART_TEST.cmd — полный экран; существующая карьера поддерживается.\r\nЛёжа палки укладываются справа от спортсмена, стоя — между лыжами. Подъём и изготовка идут по прежнему игровому времени. Лыжи остаются на снегу / коврике.\r\nСледы попаданий на передней панели мишени сохраняются в пределах гонки. Попадание через отверстие не оставляет пробоину на закрывающейся белой заслонке. Число следов ограничено.\r\nВ стрелковом HUD есть увеличенная схема последнего выстрела по фактической точке пересечения: попадание, габарит, промах у кромки. Точный край засчитывается; зона попадания не расширена, случайного решения нет.\r\nСхема не показывает текущую точку прицеливания. Калибр 5.6 мм — размер визуального следа; полный механизм импульсного срабатывания металлической мишени не симулируется.\r\nПроверьте обе изготовки, укладку и подбор палок, край мишени и сохранение следов. M16.3 закрыт по вашему апруву; M16.4 ждёт теста.\r\n");
+        }
+    }
+}
+#endif

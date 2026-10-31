@@ -146,8 +146,8 @@ namespace Biathlon.PlayModeTests
                     var aim = equipment.Rifle.rotation; var hand = rig.Bone(AthleteBone.RightHand).position;
                     contact.Sample(rig, 0, 0, SkiLocomotion.Idle, 1);
                     Assert.That(contact.MaxFootResidualMeters, Is.LessThan(.002f));
-                    Assert.That(contact.LeftPoleTip.y, Is.EqualTo(0).Within(.0001f));
-                    Assert.That(contact.RightPoleTip.y, Is.EqualTo(0).Within(.0001f));
+                    Assert.That(contact.LeftPoleTip.y, Is.EqualTo(GroundContactSettings.Load().pole_lay_clearance_m).Within(.0001f));
+                    Assert.That(contact.RightPoleTip.y, Is.EqualTo(GroundContactSettings.Load().pole_lay_clearance_m).Within(.0001f));
                     Assert.That(equipment.Rifle.rotation, Is.EqualTo(aim));
                     Assert.That(rig.Bone(AthleteBone.RightHand).position, Is.EqualTo(hand));
                 }

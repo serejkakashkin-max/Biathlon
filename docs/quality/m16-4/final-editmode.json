@@ -1,0 +1,223 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Passed\",\"TotalTests\":40,\"PassedTests\":40,\"FailedTests\":0,\"SkippedTests\":0,\"Duration\":\"00:00:03.0035581\"},\"Results\":[{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.AcceptedResultObservationAllocatesNoManagedMemory\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0130000\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.DuplicateBootstrapNewBoutOrForeignAthleteNeverInventsAReaction\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(0)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(1)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(2)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(3)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(4)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(0)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(1)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(2)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(3)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(4)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.FifthShotAndMatReleaseInOneAcceptedStateRetainsItsResult(30,31,Hit)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.FifthShotAndMatReleaseInOneAcceptedStateRetainsItsResult(15,15,Miss)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.AcceptedShotTransitionTests.GapsRegressionsAndImpossibleMasksDoNotGuessOneResult\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.ShootingSessionTests.ActiveRecordedSessionDoesNotAllocate\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0970000\"},{\"Name\":\"Biathlon.Tests.ShootingSessionTests.AiUsesCompleteSwayAndHandlingSessionWithoutAuthorityBypass\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0130000\"},{\"Name\":\"Biathlon.Tests.ShootingSessionTests.EntireComposedBoutSerializesAndReplaysAllFramesEventsAndCsv\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0440000\"},{\"Name\":\"Biathlon.Tests.ShootingSessionTests.InvalidLateInputCannotAdvanceAnyPrivateSubsystemOrTape\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0110000\"},{\"Name\":\"Biathlon.Tests.ShootingSessionTests.TrainingCsvAndEventsMatchPinnedCliTraceInEveryRuntime\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0170000\"},{\"Name\":\"Biathlon.Tests.ShootingStateTests.ActiveBoutDoesNotAllocateAndInvalidDurationsAreRejected\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.ShootingStateTests.BadTransitionsAreAtomicAndLaneCannotBeStolenOrReassigned\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.ShootingStateTests.CompleteBoutHonorsSetupBoltExitAndDoesNotResolveHits(20)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0030000\"},{\"Name\":\"Biathlon.Tests.ShootingStateTests.CompleteBoutHonorsSetupBoltExitAndDoesNotResolveHits(30)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0030000\"},{\"Name\":\"Biathlon.Tests.ShootingStateTests.CompleteBoutHonorsSetupBoltExitAndDoesNotResolveHits(144)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0270000\"},{\"Name\":\"Biathlon.Tests.ShootingStateTests.IdenticalActionsProduceIdenticalFramesAndEventsWithoutAllocation\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0040000\"},{\"Name\":\"Biathlon.Tests.ShotImpactLedgerTests.DuplicateCatchupRejectedTriggerAndGapsCannotInventMarks\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.ShotImpactLedgerTests.ExactEdgeClosesButOneNanometerOutsideRemainsAMissWithItsActualMark(Prone)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0030000\"},{\"Name\":\"Biathlon.Tests.ShotImpactLedgerTests.ExactEdgeClosesButOneNanometerOutsideRemainsAMissWithItsActualMark(Standing)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.ShotImpactLedgerTests.WarmObservationAndDuplicateRejectionAllocateNothing\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.ShotResolutionTests.InvalidRayWindAndPrematureTriggerCannotPartlyDischarge\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0040000\"},{\"Name\":\"Biathlon.Tests.ShotResolutionTests.PerfectAimCompletesFiveIndependentTargetsAtEitherStance(Prone)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0660000\"},{\"Name\":\"Biathlon.Tests.ShotResolutionTests.PerfectAimCompletesFiveIndependentTargetsAtEitherStance(Standing)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0340000\"},{\"Name\":\"Biathlon.Tests.ShotResolutionTests.RepeatedTargetAndWindMissConsumeRoundsWithoutDuplicateClosure\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.2050000\"},{\"Name\":\"Biathlon.Tests.ShotResolutionTests.ShotFramesAndEventsReplayAndActiveResolutionDoesNotAllocate\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0050000\"},{\"Name\":\"Biathlon.Tests.TargetGeometryTests.ActiveGeometryDoesNotAllocate\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0020000\"},{\"Name\":\"Biathlon.Tests.TargetGeometryTests.AllFiveCentersEdgesAndOneNanometerOutsideAreDeterministic(Prone)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.TargetGeometryTests.AllFiveCentersEdgesAndOneNanometerOutsideAreDeterministic(Standing)\",\"Status\":\"Passed\",\"Duration\":\"00:00:00\"},{\"Name\":\"Biathlon.Tests.TargetGeometryTests.ForwardIntersectionUsesOriginAndScaleWhileParallelAndBehindMiss\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"},{\"Name\":\"Biathlon.Tests.TargetGeometryTests.IndependentClosuresAndBadGeometryCannotCorruptState\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.0010000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Passed",
+        "TotalTests": 40,
+        "PassedTests": 40,
+        "FailedTests": 0,
+        "SkippedTests": 0,
+        "Duration": "00:00:03.0035581"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.Tests.AcceptedShotTransitionTests.AcceptedResultObservationAllocatesNoManagedMemory",
+          "Status": "Passed",
+          "Duration": "00:00:00.0130000"
+        },
+        {
+          "Name": "Biathlon.Tests.AcceptedShotTransitionTests.DuplicateBootstrapNewBoutOrForeignAthleteNeverInventsAReaction",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(0)",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(1)",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(2)",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(3)",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachHitUsesAcceptedClosureRatherThanTargetOrdinal(4)",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(0)",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(1)",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(2)",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(3)",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.AcceptedShotTransitionTests.EachMissUsesAcceptedShotWithoutClosure(4)",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.AcceptedShotTransitionTests.FifthShotAndMatReleaseInOneAcceptedStateRetainsItsResult(30,31,Hit)",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.AcceptedShotTransitionTests.FifthShotAndMatReleaseInOneAcceptedStateRetainsItsResult(15,15,Miss)",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.AcceptedShotTransitionTests.GapsRegressionsAndImpossibleMasksDoNotGuessOneResult",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.ShootingSessionTests.ActiveRecordedSessionDoesNotAllocate",
+          "Status": "Passed",
+          "Duration": "00:00:00.0970000"
+        },
+        {
+          "Name": "Biathlon.Tests.ShootingSessionTests.AiUsesCompleteSwayAndHandlingSessionWithoutAuthorityBypass",
+          "Status": "Passed",
+          "Duration": "00:00:00.0130000"
+        },
+        {
+          "Name": "Biathlon.Tests.ShootingSessionTests.EntireComposedBoutSerializesAndReplaysAllFramesEventsAndCsv",
+          "Status": "Passed",
+          "Duration": "00:00:00.0440000"
+        },
+        {
+          "Name": "Biathlon.Tests.ShootingSessionTests.InvalidLateInputCannotAdvanceAnyPrivateSubsystemOrTape",
+          "Status": "Passed",
+          "Duration": "00:00:00.0110000"
+        },
+        {
+          "Name": "Biathlon.Tests.ShootingSessionTests.TrainingCsvAndEventsMatchPinnedCliTraceInEveryRuntime",
+          "Status": "Passed",
+          "Duration": "00:00:00.0170000"
+        },
+        {
+          "Name": "Biathlon.Tests.ShootingStateTests.ActiveBoutDoesNotAllocateAndInvalidDurationsAreRejected",
+          "Status": "Passed",
+          "Duration": "00:00:00.0020000"
+        },
+        {
+          "Name": "Biathlon.Tests.ShootingStateTests.BadTransitionsAreAtomicAndLaneCannotBeStolenOrReassigned",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.ShootingStateTests.CompleteBoutHonorsSetupBoltExitAndDoesNotResolveHits(20)",
+          "Status": "Passed",
+          "Duration": "00:00:00.0030000"
+        },
+        {
+          "Name": "Biathlon.Tests.ShootingStateTests.CompleteBoutHonorsSetupBoltExitAndDoesNotResolveHits(30)",
+          "Status": "Passed",
+          "Duration": "00:00:00.0030000"
+        },
+        {
+          "Name": "Biathlon.Tests.ShootingStateTests.CompleteBoutHonorsSetupBoltExitAndDoesNotResolveHits(144)",
+          "Status": "Passed",
+          "Duration": "00:00:00.0270000"
+        },
+        {
+          "Name": "Biathlon.Tests.ShootingStateTests.IdenticalActionsProduceIdenticalFramesAndEventsWithoutAllocation",
+          "Status": "Passed",
+          "Duration": "00:00:00.0040000"
+        },
+        {
+          "Name": "Biathlon.Tests.ShotImpactLedgerTests.DuplicateCatchupRejectedTriggerAndGapsCannotInventMarks",
+          "Status": "Passed",
+          "Duration": "00:00:00.0020000"
+        },
+        {
+          "Name": "Biathlon.Tests.ShotImpactLedgerTests.ExactEdgeClosesButOneNanometerOutsideRemainsAMissWithItsActualMark(Prone)",
+          "Status": "Passed",
+          "Duration": "00:00:00.0030000"
+        },
+        {
+          "Name": "Biathlon.Tests.ShotImpactLedgerTests.ExactEdgeClosesButOneNanometerOutsideRemainsAMissWithItsActualMark(Standing)",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.ShotImpactLedgerTests.WarmObservationAndDuplicateRejectionAllocateNothing",
+          "Status": "Passed",
+          "Duration": "00:00:00.0020000"
+        },
+        {
+          "Name": "Biathlon.Tests.ShotResolutionTests.InvalidRayWindAndPrematureTriggerCannotPartlyDischarge",
+          "Status": "Passed",
+          "Duration": "00:00:00.0040000"
+        },
+        {
+          "Name": "Biathlon.Tests.ShotResolutionTests.PerfectAimCompletesFiveIndependentTargetsAtEitherStance(Prone)",
+          "Status": "Passed",
+          "Duration": "00:00:00.0660000"
+        },
+        {
+          "Name": "Biathlon.Tests.ShotResolutionTests.PerfectAimCompletesFiveIndependentTargetsAtEitherStance(Standing)",
+          "Status": "Passed",
+          "Duration": "00:00:00.0340000"
+        },
+        {
+          "Name": "Biathlon.Tests.ShotResolutionTests.RepeatedTargetAndWindMissConsumeRoundsWithoutDuplicateClosure",
+          "Status": "Passed",
+          "Duration": "00:00:00.2050000"
+        },
+        {
+          "Name": "Biathlon.Tests.ShotResolutionTests.ShotFramesAndEventsReplayAndActiveResolutionDoesNotAllocate",
+          "Status": "Passed",
+          "Duration": "00:00:00.0050000"
+        },
+        {
+          "Name": "Biathlon.Tests.TargetGeometryTests.ActiveGeometryDoesNotAllocate",
+          "Status": "Passed",
+          "Duration": "00:00:00.0020000"
+        },
+        {
+          "Name": "Biathlon.Tests.TargetGeometryTests.AllFiveCentersEdgesAndOneNanometerOutsideAreDeterministic(Prone)",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.TargetGeometryTests.AllFiveCentersEdgesAndOneNanometerOutsideAreDeterministic(Standing)",
+          "Status": "Passed",
+          "Duration": "00:00:00"
+        },
+        {
+          "Name": "Biathlon.Tests.TargetGeometryTests.ForwardIntersectionUsesOriginAndScaleWhileParallelAndBehindMiss",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        },
+        {
+          "Name": "Biathlon.Tests.TargetGeometryTests.IndependentClosuresAndBadGeometryCannotCorruptState",
+          "Status": "Passed",
+          "Duration": "00:00:00.0010000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

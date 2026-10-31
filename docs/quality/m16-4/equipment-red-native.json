@@ -1,0 +1,51 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":4,\"PassedTests\":0,\"FailedTests\":4,\"SkippedTests\":0,\"Duration\":\"00:00:00.1577652\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded(Prone,0.0f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0260000\",\"Message\":\"  Stowed shaft must lie parallel to snow/mat, not stand vertically.\\r\\n  Expected: less than 0.00100000005f\\r\\n  But was:  1.0f\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded (Biathlon.Domain.ShootingStance stance, System.Single grade) [0x000f8] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ShootingEquipmentLayTests.cs:29\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded(Standing,0.0f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0010000\",\"Message\":\"  Stowed shaft must lie parallel to snow/mat, not stand vertically.\\r\\n  Expected: less than 0.00100000005f\\r\\n  But was:  1.0f\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded (Biathlon.Domain.ShootingStance stance, System.Single grade) [0x000f8] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ShootingEquipmentLayTests.cs:29\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded(Prone,0.12f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0010000\",\"Message\":\"  Stowed shaft must lie parallel to snow/mat, not stand vertically.\\r\\n  Expected: less than 0.00100000005f\\r\\n  But was:  1.0f\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded (Biathlon.Domain.ShootingStance stance, System.Single grade) [0x000f8] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ShootingEquipmentLayTests.cs:29\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded(Standing,-0.12f)\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.0010000\",\"Message\":\"  Stowed shaft must lie parallel to snow/mat, not stand vertically.\\r\\n  Expected: less than 0.00100000005f\\r\\n  But was:  1.0f\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded (Biathlon.Domain.ShootingStance stance, System.Single grade) [0x000f8] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\ShootingEquipmentLayTests.cs:29\\r\\n\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 4,
+        "PassedTests": 0,
+        "FailedTests": 4,
+        "SkippedTests": 0,
+        "Duration": "00:00:00.1577652"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded(Prone,0.0f)",
+          "Status": "Failed",
+          "Duration": "00:00:00.0260000",
+          "Message": "  Stowed shaft must lie parallel to snow/mat, not stand vertically.\r\n  Expected: less than 0.00100000005f\r\n  But was:  1.0f\r\n",
+          "StackTrace": "at Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded (Biathlon.Domain.ShootingStance stance, System.Single grade) [0x000f8] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ShootingEquipmentLayTests.cs:29\r\n"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded(Standing,0.0f)",
+          "Status": "Failed",
+          "Duration": "00:00:00.0010000",
+          "Message": "  Stowed shaft must lie parallel to snow/mat, not stand vertically.\r\n  Expected: less than 0.00100000005f\r\n  But was:  1.0f\r\n",
+          "StackTrace": "at Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded (Biathlon.Domain.ShootingStance stance, System.Single grade) [0x000f8] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ShootingEquipmentLayTests.cs:29\r\n"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded(Prone,0.12f)",
+          "Status": "Failed",
+          "Duration": "00:00:00.0010000",
+          "Message": "  Stowed shaft must lie parallel to snow/mat, not stand vertically.\r\n  Expected: less than 0.00100000005f\r\n  But was:  1.0f\r\n",
+          "StackTrace": "at Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded (Biathlon.Domain.ShootingStance stance, System.Single grade) [0x000f8] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ShootingEquipmentLayTests.cs:29\r\n"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded(Standing,-0.12f)",
+          "Status": "Failed",
+          "Duration": "00:00:00.0010000",
+          "Message": "  Stowed shaft must lie parallel to snow/mat, not stand vertically.\r\n  Expected: less than 0.00100000005f\r\n  But was:  1.0f\r\n",
+          "StackTrace": "at Biathlon.PlayModeTests.ShootingEquipmentLayTests.ReadyPolesLieOnTheSurfaceAndSkisStayGrounded (Biathlon.Domain.ShootingStance stance, System.Single grade) [0x000f8] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\ShootingEquipmentLayTests.cs:29\r\n"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

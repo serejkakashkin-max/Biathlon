@@ -1,0 +1,35 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"Summary\":{\"Status\":\"Failed\",\"TotalTests\":2,\"PassedTests\":1,\"FailedTests\":1,\"SkippedTests\":0,\"Duration\":\"00:00:01.5709533\"},\"Results\":[{\"Name\":\"Biathlon.PlayModeTests.M164VisualReviewTests.ActualAcceptedShotFeedbackFitsNormalAndLargeHud\",\"Status\":\"Failed\",\"Duration\":\"00:00:00.6630000\",\"Message\":\"  The accepted compact HUD coverage must survive the new shot evidence.\\r\\n  Expected: less than 0.170000002f\\r\\n  But was:  0.174064636f\\r\\n\",\"StackTrace\":\"at Biathlon.PlayModeTests.M164VisualReviewTests\\u002B\\u003C\\u003Ec__DisplayClass2_0\\u002B\\u003C\\u003CActualAcceptedShotFeedbackFitsNormalAndLargeHud\\u003Eg__Capture|2\\u003Ed.MoveNext () [0x0032b] in C:\\\\game\\\\Biathlon\\\\Biathlon\\\\Assets\\\\Tests\\\\PlayMode\\\\M164VisualReviewTests.cs:88\\r\\nat UnityEngine.TestTools.TestEnumerator\\u002B\\u003CExecute\\u003Ed__8.MoveNext () [0x0003a] in .\\\\Library\\\\PackageCache\\\\com.unity.test-framework@7a3849e09bd0\\\\UnityEngine.TestRunner\\\\NUnitExtensions\\\\Attributes\\\\TestEnumerator.cs:52\\r\\n\"},{\"Name\":\"Biathlon.PlayModeTests.M164VisualReviewTests.NativeEquipmentAndFrontPlateViews\",\"Status\":\"Passed\",\"Duration\":\"00:00:00.7790000\"}]}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "Summary": {
+        "Status": "Failed",
+        "TotalTests": 2,
+        "PassedTests": 1,
+        "FailedTests": 1,
+        "SkippedTests": 0,
+        "Duration": "00:00:01.5709533"
+      },
+      "Results": [
+        {
+          "Name": "Biathlon.PlayModeTests.M164VisualReviewTests.ActualAcceptedShotFeedbackFitsNormalAndLargeHud",
+          "Status": "Failed",
+          "Duration": "00:00:00.6630000",
+          "Message": "  The accepted compact HUD coverage must survive the new shot evidence.\r\n  Expected: less than 0.170000002f\r\n  But was:  0.174064636f\r\n",
+          "StackTrace": "at Biathlon.PlayModeTests.M164VisualReviewTests+<>c__DisplayClass2_0+<<ActualAcceptedShotFeedbackFitsNormalAndLargeHud>g__Capture|2>d.MoveNext () [0x0032b] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\M164VisualReviewTests.cs:88\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+        },
+        {
+          "Name": "Biathlon.PlayModeTests.M164VisualReviewTests.NativeEquipmentAndFrontPlateViews",
+          "Status": "Passed",
+          "Duration": "00:00:00.7790000"
+        }
+      ]
+    }
+  },
+  "isError": false
+}

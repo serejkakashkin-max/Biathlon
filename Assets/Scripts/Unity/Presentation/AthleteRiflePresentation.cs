@@ -38,13 +38,14 @@ namespace Biathlon.Unity.Presentation
         public RifleBackAnchor back_lower,back_upper;
         public Vector3 back_stock_contact;
         public Vector3 trigger_grip, support_grip, prone_support_grip, pole_stow_left, pole_stow_right;
+        public Vector3 standing_pole_stow_left,standing_pole_stow_right;
         public Vector3 standing_support_bend, standing_trigger_bend, prone_support_bend, prone_trigger_bend;
         public Vector3 cheek_rest, head_from_cheek, head_sight_euler;
         public float max_head_correction_m;
         public static RiflePresentationSettings Load()
         {
             var d = JsonUtility.FromJson<RiflePresentationSettings>(Resources.Load<TextAsset>("Biathlon/athlete_rifle_v1").text);
-            if (d == null || d.schema_version != 3 || string.IsNullOrWhiteSpace(d.id) || !(d.reach_fraction > 0 && d.reach_fraction < d.release_end_fraction && d.release_end_fraction < 1) ||
+            if (d == null || d.schema_version != 4 || string.IsNullOrWhiteSpace(d.id) || !(d.reach_fraction > 0 && d.reach_fraction < d.release_end_fraction && d.release_end_fraction < 1) ||
                 !(d.clearance_side_m > 0 && d.clearance_side_m < 1) || !(d.clearance_up_m > 0 && d.clearance_up_m < 1))
                 throw new ArgumentException("Invalid rifle presentation definition.");
             if(!float.IsFinite(d.back_roll_deg)||d.back_roll_deg<70||d.back_roll_deg>110||d.back_lower==null||d.back_upper==null||!float.IsFinite(d.back_stock_contact.sqrMagnitude)||d.back_stock_contact.magnitude>1)
@@ -52,7 +53,7 @@ namespace Biathlon.Unity.Presentation
             d.back_lower.Validate();d.back_upper.Validate();
             if(!float.IsFinite(d.head_sight_euler.sqrMagnitude)||d.head_sight_euler.magnitude>30)throw new ArgumentException("Invalid visual head cant.");
             if(!(d.max_head_correction_m>0&&d.max_head_correction_m<=.15f))throw new ArgumentException("Invalid head correction envelope.");
-            foreach (var v in new[] {d.trigger_grip, d.support_grip, d.prone_support_grip, d.pole_stow_left, d.pole_stow_right,d.standing_support_bend,d.standing_trigger_bend,d.prone_support_bend,d.prone_trigger_bend,d.cheek_rest,d.head_from_cheek})
+            foreach (var v in new[] {d.trigger_grip, d.support_grip, d.prone_support_grip, d.pole_stow_left, d.pole_stow_right,d.standing_pole_stow_left,d.standing_pole_stow_right,d.standing_support_bend,d.standing_trigger_bend,d.prone_support_bend,d.prone_trigger_bend,d.cheek_rest,d.head_from_cheek})
                 if (!float.IsFinite(v.x) || !float.IsFinite(v.y) || !float.IsFinite(v.z)) throw new ArgumentException("Invalid prop offset.");
             return d;
         }
@@ -133,8 +134,8 @@ namespace Biathlon.Unity.Presentation
                 Hand(false, Vector3.Lerp(settings.support_grip,stance==ShootingStance.Prone?settings.prone_support_grip:settings.support_grip,alignment));
                 Hand(true, settings.trigger_grip);
             }
-            Pole(equipment.LeftPole, AthleteSocket.LeftHandGrip, settings.pole_stow_left);
-            Pole(equipment.RightPole, AthleteSocket.RightHandGrip, settings.pole_stow_right);
+            Pole(equipment.LeftPole, AthleteSocket.LeftHandGrip, stance==ShootingStance.Standing?settings.standing_pole_stow_left:settings.pole_stow_left);
+            Pole(equipment.RightPole, AthleteSocket.RightHandGrip, stance==ShootingStance.Standing?settings.standing_pole_stow_right:settings.pole_stow_right);
             void Hand(bool right, Vector3 grip)
             {
                 var upper = rig.Bone(right ? AthleteBone.RightUpperArm : AthleteBone.LeftUpperArm);
@@ -158,7 +159,7 @@ namespace Biathlon.Unity.Presentation
             {
                 var held = rig.Socket(socket);
                 pole.SetPositionAndRotation(Vector3.Lerp(held.position, rig.ModelRoot.TransformPoint(stow), HandWeight),
-                    Quaternion.Slerp(held.rotation * Quaternion.Euler(47, 0, 0), rig.ModelRoot.rotation, HandWeight));
+                    Quaternion.Slerp(held.rotation * Quaternion.Euler(47, 0, 0), rig.ModelRoot.rotation*Quaternion.FromToRotation(Vector3.down,Vector3.back), HandWeight));
             }
         }
     }

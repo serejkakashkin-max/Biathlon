@@ -10,13 +10,14 @@ namespace Biathlon.Unity.Presentation
         public string id;
         public float sample_half_span_m, max_grade, pole_length_m, pole_recovery_m, pole_tuck_clearance_m;
         public float tuck_pole_pitch_deg,tuck_pole_splay_deg;
+        public float pole_lay_clearance_m;
         public static GroundContactSettings Load()
         {
             var d = JsonUtility.FromJson<GroundContactSettings>(Resources.Load<TextAsset>("Biathlon/athlete_ground_contact_v1").text);
-            if (d == null || d.schema_version != 1 || string.IsNullOrWhiteSpace(d.id) ||
+            if (d == null || d.schema_version != 2 || string.IsNullOrWhiteSpace(d.id) ||
                 !(d.sample_half_span_m > 0 && d.sample_half_span_m <= 5) || !(d.max_grade > 0 && d.max_grade <= .5f) ||
                 !(d.pole_length_m > 1 && d.pole_length_m < 2) || !(d.pole_recovery_m > 0 && d.pole_recovery_m < .5f) ||
-                !(d.pole_tuck_clearance_m > 0 && d.pole_tuck_clearance_m < .5f)||
+                !(d.pole_tuck_clearance_m > 0 && d.pole_tuck_clearance_m < .5f)||!(d.pole_lay_clearance_m>=.015f&&d.pole_lay_clearance_m<=.065f)||
                 !float.IsFinite(d.tuck_pole_pitch_deg)||d.tuck_pole_pitch_deg<0||d.tuck_pole_pitch_deg>15||
                 !float.IsFinite(d.tuck_pole_splay_deg)||d.tuck_pole_splay_deg<0||d.tuck_pole_splay_deg>35)
                 throw new ArgumentException("Invalid ground contact definition.");
@@ -114,9 +115,10 @@ namespace Biathlon.Unity.Presentation
             Vector3 Pole(Transform pole, float offset)
             {
                 var grip = root.InverseTransformPoint(pole.position);
-                // Staged poles stand on this plane too, including a sloped validation fixture.
+                // Poles settle onto the surface during the existing rifle transfer.
+                // Their shaft and basket keep a small authored surface clearance.
                 var onPlane = grip - normal * Vector3.Dot(grip, normal);
-                grip = Vector3.Lerp(grip, onPlane + normal * settings.pole_length_m, stowWeight);
+                grip = Vector3.Lerp(grip, onPlane + normal * settings.pole_lay_clearance_m, stowWeight);
                 float wave = Mathf.Max(0, Mathf.Cos((float)((cycle + offset) * Math.PI * 2)));
                 float lift = state == SkiLocomotion.Tuck || state == SkiLocomotion.TechnicalDescent ? settings.pole_tuck_clearance_m :
                     state == SkiLocomotion.Idle ? 0 : settings.pole_recovery_m * (authored?hybrid.PoleRecoveryClearance:wave * wave);
@@ -134,6 +136,11 @@ namespace Biathlon.Unity.Presentation
                     var outward=rear*Mathf.Cos(splay)+Vector3.right*(side*Mathf.Sin(splay));
                     var airborne=grip+(outward*Mathf.Cos(pitch)-normal*Mathf.Sin(pitch))*settings.pole_length_m;
                     var direction=Vector3.Slerp(airborne-grip,tip-grip,stowWeight).normalized;
+                    tip=grip+direction*settings.pole_length_m;
+                }
+                if(stowWeight>0)
+                {
+                    var direction=Vector3.Slerp((tip-grip).normalized,rear,stowWeight).normalized;
                     tip=grip+direction*settings.pole_length_m;
                 }
                 pole.SetPositionAndRotation(root.TransformPoint(grip), Quaternion.FromToRotation(Vector3.down, root.TransformDirection(tip - grip)));

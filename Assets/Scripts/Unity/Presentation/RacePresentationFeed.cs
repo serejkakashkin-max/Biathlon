@@ -8,6 +8,7 @@ namespace Biathlon.Unity.Presentation
     public sealed class RacePresentationFeed : MonoBehaviour
     {
         public event Action<RacePresentationSnapshot> Published;
+        public event Action RaceReset;
         public RacePresentationSnapshot Previous { get; private set; }
         public RacePresentationSnapshot Current { get; private set; }
         public double? InterpolationAlpha {get;private set;}
@@ -20,7 +21,7 @@ namespace Biathlon.Unity.Presentation
             Previous=Current;Current=snapshot;
             Published?.Invoke(snapshot);
         }
-        public void ResetRace(){Previous=null;Current=null;InterpolationAlpha=null;}
+        public void ResetRace(){Previous=null;Current=null;InterpolationAlpha=null;RaceReset?.Invoke();}
         public PresentationPosition Position(int index,double alpha)=>RacePresentationSampling.Position(Previous,Current,index,alpha);
     }
 }

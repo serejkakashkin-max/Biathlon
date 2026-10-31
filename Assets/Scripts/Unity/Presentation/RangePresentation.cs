@@ -23,6 +23,7 @@ namespace Biathlon.Unity.Presentation
         private bool[] playerWasEnabled;
         private float targetHeight;
         private RifleSightPresentation rifleSight;
+        private ShotImpactPresentation fallbackImpacts;
         private bool overview,capturedPlayerVisibility;
         public bool OverviewRequested {get;set;}
         public TargetBankArt Bank=>bank;
@@ -48,6 +49,7 @@ namespace Biathlon.Unity.Presentation
             var template=Resources.Load<TargetBankArt>("Biathlon/Stadium/TargetBank");
             if(template==null)throw new InvalidOperationException("Generate authored target bank first.");
             bank=Instantiate(template,stage.transform,false);bank.transform.localPosition=new Vector3(0,0,(float)geometry.DistanceMeters);
+            fallbackImpacts=stage.AddComponent<ShotImpactPresentation>();fallbackImpacts.Initialize(feed,geometry,new[]{bank},athleteId);
             var cameraObject=new GameObject("Range aim camera");cameraObject.transform.SetParent(stage.transform,false);
             aimCamera=cameraObject.AddComponent<Camera>();aimCamera.depth=200;aimCamera.nearClipPlane=.01f;
             aimCamera.farClipPlane=(float)geometry.DistanceMeters+1;aimCamera.clearFlags=CameraClearFlags.SolidColor;aimCamera.backgroundColor=new Color(.42f,.48f,.52f);
@@ -59,6 +61,7 @@ namespace Biathlon.Unity.Presentation
         {
             if(stage==null||venue!=null||plan==null||world==null||playerRig==null||world.BankCount!=plan.LaneCount)throw new ArgumentException("Initialized venue, world banks and player rig required.");
             venue=plan;environment=world;sightSettings=RifleSightSettings.Load();targetHeight=StadiumArtDefinition.Load().target_height_m;
+            if(fallbackImpacts!=null){fallbackImpacts.Shutdown();Destroy(fallbackImpacts);fallbackImpacts=null;}
             bank.gameObject.SetActive(false);stage.transform.SetPositionAndRotation(Vector3.zero,Quaternion.identity);
             aimCamera.farClipPlane=sightSettings.far_clip_m;aimCamera.fieldOfView=sightSettings.field_of_view_deg;aimCamera.clearFlags=CameraClearFlags.Skybox;
             rifleSight=aimCamera.gameObject.AddComponent<RifleSightPresentation>();rifleSight.Initialize(sightSettings);

@@ -1,5 +1,5 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "id": "athlete_rifle_original_v1",
   "back_roll_deg": 90,
   "reach_fraction": 0.2,
@@ -58,14 +58,14 @@
     "z": 0.42
   },
   "pole_stow_left": {
-    "x": -0.48,
-    "y": 1.36,
-    "z": -0.2
+    "x": 0.54,
+    "y": 0.035,
+    "z": 0.55
   },
   "pole_stow_right": {
-    "x": 0.48,
-    "y": 1.36,
-    "z": -0.2
+    "x": 0.64,
+    "y": 0.035,
+    "z": 0.59
   },
   "back_lower": {
     "bones": [
@@ -136,5 +136,15 @@
     "x": -0.033,
     "y": 0,
     "z": 0.15
+  },
+  "standing_pole_stow_left": {
+    "x": -0.045,
+    "y": 0.035,
+    "z": 0.48
+  },
+  "standing_pole_stow_right": {
+    "x": 0.045,
+    "y": 0.035,
+    "z": 0.52
   }
 }

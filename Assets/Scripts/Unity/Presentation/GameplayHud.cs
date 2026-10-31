@@ -129,6 +129,7 @@ namespace Biathlon.Unity.Presentation
             weapon.style.color=accent;
             breath=Text(shootingPanel,"breath","",settings.caption_size);breath.style.color=muted;
             breathFill=Bar(shootingPanel,"breath_bar",accent);
+            CreateImpactFeedback();
 
             var hint=Card("help_hint",false,true,settings.speed_width);
             var inputPreferences=host?.InputPreferences??PlayerSettingsPreferences.Current;
@@ -222,6 +223,7 @@ namespace Biathlon.Unity.Presentation
             float bottom=host?.Review!=null?settings.edge+140:settings.edge;shootingPanel.style.bottom=motionPanel.style.bottom=bottom;
             range.text=Model.Range;weapon.text=Model.Weapon;breath.text=Model.Breath.Replace("Space",breathControl);wind.text=Model.Wind;wind.style.display=Model.Shooting?DisplayStyle.Flex:DisplayStyle.None;shots.text=a.ShotsFired+" / 5";
             help.text=Model.Shooting?shootingControlHelp:skiControlHelp;
+            RefreshImpactFeedback(a);
             breath.style.color=a.BreathBlocked||a.BreathHolding&&a.BreathSwayMultiplier>1?FrontEndTheme.Color(settings.warning):muted;
             for(int i=0;i<targets.Length;i++)
             {
