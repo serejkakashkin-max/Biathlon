@@ -106,12 +106,12 @@ namespace Biathlon.Unity.Presentation
             float speed=(float)state.SpeedMetersPerSecond,load=Mathf.Clamp01((float)state.Effort.DeliveredRelativeEffort);
             float move=state.OnCourse&&!finished?Mathf.Clamp01(speed/d.speed_reference):0;
             string snowProfile=Host.Environment?.AudioSnowProfile;
-            AudioCue snow=weather=="snowfall"?AudioCue.SkiSoft:snowProfile!=null&&(snowProfile.Contains("ice")||snowProfile.Contains("icy"))?AudioCue.SkiIce:AudioCue.SkiPacked;
+            AudioCue snow=(weather=="snowfall"||weather=="light_snow")?AudioCue.SkiSoft:snowProfile!=null&&(snowProfile.Contains("ice")||snowProfile.Contains("icy"))?AudioCue.SkiIce:AudioCue.SkiPacked;
             audio.Loop(0,snow,move*(.65f+.35f*load),Mathf.Lerp(.7f,1.35f,move));
             float wind=Host.Environment!=null?Host.Environment.AudioWind.magnitude:0;
-            float storm=Mathf.Clamp01(.15f+wind/10+(weather=="snowfall"?.2f:0));
+            float storm=Mathf.Clamp01(.15f+wind/10+((weather=="snowfall"||weather=="light_snow")?.2f:0));
             audio.Loop(1,AudioCue.Wind,storm);
-            audio.Loop(2,AudioCue.Snowfall,weather=="snowfall"?1:0);
+            audio.Loop(2,AudioCue.Snowfall,(weather=="snowfall"||weather=="light_snow")?1:0);
             float stadium=crowdRadius>0?Mathf.Clamp01(1-Vector3.Distance(pos,crowdPoint)/crowdRadius):0;
             audio.Loop(3,AudioCue.Crowd,stadium);
             audio.Loop(4,AudioCue.Wind,move*.3f,1.3f);

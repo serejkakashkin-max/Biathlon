@@ -130,7 +130,13 @@ namespace Biathlon.PlayModeTests
                 Assert.That(RenderSettings.fogColor, Is.EqualTo(weatherPreset.fog_color * lighting.horizon_tint));
                 Assert.That(RenderSettings.ambientSkyColor, Is.EqualTo(weatherPreset.fog_color * weatherPreset.ambient_intensity * lighting.ambient_tint * lighting.ambient_gain));
                 Assert.That(RenderSettings.skybox, Is.Not.SameAs(saved.Skybox));
-                var key = root.GetComponentInChildren<Light>();
+                Light key=null;int directionalCount=0;
+                foreach(var light in root.GetComponentsInChildren<Light>())
+                {
+                    if(light.type==LightType.Directional){key=light;directionalCount++;}
+                    else{Assert.That(light.type,Is.EqualTo(LightType.Point));Assert.That(light.shadows,Is.EqualTo(LightShadows.None));Assert.That(light.enabled,Is.False,"Target fill is off in daytime conditions.");}
+                }
+                Assert.That(directionalCount,Is.EqualTo(1));Assert.That(key,Is.Not.Null);
                 Assert.That(key.type, Is.EqualTo(LightType.Directional));
                 Assert.That(key.color, Is.EqualTo(weatherPreset.light_color * lighting.sun_tint));
                 Assert.That(key.intensity, Is.EqualTo(weatherPreset.light_intensity * lighting.sun_gain));

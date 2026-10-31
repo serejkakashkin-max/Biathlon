@@ -2,9 +2,126 @@
   "schema_version": 1,
   "id": "career_weather_rotation_v1",
   "presets": [
-    {"schema_version":1,"id":"snowfall_fresh_v1","visual_preset":"snowfall","lighting_preset":"overcast","snow_profile":"fresh_soft","snow_material":"cold","air_temperature_c":-6,"snow_temperature_c":-7,"wind_east_mps":1.8,"wind_north_mps":0.8},
-    {"schema_version":1,"id":"clear_frost_v1","visual_preset":"clear","lighting_preset":"clear_cold","snow_profile":"packed_neutral","snow_material":"cold","air_temperature_c":-12,"snow_temperature_c":-14,"wind_east_mps":0.3,"wind_north_mps":-0.4},
-    {"schema_version":1,"id":"overcast_ice_v1","visual_preset":"overcast","lighting_preset":"overcast","snow_profile":"icy_fast","snow_material":"cold","air_temperature_c":-4,"snow_temperature_c":-5,"wind_east_mps":-2.4,"wind_north_mps":1.2,"course_contact_resource":"manual_course_contact_ice_v1.json"},
-    {"schema_version":1,"id":"thaw_wet_v1","visual_preset":"overcast","lighting_preset":"overcast","snow_profile":"wet_slow","snow_material":"wet","air_temperature_c":2,"snow_temperature_c":0,"wind_east_mps":1.1,"wind_north_mps":-0.7}
+    {
+      "schema_version": 1,
+      "id": "snowfall_fresh_v1",
+      "visual_preset": "snowfall",
+      "lighting_preset": "overcast",
+      "snow_profile": "fresh_soft",
+      "snow_material": "cold",
+      "air_temperature_c": -6,
+      "snow_temperature_c": -7,
+      "wind_east_mps": 1.8,
+      "wind_north_mps": 0.8
+    },
+    {
+      "schema_version": 1,
+      "id": "clear_frost_v1",
+      "visual_preset": "clear",
+      "lighting_preset": "clear_cold",
+      "snow_profile": "packed_neutral",
+      "snow_material": "cold",
+      "air_temperature_c": -12,
+      "snow_temperature_c": -14,
+      "wind_east_mps": 0.3,
+      "wind_north_mps": -0.4
+    },
+    {
+      "schema_version": 1,
+      "id": "overcast_ice_v1",
+      "visual_preset": "overcast",
+      "lighting_preset": "overcast",
+      "snow_profile": "icy_fast",
+      "snow_material": "cold",
+      "air_temperature_c": -4,
+      "snow_temperature_c": -5,
+      "wind_east_mps": -2.4,
+      "wind_north_mps": 1.2,
+      "course_contact_resource": "manual_course_contact_ice_v1.json"
+    },
+    {
+      "schema_version": 1,
+      "id": "thaw_wet_v1",
+      "visual_preset": "overcast",
+      "lighting_preset": "overcast",
+      "snow_profile": "wet_slow",
+      "snow_material": "wet",
+      "air_temperature_c": 2,
+      "snow_temperature_c": 0,
+      "wind_east_mps": 1.1,
+      "wind_north_mps": -0.7
+    },
+    {
+      "schema_version": 1,
+      "id": "fog_packed_v1",
+      "visual_preset": "fog",
+      "lighting_preset": "overcast",
+      "snow_profile": "packed_neutral",
+      "snow_material": "cold",
+      "air_temperature_c": -5,
+      "snow_temperature_c": -6,
+      "wind_east_mps": 0.3,
+      "wind_north_mps": -0.4
+    },
+    {
+      "schema_version": 1,
+      "id": "evening_clear_v1",
+      "visual_preset": "clear",
+      "lighting_preset": "evening",
+      "snow_profile": "packed_neutral",
+      "snow_material": "cold",
+      "air_temperature_c": -8,
+      "snow_temperature_c": -9,
+      "wind_east_mps": 0.3,
+      "wind_north_mps": -0.4
+    },
+    {
+      "schema_version": 1,
+      "id": "light_snow_fresh_v1",
+      "visual_preset": "light_snow",
+      "lighting_preset": "overcast",
+      "snow_profile": "fresh_soft",
+      "snow_material": "cold",
+      "air_temperature_c": -6,
+      "snow_temperature_c": -7,
+      "wind_east_mps": 0.3,
+      "wind_north_mps": -0.4
+    },
+    {
+      "schema_version": 1,
+      "id": "dawn_frost_v1",
+      "visual_preset": "clear",
+      "lighting_preset": "dawn",
+      "snow_profile": "packed_neutral",
+      "snow_material": "cold",
+      "air_temperature_c": -11,
+      "snow_temperature_c": -12,
+      "wind_east_mps": 0.3,
+      "wind_north_mps": -0.4
+    },
+    {
+      "schema_version": 1,
+      "id": "late_day_frost_v1",
+      "visual_preset": "clear",
+      "lighting_preset": "late_day",
+      "snow_profile": "packed_neutral",
+      "snow_material": "cold",
+      "air_temperature_c": -9,
+      "snow_temperature_c": -10,
+      "wind_east_mps": 0.3,
+      "wind_north_mps": -0.4
+    },
+    {
+      "schema_version": 1,
+      "id": "evening_snow_v1",
+      "visual_preset": "snowfall",
+      "lighting_preset": "evening",
+      "snow_profile": "fresh_soft",
+      "snow_material": "cold",
+      "air_temperature_c": -6,
+      "snow_temperature_c": -7,
+      "wind_east_mps": 0.3,
+      "wind_north_mps": -0.4
+    }
   ]
 }

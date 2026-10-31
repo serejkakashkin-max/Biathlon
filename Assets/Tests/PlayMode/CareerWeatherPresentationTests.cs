@@ -26,7 +26,7 @@ namespace Biathlon.PlayModeTests
             if(root!=null)Object.DestroyImmediate(root);
             if(folder!=null&&Directory.Exists(folder)){foreach(var f in Directory.GetFiles(folder))File.Delete(f);Directory.Delete(folder,false);}
         }
-        [TestCase(0),TestCase(1),TestCase(2),TestCase(3)]
+        [TestCase(0),TestCase(1),TestCase(2),TestCase(3),TestCase(4),TestCase(5),TestCase(6),TestCase(9)]
         public void WeatherBindsLightingSnowMaterialAndActiveShootingCameraWithoutChangingSource(int index)
         {
             var fixture=new ProductionEnvironmentFixture();string before=fixture.Recipe.ToJson();var weather=Catalog().Get(index);
@@ -40,7 +40,7 @@ namespace Biathlon.PlayModeTests
             e.Render(chase,"high",12);e.Render(aim,"high",12);
             Assert.That(e.WeatherPresetId,Is.EqualTo(weather.VisualPreset));
             Assert.That(aim.clearFlags,Is.EqualTo(CameraClearFlags.Skybox));Assert.That(chase.clearFlags,Is.EqualTo(oldClear));
-            if(weather.VisualPreset=="snowfall")Assert.That(e.SubmittedSnowflakes,Is.GreaterThan(0));else Assert.That(e.SubmittedSnowflakes,Is.Zero);
+            if(weather.VisualPreset=="snowfall"||weather.VisualPreset=="light_snow")Assert.That(e.SubmittedSnowflakes,Is.GreaterThan(0));else Assert.That(e.SubmittedSnowflakes,Is.Zero);
             var definitions=SnowMaterialDefinition.Load();SnowMaterialPreset preset=null;foreach(var p in definitions.presets)if(p.id==weather.SnowMaterial)preset=p;
             bool terrainChecked=false;
             foreach(var r in e.GetComponentsInChildren<MeshRenderer>())

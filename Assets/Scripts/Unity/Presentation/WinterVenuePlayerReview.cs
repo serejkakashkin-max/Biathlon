@@ -16,6 +16,7 @@ namespace Biathlon.Unity.Presentation
             public int schema_version=1;public string id="m16_1_player_review",phase,unity,gpu,cpu,api;
             public string scope="1920x1080 offscreen production camera; 30 real athletes; no menu/HUD/swapchain cost; same compiled binary, legacy or natural presentation policy";
             public bool success;public int trees,excluded_trees,flags,tapered_panels,vertical_panels,join_vertices,covered_curtain_faces,rim_clearance_adjustments;
+            public int floodlight_masts,target_fill_lights;public bool lamps_on;
             public string[] errors;public List<Case> cases=new List<Case>();public List<Capture> captures=new List<Capture>();
         }
         [Serializable] private sealed class Capture{public string id;public long tick;public Vector3 position,forward;public float field_of_view;}
@@ -30,7 +31,7 @@ namespace Biathlon.Unity.Presentation
         private Receipt receipt;private string output;private ProductionVenueHost host;
         private BenchmarkRenderTarget target;private BenchmarkFrameCounters counters;
         private Camera camera;private string tier;private float visualTime;
-        private bool visibilityReview,forestLodReview;
+        private bool visibilityReview,forestLodReview,weatherLightsReview;
         private const string Prefix="Biathlon/Venues/woodland_basin_v1/";
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)] private static void Boot()
         {
@@ -43,11 +44,13 @@ namespace Biathlon.Unity.Presentation
             var args=Environment.GetCommandLineArgs();int at=Array.IndexOf(args,"-biathlonWinterVenueOutput"),phase=Array.IndexOf(args,"-biathlonWinterVenuePhase");
             visibilityReview=Array.IndexOf(args,"-biathlonVisibilityReview")>=0;
             forestLodReview=Array.IndexOf(args,"-biathlonForestLodReview")>=0;if(forestLodReview)visibilityReview=true;
+            weatherLightsReview=Array.IndexOf(args,"-biathlonWeatherLightsReview")>=0;if(weatherLightsReview)visibilityReview=true;
             if(at<0||at+1>=args.Length){Application.Quit(1);yield break;}
             output=Path.GetFullPath(args[at+1]);Directory.CreateDirectory(output);
             receipt=new Receipt{phase=phase>=0&&phase+1<args.Length?args[phase+1]:"after",unity=Application.unityVersion,gpu=SystemInfo.graphicsDeviceName,cpu=SystemInfo.processorType,api=SystemInfo.graphicsDeviceType.ToString()};
             if(visibilityReview){receipt.id="m16_4_visibility_review";receipt.scope="1920x1080 offscreen native venue and 30 real athletes; same binary/cameras/tick/weather, legacy visibility or complete silhouettes; no menu/HUD/swapchain cost";}
             if(forestLodReview){receipt.id="m16_4_forest_lod_review";receipt.scope="1920x1080 offscreen native venue and 30 real athletes; same binary/cameras/tick/weather and complete visibility, hard or blended forest LOD; no menu/HUD/swapchain cost";}
+            if(weatherLightsReview){receipt.id="m16_4_weather_lights_review";receipt.scope="1920x1080 offscreen native venue and30 real athletes; same binary,clear atmosphere,neutral race,tick,cameras,geometry/textures; daytime lamps off vs evening lamps on; no menu/HUD/swapchain cost; GPU timings may be unavailable";}
             if(receipt.phase!="before"&&receipt.phase!="after"){Application.Quit(1);yield break;}
             Application.runInBackground=true;Application.logMessageReceived+=Log;
             var stack=new Stack<IEnumerator>();stack.Push(Run());
@@ -71,7 +74,8 @@ namespace Biathlon.Unity.Presentation
             var venue=new VenueAuthoringPlan(VenueManifest.FromJson(ProductionVenueHost.ReadResource(Prefix+"manifest")),ProductionVenueHost.ReadResource);
             host.Initialize(venue,CompetitionProfile.FromJson(ProductionVenueHost.ReadResource(Prefix+"mass_start_profile")),RaceRoutePlan.FromJson(ProductionVenueHost.ReadResource(Prefix+"mass_start_route")),RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1")),30);
             var recipe=ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource(Prefix+"environment"));
-            if(receipt.phase=="before"&&!forestLodReview)
+            if(weatherLightsReview)recipe=CareerWeatherPresentation.Bind(recipe,RaceWeatherCatalog.FromJson(ProductionVenueHost.ReadResource("Biathlon/career_weather_v1")).Get(receipt.phase=="after"?5:1));
+            if(receipt.phase=="before"&&!forestLodReview&&!weatherLightsReview)
             {if(visibilityReview)recipe.visibility_resource=null;else{recipe.range.flags_resource=null;recipe.terrain.snow_shoulders_resource=Prefix+"snow_shoulders_before_m16_1";}}
             if(forestLodReview)
             {
@@ -99,7 +103,17 @@ namespace Biathlon.Unity.Presentation
             receipt.covered_curtain_faces=host.Course.CoveredCurtainFaces;receipt.rim_clearance_adjustments=host.Course.RimClearanceAdjustments;
             for(int i=0;i<host.Course.LoopCount;i++)receipt.join_vertices+=host.Course.SkirtMesh(host.Course.LoopId(i)).vertexCount;
             for(int i=0;i<608;i++)host.Runner.Step();Publish();
+            receipt.floodlight_masts=host.Environment.Floodlights?.MastCount??0;receipt.target_fill_lights=host.Environment.Floodlights?.RealtimeLightCount??0;
             var p=venue.Visual.Get("main").Sample(55);var center=new Vector3((float)p.X,(float)p.Y,(float)p.Z);var direction=new Vector3((float)p.ForwardX,0,(float)p.ForwardZ);
+            if(weatherLightsReview)
+            {
+                var bank=(recipe.range.banks[0].position+recipe.range.banks[recipe.range.banks.Length-1].position)*.5f;
+                foreach(string quality in new[]{"high","balanced","low"})yield return Measure("weather-lit-range",quality,bank-recipe.range.forward*38+Vector3.up*4,bank+Vector3.up);
+                foreach(string quality in new[]{"high","balanced","low"})yield return Measure("weather-lit-forest",quality,center-direction*10+Vector3.up*6,center+direction*18+Vector3.up*.8f);
+                receipt.lamps_on=host.Environment.Floodlights?.LampsOn==true;
+                if(receipt.floodlight_masts<1||receipt.target_fill_lights>8||receipt.lamps_on!=(receipt.phase=="after"))throw new InvalidOperationException("Compiled evening lighting/budget mismatch.");
+                yield break;
+            }
             if(visibilityReview)
             {
                 foreach(string quality in new[]{"high","balanced","low"})
@@ -142,6 +156,7 @@ namespace Biathlon.Unity.Presentation
             counters=new BenchmarkFrameCounters();counters.ObserveCamera(camera);
             for(int i=0;i<90;i++){DrawFrame();counters.Request();yield return null;}
             var result=new Case{id=id,tier=tier,camera=position,target=focus,tick=host.Runner.Field.Tick.Value,samples=new BenchmarkFrameSample[240]};
+            if(weatherLightsReview)result.weather=receipt.phase=="after"?"clear/evening":"clear/day";
             for(int i=0;i<result.samples.Length;i++)
             {DrawFrame();counters.Request();yield return null;result.samples[i]=counters.Read(i,visualTime,Time.unscaledDeltaTime*1000);}
             bool actual=false;foreach(var sample in result.samples)actual|=sample.triangles>0&&sample.draw_calls>0;

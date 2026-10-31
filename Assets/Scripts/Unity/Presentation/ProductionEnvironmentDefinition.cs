@@ -12,7 +12,7 @@ namespace Biathlon.Unity.Presentation
     [Serializable] public sealed class ProductionEnvironmentDefinition
     {
         public int schema_version;
-        public string id,venue_id,manifest_resource,track_resource,visual_resource,visibility_resource;
+        public string id,venue_id,manifest_resource,track_resource,visual_resource,visibility_resource,floodlights_resource;
         public ProductionTerrainRecipe terrain;
         public ProductionRouteCorridor[] route_corridors;
         public ProductionForestRecipe forest;
@@ -57,6 +57,7 @@ namespace Biathlon.Unity.Presentation
         {
             Identity(id);Identity(venue_id);Resource(manifest_resource);Resource(track_resource);Resource(visual_resource);
             if(!string.IsNullOrEmpty(visibility_resource))Resource(visibility_resource);
+            if(!string.IsNullOrEmpty(floodlights_resource))Resource(floodlights_resource);
             if(terrain==null||forest==null||range==null||crowd==null||lighting==null)throw new ArgumentException("Complete production environment required.");
             var ids=new HashSet<string>(StringComparer.Ordinal);terrain.Validate(ids);forest.Validate(ids);range.Validate(ids);lighting.Validate();
             Collection(route_corridors,1,1024);Collection(assets,0,10000);Collection(mesh_assets,0,10000);

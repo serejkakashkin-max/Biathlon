@@ -24,8 +24,8 @@ namespace Biathlon.Domain
         public void Validate()
         {
             if(SchemaVersion!=1||string.IsNullOrWhiteSpace(Id)||
-                (VisualPreset!="clear"&&VisualPreset!="overcast"&&VisualPreset!="snowfall")||
-                (LightingPreset!="clear_cold"&&LightingPreset!="overcast")||
+                (VisualPreset!="clear"&&VisualPreset!="overcast"&&VisualPreset!="snowfall"&&VisualPreset!="light_snow"&&VisualPreset!="winter_haze"&&VisualPreset!="fog")||
+                (LightingPreset!="clear_cold"&&LightingPreset!="overcast"&&LightingPreset!="dawn"&&LightingPreset!="late_day"&&LightingPreset!="evening")||
                 (SnowMaterial!="cold"&&SnowMaterial!="wet")||string.IsNullOrWhiteSpace(SnowProfile)||
                 !Finite(AirTemperatureC)||AirTemperatureC<-30||AirTemperatureC>10||
                 !Finite(SnowTemperatureC)||SnowTemperatureC<-30||SnowTemperatureC>0||

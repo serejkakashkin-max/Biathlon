@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="19d8fe71-d870-4faf-9c72-7866b39cb99b" name="snkashkin@DESKTOP-G3075GA 2026-10-31 19:48:10" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-31T19:48:10.1919389+03:00" queuing="2026-10-31T19:48:10.1919392+03:00" start="2026-10-31T19:48:09.2080434+03:00" finish="2026-10-31T19:48:10.2005480+03:00" />
+  <TestSettings name="default" id="f28f829a-6c58-416b-a5a9-c7cc37cdb844">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-10-31_19_48_10" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="b4352e9e-dcc9-485e-acc3-b2f1423e950e" testId="08d7d61d-11b2-b8bd-0210-b0f14113af6e" testName="CareerCalendarConnectsFogLightSnowAndEveryDevelopedTimeOfDay" computerName="DESKTOP-G3075GA" duration="00:00:00.0482750" startTime="2026-10-31T19:48:10.0286947+03:00" endTime="2026-10-31T19:48:10.0769341+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b4352e9e-dcc9-485e-acc3-b2f1423e950e">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: some item equal to "fog"&#xD;
+  But was:  &lt; "snowfall", "clear", "overcast" &gt;&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.CareerWeatherTests.CareerCalendarConnectsFogLightSnowAndEveryDevelopedTimeOfDay() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\CareerWeatherTests.cs:line 23&#xD;
+
+1)    at Biathlon.Tests.CareerWeatherTests.CareerCalendarConnectsFogLightSnowAndEveryDevelopedTimeOfDay() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\CareerWeatherTests.cs:line 23&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="CareerCalendarConnectsFogLightSnowAndEveryDevelopedTimeOfDay" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="08d7d61d-11b2-b8bd-0210-b0f14113af6e">
+      <Execution id="b4352e9e-dcc9-485e-acc3-b2f1423e950e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerWeatherTests" name="CareerCalendarConnectsFogLightSnowAndEveryDevelopedTimeOfDay" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="08d7d61d-11b2-b8bd-0210-b0f14113af6e" executionId="b4352e9e-dcc9-485e-acc3-b2f1423e950e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

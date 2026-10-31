@@ -16,6 +16,13 @@ namespace Biathlon.Tests
         private static string Venue(string n)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+n+".json");
         private static RaceWeatherCatalog Catalog()=>RaceWeatherCatalog.FromJson(Read("career_weather_v1.json"));
         private static CareerSave Save(CareerDefinitions d)=>CareerFactory.Create(d.Roster,d.Calendar,"weather_test","Alex","NOR","default",new SeededRandomSource(71000));
+        [Test] public void CareerCalendarConnectsFogLightSnowAndEveryDevelopedTimeOfDay()
+        {
+            var catalog=Catalog();var visuals=new HashSet<string>();var lighting=new HashSet<string>();
+            for(int i=0;i<catalog.Count;i++){visuals.Add(catalog.Select(i,1).VisualPreset);lighting.Add(catalog.Select(i,1).LightingPreset);}
+            Assert.That(visuals,Does.Contain("fog"));Assert.That(visuals,Does.Contain("light_snow"));
+            foreach(string id in new[]{"clear_cold","overcast","dawn","late_day","evening"})Assert.That(lighting,Does.Contain(id));
+        }
         [Test] public void CatalogHasDistinctPhysicalSnowAndRoundTripsRecordedConditions()
         {
             var catalog=Catalog();var snow=SnowCatalog.FromJson(Read("snow_catalog_provisional_v1.json"));
@@ -28,7 +35,7 @@ namespace Biathlon.Tests
                 var conditions=p.SnowConditions(RaceSnowConditions.FromJson(Read("race_snow_neutral_v1.json")));
                 Assert.That(conditions.GetSurface(0).ProfileId,Is.EqualTo(p.SnowProfile));
             }
-            Assert.That(profiles.Count,Is.EqualTo(4));Assert.That(visuals.Count,Is.EqualTo(3));
+            Assert.That(profiles.Count,Is.EqualTo(4));Assert.That(visuals.Count,Is.EqualTo(5));
         }
         [Test] public void ForecastVariesAcrossExistingCareerEventsAndDoesNotConsumeSavedRandomness()
         {
@@ -39,7 +46,7 @@ namespace Biathlon.Tests
                 var a=provider.Forecast(s,d.Calendar.Get(i));var b=provider.Forecast(CareerSave.FromJson(before),d.Calendar.Get(i));
                 Assert.That(a.ToJson(),Is.EqualTo(b.ToJson()));ids.Add(a.Id);
             }
-            Assert.That(ids.Count,Is.EqualTo(4));Assert.That(s.ToJson(),Is.EqualTo(before));
+            Assert.That(ids.Count,Is.EqualTo(Catalog().Count));Assert.That(s.ToJson(),Is.EqualTo(before));
             Assert.That(Catalog().Select(0,2).Id,Is.Not.EqualTo(Catalog().Select(0,1).Id));
         }
         [Test] public void PreparedCareerUsesForecastSnowAndSameWindForEveryEntrant()
@@ -81,6 +88,33 @@ namespace Biathlon.Tests
             Assert.Catch(()=>RaceWeatherPreset.FromJson(json.Replace("\"cold\"","\"unknown\"")));
             Assert.Catch(()=>RaceWeatherCatalog.FromJson(Read("career_weather_v1.json").Replace("clear_frost_v1","snowfall_fresh_v1")));
             Assert.Throws<ArgumentOutOfRangeException>(()=>Catalog().Select(-1,1));
+        }
+        [TestCase(4),TestCase(5),TestCase(6),TestCase(9)] public void FogAndEveningSnapshotsReplayExactAcceptedManualFrames(int index)
+        {
+            string Small(string name)=>name=="career_roster_v1.json"?Read(name).Replace("\"population\": 30","\"population\": 2"):Read(name);
+            var definitions=new CareerDefinitions(Small,"woodland_career_calendar_v1.json");var save=Save(definitions);string json=save.ToJson();
+            var weather=Catalog().Get(index);var provider=new CareerRaceProvider(Small,definitions,Venue);
+            CareerPreparedRace Prepare()=>provider.Prepare(CareerSave.FromJson(json),definitions.Calendar.Get(0),123,recordedWeather:RaceWeatherPreset.FromJson(weather.ToJson()));
+            ManualScopedFieldStepper Bind(CareerPreparedRace p)
+            {
+                var stepper=ManualProductionFieldComposition.Create(p.Runner.Field,p.Venue,p.ManualRead,p.CourseReactionPolicy);
+                p.Runner.BindManualScopedCandidate(stepper,ManualAiSteeringDefinition.FromJson(Read("manual_ai_steering_v2.json")),ManualSkiSteeringDefinition.FromJson(Read("manual_ski_steering_v2.json")),PlayerCourseAssistanceDefinition.FromJson(Read("player_course_assistance_v1.json")));
+                return stepper;
+            }
+            var source=Prepare();var stepper=Bind(source);byte[] journal;
+            using(var stream=new System.IO.MemoryStream())
+            {
+                using(var writer=new ManualRaceJournalWriter(stream,stepper,SkiTechniqueDefinition.FromJson(Read("ski_technique_provisional_v1.json"))))
+                {stepper.CommandObserver=writer;for(int i=0;i<120;i++)source.Runner.Step();writer.Complete();Assert.That(writer.Failure,Is.Null);journal=stream.ToArray();}
+            }
+            var target=Prepare();var playback=Bind(target);
+            using(var stream=new System.IO.MemoryStream(journal))using(var reader=new ManualRaceJournalReader(stream,playback,120))while(reader.HasNext)reader.Step();
+            for(int i=0;i<source.Runner.Field.Count;i++)
+            {
+                Assert.That(playback.World.GetActor(i).Pose,Is.EqualTo(stepper.World.GetActor(i).Pose));
+                Assert.That(target.Runner.Field.GetAthlete(i).LastFrame,Is.EqualTo(source.Runner.Field.GetAthlete(i).LastFrame));
+            }
+            Assert.That(save.ToJson(),Is.EqualTo(json));
         }
 #if !UNITY_EDITOR
         [Test,Timeout(900000)] public void CompleteSnowfallSprintIsDeterministicAcrossSavedCareerReload()

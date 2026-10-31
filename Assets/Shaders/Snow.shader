@@ -30,6 +30,7 @@ Shader "Biathlon/Snow"
         HLSLINCLUDE
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
         #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+        #include "VenueIllumination.hlsl"
         TEXTURE2D(_DetailAlbedo);SAMPLER(sampler_DetailAlbedo);
         TEXTURE2D(_DetailNormal);SAMPLER(sampler_DetailNormal);
         TEXTURE2D(_DetailRoughness);SAMPLER(sampler_DetailRoughness);
@@ -109,6 +110,7 @@ Shader "Biathlon/Snow"
             s.albedo=albedo*(1-_AlbedoVariation*(1-macro)-_SlopeDarkening*slope+groove);
             s.metallic=0; s.specular=0; s.smoothness=1-clamp(roughness+(macro-.5)*_RoughnessVariation*2*(1-w.z*.8),.08,1);
             s.occlusion=1; s.alpha=1; s.normalTS=half3(0,0,1);
+            s.emission=s.albedo*VenueIllumination(i.positionWS,n);
             InputData input=(InputData)0;
             input.positionWS=i.positionWS; input.normalWS=n; input.viewDirectionWS=GetWorldSpaceNormalizeViewDir(i.positionWS);
             input.shadowCoord=TransformWorldToShadowCoord(i.positionWS); input.bakedGI=SampleSH(n);

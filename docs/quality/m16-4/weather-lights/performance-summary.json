@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "id": "m16_4_evening_light_comparison",
+  "samples": 2880,
+  "scope": "Same final binary,1920x1080 offscreen world,30athletes,tick608,clear atmosphere,day/off vs evening/on,2cameras x3tiers; excludes HUD/menu/swapchain; timings reflect this test machine only.",
+  "cases": [
+    {
+      "id": "weather-lit-range",
+      "tier": "high",
+      "day": {
+        "wall_ms": 1.408099487889558,
+        "cpu_frame_ms": 1.40975,
+        "cpu_main_ms": 1.3981,
+        "cpu_render_ms": null,
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": 853.0,
+        "triangles": 1304274.0,
+        "gc_bytes": 34.0,
+        "used_memory_bytes": 4933419738.5
+      },
+      "evening": {
+        "wall_ms": 1.4274022541940212,
+        "cpu_frame_ms": 1.4278499999999998,
+        "cpu_main_ms": 1.4154,
+        "cpu_render_ms": null,
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": 701.0,
+        "triangles": 856317.0,
+        "gc_bytes": 34.0,
+        "used_memory_bytes": 4963324371.0
+      },
+      "wall_ratio": 1.0137083824477444
+    },
+    {
+      "id": "weather-lit-range",
+      "tier": "balanced",
+      "day": {
+        "wall_ms": 1.3491000863723457,
+        "cpu_frame_ms": 1.3494,
+        "cpu_main_ms": 1.3382,
+        "cpu_render_ms": null,
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": 731.0,
+        "triangles": 938337.0,
+        "gc_bytes": 34.0,
+        "used_memory_bytes": 4910650933.0
+      },
+      "evening": {
+        "wall_ms": 1.4110508491285145,
+        "cpu_frame_ms": 1.4102000000000001,
+        "cpu_main_ms": 1.39885,
+        "cpu_render_ms": null,
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": 676.0,
+        "triangles": 721137.0,
+        "gc_bytes": 34.0,
+        "used_memory_bytes": 4939823097.0
+      },
+      "wall_ratio": 1.0459200643317361
+    },
+    {
+      "id": "weather-lit-range",
+      "tier": "low",
+      "day": {
+        "wall_ms": 1.2015518732368946,
+        "cpu_frame_ms": 1.2014,
+        "cpu_main_ms": 1.1905999999999999,
+        "cpu_render_ms": null,
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": 377.0,
+        "triangles": 520068.0,
+        "gc_bytes": 34.0,
+        "used_memory_bytes": 4838832950.0
+      },
+      "evening": {
+        "wall_ms": 1.333900261670351,
+        "cpu_frame_ms": 1.3335,
+        "cpu_main_ms": 1.3222,
+        "cpu_render_ms": null,
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": 511.0,
+        "triangles": 476174.0,
+        "gc_bytes": 34.0,
+        "used_memory_bytes": 4867324402.0
+      },
+      "wall_ratio": 1.110147877408671
+    },
+    {
+      "id": "weather-lit-forest",
+      "tier": "high",
+      "day": {
+        "wall_ms": 1.585749676451087,
+        "cpu_frame_ms": 1.588,
+        "cpu_main_ms": 1.576,
+        "cpu_render_ms": null,
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": 418.0,
+        "triangles": 5887608.0,
+        "gc_bytes": 34.0,
+        "used_memory_bytes": 4971190485.0
+      },
+      "evening": {
+        "wall_ms": 1.5754499472677708,
+        "cpu_frame_ms": 1.5753,
+        "cpu_main_ms": 1.5632,
+        "cpu_render_ms": null,
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": 389.0,
+        "triangles": 5348317.0,
+        "gc_bytes": 34.0,
+        "used_memory_bytes": 5007410237.0
+      },
+      "wall_ratio": 0.9935048202523572
+    },
+    {
+      "id": "weather-lit-forest",
+      "tier": "balanced",
+      "day": {
+        "wall_ms": 1.6054032021202147,
+        "cpu_frame_ms": 1.6044999999999998,
+        "cpu_main_ms": 1.5928499999999999,
+        "cpu_render_ms": null,
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": 405.0,
+        "triangles": 4625046.0,
+        "gc_bytes": 34.0,
+        "used_memory_bytes": 4949218077.0
+      },
+      "evening": {
+        "wall_ms": 1.675102743320167,
+        "cpu_frame_ms": 1.67195,
+        "cpu_main_ms": 1.65915,
+        "cpu_render_ms": null,
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": 379.0,
+        "triangles": 4081983.0,
+        "gc_bytes": 34.0,
+        "used_memory_bytes": 4984472001.0
+      },
+      "wall_ratio": 1.0434155987155762
+    },
+    {
+      "id": "weather-lit-forest",
+      "tier": "low",
+      "day": {
+        "wall_ms": 1.4927012380212545,
+        "cpu_frame_ms": 1.4966499999999998,
+        "cpu_main_ms": 1.48555,
+        "cpu_render_ms": null,
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": 316.0,
+        "triangles": 2890152.0,
+        "gc_bytes": 34.0,
+        "used_memory_bytes": 4878419890.0
+      },
+      "evening": {
+        "wall_ms": 1.5067460481077433,
+        "cpu_frame_ms": 1.50665,
+        "cpu_main_ms": 1.4947499999999998,
+        "cpu_render_ms": null,
+        "gpu_ms": null,
+        "gpu_camera_ms": null,
+        "draw_calls": 313.0,
+        "triangles": 2709894.0,
+        "gc_bytes": 34.0,
+        "used_memory_bytes": 4912770597.5
+      },
+      "wall_ratio": 1.0094089893735914
+    }
+  ]
+}

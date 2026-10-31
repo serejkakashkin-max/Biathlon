@@ -20,6 +20,7 @@ Shader "Biathlon/AthleteBib"
   HLSLINCLUDE
   #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
   #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+        #include "VenueIllumination.hlsl"
   TEXTURE2D(_Atlas);SAMPLER(sampler_Atlas);
   TEXTURE2D(_BumpMap);SAMPLER(sampler_BumpMap);
   TEXTURE2D(_RoughnessMap);SAMPLER(sampler_RoughnessMap);
@@ -58,7 +59,8 @@ Shader "Biathlon/AthleteBib"
    half roughness=SAMPLE_TEXTURE2D(_RoughnessMap,sampler_RoughnessMap,uv*_DetailTiling).r;
    half3 fabric=lerp(_BaseColor.rgb,_SecondaryColor.rgb,step(.5,uv.x)*_ColorSplit);
    SurfaceData s=(SurfaceData)0;s.albedo=lerp(_InkColor.rgb,fabric,white);s.smoothness=saturate(1-roughness)*(1-_Smoothness)+_Smoothness;s.occlusion=1;s.alpha=1;s.normalTS=half3(0,0,1);
-   InputData d=(InputData)0;d.positionWS=i.positionWS;d.normalWS=normal;d.viewDirectionWS=GetWorldSpaceNormalizeViewDir(i.positionWS);
+   s.emission=s.albedo*VenueIllumination(i.positionWS,normal);
+            InputData d=(InputData)0;d.positionWS=i.positionWS;d.normalWS=normal;d.viewDirectionWS=GetWorldSpaceNormalizeViewDir(i.positionWS);
    d.shadowCoord=TransformWorldToShadowCoord(i.positionWS);d.bakedGI=SampleSH(d.normalWS);d.shadowMask=1;d.normalizedScreenSpaceUV=GetNormalizedScreenSpaceUV(i.positionCS);
    half4 c=UniversalFragmentPBR(d,s);c.rgb=MixFog(c.rgb,i.fog);return c;
   }

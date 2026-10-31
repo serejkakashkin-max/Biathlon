@@ -35,6 +35,7 @@ namespace Biathlon.Unity.Presentation
         private ProductionForestDressing dressing;
         public RangeFlagPresentation RangeFlags {get;private set;}
         public RangeCoachesPresentation Coaches {get;private set;}
+        public CourseFloodlightPresentation Floodlights {get;private set;}
         public int CoachClearanceExcludedTrees {get;private set;}
         public int FlagClearanceExcludedTrees {get;private set;}
         /// <summary>Explicit capture hosts may submit one controlled frame themselves.</summary>
@@ -43,7 +44,7 @@ namespace Biathlon.Unity.Presentation
         private LightingVisualPreset lighting;
         private LightingVisualPreset reviewLighting;
         public void SetLightingForReview(string id)
-        {reviewLighting=id==null?null:LightingVisualDefinition.Load().Get(id);}
+        {reviewLighting=id==null?null:LightingVisualDefinition.FromJson(ProductionVenueHost.ReadResource(recipe.lighting.resource)).Get(id);}
         private TargetGeometryDefinition geometry;
         private RenderQualityPresentation quality;
         private string defaultTier;
@@ -133,6 +134,17 @@ namespace Biathlon.Unity.Presentation
                 {
                     var coaches=RangeCoachesDefinition.FromJson(Read(read,data.range.coaches_resource));
                     Coaches=generated.AddComponent<RangeCoachesPresentation>();Coaches.Initialize(coaches,data,SampleGround);
+                }
+                if(!string.IsNullOrEmpty(data.floodlights_resource))
+                {
+                    Floodlights=generated.AddComponent<CourseFloodlightPresentation>();
+                    Floodlights.Initialize(CourseFloodlightDefinition.FromJson(Read(read,data.floodlights_resource)),data,SampleGround,point=>
+                    {
+                        if(Coaches!=null&&Coaches.Layout.DistanceToFootprint(point)<2)return false;
+                        foreach(var group in prepared.Trees)foreach(var tree in group.instances)
+                            if(new Vector2(tree.position.x-point.x,tree.position.z-point.z).sqrMagnitude<4)return false;
+                        return true;
+                    });
                 }
                 var forestList=new List<VegetationPresentation>(data.forest.groups.Length);
                 for(int i=0;i<data.forest.groups.Length;i++)
@@ -370,6 +382,7 @@ namespace Biathlon.Unity.Presentation
                 atmosphere="winter_haze";
             weather.Render(AtmosphereOverride??atmosphere,tier,time,recipe.lighting.visual_wind,SampleGround(camera.transform.position),reviewLighting??lighting,recipe.lighting.fog_distance_scale,
                 AtmosphereOverride==null&&atmosphere=="snowfall"?atmosphericDefinition.LightSnowBlend(time):0);
+            Floodlights?.Render(camera,(reviewLighting??lighting).floodlights_gain);
         }
         private void LateUpdate(){if(Initialized&&AutomaticRendering)Render(shooting!=null&&shooting.isActiveAndEnabled?shooting:chase,quality!=null?quality.TierId:defaultTier,Time.time);}
         private void OnDisable(){if(generated!=null)generated.SetActive(false);}
@@ -379,6 +392,7 @@ namespace Biathlon.Unity.Presentation
             if(Impacts!=null){Impacts.Shutdown();DestroyOwned(Impacts);Impacts=null;}
             RangeFlags?.Shutdown();RangeFlags=null;FlagClearanceExcludedTrees=0;reviewLighting=null;
             Coaches?.Shutdown();Coaches=null;CoachClearanceExcludedTrees=0;
+            Floodlights?.Shutdown();Floodlights=null;
             if(weather!=null)weather.Shutdown();
             if(generated!=null){generated.SetActive(false);generated.transform.SetParent(null);DestroyOwned(generated);generated=null;}
             foreach(var mesh in ownedMeshes)DestroyOwned(mesh);foreach(var material in ownedMaterials)DestroyOwned(material);ownedMeshes.Clear();ownedMaterials.Clear();

@@ -21,6 +21,8 @@ namespace Biathlon.Unity
             =>BuildShootingContactReview("Builds/M16_4_Leader_Hud_Review");
         public static void BuildStartCameraReview()
             =>BuildShootingContactReview("Builds/M16_4_Start_Camera_Review");
+        public static void BuildWeatherLightsReview()
+            =>BuildShootingContactReview("Builds/M16_4_Weather_Lights_Review");
         private static void BuildShootingContactReview(string folder)
         {
             BuildVisualUpgrade(folder);
@@ -34,6 +36,7 @@ namespace Biathlon.Unity
             File.AppendAllText(Path.Combine(folder,"READ_ME.txt"),"\r\nДетализация деревьев теперь меняется плавно, с сохранением ближних моделей и текстур. Постоянные подсказки клавиш и очевидные подписи убраны с карты, темпа и стрельбы. Управление — в настройках и по F1; история отсечек — PgUp/PgDn, End к последней.\r\n");
             File.AppendAllText(Path.Combine(folder,"READ_ME.txt"),"\r\nВ таблице отсечек TAB жёлтая майка обозначает лидера общего зачёта, красная — лидера дисциплины, жёлто-красная — оба зачёта. Значки соответствуют майкам спортсменов перед стартом. Цветные маркеры комбинезонов рядом с флагами убраны.\r\n");
             File.AppendAllText(Path.Combine(folder,"READ_ME.txt"),"\r\nОжидающий спортсмен появляется за 3 секунды до своего старта. HUD не показывается поверх загрузки. Во время езды удерживайте ЛКМ и двигайте мышью для осмотра спортсмена и соперников; после отпускания камера плавно возвращается. На стрельбище ЛКМ остаётся выстрелом; зажатая при осмотре кнопка требует отпускания перед первым выстрелом.\r\n");
+            File.AppendAllText(Path.Combine(folder,"READ_ME.txt"),"\r\nВ календарь подключены туман, небольшой снег, рассвет, закат и вечерние гонки в ясную погоду или снегопад, вместе с прежними ясной погодой, облачностью/льдом и оттепелью. Прогноз виден перед гонкой и сохраняется в повторе. Вечером автоматически включаются фонари по всем веткам трассы, стадиону и штрафному кругу, а также подсветка мишеней. Днём лампы выключены. Существующая карьера поддерживается; следующие этапы выбирают новые условия из расширенного календаря.\r\n");
         }
     }
 }

@@ -1,0 +1,115 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Failed",
+      "TotalTests": 19,
+      "PassedTests": 16,
+      "FailedTests": 3,
+      "SkippedTests": 0,
+      "Duration": "00:01:27.4790807"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.CareerWeatherPresentationTests.ActualCareerLaunchUsesForecastAndSnowfallWithFullQuality",
+        "Status": "Passed",
+        "Duration": "00:01:01.6900000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CareerWeatherPresentationTests.WeatherBindsLightingSnowMaterialAndActiveShootingCameraWithoutChangingSource(0)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0190000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CareerWeatherPresentationTests.WeatherBindsLightingSnowMaterialAndActiveShootingCameraWithoutChangingSource(1)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0110000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CareerWeatherPresentationTests.WeatherBindsLightingSnowMaterialAndActiveShootingCameraWithoutChangingSource(2)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0120000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CareerWeatherPresentationTests.WeatherBindsLightingSnowMaterialAndActiveShootingCameraWithoutChangingSource(3)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0100000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CareerWeatherPresentationTests.WeatherBindsLightingSnowMaterialAndActiveShootingCameraWithoutChangingSource(4)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0090000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CareerWeatherPresentationTests.WeatherBindsLightingSnowMaterialAndActiveShootingCameraWithoutChangingSource(5)",
+        "Status": "Failed",
+        "Duration": "00:00:00.0120000",
+        "Message": "System.ArgumentException : Unknown lighting preset.",
+        "StackTrace": "  at Biathlon.Unity.Presentation.LightingVisualDefinition.Get (System.String id) [0x00029] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\LightingVisualDefinition.cs:30 \r\n  at Biathlon.Unity.Presentation.ProductionVenueEnvironment.Prepare (Biathlon.Domain.VenueAuthoringPlan plan, Biathlon.Unity.Presentation.ProductionEnvironmentDefinition data, System.Func`2[T,TResult] read) [0x007b2] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\ProductionVenueEnvironment.cs:284 \r\n  at Biathlon.Unity.Presentation.ProductionVenueEnvironment.Initialize (Biathlon.Domain.VenueAuthoringPlan plan, Biathlon.Unity.Presentation.ProductionEnvironmentDefinition definition, System.Func`2[T,TResult] read, Biathlon.Unity.Presentation.RacePresentationFeed source, UnityEngine.Camera chaseCamera, UnityEngine.Camera shootingCamera, Biathlon.Unity.Presentation.RangeApronDrawPlan apron) [0x000d2] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\ProductionVenueEnvironment.cs:94 \r\n  at Biathlon.PlayModeTests.CareerWeatherPresentationTests.WeatherBindsLightingSnowMaterialAndActiveShootingCameraWithoutChangingSource (System.Int32 index) [0x00139] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\CareerWeatherPresentationTests.cs:39 \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <c5ae8a4eeb824526b5df2932bc2395e0>:0 "
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CareerWeatherPresentationTests.WeatherBindsLightingSnowMaterialAndActiveShootingCameraWithoutChangingSource(6)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0190000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CareerWeatherPresentationTests.WeatherBindsLightingSnowMaterialAndActiveShootingCameraWithoutChangingSource(9)",
+        "Status": "Failed",
+        "Duration": "00:00:00.0080000",
+        "Message": "System.ArgumentException : Unknown lighting preset.",
+        "StackTrace": "  at Biathlon.Unity.Presentation.LightingVisualDefinition.Get (System.String id) [0x00029] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\LightingVisualDefinition.cs:30 \r\n  at Biathlon.Unity.Presentation.ProductionVenueEnvironment.Prepare (Biathlon.Domain.VenueAuthoringPlan plan, Biathlon.Unity.Presentation.ProductionEnvironmentDefinition data, System.Func`2[T,TResult] read) [0x007b2] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\ProductionVenueEnvironment.cs:284 \r\n  at Biathlon.Unity.Presentation.ProductionVenueEnvironment.Initialize (Biathlon.Domain.VenueAuthoringPlan plan, Biathlon.Unity.Presentation.ProductionEnvironmentDefinition definition, System.Func`2[T,TResult] read, Biathlon.Unity.Presentation.RacePresentationFeed source, UnityEngine.Camera chaseCamera, UnityEngine.Camera shootingCamera, Biathlon.Unity.Presentation.RangeApronDrawPlan apron) [0x000d2] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\ProductionVenueEnvironment.cs:94 \r\n  at Biathlon.PlayModeTests.CareerWeatherPresentationTests.WeatherBindsLightingSnowMaterialAndActiveShootingCameraWithoutChangingSource (System.Int32 index) [0x00139] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\CareerWeatherPresentationTests.cs:39 \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <c5ae8a4eeb824526b5df2932bc2395e0>:0 "
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CourseFloodlightTests.ActualWoodlandDayFogSnowAndEveningRenderAndRestoreSceneWithoutAuthorityChanges",
+        "Status": "Failed",
+        "Duration": "00:00:24.5280000",
+        "Message": "System.ArgumentException : Unknown lighting preset.",
+        "StackTrace": "  at Biathlon.Unity.Presentation.LightingVisualDefinition.Get (System.String id) [0x00029] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\LightingVisualDefinition.cs:30 \r\n  at Biathlon.Unity.Presentation.ProductionVenueEnvironment.Prepare (Biathlon.Domain.VenueAuthoringPlan plan, Biathlon.Unity.Presentation.ProductionEnvironmentDefinition data, System.Func`2[T,TResult] read) [0x007b2] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\ProductionVenueEnvironment.cs:284 \r\n  at Biathlon.Unity.Presentation.ProductionVenueEnvironment.Initialize (Biathlon.Domain.VenueAuthoringPlan plan, Biathlon.Unity.Presentation.ProductionEnvironmentDefinition definition, System.Func`2[T,TResult] read, Biathlon.Unity.Presentation.RacePresentationFeed source, UnityEngine.Camera chaseCamera, UnityEngine.Camera shootingCamera, Biathlon.Unity.Presentation.RangeApronDrawPlan apron) [0x000d2] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\ProductionVenueEnvironment.cs:94 \r\n  at Biathlon.Unity.Presentation.ProductionVenueHost.InitializeEnvironment (Biathlon.Unity.Presentation.ProductionEnvironmentDefinition definition, System.Func`2[T,TResult] presentationRead) [0x00193] in C:\\game\\Biathlon\\Biathlon\\Assets\\Scripts\\Unity\\Presentation\\ProductionVenueHost.cs:157 \r\n  at Biathlon.PlayModeTests.CourseFloodlightTests+<ActualWoodlandDayFogSnowAndEveningRenderAndRestoreSceneWithoutAuthorityChanges>d__6.MoveNext () [0x00105] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\CourseFloodlightTests.cs:61 \r\n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52 "
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CourseFloodlightTests.AllDevelopedLooksBindToCareerAndRecordedReplayWithoutMutatingSources",
+        "Status": "Passed",
+        "Duration": "00:00:00.2690000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CourseFloodlightTests.LayoutStaysOutsideEveryCorridorHasContinuousPoolsAndRejectsInvalidBudgets",
+        "Status": "Passed",
+        "Duration": "00:00:00.1420000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.LightingBenchmarkTests.LightingProfilesValidateSolarAnglesColorsAndEvening",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.LightingBenchmarkTests.SingleWeatherOwnerComposesLightingWithoutChangingCameraAndRestoresOrientation",
+        "Status": "Passed",
+        "Duration": "00:00:00.0130000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.LightingBenchmarkTests.WarmedLightingApplicationAllocatesNothingAndRewindsExactly",
+        "Status": "Passed",
+        "Duration": "00:00:00.0030000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.WeatherTests.PresetsAndDensityRejectInvalidValues",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.WeatherTests.SnowSamplingIsBoundedRewindableAndUsesExplicitWind",
+        "Status": "Passed",
+        "Duration": "00:00:00.0090000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.WeatherTests.WarmedSnowfallMeshAndSceneApplicationAllocateNoManagedMemory",
+        "Status": "Passed",
+        "Duration": "00:00:00.0270000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.WeatherTests.WeatherLeaseRestoresSceneCameraLightAndRejectsConcurrentOwnership",
+        "Status": "Passed",
+        "Duration": "00:00:00.0030000"
+      }
+    ]
+  }
+}

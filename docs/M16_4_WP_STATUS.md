@@ -19,6 +19,8 @@ the owner's current milestone numbering without rewriting that history.
 | K — Delayed starter visibility | COMPLETE / OWNER TEST PENDING | Player avatar/equipment hidden until exact personal3second boundary in Sprint/Pursuit; waiting camera pivot retained, immediate start hold and skip journals unchanged |
 | L — Loader and HUD handoff | COMPLETE / OWNER TEST PENDING | Independent HUD document detached through Venue/Ready; compiled loader probe asserts hud_hidden across all4stages; handoff reveals the normal race HUD |
 | M — Held-LMB ski camera orbit | COMPLETE / OWNER TEST PENDING |360degree view-only orbit, bounded elevation/steep grades, damped return, focus/table/shooting gates and fresh-trigger boundary; current-frame scenery culling fixed;38unique native checks across K/L/M, native views, fullscreen Start Camera Review build |
+| N — All developed career weather looks | COMPLETE / OWNER TEST PENDING |10 deterministic recorded forecasts connect fog/light snow/dawn/late day/clear and snowy evening alongside original conditions; RU/EN preparation/audio/replay share the binding; original rows and audited looks retained;15core checks including full snowfall race and new-condition exact journals |
+| O — Evening course and range lights | COMPLETE / OWNER TEST PENDING |63 grounded outside-course masts, whole-route pools/0.5MiB static field,2fixture batches,6shadowless target fills, day-off/evening-on, lease restore and0warmed allocations;27native checks plus final real target-pixel readability; compiled three-tier day/evening qualification and fullscreen Weather Lights Review build |
 
 References: IBU September2026 ECR8.3.2.1 (skis stay on), AnnexA3.2.1.13
 (mechanical release impulse), AnnexA3.1.7.1 (5.6mm ammunition), existing ADR-0007

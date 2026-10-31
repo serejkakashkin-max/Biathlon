@@ -7,9 +7,9 @@ namespace Biathlon.PlayModeTests
 {
     public class LightingBenchmarkTests
     {
-        [Test] public void FourLightingProfilesValidateSolarAnglesAndColors()
+        [Test] public void LightingProfilesValidateSolarAnglesColorsAndEvening()
         {
-            var d=LightingVisualDefinition.Load();Assert.That(d.presets.Length,Is.EqualTo(4));Assert.That(d.Get("dawn").sun_elevation,Is.LessThan(d.Get("clear_cold").sun_elevation));Assert.That(d.Get("overcast").recommended_weather,Is.EqualTo("overcast"));
+            var d=LightingVisualDefinition.Load();Assert.That(d.presets.Length,Is.EqualTo(5));Assert.That(d.Get("dawn").sun_elevation,Is.LessThan(d.Get("clear_cold").sun_elevation));Assert.That(d.Get("overcast").recommended_weather,Is.EqualTo("overcast"));
             Assert.Throws<ArgumentException>(()=>d.Get("unknown"));d.Get("dawn").sun_azimuth=float.NaN;Assert.Throws<ArgumentException>(()=>LightingVisualDefinition.FromJson(JsonUtility.ToJson(d)));
         }
         [Test] public void SingleWeatherOwnerComposesLightingWithoutChangingCameraAndRestoresOrientation()
