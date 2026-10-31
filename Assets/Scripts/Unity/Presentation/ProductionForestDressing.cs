@@ -25,6 +25,7 @@ namespace Biathlon.Unity.Presentation
     public sealed class ProductionForestDressing:MonoBehaviour
     {
         private WinterDressingDefinition definition;
+        private ProductionVisibility visibility;
         private readonly Mesh[] near=new Mesh[6],far=new Mesh[6];private readonly Material[] materials=new Material[6];
         private Matrix4x4[] placements;private Bounds[] bounds;private int[] types;
         private Matrix4x4[][] submitted;private readonly int[] counts=new int[12];private readonly Plane[] planes=new Plane[6];
@@ -40,10 +41,11 @@ namespace Biathlon.Unity.Presentation
             }
             return true;
         }
-        public void Initialize(WinterDressingDefinition d,ProductionRouteCorridor[] routes,Func<Vector3,float> height,Func<Vector3,float,bool> keep=null)
+        public void Initialize(WinterDressingDefinition d,ProductionRouteCorridor[] routes,Func<Vector3,float> height,Func<Vector3,float,bool> keep=null,ProductionVisibility completeVisibility=null)
         {
             if(definition!=null||d==null||routes==null||height==null)throw new ArgumentException("Fresh dressing and explicit terrain required.");
             definition=WinterDressingDefinition.FromJson(JsonUtility.ToJson(d));
+            visibility=completeVisibility;
             ProductionRouteCorridor path=null;foreach(var route in routes)if(route.loop_id==d.loop_id)path=route;
             if(path==null)throw new ArgumentException("Dressing course missing.");
             near[0]=Resources.Load<Mesh>("Biathlon/Vegetation/G2Shrub/ShrubLOD0");far[0]=Resources.Load<Mesh>("Biathlon/Vegetation/G2Shrub/ShrubLOD2");materials[0]=Resources.Load<Material>("Biathlon/Vegetation/G2Shrub/Shrub");
@@ -81,9 +83,11 @@ namespace Biathlon.Unity.Presentation
             Array.Clear(counts,0,counts.Length);Visible=0;SubmittedTriangles=0;GeometryUtility.CalculateFrustumPlanes(camera,planes);
             float limit=definition.cull_m*(tier=="low"?.65f:tier=="balanced"?.85f:1);
             var worldBounds=new Bounds(camera.transform.position,Vector3.one*limit*2);
+            var fogFrame=visibility!=null?visibility.Frame(camera):default;bool firstBounds=true;
             for(int i=0;i<placements.Length;i++)
             {
-                float distance=Vector3.Distance(camera.transform.position,Position(i));if(distance>limit||!GeometryUtility.TestPlanesAABB(planes,bounds[i]))continue;
+                float distance=Vector3.Distance(camera.transform.position,Position(i));if(visibility==null&&distance>limit||visibility!=null&&fogFrame.Hidden(bounds[i])||!GeometryUtility.TestPlanesAABB(planes,bounds[i]))continue;
+                if(visibility!=null){if(firstBounds){worldBounds=bounds[i];firstBounds=false;}else worldBounds.Encapsulate(bounds[i]);}
                 int lod=distance*ProjectionAwareLod.Scale(camera)<definition.near_m?0:1,group=types[i]*2+lod;
                 submitted[group][counts[group]++]=placements[i];Visible++;SubmittedTriangles+=(lod==0?near[types[i]]:far[types[i]]).GetIndexCount(0)/3;
             }

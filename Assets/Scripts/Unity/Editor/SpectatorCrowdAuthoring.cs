@@ -30,9 +30,19 @@ namespace Biathlon.Unity
             finally{SceneManager.SetActiveScene(prior);EditorSceneManager.CloseScene(scene,true);}
         }
         public static Mesh Build(int lod)=>Build(lod,SpectatorPose.Seated);
+        public static void GenerateDistantSilhouettes()
+        {
+            foreach(var pose in new[]{SpectatorPose.Seated,SpectatorPose.Standing})
+            {
+                var mesh=Build(2,pose);string path=Root+(pose==SpectatorPose.Seated?"SpectatorLOD2":"StandingSpectatorLOD2")+".asset";
+                var old=AssetDatabase.LoadAssetAtPath<Mesh>(path);
+                if(old==null)AssetDatabase.CreateAsset(mesh,path);else{EditorUtility.CopySerialized(mesh,old);Object.DestroyImmediate(mesh);EditorUtility.SetDirty(old);}
+            }
+            AssetDatabase.SaveAssets();
+        }
         public static Mesh Build(int lod,SpectatorPose pose)
         {
-            if(lod!=0&&lod!=1)throw new System.ArgumentOutOfRangeException(nameof(lod));
+            if(lod<0||lod>2)throw new System.ArgumentOutOfRangeException(nameof(lod));
             if(pose!=SpectatorPose.Seated&&pose!=SpectatorPose.Standing)throw new System.ArgumentOutOfRangeException(nameof(pose));
             bool standing=pose==SpectatorPose.Standing;
             var vertices=new List<Vector3>();var normals=new List<Vector3>();var colors=new List<Color>();var pivots=new List<Vector4>();var triangles=new List<int>();int sides=lod==0?12:6,rings=lod==0?8:4;
@@ -56,6 +66,14 @@ namespace Biathlon.Unity
             void Ellipsoid(Vector3 center,Vector3 extent,Color color,Vector4 pivot=default,Quaternion? orientation=null)
             {
                 int start=vertices.Count;var q=orientation??Quaternion.identity;
+                if(lod==2)
+                {
+                    // Original body proportions/colours, six vertices per part. Used only beyond the old disappearance radius.
+                    foreach(var n in new[]{Vector3.right,Vector3.left,Vector3.up,Vector3.down,Vector3.forward,Vector3.back})
+                    {vertices.Add(center+q*Vector3.Scale(n,extent));normals.Add(q*n);colors.Add(color);pivots.Add(pivot);}
+                    foreach(int v in new[]{2,0,5,2,5,1,2,1,4,2,4,0,3,5,0,3,1,5,3,4,1,3,0,4})triangles.Add(start+v);
+                    return;
+                }
                 for(int y=0;y<=rings;y++)for(int x=0;x<=sides;x++)
                 {
                     float a=x*2*Mathf.PI/sides,b=y*Mathf.PI/rings;var n=new Vector3(Mathf.Sin(b)*Mathf.Cos(a),Mathf.Cos(b),Mathf.Sin(b)*Mathf.Sin(a));

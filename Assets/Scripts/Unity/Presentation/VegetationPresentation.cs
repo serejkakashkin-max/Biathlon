@@ -9,6 +9,7 @@ namespace Biathlon.Unity.Presentation
     {
         private VegetationDefinition definition;
         private float? productionHighFogEndMeters;
+        private ProductionVisibility visibility;
         private VegetationInstance[] instances;
         private Vector3[] worldPositions;
         private Bounds[] worldCanopies;
@@ -41,15 +42,17 @@ namespace Biathlon.Unity.Presentation
         public bool SimplifyingCurrentShadows {get;private set;}
         public bool UsesExplicitSpecies {get;private set;}
         public float? ProductionHighFogEndMeters=>productionHighFogEndMeters;
+        public float? CompleteVisibilityFogEndMeters=>visibility?.FogEndMeters;
         public Bounds PreparedWorldBounds=>preparedWorldBounds;
         public int InstanceSpecies(int index)=>species[index];
         public Vector3 InstanceWorldPosition(int index)=>transform.TransformPoint(instances[index].Position);
-        public void Initialize(Vector3[] route,bool useAuditedFir=false,Func<Vector3,float> groundHeight=null,bool useAuditedPine=false,bool useSimplifiedShadows=false,VegetationInstance[] authoredInstances=null,byte[] authoredSpecies=null,float? productionHighFogEndMeters=null)
+        public void Initialize(Vector3[] route,bool useAuditedFir=false,Func<Vector3,float> groundHeight=null,bool useAuditedPine=false,bool useSimplifiedShadows=false,VegetationInstance[] authoredInstances=null,byte[] authoredSpecies=null,float? productionHighFogEndMeters=null,ProductionVisibility completeVisibility=null)
         {
             if(definition!=null)throw new InvalidOperationException("Forest already initialized.");
             if(productionHighFogEndMeters.HasValue&&(!float.IsFinite(productionHighFogEndMeters.Value)||productionHighFogEndMeters.Value<=0||authoredInstances==null||authoredSpecies==null||!useAuditedFir||!useAuditedPine))
                 throw new ArgumentException("Production High fog visibility requires a finite positive horizon and explicit audited trees.");
             if(useAuditedPine&&!useAuditedFir)throw new ArgumentException("Pine composition requires the audited forest.");
+            if(completeVisibility!=null&&(authoredInstances==null||authoredSpecies==null||!useAuditedFir||!useAuditedPine))throw new ArgumentException("Complete visibility requires explicit native tree instances and bounds.");
             if(authoredSpecies!=null)
             {
                 if(authoredInstances==null||authoredSpecies.Length!=authoredInstances.Length||!useAuditedFir||!useAuditedPine)throw new ArgumentException("Explicit species require matching authored audited fir/pine instances.");
@@ -94,6 +97,7 @@ namespace Biathlon.Unity.Presentation
             UsesSimplifiedShadows=useSimplifiedShadows;
             UsesExplicitSpecies=authoredSpecies!=null;
             this.productionHighFogEndMeters=productionHighFogEndMeters;
+            visibility=completeVisibility;
             localForestBounds=new Bounds(instances.Length==0?Vector3.zero:instances[0].Position,Vector3.zero);
             foreach(var tree in instances)
             {
@@ -137,28 +141,27 @@ namespace Biathlon.Unity.Presentation
             float forestRadius=localForestBounds.extents.magnitude;
             for(int p=0;p<planes.Length;p++)if(planes[p].GetDistanceToPoint(forestCentre)<-forestRadius)return;
             PrepareWorldGeometry(world);
-            bool fogBoundedHigh=productionHighFogEndMeters.HasValue&&tier=="high";
+            bool fogBounded=visibility!=null||productionHighFogEndMeters.HasValue&&tier=="high";
             // The shader's clip-Z fog remap is certified for the standard perspective
             // matrix. Unsupported orthographic/physical/oblique projections retain
             // their complete frustum rather than discarding potentially unfogged trees.
-            bool fogDepthSupported=fogBoundedHigh&&!camera.orthographic&&!camera.usePhysicalProperties&&
-                SameProjection(camera.projectionMatrix,Matrix4x4.Perspective(camera.fieldOfView,camera.aspect,camera.nearClipPlane,camera.farClipPlane));
-            var forward=camera.transform.forward;var absoluteForward=new Vector3(Mathf.Abs(forward.x),Mathf.Abs(forward.y),Mathf.Abs(forward.z));
-            float fogDepth=fogBoundedHigh?productionHighFogEndMeters.Value+camera.nearClipPlane:0;
+            var fogFrame=fogBounded?new ProductionVisibilityFrame(camera,visibility?.FogEndMeters??productionHighFogEndMeters.Value):default;
             preparedWorldBounds=new Bounds(transform.position,Vector3.zero);
             for(int index=0;index<instances.Length;index++)
             {
                 var tree=instances[index];
-                if(tree.DensityRank>=density)continue;
+                if(visibility==null&&tree.DensityRank>=density)continue;
                 var position=worldPositions[index];float distance=Vector3.Distance(position,eye);
-                if(!fogBoundedHigh&&definition.Lod(distance)<0)continue;
+                if(!fogBounded&&definition.Lod(distance)<0)continue;
                 float lodDistance=distance*lodScale;
-                int lod=fogBoundedHigh?(lodDistance>=definition.far_lod_m?2:lodDistance>=definition.near_lod_m?1:0):definition.Lod(lodDistance);
+                int lod=fogBounded?(lodDistance>=definition.far_lod_m?2:lodDistance>=definition.near_lod_m?1:0):definition.Lod(lodDistance);
+                // Lower tiers reduce detailed work rather than punching holes in the forest.
+                if(visibility!=null&&tree.DensityRank>=density)lod=2;
                 // Includes canopy, height and maximum wind excursion. Intended sector root is unit scale.
                 var bounds=worldCanopies[index];
                 // URP linear fog uses camera depth. Keep any canopy/wind portion in front
                 // of the bound fog plane, including the conservative near-clip margin.
-                if(fogDepthSupported&&Vector3.Dot(bounds.center-eye,forward)-Vector3.Dot(bounds.extents,absoluteForward)>=fogDepth)continue;
+                if(fogBounded&&fogFrame.Hidden(bounds))continue;
                 if(!GeometryUtility.TestPlanesAABB(planes,bounds))continue;
                 if(firstBounds){preparedWorldBounds=bounds;firstBounds=false;}else preparedWorldBounds.Encapsulate(bounds);
                 int group=species[index]*3+lod;
@@ -171,8 +174,6 @@ namespace Biathlon.Unity.Presentation
             properties.SetVector(WindDirection,new Vector4(direction.x,direction.y,0,0));
             properties.SetFloat(Snow,definition.snow_coverage);
         }
-        private static bool SameProjection(Matrix4x4 actual,Matrix4x4 expected)
-        {for(int i=0;i<16;i++)if(actual[i]!=expected[i])return false;return true;}
         public void Render(Camera camera,string tier,float presentationTime,Vector2? observedWind=null)
         {
             Prepare(camera,tier,presentationTime,observedWind);

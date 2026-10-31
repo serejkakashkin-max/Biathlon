@@ -1,0 +1,40 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Failed",
+      "TotalTests": 4,
+      "PassedTests": 1,
+      "FailedTests": 3,
+      "SkippedTests": 0,
+      "Duration": "00:00:02.6609331"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.VenueDistantContinuityTests.ActualProductionForestKeepsVisibleFarSilhouettes(\"low\")",
+        "Status": "Failed",
+        "Duration": "00:00:00.0550000",
+        "Message": "  In-frustum native tree silhouettes must survive beyond the old120m cutoff on every graphics tier.\r\n  Expected: 3\r\n  But was:  0\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.VenueDistantContinuityTests.ActualProductionForestKeepsVisibleFarSilhouettes (System.String tier) [0x0012d] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\VenueDistantContinuityTests.cs:43\r\n"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.VenueDistantContinuityTests.ActualProductionForestKeepsVisibleFarSilhouettes(\"balanced\")",
+        "Status": "Failed",
+        "Duration": "00:00:00.0010000",
+        "Message": "  In-frustum native tree silhouettes must survive beyond the old120m cutoff on every graphics tier.\r\n  Expected: 3\r\n  But was:  0\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.VenueDistantContinuityTests.ActualProductionForestKeepsVisibleFarSilhouettes (System.String tier) [0x0012d] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\VenueDistantContinuityTests.cs:43\r\n"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.VenueDistantContinuityTests.ActualProductionForestKeepsVisibleFarSilhouettes(\"high\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0030000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.VenueDistantContinuityTests.ActualProductionGrandstandKeepsItsAudienceAcrossTheOldDistanceCut",
+        "Status": "Failed",
+        "Duration": "00:00:02.4390000",
+        "Message": "  A fully visible grandstand must not lose its audience simply because it is farther than110m.\r\n  Expected: 168\r\n  But was:  0\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.VenueDistantContinuityTests.ActualProductionGrandstandKeepsItsAudienceAcrossTheOldDistanceCut () [0x00109] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\VenueDistantContinuityTests.cs:31\r\n"
+      }
+    ]
+  }
+}

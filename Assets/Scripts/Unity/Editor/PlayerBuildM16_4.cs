@@ -13,6 +13,8 @@ namespace Biathlon.Unity
             =>BuildShootingContactReview("Builds/M16_4_Coaches_Review");
         public static void BuildMiniMapReview()
             =>BuildShootingContactReview("Builds/M16_4_MiniMap_Review");
+        public static void BuildVisibilityReview()
+            =>BuildShootingContactReview("Builds/M16_4_Visibility_Review");
         private static void BuildShootingContactReview(string folder)
         {
             BuildVisualUpgrade(folder);
@@ -22,6 +24,7 @@ namespace Biathlon.Unity
             File.AppendAllText(Path.Combine(folder,"READ_ME.txt"),"\r\nПосле нажатия «Начать гонку» сразу открывается экран загрузки Frostline с превью трассы и текущим этапом подготовки. Он закрывается после готовности мира, перед штатным ожиданием и личным отсчётом 3–2–1. Настройки русского/английского языка, крупного текста и уменьшения анимации поддерживаются.\r\n");
             File.AppendAllText(Path.Combine(folder,"READ_ME.txt"),"\r\nЗа выездной дорожкой стрельбища добавлена приподнятая огороженная площадка тренеров: 12 разных лиц, возраст 44–69 лет, седина, национальные зимние комплекты, 12 труб на штативах. Это статичные версии нашей модели спортсмена с тремя уровнями детализации. Новая зона не вмешивается в гонку и стрельбу.\r\n");
             File.AppendAllText(Path.Combine(folder,"READ_ME.txt"),"\r\nСлева под таймером — мини-карта фактического маршрута выбранного формата. Голубая стрелка — вы и ваше направление; светлые точки — соперники; золотом отмечены штрафной круг/стрельбище и стреляющие соперники, клетчатым значком — финиш. Во время стрельбы и просмотра TAB/F2 карта скрывается. Это векторный интерфейс без второй камеры мира; действуют прежние управление и баланс.\r\n");
+            File.AppendAllText(Path.Combine(folder,"READ_ME.txt"),"\r\nЗрители, лес и зимний декор больше не исчезают на видимых дистанциях 110–120 м. На всех уровнях качества сохраняется заполнение трибун и лесной силуэт; дальние модели, инстансинг и отсечение за камерой/полным туманом ограничивают нагрузку. Качество ближних текстур и геометрии не снижено.\r\n");
         }
     }
 }

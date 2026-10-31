@@ -216,6 +216,9 @@ namespace Biathlon.PlayModeTests
             const string prefix="Biathlon/Venues/woodland_basin_v1/";
             string Read(string id)=>Resources.Load<TextAsset>(id)?.text??throw new FileNotFoundException(id);
             var plan=new VenueAuthoringPlan(VenueManifest.FromJson(Read(prefix+"manifest")),Read);var recipe=ProductionEnvironmentDefinition.FromJson(Read(prefix+"environment"));
+            // Keep certifying the original optional High-only policy separately.
+            // The new complete all-tier venue policy has its own native regressions.
+            recipe.visibility_resource=null;
             recipe.forest.high_visibility=Policy();string track=plan.Track.ToJson(),visual=plan.Visual.ToJson(),paths=plan.Paths.ToJson();var root=new GameObject("Actual forest horizon proof");
             try
             {

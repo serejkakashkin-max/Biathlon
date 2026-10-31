@@ -23,11 +23,14 @@ namespace Biathlon.Unity.Presentation
         {
             public string id,tier,weather="clear";public Vector3 camera,target;
             public long tick;public BenchmarkFrameSample[] samples;
+            public int visible_trees,near_trees,mid_trees,far_trees,visible_crowd,near_crowd,far_crowd,silhouette_crowd,visible_dressing;
+            public long forest_triangles,crowd_triangles,dressing_triangles,forest_shadow_triangles,crowd_shadow_triangles;
         }
         private readonly List<string> errors=new List<string>();
         private Receipt receipt;private string output;private ProductionVenueHost host;
         private BenchmarkRenderTarget target;private BenchmarkFrameCounters counters;
         private Camera camera;private string tier;private float visualTime;
+        private bool visibilityReview;
         private const string Prefix="Biathlon/Venues/woodland_basin_v1/";
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)] private static void Boot()
         {
@@ -38,9 +41,11 @@ namespace Biathlon.Unity.Presentation
         private IEnumerator Start()
         {
             var args=Environment.GetCommandLineArgs();int at=Array.IndexOf(args,"-biathlonWinterVenueOutput"),phase=Array.IndexOf(args,"-biathlonWinterVenuePhase");
+            visibilityReview=Array.IndexOf(args,"-biathlonVisibilityReview")>=0;
             if(at<0||at+1>=args.Length){Application.Quit(1);yield break;}
             output=Path.GetFullPath(args[at+1]);Directory.CreateDirectory(output);
             receipt=new Receipt{phase=phase>=0&&phase+1<args.Length?args[phase+1]:"after",unity=Application.unityVersion,gpu=SystemInfo.graphicsDeviceName,cpu=SystemInfo.processorType,api=SystemInfo.graphicsDeviceType.ToString()};
+            if(visibilityReview){receipt.id="m16_4_visibility_review";receipt.scope="1920x1080 offscreen native venue and 30 real athletes; same binary/cameras/tick/weather, legacy visibility or complete silhouettes; no menu/HUD/swapchain cost";}
             if(receipt.phase!="before"&&receipt.phase!="after"){Application.Quit(1);yield break;}
             Application.runInBackground=true;Application.logMessageReceived+=Log;
             var stack=new Stack<IEnumerator>();stack.Push(Run());
@@ -65,7 +70,7 @@ namespace Biathlon.Unity.Presentation
             host.Initialize(venue,CompetitionProfile.FromJson(ProductionVenueHost.ReadResource(Prefix+"mass_start_profile")),RaceRoutePlan.FromJson(ProductionVenueHost.ReadResource(Prefix+"mass_start_route")),RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1")),30);
             var recipe=ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource(Prefix+"environment"));
             if(receipt.phase=="before")
-            {recipe.range.flags_resource=null;recipe.terrain.snow_shoulders_resource=Prefix+"snow_shoulders_before_m16_1";}
+            {if(visibilityReview)recipe.visibility_resource=null;else{recipe.range.flags_resource=null;recipe.terrain.snow_shoulders_resource=Prefix+"snow_shoulders_before_m16_1";}}
             host.InitializeEnvironment(recipe);host.Environment.AutomaticRendering=false;
             host.Environment.SetAtmosphereForReview("clear");host.GameplayHud.enabled=false;host.Proxies.enabled=false;
             host.GetComponent<RangePresentation>().enabled=false;
@@ -84,6 +89,14 @@ namespace Biathlon.Unity.Presentation
             for(int i=0;i<host.Course.LoopCount;i++)receipt.join_vertices+=host.Course.SkirtMesh(host.Course.LoopId(i)).vertexCount;
             for(int i=0;i<608;i++)host.Runner.Step();Publish();
             var p=venue.Visual.Get("main").Sample(55);var center=new Vector3((float)p.X,(float)p.Y,(float)p.Z);var direction=new Vector3((float)p.ForwardX,0,(float)p.ForwardZ);
+            if(visibilityReview)
+            {
+                foreach(string quality in new[]{"high","balanced","low"})
+                    yield return Measure("visibility-penalty-stands",quality,new Vector3(111,4,-16),new Vector3(10,2,-70));
+                foreach(string quality in new[]{"high","balanced","low"})
+                    yield return Measure("visibility-forest-bend",quality,center-direction*10+Vector3.up*6,center+direction*18+Vector3.up*.8f);
+                yield break;
+            }
             foreach(string quality in new[]{"high","balanced","low"})
                 yield return Measure("a-stadium-bend",quality,center-direction*10+Vector3.up*6,center+direction*18+Vector3.up*.8f);
             bool aiming=false,wide=false,approach=false;
@@ -122,6 +135,21 @@ namespace Biathlon.Unity.Presentation
             {DrawFrame();counters.Request();yield return null;result.samples[i]=counters.Read(i,visualTime,Time.unscaledDeltaTime*1000);}
             bool actual=false;foreach(var sample in result.samples)actual|=sample.triangles>0&&sample.draw_calls>0;
             if(!actual)throw new InvalidOperationException("Missing actual draw/triangle counters: "+id+"/"+tier);
+            if(visibilityReview)
+            {
+                for(int i=0;i<host.Environment.ForestGroupCount;i++)
+                {
+                    var forest=host.Environment.Forest(i);result.visible_trees+=forest.VisibleInstances;result.near_trees+=forest.NearCount;result.mid_trees+=forest.MidCount;result.far_trees+=forest.FarCount;
+                    result.forest_triangles+=forest.SubmittedTriangles;result.forest_shadow_triangles+=forest.ShadowSourceTriangles;
+                }
+                for(int i=0;i<host.Environment.CrowdCount;i++)
+                {
+                    var crowd=host.Environment.Crowd(i);result.visible_crowd+=crowd.Visible;result.near_crowd+=crowd.Near;result.far_crowd+=crowd.Far;
+                    result.silhouette_crowd+=crowd.Silhouettes;
+                    result.crowd_triangles+=crowd.SubmittedTriangles;result.crowd_shadow_triangles+=crowd.ShadowSourceTriangles;
+                }
+                result.visible_dressing=host.Environment.Dressing?.Visible??0;result.dressing_triangles=host.Environment.Dressing?.SubmittedTriangles??0;
+            }
             receipt.cases.Add(result);target.SavePng(Path.Combine(output,id+"-"+tier+".png"));counters.Dispose();counters=null;
         }
         private void DrawFrame()

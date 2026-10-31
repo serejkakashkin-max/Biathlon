@@ -151,7 +151,7 @@ namespace Biathlon.Unity.Presentation
                     var placement=new VegetationInstance[trees.Length];var species=new byte[trees.Length];
                     for(int t=0;t<trees.Length;t++){var tree=trees[t];placement[t]=new VegetationInstance(tree.position-group.center,tree.scale,tree.yaw_deg,tree.density_rank);species[t]=(byte)(tree.species=="pine"?1:0);}
                     var go=Child(group.id,group.center,Quaternion.identity);var forest=go.AddComponent<VegetationPresentation>();
-                    forest.Initialize(null,true,null,true,true,placement,species,prepared.HighForestFogEndMeters);forestList.Add(forest);TreeCount+=trees.Length;
+                    forest.Initialize(null,true,null,true,true,placement,species,prepared.HighForestFogEndMeters,prepared.Visibility);forestList.Add(forest);TreeCount+=trees.Length;
                 }
                 forests=forestList.ToArray();
                 var crowdList=new List<SpectatorCrowd>();
@@ -179,7 +179,7 @@ namespace Biathlon.Unity.Presentation
                         }
                         seating.Configure(anchors,SpectatorPose.Standing);
                     }
-                    if(seating!=null){var crowd=go.AddComponent<SpectatorCrowd>();crowd.Initialize(seating,true,false);crowdList.Add(crowd);}
+                    if(seating!=null){var crowd=go.AddComponent<SpectatorCrowd>();crowd.Initialize(seating,true,false,prepared.Visibility);crowdList.Add(crowd);}
                 }
                 crowds=crowdList.ToArray();
                 for(int i=0;i<data.mesh_assets.Length;i++)
@@ -204,7 +204,7 @@ namespace Biathlon.Unity.Presentation
                 generated.AddComponent<StaticSceneryBatches>().Initialize(staticRenderers);
                 var composition=G2ForestComposition.Load();
                 if(data.venue_id=="woodland_basin_v1"&&!string.IsNullOrEmpty(composition.dressing_resource))
-                {dressing=generated.AddComponent<ProductionForestDressing>();dressing.Initialize(WinterDressingDefinition.Load(composition.dressing_resource),data.route_corridors,SampleGround,(point,radius)=>Coaches==null||Coaches.Layout.DistanceToFootprint(point)>radius+3);}
+                {dressing=generated.AddComponent<ProductionForestDressing>();dressing.Initialize(WinterDressingDefinition.Load(composition.dressing_resource),data.route_corridors,SampleGround,(point,radius)=>Coaches==null||Coaches.Layout.DistanceToFootprint(point)>radius+3,prepared.Visibility);}
                 var keyObject=Child("Production directional light",Vector3.zero,Quaternion.identity);var key=keyObject.AddComponent<Light>();key.type=LightType.Directional;key.shadows=LightShadows.Soft;
                 weather=generated.AddComponent<WeatherPresentation>();weather.Initialize(chase,key,prepared.Sky);
                 Impacts=gameObject.AddComponent<ShotImpactPresentation>();Impacts.Initialize(feed,geometry,banks);
@@ -218,6 +218,7 @@ namespace Biathlon.Unity.Presentation
             internal TerrainBlendDefinition Blend;internal LightingVisualPreset Lighting;internal TargetGeometryDefinition Geometry;
             internal string DefaultTier;
             internal float? HighForestFogEndMeters;
+            internal ProductionVisibility Visibility;
             internal Material Snow,Sky,Backstop;internal TargetBankArt Bank;internal GameObject[] Prefabs;internal Mesh[] Meshes;internal Material[] Materials;
         }
         private static Prepared Prepare(VenueAuthoringPlan plan,ProductionEnvironmentDefinition data,Func<string,string> read)
@@ -268,11 +269,12 @@ namespace Biathlon.Unity.Presentation
             }
             p.Lighting=LightingVisualDefinition.FromJson(Read(read,data.lighting.resource)).Get(data.lighting.preset_id);
             var weatherDefinition=WeatherVisualDefinition.FromJson(Read(read,data.lighting.weather_resource));var weatherPreset=weatherDefinition.Get(data.lighting.weather_preset);
-            if(data.forest.high_visibility!=null)
+            if(data.forest.high_visibility!=null||!string.IsNullOrEmpty(data.visibility_resource))
             {
                 float horizon=weatherPreset.fog_end_m;
                 if(weatherPreset.id=="snowfall"&&weatherDefinition.snowfall_cycle_s>0)horizon=Mathf.Max(horizon,weatherDefinition.Get("light_snow").fog_end_m);
-                p.HighForestFogEndMeters=horizon*data.lighting.fog_distance_scale;
+                if(data.forest.high_visibility!=null)p.HighForestFogEndMeters=horizon*data.lighting.fog_distance_scale;
+                if(!string.IsNullOrEmpty(data.visibility_resource))p.Visibility=ProductionVisibilityDefinition.FromJson(Read(read,data.visibility_resource)).Bind(horizon*data.lighting.fog_distance_scale);
             }
             p.Snow=Require<Material>(data.terrain.material_resource);p.Sky=Require<Material>(data.lighting.sky_material_resource);p.Bank=Require<TargetBankArt>(data.range.bank_resource);
             for(int i=0;i<5;i++)if(p.Bank.Aperture(i)==null)throw new ArgumentException("Native target bank has an unbound face.");
@@ -284,6 +286,7 @@ namespace Biathlon.Unity.Presentation
                 Require<Material>(root+name);for(int lod=0;lod<3;lod++)Require<Mesh>(root+name+"LOD"+lod);
             }
             var crowd=SpectatorCrowdSettings.FromJson(Read(read,"Biathlon/spectator_crowd_v1"));Require<Material>("Biathlon/Crowd/Spectator");Require<Mesh>("Biathlon/Crowd/SpectatorLOD0");Require<Mesh>("Biathlon/Crowd/SpectatorLOD1");
+            if(p.Visibility!=null){Require<Mesh>("Biathlon/Crowd/SpectatorLOD2");Require<Mesh>("Biathlon/Crowd/StandingSpectatorLOD2");}
             p.Prefabs=new GameObject[data.assets.Length];for(int i=0;i<p.Prefabs.Length;i++)
             {
                 var prefab=Require<GameObject>(data.assets[i].resource);if(prefab.GetComponentInChildren<SpectatorCrowd>(true)!=null)throw new ArgumentException("Environment owns crowd initialization.");
