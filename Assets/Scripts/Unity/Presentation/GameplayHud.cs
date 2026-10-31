@@ -149,6 +149,7 @@ namespace Biathlon.Unity.Presentation
             BuildRangeBroadcast();
             BuildReviewPanels();
             BuildPaceStart();
+            BuildMiniMap();
             Root.Query<VisualElement>().ForEach(v=>{v.pickingMode=PickingMode.Ignore;v.focusable=false;});Root.pickingMode=PickingMode.Ignore;
             startWaitSkip.pickingMode=PickingMode.Ignore;startWaitSkip.focusable=false;
         }
@@ -199,7 +200,7 @@ namespace Biathlon.Unity.Presentation
             if(!isActiveAndEnabled||Root==null)return;
             RefreshPaceStart();
             var snapshot=feed?.Current;
-            if(snapshot==null){rendered=null;selectedIndex=-1;checkpointHistory.Reset();if(Root!=null)Root.style.display=DisplayStyle.None;return;}
+            if(snapshot==null){rendered=null;selectedIndex=-1;checkpointHistory.Reset();MiniMapState?.Clear();MiniMapVisible=false;if(Root!=null)Root.style.display=DisplayStyle.None;return;}
             if(ReferenceEquals(rendered,snapshot))return;
             rendered=snapshot;
             if(selectedIndex<0||selectedIndex>=snapshot.Count||snapshot.Get(selectedIndex).AthleteId!=athleteId)
@@ -210,6 +211,7 @@ namespace Biathlon.Unity.Presentation
             RefreshBroadcast(snapshot);
             RefreshRangeBroadcast(snapshot,selectedIndex);
             RefreshReviewPanels(a);
+            RefreshMiniMap(snapshot,selectedIndex);
             clock.text=Model.Clock;lap.text=Model.Lap;timing.text=Model.Timing;phase.text=Model.Phase;history.text=Model.ShootingHistory;
             if(host?.WaitingForPlayerStart==true)clock.text=L("До старта ","Start in ")+Math.Ceiling(host.PlayerStartWaitSeconds)+L(" с"," s");
             phase.style.display=a.PendingPenaltyLoops>0||a.Phase==CompetitionPhase.Prestart||a.Phase>=CompetitionPhase.Finished||host?.LastRangeAssistance.Active==true?DisplayStyle.Flex:DisplayStyle.None;
@@ -254,7 +256,7 @@ namespace Biathlon.Unity.Presentation
             if(feed!=null){feed.Published-=ObserveRangeBroadcast;feed.Published+=ObserveRangeBroadcast;if(feed.Current!=null)RangeBroadcast?.Observe(feed.Current);}
             Build();rendered=null;Refresh();
         }
-        private void OnDisable(){if(feed!=null)feed.Published-=ObserveRangeBroadcast;RangeBroadcastVisible=false;RangeBroadcastRows=0;if(documentObject!=null)documentObject.SetActive(false);}
+        private void OnDisable(){if(feed!=null)feed.Published-=ObserveRangeBroadcast;RangeBroadcastVisible=false;RangeBroadcastRows=0;MiniMapVisible=false;if(documentObject!=null)documentObject.SetActive(false);}
         private void OnDestroy()
         {if(feed!=null)feed.Published-=ObserveRangeBroadcast;if(documentObject!=null){documentObject.SetActive(false);Destroy(documentObject);}if(panel!=null)Destroy(panel);}
     }

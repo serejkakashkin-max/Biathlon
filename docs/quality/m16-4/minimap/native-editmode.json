@@ -1,0 +1,79 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 13,
+      "PassedTests": 13,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:01.2067078"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.GameplayHudModelTests.BreathPromptsDistinguishBenefitStrainAndRecovery(False,False,1,\"breath_ready\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.GameplayHudModelTests.BreathPromptsDistinguishBenefitStrainAndRecovery(False,True,0.5d,\"breath_hold\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.GameplayHudModelTests.BreathPromptsDistinguishBenefitStrainAndRecovery(False,True,1.2d,\"breath_strained\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.GameplayHudModelTests.BreathPromptsDistinguishBenefitStrainAndRecovery(True,True,0.5d,\"breath_release\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.GameplayHudModelTests.ClockFormatsAthleteElapsedTime(0,\"00:00.0\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.GameplayHudModelTests.ClockFormatsAthleteElapsedTime(61.25d,\"01:01.2\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.GameplayHudModelTests.ClockFormatsAthleteElapsedTime(3601.5d,\"01:00:01.5\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.GameplayHudModelTests.LocalizedSnapshotsUseIndividualStartAndRemainReadOnly",
+        "Status": "Passed",
+        "Duration": "00:00:00.0500000"
+      },
+      {
+        "Name": "Biathlon.Tests.GameplayHudModelTests.WeaponPromptMatchesTheAcceptedPhase(Setup,0,True,\"weapon_setup\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.GameplayHudModelTests.WeaponPromptMatchesTheAcceptedPhase(Aiming,0,True,\"weapon_reload\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.GameplayHudModelTests.WeaponPromptMatchesTheAcceptedPhase(BoltCycle,1,True,\"weapon_cycling\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.GameplayHudModelTests.WeaponPromptMatchesTheAcceptedPhase(Aiming,1,False,\"weapon_ready\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.GameplayHudModelTests.WeaponPromptMatchesTheAcceptedPhase(Aiming,5,True,\"weapon_done\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      }
+    ]
+  }
+}

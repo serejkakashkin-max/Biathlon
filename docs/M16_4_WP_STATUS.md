@@ -11,6 +11,7 @@ the owner's current milestone numbering without rewriting that history.
 | C — Qualification and fullscreen test build | COMPLETE / OWNER TEST PENDING | 40EditMode/33PlayMode PASS; supported/error-free native shader; Windows0build errors, ordinary2560x1440 fullscreen startup and actual30-athlete range probe PASS; append-only state and scoped feature branch |
 | D — Frostline race loading screen | COMPLETE / OWNER TEST PENDING | Immediate illustrated screen, actual preparation stages, RU/EN/large/reduced-motion;21EditMode/4PlayMode PASS; all4actual stages painted and inspected in2560x1440 player;0build/runtime errors; tick/countdown held until handoff;670core/resource files unchanged |
 | E — Coaches' enclosure | COMPLETE / OWNER TEST PENDING | Raised fenced deck,12 distinct athlete-derived older coaches,12 scopes aimed at actual banks; all-format/private-path clearance; static3LOD/shared-material art;34PlayMode/1EditMode PASS, native views and2560x1440 startup,0build/runtime errors, five core DLLs identical; fullscreen Coaches Review build |
+| F — Live vector minimap | COMPLETE / OWNER TEST PENDING | Compact left-side actual-format route, player heading/position and moving rivals; cached course/actor layers, no extra world camera;14PlayMode/13EditMode PASS, native RU/large EN coverage and2560x1440 player;671protected files and five core DLLs unchanged; fullscreen MiniMap Review build |
 
 References: IBU September2026 ECR8.3.2.1 (skis stay on), AnnexA3.2.1.13
 (mechanical release impulse), AnnexA3.1.7.1 (5.6mm ammunition), existing ADR-0007

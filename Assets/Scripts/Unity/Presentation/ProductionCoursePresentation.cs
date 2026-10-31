@@ -222,7 +222,7 @@ namespace Biathlon.Unity.Presentation
             try{mesh.vertices=source.vertices;mesh.uv=source.uv;mesh.colors=source.colors;mesh.normals=source.normals;mesh.triangles=chosen.ToArray();mesh.RecalculateBounds();return mesh;}
             catch{DestroyOwned(mesh);throw;}
         }
-        private static Dictionary<string,List<(long,long)>> RouteUsage(VenueAuthoringPlan plan,RaceRoute route)
+        internal static Dictionary<string,List<(long,long)>> RouteUsage(VenueAuthoringPlan plan,RaceRoute route)
         {
             if(route.TrackId!=plan.Track.Id||route.TrackSnapshotJson!=plan.Track.ToJson())throw new ArgumentException("Presentation requires the exact live route track snapshot.",nameof(route));
             if(plan.Formats!=null)
