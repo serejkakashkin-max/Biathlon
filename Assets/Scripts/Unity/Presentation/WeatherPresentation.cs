@@ -19,6 +19,7 @@ namespace Biathlon.Unity.Presentation
         public string PresetId {get;private set;}
         public string VisualAtmosphereId {get;private set;}
         private readonly WeatherVisualPreset atmosphericBlend=new WeatherVisualPreset();
+        public Biathlon.Domain.RaceWeatherFrame? RaceObservation {get;set;}
         public void Initialize(Camera camera,Light directional,Material skyOverride=null)
         {
             if(definition!=null||camera==null||directional==null||directional.type!=LightType.Directional||!isActiveAndEnabled)throw new ArgumentException("Enabled weather component, explicit camera and directional light required.");
@@ -62,6 +63,11 @@ namespace Biathlon.Unity.Presentation
                 d.cloud_cover=Mathf.Lerp(p.cloud_cover,b.cloud_cover,t);d.snowfall=Mathf.Lerp(p.snowfall,b.snowfall,t);d.shadow_strength=Mathf.Lerp(p.shadow_strength,b.shadow_strength,t);
                 d.fog_color=Color.Lerp(p.fog_color,b.fog_color,t);d.sky_color=Color.Lerp(p.sky_color,b.sky_color,t);d.light_color=Color.Lerp(p.light_color,b.light_color,t);
                 p=d;if(t>.5f)VisualAtmosphereId="light_snow";
+            }
+            if(RaceObservation.HasValue)
+            {
+                var frame=RaceObservation.Value;var a=definition.Get(frame.VisualFrom);var b=definition.Get(frame.VisualTo);float t=(float)frame.VisualBlend;var d=atmosphericBlend;
+                d.fog_start_m=Mathf.Lerp(a.fog_start_m,b.fog_start_m,t);d.fog_end_m=Mathf.Lerp(a.fog_end_m,b.fog_end_m,t);d.light_intensity=Mathf.Lerp(a.light_intensity,b.light_intensity,t);d.ambient_intensity=Mathf.Lerp(a.ambient_intensity,b.ambient_intensity,t);d.cloud_cover=Mathf.Lerp(a.cloud_cover,b.cloud_cover,t);d.snowfall=(float)frame.Snowfall;d.shadow_strength=Mathf.Lerp(a.shadow_strength,b.shadow_strength,t);d.fog_color=Color.Lerp(a.fog_color,b.fog_color,t);d.sky_color=Color.Lerp(a.sky_color,b.sky_color,t);d.light_color=Color.Lerp(a.light_color,b.light_color,t);p=d;VisualAtmosphereId=t<.5f?frame.VisualFrom:frame.VisualTo;
             }
             int count=definition.Count(tier,p.snowfall);
             lighting?.Validate();var fogColor=p.fog_color*(lighting?.horizon_tint??Color.white);var ambient=p.fog_color*p.ambient_intensity*(lighting?.ambient_tint??Color.white)*(lighting?.ambient_gain??1);

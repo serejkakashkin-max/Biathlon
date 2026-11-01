@@ -27,6 +27,9 @@ namespace Biathlon.Simulation
         private readonly CorneringSystem cornering;
         private readonly SnowConditionSystem snow;
         private readonly SkiEquipmentSystem equipment;
+        private RaceWeatherTimeline weather;
+        public void BindWeather(RaceWeatherTimeline timeline)
+        {if(Clock.Tick.Value!=0||weather!=null||timeline==null)throw new InvalidOperationException("Weather requires a fresh trial.");weather=timeline;}
         private readonly FinalSprintSystem sprint;
         private readonly SkiForceSystem forces;
         private readonly FinishTracker finish;
@@ -89,7 +92,7 @@ namespace Biathlon.Simulation
             var work = new PhysiologyInput(new SimulationInput(input.Effort.Tick, AthleteId, posture.EffectiveEffortControl), input.Form, track.TerrainMuscleFactor);
             var physical = physiology.Preview(work);
             var techniqueOutput = technique.Evaluate(athlete.TechniqueStats, track, physiology.State.MuscularFatigue, physical.Effort.DeliveredPowerWatts, input.TechniqueId);
-            var gear = equipment.Evaluate(snow.Sample(track).Id);
+            var gear = weather==null?equipment.Evaluate(snow.Sample(track).Id):equipment.Evaluate(weather.Sample(input.Effort.Tick.Value/(double)Clock.Frequency));
             var turn = cornering.Evaluate(before, track, athlete.Cornering, athlete.Downhill, input.LineQuality, physiology.State.MuscularFatigue, gear.CorneringGripMultiplier);
             var movement = forces.Step(before, techniqueOutput.PropulsivePowerWatts * input.MovementEfficiency, track, input.HeadwindMetersPerSecond, posture.DragAreaMultiplier, turn.BrakingNewtons, gear.SnowResistanceMultiplier);
             int techniqueIndex = 0;

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="62746711-60cf-48c0-b0b5-1b07a7ae6b82" name="snkashkin@DESKTOP-G3075GA 2026-11-01 20:39:22" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T20:39:22.2975843+03:00" queuing="2026-11-01T20:39:22.2975844+03:00" start="2026-11-01T20:39:21.5051498+03:00" finish="2026-11-01T20:39:22.3015637+03:00" />
+  <TestSettings name="default" id="07d995f8-6dab-48e4-84f0-d1aa3ee5ae87">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-11-01_20_39_22" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1a9e6221-e086-491a-9dfc-324f351caff0" testId="aea384d9-8565-c418-3aaa-003c537a40fb" testName="EqualPointsBreakBySecondThenThirdPlacesAndNeverByElapsedTime" computerName="DESKTOP-G3075GA" duration="00:00:00.0402960" startTime="2026-11-01T20:39:22.1144307+03:00" endTime="2026-11-01T20:39:22.1546996+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1a9e6221-e086-491a-9dfc-324f351caff0" />
+    <UnitTestResult executionId="c361c256-aac9-491a-82e5-081f0c7a8d00" testId="b336c670-e7b6-6c97-00f8-50346c8be54d" testName="YellowAndCurrentDisciplineRedComeFromDifferentActualClassifications" computerName="DESKTOP-G3075GA" duration="00:00:00.0006070" startTime="2026-11-01T20:39:22.1972099+03:00" endTime="2026-11-01T20:39:22.1978164+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c361c256-aac9-491a-82e5-081f0c7a8d00" />
+    <UnitTestResult executionId="e2c8802e-1c51-4e65-8536-392f9f575228" testId="f077e630-28a3-c49b-e4dc-71a97850cb94" testName="RedBibCannotCarryOverFromSprintIntoTheFirstMassStart" computerName="DESKTOP-G3075GA" duration="00:00:00.0113590" startTime="2026-11-01T20:39:22.1850166+03:00" endTime="2026-11-01T20:39:22.1963755+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e2c8802e-1c51-4e65-8536-392f9f575228" />
+    <UnitTestResult executionId="204aef86-e4ee-481d-955d-d2de1a163463" testId="e01ea557-503a-242a-dba2-b37dcb85e650" testName="NoResultsAndRegionalCircuitsCannotInventWorldCupLeaders" computerName="DESKTOP-G3075GA" duration="00:00:00.0011580" startTime="2026-11-01T20:39:22.1838407+03:00" endTime="2026-11-01T20:39:22.1849989+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="204aef86-e4ee-481d-955d-d2de1a163463" />
+    <UnitTestResult executionId="9304dee2-9c63-417d-b988-fd2e69c82f1a" testId="67243e55-2e57-340d-401e-09cd21e86fa2" testName="EquipmentPaletteCoversTheAuthorityCatalogAndPersistsByStableSelectedId" computerName="DESKTOP-G3075GA" duration="00:00:00.0285080" startTime="2026-11-01T20:39:22.1553010+03:00" endTime="2026-11-01T20:39:22.1838087+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9304dee2-9c63-417d-b988-fd2e69c82f1a" />
+    <UnitTestResult executionId="80e5843c-fcd5-47c3-9dcf-198696fec9a4" testId="57e167c5-4a2a-1a6d-4e84-fa43f34624c1" testName="UnresolvedTiesRemainLeadersTogetherAndCurrentEventNeverChangesItsOwnBib" computerName="DESKTOP-G3075GA" duration="00:00:00.0007820" startTime="2026-11-01T20:39:22.1964138+03:00" endTime="2026-11-01T20:39:22.1971957+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="80e5843c-fcd5-47c3-9dcf-198696fec9a4" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="RedBibCannotCarryOverFromSprintIntoTheFirstMassStart" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="f077e630-28a3-c49b-e4dc-71a97850cb94">
+      <Execution id="e2c8802e-1c51-4e65-8536-392f9f575228" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerAppearanceTests" name="RedBibCannotCarryOverFromSprintIntoTheFirstMassStart" />
+    </UnitTest>
+    <UnitTest name="EquipmentPaletteCoversTheAuthorityCatalogAndPersistsByStableSelectedId" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="67243e55-2e57-340d-401e-09cd21e86fa2">
+      <Execution id="9304dee2-9c63-417d-b988-fd2e69c82f1a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerAppearanceTests" name="EquipmentPaletteCoversTheAuthorityCatalogAndPersistsByStableSelectedId" />
+    </UnitTest>
+    <UnitTest name="EqualPointsBreakBySecondThenThirdPlacesAndNeverByElapsedTime" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="aea384d9-8565-c418-3aaa-003c537a40fb">
+      <Execution id="1a9e6221-e086-491a-9dfc-324f351caff0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerAppearanceTests" name="EqualPointsBreakBySecondThenThirdPlacesAndNeverByElapsedTime" />
+    </UnitTest>
+    <UnitTest name="YellowAndCurrentDisciplineRedComeFromDifferentActualClassifications" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="b336c670-e7b6-6c97-00f8-50346c8be54d">
+      <Execution id="c361c256-aac9-491a-82e5-081f0c7a8d00" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerAppearanceTests" name="YellowAndCurrentDisciplineRedComeFromDifferentActualClassifications" />
+    </UnitTest>
+    <UnitTest name="UnresolvedTiesRemainLeadersTogetherAndCurrentEventNeverChangesItsOwnBib" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="57e167c5-4a2a-1a6d-4e84-fa43f34624c1">
+      <Execution id="80e5843c-fcd5-47c3-9dcf-198696fec9a4" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerAppearanceTests" name="UnresolvedTiesRemainLeadersTogetherAndCurrentEventNeverChangesItsOwnBib" />
+    </UnitTest>
+    <UnitTest name="NoResultsAndRegionalCircuitsCannotInventWorldCupLeaders" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="e01ea557-503a-242a-dba2-b37dcb85e650">
+      <Execution id="204aef86-e4ee-481d-955d-d2de1a163463" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerAppearanceTests" name="NoResultsAndRegionalCircuitsCannotInventWorldCupLeaders" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="aea384d9-8565-c418-3aaa-003c537a40fb" executionId="1a9e6221-e086-491a-9dfc-324f351caff0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b336c670-e7b6-6c97-00f8-50346c8be54d" executionId="c361c256-aac9-491a-82e5-081f0c7a8d00" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f077e630-28a3-c49b-e4dc-71a97850cb94" executionId="e2c8802e-1c51-4e65-8536-392f9f575228" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e01ea557-503a-242a-dba2-b37dcb85e650" executionId="204aef86-e4ee-481d-955d-d2de1a163463" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="67243e55-2e57-340d-401e-09cd21e86fa2" executionId="9304dee2-9c63-417d-b988-fd2e69c82f1a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="57e167c5-4a2a-1a6d-4e84-fa43f34624c1" executionId="80e5843c-fcd5-47c3-9dcf-198696fec9a4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="6" executed="6" passed="6" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 6 of 6 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

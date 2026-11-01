@@ -32,6 +32,8 @@ namespace Biathlon.Career
         public CareerEquipmentCatalog Equipment=>equipment??(equipment=new CareerEquipmentCatalog(ReadDefinition));
         private CareerEquipmentPolicy equipmentPolicy;
         public CareerEquipmentPolicy EquipmentPolicy=>equipmentPolicy??(equipmentPolicy=CareerEquipmentPolicy.FromJson(ReadDefinition("career_equipment_policy_v1.json")));
+        private RaceWeatherPolicy weatherPolicy;
+        public RaceWeatherPolicy WeatherPolicy=>weatherPolicy??(weatherPolicy=RaceWeatherPolicy.FromJson(ReadDefinition("race_weather_policy_v1.json")));
         public RaceWeatherPreset Forecast(CareerSave save,CareerCalendarEvent e)
         {
             if(save==null||e==null)throw new ArgumentNullException();if(e.VenueId!="woodland_basin_v1")return null;
@@ -99,6 +101,12 @@ namespace Biathlon.Career
         internal CareerWeekPreparation(string source,string snapshot,CareerCalendarEvent e,
             ulong seed,bool requiresRace,ulong randomState,int[] usedSlots)
         {SourceJson=source;RaceSnapshotJson=snapshot;Event=e;RaceSeed=seed;RequiresRace=requiresRace;CompletionRandomState=randomState;this.usedSlots=usedSlots;}
+        public CareerWeekPreparation SelectOwnedSkis(CareerEquipmentCatalog equipment,string id)
+        {
+            if(equipment==null||equipment.Slot(id)!=CareerEquipmentSlot.Skis)throw new ArgumentException("Owned skis required.");
+            var save=CareerSave.FromJson(RaceSnapshotJson);var player=save.FindWorldAthlete(save.PlayerId);CareerInventory.Select(player,equipment,id);
+            return new CareerWeekPreparation(SourceJson,save.ToJson(),Event,RaceSeed,RequiresRace,CompletionRandomState,usedSlots);
+        }
     }
     public static class CareerSeasonEngine
     {

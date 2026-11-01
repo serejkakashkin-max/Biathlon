@@ -133,6 +133,10 @@ namespace Biathlon.Simulation
         public int TotalPenaltyLoops { get; private set; }
         public SprintAthleteFrame LastFrame { get; private set; }
         public string SnowConditionsId=>path.SnowConditionsId;
+        public SkiEquipmentOutput EvaluateWeatherEquipment(RaceWeatherFrame frame)=>path.EvaluateWeatherEquipment(frame);
+        private RaceWeatherTimeline raceWeather;
+        public void BindWeather(RaceWeatherTimeline timeline)
+        {if(LastFrame.Tick.Value!=0)throw new InvalidOperationException("Weather must be frozen before racing.");path.BindWeather(timeline);raceWeather=timeline;}
         /// <summary>Accepted state from the last committed tick, independent of prepared intent.</summary>
         public bool TuckActive => priorTuck;
         public bool FinalSprintActive => priorSprint;
@@ -640,6 +644,11 @@ namespace Biathlon.Simulation
             if (HasFinished&&!scoped || tick.Value != checked(Tick.Value + 1) || !input.Ski.Effort.AthleteId.Equals(AthleteId) ||
                 input.Aim.Tick.Value != tick.Value || !input.Aim.AthleteId.Equals(AthleteId)) throw new ArgumentException("Invalid Sprint command/terminal state.");
             windValidation.Evaluate(input.Wind, 0, 1, shootingModel.Targets.DistanceMeters);
+            if(raceWeather!=null)
+            {
+                var expected=raceWeather.Sample(tick.Value/(double)config.TickFrequency).Wind;
+                if(expected.EastMetersPerSecond!=input.Wind.EastMetersPerSecond||expected.NorthMetersPerSecond!=input.Wind.NorthMetersPerSecond)throw new ArgumentException("Command wind differs from the common race timeline.");
+            }
             PhysiologyNumbers.RequireRange(input.Ski.HeadwindMetersPerSecond, -maximumHeadwind, maximumHeadwind, nameof(input.Ski.HeadwindMetersPerSecond));
             if (input.Ski.TechniqueId != null)
             {

@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="9ceaa678-92ac-4850-ab1e-2ab9cd7a0203" name="snkashkin@DESKTOP-G3075GA 2026-11-01 20:16:06" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T20:16:06.6729321+03:00" queuing="2026-11-01T20:16:06.6729325+03:00" start="2026-11-01T20:16:04.8366747+03:00" finish="2026-11-01T20:24:27.7701529+03:00" />
+  <TestSettings name="default" id="12b46d9c-7ed3-4abd-92e9-d0f415ec90c7">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-11-01_20_16_06" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="559d9b28-1649-4e05-982e-34ec44a69091" testId="0440ecf3-966d-3c31-499d-3df21f693271" testName="EverySyntheticCourseFinishesWithResourceTraceAndSplit(&quot;synthetic_flat_v1&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0130440" startTime="2026-11-01T20:24:27.6170476+03:00" endTime="2026-11-01T20:24:27.6300914+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="559d9b28-1649-4e05-982e-34ec44a69091">
+      <Output>
+        <StdOut>synthetic_flat_v1: ticks=2310, finish=2309:245254263, nm=1000365076179</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="37a8fc8d-84e9-4d43-b773-25c6bbf1395b" testId="9acd890a-8b62-ad0c-0a82-8006d2df7cfb" testName="SoloZeroEffortIsNotReportedAsAthleteContact" computerName="DESKTOP-G3075GA" duration="00:00:00.0043580" startTime="2026-11-01T20:24:26.2260887+03:00" endTime="2026-11-01T20:24:26.2304462+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="37a8fc8d-84e9-4d43-b773-25c6bbf1395b" />
+    <UnitTestResult executionId="81119606-3647-4203-a2c0-9a052b63be50" testId="faf9c337-053f-8e74-1d96-17d81a1f3ccb" testName="EverySyntheticCourseFinishesWithResourceTraceAndSplit(&quot;synthetic_range_approach_v1&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0073920" startTime="2026-11-01T20:24:27.6813258+03:00" endTime="2026-11-01T20:24:27.6887180+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="81119606-3647-4203-a2c0-9a052b63be50">
+      <Output>
+        <StdOut>synthetic_range_approach_v1: ticks=2310, finish=2309:245254263, nm=1000365076179</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5507442d-749e-4564-95ae-c7b1c8a7cef5" testId="6ac0cb54-b49a-5020-987a-3c49857fe2e6" testName="CanonicalCsvTraceMatchesCliForEverySyntheticCourse(1)" computerName="DESKTOP-G3075GA" duration="00:00:00.2589500" startTime="2026-11-01T20:24:27.0533058+03:00" endTime="2026-11-01T20:24:27.3122548+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5507442d-749e-4564-95ae-c7b1c8a7cef5" />
+    <UnitTestResult executionId="80ae5167-e8cb-497f-825f-71a9297b8f70" testId="fb533fd1-9f4d-78d6-4409-a1ef97332890" testName="CompleteFieldUsesIntervalClocksSplitsAndOneResultPerAthlete" computerName="DESKTOP-G3075GA" duration="00:00:00.1922059" startTime="2026-11-01T20:24:26.8513163+03:00" endTime="2026-11-01T20:24:27.0435219+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="80ae5167-e8cb-497f-825f-71a9297b8f70" />
+    <UnitTestResult executionId="4f1996f2-bf1f-4cb8-a04e-f23ba47c93e2" testId="52c1676f-a500-cdd6-1694-6638a653eb29" testName="FogAndEveningSnapshotsReplayExactAcceptedManualFrames(4)" computerName="DESKTOP-G3075GA" duration="00:00:08.1445519" startTime="2026-11-01T20:18:16.8945737+03:00" endTime="2026-11-01T20:18:25.0391248+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4f1996f2-bf1f-4cb8-a04e-f23ba47c93e2" />
+    <UnitTestResult executionId="7dfc5aa0-1a4f-48c6-be7c-d9165f0dcfa6" testId="b60eae24-97c0-0ac7-0c4b-5380dbca22fe" testName="FrontsAreGradualSnowLagsAirAndSamplingIsIndependentOfOrderOrAthleteClock" computerName="DESKTOP-G3075GA" duration="00:00:00.0019210" startTime="2026-11-01T20:19:14.0417224+03:00" endTime="2026-11-01T20:19:14.0436432+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7dfc5aa0-1a4f-48c6-be7c-d9165f0dcfa6" />
+    <UnitTestResult executionId="525a50c9-3286-457b-adea-cc232f035fee" testId="ebea8ad4-d9a8-693a-248c-8fbbd131f61b" testName="CanonicalCsvNormalizesSignedZero" computerName="DESKTOP-G3075GA" duration="00:00:00.0038870" startTime="2026-11-01T20:24:27.0493857+03:00" endTime="2026-11-01T20:24:27.0532723+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="525a50c9-3286-457b-adea-cc232f035fee" />
+    <UnitTestResult executionId="7faff43a-25de-4be3-9218-869b5cafc96d" testId="e5120857-2835-ca1f-1643-1c2e489bcc7c" testName="PreparedCareerUsesForecastSnowAndSameWindForEveryEntrant" computerName="DESKTOP-G3075GA" duration="00:00:04.1109310" startTime="2026-11-01T20:18:50.3898370+03:00" endTime="2026-11-01T20:18:54.5007677+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7faff43a-25de-4be3-9218-869b5cafc96d" />
+    <UnitTestResult executionId="7b7fda16-4659-468c-9bd3-8b86fb054367" testId="2914b92c-226e-3d71-4bea-be8eb155a8b2" testName="InvalidLateStageInputDoesNotPartlyCommitPhysiologyOrEvents" computerName="DESKTOP-G3075GA" duration="00:00:00.0019780" startTime="2026-11-01T20:24:27.6887479+03:00" endTime="2026-11-01T20:24:27.6907258+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7b7fda16-4659-468c-9bd3-8b86fb054367" />
+    <UnitTestResult executionId="e9f1dae0-75f7-4051-845d-543fc0db7fe3" testId="687460cd-d3a9-74d6-4adb-f085868e7779" testName="DynamicSignedWorldJournalReplaysExactlyWhileLegacyMetadataUsesFixedWeather" computerName="DESKTOP-G3075GA" duration="00:00:09.7859850" startTime="2026-11-01T20:19:03.0276702+03:00" endTime="2026-11-01T20:19:12.8136544+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e9f1dae0-75f7-4051-845d-543fc0db7fe3" />
+    <UnitTestResult executionId="10c2025f-90b1-4bbb-9bd3-d1cbdd3ed71f" testId="17fa99dd-797f-7587-12a3-3b347110ebb8" testName="CompleteSnowfallSprintIsDeterministicAcrossSavedCareerReload" computerName="DESKTOP-G3075GA" duration="00:02:11.4598880" startTime="2026-11-01T20:16:05.4346262+03:00" endTime="2026-11-01T20:18:16.8945139+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="10c2025f-90b1-4bbb-9bd3-d1cbdd3ed71f">
+      <Output>
+        <StdOut>weather_sprint_regression hash=ada019e3df54c9eb43a86342fe5e42ea48af2b33dd075d631965a9ad000804b0 ticks=29965 shots=300 event_hash=15689393596053613465</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7fa9bd33-b51b-4bcf-9ed3-49d2b62e9869" testId="f6b25480-8664-6fb9-cd7d-7e012b245f44" testName="RecordedOverrideSurvivesFutureForecastAndLegacyReplayRemainsNeutral" computerName="DESKTOP-G3075GA" duration="00:00:08.5003910" startTime="2026-11-01T20:18:54.5007978+03:00" endTime="2026-11-01T20:19:03.0011881+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7fa9bd33-b51b-4bcf-9ed3-49d2b62e9869" />
+    <UnitTestResult executionId="9e8c4fec-9cbb-4c21-8550-f5142af4d0a4" testId="c72d6d04-72c6-d58c-fb86-11ad52e138d5" testName="FogAndEveningSnapshotsReplayExactAcceptedManualFrames(5)" computerName="DESKTOP-G3075GA" duration="00:00:09.0314010" startTime="2026-11-01T20:18:25.0391531+03:00" endTime="2026-11-01T20:18:34.0705530+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9e8c4fec-9cbb-4c21-8550-f5142af4d0a4" />
+    <UnitTestResult executionId="b6ee254a-56d4-49c1-8785-1abca94dc7a8" testId="9cfd2735-cd6c-3796-41a6-84407c6dbfd7" testName="ExistingSnowEffectsComposeOnceAndSkiSpecializationChangesAsSnowEvolves" computerName="DESKTOP-G3075GA" duration="00:00:00.0090720" startTime="2026-11-01T20:19:12.8136860+03:00" endTime="2026-11-01T20:19:12.8227575+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b6ee254a-56d4-49c1-8785-1abca94dc7a8" />
+    <UnitTestResult executionId="2c21228f-6242-4118-b5ed-e75edb48f180" testId="74462389-1b9f-0d20-726e-4d25132226a7" testName="EverySyntheticCourseFinishesWithResourceTraceAndSplit(&quot;synthetic_rolling_v1&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0152420" startTime="2026-11-01T20:24:27.6553482+03:00" endTime="2026-11-01T20:24:27.6705895+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2c21228f-6242-4118-b5ed-e75edb48f180">
+      <Output>
+        <StdOut>synthetic_rolling_v1: ticks=3003, finish=3002:155831578, nm=1000429591606</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b24afd8e-9069-4ce9-b9c5-a7ace39adc13" testId="fbcf8b01-46d1-3493-34ee-5592699fa57d" testName="SharedSprintCompletesRealBoutsPenaltiesAndReplaysExactResultsWithoutOverlap" computerName="DESKTOP-G3075GA" duration="00:00:01.5689700" startTime="2026-11-01T20:24:24.3870264+03:00" endTime="2026-11-01T20:24:25.9559961+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b24afd8e-9069-4ce9-b9c5-a7ace39adc13" />
+    <UnitTestResult executionId="4c6500ff-bf08-4c97-9705-f1b8c1facf8a" testId="09697f99-763b-a80d-600e-a046a4c306de" testName="CompleteFieldReplayKeepsResultsAndEventsAndFrozenFinishers" computerName="DESKTOP-G3075GA" duration="00:00:00.6010250" startTime="2026-11-01T20:24:26.2502663+03:00" endTime="2026-11-01T20:24:26.8512907+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4c6500ff-bf08-4c97-9705-f1b8c1facf8a" />
+    <UnitTestResult executionId="92d8a2e1-6bf7-47ab-a3ac-ccd55cbf7d85" testId="08d7d61d-11b2-b8bd-0210-b0f14113af6e" testName="CareerCalendarConnectsFogLightSnowAndEveryDevelopedTimeOfDay" computerName="DESKTOP-G3075GA" duration="00:00:00.0190710" startTime="2026-11-01T20:16:05.3989898+03:00" endTime="2026-11-01T20:16:05.4180320+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="92d8a2e1-6bf7-47ab-a3ac-ccd55cbf7d85" />
+    <UnitTestResult executionId="a6d0c999-f058-41d3-8432-c82783754b2e" testId="6d2261dd-eee5-c3a1-fcea-d619cf32d172" testName="MeasuredTimeTrialsReportStaticWarmingCoolingAndSnowfallOnEachSpecialist" computerName="DESKTOP-G3075GA" duration="00:00:01.1905130" startTime="2026-11-01T20:19:14.0436609+03:00" endTime="2026-11-01T20:19:15.2341737+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a6d0c999-f058-41d3-8432-c82783754b2e" />
+    <UnitTestResult executionId="0e10e2c5-d626-46e7-92c3-9b0b9655c3c5" testId="e2ba07dd-9ab9-93b2-5e6d-e7c0bdfb7c8c" testName="InvalidWeatherAndDuplicateIdsFailBeforeRaceComposition" computerName="DESKTOP-G3075GA" duration="00:00:00.0083320" startTime="2026-11-01T20:18:50.3814864+03:00" endTime="2026-11-01T20:18:50.3898179+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0e10e2c5-d626-46e7-92c3-9b0b9655c3c5" />
+    <UnitTestResult executionId="c920ae97-e71a-4324-9920-aef81c590c00" testId="8429745e-2d44-8a06-dac9-6ff1e3dc8ba9" testName="InvalidLastCommandCannotAdvanceEarlierAthletesOrScheduler" computerName="DESKTOP-G3075GA" duration="00:00:00.0057300" startTime="2026-11-01T20:24:27.0435499+03:00" endTime="2026-11-01T20:24:27.0492797+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c920ae97-e71a-4324-9920-aef81c590c00" />
+    <UnitTestResult executionId="d465e90c-b56a-45d7-bdd4-1be1901390e5" testId="f8ce6647-8798-f0d1-5280-9a6061e1f559" testName="ForecastVariesAcrossExistingCareerEventsAndDoesNotConsumeSavedRandomness" computerName="DESKTOP-G3075GA" duration="00:00:00.0428620" startTime="2026-11-01T20:18:50.3386054+03:00" endTime="2026-11-01T20:18:50.3814676+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d465e90c-b56a-45d7-bdd4-1be1901390e5" />
+    <UnitTestResult executionId="290e4a26-450c-4c0f-927c-46c7e022aeb0" testId="7b1a38b2-6bfd-a8ad-6954-a90580328788" testName="FogAndEveningSnapshotsReplayExactAcceptedManualFrames(9)" computerName="DESKTOP-G3075GA" duration="00:00:08.1038530" startTime="2026-11-01T20:18:42.2335047+03:00" endTime="2026-11-01T20:18:50.3373566+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="290e4a26-450c-4c0f-927c-46c7e022aeb0" />
+    <UnitTestResult executionId="04bcc37e-cf91-4bc2-9e34-15da189bd1ff" testId="80b696c6-c7db-7ca8-ee8a-9bf579191e72" testName="PublishesCompletePairsAndRejectsCorruptedCommandsAndDuplicatePublication" computerName="DESKTOP-G3075GA" duration="00:00:00.0102360" startTime="2026-11-01T20:24:26.2379531+03:00" endTime="2026-11-01T20:24:26.2481890+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="04bcc37e-cf91-4bc2-9e34-15da189bd1ff" />
+    <UnitTestResult executionId="6aba7326-a669-49a6-9be4-994f7bee0bb5" testId="3fc6c127-64f8-5fdb-4272-81385fc47cdc" testName="CompleteInputReplayPreservesMotionResourcesAndOrderedEvents" computerName="DESKTOP-G3075GA" duration="00:00:00.0703790" startTime="2026-11-01T20:24:27.5466219+03:00" endTime="2026-11-01T20:24:27.6170006+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6aba7326-a669-49a6-9be4-994f7bee0bb5" />
+    <UnitTestResult executionId="d8a2b196-a22e-48f8-af1e-87c87beb887a" testId="e676bd8d-9cc2-625c-5e88-4ba7f3964b44" testName="InvalidMetadataAndUnpairedFilesAreIgnoredAndIdsCannotEscapeLibrary" computerName="DESKTOP-G3075GA" duration="00:00:00.0068560" startTime="2026-11-01T20:24:26.2310808+03:00" endTime="2026-11-01T20:24:26.2379369+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d8a2b196-a22e-48f8-af1e-87c87beb887a" />
+    <UnitTestResult executionId="2d9cbe16-00de-4882-a38f-8af053c5a9e6" testId="c974f97d-de29-2933-2eec-861f168242f9" testName="ForecastUsesActualDrawnPersonalStartAndOwnedSelectionDoesNotRerollPreparedWeek" computerName="DESKTOP-G3075GA" duration="00:00:01.2189120" startTime="2026-11-01T20:19:12.8227840+03:00" endTime="2026-11-01T20:19:14.0416954+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2d9cbe16-00de-4882-a38f-8af053c5a9e6" />
+    <UnitTestResult executionId="53f92218-19f9-4a8a-abc3-259be9d8314b" testId="50181edc-5ea8-7815-8f88-6290d1088495" testName="OpenRepeatedLapCannotTeleportBackToStartInPhysicalPack" computerName="DESKTOP-G3075GA" duration="00:00:00.0108010" startTime="2026-11-01T20:24:24.3762080+03:00" endTime="2026-11-01T20:24:24.3870092+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="53f92218-19f9-4a8a-abc3-259be9d8314b" />
+    <UnitTestResult executionId="5e07ce27-8757-4870-91df-ecb3ca4ce5cb" testId="e0709f0e-1bef-d821-0978-5f98c268286c" testName="LateralWorkHasPhysicalCostAndActivePreparationAllocatesNothing" computerName="DESKTOP-G3075GA" duration="00:00:00.0141820" startTime="2026-11-01T20:24:24.3620084+03:00" endTime="2026-11-01T20:24:24.3761902+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5e07ce27-8757-4870-91df-ecb3ca4ce5cb" />
+    <UnitTestResult executionId="f089661f-533f-4d51-9542-22649fe31ce3" testId="9e121d5d-ed39-9362-f890-7920f7d42111" testName="MostSeedsRemainStaticAndNoRaceHasMoreThanTwoFrontsOrAnAllocationPerSample" computerName="DESKTOP-G3075GA" duration="00:00:00.3972609" startTime="2026-11-01T20:19:15.2341926+03:00" endTime="2026-11-01T20:19:15.6314528+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f089661f-533f-4d51-9542-22649fe31ce3" />
+    <UnitTestResult executionId="74f4bddc-ec8d-4720-884d-a6fed0b4f1a5" testId="77b3c3c7-4330-06ad-fcab-dea23cfe13de" testName="PreviewIsReadOnlyAndIntegratedTicksAllocateNothing" computerName="DESKTOP-G3075GA" duration="00:00:00.0189860" startTime="2026-11-01T20:24:27.6907403+03:00" endTime="2026-11-01T20:24:27.7097258+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="74f4bddc-ec8d-4720-884d-a6fed0b4f1a5" />
+    <UnitTestResult executionId="1b80e74e-9e2c-4464-b0c4-4dab493dc197" testId="396fad48-0bdc-bb5e-a9c8-37f83ac0635f" testName="CanonicalCsvTraceMatchesCliForEverySyntheticCourse(2)" computerName="DESKTOP-G3075GA" duration="00:00:00.2342940" startTime="2026-11-01T20:24:27.3122830+03:00" endTime="2026-11-01T20:24:27.5465770+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1b80e74e-9e2c-4464-b0c4-4dab493dc197" />
+    <UnitTestResult executionId="e28bf051-5f97-4baf-94f3-a726c904e0be" testId="5ba34dc9-fb81-246c-21a0-360118a14ae3" testName="FogAndEveningSnapshotsReplayExactAcceptedManualFrames(6)" computerName="DESKTOP-G3075GA" duration="00:00:08.1628890" startTime="2026-11-01T20:18:34.0705852+03:00" endTime="2026-11-01T20:18:42.2334738+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e28bf051-5f97-4baf-94f3-a726c904e0be" />
+    <UnitTestResult executionId="1213dca4-6c10-4332-bb97-6f23324fd58e" testId="0af646d3-8ea9-3781-199e-3f9be0463f46" testName="CatalogHasDistinctPhysicalSnowAndRoundTripsRecordedConditions" computerName="DESKTOP-G3075GA" duration="00:00:00.0159710" startTime="2026-11-01T20:16:05.4186262+03:00" endTime="2026-11-01T20:16:05.4345968+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1213dca4-6c10-4332-bb97-6f23324fd58e" />
+    <UnitTestResult executionId="71a85250-3c02-4547-8b39-908996c3f751" testId="ca339938-30e2-1965-2407-f675d05e56ea" testName="UnsupportedStartOrderVersionCannotBePublished(-1)" computerName="DESKTOP-G3075GA" duration="00:00:00.0009210" startTime="2026-11-01T20:24:26.2482371+03:00" endTime="2026-11-01T20:24:26.2491582+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="71a85250-3c02-4547-8b39-908996c3f751" />
+    <UnitTestResult executionId="5d31badb-1df9-4446-a4f5-1eaa1ee0d628" testId="b86f36b4-0e19-b056-2c59-c989227be9a5" testName="EverySyntheticCourseFinishesWithResourceTraceAndSplit(&quot;synthetic_technical_descent_v1&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0106640" startTime="2026-11-01T20:24:27.6706426+03:00" endTime="2026-11-01T20:24:27.6813060+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5d31badb-1df9-4446-a4f5-1eaa1ee0d628">
+      <Output>
+        <StdOut>synthetic_technical_descent_v1: ticks=2646, finish=2645:231732763, nm=1000368211837</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="32d83b61-6724-48d8-94e1-9d66e7ea3d91" testId="fed11caf-ff38-452e-3a4f-72b16f3f0953" testName="ReplayMetadataAcceptsOldFilesAndValidatesNewWeather" computerName="DESKTOP-G3075GA" duration="00:00:00.0256000" startTime="2026-11-01T20:19:03.0012219+03:00" endTime="2026-11-01T20:19:03.0268212+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="32d83b61-6724-48d8-94e1-9d66e7ea3d91" />
+    <UnitTestResult executionId="8512d0b9-22b3-418c-9757-743719187115" testId="9588f905-205f-8a82-bbd0-a495b95e2cc5" testName="SoloPackUsesTheSameRacePhysicsAndInvalidLastRowsAreAtomic" computerName="DESKTOP-G3075GA" duration="00:00:00.2700500" startTime="2026-11-01T20:24:25.9560212+03:00" endTime="2026-11-01T20:24:26.2260709+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8512d0b9-22b3-418c-9757-743719187115" />
+    <UnitTestResult executionId="fdb7b8c6-f189-4722-8a1a-3ae8b14ca11e" testId="a909e0a3-8108-0944-b350-4d8e4653e5e4" testName="EverySyntheticCourseFinishesWithResourceTraceAndSplit(&quot;synthetic_climb_v1&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0252130" startTime="2026-11-01T20:24:27.6301116+03:00" endTime="2026-11-01T20:24:27.6553237+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fdb7b8c6-f189-4722-8a1a-3ae8b14ca11e">
+      <Output>
+        <StdOut>synthetic_climb_v1: ticks=5373, finish=5372:837115067, nm=1000076598439</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2df4e81f-119b-4f0e-99ef-d264fe9c3407" testId="98471b4b-e691-1390-012a-6de326282ee8" testName="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_rolling_v1&quot;,6,1,&quot;1f03aa6fdc5c237f53b666b2e01524cd0ae49bcb601836b9036a74820fd90895&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:02.8552300" startTime="2026-11-01T20:24:18.8511254+03:00" endTime="2026-11-01T20:24:21.7063547+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2df4e81f-119b-4f0e-99ef-d264fe9c3407">
+      <Output>
+        <StdOut>Pack scenario synthetic_rolling_v1: athletes=6, ticks=12953, events=786, draft_frames=1274, staging_frames=40, precision_fallback_ticks=0&#xD;
+Result SHA256: 1f03aa6fdc5c237f53b666b2e01524cd0ae49bcb601836b9036a74820fd90895</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="79d6ccb6-d3a4-4ffd-8153-d5004dc390ff" testId="92531317-d7e7-b2ec-908a-c977c7447b98" testName="UnsupportedStartOrderVersionCannotBePublished(3)" computerName="DESKTOP-G3075GA" duration="00:00:00.0009430" startTime="2026-11-01T20:24:26.2491757+03:00" endTime="2026-11-01T20:24:26.2501185+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="79d6ccb6-d3a4-4ffd-8153-d5004dc390ff" />
+    <UnitTestResult executionId="7ba9dabc-0ab9-4dc2-aaf6-6f04ac367976" testId="25d042aa-201b-5a29-3de3-8209786971a3" testName="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_flat_v1&quot;,12,0.5d,&quot;164f496e078824383039bcf9ca6ac747f407c95b358f21bc2b26ea82a81a9bb7&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:14.7601530" startTime="2026-11-01T20:19:15.6360808+03:00" endTime="2026-11-01T20:19:30.3962331+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7ba9dabc-0ab9-4dc2-aaf6-6f04ac367976">
+      <Output>
+        <StdOut>Pack scenario synthetic_flat_v1: athletes=12, ticks=19305, events=15298, draft_frames=5515, staging_frames=484, precision_fallback_ticks=0&#xD;
+Result SHA256: 164f496e078824383039bcf9ca6ac747f407c95b358f21bc2b26ea82a81a9bb7</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0e4691f5-476c-4189-997b-228dc18c49e0" testId="107c2362-1978-a418-f8ff-6366dc5e4c29" testName="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_technical_descent_v1&quot;,6,1,&quot;c1f89ea3d39d903aa5a7c0d522e374781ed7226ef1a315178436f033e09b1d3e&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:02.6555840" startTime="2026-11-01T20:24:21.7063831+03:00" endTime="2026-11-01T20:24:24.3619667+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0e4691f5-476c-4189-997b-228dc18c49e0">
+      <Output>
+        <StdOut>Pack scenario synthetic_technical_descent_v1: athletes=6, ticks=12717, events=812, draft_frames=0, staging_frames=0, precision_fallback_ticks=0&#xD;
+Result SHA256: c1f89ea3d39d903aa5a7c0d522e374781ed7226ef1a315178436f033e09b1d3e</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ff4c77bd-23bf-45b7-944d-9fa49af3e65f" testId="896a2d73-42d7-5467-1df5-d98c1377d09a" testName="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_flat_v1&quot;,30,2,&quot;e55374aadb1053b48b012c74413b319db0cd2bfb4db3dd05b5826b2f88871594&quot;)" computerName="DESKTOP-G3075GA" duration="00:04:48.4548280" startTime="2026-11-01T20:19:30.3962632+03:00" endTime="2026-11-01T20:24:18.8510894+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ff4c77bd-23bf-45b7-944d-9fa49af3e65f">
+      <Output>
+        <StdOut>Pack scenario synthetic_flat_v1: athletes=30, ticks=55045, events=131521, draft_frames=16815, staging_frames=0, precision_fallback_ticks=0&#xD;
+Result SHA256: e55374aadb1053b48b012c74413b319db0cd2bfb4db3dd05b5826b2f88871594</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="FogAndEveningSnapshotsReplayExactAcceptedManualFrames(6)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="5ba34dc9-fb81-246c-21a0-360118a14ae3">
+      <Execution id="e28bf051-5f97-4baf-94f3-a726c904e0be" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerWeatherTests" name="FogAndEveningSnapshotsReplayExactAcceptedManualFrames(6)" />
+    </UnitTest>
+    <UnitTest name="RecordedOverrideSurvivesFutureForecastAndLegacyReplayRemainsNeutral" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="f6b25480-8664-6fb9-cd7d-7e012b245f44">
+      <Execution id="7fa9bd33-b51b-4bcf-9ed3-49d2b62e9869" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerWeatherTests" name="RecordedOverrideSurvivesFutureForecastAndLegacyReplayRemainsNeutral" />
+    </UnitTest>
+    <UnitTest name="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_rolling_v1&quot;,6,1,&quot;1f03aa6fdc5c237f53b666b2e01524cd0ae49bcb601836b9036a74820fd90895&quot;)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="98471b4b-e691-1390-012a-6de326282ee8">
+      <Execution id="2df4e81f-119b-4f0e-99ef-d264fe9c3407" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PackSprintFieldTests" name="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_rolling_v1&quot;,6,1,&quot;1f03aa6fdc5c237f53b666b2e01524cd0ae49bcb601836b9036a74820fd90895&quot;)" />
+    </UnitTest>
+    <UnitTest name="FrontsAreGradualSnowLagsAirAndSamplingIsIndependentOfOrderOrAthleteClock" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="b60eae24-97c0-0ac7-0c4b-5380dbca22fe">
+      <Execution id="7dfc5aa0-1a4f-48c6-be7c-d9165f0dcfa6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.M166WeatherTests" name="FrontsAreGradualSnowLagsAirAndSamplingIsIndependentOfOrderOrAthleteClock" />
+    </UnitTest>
+    <UnitTest name="InvalidMetadataAndUnpairedFilesAreIgnoredAndIdsCannotEscapeLibrary" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="e676bd8d-9cc2-625c-5e88-4ba7f3964b44">
+      <Execution id="d8a2b196-a22e-48f8-af1e-87c87beb887a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceReplayLibraryTests" name="InvalidMetadataAndUnpairedFilesAreIgnoredAndIdsCannotEscapeLibrary" />
+    </UnitTest>
+    <UnitTest name="InvalidLateStageInputDoesNotPartlyCommitPhysiologyOrEvents" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="2914b92c-226e-3d71-4bea-be8eb155a8b2">
+      <Execution id="7b7fda16-4659-468c-9bd3-8b86fb054367" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.TimeTrialTests" name="InvalidLateStageInputDoesNotPartlyCommitPhysiologyOrEvents" />
+    </UnitTest>
+    <UnitTest name="FogAndEveningSnapshotsReplayExactAcceptedManualFrames(5)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="c72d6d04-72c6-d58c-fb86-11ad52e138d5">
+      <Execution id="9e8c4fec-9cbb-4c21-8550-f5142af4d0a4" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerWeatherTests" name="FogAndEveningSnapshotsReplayExactAcceptedManualFrames(5)" />
+    </UnitTest>
+    <UnitTest name="CompleteInputReplayPreservesMotionResourcesAndOrderedEvents" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="3fc6c127-64f8-5fdb-4272-81385fc47cdc">
+      <Execution id="6aba7326-a669-49a6-9be4-994f7bee0bb5" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.TimeTrialTests" name="CompleteInputReplayPreservesMotionResourcesAndOrderedEvents" />
+    </UnitTest>
+    <UnitTest name="OpenRepeatedLapCannotTeleportBackToStartInPhysicalPack" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="50181edc-5ea8-7815-8f88-6290d1088495">
+      <Execution id="53f92218-19f9-4a8a-abc3-259be9d8314b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PackSprintFieldTests" name="OpenRepeatedLapCannotTeleportBackToStartInPhysicalPack" />
+    </UnitTest>
+    <UnitTest name="PublishesCompletePairsAndRejectsCorruptedCommandsAndDuplicatePublication" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="80b696c6-c7db-7ca8-ee8a-9bf579191e72">
+      <Execution id="04bcc37e-cf91-4bc2-9e34-15da189bd1ff" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceReplayLibraryTests" name="PublishesCompletePairsAndRejectsCorruptedCommandsAndDuplicatePublication" />
+    </UnitTest>
+    <UnitTest name="MostSeedsRemainStaticAndNoRaceHasMoreThanTwoFrontsOrAnAllocationPerSample" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="9e121d5d-ed39-9362-f890-7920f7d42111">
+      <Execution id="f089661f-533f-4d51-9542-22649fe31ce3" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.M166WeatherTests" name="MostSeedsRemainStaticAndNoRaceHasMoreThanTwoFrontsOrAnAllocationPerSample" />
+    </UnitTest>
+    <UnitTest name="PreparedCareerUsesForecastSnowAndSameWindForEveryEntrant" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="e5120857-2835-ca1f-1643-1c2e489bcc7c">
+      <Execution id="7faff43a-25de-4be3-9218-869b5cafc96d" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerWeatherTests" name="PreparedCareerUsesForecastSnowAndSameWindForEveryEntrant" />
+    </UnitTest>
+    <UnitTest name="SharedSprintCompletesRealBoutsPenaltiesAndReplaysExactResultsWithoutOverlap" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="fbcf8b01-46d1-3493-34ee-5592699fa57d">
+      <Execution id="b24afd8e-9069-4ce9-b9c5-a7ace39adc13" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PackSprintFieldTests" name="SharedSprintCompletesRealBoutsPenaltiesAndReplaysExactResultsWithoutOverlap" />
+    </UnitTest>
+    <UnitTest name="CanonicalCsvNormalizesSignedZero" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="ebea8ad4-d9a8-693a-248c-8fbbd131f61b">
+      <Execution id="525a50c9-3286-457b-adea-cc232f035fee" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.TimeTrialTests" name="CanonicalCsvNormalizesSignedZero" />
+    </UnitTest>
+    <UnitTest name="FogAndEveningSnapshotsReplayExactAcceptedManualFrames(9)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="7b1a38b2-6bfd-a8ad-6954-a90580328788">
+      <Execution id="290e4a26-450c-4c0f-927c-46c7e022aeb0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerWeatherTests" name="FogAndEveningSnapshotsReplayExactAcceptedManualFrames(9)" />
+    </UnitTest>
+    <UnitTest name="CareerCalendarConnectsFogLightSnowAndEveryDevelopedTimeOfDay" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="08d7d61d-11b2-b8bd-0210-b0f14113af6e">
+      <Execution id="92d8a2e1-6bf7-47ab-a3ac-ccd55cbf7d85" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerWeatherTests" name="CareerCalendarConnectsFogLightSnowAndEveryDevelopedTimeOfDay" />
+    </UnitTest>
+    <UnitTest name="PreviewIsReadOnlyAndIntegratedTicksAllocateNothing" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="77b3c3c7-4330-06ad-fcab-dea23cfe13de">
+      <Execution id="74f4bddc-ec8d-4720-884d-a6fed0b4f1a5" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.TimeTrialTests" name="PreviewIsReadOnlyAndIntegratedTicksAllocateNothing" />
+    </UnitTest>
+    <UnitTest name="ForecastUsesActualDrawnPersonalStartAndOwnedSelectionDoesNotRerollPreparedWeek" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="c974f97d-de29-2933-2eec-861f168242f9">
+      <Execution id="2d9cbe16-00de-4882-a38f-8af053c5a9e6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.M166WeatherTests" name="ForecastUsesActualDrawnPersonalStartAndOwnedSelectionDoesNotRerollPreparedWeek" />
+    </UnitTest>
+    <UnitTest name="UnsupportedStartOrderVersionCannotBePublished(-1)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="ca339938-30e2-1965-2407-f675d05e56ea">
+      <Execution id="71a85250-3c02-4547-8b39-908996c3f751" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceReplayLibraryTests" name="UnsupportedStartOrderVersionCannotBePublished(-1)" />
+    </UnitTest>
+    <UnitTest name="FogAndEveningSnapshotsReplayExactAcceptedManualFrames(4)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="52c1676f-a500-cdd6-1694-6638a653eb29">
+      <Execution id="4f1996f2-bf1f-4cb8-a04e-f23ba47c93e2" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerWeatherTests" name="FogAndEveningSnapshotsReplayExactAcceptedManualFrames(4)" />
+    </UnitTest>
+    <UnitTest name="CanonicalCsvTraceMatchesCliForEverySyntheticCourse(2)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="396fad48-0bdc-bb5e-a9c8-37f83ac0635f">
+      <Execution id="1b80e74e-9e2c-4464-b0c4-4dab493dc197" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.TimeTrialTests" name="CanonicalCsvTraceMatchesCliForEverySyntheticCourse(2)" />
+    </UnitTest>
+    <UnitTest name="EverySyntheticCourseFinishesWithResourceTraceAndSplit(&quot;synthetic_technical_descent_v1&quot;)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="b86f36b4-0e19-b056-2c59-c989227be9a5">
+      <Execution id="5d31badb-1df9-4446-a4f5-1eaa1ee0d628" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.TimeTrialTests" name="EverySyntheticCourseFinishesWithResourceTraceAndSplit(&quot;synthetic_technical_descent_v1&quot;)" />
+    </UnitTest>
+    <UnitTest name="MeasuredTimeTrialsReportStaticWarmingCoolingAndSnowfallOnEachSpecialist" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="6d2261dd-eee5-c3a1-fcea-d619cf32d172">
+      <Execution id="a6d0c999-f058-41d3-8432-c82783754b2e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.M166WeatherTests" name="MeasuredTimeTrialsReportStaticWarmingCoolingAndSnowfallOnEachSpecialist" />
+    </UnitTest>
+    <UnitTest name="CanonicalCsvTraceMatchesCliForEverySyntheticCourse(1)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="6ac0cb54-b49a-5020-987a-3c49857fe2e6">
+      <Execution id="5507442d-749e-4564-95ae-c7b1c8a7cef5" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.TimeTrialTests" name="CanonicalCsvTraceMatchesCliForEverySyntheticCourse(1)" />
+    </UnitTest>
+    <UnitTest name="CatalogHasDistinctPhysicalSnowAndRoundTripsRecordedConditions" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="0af646d3-8ea9-3781-199e-3f9be0463f46">
+      <Execution id="1213dca4-6c10-4332-bb97-6f23324fd58e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerWeatherTests" name="CatalogHasDistinctPhysicalSnowAndRoundTripsRecordedConditions" />
+    </UnitTest>
+    <UnitTest name="CompleteFieldReplayKeepsResultsAndEventsAndFrozenFinishers" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="09697f99-763b-a80d-600e-a046a4c306de">
+      <Execution id="4c6500ff-bf08-4c97-9705-f1b8c1facf8a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.SprintFieldTests" name="CompleteFieldReplayKeepsResultsAndEventsAndFrozenFinishers" />
+    </UnitTest>
+    <UnitTest name="CompleteSnowfallSprintIsDeterministicAcrossSavedCareerReload" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="17fa99dd-797f-7587-12a3-3b347110ebb8">
+      <Execution id="10c2025f-90b1-4bbb-9bd3-d1cbdd3ed71f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerWeatherTests" name="CompleteSnowfallSprintIsDeterministicAcrossSavedCareerReload" />
+    </UnitTest>
+    <UnitTest name="EverySyntheticCourseFinishesWithResourceTraceAndSplit(&quot;synthetic_flat_v1&quot;)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="0440ecf3-966d-3c31-499d-3df21f693271">
+      <Execution id="559d9b28-1649-4e05-982e-34ec44a69091" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.TimeTrialTests" name="EverySyntheticCourseFinishesWithResourceTraceAndSplit(&quot;synthetic_flat_v1&quot;)" />
+    </UnitTest>
+    <UnitTest name="ForecastVariesAcrossExistingCareerEventsAndDoesNotConsumeSavedRandomness" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="f8ce6647-8798-f0d1-5280-9a6061e1f559">
+      <Execution id="d465e90c-b56a-45d7-bdd4-1be1901390e5" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerWeatherTests" name="ForecastVariesAcrossExistingCareerEventsAndDoesNotConsumeSavedRandomness" />
+    </UnitTest>
+    <UnitTest name="SoloPackUsesTheSameRacePhysicsAndInvalidLastRowsAreAtomic" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="9588f905-205f-8a82-bbd0-a495b95e2cc5">
+      <Execution id="8512d0b9-22b3-418c-9757-743719187115" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PackSprintFieldTests" name="SoloPackUsesTheSameRacePhysicsAndInvalidLastRowsAreAtomic" />
+    </UnitTest>
+    <UnitTest name="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_flat_v1&quot;,30,2,&quot;e55374aadb1053b48b012c74413b319db0cd2bfb4db3dd05b5826b2f88871594&quot;)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="896a2d73-42d7-5467-1df5-d98c1377d09a">
+      <Execution id="ff4c77bd-23bf-45b7-944d-9fa49af3e65f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PackSprintFieldTests" name="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_flat_v1&quot;,30,2,&quot;e55374aadb1053b48b012c74413b319db0cd2bfb4db3dd05b5826b2f88871594&quot;)" />
+    </UnitTest>
+    <UnitTest name="LateralWorkHasPhysicalCostAndActivePreparationAllocatesNothing" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="e0709f0e-1bef-d821-0978-5f98c268286c">
+      <Execution id="5e07ce27-8757-4870-91df-ecb3ca4ce5cb" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PackSprintFieldTests" name="LateralWorkHasPhysicalCostAndActivePreparationAllocatesNothing" />
+    </UnitTest>
+    <UnitTest name="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_technical_descent_v1&quot;,6,1,&quot;c1f89ea3d39d903aa5a7c0d522e374781ed7226ef1a315178436f033e09b1d3e&quot;)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="107c2362-1978-a418-f8ff-6366dc5e4c29">
+      <Execution id="0e4691f5-476c-4189-997b-228dc18c49e0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PackSprintFieldTests" name="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_technical_descent_v1&quot;,6,1,&quot;c1f89ea3d39d903aa5a7c0d522e374781ed7226ef1a315178436f033e09b1d3e&quot;)" />
+    </UnitTest>
+    <UnitTest name="InvalidLastCommandCannotAdvanceEarlierAthletesOrScheduler" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="8429745e-2d44-8a06-dac9-6ff1e3dc8ba9">
+      <Execution id="c920ae97-e71a-4324-9920-aef81c590c00" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.SprintFieldTests" name="InvalidLastCommandCannotAdvanceEarlierAthletesOrScheduler" />
+    </UnitTest>
+    <UnitTest name="EverySyntheticCourseFinishesWithResourceTraceAndSplit(&quot;synthetic_rolling_v1&quot;)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="74462389-1b9f-0d20-726e-4d25132226a7">
+      <Execution id="2c21228f-6242-4118-b5ed-e75edb48f180" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.TimeTrialTests" name="EverySyntheticCourseFinishesWithResourceTraceAndSplit(&quot;synthetic_rolling_v1&quot;)" />
+    </UnitTest>
+    <UnitTest name="EverySyntheticCourseFinishesWithResourceTraceAndSplit(&quot;synthetic_range_approach_v1&quot;)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="faf9c337-053f-8e74-1d96-17d81a1f3ccb">
+      <Execution id="81119606-3647-4203-a2c0-9a052b63be50" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.TimeTrialTests" name="EverySyntheticCourseFinishesWithResourceTraceAndSplit(&quot;synthetic_range_approach_v1&quot;)" />
+    </UnitTest>
+    <UnitTest name="CompleteFieldUsesIntervalClocksSplitsAndOneResultPerAthlete" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="fb533fd1-9f4d-78d6-4409-a1ef97332890">
+      <Execution id="80ae5167-e8cb-497f-825f-71a9297b8f70" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.SprintFieldTests" name="CompleteFieldUsesIntervalClocksSplitsAndOneResultPerAthlete" />
+    </UnitTest>
+    <UnitTest name="UnsupportedStartOrderVersionCannotBePublished(3)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="92531317-d7e7-b2ec-908a-c977c7447b98">
+      <Execution id="79d6ccb6-d3a4-4ffd-8153-d5004dc390ff" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceReplayLibraryTests" name="UnsupportedStartOrderVersionCannotBePublished(3)" />
+    </UnitTest>
+    <UnitTest name="SoloZeroEffortIsNotReportedAsAthleteContact" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="9acd890a-8b62-ad0c-0a82-8006d2df7cfb">
+      <Execution id="37a8fc8d-84e9-4d43-b773-25c6bbf1395b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PackSprintFieldTests" name="SoloZeroEffortIsNotReportedAsAthleteContact" />
+    </UnitTest>
+    <UnitTest name="ReplayMetadataAcceptsOldFilesAndValidatesNewWeather" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="fed11caf-ff38-452e-3a4f-72b16f3f0953">
+      <Execution id="32d83b61-6724-48d8-94e1-9d66e7ea3d91" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerWeatherTests" name="ReplayMetadataAcceptsOldFilesAndValidatesNewWeather" />
+    </UnitTest>
+    <UnitTest name="DynamicSignedWorldJournalReplaysExactlyWhileLegacyMetadataUsesFixedWeather" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="687460cd-d3a9-74d6-4adb-f085868e7779">
+      <Execution id="e9f1dae0-75f7-4051-845d-543fc0db7fe3" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.M166WeatherTests" name="DynamicSignedWorldJournalReplaysExactlyWhileLegacyMetadataUsesFixedWeather" />
+    </UnitTest>
+    <UnitTest name="EverySyntheticCourseFinishesWithResourceTraceAndSplit(&quot;synthetic_climb_v1&quot;)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="a909e0a3-8108-0944-b350-4d8e4653e5e4">
+      <Execution id="fdb7b8c6-f189-4722-8a1a-3ae8b14ca11e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.TimeTrialTests" name="EverySyntheticCourseFinishesWithResourceTraceAndSplit(&quot;synthetic_climb_v1&quot;)" />
+    </UnitTest>
+    <UnitTest name="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_flat_v1&quot;,12,0.5d,&quot;164f496e078824383039bcf9ca6ac747f407c95b358f21bc2b26ea82a81a9bb7&quot;)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="25d042aa-201b-5a29-3de3-8209786971a3">
+      <Execution id="7ba9dabc-0ab9-4dc2-aaf6-6f04ac367976" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PackSprintFieldTests" name="DenseChangingLanesCompleteWithoutOverlapOrPermanentQueue(&quot;synthetic_flat_v1&quot;,12,0.5d,&quot;164f496e078824383039bcf9ca6ac747f407c95b358f21bc2b26ea82a81a9bb7&quot;)" />
+    </UnitTest>
+    <UnitTest name="ExistingSnowEffectsComposeOnceAndSkiSpecializationChangesAsSnowEvolves" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="9cfd2735-cd6c-3796-41a6-84407c6dbfd7">
+      <Execution id="b6ee254a-56d4-49c1-8785-1abca94dc7a8" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.M166WeatherTests" name="ExistingSnowEffectsComposeOnceAndSkiSpecializationChangesAsSnowEvolves" />
+    </UnitTest>
+    <UnitTest name="InvalidWeatherAndDuplicateIdsFailBeforeRaceComposition" storage="c:\game\biathlon\biathlon\artifacts\m16-6\weather\testbin\biathlon.tests.dll" id="e2ba07dd-9ab9-93b2-5e6d-e7c0bdfb7c8c">
+      <Execution id="0e10e2c5-d626-46e7-92c3-9b0b9655c3c5" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.CareerWeatherTests" name="InvalidWeatherAndDuplicateIdsFailBeforeRaceComposition" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="0440ecf3-966d-3c31-499d-3df21f693271" executionId="559d9b28-1649-4e05-982e-34ec44a69091" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9acd890a-8b62-ad0c-0a82-8006d2df7cfb" executionId="37a8fc8d-84e9-4d43-b773-25c6bbf1395b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="faf9c337-053f-8e74-1d96-17d81a1f3ccb" executionId="81119606-3647-4203-a2c0-9a052b63be50" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6ac0cb54-b49a-5020-987a-3c49857fe2e6" executionId="5507442d-749e-4564-95ae-c7b1c8a7cef5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fb533fd1-9f4d-78d6-4409-a1ef97332890" executionId="80ae5167-e8cb-497f-825f-71a9297b8f70" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="52c1676f-a500-cdd6-1694-6638a653eb29" executionId="4f1996f2-bf1f-4cb8-a04e-f23ba47c93e2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b60eae24-97c0-0ac7-0c4b-5380dbca22fe" executionId="7dfc5aa0-1a4f-48c6-be7c-d9165f0dcfa6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ebea8ad4-d9a8-693a-248c-8fbbd131f61b" executionId="525a50c9-3286-457b-adea-cc232f035fee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e5120857-2835-ca1f-1643-1c2e489bcc7c" executionId="7faff43a-25de-4be3-9218-869b5cafc96d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2914b92c-226e-3d71-4bea-be8eb155a8b2" executionId="7b7fda16-4659-468c-9bd3-8b86fb054367" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="687460cd-d3a9-74d6-4adb-f085868e7779" executionId="e9f1dae0-75f7-4051-845d-543fc0db7fe3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="17fa99dd-797f-7587-12a3-3b347110ebb8" executionId="10c2025f-90b1-4bbb-9bd3-d1cbdd3ed71f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f6b25480-8664-6fb9-cd7d-7e012b245f44" executionId="7fa9bd33-b51b-4bcf-9ed3-49d2b62e9869" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c72d6d04-72c6-d58c-fb86-11ad52e138d5" executionId="9e8c4fec-9cbb-4c21-8550-f5142af4d0a4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9cfd2735-cd6c-3796-41a6-84407c6dbfd7" executionId="b6ee254a-56d4-49c1-8785-1abca94dc7a8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="74462389-1b9f-0d20-726e-4d25132226a7" executionId="2c21228f-6242-4118-b5ed-e75edb48f180" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fbcf8b01-46d1-3493-34ee-5592699fa57d" executionId="b24afd8e-9069-4ce9-b9c5-a7ace39adc13" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="09697f99-763b-a80d-600e-a046a4c306de" executionId="4c6500ff-bf08-4c97-9705-f1b8c1facf8a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="08d7d61d-11b2-b8bd-0210-b0f14113af6e" executionId="92d8a2e1-6bf7-47ab-a3ac-ccd55cbf7d85" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6d2261dd-eee5-c3a1-fcea-d619cf32d172" executionId="a6d0c999-f058-41d3-8432-c82783754b2e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e2ba07dd-9ab9-93b2-5e6d-e7c0bdfb7c8c" executionId="0e10e2c5-d626-46e7-92c3-9b0b9655c3c5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8429745e-2d44-8a06-dac9-6ff1e3dc8ba9" executionId="c920ae97-e71a-4324-9920-aef81c590c00" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f8ce6647-8798-f0d1-5280-9a6061e1f559" executionId="d465e90c-b56a-45d7-bdd4-1be1901390e5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7b1a38b2-6bfd-a8ad-6954-a90580328788" executionId="290e4a26-450c-4c0f-927c-46c7e022aeb0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="80b696c6-c7db-7ca8-ee8a-9bf579191e72" executionId="04bcc37e-cf91-4bc2-9e34-15da189bd1ff" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3fc6c127-64f8-5fdb-4272-81385fc47cdc" executionId="6aba7326-a669-49a6-9be4-994f7bee0bb5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e676bd8d-9cc2-625c-5e88-4ba7f3964b44" executionId="d8a2b196-a22e-48f8-af1e-87c87beb887a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c974f97d-de29-2933-2eec-861f168242f9" executionId="2d9cbe16-00de-4882-a38f-8af053c5a9e6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="50181edc-5ea8-7815-8f88-6290d1088495" executionId="53f92218-19f9-4a8a-abc3-259be9d8314b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e0709f0e-1bef-d821-0978-5f98c268286c" executionId="5e07ce27-8757-4870-91df-ecb3ca4ce5cb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9e121d5d-ed39-9362-f890-7920f7d42111" executionId="f089661f-533f-4d51-9542-22649fe31ce3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="77b3c3c7-4330-06ad-fcab-dea23cfe13de" executionId="74f4bddc-ec8d-4720-884d-a6fed0b4f1a5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="396fad48-0bdc-bb5e-a9c8-37f83ac0635f" executionId="1b80e74e-9e2c-4464-b0c4-4dab493dc197" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5ba34dc9-fb81-246c-21a0-360118a14ae3" executionId="e28bf051-5f97-4baf-94f3-a726c904e0be" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0af646d3-8ea9-3781-199e-3f9be0463f46" executionId="1213dca4-6c10-4332-bb97-6f23324fd58e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ca339938-30e2-1965-2407-f675d05e56ea" executionId="71a85250-3c02-4547-8b39-908996c3f751" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b86f36b4-0e19-b056-2c59-c989227be9a5" executionId="5d31badb-1df9-4446-a4f5-1eaa1ee0d628" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fed11caf-ff38-452e-3a4f-72b16f3f0953" executionId="32d83b61-6724-48d8-94e1-9d66e7ea3d91" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9588f905-205f-8a82-bbd0-a495b95e2cc5" executionId="8512d0b9-22b3-418c-9757-743719187115" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a909e0a3-8108-0944-b350-4d8e4653e5e4" executionId="fdb7b8c6-f189-4722-8a1a-3ae8b14ca11e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="98471b4b-e691-1390-012a-6de326282ee8" executionId="2df4e81f-119b-4f0e-99ef-d264fe9c3407" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="92531317-d7e7-b2ec-908a-c977c7447b98" executionId="79d6ccb6-d3a4-4ffd-8153-d5004dc390ff" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="25d042aa-201b-5a29-3de3-8209786971a3" executionId="7ba9dabc-0ab9-4dc2-aaf6-6f04ac367976" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="107c2362-1978-a418-f8ff-6366dc5e4c29" executionId="0e4691f5-476c-4189-997b-228dc18c49e0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="896a2d73-42d7-5467-1df5-d98c1377d09a" executionId="ff4c77bd-23bf-45b7-944d-9fa49af3e65f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="45" executed="45" passed="45" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\artifacts\m16-6\weather\testbin\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 45 of 45 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+weather_sprint_regression hash=ada019e3df54c9eb43a86342fe5e42ea48af2b33dd075d631965a9ad000804b0 ticks=29965 shots=300 event_hash=15689393596053613465&#xD;
+&#xD;
+Pack scenario synthetic_flat_v1: athletes=12, ticks=19305, events=15298, draft_frames=5515, staging_frames=484, precision_fallback_ticks=0&#xD;
+Result SHA256: 164f496e078824383039bcf9ca6ac747f407c95b358f21bc2b26ea82a81a9bb7&#xD;
+&#xD;
+Pack scenario synthetic_flat_v1: athletes=30, ticks=55045, events=131521, draft_frames=16815, staging_frames=0, precision_fallback_ticks=0&#xD;
+Result SHA256: e55374aadb1053b48b012c74413b319db0cd2bfb4db3dd05b5826b2f88871594&#xD;
+&#xD;
+Pack scenario synthetic_rolling_v1: athletes=6, ticks=12953, events=786, draft_frames=1274, staging_frames=40, precision_fallback_ticks=0&#xD;
+Result SHA256: 1f03aa6fdc5c237f53b666b2e01524cd0ae49bcb601836b9036a74820fd90895&#xD;
+&#xD;
+Pack scenario synthetic_technical_descent_v1: athletes=6, ticks=12717, events=812, draft_frames=0, staging_frames=0, precision_fallback_ticks=0&#xD;
+Result SHA256: c1f89ea3d39d903aa5a7c0d522e374781ed7226ef1a315178436f033e09b1d3e&#xD;
+&#xD;
+synthetic_flat_v1: ticks=2310, finish=2309:245254263, nm=1000365076179&#xD;
+&#xD;
+synthetic_climb_v1: ticks=5373, finish=5372:837115067, nm=1000076598439&#xD;
+&#xD;
+synthetic_rolling_v1: ticks=3003, finish=3002:155831578, nm=1000429591606&#xD;
+&#xD;
+synthetic_technical_descent_v1: ticks=2646, finish=2645:231732763, nm=1000368211837&#xD;
+&#xD;
+synthetic_range_approach_v1: ticks=2310, finish=2309:245254263, nm=1000365076179&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -18,6 +18,13 @@ namespace Biathlon.Simulation
             SnowResistanceMultiplier = snow.ResistanceMultiplier / (ski.GlideMultiplier * ConditionAffinity);
             GripMultiplier = snow.GripMultiplier * ski.GripMultiplier; StabilityMultiplier = ski.StabilityMultiplier;
         }
+        internal SkiEquipmentOutput(SkiEquipmentOutput a,SkiEquipmentOutput b,double blend)
+        {
+            SkiId=a.SkiId;SnowProfileId=blend<.5?a.SnowProfileId:b.SnowProfileId;
+            ConditionAffinity=a.ConditionAffinity+(b.ConditionAffinity-a.ConditionAffinity)*blend;
+            SnowResistanceMultiplier=a.SnowResistanceMultiplier+(b.SnowResistanceMultiplier-a.SnowResistanceMultiplier)*blend;
+            GripMultiplier=a.GripMultiplier+(b.GripMultiplier-a.GripMultiplier)*blend;StabilityMultiplier=a.StabilityMultiplier;
+        }
     }
     public sealed class SkiEquipmentSystem
     {
@@ -35,6 +42,11 @@ namespace Biathlon.Simulation
             PhysiologyNumbers.RequireRange(result.SnowResistanceMultiplier, PhysiologyNumbers.MinimumPositive, PhysiologyNumbers.MaximumMagnitude, nameof(snowProfileId));
             PhysiologyNumbers.RequireRange(result.CorneringGripMultiplier, PhysiologyNumbers.MinimumPositive, PhysiologyNumbers.MaximumMagnitude, nameof(snowProfileId));
             return result;
+        }
+        public SkiEquipmentOutput Evaluate(RaceWeatherFrame weather)
+        {
+            var a=Evaluate(weather.SnowFrom);if(weather.SnowBlend==0||weather.SnowFrom==weather.SnowTo)return a;
+            var b=Evaluate(weather.SnowTo);return weather.SnowBlend==1?b:new SkiEquipmentOutput(a,b,weather.SnowBlend);
         }
     }
 }

@@ -35,6 +35,10 @@ namespace Biathlon.Simulation
         private readonly SnowConditionSystem snow;
         public string SnowConditionsId=>snow.ConditionsId;
         private readonly SkiEquipmentSystem equipment;
+        public SkiEquipmentOutput EvaluateWeatherEquipment(RaceWeatherFrame frame)=>equipment.Evaluate(frame);
+        private RaceWeatherTimeline weather;
+        public void BindWeather(RaceWeatherTimeline timeline)
+        {if(weather!=null||timeline==null)throw new InvalidOperationException("Bind weather once before racing.");weather=timeline;}
         private readonly SkiBoundaryStepper stepper;
         private readonly TrackSampler penaltySampler;
         private readonly double dt, maximumPower;
@@ -125,7 +129,7 @@ namespace Biathlon.Simulation
                 if (inRange) distance = Math.Min(distance, point.DistanceToBoundaryNanometers);
                 if (distance <= 0) throw new InvalidOperationException("Non-forward path boundary.");
                 if (count >= segments.Length) throw new ArgumentException("Motion segment output capacity is insufficient.");
-                var gear = equipment.Evaluate(snow.Sample(sample).Id);
+                var gear = weather==null?equipment.Evaluate(snow.Sample(sample).Id):equipment.Evaluate(weather.Sample(input.Effort.Tick.Value*dt));
                 var form = technique.Evaluate(athlete.TechniqueStats, sample, fatigue, deliveredPower, input.TechniqueId);
                 var turn = cornering.Evaluate(motion, sample, athlete.Cornering, athlete.Downhill, input.LineQuality, fatigue, gear.CorneringGripMultiplier);
                 var step = stepper.Step(motion, form.PropulsivePowerWatts * input.MovementEfficiency, sample, remaining,
@@ -160,7 +164,7 @@ namespace Biathlon.Simulation
             PhysiologyNumbers.RequireRange(propulsionMultiplier,0,1,nameof(propulsionMultiplier));
             double directionalGrade=observation.GradeAlong(pose);
             var directional=sample.WithTravelGeometry(directionalGrade,0);
-            var gear=equipment.Evaluate(snow.Sample(sample).Id);
+            var gear=weather==null?equipment.Evaluate(snow.Sample(sample).Id):equipment.Evaluate(weather.Sample(ski.Effort.Tick.Value*dt));
             var form=technique.Evaluate(athlete.TechniqueStats,directional,acceptedFatigue,
                 physical.Effort.DeliveredPowerWatts,ski.TechniqueId);
             return new ManualSkiMotionInput(steeringInput,

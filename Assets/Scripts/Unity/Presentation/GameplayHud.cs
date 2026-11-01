@@ -104,6 +104,7 @@ namespace Biathlon.Unity.Presentation
             reserve=Text(conditionPanel,"reserve","",settings.caption_size);reserveFill=Bar(conditionPanel,"reserve_bar",accent);
             fatigue=Text(conditionPanel,"fatigue","",settings.caption_size);fatigueFill=Bar(conditionPanel,"fatigue_bar",muted);
             wind=Text(conditionPanel,"wind","",settings.caption_size);wind.style.color=muted;
+            raceWeatherCompact=Text(conditionPanel,"race_weather_compact","",settings.caption_size);
 
             motionPanel=Card("motion_panel",true,false,settings.speed_width);
             var speedLine=Row(motionPanel);speedLine.style.alignItems=Align.FlexEnd;
@@ -208,6 +209,7 @@ namespace Biathlon.Unity.Presentation
             RefreshBroadcast(snapshot);
             RefreshRangeBroadcast(snapshot,selectedIndex);
             RefreshReviewPanels(a);
+            RefreshRaceWeather();
             RefreshMiniMap(snapshot,selectedIndex);
             clock.text=Model.Clock;lap.text=Model.Lap;timing.text=Model.Timing;phase.text=Model.Phase;history.text=Model.ShootingHistory;
             if(host?.WaitingForPlayerStart==true)clock.text=L("До старта ","Start in ")+Math.Ceiling(host.PlayerStartWaitSeconds)+L(" с"," s");

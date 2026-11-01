@@ -152,7 +152,7 @@ namespace Biathlon.Unity.Presentation
                 }
                 GetComponent<CourseTimingPresentation>()?.GroundSupports(environment);
                 Proxies.GetComponent<SnowSprayPresentation>()?.ConfigureSurface(definition.terrain.snow_surface_profile);
-                Environment=environment;range.BindVenue(Venue,environment,Proxies.GetRig(Runner.Field.GetAthlete(PlayerIndex).AthleteId.Value));
+                Environment=environment;environment.RaceWeatherObservation=()=>Runner.Field.WeatherTimeline?.Sample(Runner.Field.Tick.Value/(double)Runner.Field.TickFrequency);range.BindVenue(Venue,environment,Proxies.GetRig(Runner.Field.GetAthlete(PlayerIndex).AthleteId.Value));
             }
             catch{Destroy(environment);throw;}
         }

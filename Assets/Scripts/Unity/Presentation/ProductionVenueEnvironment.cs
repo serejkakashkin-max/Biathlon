@@ -30,6 +30,7 @@ namespace Biathlon.Unity.Presentation
         private RacePresentationFeed feed;
         private Camera chase,shooting;
         private WeatherPresentation weather;
+        public Func<RaceWeatherFrame?> RaceWeatherObservation {get;set;}
         private WeatherVisualDefinition atmosphericDefinition;
         public string VisualAtmosphereId=>weather?.VisualAtmosphereId;
         private ProductionForestDressing dressing;
@@ -391,16 +392,17 @@ namespace Biathlon.Unity.Presentation
         public void Render(Camera camera,string tier,float time)
         {
             if(!Initialized||!isActiveAndEnabled||camera==null||!float.IsFinite(time)||Mathf.Abs(time)>1000000||(tier!="high"&&tier!="balanced"&&tier!="low"))throw new ArgumentException("Initialized environment, explicit camera and render tier/time required.");
-            RangeFlags?.Render(time,recipe.lighting.visual_wind);
+            var observed=RaceWeatherObservation?.Invoke();weather.RaceObservation=observed;var observedWind=observed.HasValue?new Vector2((float)observed.Value.Wind.EastMetersPerSecond,(float)observed.Value.Wind.NorthMetersPerSecond):recipe.lighting.visual_wind;
+            RangeFlags?.Render(time,observedWind);
             RefreshBanks();VisibleTrees=0;SubmittedForestTriangles=0;
-            foreach(var forest in forests){forest.Render(camera,tier,time,recipe.lighting.visual_wind);VisibleTrees+=forest.VisibleInstances;SubmittedForestTriangles+=forest.SubmittedTriangles;}
+            foreach(var forest in forests){forest.Render(camera,tier,time,observedWind);VisibleTrees+=forest.VisibleInstances;SubmittedForestTriangles+=forest.SubmittedTriangles;}
             foreach(var crowd in crowds)crowd.Render(camera,tier,time);
             dressing?.Render(camera,tier);
             weather.SetViewCamera(camera);
             string atmosphere=recipe.lighting.weather_preset;
             if(atmosphere=="overcast"&&recipe.terrain.snow_material_preset=="wet"&&recipe.lighting.temperature_c>=atmosphericDefinition.wet_haze_temperature_c)
                 atmosphere="winter_haze";
-            weather.Render(AtmosphereOverride??atmosphere,tier,time,recipe.lighting.visual_wind,SampleGround(camera.transform.position),reviewLighting??lighting,recipe.lighting.fog_distance_scale,
+            weather.Render(AtmosphereOverride??atmosphere,tier,time,observedWind,SampleGround(camera.transform.position),reviewLighting??lighting,recipe.lighting.fog_distance_scale,
                 AtmosphereOverride==null&&atmosphere=="snowfall"?atmosphericDefinition.LightSnowBlend(time):0);
             Floodlights?.Render(camera,(reviewLighting??lighting).floodlights_gain);
         }

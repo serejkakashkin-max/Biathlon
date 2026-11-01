@@ -215,11 +215,12 @@ namespace Biathlon.Unity.Presentation
                 var stances=new List<string>();for(int i=0;i<summary.Profile.BoutCount;i++)stances.Add(T("stance."+(int)summary.Profile.GetBout(i).Stance));
                 InfoRow(facts,L("Рубежи","Shooting"),string.Join(" → ",stances));
                 InfoRow(facts,L("Старт","Start"),T("start."+(int)summary.Profile.StartType)+(summary.Profile.StartIntervalSeconds>0?F("start_interval",summary.Profile.StartIntervalSeconds):""));
-                InfoRow(facts,T("equipment"),T("equipment."+summary.Skis.Id));
+                InfoRow(facts,T("equipment"),EquipmentName(summary.Skis.Id));
                 var weather=CareerWeatherPresentation.Bind(ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/"+e.VenueId+"/environment")),forecast);
                 AddLabel(facts,(weather.lighting.preset_id=="evening"||weather.lighting.preset_id=="dawn"||weather.lighting.preset_id=="late_day"?T("time."+weather.lighting.preset_id)+" · ":"")+T("weather."+weather.lighting.weather_preset)+" · "+T("snow."+summary.SnowProfileId)+
                     " · "+weather.lighting.temperature_c.ToString("0.#",CultureInfo.InvariantCulture)+"°C"+
                     " · "+L("ветер ","wind ")+weather.lighting.visual_wind.magnitude.ToString("0.#",CultureInfo.InvariantCulture)+L(" м/с"," m/s"),theme.caption_size).name="pre_race_weather";
+                RenderRaceWeatherPlan(card);
             }
             else if(Session.Screen==FrontEndScreen.Race)
             {

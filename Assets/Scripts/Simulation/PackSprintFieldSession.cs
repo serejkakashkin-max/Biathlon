@@ -155,6 +155,14 @@ namespace Biathlon.Simulation
         public CheckpointTimingBoard Timing => field.Timing;
         public long PrecisionFallbackTicks { get; private set; }
         public string ContextJson { get; private set; }
+        public RaceWeatherTimeline WeatherTimeline {get;private set;}
+        public void BindWeather(RaceWeatherTimeline timeline)
+        {
+            if(Tick.Value!=0||WeatherTimeline!=null||timeline==null)throw new InvalidOperationException("Weather requires a fresh field.");
+            for(int i=0;i<Count;i++)GetAthlete(i).BindWeather(timeline);
+            field.BindWeatherEvents(timeline);
+            WeatherTimeline=timeline;ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,"absolute_race_weather_v1",timeline.ToJson());
+        }
         public SprintAthleteSession GetAthlete(int index) => field.GetAthlete(index);
         public bool IsOnCourse(int index) => onCourse[index] && !GetAthlete(index).HasFinished;
         public double GetLateral(int index) => lateral[index];

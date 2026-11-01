@@ -31,6 +31,8 @@ namespace Biathlon.Replay
         [DataMember(Name="start_order_version",EmitDefaultValue=false)]public int StartOrderVersion;
         [DataMember(Name="equipment_version",EmitDefaultValue=false)]public int EquipmentVersion;
         [DataMember(Name="equipment_snapshot_json",EmitDefaultValue=false)]public string EquipmentSnapshotJson;
+        [DataMember(Name="weather_timeline_version",EmitDefaultValue=false)]public int WeatherTimelineVersion;
+        [DataMember(Name="weather_timeline_json",EmitDefaultValue=false)]public string WeatherTimelineJson;
         // Missing in M15.5 journals: retain their exact v25 force law and canonical JSON.
         [DataMember(Name="course_reaction_version",EmitDefaultValue=false)]public int CourseReactionVersion;
         public ManualCourseReactionPolicy CourseReactionPolicy=>CourseReactionVersion==0?
@@ -58,6 +60,8 @@ namespace Biathlon.Replay
                 throw new SerializationException("Unsupported or incomplete replay metadata.");
             if(EquipmentVersion<0||EquipmentVersion>1||EquipmentVersion==0&&EquipmentSnapshotJson!=null||EquipmentVersion==1&&string.IsNullOrWhiteSpace(EquipmentSnapshotJson))throw new SerializationException("Unsupported equipment recording.");
             if(EquipmentSnapshotJson!=null)RaceEquipmentSnapshot.FromJson(EquipmentSnapshotJson);
+            if(WeatherTimelineVersion<0||WeatherTimelineVersion>1||WeatherTimelineVersion==0&&WeatherTimelineJson!=null||WeatherTimelineVersion==1&&string.IsNullOrWhiteSpace(WeatherTimelineJson))throw new SerializationException("Unsupported weather timeline recording.");
+            if(WeatherTimelineJson!=null){var timeline=RaceWeatherTimeline.FromJson(WeatherTimelineJson);if(RaceWeatherJson==null||timeline.Initial.ToJson()!=RaceWeatherPreset.FromJson(RaceWeatherJson).ToJson())throw new SerializationException("Recorded weather timeline initial state differs.");}
             Hash(CommandSha256);Hash(ResultSha256);
             if(RaceWeatherJson!=null)RaceWeatherPreset.FromJson(RaceWeatherJson);
             long prior=0;foreach(var e in Events){if(e==null||e.Tick<prior||e.Tick>TickCount||string.IsNullOrWhiteSpace(e.AthleteId)||!Enum.IsDefined(typeof(RaceEventType),e.Type))throw new SerializationException("Invalid replay event.");prior=e.Tick;}

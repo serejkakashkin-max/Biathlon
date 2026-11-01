@@ -2699,3 +2699,13 @@ NGL Biathlon 2026 — минимальный современный визуал
 ## Final note to Codex
 
 The objective is not to finish the roadmap as fast as possible by lowering standards. The objective is to produce a coherent, tested, modern biathlon game that is **systemically deeper and visibly more contemporary than the dedicated biathlon games used as references**. When schedule, content count and quality conflict, do not silently choose. Preserve the approved quality bar and surface the trade-off at the appropriate owner gate.
+
+
+## Owner-authorized milestone update -2026-11-01
+
+M16.5 closed by owner. M16.6 scope: docs/M16_6_OWNER_TASK.md, operational tracker
+docs/M16_6_WP_STATUS.md and append-only docs/PROJECT_STATE.md. Appearance/equipment
+published as33c51d5e/744fa50c. Dynamic weather implemented with native/standalone
+qualification; training UI/final regression audit remain. M16.6 OPEN; M17 not
+started. Owner explicitly authorized GitHub publication and a fullscreen build
+after each task. Current branch codex/m16-6-equipment-weather-training.

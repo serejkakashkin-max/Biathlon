@@ -103,7 +103,10 @@ namespace Biathlon.AI
         public long ShootingDecisions { get; private set; }
         public bool IsFaulted { get; private set; }
         public SprintAthleteInput GetLastInput(int index)=>inputs[index];
-        public WindVector RaceWind {get;}
+        private readonly WindVector fixedRaceWind;
+        public WindVector RaceWind=>Field.WeatherTimeline?.Sample((Field.Tick.Value+1)/(double)frequency).Wind??fixedRaceWind;
+        public void BindWeather(RaceWeatherTimeline timeline)
+        {Field.BindWeather(timeline);ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,"absolute_race_weather_v1",timeline.ToJson());}
         private readonly ShootingWindSystem raceWindSystem;
         public TacticalIntentDecision GetLastIntent(int index)=>intents[index];
         public double GetLastLateral(int index)=>lateral[index];
@@ -146,7 +149,7 @@ namespace Biathlon.AI
             var terrainDefinition=TerrainPlanningDefinition.FromJson(read("terrain_planning_provisional_v1.json"));
             recoveryDefinition=PreRangeRecoveryDefinition.FromJson(read("pre_range_recovery_provisional_v1.json"));
             var strategyDefinition=ShootingStrategyDefinition.FromJson(read("shooting_strategy_provisional_v1.json"));
-            RaceWind=raceWind;raceWindSystem=new ShootingWindSystem(shootingModel.Wind);
+            fixedRaceWind=raceWind;raceWindSystem=new ShootingWindSystem(shootingModel.Wind);
             raceWindSystem.Evaluate(raceWind,0,1,shootingModel.Targets.DistanceMeters);
             var draftDefinition=DraftDefinition.FromJson(read("draft_provisional_v1.json"));
             var selectionDefinition=DraftSelectionDefinition.FromJson(read("draft_selection_provisional_v1.json"));
@@ -271,7 +274,7 @@ namespace Biathlon.AI
                     ski.HeadwindMetersPerSecond,ski.TuckRequested,ski.SprintRequested,ski.TechniqueId,ski.MovementEfficiency),input.Aim,input.Trigger,
                     input.HoldBreath,input.Wind,racePressures==null?input.Pressure:racePressures[index],input.CycleBolt,input.ManualBoltCycle,input.RangeTransit);
             }
-            if(RaceWind.EastMetersPerSecond!=0||RaceWind.NorthMetersPerSecond!=0)
+            if(Field.WeatherTimeline!=null||RaceWind.EastMetersPerSecond!=0||RaceWind.NorthMetersPerSecond!=0)
                 input=new SprintAthleteInput(input.Ski,input.Aim,input.Trigger,input.HoldBreath,RaceWind,input.Pressure,input.CycleBolt,input.ManualBoltCycle,input.RangeTransit);
             try { StepCore(index,input,desiredLateralMeters); } catch { IsFaulted=true;throw; }
         }
@@ -282,7 +285,7 @@ namespace Biathlon.AI
             for(int i=0;i<Field.Count;i++)
             {
                 var actor=Field.GetAthlete(i); var id=actor.AthleteId; tacticalDue[i]=shootingDue[i]=false;
-                if(actor.HasFinished) { inputs[i]=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(tick,id,0),1,1,0),new WeaponAimCommand(tick,id,0,0));continue; }
+                if(actor.HasFinished) { inputs[i]=new SprintAthleteInput(new TimeTrialInput(new SimulationInput(tick,id,0),1,1,0),new WeaponAimCommand(tick,id,0,0),wind:Field.WeatherTimeline==null?default:RaceWind);continue; }
                 if(i==playerIndex){inputs[i]=playerInput;lateral[i]=playerLateral;continue;}
                 var observation=raceSource.Capture(i,TrackDistance.FromMeters(physicalRadius),offsets,ahead,neighbors);
                 int count=physicalSource.CapturePlacements(i,TrackDistance.FromMeters(physicalRadius),placements,startTraffic?.StationaryBypassAfterSeconds.HasValue==true);

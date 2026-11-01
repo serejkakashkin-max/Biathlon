@@ -73,8 +73,8 @@ namespace Biathlon.Tests
         [Test] public void EquipmentPaletteCoversTheAuthorityCatalogAndPersistsByStableSelectedId()
         {
             var visuals = SkiAppearanceCatalog.FromJson(PhysiologyContractTests.DefinitionJson("UI/ski_appearance_v1.json"));
-            var equipment = SkiEquipmentCatalog.FromJson(PhysiologyContractTests.DefinitionJson("ski_equipment_provisional_v1.json"));
-            Assert.That(visuals.Count, Is.EqualTo(3));
+            var equipment = M166EquipmentTests.Gear().Skis;
+            Assert.That(visuals.Count, Is.EqualTo(8));
             for (int i = 0; i < visuals.Count; i++) Assert.That(equipment.GetSki(visuals.GetAt(i).Id).Id, Is.EqualTo(visuals.GetAt(i).Id));
             Assert.That(visuals.Get("ski_glide").BaseColorHex, Is.EqualTo("#E34A45"));
             Assert.Throws<ArgumentException>(() => visuals.Get("missing_ski"));

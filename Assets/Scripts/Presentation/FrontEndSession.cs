@@ -112,6 +112,8 @@ namespace Biathlon.Presentation
             Screen=FrontEndScreen.Race;
         }
         public void AbandonRace() {Require(FrontEndScreen.Race);Screen=FrontEndScreen.PreRace;}
+        public void SelectPreRaceSkis(string id)
+        {Require(FrontEndScreen.PreRace);PreparedWeek=PreparedWeek.SelectOwnedSkis(Gear,id);}
         public void FinishRace(CareerRaceRecord result)
         {
             Require(FrontEndScreen.Race);

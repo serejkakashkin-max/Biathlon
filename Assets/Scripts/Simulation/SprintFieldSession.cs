@@ -33,6 +33,13 @@ namespace Biathlon.Simulation
         private bool IsInterval => qualification==null && massGrid==null;
         public MassStartResultSnapshot MassStartResult { get; private set; }
         private readonly IRaceEventSink events;
+        private RaceWeatherTimeline weatherEvents;
+        internal void BindWeatherEvents(RaceWeatherTimeline timeline)=>weatherEvents=timeline;
+        private void RecordWeatherFronts(SimulationTick tick)
+        {
+            if(weatherEvents==null)return;for(int front=0;front<weatherEvents.FrontCount;front++)
+            {double start=weatherEvents.Front(front).Start*frequency;if(tick.Value-1<start&&tick.Value>=start)events.Record(new RaceEvent(tick,frequency,athletes[0].AthleteId,RaceEventType.WeatherFrontStarted,front));}
+        }
         private readonly SimulationTick firstStart;
         private readonly int frequency;
         private readonly bool requiresPhysicalAdmission;
@@ -141,7 +148,7 @@ namespace Biathlon.Simulation
                 for (int checkpoint = oldSplits; checkpoint < athlete.Checkpoints.Count; checkpoint++) Timing.Record(athlete.Checkpoints.Get(checkpoint));
                 if (athlete.HasFinished) RecordFinish(athlete.Lifecycle);
             }
-            Tick = tick;
+            Tick = tick;RecordWeatherFronts(tick);
             if (IsComplete) CompleteResults();
         }
         private void RecordFinish(CompetitionLifecycle lifecycle)
@@ -191,7 +198,7 @@ namespace Biathlon.Simulation
                 for (int checkpoint = oldSplits; checkpoint < athlete.Checkpoints.Count; checkpoint++) Timing.Record(athlete.Checkpoints.Get(checkpoint));
                 if (athlete.HasFinished&&!alreadyFinished) RecordFinish(athlete.Lifecycle);
             }
-            Tick = tick; if (IsComplete) CompleteResults();
+            Tick = tick;RecordWeatherFronts(tick); if (IsComplete) CompleteResults();
         }
     }
 }

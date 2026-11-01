@@ -40,6 +40,26 @@ namespace Biathlon.PlayModeTests
         {Object.DestroyImmediate(root);InputSystem.RemoveDevice(keyboard);InputSystem.RemoveDevice(gamepad);inputs.Dispose();}
         private void Submit(string id)
         {var button=menu.Root.Q<Button>(id);button.Focus();using(var e=NavigationSubmitEvent.GetPooled())button.SendEvent(e);}
+        [UnityTest] public IEnumerator PersonalWeatherForecastAndOwnedSkiSelectionUsePreparedRaceWithoutChangingSource()
+        {
+            menu.Session.OpenNewCareer();menu.Session.CreateCareer("career_m166_weather","Алекс","NOR",11);
+            for(int i=0;i<5;i++)menu.Session.RestWeek();string before=menu.Session.Career.ToJson();menu.Session.OpenPreRace();menu.RefreshFrontEnd();yield return null;
+            var week=menu.Session.PreparedWeek;Assert.That(menu.Root.Q("pre_race_weather_plan"),Is.Not.Null);Assert.That(menu.Root.Q<Label>("personal_start_weather").text,Does.Contain("°C"));
+            Assert.That(menu.Root.Q<Button>("pre_race_ski_ski_neutral"),Is.Not.Null);Assert.That(menu.Root.Q<Button>("pre_race_ski_ski_cold_race"),Is.Null);
+            Assert.Throws<ArgumentException>(()=>menu.Session.SelectPreRaceSkis("rifle_neutral_v1"));menu.Session.SelectPreRaceSkis("ski_neutral");Assert.That(menu.Session.PreparedWeek.RaceSnapshotJson,Is.EqualTo(week.RaceSnapshotJson));Assert.That(menu.Session.Career.ToJson(),Is.EqualTo(before));
+            var panel=root.GetComponent<UIDocument>().panelSettings;var previous=RenderTexture.active;
+            foreach(var dimensions in new[]{new Vector2Int(1600,900),new Vector2Int(1024,768)})
+            {
+                var target=new RenderTexture(dimensions.x,dimensions.y,0);target.Create();panel.targetTexture=target;Texture2D pixels=null;
+                try
+                {
+                    menu.ApplyPreferences(dimensions.x==1600?"ru":"en",dimensions.x==1600?0:2);yield return new WaitForSecondsRealtime(.4f);for(int f=0;f<10;f++)yield return null;
+                    menu.Root.Q<ScrollView>("page_content").ScrollTo(menu.Root.Q("pre_race_weather_plan"));yield return null;yield return null;
+                    RenderTexture.active=target;pixels=new Texture2D(dimensions.x,dimensions.y,TextureFormat.RGBA32,false);pixels.ReadPixels(new Rect(0,0,dimensions.x,dimensions.y),0,0);pixels.Apply();string folder=Path.GetFullPath("docs/quality/m16-6/weather");Directory.CreateDirectory(folder);File.WriteAllBytes(Path.Combine(folder,dimensions.x==1600?"forecast-ru.png":"forecast-en-large.png"),pixels.EncodeToPNG());
+                }
+                finally{if(pixels!=null)Object.Destroy(pixels);RenderTexture.active=previous;panel.targetTexture=null;Object.Destroy(target);}
+            }
+        }
         [UnityTest] public IEnumerator ExpandedShopHasBothSlotsPaidPurchasesAndReadableLocalizedCards()
         {
             menu.Session.OpenNewCareer();menu.Session.CreateCareer("career_m166_shop","Алекс","NOR",11);menu.RefreshFrontEnd();yield return null;
@@ -164,6 +184,8 @@ namespace Biathlon.PlayModeTests
             Assert.That(menu.LastMessage,Is.Null);Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.Race));
             var host=menu.Race.Host;Assert.That(host,Is.Not.Null);Assert.That(host.ManualStepper,Is.Not.Null);
             Assert.That(host.Environment,Is.Not.Null);
+            Assert.That(host.Runner.Field.WeatherTimeline,Is.Not.Null);host.GameplayHud.Refresh();
+            Assert.That(host.GameplayHud.Root.Q<Label>("race_weather_compact").text,Does.Contain("°C"));
             Assert.That(host.Runner.Field.GetAthlete(host.PlayerIndex).AthleteId.Value,Is.EqualTo(menu.Session.Career.PlayerId));
             Assert.That(menu.Root.style.display.value,Is.EqualTo(DisplayStyle.None));
             host.GameplayHud.SetBroadcastVisible(true);yield return null;

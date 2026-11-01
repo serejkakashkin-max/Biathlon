@@ -144,6 +144,7 @@ namespace Biathlon.Simulation
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_scoped_field_stepper_v7_actual_time_resource_ordering","world_context_sha256:"+ManualContextIdentity.Sha256(world.ContextJson),
                 commit.ContextJson,drive.ContextJson,work.ToJson(),matBraking?.ToJson()??"terminal_mat_braking_not_selected",
                 "all_signed_intents;bounded_brake_fractions_validated_before_preparation;one_fixed_clock;owned_force_pieces;actual_contact_response;ordinary_and_paid_penalty_handoffs;stationary_firing_hold;explicit_terminal_mat_inverse_shared_force;prepared_physiology_paid_without_propulsion_bonus;abort_not_queue;no_resource_fallback;actual_time_highwater_arrival_interpolation_then_ceiling_ordering_only;subfraction_pieces_retained;selected_finish_runout_shared_braking_and_clock;world_drafting_actual_positions_and_leader_velocity_axis;unchanged_pack_draft_definition;world_wind_from_observed_route_and_scalar_headwind;no_station_or_desired_line_wake"});
+            if(field.WeatherTimeline!=null)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,"weather_timeline_vector_wind_v1");
         }
 
         public bool TryStep(ReadOnlySpan<SprintAthleteInput> inputs,ReadOnlySpan<int> steeringInputs)
@@ -206,9 +207,9 @@ namespace Biathlon.Simulation
                         var actor=world.GetWorkingActor(tick,i);var cursor=world.GetWorkingCursor(tick,i);var row=cursor.Owner.Get(cursor.OccurrenceIndex);
                         if(row.End==ManualRacePathEnd.FiringLine&&cursor.ObservedArcNanometers==row.LengthNanometers)continue;
                         var body=new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,physics.MassKilograms);
-                        double wind=inputs[i].Ski.HeadwindMetersPerSecond;
+                        double wind=inputs[i].Ski.HeadwindMetersPerSecond;var vector=field.WeatherTimeline?.Sample(pending[i].Tick.Value/(double)field.TickFrequency).Wind??new WindVector(-wind*actor.Observation.ForwardX,-wind*actor.Observation.ForwardZ);
                         drafts[i]=field.EvaluateScopedWorldDraft(body,draftBodies.AsSpan(0,draftCount),cursor.Owner.SampleSurface(actor.Observation),
-                            -wind*actor.Observation.ForwardX,-wind*actor.Observation.ForwardZ);
+                            vector.EastMetersPerSecond,vector.NorthMetersPerSecond);
                     }
                     // This explicitly selected last strip may request neutral
                     // braking on the athlete's owned mat only. It removes no
@@ -228,9 +229,9 @@ namespace Biathlon.Simulation
                         if(after<PhysiologyNumbers.MinimumPositive||after>PhysiologyNumbers.MaximumMagnitude)continue;
                         var body=new ManualSkiContactBody(actor.Athlete,actor.Pose,actor.Velocity,physics.MassKilograms);
                         var motion=new SkiContactMotion(actor.Velocity,actor.Pose.YawRateRadiansPerSecond);
-                        double wind=inputs[i].Ski.HeadwindMetersPerSecond;
+                        double wind=inputs[i].Ski.HeadwindMetersPerSecond;var vector=field.WeatherTimeline?.Sample(pending[i].Tick.Value/(double)field.TickFrequency).Wind??new WindVector(-wind*actor.Observation.ForwardX,-wind*actor.Observation.ForwardZ);
                         var paid=field.GetAthlete(i).GetPreparedManualMotionInput(pending[i],world,tick,i,0,drafts[i].DragAreaMultiplier,
-                            windX:-wind*actor.Observation.ForwardX,windZ:-wind*actor.Observation.ForwardZ);
+                            windX:vector.EastMetersPerSecond,windZ:vector.NorthMetersPerSecond);
                         var input=Neutral(paid);
                         var preview=drive.PreviewStopping(body,motion,actor.Observation,cursor.Owner.SampleSurface(actor.Observation),input,
                             Math.Min(seconds,after),after);
@@ -262,9 +263,9 @@ namespace Biathlon.Simulation
                         var surface=catalog.SampleSurface(actor.Observation);
                         if(pending[i].MovementActive&&!firing)
                         {
-                            double wind=inputs[i].Ski.HeadwindMetersPerSecond;
+                            double wind=inputs[i].Ski.HeadwindMetersPerSecond;var vector=field.WeatherTimeline?.Sample(pending[i].Tick.Value/(double)field.TickFrequency).Wind??new WindVector(-wind*actor.Observation.ForwardX,-wind*actor.Observation.ForwardZ);
                             var input=field.GetAthlete(i).GetPreparedManualMotionInput(pending[i],world,tick,i,steeringInputs[i],drafts[i].DragAreaMultiplier,
-                                windX:-wind*actor.Observation.ForwardX,windZ:-wind*actor.Observation.ForwardZ);
+                                windX:vector.EastMetersPerSecond,windZ:vector.NorthMetersPerSecond);
                             if(row.Kind==ManualRacePathKind.FinishRunout)
                                 drives[i]=drive.Preview(body,motion,actor.Observation,surface,Neutral(input).WithBrakeFraction(catalog.FinishRunoutDefinition.BrakeFraction),seconds).Drive;
                             else if(matStops[i]>0)drives[i]=drive.PreviewStoppingWithPaidPower(body,motion,actor.Observation,surface,WithPaidPower(input,matStopPowers[i]),seconds,matStops[i]).Frame.Drive;

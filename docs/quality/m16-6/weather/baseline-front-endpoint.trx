@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="07fefda5-147d-4c6e-ba0b-193b7e5b3c1e" name="snkashkin@DESKTOP-G3075GA 2026-11-01 20:39:18" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T20:39:18.0499718+03:00" queuing="2026-11-01T20:39:18.0499719+03:00" start="2026-11-01T20:39:15.9621473+03:00" finish="2026-11-01T20:39:18.0543222+03:00" />
+  <TestSettings name="default" id="63e97ae6-7621-4c06-9c8b-005951acd040">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-11-01_20_39_18" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="0bded4a6-cd98-46aa-ab20-bbc5cec2d147" testId="a2c591d8-51f4-2dbf-24f6-fa1e77502d0f" testName="ZeroRemainingFrontRowHoldsTheIncomingEndpointUntilPhysicalHandoff" computerName="DESKTOP-G3075GA" duration="00:00:01.4288180" startTime="2026-11-01T20:39:16.5167202+03:00" endTime="2026-11-01T20:39:17.9455009+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0bded4a6-cd98-46aa-ab20-bbc5cec2d147">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected: 0&#xD;
+  But was:  87832000000&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.AiStartTrafficTests.ZeroRemainingFrontRowHoldsTheIncomingEndpointUntilPhysicalHandoff() in C:\game\Biathlon\Biathlon\artifacts\m16-6\baseline-1717c530\Assets\Tests\EditMode\AiStartTrafficTests.cs:line 72&#xD;
+
+1)    at Biathlon.Tests.AiStartTrafficTests.ZeroRemainingFrontRowHoldsTheIncomingEndpointUntilPhysicalHandoff() in C:\game\Biathlon\Biathlon\artifacts\m16-6\baseline-1717c530\Assets\Tests\EditMode\AiStartTrafficTests.cs:line 72&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ZeroRemainingFrontRowHoldsTheIncomingEndpointUntilPhysicalHandoff" storage="c:\game\biathlon\biathlon\artifacts\m16-6\baseline-1717c530\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="a2c591d8-51f4-2dbf-24f6-fa1e77502d0f">
+      <Execution id="0bded4a6-cd98-46aa-ab20-bbc5cec2d147" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\baseline-1717c530\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.AiStartTrafficTests" name="ZeroRemainingFrontRowHoldsTheIncomingEndpointUntilPhysicalHandoff" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="a2c591d8-51f4-2dbf-24f6-fa1e77502d0f" executionId="0bded4a6-cd98-46aa-ab20-bbc5cec2d147" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\artifacts\m16-6\baseline-1717c530\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

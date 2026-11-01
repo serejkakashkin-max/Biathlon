@@ -7,6 +7,7 @@ namespace Biathlon.Unity
     {
         public static void BuildM166AppearanceReview()=>BuildM166Review("Builds/M16_6_1_Appearance_Review","M16.6.1","Вариант без очков полностью скрывает линзу, оправу и ремешок. Сохранены очки на лице/на лбу и шапка/повязка/без головного убора. Новые соперники получают индивидуальную постоянную внешность без изменения игрового RNG; старые спортсмены сохраняют свой облик.");
         public static void BuildM166EquipmentReview()=>BuildM166Review("Builds/M16_6_2_Equipment_Review","M16.6.2","Магазин: 8 моделей лыж, 4 винтовки, независимые слоты, сравнение по снегу. Новая экономика и честные покупки ИИ. Старые карьеры получают только нейтральную винтовку; деньги, лыжи и внешность сохраняются.");
+        public static void BuildM166WeatherReview()=>BuildM166Review("Builds/M16_6_3_Weather_Review","M16.6.3","Общая погода по времени гонки: прогноз на ваш старт, плавные фронты и инерция снега, выбор купленных лыж перед стартом. HUD и TAB показывают текущее состояние. Погода и экипировка записываются в повтор; старые повторы сохраняют прежние условия.");
         private static void BuildM166Review(string folder,string stage,string details)
         {
             BuildVisualUpgrade(folder);

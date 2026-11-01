@@ -1,0 +1,44 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 6,
+      "PassedTests": 6,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:01:23.9347729"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.M166WeatherTests.DynamicSignedWorldJournalReplaysExactlyWhileLegacyMetadataUsesFixedWeather",
+        "Status": "Passed",
+        "Duration": "00:01:08.0210000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166WeatherTests.ExistingSnowEffectsComposeOnceAndSkiSpecializationChangesAsSnowEvolves",
+        "Status": "Passed",
+        "Duration": "00:00:00.0060000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166WeatherTests.ForecastUsesActualDrawnPersonalStartAndOwnedSelectionDoesNotRerollPreparedWeek",
+        "Status": "Passed",
+        "Duration": "00:00:12.9840000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166WeatherTests.FrontsAreGradualSnowLagsAirAndSamplingIsIndependentOfOrderOrAthleteClock",
+        "Status": "Passed",
+        "Duration": "00:00:00.0030000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166WeatherTests.MeasuredTimeTrialsReportStaticWarmingCoolingAndSnowfallOnEachSpecialist",
+        "Status": "Passed",
+        "Duration": "00:00:00.9190000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166WeatherTests.MostSeedsRemainStaticAndNoRaceHasMoreThanTwoFrontsOrAnAllocationPerSample",
+        "Status": "Passed",
+        "Duration": "00:00:01.2410000"
+      }
+    ]
+  }
+}

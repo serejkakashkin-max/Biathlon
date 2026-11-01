@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="1bf4012e-af78-46fb-b440-198bb7ca2ca0" name="snkashkin@DESKTOP-G3075GA 2026-11-01 20:33:05" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T20:33:05.5866490+03:00" queuing="2026-11-01T20:33:05.5866492+03:00" start="2026-11-01T20:32:46.8158676+03:00" finish="2026-11-01T20:33:05.5929815+03:00" />
+  <TestSettings name="default" id="83306075-cc69-4d71-b0e1-b17e54294eab">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-11-01_20_33_05" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="3b2c814e-2232-40c4-8090-431eb4558957" testId="6a557ff1-4c85-e7bd-778b-c9bacc608a3e" testName="Probe" computerName="DESKTOP-G3075GA" duration="00:00:18.1589800" startTime="2026-11-01T20:32:47.3271839+03:00" endTime="2026-11-01T20:33:05.4861144+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3b2c814e-2232-40c4-8090-431eb4558957">
+      <Output>
+        <StdOut>tick=649 i=0 remaining=87832000000 route=0 speed=0 loop=start_approach local=35000000000 length=122832000000 line=-2 desired=-2 block=None blocker=&#xD;
+tick=649 i=1 remaining=952655 route=0 speed=0 loop=start_approach local=122831047345 length=122832000000 line=-1,6 desired=-1,6 block=Athlete blocker=woodland_basin_v1_athlete_0&#xD;
+tick=649 i=2 remaining=904890 route=0 speed=0 loop=start_approach local=122831095110 length=122832000000 line=2 desired=2 block=Athlete blocker=woodland_basin_v1_athlete_0&#xD;
+tick=649 i=3 remaining=830564 route=0 speed=0 loop=start_approach local=122831169436 length=122832000000 line=-2,8 desired=-2,8 block=Athlete blocker=woodland_basin_v1_athlete_0&#xD;
+tick=649 i=4 remaining=624675 route=0 speed=0 loop=start_approach local=122831375325 length=122832000000 line=-0,85 desired=-3,1999999999999997 block=Athlete blocker=woodland_basin_v1_athlete_0&#xD;
+tick=649 i=5 remaining=16526 route=0 speed=0 loop=start_approach local=122831983474 length=122832000000 line=2,8 desired=2,8 block=Athlete blocker=woodland_basin_v1_athlete_0&#xD;
+tick=1200 i=0 remaining=87832000000 route=0 speed=0 loop=start_approach local=35000000000 length=122832000000 line=-2 desired=-2 block=None blocker=&#xD;
+tick=1200 i=1 remaining=952655 route=0 speed=0 loop=start_approach local=122831047345 length=122832000000 line=-2,4 desired=-2,4 block=Athlete blocker=woodland_basin_v1_athlete_0&#xD;
+tick=1200 i=2 remaining=904890 route=0 speed=0 loop=start_approach local=122831095110 length=122832000000 line=1,2 desired=1,2000000000000002 block=Athlete blocker=woodland_basin_v1_athlete_0&#xD;
+tick=1200 i=3 remaining=830564 route=0 speed=0 loop=start_approach local=122831169436 length=122832000000 line=-3,15 desired=-1,2000000000000002 block=Athlete blocker=woodland_basin_v1_athlete_0&#xD;
+tick=1200 i=4 remaining=624675 route=0 speed=0 loop=start_approach local=122831375325 length=122832000000 line=-0,85 desired=-0,85 block=Athlete blocker=woodland_basin_v1_athlete_0&#xD;
+tick=1200 i=5 remaining=16526 route=0 speed=0 loop=start_approach local=122831983474 length=122832000000 line=2,8 desired=2,8000000000000003 block=Athlete blocker=woodland_basin_v1_athlete_0</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Probe" storage="c:\game\biathlon\biathlon\artifacts\m16-6\baseline-1717c530\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="6a557ff1-4c85-e7bd-778b-c9bacc608a3e">
+      <Execution id="3b2c814e-2232-40c4-8090-431eb4558957" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\baseline-1717c530\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.M166StartDiagnosticTests" name="Probe" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="6a557ff1-4c85-e7bd-778b-c9bacc608a3e" executionId="3b2c814e-2232-40c4-8090-431eb4558957" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\artifacts\m16-6\baseline-1717c530\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+tick=649 i=0 remaining=87832000000 route=0 speed=0 loop=start_approach local=35000000000 length=122832000000 line=-2 desired=-2 block=None blocker=&#xD;
+tick=649 i=1 remaining=952655 route=0 speed=0 loop=start_approach local=122831047345 length=122832000000 line=-1,6 desired=-1,6 block=Athlete blocker=woodland_basin_v1_athlete_0&#xD;
+tick=649 i=2 remaining=904890 route=0 speed=0 loop=start_approach local=122831095110 length=122832000000 line=2 desired=2 block=Athlete blocker=woodland_basin_v1_athlete_0&#xD;
+tick=649 i=3 remaining=830564 route=0 speed=0 loop=start_approach local=122831169436 length=122832000000 line=-2,8 desired=-2,8 block=Athlete blocker=woodland_basin_v1_athlete_0&#xD;
+tick=649 i=4 remaining=624675 route=0 speed=0 loop=start_approach local=122831375325 length=122832000000 line=-0,85 desired=-3,1999999999999997 block=Athlete blocker=woodland_basin_v1_athlete_0&#xD;
+tick=649 i=5 remaining=16526 route=0 speed=0 loop=start_approach local=122831983474 length=122832000000 line=2,8 desired=2,8 block=Athlete blocker=woodland_basin_v1_athlete_0&#xD;
+tick=1200 i=0 remaining=87832000000 route=0 speed=0 loop=start_approach local=35000000000 length=122832000000 line=-2 desired=-2 block=None blocker=&#xD;
+tick=1200 i=1 remaining=952655 route=0 speed=0 loop=start_approach local=122831047345 length=122832000000 line=-2,4 desired=-2,4 block=Athlete blocker=woodland_basin_v1_athlete_0&#xD;
+tick=1200 i=2 remaining=904890 route=0 speed=0 loop=start_approach local=122831095110 length=122832000000 line=1,2 desired=1,2000000000000002 block=Athlete blocker=woodland_basin_v1_athlete_0&#xD;
+tick=1200 i=3 remaining=830564 route=0 speed=0 loop=start_approach local=122831169436 length=122832000000 line=-3,15 desired=-1,2000000000000002 block=Athlete blocker=woodland_basin_v1_athlete_0&#xD;
+tick=1200 i=4 remaining=624675 route=0 speed=0 loop=start_approach local=122831375325 length=122832000000 line=-0,85 desired=-0,85 block=Athlete blocker=woodland_basin_v1_athlete_0&#xD;
+tick=1200 i=5 remaining=16526 route=0 speed=0 loop=start_approach local=122831983474 length=122832000000 line=2,8 desired=2,8000000000000003 block=Athlete blocker=woodland_basin_v1_athlete_0&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

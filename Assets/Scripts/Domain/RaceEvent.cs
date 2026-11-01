@@ -47,7 +47,8 @@ namespace Biathlon.Domain
         PhysicalRangeReservationAcquired = 43,
         PhysicalRangeReservationReleased = 44,
         CourseBoundaryContact = 45,
-        ShootingMatCaptured = 46
+        ShootingMatCaptured = 46,
+        WeatherFrontStarted = 47
     }
     public readonly struct RaceEvent
     {
