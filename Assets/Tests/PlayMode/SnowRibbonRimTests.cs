@@ -48,5 +48,23 @@ namespace Biathlon.PlayModeTests
             }
             finally{Object.DestroyImmediate(source);if(refined!=null)Object.DestroyImmediate(refined);}
         }
+        [Test]public void AFixedCutKeepsItsExactCrossRowAndFadesNearbyRotation()
+        {
+            double[] distances={0,8,9.9,10,10.1,12,20};var p=new Vector3[distances.Length*2];var outgoing=Quaternion.Euler(0,12,0)*Vector3.forward;
+            for(int row=0;row<distances.Length;row++)
+            {float d=(float)distances[row];var direction=d<10?Vector3.forward:outgoing;var center=d<10?Vector3.forward*d:Vector3.forward*10+outgoing*(d-10);var across=new Vector3(direction.z,0,-direction.x)*4;p[row*2]=center-across;p[row*2+1]=center+across;}
+            var source=new Mesh{vertices=p,uv=new Vector2[p.Length],colors=new Color[p.Length]};Mesh free=null,pinned=null;
+            try
+            {
+                free=SnowRibbonRim.Refine(source,distances,false,2.5f,.75f);
+                pinned=SnowRibbonRim.Refine(source,distances,false,2.5f,.75f,new[]{10d});var q=pinned.vertices;
+                Assert.That(q[6],Is.EqualTo(p[6]));Assert.That(q[7],Is.EqualTo(p[7]));
+                Assert.That(Vector3.Distance(q[4],p[4]),Is.LessThan(Vector3.Distance(free.vertices[4],p[4])));
+                CollectionAssert.AreEqual(p,source.vertices);
+                for(int row=0;row<distances.Length;row++){Assert.That(Vector3.Distance((q[row*2]+q[row*2+1])*.5f,(p[row*2]+p[row*2+1])*.5f),Is.LessThan(1e-5));Assert.That(Vector3.Distance(q[row*2],q[row*2+1]),Is.EqualTo(8).Within(1e-5));}
+                Assert.Throws<ArgumentException>(()=>SnowRibbonRim.Refine(source,distances,false,2.5f,.75f,new[]{double.NaN}));
+            }
+            finally{Object.DestroyImmediate(source);if(free!=null)Object.DestroyImmediate(free);if(pinned!=null)Object.DestroyImmediate(pinned);}
+        }
     }
 }

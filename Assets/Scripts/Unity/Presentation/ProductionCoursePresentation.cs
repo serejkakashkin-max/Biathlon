@@ -24,6 +24,8 @@ namespace Biathlon.Unity.Presentation
         private bool[][] bankPanels;
         private float moundHeight,moundSpacing;
         private ProductionSnowShoulderDefinition.NaturalProfile natural;
+        private CompetitionFormat? presentationFormat;
+        private bool exactRouteCuts;
         public int RimClearanceAdjustments {get;private set;}
         public int CoveredCurtainFaces {get;private set;}
         public string SnowBankPolicyId {get;private set;}
@@ -85,6 +87,8 @@ namespace Biathlon.Unity.Presentation
             snowShoulders?.RequireBinding(plan);
             if(snowShoulders!=null&&sharedApron==null)throw new ArgumentException("Optional snow banks require the explicit shared apron owner.");
             var usage=route==null?null:RouteUsage(plan,route);
+            if(route!=null&&plan.Formats!=null)for(int i=0;i<plan.Formats.Count;i++)
+                if(plan.Formats.Get(i).Profile.Id==route.CompetitionProfileId)presentationFormat=plan.Formats.Get(i).Profile.Format;
             VenueManifest.ResourceId(materialResource);VenueManifest.ResourceId(blendResource);
             var template=Resources.Load<Material>(materialResource);
             if(template==null)throw new FileNotFoundException("Missing groomed course material: "+materialResource);
@@ -94,6 +98,7 @@ namespace Biathlon.Unity.Presentation
             var blend=TerrainBlendDefinition.FromJson(text.text);
             SnowShoulderWidthMeters=snowShoulders!=null&&snowShoulders.width_m>0?snowShoulders.width_m:blend.edge_width_m;
             natural=snowShoulders?.natural;moundHeight=snowShoulders?.mound_height_m??0;moundSpacing=snowShoulders?.mound_spacing_m??0;
+            exactRouteCuts=presentationFormat.HasValue&&natural?.UsesExactCuts(presentationFormat.Value)==true;
             try
             {
                 // Build every mesh before exposing any generated objects. Each stable loop owns one mesh.
@@ -103,7 +108,9 @@ namespace Biathlon.Unity.Presentation
                 for(int i=0;i<loopIds.Length;i++)
                 {
                     string id=plan.Visual.Get(i).LoopId;var loop=plan.Track.GetLoop(id);
-                    var mesh=TrackRibbonBuilder.Build(plan.Track,plan.Visual,id,out var distances);ownedMeshes.Add(mesh);
+                    var cuts=exactRouteCuts?new List<double>():null;
+                    if(cuts!=null&&usage!=null&&usage.TryGetValue(id,out var paid))foreach(var interval in paid){cuts.Add(interval.Item1/1000d);cuts.Add(interval.Item2/1000d);}
+                    var mesh=TrackRibbonBuilder.Build(plan.Track,plan.Visual,id,out var distances,cuts);ownedMeshes.Add(mesh);
                     Groom(mesh,loop.Closed);loopIds[i]=id;closedLoops[i]=loop.Closed;nativeMeshes[i]=mesh;nativeDistances[i]=distances;indices.Add(id,i);
                     roundBranchEnds[i]=!loop.Closed&&IsClosedRaceBranch(plan,id);
                     var selected=new bool[distances.Length-1];int count=0;
@@ -127,7 +134,7 @@ namespace Biathlon.Unity.Presentation
                     }
                     var surface=mesh;
                     if(natural!=null&&!IsMatPath(plan,id))
-                    {surface=SnowRibbonRim.Refine(mesh,distances,loop.Closed,natural.rim_direction_window_m,natural.rim_maximum_displacement_m);ownedMeshes.Add(surface);}
+                    {surface=SnowRibbonRim.Refine(mesh,distances,loop.Closed,natural.rim_direction_window_m,natural.rim_maximum_displacement_m,cuts);ownedMeshes.Add(surface);}
                     visiblePanels[i]=selected;meshes[i]=count==selected.Length?surface:SelectDrawMesh(surface,selected);
                     if(meshes[i]!=surface)ownedMeshes.Add(meshes[i]);if(count>0)VisibleLoopCount++;
                 }
@@ -181,10 +188,11 @@ namespace Biathlon.Unity.Presentation
             bankPanels=next;SnowBankPolicyId=policy.id;
             if(policy.width_m>0)SnowShoulderWidthMeters=policy.width_m;
             natural=policy.natural;moundHeight=policy.mound_height_m;moundSpacing=policy.mound_spacing_m;
+            exactRouteCuts=presentationFormat.HasValue&&natural?.UsesExactCuts(presentationFormat.Value)==true;
             if(natural!=null)for(int i=0;i<meshes.Length;i++)
             {
                 if(IsMatPath(plan,loopIds[i]))continue;
-                var refined=SnowRibbonRim.Refine(nativeMeshes[i],nativeDistances[i],closedLoops[i],natural.rim_direction_window_m,natural.rim_maximum_displacement_m);ownedMeshes.Add(refined);
+                var refined=SnowRibbonRim.Refine(nativeMeshes[i],nativeDistances[i],closedLoops[i],natural.rim_direction_window_m,natural.rim_maximum_displacement_m,exactRouteCuts?FixedCuts(i):null);ownedMeshes.Add(refined);
                 meshes[i]=SelectDrawMesh(refined,visiblePanels[i]);ownedMeshes.Add(meshes[i]);
                 drawMeshes[i]=Apron.OutsideDrawMesh(loopIds[i],meshes[i]);ownedMeshes.Add(drawMeshes[i]);
                 renderers[i].GetComponent<MeshFilter>().sharedMesh=drawMeshes[i];
@@ -214,6 +222,17 @@ namespace Biathlon.Unity.Presentation
             bool ClosedRace(string id){var other=plan.Track.GetLoop(id);return other.Closed&&other.Kind==TrackLoopKind.Race;}
         }
         private bool HasVisiblePanel(int index){foreach(bool active in visiblePanels[index])if(active)return true;return false;}
+        private List<double> FixedCuts(int index)
+        {
+            var result=new List<double>();var selected=visiblePanels[index];
+            for(int row=0;row<=selected.Length;row++)
+            {
+                bool before=row>0?selected[row-1]:closedLoops[index]&&selected[selected.Length-1];
+                bool after=row<selected.Length?selected[row]:closedLoops[index]&&selected[0];
+                if(before!=after)result.Add(nativeDistances[index][row]);
+            }
+            return result;
+        }
         private static Mesh SelectDrawMesh(Mesh source,bool[] selected)
         {
             var original=source.triangles;var chosen=new List<int>();
@@ -400,37 +419,80 @@ namespace Biathlon.Unity.Presentation
                 if(Fits(meshes[loop]))continue;
                 var original=SelectDrawMesh(nativeMeshes[loop],visiblePanels[loop]);
                 if(!Fits(original)){DestroyOwned(original);throw new ArgumentException("Original ribbon lacks required actual terrain clearance: "+loopIds[loop]);}
-                float low=0,high=1;Mesh best=original;
-                // Bounded search changes only the presentation rotation limit. Every
-                // trial keeps the exact original centers/heights/full road widths.
-                for(int step=0;step<8;step++)
+                if(!exactRouteCuts)
                 {
-                    float scale=(low+high)*.5f;
-                    var full=SnowRibbonRim.Refine(nativeMeshes[loop],nativeDistances[loop],closedLoops[loop],natural.rim_direction_window_m,natural.rim_maximum_displacement_m*scale);
-                    var selected=SelectDrawMesh(full,visiblePanels[loop]);DestroyOwned(full);
-                    if(Fits(selected)){DestroyOwned(best);best=selected;low=scale;}else{DestroyOwned(selected);high=scale;}
+                    float low=0,high=1;Mesh legacyBest=original;
+                    for(int step=0;step<8;step++)
+                    {
+                        float scale=(low+high)*.5f;
+                        var full=SnowRibbonRim.Refine(nativeMeshes[loop],nativeDistances[loop],closedLoops[loop],natural.rim_direction_window_m,natural.rim_maximum_displacement_m*scale);
+                        var selected=SelectDrawMesh(full,visiblePanels[loop]);DestroyOwned(full);
+                        if(Fits(selected)){DestroyOwned(legacyBest);legacyBest=selected;low=scale;}else{DestroyOwned(selected);high=scale;}
+                    }
+                    CommitRim(legacyBest);continue;
                 }
-                meshes[loop]=best;ownedMeshes.Add(best);
-                drawMeshes[loop]=Apron.OutsideDrawMesh(loopIds[loop],best);ownedMeshes.Add(drawMeshes[loop]);
-                renderers[loop].GetComponent<MeshFilter>().sharedMesh=drawMeshes[loop];RimClearanceAdjustments++;
+                // Constrain only the row whose rotation would touch terrain.
+                // One unsafe endpoint used to reduce smoothing over the whole
+                // branch, retaining backward rim teeth several metres away.
+                var target=meshes[loop].vertices;var source=original.vertices;var current=(Vector3[])source.Clone();var faces=original.triangles;
+                int last=current.Length/2-1;
+                var incident=new List<int>[last+1];for(int row=0;row<=last;row++)incident[row]=new List<int>();
+                for(int face=0;face<faces.Length;face+=3)
+                    for(int k=0;k<3;k++){int row=faces[face+k]/2;if(!incident[row].Contains(face))incident[row].Add(face);}
+                for(int row=0;row<=(closedLoops[loop]?last-1:last);row++)
+                {
+                    float low=0,high=1;SetRow(1);
+                    if(!FitsRow())
+                    {
+                        for(int step=0;step<8;step++)
+                        {float scale=(low+high)*.5f;SetRow(scale);if(FitsRow())low=scale;else high=scale;}
+                        SetRow(low);
+                    }
+                    void SetRow(float scale)
+                    {
+                        if(scale==0||target[row*2].Equals(source[row*2])&&target[row*2+1].Equals(source[row*2+1]))
+                        {current[row*2]=source[row*2];current[row*2+1]=source[row*2+1];}
+                        else if(scale==1){current[row*2]=target[row*2];current[row*2+1]=target[row*2+1];}
+                        else
+                        {
+                            var center=(source[row*2]+source[row*2+1])*.5f;
+                            var originalAcross=(source[row*2+1]-source[row*2])*.5f;var targetAcross=(target[row*2+1]-target[row*2])*.5f;
+                            var across=Vector3.Slerp(originalAcross,targetAcross,scale).normalized*originalAcross.magnitude;
+                            current[row*2]=center-across;current[row*2+1]=center+across;
+                        }
+                        if(closedLoops[loop]&&row==0){current[last*2]=current[0];current[last*2+1]=current[1];}
+                    }
+                    bool FitsRow()
+                    {
+                        foreach(int face in incident[row])if(!FitsFace(current,faces,face))return false;
+                        if(closedLoops[loop]&&row==0)foreach(int face in incident[last])if(!FitsFace(current,faces,face))return false;
+                        return true;
+                    }
+                }
+                Mesh best=original;best.vertices=current;best.RecalculateNormals();best.RecalculateBounds();
+                if(!Fits(best)){DestroyOwned(best);throw new ArgumentException("Row-constrained snow rim must retain complete actual terrain clearance.");}
+                CommitRim(best);
+                void CommitRim(Mesh value)
+                {meshes[loop]=value;ownedMeshes.Add(value);drawMeshes[loop]=Apron.OutsideDrawMesh(loopIds[loop],value);ownedMeshes.Add(drawMeshes[loop]);renderers[loop].GetComponent<MeshFilter>().sharedMesh=drawMeshes[loop];RimClearanceAdjustments++;}
             }
             bool Fits(Mesh mesh)
             {
                 var points=mesh.vertices;var indices=mesh.triangles;
-                for(int face=0;face<indices.Length;face+=3)
-                {
-                    var triangle=new JoinGroundTriangle(points[indices[face]],points[indices[face+1]],points[indices[face+2]]);
-                    double expected=Math.Abs(triangle.Area);if(expected<1e-12)continue;double covered=0;
-                    foreach(var terrain in ground.Over(triangle.A,triangle.B,triangle.C))
-                    {
-                        double sign=terrain.Area<0?-1:1;var polygon=new List<JoinVertex>{triangle.A,triangle.B,triangle.C};
-                        polygon=ClipJoin(polygon,p=>sign*Cross(terrain.A,terrain.B,p));polygon=ClipJoin(polygon,p=>sign*Cross(terrain.B,terrain.C,p));polygon=ClipJoin(polygon,p=>sign*Cross(terrain.C,terrain.A,p));
-                        for(int i=1;i<polygon.Count-1;i++)covered+=Math.Abs(Cross(polygon[0],polygon[i],polygon[i+1]));
-                        foreach(var point in polygon)if(triangle.Height(point)-terrain.Height(point)<natural.rim_minimum_clearance_m)return false;
-                    }
-                    if(Math.Abs(covered-expected)>Math.Max(1e-6,expected*1e-5))return false;
-                }
+                for(int face=0;face<indices.Length;face+=3)if(!FitsFace(points,indices,face))return false;
                 return true;
+            }
+            bool FitsFace(Vector3[] points,int[] indices,int face)
+            {
+                var triangle=new JoinGroundTriangle(points[indices[face]],points[indices[face+1]],points[indices[face+2]]);
+                double expected=Math.Abs(triangle.Area);if(expected<1e-12)return true;double covered=0;
+                foreach(var terrain in ground.Over(triangle.A,triangle.B,triangle.C))
+                {
+                    double sign=terrain.Area<0?-1:1;var polygon=new List<JoinVertex>{triangle.A,triangle.B,triangle.C};
+                    polygon=ClipJoin(polygon,p=>sign*Cross(terrain.A,terrain.B,p));polygon=ClipJoin(polygon,p=>sign*Cross(terrain.B,terrain.C,p));polygon=ClipJoin(polygon,p=>sign*Cross(terrain.C,terrain.A,p));
+                    for(int i=1;i<polygon.Count-1;i++)covered+=Math.Abs(Cross(polygon[0],polygon[i],polygon[i+1]));
+                    foreach(var point in polygon)if(triangle.Height(point)-terrain.Height(point)<natural.rim_minimum_clearance_m)return false;
+                }
+                return Math.Abs(covered-expected)<=Math.Max(1e-6,expected*1e-5);
             }
         }
         private void RequireOwnedFrame(MeshRenderer renderer,Mesh mesh)
@@ -1435,7 +1497,7 @@ namespace Biathlon.Unity.Presentation
             if(generated!=null){generated.SetActive(false);generated.transform.SetParent(null);DestroyOwned(generated);generated=null;}
             foreach(var mesh in ownedMeshes)DestroyOwned(mesh);ownedMeshes.Clear();DestroyOwned(material);material=null;
             edgeDiagnostics.Clear();indices.Clear();loopIds=null;closedLoops=null;meshes=null;nativeMeshes=null;nativeDistances=null;visiblePanels=null;renderers=null;skirts=null;skirtRenderers=null;MaximumEdgeGapMeters=SnowShoulderWidthMeters=0;TaperedSnowPanelCount=VerticalSnowPanelCount=VisibleLoopCount=0;VenueId=null;TrackSnapshotJson=null;VisualSnapshotJson=null;PresentationRouteId=PresentationRouteSnapshotJson=PresentationRequirementsSnapshotJson=null;
-            authoredRenderFrame=default;bankPanels=null;roundBranchEnds=null;natural=null;RimClearanceAdjustments=CoveredCurtainFaces=RoundedSnowCutCount=0;moundHeight=moundSpacing=0;SnowBankPolicyId=null;drawMeshes=null;Apron=null;apronRenderer=apronSkirtRenderer=null;apronSkirt=null;
+            authoredRenderFrame=default;bankPanels=null;roundBranchEnds=null;natural=null;presentationFormat=null;exactRouteCuts=false;RimClearanceAdjustments=CoveredCurtainFaces=RoundedSnowCutCount=0;moundHeight=moundSpacing=0;SnowBankPolicyId=null;drawMeshes=null;Apron=null;apronRenderer=apronSkirtRenderer=null;apronSkirt=null;
         }
         private static void DestroyOwned(Object value){if(value==null)return;if(Application.isPlaying)Destroy(value);else DestroyImmediate(value);}
         private void OnDestroy()=>Shutdown();

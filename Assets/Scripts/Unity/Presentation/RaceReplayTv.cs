@@ -103,7 +103,7 @@ namespace Biathlon.Unity.Presentation
             {
                 tvRows[i].style.display=i<count?DisplayStyle.Flex:DisplayStyle.None;if(i>=count)continue;var a=s.Get(order[i]);
                 string rank=a.Hud.Rank>0?a.Hud.Rank.ToString(CultureInfo.InvariantCulture):"—";
-                string gap=a.Hud.GapSeconds.HasValue?"+"+a.Hud.GapSeconds.Value.ToString("0.0",CultureInfo.InvariantCulture):"—";
+                string gap=a.Hud.GapSeconds.HasValue?GameplayHudModel.FormatGap(a.Hud.GapSeconds.Value,CultureInfo.GetCultureInfo(menu.Locale=="ru"?"ru-RU":"en-US")):"—";
                 tvRows[i].Bind(rank,Name(a.AthleteId),Nation(a.AthleteId),gap,a.Hud.ShootingResults,order[i]==SelectedIndex);
             }
             var selected=s.Get(SelectedIndex);string targets="";for(int i=0;i<5;i++)targets+=(selected.ClosedTargetsMask&(1<<i))!=0?"● ":"○ ";

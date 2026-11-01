@@ -61,6 +61,23 @@ namespace Biathlon.PlayModeTests
                 Assert.That(row.tooltip,Does.Contain(GameplayHudModel.FormatClock(table.Get(i).Seconds)));
             }
         }
+        [Test]public void MinutePlusGapRowsReuseClockNotationForBothLocales()
+        {
+            var tick=host.Runner.Field.Tick;var row=new TimingAthleteRow(1.3f);
+            foreach(string locale in new[]{"ru","en"})foreach(var sample in new[]{(70.2,"+1:10.2"),(125.7,"+2:05.7"),(59.96,"+1:00.0"),(59.9,"+59.9"),(70.2,"+1:10.2")})
+            {
+                row.BindCheckpoint("late",2,"Alex","NOR",180,sample.Item1,locale,true);
+                string expected=locale=="ru"?sample.Item2.Replace('.',','):sample.Item2;
+                Assert.That(row.Q<Label>("timing_gap").text,Is.EqualTo(expected));
+                Assert.That(row.Q<Label>("timing_elapsed").text,Is.EqualTo("03:00.0"));
+                Assert.That(row.tooltip,Does.Contain(expected));
+                Assert.That(row.AthleteId,Is.EqualTo("late"));
+            }
+            row.BindCheckpoint("first",1,"Leader","SWE",109.8,0,"ru",false);
+            Assert.That(row.Q<Label>("timing_gap").text,Is.EqualTo("ЛИДЕР"));
+            Assert.That(row.tooltip,Does.Contain("ЛИДЕР"));Assert.That(row.tooltip,Does.Not.Contain("+1:"));
+            Assert.That(host.Runner.Field.Tick,Is.EqualTo(tick));
+        }
         [UnityTest]public IEnumerator EarlierOccurrenceRemainsSelectedAcrossNewSplitsPreferencesAndPause()
         {
             Reach(4);var hud=host.GameplayHud;hud.SetPreferences("ru",0);hud.SetCheckpointTableVisible(true);

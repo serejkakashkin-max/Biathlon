@@ -87,7 +87,7 @@ namespace Biathlon.Unity.Presentation
             checkpointNotice.style.display=a.Hud.Rank>0&&Time.unscaledTimeAsDouble<noticeUntil&&!CheckpointTableVisible?DisplayStyle.Flex:DisplayStyle.None;
             string noticeDistance=host!=null&&a.Hud.CheckpointOrdinal>=0?host.DistanceView.Kilometers(checkpointHistoryLayout.Get(a.Hud.CheckpointOrdinal).RouteNanometers/(double)SkiState.NanometersPerMeter,System.Globalization.CultureInfo.GetCultureInfo(Locale=="ru"?"ru-RU":"en-US"))+L(" КМ · "," KM · "):"";
             if(noticeDistance.Length>0)timing.text=noticeDistance+Model.Timing;
-            noticeText.text=noticeDistance+a.Hud.Rank+" / "+a.Hud.ComparedAthletes+"    +"+(a.Hud.GapSeconds??0).ToString("0.0")+L(" с"," s");
+            noticeText.text=noticeDistance+a.Hud.Rank+" / "+a.Hud.ComparedAthletes+"    "+GameplayHudModel.FormatGap(a.Hud.GapSeconds??0,System.Globalization.CultureInfo.GetCultureInfo(Locale=="ru"?"ru-RU":"en-US"));
             if(CheckpointTableVisible)
             {
                 var table=host==null?null:CheckpointStandings.Capture(host.Runner.Field,checkpointHistory.Selected);
@@ -110,7 +110,7 @@ namespace Biathlon.Unity.Presentation
                     var role=host.Proxies?.LeaderRole(row.AthleteId)??Biathlon.Career.CareerLeaderBib.None;
                     string description=role==(Biathlon.Career.CareerLeaderBib.Total|Biathlon.Career.CareerLeaderBib.Discipline)?L("Лидер общего зачёта и дисциплины","Overall and discipline leader"):
                         role==Biathlon.Career.CareerLeaderBib.Total?L("Лидер общего зачёта","Overall leader"):role==Biathlon.Career.CareerLeaderBib.Discipline?L("Лидер дисциплины","Discipline leader"):"";
-                    label.Bind(row.AthleteId,row.Rank,name,nation,GameplayHudModel.FormatClock(row.Seconds),row.GapSeconds==0?L("ЛИДЕР","LEADER"):"+"+row.GapSeconds.ToString("0.0"),row.AthleteId==athleteId,role,description);
+                    label.BindCheckpoint(row.AthleteId,row.Rank,name,nation,row.Seconds,row.GapSeconds,Locale,row.AthleteId==athleteId,role,description);
                 }
             }
             bool near=a.ShootingActive;

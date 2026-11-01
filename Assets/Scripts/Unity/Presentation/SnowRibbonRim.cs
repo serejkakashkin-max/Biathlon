@@ -7,12 +7,14 @@ namespace Biathlon.Unity.Presentation
     /// row distances, heights, full widths, indices and the original source mesh.</summary>
     public static class SnowRibbonRim
     {
-        public static Mesh Refine(Mesh source,double[] distances,bool closed,float window,float maximumDisplacement)
+        public static Mesh Refine(Mesh source,double[] distances,bool closed,float window,float maximumDisplacement,System.Collections.Generic.IReadOnlyList<double> fixedCuts=null)
         {
             if(source==null||distances==null||source.vertexCount!=distances.Length*2||distances.Length<2||
                 !float.IsFinite(window)||window<=0||!float.IsFinite(maximumDisplacement)||maximumDisplacement<=0)
                 throw new ArgumentException("Bounded native ribbon rows required.");
             var p=source.vertices;var centers=new Vector3[distances.Length];int last=distances.Length-1;
+            if(fixedCuts!=null)foreach(double cut in fixedCuts)
+                if(!double.IsFinite(cut)||cut<distances[0]||cut>distances[last])throw new ArgumentException("Fixed cut must belong to the ribbon.");
             for(int row=0;row<=last;row++)
             {
                 if(!double.IsFinite(distances[row])||row>0&&distances[row]<=distances[row-1])throw new ArgumentException("Ordered native distances required.");
@@ -27,7 +29,19 @@ namespace Biathlon.Unity.Presentation
                 var across=new Vector3(tangent.z,0,-tangent.x).normalized*half;
                 if(Vector3.Dot(across,original)<=0)continue;
                 if((across-original).sqrMagnitude<1e-10f)continue;
-                float maxAngle=2*Mathf.Asin(Mathf.Clamp01(maximumDisplacement/(2*half)));
+                // An open branch's endpoint tangent is fixed by its connection.
+                // Fade the permitted rotation into that tangent over the same
+                // authored smoothing window; a full rotation on the penultimate
+                // short row can fold the rim back and bury it in the terrain.
+                float displacement=maximumDisplacement;
+                if(!closed&&fixedCuts!=null)displacement*=Mathf.SmoothStep(0,1,(float)(Math.Min(distances[row]-distances[0],distances[last]-distances[row])/window));
+                if(fixedCuts!=null)foreach(double cut in fixedCuts)
+                {
+                    double gap=Math.Abs(distances[row]-cut);if(closed)gap=Math.Min(gap,distances[last]-distances[0]-gap);
+                    displacement=Mathf.Min(displacement,maximumDisplacement*Mathf.SmoothStep(0,1,(float)(gap/window)));
+                }
+                if(displacement==0)continue;
+                float maxAngle=2*Mathf.Asin(Mathf.Clamp01(displacement/(2*half)));
                 across=Vector3.RotateTowards(original,across,maxAngle,0);
                 p[row*2]=centers[row]-across;p[row*2+1]=centers[row]+across;
             }

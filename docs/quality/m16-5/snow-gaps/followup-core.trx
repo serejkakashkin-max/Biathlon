@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="d16f4ee4-9052-4b2c-be73-bee031f7b2ba" name="snkashkin@DESKTOP-G3075GA 2026-11-01 17:55:07" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T17:55:07.5713372+03:00" queuing="2026-11-01T17:55:07.5713374+03:00" start="2026-11-01T17:55:06.2520527+03:00" finish="2026-11-01T17:55:07.5941115+03:00" />
+  <TestSettings name="default" id="c36511be-dd60-48fc-a555-9d6d48df0bb5">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-11-01_17_55_07" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="af306b5d-8eb6-4df7-82af-4b86f297e187" testId="2896c8e0-a34e-4016-8897-0f3838e5e568" testName="ClockFormatsAthleteElapsedTime(3601.5d,&quot;01:00:01.5&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000040" startTime="2026-11-01T17:55:07.1645823+03:00" endTime="2026-11-01T17:55:07.1645865+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="af306b5d-8eb6-4df7-82af-4b86f297e187" />
+    <UnitTestResult executionId="33116420-7d27-46a7-8d21-7e70715290e0" testId="bf615304-d9c1-d533-738f-8e834c36137b" testName="GapsRollOverAtClockBoundaries(125.7d,&quot;+2:05.7&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000020" startTime="2026-11-01T17:55:07.5306849+03:00" endTime="2026-11-01T17:55:07.5306869+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="33116420-7d27-46a7-8d21-7e70715290e0" />
+    <UnitTestResult executionId="70820a43-801a-4418-867b-1ecb62654292" testId="4b285d1f-1932-96ff-bca4-a0e35fa703db" testName="OfficialMenAndWomenDistancesComeFromCanonicalProfiles(&quot;pursuit&quot;,12500,10000)" computerName="DESKTOP-G3075GA" duration="00:00:00.0012890" startTime="2026-11-01T17:55:07.5281671+03:00" endTime="2026-11-01T17:55:07.5294554+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="70820a43-801a-4418-867b-1ecb62654292" />
+    <UnitTestResult executionId="1652d302-4f87-4649-8d63-22022a8f9217" testId="38b97211-7624-79b9-b69d-8cc6f64dc7b8" testName="GapsRollOverAtClockBoundaries(59.9d,&quot;+59.9&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000090" startTime="2026-11-01T17:55:07.5306617+03:00" endTime="2026-11-01T17:55:07.5306708+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1652d302-4f87-4649-8d63-22022a8f9217" />
+    <UnitTestResult executionId="29cd12fe-bfa8-4732-b27a-5b54535b1284" testId="efb1965c-d8bb-7e9e-b70a-b01b1b32ae35" testName="OfficialMenAndWomenDistancesComeFromCanonicalProfiles(&quot;mass_start&quot;,15000,12500)" computerName="DESKTOP-G3075GA" duration="00:00:00.0007610" startTime="2026-11-01T17:55:07.5294642+03:00" endTime="2026-11-01T17:55:07.5302248+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="29cd12fe-bfa8-4732-b27a-5b54535b1284" />
+    <UnitTestResult executionId="74f41b97-d3ae-40b1-9d85-aab8a27350c0" testId="9ad23d11-0398-c929-7abe-3a18e9ab9467" testName="GapsRollOverAtClockBoundaries(60,&quot;+1:00.0&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000020" startTime="2026-11-01T17:55:07.5306778+03:00" endTime="2026-11-01T17:55:07.5306801+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="74f41b97-d3ae-40b1-9d85-aab8a27350c0" />
+    <UnitTestResult executionId="05fc3ee4-79e0-4fe5-865f-c486b312fc71" testId="690897c6-6b8a-6fa9-6b9e-c00055b75991" testName="BreathPromptsDistinguishBenefitStrainAndRecovery(False,True,0.5d,&quot;breath_hold&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0002320" startTime="2026-11-01T17:55:07.1614293+03:00" endTime="2026-11-01T17:55:07.1616608+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="05fc3ee4-79e0-4fe5-865f-c486b312fc71" />
+    <UnitTestResult executionId="a43574df-6811-42e4-90bd-2f517addc682" testId="b21617d9-1752-012b-c3ba-656cfa5b499a" testName="LocalizedSnapshotsUseIndividualStartAndRemainReadOnly" computerName="DESKTOP-G3075GA" duration="00:00:00.3573570" startTime="2026-11-01T17:55:07.1646110+03:00" endTime="2026-11-01T17:55:07.5219670+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a43574df-6811-42e4-90bd-2f517addc682" />
+    <UnitTestResult executionId="87d84a4d-117d-408c-b7b6-cf5a34ff2130" testId="7128bb51-e162-602d-024a-af2ed5154f87" testName="GapsRollOverAtClockBoundaries(70,&quot;+1:10.0&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000020" startTime="2026-11-01T17:55:07.5306817+03:00" endTime="2026-11-01T17:55:07.5306834+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="87d84a4d-117d-408c-b7b6-cf5a34ff2130" />
+    <UnitTestResult executionId="191d8a88-800b-493e-a4ff-21d1cd607567" testId="4236c84a-8b82-b6b2-498c-db199dd4da0d" testName="WeaponPromptMatchesTheAcceptedPhase(Setup,0,True,&quot;weapon_setup&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000510" startTime="2026-11-01T17:55:07.5220230+03:00" endTime="2026-11-01T17:55:07.5220743+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="191d8a88-800b-493e-a4ff-21d1cd607567" />
+    <UnitTestResult executionId="5d40b9ba-1fea-46c3-ba45-114489c82c13" testId="9b118b3a-e0db-4f40-852b-eb3f5cb136d8" testName="GapsRollOverAtClockBoundaries(3665.2d,&quot;+1:01:05.2&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000020" startTime="2026-11-01T17:55:07.5306933+03:00" endTime="2026-11-01T17:55:07.5306955+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5d40b9ba-1fea-46c3-ba45-114489c82c13" />
+    <UnitTestResult executionId="7898ac2f-4111-4668-97a1-6e180e966157" testId="e4891c17-e160-e6fb-c0f8-b1301182fd87" testName="GapsRollOverAtClockBoundaries(59.96d,&quot;+1:00.0&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000040" startTime="2026-11-01T17:55:07.5306729+03:00" endTime="2026-11-01T17:55:07.5306764+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7898ac2f-4111-4668-97a1-6e180e966157" />
+    <UnitTestResult executionId="1f916b45-f001-40ce-913f-64e3c48e201a" testId="6c137e7d-8d76-5238-6b8b-31c3b416ce42" testName="WeaponPromptMatchesTheAcceptedPhase(Aiming,0,True,&quot;weapon_reload&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0002140" startTime="2026-11-01T17:55:07.5220769+03:00" endTime="2026-11-01T17:55:07.5222910+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1f916b45-f001-40ce-913f-64e3c48e201a" />
+    <UnitTestResult executionId="82ba1c19-259d-42a7-9d43-cf97197ce616" testId="c9ac2fee-79d5-a718-8534-1dc1e637b6e2" testName="BreathPromptsDistinguishBenefitStrainAndRecovery(False,False,1,&quot;breath_ready&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0030339" startTime="2026-11-01T17:55:07.1578586+03:00" endTime="2026-11-01T17:55:07.1608646+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="82ba1c19-259d-42a7-9d43-cf97197ce616" />
+    <UnitTestResult executionId="c0edad61-2e64-4a6e-9029-44d92492d622" testId="5eea094f-41ad-05b9-c38d-cdb950d67a35" testName="GapsRollOverAtClockBoundaries(12.34d,&quot;+12.3&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0001240" startTime="2026-11-01T17:55:07.5305231+03:00" endTime="2026-11-01T17:55:07.5306469+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c0edad61-2e64-4a6e-9029-44d92492d622" />
+    <UnitTestResult executionId="fe739ae8-9b64-401c-acad-87eddb3afb6a" testId="b4887dda-1b7d-efcf-da6b-7cf635aa6690" testName="BreathPromptsDistinguishBenefitStrainAndRecovery(True,True,0.5d,&quot;breath_release&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000020" startTime="2026-11-01T17:55:07.1616884+03:00" endTime="2026-11-01T17:55:07.1616908+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fe739ae8-9b64-401c-acad-87eddb3afb6a" />
+    <UnitTestResult executionId="0d4ebdd7-9318-4b50-a5d5-6b32027ee5b0" testId="1d46698d-fc1b-9843-0c7d-098bc8c23d33" testName="WeaponPromptMatchesTheAcceptedPhase(BoltCycle,1,True,&quot;weapon_cycling&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000100" startTime="2026-11-01T17:55:07.5223002+03:00" endTime="2026-11-01T17:55:07.5223098+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0d4ebdd7-9318-4b50-a5d5-6b32027ee5b0" />
+    <UnitTestResult executionId="12228f5a-f7d1-4b34-8260-31a30e9faf47" testId="01c7ee5b-790c-1074-1afd-6ca3f29d0abe" testName="WeaponPromptMatchesTheAcceptedPhase(Aiming,1,False,&quot;weapon_ready&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000020" startTime="2026-11-01T17:55:07.5223117+03:00" endTime="2026-11-01T17:55:07.5223139+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="12228f5a-f7d1-4b34-8260-31a30e9faf47" />
+    <UnitTestResult executionId="e221ff07-9894-4949-bff1-f5be922e30f7" testId="b8d932fa-bcb1-1feb-42ea-1e5013d99b7a" testName="FractionUsesTheChosenLocale(&quot;en-US&quot;,&quot;+1:10.2&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000860" startTime="2026-11-01T17:55:07.5303796+03:00" endTime="2026-11-01T17:55:07.5304657+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e221ff07-9894-4949-bff1-f5be922e30f7" />
+    <UnitTestResult executionId="1da77b87-aa8c-4bf7-b76c-8b62906898e3" testId="c7a73f2d-87ba-6ffe-e843-6602cef182cb" testName="GapsRollOverAtClockBoundaries(0,&quot;+0.0&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000420" startTime="2026-11-01T17:55:07.5304791+03:00" endTime="2026-11-01T17:55:07.5305209+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1da77b87-aa8c-4bf7-b76c-8b62906898e3" />
+    <UnitTestResult executionId="266cb1de-f17a-4962-bded-8119ecfd595d" testId="4eb7eb79-5098-bae5-7bc3-2b2c4a8b1ab8" testName="ClockFormatsAthleteElapsedTime(61.25d,&quot;01:01.2&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0001210" startTime="2026-11-01T17:55:07.1644570+03:00" endTime="2026-11-01T17:55:07.1645777+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="266cb1de-f17a-4962-bded-8119ecfd595d" />
+    <UnitTestResult executionId="dfa78d8f-f778-4fa0-93e6-d1de1e824588" testId="55d91bb5-9b08-2d76-7947-9ebe3cd14bd6" testName="DistanceFormattingRejectsInvalidInputAndWarmedProgressDoesNotAllocate" computerName="DESKTOP-G3075GA" duration="00:00:00.0040800" startTime="2026-11-01T17:55:07.5227899+03:00" endTime="2026-11-01T17:55:07.5268695+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dfa78d8f-f778-4fa0-93e6-d1de1e824588" />
+    <UnitTestResult executionId="684201ec-6714-4e1b-8836-a83e06d1d6f7" testId="fba679e4-4c4c-88de-2363-c66d4fcc854f" testName="GapsRollOverAtClockBoundaries(3599.96d,&quot;+1:00:00.0&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000040" startTime="2026-11-01T17:55:07.5306884+03:00" endTime="2026-11-01T17:55:07.5306919+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="684201ec-6714-4e1b-8836-a83e06d1d6f7" />
+    <UnitTestResult executionId="7732e7c8-f932-4977-abb5-d786962ead52" testId="6d327711-a7da-cda0-d2fc-86c971cdd054" testName="FractionUsesTheChosenLocale(&quot;ru-RU&quot;,&quot;+1:10,2&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000570" startTime="2026-11-01T17:55:07.5303198+03:00" endTime="2026-11-01T17:55:07.5303771+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7732e7c8-f932-4977-abb5-d786962ead52" />
+    <UnitTestResult executionId="da2b1b3f-5f2e-4e6b-bb67-2663262502c0" testId="8a73355c-3f76-778f-83e7-b820aa16950e" testName="InvalidValuesAreRejected" computerName="DESKTOP-G3075GA" duration="00:00:00.0002920" startTime="2026-11-01T17:55:07.5307031+03:00" endTime="2026-11-01T17:55:07.5309946+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="da2b1b3f-5f2e-4e6b-bb67-2663262502c0" />
+    <UnitTestResult executionId="4cedcc9b-29ba-4539-b38e-71f960abd41f" testId="33280e67-64c9-9ace-0d61-a9ccd0875ca8" testName="OfficialMenAndWomenDistancesComeFromCanonicalProfiles(&quot;sprint&quot;,10000,7500)" computerName="DESKTOP-G3075GA" duration="00:00:00.0012650" startTime="2026-11-01T17:55:07.5268924+03:00" endTime="2026-11-01T17:55:07.5281574+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4cedcc9b-29ba-4539-b38e-71f960abd41f" />
+    <UnitTestResult executionId="34a77cd8-e443-4411-815f-d578080316a6" testId="3031cf35-537b-57d4-3e32-73102cc2f45e" testName="WeaponPromptMatchesTheAcceptedPhase(Aiming,5,True,&quot;weapon_done&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000020" startTime="2026-11-01T17:55:07.5223152+03:00" endTime="2026-11-01T17:55:07.5223168+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="34a77cd8-e443-4411-815f-d578080316a6" />
+    <UnitTestResult executionId="3e6fcff2-5910-4a33-b359-0ce85840fd00" testId="0db9d70a-be2f-8b58-7608-c9139e6d90c8" testName="ClockFormatsAthleteElapsedTime(0,&quot;00:00.0&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0022100" startTime="2026-11-01T17:55:07.1622391+03:00" endTime="2026-11-01T17:55:07.1644486+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3e6fcff2-5910-4a33-b359-0ce85840fd00" />
+    <UnitTestResult executionId="78858d9f-943c-439a-bf4a-28b09835bfdb" testId="e55f0bc3-613f-0246-3c0c-936a66d9b652" testName="BreathPromptsDistinguishBenefitStrainAndRecovery(False,True,1.2d,&quot;breath_strained&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000090" startTime="2026-11-01T17:55:07.1616771+03:00" endTime="2026-11-01T17:55:07.1616864+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="78858d9f-943c-439a-bf4a-28b09835bfdb" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="GapsRollOverAtClockBoundaries(3599.96d,&quot;+1:00:00.0&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="fba679e4-4c4c-88de-2363-c66d4fcc854f">
+      <Execution id="684201ec-6714-4e1b-8836-a83e06d1d6f7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="GapsRollOverAtClockBoundaries(3599.96d,&quot;+1:00:00.0&quot;)" />
+    </UnitTest>
+    <UnitTest name="OfficialMenAndWomenDistancesComeFromCanonicalProfiles(&quot;sprint&quot;,10000,7500)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="33280e67-64c9-9ace-0d61-a9ccd0875ca8">
+      <Execution id="4cedcc9b-29ba-4539-b38e-71f960abd41f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceDistanceViewTests" name="OfficialMenAndWomenDistancesComeFromCanonicalProfiles(&quot;sprint&quot;,10000,7500)" />
+    </UnitTest>
+    <UnitTest name="GapsRollOverAtClockBoundaries(0,&quot;+0.0&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="c7a73f2d-87ba-6ffe-e843-6602cef182cb">
+      <Execution id="1da77b87-aa8c-4bf7-b76c-8b62906898e3" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="GapsRollOverAtClockBoundaries(0,&quot;+0.0&quot;)" />
+    </UnitTest>
+    <UnitTest name="FractionUsesTheChosenLocale(&quot;en-US&quot;,&quot;+1:10.2&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="b8d932fa-bcb1-1feb-42ea-1e5013d99b7a">
+      <Execution id="e221ff07-9894-4949-bff1-f5be922e30f7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="FractionUsesTheChosenLocale(&quot;en-US&quot;,&quot;+1:10.2&quot;)" />
+    </UnitTest>
+    <UnitTest name="WeaponPromptMatchesTheAcceptedPhase(BoltCycle,1,True,&quot;weapon_cycling&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="1d46698d-fc1b-9843-0c7d-098bc8c23d33">
+      <Execution id="0d4ebdd7-9318-4b50-a5d5-6b32027ee5b0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.GameplayHudModelTests" name="WeaponPromptMatchesTheAcceptedPhase(BoltCycle,1,True,&quot;weapon_cycling&quot;)" />
+    </UnitTest>
+    <UnitTest name="BreathPromptsDistinguishBenefitStrainAndRecovery(False,False,1,&quot;breath_ready&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="c9ac2fee-79d5-a718-8534-1dc1e637b6e2">
+      <Execution id="82ba1c19-259d-42a7-9d43-cf97197ce616" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.GameplayHudModelTests" name="BreathPromptsDistinguishBenefitStrainAndRecovery(False,False,1,&quot;breath_ready&quot;)" />
+    </UnitTest>
+    <UnitTest name="ClockFormatsAthleteElapsedTime(0,&quot;00:00.0&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="0db9d70a-be2f-8b58-7608-c9139e6d90c8">
+      <Execution id="3e6fcff2-5910-4a33-b359-0ce85840fd00" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.GameplayHudModelTests" name="ClockFormatsAthleteElapsedTime(0,&quot;00:00.0&quot;)" />
+    </UnitTest>
+    <UnitTest name="ClockFormatsAthleteElapsedTime(61.25d,&quot;01:01.2&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="4eb7eb79-5098-bae5-7bc3-2b2c4a8b1ab8">
+      <Execution id="266cb1de-f17a-4962-bded-8119ecfd595d" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.GameplayHudModelTests" name="ClockFormatsAthleteElapsedTime(61.25d,&quot;01:01.2&quot;)" />
+    </UnitTest>
+    <UnitTest name="BreathPromptsDistinguishBenefitStrainAndRecovery(True,True,0.5d,&quot;breath_release&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="b4887dda-1b7d-efcf-da6b-7cf635aa6690">
+      <Execution id="fe739ae8-9b64-401c-acad-87eddb3afb6a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.GameplayHudModelTests" name="BreathPromptsDistinguishBenefitStrainAndRecovery(True,True,0.5d,&quot;breath_release&quot;)" />
+    </UnitTest>
+    <UnitTest name="LocalizedSnapshotsUseIndividualStartAndRemainReadOnly" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="b21617d9-1752-012b-c3ba-656cfa5b499a">
+      <Execution id="a43574df-6811-42e4-90bd-2f517addc682" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.GameplayHudModelTests" name="LocalizedSnapshotsUseIndividualStartAndRemainReadOnly" />
+    </UnitTest>
+    <UnitTest name="OfficialMenAndWomenDistancesComeFromCanonicalProfiles(&quot;mass_start&quot;,15000,12500)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="efb1965c-d8bb-7e9e-b70a-b01b1b32ae35">
+      <Execution id="29cd12fe-bfa8-4732-b27a-5b54535b1284" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceDistanceViewTests" name="OfficialMenAndWomenDistancesComeFromCanonicalProfiles(&quot;mass_start&quot;,15000,12500)" />
+    </UnitTest>
+    <UnitTest name="GapsRollOverAtClockBoundaries(3665.2d,&quot;+1:01:05.2&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="9b118b3a-e0db-4f40-852b-eb3f5cb136d8">
+      <Execution id="5d40b9ba-1fea-46c3-ba45-114489c82c13" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="GapsRollOverAtClockBoundaries(3665.2d,&quot;+1:01:05.2&quot;)" />
+    </UnitTest>
+    <UnitTest name="GapsRollOverAtClockBoundaries(125.7d,&quot;+2:05.7&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="bf615304-d9c1-d533-738f-8e834c36137b">
+      <Execution id="33116420-7d27-46a7-8d21-7e70715290e0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="GapsRollOverAtClockBoundaries(125.7d,&quot;+2:05.7&quot;)" />
+    </UnitTest>
+    <UnitTest name="GapsRollOverAtClockBoundaries(60,&quot;+1:00.0&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="9ad23d11-0398-c929-7abe-3a18e9ab9467">
+      <Execution id="74f41b97-d3ae-40b1-9d85-aab8a27350c0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="GapsRollOverAtClockBoundaries(60,&quot;+1:00.0&quot;)" />
+    </UnitTest>
+    <UnitTest name="OfficialMenAndWomenDistancesComeFromCanonicalProfiles(&quot;pursuit&quot;,12500,10000)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="4b285d1f-1932-96ff-bca4-a0e35fa703db">
+      <Execution id="70820a43-801a-4418-867b-1ecb62654292" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceDistanceViewTests" name="OfficialMenAndWomenDistancesComeFromCanonicalProfiles(&quot;pursuit&quot;,12500,10000)" />
+    </UnitTest>
+    <UnitTest name="GapsRollOverAtClockBoundaries(70,&quot;+1:10.0&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="7128bb51-e162-602d-024a-af2ed5154f87">
+      <Execution id="87d84a4d-117d-408c-b7b6-cf5a34ff2130" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="GapsRollOverAtClockBoundaries(70,&quot;+1:10.0&quot;)" />
+    </UnitTest>
+    <UnitTest name="GapsRollOverAtClockBoundaries(12.34d,&quot;+12.3&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="5eea094f-41ad-05b9-c38d-cdb950d67a35">
+      <Execution id="c0edad61-2e64-4a6e-9029-44d92492d622" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="GapsRollOverAtClockBoundaries(12.34d,&quot;+12.3&quot;)" />
+    </UnitTest>
+    <UnitTest name="FractionUsesTheChosenLocale(&quot;ru-RU&quot;,&quot;+1:10,2&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="6d327711-a7da-cda0-d2fc-86c971cdd054">
+      <Execution id="7732e7c8-f932-4977-abb5-d786962ead52" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="FractionUsesTheChosenLocale(&quot;ru-RU&quot;,&quot;+1:10,2&quot;)" />
+    </UnitTest>
+    <UnitTest name="WeaponPromptMatchesTheAcceptedPhase(Aiming,0,True,&quot;weapon_reload&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="6c137e7d-8d76-5238-6b8b-31c3b416ce42">
+      <Execution id="1f916b45-f001-40ce-913f-64e3c48e201a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.GameplayHudModelTests" name="WeaponPromptMatchesTheAcceptedPhase(Aiming,0,True,&quot;weapon_reload&quot;)" />
+    </UnitTest>
+    <UnitTest name="GapsRollOverAtClockBoundaries(59.96d,&quot;+1:00.0&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="e4891c17-e160-e6fb-c0f8-b1301182fd87">
+      <Execution id="7898ac2f-4111-4668-97a1-6e180e966157" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="GapsRollOverAtClockBoundaries(59.96d,&quot;+1:00.0&quot;)" />
+    </UnitTest>
+    <UnitTest name="InvalidValuesAreRejected" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="8a73355c-3f76-778f-83e7-b820aa16950e">
+      <Execution id="da2b1b3f-5f2e-4e6b-bb67-2663262502c0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="InvalidValuesAreRejected" />
+    </UnitTest>
+    <UnitTest name="DistanceFormattingRejectsInvalidInputAndWarmedProgressDoesNotAllocate" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="55d91bb5-9b08-2d76-7947-9ebe3cd14bd6">
+      <Execution id="dfa78d8f-f778-4fa0-93e6-d1de1e824588" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceDistanceViewTests" name="DistanceFormattingRejectsInvalidInputAndWarmedProgressDoesNotAllocate" />
+    </UnitTest>
+    <UnitTest name="WeaponPromptMatchesTheAcceptedPhase(Aiming,1,False,&quot;weapon_ready&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="01c7ee5b-790c-1074-1afd-6ca3f29d0abe">
+      <Execution id="12228f5a-f7d1-4b34-8260-31a30e9faf47" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.GameplayHudModelTests" name="WeaponPromptMatchesTheAcceptedPhase(Aiming,1,False,&quot;weapon_ready&quot;)" />
+    </UnitTest>
+    <UnitTest name="WeaponPromptMatchesTheAcceptedPhase(Aiming,5,True,&quot;weapon_done&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="3031cf35-537b-57d4-3e32-73102cc2f45e">
+      <Execution id="34a77cd8-e443-4411-815f-d578080316a6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.GameplayHudModelTests" name="WeaponPromptMatchesTheAcceptedPhase(Aiming,5,True,&quot;weapon_done&quot;)" />
+    </UnitTest>
+    <UnitTest name="BreathPromptsDistinguishBenefitStrainAndRecovery(False,True,1.2d,&quot;breath_strained&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="e55f0bc3-613f-0246-3c0c-936a66d9b652">
+      <Execution id="78858d9f-943c-439a-bf4a-28b09835bfdb" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.GameplayHudModelTests" name="BreathPromptsDistinguishBenefitStrainAndRecovery(False,True,1.2d,&quot;breath_strained&quot;)" />
+    </UnitTest>
+    <UnitTest name="WeaponPromptMatchesTheAcceptedPhase(Setup,0,True,&quot;weapon_setup&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="4236c84a-8b82-b6b2-498c-db199dd4da0d">
+      <Execution id="191d8a88-800b-493e-a4ff-21d1cd607567" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.GameplayHudModelTests" name="WeaponPromptMatchesTheAcceptedPhase(Setup,0,True,&quot;weapon_setup&quot;)" />
+    </UnitTest>
+    <UnitTest name="ClockFormatsAthleteElapsedTime(3601.5d,&quot;01:00:01.5&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="2896c8e0-a34e-4016-8897-0f3838e5e568">
+      <Execution id="af306b5d-8eb6-4df7-82af-4b86f297e187" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.GameplayHudModelTests" name="ClockFormatsAthleteElapsedTime(3601.5d,&quot;01:00:01.5&quot;)" />
+    </UnitTest>
+    <UnitTest name="BreathPromptsDistinguishBenefitStrainAndRecovery(False,True,0.5d,&quot;breath_hold&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="690897c6-6b8a-6fa9-6b9e-c00055b75991">
+      <Execution id="05fc3ee4-79e0-4fe5-865f-c486b312fc71" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.GameplayHudModelTests" name="BreathPromptsDistinguishBenefitStrainAndRecovery(False,True,0.5d,&quot;breath_hold&quot;)" />
+    </UnitTest>
+    <UnitTest name="GapsRollOverAtClockBoundaries(59.9d,&quot;+59.9&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="38b97211-7624-79b9-b69d-8cc6f64dc7b8">
+      <Execution id="1652d302-4f87-4649-8d63-22022a8f9217" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="GapsRollOverAtClockBoundaries(59.9d,&quot;+59.9&quot;)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="2896c8e0-a34e-4016-8897-0f3838e5e568" executionId="af306b5d-8eb6-4df7-82af-4b86f297e187" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bf615304-d9c1-d533-738f-8e834c36137b" executionId="33116420-7d27-46a7-8d21-7e70715290e0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4b285d1f-1932-96ff-bca4-a0e35fa703db" executionId="70820a43-801a-4418-867b-1ecb62654292" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="38b97211-7624-79b9-b69d-8cc6f64dc7b8" executionId="1652d302-4f87-4649-8d63-22022a8f9217" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="efb1965c-d8bb-7e9e-b70a-b01b1b32ae35" executionId="29cd12fe-bfa8-4732-b27a-5b54535b1284" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9ad23d11-0398-c929-7abe-3a18e9ab9467" executionId="74f41b97-d3ae-40b1-9d85-aab8a27350c0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="690897c6-6b8a-6fa9-6b9e-c00055b75991" executionId="05fc3ee4-79e0-4fe5-865f-c486b312fc71" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b21617d9-1752-012b-c3ba-656cfa5b499a" executionId="a43574df-6811-42e4-90bd-2f517addc682" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7128bb51-e162-602d-024a-af2ed5154f87" executionId="87d84a4d-117d-408c-b7b6-cf5a34ff2130" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4236c84a-8b82-b6b2-498c-db199dd4da0d" executionId="191d8a88-800b-493e-a4ff-21d1cd607567" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9b118b3a-e0db-4f40-852b-eb3f5cb136d8" executionId="5d40b9ba-1fea-46c3-ba45-114489c82c13" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e4891c17-e160-e6fb-c0f8-b1301182fd87" executionId="7898ac2f-4111-4668-97a1-6e180e966157" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6c137e7d-8d76-5238-6b8b-31c3b416ce42" executionId="1f916b45-f001-40ce-913f-64e3c48e201a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c9ac2fee-79d5-a718-8534-1dc1e637b6e2" executionId="82ba1c19-259d-42a7-9d43-cf97197ce616" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5eea094f-41ad-05b9-c38d-cdb950d67a35" executionId="c0edad61-2e64-4a6e-9029-44d92492d622" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b4887dda-1b7d-efcf-da6b-7cf635aa6690" executionId="fe739ae8-9b64-401c-acad-87eddb3afb6a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1d46698d-fc1b-9843-0c7d-098bc8c23d33" executionId="0d4ebdd7-9318-4b50-a5d5-6b32027ee5b0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="01c7ee5b-790c-1074-1afd-6ca3f29d0abe" executionId="12228f5a-f7d1-4b34-8260-31a30e9faf47" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b8d932fa-bcb1-1feb-42ea-1e5013d99b7a" executionId="e221ff07-9894-4949-bff1-f5be922e30f7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c7a73f2d-87ba-6ffe-e843-6602cef182cb" executionId="1da77b87-aa8c-4bf7-b76c-8b62906898e3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4eb7eb79-5098-bae5-7bc3-2b2c4a8b1ab8" executionId="266cb1de-f17a-4962-bded-8119ecfd595d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="55d91bb5-9b08-2d76-7947-9ebe3cd14bd6" executionId="dfa78d8f-f778-4fa0-93e6-d1de1e824588" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fba679e4-4c4c-88de-2363-c66d4fcc854f" executionId="684201ec-6714-4e1b-8836-a83e06d1d6f7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6d327711-a7da-cda0-d2fc-86c971cdd054" executionId="7732e7c8-f932-4977-abb5-d786962ead52" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8a73355c-3f76-778f-83e7-b820aa16950e" executionId="da2b1b3f-5f2e-4e6b-bb67-2663262502c0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="33280e67-64c9-9ace-0d61-a9ccd0875ca8" executionId="4cedcc9b-29ba-4539-b38e-71f960abd41f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3031cf35-537b-57d4-3e32-73102cc2f45e" executionId="34a77cd8-e443-4411-815f-d578080316a6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0db9d70a-be2f-8b58-7608-c9139e6d90c8" executionId="3e6fcff2-5910-4a33-b359-0ce85840fd00" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e55f0bc3-613f-0246-3c0c-936a66d9b652" executionId="78858d9f-943c-439a-bf4a-28b09835bfdb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="29" executed="29" passed="29" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 29 of 29 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

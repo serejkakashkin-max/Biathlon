@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="5a3b6233-377e-4f7c-bc5d-37735a6956b5" name="snkashkin@DESKTOP-G3075GA 2026-11-01 10:46:53" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T10:46:53.1864971+03:00" queuing="2026-11-01T10:46:53.1864976+03:00" start="2026-11-01T10:46:52.3377343+03:00" finish="2026-11-01T10:46:53.2079744+03:00" />
+  <TestSettings name="default" id="910a5704-46d4-4176-9214-d85579f3b11e">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-11-01_10_46_53" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="8f338562-4677-46bc-baf6-14fa76ea1e90" testId="5eea094f-41ad-05b9-c38d-cdb950d67a35" testName="GapsRollOverAtClockBoundaries(12.34d,&quot;+12.3&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0001540" startTime="2026-11-01T10:46:53.1266078+03:00" endTime="2026-11-01T10:46:53.1267618+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8f338562-4677-46bc-baf6-14fa76ea1e90" />
+    <UnitTestResult executionId="ca052e2f-4f66-4388-92af-f2598870c851" testId="38b97211-7624-79b9-b69d-8cc6f64dc7b8" testName="GapsRollOverAtClockBoundaries(59.9d,&quot;+59.9&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000060" startTime="2026-11-01T10:46:53.1267668+03:00" endTime="2026-11-01T10:46:53.1267723+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ca052e2f-4f66-4388-92af-f2598870c851" />
+    <UnitTestResult executionId="c83c9dbf-312f-4a34-858f-7b80e5c9d7f9" testId="fba679e4-4c4c-88de-2363-c66d4fcc854f" testName="GapsRollOverAtClockBoundaries(3599.96d,&quot;+1:00:00.0&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000860" startTime="2026-11-01T10:46:53.1273235+03:00" endTime="2026-11-01T10:46:53.1274092+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c83c9dbf-312f-4a34-858f-7b80e5c9d7f9">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected string length 10 but was 7. Strings differ at index 1.&#xD;
+  Expected: "+1:00:00.0"&#xD;
+  But was:  "+3600.0"&#xD;
+  ------------^&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Double seconds, String expected) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RaceGapFormatterTests.cs:line 20&#xD;
+   at InvokeStub_RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Double seconds, String expected) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RaceGapFormatterTests.cs:line 20&#xD;
+   at InvokeStub_RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="efacac87-4e5e-4b28-81fb-edf922a2108f" testId="8a73355c-3f76-778f-83e7-b820aa16950e" testName="InvalidValuesAreRejected" computerName="DESKTOP-G3075GA" duration="00:00:00.0013490" startTime="2026-11-01T10:46:53.1275459+03:00" endTime="2026-11-01T10:46:53.1288943+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="efacac87-4e5e-4b28-81fb-edf922a2108f" />
+    <UnitTestResult executionId="561f1c10-2aac-4a1d-8300-5d39912b4418" testId="9ad23d11-0398-c929-7abe-3a18e9ab9467" testName="GapsRollOverAtClockBoundaries(60,&quot;+1:00.0&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0001510" startTime="2026-11-01T10:46:53.1269939+03:00" endTime="2026-11-01T10:46:53.1271445+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="561f1c10-2aac-4a1d-8300-5d39912b4418">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected string length 7 but was 5. Strings differ at index 1.&#xD;
+  Expected: "+1:00.0"&#xD;
+  But was:  "+60.0"&#xD;
+  ------------^&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Double seconds, String expected) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RaceGapFormatterTests.cs:line 20&#xD;
+   at InvokeStub_RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Double seconds, String expected) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RaceGapFormatterTests.cs:line 20&#xD;
+   at InvokeStub_RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3525a116-3218-446d-a153-ede120eccccb" testId="6d327711-a7da-cda0-d2fc-86c971cdd054" testName="FractionUsesTheChosenLocale(&quot;ru-RU&quot;,&quot;+1:10,2&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0170920" startTime="2026-11-01T10:46:53.0638879+03:00" endTime="2026-11-01T10:46:53.0809417+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3525a116-3218-446d-a153-ede120eccccb">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected string length 7 but was 5. Strings differ at index 1.&#xD;
+  Expected: "+1:10,2"&#xD;
+  But was:  "+70,2"&#xD;
+  ------------^&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.RaceGapFormatterTests.FractionUsesTheChosenLocale(String locale, String expected) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RaceGapFormatterTests.cs:line 24&#xD;
+
+1)    at Biathlon.Tests.RaceGapFormatterTests.FractionUsesTheChosenLocale(String locale, String expected) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RaceGapFormatterTests.cs:line 24&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ad59cdfb-9645-4c17-bd89-7e34ce134188" testId="9b118b3a-e0db-4f40-852b-eb3f5cb136d8" testName="GapsRollOverAtClockBoundaries(3665.2d,&quot;+1:01:05.2&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0001150" startTime="2026-11-01T10:46:53.1274110+03:00" endTime="2026-11-01T10:46:53.1275264+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad59cdfb-9645-4c17-bd89-7e34ce134188">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected string length 10 but was 7. Strings differ at index 1.&#xD;
+  Expected: "+1:01:05.2"&#xD;
+  But was:  "+3665.2"&#xD;
+  ------------^&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Double seconds, String expected) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RaceGapFormatterTests.cs:line 20&#xD;
+   at InvokeStub_RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Double seconds, String expected) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RaceGapFormatterTests.cs:line 20&#xD;
+   at InvokeStub_RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1bb11ea5-76e2-4dc7-ae46-64b0d3b7b28c" testId="b8d932fa-bcb1-1feb-42ea-1e5013d99b7a" testName="FractionUsesTheChosenLocale(&quot;en-US&quot;,&quot;+1:10.2&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0441150" startTime="2026-11-01T10:46:53.0816027+03:00" endTime="2026-11-01T10:46:53.1257170+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1bb11ea5-76e2-4dc7-ae46-64b0d3b7b28c">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected string length 7 but was 5. Strings differ at index 1.&#xD;
+  Expected: "+1:10.2"&#xD;
+  But was:  "+70.2"&#xD;
+  ------------^&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.RaceGapFormatterTests.FractionUsesTheChosenLocale(String locale, String expected) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RaceGapFormatterTests.cs:line 24&#xD;
+   at InvokeStub_RaceGapFormatterTests.FractionUsesTheChosenLocale(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.RaceGapFormatterTests.FractionUsesTheChosenLocale(String locale, String expected) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RaceGapFormatterTests.cs:line 24&#xD;
+   at InvokeStub_RaceGapFormatterTests.FractionUsesTheChosenLocale(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d5c1951a-36c7-44f9-a9a2-1d3ea2c81b8d" testId="7128bb51-e162-602d-024a-af2ed5154f87" testName="GapsRollOverAtClockBoundaries(70,&quot;+1:10.0&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000890" startTime="2026-11-01T10:46:53.1271469+03:00" endTime="2026-11-01T10:46:53.1272358+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d5c1951a-36c7-44f9-a9a2-1d3ea2c81b8d">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected string length 7 but was 5. Strings differ at index 1.&#xD;
+  Expected: "+1:10.0"&#xD;
+  But was:  "+70.0"&#xD;
+  ------------^&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Double seconds, String expected) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RaceGapFormatterTests.cs:line 20&#xD;
+   at InvokeStub_RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Double seconds, String expected) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RaceGapFormatterTests.cs:line 20&#xD;
+   at InvokeStub_RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cf91814c-a5d6-4cf0-84de-c973eba8423b" testId="e4891c17-e160-e6fb-c0f8-b1301182fd87" testName="GapsRollOverAtClockBoundaries(59.96d,&quot;+1:00.0&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0002170" startTime="2026-11-01T10:46:53.1267738+03:00" endTime="2026-11-01T10:46:53.1269905+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cf91814c-a5d6-4cf0-84de-c973eba8423b">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected string length 7 but was 5. Strings differ at index 1.&#xD;
+  Expected: "+1:00.0"&#xD;
+  But was:  "+60.0"&#xD;
+  ------------^&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Double seconds, String expected) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RaceGapFormatterTests.cs:line 20&#xD;
+   at InvokeStub_RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Double seconds, String expected) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RaceGapFormatterTests.cs:line 20&#xD;
+   at InvokeStub_RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="eaf04d73-4416-4650-af75-3bee58c1687e" testId="c7a73f2d-87ba-6ffe-e843-6602cef182cb" testName="GapsRollOverAtClockBoundaries(0,&quot;+0.0&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000960" startTime="2026-11-01T10:46:53.1265074+03:00" endTime="2026-11-01T10:46:53.1266037+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eaf04d73-4416-4650-af75-3bee58c1687e" />
+    <UnitTestResult executionId="c2d047a4-1044-4d03-983d-3e1dd817a5e2" testId="bf615304-d9c1-d533-738f-8e834c36137b" testName="GapsRollOverAtClockBoundaries(125.7d,&quot;+2:05.7&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0000850" startTime="2026-11-01T10:46:53.1272374+03:00" endTime="2026-11-01T10:46:53.1273220+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c2d047a4-1044-4d03-983d-3e1dd817a5e2">
+      <Output>
+        <ErrorInfo>
+          <Message>  Expected string length 7 but was 6. Strings differ at index 1.&#xD;
+  Expected: "+2:05.7"&#xD;
+  But was:  "+125.7"&#xD;
+  ------------^&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Double seconds, String expected) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RaceGapFormatterTests.cs:line 20&#xD;
+   at InvokeStub_RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Double seconds, String expected) in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RaceGapFormatterTests.cs:line 20&#xD;
+   at InvokeStub_RaceGapFormatterTests.GapsRollOverAtClockBoundaries(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="FractionUsesTheChosenLocale(&quot;en-US&quot;,&quot;+1:10.2&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="b8d932fa-bcb1-1feb-42ea-1e5013d99b7a">
+      <Execution id="1bb11ea5-76e2-4dc7-ae46-64b0d3b7b28c" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="FractionUsesTheChosenLocale(&quot;en-US&quot;,&quot;+1:10.2&quot;)" />
+    </UnitTest>
+    <UnitTest name="GapsRollOverAtClockBoundaries(3599.96d,&quot;+1:00:00.0&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="fba679e4-4c4c-88de-2363-c66d4fcc854f">
+      <Execution id="c83c9dbf-312f-4a34-858f-7b80e5c9d7f9" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="GapsRollOverAtClockBoundaries(3599.96d,&quot;+1:00:00.0&quot;)" />
+    </UnitTest>
+    <UnitTest name="GapsRollOverAtClockBoundaries(12.34d,&quot;+12.3&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="5eea094f-41ad-05b9-c38d-cdb950d67a35">
+      <Execution id="8f338562-4677-46bc-baf6-14fa76ea1e90" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="GapsRollOverAtClockBoundaries(12.34d,&quot;+12.3&quot;)" />
+    </UnitTest>
+    <UnitTest name="GapsRollOverAtClockBoundaries(0,&quot;+0.0&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="c7a73f2d-87ba-6ffe-e843-6602cef182cb">
+      <Execution id="eaf04d73-4416-4650-af75-3bee58c1687e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="GapsRollOverAtClockBoundaries(0,&quot;+0.0&quot;)" />
+    </UnitTest>
+    <UnitTest name="GapsRollOverAtClockBoundaries(70,&quot;+1:10.0&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="7128bb51-e162-602d-024a-af2ed5154f87">
+      <Execution id="d5c1951a-36c7-44f9-a9a2-1d3ea2c81b8d" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="GapsRollOverAtClockBoundaries(70,&quot;+1:10.0&quot;)" />
+    </UnitTest>
+    <UnitTest name="GapsRollOverAtClockBoundaries(59.9d,&quot;+59.9&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="38b97211-7624-79b9-b69d-8cc6f64dc7b8">
+      <Execution id="ca052e2f-4f66-4388-92af-f2598870c851" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="GapsRollOverAtClockBoundaries(59.9d,&quot;+59.9&quot;)" />
+    </UnitTest>
+    <UnitTest name="GapsRollOverAtClockBoundaries(125.7d,&quot;+2:05.7&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="bf615304-d9c1-d533-738f-8e834c36137b">
+      <Execution id="c2d047a4-1044-4d03-983d-3e1dd817a5e2" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="GapsRollOverAtClockBoundaries(125.7d,&quot;+2:05.7&quot;)" />
+    </UnitTest>
+    <UnitTest name="GapsRollOverAtClockBoundaries(59.96d,&quot;+1:00.0&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="e4891c17-e160-e6fb-c0f8-b1301182fd87">
+      <Execution id="cf91814c-a5d6-4cf0-84de-c973eba8423b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="GapsRollOverAtClockBoundaries(59.96d,&quot;+1:00.0&quot;)" />
+    </UnitTest>
+    <UnitTest name="InvalidValuesAreRejected" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="8a73355c-3f76-778f-83e7-b820aa16950e">
+      <Execution id="efacac87-4e5e-4b28-81fb-edf922a2108f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="InvalidValuesAreRejected" />
+    </UnitTest>
+    <UnitTest name="FractionUsesTheChosenLocale(&quot;ru-RU&quot;,&quot;+1:10,2&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="6d327711-a7da-cda0-d2fc-86c971cdd054">
+      <Execution id="3525a116-3218-446d-a153-ede120eccccb" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="FractionUsesTheChosenLocale(&quot;ru-RU&quot;,&quot;+1:10,2&quot;)" />
+    </UnitTest>
+    <UnitTest name="GapsRollOverAtClockBoundaries(60,&quot;+1:00.0&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="9ad23d11-0398-c929-7abe-3a18e9ab9467">
+      <Execution id="561f1c10-2aac-4a1d-8300-5d39912b4418" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="GapsRollOverAtClockBoundaries(60,&quot;+1:00.0&quot;)" />
+    </UnitTest>
+    <UnitTest name="GapsRollOverAtClockBoundaries(3665.2d,&quot;+1:01:05.2&quot;)" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="9b118b3a-e0db-4f40-852b-eb3f5cb136d8">
+      <Execution id="ad59cdfb-9645-4c17-bd89-7e34ce134188" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RaceGapFormatterTests" name="GapsRollOverAtClockBoundaries(3665.2d,&quot;+1:01:05.2&quot;)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="5eea094f-41ad-05b9-c38d-cdb950d67a35" executionId="8f338562-4677-46bc-baf6-14fa76ea1e90" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="38b97211-7624-79b9-b69d-8cc6f64dc7b8" executionId="ca052e2f-4f66-4388-92af-f2598870c851" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fba679e4-4c4c-88de-2363-c66d4fcc854f" executionId="c83c9dbf-312f-4a34-858f-7b80e5c9d7f9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8a73355c-3f76-778f-83e7-b820aa16950e" executionId="efacac87-4e5e-4b28-81fb-edf922a2108f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9ad23d11-0398-c929-7abe-3a18e9ab9467" executionId="561f1c10-2aac-4a1d-8300-5d39912b4418" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6d327711-a7da-cda0-d2fc-86c971cdd054" executionId="3525a116-3218-446d-a153-ede120eccccb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9b118b3a-e0db-4f40-852b-eb3f5cb136d8" executionId="ad59cdfb-9645-4c17-bd89-7e34ce134188" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b8d932fa-bcb1-1feb-42ea-1e5013d99b7a" executionId="1bb11ea5-76e2-4dc7-ae46-64b0d3b7b28c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7128bb51-e162-602d-024a-af2ed5154f87" executionId="d5c1951a-36c7-44f9-a9a2-1d3ea2c81b8d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e4891c17-e160-e6fb-c0f8-b1301182fd87" executionId="cf91814c-a5d6-4cf0-84de-c973eba8423b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c7a73f2d-87ba-6ffe-e843-6602cef182cb" executionId="eaf04d73-4416-4650-af75-3bee58c1687e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bf615304-d9c1-d533-738f-8e834c36137b" executionId="c2d047a4-1044-4d03-983d-3e1dd817a5e2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="12" executed="12" passed="4" failed="8" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 12 of 12 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

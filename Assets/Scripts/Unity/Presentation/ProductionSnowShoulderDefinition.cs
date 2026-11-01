@@ -11,11 +11,14 @@ namespace Biathlon.Unity.Presentation
         [Serializable] public sealed class RoadWindow {public string loop_id;public double start_m,end_m;}
         [Serializable] public sealed class NaturalProfile
         {
+            public string[] exact_cut_formats;
             public int cross_sections;
             public bool all_routes;
             public float minimum_width_m, end_fade_m, width_variation;
             public float rim_direction_window_m,rim_maximum_displacement_m;
             public float rim_minimum_clearance_m;
+            public bool UsesExactCuts(CompetitionFormat format)
+            {if(exact_cut_formats!=null)foreach(string value in exact_cut_formats)if(Enum.Parse<CompetitionFormat>(value)==format)return true;return false;}
         }
         public NaturalProfile natural;
         public int schema_version;
@@ -55,6 +58,12 @@ namespace Biathlon.Unity.Presentation
                 if(n.cross_sections!=0||n.all_routes||n.minimum_width_m!=0||n.end_fade_m!=0||n.width_variation!=0||n.rim_direction_window_m!=0||n.rim_maximum_displacement_m!=0||n.rim_minimum_clearance_m!=0)
                     throw new ArgumentException("Natural profile requires explicit schema 2.");
                 value.natural=null;
+            }
+            if(value.natural?.exact_cut_formats!=null)
+            {
+                var used=new System.Collections.Generic.HashSet<CompetitionFormat>();
+                foreach(string format in value.natural.exact_cut_formats)
+                    if(!Enum.TryParse<CompetitionFormat>(format,false,out var parsed)||!Enum.IsDefined(typeof(CompetitionFormat),parsed)||!used.Add(parsed))throw new ArgumentException("Unique existing competition formats required for exact visual cuts.");
             }
             double previous=-1;
             foreach(var window in value.windows)

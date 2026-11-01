@@ -62,7 +62,7 @@ namespace Biathlon.Unity.Presentation
                 broadcastCards[i].style.display=i<s.Count?DisplayStyle.Flex:DisplayStyle.None;if(i>=s.Count)continue;
                 var a=s.Get(broadcastOrder[i]);string name=broadcastNames.TryGetValue(a.AthleteId,out var n)?n:a.AthleteId;
                 string rank=a.Hud.Rank>0?a.Hud.Rank.ToString(CultureInfo.InvariantCulture):"—";
-                string gap=a.Hud.GapSeconds.HasValue?"+"+a.Hud.GapSeconds.Value.ToString("0.0",CultureInfo.InvariantCulture):"—";
+                string gap=a.Hud.GapSeconds.HasValue?GameplayHudModel.FormatGap(a.Hud.GapSeconds.Value,CultureInfo.GetCultureInfo(Locale=="ru"?"ru-RU":"en-US")):"—";
                 string shots=a.Hud.ShootingResults;
                 if(a.ShootingActive){shots="";for(int j=0;j<5;j++)shots+=(a.ClosedTargetsMask&(1<<j))!=0?"●":"○";}
                 string penalty=a.PendingPenaltyLoops>0?" · "+string.Format(text.Text("tv.penalties",Locale),a.PendingPenaltyLoops):"";

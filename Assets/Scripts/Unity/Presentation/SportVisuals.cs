@@ -55,7 +55,7 @@ namespace Biathlon.Unity.Presentation
             style.paddingLeft=6;style.paddingRight=8;style.borderBottomWidth=1;style.borderBottomColor=new Color(1,1,1,.07f);
             rank=Cell(30*scale,true);flag=new NationFlagGraphic("");Add(flag);athlete=Cell(0,true);athlete.style.flexGrow=1;athlete.style.flexBasis=0;
             leader=new LeaderBibGraphic(CareerLeaderBib.None,"");leader.style.width=18*scale;leader.style.height=22*scale;leader.style.marginLeft=4*scale;leader.style.marginRight=5*scale;Add(leader);
-            time=Cell(66*scale,false);gap=Cell(62*scale,true);
+            time=Cell(66*scale,false);gap=Cell(62*scale,true);time.name="timing_elapsed";gap.name="timing_gap";
             time.style.unityTextAlign=gap.style.unityTextAlign=TextAnchor.MiddleRight;time.style.color=new Color(.69f,.79f,.84f);
             Label Cell(float width,bool bold)
             {
@@ -74,6 +74,11 @@ namespace Biathlon.Unity.Presentation
             style.backgroundColor=player?new Color(.12f,.48f,.51f,.55f):place%2==0?new Color(1,1,1,.025f):Color.clear;
             style.borderLeftWidth=3;style.borderLeftColor=player?new Color(.41f,.84f,.85f):Color.clear;
             gap.style.color=player?new Color(.55f,.95f,.92f):Color.white;
+        }
+        public void BindCheckpoint(string id,int place,string name,string nation,double elapsed,double secondsBehind,string locale,bool player,CareerLeaderBib leaderRole=CareerLeaderBib.None,string leaderDescription="")
+        {
+            var culture=System.Globalization.CultureInfo.GetCultureInfo(locale=="ru"?"ru-RU":"en-US");
+            Bind(id,place,name,nation,Biathlon.Presentation.GameplayHudModel.FormatClock(elapsed),secondsBehind==0?(locale=="ru"?"ЛИДЕР":"LEADER"):Biathlon.Presentation.GameplayHudModel.FormatGap(secondsBehind,culture),player,leaderRole,leaderDescription);
         }
     }
 }

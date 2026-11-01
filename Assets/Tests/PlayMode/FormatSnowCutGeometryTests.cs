@@ -57,7 +57,14 @@ namespace Biathlon.PlayModeTests
                     "Actual selected format and replaced-range cuts receive rounded snow caps, including MassStart's unused bypass.");
                 if(format=="sprint")
                 {
-                    var outside=new Vector3(226.96336f,0,-111.8641f);var inside=new Vector3(226.96336f,0,-112.4641f);
+                    // Use the real connection, not the discarded whole-panel
+                    // overhang formerly drawn ahead of the selected Main interval.
+                    var endpoint=plan.Visual.Get("sprint_extension").Sample(plan.Track.GetLoop("sprint_extension").Length.Meters);
+                    var center=new Vector3((float)endpoint.X,0,(float)endpoint.Z);
+                    var forward=new Vector3((float)endpoint.ForwardX,0,(float)endpoint.ForwardZ);
+                    var across=new Vector3(-forward.z,0,forward.x);
+                    float branchHalf=(float)new TrackSampler(plan.Track.GetLoop("sprint_extension")).Sample(plan.Track.GetLoop("sprint_extension").Length).WidthMeters*.5f;
+                    var lateral=center+across*(branchHalf+.3f);var outside=lateral-forward*.3f;var inside=lateral+forward*.3f;
                     Assert.That(RoofCovers(course.LoopMesh("main"),course.LoopRenderer("main").localToWorldMatrix,inside),Is.True,"Control: negative Z lies inside the actual packed main ribbon.");
                     Assert.That(RoofCovers(course.SkirtMesh("main"),course.SkirtRenderer("main").localToWorldMatrix,inside),Is.False,"Decorative snow must not cover the paid main track.");
                     for(int loop=0;loop<course.LoopCount;loop++)Assert.That(RoofCovers(course.LoopMesh(loop),course.LoopRenderer(course.LoopId(loop)).localToWorldMatrix,outside),Is.False,"The visual regression witness must be outside every actual paid ribbon.");

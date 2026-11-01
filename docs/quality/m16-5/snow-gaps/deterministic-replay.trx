@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="42357f63-7786-455b-a847-15ba6cb83b62" name="snkashkin@DESKTOP-G3075GA 2026-11-01 17:59:45" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T17:59:45.7121333+03:00" queuing="2026-11-01T17:59:45.7121334+03:00" start="2026-11-01T17:59:44.1206685+03:00" finish="2026-11-01T17:59:45.7156729+03:00" />
+  <TestSettings name="default" id="ce9e9a71-f6ed-4f54-8934-fa1b2b6eb20f">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-11-01_17_59_45" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="ebc305e1-aaee-4619-9d59-eda6a42074c8" testId="7320bc0c-e61f-ff6a-75bd-6d11ca2eab91" testName="UnchangedIntentRecordingAndReplayDoNotAllocatePerTick" computerName="DESKTOP-G3075GA" duration="00:00:00.0092790" startTime="2026-11-01T17:59:45.6172343+03:00" endTime="2026-11-01T17:59:45.6265131+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ebc305e1-aaee-4619-9d59-eda6a42074c8" />
+    <UnitTestResult executionId="3e5bdbbe-b3b8-4569-8fe4-a1f8c1838ed9" testId="c2250ec9-d220-44f6-bd4c-57b83f317777" testName="CapacityContextAndMalformedCoverageFailBeforeRaceAdvances" computerName="DESKTOP-G3075GA" duration="00:00:00.2001650" startTime="2026-11-01T17:59:44.6372641+03:00" endTime="2026-11-01T17:59:44.8373999+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3e5bdbbe-b3b8-4569-8fe4-a1f8c1838ed9" />
+    <UnitTestResult executionId="a5264ff7-1c7a-408a-8641-55753edae897" testId="a97ea5af-eacb-dcf6-84e3-ec0f208a95d5" testName="PersistedRunsReproduceCompleteFieldFramesEventsAndResultsWithIndependentCursors" computerName="DESKTOP-G3075GA" duration="00:00:00.7791950" startTime="2026-11-01T17:59:44.8380106+03:00" endTime="2026-11-01T17:59:45.6172050+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a5264ff7-1c7a-408a-8641-55753edae897" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="PersistedRunsReproduceCompleteFieldFramesEventsAndResultsWithIndependentCursors" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="a97ea5af-eacb-dcf6-84e3-ec0f208a95d5">
+      <Execution id="a5264ff7-1c7a-408a-8641-55753edae897" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.SprintRaceReplayTests" name="PersistedRunsReproduceCompleteFieldFramesEventsAndResultsWithIndependentCursors" />
+    </UnitTest>
+    <UnitTest name="UnchangedIntentRecordingAndReplayDoNotAllocatePerTick" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="7320bc0c-e61f-ff6a-75bd-6d11ca2eab91">
+      <Execution id="ebc305e1-aaee-4619-9d59-eda6a42074c8" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.SprintRaceReplayTests" name="UnchangedIntentRecordingAndReplayDoNotAllocatePerTick" />
+    </UnitTest>
+    <UnitTest name="CapacityContextAndMalformedCoverageFailBeforeRaceAdvances" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\debug\net8.0\biathlon.tests.dll" id="c2250ec9-d220-44f6-bd4c-57b83f317777">
+      <Execution id="3e5bdbbe-b3b8-4569-8fe4-a1f8c1838ed9" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.SprintRaceReplayTests" name="CapacityContextAndMalformedCoverageFailBeforeRaceAdvances" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="7320bc0c-e61f-ff6a-75bd-6d11ca2eab91" executionId="ebc305e1-aaee-4619-9d59-eda6a42074c8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c2250ec9-d220-44f6-bd4c-57b83f317777" executionId="3e5bdbbe-b3b8-4569-8fe4-a1f8c1838ed9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a97ea5af-eacb-dcf6-84e3-ec0f208a95d5" executionId="a5264ff7-1c7a-408a-8641-55753edae897" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Debug\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 3 of 3 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -1,0 +1,20 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Failed",
+      "TotalTests": 1,
+      "PassedTests": 0,
+      "FailedTests": 1,
+      "SkippedTests": 0,
+      "Duration": "00:00:28.3264590"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.SprintJunctionSnowTests.ReturnForkDoesNotExposeBroadVerticalSnowFaces",
+        "Status": "Failed",
+        "Duration": "00:00:28.2070000",
+        "Message": "  A broad vertical curtain must have an outward rounded snow roof, not drop straight to terrain at the photographed Sprint return.\r\n  Expected: less than or equal to 0.00499999989f\r\n  But was:  0.145028859f\r\n"
+      }
+    ]
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 12,
+      "PassedTests": 12,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:04:26.6746599"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.FormatSnowCutGeometryTests.ActualFormatJoinsKeepPackedBuffersAndWholeTerrainContact(\"sprint\",0.0f,False)",
+        "Status": "Passed",
+        "Duration": "00:00:33.0500000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.FormatSnowCutGeometryTests.ActualFormatJoinsKeepPackedBuffersAndWholeTerrainContact(\"sprint\",45.0f,False)",
+        "Status": "Passed",
+        "Duration": "00:00:33.2410000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.FormatSnowCutGeometryTests.ActualFormatJoinsKeepPackedBuffersAndWholeTerrainContact(\"pursuit\",0.0f,False)",
+        "Status": "Passed",
+        "Duration": "00:00:26.7000000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.FormatSnowCutGeometryTests.ActualFormatJoinsKeepPackedBuffersAndWholeTerrainContact(\"pursuit\",45.0f,False)",
+        "Status": "Passed",
+        "Duration": "00:00:27.2410000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.FormatSnowCutGeometryTests.ActualFormatJoinsKeepPackedBuffersAndWholeTerrainContact(\"sprint\",0.0f,True)",
+        "Status": "Passed",
+        "Duration": "00:00:32.7640000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.FormatSnowCutGeometryTests.ActualFormatJoinsKeepPackedBuffersAndWholeTerrainContact(\"pursuit\",0.0f,True)",
+        "Status": "Passed",
+        "Duration": "00:00:26.6420000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.FormatSnowCutGeometryTests.ActualFormatJoinsKeepPackedBuffersAndWholeTerrainContact(\"mass_start\",0.0f,False)",
+        "Status": "Passed",
+        "Duration": "00:00:29.7950000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.RouteCutRibbonTests.ActualRouteCutRowsAreExactAndEveryOldSampleIsRetained",
+        "Status": "Passed",
+        "Duration": "00:00:00.6090000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.SnowRibbonRimTests.AFixedCutKeepsItsExactCrossRowAndFadesNearbyRotation",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.SnowRibbonRimTests.DirectionDiscontinuityIsReducedWithoutMovingCentersOrChangingWidths",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.SnowRibbonRimTests.LegacyPolicyRetainsItsExplicitBaselineAndRejectsNaturalDimensionsWithoutVersion",
+        "Status": "Passed",
+        "Duration": "00:00:00.7270000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.SprintJunctionSnowTests.ReturnForkDoesNotExposeBroadVerticalSnowFaces",
+        "Status": "Passed",
+        "Duration": "00:00:55.5650000"
+      }
+    ]
+  }
+}

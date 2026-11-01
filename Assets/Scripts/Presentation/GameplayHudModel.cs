@@ -37,7 +37,7 @@ namespace Biathlon.Presentation
             Clock=prestart?F("countdown",Math.Ceiling(a.StartCountdownSeconds)):FormatClock(a.ElapsedSeconds);
             Lap=F("lap",h.Lap,h.LapCount);
             Timing=h.Rank==0?T("timing_pending"):F(h.Final?"final_rank":"split_rank",h.Rank,h.ComparedAthletes,
-                h.GapSeconds.HasValue?"+"+h.GapSeconds.Value.ToString("F1",culture):"—",h.CheckpointOrdinal+1);
+                h.GapSeconds.HasValue?FormatGap(h.GapSeconds.Value,culture):"—",h.CheckpointOrdinal+1);
             Phase=a.PendingPenaltyLoops>0?F("penalty",a.PendingPenaltyLoops):T("phase."+(int)a.Phase);
             Speed=F("speed",a.SpeedMetersPerSecond*3.6);HeartRate=F("heart_rate",a.Physiology.HeartRateBpm);
             ReservePercent=(float)Math.Clamp(a.Physiology.AnaerobicReserve*100,0,100);
@@ -59,6 +59,16 @@ namespace Biathlon.Presentation
         {
             var time=TimeSpan.FromSeconds(Math.Max(0,seconds));
             return time.ToString(seconds>=3600?@"hh\:mm\:ss\.f":@"mm\:ss\.f",CultureInfo.InvariantCulture);
+        }
+        public static string FormatGap(double seconds,CultureInfo culture)
+        {
+            if(!double.IsFinite(seconds)||seconds<0)throw new ArgumentOutOfRangeException(nameof(seconds));
+            if(culture==null)throw new ArgumentNullException(nameof(culture));
+            double rounded=Math.Round(seconds,1,MidpointRounding.AwayFromZero);
+            if(rounded<60)return "+"+rounded.ToString("0.0",culture);
+            double minutes=Math.Floor(rounded/60),remainder=rounded-minutes*60;
+            if(minutes<60)return "+"+minutes.ToString("0",culture)+":"+remainder.ToString("00.0",culture);
+            return "+"+Math.Floor(minutes/60).ToString("0",culture)+":"+(minutes%60).ToString("00",culture)+":"+remainder.ToString("00.0",culture);
         }
         public static string WeaponKey(ShootingPhase phase,int shots,bool needsBolt)
         {
