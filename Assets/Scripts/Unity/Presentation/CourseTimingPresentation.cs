@@ -15,6 +15,7 @@ namespace Biathlon.Unity.Presentation
             public int schema_version;
             public string id;
             public string reused_stadium_checkpoint_id;
+            public float pass_label_hold_m;
             public float height_m,support_clearance_m,post_width_m,post_depth_m;
             public float foot_width_m,foot_depth_m,foot_height_m,foot_embedding_m;
             public float header_height_m,header_depth_m,snow_cap_m,stripe_width_m,surface_offset_m,label_character_size_m;
@@ -23,7 +24,7 @@ namespace Biathlon.Unity.Presentation
             {
                 var value=JsonUtility.FromJson<Settings>(ProductionVenueHost.ReadResource("Biathlon/UI/course_timing_v1"));
                 if(value==null||value.schema_version!=1||string.IsNullOrWhiteSpace(value.id))throw new ArgumentException("Invalid course timing portal definition.");
-                foreach(float number in new[]{value.height_m,value.support_clearance_m,value.post_width_m,value.post_depth_m,
+                foreach(float number in new[]{value.pass_label_hold_m,value.height_m,value.support_clearance_m,value.post_width_m,value.post_depth_m,
                     value.foot_width_m,value.foot_depth_m,value.foot_height_m,value.foot_embedding_m,value.header_height_m,
                     value.header_depth_m,value.snow_cap_m,value.stripe_width_m,value.surface_offset_m,value.label_character_size_m})
                     if(!float.IsFinite(number)||number<=0)throw new ArgumentException("Positive course timing portal dimensions required.");
@@ -39,7 +40,10 @@ namespace Biathlon.Unity.Presentation
             public float HalfWidth,LeftGround,RightGround;
             public string Id;
             public bool UsesExistingPortal;
+            public TextMesh Label;public double[] RouteMeters;public string[] Labels;public int Shown=-1;
         }
+        [Serializable] private sealed class ReusedLabel {public float height_m,face_offset_m,character_size_m;}
+        private RacePresentationFeed boundFeed;private int boundPlayer;private TrackDefinition boundTrack;
         private Settings settings;
         private Station[] stations;
         private Material[] materials;
@@ -49,12 +53,13 @@ namespace Biathlon.Unity.Presentation
         public string CheckpointId(int index)=>stations[index].Id;
         public float CorridorHalfWidth(int index)=>stations[index].HalfWidth;
         public bool UsesExistingStadiumPortal(int index)=>stations[index].UsesExistingPortal;
+        public string DistanceLabel(int index)=>stations[index].Label.text;
 
         public void Initialize(VenueAuthoringPlan venue)
         {
             if(venue==null)throw new ArgumentNullException(nameof(venue));
             if(stations!=null)throw new InvalidOperationException("Initialize timing portals once.");
-            settings=Settings.Load();
+            settings=Settings.Load();boundTrack=venue.Track;
             var template=Resources.Load<Material>("Biathlon/Stadium/white");
             if(template==null)throw new InvalidOperationException("Timing portal material is unavailable.");
             materials=new[]{new Material(template),new Material(template),new Material(template)};
@@ -80,15 +85,41 @@ namespace Biathlon.Unity.Presentation
                 }
                 stations[i]=station;Build(station);
                 root.AddComponent<MeshFilter>().sharedMesh=station.Mesh;root.AddComponent<MeshRenderer>().sharedMaterials=materials;
-                if(station.UsesExistingPortal)continue; // The native stadium gantry already supplies its frame and TIMING label.
                 var label=new GameObject("Intermediate distance",typeof(TextMesh));label.transform.SetParent(root.transform,false);
                 label.transform.localPosition=new Vector3(0,settings.height_m,-settings.header_depth_m*.5f-.012f);
-                var text=label.GetComponent<TextMesh>();text.font=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");text.text=(marker.Anchor.Distance.Meters/1000d).ToString("0.00",System.Globalization.CultureInfo.InvariantCulture)+" KM";
+                var text=label.GetComponent<TextMesh>();station.Label=text;text.font=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");text.text="";
                 text.fontSize=64;text.characterSize=settings.label_character_size_m;text.anchor=TextAnchor.MiddleCenter;text.alignment=TextAlignment.Center;text.color=Color.white;
+                if(station.UsesExistingPortal){var original=JsonUtility.FromJson<ReusedLabel>(ProductionVenueHost.ReadResource("Biathlon/stadium_portal_labels_v1"));label.transform.localPosition=new Vector3(0,original.height_m,-original.face_offset_m);text.characterSize=original.character_size_m;}
                 var renderer=label.GetComponent<MeshRenderer>();renderer.sharedMaterial=text.font.material;renderer.shadowCastingMode=ShadowCastingMode.Off;renderer.receiveShadows=false;
                 label.AddComponent<VenueSignText>();
             }
         }
+        public void Bind(CompetitionProfile profile,Biathlon.Simulation.RaceRoute route,RacePresentationFeed source,int playerIndex,Biathlon.Presentation.RaceDistanceView distance)
+        {
+            if(stations==null||profile==null||route==null||source==null||distance==null)throw new ArgumentException("Initialized timing and actual race binding required.");
+            var layout=new CheckpointLayout(boundTrack,route);boundFeed=source;boundPlayer=playerIndex;
+            foreach(var station in stations)
+            {
+                var positions=new List<double>();var labels=new List<string>();
+                for(int i=0;i<layout.Count;i++)if(layout.Get(i).CheckpointId==station.Id)
+                {double meters=layout.Get(i).RouteNanometers/(double)SkiState.NanometersPerMeter;positions.Add(meters);labels.Add(distance.Kilometers(meters,System.Globalization.CultureInfo.InvariantCulture)+" KM");}
+                station.RouteMeters=positions.ToArray();station.Labels=labels.ToArray();station.Shown=-1;
+            }
+            RefreshDistance(0);
+        }
+        public void RefreshDistance(double routeMeters)
+        {
+            if(!double.IsFinite(routeMeters))throw new ArgumentOutOfRangeException(nameof(routeMeters));
+            foreach(var station in stations)
+            {
+                if(station.Labels==null||station.Labels.Length==0)continue;int next=0;
+                // Keep the passed value until the gantry is behind the follow camera.
+                // The same marker can belong to a preceding lap after the range exit.
+                while(next+1<station.Labels.Length&&routeMeters>station.RouteMeters[next]+settings.pass_label_hold_m)next++;
+                if(next==station.Shown)continue;station.Shown=next;station.Label.text=station.Labels[next];
+            }
+        }
+        private void LateUpdate(){if(boundFeed?.Current!=null)RefreshDistance(boundFeed.Current.Get(boundPlayer).RouteMeters);}
         /// <summary>One setup pass after native terrain exists. No per-frame geometry or ground sampling.</summary>
         public void GroundSupports(ProductionVenueEnvironment environment)
         {

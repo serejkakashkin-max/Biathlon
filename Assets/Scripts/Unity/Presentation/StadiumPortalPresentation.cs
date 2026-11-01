@@ -18,12 +18,12 @@ namespace Biathlon.Unity.Presentation
             if (venue?.StartApproach?.LaunchDistanceMeters == null) return;
             var data = JsonUtility.FromJson<Settings>(Resources.Load<TextAsset>("Biathlon/stadium_portal_labels_v1").text);
             if (data == null || data.schema_version != 1 || string.IsNullOrWhiteSpace(data.id) ||
-                string.IsNullOrWhiteSpace(data.start_text) || string.IsNullOrWhiteSpace(data.timing_text) ||
+                string.IsNullOrWhiteSpace(data.start_text) ||
                 !float.IsFinite(data.height_m) || data.height_m <= 0 || !float.IsFinite(data.face_offset_m) || data.face_offset_m <= 0 ||
                 !float.IsFinite(data.character_size_m) || data.character_size_m <= 0)
                 throw new ArgumentException("Invalid stadium portal labels.");
             Label(venue.Visual.Get(venue.StartApproach.LoopId).Sample(venue.StartApproach.LaunchDistanceMeters.Value), data.start_text);
-            Label(venue.Visual.Get(venue.StartApproach.RouteEntryLoopId).Sample(0), data.timing_text);
+            // The retained gantry receives its cumulative kilometre label from CourseTimingPresentation.
             void Label(TrackVisualPoint sample, string value)
             {
                 var forward = new Vector3((float)sample.ForwardX, 0, (float)sample.ForwardZ);

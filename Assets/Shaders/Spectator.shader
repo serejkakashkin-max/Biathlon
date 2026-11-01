@@ -7,6 +7,7 @@ Shader "Biathlon/Spectator"
   HLSLINCLUDE
   #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
   #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+  #include "VenueIllumination.hlsl"
   CBUFFER_START(UnityPerMaterial)
   float4 _Motion;
   CBUFFER_END
@@ -27,6 +28,7 @@ Shader "Biathlon/Spectator"
   {
    UNITY_SETUP_INSTANCE_ID(i);UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);half3 n=normalize(i.normalWS);
    SurfaceData s=(SurfaceData)0;s.albedo=i.color;s.smoothness=.12;s.occlusion=.9;s.alpha=1;s.normalTS=half3(0,0,1);
+   s.emission=s.albedo*VenueIllumination(i.positionWS,n);
    InputData d=(InputData)0;d.positionWS=i.positionWS;d.normalWS=n;d.viewDirectionWS=GetWorldSpaceNormalizeViewDir(i.positionWS);d.shadowCoord=TransformWorldToShadowCoord(i.positionWS);d.bakedGI=SampleSH(n);d.shadowMask=1;d.normalizedScreenSpaceUV=GetNormalizedScreenSpaceUV(i.positionCS);
    half4 c=UniversalFragmentPBR(d,s);c.rgb=MixFog(c.rgb,i.fog);return c;
   }

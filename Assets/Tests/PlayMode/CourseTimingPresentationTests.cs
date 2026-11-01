@@ -54,7 +54,7 @@ namespace Biathlon.PlayModeTests
             finally{Object.DestroyImmediate(root);}
         }
 
-        [Test] public void StadiumSplitReusesActualNativeGantryWithoutAnotherPortalOrDistanceSign()
+        [Test] public void StadiumSplitReusesActualNativeGantryWithOneDistanceSign()
         {
             var plan=Production();var root=new GameObject("Retained stadium timing gate check");
             try
@@ -65,7 +65,7 @@ namespace Biathlon.PlayModeTests
                 var mesh=view.GateMesh(station);
                 Assert.That(mesh.vertexCount,Is.EqualTo(4),"Only snow paint is added beneath the already existing portal.");
                 Assert.That(mesh.GetTriangles(0),Is.Empty);Assert.That(mesh.GetTriangles(1),Is.Empty);
-                Assert.That(view.GateTransform(station).GetComponentsInChildren<TextMesh>(),Is.Empty,"Retain the existing TIMING header.");
+                Assert.That(view.GateTransform(station).GetComponentsInChildren<TextMesh>().Length,Is.EqualTo(1),"Reuse the frame with one cumulative kilometre label.");
                 var recipe=ProductionEnvironmentDefinition.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/woodland_basin_v1/environment"));
                 var native=recipe.mesh_assets.Where(part=>part.id.StartsWith("timing_gantry_",StringComparison.Ordinal)).ToArray();
                 Assert.That(native.Length,Is.EqualTo(6));

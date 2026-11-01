@@ -209,7 +209,7 @@ namespace Biathlon.Unity.Presentation
                 AddLabel(card,"WOODLAND BASIN",theme.caption_size).style.color=accent;
                 AddLabel(card,T("format."+(int)e.Format)+" · "+T("woodland"),theme.section_size,true);
                 AddVenuePreview(card,compactLayout?105:150);
-                MetricStrip(card,(summary.Profile.DistanceMeters/1000).ToString("0.00")+" km",L("Дистанция","Distance"),summary.Profile.LapCount.ToString(),L("Круги","Laps"),summary.EntrantCount.ToString(),L("На старте","Entrants"));
+                MetricStrip(card,(RaceDistanceBinding.Create(summary.Profile).TotalMeters/1000).ToString("0.##",CultureInfo.GetCultureInfo(Locale=="ru"?"ru-RU":"en-US"))+L(" км"," km"),L("Дистанция","Distance"),summary.Profile.LapCount.ToString(),L("Круги","Laps"),summary.EntrantCount.ToString(),L("На старте","Entrants"));
                 var facts=Tile(card);
                 AddPreRaceKit(facts,e,summary.Player);
                 var stances=new List<string>();for(int i=0;i<summary.Profile.BoutCount;i++)stances.Add(T("stance."+(int)summary.Profile.GetBout(i).Stance));

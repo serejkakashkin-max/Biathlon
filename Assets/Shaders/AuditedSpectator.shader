@@ -7,6 +7,7 @@ Shader "Biathlon/AuditedSpectator"
   HLSLINCLUDE
   #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
   #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+  #include "VenueIllumination.hlsl"
   CBUFFER_START(UnityPerMaterial)
   float4 _Motion;float4 _Garment;float4 _SkinColor;float _FaceDetail;
   CBUFFER_END
@@ -43,6 +44,7 @@ Shader "Biathlon/AuditedSpectator"
    half3 fabric=i.color*lerp(1,.68,seam*i.cloth.w*_Garment.y);fabric=lerp(fabric,half3(.1,.12,.13),zip*_Garment.y);
    half3 skin=lerp(_SkinColor.rgb,SAMPLE_TEXTURE2D(_FaceMap,sampler_FaceMap,i.face.xy).rgb,_FaceDetail);
    SurfaceData s=(SurfaceData)0;s.albedo=lerp(fabric,skin,saturate(i.face.z));s.smoothness=lerp(_Garment.x,.12,saturate(i.face.z));s.occlusion=.9;s.alpha=1;s.normalTS=half3(0,0,1);
+   s.emission=s.albedo*VenueIllumination(i.positionWS,n);
    InputData d=(InputData)0;d.positionWS=i.positionWS;d.normalWS=n;d.viewDirectionWS=GetWorldSpaceNormalizeViewDir(i.positionWS);d.shadowCoord=TransformWorldToShadowCoord(i.positionWS);d.bakedGI=SampleSH(n);d.shadowMask=1;d.normalizedScreenSpaceUV=GetNormalizedScreenSpaceUV(i.positionCS);
    half4 c=UniversalFragmentPBR(d,s);c.rgb=MixFog(c.rgb,i.fog);return c;
   }

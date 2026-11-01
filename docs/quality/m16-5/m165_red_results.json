@@ -1,0 +1,21 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Failed",
+      "TotalTests": 1,
+      "PassedTests": 0,
+      "FailedTests": 1,
+      "SkippedTests": 0,
+      "Duration": "00:00:01.4504402"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.FrontEndMenuTests.ResultsShowSavedFieldShootingSplitsPointsAndReturnToCareer",
+        "Status": "Failed",
+        "Duration": "00:00:01.4020000",
+        "Message": "  The results protocol must show at least10 athletes per page.\r\n  Expected: greater than or equal to 10\r\n  But was:  5\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.FrontEndMenuTests+<CaptureResults>d__12.MoveNext () [0x00288] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\FrontEndMenuTests.cs:117\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+      }
+    ]
+  }
+}

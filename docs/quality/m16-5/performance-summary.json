@@ -1,0 +1,92 @@
+{
+  "gpu": "NVIDIA GeForce RTX 5080",
+  "cpu": "AMD Ryzen 9 9950X3D 16-Core Processor",
+  "api": "Direct3D11",
+  "scope": "Evening-only, 1920x1080 offscreen, frozen accepted tick608, no HUD/menu/live ticking/swapchain; not an A/B cost comparison.",
+  "cases": [
+    {
+      "id": "weather-lit-range",
+      "tier": "high",
+      "samples": 240,
+      "median_wall_ms": 1.349798054434359,
+      "median_cpu_frame_ms": 1.3498,
+      "median_cpu_main_ms": 1.3383,
+      "median_cpu_render_ms": null,
+      "median_gpu_ms": null,
+      "median_gpu_camera_ms": null,
+      "median_gc_bytes": 34.0,
+      "median_draw_calls": 701.0,
+      "median_triangles": 856317.0
+    },
+    {
+      "id": "weather-lit-range",
+      "tier": "balanced",
+      "samples": 240,
+      "median_wall_ms": 1.354850479401648,
+      "median_cpu_frame_ms": 1.3555,
+      "median_cpu_main_ms": 1.3439,
+      "median_cpu_render_ms": null,
+      "median_gpu_ms": null,
+      "median_gpu_camera_ms": null,
+      "median_gc_bytes": 34.0,
+      "median_draw_calls": 676.0,
+      "median_triangles": 721137.0
+    },
+    {
+      "id": "weather-lit-range",
+      "tier": "low",
+      "samples": 240,
+      "median_wall_ms": 1.2344458373263478,
+      "median_cpu_frame_ms": 1.2346499999999998,
+      "median_cpu_main_ms": 1.2234500000000001,
+      "median_cpu_render_ms": null,
+      "median_gpu_ms": null,
+      "median_gpu_camera_ms": null,
+      "median_gc_bytes": 34.0,
+      "median_draw_calls": 511.0,
+      "median_triangles": 476174.0
+    },
+    {
+      "id": "weather-lit-forest",
+      "tier": "high",
+      "samples": 240,
+      "median_wall_ms": 1.530498848296702,
+      "median_cpu_frame_ms": 1.5304,
+      "median_cpu_main_ms": 1.5188,
+      "median_cpu_render_ms": null,
+      "median_gpu_ms": null,
+      "median_gpu_camera_ms": null,
+      "median_gc_bytes": 34.0,
+      "median_draw_calls": 389.0,
+      "median_triangles": 5348317.0
+    },
+    {
+      "id": "weather-lit-forest",
+      "tier": "balanced",
+      "samples": 240,
+      "median_wall_ms": 1.5512011013925076,
+      "median_cpu_frame_ms": 1.552,
+      "median_cpu_main_ms": 1.53945,
+      "median_cpu_render_ms": null,
+      "median_gpu_ms": null,
+      "median_gpu_camera_ms": null,
+      "median_gc_bytes": 34.0,
+      "median_draw_calls": 379.0,
+      "median_triangles": 4081983.0
+    },
+    {
+      "id": "weather-lit-forest",
+      "tier": "low",
+      "samples": 240,
+      "median_wall_ms": 1.4700503670610487,
+      "median_cpu_frame_ms": 1.46915,
+      "median_cpu_main_ms": 1.4573,
+      "median_cpu_render_ms": null,
+      "median_gpu_ms": null,
+      "median_gpu_camera_ms": null,
+      "median_gc_bytes": 34.0,
+      "median_draw_calls": 313.0,
+      "median_triangles": 2709894.0
+    }
+  ]
+}

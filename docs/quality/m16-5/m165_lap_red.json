@@ -1,0 +1,35 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Failed",
+      "TotalTests": 3,
+      "PassedTests": 0,
+      "FailedTests": 3,
+      "SkippedTests": 0,
+      "Duration": "00:00:02.8802792"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.M165VenuePresentationTests.EveryActualCheckpointUsesCumulativeOfficialDistanceAcrossLapsAndReplaySeek(\"sprint\")",
+        "Status": "Failed",
+        "Duration": "00:00:01.0370000",
+        "Message": "  Each nominal lap must retain its official discipline share.\r\n  Expected: 3333.3333333333335d +/- 9.9999999999999995E-07d\r\n  But was:  3476.6657210531375d\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.M165VenuePresentationTests.EveryActualCheckpointUsesCumulativeOfficialDistanceAcrossLapsAndReplaySeek (System.String format) [0x000c4] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\M165VenuePresentationTests.cs:27\r\n"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M165VenuePresentationTests.EveryActualCheckpointUsesCumulativeOfficialDistanceAcrossLapsAndReplaySeek(\"pursuit\")",
+        "Status": "Failed",
+        "Duration": "00:00:00.8900000",
+        "Message": "  Each nominal lap must retain its official discipline share.\r\n  Expected: 2500.0d +/- 9.9999999999999995E-07d\r\n  But was:  2588.4954884773056d\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.M165VenuePresentationTests.EveryActualCheckpointUsesCumulativeOfficialDistanceAcrossLapsAndReplaySeek (System.String format) [0x000c4] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\M165VenuePresentationTests.cs:27\r\n"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M165VenuePresentationTests.EveryActualCheckpointUsesCumulativeOfficialDistanceAcrossLapsAndReplaySeek(\"mass_start\")",
+        "Status": "Failed",
+        "Duration": "00:00:00.9120000",
+        "Message": "  Each nominal lap must retain its official discipline share.\r\n  Expected: 3000.0d +/- 9.9999999999999995E-07d\r\n  But was:  3093.0832789003625d\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.M165VenuePresentationTests.EveryActualCheckpointUsesCumulativeOfficialDistanceAcrossLapsAndReplaySeek (System.String format) [0x000c4] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\M165VenuePresentationTests.cs:27\r\n"
+      }
+    ]
+  }
+}

@@ -185,6 +185,7 @@ namespace Biathlon.Unity.Presentation
                     ManualSkiSteeringDefinition.FromJson(ReadCore("manual_ski_steering_v2.json")),playerAssistance);
             }
             Venue=venue;Runner=runner;PlayerIndex=playerIndex;body=venue.Occupancy;
+            DistanceView=RaceDistanceBinding.Create(profile,runner.Field.Route);
             var requirements=profile.ToRouteRequirements();shootingLaps=new bool[profile.LapCount];
             for(int lap=0;lap<shootingLaps.Length;lap++)shootingLaps[lap]=requirements.RequiresRange(lap);
             samplers=new TrackSampler[venue.Track.LoopCount];for(int i=0;i<samplers.Length;i++)samplers[i]=new TrackSampler(venue.Track.GetLoop(i));
@@ -200,7 +201,7 @@ namespace Biathlon.Unity.Presentation
             gameObject.AddComponent<FinishCorridorPresentation>().Initialize(venue,field.Route);
             gameObject.AddComponent<StadiumPortalPresentation>().Initialize(venue);
             gameObject.AddComponent<PenaltyFencePresentation>().Initialize(venue.Track,venue.Visual);
-            gameObject.AddComponent<CourseTimingPresentation>().Initialize(venue);
+            var courseTiming=gameObject.AddComponent<CourseTimingPresentation>();courseTiming.Initialize(venue);courseTiming.Bind(profile,field.Route,Feed,PlayerIndex,DistanceView);
             Proxies=gameObject.AddComponent<AthleteProxyPresentation>();Proxies.Initialize(Feed,venue);Proxies.Render(1);
             var cameraObject=new GameObject("Production chase camera");cameraObject.transform.SetParent(transform,false);
             ChaseCamera=cameraObject.AddComponent<Camera>();ChaseCamera.depth=100;

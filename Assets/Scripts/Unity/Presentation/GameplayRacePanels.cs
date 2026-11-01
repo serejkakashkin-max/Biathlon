@@ -85,7 +85,9 @@ namespace Biathlon.Unity.Presentation
             if(a.Hud.CheckpointOrdinal>noticedCheckpoint)
             {noticedCheckpoint=a.Hud.CheckpointOrdinal;noticeUntil=Time.unscaledTimeAsDouble+reviewSettings.checkpoint_notice_seconds;}
             checkpointNotice.style.display=a.Hud.Rank>0&&Time.unscaledTimeAsDouble<noticeUntil&&!CheckpointTableVisible?DisplayStyle.Flex:DisplayStyle.None;
-            noticeText.text=L("ОТСЕЧКА  ","SPLIT  ")+a.Hud.Rank+" / "+a.Hud.ComparedAthletes+"    +"+(a.Hud.GapSeconds??0).ToString("0.0")+L(" с"," s");
+            string noticeDistance=host!=null&&a.Hud.CheckpointOrdinal>=0?host.DistanceView.Kilometers(checkpointHistoryLayout.Get(a.Hud.CheckpointOrdinal).RouteNanometers/(double)SkiState.NanometersPerMeter,System.Globalization.CultureInfo.GetCultureInfo(Locale=="ru"?"ru-RU":"en-US"))+L(" КМ · "," KM · "):"";
+            if(noticeDistance.Length>0)timing.text=noticeDistance+Model.Timing;
+            noticeText.text=noticeDistance+a.Hud.Rank+" / "+a.Hud.ComparedAthletes+"    +"+(a.Hud.GapSeconds??0).ToString("0.0")+L(" с"," s");
             if(CheckpointTableVisible)
             {
                 var table=host==null?null:CheckpointStandings.Capture(host.Runner.Field,checkpointHistory.Selected);
@@ -96,7 +98,7 @@ namespace Biathlon.Unity.Presentation
                 if(host!=null&&checkpointHistory.Selected>=0)
                 {
                     var occurrence=checkpointHistoryLayout.Get(checkpointHistory.Selected);int lap=host.Runner.Field.Route.GetSection(occurrence.SectionIndex).LapIndex+1;
-                    location=L("КРУГ ","LAP ")+lap+" · "+(occurrence.RouteNanometers/(double)SkiState.NanometersPerMeter/1000).ToString("0.00",System.Globalization.CultureInfo.GetCultureInfo(Locale=="ru"?"ru-RU":"en-US"))+L(" КМ · "," KM · ");
+                    location=L("КРУГ ","LAP ")+lap+" · "+host.DistanceView.Kilometers(occurrence.RouteNanometers/(double)SkiState.NanometersPerMeter,System.Globalization.CultureInfo.GetCultureInfo(Locale=="ru"?"ru-RU":"en-US"))+L(" КМ · "," KM · ");
                 }
                 checkpointStatus.text=table==null||table.Count==0?L("Ожидаем первую отсечку","Waiting for the first split"):
                     location+table.Count+" / "+host.Runner.Field.Count+L(" прошли · результаты обновляются"," through · provisional");

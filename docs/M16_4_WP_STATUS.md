@@ -26,3 +26,6 @@ References: IBU September2026 ECR8.3.2.1 (skis stay on), AnnexA3.2.1.13
 (mechanical release impulse), AnnexA3.1.7.1 (5.6mm ammunition), existing ADR-0007
 (inclusive deterministic aperture boundary). The game's geometric contract is
 preserved; the UI must not claim a full mechanical impulse simulation.
+
+
+2026-11-01 — Owner APPROVES / CLOSES M16.4. Historical WP owner-test statuses above retain their dates; this explicit acceptance supersedes them. M16.5 is the active owner review stage.

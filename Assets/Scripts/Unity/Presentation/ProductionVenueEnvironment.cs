@@ -215,6 +215,26 @@ namespace Biathlon.Unity.Presentation
                     art.transform.SetPositionAndRotation(bank.position,Quaternion.LookRotation(data.range.forward,Vector3.up));RemoveColliders(art.gameObject);
                     art.Apply(geometry,ShootingStance.Standing,0);banks[i]=art;bankStances[i]=ShootingStance.Standing;
                 }
+                if(Floodlights!=null)
+                {
+                    var illuminated=new Dictionary<Material,Material>();
+                    var template=Require<Material>("Biathlon/Weather/IlluminatedVenueLit");
+                    foreach(var renderer in staticRenderers)
+                    {
+                        var originals=renderer.sharedMaterials;bool changed=false;
+                        for(int i=0;i<originals.Length;i++)
+                        {
+                            var sourceMaterial=originals[i];if(sourceMaterial==null||sourceMaterial.shader.name!="Universal Render Pipeline/Lit")continue;
+                            if(!illuminated.TryGetValue(sourceMaterial,out var replacement))
+                            {
+                                replacement=new Material(sourceMaterial);replacement.shader=template.shader;
+                                replacement.name=sourceMaterial.name+" (venue illumination)";illuminated.Add(sourceMaterial,replacement);ownedMaterials.Add(replacement);
+                            }
+                            originals[i]=replacement;changed=true;
+                        }
+                        if(changed)renderer.sharedMaterials=originals;
+                    }
+                }
                 generated.AddComponent<StaticSceneryBatches>().Initialize(staticRenderers);
                 var composition=G2ForestComposition.Load();
                 if(data.venue_id=="woodland_basin_v1"&&!string.IsNullOrEmpty(composition.dressing_resource))

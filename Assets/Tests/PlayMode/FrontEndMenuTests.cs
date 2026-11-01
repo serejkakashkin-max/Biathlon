@@ -70,6 +70,9 @@ namespace Biathlon.PlayModeTests
             Assert.That(menu.Root.Q<Label>("result_penalties").text,Does.Contain("1"));Assert.That(menu.Root.Q("result_shooting").childCount,Is.EqualTo(2));
             yield return CaptureResults(1600,900,"ru",0);
             yield return CaptureResults(1024,768,"en",2);
+            Submit("result_protocol_next");yield return null;yield return null;
+            Assert.That(menu.Root.Q("result_row_0").resolvedStyle.display,Is.EqualTo(DisplayStyle.None));Assert.That(menu.Root.Q("result_row_10").resolvedStyle.display,Is.EqualTo(DisplayStyle.Flex));
+            Submit("result_protocol_prev");yield return null;yield return null;Assert.That(menu.Root.Q("result_row_7").resolvedStyle.display,Is.EqualTo(DisplayStyle.Flex));
             Submit("results_splits");yield return null;yield return null;
             Assert.That(menu.Root.Q("result_splits").childCount,Is.EqualTo(2));
             Assert.That(menu.Root.Q("result_split_1").Q<Label>().text,Is.EqualTo("Split 2"));
@@ -89,7 +92,7 @@ namespace Biathlon.PlayModeTests
             var target=new RenderTexture(width,height,0);target.Create();settings.targetTexture=target;Texture2D pixels=null;
             try
             {
-                menu.ApplyPreferences(locale,size);yield return null;yield return null;yield return null;
+                menu.ApplyPreferences(locale,size);yield return new WaitForSecondsRealtime(.35f);for(int f=0;f<10;f++)yield return null;
                 var bounds=menu.Root.worldBound;var button=menu.Root.Q<Button>("prepare");
                 Assert.That(button.worldBound.yMax,Is.LessThan(bounds.yMax));Assert.That(button.worldBound.xMax,Is.LessThan(bounds.xMax));
                 Assert.That(menu.Root.Q("career_calendar").childCount,Is.EqualTo(16));
@@ -103,16 +106,19 @@ namespace Biathlon.PlayModeTests
         private IEnumerator CaptureResults(int width,int height,string locale,int size)
         {
             var settings=root.GetComponent<UIDocument>().panelSettings;var previous=RenderTexture.active;
-            var target=new RenderTexture(width,height,0);target.Create();settings.targetTexture=target;Texture2D pixels=null;
+            var target=new RenderTexture(width,height,24);target.Create();settings.targetTexture=target;Texture2D pixels=null;
             try
             {
-                menu.ApplyPreferences(locale,size);yield return null;yield return null;yield return null;
+                menu.ApplyPreferences(locale,size);yield return new WaitForSecondsRealtime(.35f);for(int f=0;f<10;f++)yield return null;
                 var bounds=menu.Root.worldBound;var button=menu.Root.Q<Button>("career_return");
                 Assert.That(button.worldBound.yMax,Is.LessThan(bounds.yMax));Assert.That(button.worldBound.xMax,Is.LessThan(bounds.xMax));
                 var header=menu.Root.Q("result_table_header");Assert.That(header.worldBound.xMax,Is.LessThanOrEqualTo(bounds.xMax));
                 var pager=menu.Root.Q<Button>("result_protocol_next");
                 Assert.That(pager.worldBound.yMax,Is.LessThan(pager.GetFirstAncestorOfType<ScrollView>().worldBound.yMax-8));
                 var playerRow=menu.Root.Q("result_row_7");Assert.That(playerRow.resolvedStyle.display,Is.EqualTo(DisplayStyle.Flex));
+                int visibleRows=0;foreach(var row in menu.Root.Q("result_protocol").Children())if(row.resolvedStyle.display==DisplayStyle.Flex)visibleRows++;
+                Assert.That(visibleRows,Is.GreaterThanOrEqualTo(10),"The results protocol must show at least10 athletes per page.");
+                foreach(var row in menu.Root.Q("result_protocol").Children())if(row.resolvedStyle.display==DisplayStyle.Flex)Assert.That(row.worldBound.yMax,Is.LessThan(pager.worldBound.yMin));
                 RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);
                 pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
                 string folder=Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/quality/m14/results-20261012"));Directory.CreateDirectory(folder);
@@ -162,7 +168,7 @@ namespace Biathlon.PlayModeTests
             var target=new RenderTexture(width,height,0);target.Create();panel.targetTexture=target;Texture2D pixels=null;
             try
             {
-                menu.ApplyPreferences(locale,size);yield return null;yield return null;yield return null;
+                menu.ApplyPreferences(locale,size);yield return new WaitForSecondsRealtime(.35f);for(int f=0;f<10;f++)yield return null;
                 var bounds=menu.Root.worldBound;var start=menu.Root.Q<Button>("start_race");
                 Assert.That(start.worldBound.yMax,Is.LessThan(bounds.yMax));Assert.That(start.worldBound.width,Is.GreaterThan(200));
                 RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);
