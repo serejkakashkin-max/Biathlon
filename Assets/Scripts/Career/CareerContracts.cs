@@ -48,6 +48,8 @@ namespace Biathlon.Career
         [DataMember(Name="money_minor",IsRequired=true)] public long Money { get; internal set; }
         [DataMember(Name="inventory",IsRequired=true)] private string[] inventory { get; set; }
         [DataMember(Name="selected_ski",IsRequired=true)] public string SelectedSki { get; internal set; }
+        [DataMember(Name="selected_rifle",EmitDefaultValue=false)] public string SelectedRifle {get;internal set;}
+        public const int InventoryCapacity=128;
         [DataMember(Name="training_sessions",IsRequired=true)] public int TrainingSessions { get; internal set; }
         [DataMember(Name="races",IsRequired=true)] public int Races { get; internal set; }
         [DataMember(Name="wins",IsRequired=true)] public int Wins { get; internal set; }
@@ -56,11 +58,13 @@ namespace Biathlon.Career
         public int InventoryCount=>inventory.Length;public string InventoryItem(int index)=>inventory[index];
         internal void SetStat(CareerStat stat,int value)=>stats[(int)stat]=value;
         internal void AddEquipment(string id){var items=new string[inventory.Length+1];Array.Copy(inventory,items,inventory.Length);items[items.Length-1]=id;inventory=items;}
+        internal void InitializeNeutralRifle()
+        {if(SelectedRifle==null)SelectedRifle=CareerEquipmentCatalog.NeutralRifleId;if(!CareerInventory.Owns(this,CareerEquipmentCatalog.NeutralRifleId))AddEquipment(CareerEquipmentCatalog.NeutralRifleId);}
         [OnDeserializing] private void BeforeRead(StreamingContext context){Confidence=-1;}
         internal static CareerAthlete Create(string id,string name,string nation,string appearance,string personality,int age,int potential,int[] attributes,int initialState,long money)
         {
             var a=new CareerAthlete{Id=id,Name=name,Nation=nation,AppearanceId=appearance,Appearance=AppearanceProfile.Legacy(id),PersonalityId=personality,Age=age,Potential=potential,stats=(int[])attributes.Clone(),
-                Form=initialState,Morale=initialState,Confidence=initialState,Health=CareerUnits.Basis,Money=money,inventory=new[]{"ski_neutral"},SelectedSki="ski_neutral"};a.Validate();return a;
+                Form=initialState,Morale=initialState,Confidence=initialState,Health=CareerUnits.Basis,Money=money,inventory=new[]{"ski_neutral",CareerEquipmentCatalog.NeutralRifleId},SelectedSki="ski_neutral",SelectedRifle=CareerEquipmentCatalog.NeutralRifleId};a.Validate();return a;
         }
         internal void Validate()
         {
@@ -71,9 +75,10 @@ namespace Biathlon.Career
             foreach(int stat in stats)CareerUnits.Range(stat,0,CareerUnits.MaximumStat,"attribute");
             foreach(int state in new[]{Fatigue,Form,Morale,Confidence,Health,HealthRisk})CareerUnits.Range(state,0,CareerUnits.Basis,"temporary state");
             CareerUnits.Range(LastProgressionSeason,0,10000,"progression season");CareerUnits.Range(PendingCampQuality,0,12000,"pending camp quality");CareerUnits.Range((int)Tier,0,2,"tier");if(Money<0||LifetimeEarnings<0||TrainingSessions<0||Races<0||Wins<0||Wins>Races)throw new SerializationException("Invalid athlete counters.");
-            if(inventory==null||inventory.Length<1||inventory.Length>100)throw new SerializationException("Invalid inventory.");
+            if(inventory==null||inventory.Length<1||inventory.Length>InventoryCapacity)throw new SerializationException("Invalid inventory.");
             var ids=new System.Collections.Generic.HashSet<string>(StringComparer.Ordinal);foreach(string item in inventory){CareerUnits.Id(item);if(!ids.Add(item))throw new SerializationException("Duplicate equipment.");}
             if(!ids.Contains(SelectedSki))throw new SerializationException("Selected skis are not owned.");
+            CareerUnits.Id(SelectedRifle);if(!ids.Contains(SelectedRifle))throw new SerializationException("Selected rifle is not owned.");
             ValidateDevelopment();
         }
         public string ToJson()=>CareerJson.Write(this);

@@ -57,29 +57,6 @@ namespace Biathlon.Unity.Presentation
             PageRows(card,trainingTiles,trainingPage,2,value=>trainingPage=value);
             AddLabel(card,L("План применяется при завершении недели","Plan applies when you complete the week"),theme.caption_size).tooltip=T("training.forecast_note");
         }
-        private void RenderEquipment(VisualElement actions,VisualElement card)
-        {
-            AddLabel(actions,F("equipment.money",Session.Player.Money/100.0),theme.body_size).name="equipment_money";
-            AddLabel(card,T("equipment.tradeoff_note"),theme.caption_size).style.color=FrostlineStyle.Muted;
-            AddLabel(card,L("СРАВНЕНИЕ С ВАШИМИ ЛЫЖАМИ · ПЛОТНЫЙ СНЕГ","VERSUS YOUR SKIS · PACKED SNOW"),theme.caption_size).style.color=FrostlineStyle.Gold;
-            var catalog=Session.EquipmentCatalog;var equipmentTiles=TileGrid(card,"equipment_tiles");
-            for(int i=0;i<catalog.Count;i++)
-            {
-                var item=catalog.Get(i);string id=item.Id;var compare=CareerInventory.Compare(Session.Player,catalog,Session.Definitions.Economy,id,"packed_neutral");
-                var row=Tile(equipmentTiles);row.style.width=Length.Percent(compactLayout?48.5f:32);row.name="equipment_card_"+id;
-                AddLabel(row,T("equipment."+id),theme.body_size,true);
-                var appearance=CareerSkiAppearance.Catalog.Get(id);
-                row.Add(new SkiPairGraphic(FrontEndTheme.Color(appearance.BaseColorHex),FrontEndTheme.Color(appearance.AccentColorHex),id));DeltaMeter(row,L("Скольжение","Glide"),compare.GlideDelta);DeltaMeter(row,L("Сцепление","Grip"),compare.GripDelta);DeltaMeter(row,L("Устойчивость","Stability"),compare.StabilityDelta);
-                bool selected=Session.Player.SelectedSki==id;
-                AddButton(row,"equip_"+id,selected?T("equipment.selected"):compare.Owned?T("equipment.select"):F("equipment.buy",compare.PurchasePrice/100.0),()=>CareerAction(()=>Session.Equip(id)),primary:true,enabled:!selected&&Session.Player.Money>=compare.PurchasePrice);
-                if(selected)
-                {
-                    row.style.borderTopWidth=3;row.style.borderTopColor=FrostlineStyle.Accent;
-                    var button=row.Q<Button>("equip_"+id);button.style.opacity=1;button.style.backgroundColor=FrostlineStyle.Accent;button.style.color=FrostlineStyle.Deep;
-                }
-            }
-            PageRows(card,equipmentTiles,equipmentPage,compactLayout?2:3,value=>equipmentPage=value);
-        }
         private void RenderStandings(VisualElement card)
         {
             var table=CareerStandings.Table(Session.Career,Session.Definitions.Scoring);

@@ -19,9 +19,9 @@ namespace Biathlon.Tests
             string source=Fixture("v"+version+".json"),expected=Fixture("v3.json");
             Assert.That(BalanceRegression.Hash(source),Is.EqualTo(Fixture("v"+version+".sha256.txt").Trim()),"An archived fixture must not silently be regenerated.");
             var result=CareerSaveMigrations.Load(source);Assert.That(result.SourceVersion,Is.EqualTo(version));
-            Assert.That(result.TargetVersion,Is.EqualTo(3));Assert.That(result.StepCount,Is.EqualTo(3-version));Assert.That(result.WasMigrated,Is.EqualTo(version!=3));
-            Assert.That(result.Save.ToJson(),Is.EqualTo(expected),"Only the declared confidence/legacy appearance migration is permitted.");
-            Assert.That(BalanceRegression.Hash(result.Save.ToJson()),Is.EqualTo(Fixture("target-v3.sha256.txt").Trim()));
+            Assert.That(result.TargetVersion,Is.EqualTo(4));Assert.That(result.StepCount,Is.EqualTo(4-version));Assert.That(result.WasMigrated,Is.True);
+            Assert.That(PhysiologyContractTests.ReplaceNumber(M166EquipmentTests.WithoutRifles(result.Save.ToJson()),"save_version","3"),Is.EqualTo(expected),"Only the declared confidence/legacy appearance migration is permitted.");
+            Assert.That(BalanceRegression.Hash(PhysiologyContractTests.ReplaceNumber(M166EquipmentTests.WithoutRifles(result.Save.ToJson()),"save_version","3")),Is.EqualTo(Fixture("target-v3.sha256.txt").Trim()));
             var canonical=CareerSave.FromJson(expected);Assert.That(result.Save.RandomState,Is.EqualTo(canonical.RandomState));
             Assert.That(result.Save.PlayerId,Is.EqualTo(canonical.PlayerId));Assert.That(result.Save.NextAthleteOrdinal,Is.EqualTo(canonical.NextAthleteOrdinal));
             Assert.That(result.Save.Race(0).AuthorityResultJson,Is.EqualTo(canonical.Race(0).AuthorityResultJson));
@@ -59,7 +59,7 @@ namespace Biathlon.Tests
         public void AmbiguousMalformedOrIncompleteSchemaCannotMigrate(string json)
         {Assert.Catch<SerializationException>(()=>CareerSaveMigrations.Load(json));}
         [Test] public void TrailingWhitespaceAndSingleUtf8BomRemainCompatible()
-        {Assert.That(CareerSave.FromJson("\uFEFF  "+Fixture("v3.json")+"\r\n\t").ToJson(),Is.EqualTo(Fixture("v3.json")));}
+        {Assert.That(CareerSave.FromJson("\uFEFF  "+Fixture("v3.json")+"\r\n\t").ToJson(),Is.EqualTo(CareerSave.FromJson(Fixture("v3.json")).ToJson()));}
         [Test] public void EscapedDuplicateMemberNameIsAlsoRejected()
         {
             string source=Fixture("v3.json");string ambiguous=source.Insert(1,"\"\\u0073chema_version\":1,");

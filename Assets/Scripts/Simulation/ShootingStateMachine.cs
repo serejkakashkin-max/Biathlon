@@ -47,9 +47,9 @@ namespace Biathlon.Simulation
             this.events = events ?? throw new ArgumentNullException(nameof(events)); tick = initialTick.Value;
             if (handling.HasValue && !handling.Value.IsValid) throw new ArgumentException("Invalid handling profile.");
             double handlingTime = handling?.TimeMultiplier ?? 1;
-            setupTicks = (int)Math.Ceiling(definition.SetupSeconds * frequency * (stance?.SetupMultiplier ?? 1) * handlingTime);
+            setupTicks = (int)Math.Ceiling(definition.SetupSeconds * frequency * (stance?.SetupMultiplier ?? 1) * (handling?.SetupTimeMultiplier??1));
             boltTicks = (int)Math.Ceiling(definition.BoltSeconds * frequency * handlingTime);
-            exitTicks = (int)Math.Ceiling(definition.ExitSeconds * frequency * (stance?.ExitMultiplier ?? 1));
+            exitTicks = (int)Math.Ceiling(definition.ExitSeconds * frequency * (stance?.ExitMultiplier ?? 1) * (handling?.ExitTimeMultiplier??1));
         }
         public ShootingFrame Step(SimulationTick target, ShootingAction action = ShootingAction.None, ShootingLaneAssignment lane = default)
         {

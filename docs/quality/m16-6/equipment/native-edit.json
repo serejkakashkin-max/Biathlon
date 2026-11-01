@@ -1,0 +1,164 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 30,
+      "PassedTests": 30,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:02.7302834"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.CareerEconomyTests.InsufficientFundsUnknownGoodsAndOverflowAreAtomic",
+        "Status": "Passed",
+        "Duration": "00:00:00.0800000"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerEconomyTests.PrizesAndPurchasesUseExactMoneyAndPersistCampEntitlement",
+        "Status": "Passed",
+        "Duration": "00:00:00.0220000"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerInventoryTests.ComparisonsExposeConditionTradeoffsAndSelectionPersistsWithoutStacking",
+        "Status": "Passed",
+        "Duration": "00:00:00.0140000"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.AmbiguousMalformedOrIncompleteSchemaCannotMigrate(\"{\\\"schema_version\\\":1,\\\"save_version\\\":3}\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.AmbiguousMalformedOrIncompleteSchemaCannotMigrate(\"[]\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.AmbiguousMalformedOrIncompleteSchemaCannotMigrate(\"null\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.AmbiguousMalformedOrIncompleteSchemaCannotMigrate(\"{\\\"schema_version\\\":1,\\\"save_version\\\":3,}\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.AmbiguousMalformedOrIncompleteSchemaCannotMigrate(\"{\\\"schema_version\\\":1,\\\"save_version\\\":3,\\\"save_version\\\":1}\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.AmbiguousMalformedOrIncompleteSchemaCannotMigrate(\"{\\\"schema_version\\\":1,\\\"save_version\\\":03}\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.AmbiguousMalformedOrIncompleteSchemaCannotMigrate(\"{\\\"schema_version\\\":1,\\\"save_version\\\":3e}\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.AmbiguousMalformedOrIncompleteSchemaCannotMigrate(\"{\\\"schema_version\\\":1,\\\"save_version\\\":3,\\\"text\\\":\\\"bad\\\\q\\\"}\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.EscapedDuplicateMemberNameIsAlsoRejected",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.LegacyFileIsReadWithoutRewriteAndNextCasSaveRetainsOriginalBackup(1)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0410000"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.LegacyFileIsReadWithoutRewriteAndNextCasSaveRetainsOriginalBackup(2)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0350000"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.ReleasedFixtureMigrationsPreserveAuthoritativeStateAndRecordedPayload(1)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0170000"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.ReleasedFixtureMigrationsPreserveAuthoritativeStateAndRecordedPayload(2)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0140000"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.ReleasedFixtureMigrationsPreserveAuthoritativeStateAndRecordedPayload(3)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0140000"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerSaveMigrationFixtureTests.TrailingWhitespaceAndSingleUtf8BomRemainCompatible",
+        "Status": "Passed",
+        "Duration": "00:00:00.0090000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166EquipmentTests.AiPaysThePlayerPriceKeepsReserveAndDoesNotConsumeRandom",
+        "Status": "Passed",
+        "Duration": "00:00:00.0170000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166EquipmentTests.AllCareerSkisHaveMeasuredRaceEffectsBelowBroadAthleteProgression",
+        "Status": "Passed",
+        "Duration": "00:00:00.6460000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166EquipmentTests.CatalogHasEightSkisFourRiflesAndRealSnowSpecializationsWithinOriginalEnvelope",
+        "Status": "Passed",
+        "Duration": "00:00:00.0050000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166EquipmentTests.MigrationIncludesBackgroundWorldAndPreservesAFullLegacyInventory",
+        "Status": "Passed",
+        "Duration": "00:00:00.1730000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166EquipmentTests.PurchasesArePaidAtomicAndSlotsRemainIndependentAcrossSaveLoad",
+        "Status": "Passed",
+        "Duration": "00:00:00.0200000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166EquipmentTests.ReplayEquipmentSnapshotIsSelfContainedAndRejectsUnknownVersionsOrMissingBindings",
+        "Status": "Passed",
+        "Duration": "00:00:00.0050000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166EquipmentTests.RifleHandlingRecoilAndErgonomicsHaveMeasuredTradeoffsWithoutChangingRayGeometry",
+        "Status": "Passed",
+        "Duration": "00:00:00.0110000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166EquipmentTests.TwoSeasonFinancialScenariosShowSavingsAndServiceTradeoffsAcrossAllStarts",
+        "Status": "Passed",
+        "Duration": "00:00:00.0130000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166EquipmentTests.V3MigrationOnlyAddsNeutralRifleAndDoesNotTouchAppearanceMoneyOrRandom",
+        "Status": "Passed",
+        "Duration": "00:00:00.0380000"
+      },
+      {
+        "Name": "Biathlon.Tests.ShootingHandlingTests.EquipmentEnvelopeReplayAtomicityAndAllocationsAreControlled",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.Tests.ShootingHandlingTests.RecoilIsPostShotBoundedAndExpertsSettleFaster",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.Tests.ShootingHandlingTests.SkillChangesActualDischargeTimingButNotValidGeometry",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      }
+    ]
+  }
+}

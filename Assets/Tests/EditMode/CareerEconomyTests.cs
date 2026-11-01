@@ -9,10 +9,10 @@ namespace Biathlon.Tests
         public static SkiEquipmentCatalog Equipment()=>SkiEquipmentCatalog.FromJson(PhysiologyContractTests.DefinitionJson("ski_equipment_provisional_v1.json"));
         [Test] public void PrizesAndPurchasesUseExactMoneyAndPersistCampEntitlement()
         {
-            var save=CareerFoundationTests.Create();var a=save.Athlete(0);var d=Definition();long start=a.Money;
+            var save=M166EquipmentTests.Funded();var a=save.Athlete(0);var d=Definition();long start=a.Money;
             CareerEconomy.Award(a,d,1);CareerEconomy.BuyEquipment(a,d,Equipment(),"ski_glide");CareerEconomy.BuyCamp(a,d,CareerAdaptationTests.Definition());
             CareerFatigue.Training(a,CareerTrainingTests.Definition().Get(CareerTrainingKind.Intensity));CareerEconomy.BuyRecovery(a,d);
-            Assert.That(a.Money,Is.EqualTo(start+d.Prize(1)-d.EquipmentPrice("ski_glide")-d.CampPrice-d.RecoveryPrice));Assert.That(a.LifetimeEarnings,Is.EqualTo(d.Prize(1)));
+            Assert.That(a.Money,Is.EqualTo(start+d.Prize(1,a.Tier)-d.EquipmentPrice("ski_glide")-d.CampPrice-d.RecoveryPrice));Assert.That(a.LifetimeEarnings,Is.EqualTo(d.Prize(1,a.Tier)));
             Assert.That(a.PendingCampQuality,Is.EqualTo(d.CampQuality));Assert.That(CareerSave.FromJson(save.ToJson()).ToJson(),Is.EqualTo(save.ToJson()));
             string before=a.ToJson();Assert.Catch(()=>CareerEconomy.BuyCamp(a,d,CareerAdaptationTests.Definition()));Assert.Catch(()=>CareerEconomy.BuyEquipment(a,d,Equipment(),"ski_glide"));Assert.That(a.ToJson(),Is.EqualTo(before));
         }

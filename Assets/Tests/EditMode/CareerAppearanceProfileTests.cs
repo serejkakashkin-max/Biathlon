@@ -15,7 +15,7 @@ namespace Biathlon.Tests
         {
             string current=CareerFoundationTests.Create().ToJson();
             string old=PhysiologyContractTests.ReplaceNumber(WithoutProfiles(current),"save_version","2");
-            var migrated=CareerSave.FromJson(old);Assert.That(migrated.SaveVersion,Is.EqualTo(3));
+            var migrated=CareerSave.FromJson(old);Assert.That(migrated.SaveVersion,Is.EqualTo(CareerSave.CurrentVersion));
             string oldAgain=PhysiologyContractTests.ReplaceNumber(WithoutProfiles(migrated.ToJson()),"save_version","2");
             Assert.That(oldAgain,Is.EqualTo(old),"Only the version and new visual profiles change.");
             for(int i=0;i<migrated.AthleteCount;i++)

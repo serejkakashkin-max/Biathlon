@@ -22,6 +22,14 @@ namespace Biathlon.Simulation
         public ShootingEquipmentDefinition Equipment { get; }
         public ShootingPressureDefinition Pressure { get; }
         public string ContextJson { get; }
+        public ShootingModelDefinitions WithEquipment(ShootingEquipmentDefinition equipment)
+        {if(equipment==null)throw new ArgumentNullException(nameof(equipment));return new ShootingModelDefinitions(this,equipment);}
+        private ShootingModelDefinitions(ShootingModelDefinitions source,ShootingEquipmentDefinition equipment)
+        {
+            Physiology=source.Physiology;Lifecycle=source.Lifecycle;Targets=source.Targets;Aim=source.Aim;Breathing=source.Breathing;Heartbeat=source.Heartbeat;
+            Muscular=source.Muscular;Stances=source.Stances;BreathControl=source.BreathControl;Wind=source.Wind;Handling=source.Handling;Equipment=equipment;Pressure=source.Pressure;
+            ContextJson=EncodeContext(Physiology.ToJson(),Lifecycle.ToJson(),Targets.ToJson(),Aim.ToJson(),Breathing.ToJson(),Heartbeat.ToJson(),Muscular.ToJson(),Stances.ToJson(),BreathControl.ToJson(),Wind.ToJson(),Handling.ToJson(),Equipment.ToJson(),Pressure.ToJson());
+        }
         public ShootingModelDefinitions(Func<string, string> readJson)
         {
             if (readJson == null) throw new ArgumentNullException(nameof(readJson));

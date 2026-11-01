@@ -30,6 +30,8 @@ namespace Biathlon.Tests
             // Keep the original v2 ability/RNG fixture; additive appearance metadata
             // and the explicit version bump do not silently rebaseline race state.
             string legacyShape=Regex.Replace(a.ToJson(),"\"appearance_profile\":\\{[^{}]*\\},","");
+            legacyShape=M166EquipmentTests.WithoutRifles(legacyShape);
+            legacyShape=PhysiologyContractTests.ReplaceNumber(legacyShape,"money_minor","200000");
             legacyShape=PhysiologyContractTests.ReplaceNumber(legacyShape,"save_version","2");
             Assert.That(BalanceRegression.Hash(legacyShape),Is.EqualTo(PhysiologyContractTests.ProjectFile("tests/fixtures/career-foundation-v1.sha256").Trim()));
         }

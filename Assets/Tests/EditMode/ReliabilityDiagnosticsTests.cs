@@ -34,7 +34,7 @@ namespace Biathlon.Tests
                     foreach(string secret in new[]{"PRIVATE_NAME_TOKEN","career_privacy","private_appearance",save.RandomState.ToString(),directory,"athlete_0","C:\\Users","access_token"})Assert.That(all,Does.Not.Contain(secret));
                     Assert.That(all,Does.Contain("SaveBackupRecovered"));Assert.That(all,Does.Contain("6000.6.0f1"));Assert.That(all,Does.Contain("\"saved_races\":0"));
                     using(var reader=new StreamReader(zip.GetEntry("save-structure.json").Open()))
-                    {string structure=reader.ReadToEnd();Assert.That(structure,Does.Contain("\"schema_version\":1"));Assert.That(structure,Does.Contain("\"save_version\":3"));}
+                    {string structure=reader.ReadToEnd();Assert.That(structure,Does.Contain("\"schema_version\":1"));Assert.That(structure,Does.Contain("\"save_version\":4"));}
                 }
                 Assert.That(save.ToJson(),Is.EqualTo(before));Assert.That(Directory.GetFiles(directory,"*.tmp"),Is.Empty);
                 string again=DiagnosticBundle.Export(directory,Policy(),config,save,rows,1001);Assert.That(again,Is.Not.EqualTo(path));

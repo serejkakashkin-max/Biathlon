@@ -98,7 +98,7 @@ namespace Biathlon.Tests
             Assert.That(File.ReadAllText(Path.Combine(folder,"career_older.json")),Is.EqualTo(older));
         }
         [TestCase("schema_version","2")]
-        [TestCase("save_version","4")]
+        [TestCase("save_version","5")]
         public void FuturePrimaryIsNotDowngradedToSupportedBackup(string key,string version)
         {
             string future=PhysiologyContractTests.ReplaceNumber(initial,key,version);File.WriteAllText(target,future);File.WriteAllText(target+".bak",initial);

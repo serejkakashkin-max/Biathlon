@@ -60,7 +60,7 @@ namespace Biathlon.Unity.Presentation
             =>new CareerRaceProvider(ReadCore,definitions,ProductionVenueHost.ReadResource).Prepare(CareerSave.FromJson(Info.CareerSnapshotJson),raceEvent,Info.Seed,
                 recordedWeather:Info.RaceWeatherJson==null?null:RaceWeatherPreset.FromJson(Info.RaceWeatherJson),legacyNeutralWeather:Info.RaceWeatherJson==null,
                 legacyMassStartOrder:Info.StartOrderVersion==0,courseReactionPolicy:Info.CourseReactionPolicy,
-                legacySprintStartOrder:Info.StartOrderVersion<2);
+                legacySprintStartOrder:Info.StartOrderVersion<2,recordedEquipmentJson:Info.EquipmentSnapshotJson,legacyEquipment:Info.EquipmentVersion==0);
         private IEnumerator Create(long moment)
         {
             yield return null;Exception failure=null;

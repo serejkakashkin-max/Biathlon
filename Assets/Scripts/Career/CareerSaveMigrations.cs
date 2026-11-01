@@ -30,11 +30,11 @@ namespace Biathlon.Career
         public string StepId(int index)
         {
             if(index<0||index>=StepCount)throw new ArgumentOutOfRangeException(nameof(index));
-            return SourceVersion+index==1?"career_v1_to_v2_confidence":"career_v2_to_v3_appearance";
+            return SourceVersion+index==1?"career_v1_to_v2_confidence":SourceVersion+index==2?"career_v2_to_v3_appearance":"career_v3_to_v4_equipment";
         }
     }
 
-    /// <summary>Ordered v1→v2→v3 migrations retain original abilities, RNG and recorded race payloads.</summary>
+    /// <summary>Ordered v1→v2→v3→v4 migrations retain original abilities, RNG and recorded race payloads.</summary>
     public static class CareerSaveMigrations
     {
         public static CareerSaveMigrationResult Load(string json)=>CareerSave.ReadMigrated(json);

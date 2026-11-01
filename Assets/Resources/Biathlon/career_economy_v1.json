@@ -1,1 +1,13 @@
-{"schema_version":1,"id":"career_economy_v1","prizes_minor":[100000,75000,50000,30000,20000,10000],"camp_price_minor":25000,"camp_quality":11000,"recovery_price_minor":5000,"recovery_gain":1500,"equipment":[{"ski_id":"ski_glide","price_minor":40000},{"ski_id":"ski_soft_specialist","price_minor":45000}]}
+{
+  "schema_version":2,"id":"career_economy_v2",
+  "prizes_minor":[50000,37500,30000,24000,21000,19000,17500,16000,15000,14000,13000,12000,11000,10500,10000,10000,10000,10000,10000,10000,10000,10000,10000,10000,10000,10000,10000,10000,10000,10000],
+  "prize_tier_basis":[6500,10000,15000],
+  "camp_price_minor":25000,"camp_quality":11000,"recovery_price_minor":7500,"recovery_gain":1500,
+  "equipment":[
+    {"ski_id":"ski_glide","price_minor":70000},{"ski_id":"ski_soft_specialist","price_minor":90000},
+    {"ski_id":"ski_cold_race","price_minor":600000},{"ski_id":"ski_fresh_float","price_minor":420000},
+    {"ski_id":"ski_wet_channel","price_minor":520000},{"ski_id":"ski_ice_edge","price_minor":380000},
+    {"ski_id":"ski_soft_control","price_minor":300000},
+    {"ski_id":"rifle_precision","price_minor":380000},{"ski_id":"rifle_agile","price_minor":260000},{"ski_id":"rifle_endurance","price_minor":520000}
+  ]
+}

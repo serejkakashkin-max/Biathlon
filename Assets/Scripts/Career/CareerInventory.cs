@@ -22,6 +22,12 @@ namespace Biathlon.Career
     }
     public static class CareerInventory
     {
+        public static void Select(CareerAthlete athlete,CareerEquipmentCatalog catalog,string id)
+        {
+            if(athlete==null||catalog==null)throw new ArgumentNullException();athlete.Validate();var slot=catalog.Slot(id);
+            if(!Owns(athlete,id))throw new InvalidOperationException("Selected equipment must be owned.");
+            if(slot==CareerEquipmentSlot.Skis)athlete.SelectedSki=id;else athlete.SelectedRifle=id;
+        }
         public static bool Owns(CareerAthlete athlete,string skiId)
         {if(athlete==null)throw new ArgumentNullException(nameof(athlete));for(int i=0;i<athlete.InventoryCount;i++)if(athlete.InventoryItem(i)==skiId)return true;return false;}
         public static void Select(CareerAthlete athlete,SkiEquipmentCatalog catalog,string skiId)

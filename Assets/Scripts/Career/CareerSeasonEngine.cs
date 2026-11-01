@@ -28,6 +28,16 @@ namespace Biathlon.Career
         public CareerWorldDefinition World {get;}
         private CareerRivalAppearance rivalAppearance;
         public CareerRivalAppearance RivalAppearance=>rivalAppearance??(rivalAppearance=new CareerRivalAppearance(ReadDefinition));
+        private CareerEquipmentCatalog equipment;
+        public CareerEquipmentCatalog Equipment=>equipment??(equipment=new CareerEquipmentCatalog(ReadDefinition));
+        private CareerEquipmentPolicy equipmentPolicy;
+        public CareerEquipmentPolicy EquipmentPolicy=>equipmentPolicy??(equipmentPolicy=CareerEquipmentPolicy.FromJson(ReadDefinition("career_equipment_policy_v1.json")));
+        public RaceWeatherPreset Forecast(CareerSave save,CareerCalendarEvent e)
+        {
+            if(save==null||e==null)throw new ArgumentNullException();if(e.VenueId!="woodland_basin_v1")return null;
+            for(int i=0;i<Calendar.Count;i++)if(Calendar.Get(i).Id==e.Id)return RaceWeatherCatalog.FromJson(ReadDefinition("career_weather_v1.json")).Select(i,save.Season);
+            throw new ArgumentException("Forecast requires an event from this career calendar.");
+        }
         public CareerDefinitions(Func<string,string> read) : this(read,LegacyCalendarResource) { }
         /// <summary>New production careers use the approved one-venue season.
         /// Existing saves are selected from their persisted calendar ID instead.</summary>
@@ -124,6 +134,11 @@ namespace Biathlon.Career
             CareerWorld.TrainBackgroundWeek(save,d);
             bool requiresRace=false;
             if(e!=null)for(int i=0;i<save.AthleteCount;i++)requiresRace|=e.Eligible(save.Athlete(i));
+            if(requiresRace)
+            {
+                string snowId=d.Forecast(save,e)?.SnowProfile??"packed_neutral";var snow=SnowCatalog.FromJson(d.ReadDefinition("snow_catalog_provisional_v1.json"));
+                for(int i=0;i<save.AthleteCount;i++){var a=save.Athlete(i);if(a.Id!=save.PlayerId&&e.Eligible(a))CareerEquipmentPlanner.Prepare(a,d.Equipment,d.Economy,d.EquipmentPolicy,snow,snowId);}
+            }
             ulong seed=requiresRace?random.NextUInt64():0;
             return new CareerWeekPreparation(sourceJson,save.ToJson(),e,seed,requiresRace,random.State,used);
         }

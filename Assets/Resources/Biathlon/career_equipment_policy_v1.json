@@ -1,0 +1,9 @@
+{
+  "schema_version":1,"id":"career_equipment_decisions_v1","reserve_minor":32500,
+  "glide_weight_basis":7500,"minimum_score_gain":0.002,
+  "preferences":[
+    {"id":"default","stability_weight_basis":4000,"handling_weight_basis":3500,"ergonomics_weight_basis":2500},
+    {"id":"ai_personality_attacker_v1","stability_weight_basis":2000,"handling_weight_basis":6500,"ergonomics_weight_basis":1500},
+    {"id":"ai_personality_patient_v1","stability_weight_basis":6000,"handling_weight_basis":2000,"ergonomics_weight_basis":2000}
+  ]
+}

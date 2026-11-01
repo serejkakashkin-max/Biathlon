@@ -6,7 +6,7 @@ namespace Biathlon.Career
 {
     [DataContract] public sealed partial class CareerSave
     {
-        public const int CurrentVersion=3;
+        public const int CurrentVersion=4;
         private CareerSave() { }
         [DataMember(Name="schema_version",IsRequired=true)] public int SchemaVersion { get; private set; }
         [DataMember(Name="save_version",IsRequired=true)] public int SaveVersion { get; private set; }
@@ -79,6 +79,11 @@ namespace Biathlon.Career
                 // Stable legacy visual identity is preserved without drawing career RNG.
                 if(s.athletes!=null)foreach(var a in s.athletes)if(a!=null)a.Appearance=AppearanceProfile.Legacy(a.Id);
                 s.SaveVersion=3;
+            }
+            if(s.SaveVersion==3)
+            {
+                if(s.athletes!=null)for(int i=0;i<s.WorldAthleteCount;i++)s.WorldAthlete(i)?.InitializeNeutralRifle();
+                s.SaveVersion=4;
             }
             s.Validate();return new CareerSaveMigrationResult(s,sourceVersion);
         }

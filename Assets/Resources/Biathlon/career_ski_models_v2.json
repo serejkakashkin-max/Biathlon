@@ -1,0 +1,10 @@
+{
+  "schema_version":1,"id":"career_skis_v2",
+  "skis":[
+    {"id":"ski_cold_race","glide_multiplier":1.045,"grip_multiplier":0.97,"stability_multiplier":0.975,"condition_affinities":[{"snow_profile_id":"packed_neutral","glide_multiplier":1.03},{"snow_profile_id":"fresh_soft","glide_multiplier":0.97},{"snow_profile_id":"icy_fast","glide_multiplier":0.98},{"snow_profile_id":"wet_slow","glide_multiplier":0.97}]},
+    {"id":"ski_fresh_float","glide_multiplier":1.025,"grip_multiplier":0.995,"stability_multiplier":0.98,"condition_affinities":[{"snow_profile_id":"packed_neutral","glide_multiplier":0.98},{"snow_profile_id":"fresh_soft","glide_multiplier":1.03},{"snow_profile_id":"icy_fast","glide_multiplier":0.97},{"snow_profile_id":"wet_slow","glide_multiplier":0.98}]},
+    {"id":"ski_wet_channel","glide_multiplier":1.02,"grip_multiplier":0.99,"stability_multiplier":1.01,"condition_affinities":[{"snow_profile_id":"packed_neutral","glide_multiplier":0.98},{"snow_profile_id":"fresh_soft","glide_multiplier":0.99},{"snow_profile_id":"icy_fast","glide_multiplier":0.97},{"snow_profile_id":"wet_slow","glide_multiplier":1.03}]},
+    {"id":"ski_ice_edge","glide_multiplier":1.01,"grip_multiplier":1.04,"stability_multiplier":1.03,"condition_affinities":[{"snow_profile_id":"packed_neutral","glide_multiplier":0.99},{"snow_profile_id":"fresh_soft","glide_multiplier":0.97},{"snow_profile_id":"icy_fast","glide_multiplier":1.03},{"snow_profile_id":"wet_slow","glide_multiplier":0.98}]},
+    {"id":"ski_soft_control","glide_multiplier":0.985,"grip_multiplier":1.04,"stability_multiplier":1.03,"condition_affinities":[{"snow_profile_id":"packed_neutral","glide_multiplier":0.99},{"snow_profile_id":"fresh_soft","glide_multiplier":1.03},{"snow_profile_id":"icy_fast","glide_multiplier":0.98},{"snow_profile_id":"wet_slow","glide_multiplier":1.01}]}
+  ]
+}

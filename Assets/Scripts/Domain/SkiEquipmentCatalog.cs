@@ -51,6 +51,12 @@ namespace Biathlon.Domain
     [DataContract]
     public sealed class SkiEquipmentCatalog
     {
+        [DataContract] private sealed class AdditionalSkis
+        {
+            [DataMember(Name="schema_version",IsRequired=true)] public int Version {get;set;}
+            [DataMember(Name="id",IsRequired=true)] public string Id {get;set;}
+            [DataMember(Name="skis",IsRequired=true)] public SkiEquipmentDefinition[] Skis {get;set;}
+        }
         private SkiEquipmentCatalog() { }
         [DataMember(Name = "schema_version", IsRequired = true)] public int SchemaVersion { get; private set; }
         [DataMember(Name = "id", IsRequired = true)] public string Id { get; private set; }
@@ -64,6 +70,17 @@ namespace Biathlon.Domain
         public static SkiEquipmentCatalog FromJson(string json)
         {
             var v = RouteJson.Read<SkiEquipmentCatalog>(json);
+            return Validate(v);
+        }
+        public SkiEquipmentCatalog WithAdditional(string json)
+        {
+            var extra=RouteJson.Read<AdditionalSkis>(json);
+            if(extra==null||extra.Version!=1||extra.Skis==null||extra.Skis.Length<1||extra.Skis.Length>20)throw new SerializationException("Invalid career ski extension.");
+            var all=new SkiEquipmentDefinition[Skis.Length+extra.Skis.Length];Array.Copy(Skis,all,Skis.Length);Array.Copy(extra.Skis,0,all,Skis.Length,extra.Skis.Length);
+            return Validate(new SkiEquipmentCatalog{SchemaVersion=1,Id=extra.Id,MaximumModifierDeviation=MaximumModifierDeviation,MaximumAffinityDeviation=MaximumAffinityDeviation,Skis=all});
+        }
+        private static SkiEquipmentCatalog Validate(SkiEquipmentCatalog v)
+        {
             if (v == null || v.SchemaVersion != 1 || v.Skis == null || v.Skis.Length == 0) throw new SerializationException("Invalid ski catalog.");
             TrackValidation.Id(v.Id);
             TrackValidation.Finite(v.MaximumModifierDeviation, 0, 1 - PhysiologyNumbers.MinimumPositive, nameof(MaximumModifierDeviation));

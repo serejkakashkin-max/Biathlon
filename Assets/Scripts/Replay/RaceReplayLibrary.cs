@@ -29,6 +29,8 @@ namespace Biathlon.Replay
         [DataMember(Name="career_snapshot_json",IsRequired=true)]public string CareerSnapshotJson;
         [DataMember(Name="race_weather_json",EmitDefaultValue=false)]public string RaceWeatherJson;
         [DataMember(Name="start_order_version",EmitDefaultValue=false)]public int StartOrderVersion;
+        [DataMember(Name="equipment_version",EmitDefaultValue=false)]public int EquipmentVersion;
+        [DataMember(Name="equipment_snapshot_json",EmitDefaultValue=false)]public string EquipmentSnapshotJson;
         // Missing in M15.5 journals: retain their exact v25 force law and canonical JSON.
         [DataMember(Name="course_reaction_version",EmitDefaultValue=false)]public int CourseReactionVersion;
         public ManualCourseReactionPolicy CourseReactionPolicy=>CourseReactionVersion==0?
@@ -54,6 +56,8 @@ namespace Biathlon.Replay
                 CourseReactionVersion!=0&&CourseReactionVersion!=25&&CourseReactionVersion!=26||
                 TickFrequency<1||TickFrequency>120||TickCount<1||TickCount>1000000||Events==null||Highlights==null)
                 throw new SerializationException("Unsupported or incomplete replay metadata.");
+            if(EquipmentVersion<0||EquipmentVersion>1||EquipmentVersion==0&&EquipmentSnapshotJson!=null||EquipmentVersion==1&&string.IsNullOrWhiteSpace(EquipmentSnapshotJson))throw new SerializationException("Unsupported equipment recording.");
+            if(EquipmentSnapshotJson!=null)RaceEquipmentSnapshot.FromJson(EquipmentSnapshotJson);
             Hash(CommandSha256);Hash(ResultSha256);
             if(RaceWeatherJson!=null)RaceWeatherPreset.FromJson(RaceWeatherJson);
             long prior=0;foreach(var e in Events){if(e==null||e.Tick<prior||e.Tick>TickCount||string.IsNullOrWhiteSpace(e.AthleteId)||!Enum.IsDefined(typeof(RaceEventType),e.Type))throw new SerializationException("Invalid replay event.");prior=e.Tick;}

@@ -73,7 +73,8 @@ namespace Biathlon.Unity.Presentation
                     {
                         var info=new RaceReplayInfo{Id="race_"+Guid.NewGuid().ToString("N"),RecordedUtc=DateTime.UtcNow.ToString("O"),CareerSnapshotJson=week.RaceSnapshotJson,
                             EventId=week.Event.Id,VenueId=week.Event.VenueId,Format=(int)week.Event.Format,Seed=week.RaceSeed,PlayerId=menu.Session.Career.PlayerId,PlayerName=menu.Session.Player.Name,TickFrequency=Host.Runner.Field.TickFrequency,
-                            RaceWeatherJson=prepared.Weather?.ToJson(),StartOrderVersion=CareerRaceProvider.CurrentStartOrderVersion};
+                            RaceWeatherJson=prepared.Weather?.ToJson(),StartOrderVersion=CareerRaceProvider.CurrentStartOrderVersion,
+                            EquipmentVersion=CareerRaceProvider.CurrentEquipmentVersion,EquipmentSnapshotJson=prepared.Equipment.ToJson()};
                         replayCapture=new CareerReplayCapture(menu.ReplayLibrary,Host.ManualStepper,info,highlights,replayPolicy);
                     }
                     catch(Exception e)when(e is IOException||e is UnauthorizedAccessException){Debug.LogWarning("Replay capture unavailable: "+e.Message);}

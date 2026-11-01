@@ -41,13 +41,17 @@ namespace Biathlon.Domain
         [DataMember(Name = "id", IsRequired = true)] public string Id { get; private set; }
         [DataMember(Name = "handling_multiplier", IsRequired = true)] public double HandlingMultiplier { get; private set; }
         [DataMember(Name = "recoil_multiplier", IsRequired = true)] public double RecoilMultiplier { get; private set; }
+        [DataMember(Name="ergonomics_multiplier",EmitDefaultValue=false)] private double ergonomics {get;set;}
+        public double ErgonomicsMultiplier=>ergonomics==0?1:ergonomics;
         public static ShootingEquipmentDefinition FromJson(string json)
         {
             var v = RouteJson.Read<ShootingEquipmentDefinition>(json);
-            if (v == null || v.SchemaVersion != 1) throw new SerializationException("Unsupported rifle schema.");
+            if (v == null || v.SchemaVersion != 1 && v.SchemaVersion != 2) throw new SerializationException("Unsupported rifle schema.");
             TrackValidation.Id(v.Id);
             TrackValidation.Finite(v.HandlingMultiplier, 0.5, 1.5, nameof(HandlingMultiplier));
             TrackValidation.Finite(v.RecoilMultiplier, 0.5, 1.5, nameof(RecoilMultiplier));
+            if(v.SchemaVersion==1&&v.ergonomics!=0||v.SchemaVersion==2&&v.ergonomics==0)throw new SerializationException("Rifle ergonomics requires its explicit version2 definition.");
+            TrackValidation.Finite(v.ErgonomicsMultiplier,.5,1.5,nameof(ErgonomicsMultiplier));
             return v;
         }
         public string ToJson() => RouteJson.Write(this);
@@ -56,6 +60,7 @@ namespace Biathlon.Domain
     {
         public double TimeMultiplier { get; } public double SettleTauSeconds { get; }
         public double RecoilX { get; } public double RecoilY { get; }
+        public double SetupTimeMultiplier {get;} public double ExitTimeMultiplier {get;}
         public bool IsValid => TimeMultiplier > 0 && SettleTauSeconds > 0;
         public ShootingHandlingProfile(ShootingHandlingDefinition definition, ShootingEquipmentDefinition equipment, int shootingSpeed)
         {
@@ -63,8 +68,11 @@ namespace Biathlon.Domain
             if (shootingSpeed < 0 || shootingSpeed > 100) throw new System.ArgumentOutOfRangeException(nameof(shootingSpeed));
             PhysiologyNumbers.RequireRange(equipment.HandlingMultiplier, 1 - definition.EquipmentEnvelope, 1 + definition.EquipmentEnvelope, nameof(equipment.HandlingMultiplier));
             PhysiologyNumbers.RequireRange(equipment.RecoilMultiplier, 1 - definition.EquipmentEnvelope, 1 + definition.EquipmentEnvelope, nameof(equipment.RecoilMultiplier));
+            PhysiologyNumbers.RequireRange(equipment.ErgonomicsMultiplier,1-definition.EquipmentEnvelope,1+definition.EquipmentEnvelope,nameof(equipment.ErgonomicsMultiplier));
+            PhysiologyNumbers.RequireRange(equipment.HandlingMultiplier*equipment.ErgonomicsMultiplier,1-definition.EquipmentEnvelope,1+definition.EquipmentEnvelope,"combined equipment setup");
             double skill = shootingSpeed / 100.0;
             TimeMultiplier = (definition.NoviceTimeMultiplier + (definition.ExpertTimeMultiplier - definition.NoviceTimeMultiplier) * skill) * equipment.HandlingMultiplier;
+            SetupTimeMultiplier=TimeMultiplier*equipment.ErgonomicsMultiplier;ExitTimeMultiplier=equipment.ErgonomicsMultiplier;
             SettleTauSeconds = (definition.NoviceSettleTau + (definition.ExpertSettleTau - definition.NoviceSettleTau) * skill) * equipment.HandlingMultiplier;
             RecoilX = definition.RecoilX * equipment.RecoilMultiplier; RecoilY = definition.RecoilY * equipment.RecoilMultiplier;
         }

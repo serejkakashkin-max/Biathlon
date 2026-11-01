@@ -29,27 +29,27 @@ namespace Biathlon.PlayModeTests
         [UnityTest]public IEnumerator CorruptPrimaryRecoversSameCareerWithVisibleNoticeAndAnonymousReport()
         {
             string path=CreateProfile();File.WriteAllText(path,"{truncated");var store=new FileCareerProfileStore(directory);Open(store);yield return null;Submit("continue");yield return null;
-            Assert.That(menu.Session.Career.Id,Is.EqualTo("career_recovery"));Assert.That(menu.Session.Career.Week,Is.EqualTo(1));Assert.That(store.LastRead.Source,Is.EqualTo(CareerProfileSource.Backup));Assert.That(menu.LastMessage,Does.Contain("резервной"));Assert.That(File.ReadAllText(path),Is.EqualTo("{truncated"));
+            Assert.That(menu.Session.Career.Id,Is.EqualTo("career_recovery"));Assert.That(menu.Session.Career.Week,Is.EqualTo(1));Assert.That(store.LastRead.Source,Is.EqualTo(CareerProfileSource.Backup));Assert.That(menu.LastMessage,Does.Contain("СЂРµР·РµСЂРІРЅРѕР№"));Assert.That(File.ReadAllText(path),Is.EqualTo("{truncated"));
             yield return Capture("recovered-career-ru",1600,900,"ru",0);
-            menu.Session.OpenSettings();menu.RefreshFrontEnd();Submit("settings_page_4");yield return null;Assert.That(menu.Root.Q<Label>("save_health_status").text,Does.Contain("резервной"));
+            menu.Session.OpenSettings();menu.RefreshFrontEnd();Submit("settings_page_4");yield return null;Assert.That(menu.Root.Q<Label>("save_health_status").text,Does.Contain("СЂРµР·РµСЂРІРЅРѕР№"));
             yield return Capture("save-support-en-large",1024,768,"en",2);Submit("export_diagnostic");yield return null;
             Assert.That(File.Exists(menu.LastDiagnosticExport),Is.True);Assert.That(menu.LastMessage,Does.Contain("Diagnostics"));
             using(var zip=ZipFile.OpenRead(menu.LastDiagnosticExport))foreach(var entry in zip.Entries)using(var reader=new StreamReader(entry.Open()))
             {string json=reader.ReadToEnd();Assert.That(json,Does.Not.Contain("PRIVATE_NATIVE_NAME"));Assert.That(json,Does.Not.Contain(directory));Assert.That(json,Does.Not.Contain("career_recovery"));}
             menu.ApplyPreferences("ru",0);menu.Back();menu.Session.RestWeek();Assert.That(CareerSave.FromJson(File.ReadAllText(path)).Week,Is.EqualTo(2));
-            menu.Session.OpenSettings();menu.RefreshFrontEnd();Submit("settings_page_4");Assert.That(menu.Root.Q<Label>("save_health_status").text,Does.Not.Contain("резервной"));
+            menu.Session.OpenSettings();menu.RefreshFrontEnd();Submit("settings_page_4");Assert.That(menu.Root.Q<Label>("save_health_status").text,Does.Not.Contain("СЂРµР·РµСЂРІРЅРѕР№"));
         }
         [UnityTest]public IEnumerator UnsupportedSaveShowsFriendlyMessageAndNeverDowngradesItsFiles()
         {
-            string path=CreateProfile();string future=File.ReadAllText(path).Replace("\"save_version\":3","\"save_version\":99");File.WriteAllText(path,future);Open(new FileCareerProfileStore(directory));yield return null;Submit("continue");yield return null;
-            Assert.That(menu.Session.Career,Is.Null);Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.Home));Assert.That(menu.LastMessage,Does.Contain("другой версией"));Assert.That(File.ReadAllText(path),Is.EqualTo(future));
+            string path=CreateProfile();string future=File.ReadAllText(path).Replace("\"save_version\":4","\"save_version\":99");File.WriteAllText(path,future);Open(new FileCareerProfileStore(directory));yield return null;Submit("continue");yield return null;
+            Assert.That(menu.Session.Career,Is.Null);Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.Home));Assert.That(menu.LastMessage,Does.Contain("РґСЂСѓРіРѕР№ РІРµСЂСЃРёРµР№"));Assert.That(File.ReadAllText(path),Is.EqualTo(future));
             yield return Capture("unsupported-save-ru",1600,900,"ru",0);
         }
         [UnityTest]public IEnumerator NewlyCreatedCareerReportsPublishedPrimaryWithoutNeedingContinue()
         {
             Open(new FileCareerProfileStore(directory));menu.Session.OpenNewCareer();menu.Session.CreateCareer("career_created","Review","NOR",1616);
             menu.Session.OpenSettings();menu.RefreshFrontEnd();Submit("settings_page_4");yield return null;
-            Assert.That(menu.Root.Q<Label>("save_health_status").text,Is.EqualTo("Основное сохранение проверено."));
+            Assert.That(menu.Root.Q<Label>("save_health_status").text,Is.EqualTo("РћСЃРЅРѕРІРЅРѕРµ СЃРѕС…СЂР°РЅРµРЅРёРµ РїСЂРѕРІРµСЂРµРЅРѕ."));
         }
         [UnityTest]public IEnumerator UnavailableSavedCalendarKeepsValidFilesAndOffersReadableHomeRecovery()
         {
@@ -57,7 +57,7 @@ namespace Biathlon.PlayModeTests
             string unavailable=before.Replace("\"calendar_id\":\""+save.CalendarId+"\"","\"calendar_id\":\"missing_calendar_v1\"");
             Assert.That(CareerSave.FromJson(unavailable).CalendarId,Is.EqualTo("missing_calendar_v1"));
             File.WriteAllText(path,unavailable);string backup=File.ReadAllText(path+".bak");Open(new FileCareerProfileStore(directory));yield return null;Submit("continue");yield return null;
-            Assert.That(menu.Session.Career,Is.Null);Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.Home));Assert.That(menu.LastMessage,Does.Contain("данные"));
+            Assert.That(menu.Session.Career,Is.Null);Assert.That(menu.Session.Screen,Is.EqualTo(FrontEndScreen.Home));Assert.That(menu.LastMessage,Does.Contain("РґР°РЅРЅС‹Рµ"));
             Assert.That(menu.Root.Q<Label>("message").text,Is.EqualTo(menu.LastMessage));Assert.That(File.ReadAllText(path),Is.EqualTo(unavailable));Assert.That(File.ReadAllText(path+".bak"),Is.EqualTo(backup));
             Submit("settings");yield return null;Submit("settings_page_4");Submit("export_diagnostic");Assert.That(File.Exists(menu.LastDiagnosticExport),Is.True);
         }

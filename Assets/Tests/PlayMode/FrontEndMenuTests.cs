@@ -40,6 +40,30 @@ namespace Biathlon.PlayModeTests
         {Object.DestroyImmediate(root);InputSystem.RemoveDevice(keyboard);InputSystem.RemoveDevice(gamepad);inputs.Dispose();}
         private void Submit(string id)
         {var button=menu.Root.Q<Button>(id);button.Focus();using(var e=NavigationSubmitEvent.GetPooled())button.SendEvent(e);}
+        [UnityTest] public IEnumerator ExpandedShopHasBothSlotsPaidPurchasesAndReadableLocalizedCards()
+        {
+            menu.Session.OpenNewCareer();menu.Session.CreateCareer("career_m166_shop","Алекс","NOR",11);menu.RefreshFrontEnd();yield return null;
+            Submit("career_equipment");yield return null;Assert.That(menu.Root.Q("equipment_tiles").childCount,Is.EqualTo(8));
+            Assert.That(menu.Root.Q<Button>("equip_ski_glide").enabledSelf,Is.False,"New starter cannot buy every upgrade immediately.");
+            yield return CaptureEquipment(1600,900,"ru",0,"skis");Submit("equipment_rifles");yield return null;
+            Assert.That(menu.Root.Q("equipment_tiles").childCount,Is.EqualTo(4));Assert.That(menu.Root.Q("rifle_art_rifle_precision"),Is.Not.Null);
+            Assert.That(menu.Session.Player.SelectedRifle,Is.EqualTo("rifle_neutral_v1"));
+            yield return CaptureEquipment(1600,900,"ru",0,"rifles");yield return CaptureEquipment(1024,768,"en",2,"rifles-large");
+        }
+        private IEnumerator CaptureEquipment(int width,int height,string locale,int size,string name)
+        {
+            var panel=root.GetComponent<UIDocument>().panelSettings;var previous=RenderTexture.active;var target=new RenderTexture(width,height,0);target.Create();panel.targetTexture=target;
+            Texture2D pixels=null;
+            try
+            {
+                menu.ApplyPreferences(locale,size);yield return new WaitForSecondsRealtime(.4f);for(int frame=0;frame<10;frame++)yield return null;
+                var button=menu.Root.Q<Button>(rifleCategoryId());Assert.That(button.worldBound.width,Is.GreaterThan(60));
+                RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
+                string folder=Path.GetFullPath("docs/quality/m16-6/equipment");Directory.CreateDirectory(folder);File.WriteAllBytes(Path.Combine(folder,name+"-"+locale+".png"),pixels.EncodeToPNG());
+            }
+            finally{if(pixels!=null)Object.Destroy(pixels);RenderTexture.active=previous;panel.targetTexture=null;Object.Destroy(target);}
+            string rifleCategoryId()=>name=="skis"?"equip_ski_neutral":"equip_rifle_neutral_v1";
+        }
         [UnityTest] public IEnumerator CareerPagesUseActualPlanAndReturnWithKeyboardFocus()
         {
             menu.Session.OpenNewCareer();menu.Session.CreateCareer("career_pages_ui","Алекс","NOR",11);menu.RefreshFrontEnd();yield return null;

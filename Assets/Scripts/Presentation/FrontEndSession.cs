@@ -24,7 +24,9 @@ namespace Biathlon.Presentation
         private readonly List<CareerTrainingKind> training=new List<CareerTrainingKind>();
         public int TrainingCount=>training.Count;
         public CareerTrainingKind Training(int index)=>training[index];
-        public SkiEquipmentCatalog EquipmentCatalog=>SkiEquipmentCatalog.FromJson(read("ski_equipment_provisional_v1.json"));
+        private CareerEquipmentCatalog equipment;
+        public CareerEquipmentCatalog Gear=>equipment??(equipment=new CareerEquipmentCatalog(read));
+        public SkiEquipmentCatalog EquipmentCatalog=>Gear.Skis;
         public CareerStartDefinition StartProfiles=>CareerStartDefinition.FromJson(read("career_start_v1.json"));
         public FrontEndScreen Screen { get; private set; }
         public CareerSave Career { get; private set; }
@@ -81,7 +83,7 @@ namespace Biathlon.Presentation
         {
             Require(FrontEndScreen.Equipment);string expected=Career.ToJson();var candidate=CareerSave.FromJson(expected);CareerAthlete player=null;
             for(int i=0;i<candidate.AthleteCount;i++)if(candidate.Athlete(i).Id==candidate.PlayerId)player=candidate.Athlete(i);
-            var catalog=EquipmentCatalog;if(!CareerInventory.Owns(player,skiId))CareerEconomy.BuyEquipment(player,Definitions.Economy,catalog,skiId);
+            var catalog=Gear;if(!CareerInventory.Owns(player,skiId))CareerEconomy.BuyEquipment(player,Definitions.Economy,catalog,skiId);
             CareerInventory.Select(player,catalog,skiId);PublishSaved(candidate,expected);
         }
         public void RestWeek()

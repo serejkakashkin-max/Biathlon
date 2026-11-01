@@ -27,6 +27,7 @@ namespace Biathlon.AI
         private const string Woodland="woodland_basin_v1";
         private const string WoodlandRoot="Biathlon/Venues/woodland_basin_v1/";
         public const int CurrentStartOrderVersion=2;
+        public const int CurrentEquipmentVersion=1;
         // Fixed stream identity (ASCII SPRINTDR), not a gameplay tuning value.
         private const ulong SprintStartDrawStream=0x535052494E544452UL;
         public long LastTicks { get; private set; } public ulong LastEventHash { get; private set; } public int LastShots { get; private set; }
@@ -53,16 +54,11 @@ namespace Biathlon.AI
             return result;
         }
         public RaceWeatherPreset Forecast(CareerSave snapshot,CareerCalendarEvent e)
-        {
-            if(snapshot==null||e==null)throw new ArgumentNullException();
-            if(e.VenueId!=Woodland)return null;
-            for(int i=0;i<career.Calendar.Count;i++)if(career.Calendar.Get(i).Id==e.Id)
-                return RaceWeatherCatalog.FromJson(read("career_weather_v1.json")).Select(i,snapshot.Season);
-            throw new ArgumentException("Weather needs an event from this career calendar.");
-        }
+            =>career.Forecast(snapshot,e);
         public CareerPreparedRace Prepare(CareerSave snapshot,CareerCalendarEvent e,ulong seed,IRaceEventSink observedEvents=null,
             RaceWeatherPreset recordedWeather=null,bool legacyNeutralWeather=false,bool legacyMassStartOrder=false,
-            ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.PassiveCurvedV26,bool legacySprintStartOrder=false)
+            ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.PassiveCurvedV26,bool legacySprintStartOrder=false,
+            string recordedEquipmentJson=null,bool legacyEquipment=false)
         {
             if(snapshot==null||e==null)throw new ArgumentNullException();
             if(courseReactionPolicy!=ManualCourseReactionPolicy.LegacyV25&&courseReactionPolicy!=ManualCourseReactionPolicy.PassiveCurvedV26)
@@ -93,10 +89,12 @@ namespace Biathlon.AI
                 var drawn=CareerSprintStartDraw.Capture(snapshot,e,new SeededRandomSource(seed^SprintStartDrawStream));roster.Clear();
                 foreach(string id in drawn)roster.Add(athletes[id]);
             }
+            var equipment=recordedEquipmentJson!=null?CareerEquipmentCatalog.FromJson(recordedEquipmentJson):legacyEquipment?new CareerEquipmentCatalog(read,legacy:true):career.Equipment;
+            string skiJson=equipment.Skis.ToJson();Func<string,string> raceRead=n=>n=="ski_equipment_provisional_v1.json"?skiJson:n=="shooting_handling_v1.json"?equipment.Snapshot.Handling.ToJson():read(n);
             var entrants=new SprintEntrant[roster.Count];var personalities=new AiPersonalityDefinition[roster.Count];var forms=new double[roster.Count];var pressures=new ShootingPressureContext[roster.Count];
             for(int i=0;i<roster.Count;i++)
             {
-                var a=roster[i];entrants[i]=new SprintEntrant(TimeTrialAthlete.FromJson(AthleteJson(a,0,8)),ShootingAthleteDefinition.FromJson(AthleteJson(a,8,13)),a.SelectedSki);personalities[i]=AiPersonalityDefinition.FromJson(read(a.PersonalityId+".json"));
+                var a=roster[i];entrants[i]=new SprintEntrant(TimeTrialAthlete.FromJson(AthleteJson(a,0,8)),ShootingAthleteDefinition.FromJson(AthleteJson(a,8,13)),a.SelectedSki,legacyEquipment?null:equipment.Rifle(a.SelectedRifle));personalities[i]=AiPersonalityDefinition.FromJson(read(a.PersonalityId+".json"));
                 // Explicit temporary readiness projection, shared by every career entrant.
                 forms[i]=CareerForm.RaceMultiplier(a,career.Form)*(1-a.Fatigue/(double)CareerUnits.Basis*definition.MaximumFatiguePenalty/CareerUnits.Basis);
                 pressures[i]=new ShootingPressureContext(CareerMental.Pressure(a,career.Mental),1,1,a.Confidence/(double)CareerUnits.Basis);
@@ -113,15 +111,15 @@ namespace Biathlon.AI
                     CompetitionProfile.FromJson(venueResource(WoodlandRoot+format+"_profile")),
                     RaceRoutePlan.FromJson(venueResource(WoodlandRoot+format+"_route")),
                     weather==null?RaceSnowConditions.FromJson(read("race_snow_neutral_v1.json")):
-                        weather.SnowConditions(RaceSnowConditions.FromJson(read("race_snow_neutral_v1.json"))),read,eventSink,new AiDecisionCounts(),
+                        weather.SnowConditions(RaceSnowConditions.FromJson(read("race_snow_neutral_v1.json"))),raceRead,eventSink,new AiDecisionCounts(),
                     qualification,roster.Count,definition.TickFrequency,seed,entrants,personalities,forms,pressures,
                     raceWind:weather==null?default:new WindVector(weather.WindEast,weather.WindNorth),
                     massStartNumberFromRight:!legacyMassStartOrder&&career.Calendar.MassStartNumberFromRight);
             }
-            else runner=ChampionshipRaceFactory.Create(read,fixture,e.Format,eventSink,new AiDecisionCounts(),qualification,roster.Count,definition.TickFrequency,seed,entrants,personalities,forms,pressures);
+            else runner=ChampionshipRaceFactory.Create(raceRead,fixture,e.Format,eventSink,new AiDecisionCounts(),qualification,roster.Count,definition.TickFrequency,seed,entrants,personalities,forms,pressures);
             Func<string,string> manualRead=!legacyMassStartOrder&&weather?.CourseContactResource!=null?
-                n=>read(n=="manual_course_contact_gameplay_v2.json"?weather.CourseContactResource:n):read;
-            return new CareerPreparedRace(snapshot.SeasonId,snapshot.PlayerId,e,seed,runner,audit,venue,weather,manualRead,courseReactionPolicy);
+                n=>raceRead(n=="manual_course_contact_gameplay_v2.json"?weather.CourseContactResource:n):raceRead;
+            return new CareerPreparedRace(snapshot.SeasonId,snapshot.PlayerId,e,seed,runner,audit,venue,weather,manualRead,courseReactionPolicy,equipment);
         }
         private sealed class ObservedEvents:IRaceEventSink
         {
@@ -138,14 +136,15 @@ namespace Biathlon.AI
         public CareerCalendarEvent Event { get; }
         public ulong Seed { get; }
         public RaceWeatherPreset Weather {get;}
+        public CareerEquipmentCatalog Equipment {get;}
         public Func<string,string> ManualRead {get;}
         public ManualCourseReactionPolicy CourseReactionPolicy {get;}
         public int PlayerIndex { get; }
         internal BalanceEventAudit Audit { get; }
         private readonly string seasonId;
-        internal CareerPreparedRace(string seasonId,string playerId,CareerCalendarEvent e,ulong seed,PackAiRaceRunner runner,BalanceEventAudit audit,VenueAuthoringPlan venue,RaceWeatherPreset weather,Func<string,string> manualRead,ManualCourseReactionPolicy courseReactionPolicy)
+        internal CareerPreparedRace(string seasonId,string playerId,CareerCalendarEvent e,ulong seed,PackAiRaceRunner runner,BalanceEventAudit audit,VenueAuthoringPlan venue,RaceWeatherPreset weather,Func<string,string> manualRead,ManualCourseReactionPolicy courseReactionPolicy,CareerEquipmentCatalog equipment)
         {
-            this.seasonId=seasonId;Event=e;Seed=seed;Runner=runner;Audit=audit;Venue=venue;Weather=weather;ManualRead=manualRead;CourseReactionPolicy=courseReactionPolicy;PlayerIndex=-1;
+            this.seasonId=seasonId;Event=e;Seed=seed;Runner=runner;Audit=audit;Venue=venue;Weather=weather;Equipment=equipment;ManualRead=manualRead;CourseReactionPolicy=courseReactionPolicy;PlayerIndex=-1;
             for(int i=0;i<runner.Field.Count;i++)if(runner.Field.GetAthlete(i).AthleteId.Value==playerId)PlayerIndex=i;
         }
         public CareerRaceRecord CollectResult()

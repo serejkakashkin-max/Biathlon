@@ -200,7 +200,7 @@ namespace Biathlon.Unity.Presentation
                     .Forecast(CareerSave.FromJson(Session.PreparedWeek.RaceSnapshotJson),e);
                 var snowConditions=RaceSnowConditions.FromJson(ReadCore("race_snow_neutral_v1.json"));
                 var summary=new PreRaceSummary(Session.PreparedWeek,CompetitionProfile.FromJson(ProductionVenueHost.ReadResource("Biathlon/Venues/"+e.VenueId+"/"+format+"_profile")),
-                    forecast==null?snowConditions:forecast.SnowConditions(snowConditions),SkiEquipmentCatalog.FromJson(ReadCore("ski_equipment_provisional_v1.json")));
+                    forecast==null?snowConditions:forecast.SnowConditions(snowConditions),Session.EquipmentCatalog);
                 AddLabel(actions,T("pre_race"),theme.section_size,true);AddLabel(actions,T("format."+(int)e.Format),theme.section_size,true);
                 AddLabel(actions,summary.Player.Name,theme.body_size);
                 AddLabel(actions,F("athlete_state",summary.Player.Form/100,summary.Player.Fatigue/100),theme.body_size);

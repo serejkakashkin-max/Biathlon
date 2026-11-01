@@ -84,7 +84,7 @@ namespace Biathlon.Unity.Presentation
     {
         internal SkiPairGraphic(Color color,Color accentColor,string skiId=null)
         {
-            if(skiId!=null)
+            if(skiId!=null&&Resources.Load<Texture2D>("Biathlon/UI/Art/"+skiId+"_v1")!=null)
             {
                 name="ski_art_"+skiId;style.height=172;style.marginTop=10;style.marginBottom=16;style.flexShrink=0;
                 var product=SportArt.Image(skiId+"_v1",168,"ski_product_image");product.scaleMode=ScaleMode.ScaleToFit;product.style.backgroundColor=FrontEndTheme.Color("#10232E");Add(product);
