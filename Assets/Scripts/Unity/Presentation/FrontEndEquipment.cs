@@ -47,6 +47,7 @@ namespace Biathlon.Unity.Presentation
                         AddLabel(row,SnowName(condition)+"  "+((model.GlideMultiplier*model.AffinityFor(condition)-1)*100).ToString("+0.0;-0.0;0.0")+"%",theme.caption_size).style.color=condition==snowId?FrostlineStyle.Gold:FrostlineStyle.Muted;
                 }
                 AddButton(row,"equip_"+id,selected?T("equipment.selected"):owned?T("equipment.select"):F("equipment.buy",price/100.0),()=>CareerAction(()=>Session.Equip(id)),true,!selected&&Session.Player.Money>=price);
+                if(selected||Session.Player.Money<price){var button=row.Q<Button>("equip_"+id);button.style.opacity=1;button.style.color=selected?FrostlineStyle.Deep:FrostlineStyle.Muted;button.style.backgroundColor=selected?FrostlineStyle.Accent:FrostlineStyle.Surface;}
                 if(!owned&&Session.Player.Money<price)AddLabel(row,L("Нужно ещё ","Save another ")+((price-Session.Player.Money)/100.0).ToString("0.00"),theme.caption_size);
                 if(selected){row.style.borderTopWidth=3;row.style.borderTopColor=FrostlineStyle.Accent;}
             }

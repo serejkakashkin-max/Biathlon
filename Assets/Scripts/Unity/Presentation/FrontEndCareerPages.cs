@@ -15,7 +15,7 @@ namespace Biathlon.Unity.Presentation
             AddLabel(actions,T(key),theme.section_size,true);AddLabel(actions,Session.Player.Name,theme.body_size);
             AddLabel(actions,F("season_week",Session.Career.Season,Session.Career.Week),theme.caption_size);
             if(Session.Screen==FrontEndScreen.History)AddButton(actions,"career_development",L("Мой прогресс","My development"),()=>{OpenAthleteCard(Session.Career.PlayerId);careerCardTab=2;Render();});
-            AddButton(actions,"back",T(Session.Screen==FrontEndScreen.Training?"training.keep":"back"),Back,true);
+            AddButton(actions,"back",Session.Screen==FrontEndScreen.Training?L("Готово","Done"):T("back"),Back,true);
             var scroll=card as ScrollView;if(scroll!=null){scroll.horizontalScrollerVisibility=ScrollerVisibility.Hidden;scroll.contentContainer.style.width=new Length(100,LengthUnit.Percent);}
             card.style.minWidth=0;
             var pageTitle=AddLabel(card,T(key).ToUpperInvariant(),theme.caption_size,true);pageTitle.style.letterSpacing=2;pageTitle.style.color=FrostlineStyle.Gold;
@@ -25,37 +25,6 @@ namespace Biathlon.Unity.Presentation
             else if(Session.Screen==FrontEndScreen.History)RenderHistory(card);
             else if(Session.Screen==FrontEndScreen.Rivalries)RenderRivalries(card);
             else if(Session.Screen==FrontEndScreen.Replays)RenderReplays(card);
-        }
-        private void RenderTraining(VisualElement actions,VisualElement card)
-        {
-            var plan=Session.TrainingPlan();var preview=Session.TrainingPreview();int available=Session.Definitions.Calendar.TrainingSlots(Session.Career.Week);
-            AddLabel(card,F("training.budget",plan.UsedSlots,available),theme.body_size,true).name="training_budget";
-            var slots=new VisualElement{name="training_slots"};slots.style.flexDirection=FlexDirection.Row;slots.style.marginBottom=14;card.Add(slots);
-            for(int slot=0;slot<available;slot++)
-            {
-                var cell=new VisualElement();cell.style.flexGrow=1;cell.style.height=8;cell.style.marginRight=5;
-                cell.style.backgroundColor=slot<plan.UsedSlots?FrostlineStyle.Accent:FrostlineStyle.Surface;slots.Add(cell);
-            }
-            var forecast=TileGrid(card,"training_forecast");
-            ForecastInstrument(forecast,L("ФОРМА К СТАРТУ","FORM AT START"),Session.Player.Form/100,preview.Form/100,FrostlineStyle.Accent);
-            ForecastInstrument(forecast,L("УСТАЛОСТЬ К СТАРТУ","FATIGUE AT START"),Session.Player.Fatigue/100,preview.Fatigue/100,FrostlineStyle.Gold);
-            RenderTrainingAbilityForecast(card,preview);
-            AddButton(actions,"training_clear",T("training.clear"),()=>{Session.ClearTraining();Render();},enabled:Session.TrainingCount>0);
-            for(int i=0;i<Session.TrainingCount;i++)
-            {int index=i;AddButton(actions,"training_remove_"+i,(i+1)+" · "+T("training.kind."+(int)Session.Training(i))+" ×",()=>{Session.RemoveTraining(index);Render();});}
-            var trainingTiles=TileGrid(card,"training_tiles");
-            foreach(CareerTrainingKind kind in Enum.GetValues(typeof(CareerTrainingKind)))
-            {
-                var session=Session.Definitions.Training.Get(kind);var chosen=kind;
-                var row=Tile(trainingTiles);row.style.paddingTop=row.style.paddingBottom=12;row.style.width=Length.Percent(48.5f);
-                var mark=new VisualElement();mark.style.width=32;mark.style.height=3;mark.style.backgroundColor=kind==CareerTrainingKind.Recovery?FrostlineStyle.Gold:FrostlineStyle.Accent;mark.style.marginBottom=10;row.Add(mark);
-                AddLabel(row,T("training.kind."+(int)kind),theme.body_size,true);
-                AddLabel(row,T("training.benefit."+(int)kind),theme.caption_size);
-                AddLabel(row,F("training.cost",session.TimeSlots,session.FatigueCost/100.0,session.RecoveryGain/100.0,session.HealthRisk/100.0),theme.caption_size).style.color=FrostlineStyle.Muted;
-                AddButton(row,"add_training_"+(int)kind,T("training.add"),()=>{Session.AddTraining(chosen);Render();},primary:true,enabled:plan.UsedSlots+session.TimeSlots<=available);
-            }
-            PageRows(card,trainingTiles,trainingPage,2,value=>trainingPage=value);
-            AddLabel(card,L("План применяется при завершении недели","Plan applies when you complete the week"),theme.caption_size).tooltip=T("training.forecast_note");
         }
         private void RenderStandings(VisualElement card)
         {

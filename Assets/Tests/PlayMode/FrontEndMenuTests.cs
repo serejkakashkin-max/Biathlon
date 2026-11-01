@@ -40,6 +40,45 @@ namespace Biathlon.PlayModeTests
         {Object.DestroyImmediate(root);InputSystem.RemoveDevice(keyboard);InputSystem.RemoveDevice(gamepad);inputs.Dispose();}
         private void Submit(string id)
         {var button=menu.Root.Q<Button>(id);button.Focus();using(var e=NavigationSubmitEvent.GetPooled())button.SendEvent(e);}
+        [UnityTest] public IEnumerator GamepadNavigatesAndAddsARealTrainingSessionWithTheWeekStillUnapplied()
+        {
+            menu.Session.OpenNewCareer();menu.Session.CreateCareer("career_m166_pad","Алекс","NOR",11);string before=menu.Session.Career.ToJson();menu.Session.OpenCareerPage(FrontEndScreen.Training);menu.RefreshFrontEnd();yield return null;yield return null;
+            menu.Root.Q<Button>("back").Focus();InputSystem.QueueStateEvent(gamepad,new GamepadState{leftStick=new Vector2(0,-1)});InputTestScope.Update();PumpUiInput();yield return null;yield return null;
+            Assert.That((menu.Root.panel.focusController.focusedElement as Button)?.name,Is.EqualTo("add_training_0"));
+            InputSystem.QueueStateEvent(gamepad,new GamepadState().WithButton(GamepadButton.South));InputTestScope.Update();PumpUiInput();yield return null;yield return null;
+            Assert.That(menu.Session.TrainingCount,Is.EqualTo(1));Assert.That(menu.Session.Training(0),Is.EqualTo(CareerTrainingKind.Endurance));Assert.That(menu.Session.Career.ToJson(),Is.EqualTo(before));
+        }
+        [UnityTest] public IEnumerator IllustratedTrainingUsesAllSixExistingTasksAndExactPreviewWithoutApplyingTheWeek()
+        {
+            menu.Session.OpenNewCareer();menu.Session.CreateCareer("career_m166_training","Алекс","NOR",11);string before=menu.Session.Career.ToJson();menu.RefreshFrontEnd();yield return null;Submit("career_training");yield return null;
+            Assert.That(menu.Root.Q("training_tiles").childCount,Is.EqualTo(6));
+            for(int kind=0;kind<6;kind++)
+            {
+                Assert.That(menu.Root.Q("training_art_"+kind),Is.Not.Null);Submit("add_training_"+kind);yield return null;
+                Assert.That(menu.Session.TrainingCount,Is.EqualTo(1));Assert.That((int)menu.Session.Training(0),Is.EqualTo(kind));Assert.That(menu.Root.Q<Label>("training_selected_count_"+kind).text,Does.Contain("1"));
+                Assert.That(menu.Root.Q<Label>("training_health_forecast"),Is.Not.Null);Assert.That(menu.Session.Career.ToJson(),Is.EqualTo(before));Submit("training_clear");yield return null;
+            }
+            Submit("add_training_0");yield return null;Submit("add_training_3");yield return null;Submit("add_training_5");yield return null;
+            Assert.That(menu.Session.TrainingPlan().UsedSlots,Is.EqualTo(3));Assert.That(menu.Root.Q<Button>("add_training_0").enabledSelf,Is.False);
+            yield return CaptureTraining(1600,900,"ru",0,false);yield return CaptureTraining(1024,768,"en",2,true);
+            Submit("training_remove_1");yield return null;Assert.That(menu.Session.TrainingCount,Is.EqualTo(2));Assert.That(menu.Root.Q<Button>("add_training_0").enabledSelf,Is.True);Submit("back");yield return null;Assert.That(menu.Session.Career.ToJson(),Is.EqualTo(before));Assert.That(menu.Session.TrainingCount,Is.EqualTo(2));
+        }
+        private IEnumerator CaptureTraining(int width,int height,string locale,int size,bool contrast)
+        {
+            var settings=root.GetComponent<UIDocument>().panelSettings;var previous=RenderTexture.active;var target=new RenderTexture(width,height,0);target.Create();settings.targetTexture=target;Texture2D pixels=null;
+            try
+            {
+                menu.ApplyPreferences(locale,size);menu.ApplyAccessibility(contrast);yield return new WaitForSecondsRealtime(.4f);for(int f=0;f<10;f++)yield return null;
+                string folder=Path.GetFullPath("docs/quality/m16-6/training");Directory.CreateDirectory(folder);
+                foreach(string section in new[]{"training_forecast","training_card_0","training_card_2","training_card_4"})
+                {
+                    menu.Root.Q<ScrollView>("page_content").ScrollTo(menu.Root.Q(section));yield return null;yield return null;
+                    var selected=menu.Root.Q(section);Assert.That(selected.worldBound.width,Is.GreaterThan(100));Assert.That(selected.worldBound.xMax,Is.LessThanOrEqualTo(menu.Root.worldBound.xMax+1));
+                    RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();File.WriteAllBytes(Path.Combine(folder,section+"-"+locale+".png"),pixels.EncodeToPNG());Object.Destroy(pixels);pixels=null;
+                }
+            }
+            finally{if(pixels!=null)Object.Destroy(pixels);RenderTexture.active=previous;settings.targetTexture=null;Object.Destroy(target);}
+        }
         [UnityTest] public IEnumerator PersonalWeatherForecastAndOwnedSkiSelectionUsePreparedRaceWithoutChangingSource()
         {
             menu.Session.OpenNewCareer();menu.Session.CreateCareer("career_m166_weather","Алекс","NOR",11);

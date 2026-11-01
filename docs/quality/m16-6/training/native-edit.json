@@ -1,0 +1,94 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 16,
+      "PassedTests": 16,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:01:50.3358371"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.CareerTuningLockTests.CareerBaselineIncludesAllCareerDefinitionsAndPreservesTheM8Lock",
+        "Status": "Passed",
+        "Duration": "00:00:00.1560000"
+      },
+      {
+        "Name": "Biathlon.Tests.DraftCalibrationTests.MatchedSharedRacesMeasureNonDominantDraftBenefit",
+        "Status": "Passed",
+        "Duration": "00:00:07.7270000"
+      },
+      {
+        "Name": "Biathlon.Tests.FrontEndCareerPagesTests.EquipmentPurchaseAndSelectionAreAtomicAndChargeOnce",
+        "Status": "Passed",
+        "Duration": "00:00:00.3710000"
+      },
+      {
+        "Name": "Biathlon.Tests.FrontEndCareerPagesTests.ForecastAndDraftDoNotSpendAWeekOrConsumeSavedRandomness",
+        "Status": "Passed",
+        "Duration": "00:00:00.3160000"
+      },
+      {
+        "Name": "Biathlon.Tests.FrontEndCareerPagesTests.ReadOnlyCareerPagesReturnWithoutChangingTheSave(Standings)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0660000"
+      },
+      {
+        "Name": "Biathlon.Tests.FrontEndCareerPagesTests.ReadOnlyCareerPagesReturnWithoutChangingTheSave(History)",
+        "Status": "Passed",
+        "Duration": "00:00:00.1010000"
+      },
+      {
+        "Name": "Biathlon.Tests.FrontEndCareerPagesTests.ReadOnlyCareerPagesReturnWithoutChangingTheSave(Rivalries)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0660000"
+      },
+      {
+        "Name": "Biathlon.Tests.FrontEndCareerPagesTests.ReadOnlyCareerPagesReturnWithoutChangingTheSave(Replays)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0990000"
+      },
+      {
+        "Name": "Biathlon.Tests.FrontEndCareerPagesTests.TrainingCommitIsAtomicAndRetainsPlanForSaveRetry",
+        "Status": "Passed",
+        "Duration": "00:00:00.4710000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166WeatherTests.DynamicSignedWorldJournalReplaysExactlyWhileLegacyMetadataUsesFixedWeather",
+        "Status": "Passed",
+        "Duration": "00:01:00.4820000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166WeatherTests.ExistingSnowEffectsComposeOnceAndSkiSpecializationChangesAsSnowEvolves",
+        "Status": "Passed",
+        "Duration": "00:00:00.0060000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166WeatherTests.ForecastUsesActualDrawnPersonalStartAndOwnedSelectionDoesNotRerollPreparedWeek",
+        "Status": "Passed",
+        "Duration": "00:00:11.5350000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166WeatherTests.FrontsAreGradualSnowLagsAirAndSamplingIsIndependentOfOrderOrAthleteClock",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166WeatherTests.HeadlessRouteWindUsesTheAuthoredWorldHeadingAndVersionOneRemainsReplayable",
+        "Status": "Passed",
+        "Duration": "00:00:25.6750000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166WeatherTests.MeasuredTimeTrialsReportStaticWarmingCoolingAndSnowfallOnEachSpecialist",
+        "Status": "Passed",
+        "Duration": "00:00:00.8550000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166WeatherTests.MostSeedsRemainStaticAndNoRaceHasMoreThanTwoFrontsOrAnAllocationPerSample",
+        "Status": "Passed",
+        "Duration": "00:00:01.2750000"
+      }
+    ]
+  }
+}

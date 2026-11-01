@@ -2709,3 +2709,6 @@ published as33c51d5e/744fa50c. Dynamic weather implemented with native/standalon
 qualification; training UI/final regression audit remain. M16.6 OPEN; M17 not
 started. Owner explicitly authorized GitHub publication and a fullscreen build
 after each task. Current branch codex/m16-6-equipment-weather-training.
+
+
+2026-11-01: M16.6.4 six illustrated training tasks implemented; all M16.6 feature stages have focused/native/fullscreen qualification. Latest review Builds/M16_6_4_Training_Review/START_TEST.cmd. Owner authorized continued repair of old broad-regression failures in this same task. Operational tracker docs/M16_6_WP_STATUS.md; M16.6 OPEN, M17 not started.

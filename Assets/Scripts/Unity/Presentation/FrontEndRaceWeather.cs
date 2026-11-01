@@ -26,6 +26,7 @@ namespace Biathlon.Unity.Presentation
                 string performance=L("скольжение ","glide ")+(1/a.SnowResistanceMultiplier).ToString("0.00",WeatherCulture)+" → "+(1/b.SnowResistanceMultiplier).ToString("0.00",WeatherCulture)+L(" · контроль "," · control ")+a.CorneringGripMultiplier.ToString("0.00",WeatherCulture);
                 AddButton(panel,"pre_race_ski_"+id,EquipmentName(id)+(chosen?" · "+T("equipment.selected"):"")+"\n"+performance,()=>{Session.SelectPreRaceSkis(id);Render();},chosen,!chosen&&!Race.Loading);
                 var button=panel.Q<Button>("pre_race_ski_"+id);button.style.height=StyleKeyword.Auto;button.style.minHeight=64*Scale;button.style.whiteSpace=WhiteSpace.Normal;button.style.paddingTop=button.style.paddingBottom=8;
+                if(chosen){button.style.opacity=1;button.style.color=FrostlineStyle.Deep;button.style.backgroundColor=FrostlineStyle.Accent;}
             }
         }
         private string WeatherDescription(RaceWeatherFrame frame)

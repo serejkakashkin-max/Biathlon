@@ -7,7 +7,7 @@ namespace Biathlon.Unity.Presentation
 {
     public sealed partial class FrontEndMenu
     {
-        private int calendarPage=-1,resultPage=-1,standingsPage,trainingPage,equipmentPage;
+        private int calendarPage=-1,resultPage=-1,standingsPage,equipmentPage;
         private static Biathlon.Presentation.UiTextCatalog migratedLabels;
         private string L(string ru,string en)
         {
