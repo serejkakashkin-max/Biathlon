@@ -135,8 +135,8 @@ namespace Biathlon.Simulation
         public string SnowConditionsId=>path.SnowConditionsId;
         public SkiEquipmentOutput EvaluateWeatherEquipment(RaceWeatherFrame frame)=>path.EvaluateWeatherEquipment(frame);
         private RaceWeatherTimeline raceWeather;
-        public void BindWeather(RaceWeatherTimeline timeline)
-        {if(LastFrame.Tick.Value!=0)throw new InvalidOperationException("Weather must be frozen before racing.");path.BindWeather(timeline);raceWeather=timeline;}
+        public void BindWeather(RaceWeatherTimeline timeline,TrackVisualDefinition geometry=null)
+        {if(LastFrame.Tick.Value!=0)throw new InvalidOperationException("Weather must be frozen before racing.");path.BindWeather(timeline,geometry);raceWeather=timeline;}
         /// <summary>Accepted state from the last committed tick, independent of prepared intent.</summary>
         public bool TuckActive => priorTuck;
         public bool FinalSprintActive => priorSprint;

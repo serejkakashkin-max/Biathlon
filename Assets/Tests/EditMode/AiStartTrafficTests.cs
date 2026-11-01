@@ -10,9 +10,17 @@ namespace Biathlon.Tests
     public class AiStartTrafficTests
     {
         private static string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
-        private static PackAiRaceRunner Create(int count,RaceEventLog events,IAiDecisionSink trace,bool? hold=null,bool bypass=false)
+        private static PackAiRaceRunner Create(int count,RaceEventLog events,IAiDecisionSink trace,bool? hold=null,bool bypass=false,bool zeroFront=false)
         {
-            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read("Biathlon/Venues/woodland_basin_v1/manifest")),Read);
+            string VenueRead(string id)
+            {
+                string json=Read(id);
+                // This boundary fixture explicitly places the front row at the merge.
+                // The production launch line is now87.832m before it and is covered
+                // by ThirtyBodiesKeepTheirAuthoredColumnsAndAllClearTheActualCurvedApproach.
+                return zeroFront&&id.EndsWith("/start_approach",StringComparison.Ordinal)?System.Text.RegularExpressions.Regex.Replace(json,",?\\s*\"launch_distance_m\"\\s*:\\s*[0-9.]+",""):json;
+            }
+            var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read("Biathlon/Venues/woodland_basin_v1/manifest")),VenueRead);
             string Core(string name)
             {
                 string json=PhysiologyContractTests.DefinitionJson(name);
@@ -66,7 +74,7 @@ namespace Biathlon.Tests
         }
         [Test] public void ZeroRemainingFrontRowHoldsTheIncomingEndpointUntilPhysicalHandoff()
         {
-            var runner=Create(3,new RaceEventLog(10000),new AiDecisionCounts());var field=runner.Field;
+            var runner=Create(3,new RaceEventLog(10000),new AiDecisionCounts(),zeroFront:true);var field=runner.Field;
             for(int i=0;i<3;i++)
             {
                 Assert.That(field.GetAthlete(i).RemainingStartApproachNanometers,Is.Zero);
@@ -195,13 +203,15 @@ namespace Biathlon.Tests
                 Assert.Catch(()=>AiStartTrafficPolicyDefinition.FromJson(legacy.Replace("{","{"+limits)));
             Assert.That(AiStartTrafficPolicyDefinition.FromJson(legacy).ToJson(),Does.Not.Contain("stationary_"));
         }
-        [Test] public void OptedInPerceptionSeesTheStationaryBodyAcrossThePaidSeamWithoutAllocations()
+        [Test] public void OptedInPerceptionSeesTheFrontBodyAcrossThePaidSeamWithoutAllocations()
         {
-            var runner=Create(6,new RaceEventLog(10000),new AiDecisionCounts());var field=runner.Field;
-            for(int t=0;t<60;t++)
+            var runner=Create(6,new RaceEventLog(10000),new AiDecisionCounts(),zeroFront:true);var field=runner.Field;
+            // Pay the seam with ordinary movement. Zero effort at today's production
+            // launch cannot put an athlete87.832m farther along the course.
+            for(int t=0;t<100&&field.GetPhysicalPoint(0).LoopId==field.StartApproach.LoopId;t++)
             {
                 var next=field.Tick.Next();var id=field.GetAthlete(0).AthleteId;
-                runner.StepWithPlayer(0,new SprintAthleteInput(new TimeTrialInput(new SimulationInput(next,id,0),1,1,0),new WeaponAimCommand(next,id,0,0)),-2);
+                runner.StepWithPlayer(0,new SprintAthleteInput(new TimeTrialInput(new SimulationInput(next,id,800),1,1,0),new WeaponAimCommand(next,id,0,0)),-2);
             }
             Assert.That(field.GetPhysicalPoint(0).LoopId,Is.Not.EqualTo(field.StartApproach.LoopId));
             Assert.That(field.GetPhysicalPoint(3).LoopId,Is.EqualTo(field.StartApproach.LoopId));

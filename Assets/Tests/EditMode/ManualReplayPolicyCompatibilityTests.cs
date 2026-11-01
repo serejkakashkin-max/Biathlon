@@ -33,7 +33,7 @@ namespace Biathlon.Tests
             const string root="Biathlon/Venues/woodland_basin_v1/";
             var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Venue(root+"manifest")),Venue);
             var runner=ProductionVenueRaceFactory.Create(venue,CompetitionProfile.FromJson(Venue(root+"mass_start_profile")),
-                RaceRoutePlan.FromJson(Venue(root+"mass_start_route")),RaceSnowConditions.FromJson(Read("race_snow_neutral_v1.json")),Read,new RaceEventLog(100000),new AiDecisionCounts(),count:1,seed:123);
+                RaceRoutePlan.FromJson(Venue(root+"mass_start_route")),RaceSnowConditions.FromJson(Read("race_snow_neutral_v1.json")),Read,new RaceEventLog(100000),new AiDecisionCounts(),count:1,seed:123,completeStartCorridorProof:false);
             var stepper=ManualProductionFieldComposition.Create(runner.Field,venue,Read,policy);
             runner.BindManualScopedCandidate(stepper,ManualAiSteeringDefinition.FromJson(Read("manual_ai_steering_v2.json")),ManualSkiSteeringDefinition.FromJson(Read("manual_ski_steering_v2.json")));
             return(runner,stepper);

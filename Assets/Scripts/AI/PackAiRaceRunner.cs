@@ -105,8 +105,8 @@ namespace Biathlon.AI
         public SprintAthleteInput GetLastInput(int index)=>inputs[index];
         private readonly WindVector fixedRaceWind;
         public WindVector RaceWind=>Field.WeatherTimeline?.Sample((Field.Tick.Value+1)/(double)frequency).Wind??fixedRaceWind;
-        public void BindWeather(RaceWeatherTimeline timeline)
-        {Field.BindWeather(timeline);ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,"absolute_race_weather_v1",timeline.ToJson());}
+        public void BindWeather(RaceWeatherTimeline timeline,TrackVisualDefinition geometry=null)
+        {Field.BindWeather(timeline,geometry);ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,"absolute_race_weather_v1",timeline.ToJson());if(geometry!=null)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,"weather_route_heading_v2:"+ManualContextIdentity.Sha256(geometry.ToJson()));}
         private readonly ShootingWindSystem raceWindSystem;
         public TacticalIntentDecision GetLastIntent(int index)=>intents[index];
         public double GetLastLateral(int index)=>lateral[index];
@@ -293,7 +293,8 @@ namespace Biathlon.AI
                 var roster=placements.AsSpan(0,count); bool skiing=count>0 && observation.Phase==CompetitionPhase.Skiing;
                 bool onSharedStart=startTraffic!=null&&point.LoopId==Field.StartApproach.LoopId;
                 bool onStartContinuation=startTraffic!=null&&Field.TryGetStartContinuationObservation(i,out _);
-                stationaryObservedTicks[i]=actor.Motion.DistanceNanometers==previousObservedTravel[i]?stationaryObservedTicks[i]+1:0;
+                bool stationary=actor.Motion.DistanceNanometers==previousObservedTravel[i]||Field.StartContinuationVersion==1&&startTraffic?.StationaryMaximumSpeed.HasValue==true&&actor.Motion.SpeedMetersPerSecond<=startTraffic.StationaryMaximumSpeed.Value;
+                stationaryObservedTicks[i]=stationary?stationaryObservedTicks[i]+1:0;
                 previousObservedTravel[i]=actor.Motion.DistanceNanometers;
                 bool obstructionPass=false;
                 if(manualCandidate==null&&onStartContinuation&&startTraffic.StationaryBypassAfterSeconds.HasValue&&count>0&&

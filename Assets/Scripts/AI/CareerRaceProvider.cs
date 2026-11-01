@@ -28,7 +28,7 @@ namespace Biathlon.AI
         private const string WoodlandRoot="Biathlon/Venues/woodland_basin_v1/";
         public const int CurrentStartOrderVersion=2;
         public const int CurrentEquipmentVersion=1;
-        public const int CurrentWeatherTimelineVersion=1;
+        public const int CurrentWeatherTimelineVersion=2;
         // Fixed stream identity (ASCII SPRINTDR), not a gameplay tuning value.
         private const ulong SprintStartDrawStream=0x535052494E544452UL;
         public long LastTicks { get; private set; } public ulong LastEventHash { get; private set; } public int LastShots { get; private set; }
@@ -75,7 +75,7 @@ namespace Biathlon.AI
         public CareerPreparedRace Prepare(CareerSave snapshot,CareerCalendarEvent e,ulong seed,IRaceEventSink observedEvents=null,
             RaceWeatherPreset recordedWeather=null,bool legacyNeutralWeather=false,bool legacyMassStartOrder=false,
             ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.PassiveCurvedV26,bool legacySprintStartOrder=false,
-            string recordedEquipmentJson=null,bool legacyEquipment=false,string recordedTimelineJson=null,bool legacyFixedWeather=false)
+            string recordedEquipmentJson=null,bool legacyEquipment=false,string recordedTimelineJson=null,bool legacyFixedWeather=false,bool legacyStartContinuation=false,bool legacyWeatherHeading=false)
         {
             if(snapshot==null||e==null)throw new ArgumentNullException();
             if(courseReactionPolicy!=ManualCourseReactionPolicy.LegacyV25&&courseReactionPolicy!=ManualCourseReactionPolicy.PassiveCurvedV26)
@@ -131,15 +131,15 @@ namespace Biathlon.AI
                         weather.SnowConditions(RaceSnowConditions.FromJson(read("race_snow_neutral_v1.json"))),raceRead,eventSink,new AiDecisionCounts(),
                     qualification,roster.Count,definition.TickFrequency,seed,entrants,personalities,forms,pressures,
                     raceWind:weather==null?default:new WindVector(weather.WindEast,weather.WindNorth),
-                    massStartNumberFromRight:!legacyMassStartOrder&&career.Calendar.MassStartNumberFromRight);
+                    massStartNumberFromRight:!legacyMassStartOrder&&career.Calendar.MassStartNumberFromRight,completeStartCorridorProof:!legacyStartContinuation);
             }
             else runner=ChampionshipRaceFactory.Create(raceRead,fixture,e.Format,eventSink,new AiDecisionCounts(),qualification,roster.Count,definition.TickFrequency,seed,entrants,personalities,forms,pressures);
             if(recordedTimelineJson!=null)
             {
                 var timeline=RaceWeatherTimeline.FromJson(recordedTimelineJson);
-                if(weather==null||timeline.Initial.ToJson()!=weather.ToJson())throw new ArgumentException("Recorded timeline and initial weather differ.");runner.BindWeather(timeline);
+                if(weather==null||timeline.Initial.ToJson()!=weather.ToJson())throw new ArgumentException("Recorded timeline and initial weather differ.");runner.BindWeather(timeline,legacyWeatherHeading?null:venue?.Visual);
             }
-            else if(weather!=null&&!legacyFixedWeather&&recordedWeather==null)runner.BindWeather(career.WeatherPolicy.Create(weather,seed));
+            else if(weather!=null&&!legacyFixedWeather&&recordedWeather==null)runner.BindWeather(career.WeatherPolicy.Create(weather,seed),legacyWeatherHeading?null:venue?.Visual);
             Func<string,string> manualRead=!legacyMassStartOrder&&weather?.CourseContactResource!=null?
                 n=>raceRead(n=="manual_course_contact_gameplay_v2.json"?weather.CourseContactResource:n):raceRead;
             return new CareerPreparedRace(snapshot.SeasonId,snapshot.PlayerId,e,seed,runner,audit,venue,weather,manualRead,courseReactionPolicy,equipment);

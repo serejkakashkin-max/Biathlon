@@ -51,6 +51,15 @@ namespace Biathlon.Tests
             Assert.That(selected.RaceSeed,Is.EqualTo(week.RaceSeed));Assert.That(selected.SourceJson,Is.EqualTo(week.SourceJson));Assert.That(selected.RaceSnapshotJson,Is.EqualTo(week.RaceSnapshotJson));Assert.Catch(()=>week.SelectOwnedSkis(d.Equipment,"ski_wet_channel"));
         }
         private sealed class NoRaces:ICareerRaceProvider {public CareerRaceRecord Run(CareerSave s,CareerCalendarEvent e,ulong seed)=>throw new InvalidOperationException();}private static readonly ICareerRaceProvider nullProvider=new NoRaces();
+        [Test] public void HeadlessRouteWindUsesTheAuthoredWorldHeadingAndVersionOneRemainsReplayable()
+        {
+            var d=new CareerDefinitions(Small,"woodland_development_calendar_v1.json");var save=CareerFactory.Create(d.Roster,d.Calendar,"weather_heading","Alex","NOR","default",new SeededRandomSource(71000));var e=d.Calendar.Get(0);var provider=new CareerRaceProvider(Small,d,Venue);
+            string json=PhysiologyContractTests.ReplaceNumber(Preset(1).ToJson(),"wind_east_mps","0");json=PhysiologyContractTests.ReplaceNumber(json,"wind_north_mps","5");var preset=RaceWeatherPreset.FromJson(json);string timeline=Policy().CreateScenario(preset,"stable").ToJson();
+            var current=provider.Prepare(save,e,123,recordedWeather:preset,recordedTimelineJson:timeline);var legacy=provider.Prepare(save,e,123,recordedWeather:preset,recordedTimelineJson:timeline,legacyWeatherHeading:true);
+            for(int i=0;i<50;i++){current.Runner.Step();legacy.Runner.Step();}
+            Assert.That(current.Runner.Field.GetAthlete(0).Motion.DistanceNanometers,Is.LessThan(legacy.Runner.Field.GetAthlete(0).Motion.DistanceNanometers),"North wind opposes the actual southbound start corridor, using the existing drag law.");
+            Assert.That(current.Runner.ContextJson,Does.Contain("weather_route_heading_v2"));Assert.That(legacy.Runner.ContextJson,Does.Not.Contain("weather_route_heading_v2"));
+        }
         [Test] public void DynamicSignedWorldJournalReplaysExactlyWhileLegacyMetadataUsesFixedWeather()
         {
             var d=new CareerDefinitions(Small,"woodland_development_calendar_v1.json");var save=CareerFactory.Create(d.Roster,d.Calendar,"weather_replay","Alex","NOR","default",new SeededRandomSource(71000));var e=d.Calendar.Get(0);var provider=new CareerRaceProvider(Small,d,Venue);

@@ -155,13 +155,16 @@ namespace Biathlon.Simulation
         public CheckpointTimingBoard Timing => field.Timing;
         public long PrecisionFallbackTicks { get; private set; }
         public string ContextJson { get; private set; }
+        private readonly bool completeStartCorridorProof;
+        public int StartContinuationVersion=>completeStartCorridorProof&&startContinuation!=null?1:0;
         public RaceWeatherTimeline WeatherTimeline {get;private set;}
-        public void BindWeather(RaceWeatherTimeline timeline)
+        public void BindWeather(RaceWeatherTimeline timeline,TrackVisualDefinition geometry=null)
         {
             if(Tick.Value!=0||WeatherTimeline!=null||timeline==null)throw new InvalidOperationException("Weather requires a fresh field.");
-            for(int i=0;i<Count;i++)GetAthlete(i).BindWeather(timeline);
+            for(int i=0;i<Count;i++)GetAthlete(i).BindWeather(timeline,geometry);
             field.BindWeatherEvents(timeline);
             WeatherTimeline=timeline;ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,"absolute_race_weather_v1",timeline.ToJson());
+            if(geometry!=null)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,"weather_route_heading_v2:"+ManualContextIdentity.Sha256(geometry.ToJson()));
         }
         public SprintAthleteSession GetAthlete(int index) => field.GetAthlete(index);
         public bool IsOnCourse(int index) => onCourse[index] && !GetAthlete(index).HasFinished;
@@ -367,8 +370,9 @@ namespace Biathlon.Simulation
             PhysicalRangeFieldLayout rangeLayout = null, bool authoredStartApproach = false,
             PhysicalStartContinuationDefinition startContinuation = null, bool reusableRangeMats = false, bool routeBoundJunctions = false,
             PhysicalDirectedPassageDefinition directedPassages = null,
-            PhysicalSharedApronDefinition sharedApron = null, TrackVisualDefinition sharedApronVisual = null, VenueRangeLayout sharedApronRange = null)
+            PhysicalSharedApronDefinition sharedApron = null, TrackVisualDefinition sharedApronVisual = null, VenueRangeLayout sharedApronRange = null,bool completeStartCorridorProof=false)
         {
+            this.completeStartCorridorProof=completeStartCorridorProof;
             this.junctionDefinition=junctionDefinition;
             if (rangeLayout != null && (rangeLanes != null || !rangeLayout.IsBoundTo(track, route)))
                 throw new ArgumentException("One exact authored range layout is required.", nameof(rangeLayout));
@@ -616,6 +620,7 @@ namespace Biathlon.Simulation
                 "reachable_physical_ports_v1;preserve_self_crossings;reject_unbound_points;full_source_region_indices"});
             if(this.startContinuation!=null)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,new[]{
                 this.startContinuation.ContextJson,"front_incoming_endpoint_until_accepted_handoff_v2_parallel_source_bodies"});
+            if(StartContinuationVersion==1)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,"start_continuation_all_captured_ports_world_proof_v2");
             if(this.directedPassages!=null)
             {
                 var coverage=new string[passageSharing.Length+1];
@@ -1361,6 +1366,16 @@ namespace Biathlon.Simulation
                 if(worldContinuation&&(j==startContinuation.JunctionIndex||
                     a.Start.LoopId==startContinuation.SourceLoopId&&a.End.LoopId==startContinuation.SourceLoopId&&
                     b.Start.LoopId==startContinuation.SourceLoopId&&b.End.LoopId==startContinuation.SourceLoopId))continue;
+                if(completeStartCorridorProof&&worldContinuation)
+                {
+                    // Every branch in this guard is inside the two immutable captured
+                    // corridors. The unchanged whole-interval body proof below decides
+                    // contact even when one receipt crosses the approach/main seam.
+                    bool covered=true;var region=junctionDefinition.Get(j);
+                    for(int p=0;p<region.PortCount;p++)
+                    {string loop=region.GetPort(p).Anchor.LoopId;if(loop!=startContinuation.SourceLoopId&&loop!=startContinuation.MainLoopId){covered=false;break;}}
+                    if(covered)continue;
+                }
                 // A newly measured branch guard on the same start corridor
                 // must not reject parallel grid rows. The existing full start
                 // continuation body proof below still decides actual contact.

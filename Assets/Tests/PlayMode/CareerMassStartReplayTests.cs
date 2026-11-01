@@ -27,7 +27,8 @@ namespace Biathlon.PlayModeTests
         [TearDown]public void Cleanup(){if(root!=null)Object.DestroyImmediate(root);if(folder!=null&&Directory.Exists(folder)){foreach(var f in Directory.GetFiles(folder))File.Delete(f);Directory.Delete(folder,false);}}
         [UnityTest,Timeout(300000)]public IEnumerator RankedIceMassReplayAndBackwardSeekKeepRecordedSolverAndStartList()=>Run(false);
         [UnityTest,Timeout(300000)]public IEnumerator LegacyV2CareerReplayKeepsRecordedSolverPosesAndOriginalSnapshotBytes()=>Run(true);
-        private IEnumerator Run(bool legacyV2)
+        [UnityTest,Timeout(300000)]public IEnumerator VersionOneWeatherJournalRetainsOriginalContextAndBackwardSeek()=>Run(false,true);
+        private IEnumerator Run(bool legacyV2,bool oldWeather=false)
         {
             var d=new CareerDefinitions(Read,"woodland_development_calendar_v1.json");var s=CareerFactory.Create(d.Roster,d.Calendar,"mass_seek","Alex","NOR","default",new SeededRandomSource(71000));
             for(int e=0;e<2;e++)CareerStandings.Register(s,new CareerRaceRecord("seek_result_"+e,s.SeasonId,d.Calendar.Get(e).Id,d.Calendar.Get(e).Format,123,new string('a',64),
@@ -39,11 +40,11 @@ namespace Biathlon.PlayModeTests
                 snapshot=System.Text.RegularExpressions.Regex.Replace(snapshot,"(\"save_version\"\\s*:\\s*)[0-9]+","${1}2");
                 Assert.That(snapshot,Does.Not.Contain("appearance_profile"));
             }
-            var race=d.Calendar.Get(2);var p=new CareerRaceProvider(Read,d,ProductionVenueHost.ReadResource).Prepare(s,race,123);
+            var race=d.Calendar.Get(2);var p=new CareerRaceProvider(Read,d,ProductionVenueHost.ReadResource).Prepare(s,race,123,legacyStartContinuation:oldWeather,legacyWeatherHeading:oldWeather);
             var source=ManualProductionFieldComposition.Create(p.Runner.Field,p.Venue,p.ManualRead);
             p.Runner.BindManualScopedCandidate(source,ManualAiSteeringDefinition.FromJson(Read("manual_ai_steering_v2.json")),ManualSkiSteeringDefinition.FromJson(Read("manual_ski_steering_v2.json")),PlayerCourseAssistanceDefinition.FromJson(Read("player_course_assistance_v1.json")));
             folder=Path.Combine(Path.GetTempPath(),"biathlon-ranked-mass-replay-"+Guid.NewGuid().ToString("N"));var library=new RaceReplayLibrary(folder);var store=new Store{Json=snapshot};
-            var info=new RaceReplayInfo{Id="ranked_mass",RecordedUtc=DateTime.UtcNow.ToString("O"),CareerSnapshotJson=snapshot,RaceWeatherJson=p.Weather.ToJson(),WeatherTimelineVersion=p.Timeline==null?0:CareerRaceProvider.CurrentWeatherTimelineVersion,WeatherTimelineJson=p.Timeline?.ToJson(),EquipmentVersion=CareerRaceProvider.CurrentEquipmentVersion,EquipmentSnapshotJson=p.Equipment.ToJson(),StartOrderVersion=1,CourseReactionVersion=(int)p.CourseReactionPolicy,EventId=race.Id,VenueId=race.VenueId,Format=(int)race.Format,Seed=123,PlayerId=s.PlayerId,PlayerName="Alex",TickFrequency=20,TickCount=120,ResultSha256=new string('a',64),Events=Array.Empty<RecordedRaceEvent>(),Highlights=Array.Empty<RaceHighlight>()};
+            var info=new RaceReplayInfo{Id="ranked_mass",RecordedUtc=DateTime.UtcNow.ToString("O"),CareerSnapshotJson=snapshot,RaceWeatherJson=p.Weather.ToJson(),StartContinuationVersion=p.Runner.Field.StartContinuationVersion,WeatherTimelineVersion=p.Timeline==null?0:oldWeather?1:CareerRaceProvider.CurrentWeatherTimelineVersion,WeatherTimelineJson=p.Timeline?.ToJson(),EquipmentVersion=CareerRaceProvider.CurrentEquipmentVersion,EquipmentSnapshotJson=p.Equipment.ToJson(),StartOrderVersion=1,CourseReactionVersion=(int)p.CourseReactionPolicy,EventId=race.Id,VenueId=race.VenueId,Format=(int)race.Format,Seed=123,PlayerId=s.PlayerId,PlayerName="Alex",TickFrequency=20,TickCount=120,ResultSha256=new string('a',64),Events=Array.Empty<RecordedRaceEvent>(),Highlights=Array.Empty<RaceHighlight>()};
             object pose=null;
             using(var stream=library.CreatePending(info.Id))using(var writer=new ManualRaceJournalWriter(stream,source,SkiTechniqueDefinition.FromJson(Read("ski_technique_provisional_v1.json"))))
             {source.CommandObserver=writer;for(int i=0;i<120;i++){p.Runner.Step();if(i==59)pose=source.World.GetActor(p.PlayerIndex).Pose;}writer.Complete();Assert.That(writer.Failure,Is.Null);}

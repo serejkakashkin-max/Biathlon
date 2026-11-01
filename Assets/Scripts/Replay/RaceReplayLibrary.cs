@@ -33,6 +33,7 @@ namespace Biathlon.Replay
         [DataMember(Name="equipment_snapshot_json",EmitDefaultValue=false)]public string EquipmentSnapshotJson;
         [DataMember(Name="weather_timeline_version",EmitDefaultValue=false)]public int WeatherTimelineVersion;
         [DataMember(Name="weather_timeline_json",EmitDefaultValue=false)]public string WeatherTimelineJson;
+        [DataMember(Name="start_continuation_version",EmitDefaultValue=false)]public int StartContinuationVersion;
         // Missing in M15.5 journals: retain their exact v25 force law and canonical JSON.
         [DataMember(Name="course_reaction_version",EmitDefaultValue=false)]public int CourseReactionVersion;
         public ManualCourseReactionPolicy CourseReactionPolicy=>CourseReactionVersion==0?
@@ -54,13 +55,13 @@ namespace Biathlon.Replay
             RaceReplayLibrary.ValidId(Id);
             if(SchemaVersion!=1||CommandVersion!=1||Compression!="gzip"||!DateTimeOffset.TryParse(RecordedUtc,out _)||string.IsNullOrWhiteSpace(CareerSnapshotJson)||
                 string.IsNullOrWhiteSpace(EventId)||string.IsNullOrWhiteSpace(VenueId)||string.IsNullOrWhiteSpace(PlayerId)||string.IsNullOrWhiteSpace(PlayerName)||
-                Format<0||Format>2||StartOrderVersion<0||StartOrderVersion>2||
+                Format<0||Format>2||StartOrderVersion<0||StartOrderVersion>2||StartContinuationVersion<0||StartContinuationVersion>1||
                 CourseReactionVersion!=0&&CourseReactionVersion!=25&&CourseReactionVersion!=26||
                 TickFrequency<1||TickFrequency>120||TickCount<1||TickCount>1000000||Events==null||Highlights==null)
                 throw new SerializationException("Unsupported or incomplete replay metadata.");
             if(EquipmentVersion<0||EquipmentVersion>1||EquipmentVersion==0&&EquipmentSnapshotJson!=null||EquipmentVersion==1&&string.IsNullOrWhiteSpace(EquipmentSnapshotJson))throw new SerializationException("Unsupported equipment recording.");
             if(EquipmentSnapshotJson!=null)RaceEquipmentSnapshot.FromJson(EquipmentSnapshotJson);
-            if(WeatherTimelineVersion<0||WeatherTimelineVersion>1||WeatherTimelineVersion==0&&WeatherTimelineJson!=null||WeatherTimelineVersion==1&&string.IsNullOrWhiteSpace(WeatherTimelineJson))throw new SerializationException("Unsupported weather timeline recording.");
+            if(WeatherTimelineVersion<0||WeatherTimelineVersion>2||WeatherTimelineVersion==0&&WeatherTimelineJson!=null||WeatherTimelineVersion>0&&string.IsNullOrWhiteSpace(WeatherTimelineJson))throw new SerializationException("Unsupported weather timeline recording.");
             if(WeatherTimelineJson!=null){var timeline=RaceWeatherTimeline.FromJson(WeatherTimelineJson);if(RaceWeatherJson==null||timeline.Initial.ToJson()!=RaceWeatherPreset.FromJson(RaceWeatherJson).ToJson())throw new SerializationException("Recorded weather timeline initial state differs.");}
             Hash(CommandSha256);Hash(ResultSha256);
             if(RaceWeatherJson!=null)RaceWeatherPreset.FromJson(RaceWeatherJson);

@@ -37,8 +37,9 @@ namespace Biathlon.Simulation
         private readonly SkiEquipmentSystem equipment;
         public SkiEquipmentOutput EvaluateWeatherEquipment(RaceWeatherFrame frame)=>equipment.Evaluate(frame);
         private RaceWeatherTimeline weather;
-        public void BindWeather(RaceWeatherTimeline timeline)
-        {if(weather!=null||timeline==null)throw new InvalidOperationException("Bind weather once before racing.");weather=timeline;}
+        private TrackVisualDefinition weatherGeometry;
+        public void BindWeather(RaceWeatherTimeline timeline,TrackVisualDefinition geometry=null)
+        {if(weather!=null||timeline==null||geometry!=null&&geometry.TrackId!=track.Id)throw new InvalidOperationException("Bind matching weather/geometry once before racing.");weather=timeline;weatherGeometry=geometry;}
         private readonly SkiBoundaryStepper stepper;
         private readonly TrackSampler penaltySampler;
         private readonly double dt, maximumPower;
@@ -130,10 +131,13 @@ namespace Biathlon.Simulation
                 if (distance <= 0) throw new InvalidOperationException("Non-forward path boundary.");
                 if (count >= segments.Length) throw new ArgumentException("Motion segment output capacity is insufficient.");
                 var gear = weather==null?equipment.Evaluate(snow.Sample(sample).Id):equipment.Evaluate(weather.Sample(input.Effort.Tick.Value*dt));
+                double headwind=input.HeadwindMetersPerSecond;
+                if(weatherGeometry!=null)
+                {var direction=weatherGeometry.Get(sample.LoopId).Sample(sample.Distance.Meters);var wind=weather.Sample(input.Effort.Tick.Value*dt).Wind;headwind=-(wind.EastMetersPerSecond*direction.ForwardX+wind.NorthMetersPerSecond*direction.ForwardZ);}
                 var form = technique.Evaluate(athlete.TechniqueStats, sample, fatigue, deliveredPower, input.TechniqueId);
                 var turn = cornering.Evaluate(motion, sample, athlete.Cornering, athlete.Downhill, input.LineQuality, fatigue, gear.CorneringGripMultiplier);
                 var step = stepper.Step(motion, form.PropulsivePowerWatts * input.MovementEfficiency, sample, remaining,
-                    checked(motion.DistanceNanometers + distance), input.HeadwindMetersPerSecond, dragAreaMultiplier, turn.BrakingNewtons, gear.SnowResistanceMultiplier);
+                    checked(motion.DistanceNanometers + distance), headwind, dragAreaMultiplier, turn.BrakingNewtons, gear.SnowResistanceMultiplier);
                 long moved = step.Forces.State.DistanceNanometers - motion.DistanceNanometers;
                 long nextMain = penalty || onApproach ? main : main + moved;
                 segments[count++] = new RaceMotionSegment(main, nextMain, motion.DistanceNanometers, step.Forces.State.DistanceNanometers,

@@ -66,7 +66,7 @@ namespace Biathlon.Tests
         {
             var d=Definitions(true);var save=Save(d);var e=d.Calendar.Get(0);var provider=new CareerRaceProvider(SmallRead,d,Venue);
             var policy=version==0?ManualCourseReactionPolicy.LegacyV25:ManualCourseReactionPolicy.PassiveCurvedV26;
-            CareerPreparedRace Prepare()=>provider.Prepare(CareerSave.FromJson(save.ToJson()),e,123,legacyNeutralWeather:version==0,legacyMassStartOrder:version==0,courseReactionPolicy:policy,legacySprintStartOrder:version<2,legacyEquipment:true,legacyFixedWeather:true);
+            CareerPreparedRace Prepare()=>provider.Prepare(CareerSave.FromJson(save.ToJson()),e,123,legacyNeutralWeather:version==0,legacyMassStartOrder:version==0,courseReactionPolicy:policy,legacySprintStartOrder:version<2,legacyEquipment:true,legacyFixedWeather:true,legacyStartContinuation:true);
             var source=Prepare();var stepper=Bind(source,SmallRead);byte[] bytes;long ticks=Math.Max(120,source.Runner.Field.GetAthlete(source.PlayerIndex).ScheduledStart.Value+40);
             using(var stream=new MemoryStream())
             {
