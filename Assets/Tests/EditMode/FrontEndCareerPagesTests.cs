@@ -35,7 +35,11 @@ namespace Biathlon.Tests
         }
         [Test] public void EquipmentPurchaseAndSelectionAreAtomicAndChargeOnce()
         {
-            var store=new Store();var s=New(store);s.OpenCareerPage(FrontEndScreen.Equipment);string target=null;
+            var store=new Store();New(store);
+            // Purchase atomicity needs earned funds; the revised starting budget
+            // deliberately cannot buy every upgrade before the first race.
+            store.Json=PhysiologyContractTests.ReplaceNumber(store.Json,"money_minor","200000");
+            var s=new FrontEndSession(PhysiologyContractTests.DefinitionJson,store,x=>new SeededRandomSource(x));s.ContinueCareer();s.OpenCareerPage(FrontEndScreen.Equipment);string target=null;
             for(int i=0;i<s.EquipmentCatalog.Count;i++){var item=s.EquipmentCatalog.Get(i);if(item.Id!=s.Player.SelectedSki&&CareerInventory.Compare(s.Player,s.EquipmentCatalog,s.Definitions.Economy,item.Id,"packed_neutral").PurchasePrice<=s.Player.Money){target=item.Id;break;}}
             Assert.That(target,Is.Not.Null);string before=store.Json;store.Fail=true;Assert.Throws<IOException>(()=>s.Equip(target));Assert.That(s.Career.ToJson(),Is.EqualTo(before));
             store.Fail=false;s.Equip(target);long money=s.Player.Money;Assert.That(s.Player.SelectedSki,Is.EqualTo(target));s.Equip(target);Assert.That(s.Player.Money,Is.EqualTo(money));

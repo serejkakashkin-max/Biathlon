@@ -8,7 +8,7 @@ namespace Biathlon.Tests
 {
     public class DraftCalibrationTests
     {
-        public static void Artifact(string name, string text)
+        public static void Artifact(string name, string text,string fixture=null)
         {
             var root = new DirectoryInfo(TestContext.CurrentContext.TestDirectory);
             while (root != null && !File.Exists(Path.Combine(root.FullName,"AGENTS.md"))) root = root.Parent;
@@ -20,7 +20,7 @@ namespace Biathlon.Tests
             name = "dotnet-" + name;
 #endif
             File.WriteAllText(Path.Combine(directory,name),text);
-            string fixtureName=name.Replace("unity-","").Replace("dotnet-","");
+            string fixtureName=fixture??name.Replace("unity-","").Replace("dotnet-","");
             Assert.That(BalanceRegression.Hash(text),Is.EqualTo(PhysiologyContractTests.ProjectFile("tests/fixtures/balance/"+fixtureName+".sha256").Trim()),"Portable calibration output");
         }
 #if UNITY_EDITOR
@@ -56,7 +56,14 @@ namespace Biathlon.Tests
                 Assert.That(Math.Abs(pair.Number("fraction_saved")),Is.LessThan(.05));
                 sum+=benefit;exposure+=on.Number("draft_athlete_seconds");
             }
-            Artifact("wp097.jsonl",text.ToString());
+            // The current context hashes already differ at the exact M16.5 baseline.
+            // Preserve the M8 journal/hash and prove every numeric result and event
+            // hash remains byte-identical before accepting a versioned context lock.
+            string original=PhysiologyContractTests.ProjectFile("docs/quality/wp097-100/wp097.jsonl").Replace("\r\n","\n");
+            Assert.That(BalanceRegression.Hash(original),Is.EqualTo(PhysiologyContractTests.ProjectFile("tests/fixtures/balance/wp097.jsonl.sha256").Trim()));
+            string WithoutContext(string value)=>System.Text.RegularExpressions.Regex.Replace(value,"\"context_sha256\":\"[a-f0-9]{64}\",","");
+            Assert.That(WithoutContext(text.ToString()),Is.EqualTo(WithoutContext(original)),"All M8 numerical results and event hashes remain unchanged.");
+            Artifact("wp097.jsonl",text.ToString(),"wp097-context-v2.jsonl");
             TestContext.Out.WriteLine("Mean draft seconds saved="+sum/8+", exposure="+exposure);
             Assert.That(exposure,Is.GreaterThan(0));Assert.That(sum,Is.GreaterThan(0));
         }
