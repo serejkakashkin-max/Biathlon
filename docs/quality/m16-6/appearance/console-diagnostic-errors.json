@@ -1,0 +1,13 @@
+{
+  "errors": 2,
+  "scope": "Temporary edit-mode screenshot probe cleanup; production/test PlayMode results and standalone are separate.",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "2 results\nlogType|message\nError|\"Destroy may not be called from edit mode! Use DestroyImmediate instead.\\nDestroying an object in edit mode destroys it permanently\"\nError|\"Benchmark offscreen output: Destroy may not be called from edit mode! Use DestroyImmediate instead.\\nDestroying an object in edit mode destroys it permanently\""
+      }
+    ],
+    "isError": false
+  }
+}

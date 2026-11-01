@@ -26,6 +26,8 @@ namespace Biathlon.Career
         public CareerGrowthDefinition Growth {get;}
         public BiathlonRatingDefinition Ratings {get;}
         public CareerWorldDefinition World {get;}
+        private CareerRivalAppearance rivalAppearance;
+        public CareerRivalAppearance RivalAppearance=>rivalAppearance??(rivalAppearance=new CareerRivalAppearance(ReadDefinition));
         public CareerDefinitions(Func<string,string> read) : this(read,LegacyCalendarResource) { }
         /// <summary>New production careers use the approved one-venue season.
         /// Existing saves are selected from their persisted calendar ID instead.</summary>
@@ -161,7 +163,7 @@ namespace Biathlon.Career
                 if(save.WorldPolicyId!=null)save=CareerWorld.AdvanceSeason(save,d,restoreRandom);
                 else
                 {
-                    save=CareerGeneration.ReplaceRetirees(save,d.Roster,d.Generation,restoreRandom,d.Growth,d.Ratings).Save;
+                    save=CareerGeneration.ReplaceRetirees(save,d.Roster,d.Generation,restoreRandom,d.Growth,d.Ratings,d.RivalAppearance).Save;
                     if(save.StartProfileId!=null)save=CareerCircuitTransition.Advance(save,d,restoreRandom);
                 }
             }

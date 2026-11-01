@@ -59,6 +59,11 @@ namespace Biathlon.Unity
             }
             var skinIndices=new List<int>(submeshes[3]);foreach(int i in eyes.indices){if(i<0||i>=eyeCount)throw new InvalidDataException("Eye triangle outside vertex buffer.");skinIndices.Add(originalCount+i);}submeshes[3]=skinIndices.ToArray();
             var headwearIndices=new List<int>(submeshes[6]);foreach(int i in eyes.headwear_indices){if(i<0||i>=eyeCount)throw new InvalidDataException("Headwear triangle outside vertex buffer.");headwearIndices.Add(originalCount+i);}submeshes[6]=headwearIndices.ToArray();
+            // The existing raised-goggles ownership mask covers lens, frame and
+            // strap. Mark it in every LOD for matching forward/depth/shadow clips.
+            foreach(int i in submeshes[7])tags[i]=new Vector2(7,0);
+            foreach(int i in submeshes[4])if(vertices[i].y>1.65f)tags[i]=new Vector2(7,0);
+            foreach(int i in submeshes[6])if(i<originalCount&&tags[i].x!=2)tags[i]=new Vector2(7,0);
             mesh.Clear();mesh.vertices=vertices;mesh.normals=normals;mesh.uv=uv;mesh.tangents=tangents;mesh.boneWeights=weights;mesh.bindposes=bind;mesh.subMeshCount=submeshes.Length;
             for(int sub=0;sub<submeshes.Length;sub++)mesh.SetTriangles(submeshes[sub],sub);
             mesh.SetUVs(1,vertices);mesh.SetUVs(2,tags);foreach(var f in frames)mesh.AddBlendShapeFrame(f.Name,f.Weight,f.Delta,f.Normals,f.Tangents);

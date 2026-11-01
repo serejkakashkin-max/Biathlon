@@ -196,6 +196,7 @@ namespace Biathlon.Unity.Presentation
             {
                 case "crew":return L("Короткая стрижка","Crew cut");case "short_swept":return L("Короткая набок","Short swept");case "dark_brown":return L("Тёмно-коричневый","Dark brown");case "black":return L("Чёрный","Black");case "chestnut":return L("Каштановый","Chestnut");case "blond":return L("Светлый","Blond");case "auburn":return L("Рыжий","Auburn");case "silver":return L("Седой","Silver");
                 case "brown":return L("Карие","Brown");case "blue":return L("Голубые","Blue");case "green":return L("Зелёные","Green");case "grey":return L("Серые","Grey");case "cap":return L("Гоночная шапка","Race cap");case "headband":return L("Повязка","Headband");case "none":return L("Без головного убора","No headwear");case "worn":return L("На глазах","Worn");case "raised":return L("Подняты","Raised");
+                case "absent":return L("Без очков","No goggles");
                 case "ice":return L("Ледяная","Ice");case "amber":return L("Янтарная","Amber");case "rose":return L("Розовая","Rose");case "carbon":return L("Карбон","Carbon");case "ivory":return L("Светлые","Ivory");case "crimson":return L("Малиновые","Crimson");case "graphite":return L("Графит","Graphite");case "ice_white":return L("Белые","Ice white");case "red":return L("Красные","Red");case "national":return L("Цвет сборной","National colors");case "glacier":return L("Ледник","Glacier");case "sunrise":return L("Рассвет","Sunrise");case "berry":return L("Ягодный","Berry");default:return id;
             }
         }

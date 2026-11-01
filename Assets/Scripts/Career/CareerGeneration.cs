@@ -36,7 +36,7 @@ namespace Biathlon.Career
     {
         // Run after current-season results have been archived. Returns a new save;
         // a failed transition cannot change the caller's roster or RNG checkpoint.
-        public static CareerGenerationResult ReplaceRetirees(CareerSave source,CareerRosterDefinition roster,CareerGenerationDefinition definition,Func<ulong,IRandomSource> restoreRandom,CareerGrowthDefinition growth=null,BiathlonRatingDefinition ratings=null)
+        public static CareerGenerationResult ReplaceRetirees(CareerSave source,CareerRosterDefinition roster,CareerGenerationDefinition definition,Func<ulong,IRandomSource> restoreRandom,CareerGrowthDefinition growth=null,BiathlonRatingDefinition ratings=null,CareerRivalAppearance appearances=null)
         {
             if(source==null||roster==null||definition==null||restoreRandom==null)throw new ArgumentNullException();
             source.Validate();
@@ -52,6 +52,7 @@ namespace Biathlon.Career
             {
                 var old=save.Athlete(i);if(old.Id==save.PlayerId||old.Age<Retirement(old))continue;
                 var replacement=CareerFactory.Generate(roster,save.Id,save.NextAthleteOrdinal++,random,age:CareerFactory.Draw(random,definition.ProspectAgeMin,definition.ProspectAgeMax));
+                if(appearances!=null)replacement.Appearance=appearances.Generate(replacement.Id);
                 for(int stat=0;stat<CareerUnits.StatCount;stat++)replacement.SetStat((CareerStat)stat,Math.Min(replacement.Potential,CareerFactory.Draw(random,definition.ProspectSkillMin,definition.ProspectSkillMax)));
                 retired.Add(old.Id);save.Athletes[i]=replacement;
             }

@@ -20,6 +20,7 @@ namespace Biathlon.Career
             var peer=CareerFactory.Generate(d.Roster,save.Id,ordinal,random,age:CareerFactory.Draw(random,profile.PeerAgeMin,profile.PeerAgeMax));
             int level=CareerFactory.Draw(random,profile.PeerSkillMin,profile.PeerSkillMax);peer.Tier=profile.PlayerTier;
             for(int stat=0;stat<13;stat++)peer.SetStat((CareerStat)stat,Math.Min(peer.Potential,Math.Max(0,level+CareerFactory.Draw(random,-profile.PeerStatSpread,profile.PeerStatSpread))));
+            peer.Appearance=d.RivalAppearance.Generate(peer.Id);
             save.NextAthleteOrdinal=checked(ordinal+1);return peer;
         }
         public static CareerSave Initialize(CareerSave source,CareerDefinitions d,Func<ulong,IRandomSource> restore)
@@ -68,6 +69,7 @@ namespace Biathlon.Career
             int level=CareerFactory.Draw(random,d.Generation.ProspectSkillMin,d.Generation.ProspectSkillMax);
             var spread=CareerStartDefinition.FromJson(d.ReadDefinition("career_start_v1.json")).Get(d.World.Circuit(CareerCircuit.Junior).StartProfileId).PeerStatSpread;
             for(int s=0;s<13;s++)a.SetStat((CareerStat)s,Math.Min(a.Potential,Math.Max(0,level+CareerFactory.Draw(random,-spread,spread))));
+            a.Appearance=d.RivalAppearance.Generate(a.Id);
             save.NextAthleteOrdinal=checked(ordinal+1);return a;
         }
         /// <summary>After results/development archival and annual ageing. Returns a detached world.</summary>

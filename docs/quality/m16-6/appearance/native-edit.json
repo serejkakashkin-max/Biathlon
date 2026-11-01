@@ -1,0 +1,74 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 12,
+      "PassedTests": 12,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:01.2967913"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.AppearanceDefinitionTests.DetailedAppearanceRoundTripsAllStableIdsAndRemainsDetachedFromItsSource",
+        "Status": "Passed",
+        "Duration": "00:00:00.0470000"
+      },
+      {
+        "Name": "Biathlon.Tests.AppearanceDefinitionTests.DetailedCosmeticSaveNeverChangesStatsInventoryMoneyOrSimulationRandomState",
+        "Status": "Passed",
+        "Duration": "00:00:00.0460000"
+      },
+      {
+        "Name": "Biathlon.Tests.AppearanceDefinitionTests.EveryAuthoredCosmeticIsSelectableAndInvalidEditsAreAtomic",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.Tests.AppearanceDefinitionTests.InvalidPolicyVersionsDuplicateIdsAndNonColorsFailBeforeCreatingAProfile",
+        "Status": "Passed",
+        "Duration": "00:00:00.0090000"
+      },
+      {
+        "Name": "Biathlon.Tests.AppearanceDefinitionTests.LegacyAndV1ProfilesDoNotAcquireUnrequestedNewFields",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerAppearanceProfileTests.ExplicitCosmeticsAndCreationProvenanceSurviveSaveLoadWithoutChangingAbilities",
+        "Status": "Passed",
+        "Duration": "00:00:00.0120000"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerAppearanceProfileTests.MigrationLeavesExistingRacePayloadAndFingerprintByteForByteIntact",
+        "Status": "Passed",
+        "Duration": "00:00:00.0090000"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerAppearanceProfileTests.ProfileVersionsMixedModesAndUnsafeResourceIdsAreRejected",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.Tests.CareerAppearanceProfileTests.V2MigrationIsIdempotentAndPreservesEveryExistingCareerFieldAndRng",
+        "Status": "Passed",
+        "Duration": "00:00:00.0160000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166AppearanceTests.AuthoredGogglesPolicyAllowsCompleteAbsenceWithoutChangingOtherChoices",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166AppearanceTests.LoadingAnOldCareerNeverGeneratesDetailedProfilesAndCatalogSelectionRetainsItsSavedLook",
+        "Status": "Passed",
+        "Duration": "00:00:00.1340000"
+      },
+      {
+        "Name": "Biathlon.Tests.M166AppearanceTests.NewRivalProfilesAreDiversePersistedAndCannotConsumeCareerRandomOrChangeAbilities",
+        "Status": "Passed",
+        "Duration": "00:00:00.0230000"
+      }
+    ]
+  }
+}

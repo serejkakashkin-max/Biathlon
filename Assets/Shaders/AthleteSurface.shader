@@ -21,6 +21,7 @@ Shader "Biathlon/AthleteSurface"
   _BootColor("Boot cosmetic",Color)=(.075,.095,.115,1)
   _LensColor("Coated lens",Color)=(.12,.42,.52,1)
   _CosmeticOverride("Authored accessory palette",Float)=0
+  _GogglesHidden("Hide complete goggles",Float)=0
   [Enum(UnityEngine.Rendering.CullMode)] _Cull("Cull",Float)=2
  }
  SubShader
@@ -34,7 +35,7 @@ Shader "Biathlon/AthleteSurface"
   TEXTURE2D(_BumpMap);SAMPLER(sampler_BumpMap);
   TEXTURE2D(_RoughnessMap);SAMPLER(sampler_RoughnessMap);
   CBUFFER_START(UnityPerMaterial)
-  half4 _BaseColor,_KitColor,_TrimColor,_EyeColor,_HairColor,_ScalpColor,_GloveColor,_BootColor,_LensColor;float _KitWeight,_SurfaceKind,_Smoothness,_BumpScale,_SkinVariation,_DetailTiling,_HeadwearMode,_CosmeticOverride;
+  half4 _BaseColor,_KitColor,_TrimColor,_EyeColor,_HairColor,_ScalpColor,_GloveColor,_BootColor,_LensColor;float _KitWeight,_SurfaceKind,_Smoothness,_BumpScale,_SkinVariation,_DetailTiling,_HeadwearMode,_CosmeticOverride,_GogglesHidden;
   CBUFFER_END
   struct A {float4 positionOS:POSITION;float3 normalOS:NORMAL;float4 tangentOS:TANGENT;float2 uv:TEXCOORD0;float3 rest:TEXCOORD1;float2 cosmetic:TEXCOORD2;UNITY_VERTEX_INPUT_INSTANCE_ID};
   struct V {float4 positionCS:SV_POSITION;float3 positionWS:TEXCOORD0;half3 normalWS:TEXCOORD1;half4 tangentWS:TEXCOORD2;float2 uv:TEXCOORD3;float3 rest:TEXCOORD4;half fog:TEXCOORD5;float2 cosmetic:TEXCOORD6;UNITY_VERTEX_INPUT_INSTANCE_ID UNITY_VERTEX_OUTPUT_STEREO};
@@ -46,7 +47,8 @@ Shader "Biathlon/AthleteSurface"
   }
   void ClipAccessory(V i)
   {
-   if(i.cosmetic.x>5.5)clip((_HeadwearMode>.5&&_HeadwearMode<1.5&&i.rest.y<1.784)?1:-1);
+   if(i.cosmetic.x>5.5&&i.cosmetic.x<6.5)clip((_HeadwearMode>.5&&_HeadwearMode<1.5&&i.rest.y<1.784)?1:-1);
+   if(i.cosmetic.x>6.5&&i.cosmetic.x<7.5)clip(.5-_GogglesHidden);
   }
   half4 Frag(V i):SV_Target
   {

@@ -156,10 +156,10 @@ namespace Biathlon.Unity.Presentation
             {
                 var d=details;
                 palette[3]=Cosmetic("skin_"+SkinVariant+"_"+d.EyeColorId+"_"+d.HairColorId,palette[3],m=>{m.SetColor("_EyeColor",AthleteLookCatalog.Color("eye_color",d.EyeColorId));m.SetColor("_HairColor",AthleteLookCatalog.Color("hair_color",d.HairColorId));});
-                palette[4]=Cosmetic("hands_"+d.GlovesId+"_"+d.BootsId,palette[4],m=>{m.SetColor("_GloveColor",AthleteLookCatalog.Color("gloves",d.GlovesId));m.SetColor("_BootColor",AthleteLookCatalog.Color("boots",d.BootsId));m.SetFloat("_CosmeticOverride",1);});
+                palette[4]=Cosmetic("hands_"+d.GlovesId+"_"+d.BootsId+"_"+d.GogglesId,palette[4],m=>{m.SetColor("_GloveColor",AthleteLookCatalog.Color("gloves",d.GlovesId));m.SetColor("_BootColor",AthleteLookCatalog.Color("boots",d.BootsId));m.SetFloat("_CosmeticOverride",1);m.SetFloat("_GogglesHidden",d.GogglesId=="absent"?1:0);});
                 palette[5]=Cosmetic("boots_"+d.BootsId,palette[5],m=>{m.SetColor("_BootColor",AthleteLookCatalog.Color("boots",d.BootsId));m.SetFloat("_CosmeticOverride",1);});
-                palette[6]=Cosmetic("cap_"+variant+"_"+SkinVariant+"_"+d.HeadwearId+"_"+d.HairColorId+"_"+d.HairStyleId,palette[6],m=>{m.SetColor("_HairColor",AthleteLookCatalog.Color("hair_color",d.HairColorId));m.SetColor("_ScalpColor",AthleteFaceCatalog.Load().SkinColor(SkinVariant));m.SetFloat("_HeadwearMode",d.HeadwearId=="headband"?1:d.HeadwearId=="none"?2:0);});
-                palette[7]=Cosmetic("lens_"+d.LensId,palette[7],m=>{m.SetColor("_LensColor",AthleteLookCatalog.Color("lens",d.LensId));m.SetFloat("_CosmeticOverride",1);});
+                palette[6]=Cosmetic("cap_"+variant+"_"+SkinVariant+"_"+d.HeadwearId+"_"+d.HairColorId+"_"+d.HairStyleId+"_"+d.GogglesId,palette[6],m=>{m.SetColor("_HairColor",AthleteLookCatalog.Color("hair_color",d.HairColorId));m.SetColor("_ScalpColor",AthleteFaceCatalog.Load().SkinColor(SkinVariant));m.SetFloat("_HeadwearMode",d.HeadwearId=="headband"?1:d.HeadwearId=="none"?2:0);m.SetFloat("_GogglesHidden",d.GogglesId=="absent"?1:0);});
+                palette[7]=Cosmetic("lens_"+d.LensId+"_"+d.GogglesId,palette[7],m=>{m.SetColor("_LensColor",AthleteLookCatalog.Color("lens",d.LensId));m.SetFloat("_CosmeticOverride",1);m.SetFloat("_GogglesHidden",d.GogglesId=="absent"?1:0);});
                 if(trainingKit&&d.TrainingAccentId!="national")for(int slot=0;slot<2;slot++)
                 {int s=slot;palette[s]=Cosmetic("training_"+variant+"_"+s+"_"+d.TrainingAccentId,palette[s],m=>{m.SetColor("_TrimColor",AthleteLookCatalog.Color("training_accent",d.TrainingAccentId));if(s==1)m.SetColor("_KitColor",AthleteLookCatalog.Color("training_accent",d.TrainingAccentId));});}
             }

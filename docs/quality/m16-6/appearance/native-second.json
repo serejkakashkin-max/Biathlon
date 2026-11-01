@@ -1,0 +1,156 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Failed",
+      "TotalTests": 28,
+      "PassedTests": 27,
+      "FailedTests": 1,
+      "SkippedTests": 0,
+      "Duration": "00:00:56.9937150"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorAppearanceTests.DetailsUseOneApprovedSkinEightSlotsAndActualCosmeticMorphsAtEveryLod",
+        "Status": "Passed",
+        "Duration": "00:00:00.1140000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorAppearanceTests.DimensionsRetainPoleGripFootGroundAndShootingSightContracts(1700,0)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0150000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorAppearanceTests.DimensionsRetainPoleGripFootGroundAndShootingSightContracts(1980,10000)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorAppearanceTests.NativeStudioCapturesGenuineEyesHairHeadwearAndDimensionChoices",
+        "Status": "Passed",
+        "Duration": "00:00:00.0750000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorAppearanceTests.TrainingAccentCannotRepaintOfficialNationalKitOrAnotherAthlete",
+        "Status": "Passed",
+        "Duration": "00:00:00.0040000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorStudioTests.ExplicitFacesAndSkinShareTheApprovedModelWithoutRepaintingOtherAthletes",
+        "Status": "Passed",
+        "Duration": "00:00:00.0030000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorStudioTests.NativePreviewReusesOneRigAndReleasesItsOwnedResources",
+        "Status": "Failed",
+        "Duration": "00:00:00.0240000",
+        "Message": "  Preview must contain the actual visible athlete.\r\n  Expected: greater than 78643\r\n  But was:  39483\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.AthleteCreatorStudioTests.Save (UnityEngine.RenderTexture target, System.String filename) [0x0010c] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\AthleteCreatorStudioTests.cs:95\r\nat Biathlon.PlayModeTests.AthleteCreatorStudioTests+<NativePreviewReusesOneRigAndReleasesItsOwnedResources>d__3.MoveNext () [0x00287] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\AthleteCreatorStudioTests.cs:30\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorStudioTests.SavedProfileProducesIdenticalPreviewAndRaceRigAppearanceAcrossAllLods",
+        "Status": "Passed",
+        "Duration": "00:00:00.0100000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorStudioTests.ViewPresetsBoundZoomAndReducedMotionKeepsTheFaceStill",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorUiTests.ExistingAthleteCatalogFiltersWithoutRerollsAndConfirmsTheOriginalIdentity",
+        "Status": "Passed",
+        "Duration": "00:00:01.9070000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorUiTests.OwnAthleteCanBeEditedReviewedSavedRestoredAndRenderedInARealRace",
+        "Status": "Passed",
+        "Duration": "00:00:54.4020000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CareerRaceAppearanceTests.CombinedLeaderBibPreservesNumberAndDoesNotTintTheSuit",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CareerRaceAppearanceTests.CountryKitIsSharedAcrossNumbersAndLeaderChangesWithoutAllocatingPerFrame",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CareerRaceAppearanceTests.CountryPaletteCoversEverySavedRosterNationAndKeepsUnknownCountriesNeutral",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CareerRaceAppearanceTests.SelectedRedSkisUseTheShopPaletteAndSharedInstancedMaterialsWithoutTouchingBindings",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.G2AppearanceTests.EveryLodRetainsBindCoordinatesAndFittedLensEnvelope",
+        "Status": "Passed",
+        "Duration": "00:00:00.0290000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.G2AppearanceTests.KitsVaryPerOrdinalWithoutSharedMaterialOrBibMutation",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility(\"cap\",\"worn\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility(\"cap\",\"raised\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility(\"cap\",\"absent\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility(\"headband\",\"worn\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility(\"headband\",\"raised\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility(\"headband\",\"absent\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility(\"none\",\"worn\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility(\"none\",\"raised\")",
+        "Status": "Passed",
+        "Duration": "00:00:00"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility(\"none\",\"absent\")",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.LensFrameAndStrapOwnershipIsCompleteInAllThreeLodsWithoutTouchingEyes",
+        "Status": "Passed",
+        "Duration": "00:00:00.0040000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.NativeStudioShowsUncoveredEyesHeadbandAndDeterministicRivalLooks",
+        "Status": "Passed",
+        "Duration": "00:00:00.1690000"
+      }
+    ]
+  }
+}

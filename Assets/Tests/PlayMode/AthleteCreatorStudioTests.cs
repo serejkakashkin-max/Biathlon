@@ -16,7 +16,13 @@ namespace Biathlon.PlayModeTests
         private GameObject root;
         [TearDown] public void Cleanup(){if(root!=null)Object.DestroyImmediate(root);}
         private AthleteCreatorStudio Studio()
-        {root=new GameObject("Creator studio test");var studio=root.AddComponent<AthleteCreatorStudio>();studio.Initialize();return studio;}
+        {
+            root=new GameObject("Creator studio test");var studio=root.AddComponent<AthleteCreatorStudio>();studio.Initialize();
+            // Match the production menu's explicit URP lease. The starting
+            // Editor settings may have no pipeline; that renders only pink
+            // equipment and cannot qualify the actual G2 athlete.
+            var quality=root.AddComponent<RenderQualityPresentation>();quality.Initialize(studio.PreviewCamera);quality.Apply("high");return studio;
+        }
         [UnityTest] public IEnumerator NativePreviewReusesOneRigAndReleasesItsOwnedResources()
         {
             var fog=RenderSettings.fog;var ambient=RenderSettings.ambientLight;var sun=RenderSettings.sun;

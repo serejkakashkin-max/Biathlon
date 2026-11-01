@@ -61,11 +61,14 @@ namespace Biathlon.Tests
         [Test] public void ChosenAthleteMapsExactlyOnceIntoTheActualProductionRaceField()
         {
             var catalog=Catalog();
-            foreach(int ordinal in new[]{42,73})
+            // The accepted seeded Sprint draw determines the start slot, rather
+            // than the athlete's original position in the career roster.
+            foreach(var selection in new[]{(42,12),(73,29)})
             {
+                int ordinal=selection.Item1;
                 var save=catalog.Confirm(catalog.Get(ordinal).Id);var definitions=CareerDefinitions.ForSave(Read,save);
                 var prepared=new Biathlon.AI.CareerRaceProvider(Read,definitions,id=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json")).Prepare(save,definitions.Calendar.Get(0),123);
-                Assert.That(prepared.Runner.Field.Count,Is.EqualTo(30));Assert.That(prepared.PlayerIndex,Is.EqualTo(ordinal%30));int copies=0;
+                Assert.That(prepared.Runner.Field.Count,Is.EqualTo(30));Assert.That(prepared.PlayerIndex,Is.EqualTo(selection.Item2));int copies=0;
                 for(int i=0;i<prepared.Runner.Field.Count;i++)if(prepared.Runner.Field.GetAthlete(i).AthleteId.Value==save.PlayerId)copies++;
                 Assert.That(copies,Is.EqualTo(1));Assert.That(prepared.Runner.Field.GetAthlete(prepared.PlayerIndex).AthleteId.Value,Is.EqualTo(save.PlayerId));
             }

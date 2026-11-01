@@ -1,0 +1,176 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Failed",
+      "TotalTests": 28,
+      "PassedTests": 17,
+      "FailedTests": 11,
+      "SkippedTests": 0,
+      "Duration": "00:00:57.9749348"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorAppearanceTests.DetailsUseOneApprovedSkinEightSlotsAndActualCosmeticMorphsAtEveryLod",
+        "Status": "Passed",
+        "Duration": "00:00:00.1240000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorAppearanceTests.DimensionsRetainPoleGripFootGroundAndShootingSightContracts(1700,0)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0150000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorAppearanceTests.DimensionsRetainPoleGripFootGroundAndShootingSightContracts(1980,10000)",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorAppearanceTests.NativeStudioCapturesGenuineEyesHairHeadwearAndDimensionChoices",
+        "Status": "Passed",
+        "Duration": "00:00:00.0830000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorAppearanceTests.TrainingAccentCannotRepaintOfficialNationalKitOrAnotherAthlete",
+        "Status": "Passed",
+        "Duration": "00:00:00.0040000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorStudioTests.ExplicitFacesAndSkinShareTheApprovedModelWithoutRepaintingOtherAthletes",
+        "Status": "Passed",
+        "Duration": "00:00:00.0030000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorStudioTests.NativePreviewReusesOneRigAndReleasesItsOwnedResources",
+        "Status": "Failed",
+        "Duration": "00:00:00.0410000",
+        "Message": "  Preview must contain the actual visible athlete.\r\n  Expected: greater than 78643\r\n  But was:  39483\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.AthleteCreatorStudioTests.Save (UnityEngine.RenderTexture target, System.String filename) [0x0010c] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\AthleteCreatorStudioTests.cs:95\r\nat Biathlon.PlayModeTests.AthleteCreatorStudioTests+<NativePreviewReusesOneRigAndReleasesItsOwnedResources>d__3.MoveNext () [0x00287] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\AthleteCreatorStudioTests.cs:30\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorStudioTests.SavedProfileProducesIdenticalPreviewAndRaceRigAppearanceAcrossAllLods",
+        "Status": "Passed",
+        "Duration": "00:00:00.0120000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorStudioTests.ViewPresetsBoundZoomAndReducedMotionKeepsTheFaceStill",
+        "Status": "Passed",
+        "Duration": "00:00:00.0030000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorUiTests.ExistingAthleteCatalogFiltersWithoutRerollsAndConfirmsTheOriginalIdentity",
+        "Status": "Passed",
+        "Duration": "00:00:01.9010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.AthleteCreatorUiTests.OwnAthleteCanBeEditedReviewedSavedRestoredAndRenderedInARealRace",
+        "Status": "Passed",
+        "Duration": "00:00:55.3720000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CareerRaceAppearanceTests.CombinedLeaderBibPreservesNumberAndDoesNotTintTheSuit",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CareerRaceAppearanceTests.CountryKitIsSharedAcrossNumbersAndLeaderChangesWithoutAllocatingPerFrame",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CareerRaceAppearanceTests.CountryPaletteCoversEverySavedRosterNationAndKeepsUnknownCountriesNeutral",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CareerRaceAppearanceTests.SelectedRedSkisUseTheShopPaletteAndSharedInstancedMaterialsWithoutTouchingBindings",
+        "Status": "Passed",
+        "Duration": "00:00:00.0020000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.G2AppearanceTests.EveryLodRetainsBindCoordinatesAndFittedLensEnvelope",
+        "Status": "Passed",
+        "Duration": "00:00:00.0290000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.G2AppearanceTests.KitsVaryPerOrdinalWithoutSharedMaterialOrBibMutation",
+        "Status": "Passed",
+        "Duration": "00:00:00.0010000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility(\"cap\",\"worn\")",
+        "Status": "Failed",
+        "Duration": "00:00:00.0020000",
+        "Message": "  Expected: RGBA(0.333, 0.494, 0.612, 1.000)\r\n  But was:  RGBA(0.333, 0.494, 0.612, 1.000)\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility (System.String headwear, System.String goggles) [0x0016c] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\M166AppearancePlayModeTests.cs:35\r\n"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility(\"cap\",\"raised\")",
+        "Status": "Failed",
+        "Duration": "00:00:00.0010000",
+        "Message": "  Expected: RGBA(0.333, 0.494, 0.612, 1.000)\r\n  But was:  RGBA(0.333, 0.494, 0.612, 1.000)\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility (System.String headwear, System.String goggles) [0x0016c] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\M166AppearancePlayModeTests.cs:35\r\n"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility(\"cap\",\"absent\")",
+        "Status": "Failed",
+        "Duration": "00:00:00.0010000",
+        "Message": "  Expected: RGBA(0.333, 0.494, 0.612, 1.000)\r\n  But was:  RGBA(0.333, 0.494, 0.612, 1.000)\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility (System.String headwear, System.String goggles) [0x0016c] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\M166AppearancePlayModeTests.cs:35\r\n"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility(\"headband\",\"worn\")",
+        "Status": "Failed",
+        "Duration": "00:00:00.0010000",
+        "Message": "  Expected: RGBA(0.333, 0.494, 0.612, 1.000)\r\n  But was:  RGBA(0.333, 0.494, 0.612, 1.000)\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility (System.String headwear, System.String goggles) [0x0016c] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\M166AppearancePlayModeTests.cs:35\r\n"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility(\"headband\",\"raised\")",
+        "Status": "Failed",
+        "Duration": "00:00:00.0010000",
+        "Message": "  Expected: RGBA(0.333, 0.494, 0.612, 1.000)\r\n  But was:  RGBA(0.333, 0.494, 0.612, 1.000)\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility (System.String headwear, System.String goggles) [0x0016c] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\M166AppearancePlayModeTests.cs:35\r\n"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility(\"headband\",\"absent\")",
+        "Status": "Failed",
+        "Duration": "00:00:00.0010000",
+        "Message": "  Expected: RGBA(0.333, 0.494, 0.612, 1.000)\r\n  But was:  RGBA(0.333, 0.494, 0.612, 1.000)\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility (System.String headwear, System.String goggles) [0x0016c] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\M166AppearancePlayModeTests.cs:35\r\n"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility(\"none\",\"worn\")",
+        "Status": "Failed",
+        "Duration": "00:00:00.0010000",
+        "Message": "  Expected: RGBA(0.333, 0.494, 0.612, 1.000)\r\n  But was:  RGBA(0.333, 0.494, 0.612, 1.000)\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility (System.String headwear, System.String goggles) [0x0016c] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\M166AppearancePlayModeTests.cs:35\r\n"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility(\"none\",\"raised\")",
+        "Status": "Failed",
+        "Duration": "00:00:00.0010000",
+        "Message": "  Expected: RGBA(0.333, 0.494, 0.612, 1.000)\r\n  But was:  RGBA(0.333, 0.494, 0.612, 1.000)\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility (System.String headwear, System.String goggles) [0x0016c] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\M166AppearancePlayModeTests.cs:35\r\n"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility(\"none\",\"absent\")",
+        "Status": "Failed",
+        "Duration": "00:00:00.0010000",
+        "Message": "  Expected: RGBA(0.333, 0.494, 0.612, 1.000)\r\n  But was:  RGBA(0.333, 0.494, 0.612, 1.000)\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.M166AppearancePlayModeTests.AllHeadwearAndGoggleChoicesKeepIndependentCompleteVisibility (System.String headwear, System.String goggles) [0x0016c] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\M166AppearancePlayModeTests.cs:35\r\n"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.LensFrameAndStrapOwnershipIsCompleteInAllThreeLodsWithoutTouchingEyes",
+        "Status": "Failed",
+        "Duration": "00:00:00.0010000",
+        "Message": "  Expected: 7\r\n  But was:  0.0f\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.M166AppearancePlayModeTests.LensFrameAndStrapOwnershipIsCompleteInAllThreeLodsWithoutTouchingEyes () [0x0009e] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\M166AppearancePlayModeTests.cs:50\r\n"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M166AppearancePlayModeTests.NativeStudioShowsUncoveredEyesHeadbandAndDeterministicRivalLooks",
+        "Status": "Passed",
+        "Duration": "00:00:00.1400000"
+      }
+    ]
+  }
+}
