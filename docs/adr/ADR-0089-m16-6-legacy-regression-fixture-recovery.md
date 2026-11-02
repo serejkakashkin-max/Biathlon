@@ -78,3 +78,13 @@ The temporary third-exit timeout extension was reverted completely: its original
 600s guard, tick limits and physical passing assertions remain unchanged. Run the
 complete current assembly in Release before declaring acceptance. This does not
 change the independently justified native Mono600s budgets above.
+
+The foundation launcher also had an obsolete60s outer hang guard, shorter than
+existing multi-field fixtures and the already-declared60-minute16-event season.
+Keep Release, expose validated `-HangTimeout` and default its outer guard to70m.
+Every individual test's assertions, physical tick bounds and timeout attributes
+remain unchanged. Launcher argv/default, invalid-duration rejection and nonzero
+test-exit propagation were checked with a task-owned stub. Complete real Release
+acceptance is a separate run. All five existing Explicit diagnostics were also
+selected directly and passed, including the production penalty-edge stall check;
+CPU timings are measurements, not portable pass/fail performance thresholds.

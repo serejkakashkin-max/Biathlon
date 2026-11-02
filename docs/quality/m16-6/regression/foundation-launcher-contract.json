@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "id": "m16_6_full_regression_launcher_contract",
+  "release_argument": true,
+  "outer_hang_timeout": "70m",
+  "invalid_duration_rejected": true,
+  "nonzero_test_exit_propagated": true,
+  "actual_dotnet_tests_in_this_check": false,
+  "scope": "PowerShell launcher contract with a task-owned argv stub; complete real Release suite is a separate run"
+}

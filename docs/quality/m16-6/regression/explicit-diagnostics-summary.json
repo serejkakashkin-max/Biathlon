@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "m16_6_all_explicit_diagnostics",
+  "configuration": "Release",
+  "passed": 5,
+  "failed": 0,
+  "results": [
+    {
+      "name": "ProductionPenaltyBotsKeepMovingAfterEdgeContact",
+      "outcome": "Passed",
+      "duration": "00:00:14.2721940",
+      "receipt": "explicit-penalty-edge.trx"
+    },
+    {
+      "name": "FirstBoutAndThirtySecondsOfDepartureCpuProfile",
+      "outcome": "Passed",
+      "duration": "00:00:13.0092610",
+      "receipt": "explicit-diagnostics.trx"
+    },
+    {
+      "name": "FirstTwoLapsCpuProfile",
+      "outcome": "Passed",
+      "duration": "00:00:17.0263509",
+      "receipt": "explicit-diagnostics.trx"
+    },
+    {
+      "name": "ThirtyAthleteRepeatedTimingQueryCpuProfile",
+      "outcome": "Passed",
+      "duration": "00:00:00.0938020",
+      "receipt": "explicit-diagnostics.trx"
+    },
+    {
+      "name": "HeldWFirstRangePace",
+      "outcome": "Passed",
+      "duration": "00:00:11.7373560",
+      "receipt": "explicit-diagnostics.trx"
+    }
+  ],
+  "cpu_timings_portable_gate": false
+}
