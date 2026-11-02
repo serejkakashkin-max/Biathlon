@@ -25,3 +25,5 @@ run was stopped as obsolete after2078passed/71failed; it is not acceptance for
 current code. Next review build M16.6.5 pending qualification and GitHub push.
 
 2026-11-02 latest review: Builds/M16_6_5_Regression_Review/START_TEST.cmd. Current35native policy/metadata/venue +5original-v25Edit cases,5Play replay/seek cases and actual fullscreen startup PASS. Full current.NET assembly still pending; M16.6 OPEN.
+
+2026-11-02 audit correction: previous full.NET run used unoptimized Debug and was stopped incomplete; canonical Release full assembly now pending. Third-exit600s timeout and all strict assertions restored unchanged after same-input configuration control. Current native full Mass/Pursuit repeats2/2PASS. M16.6 OPEN.

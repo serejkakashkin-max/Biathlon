@@ -1,0 +1,44 @@
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using Biathlon.AI;
+using Biathlon.Domain;
+using Biathlon.Simulation;
+using NUnit.Framework;
+namespace Biathlon.Tests
+{
+    public sealed class M166ExitScoutDiagnosticTests
+    {
+        [Test]
+        public void CaptureTheUnchangedThirdBoutScoutProgress()
+        {
+            var create=typeof(OwnerM13ExitQueueTests).GetMethod("Create",BindingFlags.NonPublic|BindingFlags.Static);
+            var scout=(PackAiRaceRunner)create.Invoke(null,new object[]{30});
+            var firstEligible=new bool[scout.Field.Count];int chosen=-1;var clock=Stopwatch.StartNew();
+            string target="C:/game/Biathlon/Biathlon/artifacts/m16-6/regression/exit-third-scout-progress.json";
+            void Save()=>File.WriteAllText(target,FormattableString.Invariant($"{{\"tick\":{scout.Field.Tick.Value},\"chosen\":{chosen},\"elapsed_seconds\":{clock.Elapsed.TotalSeconds:R},\"complete\":{scout.Field.IsComplete.ToString().ToLowerInvariant()}}}"));
+            Save();
+            while(scout.Field.Tick.Value<22000&&!scout.Field.IsComplete&&chosen<0)
+            {
+                scout.Step();
+                for(int i=0;i<scout.Field.Count;i++)
+                {
+                    var athlete=scout.Field.GetAthlete(i);var point=scout.Field.GetPhysicalPoint(i);
+                    if(firstEligible[i]||athlete.Lifecycle.CompletedBouts<3||point.LoopId!="exit_aisle"||point.LocalNanometers<115*SkiState.NanometersPerMeter)continue;
+                    firstEligible[i]=true;
+                    for(int j=0;j<scout.Field.Count;j++)if(j!=i)
+                    {
+                        var other=scout.Field.GetPhysicalPoint(j);
+                        if(scout.Field.GetAthlete(j).CurrentRangeRemainingPenaltyLoops==athlete.CurrentRangeRemainingPenaltyLoops&&other.LoopId=="exit_aisle"&&other.LocalNanometers<point.LocalNanometers&&other.LocalNanometers>point.LocalNanometers-20*SkiState.NanometersPerMeter)
+                        {chosen=i;break;}
+                    }
+                    if(chosen>=0)break;
+                }
+                if(scout.Field.Tick.Value%500==0)Save();
+            }
+            Save();TestContext.WriteLine(File.ReadAllText(target));
+            Assert.That(chosen,Is.GreaterThanOrEqualTo(0),"The unchanged third-bout scout needs an actual same-route follower.");
+        }
+    }
+}

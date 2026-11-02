@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "id": "m16_6_configuration_control",
+  "same_selected_player": 21,
+  "same_paid_tick": 10393,
+  "receipts": {
+    "exit-third-scout-debug.trx": {
+      "tick": 10393,
+      "chosen": 21,
+      "elapsed_seconds": 294.2220185,
+      "complete": false
+    },
+    "exit-third-scout-release.trx": {
+      "tick": 10393,
+      "chosen": 21,
+      "elapsed_seconds": 51.7625034,
+      "complete": false
+    }
+  },
+  "scope": "Ignored unchanged-scout diagnostic, not a substitute for the original strict held-exit test. No production behavior changed.",
+  "third_exit_timeout_ms": 600000,
+  "timeout_extension_retained": false
+}

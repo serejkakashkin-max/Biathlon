@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="7fec0c15-01d7-4209-aaab-e31a2a71cbd2" name="snkashkin@DESKTOP-G3075GA 2026-11-02 09:52:23" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-02T09:52:23.0062443+03:00" queuing="2026-11-02T09:52:23.0062447+03:00" start="2026-11-02T09:51:26.2878620+03:00" finish="2026-11-02T09:52:23.0116851+03:00" />
+  <TestSettings name="default" id="f86e368a-bec6-4a21-831b-9d5c681bd28e">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-11-02_09_52_23" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="d6f4b013-dce5-4432-b2c3-218b732b6d65" testId="ea03d740-d115-f1f1-2a95-cd7aeae9123f" testName="CaptureTheUnchangedThirdBoutScoutProgress" computerName="DESKTOP-G3075GA" duration="00:00:55.7410290" startTime="2026-11-02T09:51:27.0192747+03:00" endTime="2026-11-02T09:52:22.7602648+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d6f4b013-dce5-4432-b2c3-218b732b6d65">
+      <Output>
+        <StdOut>{"tick":10393,"chosen":21,"elapsed_seconds":51.7625034,"complete":false}</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="CaptureTheUnchangedThirdBoutScoutProgress" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\exit-scout-release-bin\biathlon.tests.dll" id="ea03d740-d115-f1f1-2a95-cd7aeae9123f">
+      <Execution id="d6f4b013-dce5-4432-b2c3-218b732b6d65" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\exit-scout-release-bin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.M166ExitScoutDiagnosticTests" name="CaptureTheUnchangedThirdBoutScoutProgress" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="ea03d740-d115-f1f1-2a95-cd7aeae9123f" executionId="d6f4b013-dce5-4432-b2c3-218b732b6d65" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\exit-scout-release-bin\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+{"tick":10393,"chosen":21,"elapsed_seconds":51.7625034,"complete":false}&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -69,3 +69,12 @@ native run passes both (270.492s and267.484s), retaining full completion, exact
 repeated authority/event/shot equality and unchanged prepared saves. Preserve
 the original timeout receipt alongside the completed rerun; this is not a change
 to simulation tick budgets or a portable performance benchmark.
+
+Configuration correction: the earlier full .NET audit was accidentally launched
+in unoptimized Debug. The project core script selects Release. An unchanged
+third-bout scout finds the same real follower21 at tick10393 in Debug294.222s and
+Release51.763s. Retain that one-variable control and the incomplete Debug audit.
+The temporary third-exit timeout extension was reverted completely: its original
+600s guard, tick limits and physical passing assertions remain unchanged. Run the
+complete current assembly in Release before declaring acceptance. This does not
+change the independently justified native Mono600s budgets above.
