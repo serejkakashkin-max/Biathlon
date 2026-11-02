@@ -2712,3 +2712,6 @@ after each task. Current branch codex/m16-6-equipment-weather-training.
 
 
 2026-11-01: M16.6.4 six illustrated training tasks implemented; all M16.6 feature stages have focused/native/fullscreen qualification. Latest review Builds/M16_6_4_Training_Review/START_TEST.cmd. Owner authorized continued repair of old broad-regression failures in this same task. Operational tracker docs/M16_6_WP_STATUS.md; M16.6 OPEN, M17 not started.
+
+
+2026-11-02: M16.6.5 review Builds/M16_6_5_Regression_Review/START_TEST.cmd includes all M16.6 features plus versioned start-world/snow-intent repairs. Current native40Edit/5Play and fullscreen standalone qualification passed; full current.NET assembly remains pending. GitHub source90686970/7b233648, qualification9980660d. Track docs/M16_6_WP_STATUS.md and append-only STATE. M16.6 OPEN, M17 not started.

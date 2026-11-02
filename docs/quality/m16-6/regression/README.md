@@ -31,3 +31,14 @@ policy in90686970, with legacy context preserved.
 The historical full assembly was launched on the equipment-stage binary before
 these repairs. It remains a historical failure audit, not current acceptance.
 M16.6 OPEN; M17 not started.
+
+
+2026-11-02 delivery: all current native groups PASS (35policy/venue/metadata,
+5original-v25Edit,2currentMass/start1Play,2weather1/legacy-savePlay,1replayUIPlay).
+Build5 Succeeded0errors/520existing warnings,430943436bytes,37.216s. Post-build
+mapped settings cleanup first returned IOException; guarded retry restored the
+known temporary timing/preload changes and the existing successful player was
+packaged without rebuilding. Owner settings snapshots stay local/ignored.
+Actual fullscreen PASS/exit0,2560x1440,bib10,start5401/tick5405,3-2-1-0,owner
+profiles unchanged,errors empty.09-race.png inspected. No FPS/optional navigation
+claim. Full current assembly remains running; M16.6 OPEN, no globally green claim.

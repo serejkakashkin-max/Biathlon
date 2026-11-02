@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="95de8429-a9ca-4164-abab-4770f4a0437b" name="snkashkin@DESKTOP-G3075GA 2026-11-02 08:32:40" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-02T08:32:40.3954229+03:00" queuing="2026-11-02T08:32:40.3954230+03:00" start="2026-11-02T08:31:48.0710855+03:00" finish="2026-11-02T08:33:04.0591652+03:00" />
+  <TestSettings name="default" id="01282a95-dba9-4a56-8c8f-dbadf9facafa">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-11-02_08_32_40" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="8ac428a3-e40c-4017-bc51-cc01a3f605da" testId="f72b80e4-4c97-7ff2-d4c8-b63bacfce77c" testName="ThirtyBodiesKeepTheirAuthoredColumnsAndAllClearTheActualCurvedApproach" computerName="DESKTOP-G3075GA" duration="00:00:23.5668880" startTime="2026-11-02T08:32:40.3518169+03:00" endTime="2026-11-02T08:33:03.9187044+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8ac428a3-e40c-4017-bc51-cc01a3f605da" />
+    <UnitTestResult executionId="352f6a61-c068-4991-8a75-56ded1dba882" testId="58276d14-632c-af87-795a-4331dafd99a0" testName="EntireThirtyAthleteFieldPassesStationaryPlayerAtTheActualCurvedStart" computerName="DESKTOP-G3075GA" duration="00:00:51.6991240" startTime="2026-11-02T08:31:48.6517010+03:00" endTime="2026-11-02T08:32:40.3507824+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="352f6a61-c068-4991-8a75-56ded1dba882" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ThirtyBodiesKeepTheirAuthoredColumnsAndAllClearTheActualCurvedApproach" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\final-assembly-bin\biathlon.tests.dll" id="f72b80e4-4c97-7ff2-d4c8-b63bacfce77c">
+      <Execution id="8ac428a3-e40c-4017-bc51-cc01a3f605da" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\final-assembly-bin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.AiStartTrafficTests" name="ThirtyBodiesKeepTheirAuthoredColumnsAndAllClearTheActualCurvedApproach" />
+    </UnitTest>
+    <UnitTest name="EntireThirtyAthleteFieldPassesStationaryPlayerAtTheActualCurvedStart" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\final-assembly-bin\biathlon.tests.dll" id="58276d14-632c-af87-795a-4331dafd99a0">
+      <Execution id="352f6a61-c068-4991-8a75-56ded1dba882" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\final-assembly-bin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.AiStartTrafficTests" name="EntireThirtyAthleteFieldPassesStationaryPlayerAtTheActualCurvedStart" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="f72b80e4-4c97-7ff2-d4c8-b63bacfce77c" executionId="8ac428a3-e40c-4017-bc51-cc01a3f605da" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="58276d14-632c-af87-795a-4331dafd99a0" executionId="352f6a61-c068-4991-8a75-56ded1dba882" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\final-assembly-bin\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
