@@ -61,3 +61,11 @@ near-double-root problem while keeping bounded admission for integration tests.
 Both full paid stopping durations, exact zero terminal motion and continuous
 gate proof remain strict. No gameplay tolerance, stopping law or expected runtime
 result is changed.
+
+The two current-policy career cases each execute two complete 30-athlete races.
+Their native run exceeded Unity's implicit180s test timeout (observed287.599s and
+266.261s). Give these two cases an explicit bounded600s budget. The corrected
+native run passes both (270.492s and267.484s), retaining full completion, exact
+repeated authority/event/shot equality and unchanged prepared saves. Preserve
+the original timeout receipt alongside the completed rerun; this is not a change
+to simulation tick budgets or a portable performance benchmark.

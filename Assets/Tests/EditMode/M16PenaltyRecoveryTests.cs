@@ -86,7 +86,10 @@ namespace Biathlon.Tests
                 Assert.Catch(()=>ManualAiSteeringDefinition.FromJson(PhysiologyContractTests.ReplaceNumber(json,"penalty_yaw_tracking_error_radps",invalid)));
         }
 
-        [Test]
+        // Each current-policy case pays two complete 30-athlete races. Native
+        // Mono exceeds Unity's default 180s limit; retain a bounded full-race
+        // budget without changing completion or exact-authority assertions.
+        [Test,Timeout(600000)]
         public void CapturedSecondSeasonPursuitClearsPenaltyAndFinishesTwiceWithIdenticalAuthority()
         {
             var save=Save();string source=save.ToJson();
@@ -107,7 +110,7 @@ namespace Biathlon.Tests
             TestContext.WriteLine("captured_pursuit_ticks="+first.LastTicks+" authority_sha256="+a.AuthoritySha256+" event_hash="+first.LastEventHash);
         }
 
-        [Test]
+        [Test,Timeout(600000)]
         public void CapturedFirstSeasonMassStartRetainsItsOrdinaryRangeArrival()
         {
             var save=CareerSave.FromJson(PhysiologyContractTests.ProjectFile("dotnet/Biathlon.Tests/Fixtures/m16_penalty_yaw/first-mass-prepared-save.json"));

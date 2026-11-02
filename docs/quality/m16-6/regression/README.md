@@ -44,3 +44,5 @@ profiles unchanged,errors empty.09-race.png inspected. No FPS/optional navigatio
 claim. Full current assembly remains running; M16.6 OPEN, no globally green claim.
 
 2026-11-02 follow-up: full assembly found one historical-weather and two exact-mat fixture failures. Corrected input-only reruns: .NET1+9PASS, Unity10/10PASS, Console0errors. Original first-pass failures remain visible. Player unchanged; full assembly still pending. See ADR-0089 and historical-yaw-fixed-weather.trx, mat-exact-boundary.trx, native-historical-mat.json.
+
+Current full native Mass Start/Pursuit repeats:2/2PASS (each race twice,270.492s/267.484s) with explicit600s test budgets; initial180s timeout receipt retained. Full.NET assembly additionally exposes the third-bout held-exit600s timeout; diagnosis continues, no global green claim.
