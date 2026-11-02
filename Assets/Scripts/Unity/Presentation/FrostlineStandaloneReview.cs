@@ -22,7 +22,8 @@ namespace Biathlon.Unity.Presentation
             public int schema_version=1;
             public string id="frostline_standalone_native_review",unity,output,results_source="isolated recorded-result boundary fixture";
             public bool success,career_preserved,isolated_profile_store=true,real_race_loaded,real_race_started;
-            public bool menu_art_only,menu_ux_only,fullscreen;
+            public bool menu_art_only,menu_ux_only,pulse_review,fullscreen;
+            public string game_title_ru,game_title_en,storage_product;
             public int artwork_checked;
             public string fullscreen_mode;
             public int width,height,transition_frames;
@@ -51,7 +52,7 @@ namespace Biathlon.Unity.Presentation
         private readonly Dictionary<PanelSettings,RenderTexture> panelTargets=new Dictionary<PanelSettings,RenderTexture>();
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)] private static void StartIfRequested()
         {
-            if(Application.isEditor||!Debug.isDebugBuild||(Array.IndexOf(Environment.GetCommandLineArgs(),Flag)<0&&Array.IndexOf(Environment.GetCommandLineArgs(),"-biathlonMenuArtReview")<0&&Array.IndexOf(Environment.GetCommandLineArgs(),"-biathlonMenuUxReview")<0))return;
+            if(Application.isEditor||!Debug.isDebugBuild||(Array.IndexOf(Environment.GetCommandLineArgs(),Flag)<0&&Array.IndexOf(Environment.GetCommandLineArgs(),"-biathlonMenuArtReview")<0&&Array.IndexOf(Environment.GetCommandLineArgs(),"-biathlonMenuUxReview")<0&&Array.IndexOf(Environment.GetCommandLineArgs(),"-biathlonPulseReview")<0))return;
             new GameObject("Frostline explicit standalone review").AddComponent<FrostlineStandaloneReview>();
         }
         private IEnumerator Start()
@@ -61,10 +62,12 @@ namespace Biathlon.Unity.Presentation
             folder=Path.GetFullPath(output>=0&&output+1<args.Length?args[output+1]:Path.Combine(Application.dataPath,"../FrostlineReview"));
             recordFrames=Array.IndexOf(args,"-biathlonFrostlineReviewFrames")>=0;
             evidence=new Evidence{unity=Application.unityVersion,output=folder,width=Screen.width,height=Screen.height};
-            evidence.menu_ux_only=Array.IndexOf(args,"-biathlonMenuUxReview")>=0;
+            evidence.pulse_review=Array.IndexOf(args,"-biathlonPulseReview")>=0;
+            evidence.menu_ux_only=evidence.pulse_review||Array.IndexOf(args,"-biathlonMenuUxReview")>=0;
             evidence.menu_art_only=evidence.menu_ux_only||Array.IndexOf(args,"-biathlonMenuArtReview")>=0;
             if(evidence.menu_art_only){evidence.id="m166_menu_art_standalone_review";evidence.results_source="isolated menu-only fixture; no race result";}
             if(evidence.menu_ux_only)evidence.id="m166_menu_ux_standalone_review";
+            if(evidence.pulse_review)evidence.id="m166_pulse_standalone_review";
             Application.logMessageReceived+=OnLog;
             // Explicit stack permits errors in nested native-capture coroutines to produce a structured failure receipt.
             var stack=new Stack<IEnumerator>();stack.Push(Review());
@@ -180,6 +183,17 @@ namespace Biathlon.Unity.Presentation
             evidence.width=Screen.width;evidence.height=Screen.height;evidence.fullscreen=Screen.fullScreen;evidence.fullscreen_mode=Screen.fullScreenMode.ToString();
             Require(evidence.fullscreen,"Fullscreen menu review required.");
             if(evidence.menu_ux_only)yield return Capture("00-home");
+            if(evidence.pulse_review)
+            {
+                evidence.game_title_ru=menu.Root.Q<Label>("game_title").text;
+                Require(evidence.game_title_ru==GameBranding.RussianTitle&&GameBranding.WindowTitle==GameBranding.RussianTitle,"Russian title not applied to menu/window.");
+                menu.ApplyPreferences("en",0);yield return Capture("00-home-en");
+                evidence.game_title_en=menu.Root.Q<Label>("game_title").text;
+                Require(evidence.game_title_en==GameBranding.EnglishTitle&&GameBranding.WindowTitle==GameBranding.EnglishTitle,"English title not applied to menu/window.");
+                evidence.storage_product=Application.productName;
+                Require(evidence.storage_product=="Biathlon","Legacy persistence identity must remain stable.");
+                menu.ApplyPreferences("ru",0);yield return Settle();
+            }
             menu.Session.OpenNewCareer();menu.Session.CreateCareer("career_menu_art_review","Александр Северин","NOR",11);
             string before=menu.Session.Career.ToJson();
             if(evidence.menu_ux_only){menu.RefreshFrontEnd();yield return Capture("00-dashboard");}
@@ -305,7 +319,7 @@ namespace Biathlon.Unity.Presentation
                 evidence.career_preserved=ownerProfilesBefore!=null&&ownerProfilesBefore==ProfileFingerprint();
                 if(!evidence.career_preserved)errors.Add("Owner profile directory fingerprint changed during review.");
                 evidence.screenshots=screens.ToArray();evidence.errors=errors.ToArray();evidence.navigation=navigation.ToArray();
-                evidence.success=errors.Count==0&&evidence.career_preserved&&(evidence.menu_art_only?evidence.artwork_checked==18&&screens.Count==(evidence.menu_ux_only?5:3):evidence.real_race_started&&screens.Count>=11);
+                evidence.success=errors.Count==0&&evidence.career_preserved&&(evidence.menu_art_only?evidence.artwork_checked==18&&screens.Count==(evidence.pulse_review?6:evidence.menu_ux_only?5:3):evidence.real_race_started&&screens.Count>=11);
                 Directory.CreateDirectory(folder);File.WriteAllText(Path.Combine(folder,"standalone-review.json"),JsonUtility.ToJson(evidence,true));
             }
             catch(Exception e){Debug.LogException(e);evidence.success=false;}

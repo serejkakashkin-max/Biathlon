@@ -1,0 +1,28 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Failed",
+      "TotalTests": 2,
+      "PassedTests": 0,
+      "FailedTests": 2,
+      "SkippedTests": 0,
+      "Duration": "00:00:02.3221969"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.TimingPortalReadabilityTests.SharedStartGantryIsBlankUntilItsFirstActualSplitAndAgainAfterSeekingToStart",
+        "Status": "Failed",
+        "Duration": "00:00:01.0880000",
+        "Message": "  Starting under the shared gantry must not show a future lap-end distance.\r\n  Expected: <empty>\r\n  But was:  \"3.33 KM\"\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.TimingPortalReadabilityTests.SharedStartGantryIsBlankUntilItsFirstActualSplitAndAgainAfterSeekingToStart () [0x00000] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\TimingPortalReadabilityTests.cs:34\r\n"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.TimingPortalReadabilityTests.StadiumDigitsFitInsideActualHeaderInsteadOfHangingBelowIt",
+        "Status": "Failed",
+        "Duration": "00:00:01.1000000",
+        "Message": "  Digits must stay above the lower edge of the actual header.\r\n  Expected: greater than 4.625f\r\n  But was:  3.6565001f\r\n",
+        "StackTrace": "at Biathlon.PlayModeTests.TimingPortalReadabilityTests+<StadiumDigitsFitInsideActualHeaderInsteadOfHangingBelowIt>d__8.MoveNext () [0x00145] in C:\\game\\Biathlon\\Biathlon\\Assets\\Tests\\PlayMode\\TimingPortalReadabilityTests.cs:52\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@7a3849e09bd0\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+      }
+    ]
+  }
+}

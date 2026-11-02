@@ -97,7 +97,7 @@ namespace Biathlon.PlayModeTests
             try
             {
                 menu.ApplyPreferences(locale,size);menu.ApplyAccessibility(contrast);yield return new WaitForSecondsRealtime(.4f);for(int f=0;f<10;f++)yield return null;
-                string folder=Path.GetFullPath("docs/quality/m16-6/menu-ux/training");Directory.CreateDirectory(folder);
+                string folder=Path.GetFullPath("docs/quality/m16-6/pulse/menu/training");Directory.CreateDirectory(folder);
                 foreach(string section in new[]{"training_forecast","training_card_0","training_card_2","training_card_4"})
                 {
                     menu.Root.Q<ScrollView>("page_content").ScrollTo(menu.Root.Q(section));yield return null;yield return null;
@@ -147,7 +147,7 @@ namespace Biathlon.PlayModeTests
                 var button=menu.Root.Q<Button>(rifleCategoryId());Assert.That(button.worldBound.width,Is.GreaterThan(60));
                 RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
                 AssertRenderedArtwork(pixels,menu.Root.Q("equipment_tiles").Q<Image>());
-                string folder=Path.GetFullPath("docs/quality/m16-6/menu-ux/equipment");Directory.CreateDirectory(folder);File.WriteAllBytes(Path.Combine(folder,name+"-"+locale+".png"),pixels.EncodeToPNG());
+                string folder=Path.GetFullPath("docs/quality/m16-6/pulse/menu/equipment");Directory.CreateDirectory(folder);File.WriteAllBytes(Path.Combine(folder,name+"-"+locale+".png"),pixels.EncodeToPNG());
             }
             finally{if(pixels!=null)Object.Destroy(pixels);RenderTexture.active=previous;panel.targetTexture=null;Object.Destroy(target);}
             string rifleCategoryId()=>name=="skis"?"equip_ski_neutral":"equip_rifle_neutral_v1";

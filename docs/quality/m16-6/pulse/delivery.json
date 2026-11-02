@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "id": "m166_pulse_delivery",
+  "source_base": "4802e3277b64f542e93554c1fb7708ff6d1dfb40",
+  "build": "Builds/M16_6_8_Pulse_Review",
+  "source_sha256": {
+    "Assets/Resources/Biathlon/UI/front_end_text_v1.json": "c13520df4e2b4a92321e44d4f9306228fe7197d275725f8cf94f715d5355d679",
+    "Assets/Resources/Biathlon/stadium_portal_labels_v1.json": "6e469384ee837ddfd2c6bb38f4646dac3f9c8b878b15b148dd9af227c86b755d",
+    "Assets/Scripts/Unity/Presentation/CourseTimingPresentation.cs": "1fd5b133dd06f05d80d59a91fa16f056b88e5802f17c5ed26dddae3dd7bb9155",
+    "Assets/Scripts/Unity/Presentation/FrontEndMenu.cs": "ee54121d32ebd439bc33f00a08e710436be20bb8db2f40684a871f23d216c6f8",
+    "Assets/Scripts/Unity/Presentation/GameBranding.cs": "c435ae44738417df0c76b8c361fb6c3ddacd17764c2199e8440fedbe516b1505",
+    "Assets/Scripts/Unity/Presentation/FrostlineStandaloneReview.cs": "e4415caa7b2af290bf5e2a566da0d4909d5267e012c66e6ec801e3ff794b75f6",
+    "Assets/Scripts/Unity/Editor/PlayerBuildM16_6.cs": "b007a81ae69138e15dc35ae6c11cc2c560117675b5001e8b587c9d5d5b27d65f"
+  },
+  "binary_sha256": {
+    "Biathlon.exe": "718444f6a718fa668da96eb0a58445b009673310e6129152a63dbf7a92b8de00",
+    "Biathlon_Data/Managed/Biathlon.Unity.Presentation.dll": "67542ecf0d4e8b77e4471fa3337ed4f8f9e5272aae12a5c602e24a6906042559",
+    "Biathlon_Data/Managed/Biathlon.Presentation.dll": "9ee5f1d7722a3a7349f87c32d4fb335eed78efb2450a1731390c43e8e8ef6be6"
+  },
+  "unique_tests_passed": 58,
+  "final_affected_menu_rerun_passed": 2,
+  "console_error_exception_assert_count": 0,
+  "standalone_exit_code": 0,
+  "gameplay_balance_changes": false
+}

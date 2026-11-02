@@ -103,7 +103,7 @@ namespace Biathlon.Unity.Presentation
                 var positions=new List<double>();var labels=new List<string>();
                 for(int i=0;i<layout.Count;i++)if(layout.Get(i).CheckpointId==station.Id)
                 {double meters=layout.Get(i).RouteNanometers/(double)SkiState.NanometersPerMeter;positions.Add(meters);labels.Add(distance.Kilometers(meters,System.Globalization.CultureInfo.InvariantCulture)+" KM");}
-                station.RouteMeters=positions.ToArray();station.Labels=labels.ToArray();station.Shown=-1;
+                station.RouteMeters=positions.ToArray();station.Labels=labels.ToArray();station.Shown=int.MinValue;
             }
             RefreshDistance(0);
         }
@@ -116,7 +116,11 @@ namespace Biathlon.Unity.Presentation
                 // Keep the passed value until the gantry is behind the follow camera.
                 // The same marker can belong to a preceding lap after the range exit.
                 while(next+1<station.Labels.Length&&routeMeters>station.RouteMeters[next]+settings.pass_label_hold_m)next++;
-                if(next==station.Shown)continue;station.Shown=next;station.Label.text=station.Labels[next];
+                // This physical gantry also spans the launch corridor. Do not show a
+                // future lap-end split while the athlete is starting below it.
+                // Other course signs still announce the distance on approach.
+                if(station.UsesExistingPortal&&routeMeters<station.RouteMeters[0])next=-1;
+                if(next==station.Shown)continue;station.Shown=next;station.Label.text=next<0?"":station.Labels[next];
             }
         }
         private void LateUpdate(){if(boundFeed?.Current!=null)RefreshDistance(boundFeed.Current.Get(boundPlayer).RouteMeters);}

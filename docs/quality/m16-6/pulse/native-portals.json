@@ -1,0 +1,69 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 11,
+      "PassedTests": 11,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:09.4913714"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.PlayModeTests.CourseTimingPresentationTests.LegacyMeshPlacementsKeepUniformWidthAndExplicitFinishWidthSurvivesRoundTrip",
+        "Status": "Passed",
+        "Duration": "00:00:00.0800000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CourseTimingPresentationTests.StadiumSplitReusesActualNativeGantryWithOneDistanceSign",
+        "Status": "Passed",
+        "Duration": "00:00:00.8250000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CourseTimingPresentationTests.ThreeUsefulStationsPaintExactAuthorityAnchorsAndLeaveTheSkiCorridorClear",
+        "Status": "Passed",
+        "Duration": "00:00:00.7040000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CourseTimingPresentationTests.TimingFeetFollowActualSlopedSnowWithoutMovingTheAuthorityStripe",
+        "Status": "Passed",
+        "Duration": "00:00:00.1450000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.CourseTimingPresentationTests.WidenedFinishGantryKeepsEveryActualLowSupportBeyondTheFinishShoulders",
+        "Status": "Passed",
+        "Duration": "00:00:00.7640000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M165VenuePresentationTests.EveryActualCheckpointUsesCumulativeOfficialDistanceAcrossLapsAndReplaySeek(\"sprint\")",
+        "Status": "Passed",
+        "Duration": "00:00:01.0290000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M165VenuePresentationTests.EveryActualCheckpointUsesCumulativeOfficialDistanceAcrossLapsAndReplaySeek(\"pursuit\")",
+        "Status": "Passed",
+        "Duration": "00:00:01.0490000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.M165VenuePresentationTests.EveryActualCheckpointUsesCumulativeOfficialDistanceAcrossLapsAndReplaySeek(\"mass_start\")",
+        "Status": "Passed",
+        "Duration": "00:00:01.0080000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.TimingPortalReadabilityTests.ActualNativeGantryRendersBlankAtLaunchAndLegibleDigitsOnApproach",
+        "Status": "Passed",
+        "Duration": "00:00:01.5780000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.TimingPortalReadabilityTests.SharedStartGantryIsBlankUntilItsFirstActualSplitAndAgainAfterSeekingToStart",
+        "Status": "Passed",
+        "Duration": "00:00:01.0100000"
+      },
+      {
+        "Name": "Biathlon.PlayModeTests.TimingPortalReadabilityTests.StadiumDigitsFitInsideActualHeaderInsteadOfHangingBelowIt",
+        "Status": "Passed",
+        "Duration": "00:00:01.0690000"
+      }
+    ]
+  }
+}

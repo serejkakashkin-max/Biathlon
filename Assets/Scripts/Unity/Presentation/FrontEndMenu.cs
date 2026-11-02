@@ -159,9 +159,9 @@ namespace Biathlon.Unity.Presentation
             Root.style.paddingLeft=theme.page_padding;Root.style.paddingRight=theme.page_padding;
             var body=new VisualElement{name="menu_body"};body.style.flexGrow=1;body.style.flexDirection=FlexDirection.Row;Root.Add(body);
             var left=new VisualElement{name="menu_navigation"};left.style.width=new Length(home?38:23,LengthUnit.Percent);left.style.paddingRight=theme.page_padding;body.Add(left);
-            var brand=AddLabel(left,T("brand"),theme.title_size,true);brand.style.fontSize=home?theme.title_size:theme.section_size;brand.style.whiteSpace=WhiteSpace.NoWrap;
+            var brand=AddLabel(left,T("brand"),theme.title_size,true);brand.name="game_title";brand.style.fontSize=(home?36:24)*Scale;brand.style.whiteSpace=WhiteSpace.Normal;
+            GameBranding.ApplyWindowTitle(T("brand"));
             brand.style.unityFontStyleAndWeight=FontStyle.Normal;brand.style.letterSpacing=2;
-            AddLabel(left,"F R O S T L I N E",theme.caption_size).style.color=accent;
             AddLabel(left,home?T("discipline"):Session.Career==null?L("КАРЬЕРА","CAREER"):Session.Definitions.Calendar.Circuit==CareerCircuit.Junior?L("ЮНИОРСКАЯ ЛИГА","JUNIOR CIRCUIT"):Session.Definitions.Calendar.Circuit==CareerCircuit.Development?L("ПУТЬ В КУБОК МИРА","ROAD TO WORLD CUP"):L("КУБОК МИРА","WORLD CUP"),theme.caption_size);
             var actions=new ScrollView(ScrollViewMode.Vertical){name="menu_actions",verticalScrollerVisibility=ScrollerVisibility.Auto,horizontalScrollerVisibility=ScrollerVisibility.Hidden};actions.style.marginTop=theme.spacing;actions.style.flexShrink=1;actions.style.minHeight=0;left.Add(actions);
             var card=new ScrollView(ScrollViewMode.Vertical){name="page_content",verticalScrollerVisibility=ScrollerVisibility.Auto,horizontalScrollerVisibility=ScrollerVisibility.Hidden};card.style.flexGrow=1;card.style.flexBasis=0;card.style.paddingTop=theme.page_padding;
@@ -170,7 +170,7 @@ namespace Biathlon.Unity.Presentation
             card.style.borderTopLeftRadius=card.style.borderTopRightRadius=card.style.borderBottomLeftRadius=card.style.borderBottomRightRadius=2;body.Add(card);
             if(Session.Screen==FrontEndScreen.Home)
             {
-                shade.style.width=Length.Percent(38);brand.style.fontSize=46;
+                shade.style.width=Length.Percent(38);
                 var title=AddLabel(actions,L("ТВОЙ СЕЗОН.\nТВОЙ СЛЕД.","YOUR SEASON.\nYOUR TRACK."),52,true);title.name="home_statement";title.style.marginTop=18;title.style.marginBottom=24;
                 if(Session.CanContinue)AddButton(actions,"continue",T("continue"),Continue,true);
                 AddButton(actions,"new_career",T("new_career"),()=>{Session.OpenNewCareer();LastMessage=null;Render();},!Session.CanContinue);
@@ -198,7 +198,7 @@ namespace Biathlon.Unity.Presentation
             else if(Session.Screen==FrontEndScreen.Career)
             {
                 left.style.width=new Length(23,LengthUnit.Percent);shade.style.width=new Length(100,LengthUnit.Percent);
-                brand.style.fontSize=theme.section_size;RenderCareerDashboard(actions,card);
+                brand.style.fontSize=24*Scale;RenderCareerDashboard(actions,card);
             }
             else if(Session.Screen==FrontEndScreen.PreRace)
             {
@@ -241,12 +241,12 @@ namespace Biathlon.Unity.Presentation
             else if(Session.Screen==FrontEndScreen.Results)
             {
                 left.style.width=new Length(23,LengthUnit.Percent);shade.style.width=new Length(100,LengthUnit.Percent);
-                brand.style.fontSize=theme.section_size;RenderResults(actions,card);
+                brand.style.fontSize=24*Scale;RenderResults(actions,card);
             }
             else if(Session.Screen>=FrontEndScreen.Training)
             {
                 left.style.width=new Length(23,LengthUnit.Percent);shade.style.width=new Length(100,LengthUnit.Percent);
-                brand.style.fontSize=theme.section_size;RenderCareerPage(actions,card);
+                brand.style.fontSize=24*Scale;RenderCareerPage(actions,card);
             }
             else if(Session.Screen==FrontEndScreen.Settings)
             {
@@ -254,7 +254,7 @@ namespace Biathlon.Unity.Presentation
             }
             message=AddLabel(left,LastMessage??"",theme.caption_size);message.name="message";message.style.color=FrontEndTheme.Color(theme.danger);
             // Recovery/errors must remain above the scrolling navigation on compact screens.
-            left.Insert(3,message);
+            left.Insert(2,message);
             left.Query<Label>().ForEach(label=>{if(label!=message)label.style.color=Color.white;});
             if(HighContrast)
             {

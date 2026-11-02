@@ -1,6 +1,7 @@
 using System.Collections;
 using System.IO;
 using Biathlon.Presentation;
+using Biathlon.Unity.Presentation;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -11,6 +12,30 @@ namespace Biathlon.PlayModeTests
 {
     public sealed partial class FrontEndMenuTests
     {
+        [UnityTest] public IEnumerator OfficialTitleFollowsLocaleFitsMenuAndPreservesPersistenceIdentity()
+        {
+            string path=Application.persistentDataPath,product=Application.productName;
+            foreach(var locale in new[]{"ru","en"})
+            {
+                var settings=root.GetComponent<UIDocument>().panelSettings;
+                var target=new RenderTexture(1024,768,0);target.Create();settings.targetTexture=target;Texture2D image=null;
+                var previous=RenderTexture.active;
+                try
+                {
+                    menu.ApplyPreferences(locale,2);yield return new WaitForSecondsRealtime(.4f);for(int i=0;i<8;i++)yield return null;
+                    var title=menu.Root.Q<Label>("game_title");string expected=locale=="ru"?GameBranding.RussianTitle:GameBranding.EnglishTitle;
+                    Assert.That(title.text,Is.EqualTo(expected));Assert.That(GameBranding.WindowTitle,Is.EqualTo(expected));
+                    Assert.That(title.worldBound.xMax,Is.LessThanOrEqualTo(menu.Root.Q("menu_navigation").worldBound.xMax));
+                    Assert.That(menu.Root.Q<Button>("new_career").worldBound.yMin,Is.GreaterThan(title.worldBound.yMax));
+                    Assert.That(Application.productName,Is.EqualTo(product));Assert.That(Application.persistentDataPath,Is.EqualTo(path));
+                    RenderTexture.active=target;image=new Texture2D(1024,768,TextureFormat.RGBA32,false);image.ReadPixels(new Rect(0,0,1024,768),0,0);image.Apply();
+                    string folder=Path.GetFullPath("docs/quality/m16-6/pulse");Directory.CreateDirectory(folder);
+                    File.WriteAllBytes(Path.Combine(folder,"title-"+locale+"-1024-large.png"),image.EncodeToPNG());
+                }
+                finally{RenderTexture.active=previous;if(image!=null)Object.Destroy(image);settings.targetTexture=null;Object.Destroy(target);}
+            }
+        }
+
         [UnityTest] public IEnumerator DirectCareerNavigationPreservesPlanSaveAndRestoresFocus()
         {
             menu.Session.OpenNewCareer();menu.Session.CreateCareer("ux_navigation","Алекс","NOR",11);menu.RefreshFrontEnd();yield return null;
@@ -79,7 +104,7 @@ namespace Biathlon.PlayModeTests
                     }
                     RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);
                     pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
-                    string folder=Path.GetFullPath("docs/quality/m16-6/menu-ux");Directory.CreateDirectory(folder);
+                    string folder=Path.GetFullPath("docs/quality/m16-6/pulse/menu");Directory.CreateDirectory(folder);
                     File.WriteAllBytes(Path.Combine(folder,page+"-"+locale+"-"+width+".png"),pixels.EncodeToPNG());
                     Object.Destroy(pixels);pixels=null;
                 }
