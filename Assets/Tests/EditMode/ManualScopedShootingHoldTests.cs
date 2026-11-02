@@ -142,7 +142,7 @@ namespace Biathlon.Tests
             long before=GC.GetAllocatedBytesForCurrentThread();
             for(int i=0;i<1000;i++){tick=world.BeginTick();passed&=world.TryAppendToOwnedFirstEvent(tick,candidates,windows,NoEdges,0,grades,out var e,held)&&e.PaidSeconds==.05;world.AbortTick(tick);}
             long bytes=GC.GetAllocatedBytesForCurrentThread()-before;Assert.That(passed,Is.True);Assert.That(bytes,Is.Zero);
-            Assert.That(world.ContextJson,Does.Contain("explicit_stationary_owned_firing_hold_v1"));
+            Assert.That(world.ContextJson,Does.Contain("explicit_stationary_owned_firing_hold_v2_admitted_folded_endpoint_plant"));
         }
     }
 }

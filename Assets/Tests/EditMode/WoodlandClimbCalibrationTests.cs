@@ -11,9 +11,13 @@ namespace Biathlon.Tests
     public sealed class WoodlandClimbCalibrationTests
     {
         private const string Root="Biathlon/Venues/woodland_basin_v1/";
-        private static string Read(string id)=>PhysiologyContractTests.ProjectFile(
-            "Assets/Resources/"+(id.StartsWith("Biathlon/",StringComparison.Ordinal)?id:"Biathlon/"+id)+
-            (id.EndsWith(".json",StringComparison.Ordinal)?"":".json"));
+        private static string Read(string id)
+        {
+            // These110/650/1000m calibration witnesses predate course shortening.
+            string name=id.StartsWith("Biathlon/",StringComparison.Ordinal)?id:"Biathlon/"+id;
+            if(name.EndsWith(".json",StringComparison.Ordinal))name=name.Substring(0,name.Length-5);
+            return PhysiologyContractTests.ProjectFile(name.StartsWith(Root,StringComparison.Ordinal)?"dotnet/Biathlon.Tests/Fixtures/woodland_d518195/"+name.Substring(Root.Length)+".json":"Assets/Resources/"+name+".json");
+        }
 
         private static (long stadium,long afterClimb,long afterDescent) Run(int climbing)
         {

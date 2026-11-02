@@ -11,12 +11,20 @@ namespace Biathlon.Tests
     public class RangeWorldTrafficTests
     {
         private static string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
+        private static string ReadCaptured(string id)
+        {
+            const string root="Biathlon/Venues/woodland_basin_v1/";
+            return id.StartsWith(root,StringComparison.Ordinal)?PhysiologyContractTests.ProjectFile("dotnet/Biathlon.Tests/Fixtures/woodland_d518195/"+id.Substring(root.Length)+".json"):Read(id);
+        }
         private static PackAiRaceRunner Create(bool enabled,int count=6,string format="mass_start")
         {
             const string v="Biathlon/Venues/woodland_basin_v1/";
             string Resource(string id)
             {
-                string json=Read(id);
+                // Fixed world coordinates and narrow-lane witnesses retain their
+                // pre-shortening/width geometry. Current production acceptances
+                // below construct their venue directly from Read instead.
+                string json=ReadCaptured(id);
                 if(id==v+"ai_ski_policy")json=json.Replace("true","false");
                 if(id==v+"shared_apron")
                 {
@@ -46,7 +54,7 @@ namespace Biathlon.Tests
             }
             return ProductionVenueRaceFactory.Create(venue,CompetitionProfile.FromJson(Resource(v+format+"_profile")),
                 RaceRoutePlan.FromJson(Resource(v+format+"_route")),RaceSnowConditions.FromJson(Resource("Biathlon/race_snow_neutral_v1")),
-                Core,new RaceEventLog(100000),new AiDecisionCounts(),count:count);
+                Core,new RaceEventLog(100000),new AiDecisionCounts(),count:count,completeStartCorridorProof:false);
         }
         private static PhysicalRangeWorldTrafficMap Map(PackAiRaceRunner runner)=>(PhysicalRangeWorldTrafficMap)typeof(PackSprintFieldSession).GetField("rangeWorldTraffic",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(runner.Field);
         private static PhysicalTrackMap Physical(PackAiRaceRunner runner)=>(PhysicalTrackMap)typeof(PackSprintFieldSession).GetField("map",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(runner.Field);
@@ -180,7 +188,7 @@ namespace Biathlon.Tests
         [Test] public void SingleIncidentPortProofRejectsSelfCrossingsAndStaysAllocationFree()
         {
             var runner=Create(true,1);var proof=Map(runner);var physical=Physical(runner);
-            var junctions=PhysicalJunctionDefinition.FromJson(Read("Biathlon/Venues/woodland_basin_v1/junctions"),runner.Field.Track);
+            var junctions=PhysicalJunctionDefinition.FromJson(ReadCaptured("Biathlon/Venues/woodland_basin_v1/junctions"),runner.Field.Track);
             int start=-1,rejoin=-1;
             for(int j=0;j<junctions.Count;j++){if(junctions.Get(j).Id=="start_join")start=j;if(junctions.Get(j).Id=="range_rejoin")rejoin=j;}
             var point=physical.MapLoop("main",1183*SkiState.NanometersPerMeter);
@@ -398,14 +406,21 @@ namespace Biathlon.Tests
                 {
                     var actor=field.GetAthlete(i);
                     var location=field.GetPhysicalPoint(i);
-                    if(actor.CurrentRangeMotion==null&&location.LoopId==field.Track.Range.Entry.LoopId&&
+                    bool mainFrontage=actor.CurrentRangeMotion==null&&location.LoopId==field.Track.Range.Entry.LoopId&&
                         location.LocalNanometers>=field.Track.Range.Exit.Distance.Millimeters*SkiState.NanometersPerMillimeter+
                             2*SkiState.NanometersPerMeter&&
-                        location.LocalNanometers<=field.Track.Penalty.Entry.Distance.Millimeters*SkiState.NanometersPerMillimeter)
+                        location.LocalNanometers<=field.Track.Penalty.Entry.Distance.Millimeters*SkiState.NanometersPerMillimeter;
+                    // The current final-lap finish spur skips this old Main
+                    // interval. Actual range laps now enter the same protected
+                    // merge from the authored shared exit corridor instead.
+                    bool exitFrontage=location.LoopId=="exit_aisle"&&actor.CurrentRangeMotion?.Phase==RangeTraversalPhase.PenaltyApproach&&
+                        actor.PreviewCurrentRangeMotion(5*SkiState.NanometersPerMeter)?.Phase==RangeTraversalPhase.PenaltyLoop;
+                    if(mainFrontage||exitFrontage)
                     {
                         frontageSamples++;
-                        Assert.That(runner.GetLastLateral(i),Is.GreaterThanOrEqualTo(frontageMinimum),
-                            "AI must plan the paid safe side through the physical penalty merge.");
+                        if(mainFrontage)Assert.That(runner.GetLastLateral(i),Is.GreaterThanOrEqualTo(frontageMinimum),
+                            "AI must plan the paid safe side through the physical Main/penalty merge.");
+                        if(exitFrontage){Assert.That(Map(runner).Contains(location),Is.True);Assert.That(runner.GetLastRangeTrafficPlan(i).Active,Is.True,"The actual exit/penalty merge retains its owned traffic planner and complete body proof.");}
                     }
                     stopped[i]=field.IsOnCourse(i)&&!actor.HasFinished&&actor.ActiveShooting==null&&previous[i]==actor.Motion.DistanceNanometers?stopped[i]+1:0;
                     longest=Math.Max(longest,stopped[i]);
@@ -441,9 +456,10 @@ namespace Biathlon.Tests
                     mainEscape|=actor.CurrentRangeMotion==null&&field.GetPhysicalPoint(i).LoopId==venue.Track.Range.Entry.LoopId&&runner.GetLastRangeTrafficPlan(i).Active;
                 }
             }
+            TestContext.Out.WriteLine("qualified_pursuit_complete="+field.IsComplete+" tick="+field.Tick.Value+" frontage_samples="+frontageSamples+" maximum_stationary_ticks="+longest);
             Assert.That(mainEscape,Is.True,"An actor beyond the range planner must still find paid clear space on Main.");
             Assert.That(frontageSamples,Is.GreaterThan(0),"The real range-frontage merge must be exercised.");
-            Assert.That(field.IsComplete,Is.True,"All forty must finish rather than form the observed circular Main/penalty wait.");
+            Assert.That(field.IsComplete,Is.True,"All thirty must finish rather than form the observed circular Main/penalty wait.");
             Assert.That(longest,Is.LessThan(1000),"A transient body-safe yield must not become a permanent traffic queue.");
             TestContext.Out.WriteLine("qualified_pursuit_complete_tick="+field.Tick.Value+" maximum_stationary_ticks="+longest);
         }

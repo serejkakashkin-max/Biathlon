@@ -190,7 +190,8 @@ namespace Biathlon.Tests
             bool expectedBoundaryRejection,bool adaptiveCornerEffort)
         {
             const string root="Biathlon/Venues/woodland_basin_v1/";
-            string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
+            // The fixed 940m single-section witness predates the course shortening.
+            string Read(string id)=>PhysiologyContractTests.ProjectFile(id.StartsWith(root,StringComparison.Ordinal)?"dotnet/Biathlon.Tests/Fixtures/woodland_d518195/"+id.Substring(root.Length)+".json":"Assets/Resources/"+id+".json");
             var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(root+"manifest")),Read);
             var profile=CompetitionProfile.FromJson(Read(root+"mass_start_profile"));
             var route=new RaceRoute(venue.Track,RaceRoutePlan.FromJson(Read(root+"mass_start_route")),
@@ -285,7 +286,8 @@ namespace Biathlon.Tests
         public void ProductionCandidateSteersFirstWoodlandBendsThroughSharedYawKernel(double speed)
         {
             const string root="Biathlon/Venues/woodland_basin_v1/";
-            string Read(string id)=>PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
+            // Retain this captured kinematic-controller probe on its exact geometry.
+            string Read(string id)=>PhysiologyContractTests.ProjectFile(id.StartsWith(root,StringComparison.Ordinal)?"dotnet/Biathlon.Tests/Fixtures/woodland_d518195/"+id.Substring(root.Length)+".json":"Assets/Resources/"+id+".json");
             var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(root+"manifest")),Read);
             var profile=CompetitionProfile.FromJson(Read(root+"mass_start_profile"));
             var route=new RaceRoute(venue.Track,RaceRoutePlan.FromJson(Read(root+"mass_start_route")),

@@ -70,7 +70,7 @@ namespace Biathlon.Tests
                 new SkiState(f.Session.Motion.DistanceNanometers,speed*Math.Sqrt(1+grade*grade)),
                 surface.WithTravelGeometry(grade,f.Model.Tuck.WorldHoldThroughTurns?0:surface.CurvaturePerMeter));
             Assert.That(surface.Grade,Is.GreaterThan(0));
-            Assert.That(expected.Active,Is.EqualTo(reversed));
+            Assert.That(expected.Active,Is.EqualTo(f.Model.Tuck.AllowRequestedPosture||reversed));
             Assert.That(input.DragAreaMultiplier,Is.EqualTo(expected.DragAreaMultiplier));
             Assert.That(input.SteeringResponse,Is.EqualTo(expected.SteeringResponseMultiplier));
             var effort=new EffortSystem(f.Session.PhysiologyDefinition).Evaluate(
@@ -150,7 +150,7 @@ namespace Biathlon.Tests
                     new[]{progress.Reconstitute(Session.AthleteId,0,Session.RouteNanometers,Session.RouteNanometers)},
                     new[]{pose},new[]{velocity},Field.TickFrequency,new[]{Session.Motion},Field.Tick);
                 sampler=new TrackSampler(venue.Track.GetLoop(at.LoopId));
-                Model=new SkiModelDefinitions(PhysiologyContractTests.DefinitionJson);
+                Model=new SkiModelDefinitions(ProductionGameplayDefinitions.Bind(PhysiologyContractTests.DefinitionJson));
                 Solver=new ManualSkiMotionSystem(Model.Physics,
                     ManualSkiSteeringDefinition.FromJson(Read("Biathlon/manual_ski_steering_v2")),Model.Cornering,Field.TickFrequency);
             }
@@ -203,7 +203,7 @@ namespace Biathlon.Tests
                 new[]{pose},new[]{velocity},field.TickFrequency,new[]{session.Motion},field.Tick);
             var command=SprintAthleteSessionTests.Script(session);var pending=session.PrepareManualBaseStep(command);
             var surface=new TrackSampler(venue.Track.GetLoop(at.LoopId)).Sample(new TrackDistance((long)Math.Floor(at.LocalMeters*1000)));
-            var model=new SkiModelDefinitions(PhysiologyContractTests.DefinitionJson);
+            var model=new SkiModelDefinitions(ProductionGameplayDefinitions.Bind(PhysiologyContractTests.DefinitionJson));
             var input=session.GetPreparedManualMotionInput(pending,world.GetActor(0),surface,500);
             var heading=new ManualSkiMotionSystem(model.Physics,
                 ManualSkiSteeringDefinition.FromJson(Read("Biathlon/manual_ski_steering_v2")),model.Cornering,field.TickFrequency)
@@ -274,7 +274,7 @@ namespace Biathlon.Tests
             var commands=new SprintAthleteInput[2];var pending=new SprintStepPreview[2];
             var actors=new SkiWorldMotionCandidate[2];var windows=new ManualRouteActorWindow[2];
             var caps=new long[2];var grades=new double[2];var oldPoints=new PhysicalTrackPoint[2];
-            var model=new SkiModelDefinitions(PhysiologyContractTests.DefinitionJson);
+            var model=new SkiModelDefinitions(ProductionGameplayDefinitions.Bind(PhysiologyContractTests.DefinitionJson));
             var solver=new ManualSkiMotionSystem(model.Physics,
                 ManualSkiSteeringDefinition.FromJson(Read("Biathlon/manual_ski_steering_v2")),model.Cornering,field.TickFrequency);
             for(int i=0;i<2;i++)

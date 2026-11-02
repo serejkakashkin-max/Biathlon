@@ -28,7 +28,13 @@ namespace Biathlon.Tests
                     {
                         finished[i]=true;times[i]=athlete.Lifecycle.GlobalFinishTime;
                         finishSpeed[i]=athlete.Motion.SpeedMetersPerSecond;
-                        Assert.That(cursor.ObservedArcNanometers,Is.GreaterThan(0),"The real remainder after crossing must move onto the runway.");
+                        // The actual sub-tick suffix can be shorter than the5mm
+                        // portal chart tolerance. Assert physical travel, not a
+                        // credited chart station that legitimately remains zero.
+                        var catalog=f.stepper.World.GetCatalog(i);Assert.That(catalog.TrySamplePortal(row.Index,0,out var portal),Is.True);
+                        var pose=f.stepper.World.GetActor(i).Pose;
+                        double physicalSuffix=(pose.X-portal.X)*portal.ForwardX+(pose.Z-portal.Z)*portal.ForwardZ;
+                        Assert.That(physicalSuffix,Is.GreaterThan(0),"The real remainder after crossing must move onto the runway.");
                         Assert.That(athlete.Motion.SpeedMetersPerSecond,Is.GreaterThan(0),"Finish cannot reset actual velocity.");
                         var split=athlete.Checkpoints.Get(athlete.Checkpoints.Count-1).GlobalTime;
                         Assert.That(split,Is.EqualTo(times[i]),"A finish checkpoint and the lifecycle must record the same owned crossing.");

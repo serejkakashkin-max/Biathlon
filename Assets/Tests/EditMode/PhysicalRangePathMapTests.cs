@@ -56,7 +56,7 @@ namespace Biathlon.Tests
             VenueFormatBinding format=null;
             for(int i=0;i<venue.Formats.Count;i++)if(venue.Formats.Get(i).Id=="mass_start")format=venue.Formats.Get(i);
             Assert.That(format,Is.Not.Null);
-            var route=new RaceRoute(venue.Track,format.Route,format.Profile.ToRouteRequirements());
+            var route=new RaceRoute(venue.Track,format.Route,format.Profile.ToRouteRequirements(),venue.Junctions,venue.Connections);
             var map=new PhysicalTrackMap(venue.Track,route);
             var lane=venue.Paths.GetLane(5);
             var physical=new PhysicalRangePathMap(map,venue.Track,route,venue.Paths,5);

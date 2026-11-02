@@ -60,7 +60,7 @@ namespace Biathlon.Tests
             }
             return FormattableString.Invariant($"{s.LastStep.Status} / {s.LastStep.WorldAttempt.Status} / {s.LastStep.WorldAttempt.Athlete} / {s.LastStep.ProvisionalSeconds:R} / pieces {s.LastStep.Intervals} / forces {forces.Status} supports={forces.SupportPoints} passes={forces.Passes} seconds={forces.DurationSeconds:R} residual={forces.MaximumReactionResidualSpeed:R} closing={forces.MaximumClosingAcceleration:R} / {s.LastStep.WorldAttempt.Course.Status} / {s.LastStep.WorldAttempt.Course.SourceEdgeId} / {s.LastStep.WorldAttempt.CourseEdge.Status} / pair {s.LastStep.WorldAttempt.BodyOrEdge.First}:{s.LastStep.WorldAttempt.BodyOrEdge.Second} {s.LastStep.WorldAttempt.BodyOrEdge.Pair.Status} clear {s.LastStep.WorldAttempt.BodyOrEdge.Pair.ClearUntilSeconds:R} end {s.LastStep.WorldAttempt.BodyOrEdge.Pair.IntervalEndSeconds:R} continuation {s.LastStep.WorldAttempt.BodyOrEdge.Pair.IsContactContinuation} / {source}");
         }
-        internal static (PackAiRaceRunner runner,ManualScopedFieldStepper stepper,RaceEventLog events) InitialCandidate(int count,bool withFinish=false,bool withFinishCheckpoint=false)
+        internal static (PackAiRaceRunner runner,ManualScopedFieldStepper stepper,RaceEventLog events) InitialCandidate(int count,bool withFinish=false,bool withFinishCheckpoint=false,bool productionComposition=false)
         {
             const string root="Biathlon/Venues/woodland_basin_v1/";
             string Load(string id)
@@ -81,10 +81,12 @@ namespace Biathlon.Tests
             var models=new SkiModelDefinitions(PhysiologyContractTests.DefinitionJson);
             var world=ManualScopedFieldStepper.CreateInitialWorld(runner.Field,venue.Track,venue.Visual,venue.Occupancy,Contact(),Work(),Group(),models.Physics,
                 withFinish?ManualFinishRunoutDefinition.FromJson(Read("Biathlon/manual_finish_runout_v1")):null,
-                withFinish?ManualNumericalToleranceDefinition.FromJson(Read("Biathlon/manual_gameplay_tolerance_v1")):null,
-                withFinish?ManualMatCaptureDefinition.FromJson(Read("Biathlon/manual_mat_capture_v1")):null,
+                // Range integration uses the same bounded foot placement as production,
+                // independently of whether this fixture exercises the finish runway.
+                ManualNumericalToleranceDefinition.FromJson(Read("Biathlon/manual_gameplay_tolerance_v1")),
+                ManualMatCaptureDefinition.FromJson(Read("Biathlon/manual_mat_capture_v1")),
                 withFinish?ManualCourseContactDefinition.FromJson(Read("Biathlon/manual_course_contact_v1")):null);
-            var stepper=new ManualScopedFieldStepper(runner.Field,world,models,venue.Occupancy,Steering(),Work(),
+            var stepper=productionComposition?ManualProductionFieldComposition.Create(runner.Field,venue,PhysiologyContractTests.DefinitionJson):new ManualScopedFieldStepper(runner.Field,world,models,venue.Occupancy,Steering(),Work(),
                 ManualMatBrakingDefinition.FromJson(Read("Biathlon/manual_mat_braking_v1")));
             runner.BindManualScopedCandidate(stepper,ManualAiSteeringDefinition.FromJson(Read("Biathlon/manual_ai_steering_v2")),Steering());
             return (runner,stepper,events);
@@ -124,8 +126,10 @@ namespace Biathlon.Tests
 
         [Test] public void Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend()
         {
-            var f=InitialCandidate(30);bool seenYaw=false;
-            for(int i=0;i<400;i++)
+            // Exercise real production contacts/supports and pay the current
+            // 87.832m start spur before measuring the unchanged60m course target.
+            var f=InitialCandidate(30,productionComposition:true);bool seenYaw=false;
+            for(int i=0;i<700;i++)
             {
                 var a=f.runner.Field.GetAthlete(0);var tick=a.Tick.Next();
                 try

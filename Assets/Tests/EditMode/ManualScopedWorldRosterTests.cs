@@ -108,7 +108,9 @@ namespace Biathlon.Tests
         {
             var f=new Fixture();string initial=f.World.InitialStateContextJson;string context=f.World.ContextJson;
             Assert.That(initial,Does.Contain("scoped_0"));Assert.That(initial,Does.Contain("scoped_1"));
-            Assert.That(context,Does.Contain("lane_01"));Assert.That(context,Does.Contain("lane_30"));
+            Assert.That(f.Catalogs[0].ContextJson,Does.Contain("lane_01"));Assert.That(f.Catalogs[1].ContextJson,Does.Contain("lane_30"));
+            Assert.That(context,Does.Contain("catalog_context_sha256:"+ManualContextIdentity.Sha256(f.Catalogs[0].ContextJson)));
+            Assert.That(context,Does.Contain("catalog_context_sha256:"+ManualContextIdentity.Sha256(f.Catalogs[1].ContextJson)));
             Assert.That(f.Prepare(f.Candidates(),f.Windows(),out var next),Is.True);f.World.Commit(next);
             Assert.That(f.World.InitialStateContextJson,Is.EqualTo(initial));Assert.That(f.World.ContextJson,Is.EqualTo(context));
             Assert.That(f.World.GetCursor(0).OccurrenceIndex,Is.Not.EqualTo(f.World.GetCursor(1).OccurrenceIndex));

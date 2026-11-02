@@ -168,7 +168,8 @@ namespace Biathlon.Tests
         {
             var f=new Fixture(pack:false);var proof=f.Prepare();long tick=f.View.Tick.Value;f.Publish(proof);
             Assert.That(f.View.Tick.Value,Is.EqualTo(tick+1));Assert.That(f.World.Tick,Is.EqualTo(f.View.Tick));
-            Assert.That(f.Independent.ContextJson,Does.Contain("manual_scoped_field_clock_publication_v1"));
+            Assert.That(f.Independent.ContextJson,Does.Contain("manual_scoped_field_clock_publication_v2_context_reference"));
+            Assert.That(f.Independent.ContextJson,Does.Contain("world_context_sha256:"+ManualContextIdentity.Sha256(f.World.ContextJson)));
             int events=f.Events.Count;Assert.Throws<InvalidOperationException>(()=>f.Independent.Step(f.Inputs));Assert.That(f.Events.Count,Is.EqualTo(events));
             Assert.That(f.View.Tick.Value,Is.EqualTo(tick+1));
         }

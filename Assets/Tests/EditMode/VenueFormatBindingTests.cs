@@ -67,7 +67,7 @@ namespace Biathlon.Tests
             var plan=new VenueAuthoringPlan(VenueManifest.FromJson(Read(root+"manifest")),Read);Assert.That(plan.Formats.Count,Is.EqualTo(3));
             // Owner-authorized compressed game distances; WP169 historic lengths remain
             // frozen separately in docs/quality/fixtures/directed-passages-wp169.
-            var expected=new Dictionary<string,long>{{"sprint",4200001},{"pursuit",5000000},{"mass_start",6000000}};
+            var expected=new Dictionary<string,long>{{"sprint",3359371},{"pursuit",4080773},{"mass_start",4655573}};
             for(int i=0;i<plan.Formats.Count;i++)
             {
                 var format=plan.Formats.Get(i);var route=new RaceRoute(plan.Track,format.Route,format.Profile.ToRouteRequirements(),plan.Junctions,plan.Connections);

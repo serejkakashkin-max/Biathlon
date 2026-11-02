@@ -31,10 +31,25 @@ namespace Biathlon.Tests
             Assert.That(root,Is.Not.Null,"Frozen exact optional policy resources required.");
             var f=new Fixture{Root=root};f.Json=f.Read(V+"shared_apron");
             string Read(string id)=>id==V+"shared_apron"&&!enabled?WithoutPolicy(f.Json):f.Read(id);
+            // This optional-policy witness owns frozen core definitions. The
+            // production factory's aliases must resolve to those exact inputs.
+            string Core(string name)
+            {
+                switch(name)
+                {
+                    case "physiology_gameplay_v2.json":name="physiology_provisional_v1.json";break;
+                    case "cornering_gameplay_v2.json":name="cornering_provisional_v1.json";break;
+                    case "tuck_gameplay_v2.json":name="tuck_provisional_v1.json";break;
+                    case "breathing_gameplay_v2.json":name="breathing_v1.json";break;
+                    case "heartbeat_gameplay_v2.json":name="heartbeat_v1.json";break;
+                    case "muscular_sway_gameplay_v2.json":name="muscular_sway_v1.json";break;
+                }
+                return Read("Biathlon/"+Path.GetFileNameWithoutExtension(name));
+            }
             f.Venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(V+"manifest")),Read);
             f.Runner=ProductionVenueRaceFactory.Create(f.Venue,CompetitionProfile.FromJson(Read(V+"sprint_profile")),
                 RaceRoutePlan.FromJson(Read(V+"sprint_route")),RaceSnowConditions.FromJson(Read("Biathlon/race_snow_neutral_v1")),
-                name=>Read("Biathlon/"+Path.GetFileNameWithoutExtension(name)),new Sink(),new AiDecisionCounts(),count:2);
+                Core,new Sink(),new AiDecisionCounts(),count:2);
             return f;
         }
         private sealed class Sink:IRaceEventSink{public void Record(RaceEvent value){}}

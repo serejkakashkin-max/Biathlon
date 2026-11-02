@@ -12,7 +12,7 @@ namespace Biathlon.Tests
         private static BalanceBatchDefinition Suite()=>BalanceBatchDefinition.FromJson(PhysiologyContractTests.ProjectFile("tests/fixtures/balance/pacing-holdout-v1.json"));
         [Test] public void LongTrackContextsHaveCanonicalZeroAndMatchCli()
         {
-            var suite=Suite();var expected=PhysiologyContractTests.ProjectFile("tests/fixtures/balance/pacing-context-v1.sha256").Split(new[]{'\r','\n'},StringSplitOptions.RemoveEmptyEntries);
+            var suite=Suite();var expected=PhysiologyContractTests.ProjectFile("tests/fixtures/balance/pacing-context-v2.sha256").Split(new[]{'\r','\n'},StringSplitOptions.RemoveEmptyEntries);
             Assert.That(expected.Length,Is.EqualTo(suite.Count));
             for(int i=0;i<suite.Count;i++)
             {
@@ -55,7 +55,13 @@ namespace Biathlon.Tests
                 System.IO.File.WriteAllText(System.IO.Path.Combine(output,"wp095-dotnet-test-rows.jsonl"),text.ToString());
 #endif
             }
-            Assert.That(digest,Is.EqualTo(PhysiologyContractTests.ProjectFile("tests/fixtures/balance/pacing-holdout-v1.sha256").Trim()),"Complete paired metrics/context trace");
+            // Preserve the original M8 trace and every numeric/event result.
+            // Only immutable context identity changed before M16.6.
+            string original=PhysiologyContractTests.ProjectFile("docs/quality/wp095/wp095-original.jsonl").Replace("\r\n","\n").Replace("\n","\r\n");
+            Assert.That(BalanceRegression.Hash(original),Is.EqualTo(PhysiologyContractTests.ProjectFile("tests/fixtures/balance/pacing-holdout-v1.sha256").Trim()));
+            string WithoutContext(string value)=>System.Text.RegularExpressions.Regex.Replace(value,"\"context_sha256\":\"[a-f0-9]{64}\",","");
+            Assert.That(WithoutContext(text.ToString()),Is.EqualTo(WithoutContext(original)),"All1536M8 numeric rows and event hashes remain byte-identical.");
+            Assert.That(digest,Is.EqualTo(PhysiologyContractTests.ProjectFile("tests/fixtures/balance/pacing-holdout-context-v2.sha256").Trim()),"Complete paired metrics/current context trace");
             foreach(string terrain in new[]{"flat","rolling"})
             {
                 var optimal=new BalancePairedComparison(suite,rows,terrain+"_aggressive",terrain+"_optimal_candidate");

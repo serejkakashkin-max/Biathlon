@@ -9,7 +9,8 @@ namespace Biathlon.Tests
         [TestCase(2.913896895,false)][TestCase(2.915,true)]
         public void ARealForwardStopDoesNotHideTheSideSlipPortalArrival(double heading,bool afterStop)
         {
-            var f=new ManualRacePathCatalogTests.Fixture();
+            // These pose/arc witnesses were captured before the course shortening.
+            var f=new ManualRacePathCatalogTests.Fixture(historicalCapturedGeometry:true);
             var pose=new ManualSkiHeadingState(43.51443678,-8.37568061,heading,-.587481722);
             int index=f.Catalog.GetFiringOccurrence(1)+1;
             const long arc=8778795684;

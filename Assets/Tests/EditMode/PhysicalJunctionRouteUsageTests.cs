@@ -97,15 +97,18 @@ namespace Biathlon.Tests
             for(int i=0;i<plan.Formats.Count;i++){if(plan.Formats.Get(i).Id=="mass_start")mass=plan.Formats.Get(i);if(plan.Formats.Get(i).Id=="sprint")sprint=plan.Formats.Get(i);}
             PhysicalJunctionMap Bound(VenueFormatBinding format,bool start)
             {var route=new RaceRoute(plan.Track,format.Route,format.Profile.ToRouteRequirements(),plan.Junctions,plan.Connections);var map=new PhysicalTrackMap(plan.Track,route);var layout=new PhysicalRangeFieldLayout(map,plan.Track,route,plan.Paths);return new PhysicalJunctionMap(map,plan.Junctions,PhysicalJunctionMap.CaptureUsage(plan.Track,route,layout,start?plan.StartApproach.LoopId:null));}
-            var massMap=Bound(mass,true);var sprintMap=Bound(sprint,false);int unused=0;
+            var massMap=Bound(mass,true);var sprintMap=Bound(sprint,false);var unused=new System.Collections.Generic.List<string>();
             for(int j=0;j<plan.Junctions.Count;j++)
             {
                 bool branch=false,sprintBranch=false;var region=plan.Junctions.Get(j);
                 for(int p=0;p<region.PortCount;p++){string id=region.GetPort(p).Anchor.LoopId;branch|=id=="sprint_extension"||id=="pursuit_shortcut";sprintBranch|=id=="sprint_extension";}
-                if(branch){unused++;Assert.That(massMap.IsRegionActive(j),Is.False);if(sprintBranch)Assert.That(sprintMap.IsRegionActive(j),Is.True);}
+                if(branch){unused.Add(region.Id);Assert.That(massMap.IsRegionActive(j),Is.False);if(sprintBranch)Assert.That(sprintMap.IsRegionActive(j),Is.True);}
                 else Assert.That(massMap.IsRegionActive(j),Is.True);
             }
-            Assert.That(unused,Is.EqualTo(5),"The compressed course also includes its measured Main/shortcut body-clearance region.");
+            Assert.That(unused,Is.EquivalentTo(new[]{"pursuit_depart","pursuit_return","sprint_depart","sprint_return","apron_body_main_pursuit_shortcut",
+                "owner_bend_crossings_sprint_extension_16_sprint_extension_18","owner_bend_crossings_sprint_extension_17_sprint_extension_19",
+                "owner_bend_crossings_sprint_extension_20_sprint_extension_22","owner_bend_crossings_sprint_extension_21_sprint_extension_23"}),
+                "Every format-only fork and measured body-clearance crossing remains explicitly covered.");
         }
     }
 }

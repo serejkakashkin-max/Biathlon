@@ -48,6 +48,11 @@ namespace Biathlon.Tests
                     }
                 Assert.That(waiting||AtPhase(phase),Is.True,$"Could not reach {phase}: {Session.CurrentRangeMotion?.Phase}, tick {Session.Tick.Value}");
                 long high=0;
+                // A fixed tick may skip the first bout's tiny before-gate window.
+                // Bind the captured penalty to the actual unfinished bout.
+                int bout=0;
+                if(phase.EndsWith("_before",StringComparison.Ordinal))
+                    while(bout+1<Source.Profile.BoutCount&&Session.GetBoutRangeFrame(bout).Phase==RangeTraversalPhase.Complete)bout++;
                 if(phase.StartsWith("start",StringComparison.Ordinal))
                 {Occurrence=Source.Catalog.StartApproachIndex;high=Source.Start.LengthNanometers-Session.RemainingStartApproachNanometers;}
                 else if(phase=="penalty_entry")
@@ -58,7 +63,7 @@ namespace Biathlon.Tests
                     high=Source.Catalog.Get(Occurrence).LengthNanometers;
                 }
                 else if(phase=="penalty"||phase=="penalty_repeat_before"||phase=="penalty_return_before")
-                {Occurrence=Source.Catalog.GetPenaltyOccurrence(0,Session.CurrentRangeRequiredPenaltyLoops-Session.CurrentRangeRemainingPenaltyLoops+1);high=Session.CurrentRangeMotion.Value.PenaltyNanometers;}
+                {Occurrence=Source.Catalog.GetPenaltyOccurrence(bout,Session.CurrentRangeRequiredPenaltyLoops-Session.CurrentRangeRemainingPenaltyLoops+1);high=Session.CurrentRangeMotion.Value.PenaltyNanometers;}
                 else if(phase=="shooting")
                 {Occurrence=Source.Catalog.GetFiringOccurrence(0);high=Source.Catalog.Get(Occurrence).LengthNanometers;}
                 else
