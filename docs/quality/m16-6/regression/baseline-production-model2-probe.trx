@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="bb4a2b95-1cfb-4ac5-be15-67ed28b0d58d" name="snkashkin@DESKTOP-G3075GA 2026-11-01 21:44:38" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T21:44:38.0769884+03:00" queuing="2026-11-01T21:44:38.0769886+03:00" start="2026-11-01T21:44:34.6557156+03:00" finish="2026-11-01T21:44:50.8166198+03:00" />
+  <TestSettings name="default" id="c26b9e72-f1f0-460a-9316-17e003d80c99">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-11-01_21_44_38" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="8a6290b0-e11d-4ef7-8d39-e507c6b1be46" testId="0695782c-3c88-8ea2-8585-513eacbae067" testName="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" computerName="DESKTOP-G3075GA" duration="00:00:13.3886150" startTime="2026-11-01T21:44:37.2277009+03:00" endTime="2026-11-01T21:44:50.6163154+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8a6290b0-e11d-4ef7-8d39-e507c6b1be46" />
+    <UnitTestResult executionId="4b52652f-1ccf-47b1-a6f9-01c8095a0ec7" testId="2cb393c0-7e19-eafc-c33e-c0b3535981de" testName="SecondPackRowFailureLeavesFieldAndWorldUnchangedThenWholeRosterCommits" computerName="DESKTOP-G3075GA" duration="00:00:01.9294690" startTime="2026-11-01T21:44:35.2967541+03:00" endTime="2026-11-01T21:44:37.2261941+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4b52652f-1ccf-47b1-a6f9-01c8095a0ec7" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="SecondPackRowFailureLeavesFieldAndWorldUnchangedThenWholeRosterCommits" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\baseline-probe4\biathlon.tests.dll" id="2cb393c0-7e19-eafc-c33e-c0b3535981de">
+      <Execution id="4b52652f-1ccf-47b1-a6f9-01c8095a0ec7" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\baseline-probe4\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualBaseRouteCommitTests" name="SecondPackRowFailureLeavesFieldAndWorldUnchangedThenWholeRosterCommits" />
+    </UnitTest>
+    <UnitTest name="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\baseline-probe4\biathlon.tests.dll" id="0695782c-3c88-8ea2-8585-513eacbae067">
+      <Execution id="8a6290b0-e11d-4ef7-8d39-e507c6b1be46" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\baseline-probe4\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedFieldStepperTests" name="Mass30PassesStationaryPlayerAndReachesTheFirstCourseBend" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="0695782c-3c88-8ea2-8585-513eacbae067" executionId="8a6290b0-e11d-4ef7-8d39-e507c6b1be46" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2cb393c0-7e19-eafc-c33e-c0b3535981de" executionId="4b52652f-1ccf-47b1-a6f9-01c8095a0ec7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\baseline-probe4\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

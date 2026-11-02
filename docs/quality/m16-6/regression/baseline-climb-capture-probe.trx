@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="59bd3d32-85dc-449e-9912-797d89225a8b" name="snkashkin@DESKTOP-G3075GA 2026-11-01 22:28:05" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T22:28:05.5620774+03:00" queuing="2026-11-01T22:28:05.5620774+03:00" start="2026-11-01T22:28:00.7727786+03:00" finish="2026-11-01T22:28:09.0372102+03:00" />
+  <TestSettings name="default" id="dd441a27-27ff-4983-a614-8a90aaa51a04">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-11-01_22_28_05" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1dfc50f3-bb45-41a9-9ec6-6966223f9316" testId="25e002ab-b81d-e3d9-250b-f32ffc756006" testName="ProductionWoodlandDifficultyChangesDecisionCadenceWithoutChangingAthlete" computerName="DESKTOP-G3075GA" duration="00:00:03.4418320" startTime="2026-11-01T22:28:05.5308148+03:00" endTime="2026-11-01T22:28:08.9726463+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1dfc50f3-bb45-41a9-9ec6-6966223f9316">
+      <Output>
+        <StdOut>wp177_ai_expert_ticks=3407 tactical=852 total_requested_effort=2521432&#xD;
+wp177_ai_developing_ticks=3568 tactical=357 total_requested_effort=2369662</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8056035b-8725-4789-af4c-156ff86d6704" testId="e6d82596-cb71-817d-464e-2f17eca9b04b" testName="ProductionWoodlandClimbSkillAffectsFirstLapWithoutShootingConfound" computerName="DESKTOP-G3075GA" duration="00:00:04.0808520" startTime="2026-11-01T22:28:01.4493060+03:00" endTime="2026-11-01T22:28:05.5301234+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8056035b-8725-4789-af4c-156ff86d6704">
+      <Output>
+        <StdOut>wp177_climbing_30_ticks=437,2956,3622&#xD;
+wp177_climbing_90_ticks=428,2835,3498</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ProductionWoodlandDifficultyChangesDecisionCadenceWithoutChangingAthlete" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\baseline-climb\biathlon.tests.dll" id="25e002ab-b81d-e3d9-250b-f32ffc756006">
+      <Execution id="1dfc50f3-bb45-41a9-9ec6-6966223f9316" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\baseline-climb\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.WoodlandClimbCalibrationTests" name="ProductionWoodlandDifficultyChangesDecisionCadenceWithoutChangingAthlete" />
+    </UnitTest>
+    <UnitTest name="ProductionWoodlandClimbSkillAffectsFirstLapWithoutShootingConfound" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\baseline-climb\biathlon.tests.dll" id="e6d82596-cb71-817d-464e-2f17eca9b04b">
+      <Execution id="8056035b-8725-4789-af4c-156ff86d6704" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\baseline-climb\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.WoodlandClimbCalibrationTests" name="ProductionWoodlandClimbSkillAffectsFirstLapWithoutShootingConfound" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="25e002ab-b81d-e3d9-250b-f32ffc756006" executionId="1dfc50f3-bb45-41a9-9ec6-6966223f9316" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e6d82596-cb71-817d-464e-2f17eca9b04b" executionId="8056035b-8725-4789-af4c-156ff86d6704" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\baseline-climb\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+wp177_climbing_30_ticks=437,2956,3622&#xD;
+wp177_climbing_90_ticks=428,2835,3498&#xD;
+&#xD;
+wp177_ai_expert_ticks=3407 tactical=852 total_requested_effort=2521432&#xD;
+wp177_ai_developing_ticks=3568 tactical=357 total_requested_effort=2369662&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="1dd8ce7e-872e-42bf-90e8-5ebb56cab835" name="snkashkin@DESKTOP-G3075GA 2026-11-01 22:17:31" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T22:17:31.9508025+03:00" queuing="2026-11-01T22:17:31.9508026+03:00" start="2026-11-01T22:17:18.6543359+03:00" finish="2026-11-01T22:17:31.9541122+03:00" />
+  <TestSettings name="default" id="d4d95cc6-146e-4327-be76-137fcb2a93ba">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-11-01_22_17_31" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="b22107be-2310-42bd-bb26-b4c37b3250d6" testId="74d6fb26-ef73-def9-0b1a-764cd8f6627a" testName="FirstStationarySprintBranchWitness" computerName="DESKTOP-G3075GA" duration="00:00:12.5125180" startTime="2026-11-01T22:17:19.3005544+03:00" endTime="2026-11-01T22:17:31.8130420+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b22107be-2310-42bd-bb26-b4c37b3250d6">
+      <Output>
+        <StdOut>initial_field_sha256=b262bcadf0e1c03c35459a69f6262169f4c6841aa7a09ab6c5680f82b3a7a3a8&#xD;
+tick=1&#xD;
+tick=1001&#xD;
+tick=2001&#xD;
+tick=3001&#xD;
+tick=4001&#xD;
+actor=6 loop=start_approach local=122,831065596 line=-1,6 phase=Approach speed=0 blockedBy=woodland_basin_v1_athlete_0 kind=Athlete world=False&#xD;
+actor=0 loop=main local=944,854533801 line=-3,4 phase=Approach speed=0 blockedBy=woodland_basin_v1_athlete_6 kind=Athlete world=False</StdOut>
+        <ErrorInfo>
+          <Message>first stationary witness tick=4071</Message>
+          <StackTrace>   at Biathlon.Tests.M166TrafficDiagnosticTests.FirstStationarySprintBranchWitness() in C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\M166TrafficDiagnosticTests.cs:line 49&#xD;
+
+1)    at Biathlon.Tests.M166TrafficDiagnosticTests.FirstStationarySprintBranchWitness() in C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\M166TrafficDiagnosticTests.cs:line 49&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="FirstStationarySprintBranchWitness" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\current-traffic-probe2\biathlon.tests.dll" id="74d6fb26-ef73-def9-0b1a-764cd8f6627a">
+      <Execution id="b22107be-2310-42bd-bb26-b4c37b3250d6" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\current-traffic-probe2\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.M166TrafficDiagnosticTests" name="FirstStationarySprintBranchWitness" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="74d6fb26-ef73-def9-0b1a-764cd8f6627a" executionId="b22107be-2310-42bd-bb26-b4c37b3250d6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\current-traffic-probe2\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+initial_field_sha256=b262bcadf0e1c03c35459a69f6262169f4c6841aa7a09ab6c5680f82b3a7a3a8&#xD;
+tick=1&#xD;
+tick=1001&#xD;
+tick=2001&#xD;
+tick=3001&#xD;
+tick=4001&#xD;
+actor=6 loop=start_approach local=122,831065596 line=-1,6 phase=Approach speed=0 blockedBy=woodland_basin_v1_athlete_0 kind=Athlete world=False&#xD;
+actor=0 loop=main local=944,854533801 line=-3,4 phase=Approach speed=0 blockedBy=woodland_basin_v1_athlete_6 kind=Athlete world=False&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

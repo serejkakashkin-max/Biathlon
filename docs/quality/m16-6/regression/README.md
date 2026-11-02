@@ -1,0 +1,33 @@
+# M16.6 — owner-authorized legacy regression repair
+
+2026-11-01. Work in progress after published training21429280. User explicitly
+selected continuing old failures in this same task. ADR-0089 explains the input
+and assertion corrections. No failing test, invariant or threshold was disabled.
+
+Completed groups (overlap; not a unique aggregate):
+
+| Check | Result |
+| --- | --- |
+| .NET models, steering, full range cycles and1536-row pacing calibration | 63/63 PASS |
+| .NET scoped sessions, penalty transitions, complete finish/repeat | 50/50 PASS |
+| Native captured steering/transaction/identity/publication/holds | 78/78 PASS |
+| Native actual first-range departure, before-penalty seams/current context | 8/8 PASS |
+| Native full1536-row pacing calibration and career lock | 2/2 PASS |
+| Native versioned start/snow/metadata/venue controls,2026-11-02 | 35/35 PASS |
+| Native current Mass Start and original start-policy1 backward seek | 2/2 PASS |
+
+The78-case native tool response exceeded300s. Actual completed testResults proves
+Passed78; all rows are retained in two pages plus the status aggregation. No
+timeout is treated as a passing response. Further traffic/native checks and the
+complete snow-intent fix remain in progress. Build4 remains the last published
+review candidate; a new build is required after the gameplay repair is qualified.
+
+Experimental baseline receipts retain failing controls and successive minimal
+probes. In particular, the finish physical probe still fails the original arc
+assertion while exposing the positive2.859939mm suffix. Complete snow-domain probe
+passes8/8 and retains zero allocation. It motivates the explicitly versioned
+policy in90686970, with legacy context preserved.
+
+The historical full assembly was launched on the equipment-stage binary before
+these repairs. It remains a historical failure audit, not current acceptance.
+M16.6 OPEN; M17 not started.

@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="4f3aac43-1c69-4d7b-8546-f13285cd3b50" name="snkashkin@DESKTOP-G3075GA 2026-11-01 21:46:43" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T21:46:43.3087394+03:00" queuing="2026-11-01T21:46:43.3087396+03:00" start="2026-11-01T21:46:38.2581020+03:00" finish="2026-11-01T21:46:49.4316446+03:00" />
+  <TestSettings name="default" id="0c9f4f7d-a824-49af-a0ab-f4e9a06e8e38">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-11-01_21_46_43" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="b506dc40-fe5e-445e-a8f7-5fff5883273e" testId="a20bef96-b9d8-7445-807b-5529de2c29f4" testName="BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw" computerName="DESKTOP-G3075GA" duration="00:00:00.0092250" startTime="2026-11-01T21:46:48.7450108+03:00" endTime="2026-11-01T21:46:48.7542356+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b506dc40-fe5e-445e-a8f7-5fff5883273e">
+      <Output>
+        <ErrorInfo>
+          <Message>  spin=0,35 attainable command=217 selected=563&#xD;
+  Expected: 0.38414357582509362d +/- 9.9999999999999998E-13d&#xD;
+  But was:  0.43865925407233164d&#xD;
+  Off by:   -0.05451567824723802d&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualAiSnowSteeringPlannerTests.BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw() in C:\game\Biathlon\Biathlon\artifacts\m16-6\baseline-1717c530\Assets\Tests\EditMode\ManualAiSnowSteeringPlannerTests.cs:line 96&#xD;
+
+1)    at Biathlon.Tests.ManualAiSnowSteeringPlannerTests.BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw() in C:\game\Biathlon\Biathlon\artifacts\m16-6\baseline-1717c530\Assets\Tests\EditMode\ManualAiSnowSteeringPlannerTests.cs:line 96&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6a18375d-28cc-4575-b840-3a26854b0ed0" testId="2c98da97-17ab-6ba4-a1e8-cab4fdf220b3" testName="ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(3)" computerName="DESKTOP-G3075GA" duration="00:00:05.4648630" startTime="2026-11-01T21:46:43.2791213+03:00" endTime="2026-11-01T21:46:48.7439846+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6a18375d-28cc-4575-b840-3a26854b0ed0">
+      <Output>
+        <ErrorInfo>
+          <Message>  The real remainder after crossing must move onto the runway.&#xD;
+  Expected: greater than 0&#xD;
+  But was:  0&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualActualFinishTests.ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(Int32 count) in C:\game\Biathlon\Biathlon\artifacts\m16-6\baseline-1717c530\Assets\Tests\EditMode\ManualActualFinishTests.cs:line 31&#xD;
+   at InvokeStub_ManualActualFinishTests.ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualActualFinishTests.ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(Int32 count) in C:\game\Biathlon\Biathlon\artifacts\m16-6\baseline-1717c530\Assets\Tests\EditMode\ManualActualFinishTests.cs:line 31&#xD;
+   at InvokeStub_ManualActualFinishTests.ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a21e3f5d-e89c-4a1e-ba54-3bf7fec846f8" testId="88ec3173-c3e0-8d53-90ac-58ba854175c8" testName="MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(&quot;penalty_entry_before&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.1656930" startTime="2026-11-01T21:46:48.7543547+03:00" endTime="2026-11-01T21:46:48.9200466+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a21e3f5d-e89c-4a1e-ba54-3bf7fec846f8" />
+    <UnitTestResult executionId="2024b1f8-8d07-4b05-8148-b991a0e05bca" testId="214feec7-dc0b-2c49-a488-7584f62d7c64" testName="MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(&quot;penalty_repeat_before&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.1720790" startTime="2026-11-01T21:46:48.9200730+03:00" endTime="2026-11-01T21:46:49.0921518+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2024b1f8-8d07-4b05-8148-b991a0e05bca" />
+    <UnitTestResult executionId="21b727fb-9cd5-40aa-b564-1986fcd3ae9f" testId="1399fc71-da50-fcab-19b7-1d3c42e35ac8" testName="MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(&quot;penalty_return_before&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.1843270" startTime="2026-11-01T21:46:49.0921802+03:00" endTime="2026-11-01T21:46:49.2765066+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="21b727fb-9cd5-40aa-b564-1986fcd3ae9f">
+      <Output>
+        <StdOut>phase=penalty_return_before observed=149938851840 high=149938865331 rowLength=150000000000 rowRoute=1117941000000 sessionRoute=2285882000000 ordinal=4</StdOut>
+        <ErrorInfo>
+          <Message>System.ArgumentException : Observed/credited arc and base credit must match this exact occurrence.</Message>
+          <StackTrace>   at Biathlon.Simulation.ManualRacePathProgression.Reconstitute(AthleteId athlete, Int32 occurrenceIndex, Int64 observedArcNanometers, Int64 creditedArcNanometers, Int64 creditedRouteNanometers) in C:\game\Biathlon\Biathlon\artifacts\m16-6\baseline-1717c530\Assets\Scripts\Simulation\ManualRacePathProgression.cs:line 80&#xD;
+   at Biathlon.Tests.ManualScopedSessionTests.Fixture..ctor(String phase, Boolean backward, Boolean waiting) in C:\game\Biathlon\Biathlon\artifacts\m16-6\baseline-1717c530\Assets\Tests\EditMode\ManualScopedSessionTests.cs:line 109&#xD;
+   at Biathlon.Tests.ManualScopedWorkingPhaseTests.MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(String phase) in C:\game\Biathlon\Biathlon\artifacts\m16-6\baseline-1717c530\Assets\Tests\EditMode\ManualScopedWorkingPhaseTests.cs:line 22&#xD;
+   at InvokeStub_ManualScopedWorkingPhaseTests.MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fcdf8cd9-4ca5-47b1-857c-6016192803fe" testId="8c244ede-655f-ed5c-e3ab-3112d6c24c2a" testName="LongTrackContextsHaveCanonicalZeroAndMatchCli" computerName="DESKTOP-G3075GA" duration="00:00:00.0133270" startTime="2026-11-01T21:46:49.2766662+03:00" endTime="2026-11-01T21:46:49.2899931+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fcdf8cd9-4ca5-47b1-857c-6016192803fe">
+      <Output>
+        <ErrorInfo>
+          <Message>  flat_aggressive&#xD;
+  String lengths are both 64. Strings differ at index 0.&#xD;
+  Expected: "37a5d57482dd622fd632518def6b4863aa1f82ac9260a6d94345efa74ab2357c"&#xD;
+  But was:  "6e46b49c6440d5494a5ec9a396abf890f51be648ff618d99e1023ba9dcbe9307"&#xD;
+  -----------^&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.PacingCalibrationTests.LongTrackContextsHaveCanonicalZeroAndMatchCli() in C:\game\Biathlon\Biathlon\artifacts\m16-6\baseline-1717c530\Assets\Tests\EditMode\PacingCalibrationTests.cs:line 21&#xD;
+
+1)    at Biathlon.Tests.PacingCalibrationTests.LongTrackContextsHaveCanonicalZeroAndMatchCli() in C:\game\Biathlon\Biathlon\artifacts\m16-6\baseline-1717c530\Assets\Tests\EditMode\PacingCalibrationTests.cs:line 21&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b8a5509b-9731-4071-8691-dff7a9754983" testId="a1026511-d7e6-24fc-a2fa-8ce65370b233" testName="ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(1)" computerName="DESKTOP-G3075GA" duration="00:00:04.3499620" startTime="2026-11-01T21:46:38.9280672+03:00" endTime="2026-11-01T21:46:43.2779997+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b8a5509b-9731-4071-8691-dff7a9754983">
+      <Output>
+        <StdOut>Complete manual race: actors=1; tick=18189</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\baseline-probe5\biathlon.tests.dll" id="a20bef96-b9d8-7445-807b-5529de2c29f4">
+      <Execution id="b506dc40-fe5e-445e-a8f7-5fff5883273e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\baseline-probe5\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" name="BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw" />
+    </UnitTest>
+    <UnitTest name="ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(3)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\baseline-probe5\biathlon.tests.dll" id="2c98da97-17ab-6ba4-a1e8-cab4fdf220b3">
+      <Execution id="6a18375d-28cc-4575-b840-3a26854b0ed0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\baseline-probe5\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualActualFinishTests" name="ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(3)" />
+    </UnitTest>
+    <UnitTest name="MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(&quot;penalty_repeat_before&quot;)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\baseline-probe5\biathlon.tests.dll" id="214feec7-dc0b-2c49-a488-7584f62d7c64">
+      <Execution id="2024b1f8-8d07-4b05-8148-b991a0e05bca" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\baseline-probe5\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedWorkingPhaseTests" name="MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(&quot;penalty_repeat_before&quot;)" />
+    </UnitTest>
+    <UnitTest name="LongTrackContextsHaveCanonicalZeroAndMatchCli" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\baseline-probe5\biathlon.tests.dll" id="8c244ede-655f-ed5c-e3ab-3112d6c24c2a">
+      <Execution id="fcdf8cd9-4ca5-47b1-857c-6016192803fe" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\baseline-probe5\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.PacingCalibrationTests" name="LongTrackContextsHaveCanonicalZeroAndMatchCli" />
+    </UnitTest>
+    <UnitTest name="MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(&quot;penalty_entry_before&quot;)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\baseline-probe5\biathlon.tests.dll" id="88ec3173-c3e0-8d53-90ac-58ba854175c8">
+      <Execution id="a21e3f5d-e89c-4a1e-ba54-3bf7fec846f8" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\baseline-probe5\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedWorkingPhaseTests" name="MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(&quot;penalty_entry_before&quot;)" />
+    </UnitTest>
+    <UnitTest name="MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(&quot;penalty_return_before&quot;)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\baseline-probe5\biathlon.tests.dll" id="1399fc71-da50-fcab-19b7-1d3c42e35ac8">
+      <Execution id="21b727fb-9cd5-40aa-b564-1986fcd3ae9f" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\baseline-probe5\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedWorkingPhaseTests" name="MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(&quot;penalty_return_before&quot;)" />
+    </UnitTest>
+    <UnitTest name="ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(1)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\baseline-probe5\biathlon.tests.dll" id="a1026511-d7e6-24fc-a2fa-8ce65370b233">
+      <Execution id="b8a5509b-9731-4071-8691-dff7a9754983" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\baseline-probe5\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualActualFinishTests" name="ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(1)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="a20bef96-b9d8-7445-807b-5529de2c29f4" executionId="b506dc40-fe5e-445e-a8f7-5fff5883273e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2c98da97-17ab-6ba4-a1e8-cab4fdf220b3" executionId="6a18375d-28cc-4575-b840-3a26854b0ed0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="88ec3173-c3e0-8d53-90ac-58ba854175c8" executionId="a21e3f5d-e89c-4a1e-ba54-3bf7fec846f8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="214feec7-dc0b-2c49-a488-7584f62d7c64" executionId="2024b1f8-8d07-4b05-8148-b991a0e05bca" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1399fc71-da50-fcab-19b7-1d3c42e35ac8" executionId="21b727fb-9cd5-40aa-b564-1986fcd3ae9f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8c244ede-655f-ed5c-e3ab-3112d6c24c2a" executionId="fcdf8cd9-4ca5-47b1-857c-6016192803fe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a1026511-d7e6-24fc-a2fa-8ce65370b233" executionId="b8a5509b-9731-4071-8691-dff7a9754983" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="7" executed="7" passed="3" failed="4" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\baseline-probe5\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 7 of 7 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+Complete manual race: actors=1; tick=18189&#xD;
+&#xD;
+phase=penalty_return_before observed=149938851840 high=149938865331 rowLength=150000000000 rowRoute=1117941000000 sessionRoute=2285882000000 ordinal=4&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

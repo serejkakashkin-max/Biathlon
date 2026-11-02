@@ -1,0 +1,54 @@
+{
+  "result": {
+    "Summary": {
+      "Status": "Passed",
+      "TotalTests": 8,
+      "PassedTests": 8,
+      "FailedTests": 0,
+      "SkippedTests": 0,
+      "Duration": "00:00:35.8715665"
+    },
+    "Results": [
+      {
+        "Name": "Biathlon.Tests.ManualScopedFieldStepperTests.EveryAiCompletesItsFirstRangeAndResumesTheManualLap",
+        "Status": "Passed",
+        "Duration": "00:00:25.9260000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorkingPhaseTests.MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(\"penalty_entry_before\")",
+        "Status": "Passed",
+        "Duration": "00:00:01.2270000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorkingPhaseTests.MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(\"penalty_repeat_before\")",
+        "Status": "Passed",
+        "Duration": "00:00:01.2530000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorkingPhaseTests.MovingPenaltyGatePaysItsSuffixWithoutStoppingOrMutatingLifecycleEarly(\"penalty_return_before\")",
+        "Status": "Passed",
+        "Duration": "00:00:01.5420000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldEventTests.SharedTractionBoundaryAndAuthorizedPenaltySuffixPublishWithoutAWait(\"penalty_entry_before\")",
+        "Status": "Passed",
+        "Duration": "00:00:01.5880000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldEventTests.SharedTractionBoundaryAndAuthorizedPenaltySuffixPublishWithoutAWait(\"penalty_repeat_before\")",
+        "Status": "Passed",
+        "Duration": "00:00:01.5920000"
+      },
+      {
+        "Name": "Biathlon.Tests.ManualScopedWorldEventTests.SharedTractionBoundaryAndAuthorizedPenaltySuffixPublishWithoutAWait(\"penalty_return_before\")",
+        "Status": "Passed",
+        "Duration": "00:00:01.5840000"
+      },
+      {
+        "Name": "Biathlon.Tests.PacingCalibrationTests.LongTrackContextsHaveCanonicalZeroAndMatchCli",
+        "Status": "Passed",
+        "Duration": "00:00:00.0710000"
+      }
+    ]
+  }
+}

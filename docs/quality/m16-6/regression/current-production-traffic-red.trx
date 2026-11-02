@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="05999185-94b3-4a5b-a624-3a276cbe150b" name="snkashkin@DESKTOP-G3075GA 2026-11-01 22:03:46" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T22:03:46.2038055+03:00" queuing="2026-11-01T22:03:46.2038056+03:00" start="2026-11-01T21:56:44.4705926+03:00" finish="2026-11-01T22:06:24.2918116+03:00" />
+  <TestSettings name="default" id="7d4700b0-0e2a-40cf-b1f0-b1af6b167aec">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-11-01_22_03_46" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1656e254-ea39-4307-98f4-fd2c3411f032" testId="96b65837-cbf5-0dd8-9165-8b95124c16bc" testName="ActualQualifiedPursuitThirtyClearsTheMainAndPenaltyReturnWithoutCircularWait" computerName="DESKTOP-G3075GA" duration="00:07:00.5737910" startTime="2026-11-01T21:56:45.5996011+03:00" endTime="2026-11-01T22:03:46.1733604+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1656e254-ea39-4307-98f4-fd2c3411f032">
+      <Output>
+        <ErrorInfo>
+          <Message>  The real range-frontage merge must be exercised.&#xD;
+  Expected: greater than 0&#xD;
+  But was:  0&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.RangeWorldTrafficTests.ActualQualifiedPursuitThirtyClearsTheMainAndPenaltyReturnWithoutCircularWait() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RangeWorldTrafficTests.cs:line 445&#xD;
+
+1)    at Biathlon.Tests.RangeWorldTrafficTests.ActualQualifiedPursuitThirtyClearsTheMainAndPenaltyReturnWithoutCircularWait() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RangeWorldTrafficTests.cs:line 445&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d303d373-a350-4f9b-85e1-924dba2cb79a" testId="5e7449a4-7845-f66c-6209-c55892931639" testName="ActualSprintThirtyPrefixDoesNotTrapTheFieldBeforeItsBranchSeam" computerName="DESKTOP-G3075GA" duration="00:02:37.9625890" startTime="2026-11-01T22:03:46.1740280+03:00" endTime="2026-11-01T22:06:24.1366165+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d303d373-a350-4f9b-85e1-924dba2cb79a">
+      <Output>
+        <StdOut>sprint30_branch_frames=3993 maximum_stationary_ticks=8129</StdOut>
+        <ErrorInfo>
+          <Message>  The observed 5795-tick branch trap must not recur. This prefix does not establish full-race completion.&#xD;
+  Expected: less than 1000&#xD;
+  But was:  8129&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.RangeWorldTrafficTests.ActualSprintThirtyPrefixDoesNotTrapTheFieldBeforeItsBranchSeam() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RangeWorldTrafficTests.cs:line 150&#xD;
+
+1)    at Biathlon.Tests.RangeWorldTrafficTests.ActualSprintThirtyPrefixDoesNotTrapTheFieldBeforeItsBranchSeam() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\RangeWorldTrafficTests.cs:line 150&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ActualSprintThirtyPrefixDoesNotTrapTheFieldBeforeItsBranchSeam" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\fixturebin3\biathlon.tests.dll" id="5e7449a4-7845-f66c-6209-c55892931639">
+      <Execution id="d303d373-a350-4f9b-85e1-924dba2cb79a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\fixturebin3\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RangeWorldTrafficTests" name="ActualSprintThirtyPrefixDoesNotTrapTheFieldBeforeItsBranchSeam" />
+    </UnitTest>
+    <UnitTest name="ActualQualifiedPursuitThirtyClearsTheMainAndPenaltyReturnWithoutCircularWait" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\fixturebin3\biathlon.tests.dll" id="96b65837-cbf5-0dd8-9165-8b95124c16bc">
+      <Execution id="1656e254-ea39-4307-98f4-fd2c3411f032" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\fixturebin3\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.RangeWorldTrafficTests" name="ActualQualifiedPursuitThirtyClearsTheMainAndPenaltyReturnWithoutCircularWait" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="96b65837-cbf5-0dd8-9165-8b95124c16bc" executionId="1656e254-ea39-4307-98f4-fd2c3411f032" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5e7449a4-7845-f66c-6209-c55892931639" executionId="d303d373-a350-4f9b-85e1-924dba2cb79a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\fixturebin3\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+sprint30_branch_frames=3993 maximum_stationary_ticks=8129&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="48d326e9-9acc-4b59-b2bf-fb8b7af07bbe" name="snkashkin@DESKTOP-G3075GA 2026-11-01 21:51:48" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-01T21:51:48.2150796+03:00" queuing="2026-11-01T21:51:48.2150798+03:00" start="2026-11-01T21:51:43.2998187+03:00" finish="2026-11-01T21:51:53.7159621+03:00" />
+  <TestSettings name="default" id="fbd3d4b2-1748-4e34-b11c-75876bc49a75">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-11-01_21_51_48" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="10337759-5da2-412b-a28e-3fa10160c11a" testId="2c98da97-17ab-6ba4-a1e8-cab4fdf220b3" testName="ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(3)" computerName="DESKTOP-G3075GA" duration="00:00:05.4289050" startTime="2026-11-01T21:51:48.1846742+03:00" endTime="2026-11-01T21:51:53.6135792+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="10337759-5da2-412b-a28e-3fa10160c11a">
+      <Output>
+        <StdOut>finish actor=1 seconds=876,0996576271999 tick=17522 frequency=20 arc=0 speed=8,352531043&#xD;
+physical_suffix=0,002859939155356983</StdOut>
+        <ErrorInfo>
+          <Message>  The real remainder after crossing must move onto the runway.&#xD;
+  Expected: greater than 0&#xD;
+  But was:  0&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualActualFinishTests.ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(Int32 count) in C:\game\Biathlon\Biathlon\artifacts\m16-6\baseline-1717c530\Assets\Tests\EditMode\ManualActualFinishTests.cs:line 36&#xD;
+   at InvokeStub_ManualActualFinishTests.ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(Object, Span`1)&#xD;
+
+1)    at Biathlon.Tests.ManualActualFinishTests.ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(Int32 count) in C:\game\Biathlon\Biathlon\artifacts\m16-6\baseline-1717c530\Assets\Tests\EditMode\ManualActualFinishTests.cs:line 36&#xD;
+   at InvokeStub_ManualActualFinishTests.ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(Object, Span`1)&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d623febd-f9f2-49b6-a726-ab18db2164a0" testId="a1026511-d7e6-24fc-a2fa-8ce65370b233" testName="ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(1)" computerName="DESKTOP-G3075GA" duration="00:00:04.2346920" startTime="2026-11-01T21:51:43.9493739+03:00" endTime="2026-11-01T21:51:48.1840380+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d623febd-f9f2-49b6-a726-ab18db2164a0">
+      <Output>
+        <StdOut>finish actor=0 seconds=909,4333571503499 tick=18189 frequency=20 arc=128458669 speed=7,681997475&#xD;
+physical_suffix=0,12845866915534998&#xD;
+Complete manual race: actors=1; tick=18189</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(3)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\baseline-probe8\biathlon.tests.dll" id="2c98da97-17ab-6ba4-a1e8-cab4fdf220b3">
+      <Execution id="10337759-5da2-412b-a28e-3fa10160c11a" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\baseline-probe8\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualActualFinishTests" name="ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(3)" />
+    </UnitTest>
+    <UnitTest name="ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(1)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\baseline-probe8\biathlon.tests.dll" id="a1026511-d7e6-24fc-a2fa-8ce65370b233">
+      <Execution id="d623febd-f9f2-49b6-a726-ab18db2164a0" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\baseline-probe8\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualActualFinishTests" name="ARealManualRaceCompletesAllBoutsAndCrossesTheFinish(1)" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="2c98da97-17ab-6ba4-a1e8-cab4fdf220b3" executionId="10337759-5da2-412b-a28e-3fa10160c11a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a1026511-d7e6-24fc-a2fa-8ce65370b233" executionId="d623febd-f9f2-49b6-a726-ab18db2164a0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="1" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\baseline-probe8\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 2 of 2 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+finish actor=0 seconds=909,4333571503499 tick=18189 frequency=20 arc=128458669 speed=7,681997475&#xD;
+physical_suffix=0,12845866915534998&#xD;
+Complete manual race: actors=1; tick=18189&#xD;
+&#xD;
+finish actor=1 seconds=876,0996576271999 tick=17522 frequency=20 arc=0 speed=8,352531043&#xD;
+physical_suffix=0,002859939155356983&#xD;
+&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

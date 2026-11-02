@@ -17,3 +17,9 @@ Windows fullscreen review build, append-only PROJECT_STATE entry and scoped
 GitHub publication. The complete milestone remains open for owner testing.
 
 2026-11-01: all four feature stages implemented and qualified in focused/native/standalone runs. Legacy broad-regression repair continues in this task by explicit owner instruction. M16.6 remains OPEN; no globally green suite claim. Latest review: Builds/M16_6_4_Training_Review/START_TEST.cmd.
+
+2026-11-02: recover historical fixture inputs (ADR-0089), version the complete
+start-world union and exact finite snow-intent search (ADR-0090). Fresh current
+full assembly/native replay qualification is running. Historical equipment-stage
+run was stopped as obsolete after2078passed/71failed; it is not acceptance for
+current code. Next review build M16.6.5 pending qualification and GitHub push.
