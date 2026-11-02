@@ -156,7 +156,8 @@ namespace Biathlon.Simulation
         public long PrecisionFallbackTicks { get; private set; }
         public string ContextJson { get; private set; }
         private readonly bool completeStartCorridorProof;
-        public int StartContinuationVersion=>completeStartCorridorProof&&startContinuation!=null?1:0;
+        private readonly int startProofVersion;
+        public int StartContinuationVersion=>startContinuation!=null?startProofVersion:0;
         public RaceWeatherTimeline WeatherTimeline {get;private set;}
         public void BindWeather(RaceWeatherTimeline timeline,TrackVisualDefinition geometry=null)
         {
@@ -370,9 +371,11 @@ namespace Biathlon.Simulation
             PhysicalRangeFieldLayout rangeLayout = null, bool authoredStartApproach = false,
             PhysicalStartContinuationDefinition startContinuation = null, bool reusableRangeMats = false, bool routeBoundJunctions = false,
             PhysicalDirectedPassageDefinition directedPassages = null,
-            PhysicalSharedApronDefinition sharedApron = null, TrackVisualDefinition sharedApronVisual = null, VenueRangeLayout sharedApronRange = null,bool completeStartCorridorProof=false)
+            PhysicalSharedApronDefinition sharedApron = null, TrackVisualDefinition sharedApronVisual = null, VenueRangeLayout sharedApronRange = null,bool completeStartCorridorProof=false,int startContinuationVersion=2)
         {
-            this.completeStartCorridorProof=completeStartCorridorProof;
+            if(startContinuationVersion<0||startContinuationVersion>2)throw new ArgumentOutOfRangeException(nameof(startContinuationVersion));
+            startProofVersion=completeStartCorridorProof?startContinuationVersion:0;
+            this.completeStartCorridorProof=startProofVersion>0;
             this.junctionDefinition=junctionDefinition;
             if (rangeLayout != null && (rangeLanes != null || !rangeLayout.IsBoundTo(track, route)))
                 throw new ArgumentException("One exact authored range layout is required.", nameof(rangeLayout));
@@ -390,7 +393,8 @@ namespace Biathlon.Simulation
                 _ = new PhysicalSharedApronMapV2(rangeLayout.GetPath(0).PhysicalMap,track,route,profile,rangeLayout,
                     sharedApronVisual,junctionDefinition,connectionDefinition,body,sharedApron,1.0/config.TickFrequency,0);
                 if(sharedApron.PenaltyWorldMergeCount>0)
-                    rangeWorldTraffic=new PhysicalRangeWorldTrafficMap(rangeLayout.GetPath(0).PhysicalMap,track,route,sharedApronVisual,rangeLayout,junctionDefinition,connectionDefinition,body,sharedApron);
+                    rangeWorldTraffic=new PhysicalRangeWorldTrafficMap(rangeLayout.GetPath(0).PhysicalMap,track,route,sharedApronVisual,rangeLayout,junctionDefinition,connectionDefinition,body,sharedApron,
+                        startProofVersion>=2&&startContinuation!=null?startApproach?.LoopId:null);
                 if(sharedApronRange!=null)
                 {
                     if(sharedApronRange.MatDefinition==null||sharedApronRange.Forward==null||Math.Abs(sharedApronRange.Forward.Y)>1e-9)
@@ -620,7 +624,7 @@ namespace Biathlon.Simulation
                 "reachable_physical_ports_v1;preserve_self_crossings;reject_unbound_points;full_source_region_indices"});
             if(this.startContinuation!=null)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,new[]{
                 this.startContinuation.ContextJson,"front_incoming_endpoint_until_accepted_handoff_v2_parallel_source_bodies"});
-            if(StartContinuationVersion==1)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,"start_continuation_all_captured_ports_world_proof_v2");
+            if(StartContinuationVersion>=1)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,"start_continuation_all_captured_ports_world_proof_v2");
             if(this.directedPassages!=null)
             {
                 var coverage=new string[passageSharing.Length+1];

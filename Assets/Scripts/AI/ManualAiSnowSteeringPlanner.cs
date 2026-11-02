@@ -10,18 +10,33 @@ namespace Biathlon.AI
     {
         private readonly ManualSkiSteeredSnowSystem snow;
         private readonly double seconds;
+        private readonly bool completeSearch;
+        public int SearchVersion=>completeSearch?1:0;
+        public int LastPreviewCount {get;private set;}
         public string ContextJson {get;}
-        public ManualAiSnowSteeringPlanner(OccupancyDefinition body,ManualSkiSteeringDefinition steering,int frequency)
+        public ManualAiSnowSteeringPlanner(OccupancyDefinition body,ManualSkiSteeringDefinition steering,int frequency,bool completeSearch=true)
         {
+            this.completeSearch=completeSearch;
             snow=new ManualSkiSteeredSnowSystem(body,steering,frequency);seconds=1.0/frequency;
-            ContextJson=ManualScopedAiMovement.Encode(new[]{"manual_ai_snow_yaw_intent_v3_minimum_equal_deflection",snow.ContextJson,
+            ContextJson=ManualScopedAiMovement.Encode(new[]{completeSearch?"manual_ai_snow_yaw_intent_v4_complete_integer_domain":"manual_ai_snow_yaw_intent_v3_minimum_equal_deflection",snow.ContextJson,
+                completeSearch?"nominal_retained_inside_signed_endpoint_envelope;actual_slip_spin;complete_signed_integer_domain;minimum_error_then_absolute_deflection;negative_before_positive_tie;intent_only;shared_force_cost":
                 "nominal_retained_inside_signed_endpoint_envelope;unreached_spin_uses_bounded_signed_endpoint;diagnostic_two_signed_error_searches_and_exact_neutral;actual_slip_spin;closest_sampled_shared_yaw;bounded_integer_search;not_global_monotonic_inversion;intent_only;shared_force_cost"});
         }
         public int Plan(ManualSkiContactBody body,SkiContactMotion motion,double targetYawRate,double lateralAcceleration,double response=1)
         {
             PhysiologyNumbers.RequireRange(targetYawRate,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,nameof(targetYawRate));
+            LastPreviewCount=0;
             double neutral=At(0);if(targetYawRate==neutral)return 0;
             int best=0;double error=Math.Abs(neutral-targetYawRate);
+            if(completeSearch)
+            {
+                // Shared slip/spin response can have several extrema even on
+                // one signed half. Enumerate the existing finite actuator domain
+                // in increasing deflection; the first exact pair is minimal.
+                for(int magnitude=1;magnitude<=ManualSkiCommand.SteeringUnits;magnitude++)
+                {Score(-magnitude,At(-magnitude));Score(magnitude,At(magnitude));if(error==0)return best;}
+                return best;
+            }
             Search(-ManualSkiCommand.SteeringUnits,-1);
             Search(1,ManualSkiCommand.SteeringUnits);
             return best;
@@ -43,7 +58,7 @@ namespace Biathlon.AI
                 double e=Math.Abs(yaw-targetYawRate);
                 if(e<error||e==error&&Math.Abs(command)<Math.Abs(best)){best=command;error=e;}
             }
-            double At(int command)=>snow.Preview(body,motion,command,lateralAcceleration,seconds,response).Snow.Motion.YawRate;
+            double At(int command){LastPreviewCount++;return snow.Preview(body,motion,command,lateralAcceleration,seconds,response).Snow.Motion.YawRate;}
         }
         public int CorrectUnreachedYaw(ManualSkiContactBody body,SkiContactMotion motion,int nominalCommand,
             double targetYawRate,double lateralAcceleration,double response=1)

@@ -9,6 +9,21 @@ namespace Biathlon.Tests
 {
     public class VenuePathWorldValidationTests
     {
+        [TestCase(true,true)][TestCase(false,true)][TestCase(true,false)]
+        public void ProductionRangeOverlapRequiresEitherCompleteWorldAdmissionOrWholeLocalGuards(bool completeWorld,bool capturedStart)
+        {
+            const string root="Biathlon/Venues/woodland_basin_v1/";
+            string Read(string id)
+            {
+                string json=PhysiologyContractTests.ProjectFile("Assets/Resources/"+id+".json");
+                if(!capturedStart&&id==root+"manifest")json=System.Text.RegularExpressions.Regex.Replace(json,",?\\s*\"start_continuation_resource\"\\s*:\\s*\"[^\"]*\"","");
+                return !completeWorld&&id==root+"shared_apron"?System.Text.RegularExpressions.Regex.Replace(json,",?\\s*\"penalty_world_merge_junctions\"\\s*:\\s*\\[[^\\]]*\\]",""):json;
+            }
+            var plan=new VenueAuthoringPlan(VenueManifest.FromJson(Read(root+"manifest")),Read);
+            var report=VenueValidator.Validate(plan,VenueValidationPolicy.FromJson(Read("Biathlon/Venues/production_venue_validation_v1")),_=>true);
+            Assert.That(report.Passed,Is.EqualTo(completeWorld&&capturedStart));
+            if(!completeWorld||!capturedStart){bool extent=false;for(int i=0;i<report.Count;i++)extent|=report.Get(i).Code=="junction.guard_extent";Assert.That(extent,Is.True,"Absent captured world-body admission must retain full guard requirements.");}
+        }
         private static VenueValidationReport Validate(Dictionary<string,string> resources=null,bool production=false,bool assets=true)
             =>VenueValidator.Validate(VenuePathAuthoringTests.Plan(resources),VenueValidatorTests.Policy(production),_=>assets);
         private static bool Has(VenueValidationReport report,string code)

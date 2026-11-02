@@ -34,8 +34,9 @@ namespace Biathlon.AI
         private readonly AiClimbRestartController[] climbRestart;
         private readonly double lowSpeedReference;
         public string ContextJson {get;}
+        public int SnowSearchVersion=>snowPlanner.SearchVersion;
         public ManualScopedAiMovement(ManualScopedFieldStepper stepper,ManualAiSteeringDefinition policy,
-            ManualSkiSteeringDefinition physicalSteering,PlayerCourseAssistanceDefinition playerAssistance=null)
+            ManualSkiSteeringDefinition physicalSteering,PlayerCourseAssistanceDefinition playerAssistance=null,bool completeSnowSearch=false)
         {
             this.stepper=stepper??throw new ArgumentNullException(nameof(stepper));
             if(policy==null||physicalSteering==null)throw new ArgumentNullException();
@@ -43,7 +44,7 @@ namespace Biathlon.AI
             lowSpeedReference=physicalSteering.MinimumSpeedForGripLimit;
             if(playerAssistance!=null)playerReturn=new PlayerCourseReturnSystem(playerAssistance,stepper.World.TickFrequency);
             corridor=new ManualAiObstacleCorridor(stepper.BodyDefinition);
-            snowPlanner=new ManualAiSnowSteeringPlanner(stepper.BodyDefinition,physicalSteering,stepper.World.TickFrequency);
+            snowPlanner=new ManualAiSnowSteeringPlanner(stepper.BodyDefinition,physicalSteering,stepper.World.TickFrequency,completeSnowSearch);
             steeringGrip=new CorneringSystem(stepper.CorneringDefinition,stepper.PhysicsDefinition);
             if(physicalSteering.ToJson()!=stepper.SteeringDefinitionJson)throw new ArgumentException("AI and movement must use the same physical steering definition.");
             int n=stepper.World.Count;controllers=new ManualAiSteeringController[n];catalogs=new ManualRacePathCatalog[n];steering=new int[n];

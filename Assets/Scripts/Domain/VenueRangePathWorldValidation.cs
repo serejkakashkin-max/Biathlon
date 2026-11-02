@@ -31,6 +31,8 @@ namespace Biathlon.Domain
             if(plan==null||policy==null||assetExists==null)throw new ArgumentNullException();
             if(!plan.UsesPhysicalPaths)throw new ArgumentException("Explicit physical path binding required.");
             var issues=new List<VenueValidationIssue>();var track=plan.Track;var paths=plan.Paths;var layout=plan.Manifest.Range;
+            bool completeRangeWorldAdmission=plan.SharedApron!=null&&plan.SharedApron.PenaltyWorldMergeCount>0&&plan.SharedApron.MatchesPresentation(plan.Visual);
+            bool capturedStart=plan.StartApproach!=null&&plan.StartContinuation!=null&&plan.StartContinuation.MatchesPresentation(plan.Visual);
             if(plan.StartContinuation!=null&&!plan.StartContinuation.MatchesPresentation(plan.Visual))
                 issues.Add(new VenueValidationIssue("start_continuation.presentation_mismatch","start_continuation",
                     "Rendering geometry differs from the authoritative start continuation corridors."));
@@ -171,6 +173,15 @@ namespace Biathlon.Domain
                     }
                     common|=hasA&&hasB;covered|=Covers(junction,a.Loop,alo,ahi,track.GetLoop(a.Loop))&&Covers(junction,b.Loop,blo,bhi,track.GetLoop(b.Loop));
                 }
+                // Production's complete range-world operator checks these exact
+                // captured cross-loop bodies before any local point guard. Its
+                // protection includes full receipts and seam tails, independent
+                // of whether a conservative port covers the entire road width.
+                // Same-loop crossings and unknown/non-range geometry still need
+                // their complete authored guards.
+                if(!covered&&completeRangeWorldAdmission&&a.Loop!=b.Loop&&
+                    (usage.ContainsKey(a.Loop)||a.Loop==track.Penalty.LoopId||capturedStart&&a.Loop==plan.StartApproach.LoopId)&&
+                    (usage.ContainsKey(b.Loop)||b.Loop==track.Penalty.LoopId||capturedStart&&b.Loop==plan.StartApproach.LoopId))covered=true;
                 if(!covered)Add(common?"junction.guard_extent":"junction.unprotected_crossing","crossings/"+a.Loop+"/"+a.Index+"/"+b.Loop+"/"+b.Index,
                     "World corridor overlap requires one shared region covering "+a.Loop+" "+F(alo)+".."+F(ahi)+"m and "+b.Loop+" "+F(blo)+".."+F(bhi)+"m, including configured body clearance.");
             }

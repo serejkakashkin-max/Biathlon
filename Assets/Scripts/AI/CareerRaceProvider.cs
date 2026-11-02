@@ -47,7 +47,7 @@ namespace Biathlon.AI
             {
                 var movement=ManualProductionFieldComposition.Create(runner.Field,prepared.Venue,prepared.ManualRead,prepared.CourseReactionPolicy);
                 runner.BindManualScopedCandidate(movement,ManualAiSteeringDefinition.FromJson(read("manual_ai_steering_v2.json")),
-                    ManualSkiSteeringDefinition.FromJson(read("manual_ski_steering_v2.json")),PlayerCourseAssistanceDefinition.FromJson(read("player_course_assistance_v1.json")));
+                    ManualSkiSteeringDefinition.FromJson(read("manual_ski_steering_v2.json")),PlayerCourseAssistanceDefinition.FromJson(read("player_course_assistance_v1.json")),completeSnowSearch:prepared.AiSnowSearchVersion==1);
             }
             while(!runner.Field.IsComplete){if(runner.Field.Tick.Value>=definition.MaximumTicks)throw new InvalidOperationException("Career race exceeded its tick budget.");runner.Step();}
             var result=prepared.CollectResult();
@@ -75,7 +75,7 @@ namespace Biathlon.AI
         public CareerPreparedRace Prepare(CareerSave snapshot,CareerCalendarEvent e,ulong seed,IRaceEventSink observedEvents=null,
             RaceWeatherPreset recordedWeather=null,bool legacyNeutralWeather=false,bool legacyMassStartOrder=false,
             ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.PassiveCurvedV26,bool legacySprintStartOrder=false,
-            string recordedEquipmentJson=null,bool legacyEquipment=false,string recordedTimelineJson=null,bool legacyFixedWeather=false,bool legacyStartContinuation=false,bool legacyWeatherHeading=false)
+            string recordedEquipmentJson=null,bool legacyEquipment=false,string recordedTimelineJson=null,bool legacyFixedWeather=false,bool legacyStartContinuation=false,bool legacyWeatherHeading=false,int startContinuationVersion=2,bool legacyAiSnowSearch=false)
         {
             if(snapshot==null||e==null)throw new ArgumentNullException();
             if(courseReactionPolicy!=ManualCourseReactionPolicy.LegacyV25&&courseReactionPolicy!=ManualCourseReactionPolicy.PassiveCurvedV26)
@@ -131,7 +131,7 @@ namespace Biathlon.AI
                         weather.SnowConditions(RaceSnowConditions.FromJson(read("race_snow_neutral_v1.json"))),raceRead,eventSink,new AiDecisionCounts(),
                     qualification,roster.Count,definition.TickFrequency,seed,entrants,personalities,forms,pressures,
                     raceWind:weather==null?default:new WindVector(weather.WindEast,weather.WindNorth),
-                    massStartNumberFromRight:!legacyMassStartOrder&&career.Calendar.MassStartNumberFromRight,completeStartCorridorProof:!legacyStartContinuation);
+                    massStartNumberFromRight:!legacyMassStartOrder&&career.Calendar.MassStartNumberFromRight,completeStartCorridorProof:!legacyStartContinuation,startContinuationVersion:startContinuationVersion);
             }
             else runner=ChampionshipRaceFactory.Create(raceRead,fixture,e.Format,eventSink,new AiDecisionCounts(),qualification,roster.Count,definition.TickFrequency,seed,entrants,personalities,forms,pressures);
             if(recordedTimelineJson!=null)
@@ -142,7 +142,7 @@ namespace Biathlon.AI
             else if(weather!=null&&!legacyFixedWeather&&recordedWeather==null)runner.BindWeather(career.WeatherPolicy.Create(weather,seed),legacyWeatherHeading?null:venue?.Visual);
             Func<string,string> manualRead=!legacyMassStartOrder&&weather?.CourseContactResource!=null?
                 n=>raceRead(n=="manual_course_contact_gameplay_v2.json"?weather.CourseContactResource:n):raceRead;
-            return new CareerPreparedRace(snapshot.SeasonId,snapshot.PlayerId,e,seed,runner,audit,venue,weather,manualRead,courseReactionPolicy,equipment);
+            return new CareerPreparedRace(snapshot.SeasonId,snapshot.PlayerId,e,seed,runner,audit,venue,weather,manualRead,courseReactionPolicy,equipment,legacyAiSnowSearch?0:1);
         }
         private sealed class ObservedEvents:IRaceEventSink
         {
@@ -163,11 +163,13 @@ namespace Biathlon.AI
         public RaceWeatherTimeline Timeline=>Runner.Field.WeatherTimeline;
         public Func<string,string> ManualRead {get;}
         public ManualCourseReactionPolicy CourseReactionPolicy {get;}
+        public int AiSnowSearchVersion {get;}
         public int PlayerIndex { get; }
         internal BalanceEventAudit Audit { get; }
         private readonly string seasonId;
-        internal CareerPreparedRace(string seasonId,string playerId,CareerCalendarEvent e,ulong seed,PackAiRaceRunner runner,BalanceEventAudit audit,VenueAuthoringPlan venue,RaceWeatherPreset weather,Func<string,string> manualRead,ManualCourseReactionPolicy courseReactionPolicy,CareerEquipmentCatalog equipment)
+        internal CareerPreparedRace(string seasonId,string playerId,CareerCalendarEvent e,ulong seed,PackAiRaceRunner runner,BalanceEventAudit audit,VenueAuthoringPlan venue,RaceWeatherPreset weather,Func<string,string> manualRead,ManualCourseReactionPolicy courseReactionPolicy,CareerEquipmentCatalog equipment,int aiSnowSearchVersion)
         {
+            AiSnowSearchVersion=aiSnowSearchVersion;
             this.seasonId=seasonId;Event=e;Seed=seed;Runner=runner;Audit=audit;Venue=venue;Weather=weather;Equipment=equipment;ManualRead=manualRead;CourseReactionPolicy=courseReactionPolicy;PlayerIndex=-1;
             for(int i=0;i<runner.Field.Count;i++)if(runner.Field.GetAthlete(i).AthleteId.Value==playerId)PlayerIndex=i;
         }

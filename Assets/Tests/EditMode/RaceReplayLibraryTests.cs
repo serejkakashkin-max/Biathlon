@@ -31,5 +31,9 @@ namespace Biathlon.Tests
             var info=Info();info.CommandSha256=new string('b',64);info.StartOrderVersion=version;
             Assert.Throws<System.Runtime.Serialization.SerializationException>(()=>info.ToJson());
         }
+        [TestCase(-1)][TestCase(3)]public void UnsupportedStartContinuationVersionCannotBePublished(int version)
+        {var info=Info();info.CommandSha256=new string('b',64);info.StartContinuationVersion=version;Assert.Throws<System.Runtime.Serialization.SerializationException>(()=>info.ToJson());}
+        [TestCase(-1)][TestCase(2)]public void UnsupportedSnowSearchVersionCannotBePublished(int version)
+        {var info=Info();info.CommandSha256=new string('b',64);info.AiSnowSearchVersion=version;Assert.Throws<System.Runtime.Serialization.SerializationException>(()=>info.ToJson());}
     }
 }

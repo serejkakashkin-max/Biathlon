@@ -105,5 +105,18 @@ namespace Biathlon.Tests
             Assert.Throws<ArgumentOutOfRangeException>(()=>planner.Plan(body,motion,0,-1));
             Assert.Throws<ArgumentException>(()=>planner.Plan(default,motion,0,3));
         }
+        [Test] public void CompleteSearchFindsTheAttainableInteriorWhileLegacyJournalsKeepTheirOldChoice()
+        {
+            var body=new ManualSkiContactBody(new AthleteId("search_revision"),new ManualSkiHeadingState(0,0,0,.35),new SkiPlanarVelocity(.2,3),75);
+            var motion=new SkiContactMotion(body.Velocity,.35);var steering=ManualScopedFieldStepperTests.Steering();
+            var snow=new ManualSkiSteeredSnowSystem(Body,steering,20);double target=snow.Preview(body,motion,217,3,.05).Snow.Motion.YawRate;
+            var old=new ManualAiSnowSteeringPlanner(Body,steering,20,completeSearch:false);var current=Planner();
+            Assert.That(old.Plan(body,motion,target,3),Is.EqualTo(563),"Exact recorded v3 policy, including its non-global search.");
+            int selected=current.Plan(body,motion,target,3);
+            Assert.That(snow.Preview(body,motion,selected,3,.05).Snow.Motion.YawRate,Is.EqualTo(target).Within(1e-12));
+            Assert.That(current.LastPreviewCount,Is.InRange(1,2*ManualSkiCommand.SteeringUnits+1));
+            Assert.That(old.SearchVersion,Is.Zero);Assert.That(current.SearchVersion,Is.EqualTo(1));
+            Assert.That(old.ContextJson,Does.Contain("intent_v3"));Assert.That(current.ContextJson,Does.Contain("intent_v4"));
+        }
     }
 }

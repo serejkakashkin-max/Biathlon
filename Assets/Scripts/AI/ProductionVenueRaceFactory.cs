@@ -14,7 +14,7 @@ namespace Biathlon.AI
             RaceRoutePlan routePlan, RaceSnowConditions conditions, Func<string,string> read, IRaceEventSink events, IAiDecisionSink telemetry,
             PursuitQualificationSnapshot qualification=null, int count=30, int frequency=20, ulong seed=123,
             SprintEntrant[] suppliedEntrants=null, AiPersonalityDefinition[] suppliedPersonalities=null,
-            double[] raceForms=null, ShootingPressureContext[] racePressures=null,WindVector raceWind=default,bool massStartNumberFromRight=false,bool completeStartCorridorProof=true)
+            double[] raceForms=null, ShootingPressureContext[] racePressures=null,WindVector raceWind=default,bool massStartNumberFromRight=false,bool completeStartCorridorProof=true,int startContinuationVersion=2)
         {
             if(venue==null||profile==null||routePlan==null||conditions==null||read==null||events==null||telemetry==null)
                 throw new ArgumentNullException();
@@ -78,7 +78,7 @@ namespace Biathlon.AI
                 reusableRangeMats:reusableMats,
                 routeBoundJunctions:venue.Formats!=null,directedPassages:directedPassages,
                 sharedApron:venue.SharedApron,sharedApronVisual:venue.SharedApron==null?null:venue.Visual,
-                sharedApronRange:venue.SharedApron==null?null:venue.Manifest.Range,completeStartCorridorProof:completeStartCorridorProof);
+                sharedApronRange:venue.SharedApron==null?null:venue.Manifest.Range,completeStartCorridorProof:completeStartCorridorProof,startContinuationVersion:startContinuationVersion);
             // AI chooses tuck from downhill geometry. The shared field still
             // uses the owner's freely requested posture and identical costs.
             Func<string,string> aiRead=name=>name=="pace_controller_provisional_v1.json"&&venue.AiSkiPolicy?.PaceControllerResource!=null?read(venue.AiSkiPolicy.PaceControllerResource):

@@ -24,7 +24,7 @@ namespace Biathlon.Simulation
         public string ContextJson {get;}
         public PhysicalRangeWorldTrafficMap(PhysicalTrackMap map,TrackDefinition track,RaceRoute route,
             TrackVisualDefinition visual,PhysicalRangeFieldLayout layout,PhysicalJunctionDefinition junctions,
-            PhysicalConnectionDefinition connections,OccupancyDefinition body,PhysicalSharedApronDefinition definition)
+            PhysicalConnectionDefinition connections,OccupancyDefinition body,PhysicalSharedApronDefinition definition,string capturedStartLoop=null)
         {
             if(map==null||track==null||route==null||visual==null||layout==null||junctions==null||connections==null||body==null||definition==null)throw new ArgumentNullException();
             if(definition.PenaltyWorldMergeCount==0||!map.IsBoundTo(track,route)||!layout.IsBoundTo(track,route)||
@@ -34,6 +34,7 @@ namespace Biathlon.Simulation
                 throw new ArgumentException("Exact named range-world geometry and provenance required.");
             this.map=map;this.track=track;this.visual=visual;this.body=body;
             var loops=new HashSet<string>(StringComparer.Ordinal){track.Penalty.LoopId};
+            if(capturedStartLoop!=null){track.GetLoop(capturedStartLoop);loops.Add(capturedStartLoop);}
             var paidLoops=new HashSet<string>(StringComparer.Ordinal);
             for(int s=0;s<route.SectionCount;s++){string loop=route.GetSection(s).LoopId;loops.Add(loop);paidLoops.Add(loop);}
             paidRouteLoops=new bool[track.LoopCount];
@@ -107,6 +108,7 @@ namespace Biathlon.Simulation
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{definition.ToJson(),track.ToJson(),visual.ToJson(),route.PlanSnapshotJson,route.RequirementsSnapshotJson,
                 connections.ToJson(),body.ToJson(),definition.ValidationPolicy.ToJson(),
                 "named_range_penalty_world_bodies_v4;paid_route_loops_and_range_paths;full_paid_receipts;ordinary_ski_rectangle;all_body_headings_on_mat_and_mat_tails_only;whole_interval_and_knots;unsplit_wrap_exclusive;incoming_tail_exact_shortest_rotation;periodic_seam_rotation;single_incident_same_loop_junction_requires_complete_world_body_proof;captured_single_port_per_loop_branches_require_complete_world_body_proof;self_crossing_ports_exclusive;same_loop_occupancy_retained;ibu7_1_4_penalty_over_entering"});
+            if(capturedStartLoop!=null)ContextJson=ShootingModelDefinitions.AppendContext(ContextJson,"captured_start_and_all_paid_corridors_world_union_v5",capturedStartLoop);
         }
         public bool Applies(int junction)=>applicable[junction];
         public bool IsPenaltyRegion(int junction)=>penaltyRegions[junction];

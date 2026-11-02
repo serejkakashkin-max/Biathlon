@@ -82,11 +82,11 @@ namespace Biathlon.AI
         private double manualPlayerBrake;
         public bool UsesManualScopedCandidate=>manualCandidate!=null;
         public void BindManualScopedCandidate(ManualScopedFieldStepper stepper,ManualAiSteeringDefinition aiPolicy,
-            ManualSkiSteeringDefinition physicalSteering,PlayerCourseAssistanceDefinition playerAssistance=null)
+            ManualSkiSteeringDefinition physicalSteering,PlayerCourseAssistanceDefinition playerAssistance=null,bool completeSnowSearch=false)
         {
             if(stepper==null||!ReferenceEquals(stepper.Field,Field)||manualCandidate!=null||Field.Tick.Value!=0||IsFaulted)
                 throw new ArgumentException("One exact initial manual candidate binding required.");
-            var candidate=new ManualScopedAiMovement(stepper,aiPolicy,physicalSteering,playerAssistance);
+            var candidate=new ManualScopedAiMovement(stepper,aiPolicy,physicalSteering,playerAssistance,completeSnowSearch);
             // Preserve the existing flat context tokens. Nesting that already
             // large document as an escaped string multiplies its size at every
             // composition layer and can exhaust memory for the actual Mass30.
@@ -97,6 +97,7 @@ namespace Biathlon.AI
         }
         public int GetLastManualSteering(int index)=>manualCandidate==null?throw new InvalidOperationException("No signed manual movement selected."):
             manualCandidate.GetSteering(index);
+        public int AiSnowSearchVersion=>manualCandidate?.SnowSearchVersion??0;
         public double GetLastManualBrake(int index)=>manualCandidate==null?throw new InvalidOperationException("No signed manual movement selected."):
             manualCandidate.GetBrakeFraction(index);
         public long TacticalDecisions { get; private set; }
@@ -293,7 +294,7 @@ namespace Biathlon.AI
                 var roster=placements.AsSpan(0,count); bool skiing=count>0 && observation.Phase==CompetitionPhase.Skiing;
                 bool onSharedStart=startTraffic!=null&&point.LoopId==Field.StartApproach.LoopId;
                 bool onStartContinuation=startTraffic!=null&&Field.TryGetStartContinuationObservation(i,out _);
-                bool stationary=actor.Motion.DistanceNanometers==previousObservedTravel[i]||Field.StartContinuationVersion==1&&startTraffic?.StationaryMaximumSpeed.HasValue==true&&actor.Motion.SpeedMetersPerSecond<=startTraffic.StationaryMaximumSpeed.Value;
+                bool stationary=actor.Motion.DistanceNanometers==previousObservedTravel[i]||Field.StartContinuationVersion>=1&&startTraffic?.StationaryMaximumSpeed.HasValue==true&&actor.Motion.SpeedMetersPerSecond<=startTraffic.StationaryMaximumSpeed.Value;
                 stationaryObservedTicks[i]=stationary?stationaryObservedTicks[i]+1:0;
                 previousObservedTravel[i]=actor.Motion.DistanceNanometers;
                 bool obstructionPass=false;
