@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="2421e528-6df1-4d8b-94af-f3fee2a93465" name="snkashkin@DESKTOP-G3075GA 2026-11-02 08:58:59" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-02T08:58:59.1278448+03:00" queuing="2026-11-02T08:58:59.1278452+03:00" start="2026-11-02T08:58:54.9438592+03:00" finish="2026-11-02T08:59:11.1606123+03:00" />
+  <TestSettings name="default" id="a6fe2eee-69ed-416a-8b0e-4c574f25f689">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-11-02_08_58_59" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="5e2c24f6-32f0-47e5-a8f6-7ede6f23ff89" testId="1fc7d91c-48e1-c13f-1499-624b0206a3f1" testName="MissingSchemaOrStableIdentityIsRejected" computerName="DESKTOP-G3075GA" duration="00:00:00.0021130" startTime="2026-11-02T08:59:05.0008182+03:00" endTime="2026-11-02T08:59:05.0029311+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5e2c24f6-32f0-47e5-a8f6-7ede6f23ff89" />
+    <UnitTestResult executionId="e089753e-5412-4104-97f0-2db891d948e5" testId="7e8e5356-ef16-06c1-fced-8ed297376549" testName="ActualMatWitnessPaysTheWholePhysicalStopBeforeFiringAdmission(0,43.503951769d,-0.842090308d,5.575993686d,-0.009613438781061018d,0.011248297473418782d)" computerName="DESKTOP-G3075GA" duration="00:00:03.4404230" startTime="2026-11-02T08:58:55.6464660+03:00" endTime="2026-11-02T08:58:59.0868532+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e089753e-5412-4104-97f0-2db891d948e5" />
+    <UnitTestResult executionId="17ebc05d-65db-4891-b84a-a077253db782" testId="9cbf0617-68c1-70ce-e404-aed506e173fe" testName="InvalidTerminalStripIsRejected(&quot;-1&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0004990" startTime="2026-11-02T08:59:04.9999451+03:00" endTime="2026-11-02T08:59:05.0004443+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="17ebc05d-65db-4891-b84a-a077253db782" />
+    <UnitTestResult executionId="b98e6d86-fd03-4c3c-a13e-18b6dcba67b1" testId="d80a58a5-def2-40e0-d139-9e18b661cc1c" testName="InvalidTerminalStripIsRejected(&quot;3.01&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0003280" startTime="2026-11-02T08:59:05.0004636+03:00" endTime="2026-11-02T08:59:05.0007910+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b98e6d86-fd03-4c3c-a13e-18b6dcba67b1" />
+    <UnitTestResult executionId="d34756a2-49d2-4aaa-825f-184a96df1eab" testId="f46329ca-4b9a-62e7-6319-632695d1c32d" testName="TerminalPolicyIsExplicitVersionedData" computerName="DESKTOP-G3075GA" duration="00:00:06.0325790" startTime="2026-11-02T08:59:05.0029541+03:00" endTime="2026-11-02T08:59:11.0355322+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d34756a2-49d2-4aaa-825f-184a96df1eab" />
+    <UnitTestResult executionId="33d2ea93-40f2-45d8-ad2b-935720e9acbb" testId="2b2a2cf0-7d84-302c-9c7a-dfdbc072357e" testName="FeasibleNeutralMinimumCannotLoseItsExactNullSpaceToEnergyRoundoff(5.43772393d,0.004111363d)" computerName="DESKTOP-G3075GA" duration="00:00:00.7388830" startTime="2026-11-02T08:59:03.4632294+03:00" endTime="2026-11-02T08:59:04.2021120+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="33d2ea93-40f2-45d8-ad2b-935720e9acbb" />
+    <UnitTestResult executionId="473795ce-0d9b-42a1-8f79-36da88436717" testId="00526c48-bdf3-8f8e-0d79-765889c44e44" testName="ActualMatWitnessPaysTheWholePhysicalStopBeforeFiringAdmission(2,37.530411878d,-0.571351258d,5.43772393d,-0.003076438922499671d,0.0027274206578918707d)" computerName="DESKTOP-G3075GA" duration="00:00:04.3742120" startTime="2026-11-02T08:58:59.0876555+03:00" endTime="2026-11-02T08:59:03.4618672+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="473795ce-0d9b-42a1-8f79-36da88436717" />
+    <UnitTestResult executionId="bf2f5fe1-aaf4-4e0b-836f-a0ab66db4851" testId="d5892ed3-63f5-324b-cb76-d5da4c841d6f" testName="FeasibleNeutralMinimumCannotLoseItsExactNullSpaceToEnergyRoundoff(5.575993686d,0.014796703d)" computerName="DESKTOP-G3075GA" duration="00:00:00.7919730" startTime="2026-11-02T08:59:04.2021460+03:00" endTime="2026-11-02T08:59:04.9941185+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bf2f5fe1-aaf4-4e0b-836f-a0ab66db4851" />
+    <UnitTestResult executionId="c62dcc28-fe63-446c-80eb-f73473cf6aa1" testId="33cef01f-6192-c568-4e84-8b6e4bcefb05" testName="InvalidTerminalStripIsRejected(&quot;0&quot;)" computerName="DESKTOP-G3075GA" duration="00:00:00.0056930" startTime="2026-11-02T08:59:04.9942308+03:00" endTime="2026-11-02T08:59:04.9999240+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c62dcc28-fe63-446c-80eb-f73473cf6aa1" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="MissingSchemaOrStableIdentityIsRejected" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\mat-boundary-bin\biathlon.tests.dll" id="1fc7d91c-48e1-c13f-1499-624b0206a3f1">
+      <Execution id="5e2c24f6-32f0-47e5-a8f6-7ede6f23ff89" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\mat-boundary-bin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualMatBrakingTests" name="MissingSchemaOrStableIdentityIsRejected" />
+    </UnitTest>
+    <UnitTest name="ActualMatWitnessPaysTheWholePhysicalStopBeforeFiringAdmission(2,37.530411878d,-0.571351258d,5.43772393d,-0.003076438922499671d,0.0027274206578918707d)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\mat-boundary-bin\biathlon.tests.dll" id="00526c48-bdf3-8f8e-0d79-765889c44e44">
+      <Execution id="473795ce-0d9b-42a1-8f79-36da88436717" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\mat-boundary-bin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualMatBrakingTests" name="ActualMatWitnessPaysTheWholePhysicalStopBeforeFiringAdmission(2,37.530411878d,-0.571351258d,5.43772393d,-0.003076438922499671d,0.0027274206578918707d)" />
+    </UnitTest>
+    <UnitTest name="ActualMatWitnessPaysTheWholePhysicalStopBeforeFiringAdmission(0,43.503951769d,-0.842090308d,5.575993686d,-0.009613438781061018d,0.011248297473418782d)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\mat-boundary-bin\biathlon.tests.dll" id="7e8e5356-ef16-06c1-fced-8ed297376549">
+      <Execution id="e089753e-5412-4104-97f0-2db891d948e5" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\mat-boundary-bin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualMatBrakingTests" name="ActualMatWitnessPaysTheWholePhysicalStopBeforeFiringAdmission(0,43.503951769d,-0.842090308d,5.575993686d,-0.009613438781061018d,0.011248297473418782d)" />
+    </UnitTest>
+    <UnitTest name="InvalidTerminalStripIsRejected(&quot;3.01&quot;)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\mat-boundary-bin\biathlon.tests.dll" id="d80a58a5-def2-40e0-d139-9e18b661cc1c">
+      <Execution id="b98e6d86-fd03-4c3c-a13e-18b6dcba67b1" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\mat-boundary-bin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualMatBrakingTests" name="InvalidTerminalStripIsRejected(&quot;3.01&quot;)" />
+    </UnitTest>
+    <UnitTest name="InvalidTerminalStripIsRejected(&quot;0&quot;)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\mat-boundary-bin\biathlon.tests.dll" id="33cef01f-6192-c568-4e84-8b6e4bcefb05">
+      <Execution id="c62dcc28-fe63-446c-80eb-f73473cf6aa1" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\mat-boundary-bin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualMatBrakingTests" name="InvalidTerminalStripIsRejected(&quot;0&quot;)" />
+    </UnitTest>
+    <UnitTest name="FeasibleNeutralMinimumCannotLoseItsExactNullSpaceToEnergyRoundoff(5.575993686d,0.014796703d)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\mat-boundary-bin\biathlon.tests.dll" id="d5892ed3-63f5-324b-cb76-d5da4c841d6f">
+      <Execution id="bf2f5fe1-aaf4-4e0b-836f-a0ab66db4851" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\mat-boundary-bin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualMatBrakingTests" name="FeasibleNeutralMinimumCannotLoseItsExactNullSpaceToEnergyRoundoff(5.575993686d,0.014796703d)" />
+    </UnitTest>
+    <UnitTest name="FeasibleNeutralMinimumCannotLoseItsExactNullSpaceToEnergyRoundoff(5.43772393d,0.004111363d)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\mat-boundary-bin\biathlon.tests.dll" id="2b2a2cf0-7d84-302c-9c7a-dfdbc072357e">
+      <Execution id="33d2ea93-40f2-45d8-ad2b-935720e9acbb" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\mat-boundary-bin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualMatBrakingTests" name="FeasibleNeutralMinimumCannotLoseItsExactNullSpaceToEnergyRoundoff(5.43772393d,0.004111363d)" />
+    </UnitTest>
+    <UnitTest name="InvalidTerminalStripIsRejected(&quot;-1&quot;)" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\mat-boundary-bin\biathlon.tests.dll" id="9cbf0617-68c1-70ce-e404-aed506e173fe">
+      <Execution id="17ebc05d-65db-4891-b84a-a077253db782" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\mat-boundary-bin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualMatBrakingTests" name="InvalidTerminalStripIsRejected(&quot;-1&quot;)" />
+    </UnitTest>
+    <UnitTest name="TerminalPolicyIsExplicitVersionedData" storage="c:\game\biathlon\biathlon\artifacts\m16-6\regression\mat-boundary-bin\biathlon.tests.dll" id="f46329ca-4b9a-62e7-6319-632695d1c32d">
+      <Execution id="d34756a2-49d2-4aaa-825f-184a96df1eab" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\mat-boundary-bin\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualMatBrakingTests" name="TerminalPolicyIsExplicitVersionedData" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="1fc7d91c-48e1-c13f-1499-624b0206a3f1" executionId="5e2c24f6-32f0-47e5-a8f6-7ede6f23ff89" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7e8e5356-ef16-06c1-fced-8ed297376549" executionId="e089753e-5412-4104-97f0-2db891d948e5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9cbf0617-68c1-70ce-e404-aed506e173fe" executionId="17ebc05d-65db-4891-b84a-a077253db782" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d80a58a5-def2-40e0-d139-9e18b661cc1c" executionId="b98e6d86-fd03-4c3c-a13e-18b6dcba67b1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f46329ca-4b9a-62e7-6319-632695d1c32d" executionId="d34756a2-49d2-4aaa-825f-184a96df1eab" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2b2a2cf0-7d84-302c-9c7a-dfdbc072357e" executionId="33d2ea93-40f2-45d8-ad2b-935720e9acbb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="00526c48-bdf3-8f8e-0d79-765889c44e44" executionId="473795ce-0d9b-42a1-8f79-36da88436717" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d5892ed3-63f5-324b-cb76-d5da4c841d6f" executionId="bf2f5fe1-aaf4-4e0b-836f-a0ab66db4851" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="33cef01f-6192-c568-4e84-8b6e4bcefb05" executionId="c62dcc28-fe63-446c-80eb-f73473cf6aa1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="9" executed="9" passed="9" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\artifacts\m16-6\regression\mat-boundary-bin\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 9 of 9 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

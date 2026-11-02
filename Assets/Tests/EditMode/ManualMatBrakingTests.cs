@@ -47,7 +47,10 @@ namespace Biathlon.Tests
         [TestCase(2,37.530411878,-.571351258,5.43772393,-.003076438922499671,.0027274206578918707)]
         public void ActualMatWitnessPaysTheWholePhysicalStopBeforeFiringAdmission(int index,double x,double z,double heading,double vx,double vz)
         {
-            var f=ManualScopedFieldStepperTests.InitialCandidate(3);var catalog=f.stepper.World.GetCatalog(index);
+            // This captured sub-millimetre stop tests the exact boundary law.
+            // Production's bounded mat-admission tolerance already owns this
+            // endpoint, so it cannot exercise the original near-double root.
+            var f=ManualScopedFieldStepperTests.InitialCandidate(3,exactMatBoundary:true);var catalog=f.stepper.World.GetCatalog(index);
             int occurrence=catalog.GetFiringOccurrence(0);var row=catalog.Get(occurrence);
             var pose=new ManualSkiHeadingState(x,z,heading);var velocity=new SkiPlanarVelocity(vx,vz);
             Assert.That(catalog.TryProject(pose,occurrence,row.LengthNanometers,1,out var at),Is.True);

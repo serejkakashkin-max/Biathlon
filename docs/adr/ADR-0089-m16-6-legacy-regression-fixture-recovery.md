@@ -46,3 +46,18 @@ and lock checks pass2/2; .NET model/calibration group passes63/63.
 Qualification continues. The complete discrete snow-intent search is a separate
 actual AI defect and requires its own versioned replay policy. Do not conflate
 that change with these input/expectation corrections.
+
+2026-11-02 full-assembly follow-up: the pinned historical penalty-yaw trajectory
+must select its original fixed weather. Dynamic fronts otherwise change the
+trajectory and erase its strict CoreCLR rejection oracle. Selecting only
+`legacyFixedWeather` restores the unchanged accepted tick15576, rejected world
+attempt and unpaid clock. Current-policy career races still use dynamic weather.
+
+The two captured sub-millimetre terminal-stop witnesses must select exact mat
+boundary geometry. The range integration helper now selects production's bounded
+admission policy by default, which already owns those tiny endpoint offsets.
+An explicit `exactMatBoundary` fixture option restores the original analytic
+near-double-root problem while keeping bounded admission for integration tests.
+Both full paid stopping durations, exact zero terminal motion and continuous
+gate proof remain strict. No gameplay tolerance, stopping law or expected runtime
+result is changed.

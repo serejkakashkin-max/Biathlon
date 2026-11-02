@@ -29,7 +29,9 @@ namespace Biathlon.Tests
             string VenueFile(string name)=>System.IO.File.ReadAllText(System.IO.Path.Combine(projectRoot,"Assets/Resources",name+".json"));
             var save=CareerSave.FromJson(System.IO.File.ReadAllText(System.IO.Path.Combine(projectRoot,Fixture)));
             var definitions=CareerDefinitions.ForSave(ReadFile,save);
-            var prepared=new CareerRaceProvider(ReadFile,definitions,VenueFile).Prepare(save,definitions.Calendar.AtWeek(save.Week),RaceSeed);
+            // This pinned pre-M16.6 trajectory is an oracle for the old yaw
+            // policy. New weather fronts must not change its physical inputs.
+            var prepared=new CareerRaceProvider(ReadFile,definitions,VenueFile).Prepare(save,definitions.Calendar.AtWeek(save.Week),RaceSeed,legacyFixedWeather:true);
             var runner=prepared.Runner;
             var movement=ManualProductionFieldComposition.Create(runner.Field,prepared.Venue,prepared.ManualRead,prepared.CourseReactionPolicy);
             runner.BindManualScopedCandidate(movement,ManualAiSteeringDefinition.FromJson(ReadFile("manual_ai_steering_v2.json")),

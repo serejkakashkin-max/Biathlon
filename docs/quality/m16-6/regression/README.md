@@ -42,3 +42,5 @@ packaged without rebuilding. Owner settings snapshots stay local/ignored.
 Actual fullscreen PASS/exit0,2560x1440,bib10,start5401/tick5405,3-2-1-0,owner
 profiles unchanged,errors empty.09-race.png inspected. No FPS/optional navigation
 claim. Full current assembly remains running; M16.6 OPEN, no globally green claim.
+
+2026-11-02 follow-up: full assembly found one historical-weather and two exact-mat fixture failures. Corrected input-only reruns: .NET1+9PASS, Unity10/10PASS, Console0errors. Original first-pass failures remain visible. Player unchanged; full assembly still pending. See ADR-0089 and historical-yaw-fixed-weather.trx, mat-exact-boundary.trx, native-historical-mat.json.
