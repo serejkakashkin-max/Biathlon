@@ -1,16 +1,16 @@
 # M16.6 — Career equipment, dynamic weather and training UI
 
 Owner brief: [M16_6_OWNER_TASK.md](M16_6_OWNER_TASK.md). Owner explicitly closed
-M16.5 on 2026-11-01. M16.6 OPEN, implementation authorized; M17 not started.
+M16.5 on 2026-11-01. M16.6 OPEN for owner review; implementation and automated qualification complete. M17 not started.
 Branch: `codex/m16-6-equipment-weather-training`, based on the actual current
 checkout at published M16.5 commit `1717c530` (no automatic main merge).
 
 | Stage | Status | Scope |
 | --- | --- | --- |
 | M16.6.1 — Appearance | COMPLETE / OWNER TEST PENDING | Complete no-goggles visibility, persistent identity-based rival profiles, legacy preservation, creator/race/LOD qualification |
-| M16.6.2 — Equipment/economy/shop | IMPLEMENTED / FULL REGRESSION RUNNING | 6–8 ski specializations, rifle slots and trade-offs, migration, fair AI purchases, two-season economy scenarios and shop UI |
-| M16.6.3 — Dynamic weather | IMPLEMENTED / OWNER TEST PENDING | Absolute race-time timeline, snow inertia, existing snow/equipment composition, forecast/owned ski selection, HUD/TAB and recorded replay compatibility |
-| M16.6.4 — Training UI | IMPLEMENTED / OWNER TEST PENDING | Six illustrated sport cards, existing preview-backed week plan, RU/EN/accessibility/keyboard/gamepad without changing training formulas |
+| M16.6.2 — Equipment/economy/shop | COMPLETE / OWNER TEST PENDING | 6–8 ski specializations, rifle slots and trade-offs, migration, fair AI purchases, two-season economy scenarios and shop UI |
+| M16.6.3 — Dynamic weather | COMPLETE / OWNER TEST PENDING | Absolute race-time timeline, snow inertia, existing snow/equipment composition, forecast/owned ski selection, HUD/TAB and recorded replay compatibility |
+| M16.6.4 — Training UI | COMPLETE / OWNER TEST PENDING | Six illustrated sport cards, existing preview-backed week plan, RU/EN/accessibility/keyboard/gamepad without changing training formulas |
 
 Each completed stage requires focused tests, native Unity verification, a new
 Windows fullscreen review build, append-only PROJECT_STATE entry and scoped
@@ -27,3 +27,5 @@ current code. Next review build M16.6.5 pending qualification and GitHub push.
 2026-11-02 latest review: Builds/M16_6_5_Regression_Review/START_TEST.cmd. Current35native policy/metadata/venue +5original-v25Edit cases,5Play replay/seek cases and actual fullscreen startup PASS. Full current.NET assembly still pending; M16.6 OPEN.
 
 2026-11-02 audit correction: previous full.NET run used unoptimized Debug and was stopped incomplete; canonical Release full assembly now pending. Third-exit600s timeout and all strict assertions restored unchanged after same-input configuration control. Current native full Mass/Pursuit repeats2/2PASS. M16.6 OPEN.
+
+2026-11-02 11:10 latest operational state: all feature stages and automated legacy repair complete. Full current Release2188PASS/0FAIL plus5Explicit separately PASS =2193unique cases; recent native52Edit/5PlayPASS, Console0errors. Original third-exit600s gate passes128.543s. Current fullscreen review Builds/M16_6_5_Regression_Review/START_TEST.cmd unchanged and qualified. See docs/quality/m16-6/regression/release-acceptance.json. M16.6 OPEN FOR OWNER REVIEW ONLY; M17 not started.

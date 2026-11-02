@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "id": "m16_6_complete_release_acceptance",
+  "status": "Passed",
+  "configuration": "Release",
+  "optimize": true,
+  "receipt": "release-final-assembly.trx",
+  "sha256": "1b73bd6d28990f7f434a9e17c14ddde1bb8a292ee40bf29c9649cf64cd17a9ec",
+  "times": {
+    "creation": "2026-11-02T09:54:33.7995614+03:00",
+    "queuing": "2026-11-02T09:54:33.7995615+03:00",
+    "start": "2026-11-02T09:54:32.9039451+03:00",
+    "finish": "2026-11-02T11:06:36.6088301+03:00"
+  },
+  "counters": {
+    "total": 2193,
+    "executed": 2188,
+    "passed": 2188,
+    "failed": 0,
+    "error": 0,
+    "timeout": 0,
+    "aborted": 0,
+    "inconclusive": 0,
+    "passedButRunAborted": 0,
+    "notRunnable": 0,
+    "notExecuted": 0,
+    "disconnected": 0,
+    "warning": 0,
+    "completed": 0,
+    "inProgress": 0,
+    "pending": 0
+  },
+  "explicit_diagnostic_skips": [
+    {
+      "name": "HeldWFirstRangePace",
+      "reason": "Bounded first-range production pace diagnostic."
+    },
+    {
+      "name": "FirstTwoLapsCpuProfile",
+      "reason": "Bounded two-bout CPU diagnostic, not a portable timing gate."
+    },
+    {
+      "name": "ThirtyAthleteRepeatedTimingQueryCpuProfile",
+      "reason": "Timing-query CPU diagnostic; no portable timing threshold."
+    },
+    {
+      "name": "ProductionPenaltyBotsKeepMovingAfterEdgeContact",
+      "reason": "Owner penalty-edge stall diagnostic on the actual production field."
+    },
+    {
+      "name": "FirstBoutAndThirtySecondsOfDepartureCpuProfile",
+      "reason": "Bounded CPU diagnostic; timings are evidence, not portable pass/fail thresholds."
+    }
+  ],
+  "critical_original_assertions": [
+    {
+      "testName": "ActualMatWitnessPaysTheWholePhysicalStopBeforeFiringAdmission(2,37.530411878d,-0.571351258d,5.43772393d,-0.003076438922499671d,0.0027274206578918707d)",
+      "outcome": "Passed",
+      "duration": "00:00:02.4818520"
+    },
+    {
+      "testName": "HistoricalYawPolicyRetainsItsRecordedRuntimeOutcome",
+      "outcome": "Passed",
+      "duration": "00:00:18.5591510"
+    },
+    {
+      "testName": "ActualMatWitnessPaysTheWholePhysicalStopBeforeFiringAdmission(0,43.503951769d,-0.842090308d,5.575993686d,-0.009613438781061018d,0.011248297473418782d)",
+      "outcome": "Passed",
+      "duration": "00:00:02.4410980"
+    },
+    {
+      "testName": "PlayerHeldAfterThirdBoutDoesNotProduceAStationaryFollowerQueue",
+      "outcome": "Passed",
+      "duration": "00:02:08.5434350"
+    }
+  ],
+  "native_groups": [
+    {
+      "receipt": "native-versioned-policies.json",
+      "mode": "EditMode",
+      "passed": 35
+    },
+    {
+      "receipt": "native-original-v25.json",
+      "mode": "EditMode",
+      "passed": 5
+    },
+    {
+      "receipt": "native-historical-mat.json",
+      "mode": "EditMode",
+      "passed": 10
+    },
+    {
+      "receipt": "native-current-races-explicit-budget.json",
+      "mode": "EditMode",
+      "passed": 2
+    },
+    {
+      "receipt": "native-mass-and-start1.json",
+      "mode": "PlayMode",
+      "passed": 2
+    },
+    {
+      "receipt": "native-weather1-legacy-save.json",
+      "mode": "PlayMode",
+      "passed": 2
+    },
+    {
+      "receipt": "native-replay-ui.json",
+      "mode": "PlayMode",
+      "passed": 1
+    }
+  ],
+  "native_current_edit_passed": 52,
+  "native_current_play_passed": 5,
+  "delivered_build_unchanged": true,
+  "review_build": "Builds/M16_6_5_Regression_Review",
+  "owner_review_pending": true,
+  "separately_qualified_explicit_cases": [
+    {
+      "name": "ProductionPenaltyBotsKeepMovingAfterEdgeContact",
+      "outcome": "Passed",
+      "duration": "00:00:14.2721940",
+      "receipt": "explicit-penalty-edge.trx"
+    },
+    {
+      "name": "FirstBoutAndThirtySecondsOfDepartureCpuProfile",
+      "outcome": "Passed",
+      "duration": "00:00:13.0092610",
+      "receipt": "explicit-diagnostics.trx"
+    },
+    {
+      "name": "FirstTwoLapsCpuProfile",
+      "outcome": "Passed",
+      "duration": "00:00:17.0263509",
+      "receipt": "explicit-diagnostics.trx"
+    },
+    {
+      "name": "ThirtyAthleteRepeatedTimingQueryCpuProfile",
+      "outcome": "Passed",
+      "duration": "00:00:00.0938020",
+      "receipt": "explicit-diagnostics.trx"
+    },
+    {
+      "name": "HeldWFirstRangePace",
+      "outcome": "Passed",
+      "duration": "00:00:11.7373560",
+      "receipt": "explicit-diagnostics.trx"
+    }
+  ],
+  "qualified_unique_case_count": 2193
+}

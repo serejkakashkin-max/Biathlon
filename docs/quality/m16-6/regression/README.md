@@ -1,3 +1,38 @@
+# Current qualification -2026-11-02
+
+M16.6 implementation and automated legacy-regression repair complete. Owner
+review remains OPEN; M17 not started. Review START_TEST.cmd under
+Builds/M16_6_5_Regression_Review (unchanged qualified fullscreen player).
+
+| Current gate | Actual result |
+| --- | --- |
+| Complete .NET8 Release assembly | 2188PASS /0FAIL; completed72m4s |
+| All existing Explicit diagnostics, selected separately | 5/5PASS;2193unique cases qualified in total |
+| Recent native regression groups | 52EditMode /5PlayModePASS; prior groups overlap and are not summed |
+| Original third-bout held-exit case | PASS128.543s; original600s guard/physical assertions unchanged |
+| Final Unity state/Console | idle, compiled,0errors/exceptions/asserts |
+| Fullscreen standalone review | PASS/exit0; owner profiles unchanged; build0errors |
+
+Raw complete release-final-assembly.trx, release-acceptance.json and assembly
+identity retain the actual completed result. Default-suite Explicit skips are
+listed separately and all five have actual separate passing receipts. CPU timings
+are observations, not portable performance/FPS promises. Build identity verifies
+all eight existing player binaries unchanged. Only test/docs/launcher work followed
+that player build. publication.json records runtime/fixture/launcher revisions.
+
+Use Release for the full core suite. scripts/Test-Foundation.ps1 keeps Release and
+exposes -HangTimeout (outer70m default exceeds the existing60m season test). Its
+argv/default/invalid-duration/nonzero-exit contract is separately verified. For
+visible per-case progress, add a console logger with verbosity=normal to a direct
+dotnet test command; retain the TRX logger. The actual final run used an isolated
+output folder with no diagnostic source injection.
+
+The following dated progress/audits remain historical evidence. Their pending,
+timeout and incomplete Debug statuses are superseded by the completed Release
+qualification above; their original failures are retained.
+
+---
+
 # M16.6 — owner-authorized legacy regression repair
 
 2026-11-01. Work in progress after published training21429280. User explicitly
