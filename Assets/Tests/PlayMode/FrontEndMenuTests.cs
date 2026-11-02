@@ -40,6 +40,34 @@ namespace Biathlon.PlayModeTests
         {Object.DestroyImmediate(root);InputSystem.RemoveDevice(keyboard);InputSystem.RemoveDevice(gamepad);inputs.Dispose();}
         private void Submit(string id)
         {var button=menu.Root.Q<Button>(id);button.Focus();using(var e=NavigationSubmitEvent.GetPooled())button.SendEvent(e);}
+        [UnityTest] public IEnumerator ArtCatalogPagesExposeAllTwelveProductsWithoutChangingTheSave()
+        {
+            menu.Session.OpenNewCareer();menu.Session.CreateCareer("career_art_catalog","Алекс","NOR",11);
+            string before=menu.Session.Career.ToJson();menu.Session.OpenCareerPage(FrontEndScreen.Equipment);menu.RefreshFrontEnd();yield return null;yield return null;
+            foreach(bool rifles in new[]{false,true})
+            {
+                Submit(rifles?"equipment_rifles":"equipment_skis");yield return null;yield return null;
+                var seen=new System.Collections.Generic.HashSet<string>();
+                for(int page=0;page<12;page++)
+                {
+                    foreach(var tile in menu.Root.Q("equipment_tiles").Children())
+                    {
+                        if(tile.resolvedStyle.display==DisplayStyle.None)continue;
+                        var art=tile.Q<Image>();Assert.That(art,Is.Not.Null);Assert.That(art.image,Is.Not.Null);
+                        string id=tile.name.Substring("equipment_card_".Length);
+                        Assert.That(art.image,Is.SameAs(Resources.Load<Texture2D>(CareerMenuArt.ResourceRoot+id)));
+                        Assert.That(art.worldBound.width,Is.GreaterThan(100));
+                        Assert.That(art.worldBound.xMin,Is.GreaterThanOrEqualTo(tile.worldBound.xMin-1));
+                        Assert.That(art.worldBound.xMax,Is.LessThanOrEqualTo(tile.worldBound.xMax+1));
+                        Assert.That(tile.Q<Button>("equip_"+id),Is.Not.Null);seen.Add(id);
+                    }
+                    if(!menu.Root.Q<Button>("equipment_tiles_next").enabledSelf)break;
+                    Submit("equipment_tiles_next");yield return null;yield return null;
+                }
+                Assert.That(seen.Count,Is.EqualTo(rifles?4:8));
+            }
+            Assert.That(menu.Session.Career.ToJson(),Is.EqualTo(before));
+        }
         [UnityTest] public IEnumerator GamepadNavigatesAndAddsARealTrainingSessionWithTheWeekStillUnapplied()
         {
             menu.Session.OpenNewCareer();menu.Session.CreateCareer("career_m166_pad","Алекс","NOR",11);string before=menu.Session.Career.ToJson();menu.Session.OpenCareerPage(FrontEndScreen.Training);menu.RefreshFrontEnd();yield return null;yield return null;
@@ -54,7 +82,7 @@ namespace Biathlon.PlayModeTests
             Assert.That(menu.Root.Q("training_tiles").childCount,Is.EqualTo(6));
             for(int kind=0;kind<6;kind++)
             {
-                Assert.That(menu.Root.Q("training_art_"+kind),Is.Not.Null);Submit("add_training_"+kind);yield return null;
+                Assert.That(menu.Root.Q<Image>("training_art_"+kind).image,Is.SameAs(Resources.Load<Texture2D>(CareerMenuArt.ResourceRoot+"training_"+kind)));Submit("add_training_"+kind);yield return null;
                 Assert.That(menu.Session.TrainingCount,Is.EqualTo(1));Assert.That((int)menu.Session.Training(0),Is.EqualTo(kind));Assert.That(menu.Root.Q<Label>("training_selected_count_"+kind).text,Does.Contain("1"));
                 Assert.That(menu.Root.Q<Label>("training_health_forecast"),Is.Not.Null);Assert.That(menu.Session.Career.ToJson(),Is.EqualTo(before));Submit("training_clear");yield return null;
             }
@@ -69,7 +97,7 @@ namespace Biathlon.PlayModeTests
             try
             {
                 menu.ApplyPreferences(locale,size);menu.ApplyAccessibility(contrast);yield return new WaitForSecondsRealtime(.4f);for(int f=0;f<10;f++)yield return null;
-                string folder=Path.GetFullPath("docs/quality/m16-6/training");Directory.CreateDirectory(folder);
+                string folder=Path.GetFullPath("docs/quality/m16-6/menu-art/training");Directory.CreateDirectory(folder);
                 foreach(string section in new[]{"training_forecast","training_card_0","training_card_2","training_card_4"})
                 {
                     menu.Root.Q<ScrollView>("page_content").ScrollTo(menu.Root.Q(section));yield return null;yield return null;
@@ -118,10 +146,23 @@ namespace Biathlon.PlayModeTests
                 menu.ApplyPreferences(locale,size);yield return new WaitForSecondsRealtime(.4f);for(int frame=0;frame<10;frame++)yield return null;
                 var button=menu.Root.Q<Button>(rifleCategoryId());Assert.That(button.worldBound.width,Is.GreaterThan(60));
                 RenderTexture.active=target;pixels=new Texture2D(width,height,TextureFormat.RGBA32,false);pixels.ReadPixels(new Rect(0,0,width,height),0,0);pixels.Apply();
-                string folder=Path.GetFullPath("docs/quality/m16-6/equipment");Directory.CreateDirectory(folder);File.WriteAllBytes(Path.Combine(folder,name+"-"+locale+".png"),pixels.EncodeToPNG());
+                AssertRenderedArtwork(pixels,menu.Root.Q("equipment_tiles").Q<Image>());
+                string folder=Path.GetFullPath("docs/quality/m16-6/menu-art/equipment");Directory.CreateDirectory(folder);File.WriteAllBytes(Path.Combine(folder,name+"-"+locale+".png"),pixels.EncodeToPNG());
             }
             finally{if(pixels!=null)Object.Destroy(pixels);RenderTexture.active=previous;panel.targetTexture=null;Object.Destroy(target);}
             string rifleCategoryId()=>name=="skis"?"equip_ski_neutral":"equip_rifle_neutral_v1";
+        }
+        private void AssertRenderedArtwork(Texture2D pixels,Image art)
+        {
+            var bounds=art.worldBound;float sx=pixels.width/menu.Root.worldBound.width,sy=pixels.height/menu.Root.worldBound.height;
+            float darkest=1,lightest=0;
+            for(int y=1;y<10;y++)for(int x=1;x<10;x++)
+            {
+                int px=Mathf.Clamp(Mathf.RoundToInt((bounds.x+bounds.width*x/10)*sx),0,pixels.width-1);
+                int py=Mathf.Clamp(pixels.height-1-Mathf.RoundToInt((bounds.y+bounds.height*y/10)*sy),0,pixels.height-1);
+                float value=pixels.GetPixel(px,py).grayscale;darkest=Mathf.Min(darkest,value);lightest=Mathf.Max(lightest,value);
+            }
+            Assert.That(lightest-darkest,Is.GreaterThan(.2f),"The actual rendered product must contain image detail, not a blank clipping quad.");
         }
         [UnityTest] public IEnumerator CareerPagesUseActualPlanAndReturnWithKeyboardFocus()
         {
