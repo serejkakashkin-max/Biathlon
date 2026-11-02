@@ -12,9 +12,19 @@ namespace Biathlon.Unity.Presentation
         private bool rifleCategory;
         private void RenderEquipment(VisualElement actions,VisualElement card)
         {
-            AddLabel(actions,F("equipment.money",Session.Player.Money/100.0),theme.section_size,true).name="equipment_money";
-            AddButton(actions,"equipment_skis",L("Лыжи · 8 моделей","Skis · 8 models"),()=>{rifleCategory=false;equipmentPage=0;Render();},!rifleCategory);
-            AddButton(actions,"equipment_rifles",L("Винтовки · 4 модели","Rifles · 4 models"),()=>{rifleCategory=true;equipmentPage=0;Render();},rifleCategory);
+            var toolbar=new VisualElement{name="equipment_toolbar"};card.Add(toolbar);
+            var balance=AddLabel(toolbar,F("equipment.money",Session.Player.Money/100.0),theme.body_size,true);
+            balance.name="equipment_money";balance.style.unityTextAlign=TextAnchor.MiddleRight;
+            var categories=TileGrid(toolbar,"equipment_categories");
+            AddButton(categories,"equipment_skis",L("Лыжи · 8 моделей","Skis · 8 models"),()=>{rifleCategory=false;equipmentPage=0;Render();},!rifleCategory);
+            AddButton(categories,"equipment_rifles",L("Винтовки · 4 модели","Rifles · 4 models"),()=>{rifleCategory=true;equipmentPage=0;Render();},rifleCategory);
+            foreach(var tab in categories.Children())
+            {
+                tab.style.width=Length.Percent(48.5f);tab.style.height=StyleKeyword.Auto;
+                tab.style.minHeight=44*Scale;tab.style.whiteSpace=WhiteSpace.Normal;
+                tab.style.borderBottomWidth=2;tab.style.borderBottomColor=FrostlineStyle.Accent;
+            }
+            toolbar.style.marginBottom=12;
             var next=Session.NextEvent();var forecast=next==null?null:Session.Definitions.Forecast(Session.Career,next);
             string snowId=forecast?.SnowProfile??"packed_neutral";
             string SnowName(string id)=>L(id=="fresh_soft"?"свежий снег":id=="wet_slow"?"мокрый снег":id=="icy_fast"?"лёд":"плотный снег",id=="fresh_soft"?"fresh snow":id=="wet_slow"?"wet snow":id=="icy_fast"?"ice":"packed snow");

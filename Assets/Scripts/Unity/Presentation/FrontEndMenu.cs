@@ -72,6 +72,9 @@ namespace Biathlon.Unity.Presentation
             Race=gameObject.AddComponent<CareerRacePresentation>();
             document=gameObject.AddComponent<UIDocument>();document.panelSettings=panel;document.sortingOrder=100;
             Root.RegisterCallback<NavigationMoveEvent>(Navigate);
+            // ScrollView consumes directional events when its scroller is visible.
+            // Keep button navigation on the same explicit route; leave fields to native handlers.
+            Root.RegisterCallback<NavigationMoveEvent>(e=>{if(e.target is Button)Navigate(e);},TrickleDown.TrickleDown);
             Root.RegisterCallback<NavigationSubmitEvent>(e=>{if(Rebinding)e.StopImmediatePropagation();},TrickleDown.TrickleDown);
             Root.RegisterCallback<GeometryChangedEvent>(e=>{bool compact=e.newRect.width<1250;if(compactLayout==compact)return;compactLayout=compact;Root.schedule.Execute(Render);});
             Root.RegisterCallback<FocusInEvent>(RememberFocus);
@@ -160,8 +163,8 @@ namespace Biathlon.Unity.Presentation
             brand.style.unityFontStyleAndWeight=FontStyle.Normal;brand.style.letterSpacing=2;
             AddLabel(left,"F R O S T L I N E",theme.caption_size).style.color=accent;
             AddLabel(left,home?T("discipline"):Session.Career==null?L("КАРЬЕРА","CAREER"):Session.Definitions.Calendar.Circuit==CareerCircuit.Junior?L("ЮНИОРСКАЯ ЛИГА","JUNIOR CIRCUIT"):Session.Definitions.Calendar.Circuit==CareerCircuit.Development?L("ПУТЬ В КУБОК МИРА","ROAD TO WORLD CUP"):L("КУБОК МИРА","WORLD CUP"),theme.caption_size);
-            var actions=new ScrollView(ScrollViewMode.Vertical){verticalScrollerVisibility=ScrollerVisibility.Hidden,horizontalScrollerVisibility=ScrollerVisibility.Hidden};actions.style.marginTop=theme.spacing*2;actions.style.flexShrink=1;actions.style.minHeight=0;left.Add(actions);
-            var card=new ScrollView(ScrollViewMode.Vertical){name="page_content",verticalScrollerVisibility=ScrollerVisibility.Hidden,horizontalScrollerVisibility=ScrollerVisibility.Hidden};card.style.flexGrow=1;card.style.flexBasis=0;card.style.paddingTop=theme.page_padding;
+            var actions=new ScrollView(ScrollViewMode.Vertical){name="menu_actions",verticalScrollerVisibility=ScrollerVisibility.Auto,horizontalScrollerVisibility=ScrollerVisibility.Hidden};actions.style.marginTop=theme.spacing;actions.style.flexShrink=1;actions.style.minHeight=0;left.Add(actions);
+            var card=new ScrollView(ScrollViewMode.Vertical){name="page_content",verticalScrollerVisibility=ScrollerVisibility.Auto,horizontalScrollerVisibility=ScrollerVisibility.Hidden};card.style.flexGrow=1;card.style.flexBasis=0;card.style.paddingTop=theme.page_padding;
             card.style.paddingBottom=theme.page_padding;card.style.paddingLeft=theme.page_padding;card.style.paddingRight=theme.page_padding;
             card.style.backgroundColor=paper;card.style.minWidth=0;card.contentContainer.style.width=Length.Percent(100);
             card.style.borderTopLeftRadius=card.style.borderTopRightRadius=card.style.borderBottomLeftRadius=card.style.borderBottomRightRadius=2;body.Add(card);
@@ -169,8 +172,13 @@ namespace Biathlon.Unity.Presentation
             {
                 shade.style.width=Length.Percent(38);brand.style.fontSize=46;
                 var title=AddLabel(actions,L("ТВОЙ СЕЗОН.\nТВОЙ СЛЕД.","YOUR SEASON.\nYOUR TRACK."),52,true);title.name="home_statement";title.style.marginTop=18;title.style.marginBottom=24;
-                AddButton(actions,"new_career",T("new_career"),()=>{Session.OpenNewCareer();LastMessage=null;Render();},true);
-                AddButton(actions,"continue",T("continue"),Continue,enabled:Session.CanContinue);
+                if(Session.CanContinue)AddButton(actions,"continue",T("continue"),Continue,true);
+                AddButton(actions,"new_career",T("new_career"),()=>{Session.OpenNewCareer();LastMessage=null;Render();},!Session.CanContinue);
+                if(!Session.CanContinue)
+                {
+                    AddButton(actions,"continue",T("continue"),Continue,enabled:false);
+                    AddLabel(actions,L("Создайте спортсмена, чтобы начать свой сезон.","Create an athlete to begin your season."),theme.caption_size);
+                }
                 AddButton(actions,"settings",T("settings"),()=>{Session.OpenSettings();Render();});
                 AddButton(actions,"quit",T("quit"),()=>Application.Quit());
                 card.style.backgroundColor=Color.clear;card.style.justifyContent=Justify.FlexEnd;card.pickingMode=PickingMode.Ignore;
@@ -253,6 +261,8 @@ namespace Biathlon.Unity.Presentation
                 Root.Query<VisualElement>().ForEach(v=>{if(v.ClassListContains("fl-surface")||v.ClassListContains("fl-hero"))v.style.backgroundColor=Color.black;});
                 Root.Query<Label>().ForEach(v=>{if(v!=message)v.style.color=Color.white;});
             }
+            var help=AddLabel(Root,L("↑ ↓  Выбор    ·    Enter / A  Открыть    ·    Esc / B  Назад","↑ ↓  Navigate    ·    Enter / A  Select    ·    Esc / B  Back"),theme.caption_size);
+            help.name="menu_control_hint";help.style.marginTop=10;help.style.marginBottom=0;help.style.color=HighContrast?Color.white:FrostlineStyle.Muted;
             body.AddToClassList("fl-screen");
             if(!ReducedMotion){body.style.opacity=0;body.schedule.Execute(()=>body.style.opacity=1).StartingIn(16);}
             Root.schedule.Execute(()=>

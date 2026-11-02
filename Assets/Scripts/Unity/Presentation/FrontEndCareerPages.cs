@@ -12,13 +12,14 @@ namespace Biathlon.Unity.Presentation
         private void RenderCareerPage(VisualElement actions,VisualElement card)
         {
             string key="page."+(int)Session.Screen;
-            AddLabel(actions,T(key),theme.section_size,true);AddLabel(actions,Session.Player.Name,theme.body_size);
+            AddLabel(actions,Session.Player.Name,theme.body_size,true);
             AddLabel(actions,F("season_week",Session.Career.Season,Session.Career.Week),theme.caption_size);
+            RenderCareerNavigation(actions);
             if(Session.Screen==FrontEndScreen.History)AddButton(actions,"career_development",L("Мой прогресс","My development"),()=>{OpenAthleteCard(Session.Career.PlayerId);careerCardTab=2;Render();});
             AddButton(actions,"back",Session.Screen==FrontEndScreen.Training?L("Готово","Done"):T("back"),Back,true);
             var scroll=card as ScrollView;if(scroll!=null){scroll.horizontalScrollerVisibility=ScrollerVisibility.Hidden;scroll.contentContainer.style.width=new Length(100,LengthUnit.Percent);}
             card.style.minWidth=0;
-            var pageTitle=AddLabel(card,T(key).ToUpperInvariant(),theme.caption_size,true);pageTitle.style.letterSpacing=2;pageTitle.style.color=FrostlineStyle.Gold;
+            var pageTitle=AddLabel(card,L("КАРЬЕРА / ","CAREER / ")+T(key).ToUpperInvariant(),theme.caption_size,true);pageTitle.style.letterSpacing=2;pageTitle.style.color=FrostlineStyle.Gold;
             if(Session.Screen==FrontEndScreen.Training)RenderTraining(actions,card);
             else if(Session.Screen==FrontEndScreen.Equipment)RenderEquipment(actions,card);
             else if(Session.Screen==FrontEndScreen.Standings)RenderStandings(card);

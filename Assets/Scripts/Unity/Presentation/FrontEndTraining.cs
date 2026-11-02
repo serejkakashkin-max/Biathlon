@@ -23,14 +23,15 @@ namespace Biathlon.Unity.Presentation
             var changes=new List<string>();string[] names=Locale=="ru"?StatRu:StatEn;
             for(int i=0;i<CareerUnits.StatCount;i++){int delta=preview.Stat((CareerStat)i)-Session.Player.Stat((CareerStat)i);if(delta!=0)changes.Add(names[i]+" "+(delta/1000.0).ToString("+0.000;-0.000",culture));}
             AddLabel(card,changes.Count==0?L("Навыки: без изменений в этом прогнозе","Abilities: no change in this forecast"):string.Join(" · ",changes),theme.caption_size).name="training_stat_changes";
-            AddLabel(actions,L("ПЛАН НЕДЕЛИ","WEEK PLAN"),theme.body_size,true);
-            if(Session.TrainingCount==0)AddLabel(actions,L("Добавьте занятия справа. Свободные слоты остаются для отдыха.","Choose sessions on the right. Unused slots remain available for rest."),theme.caption_size);
+            var weekPlan=Tile(card,"training_week_plan");
+            AddLabel(weekPlan,L("ПЛАН НЕДЕЛИ","WEEK PLAN"),theme.body_size,true);
+            if(Session.TrainingCount==0)AddLabel(weekPlan,L("Добавьте занятия ниже. Свободные слоты остаются для отдыха.","Choose sessions below. Unused slots remain available for rest."),theme.caption_size);
             for(int i=0;i<Session.TrainingCount;i++)
             {
-                int index=i;AddButton(actions,"training_remove_"+i,(i+1)+" · "+T("training.kind."+(int)Session.Training(i))+L(" · убрать"," · remove"),()=>{Session.RemoveTraining(index);Render();});
-                var remove=actions.Q<Button>("training_remove_"+i);remove.style.whiteSpace=WhiteSpace.Normal;remove.style.height=StyleKeyword.Auto;remove.style.minHeight=52*Scale;
+                int index=i;AddButton(weekPlan,"training_remove_"+i,(i+1)+" · "+T("training.kind."+(int)Session.Training(i))+L(" · убрать"," · remove"),()=>{Session.RemoveTraining(index);Render();});
+                var remove=weekPlan.Q<Button>("training_remove_"+i);remove.style.whiteSpace=WhiteSpace.Normal;remove.style.height=StyleKeyword.Auto;remove.style.minHeight=52*Scale;
             }
-            AddButton(actions,"training_clear",T("training.clear"),()=>{Session.ClearTraining();Render();},enabled:Session.TrainingCount>0);
+            AddButton(weekPlan,"training_clear",T("training.clear"),()=>{Session.ClearTraining();Render();},enabled:Session.TrainingCount>0);
             var tiles=TileGrid(card,"training_tiles");
             foreach(CareerTrainingKind kind in Enum.GetValues(typeof(CareerTrainingKind)))
             {

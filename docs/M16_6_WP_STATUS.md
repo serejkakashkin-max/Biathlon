@@ -32,3 +32,6 @@ current code. Next review build M16.6.5 pending qualification and GitHub push.
 
 
 2026-11-02 latest owner-directed visual follow-up — M16.6.6:18original generated training/ski/rifle images integrated into photographic cards; responsive layout, selection/focus and top shop paging.19nativeEdit+4nativePlay+18.NETPASS; actual2560x1440fullscreen menu probePASS,18resources/3captures/ownerprofilesunchanged/exit0. BuildSucceeded0errors. Evidence:docs/quality/m16-6/menu-art; design/prompts:docs/ui/m16-6-menu-art. New review:Builds/M16_6_6_Menu_Art_Review/START_TEST.cmd. Gameplay/balance unchanged. M16.6OPEN for ownerreview;M17notstarted.
+
+
+2026-11-02 owner-directed M16.6.7 menu UX follow-up: grouped direct career navigation/current-page marker, real next-week action, Continue priority, training plan beside forecast, shop tabs/balance above products and visible scrolling.68unique focused testsPASS(final6affectedPlay rerunPASS),fullscreen2560x1440menu probePASS/ownerprofilesunchanged/18resources,build0errors/520warnings. Review:Builds/M16_6_7_Menu_UX_Review/START_TEST.cmd. Evidence:docs/quality/m16-6/menu-ux;research:docs/ui/m16-6-menu-ux. Gameplay/balance unchanged. M16.6OPEN for ownerreview;M17notstarted.

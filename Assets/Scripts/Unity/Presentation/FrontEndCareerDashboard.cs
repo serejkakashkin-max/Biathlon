@@ -13,22 +13,14 @@ namespace Biathlon.Unity.Presentation
             var athleteTitle=AddLabel(actions,player.Name,theme.body_size,true);athleteTitle.style.whiteSpace=WhiteSpace.NoWrap;athleteTitle.style.overflow=Overflow.Hidden;athleteTitle.style.textOverflow=TextOverflow.Ellipsis;athleteTitle.tooltip=player.Name;
             AddLabel(actions,F("season_week",summary.Season,summary.Week),theme.caption_size);
             AddLabel(actions,"#"+(summary.Standing?.ToString()??"—")+" · "+summary.Points+L(" очков"," pts"),theme.body_size,true).name="career_standing";
-            var current=Session.Definitions.Calendar.AtWeek(summary.Week);
-            if(current==null)AddButton(actions,"rest_week",T(Session.TrainingCount==0?"rest_week":"training.advance"),()=>CareerAction(Session.CompleteTrainingWeek),true);
-            else
-            {
-                bool available=current.VenueId=="woodland_basin_v1"&&current.Eligible(player);
-                AddButton(actions,"prepare",T("prepare"),()=>CareerAction(Session.OpenPreRace),true,available);
-                if(!available)AddLabel(actions,T("event_unavailable"),theme.caption_size);
-            }
-            foreach(var page in new[]{FrontEndScreen.Training,FrontEndScreen.Equipment,FrontEndScreen.Standings,FrontEndScreen.History,FrontEndScreen.Rivalries,FrontEndScreen.Replays})
-            {var chosen=page;AddButton(actions,"career_"+page.ToString().ToLowerInvariant(),T("page."+(int)page),()=>{Session.OpenCareerPage(chosen);Render();});}
+            RenderCareerNavigation(actions);
             AddButton(actions,"settings",T("settings"),()=>{Session.OpenSettings();Render();});AddButton(actions,"back",T("back"),Back);
 
             var identity=new VisualElement{name="career_identity"};identity.style.flexDirection=FlexDirection.Row;identity.style.alignItems=Align.Center;identity.style.marginBottom=16;card.Add(identity);
             identity.Add(new NationFlagGraphic(player.Nation));
             var country=AddLabel(identity,T("nation."+player.Nation)+"  /  "+player.Age+L(" лет"," years"),theme.body_size,true);country.style.marginBottom=0;
             var season=AddLabel(identity,L("СЕЗОН ","SEASON ")+summary.Season,theme.caption_size,true);season.style.flexGrow=1;season.style.unityTextAlign=TextAnchor.MiddleRight;season.style.color=FrostlineStyle.Gold;season.style.marginBottom=0;
+            RenderCareerNextStep(card);
             RenderCareerRatingStrip(card);
             var heroCard=Tile(card,"next_event_hero",true);heroCard.style.flexDirection=FlexDirection.Row;heroCard.style.alignItems=Align.Center;
             heroCard.style.paddingLeft=heroCard.style.paddingTop=heroCard.style.paddingBottom=0;heroCard.style.paddingRight=18;

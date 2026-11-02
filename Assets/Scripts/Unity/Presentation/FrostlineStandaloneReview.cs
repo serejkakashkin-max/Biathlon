@@ -22,7 +22,7 @@ namespace Biathlon.Unity.Presentation
             public int schema_version=1;
             public string id="frostline_standalone_native_review",unity,output,results_source="isolated recorded-result boundary fixture";
             public bool success,career_preserved,isolated_profile_store=true,real_race_loaded,real_race_started;
-            public bool menu_art_only,fullscreen;
+            public bool menu_art_only,menu_ux_only,fullscreen;
             public int artwork_checked;
             public string fullscreen_mode;
             public int width,height,transition_frames;
@@ -51,7 +51,7 @@ namespace Biathlon.Unity.Presentation
         private readonly Dictionary<PanelSettings,RenderTexture> panelTargets=new Dictionary<PanelSettings,RenderTexture>();
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)] private static void StartIfRequested()
         {
-            if(Application.isEditor||!Debug.isDebugBuild||(Array.IndexOf(Environment.GetCommandLineArgs(),Flag)<0&&Array.IndexOf(Environment.GetCommandLineArgs(),"-biathlonMenuArtReview")<0))return;
+            if(Application.isEditor||!Debug.isDebugBuild||(Array.IndexOf(Environment.GetCommandLineArgs(),Flag)<0&&Array.IndexOf(Environment.GetCommandLineArgs(),"-biathlonMenuArtReview")<0&&Array.IndexOf(Environment.GetCommandLineArgs(),"-biathlonMenuUxReview")<0))return;
             new GameObject("Frostline explicit standalone review").AddComponent<FrostlineStandaloneReview>();
         }
         private IEnumerator Start()
@@ -61,8 +61,10 @@ namespace Biathlon.Unity.Presentation
             folder=Path.GetFullPath(output>=0&&output+1<args.Length?args[output+1]:Path.Combine(Application.dataPath,"../FrostlineReview"));
             recordFrames=Array.IndexOf(args,"-biathlonFrostlineReviewFrames")>=0;
             evidence=new Evidence{unity=Application.unityVersion,output=folder,width=Screen.width,height=Screen.height};
-            evidence.menu_art_only=Array.IndexOf(args,"-biathlonMenuArtReview")>=0;
+            evidence.menu_ux_only=Array.IndexOf(args,"-biathlonMenuUxReview")>=0;
+            evidence.menu_art_only=evidence.menu_ux_only||Array.IndexOf(args,"-biathlonMenuArtReview")>=0;
             if(evidence.menu_art_only){evidence.id="m166_menu_art_standalone_review";evidence.results_source="isolated menu-only fixture; no race result";}
+            if(evidence.menu_ux_only)evidence.id="m166_menu_ux_standalone_review";
             Application.logMessageReceived+=OnLog;
             // Explicit stack permits errors in nested native-capture coroutines to produce a structured failure receipt.
             var stack=new Stack<IEnumerator>();stack.Push(Review());
@@ -177,12 +179,15 @@ namespace Biathlon.Unity.Presentation
         {
             evidence.width=Screen.width;evidence.height=Screen.height;evidence.fullscreen=Screen.fullScreen;evidence.fullscreen_mode=Screen.fullScreenMode.ToString();
             Require(evidence.fullscreen,"Fullscreen menu review required.");
+            if(evidence.menu_ux_only)yield return Capture("00-home");
             menu.Session.OpenNewCareer();menu.Session.CreateCareer("career_menu_art_review","Александр Северин","NOR",11);
             string before=menu.Session.Career.ToJson();
+            if(evidence.menu_ux_only){menu.RefreshFrontEnd();yield return Capture("00-dashboard");}
             menu.Session.OpenCareerPage(FrontEndScreen.Training);menu.RefreshFrontEnd();yield return Settle();
             for(int i=0;i<6;i++){CheckMenuArt("training_art_"+i,"training_"+i);}
             menu.Root.Q<ScrollView>("page_content").ScrollTo(menu.Root.Q("training_card_0"));yield return Capture("01-training");
-            Submit("back");yield return Settle();Submit("career_equipment");yield return Settle();
+            if(!evidence.menu_ux_only){Submit("back");yield return Settle();}
+            Submit("career_equipment");yield return Settle();
             CheckProducts();yield return Capture("02-skis");Submit("equipment_rifles");yield return Settle();CheckProducts();yield return Capture("03-rifles");
             Require(evidence.artwork_checked==18,"All eighteen shipping resources must bind.");
             Require(menu.Session.Career.ToJson()==before,"Menu-only exploration changed career state.");
@@ -300,7 +305,7 @@ namespace Biathlon.Unity.Presentation
                 evidence.career_preserved=ownerProfilesBefore!=null&&ownerProfilesBefore==ProfileFingerprint();
                 if(!evidence.career_preserved)errors.Add("Owner profile directory fingerprint changed during review.");
                 evidence.screenshots=screens.ToArray();evidence.errors=errors.ToArray();evidence.navigation=navigation.ToArray();
-                evidence.success=errors.Count==0&&evidence.career_preserved&&(evidence.menu_art_only?evidence.artwork_checked==18&&screens.Count==3:evidence.real_race_started&&screens.Count>=11);
+                evidence.success=errors.Count==0&&evidence.career_preserved&&(evidence.menu_art_only?evidence.artwork_checked==18&&screens.Count==(evidence.menu_ux_only?5:3):evidence.real_race_started&&screens.Count>=11);
                 Directory.CreateDirectory(folder);File.WriteAllText(Path.Combine(folder,"standalone-review.json"),JsonUtility.ToJson(evidence,true));
             }
             catch(Exception e){Debug.LogException(e);evidence.success=false;}

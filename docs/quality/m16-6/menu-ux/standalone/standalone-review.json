@@ -1,0 +1,33 @@
+{
+    "schema_version": 1,
+    "id": "m166_menu_ux_standalone_review",
+    "unity": "6000.6.0f1",
+    "output": "C:\\game\\Biathlon\\Biathlon\\artifacts\\m16-6\\menu-ux\\standalone",
+    "results_source": "isolated menu-only fixture; no race result",
+    "success": true,
+    "career_preserved": true,
+    "isolated_profile_store": true,
+    "real_race_loaded": false,
+    "real_race_started": false,
+    "menu_art_only": true,
+    "menu_ux_only": true,
+    "fullscreen": true,
+    "artwork_checked": 18,
+    "fullscreen_mode": "FullScreenWindow",
+    "width": 2560,
+    "height": 1440,
+    "transition_frames": 0,
+    "race_tick": 0,
+    "screenshots": [
+        "00-home.png",
+        "00-dashboard.png",
+        "01-training.png",
+        "02-skis.png",
+        "03-rifles.png"
+    ],
+    "errors": [],
+    "navigation": [
+        "career_equipment → Equipment",
+        "equipment_rifles → Equipment"
+    ]
+}
