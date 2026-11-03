@@ -70,3 +70,29 @@ section, overtaking with a free side, glancing collision, prone/standing shootin
 
 
 Additional final-player qualification: explicit1000-frame profile reaches tick3090/904.149m and captures all5shots. The241 shooting frames have median wall16.664ms/p9516.730ms/max16.899ms; tick median2.063ms/p959.010ms. No per-frame file writes. Camera follows the accepted body in third person, not AimCamera; frame cap/GPU-counter limitations still apply. Raw compressed receipt: ../performance/shooting-profile.json.gz; summary: ../performance/shooting-summary.json.
+
+
+## Final qualification,2026-11-03
+
+The original full run had2204PASS/1FAIL. The career-season failure is resolved
+by immutablev4 / metadata2, documented in ADR0094: the existing private-mat
+turn decision reserve and authored moving-pass zones. Both captured real career
+contexts and the original sixteen-event season now pass. No capture tolerance,
+physical solver, phase proof or failing assertion was relaxed. Final current
+headless groups:32mass/season,124steering/shooting,203career/parityPASS; overlapping
+359executions. The full assembly was not rerun afterv4; do not describe this as
+a new completely green full-run receipt. Initial broad evidence remains above.
+Native39Edit/16PlayPASS; original completed results recovered through testResults
+after tool request timeouts. Console0errors. Three replay policy versions and
+backward seek pass. See acceptance.json for exact scope and limitations.
+
+Final build0errors/522warnings; actual2560x1440fullscreen and300-frame30-athlete
+shooting review pass, normal player commands produce real miss and TAB stays
+intact. Captured rig reaction is visible and recovers without artificial root
+spin. New overtaking is intentional AI output change; physics/shooting and
+performance parity hashes remain intact. New360-frame auto profile:wallmedian
+16.667ms/max17.044ms; stepmedian2.269ms/p959.513ms. Hardware/frame-cap/GPU limits
+remain; these results do not promise the absence of every hitch.
+
+Qualified launcher:Builds/M16_6_10_Performance_Review/START_TEST.cmd.
+M16.6 remains open for owner review; no M17 work.

@@ -35,13 +35,14 @@ namespace Biathlon.Tests
         {var info=Info();info.CommandSha256=new string('b',64);info.StartContinuationVersion=version;Assert.Throws<System.Runtime.Serialization.SerializationException>(()=>info.ToJson());}
         [TestCase(-1)][TestCase(2)]public void UnsupportedSnowSearchVersionCannotBePublished(int version)
         {var info=Info();info.CommandSha256=new string('b',64);info.AiSnowSearchVersion=version;Assert.Throws<System.Runtime.Serialization.SerializationException>(()=>info.ToJson());}
-        [TestCase(-1)][TestCase(2)]public void UnsupportedMovingOvertakeVersionCannotBePublished(int version)
+        [TestCase(-1)][TestCase(3)]public void UnsupportedMovingOvertakeVersionCannotBePublished(int version)
         {var info=Info();info.CommandSha256=new string('b',64);info.MovingOvertakeVersion=version;Assert.Throws<System.Runtime.Serialization.SerializationException>(()=>info.ToJson());}
         [Test]public void MovingOvertakeVersionIsExplicitAndMissingLegacyFieldRemainsAbsent()
         {
             var info=Info();info.CommandSha256=new string('b',64);string legacy=info.ToJson();
             Assert.That(legacy,Does.Not.Contain("moving_overtake_version"));Assert.That(RaceReplayInfo.FromJson(legacy).ToJson(),Is.EqualTo(legacy));
             info.MovingOvertakeVersion=1;Assert.That(RaceReplayInfo.FromJson(info.ToJson()).MovingOvertakeVersion,Is.EqualTo(1));
+            info.MovingOvertakeVersion=2;Assert.That(RaceReplayInfo.FromJson(info.ToJson()).MovingOvertakeVersion,Is.EqualTo(2));
         }
     }
 }

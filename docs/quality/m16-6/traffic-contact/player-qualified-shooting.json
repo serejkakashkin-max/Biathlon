@@ -1,0 +1,144 @@
+{
+    "schema_version": 1,
+    "id": "m16_2_native_live_board",
+    "unity": "6000.6.0f1",
+    "method": "Actual production career MassStart,30athletes. Accepted snapshots; no edited outcomes. Main probe uses AI controls; optional miss probe uses normal player effort/aim/trigger/bolt commands with existing AI steering for reproducible off-target input. Native world plus native UI composited in GPU;20fps video advances one accepted20Hz tick per frame.",
+    "manual_player_control": true,
+    "audio_review": false,
+    "audio_hits": 0,
+    "audio_misses": 0,
+    "audio_played": 0,
+    "audio_other_shots": 0,
+    "audio_sources": 0,
+    "audio_peak_voices": 0,
+    "audio_samples": 0,
+    "audio_channels": 0,
+    "audio_rate": 0,
+    "audio_pcm_bytes": 0,
+    "audio_peak": 0.0,
+    "audio_rms": 0.0,
+    "success": true,
+    "player_natural_order": true,
+    "player_miss": true,
+    "clean_series": true,
+    "queue_replacement": false,
+    "tab_preserved": true,
+    "maximum_active": 9,
+    "maximum_overflow": 0,
+    "distinct_displayed": 11,
+    "frames": 300,
+    "tick": 2864,
+    "errors": [],
+    "events": [
+        {
+            "tick": 2599,
+            "kind": "miss",
+            "athlete": "live_board_review_athlete_11",
+            "slot": 1,
+            "shots": 1,
+            "mask": 0,
+            "marks": 2
+        },
+        {
+            "tick": 2653,
+            "kind": "miss",
+            "athlete": "live_board_review_athlete_11",
+            "slot": 1,
+            "shots": 3,
+            "mask": 1,
+            "marks": 38
+        },
+        {
+            "tick": 2694,
+            "kind": "completed",
+            "athlete": "live_board_review_athlete_17",
+            "slot": 0,
+            "shots": 5,
+            "mask": 31,
+            "marks": 341
+        },
+        {
+            "tick": 2712,
+            "kind": "miss",
+            "athlete": "live_board_review_athlete_0",
+            "slot": 2,
+            "shots": 1,
+            "mask": 0,
+            "marks": 2
+        },
+        {
+            "tick": 2713,
+            "kind": "completed",
+            "athlete": "live_board_review_athlete_11",
+            "slot": 1,
+            "shots": 5,
+            "mask": 3,
+            "marks": 614
+        },
+        {
+            "tick": 2734,
+            "kind": "miss",
+            "athlete": "live_board_review_athlete_4",
+            "slot": 3,
+            "shots": 1,
+            "mask": 0,
+            "marks": 2
+        },
+        {
+            "tick": 2761,
+            "kind": "miss",
+            "athlete": "live_board_review_athlete_4",
+            "slot": 3,
+            "shots": 2,
+            "mask": 0,
+            "marks": 10
+        },
+        {
+            "tick": 2773,
+            "kind": "miss",
+            "athlete": "live_board_review_athlete_0",
+            "slot": 1,
+            "shots": 2,
+            "mask": 0,
+            "marks": 10
+        },
+        {
+            "tick": 2815,
+            "kind": "miss",
+            "athlete": "live_board_review_athlete_4",
+            "slot": 1,
+            "shots": 4,
+            "mask": 1,
+            "marks": 154
+        },
+        {
+            "tick": 2834,
+            "kind": "miss",
+            "athlete": "live_board_review_athlete_0",
+            "slot": 0,
+            "shots": 3,
+            "mask": 0,
+            "marks": 42
+        },
+        {
+            "tick": 2845,
+            "kind": "completed",
+            "athlete": "live_board_review_athlete_4",
+            "slot": 1,
+            "shots": 5,
+            "mask": 1,
+            "marks": 666
+        }
+    ],
+    "captures": [
+        "mass30-1920-ru.png",
+        "mass30-1920-en.png",
+        "mass30-1600-ru.png",
+        "mass30-1600-en.png",
+        "mass30-1280-ru.png",
+        "mass30-1280-en.png",
+        "player-natural-order.png",
+        "clean-five.png",
+        "player-miss.png"
+    ]
+}

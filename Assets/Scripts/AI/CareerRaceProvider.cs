@@ -46,7 +46,7 @@ namespace Biathlon.AI
             if(prepared.Venue!=null)
             {
                 var movement=ManualProductionFieldComposition.Create(runner.Field,prepared.Venue,prepared.ManualRead,prepared.CourseReactionPolicy);
-                runner.BindManualScopedCandidate(movement,ManualAiSteeringDefinition.FromJson(read(prepared.MovingOvertakeVersion==1?"manual_ai_steering_v3.json":"manual_ai_steering_v2.json")),
+                runner.BindManualScopedCandidate(movement,ManualAiSteeringDefinition.FromJson(read(ManualAiSteeringDefinition.ResourceForVersion(prepared.MovingOvertakeVersion))),
                     ManualSkiSteeringDefinition.FromJson(read("manual_ski_steering_v2.json")),PlayerCourseAssistanceDefinition.FromJson(read("player_course_assistance_v1.json")),completeSnowSearch:prepared.AiSnowSearchVersion==1);
             }
             while(!runner.Field.IsComplete){if(runner.Field.Tick.Value>=definition.MaximumTicks)throw new InvalidOperationException("Career race exceeded its tick budget.");runner.Step();}
@@ -75,10 +75,10 @@ namespace Biathlon.AI
         public CareerPreparedRace Prepare(CareerSave snapshot,CareerCalendarEvent e,ulong seed,IRaceEventSink observedEvents=null,
             RaceWeatherPreset recordedWeather=null,bool legacyNeutralWeather=false,bool legacyMassStartOrder=false,
             ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.PassiveCurvedV26,bool legacySprintStartOrder=false,
-            string recordedEquipmentJson=null,bool legacyEquipment=false,string recordedTimelineJson=null,bool legacyFixedWeather=false,bool legacyStartContinuation=false,bool legacyWeatherHeading=false,int startContinuationVersion=2,bool legacyAiSnowSearch=false,int movingOvertakeVersion=1)
+            string recordedEquipmentJson=null,bool legacyEquipment=false,string recordedTimelineJson=null,bool legacyFixedWeather=false,bool legacyStartContinuation=false,bool legacyWeatherHeading=false,int startContinuationVersion=2,bool legacyAiSnowSearch=false,int movingOvertakeVersion=2)
         {
             if(snapshot==null||e==null)throw new ArgumentNullException();
-            if(movingOvertakeVersion<0||movingOvertakeVersion>1)throw new ArgumentOutOfRangeException(nameof(movingOvertakeVersion));
+            ManualAiSteeringDefinition.ResourceForVersion(movingOvertakeVersion);
             if(courseReactionPolicy!=ManualCourseReactionPolicy.LegacyV25&&courseReactionPolicy!=ManualCourseReactionPolicy.PassiveCurvedV26)
                 throw new ArgumentOutOfRangeException(nameof(courseReactionPolicy));
             if(e.VenueId!="synthetic_alpine"&&e.VenueId!=Woodland)throw new ArgumentException("No route adapter for this venue.");

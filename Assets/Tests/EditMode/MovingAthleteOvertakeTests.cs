@@ -8,13 +8,13 @@ namespace Biathlon.Tests
 {
     public sealed class MovingAthleteOvertakeTests
     {
-        [TestCase(false,false)][TestCase(true,false)][TestCase(true,true)]
-        public void FasterFreshAthletePassesMovingSlowerPlayerInsteadOfFollowingHisBack(bool current,bool reserveGate)
+        [TestCase(0,false)][TestCase(1,false)][TestCase(1,true)][TestCase(2,false)][TestCase(2,true)]
+        public void FasterFreshAthletePassesMovingSlowerPlayerInsteadOfFollowingHisBack(int version,bool reserveGate)
         {
-            string policy=PhysiologyContractTests.DefinitionJson(current?"manual_ai_steering_v3.json":"manual_ai_steering_v2.json");
+            string policy=PhysiologyContractTests.DefinitionJson(ManualAiSteeringDefinition.ResourceForVersion(version));
             if(reserveGate)policy=policy.Replace("\"moving_overtake_minimum_reserve\": 0.2","\"moving_overtake_minimum_reserve\": 1");
             var f=ManualScopedFieldStepperTests.InitialCandidate(2,productionComposition:true,singleFileGrid:true,aiPolicyJson:policy);
-            Assert.That(f.runner.MovingOvertakeVersion,Is.EqualTo(current?1:0));
+            Assert.That(f.runner.MovingOvertakeVersion,Is.EqualTo(version));
             var initial=f.stepper.World.GetActor(0);double fx=initial.Observation.ForwardX,fz=initial.Observation.ForwardZ;
             double maxGap=-100,maxSide=0;bool faster=false;int follower=1;
             for(int i=0;i<200;i++)
@@ -30,12 +30,13 @@ namespace Biathlon.Tests
             }
             TestContext.WriteLine($"moving pass max_gap={maxGap:R} lateral={maxSide:R} faster={faster}");
             Assert.That(faster,Is.True,"The trailing athlete must actually have a speed advantage in the physical scenario.");
-            if(current&&!reserveGate)Assert.That(maxGap,Is.GreaterThan(f.stepper.BodyLongitudinalSeparation),"A free adjacent line and a faster fresh athlete must allow a physical pass, not permanent braking behind a moving body.");
+            if(version>0&&!reserveGate)Assert.That(maxGap,Is.GreaterThan(f.stepper.BodyLongitudinalSeparation),"A free adjacent line and a faster fresh athlete must allow a physical pass, not permanent braking behind a moving body.");
             else Assert.That(maxGap,Is.LessThan(0),"Legacy behavior and an unmet reserve gate must not silently acquire the new passing intent.");
         }
-        [Test] public void NewMovingPassReplaysItsRecordedPhysicalCommandsWithoutAi()
+        [TestCase(1)][TestCase(2)] public void NewMovingPassReplaysItsRecordedPhysicalCommandsWithoutAi(int version)
         {
-            var source=ManualScopedFieldStepperTests.InitialCandidate(2,productionComposition:true,singleFileGrid:true,aiPolicyResource:"manual_ai_steering_v3");
+            string resource=Path.GetFileNameWithoutExtension(ManualAiSteeringDefinition.ResourceForVersion(version));
+            var source=ManualScopedFieldStepperTests.InitialCandidate(2,productionComposition:true,singleFileGrid:true,aiPolicyResource:resource);
             byte[] bytes;
             using(var stream=new MemoryStream())
             {
@@ -48,7 +49,7 @@ namespace Biathlon.Tests
                 }
                 bytes=stream.ToArray();
             }
-            var replay=ManualScopedFieldStepperTests.InitialCandidate(2,productionComposition:true,singleFileGrid:true,aiPolicyResource:"manual_ai_steering_v3");
+            var replay=ManualScopedFieldStepperTests.InitialCandidate(2,productionComposition:true,singleFileGrid:true,aiPolicyResource:resource);
             using(var stream=new MemoryStream(bytes))using(var reader=new ManualRaceJournalReader(stream,replay.stepper,200))while(reader.HasNext)reader.Step();
             for(int i=0;i<2;i++)
             {

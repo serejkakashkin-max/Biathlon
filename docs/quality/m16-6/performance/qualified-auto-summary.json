@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "id": "m16610_qualified_auto_profile_summary",
+  "mode": "controlled production ManualStepper30, AI controls, 2000-tick pre-roll, actual player follow camera, explicit RT; not onscreen FPS",
+  "cpu": "AMD Ryzen 9 9950X3D 16-Core Processor",
+  "gpu": "NVIDIA GeForce RTX 5080",
+  "width": 1280,
+  "height": 720,
+  "athletes": 30,
+  "frames": 360,
+  "final_tick": 2450,
+  "final_player_distance": 818.234708811,
+  "thread_allocation_counter_supported": false,
+  "limits": "Legacy v2AI isolates exact performance changes. Explicit RT/follow camera, frame cap, no GPU timing or uncapped onscreen FPS claim.",
+  "wall_ms": {
+    "median": 16.667049999998795,
+    "p95": 16.733899999998414,
+    "maximum": 17.043999999998505
+  },
+  "step_ms": {
+    "median": 2.2691500000000002,
+    "p95": 9.5131,
+    "maximum": 11.0242
+  }
+}

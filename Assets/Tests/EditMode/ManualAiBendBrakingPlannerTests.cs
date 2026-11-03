@@ -49,6 +49,35 @@ namespace Biathlon.Tests
             Assert.That(left,Is.GreaterThan(0).And.LessThanOrEqualTo(1));
             Assert.That(right,Is.EqualTo(left),"AI changes an explicit intent, never the shared athlete speed or power.");
         }
+        [Test] public void MovingPassObservesAuthoredZonesAcrossTheWholeLookahead()
+        {
+            var f=new ManualRacePathCatalogTests.Fixture();var planner=Create(f);
+            Assert.That(planner.Plan(At(f,f.Catalog.StartApproachIndex,5),4,70,70,0).MovingOvertakeAllowed,Is.True);
+            int mat=f.Catalog.GetFiringOccurrence(0);
+            Assert.That(planner.Plan(At(f,mat-1,f.Catalog.Get(mat-1).LengthNanometers/(double)SkiState.NanometersPerMeter-2),4,70,70,0).MovingOvertakeAllowed,Is.False);
+            Assert.That(planner.Plan(At(f,mat,1),2,70,70,0).MovingOvertakeAllowed,Is.False);
+            Assert.That(ManualAiSteeringDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ai_steering_v4.json")).RespectMovingOvertakeZones,Is.True);
+            Assert.That(ManualAiSteeringDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ai_steering_v3.json")).RespectMovingOvertakeZones,Is.False);
+        }
+        [Test] public void PrivateApproachUsesDecisionMarginBeforeForkWhileLegacyAndDepartureKeepTheirLimits()
+        {
+            var f=new ManualRacePathCatalogTests.Fixture();var models=new SkiModelDefinitions(PhysiologyContractTests.DefinitionJson);
+            ManualAiBendBrakingPlanner Planner(int version)=>new ManualAiBendBrakingPlanner(f.Venue.Track,f.Catalog,
+                models.Physics,models.Cornering,ManualScopedFieldStepperTests.Steering(),
+                ManualAiSteeringDefinition.FromJson(PhysiologyContractTests.DefinitionJson(ManualAiSteeringDefinition.ResourceForVersion(version))),f.Venue.Occupancy);
+            var old=Planner(1);var current=Planner(2);int mat=f.Catalog.GetFiringOccurrence(0);
+            foreach(var at in new[]{At(f,mat-1,f.Catalog.Get(mat-1).LengthNanometers/(double)SkiState.NanometersPerMeter-2),At(f,mat,1)})
+            {
+                var before=old.Plan(at,2,70,70,0);var after=current.Plan(at,2,70,70,0);
+                Assert.That(after.SpeedLimit,Is.LessThan(before.SpeedLimit));
+                if(at.OccurrenceIndex==mat)Assert.That(after.SpeedLimit,Is.EqualTo(before.SpeedLimit*.85).Within(1e-12));
+                Assert.That(after.BrakeFraction,Is.GreaterThanOrEqualTo(before.BrakeFraction));
+            }
+            var exit=At(f,mat+1,3);
+            Assert.That(current.Plan(exit,1.1,70,70,0).SpeedLimit,Is.EqualTo(old.Plan(exit,1.1,70,70,0).SpeedLimit));
+            Assert.That(current.Plan(At(f,f.Catalog.StartApproachIndex,5),4,70,70,0).BrakeFraction,Is.Zero);
+            Assert.That(ManualAiSteeringDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ai_steering_v3.json")).PrivateMatBendMargin,Is.False);
+        }
         [Test] public void DistantDepartureTurnAllowsAccelerationAlongTheStraight()
         {
             var f=ManualProductionFieldTests.Initial("mass_start",1);var catalog=f.stepper.World.GetCatalog(0);

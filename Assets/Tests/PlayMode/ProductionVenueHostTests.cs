@@ -85,7 +85,7 @@ namespace Biathlon.PlayModeTests
                     RaceRoutePlan.FromJson(ProductionVenueHost.ReadResource(prefix+"mass_start_route")),
                     RaceSnowConditions.FromJson(ProductionVenueHost.ReadResource("Biathlon/race_snow_neutral_v1")),count:1);
                 Assert.That(host.ManualStepper,Is.Not.Null);Assert.That(host.Runner.UsesManualScopedCandidate,Is.True);
-                Assert.That(host.Runner.MovingOvertakeVersion,Is.EqualTo(1));
+                Assert.That(host.Runner.MovingOvertakeVersion,Is.EqualTo(2));
                 var id=host.Runner.Field.GetAthlete(0).AthleteId;
                 for(int i=0;i<100;i++)
                 {

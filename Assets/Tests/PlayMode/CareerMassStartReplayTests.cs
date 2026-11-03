@@ -30,7 +30,8 @@ namespace Biathlon.PlayModeTests
         [UnityTest,Timeout(300000)]public IEnumerator VersionOneWeatherJournalRetainsOriginalContextAndBackwardSeek()=>Run(false,true);
         [UnityTest,Timeout(300000)]public IEnumerator VersionOneStartCorridorJournalRetainsOriginalContextAndBackwardSeek()=>Run(false,false,true);
         [UnityTest,Timeout(300000)]public IEnumerator MovingOvertakePolicyAndBackwardSeekRestoreRecordedVersion()=>Run(false,movingPass:true);
-        private IEnumerator Run(bool legacyV2,bool oldWeather=false,bool oldStart=false,bool movingPass=false)
+        [UnityTest,Timeout(300000)]public IEnumerator MatApproachMarginAndBackwardSeekRestoreRecordedVersion()=>Run(false,movingPass:true,matMargin:true);
+        private IEnumerator Run(bool legacyV2,bool oldWeather=false,bool oldStart=false,bool movingPass=false,bool matMargin=false)
         {
             var d=new CareerDefinitions(Read,"woodland_development_calendar_v1.json");var s=CareerFactory.Create(d.Roster,d.Calendar,"mass_seek","Alex","NOR","default",new SeededRandomSource(71000));
             for(int e=0;e<2;e++)CareerStandings.Register(s,new CareerRaceRecord("seek_result_"+e,s.SeasonId,d.Calendar.Get(e).Id,d.Calendar.Get(e).Format,123,new string('a',64),
@@ -44,7 +45,8 @@ namespace Biathlon.PlayModeTests
             }
             var race=d.Calendar.Get(2);var p=new CareerRaceProvider(Read,d,ProductionVenueHost.ReadResource).Prepare(s,race,123,legacyStartContinuation:oldWeather,legacyWeatherHeading:oldWeather,startContinuationVersion:oldStart?1:2,legacyAiSnowSearch:oldWeather||oldStart);
             var source=ManualProductionFieldComposition.Create(p.Runner.Field,p.Venue,p.ManualRead);
-            p.Runner.BindManualScopedCandidate(source,ManualAiSteeringDefinition.FromJson(Read(movingPass?"manual_ai_steering_v3.json":"manual_ai_steering_v2.json")),ManualSkiSteeringDefinition.FromJson(Read("manual_ski_steering_v2.json")),PlayerCourseAssistanceDefinition.FromJson(Read("player_course_assistance_v1.json")),completeSnowSearch:p.AiSnowSearchVersion==1);
+            int policyVersion=matMargin?2:movingPass?1:0;
+            p.Runner.BindManualScopedCandidate(source,ManualAiSteeringDefinition.FromJson(Read(ManualAiSteeringDefinition.ResourceForVersion(policyVersion))),ManualSkiSteeringDefinition.FromJson(Read("manual_ski_steering_v2.json")),PlayerCourseAssistanceDefinition.FromJson(Read("player_course_assistance_v1.json")),completeSnowSearch:p.AiSnowSearchVersion==1);
             folder=Path.Combine(Path.GetTempPath(),"biathlon-ranked-mass-replay-"+Guid.NewGuid().ToString("N"));var library=new RaceReplayLibrary(folder);var store=new Store{Json=snapshot};
             var info=new RaceReplayInfo{Id="ranked_mass",RecordedUtc=DateTime.UtcNow.ToString("O"),CareerSnapshotJson=snapshot,RaceWeatherJson=p.Weather.ToJson(),StartContinuationVersion=p.Runner.Field.StartContinuationVersion,WeatherTimelineVersion=p.Timeline==null?0:oldWeather?1:CareerRaceProvider.CurrentWeatherTimelineVersion,WeatherTimelineJson=p.Timeline?.ToJson(),EquipmentVersion=CareerRaceProvider.CurrentEquipmentVersion,EquipmentSnapshotJson=p.Equipment.ToJson(),StartOrderVersion=1,CourseReactionVersion=(int)p.CourseReactionPolicy,EventId=race.Id,VenueId=race.VenueId,Format=(int)race.Format,Seed=123,PlayerId=s.PlayerId,PlayerName="Alex",TickFrequency=20,TickCount=120,ResultSha256=new string('a',64),Events=Array.Empty<RecordedRaceEvent>(),Highlights=Array.Empty<RaceHighlight>()};
             info.AiSnowSearchVersion=p.Runner.AiSnowSearchVersion;
@@ -57,12 +59,12 @@ namespace Biathlon.PlayModeTests
             for(int i=0;i<60&&menu.Replays.Loading;i++)yield return null;
             var replay=menu.Replays;Assert.That(replay.Active,Is.True,menu.LastMessage);replay.TogglePause();Assert.That(replay.Paused,Is.True);
             Assert.That(replay.Host.PlayerIndex,Is.EqualTo(p.PlayerIndex));Assert.That(replay.Host.ManualStepper.World.ContextJson,Does.Contain("manual_course_contact_ice_v1"));
-            Assert.That(replay.Host.Runner.MovingOvertakeVersion,Is.EqualTo(movingPass?1:0));
+            Assert.That(replay.Host.Runner.MovingOvertakeVersion,Is.EqualTo(policyVersion));
             replay.Seek(100);for(int i=0;i<180&&replay.Seeking;i++)yield return null;
             replay.Seek(60);for(int i=0;i<180&&replay.Seeking;i++)yield return null;
             Assert.That(replay.LastFailure,Is.Null);Assert.That(replay.Tick,Is.EqualTo(60));
             Assert.That(replay.Host.ManualStepper.World.GetActor(p.PlayerIndex).Pose,Is.EqualTo(pose));
-            Assert.That(replay.Host.Runner.MovingOvertakeVersion,Is.EqualTo(movingPass?1:0));
+            Assert.That(replay.Host.Runner.MovingOvertakeVersion,Is.EqualTo(policyVersion));
             Assert.That(replay.Host.ManualStepper.World.ContextJson,Does.Contain("manual_course_contact_ice_v1"));
             Assert.That(store.Json,Is.EqualTo(snapshot));replay.Close();yield return null;
         }

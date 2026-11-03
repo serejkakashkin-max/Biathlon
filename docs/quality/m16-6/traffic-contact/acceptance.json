@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "id": "m16610_final_acceptance",
+  "status": "focused qualification complete; owner review pending",
+  "initial_complete_run": {
+    "executed": 2205,
+    "passed": 2204,
+    "failed": 1,
+    "receipt": "initial-complete-regression.trx",
+    "failure": "CompleteWoodlandSeasonRunsAllSixteenAuthoritativeEvents; resolved by new policy and original sixteen-event rerun"
+  },
+  "final_headless_runs": [
+    {
+      "receipt": "final-steering-shooting.trx",
+      "executed": 124,
+      "passed": 124,
+      "failed": 0
+    },
+    {
+      "receipt": "final-mass-season.trx",
+      "executed": 32,
+      "passed": 32,
+      "failed": 0
+    },
+    {
+      "receipt": "final-career-parity.trx",
+      "executed": 203,
+      "passed": 203,
+      "failed": 0
+    }
+  ],
+  "final_headless_executions_in_overlapping_groups": 359,
+  "full_assembly_after_policy_v4": "not rerun; changed career/AI/replay/shooting/physical-parity surfaces qualified by current focused groups",
+  "explicit_diagnostics": {
+    "passed": 5,
+    "receipt": "explicit-diagnostics.trx",
+    "ai_policy": "legacy v2 exact-performance control"
+  },
+  "final_native": {
+    "edit_passed": 39,
+    "play_passed": 16,
+    "errors": 0,
+    "result_transport": "original completed testResults recovered after300s request timeout; no rerun"
+  },
+  "policy_version": 2,
+  "policy_resource": "manual_ai_steering_v4.json",
+  "build": {
+    "schema_version": 1,
+    "id": "m15_5_visual_review",
+    "result": "Succeeded",
+    "unity": "6000.6.0f1",
+    "errors": 0,
+    "warnings": 522,
+    "bytes": 484827209,
+    "seconds": 37.690915
+  },
+  "launcher": "Builds/M16_6_10_Performance_Review/START_TEST.cmd",
+  "standalone_fullscreen": "2560x1440 FullScreenWindow; isolated profiles preserved",
+  "shooting": "real30-athlete career;300frames/tick2864; normal off-target player input causes miss, TAB preserved, maximum9simultaneous shooters; not full-race finish or full shooting-device-frame-rate claim",
+  "runtime_profile": "../performance/qualified-auto-summary.json",
+  "deterministic_impact": "exact performance witnesses retain physical hashes; new AI decisions can change order/times, old replay policies retained",
+  "limits": [
+    "No universal hitch-free or uncapped FPS/GPU timing claim.",
+    "Contact impulses are physical; central symmetric collisions do not receive artificial torque.",
+    "M16.6 remains open for owner review; M17 not started."
+  ]
+}

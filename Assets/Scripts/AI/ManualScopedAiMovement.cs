@@ -35,7 +35,7 @@ namespace Biathlon.AI
         private readonly double lowSpeedReference;
         public string ContextJson {get;}
         public int SnowSearchVersion=>snowPlanner.SearchVersion;
-        public int MovingOvertakeVersion=>policy.MovingOvertakeMinimumAdvantage>0?1:0;
+        public int MovingOvertakeVersion=>policy.PrivateMatBendMargin?2:policy.MovingOvertakeMinimumAdvantage>0?1:0;
         public ManualScopedAiMovement(ManualScopedFieldStepper stepper,ManualAiSteeringDefinition policy,
             ManualSkiSteeringDefinition physicalSteering,PlayerCourseAssistanceDefinition playerAssistance=null,bool completeSnowSearch=false)
         {
@@ -77,6 +77,7 @@ namespace Biathlon.AI
             if(climbRestart!=null)context[0]="manual_scoped_ai_shared_clock_movement_v28_paid_climb_restart";
             if(policy.PenaltyYawTrackingError>0)context[0]="manual_scoped_ai_shared_clock_movement_v29_observed_penalty_yaw_tracking";
             if(policy.MovingOvertakeMinimumAdvantage>0)context[0]="manual_scoped_ai_shared_clock_movement_v30_observed_moving_overtake";
+            if(policy.PrivateMatBendMargin)context[0]="manual_scoped_ai_shared_clock_movement_v31_private_mat_bend_margin";
             context[1]=stepper.ContextJson;context[2]=policy.ToJson();context[3]=physicalSteering.ToJson()+";snow_planner_sha256:"+ManualContextIdentity.Sha256(snowPlanner.ContextJson);
             context[4]="player_signed_input_unchanged;ai_target_not_lateral_teleport;field_attested_scheduled_start_forecast;stationary_obstacle_detection_from_policy_response_or_exact_owned_stationary_mat;full_rotated_body_corridor_and_achieved_velocity_forecast;candidate_line_query_excludes_old_velocity_forecast;moving_range_body_forecast_four_separating_axes_and_relative_achieved_velocity;only_observed_ahead_bodies;ordinary_racing_keeps_physical_contacts;pass_line_owned_by_current_occurrence;hold_pass_line_until_body_clear_or_occurrence_handoff;owned_gate_lookahead_cap;owned_future_width_and_achieved_side_velocity_response_reserve;resource_family_common_to_private_cue_only;all_owned_paths_actual_snow_pursuit;bounded_mat_foot_placement_by_world_owner;shared_course_follows_moving_bodies_and_passes_stationary_ones;assigned_private_mat_center_target;current_private_exit_and_fixed_mass_passing_retained;geometric_chord_sagitta_reserve;physical_pursuit_actual_velocity_and_shared_speed_response_v2_actual_chord;ordered_bend_braking_and_short_chord_before_entry;common_physical_solver;no_legacy_fallback";
             for(int i=0;i<n;i++)context[i+5]=ManualContextIdentity.Sha256(bends[i].ContextJson);
@@ -185,7 +186,8 @@ namespace Biathlon.AI
                 {
                     var other=world.GetActor(blocker);
                     double advantage=(actor.Velocity.X-other.Velocity.X)*observed.ForwardX+(actor.Velocity.Z-other.Velocity.Z)*observed.ForwardZ;
-                    passMoving=advantage>=policy.MovingOvertakeMinimumAdvantage&&athlete.PhysiologyState.AnaerobicReserve>=policy.MovingOvertakeMinimumReserve;
+                    passMoving=advantage>=policy.MovingOvertakeMinimumAdvantage&&athlete.PhysiologyState.AnaerobicReserve>=policy.MovingOvertakeMinimumReserve&&
+                        (!policy.RespectMovingOvertakeZones||bend.MovingOvertakeAllowed);
                 }
                 if(obstructed&&(!movingSharedBlocker||passMoving)&&!privateMat)
                 {
@@ -357,8 +359,9 @@ namespace Biathlon.AI
         }
         private string FailureDetails()
         {
+            var failed=stepper.LastStep.Athlete.IsValid?stepper.LastStep.Athlete:stepper.LastStep.WorldAttempt.Athlete;
             int index=-1;for(int i=0;i<stepper.World.Count;i++)
-                if(stepper.World.GetActor(i).Athlete.Equals(stepper.LastStep.WorldAttempt.Athlete)){index=i;break;}
+                if(stepper.World.GetActor(i).Athlete.Equals(failed)){index=i;break;}
             if(index<0)return "actor_not_found";
             var a=stepper.LastRejectedWorkingActor;var source=stepper.World.GetActor(index);var c=stepper.World.GetCursor(index);
             var d=stepper.World.GetRibbonDiagnostics(index);

@@ -27,6 +27,9 @@ namespace Biathlon.Domain
         [DataMember(Name="penalty_yaw_tracking_error_radps",EmitDefaultValue=false)] public double PenaltyYawTrackingError {get;private set;}
         [DataMember(Name="moving_overtake_minimum_advantage_mps",EmitDefaultValue=false)] public double MovingOvertakeMinimumAdvantage {get;private set;}
         [DataMember(Name="moving_overtake_minimum_reserve",EmitDefaultValue=false)] public double MovingOvertakeMinimumReserve {get;private set;}
+        [DataMember(Name="private_mat_bend_margin",EmitDefaultValue=false)] public bool PrivateMatBendMargin {get;private set;}
+        [DataMember(Name="respect_moving_overtake_zones",EmitDefaultValue=false)] public bool RespectMovingOvertakeZones {get;private set;}
+        public static string ResourceForVersion(int version)=>version==0?"manual_ai_steering_v2.json":version==1?"manual_ai_steering_v3.json":version==2?"manual_ai_steering_v4.json":throw new ArgumentOutOfRangeException(nameof(version));
         public static ManualAiSteeringDefinition FromJson(string json)
         {
             var value=RouteJson.Read<ManualAiSteeringDefinition>(json);

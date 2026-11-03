@@ -157,12 +157,12 @@ namespace Biathlon.Unity.Presentation
             catch{Destroy(environment);throw;}
         }
         public void Initialize(VenueAuthoringPlan venue,CompetitionProfile profile,RaceRoutePlan route,
-            RaceSnowConditions conditions,int count=30,int playerIndex=0,PursuitQualificationSnapshot qualification=null,int movingOvertakeVersion=1)
+            RaceSnowConditions conditions,int count=30,int playerIndex=0,PursuitQualificationSnapshot qualification=null,int movingOvertakeVersion=2)
         {
             if(Runner!=null)throw new InvalidOperationException("A fresh host is required for another race.");
             if(playerIndex<0||playerIndex>=count)throw new ArgumentOutOfRangeException(nameof(playerIndex));
             var runner=ProductionVenueRaceFactory.Create(venue,profile,route,conditions,ReadCore,new BalanceEventAudit(5),new AiDecisionCounts(),qualification,count);
-            if(movingOvertakeVersion<0||movingOvertakeVersion>1)throw new ArgumentOutOfRangeException(nameof(movingOvertakeVersion));
+            ManualAiSteeringDefinition.ResourceForVersion(movingOvertakeVersion);
             InitializeRunner(venue,runner,playerIndex,movingOvertakeVersion:movingOvertakeVersion);
         }
         public void InitializeCareer(CareerPreparedRace race)
@@ -173,7 +173,7 @@ namespace Biathlon.Unity.Presentation
             InitializeRunner(race.Venue,race.Runner,race.PlayerIndex,race.ManualRead,race.CourseReactionPolicy,race.AiSnowSearchVersion==1,race.MovingOvertakeVersion);
         }
         private void InitializeRunner(VenueAuthoringPlan venue,PackAiRaceRunner runner,int playerIndex,Func<string,string> manualRead=null,
-            ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.PassiveCurvedV26,bool completeSnowSearch=true,int movingOvertakeVersion=1)
+            ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.PassiveCurvedV26,bool completeSnowSearch=true,int movingOvertakeVersion=2)
         {
             var profile=runner.Field.Profile;
             playerAssistance=PlayerCourseAssistanceDefinition.FromJson(ReadCore("player_course_assistance_v1.json"));
@@ -182,7 +182,7 @@ namespace Biathlon.Unity.Presentation
             if(UseManualHeading&&venue.Formats!=null)
             {
                 ManualStepper=ManualProductionFieldComposition.Create(runner.Field,venue,manualRead??ReadCore,courseReactionPolicy);
-                runner.BindManualScopedCandidate(ManualStepper,ManualAiSteeringDefinition.FromJson(ReadCore(movingOvertakeVersion==1?"manual_ai_steering_v3.json":"manual_ai_steering_v2.json")),
+                runner.BindManualScopedCandidate(ManualStepper,ManualAiSteeringDefinition.FromJson(ReadCore(ManualAiSteeringDefinition.ResourceForVersion(movingOvertakeVersion))),
                     ManualSkiSteeringDefinition.FromJson(ReadCore("manual_ski_steering_v2.json")),playerAssistance,completeSnowSearch);
             }
             Venue=venue;Runner=runner;PlayerIndex=playerIndex;body=venue.Occupancy;

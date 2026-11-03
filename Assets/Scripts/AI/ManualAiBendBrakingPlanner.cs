@@ -10,9 +10,10 @@ namespace Biathlon.AI
         public double BrakeFraction {get;}
         public double ShortLookaheadMeters {get;}
         public double MinimumWidthMeters {get;}
+        public bool MovingOvertakeAllowed {get;}
         public bool ReduceEffort=>BrakeFraction>0;
-        internal ManualAiBendBrakingPlan(double limit,double fraction,double lookahead,double width)
-        {SpeedLimit=limit;BrakeFraction=fraction;ShortLookaheadMeters=lookahead;MinimumWidthMeters=width;}
+        internal ManualAiBendBrakingPlan(double limit,double fraction,double lookahead,double width,bool movingOvertakeAllowed)
+        {SpeedLimit=limit;BrakeFraction=fraction;ShortLookaheadMeters=lookahead;MinimumWidthMeters=width;MovingOvertakeAllowed=movingOvertakeAllowed;}
     }
     /// <summary>Ordered, already selected ordinary path geometry becomes braking
     /// intent before a tight bend. Querying a successor neither admits a phase
@@ -89,6 +90,7 @@ namespace Biathlon.AI
             PhysiologyNumbers.RequireRange(grip,PhysiologyNumbers.MinimumPositive,PhysiologyNumbers.MaximumMagnitude,nameof(grip));
             PhysiologyNumbers.RequireRange(steeringResponse,PhysiologyNumbers.MinimumPositive,1,nameof(steeringResponse));
             double limit=physics.MaximumSpeedMetersPerSecond,shortLookahead=0,offset=0,fraction=0,width=catalog.SampleSurface(at).WidthMeters;
+            bool movingOvertakeAllowed=true;
             int occurrence=at.OccurrenceIndex;long arc=at.PhysicalArcNanometers;
             while(offset<policy.LookaheadMaximumMeters)
             {
@@ -104,6 +106,7 @@ namespace Biathlon.AI
                         if(to<=from)continue;
                         var surface=samplers[occurrence].Sample(new TrackDistance((long)Math.Floor(from*1000)));
                         width=Math.Min(width,surface.WidthMeters);
+                        movingOvertakeAllowed&=surface.OvertakeAllowed;
                         Accumulate(surface.WithTravelGeometry(surface.Grade,bend.Curve),bend.Curve,from,true);
                     }
                 }
@@ -115,6 +118,7 @@ namespace Biathlon.AI
                     if(to<=from)continue;
                     width=Math.Min(width,segment.WidthMeters);
                     var surface=samplers[occurrence].Sample(new TrackDistance((long)Math.Floor(from*1000)));
+                    movingOvertakeAllowed&=surface.OvertakeAllowed;
                     Accumulate(surface,Math.Abs(segment.CurvaturePerMeter),from,false);
                 }
                 void Accumulate(TrackSample surface,double curve,double from,bool privateMat)
@@ -128,7 +132,8 @@ namespace Biathlon.AI
                     // Decision margin under the same physical limits. Only the
                     // AI's recorded brake/effort intent changes, never capacity.
                     if(policy.BendSpeedSafetyFactor>0&&(row.Kind==ManualRacePathKind.BaseRoute||
-                        row.Kind==ManualRacePathKind.StartApproach||row.Kind==ManualRacePathKind.PenaltyLoop))safe*=policy.BendSpeedSafetyFactor;
+                        row.Kind==ManualRacePathKind.StartApproach||row.Kind==ManualRacePathKind.PenaltyLoop||
+                        policy.PrivateMatBendMargin&&privateMat&&row.Kind==ManualRacePathKind.RangeApproach))safe*=policy.BendSpeedSafetyFactor;
                     double distance=offset+from-local;
                     double available=Math.Max(0,distance-bodyReach-speed*policy.HeadingResponseSeconds);
                     double envelope=Math.Sqrt(safe*safe+2*corners.MaximumBraking*available);
@@ -147,7 +152,7 @@ namespace Biathlon.AI
                 if(row.End!=ManualRacePathEnd.Continue||row.Index+1>=catalog.BaseFlowCount)break;
                 occurrence=row.Index+1;arc=0;
             }
-            return new ManualAiBendBrakingPlan(limit,fraction,shortLookahead,width);
+            return new ManualAiBendBrakingPlan(limit,fraction,shortLookahead,width,movingOvertakeAllowed);
         }
         /// <summary>AI explicitly manages a demanding ski deflection. The
         /// player's steering has no implicit brake; every brake still uses
