@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "id": "m16610_shooting_profile_summary",
+  "frames": 1000,
+  "tick": 3090,
+  "route_m": 904.149061744,
+  "method": "controlled production ManualStepper30, AI controls, 2000-tick pre-roll, actual player follow camera, explicit RT; not onscreen FPS; third-person camera, not AimCamera; capped frames; no per-frame file writes",
+  "gpu_timing_available": false,
+  "results": {
+    "all": {
+      "frames": 1000,
+      "maximum_shots": 5,
+      "wall_ms": {
+        "median": 16.67999999999381,
+        "p95": 19.38769999999579,
+        "max": 23.36320000000569
+      },
+      "step_ms": {
+        "median": 6.3298000000000005,
+        "p95": 14.5699,
+        "max": 17.8561
+      },
+      "athletes_ms": {
+        "median": 1.4482499999999998,
+        "p95": 1.7026,
+        "max": 2.1391
+      },
+      "environment_ms": {
+        "median": 1.6653,
+        "p95": 1.9248,
+        "max": 2.4534
+      },
+      "hud_ms": {
+        "median": 0.0,
+        "p95": 0.1011,
+        "max": 2.1131
+      }
+    },
+    "shooting": {
+      "frames": 241,
+      "maximum_shots": 5,
+      "wall_ms": {
+        "median": 16.66439999999625,
+        "p95": 16.73029999999187,
+        "max": 16.898800000006986
+      },
+      "step_ms": {
+        "median": 2.0627,
+        "p95": 9.0099,
+        "max": 10.301400000000001
+      },
+      "athletes_ms": {
+        "median": 1.4004,
+        "p95": 1.4771,
+        "max": 1.7034
+      },
+      "environment_ms": {
+        "median": 1.4833,
+        "p95": 1.5409,
+        "max": 1.747
+      },
+      "hud_ms": {
+        "median": 0.0,
+        "p95": 0.1045,
+        "max": 2.1131
+      }
+    }
+  }
+}

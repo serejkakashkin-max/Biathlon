@@ -16,6 +16,7 @@ namespace Biathlon.Unity.Presentation
         {
             public int frame,mode;public long tick;public double wall_ms,step_ms;
             public long step_alloc_bytes;public double player_speed,player_x,player_z,start_approach_meters;
+            public bool shooting;public int shots,shooting_phase;
             public double tick_ms,snapshot_ms,athletes_ms,environment_ms,hud_ms;
             public long tick_calls,snapshot_calls,athlete_calls,environment_calls,hud_calls;
             public BenchmarkFrameSample rendering;
@@ -41,7 +42,8 @@ namespace Biathlon.Unity.Presentation
             int index=Array.IndexOf(args,"-biathlonSkiProfileOutput");
             string folder=Path.GetFullPath(index>=0&&index+1<args.Length?args[index+1]:Path.Combine(Application.dataPath,"../SkiProfile"));
             var errors=new List<string>();Application.LogCallback log=(message,stack,type)=>{if(type==LogType.Error||type==LogType.Exception||type==LogType.Assert)errors.Add(message);};Application.logMessageReceived+=log;
-            var iter=Collect(folder,360,Array.IndexOf(args,"-biathlonSkiProfileAuto")>=0);Exception failure=null;
+            bool shootingReview=Array.IndexOf(args,"-biathlonSkiProfileShooting")>=0;
+            var iter=Collect(folder,shootingReview?1000:360,shootingReview||Array.IndexOf(args,"-biathlonSkiProfileAuto")>=0);Exception failure=null;
             while(true)
             {
                 bool more=false;object next=null;
@@ -120,6 +122,7 @@ namespace Biathlon.Unity.Presentation
                         var s=report.samples[f];s.frame=f;s.mode=f<frames/2?0:1;s.tick=field.Tick.Value;s.wall_ms=(now-previous)*1000;s.step_ms=step;
                         var actor=field.GetAthlete(host.PlayerIndex);var pose=host.ManualStepper.World.GetActor(host.PlayerIndex).Pose;
                         s.step_alloc_bytes=report.thread_allocation_counter_supported?allocated:-1;s.player_speed=actor.Motion.SpeedMetersPerSecond;s.player_x=pose.X;s.player_z=pose.Z;s.start_approach_meters=actor.RemainingStartApproachNanometers/(double)SkiState.NanometersPerMeter;
+                        s.shooting=actor.ActiveShooting!=null;s.shots=actor.ActiveShooting?.ShotsFired??0;s.shooting_phase=(int)(actor.ActiveShooting?.Phase??ShootingPhase.Outside);
                         Array.Clear(ms,0,ms.Length);Array.Clear(calls,0,calls.Length);
                         for(int i=0;i<5;i++)if(watches[i].Valid&&watches[i].Count>0){var value=watches[i].GetSample(0);ms[i]=value.Value/1000000d;calls[i]=value.Count;}
                         s.tick_ms=ms[0];s.snapshot_ms=ms[1];s.athletes_ms=ms[2];s.environment_ms=ms[3];s.hud_ms=ms[4];

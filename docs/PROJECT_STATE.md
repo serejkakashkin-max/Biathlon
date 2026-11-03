@@ -26088,3 +26088,12 @@ Build Builds/M16_6_10_Performance_Review/START_TEST.cmd:Succeeded0errors/523warn
 
 
 2026-11-03 M16.6.10 additional qualification: all5Explicit diagnosticsPASS (58s): penalty-edge stop maximum2ticks below unchanged100ticklimit; first-bout/departure CPU mean1.044ms, two-lap mean1.208ms; timing query300000calls/0allocatedbytes. Legacy diagnostic fixture keeps old AI policy to isolate exact reuse. Receipt docs/quality/m16-6/traffic-contact/explicit-diagnostics.trx. Final standalone actual30-athlete shooting PASS/exit0,300frames,tick2861,real controlled miss/TAB preserved/errors[]; inspected world+HUD capture. Full current.NET assembly remains RUNNING, no final full-suite claim yet.
+
+
+2026-11-03 publication receipt - M16.6.10 source/tests/native and standalone evidence commit a94e6d5d successfully pushed to origin/codex/m16-6-equipment-weather-training. Five Explicit diagnostics are now PASS; complete default .NET assembly remains RUNNING. This is a publication/progress receipt, not final full-suite acceptance. Review build Builds/M16_6_10_Performance_Review/START_TEST.cmd.
+
+
+2026-11-03 M16.6.10 qualification correction: added optional1000-frame shooting profile labels after the initial verified/published build. First incremental rebuild detected stale Editor vs freshly compiled Player diagnostic Sample layout; no C# compile error. Asset refresh plus original native profile rerun1/1PASS synchronizes both. A replacement successful build and standalone check are required before final delivery; complete.NET regression continues. Historical verified build receipt remains archived.
+
+
+2026-11-03 M16.6.10 synchronized replacement build PASS: explicit ImportAsset plus RequestScriptCompilation verified all diagnostic Sample fields in Editor; previous automatic refresh had left the old loaded layout, so the first refresh-only retry also failed. Final build Succeeded0errors/522warnings,481176969bytes,31.3330021s. Repeated standalone2560x1440fullscreenPASS/18artresources/ownerprofilesunchanged/errors[]. Additional1000-frame third-person shooting profile tick3090/904.149m captures5shots and241shootingframes:wallmedian16.664ms/p9516.730ms/max16.899ms; no per-frame disk capture. GPUtimingsunavailable. All25ProjectSettings files restored byte-exact: guarded removal of only Unity-added URP preloaded asset plus temporary High-pipeline serialization. Original STATE history retained. Full current.NET assembly still RUNNING.

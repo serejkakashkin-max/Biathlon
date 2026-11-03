@@ -90,3 +90,6 @@ not instantiate it.
 Review launcher: `Builds/M16_6_10_Performance_Review/START_TEST.cmd` (fullscreen).
 Owner review should repeat the affected skiing section and rotate the camera
 through forest/spectator shadows. M16.5 closed; M16.6 open; M17 not started.
+
+
+Additional final-player qualification: explicit1000-frame profile reaches tick3090/904.149m and captures all5shots. The241 shooting frames have median wall16.664ms/p9516.730ms/max16.899ms; tick median2.063ms/p959.010ms. No per-frame file writes. Camera follows the accepted body in third person, not AimCamera; frame cap/GPU-counter limitations still apply. Raw compressed receipt: ../performance/shooting-profile.json.gz; summary: ../performance/shooting-summary.json.
