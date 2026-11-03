@@ -1,5 +1,6 @@
 using System;
 using Biathlon.Simulation;
+using Biathlon.Domain;
 using UnityEngine;
 using Unity.Profiling;
 
@@ -11,6 +12,7 @@ namespace Biathlon.Unity.Presentation
         public AthletePresentationState Athlete { get; }
         public double TimeSeconds { get; }
         public long Tick { get; }
+        public int TickFrequency {get;}
         public double Alpha { get; }
         public float ShootingProgress => AthleteRiflePresentation.Progress(Athlete.ShootingPhase,
             Athlete.ShootingPhaseElapsedTicks,Athlete.ShootingPhaseDurationTicks,Alpha);
@@ -22,6 +24,7 @@ namespace Biathlon.Unity.Presentation
             if (tick < 0 || frequency <= 0 || double.IsNaN(alpha) || double.IsInfinity(alpha) || alpha < 0 || alpha > 1)
                 throw new ArgumentOutOfRangeException(nameof(alpha));
             Athlete = athlete; Tick = tick; Alpha = alpha;
+            TickFrequency=frequency;
             PresentationCurvature = presentationCurvature ?? athlete.CourseCurvaturePerMeter;
             PresentationGrade = presentationGrade ?? athlete.CourseGrade;
             if(!double.IsFinite(lateralMetersPerSecond))throw new ArgumentOutOfRangeException(nameof(lateralMetersPerSecond));
@@ -48,6 +51,8 @@ namespace Biathlon.Unity.Presentation
         private AthleteGroundContact contact;
         private AthleteGripPresentation grip;
         private AthleteDetailPresentation detail;
+        private static AthleteImpactVisualSettings impactSettings;
+        private AthleteImpactPresentation impact;
         public AthleteDetailPresentation Detail => detail;
         public AthleteRigBinding Rig => rig;
         public AthleteAnimationFrame LastFrame { get; private set; }
@@ -63,6 +68,7 @@ namespace Biathlon.Unity.Presentation
             contact = binding.GetComponent<AthleteGroundContact>();
             grip = binding.GetComponent<AthleteGripPresentation>();
             detail = new AthleteDetailPresentation(binding);
+            impactSettings??=AthleteImpactVisualSettings.Load();impact=new AthleteImpactPresentation(impactSettings);
         }
 
         public void Render(AthleteAnimationFrame frame, float cameraDistance = 0)
@@ -70,6 +76,7 @@ namespace Biathlon.Unity.Presentation
             using var marker=PoseMarker.Auto();
             if (rig == null) throw new InvalidOperationException("Initialize athlete rig first.");
             LastFrame = frame;
+            impact.Observe(frame.Athlete.Impact,frame.Athlete.WorldPose,frame.Tick,frame.TickFrequency,frame.Athlete.OnCourse&&!frame.Athlete.ShootingActive&&frame.Athlete.Phase!=CompetitionPhase.Finished&&frame.Athlete.Phase!=CompetitionPhase.Classified);
             if (rig.Animator != null) rig.Animator.applyRootMotion = false;
             if (!detail.Prepare(cameraDistance, frame)) return;
             // Protect the presentation placement from asset root-motion/pose code as well.
@@ -80,6 +87,7 @@ namespace Biathlon.Unity.Presentation
             var modelRotation = rig.ModelRoot.localRotation;
             if (rig.Animator == null) rig.ResetPose();
             if (driver != null) driver.Apply(rig, frame);
+            impact.Apply(rig,frame.TimeSeconds);
             if (shootingPose != null) shootingPose.Render(rig, frame);
             if (rifle != null) rifle.Render(rig, frame);
             if (contact != null) contact.Render(rig, frame);

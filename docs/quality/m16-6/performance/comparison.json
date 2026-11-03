@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "id": "m16610_ski_comparison",
+  "method": "paired same final diagnostic; uninstrumented original M16.6.9 core assemblies vs optimized core; 90 warmup +360 measured frames; High1280x720 explicit RT; AI overtake version0 fixed in both",
+  "hardware": "Ryzen9 9950X3D / RTX5080 / D3D11",
+  "results": {
+    "original": {
+      "step_ms": {
+        "median": 4.3352,
+        "p95": 13.4748,
+        "max": 22.8487
+      },
+      "wall_ms": {
+        "median": 16.671349999999308,
+        "p95": 17.19219999999666,
+        "max": 26.724199999996756
+      },
+      "environment_ms": {
+        "median": 1.5204499999999999,
+        "p95": 1.6456,
+        "max": 2.0572
+      },
+      "athletes_ms": {
+        "median": 0.7656,
+        "p95": 0.8417,
+        "max": 1.0659
+      },
+      "gpu_timing_available": false,
+      "errors": []
+    },
+    "optimized": {
+      "step_ms": {
+        "median": 4.07835,
+        "p95": 12.511000000000001,
+        "max": 21.761000000000003
+      },
+      "wall_ms": {
+        "median": 16.66720000000055,
+        "p95": 16.8783000000019,
+        "max": 25.16279999999682
+      },
+      "environment_ms": {
+        "median": 1.4162,
+        "p95": 1.4788,
+        "max": 2.4758
+      },
+      "athletes_ms": {
+        "median": 0.63665,
+        "p95": 0.6806,
+        "max": 1.2115
+      },
+      "gpu_timing_available": false,
+      "errors": []
+    }
+  }
+}

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="95513c18-e84e-4ffc-af46-c58eb00fbd37" name="snkashkin@DESKTOP-G3075GA 2026-11-03 13:57:30" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-03T13:57:30.2721605+03:00" queuing="2026-11-03T13:57:30.2721609+03:00" start="2026-11-03T13:57:28.9484840+03:00" finish="2026-11-03T13:57:30.2831114+03:00" />
+  <TestSettings name="default" id="14a8f60f-82a5-4269-9f73-206e4b4faf38">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-11-03_13_57_30" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="0ffa4de8-4169-42e9-a076-a92f6775d32b" testId="d72c912c-1299-46a6-293e-42c9d4599865" testName="RepeatedFrozenSupportQueryReusesItsWholeBodyProofAndChangedForceDoesNot" computerName="DESKTOP-G3075GA" duration="00:00:00.3752980" startTime="2026-11-03T13:57:29.7638736+03:00" endTime="2026-11-03T13:57:30.1391477+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0ffa4de8-4169-42e9-a076-a92f6775d32b">
+      <Output>
+        <ErrorInfo>
+          <Message>  Support planning and final admission can ask for the identical immutable trajectory; retain the original complete proof.&#xD;
+  Expected: 1&#xD;
+  But was:  2&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualRouteRibbonSweepTests.RepeatedFrozenSupportQueryReusesItsWholeBodyProofAndChangedForceDoesNot() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualRouteRibbonSweepTests.cs:line 19&#xD;
+
+1)    at Biathlon.Tests.ManualRouteRibbonSweepTests.RepeatedFrozenSupportQueryReusesItsWholeBodyProofAndChangedForceDoesNot() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualRouteRibbonSweepTests.cs:line 19&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="RepeatedFrozenSupportQueryReusesItsWholeBodyProofAndChangedForceDoesNot" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="d72c912c-1299-46a6-293e-42c9d4599865">
+      <Execution id="0ffa4de8-4169-42e9-a076-a92f6775d32b" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualRouteRibbonSweepTests" name="RepeatedFrozenSupportQueryReusesItsWholeBodyProofAndChangedForceDoesNot" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="d72c912c-1299-46a6-293e-42c9d4599865" executionId="0ffa4de8-4169-42e9-a076-a92f6775d32b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

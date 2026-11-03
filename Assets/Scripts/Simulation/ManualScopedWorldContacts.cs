@@ -19,6 +19,10 @@ namespace Biathlon.Simulation
         public ManualScopedContactSetPreview LastOwnedContacts {get;private set;}
         public int LastOwnedContactNarrowphasePairs {get;private set;}
         public int LastOwnedContactExcludedPairs {get;private set;}
+        public int OwnedContactGeometryBuilds {get;private set;}
+        private readonly ManualSkiHeadingState[] ownedContactCachePoses;
+        private readonly bool[] ownedContactCacheParticipants;
+        private bool ownedContactCacheValid;
         public SkiContactForcePreview LastContactForces {get;private set;}
         public SkiContactForceReaction GetLastContactForceReaction(int index)
         {
@@ -139,6 +143,18 @@ namespace Biathlon.Simulation
         }
         private bool CollectOwnedContacts()
         {
+            // This group depends on current body poses and physical presence,
+            // never on velocity or the next proposed force law. Several callers
+            // ask for it before paying any time. Retain all pair proofs while
+            // reusing an exact unchanged group, including its stable pair order.
+            if(ownedContactCacheValid)
+            {
+                bool same=true;
+                for(int i=0;i<Count;i++)if(!SamePose(workingActors[i].Pose,ownedContactCachePoses[i])||contactParticipants[i]!=ownedContactCacheParticipants[i]){same=false;break;}
+                if(same)return true;
+            }
+            ownedContactCacheValid=false;
+            OwnedContactGeometryBuilds++;
             LastOwnedContacts=default;int count=0;Array.Clear(ownedContactParticipants,0,Count);
             LastOwnedContactNarrowphasePairs=LastOwnedContactExcludedPairs=0;
             // The accepted proximity band is measured on separating axes. Inflate
@@ -167,7 +183,9 @@ namespace Biathlon.Simulation
                 if(gap.GapMeters<=ownedContactTolerance+4*PhysiologyNumbers.MinimumPositive)
                 {ownedContacts[count++]=new SkiReachedContactPair(a.Athlete,b.Athlete);ownedContactParticipants[ai]=ownedContactParticipants[bi]=true;}
             }
-            LastOwnedContacts=new ManualScopedContactSetPreview(true,count);return true;
+            LastOwnedContacts=new ManualScopedContactSetPreview(true,count);
+            for(int i=0;i<Count;i++){ownedContactCachePoses[i]=workingActors[i].Pose;ownedContactCacheParticipants[i]=contactParticipants[i];}
+            ownedContactCacheValid=true;return true;
         }
         /// <summary>Use only current owned endpoint proximity for continuing
         /// contacts, then prove the full roster's next common arrival or clear

@@ -39,7 +39,7 @@ namespace Biathlon.Simulation
             InitialMotion=initial;Snow=snow;DurationSeconds=seconds;State=default;
             ValidateAxis(pose.X,initial.Velocity.X,snow.Motion.Velocity.X,seconds);
             ValidateAxis(pose.Z,initial.Velocity.Z,snow.Motion.Velocity.Z,seconds);
-            State=Sample(1);
+            State=Evaluate(1);
         }
 
         /// <summary>Samples the same complete frozen interval; do not recalculate a
@@ -48,6 +48,11 @@ namespace Biathlon.Simulation
         {
             Validate(fraction);
             if(fraction==0)return InitialPose;
+            if(fraction==1)return State;
+            return Evaluate(fraction);
+        }
+        private ManualSkiHeadingState Evaluate(double fraction)
+        {
             var motion=MotionAt(fraction);double time=DurationSeconds*fraction;
             return new ManualSkiHeadingState(
                 InitialPose.X+time*(InitialMotion.Velocity.X+motion.Velocity.X)*.5,
@@ -93,6 +98,15 @@ namespace Biathlon.Simulation
         private readonly SkiDrivenContactTrajectory driven;
         private readonly SkiForceCoupledTrajectory coupled;
         private readonly double fromSeconds,toSeconds;
+        internal bool HasSameCoupledLaw(ManualSkiWorldTrajectory other)
+        {
+            if(!coupled.IsValid||!other.coupled.IsValid||fromSeconds!=other.fromSeconds||toSeconds!=other.toSeconds)return false;
+            var a=coupled;var b=other.coupled;
+            return a.DurationSeconds==b.DurationSeconds&&a.InitialPose.X==b.InitialPose.X&&a.InitialPose.Z==b.InitialPose.Z&&
+                a.InitialPose.HeadingNanoradians==b.InitialPose.HeadingNanoradians&&a.InitialPose.YawRateRadiansPerSecond==b.InitialPose.YawRateRadiansPerSecond&&
+                a.InitialMotion.Velocity.X==b.InitialMotion.Velocity.X&&a.InitialMotion.Velocity.Z==b.InitialMotion.Velocity.Z&&a.InitialMotion.YawRate==b.InitialMotion.YawRate&&
+                a.Acceleration.X==b.Acceleration.X&&a.Acceleration.Z==b.Acceleration.Z&&a.Acceleration.Yaw==b.Acceleration.Yaw;
+        }
         public bool IsValid=>heading.HasForceTrajectory||contact.IsValid||driven.IsValid||coupled.IsValid;
         private bool HasContact=>contact.IsValid||driven.IsValid||coupled.IsValid;
         private double RootDurationSeconds=>coupled.IsValid?coupled.DurationSeconds:driven.IsValid?driven.DurationSeconds:contact.IsValid?contact.DurationSeconds:heading.DurationSeconds;

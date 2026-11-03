@@ -155,7 +155,7 @@ namespace Biathlon.Simulation
             FirstDriveSeconds=firstSeconds;DurationSeconds=seconds;MassKilograms=mass;
             forwardX=Math.Sin(pose.HeadingRadians);forwardZ=Math.Cos(pose.HeadingRadians);
             initialForward=initial.Velocity.X*forwardX+initial.Velocity.Z*forwardZ;
-            State=default;State=Sample(1);ValidateCoordinates();
+            State=default;State=Evaluate(1);ValidateCoordinates();
         }
         private double ForwardDistance(double time)
             =>direction*FirstDrive.DistanceAt(Math.Min(time,FirstDriveSeconds))*scale+
@@ -166,6 +166,11 @@ namespace Biathlon.Simulation
         public ManualSkiHeadingState Sample(double fraction)
         {
             Validate(fraction);if(fraction==0)return InitialPose;
+            if(fraction==1)return State;
+            return Evaluate(fraction);
+        }
+        private ManualSkiHeadingState Evaluate(double fraction)
+        {
             double time=DurationSeconds*fraction,travel=ForwardDistance(time)-initialForward*time;
             var end=MotionAt(fraction);
             double dx=Snow.Motion.Velocity.X-InitialMotion.Velocity.X,dz=Snow.Motion.Velocity.Z-InitialMotion.Velocity.Z;

@@ -17,6 +17,7 @@ namespace Biathlon.Simulation
         public double StartCountdownSeconds { get; }
         public ManualSkiHeadingState WorldPose {get;}
         public SkiPlanarVelocity WorldVelocity {get;}
+        public SkiImpactObservation Impact {get;}
         public bool RangeTransitYielding {get;}
         public bool TuckActive { get; }
         public bool FinalSprintActive { get; }
@@ -69,6 +70,7 @@ namespace Biathlon.Simulation
             var world=field.HasManualWorldState&&!field.HasManualScopedWorldState?field.GetManualWorldActor(index):default;
             var scoped=field.HasManualScopedWorldState?field.GetManualScopedWorldActor(index):default;
             WorldPose=scoped.IsValid?scoped.Pose:world.Pose;WorldVelocity=scoped.IsValid?scoped.Velocity:world.Velocity;
+            Impact=field.GetManualScopedImpact(index);
             RangeTransitYielding=field.IsRangeTransitYielding(index);
             TuckActive=a.TuckActive;FinalSprintActive=a.FinalSprintActive;
             var range=a.CurrentRangeMotion;

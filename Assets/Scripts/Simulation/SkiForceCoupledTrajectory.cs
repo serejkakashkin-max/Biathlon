@@ -37,7 +37,7 @@ namespace Biathlon.Simulation
             PhysiologyNumbers.RequireRange(seconds,double.Epsilon,PhysiologyNumbers.MaximumMagnitude,nameof(seconds));
             InitialPose=new ManualSkiHeadingState(pose.X,pose.Z,pose.HeadingRadians,motion.YawRate);
             InitialMotion=motion;Acceleration=acceleration;DurationSeconds=seconds;State=default;
-            State=Sample(1);
+            State=Evaluate(1);
             ValidateAxis(motion.Velocity.X,acceleration.X);ValidateAxis(motion.Velocity.Z,acceleration.Z);
             if(acceleration.Yaw!=0)
             {
@@ -48,6 +48,11 @@ namespace Biathlon.Simulation
         public ManualSkiHeadingState Sample(double fraction)
         {
             Validate(fraction);if(fraction==0)return InitialPose;
+            if(fraction==1)return State;
+            return Evaluate(fraction);
+        }
+        private ManualSkiHeadingState Evaluate(double fraction)
+        {
             double t=DurationSeconds*fraction;var motion=MotionAt(fraction);
             return new ManualSkiHeadingState(InitialPose.X+t*(InitialMotion.Velocity.X+Acceleration.X*t*.5),
                 InitialPose.Z+t*(InitialMotion.Velocity.Z+Acceleration.Z*t*.5),

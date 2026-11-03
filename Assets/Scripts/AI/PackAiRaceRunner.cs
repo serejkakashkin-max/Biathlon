@@ -98,6 +98,7 @@ namespace Biathlon.AI
         public int GetLastManualSteering(int index)=>manualCandidate==null?throw new InvalidOperationException("No signed manual movement selected."):
             manualCandidate.GetSteering(index);
         public int AiSnowSearchVersion=>manualCandidate?.SnowSearchVersion??0;
+        public int MovingOvertakeVersion=>manualCandidate?.MovingOvertakeVersion??0;
         public double GetLastManualBrake(int index)=>manualCandidate==null?throw new InvalidOperationException("No signed manual movement selected."):
             manualCandidate.GetBrakeFraction(index);
         public long TacticalDecisions { get; private set; }

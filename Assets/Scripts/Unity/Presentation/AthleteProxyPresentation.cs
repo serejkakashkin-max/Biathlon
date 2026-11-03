@@ -101,6 +101,7 @@ namespace Biathlon.Unity.Presentation
         }
         public void Render(double alpha,double completedSeconds=0)
         {
+            using var profile=RuntimeFrameProfile.Athletes.Auto();
             if(double.IsNaN(alpha)||double.IsInfinity(alpha)||alpha<0||alpha>1)throw new ArgumentOutOfRangeException(nameof(alpha));
             if(!double.IsFinite(completedSeconds)||completedSeconds<0||completedSeconds>86400)throw new ArgumentOutOfRangeException(nameof(completedSeconds));
             if(feed==null)return;if(feed.Current==null){Clear();return;}if(feed.Current.TrackId!=visual.TrackId)throw new InvalidOperationException("Proxy geometry does not match snapshot.");

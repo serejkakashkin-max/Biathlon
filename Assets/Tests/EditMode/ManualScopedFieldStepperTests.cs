@@ -60,7 +60,7 @@ namespace Biathlon.Tests
             }
             return FormattableString.Invariant($"{s.LastStep.Status} / {s.LastStep.WorldAttempt.Status} / {s.LastStep.WorldAttempt.Athlete} / {s.LastStep.ProvisionalSeconds:R} / pieces {s.LastStep.Intervals} / forces {forces.Status} supports={forces.SupportPoints} passes={forces.Passes} seconds={forces.DurationSeconds:R} residual={forces.MaximumReactionResidualSpeed:R} closing={forces.MaximumClosingAcceleration:R} / {s.LastStep.WorldAttempt.Course.Status} / {s.LastStep.WorldAttempt.Course.SourceEdgeId} / {s.LastStep.WorldAttempt.CourseEdge.Status} / pair {s.LastStep.WorldAttempt.BodyOrEdge.First}:{s.LastStep.WorldAttempt.BodyOrEdge.Second} {s.LastStep.WorldAttempt.BodyOrEdge.Pair.Status} clear {s.LastStep.WorldAttempt.BodyOrEdge.Pair.ClearUntilSeconds:R} end {s.LastStep.WorldAttempt.BodyOrEdge.Pair.IntervalEndSeconds:R} continuation {s.LastStep.WorldAttempt.BodyOrEdge.Pair.IsContactContinuation} / {source}");
         }
-        internal static (PackAiRaceRunner runner,ManualScopedFieldStepper stepper,RaceEventLog events) InitialCandidate(int count,bool withFinish=false,bool withFinishCheckpoint=false,bool productionComposition=false,bool exactMatBoundary=false)
+        internal static (PackAiRaceRunner runner,ManualScopedFieldStepper stepper,RaceEventLog events) InitialCandidate(int count,bool withFinish=false,bool withFinishCheckpoint=false,bool productionComposition=false,bool exactMatBoundary=false,string aiPolicyResource="manual_ai_steering_v2",bool singleFileGrid=false,string aiPolicyJson=null)
         {
             const string root="Biathlon/Venues/woodland_basin_v1/";
             string Load(string id)
@@ -74,9 +74,10 @@ namespace Biathlon.Tests
                 return json;
             }
             var venue=new VenueAuthoringPlan(VenueManifest.FromJson(Read(root+"manifest")),Load);
+            string Core(string id)=>singleFileGrid&&id=="mass_start_grid_provisional_v1.json"?"{\"schema_version\":1,\"id\":\"single_file_overtake_test\",\"columns\":1,\"row_spacing_m\":6,\"column_spacing_m\":2}":PhysiologyContractTests.DefinitionJson(id);
             var profile=CompetitionProfile.FromJson(Read(root+"mass_start_profile"));var events=new RaceEventLog(10000);
             var runner=ProductionVenueRaceFactory.Create(venue,profile,RaceRoutePlan.FromJson(Read(root+"mass_start_route")),
-                RaceSnowConditions.FromJson(PhysiologyContractTests.DefinitionJson("race_snow_neutral_v1.json")),PhysiologyContractTests.DefinitionJson,
+                RaceSnowConditions.FromJson(PhysiologyContractTests.DefinitionJson("race_snow_neutral_v1.json")),Core,
                 events,new AiDecisionCounts(),count:count);
             var models=new SkiModelDefinitions(PhysiologyContractTests.DefinitionJson);
             var world=ManualScopedFieldStepper.CreateInitialWorld(runner.Field,venue.Track,venue.Visual,venue.Occupancy,Contact(),Work(),Group(),models.Physics,
@@ -88,7 +89,7 @@ namespace Biathlon.Tests
                 withFinish?ManualCourseContactDefinition.FromJson(Read("Biathlon/manual_course_contact_v1")):null);
             var stepper=productionComposition?ManualProductionFieldComposition.Create(runner.Field,venue,PhysiologyContractTests.DefinitionJson):new ManualScopedFieldStepper(runner.Field,world,models,venue.Occupancy,Steering(),Work(),
                 ManualMatBrakingDefinition.FromJson(Read("Biathlon/manual_mat_braking_v1")));
-            runner.BindManualScopedCandidate(stepper,ManualAiSteeringDefinition.FromJson(Read("Biathlon/manual_ai_steering_v2")),Steering());
+            runner.BindManualScopedCandidate(stepper,ManualAiSteeringDefinition.FromJson(aiPolicyJson??Read("Biathlon/"+aiPolicyResource)),Steering());
             return (runner,stepper,events);
         }
 

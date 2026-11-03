@@ -19,6 +19,18 @@ namespace Biathlon.Tests
                 new ManualSkiContactBody(key,pose,velocity,75),new SkiContactMotion(velocity,0),0,0,.05)));
         }
         private static ManualSkiContactScheduler Scheduler(int count=4,int checks=4096)=>new ManualSkiContactScheduler(Body(),Contact(),Work(checks),count);
+        [Test] public void ArrivalGroupSamplesEachImmutableEndpointOnceAcrossAllPairs()
+        {
+            double gap=Body().LongitudinalSeparation+.05;
+            var actors=new[]{Actor("b",0,gap),Actor("d",3,gap),Actor("c",3,0,2),Actor("a",0,0,2)};
+            var scheduler=Scheduler();var result=scheduler.Preview(actors,4,NoPairs,0,NoEdges,0);
+            Assert.That(result.Status,Is.EqualTo(SkiContactScheduleStatus.Arrival));Assert.That(result.ArrivingPairs,Is.EqualTo(2));
+            Assert.That(scheduler.EndpointPoseSamples,Is.EqualTo(actors.Length),"The same immutable prefix endpoint is shared by every pair in this query.");
+            actors[0]=Actor("b",0,gap+.02);
+            var changed=scheduler.Preview(actors,4,NoPairs,0,NoEdges,0);
+            Assert.That(changed.ArrivingPairs,Is.EqualTo(1));Assert.That(scheduler.GetArrival(0).First.Value,Is.EqualTo("c"));
+            Assert.That(scheduler.EndpointPoseSamples,Is.EqualTo(actors.Length),"A later query must rebuild endpoints from its new prefix.");
+        }
         [Test] public void TwoSimultaneousSeparatedContactsHaveOneStableActualEndpointGroup()
         {
             double gap=Body().LongitudinalSeparation+.05;

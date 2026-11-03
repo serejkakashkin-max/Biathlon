@@ -195,6 +195,7 @@ namespace Biathlon.Unity.Presentation
         {helpVisible=visible;if(helpPanel!=null)helpPanel.style.display=visible?DisplayStyle.Flex:DisplayStyle.None;}
         public void Refresh()
         {
+            using var profile=RuntimeFrameProfile.Hud.Auto();
             if(!isActiveAndEnabled||Root==null)return;
             RefreshPaceStart();
             var snapshot=feed?.Current;

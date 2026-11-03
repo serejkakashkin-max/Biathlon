@@ -157,22 +157,23 @@ namespace Biathlon.Unity.Presentation
             catch{Destroy(environment);throw;}
         }
         public void Initialize(VenueAuthoringPlan venue,CompetitionProfile profile,RaceRoutePlan route,
-            RaceSnowConditions conditions,int count=30,int playerIndex=0,PursuitQualificationSnapshot qualification=null)
+            RaceSnowConditions conditions,int count=30,int playerIndex=0,PursuitQualificationSnapshot qualification=null,int movingOvertakeVersion=1)
         {
             if(Runner!=null)throw new InvalidOperationException("A fresh host is required for another race.");
             if(playerIndex<0||playerIndex>=count)throw new ArgumentOutOfRangeException(nameof(playerIndex));
             var runner=ProductionVenueRaceFactory.Create(venue,profile,route,conditions,ReadCore,new BalanceEventAudit(5),new AiDecisionCounts(),qualification,count);
-            InitializeRunner(venue,runner,playerIndex);
+            if(movingOvertakeVersion<0||movingOvertakeVersion>1)throw new ArgumentOutOfRangeException(nameof(movingOvertakeVersion));
+            InitializeRunner(venue,runner,playerIndex,movingOvertakeVersion:movingOvertakeVersion);
         }
         public void InitializeCareer(CareerPreparedRace race)
         {
             if(race==null)throw new ArgumentNullException(nameof(race));
             if(Runner!=null||race.Venue==null||race.PlayerIndex<0||race.Runner.Field.Tick.Value!=0)
                 throw new InvalidOperationException("A fresh playable production career race is required.");
-            InitializeRunner(race.Venue,race.Runner,race.PlayerIndex,race.ManualRead,race.CourseReactionPolicy,race.AiSnowSearchVersion==1);
+            InitializeRunner(race.Venue,race.Runner,race.PlayerIndex,race.ManualRead,race.CourseReactionPolicy,race.AiSnowSearchVersion==1,race.MovingOvertakeVersion);
         }
         private void InitializeRunner(VenueAuthoringPlan venue,PackAiRaceRunner runner,int playerIndex,Func<string,string> manualRead=null,
-            ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.PassiveCurvedV26,bool completeSnowSearch=true)
+            ManualCourseReactionPolicy courseReactionPolicy=ManualCourseReactionPolicy.PassiveCurvedV26,bool completeSnowSearch=true,int movingOvertakeVersion=1)
         {
             var profile=runner.Field.Profile;
             playerAssistance=PlayerCourseAssistanceDefinition.FromJson(ReadCore("player_course_assistance_v1.json"));
@@ -181,7 +182,7 @@ namespace Biathlon.Unity.Presentation
             if(UseManualHeading&&venue.Formats!=null)
             {
                 ManualStepper=ManualProductionFieldComposition.Create(runner.Field,venue,manualRead??ReadCore,courseReactionPolicy);
-                runner.BindManualScopedCandidate(ManualStepper,ManualAiSteeringDefinition.FromJson(ReadCore("manual_ai_steering_v2.json")),
+                runner.BindManualScopedCandidate(ManualStepper,ManualAiSteeringDefinition.FromJson(ReadCore(movingOvertakeVersion==1?"manual_ai_steering_v3.json":"manual_ai_steering_v2.json")),
                     ManualSkiSteeringDefinition.FromJson(ReadCore("manual_ski_steering_v2.json")),playerAssistance,completeSnowSearch);
             }
             Venue=venue;Runner=runner;PlayerIndex=playerIndex;body=venue.Occupancy;
@@ -190,7 +191,7 @@ namespace Biathlon.Unity.Presentation
             for(int lap=0;lap<shootingLaps.Length;lap++)shootingLaps[lap]=requirements.RequiresRange(lap);
             samplers=new TrackSampler[venue.Track.LoopCount];for(int i=0;i<samplers.Length;i++)samplers[i]=new TrackSampler(venue.Track.GetLoop(i));
             var field=Runner.Field;var id=field.GetAthlete(PlayerIndex).AthleteId;
-            Feed=gameObject.AddComponent<RacePresentationFeed>();Feed.Publish(RacePresentationSnapshot.Capture(field));
+            Feed=gameObject.AddComponent<RacePresentationFeed>();Feed.Publish(CaptureSnapshot());
             ski=gameObject.AddComponent<PlayerDeviceInput>();ski.enabled=false;ski.Initialize(id,field.TickFrequency,InputPreferences);
             shot=gameObject.AddComponent<ShootingDeviceInput>();shot.enabled=false;shot.Initialize(id,field.TickFrequency,preferences:InputPreferences);
             effort=new EffortControlSystem(EffortControlDefinition.FromJson(ReadCore("effort_control_provisional_v1.json")),id,field.TickFrequency);
@@ -272,7 +273,7 @@ namespace Biathlon.Unity.Presentation
                     StepDeviceTick();
                     frameClock.ConsumeTick();completed++;
                     // Preserve adjacent accepted states even on catch-up frames.
-                    Feed.Publish(RacePresentationSnapshot.Capture(Runner.Field));
+                    Feed.Publish(CaptureSnapshot());
                     if(frameWork.Elapsed.TotalMilliseconds>=frameBudget.WorkBudgetMilliseconds)break;
                 }
             }
@@ -295,6 +296,7 @@ namespace Biathlon.Unity.Presentation
         }
         public void Step(PlayerCommand command,ShootingDeviceCommand shooting)
         {
+            using var profile=RuntimeFrameProfile.Tick.Auto();
             if(Runner==null)throw new InvalidOperationException("Initialize the host first.");
             var applied=effort.Preview(command,true);
             var actor=Runner.Field.GetAthlete(PlayerIndex);var point=Runner.Field.GetPhysicalPoint(PlayerIndex);
@@ -315,6 +317,7 @@ namespace Biathlon.Unity.Presentation
         }
         public void Step(ManualSkiCommand command,ShootingDeviceCommand shooting)
         {
+            using var profile=RuntimeFrameProfile.Tick.Auto();
             if(ManualStepper==null)throw new InvalidOperationException("Signed heading mode must be selected before manual input.");
             var applied=effort.Preview(command.ToEffortCommand(),true);
             var actor=Runner.Field.GetAthlete(PlayerIndex);var point=Runner.Field.GetPhysicalPoint(PlayerIndex);
@@ -347,8 +350,10 @@ namespace Biathlon.Unity.Presentation
             BurstRequested=command.Preset==EffortPreset.Attack&&!assist.Active&&!actor.TuckActive&&command.BrakeFraction==0&&!actor.HasFinished&&actor.ActiveShooting==null;
             if(!batchFrame)PublishPresentation();
         }
+        private RacePresentationSnapshot CaptureSnapshot()
+        {using var profile=RuntimeFrameProfile.Snapshot.Auto();return RacePresentationSnapshot.Capture(Runner.Field);}
         private void PublishPresentation(bool capture=true)
-        {if(capture)Feed.Publish(RacePresentationSnapshot.Capture(Runner.Field));if(range.enabled)range.Refresh();if(hud.enabled)hud.Refresh();if(debugHud.enabled)debugHud.Refresh();if(penalty.enabled)penalty.Refresh();}
+        {if(capture)Feed.Publish(CaptureSnapshot());if(range.enabled)range.Refresh();if(hud.enabled)hud.Refresh();if(debugHud.enabled)debugHud.Refresh();if(penalty.enabled)penalty.Refresh();}
         private void OnApplicationFocus(bool value)=>SetInputFocus(value);
         private void OnGUI()
         {

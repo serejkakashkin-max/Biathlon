@@ -35,6 +35,15 @@ namespace Biathlon.Simulation
         private bool ribbonCached;
         private int cachedFirst,cachedLast;
         public int GeometryBuildCount {get;private set;}
+        public int GeometryProofCount {get;private set;}
+        private bool proofCached;
+        private ManualSkiWorldTrajectory proofTrajectory;
+        private ManualRouteProjection proofSource;
+        private ManualRangeApronSnowRegion proofApron;
+        private ManualRouteTubePreview proofResult;
+        private ManualSkiHeadingState proofThreatened;
+        private double proofStart,proofMinimum;
+        private int proofSamples,proofDisks;
         private ManualConnectedTubeWindow tubeWindow;
         private ManualRangeApronSnowRegion rangeApron;
         internal void SetRangeApron(ManualRangeApronSnowRegion region)=>rangeApron=region;
@@ -81,6 +90,26 @@ namespace Biathlon.Simulation
         }
         public ManualRouteTubePreview Preview(ManualSkiWorldTrajectory trajectory,ManualRouteProjection source)
         {
+            // Course support and final admission may prove the very same frozen
+            // polynomial. Reuse only its exact source, force law and apron.
+            if(proofCached&&trajectory.HasSameCoupledLaw(proofTrajectory)&&SameSource(source,proofSource)&&ReferenceEquals(rangeApron,proofApron))
+            {
+                LastStartClearance=proofStart;LastMinimumSampledClearance=proofMinimum;LastThreatenedPose=proofThreatened;
+                clearanceSamples=proofSamples;diskQueries=proofDisks;return proofResult;
+            }
+            proofCached=false;
+            var result=PreviewCore(trajectory,source);
+            proofTrajectory=trajectory;proofSource=source;proofApron=rangeApron;proofResult=result;
+            proofStart=LastStartClearance;proofMinimum=LastMinimumSampledClearance;proofThreatened=LastThreatenedPose;
+            proofSamples=clearanceSamples;proofDisks=diskQueries;proofCached=trajectory.HasSameCoupledLaw(trajectory);
+            return result;
+        }
+        private static bool SameSource(ManualRouteProjection a,ManualRouteProjection b)
+            =>a.IsValid==b.IsValid&&a.SectionIndex==b.SectionIndex&&a.LoopId==b.LoopId&&a.RouteNanometers==b.RouteNanometers&&
+                a.LocalMeters==b.LocalMeters&&a.LateralMeters==b.LateralMeters&&a.HeightMeters==b.HeightMeters&&a.DistanceFromCentreMeters==b.DistanceFromCentreMeters&&
+                a.ForwardX==b.ForwardX&&a.ForwardZ==b.ForwardZ&&a.GeometricGrade==b.GeometricGrade&&a.StationMetersPerPlanarMeter==b.StationMetersPerPlanarMeter;
+        private ManualRouteTubePreview PreviewCore(ManualSkiWorldTrajectory trajectory,ManualRouteProjection source)
+        {
             if(!trajectory.IsValid||!source.IsValid)throw new ArgumentException("Owned source and initialized trajectory required.");
             double seconds=trajectory.DurationSeconds;
             clearanceSamples=diskQueries=0;
@@ -113,6 +142,7 @@ namespace Biathlon.Simulation
             double reserve=2*trajectory.PositionErrorBoundMeters+bodyRadius*trajectory.HeadingErrorBoundRadians+
                 128*2.2204460492503131e-16*(1+Math.Abs(trajectory.Sample(0).X)+Math.Abs(trajectory.Sample(0).Z))-sweepTolerance;
             LastThreatenedPose=trajectory.Sample(0);
+            GeometryProofCount++;
             LastStartClearance=Clearance(LastThreatenedPose,certificateThreshold:reserve);LastMinimumSampledClearance=LastStartClearance;
             if(!(LastStartClearance>reserve))return new ManualRouteTubePreview(ManualRouteTubeStatus.UnresolvedStart,0,0,0,null);
             int checks=0;return Search(trajectory,0,seconds,0,reserve,ref checks);

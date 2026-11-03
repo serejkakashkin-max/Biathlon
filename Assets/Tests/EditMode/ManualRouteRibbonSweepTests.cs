@@ -7,6 +7,29 @@ namespace Biathlon.Tests
 {
     public sealed class ManualRouteRibbonSweepTests
     {
+        [Test] public void RepeatedFrozenSupportQueryReusesItsWholeBodyProofAndChangedForceDoesNot()
+        {
+            var f=new ManualRacePathCatalogTests.Fixture(lane:2,historicalCommonWidth:true);
+            var pose=new ManualSkiHeadingState(38.759850762,-1.659021024,1.180710536,-.566373208);
+            Assert.That(f.Catalog.TryProject(pose,3,1368532934L,2,out var at),Is.True);
+            var sweep=new ManualRouteRibbonSweep(f.Catalog.ProjectionGeometry,f.Venue.Occupancy,ManualScopedFieldStepperTests.Work());
+            var observation=f.Catalog.GetGeometryObservation(at);var trajectory=Coupled(.05,.1);
+            var first=sweep.Preview(trajectory,observation);double start=sweep.LastStartClearance,minimum=sweep.LastMinimumSampledClearance;int proofs=sweep.GeometryProofCount;
+            Assert.That(sweep.Preview(trajectory,observation),Is.EqualTo(first));
+            Assert.That(sweep.GeometryProofCount,Is.EqualTo(proofs),"Support planning and final admission can ask for the identical immutable trajectory; retain the original complete proof.");
+            Assert.That(sweep.LastStartClearance,Is.EqualTo(start));Assert.That(sweep.LastMinimumSampledClearance,Is.EqualTo(minimum));
+            var changed=Coupled(.04,.2);var fresh=new ManualRouteRibbonSweep(f.Catalog.ProjectionGeometry,f.Venue.Occupancy,ManualScopedFieldStepperTests.Work());
+            Assert.That(sweep.Preview(changed,observation),Is.EqualTo(fresh.Preview(changed,observation)));Assert.That(sweep.GeometryProofCount,Is.GreaterThan(proofs));
+            for(int i=0;i<10;i++)sweep.Preview(trajectory,observation);
+            long bytes=GC.GetAllocatedBytesForCurrentThread();for(int i=0;i<100;i++)sweep.Preview(trajectory,observation);
+            Assert.That(GC.GetAllocatedBytesForCurrentThread()-bytes,Is.Zero);
+            ManualSkiWorldTrajectory Coupled(double seconds,double acceleration)
+            {
+                var frozen=(SkiForceCoupledTrajectory)Activator.CreateInstance(typeof(SkiForceCoupledTrajectory),System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic,null,
+                    new object[]{pose,new SkiContactMotion(new SkiPlanarVelocity(.2,.1),pose.YawRateRadiansPerSecond),new SkiContactAcceleration(acceleration,0,.03),seconds},null);
+                return new ManualSkiWorldTrajectory(frozen);
+            }
+        }
         [Test] public void CapturedPenaltyEntryMatchesEveryFineGridLeafAcrossNormalProbes()
         {
             var f=new ManualRacePathCatalogTests.Fixture(lane:22);

@@ -27,8 +27,10 @@ namespace Biathlon.Simulation
         private readonly ManualSkiJointSweep joint;
         private readonly SkiWorldMotionCandidate[] prefix;
         private readonly SkiReachedContactPair[] arrivals;
+        private readonly ManualSkiContactBody[] endpointBodies;
         private readonly double tolerance;
         private int arrivalCount;
+        public int EndpointPoseSamples {get;private set;}
         public string ContextJson {get;}
         public ManualSkiContactScheduler(OccupancyDefinition body,SkiContactDefinition contact,SkiContactSweepDefinition work,int maximumActors)
         {
@@ -36,6 +38,7 @@ namespace Biathlon.Simulation
             pairSweep=new ManualSkiContactSweep(body,contact,work);geometry=new ManualSkiContactSystem(body,contact);
             joint=new ManualSkiJointSweep(body,contact,work,separatedResponseBand:true);tolerance=contact.ContactTolerance;
             prefix=new SkiWorldMotionCandidate[maximumActors];arrivals=new SkiReachedContactPair[checked(maximumActors*(maximumActors-1)/2)];
+            endpointBodies=new ManualSkiContactBody[maximumActors];
             ContextJson=ShootingModelDefinitions.EncodeContext(new[]{"manual_common_contact_schedule_v2",pairSweep.FirstContactContextJson,joint.ContextJson,
                 "all_pairs_actual_endpoint_group;stable_pair_order;common_prefix_all_body_and_explicit_edges;existing_contact_proved_half_prefix_force_refresh;no_mutation_or_wait"});
         }
@@ -50,7 +53,7 @@ namespace Biathlon.Simulation
         internal SkiContactSchedulePreview Preview(SkiWorldMotionCandidate[] actors,int count,SkiReachedContactPair[] continuing,int continuingCount,
             SkiActorCourseEdge[] edges,int edgeCount,bool[] participants)
         {
-            arrivalCount=prefixCount=0;
+            arrivalCount=prefixCount=EndpointPoseSamples=0;
             if(actors==null||count<1||count>actors.Length||count>prefix.Length)throw new ArgumentException("Complete bounded roster required.");
             // Existing joint validation covers identities, durations, duplicate or
             // foreign contacts and edges even when an earlier pair is unresolved.
@@ -98,6 +101,11 @@ namespace Biathlon.Simulation
             }
             if(!found)return new SkiContactSchedulePreview(SkiContactScheduleStatus.Unresolved,whole.ClearUntilSeconds,first:whole.First,second:whole.Second,admission:whole);
             for(int i=0;i<count;i++)prefix[i]=new SkiWorldMotionCandidate(actors[i].Athlete,actors[i].Trajectory.Slice(0,earliest));
+            // Every pair observes the same immutable prefix endpoint. Sampling
+            // it once avoids O(n²) repeated force integration/pose encoding.
+            // Rebuild for every query: a new earliest time changes the prefix.
+            for(int i=0;i<count;i++)if(participants==null||participants[i])
+            {endpointBodies[i]=new ManualSkiContactBody(prefix[i].Athlete,prefix[i].Trajectory.Sample(1),default,1);EndpointPoseSamples++;}
             // Collect actual simultaneous endpoint proximity, not guessed time ties.
             // This also includes a pair whose full root query exhausted its work
             // after this earlier time, provided the joint prefix now proves it.
@@ -105,8 +113,7 @@ namespace Biathlon.Simulation
             {
                 if(participants!=null&&(!participants[i]||!participants[j]))continue;
                 var a=prefix[i];var b=prefix[j];if(IsContinuing(a.Athlete,b.Athlete))continue;
-                var gap=geometry.Preview(new ManualSkiContactBody(a.Athlete,a.Trajectory.Sample(1),default,1),
-                    new ManualSkiContactBody(b.Athlete,b.Trajectory.Sample(1),default,1));
+                var gap=geometry.Preview(endpointBodies[i],endpointBodies[j]);
                 if(gap.GapMeters<=tolerance&&gap.GapMeters> -tolerance)arrivals[arrivalCount++]=new SkiReachedContactPair(a.Athlete,b.Athlete);
             }
             // Stable insertion order avoids an allocating comparer or dependence

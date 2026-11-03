@@ -7,6 +7,38 @@ namespace Biathlon.Tests
 {
     public class ManualScopedWorldEventTests
     {
+        [Test] public void ImpactObservationPublishesOnlyWithItsAcceptedTickAndClearsAfterNoImpulse()
+        {
+            var f=new ManualScopedWorldRosterTests.Fixture(mixed:false,gap:-1,contactResponse:true);var world=f.World;var tick=world.BeginTick();
+            while(world.GetRemainingSeconds(tick)>0)
+            {
+                Assert.That(world.TryAppendToOwnedFirstEvent(tick,Passive(world,tick,f.Source.Venue.Occupancy),Windows(world,tick,f.Catalogs),NoEdges,0,Grades(world,tick),out _),Is.True,world.LastAttempt.Status.ToString());
+                if(world.HasPendingContact(tick))Assert.That(world.TryResolveArrivals(tick),Is.True);
+                Assert.That(world.GetAcceptedImpact(0).SpeedChange,Is.Zero,"Provisional impulses must not escape before publication.");
+            }
+            Assert.That(world.TryFinalizeTick(tick,out var proof),Is.True);world.Commit(proof);
+            Assert.That(world.GetAcceptedImpact(0).SpeedChange,Is.GreaterThan(.5));Assert.That(world.GetAcceptedImpact(1).SpeedChange,Is.GreaterThan(.5));
+            var impact=world.GetAcceptedImpact(0);tick=world.BeginTick();world.AbortTick(tick);
+            Assert.That(world.GetAcceptedImpact(0),Is.EqualTo(impact),"An aborted attempt preserves the previous accepted observation.");
+            tick=world.BeginTick();
+            Assert.That(world.TryResolveOwnedCurrentContacts(tick),Is.True);
+            Assert.That(world.TryAppendToOwnedFirstEvent(tick,Passive(world,tick,f.Source.Venue.Occupancy),Windows(world,tick,f.Catalogs),NoEdges,0,Grades(world,tick),out _),Is.True);
+            Assert.That(world.TryFinalizeTick(tick,out proof),Is.True);world.Commit(proof);
+            Assert.That(world.GetAcceptedImpact(0).SpeedChange,Is.LessThan(1e-6),"A later ordinary tick cannot replay a past hit.");
+        }
+        [Test] public void IdenticalOwnedContactQueriesReuseGeometryAndMovingPrefixInvalidatesIt()
+        {
+            var f=new ManualScopedWorldRosterTests.Fixture(mixed:false,gap:20,contactResponse:true);var world=f.World;var tick=world.BeginTick();
+            Assert.That(world.TryResolveOwnedCurrentContacts(tick),Is.True);int builds=world.OwnedContactGeometryBuilds;
+            Assert.That(world.TryResolveOwnedCurrentContacts(tick),Is.True);
+            Assert.That(world.OwnedContactGeometryBuilds,Is.EqualTo(builds),"The second response query observes exactly the same poses and physical participants.");
+            var candidates=Passive(world,tick,f.Source.Venue.Occupancy);
+            Assert.That(world.TryAppendToOwnedFirstEvent(tick,candidates,Windows(world,tick,f.Catalogs),NoEdges,0,Grades(world,tick),out _),Is.True);
+            Assert.That(world.TryResolveOwnedCurrentContacts(tick),Is.True);
+            Assert.That(world.OwnedContactGeometryBuilds,Is.GreaterThan(builds),"A paid moving prefix must invalidate the old body geometry.");
+            int moved=world.OwnedContactGeometryBuilds;world.AbortTick(tick);tick=world.BeginTick();
+            Assert.That(world.TryResolveOwnedCurrentContacts(tick),Is.True);Assert.That(world.OwnedContactGeometryBuilds,Is.GreaterThan(moved),"Abort restores different input poses and must not reuse the provisional group.");world.AbortTick(tick);
+        }
         private const long N=SkiState.NanometersPerMeter;
         private static readonly SkiActorCourseEdge[] NoEdges=Array.Empty<SkiActorCourseEdge>();
         private static SkiContactDefinition Contact()=>SkiContactDefinition.FromJson("{\"schema_version\":1,\"id\":\"event_contacts\",\"restitution\":0,\"sliding_friction\":0.2,\"contact_tolerance_m\":0.000001}");

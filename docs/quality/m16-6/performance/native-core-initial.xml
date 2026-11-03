@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="51" result="Failed(Child)" total="51" passed="50" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-03 10:37:27Z" end-time="2026-11-03 10:44:54Z" duration="446,0483081">
+  <test-suite type="TestSuite" id="3807" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="2233" result="Failed" site="Child" start-time="2026-11-03 10:37:27Z" end-time="2026-11-03 10:44:54Z" duration="446.048308" total="51" passed="50" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="3717" name="Biathlon.Tests.dll" fullname="C:/game/Biathlon/Biathlon/Library/ScriptAssemblies/Biathlon.Tests.dll" runstate="Runnable" testcasecount="2180" result="Failed" site="Child" start-time="2026-11-03 10:37:28Z" end-time="2026-11-03 10:44:54Z" duration="445.755194" total="51" passed="50" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="67484" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="3718" name="Biathlon" fullname="Biathlon" runstate="Runnable" testcasecount="2180" result="Failed" site="Child" start-time="2026-11-03 10:37:28Z" end-time="2026-11-03 10:44:54Z" duration="445.537769" total="51" passed="50" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="3719" name="Tests" fullname="Biathlon.Tests" runstate="Runnable" testcasecount="2180" result="Failed" site="Child" start-time="2026-11-03 10:37:28Z" end-time="2026-11-03 10:44:54Z" duration="445.332807" total="51" passed="50" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1695" name="ManualAiSnowSteeringPlannerTests" fullname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" classname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-11-03 10:37:29Z" end-time="2026-11-03 10:37:30Z" duration="0.470737" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1704" name="BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw" fullname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests.BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw" methodname="BothSignedSidesAndNeutralDiscontinuityRetainAttainableYaw" classname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" runstate="Runnable" seed="412343020" result="Passed" start-time="2026-11-03 10:37:30Z" end-time="2026-11-03 10:37:30Z" duration="0.027717" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1706" name="CompleteSearchFindsTheAttainableInteriorWhileLegacyJournalsKeepTheirOldChoice" fullname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests.CompleteSearchFindsTheAttainableInteriorWhileLegacyJournalsKeepTheirOldChoice" methodname="CompleteSearchFindsTheAttainableInteriorWhileLegacyJournalsKeepTheirOldChoice" classname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" runstate="Runnable" seed="1918532920" result="Passed" start-time="2026-11-03 10:37:30Z" end-time="2026-11-03 10:37:30Z" duration="0.003092" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1696" name="CompleteSearchReusesSaturatedSnowResponseAndRetainsExactGlobalChoice" fullname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests.CompleteSearchReusesSaturatedSnowResponseAndRetainsExactGlobalChoice" methodname="CompleteSearchReusesSaturatedSnowResponseAndRetainsExactGlobalChoice" classname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" runstate="Runnable" seed="886676710" result="Passed" start-time="2026-11-03 10:37:30Z" end-time="2026-11-03 10:37:30Z" duration="0.002608" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1697" name="EndpointCorrectionRetainsNominalInsideEnvelopeAndPaysSharedSnowOutsideIt" fullname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests.EndpointCorrectionRetainsNominalInsideEnvelopeAndPaysSharedSnowOutsideIt" methodname="EndpointCorrectionRetainsNominalInsideEnvelopeAndPaysSharedSnowOutsideIt" classname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" runstate="Runnable" seed="942105995" result="Passed" start-time="2026-11-03 10:37:30Z" end-time="2026-11-03 10:37:30Z" duration="0.005959" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1705" name="InvalidPredictionCannotProduceIntent" fullname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests.InvalidPredictionCannotProduceIntent" methodname="InvalidPredictionCannotProduceIntent" classname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" runstate="Runnable" seed="27885763" result="Passed" start-time="2026-11-03 10:37:30Z" end-time="2026-11-03 10:37:30Z" duration="0.001081" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1703" name="NeutralRestDoesNotInventAControlCorrectionAndWarmQueriesAllocateNothing" fullname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests.NeutralRestDoesNotInventAControlCorrectionAndWarmQueriesAllocateNothing" methodname="NeutralRestDoesNotInventAControlCorrectionAndWarmQueriesAllocateNothing" classname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" runstate="Runnable" seed="1020642826" result="Passed" start-time="2026-11-03 10:37:30Z" end-time="2026-11-03 10:37:30Z" duration="0.278882" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1702" name="ReachableYawIsSelectedFromActualSharedSnowResponse" fullname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse" classname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-03 10:37:30Z" end-time="2026-11-03 10:37:30Z" duration="0.007655" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1699" name="ReachableYawIsSelectedFromActualSharedSnowResponse(-0.35d)" fullname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(-0.35d)" methodname="ReachableYawIsSelectedFromActualSharedSnowResponse" classname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" runstate="Runnable" seed="732558867" result="Passed" start-time="2026-11-03 10:37:30Z" end-time="2026-11-03 10:37:30Z" duration="0.002496" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[spin=-0,35 target=-0,083824916851339 selected=35 error=0 best=0 ends=-0,328511454398449:-0,159976798143851:-0,083824916851339
+]]></output>
+              </test-case>
+              <test-case id="1700" name="ReachableYawIsSelectedFromActualSharedSnowResponse(0.0d)" fullname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(0.0d)" methodname="ReachableYawIsSelectedFromActualSharedSnowResponse" classname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" runstate="Runnable" seed="1958685443" result="Passed" start-time="2026-11-03 10:37:30Z" end-time="2026-11-03 10:37:30Z" duration="0.001097" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[spin=0 target=0,266175083148661 selected=151 error=0 best=0 ends=0,0214885456015514:0:0,266175083148661
+]]></output>
+              </test-case>
+              <test-case id="1701" name="ReachableYawIsSelectedFromActualSharedSnowResponse(0.35d)" fullname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests.ReachableYawIsSelectedFromActualSharedSnowResponse(0.35d)" methodname="ReachableYawIsSelectedFromActualSharedSnowResponse" classname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" runstate="Runnable" seed="2070359860" result="Passed" start-time="2026-11-03 10:37:30Z" end-time="2026-11-03 10:37:30Z" duration="0.001173" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[spin=0,35 target=0,384143575825094 selected=217 error=0 best=0 ends=0,173637729686369:0,159976798143851:0,438659254072332
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-case id="1698" name="UnreachableSpinUsesLessDeflectionForTheSameAchievedTurn" fullname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests.UnreachableSpinUsesLessDeflectionForTheSameAchievedTurn" methodname="UnreachableSpinUsesLessDeflectionForTheSameAchievedTurn" classname="Biathlon.Tests.ManualAiSnowSteeringPlannerTests" runstate="Runnable" seed="1890587643" result="Passed" start-time="2026-11-03 10:37:30Z" end-time="2026-11-03 10:37:30Z" duration="0.002207" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1837" name="ManualRaceJournalTests" fullname="Biathlon.Tests.ManualRaceJournalTests" classname="Biathlon.Tests.ManualRaceJournalTests" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2026-11-03 10:37:30Z" end-time="2026-11-03 10:40:31Z" duration="181.498635" total="4" passed="3" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1842" name="FailedOptionalRecordingDoesNotRejectCommittedSimulationTick" fullname="Biathlon.Tests.ManualRaceJournalTests.FailedOptionalRecordingDoesNotRejectCommittedSimulationTick" methodname="FailedOptionalRecordingDoesNotRejectCommittedSimulationTick" classname="Biathlon.Tests.ManualRaceJournalTests" runstate="Runnable" seed="1436787030" result="Passed" start-time="2026-11-03 10:37:30Z" end-time="2026-11-03 10:37:54Z" duration="23.932730" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1841" name="IncompatibleContextAndTruncatedJournalRejectClearly" fullname="Biathlon.Tests.ManualRaceJournalTests.IncompatibleContextAndTruncatedJournalRejectClearly" methodname="IncompatibleContextAndTruncatedJournalRejectClearly" classname="Biathlon.Tests.ManualRaceJournalTests" runstate="Runnable" seed="804986711" result="Failed" start-time="2026-11-03 10:37:54Z" end-time="2026-11-03 10:39:01Z" duration="67.120856" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[Unhandled log message: '[Exception] Exception: Compilation failed:
+snippet.cs(5,69): error CS0117: 'ProductionVenueHost' does not contain a definition for 'ReadCore'
+snippet.cs(6,71): error CS0117: 'ProductionVenueHost' does not contain a definition for 'ReadCore''. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[com.IvanMurzak.Unity.MCP.Editor.API.Tool_Script.Execute (System.String csharpCode, System.String className, System.String methodName, com.IvanMurzak.ReflectorNet.Model.SerializedMemberList parameters, System.Boolean isMethodBody, System.String[] usings, System.String[] include, System.Nullable`1[T] timeout) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Editor/Scripts/API/Tool/Script.Execute.cs:179)
+com.IvanMurzak.ReflectorNet.Utils.ExtensionsTask.WithCancellation (System.Threading.Tasks.Task task, System.Threading.CancellationToken cancellationToken) (at <7280c7efe5ff4148a18717cfd53c4454>:0)
+com.IvanMurzak.ReflectorNet.MethodWrapper.InvokeDict (System.Collections.Generic.IReadOnlyDictionary`2[TKey,TValue] namedParameters, System.Threading.CancellationToken cancellationToken) (at <7280c7efe5ff4148a18717cfd53c4454>:0)
+com.IvanMurzak.McpPlugin.RunTool.Run (System.String requestId, System.Collections.Generic.IReadOnlyDictionary`2[TKey,TValue] namedParameters, System.Threading.CancellationToken cancellationToken) (at <174ccda119cb4bba8fe724a34fb01961>:0)
+com.IvanMurzak.Unity.MCP.Utils.UnityLogger:Write(LogLevel, String, Exception) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Runtime/Logger/UnityLogger.cs:129)
+com.IvanMurzak.Unity.MCP.UnityLogCollector:LogUncaptured(Action`3, LogLevel, String, Exception) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Runtime/Unity/Logs/UnityLogCollector.cs:140)
+com.IvanMurzak.Unity.MCP.Utils.UnityLogger:Log(LogLevel, EventId, FormattedLogValues, Exception, Func`3) (at ./Library/PackageCache/com.ivanmurzak.unity.mcp@7f009ce9dbe4/Runtime/Logger/UnityLogger.cs:117)
+Microsoft.Extensions.Logging.LoggerExtensions:Log(ILogger, LogLevel, EventId, Exception, String, Object[])
+Microsoft.Extensions.Logging.LoggerExtensions:Log(ILogger, LogLevel, Exception, String, Object[])
+Microsoft.Extensions.Logging.LoggerExtensions:LogError(ILogger, Exception, String, Object[])
+com.IvanMurzak.McpPlugin.<Run>d__74:MoveNext()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1:Start(<Run>d__74&)
+com.IvanMurzak.McpPlugin.RunTool:Run(String, IReadOnlyDictionary`2, CancellationToken)
+com.IvanMurzak.McpPlugin.<RunCallTool>d__40:MoveNext()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1:Start(<RunCallTool>d__40&)
+com.IvanMurzak.McpPlugin.McpToolManager:RunCallTool(RequestCallTool, CancellationToken)
+com.IvanMurzak.McpPlugin.McpToolManager:RunCallTool(RequestCallTool)
+com.IvanMurzak.McpPlugin.<>c__DisplayClass6_0:<RunCallTool>b__1()
+com.IvanMurzak.McpPlugin.<Track>d__7`1:MoveNext()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1:Start(<Track>d__7`1&)
+com.IvanMurzak.McpPlugin.McpRequestActivity:Track(Func`1)
+com.IvanMurzak.McpPlugin.<>c__DisplayClass6_0:<RunCallTool>b__0()
+com.IvanMurzak.McpPlugin.<RunAndStamp>d__9:MoveNext()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1:Start(<RunAndStamp>d__9&)
+com.IvanMurzak.McpPlugin.Entry:RunAndStamp(Func`1)
+com.IvanMurzak.McpPlugin.<>c__DisplayClass8_0:<.ctor>b__0()
+System.Lazy`1:get_Value()
+com.IvanMurzak.McpPlugin.DuplicateRequestGuard`1:Run(String, Func`1)
+com.IvanMurzak.McpPlugin.TrackedHubs:RunCallTool(RequestCallTool)
+com.IvanMurzak.McpPlugin.<>c__DisplayClass4_0:<SubscribeOnServerEvents>b__4(RequestCallTool)
+Microsoft.AspNetCore.SignalR.Client.<>c__DisplayClass56_0`2:<On>b__0(Object[])
+Microsoft.AspNetCore.SignalR.Client.<<On>b__45_0>d:MoveNext()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1:Start(<<On>b__45_0>d&)
+Microsoft.AspNetCore.SignalR.Client.<>c__45`1:<On>b__45_0(Object[], Object)
+Microsoft.AspNetCore.SignalR.Client.InvocationHandler:InvokeAsync(Object[])
+Microsoft.AspNetCore.SignalR.Client.<DispatchInvocationAsync>d__77:MoveNext()
+System.Runtime.CompilerServices.AsyncTaskMethodBuilder:Start(<DispatchInvocationAsync>d__77&)
+Microsoft.AspNetCore.SignalR.Client.HubConnection:DispatchInvocationAsync(InvocationMessage, ConnectionState)
+Microsoft.AspNetCore.SignalR.Client.<<ReceiveLoop>g__StartProcessingInvocationMessages|0>d:MoveNext()
+System.Threading._ThreadPoolWaitCallback:PerformWaitCallback()
+
+]]></stack-trace>
+              </failure>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1840" name="StreamedAcceptedCommandsReplayWithoutAiAndPreserveResourcesAndPose" fullname="Biathlon.Tests.ManualRaceJournalTests.StreamedAcceptedCommandsReplayWithoutAiAndPreserveResourcesAndPose" classname="Biathlon.Tests.ManualRaceJournalTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-03 10:39:01Z" end-time="2026-11-03 10:40:31Z" duration="90.349244" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1838" name="StreamedAcceptedCommandsReplayWithoutAiAndPreserveResourcesAndPose(&quot;sprint&quot;,1)" fullname="Biathlon.Tests.ManualRaceJournalTests.StreamedAcceptedCommandsReplayWithoutAiAndPreserveResourcesAndPose(&quot;sprint&quot;,1)" methodname="StreamedAcceptedCommandsReplayWithoutAiAndPreserveResourcesAndPose" classname="Biathlon.Tests.ManualRaceJournalTests" runstate="Runnable" seed="1717520362" result="Passed" start-time="2026-11-03 10:39:01Z" end-time="2026-11-03 10:39:46Z" duration="44.898185" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1839" name="StreamedAcceptedCommandsReplayWithoutAiAndPreserveResourcesAndPose(&quot;pursuit&quot;,3)" fullname="Biathlon.Tests.ManualRaceJournalTests.StreamedAcceptedCommandsReplayWithoutAiAndPreserveResourcesAndPose(&quot;pursuit&quot;,3)" methodname="StreamedAcceptedCommandsReplayWithoutAiAndPreserveResourcesAndPose" classname="Biathlon.Tests.ManualRaceJournalTests" runstate="Runnable" seed="1797767601" result="Passed" start-time="2026-11-03 10:39:46Z" end-time="2026-11-03 10:40:31Z" duration="45.428444" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+          <test-suite type="TestFixture" id="1880" name="ManualReplayPolicyCompatibilityTests" fullname="Biathlon.Tests.ManualReplayPolicyCompatibilityTests" classname="Biathlon.Tests.ManualReplayPolicyCompatibilityTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-11-03 10:40:31Z" end-time="2026-11-03 10:44:12Z" duration="220.651839" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1883" name="HistoricalArrestedSpinReactionRetainsTheOriginalGitBlobForceResults" fullname="Biathlon.Tests.ManualReplayPolicyCompatibilityTests.HistoricalArrestedSpinReactionRetainsTheOriginalGitBlobForceResults" methodname="HistoricalArrestedSpinReactionRetainsTheOriginalGitBlobForceResults" classname="Biathlon.Tests.ManualReplayPolicyCompatibilityTests" runstate="Runnable" seed="2073210387" result="Passed" start-time="2026-11-03 10:40:31Z" end-time="2026-11-03 10:40:54Z" duration="22.497016" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1885" name="LegacyMetadataRemainsByteIdenticalAndNewPolicyIsExplicitValidatedAndPrepared" fullname="Biathlon.Tests.ManualReplayPolicyCompatibilityTests.LegacyMetadataRemainsByteIdenticalAndNewPolicyIsExplicitValidatedAndPrepared" methodname="LegacyMetadataRemainsByteIdenticalAndNewPolicyIsExplicitValidatedAndPrepared" classname="Biathlon.Tests.ManualReplayPolicyCompatibilityTests" runstate="Runnable" seed="1652601918" result="Passed" start-time="2026-11-03 10:40:54Z" end-time="2026-11-03 10:41:36Z" duration="41.967799" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1884" name="NewV26JournalReplaysExactlyAndCannotBeReadWithTheHistoricalForceLaw" fullname="Biathlon.Tests.ManualReplayPolicyCompatibilityTests.NewV26JournalReplaysExactlyAndCannotBeReadWithTheHistoricalForceLaw" methodname="NewV26JournalReplaysExactlyAndCannotBeReadWithTheHistoricalForceLaw" classname="Biathlon.Tests.ManualReplayPolicyCompatibilityTests" runstate="Runnable" seed="917280751" result="Passed" start-time="2026-11-03 10:41:36Z" end-time="2026-11-03 10:43:03Z" duration="87.291767" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1881" name="OriginalV25GitBlobJournalOpensAndReplaysWithoutChangingItsHeaderOrCommands" fullname="Biathlon.Tests.ManualReplayPolicyCompatibilityTests.OriginalV25GitBlobJournalOpensAndReplaysWithoutChangingItsHeaderOrCommands" methodname="OriginalV25GitBlobJournalOpensAndReplaysWithoutChangingItsHeaderOrCommands" classname="Biathlon.Tests.ManualReplayPolicyCompatibilityTests" runstate="Runnable" seed="566516749" result="Passed" start-time="2026-11-03 10:43:03Z" end-time="2026-11-03 10:43:27Z" duration="23.882357" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1882" name="StrictJournalIdentityRejectsCrossPolicyAndTamperedHeadersBeforeAnyTick" fullname="Biathlon.Tests.ManualReplayPolicyCompatibilityTests.StrictJournalIdentityRejectsCrossPolicyAndTamperedHeadersBeforeAnyTick" methodname="StrictJournalIdentityRejectsCrossPolicyAndTamperedHeadersBeforeAnyTick" classname="Biathlon.Tests.ManualReplayPolicyCompatibilityTests" runstate="Runnable" seed="2080480565" result="Passed" start-time="2026-11-03 10:43:27Z" end-time="2026-11-03 10:44:12Z" duration="45.008263" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="2128" name="ManualScopedWorldEventTests" fullname="Biathlon.Tests.ManualScopedWorldEventTests" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" testcasecount="22" result="Passed" start-time="2026-11-03 10:44:12Z" end-time="2026-11-03 10:44:50Z" duration="37.535222" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="2145" name="ACurvedIntervalEndingAtItsCapCannotBeMisreportedAsEventFree" fullname="Biathlon.Tests.ManualScopedWorldEventTests.ACurvedIntervalEndingAtItsCapCannotBeMisreportedAsEventFree" methodname="ACurvedIntervalEndingAtItsCapCannotBeMisreportedAsEventFree" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="992012924" result="Passed" start-time="2026-11-03 10:44:12Z" end-time="2026-11-03 10:44:14Z" duration="1.852023" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2146" name="AnEarlierContactIsAdmittedBeforeALaterUnresolvedCurvedBoundary" fullname="Biathlon.Tests.ManualScopedWorldEventTests.AnEarlierContactIsAdmittedBeforeALaterUnresolvedCurvedBoundary" methodname="AnEarlierContactIsAdmittedBeforeALaterUnresolvedCurvedBoundary" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="755195213" result="Passed" start-time="2026-11-03 10:44:14Z" end-time="2026-11-03 10:44:16Z" duration="1.821155" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2139" name="AnOwnedEndpointNotificationPaysNoTimeAndRequiresAnActualAuthorizedSuccessor" fullname="Biathlon.Tests.ManualScopedWorldEventTests.AnOwnedEndpointNotificationPaysNoTimeAndRequiresAnActualAuthorizedSuccessor" methodname="AnOwnedEndpointNotificationPaysNoTimeAndRequiresAnActualAuthorizedSuccessor" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="639545679" result="Passed" start-time="2026-11-03 10:44:16Z" end-time="2026-11-03 10:44:18Z" duration="1.870018" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2148" name="AReverseCrossingOfTheScopeStartRemainsBlockedAndPaysNoWorldTime" fullname="Biathlon.Tests.ManualScopedWorldEventTests.AReverseCrossingOfTheScopeStartRemainsBlockedAndPaysNoWorldTime" methodname="AReverseCrossingOfTheScopeStartRemainsBlockedAndPaysNoWorldTime" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="407278888" result="Passed" start-time="2026-11-03 10:44:18Z" end-time="2026-11-03 10:44:19Z" duration="1.881054" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2152" name="ATinyEndpointRemainderIsPaidRatherThanRoundedIntoAWholeTick" fullname="Biathlon.Tests.ManualScopedWorldEventTests.ATinyEndpointRemainderIsPaidRatherThanRoundedIntoAWholeTick" methodname="ATinyEndpointRemainderIsPaidRatherThanRoundedIntoAWholeTick" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="1257726263" result="Passed" start-time="2026-11-03 10:44:19Z" end-time="2026-11-03 10:44:21Z" duration="1.870241" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2138" name="CapBeforeContactCutsEveryAthleteOnTheSameTimeWithoutIssuingAResponse" fullname="Biathlon.Tests.ManualScopedWorldEventTests.CapBeforeContactCutsEveryAthleteOnTheSameTimeWithoutIssuingAResponse" methodname="CapBeforeContactCutsEveryAthleteOnTheSameTimeWithoutIssuingAResponse" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="131359289" result="Passed" start-time="2026-11-03 10:44:21Z" end-time="2026-11-03 10:44:23Z" duration="1.824562" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2137" name="ContactBeforeCapIsResolvedBeforeTheSameClockReachesTheCap" fullname="Biathlon.Tests.ManualScopedWorldEventTests.ContactBeforeCapIsResolvedBeforeTheSameClockReachesTheCap" methodname="ContactBeforeCapIsResolvedBeforeTheSameClockReachesTheCap" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="693943073" result="Passed" start-time="2026-11-03 10:44:23Z" end-time="2026-11-03 10:44:25Z" duration="1.916614" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2150" name="ContactToleranceCannotPrematurelyGrantTheNearbyPhaseBoundary" fullname="Biathlon.Tests.ManualScopedWorldEventTests.ContactToleranceCannotPrematurelyGrantTheNearbyPhaseBoundary" methodname="ContactToleranceCannotPrematurelyGrantTheNearbyPhaseBoundary" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="363910064" result="Passed" start-time="2026-11-03 10:44:25Z" end-time="2026-11-03 10:44:27Z" duration="1.841648" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2144" name="CurvedCommandedHeadingIsNotFittedToAFalseConstantAccelerationChord" fullname="Biathlon.Tests.ManualScopedWorldEventTests.CurvedCommandedHeadingIsNotFittedToAFalseConstantAccelerationChord" methodname="CurvedCommandedHeadingIsNotFittedToAFalseConstantAccelerationChord" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="539342048" result="Passed" start-time="2026-11-03 10:44:27Z" end-time="2026-11-03 10:44:28Z" duration="1.419439" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2141" name="DeepInitialOverlapCannotHideBehindAZeroTimeBoundaryNotification" fullname="Biathlon.Tests.ManualScopedWorldEventTests.DeepInitialOverlapCannotHideBehindAZeroTimeBoundaryNotification" methodname="DeepInitialOverlapCannotHideBehindAZeroTimeBoundaryNotification" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="2127999481" result="Passed" start-time="2026-11-03 10:44:28Z" end-time="2026-11-03 10:44:30Z" duration="1.891503" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2147" name="FiringEndpointNotificationCannotAuthorizeDepartureBeforeCompletedShooting" fullname="Biathlon.Tests.ManualScopedWorldEventTests.FiringEndpointNotificationCannotAuthorizeDepartureBeforeCompletedShooting" methodname="FiringEndpointNotificationCannotAuthorizeDepartureBeforeCompletedShooting" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="1576099334" result="Passed" start-time="2026-11-03 10:44:30Z" end-time="2026-11-03 10:44:32Z" duration="1.402348" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2142" name="ForceRootRetainsTheOriginalAccelerationAndActualSourceVelocity" fullname="Biathlon.Tests.ManualScopedWorldEventTests.ForceRootRetainsTheOriginalAccelerationAndActualSourceVelocity" methodname="ForceRootRetainsTheOriginalAccelerationAndActualSourceVelocity" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="1215537609" result="Passed" start-time="2026-11-03 10:44:32Z" end-time="2026-11-03 10:44:33Z" duration="1.348610" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2129" name="IdenticalOwnedContactQueriesReuseGeometryAndMovingPrefixInvalidatesIt" fullname="Biathlon.Tests.ManualScopedWorldEventTests.IdenticalOwnedContactQueriesReuseGeometryAndMovingPrefixInvalidatesIt" methodname="IdenticalOwnedContactQueriesReuseGeometryAndMovingPrefixInvalidatesIt" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="692116260" result="Passed" start-time="2026-11-03 10:44:33Z" end-time="2026-11-03 10:44:35Z" duration="1.882310" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2140" name="InvalidLastSourceCannotPublishEvenAZeroTimeFirstRowEvent" fullname="Biathlon.Tests.ManualScopedWorldEventTests.InvalidLastSourceCannotPublishEvenAZeroTimeFirstRowEvent" methodname="InvalidLastSourceCannotPublishEvenAZeroTimeFirstRowEvent" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="1736462903" result="Passed" start-time="2026-11-03 10:44:35Z" end-time="2026-11-03 10:44:37Z" duration="1.854186" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="2132" name="OrdinaryBoundaryAndContinuationPayOneWholeSessionTickWithoutStopping" fullname="Biathlon.Tests.ManualScopedWorldEventTests.OrdinaryBoundaryAndContinuationPayOneWholeSessionTickWithoutStopping" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-03 10:44:37Z" end-time="2026-11-03 10:44:40Z" duration="3.105977" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="2130" name="OrdinaryBoundaryAndContinuationPayOneWholeSessionTickWithoutStopping(&quot;start_seam&quot;)" fullname="Biathlon.Tests.ManualScopedWorldEventTests.OrdinaryBoundaryAndContinuationPayOneWholeSessionTickWithoutStopping(&quot;start_seam&quot;)" methodname="OrdinaryBoundaryAndContinuationPayOneWholeSessionTickWithoutStopping" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="1867067691" result="Passed" start-time="2026-11-03 10:44:37Z" end-time="2026-11-03 10:44:38Z" duration="1.671504" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="2131" name="OrdinaryBoundaryAndContinuationPayOneWholeSessionTickWithoutStopping(&quot;base_seam&quot;)" fullname="Biathlon.Tests.ManualScopedWorldEventTests.OrdinaryBoundaryAndContinuationPayOneWholeSessionTickWithoutStopping(&quot;base_seam&quot;)" methodname="OrdinaryBoundaryAndContinuationPayOneWholeSessionTickWithoutStopping" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="1566288405" result="Passed" start-time="2026-11-03 10:44:38Z" end-time="2026-11-03 10:44:40Z" duration="1.432827" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="2143" name="OriginalForceBreakpointsAreSplitBeforePolynomialBoundarySearch" fullname="Biathlon.Tests.ManualScopedWorldEventTests.OriginalForceBreakpointsAreSplitBeforePolynomialBoundarySearch" methodname="OriginalForceBreakpointsAreSplitBeforePolynomialBoundarySearch" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="1832576869" result="Passed" start-time="2026-11-03 10:44:40Z" end-time="2026-11-03 10:44:41Z" duration="1.358569" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="2136" name="SharedTractionBoundaryAndAuthorizedPenaltySuffixPublishWithoutAWait" fullname="Biathlon.Tests.ManualScopedWorldEventTests.SharedTractionBoundaryAndAuthorizedPenaltySuffixPublishWithoutAWait" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-03 10:44:41Z" end-time="2026-11-03 10:44:46Z" duration="4.636150" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="2133" name="SharedTractionBoundaryAndAuthorizedPenaltySuffixPublishWithoutAWait(&quot;penalty_entry_before&quot;)" fullname="Biathlon.Tests.ManualScopedWorldEventTests.SharedTractionBoundaryAndAuthorizedPenaltySuffixPublishWithoutAWait(&quot;penalty_entry_before&quot;)" methodname="SharedTractionBoundaryAndAuthorizedPenaltySuffixPublishWithoutAWait" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="1678450757" result="Passed" start-time="2026-11-03 10:44:41Z" end-time="2026-11-03 10:44:43Z" duration="1.501088" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="2134" name="SharedTractionBoundaryAndAuthorizedPenaltySuffixPublishWithoutAWait(&quot;penalty_repeat_before&quot;)" fullname="Biathlon.Tests.ManualScopedWorldEventTests.SharedTractionBoundaryAndAuthorizedPenaltySuffixPublishWithoutAWait(&quot;penalty_repeat_before&quot;)" methodname="SharedTractionBoundaryAndAuthorizedPenaltySuffixPublishWithoutAWait" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="976741498" result="Passed" start-time="2026-11-03 10:44:43Z" end-time="2026-11-03 10:44:44Z" duration="1.546372" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="2135" name="SharedTractionBoundaryAndAuthorizedPenaltySuffixPublishWithoutAWait(&quot;penalty_return_before&quot;)" fullname="Biathlon.Tests.ManualScopedWorldEventTests.SharedTractionBoundaryAndAuthorizedPenaltySuffixPublishWithoutAWait(&quot;penalty_return_before&quot;)" methodname="SharedTractionBoundaryAndAuthorizedPenaltySuffixPublishWithoutAWait" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="417279771" result="Passed" start-time="2026-11-03 10:44:44Z" end-time="2026-11-03 10:44:46Z" duration="1.587156" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="2151" name="SimultaneousBoundaryOrderAndWorldStateAreIndependentOfRosterPermutation" fullname="Biathlon.Tests.ManualScopedWorldEventTests.SimultaneousBoundaryOrderAndWorldStateAreIndependentOfRosterPermutation" methodname="SimultaneousBoundaryOrderAndWorldStateAreIndependentOfRosterPermutation" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="1941292212" result="Passed" start-time="2026-11-03 10:44:46Z" end-time="2026-11-03 10:44:48Z" duration="1.974869" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2149" name="WarmActualBoundarySearchAndAbortAllocateNothing" fullname="Biathlon.Tests.ManualScopedWorldEventTests.WarmActualBoundarySearchAndAbortAllocateNothing" methodname="WarmActualBoundarySearchAndAbortAllocateNothing" classname="Biathlon.Tests.ManualScopedWorldEventTests" runstate="Runnable" seed="686910113" result="Passed" start-time="2026-11-03 10:44:48Z" end-time="2026-11-03 10:44:50Z" duration="1.752336" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="2252" name="ManualSkiContactSchedulerTests" fullname="Biathlon.Tests.ManualSkiContactSchedulerTests" classname="Biathlon.Tests.ManualSkiContactSchedulerTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-11-03 10:44:50Z" end-time="2026-11-03 10:44:54Z" duration="3.983106" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="2253" name="ArrivalGroupSamplesEachImmutableEndpointOnceAcrossAllPairs" fullname="Biathlon.Tests.ManualSkiContactSchedulerTests.ArrivalGroupSamplesEachImmutableEndpointOnceAcrossAllPairs" methodname="ArrivalGroupSamplesEachImmutableEndpointOnceAcrossAllPairs" classname="Biathlon.Tests.ManualSkiContactSchedulerTests" runstate="Runnable" seed="664021228" result="Passed" start-time="2026-11-03 10:44:50Z" end-time="2026-11-03 10:44:50Z" duration="0.003224" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2255" name="EarlierArrivalDoesNotGiveALaterPairUnreachedAdmission" fullname="Biathlon.Tests.ManualSkiContactSchedulerTests.EarlierArrivalDoesNotGiveALaterPairUnreachedAdmission" methodname="EarlierArrivalDoesNotGiveALaterPairUnreachedAdmission" classname="Biathlon.Tests.ManualSkiContactSchedulerTests" runstate="Runnable" seed="1666302335" result="Passed" start-time="2026-11-03 10:44:50Z" end-time="2026-11-03 10:44:50Z" duration="0.002164" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2258" name="ExplicitCourseEdgeBeforeBodyArrivalCannotBeIgnored" fullname="Biathlon.Tests.ManualSkiContactSchedulerTests.ExplicitCourseEdgeBeforeBodyArrivalCannotBeIgnored" methodname="ExplicitCourseEdgeBeforeBodyArrivalCannotBeIgnored" classname="Biathlon.Tests.ManualSkiContactSchedulerTests" runstate="Runnable" seed="330148365" result="Passed" start-time="2026-11-03 10:44:50Z" end-time="2026-11-03 10:44:50Z" duration="0.002076" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2257" name="ExplicitExistingContactCanContinueWhileAnotherPairArrives" fullname="Biathlon.Tests.ManualSkiContactSchedulerTests.ExplicitExistingContactCanContinueWhileAnotherPairArrives" methodname="ExplicitExistingContactCanContinueWhileAnotherPairArrives" classname="Biathlon.Tests.ManualSkiContactSchedulerTests" runstate="Runnable" seed="1419961340" result="Passed" start-time="2026-11-03 10:44:50Z" end-time="2026-11-03 10:44:50Z" duration="0.002271" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2261" name="FailedWorldCourseAdmissionKeepsClockPoseAndReceiptsUnchanged" fullname="Biathlon.Tests.ManualSkiContactSchedulerTests.FailedWorldCourseAdmissionKeepsClockPoseAndReceiptsUnchanged" methodname="FailedWorldCourseAdmissionKeepsClockPoseAndReceiptsUnchanged" classname="Biathlon.Tests.ManualSkiContactSchedulerTests" runstate="Runnable" seed="1632393931" result="Passed" start-time="2026-11-03 10:44:50Z" end-time="2026-11-03 10:44:52Z" duration="1.927087" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2256" name="MultipleUnregisteredInitialContactsUseStableIdentityOrder" fullname="Biathlon.Tests.ManualSkiContactSchedulerTests.MultipleUnregisteredInitialContactsUseStableIdentityOrder" methodname="MultipleUnregisteredInitialContactsUseStableIdentityOrder" classname="Biathlon.Tests.ManualSkiContactSchedulerTests" runstate="Runnable" seed="885561452" result="Passed" start-time="2026-11-03 10:44:52Z" end-time="2026-11-03 10:44:52Z" duration="0.003239" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2254" name="TwoSimultaneousSeparatedContactsHaveOneStableActualEndpointGroup" fullname="Biathlon.Tests.ManualSkiContactSchedulerTests.TwoSimultaneousSeparatedContactsHaveOneStableActualEndpointGroup" methodname="TwoSimultaneousSeparatedContactsHaveOneStableActualEndpointGroup" classname="Biathlon.Tests.ManualSkiContactSchedulerTests" runstate="Runnable" seed="933309763" result="Passed" start-time="2026-11-03 10:44:52Z" end-time="2026-11-03 10:44:52Z" duration="0.004334" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2262" name="WarmCommonArrivalSchedulingAllocatesNothing" fullname="Biathlon.Tests.ManualSkiContactSchedulerTests.WarmCommonArrivalSchedulingAllocatesNothing" methodname="WarmCommonArrivalSchedulingAllocatesNothing" classname="Biathlon.Tests.ManualSkiContactSchedulerTests" runstate="Runnable" seed="1861520093" result="Passed" start-time="2026-11-03 10:44:52Z" end-time="2026-11-03 10:44:52Z" duration="0.156788" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2259" name="WorkLimitAndForeignIdentityDoNotMintPrefixes" fullname="Biathlon.Tests.ManualSkiContactSchedulerTests.WorkLimitAndForeignIdentityDoNotMintPrefixes" methodname="WorkLimitAndForeignIdentityDoNotMintPrefixes" classname="Biathlon.Tests.ManualSkiContactSchedulerTests" runstate="Runnable" seed="175756974" result="Passed" start-time="2026-11-03 10:44:52Z" end-time="2026-11-03 10:44:52Z" duration="0.003074" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="2260" name="WorldSchedulesRespondsAndContinuesTheSameFixedClock" fullname="Biathlon.Tests.ManualSkiContactSchedulerTests.WorldSchedulesRespondsAndContinuesTheSameFixedClock" methodname="WorldSchedulesRespondsAndContinuesTheSameFixedClock" classname="Biathlon.Tests.ManualSkiContactSchedulerTests" runstate="Runnable" seed="1283151116" result="Passed" start-time="2026-11-03 10:44:52Z" end-time="2026-11-03 10:44:54Z" duration="1.874909" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/snkashkin/AppData/LocalLow/DefaultCompany/Biathlon\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

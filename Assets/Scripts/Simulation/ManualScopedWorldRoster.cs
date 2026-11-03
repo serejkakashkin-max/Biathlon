@@ -110,6 +110,9 @@ namespace Biathlon.Simulation
         private readonly int[] ownedContactOrder;
         private readonly double ownedContactTolerance;
         private readonly ManualSkiContactGroup response;
+        private readonly SkiImpactObservation[] workingImpacts,acceptedImpacts;
+        private long impactTick=-1;
+        public SkiImpactObservation GetAcceptedImpact(int index)=>acceptedImpacts[index];
         private readonly ManualSkiContactForces contactForces;
         private readonly SkiForceCoupledTrajectory[] coupledTrajectories;
         private readonly SkiDrivenContactTrajectory[] ownedFreeDrives;
@@ -255,6 +258,8 @@ namespace Biathlon.Simulation
             ownedFreeDrives=new SkiDrivenContactTrajectory[count];ownedFreePieces=new SkiForceCoupledTrajectory[count];
             ownedFreeStarts=new double[count];ownedFreeOccurrences=new int[count];ownedFreePhases=new int[count];ownedFreeValid=new bool[count];
             ownedContactParticipants=new bool[count];
+            ownedContactCachePoses=new ManualSkiHeadingState[count];ownedContactCacheParticipants=new bool[count];
+            workingImpacts=new SkiImpactObservation[count];acceptedImpacts=new SkiImpactObservation[count];
             maximumForceRefinements=work.MaximumDepth;
             proposedCursors=new ManualRacePathCursor[count];workingMotion=new SkiState[count];
             workingTravelMeters=new double[count];stagedTravelMeters=new double[count];
@@ -398,6 +403,7 @@ namespace Biathlon.Simulation
             if(tickActive)throw new InvalidOperationException("Finish or abort the active staged world tick before replacing it.");
             ready=false;proposal=default;pieceCount=0;ClearPathChoices();UpdatePhysicalParticipants(Tick.Next());LastAttempt=new ManualScopedWorldAttempt(ManualScopedWorldStatus.NotPrepared);
             ResetNumericalDiagnostics();
+            Array.Clear(workingImpacts,0,Count);impactTick=Tick.Next().Value;
             if(!PrepareInterval(actors,windows,reached,reachedCount,edges,edgeCount,directionalGrades,accepted,cursors,duration,null))return false;
             for(int i=0;i<Count;i++)
             {
@@ -556,6 +562,7 @@ namespace Biathlon.Simulation
             if(tickActive)throw new InvalidOperationException("A scoped world tick is already active.");
             long next=checked(tickRevision+1);var target=Tick.Next();ready=false;UpdatePhysicalParticipants(target);ClearPathChoices();
             ResetNumericalDiagnostics();
+            Array.Clear(workingImpacts,0,Count);impactTick=target.Value;
             for(int i=0;i<Count;i++)
             {workingActors[i]=accepted[i];workingCursors[i]=cursors[i];workingMotion[i]=motion[i];workingTravelMeters[i]=0;ownedFreeValid[i]=false;}
             tickRevision=next;elapsedSeconds=0;pieceCount=0;pendingContact=false;tickActive=true;LastWorldEvent=default;
@@ -657,6 +664,7 @@ namespace Biathlon.Simulation
             for(int i=0;i<Count;i++)
             {
                 var actor=workingActors[i];var output=responseMotions[i];var v=output.Velocity;
+                workingImpacts[i]=workingImpacts[i].Include(v.X-actor.Velocity.X,v.Z-actor.Velocity.Z,output.YawRate-actor.Pose.YawRateRadiansPerSecond);
                 var pose=new ManualSkiHeadingState(actor.Pose.X,actor.Pose.Z,actor.Pose.HeadingRadians,output.YawRate);
                 staged[i]=new ManualRacePathActorFrame(actor.Athlete,pose,v,actor.Observation);
                 double speed=Math.Sqrt(v.X*v.X+v.Z*v.Z);
@@ -689,6 +697,7 @@ namespace Biathlon.Simulation
         {
             ValidatePrepared(proposal);ready=false;
             for(int i=0;i<Count;i++){accepted[i]=staged[i];cursors[i]=proposedCursors[i];motion[i]=stagedMotion[i];}
+            for(int i=0;i<Count;i++)acceptedImpacts[i]=impactTick==proposal.Tick.Value?workingImpacts[i]:default;
             CommitPathChoices();Tick=proposal.Tick;
         }
         public bool TryHandoffOrdinary(ReadOnlySpan<int> actorIndexes)

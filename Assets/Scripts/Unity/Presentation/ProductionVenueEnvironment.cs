@@ -392,6 +392,7 @@ namespace Biathlon.Unity.Presentation
         private string VenueTrackId;
         public void Render(Camera camera,string tier,float time)
         {
+            using var profile=RuntimeFrameProfile.Environment.Auto();
             if(!Initialized||!isActiveAndEnabled||camera==null||!float.IsFinite(time)||Mathf.Abs(time)>1000000||(tier!="high"&&tier!="balanced"&&tier!="low"))throw new ArgumentException("Initialized environment, explicit camera and render tier/time required.");
             var observed=RaceWeatherObservation?.Invoke();weather.RaceObservation=observed;var observedWind=observed.HasValue?new Vector2((float)observed.Value.Wind.EastMetersPerSecond,(float)observed.Value.Wind.NorthMetersPerSecond):recipe.lighting.visual_wind;
             RangeFlags?.Render(time,observedWind);

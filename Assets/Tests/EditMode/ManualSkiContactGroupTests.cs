@@ -7,6 +7,15 @@ namespace Biathlon.Tests
 {
     public class ManualSkiContactGroupTests
     {
+        [Test] public void OffCenterRacingImpactProducesPhysicalSpinAndSpeedLossForBothBodies()
+        {
+            var bodies=new[]{Actor("a",.45,0,0,10),Actor("b",0,Body().LongitudinalSeparation,0,3)};
+            var output=new SkiContactMotion[2];var hit=Group().Preview(bodies,2,output,new int[2]);
+            Assert.That(hit.Status,Is.EqualTo(SkiContactGroupStatus.Resolved));Assert.That(hit.Impulses,Is.GreaterThan(0));
+            Assert.That(Math.Abs(output[0].YawRate),Is.GreaterThan(1));Assert.That(Math.Abs(output[1].YawRate),Is.GreaterThan(1));
+            Assert.That(output[0].Velocity.Z,Is.LessThan(9));Assert.That(output[1].Velocity.Z,Is.GreaterThan(3));AssertConservation(bodies,output);
+            TestContext.WriteLine($"impact spin={output[0].YawRate:R},{output[1].YawRate:R} speed_z={output[0].Velocity.Z:R},{output[1].Velocity.Z:R}");
+        }
         [Test] public void FrozenPoseGroupMatchesPreviousSolverWithThirtyActorsAndChangingVelocities()
         {
             var occupancy=Body();var contact=SkiContactDefinition.FromJson(PhysiologyContractTests.DefinitionJson("manual_ski_contact_gameplay_v1.json"));

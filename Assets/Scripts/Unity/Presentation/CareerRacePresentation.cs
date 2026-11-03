@@ -76,6 +76,7 @@ namespace Biathlon.Unity.Presentation
                             RaceWeatherJson=prepared.Weather?.ToJson(),StartOrderVersion=CareerRaceProvider.CurrentStartOrderVersion,
                             StartContinuationVersion=prepared.Runner.Field.StartContinuationVersion,WeatherTimelineVersion=prepared.Timeline==null?0:CareerRaceProvider.CurrentWeatherTimelineVersion,WeatherTimelineJson=prepared.Timeline?.ToJson(),EquipmentVersion=CareerRaceProvider.CurrentEquipmentVersion,EquipmentSnapshotJson=prepared.Equipment.ToJson()};
                         info.AiSnowSearchVersion=prepared.Runner.AiSnowSearchVersion;
+                        info.MovingOvertakeVersion=prepared.Runner.MovingOvertakeVersion;
                         replayCapture=new CareerReplayCapture(menu.ReplayLibrary,Host.ManualStepper,info,highlights,replayPolicy);
                     }
                     catch(Exception e)when(e is IOException||e is UnauthorizedAccessException){Debug.LogWarning("Replay capture unavailable: "+e.Message);}

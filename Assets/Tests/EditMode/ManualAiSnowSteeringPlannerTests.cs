@@ -8,6 +8,17 @@ namespace Biathlon.Tests
 {
     public sealed class ManualAiSnowSteeringPlannerTests
     {
+        [Test] public void CompleteSearchReusesSaturatedSnowResponseAndRetainsExactGlobalChoice()
+        {
+            var definition=ManualScopedFieldStepperTests.Steering();var planner=new ManualAiSnowSteeringPlanner(Body,definition,20,true);
+            var body=new ManualSkiContactBody(new AthleteId("saturated_snow_query"),new ManualSkiHeadingState(4,-7,.15,.35),new SkiPlanarVelocity(2,8),75);
+            var motion=new SkiContactMotion(body.Velocity,.35);const double grip=.5;double target=Math.PI/7;
+            var snow=new ManualSkiSteeredSnowSystem(Body,definition,20);int expected=0;double error=Math.Abs(snow.Preview(body,motion,0,grip,.05).Snow.Motion.YawRate-target);
+            for(int magnitude=1;magnitude<=1000;magnitude++)foreach(int command in new[]{-magnitude,magnitude})
+            {double next=Math.Abs(snow.Preview(body,motion,command,grip,.05).Snow.Motion.YawRate-target);if(next<error){expected=command;error=next;}}
+            Assert.That(planner.Plan(body,motion,target,grip),Is.EqualTo(expected));
+            Assert.That(planner.LastPreviewCount,Is.LessThan(150),"Identical bounded target/acceleration requests must share one physical snow evaluation per signed plateau.");
+        }
         private static readonly OccupancyDefinition Body=OccupancyDefinition.FromJson(PhysiologyContractTests.DefinitionJson("occupancy_provisional_v1.json"));
         private static ManualAiSnowSteeringPlanner Planner()=>new ManualAiSnowSteeringPlanner(Body,ManualScopedFieldStepperTests.Steering(),20);
         private static ManualSkiContactBody Witness()=>new ManualSkiContactBody(new AthleteId("sliding_curve"),

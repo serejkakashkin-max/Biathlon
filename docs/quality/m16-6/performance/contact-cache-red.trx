@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="46643341-d52e-4315-a692-bcd06d88529e" name="snkashkin@DESKTOP-G3075GA 2026-11-03 13:31:13" runUser="DESKTOP-G3075GA\snkashkin" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-03T13:31:13.0671115+03:00" queuing="2026-11-03T13:31:13.0671116+03:00" start="2026-11-03T13:31:11.8535809+03:00" finish="2026-11-03T13:31:13.0707584+03:00" />
+  <TestSettings name="default" id="feb610d9-7470-4e34-a515-9749a977abe6">
+    <Deployment runDeploymentRoot="snkashkin_DESKTOP-G3075GA_2026-11-03_13_31_13" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="ea402c04-7666-410d-ac03-2be2a7069b2e" testId="9b5f49af-dc02-9b2c-b1d4-5c158b7e2b48" testName="IdenticalOwnedContactQueriesReuseGeometryAndMovingPrefixInvalidatesIt" computerName="DESKTOP-G3075GA" duration="00:00:00.5025760" startTime="2026-11-03T13:31:12.4564508+03:00" endTime="2026-11-03T13:31:12.9590273+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ea402c04-7666-410d-ac03-2be2a7069b2e">
+      <Output>
+        <ErrorInfo>
+          <Message>  The second response query observes exactly the same poses and physical participants.&#xD;
+  Expected: 1&#xD;
+  But was:  2&#xD;
+</Message>
+          <StackTrace>   at Biathlon.Tests.ManualScopedWorldEventTests.IdenticalOwnedContactQueriesReuseGeometryAndMovingPrefixInvalidatesIt() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedWorldEventTests.cs:line 15&#xD;
+
+1)    at Biathlon.Tests.ManualScopedWorldEventTests.IdenticalOwnedContactQueriesReuseGeometryAndMovingPrefixInvalidatesIt() in C:\game\Biathlon\Biathlon\Assets\Tests\EditMode\ManualScopedWorldEventTests.cs:line 15&#xD;
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="IdenticalOwnedContactQueriesReuseGeometryAndMovingPrefixInvalidatesIt" storage="c:\game\biathlon\biathlon\dotnet\biathlon.tests\bin\release\net8.0\biathlon.tests.dll" id="9b5f49af-dc02-9b2c-b1d4-5c158b7e2b48">
+      <Execution id="ea402c04-7666-410d-ac03-2be2a7069b2e" />
+      <TestMethod codeBase="C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll" adapterTypeName="executor://nunit3testexecutor/" className="Biathlon.Tests.ManualScopedWorldEventTests" name="IdenticalOwnedContactQueriesReuseGeometryAndMovingPrefixInvalidatesIt" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="9b5f49af-dc02-9b2c-b1d4-5c158b7e2b48" executionId="ea402c04-7666-410d-ac03-2be2a7069b2e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started&#xD;
+Running selected tests in C:\game\Biathlon\Biathlon\dotnet\Biathlon.Tests\bin\Release\net8.0\Biathlon.Tests.dll&#xD;
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run&#xD;
+NUnit Adapter 4.6.0.0: Test execution complete&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

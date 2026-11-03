@@ -11,12 +11,13 @@ namespace Biathlon.AI
         private readonly ManualSkiSteeredSnowSystem snow;
         private readonly double seconds;
         private readonly bool completeSearch;
+        private readonly ManualSkiSteeringDefinition steering;
         public int SearchVersion=>completeSearch?1:0;
         public int LastPreviewCount {get;private set;}
         public string ContextJson {get;}
         public ManualAiSnowSteeringPlanner(OccupancyDefinition body,ManualSkiSteeringDefinition steering,int frequency,bool completeSearch=true)
         {
-            this.completeSearch=completeSearch;
+            this.completeSearch=completeSearch;this.steering=steering;
             snow=new ManualSkiSteeredSnowSystem(body,steering,frequency);seconds=1.0/frequency;
             ContextJson=ManualScopedAiMovement.Encode(new[]{completeSearch?"manual_ai_snow_yaw_intent_v4_complete_integer_domain":"manual_ai_snow_yaw_intent_v3_minimum_equal_deflection",snow.ContextJson,
                 completeSearch?"nominal_retained_inside_signed_endpoint_envelope;actual_slip_spin;complete_signed_integer_domain;minimum_error_then_absolute_deflection;negative_before_positive_tie;intent_only;shared_force_cost":
@@ -26,6 +27,9 @@ namespace Biathlon.AI
         {
             PhysiologyNumbers.RequireRange(targetYawRate,-PhysiologyNumbers.MaximumMagnitude,PhysiologyNumbers.MaximumMagnitude,nameof(targetYawRate));
             LastPreviewCount=0;
+            double speed=Math.Sqrt(motion.Velocity.X*motion.Velocity.X+motion.Velocity.Z*motion.Velocity.Z);
+            ManualSkiSteeringRequest negativeRequest=default,positiveRequest=default;
+            double negativeYaw=0,positiveYaw=0;bool negativeValid=false,positiveValid=false;
             double neutral=At(0);if(targetYawRate==neutral)return 0;
             int best=0;double error=Math.Abs(neutral-targetYawRate);
             if(completeSearch)
@@ -58,7 +62,23 @@ namespace Biathlon.AI
                 double e=Math.Abs(yaw-targetYawRate);
                 if(e<error||e==error&&Math.Abs(command)<Math.Abs(best)){best=command;error=e;}
             }
-            double At(int command){LastPreviewCount++;return snow.Preview(body,motion,command,lateralAcceleration,seconds,response).Snow.Motion.YawRate;}
+            double At(int command)
+            {
+                // Preserve the complete scoring order. A signed grip plateau
+                // has the same target and angular force budget; unbounded yaw
+                // is diagnostic only and cannot change the snow response.
+                if(completeSearch&&command!=0)
+                {
+                    var request=ManualSkiSteeringSystem.GetRequest(steering,command,speed,lateralAcceleration,response);
+                    var previous=command<0?negativeRequest:positiveRequest;
+                    if((command<0?negativeValid:positiveValid)&&request.TargetYawRate==previous.TargetYawRate&&request.AngularAccelerationLimit==previous.AngularAccelerationLimit)
+                        return command<0?negativeYaw:positiveYaw;
+                    LastPreviewCount++;double yaw=snow.Preview(body,motion,command,lateralAcceleration,seconds,response).Snow.Motion.YawRate;
+                    if(command<0){negativeRequest=request;negativeYaw=yaw;negativeValid=true;}else{positiveRequest=request;positiveYaw=yaw;positiveValid=true;}
+                    return yaw;
+                }
+                LastPreviewCount++;return snow.Preview(body,motion,command,lateralAcceleration,seconds,response).Snow.Motion.YawRate;
+            }
         }
         public int CorrectUnreachedYaw(ManualSkiContactBody body,SkiContactMotion motion,int nominalCommand,
             double targetYawRate,double lateralAcceleration,double response=1)
